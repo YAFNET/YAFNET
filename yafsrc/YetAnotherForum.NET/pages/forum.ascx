@@ -35,7 +35,6 @@
                     <td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>">
                         <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" ImageAlign="Bottom"
                             PanelID='<%# "categoryPanel" + DataBinder.Eval(Container.DataItem, "CategoryID").ToString() %>' AttachedControlID="forumList" OnClick="CollapsibleImage_OnClick"/>
-                        </asp:ImageButton>
                         &nbsp;&nbsp; <a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
                             <%# DataBinder.Eval(Container.DataItem, "Name") %>
                         </a>

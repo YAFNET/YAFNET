@@ -18,7 +18,7 @@
         </asp:TemplateField>
         <asp:TemplateField>
             <HeaderTemplate>
-                <asp:Image runat="server" ID="SortFrom" />
+                <asp:Image runat="server" ID="SortFrom" AlternateText="Sort From" />
                 <asp:LinkButton runat="server" ID="FromLink" OnClick="FromLink_Click" Text='<%#GetMessageUserHeader() %>' />
             </HeaderTemplate>
             <ItemTemplate>
@@ -29,7 +29,7 @@
         </asp:TemplateField>        
         <asp:TemplateField>
             <HeaderTemplate>
-                <asp:Image runat="server" ID="SortSubject" />
+                <asp:Image runat="server" ID="SortSubject" AlternateText="Sort Subject"/>
                 <asp:LinkButton runat="server" ID="SubjectLink" OnClick="SubjectLink_Click" Text='<%#GetLocalizedText("SUBJECT") %>' />
             </HeaderTemplate>
             <HeaderStyle width="40%" />
@@ -41,7 +41,7 @@
         </asp:TemplateField>
         <asp:TemplateField>
             <HeaderTemplate>
-                <asp:Image runat="server" ID="SortDate" />
+                <asp:Image runat="server" ID="SortDate" AlternateText="Sort Date" />
                 <asp:LinkButton runat="server" ID="DateLink" OnClick="DateLink_Click" Text='<%#GetLocalizedText("DATE") %>' />
             </HeaderTemplate>
             <ItemTemplate>

@@ -65,14 +65,7 @@
                                     Maximum size of uploaded files. Leave empty for no limit.</td>
                                 <td class="post">
                                     <asp:TextBox ID="MaxFileSize" runat="server"></asp:TextBox></td>
-                            </tr>                            
-                            <tr>
-                                <td class="postheader">
-                                    <b>Picture Attachment Display Treshold:</b><br>
-                                    Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</td>
-                                <td class="post">
-                                    <asp:TextBox ID="PictureAttachmentDisplayTreshold" runat="server"></asp:TextBox></td>
-                            </tr>                            
+                            </tr>                                                       
                             <tr>
                                 <td class="postheader">
                                     <b>Post editing timeout:</b><br>
@@ -152,7 +145,32 @@
                                     be redirected straight to login page.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="RequireLogin" runat="server" /></td>
-                            </tr>                                                 
+                            </tr>   
+                            <tr>
+                                <td class="header1" colspan="2">
+                                    Image Attachement Settings</td>
+                            </tr>                             
+                            <tr>
+                                <td class="postheader">
+                                    <b>Image Attachment Display Treshold:</b><br>
+                                    Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</td>
+                                <td class="post">
+                                    <asp:TextBox ID="PictureAttachmentDisplayTreshold" runat="server"></asp:TextBox></td>
+                            </tr>      
+                            <tr>
+                                <td class="postheader">
+                                    <b>Enable Image Attachment Resize:</b><br>
+                                    Attached images will be resized to thumbnails if they are too large.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="EnableImageAttachmentResize" runat="server" /></td>
+                            </tr>  
+                            <tr>
+                                <td class="postheader">
+                                    <b>Image Attachment Resize Width:</b><br>
+                                    Width of the resized attachment images.</td>
+                                <td class="post">
+                                    <asp:TextBox ID="ImageAttachmentResizeWidth" runat="server"></asp:TextBox></td>
+                            </tr>                                                                                                                              
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>

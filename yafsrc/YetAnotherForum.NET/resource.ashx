@@ -19,350 +19,529 @@ using YAF.Classes.Utils;
 
 namespace YAF
 {
-    /// <summary>
-    /// Summary description for $Codefileclassname$
-    /// </summary>
-    [WebService( Namespace = "http://www.yetanotherforum.net/" )]
-    [WebServiceBinding( ConformsTo = WsiProfiles.BasicProfile1_1 )]
-    public class resource : IHttpHandler, IReadOnlySessionState
-    {
-        public void ProcessRequest( HttpContext context )
-        {
-            // resource no longer works with dynamic compile...
-            if ( context.Request.QueryString ["r"] != null )
-            {
-                // resource request
-                GetResource( context );
+	/// <summary>
+	/// Summary description for $Codefileclassname$
+	/// </summary>
+	[WebService(Namespace="http://www.yetanotherforum.net/")]
+	[WebServiceBinding(ConformsTo=WsiProfiles.BasicProfile1_1)]
+	public class resource : IHttpHandler, IReadOnlySessionState
+	{
+		public void ProcessRequest(HttpContext context)
+		{
+			// resource no longer works with dynamic compile...
+			if (context.Request.QueryString["r"] != null)
+			{
+				// resource request
+				GetResource(context);
 
-            }
-            else if ( context.Session ["lastvisit"] != null )
-            {
-                if ( context.Request.QueryString ["u"] != null )
-                {
-                    GetResponseLocalAvatar( context );
-                }
-                else if ( context.Request.QueryString ["url"] != null && context.Request.QueryString ["width"] != null && context.Request.QueryString ["height"] != null )
-                {
-                    GetResponseRemoteAvatar( context );
-                }
-                else if ( context.Request.QueryString ["a"] != null )
-                {
-                    GetResponseAttachment( context );
-                }
-                else if ( context.Request.QueryString ["c"] != null && context.Session ["CaptchaImageText"] != null )
-                {
-                    // captcha					
-                    GetResponseCaptcha( context );
-                }
-                else if ( context.Request.QueryString ["s"] != null && context.Request.QueryString ["lang"] != null )
-                {
-                    GetResponseGoogleSpell( context );
-                }
-            }
-            else
-            {
-                // they don't have a session...
-                context.Response.Write( "Please do not link directly to this resource. You must have a session in the forum." );
-            }
-        }
+			}
+			else if (context.Session["lastvisit"] != null)
+			{
+				if (context.Request.QueryString["u"] != null)
+				{
+					GetResponseLocalAvatar(context);
+				}
+				else if (context.Request.QueryString["url"] != null && context.Request.QueryString["width"] != null && context.Request.QueryString["height"] != null)
+				{
+					GetResponseRemoteAvatar(context);
+				}
+				else if (context.Request.QueryString["a"] != null)
+				{
+					GetResponseAttachment(context);
+				}
+				// TommyB: Start MOD: Preview Images   ##########
+				else if (context.Request.QueryString["i"] != null)
+				{
+					GetResponseImage(context);
+				}
+				else if (context.Request.QueryString["p"] != null)
+				{
+					GetResponseImagePreview(context);
+				}
+				// TommyB: End MOD: Preview Images   ##########
+				else if (context.Request.QueryString["c"] != null && context.Session["CaptchaImageText"] != null)
+				{
+					// captcha					
+					GetResponseCaptcha(context);
+				}
+				else if (context.Request.QueryString["s"] != null && context.Request.QueryString["lang"] != null)
+				{
+					GetResponseGoogleSpell(context);
+				}
+			}
+			else
+			{
+				// they don't have a session...
+				context.Response.Write("Please do not link directly to this resource. You must have a session in the forum.");
+			}
+		}
 
-        private void GetResource( HttpContext context )
-        {
-            // redirect to the resource?
-            context.Response.Redirect( "resources/" + context.Request.QueryString ["r"] );
+		private void GetResource(HttpContext context)
+		{
+			// redirect to the resource?
+			context.Response.Redirect("resources/" + context.Request.QueryString["r"]);
 
-            /*string resourceName = "YAF.App_GlobalResources." + context.Request.QueryString ["r"];
-            int lastIndex = resourceName.LastIndexOf( '.' );
-            string extension = resourceName.Substring( lastIndex, resourceName.Length - lastIndex ).ToLower();
+			/*string resourceName = "YAF.App_GlobalResources." + context.Request.QueryString ["r"];
+			int lastIndex = resourceName.LastIndexOf( '.' );
+			string extension = resourceName.Substring( lastIndex, resourceName.Length - lastIndex ).ToLower();
 
-            string resourceType = "text/plain";
+			string resourceType = "text/plain";
 
-            switch ( extension )
-            {
-              case ".js":
-                resourceType = "application/x-javascript";
-                break;
-              case ".css":
-                resourceType = "text/css";
-                break;
-            }
+			switch ( extension )
+			{
+				case ".js":
+					resourceType = "application/x-javascript";
+					break;
+				case ".css":
+					resourceType = "text/css";
+					break;
+			}
 
-            if ( resourceType != string.Empty )
-            {
-              context.Response.Clear();
-              context.Response.ContentType = resourceType ;
+			if ( resourceType != string.Empty )
+			{
+				context.Response.Clear();
+				context.Response.ContentType = resourceType ;
 
-              try
-              {
-                // attempt to load the resource...
-                byte [] data = null;
+				try
+				{
+					// attempt to load the resource...
+					byte [] data = null;
 
-                Stream input = this.GetType().Assembly.GetManifestResourceStream( resourceName );
+					Stream input = this.GetType().Assembly.GetManifestResourceStream( resourceName );
 
-                data = new byte [input.Length];
-                input.Read( data, 0, data.Length );
-                input.Close();
+					data = new byte [input.Length];
+					input.Read( data, 0, data.Length );
+					input.Close();
 
-                context.Response.OutputStream.Write( data, 0, data.Length );
-              }
-              catch
-              {
-                YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), "Attempting to access invalid resource: " + resourceName, 1 );
-                context.Response.Write( "Error: Invalid forum resource. Please contact the forum admin." );
-              }
-            }
-            */
-        }
+					context.Response.OutputStream.Write( data, 0, data.Length );
+				}
+				catch
+				{
+					YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), "Attempting to access invalid resource: " + resourceName, 1 );
+					context.Response.Write( "Error: Invalid forum resource. Please contact the forum admin." );
+				}
+			}
+			*/
+		}
 
-        private void GetResponseLocalAvatar( HttpContext context )
-        {
-            using ( DataTable dt = YAF.Classes.Data.DB.user_avatarimage( context.Request.QueryString ["u"] ) )
-            {
-                foreach ( DataRow row in dt.Rows )
-                {
-                    byte [] data = ( byte [] )row ["AvatarImage"];
-                    string contentType = row ["AvatarImageType"].ToString();
+		private void GetResponseLocalAvatar(HttpContext context)
+		{
+			using (DataTable dt = YAF.Classes.Data.DB.user_avatarimage(context.Request.QueryString["u"]))
+			{
+				foreach (DataRow row in dt.Rows)
+				{
+					byte[] data = (byte[])row["AvatarImage"];
+					string contentType = row["AvatarImageType"].ToString();
 
-                    context.Response.Clear();
-                    if ( !String.IsNullOrEmpty( contentType ) )
-                    {
-                        context.Response.ContentType = contentType;
-                    }
-                    context.Response.OutputStream.Write( data, 0, data.Length );
-                    break;
-                }
-            }
-        }
+					context.Response.Clear();
+					if (!String.IsNullOrEmpty(contentType))
+					{
+						context.Response.ContentType = contentType;
+					}
+					context.Response.OutputStream.Write(data, 0, data.Length);
+					break;
+				}
+			}
+		}
 
-        private void GetResponseRemoteAvatar( HttpContext context )
-        {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            Image img = null;
-            Bitmap bmp = null;
-            Graphics gfx = null;
+		private void GetResponseRemoteAvatar(HttpContext context)
+		{
+			System.Net.WebClient wc = new System.Net.WebClient();
+			Image img = null;
+			Bitmap bmp = null;
+			Graphics gfx = null;
 
-            string wb = context.Request.QueryString ["url"];
+			string wb = context.Request.QueryString["url"];
 
-            try
-            {
-                Stream input = wc.OpenRead( wb );
-                img = new Bitmap( input );
-                input.Close();
+			try
+			{
+				Stream input = wc.OpenRead(wb);
+				img = new Bitmap(input);
+				input.Close();
 
-                int maxwidth = int.Parse( context.Request.QueryString ["width"] );
-                int maxheight = int.Parse( context.Request.QueryString ["height"] );
-                int width = img.Width;
-                int height = img.Height;
+				int maxwidth = int.Parse(context.Request.QueryString["width"]);
+				int maxheight = int.Parse(context.Request.QueryString["height"]);
+				int width = img.Width;
+				int height = img.Height;
 
-                if ( width <= maxwidth && height <= maxheight )
-                    context.Response.Redirect( wb );
+				if (width <= maxwidth && height <= maxheight)
+					context.Response.Redirect(wb);
 
-                if ( width > maxwidth )
-                {
-                    height = Convert.ToInt32( ( double )height / ( double )width * ( double )maxwidth );
-                    width = maxwidth;
-                }
-                if ( height > maxheight )
-                {
-                    width = Convert.ToInt32( ( double )width / ( double )height * ( double )maxheight );
-                    height = maxheight;
-                }
+				if (width > maxwidth)
+				{
+					height = Convert.ToInt32((double)height / (double)width * (double)maxwidth);
+					width = maxwidth;
+				}
+				if (height > maxheight)
+				{
+					width = Convert.ToInt32((double)width / (double)height * (double)maxheight);
+					height = maxheight;
+				}
 
-                // Create the target bitmap
-                bmp = new Bitmap( width, height );
+				// Create the target bitmap
+				bmp = new Bitmap(width, height);
 
-                // Create the graphics object to do the high quality resizing
-                gfx = Graphics.FromImage( bmp );
-                gfx.CompositingQuality = CompositingQuality.HighQuality;
-                gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                gfx.SmoothingMode = SmoothingMode.HighQuality;
+				// Create the graphics object to do the high quality resizing
+				gfx = Graphics.FromImage(bmp);
+				gfx.CompositingQuality = CompositingQuality.HighQuality;
+				gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+				gfx.SmoothingMode = SmoothingMode.HighQuality;
 
-                // Draw the source image
-                gfx.DrawImage( img, new Rectangle( new Point( 0, 0 ), new Size( width, height ) ) );
+				// Draw the source image
+				gfx.DrawImage(img, new Rectangle(new Point(0, 0), new Size(width, height)));
 
-                // Output the data
-                context.Response.ContentType = "image/jpeg";
-                bmp.Save( context.Response.OutputStream, ImageFormat.Jpeg );
+				// Output the data
+				context.Response.ContentType = "image/jpeg";
+				bmp.Save(context.Response.OutputStream, ImageFormat.Jpeg);
 
-            }
-            finally
-            {
-                if ( gfx != null ) gfx.Dispose();
-                if ( img != null ) img.Dispose();
-                if ( bmp != null ) bmp.Dispose();
-            }
-        }
+			}
+			finally
+			{
+				if (gfx != null) gfx.Dispose();
+				if (img != null) img.Dispose();
+				if (bmp != null) bmp.Dispose();
+			}
+		}
 
-        private void GetResponseAttachment( HttpContext context )
-        {
-            try
-            {
-                // AttachmentID
-                using ( DataTable dt = YAF.Classes.Data.DB.attachment_list( null, context.Request.QueryString ["a"], null ) )
-                {
-                    foreach ( DataRow row in dt.Rows )
-                    {
-                        /// TODO : check download permissions here					
-                        if ( !CheckAccessRights( row ["BoardID"], row ["MessageID"] ) )
-                        {
-                            // tear it down
-                            // no permission to download
-                            context.Response.Write( "You have insufficient rights to download this resource. Contact forum administrator for further details." );
-                            return;
-                        }
+		private void GetResponseAttachment(HttpContext context)
+		{
+			try
+			{
+				// AttachmentID
+				using (DataTable dt = YAF.Classes.Data.DB.attachment_list(null, context.Request.QueryString["a"], null))
+				{
+					foreach (DataRow row in dt.Rows)
+					{
+						/// TODO : check download permissions here					
+						if (!CheckAccessRights(row["BoardID"], row["MessageID"]))
+						{
+							// tear it down
+							// no permission to download
+							context.Response.Write("You have insufficient rights to download this resource. Contact forum administrator for further details.");
+							return;
+						}
 
-                        byte [] data = null;
+						byte[] data = null;
 
-                        if ( row.IsNull( "FileData" ) )
-                        {
-                            string sUpDir = YAF.Classes.Config.UploadDir;
-                            
-                            string oldFileName = context.Server.MapPath( String.Format( "{0}{1}.{2}", sUpDir, row ["MessageID"], row ["FileName"] ) );
-                            string newFileName = context.Server.MapPath(String.Format("{0}{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
-                            
-                            string fileName = string.Empty;
+						if (row.IsNull("FileData"))
+						{
+							string sUpDir = YAF.Classes.Config.UploadDir;
 
-                            // use the new fileName (with extension) if it exists...
-                            if (File.Exists(newFileName)) fileName = newFileName;
-                            else fileName = oldFileName;
-                                                        
-                            using ( System.IO.FileStream input = new System.IO.FileStream( fileName, System.IO.FileMode.Open ) )
-                            {
-                                data = new byte [input.Length];
-                                input.Read( data, 0, data.Length );
-                                input.Close();
-                            }
-                        }
-                        else
-                        {
-                            data = ( byte [] )row ["FileData"];
-                        }
+							string oldFileName = context.Server.MapPath(String.Format("{0}{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
+							string newFileName = context.Server.MapPath(String.Format("{0}{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
 
-                        context.Response.ContentType = row ["ContentType"].ToString();
-                        context.Response.AppendHeader( "Content-Disposition", String.Format( "attachment; filename={0}", HttpUtility.UrlEncode( row ["FileName"].ToString() ).Replace( "+", "%20" ) ) );
-                        context.Response.OutputStream.Write( data, 0, data.Length );
-                        YAF.Classes.Data.DB.attachment_download( context.Request.QueryString ["a"] );
-                        break;
-                    }
-                }
-            }
-            catch ( Exception x )
-            {
-                YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), x, 1 );
-                context.Response.Write( "Error: Resource has been moved or is unavailable. Please contact the forum admin." );
-            }
-        }
+							string fileName = string.Empty;
 
-        private void GetResponseGoogleSpell( HttpContext context )
-        {
-            string url = string.Format( "https://www.google.com/tbproxy/spell?lang={0}", context.Request.QueryString ["lang"] );
+							// use the new fileName (with extension) if it exists...
+							if (File.Exists(newFileName)) fileName = newFileName;
+							else fileName = oldFileName;
 
-            System.Net.HttpWebRequest webRequest = ( System.Net.HttpWebRequest )System.Net.WebRequest.Create( url );
-            webRequest.KeepAlive = true;
-            webRequest.Timeout = 100000;
-            webRequest.Method = "POST";
-            webRequest.ContentType = "application/x-www-form-urlencoded";
-            webRequest.ContentLength = context.Request.InputStream.Length;
+							using (System.IO.FileStream input = new System.IO.FileStream(fileName, System.IO.FileMode.Open))
+							{
+								data = new byte[input.Length];
+								input.Read(data, 0, data.Length);
+								input.Close();
+							}
+						}
+						else
+						{
+							data = (byte[])row["FileData"];
+						}
 
-            System.IO.Stream requestStream = webRequest.GetRequestStream();
+						context.Response.ContentType = row["ContentType"].ToString();
+						context.Response.AppendHeader("Content-Disposition", String.Format("attachment; filename={0}", HttpUtility.UrlEncode(row["FileName"].ToString()).Replace("+", "%20")));
+						context.Response.OutputStream.Write(data, 0, data.Length);
+						YAF.Classes.Data.DB.attachment_download(context.Request.QueryString["a"]);
+						break;
+					}
+				}
+			}
+			catch (Exception x)
+			{
+				YAF.Classes.Data.DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+				context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+			}
+		}
 
-            CopyStream( context.Request.InputStream, requestStream );
+		// TommyB: Start MOD: PreviewImages   ##########
+		private void GetResponseImage(HttpContext context)
+		{
+			try
+			{
+				// AttachmentID
+				using (DataTable dt = YAF.Classes.Data.DB.attachment_list(null, context.Request.QueryString["i"], null))
+				{
+					foreach (DataRow row in dt.Rows)
+					{
+						/// TODO : check download permissions here					
+						if (!CheckAccessRights(row["BoardID"], row["MessageID"]))
+						{
+							// tear it down
+							// no permission to download
+							context.Response.Write("You have insufficient rights to download this resource. Contact forum administrator for further details.");
+							return;
+						}
 
-            requestStream.Close();
+						byte[] data = null;
 
-            System.Net.HttpWebResponse httpWebResponse = ( System.Net.HttpWebResponse )webRequest.GetResponse();
-            System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+						if (row.IsNull("FileData"))
+						{
+							string sUpDir = YAF.Classes.Config.UploadDir;
 
-            CopyStream( responseStream, context.Response.OutputStream );
-        }
+							string oldFileName = context.Server.MapPath(String.Format("{0}{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
+							string newFileName = context.Server.MapPath(String.Format("{0}{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
 
-        private void CopyStream( System.IO.Stream input, System.IO.Stream output )
-        {
-            byte [] buffer = new byte [1024];
-            int count = buffer.Length;
+							string fileName = string.Empty;
 
-            while ( count > 0 )
-            {
-                count = input.Read( buffer, 0, count );
-                if ( count > 0 ) output.Write( buffer, 0, count );
-            }
-        }
+							// use the new fileName (with extension) if it exists...
+							if (File.Exists(newFileName)) fileName = newFileName;
+							else fileName = oldFileName;
+							using (System.IO.FileStream input = new System.IO.FileStream(fileName, System.IO.FileMode.Open))
+							{
+								data = new byte[input.Length];
+								input.Read(data, 0, data.Length);
+								input.Close();
+							}
+						}
+						else
+						{
+							data = (byte[])row["FileData"];
+						}
 
-        private void GetResponseCaptcha( HttpContext context )
-        {
-            try
-            {
-                YAF.Classes.UI.CaptchaImage captchaImage = new YAF.Classes.UI.CaptchaImage( context.Session ["CaptchaImageText"].ToString(), 200, 50, "Century Schoolbook" );
-                context.Response.Clear();
-                context.Response.ContentType = "image/jpeg";
-                captchaImage.Image.Save( context.Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg );
-            }
-            catch ( Exception x )
-            {
-                YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), x, 1 );
-                context.Response.Write( "Error: Resource has been moved or is unavailable. Please contact the forum admin." );
-            }
-        }
+						context.Response.ContentType = row["ContentType"].ToString();
+						context.Response.OutputStream.Write(data, 0, data.Length);
+						YAF.Classes.Data.DB.attachment_download(context.Request.QueryString["i"]);
+						break;
+					}
+				}
+			}
+			catch (Exception x)
+			{
+				YAF.Classes.Data.DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+				context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+			}
+		}
 
-        private bool CheckAccessRights( object boardID, object messageID )
-        {
-            YAF.Classes.Utils.YafContext context = new YAF.Classes.Utils.YafContext();
-            // Find user name
-            System.Web.Security.MembershipUser user = System.Web.Security.Membership.GetUser();
+		private void GetResponseImagePreview(HttpContext context)
+		{
+			// default is 200 width.
+			int previewWidth = 200;
 
-            string browser = String.Format( "{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version );
-            string platform = HttpContext.Current.Request.Browser.Platform;
-            bool isSearchEngine = false;
+			if (context.Session["imagePreviewWidth"] != null && context.Session["imagePreviewWidth"] is int )
+			{
+				previewWidth = (int) context.Session["imagePreviewWidth"];
+			}
 
-            if ( HttpContext.Current.Request.UserAgent != null )
-            {
-                if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 5.2" ) >= 0 )
-                {
-                    platform = "Win2003";
-                }
-                else if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 6.0" ) >= 0 )
-                {
-                    platform = "Vista";
-                }
-                else
-                {
-                    // check if it's a search engine spider...
-                    isSearchEngine = General.IsSearchEngineSpider( HttpContext.Current.Request.UserAgent );
-                }
-            }
+			try
+			{
+				// AttachmentID
+				using (DataTable dt = YAF.Classes.Data.DB.attachment_list(null, context.Request.QueryString["p"], null))
+				{
+					foreach (DataRow row in dt.Rows)
+					{
+						/// TODO : check download permissions here					
+						if (!CheckAccessRights(row["BoardID"], row["MessageID"]))
+						{
+							// tear it down
+							// no permission to download
+							context.Response.Write("You have insufficient rights to download this resource. Contact forum administrator for further details.");
+							return;
+						}
 
-            object userKey = DBNull.Value;
+						MemoryStream data = new MemoryStream();
 
-            if ( user != null )
-            {
-                userKey = user.ProviderUserKey;
-            }
+						if (row.IsNull("FileData"))
+						{
+							string sUpDir = YAF.Classes.Config.UploadDir;
 
-            DataRow pageRow = YAF.Classes.Data.DB.pageload(
-                HttpContext.Current.Session.SessionID,
-                boardID,
-                userKey,
-                HttpContext.Current.Request.UserHostAddress,
-                HttpContext.Current.Request.FilePath,
-                browser,
-                platform,
-                null,
-                null,
-                null,
-                messageID,
-                // don't track if this is a search engine
-                isSearchEngine );
+							string oldFileName = context.Server.MapPath(String.Format("{0}{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
+							string newFileName = context.Server.MapPath(String.Format("{0}{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
 
-            return General.BinaryAnd( pageRow ["DownloadAccess"], YAF.Classes.Data.AccessFlags.Flags.DownloadAccess ) ||
-                General.BinaryAnd( pageRow ["ModeratorAccess"], YAF.Classes.Data.AccessFlags.Flags.ModeratorAccess );
-        }
+							string fileName = string.Empty;
 
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
-        }
-    }
+							// use the new fileName (with extension) if it exists...
+							if (File.Exists(newFileName)) fileName = newFileName;
+							else fileName = oldFileName;
+
+							using (System.IO.FileStream input = new System.IO.FileStream(fileName, System.IO.FileMode.Open))
+							{
+								byte[] buffer = new byte[input.Length];
+								input.Read(buffer, 0, buffer.Length);
+								data.Write(buffer, 0, buffer.Length);
+								input.Close();
+							}
+						}
+						else
+						{
+							byte[] buffer = (byte[])row["FileData"];
+							data.Write(buffer, 0, buffer.Length);
+						}
+
+						data.Position = 0;
+						context.Response.ContentType = "image/png";
+						//context.Response.AppendHeader("Content-Disposition", String.Format("attachment; filename={0}", HttpUtility.UrlEncode(row["FileName"].ToString()).Replace("+", "%20")));
+						using (Bitmap src = new Bitmap(data))
+						{
+							double srcAspect = (double)src.Width / (double)src.Height;
+							using (Bitmap dst = new Bitmap(previewWidth + 6, (int)(previewWidth / srcAspect + 6), System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+							{
+								Rectangle rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
+								Rectangle rDstImg = new Rectangle(3, 3, dst.Width - 6, dst.Height - 20);
+								Rectangle rDstTxt = new Rectangle(0, rDstImg.Height, previewWidth + 5, 20);
+								using (Graphics g = Graphics.FromImage(dst))
+								{
+									g.Clear(Color.FromArgb(64, 64, 64));
+									g.FillRectangle(Brushes.White, rDstImg);
+									g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+									g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bicubic;
+									g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+									g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
+									using (Font f = new Font("Arial", 11, FontStyle.Regular, GraphicsUnit.Pixel))
+									{
+										using (SolidBrush brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
+										{
+											StringFormat sf = new StringFormat();
+											sf.Alignment = StringAlignment.Near;
+											sf.LineAlignment = StringAlignment.Center;
+											g.DrawString("Click to enlarge", f, brush, rDstTxt, sf);
+											sf.Alignment = StringAlignment.Far;
+											int muh = (int)row["Downloads"];
+											g.DrawString(string.Format("{0} Views", muh.ToString()), f, brush, rDstTxt, sf);
+										}
+									}
+								}
+								using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+								{
+									dst.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+									context.Response.OutputStream.Write(ms.ToArray(), 0, (int)ms.Length);
+								}
+							}
+						}
+						data.Dispose();
+						context.Response.Cache.SetCacheability(HttpCacheability.Public);
+						context.Response.Cache.SetExpires(DateTime.Now.AddHours(1));
+						break;
+					}
+				}
+			}
+			catch (Exception x)
+			{
+				YAF.Classes.Data.DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+				context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+			}
+		}
+		// TommyB: End MOD: Preview Images
+
+		private void GetResponseGoogleSpell(HttpContext context)
+		{
+			string url = string.Format("https://www.google.com/tbproxy/spell?lang={0}", context.Request.QueryString["lang"]);
+
+			System.Net.HttpWebRequest webRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
+			webRequest.KeepAlive = true;
+			webRequest.Timeout = 100000;
+			webRequest.Method = "POST";
+			webRequest.ContentType = "application/x-www-form-urlencoded";
+			webRequest.ContentLength = context.Request.InputStream.Length;
+
+			System.IO.Stream requestStream = webRequest.GetRequestStream();
+
+			CopyStream(context.Request.InputStream, requestStream);
+
+			requestStream.Close();
+
+			System.Net.HttpWebResponse httpWebResponse = (System.Net.HttpWebResponse)webRequest.GetResponse();
+			System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+
+			CopyStream(responseStream, context.Response.OutputStream);
+		}
+
+		private void CopyStream(System.IO.Stream input, System.IO.Stream output)
+		{
+			byte[] buffer = new byte[1024];
+			int count = buffer.Length;
+
+			while (count > 0)
+			{
+				count = input.Read(buffer, 0, count);
+				if (count > 0) output.Write(buffer, 0, count);
+			}
+		}
+
+		private void GetResponseCaptcha(HttpContext context)
+		{
+			try
+			{
+				YAF.Classes.UI.CaptchaImage captchaImage = new YAF.Classes.UI.CaptchaImage(context.Session["CaptchaImageText"].ToString(), 200, 50, "Century Schoolbook");
+				context.Response.Clear();
+				context.Response.ContentType = "image/jpeg";
+				captchaImage.Image.Save(context.Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+			}
+			catch (Exception x)
+			{
+				YAF.Classes.Data.DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+				context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+			}
+		}
+
+		private bool CheckAccessRights(object boardID, object messageID)
+		{
+			YAF.Classes.Utils.YafContext context = new YAF.Classes.Utils.YafContext();
+			// Find user name
+			System.Web.Security.MembershipUser user = System.Web.Security.Membership.GetUser();
+
+			string browser = String.Format("{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
+			string platform = HttpContext.Current.Request.Browser.Platform;
+			bool isSearchEngine = false;
+
+			if (HttpContext.Current.Request.UserAgent != null)
+			{
+				if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 5.2") >= 0)
+				{
+					platform = "Win2003";
+				}
+				else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 6.0") >= 0)
+				{
+					platform = "Vista";
+				}
+				else
+				{
+					// check if it's a search engine spider...
+					isSearchEngine = General.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent);
+				}
+			}
+
+			object userKey = DBNull.Value;
+
+			if (user != null)
+			{
+				userKey = user.ProviderUserKey;
+			}
+
+			DataRow pageRow = YAF.Classes.Data.DB.pageload(
+					HttpContext.Current.Session.SessionID,
+					boardID,
+					userKey,
+					HttpContext.Current.Request.UserHostAddress,
+					HttpContext.Current.Request.FilePath,
+					browser,
+					platform,
+					null,
+					null,
+					null,
+					messageID,
+				// don't track if this is a search engine
+					isSearchEngine);
+
+			return General.BinaryAnd(pageRow["DownloadAccess"], YAF.Classes.Data.AccessFlags.Flags.DownloadAccess) ||
+                General.BinaryAnd(pageRow["ModeratorAccess"], YAF.Classes.Data.AccessFlags.Flags.ModeratorAccess);
+		}
+
+		public bool IsReusable
+		{
+			get
+			{
+				return false;
+			}
+		}
+	}
 }

@@ -62,6 +62,7 @@ namespace YAF.Pages.Admin
 			// set widths manually since ASP.NET "forgets" to do it for browsers other then IE
 			General.AddStyleAttributeWidth( SmiliesPerRow, "25px" );
 			General.AddStyleAttributeWidth( SmiliesColumns, "25px" );
+			General.AddStyleAttributeWidth(ImageAttachmentResizeWidth, "50px");
 			General.AddStyleAttributeWidth( ForumEmailEdit, "200px" );
 			General.AddStyleAttributeWidth( AcceptedHTML, "200px" );
 			General.AddStyleAttributeWidth( DisableNoFollowLinksAfterDay, "100px" );
@@ -144,6 +145,10 @@ namespace YAF.Pages.Admin
 			AllowLoginAndLogoff.Checked = PageContext.BoardSettings.AllowLoginAndLogoff;
 			DoUrlReferrerSecurityCheck.Checked = PageContext.BoardSettings.DoUrlReferrerSecurityCheck;
 			AllowPasswordChange.Checked = PageContext.BoardSettings.AllowPasswordChange;
+
+			// image attachment resize settings...
+			ImageAttachmentResizeWidth.Text = PageContext.BoardSettings.ImageAttachmentResizeWidth.ToString();
+			EnableImageAttachmentResize.Checked = PageContext.BoardSettings.EnableImageAttachmentResize;
 
 			// Ederon : 7/1/2007 added
 			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
@@ -340,8 +345,12 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.ReturnSearchMax = Convert.ToInt32( ReturnSearchMax.Text.Trim() );
 			PageContext.BoardSettings.UseFullTextSearch = UseFullTextSearch.Checked;
 
-			PageContext.BoardSettings.MaxPostSize = Convert.ToInt32( MaxPostSize.Text );
+			PageContext.BoardSettings.MaxPostSize = Convert.ToInt32(MaxPostSize.Text);
 			PageContext.BoardSettings.CustomLoginRedirectUrl = CustomLoginRedirectUrl.Text.Trim();
+
+			// image attachment resize settings...
+			PageContext.BoardSettings.ImageAttachmentResizeWidth = Convert.ToInt32( ImageAttachmentResizeWidth.Text );
+			PageContext.BoardSettings.EnableImageAttachmentResize = EnableImageAttachmentResize.Checked;
 
 			// save the settings to the database
 			PageContext.BoardSettings.SaveRegistry();
