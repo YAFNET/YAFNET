@@ -62,7 +62,7 @@ namespace YAF.Classes
 
 			// get the base script file from the config -- defaults to, well, default.aspx :)
 			string scriptFile = Config.BaseScriptFile;
-
+			
 			if ( scriptName.EndsWith( scriptFile ) ) 
 			{
 				string before = scriptName.Remove( scriptName.LastIndexOf( scriptFile ) );
@@ -75,7 +75,6 @@ namespace YAF.Classes
 				string useKey = "";
 				string description = "";
 				string pageName = parser ["g"];
-				string pageNameExtension = string.Empty;
 				bool showKey = false;
 				bool handlePage = false;
 
@@ -154,6 +153,9 @@ namespace YAF.Classes
 				// add anchor
 				if ( parser.HasAnchor ) newURL += "#" + parser.Anchor;				
 			}
+
+			// just make sure & is &amp; ...
+			newURL = newURL.Replace( "&amp;", "&" ).Replace( "&", "&amp;" );
 
 			return newURL;
 		}

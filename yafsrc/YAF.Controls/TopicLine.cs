@@ -163,9 +163,8 @@ namespace YAF.Controls
 		
 			// Last Post
 			writer.WriteBeginTag( "td" );
-			writer.WriteAttribute("class", "topicLastPost");
+			writer.WriteAttribute("class", "topicLastPost smallfont");
 			writer.WriteAttribute( "style", "text-align: center" );
-			writer.WriteAttribute( "class", "smallfont" );
 			writer.Write( HtmlTextWriter.TagRightChar );
 			RenderLastPost( writer );
 			writer.WriteEndTag( "td" );

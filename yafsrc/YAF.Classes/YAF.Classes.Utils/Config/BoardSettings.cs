@@ -210,7 +210,7 @@ namespace YAF.Classes.Utils
 		}
 		public string Theme
 		{
-			get { return _regBoard.GetValueString( "Theme", "yafpro.xml" ); }
+			get { return _regBoard.GetValueString( "Theme", "cleanslate.xml" ); }
 			set { _regBoard.SetValueString( "Theme", value ); }
 		}
 		public string Language
@@ -410,6 +410,11 @@ namespace YAF.Classes.Utils
 			set { _reg.SetValueInt("PictureAttachmentDisplayTreshold", value); }
 		}
 
+		public int ImageAttachmentResizeWidth
+		{
+			get { return _reg.GetValueInt("ImageAttachmentResizeWidth", 200); }
+			set { _reg.SetValueInt("ImageAttachmentResizeWidth", value); }
+		}
 
 		// boolean settings
 		public bool EmailVerification
@@ -610,6 +615,12 @@ namespace YAF.Classes.Utils
 		{
 			get { return _reg.GetValueBool( "DoUrlReferrerSecurityCheck", true ); }
 			set { _reg.SetValueBool( "DoUrlReferrerSecurityCheck", value ); }
+		}
+
+		public bool EnableImageAttachmentResize
+		{
+			get { return _reg.GetValueBool("EnableImageAttachmentResize", true); }
+			set { _reg.SetValueBool("EnableImageAttachmentResize", value); }
 		}
 
 		// string settings
