@@ -33,7 +33,7 @@ namespace YAF.Classes
 	{
 		static public string GetConfigValueAsString( string configKey )
 		{
-			foreach ( string key in ConfigurationManager.AppSettings.AllKeys )
+			foreach (string key in WebConfigurationManager.AppSettings.AllKeys)
 			{
 				if ( key.Equals( configKey, StringComparison.CurrentCultureIgnoreCase ) )
 				{
@@ -42,23 +42,6 @@ namespace YAF.Classes
 			}
 
 			return null;
-		}
-
-		static public string GetConfigValueAsString( string configKey, bool useWebConfigurationManager )
-		{
-			if ( useWebConfigurationManager )
-			{
-				foreach ( string key in WebConfigurationManager.AppSettings.AllKeys )
-				{
-					if ( key.Equals( configKey, StringComparison.CurrentCultureIgnoreCase ) )
-					{
-						return WebConfigurationManager.AppSettings[key];
-					}
-				}
-				return null;
-			}
-			else
-				return GetConfigValueAsString( configKey );
 		}
 
 		static public bool GetConfigValueAsBool( string configKey, bool defaultValue )
@@ -71,23 +54,6 @@ namespace YAF.Classes
 			}
 
 			return defaultValue;
-		}
-
-		static public bool GetConfigValueAsBool( string configKey, bool defaultValue, bool useWebConfigurationManager )
-		{
-			if ( useWebConfigurationManager )
-			{
-				string value = GetConfigValueAsString( configKey, useWebConfigurationManager );
-
-				if ( !String.IsNullOrEmpty( value ) )
-				{
-					return Convert.ToBoolean( value.ToLower() );
-				}
-
-				return defaultValue;
-			}
-			else
-				return GetConfigValueAsBool( configKey, defaultValue );
 		}
 
 		/// <summary>
@@ -142,17 +108,6 @@ namespace YAF.Classes
 			get
 			{
 				return GetConfigValueAsString( "YAF.BaseURL" );
-			}
-		}
-
-		/// <summary>
-		/// Returns the BaseUrl key using the WebConfigurationManager.
-		/// </summary>
-		static public string BaseUrlFromWCM
-		{
-			get
-			{
-				return GetConfigValueAsString( "YAF.BaseURL", true );
 			}
 		}
 
