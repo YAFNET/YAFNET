@@ -101,6 +101,12 @@ namespace YAF.Pages // YAF.Pages
 			Occupation.InnerHtml = HtmlEncode( General.BadWordReplace( userData.Profile.Occupation ) );
 			Gender.InnerText = GetText( "GENDER" + userData.Profile.Gender );
 
+            lblaim.Text = HtmlEncode(General.BadWordReplace(userData.Profile.AIM));
+            lblicq.Text = HtmlEncode(General.BadWordReplace(userData.Profile.ICQ));
+            lblmsn.Text = HtmlEncode(General.BadWordReplace(userData.Profile.MSN));
+            lblskype.Text = HtmlEncode(General.BadWordReplace(userData.Profile.Skype));
+            lblyim.Text = HtmlEncode(General.BadWordReplace(userData.Profile.YIM));
+
 			PageLinks.Clear();
 			PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 			PageLinks.AddLink( GetText( "MEMBERS" ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.members ) );
@@ -134,19 +140,19 @@ namespace YAF.Pages // YAF.Pages
 			SetupThemeButtonWithLink( Blog, userData.Profile.Blog );
 
 			MSN.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.MSN ) );
-			MSN.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_email, "u={0}", userData.UserID );
+            MSN.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.im_email, "u={0}", userData.UserID);
 
 			YIM.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.YIM ) );
-			YIM.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_yim, "u={0}", userData.UserID );
+            YIM.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.im_yim, "u={0}", userData.UserID);
 
 			AIM.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.AIM ) );
-			AIM.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_aim, "u={0}", userData.UserID );
+            AIM.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.im_aim, "u={0}", userData.UserID);
 
 			ICQ.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.ICQ ) );
-			ICQ.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_icq, "u={0}", userData.UserID );
+            ICQ.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.im_icq, "u={0}", userData.UserID);
 
 			Skype.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.Skype ) );
-			Skype.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_skype, "u={0}", userData.UserID );
+            Skype.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.im_skype, "u={0}", userData.UserID);
 
 			// localize tab titles...
 			AboutTab.HeaderText = GetText( "ABOUT" );

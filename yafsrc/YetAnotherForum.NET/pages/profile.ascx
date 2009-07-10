@@ -107,6 +107,46 @@
                                 </td>
                                 <td class="post" runat="server" id="Gender" />
                             </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="MSN" />
+                                </td>
+                                <td class="post">
+                                    <asp:Label ID="lblmsn" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="AIM" />
+                                </td>
+                                <td class="post">
+                                    <asp:Label ID="lblaim" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="YIM" />
+                                </td>
+                                <td class="post">
+                                    <asp:Label ID="lblyim" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="ICQ" />
+                                </td>
+                                <td class="post">
+                                    <asp:Label ID="lblicq" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="SKYPE" />
+                                </td>
+                                <td class="post">
+                                    <asp:Label ID="lblskype" runat="server" />
+                                </td>
+                            </tr>
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
