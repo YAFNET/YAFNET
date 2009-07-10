@@ -164,6 +164,11 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
+        protected void PasswordRecovery1_VerifyingAnswer(object sender, LoginCancelEventArgs e)
+        {
+           //needed to handle event
+        }
+
 		protected void PasswordRecovery1_AnswerLookupError( object sender, EventArgs e )
 		{
 			PageContext.AddLoadMessageSession( GetText( "QUESTION_FAILURE" ) );
