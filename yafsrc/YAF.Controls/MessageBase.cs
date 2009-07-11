@@ -34,8 +34,8 @@ namespace YAF.Controls
 	public class MessageBase : BaseControl
 	{
 		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
-		static private string _rgxModule = @"\<YafModuleFactoryInvocation ClassName=\""(?<classname>(.*?))\""\>(?<inner>(.*?))\</YafModuleFactoryInvocation\>";
-		static private string _rgxModuleParam = @"\<Param Name=\""(?<name>(.*?))\""\>(?<inner>(.*?))\</Param\>";
+		static private string _rgxModule = @"\<YafModuleFactoryInvocation ClassName=\""(?<classname>(.*?))\""\>(?<inner>(.+?))\</YafModuleFactoryInvocation\>";
+		static private string _rgxModuleParam = @"\<Param Name=\""(?<name>(.*?))\""\>(?<inner>(.+?))\</Param\>";
 
 		public MessageBase()
 			: base()
