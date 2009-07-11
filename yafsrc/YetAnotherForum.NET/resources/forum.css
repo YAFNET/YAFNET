@@ -79,6 +79,11 @@
 {
 	width: 1%;
 }
+.yafnet .forumLinkCol .forumheading,
+.yafnet .forumLinkCol .forumviewing
+{
+	display: inline;
+}
 /* One Exception: Default CSS for Syntaxt Highlighting */
 .yafnet .yafcodehighlighting .keytype { color : #FF9933; font-weight : normal; }
 .yafnet .yafcodehighlighting .keyword { color : #224FFF; font-weight : normal; }
