@@ -97,6 +97,49 @@ namespace YAF.Classes.Utils
 		  }
 	  }
 
+		/// <summary>
+		/// Formats a localized string -- but verifies the parameter count matches
+		/// </summary>
+		/// <param name="text"></param>
+		/// <param name="args"></param>
+		/// <returns></returns>
+		public string GetTextFormatted( string text, params object [] args )
+		{
+			string localizedText = GetText( TransPage, text );
+
+			if ( args.Length > 0 )
+			{
+				// validate parameters are equal or less then...
+				bool isValidCount = true;
+				int i = 0;
+				for (;i<args.Length;i++)
+				{
+					if ( !localizedText.Contains( "{" + i.ToString() ) )
+					{
+						// not valid...
+						isValidCount = false;
+						break;
+					}
+				}
+
+				if ( !isValidCount )
+				{
+#if DEBUG
+					localizedText = String.Format( "[INVALID: {1}.{0} -- NEEDS {2} PARAMETERS HAS {3}]", text.ToUpper(), TransPage.ToUpper(), args.Length, i );
+#endif
+					// inform that the value is wrong to the admin and don't format the string...
+					Data.DB.eventlog_create(YafContext.Current.PageUserID, TransPage.ToLower() + ".ascx", String.Format("Not enough parameters for localization entry {1}.{0} -- Needs {2} parameters, has {3}.", text.ToUpper(), TransPage.ToUpper(), args.Length, i), Data.EventLogTypes.Warning);
+				}
+				else
+				{
+					// run format command...
+					localizedText = String.Format( localizedText, args );
+				}
+			}
+
+			return localizedText;
+		}
+
     public string GetText( string text )
     {
       return GetText( TransPage, text );

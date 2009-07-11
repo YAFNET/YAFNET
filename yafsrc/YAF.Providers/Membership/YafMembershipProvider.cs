@@ -555,7 +555,7 @@ namespace YAF.Providers.Membership
             UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
             newPasswordAnswer = YafMembershipProvider.EncodeString(newPasswordAnswer, currentPasswordInfo.PasswordFormat, currentPasswordInfo.PasswordSalt, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
 
-            if (currentPasswordInfo != null && currentPasswordInfo.IsCorrectPassword(password))
+            if ( currentPasswordInfo.IsCorrectPassword(password) )
             {
                 try
                 {

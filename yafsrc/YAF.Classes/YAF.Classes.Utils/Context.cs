@@ -871,19 +871,15 @@ namespace YAF.Classes.Utils
 
 					if ( HttpContext.Current.Request.UserAgent != null )
 					{
-						if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 5.2" ) >= 0 )
-						{
+						if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 5.2") >= 0)
 							platform = "Win2003";
-						}
-						else if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 6.0" ) >= 0 )
-						{
+						else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 6.0") >= 0)
 							platform = "Vista";
-						}
+						else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 7.0") >= 0)
+							platform = "Win7";
 						else
-						{
 							// check if it's a search engine spider...
-							isSearchEngine = General.IsSearchEngineSpider( HttpContext.Current.Request.UserAgent );
-						}
+							isSearchEngine = General.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent);
 					}
 
 					int? categoryID = General.ValidInt( HttpContext.Current.Request.QueryString ["c"] );

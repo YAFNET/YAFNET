@@ -190,7 +190,7 @@ namespace YAF.Classes.Base
 			if ( Mession.LastVisit == DateTime.MinValue )
 			{
 				if ( PageContext.UnreadPrivate > 0 )
-					PageContext.AddLoadMessage( String.Format( GetText( "UNREAD_MSG" ), PageContext.UnreadPrivate ) );
+					PageContext.AddLoadMessage( GetTextFormatted( "UNREAD_MSG" , PageContext.UnreadPrivate ) );
 			}
 
 			if ( !PageContext.IsGuest && PageContext.Page ["PreviousVisit"] != DBNull.Value && !Mession.HasLastVisit )
@@ -616,6 +616,11 @@ namespace YAF.Classes.Base
 		#endregion
 
 		#region Localization Helper Functions
+
+		public string GetTextFormatted(string text, params object [] args)
+		{
+			return PageContext.Localization.GetTextFormatted( text, args );
+		}
 
 		public string GetText( string text )
 		{
