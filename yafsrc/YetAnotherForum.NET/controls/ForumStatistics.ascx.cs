@@ -72,15 +72,15 @@ namespace YAF.Controls
 			// show max users...
 			if ( !statisticsDataRow.IsNull( "MaxUsers" ) )
 			{
-				MostUsersCount.Text = String.Format( PageContext.Localization.GetText( "MAX_ONLINE" ), statisticsDataRow ["MaxUsers"], YafDateTime.FormatDateTimeTopic( statisticsDataRow ["MaxUsersWhen"] ) );
+				MostUsersCount.Text = PageContext.Localization.GetTextFormatted( "MAX_ONLINE", statisticsDataRow ["MaxUsers"], YafDateTime.FormatDateTimeTopic( statisticsDataRow ["MaxUsersWhen"] ) );
 			}
 			else
 			{
-				MostUsersCount.Text = String.Format( PageContext.Localization.GetText( "MAX_ONLINE" ), activeStats ["ActiveUsers"], YafDateTime.FormatDateTimeTopic( DateTime.Now ) );
+				MostUsersCount.Text = PageContext.Localization.GetTextFormatted( "MAX_ONLINE", activeStats ["ActiveUsers"], YafDateTime.FormatDateTimeTopic( DateTime.Now ) );
 			}
 
 			// Posts and Topic Count...
-			StatsPostsTopicCount.Text = String.Format( PageContext.Localization.GetText( "stats_posts" ), statisticsDataRow ["posts"], statisticsDataRow ["topics"], statisticsDataRow ["forums"] );
+			StatsPostsTopicCount.Text = PageContext.Localization.GetTextFormatted( "stats_posts", statisticsDataRow ["posts"], statisticsDataRow ["topics"], statisticsDataRow ["forums"] );
 
 			// Last post
 			if ( !statisticsDataRow.IsNull( "LastPost" ) )
@@ -90,7 +90,7 @@ namespace YAF.Controls
 				LastPostUserLink.UserID = Convert.ToInt32(statisticsDataRow ["LastUserID"]);
 				LastPostUserLink.UserName = statisticsDataRow ["LastUser"].ToString();
 
-				StatsLastPost.Text = String.Format( PageContext.Localization.GetText( "stats_lastpost" ), YafDateTime.FormatDateTimeTopic( ( DateTime ) statisticsDataRow ["LastPost"] ) );
+				StatsLastPost.Text = PageContext.Localization.GetTextFormatted( "stats_lastpost", YafDateTime.FormatDateTimeTopic( ( DateTime ) statisticsDataRow ["LastPost"] ) );
 			}
 			else
 			{
@@ -98,7 +98,7 @@ namespace YAF.Controls
 			}
 			
 			// Member Count
-			StatsMembersCount.Text = String.Format( PageContext.Localization.GetText( "stats_members" ), statisticsDataRow ["members"] );
+			StatsMembersCount.Text = PageContext.Localization.GetTextFormatted( "stats_members", statisticsDataRow ["members"] );
 
 			// Newest Member
 			StatsNewestMember.Text = PageContext.Localization.GetText( "stats_lastmember" );
@@ -122,28 +122,28 @@ namespace YAF.Controls
 			{
 				// always show active users...
 				sb.Append( String.Format( "<a href=\"{1}\">{0}</a>",
-					String.Format( PageContext.Localization.GetText( activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeUsers ),
+					PageContext.Localization.GetTextFormatted( activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers ),
 					YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers ) ) );
 			}
 			else
 			{
 				// no link because no permissions...
-				sb.Append( String.Format( PageContext.Localization.GetText( activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeUsers ) );
+				sb.Append( PageContext.Localization.GetTextFormatted( activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers ) );
 			}
 
 			if ( activeMembers > 0 ) 
 			{
-				sb.Append( String.Format( ", {0}", String.Format( PageContext.Localization.GetText( activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2" ), activeMembers ) ) );
+				sb.Append( String.Format( ", {0}", PageContext.Localization.GetTextFormatted( activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers ) ) );
 			}
 
 			if ( activeGuests > 0 ) 
 			{
-				sb.Append( String.Format( ", {0}", String.Format( PageContext.Localization.GetText( activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2" ), activeGuests ) ) );
+				sb.Append( String.Format( ", {0}", PageContext.Localization.GetTextFormatted( activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests ) ) );
 			}
 
 			if ( activeHidden > 0 && PageContext.IsAdmin )
 			{	
-				sb.Append( String.Format( ", {0}", String.Format( PageContext.Localization.GetText( "ACTIVE_USERS_HIDDEN" ), activeHidden ) ) );
+				sb.Append( String.Format( ", {0}", PageContext.Localization.GetTextFormatted( "ACTIVE_USERS_HIDDEN", activeHidden ) ) );
 			}
 
 			return sb.ToString();

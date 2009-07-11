@@ -9,7 +9,7 @@
 <%@ Register TagPrefix="uc1" TagName="ResetPasswordEdit" Src="../../controls/EditUsersResetPass.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-    <ajaxToolkit:TabContainer runat="server" ID="PMTabs">
+    <ajaxToolkit:TabContainer runat="server" ID="PMTabs" CssClass="ajax__tab_yaf">
         <ajaxToolkit:TabPanel runat="server" ID="QuickEditTab" HeaderText="User Details">
             <ContentTemplate>
                 <uc1:QuickEdit ID="QuickEditControl" runat="server" />

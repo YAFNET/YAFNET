@@ -190,7 +190,7 @@ namespace YAF.Pages // YAF.Pages
 			if ( bError )
 			{
 				// just throw an error that this file is invalid...
-				PageContext.AddLoadMessage( String.Format( GetText( "FILEERROR" ), extension ) );
+				PageContext.AddLoadMessage( GetTextFormatted( "FILEERROR", extension ) );
 				return false;
 			}
 

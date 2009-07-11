@@ -746,6 +746,8 @@ Visit {forumname} at {forumlink}
 		<Resource tag="SECURITY_ANSWER">Security Answer</Resource>
 		<Resource tag="CREATE_USER">Create User</Resource>
 		<Resource tag="CONTINUE">Continue</Resource>
+		<Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+		<Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
 		<Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
 		<Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
 		<Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>

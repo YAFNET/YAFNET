@@ -87,7 +87,7 @@ namespace YAF.Pages
 			DataRow row = ( DataRow ) o;
 			int nViewing = ( int ) row ["Viewing"];
 			if ( nViewing > 0 )
-				return "&nbsp;" + String.Format( GetText( "VIEWING" ), nViewing );
+				return "&nbsp;" + GetTextFormatted( "VIEWING", nViewing );
 			else
 				return "";
 		}

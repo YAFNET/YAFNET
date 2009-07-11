@@ -184,7 +184,7 @@ namespace YAF.Controls
 			DataRow row = ( DataRow ) o;
             int nViewing = SqlDataLayerConverter.VerifyInt32(row["Viewing"]);
 			if ( nViewing > 0 )
-				return "&nbsp;" + String.Format( PageContext.Localization.GetText( "VIEWING" ), nViewing );
+				return "&nbsp;" + PageContext.Localization.GetTextFormatted( "VIEWING", nViewing );
 			else
 				return "";
 		}

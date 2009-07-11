@@ -327,7 +327,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected string GetSubForumTitle()
 		{
-			return string.Format( GetText( "SUBFORUMS" ), PageContext.PageForumName );
+			return GetTextFormatted( "SUBFORUMS", PageContext.PageForumName );
 		}
 	}
 }

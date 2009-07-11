@@ -97,7 +97,7 @@ namespace YAF.Pages // YAF.Pages
 			catch ( Exception x )
 			{
 				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
-				PageContext.AddLoadMessage( String.Format( GetText( "failed" ), x.Message ) );
+				PageContext.AddLoadMessage( GetTextFormatted( "failed", x.Message ) );
 			}
 		}
 	}

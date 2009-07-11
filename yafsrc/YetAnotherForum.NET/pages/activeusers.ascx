@@ -44,7 +44,7 @@
 					<%# YafDateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %>
 				</td>
 				<td class="post">
-					<%# String.Format(GetText("minutes"),((System.Data.DataRowView)Container.DataItem)["Active"]) %>
+					<%# GetTextFormatted( "minutes", ((System.Data.DataRowView)Container.DataItem)["Active"]) %>
 				</td>
 				<td class="post">
 					<%# Eval("Browser") %>

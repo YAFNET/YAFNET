@@ -268,7 +268,7 @@ namespace YAF.Pages
 				if ( recipients.Count > PageContext.BoardSettings.PrivateMessageMaxRecipients && !PageContext.IsAdmin && PageContext.BoardSettings.PrivateMessageMaxRecipients != 0 )
 				{
 					// to many recipients
-					PageContext.AddLoadMessage( String.Format( GetText( "TOO_MANY_RECIPIENTS" ), PageContext.BoardSettings.PrivateMessageMaxRecipients ) );
+					PageContext.AddLoadMessage( GetTextFormatted( "TOO_MANY_RECIPIENTS", PageContext.BoardSettings.PrivateMessageMaxRecipients ) );
 					return;
 				}
 
@@ -278,7 +278,7 @@ namespace YAF.Pages
 					!PageContext.IsAdmin )
 				{
 					// user has full PM box
-					PageContext.AddLoadMessage( String.Format( GetText( "OWN_PMBOX_FULL" ), PageContext.BoardSettings.MaxPrivateMessagesPerUser ) );
+					PageContext.AddLoadMessage( GetTextFormatted( "OWN_PMBOX_FULL", PageContext.BoardSettings.MaxPrivateMessagesPerUser ) );
 					return;
 				}
 
@@ -289,7 +289,7 @@ namespace YAF.Pages
 					{
 						if ( dt.Rows.Count != 1 )
 						{
-							PageContext.AddLoadMessage( String.Format( GetText( "NO_SUCH_USER" ), recipients [i] ) );
+							PageContext.AddLoadMessage( GetTextFormatted( "NO_SUCH_USER", recipients [i] ) );
 							return;
 						}
                         else if (SqlDataLayerConverter.VerifyInt32(dt.Rows [0] ["IsGuest"]) > 0 )						
@@ -307,7 +307,7 @@ namespace YAF.Pages
 							!PageContext.IsAdmin )
 						{
 							// recipient has full PM box
-							PageContext.AddLoadMessage( String.Format( GetText( "RECIPIENTS_PMBOX_FULL" ), recipients [i] ) );
+							PageContext.AddLoadMessage( GetTextFormatted( "RECIPIENTS_PMBOX_FULL", recipients [i] ) );
 							return;
 						}
 					}
@@ -521,7 +521,7 @@ namespace YAF.Pages
 				// report exception to the forum's event log
 				DB.eventlog_create( PageContext.PageUserID, this, x );
 				// tell user about failure
-				PageContext.AddLoadMessage( String.Format( GetText( "failed" ), x.Message ) );
+				PageContext.AddLoadMessage( GetTextFormatted( "failed", x.Message ) );
 			}
 		}
 

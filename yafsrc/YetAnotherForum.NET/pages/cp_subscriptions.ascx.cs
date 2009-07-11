@@ -87,7 +87,7 @@ namespace YAF.Pages // YAF.Pages
 				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ),
 				row ["LastUserName"]
 			);
-			string by = String.Format( GetText( "lastpostlink" ),
+			string by = GetTextFormatted( "lastpostlink",
 				YafDateTime.FormatDateTime( ( DateTime ) row ["LastPosted"] ),
 				link );
 

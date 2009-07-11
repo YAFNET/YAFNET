@@ -20,6 +20,8 @@
 								<asp:CompareValidator ID="PasswordCompare" runat="server" ControlToCompare="Password"
 									ControlToValidate="ConfirmPassword" Display="Dynamic" ErrorMessage="The Password and Confirmation Password must match."
 									ValidationGroup="CreateUserWizard1"></asp:CompareValidator>
+									<YAF:LocalizedLabel ID="LocalizedLabelRequirementsTitle" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_TITLE"></YAF:LocalizedLabel>:
+									<YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_TEXT"></YAF:LocalizedLabel>
 							</td>
 						</tr>
 						<tr>
@@ -37,7 +39,10 @@
 							<td align="right" class="postheader">
 								<asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">
 									<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PASSWORD" />
-									:</asp:Label></td>
+									:</asp:Label>
+									<br />
+
+									</td>
 							<td class="post">
 								<asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
 								<asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"

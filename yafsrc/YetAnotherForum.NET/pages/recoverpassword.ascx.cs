@@ -96,7 +96,7 @@ namespace YAF.Pages // YAF.Pages
       // get the e-mail ready from the real template.
 			YafTemplateEmail passwordRetrieval = new YafTemplateEmail( "PASSWORDRETRIEVAL" );
 
-      string subject = String.Format( GetText( "PASSWORDRETRIEVAL_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
+      string subject = GetTextFormatted( "PASSWORDRETRIEVAL_EMAIL_SUBJECT", PageContext.BoardSettings.Name );
 
       passwordRetrieval.TemplateParams["{username}"] = userName;
       passwordRetrieval.TemplateParams["{password}"] = password;
@@ -137,7 +137,7 @@ namespace YAF.Pages // YAF.Pages
 							// re-send verification email instead of lost password...
 							YafTemplateEmail verifyEmail = new YafTemplateEmail( "VERIFYEMAIL" );
 
-							string subject = String.Format( GetText( "VERIFICATION_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
+							string subject = GetTextFormatted( "VERIFICATION_EMAIL_SUBJECT", PageContext.BoardSettings.Name );
 
 							verifyEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}", YafBuildLink.GetLinkNotEscaped( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
 							verifyEmail.TemplateParams ["{key}"] = hash;
@@ -146,7 +146,7 @@ namespace YAF.Pages // YAF.Pages
 
 							verifyEmail.SendEmail( new System.Net.Mail.MailAddress( user.Email, user.UserName ), subject, true );
 
-							PageContext.AddLoadMessageSession( String.Format( PageContext.Localization.GetText( "ACCOUNT_NOT_APPROVED_VERIFICATION" ), user.Email ) );
+							PageContext.AddLoadMessageSession( PageContext.Localization.GetTextFormatted( "ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email ) );
 						}
 					}
 					else

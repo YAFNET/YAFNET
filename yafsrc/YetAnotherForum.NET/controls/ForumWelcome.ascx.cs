@@ -39,8 +39,8 @@ namespace YAF.Controls
 
 		void ForumWelcome_PreRender( object sender, EventArgs e )
 		{
-			TimeNow.Text = String.Format( PageContext.Localization.GetText( "Current_Time" ), YafDateTime.FormatTime( DateTime.Now ) );
-			TimeLastVisit.Text = String.Format( PageContext.Localization.GetText( "last_visit" ), YafDateTime.FormatDateTime( Mession.LastVisit ) );
+			TimeNow.Text = PageContext.Localization.GetTextFormatted( "Current_Time", YafDateTime.FormatTime( DateTime.Now ) );
+			TimeLastVisit.Text = PageContext.Localization.GetTextFormatted( "last_visit", YafDateTime.FormatDateTime( Mession.LastVisit ) );
 
 			if ( PageContext.UnreadPrivate > 0 )
 			{
@@ -48,11 +48,11 @@ namespace YAF.Controls
 				UnreadMsgs.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_pm );
 				if ( PageContext.UnreadPrivate == 1 )
 				{
-					UnreadMsgs.Text = String.Format( PageContext.Localization.GetText( "unread1" ), PageContext.UnreadPrivate );
+					UnreadMsgs.Text = PageContext.Localization.GetTextFormatted( "unread1", PageContext.UnreadPrivate );
 				}
 				else
 				{
-					UnreadMsgs.Text = String.Format( PageContext.Localization.GetText( "unread0" ), PageContext.UnreadPrivate );
+					UnreadMsgs.Text = PageContext.Localization.GetTextFormatted( "unread0", PageContext.UnreadPrivate );
 				}
 			}
 		}

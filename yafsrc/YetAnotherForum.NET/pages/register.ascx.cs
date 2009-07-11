@@ -31,6 +31,7 @@ using System.Web.Security;
 using System.Globalization;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
+using YAF.Controls;
 
 namespace YAF.Pages // YAF.Pages
 {
@@ -76,6 +77,11 @@ namespace YAF.Pages // YAF.Pages
 				questionRequired.ToolTip = questionRequired.ErrorMessage = GetText("NEED_QUESTION");
 				answerRequired.ToolTip = answerRequired.ErrorMessage = GetText("NEED_ANSWER");
 				createUser.ToolTip = createUser.Text = GetText("CREATE_USER");
+
+  			// password requirement parameters...
+				LocalizedLabel requirementText = (LocalizedLabel) createUserTemplateRef.FindControl( "LocalizedLabelRequirementsText" );
+				requirementText.Param0 = Membership.MinRequiredPasswordLength.ToString();
+				requirementText.Param1 = Membership.MinRequiredNonAlphanumericCharacters.ToString();
 
 				// handle other steps localization
 				((Button)FindWizardControl("ProfileNextButton")).Text = GetText("SAVE");
@@ -290,7 +296,7 @@ namespace YAF.Pages // YAF.Pages
 
 				YafTemplateEmail verifyEmail = new YafTemplateEmail( "VERIFYEMAIL" );
 
-				string subject = String.Format(GetText("VERIFICATION_EMAIL_SUBJECT"), PageContext.BoardSettings.Name);
+				string subject = GetTextFormatted( "VERIFICATION_EMAIL_SUBJECT", PageContext.BoardSettings.Name);
 
 				verifyEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}", YafBuildLink.GetLinkNotEscaped( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
 				verifyEmail.TemplateParams ["{key}"] = hash;

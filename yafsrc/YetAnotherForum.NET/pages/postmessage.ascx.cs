@@ -429,7 +429,7 @@ namespace YAF.Pages
 				// see if they've past that delay point
 				if (Mession.LastPost > DateTime.Now.AddSeconds(-PageContext.BoardSettings.PostFloodDelay) && EditTopicID == null)
 				{
-					PageContext.AddLoadMessage(String.Format(GetText("wait"), (Mession.LastPost - DateTime.Now.AddSeconds(-PageContext.BoardSettings.PostFloodDelay)).Seconds));
+					PageContext.AddLoadMessage(GetTextFormatted( "wait", (Mession.LastPost - DateTime.Now.AddSeconds(-PageContext.BoardSettings.PostFloodDelay)).Seconds));
 					return true;
 				}
 			}

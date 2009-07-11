@@ -71,7 +71,7 @@ namespace YAF.Pages // YAF.Pages
 
 				ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
-				Since.Items.Add( new ListItem( String.Format( GetText( "last_visit" ), YafDateTime.FormatDateTime( Mession.LastVisit ) ), "0" ) );
+				Since.Items.Add( new ListItem( GetTextFormatted( "last_visit", YafDateTime.FormatDateTime( Mession.LastVisit ) ), "0" ) );
 				Since.Items.Add( new ListItem( GetText( "last_hour" ), "-1" ) );
 				Since.Items.Add( new ListItem( GetText( "last_two_hours" ), "-2" ) );
 				Since.Items.Add( new ListItem( GetText( "last_day" ), "1" ) );

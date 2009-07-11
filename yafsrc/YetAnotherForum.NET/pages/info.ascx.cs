@@ -97,7 +97,7 @@ namespace YAF.Pages // YAF.Pages
 							break;
 						case InfoMessage.Suspended: /// Suspended
 							Title.Text = GetText("title_suspended");
-							Info.Text = String.Format(GetText("suspended"), YafDateTime.FormatDateTime(PageContext.SuspendedUntil));
+							Info.Text = GetTextFormatted( "suspended", YafDateTime.FormatDateTime(PageContext.SuspendedUntil));
 							break;
 						case InfoMessage.RegistrationEmail: /// Registration email
 							Title.Text = GetText("title_registration");

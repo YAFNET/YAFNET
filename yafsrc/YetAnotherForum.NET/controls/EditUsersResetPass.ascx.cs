@@ -53,10 +53,15 @@ namespace YAF.Controls
 
 			if ( !IsPostBack )
 			{
+				lblPassRequirements.Text = String.Format("{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).",
+				                                          Membership.MinRequiredPasswordLength,
+				                                          Membership.MinRequiredNonAlphanumericCharacters );
+
 				if ( !Membership.EnablePasswordReset )
 				{
 					PasswordResetErrorHolder.Visible = true;
-					Reset.Enabled = false;
+					btnResetPassword.Enabled = false;
+					rblPasswordResetFunction.Enabled = false;
 				}
 			}
 
@@ -68,19 +73,19 @@ namespace YAF.Controls
 
 		}
 
-		protected void Reset_Click( object sender, EventArgs e )
+		protected void btnChangePassword_Click( object sender, EventArgs e )
 		{
-			if ( !Page.IsValid )
+			if (!Page.IsValid)
 			{
 				return;
 			}
 
-			// reset password...
+			// change password...
 			try
 			{
-				MembershipUser user = YAF.Classes.Utils.UserMembershipHelper.GetMembershipUser( CurrentUserID );
+				MembershipUser user = YAF.Classes.Utils.UserMembershipHelper.GetMembershipUser(CurrentUserID);
 
-				if ( user != null )
+				if (user != null)
 				{
 					// new password...
 					string newPass = txtNewPassword.Text.Trim();
@@ -88,34 +93,80 @@ namespace YAF.Controls
 					user.UnlockUser();
 					string tempPass = user.ResetPassword();
 					// change to new password...
-					user.ChangePassword( tempPass, newPass );
+					user.ChangePassword(tempPass, newPass);
 
-					if ( chkEmailNotify.Checked )
+					if (chkEmailNotify.Checked)
 					{
 						// email a notification...
-						YafTemplateEmail passwordRetrieval = new YafTemplateEmail( "PASSWORDRETRIEVAL" );
+						YafTemplateEmail passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-						string subject = String.Format( PageContext.Localization.GetText( "RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
+						string subject = String.Format(PageContext.Localization.GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"), PageContext.BoardSettings.Name);
 
-						passwordRetrieval.TemplateParams ["{username}"] = user.UserName;
-						passwordRetrieval.TemplateParams ["{password}"] = newPass;
-						passwordRetrieval.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
-						passwordRetrieval.TemplateParams ["{forumlink}"] = String.Format( "{0}", YafForumInfo.ForumURL );
+						passwordRetrieval.TemplateParams["{username}"] = user.UserName;
+						passwordRetrieval.TemplateParams["{password}"] = newPass;
+						passwordRetrieval.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
+						passwordRetrieval.TemplateParams["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
 
-						passwordRetrieval.SendEmail( new System.Net.Mail.MailAddress( user.Email, user.UserName ), subject, true );
+						passwordRetrieval.SendEmail(new System.Net.Mail.MailAddress(user.Email, user.UserName), subject, true);
 
-						PageContext.AddLoadMessage( "User Password Reset and Notification Email Sent" );
+						PageContext.AddLoadMessage("User Password Changed and Notification Email Sent");
 					}
 					else
 					{
-						PageContext.AddLoadMessage( "User Password Reset" );
+						PageContext.AddLoadMessage("User Password Changed");
 					}
 				}
 			}
-			catch ( Exception x )
+			catch (Exception x)
 			{
-				PageContext.AddLoadMessage( "Exception: " + x.Message );
+				PageContext.AddLoadMessage("Exception: " + x.Message);
+			}			
+		}
+
+		protected void btnResetPassword_Click( object sender, EventArgs e )
+		{
+			// reset password...
+			try
+			{
+				MembershipUser user = YAF.Classes.Utils.UserMembershipHelper.GetMembershipUser(CurrentUserID);
+
+				if (user != null)
+				{
+					// reset the password...
+					user.UnlockUser();
+					string newPassword = user.ResetPassword();
+
+					// email a notification...
+					YafTemplateEmail passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
+
+					string subject = String.Format(PageContext.Localization.GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"), PageContext.BoardSettings.Name);
+
+					passwordRetrieval.TemplateParams["{username}"] = user.UserName;
+					passwordRetrieval.TemplateParams["{password}"] = newPassword;
+					passwordRetrieval.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
+					passwordRetrieval.TemplateParams["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
+
+					passwordRetrieval.SendEmail(new System.Net.Mail.MailAddress(user.Email, user.UserName), subject, true);
+
+					PageContext.AddLoadMessage("User Password Reset and Notification Email Sent");
+				}
 			}
+			catch (Exception x)
+			{
+				PageContext.AddLoadMessage("Exception: " + x.Message);
+			}				
+		}
+
+		protected void rblPasswordResetFunction_SelectedIndexChanged( object sender, EventArgs e )
+		{
+			ToggleChangePassUIEnabled( rblPasswordResetFunction.SelectedValue == "change" );
+		}
+
+		protected void ToggleChangePassUIEnabled( bool status )
+		{
+			ChangePasswordHolder.Visible = status;
+			btnChangePassword.Visible = status;
+			btnResetPassword.Visible = !status;
 		}
 	}
 }

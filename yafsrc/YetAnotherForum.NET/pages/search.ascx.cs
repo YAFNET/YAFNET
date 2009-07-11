@@ -283,7 +283,7 @@ namespace YAF.Pages // YAF.Pages
 			else
 			{
 				if ( !_searchHandled )
-					PageContext.AddLoadMessage( String.Format( GetText( "SEARCH_CRITERIA_ERROR" ),
+					PageContext.AddLoadMessage( GetTextFormatted( "SEARCH_CRITERIA_ERROR",
 																										 PageContext.BoardSettings.SearchStringMinLength ) );
 				_searchHandled = true;
 				return false;

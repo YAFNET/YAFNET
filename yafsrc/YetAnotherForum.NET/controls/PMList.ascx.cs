@@ -175,7 +175,7 @@ namespace YAF.Controls
 				PageContext.AddLoadMessage( PageContext.Localization.GetText( "msgdeleted1" ) );
 			else
 				PageContext.AddLoadMessage(
-					String.Format( PageContext.Localization.GetText( "msgdeleted2" ), nItemCount ) );
+					PageContext.Localization.GetTextFormatted( "msgdeleted2", nItemCount ) );
 		}
 
 		protected string GetImage( object o )

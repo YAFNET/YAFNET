@@ -221,7 +221,7 @@ namespace YAF.Pages // YAF.Pages
 			{
 				if ( Mession.LastPost > DateTime.Now.AddSeconds( -PageContext.BoardSettings.PostFloodDelay ) )
 				{
-					PageContext.AddLoadMessage( String.Format( GetText( "wait" ), ( Mession.LastPost - DateTime.Now.AddSeconds( -PageContext.BoardSettings.PostFloodDelay ) ).Seconds ) );
+					PageContext.AddLoadMessage( GetTextFormatted( "wait", ( Mession.LastPost - DateTime.Now.AddSeconds( -PageContext.BoardSettings.PostFloodDelay ) ).Seconds ) );
 					return;
 				}
 			}
