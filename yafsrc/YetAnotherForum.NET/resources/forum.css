@@ -75,6 +75,10 @@
 	margin: 5px 0px 5px 0px;
 	float: left;
 }
+.yafnet td.forumIconCol
+{
+	width: 1%;
+}
 /* One Exception: Default CSS for Syntaxt Highlighting */
 .yafnet .yafcodehighlighting .keytype { color : #FF9933; font-weight : normal; }
 .yafnet .yafcodehighlighting .keyword { color : #224FFF; font-weight : normal; }
