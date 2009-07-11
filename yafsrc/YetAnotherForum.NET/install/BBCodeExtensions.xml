@@ -44,7 +44,7 @@
       color: #000000;
       }
     </DisplayCSS>
-    <SearchRegex>\[spoiler\](?&lt;inner&gt;.+)\[\/spoiler\]</SearchRegex>
+    <SearchRegex>\[spoiler\](?&lt;inner&gt;.+?)\[\/spoiler\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
     <ExecOrder>50</ExecOrder>
