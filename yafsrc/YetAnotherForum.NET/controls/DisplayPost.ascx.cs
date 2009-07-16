@@ -74,9 +74,9 @@ function toggleMessage(divId)
 		{
 			get
 			{
-				if ( this.DataRow != null )
+				if (this.DataRow != null)
 				{
-					return Convert.ToInt32( DataRow["UserID"] );
+					return Convert.ToInt32(DataRow["UserID"]);
 				}
 
 				return 0;
@@ -87,9 +87,9 @@ function toggleMessage(divId)
 		{
 			get
 			{
-				if ( this.DataRow != null )
+				if (this.DataRow != null)
 				{
-					return Convert.ToInt32( DataRow["MessageID"] );
+					return Convert.ToInt32(DataRow["MessageID"]);
 				}
 
 				return 0;
@@ -101,115 +101,123 @@ function toggleMessage(divId)
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			PopMenu1.Visible = !IsGuest;
-            if (PopMenu1.Visible)
+			if (PopMenu1.Visible)
 			{
 				PopMenu1.ItemClick += new PopEventHandler(PopMenu1_ItemClick);
-				PopMenu1.AddPostBackItem( "userprofile", PageContext.Localization.GetText( "POSTS", "USERPROFILE" ) );
-				
-                if ( PageContext.IsAdmin ) PopMenu1.AddPostBackItem("edituser", "Edit User (Admin)");
-                if (!PageContext.IsGuest)
-                {
-                    if (IsIgnored(UserId))
-                    {
-                        PopMenu1.AddPostBackItem("toggleuserposts_show", PageContext.Localization.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"));
-                    }
-                    else
-                    {
-                        PopMenu1.AddPostBackItem("toggleuserposts_hide", PageContext.Localization.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
-                    }
-                }
+				PopMenu1.AddPostBackItem("userprofile", PageContext.Localization.GetText("POSTS", "USERPROFILE"));
+
+				if (PageContext.IsAdmin) PopMenu1.AddPostBackItem("edituser", "Edit User (Admin)");
+				if (!PageContext.IsGuest)
+				{
+					if (IsIgnored(UserId))
+					{
+						PopMenu1.AddPostBackItem("toggleuserposts_show", PageContext.Localization.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"));
+					}
+					else
+					{
+						PopMenu1.AddPostBackItem("toggleuserposts_hide", PageContext.Localization.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
+					}
+				}
 				PopMenu1.Attach(UserProfileLink);
 			}
 
-			ScriptManager.RegisterClientScriptInclude( this, typeof( DisplayPost ), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource( "yaf.js" ) );
+			// setup jQuery, LightBox and YAF JS...
+			RegisterPageElementHelper.RegisterJQuery( ParentPage.GetTopPageElement() );
+			ScriptManager.RegisterClientScriptInclude( this, typeof ( DisplayPost ), "lightboxjs",
+			                                           YAF.Classes.Utils.YafForumInfo.GetURLToResource( "js/jquery.lightbox.min.js" ) );
+			RegisterPageElementHelper.RegisterCssInclude( ParentPage.GetTopPageElement(), YafForumInfo.GetURLToResource( "css/jquery.lightbox.css" ) );
+			ScriptManager.RegisterClientScriptInclude(this, typeof(DisplayPost), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource("js/yaf.js"));
+			ScriptManager.RegisterClientScriptBlock( this, typeof ( DisplayPost ), "toggleMessageJs", _toogleMessageJs, true );
+			ScriptManager.RegisterClientScriptBlock( this, typeof ( DisplayPost ), "lightboxloadjs",
+																							 "$(document).ready(function() { $('a.attachedImageLink').lightbox(); });",
+			                                         true );
+
 			NameCell.ColSpan = int.Parse(GetIndentSpan());
 
-			ScriptManager.RegisterClientScriptBlock( this.Page, typeof( Page ), "toggleMessageJs", _toogleMessageJs, true );
-
-			if ( PageContext.IsGuest )
+			if (PageContext.IsGuest)
 			{
 				btnTogglePost.Visible = false;
 			}
-			else if ( IsIgnored( UserId ) )
+			else if (IsIgnored(UserId))
 			{
 				btnTogglePost.Visible = true;
-				btnTogglePost.Attributes["onclick"] = string.Format( "toggleMessage('{0}'); return false;", panMessage.ClientID );
+				btnTogglePost.Attributes["onclick"] = string.Format("toggleMessage('{0}'); return false;", panMessage.ClientID);
 				panMessage.Style["display"] = "none";
 			}
 		}
 
-		private void DisplayPost_PreRender( object sender, EventArgs e )
+		private void DisplayPost_PreRender(object sender, EventArgs e)
 		{
 			Attach.Visible = !PostDeleted && CanAttach && !IsLocked;
 
-			Attach.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.attachments, "m={0}", MessageId );
+			Attach.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.attachments, "m={0}", MessageId);
 			Edit.Visible = !PostDeleted && CanEditPost && !IsLocked;
-			Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.postmessage, "m={0}", MessageId );
+			Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "m={0}", MessageId);
 			MovePost.Visible = PageContext.ForumModeratorAccess && !IsLocked;
-			MovePost.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.movemessage, "m={0}", MessageId );
+			MovePost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.movemessage, "m={0}", MessageId);
 			Delete.Visible = !PostDeleted && CanDeletePost && !IsLocked;
-			Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.deletemessage, "m={0}&action=delete", MessageId );
+			Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.deletemessage, "m={0}&action=delete", MessageId);
 			UnDelete.Visible = CanUnDeletePost && !IsLocked;
-			UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.deletemessage, "m={0}&action=undelete", MessageId );
+			UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.deletemessage, "m={0}&action=undelete", MessageId);
 			Quote.Visible = !PostDeleted && CanReply && !IsLocked;
-			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, MessageId );
+			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, MessageId);
 
 			// report posts
 			ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
-			ReportButton.Text = PageContext.Localization.GetText( "REPORTPOST" ); // Mek Addition 08/18/2007
-			ReportButton.Attributes.Add( "onclick", String.Format( "return confirm('{0}');", PageContext.Localization.GetText( "CONFIRM_REPORTPOST" ) ) );
+			ReportButton.Text = PageContext.Localization.GetText("REPORTPOST"); // Mek Addition 08/18/2007
+			ReportButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTPOST")));
 
 			// report spam
 			ReportSpamButton.Visible = PageContext.BoardSettings.AllowReportSpam && !IsGuest; // Mek Addition 08/18/2007
-			ReportSpamButton.Text = PageContext.Localization.GetText( "REPORTSPAM" ); // Mek Addition 08/18/2007
-			ReportSpamButton.Attributes.Add( "onclick", String.Format( "return confirm('{0}');", PageContext.Localization.GetText( "CONFIRM_REPORTSPAM" ) ) );
+			ReportSpamButton.Text = PageContext.Localization.GetText("REPORTSPAM"); // Mek Addition 08/18/2007
+			ReportSpamButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTSPAM")));
 
 			// private messages
 			Pm.Visible = !IsGuest && !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
-			Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.pmessage, "u={0}", UserId );
+			Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", UserId);
 
 			// emailing
 			Email.Visible = !IsGuest && !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowEmailSending && !IsSponserMessage;
-			Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", UserId );
+			Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", UserId);
 
 			// home page
-			Home.Visible = !PostDeleted && !String.IsNullOrEmpty( UserProfile.Homepage );
-			SetupThemeButtonWithLink( Home, UserProfile.Homepage );
+			Home.Visible = !PostDeleted && !String.IsNullOrEmpty(UserProfile.Homepage);
+			SetupThemeButtonWithLink(Home, UserProfile.Homepage);
 
 			// blog page
-			Blog.Visible = !PostDeleted && !String.IsNullOrEmpty( UserProfile.Blog );
-			SetupThemeButtonWithLink( Blog, UserProfile.Blog );
+			Blog.Visible = !PostDeleted && !String.IsNullOrEmpty(UserProfile.Blog);
+			SetupThemeButtonWithLink(Blog, UserProfile.Blog);
 
 			// MSN
-			Msn.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.MSN );
-			Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", UserId );
+			Msn.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty(UserProfile.MSN);
+			Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", UserId);
 
 			// Yahoo IM
-			Yim.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.YIM );
-			Yim.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_yim, "u={0}", UserId );
+			Yim.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty(UserProfile.YIM);
+			Yim.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", UserId);
 
 			// AOL IM
-			Aim.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.AIM );
-			Aim.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_aim, "u={0}", UserId );
+			Aim.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty(UserProfile.AIM);
+			Aim.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", UserId);
 
 			// ICQ
-			Icq.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.ICQ );
-			Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_icq, "u={0}", UserId );
+			Icq.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty(UserProfile.ICQ);
+			Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", UserId);
 
 			// Skype
-			Skype.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.Skype );
-			Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_skype, "u={0}", UserId );
+			Skype.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty(UserProfile.Skype);
+			Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", UserId);
 
-			if ( !PostDeleted )
+			if (!PostDeleted)
 			{
 				AdminInformation.InnerHtml = @"<span class=""smallfont"">";
-				if ( Convert.ToDateTime( DataRow ["Edited"] ) > Convert.ToDateTime( DataRow ["Posted"] ).AddSeconds( PageContext.BoardSettings.EditTimeOut ) )
+				if (Convert.ToDateTime(DataRow["Edited"]) > Convert.ToDateTime(DataRow["Posted"]).AddSeconds(PageContext.BoardSettings.EditTimeOut))
 				{
 					// message has been edited
 					// show, why the post was edited or deleted?
 					string whoChanged = (Convert.ToBoolean(DataRow["IsModeratorChanged"])) ? PageContext.Localization.GetText("EDITED_BY_MOD") : PageContext.Localization.GetText("EDITED_BY_USER");
 					AdminInformation.InnerHtml += String.Format(@"| <span class=""editedinfo"">{0} {1}:</span> {2}", PageContext.Localization.GetText("EDITED"), whoChanged, YafDateTime.FormatDateTimeShort(Convert.ToDateTime(DataRow["Edited"])));
-					if ( Server.HtmlDecode( Convert.ToString( DataRow ["EditReason"] ) ) != "" )
+					if (Server.HtmlDecode(Convert.ToString(DataRow["EditReason"])) != "")
 					{
 						// reason was specified
 						AdminInformation.InnerHtml += String.Format(" |<b> {0}:</b> {1}", PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)DataRow["EditReason"], true));
@@ -224,7 +232,7 @@ function toggleMessage(divId)
 			else
 			{
 				AdminInformation.InnerHtml = @"<span class=""smallfont"">";
-				if ( Server.HtmlDecode( Convert.ToString( DataRow ["DeleteReason"] ) ) != String.Empty )
+				if (Server.HtmlDecode(Convert.ToString(DataRow["DeleteReason"])) != String.Empty)
 				{
 					// reason was specified
 					AdminInformation.InnerHtml += String.Format(" |<b> {0}:</b> {1}", PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)DataRow["DeleteReason"], true));
@@ -237,20 +245,20 @@ function toggleMessage(divId)
 			}
 
 			// display admin only info
-			if ( PageContext.IsAdmin )
+			if (PageContext.IsAdmin)
 			{
 				AdminInformation.InnerHtml += String.Format(" |<b> {0}:</b> {1}", PageContext.Localization.GetText("IP"), DataRow["IP"].ToString());
 			}
 			AdminInformation.InnerHtml += "</span>";
 		}
 
-		override protected void OnInit( EventArgs e )
+		override protected void OnInit(EventArgs e)
 		{
-			ReportButton.Command += new CommandEventHandler( Report_Command );
-			ReportSpamButton.Command += new CommandEventHandler( Report_Command );
-			this.PreRender += new EventHandler( DisplayPost_PreRender );
+			ReportButton.Command += new CommandEventHandler(Report_Command);
+			ReportSpamButton.Command += new CommandEventHandler(Report_Command);
+			this.PreRender += new EventHandler(DisplayPost_PreRender);
 			this.Init += new EventHandler(DisplayPost_Init);
-			base.OnInit( e );
+			base.OnInit(e);
 		}
 
 		void DisplayPost_Init(object sender, EventArgs e)
@@ -259,18 +267,18 @@ function toggleMessage(divId)
 			RetrieveParentPage();
 		}
 
-		protected void SetupThemeButtonWithLink( ThemeButton thisButton, string linkUrl )
+		protected void SetupThemeButtonWithLink(ThemeButton thisButton, string linkUrl)
 		{
-			if ( !String.IsNullOrEmpty( linkUrl ) )
+			if (!String.IsNullOrEmpty(linkUrl))
 			{
-				string link = linkUrl.Replace( "\"", "" );
-				if ( !link.ToLower().StartsWith( "http" ) )
+				string link = linkUrl.Replace("\"", "");
+				if (!link.ToLower().StartsWith("http"))
 				{
 					link = "http://" + link;
 				}
 				thisButton.NavigateUrl = link;
-				thisButton.Attributes.Add( "target", "_blank" );
-				if ( PageContext.BoardSettings.UseNoFollowLinks ) thisButton.Attributes.Add( "rel", "nofollow" );
+				thisButton.Attributes.Add("target", "_blank");
+				if (PageContext.BoardSettings.UseNoFollowLinks) thisButton.Attributes.Add("rel", "nofollow");
 			}
 			else
 			{
@@ -349,9 +357,9 @@ function toggleMessage(divId)
 		{
 			get
 			{
-				if ( DataRow != null )
+				if (DataRow != null)
 				{
-					return UserMembershipHelper.IsGuestUser( UserId );
+					return UserMembershipHelper.IsGuestUser(UserId);
 				}
 				else return true;
 			}
@@ -365,11 +373,11 @@ function toggleMessage(divId)
 		{
 			get
 			{
-				if ( _messageFlags != null )
+				if (_messageFlags != null)
 				{
 					return _messageFlags.IsLocked;
 				}
-				
+
 				return false;
 			}
 		}
@@ -378,10 +386,10 @@ function toggleMessage(divId)
 		{
 			get
 			{
-				if ( _userProfile == null )
+				if (_userProfile == null)
 				{
 					// setup instance of the user profile...
-					_userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( UserId ) );
+					_userProfile = PageContext.GetProfile(UserMembershipHelper.GetUserNameFromID(UserId));
 				}
 
 				return _userProfile;
@@ -400,7 +408,7 @@ function toggleMessage(divId)
 		{
 			get
 			{
-				return ( DataRow ["IP"].ToString() == "none" );
+				return (DataRow["IP"].ToString() == "none");
 			}
 		}
 
@@ -410,8 +418,8 @@ function toggleMessage(divId)
 			{
 				// Ederon : 9/9/2007 - moderaotrs can edit locked posts
 				// Ederon : 12/5/2007 - new flags implementation
-				return ( ( !PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
-					UserId == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
+				return ((!PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
+					UserId == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
 					PageContext.ForumEditAccess;
 			}
 		}
@@ -424,9 +432,9 @@ function toggleMessage(divId)
 				if (_messageFlags.IsLocked) return true;
 
 				// there is auto-lock period defined
-				if ( !PageContext.IsAdmin && PageContext.BoardSettings.LockPosts > 0 )
+				if (!PageContext.IsAdmin && PageContext.BoardSettings.LockPosts > 0)
 				{
-					DateTime edited = ( DateTime ) DataRow ["Edited"];
+					DateTime edited = (DateTime)DataRow["Edited"];
 					// check if post is locked according to this rule
 					if (edited.AddDays(PageContext.BoardSettings.LockPosts) < DateTime.Now)
 						return true;
@@ -448,8 +456,8 @@ function toggleMessage(divId)
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can attack to locked posts
-				return ( ( !PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
-					UserId == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
+				return ((!PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
+					UserId == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
 					PageContext.ForumUploadAccess;
 			}
 		}
@@ -460,7 +468,7 @@ function toggleMessage(divId)
 			{
 				// Ederon : 9/9/2007 - moderaotrs can delete in locked posts
 				return ((!PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
-					UserId == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
+					UserId == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
 					PageContext.ForumDeleteAccess;
 			}
 		}
@@ -503,19 +511,19 @@ function toggleMessage(divId)
 
 		protected string GetIndentCell()
 		{
-			if ( !IsThreaded )
+			if (!IsThreaded)
 				return "";
 
-			int iIndent = ( int ) DataRow ["Indent"];
-			if ( iIndent > 0 )
-				return string.Format( @"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>", iIndent * 32, YafForumInfo.ForumRoot );
+			int iIndent = (int)DataRow["Indent"];
+			if (iIndent > 0)
+				return string.Format(@"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>", iIndent * 32, YafForumInfo.ForumRoot);
 			else
 				return "";
 		}
 
 		protected string GetIndentSpan()
 		{
-			if ( !IsThreaded || ( int ) DataRow ["Indent"] == 0 )
+			if (!IsThreaded || (int)DataRow["Indent"] == 0)
 				return "2";
 			else
 				return "1";
@@ -523,7 +531,7 @@ function toggleMessage(divId)
 
 		protected string GetPostClass()
 		{
-			if ( this.IsAlt )
+			if (this.IsAlt)
 				return "post_alt";
 			else
 				return "post";
@@ -532,52 +540,52 @@ function toggleMessage(divId)
 		// Prevents a high user box when displaying a deleted post.
 		protected string GetUserBoxHeight()
 		{
-			if ( PostDeleted )
+			if (PostDeleted)
 				return "0";
 			return "100";
 		}
 
-		private bool IsIgnored( int ignoredUserId )
+		private bool IsIgnored(int ignoredUserId)
 		{
-			return YAF.Classes.Data.DB.user_isuserignored( PageContext.PageUserID, ignoredUserId );
+			return YAF.Classes.Data.DB.user_isuserignored(PageContext.PageUserID, ignoredUserId);
 		}
 
-		private void AddIgnored( int ignoredUserId )
+		private void AddIgnored(int ignoredUserId)
 		{
-			YAF.Classes.Data.DB.user_addignoreduser( PageContext.PageUserID, ignoredUserId );
+			YAF.Classes.Data.DB.user_addignoreduser(PageContext.PageUserID, ignoredUserId);
 		}
 
-		private void RemoveIgnored( int ignoredUserId )
+		private void RemoveIgnored(int ignoredUserId)
 		{
-			YAF.Classes.Data.DB.user_removeignoreduser( PageContext.PageUserID, ignoredUserId );
+			YAF.Classes.Data.DB.user_removeignoreduser(PageContext.PageUserID, ignoredUserId);
 		}
 
-		private void PopMenu1_ItemClick( object sender, PopEventArgs e )
+		private void PopMenu1_ItemClick(object sender, PopEventArgs e)
 		{
-			switch ( e.Item )
+			switch (e.Item)
 			{
 				case "userprofile":
-					YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.profile, "u={0}", UserId );
+					YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.profile, "u={0}", UserId);
 					break;
 				case "edituser":
-					YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", UserId );
+					YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", UserId);
 					break;
 				case "toggleuserposts_show":
-					RemoveIgnored( UserId );
-					Response.Redirect( Request.RawUrl );
+					RemoveIgnored(UserId);
+					Response.Redirect(Request.RawUrl);
 					break;
 				case "toggleuserposts_hide":
-					AddIgnored( UserId );
-					Response.Redirect( Request.RawUrl );
+					AddIgnored(UserId);
+					Response.Redirect(Request.RawUrl);
 					break;
 			}
 		}
 
 		// <Summary> Command Button - Report post as Abusive/Spam </Summary>
-		protected void Report_Command( object sender, CommandEventArgs e )
+		protected void Report_Command(object sender, CommandEventArgs e)
 		{
 			int ReportFlag = 0;
-			switch ( e.CommandName )
+			switch (e.CommandName)
 			{
 				case "ReportAbuse":
 					ReportFlag = 7;
@@ -586,8 +594,8 @@ function toggleMessage(divId)
 					ReportFlag = 8;
 					break;
 			}
-			YAF.Classes.Data.DB.message_report( ReportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today );
-			PageContext.AddLoadMessage( PageContext.Localization.GetText( "REPORTEDFEEDBACK" ) );
+			YAF.Classes.Data.DB.message_report(ReportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today);
+			PageContext.AddLoadMessage(PageContext.Localization.GetText("REPORTEDFEEDBACK"));
 		}
 	}
 }
