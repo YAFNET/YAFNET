@@ -315,7 +315,7 @@ namespace YAF.Editor
 			// this call is supposed to be after editor load since it may use
 			// JS variables created in editor_load...
 			YAF.Classes.UI.BBCode.RegisterCustomBBCodePageElements( Page, this.GetType(), SafeID );
-			ScriptManager.RegisterClientScriptInclude( this, typeof( BBCodeEditor ), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource( "yaf.js" ) );
+			ScriptManager.RegisterClientScriptInclude( this, typeof( BBCodeEditor ), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource( "js/yaf.js" ) );
 		}
 
 		#region Properties
