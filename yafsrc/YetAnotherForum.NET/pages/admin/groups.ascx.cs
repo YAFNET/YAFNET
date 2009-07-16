@@ -94,7 +94,7 @@ namespace YAF.Pages.Admin
 		/// </summary>
 		protected void Delete_Load(object sender, System.EventArgs e)
 		{
-			General.AddOnClickConfirmDialog(sender, "Delete this Role?");
+			ControlHelper.AddOnClickConfirmDialog(sender, "Delete this Role?");
 		}
 
 

@@ -138,7 +138,7 @@ namespace YAF.Pages.Admin
 		/// </summary>
 		protected void GroupRemove_Load(object sender, EventArgs e)
 		{
-			General.AddOnClickConfirmDialog(sender, "Remove medal from this group?");
+			ControlHelper.AddOnClickConfirmDialog(sender, "Remove medal from this group?");
 		}
 
 
@@ -147,7 +147,7 @@ namespace YAF.Pages.Admin
 		/// </summary>
 		protected void UserRemove_Load(object sender, EventArgs e)
 		{
-			General.AddOnClickConfirmDialog(sender, "Remove medal from this user?");
+			ControlHelper.AddOnClickConfirmDialog(sender, "Remove medal from this user?");
 		}
 
 

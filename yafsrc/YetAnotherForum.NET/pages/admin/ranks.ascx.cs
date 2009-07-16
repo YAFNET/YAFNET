@@ -52,7 +52,7 @@ namespace YAF.Pages.Admin
 
 		protected void Delete_Load(object sender, System.EventArgs e) 
 		{
-			General.AddOnClickConfirmDialog(sender, "Delete this rank?");
+			ControlHelper.AddOnClickConfirmDialog(sender, "Delete this rank?");
 		}
 
 		private void BindData() 

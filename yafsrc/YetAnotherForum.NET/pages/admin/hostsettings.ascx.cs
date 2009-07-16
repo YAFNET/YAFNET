@@ -60,26 +60,26 @@ namespace YAF.Pages.Admin
 
 			// Ederon : 7/1/2007
 			// set widths manually since ASP.NET "forgets" to do it for browsers other then IE
-			General.AddStyleAttributeWidth( SmiliesPerRow, "25px" );
-			General.AddStyleAttributeWidth( SmiliesColumns, "25px" );
-			General.AddStyleAttributeWidth(ImageAttachmentResizeWidth, "50px");
-			General.AddStyleAttributeWidth( ForumEmailEdit, "200px" );
-			General.AddStyleAttributeWidth( AcceptedHTML, "200px" );
-			General.AddStyleAttributeWidth( DisableNoFollowLinksAfterDay, "100px" );
+			ControlHelper.AddStyleAttributeWidth( SmiliesPerRow, "25px" );
+			ControlHelper.AddStyleAttributeWidth( SmiliesColumns, "25px" );
+			ControlHelper.AddStyleAttributeWidth(ImageAttachmentResizeWidth, "50px");
+			ControlHelper.AddStyleAttributeWidth( ForumEmailEdit, "200px" );
+			ControlHelper.AddStyleAttributeWidth( AcceptedHTML, "200px" );
+			ControlHelper.AddStyleAttributeWidth( DisableNoFollowLinksAfterDay, "100px" );
 
 			// Ederon : 7/14/2007
-			General.AddStyleAttributeSize( UserBox, "350px", "100px" );
-			General.AddStyleAttributeWidth(CustomLoginRedirectUrl, "200px");
-			General.AddStyleAttributeWidth( UserBoxAvatar, "200px" );
-			General.AddStyleAttributeWidth( UserBoxMedals, "200px" );
-			General.AddStyleAttributeWidth( UserBoxGroups, "200px" );
-			General.AddStyleAttributeWidth( UserBoxJoinDate, "200px" );
-			General.AddStyleAttributeWidth( UserBoxLocation, "200px" );
-			General.AddStyleAttributeWidth( UserBoxPosts, "200px" );
-			General.AddStyleAttributeWidth( UserBoxPoints, "200px" );
-			General.AddStyleAttributeWidth( UserBoxRank, "200px" );
-			General.AddStyleAttributeWidth( UserBoxRankImage, "200px" );
-			General.AddStyleAttributeSize( AdPost, "400px", "150px" );
+			ControlHelper.AddStyleAttributeSize( UserBox, "350px", "100px" );
+			ControlHelper.AddStyleAttributeWidth(CustomLoginRedirectUrl, "200px");
+			ControlHelper.AddStyleAttributeWidth( UserBoxAvatar, "200px" );
+			ControlHelper.AddStyleAttributeWidth( UserBoxMedals, "200px" );
+			ControlHelper.AddStyleAttributeWidth( UserBoxGroups, "200px" );
+			ControlHelper.AddStyleAttributeWidth( UserBoxJoinDate, "200px" );
+			ControlHelper.AddStyleAttributeWidth( UserBoxLocation, "200px" );
+			ControlHelper.AddStyleAttributeWidth( UserBoxPosts, "200px" );
+			ControlHelper.AddStyleAttributeWidth( UserBoxPoints, "200px" );
+			ControlHelper.AddStyleAttributeWidth( UserBoxRank, "200px" );
+			ControlHelper.AddStyleAttributeWidth( UserBoxRankImage, "200px" );
+			ControlHelper.AddStyleAttributeSize( AdPost, "400px", "150px" );
 
 			// CheckCache
 			CheckCache();
