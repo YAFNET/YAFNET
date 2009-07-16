@@ -112,7 +112,7 @@ namespace YAF.Controls
 									// TommyB: Start MOD: Preview Images
 									writer.Write(
 										String.Format(
-											@"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}"" target=""_blank"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>",
+											@"<div class=""attachedimg"" style=""display: inline;""><a class=""attachedImageLink"" href=""{0}resource.ashx?i={1}"" target=""_blank"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>",
 											YafForumInfo.ForumRoot, dr["AttachmentID"], HtmlEncode( dr["FileName"] ) ) );
 									// TommyB: End MOD: Preview Images
 								}
@@ -141,7 +141,7 @@ namespace YAF.Controls
 							// Ederon : download rights
 							if (PageContext.ForumDownloadAccess || PageContext.ForumModeratorAccess)
 							{
-								writer.Write(String.Format(@"<img border=""0"" alt="""" src=""{0}"" /> <a href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", strFileIcon, YafForumInfo.ForumRoot, dr["AttachmentID"], dr["FileName"], String.Format(stats, kb, dr["Downloads"])));
+								writer.Write(String.Format(@"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink"" href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", strFileIcon, YafForumInfo.ForumRoot, dr["AttachmentID"], dr["FileName"], String.Format(stats, kb, dr["Downloads"])));
 							}
 							else
 							{

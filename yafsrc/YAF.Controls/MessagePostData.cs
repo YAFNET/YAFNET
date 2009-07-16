@@ -36,73 +36,73 @@ namespace YAF.Controls
 
 		}
 
-		protected override void OnPreRender( EventArgs e )
+		protected override void OnPreRender(EventArgs e)
 		{
-			if ( DataRow != null && !this.MessageFlags.IsDeleted )
+			if (DataRow != null && !this.MessageFlags.IsDeleted)
 			{
 				// populate DisplayUserID
-				if ( !UserMembershipHelper.IsGuestUser( DataRow ["UserID"] ) ) DisplayUserID = Convert.ToInt32( DataRow ["UserID"] );
+				if (!UserMembershipHelper.IsGuestUser(DataRow["UserID"])) DisplayUserID = Convert.ToInt32(DataRow["UserID"]);
 
-				if ( ShowAttachments && long.Parse( DataRow ["HasAttachments"].ToString() ) > 0 )
+				if (ShowAttachments && long.Parse(DataRow["HasAttachments"].ToString()) > 0)
 				{
 					// add attached files control...
 					MessageAttached attached = new MessageAttached();
-					attached.MessageID = Convert.ToInt32( DataRow ["MessageID"] );
-					attached.UserName = DataRow ["Username"].ToString();
-					this.Controls.Add( attached );
+					attached.MessageID = Convert.ToInt32(DataRow["MessageID"]);
+					attached.UserName = DataRow["Username"].ToString();
+					this.Controls.Add(attached);
 				}
 			}
 
-			base.OnPreRender( e );
+			base.OnPreRender(e);
 		}
 
-		protected override void RenderMessage( HtmlTextWriter writer )
+		protected override void RenderMessage(HtmlTextWriter writer)
 		{
-			if ( DataRow != null )
+			if (DataRow != null)
 			{
-				if ( this.MessageFlags.IsDeleted )
+				if (this.MessageFlags.IsDeleted)
 				{
-					if ( DataRow.Row.Table.Columns.Contains( "IsModeratorChanged" ) )
+					if (DataRow.Row.Table.Columns.Contains("IsModeratorChanged"))
 					{
-						this.IsModeratorChanged = Convert.ToBoolean( DataRow ["IsModeratorChanged"] );
+						this.IsModeratorChanged = Convert.ToBoolean(DataRow["IsModeratorChanged"]);
 					}
 					// deleted message text...
-					RenderDeletedMessage( writer );
+					RenderDeletedMessage(writer);
 				}
-				else if ( this.MessageFlags.NotFormatted )
+				else if (this.MessageFlags.NotFormatted)
 				{
 					// just write out the message with no formatting...
-					writer.Write( Message );
+					writer.Write(Message);
 				}
-				else if ( DataRow.Row.Table.Columns.Contains( "Edited" ) )
+				else if (DataRow.Row.Table.Columns.Contains("Edited"))
 				{
 					// handle a message that's been edited...
 					DateTime editedMessage = Posted;
 
-					if ( Edited > Posted )
+					if (Edited > Posted)
 					{
 						editedMessage = Edited;
 					}
 
-					if ( this.MessageFlags.IsBBCode )
+					if (this.MessageFlags.IsBBCode)
 					{
-						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( Message, this.MessageFlags, false, editedMessage ), this.MessageFlags, this.DisplayUserID );
+						RenderModulesInBBCode(writer, FormatMsg.FormatMessage(Message, this.MessageFlags, false, editedMessage), this.MessageFlags, this.DisplayUserID);
 					}
 					else
 					{
-						writer.Write( FormatMsg.FormatMessage( Message, this.MessageFlags, false, editedMessage ) );
+						writer.Write(FormatMsg.FormatMessage(Message, this.MessageFlags, false, editedMessage));
 					}
 				}
 				else
 				{
 					// render standard using bbcode or html...
-					if ( this.MessageFlags.IsBBCode )
+					if (this.MessageFlags.IsBBCode)
 					{
-						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( Message, this.MessageFlags ), this.MessageFlags, this.DisplayUserID );
+						RenderModulesInBBCode(writer, FormatMsg.FormatMessage(Message, this.MessageFlags), this.MessageFlags, this.DisplayUserID);
 					}
 					else
 					{
-						writer.Write( FormatMsg.FormatMessage( Message, this.MessageFlags ) );
+						writer.Write(FormatMsg.FormatMessage(Message, this.MessageFlags));
 					}
 				}
 			}
@@ -118,9 +118,9 @@ namespace YAF.Controls
 			set
 			{
 				_row = value;
-				if ( _row != null )
+				if (_row != null)
 				{
-					this.MessageFlags = new MessageFlags( _row ["Flags"] );
+					this.MessageFlags = new MessageFlags(_row["Flags"]);
 				}
 			}
 		}
@@ -129,7 +129,7 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return Convert.ToDateTime( DataRow["Posted"] );
+				return Convert.ToDateTime(DataRow["Posted"]);
 			}
 		}
 
@@ -137,7 +137,7 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return Convert.ToDateTime( DataRow["Edited"] );
+				return Convert.ToDateTime(DataRow["Edited"]);
 			}
 		}
 
@@ -145,7 +145,7 @@ namespace YAF.Controls
 		{
 			get
 			{
-				if ( ShowSignature && PageContext.BoardSettings.AllowSignatures && DataRow ["Signature"] != DBNull.Value && DataRow ["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow ["Signature"].ToString().Trim().Length > 0 )
+				if (ShowSignature && PageContext.BoardSettings.AllowSignatures && DataRow["Signature"] != DBNull.Value && DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow["Signature"].ToString().Trim().Length > 0)
 				{
 					return DataRow["Signature"].ToString();
 				}
@@ -156,30 +156,30 @@ namespace YAF.Controls
 
 		public override string Message
 		{
-            get
-            {
-                string message = DataRow["Message"].ToString();
+			get
+			{
+				string message = DataRow["Message"].ToString();
 
-                return TruncateMessage(message);
-            }
+				return TruncateMessage(message);
+			}
 		}
-        public static string TruncateMessage(string message)
-        {
-            // validate the size...
-            if (YafContext.Current.BoardSettings.MaxPostSize < 0)
-                return message;
+		public static string TruncateMessage(string message)
+		{
+			// validate the size...
+			if (YafContext.Current.BoardSettings.MaxPostSize < 0)
+				return message;
 
-            if (message.Length < YafContext.Current.BoardSettings.MaxPostSize)
-                return message;
+			if (message.Length < YafContext.Current.BoardSettings.MaxPostSize)
+				return message;
 
-            // truncate... 
-            message = message.Substring(0, YafContext.Current.BoardSettings.MaxPostSize);
-            int lastSpaceIndex = message.LastIndexOf(" ");
-            if (lastSpaceIndex > 0)
-                return message.Substring(0, lastSpaceIndex) + "...";
+			// truncate... 
+			message = message.Substring(0, YafContext.Current.BoardSettings.MaxPostSize);
+			int lastSpaceIndex = message.LastIndexOf(" ");
+			if (lastSpaceIndex > 0)
+				return message.Substring(0, lastSpaceIndex) + "...";
 
-            return message.Substring(0, message.Length - 3) + "...";
-        }
+			return message.Substring(0, message.Length - 3) + "...";
+		}
 
 		private bool _showAttachments = true;
 		public bool ShowAttachments

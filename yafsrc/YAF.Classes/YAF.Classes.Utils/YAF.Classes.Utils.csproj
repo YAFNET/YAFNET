@@ -37,7 +37,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v3.5|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-	  <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,7 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v3.5|AnyCPU' ">
-	  <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -62,36 +62,37 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-	<ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v2.0|AnyCPU' ">
-		<Reference Include="CookComputing.XmlRpcV2, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\..\YetAnotherForum.NET\Bin\Net2.0\CookComputing.XmlRpcV2.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-	<ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v2.0|AnyCPU' ">
-		<Reference Include="CookComputing.XmlRpcV2, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\..\YetAnotherForum.NET\Bin\Net2.0\CookComputing.XmlRpcV2.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-	<ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v3.5|AnyCPU' ">
-		<Reference Include="CookComputing.XmlRpcV2, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\..\YetAnotherForum.NET\Bin\Net3.5\CookComputing.XmlRpcV2.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-	<ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v3.5|AnyCPU' ">
-		<Reference Include="CookComputing.XmlRpcV2, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
-			<SpecificVersion>False</SpecificVersion>
-			<HintPath>..\..\YetAnotherForum.NET\Bin\Net3.5\CookComputing.XmlRpcV2.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-	<ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v2.0|AnyCPU' ">
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\YetAnotherForum.NET\Bin\Net2.0\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v2.0|AnyCPU' ">
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\YetAnotherForum.NET\Bin\Net2.0\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v3.5|AnyCPU' ">
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\YetAnotherForum.NET\Bin\Net3.5\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v3.5|AnyCPU' ">
+    <Reference Include="CookComputing.XmlRpcV2, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\YetAnotherForum.NET\Bin\Net3.5\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="BuildLink.cs" />
     <Compile Include="Caching.cs" />
     <Compile Include="Config\BoardSettings.cs" />
     <Compile Include="Config\ForumPages.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="ControlHelper.cs" />
     <Compile Include="DateTime.cs" />
     <Compile Include="DB\DBBroker.cs" />
     <Compile Include="ExternalAPI\MetaWeblog.cs">
@@ -101,6 +102,7 @@
     <Compile Include="MembershipHelper.cs" />
     <Compile Include="Nntp.cs" />
     <Compile Include="Mail\SendMail.cs" />
+    <Compile Include="RegisterPageElementHelper.cs" />
     <Compile Include="StaticData.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Localization\Localization.cs" />

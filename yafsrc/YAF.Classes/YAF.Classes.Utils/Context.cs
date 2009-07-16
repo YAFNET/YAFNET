@@ -44,6 +44,7 @@ namespace YAF.Classes.Utils
 		private string _loadString = "";
 		private string _adminLoadString = "";
 		private UserFlags _userFlags = null;
+		private List<string> _registeredElements = new List<string>();
 
 		// init flags
 		private bool _initCulture = false;
@@ -166,6 +167,18 @@ namespace YAF.Classes.Utils
 			set { _transPage = value; }
 		}
 
+		/// <summary>
+		/// Elements (using in the head or header) that are registered on the page.
+		/// Used mostly by RegisterPageElementHelper.
+		/// </summary>
+		public List<string> RegisteredElements
+		{
+			get
+			{
+				return _registeredElements;
+			}
+		}
+
 		public System.Data.DataRow Page
 		{
 			get
@@ -184,7 +197,7 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		public YAF.Classes.Utils.YafUserProfile Profile
+		public YafUserProfile Profile
 		{
 			get
 			{

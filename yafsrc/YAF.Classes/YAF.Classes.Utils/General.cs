@@ -399,36 +399,6 @@ namespace YAF.Classes.Utils
 			return txtInfo;
 		}
 
-		/* Ederon - 7/1/2007 start */
-
-		static public void AddStyleAttributeSize( System.Web.UI.WebControls.WebControl control, string width, string height )
-		{
-			control.Attributes.Add( "style", String.Format( "width: {0}; height: {1};", width, height ) );
-		}
-
-		static public void AddStyleAttributeWidth( System.Web.UI.WebControls.WebControl control, string width )
-		{
-			control.Attributes.Add( "style", String.Format( "width: {0};", width ) );
-		}
-
-		static public void AddStyleAttributeHeight( System.Web.UI.WebControls.WebControl control, string height )
-		{
-			control.Attributes.Add( "style", String.Format( "height: {0};", height ) );
-		}
-
-		/* Ederon - 7/1/2007 end */
-
-
-		static public void AddOnClickConfirmDialog( object control, string message )
-		{
-			AddOnClickConfirmDialog( ( System.Web.UI.WebControls.WebControl )control, message );
-		}
-		static public void AddOnClickConfirmDialog( System.Web.UI.WebControls.WebControl control, string message )
-		{
-			control.Attributes ["onclick"] = String.Format( "return confirm('{0}');", message );
-		}
-
-
 		/* Ederon - 9/9/2007 */
 		static public string ProcessText( string text )
 		{

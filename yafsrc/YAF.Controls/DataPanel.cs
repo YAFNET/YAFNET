@@ -47,7 +47,7 @@ namespace YAF.Controls
 		/// </summary>
 		private void RegisterControlScript() 
 		{
-			ScriptManager.RegisterClientScriptInclude( this, this.GetType(), _dataPanelScript, YAF.Classes.Utils.YafForumInfo.GetURLToResource( "DataPanel.js" ) );
+			ScriptManager.RegisterClientScriptInclude( this, this.GetType(), _dataPanelScript, YAF.Classes.Utils.YafForumInfo.GetURLToResource( "js/DataPanel.js" ) );
 		}
 
 		#endregion Scripts

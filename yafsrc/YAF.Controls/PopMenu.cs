@@ -42,7 +42,7 @@ namespace YAF.Controls
 		void PopMenu_Init( object sender, EventArgs e )
 		{
 			// init the necessary js...
-			ScriptManager.RegisterClientScriptInclude( this, typeof( PopMenu ), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource( "yaf.js" ) );
+			ScriptManager.RegisterClientScriptInclude( this, typeof( PopMenu ), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource( "js/yaf.js" ) );
 		}
 
 		public string Control

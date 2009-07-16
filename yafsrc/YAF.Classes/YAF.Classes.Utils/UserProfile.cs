@@ -34,7 +34,7 @@ namespace YAF.Classes.Utils
 
     }
 
-    [SettingsAllowAnonymous( false )]
+  	[SettingsAllowAnonymous( false )]
 		[CustomProviderData( "Location;nvarchar;255" )]
     public string Location
     {

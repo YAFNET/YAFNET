@@ -325,26 +325,11 @@ namespace YAF.Classes.Base
 
 		#region Render Functions
 
-		protected System.Web.UI.Control FindControlRecursive( System.Web.UI.Control currentControl, string id )
-		{
-			System.Web.UI.Control foundControl = currentControl.FindControl( id );
-
-			if ( foundControl != null )
-			{
-				return foundControl;
-			}
-			else if ( foundControl == null && currentControl.Parent != null )
-			{
-				return this.FindControlRecursive( currentControl.Parent, id );
-			}
-			return null;
-		}
-
 		protected void InsertCssRefresh( System.Web.UI.Control addTo )
 		{
 			// make the style sheet link controls.
-			addTo.Controls.Add( MakeStyleSheetControl( YafForumInfo.GetURLToResource( "forum.css" ) ) );
-			addTo.Controls.Add( MakeStyleSheetControl( YafBuildLink.ThemeFile( "theme.css" ) ) );
+			addTo.Controls.Add( ControlHelper.MakeCssIncludeControl( YafForumInfo.GetURLToResource( "css/forum.css" ) ) );
+			addTo.Controls.Add( ControlHelper.MakeCssIncludeControl( YafBuildLink.ThemeFile( "theme.css" ) ) );
 
 			if ( ForumHeader.RefreshURL != null && ForumHeader.RefreshTime >= 0 )
 			{
@@ -356,14 +341,9 @@ namespace YAF.Classes.Base
 			}
 		}
 
-		protected HtmlLink MakeStyleSheetControl( string href )
+		public System.Web.UI.Control GetTopPageElement()
 		{
-			HtmlLink stylesheet = new HtmlLink();
-			stylesheet.Href = href;
-			stylesheet.Attributes.Add( "rel", "stylesheet" );
-			stylesheet.Attributes.Add( "type", "text/css" );
-
-			return stylesheet;
+			return ControlHelper.FindControlRecursive(this, "YafHead") ?? ForumHeader;
 		}
 
 		protected void SetupHeaderElements()
@@ -378,7 +358,7 @@ namespace YAF.Classes.Base
 				}
 			}
 
-			HtmlHead head = ( HtmlHead )this.FindControlRecursive( this, "YafHead" );
+			HtmlHead head = ( HtmlHead )ControlHelper.FindControlRecursive( this, "YafHead" );
 
 			if ( head != null )
 			{
@@ -501,7 +481,6 @@ namespace YAF.Classes.Base
 				return 0;
 			}
 		}
-
 
 		/// <summary>
 		/// Gets info whether page should be hidden to guest users when forum admin requires login.
@@ -659,23 +638,6 @@ namespace YAF.Classes.Base
 		{
 			return Server.HtmlEncode( data.ToString() );
 		}
-
-		/// <summary>
-		/// Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
-		/// </summary>
-		/// <param name="cssContents">The contents of the text/css style block</param>
-		public void RegisterClientCssBlock( string cssContents )
-		{
-			HtmlHead header = Page.FindControl( "HeadTag" ) as HtmlHead;
-			if ( header == null )
-				return;
-			HtmlGenericControl style = new HtmlGenericControl();
-			style.TagName = "style";
-			style.Attributes.Add( "type", "text/css" );
-			style.InnerText = cssContents;
-			header.Controls.AddAt( header.Controls.Count, style ); // Add to the end of the controls collection
-		}
-
 
 		protected virtual void CreatePageLinks()
 		{
