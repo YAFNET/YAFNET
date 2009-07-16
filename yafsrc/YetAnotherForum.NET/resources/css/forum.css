@@ -1,0 +1,93 @@
+/*
+	This File is for basic LAYOUT CSS -- Not for Color/Design which should stay in the theme.css file
+*/
+.yafnet .quickReplyLine
+{
+	padding: 5px 10px 5px 5px;
+	height:100px;	
+}
+.yafnet textarea.basicBBCodeEditor 
+{
+	width: 100%;
+	height: 100%;
+}
+.yafnet textarea.BBCodeEditor 
+{
+	width: 100%;
+	height: 350px;
+}
+.yafnet #DivForumJump
+{
+	float:right;
+	margin-top: 10px;
+}
+.yafnet #DivPageAccess
+{
+	clear:right;
+	float:right;
+	margin-top: 10px;
+}
+.yafnet #DivIconLegend
+{
+	float:left;
+	margin-top: 10px;
+}
+.yafnet .leftItem
+{
+    float:left;
+}
+.yafnet .rightItem
+{
+    float:right;
+}
+.yafnet .postNavigation td
+{
+    text-align:right;
+}
+.yafnet .clearItem
+{
+    clear:both;
+}
+.yafnet #DivSmartScroller
+{
+	clear:both;
+}
+.yafnet .postsep td
+{
+	padding:0px;
+}
+.yafnet .yafpopupmenu
+{
+	padding:0px;
+}
+.yafnet .fileattach
+{
+	margin: 15px 0px 0px 0px;
+}
+.yafnet #yafprofilemenu
+{
+	float:left;
+	width: 150px;
+	margin: 5px 5px 5px 0px;
+}
+.yafnet #yafprofilecontent
+{
+	margin: 5px 0px 5px 0px;
+	float: left;
+}
+.yafnet td.forumIconCol
+{
+	width: 1%;
+}
+.yafnet .forumLinkCol .forumheading,
+.yafnet .forumLinkCol .forumviewing
+{
+	display: inline;
+}
+/* One Exception: Default CSS for Syntaxt Highlighting */
+.yafnet .yafcodehighlighting .keytype { color : #FF9933; font-weight : normal; }
+.yafnet .yafcodehighlighting .keyword { color : #224FFF; font-weight : normal; }
+.yafnet .yafcodehighlighting .integer { color : #FF0032; }
+.yafnet .yafcodehighlighting .comment { color : #008100; }
+.yafnet .yafcodehighlighting .errors { color : #FF0000; font-weight : bold; }
+.yafnet .yafcodehighlighting .string { color : #FF0022; }

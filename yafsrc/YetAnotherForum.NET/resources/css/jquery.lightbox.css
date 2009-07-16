@@ -1,0 +1,220 @@
+/*
+ * jQuery Lightbox Plugin (balupton edition) - Lightboxes for jQuery
+ * Copyright (C) 2007-2009 Benjamin Arthur Lupton
+ * http://jquery.com/plugins/project/jquerylightbox_bal
+ *
+ * This file is part of jQuery Lightbox (balupton edition).
+ * 
+ * jQuery Lightbox (balupton edition) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * jQuery Lightbox (balupton edition) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with jQuery Lightbox (balupton edition).  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @name jquery_lightbox: jquery.lightbox.css
+ * @package jQuery Lightbox Plugin (balupton edition)
+ * @version 1.3.0-rc1
+ * @date August 24, 2008
+ * @category jQuery plugin
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2007-2009 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ * @license GNU Affero General Public License - {@link http://www.gnu.org/licenses/agpl.html}
+ * @example Visit {@link http://jquery.com/plugins/project/jquerylightbox_bal} for more information.
+ */
+
+html, body { margin: 0; padding: 0; height: 100%;}
+
+#lightbox, #lightbox-overlay {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom:auto;
+	right:auto;
+	
+	z-index:100;
+	width:100%;
+	height:auto;
+	
+	text-align:center;
+	color:#333333;
+	
+	/* stop stupid conflicts */
+	margin:0px;
+	padding:0px;
+	border:none;
+	outline:none;
+	line-height:0;
+	
+	/* general conflict stopper */
+	text-decoration:none;
+	background:none;
+	word-spacing:normal;
+	letter-spacing:normal;
+	float:none;
+	clear:none;
+	display:block;
+}
+
+#lightbox a, #lightbox a:link, #lightbox a:visited, #lightbox a:hover {
+	text-decoration:underline;
+	color:#999999;
+}
+
+#lightbox-overlay {
+	z-index: 90;
+	background-color:#000000;
+	height: 100%;
+	position:fixed;
+}
+#lightbox-overlay-text {
+	text-align: right;
+	margin-right: 20px;
+	margin-top: 20px;
+	color: white;
+	font-size: 12px;
+	cursor: default;
+	line-height:normal;
+}
+#lightbox-overlay-text a, #lightbox-overlay-text a:hover, #lightbox-overlay-text a:visited, #lightbox-overlay-text a:link {
+	color:white;
+}
+#lightbox-overlay-text span {
+	padding-left:5px;
+	padding-right:5px;
+}
+
+#lightbox img, #lightbox a img, #lightbox a { border:none; outline:none; }
+
+#lightbox-imageBox {
+	position:relative;
+	border:1px solid black;
+	background-color:white;
+	width:400px;
+	height:400px;
+	margin:0 auto;
+}
+
+#lightbox-imageContainer {
+	padding:1px;
+}
+
+#lightbox-loading {
+	position:absolute;
+	top:40%;
+	left:0%;
+	height:25%;
+	width:100%;
+	text-align:center;
+	line-height:0;
+}
+
+#lightbox-nav {
+	position:absolute;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	z-index:10;
+}
+/* #lightbox-imageBox > #lightbox-nav { left: 0; } 
+#lightbox-nav a { outline: none; }*/
+
+
+#lightbox-nav-btnPrev, #lightbox-nav-btnNext {
+	display:block;
+	width:49%;
+	height: 100%;
+	background:transparent url("../images/blank.gif") no-repeat; /* Trick IE into showing hover */
+	/* cursor:pointer; */
+	zoom:1; /* who knows why? */
+	
+	padding:0px;
+	margin:0px;
+}
+#lightbox-nav-btnPrev { 
+	left:0;
+	right:auto;
+	float:left;
+}
+#lightbox-nav-btnNext { 
+	left:auto;
+	right:0;
+	float:right;
+}
+/*
+.preload_largeLink, #prevLink:hover, #prevLink:visited:hover {
+	background:url("../images/prev.gif") left 45% no-repeat;
+}
+.preload_nextLink, #nextLink:hover, #nextLink:visited:hover {
+	background:url("../images/next.gif") right 45% no-repeat;
+}
+*/
+
+#lightbox-infoBox {
+	font:10px Verdana, Helvetica, sans-serif;
+	background-color:#FFFFFF;
+	margin:0 auto;
+	padding:0px;
+	
+	/* width: 100%;
+	padding: 0 10px 0; */
+}
+
+#lightbox-infoContainer {
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:5px;
+	padding-bottom:5px;
+	color:#666;
+	
+	line-height:normal;
+	/* height:30px; */
+}
+#lightbox-infoHeader {
+	width:100%;
+	text-align:center; 
+}
+#lightbox-caption {
+	text-align:justify;
+}
+#lightbox-caption-title {
+	font-weight:bold;
+}
+#lightbox-caption-description {
+	font-weight:normal;
+}
+
+#lightbox-infoFooter {
+	margin-top:3px;
+	color:#999999;
+}
+#lightbox-currentNumber {
+	display:block;
+	width:49%;
+	float:left;
+	text-align:left;
+}
+#lightbox-close {
+	display:block;
+	width:45%;
+	float:right;
+	text-align:right;
+}
+#lightbox-close-button{
+	padding-left:30%;
+}
+#lightbox-close-button:hover {
+	color:#666666;
+}
+
+#lightbox-infoContainer-clear {
+	clear:both; 
+	visibility:hidden;
+}
