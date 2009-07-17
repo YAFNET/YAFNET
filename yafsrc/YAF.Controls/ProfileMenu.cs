@@ -31,7 +31,7 @@ namespace YAF.Controls
     {
       System.Text.StringBuilder html = new System.Text.StringBuilder( 2000 );
 
-      html.Append( @"<table width=""100%"" cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafprofilemenu"">" );
+      html.Append( @"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafprofilemenu"">" );
 
       if ( PageContext.BoardSettings.AllowPrivateMessages )
       {

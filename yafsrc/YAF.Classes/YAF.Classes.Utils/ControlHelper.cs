@@ -19,26 +19,77 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web.UI;
 using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace YAF.Classes.Utils
 {
 	static public class ControlHelper
 	{
-		static public System.Web.UI.Control FindControlRecursive(System.Web.UI.Control currentControl, string id)
+		static public Control FindControlRecursiveReverse(Control sourceControl, string id)
 		{
-			System.Web.UI.Control foundControl = currentControl.FindControl(id);
+			Control foundControl = sourceControl.FindControl(id);
 
 			if (foundControl != null)
 			{
 				return foundControl;
 			}
-			else if (currentControl.Parent != null)
+			else if (sourceControl.Parent != null)
 			{
-				return FindControlRecursive(currentControl.Parent, id);
+				return FindControlRecursiveReverse( sourceControl.Parent, id );
 			}
 			return null;
 		}
+
+		/// <summary>
+		/// Find Wizard Control - Find a control in a wizard
+		/// </summary>
+		/// <param name="wizardControl">Wizard control</param>
+		/// <param name="id">ID of target control</param>
+		/// <returns>A control reference, if found, null, if not</returns>
+		static public Control FindWizardControlRecursive(Wizard wizardControl, string id)
+		{
+			Control foundControl = null;
+
+			for (int i = 0; i < wizardControl.WizardSteps.Count; i++)
+			{
+				for (int j = 0; j < wizardControl.WizardSteps[i].Controls.Count; j++)
+				{
+					foundControl = FindControlRecursive( (Control)wizardControl.WizardSteps[i].Controls[j], id );
+					if (foundControl != null) break;
+				}
+				if (foundControl != null) break;
+			}
+
+			return foundControl;
+
+		}
+
+		/// <summary>
+		/// Find Wizard Control - Find a control in a wizard, is recursive
+		/// </summary>
+		/// <param name="sourceControl">Source/Root Control</param>
+		/// <param name="id">ID of target control</param>
+		/// <returns>A Control, if found; null, if not</returns>
+		static public Control FindControlRecursive(Control sourceControl, string id)
+		{
+			Control foundControl = sourceControl.FindControl( id );
+
+			if (foundControl == null)
+			{
+				if (sourceControl.HasControls())
+				{
+					foreach ( Control tmpCtr in sourceControl.Controls )
+					{
+						// Check all child controls of sourceControl
+						foundControl = FindControlRecursive( tmpCtr, id );
+						if (foundControl != null) break;
+					} 
+				} 
+			} 
+			return foundControl;
+		} 
 
 		static public HtmlLink MakeCssIncludeControl(string href)
 		{
