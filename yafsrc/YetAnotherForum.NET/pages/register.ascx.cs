@@ -84,11 +84,11 @@ namespace YAF.Pages // YAF.Pages
 				requirementText.Param1 = Membership.MinRequiredNonAlphanumericCharacters.ToString();
 
 				// handle other steps localization
-				((Button)FindWizardControl("ProfileNextButton")).Text = GetText("SAVE");
-				((Button)FindWizardControl("ContinueButton")).Text = GetText("CONTINUE");
+				((Button)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"ProfileNextButton")).Text = GetText("SAVE");
+				((Button)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"ContinueButton")).Text = GetText("CONTINUE");
 
 				// get the time zone data source
-				DropDownList timeZones = ((DropDownList)FindWizardControl("TimeZones"));
+				DropDownList timeZones = ((DropDownList)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"TimeZones"));
 				timeZones.DataSource = YafStaticData.TimeZones();
 
 				if (!PageContext.BoardSettings.EmailVerification)
@@ -97,14 +97,14 @@ namespace YAF.Pages // YAF.Pages
 					CreateUserWizard1.LoginCreatedUser = true;
 					CreateUserWizard1.DisableCreatedUser = false;
 					// success notification localization
-					((Literal)FindWizardControl("AccountCreated")).Text = YAF.Classes.UI.BBCode.MakeHtml(GetText("ACCOUNT_CREATED"), true, false);
+					((Literal)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"AccountCreated")).Text = YAF.Classes.UI.BBCode.MakeHtml(GetText("ACCOUNT_CREATED"), true, false);
 				}
 				else
 				{
 					CreateUserWizard1.LoginCreatedUser = false;
 					CreateUserWizard1.DisableCreatedUser = true;
 					// success notification localization
-					((Literal)FindWizardControl("AccountCreated")).Text = YAF.Classes.UI.BBCode.MakeHtml(GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
+					((Literal)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"AccountCreated")).Text = YAF.Classes.UI.BBCode.MakeHtml(GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
 				}
 
 				if (PageContext.BoardSettings.EnableCaptchaForRegister)
@@ -128,58 +128,6 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		/// <summary>
-		/// Find Wizard Control - Find a control in a wizard
-		/// </summary>
-		/// <param name="id">ID of target control</param>
-		/// <returns>A control reference, if found, null, if not</returns>
-		protected Control FindWizardControl(string id)
-		{
-			Control ctrlRtn = null;
-
-			for (int i = 0; i < CreateUserWizard1.WizardSteps.Count; i++)
-			{
-				for (int j = 0; j <
-				CreateUserWizard1.WizardSteps[i].Controls.Count; j++)
-				{
-					ctrlRtn = FindWizardControl((Control)CreateUserWizard1.WizardSteps[i].Controls[j], id);
-					if (ctrlRtn != null) break;
-				}
-				if (ctrlRtn != null) break;
-			}
-
-			return ctrlRtn;
-
-		} // end protected Control FindWizardControl(string id)
-
-		/// <summary>
-		/// Find Wizard Control - Find a control in a wizard, is recursive
-		/// </summary>
-		/// <param name="srcCtrl">Source/Root Control</param>
-		/// <param name="id">ID of target control</param>
-		/// <returns>A Control, if found; null, if not</returns>
-		protected Control FindWizardControl(Control srcCtrl, string id)
-		{
-			Control ctrlRtn = srcCtrl.FindControl(id);
-
-			if (ctrlRtn == null)
-			{
-				if (srcCtrl.HasControls())
-				{
-					int nbrCtrls = srcCtrl.Controls.Count;
-					for (int i = 0; i < nbrCtrls; i++)
-					{
-						// Check all child controls of srcCtrl
-						ctrlRtn = FindWizardControl(srcCtrl.Controls[i], id);
-						if (ctrlRtn != null) break;
-					} // endfor (int i=0; i < nbrCtrls; i++)
-				} // endif (HasControls)
-
-			} // endif (ctrlRtn == null)
-
-			return ctrlRtn;
-		} // end protected Control FindWizardControl(Control srcCtrl, string id)
-
 		protected void CreateUserWizard1_PreviousButtonClick(object sender, WizardNavigationEventArgs e)
 		{
 
@@ -190,9 +138,9 @@ namespace YAF.Pages // YAF.Pages
 			if (CreateUserWizard1.WizardSteps[e.CurrentStepIndex].ID == "profile")
 			{
 				// this is the "Profile Information" step. Save the data to their profile (+ defaults).
-				DropDownList timeZones = ((DropDownList)FindWizardControl("TimeZones"));
-				TextBox locationTextBox = ((TextBox)FindWizardControl("Location"));
-				TextBox homepageTextBox = ((TextBox)FindWizardControl("Homepage"));
+				DropDownList timeZones = ((DropDownList)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"TimeZones"));
+				TextBox locationTextBox = ((TextBox)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"Location"));
+				TextBox homepageTextBox = ((TextBox)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"Homepage"));
 
 				MembershipUser user = Membership.GetUser(CreateUserWizard1.UserName);
 

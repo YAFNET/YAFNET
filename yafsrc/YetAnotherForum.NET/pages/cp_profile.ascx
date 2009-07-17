@@ -8,8 +8,10 @@
     </tr>
     <tr>
         <td class="post">
-            <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
-            <YAF:ProfileYourAccount ID="YourAccount" runat="server" />
+						<div id="yafprofilecontainer">
+							<YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+							<YAF:ProfileYourAccount ID="YourAccount" runat="server" />
+            </div>
         </td>
     </tr>
 </table>

@@ -3,7 +3,7 @@
 <head>
 <title>Forum Error</title>
 <link type="text/css" rel="stylesheet" href="resources/forum.css" />
-<link type="text/css" rel="stylesheet" href="themes/yafpro/theme.css" />
+<link type="text/css" rel="stylesheet" href="themes/cleanslate/theme.css" />
 </head>
 <body>
 <div class="yafnet">
@@ -13,10 +13,15 @@
       Forum Error</td>
   </tr>
   <tr>
-    <td class="post" align="center" style="font-size:9pt;color:#990000;">
-      <br />
+    <td class="post" align="center">
+      <p style="color:#990000;">
       <asp:Label ID="ErrorMsg" Enabled="true" runat="server" />
-      <br /><br />
+      </p>
+      <hr/>
+      <p style="font-size:9pt">
+      Note: If you are the administrator, and need help with this problem, please visit this url:
+      <a href="http://wiki.yetanotherforum.net/TroubleShooting%20CustomErrors.ashx">Turn off CustomErrors in your web.config</a>.
+      </p>
     </td>
   </tr>
   <tr>

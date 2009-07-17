@@ -19,6 +19,9 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using YAF.Classes.Utils;
 
@@ -29,10 +32,6 @@ namespace YAF.Pages.Admin
 	/// </summary>
 	public partial class hostsettings : YAF.Classes.Base.AdminPage
 	{
-		protected System.Web.UI.WebControls.CheckBox AllowRichEditX;
-		protected System.Web.UI.HtmlControls.HtmlTableRow Tr1;
-		protected CheckBox AllowHTMLX;
-
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !PageContext.IsHostAdmin )
@@ -63,7 +62,7 @@ namespace YAF.Pages.Admin
 			ControlHelper.AddStyleAttributeWidth( SmiliesPerRow, "25px" );
 			ControlHelper.AddStyleAttributeWidth( SmiliesColumns, "25px" );
 			ControlHelper.AddStyleAttributeWidth(ImageAttachmentResizeWidth, "50px");
-			ControlHelper.AddStyleAttributeWidth( ForumEmailEdit, "200px" );
+			ControlHelper.AddStyleAttributeWidth( ForumEmail, "200px" );
 			ControlHelper.AddStyleAttributeWidth( AcceptedHTML, "200px" );
 			ControlHelper.AddStyleAttributeWidth( DisableNoFollowLinksAfterDay, "100px" );
 
@@ -87,270 +86,121 @@ namespace YAF.Pages.Admin
 
 		private void BindData()
 		{
-			TimeZones.DataSource = YafStaticData.TimeZones();
-			ForumEditorList.DataSource = YAF.Editor.EditorHelper.GetEditorsTable();
+			TimeZoneRaw.DataSource = YafStaticData.TimeZones();
+			ForumEditor.DataSource = YAF.Editor.EditorHelper.GetEditorsTable();
 
 			DataBind();
 
-			// grab all the settings form the current board settings class
-			SQLVersion.Text = PageContext.BoardSettings.SQLVersion;
-			TimeZones.Items.FindByValue( PageContext.BoardSettings.TimeZoneRaw.ToString() ).Selected = true;
-			ForumEditorList.Items.FindByValue( PageContext.BoardSettings.ForumEditor.ToString() ).Selected = true;
-			ForumEmailEdit.Text = PageContext.BoardSettings.ForumEmail;
-			EmailVerification.Checked = PageContext.BoardSettings.EmailVerification;
-			ShowMoved.Checked = PageContext.BoardSettings.ShowMoved;
-			BlankLinks.Checked = PageContext.BoardSettings.BlankLinks;
-			ShowGroupsX.Checked = PageContext.BoardSettings.ShowGroups;
-			AvatarWidth.Text = PageContext.BoardSettings.AvatarWidth.ToString();
-			AvatarHeight.Text = PageContext.BoardSettings.AvatarHeight.ToString();
-			AvatarUpload.Checked = PageContext.BoardSettings.AvatarUpload;
-			AvatarRemote.Checked = PageContext.BoardSettings.AvatarRemote;
+			// load Board Setting collection information...
+			YafBoardSettingCollection settingCollection = new YafBoardSettingCollection( PageContext.BoardSettings );
+
+			// handle checked fields...
+			foreach ( string name in settingCollection.SettingsBool.Keys)
+			{
+				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
+
+				if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanRead)
+				{
+					// get the value from the property...
+					((CheckBox)control).Checked =
+						(bool)
+						Convert.ChangeType( settingCollection.SettingsBool[name].GetValue( PageContext.BoardSettings, null ),
+						                    typeof ( bool ) );
+				}
+			}
+
+			// handle string fields...
+			foreach (string name in settingCollection.SettingsString.Keys)
+			{
+				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
+
+				if (control != null && control is TextBox && settingCollection.SettingsString[name].CanRead)
+				{
+					// get the value from the property...
+					((TextBox)control).Text =
+						(string)
+						Convert.ChangeType( settingCollection.SettingsString[name].GetValue( PageContext.BoardSettings, null ),
+																typeof( string ) );
+				}
+			}
+
+			// handle int fields...
+			foreach (string name in settingCollection.SettingsInt.Keys)
+			{
+				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
+
+				if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanRead)
+				{
+					// get the value from the property...
+					((TextBox) control).Text =
+						settingCollection.SettingsInt[name].GetValue( PageContext.BoardSettings, null ).ToString();
+				}
+				else if ( control != null && control is DropDownList && settingCollection.SettingsInt[name].CanRead)
+				{
+					ListItem listItem = ((DropDownList) control).Items.FindByValue(
+						settingCollection.SettingsInt[name].GetValue( PageContext.BoardSettings, null ).ToString() );
+
+					if ( listItem != null ) listItem.Selected = true;
+				}
+			}
+
+			// special field handling...
 			AvatarSize.Text = (PageContext.BoardSettings.AvatarSize != 0) ? PageContext.BoardSettings.AvatarSize.ToString() : "";
-			AllowUserThemeX.Checked = PageContext.BoardSettings.AllowUserTheme;
-			AllowUserLanguageX.Checked = PageContext.BoardSettings.AllowUserLanguage;
-			UseFileTableX.Checked = PageContext.BoardSettings.UseFileTable;
-			ShowRSSLinkX.Checked = PageContext.BoardSettings.ShowRSSLink;
-			ShowForumJumpX.Checked = PageContext.BoardSettings.ShowForumJump;
-			AllowPrivateMessagesX.Checked = PageContext.BoardSettings.AllowPrivateMessages;
-			AllowEmailSendingX.Checked = PageContext.BoardSettings.AllowEmailSending;
-			AllowSignaturesX.Checked = PageContext.BoardSettings.AllowSignatures;
-			RemoveNestedQuotesX.Checked = PageContext.BoardSettings.RemoveNestedQuotes;
 			MaxFileSize.Text = (PageContext.BoardSettings.MaxFileSize != 0) ? PageContext.BoardSettings.MaxFileSize.ToString() : "";
-			SmiliesColumns.Text = PageContext.BoardSettings.SmiliesColumns.ToString();
-			SmiliesPerRow.Text = PageContext.BoardSettings.SmiliesPerRow.ToString();
-			LockPosts.Text = PageContext.BoardSettings.LockPosts.ToString();
-			PostsPerPage.Text = PageContext.BoardSettings.PostsPerPage.ToString();
-			TopicsPerPage.Text = PageContext.BoardSettings.TopicsPerPage.ToString();
-			DateFormatFromLanguage.Checked = PageContext.BoardSettings.DateFormatFromLanguage;
-			AcceptedHTML.Text = PageContext.BoardSettings.AcceptedHTML;
-			DisableRegistrations.Checked = PageContext.BoardSettings.DisableRegistrations;
-			CreateNntpUsers.Checked = PageContext.BoardSettings.CreateNntpUsers;
-			ShowGroupsProfile.Checked = PageContext.BoardSettings.ShowGroupsProfile;
-			PostFloodDelay.Text = PageContext.BoardSettings.PostFloodDelay.ToString();
-			PollVoteTiedToIPX.Checked = PageContext.BoardSettings.PollVoteTiedToIP;
-			AllowPMNotifications.Checked = PageContext.BoardSettings.AllowPMEmailNotification;
-			ShowPageGenerationTime.Checked = PageContext.BoardSettings.ShowPageGenerationTime;
-			AdPost.Text = PageContext.BoardSettings.AdPost;
-			ShowAdsToSignedInUsers.Checked = PageContext.BoardSettings.ShowAdsToSignedInUsers;
-			DisplayPoints.Checked = PageContext.BoardSettings.DisplayPoints;
-			ShowQuickAnswerX.Checked = PageContext.BoardSettings.ShowQuickAnswer;
-			ShowDeletedMessages.Checked = PageContext.BoardSettings.ShowDeletedMessages;
-			ShowDeletedMessagesToAll.Checked = PageContext.BoardSettings.ShowDeletedMessagesToAll;
-			EditTimeOut.Text = PageContext.BoardSettings.EditTimeOut.ToString();
-			ShowYAFVersion.Checked = PageContext.BoardSettings.ShowYAFVersion;
-			UseNoFollowLinks.Checked = PageContext.BoardSettings.UseNoFollowLinks;
-			DisableNoFollowLinksAfterDay.Text = PageContext.BoardSettings.DisableNoFollowLinksAfterDay.ToString();
-			ShowRulesForRegistrationX.Checked = PageContext.BoardSettings.ShowRulesForRegistration;
-			ShowModeratorList.Checked = PageContext.BoardSettings.ShowModeratorList;
-			AllowLoginAndLogoff.Checked = PageContext.BoardSettings.AllowLoginAndLogoff;
-			DoUrlReferrerSecurityCheck.Checked = PageContext.BoardSettings.DoUrlReferrerSecurityCheck;
-			AllowPasswordChange.Checked = PageContext.BoardSettings.AllowPasswordChange;
 
-			// image attachment resize settings...
-			ImageAttachmentResizeWidth.Text = PageContext.BoardSettings.ImageAttachmentResizeWidth.ToString();
-			EnableImageAttachmentResize.Checked = PageContext.BoardSettings.EnableImageAttachmentResize;
-
-			// Ederon : 7/1/2007 added
-			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
-			DisplayJoinDate.Checked = PageContext.BoardSettings.DisplayJoinDate;
-			ShowMedals.Checked = PageContext.BoardSettings.ShowMedals;
-			AllowPostToBlog.Checked = PageContext.BoardSettings.AllowPostToBlog;
-
-			// Mek : 08/18/2007 Added
-			AllowReportAbuse.Checked = PageContext.BoardSettings.AllowReportAbuse;
-			AllowReportSpam.Checked = PageContext.BoardSettings.AllowReportSpam;
-
-			// Ederon : 8/29/2007 added
-			AllowEmailTopic.Checked = PageContext.BoardSettings.AllowEmailTopic;
-
-			// Ederon : 7/14/2007 added
-			UserBox.Text = PageContext.BoardSettings.UserBox;
-			UserBoxAvatar.Text = PageContext.BoardSettings.UserBoxAvatar;
-			UserBoxMedals.Text = PageContext.BoardSettings.UserBoxMedals;
-			UserBoxGroups.Text = PageContext.BoardSettings.UserBoxGroups;
-			UserBoxJoinDate.Text = PageContext.BoardSettings.UserBoxJoinDate;
-			UserBoxLocation.Text = PageContext.BoardSettings.UserBoxLocation;
-			UserBoxPoints.Text = PageContext.BoardSettings.UserBoxPoints;
-			UserBoxPosts.Text = PageContext.BoardSettings.UserBoxPosts;
-			UserBoxRank.Text = PageContext.BoardSettings.UserBoxRank;
-			UserBoxRankImage.Text = PageContext.BoardSettings.UserBoxRankImage;
-
-			// Ederon : 11/21/2007 added
-			ProfileViewPermissions.SelectedIndex = PageContext.BoardSettings.ProfileViewPermissions;
-
-			// Ederon : 12/9/2007 added
-			RequireLogin.Checked = PageContext.BoardSettings.RequireLogin;
-			MembersListViewPermissions.SelectedIndex = PageContext.BoardSettings.MembersListViewPermissions;
-			ActiveUsersViewPermissions.SelectedIndex = PageContext.BoardSettings.ActiveUsersViewPermissions;
-
-			// Ederon : 12/14/2007 added
-			ShowForumStatistics.Checked = PageContext.BoardSettings.ShowForumStatistics;
-			ShowActiveDiscussions.Checked = PageContext.BoardSettings.ShowActiveDiscussions;
-			ActiveDiscussionsCount.Text = PageContext.BoardSettings.ActiveDiscussionsCount.ToString();
-			SearchStringMinLength.Text = PageContext.BoardSettings.SearchStringMinLength.ToString();
-			SearchStringPattern.Text = PageContext.BoardSettings.SearchStringPattern;
-			SearchPermissions.SelectedIndex = PageContext.BoardSettings.SearchPermissions;
-
-			// Ederon : 12/18/2007 added
-			MaxPrivateMessagesPerUser.Text = PageContext.BoardSettings.MaxPrivateMessagesPerUser.ToString();
-			PrivateMessageMaxRecipients.Text = PageContext.BoardSettings.PrivateMessageMaxRecipients.ToString();
-
-			// MDDubs : 2/7/2008 added
-			AllowEmailChange.Checked = PageContext.BoardSettings.AllowEmailChange;
-
-			// Ederon : 02/17/2009 added
-			PictureAttachmentDisplayTreshold.Text = PageContext.BoardSettings.PictureAttachmentDisplayTreshold.ToString();
-
-			// Caching
-			ForumStatisticsCacheTimeout.Text = PageContext.BoardSettings.ForumStatisticsCacheTimeout.ToString();
-			ActiveDiscussionsCacheTimeout.Text = PageContext.BoardSettings.ActiveDiscussionsCacheTimeout.ToString();
-			BoardModeratorsCacheTimeout.Text = PageContext.BoardSettings.BoardModeratorsCacheTimeout.ToString();
-			BoardCategoriesCacheTimeout.Text = PageContext.BoardSettings.BoardCategoriesCacheTimeout.ToString();
-			ReplaceRulesCacheTimeout.Text = PageContext.BoardSettings.ReplaceRulesCacheTimeout.ToString();
-
-			// Captcha Settings
-			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
-			EnableCaptchaForPost.Checked = PageContext.BoardSettings.EnableCaptchaForPost;
-			EnableCaptchaForRegister.Checked = PageContext.BoardSettings.EnableCaptchaForRegister;
-			EnableCaptchaForGuests.Checked = PageContext.BoardSettings.EnableCaptchaForGuests;
-
-			// Search Settings
-			ReturnSearchMax.Text = PageContext.BoardSettings.ReturnSearchMax.ToString();
-			UseFullTextSearch.Checked = PageContext.BoardSettings.UseFullTextSearch;
-
-			MaxPostSize.Text = PageContext.BoardSettings.MaxPostSize.ToString();
-			CustomLoginRedirectUrl.Text = PageContext.BoardSettings.CustomLoginRedirectUrl;
+			SQLVersion.Text = PageContext.BoardSettings.SQLVersion;
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
 		{
 			// write all the settings back to the settings class
-			PageContext.BoardSettings.TimeZoneRaw = Convert.ToInt32( TimeZones.SelectedItem.Value );
-			PageContext.BoardSettings.ForumEditor = Convert.ToInt32( ForumEditorList.SelectedItem.Value );
-			PageContext.BoardSettings.ForumEmail = ForumEmailEdit.Text;
-			PageContext.BoardSettings.EmailVerification = EmailVerification.Checked;
-			PageContext.BoardSettings.ShowMoved = ShowMoved.Checked;
-			PageContext.BoardSettings.BlankLinks = BlankLinks.Checked;
-			PageContext.BoardSettings.ShowGroups = ShowGroupsX.Checked;
-			PageContext.BoardSettings.AvatarWidth = Convert.ToInt32( AvatarWidth.Text );
-			PageContext.BoardSettings.AvatarHeight = Convert.ToInt32( AvatarHeight.Text );
-			PageContext.BoardSettings.AvatarUpload = AvatarUpload.Checked;
-			PageContext.BoardSettings.AvatarRemote = AvatarRemote.Checked;
-			PageContext.BoardSettings.AvatarSize = (AvatarSize.Text.Trim().Length > 0) ? Convert.ToInt32( AvatarSize.Text ) : 0;
-			PageContext.BoardSettings.AllowUserTheme = AllowUserThemeX.Checked;
-			PageContext.BoardSettings.AllowUserLanguage = AllowUserLanguageX.Checked;
-			PageContext.BoardSettings.UseFileTable = UseFileTableX.Checked;
-			PageContext.BoardSettings.ShowRSSLink = ShowRSSLinkX.Checked;
-			PageContext.BoardSettings.ShowForumJump = ShowForumJumpX.Checked;
-			PageContext.BoardSettings.AllowPrivateMessages = AllowPrivateMessagesX.Checked;
-			PageContext.BoardSettings.AllowEmailSending = AllowEmailSendingX.Checked;
-			PageContext.BoardSettings.AllowSignatures = AllowSignaturesX.Checked;
-			PageContext.BoardSettings.RemoveNestedQuotes = RemoveNestedQuotesX.Checked;
-			PageContext.BoardSettings.MaxFileSize = (MaxFileSize.Text.Trim().Length > 0) ? Convert.ToInt32( MaxFileSize.Text.Trim() ) : 0;
-			PageContext.BoardSettings.SmiliesColumns = Convert.ToInt32( SmiliesColumns.Text.Trim() );
-			PageContext.BoardSettings.SmiliesPerRow = Convert.ToInt32( SmiliesPerRow.Text.Trim() );
-			PageContext.BoardSettings.LockPosts = LockPosts.Text.Trim() == string.Empty ? 0 : Convert.ToInt32( LockPosts.Text.Trim() );
-			PageContext.BoardSettings.PostsPerPage = Convert.ToInt32( PostsPerPage.Text.Trim() );
-			PageContext.BoardSettings.TopicsPerPage = Convert.ToInt32( TopicsPerPage.Text.Trim() );
-			PageContext.BoardSettings.PostFloodDelay = Convert.ToInt32( PostFloodDelay.Text.Trim() );
-			PageContext.BoardSettings.DateFormatFromLanguage = DateFormatFromLanguage.Checked;
-			PageContext.BoardSettings.AcceptedHTML = AcceptedHTML.Text.Trim();
-			PageContext.BoardSettings.DisableRegistrations = DisableRegistrations.Checked;
-			PageContext.BoardSettings.CreateNntpUsers = CreateNntpUsers.Checked;
-			PageContext.BoardSettings.ShowGroupsProfile = ShowGroupsProfile.Checked;
-			PageContext.BoardSettings.PollVoteTiedToIP = PollVoteTiedToIPX.Checked;
-			PageContext.BoardSettings.AllowPMEmailNotification = AllowPMNotifications.Checked;
-			PageContext.BoardSettings.ShowPageGenerationTime = ShowPageGenerationTime.Checked;
-			PageContext.BoardSettings.AdPost = AdPost.Text;
-			PageContext.BoardSettings.ShowAdsToSignedInUsers = ShowAdsToSignedInUsers.Checked;
-			PageContext.BoardSettings.DisplayPoints = DisplayPoints.Checked;
-			PageContext.BoardSettings.ShowQuickAnswer = ShowQuickAnswerX.Checked;
-			PageContext.BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
-			PageContext.BoardSettings.ShowDeletedMessagesToAll = ShowDeletedMessagesToAll.Checked;
-			PageContext.BoardSettings.EditTimeOut = Convert.ToInt32( EditTimeOut.Text );
-			PageContext.BoardSettings.ShowYAFVersion = ShowYAFVersion.Checked;
-			PageContext.BoardSettings.DisableNoFollowLinksAfterDay = Convert.ToInt32( DisableNoFollowLinksAfterDay.Text );
-			PageContext.BoardSettings.UseNoFollowLinks = UseNoFollowLinks.Checked;
-			PageContext.BoardSettings.ShowRulesForRegistration = ShowRulesForRegistrationX.Checked;
-			PageContext.BoardSettings.ShowModeratorList = ShowModeratorList.Checked;
-			PageContext.BoardSettings.AllowLoginAndLogoff = AllowLoginAndLogoff.Checked;
-			PageContext.BoardSettings.DoUrlReferrerSecurityCheck = DoUrlReferrerSecurityCheck.Checked;
-			PageContext.BoardSettings.AllowPasswordChange = AllowPasswordChange.Checked;
 
-			// Ederon : 7/1/2007 added
-			PageContext.BoardSettings.ShowBrowsingUsers = ShowBrowsingUsers.Checked;
-			PageContext.BoardSettings.ShowMedals = ShowMedals.Checked;
-			PageContext.BoardSettings.DisplayJoinDate = DisplayJoinDate.Checked;
-			PageContext.BoardSettings.AllowPostToBlog = AllowPostToBlog.Checked;
+			// load Board Setting collection information...
+			YafBoardSettingCollection settingCollection = new YafBoardSettingCollection( PageContext.BoardSettings );
 
-			// Mek : 8/18/2007 added
-			PageContext.BoardSettings.AllowReportAbuse = AllowReportAbuse.Checked;
-			PageContext.BoardSettings.AllowReportSpam = AllowReportSpam.Checked;
+			// handle checked fields...
+			foreach (string name in settingCollection.SettingsBool.Keys)
+			{
+				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
 
-			// Ederon : 8/29/2007 added
-			PageContext.BoardSettings.AllowEmailTopic = AllowEmailTopic.Checked;
+				if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
+				{
+					settingCollection.SettingsBool[name].SetValue( PageContext.BoardSettings, ((CheckBox)control).Checked, null );
+				}
+			}
 
-			// Ederon : 7/14/2007 added
-			PageContext.BoardSettings.UserBox = UserBox.Text;
-			PageContext.BoardSettings.UserBoxAvatar = UserBoxAvatar.Text;
-			PageContext.BoardSettings.UserBoxMedals = UserBoxMedals.Text;
-			PageContext.BoardSettings.UserBoxGroups = UserBoxGroups.Text;
-			PageContext.BoardSettings.UserBoxJoinDate = UserBoxJoinDate.Text;
-			PageContext.BoardSettings.UserBoxLocation = UserBoxLocation.Text;
-			PageContext.BoardSettings.UserBoxPoints = UserBoxPoints.Text;
-			PageContext.BoardSettings.UserBoxPosts = UserBoxPosts.Text;
-			PageContext.BoardSettings.UserBoxRank = UserBoxRank.Text;
-			PageContext.BoardSettings.UserBoxRankImage = UserBoxRankImage.Text;
+			// handle string fields...
+			foreach (string name in settingCollection.SettingsString.Keys)
+			{
+				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
 
-			// Ederon : 11/21/2007 added
-			PageContext.BoardSettings.ProfileViewPermissions = ProfileViewPermissions.SelectedIndex;
+				if (control != null && control is TextBox && settingCollection.SettingsString[name].CanWrite)
+				{
+					settingCollection.SettingsString[name].SetValue( PageContext.BoardSettings, ((TextBox)control).Text.Trim(), null );
+				}
+			}
 
-			// Ederon : 12/9/2007 added
-			PageContext.BoardSettings.RequireLogin = RequireLogin.Checked;
-			PageContext.BoardSettings.MembersListViewPermissions = MembersListViewPermissions.SelectedIndex;
-			PageContext.BoardSettings.ActiveUsersViewPermissions = ActiveUsersViewPermissions.SelectedIndex;
+			// handle int fields...
+			foreach (string name in settingCollection.SettingsInt.Keys)
+			{
+				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
 
-			// Ederon : 12/14/2007 added
-			PageContext.BoardSettings.ShowForumStatistics = ShowForumStatistics.Checked;
-			PageContext.BoardSettings.ShowActiveDiscussions = ShowActiveDiscussions.Checked;
-			PageContext.BoardSettings.ActiveDiscussionsCount = Convert.ToInt32( ActiveDiscussionsCount.Text.Trim() );
-			PageContext.BoardSettings.SearchStringMinLength = Convert.ToInt32( SearchStringMinLength.Text.Trim() );
-			PageContext.BoardSettings.SearchStringPattern = SearchStringPattern.Text;
-			PageContext.BoardSettings.SearchPermissions = SearchPermissions.SelectedIndex;
+				if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanWrite)
+				{
+					string value = ((TextBox) control).Text.Trim();
+					int i = 0;
 
-			// Ederon : 12/18/2007 added
-			PageContext.BoardSettings.MaxPrivateMessagesPerUser = Convert.ToInt32( MaxPrivateMessagesPerUser.Text.Trim() );
-			PageContext.BoardSettings.PrivateMessageMaxRecipients = Convert.ToInt32( PrivateMessageMaxRecipients.Text.Trim() );
+					if ( String.IsNullOrEmpty( value )) i = 0;
+					else int.TryParse( value, out i );
 
-			// MDDubs : 2/7/2008 added
-			PageContext.BoardSettings.AllowEmailChange = AllowEmailChange.Checked;
-
-			// Ederon : 02/17/2009 added
-			PageContext.BoardSettings.PictureAttachmentDisplayTreshold = Convert.ToInt32( PictureAttachmentDisplayTreshold.Text.Trim() );
-
-			// Caching
-			PageContext.BoardSettings.ForumStatisticsCacheTimeout = Convert.ToInt32( ForumStatisticsCacheTimeout.Text.Trim() );
-			PageContext.BoardSettings.ActiveDiscussionsCacheTimeout = Convert.ToInt32( ActiveDiscussionsCacheTimeout.Text.Trim() );
-			PageContext.BoardSettings.BoardModeratorsCacheTimeout = Convert.ToInt32( BoardModeratorsCacheTimeout.Text.Trim() );
-			PageContext.BoardSettings.BoardCategoriesCacheTimeout = Convert.ToInt32( BoardCategoriesCacheTimeout.Text.Trim() );
-			PageContext.BoardSettings.ReplaceRulesCacheTimeout = Convert.ToInt32( ReplaceRulesCacheTimeout.Text.Trim() );
-
-			// CAPTCHA stuff
-			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );
-			PageContext.BoardSettings.EnableCaptchaForPost = EnableCaptchaForPost.Checked;
-			PageContext.BoardSettings.EnableCaptchaForRegister = EnableCaptchaForRegister.Checked;
-			PageContext.BoardSettings.EnableCaptchaForGuests = EnableCaptchaForGuests.Checked;
-
-			// Search Settings
-			PageContext.BoardSettings.ReturnSearchMax = Convert.ToInt32( ReturnSearchMax.Text.Trim() );
-			PageContext.BoardSettings.UseFullTextSearch = UseFullTextSearch.Checked;
-
-			PageContext.BoardSettings.MaxPostSize = Convert.ToInt32(MaxPostSize.Text);
-			PageContext.BoardSettings.CustomLoginRedirectUrl = CustomLoginRedirectUrl.Text.Trim();
-
-			// image attachment resize settings...
-			PageContext.BoardSettings.ImageAttachmentResizeWidth = Convert.ToInt32( ImageAttachmentResizeWidth.Text );
-			PageContext.BoardSettings.EnableImageAttachmentResize = EnableImageAttachmentResize.Checked;
+					settingCollection.SettingsInt[name].SetValue( PageContext.BoardSettings, i, null );
+				}
+				else if (control != null && control is DropDownList && settingCollection.SettingsInt[name].CanWrite)
+				{
+					settingCollection.SettingsInt[name].SetValue( PageContext.BoardSettings,
+					                                                 Convert.ToInt32(((DropDownList) control).SelectedItem.Value), null );
+				}
+			}
 
 			// save the settings to the database
 			PageContext.BoardSettings.SaveRegistry();

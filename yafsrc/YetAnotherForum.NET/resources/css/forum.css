@@ -1,6 +1,10 @@
 /*
 	This File is for basic LAYOUT CSS -- Not for Color/Design which should stay in the theme.css file
 */
+.yafnet
+{
+	padding: 5px;
+}
 .yafnet .quickReplyLine
 {
 	padding: 5px 10px 5px 5px;
@@ -70,10 +74,18 @@
 	width: 150px;
 	margin: 5px 5px 5px 0px;
 }
+.yafnet #yafprofilecontainer
+{
+
+}
+.yafnet #yafprofilemenu
+{
+	width: 19%; float: left; clear: left;
+}
 .yafnet #yafprofilecontent
 {
 	margin: 5px 0px 5px 0px;
-	float: left;
+	width: 80%; float: right;
 }
 .yafnet td.forumIconCol
 {

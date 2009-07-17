@@ -11,14 +11,14 @@
 <ajaxToolkit:TabContainer runat="server" ID="PMTabs" CssClass="ajax__tab_yaf">
     <ajaxToolkit:TabPanel runat="server" ID="InboxTab" OnClientClick="InboxTabRefresh">
         <ContentTemplate>
-            <asp:UpdatePanel ID="InboxTabUpdatePanel" runat="server">
+            <asp:UpdatePanel ID="InboxTabUpdatePanel" UpdateMode="Conditional" runat="server">
             <ContentTemplate>
                 <YAF:PMList runat="server" View="Inbox" ID="InboxPMList" />
             </ContentTemplate>
             </asp:UpdatePanel>
         </ContentTemplate>
     </ajaxToolkit:TabPanel>
-    <ajaxToolkit:TabPanel runat="server" ID="OutboxTab" OnClientClick="SentTabRefresh">
+    <ajaxToolkit:TabPanel runat="server" ID="OutboxTab" UpdateMode="Conditional" OnClientClick="SentTabRefresh">
         <ContentTemplate>
             <asp:UpdatePanel ID="SentTabUpdatePanel" runat="server">
             <ContentTemplate>        
@@ -27,7 +27,7 @@
             </asp:UpdatePanel>            
         </ContentTemplate>
     </ajaxToolkit:TabPanel>
-    <ajaxToolkit:TabPanel runat="server" ID="ArchiveTab" OnClientClick="ArchiveTabRefresh">
+    <ajaxToolkit:TabPanel runat="server" ID="ArchiveTab" UpdateMode="Conditional" OnClientClick="ArchiveTabRefresh">
         <ContentTemplate>
             <asp:UpdatePanel ID="ArchiveTabUpdatePanel" runat="server">
             <ContentTemplate>        

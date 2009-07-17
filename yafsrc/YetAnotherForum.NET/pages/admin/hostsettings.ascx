@@ -25,7 +25,7 @@
                                     <b>Time Zone:</b><br>
                                     The time zone of the web server.</td>
                                 <td class="post">
-                                    <asp:DropDownList ID="TimeZones" runat="server" DataValueField="Value" DataTextField="Name">
+                                    <asp:DropDownList ID="TimeZoneRaw" runat="server" DataValueField="Value" DataTextField="Name">
                                     </asp:DropDownList></td>
                             </tr>
                             <tr>
@@ -33,7 +33,7 @@
                                     <b>Forum Email:</b><br>
                                     The from address when sending emails to users.</td>
                                 <td class="post">
-                                    <asp:TextBox ID="ForumEmailEdit" runat="server"></asp:TextBox></td>
+                                    <asp:TextBox ID="ForumEmail" runat="server"></asp:TextBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -47,7 +47,7 @@
                                     <b>Use File Table:</b><br>
                                     Uploaded files will be saved in the database instead of the file system.</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="UseFileTableX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="UseFileTable" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -57,7 +57,7 @@
                                     votes also use IP as a reference providing the most security against voter fraud.
                                 </td>
                                 <td class="post">
-                                    <asp:CheckBox ID="PollVoteTiedToIPX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="PollVoteTiedToIP" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -200,14 +200,14 @@
                                     <b>Show RSS Links:</b><br>
                                     Enable or disable display of RSS links throughout the forum.</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="ShowRSSLinkX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="ShowRSSLink" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Show Forum Jump Box:</b><br>
                                     Enable or disable display of the Forum Jump Box throughout the forum.</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="ShowForumJumpX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="ShowForumJump" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -257,7 +257,7 @@
                                     <b>Allow Quick Answer:</b><br>
                                     Enable or disable display of the Quick Reply Box at the bottom of the Posts page</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="ShowQuickAnswerX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="ShowQuickAnswer" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="header1" colspan="2">
@@ -409,7 +409,7 @@
                                     <b>Show Groups:</b><br>
                                     Should the groups a user is part of be visible on the posts page.</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="ShowGroupsX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="ShowGroups" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -459,14 +459,14 @@
                                     <b>Show "Rules" Before Registration:</b><br>
                                     Require that "rules" are shown and accepted before a new user can register.</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="ShowRulesForRegistrationX" runat="server" /></td>
+                                    <asp:CheckBox ID="ShowRulesForRegistration" runat="server" /></td>
                             </tr>                            
                             <tr>
                                 <td class="postheader">
                                     <b>Remove Nested Quotes:</b><br>
                                     Automatically remove nested [quote] tags from replies.</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="RemoveNestedQuotesX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="RemoveNestedQuotes" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -559,7 +559,7 @@
                                     put in \editors.
                                 </td>
                                 <td class="post">
-                                    <asp:DropDownList ID="ForumEditorList" runat="server" DataValueField="Value" DataTextField="Name">
+                                    <asp:DropDownList ID="ForumEditor" runat="server" DataValueField="Value" DataTextField="Name">
                                     </asp:DropDownList></td>
                             </tr>
                             <tr>
@@ -585,21 +585,21 @@
                                     <b>Allow User Change Theme:</b><br>
                                     Should users be able to choose what theme they want to use?</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="AllowUserThemeX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="AllowUserTheme" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Allow User Change Language:</b><br>
                                     Should users be able to choose what language they want to use?</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="AllowUserLanguageX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="AllowUserLanguage" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Allow Private Messages:</b><br>
                                     Allow users to access and send private messages.</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="AllowPrivateMessagesX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="AllowPrivateMessages" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -613,7 +613,7 @@
                                     <b>Allow Email Sending:</b><br>
                                     Allow users to send emails to each other.</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="AllowEmailSendingX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="AllowEmailSending" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -634,7 +634,7 @@
                                     <b>Allow Signatures:</b><br>
                                     Allow users to create signatures.</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="AllowSignaturesX" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="AllowSignatures" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">

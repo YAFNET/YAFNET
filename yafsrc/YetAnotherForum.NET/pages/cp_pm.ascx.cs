@@ -32,58 +32,50 @@ using YAF.Controls;
 
 namespace YAF.Pages
 {
-	// Note: As of AjaxControlToolkit v1.0.10301.0 (build 10531), there is a bug in the Tabs control that prevents some postbacks from 
-	// remembering the previous active tab.  
-	// See here: http://www.codeplex.com/WorkItem/View.aspx?ProjectName=AtlasControlToolkit&WorkItemId=8255
-	//
-	// Workaround: 
-	// Wrapping the Tabs control in an UpdatePanel, as suggested in forum 
-	// discussion: http://forums.asp.net/p/1068120/1579184.aspx
-
 	public partial class cp_pm : YAF.Classes.Base.ForumPage
 	{
 		private PMView _View;
 
 		public cp_pm()
-			: base( "CP_PM" )
+			: base("CP_PM")
 		{ }
 
-		protected void Page_Load( object sender, EventArgs e )
+		protected void Page_Load(object sender, EventArgs e)
 		{
-			if ( User == null || PageContext.IsGuest )
+			if (User == null || PageContext.IsGuest)
 				RedirectNoAccess();
 
 			// check if this feature is disabled
-			if ( !PageContext.BoardSettings.AllowPrivateMessages )
-				YafBuildLink.Redirect( ForumPages.info, "i=5" );
+			if (!PageContext.BoardSettings.AllowPrivateMessages)
+				YafBuildLink.Redirect(ForumPages.info, "i=5");
 
-			if ( !IsPostBack )
+			if (!IsPostBack)
 			{
-				_View = PMViewConverter.FromQueryString( Request.QueryString ["v"] );
-				if ( _View == PMView.Inbox )
+				_View = PMViewConverter.FromQueryString(Request.QueryString["v"]);
+				if (_View == PMView.Inbox)
 					this.PMTabs.ActiveTab = this.InboxTab;
-				else if ( _View == PMView.Outbox )
+				else if (_View == PMView.Outbox)
 					this.PMTabs.ActiveTab = this.OutboxTab;
-				else if ( _View == PMView.Archive )
+				else if (_View == PMView.Archive)
 					this.PMTabs.ActiveTab = this.ArchiveTab;
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
-				PageLinks.AddLink( GetText( "TITLE" ) );
+				PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+				PageLinks.AddLink(PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
+				PageLinks.AddLink(GetText("TITLE"));
 
-				InboxTab.HeaderText = GetText( "INBOX" );
-				OutboxTab.HeaderText = GetText( "SENTITEMS" );
-				ArchiveTab.HeaderText = GetText( "ARCHIVE" );
+				InboxTab.HeaderText = GetText("INBOX");
+				OutboxTab.HeaderText = GetText("SENTITEMS");
+				ArchiveTab.HeaderText = GetText("ARCHIVE");
 
-				NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.pmessage );
+				NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage);
 				NewPM2.NavigateUrl = NewPM.NavigateUrl;
 
 				// inbox tab
-				ScriptManager.RegisterClientScriptBlock( InboxTabUpdatePanel, typeof( UpdatePanel ), "InboxTabRefresh", String.Format( "function InboxTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", InboxTabUpdatePanel.ClientID, '{', '}' ), true );
+				ScriptManager.RegisterClientScriptBlock(InboxTabUpdatePanel, typeof(UpdatePanel), "InboxTabRefresh", String.Format("function InboxTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", InboxTabUpdatePanel.ClientID, '{', '}'), true);
 				// sent tab
-				ScriptManager.RegisterClientScriptBlock( SentTabUpdatePanel, typeof( UpdatePanel ), "SentTabRefresh", String.Format( "function SentTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", SentTabUpdatePanel.ClientID, '{', '}' ), true );
+				ScriptManager.RegisterClientScriptBlock(SentTabUpdatePanel, typeof(UpdatePanel), "SentTabRefresh", String.Format("function SentTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", SentTabUpdatePanel.ClientID, '{', '}'), true);
 				// archive tab
-				ScriptManager.RegisterClientScriptBlock( ArchiveTabUpdatePanel, typeof( UpdatePanel ), "ArchiveTabRefresh", String.Format( "function ArchiveTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", ArchiveTabUpdatePanel.ClientID, '{', '}' ), true );
+				ScriptManager.RegisterClientScriptBlock(ArchiveTabUpdatePanel, typeof(UpdatePanel), "ArchiveTabRefresh", String.Format("function ArchiveTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", ArchiveTabUpdatePanel.ClientID, '{', '}'), true);
 
 			}
 
