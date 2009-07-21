@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EBBEABD8-324F-4BDC-873E-DDA78B6E669D}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -51,14 +51,25 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="YAF.Classes.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="YAF.Classes.Config">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Bin\YAF.Classes.Config.dll</HintPath>
+      <HintPath>..\yafsrc\YetAnotherForum.NET\Bin\Net3.5\YAF.Classes.Config.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DotNetNukeModule.ascx.cs">
+      <DependentUpon>DotNetNukeModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DotNetNukeModuleEdit.ascx.cs">
+      <DependentUpon>DotNetNukeModuleEdit.ascx</DependentUpon>
+    </Compile>
     <Compile Include="DotNetNukeUrlBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DotNetNukeModule.ascx" />
+    <Content Include="DotNetNukeModuleEdit.ascx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -80,6 +91,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
