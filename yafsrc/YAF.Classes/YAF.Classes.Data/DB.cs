@@ -140,6 +140,21 @@ namespace YAF.Classes.Data
 
 		#endregion
 
+		static private bool GetBooleanRegistryValue( string name )
+		{
+			using (DataTable dt = YAF.Classes.Data.DB.registry_list(name))
+			{
+				foreach ( DataRow dr in dt.Rows )
+				{
+					int i;
+					return int.TryParse( dr["Value"].ToString(), out i )
+					       	? SqlDataLayerConverter.VerifyBool( i )
+					       	: SqlDataLayerConverter.VerifyBool( dr["Value"] );
+				}
+			}
+			return false;
+		}
+
 		#region Forum
 
 		static public DataRow pageload( object sessionID, object boardID, object userKey, object ip, object location, object browser,
@@ -594,16 +609,7 @@ namespace YAF.Classes.Data
 		/// <param name="attachmentID">ID of attachment to delete</param>
 		static public void attachment_delete( object attachmentID )
 		{
-			bool UseFileTable = false;
-
-			using ( DataTable dt = YAF.Classes.Data.DB.registry_list( "UseFileTable" ) )
-				foreach ( DataRow dr in dt.Rows )
-				{
-					int i;
-					UseFileTable =  int.TryParse( dr["Value"].ToString(), out i )
-					       	? SqlDataLayerConverter.VerifyBool( i )
-					       	: SqlDataLayerConverter.VerifyBool(dr["Value"]);		
-				}
+			bool UseFileTable = GetBooleanRegistryValue( "UseFileTable" );
 
 			//If the files are actually saved in the Hard Drive
 			if ( !UseFileTable )
@@ -1896,11 +1902,7 @@ namespace YAF.Classes.Data
 		}
 		static private void message_deleteRecursively( object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked, bool isLinked, bool eraseMessages )
 		{
-			bool UseFileTable = false;
-
-			using ( DataTable dt = DB.registry_list( "UseFileTable" ) )
-				foreach ( DataRow dr in dt.Rows )
-					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr["Value"] ) );
+			bool UseFileTable = GetBooleanRegistryValue( "UseFileTable" );
 
 			if ( DeleteLinked )
 			{
@@ -2080,11 +2082,7 @@ namespace YAF.Classes.Data
 		//moves answers of moved post
 		static private void message_moveRecursively( object messageID, object moveToTopic )
 		{
-			bool UseFileTable = false;
-
-			using ( DataTable dt = DB.registry_list( "UseFileTable" ) )
-				foreach ( DataRow dr in dt.Rows )
-					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr["Value"] ) );
+			bool UseFileTable = GetBooleanRegistryValue( "UseFileTable" );
 
 			//Delete replies
 			using ( SqlCommand cmd = DBAccess.GetCommand( "message_getReplies" ) )
