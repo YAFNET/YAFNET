@@ -107,35 +107,32 @@ namespace YAF.Classes.Utils
 		{
 			string localizedText = GetText( TransPage, text );
 
-			if ( args.Length > 0 )
+			/* get the localization string parameter count...
+			int iParamCount = 0;
+			for (; iParamCount<10; iParamCount++)
 			{
-				// validate parameters are equal or less then...
-				bool isValidCount = true;
-				int i = 0;
-				for (;i<args.Length;i++)
+				if (!localizedText.Contains("{" + iParamCount.ToString()))
 				{
-					if ( !localizedText.Contains( "{" + i.ToString() ) )
-					{
-						// not valid...
-						isValidCount = false;
-						break;
-					}
+					break;
 				}
-
-				if ( !isValidCount )
-				{
+			}
 #if DEBUG
 					localizedText = String.Format( "[INVALID: {1}.{0} -- NEEDS {2} PARAMETERS HAS {3}]", text.ToUpper(), TransPage.ToUpper(), args.Length, i );
 #endif
 					// inform that the value is wrong to the admin and don't format the string...
 					Data.DB.eventlog_create(YafContext.Current.PageUserID, TransPage.ToLower() + ".ascx", String.Format("Not enough parameters for localization entry {1}.{0} -- Needs {2} parameters, has {3}.", text.ToUpper(), TransPage.ToUpper(), args.Length, i), Data.EventLogTypes.Warning);
-				}
-				else
-				{
-					// run format command...
-					localizedText = String.Format( localizedText, args );
-				}
+			*/
+
+			object[] values = new object[10];
+
+			args.CopyTo( values, 0 );
+			for (int i=args.Length;i<10; i++)
+			{
+				values.SetValue( String.Format( "[INVALID: {1}.{0} -- EMPTY PARAM #{2}]", text.ToUpper(), TransPage.ToUpper(), i ), i );
 			}
+
+			// run format command...
+			localizedText = String.Format( localizedText, values );
 
 			return localizedText;
 		}
