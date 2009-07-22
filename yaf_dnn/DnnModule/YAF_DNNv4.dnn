@@ -2,9 +2,9 @@
 	<folders>
 		<folder>
 			<name>YetAnotherForumDotNet</name>
-			<description>Add the YAF forum to your portal.</description>
-			<version>01.93.00</version>
-			<resourcefile>yafdnn4-v193-res.zip</resourcefile>
+			<description>Add the YetAnotherForum.NET to your portal.</description>
+			<version>01.93.05</version>
+			<resourcefile>yafdnn5-v193-res.zip</resourcefile>
 			<modules>
 				<module>
 					<friendlyname>YAF</friendlyname>
@@ -57,6 +57,12 @@
 				</file>
 				<file>
 					<name>YAF.Providers.dll</name>
+				</file>		
+				<file>
+					<name>YAF.Providers.dll</name>
+				</file>					
+				<file>
+					<name>AjaxControlToolkit.dll</name>
 				</file>				
 			</files>
 		</folder>
