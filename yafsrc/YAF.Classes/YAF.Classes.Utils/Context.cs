@@ -888,7 +888,7 @@ namespace YAF.Classes.Utils
 							platform = "Win2003";
 						else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 6.0") >= 0)
 							platform = "Vista";
-						else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 7.0") >= 0)
+						else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 6.1") >= 0)
 							platform = "Win7";
 						else
 							// check if it's a search engine spider...
