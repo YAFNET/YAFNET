@@ -598,7 +598,12 @@ namespace YAF.Classes.Data
 
 			using ( DataTable dt = YAF.Classes.Data.DB.registry_list( "UseFileTable" ) )
 				foreach ( DataRow dr in dt.Rows )
-					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr["Value"] ) );
+				{
+					int i;
+					UseFileTable =  int.TryParse( dr["Value"].ToString(), out i )
+					       	? SqlDataLayerConverter.VerifyBool( i )
+					       	: SqlDataLayerConverter.VerifyBool(dr["Value"]);		
+				}
 
 			//If the files are actually saved in the Hard Drive
 			if ( !UseFileTable )

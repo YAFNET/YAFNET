@@ -108,6 +108,10 @@ namespace YAF.Controls
 				{
 					footer.Append( " Under Rainbow " );
 				}
+				else if (YAF.Classes.Config.IsMojoPortal)
+				{
+					footer.Append(" Under MojoPortal ");
+				}
 			}
 
 			footer.AppendFormat( @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2009, Yet Another Forum.NET</a>", "YetAnotherForum.NET", "http://www.yetanotherforum.net" );

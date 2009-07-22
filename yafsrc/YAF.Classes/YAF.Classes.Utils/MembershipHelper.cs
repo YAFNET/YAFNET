@@ -335,6 +335,7 @@ namespace YAF.Classes.Utils
 		/// Helper function that gets user data from the DB (or cache)
 		/// </summary>
 		/// <param name="userID"></param>
+		/// <param name="allowCached"></param>
 		/// <returns></returns>
 		public static DataRow GetUserRowForID( long userID, bool allowCached )
 		{
