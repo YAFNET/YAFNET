@@ -1,0 +1,30 @@
+** Thank you to Boskone for the Original Text **
+
+** NOTE: BACKUP YOUR DATABASE BEFORE INSTALLATION! **
+
+**** CLEAN INSTALL ****
+
+(1) Upload the PA as Host
+
+(2) Edit the web.config file in your DotNetNuke directory to add the required definitions for YAF. Take a look at dnn.config to see the changes.
+
+Add this to ConfigSections: <section name="yafnet" type="yaf.SectionHandler,yaf" />
+And add this right after ConfigSections: <yafnet configSource="dnnyafnet.config"/>
+
+(3) Copy the dnnyafnet.config file to the root of your DNN installation.
+
+(4) Edit the dnnyafnet.config file and change the "connstr" settings to the correct values for your database.
+
+** NOTE: When adding the forum to a tab for the first time, YetAnotherForum.NET will automatically setup the database.
+
+
+**** TO UPDATE *****
+
+(1) Just install as normal PA.
+
+(2) Update your database by executing the SQL provider files "*.sql"
+
+(3) Merge .config changes by viewing dnn.config. Then copy the dnnyafnet.config to your DNN root directory.
+
+
+
