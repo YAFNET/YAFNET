@@ -142,7 +142,7 @@
 		<Resource tag="CURRENT_TIME">Teď máme přesně {0}.</Resource>
 		<Resource tag="LAST_VISIT">Naposledy jste zde byl {0}.</Resource>
 		<Resource tag="STATS_POSTS">Počet fór: {2:N0}; počet témat: {1:N0}; počet zpráv: {0:N0}.</Resource>
-		<Resource tag="STATS_LASTPOST">Poslední zprávu {0} poslal {1}.</Resource>
+		<Resource tag="STATS_LASTPOST">Poslední zprávu {0}.</Resource>
 		<Resource tag="STATS_MEMBERS">Máme {0:N0} registrovaných členů.</Resource>
 		<Resource tag="STATS_LASTMEMBER">Nejnovějším členem je {0}.</Resource>
 		<Resource tag="IN">v {0}</Resource>
@@ -301,7 +301,7 @@
 		<Resource tag="ENTER_KEY">Zadejte ověřovací kód</Resource>
 		<Resource tag="VALIDATE">Ověřit</Resource>
 	</page>
-	<page name="PM">
+	<page name="CP_PM">
 		<!-- pm.ascx -->
 		<Resource tag="TITLE">Soukromé zprávy</Resource>
 		<Resource tag="NEW_MESSAGE">Nová zpráva</Resource>
