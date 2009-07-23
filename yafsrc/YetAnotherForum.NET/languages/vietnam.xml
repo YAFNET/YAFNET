@@ -1,679 +1,1054 @@
-﻿<?xml version="1.0"?>
-<Resources language="Việt Nam" code="vn">
-  <page name="TIMEZONES">
-    <Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien</Resource>
-    <Resource tag="GMT-11">(GMT-11:00) Midway Island, Samoa</Resource>
-    <Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
-    <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
-    <Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
-    <Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
-    <Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
-    <Resource tag="GMT-3.5">(GMT-3:30) Newfoundland</Resource>
-    <Resource tag="GMT-3">(GMT-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
-    <Resource tag="GMT-2">(GMT-2:00) Mid-Atlantic, Ascention Is., St Helena</Resource>
-    <Resource tag="GMT-1">(GMT-1:00) Azores, Cape Verde Islands</Resource>
-    <Resource tag="GMT0">(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
-    <Resource tag="GMT1">(GMT+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
-    <Resource tag="GMT2">(GMT+2:00) Kaliningrad, South Africa</Resource>
-    <Resource tag="GMT3">(GMT+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
-    <Resource tag="GMT3.5">(GMT+3:30) Tehran</Resource>
-    <Resource tag="GMT4">(GMT+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
-    <Resource tag="GMT4.5">(GMT+4:30) Kabul</Resource>
-    <Resource tag="GMT5">(GMT+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
-    <Resource tag="GMT5.5">(GMT+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
-    <Resource tag="GMT6">(GMT+6:00) Almaty, Colomba, Dhakra</Resource>
-    <Resource tag="GMT7">(GMT+7:00) Bangkok, Hanoi, Jakarta</Resource>
-    <Resource tag="GMT8">(GMT+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
-    <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
-    <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
-    <Resource tag="GMT10">(GMT+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
-    <Resource tag="GMT11">(GMT+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
-    <Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
-  </page>  
-	<page name="COMMON">
-		<!-- common... -->
-		<Resource tag="POWERED_BY">Bản quyền bởi {0} version {1}</Resource>
-		<Resource tag="GENERATED">Thời gian xử lý trang này hết {0:N3} giây.</Resource>
-		<Resource tag="SAVE">Lưu</Resource>
-		<Resource tag="CANCEL">Hủy</Resource>
-		<Resource tag="FORUM_JUMP">Chuyển nhanh đến</Resource>
-		<Resource tag="CAN_POST">Bạn [b]có thể[/b] tạo chủ đề mới trong diễn đàn này.</Resource>
-		<Resource tag="CAN_REPLY">Bạn [b]có thể[/b] trả lời chủ đề trong diễn đàn này.</Resource>
-		<Resource tag="CAN_DELETE">Bạn [b]có thể[/b] xóa bài của bạn trong diễn đàn này.</Resource>
-		<Resource tag="CAN_EDIT">Bạn [b]có thể[/b] sửa bài của bạn trong diễn đàn này.</Resource>
-		<Resource tag="CAN_POLL">Bạn [b]có thể[/b] tạo bình chọn trong diễn đàn này.</Resource>
-		<Resource tag="CAN_VOTE">Bạn [b]có thể[/b] bỏ phiếu bình chọn trong diễn đàn này.</Resource>
-		<Resource tag="CANNOT_POST">Bạn [b]không thể[/b] tạo chủ đề mới trong diễn đàn này.</Resource>
-		<Resource tag="CANNOT_REPLY">Bạn [b]không thể[/b] trả lời chủ đề trong diễn đàn này.</Resource>
-		<Resource tag="CANNOT_DELETE">Bạn [b]không thể[/b] xóa bài của bạn trong diễn đàn này.</Resource>
-		<Resource tag="CANNOT_EDIT">Bạn [b]không thể[/b] sửa bài của bạn trong diễn đàn này.</Resource>
-		<Resource tag="CANNOT_POLL">Bạn [b]không thể[/b] tạo bình chọn trong diễn đàn này.</Resource>
-		<Resource tag="CANNOT_VOTE">Bạn [b]không thể[/b] bỏ phiếu bình chọn trong diễn đàn này.</Resource>
-		<Resource tag="REGMAIL_SENT">Một email đã được gởi! Hãy kiểm tra hộp thư của bạn và click vào đường dẫn đã gởi trong email.</Resource>
-		<Resource tag="UNREAD_MSG">Bạn có {0} tin nhắn chưa đọc</Resource>
-		<Resource tag="REGMAIL_WILL_BE_SEND">Một email đã được gởi! Hãy kiểm tra hộp thư của bạn và click vào đường dẫn đã gởi trong email để kích hoạt tài khoản của bạn.</Resource>
-		<!-- Find out how to modify these date/time strings at: http://msdn2.microsoft.com/en-us/library/system.globalization.datetimeformatinfo(vs.71).aspx -->
-		<Resource tag="FORMAT_DATE_TIME_LONG">dd/MM/yyyy lúc hh:mm:ss</Resource>
-		<Resource tag="FORMAT_DATE_TIME_SHORT">dd-MM-yyyy@hh:mm:ss</Resource>
-		<Resource tag="FORMAT_DATE_LONG">dd-MM-yyyy</Resource>
-		<Resource tag="FORMAT_DATE_SHORT">dd-MM-yyyy</Resource>
-		<Resource tag="FORMAT_TIME">T</Resource>
-		<Resource tag="MAX_ONLINE">Thành viên trực tuyến kỷ lục nhiều nhất là {0}, vào {1}.</Resource>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Việt Nam" code="vn">
+  <page name="ACTIVE">
+    <Resource tag="BY">bởi {0}</Resource>
+    <Resource tag="LAST_24">(Trong vòng 24 tiếng)</Resource>
+    <Resource tag="LAST_DAY">1 ngày trước đây</Resource>
+    <Resource tag="LAST_HOUR">1 giờ trước đây</Resource>
+    <Resource tag="LAST_MONTH">1 tháng trước đây</Resource>
+    <Resource tag="LAST_TWO_DAYS">2 ngày trước đây</Resource>
+    <Resource tag="LAST_TWO_HOURS">2 giờ trước đây</Resource>
+    <Resource tag="LAST_TWO_WEEKS">2 tuần trước đây</Resource>
+    <Resource tag="LAST_VISIT">lần cuối vào diễn đàn {0}</Resource>
+    <Resource tag="LAST_WEEK">1 tuần trước đây</Resource>
+    <Resource tag="LASTPOST">Bài cuối</Resource>
+    <Resource tag="NO_POSTS">Không có bài viết</Resource>
+    <Resource tag="REPLIES">Trả lời</Resource>
+    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SINCE">Kể từ</Resource>
+    <Resource tag="TITLE">Chủ đề có bài mới</Resource>
+    <Resource tag="TOPIC_STARTER">Tác giá</Resource>
+    <Resource tag="TOPICS">Chủ đề</Resource>
+    <Resource tag="VIEWS">Xem</Resource>
+  </page>
+  <page name="ACTIVEUSERS">
+    <Resource tag="ACTIVE">Đã hoạt động</Resource>
+    <Resource tag="BROWSER">Trình duyệt</Resource>
+    <Resource tag="LAST_ACTIVE">Lần cuối truy cập</Resource>
+    <Resource tag="LOGGED_IN">Đăng nhập lúc</Resource>
+    <Resource tag="MINUTES">{0:N0} phút</Resource>
+    <Resource tag="PLATFORM">Platform</Resource>
+    <Resource tag="TITLE">Thành viên trực tuyến</Resource>
+    <Resource tag="USERNAME">Tên người dùng</Resource>
+  </page>
+  <page name="APPROVE">
+    <Resource tag="EMAIL_VERIFIED">Email đã được xác nhận.</Resource>
+    <Resource tag="EMAIL_VERIFY_FAILED">Lỗi xác nhận ịia chỉ email.</Resource>
+    <Resource tag="ENTER_KEY">Nhập mã xác nhận</Resource>
+    <Resource tag="TITLE">Xác nhận email</Resource>
+    <Resource tag="VALIDATE">Xác nhận</Resource>
+  </page>
+  <page name="ATTACHMENTS">
+    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Types</Resource>
+    <Resource tag="ASK_DELETE">Xóa tập tin đính kèm này?</Resource>
+    <Resource tag="DELETE">Xóa</Resource>
+    <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
+    <Resource tag="ERROR_TOOBIG">Bạn không thể đính kèm tập tin quá lớn.</Resource>
+    <Resource tag="FILEERROR">Tập tin '{0}' không hợp lệ.</Resource>
+    <Resource tag="FILENAME">Tên tập tin</Resource>
+    <Resource tag="SELECT_FILE">Chọn tập tin bạn muốn upload.</Resource>
+    <Resource tag="SIZE">Dung lượng</Resource>
+    <Resource tag="TITLE">Đính kèm</Resource>
+    <Resource tag="UPLOAD">Upload</Resource>
+    <Resource tag="UPLOAD_TITLE">Upload File</Resource>
+  </page>
+  <page name="AVATAR">
+    <Resource tag="EDITPROFILE">Đổi hình</Resource>
+    <Resource tag="TITLE">Hình đại diện</Resource>
+  </page>
+  <page name="BBCODEMODULE">
+    <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
+    <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
+    <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
+    <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
+  </page>
+  <page name="BUTTON">
+    <Resource tag="BUTTON_ATTACH">Attach</Resource>
+    <Resource tag="BUTTON_ATTACH_TT">Attach files to this post</Resource>
+    <Resource tag="BUTTON_DELETE">Delete</Resource>
+    <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
+    <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
+    <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
+    <Resource tag="BUTTON_EDIT">Edit</Resource>
+    <Resource tag="BUTTON_EDIT_TT">Edit this Post</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC">Lock Topic</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC_TT">Lock this topic</Resource>
+    <Resource tag="BUTTON_MODERATE">Moderate</Resource>
+    <Resource tag="BUTTON_MODERATE_TT">Delete, lock, unlock, and move topics this forum</Resource>
+    <Resource tag="BUTTON_MOVE">Move</Resource>
+    <Resource tag="BUTTON_MOVE_TT">Move this Post</Resource>
+    <Resource tag="BUTTON_MOVETOPIC">Move Topic</Resource>
+    <Resource tag="BUTTON_MOVETOPIC_TT">Move this topic</Resource>
+    <Resource tag="BUTTON_NEWPM">New PM</Resource>
+    <Resource tag="BUTTON_NEWPM_TT">Create a new private message</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
+    <Resource tag="BUTTON_POSTREPLY">Post Reply</Resource>
+    <Resource tag="BUTTON_POSTREPLY_TT">Post a reply to this topic</Resource>
+    <Resource tag="BUTTON_QUOTE">Quote</Resource>
+    <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
+    <Resource tag="BUTTON_REPLY">Reply</Resource>
+    <Resource tag="BUTTON_REPLY_TT">Reply to Message</Resource>
+    <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
+    <Resource tag="BUTTON_UNDELETE_TT">Undelete this Post</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
+  </page>
+  <page name="COMMON">
+    <Resource tag="BACK">Quay lại</Resource>
+    <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
+    <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
+    <Resource tag="BBCODE_CODE">Mã:</Resource>
     <Resource tag="BBCODE_QUOTE">Trích dẫn:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} đã viết:</Resource>
-    <Resource tag="BBCODE_CODE">Mã:</Resource>
+    <Resource tag="CAN_DELETE">Bạn [b]có thể[/b] xóa bài của bạn trong diễn đàn này.</Resource>
+    <Resource tag="CAN_EDIT">Bạn [b]có thể[/b] sửa bài của bạn trong diễn đàn này.</Resource>
+    <Resource tag="CAN_POLL">Bạn [b]có thể[/b] tạo bình chọn trong diễn đàn này.</Resource>
+    <Resource tag="CAN_POST">Bạn [b]có thể[/b] tạo chủ đề mới trong diễn đàn này.</Resource>
+    <Resource tag="CAN_REPLY">Bạn [b]có thể[/b] trả lời chủ đề trong diễn đàn này.</Resource>
+    <Resource tag="CAN_VOTE">Bạn [b]có thể[/b] bỏ phiếu bình chọn trong diễn đàn này.</Resource>
+    <Resource tag="CANCEL">Hủy</Resource>
+    <Resource tag="CANNOT_DELETE">Bạn [b]không thể[/b] xóa bài của bạn trong diễn đàn này.</Resource>
+    <Resource tag="CANNOT_EDIT">Bạn [b]không thể[/b] sửa bài của bạn trong diễn đàn này.</Resource>
+    <Resource tag="CANNOT_POLL">Bạn [b]không thể[/b] tạo bình chọn trong diễn đàn này.</Resource>
+    <Resource tag="CANNOT_POST">Bạn [b]không thể[/b] tạo chủ đề mới trong diễn đàn này.</Resource>
+    <Resource tag="CANNOT_REPLY">Bạn [b]không thể[/b] trả lời chủ đề trong diễn đàn này.</Resource>
+    <Resource tag="CANNOT_VOTE">Bạn [b]không thể[/b] bỏ phiếu bình chọn trong diễn đàn này.</Resource>
+    <Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
+    <Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
+    <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
+    <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
+    <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
+    <Resource tag="FONT_COLOR">Font Color:</Resource>
+    <Resource tag="FONT_SIZE">Font Size:</Resource>
+    <Resource tag="FORMAT_DATE_LONG">dd-MM-yyyy</Resource>
+    <Resource tag="FORMAT_DATE_SHORT">dd-MM-yyyy</Resource>
+    <Resource tag="FORMAT_DATE_TIME_LONG">dd/MM/yyyy lúc hh:mm:ss</Resource>
+    <Resource tag="FORMAT_DATE_TIME_SHORT">dd-MM-yyyy@hh:mm:ss</Resource>
+    <Resource tag="FORMAT_TIME">T</Resource>
+    <Resource tag="FORUM_JUMP">Chuyển nhanh đến</Resource>
+    <Resource tag="GENERATED">Thời gian xử lý trang này hết {0:N3} giây.</Resource>
+    <Resource tag="GO">GO</Resource>
+    <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+    <Resource tag="HIDDEN">Hidden</Resource>
+    <Resource tag="LOADING">Loading...</Resource>
+    <Resource tag="MAX_ONLINE">Thành viên trực tuyến kỷ lục nhiều nhất là {0}, vào {1}.</Resource>
+    <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
+    <Resource tag="OK">OK</Resource>
+    <Resource tag="PAGES">Pages</Resource>
+    <Resource tag="PM_NOTIFICATION_SUBJECT">Tin nhắn mới từ {0} vào lúc {1}</Resource>
+    <Resource tag="POWERED_BY">Bản quyền bởi {0} version {1}</Resource>
+    <Resource tag="REGMAIL_SENT">Một email đã được gởi! Hãy kiểm tra hộp thư của bạn và click vào đường dẫn đã gởi trong email.</Resource>
+    <Resource tag="REGMAIL_WILL_BE_SEND">Một email đã được gởi! Hãy kiểm tra hộp thư của bạn và click vào đường dẫn đã gởi trong email để kích hoạt tài khoản của bạn.</Resource>
+    <Resource tag="SAVE">Lưu</Resource>
+    <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
-    <Resource tag="PM_NOTIFICATION_SUBJECT">Tin nhắn mới từ {0} vào lúc {1}</Resource>    
-    <Resource tag="BACK">Quay lại</Resource>
+    <Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
+    <Resource tag="TT_ALIGNLEFT">Left Justify</Resource>
+    <Resource tag="TT_ALIGNRIGHT">Right Justify</Resource>
+    <Resource tag="TT_BOLD">Bold</Resource>
+    <Resource tag="TT_CODE">Code</Resource>
+    <Resource tag="TT_CREATELINK">Create Link</Resource>
+    <Resource tag="TT_CUSTOMBBCODE">More BBCode Tags</Resource>
+    <Resource tag="TT_IMAGE">Insert Image</Resource>
+    <Resource tag="TT_ITALIC">Italic</Resource>
+    <Resource tag="TT_QUOTE">Quote</Resource>
+    <Resource tag="TT_UNDERLINE">Underline</Resource>
+    <Resource tag="UNREAD_MSG">Bạn có {0} tin nhắn chưa đọc</Resource>
     <Resource tag="UPDATE">Cập nhật</Resource>
-	</page>
-	<page name="TOOLBAR">
-		<!-- "Toolbar" at top of most pages -->
-		<Resource tag="SEARCH">Tìm kiếm</Resource>
-		<Resource tag="ADMIN">Quản trị</Resource>
-		<Resource tag="MODERATE">Điều hành</Resource>
-		<Resource tag="ACTIVETOPICS">Chủ đề có bài mới</Resource>
-		<Resource tag="MYPROFILE">Trang cá nhân</Resource>
-		<Resource tag="MEMBERS">Thành viên</Resource>
-		<Resource tag="LOGOUT">Thoát</Resource>
-		<Resource tag="LOGIN">Đăng nhập</Resource>
-		<Resource tag="REGISTER">Đăng Ký</Resource>
-		<Resource tag="LOGGED_IN_AS">Đăng nhập với tên: {0}</Resource>
-		<Resource tag="WELCOME_GUEST">Chào mừng khách</Resource>
-		<Resource tag="HELP">Trợ giúp</Resource>
-	</page>
-	<page name="ICONLEGEND">
-		<!-- Common icon texts -->
-		<Resource tag="NEW_POSTS">Bài viết mới</Resource>
-		<Resource tag="NO_NEW_POSTS">Không có bài viết mới</Resource>
-		<Resource tag="ANNOUNCEMENT">Thông báo</Resource>
-		<Resource tag="ANNOUNCEMENT_NEW">Thông báo (Có bài viết mới)</Resource>
-		<Resource tag="NEW_POSTS_LOCKED">Bài viết mới (Đã Khóa)</Resource>
-		<Resource tag="NO_NEW_POSTS_LOCKED">Không có bài viết mới (Đã Khóa)</Resource>
-		<Resource tag="FORUM_LOCKED">Diễn đàn đã khóa</Resource>
-		<Resource tag="MOVED">Đã chuyển</Resource>
-		<Resource tag="POLL">Bình chọn</Resource>
-		<Resource tag="POLL_NEW">Bình chọn (Có bài viết mới)</Resource>
-		<Resource tag="STICKY">Chú ý</Resource>
-	</page>
-	<page name="ATTACHMENTS">
-		<Resource tag="TITLE">Đính kèm</Resource>		
-		<Resource tag="UPLOAD">Upload</Resource>
-		<Resource tag="SELECT_FILE">Chọn tập tin bạn muốn upload.</Resource>
-		<Resource tag="UPLOAD_TITLE">Upload File</Resource>
-		<Resource tag="FILENAME">Tên tập tin</Resource>
-		<Resource tag="SIZE">Dung lượng</Resource>
-		<Resource tag="DELETE">Xóa</Resource>
-		<Resource tag="FILEERROR">Tập tin '{0}' không hợp lệ.</Resource>
-		<Resource tag="ASK_DELETE">Xóa tập tin đính kèm này?</Resource>
-		<Resource tag="ERROR_TOOBIG">Bạn không thể đính kèm tập tin quá lớn.</Resource>
-	</page>
-	<page name="DEFAULT">
-		<!-- default.aspx -->
-    <Resource tag="MAIN_FORUM_RSS">Diễn đàn chính RSS</Resource>
-		<Resource tag="FORUM">Diễn đàn</Resource>
-		<Resource tag="TOPICS">Chủ đề</Resource>
-		<Resource tag="POSTS">Bài viết</Resource>
-		<Resource tag="LASTPOST">Bài cuối</Resource>
-		<Resource tag="MODERATORS">Điều hành</Resource>
-		<Resource tag="CURRENT_TIME">Giờ hiện tại: {0}.</Resource>
-		<Resource tag="LAST_VISIT">Lần cuối bạn đến diễn đàn: {0}.</Resource>
-		<Resource tag="STATS_POSTS">Có {0:N0} bài viết và {1:N0} chủ đề trong tổng số {2:N0} diễn đàn.</Resource>
-		<Resource tag="STATS_LASTPOST">Bài viết cuối {0} bởi {1}.</Resource>
-		<Resource tag="STATS_MEMBERS">Diễn đàn có tất cả {0:N0} thành viên.</Resource>
-		<Resource tag="STATS_LASTMEMBER">Chào mừng thành viên mới nhất: {0}.</Resource>
-		<Resource tag="IN"> {0}</Resource>
-		<Resource tag="BY">bởi {0}</Resource>
-		<Resource tag="NO_POSTS">Không có bài viết</Resource>
-		<Resource tag="UNREAD1">Bạn có {0} tin nhắn mới.</Resource>
-		<Resource tag="UNREAD0">Bạn có {0} tin nhắn mới.</Resource>
-		<Resource tag="INFORMATION">Thông tin</Resource>
-		<Resource tag="STATS">Thống kê</Resource>
-		<Resource tag="ACTIVE_USERS">Thành viên trực tuyến</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} người trực tuyến</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} người trực tuyến</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} thành viên</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} thành viên</Resource>
-		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} khách</Resource>
-		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} khách</Resource>
-		<Resource tag="VIEWING">({0} đang xem)</Resource>
-		<Resource tag="NO_FORUM_ACCESS">(Không truy cập)</Resource>
-		<Resource tag="MARKALL">Đánh dấu tất cả diễn đàn đã đọc</Resource>
-		<Resource tag="GO_LAST_POST">Xem bài viết cuối</Resource>
-		<Resource tag="ACTIVE_DISCUSSIONS">Diễn đàn hoạt động</Resource>
-		<Resource tag="LATEST_POSTS">Bài viết cuối</Resource>
-	</page>
-	<page name="TOPICS">
-		<!-- topics.aspx -->
-		<Resource tag="TOPICS">Chủ đề</Resource>
-		<Resource tag="TOPIC_STARTER">Tác giả</Resource>
-		<Resource tag="REPLIES">Trả Lời</Resource>
-		<Resource tag="VIEWS">Xem</Resource>
-		<Resource tag="LASTPOST">Bài cuối</Resource>
-		<Resource tag="NO_POSTS">Không có bài viết</Resource>
-		<Resource tag="WATCHFORUM">Theo dõi diễn đàn này</Resource>
-		<Resource tag="UNWATCHFORUM">Hủy theo dõi diễn đàn này</Resource>
-		<Resource tag="SHOWTOPICS">Xem chủ đề</Resource>
-		<Resource tag="ALL">Tất cả</Resource>
-		<Resource tag="LAST_DAY">Từ hôm qua</Resource>
-		<Resource tag="LAST_TWO_DAYS">cách đây 2 ngày</Resource>
-		<Resource tag="LAST_WEEK">cách đây 1 tuần</Resource>
-		<Resource tag="LAST_TWO_WEEKS">cách đây 2 tuần</Resource>
-		<Resource tag="LAST_MONTH">cách đây 1 tháng</Resource>
-		<Resource tag="LAST_TWO_MONTHS">cách đây 2 tháng</Resource>
-		<Resource tag="LAST_SIX_MONTHS">cách đây 6 tháng</Resource>
-		<Resource tag="LAST_YEAR">cách đây 1 năm</Resource>
-		<Resource tag="BY">bởi {0}</Resource>
-		<Resource tag="FORUMUSERS">Ai đang xem trang này?</Resource>
-		<Resource tag="CREATED">Tạo</Resource>
-		<Resource tag="WARN_FORUM_LOCKED">Diễn đàn đã khóa.</Resource>
-		<Resource tag="WARN_LOGIN_FORUMWATCH">Bạn cần đăng nhập để xem diễn đàn.</Resource>
-		<Resource tag="INFO_WATCH_FORUM">Bạn sẽ được thông báo khi có bài viết mới trong diễn đàn này.</Resource>
-		<Resource tag="INFO_UNWATCH_FORUM">Bạn sẽ không được thông báo khi có bài viết mới trong diễn đàn này.</Resource>
-		<Resource tag="MARKREAD">Đánh dấu diễn đàn đã đọc</Resource>
-		<Resource tag="SUBFORUMS">Diễn đàn con ({0}) </Resource>
- 		<Resource tag="RSSFEED">Rss Feed</Resource>
- 		<Resource tag="TODAYAT">[b]Hôm nay[/b] lúc {0:T}</Resource>
- 		<Resource tag="YESTERDAYAT">[b]Hôm qua[/b] vào lúc {0:T}</Resource>
- 		<Resource tag="GOTO_POST_PAGER">[ Chuyến đến trang: {0} ]</Resource>
-	</page>
-	<page name="POSTS">
-		<!-- posts.aspx -->
-    <Resource tag="QUICKREPLY">Trả lời nhanh</Resource>
-    <Resource tag="QUICKREPLY_SHOW">Hiển thị Trả Lời Nhanh</Resource>
-    <Resource tag="QUICKREPLY_HIDE">Ẩn thị Trả Lời Nhanh</Resource>
-    <Resource tag="OPTIONS">Tùy chọn</Resource>
-    <Resource tag="VIEW">Xem</Resource>
-    <Resource tag="POST_REPLY">Viết bài trả lời</Resource>
-    <Resource tag="QUESTION">Câu hỏi bình chọn</Resource>
-    <Resource tag="CHOICE">Chọn</Resource>
-    <Resource tag="VOTES">Bỏ phiếu</Resource>
-    <Resource tag="STATISTICS">Thống kê</Resource>
-    <Resource tag="PREVTOPIC">Chủ đề trước</Resource>
-    <Resource tag="NEXTTOPIC">Chủ đề kế tiếp</Resource>
-    <Resource tag="WATCHTOPIC">Xem chủ đề này</Resource>
-    <Resource tag="UNWATCHTOPIC">chưa xem chủ đề này</Resource>
-    <Resource tag="EMAILTOPIC">Email chủ đề này</Resource>
-    <Resource tag="PRINTTOPIC">In chủ đề này</Resource>
-    <Resource tag="RSSTOPIC">RSS Feed</Resource>
-    <Resource tag="POSTED">Đã gởi</Resource>
-    <Resource tag="TOP">Chuyển lên trên</Resource>
-    <Resource tag="PM">PM</Resource>
-    <Resource tag="CONFIRM_DELETEMESSAGE">Xóa tin nhắn?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Xóa chủ đề?</Resource>
-    <Resource tag="RANK">Danh hiệu</Resource>
-    <Resource tag="GROUPS">Nhóm</Resource>
-    <Resource tag="JOINED">Gia nhập</Resource>
-    <Resource tag="POSTS">Bài viết</Resource>
-    <Resource tag="POINTS">Điểm</Resource>
-    <Resource tag="LOCATION">Đến từ</Resource>
-    <Resource tag="TOPICBROWSERS">Ai đang xem chủ đề này?</Resource>
-    <Resource tag="INFO_TOPIC_LOCKED">Chủ đề đã được khóa.</Resource>
-    <Resource tag="INFO_TOPIC_UNLOCKED">Chủ đề đã được mở khóa.</Resource>
-    <Resource tag="WARN_TOPIC_LOCKED">Chủ đề đã được đóng.</Resource>
-    <Resource tag="WARN_FORUM_LOCKED">Diễn đàn đã được đóng.</Resource>
-    <Resource tag="WARN_PMLOGIN">Bạn cần đăng nhập để gởi tin nhắn.</Resource>
-    <Resource tag="WARN_ALREADY_VOTED">Bạn đã bình chọn rồi.</Resource>
-    <Resource tag="WARN_POLL_CLOSED">Bình chọn đã đóng.</Resource>
-    <Resource tag="POLL_CLOSED">(Bình chọn đã đóng)</Resource>
-    <Resource tag="INFO_VOTED">Cảm ơn bạn đã bình chọn!</Resource>
-    <Resource tag="WARN_WATCHLOGIN">Bạn cần đăng nhập để tiếp tục.</Resource>
-    <Resource tag="INFO_WATCH_TOPIC">Bạn sẽ được thông báo khi có bài viết mới trong chủ đề này.</Resource>
-    <Resource tag="INFO_UNWATCH_TOPIC">Bạn sẽ không được thông báo khi có bài viết mới trong chủ đề này.</Resource>
-    <Resource tag="INFO_NOMORETOPICS">Không có chủ đề trong diễn đàn này.</Resource>
-    <Resource tag="WARN_EMAILLOGIN">Bạn cần đăng nhập để tiếp tục.</Resource>
-    <Resource tag="ATTACHMENTS">Tập tin đính kèm(s):</Resource>
-    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} hình được đính kèm:</Resource>
-    <Resource tag="ATTACHMENTINFO">({0:N0}kb) đã được dowbload [b]{1:N0}[/b] lần.</Resource>
-    <Resource tag="NORMAL">Bình thường</Resource>
-    <Resource tag="THREADED">Threaded</Resource>
-    <Resource tag="FORUM_JUMP">Di chuyển</Resource>
-    <Resource tag="TIP_REPLY_TOPIC">Trả Lời</Resource>
-    <Resource tag="TIP_NEW_TOPIC">Tạo chủ đề</Resource>
-    <Resource tag="TIP_DELETE_TOPIC">Xóa chủ đề</Resource>
-    <Resource tag="TIP_LOCK_TOPIC">Khóa chủ đề</Resource>
-    <Resource tag="TIP_UNLOCK_TOPIC">Mở khóa chủ đề</Resource>
-    <Resource tag="TIP_MOVE_TOPIC">Di chuyển chủ đề</Resource>
-    <Resource tag="AD_USERNAME">huytran911</Resource>
-    <Resource tag="AD_SIGNATURE"></Resource>
-	</page>
-	<page name="ACTIVE">
-		<!-- active.aspx -->
-    <Resource tag="LAST_24">(Trong vòng 24 tiếng)</Resource>
-		<Resource tag="TITLE">Chủ đề có bài mới</Resource>
-		<Resource tag="SINCE">Kể từ</Resource>
-		<Resource tag="LAST_VISIT">lần cuối vào diễn đàn {0}</Resource>
-		<Resource tag="LAST_HOUR">1 giờ trước đây</Resource>
-		<Resource tag="LAST_TWO_HOURS">2 giờ trước đây</Resource>
-		<Resource tag="LAST_DAY">1 ngày trước đây</Resource>
-		<Resource tag="LAST_TWO_DAYS">2 ngày trước đây</Resource>
-		<Resource tag="LAST_WEEK">1 tuần trước đây</Resource>
-		<Resource tag="LAST_TWO_WEEKS">2 tuần trước đây</Resource>
-		<Resource tag="LAST_MONTH">1 tháng trước đây</Resource>
-		<Resource tag="TOPICS">Chủ đề</Resource>
-		<Resource tag="TOPIC_STARTER">Tác giá</Resource>
-		<Resource tag="REPLIES">Trả lời</Resource>
- 		<Resource tag="RSSFEED">Rss Feed</Resource>
-		<Resource tag="VIEWS">Xem</Resource>
-		<Resource tag="LASTPOST">Bài cuối</Resource>
-		<Resource tag="BY">bởi {0}</Resource>
-		<Resource tag="NO_POSTS">Không có bài viết</Resource>
-	</page>
-	<page name="ACTIVEUSERS">
-		<!-- activeusers.aspx -->
-		<Resource tag="TITLE">Thành viên trực tuyến</Resource>
-		<Resource tag="USERNAME">Tên người dùng</Resource>
-		<Resource tag="LOGGED_IN">Đăng nhập lúc</Resource>
-		<Resource tag="LAST_ACTIVE">Lần cuối truy cập</Resource>
-		<Resource tag="ACTIVE">Đã hoạt động</Resource>
-		<Resource tag="BROWSER">Trình duyệt</Resource>
-		<Resource tag="PLATFORM">Platform</Resource>
-		<Resource tag="MINUTES">{0:N0} phút</Resource>
-	</page>
-	<page name="APPROVE">
-		<!-- approve.aspx -->
-		<Resource tag="TITLE">Xác nhận email</Resource>
-		<Resource tag="EMAIL_VERIFIED">Email đã được xác nhận.</Resource>
-		<Resource tag="EMAIL_VERIFY_FAILED">Lỗi xác nhận ịia chỉ email.</Resource>
-		<Resource tag="ENTER_KEY">Nhập mã xác nhận</Resource>
-		<Resource tag="VALIDATE">Xác nhận</Resource>
-	</page>
+  </page>
+  <page name="CP_CHANGEPASSWORD">
+    <Resource tag="CHANGE_BUTTON">Submit</Resource>
+    <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
+    <Resource tag="NEW_PASSWORD">New Password:</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">New Passwords do not match.</Resource>
+    <Resource tag="OLD_PASSWORD">Old Password:</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">New Password length minimum: {0}.</Resource>
+    <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
+    <Resource tag="TITLE">Change Password</Resource>
+  </page>
   <page name="CP_EDITAVATAR">
-    <Resource tag="TITLE">Sửa hình đại diện</Resource>
     <Resource tag="AVATAR">Hình đại diện</Resource>
     <Resource tag="AVATARCURRENT">Hình hiện tại</Resource>
-    <Resource tag="AVATARNEW">chọn hình mới</Resource>
-    <Resource tag="AVATARUPLOAD">Upload hình:</Resource>
     <Resource tag="AVATARDELETE">Xóa hình</Resource>
+    <Resource tag="AVATARNEW">chọn hình mới</Resource>
     <Resource tag="AVATARREMOTE">Nhập đường dẫn hình:</Resource>
+    <Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
+    <Resource tag="AVATARUPLOAD">Upload hình:</Resource>
+    <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
+    <Resource tag="NOAVATAR">[ Không có hình ]</Resource>
     <Resource tag="OURAVATAR">Chọn hình từ thư viện:</Resource>
     <Resource tag="OURAVATAR_SELECT">Click vào đây để chọn</Resource>
-    <Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
-    <Resource tag="NOAVATAR">[ Không có hình ]</Resource>
-    <Resource tag="WARN_TOOBIG">Hình không thể lớn hơn {0}x{1} px.</Resource>
-    <Resource tag="WARN_SIZE">Hình của bạn có kích thước {0}x{1} px.</Resource>
-    <Resource tag="WARN_RESIZED">Hình đã được chỉnh lại kích thước phù hợp.</Resource>
+    <Resource tag="TITLE">Sửa hình đại diện</Resource>
     <Resource tag="WARN_BIGFILE">Dung lương hình không thể lớn hơn {0} bytes.</Resource>
-    <Resource tag="WARN_FILESIZE">Hình của bạn có dung lượng {0} bytes.</Resource>    
+    <Resource tag="WARN_FILESIZE">Hình của bạn có dung lượng {0} bytes.</Resource>
+    <Resource tag="WARN_RESIZED">Hình đã được chỉnh lại kích thước phù hợp.</Resource>
+    <Resource tag="WARN_SIZE">Hình của bạn có kích thước {0}x{1} px.</Resource>
+    <Resource tag="WARN_TOOBIG">Hình không thể lớn hơn {0}x{1} px.</Resource>
   </page>
-	<page name="CP_EDITPROFILE">
-		<!-- cp_editprofile.aspx -->
-		<Resource tag="TITLE">Sửa lý lịch</Resource>
-		<Resource tag="LOCATION">Đến từ</Resource>
-		<Resource tag="WHERE">Bạn đang ở đâu?</Resource>
-		<Resource tag="HOMEPAGE">Trang chủ</Resource>
-		<Resource tag="HOMEPAGE2">Trang chủ của bạn:</Resource>
-		<Resource tag="TIMEZONE">Múi giờ</Resource>
-		<Resource tag="TIMEZONE2">Chọn múi giờ của bạn.</Resource>
-		<Resource tag="CHANGE_PASSWORD">Đổi mật khẩu</Resource>
-		<Resource tag="OLDPASSWORD">Mật khẩu cũ:</Resource>
-		<Resource tag="NEWPASSWORD">Mật khẩu mới:</Resource>
-		<Resource tag="CONFIRMPASSWORD">Nhập lại mật khẩu mới:</Resource>
-		<Resource tag="CHANGE_EMAIL">Đổi email</Resource>
-		<Resource tag="EMAIL">Bạn phải nhập địa chỉ email chính xác.</Resource>
-		<Resource tag="NO_EMPTY_PASSWORD">Mật không được trống.</Resource>
-		<Resource tag="NO_PASSWORD_MATCH">Mật khẩu mới không giống nhau.</Resource>
-		<Resource tag="OLD_PASSWORD_WRONG">Mật khẩu cũ không đúng.</Resource>
-		<Resource tag="MAIL_SENT">Một email được gởi đến {0}.\n\nBạn cần phải xác nhận địa chỉ mail bằng cách click vào đường dẫn đã gởi đến cho bạn.</Resource>
-		<Resource tag="FORUM_SETTINGS">Thiết lập diễn đàn</Resource>
-		<Resource tag="SELECT_THEME">Chọn giao diện:</Resource>
-		<Resource tag="SELECT_LANGUAGE">Chọn ngôn ngữ:</Resource>
-		<Resource tag="WEBLOG2">Weblog:</Resource>
-		<Resource tag="MESSENGER">Instant messaging services</Resource>
-		<Resource tag="ABOUTYOU">Thông tin của bạn</Resource>
-		<Resource tag="REALNAME2">Tên thật của bạn?</Resource>
-		<Resource tag="BAD_EMAIL">Bạn đã nhập địa chỉ email không hợp lệ.</Resource>
-		<Resource tag="BAD_MSN">Bạn đã nhập địa chỉ email không hợp lệ cho tài khoản MSN.</Resource>
-		<Resource tag="BAD_HOME">Bạn đã nhập địa chỉ không hợp lệ cho trang chủ của bạn.</Resource>
-		<Resource tag="BAD_WEBLOG">Bạn đã nhập địa chỉ không hợp lệ cho weblog.</Resource>
-		<Resource tag="BAD_ICQ">Bạn đã nhập không hợp lệ cho số ICQ.</Resource>
+  <page name="CP_EDITPROFILE">
+    <Resource tag="ABOUTYOU">Thông tin của bạn</Resource>
+    <Resource tag="BAD_EMAIL">Bạn đã nhập địa chỉ email không hợp lệ.</Resource>
+    <Resource tag="BAD_HOME">Bạn đã nhập địa chỉ không hợp lệ cho trang chủ của bạn.</Resource>
+    <Resource tag="BAD_ICQ">Bạn đã nhập không hợp lệ cho số ICQ.</Resource>
+    <Resource tag="BAD_MSN">Bạn đã nhập địa chỉ email không hợp lệ cho tài khoản MSN.</Resource>
+    <Resource tag="BAD_WEBLOG">Bạn đã nhập địa chỉ không hợp lệ cho weblog.</Resource>
+    <Resource tag="CHANGE_EMAIL">Đổi email</Resource>
+    <Resource tag="CHANGE_PASSWORD">Đổi mật khẩu</Resource>
+    <Resource tag="CONFIRMPASSWORD">Nhập lại mật khẩu mới:</Resource>
+    <Resource tag="EMAIL">Bạn phải nhập địa chỉ email chính xác.</Resource>
+    <Resource tag="FORUM_SETTINGS">Thiết lập diễn đàn</Resource>
+    <Resource tag="HOMEPAGE">Trang chủ</Resource>
+    <Resource tag="HOMEPAGE2">Trang chủ của bạn:</Resource>
+    <Resource tag="LOCATION">Đến từ</Resource>
+    <Resource tag="MAIL_SENT">Một email được gởi đến {0}.\n\nBạn cần phải xác nhận địa chỉ mail bằng cách click vào đường dẫn đã gởi đến cho bạn.</Resource>
+    <Resource tag="MESSENGER">Instant messaging services</Resource>
+    <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
+    <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
+    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
+    <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="NEWPASSWORD">Mật khẩu mới:</Resource>
+    <Resource tag="NO_EMPTY_PASSWORD">Mật không được trống.</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">Mật khẩu mới không giống nhau.</Resource>
+    <Resource tag="OLD_PASSWORD_WRONG">Mật khẩu cũ không đúng.</Resource>
+    <Resource tag="OLDPASSWORD">Mật khẩu cũ:</Resource>
+    <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Nhận email thông báo khi có tin nhắn mới?</Resource>
-	</page>
-	<page name="CP_INBOX">
-		<!-- cp_inbox.aspx -->
-		<Resource tag="TITLE">Tin nhắn</Resource>
-		<Resource tag="SENTITEMS">Đã gởi</Resource>
-		<Resource tag="DELETESELECTED">Xóa đã chọn</Resource>
-		<Resource tag="SUBJECT">Tiêu đề</Resource>
-		<Resource tag="FROM">Từ</Resource>
-		<Resource tag="TO">Đến</Resource>
-		<Resource tag="DATE">Ngày</Resource>
-		<Resource tag="MSGDELETED1">1 tin nhắn đã được xóa.</Resource>
-		<Resource tag="MSGDELETED2">{0} tin nhắn đã được xóa.</Resource>
-		<Resource tag="CONFIRM_DELETE">Xóa hết tin nhắn?</Resource>
-	</page>
-	<page name="CP_MESSAGE">
-		<!-- cp_message.aspx -->
-		<Resource tag="INBOX">Tin nhắn</Resource>
-		<Resource tag="SENTITEMS">Đã gởi</Resource>
-		<Resource tag="MSG_DELETED">Tin nhắn đã xóa.</Resource>
-		<Resource tag="POSTED">Gởi:</Resource>
-	</page>
-	<page name="CP_PROFILE">
-		<!-- cp_profile.aspx -->
-		<Resource tag="NEW_MESSAGE">Gởi tin nhắn mới</Resource>
-		<Resource tag="CONTROL_PANEL">Bảng điều khiển</Resource>
-		<Resource tag="MESSENGER">Messenger:</Resource>
-		<Resource tag="PERSONAL_PROFILE">Lý lịch cá nhân:</Resource>
-		<Resource tag="INBOX">Tin nhắn</Resource>
-		<Resource tag="SENTITEMS">Đã gởi</Resource>
-		<Resource tag="EDIT_PROFILE">Sửa lý lịch</Resource>
+    <Resource tag="REALNAME2">Tên thật của bạn?</Resource>
+    <Resource tag="SELECT_LANGUAGE">Chọn ngôn ngữ:</Resource>
+    <Resource tag="SELECT_THEME">Chọn giao diện:</Resource>
+    <Resource tag="TIMEZONE">Múi giờ</Resource>
+    <Resource tag="TIMEZONE2">Chọn múi giờ của bạn.</Resource>
+    <Resource tag="TITLE">Sửa lý lịch</Resource>
+    <Resource tag="WEBLOG2">Weblog:</Resource>
+    <Resource tag="WHERE">Bạn đang ở đâu?</Resource>
+  </page>
+  <page name="CP_INBOX">
+    <Resource tag="CONFIRM_DELETE">Xóa hết tin nhắn?</Resource>
+    <Resource tag="DATE">Ngày</Resource>
+    <Resource tag="DELETESELECTED">Xóa đã chọn</Resource>
+    <Resource tag="FROM">Từ</Resource>
+    <Resource tag="MSGDELETED1">1 tin nhắn đã được xóa.</Resource>
+    <Resource tag="MSGDELETED2">{0} tin nhắn đã được xóa.</Resource>
+    <Resource tag="SENTITEMS">Đã gởi</Resource>
+    <Resource tag="SUBJECT">Tiêu đề</Resource>
+    <Resource tag="TITLE">Tin nhắn</Resource>
+    <Resource tag="TO">Đến</Resource>
+  </page>
+  <page name="CP_MESSAGE">
+    <Resource tag="INBOX">Tin nhắn</Resource>
+    <Resource tag="MSG_DELETED">Tin nhắn đã xóa.</Resource>
+    <Resource tag="POSTED">Gởi:</Resource>
+    <Resource tag="SENTITEMS">Đã gởi</Resource>
+  </page>
+  <page name="CP_PM">
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="ARCHIVESELECTED">Archive Selected</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
+    <Resource tag="DATE">Date</Resource>
+    <Resource tag="DELETESELECTED">Delete Selected</Resource>
+    <Resource tag="FROM">From</Resource>
+    <Resource tag="INBOX">Inbox</Resource>
+    <Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
+    <Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
+    <Resource tag="MSG_DELETED">Message was deleted.</Resource>
+    <Resource tag="MSGDELETED1">1 message was deleted.</Resource>
+    <Resource tag="MSGDELETED2">{0} messages were deleted.</Resource>
+    <Resource tag="NEW_MESSAGE">New Message</Resource>
+    <Resource tag="NO_MESSAGES">No messages were found.</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="SENTITEMS">Sent Items</Resource>
+    <Resource tag="SUBJECT">Subject</Resource>
+    <Resource tag="TITLE">Private Messages</Resource>
+    <Resource tag="TO">To</Resource>
+  </page>
+  <page name="CP_PROFILE">
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
+    <Resource tag="CONTROL_PANEL">Bảng điều khiển</Resource>
     <Resource tag="EDIT_AVATAR">Sửa hình đại diện</Resource>
-		<Resource tag="SIGNATURE">Chữ ký</Resource>
-		<Resource tag="SUBSCRIPTIONS">Subscriptions</Resource>
-		<Resource tag="YOUR_ACCOUNT">Tài khoản của bạn</Resource>
-		<Resource tag="YOUR_USERNAME">Tên đăng nhập:</Resource>
-		<Resource tag="YOUR_EMAIL">Email:</Resource>
-		<Resource tag="NUMPOSTS">Số bài viết:</Resource>
-		<Resource tag="GROUPS">Bạn là thành viên của nhóm:</Resource>
-		<Resource tag="JOINED">Bạn gia nhập từ:</Resource>
-		<Resource tag="EDIT_SIGNATURE">Sửa chữ ký</Resource>
-	</page>
-	<page name="CP_SIGNATURE">
-		<!-- cp_signature.aspx -->
-		<Resource tag="TITLE">Sửa chữ ký</Resource>
-		<Resource tag="SIGNATURE">Chữ ký:</Resource>
-	</page>
-	<page name="CP_SUBSCRIPTIONS">
-		<!-- cp_subscriptions.aspx -->
-		<Resource tag="TITLE">Subscriptions</Resource>
-		<Resource tag="FORUMS">Diễn đàn</Resource>
-		<Resource tag="FORUM">Diễn đàn</Resource>
-		<Resource tag="TOPICS">Chủ đề</Resource>
-		<Resource tag="REPLIES">Trả lới</Resource>
-		<Resource tag="LASTPOST">Bài cuối</Resource>
-		<Resource tag="TOPIC">Chủ đề</Resource>
-		<Resource tag="VIEWS">Xem</Resource>
-		<Resource tag="UNSUBSCRIBE">Unsubscribe</Resource>
-		<Resource tag="LASTPOSTLINK">{0} bởi {1}</Resource>
-		<Resource tag="WARN_SELECTTOPICS">Please select topics to unsubscribe from first.</Resource>
-		<Resource tag="WARN_SELECTFORUMS">Please select forums to unsubscribe from first.</Resource>
-	</page>
-	<page name="EMAILTOPIC">
-		<!-- emailtopic.aspx -->
-		<Resource tag="TITLE">Gởi cho bạn bè</Resource>
-		<Resource tag="TO">Gởi đến (địa chỉ email):</Resource>
-		<Resource tag="SUBJECT">Tiêu đề:</Resource>
-		<Resource tag="MESSAGE">Tin nhắn:</Resource>
-		<Resource tag="SEND">Send Email</Resource>
-		<Resource tag="NEED_EMAIL">Bạn nhập địa chỉ email hợp lệ.</Resource>
-		<Resource tag="FAILED">Failed to send email.\n\n{0}</Resource>
-	</page>
-	<page name="INFO">
-		<!-- info.aspx -->
-		<Resource tag="CONTINUE">Tiếp tục...</Resource>
-    <Resource tag="MODERATED">Bài viết phải được duyệt qua trước khi hiển thị.</Resource>
-    <Resource tag="SUSPENDED">Your account has been temporarily suspended. This suspension is due to end on {0}.</Resource>
-    <Resource tag="REGISTRATION">Một email được gởi.\n\nBạn cần phải xác nhận địa chỉ mail bằng cách click vào đường dẫn đã gởi đến cho bạn..</Resource>
+    <Resource tag="EDIT_PROFILE">Sửa lý lịch</Resource>
+    <Resource tag="EDIT_SIGNATURE">Sửa chữ ký</Resource>
+    <Resource tag="GROUPS">Bạn là thành viên của nhóm:</Resource>
+    <Resource tag="INBOX">Tin nhắn</Resource>
+    <Resource tag="JOINED">Bạn gia nhập từ:</Resource>
+    <Resource tag="MESSENGER">Messenger:</Resource>
+    <Resource tag="NEW_MESSAGE">Gởi tin nhắn mới</Resource>
+    <Resource tag="NUMPOSTS">Số bài viết:</Resource>
+    <Resource tag="PERSONAL_PROFILE">Lý lịch cá nhân:</Resource>
+    <Resource tag="SENTITEMS">Đã gởi</Resource>
+    <Resource tag="SIGNATURE">Chữ ký</Resource>
+    <Resource tag="SUBSCRIPTIONS">Subscriptions</Resource>
+    <Resource tag="YOUR_ACCOUNT">Tài khoản của bạn</Resource>
+    <Resource tag="YOUR_EMAIL">Email:</Resource>
+    <Resource tag="YOUR_USERNAME">Tên đăng nhập:</Resource>
+  </page>
+  <page name="CP_SIGNATURE">
+    <Resource tag="SIGNATURE">Chữ ký:</Resource>
+    <Resource tag="TITLE">Sửa chữ ký</Resource>
+  </page>
+  <page name="CP_SUBSCRIPTIONS">
+    <Resource tag="FORUM">Diễn đàn</Resource>
+    <Resource tag="FORUMS">Diễn đàn</Resource>
+    <Resource tag="LASTPOST">Bài cuối</Resource>
+    <Resource tag="LASTPOSTLINK">{0} bởi {1}</Resource>
+    <Resource tag="REPLIES">Trả lới</Resource>
+    <Resource tag="TITLE">Subscriptions</Resource>
+    <Resource tag="TOPIC">Chủ đề</Resource>
+    <Resource tag="TOPICS">Chủ đề</Resource>
+    <Resource tag="UNSUBSCRIBE">Unsubscribe</Resource>
+    <Resource tag="VIEWS">Xem</Resource>
+    <Resource tag="WARN_SELECTFORUMS">Please select forums to unsubscribe from first.</Resource>
+    <Resource tag="WARN_SELECTTOPICS">Please select topics to unsubscribe from first.</Resource>
+  </page>
+  <page name="DEFAULT">
+    <Resource tag="ACTIVE_DISCUSSIONS">Diễn đàn hoạt động</Resource>
+    <Resource tag="ACTIVE_USERS">Thành viên trực tuyến</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} người trực tuyến</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} người trực tuyến</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} khách</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} khách</Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} thành viên</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} thành viên</Resource>
+    <Resource tag="BY">bởi {0}</Resource>
+    <Resource tag="CURRENT_TIME">Giờ hiện tại: {0}.</Resource>
+    <Resource tag="FORUM">Diễn đàn</Resource>
+    <Resource tag="GO_LAST_POST">Xem bài viết cuối</Resource>
+    <Resource tag="IN"> {0}</Resource>
+    <Resource tag="INFORMATION">Thông tin</Resource>
+    <Resource tag="LAST_VISIT">Lần cuối bạn đến diễn đàn: {0}.</Resource>
+    <Resource tag="LASTPOST">Bài cuối</Resource>
+    <Resource tag="LATEST_POSTS">Bài viết cuối</Resource>
+    <Resource tag="MAIN_FORUM_RSS">Diễn đàn chính RSS</Resource>
+    <Resource tag="MARKALL">Đánh dấu tất cả diễn đàn đã đọc</Resource>
+    <Resource tag="MODERATORS">Điều hành</Resource>
+    <Resource tag="NO_FORUM_ACCESS">(Không truy cập)</Resource>
+    <Resource tag="NO_POSTS">Không có bài viết</Resource>
+    <Resource tag="POSTS">Bài viết</Resource>
+    <Resource tag="STATS">Thống kê</Resource>
+    <Resource tag="STATS_LASTMEMBER">Chào mừng thành viên mới nhất: {0}.</Resource>
+    <Resource tag="STATS_LASTPOST">Bài viết cuối {0} bởi {1}.</Resource>
+    <Resource tag="STATS_MEMBERS">Diễn đàn có tất cả {0:N0} thành viên.</Resource>
+    <Resource tag="STATS_POSTS">Có {0:N0} bài viết và {1:N0} chủ đề trong tổng số {2:N0} diễn đàn.</Resource>
+    <Resource tag="TOPICS">Chủ đề</Resource>
+    <Resource tag="UNREAD0">Bạn có {0} tin nhắn mới.</Resource>
+    <Resource tag="UNREAD1">Bạn có {0} tin nhắn mới.</Resource>
+    <Resource tag="VIEWING">({0} đang xem)</Resource>
+  </page>
+  <page name="DELETEMESSAGE">
+    <Resource tag="DELETE">Delete</Resource>
+    <Resource tag="DELETE_REASON">Delete reason</Resource>
+    <Resource tag="ERASEMESSAGE">Erase message from the database (irreversible)</Resource>
+    <Resource tag="FROM">From:</Resource>
+    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="PREVIEWTITLE">Message:</Resource>
+    <Resource tag="PRIORITY">Priority:</Resource>
+    <Resource tag="SUBJECT">Subject:</Resource>
+    <Resource tag="UNDELETE">Undelete</Resource>
+    <Resource tag="UNDELETE_REASON">Undelete reason</Resource>
+    <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
+  </page>
+  <page name="EMAILTOPIC">
+    <Resource tag="FAILED">Failed to send email.\n\n{0}</Resource>
+    <Resource tag="MESSAGE">Tin nhắn:</Resource>
+    <Resource tag="NEED_EMAIL">Bạn nhập địa chỉ email hợp lệ.</Resource>
+    <Resource tag="SEND">Send Email</Resource>
+    <Resource tag="SUBJECT">Tiêu đề:</Resource>
+    <Resource tag="TITLE">Gởi cho bạn bè</Resource>
+    <Resource tag="TO">Gởi đến (địa chỉ email):</Resource>
+  </page>
+  <page name="ICONLEGEND">
+    <Resource tag="ANNOUNCEMENT">Thông báo</Resource>
+    <Resource tag="ANNOUNCEMENT_NEW">Thông báo (Có bài viết mới)</Resource>
+    <Resource tag="FORUM_LOCKED">Diễn đàn đã khóa</Resource>
+    <Resource tag="MOVED">Đã chuyển</Resource>
+    <Resource tag="NEW_POSTS">Bài viết mới</Resource>
+    <Resource tag="NEW_POSTS_LOCKED">Bài viết mới (Đã Khóa)</Resource>
+    <Resource tag="NO_NEW_POSTS">Không có bài viết mới</Resource>
+    <Resource tag="NO_NEW_POSTS_LOCKED">Không có bài viết mới (Đã Khóa)</Resource>
+    <Resource tag="POLL">Bình chọn</Resource>
+    <Resource tag="POLL_NEW">Bình chọn (Có bài viết mới)</Resource>
+    <Resource tag="STICKY">Chú ý</Resource>
+  </page>
+  <page name="IM_AIM">
+    <Resource tag="TITLE">AOL Instant Messenger</Resource>
+  </page>
+  <page name="IM_EMAIL">
+    <Resource tag="BODY">Nội dung:</Resource>
+    <Resource tag="ERROR">Có lỗi xảy ra trong quá trình gởi mail.</Resource>
+    <Resource tag="SEND">E-mail nhận</Resource>
+    <Resource tag="SUBJECT">Tiêu đề:</Resource>
+    <Resource tag="TITLE">E-mail</Resource>
+  </page>
+  <page name="IM_ICQ">
+    <Resource tag="BODY">Nhập nội dung ở đây:</Resource>
+    <Resource tag="EMAIL">E-mail:</Resource>
+    <Resource tag="NAME">Tên của bạn:</Resource>
+    <Resource tag="SEND">Gởi tin nhắn</Resource>
+    <Resource tag="TITLE">ICQ</Resource>
+  </page>
+  <page name="IM_SKYPE">
+    <Resource tag="TITLE">Skype(tm) Calling</Resource>
+  </page>
+  <page name="IM_YIM">
+    <Resource tag="TITLE">Yahoo! Messenger</Resource>
+  </page>
+  <page name="INFO">
     <Resource tag="ACCESSDENIED">Bạn đang cố gắng truy cập vào trang không hợp lệ.</Resource>
+    <Resource tag="CONTINUE">Tiếp tục...</Resource>
+    <Resource tag="DISABLED">The administrator of this forum has disabled this feature.</Resource>
     <Resource tag="EXCEPTION">Bạn đã đăng nhập với tên</Resource>
-    <Resource tag="TITLE_MODERATED">Thông Tin</Resource>
-    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
-    <Resource tag="TITLE_REGISTRATION">Cảm ơn</Resource>
+    <Resource tag="FAILURE">There's been a system error processing your request. Please contact the forum admin explaining what you were doing when it happened.</Resource>
+    <Resource tag="INVALID">You've passed an invalid value to the forum.</Resource>
+    <Resource tag="MODERATED">Bài viết phải được duyệt qua trước khi hiển thị.</Resource>
+    <Resource tag="REGISTRATION">Một email được gởi.\n\nBạn cần phải xác nhận địa chỉ mail bằng cách click vào đường dẫn đã gởi đến cho bạn..</Resource>
+    <Resource tag="SUSPENDED">Your account has been temporarily suspended. This suspension is due to end on {0}.</Resource>
     <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
     <Resource tag="TITLE_EXCEPTION">Thông tin</Resource>
+    <Resource tag="TITLE_FAILURE">Failure</Resource>
+    <Resource tag="TITLE_INVALID">Invalid</Resource>
+    <Resource tag="TITLE_MODERATED">Thông Tin</Resource>
+    <Resource tag="TITLE_REGISTRATION">Cảm ơn</Resource>
+    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
   </page>
-	<page name="LOGIN">
-		<!-- login.aspx -->
-		<Resource tag="TITLE">Đăng nhập</Resource>
-		<Resource tag="USERNAME">Tên đăng nhập:</Resource>
-		<Resource tag="PASSWORD">Mật khẩu:</Resource>
-		<Resource tag="AUTO">Ghi nhơ:</Resource>
-		<Resource tag="LOSTPASSWORD">Quên mật khẩu</Resource>
-		<Resource tag="FORUM_LOGIN">Đăng nhập diễn đàn</Resource>
-		<Resource tag="EMAIL">Email</Resource>
-		<Resource tag="PASSWORD_ERROR">Tên đăng nhập hoặc mật khẩu không hợp lệ.</Resource>
-		<Resource tag="RECOVER">Nhận lại mật khẩu</Resource>
-		<Resource tag="WRONG_USERNAME_EMAIL">Sai tên đăng nhập hoặc email.</Resource>
-		<Resource tag="EMAIL_SENT_PASSWORD">Email đã được gởi cho bạn vơi mật khẩu mới.</Resource>
-		<Resource tag="SENDPASSWORD">Gởi mật khẩu</Resource>
-		<Resource tag="BOTH_USERNAME_EMAIL">Bạn cần phải nhập cả tên đăng nhập và email.</Resource>
-		<Resource tag="RECOVER_ERROR">Lỗi tạo mật khẩu mới.</Resource>
-	</page>
-	<page name="MEMBERS">
-		<!-- members.aspx -->
-		<Resource tag="TITLE">Thành viên</Resource>
-		<Resource tag="USERNAME">Tên sử dụng</Resource>
-		<Resource tag="RANK">Danh hiệu</Resource>
-		<Resource tag="JOINED">Gia nhập</Resource>
-		<Resource tag="POSTS">Bài viết</Resource>
-		<Resource tag="PAGES">{0} trang:</Resource>
-	</page>
-	<page name="MODERATE">
-		<!-- moderate.aspx -->
-		<Resource tag="TITLE">Điều hành</Resource>
-		<Resource tag="TOPICS">Chủ đề</Resource>
-		<Resource tag="TOPIC_STARTER">Tác giả</Resource>
-		<Resource tag="REPLIES">Trả lời</Resource>
-		<Resource tag="VIEWS">Xem</Resource>
-		<Resource tag="LASTPOST">Bài cuối</Resource>
-		<Resource tag="CONFIRM_DELETE">Xóa chủ đề?</Resource>
-		<Resource tag="BY">bởi {0}</Resource>
-		<Resource tag="DELETED">Chủ đề đã xóa.</Resource>
-		<Resource tag="NO_POSTS">Không có bài viết</Resource>
-		<Resource tag="MEMBERS">Thành viên</Resource>
-		<Resource tag="USER">Thành viên</Resource>
-		<Resource tag="ACCEPTED">Đã chấp nhận</Resource>
-		<Resource tag="ACCESSMASK">Access Mask</Resource>
-		<Resource tag="EDIT">Sửa</Resource>
-		<Resource tag="REMOVE">Xóa</Resource>
-		<Resource tag="INVITE">Mời thành viên</Resource>
-	</page>
-	<page name="MOVETOPIC">
-		<!-- movetopic.aspx -->
-		<Resource tag="TITLE">Di chuyển chủ đề</Resource>
-		<Resource tag="SELECT_FORUM">Chọn diễn đàn muốn di chuyển bài viết:</Resource>
-		<Resource tag="MOVE">Di chuyển chủ đề</Resource>
-	</page>
-
-	<page name="PMESSAGE">
-		<!-- pmessage.aspx -->
-		<Resource tag="TITLE">Gởi tin nhắn</Resource>
-		<Resource tag="TO">Đến:</Resource>
-		<Resource tag="SUBJECT">Tiêu đề:</Resource>
-		<Resource tag="MESSAGE">Nội dung:</Resource>
-		<Resource tag="NEED_TO">Bạn chưa chọn người nhận tin nhắn.</Resource>
-		<Resource tag="NEED_SUBJECT">Bạn phải nhập tiêu đề.</Resource>
-		<Resource tag="NEED_MESSAGE">Bạn phải nhập nội dung tin nhắn.</Resource>
-		<Resource tag="SAVE">Gởi</Resource>
-		<Resource tag="NO_SUCH_USER">Không tìm thấy người nhận.</Resource>
-		<Resource tag="NOT_GUEST">Bạn không thể gởi tin nhắn cho khách.</Resource>
-		<Resource tag="FINDUSERS">Tìm thành viên</Resource>
-		<Resource tag="ALLUSERS">Tất cả thành viên</Resource>
-	</page>
-	<page name="POSTMESSAGE">
-		<!-- postmessage.aspx -->
-		<Resource tag="NEWTOPIC">Tạo chủ đề</Resource>
-		<Resource tag="REPLY">Trả lời</Resource>
-		<Resource tag="EDIT">Sửa bài</Resource>
-		<Resource tag="PREVIEW">Xem trước</Resource>
-		<Resource tag="PREVIEWTITLE">Xem trước:</Resource>
-		<Resource tag="SUBJECT">Chủ đề:</Resource>
-		<Resource tag="FROM">Tư:</Resource>
-		<Resource tag="PRIORITY">Dạng:</Resource>
-		<Resource tag="MESSAGE">Nội dung:</Resource>
-		<Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
-		<Resource tag="NORMAL">Bình thường</Resource>
-		<Resource tag="STICKY">Chú ý</Resource>
-		<Resource tag="ANNOUNCEMENT">Thông báo</Resource>
-		<Resource tag="CREATEPOLL">Tạo bình chọn</Resource>
-		<Resource tag="POLLQUESTION">Câu hỏi:</Resource>
-		<Resource tag="CHOICE1">Trả lời 1:</Resource>
-		<Resource tag="CHOICE2">Trả lời 2:</Resource>
-		<Resource tag="CHOICE3">Trả lời 3:</Resource>
-		<Resource tag="CHOICE4">Trả lời 4:</Resource>
-		<Resource tag="CHOICE5">Trả lời 5:</Resource>
-		<Resource tag="CHOICE6">Trả lời 6:</Resource>
-		<Resource tag="CHOICE7">Trả lời 7:</Resource>
-		<Resource tag="CHOICE8">Trả lời 8:</Resource>
-		<Resource tag="CHOICE9">Trả lời:</Resource>
-		<Resource tag="POLL_EXPIRE">Bình chọn trong:</Resource>
-		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]ngày[/b] [ để trống không hết hạn ]</Resource>		
-		<Resource tag="NEED_SUBJECT">Chưa nhập tên chủ đề.</Resource>
-		<Resource tag="WAIT">Bạn không gởi bài trong {0:N0} giây.</Resource>
-		<Resource tag="POSTED">Đã gởi:</Resource>
-		<Resource tag="SAVE">Gởi</Resource>
-		<Resource tag="NEED_QUESTION">Bạn phải nhập câu hỏi bình chọn.</Resource>
-		<Resource tag="NEED_CHOICES">Ít nhất phải có 2 câu trả lời.</Resource>
-		<Resource tag="SMILIES_HEADER">[b]Chèn biểu tượng[/b]</Resource>
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
+  <page name="LOGIN">
+    <Resource tag="AUTO">Ghi nhơ:</Resource>
+    <Resource tag="BOTH_USERNAME_EMAIL">Bạn cần phải nhập cả tên đăng nhập và email.</Resource>
+    <Resource tag="EMAIL">Email</Resource>
+    <Resource tag="EMAIL_SENT_PASSWORD">Email đã được gởi cho bạn vơi mật khẩu mới.</Resource>
+    <Resource tag="FORUM_LOGIN">Đăng nhập diễn đàn</Resource>
+    <Resource tag="LOSTPASSWORD">Quên mật khẩu</Resource>
+    <Resource tag="PASSWORD">Mật khẩu:</Resource>
+    <Resource tag="PASSWORD_ERROR">Tên đăng nhập hoặc mật khẩu không hợp lệ.</Resource>
+    <Resource tag="RECOVER">Nhận lại mật khẩu</Resource>
+    <Resource tag="RECOVER_ERROR">Lỗi tạo mật khẩu mới.</Resource>
+    <Resource tag="SENDPASSWORD">Gởi mật khẩu</Resource>
+    <Resource tag="TITLE">Đăng nhập</Resource>
+    <Resource tag="USERNAME">Tên đăng nhập:</Resource>
+    <Resource tag="WRONG_USERNAME_EMAIL">Sai tên đăng nhập hoặc email.</Resource>
+  </page>
+  <page name="MEMBERS">
+    <Resource tag="JOINED">Gia nhập</Resource>
+    <Resource tag="PAGES">{0} trang:</Resource>
+    <Resource tag="POSTS">Bài viết</Resource>
+    <Resource tag="RANK">Danh hiệu</Resource>
+    <Resource tag="TITLE">Thành viên</Resource>
+    <Resource tag="USERNAME">Tên sử dụng</Resource>
+  </page>
+  <page name="MOD_FORUMUSER">
+    <Resource tag="ACCESSMASK">Đánh dấu:</Resource>
+    <Resource tag="CANCEL">Hủy</Resource>
+    <Resource tag="FIND">Tìm thành viên</Resource>
+    <Resource tag="TITLE">Thành viên</Resource>
+    <Resource tag="UPDATE">Cập nhật</Resource>
+    <Resource tag="USER">Thành viên:</Resource>
+  </page>
+  <page name="MODERATE">
+    <Resource tag="ACCEPTED">Đã chấp nhận</Resource>
+    <Resource tag="ACCESSMASK">Access Mask</Resource>
+    <Resource tag="BY">bởi {0}</Resource>
+    <Resource tag="CONFIRM_DELETE">Xóa chủ đề?</Resource>
+    <Resource tag="DELETED">Chủ đề đã xóa.</Resource>
+    <Resource tag="EDIT">Sửa</Resource>
+    <Resource tag="INVITE">Mời thành viên</Resource>
+    <Resource tag="LASTPOST">Bài cuối</Resource>
+    <Resource tag="MEMBERS">Thành viên</Resource>
+    <Resource tag="NO_POSTS">Không có bài viết</Resource>
+    <Resource tag="REMOVE">Xóa</Resource>
+    <Resource tag="REPLIES">Trả lời</Resource>
+    <Resource tag="TITLE">Điều hành</Resource>
+    <Resource tag="TOPIC_STARTER">Tác giả</Resource>
+    <Resource tag="TOPICS">Chủ đề</Resource>
+    <Resource tag="USER">Thành viên</Resource>
+    <Resource tag="VIEWS">Xem</Resource>
+  </page>
+  <page name="MODERATE_DEFAULT">
+    <Resource tag="CATEGORY">Nhóm</Resource>
+    <Resource tag="FORUM">Diễn đàn</Resource>
+    <Resource tag="REPORTED">Reported as Abuse Posts</Resource>
+    <Resource tag="REPORTEDSPAM">Reported as Spam Posts</Resource>
+    <Resource tag="TITLE">Điều hành</Resource>
+    <Resource tag="UNAPPROVED">Bài chưa duyệt</Resource>
+  </page>
+  <page name="MODERATE_FORUM">
+    <Resource tag="APPROVE">Duyệt bài</Resource>
+    <Resource tag="APPROVED">Đã duyệt.</Resource>
+    <Resource tag="ASK_DELETE">Xóa bài viết này?</Resource>
+    <Resource tag="COPYOVER">Update message text</Resource>
+    <Resource tag="DELETE">Xóa bài</Resource>
+    <Resource tag="DELETED">Đã xóa.</Resource>
+    <Resource tag="MODIFIED">Post has been changed!</Resource>
+    <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
+    <Resource tag="RESOLVE">Resolve Post Copies</Resource>
+    <Resource tag="RESOLVED">Mark as resolved</Resource>
+    <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
+    <Resource tag="TOP">Chuyển lên trên</Resource>
+    <Resource tag="UNAPPROVED">Bài chưa duyệt</Resource>
+  </page>
+  <page name="MOVEMESSAGE">
+    <Resource tag="CREATE_TOPIC">Create Topic From Message</Resource>
+    <Resource tag="EMPTY_TOPIC">Topic name is empty</Resource>
+    <Resource tag="MOVE" />
+    <Resource tag="MOVE_MESSAGE">Move Message</Resource>
+    <Resource tag="NEW_TOPIC">Create Topic to move to:</Resource>
+    <Resource tag="SELECT_FORUM_MOVETO">Select Forum to move to:</Resource>
+    <Resource tag="SELECT_TOPIC_MOVETO">Select Topic to move to:</Resource>
+  </page>
+  <page name="MOVETOPIC">
+    <Resource tag="LEAVE_POINTER">Leave link to moved topic in original forum</Resource>
+    <Resource tag="MOVE">Di chuyển chủ đề</Resource>
+    <Resource tag="SELECT_FORUM">Chọn diễn đàn muốn di chuyển bài viết:</Resource>
+    <Resource tag="TITLE">Di chuyển chủ đề</Resource>
+  </page>
+  <page name="PMESSAGE">
+    <Resource tag="ALLUSERS">Tất cả thành viên</Resource>
+    <Resource tag="CLEAR">Clear</Resource>
+    <Resource tag="FINDUSERS">Tìm thành viên</Resource>
+    <Resource tag="MAX_RECIPIENT_INFO">You can send message to maximum of [b]{0}[/b] users at a time.</Resource>
+    <Resource tag="MESSAGE">Nội dung:</Resource>
+    <Resource tag="MULTI_RECEIVER_INFO">Separate multiple user names with ';'</Resource>
+    <Resource tag="NEED_MESSAGE">Bạn phải nhập nội dung tin nhắn.</Resource>
+    <Resource tag="NEED_MORE_LETTERS">Please enter, at least, the first two letters of the user you wish to locate.</Resource>
+    <Resource tag="NEED_SUBJECT">Bạn phải nhập tiêu đề.</Resource>
+    <Resource tag="NEED_TO">Bạn chưa chọn người nhận tin nhắn.</Resource>
+    <Resource tag="NO_SUCH_USER">Không tìm thấy người nhận.</Resource>
+    <Resource tag="NOT_GUEST">Bạn không thể gởi tin nhắn cho khách.</Resource>
+    <Resource tag="OWN_PMBOX_FULL">Your Private Message box is full. Maximum allowed is {0}. Please delete messages to free up space.</Resource>
+    <Resource tag="PREVIEWTITLE">Preview:</Resource>
+    <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="SAVE">Gởi</Resource>
+    <Resource tag="SUBJECT">Tiêu đề:</Resource>
+    <Resource tag="TITLE">Gởi tin nhắn</Resource>
+    <Resource tag="TO">Đến:</Resource>
+    <Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
+  </page>
+  <page name="POSTMESSAGE">
+    <Resource tag="ANNOUNCEMENT">Thông báo</Resource>
+    <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="CHOICE1">Trả lời 1:</Resource>
+    <Resource tag="CHOICE2">Trả lời 2:</Resource>
+    <Resource tag="CHOICE3">Trả lời 3:</Resource>
+    <Resource tag="CHOICE4">Trả lời 4:</Resource>
+    <Resource tag="CHOICE5">Trả lời 5:</Resource>
+    <Resource tag="CHOICE6">Trả lời 6:</Resource>
+    <Resource tag="CHOICE7">Trả lời 7:</Resource>
+    <Resource tag="CHOICE8">Trả lời 8:</Resource>
+    <Resource tag="CHOICE9">Trả lời:</Resource>
+    <Resource tag="CREATEPOLL">Tạo bình chọn</Resource>
+    <Resource tag="EDIT">Sửa bài</Resource>
+    <Resource tag="EDITREASON">Reason for edit:</Resource>
+    <Resource tag="FROM">Tư:</Resource>
+    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+    <Resource tag="MESSAGE">Nội dung:</Resource>
+    <Resource tag="NEED_CHOICES">Ít nhất phải có 2 câu trả lời.</Resource>
+    <Resource tag="NEED_QUESTION">Bạn phải nhập câu hỏi bình chọn.</Resource>
+    <Resource tag="NEED_SUBJECT">Chưa nhập tên chủ đề.</Resource>
     <Resource tag="NEWPOSTOPTIONS">Tùy chọn:</Resource>
-    <Resource tag="TOPICWATCH">Nhận thông báo của chủ đề qua email?</Resource>
+    <Resource tag="NEWTOPIC">Tạo chủ đề</Resource>
+    <Resource tag="NORMAL">Bình thường</Resource>
+    <Resource tag="PERSISTENCY">Persistent:</Resource>
+    <Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
+    <Resource tag="POLL_EXPIRE">Bình chọn trong:</Resource>
+    <Resource tag="POLL_EXPIRE_EXPLAIN">[b]ngày[/b] [ để trống không hết hạn ]</Resource>
+    <Resource tag="POLLQUESTION">Câu hỏi:</Resource>
+    <Resource tag="POSTED">Đã gởi:</Resource>
+    <Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
+    <Resource tag="PREVIEW">Xem trước</Resource>
+    <Resource tag="PREVIEWTITLE">Xem trước:</Resource>
+    <Resource tag="PRIORITY">Dạng:</Resource>
+    <Resource tag="REMOVEPOLL">Remove Poll</Resource>
+    <Resource tag="REPLY">Trả lời</Resource>
+    <Resource tag="SAVE">Gởi</Resource>
+    <Resource tag="SMILIES_HEADER">[b]Chèn biểu tượng[/b]</Resource>
+    <Resource tag="SMILIES_MORE">More Smilies...</Resource>
+    <Resource tag="STICKY">Chú ý</Resource>
+    <Resource tag="SUBJECT">Chủ đề:</Resource>
     <Resource tag="TOPICATTACH">Đính kèm tập tin?</Resource>
+    <Resource tag="TOPICWATCH">Nhận thông báo của chủ đề qua email?</Resource>
+    <Resource tag="WAIT">Bạn không gởi bài trong {0:N0} giây.</Resource>
   </page>
-	<page name="PRINTTOPIC">
-		<!-- printtopic.aspx -->
-		<Resource tag="POSTEDBY">Viết bởi</Resource>
-	</page>
-	<page name="PROFILE">
-		<!-- profile.aspx -->
-		<Resource tag="MEMBERS">Thành viên</Resource>
-		<Resource tag="PROFILE">Lý lịch:</Resource>
-		<Resource tag="ABOUT">Về</Resource>
-		<Resource tag="USERNAME">Tên sử dụng:</Resource>
-		<Resource tag="GROUPS">Nhóm:</Resource>
-		<Resource tag="RANK">Danh hiệu:</Resource>
-		<Resource tag="JOINED">Gia nhập:</Resource>
-		<Resource tag="EMAIL">E-mail:</Resource>
-		<Resource tag="LASTVISIT">Lần cuối đăng nhập:</Resource>
-		<Resource tag="STATISTICS">Thống kê</Resource>
-		<Resource tag="NUMPOSTS">Số bài viết:</Resource>
-		<Resource tag="LAST10">10 bài gần nhất</Resource>
-		<Resource tag="TOPIC">Chủ đề:</Resource>
-		<Resource tag="POSTED">Đã gởi:</Resource>
-		<Resource tag="ENDS">User suspension ends:</Resource>
-		<Resource tag="REMOVESUSPENSION">Remove Suspension</Resource>
-		<Resource tag="SUSPEND">Suspend</Resource>
-		<Resource tag="DAYS">ngày</Resource>
-		<Resource tag="HOURS">giờ</Resource>
-		<Resource tag="MINUTES">phút</Resource>
-		<Resource tag="AVATAR">Hình đại diện</Resource>
-		<Resource tag="CONTACT">Liên hệ</Resource>
-		<Resource tag="PM">Tin nhắn:</Resource>
-		<Resource tag="MSN">MSN Messenger:</Resource>
-		<Resource tag="YIM">Yahoo Messenger:</Resource>
-		<Resource tag="AIM">AIM-Name:</Resource>
-		<Resource tag="ICQ">ICQ-Number:</Resource>
-		<Resource tag="REALNAME">Tên thật:</Resource>
-		<Resource tag="WEBSITE">Trang chủ:</Resource>
-		<Resource tag="WEBLOG">Weblog:</Resource>
-		<Resource tag="OCCUPATION">Nghề nghiệp:</Resource>
-		<Resource tag="INTERESTS">Sở thích:</Resource>
-		<Resource tag="GENDER">Giới tính:</Resource>
-		<Resource tag="GENDER0">Pê đê</Resource>
-		<Resource tag="GENDER1">Nam</Resource>
-		<Resource tag="GENDER2">Nữ</Resource>
-		<Resource tag="NUMALL">{0:N2}% trên tổng số bài viết</Resource>
-		<Resource tag="NUMDAY">{0:N2} bài trên ngày</Resource>
-		<Resource tag="ERROR_ADMINISTRATORS">You can not suspend administrators.</Resource>
-		<Resource tag="ERROR_FORUMMODERATORS">You can not suspend forum moderators.</Resource>
-		<Resource tag="ERROR_GUESTACCOUNT">You can not suspend the guest account.</Resource>
-	</page>
-	<page name="REGISTER">
-		<!-- register.aspx -->
-		<Resource tag="TITLE">Đăng ký thành viên</Resource>
-		<Resource tag="DETAILS">Thông tin đăng ký</Resource>
-		<Resource tag="USERNAME">Tên sử dung</Resource>
-		<Resource tag="NEED_USERNAME">bắt buộc.</Resource>
-		<Resource tag="PASSWORD">Mật khẩu</Resource>
-		<Resource tag="NEED_PASSWORD">bắt buộc.</Resource>
-		<Resource tag="RETYPE_PASSWORD">Nhập lại mật khẩu</Resource>
-		<Resource tag="NEED_MATCH">Mật khẩu không giống nhau.</Resource>
-		<Resource tag="EMAIL">Email </Resource>
-		<Resource tag="PROFILE">Thông tin cá nhân</Resource>
-		<Resource tag="LOCATION">Đến từ</Resource>
-		<Resource tag="HOMEPAGE">Trang web</Resource>
-		<Resource tag="PREFERENCES">Tùy chọn</Resource>
-		<Resource tag="TIMEZONE">Múi giờ</Resource>
-		<Resource tag="ALREADY_REGISTERED">Tên sử dụng hoặc email đã được đăng ký.</Resource>
-		<Resource tag="REGISTER">Đăng ký</Resource>
-		<Resource tag="BAD_EMAIL">Bạn đã nhập email không hợp lệ.</Resource>
-	</page>
-	<page name="SEARCH">
-		<!-- search.aspx -->
-		<Resource tag="TITLE">Tìm kiêm</Resource>
-		<Resource tag="BTNSEARCH">Tìm kiêm</Resource>
-		<Resource tag="RESULTS">Kết quả</Resource>
-		<Resource tag="TOPIC">Chủ đề:</Resource>
-		<Resource tag="POSTED">Đã gởi:</Resource>
-		<Resource tag="ALLFORUMS">Tất cả diễn đàn</Resource>
-		<Resource tag="RESULT5">5 kết quả trên trang</Resource>
-		<Resource tag="RESULT10">10 kết quả trên trang</Resource>
-		<Resource tag="RESULT25">25 kết quả trên trang</Resource>
-		<Resource tag="RESULT50">50 kết quả trên trang</Resource>
-		<Resource tag="POSTS">Bài viết</Resource>
-		<Resource tag="POSTEDBY">Viết bởi</Resource>
-		<Resource tag="MATCH_ALL">Chính xác</Resource>
-		<Resource tag="MATCH_ANY">Ggần đúng</Resource>
-		<Resource tag="MATCH_EXACT">Chính xác cụm từ</Resource>
-		<Resource tag="NO_SEARCH_RESULTS">[b]Không tìm thấy kết quả nào.[/b]</Resource>
-		<Resource tag="BY">bởi</Resource>
-	</page>
-	<page name="MODERATE_DEFAULT">
-		<Resource tag="TITLE">Điều hành</Resource>
-		<Resource tag="FORUM">Diễn đàn</Resource>
-		<Resource tag="UNAPPROVED">Bài chưa duyệt</Resource>
-		<Resource tag="CATEGORY">Nhóm</Resource>
-	</page>
-	<page name="MODERATE_FORUM">
-		<Resource tag="UNAPPROVED">Bài chưa duyệt</Resource>
-		<Resource tag="TOP">Chuyển lên trên</Resource>
-		<Resource tag="APPROVE">Duyệt bài</Resource>
-		<Resource tag="DELETE">Xóa bài</Resource>
-		<Resource tag="ASK_DELETE">Xóa bài viết này?</Resource>
-		<Resource tag="APPROVED">Đã duyệt.</Resource>
-		<Resource tag="DELETED">Đã xóa.</Resource>
-	</page>
-	<page name="MOD_FORUMUSER">
-		<Resource tag="TITLE">Thành viên</Resource>
-		<Resource tag="USER">Thành viên:</Resource>
-		<Resource tag="FIND">Tìm thành viên</Resource>
-		<Resource tag="ACCESSMASK">Đánh dấu:</Resource>
-		<Resource tag="UPDATE">Cập nhật</Resource>
-		<Resource tag="CANCEL">Hủy</Resource>
-	</page>
-	<page name="RTE">
-		<Resource tag="BOLD">Bold</Resource>
-		<Resource tag="ITALIC">Italic</Resource>
-		<Resource tag="UNDERLINE">Underline</Resource>
-		<Resource tag="LEFT">Align Left</Resource>
-		<Resource tag="CENTER">Center</Resource>
-		<Resource tag="RIGHT">Align Right</Resource>
-		<Resource tag="ORDERED">Ordered List</Resource>
-		<Resource tag="UNORDERED">Unordered List</Resource>
-		<Resource tag="OUTDENT">Outdent</Resource>
-		<Resource tag="INDENT">Indent</Resource>
-		<Resource tag="LINK">Insert Link</Resource>
-		<Resource tag="IMAGE">Add Image</Resource>
-		<Resource tag="SPELL">Check Spelling</Resource>
-		<Resource tag="NORMAL">Normal</Resource>
-		<Resource tag="CLEAR">Clear Formatting</Resource>
-		<Resource tag="FORMATTED">Formatted</Resource>
-	</page>
-	<page name="AVATAR">
-		<Resource tag="TITLE">Hình đại diện</Resource>
-		<Resource tag="EDITPROFILE">Đổi hình</Resource>
-	</page>
-	<page name="IM_YIM">
-		<Resource tag="TITLE">Yahoo! Messenger</Resource>
-	</page>
-	<page name="IM_AIM">
-		<Resource tag="TITLE">AOL Instant Messenger</Resource>
-	</page>
-	<page name="IM_ICQ">
-		<Resource tag="TITLE">ICQ</Resource>
-		<Resource tag="NAME">Tên của bạn:</Resource>
-		<Resource tag="EMAIL">E-mail:</Resource>
-		<Resource tag="SEND">Gởi tin nhắn</Resource>
-		<Resource tag="BODY">Nhập nội dung ở đây:</Resource>
-	</page>
-	<page name="IM_EMAIL">
-		<Resource tag="TITLE">E-mail</Resource>
-		<Resource tag="SEND">E-mail nhận</Resource>
-		<Resource tag="SUBJECT">Tiêu đề:</Resource>
-		<Resource tag="BODY">Nội dung:</Resource>
-		<Resource tag="ERROR">Có lỗi xảy ra trong quá trình gởi mail.</Resource>
-	</page>
+  <page name="POSTS">
+    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_USERNAME">huytran911</Resource>
+    <Resource tag="AIM">AIM</Resource>
+    <Resource tag="ATTACHMENTINFO">({0:N0}kb) đã được dowbload [b]{1:N0}[/b] lần.</Resource>
+    <Resource tag="ATTACHMENTS">Tập tin đính kèm(s):</Resource>
+    <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CHOICE">Chọn</Resource>
+    <Resource tag="CONFIRM_DELETEMESSAGE">Xóa tin nhắn?</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">Xóa chủ đề?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
+    <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
+    <Resource tag="EDIT_REASON">Reason</Resource>
+    <Resource tag="EDIT_REASON_NA">Not specified</Resource>
+    <Resource tag="EDITED">Edit</Resource>
+    <Resource tag="EDITED_BY_MOD">by moderator</Resource>
+    <Resource tag="EDITED_BY_USER">by user</Resource>
+    <Resource tag="EMAIL">EMail</Resource>
+    <Resource tag="EMAILTOPIC">Email chủ đề này</Resource>
+    <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="FORUM_JUMP">Di chuyển</Resource>
+    <Resource tag="GROUPS">Nhóm</Resource>
+    <Resource tag="HOME">WWW</Resource>
+    <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} hình được đính kèm:</Resource>
+    <Resource tag="INFO_NOMORETOPICS">Không có chủ đề trong diễn đàn này.</Resource>
+    <Resource tag="INFO_TOPIC_LOCKED">Chủ đề đã được khóa.</Resource>
+    <Resource tag="INFO_TOPIC_UNLOCKED">Chủ đề đã được mở khóa.</Resource>
+    <Resource tag="INFO_UNWATCH_TOPIC">Bạn sẽ không được thông báo khi có bài viết mới trong chủ đề này.</Resource>
+    <Resource tag="INFO_VOTED">Cảm ơn bạn đã bình chọn!</Resource>
+    <Resource tag="INFO_WATCH_TOPIC">Bạn sẽ được thông báo khi có bài viết mới trong chủ đề này.</Resource>
+    <Resource tag="IP">IP</Resource>
+    <Resource tag="JOINED">Gia nhập</Resource>
+    <Resource tag="LOCATION">Đến từ</Resource>
+    <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>
+    <Resource tag="MESSAGEDELETED_USER">Message was deleted by User.</Resource>
+    <Resource tag="MSN">MSN</Resource>
+    <Resource tag="NEXTTOPIC">Chủ đề kế tiếp</Resource>
+    <Resource tag="NORMAL">Bình thường</Resource>
+    <Resource tag="OPTIONS">Tùy chọn</Resource>
+    <Resource tag="PM">PM</Resource>
+    <Resource tag="POINTS">Điểm</Resource>
+    <Resource tag="POLL_CLOSED">(Bình chọn đã đóng)</Resource>
+    <Resource tag="POST_REPLY">Viết bài trả lời</Resource>
+    <Resource tag="POSTED">Đã gởi</Resource>
+    <Resource tag="POSTS">Bài viết</Resource>
+    <Resource tag="PREVTOPIC">Chủ đề trước</Resource>
+    <Resource tag="PRINTTOPIC">In chủ đề này</Resource>
+    <Resource tag="QUESTION">Câu hỏi bình chọn</Resource>
+    <Resource tag="QUICKREPLY">Trả lời nhanh</Resource>
+    <Resource tag="QUICKREPLY_HIDE">Ẩn thị Trả Lời Nhanh</Resource>
+    <Resource tag="QUICKREPLY_SHOW">Hiển thị Trả Lời Nhanh</Resource>
+    <Resource tag="RANK">Danh hiệu</Resource>
+    <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
+    <Resource tag="REPORTPOST">Report Abusive</Resource>
+    <Resource tag="REPORTSPAM">Report SPAM</Resource>
+    <Resource tag="RSSTOPIC">RSS Feed</Resource>
+    <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="STATISTICS">Thống kê</Resource>
+    <Resource tag="THREADED">Threaded</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Xóa chủ đề</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Khóa chủ đề</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Di chuyển chủ đề</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Tạo chủ đề</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Trả Lời</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Mở khóa chủ đề</Resource>
+    <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+    <Resource tag="TOP">Chuyển lên trên</Resource>
+    <Resource tag="TOPICBROWSERS">Ai đang xem chủ đề này?</Resource>
+    <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="UNWATCHTOPIC">chưa xem chủ đề này</Resource>
+    <Resource tag="USERPROFILE">User Profile</Resource>
+    <Resource tag="VIEW">Xem</Resource>
+    <Resource tag="VOTES">Bỏ phiếu</Resource>
+    <Resource tag="WARN_ALREADY_VOTED">Bạn đã bình chọn rồi.</Resource>
+    <Resource tag="WARN_EMAILLOGIN">Bạn cần đăng nhập để tiếp tục.</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Diễn đàn đã được đóng.</Resource>
+    <Resource tag="WARN_PMLOGIN">Bạn cần đăng nhập để gởi tin nhắn.</Resource>
+    <Resource tag="WARN_POLL_CLOSED">Bình chọn đã đóng.</Resource>
+    <Resource tag="WARN_TOPIC_LOCKED">Chủ đề đã được đóng.</Resource>
+    <Resource tag="WARN_WATCHLOGIN">Bạn cần đăng nhập để tiếp tục.</Resource>
+    <Resource tag="WATCHTOPIC">Xem chủ đề này</Resource>
+    <Resource tag="YIM">YAHOO</Resource>
+  </page>
+  <page name="PRINTTOPIC">
+    <Resource tag="POSTEDBY">Viết bởi</Resource>
+  </page>
+  <page name="PROFILE">
+    <Resource tag="ABOUT">Về</Resource>
+    <Resource tag="ADMIN_USER">Admin User</Resource>
+    <Resource tag="AIM">AIM-Name:</Resource>
+    <Resource tag="AVATAR">Hình đại diện</Resource>
+    <Resource tag="CONTACT">Liên hệ</Resource>
+    <Resource tag="DAYS">ngày</Resource>
+    <Resource tag="EMAIL">E-mail:</Resource>
+    <Resource tag="ENDS">User suspension ends:</Resource>
+    <Resource tag="ERROR_ADMINISTRATORS">You can not suspend administrators.</Resource>
+    <Resource tag="ERROR_FORUMMODERATORS">You can not suspend forum moderators.</Resource>
+    <Resource tag="ERROR_GUESTACCOUNT">You can not suspend the guest account.</Resource>
+    <Resource tag="GENDER">Giới tính:</Resource>
+    <Resource tag="GENDER0">Pê đê</Resource>
+    <Resource tag="GENDER1">Nam</Resource>
+    <Resource tag="GENDER2">Nữ</Resource>
+    <Resource tag="GROUPS">Nhóm:</Resource>
+    <Resource tag="HOURS">giờ</Resource>
+    <Resource tag="ICQ">ICQ-Number:</Resource>
+    <Resource tag="INTERESTS">Sở thích:</Resource>
+    <Resource tag="JOINED">Gia nhập:</Resource>
+    <Resource tag="LAST10">10 bài gần nhất</Resource>
+    <Resource tag="LASTVISIT">Lần cuối đăng nhập:</Resource>
+    <Resource tag="MEMBERS">Thành viên</Resource>
+    <Resource tag="MINUTES">phút</Resource>
+    <Resource tag="MSN">MSN Messenger:</Resource>
+    <Resource tag="NUMALL">{0:N2}% trên tổng số bài viết</Resource>
+    <Resource tag="NUMDAY">{0:N2} bài trên ngày</Resource>
+    <Resource tag="NUMPOSTS">Số bài viết:</Resource>
+    <Resource tag="OCCUPATION">Nghề nghiệp:</Resource>
+    <Resource tag="PM">Tin nhắn:</Resource>
+    <Resource tag="POSTED">Đã gởi:</Resource>
+    <Resource tag="PROFILE">Lý lịch:</Resource>
+    <Resource tag="RANK">Danh hiệu:</Resource>
+    <Resource tag="REALNAME">Tên thật:</Resource>
+    <Resource tag="REMOVESUSPENSION">Remove Suspension</Resource>
+    <Resource tag="SEARCHUSER">View All Posts by User</Resource>
+    <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="STATISTICS">Thống kê</Resource>
+    <Resource tag="SUSPEND">Suspend</Resource>
+    <Resource tag="SUSPEND_USER">Suspend User:</Resource>
+    <Resource tag="TOPIC">Chủ đề:</Resource>
+    <Resource tag="USERNAME">Tên sử dụng:</Resource>
+    <Resource tag="WEBLOG">Weblog:</Resource>
+    <Resource tag="WEBSITE">Trang chủ:</Resource>
+    <Resource tag="YIM">Yahoo Messenger:</Resource>
+  </page>
+  <page name="RECOVER_PASSWORD">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
+    <Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
+    <Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
+    <Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name to retrieve your password:</Resource>
+    <Resource tag="PAGE2_INSTRUCTIONS">Answer the following question to receive your password:</Resource>
+    <Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
+    <Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
+    <Resource tag="TITLE">Lost Password</Resource>
+    <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
+  </page>
+  <page name="REGISTER">
+    <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
+    <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
+    <Resource tag="ALREADY_REGISTERED">Tên sử dụng hoặc email đã được đăng ký.</Resource>
+    <Resource tag="BAD_EMAIL">Bạn đã nhập email không hợp lệ.</Resource>
+    <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
+    <Resource tag="CONTINUE">Continue</Resource>
+    <Resource tag="CREATE_USER">Create User</Resource>
+    <Resource tag="DETAILS">Thông tin đăng ký</Resource>
+    <Resource tag="EMAIL">Email </Resource>
+    <Resource tag="HOMEPAGE">Trang web</Resource>
+    <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
+    <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
+    <Resource tag="LOCATION">Đến từ</Resource>
+    <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+    <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
+    <Resource tag="NEED_MATCH">Mật khẩu không giống nhau.</Resource>
+    <Resource tag="NEED_PASSWORD">bắt buộc.</Resource>
+    <Resource tag="NEED_QUESTION">Security question is required.</Resource>
+    <Resource tag="NEED_USERNAME">bắt buộc.</Resource>
+    <Resource tag="PASSWORD">Mật khẩu</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PREFERENCES">Tùy chọn</Resource>
+    <Resource tag="PROFILE">Thông tin cá nhân</Resource>
+    <Resource tag="REGISTER">Đăng ký</Resource>
+    <Resource tag="RETYPE_PASSWORD">Nhập lại mật khẩu</Resource>
+    <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
+    <Resource tag="SECURITY_QUESTION">Security Question</Resource>
+    <Resource tag="TERMS_AND_CONDITIONS_TITLE">Terms and Conditions</Resource>
+    <Resource tag="TIMEZONE">Múi giờ</Resource>
+    <Resource tag="TITLE">Đăng ký thành viên</Resource>
+    <Resource tag="USERNAME">Tên sử dung</Resource>
+    <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
+  </page>
+  <page name="RTE">
+    <Resource tag="BOLD">Bold</Resource>
+    <Resource tag="CENTER">Center</Resource>
+    <Resource tag="CLEAR">Clear Formatting</Resource>
+    <Resource tag="FORMATTED">Formatted</Resource>
+    <Resource tag="IMAGE">Add Image</Resource>
+    <Resource tag="INDENT">Indent</Resource>
+    <Resource tag="ITALIC">Italic</Resource>
+    <Resource tag="LEFT">Align Left</Resource>
+    <Resource tag="LINK">Insert Link</Resource>
+    <Resource tag="NORMAL">Normal</Resource>
+    <Resource tag="ORDERED">Ordered List</Resource>
+    <Resource tag="OUTDENT">Outdent</Resource>
+    <Resource tag="RIGHT">Align Right</Resource>
+    <Resource tag="SPELL">Check Spelling</Resource>
+    <Resource tag="UNDERLINE">Underline</Resource>
+    <Resource tag="UNORDERED">Unordered List</Resource>
+  </page>
+  <page name="RULES">
+    <Resource tag="ACCEPT">I agree to these Rules and Policies</Resource>
+    <Resource tag="DECLINE">I do not agree to these Rules and Policies</Resource>
+    <Resource tag="RULES_TEXT" editType="bbcode">
+      [size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
+
+      You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.
+
+      You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot	be held responsible for any hacking attempt that may lead to the data being compromised.
+
+      This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information	you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your	registration details and password (and for sending new passwords should you forget your current one).
+
+      You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.[/size]
+
+      [center][size=6][b]By clicking "Agree" below you will to be bound by the terms and conditions for using this forum.[/b][/size][/center]
+    </Resource>
+    <Resource tag="TITLE">Forum Rules and Policies</Resource>
+  </page>
+  <page name="SEARCH">
+    <Resource tag="ALLFORUMS">Tất cả diễn đàn</Resource>
+    <Resource tag="BTNSEARCH">Tìm kiêm</Resource>
+    <Resource tag="BY">bởi</Resource>
+    <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
+    <Resource tag="MATCH_ALL">Chính xác</Resource>
+    <Resource tag="MATCH_ANY">Ggần đúng</Resource>
+    <Resource tag="MATCH_EXACT">Chính xác cụm từ</Resource>
+    <Resource tag="NO_SEARCH_RESULTS">[b]Không tìm thấy kết quả nào.[/b]</Resource>
+    <Resource tag="POSTED">Đã gởi:</Resource>
+    <Resource tag="POSTEDBY">Viết bởi</Resource>
+    <Resource tag="POSTS">Bài viết</Resource>
+    <Resource tag="RESULT10">10 kết quả trên trang</Resource>
+    <Resource tag="RESULT25">25 kết quả trên trang</Resource>
+    <Resource tag="RESULT5">5 kết quả trên trang</Resource>
+    <Resource tag="RESULT50">50 kết quả trên trang</Resource>
+    <Resource tag="RESULTS">Kết quả</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="TITLE">Tìm kiêm</Resource>
+    <Resource tag="TOPIC">Chủ đề:</Resource>
+  </page>
+  <page name="SHOWSMILIES">
+    <Resource tag="CLOSE_WINDOW">Close Window</Resource>
+    <Resource tag="HEADER_CODE">Code</Resource>
+    <Resource tag="HEADER_MEANING">Meaning</Resource>
+    <Resource tag="HEADER_SMILE">Smile</Resource>
+    <Resource tag="TITLE">Available Smilies</Resource>
+  </page>
+  <page name="TEMPLATES">
+    <Resource tag="CHANGEEMAIL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;Change Email&lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class="style1"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
+&lt;p class="style1"&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
+&lt;p class="style1"&gt; Just confirm the change by clicking this link:&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+&lt;p class="style1"&gt; And enter approval key:&lt;/p&gt;
+&lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
+&lt;p class="style1"&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+    <Resource tag="CHANGEEMAIL_TEXT">
+Hello {user},
+
+Your request to change your email address to {newemail} is almost complete!
+
+Just confirm the change by clicking this link:
+
+{link}
+
+And enter approval key:
+
+{key}
+
+If you did not request a change to your email address please simply ignore this email.
+
+{forumname} at {forumlink}
+</Resource>
+    <Resource tag="EMAILTOPIC">
+Hello!
+
+{user} thought you might be interested in reading this:
+
+{link}
+</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;Password Retrieval&lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class="style1"&gt; A new password has been generated for you on &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+&lt;p class="style1"&gt; Please return to the site and log in using the following information:&lt;/p&gt;
+&lt;blockquote&gt;&lt;span class="style1"&gt;
+User Name: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
+Password: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_TEXT">
+A new password has been generated for you on {forumname} at {forumlink}.
+
+Please return to the site and log in using the following information:
+
+User Name: {username}
+Password: {password}
+</Resource>
+    <Resource tag="PMNOTIFICATION_HTML" editType="html" />
+    <Resource tag="PMNOTIFICATION_TEXT">
+A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+    <Resource tag="TOPICPOST_HTML" editType="html" />
+    <Resource tag="TOPICPOST_TEXT">
+A new message has been posted in the thread {topic} at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+    <Resource tag="VERIFYEMAIL_HTML" editType="html" />
+    <Resource tag="VERIFYEMAIL_TEXT">
+You have requested to join {forumname}, but before you can join your email address must be verified.
+
+To verify your email address open the following link in your web browser:
+
+{link}
+
+Your approval key is:
+
+{key}
+
+Visit {forumname} at {forumlink}
+</Resource>
+  </page>
+  <page name="TIMEZONES">
+    <Resource tag="GMT0">(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
+    <Resource tag="GMT1">(GMT+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="GMT-1">(GMT-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="GMT10">(GMT+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
+    <Resource tag="GMT11">(GMT+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="GMT-11">(GMT-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien</Resource>
+    <Resource tag="GMT2">(GMT+2:00) Kaliningrad, South Africa</Resource>
+    <Resource tag="GMT-2">(GMT-2:00) Mid-Atlantic, Ascention Is., St Helena</Resource>
+    <Resource tag="GMT3">(GMT+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="GMT-3">(GMT-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
+    <Resource tag="GMT3.5">(GMT+3:30) Tehran</Resource>
+    <Resource tag="GMT-3.5">(GMT-3:30) Newfoundland</Resource>
+    <Resource tag="GMT4">(GMT+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+    <Resource tag="GMT4.5">(GMT+4:30) Kabul</Resource>
+    <Resource tag="GMT5">(GMT+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
+    <Resource tag="GMT5.5">(GMT+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="GMT6">(GMT+6:00) Almaty, Colomba, Dhakra</Resource>
+    <Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="GMT7">(GMT+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
+    <Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
+    <Resource tag="GMT8">(GMT+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
+    <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
+    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
+    <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) Eniwetok, Kwajalein</Resource>
+    <Resource tag="UTC2">(UTC+2:00) Jerusalem, Kaliningrad, South Africa</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Ascension</Resource>
+    <Resource tag="UTC3">(UTC+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
+    <Resource tag="UTC3.5">(UTC+3:30) Tehran</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
+    <Resource tag="UTC4">(UTC+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="UTC-4">(UTC-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+    <Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
+    <Resource tag="UTC5">(UTC+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
+    <Resource tag="UTC5.5">(UTC+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
+    <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
+    <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
+  </page>
+  <page name="TOOLBAR">
+    <Resource tag="ACTIVETOPICS">Chủ đề có bài mới</Resource>
+    <Resource tag="ADMIN">Quản trị</Resource>
+    <Resource tag="HELP">Trợ giúp</Resource>
+    <Resource tag="LOGGED_IN_AS">Đăng nhập với tên: {0}</Resource>
+    <Resource tag="LOGIN">Đăng nhập</Resource>
+    <Resource tag="LOGOUT">Thoát</Resource>
+    <Resource tag="LOGOUT_QUESTION">Are you sure you want to logout?</Resource>
+    <Resource tag="MEMBERS">Thành viên</Resource>
+    <Resource tag="MODERATE">Điều hành</Resource>
+    <Resource tag="MYPROFILE">Trang cá nhân</Resource>
+    <Resource tag="NEWPM">({0} Unread)</Resource>
+    <Resource tag="REGISTER">Đăng Ký</Resource>
+    <Resource tag="SEARCH">Tìm kiếm</Resource>
+    <Resource tag="WELCOME_GUEST">Chào mừng khách</Resource>
+  </page>
+  <page name="TOPICS">
+    <Resource tag="ALL">Tất cả</Resource>
+    <Resource tag="BY">bởi {0}</Resource>
+    <Resource tag="CREATED">Tạo</Resource>
+    <Resource tag="FORUMUSERS">Ai đang xem trang này?</Resource>
+    <Resource tag="GOTO_POST_PAGER">[ Chuyến đến trang: {0} ]</Resource>
+    <Resource tag="INFO_UNWATCH_FORUM">Bạn sẽ không được thông báo khi có bài viết mới trong diễn đàn này.</Resource>
+    <Resource tag="INFO_WATCH_FORUM">Bạn sẽ được thông báo khi có bài viết mới trong diễn đàn này.</Resource>
+    <Resource tag="LAST_DAY">Từ hôm qua</Resource>
+    <Resource tag="LAST_MONTH">cách đây 1 tháng</Resource>
+    <Resource tag="LAST_SIX_MONTHS">cách đây 6 tháng</Resource>
+    <Resource tag="LAST_TWO_DAYS">cách đây 2 ngày</Resource>
+    <Resource tag="LAST_TWO_MONTHS">cách đây 2 tháng</Resource>
+    <Resource tag="LAST_TWO_WEEKS">cách đây 2 tuần</Resource>
+    <Resource tag="LAST_WEEK">cách đây 1 tuần</Resource>
+    <Resource tag="LAST_YEAR">cách đây 1 năm</Resource>
+    <Resource tag="LASTPOST">Bài cuối</Resource>
+    <Resource tag="MARKREAD">Đánh dấu diễn đàn đã đọc</Resource>
+    <Resource tag="NO_POSTS">Không có bài viết</Resource>
+    <Resource tag="REPLIES">Trả Lời</Resource>
+    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SHOWTOPICS">Xem chủ đề</Resource>
+    <Resource tag="SUBFORUMS">Diễn đàn con ({0}) </Resource>
+    <Resource tag="TODAYAT">[b]Hôm nay[/b] lúc {0:T}</Resource>
+    <Resource tag="TOPIC_STARTER">Tác giả</Resource>
+    <Resource tag="TOPICS">Chủ đề</Resource>
+    <Resource tag="UNWATCHFORUM">Hủy theo dõi diễn đàn này</Resource>
+    <Resource tag="VIEWS">Xem</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Diễn đàn đã khóa.</Resource>
+    <Resource tag="WARN_LOGIN_FORUMWATCH">Bạn cần đăng nhập để xem diễn đàn.</Resource>
+    <Resource tag="WATCHFORUM">Theo dõi diễn đàn này</Resource>
+    <Resource tag="YESTERDAYAT">[b]Hôm qua[/b] vào lúc {0:T}</Resource>
+  </page>
 </Resources>

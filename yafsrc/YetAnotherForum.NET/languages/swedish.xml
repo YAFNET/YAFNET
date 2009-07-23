@@ -1,635 +1,1067 @@
-<?xml version="1.0"?>
-<Resources language="Svenska" code="sv">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Svenska" code="sv">
+  <page name="ACTIVE">
+    <Resource tag="BY">av {0}</Resource>
+    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
+    <Resource tag="LAST_DAY">senaste dag</Resource>
+    <Resource tag="LAST_HOUR">senaste timmen</Resource>
+    <Resource tag="LAST_MONTH">senaste månaden</Resource>
+    <Resource tag="LAST_TWO_DAYS">senaste 2 dagarna</Resource>
+    <Resource tag="LAST_TWO_HOURS">senaste 2 timmarna</Resource>
+    <Resource tag="LAST_TWO_WEEKS">senaste 2 veckorna</Resource>
+    <Resource tag="LAST_VISIT">senaste besök {0}</Resource>
+    <Resource tag="LAST_WEEK">senaste veckan</Resource>
+    <Resource tag="LASTPOST">Senaste meddelande</Resource>
+    <Resource tag="NO_POSTS">Inga meddelanden</Resource>
+    <Resource tag="REPLIES">Svar</Resource>
+    <Resource tag="RSSFEED">Rsskanal</Resource>
+    <Resource tag="SINCE">Sedan</Resource>
+    <Resource tag="TITLE">Aktiva konversationer</Resource>
+    <Resource tag="TOPIC_STARTER">Konversationen startades av</Resource>
+    <Resource tag="TOPICS">Konversationer</Resource>
+    <Resource tag="VIEWS">Visningar</Resource>
+  </page>
+  <page name="ACTIVEUSERS">
+    <Resource tag="ACTIVE">Aktiv</Resource>
+    <Resource tag="BROWSER">Internetläsare</Resource>
+    <Resource tag="LAST_ACTIVE">Senast aktiv</Resource>
+    <Resource tag="LOGGED_IN">Loggade in</Resource>
+    <Resource tag="MINUTES">{0:N0} minuter</Resource>
+    <Resource tag="PLATFORM">Operativsystem</Resource>
+    <Resource tag="TITLE">Aktiva användare</Resource>
+    <Resource tag="USERNAME">Användarnamn</Resource>
+  </page>
+  <page name="APPROVE">
+    <Resource tag="EMAIL_VERIFIED">Din e-postadress har godkänts.</Resource>
+    <Resource tag="EMAIL_VERIFY_FAILED">Kunde inte verifiera e-postadress.</Resource>
+    <Resource tag="ENTER_KEY">Ange valideringsnyckel</Resource>
+    <Resource tag="TITLE">Godkänn e-postadress</Resource>
+    <Resource tag="VALIDATE">Godkänn</Resource>
+  </page>
+  <page name="ATTACHMENTS">
+    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Types</Resource>
+    <Resource tag="ASK_DELETE">Radera denna bifogade fil?</Resource>
+    <Resource tag="BACK">Tillbaka</Resource>
+    <Resource tag="DELETE">Radera</Resource>
+    <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
+    <Resource tag="ERROR_TOOBIG">Du kan inte bifoga så stora filer.</Resource>
+    <Resource tag="FILEERROR">'{0}' är inte en giltig fil för uppladdning.</Resource>
+    <Resource tag="FILENAME">Filnamn</Resource>
+    <Resource tag="SELECT_FILE">Välj den fil du vill ladda upp.</Resource>
+    <Resource tag="SIZE">Storlek</Resource>
+    <Resource tag="TITLE">Bifogade filer</Resource>
+    <Resource tag="UPLOAD">Ladda upp</Resource>
+    <Resource tag="UPLOAD_TITLE">Ladda upp fil</Resource>
+  </page>
+  <page name="AVATAR">
+    <Resource tag="EDITPROFILE">Ändra profil</Resource>
+    <Resource tag="TITLE">Avatarer</Resource>
+  </page>
+  <page name="BBCODEMODULE">
+    <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
+    <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
+    <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
+    <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
+  </page>
+  <page name="BUTTON">
+    <Resource tag="BUTTON_ATTACH">Attach</Resource>
+    <Resource tag="BUTTON_ATTACH_TT">Attach files to this post</Resource>
+    <Resource tag="BUTTON_DELETE">Delete</Resource>
+    <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
+    <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
+    <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
+    <Resource tag="BUTTON_EDIT">Edit</Resource>
+    <Resource tag="BUTTON_EDIT_TT">Edit this Post</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC">Lock Topic</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC_TT">Lock this topic</Resource>
+    <Resource tag="BUTTON_MODERATE">Moderate</Resource>
+    <Resource tag="BUTTON_MODERATE_TT">Delete, lock, unlock, and move topics this forum</Resource>
+    <Resource tag="BUTTON_MOVE">Move</Resource>
+    <Resource tag="BUTTON_MOVE_TT">Move this Post</Resource>
+    <Resource tag="BUTTON_MOVETOPIC">Move Topic</Resource>
+    <Resource tag="BUTTON_MOVETOPIC_TT">Move this topic</Resource>
+    <Resource tag="BUTTON_NEWPM">New PM</Resource>
+    <Resource tag="BUTTON_NEWPM_TT">Create a new private message</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
+    <Resource tag="BUTTON_POSTREPLY">Post Reply</Resource>
+    <Resource tag="BUTTON_POSTREPLY_TT">Post a reply to this topic</Resource>
+    <Resource tag="BUTTON_QUOTE">Quote</Resource>
+    <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
+    <Resource tag="BUTTON_REPLY">Reply</Resource>
+    <Resource tag="BUTTON_REPLY_TT">Reply to Message</Resource>
+    <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
+    <Resource tag="BUTTON_UNDELETE_TT">Undelete this Post</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
+  </page>
+  <page name="COMMON">
+    <Resource tag="BACK">Back</Resource>
+    <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
+    <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
+    <Resource tag="BBCODE_CODE">Code:</Resource>
+    <Resource tag="BBCODE_QUOTE">Quote:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="CAN_DELETE">Du [b]kan[/b] radera dina meddelanden i detta forum.</Resource>
+    <Resource tag="CAN_EDIT">Du [b]kan[/b] ändra dina meddelanden i detta forum.</Resource>
+    <Resource tag="CAN_POLL">Du [b]kan[/b] skapa undersökningar i detta forum.</Resource>
+    <Resource tag="CAN_POST">Du [b]kan[/b] skapa nya konversationer i detta forum.</Resource>
+    <Resource tag="CAN_REPLY">Du [b]kan[/b] svara på konversationer i detta forum.</Resource>
+    <Resource tag="CAN_VOTE">Du [b]kan[/b] svara på undersökningar i detta forum.</Resource>
+    <Resource tag="CANCEL">Avbryt</Resource>
+    <Resource tag="CANNOT_DELETE">Du [b]kan inte[/b] radera dina meddelanden i detta forum.</Resource>
+    <Resource tag="CANNOT_EDIT">Du [b]kan inte[/b] ändra dina meddelanden i detta forum.</Resource>
+    <Resource tag="CANNOT_POLL">Du [b]kan inte[/b] skapa undersökningar i detta forum.</Resource>
+    <Resource tag="CANNOT_POST">Du [b]kan inte[/b] skapa nya konversationer i detta forum.</Resource>
+    <Resource tag="CANNOT_REPLY">Du [b]kan inte[/b] svara på konversationer i detta forum.</Resource>
+    <Resource tag="CANNOT_VOTE">Du [b]kan inte[/b] svara på undersökningar i detta forum.</Resource>
+    <Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
+    <Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
+    <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
+    <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
+    <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
+    <Resource tag="FONT_COLOR">Font Color:</Resource>
+    <Resource tag="FONT_SIZE">Font Size:</Resource>
+    <Resource tag="FORMAT_DATE_LONG">D</Resource>
+    <Resource tag="FORMAT_DATE_SHORT">d</Resource>
+    <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
+    <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
+    <Resource tag="FORMAT_TIME">T</Resource>
+    <Resource tag="FORUM_JUMP">Gå till</Resource>
+    <Resource tag="GENERATED">This page was generated in {0:N3} seconds.</Resource>
+    <Resource tag="GO">GO</Resource>
+    <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+    <Resource tag="HIDDEN">Hidden</Resource>
+    <Resource tag="LOADING">Loading...</Resource>
+    <Resource tag="MAX_ONLINE">Flest användare online var {0}, {1}.</Resource>
+    <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
+    <Resource tag="OK">OK</Resource>
+    <Resource tag="PAGES">Pages</Resource>
+    <Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
+    <Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
+    <Resource tag="REGMAIL_SENT">Ett e-postmeddelande har skickats. Kontrollera din inbox och klicka på länken i e-postmeddelandet.</Resource>
+    <Resource tag="REGMAIL_WILL_BE_SEND">Ett e-postmeddelande kommer att skickas då du registrerar dig. För att kunna logga in kontrollera din inkorg och klicka på länken i e-postmeddelandet.</Resource>
+    <Resource tag="SAVE">Spara</Resource>
+    <Resource tag="SUBMIT">Submit</Resource>
+    <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
+    <Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
+    <Resource tag="TT_ALIGNLEFT">Left Justify</Resource>
+    <Resource tag="TT_ALIGNRIGHT">Right Justify</Resource>
+    <Resource tag="TT_BOLD">Bold</Resource>
+    <Resource tag="TT_CODE">Code</Resource>
+    <Resource tag="TT_CREATELINK">Create Link</Resource>
+    <Resource tag="TT_CUSTOMBBCODE">More BBCode Tags</Resource>
+    <Resource tag="TT_IMAGE">Insert Image</Resource>
+    <Resource tag="TT_ITALIC">Italic</Resource>
+    <Resource tag="TT_QUOTE">Quote</Resource>
+    <Resource tag="TT_UNDERLINE">Underline</Resource>
+    <Resource tag="UNREAD_MSG">Du har {0} oläst(a) meddelande(n) i din inkorg</Resource>
+    <Resource tag="UPDATE">Update</Resource>
+  </page>
+  <page name="CP_CHANGEPASSWORD">
+    <Resource tag="CHANGE_BUTTON">Submit</Resource>
+    <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
+    <Resource tag="NEW_PASSWORD">New Password:</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">New Passwords do not match.</Resource>
+    <Resource tag="OLD_PASSWORD">Old Password:</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">New Password length minimum: {0}.</Resource>
+    <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
+    <Resource tag="TITLE">Change Password</Resource>
+  </page>
+  <page name="CP_EDITAVATAR">
+    <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="AVATARCURRENT">Current Avatar</Resource>
+    <Resource tag="AVATARDELETE">Clear Avatar</Resource>
+    <Resource tag="AVATARNEW">Choose a New Avatar</Resource>
+    <Resource tag="AVATARREMOTE">Enter URL of Avatar on Remote Server to Use:</Resource>
+    <Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
+    <Resource tag="AVATARUPLOAD">Upload Avatar from Your Computer:</Resource>
+    <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
+    <Resource tag="NOAVATAR">[ No Avatar ]</Resource>
+    <Resource tag="OURAVATAR">Select your Avatar from our Collection:</Resource>
+    <Resource tag="OURAVATAR_SELECT">Click Here to Select an Avatar</Resource>
+    <Resource tag="TITLE">Modify Avatar</Resource>
+    <Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
+    <Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
+    <Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
+    <Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
+  </page>
+  <page name="CP_EDITPROFILE">
+    <Resource tag="ABOUTYOU">Om dig</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="AVATARDELETE">Radera uppladdad avatar.</Resource>
+    <Resource tag="AVATARREMOTE">Ange länk till en avatar som ska visas bredvid dina meddelanden.</Resource>
+    <Resource tag="AVATARUPLOAD">Ladda upp avatar från din dator.</Resource>
+    <Resource tag="BAD_EMAIL">Du har angett en ogiltig e-postadress.</Resource>
+    <Resource tag="BAD_HOME">Du har angett en ogiltig länk till din hemsida.</Resource>
+    <Resource tag="BAD_ICQ">Du har angett ett ogiltigt värde som ditt ICQ-nummer.</Resource>
+    <Resource tag="BAD_MSN">Du har angett en ogiltig e-postadress för ditt MSN-konto.</Resource>
+    <Resource tag="BAD_WEBLOG">Du har angett en ogiltig länk till din webblogg.</Resource>
+    <Resource tag="CHANGE_EMAIL">Ändra e-postadress</Resource>
+    <Resource tag="CHANGE_PASSWORD">Ändra lösenord</Resource>
+    <Resource tag="CONFIRMPASSWORD">Upprepa nytt lösenord:</Resource>
+    <Resource tag="DELETE_AVATAR">Radera avatar</Resource>
+    <Resource tag="EMAIL">Du måste alltid ha en giltig e-postadress.</Resource>
+    <Resource tag="FORUM_SETTINGS">Foruminställningar</Resource>
+    <Resource tag="HOMEPAGE">Hemsida</Resource>
+    <Resource tag="HOMEPAGE2">Din hemsida:</Resource>
+    <Resource tag="LOCATION">Område</Resource>
+    <Resource tag="MAIL_SENT">A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Resource>
+    <Resource tag="MESSENGER">Tjänster för direktmeddelanden</Resource>
+    <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
+    <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
+    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
+    <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="NEWPASSWORD">Nytt lösenord:</Resource>
+    <Resource tag="NO_EMPTY_PASSWORD">Lösenord kan inte vara tomt.</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">De nya lösenorden matchar inte varandra.</Resource>
+    <Resource tag="OLD_PASSWORD_WRONG">Det gamla lösenordet var felaktigt.</Resource>
+    <Resource tag="OLDPASSWORD">Gammalt lösenord:</Resource>
+    <Resource tag="OURAVATAR">Vår avatarsamling.</Resource>
+    <Resource tag="OURAVATAR_SELECT">Välj från vår samling av avatarer.</Resource>
+    <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
+    <Resource tag="REALNAME2">Vad är ditt riktiga namn?</Resource>
+    <Resource tag="SELECT_LANGUAGE">Vilket språk vill du använda:</Resource>
+    <Resource tag="SELECT_THEME">Välj tema:</Resource>
+    <Resource tag="TIMEZONE">Tidszon</Resource>
+    <Resource tag="TIMEZONE2">För att du ska få tider och datum i din lokala tid behöver vi veta vilken tidszon du befinner dig i.</Resource>
+    <Resource tag="TITLE">Ändra profil</Resource>
+    <Resource tag="WARN_BIGFILE">Filstorleken på din bild kan inte vara mer än {0} byte.</Resource>
+    <Resource tag="WARN_FILESIZE">Filstorleken på din bild var {0} byte.</Resource>
+    <Resource tag="WARN_RESIZED">Bilden storlekändrades för att passa.</Resource>
+    <Resource tag="WARN_SIZE">Storleken på din bild var {0}x{1} pixel.</Resource>
+    <Resource tag="WARN_TOOBIG">Bildstorleken kan inte vara större än {0}x{1} pixel.</Resource>
+    <Resource tag="WEBLOG2">Din webblogg:</Resource>
+    <Resource tag="WHERE">Vart bor du?</Resource>
+  </page>
+  <page name="CP_INBOX">
+    <Resource tag="CONFIRM_DELETE">Radera alla markerade meddelanden?</Resource>
+    <Resource tag="DATE">Datum</Resource>
+    <Resource tag="DELETESELECTED">Radera markerade</Resource>
+    <Resource tag="FROM">Från</Resource>
+    <Resource tag="MSGDELETED1">1 meddelande raderades.</Resource>
+    <Resource tag="MSGDELETED2">{0} meddelanden raderades.</Resource>
+    <Resource tag="SENTITEMS">Skickat</Resource>
+    <Resource tag="SUBJECT">Ärende</Resource>
+    <Resource tag="TITLE">Inkorg</Resource>
+    <Resource tag="TO">Till</Resource>
+  </page>
+  <page name="CP_MESSAGE">
+    <Resource tag="INBOX">Inkorg</Resource>
+    <Resource tag="MSG_DELETED">Meddelandet raderades.</Resource>
+    <Resource tag="POSTED">Skickades:</Resource>
+    <Resource tag="SENTITEMS">Skickat</Resource>
+  </page>
+  <page name="CP_PM">
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="ARCHIVESELECTED">Archive Selected</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
+    <Resource tag="DATE">Date</Resource>
+    <Resource tag="DELETESELECTED">Delete Selected</Resource>
+    <Resource tag="FROM">From</Resource>
+    <Resource tag="INBOX">Inbox</Resource>
+    <Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
+    <Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
+    <Resource tag="MSG_DELETED">Message was deleted.</Resource>
+    <Resource tag="MSGDELETED1">1 message was deleted.</Resource>
+    <Resource tag="MSGDELETED2">{0} messages were deleted.</Resource>
+    <Resource tag="NEW_MESSAGE">New Message</Resource>
+    <Resource tag="NO_MESSAGES">No messages were found.</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="SENTITEMS">Sent Items</Resource>
+    <Resource tag="SUBJECT">Subject</Resource>
+    <Resource tag="TITLE">Private Messages</Resource>
+    <Resource tag="TO">To</Resource>
+  </page>
+  <page name="CP_PROFILE">
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
+    <Resource tag="CONTROL_PANEL">Kontrollpanel</Resource>
+    <Resource tag="EDIT_AVATAR">Modify Avatar</Resource>
+    <Resource tag="EDIT_PROFILE">Ändra profil</Resource>
+    <Resource tag="EDIT_SIGNATURE">Edit Signature</Resource>
+    <Resource tag="GROUPS">Du är medlem i dessa grupper:</Resource>
+    <Resource tag="INBOX">Inkorg</Resource>
+    <Resource tag="JOINED">Du har varit medlem sedan:</Resource>
+    <Resource tag="MESSENGER">Dina meddelanden:</Resource>
+    <Resource tag="NEW_MESSAGE">Nytt meddelande</Resource>
+    <Resource tag="NUMPOSTS">Antal meddelanden:</Resource>
+    <Resource tag="PERSONAL_PROFILE">Personlig profil:</Resource>
+    <Resource tag="SENTITEMS">Skickat</Resource>
+    <Resource tag="SIGNATURE">Signatur</Resource>
+    <Resource tag="SUBSCRIPTIONS">Prenumerationer</Resource>
+    <Resource tag="YOUR_ACCOUNT">Ditt konto</Resource>
+    <Resource tag="YOUR_EMAIL">Din e-postadress:</Resource>
+    <Resource tag="YOUR_USERNAME">Ditt användarnamn:</Resource>
+  </page>
+  <page name="CP_SIGNATURE">
+    <Resource tag="SIGNATURE">Signatur:</Resource>
+    <Resource tag="TITLE">Ändra signatur</Resource>
+  </page>
+  <page name="CP_SUBSCRIPTIONS">
+    <Resource tag="FORUM">Forum</Resource>
+    <Resource tag="FORUMS">Forum</Resource>
+    <Resource tag="LASTPOST">Senaste meddelande</Resource>
+    <Resource tag="LASTPOSTLINK">{0} av {1}</Resource>
+    <Resource tag="REPLIES">Svar</Resource>
+    <Resource tag="TITLE">Prenumerationer</Resource>
+    <Resource tag="TOPIC">Konversationer</Resource>
+    <Resource tag="TOPICS">Konversationer</Resource>
+    <Resource tag="UNSUBSCRIBE">Avsluta prenumeration</Resource>
+    <Resource tag="VIEWS">Visningar</Resource>
+    <Resource tag="WARN_SELECTFORUMS">Välj först forum att avsluta prenumeration på.</Resource>
+    <Resource tag="WARN_SELECTTOPICS">Välj först konversationer att avsluta prenumeration på.</Resource>
+  </page>
+  <page name="DEFAULT">
+    <Resource tag="ACTIVE_DISCUSSIONS">Active Discussions</Resource>
+    <Resource tag="ACTIVE_USERS">Aktiva användare</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktiv användare</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktiva användare</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} gäst</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} gäster</Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} medlem</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} medlemmar</Resource>
+    <Resource tag="BY">av {0}</Resource>
+    <Resource tag="CURRENT_TIME">Aktuell tid: {0}.</Resource>
+    <Resource tag="FORUM">Forum</Resource>
+    <Resource tag="GO_LAST_POST">Gå till senaste meddelandet</Resource>
+    <Resource tag="IN">i {0}</Resource>
+    <Resource tag="INFORMATION">Information</Resource>
+    <Resource tag="LAST_VISIT">Ditt senaste besök: {0}.</Resource>
+    <Resource tag="LASTPOST">Senaste meddelande</Resource>
+    <Resource tag="LATEST_POSTS">Latest Posts</Resource>
+    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
+    <Resource tag="MARKALL">Markera alla forum som lästa</Resource>
+    <Resource tag="MODERATORS">Moderatorer</Resource>
+    <Resource tag="NO_FORUM_ACCESS">(Ingen åtkomst)</Resource>
+    <Resource tag="NO_POSTS">Inga meddelanden</Resource>
+    <Resource tag="POSTS">Meddelanden</Resource>
+    <Resource tag="STATS">Statistik</Resource>
+    <Resource tag="STATS_LASTMEMBER">Den senaste medlemmen är {0}.</Resource>
+    <Resource tag="STATS_LASTPOST">Senaste meddelandet {0} av {1}.</Resource>
+    <Resource tag="STATS_MEMBERS">Vi har {0:N0} registrerade medlemmar.</Resource>
+    <Resource tag="STATS_POSTS">Det finns {0:N0} meddelanden i {1:N0} konversationer i {2:N0} forum.</Resource>
+    <Resource tag="TOPICS">Konversationer</Resource>
+    <Resource tag="UNREAD0">Du har {0} olästa meddelanden i din inkorg..</Resource>
+    <Resource tag="UNREAD1">Du har {0} oläst meddelande i din inkorg.</Resource>
+    <Resource tag="VIEWING">({0} Läser)</Resource>
+  </page>
+  <page name="DELETEMESSAGE">
+    <Resource tag="DELETE">Delete</Resource>
+    <Resource tag="DELETE_REASON">Delete reason</Resource>
+    <Resource tag="ERASEMESSAGE">Erase message from the database (irreversible)</Resource>
+    <Resource tag="FROM">From:</Resource>
+    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="PREVIEWTITLE">Message:</Resource>
+    <Resource tag="PRIORITY">Priority:</Resource>
+    <Resource tag="SUBJECT">Subject:</Resource>
+    <Resource tag="UNDELETE">Undelete</Resource>
+    <Resource tag="UNDELETE_REASON">Undelete reason</Resource>
+    <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
+  </page>
+  <page name="EMAILTOPIC">
+    <Resource tag="FAILED">Misslyckades att skicka e-post.\n\n{0}</Resource>
+    <Resource tag="MESSAGE">Meddelande:</Resource>
+    <Resource tag="NEED_EMAIL">Du måste ange en e-postadress.</Resource>
+    <Resource tag="SEND">Skicka e-post</Resource>
+    <Resource tag="SUBJECT">Ärende:</Resource>
+    <Resource tag="TITLE">Skicka sida till en vän</Resource>
+    <Resource tag="TO">Skicka til (e-postadress):</Resource>
+  </page>
+  <page name="ICONLEGEND">
+    <Resource tag="ANNOUNCEMENT">Tillkännagivande</Resource>
+    <Resource tag="ANNOUNCEMENT_NEW">Tillkännagivande (Nya meddelanden)</Resource>
+    <Resource tag="FORUM_LOCKED">Låst forum</Resource>
+    <Resource tag="MOVED">Flyttad</Resource>
+    <Resource tag="NEW_POSTS">Nya meddelanden</Resource>
+    <Resource tag="NEW_POSTS_LOCKED">Nya meddelanden (Låst)</Resource>
+    <Resource tag="NO_NEW_POSTS">Inga nya meddelanden</Resource>
+    <Resource tag="NO_NEW_POSTS_LOCKED">Inga nya meddelanden (Låst)</Resource>
+    <Resource tag="POLL">Undersökning</Resource>
+    <Resource tag="POLL_NEW">Undersökning (Nya meddelanden)</Resource>
+    <Resource tag="STICKY">Klistrad</Resource>
+  </page>
+  <page name="IM_AIM">
+    <Resource tag="TITLE">AOL Instant Messenger</Resource>
+  </page>
+  <page name="IM_EMAIL">
+    <Resource tag="BODY">Skriv ditt meddelande här:</Resource>
+    <Resource tag="ERROR">Ett fel uppstod vid sändning av meddelandet.</Resource>
+    <Resource tag="SEND">Skicka e-post</Resource>
+    <Resource tag="SUBJECT">Ärende:</Resource>
+    <Resource tag="TITLE">E-post</Resource>
+  </page>
+  <page name="IM_ICQ">
+    <Resource tag="BODY">Skriv ditt meddelande här:</Resource>
+    <Resource tag="EMAIL">Din e-post:</Resource>
+    <Resource tag="NAME">Ditt namn:</Resource>
+    <Resource tag="SEND">Skicka meddelande</Resource>
+    <Resource tag="TITLE">ICQ</Resource>
+  </page>
+  <page name="IM_SKYPE">
+    <Resource tag="TITLE">Skype(tm) Calling</Resource>
+  </page>
+  <page name="IM_YIM">
+    <Resource tag="TITLE">Yahoo! Messenger</Resource>
+  </page>
+  <page name="INFO">
+    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+    <Resource tag="CONTINUE">Fortsätt...</Resource>
+    <Resource tag="DISABLED">The administrator of this forum has disabled this feature.</Resource>
+    <Resource tag="EXCEPTION">You are logged in as</Resource>
+    <Resource tag="FAILURE">There's been a system error processing your request. Please contact the forum admin explaining what you were doing when it happened.</Resource>
+    <Resource tag="INVALID">You've passed an invalid value to the forum.</Resource>
+    <Resource tag="MODERATED">Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.</Resource>
+    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
+    <Resource tag="SUSPENDED">Your account has been temporarily suspended. This suspension is due to end on {0}.</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
+    <Resource tag="TITLE_EXCEPTION">Information</Resource>
+    <Resource tag="TITLE_FAILURE">Failure</Resource>
+    <Resource tag="TITLE_INVALID">Invalid</Resource>
+    <Resource tag="TITLE_MODERATED">Information</Resource>
+    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
+    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+  </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
+  <page name="LOGIN">
+    <Resource tag="AUTO">Automatisk inloggning:</Resource>
+    <Resource tag="BOTH_USERNAME_EMAIL">Både användarnamn och e-postadress måste anges.</Resource>
+    <Resource tag="EMAIL">E-postadress</Resource>
+    <Resource tag="EMAIL_SENT_PASSWORD">Ett e-postmeddelande har skickats med ditt lösenord.</Resource>
+    <Resource tag="FORUM_LOGIN">Foruminloggning</Resource>
+    <Resource tag="LOSTPASSWORD">Bortglömt lösenord</Resource>
+    <Resource tag="PASSWORD">Lösenord:</Resource>
+    <Resource tag="PASSWORD_ERROR">Användarnamnet eller lösenordet du angett är felaktigt. Försök igen.</Resource>
+    <Resource tag="RECOVER">Återskapa lösenord</Resource>
+    <Resource tag="RECOVER_ERROR">Ett fel uppstod vid skpandet av ditt nya lösenord.</Resource>
+    <Resource tag="SENDPASSWORD">Skicka lösenord</Resource>
+    <Resource tag="TITLE">Logga in</Resource>
+    <Resource tag="USERNAME">Användarnamn:</Resource>
+    <Resource tag="WRONG_USERNAME_EMAIL">Felaktigt användarnamn eller e-postadress.</Resource>
+  </page>
+  <page name="MEMBERS">
+    <Resource tag="JOINED">Registrerade sig</Resource>
+    <Resource tag="PAGES">{0} sidor:</Resource>
+    <Resource tag="POSTS">Meddelanden</Resource>
+    <Resource tag="RANK">Rank</Resource>
+    <Resource tag="TITLE">Medlemmar</Resource>
+    <Resource tag="USERNAME">Användarnamn</Resource>
+  </page>
+  <page name="MOD_FORUMUSER">
+    <Resource tag="ACCESSMASK">Åtkomstmask:</Resource>
+    <Resource tag="CANCEL">Avbryt</Resource>
+    <Resource tag="FIND">Hitta användare</Resource>
+    <Resource tag="TITLE">Forumanvändare</Resource>
+    <Resource tag="UPDATE">Uppdatera</Resource>
+    <Resource tag="USER">Användare:</Resource>
+  </page>
+  <page name="MODERATE">
+    <Resource tag="ACCEPTED">Accepterat</Resource>
+    <Resource tag="ACCESSMASK">Åtkomtsmaskk</Resource>
+    <Resource tag="BY">av {0}</Resource>
+    <Resource tag="CONFIRM_DELETE">Radera denna konversation?</Resource>
+    <Resource tag="DELETED">Konversationen raderades.</Resource>
+    <Resource tag="EDIT">Ändra</Resource>
+    <Resource tag="INVITE">Bjud in användare</Resource>
+    <Resource tag="LASTPOST">Senaste meddelande</Resource>
+    <Resource tag="MEMBERS">Medlemmar</Resource>
+    <Resource tag="NO_POSTS">Inga meddelanden</Resource>
+    <Resource tag="REMOVE">Radera</Resource>
+    <Resource tag="REPLIES">Svar</Resource>
+    <Resource tag="TITLE">Moderera</Resource>
+    <Resource tag="TOPIC_STARTER">Konversationen startades av</Resource>
+    <Resource tag="TOPICS">Konversationer</Resource>
+    <Resource tag="USER">Användare</Resource>
+    <Resource tag="VIEWS">Visningar</Resource>
+  </page>
+  <page name="MODERATE_DEFAULT">
+    <Resource tag="CATEGORY">Kategori</Resource>
+    <Resource tag="FORUM">Forum</Resource>
+    <Resource tag="REPORTED">Reported as Abuse Posts</Resource>
+    <Resource tag="REPORTEDSPAM">Reported as Spam Posts</Resource>
+    <Resource tag="TITLE">Moderera</Resource>
+    <Resource tag="UNAPPROVED">Meddelanden ej godkända</Resource>
+  </page>
+  <page name="MODERATE_FORUM">
+    <Resource tag="APPROVE">Godkänn meddelande</Resource>
+    <Resource tag="APPROVED">Meddelande godkänt.</Resource>
+    <Resource tag="ASK_DELETE">Radera detta meddelande?</Resource>
+    <Resource tag="COPYOVER">Update message text</Resource>
+    <Resource tag="DELETE">Radera meddelande</Resource>
+    <Resource tag="DELETED">Meddelande raderat.</Resource>
+    <Resource tag="MODIFIED">Post has been changed!</Resource>
+    <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
+    <Resource tag="RESOLVE">Resolve Post Copies</Resource>
+    <Resource tag="RESOLVED">Mark as resolved</Resource>
+    <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
+    <Resource tag="TOP">Tillbaka till toppen</Resource>
+    <Resource tag="UNAPPROVED">Meddelanden ej godkända</Resource>
+  </page>
+  <page name="MOVEMESSAGE">
+    <Resource tag="CREATE_TOPIC">Create Topic From Message</Resource>
+    <Resource tag="EMPTY_TOPIC">Topic name is empty</Resource>
+    <Resource tag="MOVE" />
+    <Resource tag="MOVE_MESSAGE">Move Message</Resource>
+    <Resource tag="NEW_TOPIC">Create Topic to move to:</Resource>
+    <Resource tag="SELECT_FORUM_MOVETO">Select Forum to move to:</Resource>
+    <Resource tag="SELECT_TOPIC_MOVETO">Select Topic to move to:</Resource>
+  </page>
+  <page name="MOVETOPIC">
+    <Resource tag="LEAVE_POINTER">Leave link to moved topic in original forum</Resource>
+    <Resource tag="MOVE">Flytta konversation</Resource>
+    <Resource tag="SELECT_FORUM">Ange det forum du vill flytta denna konversation till:</Resource>
+    <Resource tag="TITLE">Flytta konversation</Resource>
+  </page>
+  <page name="PMESSAGE">
+    <Resource tag="ALLUSERS">Alla användare</Resource>
+    <Resource tag="CLEAR">Clear</Resource>
+    <Resource tag="FINDUSERS">Hitta användare</Resource>
+    <Resource tag="MAX_RECIPIENT_INFO">You can send message to maximum of [b]{0}[/b] users at a time.</Resource>
+    <Resource tag="MESSAGE">Meddelande:</Resource>
+    <Resource tag="MULTI_RECEIVER_INFO">Separate multiple user names with ';'</Resource>
+    <Resource tag="NEED_MESSAGE">Du har inte skrivit något i meddelandet.</Resource>
+    <Resource tag="NEED_MORE_LETTERS">Please enter, at least, the first two letters of the user you wish to locate.</Resource>
+    <Resource tag="NEED_SUBJECT">Du måste ange ett ärende.</Resource>
+    <Resource tag="NEED_TO">Du har inte angett vem meddelandet ska skickas till.</Resource>
+    <Resource tag="NO_SUCH_USER">Användaren existerar inte.</Resource>
+    <Resource tag="NOT_GUEST">Du kan inte skicka ett privat meddelande till en gäst.</Resource>
+    <Resource tag="OWN_PMBOX_FULL">Your Private Message box is full. Maximum allowed is {0}. Please delete messages to free up space.</Resource>
+    <Resource tag="PREVIEWTITLE">Förhandsgranska:</Resource>
+    <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="SAVE">Skicka</Resource>
+    <Resource tag="SUBJECT">Ärende:</Resource>
+    <Resource tag="TITLE">Skicka ett privat meddelande</Resource>
+    <Resource tag="TO">Till:</Resource>
+    <Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
+  </page>
+  <page name="POSTMESSAGE">
+    <Resource tag="ANNOUNCEMENT">Tillkännagivande</Resource>
+    <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="CHOICE1">Val 1:</Resource>
+    <Resource tag="CHOICE2">Val 2:</Resource>
+    <Resource tag="CHOICE3">Val 3:</Resource>
+    <Resource tag="CHOICE4">Val 4:</Resource>
+    <Resource tag="CHOICE5">Val 5:</Resource>
+    <Resource tag="CHOICE6">Val 6:</Resource>
+    <Resource tag="CHOICE7">Val 7:</Resource>
+    <Resource tag="CHOICE8">Val 8:</Resource>
+    <Resource tag="CHOICE9">Val 9:</Resource>
+    <Resource tag="CREATEPOLL">Skapa undersökning</Resource>
+    <Resource tag="EDIT">Ändra meddelande</Resource>
+    <Resource tag="EDITREASON">Reason for edit:</Resource>
+    <Resource tag="FROM">Från:</Resource>
+    <Resource tag="LAST10">De senaste 10 meddelandena (i omvänd ordning)</Resource>
+    <Resource tag="MESSAGE">Meddelande:</Resource>
+    <Resource tag="NEED_CHOICES">En fråga måste innehålla minst 2 val.</Resource>
+    <Resource tag="NEED_QUESTION">Du måste ange en fråga.</Resource>
+    <Resource tag="NEED_SUBJECT">Ange ett ärende för konversationen.</Resource>
+    <Resource tag="NEWPOSTOPTIONS">Options:</Resource>
+    <Resource tag="NEWTOPIC">Skapa ny konversation</Resource>
+    <Resource tag="NORMAL">Normal</Resource>
+    <Resource tag="PERSISTENCY">Persistent:</Resource>
+    <Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
+    <Resource tag="POLL_EXPIRE">Run Poll For:</Resource>
+    <Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank to never expire ]</Resource>
+    <Resource tag="POLLQUESTION">Fråga:</Resource>
+    <Resource tag="POSTED">Postad:</Resource>
+    <Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
+    <Resource tag="PREVIEW">Förhandsgranska</Resource>
+    <Resource tag="PREVIEWTITLE">Förhandsgranska:</Resource>
+    <Resource tag="PRIORITY">Prioritet:</Resource>
+    <Resource tag="REMOVEPOLL">Remove Poll</Resource>
+    <Resource tag="REPLY">Svara</Resource>
+    <Resource tag="SAVE">Skicka</Resource>
+    <Resource tag="SMILIES_HEADER">[b]Lägg till uttryckssymbol[/b]</Resource>
+    <Resource tag="SMILIES_MORE">More Smilies...</Resource>
+    <Resource tag="STICKY">Klistrad</Resource>
+    <Resource tag="SUBJECT">Ärende:</Resource>
+    <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
+    <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
+    <Resource tag="WAIT">Du kan inte posta ett nytt meddelande inom de nästa {0:N0} sekunderna.</Resource>
+  </page>
+  <page name="POSTS">
+    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_USERNAME">Sponsor</Resource>
+    <Resource tag="AIM">AIM</Resource>
+    <Resource tag="ATTACHMENTINFO">({0:N0}kb) nedladdat [b]{1:N0}[/b] gång(er).</Resource>
+    <Resource tag="ATTACHMENTS">Bifogad(e) fil(er):</Resource>
+    <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CHOICE">Val</Resource>
+    <Resource tag="CONFIRM_DELETEMESSAGE">Radera detta meddelande?</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">Randera denna konversation?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
+    <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
+    <Resource tag="EDIT_REASON">Reason</Resource>
+    <Resource tag="EDIT_REASON_NA">Not specified</Resource>
+    <Resource tag="EDITED">Edit</Resource>
+    <Resource tag="EDITED_BY_MOD">by moderator</Resource>
+    <Resource tag="EDITED_BY_USER">by user</Resource>
+    <Resource tag="EMAIL">EMail</Resource>
+    <Resource tag="EMAILTOPIC">Skicka denna konversation som e-post</Resource>
+    <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="FORUM_JUMP">Gå till</Resource>
+    <Resource tag="GROUPS">Grupper</Resource>
+    <Resource tag="HOME">WWW</Resource>
+    <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} bifogade följande bild(er):</Resource>
+    <Resource tag="INFO_NOMORETOPICS">Inga fler konversationer i detta forum.</Resource>
+    <Resource tag="INFO_TOPIC_LOCKED">Konversationen är låst.</Resource>
+    <Resource tag="INFO_TOPIC_UNLOCKED">Konversationen låstes upp.</Resource>
+    <Resource tag="INFO_UNWATCH_TOPIC">Du kommer inte längre att bli notifierad när nya meddelanden postas i denna konversation.</Resource>
+    <Resource tag="INFO_VOTED">Tack för din röst!</Resource>
+    <Resource tag="INFO_WATCH_TOPIC">Du kommer nu att bli notifierad när nya meddelanden postas i denna konversation.</Resource>
+    <Resource tag="IP">IP</Resource>
+    <Resource tag="JOINED">Registrerade sig</Resource>
+    <Resource tag="LOCATION">Område</Resource>
+    <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>
+    <Resource tag="MESSAGEDELETED_USER">Message was deleted by User.</Resource>
+    <Resource tag="MSN">MSN</Resource>
+    <Resource tag="NEXTTOPIC">Nästa konversation</Resource>
+    <Resource tag="NORMAL">Normal</Resource>
+    <Resource tag="OPTIONS">Options</Resource>
+    <Resource tag="PM">PM</Resource>
+    <Resource tag="POINTS">Points</Resource>
+    <Resource tag="POLL_CLOSED">(Poll is closed)</Resource>
+    <Resource tag="POST_REPLY">Post Reply</Resource>
+    <Resource tag="POSTED">Postad</Resource>
+    <Resource tag="POSTS">Meddelanden</Resource>
+    <Resource tag="PREVTOPIC">Föregående konversation</Resource>
+    <Resource tag="PRINTTOPIC">Skriv ut denna konversation</Resource>
+    <Resource tag="QUESTION">Undersökningsfråga</Resource>
+    <Resource tag="QUICKREPLY">Quick Reply</Resource>
+    <Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
+    <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
+    <Resource tag="RANK">Rank</Resource>
+    <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
+    <Resource tag="REPORTPOST">Report Abusive</Resource>
+    <Resource tag="REPORTSPAM">Report SPAM</Resource>
+    <Resource tag="RSSTOPIC">RSSkanal</Resource>
+    <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="STATISTICS">Statistik</Resource>
+    <Resource tag="THREADED">Trådad</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
+    <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+    <Resource tag="TOP">Tillbaka till toppen</Resource>
+    <Resource tag="TOPICBROWSERS">Användare som läser denna konversation</Resource>
+    <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="UNWATCHTOPIC">Avbryt prenumeration på denna konversation</Resource>
+    <Resource tag="USERPROFILE">User Profile</Resource>
+    <Resource tag="VIEW">View</Resource>
+    <Resource tag="VOTES">Röstningar</Resource>
+    <Resource tag="WARN_ALREADY_VOTED">Du har redan röstat.</Resource>
+    <Resource tag="WARN_EMAILLOGIN">Du måste vara registrerad för att skicka e-post.</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Forumet är stängt.</Resource>
+    <Resource tag="WARN_PMLOGIN">Du måste vara inloggad för att skicka privata meddelanden.</Resource>
+    <Resource tag="WARN_POLL_CLOSED">Poll is closed.</Resource>
+    <Resource tag="WARN_TOPIC_LOCKED">Konversationen är stängd.</Resource>
+    <Resource tag="WARN_WATCHLOGIN">Du måste vara registrerad för att prenumerera på konversationer.</Resource>
+    <Resource tag="WATCHTOPIC">Prenumerera på denna konversation</Resource>
+    <Resource tag="YIM">YAHOO</Resource>
+  </page>
+  <page name="PRINTTOPIC">
+    <Resource tag="POSTEDBY">Postad av</Resource>
+  </page>
+  <page name="PROFILE">
+    <Resource tag="ABOUT">Om</Resource>
+    <Resource tag="ADMIN_USER">Admin User</Resource>
+    <Resource tag="AIM">AIM-namn:</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="CONTACT">Kontakt</Resource>
+    <Resource tag="DAYS">dagar</Resource>
+    <Resource tag="EMAIL">E-post:</Resource>
+    <Resource tag="ENDS">Användarens avstängning avslutas:</Resource>
+    <Resource tag="ERROR_ADMINISTRATORS">Du kan inte stänga av en administratör.</Resource>
+    <Resource tag="ERROR_FORUMMODERATORS">Du kan inte stänga av en moderator.</Resource>
+    <Resource tag="ERROR_GUESTACCOUNT">Du kan inte stänga av gästkontot.</Resource>
+    <Resource tag="GENDER">Kön:</Resource>
+    <Resource tag="GENDER0">Ej specificerat</Resource>
+    <Resource tag="GENDER1">Man</Resource>
+    <Resource tag="GENDER2">Kvinna</Resource>
+    <Resource tag="GROUPS">Grupper:</Resource>
+    <Resource tag="HOURS">timmar</Resource>
+    <Resource tag="ICQ">ICQ-nummer:</Resource>
+    <Resource tag="INTERESTS">Intressen:</Resource>
+    <Resource tag="JOINED">Registrerade sig:</Resource>
+    <Resource tag="LAST10">Senaste 10 meddelanden</Resource>
+    <Resource tag="LASTVISIT">Senaste besök:</Resource>
+    <Resource tag="MEMBERS">Medlemmar</Resource>
+    <Resource tag="MINUTES">minuter</Resource>
+    <Resource tag="MSN">MSN Messenger:</Resource>
+    <Resource tag="NUMALL">{0:N2}% av alla meddelanden</Resource>
+    <Resource tag="NUMDAY">{0:N2} meddelanden per dag</Resource>
+    <Resource tag="NUMPOSTS">Antal meddelanden:</Resource>
+    <Resource tag="OCCUPATION">Yrke:</Resource>
+    <Resource tag="PM">Privat meddelande:</Resource>
+    <Resource tag="POSTED">Postad:</Resource>
+    <Resource tag="PROFILE">Profil:</Resource>
+    <Resource tag="RANK">Rank:</Resource>
+    <Resource tag="REALNAME">Verkligt namn:</Resource>
+    <Resource tag="REMOVESUSPENSION">Ta bort avstängning</Resource>
+    <Resource tag="SEARCHUSER">View All Posts by User</Resource>
+    <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="STATISTICS">Statistik</Resource>
+    <Resource tag="SUSPEND">Stäng av</Resource>
+    <Resource tag="SUSPEND_USER">Suspend User:</Resource>
+    <Resource tag="TOPIC">Konversation:</Resource>
+    <Resource tag="USERNAME">Användarnamn:</Resource>
+    <Resource tag="WEBLOG">Webblogg:</Resource>
+    <Resource tag="WEBSITE">Hemsida:</Resource>
+    <Resource tag="YIM">Yahoo Messenger:</Resource>
+  </page>
+  <page name="RECOVER_PASSWORD">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
+    <Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
+    <Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
+    <Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name to retrieve your password:</Resource>
+    <Resource tag="PAGE2_INSTRUCTIONS">Answer the following question to receive your password:</Resource>
+    <Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
+    <Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
+    <Resource tag="TITLE">Lost Password</Resource>
+    <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
+  </page>
+  <page name="REGISTER">
+    <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
+    <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
+    <Resource tag="ALREADY_REGISTERED">Ditt användarnamn eller din e-postadress är redan registrerad.</Resource>
+    <Resource tag="BAD_EMAIL">Du har angett en ogiltig e-postadress.</Resource>
+    <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
+    <Resource tag="CONTINUE">Continue</Resource>
+    <Resource tag="CREATE_USER">Create User</Resource>
+    <Resource tag="DETAILS">Registreringsdetaljer</Resource>
+    <Resource tag="EMAIL">E-postadress</Resource>
+    <Resource tag="HOMEPAGE">Hemsida</Resource>
+    <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
+    <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
+    <Resource tag="LOCATION">Område</Resource>
+    <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+    <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
+    <Resource tag="NEED_MATCH">Lösenorden matchade inte.</Resource>
+    <Resource tag="NEED_PASSWORD">Lösenord är obligatoriskt.</Resource>
+    <Resource tag="NEED_QUESTION">Security question is required.</Resource>
+    <Resource tag="NEED_USERNAME">Användarnamn är obligatoriskt.</Resource>
+    <Resource tag="PASSWORD">Lösenord</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PREFERENCES">Foruminställningar</Resource>
+    <Resource tag="PROFILE">Profilinformation</Resource>
+    <Resource tag="REGISTER">Registrera</Resource>
+    <Resource tag="RETYPE_PASSWORD">Upprepa lösenord</Resource>
+    <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
+    <Resource tag="SECURITY_QUESTION">Security Question</Resource>
+    <Resource tag="TERMS_AND_CONDITIONS_TITLE">Terms and Conditions</Resource>
+    <Resource tag="TIMEZONE">Tidszon</Resource>
+    <Resource tag="TITLE">Registrera ny användare</Resource>
+    <Resource tag="USERNAME">Användarnamn</Resource>
+    <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
+  </page>
+  <page name="RTE">
+    <Resource tag="BOLD">Fet</Resource>
+    <Resource tag="CENTER">Centrera</Resource>
+    <Resource tag="CLEAR">Rensa formatering</Resource>
+    <Resource tag="FORMATTED">Formaterad</Resource>
+    <Resource tag="IMAGE">Lägg till bild</Resource>
+    <Resource tag="INDENT">Indrag</Resource>
+    <Resource tag="ITALIC">Kursiv</Resource>
+    <Resource tag="LEFT">Vänsterjustera</Resource>
+    <Resource tag="LINK">Infoga länk</Resource>
+    <Resource tag="NORMAL">Normal</Resource>
+    <Resource tag="ORDERED">Sorterad lista</Resource>
+    <Resource tag="OUTDENT">Utdrag</Resource>
+    <Resource tag="RIGHT">Högerjustera</Resource>
+    <Resource tag="SPELL">Stavningskontrollera</Resource>
+    <Resource tag="UNDERLINE">Understruken</Resource>
+    <Resource tag="UNORDERED">Osorterad lista</Resource>
+  </page>
+  <page name="RULES">
+    <Resource tag="ACCEPT">I agree to these Rules and Policies</Resource>
+    <Resource tag="DECLINE">I do not agree to these Rules and Policies</Resource>
+    <Resource tag="RULES_TEXT" editType="bbcode">
+      [size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
+
+      You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.
+
+      You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot	be held responsible for any hacking attempt that may lead to the data being compromised.
+
+      This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information	you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your	registration details and password (and for sending new passwords should you forget your current one).
+
+      You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.[/size]
+
+      [center][size=6][b]By clicking "Agree" below you will to be bound by the terms and conditions for using this forum.[/b][/size][/center]
+    </Resource>
+    <Resource tag="TITLE">Forum Rules and Policies</Resource>
+  </page>
+  <page name="SEARCH">
+    <Resource tag="ALLFORUMS">Alla forum</Resource>
+    <Resource tag="BTNSEARCH">Sök</Resource>
+    <Resource tag="BY">av</Resource>
+    <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
+    <Resource tag="MATCH_ALL">Matcha alla ord</Resource>
+    <Resource tag="MATCH_ANY">Matcha något ord</Resource>
+    <Resource tag="MATCH_EXACT">Matcha exakt fras</Resource>
+    <Resource tag="NO_SEARCH_RESULTS">[b]Inga resultat på din sökning.[/b]</Resource>
+    <Resource tag="POSTED">Postad:</Resource>
+    <Resource tag="POSTEDBY">Postad av</Resource>
+    <Resource tag="POSTS">Meddelanden</Resource>
+    <Resource tag="RESULT10">10 träffar per sida</Resource>
+    <Resource tag="RESULT25">25 träffar per sida</Resource>
+    <Resource tag="RESULT5">5 träffar per sida</Resource>
+    <Resource tag="RESULT50">50 träffar per sida</Resource>
+    <Resource tag="RESULTS">Resultat</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="TITLE">Sök</Resource>
+    <Resource tag="TOPIC">Konversation:</Resource>
+  </page>
+  <page name="SHOWSMILIES">
+    <Resource tag="CLOSE_WINDOW">Close Window</Resource>
+    <Resource tag="HEADER_CODE">Code</Resource>
+    <Resource tag="HEADER_MEANING">Meaning</Resource>
+    <Resource tag="HEADER_SMILE">Smile</Resource>
+    <Resource tag="TITLE">Available Smilies</Resource>
+  </page>
+  <page name="TEMPLATES">
+    <Resource tag="CHANGEEMAIL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;Change Email&lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class="style1"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
+&lt;p class="style1"&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
+&lt;p class="style1"&gt; Just confirm the change by clicking this link:&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+&lt;p class="style1"&gt; And enter approval key:&lt;/p&gt;
+&lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
+&lt;p class="style1"&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+    <Resource tag="CHANGEEMAIL_TEXT">
+Hello {user},
+
+Your request to change your email address to {newemail} is almost complete!
+
+Just confirm the change by clicking this link:
+
+{link}
+
+And enter approval key:
+
+{key}
+
+If you did not request a change to your email address please simply ignore this email.
+
+{forumname} at {forumlink}
+</Resource>
+    <Resource tag="EMAILTOPIC">
+Hello!
+
+{user} thought you might be interested in reading this:
+
+{link}
+</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;Password Retrieval&lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class="style1"&gt; A new password has been generated for you on &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+&lt;p class="style1"&gt; Please return to the site and log in using the following information:&lt;/p&gt;
+&lt;blockquote&gt;&lt;span class="style1"&gt;
+User Name: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
+Password: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_TEXT">
+A new password has been generated for you on {forumname} at {forumlink}.
+
+Please return to the site and log in using the following information:
+
+User Name: {username}
+Password: {password}
+</Resource>
+    <Resource tag="PMNOTIFICATION_HTML" editType="html" />
+    <Resource tag="PMNOTIFICATION_TEXT">
+A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+    <Resource tag="TOPICPOST_HTML" editType="html" />
+    <Resource tag="TOPICPOST_TEXT">
+A new message has been posted in the thread {topic} at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+    <Resource tag="VERIFYEMAIL_HTML" editType="html" />
+    <Resource tag="VERIFYEMAIL_TEXT">
+You have requested to join {forumname}, but before you can join your email address must be verified.
+
+To verify your email address open the following link in your web browser:
+
+{link}
+
+Your approval key is:
+
+{key}
+
+Visit {forumname} at {forumlink}
+</Resource>
+  </page>
   <page name="TIMEZONES">
-    <Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien</Resource>
-    <Resource tag="GMT-11">(GMT-11:00) Midway Island, Samoa</Resource>
-    <Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
-    <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
-    <Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
-    <Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
-    <Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
-    <Resource tag="GMT-3.5">(GMT-3:30) Newfoundland</Resource>
-    <Resource tag="GMT-3">(GMT-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
-    <Resource tag="GMT-2">(GMT-2:00) Mid-Atlantic, Ascention Is., St Helena</Resource>
-    <Resource tag="GMT-1">(GMT-1:00) Azores, Cape Verde Islands</Resource>
     <Resource tag="GMT0">(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
     <Resource tag="GMT1">(GMT+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="GMT-1">(GMT-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="GMT10">(GMT+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
+    <Resource tag="GMT11">(GMT+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="GMT-11">(GMT-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien</Resource>
     <Resource tag="GMT2">(GMT+2:00) Kaliningrad, South Africa</Resource>
+    <Resource tag="GMT-2">(GMT-2:00) Mid-Atlantic, Ascention Is., St Helena</Resource>
     <Resource tag="GMT3">(GMT+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="GMT-3">(GMT-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
     <Resource tag="GMT3.5">(GMT+3:30) Tehran</Resource>
+    <Resource tag="GMT-3.5">(GMT-3:30) Newfoundland</Resource>
     <Resource tag="GMT4">(GMT+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
     <Resource tag="GMT4.5">(GMT+4:30) Kabul</Resource>
     <Resource tag="GMT5">(GMT+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
     <Resource tag="GMT5.5">(GMT+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
     <Resource tag="GMT6">(GMT+6:00) Almaty, Colomba, Dhakra</Resource>
+    <Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
     <Resource tag="GMT7">(GMT+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
+    <Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
     <Resource tag="GMT8">(GMT+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
     <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
     <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
-    <Resource tag="GMT10">(GMT+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
-    <Resource tag="GMT11">(GMT+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
-    <Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
-  </page>  
-	<page name="COMMON">
-		<!-- common... -->
-		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
-		<Resource tag="GENERATED">This page was generated in {0:N3} seconds.</Resource>
-		<Resource tag="SAVE">Spara</Resource>
-		<Resource tag="CANCEL">Avbryt</Resource>
-		<Resource tag="FORUM_JUMP">Gå till</Resource>
-		<Resource tag="CAN_POST">Du [b]kan[/b] skapa nya konversationer i detta forum.</Resource>
-		<Resource tag="CAN_REPLY">Du [b]kan[/b] svara på konversationer i detta forum.</Resource>
-		<Resource tag="CAN_DELETE">Du [b]kan[/b] radera dina meddelanden i detta forum.</Resource>
-		<Resource tag="CAN_EDIT">Du [b]kan[/b] ändra dina meddelanden i detta forum.</Resource>
-		<Resource tag="CAN_POLL">Du [b]kan[/b] skapa undersökningar i detta forum.</Resource>
-		<Resource tag="CAN_VOTE">Du [b]kan[/b] svara på undersökningar i detta forum.</Resource>
-		<Resource tag="CANNOT_POST">Du [b]kan inte[/b] skapa nya konversationer i detta forum.</Resource>
-		<Resource tag="CANNOT_REPLY">Du [b]kan inte[/b] svara på konversationer i detta forum.</Resource>
-		<Resource tag="CANNOT_DELETE">Du [b]kan inte[/b] radera dina meddelanden i detta forum.</Resource>
-		<Resource tag="CANNOT_EDIT">Du [b]kan inte[/b] ändra dina meddelanden i detta forum.</Resource>
-		<Resource tag="CANNOT_POLL">Du [b]kan inte[/b] skapa undersökningar i detta forum.</Resource>
-		<Resource tag="CANNOT_VOTE">Du [b]kan inte[/b] svara på undersökningar i detta forum.</Resource>
-		<Resource tag="REGMAIL_SENT">Ett e-postmeddelande har skickats. Kontrollera din inbox och klicka på länken i e-postmeddelandet.</Resource>
-		<Resource tag="UNREAD_MSG">Du har {0} oläst(a) meddelande(n) i din inkorg</Resource>
-		<Resource tag="REGMAIL_WILL_BE_SEND">Ett e-postmeddelande kommer att skickas då du registrerar dig. För att kunna logga in kontrollera din inkorg och klicka på länken i e-postmeddelandet.</Resource>
-		<!-- Find out how to modify these date/time strings at: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
-		<Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
-		<Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
-		<Resource tag="FORMAT_DATE_LONG">D</Resource>
-		<Resource tag="FORMAT_DATE_SHORT">d</Resource>
-		<Resource tag="FORMAT_TIME">T</Resource>
-		<Resource tag="MAX_ONLINE">Flest användare online var {0}, {1}.</Resource>
-	</page>
-	<page name="TOOLBAR">
-		<!-- "Toolbar" at top of most pages -->
-		<Resource tag="SEARCH">Sök</Resource>
-		<Resource tag="ADMIN">Admin</Resource>
-		<Resource tag="MODERATE">Moderera</Resource>
-		<Resource tag="ACTIVETOPICS">Aktiva konversationer</Resource>
-		<Resource tag="MYPROFILE">Min profil</Resource>
-		<Resource tag="MEMBERS">Medlemmar</Resource>
-		<Resource tag="LOGOUT">Logga ut</Resource>
-		<Resource tag="LOGIN">Logga in</Resource>
-		<Resource tag="REGISTER">Registrera dig</Resource>
-		<Resource tag="LOGGED_IN_AS">Inloggad som: {0}</Resource>
-		<Resource tag="WELCOME_GUEST">Välkommen gäst</Resource>
-		<Resource tag="HELP">Hjälp</Resource>
-	</page>
-	<page name="ICONLEGEND">
-		<!-- Common icon texts -->
-		<Resource tag="NEW_POSTS">Nya meddelanden</Resource>
-		<Resource tag="NO_NEW_POSTS">Inga nya meddelanden</Resource>
-		<Resource tag="ANNOUNCEMENT">Tillkännagivande</Resource>
-		<Resource tag="ANNOUNCEMENT_NEW">Tillkännagivande (Nya meddelanden)</Resource>
-		<Resource tag="NEW_POSTS_LOCKED">Nya meddelanden (Låst)</Resource>
-		<Resource tag="NO_NEW_POSTS_LOCKED">Inga nya meddelanden (Låst)</Resource>
-		<Resource tag="FORUM_LOCKED">Låst forum</Resource>
-		<Resource tag="MOVED">Flyttad</Resource>
-		<Resource tag="POLL">Undersökning</Resource>
-		<Resource tag="POLL_NEW">Undersökning (Nya meddelanden)</Resource>
-		<Resource tag="STICKY">Klistrad</Resource>
-	</page>
-	<page name="ATTACHMENTS">
-		<Resource tag="TITLE">Bifogade filer</Resource>
-		<Resource tag="BACK">Tillbaka</Resource>
-		<Resource tag="UPLOAD">Ladda upp</Resource>
-		<Resource tag="SELECT_FILE">Välj den fil du vill ladda upp.</Resource>
-		<Resource tag="UPLOAD_TITLE">Ladda upp fil</Resource>
-		<Resource tag="FILENAME">Filnamn</Resource>
-		<Resource tag="SIZE">Storlek</Resource>
-		<Resource tag="DELETE">Radera</Resource>
-		<Resource tag="FILEERROR">'{0}' är inte en giltig fil för uppladdning.</Resource>
-		<Resource tag="ASK_DELETE">Radera denna bifogade fil?</Resource>
-		<Resource tag="ERROR_TOOBIG">Du kan inte bifoga så stora filer.</Resource>
-	</page>
-	<page name="DEFAULT">
-		<!-- default.aspx -->
-		<Resource tag="FORUM">Forum</Resource>
-		<Resource tag="TOPICS">Konversationer</Resource>
-		<Resource tag="POSTS">Meddelanden</Resource>
-		<Resource tag="LASTPOST">Senaste meddelande</Resource>
-		<Resource tag="MODERATORS">Moderatorer</Resource>
-		<Resource tag="CURRENT_TIME">Aktuell tid: {0}.</Resource>
-		<Resource tag="LAST_VISIT">Ditt senaste besök: {0}.</Resource>
-		<Resource tag="STATS_POSTS">Det finns {0:N0} meddelanden i {1:N0} konversationer i {2:N0} forum.</Resource>
-		<Resource tag="STATS_LASTPOST">Senaste meddelandet {0} av {1}.</Resource>
-		<Resource tag="STATS_MEMBERS">Vi har {0:N0} registrerade medlemmar.</Resource>
-		<Resource tag="STATS_LASTMEMBER">Den senaste medlemmen är {0}.</Resource>
-		<Resource tag="IN">i {0}</Resource>
-		<Resource tag="BY">av {0}</Resource>
-		<Resource tag="NO_POSTS">Inga meddelanden</Resource>
-		<Resource tag="UNREAD1">Du har {0} oläst meddelande i din inkorg.</Resource>
-		<Resource tag="UNREAD0">Du har {0} olästa meddelanden i din inkorg..</Resource>
-		<Resource tag="INFORMATION">Information</Resource>
-		<Resource tag="STATS">Statistik</Resource>
-		<Resource tag="ACTIVE_USERS">Aktiva användare</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktiv användare</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktiva användare</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} medlem</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} medlemmar</Resource>
-		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} gäst</Resource>
-		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} gäster</Resource>
-		<Resource tag="VIEWING">({0} Läser)</Resource>
-		<Resource tag="NO_FORUM_ACCESS">(Ingen åtkomst)</Resource>
-		<Resource tag="MARKALL">Markera alla forum som lästa</Resource>
-		<Resource tag="GO_LAST_POST">Gå till senaste meddelandet</Resource>
-	</page>
-	<page name="TOPICS">
-		<!-- topics.aspx -->
-		<Resource tag="TOPICS">Konversationer</Resource>
-		<Resource tag="TOPIC_STARTER">Konversationen startades av</Resource>
-		<Resource tag="REPLIES">Svar</Resource>
-		<Resource tag="VIEWS">Visningar</Resource>
-		<Resource tag="LASTPOST">Senaste meddelande</Resource>
-		<Resource tag="NO_POSTS">Inga meddelanden</Resource>
-		<Resource tag="WATCHFORUM">Prenumerera på detta forum</Resource>
-		<Resource tag="UNWATCHFORUM">Avbryt prenumeration på detta forum</Resource>
-		<Resource tag="SHOWTOPICS">Visa konversationer</Resource>
-		<Resource tag="ALL">Alla</Resource>
-		<Resource tag="LAST_DAY">från senaste dygnet</Resource>
-		<Resource tag="LAST_TWO_DAYS">från den senaste 2 dagarna</Resource>
-		<Resource tag="LAST_WEEK">från senaste veckan</Resource>
-		<Resource tag="LAST_TWO_WEEKS">från de senaste 2 veckorna</Resource>
-		<Resource tag="LAST_MONTH">från senaste månaden</Resource>
-		<Resource tag="LAST_TWO_MONTHS">från de sensate 2 månaderna</Resource>
-		<Resource tag="LAST_SIX_MONTHS">från de senaste 6 månaderna</Resource>
-		<Resource tag="LAST_YEAR">från senaste året</Resource>
-		<Resource tag="BY">av {0}</Resource>
-		<Resource tag="FORUMUSERS">Användare som läser i detta forum</Resource>
-		<Resource tag="CREATED">Skapad</Resource>
-		<Resource tag="WARN_FORUM_LOCKED">Forumet är stängt.</Resource>
-		<Resource tag="WARN_LOGIN_FORUMWATCH">Du måste registrera dig för att prenumerera på ett forum.</Resource>
-		<Resource tag="INFO_WATCH_FORUM">Du kommer att bli notifierad när nya meddelanden postas i detta forum.</Resource>
-		<Resource tag="INFO_UNWATCH_FORUM">Du kommer inte längre att bli notifierad när nya meddelanden postas i detta forum.</Resource>
-		<Resource tag="MARKREAD">Markera detta forum som läst</Resource>
-		<Resource tag="SUBFORUMS">{0} Underforum</Resource>
- 		<Resource tag="RSSFEED">Rsskanal</Resource>
- 		<Resource tag="TODAYAT">[b]idag[/b] kl {0:T}</Resource>
- 		<Resource tag="YESTERDAYAT">[b]igår[/b] kl {0:T}</Resource>
- 		<Resource tag="GOTO_POST_PAGER">[ Gå till sida: {0} ]</Resource>
-	</page>
-	<page name="POSTS">
-		<!-- posts.aspx -->
-		<Resource tag="QUESTION">Undersökningsfråga</Resource>
-		<Resource tag="CHOICE">Val</Resource>
-		<Resource tag="VOTES">Röstningar</Resource>
-		<Resource tag="STATISTICS">Statistik</Resource>
-		<Resource tag="PREVTOPIC">Föregående konversation</Resource>
-		<Resource tag="NEXTTOPIC">Nästa konversation</Resource>
-		<Resource tag="WATCHTOPIC">Prenumerera på denna konversation</Resource>
-		<Resource tag="UNWATCHTOPIC">Avbryt prenumeration på denna konversation</Resource>
-		<Resource tag="EMAILTOPIC">Skicka denna konversation som e-post</Resource>
-		<Resource tag="PRINTTOPIC">Skriv ut denna konversation</Resource>
- 		<Resource tag="RSSTOPIC">RSSkanal</Resource>
-		<Resource tag="POSTED">Postad</Resource>
-		<Resource tag="TOP">Tillbaka till toppen</Resource>
-		<Resource tag="PM">PM</Resource>
-		<Resource tag="CONFIRM_DELETEMESSAGE">Radera detta meddelande?</Resource>
-		<Resource tag="CONFIRM_DELETETOPIC">Randera denna konversation?</Resource>
-		<Resource tag="RANK">Rank</Resource>
-		<Resource tag="GROUPS">Grupper</Resource>
-		<Resource tag="JOINED">Registrerade sig</Resource>
-		<Resource tag="POSTS">Meddelanden</Resource>
-		<Resource tag="LOCATION">Område</Resource>
-		<Resource tag="TOPICBROWSERS">Användare som läser denna konversation</Resource>
-		<Resource tag="INFO_TOPIC_LOCKED">Konversationen är låst.</Resource>
-		<Resource tag="INFO_TOPIC_UNLOCKED">Konversationen låstes upp.</Resource>
-		<Resource tag="WARN_TOPIC_LOCKED">Konversationen är stängd.</Resource>
-		<Resource tag="WARN_FORUM_LOCKED">Forumet är stängt.</Resource>
-		<Resource tag="WARN_PMLOGIN">Du måste vara inloggad för att skicka privata meddelanden.</Resource>
-		<Resource tag="WARN_ALREADY_VOTED">Du har redan röstat.</Resource>
-		<Resource tag="INFO_VOTED">Tack för din röst!</Resource>
-		<Resource tag="WARN_WATCHLOGIN">Du måste vara registrerad för att prenumerera på konversationer.</Resource>
-		<Resource tag="INFO_WATCH_TOPIC">Du kommer nu att bli notifierad när nya meddelanden postas i denna konversation.</Resource>
-		<Resource tag="INFO_UNWATCH_TOPIC">Du kommer inte längre att bli notifierad när nya meddelanden postas i denna konversation.</Resource>
-		<Resource tag="INFO_NOMORETOPICS">Inga fler konversationer i detta forum.</Resource>
-		<Resource tag="WARN_EMAILLOGIN">Du måste vara registrerad för att skicka e-post.</Resource>
-		<Resource tag="ATTACHMENTS">Bifogad(e) fil(er):</Resource>
-		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} bifogade följande bild(er):</Resource>
-		<Resource tag="ATTACHMENTINFO">({0:N0}kb) nedladdat [b]{1:N0}[/b] gång(er).</Resource>
-		<Resource tag="NORMAL">Normal</Resource>
-		<Resource tag="THREADED">Trådad</Resource>
-		<Resource tag="FORUM_JUMP">Gå till</Resource>
-	</page>
-	<page name="ACTIVE">
-		<!-- active.aspx -->
-		<Resource tag="TITLE">Aktiva konversationer</Resource>
-		<Resource tag="SINCE">Sedan</Resource>
-		<Resource tag="LAST_VISIT">senaste besök {0}</Resource>
-		<Resource tag="LAST_HOUR">senaste timmen</Resource>
-		<Resource tag="LAST_TWO_HOURS">senaste 2 timmarna</Resource>
-		<Resource tag="LAST_DAY">senaste dag</Resource>
-		<Resource tag="LAST_TWO_DAYS">senaste 2 dagarna</Resource>
-		<Resource tag="LAST_WEEK">senaste veckan</Resource>
-		<Resource tag="LAST_TWO_WEEKS">senaste 2 veckorna</Resource>
-		<Resource tag="LAST_MONTH">senaste månaden</Resource>
-		<Resource tag="TOPICS">Konversationer</Resource>
-		<Resource tag="TOPIC_STARTER">Konversationen startades av</Resource>
-		<Resource tag="REPLIES">Svar</Resource>
- 		<Resource tag="RSSFEED">Rsskanal</Resource>
-		<Resource tag="VIEWS">Visningar</Resource>
-		<Resource tag="LASTPOST">Senaste meddelande</Resource>
-		<Resource tag="BY">av {0}</Resource>
-		<Resource tag="NO_POSTS">Inga meddelanden</Resource>
-	</page>
-	<page name="ACTIVEUSERS">
-		<!-- activeusers.aspx -->
-		<Resource tag="TITLE">Aktiva användare</Resource>
-		<Resource tag="USERNAME">Användarnamn</Resource>
-		<Resource tag="LOGGED_IN">Loggade in</Resource>
-		<Resource tag="LAST_ACTIVE">Senast aktiv</Resource>
-		<Resource tag="ACTIVE">Aktiv</Resource>
-		<Resource tag="BROWSER">Internetläsare</Resource>
-		<Resource tag="PLATFORM">Operativsystem</Resource>
-		<Resource tag="MINUTES">{0:N0} minuter</Resource>
-	</page>
-	<page name="APPROVE">
-		<!-- approve.aspx -->
-		<Resource tag="TITLE">Godkänn e-postadress</Resource>
-		<Resource tag="EMAIL_VERIFIED">Din e-postadress har godkänts.</Resource>
-		<Resource tag="EMAIL_VERIFY_FAILED">Kunde inte verifiera e-postadress.</Resource>
-		<Resource tag="ENTER_KEY">Ange valideringsnyckel</Resource>
-		<Resource tag="VALIDATE">Godkänn</Resource>
-	</page>
-	<page name="CP_EDITPROFILE">
-		<!-- cp_editprofile.aspx -->
-		<Resource tag="TITLE">Ändra profil</Resource>
-		<Resource tag="LOCATION">Område</Resource>
-		<Resource tag="WHERE">Vart bor du?</Resource>
-		<Resource tag="HOMEPAGE">Hemsida</Resource>
-		<Resource tag="HOMEPAGE2">Din hemsida:</Resource>
-		<Resource tag="TIMEZONE">Tidszon</Resource>
-		<Resource tag="TIMEZONE2">För att du ska få tider och datum i din lokala tid behöver vi veta vilken tidszon du befinner dig i.</Resource>
-		<Resource tag="AVATAR">Avatar</Resource>
-		<Resource tag="AVATARUPLOAD">Ladda upp avatar från din dator.</Resource>
-		<Resource tag="AVATARDELETE">Radera uppladdad avatar.</Resource>
-		<Resource tag="DELETE_AVATAR">Radera avatar</Resource>
-		<Resource tag="AVATARREMOTE">Ange länk till en avatar som ska visas bredvid dina meddelanden.</Resource>
-		<Resource tag="CHANGE_PASSWORD">Ändra lösenord</Resource>
-		<Resource tag="OLDPASSWORD">Gammalt lösenord:</Resource>
-		<Resource tag="NEWPASSWORD">Nytt lösenord:</Resource>
-		<Resource tag="CONFIRMPASSWORD">Upprepa nytt lösenord:</Resource>
-		<Resource tag="CHANGE_EMAIL">Ändra e-postadress</Resource>
-		<Resource tag="EMAIL">Du måste alltid ha en giltig e-postadress.</Resource>
-		<Resource tag="NO_EMPTY_PASSWORD">Lösenord kan inte vara tomt.</Resource>
-		<Resource tag="NO_PASSWORD_MATCH">De nya lösenorden matchar inte varandra.</Resource>
-		<Resource tag="OLD_PASSWORD_WRONG">Det gamla lösenordet var felaktigt.</Resource>
-		<Resource tag="MAIL_SENT">A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Resource>
-		<Resource tag="FORUM_SETTINGS">Foruminställningar</Resource>
-		<Resource tag="SELECT_THEME">Välj tema:</Resource>
-		<Resource tag="SELECT_LANGUAGE">Vilket språk vill du använda:</Resource>
-		<Resource tag="WEBLOG2">Din webblogg:</Resource>
-		<Resource tag="MESSENGER">Tjänster för direktmeddelanden</Resource>
-		<Resource tag="ABOUTYOU">Om dig</Resource>
-		<Resource tag="REALNAME2">Vad är ditt riktiga namn?</Resource>
-		<Resource tag="WARN_TOOBIG">Bildstorleken kan inte vara större än {0}x{1} pixel.</Resource>
-		<Resource tag="WARN_SIZE">Storleken på din bild var {0}x{1} pixel.</Resource>
-		<Resource tag="WARN_RESIZED">Bilden storlekändrades för att passa.</Resource>
-		<Resource tag="WARN_BIGFILE">Filstorleken på din bild kan inte vara mer än {0} byte.</Resource>
-		<Resource tag="WARN_FILESIZE">Filstorleken på din bild var {0} byte.</Resource>
-		<Resource tag="OURAVATAR">Vår avatarsamling.</Resource>
-		<Resource tag="OURAVATAR_SELECT">Välj från vår samling av avatarer.</Resource>
-		<Resource tag="BAD_EMAIL">Du har angett en ogiltig e-postadress.</Resource>
-		<Resource tag="BAD_MSN">Du har angett en ogiltig e-postadress för ditt MSN-konto.</Resource>
-		<Resource tag="BAD_HOME">Du har angett en ogiltig länk till din hemsida.</Resource>
-		<Resource tag="BAD_WEBLOG">Du har angett en ogiltig länk till din webblogg.</Resource>
-		<Resource tag="BAD_ICQ">Du har angett ett ogiltigt värde som ditt ICQ-nummer.</Resource>
-	</page>
-	<page name="CP_INBOX">
-		<!-- cp_inbox.aspx -->
-		<Resource tag="TITLE">Inkorg</Resource>
-		<Resource tag="SENTITEMS">Skickat</Resource>
-		<Resource tag="DELETESELECTED">Radera markerade</Resource>
-		<Resource tag="SUBJECT">Ärende</Resource>
-		<Resource tag="FROM">Från</Resource>
-		<Resource tag="TO">Till</Resource>
-		<Resource tag="DATE">Datum</Resource>
-		<Resource tag="MSGDELETED1">1 meddelande raderades.</Resource>
-		<Resource tag="MSGDELETED2">{0} meddelanden raderades.</Resource>
-		<Resource tag="CONFIRM_DELETE">Radera alla markerade meddelanden?</Resource>
-	</page>
-	<page name="CP_MESSAGE">
-		<!-- cp_message.aspx -->
-		<Resource tag="INBOX">Inkorg</Resource>
-		<Resource tag="SENTITEMS">Skickat</Resource>
-		<Resource tag="MSG_DELETED">Meddelandet raderades.</Resource>
-		<Resource tag="POSTED">Skickades:</Resource>
-	</page>
-	<page name="CP_PROFILE">
-		<!-- cp_profile.aspx -->
-		<Resource tag="NEW_MESSAGE">Nytt meddelande</Resource>
-		<Resource tag="CONTROL_PANEL">Kontrollpanel</Resource>
-		<Resource tag="MESSENGER">Dina meddelanden:</Resource>
-		<Resource tag="PERSONAL_PROFILE">Personlig profil:</Resource>
-		<Resource tag="INBOX">Inkorg</Resource>
-		<Resource tag="SENTITEMS">Skickat</Resource>
-		<Resource tag="EDIT_PROFILE">Ändra profil</Resource>
-		<Resource tag="SIGNATURE">Signatur</Resource>
-		<Resource tag="SUBSCRIPTIONS">Prenumerationer</Resource>
-		<Resource tag="YOUR_ACCOUNT">Ditt konto</Resource>
-		<Resource tag="YOUR_USERNAME">Ditt användarnamn:</Resource>
-		<Resource tag="YOUR_EMAIL">Din e-postadress:</Resource>
-		<Resource tag="NUMPOSTS">Antal meddelanden:</Resource>
-		<Resource tag="GROUPS">Du är medlem i dessa grupper:</Resource>
-		<Resource tag="JOINED">Du har varit medlem sedan:</Resource>
-	</page>
-	<page name="CP_SIGNATURE">
-		<!-- cp_signature.aspx -->
-		<Resource tag="TITLE">Ändra signatur</Resource>
-		<Resource tag="SIGNATURE">Signatur:</Resource>
-	</page>
-	<page name="CP_SUBSCRIPTIONS">
-		<!-- cp_subscriptions.aspx -->
-		<Resource tag="TITLE">Prenumerationer</Resource>
-		<Resource tag="FORUMS">Forum</Resource>
-		<Resource tag="FORUM">Forum</Resource>
-		<Resource tag="TOPICS">Konversationer</Resource>
-		<Resource tag="REPLIES">Svar</Resource>
-		<Resource tag="LASTPOST">Senaste meddelande</Resource>
-		<Resource tag="TOPIC">Konversationer</Resource>
-		<Resource tag="VIEWS">Visningar</Resource>
-		<Resource tag="UNSUBSCRIBE">Avsluta prenumeration</Resource>
-		<Resource tag="LASTPOSTLINK">{0} av {1}</Resource>
-		<Resource tag="WARN_SELECTTOPICS">Välj först konversationer att avsluta prenumeration på.</Resource>
-		<Resource tag="WARN_SELECTFORUMS">Välj först forum att avsluta prenumeration på.</Resource>
-	</page>
-	<page name="EMAILTOPIC">
-		<!-- emailtopic.aspx -->
-		<Resource tag="TITLE">Skicka sida till en vän</Resource>
-		<Resource tag="TO">Skicka til (e-postadress):</Resource>
-		<Resource tag="SUBJECT">Ärende:</Resource>
-		<Resource tag="MESSAGE">Meddelande:</Resource>
-		<Resource tag="SEND">Skicka e-post</Resource>
-		<Resource tag="NEED_EMAIL">Du måste ange en e-postadress.</Resource>
-		<Resource tag="FAILED">Misslyckades att skicka e-post.\n\n{0}</Resource>
-	</page>
-	<page name="INFO">
-		<!-- info.aspx -->
-		<Resource tag="CONTINUE">Fortsätt...</Resource>
-		<Resource tag="MODERATED">Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.</Resource>
-		<Resource tag="SUSPENDED">Your account has been temporarily suspended. This suspension is due to end on {0}.</Resource>
-	</page>
-	<page name="LOGIN">
-		<!-- login.aspx -->
-		<Resource tag="TITLE">Logga in</Resource>
-		<Resource tag="USERNAME">Användarnamn:</Resource>
-		<Resource tag="PASSWORD">Lösenord:</Resource>
-		<Resource tag="AUTO">Automatisk inloggning:</Resource>
-		<Resource tag="LOSTPASSWORD">Bortglömt lösenord</Resource>
-		<Resource tag="FORUM_LOGIN">Foruminloggning</Resource>
-		<Resource tag="EMAIL">E-postadress</Resource>
-		<Resource tag="PASSWORD_ERROR">Användarnamnet eller lösenordet du angett är felaktigt. Försök igen.</Resource>
-		<Resource tag="RECOVER">Återskapa lösenord</Resource>
-		<Resource tag="WRONG_USERNAME_EMAIL">Felaktigt användarnamn eller e-postadress.</Resource>
-		<Resource tag="EMAIL_SENT_PASSWORD">Ett e-postmeddelande har skickats med ditt lösenord.</Resource>
-		<Resource tag="SENDPASSWORD">Skicka lösenord</Resource>
-		<Resource tag="BOTH_USERNAME_EMAIL">Både användarnamn och e-postadress måste anges.</Resource>
-		<Resource tag="RECOVER_ERROR">Ett fel uppstod vid skpandet av ditt nya lösenord.</Resource>
-	</page>
-	<page name="MEMBERS">
-		<!-- members.aspx -->
-		<Resource tag="TITLE">Medlemmar</Resource>
-		<Resource tag="USERNAME">Användarnamn</Resource>
-		<Resource tag="RANK">Rank</Resource>
-		<Resource tag="JOINED">Registrerade sig</Resource>
-		<Resource tag="POSTS">Meddelanden</Resource>
-		<Resource tag="PAGES">{0} sidor:</Resource>
-	</page>
-	<page name="MODERATE">
-		<!-- moderate.aspx -->
-		<Resource tag="TITLE">Moderera</Resource>
-		<Resource tag="TOPICS">Konversationer</Resource>
-		<Resource tag="TOPIC_STARTER">Konversationen startades av</Resource>
-		<Resource tag="REPLIES">Svar</Resource>
-		<Resource tag="VIEWS">Visningar</Resource>
-		<Resource tag="LASTPOST">Senaste meddelande</Resource>
-		<Resource tag="CONFIRM_DELETE">Radera denna konversation?</Resource>
-		<Resource tag="BY">av {0}</Resource>
-		<Resource tag="DELETED">Konversationen raderades.</Resource>
-		<Resource tag="NO_POSTS">Inga meddelanden</Resource>
-		<Resource tag="MEMBERS">Medlemmar</Resource>
-		<Resource tag="USER">Användare</Resource>
-		<Resource tag="ACCEPTED">Accepterat</Resource>
-		<Resource tag="ACCESSMASK">Åtkomtsmaskk</Resource>
-		<Resource tag="EDIT">Ändra</Resource>
-		<Resource tag="REMOVE">Radera</Resource>
-		<Resource tag="INVITE">Bjud in användare</Resource>
-	</page>
-	<page name="MOVETOPIC">
-		<!-- movetopic.aspx -->
-		<Resource tag="TITLE">Flytta konversation</Resource>
-		<Resource tag="SELECT_FORUM">Ange det forum du vill flytta denna konversation till:</Resource>
-		<Resource tag="MOVE">Flytta konversation</Resource>
-	</page>
-
-	<page name="PMESSAGE">
-		<!-- pmessage.aspx -->
-		<Resource tag="TITLE">Skicka ett privat meddelande</Resource>
-		<Resource tag="PREVIEWTITLE">Förhandsgranska:</Resource>
-		<Resource tag="TO">Till:</Resource>
-		<Resource tag="SUBJECT">Ärende:</Resource>
-		<Resource tag="MESSAGE">Meddelande:</Resource>
-		<Resource tag="NEED_TO">Du har inte angett vem meddelandet ska skickas till.</Resource>
-		<Resource tag="NEED_SUBJECT">Du måste ange ett ärende.</Resource>
-		<Resource tag="NEED_MESSAGE">Du har inte skrivit något i meddelandet.</Resource>
-		<Resource tag="SAVE">Skicka</Resource>
-		<Resource tag="NO_SUCH_USER">Användaren existerar inte.</Resource>
-		<Resource tag="NOT_GUEST">Du kan inte skicka ett privat meddelande till en gäst.</Resource>
-		<Resource tag="FINDUSERS">Hitta användare</Resource>
-		<Resource tag="ALLUSERS">Alla användare</Resource>
-	</page>
-	<page name="POSTMESSAGE">
-		<!-- postmessage.aspx -->
-		<Resource tag="NEWTOPIC">Skapa ny konversation</Resource>
-		<Resource tag="REPLY">Svara</Resource>
-		<Resource tag="EDIT">Ändra meddelande</Resource>
-		<Resource tag="PREVIEW">Förhandsgranska</Resource>
-		<Resource tag="PREVIEWTITLE">Förhandsgranska:</Resource>
-		<Resource tag="SUBJECT">Ärende:</Resource>
-		<Resource tag="FROM">Från:</Resource>
-		<Resource tag="PRIORITY">Prioritet:</Resource>
-		<Resource tag="MESSAGE">Meddelande:</Resource>
-		<Resource tag="LAST10">De senaste 10 meddelandena (i omvänd ordning)</Resource>
-		<Resource tag="NORMAL">Normal</Resource>
-		<Resource tag="STICKY">Klistrad</Resource>
-		<Resource tag="ANNOUNCEMENT">Tillkännagivande</Resource>
-		<Resource tag="CREATEPOLL">Skapa undersökning</Resource>
-		<Resource tag="POLLQUESTION">Fråga:</Resource>
-		<Resource tag="CHOICE1">Val 1:</Resource>
-		<Resource tag="CHOICE2">Val 2:</Resource>
-		<Resource tag="CHOICE3">Val 3:</Resource>
-		<Resource tag="CHOICE4">Val 4:</Resource>
-		<Resource tag="CHOICE5">Val 5:</Resource>
-		<Resource tag="CHOICE6">Val 6:</Resource>
-		<Resource tag="CHOICE7">Val 7:</Resource>
-		<Resource tag="CHOICE8">Val 8:</Resource>
-		<Resource tag="CHOICE9">Val 9:</Resource>
-		<Resource tag="NEED_SUBJECT">Ange ett ärende för konversationen.</Resource>
-		<Resource tag="WAIT">Du kan inte posta ett nytt meddelande inom de nästa {0:N0} sekunderna.</Resource>
-		<Resource tag="POSTED">Postad:</Resource>
-		<Resource tag="SAVE">Skicka</Resource>
-		<Resource tag="NEED_QUESTION">Du måste ange en fråga.</Resource>
-		<Resource tag="NEED_CHOICES">En fråga måste innehålla minst 2 val.</Resource>
-		<Resource tag="SMILIES_HEADER">[b]Lägg till uttryckssymbol[/b]</Resource>
-	</page>
-	<page name="PRINTTOPIC">
-		<!-- printtopic.aspx -->
-		<Resource tag="POSTEDBY">Postad av</Resource>
-	</page>
-	<page name="PROFILE">
-		<!-- profile.aspx -->
-		<Resource tag="MEMBERS">Medlemmar</Resource>
-		<Resource tag="PROFILE">Profil:</Resource>
-		<Resource tag="ABOUT">Om</Resource>
-		<Resource tag="USERNAME">Användarnamn:</Resource>
-		<Resource tag="GROUPS">Grupper:</Resource>
-		<Resource tag="RANK">Rank:</Resource>
-		<Resource tag="JOINED">Registrerade sig:</Resource>
-		<Resource tag="EMAIL">E-post:</Resource>
-		<Resource tag="LASTVISIT">Senaste besök:</Resource>
-		<Resource tag="STATISTICS">Statistik</Resource>
-		<Resource tag="NUMPOSTS">Antal meddelanden:</Resource>
-		<Resource tag="LAST10">Senaste 10 meddelanden</Resource>
-		<Resource tag="TOPIC">Konversation:</Resource>
-		<Resource tag="POSTED">Postad:</Resource>
-		<Resource tag="ENDS">Användarens avstängning avslutas:</Resource>
-		<Resource tag="REMOVESUSPENSION">Ta bort avstängning</Resource>
-		<Resource tag="SUSPEND">Stäng av</Resource>
-		<Resource tag="DAYS">dagar</Resource>
-		<Resource tag="HOURS">timmar</Resource>
-		<Resource tag="MINUTES">minuter</Resource>
-		<Resource tag="AVATAR">Avatar</Resource>
-		<Resource tag="CONTACT">Kontakt</Resource>
-		<Resource tag="PM">Privat meddelande:</Resource>
-		<Resource tag="MSN">MSN Messenger:</Resource>
-		<Resource tag="YIM">Yahoo Messenger:</Resource>
-		<Resource tag="AIM">AIM-namn:</Resource>
-		<Resource tag="ICQ">ICQ-nummer:</Resource>
-		<Resource tag="REALNAME">Verkligt namn:</Resource>
-		<Resource tag="WEBSITE">Hemsida:</Resource>
-		<Resource tag="WEBLOG">Webblogg:</Resource>
-		<Resource tag="OCCUPATION">Yrke:</Resource>
-		<Resource tag="INTERESTS">Intressen:</Resource>
-		<Resource tag="GENDER">Kön:</Resource>
-		<Resource tag="GENDER0">Ej specificerat</Resource>
-		<Resource tag="GENDER1">Man</Resource>
-		<Resource tag="GENDER2">Kvinna</Resource>
-		<Resource tag="NUMALL">{0:N2}% av alla meddelanden</Resource>
-		<Resource tag="NUMDAY">{0:N2} meddelanden per dag</Resource>
-		<Resource tag="ERROR_ADMINISTRATORS">Du kan inte stänga av en administratör.</Resource>
-		<Resource tag="ERROR_FORUMMODERATORS">Du kan inte stänga av en moderator.</Resource>
-		<Resource tag="ERROR_GUESTACCOUNT">Du kan inte stänga av gästkontot.</Resource>
-	</page>
-	<page name="REGISTER">
-		<!-- register.aspx -->
-		<Resource tag="TITLE">Registrera ny användare</Resource>
-		<Resource tag="DETAILS">Registreringsdetaljer</Resource>
-		<Resource tag="USERNAME">Användarnamn</Resource>
-		<Resource tag="NEED_USERNAME">Användarnamn är obligatoriskt.</Resource>
-		<Resource tag="PASSWORD">Lösenord</Resource>
-		<Resource tag="NEED_PASSWORD">Lösenord är obligatoriskt.</Resource>
-		<Resource tag="RETYPE_PASSWORD">Upprepa lösenord</Resource>
-		<Resource tag="NEED_MATCH">Lösenorden matchade inte.</Resource>
-		<Resource tag="EMAIL">E-postadress</Resource>
-		<Resource tag="PROFILE">Profilinformation</Resource>
-		<Resource tag="LOCATION">Område</Resource>
-		<Resource tag="HOMEPAGE">Hemsida</Resource>
-		<Resource tag="PREFERENCES">Foruminställningar</Resource>
-		<Resource tag="TIMEZONE">Tidszon</Resource>
-		<Resource tag="ALREADY_REGISTERED">Ditt användarnamn eller din e-postadress är redan registrerad.</Resource>
-		<Resource tag="REGISTER">Registrera</Resource>
-		<Resource tag="BAD_EMAIL">Du har angett en ogiltig e-postadress.</Resource>
-	</page>
-	<page name="SEARCH">
-		<!-- search.aspx -->
-		<Resource tag="TITLE">Sök</Resource>
-		<Resource tag="BTNSEARCH">Sök</Resource>
-		<Resource tag="RESULTS">Resultat</Resource>
-		<Resource tag="TOPIC">Konversation:</Resource>
-		<Resource tag="POSTED">Postad:</Resource>
-		<Resource tag="ALLFORUMS">Alla forum</Resource>
-		<Resource tag="RESULT5">5 träffar per sida</Resource>
-		<Resource tag="RESULT10">10 träffar per sida</Resource>
-		<Resource tag="RESULT25">25 träffar per sida</Resource>
-		<Resource tag="RESULT50">50 träffar per sida</Resource>
-		<Resource tag="POSTS">Meddelanden</Resource>
-		<Resource tag="POSTEDBY">Postad av</Resource>
-		<Resource tag="MATCH_ALL">Matcha alla ord</Resource>
-		<Resource tag="MATCH_ANY">Matcha något ord</Resource>
-		<Resource tag="MATCH_EXACT">Matcha exakt fras</Resource>
-		<Resource tag="NO_SEARCH_RESULTS">[b]Inga resultat på din sökning.[/b]</Resource>
-		<Resource tag="BY">av</Resource>
-	</page>
-	<page name="MODERATE_DEFAULT">
-		<Resource tag="TITLE">Moderera</Resource>
-		<Resource tag="FORUM">Forum</Resource>
-		<Resource tag="UNAPPROVED">Meddelanden ej godkända</Resource>
-		<Resource tag="CATEGORY">Kategori</Resource>
-	</page>
-	<page name="MODERATE_FORUM">
-		<Resource tag="UNAPPROVED">Meddelanden ej godkända</Resource>
-		<Resource tag="TOP">Tillbaka till toppen</Resource>
-		<Resource tag="APPROVE">Godkänn meddelande</Resource>
-		<Resource tag="DELETE">Radera meddelande</Resource>
-		<Resource tag="ASK_DELETE">Radera detta meddelande?</Resource>
-		<Resource tag="APPROVED">Meddelande godkänt.</Resource>
-		<Resource tag="DELETED">Meddelande raderat.</Resource>
-	</page>
-	<page name="MOD_FORUMUSER">
-		<Resource tag="TITLE">Forumanvändare</Resource>
-		<Resource tag="USER">Användare:</Resource>
-		<Resource tag="FIND">Hitta användare</Resource>
-		<Resource tag="ACCESSMASK">Åtkomstmask:</Resource>
-		<Resource tag="UPDATE">Uppdatera</Resource>
-		<Resource tag="CANCEL">Avbryt</Resource>
-	</page>
-	<page name="RTE">
-		<Resource tag="BOLD">Fet</Resource>
-		<Resource tag="ITALIC">Kursiv</Resource>
-		<Resource tag="UNDERLINE">Understruken</Resource>
-		<Resource tag="LEFT">Vänsterjustera</Resource>
-		<Resource tag="CENTER">Centrera</Resource>
-		<Resource tag="RIGHT">Högerjustera</Resource>
-		<Resource tag="ORDERED">Sorterad lista</Resource>
-		<Resource tag="UNORDERED">Osorterad lista</Resource>
-		<Resource tag="OUTDENT">Utdrag</Resource>
-		<Resource tag="INDENT">Indrag</Resource>
-		<Resource tag="LINK">Infoga länk</Resource>
-		<Resource tag="IMAGE">Lägg till bild</Resource>
-		<Resource tag="SPELL">Stavningskontrollera</Resource>
-		<Resource tag="NORMAL">Normal</Resource>
-		<Resource tag="CLEAR">Rensa formatering</Resource>
-		<Resource tag="FORMATTED">Formaterad</Resource>
-	</page>
-	<page name="AVATAR">
-		<Resource tag="TITLE">Avatarer</Resource>
-		<Resource tag="EDITPROFILE">Ändra profil</Resource>
-	</page>
-	<page name="IM_YIM">
-		<Resource tag="TITLE">Yahoo! Messenger</Resource>
-	</page>
-	<page name="IM_AIM">
-		<Resource tag="TITLE">AOL Instant Messenger</Resource>
-	</page>
-	<page name="IM_ICQ">
-		<Resource tag="TITLE">ICQ</Resource>
-		<Resource tag="NAME">Ditt namn:</Resource>
-		<Resource tag="EMAIL">Din e-post:</Resource>
-		<Resource tag="SEND">Skicka meddelande</Resource>
-		<Resource tag="BODY">Skriv ditt meddelande här:</Resource>
-	</page>
-	<page name="IM_EMAIL">
-		<Resource tag="TITLE">E-post</Resource>
-		<Resource tag="SEND">Skicka e-post</Resource>
-		<Resource tag="SUBJECT">Ärende:</Resource>
-		<Resource tag="BODY">Skriv ditt meddelande här:</Resource>
-		<Resource tag="ERROR">Ett fel uppstod vid sändning av meddelandet.</Resource>
-	</page>
+    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
+    <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) Eniwetok, Kwajalein</Resource>
+    <Resource tag="UTC2">(UTC+2:00) Jerusalem, Kaliningrad, South Africa</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Ascension</Resource>
+    <Resource tag="UTC3">(UTC+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
+    <Resource tag="UTC3.5">(UTC+3:30) Tehran</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
+    <Resource tag="UTC4">(UTC+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="UTC-4">(UTC-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+    <Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
+    <Resource tag="UTC5">(UTC+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
+    <Resource tag="UTC5.5">(UTC+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
+    <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
+    <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
+  </page>
+  <page name="TOOLBAR">
+    <Resource tag="ACTIVETOPICS">Aktiva konversationer</Resource>
+    <Resource tag="ADMIN">Admin</Resource>
+    <Resource tag="HELP">Hjälp</Resource>
+    <Resource tag="LOGGED_IN_AS">Inloggad som: {0}</Resource>
+    <Resource tag="LOGIN">Logga in</Resource>
+    <Resource tag="LOGOUT">Logga ut</Resource>
+    <Resource tag="LOGOUT_QUESTION">Are you sure you want to logout?</Resource>
+    <Resource tag="MEMBERS">Medlemmar</Resource>
+    <Resource tag="MODERATE">Moderera</Resource>
+    <Resource tag="MYPROFILE">Min profil</Resource>
+    <Resource tag="NEWPM">({0} Unread)</Resource>
+    <Resource tag="REGISTER">Registrera dig</Resource>
+    <Resource tag="SEARCH">Sök</Resource>
+    <Resource tag="WELCOME_GUEST">Välkommen gäst</Resource>
+  </page>
+  <page name="TOPICS">
+    <Resource tag="ALL">Alla</Resource>
+    <Resource tag="BY">av {0}</Resource>
+    <Resource tag="CREATED">Skapad</Resource>
+    <Resource tag="FORUMUSERS">Användare som läser i detta forum</Resource>
+    <Resource tag="GOTO_POST_PAGER">[ Gå till sida: {0} ]</Resource>
+    <Resource tag="INFO_UNWATCH_FORUM">Du kommer inte längre att bli notifierad när nya meddelanden postas i detta forum.</Resource>
+    <Resource tag="INFO_WATCH_FORUM">Du kommer att bli notifierad när nya meddelanden postas i detta forum.</Resource>
+    <Resource tag="LAST_DAY">från senaste dygnet</Resource>
+    <Resource tag="LAST_MONTH">från senaste månaden</Resource>
+    <Resource tag="LAST_SIX_MONTHS">från de senaste 6 månaderna</Resource>
+    <Resource tag="LAST_TWO_DAYS">från den senaste 2 dagarna</Resource>
+    <Resource tag="LAST_TWO_MONTHS">från de sensate 2 månaderna</Resource>
+    <Resource tag="LAST_TWO_WEEKS">från de senaste 2 veckorna</Resource>
+    <Resource tag="LAST_WEEK">från senaste veckan</Resource>
+    <Resource tag="LAST_YEAR">från senaste året</Resource>
+    <Resource tag="LASTPOST">Senaste meddelande</Resource>
+    <Resource tag="MARKREAD">Markera detta forum som läst</Resource>
+    <Resource tag="NO_POSTS">Inga meddelanden</Resource>
+    <Resource tag="REPLIES">Svar</Resource>
+    <Resource tag="RSSFEED">Rsskanal</Resource>
+    <Resource tag="SHOWTOPICS">Visa konversationer</Resource>
+    <Resource tag="SUBFORUMS">{0} Underforum</Resource>
+    <Resource tag="TODAYAT">[b]idag[/b] kl {0:T}</Resource>
+    <Resource tag="TOPIC_STARTER">Konversationen startades av</Resource>
+    <Resource tag="TOPICS">Konversationer</Resource>
+    <Resource tag="UNWATCHFORUM">Avbryt prenumeration på detta forum</Resource>
+    <Resource tag="VIEWS">Visningar</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Forumet är stängt.</Resource>
+    <Resource tag="WARN_LOGIN_FORUMWATCH">Du måste registrera dig för att prenumerera på ett forum.</Resource>
+    <Resource tag="WATCHFORUM">Prenumerera på detta forum</Resource>
+    <Resource tag="YESTERDAYAT">[b]igår[/b] kl {0:T}</Resource>
+  </page>
 </Resources>
-

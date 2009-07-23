@@ -1,574 +1,787 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Resources language="Dutch" code="nl">
-	<!--
-	// Translated by: Frederic Norro, 5 Jan 2006
-	// Send comments to: frederic@orion-productions.com
-	// modifications by Pim Blokland (pim@veloxit.nl), 11 sep 2007
-	// to make it compatible with r1371 of the English version
-	-->
-	<page name="LANGUAGE">
-		<Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
-	</page>
-  <page name="TIMEZONES">
-    <Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien</Resource>
-    <Resource tag="GMT-11">(GMT-11:00) Midway Island, Samoa</Resource>
-    <Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
-    <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
-    <Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
-    <Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
-    <Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
-    <Resource tag="GMT-3.5">(GMT-3:30) Newfoundland</Resource>
-    <Resource tag="GMT-3">(GMT-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
-    <Resource tag="GMT-2">(GMT-2:00) Mid-Atlantic, Ascention Is., St Helena</Resource>
-    <Resource tag="GMT-1">(GMT-1:00) Azores, Cape Verde Islands</Resource>
-    <Resource tag="GMT0">(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
-    <Resource tag="GMT1">(GMT+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
-    <Resource tag="GMT2">(GMT+2:00) Kaliningrad, South Africa</Resource>
-    <Resource tag="GMT3">(GMT+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
-    <Resource tag="GMT3.5">(GMT+3:30) Tehran</Resource>
-    <Resource tag="GMT4">(GMT+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
-    <Resource tag="GMT4.5">(GMT+4:30) Kabul</Resource>
-    <Resource tag="GMT5">(GMT+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
-    <Resource tag="GMT5.5">(GMT+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
-    <Resource tag="GMT6">(GMT+6:00) Almaty, Colomba, Dhakra</Resource>
-    <Resource tag="GMT7">(GMT+7:00) Bangkok, Hanoi, Jakarta</Resource>
-    <Resource tag="GMT8">(GMT+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
-    <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
-    <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
-    <Resource tag="GMT10">(GMT+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
-    <Resource tag="GMT11">(GMT+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
-    <Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
-  </page>  
-	<page name="MOVEMESSAGE">
-		<!-- movemessage.aspx -->
-		<Resource tag="MOVE"/>
-		<Resource tag="SELECT_FORUM_MOVETO">Selecteer forum om naartoe te verplaatsen:</Resource>
-		<Resource tag="SELECT_TOPIC_MOVETO">Selecteer onderwerp om naartoe te verplaatsen:</Resource>
-		<Resource tag="MOVE_MESSAGE">Verplaats bericht</Resource>
-		<Resource tag="NEW_TOPIC">Maak nieuw onderwerp om naartoe te verplaatsen:</Resource>
-		<Resource tag="CREATE_TOPIC">Maak onderwerp van bericht</Resource>
-		<Resource tag="EMPTY_TOPIC">Naam onderwerp is leeg</Resource>
-	</page>
-	<page name="DELETEMESSAGE">
-		<!-- deletemessage.aspx -->
-		<Resource tag="PREVIEWTITLE">Bericht:</Resource>
-		<Resource tag="SUBJECT">Onderwerp:</Resource>
-		<Resource tag="FROM">Van:</Resource>
-		<Resource tag="PRIORITY">Prioriteit:</Resource>
-		<Resource tag="MESSAGE">Boodschap:</Resource>
-		<Resource tag="LAST10">Laatste 10 berichten (in omgekeerde volgorde)</Resource>
-		<Resource tag="WAIT">Je kunt niet posten gedurende de volgende {0:NO} seconden.</Resource>
-		<Resource tag="POSTED">Gepost:</Resource>
-		<Resource tag="DELETE">Verwijderen</Resource>
-		<Resource tag="DELETE_REASON">Reden voor verwijderen</Resource>
-		<Resource tag="UNDELETE">Verwijdering ongedaan maken</Resource>
-		<Resource tag="UNDELETE_REASON">Reden voor ongedaan maken</Resource>
-	</page>
-	<page name="COMMON">
-		<!-- common... -->
-		<Resource tag="POWERED_BY">Powered by {0} versie {1}</Resource>
-		<Resource tag="GENERATED">Deze pagina is gegenereerd in {0:N3} seconden.</Resource>
-		<Resource tag="SAVE">Opslaan</Resource>
-		<Resource tag="CANCEL">Annuleren</Resource>
-		<Resource tag="FORUM_JUMP">Ga naar:</Resource>
-		<Resource tag="CAN_POST">Je [b]kunt[/b] hier nieuwe berichten plaatsen.</Resource>
-		<Resource tag="CAN_REPLY">Je [b]kunt[/b] hier antwoorden op berichten.</Resource>
-		<Resource tag="CAN_DELETE">Je [b]kunt[/b] hier je eigen berichten verwijderen.</Resource>
-		<Resource tag="CAN_EDIT">Je [b]kunt[/b] hier je eigen berichten bewerken.</Resource>
-		<Resource tag="CAN_POLL">Je [b]kunt[/b] hier enquêtes creëren.</Resource>
-		<Resource tag="CAN_VOTE">Je [b]kunt[/b] hier stemmen op enquêtes.</Resource>
-		<Resource tag="CANNOT_POST">Je kunt hier [b]geen[/b] nieuwe berichten plaatsen.</Resource>
-		<Resource tag="CANNOT_REPLY">Je kunt hier [b]niet[/b] antwoorden op berichten.</Resource>
-		<Resource tag="CANNOT_DELETE">Je kunt hier [b]geen[/b] eigen berichten verwijderen.</Resource>
-		<Resource tag="CANNOT_EDIT">Je kunt hier [b]geen[/b] eigen berichten bewerken.</Resource>
-		<Resource tag="CANNOT_POLL">Je kunt hier [b]geen[/b] enquêtes creëren.</Resource>
-		<Resource tag="CANNOT_VOTE">Je kunt hier [b]niet[/b] stemmen op enquêtes.</Resource>
-		<Resource tag="REGMAIL_SENT">Er is een e-mail verzonden. Klik op de link in dat bericht om je registratie te voltooien.</Resource>
-		<Resource tag="UNREAD_MSG">Je hebt {0} ongelezen bericht(en) in je Postvak In.</Resource>
-		<Resource tag="REGMAIL_WILL_BE_SEND">Bij registratie ontvang je een e-mail. Om je te kunnen aanmelden dien je de link in dat bericht te volgen.</Resource>
-		<!-- Find out how to modify these date/time strings at: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
-		<Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
-		<Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
-		<Resource tag="FORMAT_DATE_LONG">D</Resource>
-		<Resource tag="FORMAT_DATE_SHORT">d</Resource>
-		<Resource tag="FORMAT_TIME">T</Resource>
-		<Resource tag="MAX_ONLINE">Grootste aantal gebruikers ooit online was {0}, {1}.</Resource>
-		<Resource tag="BBCODE_QUOTE">Aanhalen:</Resource>
-		<Resource tag="BBCODE_QUOTEWROTE">{0} schreef:</Resource>
-		<Resource tag="BBCODE_CODE">Code:</Resource>
-		<Resource tag="TOPIC_NOTIFICATION_SUBJECT">Melding van plaatsing nieuw bericht (van {0})</Resource>
-		<Resource tag="PM_NOTIFICATION_SUBJECT">Nieuw privé-bericht van {0} op {1}</Resource>
-		<Resource tag="BACK">Terug</Resource>
-		<Resource tag="UPDATE">Bijwerken</Resource>
-		<Resource tag="SUBMIT">Vastleggen</Resource>
-
-		<Resource tag="SELECT_FORUM">Selecteer forum</Resource>
-	</page>
-	<page name="TOOLBAR">
-		<!-- "Toolbar" at top of most pages -->
-		<Resource tag="SEARCH">Zoeken</Resource>
-		<Resource tag="ADMIN">Beheer</Resource>
-		<Resource tag="MODERATE">Moderatie</Resource>
-		<Resource tag="ACTIVETOPICS">Actieve onderwerpen</Resource>
-		<Resource tag="MYPROFILE">Mijn profiel</Resource>
-		<Resource tag="MEMBERS">Leden</Resource>
-		<Resource tag="LOGOUT">Afmelden</Resource>
-		<Resource tag="LOGIN">Aanmelden</Resource>
-		<Resource tag="REGISTER">Registreren</Resource>
-		<Resource tag="LOGGED_IN_AS">Aangemeld als: {0}</Resource>
-		<Resource tag="WELCOME_GUEST">Welkom gast!</Resource>
-		<Resource tag="LOGOUT_QUESTION">Weet je zeker dat je wilt uitloggen?</Resource>
-		<Resource tag="HELP">Help</Resource>
-	</page>
-	<page name="ICONLEGEND">
-		<!-- Common icon texts -->
-		<Resource tag="NEW_POSTS">Nieuwe berichten</Resource>
-		<Resource tag="NO_NEW_POSTS">Geen nieuwe berichten</Resource>
-		<Resource tag="ANNOUNCEMENT">Mededeling</Resource>
-		<Resource tag="ANNOUNCEMENT_NEW">Mededeling (nieuwe berichten)</Resource>
-		<Resource tag="NEW_POSTS_LOCKED">Nieuwe berichten (gesloten)</Resource>
-		<Resource tag="NO_NEW_POSTS_LOCKED">Geen nieuwe berichten (gesloten)</Resource>
-		<Resource tag="FORUM_LOCKED">Forum&#160;gesloten</Resource>
-		<Resource tag="MOVED">Verplaatst</Resource>
-		<Resource tag="POLL">Enquête</Resource>
-		<Resource tag="POLL_NEW">Enquête (met nieuwe berichten)</Resource>
-		<Resource tag="STICKY">Sticky</Resource>
-
-		<Resource tag="POLL_LOCKED">Enquête (gesloten)</Resource>
-		<Resource tag="STICKY_LOCKED">Sticky (gesloten)</Resource>
-	</page>
-	<page name="ATTACHMENTS">
-		<Resource tag="TITLE">Bijlagen</Resource>
-		<Resource tag="UPLOAD">Uploaden</Resource>
-		<Resource tag="SELECT_FILE">Selecteer het bestand dat je wilt uploaden:</Resource>
-		<Resource tag="UPLOAD_TITLE">Te uploaden bestand</Resource>
-		<Resource tag="FILENAME">Bestandsnaam</Resource>
-		<Resource tag="SIZE">Grootte</Resource>
-		<Resource tag="DELETE">Verwijderen</Resource>
-		<Resource tag="FILEERROR">'{0}' is geen geldig bestand om te uploaden.</Resource>
-		<Resource tag="ASK_DELETE">Bijlage verwijderen?</Resource>
-		<Resource tag="ERROR_TOOBIG">Het bestand dat je gekozen hebt, is te groot om te uploaden.</Resource>
-
-		<Resource tag="BACK">Terug</Resource>
-	</page>
-	<page name="DEFAULT">
-		<!-- default.aspx -->
-		<Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
-		<Resource tag="FORUM">Forum</Resource>
-		<Resource tag="TOPICS">Onderwerpen</Resource>
-		<Resource tag="POSTS">Berichten</Resource>
-		<Resource tag="LASTPOST">Laatste bericht</Resource>
-		<Resource tag="MODERATORS">Moderators</Resource>
-		<Resource tag="CURRENT_TIME">Huidige tijd: {0}.</Resource>
-		<Resource tag="LAST_VISIT">Laatste bezoek: {0}.</Resource>
-		<Resource tag="STATS_POSTS">Er zijn {0:N0} berichten in {1:N0} onderwerpen in {2:N0} fora.</Resource>
-		<Resource tag="STATS_LASTPOST">Laatste bericht geplaatst op {0} door {1}.</Resource>
-		<Resource tag="STATS_MEMBERS">Er zijn {0:N0} geregistreerde leden.</Resource>
-		<Resource tag="STATS_LASTMEMBER">Het nieuwste lid is {0}.</Resource>
-		<Resource tag="IN">in {0}</Resource>
-		<Resource tag="BY">door {0}</Resource>
-		<Resource tag="NO_POSTS">Geen berichten</Resource>
-		<Resource tag="UNREAD1">Je hebt {0} ongelezen bericht in je Postvak IN.</Resource>
-		<Resource tag="UNREAD0">Je hebt {0} ongelezen berichten in je Postvak IN.</Resource>
-		<Resource tag="INFORMATION">Informatie</Resource>
-		<Resource tag="STATS">Statistieken</Resource>
-		<Resource tag="ACTIVE_USERS">Actieve gebruikers</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} actieve gebruiker</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} actieve gebruikers</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} lid</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} leden</Resource>
-		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} gast</Resource>
-		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} gasten</Resource>
-		<Resource tag="VIEWING">({0} aanwezig)</Resource>
-		<Resource tag="NO_FORUM_ACCESS">Je hebt geen toegang tot het gekozen forum.</Resource>
-		<Resource tag="MARKALL">Markeer alle fora als gelezen</Resource>
-		<Resource tag="GO_LAST_POST">Ga naar laatste bericht</Resource>
-		<Resource tag="ACTIVE_DISCUSSIONS">Actieve discussies</Resource>
-		<Resource tag="LATEST_POSTS">Nieuwste berichten</Resource>
-
-		<Resource tag="ERROR_NOFORUMACCESS">Je hebt geen toegang tot het gekozen forum.</Resource>
-	</page>
-	<page name="TOPICS">
-		<!-- topics.aspx -->
-		<Resource tag="TOPICS">Onderwerp</Resource>
-		<Resource tag="TOPIC_STARTER">Auteur</Resource>
-		<Resource tag="REPLIES">Reacties</Resource>
-		<Resource tag="VIEWS">Gelezen</Resource>
-		<Resource tag="LASTPOST">Laatste bericht</Resource>
-		<Resource tag="NO_POSTS">Geen onderwerpen</Resource>
-		<Resource tag="WATCHFORUM">Forum volgen</Resource>
-		<Resource tag="UNWATCHFORUM">Forum niet meer volgen</Resource>
-		<Resource tag="SHOWTOPICS">Toon onderwerpen</Resource>
-		<Resource tag="ALL">Alle</Resource>
-		<Resource tag="LAST_DAY">van vandaag</Resource>
-		<Resource tag="LAST_TWO_DAYS">van de laatste twee dagen</Resource>
-		<Resource tag="LAST_WEEK">van de laatste week</Resource>
-		<Resource tag="LAST_TWO_WEEKS">van de laatste twee weken</Resource>
-		<Resource tag="LAST_MONTH">van de laatste maand</Resource>
-		<Resource tag="LAST_TWO_MONTHS">van de laatste twee maanden</Resource>
-		<Resource tag="LAST_SIX_MONTHS">van het laatste half jaar</Resource>
-		<Resource tag="LAST_YEAR">van het laatste jaar</Resource>
-		<Resource tag="BY">door {0}</Resource>
-		<Resource tag="FORUMUSERS">Gebruikers aanwezig in dit forum</Resource>
-		<Resource tag="CREATED">Gemaakt</Resource>
-		<Resource tag="WARN_FORUM_LOCKED">Het forum is gesloten.</Resource>
-		<Resource tag="WARN_LOGIN_FORUMWATCH">Je moet geregistreerd zijn om fora te kunnen volgen.</Resource>
-		<Resource tag="INFO_WATCH_FORUM">Je zult vanaf nu verwittigd worden wanneer nieuwe berichten geplaatst worden in dit forum.</Resource>
-		<Resource tag="INFO_UNWATCH_FORUM">Je krijgt nu geen bericht meer als er in dit forum nieuwe berichten worden geplaatst.</Resource>
-		<Resource tag="MARKREAD">Markeer dit forum als gelezen</Resource>
-		<Resource tag="SUBFORUMS">Subfora</Resource>
-		<Resource tag="RSSFEED">RSS Feed</Resource>
-		<Resource tag="TODAYAT">[b]Vandaag[/b] om {0:T}</Resource>
-		<Resource tag="YESTERDAYAT">[b]Gisteren[/b] om {0:T}</Resource>
-		<Resource tag="GOTO_POST_PAGER">(Ga naar pagina: {0})</Resource>
-	</page>
-	<page name="POSTS">
-		<!-- posts.aspx -->
-		<Resource tag="QUICKREPLY">Snel antwoorden</Resource>
-		<Resource tag="QUICKREPLY_SHOW">Toon Snel antwoorden</Resource>
-		<Resource tag="QUICKREPLY_HIDE">Verberg Snel antwoorden</Resource>
-		<Resource tag="OPTIONS">Opties</Resource>
-		<Resource tag="VIEW">View</Resource>
-		<Resource tag="POST_REPLY">Reageer</Resource>
-		<Resource tag="QUESTION">Enquêtevraag</Resource>
-		<Resource tag="CHOICE">Keuze</Resource>
-		<Resource tag="VOTES">Stemmen</Resource>
-		<Resource tag="STATISTICS">Statistieken</Resource>
-		<Resource tag="PREVTOPIC">Vorige onderwerp</Resource>
-		<Resource tag="NEXTTOPIC">Volgende onderwerp</Resource>
-		<Resource tag="WATCHTOPIC">Onderwerp volgen</Resource>
-		<Resource tag="UNWATCHTOPIC">Onderwerp niet meer volgen</Resource>
-		<Resource tag="EMAILTOPIC">Onderwerp mailen</Resource>
-		<Resource tag="PRINTTOPIC">Onderwerp afdrukken</Resource>
-		<Resource tag="RSSTOPIC">RSS Feed</Resource>
-		<Resource tag="POSTED">Gepost</Resource>
-		<Resource tag="TOP">Terug naar boven</Resource>
-		<Resource tag="PM">Zend persoonlijk bericht</Resource>
-		<Resource tag="CONFIRM_DELETEMESSAGE">Bericht verwijderen?</Resource>
-		<Resource tag="CONFIRM_DELETETOPIC">Onderwerp verwijderen?</Resource>
-		<Resource tag="RANK">Rang</Resource>
-		<Resource tag="GROUPS">Groep</Resource>
-		<Resource tag="JOINED">Lid sinds</Resource>
-		<Resource tag="POSTS">Berichten</Resource>
-		<Resource tag="POINTS">Punten</Resource>
-		<Resource tag="LOCATION">Locatie</Resource>
-		<Resource tag="TOPICBROWSERS">Gebruikers die dit onderwerp bekijken</Resource>
-		<Resource tag="INFO_TOPIC_LOCKED">Onderwerp gesloten.</Resource>
-		<Resource tag="INFO_TOPIC_UNLOCKED">Onderwerp ontgrendeld.</Resource>
-		<Resource tag="WARN_TOPIC_LOCKED">Het onderwerp is gesloten.</Resource>
-		<Resource tag="WARN_FORUM_LOCKED">Het forum is gesloten.</Resource>
-		<Resource tag="WARN_PMLOGIN">Je moet aangemeld zijn om privé-berichten te kunnen verzenden.</Resource>
-		<Resource tag="WARN_ALREADY_VOTED">Je hebt al een keer gestemd.</Resource>
-		<Resource tag="WARN_POLL_CLOSED">Enquête is gesloten.</Resource>
-		<Resource tag="POLL_CLOSED">(Enquête is gesloten)</Resource>
-		<Resource tag="INFO_VOTED">Bedankt voor je stem!</Resource>
-		<Resource tag="WARN_WATCHLOGIN">Je moet geregistreerd zijn om onderwerpen te kunnen volgen.</Resource>
-		<Resource tag="INFO_WATCH_TOPIC">Je zult vanaf nu verwittigd worden wanneer nieuwe berichten geplaatst worden in dit onderwerp.</Resource>
-		<Resource tag="INFO_UNWATCH_TOPIC">Je krijgt nu geen bericht meer dit onderwerp nieuwe reacties heeft.</Resource>
-		<Resource tag="INFO_NOMORETOPICS">Er zijn geen onderwerpen meer in dit forum.</Resource>
-		<Resource tag="WARN_EMAILLOGIN">Je moet geregistreerd zijn om e-mails te kunnen verzenden.</Resource>
-		<Resource tag="ATTACHMENTS">Bijlagen:</Resource>
-		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} heeft deze afbeelding(en) toegevoegd als bijlage:</Resource>
-		<Resource tag="ATTACHMENTINFO">{0:N0} KB, aantal downloads: {1:N0}.</Resource>
-		<Resource tag="NORMAL">Normaal</Resource>
-		<Resource tag="THREADED">Hiërarchisch</Resource>
-		<Resource tag="FORUM_JUMP">Spring naar forum</Resource>
-		<Resource tag="TIP_REPLY_TOPIC">Reageer</Resource>
-		<Resource tag="TIP_NEW_TOPIC">Plaats nieuw bericht</Resource>
-		<Resource tag="TIP_DELETE_TOPIC">Verwijder dit bericht</Resource>
-		<Resource tag="TIP_LOCK_TOPIC">Vergrendel deze discussie</Resource>
-		<Resource tag="TIP_UNLOCK_TOPIC">Ontgrendel deze discussie</Resource>
-		<Resource tag="TIP_MOVE_TOPIC">Verplaats deze discussie</Resource>
-		<Resource tag="AD_USERNAME">Sponsor</Resource>
-		<Resource tag="AD_SIGNATURE"></Resource>
-		<Resource tag="REPORTPOST">Rapporteer ongepast gedrag</Resource>
-		<Resource tag="REPORTSPAM">Rapporteer als spam</Resource>
-		<Resource tag="REPORTEDFEEDBACK">Dank je wel voor het rapport</Resource>
-	</page>
-	<page name="ACTIVE">
-		<!-- active.aspx -->
-		<Resource tag="LAST_24">( Afgelopen 24 uur )</Resource>
-		<Resource tag="TITLE">Actieve onderwerpen</Resource>
-		<Resource tag="SINCE">Sinds</Resource>
-		<Resource tag="LAST_VISIT">laatste bezoek op {0}</Resource>
-		<Resource tag="LAST_HOUR">afgelopen uur</Resource>
-		<Resource tag="LAST_TWO_HOURS">afgelopen twee uur</Resource>
-		<Resource tag="LAST_DAY">afgelopen dag</Resource>
-		<Resource tag="LAST_TWO_DAYS">afgelopen twee dagen</Resource>
-		<Resource tag="LAST_WEEK">afgelopen week</Resource>
-		<Resource tag="LAST_TWO_WEEKS">afgelopen twee weken</Resource>
-		<Resource tag="LAST_MONTH">afgelopen maand</Resource>
-		<Resource tag="TOPICS">Onderwerpen</Resource>
-		<Resource tag="TOPIC_STARTER">Auteur</Resource>
-		<Resource tag="REPLIES">Reacties</Resource>
-		<Resource tag="RSSFEED">RSS Feed</Resource>
-		<Resource tag="VIEWS">Gelezen</Resource>
-		<Resource tag="LASTPOST">Laatste bericht</Resource>
-		<Resource tag="BY">door {0}</Resource>
-		<Resource tag="NO_POSTS">Geen berichten</Resource>
-	</page>
-	<page name="ACTIVEUSERS">
-		<!-- activeusers.aspx -->
-		<Resource tag="TITLE">Actieve gebruikers</Resource>
-		<Resource tag="USERNAME">Gebruikersnaam</Resource>
-		<Resource tag="LOGGED_IN">Aangemeld</Resource>
-		<Resource tag="LAST_ACTIVE">Laatst actief</Resource>
-		<Resource tag="ACTIVE">Actief</Resource>
-		<Resource tag="BROWSER">Browser</Resource>
-		<Resource tag="PLATFORM">Platform</Resource>
-		<Resource tag="MINUTES">{0:N0} minuten</Resource>
-	</page>
-	<page name="APPROVE">
-		<!-- approve.aspx -->
-		<Resource tag="TITLE">E-mail adres valideren</Resource>
-		<Resource tag="EMAIL_VERIFIED">Je e-mail adres is gevalideerd.</Resource>
-		<Resource tag="EMAIL_VERIFY_FAILED">E-mail adres kon niet worden gevalideerd.</Resource>
-		<Resource tag="ENTER_KEY">Voer validatiesleutel in</Resource>
-		<Resource tag="VALIDATE">Valideren</Resource>
-	</page>
-	<page name="CP_PM">
-		<!-- cp_pm.ascx -->
-		<Resource tag="TITLE">Privé-berichten</Resource>
-		<Resource tag="NEW_MESSAGE">Nieuw bericht</Resource>
-		<Resource tag="INBOX">Postvak in</Resource>
-		<Resource tag="SENTITEMS">Verzonden berichten</Resource>
-		<Resource tag="ARCHIVE">Archief</Resource>
-		<Resource tag="ARCHIVESELECTED">Archiveer selectie</Resource>
-		<Resource tag="DELETESELECTED">Verwijder selectie</Resource>
-		<Resource tag="SUBJECT">Onderwerp</Resource>
-		<Resource tag="FROM">Van</Resource>
-		<Resource tag="TO">Aan</Resource>
-		<Resource tag="DATE">Datum</Resource>
-		<Resource tag="MSGDELETED1">1 bericht gewist.</Resource>
-		<Resource tag="MSGDELETED2">{0} berichten gewist.</Resource>
-		<Resource tag="MSG_ARCHIVED">Bericht is gearchiveerd.</Resource>
-		<Resource tag="MSG_ARCHIVED+">{0} berichten gearchiveerd.</Resource>
-		<Resource tag="CONFIRM_DELETE">Wis alle geselecteerde berichten?</Resource>
-		<Resource tag="MSG_DELETED">Bericht is gewist.</Resource>
-		<Resource tag="NO_MESSAGES">Geen berichten gevonden.</Resource>
-		<Resource tag="POSTED">Geplaatst:</Resource>
-	</page>
-	<page name="CP_EDITAVATAR">
-		<Resource tag="TITLE">Avatar wijzigen</Resource>
-		<Resource tag="AVATAR">Avatar</Resource>
-		<Resource tag="AVATARCURRENT">Huidige avatar</Resource>
-		<Resource tag="AVATARNEW">Nieuwe avatar</Resource>
-		<Resource tag="AVATARUPLOAD">Avatar uploaden vanaf je computer:</Resource>
-		<Resource tag="AVATARDELETE">Deze avatar verwijderen</Resource>
-		<Resource tag="AVATARREMOTE">Voer de URL in van de avatar die naast je berichten zal verschijnen:</Resource>
-		<Resource tag="OURAVATAR">Onze avatar-galerij:</Resource>
-		<Resource tag="OURAVATAR_SELECT">Selecteer uit onze avatar-galerij</Resource>
-		<Resource tag="AVATARTEXT">Avatar uitleg</Resource>
-		<Resource tag="NOAVATAR">(Geen avatar)</Resource>
-		<Resource tag="WARN_TOOBIG">De afmeting van je afbeelding mag niet meer dan {0}x{1} pixels bedragen.</Resource>
-		<Resource tag="WARN_SIZE">De afmetingen van je afbeelding zijn {0}x{1} pixels.</Resource>
-		<Resource tag="WARN_RESIZED">De afmetingen van je afbeelding zijn aangepast.</Resource>
-		<Resource tag="WARN_BIGFILE">De bestandsgrootte van je afbeelding mag maximaal {0} bytes bedragen.</Resource>
-		<Resource tag="WARN_FILESIZE">De bestandsgrootte van je afbeelding is {0} bytes.</Resource>
-
-		<Resource tag="DELETE_AVATAR">Avatar verwijderen</Resource>
-	</page>
-	<page name="CP_EDITPROFILE">
-		<!-- cp_editprofile.aspx -->
-		<Resource tag="TITLE">Profiel bewerken</Resource>
-		<Resource tag="LOCATION">Locatie</Resource>
-		<Resource tag="WHERE">Waar woon je?</Resource>
-		<Resource tag="HOMEPAGE">Homepage</Resource>
-		<Resource tag="HOMEPAGE2">Jouw internet homepage:</Resource>
-		<Resource tag="TIMEZONE">Tijdzone</Resource>
-		<Resource tag="TIMEZONE2">Om data en tijden correct weer te geven, moeten we je tijdzone weten:</Resource>
-		<Resource tag="CHANGE_EMAIL">E-mail adres wijzigen</Resource>
-		<Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
-		<Resource tag="MAIL_SENT">Er is een e-mail verzonden naar {0}.\n\nJe dient je e-mail adres te verifiëren door\nde link in deze e-mail te volgen voordat de wijziging wordt doorgevoerd.</Resource>
-		<Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
-		<Resource tag="SELECT_THEME">Selecteer je gewenste forum-stijl:</Resource>
-		<Resource tag="SELECT_LANGUAGE">Welke taal wil je gebruiken:</Resource>
-		<Resource tag="WEBLOG2">Jouw weblog:</Resource>
-		<Resource tag="MESSENGER">Instant Messaging diensten</Resource>
-		<Resource tag="OVERRIDE_DEFAULT_THEMES">Kies een ander forum-thema:</Resource>
-		<Resource tag="ABOUTYOU">Over jezelf</Resource>
-		<Resource tag="REALNAME2">Wat is je echte naam?</Resource>
-		<Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres ingevoerd.</Resource>
-		<Resource tag="BAD_MSN">Je hebt een ongeldig e-mail adres ingevoerd voor je MSN-account.</Resource>
-		<Resource tag="BAD_HOME">Je hebt een ongeldig homepage adres ingevoerd.</Resource>
-		<Resource tag="BAD_WEBLOG">Je hebt een ongeldig adres ingevoerd voor je weblog.</Resource>
-		<Resource tag="BAD_ICQ">Je hebt een ongeldig ICQ-nummer ingevoerd.</Resource>
-		<Resource tag="PM_EMAIL_NOTIFICATION">E-mail ontvangen als iemand jou een privé-bericht stuurt?</Resource>
-		<Resource tag="METAWEBLOG_TITLE">Post naar MetaWeblog (API instellingen)</Resource>
-		<Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
-		<Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Gebruikersnaam:</Resource>
-		<Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
-		<Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optionele instelling die [i]misschien[/i] nodig is voor sommige blogs (maar niet voor SubText). Indien niet bekend, probeer eerst zonder.)</Resource>
-		<!-- leftovers from previous versions -->
-		<Resource tag="CHANGE_PASSWORD">Wachtwoord wijzigen</Resource>
-		<Resource tag="OLDPASSWORD">Oud wachtwoord:</Resource>
-		<Resource tag="NEWPASSWORD">Nieuw wachtwoord:</Resource>
-		<Resource tag="CONFIRMPASSWORD">Wachtwoord opnieuw invoeren:</Resource>
-		<Resource tag="NO_EMPTY_PASSWORD">Wachtwoord mag niet leeg worden gelaten.</Resource>
-		<Resource tag="NO_PASSWORD_MATCH">Wachtwoorden komen niet overeen.</Resource>
-		<Resource tag="OLD_PASSWORD_WRONG">Het oude wachtwoord klopt niet.</Resource>
-	</page>
-	<page name="CP_MESSAGE">
-		<!-- cp_message.aspx -->
-		<Resource tag="INBOX">Postvak IN</Resource>
-		<Resource tag="SENTITEMS">Verzonden Items</Resource>
-		<Resource tag="MSG_DELETED">Bericht is verwijderd.</Resource>
-		<Resource tag="POSTED">Gepost:</Resource>
-	</page>
-	<page name="CP_PROFILE">
-		<!-- cp_profile.aspx -->
-		<Resource tag="NEW_MESSAGE">Nieuw bericht</Resource>
-		<Resource tag="CONTROL_PANEL">Configuratiescherm</Resource>
-		<Resource tag="MESSENGER">Messenger:</Resource>
-		<Resource tag="PERSONAL_PROFILE">Persoonlijk profiel:</Resource>
-		<Resource tag="INBOX">Postvak IN</Resource>
-		<Resource tag="SENTITEMS">Verzonden Items</Resource>
-		<Resource tag="ARCHIVE">Archief</Resource>
-		<Resource tag="EDIT_PROFILE">Profiel bewerken</Resource>
-		<Resource tag="EDIT_AVATAR">Avatar bewerken</Resource>
-		<Resource tag="SIGNATURE">Handtekening</Resource>
-		<Resource tag="SUBSCRIPTIONS">Gevolgde discussies</Resource>
-		<Resource tag="CHANGE_PASSWORD">Wijzig wachtwoord</Resource>
-		<Resource tag="YOUR_ACCOUNT">Accountgegevens</Resource>
-		<Resource tag="YOUR_USERNAME">Je gebruikersnaam:</Resource>
-		<Resource tag="YOUR_EMAIL">Je e-mail adres:</Resource>
-		<Resource tag="NUMPOSTS">Aantal berichten:</Resource>
-		<Resource tag="GROUPS">Je bent lid van deze groepen:</Resource>
-		<Resource tag="JOINED">Je bent lid sinds:</Resource>
-		<Resource tag="EDIT_SIGNATURE">Wijzig handtekening</Resource>
-	</page>
-	<page name="CP_SIGNATURE">
-		<!-- cp_signature.aspx -->
-		<Resource tag="TITLE">Handtekening bewerken</Resource>
-		<Resource tag="SIGNATURE">Handtekening:</Resource>
-	</page>
-	<page name="CP_SUBSCRIPTIONS">
-		<!-- cp_subscriptions.aspx -->
-		<Resource tag="TITLE">Op te volgen</Resource>
-		<Resource tag="FORUMS">Fora</Resource>
-		<Resource tag="FORUM">Forum</Resource>
-		<Resource tag="TOPICS">Onderwerpen</Resource>
-		<Resource tag="REPLIES">Reacties</Resource>
-		<Resource tag="LASTPOST">Laatste bericht</Resource>
-		<Resource tag="TOPIC">Onderwerp</Resource>
-		<Resource tag="VIEWS">Gelezen</Resource>
-		<Resource tag="UNSUBSCRIBE">Niet meer volgen</Resource>
-		<Resource tag="LASTPOSTLINK">{0} door {1}</Resource>
-		<Resource tag="WARN_SELECTFORUMS">Gelieve eerst de fora te selecteren waarop je wenst uit te schrijven.</Resource>
-		<Resource tag="WARN_SELECTTOPICS">Gelieve eerst de onderwerpen te selecteren waarop je wenst uit te schrijven.</Resource>
-	</page>
-	<page name="CP_CHANGEPASSWORD">
-		<!-- cp_changepassword.aspx -->
-		<Resource tag="TITLE">Wijzig wachtwoord</Resource>
-		<Resource tag="CHANGE_BUTTON">Vastleggen</Resource>
-		<Resource tag="OLD_PASSWORD">Oude wachtwoord:</Resource>
-		<Resource tag="NEW_PASSWORD">Nieuw wachtwoord:</Resource>
-		<Resource tag="CONFIRM_PASSWORD">Bevestig nieuw wachtwoord:</Resource>
-		<Resource tag="NO_PASSWORD_MATCH">Nieuwe wachtwoorden komen niet overeen.</Resource>
-		<Resource tag="PASSWORD_INCORRECT">Wachtwoord onjuist of ongeldig.</Resource>
-		<Resource tag="PASSWORD_BAD_LENGTH">Wachtwoord moet tenminste {0} tekens bevatten.</Resource>
-		<Resource tag="PASSWORD_NOT_COMPLEX">Wachtwoord moet minimaal {1} niet-alfanumerieke tekens bevatten.</Resource>
-		<Resource tag="CHANGE_SUCCESS">Nieuwe wachtwoord is vastgelegd.</Resource>
-		<Resource tag="NEED_OLD_PASSWORD">Oude wachtwoord is verplicht.</Resource>
-		<Resource tag="NEED_NEW_PASSWORD">Nieuwe wachtwoord is verplicht.</Resource>
-		<Resource tag="NEED_NEW_CONFIRM_PASSWORD">Bevestiging nieuwe wachtwoord is verplicht.</Resource>
-	</page>
-	<page name="EMAILTOPIC">
-		<!-- emailtopic.aspx -->
-		<Resource tag="TITLE">Stuur dit onderwerp naar een vriend</Resource>
-		<Resource tag="TO">Verzenden naar (e-mail adres):</Resource>
-		<Resource tag="SUBJECT">Onderwerp:</Resource>
-		<Resource tag="MESSAGE">Bericht:</Resource>
-		<Resource tag="SEND">E-mail verzenden</Resource>
-		<Resource tag="NEED_EMAIL">Gelieve een e-mail adres op te geven.</Resource>
-		<Resource tag="FAILED">Verzenden van e-mail mislukt.\n\n{0}</Resource>
-	</page>
-	<page name="INFO">
-		<!-- info.aspx -->
-		<Resource tag="CONTINUE">Ga verder...</Resource>
-		<Resource tag="MODERATED">Omdat je in een gemodereerd forum gepost hebt, zal je bericht pas verschijnen na goedkeuring door een moderator.</Resource>
-		<Resource tag="SUSPENDED">Je account is tijdelijk geblokkeerd en zal weer actief worden op {0}.</Resource>
-		<Resource tag="REGISTRATION">Er is een e-mail naar het adres verzonden dat je hebt opgegeven. Lees a.u.b. de instructies in de e-mail om in te loggen.</Resource>
-		<Resource tag="ACCESSDENIED">Je hebt geen toegang tot dit gebied.</Resource>
-		<Resource tag="DISABLED">De administrator van dit forum heeft dit onderdeel afgesloten.</Resource>
-		<Resource tag="INVALID">Je hebt een ongeldige waarde opgegeven.</Resource>
-		<Resource tag="FAILURE">Er is een systeemfout opgetreden bij het afhandelen van je opdracht. Neem a.u.b. contact op met de beheerders.</Resource>
-		<Resource tag="EXCEPTION">Je bent ingelogd als</Resource>
-		<Resource tag="TITLE_INVALID">Ongeldig</Resource>
-		<Resource tag="TITLE_MODERATED">Informatie</Resource>
-		<Resource tag="TITLE_SUSPENDED">Geblokkeerd</Resource>
-		<Resource tag="TITLE_REGISTRATION">Bedankt</Resource>
-		<Resource tag="TITLE_ACCESSDENIED">Toegang geweigerd</Resource>
-		<Resource tag="TITLE_EXCEPTION">Informatie</Resource>
-		<Resource tag="TITLE_FAILURE">Fout</Resource>
-	</page>
-	<page name="LOGIN">
-		<!-- login.aspx -->
-		<Resource tag="TITLE">Aanmelden</Resource>
-		<Resource tag="USERNAME">Gebruikersnaam:</Resource>
-		<Resource tag="PASSWORD">Wachtwoord:</Resource>
-		<Resource tag="AUTO">Automatisch aanmelden</Resource>
-		<Resource tag="LOSTPASSWORD">Wachtwoord vergeten?</Resource>
-		<Resource tag="FORUM_LOGIN">Aanmelden op forum</Resource>
-		<Resource tag="EMAIL">E-mail adres</Resource>
-		<Resource tag="PASSWORD_ERROR">De ingevoerde gebruikersnaam of wachtwoord is ongeldig. Probeer het opnieuw.</Resource>
-		<Resource tag="RECOVER">Wachtwoord opvragen</Resource>
-		<Resource tag="WRONG_USERNAME_EMAIL">Ongeldige gebruikersnaam of e-mail adres.</Resource>
-		<Resource tag="EMAIL_SENT_PASSWORD">Er is een e-mail verzonden met je nieuwe wachtwoord.</Resource>
-		<Resource tag="SENDPASSWORD">Wachtwoord verzenden</Resource>
-		<Resource tag="BOTH_USERNAME_EMAIL">Gelieve zowel je gebruikersnaam als je e-mail adres in te vullen.</Resource>
-		<Resource tag="RECOVER_ERROR">Er is een fout opgetreden bij het aanmaken van je nieuwe wachtwoord.</Resource>
-	</page>
-	<page name="RECOVER_PASSWORD">
-		<Resource tag="TITLE">Wachtwoord kwijt</Resource>
-		<Resource tag="PAGE1_INSTRUCTIONS">Geef je gebruikersnaam op om je wachtwoord op te vragen:</Resource>
-		<Resource tag="PAGE2_INSTRUCTIONS">Beantwoord de volgende vraag om je wachtwoord op te vragen:</Resource>
-		<Resource tag="IDENTITY_CONFIRMATION_TITLE">Bevestiging identiteit voor opvragen wachtwoord</Resource>
-		<Resource tag="USERNAME_FAILURE">De opgegeven gebruikersnaam is onbekend.</Resource>
-		<Resource tag="GENERAL_FAILURE">Poging om wachtwoord op te vragen is niet gelukt.</Resource>
-		<Resource tag="QUESTION_FAILURE">Je antwoord kan niet geverifieerd worden. Probeer het a.u.b. opnieuw.</Resource>
-		<Resource tag="PASSWORD_SENT">Je wachtwoord is naar je e-mail adres verzonden.</Resource>
-		<Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Wachtwoord opvragen voor {0} forum</Resource>
-	</page>
-	<page name="REGISTER">
-		<!-- register.aspx -->
-		<Resource tag="TITLE">Registreren als nieuwe gebruiker</Resource>
-		<Resource tag="TERMS_AND_CONDITIONS_TITLE">Reglement</Resource>
-		<Resource tag="DETAILS">Registratiegegevens</Resource>
-		<Resource tag="USERNAME">Gebruikersnaam</Resource>
-		<Resource tag="NEED_USERNAME">Gebruikersnaam is verplicht.</Resource>
-		<Resource tag="PASSWORD">Wachtwoord</Resource>
-		<Resource tag="NEED_PASSWORD">Wachtwoord is verplicht</Resource>
-		<Resource tag="NEED_QUESTION">Beveiligings-vraag is verplicht.</Resource>
-		<Resource tag="NEED_ANSWER">Beveiligings-antwoord is verplicht.</Resource>
-		<Resource tag="RETYPE_PASSWORD">Wachtwoordbevestiging is verplicht.</Resource>
-		<Resource tag="NEED_EMAIL">E-mail is verplicht.</Resource>
-		<Resource tag="NEED_MATCH">Wachtwoorden komen niet overeen.</Resource>
-		<Resource tag="EMAIL">E-mail Adres</Resource>
-		<Resource tag="PROFILE">Profielinformatie</Resource>
-		<Resource tag="LOCATION">Locatie</Resource>
-		<Resource tag="HOMEPAGE">Homepage</Resource>
-		<Resource tag="PREFERENCES">Forum voorkeuren</Resource>
-		<Resource tag="TIMEZONE">Tijdzone</Resource>
-		<Resource tag="ALREADY_REGISTERED">Je gebruikersnaam of e-mail adres is reeds geregistreerd.</Resource>
-		<Resource tag="BAD_PASSWORD">Kies a.u.b. een complexer wachtwoord dat ook leestekens of cijfers bevat.</Resource>
-		<Resource tag="INVALID_QUESTION">Kies a.u.b. een andere vraag.</Resource>
-		<Resource tag="INVALID_ANSWER">Kies a.u.b. een ander antwoord.</Resource>
-		<Resource tag="INVALID_USERNAME">Kies a.u.b. een andere gebruikersnaam.</Resource>
-		<Resource tag="REGISTER">Registreren</Resource>
-		<Resource tag="CONFIRM_PASSWORD">Bevestig wachtwoord</Resource>
-		<Resource tag="SECURITY_QUESTION">Veiligheidsvraag</Resource>
-		<Resource tag="SECURITY_ANSWER">Veiligheidsantwoord</Resource>
-		<Resource tag="CREATE_USER">Maak gebruiker aan</Resource>
-		<Resource tag="CONTINUE">Verder</Resource>
-		<Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres opgegeven.</Resource>
-		<Resource tag="TERMSANDCONDITIONS_AGREE">Ik ga akkoord met de voorwaarden</Resource>
-		<Resource tag="TERMSANDCONDITIONS_DISAGREE">Ik ga niet akkoord met de voorwaarden</Resource>
-		<Resource tag="VERIFICATION_EMAIL_SUBJECT">Bevestiging registratie voor {0} forum</Resource>
-		<Resource tag="TERMS_AND_CONDITIONS" bbcode="true">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Dutch" code="nl">
+  <page name="ACTIVE">
+    <Resource tag="BY">door {0}</Resource>
+    <Resource tag="LAST_24">( Afgelopen 24 uur )</Resource>
+    <Resource tag="LAST_DAY">afgelopen dag</Resource>
+    <Resource tag="LAST_HOUR">afgelopen uur</Resource>
+    <Resource tag="LAST_MONTH">afgelopen maand</Resource>
+    <Resource tag="LAST_TWO_DAYS">afgelopen twee dagen</Resource>
+    <Resource tag="LAST_TWO_HOURS">afgelopen twee uur</Resource>
+    <Resource tag="LAST_TWO_WEEKS">afgelopen twee weken</Resource>
+    <Resource tag="LAST_VISIT">laatste bezoek op {0}</Resource>
+    <Resource tag="LAST_WEEK">afgelopen week</Resource>
+    <Resource tag="LASTPOST">Laatste bericht</Resource>
+    <Resource tag="NO_POSTS">Geen berichten</Resource>
+    <Resource tag="REPLIES">Reacties</Resource>
+    <Resource tag="RSSFEED">RSS Feed</Resource>
+    <Resource tag="SINCE">Sinds</Resource>
+    <Resource tag="TITLE">Actieve onderwerpen</Resource>
+    <Resource tag="TOPIC_STARTER">Auteur</Resource>
+    <Resource tag="TOPICS">Onderwerpen</Resource>
+    <Resource tag="VIEWS">Gelezen</Resource>
+  </page>
+  <page name="ACTIVEUSERS">
+    <Resource tag="ACTIVE">Actief</Resource>
+    <Resource tag="BROWSER">Browser</Resource>
+    <Resource tag="LAST_ACTIVE">Laatst actief</Resource>
+    <Resource tag="LOGGED_IN">Aangemeld</Resource>
+    <Resource tag="MINUTES">{0:N0} minuten</Resource>
+    <Resource tag="PLATFORM">Platform</Resource>
+    <Resource tag="TITLE">Actieve gebruikers</Resource>
+    <Resource tag="USERNAME">Gebruikersnaam</Resource>
+  </page>
+  <page name="ADMIN_HOSTSETTINGS">
+    <Resource tag="ADVERTSTAB">Advertenties</Resource>
+    <Resource tag="AVATARTAB">Avatars</Resource>
+    <Resource tag="DISPLAYTAB">Toon/verberg items</Resource>
+    <Resource tag="EDITORTAB">Editors</Resource>
+    <Resource tag="FEATURESTAB">Mogelijkheden</Resource>
+    <Resource tag="PERMSTAB">Permissies</Resource>
+    <Resource tag="SETTINGSTAB">Host instellingen</Resource>
+    <Resource tag="SMPTTAB">SMTP</Resource>
+    <Resource tag="TEMPLATETAB">Templates</Resource>
+  </page>
+  <page name="APPROVE">
+    <Resource tag="EMAIL_VERIFIED">Je e-mail adres is gevalideerd.</Resource>
+    <Resource tag="EMAIL_VERIFY_FAILED">E-mail adres kon niet worden gevalideerd.</Resource>
+    <Resource tag="ENTER_KEY">Voer validatiesleutel in</Resource>
+    <Resource tag="TITLE">E-mail adres valideren</Resource>
+    <Resource tag="VALIDATE">Valideren</Resource>
+  </page>
+  <page name="ATTACHMENTS">
+    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Types</Resource>
+    <Resource tag="ASK_DELETE">Bijlage verwijderen?</Resource>
+    <Resource tag="BACK">Terug</Resource>
+    <Resource tag="DELETE">Verwijderen</Resource>
+    <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
+    <Resource tag="ERROR_TOOBIG">Het bestand dat je gekozen hebt, is te groot om te uploaden.</Resource>
+    <Resource tag="FILEERROR">'{0}' is geen geldig bestand om te uploaden.</Resource>
+    <Resource tag="FILENAME">Bestandsnaam</Resource>
+    <Resource tag="SELECT_FILE">Selecteer het bestand dat je wilt uploaden:</Resource>
+    <Resource tag="SIZE">Grootte</Resource>
+    <Resource tag="TITLE">Bijlagen</Resource>
+    <Resource tag="UPLOAD">Uploaden</Resource>
+    <Resource tag="UPLOAD_TITLE">Te uploaden bestand</Resource>
+  </page>
+  <page name="AVATAR">
+    <Resource tag="EDITPROFILE">Profiel bewerken</Resource>
+    <Resource tag="TITLE">Avatars</Resource>
+  </page>
+  <page name="BBCODEMODULE">
+    <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
+    <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
+    <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
+    <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
+  </page>
+  <page name="BUTTON">
+    <Resource tag="BUTTON_ATTACH">Attach</Resource>
+    <Resource tag="BUTTON_ATTACH_TT">Attach files to this post</Resource>
+    <Resource tag="BUTTON_DELETE">Delete</Resource>
+    <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
+    <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
+    <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
+    <Resource tag="BUTTON_EDIT">Edit</Resource>
+    <Resource tag="BUTTON_EDIT_TT">Edit this Post</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC">Lock Topic</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC_TT">Lock this topic</Resource>
+    <Resource tag="BUTTON_MODERATE">Moderate</Resource>
+    <Resource tag="BUTTON_MODERATE_TT">Delete, lock, unlock, and move topics this forum</Resource>
+    <Resource tag="BUTTON_MOVE">Move</Resource>
+    <Resource tag="BUTTON_MOVE_TT">Move this Post</Resource>
+    <Resource tag="BUTTON_MOVETOPIC">Move Topic</Resource>
+    <Resource tag="BUTTON_MOVETOPIC_TT">Move this topic</Resource>
+    <Resource tag="BUTTON_NEWPM">New PM</Resource>
+    <Resource tag="BUTTON_NEWPM_TT">Create a new private message</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
+    <Resource tag="BUTTON_POSTREPLY">Post Reply</Resource>
+    <Resource tag="BUTTON_POSTREPLY_TT">Post a reply to this topic</Resource>
+    <Resource tag="BUTTON_QUOTE">Quote</Resource>
+    <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
+    <Resource tag="BUTTON_REPLY">Reply</Resource>
+    <Resource tag="BUTTON_REPLY_TT">Reply to Message</Resource>
+    <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
+    <Resource tag="BUTTON_UNDELETE_TT">Undelete this Post</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
+  </page>
+  <page name="COMMON">
+    <Resource tag="BACK">Terug</Resource>
+    <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
+    <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
+    <Resource tag="BBCODE_CODE">Code:</Resource>
+    <Resource tag="BBCODE_QUOTE">Aanhalen:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} schreef:</Resource>
+    <Resource tag="CAN_DELETE">Je [b]kunt[/b] hier je eigen berichten verwijderen.</Resource>
+    <Resource tag="CAN_EDIT">Je [b]kunt[/b] hier je eigen berichten bewerken.</Resource>
+    <Resource tag="CAN_POLL">Je [b]kunt[/b] hier enquêtes creëren.</Resource>
+    <Resource tag="CAN_POST">Je [b]kunt[/b] hier nieuwe berichten plaatsen.</Resource>
+    <Resource tag="CAN_REPLY">Je [b]kunt[/b] hier antwoorden op berichten.</Resource>
+    <Resource tag="CAN_VOTE">Je [b]kunt[/b] hier stemmen op enquêtes.</Resource>
+    <Resource tag="CANCEL">Annuleren</Resource>
+    <Resource tag="CANNOT_DELETE">Je kunt hier [b]geen[/b] eigen berichten verwijderen.</Resource>
+    <Resource tag="CANNOT_EDIT">Je kunt hier [b]geen[/b] eigen berichten bewerken.</Resource>
+    <Resource tag="CANNOT_POLL">Je kunt hier [b]geen[/b] enquêtes creëren.</Resource>
+    <Resource tag="CANNOT_POST">Je kunt hier [b]geen[/b] nieuwe berichten plaatsen.</Resource>
+    <Resource tag="CANNOT_REPLY">Je kunt hier [b]niet[/b] antwoorden op berichten.</Resource>
+    <Resource tag="CANNOT_VOTE">Je kunt hier [b]niet[/b] stemmen op enquêtes.</Resource>
+    <Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
+    <Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
+    <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
+    <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
+    <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
+    <Resource tag="FONT_COLOR">Font Color:</Resource>
+    <Resource tag="FONT_SIZE">Font Size:</Resource>
+    <Resource tag="FORMAT_DATE_LONG">D</Resource>
+    <Resource tag="FORMAT_DATE_SHORT">d</Resource>
+    <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
+    <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
+    <Resource tag="FORMAT_TIME">T</Resource>
+    <Resource tag="FORUM_JUMP">Ga naar:</Resource>
+    <Resource tag="GENERATED">Deze pagina is gegenereerd in {0:N3} seconden.</Resource>
+    <Resource tag="GO">GO</Resource>
+    <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+    <Resource tag="HIDDEN">Hidden</Resource>
+    <Resource tag="LOADING">Loading...</Resource>
+    <Resource tag="MAX_ONLINE">Grootste aantal gebruikers ooit online was {0}, {1}.</Resource>
+    <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
+    <Resource tag="OK">OK</Resource>
+    <Resource tag="PAGES">Pages</Resource>
+    <Resource tag="PM_NOTIFICATION_SUBJECT">Nieuw privé-bericht van {0} op {1}</Resource>
+    <Resource tag="POWERED_BY">Powered by {0} versie {1}</Resource>
+    <Resource tag="REGMAIL_SENT">Er is een e-mail verzonden. Klik op de link in dat bericht om je registratie te voltooien.</Resource>
+    <Resource tag="REGMAIL_WILL_BE_SEND">Bij registratie ontvang je een e-mail. Om je te kunnen aanmelden dien je de link in dat bericht te volgen.</Resource>
+    <Resource tag="SAVE">Opslaan</Resource>
+    <Resource tag="SELECT_FORUM">Selecteer forum</Resource>
+    <Resource tag="SUBMIT">Vastleggen</Resource>
+    <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Melding van plaatsing nieuw bericht (van {0})</Resource>
+    <Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
+    <Resource tag="TT_ALIGNLEFT">Left Justify</Resource>
+    <Resource tag="TT_ALIGNRIGHT">Right Justify</Resource>
+    <Resource tag="TT_BOLD">Bold</Resource>
+    <Resource tag="TT_CODE">Code</Resource>
+    <Resource tag="TT_CREATELINK">Create Link</Resource>
+    <Resource tag="TT_CUSTOMBBCODE">More BBCode Tags</Resource>
+    <Resource tag="TT_IMAGE">Insert Image</Resource>
+    <Resource tag="TT_ITALIC">Italic</Resource>
+    <Resource tag="TT_QUOTE">Quote</Resource>
+    <Resource tag="TT_UNDERLINE">Underline</Resource>
+    <Resource tag="UNREAD_MSG">Je hebt {0} ongelezen bericht(en) in je Postvak In.</Resource>
+    <Resource tag="UPDATE">Bijwerken</Resource>
+  </page>
+  <page name="CP_CHANGEPASSWORD">
+    <Resource tag="CHANGE_BUTTON">Vastleggen</Resource>
+    <Resource tag="CHANGE_SUCCESS">Nieuwe wachtwoord is vastgelegd.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Bevestig nieuw wachtwoord:</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">Bevestiging nieuwe wachtwoord is verplicht.</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">Nieuwe wachtwoord is verplicht.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">Oude wachtwoord is verplicht.</Resource>
+    <Resource tag="NEW_PASSWORD">Nieuw wachtwoord:</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">Nieuwe wachtwoorden komen niet overeen.</Resource>
+    <Resource tag="OLD_PASSWORD">Oude wachtwoord:</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">Wachtwoord moet tenminste {0} tekens bevatten.</Resource>
+    <Resource tag="PASSWORD_INCORRECT">Wachtwoord onjuist of ongeldig.</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">Wachtwoord moet minimaal {1} niet-alfanumerieke tekens bevatten.</Resource>
+    <Resource tag="TITLE">Wijzig wachtwoord</Resource>
+  </page>
+  <page name="CP_EDITAVATAR">
+    <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="AVATARCURRENT">Huidige avatar</Resource>
+    <Resource tag="AVATARDELETE">Deze avatar verwijderen</Resource>
+    <Resource tag="AVATARNEW">Nieuwe avatar</Resource>
+    <Resource tag="AVATARREMOTE">Voer de URL in van de avatar die naast je berichten zal verschijnen:</Resource>
+    <Resource tag="AVATARTEXT">Avatar uitleg</Resource>
+    <Resource tag="AVATARUPLOAD">Avatar uploaden vanaf je computer:</Resource>
+    <Resource tag="DELETE_AVATAR">Avatar verwijderen</Resource>
+    <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
+    <Resource tag="NOAVATAR">(Geen avatar)</Resource>
+    <Resource tag="OURAVATAR">Onze avatar-galerij:</Resource>
+    <Resource tag="OURAVATAR_SELECT">Selecteer uit onze avatar-galerij</Resource>
+    <Resource tag="TITLE">Avatar wijzigen</Resource>
+    <Resource tag="WARN_BIGFILE">De bestandsgrootte van je afbeelding mag maximaal {0} bytes bedragen.</Resource>
+    <Resource tag="WARN_FILESIZE">De bestandsgrootte van je afbeelding is {0} bytes.</Resource>
+    <Resource tag="WARN_RESIZED">De afmetingen van je afbeelding zijn aangepast.</Resource>
+    <Resource tag="WARN_SIZE">De afmetingen van je afbeelding zijn {0}x{1} pixels.</Resource>
+    <Resource tag="WARN_TOOBIG">De afmeting van je afbeelding mag niet meer dan {0}x{1} pixels bedragen.</Resource>
+  </page>
+  <page name="CP_EDITPROFILE">
+    <Resource tag="ABOUTYOU">Over jezelf</Resource>
+    <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres ingevoerd.</Resource>
+    <Resource tag="BAD_HOME">Je hebt een ongeldig homepage adres ingevoerd.</Resource>
+    <Resource tag="BAD_ICQ">Je hebt een ongeldig ICQ-nummer ingevoerd.</Resource>
+    <Resource tag="BAD_MSN">Je hebt een ongeldig e-mail adres ingevoerd voor je MSN-account.</Resource>
+    <Resource tag="BAD_WEBLOG">Je hebt een ongeldig adres ingevoerd voor je weblog.</Resource>
+    <Resource tag="CHANGE_EMAIL">E-mail adres wijzigen</Resource>
+    <Resource tag="CHANGE_PASSWORD">Wachtwoord wijzigen</Resource>
+    <Resource tag="CONFIRMPASSWORD">Wachtwoord opnieuw invoeren:</Resource>
+    <Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
+    <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
+    <Resource tag="HOMEPAGE">Homepage</Resource>
+    <Resource tag="HOMEPAGE2">Jouw internet homepage:</Resource>
+    <Resource tag="LOCATION">Locatie</Resource>
+    <Resource tag="MAIL_SENT">Er is een e-mail verzonden naar {0}.\n\nJe dient je e-mail adres te verifiëren door\nde link in deze e-mail te volgen voordat de wijziging wordt doorgevoerd.</Resource>
+    <Resource tag="MESSENGER">Instant Messaging diensten</Resource>
+    <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optionele instelling die [i]misschien[/i] nodig is voor sommige blogs (maar niet voor SubText). Indien niet bekend, probeer eerst zonder.)</Resource>
+    <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
+    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Gebruikersnaam:</Resource>
+    <Resource tag="METAWEBLOG_TITLE">Post naar MetaWeblog (API instellingen)</Resource>
+    <Resource tag="NEWPASSWORD">Nieuw wachtwoord:</Resource>
+    <Resource tag="NO_EMPTY_PASSWORD">Wachtwoord mag niet leeg worden gelaten.</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">Wachtwoorden komen niet overeen.</Resource>
+    <Resource tag="OLD_PASSWORD_WRONG">Het oude wachtwoord klopt niet.</Resource>
+    <Resource tag="OLDPASSWORD">Oud wachtwoord:</Resource>
+    <Resource tag="OVERRIDE_DEFAULT_THEMES">Kies een ander forum-thema:</Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">E-mail ontvangen als iemand jou een privé-bericht stuurt?</Resource>
+    <Resource tag="REALNAME2">Wat is je echte naam?</Resource>
+    <Resource tag="SELECT_LANGUAGE">Welke taal wil je gebruiken:</Resource>
+    <Resource tag="SELECT_THEME">Selecteer je gewenste forum-stijl:</Resource>
+    <Resource tag="TIMEZONE">Tijdzone</Resource>
+    <Resource tag="TIMEZONE2">Om data en tijden correct weer te geven, moeten we je tijdzone weten:</Resource>
+    <Resource tag="TITLE">Profiel bewerken</Resource>
+    <Resource tag="WEBLOG2">Jouw weblog:</Resource>
+    <Resource tag="WHERE">Waar woon je?</Resource>
+  </page>
+  <page name="CP_INBOX">
+    <Resource tag="CONFIRM_DELETE">Verwijder alle geselecteerde berichten?</Resource>
+    <Resource tag="DATE">Datum</Resource>
+    <Resource tag="DELETESELECTED">Selectie verwijderen</Resource>
+    <Resource tag="FROM">Van</Resource>
+    <Resource tag="MSGDELETED1">1 bericht is verwijderd.</Resource>
+    <Resource tag="MSGDELETED2">{0} berichten zijn verwijderd.</Resource>
+    <Resource tag="SENTITEMS">Verzonden Items</Resource>
+    <Resource tag="SUBJECT">Onderwerp</Resource>
+    <Resource tag="TITLE">Postvak IN</Resource>
+    <Resource tag="TO">Aan</Resource>
+  </page>
+  <page name="CP_MESSAGE">
+    <Resource tag="INBOX">Postvak IN</Resource>
+    <Resource tag="MSG_DELETED">Bericht is verwijderd.</Resource>
+    <Resource tag="POSTED">Gepost:</Resource>
+    <Resource tag="SENTITEMS">Verzonden Items</Resource>
+  </page>
+  <page name="CP_PM">
+    <Resource tag="ARCHIVE">Archief</Resource>
+    <Resource tag="ARCHIVESELECTED">Archiveer selectie</Resource>
+    <Resource tag="CONFIRM_DELETE">Wis alle geselecteerde berichten?</Resource>
+    <Resource tag="DATE">Datum</Resource>
+    <Resource tag="DELETESELECTED">Verwijder selectie</Resource>
+    <Resource tag="FROM">Van</Resource>
+    <Resource tag="INBOX">Postvak in</Resource>
+    <Resource tag="MSG_ARCHIVED">Bericht is gearchiveerd.</Resource>
+    <Resource tag="MSG_ARCHIVED+">{0} berichten gearchiveerd.</Resource>
+    <Resource tag="MSG_DELETED">Bericht is gewist.</Resource>
+    <Resource tag="MSGDELETED1">1 bericht gewist.</Resource>
+    <Resource tag="MSGDELETED2">{0} berichten gewist.</Resource>
+    <Resource tag="NEW_MESSAGE">Nieuw bericht</Resource>
+    <Resource tag="NO_MESSAGES">Geen berichten gevonden.</Resource>
+    <Resource tag="POSTED">Geplaatst:</Resource>
+    <Resource tag="SENTITEMS">Verzonden berichten</Resource>
+    <Resource tag="SUBJECT">Onderwerp</Resource>
+    <Resource tag="TITLE">Privé-berichten</Resource>
+    <Resource tag="TO">Aan</Resource>
+  </page>
+  <page name="CP_PROFILE">
+    <Resource tag="ARCHIVE">Archief</Resource>
+    <Resource tag="CHANGE_PASSWORD">Wijzig wachtwoord</Resource>
+    <Resource tag="CONTROL_PANEL">Configuratiescherm</Resource>
+    <Resource tag="EDIT_AVATAR">Avatar bewerken</Resource>
+    <Resource tag="EDIT_PROFILE">Profiel bewerken</Resource>
+    <Resource tag="EDIT_SIGNATURE">Wijzig handtekening</Resource>
+    <Resource tag="GROUPS">Je bent lid van deze groepen:</Resource>
+    <Resource tag="INBOX">Postvak IN</Resource>
+    <Resource tag="JOINED">Je bent lid sinds:</Resource>
+    <Resource tag="MESSENGER">Messenger:</Resource>
+    <Resource tag="NEW_MESSAGE">Nieuw bericht</Resource>
+    <Resource tag="NUMPOSTS">Aantal berichten:</Resource>
+    <Resource tag="PERSONAL_PROFILE">Persoonlijk profiel:</Resource>
+    <Resource tag="SENTITEMS">Verzonden Items</Resource>
+    <Resource tag="SIGNATURE">Handtekening</Resource>
+    <Resource tag="SUBSCRIPTIONS">Gevolgde discussies</Resource>
+    <Resource tag="YOUR_ACCOUNT">Accountgegevens</Resource>
+    <Resource tag="YOUR_EMAIL">Je e-mail adres:</Resource>
+    <Resource tag="YOUR_USERNAME">Je gebruikersnaam:</Resource>
+  </page>
+  <page name="CP_SIGNATURE">
+    <Resource tag="SIGNATURE">Handtekening:</Resource>
+    <Resource tag="TITLE">Handtekening bewerken</Resource>
+  </page>
+  <page name="CP_SUBSCRIPTIONS">
+    <Resource tag="FORUM">Forum</Resource>
+    <Resource tag="FORUMS">Fora</Resource>
+    <Resource tag="LASTPOST">Laatste bericht</Resource>
+    <Resource tag="LASTPOSTLINK">{0} door {1}</Resource>
+    <Resource tag="REPLIES">Reacties</Resource>
+    <Resource tag="TITLE">Op te volgen</Resource>
+    <Resource tag="TOPIC">Onderwerp</Resource>
+    <Resource tag="TOPICS">Onderwerpen</Resource>
+    <Resource tag="UNSUBSCRIBE">Niet meer volgen</Resource>
+    <Resource tag="VIEWS">Gelezen</Resource>
+    <Resource tag="WARN_SELECTFORUMS">Gelieve eerst de fora te selecteren waarop je wenst uit te schrijven.</Resource>
+    <Resource tag="WARN_SELECTTOPICS">Gelieve eerst de onderwerpen te selecteren waarop je wenst uit te schrijven.</Resource>
+  </page>
+  <page name="DEFAULT">
+    <Resource tag="ACTIVE_DISCUSSIONS">Actieve discussies</Resource>
+    <Resource tag="ACTIVE_USERS">Actieve gebruikers</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} actieve gebruiker</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} actieve gebruikers</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} gast</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} gasten</Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} lid</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} leden</Resource>
+    <Resource tag="BY">door {0}</Resource>
+    <Resource tag="CURRENT_TIME">Huidige tijd: {0}.</Resource>
+    <Resource tag="ERROR_NOFORUMACCESS">Je hebt geen toegang tot het gekozen forum.</Resource>
+    <Resource tag="FORUM">Forum</Resource>
+    <Resource tag="GO_LAST_POST">Ga naar laatste bericht</Resource>
+    <Resource tag="IN">in {0}</Resource>
+    <Resource tag="INFORMATION">Informatie</Resource>
+    <Resource tag="LAST_VISIT">Laatste bezoek: {0}.</Resource>
+    <Resource tag="LASTPOST">Laatste bericht</Resource>
+    <Resource tag="LATEST_POSTS">Nieuwste berichten</Resource>
+    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
+    <Resource tag="MARKALL">Markeer alle fora als gelezen</Resource>
+    <Resource tag="MODERATORS">Moderators</Resource>
+    <Resource tag="NO_FORUM_ACCESS">Je hebt geen toegang tot het gekozen forum.</Resource>
+    <Resource tag="NO_POSTS">Geen berichten</Resource>
+    <Resource tag="POSTS">Berichten</Resource>
+    <Resource tag="STATS">Statistieken</Resource>
+    <Resource tag="STATS_LASTMEMBER">Het nieuwste lid is {0}.</Resource>
+    <Resource tag="STATS_LASTPOST">Laatste bericht geplaatst op {0} door {1}.</Resource>
+    <Resource tag="STATS_MEMBERS">Er zijn {0:N0} geregistreerde leden.</Resource>
+    <Resource tag="STATS_POSTS">Er zijn {0:N0} berichten in {1:N0} onderwerpen in {2:N0} fora.</Resource>
+    <Resource tag="TOPICS">Onderwerpen</Resource>
+    <Resource tag="UNREAD0">Je hebt {0} ongelezen berichten in je Postvak IN.</Resource>
+    <Resource tag="UNREAD1">Je hebt {0} ongelezen bericht in je Postvak IN.</Resource>
+    <Resource tag="VIEWING">({0} aanwezig)</Resource>
+  </page>
+  <page name="DELETEMESSAGE">
+    <Resource tag="DELETE">Verwijderen</Resource>
+    <Resource tag="DELETE_REASON">Reden voor verwijderen</Resource>
+    <Resource tag="ERASEMESSAGE">Erase message from the database (irreversible)</Resource>
+    <Resource tag="FROM">Van:</Resource>
+    <Resource tag="LAST10">Laatste 10 berichten (in omgekeerde volgorde)</Resource>
+    <Resource tag="MESSAGE">Boodschap:</Resource>
+    <Resource tag="POSTED">Gepost:</Resource>
+    <Resource tag="PREVIEWTITLE">Bericht:</Resource>
+    <Resource tag="PRIORITY">Prioriteit:</Resource>
+    <Resource tag="SUBJECT">Onderwerp:</Resource>
+    <Resource tag="UNDELETE">Verwijdering ongedaan maken</Resource>
+    <Resource tag="UNDELETE_REASON">Reden voor ongedaan maken</Resource>
+    <Resource tag="WAIT">Je kunt niet posten gedurende de volgende {0:NO} seconden.</Resource>
+  </page>
+  <page name="EMAILTOPIC">
+    <Resource tag="FAILED">Verzenden van e-mail mislukt.\n\n{0}</Resource>
+    <Resource tag="MESSAGE">Bericht:</Resource>
+    <Resource tag="NEED_EMAIL">Gelieve een e-mail adres op te geven.</Resource>
+    <Resource tag="SEND">E-mail verzenden</Resource>
+    <Resource tag="SUBJECT">Onderwerp:</Resource>
+    <Resource tag="TITLE">Stuur dit onderwerp naar een vriend</Resource>
+    <Resource tag="TO">Verzenden naar (e-mail adres):</Resource>
+  </page>
+  <page name="ICONLEGEND">
+    <Resource tag="ANNOUNCEMENT">Mededeling</Resource>
+    <Resource tag="ANNOUNCEMENT_NEW">Mededeling (nieuwe berichten)</Resource>
+    <Resource tag="FORUM_LOCKED">Forum gesloten</Resource>
+    <Resource tag="MOVED">Verplaatst</Resource>
+    <Resource tag="NEW_POSTS">Nieuwe berichten</Resource>
+    <Resource tag="NEW_POSTS_LOCKED">Nieuwe berichten (gesloten)</Resource>
+    <Resource tag="NO_NEW_POSTS">Geen nieuwe berichten</Resource>
+    <Resource tag="NO_NEW_POSTS_LOCKED">Geen nieuwe berichten (gesloten)</Resource>
+    <Resource tag="POLL">Enquête</Resource>
+    <Resource tag="POLL_LOCKED">Enquête (gesloten)</Resource>
+    <Resource tag="POLL_NEW">Enquête (met nieuwe berichten)</Resource>
+    <Resource tag="STICKY">Sticky</Resource>
+    <Resource tag="STICKY_LOCKED">Sticky (gesloten)</Resource>
+  </page>
+  <page name="IM_AIM">
+    <Resource tag="TITLE">AOL Instant Messenger</Resource>
+  </page>
+  <page name="IM_EMAIL">
+    <Resource tag="BODY">Typ hier je bericht:</Resource>
+    <Resource tag="ERROR">Fout bij het verzenden van je e-mail bericht.</Resource>
+    <Resource tag="SEND">E-mail verzenden</Resource>
+    <Resource tag="SUBJECT">Onderwerp:</Resource>
+    <Resource tag="TITLE">E-mail</Resource>
+  </page>
+  <page name="IM_ICQ">
+    <Resource tag="BODY">Typ hier je bericht:</Resource>
+    <Resource tag="EMAIL">Jouw e-mail:</Resource>
+    <Resource tag="NAME">Jouw naam:</Resource>
+    <Resource tag="SEND">Bericht verzenden</Resource>
+    <Resource tag="TITLE">ICQ</Resource>
+  </page>
+  <page name="IM_SKYPE">
+    <Resource tag="TITLE">Skype(tm) Calling</Resource>
+  </page>
+  <page name="IM_YIM">
+    <Resource tag="TITLE">Yahoo! Messenger</Resource>
+  </page>
+  <page name="INFO">
+    <Resource tag="ACCESSDENIED">Je hebt geen toegang tot dit gebied.</Resource>
+    <Resource tag="CONTINUE">Ga verder...</Resource>
+    <Resource tag="DISABLED">De administrator van dit forum heeft dit onderdeel afgesloten.</Resource>
+    <Resource tag="EXCEPTION">Je bent ingelogd als</Resource>
+    <Resource tag="FAILURE">Er is een systeemfout opgetreden bij het afhandelen van je opdracht. Neem a.u.b. contact op met de beheerders.</Resource>
+    <Resource tag="INVALID">Je hebt een ongeldige waarde opgegeven.</Resource>
+    <Resource tag="MODERATED">Omdat je in een gemodereerd forum gepost hebt, zal je bericht pas verschijnen na goedkeuring door een moderator.</Resource>
+    <Resource tag="REGISTRATION">Er is een e-mail naar het adres verzonden dat je hebt opgegeven. Lees a.u.b. de instructies in de e-mail om in te loggen.</Resource>
+    <Resource tag="SUSPENDED">Je account is tijdelijk geblokkeerd en zal weer actief worden op {0}.</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Toegang geweigerd</Resource>
+    <Resource tag="TITLE_EXCEPTION">Informatie</Resource>
+    <Resource tag="TITLE_FAILURE">Fout</Resource>
+    <Resource tag="TITLE_INVALID">Ongeldig</Resource>
+    <Resource tag="TITLE_MODERATED">Informatie</Resource>
+    <Resource tag="TITLE_REGISTRATION">Bedankt</Resource>
+    <Resource tag="TITLE_SUSPENDED">Geblokkeerd</Resource>
+  </page>
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
+  <page name="LOGIN">
+    <Resource tag="AUTO">Automatisch aanmelden</Resource>
+    <Resource tag="BOTH_USERNAME_EMAIL">Gelieve zowel je gebruikersnaam als je e-mail adres in te vullen.</Resource>
+    <Resource tag="EMAIL">E-mail adres</Resource>
+    <Resource tag="EMAIL_SENT_PASSWORD">Er is een e-mail verzonden met je nieuwe wachtwoord.</Resource>
+    <Resource tag="FORUM_LOGIN">Aanmelden op forum</Resource>
+    <Resource tag="LOSTPASSWORD">Wachtwoord vergeten?</Resource>
+    <Resource tag="PASSWORD">Wachtwoord:</Resource>
+    <Resource tag="PASSWORD_ERROR">De ingevoerde gebruikersnaam of wachtwoord is ongeldig. Probeer het opnieuw.</Resource>
+    <Resource tag="RECOVER">Wachtwoord opvragen</Resource>
+    <Resource tag="RECOVER_ERROR">Er is een fout opgetreden bij het aanmaken van je nieuwe wachtwoord.</Resource>
+    <Resource tag="SENDPASSWORD">Wachtwoord verzenden</Resource>
+    <Resource tag="TITLE">Aanmelden</Resource>
+    <Resource tag="USERNAME">Gebruikersnaam:</Resource>
+    <Resource tag="WRONG_USERNAME_EMAIL">Ongeldige gebruikersnaam of e-mail adres.</Resource>
+  </page>
+  <page name="MEMBERS">
+    <Resource tag="JOINED">Lid sinds</Resource>
+    <Resource tag="PAGES">{0} pagina's:</Resource>
+    <Resource tag="POSTS">Berichten</Resource>
+    <Resource tag="RANK">Rang</Resource>
+    <Resource tag="TITLE">Leden</Resource>
+    <Resource tag="USERNAME">Gebruikersnaam</Resource>
+  </page>
+  <page name="MOD_FORUMUSER">
+    <Resource tag="ACCESSMASK">Toegangsmasker:</Resource>
+    <Resource tag="CANCEL">Annuleren</Resource>
+    <Resource tag="FIND">Gebruikers zoeken</Resource>
+    <Resource tag="TITLE">Forum gebruiker</Resource>
+    <Resource tag="UPDATE">Bijwerken</Resource>
+    <Resource tag="USER">Gebruiker:</Resource>
+  </page>
+  <page name="MODERATE">
+    <Resource tag="ACCEPTED">Goedgekeurd</Resource>
+    <Resource tag="ACCESSMASK">Toegangsmasker</Resource>
+    <Resource tag="BY">door {0}</Resource>
+    <Resource tag="CONFIRM_DELETE">Dit onderwerp verwijderen?</Resource>
+    <Resource tag="DELETED">Onderwerp verwijderd.</Resource>
+    <Resource tag="EDIT">Bewerken</Resource>
+    <Resource tag="INVITE">Gebruiker uitnodigen</Resource>
+    <Resource tag="LASTPOST">Laatste bericht</Resource>
+    <Resource tag="MEMBERS">Leden</Resource>
+    <Resource tag="NO_POSTS">Geen berichten</Resource>
+    <Resource tag="REMOVE">Verwijderen</Resource>
+    <Resource tag="REPLIES">Reacties</Resource>
+    <Resource tag="TITLE">Moderatie</Resource>
+    <Resource tag="TOPIC_STARTER">Auteur</Resource>
+    <Resource tag="TOPICS">Onderwerp</Resource>
+    <Resource tag="USER">Gebruiker</Resource>
+    <Resource tag="VIEWS">Gelezen</Resource>
+  </page>
+  <page name="MODERATE_DEFAULT">
+    <Resource tag="CATEGORY">Categorie</Resource>
+    <Resource tag="FORUM">Forum</Resource>
+    <Resource tag="REPORTED">Als kwetsend gerapporteerd</Resource>
+    <Resource tag="REPORTEDSPAM">Als spam gerapporteerd</Resource>
+    <Resource tag="TITLE">Moderatie</Resource>
+    <Resource tag="UNAPPROVED">Niet-goedgekeurde berichten</Resource>
+  </page>
+  <page name="MODERATE_FORUM">
+    <Resource tag="APPROVE">Bericht goedkeuren</Resource>
+    <Resource tag="APPROVED">Bericht goedgekeurd.</Resource>
+    <Resource tag="ASK_DELETE">Bericht verwijderen?</Resource>
+    <Resource tag="COPYOVER">Berichttekst bijwerken</Resource>
+    <Resource tag="DELETE">Bericht verwijderen</Resource>
+    <Resource tag="DELETED">Bericht verwijderd.</Resource>
+    <Resource tag="MODIFIED">Bericht is gewijzigd!</Resource>
+    <Resource tag="NUMBERREPORTED">Aantal keer gerapporteerd:</Resource>
+    <Resource tag="RESOLVE">Kopieën post oplossen</Resource>
+    <Resource tag="RESOLVED">Markeer als opgeschoond</Resource>
+    <Resource tag="RESOLVEDFEEDBACK">Bericht is gemarkeerd als opgeschoond.</Resource>
+    <Resource tag="TOP">Terug naar boven</Resource>
+    <Resource tag="UNAPPROVED">Niet-goedgekeurde berichten</Resource>
+  </page>
+  <page name="MOVEMESSAGE">
+    <Resource tag="CREATE_TOPIC">Maak onderwerp van bericht</Resource>
+    <Resource tag="EMPTY_TOPIC">Naam onderwerp is leeg</Resource>
+    <Resource tag="MOVE" />
+    <Resource tag="MOVE_MESSAGE">Verplaats bericht</Resource>
+    <Resource tag="NEW_TOPIC">Maak nieuw onderwerp om naartoe te verplaatsen:</Resource>
+    <Resource tag="SELECT_FORUM_MOVETO">Selecteer forum om naartoe te verplaatsen:</Resource>
+    <Resource tag="SELECT_TOPIC_MOVETO">Selecteer onderwerp om naartoe te verplaatsen:</Resource>
+  </page>
+  <page name="MOVETOPIC">
+    <Resource tag="LEAVE_POINTER">Leave link to moved topic in original forum</Resource>
+    <Resource tag="MOVE">Verplaats dit onderwerp</Resource>
+    <Resource tag="SELECT_FORUM">Selecteer het forum waar je dit onderwerp naartoe wilt verplaatsen:</Resource>
+    <Resource tag="TITLE">Onderwerp verplaatsen</Resource>
+  </page>
+  <page name="PMESSAGE">
+    <Resource tag="ALLUSERS">Alle gebruikers</Resource>
+    <Resource tag="CLEAR">Wissen</Resource>
+    <Resource tag="FINDUSERS">Gebruikers zoeken</Resource>
+    <Resource tag="MAX_RECIPIENT_INFO">You can send message to maximum of [b]{0}[/b] users at a time.</Resource>
+    <Resource tag="MESSAGE">Bericht:</Resource>
+    <Resource tag="MULTI_RECEIVER_INFO">Separate multiple user names with ';'</Resource>
+    <Resource tag="NEED_MESSAGE">Gelieve een bericht in te voeren.</Resource>
+    <Resource tag="NEED_MORE_LETTERS">Om gebruikers te kunnen vinden, moet je minimaal 2 letters van de gebruikersnaam opgeven.</Resource>
+    <Resource tag="NEED_SUBJECT">Gelieve een onderwerp op te geven.</Resource>
+    <Resource tag="NEED_TO">Gelieve op te geven naar wie je dit bericht wilt sturen.</Resource>
+    <Resource tag="NO_SUCH_USER">Deze gebruiker bestaat niet.</Resource>
+    <Resource tag="NOT_GUEST">Je kunt geen privé-bericht verzenden naar de gastgebruiker.</Resource>
+    <Resource tag="OWN_PMBOX_FULL">Your Private Message box is full. Maximum allowed is {0}. Please delete messages to free up space.</Resource>
+    <Resource tag="PREVIEWTITLE">Voorbeeld:</Resource>
+    <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="SAVE">Verzenden</Resource>
+    <Resource tag="SUBJECT">Onderwerp:</Resource>
+    <Resource tag="TITLE">Stuur een privé-bericht</Resource>
+    <Resource tag="TO">Aan:</Resource>
+    <Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
+  </page>
+  <page name="POSTMESSAGE">
+    <Resource tag="ANNOUNCEMENT">Mededeling</Resource>
+    <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="ATTACH">Bijlage toevoegen:</Resource>
+    <Resource tag="CHOICE1">Keuze 1:</Resource>
+    <Resource tag="CHOICE2">Keuze 2:</Resource>
+    <Resource tag="CHOICE3">Keuze 3:</Resource>
+    <Resource tag="CHOICE4">Keuze 4:</Resource>
+    <Resource tag="CHOICE5">Keuze 5:</Resource>
+    <Resource tag="CHOICE6">Keuze 6:</Resource>
+    <Resource tag="CHOICE7">Keuze 7:</Resource>
+    <Resource tag="CHOICE8">Keuze 8:</Resource>
+    <Resource tag="CHOICE9">Keuze 9:</Resource>
+    <Resource tag="CREATEPOLL">Maak enquête</Resource>
+    <Resource tag="EDIT">Bericht wijzigen</Resource>
+    <Resource tag="EDITREASON">Reden voor wijzigen:</Resource>
+    <Resource tag="FILEERROR">'{0}' is geen geldig bestand om te uploaden.</Resource>
+    <Resource tag="FROM">Van:</Resource>
+    <Resource tag="LAST10">Laatste 10 berichten (van nieuw naar oud)</Resource>
+    <Resource tag="MESSAGE">Bericht:</Resource>
+    <Resource tag="NEED_CHOICES">Een enquête moet minstens 2 keuzes hebben.</Resource>
+    <Resource tag="NEED_QUESTION">Gelieve een vraag op te geven voor de enquête.</Resource>
+    <Resource tag="NEED_SUBJECT">Gelieve een onderwerp op te geven.</Resource>
+    <Resource tag="NEWPOSTOPTIONS">Options:</Resource>
+    <Resource tag="NEWTOPIC">Nieuw onderwerp plaatsen</Resource>
+    <Resource tag="NORMAL">Normaal</Resource>
+    <Resource tag="PERSISTENCY">Persistent:</Resource>
+    <Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
+    <Resource tag="POLL_EXPIRE">Laat enquête lopen gedurende:</Resource>
+    <Resource tag="POLL_EXPIRE_EXPLAIN">[b]dagen[/b] (laat leeg voor geen verloopdatum)</Resource>
+    <Resource tag="POLLQUESTION">Enquêtevraag:</Resource>
+    <Resource tag="POSTED">Gepost:</Resource>
+    <Resource tag="POSTTOBLOG_FAILED">Er is een fout opgetreden bij het posten in je blog. Misschien is de authenticatie mislukt.</Resource>
+    <Resource tag="PREVIEW">Voorbeeld</Resource>
+    <Resource tag="PREVIEWTITLE">Voorbeeld:</Resource>
+    <Resource tag="PRIORITY">Prioriteit:</Resource>
+    <Resource tag="REMOVEPOLL">Remove Poll</Resource>
+    <Resource tag="REPLY">Antwoord verzenden</Resource>
+    <Resource tag="SAVE">Plaatsen</Resource>
+    <Resource tag="SMILIES_HEADER">[b]Smiley invoegen[/b]</Resource>
+    <Resource tag="SMILIES_MORE">Meer smiley's...</Resource>
+    <Resource tag="STICKY">Sticky</Resource>
+    <Resource tag="SUBJECT">Onderwerp:</Resource>
+    <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
+    <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
+    <Resource tag="WAIT">Je kunt niet posten gedurende de volgende {0:N0} seconden.</Resource>
+  </page>
+  <page name="POSTS">
+    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_USERNAME">Sponsor</Resource>
+    <Resource tag="AIM">AIM</Resource>
+    <Resource tag="ATTACHMENTINFO">{0:N0} KB, aantal downloads: {1:N0}.</Resource>
+    <Resource tag="ATTACHMENTS">Bijlagen:</Resource>
+    <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CHOICE">Keuze</Resource>
+    <Resource tag="CONFIRM_DELETEMESSAGE">Bericht verwijderen?</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">Onderwerp verwijderen?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
+    <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
+    <Resource tag="EDIT_REASON">Reason</Resource>
+    <Resource tag="EDIT_REASON_NA">Not specified</Resource>
+    <Resource tag="EDITED">Edit</Resource>
+    <Resource tag="EDITED_BY_MOD">by moderator</Resource>
+    <Resource tag="EDITED_BY_USER">by user</Resource>
+    <Resource tag="EMAIL">EMail</Resource>
+    <Resource tag="EMAILTOPIC">Onderwerp mailen</Resource>
+    <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="FORUM_JUMP">Spring naar forum</Resource>
+    <Resource tag="GROUPS">Groep</Resource>
+    <Resource tag="HOME">WWW</Resource>
+    <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} heeft deze afbeelding(en) toegevoegd als bijlage:</Resource>
+    <Resource tag="INFO_NOMORETOPICS">Er zijn geen onderwerpen meer in dit forum.</Resource>
+    <Resource tag="INFO_TOPIC_LOCKED">Onderwerp gesloten.</Resource>
+    <Resource tag="INFO_TOPIC_UNLOCKED">Onderwerp ontgrendeld.</Resource>
+    <Resource tag="INFO_UNWATCH_TOPIC">Je krijgt nu geen bericht meer dit onderwerp nieuwe reacties heeft.</Resource>
+    <Resource tag="INFO_VOTED">Bedankt voor je stem!</Resource>
+    <Resource tag="INFO_WATCH_TOPIC">Je zult vanaf nu verwittigd worden wanneer nieuwe berichten geplaatst worden in dit onderwerp.</Resource>
+    <Resource tag="IP">IP</Resource>
+    <Resource tag="JOINED">Lid sinds</Resource>
+    <Resource tag="LOCATION">Locatie</Resource>
+    <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>
+    <Resource tag="MESSAGEDELETED_USER">Message was deleted by User.</Resource>
+    <Resource tag="MSN">MSN</Resource>
+    <Resource tag="NEXTTOPIC">Volgende onderwerp</Resource>
+    <Resource tag="NORMAL">Normaal</Resource>
+    <Resource tag="OPTIONS">Opties</Resource>
+    <Resource tag="PM">Zend persoonlijk bericht</Resource>
+    <Resource tag="POINTS">Punten</Resource>
+    <Resource tag="POLL_CLOSED">(Enquête is gesloten)</Resource>
+    <Resource tag="POST_REPLY">Reageer</Resource>
+    <Resource tag="POSTED">Gepost</Resource>
+    <Resource tag="POSTS">Berichten</Resource>
+    <Resource tag="PREVTOPIC">Vorige onderwerp</Resource>
+    <Resource tag="PRINTTOPIC">Onderwerp afdrukken</Resource>
+    <Resource tag="QUESTION">Enquêtevraag</Resource>
+    <Resource tag="QUICKREPLY">Snel antwoorden</Resource>
+    <Resource tag="QUICKREPLY_HIDE">Verberg Snel antwoorden</Resource>
+    <Resource tag="QUICKREPLY_SHOW">Toon Snel antwoorden</Resource>
+    <Resource tag="RANK">Rang</Resource>
+    <Resource tag="REPORTEDFEEDBACK">Dank je wel voor het rapport</Resource>
+    <Resource tag="REPORTPOST">Rapporteer ongepast gedrag</Resource>
+    <Resource tag="REPORTSPAM">Rapporteer als spam</Resource>
+    <Resource tag="RSSTOPIC">RSS Feed</Resource>
+    <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="STATISTICS">Statistieken</Resource>
+    <Resource tag="THREADED">Hiërarchisch</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Verwijder dit bericht</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Vergrendel deze discussie</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Verplaats deze discussie</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Plaats nieuw bericht</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Reageer</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Ontgrendel deze discussie</Resource>
+    <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+    <Resource tag="TOP">Terug naar boven</Resource>
+    <Resource tag="TOPICBROWSERS">Gebruikers die dit onderwerp bekijken</Resource>
+    <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="UNWATCHTOPIC">Onderwerp niet meer volgen</Resource>
+    <Resource tag="USERPROFILE">User Profile</Resource>
+    <Resource tag="VIEW">View</Resource>
+    <Resource tag="VOTES">Stemmen</Resource>
+    <Resource tag="WARN_ALREADY_VOTED">Je hebt al een keer gestemd.</Resource>
+    <Resource tag="WARN_EMAILLOGIN">Je moet geregistreerd zijn om e-mails te kunnen verzenden.</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Het forum is gesloten.</Resource>
+    <Resource tag="WARN_PMLOGIN">Je moet aangemeld zijn om privé-berichten te kunnen verzenden.</Resource>
+    <Resource tag="WARN_POLL_CLOSED">Enquête is gesloten.</Resource>
+    <Resource tag="WARN_TOPIC_LOCKED">Het onderwerp is gesloten.</Resource>
+    <Resource tag="WARN_WATCHLOGIN">Je moet geregistreerd zijn om onderwerpen te kunnen volgen.</Resource>
+    <Resource tag="WATCHTOPIC">Onderwerp volgen</Resource>
+    <Resource tag="YIM">YAHOO</Resource>
+  </page>
+  <page name="PRINTTOPIC">
+    <Resource tag="POSTEDBY">Geplaatst door</Resource>
+  </page>
+  <page name="PROFILE">
+    <Resource tag="ABOUT">Informatie</Resource>
+    <Resource tag="ADMIN_USER">Admin User</Resource>
+    <Resource tag="AIM">AIM-naam:</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="CONTACT">Contactinformatie</Resource>
+    <Resource tag="DAYS">dagen</Resource>
+    <Resource tag="EMAIL">E-mail:</Resource>
+    <Resource tag="ENDS">Accountvergrendeling eindigt:</Resource>
+    <Resource tag="ERROR_ADMINISTRATORS">Je kunt geen beheerders vergrendelen.</Resource>
+    <Resource tag="ERROR_FORUMMODERATORS">Je kunt geen moderators vergrendelen.</Resource>
+    <Resource tag="ERROR_GUESTACCOUNT">Je kunt het gast-account niet vergrendelen.</Resource>
+    <Resource tag="GENDER">Geslacht:</Resource>
+    <Resource tag="GENDER0">Niet opgegeven</Resource>
+    <Resource tag="GENDER1">Man</Resource>
+    <Resource tag="GENDER2">Vrouw</Resource>
+    <Resource tag="GROUPS">Groepen:</Resource>
+    <Resource tag="HOURS">uren</Resource>
+    <Resource tag="ICQ">ICQ-nummer:</Resource>
+    <Resource tag="INTERESTS">Interesses:</Resource>
+    <Resource tag="JOINED">Lid sinds:</Resource>
+    <Resource tag="LAST10">Laatste 10 berichten</Resource>
+    <Resource tag="LASTVISIT">Laatste bezoek:</Resource>
+    <Resource tag="MEMBERS">Leden</Resource>
+    <Resource tag="MINUTES">minuten</Resource>
+    <Resource tag="MSN">MSN Messenger:</Resource>
+    <Resource tag="NUMALL">{0:N2}% van alle berichten</Resource>
+    <Resource tag="NUMDAY">{0:N2} berichten per dag</Resource>
+    <Resource tag="NUMPOSTS">Aantal berichten:</Resource>
+    <Resource tag="OCCUPATION">Beroep:</Resource>
+    <Resource tag="PM">Private Message:</Resource>
+    <Resource tag="POSTED">Gepost:</Resource>
+    <Resource tag="PROFILE">Profiel:</Resource>
+    <Resource tag="RANK">Rang:</Resource>
+    <Resource tag="REALNAME">Echte naam:</Resource>
+    <Resource tag="REMOVESUSPENSION">Vergrendeling opheffen</Resource>
+    <Resource tag="SEARCHUSER">View All Posts by User</Resource>
+    <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="STATISTICS">Statistieken</Resource>
+    <Resource tag="SUSPEND">Blokkeren</Resource>
+    <Resource tag="SUSPEND_USER">Suspend User:</Resource>
+    <Resource tag="TOPIC">Onderwerp:</Resource>
+    <Resource tag="USERNAME">Gebruikersnaam:</Resource>
+    <Resource tag="WEBLOG">Weblog:</Resource>
+    <Resource tag="WEBSITE">Homepage:</Resource>
+    <Resource tag="YIM">Yahoo Messenger:</Resource>
+  </page>
+  <page name="RECOVER_PASSWORD">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
+    <Resource tag="GENERAL_FAILURE">Poging om wachtwoord op te vragen is niet gelukt.</Resource>
+    <Resource tag="IDENTITY_CONFIRMATION_TITLE">Bevestiging identiteit voor opvragen wachtwoord</Resource>
+    <Resource tag="PAGE1_INSTRUCTIONS">Geef je gebruikersnaam op om je wachtwoord op te vragen:</Resource>
+    <Resource tag="PAGE2_INSTRUCTIONS">Beantwoord de volgende vraag om je wachtwoord op te vragen:</Resource>
+    <Resource tag="PASSWORD_SENT">Je wachtwoord is naar je e-mail adres verzonden.</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Wachtwoord opvragen voor {0} forum</Resource>
+    <Resource tag="QUESTION_FAILURE">Je antwoord kan niet geverifieerd worden. Probeer het a.u.b. opnieuw.</Resource>
+    <Resource tag="TITLE">Wachtwoord kwijt</Resource>
+    <Resource tag="USERNAME_FAILURE">De opgegeven gebruikersnaam is onbekend.</Resource>
+  </page>
+  <page name="REGISTER">
+    <Resource tag="ACCOUNT_CREATED">[center]Je account is aangemaakt.[/center]</Resource>
+    <Resource tag="ACCOUNT_CREATED_VERIFICATION">[center]Je account is aangemaakt. Je dient nu het account te verifiëren voordat je kunt inloggen. Kijk in de e-mail die je ontvangt voor verdere instructies..[/center]</Resource>
+    <Resource tag="ALREADY_REGISTERED">Je gebruikersnaam of e-mail adres is reeds geregistreerd.</Resource>
+    <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres opgegeven.</Resource>
+    <Resource tag="BAD_PASSWORD">Kies a.u.b. een complexer wachtwoord dat ook leestekens of cijfers bevat.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Bevestig wachtwoord</Resource>
+    <Resource tag="CONTINUE">Verder</Resource>
+    <Resource tag="CREATE_USER">Maak gebruiker aan</Resource>
+    <Resource tag="DETAILS">Registratiegegevens</Resource>
+    <Resource tag="EMAIL">E-mail Adres</Resource>
+    <Resource tag="HOMEPAGE">Homepage</Resource>
+    <Resource tag="INVALID_ANSWER">Kies a.u.b. een ander antwoord.</Resource>
+    <Resource tag="INVALID_QUESTION">Kies a.u.b. een andere vraag.</Resource>
+    <Resource tag="INVALID_USERNAME">Kies a.u.b. een andere gebruikersnaam.</Resource>
+    <Resource tag="LOCATION">Locatie</Resource>
+    <Resource tag="NEED_ANSWER">Beveiligings-antwoord is verplicht.</Resource>
+    <Resource tag="NEED_EMAIL">E-mail is verplicht.</Resource>
+    <Resource tag="NEED_MATCH">Wachtwoorden komen niet overeen.</Resource>
+    <Resource tag="NEED_PASSWORD">Wachtwoord is verplicht</Resource>
+    <Resource tag="NEED_QUESTION">Beveiligings-vraag is verplicht.</Resource>
+    <Resource tag="NEED_USERNAME">Gebruikersnaam is verplicht.</Resource>
+    <Resource tag="PASSWORD">Wachtwoord</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PREFERENCES">Forum voorkeuren</Resource>
+    <Resource tag="PROFILE">Profielinformatie</Resource>
+    <Resource tag="REGISTER">Registreren</Resource>
+    <Resource tag="RETYPE_PASSWORD">Wachtwoordbevestiging is verplicht.</Resource>
+    <Resource tag="SECURITY_ANSWER">Veiligheidsantwoord</Resource>
+    <Resource tag="SECURITY_QUESTION">Veiligheidsvraag</Resource>
+    <Resource tag="TERMS_AND_CONDITIONS">
 			[size=5]Het is onmogelijk voor de beheerders van dit forum om de geldigheid van alle berichten op dit forum te controleren. Berichten geven de mening van de auteur weer, wat niet noodzakelijkerwijs hetzelfde is als de mening van de beheerders. Als je van oordeel bent dat een bericht in strijd is met de algemene normen en waarden, wordt het aangeraden dit aan de beheerders te melden.
 			
 			Je stemt ermee in om geen kwetsende, vulgaire, obscene, hatelijke, lasterlijke of bedreigende berichten te plaatsen of materiaal te uploaden dat strijdig is met het wetboek van strafrecht. Als je dat doet, kun je permanent uitgebannen worden. Indien nodig, kunnen we je IP adres gebruiken om op de naleving van deze regels toe te zien.
@@ -581,277 +794,295 @@
 			
 			[center][size=6][b]Als je op "Akkoord" klikt, stem je er mee in deze voorwaarden te aanvaarden op dit forum.[/b][/size][/center]
 		</Resource>
-		<Resource tag="ACCOUNT_CREATED" bbcode="true">[center]Je account is aangemaakt.[/center]</Resource>
-		<Resource tag="ACCOUNT_CREATED_VERIFICATION" bbcode="true">[center]Je account is aangemaakt. Je dient nu het account te verifiëren voordat je kunt inloggen. Kijk in de e-mail die je ontvangt voor verdere instructies..[/center]</Resource>
-	</page>
-	<page name="MEMBERS">
-		<!-- members.aspx -->
-		<Resource tag="TITLE">Leden</Resource>
-		<Resource tag="USERNAME">Gebruikersnaam</Resource>
-		<Resource tag="RANK">Rang</Resource>
-		<Resource tag="JOINED">Lid sinds</Resource>
-		<Resource tag="POSTS">Berichten</Resource>
-		<Resource tag="PAGES">{0} pagina's:</Resource>
-	</page>
-	<page name="MODERATE">
-		<!-- moderate.aspx -->
-		<Resource tag="TITLE">Moderatie</Resource>
-		<Resource tag="TOPICS">Onderwerp</Resource>
-		<Resource tag="TOPIC_STARTER">Auteur</Resource>
-		<Resource tag="REPLIES">Reacties</Resource>
-		<Resource tag="VIEWS">Gelezen</Resource>
-		<Resource tag="LASTPOST">Laatste bericht</Resource>
-		<Resource tag="CONFIRM_DELETE">Dit onderwerp verwijderen?</Resource>
-		<Resource tag="BY">door {0}</Resource>
-		<Resource tag="DELETED">Onderwerp verwijderd.</Resource>
-		<Resource tag="NO_POSTS">Geen berichten</Resource>
-		<Resource tag="MEMBERS">Leden</Resource>
-		<Resource tag="USER">Gebruiker</Resource>
-		<Resource tag="ACCEPTED">Goedgekeurd</Resource>
-		<Resource tag="ACCESSMASK">Toegangsmasker</Resource>
-		<Resource tag="EDIT">Bewerken</Resource>
-		<Resource tag="REMOVE">Verwijderen</Resource>
-		<Resource tag="INVITE">Gebruiker uitnodigen</Resource>
-	</page>
-	<page name="MOVETOPIC">
-		<!-- movetopic.aspx -->
-		<Resource tag="TITLE">Onderwerp verplaatsen</Resource>
-		<Resource tag="SELECT_FORUM">Selecteer het forum waar je dit onderwerp naartoe wilt verplaatsen:</Resource>
-		<Resource tag="MOVE">Verplaats dit onderwerp</Resource>
-	</page>
-	<page name="PMESSAGE">
-		<!-- pmessage.aspx -->
-		<Resource tag="TITLE">Stuur een privé-bericht</Resource>
-		<Resource tag="PREVIEWTITLE">Voorbeeld:</Resource>
-		<Resource tag="TO">Aan:</Resource>
-		<Resource tag="SUBJECT">Onderwerp:</Resource>
-		<Resource tag="MESSAGE">Bericht:</Resource>
-		<Resource tag="NEED_TO">Gelieve op te geven naar wie je dit bericht wilt sturen.</Resource>
-		<Resource tag="NEED_SUBJECT">Gelieve een onderwerp op te geven.</Resource>
-		<Resource tag="NEED_MESSAGE">Gelieve een bericht in te voeren.</Resource>
-		<Resource tag="SAVE">Verzenden</Resource>
-		<Resource tag="NO_SUCH_USER">Deze gebruiker bestaat niet.</Resource>
-		<Resource tag="NOT_GUEST">Je kunt geen privé-bericht verzenden naar de gastgebruiker.</Resource>
-		<Resource tag="NEED_MORE_LETTERS">Om gebruikers te kunnen vinden, moet je minimaal 2 letters van de gebruikersnaam opgeven.</Resource>
-		<Resource tag="FINDUSERS">Gebruikers zoeken</Resource>
-		<Resource tag="ALLUSERS">Alle gebruikers</Resource>
-		<Resource tag="CLEAR">Wissen</Resource>
-	</page>
-	<page name="POSTMESSAGE">
-		<!-- postmessage.aspx -->
-		<Resource tag="NEWTOPIC">Nieuw onderwerp plaatsen</Resource>
-		<Resource tag="REPLY">Antwoord verzenden</Resource>
-		<Resource tag="EDIT">Bericht wijzigen</Resource>
-		<Resource tag="PREVIEW">Voorbeeld</Resource>
-		<Resource tag="PREVIEWTITLE">Voorbeeld:</Resource>
-		<Resource tag="SUBJECT">Onderwerp:</Resource>
-		<Resource tag="FROM">Van:</Resource>
-		<Resource tag="PRIORITY">Prioriteit:</Resource>
-		<Resource tag="MESSAGE">Bericht:</Resource>
-		<Resource tag="LAST10">Laatste 10 berichten (van nieuw naar oud)</Resource>
-		<Resource tag="NORMAL">Normaal</Resource>
-		<Resource tag="STICKY">Sticky</Resource>
-		<Resource tag="ANNOUNCEMENT">Mededeling</Resource>
-		<Resource tag="CREATEPOLL">Maak enquête</Resource>
-		<Resource tag="POLLQUESTION">Enquêtevraag:</Resource>
-		<Resource tag="CHOICE1">Keuze 1:</Resource>
-		<Resource tag="CHOICE2">Keuze 2:</Resource>
-		<Resource tag="CHOICE3">Keuze 3:</Resource>
-		<Resource tag="CHOICE4">Keuze 4:</Resource>
-		<Resource tag="CHOICE5">Keuze 5:</Resource>
-		<Resource tag="CHOICE6">Keuze 6:</Resource>
-		<Resource tag="CHOICE7">Keuze 7:</Resource>
-		<Resource tag="CHOICE8">Keuze 8:</Resource>
-		<Resource tag="CHOICE9">Keuze 9:</Resource>
-		<Resource tag="POLL_EXPIRE">Laat enquête lopen gedurende:</Resource>
-		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]dagen[/b] (laat leeg voor geen verloopdatum)</Resource>
-		<Resource tag="NEED_SUBJECT">Gelieve een onderwerp op te geven.</Resource>
-		<Resource tag="WAIT">Je kunt niet posten gedurende de volgende {0:N0} seconden.</Resource>
-		<Resource tag="POSTED">Gepost:</Resource>
-		<Resource tag="SAVE">Plaatsen</Resource>
-		<Resource tag="NEED_QUESTION">Gelieve een vraag op te geven voor de enquête.</Resource>
-		<Resource tag="NEED_CHOICES">Een enquête moet minstens 2 keuzes hebben.</Resource>
-		<Resource tag="POSTTOBLOG_FAILED">Er is een fout opgetreden bij het posten in je blog. Misschien is de authenticatie mislukt.</Resource>
-		<Resource tag="SMILIES_HEADER">[b]Smiley invoegen[/b]</Resource>
-		<Resource tag="SMILIES_MORE">Meer smiley's...</Resource>
-		<Resource tag="EDITREASON">Reden voor wijzigen:</Resource>
+    <Resource tag="TERMS_AND_CONDITIONS_TITLE">Reglement</Resource>
+    <Resource tag="TERMSANDCONDITIONS_AGREE">Ik ga akkoord met de voorwaarden</Resource>
+    <Resource tag="TERMSANDCONDITIONS_DISAGREE">Ik ga niet akkoord met de voorwaarden</Resource>
+    <Resource tag="TIMEZONE">Tijdzone</Resource>
+    <Resource tag="TITLE">Registreren als nieuwe gebruiker</Resource>
+    <Resource tag="USERNAME">Gebruikersnaam</Resource>
+    <Resource tag="VERIFICATION_EMAIL_SUBJECT">Bevestiging registratie voor {0} forum</Resource>
+  </page>
+  <page name="RTE">
+    <Resource tag="BOLD">Vet</Resource>
+    <Resource tag="CENTER">Centreren</Resource>
+    <Resource tag="CLEAR">Opmaak verwijderen</Resource>
+    <Resource tag="FORMATTED">Opgemaakt</Resource>
+    <Resource tag="IMAGE">Afbeelding invoegen</Resource>
+    <Resource tag="INDENT">Inspringing vergroten</Resource>
+    <Resource tag="ITALIC">Cursief</Resource>
+    <Resource tag="LEFT">Links uitlijnen</Resource>
+    <Resource tag="LINK">Hyperlink invoegen</Resource>
+    <Resource tag="NORMAL">Normaal</Resource>
+    <Resource tag="ORDERED">Nummering</Resource>
+    <Resource tag="OUTDENT">Inspringing verkleinen</Resource>
+    <Resource tag="RIGHT">Rechts uitlijnen</Resource>
+    <Resource tag="SPELL">Spellingscontrole</Resource>
+    <Resource tag="UNDERLINE">Onderstrepen</Resource>
+    <Resource tag="UNORDERED">Opsommingstekens</Resource>
+  </page>
+  <page name="RULES">
+    <Resource tag="ACCEPT">I agree to these Rules and Policies</Resource>
+    <Resource tag="DECLINE">I do not agree to these Rules and Policies</Resource>
+    <Resource tag="RULES_TEXT" editType="bbcode">
+      [size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
 
-		<Resource tag="ATTACH">Bijlage toevoegen:</Resource>
-		<Resource tag="FILEERROR">'{0}' is geen geldig bestand om te uploaden.</Resource>
-	</page>
-	<page name="SHOWSMILIES">
-		<!-- showsmilies.ascx -->
-		<Resource tag="TITLE">Beschikbare smiley's</Resource>
-		<Resource tag="HEADER_CODE">Code</Resource>
-		<Resource tag="HEADER_SMILE">Smiley</Resource>
-		<Resource tag="HEADER_MEANING">Betekenis</Resource>
-		<Resource tag="CLOSE_WINDOW">Sluit</Resource>
-	</page>
-	<page name="PRINTTOPIC">
-		<!-- printtopic.aspx -->
-		<Resource tag="POSTEDBY">Geplaatst door</Resource>
-	</page>
-	<page name="PROFILE">
-		<!-- profile.aspx -->
-		<Resource tag="MEMBERS">Leden</Resource>
-		<Resource tag="PROFILE">Profiel:</Resource>
-		<Resource tag="ABOUT">Informatie</Resource>
-		<Resource tag="USERNAME">Gebruikersnaam:</Resource>
-		<Resource tag="GROUPS">Groepen:</Resource>
-		<Resource tag="RANK">Rang:</Resource>
-		<Resource tag="JOINED">Lid sinds:</Resource>
-		<Resource tag="EMAIL">E-mail:</Resource>
-		<Resource tag="LASTVISIT">Laatste bezoek:</Resource>
-		<Resource tag="STATISTICS">Statistieken</Resource>
-		<Resource tag="NUMPOSTS">Aantal berichten:</Resource>
-		<Resource tag="LAST10">Laatste 10 berichten</Resource>
-		<Resource tag="TOPIC">Onderwerp:</Resource>
-		<Resource tag="POSTED">Gepost:</Resource>
-		<Resource tag="ENDS">Accountvergrendeling eindigt:</Resource>
-		<Resource tag="REMOVESUSPENSION">Vergrendeling opheffen</Resource>
-		<Resource tag="SUSPEND">Blokkeren</Resource>
-		<Resource tag="DAYS">dagen</Resource>
-		<Resource tag="HOURS">uren</Resource>
-		<Resource tag="MINUTES">minuten</Resource>
-		<Resource tag="AVATAR">Avatar</Resource>
-		<Resource tag="CONTACT">Contactinformatie</Resource>
-		<Resource tag="PM">Private Message:</Resource>
-		<Resource tag="MSN">MSN Messenger:</Resource>
-		<Resource tag="YIM">Yahoo Messenger:</Resource>
-		<Resource tag="AIM">AIM-naam:</Resource>
-		<Resource tag="ICQ">ICQ-nummer:</Resource>
-		<Resource tag="REALNAME">Echte naam:</Resource>
-		<Resource tag="WEBSITE">Homepage:</Resource>
-		<Resource tag="WEBLOG">Weblog:</Resource>
-		<Resource tag="OCCUPATION">Beroep:</Resource>
-		<Resource tag="INTERESTS">Interesses:</Resource>
-		<Resource tag="GENDER">Geslacht:</Resource>
-		<Resource tag="GENDER0">Niet opgegeven</Resource>
-		<Resource tag="GENDER1">Man</Resource>
-		<Resource tag="GENDER2">Vrouw</Resource>
-		<Resource tag="NUMALL">{0:N2}% van alle berichten</Resource>
-		<Resource tag="NUMDAY">{0:N2} berichten per dag</Resource>
-		<Resource tag="ERROR_ADMINISTRATORS">Je kunt geen beheerders vergrendelen.</Resource>
-		<Resource tag="ERROR_FORUMMODERATORS">Je kunt geen moderators vergrendelen.</Resource>
-		<Resource tag="ERROR_GUESTACCOUNT">Je kunt het gast-account niet vergrendelen.</Resource>
-	</page>
-	<page name="SEARCH">
-		<!-- search.aspx -->
-		<Resource tag="TITLE">Zoeken</Resource>
-		<Resource tag="BTNSEARCH">Zoeken</Resource>
-		<Resource tag="RESULTS">Resultaten</Resource>
-		<Resource tag="TOPIC">Onderwerp:</Resource>
-		<Resource tag="POSTED">Gepost:</Resource>
-		<Resource tag="ALLFORUMS">Alle fora</Resource>
-		<Resource tag="RESULT5">5 resultaten per pagina</Resource>
-		<Resource tag="RESULT10">10 resultaten per pagina</Resource>
-		<Resource tag="RESULT25">25 resultaten per pagina</Resource>
-		<Resource tag="RESULT50">50 resultaten per pagina</Resource>
-		<Resource tag="POSTS">Berichten</Resource>
-		<Resource tag="POSTEDBY">Geplaatst door</Resource>
-		<Resource tag="MATCH_ALL">met alle woorden</Resource>
-		<Resource tag="MATCH_ANY">met één van deze woorden</Resource>
-		<Resource tag="MATCH_EXACT">met de exacte woordcombinatie</Resource>
-		<Resource tag="NO_SEARCH_RESULTS">[b]Geen resultaten voor zoekopdracht.[/b]</Resource>
-		<Resource tag="BY">door</Resource>
-	</page>
-	<page name="MODERATE_DEFAULT">
-		<Resource tag="TITLE">Moderatie</Resource>
-		<Resource tag="FORUM">Forum</Resource>
-		<Resource tag="UNAPPROVED">Niet-goedgekeurde berichten</Resource>
-		<Resource tag="REPORTED">Als kwetsend gerapporteerd</Resource>
-		<Resource tag="REPORTEDSPAM">Als spam gerapporteerd</Resource>
-		<Resource tag="CATEGORY">Categorie</Resource>
-	</page>
-	<page name="MODERATE_FORUM">
-		<Resource tag="UNAPPROVED">Niet-goedgekeurde berichten</Resource>
-		<Resource tag="TOP">Terug naar boven</Resource>
-		<Resource tag="APPROVE">Bericht goedkeuren</Resource>
-		<Resource tag="DELETE">Bericht verwijderen</Resource>
-		<Resource tag="ASK_DELETE">Bericht verwijderen?</Resource>
-		<Resource tag="APPROVED">Bericht goedgekeurd.</Resource>
-		<Resource tag="DELETED">Bericht verwijderd.</Resource>
-		<Resource tag="MODIFIED">Bericht is gewijzigd!</Resource>
-		<Resource tag="RESOLVE">Kopieën post oplossen</Resource>
-		<Resource tag="NUMBERREPORTED">Aantal keer gerapporteerd:</Resource>
-		<Resource tag="COPYOVER">Berichttekst bijwerken</Resource>
-		<Resource tag="RESOLVED">Markeer als opgeschoond</Resource>
-		<Resource tag="RESOLVEDFEEDBACK">Bericht is gemarkeerd als opgeschoond.</Resource>
-	</page>
-	<page name="MOD_FORUMUSER">
-		<Resource tag="TITLE">Forum gebruiker</Resource>
-		<Resource tag="USER">Gebruiker:</Resource>
-		<Resource tag="FIND">Gebruikers zoeken</Resource>
-		<Resource tag="ACCESSMASK">Toegangsmasker:</Resource>
-		<Resource tag="UPDATE">Bijwerken</Resource>
-		<Resource tag="CANCEL">Annuleren</Resource>
-	</page>
-	<page name="RTE">
-		<Resource tag="BOLD">Vet</Resource>
-		<Resource tag="ITALIC">Cursief</Resource>
-		<Resource tag="UNDERLINE">Onderstrepen</Resource>
-		<Resource tag="LEFT">Links uitlijnen</Resource>
-		<Resource tag="CENTER">Centreren</Resource>
-		<Resource tag="RIGHT">Rechts uitlijnen</Resource>
-		<Resource tag="ORDERED">Nummering</Resource>
-		<Resource tag="UNORDERED">Opsommingstekens</Resource>
-		<Resource tag="OUTDENT">Inspringing verkleinen</Resource>
-		<Resource tag="INDENT">Inspringing vergroten</Resource>
-		<Resource tag="LINK">Hyperlink invoegen</Resource>
-		<Resource tag="IMAGE">Afbeelding invoegen</Resource>
-		<Resource tag="SPELL">Spellingscontrole</Resource>
-		<Resource tag="NORMAL">Normaal</Resource>
-		<Resource tag="CLEAR">Opmaak verwijderen</Resource>
-		<Resource tag="FORMATTED">Opgemaakt</Resource>
-	</page>
-	<page name="AVATAR">
-		<Resource tag="TITLE">Avatars</Resource>
-		<Resource tag="EDITPROFILE">Profiel bewerken</Resource>
-	</page>
-	<page name="IM_YIM">
-		<Resource tag="TITLE">Yahoo! Messenger</Resource>
-	</page>
-	<page name="IM_AIM">
-		<Resource tag="TITLE">AOL Instant Messenger</Resource>
-	</page>
-	<page name="IM_ICQ">
-		<Resource tag="TITLE">ICQ</Resource>
-		<Resource tag="NAME">Jouw naam:</Resource>
-		<Resource tag="EMAIL">Jouw e-mail:</Resource>
-		<Resource tag="SEND">Bericht verzenden</Resource>
-		<Resource tag="BODY">Typ hier je bericht:</Resource>
-	</page>
-	<page name="IM_EMAIL">
-		<Resource tag="TITLE">E-mail</Resource>
-		<Resource tag="SEND">E-mail verzenden</Resource>
-		<Resource tag="SUBJECT">Onderwerp:</Resource>
-		<Resource tag="BODY">Typ hier je bericht:</Resource>
-		<Resource tag="ERROR">Fout bij het verzenden van je e-mail bericht.</Resource>
-	</page>
-	<page name="ADMIN_HOSTSETTINGS">
-		<Resource tag="SETTINGSTAB">Host instellingen</Resource>
-		<Resource tag="FEATURESTAB">Mogelijkheden</Resource>
-		<Resource tag="DISPLAYTAB">Toon/verberg items</Resource>
-		<Resource tag="ADVERTSTAB">Advertenties</Resource>
-		<Resource tag="EDITORTAB">Editors</Resource>
-		<Resource tag="PERMSTAB">Permissies</Resource>
-		<Resource tag="SMPTTAB">SMTP</Resource>
-		<Resource tag="TEMPLATETAB">Templates</Resource>
-		<Resource tag="AVATARTAB">Avatars</Resource>
-	</page>
+      You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.
 
-	<!-- leftovers from previous versions -->
-	<page name="CP_INBOX">
-		<!-- cp_inbox.aspx -->
-		<Resource tag="TITLE">Postvak IN</Resource>
-		<Resource tag="SENTITEMS">Verzonden Items</Resource>
-		<Resource tag="DELETESELECTED">Selectie verwijderen</Resource>
-		<Resource tag="SUBJECT">Onderwerp</Resource>
-		<Resource tag="FROM">Van</Resource>
-		<Resource tag="TO">Aan</Resource>
-		<Resource tag="DATE">Datum</Resource>
-		<Resource tag="MSGDELETED1">1 bericht is verwijderd.</Resource>
-		<Resource tag="MSGDELETED2">{0} berichten zijn verwijderd.</Resource>
-		<Resource tag="CONFIRM_DELETE">Verwijder alle geselecteerde berichten?</Resource>
-	</page>
+      You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot	be held responsible for any hacking attempt that may lead to the data being compromised.
+
+      This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information	you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your	registration details and password (and for sending new passwords should you forget your current one).
+
+      You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.[/size]
+
+      [center][size=6][b]By clicking "Agree" below you will to be bound by the terms and conditions for using this forum.[/b][/size][/center]
+    </Resource>
+    <Resource tag="TITLE">Forum Rules and Policies</Resource>
+  </page>
+  <page name="SEARCH">
+    <Resource tag="ALLFORUMS">Alle fora</Resource>
+    <Resource tag="BTNSEARCH">Zoeken</Resource>
+    <Resource tag="BY">door</Resource>
+    <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
+    <Resource tag="MATCH_ALL">met alle woorden</Resource>
+    <Resource tag="MATCH_ANY">met één van deze woorden</Resource>
+    <Resource tag="MATCH_EXACT">met de exacte woordcombinatie</Resource>
+    <Resource tag="NO_SEARCH_RESULTS">[b]Geen resultaten voor zoekopdracht.[/b]</Resource>
+    <Resource tag="POSTED">Gepost:</Resource>
+    <Resource tag="POSTEDBY">Geplaatst door</Resource>
+    <Resource tag="POSTS">Berichten</Resource>
+    <Resource tag="RESULT10">10 resultaten per pagina</Resource>
+    <Resource tag="RESULT25">25 resultaten per pagina</Resource>
+    <Resource tag="RESULT5">5 resultaten per pagina</Resource>
+    <Resource tag="RESULT50">50 resultaten per pagina</Resource>
+    <Resource tag="RESULTS">Resultaten</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="TITLE">Zoeken</Resource>
+    <Resource tag="TOPIC">Onderwerp:</Resource>
+  </page>
+  <page name="SHOWSMILIES">
+    <Resource tag="CLOSE_WINDOW">Sluit</Resource>
+    <Resource tag="HEADER_CODE">Code</Resource>
+    <Resource tag="HEADER_MEANING">Betekenis</Resource>
+    <Resource tag="HEADER_SMILE">Smiley</Resource>
+    <Resource tag="TITLE">Beschikbare smiley's</Resource>
+  </page>
+  <page name="TEMPLATES">
+    <Resource tag="CHANGEEMAIL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;Change Email&lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class="style1"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
+&lt;p class="style1"&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
+&lt;p class="style1"&gt; Just confirm the change by clicking this link:&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+&lt;p class="style1"&gt; And enter approval key:&lt;/p&gt;
+&lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
+&lt;p class="style1"&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+    <Resource tag="CHANGEEMAIL_TEXT">
+Hello {user},
+
+Your request to change your email address to {newemail} is almost complete!
+
+Just confirm the change by clicking this link:
+
+{link}
+
+And enter approval key:
+
+{key}
+
+If you did not request a change to your email address please simply ignore this email.
+
+{forumname} at {forumlink}
+</Resource>
+    <Resource tag="EMAILTOPIC">
+Hello!
+
+{user} thought you might be interested in reading this:
+
+{link}
+</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;Password Retrieval&lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class="style1"&gt; A new password has been generated for you on &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+&lt;p class="style1"&gt; Please return to the site and log in using the following information:&lt;/p&gt;
+&lt;blockquote&gt;&lt;span class="style1"&gt;
+User Name: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
+Password: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_TEXT">
+A new password has been generated for you on {forumname} at {forumlink}.
+
+Please return to the site and log in using the following information:
+
+User Name: {username}
+Password: {password}
+</Resource>
+    <Resource tag="PMNOTIFICATION_HTML" editType="html" />
+    <Resource tag="PMNOTIFICATION_TEXT">
+A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+    <Resource tag="TOPICPOST_HTML" editType="html" />
+    <Resource tag="TOPICPOST_TEXT">
+A new message has been posted in the thread {topic} at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+    <Resource tag="VERIFYEMAIL_HTML" editType="html" />
+    <Resource tag="VERIFYEMAIL_TEXT">
+You have requested to join {forumname}, but before you can join your email address must be verified.
+
+To verify your email address open the following link in your web browser:
+
+{link}
+
+Your approval key is:
+
+{key}
+
+Visit {forumname} at {forumlink}
+</Resource>
+  </page>
+  <page name="TIMEZONES">
+    <Resource tag="GMT0">(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
+    <Resource tag="GMT1">(GMT+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="GMT-1">(GMT-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="GMT10">(GMT+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
+    <Resource tag="GMT11">(GMT+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="GMT-11">(GMT-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien</Resource>
+    <Resource tag="GMT2">(GMT+2:00) Kaliningrad, South Africa</Resource>
+    <Resource tag="GMT-2">(GMT-2:00) Mid-Atlantic, Ascention Is., St Helena</Resource>
+    <Resource tag="GMT3">(GMT+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="GMT-3">(GMT-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
+    <Resource tag="GMT3.5">(GMT+3:30) Tehran</Resource>
+    <Resource tag="GMT-3.5">(GMT-3:30) Newfoundland</Resource>
+    <Resource tag="GMT4">(GMT+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+    <Resource tag="GMT4.5">(GMT+4:30) Kabul</Resource>
+    <Resource tag="GMT5">(GMT+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
+    <Resource tag="GMT5.5">(GMT+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="GMT6">(GMT+6:00) Almaty, Colomba, Dhakra</Resource>
+    <Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="GMT7">(GMT+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
+    <Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
+    <Resource tag="GMT8">(GMT+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
+    <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
+    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
+    <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) Eniwetok, Kwajalein</Resource>
+    <Resource tag="UTC2">(UTC+2:00) Jerusalem, Kaliningrad, South Africa</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Ascension</Resource>
+    <Resource tag="UTC3">(UTC+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
+    <Resource tag="UTC3.5">(UTC+3:30) Tehran</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
+    <Resource tag="UTC4">(UTC+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="UTC-4">(UTC-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+    <Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
+    <Resource tag="UTC5">(UTC+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
+    <Resource tag="UTC5.5">(UTC+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
+    <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
+    <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
+  </page>
+  <page name="TOOLBAR">
+    <Resource tag="ACTIVETOPICS">Actieve onderwerpen</Resource>
+    <Resource tag="ADMIN">Beheer</Resource>
+    <Resource tag="HELP">Help</Resource>
+    <Resource tag="LOGGED_IN_AS">Aangemeld als: {0}</Resource>
+    <Resource tag="LOGIN">Aanmelden</Resource>
+    <Resource tag="LOGOUT">Afmelden</Resource>
+    <Resource tag="LOGOUT_QUESTION">Weet je zeker dat je wilt uitloggen?</Resource>
+    <Resource tag="MEMBERS">Leden</Resource>
+    <Resource tag="MODERATE">Moderatie</Resource>
+    <Resource tag="MYPROFILE">Mijn profiel</Resource>
+    <Resource tag="NEWPM">({0} Unread)</Resource>
+    <Resource tag="REGISTER">Registreren</Resource>
+    <Resource tag="SEARCH">Zoeken</Resource>
+    <Resource tag="WELCOME_GUEST">Welkom gast!</Resource>
+  </page>
+  <page name="TOPICS">
+    <Resource tag="ALL">Alle</Resource>
+    <Resource tag="BY">door {0}</Resource>
+    <Resource tag="CREATED">Gemaakt</Resource>
+    <Resource tag="FORUMUSERS">Gebruikers aanwezig in dit forum</Resource>
+    <Resource tag="GOTO_POST_PAGER">(Ga naar pagina: {0})</Resource>
+    <Resource tag="INFO_UNWATCH_FORUM">Je krijgt nu geen bericht meer als er in dit forum nieuwe berichten worden geplaatst.</Resource>
+    <Resource tag="INFO_WATCH_FORUM">Je zult vanaf nu verwittigd worden wanneer nieuwe berichten geplaatst worden in dit forum.</Resource>
+    <Resource tag="LAST_DAY">van vandaag</Resource>
+    <Resource tag="LAST_MONTH">van de laatste maand</Resource>
+    <Resource tag="LAST_SIX_MONTHS">van het laatste half jaar</Resource>
+    <Resource tag="LAST_TWO_DAYS">van de laatste twee dagen</Resource>
+    <Resource tag="LAST_TWO_MONTHS">van de laatste twee maanden</Resource>
+    <Resource tag="LAST_TWO_WEEKS">van de laatste twee weken</Resource>
+    <Resource tag="LAST_WEEK">van de laatste week</Resource>
+    <Resource tag="LAST_YEAR">van het laatste jaar</Resource>
+    <Resource tag="LASTPOST">Laatste bericht</Resource>
+    <Resource tag="MARKREAD">Markeer dit forum als gelezen</Resource>
+    <Resource tag="NO_POSTS">Geen onderwerpen</Resource>
+    <Resource tag="REPLIES">Reacties</Resource>
+    <Resource tag="RSSFEED">RSS Feed</Resource>
+    <Resource tag="SHOWTOPICS">Toon onderwerpen</Resource>
+    <Resource tag="SUBFORUMS">Subfora</Resource>
+    <Resource tag="TODAYAT">[b]Vandaag[/b] om {0:T}</Resource>
+    <Resource tag="TOPIC_STARTER">Auteur</Resource>
+    <Resource tag="TOPICS">Onderwerp</Resource>
+    <Resource tag="UNWATCHFORUM">Forum niet meer volgen</Resource>
+    <Resource tag="VIEWS">Gelezen</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Het forum is gesloten.</Resource>
+    <Resource tag="WARN_LOGIN_FORUMWATCH">Je moet geregistreerd zijn om fora te kunnen volgen.</Resource>
+    <Resource tag="WATCHFORUM">Forum volgen</Resource>
+    <Resource tag="YESTERDAYAT">[b]Gisteren[/b] om {0:T}</Resource>
+  </page>
 </Resources>

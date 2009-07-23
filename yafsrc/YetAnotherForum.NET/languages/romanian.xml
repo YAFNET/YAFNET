@@ -1,635 +1,1075 @@
-<?xml version="1.0"?>
-<Resources language="Romanian" code="ro">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Romanian" code="ro">
+  <page name="ACTIVE">
+    <Resource tag="BY">de {0}</Resource>
+    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
+    <Resource tag="LAST_DAY">ultima zi</Resource>
+    <Resource tag="LAST_HOUR">ultima ora</Resource>
+    <Resource tag="LAST_MONTH">ultima luna</Resource>
+    <Resource tag="LAST_TWO_DAYS">ultimile doua zile</Resource>
+    <Resource tag="LAST_TWO_HOURS">ultimile doua ore</Resource>
+    <Resource tag="LAST_TWO_WEEKS">ultimile doua saptamani</Resource>
+    <Resource tag="LAST_VISIT">ultim vizita la {0}</Resource>
+    <Resource tag="LAST_WEEK">ultima saptamana</Resource>
+    <Resource tag="LASTPOST">Ultima postare</Resource>
+    <Resource tag="NO_POSTS">Nici o postare</Resource>
+    <Resource tag="REPLIES">Raspunsuri</Resource>
+    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SINCE">Din</Resource>
+    <Resource tag="TITLE">Teme active</Resource>
+    <Resource tag="TOPIC_STARTER">Start tema</Resource>
+    <Resource tag="TOPICS">Teme</Resource>
+    <Resource tag="VIEWS">Vizualizari</Resource>
+  </page>
+  <page name="ACTIVEUSERS">
+    <Resource tag="ACTIVE">Activ</Resource>
+    <Resource tag="BROWSER">Browser</Resource>
+    <Resource tag="LAST_ACTIVE">Ultimul Activ</Resource>
+    <Resource tag="LOGGED_IN">Intrat</Resource>
+    <Resource tag="MINUTES">{0:N0} minute</Resource>
+    <Resource tag="PLATFORM">Platforma</Resource>
+    <Resource tag="TITLE">Utilizatori Activi</Resource>
+    <Resource tag="USERNAME">Utilizator</Resource>
+  </page>
+  <page name="APPROVE">
+    <Resource tag="EMAIL_VERIFIED">Adresa de  email a fost verificata.</Resource>
+    <Resource tag="EMAIL_VERIFY_FAILED">Verificare adresa email nereusita.</Resource>
+    <Resource tag="ENTER_KEY">Introduceti codul de verificare.</Resource>
+    <Resource tag="TITLE">Validare Adresa Email </Resource>
+    <Resource tag="VALIDATE">Validare</Resource>
+  </page>
+  <page name="ATTACHMENTS">
+    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Types</Resource>
+    <Resource tag="ASK_DELETE">Stergi acest atasament?</Resource>
+    <Resource tag="BACK">Inapoi</Resource>
+    <Resource tag="DELETE">Sterge</Resource>
+    <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
+    <Resource tag="ERROR_TOOBIG">Fisierul este prea mare pentru incarcare.</Resource>
+    <Resource tag="FILEERROR">'{0}' nu este valid penru incarcare.</Resource>
+    <Resource tag="FILENAME">Nume fisier</Resource>
+    <Resource tag="SELECT_FILE">Selecteaza fisierul pe care vrei sa-l incarci.</Resource>
+    <Resource tag="SIZE">Marime</Resource>
+    <Resource tag="TITLE">Atasaemnte</Resource>
+    <Resource tag="UPLOAD">Incarca</Resource>
+    <Resource tag="UPLOAD_TITLE">Incarca fisier</Resource>
+  </page>
+  <page name="AVATAR">
+    <Resource tag="EDITPROFILE">Editeaza Profil</Resource>
+    <Resource tag="TITLE">Imagini</Resource>
+  </page>
+  <page name="BBCODEMODULE">
+    <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
+    <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
+    <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
+    <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
+  </page>
+  <page name="BUTTON">
+    <Resource tag="BUTTON_ATTACH">Attach</Resource>
+    <Resource tag="BUTTON_ATTACH_TT">Attach files to this post</Resource>
+    <Resource tag="BUTTON_DELETE">Delete</Resource>
+    <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
+    <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
+    <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
+    <Resource tag="BUTTON_EDIT">Edit</Resource>
+    <Resource tag="BUTTON_EDIT_TT">Edit this Post</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC">Lock Topic</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC_TT">Lock this topic</Resource>
+    <Resource tag="BUTTON_MODERATE">Moderate</Resource>
+    <Resource tag="BUTTON_MODERATE_TT">Delete, lock, unlock, and move topics this forum</Resource>
+    <Resource tag="BUTTON_MOVE">Move</Resource>
+    <Resource tag="BUTTON_MOVE_TT">Move this Post</Resource>
+    <Resource tag="BUTTON_MOVETOPIC">Move Topic</Resource>
+    <Resource tag="BUTTON_MOVETOPIC_TT">Move this topic</Resource>
+    <Resource tag="BUTTON_NEWPM">New PM</Resource>
+    <Resource tag="BUTTON_NEWPM_TT">Create a new private message</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
+    <Resource tag="BUTTON_POSTREPLY">Post Reply</Resource>
+    <Resource tag="BUTTON_POSTREPLY_TT">Post a reply to this topic</Resource>
+    <Resource tag="BUTTON_QUOTE">Quote</Resource>
+    <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
+    <Resource tag="BUTTON_REPLY">Reply</Resource>
+    <Resource tag="BUTTON_REPLY_TT">Reply to Message</Resource>
+    <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
+    <Resource tag="BUTTON_UNDELETE_TT">Undelete this Post</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
+  </page>
+  <page name="COMMON">
+    <Resource tag="BACK">Back</Resource>
+    <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
+    <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
+    <Resource tag="BBCODE_CODE">Code:</Resource>
+    <Resource tag="BBCODE_QUOTE">Quote:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="CAN_DELETE">[b] Poti [/b] sterge postari la acest forum.</Resource>
+    <Resource tag="CAN_EDIT">[b] Poti [/b] edita postari la acest forum.</Resource>
+    <Resource tag="CAN_POLL">[b] Poti [/b] crea sondaje in acest forum.</Resource>
+    <Resource tag="CAN_POST">[b] Poti [/b]  posta noi teme in acest forum.</Resource>
+    <Resource tag="CAN_REPLY"> [b] Poti [/b] raspunde la teme in acest forum.</Resource>
+    <Resource tag="CAN_VOTE">[b] Poti [/b] vota la sondaj in acest forum.</Resource>
+    <Resource tag="CANCEL">Renunta</Resource>
+    <Resource tag="CANNOT_DELETE">[b] NU poti [/b] sterge postari la acest forum.</Resource>
+    <Resource tag="CANNOT_EDIT">[b] Nu poti [/b] edita postari la acest forum.</Resource>
+    <Resource tag="CANNOT_POLL">[b] Nu poti [/b] crea sondaje in acest forum.</Resource>
+    <Resource tag="CANNOT_POST">[b] NU poti [/b]  posta noi teme in acest forum.</Resource>
+    <Resource tag="CANNOT_REPLY">[b] NU poti [/b] raspunde la teme in acest forum.</Resource>
+    <Resource tag="CANNOT_VOTE">[b] Nu poti [/b] vota la sondaj in acest forum.</Resource>
+    <Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
+    <Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
+    <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
+    <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
+    <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
+    <Resource tag="FONT_COLOR">Font Color:</Resource>
+    <Resource tag="FONT_SIZE">Font Size:</Resource>
+    <Resource tag="FORMAT_DATE_LONG">D</Resource>
+    <Resource tag="FORMAT_DATE_SHORT">d</Resource>
+    <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
+    <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
+    <Resource tag="FORMAT_TIME">T</Resource>
+    <Resource tag="FORUM_JUMP">Sari Forum </Resource>
+    <Resource tag="GENERATED">Acesta pagina a fost generata in {0:N3} secunde.</Resource>
+    <Resource tag="GO">GO</Resource>
+    <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+    <Resource tag="HIDDEN">Hidden</Resource>
+    <Resource tag="LOADING">Loading...</Resource>
+    <Resource tag="MAX_ONLINE">Most users ever online was {0}, {1}.</Resource>
+    <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
+    <Resource tag="OK">OK</Resource>
+    <Resource tag="PAGES">Pages</Resource>
+    <Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
+    <Resource tag="POWERED_BY">Sustinut de {0} versiunea {1}</Resource>
+    <Resource tag="REGMAIL_SENT">Un email a fost trimis. Verifica emailul si urmareste legatura.</Resource>
+    <Resource tag="REGMAIL_WILL_BE_SEND">Un email va fi trimis la inregitrare. Ca sa te loghezi trebuie sa verifici emailul si sa faci click pe legatura.</Resource>
+    <Resource tag="SAVE">Salveaza</Resource>
+    <Resource tag="SUBMIT">Submit</Resource>
+    <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
+    <Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
+    <Resource tag="TT_ALIGNLEFT">Left Justify</Resource>
+    <Resource tag="TT_ALIGNRIGHT">Right Justify</Resource>
+    <Resource tag="TT_BOLD">Bold</Resource>
+    <Resource tag="TT_CODE">Code</Resource>
+    <Resource tag="TT_CREATELINK">Create Link</Resource>
+    <Resource tag="TT_CUSTOMBBCODE">More BBCode Tags</Resource>
+    <Resource tag="TT_IMAGE">Insert Image</Resource>
+    <Resource tag="TT_ITALIC">Italic</Resource>
+    <Resource tag="TT_QUOTE">Quote</Resource>
+    <Resource tag="TT_UNDERLINE">Underline</Resource>
+    <Resource tag="UNREAD_MSG">Ai  {0} mesaj(e) necitit(e) </Resource>
+    <Resource tag="UPDATE">Update</Resource>
+  </page>
+  <page name="CP_CHANGEPASSWORD">
+    <Resource tag="CHANGE_BUTTON">Submit</Resource>
+    <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
+    <Resource tag="NEW_PASSWORD">New Password:</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">New Passwords do not match.</Resource>
+    <Resource tag="OLD_PASSWORD">Old Password:</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">New Password length minimum: {0}.</Resource>
+    <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
+    <Resource tag="TITLE">Change Password</Resource>
+  </page>
+  <page name="CP_EDITAVATAR">
+    <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="AVATARCURRENT">Current Avatar</Resource>
+    <Resource tag="AVATARDELETE">Clear Avatar</Resource>
+    <Resource tag="AVATARNEW">Choose a New Avatar</Resource>
+    <Resource tag="AVATARREMOTE">Enter URL of Avatar on Remote Server to Use:</Resource>
+    <Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
+    <Resource tag="AVATARUPLOAD">Upload Avatar from Your Computer:</Resource>
+    <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
+    <Resource tag="NOAVATAR">[ No Avatar ]</Resource>
+    <Resource tag="OURAVATAR">Select your Avatar from our Collection:</Resource>
+    <Resource tag="OURAVATAR_SELECT">Click Here to Select an Avatar</Resource>
+    <Resource tag="TITLE">Modify Avatar</Resource>
+    <Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
+    <Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
+    <Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
+    <Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
+  </page>
+  <page name="CP_EDITPROFILE">
+    <Resource tag="ABOUTYOU">Despre tine</Resource>
+    <Resource tag="AVATAR">Imaginea ta</Resource>
+    <Resource tag="AVATARDELETE">Sterge imaginea.</Resource>
+    <Resource tag="AVATARREMOTE">Introduceti adresa unde se afla imagine care va fi afisata la postarile tale.</Resource>
+    <Resource tag="AVATARUPLOAD">Incarca imaginea ta din calculator.</Resource>
+    <Resource tag="BAD_EMAIL">Ai introdus o adresa e-mail gresita.</Resource>
+    <Resource tag="BAD_HOME">Ai introdus o adresa  gresita pentru pagina personala.</Resource>
+    <Resource tag="BAD_ICQ">Ai introdus un numar ICQ gresit. </Resource>
+    <Resource tag="BAD_MSN">Ai introdus o adresa e-mail gresita pentru contul  MSN.</Resource>
+    <Resource tag="BAD_WEBLOG">Ai introdus o adresa  gresita pentru weblogul tau</Resource>
+    <Resource tag="CHANGE_EMAIL">Schimba adresa de email.</Resource>
+    <Resource tag="CHANGE_PASSWORD">Schimba parola</Resource>
+    <Resource tag="CONFIRMPASSWORD">Re-scrieti noua parola:</Resource>
+    <Resource tag="DELETE_AVATAR">Sterge imagine</Resource>
+    <Resource tag="EMAIL">Trebuie sa ai o adresa valida de email.</Resource>
+    <Resource tag="FORUM_SETTINGS">Setari forum</Resource>
+    <Resource tag="HOMEPAGE">Pagina</Resource>
+    <Resource tag="HOMEPAGE2">Pagian ta personala:</Resource>
+    <Resource tag="LOCATION">Locatie</Resource>
+    <Resource tag="MAIL_SENT">Un email a fost trimis la {0}.\n\nTrebuie sa verifici noua adresa de email \n deschizand legatura in 
+		email inaine ca emailul tau sa fie modificat.</Resource>
+    <Resource tag="MESSENGER">Servicii mesaje instant</Resource>
+    <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
+    <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
+    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
+    <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="NEWPASSWORD">Noua parola:</Resource>
+    <Resource tag="NO_EMPTY_PASSWORD">Parola nu poate fi goala.</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">Noua parola nu se potriveste.</Resource>
+    <Resource tag="OLD_PASSWORD_WRONG">Vechea parola a fost gresita.</Resource>
+    <Resource tag="OLDPASSWORD">Parola veche:</Resource>
+    <Resource tag="OURAVATAR">Colectia noastra de imagini.</Resource>
+    <Resource tag="OURAVATAR_SELECT">Selecteaza colectia de imagini.</Resource>
+    <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
+    <Resource tag="REALNAME2">Care e numele tau real?</Resource>
+    <Resource tag="SELECT_LANGUAGE">Ce limba preferi sa utilizezi.</Resource>
+    <Resource tag="SELECT_THEME">Selectati tema preferata:</Resource>
+    <Resource tag="TIMEZONE">Timpul zonei</Resource>
+    <Resource tag="TIMEZONE2">Ca sa ai timpul si data ta locala, avem nevoie de timpul zonei tale.</Resource>
+    <Resource tag="TITLE">Editeaza Profil</Resource>
+    <Resource tag="WARN_BIGFILE">Marimea imaginii nu poate fi mai mare de {0} biti.</Resource>
+    <Resource tag="WARN_FILESIZE">Marimea imaginii era de {0} biti.</Resource>
+    <Resource tag="WARN_RESIZED">Pentru potrivire imaginea a fost redimensionata.</Resource>
+    <Resource tag="WARN_SIZE">Dimensiunea imaginii tale era {0}x{1} pixeli.</Resource>
+    <Resource tag="WARN_TOOBIG">Imaginea nu poate fi mai mare de {0}x{1} pixeli.</Resource>
+    <Resource tag="WEBLOG2">Weblog tau:</Resource>
+    <Resource tag="WHERE">Unde traiesti?</Resource>
+  </page>
+  <page name="CP_INBOX">
+    <Resource tag="CONFIRM_DELETE">Sterget toate mesajele?</Resource>
+    <Resource tag="DATE">Data</Resource>
+    <Resource tag="DELETESELECTED">Sterge selectat</Resource>
+    <Resource tag="FROM">De la</Resource>
+    <Resource tag="MSGDELETED1">1 mesaj sters.</Resource>
+    <Resource tag="MSGDELETED2">{0} mesaj au fost sterse.</Resource>
+    <Resource tag="SENTITEMS">Mesaje Trimise</Resource>
+    <Resource tag="SUBJECT">Subiec</Resource>
+    <Resource tag="TITLE">Primite</Resource>
+    <Resource tag="TO">Pentru</Resource>
+  </page>
+  <page name="CP_MESSAGE">
+    <Resource tag="INBOX">Primite</Resource>
+    <Resource tag="MSG_DELETED">Mesajul a fost sters.</Resource>
+    <Resource tag="POSTED">Postat:</Resource>
+    <Resource tag="SENTITEMS">Trimise</Resource>
+  </page>
+  <page name="CP_PM">
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="ARCHIVESELECTED">Archive Selected</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
+    <Resource tag="DATE">Date</Resource>
+    <Resource tag="DELETESELECTED">Delete Selected</Resource>
+    <Resource tag="FROM">From</Resource>
+    <Resource tag="INBOX">Inbox</Resource>
+    <Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
+    <Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
+    <Resource tag="MSG_DELETED">Message was deleted.</Resource>
+    <Resource tag="MSGDELETED1">1 message was deleted.</Resource>
+    <Resource tag="MSGDELETED2">{0} messages were deleted.</Resource>
+    <Resource tag="NEW_MESSAGE">New Message</Resource>
+    <Resource tag="NO_MESSAGES">No messages were found.</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="SENTITEMS">Sent Items</Resource>
+    <Resource tag="SUBJECT">Subject</Resource>
+    <Resource tag="TITLE">Private Messages</Resource>
+    <Resource tag="TO">To</Resource>
+  </page>
+  <page name="CP_PROFILE">
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
+    <Resource tag="CONTROL_PANEL">Panou de Control</Resource>
+    <Resource tag="EDIT_AVATAR">Modify Avatar</Resource>
+    <Resource tag="EDIT_PROFILE">Editeaza profil</Resource>
+    <Resource tag="EDIT_SIGNATURE">Edit Signature</Resource>
+    <Resource tag="GROUPS">Esti membru in aceste grupuri:</Resource>
+    <Resource tag="INBOX">Primite</Resource>
+    <Resource tag="JOINED">Esti membru din</Resource>
+    <Resource tag="MESSENGER">Messenger:</Resource>
+    <Resource tag="NEW_MESSAGE">Nou mesaj</Resource>
+    <Resource tag="NUMPOSTS">Numar de postari:</Resource>
+    <Resource tag="PERSONAL_PROFILE">Profil personal :</Resource>
+    <Resource tag="SENTITEMS">Trimise</Resource>
+    <Resource tag="SIGNATURE">Semnatura</Resource>
+    <Resource tag="SUBSCRIPTIONS">Subscrieri</Resource>
+    <Resource tag="YOUR_ACCOUNT">Contul tau</Resource>
+    <Resource tag="YOUR_EMAIL">Adresa de email:</Resource>
+    <Resource tag="YOUR_USERNAME">Numele:</Resource>
+  </page>
+  <page name="CP_SIGNATURE">
+    <Resource tag="SIGNATURE">Semnatura:</Resource>
+    <Resource tag="TITLE">Editaza semnatura</Resource>
+  </page>
+  <page name="CP_SUBSCRIPTIONS">
+    <Resource tag="FORUM">Forum</Resource>
+    <Resource tag="FORUMS">Forumuri</Resource>
+    <Resource tag="LASTPOST">Ultima postare</Resource>
+    <Resource tag="LASTPOSTLINK">{0} de {1}</Resource>
+    <Resource tag="REPLIES">Raspunsuri</Resource>
+    <Resource tag="TITLE">Subscrieri</Resource>
+    <Resource tag="TOPIC">Tema</Resource>
+    <Resource tag="TOPICS">Teme</Resource>
+    <Resource tag="UNSUBSCRIBE">Renunta la inscriere</Resource>
+    <Resource tag="VIEWS">Vizualizari</Resource>
+    <Resource tag="WARN_SELECTFORUMS">Selecteaza forumurile de la care vrei sa renunti.</Resource>
+    <Resource tag="WARN_SELECTTOPICS">Selecteaza temele de la care vrei sa renunti.</Resource>
+  </page>
+  <page name="DEFAULT">
+    <Resource tag="ACTIVE_DISCUSSIONS">Active Discussions</Resource>
+    <Resource tag="ACTIVE_USERS">Utilizatori activi</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} utilizator activ</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} utilizatori activ</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} oaspete</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} oaspeti</Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} membru</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} membrii</Resource>
+    <Resource tag="BY">de {0}</Resource>
+    <Resource tag="CURRENT_TIME">Timpul curent: {0}.</Resource>
+    <Resource tag="ERROR_NOFORUMACCESS">Nu ai acces la forumul ales.</Resource>
+    <Resource tag="FORUM">Forum</Resource>
+    <Resource tag="GO_LAST_POST">Ultima postare.</Resource>
+    <Resource tag="IN">in {0}</Resource>
+    <Resource tag="INFORMATION">Informati</Resource>
+    <Resource tag="LAST_VISIT">Ultima vizita: {0}.</Resource>
+    <Resource tag="LASTPOST">Ultimul Post</Resource>
+    <Resource tag="LATEST_POSTS">Latest Posts</Resource>
+    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
+    <Resource tag="MARKALL">Marcheaza toate forumurile ca fiind citite.</Resource>
+    <Resource tag="MODERATORS">Moderatori</Resource>
+    <Resource tag="NO_FORUM_ACCESS">(No Access)</Resource>
+    <Resource tag="NO_POSTS">Nici un post</Resource>
+    <Resource tag="POSTS">Postari</Resource>
+    <Resource tag="STATS">Statistici</Resource>
+    <Resource tag="STATS_LASTMEMBER">Cel mai nou membru este {0}.</Resource>
+    <Resource tag="STATS_LASTPOST">Ultima postare {0} de {1}.</Resource>
+    <Resource tag="STATS_MEMBERS">Avem {0:N0} membrii inregistrati.</Resource>
+    <Resource tag="STATS_POSTS">Sunt {0:N0} postari  in {1:N0} teme in {2:N0} forumuri.</Resource>
+    <Resource tag="TOPICS">Teme</Resource>
+    <Resource tag="UNREAD0">Ai  {0} mesaje necitite.</Resource>
+    <Resource tag="UNREAD1">Ai  {0} mesaje necitite.</Resource>
+    <Resource tag="VIEWING">({0} Vazut)</Resource>
+  </page>
+  <page name="DELETEMESSAGE">
+    <Resource tag="DELETE">Delete</Resource>
+    <Resource tag="DELETE_REASON">Delete reason</Resource>
+    <Resource tag="ERASEMESSAGE">Erase message from the database (irreversible)</Resource>
+    <Resource tag="FROM">From:</Resource>
+    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="PREVIEWTITLE">Message:</Resource>
+    <Resource tag="PRIORITY">Priority:</Resource>
+    <Resource tag="SUBJECT">Subject:</Resource>
+    <Resource tag="UNDELETE">Undelete</Resource>
+    <Resource tag="UNDELETE_REASON">Undelete reason</Resource>
+    <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
+  </page>
+  <page name="EMAILTOPIC">
+    <Resource tag="FAILED">Nu s-a reusit trimiterea.\n\n{0}</Resource>
+    <Resource tag="MESSAGE">Mesaj:</Resource>
+    <Resource tag="NEED_EMAIL">Trebuie sa introduci o adresa de email.</Resource>
+    <Resource tag="SEND">Trimite email</Resource>
+    <Resource tag="SUBJECT">Subiect:</Resource>
+    <Resource tag="TITLE">Trimite o pagina unui prieten</Resource>
+    <Resource tag="TO">Trimite la (Adresa email):</Resource>
+  </page>
+  <page name="ICONLEGEND">
+    <Resource tag="ANNOUNCEMENT">Anunt</Resource>
+    <Resource tag="ANNOUNCEMENT_NEW">Anunt (Noi Postari)</Resource>
+    <Resource tag="FORUM_LOCKED">Forum inchis</Resource>
+    <Resource tag="MOVED">Mutat</Resource>
+    <Resource tag="NEW_POSTS">Noi postari</Resource>
+    <Resource tag="NEW_POSTS_LOCKED">Noi postari (Inchis)</Resource>
+    <Resource tag="NO_NEW_POSTS">Nu sunt postari noi</Resource>
+    <Resource tag="NO_NEW_POSTS_LOCKED">Nu sunt postari noi (Inchis)</Resource>
+    <Resource tag="POLL">Chestionar</Resource>
+    <Resource tag="POLL_NEW">Chestionar (Noi postari)</Resource>
+    <Resource tag="STICKY">Lipicios</Resource>
+  </page>
+  <page name="IM_AIM">
+    <Resource tag="TITLE">AOL Instant Messenger</Resource>
+  </page>
+  <page name="IM_EMAIL">
+    <Resource tag="BODY">Introdu mesaj aici:</Resource>
+    <Resource tag="ERROR">A fost o eroare in trimiterea  e-mail-ului.</Resource>
+    <Resource tag="SEND">Trimite E-mail</Resource>
+    <Resource tag="SUBJECT">Subiect:</Resource>
+    <Resource tag="TITLE">E-mail</Resource>
+  </page>
+  <page name="IM_ICQ">
+    <Resource tag="BODY">Type your message here:</Resource>
+    <Resource tag="EMAIL">E-mail:</Resource>
+    <Resource tag="NAME">Numele tau:</Resource>
+    <Resource tag="SEND">Trimite mesaj</Resource>
+    <Resource tag="TITLE">ICQ</Resource>
+  </page>
+  <page name="IM_SKYPE">
+    <Resource tag="TITLE">Skype(tm) Calling</Resource>
+  </page>
+  <page name="IM_YIM">
+    <Resource tag="TITLE">Yahoo! Messenger</Resource>
+  </page>
+  <page name="INFO">
+    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+    <Resource tag="CONTINUE">Continua...</Resource>
+    <Resource tag="DISABLED">The administrator of this forum has disabled this feature.</Resource>
+    <Resource tag="EXCEPTION">You are logged in as</Resource>
+    <Resource tag="FAILURE">There's been a system error processing your request. Please contact the forum admin explaining what you were doing when it happened.</Resource>
+    <Resource tag="INVALID">You've passed an invalid value to the forum.</Resource>
+    <Resource tag="MODERATED">Avand in vedere ca acest forum este moderat, un moderator al forumului treuie sa aprobe ceea ce ai postat	inainte sa fie vizibil.</Resource>
+    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
+    <Resource tag="SUSPENDED">Contul tau a fost temporar suspendat. Acesta suspendare va fi pina{0}.</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
+    <Resource tag="TITLE_EXCEPTION">Information</Resource>
+    <Resource tag="TITLE_FAILURE">Failure</Resource>
+    <Resource tag="TITLE_INVALID">Invalid</Resource>
+    <Resource tag="TITLE_MODERATED">Information</Resource>
+    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
+    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+  </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
-  <page name="TIMEZONES">
-    <Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien</Resource>
-    <Resource tag="GMT-11">(GMT-11:00) Midway Island, Samoa</Resource>
-    <Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
-    <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
-    <Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
-    <Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
-    <Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
-    <Resource tag="GMT-3.5">(GMT-3:30) Newfoundland</Resource>
-    <Resource tag="GMT-3">(GMT-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
-    <Resource tag="GMT-2">(GMT-2:00) Mid-Atlantic, Ascention Is., St Helena</Resource>
-    <Resource tag="GMT-1">(GMT-1:00) Azores, Cape Verde Islands</Resource>
-    <Resource tag="GMT0">(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
-    <Resource tag="GMT1">(GMT+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
-    <Resource tag="GMT2">(GMT+2:00) Kaliningrad, South Africa</Resource>
-    <Resource tag="GMT3">(GMT+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
-    <Resource tag="GMT3.5">(GMT+3:30) Tehran</Resource>
-    <Resource tag="GMT4">(GMT+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
-    <Resource tag="GMT4.5">(GMT+4:30) Kabul</Resource>
-    <Resource tag="GMT5">(GMT+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
-    <Resource tag="GMT5.5">(GMT+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
-    <Resource tag="GMT6">(GMT+6:00) Almaty, Colomba, Dhakra</Resource>
-    <Resource tag="GMT7">(GMT+7:00) Bangkok, Hanoi, Jakarta</Resource>
-    <Resource tag="GMT8">(GMT+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
-    <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
-    <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
-    <Resource tag="GMT10">(GMT+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
-    <Resource tag="GMT11">(GMT+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
-    <Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
-  </page>  
-	<page name="COMMON">
-		<!-- common... -->
-		<Resource tag="POWERED_BY">Sustinut de {0} versiunea {1}</Resource>
-		<Resource tag="GENERATED">Acesta pagina a fost generata in {0:N3} secunde.</Resource>
-		<Resource tag="SAVE">Salveaza</Resource>
-		<Resource tag="CANCEL">Renunta</Resource>
-		<Resource tag="FORUM_JUMP">Sari Forum </Resource>
-		<Resource tag="CAN_POST">[b] Poti [/b]  posta noi teme in acest forum.</Resource>
-		<Resource tag="CAN_REPLY"> [b] Poti [/b] raspunde la teme in acest forum.</Resource>
-		<Resource tag="CAN_DELETE">[b] Poti [/b] sterge postari la acest forum.</Resource>
-		<Resource tag="CAN_EDIT">[b] Poti [/b] edita postari la acest forum.</Resource>
-		<Resource tag="CAN_POLL">[b] Poti [/b] crea sondaje in acest forum.</Resource>
-		<Resource tag="CAN_VOTE">[b] Poti [/b] vota la sondaj in acest forum.</Resource>
-		<Resource tag="CANNOT_POST">[b] NU poti [/b]  posta noi teme in acest forum.</Resource>
-		<Resource tag="CANNOT_REPLY">[b] NU poti [/b] raspunde la teme in acest forum.</Resource>
-		<Resource tag="CANNOT_DELETE">[b] NU poti [/b] sterge postari la acest forum.</Resource>
-		<Resource tag="CANNOT_EDIT">[b] Nu poti [/b] edita postari la acest forum.</Resource>
-		<Resource tag="CANNOT_POLL">[b] Nu poti [/b] crea sondaje in acest forum.</Resource>
-		<Resource tag="CANNOT_VOTE">[b] Nu poti [/b] vota la sondaj in acest forum.</Resource>
-		<Resource tag="REGMAIL_SENT">Un email a fost trimis. Verifica emailul si urmareste legatura.</Resource>
-		<Resource tag="UNREAD_MSG">Ai  {0} mesaj(e) necitit(e) </Resource>
-		<Resource tag="REGMAIL_WILL_BE_SEND">Un email va fi trimis la inregitrare. Ca sa te loghezi trebuie sa verifici emailul si sa faci click pe legatura.</Resource>
-    <Resource tag="BBCODE_QUOTE">Quote:</Resource>
-    <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
-    <Resource tag="BBCODE_CODE">Code:</Resource>
+  <page name="LOGIN">
+    <Resource tag="AUTO">Intrare automata:</Resource>
+    <Resource tag="BOTH_USERNAME_EMAIL">Si numele de utilizator si parola trebuiesc introduse.</Resource>
+    <Resource tag="EMAIL">Addresa email</Resource>
+    <Resource tag="EMAIL_SENT_PASSWORD">Pe adresa ta de email a fost trimisa parola.</Resource>
+    <Resource tag="FORUM_LOGIN">Intrare forum</Resource>
+    <Resource tag="LOSTPASSWORD">Am pierdut parola</Resource>
+    <Resource tag="PASSWORD">Parola:</Resource>
+    <Resource tag="PASSWORD_ERROR">Utilizatorul sau parola au fost incorecte. Incercati din nou.</Resource>
+    <Resource tag="RECOVER">Recupereaza parola</Resource>
+    <Resource tag="RECOVER_ERROR">There was an error when creating your new password.</Resource>
+    <Resource tag="SENDPASSWORD">Trimite parola</Resource>
+    <Resource tag="TITLE">Intrare</Resource>
+    <Resource tag="USERNAME">Utilizator:</Resource>
+    <Resource tag="WRONG_USERNAME_EMAIL">Utilizator sau adresa de email gresite.</Resource>
   </page>
-	<page name="TOOLBAR">
-		<!-- "Toolbar" at top of most pages -->
-		<Resource tag="SEARCH">Cauta</Resource>
-		<Resource tag="ADMIN">Admin</Resource>
-		<Resource tag="MODERATE">Modereaza</Resource>
-		<Resource tag="ACTIVETOPICS">Teme active</Resource>
-		<Resource tag="MYPROFILE">Profilul meu</Resource>
-		<Resource tag="MEMBERS">Membrii</Resource>
-		<Resource tag="LOGOUT">Iesire</Resource>
-		<Resource tag="LOGIN">Intrare</Resource>
-		<Resource tag="REGISTER">Inregistrare</Resource>
-		<Resource tag="LOGGED_IN_AS">Logat ca: {0}</Resource>
-		<Resource tag="WELCOME_GUEST">Bine ai venit OASPETE</Resource>
-	</page>
-	<page name="ICONLEGEND">
-		<!-- Common icon texts -->
-		<Resource tag="NEW_POSTS">Noi postari</Resource>
-		<Resource tag="NO_NEW_POSTS">Nu sunt postari noi</Resource>
-		<Resource tag="ANNOUNCEMENT">Anunt</Resource>
-		<Resource tag="ANNOUNCEMENT_NEW">Anunt (Noi Postari)</Resource>
-		<Resource tag="NEW_POSTS_LOCKED">Noi postari (Inchis)</Resource>
-		<Resource tag="NO_NEW_POSTS_LOCKED">Nu sunt postari noi (Inchis)</Resource>
-		<Resource tag="FORUM_LOCKED">Forum inchis</Resource>
-		<Resource tag="MOVED">Mutat</Resource>
-		<Resource tag="POLL">Chestionar</Resource>
-		<Resource tag="POLL_NEW">Chestionar (Noi postari)</Resource>
-		<Resource tag="STICKY">Lipicios</Resource>
-	</page>
-	<page name="ATTACHMENTS">
-		<Resource tag="TITLE">Atasaemnte</Resource>
-		<Resource tag="BACK">Inapoi</Resource>
-		<Resource tag="UPLOAD">Incarca</Resource>
-		<Resource tag="SELECT_FILE">Selecteaza fisierul pe care vrei sa-l incarci.</Resource>
-		<Resource tag="UPLOAD_TITLE">Incarca fisier</Resource>
-		<Resource tag="FILENAME">Nume fisier</Resource>
-		<Resource tag="SIZE">Marime</Resource>
-		<Resource tag="DELETE">Sterge</Resource>
-		<Resource tag="FILEERROR">'{0}' nu este valid penru incarcare.</Resource>
-		<Resource tag="ASK_DELETE">Stergi acest atasament?</Resource>
-		<Resource tag="ERROR_TOOBIG">Fisierul este prea mare pentru incarcare.</Resource>
-	</page>
-	<page name="DEFAULT">
-		<!-- default.aspx -->
-		<Resource tag="FORUM">Forum</Resource>
-		<Resource tag="TOPICS">Teme</Resource>
-		<Resource tag="POSTS">Postari</Resource>
-		<Resource tag="LASTPOST">Ultimul Post</Resource>
-		<Resource tag="MODERATORS">Moderatori</Resource>
-		<Resource tag="CURRENT_TIME">Timpul curent: {0}.</Resource>
-		<Resource tag="LAST_VISIT">Ultima vizita: {0}.</Resource>
-		<Resource tag="STATS_POSTS">Sunt {0:N0} postari  in {1:N0} teme in {2:N0} forumuri.</Resource>
-		<Resource tag="STATS_LASTPOST">Ultima postare {0} de {1}.</Resource>
-		<Resource tag="STATS_MEMBERS">Avem {0:N0} membrii inregistrati.</Resource>
-		<Resource tag="STATS_LASTMEMBER">Cel mai nou membru este {0}.</Resource>
-		<Resource tag="IN">in {0}</Resource>
-		<Resource tag="BY">de {0}</Resource>
-		<Resource tag="NO_POSTS">Nici un post</Resource>
-		<Resource tag="UNREAD1">Ai  {0} mesaje necitite.</Resource>
-		<Resource tag="UNREAD0">Ai  {0} mesaje necitite.</Resource>
-		<Resource tag="INFORMATION">Informati</Resource>
-		<Resource tag="STATS">Statistici</Resource>
-		<Resource tag="ACTIVE_USERS">Utilizatori activi</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} utilizator activ</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} utilizatori activ</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} membru</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} membrii</Resource>
-		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} oaspete</Resource>
-		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} oaspeti</Resource>
-		<Resource tag="VIEWING">({0} Vazut)</Resource>
-		<Resource tag="ERROR_NOFORUMACCESS">Nu ai acces la forumul ales.</Resource>
-		<Resource tag="MARKALL">Marcheaza toate forumurile ca fiind citite.</Resource>
-		<Resource tag="GO_LAST_POST">Ultima postare.</Resource>
-	</page>
-	<page name="TOPICS">
-		<!-- topics.aspx -->
-		<Resource tag="TOPICS">Teme</Resource>
-		<Resource tag="TOPIC_STARTER">Inceput tema</Resource>
-		<Resource tag="REPLIES">Raspunsuri</Resource>
-		<Resource tag="VIEWS">Vederi</Resource>
-		<Resource tag="LASTPOST">Ultimul post</Resource>
-		<Resource tag="NO_POSTS">Nu sunt postari</Resource>
-		<Resource tag="WATCHFORUM">Urmareste forum</Resource>
-		<Resource tag="SHOWTOPICS">Arata teme</Resource>
-		<Resource tag="ALL">Toate</Resource>
-		<Resource tag="LAST_DAY">din ultima zi</Resource>
-		<Resource tag="LAST_TWO_DAYS">din ultimile doua zile</Resource>
-		<Resource tag="LAST_WEEK">din ultima saptamana</Resource>
-		<Resource tag="LAST_TWO_WEEKS">din ulimile doua saptamani</Resource>
-		<Resource tag="LAST_MONTH">din ultima luna</Resource>
-		<Resource tag="LAST_TWO_MONTHS">din ultimile doua luni</Resource>
-		<Resource tag="LAST_SIX_MONTHS">din ultimile sase luni</Resource>
-		<Resource tag="LAST_YEAR">din ultimul an</Resource>
-		<Resource tag="BY">de {0}</Resource>
-		<Resource tag="FORUMUSERS">Utilizatori de sunt pe forum</Resource>
-		<Resource tag="CREATED">Creat</Resource>
-		<Resource tag="WARN_FORUM_LOCKED">Forum inchis.</Resource>
-		<Resource tag="WARN_LOGIN_FORUMWATCH">Trebuie sa te inregistrezi sa poti vezi forumul.</Resource>
-		<Resource tag="INFO_WATCH_FORUM">Vei fi notificat cand vor aparea noi postari in acest forum.</Resource>
-		<Resource tag="MARKREAD">Marcheaza forumul ca fiind  citit</Resource>
-		<Resource tag="SUBFORUMS">Sub forumuri</Resource>
- 		<Resource tag="RSSFEED">Rss Feed</Resource>
-    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
-    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+  <page name="MEMBERS">
+    <Resource tag="JOINED">Intregistrat la</Resource>
+    <Resource tag="PAGES">{0} Pagini:</Resource>
+    <Resource tag="POSTS">Postari</Resource>
+    <Resource tag="RANK">Nivel</Resource>
+    <Resource tag="TITLE">Membrii</Resource>
+    <Resource tag="USERNAME">Utilizator</Resource>
+  </page>
+  <page name="MOD_FORUMUSER">
+    <Resource tag="ACCESSMASK">Masca de acces:</Resource>
+    <Resource tag="CANCEL">Renunta</Resource>
+    <Resource tag="FIND">Cauta utilizator</Resource>
+    <Resource tag="TITLE">Utilizator forum</Resource>
+    <Resource tag="UPDATE">Actualizare</Resource>
+    <Resource tag="USER">Utilizator:</Resource>
+  </page>
+  <page name="MODERATE">
+    <Resource tag="ACCEPTED">Acceptat</Resource>
+    <Resource tag="ACCESSMASK">Masca de acces</Resource>
+    <Resource tag="BY">de {0}</Resource>
+    <Resource tag="CONFIRM_DELETE">Stergi acesta tema?</Resource>
+    <Resource tag="DELETED">Tema stearsa.</Resource>
+    <Resource tag="EDIT">Editare</Resource>
+    <Resource tag="INVITE">Invita utilizator</Resource>
+    <Resource tag="LASTPOST">Ultima postare</Resource>
+    <Resource tag="MEMBERS">Membrii</Resource>
+    <Resource tag="NO_POSTS">Nu sunt postari</Resource>
+    <Resource tag="REMOVE">Stergere</Resource>
+    <Resource tag="REPLIES">Raspunsuri</Resource>
+    <Resource tag="TITLE">Moderat</Resource>
+    <Resource tag="TOPIC_STARTER">Cine a propus tema</Resource>
+    <Resource tag="TOPICS">Teme</Resource>
+    <Resource tag="USER">Utilizator</Resource>
+    <Resource tag="VIEWS">Vizualizari</Resource>
+  </page>
+  <page name="MODERATE_DEFAULT">
+    <Resource tag="CATEGORY">Categorie</Resource>
+    <Resource tag="FORUM">Forum</Resource>
+    <Resource tag="REPORTED">Reported as Abuse Posts</Resource>
+    <Resource tag="REPORTEDSPAM">Reported as Spam Posts</Resource>
+    <Resource tag="TITLE">Modereaza</Resource>
+    <Resource tag="UNAPPROVED">Postari neaprobate</Resource>
+  </page>
+  <page name="MODERATE_FORUM">
+    <Resource tag="APPROVE">Aproba postare</Resource>
+    <Resource tag="APPROVED">Postare aprobata.</Resource>
+    <Resource tag="ASK_DELETE">Stergi acesta postare?</Resource>
+    <Resource tag="COPYOVER">Update message text</Resource>
+    <Resource tag="DELETE">Sterge postare</Resource>
+    <Resource tag="DELETED">Postare aprobata.</Resource>
+    <Resource tag="MODIFIED">Post has been changed!</Resource>
+    <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
+    <Resource tag="RESOLVE">Resolve Post Copies</Resource>
+    <Resource tag="RESOLVED">Mark as resolved</Resource>
+    <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
+    <Resource tag="TOP">Inapoi sus</Resource>
+    <Resource tag="UNAPPROVED">Postari neaprobate</Resource>
+  </page>
+  <page name="MOVEMESSAGE">
+    <Resource tag="CREATE_TOPIC">Create Topic From Message</Resource>
+    <Resource tag="EMPTY_TOPIC">Topic name is empty</Resource>
+    <Resource tag="MOVE" />
+    <Resource tag="MOVE_MESSAGE">Move Message</Resource>
+    <Resource tag="NEW_TOPIC">Create Topic to move to:</Resource>
+    <Resource tag="SELECT_FORUM_MOVETO">Select Forum to move to:</Resource>
+    <Resource tag="SELECT_TOPIC_MOVETO">Select Topic to move to:</Resource>
+  </page>
+  <page name="MOVETOPIC">
+    <Resource tag="LEAVE_POINTER">Leave link to moved topic in original forum</Resource>
+    <Resource tag="MOVE">Muta tema</Resource>
+    <Resource tag="SELECT_FORUM">Selecteaza forumul unde vrei sa muti postarea:</Resource>
+    <Resource tag="TITLE">Muta tema</Resource>
+  </page>
+  <page name="PMESSAGE">
+    <Resource tag="ALLUSERS">Toti utilizatorii</Resource>
+    <Resource tag="CLEAR">Clear</Resource>
+    <Resource tag="FINDUSERS">Cauta utilizatori</Resource>
+    <Resource tag="MAX_RECIPIENT_INFO">You can send message to maximum of [b]{0}[/b] users at a time.</Resource>
+    <Resource tag="MESSAGE">Mesaj:</Resource>
+    <Resource tag="MULTI_RECEIVER_INFO">Separate multiple user names with ';'</Resource>
+    <Resource tag="NEED_MESSAGE">Nu ai scis nimic in mesaj.</Resource>
+    <Resource tag="NEED_MORE_LETTERS">Please enter, at least, the first two letters of the user you wish to locate.</Resource>
+    <Resource tag="NEED_SUBJECT">Trebuie sa introduci un subiect.</Resource>
+    <Resource tag="NEED_TO">Nu ai specificat cui sa se adreseze mesajul.</Resource>
+    <Resource tag="NO_SUCH_USER">Nu exista nici utilizator de tipul asta.</Resource>
+    <Resource tag="NOT_GUEST">Nu poti trimite un mesaj privat unui oaspete.</Resource>
+    <Resource tag="OWN_PMBOX_FULL">Your Private Message box is full. Maximum allowed is {0}. Please delete messages to free up space.</Resource>
+    <Resource tag="PREVIEWTITLE">Previzualizare:</Resource>
+    <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="SAVE">Postare</Resource>
+    <Resource tag="SUBJECT">Subiect:</Resource>
+    <Resource tag="TITLE">Scrie un mesaj privat</Resource>
+    <Resource tag="TO">Pentru:</Resource>
+    <Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
+  </page>
+  <page name="POSTMESSAGE">
+    <Resource tag="ANNOUNCEMENT">Anunt</Resource>
+    <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="CHOICE1">Alegerea 1:</Resource>
+    <Resource tag="CHOICE2">Alegerea 2:</Resource>
+    <Resource tag="CHOICE3">Alegerea 3:</Resource>
+    <Resource tag="CHOICE4">Alegerea 4:</Resource>
+    <Resource tag="CHOICE5">Alegerea 5:</Resource>
+    <Resource tag="CHOICE6">Alegerea 6:</Resource>
+    <Resource tag="CHOICE7">Alegerea 7:</Resource>
+    <Resource tag="CHOICE8">Alegerea 8:</Resource>
+    <Resource tag="CHOICE9">Alegerea 9:</Resource>
+    <Resource tag="CREATEPOLL">Creaza chestionar</Resource>
+    <Resource tag="EDIT">Edit post</Resource>
+    <Resource tag="EDITREASON">Reason for edit:</Resource>
+    <Resource tag="FROM">De la :</Resource>
+    <Resource tag="LAST10">Ultimile 10 postari (In ordinea inversa)</Resource>
+    <Resource tag="MESSAGE">Mesaj:</Resource>
+    <Resource tag="NEED_CHOICES">Un chestionar trebuie sa contina cel putin 2 intrebari.</Resource>
+    <Resource tag="NEED_QUESTION">Trebuie sa introduci o intrebare in chestionar.</Resource>
+    <Resource tag="NEED_SUBJECT">Introduceti un subiect la mesaj.</Resource>
+    <Resource tag="NEWPOSTOPTIONS">Options:</Resource>
+    <Resource tag="NEWTOPIC">Propune o nou tema</Resource>
+    <Resource tag="NORMAL">Normal</Resource>
+    <Resource tag="PERSISTENCY">Persistent:</Resource>
+    <Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
+    <Resource tag="POLL_EXPIRE">Run Poll For:</Resource>
+    <Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank to never expire ]</Resource>
+    <Resource tag="POLLQUESTION">Intrebare chestionar:</Resource>
+    <Resource tag="POSTED">Scris :</Resource>
+    <Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
+    <Resource tag="PREVIEW">Previzualizare</Resource>
+    <Resource tag="PREVIEWTITLE">Previzualizare:</Resource>
+    <Resource tag="PRIORITY">Prioritate:</Resource>
+    <Resource tag="REMOVEPOLL">Remove Poll</Resource>
+    <Resource tag="REPLY">Trimite un raspuns</Resource>
+    <Resource tag="SAVE">Postare</Resource>
+    <Resource tag="SMILIES_HEADER">[b]Add Smiley[/b]</Resource>
+    <Resource tag="SMILIES_MORE">More Smilies...</Resource>
+    <Resource tag="STICKY">Lipicios</Resource>
+    <Resource tag="SUBJECT">Subiect:</Resource>
+    <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
+    <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
+    <Resource tag="WAIT">Nu mai poti posta in urmatoarele {0:N0} secunde.</Resource>
+  </page>
+  <page name="POSTS">
+    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_USERNAME">Sponsor</Resource>
+    <Resource tag="AIM">AIM</Resource>
+    <Resource tag="ATTACHMENTINFO">{0:N0} KB, salvati {1:N0} ori.</Resource>
+    <Resource tag="ATTACHMENTS">Atasamente:</Resource>
+    <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CHOICE">Alegere</Resource>
+    <Resource tag="CONFIRM_DELETEMESSAGE">Stergi acest mesaj?</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">Stergeti aceasta tema?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
+    <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
+    <Resource tag="EDIT_REASON">Reason</Resource>
+    <Resource tag="EDIT_REASON_NA">Not specified</Resource>
+    <Resource tag="EDITED">Edit</Resource>
+    <Resource tag="EDITED_BY_MOD">by moderator</Resource>
+    <Resource tag="EDITED_BY_USER">by user</Resource>
+    <Resource tag="EMAIL">EMail</Resource>
+    <Resource tag="EMAILTOPIC">Trimite pe email tema</Resource>
+    <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="FORUM_JUMP">Saritura forum </Resource>
+    <Resource tag="GROUPS">Groupuri</Resource>
+    <Resource tag="HOME">WWW</Resource>
+    <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} attached the following image(s):</Resource>
+    <Resource tag="INFO_NOMORETOPICS">Nici o tema pe aceast forum .</Resource>
+    <Resource tag="INFO_TOPIC_LOCKED">Tema inchisa.</Resource>
+    <Resource tag="INFO_TOPIC_UNLOCKED">Tema redeschisa.</Resource>
+    <Resource tag="INFO_UNWATCH_TOPIC">You will no longer be notified when new posts are made in this topic.</Resource>
+    <Resource tag="INFO_VOTED">Multumim pentru vot!</Resource>
+    <Resource tag="INFO_WATCH_TOPIC">Vei fi notificat cand noi postari vor sosi pe acesta tema.</Resource>
+    <Resource tag="IP">IP</Resource>
+    <Resource tag="JOINED">Intrat</Resource>
+    <Resource tag="LOCATION">Locatia</Resource>
+    <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>
+    <Resource tag="MESSAGEDELETED_USER">Message was deleted by User.</Resource>
+    <Resource tag="MSN">MSN</Resource>
+    <Resource tag="NEXTTOPIC">Urmatoare tema</Resource>
+    <Resource tag="NORMAL">Normal</Resource>
+    <Resource tag="OPTIONS">Options</Resource>
+    <Resource tag="PM">PM</Resource>
+    <Resource tag="POINTS">Points</Resource>
+    <Resource tag="POLL_CLOSED">(Poll is closed)</Resource>
+    <Resource tag="POST_REPLY">Post Reply</Resource>
+    <Resource tag="POSTED">Postat</Resource>
+    <Resource tag="POSTS">Postari</Resource>
+    <Resource tag="PREVTOPIC">Anterioara tema</Resource>
+    <Resource tag="PRINTTOPIC">Printeaza tema</Resource>
+    <Resource tag="QUESTION">Chestionar intrebare</Resource>
+    <Resource tag="QUICKREPLY">Quick Reply</Resource>
+    <Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
+    <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
+    <Resource tag="RANK">Nivel</Resource>
+    <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
+    <Resource tag="REPORTPOST">Report Abusive</Resource>
+    <Resource tag="REPORTSPAM">Report SPAM</Resource>
+    <Resource tag="RSSTOPIC">RSS Feed</Resource>
+    <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="STATISTICS">Statistici</Resource>
+    <Resource tag="THREADED">Threaded</Resource>
     <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
     <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
-    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
     <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
-	</page>
-	<page name="POSTS">
-		<!-- posts.aspx -->
-    <Resource tag="QUICKREPLY">Quick Reply</Resource>
-    <Resource tag="OPTIONS">Options</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
+    <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+    <Resource tag="TOP">Inapoi sus</Resource>
+    <Resource tag="TOPICBROWSERS">Utilizatori pe tema</Resource>
+    <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="UNWATCHTOPIC">Unwatch this topic</Resource>
+    <Resource tag="USERPROFILE">User Profile</Resource>
     <Resource tag="VIEW">View</Resource>
-		<Resource tag="QUESTION">Chestionar intrebare</Resource>
-		<Resource tag="CHOICE">Alegere</Resource>
-		<Resource tag="VOTES">Voturi</Resource>
-		<Resource tag="STATISTICS">Statistici</Resource>
-		<Resource tag="PREVTOPIC">Anterioara tema</Resource>
-		<Resource tag="NEXTTOPIC">Urmatoare tema</Resource>
-		<Resource tag="WATCHTOPIC">Urmareste aceasta tema</Resource>
-		<Resource tag="EMAILTOPIC">Trimite pe email tema</Resource>
-		<Resource tag="PRINTTOPIC">Printeaza tema</Resource>
- 		<Resource tag="RSSTOPIC">RSS Feed</Resource>
-		<Resource tag="POSTED">Postat</Resource>
-		<Resource tag="TOP">Inapoi sus</Resource>
-		<Resource tag="PM">PM</Resource>
-		<Resource tag="CONFIRM_DELETEMESSAGE">Stergi acest mesaj?</Resource>
-		<Resource tag="CONFIRM_DELETETOPIC">Stergeti aceasta tema?</Resource>
-		<Resource tag="RANK">Nivel</Resource>
-		<Resource tag="GROUPS">Groupuri</Resource>
-		<Resource tag="JOINED">Intrat</Resource>
-		<Resource tag="POSTS">Postari</Resource>
-		<Resource tag="LOCATION">Locatia</Resource>
-		<Resource tag="TOPICBROWSERS">Utilizatori pe tema</Resource>
-		<Resource tag="INFO_TOPIC_LOCKED">Tema inchisa.</Resource>
-		<Resource tag="INFO_TOPIC_UNLOCKED">Tema redeschisa.</Resource>
-		<Resource tag="WARN_TOPIC_LOCKED">Tema inchisa.</Resource>
-		<Resource tag="WARN_FORUM_LOCKED">Forum inchis.</Resource>
-		<Resource tag="WARN_PMLOGIN">Trebuie sa fii logat ca sa poti trimite mesaje private.</Resource>
-		<Resource tag="WARN_ALREADY_VOTED">Ai votat deja.</Resource>
-		<Resource tag="INFO_VOTED">Multumim pentru vot!</Resource>
-		<Resource tag="WARN_WATCHLOGIN">Trebuie sa fii inregistrat sa vezi aceasta tema.</Resource>
-		<Resource tag="INFO_WATCH_TOPIC">Vei fi notificat cand noi postari vor sosi pe acesta tema.</Resource>
-		<Resource tag="INFO_NOMORETOPICS">Nici o tema pe aceast forum .</Resource>
-		<Resource tag="WARN_EMAILLOGIN">Trebuie sa fiii inregistrat sa poti trimite email.</Resource>
-		<Resource tag="ATTACHMENTS">Atasamente:</Resource>
-		<Resource tag="ATTACHMENTINFO">{0:N0} KB, salvati {1:N0} ori.</Resource>
-		<Resource tag="NORMAL">Normal</Resource>
-		<Resource tag="THREADED">Threaded</Resource>
-		<Resource tag="FORUM_JUMP">Saritura forum </Resource>
-	</page>
-	<page name="ACTIVE">
-		<!-- active.aspx -->
-    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
-		<Resource tag="TITLE">Teme active</Resource>
-		<Resource tag="SINCE">Din</Resource>
-		<Resource tag="LAST_VISIT">ultim vizita la {0}</Resource>
-		<Resource tag="LAST_HOUR">ultima ora</Resource>
-		<Resource tag="LAST_TWO_HOURS">ultimile doua ore</Resource>
-		<Resource tag="LAST_DAY">ultima zi</Resource>
-		<Resource tag="LAST_TWO_DAYS">ultimile doua zile</Resource>
-		<Resource tag="LAST_WEEK">ultima saptamana</Resource>
-		<Resource tag="LAST_TWO_WEEKS">ultimile doua saptamani</Resource>
-		<Resource tag="LAST_MONTH">ultima luna</Resource>
-		<Resource tag="TOPICS">Teme</Resource>
-		<Resource tag="TOPIC_STARTER">Start tema</Resource>
-		<Resource tag="REPLIES">Raspunsuri</Resource>
- 		<Resource tag="RSSFEED">Rss Feed</Resource>
-		<Resource tag="VIEWS">Vizualizari</Resource>
-		<Resource tag="LASTPOST">Ultima postare</Resource>
-		<Resource tag="BY">de {0}</Resource>
-		<Resource tag="NO_POSTS">Nici o postare</Resource>
-	</page>
-	<page name="ACTIVEUSERS">
-		<!-- activeusers.aspx -->
-		<Resource tag="TITLE">Utilizatori Activi</Resource>
-		<Resource tag="USERNAME">Utilizator</Resource>
-		<Resource tag="LOGGED_IN">Intrat</Resource>
-		<Resource tag="LAST_ACTIVE">Ultimul Activ</Resource>
-		<Resource tag="ACTIVE">Activ</Resource>
-		<Resource tag="BROWSER">Browser</Resource>
-		<Resource tag="PLATFORM">Platforma</Resource>
-		<Resource tag="MINUTES">{0:N0} minute</Resource>
-	</page>
-	<page name="APPROVE">
-		<!-- approve.aspx -->
-		<Resource tag="TITLE">Validare Adresa Email </Resource>
-		<Resource tag="EMAIL_VERIFIED">Adresa de  email a fost verificata.</Resource>
-		<Resource tag="EMAIL_VERIFY_FAILED">Verificare adresa email nereusita.</Resource>
-		<Resource tag="ENTER_KEY">Introduceti codul de verificare.</Resource>
-		<Resource tag="VALIDATE">Validare</Resource>
-	</page>
-	<page name="CP_EDITPROFILE">
-		<!-- cp_editprofile.aspx -->
-		<Resource tag="TITLE">Editeaza Profil</Resource>
-		<Resource tag="LOCATION">Locatie</Resource>
-		<Resource tag="WHERE">Unde traiesti?</Resource>
-		<Resource tag="HOMEPAGE">Pagina</Resource>
-		<Resource tag="HOMEPAGE2">Pagian ta personala:</Resource>
-		<Resource tag="TIMEZONE">Timpul zonei</Resource>
-		<Resource tag="TIMEZONE2">Ca sa ai timpul si data ta locala, avem nevoie de timpul zonei tale.</Resource>
-		<Resource tag="AVATAR">Imaginea ta</Resource>
-		<Resource tag="AVATARUPLOAD">Incarca imaginea ta din calculator.</Resource>
-		<Resource tag="AVATARDELETE">Sterge imaginea.</Resource>
-		<Resource tag="DELETE_AVATAR">Sterge imagine</Resource>
-		<Resource tag="AVATARREMOTE">Introduceti adresa unde se afla imagine care va fi afisata la postarile tale.</Resource>
-		<Resource tag="CHANGE_PASSWORD">Schimba parola</Resource>
-		<Resource tag="OLDPASSWORD">Parola veche:</Resource>
-		<Resource tag="NEWPASSWORD">Noua parola:</Resource>
-		<Resource tag="CONFIRMPASSWORD">Re-scrieti noua parola:</Resource>
-		<Resource tag="CHANGE_EMAIL">Schimba adresa de email.</Resource>
-		<Resource tag="EMAIL">Trebuie sa ai o adresa valida de email.</Resource>
-		<Resource tag="NO_EMPTY_PASSWORD">Parola nu poate fi goala.</Resource>
-		<Resource tag="NO_PASSWORD_MATCH">Noua parola nu se potriveste.</Resource>
-		<Resource tag="OLD_PASSWORD_WRONG">Vechea parola a fost gresita.</Resource>
-		<Resource tag="MAIL_SENT">Un email a fost trimis la {0}.\n\nTrebuie sa verifici noua adresa de email \n deschizand legatura in 
-		email inaine ca emailul tau sa fie modificat.</Resource>
-		<Resource tag="FORUM_SETTINGS">Setari forum</Resource>
-		<Resource tag="SELECT_THEME">Selectati tema preferata:</Resource>
-		<Resource tag="SELECT_LANGUAGE">Ce limba preferi sa utilizezi.</Resource>
-		<Resource tag="WEBLOG2">Weblog tau:</Resource>
-		<Resource tag="MESSENGER">Servicii mesaje instant</Resource>
-		<Resource tag="ABOUTYOU">Despre tine</Resource>
-		<Resource tag="REALNAME2">Care e numele tau real?</Resource>
-		<Resource tag="WARN_TOOBIG">Imaginea nu poate fi mai mare de {0}x{1} pixeli.</Resource>
-		<Resource tag="WARN_SIZE">Dimensiunea imaginii tale era {0}x{1} pixeli.</Resource>
-		<Resource tag="WARN_RESIZED">Pentru potrivire imaginea a fost redimensionata.</Resource>
-		<Resource tag="WARN_BIGFILE">Marimea imaginii nu poate fi mai mare de {0} biti.</Resource>
-		<Resource tag="WARN_FILESIZE">Marimea imaginii era de {0} biti.</Resource>
-		<Resource tag="OURAVATAR">Colectia noastra de imagini.</Resource>
-		<Resource tag="OURAVATAR_SELECT">Selecteaza colectia de imagini.</Resource>
-		<Resource tag="BAD_EMAIL">Ai introdus o adresa e-mail gresita.</Resource>
-		<Resource tag="BAD_MSN">Ai introdus o adresa e-mail gresita pentru contul  MSN.</Resource>
-		<Resource tag="BAD_HOME">Ai introdus o adresa  gresita pentru pagina personala.</Resource>
-		<Resource tag="BAD_WEBLOG">Ai introdus o adresa  gresita pentru weblogul tau</Resource>
-		<Resource tag="BAD_ICQ">Ai introdus un numar ICQ gresit. </Resource>
-	</page>
-	<page name="CP_INBOX">
-		<!-- cp_inbox.aspx -->
-		<Resource tag="TITLE">Primite</Resource>
-		<Resource tag="SENTITEMS">Mesaje Trimise</Resource>
-		<Resource tag="DELETESELECTED">Sterge selectat</Resource>
-		<Resource tag="SUBJECT">Subiec</Resource>
-		<Resource tag="FROM">De la</Resource>
-		<Resource tag="TO">Pentru</Resource>
-		<Resource tag="DATE">Data</Resource>
-		<Resource tag="MSGDELETED1">1 mesaj sters.</Resource>
-		<Resource tag="MSGDELETED2">{0} mesaj au fost sterse.</Resource>
-		<Resource tag="CONFIRM_DELETE">Sterget toate mesajele?</Resource>
-	</page>
-	<page name="CP_MESSAGE">
-		<!-- cp_message.aspx -->
-		<Resource tag="INBOX">Primite</Resource>
-		<Resource tag="SENTITEMS">Trimise</Resource>
-		<Resource tag="MSG_DELETED">Mesajul a fost sters.</Resource>
-		<Resource tag="POSTED">Postat:</Resource>
-	</page>
-	<page name="CP_PROFILE">
-		<!-- cp_profile.aspx -->
-		<Resource tag="NEW_MESSAGE">Nou mesaj</Resource>
-		<Resource tag="CONTROL_PANEL">Panou de Control</Resource>
-		<Resource tag="MESSENGER">Messenger:</Resource>
-		<Resource tag="PERSONAL_PROFILE">Profil personal :</Resource>
-		<Resource tag="INBOX">Primite</Resource>
-		<Resource tag="SENTITEMS">Trimise</Resource>
-		<Resource tag="EDIT_PROFILE">Editeaza profil</Resource>
-		<Resource tag="SIGNATURE">Semnatura</Resource>
-		<Resource tag="SUBSCRIPTIONS">Subscrieri</Resource>
-		<Resource tag="YOUR_ACCOUNT">Contul tau</Resource>
-		<Resource tag="YOUR_USERNAME">Numele:</Resource>
-		<Resource tag="YOUR_EMAIL">Adresa de email:</Resource>
-		<Resource tag="NUMPOSTS">Numar de postari:</Resource>
-		<Resource tag="GROUPS">Esti membru in aceste grupuri:</Resource>
-		<Resource tag="JOINED">Esti membru din</Resource>
-	</page>
-	<page name="CP_SIGNATURE">
-		<!-- cp_signature.aspx -->
-		<Resource tag="TITLE">Editaza semnatura</Resource>
-		<Resource tag="SIGNATURE">Semnatura:</Resource>
-	</page>
-	<page name="CP_SUBSCRIPTIONS">
-		<!-- cp_subscriptions.aspx -->
-		<Resource tag="TITLE">Subscrieri</Resource>
-		<Resource tag="FORUMS">Forumuri</Resource>
-		<Resource tag="FORUM">Forum</Resource>
-		<Resource tag="TOPICS">Teme</Resource>
-		<Resource tag="REPLIES">Raspunsuri</Resource>
-		<Resource tag="LASTPOST">Ultima postare</Resource>
-		<Resource tag="TOPIC">Tema</Resource>
-		<Resource tag="VIEWS">Vizualizari</Resource>
-		<Resource tag="UNSUBSCRIBE">Renunta la inscriere</Resource>
-		<Resource tag="LASTPOSTLINK">{0} de {1}</Resource>
-		<Resource tag="WARN_SELECTTOPICS">Selecteaza temele de la care vrei sa renunti.</Resource>
-		<Resource tag="WARN_SELECTFORUMS">Selecteaza forumurile de la care vrei sa renunti.</Resource>
-	</page>
-	<page name="EMAILTOPIC">
-		<!-- emailtopic.aspx -->
-		<Resource tag="TITLE">Trimite o pagina unui prieten</Resource>
-		<Resource tag="TO">Trimite la (Adresa email):</Resource>
-		<Resource tag="SUBJECT">Subiect:</Resource>
-		<Resource tag="MESSAGE">Mesaj:</Resource>
-		<Resource tag="SEND">Trimite email</Resource>
-		<Resource tag="NEED_EMAIL">Trebuie sa introduci o adresa de email.</Resource>
-		<Resource tag="FAILED">Nu s-a reusit trimiterea.\n\n{0}</Resource>
-	</page>
-	<page name="INFO">
-		<!-- info.aspx -->
-		<Resource tag="CONTINUE">Continua...</Resource>
-		<Resource tag="MODERATED">Avand in vedere ca acest forum este moderat, un moderator al forumului treuie sa aprobe ceea ce ai postat	inainte sa fie vizibil.</Resource>
-		<Resource tag="SUSPENDED">Contul tau a fost temporar suspendat. Acesta suspendare va fi pina{0}.</Resource>
-    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
-    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
-    <Resource tag="EXCEPTION">You are logged in as</Resource>
-    <Resource tag="TITLE_MODERATED">Information</Resource>
-    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
-    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
-    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
-    <Resource tag="TITLE_EXCEPTION">Information</Resource>
+    <Resource tag="VOTES">Voturi</Resource>
+    <Resource tag="WARN_ALREADY_VOTED">Ai votat deja.</Resource>
+    <Resource tag="WARN_EMAILLOGIN">Trebuie sa fiii inregistrat sa poti trimite email.</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Forum inchis.</Resource>
+    <Resource tag="WARN_PMLOGIN">Trebuie sa fii logat ca sa poti trimite mesaje private.</Resource>
+    <Resource tag="WARN_POLL_CLOSED">Poll is closed.</Resource>
+    <Resource tag="WARN_TOPIC_LOCKED">Tema inchisa.</Resource>
+    <Resource tag="WARN_WATCHLOGIN">Trebuie sa fii inregistrat sa vezi aceasta tema.</Resource>
+    <Resource tag="WATCHTOPIC">Urmareste aceasta tema</Resource>
+    <Resource tag="YIM">YAHOO</Resource>
   </page>
-	<page name="LOGIN">
-		<!-- login.aspx -->
-		<Resource tag="TITLE">Intrare</Resource>
-		<Resource tag="USERNAME">Utilizator:</Resource>
-		<Resource tag="PASSWORD">Parola:</Resource>
-		<Resource tag="AUTO">Intrare automata:</Resource>
-		<Resource tag="LOSTPASSWORD">Am pierdut parola</Resource>
-		<Resource tag="FORUM_LOGIN">Intrare forum</Resource>
-		<Resource tag="EMAIL">Addresa email</Resource>
-		<Resource tag="PASSWORD_ERROR">Utilizatorul sau parola au fost incorecte. Incercati din nou.</Resource>
-		<Resource tag="RECOVER">Recupereaza parola</Resource>
-		<Resource tag="WRONG_USERNAME_EMAIL">Utilizator sau adresa de email gresite.</Resource>
-		<Resource tag="EMAIL_SENT_PASSWORD">Pe adresa ta de email a fost trimisa parola.</Resource>
-		<Resource tag="SENDPASSWORD">Trimite parola</Resource>
-		<Resource tag="BOTH_USERNAME_EMAIL">Si numele de utilizator si parola trebuiesc introduse.</Resource>
-	</page>
-	<page name="MEMBERS">
-		<!-- members.aspx -->
-		<Resource tag="TITLE">Membrii</Resource>
-		<Resource tag="USERNAME">Utilizator</Resource>
-		<Resource tag="RANK">Nivel</Resource>
-		<Resource tag="JOINED">Intregistrat la</Resource>
-		<Resource tag="POSTS">Postari</Resource>
-		<Resource tag="PAGES">{0} Pagini:</Resource>
-	</page>
-	<page name="MODERATE">
-		<!-- moderate.aspx -->
-		<Resource tag="TITLE">Moderat</Resource>
-		<Resource tag="TOPICS">Teme</Resource>
-		<Resource tag="TOPIC_STARTER">Cine a propus tema</Resource>
-		<Resource tag="REPLIES">Raspunsuri</Resource>
-		<Resource tag="VIEWS">Vizualizari</Resource>
-		<Resource tag="LASTPOST">Ultima postare</Resource>
-		<Resource tag="CONFIRM_DELETE">Stergi acesta tema?</Resource>
-		<Resource tag="BY">de {0}</Resource>
-		<Resource tag="DELETED">Tema stearsa.</Resource>
-		<Resource tag="NO_POSTS">Nu sunt postari</Resource>
-		<Resource tag="MEMBERS">Membrii</Resource>
-		<Resource tag="USER">Utilizator</Resource>
-		<Resource tag="ACCEPTED">Acceptat</Resource>
-		<Resource tag="ACCESSMASK">Masca de acces</Resource>
-		<Resource tag="EDIT">Editare</Resource>
-		<Resource tag="REMOVE">Stergere</Resource>
-		<Resource tag="INVITE">Invita utilizator</Resource>
-	</page>
-	<page name="MOVETOPIC">		<!-- movetopic.aspx -->
-		<Resource tag="TITLE">Muta tema</Resource>
-		<Resource tag="SELECT_FORUM">Selecteaza forumul unde vrei sa muti postarea:</Resource>
-		<Resource tag="MOVE">Muta tema</Resource>
-	</page>
+  <page name="PRINTTOPIC">
+    <Resource tag="POSTEDBY">Postat de </Resource>
+  </page>
+  <page name="PROFILE">
+    <Resource tag="ABOUT">Despre</Resource>
+    <Resource tag="ADMIN_USER">Admin User</Resource>
+    <Resource tag="AIM">AIM-Name:</Resource>
+    <Resource tag="AVATAR">Imagine</Resource>
+    <Resource tag="CONTACT">Contact</Resource>
+    <Resource tag="DAYS">zile</Resource>
+    <Resource tag="EMAIL">E-mail:</Resource>
+    <Resource tag="ENDS">Suspendarea utilizatorului se termina la:</Resource>
+    <Resource tag="ERROR_ADMINISTRATORS">Nu poti suspenda administratorii.</Resource>
+    <Resource tag="ERROR_FORUMMODERATORS">Nu poti suspenda moderatorii.</Resource>
+    <Resource tag="ERROR_GUESTACCOUNT">Nu poti suspenda contul de oaspete.</Resource>
+    <Resource tag="GENDER">Sex:</Resource>
+    <Resource tag="GENDER0">Unsure</Resource>
+    <Resource tag="GENDER1">Barbat</Resource>
+    <Resource tag="GENDER2">Femeie</Resource>
+    <Resource tag="GROUPS">Groupuri:</Resource>
+    <Resource tag="HOURS">ore</Resource>
+    <Resource tag="ICQ">ICQ-Number:</Resource>
+    <Resource tag="INTERESTS">Interese:</Resource>
+    <Resource tag="JOINED">A intrat:</Resource>
+    <Resource tag="LAST10">Ultimile 10 postari</Resource>
+    <Resource tag="LASTVISIT">Ultima vizita:</Resource>
+    <Resource tag="MEMBERS">Memberii</Resource>
+    <Resource tag="MINUTES">minute</Resource>
+    <Resource tag="MSN">MSN Messenger:</Resource>
+    <Resource tag="NUMALL">{0:N2}% din toate postarile</Resource>
+    <Resource tag="NUMDAY">{0:N2} postari pe zi</Resource>
+    <Resource tag="NUMPOSTS">Numarul de postari:</Resource>
+    <Resource tag="OCCUPATION">Ocupatie:</Resource>
+    <Resource tag="PM">Mesaj privat:</Resource>
+    <Resource tag="POSTED">Postat:</Resource>
+    <Resource tag="PROFILE">Profil:</Resource>
+    <Resource tag="RANK">Nivel:</Resource>
+    <Resource tag="REALNAME">Nume real:</Resource>
+    <Resource tag="REMOVESUSPENSION">Scoate suspendare</Resource>
+    <Resource tag="SEARCHUSER">View All Posts by User</Resource>
+    <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="STATISTICS">Statistici</Resource>
+    <Resource tag="SUSPEND">Suspenda</Resource>
+    <Resource tag="SUSPEND_USER">Suspend User:</Resource>
+    <Resource tag="TOPIC">Tema:</Resource>
+    <Resource tag="USERNAME">Utilizator:</Resource>
+    <Resource tag="WEBLOG">Weblog:</Resource>
+    <Resource tag="WEBSITE">Pagina personala:</Resource>
+    <Resource tag="YIM">Yahoo Messenger:</Resource>
+  </page>
+  <page name="RECOVER_PASSWORD">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
+    <Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
+    <Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
+    <Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name to retrieve your password:</Resource>
+    <Resource tag="PAGE2_INSTRUCTIONS">Answer the following question to receive your password:</Resource>
+    <Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
+    <Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
+    <Resource tag="TITLE">Lost Password</Resource>
+    <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
+  </page>
+  <page name="REGISTER">
+    <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
+    <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
+    <Resource tag="ALREADY_REGISTERED">Utilizator sau adresa de email deja existenta.</Resource>
+    <Resource tag="BAD_EMAIL">Ai introdus adresa de email gresita.</Resource>
+    <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
+    <Resource tag="CONTINUE">Continue</Resource>
+    <Resource tag="CREATE_USER">Create User</Resource>
+    <Resource tag="DETAILS">Detalii de inregistrare</Resource>
+    <Resource tag="EMAIL">Adresa Email</Resource>
+    <Resource tag="HOMEPAGE">Pagina personala</Resource>
+    <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
+    <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
+    <Resource tag="LOCATION">Locatia</Resource>
+    <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+    <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
+    <Resource tag="NEED_MATCH">Parolele nu se potrivesc.</Resource>
+    <Resource tag="NEED_PASSWORD">Parola este  necesara.</Resource>
+    <Resource tag="NEED_QUESTION">Security question is required.</Resource>
+    <Resource tag="NEED_USERNAME">Numele de utilizator este necesar.</Resource>
+    <Resource tag="PASSWORD">Parola</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PREFERENCES">Preferinte forum</Resource>
+    <Resource tag="PROFILE">Informatii profil</Resource>
+    <Resource tag="REGISTER">Inregistrare</Resource>
+    <Resource tag="RETYPE_PASSWORD">Reintrodu parola</Resource>
+    <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
+    <Resource tag="SECURITY_QUESTION">Security Question</Resource>
+    <Resource tag="TERMS_AND_CONDITIONS_TITLE">Terms and Conditions</Resource>
+    <Resource tag="TIMEZONE">Timpul zonal</Resource>
+    <Resource tag="TITLE">Inregistreaza nou utilizator</Resource>
+    <Resource tag="USERNAME">Utilizator</Resource>
+    <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
+  </page>
+  <page name="RTE">
+    <Resource tag="BOLD">Ingrosat</Resource>
+    <Resource tag="CENTER">Centru</Resource>
+    <Resource tag="CLEAR">Sterge formatarea</Resource>
+    <Resource tag="FORMATTED">Formatat</Resource>
+    <Resource tag="IMAGE">Adauga imagine</Resource>
+    <Resource tag="INDENT">Micsorare</Resource>
+    <Resource tag="ITALIC">Italic</Resource>
+    <Resource tag="LEFT">Aliniaza la stanga</Resource>
+    <Resource tag="LINK">Introduce legatura</Resource>
+    <Resource tag="NORMAL">Normal</Resource>
+    <Resource tag="ORDERED">Lista de ordine</Resource>
+    <Resource tag="OUTDENT">Marire</Resource>
+    <Resource tag="RIGHT">Aliniaza la dreapta</Resource>
+    <Resource tag="SPELL">Verifica gramatical</Resource>
+    <Resource tag="UNDERLINE">Subliniat</Resource>
+    <Resource tag="UNORDERED">Lista neordonata</Resource>
+  </page>
+  <page name="RULES">
+    <Resource tag="ACCEPT">I agree to these Rules and Policies</Resource>
+    <Resource tag="DECLINE">I do not agree to these Rules and Policies</Resource>
+    <Resource tag="RULES_TEXT" editType="bbcode">
+      [size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
 
-	<page name="PMESSAGE">
-		<!-- pmessage.aspx -->
-		<Resource tag="TITLE">Scrie un mesaj privat</Resource>
-		<Resource tag="PREVIEWTITLE">Previzualizare:</Resource>
-		<Resource tag="TO">Pentru:</Resource>
-		<Resource tag="SUBJECT">Subiect:</Resource>
-		<Resource tag="MESSAGE">Mesaj:</Resource>
-		<Resource tag="NEED_TO">Nu ai specificat cui sa se adreseze mesajul.</Resource>
-		<Resource tag="NEED_SUBJECT">Trebuie sa introduci un subiect.</Resource>
-		<Resource tag="NEED_MESSAGE">Nu ai scis nimic in mesaj.</Resource>
-		<Resource tag="SAVE">Postare</Resource>
-		<Resource tag="NO_SUCH_USER">Nu exista nici utilizator de tipul asta.</Resource>
-		<Resource tag="NOT_GUEST">Nu poti trimite un mesaj privat unui oaspete.</Resource>
-		<Resource tag="FINDUSERS">Cauta utilizatori</Resource>
-		<Resource tag="ALLUSERS">Toti utilizatorii</Resource>
-	</page>
-	<page name="POSTMESSAGE">
-		<!-- postmessage.aspx -->
-		<Resource tag="NEWTOPIC">Propune o nou tema</Resource>
-		<Resource tag="REPLY">Trimite un raspuns</Resource>
-		<Resource tag="PREVIEW">Previzualizare</Resource>
-		<Resource tag="PREVIEWTITLE">Previzualizare:</Resource>
-		<Resource tag="SUBJECT">Subiect:</Resource>
-		<Resource tag="FROM">De la :</Resource>
-		<Resource tag="PRIORITY">Prioritate:</Resource>
-		<Resource tag="MESSAGE">Mesaj:</Resource>
-		<Resource tag="LAST10">Ultimile 10 postari (In ordinea inversa)</Resource>
-		<Resource tag="NORMAL">Normal</Resource>
-		<Resource tag="STICKY">Lipicios</Resource>
-		<Resource tag="ANNOUNCEMENT">Anunt</Resource>
-		<Resource tag="CREATEPOLL">Creaza chestionar</Resource>
-		<Resource tag="POLLQUESTION">Intrebare chestionar:</Resource>
-		<Resource tag="CHOICE1">Alegerea 1:</Resource>
-		<Resource tag="CHOICE2">Alegerea 2:</Resource>
-		<Resource tag="CHOICE3">Alegerea 3:</Resource>
-		<Resource tag="CHOICE4">Alegerea 4:</Resource>
-		<Resource tag="CHOICE5">Alegerea 5:</Resource>
-		<Resource tag="CHOICE6">Alegerea 6:</Resource>
-		<Resource tag="CHOICE7">Alegerea 7:</Resource>
-		<Resource tag="CHOICE8">Alegerea 8:</Resource>
-		<Resource tag="CHOICE9">Alegerea 9:</Resource>
-		<Resource tag="NEED_SUBJECT">Introduceti un subiect la mesaj.</Resource>
-		<Resource tag="WAIT">Nu mai poti posta in urmatoarele {0:N0} secunde.</Resource>
-		<Resource tag="POSTED">Scris :</Resource>
-		<Resource tag="SAVE">Postare</Resource>
-		<Resource tag="NEED_QUESTION">Trebuie sa introduci o intrebare in chestionar.</Resource>
-		<Resource tag="NEED_CHOICES">Un chestionar trebuie sa contina cel putin 2 intrebari.</Resource>
-	</page>
-	<page name="PRINTTOPIC">
-		<!-- printtopic.aspx -->
-		<Resource tag="POSTEDBY">Postat de </Resource>
-	</page>
-	<page name="PROFILE">
-		<!-- profile.aspx -->
-		<Resource tag="MEMBERS">Memberii</Resource>
-		<Resource tag="PROFILE">Profil:</Resource>
-		<Resource tag="ABOUT">Despre</Resource>
-		<Resource tag="USERNAME">Utilizator:</Resource>
-		<Resource tag="GROUPS">Groupuri:</Resource>
-		<Resource tag="RANK">Nivel:</Resource>
-		<Resource tag="JOINED">A intrat:</Resource>
-		<Resource tag="EMAIL">E-mail:</Resource>
-		<Resource tag="LASTVISIT">Ultima vizita:</Resource>
-		<Resource tag="STATISTICS">Statistici</Resource>
-		<Resource tag="NUMPOSTS">Numarul de postari:</Resource>
-		<Resource tag="LAST10">Ultimile 10 postari</Resource>
-		<Resource tag="TOPIC">Tema:</Resource>
-		<Resource tag="POSTED">Postat:</Resource>
-		<Resource tag="ENDS">Suspendarea utilizatorului se termina la:</Resource>
-		<Resource tag="REMOVESUSPENSION">Scoate suspendare</Resource>
-		<Resource tag="SUSPEND">Suspenda</Resource>
-		<Resource tag="DAYS">zile</Resource>
-		<Resource tag="HOURS">ore</Resource>
-		<Resource tag="MINUTES">minute</Resource>
-		<Resource tag="AVATAR">Imagine</Resource>
-		<Resource tag="CONTACT">Contact</Resource>
-		<Resource tag="PM">Mesaj privat:</Resource>
-		<Resource tag="MSN">MSN Messenger:</Resource>
-		<Resource tag="YIM">Yahoo Messenger:</Resource>
-		<Resource tag="AIM">AIM-Name:</Resource>
-		<Resource tag="ICQ">ICQ-Number:</Resource>
-		<Resource tag="REALNAME">Nume real:</Resource>
-		<Resource tag="WEBSITE">Pagina personala:</Resource>
-		<Resource tag="WEBLOG">Weblog:</Resource>
-		<Resource tag="OCCUPATION">Ocupatie:</Resource>
-		<Resource tag="INTERESTS">Interese:</Resource>
-		<Resource tag="GENDER">Sex:</Resource>
-		<Resource tag="GENDER0">Unsure</Resource>
-		<Resource tag="GENDER1">Barbat</Resource>
-		<Resource tag="GENDER2">Femeie</Resource>
-		<Resource tag="NUMALL">{0:N2}% din toate postarile</Resource>
-		<Resource tag="NUMDAY">{0:N2} postari pe zi</Resource>
-		<Resource tag="ERROR_ADMINISTRATORS">Nu poti suspenda administratorii.</Resource>
-		<Resource tag="ERROR_FORUMMODERATORS">Nu poti suspenda moderatorii.</Resource>
-		<Resource tag="ERROR_GUESTACCOUNT">Nu poti suspenda contul de oaspete.</Resource>
-	</page>
-	<page name="REGISTER">
-		<!-- register.aspx -->
-		<Resource tag="TITLE">Inregistreaza nou utilizator</Resource>
-		<Resource tag="DETAILS">Detalii de inregistrare</Resource>
-		<Resource tag="USERNAME">Utilizator</Resource>
-		<Resource tag="NEED_USERNAME">Numele de utilizator este necesar.</Resource>
-		<Resource tag="PASSWORD">Parola</Resource>
-		<Resource tag="NEED_PASSWORD">Parola este  necesara.</Resource>
-		<Resource tag="RETYPE_PASSWORD">Reintrodu parola</Resource>
-		<Resource tag="NEED_MATCH">Parolele nu se potrivesc.</Resource>
-		<Resource tag="EMAIL">Adresa Email</Resource>
-		<Resource tag="PROFILE">Informatii profil</Resource>
-		<Resource tag="LOCATION">Locatia</Resource>
-		<Resource tag="HOMEPAGE">Pagina personala</Resource>
-		<Resource tag="PREFERENCES">Preferinte forum</Resource>
-		<Resource tag="TIMEZONE">Timpul zonal</Resource>
-		<Resource tag="ALREADY_REGISTERED">Utilizator sau adresa de email deja existenta.</Resource>
-		<Resource tag="REGISTER">Inregistrare</Resource>
-		<Resource tag="BAD_EMAIL">Ai introdus adresa de email gresita.</Resource>
-	</page>
-	<page name="SEARCH">
-		<!-- search.aspx -->
-		<Resource tag="TITLE">Cauta</Resource>
-		<Resource tag="BTNSEARCH">Cauta</Resource>
-		<Resource tag="RESULTS">Rezultate</Resource>
-		<Resource tag="TOPIC">Tema:</Resource>
-		<Resource tag="POSTED">Postat:</Resource>
-		<Resource tag="ALLFORUMS">Toate forumurile</Resource>
-		<Resource tag="RESULT5">5 rezultate pe pagina</Resource>
-		<Resource tag="RESULT10">10 rezultate pe pagina</Resource>
-		<Resource tag="RESULT25">25 results per page</Resource>
-		<Resource tag="RESULT50">50 rezultate pe pagina</Resource>
-		<Resource tag="POSTS">Postari</Resource>
-		<Resource tag="POSTEDBY">Postat de</Resource>
-		<Resource tag="MATCH_ALL">Potrivire toate cuvintele</Resource>
-		<Resource tag="MATCH_ANY">Potriveste orice cuvant</Resource>
-		<Resource tag="MATCH_EXACT">Potriveste exact fraza</Resource>
-		<Resource tag="BY">de</Resource>
-	</page>
-	<page name="MODERATE_DEFAULT">
-		<Resource tag="TITLE">Modereaza</Resource>
-		<Resource tag="FORUM">Forum</Resource>
-		<Resource tag="UNAPPROVED">Postari neaprobate</Resource>
-		<Resource tag="CATEGORY">Categorie</Resource>
-	</page>
-	<page name="MODERATE_FORUM">
-		<Resource tag="UNAPPROVED">Postari neaprobate</Resource>
-		<Resource tag="TOP">Inapoi sus</Resource>
-		<Resource tag="APPROVE">Aproba postare</Resource>
-		<Resource tag="DELETE">Sterge postare</Resource>
-		<Resource tag="ASK_DELETE">Stergi acesta postare?</Resource>
-		<Resource tag="APPROVED">Postare aprobata.</Resource>
-		<Resource tag="DELETED">Postare aprobata.</Resource>
-	</page>
-	<page name="MOD_FORUMUSER">
-		<Resource tag="TITLE">Utilizator forum</Resource>
-		<Resource tag="USER">Utilizator:</Resource>
-		<Resource tag="FIND">Cauta utilizator</Resource>
-		<Resource tag="ACCESSMASK">Masca de acces:</Resource>
-		<Resource tag="UPDATE">Actualizare</Resource>
-		<Resource tag="CANCEL">Renunta</Resource>
-	</page>
-	<page name="RTE">
-		<Resource tag="BOLD">Ingrosat</Resource>
-		<Resource tag="ITALIC">Italic</Resource>
-		<Resource tag="UNDERLINE">Subliniat</Resource>
-		<Resource tag="LEFT">Aliniaza la stanga</Resource>
-		<Resource tag="CENTER">Centru</Resource>
-		<Resource tag="RIGHT">Aliniaza la dreapta</Resource>
-		<Resource tag="ORDERED">Lista de ordine</Resource>
-		<Resource tag="UNORDERED">Lista neordonata</Resource>
-		<Resource tag="OUTDENT">Marire</Resource>
-		<Resource tag="INDENT">Micsorare</Resource>
-		<Resource tag="LINK">Introduce legatura</Resource>
-		<Resource tag="IMAGE">Adauga imagine</Resource>
-		<Resource tag="SPELL">Verifica gramatical</Resource>
-		<Resource tag="NORMAL">Normal</Resource>
-		<Resource tag="CLEAR">Sterge formatarea</Resource>
-		<Resource tag="FORMATTED">Formatat</Resource>
-	</page>
-	<page name="AVATAR">
-		<Resource tag="TITLE">Imagini</Resource>
-		<Resource tag="EDITPROFILE">Editeaza Profil</Resource>
-	</page>
-	<page name="IM_YIM">
-		<Resource tag="TITLE">Yahoo! Messenger</Resource>
-	</page>
-	<page name="IM_AIM">
-		<Resource tag="TITLE">AOL Instant Messenger</Resource>
-	</page>
-	<page name="IM_ICQ">
-		<Resource tag="TITLE">ICQ</Resource>
-		<Resource tag="NAME">Numele tau:</Resource>
-		<Resource tag="EMAIL">E-mail:</Resource>
-		<Resource tag="SEND">Trimite mesaj</Resource>
-		<Resource tag="BODY">Type your message here:</Resource>
-	</page>
-	<page name="IM_EMAIL">
-		<Resource tag="TITLE">E-mail</Resource>
-		<Resource tag="SEND">Trimite E-mail</Resource>
-		<Resource tag="SUBJECT">Subiect:</Resource>
-		<Resource tag="BODY">Introdu mesaj aici:</Resource>
-		<Resource tag="ERROR">A fost o eroare in trimiterea  e-mail-ului.</Resource>
-	</page>
+      You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.
+
+      You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot	be held responsible for any hacking attempt that may lead to the data being compromised.
+
+      This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information	you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your	registration details and password (and for sending new passwords should you forget your current one).
+
+      You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.[/size]
+
+      [center][size=6][b]By clicking "Agree" below you will to be bound by the terms and conditions for using this forum.[/b][/size][/center]
+    </Resource>
+    <Resource tag="TITLE">Forum Rules and Policies</Resource>
+  </page>
+  <page name="SEARCH">
+    <Resource tag="ALLFORUMS">Toate forumurile</Resource>
+    <Resource tag="BTNSEARCH">Cauta</Resource>
+    <Resource tag="BY">de</Resource>
+    <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
+    <Resource tag="MATCH_ALL">Potrivire toate cuvintele</Resource>
+    <Resource tag="MATCH_ANY">Potriveste orice cuvant</Resource>
+    <Resource tag="MATCH_EXACT">Potriveste exact fraza</Resource>
+    <Resource tag="NO_SEARCH_RESULTS">[b]No results found for search.[/b]</Resource>
+    <Resource tag="POSTED">Postat:</Resource>
+    <Resource tag="POSTEDBY">Postat de</Resource>
+    <Resource tag="POSTS">Postari</Resource>
+    <Resource tag="RESULT10">10 rezultate pe pagina</Resource>
+    <Resource tag="RESULT25">25 results per page</Resource>
+    <Resource tag="RESULT5">5 rezultate pe pagina</Resource>
+    <Resource tag="RESULT50">50 rezultate pe pagina</Resource>
+    <Resource tag="RESULTS">Rezultate</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="TITLE">Cauta</Resource>
+    <Resource tag="TOPIC">Tema:</Resource>
+  </page>
+  <page name="SHOWSMILIES">
+    <Resource tag="CLOSE_WINDOW">Close Window</Resource>
+    <Resource tag="HEADER_CODE">Code</Resource>
+    <Resource tag="HEADER_MEANING">Meaning</Resource>
+    <Resource tag="HEADER_SMILE">Smile</Resource>
+    <Resource tag="TITLE">Available Smilies</Resource>
+  </page>
+  <page name="TEMPLATES">
+    <Resource tag="CHANGEEMAIL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;Change Email&lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class="style1"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
+&lt;p class="style1"&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
+&lt;p class="style1"&gt; Just confirm the change by clicking this link:&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+&lt;p class="style1"&gt; And enter approval key:&lt;/p&gt;
+&lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
+&lt;p class="style1"&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+    <Resource tag="CHANGEEMAIL_TEXT">
+Hello {user},
+
+Your request to change your email address to {newemail} is almost complete!
+
+Just confirm the change by clicking this link:
+
+{link}
+
+And enter approval key:
+
+{key}
+
+If you did not request a change to your email address please simply ignore this email.
+
+{forumname} at {forumlink}
+</Resource>
+    <Resource tag="EMAILTOPIC">
+Hello!
+
+{user} thought you might be interested in reading this:
+
+{link}
+</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;Password Retrieval&lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class="style1"&gt; A new password has been generated for you on &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+&lt;p class="style1"&gt; Please return to the site and log in using the following information:&lt;/p&gt;
+&lt;blockquote&gt;&lt;span class="style1"&gt;
+User Name: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
+Password: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_TEXT">
+A new password has been generated for you on {forumname} at {forumlink}.
+
+Please return to the site and log in using the following information:
+
+User Name: {username}
+Password: {password}
+</Resource>
+    <Resource tag="PMNOTIFICATION_HTML" editType="html" />
+    <Resource tag="PMNOTIFICATION_TEXT">
+A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+    <Resource tag="TOPICPOST_HTML" editType="html" />
+    <Resource tag="TOPICPOST_TEXT">
+A new message has been posted in the thread {topic} at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+    <Resource tag="VERIFYEMAIL_HTML" editType="html" />
+    <Resource tag="VERIFYEMAIL_TEXT">
+You have requested to join {forumname}, but before you can join your email address must be verified.
+
+To verify your email address open the following link in your web browser:
+
+{link}
+
+Your approval key is:
+
+{key}
+
+Visit {forumname} at {forumlink}
+</Resource>
+  </page>
+  <page name="TIMEZONES">
+    <Resource tag="GMT0">(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
+    <Resource tag="GMT1">(GMT+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="GMT-1">(GMT-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="GMT10">(GMT+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
+    <Resource tag="GMT11">(GMT+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="GMT-11">(GMT-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien</Resource>
+    <Resource tag="GMT2">(GMT+2:00) Kaliningrad, South Africa</Resource>
+    <Resource tag="GMT-2">(GMT-2:00) Mid-Atlantic, Ascention Is., St Helena</Resource>
+    <Resource tag="GMT3">(GMT+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="GMT-3">(GMT-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
+    <Resource tag="GMT3.5">(GMT+3:30) Tehran</Resource>
+    <Resource tag="GMT-3.5">(GMT-3:30) Newfoundland</Resource>
+    <Resource tag="GMT4">(GMT+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+    <Resource tag="GMT4.5">(GMT+4:30) Kabul</Resource>
+    <Resource tag="GMT5">(GMT+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
+    <Resource tag="GMT5.5">(GMT+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="GMT6">(GMT+6:00) Almaty, Colomba, Dhakra</Resource>
+    <Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="GMT7">(GMT+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
+    <Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
+    <Resource tag="GMT8">(GMT+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
+    <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
+    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
+    <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) Eniwetok, Kwajalein</Resource>
+    <Resource tag="UTC2">(UTC+2:00) Jerusalem, Kaliningrad, South Africa</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Ascension</Resource>
+    <Resource tag="UTC3">(UTC+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
+    <Resource tag="UTC3.5">(UTC+3:30) Tehran</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
+    <Resource tag="UTC4">(UTC+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="UTC-4">(UTC-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+    <Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
+    <Resource tag="UTC5">(UTC+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
+    <Resource tag="UTC5.5">(UTC+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
+    <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
+    <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
+  </page>
+  <page name="TOOLBAR">
+    <Resource tag="ACTIVETOPICS">Teme active</Resource>
+    <Resource tag="ADMIN">Admin</Resource>
+    <Resource tag="HELP">Help</Resource>
+    <Resource tag="LOGGED_IN_AS">Logat ca: {0}</Resource>
+    <Resource tag="LOGIN">Intrare</Resource>
+    <Resource tag="LOGOUT">Iesire</Resource>
+    <Resource tag="LOGOUT_QUESTION">Are you sure you want to logout?</Resource>
+    <Resource tag="MEMBERS">Membrii</Resource>
+    <Resource tag="MODERATE">Modereaza</Resource>
+    <Resource tag="MYPROFILE">Profilul meu</Resource>
+    <Resource tag="NEWPM">({0} Unread)</Resource>
+    <Resource tag="REGISTER">Inregistrare</Resource>
+    <Resource tag="SEARCH">Cauta</Resource>
+    <Resource tag="WELCOME_GUEST">Bine ai venit OASPETE</Resource>
+  </page>
+  <page name="TOPICS">
+    <Resource tag="ALL">Toate</Resource>
+    <Resource tag="BY">de {0}</Resource>
+    <Resource tag="CREATED">Creat</Resource>
+    <Resource tag="FORUMUSERS">Utilizatori de sunt pe forum</Resource>
+    <Resource tag="GOTO_POST_PAGER">[ Goto Page: {0} ]</Resource>
+    <Resource tag="INFO_UNWATCH_FORUM">You will no longer be notified when new posts are made in this forum.</Resource>
+    <Resource tag="INFO_WATCH_FORUM">Vei fi notificat cand vor aparea noi postari in acest forum.</Resource>
+    <Resource tag="LAST_DAY">din ultima zi</Resource>
+    <Resource tag="LAST_MONTH">din ultima luna</Resource>
+    <Resource tag="LAST_SIX_MONTHS">din ultimile sase luni</Resource>
+    <Resource tag="LAST_TWO_DAYS">din ultimile doua zile</Resource>
+    <Resource tag="LAST_TWO_MONTHS">din ultimile doua luni</Resource>
+    <Resource tag="LAST_TWO_WEEKS">din ulimile doua saptamani</Resource>
+    <Resource tag="LAST_WEEK">din ultima saptamana</Resource>
+    <Resource tag="LAST_YEAR">din ultimul an</Resource>
+    <Resource tag="LASTPOST">Ultimul post</Resource>
+    <Resource tag="MARKREAD">Marcheaza forumul ca fiind  citit</Resource>
+    <Resource tag="NO_POSTS">Nu sunt postari</Resource>
+    <Resource tag="REPLIES">Raspunsuri</Resource>
+    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SHOWTOPICS">Arata teme</Resource>
+    <Resource tag="SUBFORUMS">Sub forumuri</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
+    <Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
+    <Resource tag="TOPIC_STARTER">Inceput tema</Resource>
+    <Resource tag="TOPICS">Teme</Resource>
+    <Resource tag="UNWATCHFORUM">Unwatch Forum</Resource>
+    <Resource tag="VIEWS">Vederi</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Forum inchis.</Resource>
+    <Resource tag="WARN_LOGIN_FORUMWATCH">Trebuie sa te inregistrezi sa poti vezi forumul.</Resource>
+    <Resource tag="WATCHFORUM">Urmareste forum</Resource>
+    <Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
+  </page>
 </Resources>

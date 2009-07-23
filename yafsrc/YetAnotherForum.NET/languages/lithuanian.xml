@@ -1,14 +1,113 @@
-﻿<?xml version="1.0"?>
-<Resources language="Lithuanian" code="lt">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Lithuanian" code="lt">
+  <page name="ACTIVE">
+    <Resource tag="BY">iš {0} </Resource>
+    <Resource tag="LAST_24">(Last 24 hours) </Resource>
+    <Resource tag="LAST_DAY">paskutinę dieną </Resource>
+    <Resource tag="LAST_HOUR">paskutinės valandos </Resource>
+    <Resource tag="LAST_MONTH">Per pastarąjį mėnesį </Resource>
+    <Resource tag="LAST_TWO_DAYS">paskutines dvi dienas </Resource>
+    <Resource tag="LAST_TWO_HOURS">Paskutines dvi valandas </Resource>
+    <Resource tag="LAST_TWO_WEEKS">paskutines dvi savaites </Resource>
+    <Resource tag="LAST_VISIT">paskutinio vizito metu {0} </Resource>
+    <Resource tag="LAST_WEEK">praėjusią savaitę </Resource>
+    <Resource tag="LASTPOST">Last Post </Resource>
+    <Resource tag="NO_POSTS">Komentarų nėra </Resource>
+    <Resource tag="REPLIES">Atsakymai </Resource>
+    <Resource tag="RSSFEED">Rss feed </Resource>
+    <Resource tag="SINCE">Nuo </Resource>
+    <Resource tag="TITLE">Active Discussions </Resource>
+    <Resource tag="TOPIC_STARTER">Tema Pradedančiųjų </Resource>
+    <Resource tag="TOPICS">Temos </Resource>
+    <Resource tag="VIEWS">Žiūrėti </Resource>
+  </page>
+  <page name="ACTIVEUSERS">
+    <Resource tag="ACTIVE">Aktyvus </Resource>
+    <Resource tag="BROWSER">Naršyklė </Resource>
+    <Resource tag="LAST_ACTIVE">Paskutinis aktyvus </Resource>
+    <Resource tag="LOGGED_IN">Logged In </Resource>
+    <Resource tag="MINUTES">{0:N0} minučių </Resource>
+    <Resource tag="PLATFORM">Platforma </Resource>
+    <Resource tag="TITLE">Aktyvūs naudotojai </Resource>
+    <Resource tag="USERNAME">Vartotojo vardas </Resource>
+  </page>
+  <page name="APPROVE">
+    <Resource tag="EMAIL_VERIFIED">Jūsų el.pašto adresas patvirtintas. </Resource>
+    <Resource tag="EMAIL_VERIFY_FAILED">
+      Nepavyko patikrinti elektroninio pašto
+
+      adresą. 
+    </Resource>
+    <Resource tag="ENTER_KEY">Įveskite patvirtinimo raktas </Resource>
+    <Resource tag="TITLE">Patvirtinkite elektroninio pašto adresas </Resource>
+    <Resource tag="VALIDATE">Patvirtinti </Resource>
+  </page>
+  <page name="ATTACHMENTS">
+    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Types</Resource>
+    <Resource tag="ASK_DELETE">Ištrinti šį priedą? </Resource>
+    <Resource tag="DELETE">Ištrinti </Resource>
+    <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
+    <Resource tag="ERROR_TOOBIG">Jūs negalite pridėti failus, kad didelis. </Resource>
+    <Resource tag="FILEERROR">"{0}" yra neteisingas failo įkėlimui. </Resource>
+    <Resource tag="FILENAME">Failo vardas </Resource>
+    <Resource tag="SELECT_FILE">Pasirinkite failą, kurį norite įkelti. </Resource>
+    <Resource tag="SIZE">Dydis </Resource>
+    <Resource tag="TITLE">Priedai </Resource>
+    <Resource tag="UPLOAD">Įkelti </Resource>
+    <Resource tag="UPLOAD_TITLE">Įkelti failą </Resource>
+  </page>
+  <page name="AVATAR">
+    <Resource tag="EDITPROFILE">Keisti Avataras </Resource>
+    <Resource tag="TITLE">Avataros </Resource>
+  </page>
+  <page name="BBCODEMODULE">
+    <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
+    <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
+    <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
+    <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
+  </page>
+  <page name="BUTTON">
+    <Resource tag="BUTTON_ATTACH">Attach</Resource>
+    <Resource tag="BUTTON_ATTACH_TT">Attach files to this post</Resource>
+    <Resource tag="BUTTON_DELETE">Delete</Resource>
+    <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
+    <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
+    <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
+    <Resource tag="BUTTON_EDIT">Edit</Resource>
+    <Resource tag="BUTTON_EDIT_TT">Edit this Post</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC">Lock Topic</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC_TT">Lock this topic</Resource>
+    <Resource tag="BUTTON_MODERATE">Moderate</Resource>
+    <Resource tag="BUTTON_MODERATE_TT">Delete, lock, unlock, and move topics this forum</Resource>
+    <Resource tag="BUTTON_MOVE">Move</Resource>
+    <Resource tag="BUTTON_MOVE_TT">Move this Post</Resource>
+    <Resource tag="BUTTON_MOVETOPIC">Move Topic</Resource>
+    <Resource tag="BUTTON_MOVETOPIC_TT">Move this topic</Resource>
+    <Resource tag="BUTTON_NEWPM">New PM</Resource>
+    <Resource tag="BUTTON_NEWPM_TT">Create a new private message</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
+    <Resource tag="BUTTON_POSTREPLY">Post Reply</Resource>
+    <Resource tag="BUTTON_POSTREPLY_TT">Post a reply to this topic</Resource>
+    <Resource tag="BUTTON_QUOTE">Quote</Resource>
+    <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
+    <Resource tag="BUTTON_REPLY">Reply</Resource>
+    <Resource tag="BUTTON_REPLY_TT">Reply to Message</Resource>
+    <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
+    <Resource tag="BUTTON_UNDELETE_TT">Undelete this Post</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
+  </page>
   <page name="COMMON">
-    <!-- common... -->
-    <Resource tag="POWERED_BY">Powered by {0} versija {1} </Resource>
-    <Resource tag="GENERATED">Šis puslapis buvo sugeneruotas per {0:N3} sekundes. </Resource>
-    <Resource tag="SAVE">Išsaugoti </Resource>
-    <Resource tag="CANCEL">Atšaukti -- </Resource>
-    <Resource tag="FORUM_JUMP">Forumas Peršokti </Resource>
-    <Resource tag="CAN_POST">Jūs [b] gali [/b] po naujų temų šiame forume. </Resource>
-    <Resource tag="CAN_REPLY">Jūs [b] gali [/b] atsakykite į temas šiame forume. </Resource>
+    <Resource tag="BACK">Atgal </Resource>
+    <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
+    <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
+    <Resource tag="BBCODE_CODE">Kodas: </Resource>
+    <Resource tag="BBCODE_QUOTE">Citata: </Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} rašė: </Resource>
     <Resource tag="CAN_DELETE">
       Jūs [b] gali [/b] ištrinti savo pranešimų šiame
 
@@ -20,13 +119,10 @@
       forume. 
     </Resource>
     <Resource tag="CAN_POLL">Jūs [b] gali [/b] kurti apklausos šiame forume. </Resource>
+    <Resource tag="CAN_POST">Jūs [b] gali [/b] po naujų temų šiame forume. </Resource>
+    <Resource tag="CAN_REPLY">Jūs [b] gali [/b] atsakykite į temas šiame forume. </Resource>
     <Resource tag="CAN_VOTE">Jūs [b] gali [/b] balsavimui apklausos šiame forume. </Resource>
-    <Resource tag="CANNOT_POST">Jūs [b] negalima [/b] po naujų temų šiame forume. </Resource>
-    <Resource tag="CANNOT_REPLY">
-      Jūs [b] negalima [/b] atsakykite į temas šiame
-
-      forume. 
-    </Resource>
+    <Resource tag="CANCEL">Atšaukti -- </Resource>
     <Resource tag="CANNOT_DELETE">
       Jūs [b] negalima [/b] ištrinti savo pranešimų šiame
 
@@ -42,20 +138,49 @@
 
       forume. 
     </Resource>
+    <Resource tag="CANNOT_POST">Jūs [b] negalima [/b] po naujų temų šiame forume. </Resource>
+    <Resource tag="CANNOT_REPLY">
+      Jūs [b] negalima [/b] atsakykite į temas šiame
+
+      forume. 
+    </Resource>
     <Resource tag="CANNOT_VOTE">
       Jūs [b] negalima [/b] balsavimui apklausos šiame
 
       forume. 
     </Resource>
+    <Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
+    <Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
+    <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
+    <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
+    <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
+    <Resource tag="FONT_COLOR">Font Color:</Resource>
+    <Resource tag="FONT_SIZE">Font Size:</Resource>
+    <Resource tag="FORMAT_DATE_LONG">D </Resource>
+    <Resource tag="FORMAT_DATE_SHORT">d </Resource>
+    <Resource tag="FORMAT_DATE_TIME_LONG">F </Resource>
+    <Resource tag="FORMAT_DATE_TIME_SHORT">G </Resource>
+    <Resource tag="FORMAT_TIME">T </Resource>
+    <Resource tag="FORUM_JUMP">Forumas Peršokti </Resource>
+    <Resource tag="GENERATED">Šis puslapis buvo sugeneruotas per {0:N3} sekundes. </Resource>
+    <Resource tag="GO">GO</Resource>
+    <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+    <Resource tag="HIDDEN">Hidden</Resource>
+    <Resource tag="LOADING">Loading...</Resource>
+    <Resource tag="MAX_ONLINE">Daugiausia vartotojų buvo {0}, {1}. </Resource>
+    <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
+    <Resource tag="OK">OK</Resource>
+    <Resource tag="PAGES">Pages</Resource>
+    <Resource tag="PM_NOTIFICATION_SUBJECT">
+      Naujas Asmeninis pranešimas iš {0} į
+
+      {1} 
+    </Resource>
+    <Resource tag="POWERED_BY">Powered by {0} versija {1} </Resource>
     <Resource tag="REGMAIL_SENT">
       A laiškas buvo nusiųstas. Patikrinkite savo pašto dėžutę ir
 
       paspauskite nuorodą paštu. 
-    </Resource>
-    <Resource tag="UNREAD_MSG">
-      Jūs {0} neskaitytų pranešimą (-us) į aplanką Gauti
-
-      laiškai 
     </Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">
       A paštas bus išsiųsti, kai būsite užregistruoti.
@@ -64,332 +189,92 @@
 
       paštu. 
     </Resource>
-    <!-- Find out how to modify these date/time strings at: 
-
-http://msdn.microsoft.com/library/default.asp?url=/library/en-
-
-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
-    <Resource tag="FORMAT_DATE_TIME_LONG">F </Resource>
-    <Resource tag="FORMAT_DATE_TIME_SHORT">G </Resource>
-    <Resource tag="FORMAT_DATE_LONG">D </Resource>
-    <Resource tag="FORMAT_DATE_SHORT">d </Resource>
-    <Resource tag="FORMAT_TIME">T </Resource>
-    <Resource tag="MAX_ONLINE">Daugiausia vartotojų buvo {0}, {1}. </Resource>
-    <Resource tag="BBCODE_QUOTE">Citata: </Resource>
-    <Resource tag="BBCODE_QUOTEWROTE">{0} rašė: </Resource>
-    <Resource tag="BBCODE_CODE">Kodas: </Resource>
+    <Resource tag="SAVE">Išsaugoti </Resource>
+    <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">
       Tema Prenumerata Nauja žinutė Pranešimas (iš
 
       {0}) 
     </Resource>
-    <Resource tag="PM_NOTIFICATION_SUBJECT">
-      Naujas Asmeninis pranešimas iš {0} į
+    <Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
+    <Resource tag="TT_ALIGNLEFT">Left Justify</Resource>
+    <Resource tag="TT_ALIGNRIGHT">Right Justify</Resource>
+    <Resource tag="TT_BOLD">Bold</Resource>
+    <Resource tag="TT_CODE">Code</Resource>
+    <Resource tag="TT_CREATELINK">Create Link</Resource>
+    <Resource tag="TT_CUSTOMBBCODE">More BBCode Tags</Resource>
+    <Resource tag="TT_IMAGE">Insert Image</Resource>
+    <Resource tag="TT_ITALIC">Italic</Resource>
+    <Resource tag="TT_QUOTE">Quote</Resource>
+    <Resource tag="TT_UNDERLINE">Underline</Resource>
+    <Resource tag="UNREAD_MSG">
+      Jūs {0} neskaitytų pranešimą (-us) į aplanką Gauti
 
-      {1} 
+      laiškai 
     </Resource>
-    <Resource tag="BACK">Atgal </Resource>
     <Resource tag="UPDATE">Atnaujinti </Resource>
   </page>
-  <page name="TOOLBAR">
-    <!-- "Toolbar" at top of most pages -->
-    <Resource tag="SEARCH">Ieškoti </Resource>
-    <Resource tag="ADMIN">Administratorius </Resource>
-    <Resource tag="MODERATE">Vidutiniškas </Resource>
-    <Resource tag="ACTIVETOPICS">Active Discussions </Resource>
-    <Resource tag="MYPROFILE">Mano profilis </Resource>
-    <Resource tag="MEMBERS">Nariai </Resource>
-    <Resource tag="LOGOUT">Išsiregistruoti </Resource>
-    <Resource tag="LOGIN">Prisijungti </Resource>
-    <Resource tag="REGISTER">Registruotis </Resource>
-    <Resource tag="LOGGED_IN_AS">Prisijungęs kaip: {0} </Resource>
-    <Resource tag="WELCOME_GUEST">Sveiki, Svečias </Resource>
-    <Resource tag="HELP">Padėti </Resource>
-  </page>
-  <page name="ICONLEGEND">
-    <!-- Common icon texts -->
-    <Resource tag="NEW_POSTS">New Posts </Resource>
-    <Resource tag="NO_NEW_POSTS">No New Posts </Resource>
-    <Resource tag="ANNOUNCEMENT">Reklama </Resource>
-    <Resource tag="ANNOUNCEMENT_NEW">Skelbimas (New Posts) </Resource>
-    <Resource tag="NEW_POSTS_LOCKED">Naujos žinutės (užrakinta) </Resource>
-    <Resource tag="NO_NEW_POSTS_LOCKED">Nėra naujų žinučių (uždaryta) </Resource>
-    <Resource tag="FORUM_LOCKED">Forumas užblokuotas </Resource>
-    <Resource tag="MOVED">Perkelta </Resource>
-    <Resource tag="POLL">Apklausa </Resource>
-    <Resource tag="POLL_NEW">Apklausa (yra naujų žinučių) </Resource>
-    <Resource tag="STICKY">Sticky </Resource>
-  </page>
-  <page name="ATTACHMENTS">
-    <Resource tag="TITLE">Priedai </Resource>
-    <Resource tag="UPLOAD">Įkelti </Resource>
-    <Resource tag="SELECT_FILE">Pasirinkite failą, kurį norite įkelti. </Resource>
-    <Resource tag="UPLOAD_TITLE">Įkelti failą </Resource>
-    <Resource tag="FILENAME">Failo vardas </Resource>
-    <Resource tag="SIZE">Dydis </Resource>
-    <Resource tag="DELETE">Ištrinti </Resource>
-    <Resource tag="FILEERROR">"{0}" yra neteisingas failo įkėlimui. </Resource>
-    <Resource tag="ASK_DELETE">Ištrinti šį priedą? </Resource>
-    <Resource tag="ERROR_TOOBIG">Jūs negalite pridėti failus, kad didelis. </Resource>
-  </page>
-  <page name="DEFAULT">
-    <!-- default.aspx -->
-    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS </Resource>
-    <Resource tag="FORUM">Forumas </Resource>
-    <Resource tag="TOPICS">Temos </Resource>
-    <Resource tag="POSTS">Žinutės </Resource>
-    <Resource tag="LASTPOST">Last Post </Resource>
-    <Resource tag="MODERATORS">Moderatoriai </Resource>
-    <Resource tag="CURRENT_TIME">Dabartinis laikas: {0}. </Resource>
-    <Resource tag="LAST_VISIT">Jūsų paskutinis apsilankymas: {0}. </Resource>
-    <Resource tag="STATS_POSTS">Yra {0:N0} postų {1:N0} temomis {2:N0} forumuose. </Resource>
-    <Resource tag="STATS_LASTPOST">Paskutiniai komentarai {0} iš {1}. </Resource>
-    <Resource tag="STATS_MEMBERS">Mes {0:N0} registruoti nariai. </Resource>
-    <Resource tag="STATS_LASTMEMBER">Naujausias narys yra {0}. </Resource>
-    <Resource tag="IN">į {0} </Resource>
-    <Resource tag="BY">iš {0} </Resource>
-    <Resource tag="NO_POSTS">Komentarų nėra </Resource>
-    <Resource tag="UNREAD1">Jūs {0} neskaitytų pranešimų į jūsų pašto dėžutę. </Resource>
-    <Resource tag="UNREAD0">Jūs {0} neskaitytų žinučių aplanke Gauti laiškai. </Resource>
-    <Resource tag="INFORMATION">Informacija </Resource>
-    <Resource tag="STATS">Statistika </Resource>
-    <Resource tag="ACTIVE_USERS">Aktyvūs naudotojai </Resource>
-    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktyvių vartotojų </Resource>
-    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktyvių vartotojų </Resource>
-    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} narys </Resource>
-    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} nariai </Resource>
-    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} svečias </Resource>
-    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} lankytojai </Resource>
-    <Resource tag="VIEWING">({0} Viewing) </Resource>
-    <Resource tag="NO_FORUM_ACCESS">(Nėra prieigos) </Resource>
-    <Resource tag="MARKALL">Pažymėti visus forumus kaip skaitytus </Resource>
-    <Resource tag="GO_LAST_POST">Eiti į paskutinį pranešimą </Resource>
-    <Resource tag="ACTIVE_DISCUSSIONS">Active Discussions </Resource>
-    <Resource tag="LATEST_POSTS">Latest Posts </Resource>
-  </page>
-  <page name="TOPICS">
-    <!-- topics.aspx -->
-    <Resource tag="TOPICS">Temos </Resource>
-    <Resource tag="TOPIC_STARTER">Tema Pradedančiųjų </Resource>
-    <Resource tag="REPLIES">Atsakymai </Resource>
-    <Resource tag="VIEWS">Žiūrėti </Resource>
-    <Resource tag="LASTPOST">Last Post </Resource>
-    <Resource tag="NO_POSTS">Komentarų nėra </Resource>
-    <Resource tag="WATCHFORUM">Žiūrėti forumą </Resource>
-    <Resource tag="UNWATCHFORUM">Nebestebėti Forumas </Resource>
-    <Resource tag="SHOWTOPICS">Rodyti Temos </Resource>
-    <Resource tag="ALL">Visi </Resource>
-    <Resource tag="LAST_DAY">nuo paskutinės dienos </Resource>
-    <Resource tag="LAST_TWO_DAYS">nuo paskutinės dvi dienas </Resource>
-    <Resource tag="LAST_WEEK">nuo paskutinės savaitės </Resource>
-    <Resource tag="LAST_TWO_WEEKS">nuo paskutinės dvi savaites </Resource>
-    <Resource tag="LAST_MONTH">nuo paskutinio mėnesio </Resource>
-    <Resource tag="LAST_TWO_MONTHS">nuo pastaruosius du mėnesius </Resource>
-    <Resource tag="LAST_SIX_MONTHS">iš paskutinių šešių mėnesių </Resource>
-    <Resource tag="LAST_YEAR">iš praėjusių metų </Resource>
-    <Resource tag="BY">iš {0} </Resource>
-    <Resource tag="FORUMUSERS">Vartotojai Peržiūri šį forumą </Resource>
-    <Resource tag="CREATED">Sukurta </Resource>
-    <Resource tag="WARN_FORUM_LOCKED">Šis forumas uždarytas. </Resource>
-    <Resource tag="WARN_LOGIN_FORUMWATCH">
-      Turite būti užsiregistravęs žiūrėti
-
-      forumų. 
-    </Resource>
-    <Resource tag="INFO_WATCH_FORUM">
-      Jums bus pranešta, kai nauji etatai yra šiame
-
-      forume. 
-    </Resource>
-    <Resource tag="INFO_UNWATCH_FORUM">
-      Jums nebereikės pranešimus apie naujas žinutes padarė
-
-      šiame forume. 
-    </Resource>
-    <Resource tag="MARKREAD">Pažymėti šį forumą kaip perskaitytą </Resource>
-    <Resource tag="SUBFORUMS">{0} Subforums </Resource>
-    <Resource tag="RSSFEED">Rss feed </Resource>
-    <Resource tag="TODAYAT">[b] Šiandien [/b] į {0:T} </Resource>
-    <Resource tag="YESTERDAYAT">[b] Vakar [/b] į {0:T} </Resource>
-    <Resource tag="GOTO_POST_PAGER">[Goto Page: {0}] </Resource>
-  </page>
-  <page name="POSTS">
-    <!-- posts.aspx -->
-    <Resource tag="QUICKREPLY">Greitas atsakymas </Resource>
-    <Resource tag="QUICKREPLY_SHOW">Rodyti Greitas atsakymas </Resource>
-    <Resource tag="QUICKREPLY_HIDE">Slėpti Greitas atsakymas </Resource>
-    <Resource tag="OPTIONS">Funkcijos </Resource>
-    <Resource tag="VIEW">Vaizdas </Resource>
-    <Resource tag="POST_REPLY">Skelbti atsakymą </Resource>
-    <Resource tag="QUESTION">Apklausa Klausimas </Resource>
-    <Resource tag="CHOICE">Pasirinkta </Resource>
-    <Resource tag="VOTES">Balsavimas </Resource>
-    <Resource tag="STATISTICS">Statistika </Resource>
-    <Resource tag="PREVTOPIC">Ankstesnė tema </Resource>
-    <Resource tag="NEXTTOPIC">Kita tema </Resource>
-    <Resource tag="WATCHTOPIC">Stebėti šią temą </Resource>
-    <Resource tag="UNWATCHTOPIC">Nebestebėti šią temą </Resource>
-    <Resource tag="EMAILTOPIC">Siųsti šią temą </Resource>
-    <Resource tag="PRINTTOPIC">Spausdinti šią temą </Resource>
-    <Resource tag="RSSTOPIC">RSS </Resource>
-    <Resource tag="POSTED">Išsiųsta </Resource>
-    <Resource tag="TOP">Atgal į viršų </Resource>
-    <Resource tag="PM">PM </Resource>
-    <Resource tag="CONFIRM_DELETEMESSAGE">Ištrinti šį pranešimą? </Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Ištrinti šią temą? </Resource>
-    <Resource tag="RANK">Rangas </Resource>
-    <Resource tag="GROUPS">Grupės </Resource>
-    <Resource tag="JOINED">Prisijungė </Resource>
-    <Resource tag="POSTS">Žinutės </Resource>
-    <Resource tag="POINTS">Taškai </Resource>
-    <Resource tag="LOCATION">Vieta </Resource>
-    <Resource tag="TOPICBROWSERS">Vartotojai peržiūrėti šią temą </Resource>
-    <Resource tag="INFO_TOPIC_LOCKED">Tema buvo užrakinta. </Resource>
-    <Resource tag="INFO_TOPIC_UNLOCKED">Tema buvo atrakinta. </Resource>
-    <Resource tag="WARN_TOPIC_LOCKED">Ši tema uždaryta. </Resource>
-    <Resource tag="WARN_FORUM_LOCKED">Šis forumas uždarytas. </Resource>
-    <Resource tag="WARN_PMLOGIN">
-      Jums reikia prisijungti, jei norite siųsti privačių
-
-      žinučių.
-    </Resource>
-    <Resource tag="WARN_ALREADY_VOTED">Jūs jau balsavo. </Resource>
-    <Resource tag="WARN_POLL_CLOSED">Apklausa baigta. </Resource>
-    <Resource tag="POLL_CLOSED">(Apklausa baigtos) </Resource>
-    <Resource tag="INFO_VOTED">Dėkojame už balsavimas! </Resource>
-    <Resource tag="WARN_WATCHLOGIN">
-      Jūs turite būti prisiregistravęs stebėti
-
-      temomis. 
-    </Resource>
-    <Resource tag="INFO_WATCH_TOPIC">
-      Jums bus pranešta, kai nauji pranešimai pateikiami šioje
-
-      temoje. 
-    </Resource>
-    <Resource tag="INFO_UNWATCH_TOPIC">
-      Jums nebereikės pranešimus apie naujas žinutes
-
-      padaryti šioje temoje. 
-    </Resource>
-    <Resource tag="INFO_NOMORETOPICS">Ne daugiau temas šiame forume. </Resource>
-    <Resource tag="WARN_EMAILLOGIN">
-      Turite būti užsiregistravęs siųsti elektroninius
-
-      laiškus. 
-    </Resource>
-    <Resource tag="ATTACHMENTS">Failo priedas (-ai): </Resource>
-    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} pridedamas šią nuotrauką (-ai): </Resource>
-    <Resource tag="ATTACHMENTINFO">
-      ({0:N0} kb) atsisiuntė [b] {1:N0} [/b] kartą (-
-
-      ai). 
-    </Resource>
-    <Resource tag="NORMAL">Normalus </Resource>
-    <Resource tag="THREADED">Threaded </Resource>
-    <Resource tag="FORUM_JUMP">Forumas Peršokti </Resource>
-    <Resource tag="TIP_REPLY_TOPIC">Skelbti atsakymą </Resource>
-    <Resource tag="TIP_NEW_TOPIC">Pradėti naują temą </Resource>
-    <Resource tag="TIP_DELETE_TOPIC">Ištrinti šią temą </Resource>
-    <Resource tag="TIP_LOCK_TOPIC">Užrakinti šią temą </Resource>
-    <Resource tag="TIP_UNLOCK_TOPIC">Atrakinti šią temą </Resource>
-    <Resource tag="TIP_MOVE_TOPIC">Perkelti šią temą </Resource>
-    <Resource tag="AD_USERNAME">Rėmėjai </Resource>
-    <Resource tag="AD_SIGNATURE"></Resource>
-  </page>
-  <page name="ACTIVE">
-    <!-- active.aspx -->
-    <Resource tag="LAST_24">(Last 24 hours) </Resource>
-    <Resource tag="TITLE">Active Discussions </Resource>
-    <Resource tag="SINCE">Nuo </Resource>
-    <Resource tag="LAST_VISIT">paskutinio vizito metu {0} </Resource>
-    <Resource tag="LAST_HOUR">paskutinės valandos </Resource>
-    <Resource tag="LAST_TWO_HOURS">Paskutines dvi valandas </Resource>
-    <Resource tag="LAST_DAY">paskutinę dieną </Resource>
-    <Resource tag="LAST_TWO_DAYS">paskutines dvi dienas </Resource>
-    <Resource tag="LAST_WEEK">praėjusią savaitę </Resource>
-    <Resource tag="LAST_TWO_WEEKS">paskutines dvi savaites </Resource>
-    <Resource tag="LAST_MONTH">Per pastarąjį mėnesį </Resource>
-    <Resource tag="TOPICS">Temos </Resource>
-    <Resource tag="TOPIC_STARTER">Tema Pradedančiųjų </Resource>
-    <Resource tag="REPLIES">Atsakymai </Resource>
-    <Resource tag="RSSFEED">Rss feed </Resource>
-    <Resource tag="VIEWS">Žiūrėti </Resource>
-    <Resource tag="LASTPOST">Last Post </Resource>
-    <Resource tag="BY">iš {0} </Resource>
-    <Resource tag="NO_POSTS">Komentarų nėra </Resource>
-  </page>
-  <page name="ACTIVEUSERS">
-    <!-- activeusers.aspx -->
-    <Resource tag="TITLE">Aktyvūs naudotojai </Resource>
-    <Resource tag="USERNAME">Vartotojo vardas </Resource>
-    <Resource tag="LOGGED_IN">Logged In </Resource>
-    <Resource tag="LAST_ACTIVE">Paskutinis aktyvus </Resource>
-    <Resource tag="ACTIVE">Aktyvus </Resource>
-    <Resource tag="BROWSER">Naršyklė </Resource>
-    <Resource tag="PLATFORM">Platforma </Resource>
-    <Resource tag="MINUTES">{0:N0} minučių </Resource>
-  </page>
-  <page name="APPROVE">
-    <!-- approve.aspx -->
-    <Resource tag="TITLE">Patvirtinkite elektroninio pašto adresas </Resource>
-    <Resource tag="EMAIL_VERIFIED">Jūsų el.pašto adresas patvirtintas. </Resource>
-    <Resource tag="EMAIL_VERIFY_FAILED">
-      Nepavyko patikrinti elektroninio pašto
-
-      adresą. 
-    </Resource>
-    <Resource tag="ENTER_KEY">Įveskite patvirtinimo raktas </Resource>
-    <Resource tag="VALIDATE">Patvirtinti </Resource>
+  <page name="CP_CHANGEPASSWORD">
+    <Resource tag="CHANGE_BUTTON">Submit</Resource>
+    <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
+    <Resource tag="NEW_PASSWORD">New Password:</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">New Passwords do not match.</Resource>
+    <Resource tag="OLD_PASSWORD">Old Password:</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">New Password length minimum: {0}.</Resource>
+    <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
+    <Resource tag="TITLE">Change Password</Resource>
   </page>
   <page name="CP_EDITAVATAR">
-    <Resource tag="TITLE">Keisti Avataras </Resource>
     <Resource tag="AVATAR">Avataras </Resource>
     <Resource tag="AVATARCURRENT">Dabartinis Avataras </Resource>
-    <Resource tag="AVATARNEW">Pasirinkti naują Avataras </Resource>
-    <Resource tag="AVATARUPLOAD">Įkelti Avataras iš kompiuterio: </Resource>
     <Resource tag="AVATARDELETE">Atviras Avataras </Resource>
+    <Resource tag="AVATARNEW">Pasirinkti naują Avataras </Resource>
     <Resource tag="AVATARREMOTE">Įveskite URL Avataras serveryje naudoti: </Resource>
+    <Resource tag="AVATARTEXT">Avataras Explaination Tekstas </Resource>
+    <Resource tag="AVATARUPLOAD">Įkelti Avataras iš kompiuterio: </Resource>
+    <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
+    <Resource tag="NOAVATAR">[Nr Avataras] </Resource>
     <Resource tag="OURAVATAR">Pasirinkite Avataras mūsų Kolekcija: </Resource>
     <Resource tag="OURAVATAR_SELECT">
       Spauskite čia, jei norite pasirinkti
 
       Avataras 
     </Resource>
-    <Resource tag="AVATARTEXT">Avataras Explaination Tekstas </Resource>
-    <Resource tag="NOAVATAR">[Nr Avataras] </Resource>
+    <Resource tag="TITLE">Keisti Avataras </Resource>
+    <Resource tag="WARN_BIGFILE">Dydis vaizdo negali būti didesnis nei {0} baitų. </Resource>
+    <Resource tag="WARN_FILESIZE">Dydį vaizdus buvo {0} baitų. </Resource>
+    <Resource tag="WARN_RESIZED">Vaizdas buvo pakeistas, kad tilptų. </Resource>
+    <Resource tag="WARN_SIZE">Dydį vaizdus buvo {0} x {1} pikselių. </Resource>
     <Resource tag="WARN_TOOBIG">
       Paveikslėlio dydis negali būti didesnis nei {0} x {1}
 
       pikselių. 
     </Resource>
-    <Resource tag="WARN_SIZE">Dydį vaizdus buvo {0} x {1} pikselių. </Resource>
-    <Resource tag="WARN_RESIZED">Vaizdas buvo pakeistas, kad tilptų. </Resource>
-    <Resource tag="WARN_BIGFILE">Dydis vaizdo negali būti didesnis nei {0} baitų. </Resource>
-    <Resource tag="WARN_FILESIZE">Dydį vaizdus buvo {0} baitų. </Resource>
   </page>
   <page name="CP_EDITPROFILE">
-    <!-- cp_editprofile.aspx -->
-    <Resource tag="TITLE">Redaguoti profilį </Resource>
-    <Resource tag="LOCATION">Vieta </Resource>
-    <Resource tag="WHERE">Kur jūs gyvenate? </Resource>
+    <Resource tag="ABOUTYOU">Apie jus </Resource>
+    <Resource tag="BAD_EMAIL">Jūs įvedėte nelegalios el. </Resource>
+    <Resource tag="BAD_HOME">
+      Jūs įvedėte neteisingą adresą jūsų pagrindinį
+
+      puslapį. 
+    </Resource>
+    <Resource tag="BAD_ICQ">Jūs įvedėte nelegalios vertę savo ICQ numerį. </Resource>
+    <Resource tag="BAD_MSN">Jūs įvedėte neteisingą e-pašto adresas MSN sąskaitos. </Resource>
+    <Resource tag="BAD_WEBLOG">Jūs įvedėte neteisingą adresą savo dienoraštyje. </Resource>
+    <Resource tag="CHANGE_EMAIL">Pakeisti elektroninio pašto adresas </Resource>
+    <Resource tag="CHANGE_PASSWORD">Keisti slaptažodį </Resource>
+    <Resource tag="CONFIRMPASSWORD">Pakartotinai įveskite naują slaptažodį: </Resource>
+    <Resource tag="EMAIL">Jūs turite turėti galiojantį elektroninio pašto adresą. </Resource>
+    <Resource tag="FORUM_SETTINGS">Forumas Parametrai </Resource>
     <Resource tag="HOMEPAGE">Pradžia </Resource>
     <Resource tag="HOMEPAGE2">Jūsų puslapis: </Resource>
-    <Resource tag="TIMEZONE">Laiko juosta </Resource>
-    <Resource tag="TIMEZONE2">
-      Norėdami suteikti jums laikus ir datas savo vietos laiko, mes
-
-      turime žinoti savo laiko juostą. 
-    </Resource>
-    <Resource tag="CHANGE_PASSWORD">Keisti slaptažodį </Resource>
-    <Resource tag="OLDPASSWORD">Senas slaptažodis: </Resource>
-    <Resource tag="NEWPASSWORD">Naujas slaptažodis: </Resource>
-    <Resource tag="CONFIRMPASSWORD">Pakartotinai įveskite naują slaptažodį: </Resource>
-    <Resource tag="CHANGE_EMAIL">Pakeisti elektroninio pašto adresas </Resource>
-    <Resource tag="EMAIL">Jūs turite turėti galiojantį elektroninio pašto adresą. </Resource>
-    <Resource tag="NO_EMPTY_PASSWORD">Slaptažodis negali būti tuščias. </Resource>
-    <Resource tag="NO_PASSWORD_MATCH">Nauji slaptažodžiai nesutampa. </Resource>
-    <Resource tag="OLD_PASSWORD_WRONG">Senas slaptažodis buvo neteisus. </Resource>
+    <Resource tag="LOCATION">Vieta </Resource>
     <Resource tag="MAIL_SENT">
       A laiškas buvo nusiųstas į {0}.\n\nYou turės patvirtinti savo
 
@@ -397,233 +282,380 @@ us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
 
       pakeistas. 
     </Resource>
-    <Resource tag="FORUM_SETTINGS">Forumas Parametrai </Resource>
-    <Resource tag="SELECT_THEME">Pasirinkite norimą temą: </Resource>
-    <Resource tag="SELECT_LANGUAGE">Kokia kalba norėtumėte naudoti: </Resource>
-    <Resource tag="WEBLOG2">Jūsų Weblog: </Resource>
     <Resource tag="MESSENGER">Momentiniai prane ¹ imù paslaugos </Resource>
-    <Resource tag="ABOUTYOU">Apie jus </Resource>
-    <Resource tag="REALNAME2">Koks jūsų vardas? </Resource>
-    <Resource tag="BAD_EMAIL">Jūs įvedėte nelegalios el. </Resource>
-    <Resource tag="BAD_MSN">Jūs įvedėte neteisingą e-pašto adresas MSN sąskaitos. </Resource>
-    <Resource tag="BAD_HOME">
-      Jūs įvedėte neteisingą adresą jūsų pagrindinį
-
-      puslapį. 
-    </Resource>
-    <Resource tag="BAD_WEBLOG">Jūs įvedėte neteisingą adresą savo dienoraštyje. </Resource>
-    <Resource tag="BAD_ICQ">Jūs įvedėte nelegalios vertę savo ICQ numerį. </Resource>
+    <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
+    <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
+    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
+    <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="NEWPASSWORD">Naujas slaptažodis: </Resource>
+    <Resource tag="NO_EMPTY_PASSWORD">Slaptažodis negali būti tuščias. </Resource>
+    <Resource tag="NO_PASSWORD_MATCH">Nauji slaptažodžiai nesutampa. </Resource>
+    <Resource tag="OLD_PASSWORD_WRONG">Senas slaptažodis buvo neteisus. </Resource>
+    <Resource tag="OLDPASSWORD">Senas slaptažodis: </Resource>
+    <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">
       Gauti pranešimą elektroniniu paštu, kai gausite
 
       naują privačią žinutę? 
     </Resource>
+    <Resource tag="REALNAME2">Koks jūsų vardas? </Resource>
+    <Resource tag="SELECT_LANGUAGE">Kokia kalba norėtumėte naudoti: </Resource>
+    <Resource tag="SELECT_THEME">Pasirinkite norimą temą: </Resource>
+    <Resource tag="TIMEZONE">Laiko juosta </Resource>
+    <Resource tag="TIMEZONE2">
+      Norėdami suteikti jums laikus ir datas savo vietos laiko, mes
+
+      turime žinoti savo laiko juostą. 
+    </Resource>
+    <Resource tag="TITLE">Redaguoti profilį </Resource>
+    <Resource tag="WEBLOG2">Jūsų Weblog: </Resource>
+    <Resource tag="WHERE">Kur jūs gyvenate? </Resource>
   </page>
   <page name="CP_INBOX">
-    <!-- cp_inbox.aspx -->
-    <Resource tag="TITLE">Gauti laiškai </Resource>
-    <Resource tag="SENTITEMS">Siùstieji </Resource>
-    <Resource tag="DELETESELECTED">Trinti pažymėtus </Resource>
-    <Resource tag="SUBJECT">Dalykas </Resource>
-    <Resource tag="FROM">Nuo </Resource>
-    <Resource tag="TO">Į </Resource>
+    <Resource tag="CONFIRM_DELETE">Pašalinti visus pasirinktus žinutes? </Resource>
     <Resource tag="DATE">Data </Resource>
+    <Resource tag="DELETESELECTED">Trinti pažymėtus </Resource>
+    <Resource tag="FROM">Nuo </Resource>
     <Resource tag="MSGDELETED1">1 pranešimas buvo ištrintas. </Resource>
     <Resource tag="MSGDELETED2">{0} pranešimų buvo ištrinta. </Resource>
-    <Resource tag="CONFIRM_DELETE">Pašalinti visus pasirinktus žinutes? </Resource>
+    <Resource tag="SENTITEMS">Siùstieji </Resource>
+    <Resource tag="SUBJECT">Dalykas </Resource>
+    <Resource tag="TITLE">Gauti laiškai </Resource>
+    <Resource tag="TO">Į </Resource>
   </page>
   <page name="CP_MESSAGE">
-    <!-- cp_message.aspx -->
     <Resource tag="INBOX">Gauti laiškai </Resource>
-    <Resource tag="SENTITEMS">Siùstieji </Resource>
     <Resource tag="MSG_DELETED">Pranešimas buvo ištrintas. </Resource>
     <Resource tag="POSTED">Paskelbta: </Resource>
+    <Resource tag="SENTITEMS">Siùstieji </Resource>
+  </page>
+  <page name="CP_PM">
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="ARCHIVESELECTED">Archive Selected</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
+    <Resource tag="DATE">Date</Resource>
+    <Resource tag="DELETESELECTED">Delete Selected</Resource>
+    <Resource tag="FROM">From</Resource>
+    <Resource tag="INBOX">Inbox</Resource>
+    <Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
+    <Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
+    <Resource tag="MSG_DELETED">Message was deleted.</Resource>
+    <Resource tag="MSGDELETED1">1 message was deleted.</Resource>
+    <Resource tag="MSGDELETED2">{0} messages were deleted.</Resource>
+    <Resource tag="NEW_MESSAGE">New Message</Resource>
+    <Resource tag="NO_MESSAGES">No messages were found.</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="SENTITEMS">Sent Items</Resource>
+    <Resource tag="SUBJECT">Subject</Resource>
+    <Resource tag="TITLE">Private Messages</Resource>
+    <Resource tag="TO">To</Resource>
   </page>
   <page name="CP_PROFILE">
-    <!-- cp_profile.aspx -->
-    <Resource tag="NEW_MESSAGE">Nauja žinutė </Resource>
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
     <Resource tag="CONTROL_PANEL">Valdymo skydas </Resource>
-    <Resource tag="MESSENGER">Messenger: </Resource>
-    <Resource tag="PERSONAL_PROFILE">Asmeninis profilis: </Resource>
-    <Resource tag="INBOX">Gauti laiškai </Resource>
-    <Resource tag="SENTITEMS">Siùstieji </Resource>
-    <Resource tag="EDIT_PROFILE">Redaguoti profilį </Resource>
     <Resource tag="EDIT_AVATAR">Keisti Avataras </Resource>
+    <Resource tag="EDIT_PROFILE">Redaguoti profilį </Resource>
+    <Resource tag="EDIT_SIGNATURE">Redaguoti Parašas </Resource>
+    <Resource tag="GROUPS">Jūs esate narys šių grupių: </Resource>
+    <Resource tag="INBOX">Gauti laiškai </Resource>
+    <Resource tag="JOINED">Jūs buvote narys nuo: </Resource>
+    <Resource tag="MESSENGER">Messenger: </Resource>
+    <Resource tag="NEW_MESSAGE">Nauja žinutė </Resource>
+    <Resource tag="NUMPOSTS">Etatų skaičius: </Resource>
+    <Resource tag="PERSONAL_PROFILE">Asmeninis profilis: </Resource>
+    <Resource tag="SENTITEMS">Siùstieji </Resource>
     <Resource tag="SIGNATURE">Parašas </Resource>
     <Resource tag="SUBSCRIPTIONS">Prenumerata </Resource>
     <Resource tag="YOUR_ACCOUNT">Jūsų sąskaita </Resource>
-    <Resource tag="YOUR_USERNAME">Jūsų vartotojo vardas: </Resource>
     <Resource tag="YOUR_EMAIL">Jūsų el.pašto adresas: </Resource>
-    <Resource tag="NUMPOSTS">Etatų skaičius: </Resource>
-    <Resource tag="GROUPS">Jūs esate narys šių grupių: </Resource>
-    <Resource tag="JOINED">Jūs buvote narys nuo: </Resource>
-    <Resource tag="EDIT_SIGNATURE">Redaguoti Parašas </Resource>
+    <Resource tag="YOUR_USERNAME">Jūsų vartotojo vardas: </Resource>
   </page>
   <page name="CP_SIGNATURE">
-    <!-- cp_signature.aspx -->
-    <Resource tag="TITLE">Redaguoti Parašas </Resource>
     <Resource tag="SIGNATURE">Parašas: </Resource>
+    <Resource tag="TITLE">Redaguoti Parašas </Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">
-    <!-- cp_subscriptions.aspx -->
-    <Resource tag="TITLE">Prenumerata </Resource>
-    <Resource tag="FORUMS">Forumai </Resource>
     <Resource tag="FORUM">Forumas </Resource>
-    <Resource tag="TOPICS">Temos </Resource>
-    <Resource tag="REPLIES">Atsakymai </Resource>
+    <Resource tag="FORUMS">Forumai </Resource>
     <Resource tag="LASTPOST">Last Post </Resource>
-    <Resource tag="TOPIC">Tema </Resource>
-    <Resource tag="VIEWS">Žiūrėti </Resource>
-    <Resource tag="UNSUBSCRIBE">Atsisakyti </Resource>
     <Resource tag="LASTPOSTLINK">{0} iš {1} </Resource>
-    <Resource tag="WARN_SELECTTOPICS">
-      Prašome pasirinkti temas išeiti iš
-
-      pirmosios. 
-    </Resource>
+    <Resource tag="REPLIES">Atsakymai </Resource>
+    <Resource tag="TITLE">Prenumerata </Resource>
+    <Resource tag="TOPIC">Tema </Resource>
+    <Resource tag="TOPICS">Temos </Resource>
+    <Resource tag="UNSUBSCRIBE">Atsisakyti </Resource>
+    <Resource tag="VIEWS">Žiūrėti </Resource>
     <Resource tag="WARN_SELECTFORUMS">
       Prašome pasirinkti forumuose išeiti iš
 
       pirmosios. 
     </Resource>
+    <Resource tag="WARN_SELECTTOPICS">
+      Prašome pasirinkti temas išeiti iš
+
+      pirmosios. 
+    </Resource>
+  </page>
+  <page name="DEFAULT">
+    <Resource tag="ACTIVE_DISCUSSIONS">Active Discussions </Resource>
+    <Resource tag="ACTIVE_USERS">Aktyvūs naudotojai </Resource>
+    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktyvių vartotojų </Resource>
+    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktyvių vartotojų </Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} svečias </Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} lankytojai </Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} narys </Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} nariai </Resource>
+    <Resource tag="BY">iš {0} </Resource>
+    <Resource tag="CURRENT_TIME">Dabartinis laikas: {0}. </Resource>
+    <Resource tag="FORUM">Forumas </Resource>
+    <Resource tag="GO_LAST_POST">Eiti į paskutinį pranešimą </Resource>
+    <Resource tag="IN">į {0} </Resource>
+    <Resource tag="INFORMATION">Informacija </Resource>
+    <Resource tag="LAST_VISIT">Jūsų paskutinis apsilankymas: {0}. </Resource>
+    <Resource tag="LASTPOST">Last Post </Resource>
+    <Resource tag="LATEST_POSTS">Latest Posts </Resource>
+    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS </Resource>
+    <Resource tag="MARKALL">Pažymėti visus forumus kaip skaitytus </Resource>
+    <Resource tag="MODERATORS">Moderatoriai </Resource>
+    <Resource tag="NO_FORUM_ACCESS">(Nėra prieigos) </Resource>
+    <Resource tag="NO_POSTS">Komentarų nėra </Resource>
+    <Resource tag="POSTS">Žinutės </Resource>
+    <Resource tag="STATS">Statistika </Resource>
+    <Resource tag="STATS_LASTMEMBER">Naujausias narys yra {0}. </Resource>
+    <Resource tag="STATS_LASTPOST">Paskutiniai komentarai {0} iš {1}. </Resource>
+    <Resource tag="STATS_MEMBERS">Mes {0:N0} registruoti nariai. </Resource>
+    <Resource tag="STATS_POSTS">Yra {0:N0} postų {1:N0} temomis {2:N0} forumuose. </Resource>
+    <Resource tag="TOPICS">Temos </Resource>
+    <Resource tag="UNREAD0">Jūs {0} neskaitytų žinučių aplanke Gauti laiškai. </Resource>
+    <Resource tag="UNREAD1">Jūs {0} neskaitytų pranešimų į jūsų pašto dėžutę. </Resource>
+    <Resource tag="VIEWING">({0} Viewing) </Resource>
+  </page>
+  <page name="DELETEMESSAGE">
+    <Resource tag="DELETE">Delete</Resource>
+    <Resource tag="DELETE_REASON">Delete reason</Resource>
+    <Resource tag="ERASEMESSAGE">Erase message from the database (irreversible)</Resource>
+    <Resource tag="FROM">From:</Resource>
+    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="PREVIEWTITLE">Message:</Resource>
+    <Resource tag="PRIORITY">Priority:</Resource>
+    <Resource tag="SUBJECT">Subject:</Resource>
+    <Resource tag="UNDELETE">Undelete</Resource>
+    <Resource tag="UNDELETE_REASON">Undelete reason</Resource>
+    <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
   </page>
   <page name="EMAILTOPIC">
-    <!-- emailtopic.aspx -->
+    <Resource tag="FAILED">Nepavyko išsiųsti laišką.\n\n {0} </Resource>
+    <Resource tag="MESSAGE">Žinutė: </Resource>
+    <Resource tag="NEED_EMAIL">Jūs turite įvesti elektroninio pašto adresą. </Resource>
+    <Resource tag="SEND">Send Email </Resource>
+    <Resource tag="SUBJECT">Tema: </Resource>
     <Resource tag="TITLE">Siųsti puslapį draugui </Resource>
     <Resource tag="TO">Siųsti (elektroninio pašto adresas): </Resource>
+  </page>
+  <page name="ICONLEGEND">
+    <Resource tag="ANNOUNCEMENT">Reklama </Resource>
+    <Resource tag="ANNOUNCEMENT_NEW">Skelbimas (New Posts) </Resource>
+    <Resource tag="FORUM_LOCKED">Forumas užblokuotas </Resource>
+    <Resource tag="MOVED">Perkelta </Resource>
+    <Resource tag="NEW_POSTS">New Posts </Resource>
+    <Resource tag="NEW_POSTS_LOCKED">Naujos žinutės (užrakinta) </Resource>
+    <Resource tag="NO_NEW_POSTS">No New Posts </Resource>
+    <Resource tag="NO_NEW_POSTS_LOCKED">Nėra naujų žinučių (uždaryta) </Resource>
+    <Resource tag="POLL">Apklausa </Resource>
+    <Resource tag="POLL_NEW">Apklausa (yra naujų žinučių) </Resource>
+    <Resource tag="STICKY">Sticky </Resource>
+  </page>
+  <page name="IM_AIM">
+    <Resource tag="TITLE">AOL Instant Messenger </Resource>
+  </page>
+  <page name="IM_EMAIL">
+    <Resource tag="BODY">Rašykite savo žinutę čia: </Resource>
+    <Resource tag="ERROR">Įvyko klaida meginant išsiūsti Jūsų e-laišką.</Resource>
+    <Resource tag="SEND">Siųsti E-PASTOJE </Resource>
     <Resource tag="SUBJECT">Tema: </Resource>
-    <Resource tag="MESSAGE">Žinutė: </Resource>
-    <Resource tag="SEND">Send Email </Resource>
-    <Resource tag="NEED_EMAIL">Jūs turite įvesti elektroninio pašto adresą. </Resource>
-    <Resource tag="FAILED">Nepavyko išsiųsti laišką.\n\n {0} </Resource>
+    <Resource tag="TITLE">E-paštas </Resource>
+  </page>
+  <page name="IM_ICQ">
+    <Resource tag="BODY">Įveskite savo žinutę čia: </Resource>
+    <Resource tag="EMAIL">Jūsų E-mail: </Resource>
+    <Resource tag="NAME">Jūsų vardas: </Resource>
+    <Resource tag="SEND">Siųsti laišką </Resource>
+    <Resource tag="TITLE">ICQ </Resource>
+  </page>
+  <page name="IM_SKYPE">
+    <Resource tag="TITLE">Skype(tm) Calling</Resource>
+  </page>
+  <page name="IM_YIM">
+    <Resource tag="TITLE">Yahoo! Messenger </Resource>
   </page>
   <page name="INFO">
-    <!-- info.aspx -->
+    <Resource tag="ACCESSDENIED">Jūs bandėte įvesti, kur Jūs neturėjo galimybės. </Resource>
     <Resource tag="CONTINUE">Toliau ... </Resource>
+    <Resource tag="DISABLED">The administrator of this forum has disabled this feature.</Resource>
+    <Resource tag="EXCEPTION">Jūs esate prisijungęs kaip </Resource>
+    <Resource tag="FAILURE">There's been a system error processing your request. Please contact the forum admin explaining what you were doing when it happened.</Resource>
+    <Resource tag="INVALID">You've passed an invalid value to the forum.</Resource>
     <Resource tag="MODERATED">
       Kadangi jūsų į forumą, forumo moderatorius turi patvirtinti
 
       savo pareigas, kol ji taps matomas. 
-    </Resource>
-    <Resource tag="SUSPENDED">
-      Jūsų sąskaita buvo laikinai sustabdytas. Šis sustabdymas
-
-      baigiasi {0}. 
     </Resource>
     <Resource tag="REGISTRATION">
       Laiškas išsiųstas į elektroninio pašto adresą, kurį
 
       pateikti. Prašome atidžiai perskaityti instrukciją, norėdami prisijungti 
     </Resource>
-    <Resource tag="ACCESSDENIED">Jūs bandėte įvesti, kur Jūs neturėjo galimybės. </Resource>
-    <Resource tag="EXCEPTION">Jūs esate prisijungęs kaip </Resource>
-    <Resource tag="TITLE_MODERATED">Informacija </Resource>
-    <Resource tag="TITLE_SUSPENDED">Pakabinamos </Resource>
-    <Resource tag="TITLE_REGISTRATION">Ačiū </Resource>
+    <Resource tag="SUSPENDED">
+      Jūsų sąskaita buvo laikinai sustabdytas. Šis sustabdymas
+
+      baigiasi {0}. 
+    </Resource>
     <Resource tag="TITLE_ACCESSDENIED">Access Denied </Resource>
     <Resource tag="TITLE_EXCEPTION">Informacija </Resource>
+    <Resource tag="TITLE_FAILURE">Failure</Resource>
+    <Resource tag="TITLE_INVALID">Invalid</Resource>
+    <Resource tag="TITLE_MODERATED">Informacija </Resource>
+    <Resource tag="TITLE_REGISTRATION">Ačiū </Resource>
+    <Resource tag="TITLE_SUSPENDED">Pakabinamos </Resource>
+  </page>
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
-    <!-- login.aspx -->
-    <Resource tag="TITLE">Prisijungimas </Resource>
-    <Resource tag="USERNAME">Vartotojo vardas: </Resource>
-    <Resource tag="PASSWORD">Slaptažodis: </Resource>
     <Resource tag="AUTO">Automatinis prisijungimas: </Resource>
-    <Resource tag="LOSTPASSWORD">Pamiršote slaptažodį </Resource>
-    <Resource tag="FORUM_LOGIN">Forum Prisijungti </Resource>
+    <Resource tag="BOTH_USERNAME_EMAIL">
+      Tiek vartotojo vardą ir elektroninio pašto adresas
+
+      turi būti įrašytas. 
+    </Resource>
     <Resource tag="EMAIL">Elektroninio pašto adresas </Resource>
+    <Resource tag="EMAIL_SENT_PASSWORD">
+      A laiškas buvo nusiųstas Jūsų naujas
+
+      slaptažodis. 
+    </Resource>
+    <Resource tag="FORUM_LOGIN">Forum Prisijungti </Resource>
+    <Resource tag="LOSTPASSWORD">Pamiršote slaptažodį </Resource>
+    <Resource tag="PASSWORD">Slaptažodis: </Resource>
     <Resource tag="PASSWORD_ERROR">
       Vartotojo vardas arba slaptažodis įvedėte, yra klaidinga.
 
       Bandykite dar kartą. 
     </Resource>
     <Resource tag="RECOVER">Atkurti slaptažodį </Resource>
+    <Resource tag="RECOVER_ERROR">Įvyko klaida kuriant naują slaptažodį. </Resource>
+    <Resource tag="SENDPASSWORD">Siųsti slaptažodį </Resource>
+    <Resource tag="TITLE">Prisijungimas </Resource>
+    <Resource tag="USERNAME">Vartotojo vardas: </Resource>
     <Resource tag="WRONG_USERNAME_EMAIL">
       Neteisingas vartotojo vardas arba elektroninio pašto
 
       adresą.
     </Resource>
-    <Resource tag="EMAIL_SENT_PASSWORD">
-      A laiškas buvo nusiųstas Jūsų naujas
-
-      slaptažodis. 
-    </Resource>
-    <Resource tag="SENDPASSWORD">Siųsti slaptažodį </Resource>
-    <Resource tag="BOTH_USERNAME_EMAIL">
-      Tiek vartotojo vardą ir elektroninio pašto adresas
-
-      turi būti įrašytas. 
-    </Resource>
-    <Resource tag="RECOVER_ERROR">Įvyko klaida kuriant naują slaptažodį. </Resource>
   </page>
   <page name="MEMBERS">
-    <!-- members.aspx -->
+    <Resource tag="JOINED">Prisijungė </Resource>
+    <Resource tag="PAGES">{0} Puslapiai: </Resource>
+    <Resource tag="POSTS">Žinutės </Resource>
+    <Resource tag="RANK">Rangas </Resource>
     <Resource tag="TITLE">Nariai </Resource>
     <Resource tag="USERNAME">Vartotojo vardas </Resource>
-    <Resource tag="RANK">Rangas </Resource>
-    <Resource tag="JOINED">Prisijungė </Resource>
-    <Resource tag="POSTS">Žinutės </Resource>
-    <Resource tag="PAGES">{0} Puslapiai: </Resource>
+  </page>
+  <page name="MOD_FORUMUSER">
+    <Resource tag="ACCESSMASK">Prieiga Maskowanie: </Resource>
+    <Resource tag="CANCEL">Atšaukti </Resource>
+    <Resource tag="FIND">Rasti Vartotojai </Resource>
+    <Resource tag="TITLE">Forumas Vartotojas </Resource>
+    <Resource tag="UPDATE">Atnaujinti </Resource>
+    <Resource tag="USER">Vartotojas: </Resource>
   </page>
   <page name="MODERATE">
-    <!-- moderate.aspx -->
-    <Resource tag="TITLE">Vidutiniškas </Resource>
-    <Resource tag="TOPICS">Temos </Resource>
-    <Resource tag="TOPIC_STARTER">Tema Pradedančiųjų </Resource>
-    <Resource tag="REPLIES">Atsakymai </Resource>
-    <Resource tag="VIEWS">Žiūrėti </Resource>
-    <Resource tag="LASTPOST">Last Post </Resource>
-    <Resource tag="CONFIRM_DELETE">Ištrinti šią temą? </Resource>
-    <Resource tag="BY">iš {0} </Resource>
-    <Resource tag="DELETED">Tema ištrinta. </Resource>
-    <Resource tag="NO_POSTS">Komentarų nėra </Resource>
-    <Resource tag="MEMBERS">Nariai </Resource>
-    <Resource tag="USER">Vartotojas </Resource>
     <Resource tag="ACCEPTED">Priimtas </Resource>
     <Resource tag="ACCESSMASK">Prieiga kaukė </Resource>
+    <Resource tag="BY">iš {0} </Resource>
+    <Resource tag="CONFIRM_DELETE">Ištrinti šią temą? </Resource>
+    <Resource tag="DELETED">Tema ištrinta. </Resource>
     <Resource tag="EDIT">Redaguoti </Resource>
-    <Resource tag="REMOVE">Pašalinti </Resource>
     <Resource tag="INVITE">Kviesti Vartotojas </Resource>
+    <Resource tag="LASTPOST">Last Post </Resource>
+    <Resource tag="MEMBERS">Nariai </Resource>
+    <Resource tag="NO_POSTS">Komentarų nėra </Resource>
+    <Resource tag="REMOVE">Pašalinti </Resource>
+    <Resource tag="REPLIES">Atsakymai </Resource>
+    <Resource tag="TITLE">Vidutiniškas </Resource>
+    <Resource tag="TOPIC_STARTER">Tema Pradedančiųjų </Resource>
+    <Resource tag="TOPICS">Temos </Resource>
+    <Resource tag="USER">Vartotojas </Resource>
+    <Resource tag="VIEWS">Žiūrėti </Resource>
+  </page>
+  <page name="MODERATE_DEFAULT">
+    <Resource tag="CATEGORY">Kategorija </Resource>
+    <Resource tag="FORUM">Forumas </Resource>
+    <Resource tag="REPORTED">Reported as Abuse Posts</Resource>
+    <Resource tag="REPORTEDSPAM">Reported as Spam Posts</Resource>
+    <Resource tag="TITLE">Vidutiniškas </Resource>
+    <Resource tag="UNAPPROVED">Nepatvirtintų Žinutės </Resource>
+  </page>
+  <page name="MODERATE_FORUM">
+    <Resource tag="APPROVE">Patvirtinti Post </Resource>
+    <Resource tag="APPROVED">Pranešimas patvirtintas. </Resource>
+    <Resource tag="ASK_DELETE">Ištrinti šį pranešimą? </Resource>
+    <Resource tag="COPYOVER">Update message text</Resource>
+    <Resource tag="DELETE">Pašalinti Skelbti </Resource>
+    <Resource tag="DELETED">Pranešimas ištrintas. </Resource>
+    <Resource tag="MODIFIED">Post has been changed!</Resource>
+    <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
+    <Resource tag="RESOLVE">Resolve Post Copies</Resource>
+    <Resource tag="RESOLVED">Mark as resolved</Resource>
+    <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
+    <Resource tag="TOP">Atgal į viršų </Resource>
+    <Resource tag="UNAPPROVED">Nepatvirtintų Žinutės </Resource>
+  </page>
+  <page name="MOVEMESSAGE">
+    <Resource tag="CREATE_TOPIC">Create Topic From Message</Resource>
+    <Resource tag="EMPTY_TOPIC">Topic name is empty</Resource>
+    <Resource tag="MOVE" />
+    <Resource tag="MOVE_MESSAGE">Move Message</Resource>
+    <Resource tag="NEW_TOPIC">Create Topic to move to:</Resource>
+    <Resource tag="SELECT_FORUM_MOVETO">Select Forum to move to:</Resource>
+    <Resource tag="SELECT_TOPIC_MOVETO">Select Topic to move to:</Resource>
   </page>
   <page name="MOVETOPIC">
-    <!-- movetopic.aspx -->
-    <Resource tag="TITLE">Perkelti Tema </Resource>
-    <Resource tag="SELECT_FORUM">Pasirinkite forumą norite perkelti paštu: </Resource>
+    <Resource tag="LEAVE_POINTER">Leave link to moved topic in original forum</Resource>
     <Resource tag="MOVE">Perkelti Tema </Resource>
+    <Resource tag="SELECT_FORUM">Pasirinkite forumą norite perkelti paštu: </Resource>
+    <Resource tag="TITLE">Perkelti Tema </Resource>
   </page>
-  >
   <page name="PMESSAGE">
-    <!-- pmessage.aspx -->
-    <Resource tag="TITLE">Rašyti privačią žinutę </Resource>
-    <Resource tag="TO">Kam: </Resource>
-    <Resource tag="SUBJECT">Tema: </Resource>
+    <Resource tag="ALLUSERS">Visi vartotojai </Resource>
+    <Resource tag="CLEAR">Clear</Resource>
+    <Resource tag="FINDUSERS">Rasti Vartotojai </Resource>
+    <Resource tag="MAX_RECIPIENT_INFO">You can send message to maximum of [b]{0}[/b] users at a time.</Resource>
     <Resource tag="MESSAGE">Žinutė: </Resource>
-    <Resource tag="NEED_TO">Jūs neturite pasakė kurie žinutė yra. </Resource>
-    <Resource tag="NEED_SUBJECT">Jūs turite įvesti klausimu. </Resource>
+    <Resource tag="MULTI_RECEIVER_INFO">Separate multiple user names with ';'</Resource>
     <Resource tag="NEED_MESSAGE">Jūs neturite raštiško nieko pranešimą. </Resource>
-    <Resource tag="SAVE">Skelbti </Resource>
+    <Resource tag="NEED_MORE_LETTERS">Please enter, at least, the first two letters of the user you wish to locate.</Resource>
+    <Resource tag="NEED_SUBJECT">Jūs turite įvesti klausimu. </Resource>
+    <Resource tag="NEED_TO">Jūs neturite pasakė kurie žinutė yra. </Resource>
     <Resource tag="NO_SUCH_USER">Toks vartotojas neegzistuoja. </Resource>
     <Resource tag="NOT_GUEST">Jūs negalite siųsti privačių pranešimų svečių. </Resource>
-    <Resource tag="FINDUSERS">Rasti Vartotojai </Resource>
-    <Resource tag="ALLUSERS">Visi vartotojai </Resource>
+    <Resource tag="OWN_PMBOX_FULL">Your Private Message box is full. Maximum allowed is {0}. Please delete messages to free up space.</Resource>
+    <Resource tag="PREVIEWTITLE">Preview:</Resource>
+    <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="SAVE">Skelbti </Resource>
+    <Resource tag="SUBJECT">Tema: </Resource>
+    <Resource tag="TITLE">Rašyti privačią žinutę </Resource>
+    <Resource tag="TO">Kam: </Resource>
+    <Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
   </page>
   <page name="POSTMESSAGE">
-    <!-- postmessage.aspx -->
-    <Resource tag="NEWTOPIC">Nauja tema </Resource>
-    <Resource tag="REPLY">Siųsti atsakymą </Resource>
-    <Resource tag="EDIT">Redaguoti pranešimą </Resource>
-    <Resource tag="PREVIEW">Peržiūrėti </Resource>
-    <Resource tag="PREVIEWTITLE">Peržiūra: </Resource>
-    <Resource tag="SUBJECT">Tema: </Resource>
-    <Resource tag="FROM">Nuo: </Resource>
-    <Resource tag="PRIORITY">Prioritetas: </Resource>
-    <Resource tag="MESSAGE">Žinutė: </Resource>
-    <Resource tag="LAST10">Paskutiniai 10 komentarų (atvirkštine tvarka) </Resource>
-    <Resource tag="NORMAL">Normalus </Resource>
-    <Resource tag="STICKY">Sticky </Resource>
     <Resource tag="ANNOUNCEMENT">Reklama </Resource>
-    <Resource tag="CREATEPOLL">Sukurti Apklausa </Resource>
-    <Resource tag="POLLQUESTION">Apklausa Klausimas: </Resource>
+    <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
     <Resource tag="CHOICE1">Pasirinkimas 1: </Resource>
     <Resource tag="CHOICE2">Pasirinkimas 2: </Resource>
     <Resource tag="CHOICE3">Pasirinkimas 3: </Resource>
@@ -633,71 +665,169 @@ us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
     <Resource tag="CHOICE7">Pasirinkimas 7: </Resource>
     <Resource tag="CHOICE8">Pasirinkimas 8: </Resource>
     <Resource tag="CHOICE9">Pasirinkimas 9: </Resource>
+    <Resource tag="CREATEPOLL">Sukurti Apklausa </Resource>
+    <Resource tag="EDIT">Redaguoti pranešimą </Resource>
+    <Resource tag="EDITREASON">Reason for edit:</Resource>
+    <Resource tag="FROM">Nuo: </Resource>
+    <Resource tag="LAST10">Paskutiniai 10 komentarų (atvirkštine tvarka) </Resource>
+    <Resource tag="MESSAGE">Žinutė: </Resource>
+    <Resource tag="NEED_CHOICES">A apklausa turi bent dvi alternatyvas. </Resource>
+    <Resource tag="NEED_QUESTION">Jūs turite įvesti apklausos klausimo. </Resource>
+    <Resource tag="NEED_SUBJECT">Įveskite tema tema. </Resource>
+    <Resource tag="NEWPOSTOPTIONS">Funkcijos: </Resource>
+    <Resource tag="NEWTOPIC">Nauja tema </Resource>
+    <Resource tag="NORMAL">Normalus </Resource>
+    <Resource tag="PERSISTENCY">Persistent:</Resource>
+    <Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
     <Resource tag="POLL_EXPIRE">Vykdyti Apklausa Už: </Resource>
     <Resource tag="POLL_EXPIRE_EXPLAIN">
       [b] dienos [/b] [Palikite tuščią dėl niekada baigėsi
 
       apklausa] 
     </Resource>
-    <Resource tag="NEED_SUBJECT">Įveskite tema tema. </Resource>
-    <Resource tag="WAIT">Jūs negalite rašyti į kitą {0:N0} sekundžių. </Resource>
+    <Resource tag="POLLQUESTION">Apklausa Klausimas: </Resource>
     <Resource tag="POSTED">Paskelbta: </Resource>
+    <Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
+    <Resource tag="PREVIEW">Peržiūrėti </Resource>
+    <Resource tag="PREVIEWTITLE">Peržiūra: </Resource>
+    <Resource tag="PRIORITY">Prioritetas: </Resource>
+    <Resource tag="REMOVEPOLL">Remove Poll</Resource>
+    <Resource tag="REPLY">Siųsti atsakymą </Resource>
     <Resource tag="SAVE">Skelbti </Resource>
-    <Resource tag="NEED_QUESTION">Jūs turite įvesti apklausos klausimo. </Resource>
-    <Resource tag="NEED_CHOICES">A apklausa turi bent dvi alternatyvas. </Resource>
     <Resource tag="SMILIES_HEADER">[b] Pridėti Smiley [/b] </Resource>
-    <Resource tag="NEWPOSTOPTIONS">Funkcijos: </Resource>
+    <Resource tag="SMILIES_MORE">More Smilies...</Resource>
+    <Resource tag="STICKY">Sticky </Resource>
+    <Resource tag="SUBJECT">Tema: </Resource>
+    <Resource tag="TOPICATTACH">Pridėti failus į šį postą? </Resource>
     <Resource tag="TOPICWATCH">
       Stebėti šią temą ir gauti pranešimus apie veiklą, per e-
 
       mail? 
     </Resource>
-    <Resource tag="TOPICATTACH">Pridėti failus į šį postą? </Resource>
+    <Resource tag="WAIT">Jūs negalite rašyti į kitą {0:N0} sekundžių. </Resource>
+  </page>
+  <page name="POSTS">
+    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_USERNAME">Rėmėjai </Resource>
+    <Resource tag="AIM">AIM</Resource>
+    <Resource tag="ATTACHMENTINFO">
+      ({0:N0} kb) atsisiuntė [b] {1:N0} [/b] kartą (-
+
+      ai). 
+    </Resource>
+    <Resource tag="ATTACHMENTS">Failo priedas (-ai): </Resource>
+    <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CHOICE">Pasirinkta </Resource>
+    <Resource tag="CONFIRM_DELETEMESSAGE">Ištrinti šį pranešimą? </Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">Ištrinti šią temą? </Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
+    <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
+    <Resource tag="EDIT_REASON">Reason</Resource>
+    <Resource tag="EDIT_REASON_NA">Not specified</Resource>
+    <Resource tag="EDITED">Edit</Resource>
+    <Resource tag="EDITED_BY_MOD">by moderator</Resource>
+    <Resource tag="EDITED_BY_USER">by user</Resource>
+    <Resource tag="EMAIL">EMail</Resource>
+    <Resource tag="EMAILTOPIC">Siųsti šią temą </Resource>
+    <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="FORUM_JUMP">Forumas Peršokti </Resource>
+    <Resource tag="GROUPS">Grupės </Resource>
+    <Resource tag="HOME">WWW</Resource>
+    <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} pridedamas šią nuotrauką (-ai): </Resource>
+    <Resource tag="INFO_NOMORETOPICS">Ne daugiau temas šiame forume. </Resource>
+    <Resource tag="INFO_TOPIC_LOCKED">Tema buvo užrakinta. </Resource>
+    <Resource tag="INFO_TOPIC_UNLOCKED">Tema buvo atrakinta. </Resource>
+    <Resource tag="INFO_UNWATCH_TOPIC">
+      Jums nebereikės pranešimus apie naujas žinutes
+
+      padaryti šioje temoje. 
+    </Resource>
+    <Resource tag="INFO_VOTED">Dėkojame už balsavimas! </Resource>
+    <Resource tag="INFO_WATCH_TOPIC">
+      Jums bus pranešta, kai nauji pranešimai pateikiami šioje
+
+      temoje. 
+    </Resource>
+    <Resource tag="IP">IP</Resource>
+    <Resource tag="JOINED">Prisijungė </Resource>
+    <Resource tag="LOCATION">Vieta </Resource>
+    <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>
+    <Resource tag="MESSAGEDELETED_USER">Message was deleted by User.</Resource>
+    <Resource tag="MSN">MSN</Resource>
+    <Resource tag="NEXTTOPIC">Kita tema </Resource>
+    <Resource tag="NORMAL">Normalus </Resource>
+    <Resource tag="OPTIONS">Funkcijos </Resource>
+    <Resource tag="PM">PM </Resource>
+    <Resource tag="POINTS">Taškai </Resource>
+    <Resource tag="POLL_CLOSED">(Apklausa baigtos) </Resource>
+    <Resource tag="POST_REPLY">Skelbti atsakymą </Resource>
+    <Resource tag="POSTED">Išsiųsta </Resource>
+    <Resource tag="POSTS">Žinutės </Resource>
+    <Resource tag="PREVTOPIC">Ankstesnė tema </Resource>
+    <Resource tag="PRINTTOPIC">Spausdinti šią temą </Resource>
+    <Resource tag="QUESTION">Apklausa Klausimas </Resource>
+    <Resource tag="QUICKREPLY">Greitas atsakymas </Resource>
+    <Resource tag="QUICKREPLY_HIDE">Slėpti Greitas atsakymas </Resource>
+    <Resource tag="QUICKREPLY_SHOW">Rodyti Greitas atsakymas </Resource>
+    <Resource tag="RANK">Rangas </Resource>
+    <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
+    <Resource tag="REPORTPOST">Report Abusive</Resource>
+    <Resource tag="REPORTSPAM">Report SPAM</Resource>
+    <Resource tag="RSSTOPIC">RSS </Resource>
+    <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="STATISTICS">Statistika </Resource>
+    <Resource tag="THREADED">Threaded </Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Ištrinti šią temą </Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Užrakinti šią temą </Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Perkelti šią temą </Resource>
+    <Resource tag="TIP_NEW_TOPIC">Pradėti naują temą </Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Skelbti atsakymą </Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Atrakinti šią temą </Resource>
+    <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+    <Resource tag="TOP">Atgal į viršų </Resource>
+    <Resource tag="TOPICBROWSERS">Vartotojai peržiūrėti šią temą </Resource>
+    <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="UNWATCHTOPIC">Nebestebėti šią temą </Resource>
+    <Resource tag="USERPROFILE">User Profile</Resource>
+    <Resource tag="VIEW">Vaizdas </Resource>
+    <Resource tag="VOTES">Balsavimas </Resource>
+    <Resource tag="WARN_ALREADY_VOTED">Jūs jau balsavo. </Resource>
+    <Resource tag="WARN_EMAILLOGIN">
+      Turite būti užsiregistravęs siųsti elektroninius
+
+      laiškus. 
+    </Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Šis forumas uždarytas. </Resource>
+    <Resource tag="WARN_PMLOGIN">
+      Jums reikia prisijungti, jei norite siųsti privačių
+
+      žinučių.
+    </Resource>
+    <Resource tag="WARN_POLL_CLOSED">Apklausa baigta. </Resource>
+    <Resource tag="WARN_TOPIC_LOCKED">Ši tema uždaryta. </Resource>
+    <Resource tag="WARN_WATCHLOGIN">
+      Jūs turite būti prisiregistravęs stebėti
+
+      temomis. 
+    </Resource>
+    <Resource tag="WATCHTOPIC">Stebėti šią temą </Resource>
+    <Resource tag="YIM">YAHOO</Resource>
   </page>
   <page name="PRINTTOPIC">
-    <!-- printtopic.aspx -->
     <Resource tag="POSTEDBY">Įrašė </Resource>
   </page>
   <page name="PROFILE">
-    <!-- profile.aspx -->
-    <Resource tag="MEMBERS">Nariai </Resource>
-    <Resource tag="PROFILE">Profilis: </Resource>
     <Resource tag="ABOUT">Apie </Resource>
-    <Resource tag="USERNAME">Vartotojo vardas: </Resource>
-    <Resource tag="GROUPS">Grupės: </Resource>
-    <Resource tag="RANK">Forumo Rangas: </Resource>
-    <Resource tag="JOINED">Prisijungė: </Resource>
-    <Resource tag="EMAIL">E-mail: </Resource>
-    <Resource tag="LASTVISIT">Paskutinį kartą lankėsi: </Resource>
-    <Resource tag="STATISTICS">Statistika </Resource>
-    <Resource tag="NUMPOSTS">Komentarų skaičius: </Resource>
-    <Resource tag="LAST10">Paskutiniai 10 komentarų </Resource>
-    <Resource tag="TOPIC">Tema: </Resource>
-    <Resource tag="POSTED">Paskelbta: </Resource>
-    <Resource tag="ENDS">Vartotojo sustabdymas baigiasi: </Resource>
-    <Resource tag="REMOVESUSPENSION">Pašalinti sustabdymas </Resource>
-    <Resource tag="SUSPEND">Sustabdyti </Resource>
-    <Resource tag="DAYS">dienų </Resource>
-    <Resource tag="HOURS">valandos </Resource>
-    <Resource tag="MINUTES">minučių </Resource>
+    <Resource tag="ADMIN_USER">Admin User</Resource>
+    <Resource tag="AIM">AIM vardas: </Resource>
     <Resource tag="AVATAR">Avataras </Resource>
     <Resource tag="CONTACT">Kontaktas </Resource>
-    <Resource tag="PM">Asmeninis pranešimas: </Resource>
-    <Resource tag="MSN">MSN Messenger: </Resource>
-    <Resource tag="YIM">Yahoo Messenger: </Resource>
-    <Resource tag="AIM">AIM vardas: </Resource>
-    <Resource tag="ICQ">ICQ numeris: </Resource>
-    <Resource tag="REALNAME">Tikrasis vardas: </Resource>
-    <Resource tag="WEBSITE">Home Page: </Resource>
-    <Resource tag="WEBLOG">Weblog: </Resource>
-    <Resource tag="OCCUPATION">Užsiėmimas: </Resource>
-    <Resource tag="INTERESTS">Pomėgiai: </Resource>
-    <Resource tag="GENDER">Lytis: </Resource>
-    <Resource tag="GENDER0">Nenurodyta </Resource>
-    <Resource tag="GENDER1">Vyras </Resource>
-    <Resource tag="GENDER2">Moteris </Resource>
-    <Resource tag="NUMALL">{0:N2}% visų komentarų </Resource>
-    <Resource tag="NUMDAY">{0:N2} pranešimų per dieną </Resource>
+    <Resource tag="DAYS">dienų </Resource>
+    <Resource tag="EMAIL">E-mail: </Resource>
+    <Resource tag="ENDS">Vartotojo sustabdymas baigiasi: </Resource>
     <Resource tag="ERROR_ADMINISTRATORS">Jūs negalite sustabdyti administratorių. </Resource>
     <Resource tag="ERROR_FORUMMODERATORS">
       Jūs negalite sustabdyti forumo
@@ -705,114 +835,358 @@ us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
       moderatoriai. 
     </Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Jūs negalite sustabdyti svečių sąskaitą. </Resource>
+    <Resource tag="GENDER">Lytis: </Resource>
+    <Resource tag="GENDER0">Nenurodyta </Resource>
+    <Resource tag="GENDER1">Vyras </Resource>
+    <Resource tag="GENDER2">Moteris </Resource>
+    <Resource tag="GROUPS">Grupės: </Resource>
+    <Resource tag="HOURS">valandos </Resource>
+    <Resource tag="ICQ">ICQ numeris: </Resource>
+    <Resource tag="INTERESTS">Pomėgiai: </Resource>
+    <Resource tag="JOINED">Prisijungė: </Resource>
+    <Resource tag="LAST10">Paskutiniai 10 komentarų </Resource>
+    <Resource tag="LASTVISIT">Paskutinį kartą lankėsi: </Resource>
+    <Resource tag="MEMBERS">Nariai </Resource>
+    <Resource tag="MINUTES">minučių </Resource>
+    <Resource tag="MSN">MSN Messenger: </Resource>
+    <Resource tag="NUMALL">{0:N2}% visų komentarų </Resource>
+    <Resource tag="NUMDAY">{0:N2} pranešimų per dieną </Resource>
+    <Resource tag="NUMPOSTS">Komentarų skaičius: </Resource>
+    <Resource tag="OCCUPATION">Užsiėmimas: </Resource>
+    <Resource tag="PM">Asmeninis pranešimas: </Resource>
+    <Resource tag="POSTED">Paskelbta: </Resource>
+    <Resource tag="PROFILE">Profilis: </Resource>
+    <Resource tag="RANK">Forumo Rangas: </Resource>
+    <Resource tag="REALNAME">Tikrasis vardas: </Resource>
+    <Resource tag="REMOVESUSPENSION">Pašalinti sustabdymas </Resource>
+    <Resource tag="SEARCHUSER">View All Posts by User</Resource>
+    <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="STATISTICS">Statistika </Resource>
+    <Resource tag="SUSPEND">Sustabdyti </Resource>
+    <Resource tag="SUSPEND_USER">Suspend User:</Resource>
+    <Resource tag="TOPIC">Tema: </Resource>
+    <Resource tag="USERNAME">Vartotojo vardas: </Resource>
+    <Resource tag="WEBLOG">Weblog: </Resource>
+    <Resource tag="WEBSITE">Home Page: </Resource>
+    <Resource tag="YIM">Yahoo Messenger: </Resource>
+  </page>
+  <page name="RECOVER_PASSWORD">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
+    <Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
+    <Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
+    <Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name to retrieve your password:</Resource>
+    <Resource tag="PAGE2_INSTRUCTIONS">Answer the following question to receive your password:</Resource>
+    <Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
+    <Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
+    <Resource tag="TITLE">Lost Password</Resource>
+    <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
   </page>
   <page name="REGISTER">
-    <!-- register.aspx -->
-    <Resource tag="TITLE">Registracija Naujas vartotojas </Resource>
-    <Resource tag="DETAILS">Registracijos duomenys </Resource>
-    <Resource tag="USERNAME">Vartotojo vardas </Resource>
-    <Resource tag="NEED_USERNAME">Vartotojo vardas būtinas. </Resource>
-    <Resource tag="PASSWORD">Slaptažodis </Resource>
-    <Resource tag="NEED_PASSWORD">Slaptažodis būtinas. </Resource>
-    <Resource tag="RETYPE_PASSWORD">Pakartokite slaptažodį </Resource>
-    <Resource tag="NEED_MATCH">Slaptažodžiai nesutapo. </Resource>
-    <Resource tag="EMAIL">Elektroninio pašto adresas </Resource>
-    <Resource tag="PROFILE">Informacija apie profilio </Resource>
-    <Resource tag="LOCATION">Vieta </Resource>
-    <Resource tag="HOMEPAGE">Pradžia </Resource>
-    <Resource tag="PREFERENCES">Forumo parinktys </Resource>
-    <Resource tag="TIMEZONE">Laiko juosta </Resource>
+    <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
+    <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">
       Jūsų vardas arba elektroninio pašto adresas jau
 
       užregistruotas. 
     </Resource>
-    <Resource tag="REGISTER">Registruotis </Resource>
     <Resource tag="BAD_EMAIL">Jūs įvedėte nelegalios el. </Resource>
+    <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
+    <Resource tag="CONTINUE">Continue</Resource>
+    <Resource tag="CREATE_USER">Create User</Resource>
+    <Resource tag="DETAILS">Registracijos duomenys </Resource>
+    <Resource tag="EMAIL">Elektroninio pašto adresas </Resource>
+    <Resource tag="HOMEPAGE">Pradžia </Resource>
+    <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
+    <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
+    <Resource tag="LOCATION">Vieta </Resource>
+    <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+    <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
+    <Resource tag="NEED_MATCH">Slaptažodžiai nesutapo. </Resource>
+    <Resource tag="NEED_PASSWORD">Slaptažodis būtinas. </Resource>
+    <Resource tag="NEED_QUESTION">Security question is required.</Resource>
+    <Resource tag="NEED_USERNAME">Vartotojo vardas būtinas. </Resource>
+    <Resource tag="PASSWORD">Slaptažodis </Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PREFERENCES">Forumo parinktys </Resource>
+    <Resource tag="PROFILE">Informacija apie profilio </Resource>
+    <Resource tag="REGISTER">Registruotis </Resource>
+    <Resource tag="RETYPE_PASSWORD">Pakartokite slaptažodį </Resource>
+    <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
+    <Resource tag="SECURITY_QUESTION">Security Question</Resource>
+    <Resource tag="TERMS_AND_CONDITIONS_TITLE">Terms and Conditions</Resource>
+    <Resource tag="TIMEZONE">Laiko juosta </Resource>
+    <Resource tag="TITLE">Registracija Naujas vartotojas </Resource>
+    <Resource tag="USERNAME">Vartotojo vardas </Resource>
+    <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
+  </page>
+  <page name="RTE">
+    <Resource tag="BOLD">Paryškintas </Resource>
+    <Resource tag="CENTER">Centras </Resource>
+    <Resource tag="CLEAR">Išvalyti formatavimą </Resource>
+    <Resource tag="FORMATTED">Formatuotas </Resource>
+    <Resource tag="IMAGE">Pridėti nuotrauką </Resource>
+    <Resource tag="INDENT">Įtrauka </Resource>
+    <Resource tag="ITALIC">Kursyvas </Resource>
+    <Resource tag="LEFT">Lygiuoti kairėje </Resource>
+    <Resource tag="LINK">Įterpti nuorodą </Resource>
+    <Resource tag="NORMAL">Normalus </Resource>
+    <Resource tag="ORDERED">Užsakytas sąrašas </Resource>
+    <Resource tag="OUTDENT">Outdent </Resource>
+    <Resource tag="RIGHT">Lygiuoti dešinėje </Resource>
+    <Resource tag="SPELL">Rašybos tikrinimas </Resource>
+    <Resource tag="UNDERLINE">Pabrauktas </Resource>
+    <Resource tag="UNORDERED">Suženklintą sąrašą </Resource>
+  </page>
+  <page name="RULES">
+    <Resource tag="ACCEPT">I agree to these Rules and Policies</Resource>
+    <Resource tag="DECLINE">I do not agree to these Rules and Policies</Resource>
+    <Resource tag="RULES_TEXT" editType="bbcode">
+      [size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
+
+      You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.
+
+      You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot	be held responsible for any hacking attempt that may lead to the data being compromised.
+
+      This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information	you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your	registration details and password (and for sending new passwords should you forget your current one).
+
+      You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.[/size]
+
+      [center][size=6][b]By clicking "Agree" below you will to be bound by the terms and conditions for using this forum.[/b][/size][/center]
+    </Resource>
+    <Resource tag="TITLE">Forum Rules and Policies</Resource>
   </page>
   <page name="SEARCH">
-    <!-- search.aspx -->
-    <Resource tag="TITLE">Ieškoti </Resource>
-    <Resource tag="BTNSEARCH">Ieškoti </Resource>
-    <Resource tag="RESULTS">Rezultatai </Resource>
-    <Resource tag="TOPIC">Tema: </Resource>
-    <Resource tag="POSTED">Paskelbta: </Resource>
     <Resource tag="ALLFORUMS">Visi forumai </Resource>
-    <Resource tag="RESULT5">5 rezultatų puslapyje </Resource>
-    <Resource tag="RESULT10">10 rezultatų puslapyje </Resource>
-    <Resource tag="RESULT25">25 rezultatų puslapyje </Resource>
-    <Resource tag="RESULT50">50 rezultatų puslapyje </Resource>
-    <Resource tag="POSTS">Žinutės </Resource>
-    <Resource tag="POSTEDBY">Įrašė </Resource>
+    <Resource tag="BTNSEARCH">Ieškoti </Resource>
+    <Resource tag="BY">prie </Resource>
+    <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
     <Resource tag="MATCH_ALL">Atitikti Visi žodžiai </Resource>
     <Resource tag="MATCH_ANY">Match Bet Word </Resource>
     <Resource tag="MATCH_EXACT">Atitikimas frazės </Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b] Rezultatų nerasta paiešką. [/b] </Resource>
-    <Resource tag="BY">prie </Resource>
+    <Resource tag="POSTED">Paskelbta: </Resource>
+    <Resource tag="POSTEDBY">Įrašė </Resource>
+    <Resource tag="POSTS">Žinutės </Resource>
+    <Resource tag="RESULT10">10 rezultatų puslapyje </Resource>
+    <Resource tag="RESULT25">25 rezultatų puslapyje </Resource>
+    <Resource tag="RESULT5">5 rezultatų puslapyje </Resource>
+    <Resource tag="RESULT50">50 rezultatų puslapyje </Resource>
+    <Resource tag="RESULTS">Rezultatai </Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="TITLE">Ieškoti </Resource>
+    <Resource tag="TOPIC">Tema: </Resource>
   </page>
-  <page name="MODERATE_DEFAULT">
-    <Resource tag="TITLE">Vidutiniškas </Resource>
-    <Resource tag="FORUM">Forumas </Resource>
-    <Resource tag="UNAPPROVED">Nepatvirtintų Žinutės </Resource>
-    <Resource tag="CATEGORY">Kategorija </Resource>
+  <page name="SHOWSMILIES">
+    <Resource tag="CLOSE_WINDOW">Close Window</Resource>
+    <Resource tag="HEADER_CODE">Code</Resource>
+    <Resource tag="HEADER_MEANING">Meaning</Resource>
+    <Resource tag="HEADER_SMILE">Smile</Resource>
+    <Resource tag="TITLE">Available Smilies</Resource>
   </page>
-  <page name="MODERATE_FORUM">
-    <Resource tag="UNAPPROVED">Nepatvirtintų Žinutės </Resource>
-    <Resource tag="TOP">Atgal į viršų </Resource>
-    <Resource tag="APPROVE">Patvirtinti Post </Resource>
-    <Resource tag="DELETE">Pašalinti Skelbti </Resource>
-    <Resource tag="ASK_DELETE">Ištrinti šį pranešimą? </Resource>
-    <Resource tag="APPROVED">Pranešimas patvirtintas. </Resource>
-    <Resource tag="DELETED">Pranešimas ištrintas. </Resource>
+  <page name="TEMPLATES">
+    <Resource tag="CHANGEEMAIL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;Change Email&lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class="style1"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
+&lt;p class="style1"&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
+&lt;p class="style1"&gt; Just confirm the change by clicking this link:&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+&lt;p class="style1"&gt; And enter approval key:&lt;/p&gt;
+&lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
+&lt;p class="style1"&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+    <Resource tag="CHANGEEMAIL_TEXT">
+Hello {user},
+
+Your request to change your email address to {newemail} is almost complete!
+
+Just confirm the change by clicking this link:
+
+{link}
+
+And enter approval key:
+
+{key}
+
+If you did not request a change to your email address please simply ignore this email.
+
+{forumname} at {forumlink}
+</Resource>
+    <Resource tag="EMAILTOPIC">
+Hello!
+
+{user} thought you might be interested in reading this:
+
+{link}
+</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;Password Retrieval&lt;/title&gt;
+&lt;style type="text/css"&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class="style1"&gt; A new password has been generated for you on &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+&lt;p class="style1"&gt; Please return to the site and log in using the following information:&lt;/p&gt;
+&lt;blockquote&gt;&lt;span class="style1"&gt;
+User Name: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
+Password: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_TEXT">
+A new password has been generated for you on {forumname} at {forumlink}.
+
+Please return to the site and log in using the following information:
+
+User Name: {username}
+Password: {password}
+</Resource>
+    <Resource tag="PMNOTIFICATION_HTML" editType="html" />
+    <Resource tag="PMNOTIFICATION_TEXT">
+A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+    <Resource tag="TOPICPOST_HTML" editType="html" />
+    <Resource tag="TOPICPOST_TEXT">
+A new message has been posted in the thread {topic} at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+    <Resource tag="VERIFYEMAIL_HTML" editType="html" />
+    <Resource tag="VERIFYEMAIL_TEXT">
+You have requested to join {forumname}, but before you can join your email address must be verified.
+
+To verify your email address open the following link in your web browser:
+
+{link}
+
+Your approval key is:
+
+{key}
+
+Visit {forumname} at {forumlink}
+</Resource>
   </page>
-  <page name="MOD_FORUMUSER">
-    <Resource tag="TITLE">Forumas Vartotojas </Resource>
-    <Resource tag="USER">Vartotojas: </Resource>
-    <Resource tag="FIND">Rasti Vartotojai </Resource>
-    <Resource tag="ACCESSMASK">Prieiga Maskowanie: </Resource>
-    <Resource tag="UPDATE">Atnaujinti </Resource>
-    <Resource tag="CANCEL">Atšaukti </Resource>
+  <page name="TIMEZONES">
+    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
+    <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) Eniwetok, Kwajalein</Resource>
+    <Resource tag="UTC2">(UTC+2:00) Jerusalem, Kaliningrad, South Africa</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Ascension</Resource>
+    <Resource tag="UTC3">(UTC+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
+    <Resource tag="UTC3.5">(UTC+3:30) Tehran</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
+    <Resource tag="UTC4">(UTC+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="UTC-4">(UTC-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+    <Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
+    <Resource tag="UTC5">(UTC+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
+    <Resource tag="UTC5.5">(UTC+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Mountain Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
+    <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
   </page>
-  <page name="RTE">
-    <Resource tag="BOLD">Paryškintas </Resource>
-    <Resource tag="ITALIC">Kursyvas </Resource>
-    <Resource tag="UNDERLINE">Pabrauktas </Resource>
-    <Resource tag="LEFT">Lygiuoti kairėje </Resource>
-    <Resource tag="CENTER">Centras </Resource>
-    <Resource tag="RIGHT">Lygiuoti dešinėje </Resource>
-    <Resource tag="ORDERED">Užsakytas sąrašas </Resource>
-    <Resource tag="UNORDERED">Suženklintą sąrašą </Resource>
-    <Resource tag="OUTDENT">Outdent </Resource>
-    <Resource tag="INDENT">Įtrauka </Resource>
-    <Resource tag="LINK">Įterpti nuorodą </Resource>
-    <Resource tag="IMAGE">Pridėti nuotrauką </Resource>
-    <Resource tag="SPELL">Rašybos tikrinimas </Resource>
-    <Resource tag="NORMAL">Normalus </Resource>
-    <Resource tag="CLEAR">Išvalyti formatavimą </Resource>
-    <Resource tag="FORMATTED">Formatuotas </Resource>
+  <page name="TOOLBAR">
+    <Resource tag="ACTIVETOPICS">Active Discussions </Resource>
+    <Resource tag="ADMIN">Administratorius </Resource>
+    <Resource tag="HELP">Padėti </Resource>
+    <Resource tag="LOGGED_IN_AS">Prisijungęs kaip: {0} </Resource>
+    <Resource tag="LOGIN">Prisijungti </Resource>
+    <Resource tag="LOGOUT">Išsiregistruoti </Resource>
+    <Resource tag="LOGOUT_QUESTION">Are you sure you want to logout?</Resource>
+    <Resource tag="MEMBERS">Nariai </Resource>
+    <Resource tag="MODERATE">Vidutiniškas </Resource>
+    <Resource tag="MYPROFILE">Mano profilis </Resource>
+    <Resource tag="NEWPM">({0} Unread)</Resource>
+    <Resource tag="REGISTER">Registruotis </Resource>
+    <Resource tag="SEARCH">Ieškoti </Resource>
+    <Resource tag="WELCOME_GUEST">Sveiki, Svečias </Resource>
   </page>
-  <page name="AVATAR">
-    <Resource tag="TITLE">Avataros </Resource>
-    <Resource tag="EDITPROFILE">Keisti Avataras </Resource>
-  </page>
-  <page name="IM_YIM">
-    <Resource tag="TITLE">Yahoo! Messenger </Resource>
-  </page>
-  <page name="IM_AIM">
-    <Resource tag="TITLE">AOL Instant Messenger </Resource>
-  </page>
-  <page name="IM_ICQ">
-    <Resource tag="TITLE">ICQ </Resource>
-    <Resource tag="NAME">Jūsų vardas: </Resource>
-    <Resource tag="EMAIL">Jūsų E-mail: </Resource>
-    <Resource tag="SEND">Siųsti laišką </Resource>
-    <Resource tag="BODY">Įveskite savo žinutę čia: </Resource>
-  </page>
-  <page name="IM_EMAIL">
-    <Resource tag="TITLE">E-paštas </Resource>
-    <Resource tag="SEND">Siųsti E-PASTOJE </Resource>
-    <Resource tag="SUBJECT">Tema: </Resource>
-    <Resource tag="BODY">Rašykite savo žinutę čia: </Resource>
-    <Resource tag="ERROR">Įvyko klaida meginant išsiūsti Jūsų e-laišką.</Resource>
+  <page name="TOPICS">
+    <Resource tag="ALL">Visi </Resource>
+    <Resource tag="BY">iš {0} </Resource>
+    <Resource tag="CREATED">Sukurta </Resource>
+    <Resource tag="FORUMUSERS">Vartotojai Peržiūri šį forumą </Resource>
+    <Resource tag="GOTO_POST_PAGER">[Goto Page: {0}] </Resource>
+    <Resource tag="INFO_UNWATCH_FORUM">
+      Jums nebereikės pranešimus apie naujas žinutes padarė
+
+      šiame forume. 
+    </Resource>
+    <Resource tag="INFO_WATCH_FORUM">
+      Jums bus pranešta, kai nauji etatai yra šiame
+
+      forume. 
+    </Resource>
+    <Resource tag="LAST_DAY">nuo paskutinės dienos </Resource>
+    <Resource tag="LAST_MONTH">nuo paskutinio mėnesio </Resource>
+    <Resource tag="LAST_SIX_MONTHS">iš paskutinių šešių mėnesių </Resource>
+    <Resource tag="LAST_TWO_DAYS">nuo paskutinės dvi dienas </Resource>
+    <Resource tag="LAST_TWO_MONTHS">nuo pastaruosius du mėnesius </Resource>
+    <Resource tag="LAST_TWO_WEEKS">nuo paskutinės dvi savaites </Resource>
+    <Resource tag="LAST_WEEK">nuo paskutinės savaitės </Resource>
+    <Resource tag="LAST_YEAR">iš praėjusių metų </Resource>
+    <Resource tag="LASTPOST">Last Post </Resource>
+    <Resource tag="MARKREAD">Pažymėti šį forumą kaip perskaitytą </Resource>
+    <Resource tag="NO_POSTS">Komentarų nėra </Resource>
+    <Resource tag="REPLIES">Atsakymai </Resource>
+    <Resource tag="RSSFEED">Rss feed </Resource>
+    <Resource tag="SHOWTOPICS">Rodyti Temos </Resource>
+    <Resource tag="SUBFORUMS">{0} Subforums </Resource>
+    <Resource tag="TODAYAT">[b] Šiandien [/b] į {0:T} </Resource>
+    <Resource tag="TOPIC_STARTER">Tema Pradedančiųjų </Resource>
+    <Resource tag="TOPICS">Temos </Resource>
+    <Resource tag="UNWATCHFORUM">Nebestebėti Forumas </Resource>
+    <Resource tag="VIEWS">Žiūrėti </Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Šis forumas uždarytas. </Resource>
+    <Resource tag="WARN_LOGIN_FORUMWATCH">
+      Turite būti užsiregistravęs žiūrėti
+
+      forumų. 
+    </Resource>
+    <Resource tag="WATCHFORUM">Žiūrėti forumą </Resource>
+    <Resource tag="YESTERDAYAT">[b] Vakar [/b] į {0:T} </Resource>
   </page>
 </Resources>
