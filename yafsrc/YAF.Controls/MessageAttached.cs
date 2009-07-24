@@ -57,6 +57,11 @@ namespace YAF.Controls
 			string stats = PageContext.Localization.GetText("ATTACHMENTINFO");
 			string strFileIcon = PageContext.Theme.GetItem("ICONS", "ATTACHED_FILE");
 
+			string attachGroupId = System.Guid.NewGuid().ToString().Substring( 0, 5 );
+
+			HttpContext.Current.Session["imagePreviewWidth"] = PageContext.BoardSettings.ImageAttachmentResizeWidth;
+			HttpContext.Current.Session["localizationFile"] = PageContext.Localization.LanguageFileName;
+
 			using (DataTable attachListDT = YAF.Classes.Data.DB.attachment_list(this.MessageID, null, null))
 			{
 				// show file then image attachments...
@@ -108,12 +113,11 @@ namespace YAF.Controls
 								}
 								else
 								{
-									HttpContext.Current.Session["imagePreviewWidth"] = PageContext.BoardSettings.ImageAttachmentResizeWidth;
 									// TommyB: Start MOD: Preview Images
 									writer.Write(
 										String.Format(
-											@"<div class=""attachedimg"" style=""display: inline;""><a class=""attachedImageLink"" href=""{0}resource.ashx?i={1}"" target=""_blank"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>",
-											YafForumInfo.ForumRoot, dr["AttachmentID"], HtmlEncode( dr["FileName"] ) ) );
+											@"<div class=""attachedimg"" style=""display: inline;""><a rel=""lightbox-group{3}"" href=""{0}resource.ashx?i={1}"" target=""_blank"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>",
+											YafForumInfo.ForumRoot, dr["AttachmentID"], HtmlEncode( dr["FileName"] ), attachGroupId ) );
 									// TommyB: End MOD: Preview Images
 								}
 							}

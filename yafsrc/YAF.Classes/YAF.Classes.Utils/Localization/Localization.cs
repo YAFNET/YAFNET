@@ -97,7 +97,16 @@ namespace YAF.Classes.Utils
 		  }
 	  }
 
-		/// <summary>
+  	private string _languageFileName;
+  	public string LanguageFileName
+  	{
+  		get
+  		{
+  			return _languageFileName;
+  		}
+  	}
+
+  	/// <summary>
 		/// Formats a localized string -- but verifies the parameter count matches
 		/// </summary>
 		/// <param name="text"></param>
@@ -186,6 +195,8 @@ namespace YAF.Classes.Utils
 				// if it's wrong, fall back to current culture
 				_culture = CultureInfo.CurrentCulture;
 			}
+
+			_languageFileName = fileName.ToLower();
 
 			return _localizer.LanguageCode;			
 		}

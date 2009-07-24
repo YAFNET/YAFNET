@@ -50,7 +50,7 @@ namespace YAF.Classes.Utils
 			if ( _fileName == "" || !System.IO.File.Exists( _fileName ) )
 				throw ( new ApplicationException( "Invalid language file " + _fileName ) );
 
-			if ( _doc == null )
+			if (_doc == null)
 				_doc = new XmlDocument();
 
 			try
