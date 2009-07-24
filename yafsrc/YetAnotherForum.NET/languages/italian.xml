@@ -571,6 +571,7 @@
     <Resource tag="ATTACHMENTS">File allegato(i):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">Scelta</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Cancello questo messaggio?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Cancello questo topic?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Sei sicuro di voler segnalare questo post come offensivo?</Resource>
@@ -588,6 +589,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} ha allegato le seguenti immagini:</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">Non ci sono altri topic in questo forum.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Il Topic è stato bloccato.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">Il Topic è stato sbloccato.</Resource>

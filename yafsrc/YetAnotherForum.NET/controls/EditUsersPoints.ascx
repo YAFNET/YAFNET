@@ -18,7 +18,7 @@
             <asp:RangeValidator ID="RangeValidator4" runat="server" ErrorMessage="Please enter a number" ControlToValidate="txtUserPoints"
                 SetFocusOnError="true" ValidationGroup="UserPoints" MaximumValue="1000000" MinimumValue="0" Type="Integer" Display="Dynamic">
             </asp:RangeValidator>
-            <asp:Button runat="server" ID="btnUserPoints" OnClick="SetUserPoints_Click" Text="Go" />
+            <asp:Button runat="server" ID="btnUserPoints" CssClass="pbutton" OnClick="SetUserPoints_Click" Text="Go" />
         </td>
     </tr>
     <tr>
@@ -29,7 +29,7 @@
             <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Number Please" ControlToValidate="txtAddPoints" SetFocusOnError="true"
                 ValidationGroup="Add" MaximumValue="1000000" MinimumValue="0" Type="Integer" Display="Dynamic">
             </asp:RangeValidator>
-            <asp:Button runat="server" ID="btnAddPoints" OnClick="AddPoints_Click" Text="Go" />
+            <asp:Button runat="server" ID="btnAddPoints" CssClass="pbutton" OnClick="AddPoints_Click" Text="Go" />
         </td>
     </tr>
     <tr>
@@ -40,7 +40,7 @@
             <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="Number Please" ControlToValidate="txtRemovePoints" SetFocusOnError="true"
                 ValidationGroup="Remove" MaximumValue="1000000" MinimumValue="0" Type="Integer" Display="Dynamic">
             </asp:RangeValidator>
-            <asp:Button runat="server" ID="Button1" OnClick="RemovePoints_Click" Text="Go" />
+            <asp:Button runat="server" ID="Button1" CssClass="pbutton" OnClick="RemovePoints_Click" Text="Go" />
         </td>
     </tr>
     <tr>

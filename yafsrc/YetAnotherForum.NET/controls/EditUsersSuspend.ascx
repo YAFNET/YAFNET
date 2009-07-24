@@ -12,7 +12,7 @@
 		</td>
 		<td class="post">
 			<%= GetSuspendedTo() %>
-			&nbsp;<asp:Button runat="server" ID="RemoveSuspension" OnClick="RemoveSuspension_Click" />
+			&nbsp;<asp:Button runat="server" ID="RemoveSuspension" CssClass="pbutton" OnClick="RemoveSuspension_Click" />
 		</td>
 	</tr>
 	<tr id="Tr1" runat="server">

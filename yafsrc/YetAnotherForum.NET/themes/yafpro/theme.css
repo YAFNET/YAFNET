@@ -1,20 +1,35 @@
 .yafnet {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
+	font-size: 8pt;
 	color: #3B3b3b;
 }
 .yafnet td {
 	font-family: sans-serif, Helvetica, Arial;
-	font-size: 11px;
+	font-size: 8pt;
 	color: #3b3b3b;
 }
 .yafnet input,
 .yafnet select {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 8pt;
+	font-size: 8pt; 
 	color: #3b3b3b;	
-	background-color: #FFFFFF;
-	border: 1px solid #E3E3E3;	
+	background-color: #FFF;	
+	border: 1px solid #aaaaaa;	
+}
+
+.yafnet .pbutton
+{
+    color: #ffffff;
+    background-color: #323453;
+    font-size: 7.5pt;
+    font-weight: bold;
+    border: solid 1px #444;
+    padding: 1px 6px 1px 6px;
+}
+.yafnet .pbutton:hover
+{
+    background-color: #656694;
+    border: solid 1px #000;
 }
 .yafnet img {
 	border: 0;
@@ -161,6 +176,7 @@
 .yafnet .fileattach .imgtitle {
 	font-weight: bold;
 	color: #444444;
+	margin-top: 5px;
 	margin-bottom: 5px;
 	font-size: 1.1em;
 }
@@ -267,13 +283,6 @@
 	background-color: #FFFFFF;
 	color: #000000;
 	padding: 4px;
-}
-.yafnet .pbutton {
-	background-color: #3B3B3B;
-	font-size: 10px;
-	color: #FFFFFF;
-	border: none;
-	font-weight: bold;
 }
 .yafnet .textfield {
 	background-color: #FFFFFF;
@@ -391,8 +400,7 @@ This CSS already works on FireFox.
     background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
     color: #ffffff;
     display: block;
-	font-size: 8px; 
-	float: right;
+		font-size: 8px; 
     height: 18px;
     margin: 2px 0px 2px 2px;
     padding-right: 2px;
@@ -410,6 +418,10 @@ This CSS already works on FireFox.
 .yafnet a.yafcssbigbutton img{
 	vertical-align: top;
 	padding: 0px 4px 0px 0px;
+}
+.yafnet a.yafcssbigbutton:hover {
+	color: #ffffff;
+	text-decoration: none;
 }
 .yafnet a.yafcssbigbutton:active{
     background-position: bottom right;

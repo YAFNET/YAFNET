@@ -36,7 +36,7 @@
 	</tr>
 	<tr class="postfooter">
 		<td colspan="2" align="center">
-			<asp:Button runat="server" ID="Send" OnClick="Send_Click" />
+			<asp:Button runat="server" ID="Send" CssClass="pbutton" OnClick="Send_Click" />
 		</td>
 	</tr>
 </table>

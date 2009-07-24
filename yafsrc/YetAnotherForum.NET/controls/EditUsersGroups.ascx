@@ -28,8 +28,8 @@
 		</ItemTemplate>
 	</asp:Repeater>
 	<tr>
-		<td class="postfooter" colspan="2" align="center">
-			<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" />
+		<td class="footer1" colspan="2" align="center">
+			<asp:Button ID="Save" runat="server" CssClass="pbutton" Text="Save" OnClick="Save_Click" />
 		</td>
 	</tr>
 </table>

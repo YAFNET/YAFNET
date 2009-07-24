@@ -604,6 +604,7 @@
     <Resource tag="ATTACHMENTS">Vedlegg:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">Valg</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Slett meldinger?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Slett emnet?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
@@ -621,6 +622,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} lagt ved følgende bilde(r):</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">Ikke flere emner i dette forumet.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Emnet var låst.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">Emnet var ulåst.</Resource>

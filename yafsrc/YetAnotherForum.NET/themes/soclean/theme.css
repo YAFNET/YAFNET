@@ -351,7 +351,6 @@ This CSS already works on FireFox.
 	background: transparent url('ButtonEndBig.gif') no-repeat scroll top right;
     color: #FFFFFF;
     display: block;
-    float: right;
 	font-size: 10px; 
     height: 24px;
     margin: 2px 0px 2px 2px;    

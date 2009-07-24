@@ -604,6 +604,7 @@
     <Resource tag="ATTACHMENTS">附件:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">选择</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">删除这条信息?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">删除这条话题？</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
@@ -621,6 +622,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} 个图片附件:</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">这个论坛没有更多的话题了.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">话题被锁定.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">话题未锁定.</Resource>

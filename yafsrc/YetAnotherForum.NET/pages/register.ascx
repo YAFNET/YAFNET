@@ -113,7 +113,7 @@
 						</tr></asp:PlaceHolder>
 						<tr align="right">
 							<td align="center" colspan="2" class="postfooter">
-								<asp:Button ID="StepNextButton" runat="server" CommandName="MoveNext" Text="Create User"
+								<asp:Button ID="StepNextButton" runat="server" CssClass="pbutton" CommandName="MoveNext" Text="Create User"
 									ValidationGroup="CreateUserWizard1" />
 							</td>
 						</tr>
@@ -165,7 +165,7 @@
 						</tr>
 						<tr align="right">
 							<td align="center" colspan="2" class="postfooter">
-								<asp:Button ID="ProfileNextButton" runat="server" CommandName="MoveNext" Text="Next" />
+								<asp:Button ID="ProfileNextButton" runat="server" CssClass="pbutton" CommandName="MoveNext" Text="Next" />
 							</td>
 						</tr>
 					</table>
@@ -188,7 +188,7 @@
 						</tr>
 						<tr>
 							<td align="right" class="postfooter">
-								<asp:Button ID="ContinueButton" runat="server" CausesValidation="False" CommandName="Continue"
+								<asp:Button ID="ContinueButton" runat="server" CssClass="pbutton" CausesValidation="False" CommandName="Continue"
 									Text="Continue" ValidationGroup="CreateUserWizard1" />
 							</td>
 						</tr>

@@ -590,6 +590,7 @@
     <Resource tag="ATTACHMENTS">Tập tin đính kèm(s):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">Chọn</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Xóa tin nhắn?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Xóa chủ đề?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
@@ -607,6 +608,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} hình được đính kèm:</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">Không có chủ đề trong diễn đàn này.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Chủ đề đã được khóa.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">Chủ đề đã được mở khóa.</Resource>

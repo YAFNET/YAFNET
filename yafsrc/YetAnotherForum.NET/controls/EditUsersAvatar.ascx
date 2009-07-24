@@ -22,7 +22,7 @@
             <br />
             <br />
             <asp:Label runat="server" ID="NoAvatar" Visible="false" />
-            <asp:Button runat="server" ID="DeleteAvatar" Visible="false" OnClick="DeleteAvatar_Click" /></td>
+            <asp:Button runat="server" ID="DeleteAvatar" CssClass="pbutton" Visible="false" OnClick="DeleteAvatar_Click" /></td>
     </tr>
     <tr runat="server" id="AvatarOurs">
         <td class="postheader">

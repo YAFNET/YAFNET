@@ -25,8 +25,8 @@
 	</tr>
 	<tr class="footer1">
 		<td colspan="2" align="center">
-			<asp:Button runat="server" ID="Update" OnClick="Update_Click" />
-			<asp:Button runat="server" ID="Cancel" OnClick="Cancel_Click" />
+			<asp:Button runat="server" ID="Update" CssClass="pbutton" OnClick="Update_Click" />
+			<asp:Button runat="server" ID="Cancel" CssClass="pbutton" OnClick="Cancel_Click" />
 		</td>
 	</tr>
 </table>

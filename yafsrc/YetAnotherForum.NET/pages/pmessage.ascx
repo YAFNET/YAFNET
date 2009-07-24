@@ -1,7 +1,6 @@
 <%@ Control Language="c#" CodeFile="pmessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.pmessage" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header1" colspan="2">
@@ -13,7 +12,7 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="previewtitle" />
 		</td>
 		<td class="post" valign="top" id="PreviewCell" runat="server">
-		    <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
+			<YAF:MessagePost ID="PreviewMessagePost" runat="server" />
 		</td>
 	</tr>
 	<tr id="ToRow" runat="server">
@@ -23,10 +22,10 @@
 		<td width="70%" class="post">
 			<asp:TextBox ID="To" runat="server" />
 			<asp:DropDownList runat="server" ID="ToList" Visible="false" />
-			<asp:Button runat="server" ID="FindUsers" OnClick="FindUsers_Click" />
-			<asp:Button runat="server" ID="AllUsers" OnClick="AllUsers_Click" />
-			<asp:Button runat="server" ID="Clear" OnClick="Clear_Click" Visible="false" />
-			<asp:Label ID="MultiReceiverInfo" runat="server" Visible="false" />			
+			<asp:Button runat="server" ID="FindUsers" CssClass="pbutton" OnClick="FindUsers_Click" />
+			<asp:Button runat="server" ID="AllUsers" CssClass="pbutton" OnClick="AllUsers_Click" />
+			<asp:Button runat="server" ID="Clear" CssClass="pbutton" OnClick="Clear_Click" Visible="false" />
+			<asp:Label ID="MultiReceiverInfo" runat="server" Visible="false" />
 		</td>
 	</tr>
 	<tr>
@@ -34,7 +33,8 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="subject" />
 		</td>
 		<td class="post">
-			<asp:TextBox ID="Subject" runat="server" /></td>
+			<asp:TextBox ID="Subject" runat="server" />
+		</td>
 	</tr>
 	<tr>
 		<td class="postformheader" valign="top">
@@ -46,14 +46,18 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="postfooter" colspan="2" align="center">
-			<asp:Button ID="Preview" CssClass="pbutton" runat="server" OnClick="Preview_Click" />
-			<asp:Button ID="Save" CssClass="pbutton" runat="server" OnClick="Save_Click" />
-			<asp:Button ID="Cancel" CssClass="pbutton" runat="server" OnClick="Cancel_Click" />
+		<td class="footer1">&nbsp;
+		</td>
+		<td class="footer1">
+			<YAF:ThemeButton ID="Preview" runat="server" CssClass="yafcssbigbutton leftItem"
+				TextLocalizedTag="PREVIEW" OnClick="Preview_Click" />
+			<YAF:ThemeButton ID="Save" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="SAVE"
+				OnClick="Save_Click" />
+			<YAF:ThemeButton ID="Cancel" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="CANCEL"
+				OnClick="Cancel_Click" />
 		</td>
 	</tr>
 </table>
-
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

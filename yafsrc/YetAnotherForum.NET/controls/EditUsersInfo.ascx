@@ -63,7 +63,7 @@
 	</tr>
 	<tr>
 		<td class="postfooter" colspan="2" align="center">
-			<asp:Button id="Save" runat="server" Text="Save" onclick="Save_Click" />
+			<asp:Button id="Save" runat="server" Text="Save" CssClass="pbutton" onclick="Save_Click" />
 		</td>
 	</tr>
 

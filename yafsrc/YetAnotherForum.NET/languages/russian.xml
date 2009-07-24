@@ -571,6 +571,7 @@
     <Resource tag="ATTACHMENTS">Вложение(я):</Resource>
     <Resource tag="BLOG">БЛОГ</Resource>
     <Resource tag="CHOICE">Вариант</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Удалить это ообщение?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Удалить эту тему?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Вы уверены, что желаете сообщить, что этот пост является злоупотреблением?</Resource>
@@ -588,6 +589,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">Пользователь {0} прикрепил следующие файлы:</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">На этом форуме больше нет тем.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Тема закрыта.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">Тема открыта.</Resource>

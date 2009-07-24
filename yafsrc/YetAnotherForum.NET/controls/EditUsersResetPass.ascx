@@ -71,8 +71,8 @@
     </asp:PlaceHolder>    
     <tr>
         <td class="postfooter" colspan="2" align="center">
-            <asp:Button ID="btnChangePassword" Visible="false" runat="server" Text="Change Password" ValidationGroup="passchange" OnClick="btnChangePassword_Click" CausesValidation="true" />
-            <asp:Button ID="btnResetPassword" runat="server" Text="Reset" OnClick="btnResetPassword_Click" CausesValidation="false" />
+            <asp:Button ID="btnChangePassword" Visible="false" runat="server" Text="Change Password" CssClass="pbutton" ValidationGroup="passchange" OnClick="btnChangePassword_Click" CausesValidation="true" />
+            <asp:Button ID="btnResetPassword" runat="server" Text="Reset" CssClass="pbutton" OnClick="btnResetPassword_Click" CausesValidation="false" />
         </td>
     </tr>
 </table>

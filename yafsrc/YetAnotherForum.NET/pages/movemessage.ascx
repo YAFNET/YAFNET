@@ -24,7 +24,7 @@
 	</tr>
 	<tr>
 		<td class="footer1" colspan="2" align="center">
-			<asp:Button ID="Move" runat="server" OnClick="Move_Click" />
+			<asp:Button ID="Move" runat="server" CssClass="pbutton" OnClick="Move_Click" />
 		</td>
 	</tr>
 	<tr>
@@ -37,7 +37,7 @@
 	</tr>
 	<tr>
 		<td class="footer1" colspan="2" align="center">
-			<asp:Button ID="CreateAndMove" runat="server" OnClick="CreateAndMove_Click" />
+			<asp:Button ID="CreateAndMove" CssClass="pbutton" runat="server" OnClick="CreateAndMove_Click" />
 		</td>
 	</tr>
 </table>

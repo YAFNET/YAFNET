@@ -36,7 +36,7 @@
 							</tr>
 							<tr>
 								<td align="right" colspan="2" class="postfooter">
-									<asp:Button ID="SubmitButton" runat="server" CommandName="Submit" Text="Submit" ValidationGroup="PasswordRecovery1" />
+									<asp:Button ID="SubmitButton" runat="server" CommandName="Submit" CssClass="pbutton" Text="Submit" ValidationGroup="PasswordRecovery1" />
 								</td>
 							</tr>
 						</table>
@@ -97,7 +97,7 @@
 							</tr>
 							<tr>
 								<td align="right" colspan="2" class="postfooter">
-									<asp:Button ID="SubmitButton" runat="server" CommandName="Submit" Text="Submit" ValidationGroup="PasswordRecovery2" />
+									<asp:Button ID="SubmitButton" runat="server" CommandName="Submit" CssClass="pbutton" Text="Submit" ValidationGroup="PasswordRecovery2" />
 								</td>
 							</tr>
 						</table>
@@ -123,7 +123,7 @@
 							</tr>
 							<tr>
 								<td align="right" colspan="2" class="postfooter">
-									<asp:Button ID="SubmitButton" runat="server" CommandName="Submit" Text="Continue"
+									<asp:Button ID="SubmitButton" runat="server" CssClass="pbutton" CommandName="Submit" Text="Continue"
 										OnClick="SubmitButton_Click" />
 								</td>
 							</tr>

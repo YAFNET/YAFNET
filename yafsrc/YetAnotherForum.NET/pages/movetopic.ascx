@@ -24,7 +24,7 @@
 	</tr>
 	<tr>
 		<td class="footer1" colspan="2" align="center">
-			<asp:Button ID="Move" runat="server" OnClick="Move_Click" />
+			<asp:Button ID="Move" CssClass="pbutton" runat="server" OnClick="Move_Click" />
 		</td>
 	</tr>
 </table>

@@ -216,7 +216,9 @@
 			<asp:TextBox ID="ReasonEditor" runat="server" CssClass="edit" Width="400" /></td>
 	</tr>
 	<tr>
-		<td align="center" colspan="2" class="footer1">
+		<td class="footer1">&nbsp;
+		</td>	
+		<td class="footer1">
                 <YAF:ThemeButton ID="Preview" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="PREVIEW"
                 OnClick="Preview_Click" />	
                 <YAF:ThemeButton ID="PostReply" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="SAVE"

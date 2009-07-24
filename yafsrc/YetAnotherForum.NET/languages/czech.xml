@@ -603,6 +603,7 @@
     <Resource tag="ATTACHMENTS">Přiložený soubor(y):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">Výběr</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Chcete smazat tuto zprávu?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Chcete smazat toto téma?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
@@ -620,6 +621,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} přiložen následující obrázek(obrázky):</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">V tomto fóru již žádná další témata nejsou.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Téma je uzamčeno.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">Téma je odemčeno.</Resource>

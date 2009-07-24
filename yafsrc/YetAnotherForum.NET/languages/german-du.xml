@@ -571,6 +571,7 @@
     <Resource tag="ATTACHMENTS">Dateianhänge:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">Antwort</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Diese Nachricht wirklich löschen?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Dieses Thema wirklich löschen?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Bist Du sicher, dass du den Beitrag melden möchtest?</Resource>
@@ -588,6 +589,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} hat die folgenden Dateien hochgeladen:</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">Keine weiteren Themen in diesem Forum</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Das Thema ist geschlossen.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">Das Thema ist nicht geschlossen.</Resource>

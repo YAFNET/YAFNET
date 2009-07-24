@@ -238,6 +238,24 @@ This CSS already works on FireFox.
 	margin-top: 15px;
 	padding-top: 5px;
 }
+.yafnet .DivTopSeparator
+{
+	clear: both;
+}
+/* div at the top of pages with navigation links */
+.yafnet .yafPageLink
+{
+	border-top: solid 1px #cccccc;
+	border-left: solid 1px #cccccc;
+	border-bottom: solid 1px #cccccc;
+	border-right: solid 1px #cccccc;
+	font-weight: bold;
+	color: #000000;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 2px;
+}
+
 /* CSS Pagelinks */
 .yafnet .yafpager {
 	color: #555555;
@@ -313,8 +331,7 @@ This CSS already works on FireFox.
 	background: transparent url('ButtonEndBig.gif') no-repeat scroll top right;
     color: #FFFFFF;
     display: block;
-    float: right;
-	font-size: 10px; 
+		font-size: 10px; 
     height: 24px;
     margin: 2px 0px 2px 2px;    
     padding-right: 4px;

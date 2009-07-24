@@ -609,6 +609,7 @@
     <Resource tag="ATTACHMENTS">Bijlagen:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">Keuze</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Bericht verwijderen?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Onderwerp verwijderen?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
@@ -626,6 +627,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} heeft deze afbeelding(en) toegevoegd als bijlage:</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">Er zijn geen onderwerpen meer in dit forum.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Onderwerp gesloten.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">Onderwerp ontgrendeld.</Resource>

@@ -129,7 +129,17 @@ function toggleMessage(divId)
 			ScriptManager.RegisterClientScriptInclude(this, typeof(DisplayPost), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource("js/yaf.js"));
 			ScriptManager.RegisterClientScriptBlock( this, typeof ( DisplayPost ), "toggleMessageJs", _toogleMessageJs, true );
 			ScriptManager.RegisterClientScriptBlock( this, typeof ( DisplayPost ), "lightboxloadjs",
-																							 "$(document).ready(function() { $('a.attachedImageLink').lightbox(); });",
+				@"$(document).ready(function() { 
+					$.Lightbox.construct({
+						show_linkback:	false,
+						show_helper_text: false,
+				text: {
+					image:		'" + PageContext.Localization.GetText("IMAGE_TEXT") + @"',
+					close:    '" + PageContext.Localization.GetText("CLOSE_TEXT") + @"',
+					download:    '" + PageContext.Localization.GetText("IMAGE_DOWNLOAD") + @"',
+					}
+				});
+			});",
 			                                         true );
 
 			NameCell.ColSpan = int.Parse(GetIndentSpan());

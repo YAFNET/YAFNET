@@ -91,8 +91,8 @@
     <FooterTemplate>
       <tr>
         <td class="footer1" colspan="5">
-          <asp:Button OnLoad="ApproveAll_Load" CommandName="approveall" Text="Approve All" runat="server" />
-          <asp:Button OnLoad="DeleteAll_Load" CommandName="deleteall" runat="server" Text="Delete All More Than 14 Days Old" /></td>
+          <asp:Button OnLoad="ApproveAll_Load" CommandName="approveall" CssClass="pbutton" Text="Approve All" runat="server" />
+          <asp:Button OnLoad="DeleteAll_Load" CommandName="deleteall" CssClass="pbutton" runat="server" Text="Delete All More Than 14 Days Old" /></td>
       </tr>
       </table>
     </FooterTemplate>

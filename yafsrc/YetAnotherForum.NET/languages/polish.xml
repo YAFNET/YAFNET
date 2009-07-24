@@ -604,6 +604,7 @@
     <Resource tag="ATTACHMENTS">Załączniki:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">Wybór</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Usunąć tę wiadomość?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Usunąć ten temat?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
@@ -621,6 +622,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} attached the following image(s):</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">Nie ma więcej tematów w tym forum.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Temat został zablokowany.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">Temat został odblokowany.</Resource>

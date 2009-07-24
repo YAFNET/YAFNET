@@ -603,6 +603,7 @@
     <Resource tag="ATTACHMENTS">Bifogad(e) fil(er):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">Val</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Radera detta meddelande?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Randera denna konversation?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
@@ -620,6 +621,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} bifogade följande bild(er):</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">Inga fler konversationer i detta forum.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Konversationen är låst.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">Konversationen låstes upp.</Resource>

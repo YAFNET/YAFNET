@@ -619,6 +619,11 @@
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
     <Resource tag="REPORTPOST">Report Abusive</Resource>
     <Resource tag="REPORTSPAM">Report SPAM</Resource>
+		<Resource tag="IMAGE_TEXT">Image</Resource>
+		<Resource tag="CLOSE_TEXT">Close</Resource>
+		<Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+		<Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+		<Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Statistics</Resource>

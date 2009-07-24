@@ -590,6 +590,7 @@
     <Resource tag="ATTACHMENTS">Arquivo(s) Anexado(s):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">Escolha</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Excluir esta mensagem?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Excluir este tópico?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
@@ -607,6 +608,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} anexadas as seguintes imagens:</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">Nenhum tópico a mais neste Fórum.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">O tópico estava bloqueado.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">O tópico estava desbloqueado.</Resource>

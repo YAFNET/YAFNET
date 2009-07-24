@@ -104,9 +104,6 @@ namespace YAF.Pages
 				CreatePageLinks();
 
 				// localize button labels
-				Save.Text = GetText( "SAVE" );
-				Preview.Text = GetText( "PREVIEW" );
-				Cancel.Text = GetText( "CANCEL" );
 				FindUsers.Text = GetText( "FINDUSERS" );
 				AllUsers.Text = GetText( "ALLUSERS" );
 				Clear.Text = GetText( "CLEAR" );

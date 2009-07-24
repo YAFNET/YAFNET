@@ -326,10 +326,16 @@ namespace YAF
 		{
 			// default is 200 width.
 			int previewWidth = 200;
+			string localizationFile = "english.xml";
 
 			if (context.Session["imagePreviewWidth"] != null && context.Session["imagePreviewWidth"] is int )
 			{
 				previewWidth = (int) context.Session["imagePreviewWidth"];
+			}
+			
+			if ( context.Session["localizationFile"] != null && context.Session["localizationFile"] is string )
+			{
+				localizationFile = context.Session["localizationFile"].ToString();
 			}
 
 			try
@@ -396,17 +402,23 @@ namespace YAF
 									g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bicubic;
 									g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 									g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
-									using (Font f = new Font("Arial", 11, FontStyle.Regular, GraphicsUnit.Pixel))
+									
+									using (Font f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
 									{
 										using (SolidBrush brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
 										{
+											YafLocalization localization = new YafLocalization( "POSTS" );
+											localization.LoadTranslation( localizationFile );
+
 											StringFormat sf = new StringFormat();
+											
 											sf.Alignment = StringAlignment.Near;
 											sf.LineAlignment = StringAlignment.Center;
-											g.DrawString("Click to enlarge", f, brush, rDstTxt, sf);
+											g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt, sf);
+											
 											sf.Alignment = StringAlignment.Far;
-											int muh = (int)row["Downloads"];
-											g.DrawString(string.Format("{0} Views", muh.ToString()), f, brush, rDstTxt, sf);
+											int muh = (int) row["Downloads"];
+											g.DrawString(string.Format(localization.GetText("IMAGE_RESIZE_VIEWS"), muh.ToString()), f, brush, rDstTxt, sf);
 										}
 									}
 								}

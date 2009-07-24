@@ -571,6 +571,7 @@
     <Resource tag="ATTACHMENTS">קובץ(ים) מצורף(ים):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
     <Resource tag="CHOICE">בחירה</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">האם ברצונך למחוק הודעה זו?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">האם ברצונך למחוק דיון זו?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">האם את/ה בטוח/ה שברצונך לדווח על התוכן כפוגעני?</Resource>
@@ -588,6 +589,10 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} צירף/ה את הקובץ(ים) הבא(ים):</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
     <Resource tag="INFO_NOMORETOPICS">אין עוד דיונים בפורום זה.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">הדיון ננעל.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">בוטלה הנעילה על דיון זה.</Resource>
