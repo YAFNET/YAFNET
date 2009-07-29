@@ -25,6 +25,17 @@ using System.Xml;
 
 namespace YAF.Classes.Utils
 {
+
+	public class YafLanguageNodeComparer : IComparer<XmlNode>
+	{
+		#region IComparer<XmlNode> Members
+
+		public int Compare(XmlNode x, XmlNode y)
+		{
+			return General.GetHourOffsetFromNode( x ).CompareTo( General.GetHourOffsetFromNode( y ) );
+		}
+		#endregion
+	}
 	/// <summary>
 	/// Summary description for StaticData.
 	/// </summary>
@@ -37,23 +48,13 @@ namespace YAF.Classes.Utils
 				dt.Columns.Add( "Value", Type.GetType( "System.Int32" ) );
 				dt.Columns.Add( "Name", Type.GetType( "System.String" ) );
 
-				List<XmlNode> timezones = localization.GetNodesUsingQuery( "TIMEZONES", "@tag=@*" );
+				List<XmlNode> timezones = localization.GetNodesUsingQuery( "TIMEZONES", "@tag[starts-with(.,'UTC')]" );
+
+				timezones.Sort( new YafLanguageNodeComparer() );
 
 				foreach ( XmlNode node in timezones )
 				{
-					// calculate hours -- can use prefix of either UTC or GMT...
-					decimal hours = 0;
-					
-					try
-					{
-						hours = Convert.ToDecimal( node.Attributes ["tag"].Value.Replace( "UTC", "" ).Replace( "GMT", "" ) );
-					}
-					catch ( FormatException ex )
-					{
-						hours = Convert.ToDecimal( node.Attributes ["tag"].Value.Replace( ".", "," ).Replace( "UTC", "" ).Replace( "GMT", "" ) );
-					}
-					
-					dt.Rows.Add( new object [] { hours * 60, node.InnerText } );
+					dt.Rows.Add(new object[] { General.GetHourOffsetFromNode(node) * 60, node.InnerText });
 				}
 
 				return dt;

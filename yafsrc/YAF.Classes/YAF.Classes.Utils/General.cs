@@ -24,6 +24,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Collections.Specialized;
+using System.Xml;
 using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
@@ -153,6 +154,28 @@ namespace YAF.Classes.Utils
 			tProcessedRaw = tProcessedRaw.Replace( ">", "%3E" );
 			tProcessedRaw = tProcessedRaw.Replace( "&", "%26" );
 			return tProcessedRaw.Replace( "'", string.Empty );
+		}
+
+		/// <summary>
+		/// Helper function for the Language TimeZone XML.
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public static decimal GetHourOffsetFromNode(XmlNode node)
+		{
+			// calculate hours -- can use prefix of either UTC or GMT...
+			decimal hours = 0;
+
+			try
+			{
+				hours = Convert.ToDecimal(node.Attributes["tag"].Value.Replace("UTC", "").Replace("GMT", ""));
+			}
+			catch (FormatException ex)
+			{
+				hours = Convert.ToDecimal(node.Attributes["tag"].Value.Replace(".", ",").Replace("UTC", "").Replace("GMT", ""));
+			}
+
+			return hours;
 		}
 
 		/// <summary>

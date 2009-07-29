@@ -323,9 +323,22 @@ namespace YAF.Classes.UI
 		/// </summary>
 		/// <param name="variableName"></param>
 		/// <param name="variableValue"></param>
+		/// <param name="handlingValue">variable transfermation desired</param>
 		/// <returns></returns>
-		protected virtual string ManageVariableValue( string variableName, string variableValue )
+		protected virtual string ManageVariableValue( string variableName, string variableValue, string handlingValue )
 		{
+			if ( !String.IsNullOrEmpty(handlingValue))
+			{
+				switch ( handlingValue.ToLower())
+				{
+					case "decode":
+						variableValue = HttpUtility.HtmlDecode( variableValue );
+						break;
+					case "encode":
+						variableValue = HttpUtility.HtmlEncode( variableValue );
+						break;
+				}
+			}
 			return variableValue;
 		}
 
@@ -341,7 +354,18 @@ namespace YAF.Classes.UI
 
 				foreach ( string tVar in _variables )
 				{
-					string tValue = m.Groups [tVar].Value;
+					string varName = tVar;
+					string handlingValue = String.Empty;
+
+					if (varName.Contains(":"))
+					{
+						// has handling section
+						string[] tmpSplit = varName.Split(':');
+						varName = tmpSplit[0];
+						handlingValue = tmpSplit[1];
+					}
+
+					string tValue = m.Groups[varName].Value;
 
 					if ( _variableDefaults != null && tValue.Length == 0 )
 					{
@@ -349,7 +373,7 @@ namespace YAF.Classes.UI
 						tValue = _variableDefaults [i];
 					}
 
-					innerReplace.Replace( "${" + tVar + "}", ManageVariableValue( tVar, tValue ) );
+					innerReplace.Replace("${" + varName + "}", ManageVariableValue(varName, tValue, handlingValue));
 					i++;
 				}
 
@@ -403,7 +427,7 @@ namespace YAF.Classes.UI
 			return sizes [size - 1].ToString() + "%";
 		}
 
-		protected override string ManageVariableValue( string variableName, string variableValue )
+		protected override string ManageVariableValue( string variableName, string variableValue, string handlingValue )
 		{
 			if ( variableName == "size" ) return GetFontSize( variableValue );
 			return variableValue;
@@ -420,7 +444,7 @@ namespace YAF.Classes.UI
 		{
 			RuleRank = 200;
 		}
-		protected override string ManageVariableValue( string variableName, string variableValue )
+		protected override string ManageVariableValue( string variableName, string variableValue, string handlingValue )
 		{
 			if ( variableName == "post" || variableName == "topic" )
 			{
