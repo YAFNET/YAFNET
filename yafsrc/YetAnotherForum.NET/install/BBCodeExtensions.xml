@@ -9,9 +9,25 @@
     <SearchRegex>\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]</SearchRegex>
     <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;object width="425" height="350"&gt;&lt;param name="movie" value="http://${prefix}youtube.com/v/${id}"&gt;&lt;/param&gt;&lt;embed src="http://${prefix}youtube.com/v/${id}" type="application/x-shockwave-flash" width="425" height="350"&gt;&lt;/embed&gt;&lt;/object&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
     <Variables>id;prefix</Variables>
-    <ExecOrder>1</ExecOrder>
     <UseModule>false</UseModule>
     <ModuleClass />
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>GOOGLEWIDGET</Name>
+    <Description>[GOOGLEWIDGET]&amp;lt;script src=&amp;quot;url&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;[/GOOGLEWIDGET]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[googlewidget\]\&amp;lt\;script src\=\&amp;quot\;(?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?gmodules.com\/ig\/ifr\?(?&lt;url&gt;.+))\&amp;quot\;\&amp;gt\;\&amp;lt\;/script\&amp;gt\;\[/googlewidget\]</SearchRegex>
+    <ReplaceRegex>&lt;!-- BEGIN Google Widget --&gt;
+&lt;script type="text/javascript" src="http://${prefix}gmodules.com/ig/ifr?${url}"&gt;&lt;/script&gt;
+&lt;!-- END Google Widget --&gt;</ReplaceRegex>
+    <Variables>url:decode;prefix</Variables>
+    <UseModule>false</UseModule>
+    <ModuleClass />
+    <ExecOrder>1</ExecOrder>
   </YafBBCode>
   <YafBBCode>
     <Name>SPOILER</Name>
@@ -47,8 +63,8 @@
     <SearchRegex>\[spoiler\](?&lt;inner&gt;.+?)\[\/spoiler\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
-    <ExecOrder>50</ExecOrder>
     <UseModule>true</UseModule>
     <ModuleClass>YAF.Modules.SpoilerBBCodeModule</ModuleClass>
+    <ExecOrder>50</ExecOrder>
   </YafBBCode>
 </YafBBCodeList>
