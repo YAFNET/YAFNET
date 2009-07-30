@@ -2,43 +2,32 @@
 <%@ Register TagPrefix="uc1" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>
-<YAF:PageLinks runat="server" ID="PageLinks" />
-
+<yaf:pagelinks runat="server" id="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
         <td class="header1" colspan="2">
-            <YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
+            <yaf:localizedlabel runat="server" localizedtag="profile" />
             <asp:Label ID="UserName" runat="server" />
         </td>
     </tr>
     <tr class="post">
         <td colspan="2">
-            <YAF:ThemeButton ID="PM" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                TextLocalizedTag="PM" ImageThemeTag="PM" />
-            <YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL" />
-            <YAF:ThemeButton ID="Home" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                TextLocalizedTag="HOME" ImageThemeTag="HOME" />
-            <YAF:ThemeButton ID="Blog" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                TextLocalizedTag="BLOG" ImageThemeTag="BLOG" />
-            <YAF:ThemeButton ID="MSN" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                TextLocalizedTag="MSN" ImageThemeTag="MSN" />
-            <YAF:ThemeButton ID="AIM" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                TextLocalizedTag="AIM" ImageThemeTag="AIM" />
-            <YAF:ThemeButton ID="YIM" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                TextLocalizedTag="YIM" ImageThemeTag="YIM" />
-            <YAF:ThemeButton ID="ICQ" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                TextLocalizedTag="ICQ" ImageThemeTag="ICQ" />
-            <YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
-            <YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible="false"
-                TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Request.QueryString.Get("u") ) %>'>
-            </YAF:ThemeButton>
+            <yaf:themebutton id="PM" runat="server" cssclass="yafcssimagebutton" textlocalizedpage="POSTS" textlocalizedtag="PM" imagethemetag="PM" />
+            <yaf:themebutton id="Email" runat="server" cssclass="yafcssimagebutton" textlocalizedpage="POSTS" textlocalizedtag="EMAIL" imagethemetag="EMAIL" />
+            <yaf:themebutton id="Home" runat="server" cssclass="yafcssimagebutton" textlocalizedpage="POSTS" textlocalizedtag="HOME" imagethemetag="HOME" />
+            <yaf:themebutton id="Blog" runat="server" cssclass="yafcssimagebutton" textlocalizedpage="POSTS" textlocalizedtag="BLOG" imagethemetag="BLOG" />
+            <yaf:themebutton id="MSN" runat="server" cssclass="yafcssimagebutton" textlocalizedpage="POSTS" textlocalizedtag="MSN" imagethemetag="MSN" />
+            <yaf:themebutton id="AIM" runat="server" cssclass="yafcssimagebutton" textlocalizedpage="POSTS" textlocalizedtag="AIM" imagethemetag="AIM" />
+            <yaf:themebutton id="YIM" runat="server" cssclass="yafcssimagebutton" textlocalizedpage="POSTS" textlocalizedtag="YIM" imagethemetag="YIM" />
+            <yaf:themebutton id="ICQ" runat="server" cssclass="yafcssimagebutton" textlocalizedpage="POSTS" textlocalizedtag="ICQ" imagethemetag="ICQ" />
+            <yaf:themebutton id="Skype" runat="server" cssclass="yafcssimagebutton" textlocalizedpage="POSTS" textlocalizedtag="SKYPE" imagethemetag="SKYPE" />
+            <yaf:themebutton id="AdminUserButton" runat="server" cssclass="yaflittlebutton" visible="false" textlocalizedtag="ADMIN_USER" navigateurl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Request.QueryString.Get("u") ) %>'>
+            </yaf:themebutton>
         </td>
     </tr>
     <tr class="post">
         <td valign="top" rowspan="2">
-            <ajaxToolkit:TabContainer runat="server" ID="ProfileTabs" CssClass="ajax__tab_yaf">
+            <ajaxtoolkit:tabcontainer runat="server" id="ProfileTabs" cssclass="ajax__tab_yaf">
                 <ajaxToolkit:TabPanel runat="server" ID="AboutTab" HeaderText="About">
                     <ContentTemplate>
                         <table width="100%" cellspacing="1" cellpadding="0">
@@ -236,10 +225,10 @@
                         <uc1:SignatureEdit runat="server" ID="SignatureEditControl" ShowHeader="False" />
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
-            </ajaxToolkit:TabContainer>
+            </ajaxtoolkit:tabcontainer>
         </td>
     </tr>
 </table>
 <div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+    <yaf:smartscroller id="SmartScroller1" runat="server" />
 </div>
