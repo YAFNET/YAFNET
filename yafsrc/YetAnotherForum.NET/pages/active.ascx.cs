@@ -79,6 +79,10 @@ namespace YAF.Pages // YAF.Pages
 				Since.Items.Add( new ListItem( GetText( "last_week" ), "7" ) );
 				Since.Items.Add( new ListItem( GetText( "last_two_weeks" ), "14" ) );
 				Since.Items.Add( new ListItem( GetText( "last_month" ), "31" ) );
+                if (Session["ActiveTopicSince"] != null)
+                { Since.SelectedIndex = Convert.ToInt32(Session["ActiveTopicSince"]); }
+                else
+                    Since.SelectedIndex = 0;
 			}
 			BindData();
 		}
@@ -139,6 +143,8 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Since_SelectedIndexChanged( object sender, System.EventArgs e )
 		{
+            Pager.CurrentPageIndex = 0;
+            Session["ActiveTopicSince"] = Since.SelectedIndex;
 			BindData();
 		}
 	}
