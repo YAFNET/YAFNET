@@ -114,9 +114,6 @@
     <Compile Include="ForumPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ForumPageModerator.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="ForumPageRegistered.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

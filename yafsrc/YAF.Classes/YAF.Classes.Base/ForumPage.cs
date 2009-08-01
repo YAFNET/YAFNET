@@ -72,7 +72,6 @@ namespace YAF.Classes.Base
     private bool _checkSuspended = true;
 		private string _transPage = string.Empty;
 		protected string _forumPageTitle = null;
-		protected YAF.Controls.ModalNotification _errorPopup = null;
 
 		protected bool _isAdminPage = false;
 		public bool IsAdminPage
@@ -192,7 +191,7 @@ namespace YAF.Classes.Base
 					YAF.Classes.Data.DB.user_suspend( PageContext.PageUserID, null );
 					HttpContext.Current.Response.Redirect( General.GetSafeRawUrl() );
 				}
-				YafBuildLink.Redirect( ForumPages.info, "i=2" );
+				YafBuildLink.RedirectInfoPage( InfoMessage.Suspended );
 			}
 
 			// This happens when user logs in
@@ -211,9 +210,6 @@ namespace YAF.Classes.Base
 			{
 				Mession.LastVisit = DateTime.Now;
 			}
-
-			// add error modal to this control...
-			AddErrorPopup();
 		}
 
 		/// <summary>
@@ -243,19 +239,6 @@ namespace YAF.Classes.Base
 			_forumPageTitle = title.ToString();
 
 			if ( PageTitleSet != null ) PageTitleSet( this, new ForumPageArgs( _forumPageTitle ) );
-		}
-
-		/// <summary>
-		/// Sets up the Modal Error Popup Dialog
-		/// </summary>
-		private void AddErrorPopup()
-		{
-			// add error control...
-			_errorPopup = new YAF.Controls.ModalNotification();
-			_errorPopup.ID = "ForumPageErrorPopup1";
-			_errorPopup.BehaviorID = "ForumPageErrorPopup";
-			this.Controls.AddAt( 0, _errorPopup );
-		
 		}
 
 		/// <summary>
@@ -396,9 +379,6 @@ namespace YAF.Classes.Base
 			// setup the forum control header & footer properties
 			ForumHeader.SimpleRender = !_showToolBar;
 			ForumFooter.SimpleRender = !_showFooter;
-
-			// register the script code to show the notification modal if needed...
-			RegisterLoadString();
 		}
 
 		/// <summary>
@@ -408,25 +388,6 @@ namespace YAF.Classes.Base
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			base.Render( writer );
-		}
-
-		protected void RegisterLoadString()
-		{
-			if ( PageContext.LoadString.Length > 0 )
-			{
-				if ( ScriptManager.GetCurrent( Page ) != null )
-				{
-					ScriptManager.RegisterStartupScript( Page, typeof( ForumPage ), "modalNotification", String.Format( "var fpModal = function() {1} {3}('{0}'); {2}\nSys.Application.remove_load(fpModal);\nSys.Application.add_load(fpModal);\n\n", PageContext.LoadStringJavascript, '{', '}', _errorPopup.ShowModalFunction ), true );
-				}
-			}
-			else
-			{
-				// make sure we don't show the popup...
-				ScriptManager.RegisterStartupScript( Page, typeof( ForumPage ), "modalNotificationRemove", "if (typeof(fpModal) != 'undefined') Sys.Application.remove_load(fpModal);\n", true );
-			}
-
-			// old js code...
-			//writer.WriteLine( String.Format( "<script language=\"javascript\" type=\"text/javascript\">\nonload=function(){1}\nalert(\"{0}\")\n{2}\n</script>\n", PageContext.LoadStringJavascript, '{', '}' ) );
 		}
 
 		#endregion

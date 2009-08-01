@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using System.Web.UI;
 using YAF.Classes.Base;
 using YAF.Classes.Utils;
 
@@ -48,14 +49,38 @@ namespace YAF.Modules
 			}
 		}
 
-		public void InitModules(YafContext currentContext, ForumPage currentPage, ForumPages pageType)
+		public void CreateModules()
 		{
-			foreach( Type module in _moduleClassTypes )
+			foreach (Type module in _moduleClassTypes)
 			{
 				IBaseModule customModule = (IBaseModule)Activator.CreateInstance(module);
-				customModule.Initalize( currentContext, currentPage, pageType );
+				_loadedModules.Add(customModule);
+			}			
+		}
 
-				_loadedModules.Add( customModule );
+		public void InitModulesBeforeForumPage(YafContext currentContext, object forumControl, ForumPages pageType)
+		{
+			foreach (IBaseModule currentModule in _loadedModules)
+			{
+				if (currentModule.InitBeforeForumPage)
+				{
+					currentModule.Initalize(currentContext, forumControl, null, pageType);
+				}
+			}
+		}
+
+		public void InitModulesAfterForumPage(YafContext currentContext, object forumControl, ForumPage forumPage, ForumPages pageType)
+		{
+			foreach (IBaseModule currentModule in _loadedModules)
+			{
+				if (!currentModule.InitBeforeForumPage)
+				{
+					currentModule.Initalize(currentContext, forumControl, forumPage, pageType);
+				}
+				else
+				{
+					currentModule.ForumPage = forumPage;
+				}
 			}
 		}
 

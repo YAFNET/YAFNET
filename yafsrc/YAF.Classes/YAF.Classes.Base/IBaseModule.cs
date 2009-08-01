@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web.UI;
 using YAF.Classes.Base;
 using YAF.Classes.Utils;
 
@@ -26,6 +27,15 @@ namespace YAF.Modules
 {
 	public interface IBaseModule
 	{
-		void Initalize( YafContext currentContext, ForumPage currentPage, ForumPages pageType );
+		bool InitBeforeForumPage
+		{
+			get;
+		}
+		ForumPage ForumPage
+		{
+			get;
+			set;
+		}
+		void Initalize(YafContext currentContext, object forumControl, ForumPage forumPage, ForumPages pageType);
 	}
 }
