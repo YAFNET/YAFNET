@@ -27,6 +27,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Base;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,34 +36,26 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for cp_signature.
 	/// </summary>
-	public partial class cp_signature : YAF.Classes.Base.ForumPage
+	public partial class cp_signature : ForumPageRegistered
 	{
-
-
 		public cp_signature()
-			: base( "CP_SIGNATURE" )
+			: base("CP_SIGNATURE")
 		{
 		}
 
-		protected void Page_Load( object sender, System.EventArgs e )
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
-
-			if ( User == null )
-			{
-				RedirectNoAccess();
-			}
-
-			if ( !PageContext.BoardSettings.AllowSignatures && !(PageContext.IsAdmin || PageContext.IsForumModerator) )
+			if (!PageContext.BoardSettings.AllowSignatures && !(PageContext.IsAdmin || PageContext.IsForumModerator))
 			{
 				// Not accessbile...
 				YafBuildLink.AccessDenied();
 			}
 
-			if ( !IsPostBack )
+			if (!IsPostBack)
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( PageContext.PageUserName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+				PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink(PageContext.PageUserName, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.cp_profile));
+				PageLinks.AddLink(GetText("TITLE"), "");
 			}
 		}
 	}

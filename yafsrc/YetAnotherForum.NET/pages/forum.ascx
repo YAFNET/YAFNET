@@ -1,67 +1,19 @@
 <%@ Control Language="c#" CodeFile="forum.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.forum" %>
-<%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumWelcome" Src="../controls/ForumWelcome.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumIconLegend" Src="../controls/ForumIconLegend.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumStatistics" Src="../controls/ForumStatistics.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumActiveDiscussion" Src="../controls/ForumActiveDiscussion.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="ForumCategoryList" Src="../controls/ForumCategoryList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:ForumWelcome runat="server" ID="Welcome" />
-<div class="DivTopSeparator"></div>
-<asp:UpdatePanel ID="UpdatePanelCategory" runat="server" UpdateMode="Conditional">
-    <ContentTemplate>
-        <asp:Repeater ID="CategoryList" runat="server">
-            <HeaderTemplate>
-                <table class="content" width="100%">
-                    <tr class="forumRowTitle">
-                        <td colspan="2" align="left" class="header1">
-                            <YAF:LocalizedLabel ID="ForumHeaderLabel" runat="server" LocalizedTag="FORUM" />
-                        </td>
-                        <td class="header1" align="center" width="15%" runat="server" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
-                            <YAF:LocalizedLabel ID="ModeratorsHeaderLabel" runat="server" LocalizedTag="MODERATORS" />
-                        </td>
-                        <td class="header1" align="center" width="4%">
-                            <YAF:LocalizedLabel ID="TopicsHeaderLabel" runat="server" LocalizedTag="TOPICS" />
-                        </td>
-                        <td class="header1" align="center" width="4%">
-                            <YAF:LocalizedLabel ID="PostsHeaderLabel" runat="server" LocalizedTag="POSTS" />
-                        </td>
-                        <td class="header1" align="center" width="25%">
-                            <YAF:LocalizedLabel ID="LastPostHeaderLabel" runat="server" LocalizedTag="LASTPOST" />
-                        </td>
-                    </tr>
-            </HeaderTemplate>
-            <ItemTemplate>
-                <tr class="forumRowCat header2">
-                    <td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>">
-                        <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" ImageAlign="Bottom"
-                            PanelID='<%# "categoryPanel" + DataBinder.Eval(Container.DataItem, "CategoryID").ToString() %>' AttachedControlID="forumList" OnClick="CollapsibleImage_OnClick"/>
-                        &nbsp;&nbsp; <a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
-                            <%# DataBinder.Eval(Container.DataItem, "Name") %>
-                        </a>
-                    </td>
-                </tr>
-                <YAF:ForumList runat="server" Visible="true" ID="forumList" DataSource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>' />
-            </ItemTemplate>
-            <FooterTemplate>
-                <tr class="forumRowFoot footer1">
-                    <td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>" align="right">
-                        <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# GetText("MARKALL") %>' />
-                        <span id="RSSLinkSpacer" runat="server" visible='<%# PageContext.BoardSettings.ShowRSSLink %>'>
-                            |</span>
-                        <asp:HyperLink ID="RssFeed" runat="server" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.rsstopic, "pg=forum" ) %>'
-                            Visible='<%# PageContext.BoardSettings.ShowRSSLink %>'><%# GetText( "RSSFEED" ) %></asp:HyperLink>
-                    </td>
-                </tr>
-                </table>
-            </FooterTemplate>
-        </asp:Repeater>
-    </ContentTemplate>
-</asp:UpdatePanel>
+<div class="DivTopSeparator">
+</div>
+<YAF:ForumCategoryList ID="ForumCategoryList" runat="server"></YAF:ForumCategoryList>
 <br />
-<YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" OnNeedDataBind="OnNeedDataBind" />
+<YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" />
 <br />
-<YAF:ForumStatistics ID="ForumStats" runat="Server" OnNeedDataBind="OnNeedDataBind" />
+<YAF:ForumStatistics ID="ForumStats" runat="Server" />
 <YAF:ForumIconLegend ID="IconLegend" runat="server" />
 <div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

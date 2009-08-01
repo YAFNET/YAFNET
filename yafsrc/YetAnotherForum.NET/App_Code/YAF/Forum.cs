@@ -18,10 +18,12 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using YAF.Classes.Utils;
 using YAF.Classes;
+using YAF.Modules;
 
 namespace YAF
 {
@@ -37,6 +39,7 @@ namespace YAF
 		private string _origFooterClientID;
 		private YAF.Classes.Utils.ForumPages _page;
 		public event EventHandler<YAF.Classes.Base.ForumPageArgs> PageTitleSet;
+		private YAF.Modules.ModuleManager _moduleManager = null;
 
 		public Forum()
 		{
@@ -108,6 +111,13 @@ namespace YAF
 				// add the footer control after the page...
 				if ( YafContext.Current.Settings.LockedForum == 0 && _origFooterClientID == _footer.ClientID )
 					this.Controls.Add( _footer );
+
+				// load plugins/functionality modules
+				if (_moduleManager == null)
+				{
+					_moduleManager = new ModuleManager();
+					_moduleManager.InitModules( YafContext.Current, forumControl, _page );
+				}
 			}
 			catch ( System.IO.FileNotFoundException )
 			{

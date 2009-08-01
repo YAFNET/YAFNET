@@ -30,6 +30,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
+using YAF.Classes.Base;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -38,7 +39,7 @@ namespace YAF.Pages
 	/// <summary>
 	/// Summary description for cp_editprofile.
 	/// </summary>
-	public partial class cp_editprofile : YAF.Classes.Base.ForumPage
+	public partial class cp_editprofile : ForumPageRegistered
 	{
 
 		public cp_editprofile()
@@ -48,11 +49,6 @@ namespace YAF.Pages
 
     protected void Page_Load( object sender, System.EventArgs e )
     {
-      if ( User == null )
-      {
-				RedirectNoAccess();
-      }
-
       if ( !IsPostBack )
       {
         PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );

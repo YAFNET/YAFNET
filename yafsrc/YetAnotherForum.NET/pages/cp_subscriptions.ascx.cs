@@ -27,6 +27,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Base;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,7 +36,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for cp_subscriptions.
 	/// </summary>
-	public partial class cp_subscriptions : YAF.Classes.Base.ForumPage
+	public partial class cp_subscriptions : ForumPageRegistered
 	{
 
 		public cp_subscriptions()
@@ -45,10 +46,6 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if ( User == null )
-			{
-				RedirectNoAccess();
-			}
 
 			if ( !IsPostBack )
 			{

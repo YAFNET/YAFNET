@@ -35,7 +35,6 @@ namespace YAF.Pages
 	/// </summary>
 	public partial class forum : YAF.Classes.Base.ForumPage
 	{
-
 		public forum()
 			: base( "DEFAULT" )
 		{
@@ -62,86 +61,7 @@ namespace YAF.Pages
 						Welcome.Visible = false;
 					}
 				}
-
-				BindData();
 			}
-		}
-
-
-		protected void MarkAll_Click( object sender, System.EventArgs e )
-		{
-			Mession.LastVisit = DateTime.Now;
-			BindData();
-		}
-
-		private void BindData()
-		{
-			DataSet ds = YAF.Classes.Utils.DBBroker.board_layout( PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null );
-			CategoryList.DataSource = ds.Tables [DBAccess.GetObjectName("Category")];
-
-			DataBind();
-		}
-
-		protected string GetViewing( object o )
-		{
-			DataRow row = ( DataRow ) o;
-			int nViewing = ( int ) row ["Viewing"];
-			if ( nViewing > 0 )
-				return "&nbsp;" + GetTextFormatted( "VIEWING", nViewing );
-			else
-				return "";
-		}
-
-		protected string GetForumIcon( object o )
-		{
-			DataRow row = ( DataRow ) o;
-			bool locked = ( bool ) row ["Locked"];
-			DateTime lastRead = Mession.GetForumRead( ( int ) row ["ForumID"] );
-			DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime ) row ["LastPosted"] : lastRead;
-
-			string img, imgTitle;
-
-			try
-			{
-				if ( locked )
-				{
-					img = GetThemeContents( "ICONS", "FORUM_LOCKED" );
-					imgTitle = GetText( "ICONLEGEND", "Forum_Locked" );
-				}
-				else if ( lastPosted > lastRead )
-				{
-					img = GetThemeContents( "ICONS", "FORUM_NEW" );
-					imgTitle = GetText( "ICONLEGEND", "New_Posts" );
-				}
-				else
-				{
-					img = GetThemeContents( "ICONS", "FORUM" );
-					imgTitle = GetText( "ICONLEGEND", "No_New_Posts" );
-				}
-			}
-			catch ( Exception )
-			{
-				img = GetThemeContents( "ICONS", "FORUM" );
-				imgTitle = GetText( "ICONLEGEND", "No_New_Posts" );
-			}
-
-			return String.Format( "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\"/>", img, imgTitle );
-		}
-
-		protected void ModeratorList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
-		{
-			//PageContext.AddLoadMessage("TODO: Fix this");
-			//TODO: Show moderators
-		}
-
-		protected void OnNeedDataBind( object sender, EventArgs e )
-		{
-			BindData();
-		}
-
-		protected void CollapsibleImage_OnClick( object sender, ImageClickEventArgs e )
-		{
-			BindData();
 		}
 	}
 }

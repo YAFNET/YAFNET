@@ -38,34 +38,30 @@ namespace YAF.Controls
 
 		}
 
-		public override void DataBind()
-		{
-			BindData();
-			base.DataBind();
-		}
-
-		protected void BindData()
+		protected void Page_Load(object sender, EventArgs e)
 		{
 			// Latest forum posts
 			// Shows the latest n number of posts on the main forum list page
 
-			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ForumActiveDiscussions );
+			string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ForumActiveDiscussions);
 			DataTable activeTopics = null;
 
-			if ( PageContext.IsGuest )
+			if (PageContext.IsGuest)
 			{
 				// allow caching since this is a guest...				
-				activeTopics = YafCache.Current [cacheKey] as DataTable;
+				activeTopics = YafCache.Current[cacheKey] as DataTable;
 			}
 
-			if ( activeTopics == null )
+			if (activeTopics == null)
 			{
-				activeTopics = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID );
-				if ( PageContext.IsGuest ) YafCache.Current.Insert( cacheKey, activeTopics, null, DateTime.Now.AddMinutes( PageContext.BoardSettings.ActiveDiscussionsCacheTimeout ), TimeSpan.Zero );
+				activeTopics = YAF.Classes.Data.DB.topic_latest(PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID);
+				if (PageContext.IsGuest) YafCache.Current.Insert(cacheKey, activeTopics, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
 			}
 
 			LatestPosts.DataSource = activeTopics;
+			LatestPosts.DataBind();
 		}
+
 
 		protected void LatestPosts_ItemDataBound( object sender, RepeaterItemEventArgs e )
 		{
@@ -101,13 +97,6 @@ namespace YAF.Controls
 				forumLink.Text = currentRow["Forum"].ToString();
 				forumLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.topics, "f={0}", currentRow ["ForumID"] );				
 			}
-		}
-
-		public event EventHandler<EventArgs> NeedDataBind;
-
-		protected void CollapsibleImage_OnClick( object sender, ImageClickEventArgs e )
-		{
-			if ( NeedDataBind != null ) NeedDataBind( this, new EventArgs() );
 		}
 	}
 }

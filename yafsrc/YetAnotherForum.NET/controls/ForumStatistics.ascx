@@ -6,7 +6,7 @@
             <tr>
                 <td class="header1" colspan="2">
                     <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" Style="vertical-align: middle"
-                        PanelID='InformationPanel' AttachedControlID="InformationPlaceHolder" OnClick="CollapsibleImage_OnClick" />&nbsp;&nbsp;<YAF:LocalizedLabel
+                        PanelID='InformationPanel' AttachedControlID="InformationPlaceHolder" />&nbsp;&nbsp;<YAF:LocalizedLabel
                             ID="InformationHeader" runat="server" LocalizedTag="INFORMATION" />
                 </td>
             </tr>

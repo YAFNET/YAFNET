@@ -6,7 +6,7 @@
             <tr>
                 <td class="header1" colspan="2">
                     <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" Style="vertical-align: middle"
-                        PanelID='ActiveDiscussions' AttachedControlID="ActiveDiscussionPlaceHolder" OnClick="CollapsibleImage_OnClick" />&nbsp;&nbsp;<YAF:LocalizedLabel
+                        PanelID='ActiveDiscussions' AttachedControlID="ActiveDiscussionPlaceHolder" />&nbsp;&nbsp;<YAF:LocalizedLabel
                             ID="ActiveDiscussionHeader" runat="server" LocalizedTag="ACTIVE_DISCUSSIONS" />
                 </td>
             </tr>

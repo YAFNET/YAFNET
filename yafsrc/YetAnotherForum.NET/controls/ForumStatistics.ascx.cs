@@ -40,70 +40,59 @@ namespace YAF.Controls
 
 		void ForumStatistics_Load( object sender, EventArgs e )
 		{
-
-		}
-
-		public override void DataBind()
-		{
-			BindData();
-			base.DataBind();
-		}
-
-		protected void BindData()
-		{
 			// Active users
 			// Call this before forum_stats to clean up active users
-			ActiveUsers1.ActiveUserTable = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, null );
+			ActiveUsers1.ActiveUserTable = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, null);
 
 			// "Active Users" Count and Most Users Count
-			DataRow activeStats = YAF.Classes.Data.DB.active_stats( PageContext.PageBoardID );
+			DataRow activeStats = YAF.Classes.Data.DB.active_stats(PageContext.PageBoardID);
 
-			ActiveUserCount.Text = FormatActiveUsers( activeStats );
+			ActiveUserCount.Text = FormatActiveUsers(activeStats);
 
 			// Forum Statistics
-			string key = YafCache.GetBoardCacheKey( Constants.Cache.BoardStats );
-			DataRow statisticsDataRow = ( DataRow ) Cache [key];
-			if ( statisticsDataRow == null )
+			string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardStats);
+			DataRow statisticsDataRow = (DataRow)Cache[key];
+			if (statisticsDataRow == null)
 			{
-				statisticsDataRow = YAF.Classes.Data.DB.board_poststats( PageContext.PageBoardID );
-				Cache.Insert( key, statisticsDataRow, null, DateTime.Now.AddMinutes( PageContext.BoardSettings.ForumStatisticsCacheTimeout ), TimeSpan.Zero );
+				statisticsDataRow = YAF.Classes.Data.DB.board_poststats(PageContext.PageBoardID);
+				Cache.Insert(key, statisticsDataRow, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ForumStatisticsCacheTimeout), TimeSpan.Zero);
 			}
 
 			// show max users...
-			if ( !statisticsDataRow.IsNull( "MaxUsers" ) )
+			if (!statisticsDataRow.IsNull("MaxUsers"))
 			{
-				MostUsersCount.Text = PageContext.Localization.GetTextFormatted( "MAX_ONLINE", statisticsDataRow ["MaxUsers"], YafDateTime.FormatDateTimeTopic( statisticsDataRow ["MaxUsersWhen"] ) );
+				MostUsersCount.Text = PageContext.Localization.GetTextFormatted("MAX_ONLINE", statisticsDataRow["MaxUsers"], YafDateTime.FormatDateTimeTopic(statisticsDataRow["MaxUsersWhen"]));
 			}
 			else
 			{
-				MostUsersCount.Text = PageContext.Localization.GetTextFormatted( "MAX_ONLINE", activeStats ["ActiveUsers"], YafDateTime.FormatDateTimeTopic( DateTime.Now ) );
+				MostUsersCount.Text = PageContext.Localization.GetTextFormatted("MAX_ONLINE", activeStats["ActiveUsers"], YafDateTime.FormatDateTimeTopic(DateTime.Now));
 			}
 
 			// Posts and Topic Count...
-			StatsPostsTopicCount.Text = PageContext.Localization.GetTextFormatted( "stats_posts", statisticsDataRow ["posts"], statisticsDataRow ["topics"], statisticsDataRow ["forums"] );
+			StatsPostsTopicCount.Text = PageContext.Localization.GetTextFormatted("stats_posts", statisticsDataRow["posts"], statisticsDataRow["topics"], statisticsDataRow["forums"]);
 
 			// Last post
-			if ( !statisticsDataRow.IsNull( "LastPost" ) )
+			if (!statisticsDataRow.IsNull("LastPost"))
 			{
 				StatsLastPostHolder.Visible = true;
 
-				LastPostUserLink.UserID = Convert.ToInt32(statisticsDataRow ["LastUserID"]);
-				LastPostUserLink.UserName = statisticsDataRow ["LastUser"].ToString();
+				LastPostUserLink.UserID = Convert.ToInt32(statisticsDataRow["LastUserID"]);
+				LastPostUserLink.UserName = statisticsDataRow["LastUser"].ToString();
 
-				StatsLastPost.Text = PageContext.Localization.GetTextFormatted( "stats_lastpost", YafDateTime.FormatDateTimeTopic( ( DateTime ) statisticsDataRow ["LastPost"] ) );
+				StatsLastPost.Text = PageContext.Localization.GetTextFormatted("stats_lastpost", YafDateTime.FormatDateTimeTopic((DateTime)statisticsDataRow["LastPost"]));
 			}
 			else
 			{
 				StatsLastPostHolder.Visible = false;
 			}
-			
+
 			// Member Count
-			StatsMembersCount.Text = PageContext.Localization.GetTextFormatted( "stats_members", statisticsDataRow ["members"] );
+			StatsMembersCount.Text = PageContext.Localization.GetTextFormatted("stats_members", statisticsDataRow["members"]);
 
 			// Newest Member
-			StatsNewestMember.Text = PageContext.Localization.GetText( "stats_lastmember" );
-			NewestMemberUserLink.UserID = Convert.ToInt32( statisticsDataRow ["LastMemberID"] );
-			NewestMemberUserLink.UserName = statisticsDataRow ["LastMember"].ToString();
+			StatsNewestMember.Text = PageContext.Localization.GetText("stats_lastmember");
+			NewestMemberUserLink.UserID = Convert.ToInt32(statisticsDataRow["LastMemberID"]);
+			NewestMemberUserLink.UserName = statisticsDataRow["LastMember"].ToString();
 		}
 
 		protected string FormatActiveUsers( DataRow activeStats )
@@ -147,13 +136,6 @@ namespace YAF.Controls
 			}
 
 			return sb.ToString();
-		}
-
-		public event EventHandler<EventArgs> NeedDataBind;
-
-		protected void CollapsibleImage_OnClick( object sender, ImageClickEventArgs e )
-		{
-			if ( NeedDataBind != null ) NeedDataBind( this, new EventArgs() );
 		}
 	}
 }

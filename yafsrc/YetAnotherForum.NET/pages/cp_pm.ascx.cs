@@ -27,12 +27,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Base;
 using YAF.Classes.Utils;
 using YAF.Controls;
 
 namespace YAF.Pages
 {
-	public partial class cp_pm : YAF.Classes.Base.ForumPage
+	public partial class cp_pm : ForumPageRegistered
 	{
 		private PMView _View;
 
@@ -42,9 +43,6 @@ namespace YAF.Pages
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (User == null || PageContext.IsGuest)
-				RedirectNoAccess();
-
 			// check if this feature is disabled
 			if (!PageContext.BoardSettings.AllowPrivateMessages)
 				YafBuildLink.Redirect(ForumPages.info, "i=5");

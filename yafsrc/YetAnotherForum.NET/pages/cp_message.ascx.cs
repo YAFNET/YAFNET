@@ -31,7 +31,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for inbox.
 	/// </summary>
-	public partial class cp_message : ForumPage
+	public partial class cp_message : ForumPageRegistered
 	{
 		public cp_message()
 			: base( "CP_MESSAGE" )
@@ -40,9 +40,6 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
-			if ( User == null )
-				RedirectNoAccess();
-
 			// check if this feature is disabled
 			if ( !PageContext.BoardSettings.AllowPrivateMessages )
 				YafBuildLink.Redirect( ForumPages.info, "i=5" );

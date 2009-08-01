@@ -29,6 +29,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Globalization;
+using YAF.Classes.Base;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -37,7 +38,7 @@ namespace YAF.Pages
 	/// <summary>
 	/// Summary description for editprofile.
 	/// </summary>
-	public partial class cp_profile : YAF.Classes.Base.ForumPage
+	public partial class cp_profile : ForumPageRegistered
 	{
 
 		public cp_profile()
@@ -47,11 +48,6 @@ namespace YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if ( User == null )
-			{
-				RedirectNoAccess();
-			}
-
 			if ( !IsPostBack )
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );

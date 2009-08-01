@@ -27,12 +27,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Base;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
 namespace YAF.Pages
 {
-	public partial class cp_editavatar : YAF.Classes.Base.ForumPage
+	public partial class cp_editavatar : ForumPageRegistered
 	{
 		public cp_editavatar()
 			: base( "CP_EDITAVATAR" )
@@ -41,11 +42,6 @@ namespace YAF.Pages
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
-			if ( User == null )
-			{
-				RedirectNoAccess();
-			}
-
 			if ( !IsPostBack )
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );

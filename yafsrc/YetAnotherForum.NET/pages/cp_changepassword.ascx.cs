@@ -19,6 +19,7 @@
  */
 using System;
 using System.Web.UI.WebControls;
+using YAF.Classes.Base;
 using YAF.Classes.Utils;
 
 namespace YAF.Pages
@@ -26,7 +27,7 @@ namespace YAF.Pages
   /// <summary>
   /// Summary description for cp_subscriptions.
   /// </summary>
-  public partial class cp_changepassword : YAF.Classes.Base.ForumPage
+	public partial class cp_changepassword : ForumPageRegistered
   {
 
     public cp_changepassword()
@@ -36,11 +37,6 @@ namespace YAF.Pages
 
     private void Page_Load( object sender, System.EventArgs e )
     {
-      if ( User == null )
-      {
-				RedirectNoAccess();
-      }
-
 			if ( !PageContext.BoardSettings.AllowPasswordChange && !( PageContext.IsAdmin || PageContext.IsForumModerator ) )
 			{
 				// Not accessbile...
