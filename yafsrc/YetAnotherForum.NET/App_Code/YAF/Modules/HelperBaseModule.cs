@@ -30,16 +30,16 @@ namespace YAF.Modules
 			}
 		}
 
-		protected ForumPage _forumPage;
-		public ForumPage ForumPage
+		protected ForumPage _currentForumPage;
+		public ForumPage CurrentForumPage
 		{
 			get
 			{
-				return _forumPage;
+				return _currentForumPage;
 			}
 			set
 			{
-				_forumPage = value;
+				_currentForumPage = value;
 			}
 		}
 
@@ -88,7 +88,7 @@ namespace YAF.Modules
 			// save the page type...
 			_forumPageType = pageType;
 			_pageContext = pageContext;
-			_forumPage = forumPage;
+			_currentForumPage = forumPage;
 			_forumControl = (Forum)forumControl;
 
 			InitModule();

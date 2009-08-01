@@ -29,6 +29,24 @@ using YAF.Modules;
 namespace YAF
 {
 	/// <summary>
+	/// EventArgs class for the PageTitleSet event
+	/// </summary>
+	public class ForumPageTitleArgs : EventArgs
+	{
+		private string _title;
+
+		public ForumPageTitleArgs(string title)
+		{
+			_title = title;
+		}
+
+		public string Title
+		{
+			get { return _title; }
+		}
+	}
+
+	/// <summary>
 	/// Summary description for Forum.
 	/// </summary>
 	[ToolboxData( "<{0}:Forum runat=\"server\"></{0}:Forum>" )]
@@ -40,12 +58,13 @@ namespace YAF
 		private string _origFooterClientID;
 		private YAF.Classes.Utils.ForumPages _page;
 		private ForumPage currentForumPage;
-		public event EventHandler<YAF.Classes.Base.ForumPageArgs> PageTitleSet;
+		public event EventHandler<ForumPageTitleArgs> PageTitleSet;
 		private YAF.Modules.ModuleManager _moduleManager = null;
 
 		public Forum()
 		{
-			this.Load += new EventHandler( Forum_Load );
+			this.Init += new EventHandler(Forum_Init);
+
 			// setup header/footer
 			_header = new YAF.Controls.Header();
 			_footer = new YAF.Controls.Footer();
@@ -53,7 +72,7 @@ namespace YAF
 			_origFooterClientID = _footer.ClientID;
 		}
 
-		private void Forum_Load( object sender, EventArgs e )
+		protected void Forum_Init( object sender, EventArgs e )
 		{
 			string m_baseDir = YafForumInfo.ForumFileRoot;
 
@@ -106,7 +125,6 @@ namespace YAF
 				}
 
 				currentForumPage = (YAF.Classes.Base.ForumPage)LoadControl(src);
-				currentForumPage.PageTitleSet += new EventHandler<YAF.Classes.Base.ForumPageArgs>(forumControl_PageTitleSet);
 
 				currentForumPage.ForumFooter = _footer;
 				currentForumPage.ForumHeader = _header;
@@ -151,7 +169,7 @@ namespace YAF
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-    void forumControl_PageTitleSet( object sender, YAF.Classes.Base.ForumPageArgs e )
+		void forumControl_PageTitleSet(object sender, ForumPageTitleArgs e)
     {
       if ( PageTitleSet != null ) PageTitleSet( this, e );
     }		
