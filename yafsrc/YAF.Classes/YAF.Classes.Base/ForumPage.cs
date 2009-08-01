@@ -73,11 +73,20 @@ namespace YAF.Classes.Base
 		private string _transPage = string.Empty;
 		protected string _forumPageTitle = null;
 		protected YAF.Controls.ModalNotification _errorPopup = null;
-		protected bool _isAdminPage = false;
 
+		protected bool _isAdminPage = false;
 		public bool IsAdminPage
 		{
 			get { return _isAdminPage; }
+		}
+
+		protected bool _isRegisteredPage = false;
+		public bool IsRegisteredPage
+		{
+			get
+			{
+				return _isRegisteredPage;
+			}
 		}
 
 		private YAF.Controls.Header _header = null;
@@ -434,7 +443,7 @@ namespace YAF.Classes.Base
 			}
 		}
 
-		protected void RedirectNoAccess()
+		public void RedirectNoAccess()
 		{
 			General.HandleRequest( PageContext, ViewPermissions.RegisteredUsers );
 		}
@@ -643,6 +652,5 @@ namespace YAF.Classes.Base
 		{
 			// Page link creation goes to this method (overloads in descendant classes)
 		}
-
 	}
 }

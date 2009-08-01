@@ -46,7 +46,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v2.0|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-	  <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -54,7 +54,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v3.5|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-	  <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -64,7 +64,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v3.5|AnyCPU' ">
-	  <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -82,13 +82,13 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v2.0|AnyCPU' ">
     <Reference Include="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-		<HintPath>..\YetAnotherForum.NET\Bin\Net2.0\System.Web.Extensions.dll</HintPath>
+      <HintPath>..\YetAnotherForum.NET\Bin\Net2.0\System.Web.Extensions.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v2.0|AnyCPU' ">
     <Reference Include="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-		<HintPath>..\YetAnotherForum.NET\Bin\Net2.0\System.Web.Extensions.dll</HintPath>
+      <HintPath>..\YetAnotherForum.NET\Bin\Net2.0\System.Web.Extensions.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
@@ -114,8 +114,16 @@
     <Compile Include="ForumPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="ForumPageModerator.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForumPageRegistered.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModuleManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="YAFInitModule.cs" />
+    <Compile Include="IBaseModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YAF.Controls\YAF.Controls.csproj">

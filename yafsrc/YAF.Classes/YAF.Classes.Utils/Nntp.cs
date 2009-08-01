@@ -1528,10 +1528,9 @@ namespace YAF.Classes.Utils.Nntp
 	{
 		static public int ReadArticles( object boardID, int nLastUpdate, int nTimeToRun, bool bCreateUsers )
 		{
-			int nUserID = YAF.Classes.Data.DB.user_guest( boardID );	// Use guests user-id
+			int guestUserId = YAF.Classes.Data.DB.user_guest( boardID );	// Use guests user-id
 			string sHostAddress = System.Web.HttpContext.Current.Request.UserHostAddress;
-			DataTable dtSystem = YAF.Classes.Data.DB.registry_list( "TimeZone" );
-			TimeSpan tsLocal = new TimeSpan( 0, Convert.ToInt32( dtSystem.Rows [0] ["Value"] ), 0 );
+			TimeSpan tsLocal = YafContext.Current.BoardSettings.TimeZone;
 			DateTime dtStart = DateTime.Now;
 			int nArticleCount = 0;
 
@@ -1599,10 +1598,10 @@ namespace YAF.Classes.Utils.Nntp
 								sBody = String.Format( "Date parsed: {0}\r\n", dtDate ) + sBody;
 
 								if ( bCreateUsers )
-									nUserID = YAF.Classes.Data.DB.user_nntp( boardID, sFrom, "" );
+									guestUserId = YAF.Classes.Data.DB.user_nntp( boardID, sFrom, "" );
 
 								sBody = System.Web.HttpContext.Current.Server.HtmlEncode( sBody );
-								YAF.Classes.Data.DB.nntptopic_savemessage( drForum ["NntpForumID"], sSubject, sBody, nUserID, sFrom, sHostAddress, dtDate, sThread );
+								YAF.Classes.Data.DB.nntptopic_savemessage( drForum ["NntpForumID"], sSubject, sBody, guestUserId, sFrom, sHostAddress, dtDate, sThread );
 								nLastMessageNo = nCurrentMessage;
 								nArticleCount++;
 								// We don't wanna retrieve articles forever...
@@ -1614,7 +1613,7 @@ namespace YAF.Classes.Utils.Nntp
 							{
 							}
 						}
-						YAF.Classes.Data.DB.nntpforum_update( drForum ["NntpForumID"], nLastMessageNo, nUserID );
+						YAF.Classes.Data.DB.nntpforum_update( drForum ["NntpForumID"], nLastMessageNo, guestUserId );
 						// Total time x seconds for all groups
 						if ( ( DateTime.Now - dtStart ).TotalSeconds > nTimeToRun )
 							break;
