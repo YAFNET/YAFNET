@@ -55,7 +55,7 @@ namespace YAF.Modules
 			if (head != null)
 			{
 				// setup the title...
-				head.Title = _forumPageTitle;
+				head.Title = _forumPageTitle + " - " + head.Title;
 			}
 			else
 			{
