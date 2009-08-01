@@ -31,7 +31,7 @@ namespace YAF.Modules
 		{
 			get;
 		}
-		ForumPage ForumPage
+		ForumPage CurrentForumPage
 		{
 			get;
 			set;

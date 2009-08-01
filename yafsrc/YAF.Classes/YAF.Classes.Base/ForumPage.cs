@@ -37,24 +37,6 @@ using YAF.Classes.Utils;
 namespace YAF.Classes.Base
 {
 	/// <summary>
-	/// EventArgs class for the PageTitleSet event
-	/// </summary>
-	public class ForumPageArgs : EventArgs
-	{
-		private string _title;
-
-		public ForumPageArgs( string title )
-		{
-			_title = title;
-		}
-
-		public string Title
-		{
-			get { return _title; }
-		}
-	}
-
-	/// <summary>
 	/// Summary description for BasePage.
 	/// </summary>
 	public class ForumPage : System.Web.UI.UserControl
@@ -71,7 +53,6 @@ namespace YAF.Classes.Base
     private bool _showFooter = Config.ShowFooter;
     private bool _checkSuspended = true;
 		private string _transPage = string.Empty;
-		protected string _forumPageTitle = null;
 
 		protected bool _isAdminPage = false;
 		public bool IsAdminPage
@@ -117,11 +98,6 @@ namespace YAF.Classes.Base
 		#endregion
 
 		#region Constructor and events
-
-		/// <summary>
-		/// Fires OnPageLoad when a pageTitle has been generated.
-		/// </summary>
-		public event EventHandler<ForumPageArgs> PageTitleSet;
 
 		/// <summary>
 		/// Constructor
@@ -220,25 +196,6 @@ namespace YAF.Classes.Base
 		private void ForumPage_Load( object sender, System.EventArgs e )
 		{
 			if ( PageContext.BoardSettings.DoUrlReferrerSecurityCheck ) Security.CheckRequestValidity( Request );
-			GeneratePageTitle();			
-		}
-
-		/// <summary>
-		/// Creates this pages title and fires a PageTitleSet event if one is set
-		/// </summary>
-		private void GeneratePageTitle()
-		{
-			// compute page title..
-			System.Text.StringBuilder title = new StringBuilder();
-
-			if ( PageContext.PageTopicID != 0 )
-				title.AppendFormat( "{0} - ", General.BadWordReplace( PageContext.PageTopicName ) ); // Tack on the topic we're viewing
-			if ( PageContext.PageForumName != string.Empty )
-				title.AppendFormat( "{0} - ", HtmlEncode( PageContext.PageForumName ) ); // Tack on the forum we're viewing
-			title.Append( HtmlEncode( PageContext.BoardSettings.Name ) ); // and lastly, tack on the board's name
-			_forumPageTitle = title.ToString();
-
-			if ( PageTitleSet != null ) PageTitleSet( this, new ForumPageArgs( _forumPageTitle ) );
 		}
 
 		/// <summary>
@@ -350,26 +307,7 @@ namespace YAF.Classes.Base
 				}
 			}
 
-			HtmlHead head = (HtmlHead) ControlHelper.FindControlRecursiveBoth( this, "YafHead" );
-
-			if ( head != null )
-			{
-				// setup the title...
-				head.Title = _forumPageTitle;
-				// setup the css/refresh
-				InsertCssRefresh( head );
-			}
-			else
-			{
-				// old style
-				HtmlTitle title = (HtmlTitle) ControlHelper.FindControlRecursiveBoth( this, "ForumTitle" );
-				if ( title != null )
-				{
-					title.Text = _forumPageTitle;
-				}
-				// render Css & Refresh inside header
-				InsertCssRefresh( ForumHeader );
-			}
+			InsertCssRefresh( GetTopPageElement() );
 		}
 
 		private void ForumPage_PreRender( object sender, EventArgs e )
@@ -604,7 +542,7 @@ namespace YAF.Classes.Base
 
 		#endregion
 
-		protected string HtmlEncode( object data )
+		public string HtmlEncode( object data )
 		{
 			return Server.HtmlEncode( data.ToString() );
 		}

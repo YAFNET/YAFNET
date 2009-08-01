@@ -79,7 +79,7 @@ namespace YAF.Modules
 				}
 				else
 				{
-					currentModule.ForumPage = forumPage;
+					currentModule.CurrentForumPage = forumPage;
 				}
 			}
 		}
