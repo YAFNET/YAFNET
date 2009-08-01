@@ -57,7 +57,7 @@ namespace YAF
 		private string _origHeaderClientID;
 		private string _origFooterClientID;
 		private YAF.Classes.Utils.ForumPages _page;
-		private ForumPage currentForumPage;
+		private ForumPage _currentForumPage;
 		public event EventHandler<ForumPageTitleArgs> PageTitleSet;
 		private YAF.Modules.ModuleManager _moduleManager = null;
 
@@ -124,16 +124,16 @@ namespace YAF
 					_moduleManager.InitModulesBeforeForumPage( YafContext.Current, this, _page );
 				}
 
-				currentForumPage = (YAF.Classes.Base.ForumPage)LoadControl(src);
+				_currentForumPage = (ForumPage)LoadControl(src);
 
-				currentForumPage.ForumFooter = _footer;
-				currentForumPage.ForumHeader = _header;
+				_currentForumPage.ForumFooter = _footer;
+				_currentForumPage.ForumHeader = _header;
 			
 				// add the header control before the page rendering...
 				if ( YafContext.Current.Settings.LockedForum == 0 && _origHeaderClientID == _header.ClientID )
 					this.Controls.AddAt( 0, _header );
 
-				this.Controls.Add(currentForumPage);
+				this.Controls.Add(_currentForumPage);
 
 				// add the footer control after the page...
 				if ( YafContext.Current.Settings.LockedForum == 0 && _origFooterClientID == _footer.ClientID )
@@ -142,7 +142,7 @@ namespace YAF
 				// load plugins/functionality modules
 				if (_moduleManager != null)
 				{
-					_moduleManager.InitModulesAfterForumPage( YafContext.Current, this, currentForumPage, _page );
+					_moduleManager.InitModulesAfterForumPage( _currentForumPage );
 				}
 			}
 			catch ( System.IO.FileNotFoundException )
@@ -169,7 +169,7 @@ namespace YAF
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		void forumControl_PageTitleSet(object sender, ForumPageTitleArgs e)
+		public void FirePageTitleSet(object sender, ForumPageTitleArgs e)
     {
       if ( PageTitleSet != null ) PageTitleSet( this, e );
     }		

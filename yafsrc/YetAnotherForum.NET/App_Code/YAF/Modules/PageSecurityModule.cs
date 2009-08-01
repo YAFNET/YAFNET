@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using YAF.Classes.Base;
 using YAF.Classes.Utils;
 
 namespace YAF.Modules
@@ -8,16 +9,15 @@ namespace YAF.Modules
 	/// <summary>
 	/// Module that handles individual page security features -- needs to be expanded.
 	/// </summary>
-	public class PageSecurityModule : HelperBaseModule
+	public class PageSecurityModule : SimpleBaseModule
 	{
 		public PageSecurityModule()
 		{
 			
 		}
 
-		public override void InitModule()
+		override public void InitAfterPage()
 		{
-			// hook forumpage handlers....
 			CurrentForumPage.Load += new EventHandler(CurrentPage_Load);
 		}
 

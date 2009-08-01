@@ -10,16 +10,16 @@ namespace YAF.Modules
 	/// <summary>
 	/// Summary description for PagePopupModule
 	/// </summary>
-	public class PagePopupModule : HelperBaseModule
+	public class PagePopupModule : SimpleBaseModule
 	{
 		protected YAF.Controls.ModalNotification _errorPopup = null;
 
 		public PagePopupModule()
 		{
-			InitBefore = true;
+
 		}
 
-		public override void InitModule()
+		public override void InitBeforePage()
 		{
 			ForumControl.PreRender += new EventHandler(CurrentPage_PreRender);
 
