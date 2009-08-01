@@ -13,6 +13,14 @@ namespace YAF.Modules
 		private List<IBaseModule> _loadedModules = null;
 		private List<Type> _moduleClassTypes = null;
 
+		List<IBaseModule> LoadedModules
+		{
+			get
+			{
+				return _loadedModules;
+			}
+		}
+
 		public ModuleManager()
 		{
 			_moduleClassTypes = new List<Type>();
@@ -62,25 +70,19 @@ namespace YAF.Modules
 		{
 			foreach (IBaseModule currentModule in _loadedModules)
 			{
-				if (currentModule.InitBeforeForumPage)
-				{
-					currentModule.Initalize(currentContext, forumControl, null, pageType);
-				}
+				currentModule.ForumPageType = pageType;
+				currentModule.ForumControlObj = forumControl;
+				currentModule.PageContext = currentContext;
+				currentModule.InitBeforePage();
 			}
 		}
 
-		public void InitModulesAfterForumPage(YafContext currentContext, object forumControl, ForumPage forumPage, ForumPages pageType)
+		public void InitModulesAfterForumPage(ForumPage forumPage)
 		{
 			foreach (IBaseModule currentModule in _loadedModules)
 			{
-				if (!currentModule.InitBeforeForumPage)
-				{
-					currentModule.Initalize(currentContext, forumControl, forumPage, pageType);
-				}
-				else
-				{
-					currentModule.CurrentForumPage = forumPage;
-				}
+				currentModule.CurrentForumPage = forumPage;
+				currentModule.InitAfterPage();
 			}
 		}
 

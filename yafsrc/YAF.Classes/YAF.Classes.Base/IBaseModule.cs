@@ -25,17 +25,45 @@ using YAF.Classes.Utils;
 
 namespace YAF.Modules
 {
-	public interface IBaseModule
+	public interface IBaseModule : IDisposable
 	{
-		bool InitBeforeForumPage
-		{
-			get;
-		}
 		ForumPage CurrentForumPage
 		{
 			get;
 			set;
 		}
-		void Initalize(YafContext currentContext, object forumControl, ForumPage forumPage, ForumPages pageType);
+		ForumPages ForumPageType
+		{
+			get;
+			set;
+		}
+		YafContext PageContext
+		{
+			get;
+			set;
+		}
+		object ForumControlObj
+		{
+			get;
+			set;
+		}
+
+		string ModuleName
+		{
+			get;
+		}
+
+		string ModuleAuthor
+		{
+			get;
+		}
+
+		int ModuleVersion
+		{
+			get;
+		}
+
+		void InitBeforePage();
+		void InitAfterPage();
 	}
 }
