@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
+using YAF.Classes.Base;
 using YAF.Classes.Utils;
 using YAF.Classes;
 using YAF.Modules;
@@ -38,6 +39,7 @@ namespace YAF
 		private string _origHeaderClientID;
 		private string _origFooterClientID;
 		private YAF.Classes.Utils.ForumPages _page;
+		private ForumPage currentForumPage;
 		public event EventHandler<YAF.Classes.Base.ForumPageArgs> PageTitleSet;
 		private YAF.Modules.ModuleManager _moduleManager = null;
 
@@ -96,27 +98,33 @@ namespace YAF
 					this.Controls.Add( yafScriptManager );
 				}
 
-				YAF.Classes.Base.ForumPage forumControl = ( YAF.Classes.Base.ForumPage ) LoadControl( src );
-				forumControl.PageTitleSet += new EventHandler<YAF.Classes.Base.ForumPageArgs>( forumControl_PageTitleSet );
+				if (_moduleManager == null)
+				{
+					_moduleManager = new ModuleManager();
+					_moduleManager.CreateModules();
+					_moduleManager.InitModulesBeforeForumPage( YafContext.Current, this, _page );
+				}
 
-				forumControl.ForumFooter = _footer;
-				forumControl.ForumHeader = _header;
+				currentForumPage = (YAF.Classes.Base.ForumPage)LoadControl(src);
+				currentForumPage.PageTitleSet += new EventHandler<YAF.Classes.Base.ForumPageArgs>(forumControl_PageTitleSet);
+
+				currentForumPage.ForumFooter = _footer;
+				currentForumPage.ForumHeader = _header;
 			
 				// add the header control before the page rendering...
 				if ( YafContext.Current.Settings.LockedForum == 0 && _origHeaderClientID == _header.ClientID )
 					this.Controls.AddAt( 0, _header );
 
-				this.Controls.Add( forumControl );
+				this.Controls.Add(currentForumPage);
 
 				// add the footer control after the page...
 				if ( YafContext.Current.Settings.LockedForum == 0 && _origFooterClientID == _footer.ClientID )
 					this.Controls.Add( _footer );
 
 				// load plugins/functionality modules
-				if (_moduleManager == null)
+				if (_moduleManager != null)
 				{
-					_moduleManager = new ModuleManager();
-					_moduleManager.InitModules( YafContext.Current, forumControl, _page );
+					_moduleManager.InitModulesAfterForumPage( YafContext.Current, this, currentForumPage, _page );
 				}
 			}
 			catch ( System.IO.FileNotFoundException )

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Web.UI;
 using YAF.Classes.Base;
 using YAF.Classes.Utils;
 
@@ -11,8 +12,7 @@ namespace YAF.Modules
 	/// </summary>
 	public class HelperBaseModule : IBaseModule
 	{
-		private ForumPages _forumPageType;
-
+		protected ForumPages _forumPageType;
 		public ForumPages ForumPageType
 		{
 			get
@@ -21,8 +21,7 @@ namespace YAF.Modules
 			}
 		}
 
-		private YafContext _pageContext;
-
+		protected YafContext _pageContext;
 		public YafContext PageContext
 		{
 			get
@@ -31,12 +30,42 @@ namespace YAF.Modules
 			}
 		}
 
-		private ForumPage _currentPage;
-		public ForumPage CurrentPage
+		protected ForumPage _forumPage;
+		public ForumPage ForumPage
 		{
 			get
 			{
-				return _currentPage;
+				return _forumPage;
+			}
+			set
+			{
+				_forumPage = value;
+			}
+		}
+
+		protected Forum _forumControl;
+		public Forum ForumControl
+		{
+			get
+			{
+				return _forumControl;
+			}
+			set
+			{
+				_forumControl = value;
+			}
+		}
+
+		protected bool _initBefore = false;
+		public bool InitBefore
+		{
+			get
+			{
+				return _initBefore;
+			}
+			set
+			{
+				_initBefore = value;
 			}
 		}
 
@@ -54,14 +83,23 @@ namespace YAF.Modules
 
 		#region IBaseModule Members
 
-		public void Initalize(YAF.Classes.Utils.YafContext currentContext, YAF.Classes.Base.ForumPage currentPage, YAF.Classes.Utils.ForumPages pageType)
+		public void Initalize(YAF.Classes.Utils.YafContext pageContext, object forumControl, ForumPage forumPage, YAF.Classes.Utils.ForumPages pageType)
 		{
 			// save the page type...
 			_forumPageType = pageType;
-			_pageContext = currentContext;
-			_currentPage = currentPage;
+			_pageContext = pageContext;
+			_forumPage = forumPage;
+			_forumControl = (Forum)forumControl;
 
 			InitModule();
+		}
+
+		public bool InitBeforeForumPage
+		{
+			get
+			{
+				return InitBefore;
+			}
 		}
 
 		#endregion

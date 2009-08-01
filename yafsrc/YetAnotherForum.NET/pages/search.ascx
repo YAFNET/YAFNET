@@ -52,9 +52,9 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
         <asp:AsyncPostBackTrigger ControlID="btnSearch" />
     </Triggers>
     <ContentTemplate>
-        <YAF:Pager runat="server" ID="Pager" />
+        <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
         
-            <asp:Repeater ID="SearchRes" runat="server">
+            <asp:Repeater ID="SearchRes" runat="server" OnItemDataBound="SearchRes_ItemDataBound">
                 <HeaderTemplate>
                     <table class="content" cellspacing="1" cellpadding="0" width="100%">
                     <tr>

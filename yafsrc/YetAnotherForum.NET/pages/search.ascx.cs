@@ -77,17 +77,6 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( !IsPostBack )
 			{
-				// 20050909 CHP : BEGIN
-				if ( PageContext.IsPrivate && User == null )
-				{
-					// Ederon : guess we don't need this if anymore
-					//if ( CanLogin )
-					RedirectNoAccess();
-					//else
-					//	YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
-				}
-				// 20050909 CHP : END
-
 				PageLinks.AddLink( PageContext.BoardSettings.Name,
 				                   YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
@@ -112,7 +101,10 @@ namespace YAF.Pages // YAF.Pages
 				listSearchWhat.Items.Add( new ListItem( GetText( "match_all" ), "0" ) );
 				listSearchWhat.Items.Add( new ListItem( GetText( "match_any" ), "1" ) );
 				listSearchWhat.Items.Add( new ListItem( GetText( "match_exact" ), "2" ) );
-				;
+
+
+				listSearchFromWho.SelectedIndex = 0;
+				listSearchWhat.SelectedIndex = 0;
 
 				// handle custom BBCode javascript or CSS...
 				BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
@@ -162,37 +154,11 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		private void Pager_PageChange( object sender, EventArgs e )
+		protected void Pager_PageChange( object sender, EventArgs e )
 		{
 			SmartScroller1.RegisterStartupReset();
 			SearchBindData( false );
 		}
-
-		#region Web Form Designer generated code
-		/// <summary>
-		/// The initialization script for the search page.
-		/// </summary>
-		/// <param name="e">The EventArg object for the search page.</param>
-		override protected void OnInit( EventArgs e )
-		{
-			Pager.PageChange += new EventHandler( Pager_PageChange );
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			this.SearchRes.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler( this.SearchRes_ItemDataBound );
-
-		}
-		#endregion
 
 		private void SearchBindData( bool newSearch )
 		{
@@ -257,7 +223,7 @@ namespace YAF.Pages // YAF.Pages
 			SearchBindData( true );
 		}
 
-		private void SearchRes_ItemDataBound( object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e )
+		protected void SearchRes_ItemDataBound( object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e )
 		{
 			HtmlTableCell cell = (HtmlTableCell)e.Item.FindControl( "CounterCol" );
 			if ( cell != null )
@@ -268,7 +234,7 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		private bool CheckSearchRequest()
+		protected bool CheckSearchRequest()
 		{
 			bool whatValid = CheckSearchText( txtSearchStringWhat.Text ),
 				whoValid = CheckSearchText( txtSearchStringFromWho.Text ),
@@ -290,7 +256,7 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		private bool CheckSearchText( string searchText )
+		protected bool CheckSearchText(string searchText)
 		{
 			return searchText.Trim().Length >= PageContext.BoardSettings.SearchStringMinLength &&
 				Regex.IsMatch( searchText, PageContext.BoardSettings.SearchStringPattern );

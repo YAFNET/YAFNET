@@ -12,13 +12,13 @@ namespace YAF.Modules
 	{
 		public PageSecurityModule()
 		{
-
+			
 		}
 
 		public override void InitModule()
 		{
 			// hook forumpage handlers....
-			CurrentPage.Load += new EventHandler(CurrentPage_Load);
+			ForumPage.Load += new EventHandler(CurrentPage_Load);
 		}
 
 		void CurrentPage_Load(object sender, EventArgs e)
@@ -28,13 +28,13 @@ namespace YAF.Modules
 				return;
 
 			// check if it's a "registered user only page" and check permissions.
-			if (CurrentPage.IsRegisteredPage && CurrentPage.User == null)
+			if (ForumPage.IsRegisteredPage && ForumPage.User == null)
 			{
-				CurrentPage.RedirectNoAccess();
+				ForumPage.RedirectNoAccess();
 			}
 
 			// not totally necessary... but provides another layer of protection...
-			if (CurrentPage.IsAdminPage && !PageContext.IsAdmin)
+			if (ForumPage.IsAdminPage && !PageContext.IsAdmin)
 			{
 				YafBuildLink.AccessDenied();
 				return;
@@ -47,10 +47,10 @@ namespace YAF.Modules
 					
 
 				default:
-					if (PageContext.IsPrivate && CurrentPage.User == null)
+					if (PageContext.IsPrivate && ForumPage.User == null)
 					{
 						// register users only...
-						CurrentPage.RedirectNoAccess();
+						ForumPage.RedirectNoAccess();
 					}
 					break;
 			}
