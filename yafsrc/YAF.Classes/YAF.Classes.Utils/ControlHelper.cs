@@ -42,6 +42,14 @@ namespace YAF.Classes.Utils
 			return null;
 		}
 
+		static public Control FindControlRecursiveBoth( Control sourceControl, string id)
+		{
+			Control found = FindControlRecursiveReverse( sourceControl, id );
+			if ( found != null ) return found;
+			found = FindControlRecursive( sourceControl, id );
+			return found;
+		}
+
 		/// <summary>
 		/// Find Wizard Control - Find a control in a wizard
 		/// </summary>

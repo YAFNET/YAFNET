@@ -335,7 +335,7 @@ namespace YAF.Classes.Base
 
 		public System.Web.UI.Control GetTopPageElement()
 		{
-			return ControlHelper.FindControlRecursive(this, "YafHead") ?? ForumHeader;
+			return ControlHelper.FindControlRecursiveBoth(this, "YafHead") ?? ForumHeader;
 		}
 
 		protected void SetupHeaderElements()
@@ -350,7 +350,7 @@ namespace YAF.Classes.Base
 				}
 			}
 
-			HtmlHead head = ( HtmlHead )ControlHelper.FindControlRecursive( this, "YafHead" );
+			HtmlHead head = (HtmlHead) ControlHelper.FindControlRecursiveBoth( this, "YafHead" );
 
 			if ( head != null )
 			{
@@ -362,7 +362,7 @@ namespace YAF.Classes.Base
 			else
 			{
 				// old style
-				System.Web.UI.HtmlControls.HtmlTitle title = ( System.Web.UI.HtmlControls.HtmlTitle )Page.FindControl( "ForumTitle" );
+				HtmlTitle title = (HtmlTitle) ControlHelper.FindControlRecursiveBoth( this, "ForumTitle" );
 				if ( title != null )
 				{
 					title.Text = _forumPageTitle;
