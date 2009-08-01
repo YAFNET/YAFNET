@@ -37,6 +37,24 @@ using YAF.Classes.Utils;
 namespace YAF.Classes.Base
 {
 	/// <summary>
+	/// EventArgs class for the PageTitleSet event
+	/// </summary>
+	public class ForumPageRenderedArgs : EventArgs
+	{
+		private HtmlTextWriter _writer;
+
+		public ForumPageRenderedArgs(System.Web.UI.HtmlTextWriter writer)
+		{
+			_writer = writer;
+		}
+
+		public HtmlTextWriter Writer
+		{
+			get { return _writer; }
+		}
+	}
+
+	/// <summary>
 	/// Summary description for BasePage.
 	/// </summary>
 	public class ForumPage : System.Web.UI.UserControl
@@ -53,6 +71,8 @@ namespace YAF.Classes.Base
     private bool _showFooter = Config.ShowFooter;
     private bool _checkSuspended = true;
 		private string _transPage = string.Empty;
+
+		public event EventHandler<ForumPageRenderedArgs> ForumPageRendered;
 
 		protected bool _isAdminPage = false;
 		public bool IsAdminPage
@@ -290,17 +310,17 @@ namespace YAF.Classes.Base
 			}
 		}
 
-		public System.Web.UI.Control GetTopPageElement()
+		public Control GetTopPageElement()
 		{
 			return ControlHelper.FindControlRecursiveBoth(this, "YafHead") ?? ForumHeader;
 		}
 
 		protected void SetupHeaderElements()
 		{
-			System.Web.UI.HtmlControls.HtmlImage graphctl;
-			if ( PageContext.BoardSettings.AllowThemedLogo & !YAF.Classes.Config.IsDotNetNuke & !YAF.Classes.Config.IsPortal & !YAF.Classes.Config.IsRainbow )
+			HtmlImage graphctl;
+			if ( PageContext.BoardSettings.AllowThemedLogo & !Config.IsDotNetNuke & !Config.IsPortal & !Config.IsRainbow )
 			{
-				graphctl = ( System.Web.UI.HtmlControls.HtmlImage )Page.FindControl( "imgBanner" );
+				graphctl = ( HtmlImage )Page.FindControl( "imgBanner" );
 				if ( graphctl != null )
 				{
 					graphctl.Src = GetThemeContents( "FORUM", "BANNER" );
@@ -326,6 +346,8 @@ namespace YAF.Classes.Base
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			base.Render( writer );
+			// handle additional rendering if desired...
+			if (ForumPageRendered != null) ForumPageRendered( this, new ForumPageRenderedArgs( writer ) );
 		}
 
 		#endregion
@@ -482,7 +504,6 @@ namespace YAF.Classes.Base
 		/// <param name="page">Page to look under</param>
 		/// <param name="tag">Theme item</param>
 		/// <param name="defaultValue">Value to return if the theme item doesn't exist</param>
-		/// <param name="dontLogMissing">True if you don't want a log created if it doesn't exist</param>
 		/// <returns>Converted Theme information or Default Value if it doesn't exist</returns>
 		public string GetThemeContents( string page, string tag, string defaultValue )
 		{
@@ -524,11 +545,11 @@ namespace YAF.Classes.Base
 		/// <summary>
 		/// Gets the current forum Context (helper reference)
 		/// </summary>
-		public YAF.Classes.Utils.YafContext PageContext
+		public YafContext PageContext
 		{
 			get
 			{
-				return YAF.Classes.Utils.YafContext.Current;
+				return YafContext.Current;
 			}
 		}
 
