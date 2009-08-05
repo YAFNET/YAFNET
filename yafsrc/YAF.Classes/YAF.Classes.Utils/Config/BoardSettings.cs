@@ -30,34 +30,69 @@ namespace YAF.Classes.Utils
 	{
 		public class YafLegacyBoardSettings
 		{
+			private string _boardName;
 			public string BoardName
 			{
-				get;
-				set;
+				get
+				{
+					return _boardName;
+				}
+				set
+				{
+					_boardName = value;
+				}
 			}
 
+			private string _sqlVersion;
 			public string SqlVersion
 			{
-				get;
-				set;
+				get
+				{
+					return _sqlVersion;
+				}
+				set
+				{
+					_sqlVersion = value;
+				}
 			}
 
+			private bool _allowThreaded;
 			public bool AllowThreaded
 			{
-				get;
-				set;
+				get
+				{
+					return _allowThreaded;
+				}
+				set
+				{
+					_allowThreaded = value;
+				}
 			}
 
+			private string _membershipAppName1;
 			public string MembershipAppName
 			{
-				get;
-				set;
+				get
+				{
+					return _membershipAppName1;
+				}
+				set
+				{
+					_membershipAppName1 = value;
+				}
 			}
 
+			private string _rolesAppName1;
 			public string RolesAppName
 			{
-				get;
-				set;
+				get
+				{
+					return _rolesAppName1;
+				}
+				set
+				{
+					_rolesAppName1 = value;
+				}
 			}
 
 			public YafLegacyBoardSettings()
