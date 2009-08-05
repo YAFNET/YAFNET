@@ -775,6 +775,13 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
+                                    <b>Allow Gravatars:</b><br>
+                                    Can users use Gravatars.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="AvatarGravatar" runat="server"></asp:CheckBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
                                     <b>Avatar Width:</b><br>
                                     Maximum width for avatars.</td>
                                 <td class="post">
