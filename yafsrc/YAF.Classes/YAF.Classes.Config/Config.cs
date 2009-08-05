@@ -146,6 +146,7 @@ namespace YAF.Classes
 			}
 		}
 
+		#region Database Settings
 		static public string ConnectionStringName
 		{
 			get
@@ -153,6 +154,23 @@ namespace YAF.Classes
 				return GetConfigValueAsString("YAF.ConnectionStringName") ?? "yafnet";
 			}
 		}
+
+		static public string DatabaseOwner
+		{
+			get
+			{
+				return Config.GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
+			}
+		}
+
+		static public string DatabaseObjectQualifier
+		{
+			get
+			{
+				return Config.GetConfigValueAsString("YAF.DatabaseObjectQualifier") ?? "yaf_";
+			}
+		} 
+		#endregion
 
 		/// <summary>
 		/// Display the default toolbar at the top -- default is "true"

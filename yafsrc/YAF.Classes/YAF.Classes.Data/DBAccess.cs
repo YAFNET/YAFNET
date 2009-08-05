@@ -162,7 +162,7 @@ namespace YAF.Classes.Data
 			{
 				if ( _dbOwner == null )
 				{
-					_dbOwner = Config.GetConfigValueAsString( "YAF.DatabaseOwner" );
+					_dbOwner = Config.DatabaseOwner;
 				}
 
 				return _dbOwner;
@@ -175,13 +175,12 @@ namespace YAF.Classes.Data
 			{
 				if ( _objectQualifier == null )
 				{
-					_objectQualifier = Config.GetConfigValueAsString( "YAF.DatabaseObjectQualifier" );
+					_objectQualifier = Config.DatabaseObjectQualifier;
 				}
 
 				return _objectQualifier;
 			}
 		}
-
 
 		/// <summary>
 		/// Creates new SqlCommand based on command text applying all qualifiers to the name.
@@ -476,9 +475,6 @@ namespace YAF.Classes.Data
 				qc.Dispose();
 			}
 		}
-
-
-
 	}
 
 	/// <summary>
