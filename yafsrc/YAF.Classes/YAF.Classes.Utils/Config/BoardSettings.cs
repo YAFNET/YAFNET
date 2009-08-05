@@ -526,7 +526,13 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValue<bool>("AvatarRemote", false); }
 			set { _reg.SetValue<bool>("AvatarRemote", value); }
 		}
-		public bool AllowLoginAndLogoff
+        // JoeOuts : 08/05/2009
+        public bool AvatarGravatar
+        {
+            get { return _reg.GetValueBool("AvatarGravatar", false); }
+            set { _reg.SetValueBool("AvatarGravatar", value); }
+        }
+        public bool AllowLoginAndLogoff
 		{
 			get { return _reg.GetValue<bool>("AllowLoginAndLogoff", true); }
 			set { _reg.SetValue<bool>("AllowLoginAndLogoff", value); }
