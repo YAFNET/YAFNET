@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using YAF.Classes;
+using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
 {
@@ -123,18 +124,6 @@ namespace YAF.Classes.Utils
 		{
 			Redirect(ForumPages.info, "i=4");
 		}
-
-
-		/// <summary>
-		/// Gets full path to the given theme file.
-		/// </summary>
-		/// <param name="filename">Short name of theme file.</param>
-		/// <returns></returns>
-		static public string ThemeFile(string filename)
-		{
-			return YafContext.Current.Theme.ThemeDir + filename;
-		}
-
 
 		/// <summary>
 		/// Gets URL of given smilie.

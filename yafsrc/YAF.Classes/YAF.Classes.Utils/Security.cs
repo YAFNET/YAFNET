@@ -24,6 +24,7 @@ using System.Text;
 using System.Security;
 using System.Web;
 using System.Web.Security;
+using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
 {
@@ -42,7 +43,7 @@ namespace YAF.Classes.Utils
 			if ( !long.TryParse( longValue, out value ) )
 			{
 				// it's an invalid request. Redirect to the info page on invalid requests.
-				YafBuildLink.Redirect(ForumPages.info, "i=6");
+				YafBuildLink.RedirectInfoPage( InfoMessage.Invalid );
 			}
 
 			return value;
