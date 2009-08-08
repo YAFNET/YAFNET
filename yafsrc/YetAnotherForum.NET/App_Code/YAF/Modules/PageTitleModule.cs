@@ -105,7 +105,12 @@ namespace YAF.Modules
 			if (head != null)
 			{
 				// setup the title...
-				head.Title = _forumPageTitle + " - " + head.Title;
+				string addition = string.Empty;
+
+				if ( head.Title.Trim().Length > 0 )
+					addition = " - " + head.Title;
+
+				head.Title = _forumPageTitle + addition;
 			}
 			else
 			{
