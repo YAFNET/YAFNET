@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="gb2312"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Chinese Simp">
+<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Chinese Simp" code="zh-CN">
   <page name="ACTIVE">
     <Resource tag="BY">由 {0}</Resource>
     <Resource tag="LAST_24">( Last 24 Hours )</Resource>
