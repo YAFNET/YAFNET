@@ -138,6 +138,14 @@ namespace YAF.Classes
 			}
 		}
 
+		static public bool AllowLoginAndLogoff
+		{
+			get
+			{
+				return GetConfigValueAsBool("YAF.AllowLoginAndLogoff", true);
+			}
+		}
+
 		static public string Root
 		{
 			get

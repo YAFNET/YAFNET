@@ -16,8 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System;
 using System.Web;
 using System.Web.UI;
+using YAF.Classes.Pattern;
 
 namespace YAF.Classes
 {
@@ -31,23 +33,11 @@ namespace YAF.Classes
 		private int _categoryID;
 		private int _lockedForum = 0;
 
-		private static YafControlSettings _currentInstance = new YafControlSettings();
 		public static YafControlSettings Current
 		{
 			get
 			{
-				Page currentPage = HttpContext.Current.Handler as Page;
-
-				if ( currentPage == null )
-				{
-					// only really used for the send mail thread.
-					// since it's not inside a page. An instance is
-					// returned that's for the whole process.
-					return _currentInstance;
-				}
-
-				// save the yafContext in the currentpage items or just retreive from the page context
-				return ( currentPage.Items ["YafControlSettingsPage"] ?? ( currentPage.Items ["YafControlSettingsPage"] = new YafControlSettings() ) ) as YafControlSettings;
+				return PageSingleton<YafControlSettings>.Instance; 
 			}
 		}
 
