@@ -28,6 +28,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 using YAF.Controls;
@@ -35,7 +36,7 @@ using YAF.Controls;
 namespace YAF.Controls
 {
 
-	public partial class PMList : YAF.Classes.Base.BaseUserControl
+	public partial class PMList : YAF.Classes.Core.BaseUserControl
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -55,7 +56,7 @@ namespace YAF.Controls
 			else
 			{
 				// make sure addLoadMessage is empty...
-				PageContext.ClearLoadString();
+				PageContext.LoadMessage.Clear();
 			}
 
 			BindData();

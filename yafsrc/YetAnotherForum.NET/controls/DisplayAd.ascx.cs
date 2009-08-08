@@ -34,7 +34,7 @@ namespace YAF.Controls
 	/// <summary>
 	///		Summary description for DisplayAd.
 	/// </summary>
-	public partial class DisplayAd : YAF.Classes.Base.BaseUserControl
+	public partial class DisplayAd : YAF.Classes.Core.BaseUserControl
 	{
 		private bool _isAlt = false;
 

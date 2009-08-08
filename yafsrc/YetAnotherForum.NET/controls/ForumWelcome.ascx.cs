@@ -26,11 +26,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class ForumWelcome : YAF.Classes.Base.BaseUserControl
+	public partial class ForumWelcome : YAF.Classes.Core.BaseUserControl
 	{
 		public ForumWelcome()
 		{
@@ -39,13 +41,13 @@ namespace YAF.Controls
 
 		void ForumWelcome_PreRender( object sender, EventArgs e )
 		{
-			TimeNow.Text = PageContext.Localization.GetTextFormatted( "Current_Time", YafDateTime.FormatTime( DateTime.Now ) );
-			TimeLastVisit.Text = PageContext.Localization.GetTextFormatted( "last_visit", YafDateTime.FormatDateTime( Mession.LastVisit ) );
+			TimeNow.Text = PageContext.Localization.GetTextFormatted( "Current_Time", YafServices.DateTime.FormatTime( DateTime.Now ) );
+			TimeLastVisit.Text = PageContext.Localization.GetTextFormatted( "last_visit", YafServices.DateTime.FormatDateTime( Mession.LastVisit ) );
 
 			if ( PageContext.UnreadPrivate > 0 )
 			{
 				UnreadMsgs.Visible = true;
-				UnreadMsgs.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_pm );
+				UnreadMsgs.NavigateUrl = YafBuildLink.GetLink( ForumPages.cp_pm );
 				if ( PageContext.UnreadPrivate == 1 )
 				{
 					UnreadMsgs.Text = PageContext.Localization.GetTextFormatted( "unread1", PageContext.UnreadPrivate );

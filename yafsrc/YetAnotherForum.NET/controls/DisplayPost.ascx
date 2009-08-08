@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeFile="DisplayPost.ascx.cs" Inherits="YAF.Controls.DisplayPost"
     EnableViewState="false" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <tr class="postheader">
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" class="postUser" runat="server">
@@ -10,11 +11,11 @@
     </td>
     <td width="80%" class="postPosted" colspan='<%#GetIndentSpan()%>'>
         <div class="leftItem postedLeft">        
-            <b><a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
+            <b><a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
                 #<%# Convert.ToInt32((DataRow["Position"]))+1 %></a>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
                 :</b>
-            <%# YafDateTime.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
+            <%# YafServices.DateTime.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
             </div>
         <div class="rightItem postedRight">
             <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_ATTACH"

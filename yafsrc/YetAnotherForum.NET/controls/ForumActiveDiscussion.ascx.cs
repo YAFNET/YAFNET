@@ -26,11 +26,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class ForumActiveDiscussion : YAF.Classes.Base.BaseUserControl
+	public partial class ForumActiveDiscussion : YAF.Classes.Core.BaseUserControl
 	{
 		public ForumActiveDiscussion()
 			: base()
@@ -70,7 +72,7 @@ namespace YAF.Controls
 			{
 				DataRowView currentRow = ( DataRowView ) e.Item.DataItem;
 				// make message url...
-				string messageUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.posts, "m={0}#post{0}", currentRow ["LastMessageID"] );
+				string messageUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "m={0}#post{0}", currentRow ["LastMessageID"] );
 				// get the controls
 				HyperLink textMessageLink = (HyperLink)e.Item.FindControl( "TextMessageLink" );
 				HyperLink imageMessageLink = (HyperLink)e.Item.FindControl( "ImageMessageLink" );
@@ -80,7 +82,7 @@ namespace YAF.Controls
 				HyperLink forumLink = ( HyperLink ) e.Item.FindControl( "ForumLink" );
 
 				// populate them...
-				textMessageLink.Text = YAF.Classes.Utils.General.BadWordReplace( currentRow["Topic"].ToString() );
+				textMessageLink.Text = YafServices.BadWordReplace.Replace( currentRow["Topic"].ToString() );
 				textMessageLink.NavigateUrl = messageUrl;
 				imageMessageLink.NavigateUrl = messageUrl;
 				// Just in case...
@@ -91,11 +93,11 @@ namespace YAF.Controls
 				}
 				if ( currentRow ["LastPosted"] != DBNull.Value )
 				{
-					lastPostedDateLabel.Text = YafDateTime.FormatDateTimeTopic( currentRow ["LastPosted"] );
-					lastPostedImage.ThemeTag = ( DateTime.Parse( currentRow ["LastPosted"].ToString() ) > YAF.Classes.Utils.Mession.GetTopicRead( Convert.ToInt32( currentRow ["TopicID"] ) ) ) ? "ICON_NEWEST" : "ICON_LATEST";
+					lastPostedDateLabel.Text = YafServices.DateTime.FormatDateTimeTopic( currentRow ["LastPosted"] );
+					lastPostedImage.ThemeTag = ( DateTime.Parse( currentRow ["LastPosted"].ToString() ) > Mession.GetTopicRead( Convert.ToInt32( currentRow ["TopicID"] ) ) ) ? "ICON_NEWEST" : "ICON_LATEST";
 				}
 				forumLink.Text = currentRow["Forum"].ToString();
-				forumLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.topics, "f={0}", currentRow ["ForumID"] );				
+				forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.topics, "f={0}", currentRow ["ForumID"] );				
 			}
 		}
 	}

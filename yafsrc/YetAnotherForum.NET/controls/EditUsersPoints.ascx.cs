@@ -17,20 +17,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersPoints : YAF.Classes.Base.BaseUserControl
+	public partial class EditUsersPoints : YAF.Classes.Core.BaseUserControl
 	{
 		/// <summary>
 		/// Gets user ID of edited user.
@@ -39,15 +30,15 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return ( int )this.PageContext.QueryIDs ["u"];
+				return (int)this.PageContext.QueryIDs["u"];
 			}
 		}
 
-		protected void Page_Load( object sender, EventArgs e )
+		protected void Page_Load(object sender, EventArgs e)
 		{
-			PageContext.QueryIDs = new QueryStringIDHelper( "u", true );
+			PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-			if ( !IsPostBack )
+			if (!IsPostBack)
 			{
 				BindData();
 			}
@@ -55,32 +46,32 @@ namespace YAF.Controls
 
 		private void BindData()
 		{
-			ltrCurrentPoints.Text = YAF.Classes.Data.DB.user_getpoints( CurrentUserID ).ToString();
+			ltrCurrentPoints.Text = YAF.Classes.Data.DB.user_getpoints(CurrentUserID).ToString();
 		}
 
-		protected void AddPoints_Click( object sender, EventArgs e )
+		protected void AddPoints_Click(object sender, EventArgs e)
 		{
-			if ( Page.IsValid )
+			if (Page.IsValid)
 			{
-				YAF.Classes.Data.DB.user_addpoints( CurrentUserID, txtAddPoints.Text );
+				YAF.Classes.Data.DB.user_addpoints(CurrentUserID, txtAddPoints.Text);
 				BindData();
 			}
 		}
 
-		protected void RemovePoints_Click( object sender, EventArgs e )
+		protected void RemovePoints_Click(object sender, EventArgs e)
 		{
-			if ( Page.IsValid )
+			if (Page.IsValid)
 			{
-				YAF.Classes.Data.DB.user_removepoints( CurrentUserID, txtRemovePoints.Text );
+				YAF.Classes.Data.DB.user_removepoints(CurrentUserID, txtRemovePoints.Text);
 				BindData();
 			}
 		}
 
-		protected void SetUserPoints_Click( object sender, EventArgs e )
+		protected void SetUserPoints_Click(object sender, EventArgs e)
 		{
-			if ( Page.IsValid )
+			if (Page.IsValid)
 			{
-				YAF.Classes.Data.DB.user_setpoints( CurrentUserID, txtUserPoints.Text );
+				YAF.Classes.Data.DB.user_setpoints(CurrentUserID, txtUserPoints.Text);
 				BindData();
 			}
 		}

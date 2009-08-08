@@ -19,14 +19,11 @@
  */
 using System;
 using System.Data;
-using System.Drawing;
-using System.Collections;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using YAF.Classes.Data;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.UI;
 
@@ -35,7 +32,7 @@ namespace YAF.Controls
 	/// <summary>
 	///		Summary description for DisplayPost.
 	/// </summary>
-	public partial class DisplayPost : YAF.Classes.Base.BaseUserControl
+	public partial class DisplayPost : YAF.Classes.Core.BaseUserControl
 	{
 		private const string _toogleMessageJs =
 			@"
@@ -55,7 +52,7 @@ function toggleMessage(divId)
 		#region Data Members
 
 		// for parent page referencing
-		private YAF.Classes.Base.ForumPage _parentPage;
+		private YAF.Classes.Core.ForumPage _parentPage;
 
 		private DataRowView _row = null;
 		private YafUserProfile _userProfile = null;
@@ -122,11 +119,11 @@ function toggleMessage(divId)
 			}
 
 			// setup jQuery, LightBox and YAF JS...
-			RegisterPageElementHelper.RegisterJQuery( ParentPage.GetTopPageElement() );
+			YafContext.Current.PageElements.RegisterJQuery();
 			ScriptManager.RegisterClientScriptInclude( this, typeof ( DisplayPost ), "lightboxjs",
-			                                           YAF.Classes.Utils.YafForumInfo.GetURLToResource( "js/jquery.lightbox.min.js" ) );
-			RegisterPageElementHelper.RegisterCssInclude( ParentPage.GetTopPageElement(), YafForumInfo.GetURLToResource( "css/jquery.lightbox.css" ) );
-			ScriptManager.RegisterClientScriptInclude(this, typeof(DisplayPost), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource("js/yaf.js"));
+			                                           YafForumInfo.GetURLToResource( "js/jquery.lightbox.min.js" ) );
+			YafContext.Current.PageElements.RegisterCssInclude( YafForumInfo.GetURLToResource( "css/jquery.lightbox.css" ) );
+			ScriptManager.RegisterClientScriptInclude(this, typeof(DisplayPost), "yafjs", YafForumInfo.GetURLToResource("js/yaf.js"));
 			ScriptManager.RegisterClientScriptBlock( this, typeof ( DisplayPost ), "toggleMessageJs", _toogleMessageJs, true );
 			ScriptManager.RegisterClientScriptBlock( this, typeof ( DisplayPost ), "lightboxloadjs",
 				@"$(document).ready(function() { 
@@ -170,7 +167,7 @@ function toggleMessage(divId)
 			UnDelete.Visible = CanUnDeletePost && !IsLocked;
 			UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.deletemessage, "m={0}&action=undelete", MessageId);
 			Quote.Visible = !PostDeleted && CanReply && !IsLocked;
-			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, MessageId);
+			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, MessageId);
 
 			// report posts
 			ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
@@ -226,7 +223,7 @@ function toggleMessage(divId)
 					// message has been edited
 					// show, why the post was edited or deleted?
 					string whoChanged = (Convert.ToBoolean(DataRow["IsModeratorChanged"])) ? PageContext.Localization.GetText("EDITED_BY_MOD") : PageContext.Localization.GetText("EDITED_BY_USER");
-					AdminInformation.InnerHtml += String.Format(@"| <span class=""editedinfo"">{0} {1}:</span> {2}", PageContext.Localization.GetText("EDITED"), whoChanged, YafDateTime.FormatDateTimeShort(Convert.ToDateTime(DataRow["Edited"])));
+					AdminInformation.InnerHtml += String.Format(@"| <span class=""editedinfo"">{0} {1}:</span> {2}", PageContext.Localization.GetText("EDITED"), whoChanged, YafServices.DateTime.FormatDateTimeShort(Convert.ToDateTime(DataRow["Edited"])));
 					if (Server.HtmlDecode(Convert.ToString(DataRow["EditReason"])) != "")
 					{
 						// reason was specified
@@ -307,9 +304,9 @@ function toggleMessage(divId)
 			while (parent != null)
 			{
 				// is parent control of desired type?
-				if (parent is YAF.Classes.Base.ForumPage)
+				if (parent is YAF.Classes.Core.ForumPage)
 				{
-					_parentPage = (YAF.Classes.Base.ForumPage)parent;
+					_parentPage = (YAF.Classes.Core.ForumPage)parent;
 					break;
 				}
 				else
@@ -331,7 +328,7 @@ function toggleMessage(divId)
 		/// <summary>
 		/// Gets parent forum page (null if parent is not ForumPage).
 		/// </summary>
-		public YAF.Classes.Base.ForumPage ParentPage
+		public YAF.Classes.Core.ForumPage ParentPage
 		{
 			get { return _parentPage; }
 		}
@@ -352,7 +349,7 @@ function toggleMessage(divId)
 				{
 					_forumFlags = new ForumFlags(_row["ForumFlags"]);
 					_topicFlags = new TopicFlags(_row["TopicFlags"]);
-					_messageFlags = new YAF.Classes.Data.MessageFlags(_row["Flags"]);
+					_messageFlags = new MessageFlags(_row["Flags"]);
 				}
 				else
 				{
@@ -399,7 +396,7 @@ function toggleMessage(divId)
 				if (_userProfile == null)
 				{
 					// setup instance of the user profile...
-					_userProfile = PageContext.GetProfile(UserMembershipHelper.GetUserNameFromID(UserId));
+					_userProfile = YafUserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(UserId));
 				}
 
 				return _userProfile;
@@ -575,10 +572,10 @@ function toggleMessage(divId)
 			switch (e.Item)
 			{
 				case "userprofile":
-					YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.profile, "u={0}", UserId);
+					YafBuildLink.Redirect(ForumPages.profile, "u={0}", UserId);
 					break;
 				case "edituser":
-					YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", UserId);
+					YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", UserId);
 					break;
 				case "toggleuserposts_show":
 					RemoveIgnored(UserId);

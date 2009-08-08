@@ -18,20 +18,13 @@
  */
 using System;
 using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
-using YAF.Classes.Data;
 
 namespace YAF.Controls
 {
-	public partial class ForumStatistics : YAF.Classes.Base.BaseUserControl
+	public partial class ForumStatistics : YAF.Classes.Core.BaseUserControl
 	{
 		public ForumStatistics()
 		{
@@ -61,11 +54,11 @@ namespace YAF.Controls
 			// show max users...
 			if (!statisticsDataRow.IsNull("MaxUsers"))
 			{
-				MostUsersCount.Text = PageContext.Localization.GetTextFormatted("MAX_ONLINE", statisticsDataRow["MaxUsers"], YafDateTime.FormatDateTimeTopic(statisticsDataRow["MaxUsersWhen"]));
+				MostUsersCount.Text = PageContext.Localization.GetTextFormatted("MAX_ONLINE", statisticsDataRow["MaxUsers"], YafServices.DateTime.FormatDateTimeTopic(statisticsDataRow["MaxUsersWhen"]));
 			}
 			else
 			{
-				MostUsersCount.Text = PageContext.Localization.GetTextFormatted("MAX_ONLINE", activeStats["ActiveUsers"], YafDateTime.FormatDateTimeTopic(DateTime.Now));
+				MostUsersCount.Text = PageContext.Localization.GetTextFormatted("MAX_ONLINE", activeStats["ActiveUsers"], YafServices.DateTime.FormatDateTimeTopic(DateTime.Now));
 			}
 
 			// Posts and Topic Count...
@@ -79,7 +72,7 @@ namespace YAF.Controls
 				LastPostUserLink.UserID = Convert.ToInt32(statisticsDataRow["LastUserID"]);
 				LastPostUserLink.UserName = statisticsDataRow["LastUser"].ToString();
 
-				StatsLastPost.Text = PageContext.Localization.GetTextFormatted("stats_lastpost", YafDateTime.FormatDateTimeTopic((DateTime)statisticsDataRow["LastPost"]));
+				StatsLastPost.Text = PageContext.Localization.GetTextFormatted("stats_lastpost", YafServices.DateTime.FormatDateTimeTopic((DateTime)statisticsDataRow["LastPost"]));
 			}
 			else
 			{
@@ -107,12 +100,12 @@ namespace YAF.Controls
 			// show hidden count to admin...
 			if ( PageContext.IsAdmin ) activeUsers += activeHidden;
 
-			if ( General.CheckPermission( PageContext, PageContext.BoardSettings.ActiveUsersViewPermissions ) )
+			if ( YafServices.Permissions.Check( PageContext.BoardSettings.ActiveUsersViewPermissions ) )
 			{
 				// always show active users...
 				sb.Append( String.Format( "<a href=\"{1}\">{0}</a>",
 					PageContext.Localization.GetTextFormatted( activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers ),
-					YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers ) ) );
+					YafBuildLink.GetLink( ForumPages.activeusers ) ) );
 			}
 			else
 			{

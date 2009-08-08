@@ -28,17 +28,19 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersResetPass : YAF.Classes.Base.BaseUserControl
+	public partial class EditUsersResetPass : YAF.Classes.Core.BaseUserControl
 	{
-		public long CurrentUserID
+		public long? CurrentUserID
 		{
 			get
 			{
-				return this.PageContext.QueryIDs ["u"];
+				return PageContext.QueryIDs ["u"];
 			}
 		}
 
@@ -83,7 +85,7 @@ namespace YAF.Controls
 			// change password...
 			try
 			{
-				MembershipUser user = YAF.Classes.Utils.UserMembershipHelper.GetMembershipUser(CurrentUserID);
+				MembershipUser user = UserMembershipHelper.GetMembershipUser(CurrentUserID);
 
 				if (user != null)
 				{
@@ -128,7 +130,7 @@ namespace YAF.Controls
 			// reset password...
 			try
 			{
-				MembershipUser user = YAF.Classes.Utils.UserMembershipHelper.GetMembershipUser(CurrentUserID);
+				MembershipUser user = UserMembershipHelper.GetMembershipUser(CurrentUserID);
 
 				if (user != null)
 				{

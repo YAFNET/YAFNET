@@ -28,11 +28,13 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersAvatar : YAF.Classes.Base.BaseUserControl
+	public partial class EditUsersAvatar : YAF.Classes.Core.BaseUserControl
 	{
 		private int CurrentUserID;
 		private bool AdminEditMode = false;
@@ -71,7 +73,7 @@ namespace YAF.Controls
 				string addAdminParam = "";
 				if ( AdminEditMode ) addAdminParam = "u=" + CurrentUserID.ToString();
 
-				OurAvatar.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.avatar, addAdminParam );
+				OurAvatar.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.avatar, addAdminParam );
 				OurAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "OURAVATAR_SELECT" );				
 			}
 
@@ -135,9 +137,9 @@ namespace YAF.Controls
 		protected void Back_Click( object sender, System.EventArgs e )
 		{
 			if ( AdminEditMode )
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+				YafBuildLink.Redirect( ForumPages.admin_users );
 			else
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
+				YafBuildLink.Redirect( ForumPages.cp_profile );
 		}
 
 		protected void RemoteUpdate_Click( object sender, System.EventArgs e )

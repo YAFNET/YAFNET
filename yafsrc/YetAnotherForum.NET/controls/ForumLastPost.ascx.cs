@@ -26,6 +26,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
@@ -33,7 +35,7 @@ namespace YAF.Controls
 	/// <summary>
 	/// Renders the "Last Post" part of the Forum Topics
 	/// </summary>
-	public partial class ForumLastPost : YAF.Classes.Base.BaseUserControl
+	public partial class ForumLastPost : YAF.Classes.Core.BaseUserControl
 	{
 		public ForumLastPost()
 		{
@@ -51,14 +53,14 @@ namespace YAF.Controls
 
 				if ( DataRow ["LastPosted"] != DBNull.Value )
 				{
-					LastPosted.Text = YafDateTime.FormatDateTimeTopic( DataRow ["LastPosted"] );
-					topicLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.posts, "t={0}", DataRow ["LastTopicID"] );
-					topicLink.Text = General.Truncate( General.BadWordReplace( DataRow ["LastTopicName"].ToString() ), 50 );
+					LastPosted.Text = YafServices.DateTime.FormatDateTimeTopic( DataRow ["LastPosted"] );
+					topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "t={0}", DataRow ["LastTopicID"] );
+					topicLink.Text = StringHelper.Truncate( YafServices.BadWordReplace.Replace( DataRow ["LastTopicName"].ToString() ), 50 );
 					ProfileUserLink.UserID = Convert.ToInt32( DataRow ["LastUserID"] );
 					ProfileUserLink.UserName = DataRow ["LastUser"].ToString();
 
 					LastTopicImgLink.ToolTip = PageContext.Localization.GetText( "GO_LAST_POST" );
-					LastTopicImgLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.posts, "m={0}#post{0}", DataRow ["LastMessageID"] );
+					LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "m={0}#post{0}", DataRow ["LastMessageID"] );
 					Icon.ThemeTag = ( DateTime.Parse( Convert.ToString( DataRow ["LastPosted"] ) ) > Mession.GetTopicRead( ( int ) DataRow ["LastTopicID"] ) ) ? "ICON_NEWEST" : "ICON_LATEST";
 
 					LastPostedHolder.Visible = true;

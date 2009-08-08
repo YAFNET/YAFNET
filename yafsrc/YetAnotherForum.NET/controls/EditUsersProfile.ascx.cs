@@ -28,11 +28,14 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
+using YAF.Classes.Core;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersProfile : YAF.Classes.Base.BaseUserControl
+	public partial class EditUsersProfile : YAF.Classes.Core.BaseUserControl
 	{
 		private int CurrentUserID;
 		private bool AdminEditMode = false;
@@ -75,18 +78,18 @@ namespace YAF.Controls
 		}
 		private void BindData()
 		{
-			TimeZones.DataSource = YafStaticData.TimeZones();
-			Theme.DataSource = YafStaticData.Themes();
+			TimeZones.DataSource = StaticDataHelper.TimeZones();
+			Theme.DataSource = StaticDataHelper.Themes();
 			Theme.DataTextField = "Theme";
 			Theme.DataValueField = "FileName";
-			Language.DataSource = YafStaticData.Languages();
+			Language.DataSource = StaticDataHelper.Languages();
 			Language.DataTextField = "Language";
 			Language.DataValueField = "FileName";
 
 			DataBind();
 
 			// get an instance of the combined user data class.
-			YafCombinedUserData userData = new YafCombinedUserData( CurrentUserID );
+			CombinedUserDataHelper userData = new CombinedUserDataHelper( CurrentUserID );
 
 			Location.Text = userData.Profile.Location;
 			HomePage.Text = userData.Profile.Homepage;
@@ -179,7 +182,7 @@ namespace YAF.Controls
 					YafTemplateEmail changeEmail = new YafTemplateEmail( "CHANGEEMAIL" );
 
 					changeEmail.TemplateParams ["{user}"] = PageContext.PageUserName;
-					changeEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
+					changeEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YafBuildLink.GetLinkNotEscaped( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
 					changeEmail.TemplateParams ["{newemail}"] = Email.Text;
 					changeEmail.TemplateParams ["{key}"] = hash;
 					changeEmail.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
@@ -203,7 +206,7 @@ namespace YAF.Controls
 
 			string userName = UserMembershipHelper.GetUserNameFromID( CurrentUserID );
 
-			YafUserProfile userProfile = PageContext.GetProfile( userName );
+			YafUserProfile userProfile = YafUserProfile.GetProfile( userName );
 
 			userProfile.Location = Location.Text.Trim();
 			userProfile.Homepage = HomePage.Text.Trim();
@@ -229,7 +232,7 @@ namespace YAF.Controls
 
 			if ( !AdminEditMode )
 			{
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
+				YafBuildLink.Redirect( ForumPages.cp_profile );
 			}
 			else
 			{
@@ -240,9 +243,9 @@ namespace YAF.Controls
 		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
 			if ( AdminEditMode )
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+				YafBuildLink.Redirect( ForumPages.admin_users );
 			else
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
+				YafBuildLink.Redirect( ForumPages.cp_profile );
 		}
 
 		protected void Email_TextChanged( object sender, System.EventArgs e )

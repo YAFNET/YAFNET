@@ -26,17 +26,19 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersSuspend : YAF.Classes.Base.BaseUserControl
+	public partial class EditUsersSuspend : YAF.Classes.Core.BaseUserControl
 	{
-		protected long CurrentUserID
+		protected long? CurrentUserID
 		{
 			get
 			{
-				return this.PageContext.QueryIDs ["u"];
+				return PageContext.QueryIDs ["u"];
 			}
 		}
 
@@ -194,7 +196,7 @@ namespace YAF.Controls
 				if ( !user.IsNull( "Suspended" ) )
 				{
 					// get time when his suspension expires to the view state
-					ViewState ["SuspendedUntil"] = YafDateTime.FormatDateTime( user ["Suspended"] );
+					ViewState ["SuspendedUntil"] = YafServices.DateTime.FormatDateTime( user ["Suspended"] );
 
 					// localize remove suspension button
 					RemoveSuspension.Text = PageContext.Localization.GetText( "PROFILE", "REMOVESUSPENSION" );

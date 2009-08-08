@@ -17,6 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using YAF.Classes;
+
 namespace YAF.Controls
 {
 	using System;
@@ -29,7 +31,7 @@ namespace YAF.Controls
 	/// <summary>
 	///		Summary description for smileys.
 	/// </summary>
-	public partial class smileys : YAF.Classes.Base.BaseUserControl
+	public partial class smileys : YAF.Classes.Core.BaseUserControl
 	{
 		protected DataTable _dtSmileys;
 		private string _onclick;

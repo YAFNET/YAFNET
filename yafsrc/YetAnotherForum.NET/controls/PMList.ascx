@@ -1,6 +1,7 @@
 <%@ Import Namespace="YAF.Classes.Utils" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="PMList.ascx.cs" Inherits="YAF.Controls.PMList"
 	EnableTheming="true" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 <asp:GridView ID="MessagesView" runat="server" OnRowCreated="MessagesView_RowCreated"
 	DataKeyNames="UserPMessageID" Width="99%" GridLines="None" CellSpacing="1" ShowFooter="true"
@@ -47,7 +48,7 @@
 				<asp:LinkButton runat="server" ID="DateLink" OnClick="DateLink_Click" Text='<%#GetLocalizedText("DATE") %>' />
 			</HeaderTemplate>
 			<ItemTemplate>
-				<%# YafDateTime.FormatDateTime((DateTime)Eval("Created"))%>
+				<%# YafServices.DateTime.FormatDateTime((DateTime)Eval("Created"))%>
 			</ItemTemplate>
 		</asp:TemplateField>
 		<asp:TemplateField>

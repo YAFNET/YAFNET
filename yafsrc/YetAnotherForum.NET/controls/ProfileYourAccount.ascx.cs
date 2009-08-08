@@ -17,21 +17,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
-using YAF.Classes.Data;
 
 namespace YAF.Controls
 {
-	public partial class ProfileYourAccount : YAF.Classes.Base.BaseUserControl
+	public partial class ProfileYourAccount : YAF.Classes.Core.BaseUserControl
 	{
 		protected void Page_Load( object sender, EventArgs e )
 		{
@@ -48,12 +39,12 @@ namespace YAF.Controls
 			// Bind			
 			DataBind();
 
-			YafCombinedUserData userData = new YafCombinedUserData( PageContext.PageUserID );
+			CombinedUserDataHelper userData = new CombinedUserDataHelper(PageContext.PageUserID);
 
 			//TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
 			AccountEmail.Text = userData.Membership.Email;
 			Name.Text = HtmlEncode( userData.Membership.UserName );
-			Joined.Text = YafDateTime.FormatDateTime( userData.Joined );
+			Joined.Text = YafServices.DateTime.FormatDateTime( userData.Joined );
 			NumPosts.Text = String.Format( "{0:N0}", userData.NumPosts );
 
 			if ( PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage )

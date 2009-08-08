@@ -5,15 +5,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using YAF.Classes.Data;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class ForumCategoryList : YAF.Classes.Base.BaseUserControl
+	public partial class ForumCategoryList : YAF.Classes.Core.BaseUserControl
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			DataSet ds = YAF.Classes.Utils.DBBroker.board_layout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null);
+			DataSet ds = YafServices.DBBroker.BoardLayout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null);
 			CategoryList.DataSource = ds.Tables[DBAccess.GetObjectName("Category")];
 			CategoryList.DataBind();
 		}

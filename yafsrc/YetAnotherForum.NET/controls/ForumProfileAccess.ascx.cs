@@ -31,7 +31,7 @@ using YAF.Classes.Data;
 
 namespace YAF.Controls
 {
-	public partial class ForumProfileAccess : YAF.Classes.Base.BaseUserControl
+	public partial class ForumProfileAccess : YAF.Classes.Core.BaseUserControl
 	{
 		protected void Page_Load( object sender, EventArgs e )
 		{

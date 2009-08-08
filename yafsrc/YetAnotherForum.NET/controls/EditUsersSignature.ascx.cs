@@ -17,22 +17,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
+using YAF.Editors;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersSignature : YAF.Classes.Base.BaseUserControl
+	public partial class EditUsersSignature : BaseUserControl
 	{
-		protected YAF.Editor.ForumEditor _sig;
+		protected BaseForumEditor _sig;
 
 		public bool ShowHeader
 		{
@@ -56,7 +50,7 @@ namespace YAF.Controls
 			PageContext.QueryIDs = new QueryStringIDHelper( "u" );
 
 			_sig.BaseDir = YafForumInfo.ForumRoot + "editors";
-			_sig.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
+			_sig.StyleSheet = YafContext.Current.Theme.BuildThemePath( "theme.css" );
 
 			if ( !IsPostBack )
 			{
@@ -121,8 +115,8 @@ namespace YAF.Controls
 		#region Web Form Designer generated code
 		override protected void OnInit( EventArgs e )
 		{
-			// since signatures are so small only allow BBCode in them...
-			_sig = new YAF.Editor.BBCodeEditor();
+			// since signatures are so small only allow YafBBCode in them...
+			_sig = new BBCodeEditor();
 			EditorLine.Controls.Add( _sig );
 
 			save.Click += new EventHandler( save_Click );

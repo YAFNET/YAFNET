@@ -29,7 +29,7 @@ using System.Web.UI.HtmlControls;
 
 namespace YAF.Controls
 {
-	public partial class ForumModeratorList : YAF.Classes.Base.BaseUserControl
+	public partial class ForumModeratorList : YAF.Classes.Core.BaseUserControl
 	{
 		public ForumModeratorList()
 		{

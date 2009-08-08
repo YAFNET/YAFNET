@@ -22,6 +22,8 @@ using System.Drawing;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.UI;
 using YAF.Classes.Data;
@@ -31,7 +33,7 @@ namespace YAF.Controls
 	/// <summary>
 	///		Summary description for ForumList.
 	/// </summary>
-	public partial class ForumList : YAF.Classes.Base.BaseUserControl
+	public partial class ForumList : YAF.Classes.Core.BaseUserControl
 	{
 
 		protected void Page_Load( object sender, System.EventArgs e )
@@ -150,7 +152,7 @@ namespace YAF.Controls
 			if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
 			{
 				output = String.Format( "<a href=\"{0}\">{1}</a>",
-					YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", forumID ),
+					YafBuildLink.GetLink( ForumPages.topics, "f={0}", forumID ),
 					output
 					);
 			}

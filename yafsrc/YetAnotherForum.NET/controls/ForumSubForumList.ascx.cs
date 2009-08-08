@@ -18,19 +18,13 @@
  */
 using System;
 using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
+using YAF.Classes;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class ForumSubForumList : YAF.Classes.Base.BaseUserControl
+	public partial class ForumSubForumList : YAF.Classes.Core.BaseUserControl
 	{
 		public ForumSubForumList()
 			: base()
@@ -56,22 +50,25 @@ namespace YAF.Controls
 
 				ThemeImage subForumIcon = e.Item.FindControl( "ThemeSubforumIcon" ) as ThemeImage;
 
-				subForumIcon.ThemeTag = "SUBFORUM";
-				subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-				subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
-
-				try
+				if ( subForumIcon != null )
 				{
-					if ( lastPosted > lastRead )
+					subForumIcon.ThemeTag = "SUBFORUM";
+					subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+					subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+
+					try
 					{
-						subForumIcon.ThemeTag = "SUBFORUM_NEW";
-						subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-						subForumIcon.LocalizedTitleTag = "NEW_POSTS";
+						if ( lastPosted > lastRead )
+						{
+							subForumIcon.ThemeTag = "SUBFORUM_NEW";
+							subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+							subForumIcon.LocalizedTitleTag = "NEW_POSTS";
+						}
 					}
-				}
-				catch
-				{
+					catch
+					{
 
+					}
 				}
 			}
 		}
@@ -94,7 +91,7 @@ namespace YAF.Controls
 			if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
 			{
 				output = String.Format( "<a href=\"{0}\">{1}</a>",
-					YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", forumID ),
+					YafBuildLink.GetLink( ForumPages.topics, "f={0}", forumID ),
 					output
 					);
 			}
