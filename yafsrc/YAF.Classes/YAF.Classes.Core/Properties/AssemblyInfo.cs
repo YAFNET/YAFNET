@@ -6,11 +6,11 @@ using System.Security;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle( "YAF.Classes.Base" )]
+[assembly: AssemblyTitle( "YAF.Classes.Core" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Tiny Gecko" )]
-[assembly: AssemblyProduct( "YAF.Classes.Base" )]
+[assembly: AssemblyProduct( "YAF.Classes.Core" )]
 [assembly: AssemblyCopyright( "Copyright © 2006-2009 Yet Another Forum.NET" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
