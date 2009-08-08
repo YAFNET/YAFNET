@@ -18,6 +18,8 @@
  */
 using System;
 using System.Collections.Generic;
+using YAF.Classes;
+using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls

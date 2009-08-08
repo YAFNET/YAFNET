@@ -48,10 +48,10 @@ namespace YAF.Controls
 		{
 			string localizedItem = GetCurrentItem();
 
-			// convert from BBCode to HTML
+			// convert from YafBBCode to HTML
 			if ( _enableBBCode )
 			{
-				localizedItem = YAF.Classes.UI.BBCode.MakeHtml( localizedItem, true, false );
+				localizedItem = YAF.Classes.UI.YafBBCode.MakeHtml( localizedItem, true, false );
 			}
 
 			output.BeginRender();

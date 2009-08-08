@@ -22,6 +22,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -30,7 +32,7 @@ namespace YAF.Controls
 	/// <summary>
 	/// Summary description for Header.
 	/// </summary>
-	public class Header : BaseControl
+	public class Header : BaseControl, IYafHeader
 	{
 		private string _refreshURL = null;
 		private int _refreshTime = 10;
@@ -128,7 +130,7 @@ namespace YAF.Controls
 					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.help_index ), GetText( "TOOLBAR", "HELP" ) ) );
 				*/
 
-				if ( General.CheckPermission( PageContext, PageContext.BoardSettings.SearchPermissions ) ) buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.search ), PageContext.Localization.GetText( "TOOLBAR", "SEARCH" ) ) );
+				if (YafServices.Permissions.Check(PageContext.BoardSettings.SearchPermissions)) buildHeader.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.search), PageContext.Localization.GetText("TOOLBAR", "SEARCH")));
 				if ( PageContext.IsAdmin )
 					buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.admin_admin ), PageContext.Localization.GetText( "TOOLBAR", "ADMIN" ) ) );
 				if ( PageContext.IsModerator || PageContext.IsForumModerator )
@@ -136,9 +138,9 @@ namespace YAF.Controls
 				buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.active ), PageContext.Localization.GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
 				if ( !PageContext.IsGuest )
 					buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.cp_profile ), PageContext.Localization.GetText( "TOOLBAR", "MYPROFILE" ) ) );
-				if ( General.CheckPermission( PageContext, PageContext.BoardSettings.MembersListViewPermissions ) ) buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.members ), PageContext.Localization.GetText( "TOOLBAR", "MEMBERS" ) ) );
+				if (YafServices.Permissions.Check(PageContext.BoardSettings.MembersListViewPermissions)) buildHeader.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.members), PageContext.Localization.GetText("TOOLBAR", "MEMBERS")));
 
-				if ( !YAF.Classes.Config.IsAnyPortal && PageContext.BoardSettings.AllowLoginAndLogoff )
+				if ( !YAF.Classes.Config.IsAnyPortal && Config.AllowLoginAndLogoff )
 				{
 					buildHeader.AppendFormat( String.Format( " <a href=\"{0}\" onclick=\"return confirm('{2}');\">{1}</a>", YafBuildLink.GetLink( ForumPages.logout ), PageContext.Localization.GetText( "TOOLBAR", "LOGOUT" ), PageContext.Localization.GetText( "TOOLBAR", "LOGOUT_QUESTION" ) ) );
 				}
@@ -148,13 +150,13 @@ namespace YAF.Controls
 				buildHeader.AppendFormat( String.Format( @"<td style=""padding:5px"" class=""post"" align=""left""><b>{0}</b></td>", PageContext.Localization.GetText( "TOOLBAR", "WELCOME_GUEST" ) ) );
 
 				buildHeader.AppendFormat( @"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">" );
-				if ( General.CheckPermission( PageContext, PageContext.BoardSettings.SearchPermissions ) ) buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.search ), PageContext.Localization.GetText( "TOOLBAR", "SEARCH" ) ) );
+				if (YafServices.Permissions.Check(PageContext.BoardSettings.SearchPermissions)) buildHeader.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.search), PageContext.Localization.GetText("TOOLBAR", "SEARCH")));
 				buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.active ), PageContext.Localization.GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
-				if ( General.CheckPermission( PageContext, PageContext.BoardSettings.MembersListViewPermissions ) ) buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.members ), PageContext.Localization.GetText( "TOOLBAR", "MEMBERS" ) ) );
+				if (YafServices.Permissions.Check(PageContext.BoardSettings.MembersListViewPermissions)) buildHeader.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.members), PageContext.Localization.GetText("TOOLBAR", "MEMBERS")));
 
 				string returnUrl = GetReturnUrl();
 
-				if ( !YAF.Classes.Config.IsAnyPortal && PageContext.BoardSettings.AllowLoginAndLogoff )
+				if ( !YAF.Classes.Config.IsAnyPortal && Config.AllowLoginAndLogoff )
 				{
 					buildHeader.AppendFormat( String.Format( " <a href=\"{0}\">{1}</a>", ( returnUrl == string.Empty ) ? YafBuildLink.GetLink( ForumPages.login ) : YafBuildLink.GetLink( ForumPages.login, "ReturnUrl={0}", returnUrl ), PageContext.Localization.GetText( "TOOLBAR", "LOGIN" ) ) );
 
@@ -191,5 +193,18 @@ namespace YAF.Controls
 
 			return returnUrl;
 		}
+
+		#region IYafHeader Members
+
+
+		public Control ThisControl
+		{
+			get
+			{
+				return this;
+			}
+		}
+
+		#endregion
 	}
 }

@@ -19,6 +19,8 @@
 using System;
 using System.Data;
 using System.Web.UI;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
@@ -70,9 +72,9 @@ namespace YAF.Controls
 		{
 			// Ederon : 9/4/2007
 			if ( ForumID > 0 )
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID );
+				YAF.Classes.Utils.YafBuildLink.Redirect( ForumPages.topics, "f={0}", ForumID );
 			else
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum, "c={0}", -ForumID );
+				YAF.Classes.Utils.YafBuildLink.Redirect( ForumPages.forum, "c={0}", -ForumID );
 		}
 		#endregion
 

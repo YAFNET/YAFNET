@@ -23,6 +23,7 @@ using System.Web.UI;
 using System.Web.Security;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using YAF.Classes;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
@@ -73,7 +74,7 @@ namespace YAF.Controls
 				// create a link to this letter
 				HyperLink link = new HyperLink();
 				link.Text = letter.ToString();
-				link.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.members, "letter={0}", letter == '#' ? '_' : letter );
+				link.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( ForumPages.members, "letter={0}", letter == '#' ? '_' : letter );
 				// add it to this td
 				cell.Controls.Add( link );
 

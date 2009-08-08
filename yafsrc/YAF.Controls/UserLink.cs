@@ -18,7 +18,9 @@
  */
 using System;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+using YAF.Classes;
+using YAF.Classes.Core;
+using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
@@ -42,7 +44,7 @@ namespace YAF.Controls
 			if ( _userID != -1 && !String.IsNullOrEmpty( _userName ) )
 			{
 				// is this the guest user? If so, guest's don't have a profile.
-				bool isGuest = YAF.Classes.Utils.UserMembershipHelper.IsGuestUser( _userID );
+				bool isGuest = UserMembershipHelper.IsGuestUser( _userID );
 
 				output.BeginRender();
 

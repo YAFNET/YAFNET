@@ -20,6 +20,8 @@ using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AjaxControlToolkit;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
@@ -261,7 +263,7 @@ namespace YAF.Controls
 			SimpleURLParameterParser parser = new SimpleURLParameterParser( System.Web.HttpContext.Current.Request.QueryString.ToString() );
 
 			// get the current page
-			YAF.Classes.Utils.ForumPages currentPage = ( YAF.Classes.Utils.ForumPages )Enum.Parse( typeof( YAF.Classes.Utils.ForumPages ), parser ["g"], true );
+			ForumPages currentPage = ( ForumPages )Enum.Parse( typeof( ForumPages ), parser ["g"], true );
 
 			if ( parser ["m"] != null )
 			{

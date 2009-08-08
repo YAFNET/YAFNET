@@ -18,13 +18,10 @@
  */
 using System;
 using System.Data;
-using System.Configuration;
-using System.Web;
-using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
+using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls.Statistics
@@ -82,7 +79,7 @@ namespace YAF.Controls.Statistics
 			{
 				//Output Topic Link
 				html.AppendFormat( "{2}.&nbsp;<a href=\"{1}\">{0}</a> ({3})",
-					General.BadWordReplace( Convert.ToString( r ["Topic"] ) ),
+					YafServices.BadWordReplace.Replace( Convert.ToString( r ["Topic"] ) ),
 					YafBuildLink.GetLink( ForumPages.posts, "m={0}#{0}", r ["LastMessageID"] ),
 					currentPost,
 					r["NumPosts"]

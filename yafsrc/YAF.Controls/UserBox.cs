@@ -25,6 +25,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Data;
 using YAF.Classes.UI;
 using YAF.Classes.Utils;
@@ -138,7 +140,7 @@ namespace YAF.Controls
 				if ( _userProfile == null )
 				{
 					// setup instance of the user profile...
-					_userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( UserId ) );
+					_userProfile = YafUserProfile.GetProfile( UserMembershipHelper.GetUserNameFromID( UserId ) );
 				}
 
 				return _userProfile;
@@ -288,7 +290,7 @@ namespace YAF.Controls
 				filler = String.Format(
 					PageContext.BoardSettings.UserBoxJoinDate,
 					PageContext.Localization.GetText( "joined" ),
-					YafDateTime.FormatDateShort( (DateTime)DataRow["Joined"] )
+					YafServices.DateTime.FormatDateShort( (DateTime)DataRow["Joined"] )
 					);
 			}
 

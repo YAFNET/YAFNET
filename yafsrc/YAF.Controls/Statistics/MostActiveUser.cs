@@ -25,6 +25,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
+using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls.Statistics
@@ -49,7 +52,7 @@ namespace YAF.Controls.Statistics
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			int currentRank = 1;
-			string act_rank = "";
+			string actRank = "";
 			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ActiveUsers );
 
 			DataTable rankDT = YafCache.Current [cacheKey] as DataTable;
@@ -60,21 +63,21 @@ namespace YAF.Controls.Statistics
 				YafCache.Current.Insert( cacheKey, rankDT, null, DateTime.Now.AddMinutes( 10 ), TimeSpan.Zero );
 			}
 
-			act_rank += "<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">";
-			act_rank += "<tr><td class=\"header1\">Most Active Users</td></tr>";
-			act_rank += String.Format("<tr><td class=\"header2\">Last {0} Days</td></tr>", LastNumOfDays);
-			act_rank += @"<tr class=""post""><td>";
+			actRank += "<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">";
+			actRank += "<tr><td class=\"header1\">Most Active Users</td></tr>";
+			actRank += String.Format("<tr><td class=\"header2\">Last {0} Days</td></tr>", LastNumOfDays);
+			actRank += @"<tr class=""post""><td>";
 
 			foreach ( System.Data.DataRow r in rankDT.Rows )
 			{			
 				int userID = Convert.ToInt32(r["ID"]);
-				act_rank += string.Format( @"{3}.&nbsp;<a href=""{1}"">{0}</a> ({2})<br/>", r ["Name"], YafBuildLink.GetLink( ForumPages.profile, "u={0}", userID ), r ["NumOfPosts"], currentRank );
+				actRank += string.Format( @"{3}.&nbsp;<a href=""{1}"">{0}</a> ({2})<br/>", r ["Name"], YafBuildLink.GetLink( ForumPages.profile, "u={0}", userID ), r ["NumOfPosts"], currentRank );
 				currentRank++;		
 			}
 
-			act_rank += "</td></tr></table>";
+			actRank += "</td></tr></table>";
 
-			writer.Write( act_rank );
+			writer.Write( actRank );
 		}
 
 		public int DisplayNumber

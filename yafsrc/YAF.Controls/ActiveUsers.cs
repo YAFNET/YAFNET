@@ -18,6 +18,7 @@
  */
 using System;
 using System.Data;
+using YAF.Classes.Core;
 using YAF.Classes.UI;
 
 namespace YAF.Controls
@@ -91,7 +92,7 @@ namespace YAF.Controls
 						userLink.PostfixText = String.Format( " ({0})", userCount );
 					}
 
-					if ( Convert.ToBoolean( row ["IsHidden"] ) == true || ( TreatGuestAsHidden == true && YAF.Classes.Utils.UserMembershipHelper.IsGuestUser( row ["UserID"] ) ) )
+					if ( Convert.ToBoolean( row ["IsHidden"] ) == true || ( TreatGuestAsHidden == true && UserMembershipHelper.IsGuestUser( row ["UserID"] ) ) )
 					{
 						if ( PageContext.IsAdmin || userLink.UserID == PageContext.PageUserID )
 						{

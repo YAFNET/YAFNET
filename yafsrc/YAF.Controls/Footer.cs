@@ -18,8 +18,7 @@
  */
 using System;
 using System.Text;
-using System.Web;
-using System.Web.Security;
+using YAF.Classes.Core;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
@@ -28,10 +27,9 @@ namespace YAF.Controls
 	/// <summary>
 	/// Summary description for Footer.
 	/// </summary>
-	public class Footer : BaseControl
+	public class Footer : BaseControl, IYafFooter
 	{
 		private bool _simpleRender = false;
-		private System.Diagnostics.Stopwatch _stopWatch = new System.Diagnostics.Stopwatch();
 
 		public bool SimpleRender
 		{
@@ -45,18 +43,12 @@ namespace YAF.Controls
 			}
 		}
 
-		public System.Diagnostics.Stopwatch StopWatch
+		public System.Web.UI.Control ThisControl
 		{
 			get
 			{
-				return _stopWatch;
+				return this;
 			}
-		}
-
-		public void Reset()
-		{
-			StopWatch.Reset();
-			SimpleRender = false;
 		}
 
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
@@ -71,19 +63,11 @@ namespace YAF.Controls
 			// BEGIN FOOTER
 			StringBuilder footer = new StringBuilder();
 
-			/* Commented out by Jaben on 9/27/2007: No longer needed with the RSS feed on the main forum.	 
-			if ( PageContext.BoardSettings.ShowRSSLink )
-			{
-				footer.AppendFormat( "{2} : <a href=\"{0}\"><img style=\"vertical-align: middle\" src=\"{1}images/RssFeed.png\" alt=\"RSS Feed\" /></a><br /><br />", YafBuildLink.GetLink( ForumPages.rsstopic, "pg=forum" ), YafForumInfo.ForumRoot, PageContext.Localization.GetText( "DEFAULT", "MAIN_FORUM_RSS" ) );
-				// footer.AppendFormat("Main Forum Rss Feed : <a href=\"{0}rsstopic.aspx?pg=forum\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", Data.ForumRoot, Data.ForumRoot);
-			}*/
-
 			// get the theme credit info from the theme file
 			// it's not really an error if it doesn't exist
 			string themeCredit = PageContext.Theme.GetItem( "THEME", "CREDIT", null );
 
-			StopWatch.Stop();
-			double duration = ( double ) StopWatch.ElapsedMilliseconds / 1000.0;
+			YafServices.StopWatch.Stop();
 
 			footer.Append( @"<br/><div class=""content"" style=""text-align:right;font-size:7pt"">" );
 
@@ -119,17 +103,16 @@ namespace YAF.Controls
 			if ( PageContext.BoardSettings.ShowPageGenerationTime )
 			{
 				footer.Append( "<br/>" );
-				footer.AppendFormat( PageContext.Localization.GetText( "COMMON", "GENERATED" ), duration );
+				footer.AppendFormat(PageContext.Localization.GetText("COMMON", "GENERATED"), YafServices.StopWatch.Duration);
 			}
 
 			footer.Append( @"</div>" );
-			footer.Append( PageContext.AdminLoadString ); // Append a error message for an admin to see (but not nag)
 
 #if DEBUG      
 			if ( PageContext.IsAdmin )
 			{
 				footer.AppendFormat( @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <b>DEBUG MODE</b></span>.<br/>Recompile in <b>RELEASE MODE</b> to remove this information:" );
-				footer.AppendFormat( @"<br/>{0} sql queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, ( 100 * QueryCounter.Duration ) / duration, QueryCounter.Commands );
+				footer.AppendFormat( @"<br/>{0} sql queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, ( 100 * QueryCounter.Duration ) / YafServices.StopWatch.Duration, QueryCounter.Commands );
 				footer.Append( "</div>" );
 			}
 #endif
