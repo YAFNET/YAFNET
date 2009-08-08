@@ -23,6 +23,8 @@ using System.Data;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Web;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -219,7 +221,7 @@ namespace YAF.Classes.UI
 		static public DataTable GetSmilies()
 		{
 			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.Smilies );
-			DataTable smiliesTable = YafCache.Current [cacheKey] as DataTable;
+			DataTable smiliesTable = YafContext.Current.Cache [cacheKey] as DataTable;
 
 			// check if there is value cached
 			if ( smiliesTable == null )
@@ -227,7 +229,7 @@ namespace YAF.Classes.UI
 				// get the smilies table from the db...
 				smiliesTable = YAF.Classes.Data.DB.smiley_list( YafContext.Current.PageBoardID, null );
 				// cache it for 60 minutes...
-				YafCache.Current.Insert( cacheKey, smiliesTable, null, DateTime.Now.AddMinutes( 60 ), TimeSpan.Zero );
+				YafContext.Current.Cache.Insert( cacheKey, smiliesTable, null, DateTime.Now.AddMinutes( 60 ), TimeSpan.Zero );
 			}
 
 			return smiliesTable;
@@ -267,8 +269,8 @@ namespace YAF.Classes.UI
 			{
 				// populate
 
-				// get rules for BBCode and Smilies
-				BBCode.CreateBBCodeRules( ref ruleEngine, messageFlags.IsBBCode, targetBlankOverride, useNoFollow );
+				// get rules for YafBBCode and Smilies
+				YafBBCode.CreateBBCodeRules( ref ruleEngine, messageFlags.IsBBCode, targetBlankOverride, useNoFollow );
 
 				// add email rule
 				VariableRegexReplaceRule email =
@@ -327,13 +329,13 @@ namespace YAF.Classes.UI
 			// process...
 			ruleEngine.Process( ref message );
 
-			message = General.BadWordReplace( message );
+			message = YafServices.BadWordReplace.Replace( message );
 
 			return message;
 		}
 
 		/// <summary>
-		/// Removes nested BBCode quotes from the given message body.
+		/// Removes nested YafBBCode quotes from the given message body.
 		/// </summary>
 		/// <param name="body">Message body test to remove nested quotes from</param>
 		/// <returns>A version of <paramref name="body"/> that contains no nested quotes.</returns>
@@ -371,7 +373,7 @@ namespace YAF.Classes.UI
 		{
 			if ( !allowHtml )
 			{
-				html = BBCode.EncodeHTML( html );
+				html = YafBBCode.EncodeHTML( html );
 			}
 			else
 			{

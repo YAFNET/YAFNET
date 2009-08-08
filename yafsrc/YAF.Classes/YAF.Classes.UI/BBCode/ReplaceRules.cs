@@ -18,13 +18,10 @@
  */
 
 using System;
-using System.Data;
 using System.Web;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Text;
-using System.IO;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -382,7 +379,7 @@ namespace YAF.Classes.UI
 				if ( _truncateLength > 0 )
 				{
 					// special handling to truncate urls
-					innerReplace.Replace( "${innertrunc}", General.TruncateMiddle( m.Groups ["inner"].Value, _truncateLength ) );
+					innerReplace.Replace( "${innertrunc}", StringHelper.TruncateMiddle( m.Groups ["inner"].Value, _truncateLength ) );
 				}
 
 				// pulls the htmls into the replacement collection before it's inserted back into the main text
@@ -452,9 +449,9 @@ namespace YAF.Classes.UI
 				if ( int.TryParse( variableValue, out id ) )
 				{
 					if ( variableName == "post" )
-						return YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#post{0}", id );
+						return YAF.Classes.Utils.YafBuildLink.GetLink( ForumPages.posts, "m={0}#post{0}", id );
 					else if ( variableName == "topic" )
-						return YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", id );
+						return YAF.Classes.Utils.YafBuildLink.GetLink( ForumPages.posts, "t={0}", id );
 				}
 			}
 			return variableValue;
