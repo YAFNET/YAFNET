@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="bbcode.ascx.cs" Inherits="YAF.Pages.Admin.bbcode" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="BBCode.ascx.cs" Inherits="YAF.Pages.Admin.bbcode" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
     <asp:Repeater ID="bbCodeList" runat="server" OnItemCommand="bbCodeList_ItemCommand">
@@ -27,7 +27,7 @@
                 <td class="post">
                     <b><%# Eval("Name") %></b></td>
                 <td class="post">
-                    <b><%# YAF.Classes.UI.BBCode.LocalizeCustomBBCodeElement(Eval("Description").ToString()) %></b></td>                    
+                    <b><%# YAF.Classes.UI.YafBBCode.LocalizeCustomBBCodeElement(Eval("Description").ToString()) %></b></td>                    
                 <td class="post">
                     <asp:LinkButton runat="server" Text="Edit" CommandName="edit" CommandArgument='<%# Eval("BBCodeID") %>'
                         ID="Linkbutton1">

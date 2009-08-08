@@ -8,6 +8,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using System.IO;
 using YAF.Classes.Data;
@@ -15,7 +17,7 @@ using System.Drawing;
 
 namespace YAF.Pages.Admin
 {
-	public partial class editmedal : YAF.Classes.Base.AdminPage
+	public partial class editmedal : YAF.Classes.Core.AdminPage
 	{
 		#region Constructors & Overriden Methods
 

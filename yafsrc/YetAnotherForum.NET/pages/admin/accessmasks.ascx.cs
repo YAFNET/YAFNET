@@ -27,23 +27,25 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
-using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for forums.
 	/// </summary>
-	public partial class accessmasks : YAF.Classes.Base.AdminPage
+	public partial class accessmasks : YAF.Classes.Core.AdminPage
 	{
 	
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Access Masks","");
 				BindData();
 			}
@@ -71,7 +73,7 @@ namespace YAF.Pages.Admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editaccessmask,"i={0}",e.CommandArgument);
+					YafBuildLink.Redirect( ForumPages.admin_editaccessmask,"i={0}",e.CommandArgument);
 					break;
 				case "delete":
 					if ( YAF.Classes.Data.DB.accessmask_delete( e.CommandArgument ) )
@@ -87,7 +89,7 @@ namespace YAF.Pages.Admin
 
 		protected void New_Click(object sender, System.EventArgs e)
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editaccessmask);
+			YafBuildLink.Redirect( ForumPages.admin_editaccessmask);
 		}
 
 		protected bool BitSet(object _o,int bitmask) 

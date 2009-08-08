@@ -1,5 +1,6 @@
 <%@ Control Language="c#" CodeFile="nntpretrieve.ascx.cs" AutoEventWireup="True"
 	Inherits="YAF.Pages.Admin.nntpretrieve" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
@@ -27,7 +28,7 @@
 						<%# LastMessageNo(Container.DataItem) %>
 					</td>
 					<td>
-						<%# YafDateTime.FormatDateTime(Eval("LastUpdate")) %>
+						<%# YafServices.DateTime.FormatDateTime(Eval("LastUpdate")) %>
 					</td>
 				</tr>
 			</ItemTemplate>

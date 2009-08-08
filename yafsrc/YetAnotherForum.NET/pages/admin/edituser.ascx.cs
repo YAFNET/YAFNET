@@ -28,6 +28,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -36,7 +38,7 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for edituser.
 	/// </summary>
-	public partial class edituser : YAF.Classes.Base.AdminPage
+	public partial class edituser : YAF.Classes.Core.AdminPage
 	{
 		/// <summary>
 		/// Gets user ID of edited user.
@@ -73,9 +75,9 @@ namespace YAF.Pages.Admin
 
 				if ( !IsPostBack )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-					PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
-					PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+					PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
+					PageLinks.AddLink( "Users", YafBuildLink.GetLink( ForumPages.admin_users ) );
 					PageLinks.AddLink( String.Format( "Edit User \"{0}\"", userRow ["Name"].ToString() ) );
 
 					// do a quick user membership sync...

@@ -27,23 +27,25 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
-using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for smilies.
 	/// </summary>
-	public partial class smilies : YAF.Classes.Base.AdminPage
+	public partial class smilies : YAF.Classes.Core.AdminPage
 	{
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Smilies", "" );
 
 				BindData();
@@ -79,10 +81,10 @@ namespace YAF.Pages.Admin
 			switch ( e.CommandName )
 			{
 				case "add":
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies_edit );
+					YafBuildLink.Redirect( ForumPages.admin_smilies_edit );
 					break;
 				case "edit":
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies_edit, "s={0}", e.CommandArgument );
+					YafBuildLink.Redirect( ForumPages.admin_smilies_edit, "s={0}", e.CommandArgument );
 					break;
 				case "moveup":
 					YAF.Classes.Data.DB.smiley_resort( PageContext.PageBoardID, e.CommandArgument, -1 );
@@ -106,7 +108,7 @@ namespace YAF.Pages.Admin
 					YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 					break;
 				case "import":
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies_import );
+					YafBuildLink.Redirect( ForumPages.admin_smilies_import );
 					break;
 			}
 		}

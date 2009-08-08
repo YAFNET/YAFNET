@@ -29,6 +29,9 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -37,7 +40,7 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Primary administrator interface for groups/roles editing.
 	/// </summary>
-	public partial class groups : YAF.Classes.Base.AdminPage
+	public partial class groups : YAF.Classes.Core.AdminPage
 	{
 		#region Data Members
 

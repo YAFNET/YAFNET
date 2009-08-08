@@ -23,14 +23,17 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
+using YAF.Editors;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public partial class hostsettings : YAF.Classes.Base.AdminPage
+	public partial class hostsettings : YAF.Classes.Core.AdminPage
 	{
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
@@ -39,8 +42,8 @@ namespace YAF.Pages.Admin
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Host Settings", "" );
 
 				// Jaben 9/21: Removed localization. Admin isn't localized.
@@ -86,8 +89,8 @@ namespace YAF.Pages.Admin
 
 		private void BindData()
 		{
-			TimeZoneRaw.DataSource = YafStaticData.TimeZones();
-			ForumEditor.DataSource = YAF.Editor.EditorHelper.GetEditorsTable();
+			TimeZoneRaw.DataSource = StaticDataHelper.TimeZones();
+			ForumEditor.DataSource = PageContext.EditorModuleManager.GetEditorsTable();
 
 			DataBind();
 
@@ -203,12 +206,12 @@ namespace YAF.Pages.Admin
 			}
 
 			// save the settings to the database
-			PageContext.BoardSettings.SaveRegistry();
+			((YafLoadBoardSettings)PageContext.BoardSettings).SaveRegistry();
 
 			// reload all settings from the DB
 			PageContext.BoardSettings = null;
 
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin );
+			YafBuildLink.Redirect( ForumPages.admin_admin );
 		}
 
 		protected void ForumStatisticsCacheReset_Click( object sender, System.EventArgs e )

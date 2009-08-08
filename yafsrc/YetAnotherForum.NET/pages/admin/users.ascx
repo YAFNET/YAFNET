@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="users.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.users" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
   <table class="content" cellspacing="0" cellpadding="0" width="100%">
@@ -67,7 +68,7 @@
         <tr>
           <td class="post">
             <asp:LinkButton ID="NameEdit" runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'
-              Text='<%# BBCode.EncodeHTML( Eval("Name").ToString() ) %>' /></td>
+              Text='<%# YafBBCode.EncodeHTML( Eval("Name").ToString() ) %>' /></td>
           <td class="post">
             <%# DataBinder.Eval(Container.DataItem,"Email") %>
           </td>
@@ -81,7 +82,7 @@
             <%# BitSet(Eval( "Flags"),2) %>
           </td>
           <td class="post">
-            <%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
+            <%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
           </td>
           <td class="post" align="center">
             <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'

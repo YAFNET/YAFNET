@@ -9,20 +9,23 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
-	public partial class bbcode : YAF.Classes.Base.AdminPage
+	public partial class bbcode : YAF.Classes.Core.AdminPage
 	{
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
-				PageLinks.AddLink( "BBCode Extensions", "" );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
+				PageLinks.AddLink( "YafBBCode Extensions", "" );
 
 				BindData();
 			}
@@ -36,18 +39,18 @@ namespace YAF.Pages.Admin
 
 		protected void Delete_Load( object sender, System.EventArgs e )
 		{
-			( ( LinkButton )sender ).Attributes ["onclick"] = "return confirm('Delete this BBCode Extension?')";
+			( ( LinkButton )sender ).Attributes ["onclick"] = "return confirm('Delete this YafBBCode Extension?')";
 		}
 
 		protected void bbCodeList_ItemCommand( object sender, RepeaterCommandEventArgs e )
 		{
 			if ( e.CommandName == "add" )
 			{
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bbcode_edit );
+				YafBuildLink.Redirect( ForumPages.admin_bbcode_edit );
 			}
 			else if ( e.CommandName == "edit" )
 			{
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bbcode_edit, "b={0}", e.CommandArgument );
+				YafBuildLink.Redirect( ForumPages.admin_bbcode_edit, "b={0}", e.CommandArgument );
 			}
 			else if ( e.CommandName == "delete" )
 			{

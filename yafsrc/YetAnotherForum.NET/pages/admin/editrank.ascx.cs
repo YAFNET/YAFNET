@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,15 +37,15 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public partial class editrank : YAF.Classes.Base.AdminPage
+	public partial class editrank : YAF.Classes.Core.AdminPage
 	{
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Ranks", "" );
 
 				BindData();
@@ -139,7 +141,7 @@ namespace YAF.Pages.Admin
 
 		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks );
+			YafBuildLink.Redirect( ForumPages.admin_ranks );
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
@@ -153,7 +155,7 @@ namespace YAF.Pages.Admin
 				rankImage = RankImage.SelectedValue;
 			YAF.Classes.Data.DB.rank_save( RankID, PageContext.PageBoardID, Name.Text, IsStart.Checked, IsLadder.Checked, MinPosts.Text, rankImage );
 
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks );
+			YafBuildLink.Redirect( ForumPages.admin_ranks );
 		}
 	}
 }

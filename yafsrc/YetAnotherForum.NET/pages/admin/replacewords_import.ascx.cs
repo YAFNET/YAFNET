@@ -26,26 +26,28 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
-	public partial class replacewords_import : YAF.Classes.Base.AdminPage
+	public partial class replacewords_import : YAF.Classes.Core.AdminPage
 	{
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Import Replace Words", "" );
 			}
 		}
 
 		protected void Cancel_OnClick( object sender, System.EventArgs e )
 		{
-			YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords );
+			YafBuildLink.Redirect( ForumPages.admin_replacewords );
 		}
 
 		protected void Import_OnClick( object sender, System.EventArgs e )
@@ -79,12 +81,13 @@ namespace YAF.Pages.Admin
 
 						if ( importedCount > 0 )
 						{
-							PageContext.AddLoadMessageSession( String.Format( "{0} new replacement word(s) were imported successfully.", importedCount ) );
+							PageContext.LoadMessage.AddSession( String.Format( "{0} new replacement word(s) were imported successfully.", importedCount ) );
 
 						}
 						else
 						{
-							PageContext.AddLoadMessageSession( String.Format( "Nothing imported: no new replacement words were found in the upload.", importedCount ) );
+							PageContext.LoadMessage.AddSession(
+								String.Format( "Nothing imported: no new replacement words were found in the upload.", importedCount ) );
 						}
 
 						YafBuildLink.Redirect( ForumPages.admin_replacewords );

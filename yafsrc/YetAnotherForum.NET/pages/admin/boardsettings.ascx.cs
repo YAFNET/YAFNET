@@ -21,6 +21,8 @@
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -29,31 +31,31 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public partial class boardsettings : YAF.Classes.Base.AdminPage
+	public partial class boardsettings : YAF.Classes.Core.AdminPage
 	{
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Board Settings", "" );
 
 				// create list boxes by populating datasources from Data class
-				Theme.DataSource = YafStaticData.Themes();
+				Theme.DataSource = StaticDataHelper.Themes();
 				Theme.DataTextField = "Theme";
 				Theme.DataValueField = "FileName";
 
-				Language.DataSource = YafStaticData.Languages();
+				Language.DataSource = StaticDataHelper.Languages();
 				Language.DataTextField = "Language";
 				Language.DataValueField = "FileName";
 
-				ShowTopic.DataSource = YafStaticData.TopicTimes();
+				ShowTopic.DataSource = StaticDataHelper.TopicTimes();
 				ShowTopic.DataTextField = "TopicText";
 				ShowTopic.DataValueField = "TopicValue";
 
-				FileExtensionAllow.DataSource = YafStaticData.AllowDisallow();
+				FileExtensionAllow.DataSource = StaticDataHelper.AllowDisallow();
 				FileExtensionAllow.DataTextField = "Text";
 				FileExtensionAllow.DataValueField = "Value";
 
@@ -105,12 +107,12 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.FileExtensionAreAllowed = ( Convert.ToInt32( FileExtensionAllow.SelectedValue ) == 0 ? true : false );
 
 			/// save the settings to the database
-			PageContext.BoardSettings.SaveRegistry();
+			((YafLoadBoardSettings)PageContext.BoardSettings).SaveRegistry();
 
 			/// Reload forum settings
 			PageContext.BoardSettings = null;
 
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin );
+			YafBuildLink.Redirect( ForumPages.admin_admin );
 		}
 	}
 }

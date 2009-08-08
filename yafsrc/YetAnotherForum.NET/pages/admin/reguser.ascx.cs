@@ -27,12 +27,14 @@ namespace YAF.Pages.Admin
 	using System.Web.Security;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
-	using YAF.Classes.Utils;
+	using YAF.Classes;
+using YAF.Classes.Core;
+using YAF.Classes.Utils;
 
 	/// <summary>
 	///		Summary description for reguser.
 	/// </summary>
-	public partial class reguser : YAF.Classes.Base.AdminPage
+	public partial class reguser : YAF.Classes.Core.AdminPage
 	{
 
 
@@ -40,11 +42,11 @@ namespace YAF.Pages.Admin
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Users", "" );
 
-				TimeZones.DataSource = YafStaticData.TimeZones();
+				TimeZones.DataSource = StaticDataHelper.TimeZones();
 				DataBind();
 				TimeZones.Items.FindByValue( "0" ).Selected = true;
 			}
@@ -52,7 +54,7 @@ namespace YAF.Pages.Admin
 
 		protected void cancel_Click( object sender, EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+			YafBuildLink.Redirect( ForumPages.admin_users );
 		}
 
 		protected void ForumRegister_Click( object sender, System.EventArgs e )
@@ -94,7 +96,7 @@ namespace YAF.Pages.Admin
 				int? userID = RoleMembershipHelper.CreateForumUser( user, YafContext.Current.PageBoardID );
 
 				// create profile
-				YafUserProfile userProfile = PageContext.GetProfile( newUsername );
+				YafUserProfile userProfile = YafUserProfile.GetProfile( newUsername );
 				// setup their inital profile information
 				userProfile.Location = Location.Text.Trim();
 				userProfile.Homepage = HomePage.Text.Trim();
@@ -108,7 +110,7 @@ namespace YAF.Pages.Admin
 					// send template email
 					YafTemplateEmail verifyEmail = new YafTemplateEmail( "VERIFYEMAIL" );
 
-					verifyEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YAF.Classes.Utils.YafForumInfo.ServerURL );
+					verifyEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}", YafBuildLink.GetLink( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
 					verifyEmail.TemplateParams ["{key}"] = hash;
 					verifyEmail.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
 					verifyEmail.TemplateParams ["{forumlink}"] = String.Format( "{0}", ForumURL );
@@ -120,7 +122,7 @@ namespace YAF.Pages.Admin
 
 				// success
 				PageContext.AddLoadMessage( string.Format( "User {0} Created Successfully.", UserName.Text.Trim() ) );
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_reguser );
+				YafBuildLink.Redirect( ForumPages.admin_reguser );
 			}
 		}
 

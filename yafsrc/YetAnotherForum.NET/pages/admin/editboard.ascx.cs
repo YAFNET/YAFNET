@@ -22,14 +22,16 @@ using System;
 using System.Data;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+using YAF.Classes;
 using YAF.Classes.Data;
+using YAF.Classes.Utils;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public partial class editboard : YAF.Classes.Base.AdminPage
+	public partial class editboard : YAF.Classes.Core.AdminPage
 	{
 		protected int? BoardID
 		{
@@ -52,8 +54,8 @@ namespace YAF.Pages.Admin
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Boards", "" );
 
 				BindData();
@@ -136,12 +138,12 @@ namespace YAF.Pages.Admin
 
 			// Done
 			PageContext.BoardSettings = null;
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_boards );
+			YafBuildLink.Redirect( ForumPages.admin_boards );
 		}
 
 		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_boards );
+			YafBuildLink.Redirect( ForumPages.admin_boards );
 		}
 
 		protected void BindData_AccessMaskID( object sender, System.EventArgs e )

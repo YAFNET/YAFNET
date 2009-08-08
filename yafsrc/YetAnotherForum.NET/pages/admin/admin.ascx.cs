@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,14 +37,14 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for main.
 	/// </summary>
-	public partial class admin : YAF.Classes.Base.AdminPage
+	public partial class admin : YAF.Classes.Core.AdminPage
 	{
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( "Administration", "" );
 
 				// bind data
@@ -151,7 +153,7 @@ namespace YAF.Pages.Admin
 			switch ( e.CommandName )
 			{
 				case "edit":
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", e.CommandArgument );
+					YafBuildLink.Redirect( ForumPages.admin_edituser, "u={0}", e.CommandArgument );
 					break;
 				case "delete":
 					UserMembershipHelper.DeleteUser( Convert.ToInt32( e.CommandArgument ) );
@@ -185,7 +187,7 @@ namespace YAF.Pages.Admin
 			if ( ForumID.ToString() == "" || ForumName.ToString() == "" )
 				return "";
 
-			return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID ), ForumName );
+			return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YafBuildLink.GetLink( ForumPages.topics, "f={0}", ForumID ), ForumName );
 		}
 
 		protected string FormatTopicLink( object TopicID, object TopicName )
@@ -193,7 +195,7 @@ namespace YAF.Pages.Admin
 			if ( TopicID.ToString() == "" || TopicName.ToString() == "" )
 				return "";
 
-			return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", TopicID ), TopicName );
+			return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YafBuildLink.GetLink( ForumPages.posts, "t={0}", TopicID ), TopicName );
 		}
 	}
 }

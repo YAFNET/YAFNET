@@ -26,26 +26,28 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
-	public partial class bbcode_import : YAF.Classes.Base.AdminPage
+	public partial class bbcode_import : YAF.Classes.Core.AdminPage
 	{
 		protected void Page_Load( object sender, EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Import Custom BBCode", "" );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Import Custom YafBBCode", "" );
 			}
 		}
 
 		protected void Cancel_OnClick( object sender, System.EventArgs e )
 		{
-			YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bbcode );
+			YafBuildLink.Redirect( ForumPages.admin_bbcode );
 		}
 
 		protected void Import_OnClick( object sender, System.EventArgs e )
@@ -59,11 +61,11 @@ namespace YAF.Pages.Admin
 
 					if ( importedCount > 0 )
 					{
-						PageContext.AddLoadMessageSession( String.Format( "{0} new custom bbcode(s) imported successfully.", importedCount ) );
+						PageContext.LoadMessage.AddSession( String.Format( "{0} new custom bbcode(s) imported successfully.", importedCount ));
 					}
 					else
 					{
-						PageContext.AddLoadMessageSession( String.Format( "Nothing imported: no new custom bbcode was found in the upload.", importedCount ) );
+						PageContext.LoadMessage.AddSession( String.Format( "Nothing imported: no new custom bbcode was found in the upload.", importedCount ) );
 					}
 
 					YafBuildLink.Redirect( ForumPages.admin_bbcode );

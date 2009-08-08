@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,15 +37,15 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public partial class editnntpserver : YAF.Classes.Base.AdminPage
+	public partial class editnntpserver : YAF.Classes.Core.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("NNTP Servers","");
 
 				BindData();
@@ -72,7 +74,7 @@ namespace YAF.Pages.Admin
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_nntpservers);
+			YafBuildLink.Redirect( ForumPages.admin_nntpservers);
 		}
 
 		protected void Save_Click(object sender, System.EventArgs e)
@@ -91,7 +93,7 @@ namespace YAF.Pages.Admin
 			object nntpServerID = null;
 			if(Request.QueryString["s"]!=null) nntpServerID = Request.QueryString["s"];
 			YAF.Classes.Data.DB.nntpserver_save(nntpServerID,PageContext.PageBoardID,Name.Text,Address.Text,Port.Text.Length>0 ? Port.Text : null,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_nntpservers);
+			YafBuildLink.Redirect( ForumPages.admin_nntpservers);
 		}
 	}
 }

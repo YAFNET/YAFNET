@@ -125,13 +125,6 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
-                                    <b>Allow Login and Logoff:</b><br>
-                                    Enable login and logoff through the forum.</td>
-                                <td class="post">
-                                    <asp:CheckBox ID="AllowLoginAndLogoff" runat="server"></asp:CheckBox></td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
                                     <b>Custom Login Redirect Url:</b><br>
                                     If login is disabled, this is the URL users will be redirected to when they need to access the forum. Optionally add "{0}" to the URL to pass the return URL to the custom Url.
                                     E.g. "http://mydomain.com/login.aspx?PreviousUrl={0}"</td>

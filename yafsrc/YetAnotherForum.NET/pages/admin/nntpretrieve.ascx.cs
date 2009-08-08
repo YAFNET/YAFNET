@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core.Nntp;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,15 +37,15 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public partial class nntpretrieve : YAF.Classes.Base.AdminPage
+	public partial class nntpretrieve : YAF.Classes.Core.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("NNTP Retrieve","");
 
 				BindData();
@@ -60,7 +62,7 @@ namespace YAF.Pages.Admin
 		{
 			int nSeconds = int.Parse(Seconds.Text);
 			if(nSeconds<1) nSeconds = 1;
-			int nArticleCount = YAF.Classes.Utils.Nntp.YafNntp.ReadArticles(PageContext.PageBoardID,10,nSeconds,PageContext.BoardSettings.CreateNntpUsers);
+			int nArticleCount = YafNntp.ReadArticles(PageContext.PageBoardID,10,nSeconds,PageContext.BoardSettings.CreateNntpUsers);
 			PageContext.AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.",nArticleCount,(double)nArticleCount/nSeconds));
 			BindData();
 		}

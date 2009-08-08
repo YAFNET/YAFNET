@@ -8,6 +8,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using System.Text;
 
@@ -16,7 +18,7 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Administration inferface for managing medals.
 	/// </summary>
-	public partial class medals : YAF.Classes.Base.AdminPage
+	public partial class medals : YAF.Classes.Core.AdminPage
 	{
 		#region Construcotrs & Overridden Methods
 

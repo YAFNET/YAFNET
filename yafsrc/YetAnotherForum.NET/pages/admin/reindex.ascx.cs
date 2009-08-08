@@ -29,12 +29,14 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
-	public partial class reindex : YAF.Classes.Base.AdminPage
+	public partial class reindex : YAF.Classes.Core.AdminPage
 	{
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
@@ -48,8 +50,8 @@ namespace YAF.Pages.Admin
                 this.btnReindex.Visible = DB.btnReindexVisible;
                 this.btnReindex.Text = DB.btnReindexName;
                 this.btnGetStats.Text = DB.btnGetStatsName; 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Reindex DB", "" );
 
 				BindData();

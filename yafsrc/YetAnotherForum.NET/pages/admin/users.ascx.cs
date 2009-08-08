@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,15 +37,15 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public partial class users : YAF.Classes.Base.AdminPage
+	public partial class users : YAF.Classes.Core.AdminPage
 	{
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Users", "" );
 
 				using ( DataTable dt = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, null ) )
@@ -115,7 +117,7 @@ namespace YAF.Pages.Admin
 			switch ( e.CommandName )
 			{
 				case "edit":
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", e.CommandArgument );
+					YafBuildLink.Redirect( ForumPages.admin_edituser, "u={0}", e.CommandArgument );
 					break;
 				case "delete":
 					if ( PageContext.PageUserID == int.Parse( e.CommandArgument.ToString() ) )
@@ -149,7 +151,7 @@ namespace YAF.Pages.Admin
 
 		public void NewUser_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_reguser );
+			YafBuildLink.Redirect( ForumPages.admin_reguser );
 		}
 
 

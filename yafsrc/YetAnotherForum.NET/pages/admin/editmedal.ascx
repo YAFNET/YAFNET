@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="editmedal.ascx.cs" Inherits="YAF.Pages.Admin.editmedal" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu ID="AdminMenu1" runat="server">
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -240,7 +241,7 @@
 						<%# Eval("Message") %>
 					</td>
 					<td class="post">
-						<%# YafDateTime.FormatDateTimeTopic((DateTime)Eval("DateAwarded")) %>
+						<%# YafServices.DateTime.FormatDateTimeTopic((DateTime)Eval("DateAwarded")) %>
 					</td>
 					<td class="post">
 						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'>Edit</asp:LinkButton>

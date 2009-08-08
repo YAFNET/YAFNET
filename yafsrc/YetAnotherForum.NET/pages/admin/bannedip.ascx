@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="bannedip.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.bannedip" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<asp:Repeater ID="list" runat="server" OnItemCommand="list_ItemCommand">
@@ -23,7 +24,7 @@
 					<%# Eval("Mask") %>
 				</td>
 				<td class="post">
-					<%# YafDateTime.FormatDateTime(Eval("Since")) %>
+					<%# YafServices.DateTime.FormatDateTime(Eval("Since")) %>
 				</td>
 				<td class="post">
 					<asp:LinkButton runat="server" Text="Edit" CommandName='edit' CommandArgument='<%# Eval("ID") %>'></asp:LinkButton>

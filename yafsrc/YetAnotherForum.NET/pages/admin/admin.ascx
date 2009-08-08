@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="admin.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.admin" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
   <asp:Repeater ID="ActiveList" runat="server">
@@ -24,13 +25,13 @@
     <ItemTemplate>
       <tr>
         <td class="post">
-          <%# BBCode.EncodeHTML( Eval("UserName").ToString() ) %>
+          <%# YafBBCode.EncodeHTML( Eval("UserName").ToString() ) %>
         </td>
         <td class="post">
           <%# Eval("IP") %>
         </td>
         <td class="post">
-          <%# BBCode.EncodeHTML( PageContext.GetProfile( Eval("UserName").ToString() ).Location ) %>
+          <%# YafBBCode.EncodeHTML( YafUserProfile.GetProfile( Eval("UserName").ToString() ).Location ) %>
         </td>
         <td class="post">
           <%# FormatForumLink(Eval("ForumID"),Eval("ForumName")) %>
@@ -68,16 +69,16 @@
     <ItemTemplate>
       <tr>
         <td class="post">
-          <%# BBCode.EncodeHTML( Eval("Name").ToString() ) %>
+          <%# YafBBCode.EncodeHTML( Eval("Name").ToString() ) %>
         </td>
         <td class="post">
           <%# Eval("Email") %>
         </td>
         <td class="post">
-          <%# BBCode.EncodeHTML( PageContext.GetProfile( Eval( "Name" ).ToString() ).Location )%>
+          <%# YafBBCode.EncodeHTML( YafUserProfile.GetProfile( Eval( "Name" ).ToString() ).Location )%>
         </td>
         <td class="post">
-          <%# YafDateTime.FormatDateTime(Eval("Joined")) %>
+          <%# YafServices.DateTime.FormatDateTime(Eval("Joined")) %>
         </td>
         <td class="post">
           <asp:LinkButton OnLoad="Approve_Load" runat="server" CommandName="approve" CommandArgument='<%# Eval("UserID") %>'

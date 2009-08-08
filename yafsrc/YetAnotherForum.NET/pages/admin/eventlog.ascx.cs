@@ -28,6 +28,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -36,7 +38,7 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for attachments.
 	/// </summary>
-	public partial class eventlog : YAF.Classes.Base.AdminPage
+	public partial class eventlog : YAF.Classes.Core.AdminPage
 	{
 		#region Event Handlers
 
@@ -50,9 +52,9 @@ namespace YAF.Pages.Admin
 			{
 				// create page links
 				// board index first
-				PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 				// administration index second
-				PageLinks.AddLink("Administration", YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
 				// we are now in event log
 				PageLinks.AddLink("Event Log", "");
 

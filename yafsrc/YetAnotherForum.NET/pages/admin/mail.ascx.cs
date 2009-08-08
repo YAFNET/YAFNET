@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,15 +37,15 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for mail.
 	/// </summary>
-	public partial class mail : YAF.Classes.Base.AdminPage
+	public partial class mail : YAF.Classes.Core.AdminPage
 	{
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Mail", "" );
 
 				BindData();
@@ -78,7 +80,7 @@ namespace YAF.Pages.Admin
 					foreach ( DataRow row in dt.Rows )
 					{
 						// Wes - Changed to use queue to improve scalability
-						SendMail.Queue( PageContext.BoardSettings.ForumEmail, ( string ) row["Email"], Subject.Text.Trim(),
+						YafServices.SendMail.Queue( PageContext.BoardSettings.ForumEmail, ( string ) row["Email"], Subject.Text.Trim(),
 						                Body.Text.Trim() );
 					}
 				}

@@ -19,6 +19,8 @@
  */
 
 using System;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Pages.Admin
@@ -26,7 +28,7 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for register.
 	/// </summary>
-	public partial class version : YAF.Classes.Base.AdminPage
+	public partial class version : YAF.Classes.Core.AdminPage
 	{
 		private long _lastVersion;
 		private DateTime _lastVersionDate;
@@ -35,8 +37,8 @@ namespace YAF.Pages.Admin
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Version Check", "" );
 			}
 
@@ -66,7 +68,7 @@ namespace YAF.Pages.Admin
 		{
 			get
 			{
-				return YafDateTime.FormatDateShort( _lastVersionDate );
+				return YafServices.DateTime.FormatDateShort( _lastVersionDate );
 			}
 		}
 
