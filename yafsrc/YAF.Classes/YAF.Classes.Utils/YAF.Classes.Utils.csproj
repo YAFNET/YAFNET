@@ -104,7 +104,6 @@
     <Compile Include="URLBuilder\UrlParser.cs" />
     <Compile Include="UserProfile.cs" />
     <Compile Include="Helpers\QueryStringIDHelper.cs" />
-    <Compile Include="UtilContextHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">
