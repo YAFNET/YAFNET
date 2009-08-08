@@ -14,7 +14,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF
@@ -497,7 +497,6 @@ namespace YAF
 
 		private bool CheckAccessRights(object boardID, object messageID)
 		{
-			YAF.Classes.Utils.YafContext context = new YAF.Classes.Utils.YafContext();
 			// Find user name
 			System.Web.Security.MembershipUser user = System.Web.Security.Membership.GetUser();
 
@@ -521,7 +520,9 @@ namespace YAF
 					isSearchEngine = General.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent);
 				}
 			}
-
+			
+			YafServices.InitializeDb.Run();
+			
 			object userKey = DBNull.Value;
 
 			if (user != null)
