@@ -27,6 +27,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Controls;
@@ -36,7 +37,7 @@ namespace YAF.Pages.moderate
 	/// <summary>
 	/// Control for handling moderation of reported abusive posts.
 	/// </summary>
-	public partial class reportedposts : YAF.Classes.Base.ForumPage
+	public partial class reportedposts : YAF.Classes.Core.ForumPage
 	{
 		#region Constructors & Overridden Methods
 
@@ -161,7 +162,7 @@ namespace YAF.Pages.moderate
 		/// Format message.
 		/// </summary>
 		/// <param name="row">Message data row.</param>
-		/// <returns>Formatted string with escaped HTML markup and formatted BBCode.</returns>
+		/// <returns>Formatted string with escaped HTML markup and formatted YafBBCode.</returns>
 		protected string FormatMessage( DataRowView row )
 		{
 			// get message flags
@@ -177,7 +178,7 @@ namespace YAF.Pages.moderate
 			}
 			else
 			{
-				// fully format message (BBCode, smilies)
+				// fully format message (YafBBCode, smilies)
 				msg = YAF.Classes.UI.FormatMsg.FormatMessage( row ["OriginalMessage"].ToString(), messageFlags, Convert.ToBoolean( row ["IsModeratorChanged"] ) );
 			}
 

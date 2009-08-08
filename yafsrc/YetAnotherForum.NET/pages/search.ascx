@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="search.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.search" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <%@ Register Namespace="nStuff.UpdateControls" assembly="nStuff.UpdateControls" TagPrefix="nStuff" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <script type="text/javascript">
@@ -83,7 +84,7 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
                             <b>
                                 <YAF:LocalizedLabel runat="server" LocalizedTag="POSTED" />
                             </b>
-                            <%# YafDateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
+                            <%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
                         </td>
                     </tr>
                     <tr class="post">
@@ -114,7 +115,7 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
                             <b>
                                 <YAF:LocalizedLabel runat="server" LocalizedTag="POSTED" />
                             </b>
-                            <%# YafDateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
+                            <%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
                         </td>
                     </tr>
                     <tr class="post_alt">

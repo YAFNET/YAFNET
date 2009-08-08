@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,7 +37,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Control handling user invitations to forum (i.e. granting permissions by admin/moderator).
 	/// </summary>
-	public partial class mod_forumuser : YAF.Classes.Base.ForumPage
+	public partial class mod_forumuser : YAF.Classes.Core.ForumPage
 	{
 		/* Construction & Destruction */
 		#region Constructors
@@ -59,9 +61,9 @@ namespace YAF.Pages // YAF.Pages
 			if (PageContext.Settings.LockedForum == 0)
 			{
 				// forum index
-				PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 				// category
-				PageLinks.AddLink(PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID));
+				PageLinks.AddLink(PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", PageContext.PageCategoryID));
 			}
 			// forum page
 			PageLinks.AddForumLinks(PageContext.PageForumID);
@@ -185,7 +187,7 @@ namespace YAF.Pages // YAF.Pages
 				// save permission
 				YAF.Classes.Data.DB.userforum_save(dt.Rows[0]["UserID"], PageContext.PageForumID, AccessMaskID.SelectedValue);
 				// redirect to forum moderation page
-				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate, "f={0}", PageContext.PageForumID);
+				YafBuildLink.Redirect(ForumPages.moderate, "f={0}", PageContext.PageForumID);
 
 				// clear moderatorss cache
 				YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
@@ -198,7 +200,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
 			// redirect to forum moderation page
-			YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate, "f={0}", PageContext.PageForumID);
+			YafBuildLink.Redirect(ForumPages.moderate, "f={0}", PageContext.PageForumID);
 		}
 
 		#endregion

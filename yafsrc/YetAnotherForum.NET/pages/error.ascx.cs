@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,7 +37,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for error.
 	/// </summary>
-	public partial class error : YAF.Classes.Base.ForumPage
+	public partial class error : YAF.Classes.Core.ForumPage
 	{
 
 		public error() : base("ERROR") {

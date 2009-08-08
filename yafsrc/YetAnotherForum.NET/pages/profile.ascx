@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="profile.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.profile" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <%@ Register TagPrefix="uc1" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>
@@ -190,14 +191,14 @@
                                         <td class="small" align="left" colspan="2">
                                             <b>
                                                 <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
-                                            </b><a href='<%# YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
-                                                <%# General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
+                                            </b><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
+                                                <%# YafServices.BadWordReplace.Replace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
                                             </a>
                                             <br />
                                             <b>
                                                 <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="posted" />
                                             </b>
-                                            <%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
+                                            <%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
                                         </td>
                                     </tr>
                                     <tr class="post">

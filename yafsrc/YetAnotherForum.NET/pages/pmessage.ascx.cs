@@ -24,22 +24,25 @@ using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Classes.UI;
+using YAF.Editors;
 
 namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for pmessage.
 	/// </summary>
-	public partial class pmessage : Classes.Base.ForumPage
+	public partial class pmessage : ForumPage
 	{
 
 		#region Data Members
 
 		// message body editor
-		protected Editor.ForumEditor _editor;
+		protected BaseForumEditor _editor;
 
 		#endregion
 
@@ -78,7 +81,7 @@ namespace YAF.Pages
 		protected void Page_Init( object sender, EventArgs e )
 		{
 			// create editor based on administrator's settings
-			_editor = YAF.Editor.EditorHelper.CreateEditorFromType( PageContext.BoardSettings.ForumEditor );
+			_editor = PageContext.EditorModuleManager.GetEditorInstance( PageContext.BoardSettings.ForumEditor );
 			// add editor to the page
 			EditorLine.Controls.Add( _editor );
 		}
@@ -95,7 +98,7 @@ namespace YAF.Pages
 
 			// set attributes of editor
 			_editor.BaseDir = YafForumInfo.ForumRoot + "editors";
-			_editor.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
+			_editor.StyleSheet = PageContext.Theme.BuildThemePath( "theme.css" );
 
 			// this needs to be done just once, not during postbacks
 			if ( !IsPostBack )
@@ -152,7 +155,7 @@ namespace YAF.Pages
 								body = FormatMsg.RemoveNestedQuotes(body);
 
 							// Ensure quoted replies have bad words removed from them
-							body = General.BadWordReplace(body);
+							body = YafServices.BadWordReplace.Replace(body);
 
 							// Quote the original message
 							body = String.Format( "[QUOTE={0}]{1}[/QUOTE]", row ["FromUser"], body );

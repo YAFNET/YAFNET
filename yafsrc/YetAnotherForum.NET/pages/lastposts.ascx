@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeFile="lastposts.ascx.cs" Inherits="YAF.Pages.lastposts"
     TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <asp:Repeater ID="repLastPosts" runat="server" Visible="true">
     <HeaderTemplate>
         <table class="content" cellspacing="1" cellpadding="0" width="100%" align="center">
@@ -24,7 +25,7 @@
                 <b>
                     <YAF:LocalizedLabel ID="Posted" LocalizedTag="POSTED" runat="server" />
                 </b>
-                <%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
+                <%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
             </td>
         </tr>
         <tr class="post">
@@ -47,7 +48,7 @@
                 <b>
                     <YAF:LocalizedLabel ID="PostedAlt" LocalizedTag="POSTED" runat="server" />
                 </b>
-                <%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
+                <%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
             </td>
         </tr>
         <tr class="post_alt">

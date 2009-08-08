@@ -19,24 +19,19 @@
  */
 
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
-using YAF.Classes.Data;
-using YAF.Classes.UI;
+using YAF.Controls;
 
 namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public partial class members : YAF.Classes.Base.ForumPage
+	public partial class members : YAF.Classes.Core.ForumPage
 	{
 
 		public members()
@@ -52,11 +47,11 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			// check access permissions
-			General.HandleRequest(PageContext, PageContext.BoardSettings.MembersListViewPermissions);
+			YafServices.Permissions.HandleRequest(PageContext.BoardSettings.MembersListViewPermissions);
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				SetSort( "Name", true );

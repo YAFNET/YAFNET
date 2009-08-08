@@ -31,7 +31,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	///		Summary description for LastPosts.
 	/// </summary>
-	public partial class lastposts : YAF.Classes.Base.ForumPage
+	public partial class lastposts : YAF.Classes.Core.ForumPage
 	{
 		public lastposts()
 			: base( "POSTMESSAGE" )
@@ -50,9 +50,6 @@ namespace YAF.Pages // YAF.Pages
 				repLastPosts.DataSource = YAF.Classes.Data.DB.post_list_reverse10( Request.QueryString ["t"] );
 				repLastPosts.DataBind();
 			}
-
-			// handle custom BBCode javascript or CSS...
-			BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
 		}
 	}
 }

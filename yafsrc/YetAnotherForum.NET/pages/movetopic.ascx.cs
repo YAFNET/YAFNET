@@ -27,6 +27,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,7 +36,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for movetopic.
 	/// </summary>
-	public partial class movetopic : YAF.Classes.Base.ForumPage
+	public partial class movetopic : YAF.Classes.Core.ForumPage
 	{
 	
 		public movetopic() : base("MOVETOPIC")
@@ -51,11 +52,11 @@ namespace YAF.Pages // YAF.Pages
 			{
 				if(PageContext.Settings.LockedForum==0)
 				{
-					PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-					PageLinks.AddLink(PageContext.PageCategoryName,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum,"c={0}",PageContext.PageCategoryID));
+					PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
+					PageLinks.AddLink(PageContext.PageCategoryName,YafBuildLink.GetLink( ForumPages.forum,"c={0}",PageContext.PageCategoryID));
 				}
 				PageLinks.AddForumLinks(PageContext.PageForumID);
-				PageLinks.AddLink(PageContext.PageTopicName,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts,"t={0}",PageContext.PageTopicID));
+				PageLinks.AddLink(PageContext.PageTopicName,YafBuildLink.GetLink( ForumPages.posts,"t={0}",PageContext.PageTopicID));
 
 				Move.Text = GetText("move");
 				// Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
@@ -103,7 +104,7 @@ namespace YAF.Pages // YAF.Pages
 				// Ederon : 7/14/2007
                 YAF.Classes.Data.DB.topic_move(PageContext.PageTopicID, ForumList.SelectedValue, LeavePointer.Checked);
             }
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics,"f={0}",PageContext.PageForumID);
+			YafBuildLink.Redirect( ForumPages.topics,"f={0}",PageContext.PageForumID);
 		}
 	}
 }

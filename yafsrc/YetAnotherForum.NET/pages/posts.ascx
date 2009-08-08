@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -30,7 +31,7 @@
         <tr>
             <td class="post">
                 <YAF:MyLinkButton runat="server" Enabled="<%#CanVote%>" CommandName="vote" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>'
-                    Text='<%# HtmlEncode(General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
+                    Text='<%# HtmlEncode(YafServices.BadWordReplace.Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
             </td>
             <td class="post" align="center">
                 <%# DataBinder.Eval(Container.DataItem, "Votes") %>

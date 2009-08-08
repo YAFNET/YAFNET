@@ -25,6 +25,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -33,7 +35,7 @@ namespace YAF.Pages
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public partial class forum : YAF.Classes.Base.ForumPage
+	public partial class forum : YAF.Classes.Core.ForumPage
 	{
 		public forum()
 			: base( "DEFAULT" )
@@ -54,10 +56,10 @@ namespace YAF.Pages
 
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 					if ( PageContext.PageCategoryID != 0 )
 					{
-						PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+						PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 						Welcome.Visible = false;
 					}
 				}

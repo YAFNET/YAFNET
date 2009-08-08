@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,7 +37,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Information control displaying feedback information to users.
 	/// </summary>
-	public partial class info : YAF.Classes.Base.ForumPage
+	public partial class info : YAF.Classes.Core.ForumPage
 	{
 		#region Constructors & Overridden Methods
 
@@ -97,7 +99,7 @@ namespace YAF.Pages // YAF.Pages
 							break;
 						case InfoMessage.Suspended: /// Suspended
 							Title.Text = GetText("title_suspended");
-							Info.Text = GetTextFormatted( "suspended", YafDateTime.FormatDateTime(PageContext.SuspendedUntil));
+							Info.Text = GetTextFormatted( "suspended", YafServices.DateTime.FormatDateTime(PageContext.SuspendedUntil));
 							break;
 						case InfoMessage.RegistrationEmail: /// Registration email
 							Title.Text = GetText("title_registration");

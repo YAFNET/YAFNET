@@ -24,6 +24,8 @@ using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 using YAF.Classes.UI;
@@ -34,7 +36,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for topics.
 	/// </summary>
-	public partial class search : YAF.Classes.Base.ForumPage
+	public partial class search : YAF.Classes.Core.ForumPage
 	{
 		private bool _searchHandled = false;
 
@@ -70,7 +72,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			// check access permissions
-			General.HandleRequest( PageContext, PageContext.BoardSettings.SearchPermissions );
+			YafServices.Permissions.HandleRequest( PageContext.BoardSettings.SearchPermissions );
 
 			//Page.Reg
 			//if(IsPostBack) throw new ApplicationException(Request.Form["__EVENTTARGET"]);
@@ -78,7 +80,7 @@ namespace YAF.Pages // YAF.Pages
 			if ( !IsPostBack )
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name,
-				                   YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				                   YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 				btnSearch.Text = GetText( "btnsearch" );
 
@@ -105,9 +107,6 @@ namespace YAF.Pages // YAF.Pages
 
 				listSearchFromWho.SelectedIndex = 0;
 				listSearchWhat.SelectedIndex = 0;
-
-				// handle custom BBCode javascript or CSS...
-				BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
 
 				//Load forum's combo
 				//listForum.Items.Add( new ListItem( GetText( "allforums" ), "-1" ) );
@@ -230,7 +229,7 @@ namespace YAF.Pages // YAF.Pages
 			{
 				string messageID = cell.InnerText;
 				int rowCount = e.Item.ItemIndex + 1 + (Pager.CurrentPageIndex * Pager.PageSize);
-				cell.InnerHtml = string.Format( "<a href=\"{1}\">{0}</a>", rowCount, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", messageID ) );
+				cell.InnerHtml = string.Format( "<a href=\"{1}\">{0}</a>", rowCount, YafBuildLink.GetLink( ForumPages.posts, "m={0}#{0}", messageID ) );
 			}
 		}
 

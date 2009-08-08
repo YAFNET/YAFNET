@@ -23,7 +23,8 @@ using System.Data;
 using System.Text;
 using System.Web;
 using System.Xml;
-using YAF.Classes.Base;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Data;
 using YAF.Classes.UI;
 using YAF.Classes.Utils;
@@ -61,10 +62,10 @@ namespace YAF.Pages // YAF.Pages
 					{
 						foreach (DataRow row in dt.Rows)
 							rf.AddRSSItem(writer,
-							              General.BadWordReplace(row["Subject"].ToString()),
+							              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
 							              YafForumInfo.ServerURL +
 							              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Request.QueryString["t"]),
-							              General.BadWordReplace(row["Message"].ToString()),
+							              YafServices.BadWordReplace.Replace(row["Message"].ToString()),
 							              Convert.ToDateTime(row["Posted"]).ToString("r"));
 					}
 					break;
@@ -75,10 +76,10 @@ namespace YAF.Pages // YAF.Pages
 					{
 						foreach (DataRow row in dt.Rows)
 							rf.AddRSSItem(writer,
-							              General.BadWordReplace(row["Subject"].ToString()),
+							              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
 							              YafForumInfo.ServerURL +
 							              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Request.QueryString["t"]),
-							              General.BadWordReplace(row["Message"].ToString()),
+							              YafServices.BadWordReplace.Replace(row["Message"].ToString()),
 							              Convert.ToDateTime(row["Posted"]).ToString("r"));
 					}
 					break;
@@ -94,7 +95,7 @@ namespace YAF.Pages // YAF.Pages
 						{
 							foreach (DataRow row in dt.Rows)
 								rf.AddRSSItem(writer,
-								              General.BadWordReplace(row["Subject"].ToString()),
+								              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
 								              YafForumInfo.ServerURL +
 								              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Request.QueryString["t"]),
 								              FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])),
@@ -110,9 +111,9 @@ namespace YAF.Pages // YAF.Pages
 						foreach (DataRow row in dt.Rows)
 						{
 							rf.AddRSSItem(writer,
-							              General.BadWordReplace(row["Forum"].ToString()),
+							              YafServices.BadWordReplace.Replace(row["Forum"].ToString()),
 							              YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", row["ForumID"]),
-							              General.BadWordReplace(row["Description"].ToString()));
+							              YafServices.BadWordReplace.Replace(row["Description"].ToString()));
 						}
 					}
 					break;
@@ -130,9 +131,9 @@ namespace YAF.Pages // YAF.Pages
                             foreach (DataRow row in dt.Rows)
                             {
                                 rf.AddRSSItem(writer,
-                                              General.BadWordReplace(row["Topic"].ToString()),
+                                              YafServices.BadWordReplace.Replace(row["Topic"].ToString()),
                                               YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", row["TopicID"]),
-                                              General.BadWordReplace(row["Topic"].ToString()),
+                                              YafServices.BadWordReplace.Replace(row["Topic"].ToString()),
                                               Convert.ToDateTime(row["Posted"]).ToString("r"));
                             }
                         }
@@ -149,10 +150,10 @@ using (
 	foreach (DataRow row in dt.Rows)
 	{
 		rf.AddRSSItem(writer,
-		              General.BadWordReplace(row["Subject"].ToString()),
+		              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
 		              YafForumInfo.ServerURL +
 		              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", row["LinkTopicID"]),
-		              General.BadWordReplace(row["Subject"].ToString()));
+		              YafServices.BadWordReplace.Replace(row["Subject"].ToString()));
 	}
 }
 break;

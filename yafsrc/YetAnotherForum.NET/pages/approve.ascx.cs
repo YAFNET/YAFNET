@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,7 +37,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for approve.
 	/// </summary>
-	public partial class approve : YAF.Classes.Base.ForumPage
+	public partial class approve : YAF.Classes.Core.ForumPage
 	{
 
 		public approve()
@@ -47,7 +49,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				ValidateKey.Text = GetText( "validate" );
@@ -86,7 +88,7 @@ namespace YAF.Pages // YAF.Pages
         System.Web.Security.Membership.UpdateUser( user );
 
         // now redirect to login...
-				PageContext.AddLoadMessageSession( GetText( "EMAIL_VERIFIED" ) );
+				PageContext.LoadMessage.AddSession( GetText( "EMAIL_VERIFIED" ) );
 
         YafBuildLink.Redirect( ForumPages.login );
 			}

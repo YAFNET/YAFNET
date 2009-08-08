@@ -1,4 +1,5 @@
 <%@ Control language="c#" CodeFile="deletemessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.deletemessage" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 
@@ -58,7 +59,7 @@
 		<tr class="postheader">
 			<td width="140"><b><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><YAF:LocalizedLabel runat="server" LocalizedTag="posted" /></b> <%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
+			<td width="80%" class="small" align="left"><b><YAF:LocalizedLabel runat="server" LocalizedTag="posted" /></b> <%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
 		</tr>
 		<tr class="post">
 			<td>&nbsp;</td>
@@ -71,7 +72,7 @@
 		<tr class="postheader">
 			<td width="140"><b><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><YAF:LocalizedLabel runat="server" LocalizedTag="posted" /></b> <%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
+			<td width="80%" class="small" align="left"><b><YAF:LocalizedLabel runat="server" LocalizedTag="posted" /></b> <%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
 		</tr>
 		<tr class="post_alt">
 			<td>&nbsp;</td>

@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="members.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.members" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AlphaSort ID="AlphaSort1" runat="server" />
 <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
@@ -35,13 +36,13 @@
 					<%# Eval("RankName") %>
 				</td>
 				<td class="post">
-					<%# YafDateTime.FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
+					<%# YafServices.DateTime.FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
 				</td>
 				<td class="post" align="center">
 					<%# String.Format("{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
 				</td>
 				<td class="post">
-					<%# GetStringSafely(PageContext.GetProfile(DataBinder.Eval(Container.DataItem,"Name").ToString()).Location) %>
+					<%# GetStringSafely(YafUserProfile.GetProfile(DataBinder.Eval(Container.DataItem,"Name").ToString()).Location) %>
 				</td>
 			</tr>
 		</ItemTemplate>

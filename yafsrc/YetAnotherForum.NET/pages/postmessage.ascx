@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="postmessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" cellspacing="1" cellpadding="4" width="100%" align="center">
@@ -244,7 +245,7 @@
 	<ItemTemplate>
 		<tr class="postheader">
 			<td width="140">
-				<b><a href="<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval( "UserID")) %>">
+				<b><a href="<%# YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.profile,"u={0}",Eval( "UserID")) %>">
 					<%# Eval( "UserName") %>
 				</a></b>
 			</td>
@@ -252,7 +253,7 @@
 				<b>
 					<YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
 				</b>
-				<%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
+				<%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
 			</td>
 		</tr>
 		<tr class="post">
@@ -266,7 +267,7 @@
 	<AlternatingItemTemplate>
 		<tr class="postheader">
 			<td width="140">
-				<b><a href="<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval( "UserID")) %>">
+				<b><a href="<%# YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.profile,"u={0}",Eval( "UserID")) %>">
 					<%# Eval( "UserName") %>
 				</a></b>
 			</td>
@@ -274,7 +275,7 @@
 				<b>
 					<YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
 				</b>
-				<%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
+				<%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
 			</td>
 		</tr>
 		<tr class="post_alt">

@@ -27,8 +27,9 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
-using YAF.Classes.Data;
 using YAF.Controls;
 
 namespace YAF.Pages // YAF.Pages
@@ -36,7 +37,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for moderate.
 	/// </summary>
-	public partial class moderate0 : YAF.Classes.Base.ForumPage
+	public partial class moderate0 : YAF.Classes.Core.ForumPage
 	{
 
 		public moderate0()
@@ -55,8 +56,8 @@ namespace YAF.Pages // YAF.Pages
 
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
 				PageLinks.AddForumLinks( PageContext.PageForumID );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
@@ -69,7 +70,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void AddUser_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser, "f={0}", PageContext.PageForumID );
+			YafBuildLink.Redirect( ForumPages.mod_forumuser, "f={0}", PageContext.PageForumID );
 		}
 
 		protected void Delete_Load( object sender, System.EventArgs e )
@@ -117,7 +118,7 @@ namespace YAF.Pages // YAF.Pages
 			switch ( e.CommandName )
 			{
 				case "edit":
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser, "f={0}&u={1}", PageContext.PageForumID, e.CommandArgument );
+					YafBuildLink.Redirect( ForumPages.mod_forumuser, "f={0}&u={1}", PageContext.PageForumID, e.CommandArgument );
 					break;
 				case "remove":
 					YAF.Classes.Data.DB.userforum_delete( e.CommandArgument, PageContext.PageForumID );

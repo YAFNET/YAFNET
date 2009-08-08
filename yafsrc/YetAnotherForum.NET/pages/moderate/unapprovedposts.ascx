@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="unapprovedposts.ascx.cs"
 	Inherits="YAF.Pages.moderate.unapprovedposts" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="List" runat="server">
 	<HeaderTemplate>
@@ -30,7 +31,7 @@
 			</td>
 			<td>
 				<b>Posted:</b>
-				<%# YafDateTime.FormatDateTimeShort( Convert.ToDateTime( Eval( "Posted" ) ) )%>
+				<%# YafServices.DateTime.FormatDateTimeShort( Convert.ToDateTime( Eval( "Posted" ) ) )%>
 			</td>
 		</tr>
 		<tr class="post">

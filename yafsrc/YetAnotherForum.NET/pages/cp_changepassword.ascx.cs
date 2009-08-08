@@ -19,7 +19,9 @@
  */
 using System;
 using System.Web.UI.WebControls;
-using YAF.Classes.Base;
+using YAF.Classes.Core;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Pages
@@ -45,8 +47,8 @@ namespace YAF.Pages
 
       if ( !IsPostBack )
       {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-        PageLinks.AddLink( PageContext.PageUserName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+        PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
         PageLinks.AddLink( GetText( "TITLE" ) );
 
         RequiredFieldValidator oldPasswordRequired = ( RequiredFieldValidator ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "CurrentPasswordRequired" );
@@ -79,12 +81,12 @@ namespace YAF.Pages
 
     protected void CancelPushButton_Click( object sender, EventArgs e )
     {
-      YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
+      YafBuildLink.Redirect( ForumPages.cp_profile );
     }
 
     protected void ContinuePushButton_Click( object sender, EventArgs e )
     {
-      YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
+      YafBuildLink.Redirect( ForumPages.cp_profile );
     }
   }
 }

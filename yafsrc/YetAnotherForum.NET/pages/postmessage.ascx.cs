@@ -19,28 +19,25 @@
  */
 
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using System.Text.RegularExpressions;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Classes.UI;
 using YAF.Controls;
+using YAF.Editors;
 
 namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for postmessage.
 	/// </summary>
-	public partial class postmessage : YAF.Classes.Base.ForumPage
+	public partial class postmessage : YAF.Classes.Core.ForumPage
 	{
-		protected YAF.Editor.ForumEditor _forumEditor;
+		protected BaseForumEditor _forumEditor;
 		protected System.Web.UI.WebControls.Label _uxNoEditSubject;
 		protected int _ownerUserId;
 
@@ -53,7 +50,7 @@ namespace YAF.Pages
 		override protected void OnInit(System.EventArgs e)
 		{
 			// get the forum editor based on the settings
-			_forumEditor = YAF.Editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
+			_forumEditor = PageContext.EditorModuleManager.GetEditorInstance( PageContext.BoardSettings.ForumEditor );
 			EditorLine.Controls.Add(_forumEditor);
 
 			base.OnInit(e);
@@ -61,12 +58,22 @@ namespace YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
+			PageContext.QueryIDs = new QueryStringIDHelper( new string [] {"m", "t", "q"}, false );
+
 			DataRow currentRow = null;
 
 			if (QuotedTopicID != null)
 			{
-				using (DataTable dt = DB.message_list(QuotedTopicID))
-					currentRow = dt.Rows[0];
+				DataTable dt = DB.message_list( QuotedTopicID );
+
+				if ( dt.Rows.Count == 0 )
+				{
+					// we're done here...
+					YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+					return;
+				}
+
+				currentRow = dt.Rows[0];
 
 				if (Convert.ToInt32(currentRow["TopicID"]) != PageContext.PageTopicID)
 					YafBuildLink.AccessDenied();
@@ -91,7 +98,7 @@ namespace YAF.Pages
 				YafBuildLink.AccessDenied();
 
 			//Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-			_forumEditor.StyleSheet = YafBuildLink.ThemeFile("theme.css");
+			_forumEditor.StyleSheet = PageContext.Theme.BuildThemePath("theme.css");
 			_forumEditor.BaseDir = YafForumInfo.ForumRoot + "editors";
 
 			Title.Text = GetText("NEWTOPIC");
@@ -133,7 +140,7 @@ namespace YAF.Pages
 				if ( ( PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests ) || 
 					(PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded) )
 				{
-					Session ["CaptchaImageText"] = General.GetCaptchaString();
+					Session ["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
 					imgCaptcha.ImageUrl = String.Format( "{0}resource.ashx?c=1", YafForumInfo.ForumRoot );
 					tr_captcha1.Visible = true;
 					tr_captcha2.Visible = true;
@@ -141,8 +148,8 @@ namespace YAF.Pages
 
 				if (PageContext.Settings.LockedForum == 0)
 				{
-					PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
-					PageLinks.AddLink(PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID));					
+					PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+					PageLinks.AddLink(PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", PageContext.PageCategoryID));					
 				}
 				PageLinks.AddForumLinks(PageContext.PageForumID);
 
@@ -221,12 +228,12 @@ namespace YAF.Pages
 			if (PageContext.BoardSettings.RemoveNestedQuotes)
 				message = FormatMsg.RemoveNestedQuotes(message);
 
-			// If the message being quoted in BBCode but the editor uses HTML, convert the message text to HTML
+			// If the message being quoted in YafBBCode but the editor uses HTML, convert the message text to HTML
 			if (messageFlags.IsBBCode && _forumEditor.UsesHTML)
-				message = BBCode.ConvertBBCodeToHtmlForEdit(message);
+				message = YafBBCode.ConvertBBCodeToHtmlForEdit(message);
 
 			// Ensure quoted replies have bad words removed from them
-			message = General.BadWordReplace(message);
+			message = YafServices.BadWordReplace.Replace(message);
 
 			// Quote the original message
 			_forumEditor.Text = String.Format("[quote={0}]{1}[/quote]\n", currentRow["username"], message).TrimStart();
@@ -234,9 +241,9 @@ namespace YAF.Pages
 
 		private void InitEditedPost( DataRow currentRow, string message, MessageFlags messageFlags )
 		{
-			// If the message is in BBCode but the editor uses HTML, convert the message text to HTML
+			// If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
 			if (messageFlags.IsBBCode && _forumEditor.UsesHTML)
-				message = BBCode.ConvertBBCodeToHtmlForEdit(message);
+				message = YafBBCode.ConvertBBCodeToHtmlForEdit(message);
 						
 			_forumEditor.Text = message;
 
@@ -244,7 +251,7 @@ namespace YAF.Pages
 
 			// add topic link...
 			PageLinks.AddLink(Server.HtmlDecode(currentRow["Topic"].ToString()),
-			                  YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts, "m={0}", EditTopicID));
+			                  YafBuildLink.GetLink(ForumPages.posts, "m={0}", EditTopicID));
 			// editing..
 			PageLinks.AddLink(GetText("EDIT"));
 
@@ -289,7 +296,7 @@ namespace YAF.Pages
 			Title.Text = GetText( "reply" );
 
 			// add topic link...
-			PageLinks.AddLink( Server.HtmlDecode( topic ["Topic"].ToString() ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", TopicID ) );
+			PageLinks.AddLink( Server.HtmlDecode( topic ["Topic"].ToString() ), YafBuildLink.GetLink( ForumPages.posts, "t={0}", TopicID ) );
 			// add "reply" text...
 			PageLinks.AddLink( GetText( "reply" ) );
 
@@ -444,7 +451,7 @@ namespace YAF.Pages
 			if (!PageContext.ForumReplyAccess)
 				YafBuildLink.AccessDenied();
 
-			object replyTo = (QuotedTopicID != null) ? int.Parse(QuotedTopicID) : -1;
+			object replyTo = (QuotedTopicID != null) ? QuotedTopicID.Value : -1;
 
 			// make message flags
 			MessageFlags tFlags = new MessageFlags();
@@ -456,7 +463,7 @@ namespace YAF.Pages
 			// Bypass Approval if Admin or Moderator.
 			tFlags.IsApproved = (PageContext.IsAdmin || PageContext.IsModerator);
 
-			DB.message_save(long.Parse(TopicID), PageContext.PageUserID, _forumEditor.Text, User != null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID);
+			DB.message_save(TopicID.Value, PageContext.PageUserID, _forumEditor.Text, User != null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID);
 
 			return nMessageID;
 		}
@@ -489,7 +496,7 @@ namespace YAF.Pages
 				DB.topic_poll_update( null, Request.QueryString ["m"], GetPollID() );
 			}
 
-			nMessageID = long.Parse(EditTopicID);
+			nMessageID = EditTopicID.Value;
 
 			HandlePostToBlog(_forumEditor.Text, Subject.Text);
 
@@ -591,24 +598,24 @@ namespace YAF.Pages
 				if ( PageContext.ForumUploadAccess && TopicAttach.Checked )
 				{
 					// redirect to the attachment page...
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.attachments, "m={0}", nMessageID );
+					YafBuildLink.Redirect( ForumPages.attachments, "m={0}", nMessageID );
 				}
 				else
 				{
 					// regular redirect...
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}&#post{0}", nMessageID );
+					YafBuildLink.Redirect( ForumPages.posts, "m={0}&#post{0}", nMessageID );
 				}
 			}
 			else
 			{
 				// Tell user that his message will have to be approved by a moderator
 				//PageContext.AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
-				string url = YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID);
+				string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", PageContext.PageForumID);
 
 				if (YAF.Classes.Config.IsRainbow)
-					YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.info, "i=1");
+					YafBuildLink.Redirect(ForumPages.info, "i=1");
 				else
-					YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.info, "i=1&url={0}", Server.UrlEncode(url));
+					YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", Server.UrlEncode(url));
 			}
 		}
 
@@ -720,12 +727,12 @@ namespace YAF.Pages
 			if (TopicID != null || EditTopicID != null)
 			{
 				// reply to existing topic or editing of existing topic
-				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID);
+				YafBuildLink.Redirect(ForumPages.posts, "t={0}", PageContext.PageTopicID);
 			}
 			else
 			{
 				// new topic -- cancel back to forum
-				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID);
+				YafBuildLink.Redirect(ForumPages.topics, "f={0}", PageContext.PageForumID);
 			}
 		}
 
@@ -751,19 +758,19 @@ namespace YAF.Pages
 
 		#region Querystring Values
 
-		protected string TopicID
+		protected long? TopicID
 		{
-			get { return Request.QueryString["t"]; }
+			get { return PageContext.QueryIDs["t"]; }
 		}
 
-		protected string EditTopicID
+		protected long? EditTopicID
 		{
-			get { return Request.QueryString["m"]; }
+			get { return PageContext.QueryIDs["m"]; }
 		}
 
-		protected string QuotedTopicID
+		protected long? QuotedTopicID
 		{
-			get { return Request.QueryString["q"]; }
+			get { return PageContext.QueryIDs["q"]; }
 		}
 		
 #endregion

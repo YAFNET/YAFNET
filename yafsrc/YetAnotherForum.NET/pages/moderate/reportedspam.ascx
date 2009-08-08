@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportedspam.ascx.cs"
 	Inherits="YAF.Pages.moderate.reportedspam" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="List" runat="server">
@@ -35,7 +36,7 @@
 				<b>
 					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
 				</b>
-				<%# YafDateTime.FormatDateTime((System.DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
+				<%# YafServices.DateTime.FormatDateTime((System.DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
 				<b>
 					<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
 				</b>

@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="cp_message.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.cp_message" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="Inbox" runat="server" OnItemCommand="Inbox_ItemCommand">
     <HeaderTemplate>
@@ -31,7 +32,7 @@
                     <b>
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="posted" />
                     </b>
-                    <%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
+                    <%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
                 </div>
                 <div class="rightItem postedRight">
                     <YAF:ThemeButton ID="DeleteMessage" runat="server" CssClass="yaflittlebutton" CommandName="delete"

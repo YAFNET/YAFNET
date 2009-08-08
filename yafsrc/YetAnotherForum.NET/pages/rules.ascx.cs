@@ -18,25 +18,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+using YAF.Classes;
 using YAF.Classes.Utils;
-using YAF.Classes.Data;
 
 namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for rules.
 	/// </summary>
-	public partial class rules : YAF.Classes.Base.ForumPage
+	public partial class rules : YAF.Classes.Core.ForumPage
 	{
 
 		public rules()
@@ -48,7 +38,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 
 				Accept.Text = GetText( "ACCEPT" );
 				Cancel.Text = GetText( "DECLINE" );
@@ -57,12 +47,12 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+			YafBuildLink.Redirect( ForumPages.forum );
 		}
 
 		protected void Accept_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.register );
+			YafBuildLink.Redirect( ForumPages.register );
 		}
 
 		public override bool IsProtected

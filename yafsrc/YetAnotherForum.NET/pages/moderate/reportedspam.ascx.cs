@@ -18,14 +18,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+using YAF.Classes;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Controls;
@@ -35,7 +30,7 @@ namespace YAF.Pages.moderate
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public partial class reportedspam : YAF.Classes.Base.ForumPage
+	public partial class reportedspam : YAF.Classes.Core.ForumPage
 	{
 		#region Constructors & Overriden Methods
 
@@ -157,7 +152,7 @@ namespace YAF.Pages.moderate
 		/// Format message.
 		/// </summary>
 		/// <param name="row">Message data row.</param>
-		/// <returns>Formatted string with escaped HTML markup and formatted BBCode.</returns>
+		/// <returns>Formatted string with escaped HTML markup and formatted YafBBCode.</returns>
 		protected string FormatMessage( DataRowView row )
 		{
 			// get message flags
@@ -173,7 +168,7 @@ namespace YAF.Pages.moderate
 			}
 			else
 			{
-				// fully format message (BBCode, smilies)
+				// fully format message (YafBBCode, smilies)
 				msg = YAF.Classes.UI.FormatMsg.FormatMessage( row ["OriginalMessage"].ToString(), messageFlags, Convert.ToBoolean( row ["IsModeratorChanged"] ) );
 			}
 

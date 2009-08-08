@@ -28,6 +28,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
+using YAF.Classes;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -36,7 +37,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for login.
 	/// </summary>
-	public partial class login : YAF.Classes.Base.ForumPage
+	public partial class login : YAF.Classes.Core.ForumPage
 	{
 
 		public login()
@@ -48,17 +49,17 @@ namespace YAF.Pages // YAF.Pages
 		{
 			// Ederon : guess we don't need this if anymore
 			//if ( !CanLogin )
-			//	YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+			//	YafBuildLink.Redirect( ForumPages.forum );
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "title" ) );
 
 				//Login1.CreateUserText = "Sign up for a new account.";
-				//Login1.CreateUserUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.register );
+				//Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
 				Login1.PasswordRecoveryText = GetText( "lostpassword" );
-				Login1.PasswordRecoveryUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
+				Login1.PasswordRecoveryUrl = YafBuildLink.GetLink( ForumPages.recoverpassword );
 				Login1.FailureText = GetText( "password_error" );
 
 				if ( !String.IsNullOrEmpty( Request.QueryString ["ReturnUrl"] ) )
@@ -67,7 +68,7 @@ namespace YAF.Pages // YAF.Pages
 				}
 				else
 				{
-					Login1.DestinationPageUrl = YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
+					Login1.DestinationPageUrl = YafBuildLink.GetLink( ForumPages.forum );
 				}			
 
 				// localize controls
@@ -88,7 +89,7 @@ namespace YAF.Pages // YAF.Pages
 				rememberMe.Text = GetText( "auto" );
 				forumLogin.Text = GetText( "forum_login" );
 				passwordRecovery.Text = GetText( "lostpassword" );
-				passwordRecovery.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
+				passwordRecovery.NavigateUrl = YafBuildLink.GetLink( ForumPages.recoverpassword );
 
 				if ( password != null && forumLogin != null )
 				{

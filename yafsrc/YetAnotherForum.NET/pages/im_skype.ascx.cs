@@ -23,12 +23,14 @@ using System.Collections;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
 namespace YAF.Pages // YAF.Pages
 {
-	public partial class im_skype : YAF.Classes.Base.ForumPage
+	public partial class im_skype : YAF.Classes.Core.ForumPage
 	{
 		public int UserID
 		{
@@ -60,12 +62,12 @@ namespace YAF.Pages // YAF.Pages
 					YafBuildLink.AccessDenied(/*No such user exists*/);
 				}
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( user.UserName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", UserID ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( user.UserName, YafBuildLink.GetLink( ForumPages.profile, "u={0}", UserID ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				// get full user data...
-				YafCombinedUserData userData = new YafCombinedUserData( user, UserID );
+				CombinedUserDataHelper userData = new CombinedUserDataHelper( user, UserID );
 
 				Msg.NavigateUrl = string.Format( "skype:{0}?call", userData.Profile.Skype );
 				Msg.Attributes.Add( "onclick", "return skypeCheck();" );

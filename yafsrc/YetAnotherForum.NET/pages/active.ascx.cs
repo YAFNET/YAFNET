@@ -25,6 +25,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -33,7 +35,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public partial class active : YAF.Classes.Base.ForumPage
+	public partial class active : YAF.Classes.Core.ForumPage
 	{
 		protected string _lastForumName = string.Empty;
 
@@ -50,12 +52,12 @@ namespace YAF.Pages // YAF.Pages
 				//if ( CanLogin )
 					RedirectNoAccess();
 				//else
-				//	YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+				//	YafBuildLink.Redirect( ForumPages.forum );
 			}
 
 			if ( PageContext.BoardSettings.ShowRSSLink )
 			{
-				RssFeed.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.rsstopic, "pg=active" );
+				RssFeed.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.rsstopic, "pg=active" );
 				RssFeed.Text = GetText( "RSSFEED" );
 				RssFeed.Visible = true;
 			}
@@ -66,12 +68,12 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
-				Since.Items.Add( new ListItem( GetTextFormatted( "last_visit", YafDateTime.FormatDateTime( Mession.LastVisit ) ), "0" ) );
+				Since.Items.Add( new ListItem( GetTextFormatted( "last_visit", YafServices.DateTime.FormatDateTime( Mession.LastVisit ) ), "0" ) );
 				Since.Items.Add( new ListItem( GetText( "last_hour" ), "-1" ) );
 				Since.Items.Add( new ListItem( GetText( "last_two_hours" ), "-2" ) );
 				Since.Items.Add( new ListItem( GetText( "last_day" ), "1" ) );
@@ -135,7 +137,7 @@ namespace YAF.Pages // YAF.Pages
 			string html = "";
 			if ( forumName != _lastForumName )
 			{
-				html = String.Format( @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"">{0}</a></td></tr>", forumName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", row ["ForumID"] ) );
+				html = String.Format( @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"">{0}</a></td></tr>", forumName, YafBuildLink.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ) );
 				_lastForumName = forumName;
 			}
 			return html;

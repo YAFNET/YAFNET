@@ -29,6 +29,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
 using YAF.Classes.Data;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.UI;
 
@@ -37,7 +39,7 @@ namespace YAF.Pages
 	/// <summary>
 	/// Summary description for postmessage.
 	/// </summary>
-	public partial class deletemessage : YAF.Classes.Base.ForumPage
+	public partial class deletemessage : YAF.Classes.Core.ForumPage
 	{
 		protected int _ownerUserId;
 		protected DataRow _messageRow;

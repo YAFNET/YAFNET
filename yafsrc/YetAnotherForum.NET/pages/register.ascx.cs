@@ -29,6 +29,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Controls;
@@ -38,7 +40,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for register.
 	/// </summary>
-	public partial class register : YAF.Classes.Base.ForumPage
+	public partial class register : YAF.Classes.Core.ForumPage
 	{
 
 		public register()
@@ -54,7 +56,7 @@ namespace YAF.Pages // YAF.Pages
 
 			if (!IsPostBack)
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 				PageLinks.AddLink(GetText("TITLE"));
 
 				// handle the CreateUser Step localization
@@ -89,7 +91,7 @@ namespace YAF.Pages // YAF.Pages
 
 				// get the time zone data source
 				DropDownList timeZones = ((DropDownList)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"TimeZones"));
-				timeZones.DataSource = YafStaticData.TimeZones();
+				timeZones.DataSource = StaticDataHelper.TimeZones();
 
 				if (!PageContext.BoardSettings.EmailVerification)
 				{
@@ -97,19 +99,19 @@ namespace YAF.Pages // YAF.Pages
 					CreateUserWizard1.LoginCreatedUser = true;
 					CreateUserWizard1.DisableCreatedUser = false;
 					// success notification localization
-					((Literal)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"AccountCreated")).Text = YAF.Classes.UI.BBCode.MakeHtml(GetText("ACCOUNT_CREATED"), true, false);
+					((Literal)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"AccountCreated")).Text = YAF.Classes.UI.YafBBCode.MakeHtml(GetText("ACCOUNT_CREATED"), true, false);
 				}
 				else
 				{
 					CreateUserWizard1.LoginCreatedUser = false;
 					CreateUserWizard1.DisableCreatedUser = true;
 					// success notification localization
-					((Literal)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"AccountCreated")).Text = YAF.Classes.UI.BBCode.MakeHtml(GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
+					((Literal)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"AccountCreated")).Text = YAF.Classes.UI.YafBBCode.MakeHtml(GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
 				}
 
 				if (PageContext.BoardSettings.EnableCaptchaForRegister)
 				{
-					Session["CaptchaImageText"] = General.GetCaptchaString();
+					Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
 					Image imgCaptcha = (Image)createUserTemplateRef.FindControl("imgCaptcha");
 					PlaceHolder captchaPlaceHolder = ( PlaceHolder ) createUserTemplateRef.FindControl( "CaptchaPlaceHolder" );
 					
@@ -145,7 +147,7 @@ namespace YAF.Pages // YAF.Pages
 				MembershipUser user = Membership.GetUser(CreateUserWizard1.UserName);
 
 				// setup/save the profile
-				YafUserProfile userProfile = PageContext.GetProfile(CreateUserWizard1.UserName);
+				YafUserProfile userProfile = YafUserProfile.GetProfile(CreateUserWizard1.UserName);
 
 				userProfile.Location = locationTextBox.Text.Trim();
 				userProfile.Homepage = homepageTextBox.Text.Trim();
@@ -219,7 +221,7 @@ namespace YAF.Pages // YAF.Pages
 			int? userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
 
 			// create empty profile just so they have one
-			YafUserProfile userProfile = PageContext.GetProfile(CreateUserWizard1.UserName);
+			YafUserProfile userProfile = YafUserProfile.GetProfile(CreateUserWizard1.UserName);
 			// setup their inital profile information
 			userProfile.Save();
 

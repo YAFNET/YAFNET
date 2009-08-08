@@ -28,6 +28,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -36,7 +37,7 @@ namespace YAF.Pages.moderate
 	/// <summary>
 	/// Base root control for moderating, linking to other moderating controls/pages.
 	/// </summary>
-	public partial class index : YAF.Classes.Base.ForumPage
+	public partial class index : YAF.Classes.Core.ForumPage
 	{
 		#region Construcotrs & Overridden Methods
 

@@ -25,6 +25,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -33,7 +35,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for activeusers.
 	/// </summary>
-	public partial class activeusers : YAF.Classes.Base.ForumPage
+	public partial class activeusers : YAF.Classes.Core.ForumPage
 	{
 
 		public activeusers()
@@ -44,11 +46,11 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			// check access permissions
-			General.HandleRequest(PageContext, PageContext.BoardSettings.ActiveUsersViewPermissions);
+			YafServices.Permissions.HandleRequest( PageContext.BoardSettings.ActiveUsersViewPermissions);
 
 			if (!IsPostBack)
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				DataTable dt = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, true );

@@ -19,24 +19,17 @@
  */
 
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
 using System.Web.Security;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
-using YAF.Classes.Data;
 
 namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public partial class im_email : YAF.Classes.Base.ForumPage
+	public partial class im_email : YAF.Classes.Core.ForumPage
 	{
 
 		public int UserID
@@ -67,8 +60,8 @@ namespace YAF.Pages // YAF.Pages
 					YafBuildLink.AccessDenied(/*No such user exists*/);
 				}
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( user.UserName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", UserID ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( user.UserName, YafBuildLink.GetLink( ForumPages.profile, "u={0}", UserID ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				Send.Text = GetText( "SEND" );
@@ -83,10 +76,10 @@ namespace YAF.Pages // YAF.Pages
 				MembershipUser toUser = UserMembershipHelper.GetMembershipUser( UserID );
 
 				// send it...
-				SendMail.Send( new System.Net.Mail.MailAddress( PageContext.User.Email, PageContext.User.UserName ), new System.Net.Mail.MailAddress( toUser.Email.Trim(), toUser.UserName.Trim() ), Subject.Text.Trim(), Body.Text.Trim() );
+				YafServices.SendMail.Send( new System.Net.Mail.MailAddress( PageContext.User.Email, PageContext.User.UserName ), new System.Net.Mail.MailAddress( toUser.Email.Trim(), toUser.UserName.Trim() ), Subject.Text.Trim(), Body.Text.Trim() );
 
 				// redirect to profile page...
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.profile, "u={0}", UserID );
+				YafBuildLink.Redirect( ForumPages.profile, "u={0}", UserID );
 			}
 			catch ( Exception x )
 			{

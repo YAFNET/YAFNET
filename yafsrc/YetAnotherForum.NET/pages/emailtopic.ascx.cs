@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,7 +37,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for emailtopic.
 	/// </summary>
-	public partial class emailtopic : YAF.Classes.Base.ForumPage
+	public partial class emailtopic : YAF.Classes.Core.ForumPage
 	{
 
 		public emailtopic()
@@ -52,12 +54,12 @@ namespace YAF.Pages // YAF.Pages
 			{
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
 
 				PageLinks.AddForumLinks( PageContext.PageForumID );
-				PageLinks.AddLink( PageContext.PageTopicName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
+				PageLinks.AddLink( PageContext.PageTopicName, YafBuildLink.GetLink( ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 
 				SendEmail.Text = GetText( "send" );
 
@@ -65,7 +67,7 @@ namespace YAF.Pages // YAF.Pages
 
 				YafTemplateEmail emailTopic = new YafTemplateEmail();
 
-				emailTopic.TemplateParams ["{link}"] = String.Format( "{0}{1}", YAF.Classes.Utils.YafForumInfo.ServerURL, YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
+				emailTopic.TemplateParams ["{link}"] = String.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 				emailTopic.TemplateParams ["{user}"] = PageContext.PageUserName;
 
 				Message.Text = emailTopic.ProcessTemplate( "EMAILTOPIC" );
@@ -90,9 +92,9 @@ namespace YAF.Pages // YAF.Pages
 				}
 
 				// send the email...
-				SendMail.Send( senderEmail, EmailAddress.Text.Trim(), Subject.Text.Trim(), Message.Text.Trim() );
+				YafServices.SendMail.Send( senderEmail, EmailAddress.Text.Trim(), Subject.Text.Trim(), Message.Text.Trim() );
 
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID );
+				YafBuildLink.Redirect( ForumPages.posts, "t={0}", PageContext.PageTopicID );
 			}
 			catch ( Exception x )
 			{

@@ -28,19 +28,22 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Classes.UI;
 using YAF.Controls;
+using YAF.Editors;
 
 namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for posts.
 	/// </summary>
-	public partial class posts : YAF.Classes.Base.ForumPage
+	public partial class posts : YAF.Classes.Core.ForumPage
 	{
-		protected YAF.Editor.ForumEditor _quickReplyEditor;
+		protected BaseForumEditor _quickReplyEditor;
 
 		private DataRow _forum, _topic;
 		private DataTable _dtPoll;
@@ -79,7 +82,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			_quickReplyEditor.BaseDir = YafForumInfo.ForumRoot + "editors";
-			_quickReplyEditor.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
+			_quickReplyEditor.StyleSheet = PageContext.Theme.BuildThemePath( "theme.css" );
 
 			_topic = YAF.Classes.Data.DB.topic_info( PageContext.PageTopicID );
 
@@ -103,8 +106,8 @@ namespace YAF.Pages // YAF.Pages
 			{
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
 
 				QuickReply.Text = GetText( "POSTMESSAGE", "SAVE" );
@@ -113,14 +116,14 @@ namespace YAF.Pages // YAF.Pages
 				DataPanel1.CollapseText = GetText( "QUICKREPLY_HIDE" );
 
 				PageLinks.AddForumLinks( PageContext.PageForumID );
-				PageLinks.AddLink( General.BadWordReplace( Server.HtmlDecode( PageContext.PageTopicName ) ), "" );
+				PageLinks.AddLink( YafServices.BadWordReplace.Replace( Server.HtmlDecode( PageContext.PageTopicName ) ), "" );
 
-				TopicTitle.Text = General.BadWordReplace( ( string )_topic ["Topic"] );
+				TopicTitle.Text = YafServices.BadWordReplace.Replace( ( string )_topic ["Topic"] );
 
 				ViewOptions.Visible = PageContext.BoardSettings.AllowThreaded;
 				ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
-				RssTopic.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.rsstopic, "pg={0}&t={1}", Request.QueryString ["g"], PageContext.PageTopicID );
+				RssTopic.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.rsstopic, "pg={0}&t={1}", Request.QueryString ["g"], PageContext.PageTopicID );
 				RssTopic.Visible = PageContext.BoardSettings.ShowRSSLink;
 
 				QuickReplyPlaceHolder.Visible = PageContext.BoardSettings.ShowQuickAnswer;
@@ -128,7 +131,7 @@ namespace YAF.Pages // YAF.Pages
 				if ( ( PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests ) ||
 					( PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded ) )
 				{
-					Session ["CaptchaImageText"] = General.GetCaptchaString();
+					Session ["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
 					imgCaptcha.ImageUrl = String.Format( "{0}resource.ashx?c=1", YafForumInfo.ForumRoot );
 					CaptchaDiv.Visible = true;
 				}
@@ -174,9 +177,6 @@ namespace YAF.Pages // YAF.Pages
 					LockTopic2.Visible = LockTopic1.Visible;
 					UnlockTopic2.Visible = !LockTopic2.Visible;
 				}
-
-				// handle custom BBCode javascript or CSS...
-				BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
 			} 
 			#endregion
 
@@ -258,15 +258,15 @@ namespace YAF.Pages // YAF.Pages
 				// send new post notification to users watching this topic/forum
 				CreateMail.CreateWatchEmail(nMessageID);
 				// redirect to newly posted message
-				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.posts, "m={0}&#post{0}", nMessageID);
+				YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", nMessageID);
 			}
 			else
 			{
-				string url = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID );
+				string url = YafBuildLink.GetLink( ForumPages.topics, "f={0}", PageContext.PageForumID );
 				if ( YAF.Classes.Config.IsRainbow )
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.info, "i=1" );
+					YafBuildLink.Redirect( ForumPages.info, "i=1" );
 				else
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.info, "i=1&url={0}", Server.UrlEncode( url ) );
+					YafBuildLink.Redirect( ForumPages.info, "i=1&url={0}", Server.UrlEncode( url ) );
 			}
 		}
 
@@ -281,7 +281,7 @@ namespace YAF.Pages // YAF.Pages
 		override protected void OnInit( EventArgs e )
 		{
 			// Quick Reply Modification Begin
-			_quickReplyEditor = new YAF.Editor.BasicBBCodeEditor();
+			_quickReplyEditor = new BasicBBCodeEditor();
 			QuickReplyLine.Controls.Add( _quickReplyEditor );
 			QuickReply.Click += new EventHandler( QuickReply_Click );
 			Pager.PageChange += new EventHandler( Pager_PageChange );
@@ -313,7 +313,7 @@ namespace YAF.Pages // YAF.Pages
 			Pager.PageSize = PageContext.BoardSettings.PostsPerPage;
 
 			if ( _topic == null )
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID );
+				YafBuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
 
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
@@ -502,7 +502,7 @@ namespace YAF.Pages // YAF.Pages
 			// Take away 150 points once!
 			YAF.Classes.Data.DB.user_removepointsByTopicID( PageContext.PageTopicID, 10 );
 			YAF.Classes.Data.DB.topic_delete( PageContext.PageTopicID );
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID );
+			YafBuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
 		}
 
 		protected void LockTopic_Click( object sender, System.EventArgs e )
@@ -560,7 +560,7 @@ namespace YAF.Pages // YAF.Pages
 				object UserID = null;
 				object RemoteIP = null;
 
-				if ( PageContext.BoardSettings.PollVoteTiedToIP ) RemoteIP = General.IPStrToLong( Request.UserHostAddress ).ToString();
+				if ( PageContext.BoardSettings.PollVoteTiedToIP ) RemoteIP = IPHelper.IPStrToLong( Request.UserHostAddress ).ToString();
 				if ( !PageContext.IsGuest )	{	UserID = PageContext.PageUserID; }
 
 				// check for a record of a vote
@@ -602,7 +602,7 @@ namespace YAF.Pages // YAF.Pages
 				object UserID = null;
 				object RemoteIP = null;
 
-				if ( PageContext.BoardSettings.PollVoteTiedToIP ) RemoteIP = General.IPStrToLong( Request.ServerVariables ["REMOTE_ADDR"] ).ToString();
+				if (PageContext.BoardSettings.PollVoteTiedToIP) RemoteIP = IPHelper.IPStrToLong(Request.ServerVariables["REMOTE_ADDR"]).ToString();
 				if ( !PageContext.IsGuest ) {	UserID = PageContext.PageUserID; }
 
 				YAF.Classes.Data.DB.choice_vote( e.CommandArgument, UserID, RemoteIP );
@@ -641,7 +641,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected string GetPollQuestion()
 		{
-			return HtmlEncode( General.BadWordReplace( _dtPoll.Rows [0] ["Question"].ToString() ) );
+			return HtmlEncode( YafServices.BadWordReplace.Replace( _dtPoll.Rows [0] ["Question"].ToString() ) );
 		}
 
 		protected void PostReplyLink_Click( object sender, System.EventArgs e )
@@ -662,7 +662,7 @@ namespace YAF.Pages // YAF.Pages
 				}
 			}
 
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}", PageContext.PageTopicID, PageContext.PageForumID );
+			YafBuildLink.Redirect( ForumPages.postmessage, "t={0}&f={1}", PageContext.PageTopicID, PageContext.PageForumID );
 		}
 
 		protected void NewTopic_Click( object sender, System.EventArgs e )
@@ -672,7 +672,7 @@ namespace YAF.Pages // YAF.Pages
 				PageContext.AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
 				return;
 			}
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.postmessage, "f={0}", PageContext.PageForumID );
+			YafBuildLink.Redirect( ForumPages.postmessage, "f={0}", PageContext.PageForumID );
 		}
 
 		protected void TrackTopic_Click( object sender, System.EventArgs e )
@@ -705,7 +705,7 @@ namespace YAF.Pages // YAF.Pages
 			if ( !PageContext.ForumModeratorAccess )
 				YafBuildLink.AccessDenied(/*"You are not a forum moderator."*/);
 
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.movetopic, "t={0}", PageContext.PageTopicID );
+			YafBuildLink.Redirect( ForumPages.movetopic, "t={0}", PageContext.PageTopicID );
 		}
 
 		protected void PrevTopic_Click( object sender, System.EventArgs e )
@@ -717,7 +717,7 @@ namespace YAF.Pages // YAF.Pages
 					PageContext.AddLoadMessage( GetText( "INFO_NOMORETOPICS" ) );
 					return;
 				}
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "t={0}", dt.Rows [0] ["TopicID"] );
+				YafBuildLink.Redirect( ForumPages.posts, "t={0}", dt.Rows [0] ["TopicID"] );
 			}
 		}
 
@@ -730,7 +730,7 @@ namespace YAF.Pages // YAF.Pages
 					PageContext.AddLoadMessage( GetText( "INFO_NOMORETOPICS" ) );
 					return;
 				}
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "t={0}", dt.Rows [0] ["TopicID"] );
+				YafBuildLink.Redirect( ForumPages.posts, "t={0}", dt.Rows [0] ["TopicID"] );
 			}
 		}
 
@@ -741,12 +741,12 @@ namespace YAF.Pages // YAF.Pages
 				PageContext.AddLoadMessage( GetText( "WARN_EMAILLOGIN" ) );
 				return;
 			}
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.emailtopic, "t={0}", PageContext.PageTopicID );
+			YafBuildLink.Redirect( ForumPages.emailtopic, "t={0}", PageContext.PageTopicID );
 		}
 
 		protected void PrintTopic_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.printtopic, "t={0}", PageContext.PageTopicID );
+			YafBuildLink.Redirect( ForumPages.printtopic, "t={0}", PageContext.PageTopicID );
 		}
 
 		protected int VoteWidth( object o )
@@ -817,7 +817,7 @@ namespace YAF.Pages // YAF.Pages
 			while ( Regex.IsMatch( brief, @"\[.*?\]", options ) )
 				brief = Regex.Replace( brief, @"\[.*?\]", "", options );
 
-			brief = General.BadWordReplace( brief );
+			brief = YafServices.BadWordReplace.Replace( brief );
 
 			if ( brief.Length > 42 )
 				brief = brief.Substring( 0, 40 ) + "...";
@@ -825,8 +825,8 @@ namespace YAF.Pages // YAF.Pages
 
 			html.AppendFormat( "<tr class='post'><td colspan='3' nowrap>" );
 			html.AppendFormat( GetIndentImage( row ["Indent"] ) );
-			html.AppendFormat( "\n<a href='{0}'>{2} ({1}", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["MessageID"] ), row ["UserName"], brief );
-			html.AppendFormat( " - {0})</a>", YafDateTime.FormatDateTimeShort( row ["Posted"] ) );
+			html.AppendFormat( "\n<a href='{0}'>{2} ({1}", YafBuildLink.GetLink( ForumPages.posts, "m={0}#{0}", row ["MessageID"] ), row ["UserName"], brief );
+			html.AppendFormat( " - {0})</a>", YafServices.DateTime.FormatDateTimeShort( row ["Posted"] ) );
 			html.AppendFormat( "</td></tr>" );
 
 			return html.ToString();
@@ -854,7 +854,7 @@ namespace YAF.Pages // YAF.Pages
 			switch ( e.Item.ToLower() )
 			{
 				case "print":
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.printtopic, "t={0}", PageContext.PageTopicID );
+					YafBuildLink.Redirect( ForumPages.printtopic, "t={0}", PageContext.PageTopicID );
 					break;
 				case "watch":
 					TrackTopic_Click( sender, e );
@@ -863,7 +863,7 @@ namespace YAF.Pages // YAF.Pages
 					EmailTopic_Click( sender, e );
 					break;
 				case "rssfeed":
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.rsstopic, "pg={0}&t={1}", Request.QueryString ["g"], PageContext.PageTopicID );
+					YafBuildLink.Redirect( ForumPages.rsstopic, "pg={0}&t={1}", Request.QueryString ["g"], PageContext.PageTopicID );
 					break;
 				default:
 					throw new ApplicationException( e.Item );

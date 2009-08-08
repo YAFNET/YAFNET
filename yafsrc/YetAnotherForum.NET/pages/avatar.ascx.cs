@@ -32,6 +32,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Collections.Specialized;
 using System.Collections.Generic;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -40,7 +42,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for avatar.
 	/// </summary>
-	public partial class avatar : YAF.Classes.Base.ForumPage
+	public partial class avatar : YAF.Classes.Core.ForumPage
 	{
 		protected System.Web.UI.WebControls.Label title;
 
@@ -80,17 +82,17 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 
 				if ( returnUserID > 0 )
 				{
-					PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
-					PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
+					PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
+					PageLinks.AddLink( "Users", YafBuildLink.GetLink( ForumPages.admin_users ) );
 				}
 				else
 				{
-					PageLinks.AddLink( HtmlEncode( PageContext.PageUserName ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
-					PageLinks.AddLink( GetText( "CP_EDITAVATAR", "TITLE" ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_editavatar ) );
+					PageLinks.AddLink( HtmlEncode( PageContext.PageUserName ), YafBuildLink.GetLink( ForumPages.cp_profile ) );
+					PageLinks.AddLink( GetText( "CP_EDITAVATAR", "TITLE" ), YafBuildLink.GetLink( ForumPages.cp_editavatar ) );
 				}
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 				BindData();
@@ -183,11 +185,11 @@ namespace YAF.Pages // YAF.Pages
 
 					if ( returnUserID > 0 )
 					{
-						link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}&av={1}", returnUserID, Server.UrlEncode( CurrentDirectory + "/" + finfo.Name ) );
+						link = YafBuildLink.GetLink( ForumPages.admin_edituser, "u={0}&av={1}", returnUserID, Server.UrlEncode( CurrentDirectory + "/" + finfo.Name ) );
 					}
 					else
 					{
-						link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_editavatar, "av={0}", Server.UrlEncode(CurrentDirectory + "/" + finfo.Name ));
+						link = YafBuildLink.GetLink( ForumPages.cp_editavatar, "av={0}", Server.UrlEncode(CurrentDirectory + "/" + finfo.Name ));
 					}
 
 					fname.Text = string.Format( @"<div align=""center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}", link, ( strDirectory + "/" + finfo.Name ), finfo.Name, Environment.NewLine );

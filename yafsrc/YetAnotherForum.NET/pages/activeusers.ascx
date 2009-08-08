@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="activeusers.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.activeusers" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator"></div>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
@@ -38,10 +39,10 @@
 				    </asp:PlaceHolder>				    
 				</td>
 				<td class="post">
-					<%# YafDateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %>
+					<%# YafServices.DateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %>
 				</td>
 				<td class="post">
-					<%# YafDateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %>
+					<%# YafServices.DateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %>
 				</td>
 				<td class="post">
 					<%# GetTextFormatted( "minutes", ((System.Data.DataRowView)Container.DataItem)["Active"]) %>

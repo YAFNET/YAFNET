@@ -30,7 +30,9 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
-using YAF.Classes.Base;
+using YAF.Classes.Core;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -51,8 +53,8 @@ namespace YAF.Pages
     {
       if ( !IsPostBack )
       {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-        PageLinks.AddLink( PageContext.PageUserName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+        PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
         PageLinks.AddLink( GetText( "TITLE" ), "" );
       }
     }

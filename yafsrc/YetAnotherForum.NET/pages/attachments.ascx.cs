@@ -27,6 +27,8 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -35,7 +37,7 @@ namespace YAF.Pages // YAF.Pages
 	/// <summary>
 	/// Summary description for attachments.
 	/// </summary>
-	public partial class attachments : YAF.Classes.Base.ForumPage
+	public partial class attachments : YAF.Classes.Core.ForumPage
 	{
 		private DataRow _forum, _topic;
 
@@ -73,11 +75,11 @@ namespace YAF.Pages // YAF.Pages
 
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
 				PageLinks.AddForumLinks( PageContext.PageForumID );
-				PageLinks.AddLink( PageContext.PageTopicName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
+				PageLinks.AddLink( PageContext.PageTopicName, YafBuildLink.GetLink( ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				Back.Text = GetText( "BACK" );
@@ -124,7 +126,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void Back_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", Request.QueryString ["m"] );
+			YafBuildLink.Redirect( ForumPages.posts, "m={0}#{0}", Request.QueryString ["m"] );
 		}
 
 		private void List_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )

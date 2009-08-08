@@ -27,13 +27,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Controls;
 
 namespace YAF.Pages // YAF.Pages
 {
-  public partial class recoverpassword : YAF.Classes.Base.ForumPage
+  public partial class recoverpassword : YAF.Classes.Core.ForumPage
   {
     public recoverpassword()
       : base( "RECOVER_PASSWORD" )
@@ -44,11 +46,11 @@ namespace YAF.Pages // YAF.Pages
     {
 		// Ederon : guess we don't need this if anymore
 		//if ( !CanLogin )
-        //YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+        //YafBuildLink.Redirect( ForumPages.forum );
 
       if ( !IsPostBack )
       {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
         PageLinks.AddLink( GetText( "TITLE" ) );
 
         // handle localization
@@ -146,13 +148,13 @@ namespace YAF.Pages // YAF.Pages
 
 							verifyEmail.SendEmail( new System.Net.Mail.MailAddress( user.Email, user.UserName ), subject, true );
 
-							PageContext.AddLoadMessageSession( PageContext.Localization.GetTextFormatted( "ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email ) );
+							PageContext.LoadMessage.AddSession( PageContext.Localization.GetTextFormatted( "ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email ) );
 						}
 					}
 					else
 					{
 						// explain they are not approved yet...
-						PageContext.AddLoadMessageSession( PageContext.Localization.GetText( "ACCOUNT_NOT_APPROVED" ) );
+						PageContext.LoadMessage.AddSession( PageContext.Localization.GetText( "ACCOUNT_NOT_APPROVED" ) );
 					}
 
 					// just in case cancel the verification...
@@ -171,7 +173,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void PasswordRecovery1_AnswerLookupError( object sender, EventArgs e )
 		{
-			PageContext.AddLoadMessageSession( GetText( "QUESTION_FAILURE" ) );
+			PageContext.LoadMessage.AddSession( GetText( "QUESTION_FAILURE" ) );
 		}
 }
 }

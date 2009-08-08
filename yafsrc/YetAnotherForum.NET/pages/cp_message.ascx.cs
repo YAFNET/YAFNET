@@ -21,10 +21,13 @@
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
-using YAF.Classes.Base;
+using YAF.Classes.Core;
 using YAF.Classes.Data;
 using YAF.Classes.UI;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
+using YAF.Controls;
 
 namespace YAF.Pages // YAF.Pages
 {
@@ -52,8 +55,8 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
 
-				// handle custom BBCode javascript or CSS...
-				BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
+				// handle custom YafBBCode javascript or CSS...
+				YAF.Classes.UI.YafBBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
 
 				BindData();
 			}
