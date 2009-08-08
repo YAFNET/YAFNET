@@ -4075,7 +4075,7 @@ namespace YAF.Classes.Data
 
 			try
 			{
-				using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
+				using ( YafDBConnManager connMan = new YafDBConnManager() )
 				{
 					// just attempt to open the connection to test if a DB is available.
 					SqlConnection getConn = connMan.OpenDBConnection;
@@ -4084,7 +4084,7 @@ namespace YAF.Classes.Data
 			catch ( SqlException ex )
 			{
 				// unable to connect to the DB...
-				if ( debugging )
+				if ( !debugging )
 				{
 					errorStr = "Unable to connect to the Database. Exception Message: " + ex.Message + " (" + ex.Number + ")";
 					return false;

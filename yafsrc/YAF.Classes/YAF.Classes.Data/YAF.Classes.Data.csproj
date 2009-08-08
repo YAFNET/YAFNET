@@ -37,7 +37,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v3.5|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-	  <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,7 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v3.5|AnyCPU' ">
-	  <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -64,18 +64,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Import\DataImport.cs" />
-    <Compile Include="MedalFlags.cs" />
-    <Compile Include="TopicFlags.cs" />
+    <Compile Include="Flags\MedalFlags.cs" />
+    <Compile Include="Flags\TopicFlags.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="DBAccess.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="AccessFlags.cs" />
-    <Compile Include="FlagsBase.cs" />
-    <Compile Include="ForumFlags.cs" />
-    <Compile Include="GroupFlags.cs" />
-    <Compile Include="MessageFlags.cs" />
-    <Compile Include="RankFlags.cs" />
-    <Compile Include="UserFlags.cs" />
+    <Compile Include="Flags\AccessFlags.cs" />
+    <Compile Include="Flags\FlagsBase.cs" />
+    <Compile Include="Flags\ForumFlags.cs" />
+    <Compile Include="Flags\GroupFlags.cs" />
+    <Compile Include="Flags\MessageFlags.cs" />
+    <Compile Include="Flags\RankFlags.cs" />
+    <Compile Include="Flags\UserFlags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryCounter.cs" />
   </ItemGroup>
