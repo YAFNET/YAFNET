@@ -18,11 +18,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml;
+using YAF.Classes.Utils;
 
-namespace YAF.Classes.Utils
+namespace YAF.Classes.Core
 {
 	public class YafTheme
 	{
@@ -138,7 +137,7 @@ namespace YAF.Classes.Utils
 
 				if ( node == null )
 				{
-					if ( LogMissingThemeItem ) YAF.Classes.Data.DB.eventlog_create( YafContext.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
+					if ( LogMissingThemeItem ) YAF.Classes.Data.DB.eventlog_create( YafContext.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper() ), EventLogTypes.Error );
 					return defaultValue;
 				}
 
@@ -155,6 +154,16 @@ namespace YAF.Classes.Utils
 				LoadThemeFile();
 				return String.Format( "{0}themes/{1}/", YafForumInfo.ForumFileRoot, _themeXmlDoc.DocumentElement.Attributes ["dir"].Value );
 			}
+		}
+
+		/// <summary>
+		/// Gets full path to the given theme file.
+		/// </summary>
+		/// <param name="filename">Short name of theme file.</param>
+		/// <returns></returns>
+		public string BuildThemePath(string filename)
+		{
+			return ThemeDir + filename;
 		}
 
 		/// <summary>
