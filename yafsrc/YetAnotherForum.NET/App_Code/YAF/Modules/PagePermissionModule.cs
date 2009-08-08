@@ -28,11 +28,11 @@ namespace YAF.Modules
 	/// <summary>
 	/// Module that handles individual page security features -- needs to be expanded.
 	/// </summary>
-	public class PageSecurityModule : SimpleBaseModule
+	public class PagePermissionModule : SimpleBaseModule
 	{
-		public PageSecurityModule()
+		public PagePermissionModule()
 		{
-			
+
 		}
 
 		override public void InitAfterPage()

@@ -21,7 +21,8 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
-using YAF.Classes.Base;
+using YAF.Classes.Core;
+using YAF.Classes.Data;
 using YAF.Classes.Utils;
 using YAF.Classes;
 using YAF.Modules;
@@ -50,20 +51,20 @@ namespace YAF
 	/// Summary description for Forum.
 	/// </summary>
 	[ToolboxData( "<{0}:Forum runat=\"server\"></{0}:Forum>" )]
-	public class Forum : System.Web.UI.UserControl
+	public class Forum : UserControl
 	{
 		private YAF.Controls.Header _header;
 		private YAF.Controls.Footer _footer;
 		private string _origHeaderClientID;
 		private string _origFooterClientID;
-		private YAF.Classes.Utils.ForumPages _page;
+		private ForumPages _page;
 		private ForumPage _currentForumPage;
 		public event EventHandler<ForumPageTitleArgs> PageTitleSet;
-		private YAF.Modules.ModuleManager _moduleManager = null;
 
 		public Forum()
 		{
 			this.Init += new EventHandler(Forum_Init);
+			this.Unload += new EventHandler(Forum_Unload);
 
 			// setup header/footer
 			_header = new YAF.Controls.Header();
@@ -72,7 +73,64 @@ namespace YAF
 			_origFooterClientID = _footer.ClientID;
 		}
 
+		void Forum_Unload(object sender, EventArgs e)
+		{
+			// make sure the YafContext is disposed of...
+			YafContext.Current.Dispose();
+		}
+
 		protected void Forum_Init( object sender, EventArgs e )
+		{
+			// init the modules and run them immediately...
+			YafContext.Current.BaseModuleManager.Load();
+			YafContext.Current.BaseModuleManager.InitModulesBeforeForumPage(YafContext.Current, this);
+
+			// "forum load" should be done by now, load the user and page...
+			int userId = YafContext.Current.PageUserID;
+
+			// get the current page...
+      string src = GetPageSource();
+
+			try
+			{
+				// handle script manager first...
+				if ( ScriptManager.GetCurrent( Page ) == null )
+				{
+					// add a script manager since one doesn't exist...
+					ScriptManager yafScriptManager = new ScriptManager();
+					yafScriptManager.ID = "YafScriptManager";
+					yafScriptManager.EnablePartialRendering = true;
+					this.Controls.Add( yafScriptManager );
+				}
+
+				_currentForumPage = (ForumPage)LoadControl(src);
+
+				_currentForumPage.ForumFooter = _footer;
+				_currentForumPage.ForumHeader = _header;
+
+				// set the YafContext ForumPage...
+				YafContext.Current.CurrentForumPage = _currentForumPage;
+			
+				// add the header control before the page rendering...
+				if ( YafContext.Current.Settings.LockedForum == 0 && _origHeaderClientID == _header.ClientID )
+					this.Controls.AddAt( 0, _header );
+
+				this.Controls.Add(_currentForumPage);
+
+				// add the footer control after the page...
+				if ( YafContext.Current.Settings.LockedForum == 0 && _origFooterClientID == _footer.ClientID )
+					this.Controls.Add( _footer );
+
+				// load plugins/functionality modules
+				YafContext.Current.BaseModuleManager.InitModulesAfterForumPage();
+			}
+			catch ( System.IO.FileNotFoundException )
+			{
+				throw new ApplicationException( "Failed to load " + src + "." );
+			}
+		}
+
+		private string GetPageSource()
 		{
 			string m_baseDir = YafForumInfo.ForumFileRoot;
 
@@ -98,57 +156,21 @@ namespace YAF
 			}
 
 			string src = string.Format( "{0}pages/{1}.ascx", m_baseDir, _page );
+
+			string controlOverride = YafContext.Current.Theme.GetItem("PAGE_OVERRIDE", _page.ToString(), null);
+
+			if ( !String.IsNullOrEmpty(controlOverride))
+			{
+				src = controlOverride;
+			}
+
 			if ( src.IndexOf( "/moderate_" ) >= 0 )
 				src = src.Replace( "/moderate_", "/moderate/" );
 			if ( src.IndexOf( "/admin_" ) >= 0 )
 				src = src.Replace( "/admin_", "/admin/" );
 			if ( src.IndexOf( "/help_" ) >= 0 )
 				src = src.Replace( "/help_", "/help/" );
-
-			try
-			{
-				// handle script manager first...
-				if ( ScriptManager.GetCurrent( Page ) == null )
-				{
-					// add a script manager since one doesn't exist...
-					ScriptManager yafScriptManager = new ScriptManager();
-					yafScriptManager.ID = "YafScriptManager";
-					yafScriptManager.EnablePartialRendering = true;
-					this.Controls.Add( yafScriptManager );
-				}
-
-				if (_moduleManager == null)
-				{
-					_moduleManager = new ModuleManager();
-					_moduleManager.CreateModules();
-					_moduleManager.InitModulesBeforeForumPage( YafContext.Current, this, _page );
-				}
-
-				_currentForumPage = (ForumPage)LoadControl(src);
-
-				_currentForumPage.ForumFooter = _footer;
-				_currentForumPage.ForumHeader = _header;
-			
-				// add the header control before the page rendering...
-				if ( YafContext.Current.Settings.LockedForum == 0 && _origHeaderClientID == _header.ClientID )
-					this.Controls.AddAt( 0, _header );
-
-				this.Controls.Add(_currentForumPage);
-
-				// add the footer control after the page...
-				if ( YafContext.Current.Settings.LockedForum == 0 && _origFooterClientID == _footer.ClientID )
-					this.Controls.Add( _footer );
-
-				// load plugins/functionality modules
-				if (_moduleManager != null)
-				{
-					_moduleManager.InitModulesAfterForumPage( _currentForumPage );
-				}
-			}
-			catch ( System.IO.FileNotFoundException )
-			{
-				throw new ApplicationException( "Failed to load " + src + "." );
-			}
+			return src;
 		}
 
 		protected override void Render( HtmlTextWriter writer )
@@ -204,18 +226,18 @@ namespace YAF
 			}
 		}
 
-		private bool ValidPage( ForumPages Page )
+		private bool ValidPage( ForumPages forumPage )
 		{
 			if ( LockedForum == 0 )
 				return true;
 
-			if ( Page == YAF.Classes.Utils.ForumPages.forum || Page == YAF.Classes.Utils.ForumPages.active || Page == YAF.Classes.Utils.ForumPages.activeusers )
+			if ( forumPage == ForumPages.forum || forumPage == ForumPages.active || forumPage == ForumPages.activeusers )
 				return false;
 
-			if ( Page == YAF.Classes.Utils.ForumPages.cp_editprofile || Page == YAF.Classes.Utils.ForumPages.cp_pm || Page == YAF.Classes.Utils.ForumPages.cp_message || Page == YAF.Classes.Utils.ForumPages.cp_profile || Page == YAF.Classes.Utils.ForumPages.cp_signature || Page == YAF.Classes.Utils.ForumPages.cp_subscriptions )
+			if ( forumPage == ForumPages.cp_editprofile || forumPage == ForumPages.cp_pm || forumPage == ForumPages.cp_message || forumPage == ForumPages.cp_profile || forumPage == ForumPages.cp_signature || forumPage == ForumPages.cp_subscriptions )
 				return false;
 
-			if ( Page == YAF.Classes.Utils.ForumPages.pmessage )
+			if ( forumPage == ForumPages.pmessage )
 				return false;
 
 			return true;

@@ -1,4 +1,4 @@
-/* YetAnotherForum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -17,28 +17,50 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Data;
-using System.Configuration;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 
-namespace YAF.Modules
+namespace YAF.Editors
 {
-	public class ExampleBBCodeModule : YafBBCodeControl
+	/// <summary>
+	/// The same as the TextEditor except it adds YafBBCode support. Used for QuickReply
+	/// functionality.
+	/// </summary>
+	public class BasicBBCodeEditor : TextEditor
 	{
-		public ExampleBBCodeModule()
-			: base()
+		protected override void OnInit(EventArgs e)
 		{
-
+			base.OnInit(e);
+			_textCtl.Attributes.Add("class", "basicBBCodeEditor");
 		}
 
-		protected override void Render( HtmlTextWriter writer )
+		protected override void Editor_Load(object sender, EventArgs e)
 		{
-			writer.Write( "Hello, you wrote this: " + this.Parameters["inner"] );			
+			base.Editor_Load(sender, e);
 		}
+
+		#region Properties
+
+		public override string Description
+		{
+			get
+			{
+				return "Basic YafBBCode Editor";
+			}
+		}
+
+		public override bool UsesBBCode
+		{
+			get { return true; }
+		}
+
+		public override int ModuleId
+		{
+			get
+			{
+				// backward compatibility...
+				return 5;
+			}
+		}
+
+		#endregion
 	}
 }

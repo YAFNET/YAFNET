@@ -18,56 +18,37 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using YAF.Classes;
 using YAF.Classes.Core;
+using YAF.Classes.UI;
 using YAF.Classes.Utils;
+using YAF.Controls;
 
 namespace YAF.Modules
 {
 	/// <summary>
-	/// Module that handles individual page security features -- needs to be expanded.
+	/// Summary description for PageTitleModule
 	/// </summary>
-	public class PageSecurityModule : SimpleBaseModule
+	public class PageBBCodeRegistration : SimpleBaseModule
 	{
-		public PageSecurityModule()
+		public PageBBCodeRegistration()
 		{
-			
 		}
 
 		override public void InitAfterPage()
 		{
-			CurrentForumPage.Load += new EventHandler(CurrentPage_Load);
-		}
-
-		void CurrentPage_Load(object sender, EventArgs e)
-		{
-			// no security features for login/logout pages
-			if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.logout)
-				return;
-
-			// check if it's a "registered user only page" and check permissions.
-			if (CurrentForumPage.IsRegisteredPage && CurrentForumPage.User == null)
+			switch ( PageContext.ForumPageType )
 			{
-				CurrentForumPage.RedirectNoAccess();
-			}
-
-			// not totally necessary... but provides another layer of protection...
-			if (CurrentForumPage.IsAdminPage && !PageContext.IsAdmin)
-			{
-				YafBuildLink.AccessDenied();
-				return;
-			}
-
-			// handle security features...
-			switch (ForumPageType)
-			{
-				default:
-					if (PageContext.IsPrivate && CurrentForumPage.User == null)
-					{
-						// register users only...
-						CurrentForumPage.RedirectNoAccess();
-					}
+				case ForumPages.cp_message:
+				case ForumPages.search:
+				case ForumPages.lastposts:
+				case ForumPages.posts:
+				case ForumPages.profile:
+					YAF.Classes.UI.YafBBCode.RegisterCustomBBCodePageElements(PageContext.CurrentForumPage.Page, PageContext.CurrentForumPage.GetType() );
 					break;
 			}
 		}

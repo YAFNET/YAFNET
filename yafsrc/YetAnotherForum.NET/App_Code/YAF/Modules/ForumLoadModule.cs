@@ -1,4 +1,4 @@
-/* YetAnotherForum.NET
+﻿/* YetAnotherForum.NET
  * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -17,28 +17,32 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Configuration;
 using System.Web;
-using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
+using YAF.Classes;
+using YAF.Classes.Core;
+using YAF.Classes.Data;
+using YAF.Classes.Utils;
 
 namespace YAF.Modules
 {
-	public class ExampleBBCodeModule : YafBBCodeControl
+	/// <summary>
+	/// Summary description for PagePopupModule
+	/// </summary>
+	public class ForumLoadModule : SimpleBaseModule
 	{
-		public ExampleBBCodeModule()
-			: base()
+		public ForumLoadModule()
 		{
 
 		}
 
-		protected override void Render( HtmlTextWriter writer )
+		public override void InitBeforePage()
 		{
-			writer.Write( "Hello, you wrote this: " + this.Parameters["inner"] );			
+			YafServices.StopWatch.Start();
+			YafServices.InitializeDb.Run();
+			YafServices.BannedIps.Run();
 		}
 	}
 }

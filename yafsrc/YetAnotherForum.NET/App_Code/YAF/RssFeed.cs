@@ -18,6 +18,8 @@
  */
 using System;
 using System.Xml;
+using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF
