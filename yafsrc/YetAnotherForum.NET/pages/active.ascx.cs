@@ -46,15 +46,6 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if ( PageContext.IsPrivate && User == null )
-			{
-				// Ederon : guess we don't need this if anymore
-				//if ( CanLogin )
-					RedirectNoAccess();
-				//else
-				//	YafBuildLink.Redirect( ForumPages.forum );
-			}
-
 			if ( PageContext.BoardSettings.ShowRSSLink )
 			{
 				RssFeed.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.rsstopic, "pg=active" );

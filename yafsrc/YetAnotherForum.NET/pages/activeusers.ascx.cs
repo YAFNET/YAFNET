@@ -45,9 +45,6 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			// check access permissions
-			YafServices.Permissions.HandleRequest( PageContext.BoardSettings.ActiveUsersViewPermissions);
-
 			if (!IsPostBack)
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );

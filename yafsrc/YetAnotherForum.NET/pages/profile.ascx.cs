@@ -51,14 +51,6 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			// check access permissions
-			YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ProfileViewPermissions);
-
-			if (PageContext.IsPrivate && User == null)
-			{
-				RedirectNoAccess();
-			}
-
 			if (Request.QueryString["u"] == null)
 				YafBuildLink.AccessDenied();
 

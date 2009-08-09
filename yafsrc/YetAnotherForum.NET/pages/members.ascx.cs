@@ -35,7 +35,7 @@ namespace YAF.Pages // YAF.Pages
 	{
 
 		public members()
-			: base( "MEMBERS" )
+			: base("MEMBERS")
 		{
 		}
 
@@ -44,23 +44,20 @@ namespace YAF.Pages // YAF.Pages
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		protected void Page_Load( object sender, System.EventArgs e )
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			// check access permissions
-			YafServices.Permissions.HandleRequest(PageContext.BoardSettings.MembersListViewPermissions);
-
-			if ( !IsPostBack )
+			if (!IsPostBack)
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+				PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+				PageLinks.AddLink(GetText("TITLE"), "");
 
-				SetSort( "Name", true );
+				SetSort("Name", true);
 
-				UserName.Text = GetText( "username" );
-				Rank.Text = GetText( "rank" );
-				Joined.Text = GetText( "joined" );
-				Posts.Text = GetText( "posts" );
-				Location.Text = GetText( "location" );
+				UserName.Text = GetText("username");
+				Rank.Text = GetText("rank");
+				Joined.Text = GetText("joined");
+				Posts.Text = GetText("posts");
+				Location.Text = GetText("location");
 
 				BindData();
 			}
@@ -71,9 +68,9 @@ namespace YAF.Pages // YAF.Pages
 		/// </summary>
 		/// <param name="svalue"></param>
 		/// <returns></returns>
-		protected string GetStringSafely( object svalue )
+		protected string GetStringSafely(object svalue)
 		{
-			return HtmlEncode( svalue.ToString() );
+			return HtmlEncode(svalue.ToString());
 		}
 
 		/// <summary>
@@ -81,44 +78,44 @@ namespace YAF.Pages // YAF.Pages
 		/// </summary>
 		/// <param name="field"></param>
 		/// <param name="asc"></param>
-		private void SetSort( string field, bool asc )
+		private void SetSort(string field, bool asc)
 		{
-			if ( ViewState ["SortField"] != null && ( string ) ViewState ["SortField"] == field )
+			if (ViewState["SortField"] != null && (string)ViewState["SortField"] == field)
 			{
-				ViewState ["SortAscending"] = !( bool ) ViewState ["SortAscending"];
+				ViewState["SortAscending"] = !(bool)ViewState["SortAscending"];
 			}
 			else
 			{
-				ViewState ["SortField"] = field;
-				ViewState ["SortAscending"] = asc;
+				ViewState["SortField"] = field;
+				ViewState["SortAscending"] = asc;
 			}
 		}
 
-		protected void UserName_Click( object sender, System.EventArgs e )
+		protected void UserName_Click(object sender, System.EventArgs e)
 		{
-			SetSort( "Name", true );
+			SetSort("Name", true);
 			BindData();
 		}
 
-		protected void Joined_Click( object sender, System.EventArgs e )
+		protected void Joined_Click(object sender, System.EventArgs e)
 		{
-			SetSort( "Joined", true );
+			SetSort("Joined", true);
 			BindData();
 		}
 
-		protected void Posts_Click( object sender, System.EventArgs e )
+		protected void Posts_Click(object sender, System.EventArgs e)
 		{
-			SetSort( "NumPosts", false );
+			SetSort("NumPosts", false);
 			BindData();
 		}
 
-		protected void Rank_Click( object sender, System.EventArgs e )
+		protected void Rank_Click(object sender, System.EventArgs e)
 		{
-			SetSort( "RankName", true );
+			SetSort("RankName", true);
 			BindData();
 		}
 
-		protected void Pager_PageChange( object sender, EventArgs e )
+		protected void Pager_PageChange(object sender, EventArgs e)
 		{
 			BindData();
 		}
@@ -128,14 +125,14 @@ namespace YAF.Pages // YAF.Pages
 			Pager.PageSize = 20;
 
 			// get the user list
-			DataTable userListDataTable = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, null, true );
- 
-			// select only the guest user (if one exists)
-			DataRow [] guestRows = userListDataTable.Select( "IsGuest > 0" );
+			DataTable userListDataTable = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, null, true);
 
-			if ( guestRows.Length > 0 )
+			// select only the guest user (if one exists)
+			DataRow[] guestRows = userListDataTable.Select("IsGuest > 0");
+
+			if (guestRows.Length > 0)
 			{
-				foreach ( DataRow row in guestRows )
+				foreach (DataRow row in guestRows)
 				{
 					row.Delete();
 				}
@@ -149,30 +146,30 @@ namespace YAF.Pages // YAF.Pages
 			char selectedLetter = AlphaSort1.CurrentLetter;
 
 			// handle dataview filtering
-			if ( selectedLetter != char.MinValue )
+			if (selectedLetter != char.MinValue)
 			{
-				if ( selectedLetter == '#' )
+				if (selectedLetter == '#')
 				{
 					string filter = string.Empty;
-					foreach ( char letter in GetText( "LANGUAGE", "CHARSET" ) )
+					foreach (char letter in GetText("LANGUAGE", "CHARSET"))
 					{
-						if ( filter == string.Empty )
-							filter = string.Format( "Name not like '{0}%'", letter );
+						if (filter == string.Empty)
+							filter = string.Format("Name not like '{0}%'", letter);
 						else
-							filter += string.Format( "and Name not like '{0}%'", letter );
+							filter += string.Format("and Name not like '{0}%'", letter);
 					}
 					userListDataView.RowFilter = filter;
 				}
 				else
 				{
-					userListDataView.RowFilter = string.Format( "Name like '{0}%'", selectedLetter );
+					userListDataView.RowFilter = string.Format("Name like '{0}%'", selectedLetter);
 				}
 			}
 
 			Pager.Count = userListDataView.Count;
 
 			// create paged data source for the memberlist
-			userListDataView.Sort = String.Format( "{0} {1}", ViewState ["SortField"], ( bool ) ViewState ["SortAscending"] ? "asc" : "desc" );
+			userListDataView.Sort = String.Format("{0} {1}", ViewState["SortField"], (bool)ViewState["SortAscending"] ? "asc" : "desc");
 			PagedDataSource pds = new PagedDataSource();
 			pds.DataSource = userListDataView;
 			pds.AllowPaging = true;
@@ -184,13 +181,13 @@ namespace YAF.Pages // YAF.Pages
 
 			// handle the sort fields at the top
 			// TODO: make these "sorts" into controls
-			SortUserName.Visible = ( string ) ViewState ["SortField"] == "Name";
-			SortUserName.Src = GetThemeContents( "SORT", ( bool ) ViewState ["SortAscending"] ? "ASCENDING" : "DESCENDING" );
-			SortRank.Visible = ( string ) ViewState ["SortField"] == "RankName";
+			SortUserName.Visible = (string)ViewState["SortField"] == "Name";
+			SortUserName.Src = GetThemeContents("SORT", (bool)ViewState["SortAscending"] ? "ASCENDING" : "DESCENDING");
+			SortRank.Visible = (string)ViewState["SortField"] == "RankName";
 			SortRank.Src = SortUserName.Src;
-			SortJoined.Visible = ( string ) ViewState ["SortField"] == "Joined";
+			SortJoined.Visible = (string)ViewState["SortField"] == "Joined";
 			SortJoined.Src = SortUserName.Src;
-			SortPosts.Visible = ( string ) ViewState ["SortField"] == "NumPosts";
+			SortPosts.Visible = (string)ViewState["SortField"] == "NumPosts";
 			SortPosts.Src = SortUserName.Src;
 		}
 	}

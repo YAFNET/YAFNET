@@ -49,11 +49,6 @@ namespace YAF.Pages
 				ForumStats.Visible = PageContext.BoardSettings.ShowForumStatistics;
 				ActiveDiscussions.Visible = PageContext.BoardSettings.ShowActiveDiscussions;
 
-				if ( PageContext.IsPrivate && User == null )
-				{
-					RedirectNoAccess();
-				}
-
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
 					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );

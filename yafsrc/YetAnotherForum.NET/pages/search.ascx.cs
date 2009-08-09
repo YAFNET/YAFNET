@@ -71,12 +71,6 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			// check access permissions
-			YafServices.Permissions.HandleRequest( PageContext.BoardSettings.SearchPermissions );
-
-			//Page.Reg
-			//if(IsPostBack) throw new ApplicationException(Request.Form["__EVENTTARGET"]);
-
 			if ( !IsPostBack )
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name,
