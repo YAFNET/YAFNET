@@ -20,24 +20,10 @@
 using System;
 using System.Data;
 using System.Web;
-using System.Web.Profile;
-using System.Web.Hosting;
-using System.Web.DataAccess;
-using System.Web.Util;
-using System.Web.Configuration;
 using System.Web.Security;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text;
-using System.Configuration.Provider;
-using System.Configuration;
-using System.Security;
-using System.Security.Principal;
-using System.Security.Permissions;
-using System.Globalization;
-using System.Runtime.Serialization;
-using YAF.Classes.Utils;
+using YAF.Classes.Core;
 using YAF.Providers.Utils;
 
 namespace YAF.Providers.Roles

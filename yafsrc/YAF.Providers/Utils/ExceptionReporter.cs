@@ -19,13 +19,10 @@
  */
 
 using System;
-using System.Configuration;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml;
-using YAF.Classes.Utils;
 using YAF.Classes;
 using System.Configuration.Provider;
+using YAF.Classes.Utils;
 
 namespace YAF.Providers.Utils
 {

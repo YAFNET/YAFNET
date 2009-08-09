@@ -1,99 +1,103 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProductVersion>9.0.30729</ProductVersion>
-		<SchemaVersion>2.0</SchemaVersion>
-		<ProjectGuid>{95A44CD9-4399-4DB9-823F-1A264083A390}</ProjectGuid>
-		<OutputType>Library</OutputType>
-		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>YAF.Providers</RootNamespace>
-		<AssemblyName>YAF.Providers</AssemblyName>
-		<FileUpgradeFlags>
-		</FileUpgradeFlags>
-		<OldToolsVersion>2.0</OldToolsVersion>
-		<UpgradeBackupLocation>
-		</UpgradeBackupLocation>
-		<SignAssembly>false</SignAssembly>
-		<AssemblyOriginatorKeyFile>
-		</AssemblyOriginatorKeyFile>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v2.0|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v2.0|AnyCPU' ">
-		<DebugType>pdbonly</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v3.5|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-		<DebugType>full</DebugType>
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
-		<CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
-		<ErrorReport>prompt</ErrorReport>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v3.5|AnyCPU' ">
-		<OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<Optimize>true</Optimize>
-		<DebugType>pdbonly</DebugType>
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
-		<CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
-		<ErrorReport>prompt</ErrorReport>
-	</PropertyGroup>
-	<ItemGroup>
-		<Reference Include="System" />
-		<Reference Include="System.configuration" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Web" />
-		<Reference Include="System.Xml" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Include="Utils\ExceptionReporter.cs" />
-		<Compile Include="Membership\UserPasswordInfo.cs" />
-		<Compile Include="Membership\Utils.cs" />
-		<Compile Include="Membership\YafMembershipProvider.cs" />
-		<Compile Include="Membership\DB.cs" />
-		<Compile Include="Passthru\YAFMembershipPassThru.cs" />
-		<Compile Include="Passthru\YAFRolesPassThru.cs" />
-		<Compile Include="Profile\DB.cs" />
-		<Compile Include="Profile\YafProfileProvider.cs" />
-		<Compile Include="Properties\AssemblyInfo.cs" />
-		<Compile Include="Roles\DB.cs" />
-		<Compile Include="Roles\YafRoleProvider.cs" />
-		<Compile Include="Utils\ExcReturn.cs" />
-		<Compile Include="Utils\Transform.cs" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
-			<Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
-			<Name>YAF.Classes.Config</Name>
-		</ProjectReference>
-		<ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
-			<Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
-			<Name>YAF.Classes.Data</Name>
-		</ProjectReference>
-		<ProjectReference Include="..\YAF.Classes\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
-			<Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
-			<Name>YAF.Classes.Utils</Name>
-		</ProjectReference>
-	</ItemGroup>
-	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-	<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{95A44CD9-4399-4DB9-823F-1A264083A390}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YAF.Providers</RootNamespace>
+    <AssemblyName>YAF.Providers</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v2.0|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v2.0|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v3.5|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v3.5|AnyCPU' ">
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Utils\ExceptionReporter.cs" />
+    <Compile Include="Membership\UserPasswordInfo.cs" />
+    <Compile Include="Membership\Utils.cs" />
+    <Compile Include="Membership\YafMembershipProvider.cs" />
+    <Compile Include="Membership\DB.cs" />
+    <Compile Include="Passthru\YAFMembershipPassThru.cs" />
+    <Compile Include="Passthru\YAFRolesPassThru.cs" />
+    <Compile Include="Profile\DB.cs" />
+    <Compile Include="Profile\YafProfileProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles\DB.cs" />
+    <Compile Include="Roles\YafRoleProvider.cs" />
+    <Compile Include="Utils\ExcReturn.cs" />
+    <Compile Include="Utils\Transform.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
+      <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
+      <Name>YAF.Classes.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Core\YAF.Classes.Core.csproj">
+      <Project>{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}</Project>
+      <Name>YAF.Classes.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
+      <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
+      <Name>YAF.Classes.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
+      <Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
+      <Name>YAF.Classes.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
