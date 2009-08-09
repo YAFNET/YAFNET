@@ -26,7 +26,7 @@ using YAF.Classes.Utils;
 namespace YAF.Modules
 {
 	/// <summary>
-	/// Module that handles individual page security features -- needs to be expanded.
+	/// Module that handles page permission feature
 	/// </summary>
 	public class PagePermissionModule : SimpleBaseModule
 	{
@@ -42,32 +42,22 @@ namespace YAF.Modules
 
 		void CurrentPage_Load(object sender, EventArgs e)
 		{
-			// no security features for login/logout pages
-			if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.logout)
-				return;
-
-			// check if it's a "registered user only page" and check permissions.
-			if (CurrentForumPage.IsRegisteredPage && CurrentForumPage.User == null)
-			{
-				CurrentForumPage.RedirectNoAccess();
-			}
-
-			// not totally necessary... but provides another layer of protection...
-			if (CurrentForumPage.IsAdminPage && !PageContext.IsAdmin)
-			{
-				YafBuildLink.AccessDenied();
-				return;
-			}
-
-			// handle security features...
+			// check access permissions for specific pages...
 			switch (ForumPageType)
 			{
+				case ForumPages.activeusers:
+					YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ActiveUsersViewPermissions);
+					break;
+				case ForumPages.members:
+					YafServices.Permissions.HandleRequest(PageContext.BoardSettings.MembersListViewPermissions);
+					break;
+				case ForumPages.profile:
+					YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ProfileViewPermissions);
+					break;
+				case ForumPages.search:
+					YafServices.Permissions.HandleRequest(PageContext.BoardSettings.SearchPermissions);
+					break;
 				default:
-					if (PageContext.IsPrivate && CurrentForumPage.User == null)
-					{
-						// register users only...
-						CurrentForumPage.RedirectNoAccess();
-					}
 					break;
 			}
 		}
