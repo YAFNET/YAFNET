@@ -90,13 +90,13 @@
       <Project>{95A44CD9-4399-4DB9-823F-1A264083A390}</Project>
       <Name>YAF.Providers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes.Base\YAF.Classes.Base.csproj">
-      <Project>{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}</Project>
-      <Name>YAF.Classes.Base</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes.Core\YAF.Classes.Core.csproj">
+      <Project>{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}</Project>
+      <Name>YAF.Classes.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Classes.Data\YAF.Classes.Data.csproj">
       <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
