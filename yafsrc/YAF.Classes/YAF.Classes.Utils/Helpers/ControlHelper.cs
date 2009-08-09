@@ -50,6 +50,30 @@ namespace YAF.Classes.Utils
 			return found;
 		}
 
+		static public T FindControlAs<T>(Control sourceControl, string id) where T : class
+		{
+			Control foundControl = sourceControl.FindControl( id );
+			return foundControl != null ? TypeHelper.ConvertToClass<T>( foundControl ) : null;
+		}
+
+		static public T FindControlRecursiveAs<T>(Control sourceControl, string id) where T : class
+		{
+			Control foundControl = FindControlRecursive( sourceControl, id );
+			return foundControl != null ? TypeHelper.ConvertToClass<T>(foundControl) : null;
+		}
+
+		static public T FindControlRecursiveReverseAs<T>(Control sourceControl, string id) where T : class
+		{
+			Control foundControl = FindControlRecursiveReverse(sourceControl, id);
+			return foundControl != null ? TypeHelper.ConvertToClass<T>(foundControl) : null;
+		}
+
+		static public T FindControlRecursiveBothAs<T>(Control sourceControl, string id) where T : class
+		{
+			Control foundControl = FindControlRecursiveBoth(sourceControl, id);
+			return foundControl != null ? TypeHelper.ConvertToClass<T>(foundControl) : null;
+		}
+
 		/// <summary>
 		/// Find Wizard Control - Find a control in a wizard
 		/// </summary>

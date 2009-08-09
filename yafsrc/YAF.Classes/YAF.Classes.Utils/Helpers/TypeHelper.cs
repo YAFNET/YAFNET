@@ -82,5 +82,15 @@ namespace YAF.Classes.Utils
 		{
 			return Convert.ToBoolean(o);
 		}
+
+		static public T ConvertToClass<T>(object instance) where T : class
+		{
+			if ( instance is T )
+			{
+				return instance as T;
+			}
+
+			return null;
+		}
 	}
 }
