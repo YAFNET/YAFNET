@@ -100,7 +100,7 @@ namespace YAF.Modules
 
 		void ForumPage_PreRender(object sender, EventArgs e)
 		{
-			HtmlHead head = (HtmlHead)ControlHelper.FindControlRecursiveBoth(CurrentForumPage, "YafHead");
+			HtmlHead head = ControlHelper.FindControlRecursiveBothAs<HtmlHead>(CurrentForumPage, "YafHead");
 
 			if (head != null)
 			{
@@ -115,7 +115,7 @@ namespace YAF.Modules
 			else
 			{
 				// old style
-				HtmlTitle title = (HtmlTitle)ControlHelper.FindControlRecursiveBoth(CurrentForumPage, "ForumTitle");
+				HtmlTitle title = ControlHelper.FindControlRecursiveBothAs<HtmlTitle>( CurrentForumPage, "ForumTitle" );
 				if (title != null)
 				{
 					title.Text = _forumPageTitle;
