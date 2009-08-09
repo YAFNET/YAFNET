@@ -2,7 +2,7 @@
 <Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Spanish" code="es">
   <page name="ACTIVE">
     <Resource tag="BY">por {0}</Resource>
-    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
+    <Resource tag="LAST_24">( Últimas 24 Horas )</Resource>
     <Resource tag="LAST_DAY">último día</Resource>
     <Resource tag="LAST_HOUR">última hora</Resource>
     <Resource tag="LAST_MONTH">último mes</Resource>
@@ -16,9 +16,9 @@
     <Resource tag="REPLIES">Respuestas</Resource>
     <Resource tag="RSSFEED">Rss</Resource>
     <Resource tag="SINCE">Desde</Resource>
-    <Resource tag="TITLE">Hilos activos</Resource>
-    <Resource tag="TOPIC_STARTER">Iniciador de hilo</Resource>
-    <Resource tag="TOPICS">Hilos</Resource>
+    <Resource tag="TITLE">Temas activos</Resource>
+    <Resource tag="TOPIC_STARTER">Iniciador de tema</Resource>
+    <Resource tag="TOPICS">Temas</Resource>
     <Resource tag="VIEWS">Lecturas</Resource>
   </page>
   <page name="ACTIVEUSERS">
@@ -39,11 +39,10 @@
     <Resource tag="VALIDATE">Validar</Resource>
   </page>
   <page name="ATTACHMENTS">
-    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Types</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS">Extenciones de archivo permitidas</Resource>
     <Resource tag="ASK_DELETE">¿Eliminar este adjunto?</Resource>
-    <Resource tag="BACK">Atras</Resource>
     <Resource tag="DELETE">Eliminar</Resource>
-    <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
+    <Resource tag="DISALLOWED_EXTENSIONS">Extenciones de archivo no permitidas</Resource>
     <Resource tag="ERROR_TOOBIG">El archivo es demasiado grande.</Resource>
     <Resource tag="FILEERROR">'{0}' no es un archivo válido para cargar.</Resource>
     <Resource tag="FILENAME">Nombre del archivo</Resource>
@@ -65,66 +64,66 @@
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
   </page>
   <page name="BUTTON">
-    <Resource tag="BUTTON_ATTACH">Attach</Resource>
-    <Resource tag="BUTTON_ATTACH_TT">Attach files to this post</Resource>
-    <Resource tag="BUTTON_DELETE">Delete</Resource>
-    <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
-    <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
-    <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
-    <Resource tag="BUTTON_EDIT">Edit</Resource>
-    <Resource tag="BUTTON_EDIT_TT">Edit this Post</Resource>
-    <Resource tag="BUTTON_LOCKTOPIC">Lock Topic</Resource>
-    <Resource tag="BUTTON_LOCKTOPIC_TT">Lock this topic</Resource>
-    <Resource tag="BUTTON_MODERATE">Moderate</Resource>
-    <Resource tag="BUTTON_MODERATE_TT">Delete, lock, unlock, and move topics this forum</Resource>
-    <Resource tag="BUTTON_MOVE">Move</Resource>
-    <Resource tag="BUTTON_MOVE_TT">Move this Post</Resource>
-    <Resource tag="BUTTON_MOVETOPIC">Move Topic</Resource>
-    <Resource tag="BUTTON_MOVETOPIC_TT">Move this topic</Resource>
-    <Resource tag="BUTTON_NEWPM">New PM</Resource>
-    <Resource tag="BUTTON_NEWPM_TT">Create a new private message</Resource>
-    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
-    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
-    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
-    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
-    <Resource tag="BUTTON_POSTREPLY">Post Reply</Resource>
-    <Resource tag="BUTTON_POSTREPLY_TT">Post a reply to this topic</Resource>
-    <Resource tag="BUTTON_QUOTE">Quote</Resource>
-    <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
-    <Resource tag="BUTTON_REPLY">Reply</Resource>
-    <Resource tag="BUTTON_REPLY_TT">Reply to Message</Resource>
-    <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
-    <Resource tag="BUTTON_UNDELETE_TT">Undelete this Post</Resource>
-    <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
-    <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
+    <Resource tag="BUTTON_ATTACH">Adjuntar</Resource>
+    <Resource tag="BUTTON_ATTACH_TT">Adjuntar archivos a este mensaje</Resource>
+    <Resource tag="BUTTON_DELETE">Eliminar</Resource>
+    <Resource tag="BUTTON_DELETE_TT">Eliminar este mensaje</Resource>
+    <Resource tag="BUTTON_DELETETOPIC">Eliminar tema</Resource>
+    <Resource tag="BUTTON_DELETETOPIC_TT">Eliminar este tema</Resource>
+    <Resource tag="BUTTON_EDIT">Editar</Resource>
+    <Resource tag="BUTTON_EDIT_TT">Editar este mensaje</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC">Proteger tema</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC_TT">Proteger este tema</Resource>
+    <Resource tag="BUTTON_MODERATE">Moderar</Resource>
+    <Resource tag="BUTTON_MODERATE_TT">Eliminar, proteger, desproteger, y mover temas de este foro</Resource>
+    <Resource tag="BUTTON_MOVE">Mover</Resource>
+    <Resource tag="BUTTON_MOVE_TT">Mover este mensaje</Resource>
+    <Resource tag="BUTTON_MOVETOPIC">Mover tema</Resource>
+    <Resource tag="BUTTON_MOVETOPIC_TT">Mover este tema</Resource>
+    <Resource tag="BUTTON_NEWPM">Nuevo MP</Resource>
+    <Resource tag="BUTTON_NEWPM_TT">Crear un mensaje privado nuevo</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">Tema nuevo</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">Tema nuevo</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Postar un tema nuevo en este foro</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Postee un tema nuevo en este foro</Resource>
+    <Resource tag="BUTTON_POSTREPLY">Postear respuesta</Resource>
+    <Resource tag="BUTTON_POSTREPLY_TT">Postear una respuesta en este tema</Resource>
+    <Resource tag="BUTTON_QUOTE">Citar</Resource>
+    <Resource tag="BUTTON_QUOTE_TT">Contestar citando</Resource>
+    <Resource tag="BUTTON_REPLY">Contestar</Resource>
+    <Resource tag="BUTTON_REPLY_TT">Contestar este mensaje</Resource>
+    <Resource tag="BUTTON_UNDELETE">Recuperar</Resource>
+    <Resource tag="BUTTON_UNDELETE_TT">Recuperar este mensaje</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC">Desproteger tema</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC_TT">Desproteger este tema</Resource>
   </page>
   <page name="COMMON">
-    <Resource tag="BACK">Back</Resource>
-    <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
-    <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
-    <Resource tag="BBCODE_CODE">Code:</Resource>
-    <Resource tag="BBCODE_QUOTE">Quote:</Resource>
-    <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
-    <Resource tag="CAN_DELETE">[b]Puedes[/b] eliminar sus hilos en este foro.</Resource>
-    <Resource tag="CAN_EDIT">[b]Puedes[/b] editar sus hilos en este foro.</Resource>
+    <Resource tag="BACK">Atras</Resource>
+    <Resource tag="BAD_CAPTCHA">Texto no coincide con el texto de la imagen.</Resource>
+    <Resource tag="BAD_USERNAME">El nombre de usuario no puede tener puntos y comas (;).</Resource>
+    <Resource tag="BBCODE_CODE">Código:</Resource>
+    <Resource tag="BBCODE_QUOTE">Citar:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} escribió:</Resource>
+    <Resource tag="CAN_DELETE">[b]Puedes[/b] eliminar sus temas en este foro.</Resource>
+    <Resource tag="CAN_EDIT">[b]Puedes[/b] editar sus temas en este foro.</Resource>
     <Resource tag="CAN_POLL">[b]Puedes[/b] crear encuestas en este foro.</Resource>
-    <Resource tag="CAN_POST">[b]Puedes[/b] iniciar nuevos hilos en este foro.</Resource>
-    <Resource tag="CAN_REPLY">[b]Puedes[/b] responder a hilos en este foro.</Resource>
+    <Resource tag="CAN_POST">[b]Puedes[/b] iniciar nuevos temas en este foro.</Resource>
+    <Resource tag="CAN_REPLY">[b]Puedes[/b] responder a temas en este foro.</Resource>
     <Resource tag="CAN_VOTE">[b]Puedes[/b] votar las encuestas en este foro.</Resource>
     <Resource tag="CANCEL">Cancelar</Resource>
-    <Resource tag="CANNOT_DELETE">[b]No puedes[/b] eliminar sus hilos en este foro.</Resource>
-    <Resource tag="CANNOT_EDIT">[b]No puedes[/b] editar sus hilos en este foro.</Resource>
+    <Resource tag="CANNOT_DELETE">[b]No puedes[/b] eliminar sus temas en este foro.</Resource>
+    <Resource tag="CANNOT_EDIT">[b]No puedes[/b] editar sus temas en este foro.</Resource>
     <Resource tag="CANNOT_POLL">[b]No puedes[/b] crear encuestas en este foro.</Resource>
-    <Resource tag="CANNOT_POST">[b]No puedes[/b] iniciar nuevos hilos en este foro.</Resource>
-    <Resource tag="CANNOT_REPLY">[b]No puedes[/b] responder a hilos en este foro.</Resource>
+    <Resource tag="CANNOT_POST">[b]No puedes[/b] iniciar nuevos temas en este foro.</Resource>
+    <Resource tag="CANNOT_REPLY">[b]No puedes[/b] responder a temas en este foro.</Resource>
     <Resource tag="CANNOT_VOTE">[b]No puedes[/b] votar las encuestas en este foro.</Resource>
-    <Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
-    <Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
-    <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
-    <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
-    <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
-    <Resource tag="FONT_COLOR">Font Color:</Resource>
-    <Resource tag="FONT_SIZE">Font Size:</Resource>
+    <Resource tag="CAPTCHA_ENTER">Teclee las letras de la imagen de seguridad:</Resource>
+    <Resource tag="CAPTCHA_IMAGE">Imagen de seguridad:</Resource>
+    <Resource tag="CHANGEEMAIL_SUBJECT">Email cambiado</Resource>
+    <Resource tag="CUSTOM_BBCODE">Mas BBCode</Resource>
+    <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Verificacion de Email</Resource>
+    <Resource tag="FONT_COLOR">Color de fuente:</Resource>
+    <Resource tag="FONT_SIZE">Tamaño de fuente:</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -132,75 +131,71 @@
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Salto de foro</Resource>
     <Resource tag="GENERATED">Esta página fue generada en {0:N3} segundos.</Resource>
-    <Resource tag="GO">GO</Resource>
-    <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
-    <Resource tag="HIDDEN">Hidden</Resource>
-    <Resource tag="LOADING">Loading...</Resource>
-    <Resource tag="MAX_ONLINE">Most users ever online was {0}, {1}.</Resource>
-    <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
+    <Resource tag="GO">IR</Resource>
+    <Resource tag="GOTOPAGE_HEADER">Ir a la pagina...</Resource>
+    <Resource tag="HIDDEN">Oculto</Resource>
+    <Resource tag="LOADING">Cargando...</Resource>
+    <Resource tag="MAX_ONLINE">El número máximo de usuarios activos fue {0}, {1}.</Resource>
+    <Resource tag="MODAL_NOTIFICATION_HEADER">Aviso</Resource>
     <Resource tag="OK">OK</Resource>
-    <Resource tag="PAGES">Pages</Resource>
-    <Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
-    <Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
+    <Resource tag="PAGES">Paginas</Resource>
+    <Resource tag="PM_NOTIFICATION_SUBJECT">Nuevo mensaje privado de {0} a las {1}</Resource>
+    <Resource tag="POWERED_BY">Powered by controlc</Resource>
     <Resource tag="REGMAIL_SENT">Un correo ha sido enviado. Revisa tu bandeja de entrada y haz clic en el link del correo.</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Un correo será enviado cuando te registres. Para iniciar sesión debes revisar tu bandeja de entrada y hacer clic en el link del correo.</Resource>
     <Resource tag="SAVE">Guardar</Resource>
-    <Resource tag="SUBMIT">Submit</Resource>
-    <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
-    <Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
-    <Resource tag="TT_ALIGNLEFT">Left Justify</Resource>
-    <Resource tag="TT_ALIGNRIGHT">Right Justify</Resource>
-    <Resource tag="TT_BOLD">Bold</Resource>
-    <Resource tag="TT_CODE">Code</Resource>
-    <Resource tag="TT_CREATELINK">Create Link</Resource>
-    <Resource tag="TT_CUSTOMBBCODE">More BBCode Tags</Resource>
-    <Resource tag="TT_IMAGE">Insert Image</Resource>
-    <Resource tag="TT_ITALIC">Italic</Resource>
-    <Resource tag="TT_QUOTE">Quote</Resource>
-    <Resource tag="TT_UNDERLINE">Underline</Resource>
+    <Resource tag="SUBMIT">Enviar</Resource>
+    <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Suscripción a un tema - Noticiación de nuevo mensaje (de {0})</Resource>
+    <Resource tag="TT_ALIGNCENTER">Centrado</Resource>
+    <Resource tag="TT_ALIGNLEFT">Justificado izquierda</Resource>
+    <Resource tag="TT_ALIGNRIGHT">Justificado derecha</Resource>
+    <Resource tag="TT_BOLD">Negrilla</Resource>
+    <Resource tag="TT_CODE">Codigo</Resource>
+    <Resource tag="TT_CREATELINK">Crear liga</Resource>
+    <Resource tag="TT_CUSTOMBBCODE">Mas etiquetas BBCode</Resource>
+    <Resource tag="TT_IMAGE">Insertar imagen</Resource>
+    <Resource tag="TT_ITALIC">Italica</Resource>
+    <Resource tag="TT_QUOTE">Citar</Resource>
+    <Resource tag="TT_UNDERLINE">Subrayado</Resource>
     <Resource tag="UNREAD_MSG">Tienes {0} mensaje(s) no leídos en tu bandeja de entrada</Resource>
-    <Resource tag="UPDATE">Update</Resource>
+    <Resource tag="UPDATE">Actualizar</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
-    <Resource tag="CHANGE_BUTTON">Submit</Resource>
-    <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
-    <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
-    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
-    <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
-    <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
-    <Resource tag="NEW_PASSWORD">New Password:</Resource>
-    <Resource tag="NO_PASSWORD_MATCH">New Passwords do not match.</Resource>
-    <Resource tag="OLD_PASSWORD">Old Password:</Resource>
-    <Resource tag="PASSWORD_BAD_LENGTH">New Password length minimum: {0}.</Resource>
-    <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
-    <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
-    <Resource tag="TITLE">Change Password</Resource>
+    <Resource tag="CHANGE_BUTTON">Cambiar</Resource>
+    <Resource tag="CHANGE_SUCCESS">Clave cambiada.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirmar clave nueva:</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">Clave de confirmacion requerida.</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">Clave nueva requerida.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">Clave anterior requerida.</Resource>
+    <Resource tag="NEW_PASSWORD">Clave nueva:</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">Las claves nuevas no concuerdan.</Resource>
+    <Resource tag="OLD_PASSWORD">Clave anterior:</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">Longitud minima para la clave nueva: {0}.</Resource>
+    <Resource tag="PASSWORD_INCORRECT">Clave incorrecta o clave nueva inválida.</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">Caracteres no alfanumericos requeridos: {1}.</Resource>
+    <Resource tag="TITLE">Cambiar clave</Resource>
   </page>
   <page name="CP_EDITAVATAR">
     <Resource tag="AVATAR">Avatar</Resource>
-    <Resource tag="AVATARCURRENT">Current Avatar</Resource>
-    <Resource tag="AVATARDELETE">Clear Avatar</Resource>
-    <Resource tag="AVATARNEW">Choose a New Avatar</Resource>
-    <Resource tag="AVATARREMOTE">Enter URL of Avatar on Remote Server to Use:</Resource>
-    <Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
-    <Resource tag="AVATARUPLOAD">Upload Avatar from Your Computer:</Resource>
-    <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
-    <Resource tag="NOAVATAR">[ No Avatar ]</Resource>
-    <Resource tag="OURAVATAR">Select your Avatar from our Collection:</Resource>
-    <Resource tag="OURAVATAR_SELECT">Click Here to Select an Avatar</Resource>
-    <Resource tag="TITLE">Modify Avatar</Resource>
-    <Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
-    <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
-    <Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
-    <Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
-    <Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
+    <Resource tag="AVATARCURRENT">Avatar Actual</Resource>
+    <Resource tag="AVATARDELETE">Eliminar Avatar</Resource>
+    <Resource tag="AVATARNEW">Elije un nuevo Avatar</Resource>
+    <Resource tag="AVATARREMOTE">Introduce la URL del Avatar en un servidor remoto a usar:</Resource>
+    <Resource tag="AVATARTEXT">Texto de explicación del Avatar</Resource>
+    <Resource tag="AVATARUPLOAD">Subir Avatar desde tu ordenador:</Resource>
+    <Resource tag="INVALID_FILE">El archivo no es un archivo de imagen apropiado.</Resource>
+    <Resource tag="NOAVATAR">[ Sin Avatar ]</Resource>
+    <Resource tag="OURAVATAR">Elije tu Avatar de nuestra colección:</Resource>
+    <Resource tag="OURAVATAR_SELECT">Pincha aquí para seleccionar un Avatar</Resource>
+    <Resource tag="TITLE">Modificar Avatar</Resource>
+    <Resource tag="WARN_BIGFILE">El tamaño de la imagen no puede ser mayor que {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">El tamaño de tu imagen era de {0} bytes.</Resource>
+    <Resource tag="WARN_RESIZED">La imagen se ha reescalado.</Resource>
+    <Resource tag="WARN_SIZE">El tamaño de tu imagen era de {0}x{1} pixels.</Resource>
+    <Resource tag="WARN_TOOBIG">El tamaño de la imagen no puede ser mayor de {0}x{1} pixels.</Resource>
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Acerca de</Resource>
-    <Resource tag="AVATAR">Avatar</Resource>
-    <Resource tag="AVATARDELETE">Eliminar avatar cargado.</Resource>
-    <Resource tag="AVATARREMOTE">Ingresa la url del avatar que aparecerá junto a tus mensajes.</Resource>
-    <Resource tag="AVATARUPLOAD">Cargar avatar desde su PC.</Resource>
     <Resource tag="BAD_EMAIL">Has ingresado un correo electrónico no válido.</Resource>
     <Resource tag="BAD_HOME">Has ingresado una direccion no válida para tu página web.</Resource>
     <Resource tag="BAD_ICQ">Has ingresado un número no válido como tu cuenta de ICQ.</Resource>
@@ -209,39 +204,31 @@
     <Resource tag="CHANGE_EMAIL">Cambiar correo electrónico</Resource>
     <Resource tag="CHANGE_PASSWORD">Cambiar contraseña</Resource>
     <Resource tag="CONFIRMPASSWORD">Confirmar contraseña nueva:</Resource>
-    <Resource tag="DELETE_AVATAR">Eliminar Avatar</Resource>
     <Resource tag="EMAIL">Siempre debes tener un correo electrónico válido.</Resource>
-    <Resource tag="FORUM_SETTINGS">Utilsuración del foro</Resource>
+    <Resource tag="FORUM_SETTINGS">Configuración del foro</Resource>
     <Resource tag="HOMEPAGE">Página web</Resource>
     <Resource tag="HOMEPAGE2">Tu página web:</Resource>
     <Resource tag="LOCATION">Ubicación</Resource>
-    <Resource tag="MAIL_SENT">Se ha enviado un correo a {0}.\n\nDebes verificar tu nuevo correo electrónico\nabriendo el link en el correo para persistir el cambio.</Resource>
+    <Resource tag="MAIL_SENT">Se ha enviado un correo a {0}.\n\nDebes verificar tu nuevo correo electrónico\nabriendo el link en el correo para persistir el cambio.\n\nSi ves que no llega el correo, mira tu carpeta de Spam.</Resource>
     <Resource tag="MESSENGER">Mensajero instantáneo</Resource>
     <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
-    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Configuracion opcional que [b]pudiera[/b] requerirse por algunos  blogs (los subtextos no lo nececitan). Si no esta seguro, trate primero sin esto.)</Resource>
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
-    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
-    <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Usuario:</Resource>
+    <Resource tag="METAWEBLOG_TITLE">Postear en MetaWeblog (API Settings)</Resource>
     <Resource tag="NEWPASSWORD">Contraseña nueva:</Resource>
     <Resource tag="NO_EMPTY_PASSWORD">Contraseña no puede ser vacía.</Resource>
     <Resource tag="NO_PASSWORD_MATCH">Contraseña nueva no concuerda.</Resource>
     <Resource tag="OLD_PASSWORD_WRONG">Contraseña anterior equivocada.</Resource>
     <Resource tag="OLDPASSWORD">Contraseña anterior:</Resource>
-    <Resource tag="OURAVATAR">Nuestra colección de avatares.</Resource>
-    <Resource tag="OURAVATAR_SELECT">Escoje de nuestra colección de avatares.</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
-    <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">¿Recibir una notificación por email cuando tengas nuevos mensajes privados?</Resource>
     <Resource tag="REALNAME2">Nombre verdadero</Resource>
     <Resource tag="SELECT_LANGUAGE">Idioma preferido:</Resource>
     <Resource tag="SELECT_THEME">Estilo preferido:</Resource>
     <Resource tag="TIMEZONE">Zona horaria</Resource>
     <Resource tag="TIMEZONE2">Para mostrar fechas y horas de tu ubicación es necesario saber la zona horaria.</Resource>
     <Resource tag="TITLE">Editar perfil</Resource>
-    <Resource tag="WARN_BIGFILE">El tamaño de la imagen no puede ser mayor que {0} bytes.</Resource>
-    <Resource tag="WARN_FILESIZE">El tamaño de su imagen era de {0} bytes.</Resource>
-    <Resource tag="WARN_RESIZED">La imagen fue modificada.</Resource>
-    <Resource tag="WARN_SIZE">El tamaño de su imagen era de {0}x{1} pixeles.</Resource>
-    <Resource tag="WARN_TOOBIG">El tamaño máximo de la imagen es de {0}x{1} pixeles.</Resource>
     <Resource tag="WEBLOG2">Tu blog:</Resource>
     <Resource tag="WHERE">¿Donde vives?</Resource>
   </page>
@@ -264,33 +251,33 @@
     <Resource tag="SENTITEMS">Elementos enviados</Resource>
   </page>
   <page name="CP_PM">
-    <Resource tag="ARCHIVE">Archive</Resource>
-    <Resource tag="ARCHIVESELECTED">Archive Selected</Resource>
-    <Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
-    <Resource tag="DATE">Date</Resource>
-    <Resource tag="DELETESELECTED">Delete Selected</Resource>
-    <Resource tag="FROM">From</Resource>
-    <Resource tag="INBOX">Inbox</Resource>
-    <Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
-    <Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
-    <Resource tag="MSG_DELETED">Message was deleted.</Resource>
-    <Resource tag="MSGDELETED1">1 message was deleted.</Resource>
-    <Resource tag="MSGDELETED2">{0} messages were deleted.</Resource>
-    <Resource tag="NEW_MESSAGE">New Message</Resource>
-    <Resource tag="NO_MESSAGES">No messages were found.</Resource>
-    <Resource tag="POSTED">Posted:</Resource>
-    <Resource tag="SENTITEMS">Sent Items</Resource>
-    <Resource tag="SUBJECT">Subject</Resource>
-    <Resource tag="TITLE">Private Messages</Resource>
-    <Resource tag="TO">To</Resource>
+    <Resource tag="ARCHIVE">Archivo</Resource>
+    <Resource tag="ARCHIVESELECTED">Archivar Seleccionado</Resource>
+    <Resource tag="CONFIRM_DELETE">Elimiar todos los mensajes seleccionados?</Resource>
+    <Resource tag="DATE">Fecha</Resource>
+    <Resource tag="DELETESELECTED">Eliminar Seleccionado</Resource>
+    <Resource tag="FROM">De</Resource>
+    <Resource tag="INBOX">Bandeja de entrada</Resource>
+    <Resource tag="MSG_ARCHIVED">Mensaje archivado.</Resource>
+    <Resource tag="MSG_ARCHIVED+">{0} mensajes archivados.</Resource>
+    <Resource tag="MSG_DELETED">Mensaje eliminado.</Resource>
+    <Resource tag="MSGDELETED1">1 mensaje fue eliminado.</Resource>
+    <Resource tag="MSGDELETED2">{0} mensajes fueron eliminados.</Resource>
+    <Resource tag="NEW_MESSAGE">Nuevo mensaje</Resource>
+    <Resource tag="NO_MESSAGES">No se encontraron mensajes.</Resource>
+    <Resource tag="POSTED">Posteado:</Resource>
+    <Resource tag="SENTITEMS">Mensajes enviados</Resource>
+    <Resource tag="SUBJECT">Asunto</Resource>
+    <Resource tag="TITLE">Mensajes privado</Resource>
+    <Resource tag="TO">Para</Resource>
   </page>
   <page name="CP_PROFILE">
     <Resource tag="ARCHIVE">Archive</Resource>
-    <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
+    <Resource tag="CHANGE_PASSWORD">Cambiar clave</Resource>
     <Resource tag="CONTROL_PANEL">Panel de control</Resource>
-    <Resource tag="EDIT_AVATAR">Modify Avatar</Resource>
+    <Resource tag="EDIT_AVATAR">Modificar Avatar</Resource>
     <Resource tag="EDIT_PROFILE">Editar perfil</Resource>
-    <Resource tag="EDIT_SIGNATURE">Edit Signature</Resource>
+    <Resource tag="EDIT_SIGNATURE">Editar Firma</Resource>
     <Resource tag="GROUPS">Eres miembro de estos grupos:</Resource>
     <Resource tag="INBOX">Bandeja de entrada</Resource>
     <Resource tag="JOINED">Eres miembro desde:</Resource>
@@ -316,45 +303,44 @@
     <Resource tag="LASTPOSTLINK">{0} por {1}</Resource>
     <Resource tag="REPLIES">Respuestas</Resource>
     <Resource tag="TITLE">Subscripciones</Resource>
-    <Resource tag="TOPIC">Hilo</Resource>
-    <Resource tag="TOPICS">Hilos</Resource>
+    <Resource tag="TOPIC">Tema</Resource>
+    <Resource tag="TOPICS">Temas</Resource>
     <Resource tag="UNSUBSCRIBE">Cancelar subscripción</Resource>
     <Resource tag="VIEWS">Lecturas</Resource>
     <Resource tag="WARN_SELECTFORUMS">Por favor escoje los foros para cancelar subscripción primero.</Resource>
-    <Resource tag="WARN_SELECTTOPICS">Por favor escoje los hilos para cancelar subscripción primero.</Resource>
+    <Resource tag="WARN_SELECTTOPICS">Por favor escoje los temas para cancelar subscripción primero.</Resource>
   </page>
   <page name="DEFAULT">
-    <Resource tag="ACTIVE_DISCUSSIONS">Active Discussions</Resource>
+    <Resource tag="ACTIVE_DISCUSSIONS">Discusiones activas</Resource>
     <Resource tag="ACTIVE_USERS">Usuarios activos</Resource>
     <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} usuario activo</Resource>
     <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} usuarios activos</Resource>
     <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} visitante</Resource>
     <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} visitantes</Resource>
-    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} ocultos</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} miembro</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} miembros</Resource>
     <Resource tag="BY">por {0}</Resource>
     <Resource tag="CURRENT_TIME">Hora actual: {0}.</Resource>
-    <Resource tag="ERROR_NOFORUMACCESS">No tienes acceso al foro solicitado.</Resource>
     <Resource tag="FORUM">Foro</Resource>
     <Resource tag="GO_LAST_POST">Ir al último mensaje</Resource>
     <Resource tag="IN">en {0}</Resource>
     <Resource tag="INFORMATION">Información</Resource>
     <Resource tag="LAST_VISIT">Ultima visita: {0}.</Resource>
     <Resource tag="LASTPOST">Ultimo mensaje</Resource>
-    <Resource tag="LATEST_POSTS">Latest Posts</Resource>
+    <Resource tag="LATEST_POSTS">Últimos temas</Resource>
     <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
-    <Resource tag="MARKALL">Marcar todos los hilos como leídos</Resource>
+    <Resource tag="MARKALL">Marcar todos los temas como leídos</Resource>
     <Resource tag="MODERATORS">Moderadorers</Resource>
-    <Resource tag="NO_FORUM_ACCESS">(No Access)</Resource>
+    <Resource tag="NO_FORUM_ACCESS">No tienes acceso al foro solicitado.</Resource>
     <Resource tag="NO_POSTS">No hay mensajes</Resource>
     <Resource tag="POSTS">Mensajes</Resource>
     <Resource tag="STATS">Estadísticas</Resource>
-    <Resource tag="STATS_LASTMEMBER">El miembro mas reciente es {0}.</Resource>
-    <Resource tag="STATS_LASTPOST">Ultimo mensaje el {0} por {1}.</Resource>
+    <Resource tag="STATS_LASTMEMBER">El miembro mas reciente es </Resource>
+    <Resource tag="STATS_LASTPOST">Ultimo mensaje {0} por</Resource>
     <Resource tag="STATS_MEMBERS">Hay {0:N0} miembros registrados.</Resource>
-    <Resource tag="STATS_POSTS">Hay {0:N0} mensajes en {1:N0} hilos en {2:N0} foros.</Resource>
-    <Resource tag="TOPICS">Hilos</Resource>
+    <Resource tag="STATS_POSTS">Hay {0:N0} mensajes en {1:N0} temas en {2:N0} foros.</Resource>
+    <Resource tag="TOPICS">Temas</Resource>
     <Resource tag="UNREAD0">Tienes {0} mensajes no leídos en tu bandeja de entrada.</Resource>
     <Resource tag="UNREAD1">Tienes {0} mensaje no leído en tu bandeja de entrada.</Resource>
     <Resource tag="VIEWING">({0} Navegando)</Resource>
@@ -386,7 +372,7 @@
   <page name="ICONLEGEND">
     <Resource tag="ANNOUNCEMENT">Anuncio</Resource>
     <Resource tag="ANNOUNCEMENT_NEW">Anuncio (Nuevos mensajes)</Resource>
-    <Resource tag="FORUM_LOCKED">Hilo cerrado</Resource>
+    <Resource tag="FORUM_LOCKED">Tema cerrado</Resource>
     <Resource tag="MOVED">Movido</Resource>
     <Resource tag="NEW_POSTS">Nuevos mensajes</Resource>
     <Resource tag="NEW_POSTS_LOCKED">Nuevos mensajes (Cerrado)</Resource>
@@ -414,28 +400,28 @@
     <Resource tag="TITLE">ICQ</Resource>
   </page>
   <page name="IM_SKYPE">
-    <Resource tag="TITLE">Skype(tm) Calling</Resource>
+    <Resource tag="TITLE">Skype(tm) Llamando</Resource>
   </page>
   <page name="IM_YIM">
     <Resource tag="TITLE">Yahoo! Messenger</Resource>
   </page>
   <page name="INFO">
-    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+    <Resource tag="ACCESSDENIED">Has entrado a un área a la que no tienes acceso.</Resource>
     <Resource tag="CONTINUE">Continuar...</Resource>
-    <Resource tag="DISABLED">The administrator of this forum has disabled this feature.</Resource>
-    <Resource tag="EXCEPTION">You are logged in as</Resource>
-    <Resource tag="FAILURE">There's been a system error processing your request. Please contact the forum admin explaining what you were doing when it happened.</Resource>
-    <Resource tag="INVALID">You've passed an invalid value to the forum.</Resource>
+    <Resource tag="DISABLED">El administrador del foro ha deshabilitado esta caracteristica.</Resource>
+    <Resource tag="EXCEPTION">Estas identificado como</Resource>
+    <Resource tag="FAILURE">Ha habido un error de sistema procesando su peticion. Por favor pongase en contacto con el administrador explicandole lo que paso.</Resource>
+    <Resource tag="INVALID">HA enviado un valor erroneo al foro.</Resource>
     <Resource tag="MODERATED">Cómo has puesto tu mensaje en un foro moderado, debes ser aprobado por un moderador antes de que se haga visible.</Resource>
-    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
+    <Resource tag="REGISTRATION">Se ha enviado un e-mail a la dirección de correo que has suministrado. Por favor, sigue las instrucciones del correo para acceder al foro.</Resource>
     <Resource tag="SUSPENDED">Tu cuenta se ha suspendido temporalmente. La suspensión finalizara en {0}.</Resource>
-    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
-    <Resource tag="TITLE_EXCEPTION">Information</Resource>
-    <Resource tag="TITLE_FAILURE">Failure</Resource>
-    <Resource tag="TITLE_INVALID">Invalid</Resource>
-    <Resource tag="TITLE_MODERATED">Information</Resource>
-    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
-    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Acceso Denegado</Resource>
+    <Resource tag="TITLE_EXCEPTION">Informacion</Resource>
+    <Resource tag="TITLE_FAILURE">Falla</Resource>
+    <Resource tag="TITLE_INVALID">Invalido</Resource>
+    <Resource tag="TITLE_MODERATED">Informacion</Resource>
+    <Resource tag="TITLE_REGISTRATION">Gracias</Resource>
+    <Resource tag="TITLE_SUSPENDED">Suspendido</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
@@ -450,7 +436,7 @@
     <Resource tag="PASSWORD">Contraseña:</Resource>
     <Resource tag="PASSWORD_ERROR">El usuario o contraseña es incorrecto. Intentalo de nuevo.</Resource>
     <Resource tag="RECOVER">Recuperar contraseña</Resource>
-    <Resource tag="RECOVER_ERROR">There was an error when creating your new password.</Resource>
+    <Resource tag="RECOVER_ERROR">Hubo un error creando tu nueva contraseña.</Resource>
     <Resource tag="SENDPASSWORD">Enviar contraseña</Resource>
     <Resource tag="TITLE">Iniciar sesión</Resource>
     <Resource tag="USERNAME">Usuario:</Resource>
@@ -476,8 +462,8 @@
     <Resource tag="ACCEPTED">Aceptado</Resource>
     <Resource tag="ACCESSMASK">Máscara de acceso</Resource>
     <Resource tag="BY">por {0}</Resource>
-    <Resource tag="CONFIRM_DELETE">¿Eliminar este hilo?</Resource>
-    <Resource tag="DELETED">Hilo eliminado.</Resource>
+    <Resource tag="CONFIRM_DELETE">¿Eliminar este tema?</Resource>
+    <Resource tag="DELETED">Tema eliminado.</Resource>
     <Resource tag="EDIT">Editar</Resource>
     <Resource tag="INVITE">Invitar usuario</Resource>
     <Resource tag="LASTPOST">Ultimo mensaje</Resource>
@@ -486,16 +472,16 @@
     <Resource tag="REMOVE">Eliminar</Resource>
     <Resource tag="REPLIES">Respuestas</Resource>
     <Resource tag="TITLE">Moderar</Resource>
-    <Resource tag="TOPIC_STARTER">Iniciador de hilo</Resource>
-    <Resource tag="TOPICS">Hilos</Resource>
+    <Resource tag="TOPIC_STARTER">Iniciador de tema</Resource>
+    <Resource tag="TOPICS">Temas</Resource>
     <Resource tag="USER">Usuario</Resource>
     <Resource tag="VIEWS">Lecturas</Resource>
   </page>
   <page name="MODERATE_DEFAULT">
     <Resource tag="CATEGORY">Categoría</Resource>
     <Resource tag="FORUM">Foro</Resource>
-    <Resource tag="REPORTED">Reported as Abuse Posts</Resource>
-    <Resource tag="REPORTEDSPAM">Reported as Spam Posts</Resource>
+    <Resource tag="REPORTED">Reportados como mensajes abusivos</Resource>
+    <Resource tag="REPORTEDSPAM">Reportados como mensajes Spam</Resource>
     <Resource tag="TITLE">Moderar</Resource>
     <Resource tag="UNAPPROVED">Mensajes sin aprobar</Resource>
   </page>
@@ -503,14 +489,14 @@
     <Resource tag="APPROVE">Aprobar mensaje</Resource>
     <Resource tag="APPROVED">Mensaje aprobado.</Resource>
     <Resource tag="ASK_DELETE">¿Eliminar este mensaje?</Resource>
-    <Resource tag="COPYOVER">Update message text</Resource>
+    <Resource tag="COPYOVER">Actualizar texto del mensaje</Resource>
     <Resource tag="DELETE">Eliminar mensaje</Resource>
     <Resource tag="DELETED">Mensaje eliminado.</Resource>
-    <Resource tag="MODIFIED">Post has been changed!</Resource>
-    <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
-    <Resource tag="RESOLVE">Resolve Post Copies</Resource>
-    <Resource tag="RESOLVED">Mark as resolved</Resource>
-    <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
+    <Resource tag="MODIFIED">Mensaje cambiado!</Resource>
+    <Resource tag="NUMBERREPORTED">Numero de veces reportado :</Resource>
+    <Resource tag="RESOLVE">Resolver copias de mensaje</Resource>
+    <Resource tag="RESOLVED">Marcar como resuelto</Resource>
+    <Resource tag="RESOLVEDFEEDBACK">Mensaje marcado como resuelto.</Resource>
     <Resource tag="TOP">Volver arriba</Resource>
     <Resource tag="UNAPPROVED">Mensajes sin aprobar</Resource>
   </page>
@@ -524,36 +510,36 @@
     <Resource tag="SELECT_TOPIC_MOVETO">Select Topic to move to:</Resource>
   </page>
   <page name="MOVETOPIC">
-    <Resource tag="LEAVE_POINTER">Leave link to moved topic in original forum</Resource>
-    <Resource tag="MOVE">Mover hilo</Resource>
+    <Resource tag="LEAVE_POINTER">Deje liga a tema movido en el foro original</Resource>
+    <Resource tag="MOVE">Mover tema</Resource>
     <Resource tag="SELECT_FORUM">Elije el foro al que quieres mover el mensaje:</Resource>
-    <Resource tag="TITLE">Mover hilo</Resource>
+    <Resource tag="TITLE">Mover tema</Resource>
   </page>
   <page name="PMESSAGE">
     <Resource tag="ALLUSERS">Todos los usuarios</Resource>
-    <Resource tag="CLEAR">Clear</Resource>
+    <Resource tag="CLEAR">Limpiar</Resource>
     <Resource tag="FINDUSERS">Buscar usuario</Resource>
-    <Resource tag="MAX_RECIPIENT_INFO">You can send message to maximum of [b]{0}[/b] users at a time.</Resource>
+    <Resource tag="MAX_RECIPIENT_INFO">Puede mandar mensajes a un maximo de [b]{0}[/b] usuarios a la vez.</Resource>
     <Resource tag="MESSAGE">Mensaje:</Resource>
-    <Resource tag="MULTI_RECEIVER_INFO">Separate multiple user names with ';'</Resource>
+    <Resource tag="MULTI_RECEIVER_INFO">Separe nombres de usuarios con ';'</Resource>
     <Resource tag="NEED_MESSAGE">No has escrit nada en el asunto.</Resource>
-    <Resource tag="NEED_MORE_LETTERS">Please enter, at least, the first two letters of the user you wish to locate.</Resource>
+    <Resource tag="NEED_MORE_LETTERS">Por favor teclee, al menos, las dos primeras letreas del usuario que desea localizar.</Resource>
     <Resource tag="NEED_SUBJECT">Debes ingresar un asunto.</Resource>
     <Resource tag="NEED_TO">No has dicho para quien es el mensaje.</Resource>
     <Resource tag="NO_SUCH_USER">No existe el usuario.</Resource>
     <Resource tag="NOT_GUEST">No puedes enviar mensajes privados a inbitado.</Resource>
-    <Resource tag="OWN_PMBOX_FULL">Your Private Message box is full. Maximum allowed is {0}. Please delete messages to free up space.</Resource>
+    <Resource tag="OWN_PMBOX_FULL">Su bandeja de entrada de mensajes privados esta llena. El maximo permitido es {0}. Por favor borre mensajes para liberar espacio.</Resource>
     <Resource tag="PREVIEWTITLE">Vista previa:</Resource>
-    <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="RECIPIENTS_PMBOX_FULL">El usuario {0} tiene su bandeja de entrada de mensajes privados llena. Lo sentimos, no recibira su mensaje privado hasta que libere espacio.</Resource>
     <Resource tag="SAVE">Enviar</Resource>
     <Resource tag="SUBJECT">Asunto:</Resource>
     <Resource tag="TITLE">Enviar mensaje privado</Resource>
     <Resource tag="TO">Para:</Resource>
-    <Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
+    <Resource tag="TOO_MANY_RECIPIENTS">Demasiados usuarios. El maximo permitido es {0}.</Resource>
   </page>
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Anuncio</Resource>
-    <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="ASK_POLL_DELETE">De verdad desea remover la encuesta de este tema?</Resource>
     <Resource tag="CHOICE1">Opción 1:</Resource>
     <Resource tag="CHOICE2">Opción 2:</Resource>
     <Resource tag="CHOICE3">Opción 3:</Resource>
@@ -564,41 +550,41 @@
     <Resource tag="CHOICE8">Opción 8:</Resource>
     <Resource tag="CHOICE9">Opción 9:</Resource>
     <Resource tag="CREATEPOLL">Crear encuesta</Resource>
-    <Resource tag="EDIT">Edit post</Resource>
-    <Resource tag="EDITREASON">Reason for edit:</Resource>
+    <Resource tag="EDIT">Editar mensaje</Resource>
+    <Resource tag="EDITREASON">Razon para editar:</Resource>
     <Resource tag="FROM">De:</Resource>
     <Resource tag="LAST10">Ultimos 10 mensajes (en orden inverso)</Resource>
     <Resource tag="MESSAGE">Mensaje:</Resource>
     <Resource tag="NEED_CHOICES">Una encuesta debe tenes al menos dos opciones.</Resource>
     <Resource tag="NEED_QUESTION">Debes ingresar una pregunta de encuesta.</Resource>
     <Resource tag="NEED_SUBJECT">Debes ingresar un asunto para el mensaje.</Resource>
-    <Resource tag="NEWPOSTOPTIONS">Options:</Resource>
-    <Resource tag="NEWTOPIC">Iniciar nuevo hilo</Resource>
+    <Resource tag="NEWPOSTOPTIONS">Opciones:</Resource>
+    <Resource tag="NEWTOPIC">Iniciar nuevo tema</Resource>
     <Resource tag="NORMAL">Normal</Resource>
-    <Resource tag="PERSISTENCY">Persistent:</Resource>
-    <Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
-    <Resource tag="POLL_EXPIRE">Run Poll For:</Resource>
-    <Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank to never expire ]</Resource>
+    <Resource tag="PERSISTENCY">Persistente:</Resource>
+    <Resource tag="PERSISTENCY_INFO">Temas persistente no son depurados</Resource>
+    <Resource tag="POLL_EXPIRE">Mantener la encuesta por:</Resource>
+    <Resource tag="POLL_EXPIRE_EXPLAIN">[b]Días[/b] [ Dejar en blanco para una encuesta que no se termine nunca ]</Resource>
     <Resource tag="POLLQUESTION">Pregunta de encuesta:</Resource>
     <Resource tag="POSTED">Publicado:</Resource>
-    <Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
+    <Resource tag="POSTTOBLOG_FAILED">A ocurrido un error al postear su. Tal vez fallo su autentificacion.</Resource>
     <Resource tag="PREVIEW">Vista previa</Resource>
     <Resource tag="PREVIEWTITLE">Vista previa:</Resource>
     <Resource tag="PRIORITY">Priordad:</Resource>
-    <Resource tag="REMOVEPOLL">Remove Poll</Resource>
+    <Resource tag="REMOVEPOLL">Remover encuesta</Resource>
     <Resource tag="REPLY">Responder</Resource>
     <Resource tag="SAVE">Enviar</Resource>
-    <Resource tag="SMILIES_HEADER">[b]Add Smiley[/b]</Resource>
-    <Resource tag="SMILIES_MORE">More Smilies...</Resource>
+    <Resource tag="SMILIES_HEADER">[b]Añadir emoticono[/b]</Resource>
+    <Resource tag="SMILIES_MORE">Más caritas...</Resource>
     <Resource tag="STICKY">Pegajoso</Resource>
     <Resource tag="SUBJECT">Asunto:</Resource>
-    <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
-    <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
+    <Resource tag="TOPICATTACH">¿Añadir archivos a este mensaje?</Resource>
+    <Resource tag="TOPICWATCH">¿Vigilar este tema y recibir notificaciones de actividad vía e-mail?</Resource>
     <Resource tag="WAIT">No puedes ingresar mensajes en los próximos {0:N0} segundos.</Resource>
   </page>
   <page name="POSTS">
     <Resource tag="AD_SIGNATURE" />
-    <Resource tag="AD_USERNAME">Sponsor</Resource>
+    <Resource tag="AD_USERNAME">Publicidad</Resource>
     <Resource tag="AIM">AIM</Resource>
     <Resource tag="ATTACHMENTINFO">{0:N0} KB, descargado {1:N0} veces.</Resource>
     <Resource tag="ATTACHMENTS">Adjuntos:</Resource>
@@ -606,85 +592,85 @@
     <Resource tag="CHOICE">Opción</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">¿Eliminar este mensaje?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">¿Eliminar este hilo?</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
-    <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
-    <Resource tag="EDIT_REASON">Reason</Resource>
-    <Resource tag="EDIT_REASON_NA">Not specified</Resource>
-    <Resource tag="EDITED">Edit</Resource>
-    <Resource tag="EDITED_BY_MOD">by moderator</Resource>
-    <Resource tag="EDITED_BY_USER">by user</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">¿Eliminar este tema?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Seguro desea reportar este mensaje como abusivo?</Resource>
+    <Resource tag="CONFIRM_REPORTSPAM">Seguro desea reportar este mensaje como SPAM?</Resource>
+    <Resource tag="EDIT_REASON">Razon</Resource>
+    <Resource tag="EDIT_REASON_NA">No especificada</Resource>
+    <Resource tag="EDITED">Editar</Resource>
+    <Resource tag="EDITED_BY_MOD">por moderador</Resource>
+    <Resource tag="EDITED_BY_USER">por usuario</Resource>
     <Resource tag="EMAIL">EMail</Resource>
-    <Resource tag="EMAILTOPIC">Enviar correo de este hilo</Resource>
-    <Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+    <Resource tag="EMAILTOPIC">Enviar correo de este tema</Resource>
+    <Resource tag="EMPTY_MESSAGE">Debe escribir algo en su mensaje.</Resource>
     <Resource tag="FORUM_JUMP">Salto de foro</Resource>
     <Resource tag="GROUPS">Grupos</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} attached the following image(s):</Resource>
+    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} adjuntó la(s) siguiente(s) imágene(s):</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
     <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
     <Resource tag="IMAGE_TEXT">Image</Resource>
-    <Resource tag="INFO_NOMORETOPICS">No hay mas hilos en este foro.</Resource>
-    <Resource tag="INFO_TOPIC_LOCKED">El hilo estaba cerrado.</Resource>
-    <Resource tag="INFO_TOPIC_UNLOCKED">El hilo no estaba cerrado.</Resource>
-    <Resource tag="INFO_UNWATCH_TOPIC">You will no longer be notified when new posts are made in this topic.</Resource>
+    <Resource tag="INFO_NOMORETOPICS">No hay mas temas en este foro.</Resource>
+    <Resource tag="INFO_TOPIC_LOCKED">El tema se ha bloqueado.</Resource>
+    <Resource tag="INFO_TOPIC_UNLOCKED">El tema ha desbloqueado.</Resource>
+    <Resource tag="INFO_UNWATCH_TOPIC">Ya no se te notificará cuando haya nuevos mensajes en este tema.</Resource>
     <Resource tag="INFO_VOTED">¡Gracias por tu voto!</Resource>
-    <Resource tag="INFO_WATCH_TOPIC">Desde ahora serás notificado al recibir nuevos mensajes en este hilo.</Resource>
+    <Resource tag="INFO_WATCH_TOPIC">Desde ahora serás notificado al recibir nuevos mensajes en este tema.</Resource>
     <Resource tag="IP">IP</Resource>
     <Resource tag="JOINED">Registrado</Resource>
     <Resource tag="LOCATION">Ubicación</Resource>
-    <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>
-    <Resource tag="MESSAGEDELETED_USER">Message was deleted by User.</Resource>
+    <Resource tag="MESSAGEDELETED_MOD">Mensaje eliminado por el Moderador.</Resource>
+    <Resource tag="MESSAGEDELETED_USER">Mensaje eliminado por el usuario.</Resource>
     <Resource tag="MSN">MSN</Resource>
-    <Resource tag="NEXTTOPIC">Hilo siguiente</Resource>
+    <Resource tag="NEXTTOPIC">Tema siguiente</Resource>
     <Resource tag="NORMAL">Normal</Resource>
-    <Resource tag="OPTIONS">Options</Resource>
+    <Resource tag="OPTIONS">Opciones</Resource>
     <Resource tag="PM">MP</Resource>
-    <Resource tag="POINTS">Points</Resource>
-    <Resource tag="POLL_CLOSED">(Poll is closed)</Resource>
-    <Resource tag="POST_REPLY">Post Reply</Resource>
+    <Resource tag="POINTS">Puntos</Resource>
+    <Resource tag="POLL_CLOSED">(La encuesta ha finalizado)</Resource>
+    <Resource tag="POST_REPLY">Responder</Resource>
     <Resource tag="POSTED">Publicado</Resource>
     <Resource tag="POSTS">Mensajes</Resource>
-    <Resource tag="PREVTOPIC">Hilo anterior</Resource>
-    <Resource tag="PRINTTOPIC">Imprimir este hilo</Resource>
+    <Resource tag="PREVTOPIC">Tema anterior</Resource>
+    <Resource tag="PRINTTOPIC">Imprimir este tema</Resource>
     <Resource tag="QUESTION">Pregunta de encuesta</Resource>
-    <Resource tag="QUICKREPLY">Quick Reply</Resource>
-    <Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
-    <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
+    <Resource tag="QUICKREPLY">Respuesta Rápida</Resource>
+    <Resource tag="QUICKREPLY_HIDE">Ocultar Respuesta Rápida</Resource>
+    <Resource tag="QUICKREPLY_SHOW">Mostrar Respuesta Rápida</Resource>
     <Resource tag="RANK">Posición</Resource>
-    <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
-    <Resource tag="REPORTPOST">Report Abusive</Resource>
-    <Resource tag="REPORTSPAM">Report SPAM</Resource>
+    <Resource tag="REPORTEDFEEDBACK">Gracias por reportar este mensaje.</Resource>
+    <Resource tag="REPORTPOST">Reportar Abuso</Resource>
+    <Resource tag="REPORTSPAM">Reportar SPAM</Resource>
     <Resource tag="RSSTOPIC">RSS</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Estadísticas</Resource>
-    <Resource tag="THREADED">Por hilos</Resource>
-    <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
-    <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
-    <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
-    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
-    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
-    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
-    <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
-    <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
-    <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+    <Resource tag="THREADED">Por temas</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Eliminar este tema</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Bloquear este tema</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Mover este tema</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Nuevo tema</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Responder</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Desbloquear este tema</Resource>
+    <Resource tag="TOGGLEPOST">Muestra/Oculta Mensaje</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_HIDE">Oculta mensajes de usuario</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_SHOW">Muestra mensajes de usuario</Resource>
     <Resource tag="TOP">Volver arriba</Resource>
-    <Resource tag="TOPICBROWSERS">Usuarios navegando este hilo</Resource>
+    <Resource tag="TOPICBROWSERS">Usuarios navegando este tema</Resource>
     <Resource tag="TOTAL">Total</Resource>
-    <Resource tag="UNWATCHTOPIC">Unwatch this topic</Resource>
-    <Resource tag="USERPROFILE">User Profile</Resource>
-    <Resource tag="VIEW">View</Resource>
+    <Resource tag="UNWATCHTOPIC">Dejar de vigilar este tema</Resource>
+    <Resource tag="USERPROFILE">Perfil de usuario</Resource>
+    <Resource tag="VIEW">Ver</Resource>
     <Resource tag="VOTES">Votos</Resource>
     <Resource tag="WARN_ALREADY_VOTED">Ya votaste antes.</Resource>
     <Resource tag="WARN_EMAILLOGIN">Debes estar registrado para enviar correos.</Resource>
-    <Resource tag="WARN_FORUM_LOCKED">El foro está cerrado.</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">El foro está bloqueado.</Resource>
     <Resource tag="WARN_PMLOGIN">Debe iniciar sesión para enviar mensajes privados.</Resource>
-    <Resource tag="WARN_POLL_CLOSED">Poll is closed.</Resource>
-    <Resource tag="WARN_TOPIC_LOCKED">El hilo está cerrado.</Resource>
-    <Resource tag="WARN_WATCHLOGIN">Debes estar registrado para vigilar hilos.</Resource>
-    <Resource tag="WATCHTOPIC">Vigilar este hilo</Resource>
+    <Resource tag="WARN_POLL_CLOSED">La encuesta ha finalizado.</Resource>
+    <Resource tag="WARN_TOPIC_LOCKED">El tema está bloqueado.</Resource>
+    <Resource tag="WARN_WATCHLOGIN">Debes estar registrado para vigilar temas.</Resource>
+    <Resource tag="WATCHTOPIC">Vigilar este tema</Resource>
     <Resource tag="YIM">YAHOO</Resource>
   </page>
   <page name="PRINTTOPIC">
@@ -692,7 +678,7 @@
   </page>
   <page name="PROFILE">
     <Resource tag="ABOUT">Acerca de</Resource>
-    <Resource tag="ADMIN_USER">Admin User</Resource>
+    <Resource tag="ADMIN_USER">Usuario Admin</Resource>
     <Resource tag="AIM">Nombre AIM:</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="CONTACT">Contacto</Resource>
@@ -703,13 +689,13 @@
     <Resource tag="ERROR_FORUMMODERATORS">No puedes suspender moderadores.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">No puedes suspender al visitante.</Resource>
     <Resource tag="GENDER">Género:</Resource>
-    <Resource tag="GENDER0">Indeciso</Resource>
+    <Resource tag="GENDER0">No Especificado</Resource>
     <Resource tag="GENDER1">Masculino</Resource>
     <Resource tag="GENDER2">Femenino</Resource>
     <Resource tag="GROUPS">Grupos:</Resource>
     <Resource tag="HOURS">horas</Resource>
     <Resource tag="ICQ">Número ICQ:</Resource>
-    <Resource tag="INTERESTS">Intereses:</Resource>
+    <Resource tag="INTERESTS">Aficiones:</Resource>
     <Resource tag="JOINED">Registrado:</Resource>
     <Resource tag="LAST10">Ultimos 10 mensajes</Resource>
     <Resource tag="LASTVISIT">Ultima visita:</Resource>
@@ -719,73 +705,92 @@
     <Resource tag="NUMALL">{0:N2}% de todos los mensajes</Resource>
     <Resource tag="NUMDAY">{0:N2} mensajes por día</Resource>
     <Resource tag="NUMPOSTS">Número de mensajes:</Resource>
-    <Resource tag="OCCUPATION">Acupación:</Resource>
+    <Resource tag="OCCUPATION">Ocupación:</Resource>
     <Resource tag="PM">Mensaje privado:</Resource>
     <Resource tag="POSTED">Publicado:</Resource>
     <Resource tag="PROFILE">Perfil:</Resource>
     <Resource tag="RANK">Posición:</Resource>
     <Resource tag="REALNAME">Nombre verdadero:</Resource>
     <Resource tag="REMOVESUSPENSION">Eliminar suspensión</Resource>
-    <Resource tag="SEARCHUSER">View All Posts by User</Resource>
+    <Resource tag="SEARCHUSER">Ver todos los mensajes por usuario</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
     <Resource tag="STATISTICS">Estadísticas</Resource>
     <Resource tag="SUSPEND">Suspender</Resource>
-    <Resource tag="SUSPEND_USER">Suspend User:</Resource>
-    <Resource tag="TOPIC">Hilo:</Resource>
+    <Resource tag="SUSPEND_USER">Suspender usuario:</Resource>
+    <Resource tag="TOPIC">Tema:</Resource>
     <Resource tag="USERNAME">usuario:</Resource>
     <Resource tag="WEBLOG">Blog:</Resource>
     <Resource tag="WEBSITE">Página web:</Resource>
     <Resource tag="YIM">Yahoo Messenger:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">
-    <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
-    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
-    <Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
-    <Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
-    <Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name to retrieve your password:</Resource>
-    <Resource tag="PAGE2_INSTRUCTIONS">Answer the following question to receive your password:</Resource>
-    <Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
-    <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
-    <Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
-    <Resource tag="TITLE">Lost Password</Resource>
-    <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED">Su cuenta no ha sido aprobada por el administrador todavia. No puede cambiar su clave hasta que la cuenta este aprobada.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Su cuenta no ha sido aprobada porque no ha validado su cuenta de correo. Un nuevo correo de validacion ha sido enviado a {0}. Por favor valide su cuebta de correo para poder iniciar sesion.</Resource>
+    <Resource tag="GENERAL_FAILURE">El intento de recuperar su clave nueva fallo.</Resource>
+    <Resource tag="IDENTITY_CONFIRMATION_TITLE">Confirmacion de identidad para solicitar clave nueva</Resource>
+    <Resource tag="PAGE1_INSTRUCTIONS">Teclee el nombre de usuario para recuperar clave:</Resource>
+    <Resource tag="PAGE2_INSTRUCTIONS">Conteste la siguiente pregunta para recibir su clave nueva:</Resource>
+    <Resource tag="PASSWORD_SENT">Su clave nueva fue enviada a su cuenta de correo.</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Recuperacion de clave del foro {0} </Resource>
+    <Resource tag="QUESTION_FAILURE">Su respuesta no pudo ser verificada, trate de nuevo por favor.</Resource>
+    <Resource tag="TITLE">Clave olvidada</Resource>
+    <Resource tag="USERNAME_FAILURE">No se pudo encontrar el usuario tecleado.</Resource>
   </page>
   <page name="REGISTER">
-    <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
-    <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
+    <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Su cuenta ha sido creada.[/center]</Resource>
+    <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Su cuenta ha sido creada, sin embargo, aun necesita confirmar su cuenta de correo antes de iniciar sesion. Por favor revise sus correos para leer las instrucciones de verificacion.[/center]</Resource>
+    <Resource tag="ALREADY_REGISTERED">El nombre de usuario o la cuenta de correo ya esta registrada.</Resource>
+    <Resource tag="BAD_EMAIL">La cuenta de correo es incorrecta.</Resource>
+    <Resource tag="BAD_PASSWORD">Por favor elija una calve más compleja que incluya caracteres de puntuacion (!?) o numeros.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirmar clave</Resource>
+    <Resource tag="CONTINUE">Continuar</Resource>
+    <Resource tag="CREATE_USER">Crear usuario</Resource>
+    <Resource tag="DETAILS">Detalles de registro</Resource>
+    <Resource tag="EMAIL">Direccion de correo (Email)</Resource>
+    <Resource tag="HOMEPAGE">Pagina de inicio (web)</Resource>
+    <Resource tag="INVALID_ANSWER">Por favor elija una respuesta diferente.</Resource>
+    <Resource tag="INVALID_QUESTION">Por favor elija una pregunta diferente.</Resource>
+    <Resource tag="INVALID_USERNAME">Por favor escoja un nombre de usuario diferente.</Resource>
+    <Resource tag="LOCATION">Ubicacion</Resource>
+    <Resource tag="NEED_ANSWER">Respuesta de seguridad requerida.</Resource>
+    <Resource tag="NEED_EMAIL">E-mail requerido.</Resource>
+    <Resource tag="NEED_MATCH">Claves no concuerdan.</Resource>
+    <Resource tag="NEED_PASSWORD">Clave requerida.</Resource>
+    <Resource tag="NEED_QUESTION">Pregunta de seguridad requerida.</Resource>
+    <Resource tag="NEED_USERNAME">Nombre de usuario requerido.</Resource>
+    <Resource tag="PASSWORD">Clave</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PREFERENCES">Preferencias del foro</Resource>
+    <Resource tag="PROFILE">Informacion del perfil</Resource>
+    <Resource tag="REGISTER">Registro</Resource>
+    <Resource tag="RETYPE_PASSWORD">Confirmacion de clave requerida.</Resource>
+    <Resource tag="SECURITY_ANSWER">Respuesta de seguridad</Resource>
+    <Resource tag="SECURITY_QUESTION">Pregunta de seguridad</Resource>
+    <Resource tag="TERMS_AND_CONDITIONS_TITLE">Terminos y condiciones</Resource>
+    <Resource tag="TIMEZONE">Zona horaria</Resource>
+    <Resource tag="TITLE">Registro de usuario nuevo</Resource>
+    <Resource tag="USERNAME">Nombre de usuario (nick)</Resource>
+    <Resource tag="VERIFICATION_EMAIL_SUBJECT">Verificacion de registro para el foro {0} </Resource>
+  </page>
+  <page name="REGISTER">
     <Resource tag="ALREADY_REGISTERED">El nombre de usuario o correo electrónico ya ha sido registrado.</Resource>
     <Resource tag="BAD_EMAIL">Has ingresado un correo electrónico no válido.</Resource>
-    <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
-    <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
-    <Resource tag="CONTINUE">Continue</Resource>
-    <Resource tag="CREATE_USER">Create User</Resource>
     <Resource tag="DETAILS">Detalles de registro</Resource>
     <Resource tag="EMAIL">Correo electrónico</Resource>
     <Resource tag="HOMEPAGE">Página web</Resource>
-    <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
-    <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
-    <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
     <Resource tag="LOCATION">Ubicación</Resource>
-    <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
-    <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
     <Resource tag="NEED_MATCH">Las contraseñas no concuerdan.</Resource>
     <Resource tag="NEED_PASSWORD">La contraseña es reqerida.</Resource>
-    <Resource tag="NEED_QUESTION">Security question is required.</Resource>
     <Resource tag="NEED_USERNAME">El nombre de usuario es requerido</Resource>
     <Resource tag="PASSWORD">Contraseña</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
     <Resource tag="PREFERENCES">Preferencias</Resource>
     <Resource tag="PROFILE">Información de perfil</Resource>
     <Resource tag="REGISTER">Registrar</Resource>
     <Resource tag="RETYPE_PASSWORD">Confirmar contraseña</Resource>
-    <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
-    <Resource tag="SECURITY_QUESTION">Security Question</Resource>
-    <Resource tag="TERMS_AND_CONDITIONS_TITLE">Terms and Conditions</Resource>
     <Resource tag="TIMEZONE">Zona horaria</Resource>
     <Resource tag="TITLE">Registrar usuario nuevo</Resource>
     <Resource tag="USERNAME">Nombre de usuario</Resource>
-    <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Negrilla</Resource>
@@ -806,32 +811,32 @@
     <Resource tag="UNORDERED">Lista no ordenada</Resource>
   </page>
   <page name="RULES">
-    <Resource tag="ACCEPT">I agree to these Rules and Policies</Resource>
-    <Resource tag="DECLINE">I do not agree to these Rules and Policies</Resource>
+    <Resource tag="ACCEPT">Estoy de acuerdo con las reglas y politicas del foro</Resource>
+    <Resource tag="DECLINE">No estoy de acuerdo con las reglas y politicas del foro</Resource>
     <Resource tag="RULES_TEXT" editType="bbcode">
-      [size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
+			[size=5]Es imposible para los dueños y operadores de este foro confirmar la veracidad de todos los mensajes posteados. Los mensajes reflejan los puntos de vista y opiniones de sus autores, no necesariamente de los dueños y operadores del foro. Si siente que algun mensaje es cuestionable, lo animamos a notificar al administrador del mismo inmediatamente.
 
-      You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.
+			Esta de acuerdo en no postear material abusivo, vulgar, obsceno, odioso, calumniador, amenazante, orientado a lo sexual o cualquier otro material que viole las leyes actuales. Hacer eso puede conducir a que se le prohiba la entrada al foro permanentemente. Sepa que todas la direcciones IP se guardan en un archivo de registro que pueden ayudar a llevar a cabo estas condiciones.
 
-      You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot	be held responsible for any hacking attempt that may lead to the data being compromised.
+			Esta de acuerdo en que los dueños y operadores de este foro tienen el derecho de quitar, editar,  mover o cerrar cualquier tema en cualquier momento que crean conveniente.  Como usuario esta de acuerdo en que cualquier informacion que suministre sera guardada en una base de datos. Esta informacion NO sera compartida con terceros sin su concentimiento, por lo que los dueños y operadores del foro no pueden ser responsables de cualquier intento de hackeo, que lleve a la perdida de dicha informacion.
 
-      This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information	you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your	registration details and password (and for sending new passwords should you forget your current one).
+			Este foro usa 'galletas' (cookies) para guardar informacion en su computadora local. Estas 'galletas' no contiene ninguna informacion	 que ud. acaba de registrar; son usadas solo para mejor su comodidad. Su cuenta de correo es usada solo para confirmar su	datos de registro y clave (y para enviar claves nuevas si se le llegara a olvidar su clave actual).
 
-      You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.[/size]
+			Esta de acuerdo no usar ninguna herramienta automatizada para registrarse y/o postear en este foro. Al no cumplir esta regla, nos esta dando permiso para hacer un query repetidas veces a su servidor web.[/size]
 
-      [center][size=6][b]By clicking "Agree" below you will to be bound by the terms and conditions for using this forum.[/b][/size][/center]
-    </Resource>
-    <Resource tag="TITLE">Forum Rules and Policies</Resource>
+			[center][size=6][b]Al dar clic en "Estoy de acuerdo" abajo, confirma su aceptacion a los terminos y condiciones para usar este foro.[/b][/size][/center]
+		</Resource>
+    <Resource tag="TITLE">Reglas y politicas de foro</Resource>
   </page>
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Todos los foros</Resource>
     <Resource tag="BTNSEARCH">Buscar</Resource>
     <Resource tag="BY">por</Resource>
-    <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
+    <Resource tag="LOADING_SEARCH">Cargando resultados de busqueda...</Resource>
     <Resource tag="MATCH_ALL">Buscar todas las palabras</Resource>
     <Resource tag="MATCH_ANY">Buscar cualquier palabra</Resource>
     <Resource tag="MATCH_EXACT">Buscar frase exacta</Resource>
-    <Resource tag="NO_SEARCH_RESULTS">[b]No results found for search.[/b]</Resource>
+    <Resource tag="NO_SEARCH_RESULTS">[b]No se encontraron resultados para la búsqueda.[/b]</Resource>
     <Resource tag="POSTED">Publicado:</Resource>
     <Resource tag="POSTEDBY">Mensaje por</Resource>
     <Resource tag="POSTS">Mensaje</Resource>
@@ -840,156 +845,125 @@
     <Resource tag="RESULT5">5 resultados por página</Resource>
     <Resource tag="RESULT50">50 resultados por página</Resource>
     <Resource tag="RESULTS">Resultados</Resource>
-    <Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR">Texto de busqueda debe de al menos {0} caracteres de largo y de acuerdo a las reglas de foro para buscar (veas las PMF (preguntas mas frecuentes) del foro para mas informacion).</Resource>
     <Resource tag="TITLE">Buscar</Resource>
-    <Resource tag="TOPIC">Hilo:</Resource>
+    <Resource tag="TOPIC">Tema:</Resource>
   </page>
   <page name="SHOWSMILIES">
-    <Resource tag="CLOSE_WINDOW">Close Window</Resource>
-    <Resource tag="HEADER_CODE">Code</Resource>
-    <Resource tag="HEADER_MEANING">Meaning</Resource>
-    <Resource tag="HEADER_SMILE">Smile</Resource>
-    <Resource tag="TITLE">Available Smilies</Resource>
+    <Resource tag="CLOSE_WINDOW">Cerrar ventana</Resource>
+    <Resource tag="HEADER_CODE">Codigo</Resource>
+    <Resource tag="HEADER_MEANING">Significado</Resource>
+    <Resource tag="HEADER_SMILE">Cara</Resource>
+    <Resource tag="TITLE">Caritas disponibles</Resource>
   </page>
   <page name="TEMPLATES">
     <Resource tag="CHANGEEMAIL_HTML" editType="html">
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;title&gt;Change Email&lt;/title&gt;
-&lt;style type="text/css"&gt;
-&lt;!--
-.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
---&gt;
-&lt;/style&gt;
-&lt;/head&gt;&lt;body&gt;
-&lt;p class="style1"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
-&lt;p class="style1"&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
-&lt;p class="style1"&gt; Just confirm the change by clicking this link:&lt;/p&gt;
-&lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
-&lt;p class="style1"&gt; And enter approval key:&lt;/p&gt;
-&lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
-&lt;p class="style1"&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
-&lt;p class="style1"&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</Resource>
+			&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+			&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+			&lt;head&gt;
+			&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+			&lt;title&gt;Cambiar Email&lt;/title&gt;
+			&lt;style type="text/css"&gt;
+			&lt;!--
+			.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+			--&gt;
+			&lt;/style&gt;
+			&lt;/head&gt;&lt;body&gt;
+			&lt;p class="style1"&gt; Hola &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
+			&lt;p class="style1"&gt; Su petición de cambiar su direccion de correo a &lt;strong&gt;{newemail}&lt;/strong&gt; casi esta lista!&lt;/p&gt;
+			&lt;p class="style1"&gt; Solo confirme el cambio dando clic en esta liga:&lt;/p&gt;
+			&lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+			&lt;p class="style1"&gt; Y teclee el codigo de aprobacion:&lt;/p&gt;
+			&lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
+			&lt;p class="style1"&gt; Si Ud. no solicito un cambio de direccion de correo, solo ignore este correo.&lt;/p&gt;
+			&lt;p class="style1"&gt; &lt;b&gt;{forumname}&lt;/b&gt; en &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
+			&lt;/body&gt;
+			&lt;/html&gt;
+		</Resource>
     <Resource tag="CHANGEEMAIL_TEXT">
-Hello {user},
+			Hola {user},
 
-Your request to change your email address to {newemail} is almost complete!
+			Su petición de cambiar su direccion de correo a {newemail} casi esta lista!
 
-Just confirm the change by clicking this link:
+			Solo confirme el cambio dando clic en esta liga:
 
-{link}
+			{link}
 
-And enter approval key:
+			Y teclee el codigo de aprobacion:
 
-{key}
+			{key}
 
-If you did not request a change to your email address please simply ignore this email.
+			Si Ud. no solicito un cambio de direccion de correo, solo ignore este correo.
 
-{forumname} at {forumlink}
-</Resource>
+			{forumname} en {forumlink}
+		</Resource>
     <Resource tag="EMAILTOPIC">
-Hello!
+			Hola!
 
-{user} thought you might be interested in reading this:
+			{user} Pensamos que pudiera estar interesado en leer esto:
 
-{link}
-</Resource>
+			{link}
+		</Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;title&gt;Password Retrieval&lt;/title&gt;
-&lt;style type="text/css"&gt;
-&lt;!--
-.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
---&gt;
-&lt;/style&gt;
-&lt;/head&gt;&lt;body&gt;
-&lt;p class="style1"&gt; A new password has been generated for you on &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
-&lt;p class="style1"&gt; Please return to the site and log in using the following information:&lt;/p&gt;
-&lt;blockquote&gt;&lt;span class="style1"&gt;
-User Name: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
-Password: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</Resource>
+			&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+			&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+			&lt;head&gt;
+			&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+			&lt;title&gt;Password Retrieval&lt;/title&gt;
+			&lt;style type="text/css"&gt;
+			&lt;!--
+			.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+			--&gt;
+			&lt;/style&gt;
+			&lt;/head&gt;&lt;body&gt;
+			&lt;p class="style1"&gt; Una clave nueva ha sido generada para &lt;b&gt;{forumname}&lt;/b&gt; en &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+			&lt;p class="style1"&gt; Por favor vaya al foro e inicie sesion utilizando la siguiente informacion:&lt;/p&gt;
+			&lt;blockquote&gt;&lt;span class="style1"&gt;
+			Usuario: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
+			Clave: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
+			&lt;/body&gt;
+			&lt;/html&gt;
+		</Resource>
     <Resource tag="PASSWORDRETRIEVAL_TEXT">
-A new password has been generated for you on {forumname} at {forumlink}.
+			Una clave nueva ha sido generada para {forumname} en {forumlink}.
 
-Please return to the site and log in using the following information:
+			Por favor vaya al foro e inicie sesion utilizando la siguiente informacion:
 
-User Name: {username}
-Password: {password}
-</Resource>
+			Usuario: {username}
+			Clave: {password}
+		</Resource>
     <Resource tag="PMNOTIFICATION_HTML" editType="html" />
     <Resource tag="PMNOTIFICATION_TEXT">
-A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
+			A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
 
-To read the message, open the following link in your browser:
+			To read the message, open the following link in your browser:
 
-{link}
-</Resource>
+			{link}
+		</Resource>
     <Resource tag="TOPICPOST_HTML" editType="html" />
     <Resource tag="TOPICPOST_TEXT">
-A new message has been posted in the thread {topic} at {forumname}.
+			A new message has been posted in the thread {topic} at {forumname}.
 
-To read the message, open the following link in your browser:
+			To read the message, open the following link in your browser:
 
-{link}
-</Resource>
+			{link}
+		</Resource>
     <Resource tag="VERIFYEMAIL_HTML" editType="html" />
     <Resource tag="VERIFYEMAIL_TEXT">
-You have requested to join {forumname}, but before you can join your email address must be verified.
+			You have requested to join {forumname}, but before you can join your email address must be verified.
 
-To verify your email address open the following link in your web browser:
+			To verify your email address open the following link in your web browser:
 
-{link}
+			{link}
 
-Your approval key is:
+			Your approval key is:
 
-{key}
+			{key}
 
-Visit {forumname} at {forumlink}
-</Resource>
+			Visit {forumname} at {forumlink}
+		</Resource>
   </page>
   <page name="TIMEZONES">
-    <Resource tag="GMT0">(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
-    <Resource tag="GMT1">(GMT+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
-    <Resource tag="GMT-1">(GMT-1:00) Azores, Cape Verde Islands</Resource>
-    <Resource tag="GMT10">(GMT+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
-    <Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
-    <Resource tag="GMT11">(GMT+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
-    <Resource tag="GMT-11">(GMT-11:00) Midway Island, Samoa</Resource>
-    <Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
-    <Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien</Resource>
-    <Resource tag="GMT2">(GMT+2:00) Kaliningrad, South Africa</Resource>
-    <Resource tag="GMT-2">(GMT-2:00) Mid-Atlantic, Ascention Is., St Helena</Resource>
-    <Resource tag="GMT3">(GMT+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
-    <Resource tag="GMT-3">(GMT-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
-    <Resource tag="GMT3.5">(GMT+3:30) Tehran</Resource>
-    <Resource tag="GMT-3.5">(GMT-3:30) Newfoundland</Resource>
-    <Resource tag="GMT4">(GMT+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
-    <Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
-    <Resource tag="GMT4.5">(GMT+4:30) Kabul</Resource>
-    <Resource tag="GMT5">(GMT+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
-    <Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
-    <Resource tag="GMT5.5">(GMT+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
-    <Resource tag="GMT6">(GMT+6:00) Almaty, Colomba, Dhakra</Resource>
-    <Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
-    <Resource tag="GMT7">(GMT+7:00) Bangkok, Hanoi, Jakarta</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT8">(GMT+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
-    <Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
-    <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
-    <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
     <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
     <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
@@ -1015,6 +989,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
     <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
     <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Mountain Time (US &amp; Canada)</Resource>
     <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
     <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
     <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
@@ -1022,17 +997,17 @@ Visit {forumname} at {forumlink}
     <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
   </page>
   <page name="TOOLBAR">
-    <Resource tag="ACTIVETOPICS">Hilos activos</Resource>
+    <Resource tag="ACTIVETOPICS">Temas activos</Resource>
     <Resource tag="ADMIN">Admin</Resource>
-    <Resource tag="HELP">Help</Resource>
+    <Resource tag="HELP">Ayuda</Resource>
     <Resource tag="LOGGED_IN_AS">Sesión iniciada como: {0}</Resource>
     <Resource tag="LOGIN">Iniciar sesión</Resource>
     <Resource tag="LOGOUT">Cerrar sesión</Resource>
-    <Resource tag="LOGOUT_QUESTION">Are you sure you want to logout?</Resource>
+    <Resource tag="LOGOUT_QUESTION">Esta seguro que desea finalizar sesion?</Resource>
     <Resource tag="MEMBERS">Miembros</Resource>
     <Resource tag="MODERATE">Moderar</Resource>
     <Resource tag="MYPROFILE">Mi perfil</Resource>
-    <Resource tag="NEWPM">({0} Unread)</Resource>
+    <Resource tag="NEWPM">({0} Sin leer)</Resource>
     <Resource tag="REGISTER">Registrarse</Resource>
     <Resource tag="SEARCH">Buscar</Resource>
     <Resource tag="WELCOME_GUEST">Bienvenido visitante</Resource>
@@ -1042,8 +1017,8 @@ Visit {forumname} at {forumlink}
     <Resource tag="BY">por {0}</Resource>
     <Resource tag="CREATED">Creado</Resource>
     <Resource tag="FORUMUSERS">Usuarios navegando este foro</Resource>
-    <Resource tag="GOTO_POST_PAGER">[ Goto Page: {0} ]</Resource>
-    <Resource tag="INFO_UNWATCH_FORUM">You will no longer be notified when new posts are made in this forum.</Resource>
+    <Resource tag="GOTO_POST_PAGER">[ Ir a la página: {0} ]</Resource>
+    <Resource tag="INFO_UNWATCH_FORUM">Ya no se te notificará cuando haya nuevos mensajes en este foro.</Resource>
     <Resource tag="INFO_WATCH_FORUM">Desde ahora serás notificado al recibir nuevos mensajes en este foro.</Resource>
     <Resource tag="LAST_DAY">del último día</Resource>
     <Resource tag="LAST_MONTH">del último mes</Resource>
@@ -1058,16 +1033,16 @@ Visit {forumname} at {forumlink}
     <Resource tag="NO_POSTS">No hay mensajes</Resource>
     <Resource tag="REPLIES">Respuestas</Resource>
     <Resource tag="RSSFEED">Rss</Resource>
-    <Resource tag="SHOWTOPICS">Mostrar hilos</Resource>
+    <Resource tag="SHOWTOPICS">Mostrar temas</Resource>
     <Resource tag="SUBFORUMS">Subforos</Resource>
-    <Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
-    <Resource tag="TOPIC_STARTER">Iniciador de hilo</Resource>
-    <Resource tag="TOPICS">Hilos</Resource>
-    <Resource tag="UNWATCHFORUM">Unwatch Forum</Resource>
+    <Resource tag="TODAYAT">[b]Hoy[/b] a las {0:T}</Resource>
+    <Resource tag="TOPIC_STARTER">Iniciador de tema</Resource>
+    <Resource tag="TOPICS">Temas</Resource>
+    <Resource tag="UNWATCHFORUM">Dejar de vigilar foro</Resource>
     <Resource tag="VIEWS">Lecturas</Resource>
     <Resource tag="WARN_FORUM_LOCKED">El foro está cerrado.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Debes estar registrado para vigilar foros.</Resource>
     <Resource tag="WATCHFORUM">Vigilar foro</Resource>
-    <Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
+    <Resource tag="YESTERDAYAT">[b]Ayer[/b] a las {0:T}</Resource>
   </page>
 </Resources>

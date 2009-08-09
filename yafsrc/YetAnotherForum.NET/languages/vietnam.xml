@@ -1,158 +1,832 @@
-﻿<?xml version="1.0"?>
-<Resources language="Viá»‡t Nam" code="vi-VN">
-	<page name="LANGUAGE">
-		<Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
-	</page>
-	<page name="TIMEZONES">
-		<Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien</Resource>
-		<Resource tag="GMT-11">(GMT-11:00) Midway Island, Samoa</Resource>
-		<Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
-		<Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
-		<Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
-		<Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
-		<Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
-		<Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
-		<Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
-		<Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
-		<Resource tag="GMT-3.5">(GMT-3:30) Newfoundland</Resource>
-		<Resource tag="GMT-3">(GMT-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
-		<Resource tag="GMT-2">(GMT-2:00) Mid-Atlantic, Ascention Is., St Helena</Resource>
-		<Resource tag="GMT-1">(GMT-1:00) Azores, Cape Verde Islands</Resource>
-		<Resource tag="GMT0">(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
-		<Resource tag="GMT1">(GMT+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
-		<Resource tag="GMT2">(GMT+2:00) Kaliningrad, South Africa</Resource>
-		<Resource tag="GMT3">(GMT+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
-		<Resource tag="GMT3.5">(GMT+3:30) Tehran</Resource>
-		<Resource tag="GMT4">(GMT+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
-		<Resource tag="GMT4.5">(GMT+4:30) Kabul</Resource>
-		<Resource tag="GMT5">(GMT+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
-		<Resource tag="GMT5.5">(GMT+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
-		<Resource tag="GMT6">(GMT+6:00) Almaty, Colomba, Dhakra</Resource>
-		<Resource tag="GMT7">(GMT+7:00) Bangkok, Hanoi, Jakarta</Resource>
-		<Resource tag="GMT8">(GMT+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
-		<Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
-		<Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
-		<Resource tag="GMT10">(GMT+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
-		<Resource tag="GMT11">(GMT+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
-		<Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
-	</page>
-	<page name="MOVEMESSAGE">
-		<!-- movemessage.aspx -->
-		<Resource tag="MOVE" />
-		<Resource tag="SELECT_FORUM_MOVETO">Chá»n diá»…n Ä‘Ã n chuyá»ƒn tá»›i:</Resource>
-		<Resource tag="SELECT_TOPIC_MOVETO">Chá»n chá»§ Ä‘á» chuyá»ƒn tá»›i:</Resource>
-		<Resource tag="MOVE_MESSAGE">Di chuyá»ƒn</Resource>
-		<Resource tag="NEW_TOPIC">Táº¡o chá»§ Ä‘á» má»›i:</Resource>
-		<Resource tag="CREATE_TOPIC">Táº¡o chá»§ Ä‘á» má»›i tá»« bÃ i viáº¿t</Resource>
-		<Resource tag="EMPTY_TOPIC">TÃªn chá»§ Ä‘á» khÃ´ng Ä‘Æ°á»£c bá» trá»‘ng</Resource>
-	</page>
-	<page name="BBCODEMODULE">
-		<Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
-		<Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
-		<Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
-		<Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
-		<Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
-	</page>
-	<page name="DELETEMESSAGE">
-		<!-- deletemessage.aspx -->
-		<Resource tag="PREVIEWTITLE">Message:</Resource>
-		<Resource tag="SUBJECT">TiÃªu Ä‘á»:</Resource>
-		<Resource tag="FROM">NgÆ°á»i gá»­i:</Resource>
-		<Resource tag="PRIORITY">Priority:</Resource>
-		<Resource tag="MESSAGE">Ná»™i dung:</Resource>
-		<Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
-		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
-		<Resource tag="POSTED">Posted:</Resource>
-		<Resource tag="DELETE">XoÃ¡</Resource>
-		<Resource tag="DELETE_REASON">LÃ½ do xoÃ¡</Resource>
-		<Resource tag="UNDELETE">KhÃ´i phá»¥c</Resource>
-		<Resource tag="UNDELETE_REASON">LÃ½ do khÃ´i phá»¥c</Resource>
-		<Resource tag="ERASEMESSAGE">XoÃ¡ khá»i CÆ¡ sá»Ÿ dá»¯ liá»‡u (KhÃ´ng thá»ƒ khÃ´i phá»¥c)</Resource>
-	</page>
-	<page name="COMMON">
-		<!-- common... -->
-		<Resource tag="POWERED_BY">Báº£n quyá»n bá»Ÿi </Resource>
-		<Resource tag="GENERATED">Thá»i gian xá»­ lÃ½ trang nÃ y háº¿t {0:N3} giÃ¢y.</Resource>
-		<Resource tag="LOADING">Äang táº£i...</Resource>
-		<Resource tag="SAVE">LÆ°u</Resource>
-		<Resource tag="CANCEL">Há»§y</Resource>
-		<Resource tag="OK">OK</Resource>
-		<Resource tag="GO">GO</Resource>
-		<Resource tag="HIDDEN">Hidden</Resource>
-		<Resource tag="GOTOPAGE_HEADER">Chuyá»ƒn tá»›i trang...</Resource>
-		<Resource tag="PAGES">Trang</Resource>
-		<Resource tag="FORUM_JUMP">Chuyá»ƒn nhanh Ä‘áº¿n</Resource>
-		<Resource tag="CAN_POST">Báº¡n [b]cÃ³ thá»ƒ[/b] táº¡o chá»§ Ä‘á» má»›i trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CAN_REPLY">Báº¡n [b]cÃ³ thá»ƒ[/b] tráº£ lá»i chá»§ Ä‘á» trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CAN_DELETE">Báº¡n [b]cÃ³ thá»ƒ[/b] xÃ³a bÃ i cá»§a báº¡n trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CAN_EDIT">Báº¡n [b]cÃ³ thá»ƒ[/b] sá»­a bÃ i cá»§a báº¡n trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CAN_POLL">Báº¡n [b]cÃ³ thá»ƒ[/b] táº¡o bÃ¬nh chá»n trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CAN_VOTE">Báº¡n [b]cÃ³ thá»ƒ[/b] bá» phiáº¿u bÃ¬nh chá»n trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CANNOT_POST">Báº¡n [b]khÃ´ng thá»ƒ[/b] táº¡o chá»§ Ä‘á» má»›i trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CANNOT_REPLY">Báº¡n [b]khÃ´ng thá»ƒ[/b] tráº£ lá»i chá»§ Ä‘á» trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CANNOT_DELETE">Báº¡n [b]khÃ´ng thá»ƒ[/b] xÃ³a bÃ i cá»§a báº¡n trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CANNOT_EDIT">Báº¡n [b]khÃ´ng thá»ƒ[/b] sá»­a bÃ i cá»§a báº¡n trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CANNOT_POLL">Báº¡n [b]khÃ´ng thá»ƒ[/b] táº¡o bÃ¬nh chá»n trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="CANNOT_VOTE">Báº¡n [b]khÃ´ng thá»ƒ[/b] bá» phiáº¿u bÃ¬nh chá»n trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="REGMAIL_SENT">Má»™t email Ä‘Ã£ Ä‘Æ°á»£c gá»­i! HÃ£y kiá»ƒm tra há»™p thÆ° cá»§a báº¡n vÃ  click vÃ o Ä‘Æ°á»ng dáº«n Ä‘Ã£ gá»­i trong email.</Resource>
-		<Resource tag="UNREAD_MSG">Báº¡n cÃ³ {0} tin nháº¯n chÆ°a Ä‘á»c</Resource>
-		<Resource tag="REGMAIL_WILL_BE_SEND">Má»™t email Ä‘Ã£ Ä‘Æ°á»£c gá»­i! HÃ£y kiá»ƒm tra há»™p thÆ° cá»§a báº¡n vÃ  click vÃ o Ä‘Æ°á»ng dáº«n Ä‘Ã£ gá»­i trong email Ä‘á»ƒ kÃ­ch hoáº¡t tÃ i khoáº£n cá»§a báº¡n.</Resource>
-		<!-- Find out how to modify these date/time strings at: http://msdn2.microsoft.com/en-us/library/system.globalization.datetimeformatinfo(vs.71).aspx -->
-		<Resource tag="FORMAT_DATE_TIME_LONG">dd/MM/yyyy lÃºc hh:mm:ss</Resource>
-		<Resource tag="FORMAT_DATE_TIME_SHORT">dd-MM-yyyy@hh:mm:ss</Resource>
-		<Resource tag="FORMAT_DATE_LONG">dd-MM-yyyy</Resource>
-		<Resource tag="FORMAT_DATE_SHORT">dd-MM-yyyy</Resource>
-		<Resource tag="FORMAT_TIME">T</Resource>
-		<Resource tag="MAX_ONLINE">ThÃ nh viÃªn trá»±c tuyáº¿n ká»· lá»¥c nhiá»u nháº¥t lÃ  {0}, vÃ o {1}.</Resource>
-		<Resource tag="BBCODE_QUOTE">TrÃ­ch dáº«n:</Resource>
-		<Resource tag="BBCODE_QUOTEWROTE">{0} Ä‘Ã£ viáº¿t:</Resource>
-		<Resource tag="BBCODE_CODE">MÃ£:</Resource>
-		<Resource tag="TOPIC_NOTIFICATION_SUBJECT">ThÃ´ng bÃ¡o bÃ i viáº¿t má»›i (From {0})</Resource>
-		<Resource tag="PM_NOTIFICATION_SUBJECT">Tin nháº¯n má»›i tá»« {0} vÃ o lÃºc {1}</Resource>
-		<Resource tag="CHANGEEMAIL_SUBJECT">Äá»•i Email</Resource>
-		<Resource tag="EMAILVERIFICATION_SUBJECT">{0} XÃ¡c nháº­n Email</Resource>
-		<Resource tag="MODAL_NOTIFICATION_HEADER">ThÃ´ng bÃ¡o</Resource>
-		<Resource tag="BACK">Quay láº¡i</Resource>
-		<Resource tag="UPDATE">Cáº­p nháº­t</Resource>
-		<Resource tag="SUBMIT">Gá»­i</Resource>
-		<Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
-		<Resource tag="BAD_USERNAME">TÃªn Ä‘Äƒng nháº­p khÃ´ng Ä‘Æ°á»£c mang dáº¥u cháº¥m pháº©y (;).</Resource>
-		<Resource tag="CAPTCHA_IMAGE">MÃ£ an ninh:</Resource>
-		<Resource tag="CAPTCHA_ENTER">Nháº­p mÃ£ an ninh:</Resource>
-		<Resource tag="CUSTOM_BBCODE">ThÃªm BBCode</Resource>
-		<Resource tag="FONT_SIZE">Cá»¡ chá»¯:</Resource>
-		<Resource tag="FONT_COLOR">MÃ u chá»¯:</Resource>
-		<Resource tag="TT_BOLD">Äáº­m</Resource>
-		<Resource tag="TT_ITALIC">NghiÃªng</Resource>
-		<Resource tag="TT_UNDERLINE">Gáº¡ch chÃ¢n</Resource>
-		<Resource tag="TT_QUOTE">TrÃ­ch dáº«n</Resource>
-		<Resource tag="TT_CODE">Code</Resource>
-		<Resource tag="TT_IMAGE">ChÃ¨n áº£nh</Resource>
-		<Resource tag="TT_CREATELINK">Táº¡o liÃªn káº¿t</Resource>
-		<Resource tag="TT_ALIGNLEFT">Canh lá» trÃ¡i</Resource>
-		<Resource tag="TT_ALIGNRIGHT">Canh lá» pháº£i</Resource>
-		<Resource tag="TT_ALIGNCENTER">Canh giá»¯a</Resource>
-		<Resource tag="TT_CUSTOMBBCODE">ThÃªm BBCode Tags</Resource>
-	</page>
-	<page name="TEMPLATES">
-		<Resource tag="CHANGEEMAIL_TEXT">
-			Xin chÃ o {user},
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Viá»‡t Nam" code="vi-VN">
+  <page name="ACTIVE">
+    <Resource tag="BY">bá»Ÿi {0}</Resource>
+    <Resource tag="LAST_24">(Trong vÃ²ng 24 tiáº¿ng)</Resource>
+    <Resource tag="LAST_DAY">1 ngÃ y trÆ°á»›c Ä‘Ã¢y</Resource>
+    <Resource tag="LAST_HOUR">1 giá» trÆ°á»›c Ä‘Ã¢y</Resource>
+    <Resource tag="LAST_MONTH">1 thÃ¡ng trÆ°á»›c Ä‘Ã¢y</Resource>
+    <Resource tag="LAST_TWO_DAYS">2 ngÃ y trÆ°á»›c Ä‘Ã¢y</Resource>
+    <Resource tag="LAST_TWO_HOURS">2 giá» trÆ°á»›c Ä‘Ã¢y</Resource>
+    <Resource tag="LAST_TWO_WEEKS">2 tuáº§n trÆ°á»›c Ä‘Ã¢y</Resource>
+    <Resource tag="LAST_VISIT">láº§n cuá»‘i vÃ o diá»…n Ä‘Ã n {0}</Resource>
+    <Resource tag="LAST_WEEK">1 tuáº§n trÆ°á»›c Ä‘Ã¢y</Resource>
+    <Resource tag="LASTPOST">BÃ i cuá»‘i</Resource>
+    <Resource tag="NO_POSTS">KhÃ´ng cÃ³ bÃ i viáº¿t</Resource>
+    <Resource tag="REPLIES">Tráº£ lá»i</Resource>
+    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SINCE">Ká»ƒ tá»«</Resource>
+    <Resource tag="TITLE">Chá»§ Ä‘á» cÃ³ bÃ i má»›i</Resource>
+    <Resource tag="TOPIC_STARTER">TÃ¡c giÃ¡</Resource>
+    <Resource tag="TOPICS">Chá»§ Ä‘á»</Resource>
+    <Resource tag="VIEWS">Xem</Resource>
+  </page>
+  <page name="ACTIVEUSERS">
+    <Resource tag="ACTIVE">ÄÃ£ hoáº¡t Ä‘á»™ng</Resource>
+    <Resource tag="BROWSER">TrÃ¬nh duyá»‡t</Resource>
+    <Resource tag="LAST_ACTIVE">Láº§n cuá»‘i truy cáº­p</Resource>
+    <Resource tag="LOGGED_IN">ÄÄƒng nháº­p lÃºc</Resource>
+    <Resource tag="MINUTES">{0:N0} phÃºt</Resource>
+    <Resource tag="PLATFORM">Há»‡ Ä‘iá»u hÃ nh</Resource>
+    <Resource tag="TITLE">ThÃ nh viÃªn trá»±c tuyáº¿n</Resource>
+    <Resource tag="USERNAME">TÃªn ngÆ°á»i dÃ¹ng</Resource>
+  </page>
+  <page name="APPROVE">
+    <Resource tag="EMAIL_VERIFIED">Email Ä‘Ã£ Ä‘Æ°á»£c xÃ¡c nháº­n.</Resource>
+    <Resource tag="EMAIL_VERIFY_FAILED">Lá»—i xÃ¡c nháº­n á»‹ia chá»‰ email.</Resource>
+    <Resource tag="ENTER_KEY">Nháº­p mÃ£ xÃ¡c nháº­n</Resource>
+    <Resource tag="TITLE">XÃ¡c nháº­n email</Resource>
+    <Resource tag="VALIDATE">XÃ¡c nháº­n</Resource>
+  </page>
+  <page name="ATTACHMENTS">
+    <Resource tag="ALLOWED_EXTENSIONS">CÃ¡c Ä‘á»‹nh dáº¡ng cho phÃ©p</Resource>
+    <Resource tag="ASK_DELETE">XÃ³a táº­p tin Ä‘Ã­nh kÃ¨m nÃ y?</Resource>
+    <Resource tag="DELETE">XÃ³a</Resource>
+    <Resource tag="DISALLOWED_EXTENSIONS">CÃ¡c Ä‘á»‹nh dáº¡ng bá»‹ cáº¥m</Resource>
+    <Resource tag="ERROR_TOOBIG">Báº¡n khÃ´ng thá»ƒ Ä‘Ã­nh kÃ¨m táº­p tin quÃ¡ lá»›n.</Resource>
+    <Resource tag="FILEERROR">Táº­p tin '{0}' khÃ´ng há»£p lá»‡.</Resource>
+    <Resource tag="FILENAME">TÃªn táº­p tin</Resource>
+    <Resource tag="SELECT_FILE">Chá»n táº­p tin báº¡n muá»‘n upload.</Resource>
+    <Resource tag="SIZE">Dung lÆ°á»£ng</Resource>
+    <Resource tag="TITLE">ÄÃ­nh kÃ¨m</Resource>
+    <Resource tag="UPLOAD">Upload</Resource>
+    <Resource tag="UPLOAD_TITLE">Upload File</Resource>
+  </page>
+  <page name="AVATAR">
+    <Resource tag="EDITPROFILE">Äá»•i hÃ¬nh</Resource>
+    <Resource tag="TITLE">HÃ¬nh Ä‘áº¡i diá»‡n</Resource>
+  </page>
+  <page name="BBCODEMODULE">
+    <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
+    <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
+    <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
+    <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
+  </page>
+  <page name="BUTTON">
+    <Resource tag="BUTTON_ATTACH">ÄÃ­nh kÃ¨m</Resource>
+    <Resource tag="BUTTON_ATTACH_TT">Gá»­i táº­p tin Ä‘Ã­nh kÃ¨m bÃ i viáº¿t nÃ y</Resource>
+    <Resource tag="BUTTON_DELETE">XoÃ¡</Resource>
+    <Resource tag="BUTTON_DELETE_TT">XoÃ¡ bÃ i viáº¿t nÃ y</Resource>
+    <Resource tag="BUTTON_DELETETOPIC">XoÃ¡</Resource>
+    <Resource tag="BUTTON_DELETETOPIC_TT">XoÃ¡ chá»§ Ä‘á» nÃ y</Resource>
+    <Resource tag="BUTTON_EDIT">Sá»­a</Resource>
+    <Resource tag="BUTTON_EDIT_TT">Sá»­a bÃ i viáº¿t nÃ y</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC">KhoÃ¡</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC_TT">KhoÃ¡ chá»§ Ä‘á» nÃ y</Resource>
+    <Resource tag="BUTTON_MODERATE">Kiá»ƒm duyá»‡t</Resource>
+    <Resource tag="BUTTON_MODERATE_TT">Delete, lock, unlock, and move topics this forum</Resource>
+    <Resource tag="BUTTON_MOVE">Di chuyá»ƒn</Resource>
+    <Resource tag="BUTTON_MOVE_TT">Di chuyá»ƒn bÃ i viáº¿t nÃ y</Resource>
+    <Resource tag="BUTTON_MOVETOPIC">Di chuyá»ƒn</Resource>
+    <Resource tag="BUTTON_MOVETOPIC_TT">Di chuyá»ƒn chá»§ Ä‘á» nÃ y</Resource>
+    <Resource tag="BUTTON_NEWPM">Gá»­i tin nháº¯n</Resource>
+    <Resource tag="BUTTON_NEWPM_TT">Táº¡o má»›i tin nháº¯n riÃªng</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">Chá»§ Ä‘á» má»›i</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">Gá»­i chá»§ Ä‘á»</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Gá»­i chá»§ Ä‘á» má»›i lÃªn diá»…n Ä‘Ã n</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">Gá»­i má»™t chá»§ Ä‘á» má»›i lÃªn diá»…n Ä‘Ã n nÃ y</Resource>
+    <Resource tag="BUTTON_POSTREPLY">Tráº£ lá»i</Resource>
+    <Resource tag="BUTTON_POSTREPLY_TT">Gá»­i bÃ i tráº£ lá»i cho chá»§ Ä‘á» nÃ y</Resource>
+    <Resource tag="BUTTON_QUOTE">TrÃ­ch dáº«n</Resource>
+    <Resource tag="BUTTON_QUOTE_TT">Tráº£ lá»i vá»›i trÃ­ch dáº«n</Resource>
+    <Resource tag="BUTTON_REPLY">Tráº£ lá»i</Resource>
+    <Resource tag="BUTTON_REPLY_TT">Tráº£ lá»i tin nháº¯n nÃ y</Resource>
+    <Resource tag="BUTTON_UNDELETE">KhÃ´i phá»¥c</Resource>
+    <Resource tag="BUTTON_UNDELETE_TT">KhÃ´i phá»¥c bÃ i viáº¿t nÃ y</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC">Má»Ÿ khoÃ¡</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC_TT">Má»Ÿ khoÃ¡ chá»§ Ä‘á» nÃ y</Resource>
+  </page>
+  <page name="COMMON">
+    <Resource tag="BACK">Quay láº¡i</Resource>
+    <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
+    <Resource tag="BAD_USERNAME">TÃªn Ä‘Äƒng nháº­p khÃ´ng Ä‘Æ°á»£c mang dáº¥u cháº¥m pháº©y (;).</Resource>
+    <Resource tag="BBCODE_CODE">MÃ£:</Resource>
+    <Resource tag="BBCODE_QUOTE">TrÃ­ch dáº«n:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} Ä‘Ã£ viáº¿t:</Resource>
+    <Resource tag="CAN_DELETE">Báº¡n [b]cÃ³ thá»ƒ[/b] xÃ³a bÃ i cá»§a báº¡n trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CAN_EDIT">Báº¡n [b]cÃ³ thá»ƒ[/b] sá»­a bÃ i cá»§a báº¡n trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CAN_POLL">Báº¡n [b]cÃ³ thá»ƒ[/b] táº¡o bÃ¬nh chá»n trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CAN_POST">Báº¡n [b]cÃ³ thá»ƒ[/b] táº¡o chá»§ Ä‘á» má»›i trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CAN_REPLY">Báº¡n [b]cÃ³ thá»ƒ[/b] tráº£ lá»i chá»§ Ä‘á» trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CAN_VOTE">Báº¡n [b]cÃ³ thá»ƒ[/b] bá» phiáº¿u bÃ¬nh chá»n trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CANCEL">Há»§y</Resource>
+    <Resource tag="CANNOT_DELETE">Báº¡n [b]khÃ´ng thá»ƒ[/b] xÃ³a bÃ i cá»§a báº¡n trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CANNOT_EDIT">Báº¡n [b]khÃ´ng thá»ƒ[/b] sá»­a bÃ i cá»§a báº¡n trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CANNOT_POLL">Báº¡n [b]khÃ´ng thá»ƒ[/b] táº¡o bÃ¬nh chá»n trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CANNOT_POST">Báº¡n [b]khÃ´ng thá»ƒ[/b] táº¡o chá»§ Ä‘á» má»›i trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CANNOT_REPLY">Báº¡n [b]khÃ´ng thá»ƒ[/b] tráº£ lá»i chá»§ Ä‘á» trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CANNOT_VOTE">Báº¡n [b]khÃ´ng thá»ƒ[/b] bá» phiáº¿u bÃ¬nh chá»n trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="CAPTCHA_ENTER">Nháº­p mÃ£ an ninh:</Resource>
+    <Resource tag="CAPTCHA_IMAGE">MÃ£ an ninh:</Resource>
+    <Resource tag="CHANGEEMAIL_SUBJECT">Äá»•i Email</Resource>
+    <Resource tag="CUSTOM_BBCODE">ThÃªm BBCode</Resource>
+    <Resource tag="EMAILVERIFICATION_SUBJECT">{0} XÃ¡c nháº­n Email</Resource>
+    <Resource tag="FONT_COLOR">MÃ u chá»¯:</Resource>
+    <Resource tag="FONT_SIZE">Cá»¡ chá»¯:</Resource>
+    <Resource tag="FORMAT_DATE_LONG">dd-MM-yyyy</Resource>
+    <Resource tag="FORMAT_DATE_SHORT">dd-MM-yyyy</Resource>
+    <Resource tag="FORMAT_DATE_TIME_LONG">dd/MM/yyyy lÃºc hh:mm:ss</Resource>
+    <Resource tag="FORMAT_DATE_TIME_SHORT">dd-MM-yyyy@hh:mm:ss</Resource>
+    <Resource tag="FORMAT_TIME">T</Resource>
+    <Resource tag="FORUM_JUMP">Chuyá»ƒn nhanh Ä‘áº¿n</Resource>
+    <Resource tag="GENERATED">Thá»i gian xá»­ lÃ½ trang nÃ y háº¿t {0:N3} giÃ¢y.</Resource>
+    <Resource tag="GO">GO</Resource>
+    <Resource tag="GOTOPAGE_HEADER">Chuyá»ƒn tá»›i trang...</Resource>
+    <Resource tag="HIDDEN">Hidden</Resource>
+    <Resource tag="LOADING">Äang táº£i...</Resource>
+    <Resource tag="MAX_ONLINE">ThÃ nh viÃªn trá»±c tuyáº¿n ká»· lá»¥c nhiá»u nháº¥t lÃ  {0}, vÃ o {1}.</Resource>
+    <Resource tag="MODAL_NOTIFICATION_HEADER">ThÃ´ng bÃ¡o</Resource>
+    <Resource tag="OK">OK</Resource>
+    <Resource tag="PAGES">Trang</Resource>
+    <Resource tag="PM_NOTIFICATION_SUBJECT">Tin nháº¯n má»›i tá»« {0} vÃ o lÃºc {1}</Resource>
+    <Resource tag="POWERED_BY">Báº£n quyá»n bá»Ÿi </Resource>
+    <Resource tag="REGMAIL_SENT">Má»™t email Ä‘Ã£ Ä‘Æ°á»£c gá»­i! HÃ£y kiá»ƒm tra há»™p thÆ° cá»§a báº¡n vÃ  click vÃ o Ä‘Æ°á»ng dáº«n Ä‘Ã£ gá»­i trong email.</Resource>
+    <Resource tag="REGMAIL_WILL_BE_SEND">Má»™t email Ä‘Ã£ Ä‘Æ°á»£c gá»­i! HÃ£y kiá»ƒm tra há»™p thÆ° cá»§a báº¡n vÃ  click vÃ o Ä‘Æ°á»ng dáº«n Ä‘Ã£ gá»­i trong email Ä‘á»ƒ kÃ­ch hoáº¡t tÃ i khoáº£n cá»§a báº¡n.</Resource>
+    <Resource tag="SAVE">LÆ°u</Resource>
+    <Resource tag="SUBMIT">Gá»­i</Resource>
+    <Resource tag="TOPIC_NOTIFICATION_SUBJECT">ThÃ´ng bÃ¡o bÃ i viáº¿t má»›i (From {0})</Resource>
+    <Resource tag="TT_ALIGNCENTER">Canh giá»¯a</Resource>
+    <Resource tag="TT_ALIGNLEFT">Canh lá» trÃ¡i</Resource>
+    <Resource tag="TT_ALIGNRIGHT">Canh lá» pháº£i</Resource>
+    <Resource tag="TT_BOLD">Äáº­m</Resource>
+    <Resource tag="TT_CODE">Code</Resource>
+    <Resource tag="TT_CREATELINK">Táº¡o liÃªn káº¿t</Resource>
+    <Resource tag="TT_CUSTOMBBCODE">ThÃªm BBCode Tags</Resource>
+    <Resource tag="TT_IMAGE">ChÃ¨n áº£nh</Resource>
+    <Resource tag="TT_ITALIC">NghiÃªng</Resource>
+    <Resource tag="TT_QUOTE">TrÃ­ch dáº«n</Resource>
+    <Resource tag="TT_UNDERLINE">Gáº¡ch chÃ¢n</Resource>
+    <Resource tag="UNREAD_MSG">Báº¡n cÃ³ {0} tin nháº¯n chÆ°a Ä‘á»c</Resource>
+    <Resource tag="UPDATE">Cáº­p nháº­t</Resource>
+  </page>
+  <page name="CP_CHANGEPASSWORD">
+    <Resource tag="CHANGE_BUTTON">Gá»­i</Resource>
+    <Resource tag="CHANGE_SUCCESS">Thay Ä‘á»•i máº­t kháº©u thÃ nh cÃ´ng.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Nháº­p láº¡i máº­t kháº©u má»›i:</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">Báº¡n chÆ°a xÃ¡c nháº­n láº¡i máº­t kháº©u má»›i.</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">Báº¡n chÆ°a nháº­p máº­t kháº©u má»›i.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">Báº¡n chÆ°a nháº­p máº­t kháº©u cÅ©.</Resource>
+    <Resource tag="NEW_PASSWORD">Máº­t kháº©u má»›i:</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">Máº­t kháº©u xÃ¡c nháº­n khÃ´ng Ä‘Ãºng.</Resource>
+    <Resource tag="OLD_PASSWORD">Máº­t kháº©u cÅ©:</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">Máº­t kháº©u má»›i pháº£i tá»«: {0} kÃ­ tá»± trá»Ÿ lÃªn.</Resource>
+    <Resource tag="PASSWORD_INCORRECT">Máº­t kháº©u cÅ© khÃ´ng Ä‘Ãºng hoáº·c Máº­t kháº©u má»›i khÃ´ng há»£p lá»‡.</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">Máº­t kháº©u pháº£i chá»©a kÃ½ tá»± Ä‘áº·c biá»‡t: {1}.</Resource>
+    <Resource tag="TITLE">Äá»•i máº­t kháº©u</Resource>
+  </page>
+  <page name="CP_EDITAVATAR">
+    <Resource tag="AVATAR">HÃ¬nh Ä‘áº¡i diá»‡n</Resource>
+    <Resource tag="AVATARCURRENT">HÃ¬nh hiá»‡n táº¡i</Resource>
+    <Resource tag="AVATARDELETE">XÃ³a hÃ¬nh</Resource>
+    <Resource tag="AVATARNEW">chá»n hÃ¬nh má»›i</Resource>
+    <Resource tag="AVATARREMOTE">Nháº­p Ä‘Æ°á»ng dáº«n hÃ¬nh:</Resource>
+    <Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
+    <Resource tag="AVATARUPLOAD">Upload hÃ¬nh:</Resource>
+    <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
+    <Resource tag="NOAVATAR">[ KhÃ´ng cÃ³ hÃ¬nh ]</Resource>
+    <Resource tag="OURAVATAR">Chá»n hÃ¬nh tá»« thÆ° viá»‡n:</Resource>
+    <Resource tag="OURAVATAR_SELECT">Click vÃ o Ä‘Ã¢y Ä‘á»ƒ chá»n</Resource>
+    <Resource tag="TITLE">Sá»­a hÃ¬nh Ä‘áº¡i diá»‡n</Resource>
+    <Resource tag="WARN_BIGFILE">Dung lÆ°Æ¡ng hÃ¬nh khÃ´ng thá»ƒ lá»›n hÆ¡n {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">HÃ¬nh cá»§a báº¡n cÃ³ dung lÆ°á»£ng {0} bytes.</Resource>
+    <Resource tag="WARN_RESIZED">HÃ¬nh Ä‘Ã£ Ä‘Æ°á»£c chá»‰nh láº¡i kÃ­ch thÆ°á»›c phÃ¹ há»£p.</Resource>
+    <Resource tag="WARN_SIZE">HÃ¬nh cá»§a báº¡n cÃ³ kÃ­ch thÆ°á»›c {0}x{1} px.</Resource>
+    <Resource tag="WARN_TOOBIG">HÃ¬nh khÃ´ng thá»ƒ lá»›n hÆ¡n {0}x{1} px.</Resource>
+  </page>
+  <page name="CP_EDITPROFILE">
+    <Resource tag="ABOUTYOU">ThÃ´ng tin cá»§a báº¡n</Resource>
+    <Resource tag="BAD_EMAIL">Báº¡n Ä‘Ã£ nháº­p Ä‘á»‹a chá»‰ email khÃ´ng há»£p lá»‡.</Resource>
+    <Resource tag="BAD_HOME">Báº¡n Ä‘Ã£ nháº­p Ä‘á»‹a chá»‰ khÃ´ng há»£p lá»‡ cho trang chá»§ cá»§a báº¡n.</Resource>
+    <Resource tag="BAD_ICQ">Báº¡n Ä‘Ã£ nháº­p khÃ´ng há»£p lá»‡ cho sá»‘ ICQ.</Resource>
+    <Resource tag="BAD_MSN">Báº¡n Ä‘Ã£ nháº­p Ä‘á»‹a chá»‰ email khÃ´ng há»£p lá»‡ cho tÃ i khoáº£n MSN.</Resource>
+    <Resource tag="BAD_WEBLOG">Báº¡n Ä‘Ã£ nháº­p Ä‘á»‹a chá»‰ khÃ´ng há»£p lá»‡ cho weblog.</Resource>
+    <Resource tag="CHANGE_EMAIL">Äá»•i email</Resource>
+    <Resource tag="EMAIL">Báº¡n pháº£i nháº­p Ä‘á»‹a chá»‰ email chÃ­nh xÃ¡c.</Resource>
+    <Resource tag="FORUM_SETTINGS">Thiáº¿t láº­p diá»…n Ä‘Ã n</Resource>
+    <Resource tag="HOMEPAGE">Trang chá»§</Resource>
+    <Resource tag="HOMEPAGE2">Trang chá»§ cá»§a báº¡n:</Resource>
+    <Resource tag="LOCATION">Äáº¿n tá»«</Resource>
+    <Resource tag="MAIL_SENT">Má»™t email Ä‘Æ°á»£c gá»­i Ä‘áº¿n {0}.\n\nBáº¡n cáº§n pháº£i xÃ¡c nháº­n Ä‘á»‹a chá»‰ mail báº±ng cÃ¡ch click vÃ o Ä‘Æ°á»ng dáº«n Ä‘Ã£ gá»­i Ä‘áº¿n cho báº¡n.</Resource>
+    <Resource tag="MESSENGER">Instant messaging services</Resource>
+    <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
+    <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
+    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
+    <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">Nháº­n email thÃ´ng bÃ¡o khi cÃ³ tin nháº¯n má»›i?</Resource>
+    <Resource tag="REALNAME2">TÃªn tháº­t cá»§a báº¡n?</Resource>
+    <Resource tag="SELECT_LANGUAGE">Chá»n ngÃ´n ngá»¯:</Resource>
+    <Resource tag="SELECT_THEME">Chá»n giao diá»‡n:</Resource>
+    <Resource tag="TIMEZONE">MÃºi giá»</Resource>
+    <Resource tag="TIMEZONE2">Chá»n mÃºi giá» cá»§a báº¡n.</Resource>
+    <Resource tag="TITLE">Sá»­a lÃ½ lá»‹ch</Resource>
+    <Resource tag="WEBLOG2">Weblog:</Resource>
+    <Resource tag="WHERE">Báº¡n Ä‘ang á»Ÿ Ä‘Ã¢u?</Resource>
+  </page>
+  <page name="CP_MESSAGE">
+    <Resource tag="INBOX">Tin nháº¯n</Resource>
+    <Resource tag="MSG_DELETED">Tin nháº¯n Ä‘Ã£ xÃ³a.</Resource>
+    <Resource tag="POSTED">Gá»­i:</Resource>
+    <Resource tag="SENTITEMS">ÄÃ£ gá»­i</Resource>
+  </page>
+  <page name="CP_PM">
+    <Resource tag="ARCHIVE">LÆ°u trá»¯</Resource>
+    <Resource tag="ARCHIVESELECTED">LÆ°u tin Ä‘Ã£ chá»n</Resource>
+    <Resource tag="CONFIRM_DELETE">XoÃ¡ táº¥t cáº£ cÃ¡c tin nháº¯n Ä‘Æ°á»£c chá»n?</Resource>
+    <Resource tag="DATE">NgÃ y</Resource>
+    <Resource tag="DELETESELECTED">XoÃ¡ tin Ä‘Ã£ chá»n</Resource>
+    <Resource tag="FROM">NgÆ°á»i gá»­i</Resource>
+    <Resource tag="INBOX">Tin nháº¯n</Resource>
+    <Resource tag="MSG_ARCHIVED">Tin nháº¯n Ä‘Ã£ Ä‘Æ°á»£c lÆ°u trá»¯ thÃ nh cÃ´ng.</Resource>
+    <Resource tag="MSG_ARCHIVED+">{0} Tin nháº¯n Ä‘Ã£ Ä‘Æ°á»£c lÆ°u trá»¯ thÃ nh cÃ´ng.</Resource>
+    <Resource tag="MSG_DELETED">Tin nháº¯n Ä‘Ã£ Ä‘Æ°á»£c xoÃ¡.</Resource>
+    <Resource tag="MSGDELETED1">1 Tin nháº¯n Ä‘Ã£ Ä‘Æ°á»£c xoÃ¡.</Resource>
+    <Resource tag="MSGDELETED2">{0} Tin nháº¯n Ä‘Ã£ Ä‘Æ°á»£c xoÃ¡.</Resource>
+    <Resource tag="NEW_MESSAGE">Gá»­i tin nháº¯n</Resource>
+    <Resource tag="NO_MESSAGES">KhÃ´ng tÃ¬m tháº¥y tin nháº¯n nÃ o.</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="SENTITEMS">ÄÃ£ gá»­i</Resource>
+    <Resource tag="SUBJECT">TiÃªu Ä‘á»</Resource>
+    <Resource tag="TITLE">Tin nháº¯n</Resource>
+    <Resource tag="TO">NgÆ°á»i nháº­n</Resource>
+  </page>
+  <page name="CP_PROFILE">
+    <Resource tag="ARCHIVE">LÆ°u trá»¯</Resource>
+    <Resource tag="CHANGE_PASSWORD">Äá»•i máº­t kháº©u</Resource>
+    <Resource tag="CONTROL_PANEL">Báº£ng Ä‘iá»u khiá»ƒn</Resource>
+    <Resource tag="EDIT_AVATAR">Sá»­a hÃ¬nh Ä‘áº¡i diá»‡n</Resource>
+    <Resource tag="EDIT_PROFILE">Sá»­a lÃ½ lá»‹ch</Resource>
+    <Resource tag="EDIT_SIGNATURE">Sá»­a chá»¯ kÃ½</Resource>
+    <Resource tag="GROUPS">NhÃ³m:</Resource>
+    <Resource tag="INBOX">Tin nháº¯n</Resource>
+    <Resource tag="JOINED">NgÃ y tham gia:</Resource>
+    <Resource tag="MESSENGER">Ná»™i dung:</Resource>
+    <Resource tag="NEW_MESSAGE">Soáº¡n tin nháº¯n</Resource>
+    <Resource tag="NUMPOSTS">Sá»‘ bÃ i viáº¿t:</Resource>
+    <Resource tag="PERSONAL_PROFILE">LÃ½ lá»‹ch cÃ¡ nhÃ¢n:</Resource>
+    <Resource tag="SENTITEMS">ÄÃ£ gá»­i</Resource>
+    <Resource tag="SIGNATURE">Chá»¯ kÃ½</Resource>
+    <Resource tag="SUBSCRIPTIONS">Chá»§ Ä‘á» theo dÃµi</Resource>
+    <Resource tag="YOUR_ACCOUNT">TÃ i khoáº£n cá»§a báº¡n</Resource>
+    <Resource tag="YOUR_EMAIL">Email:</Resource>
+    <Resource tag="YOUR_USERNAME">TÃªn Ä‘Äƒng nháº­p:</Resource>
+  </page>
+  <page name="CP_SIGNATURE">
+    <Resource tag="SIGNATURE">Chá»¯ kÃ½:</Resource>
+    <Resource tag="TITLE">Sá»­a chá»¯ kÃ½</Resource>
+  </page>
+  <page name="CP_SUBSCRIPTIONS">
+    <Resource tag="FORUM">Diá»…n Ä‘Ã n</Resource>
+    <Resource tag="FORUMS">Diá»…n Ä‘Ã n</Resource>
+    <Resource tag="LASTPOST">BÃ i cuá»‘i</Resource>
+    <Resource tag="LASTPOSTLINK">{0} bá»Ÿi {1}</Resource>
+    <Resource tag="REPLIES">Tráº£ lá»›i</Resource>
+    <Resource tag="TITLE">Chá»§ Ä‘á» theo dÃµi</Resource>
+    <Resource tag="TOPIC">Chá»§ Ä‘á»</Resource>
+    <Resource tag="TOPICS">Chá»§ Ä‘á»</Resource>
+    <Resource tag="UNSUBSCRIBE">Ngá»«ng theo dÃµi</Resource>
+    <Resource tag="VIEWS">Xem</Resource>
+    <Resource tag="WARN_SELECTFORUMS">Xin chá»n diá»…n Ä‘Ã n cáº§n ngá»«ng theo dÃµi.</Resource>
+    <Resource tag="WARN_SELECTTOPICS">Xin chá»n chá»§ Ä‘á» cáº§n ngá»«ng theo dÃµi.</Resource>
+  </page>
+  <page name="DEFAULT">
+    <Resource tag="ACTIVE_DISCUSSIONS">Diá»…n Ä‘Ã n hoáº¡t Ä‘á»™ng</Resource>
+    <Resource tag="ACTIVE_USERS">ThÃ nh viÃªn trá»±c tuyáº¿n</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} ngÆ°á»i trá»±c tuyáº¿n</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} ngÆ°á»i trá»±c tuyáº¿n</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} khÃ¡ch</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} khÃ¡ch</Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} áº¨n truy cáº­p</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} thÃ nh viÃªn</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} thÃ nh viÃªn</Resource>
+    <Resource tag="BY">bá»Ÿi {0}</Resource>
+    <Resource tag="CURRENT_TIME">Giá» hiá»‡n táº¡i: {0}.</Resource>
+    <Resource tag="FORUM">Diá»…n Ä‘Ã n</Resource>
+    <Resource tag="GO_LAST_POST">Xem bÃ i viáº¿t cuá»‘i</Resource>
+    <Resource tag="IN"> {0}</Resource>
+    <Resource tag="INFORMATION">ThÃ´ng tin</Resource>
+    <Resource tag="LAST_VISIT">Láº§n cuá»‘i báº¡n truy cáº­p diá»…n Ä‘Ã n: {0}.</Resource>
+    <Resource tag="LASTPOST">BÃ i cuá»‘i</Resource>
+    <Resource tag="LATEST_POSTS">BÃ i viáº¿t cuá»‘i</Resource>
+    <Resource tag="MAIN_FORUM_RSS">Diá»…n Ä‘Ã n chÃ­nh RSS</Resource>
+    <Resource tag="MARKALL">ÄÃ¡nh dáº¥u táº¥t cáº£ diá»…n Ä‘Ã n Ä‘Ã£ Ä‘á»c</Resource>
+    <Resource tag="MODERATORS">Äiá»u hÃ nh</Resource>
+    <Resource tag="NO_FORUM_ACCESS">(KhÃ´ng truy cáº­p)</Resource>
+    <Resource tag="NO_POSTS">KhÃ´ng cÃ³ bÃ i viáº¿t</Resource>
+    <Resource tag="POSTS">BÃ i viáº¿t</Resource>
+    <Resource tag="STATS">Thá»‘ng kÃª</Resource>
+    <Resource tag="STATS_LASTMEMBER">ChÃ o má»«ng thÃ nh viÃªn má»›i nháº¥t: </Resource>
+    <Resource tag="STATS_LASTPOST">BÃ i viáº¿t cuá»‘i {0} bá»Ÿi.</Resource>
+    <Resource tag="STATS_MEMBERS">Diá»…n Ä‘Ã n cÃ³ táº¥t cáº£ {0:N0} thÃ nh viÃªn.</Resource>
+    <Resource tag="STATS_POSTS">CÃ³ {0:N0} bÃ i viáº¿t vÃ  {1:N0} chá»§ Ä‘á» trong tá»•ng sá»‘ {2:N0} diá»…n Ä‘Ã n.</Resource>
+    <Resource tag="TOPICS">Chá»§ Ä‘á»</Resource>
+    <Resource tag="UNREAD0">Báº¡n cÃ³ {0} tin nháº¯n má»›i.</Resource>
+    <Resource tag="UNREAD1">Báº¡n cÃ³ {0} tin nháº¯n má»›i.</Resource>
+    <Resource tag="VIEWING">({0} Ä‘ang xem)</Resource>
+  </page>
+  <page name="DELETEMESSAGE">
+    <Resource tag="DELETE">XoÃ¡</Resource>
+    <Resource tag="DELETE_REASON">LÃ½ do xoÃ¡</Resource>
+    <Resource tag="ERASEMESSAGE">XoÃ¡ khá»i CÆ¡ sá»Ÿ dá»¯ liá»‡u (KhÃ´ng thá»ƒ khÃ´i phá»¥c)</Resource>
+    <Resource tag="FROM">NgÆ°á»i gá»­i:</Resource>
+    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+    <Resource tag="MESSAGE">Ná»™i dung:</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="PREVIEWTITLE">Message:</Resource>
+    <Resource tag="PRIORITY">Priority:</Resource>
+    <Resource tag="SUBJECT">TiÃªu Ä‘á»:</Resource>
+    <Resource tag="UNDELETE">KhÃ´i phá»¥c</Resource>
+    <Resource tag="UNDELETE_REASON">LÃ½ do khÃ´i phá»¥c</Resource>
+    <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
+  </page>
+  <page name="EMAILTOPIC">
+    <Resource tag="FAILED">KhÃ´ng gá»­i Ä‘Æ°á»£c email.\n\n{0}</Resource>
+    <Resource tag="MESSAGE">Ná»™i dung:</Resource>
+    <Resource tag="NEED_EMAIL">Báº¡n nháº­p Ä‘á»‹a chá»‰ email há»£p lá»‡.</Resource>
+    <Resource tag="SEND">Gá»­i Email</Resource>
+    <Resource tag="SUBJECT">TiÃªu Ä‘á»:</Resource>
+    <Resource tag="TITLE">Gá»­i cho báº¡n bÃ¨</Resource>
+    <Resource tag="TO">Gá»­i Ä‘áº¿n (Ä‘á»‹a chá»‰ email):</Resource>
+  </page>
+  <page name="ICONLEGEND">
+    <Resource tag="ANNOUNCEMENT">ThÃ´ng bÃ¡o</Resource>
+    <Resource tag="ANNOUNCEMENT_NEW">ThÃ´ng bÃ¡o (CÃ³ bÃ i viáº¿t má»›i)</Resource>
+    <Resource tag="FORUM_LOCKED">Diá»…n Ä‘Ã n Ä‘Ã£ khÃ³a</Resource>
+    <Resource tag="MOVED">ÄÃ£ chuyá»ƒn</Resource>
+    <Resource tag="NEW_POSTS">BÃ i viáº¿t má»›i</Resource>
+    <Resource tag="NEW_POSTS_LOCKED">BÃ i viáº¿t má»›i (ÄÃ£ KhÃ³a)</Resource>
+    <Resource tag="NO_NEW_POSTS">KhÃ´ng cÃ³ bÃ i viáº¿t má»›i</Resource>
+    <Resource tag="NO_NEW_POSTS_LOCKED">KhÃ´ng cÃ³ bÃ i viáº¿t má»›i (ÄÃ£ KhÃ³a)</Resource>
+    <Resource tag="POLL">BÃ¬nh chá»n</Resource>
+    <Resource tag="POLL_NEW">BÃ¬nh chá»n (CÃ³ bÃ i viáº¿t má»›i)</Resource>
+    <Resource tag="STICKY">ChÃº Ã½</Resource>
+  </page>
+  <page name="IM_AIM">
+    <Resource tag="TITLE">AOL Instant Messenger</Resource>
+  </page>
+  <page name="IM_EMAIL">
+    <Resource tag="BODY">Ná»™i dung:</Resource>
+    <Resource tag="ERROR">CÃ³ lá»—i xáº£y ra trong quÃ¡ trÃ¬nh gá»­i mail.</Resource>
+    <Resource tag="SEND">Gá»­i</Resource>
+    <Resource tag="SUBJECT">TiÃªu Ä‘á»:</Resource>
+    <Resource tag="TITLE">E-mail</Resource>
+  </page>
+  <page name="IM_ICQ">
+    <Resource tag="BODY">Nháº­p ná»™i dung á»Ÿ Ä‘Ã¢y:</Resource>
+    <Resource tag="EMAIL">E-mail:</Resource>
+    <Resource tag="NAME">TÃªn cá»§a báº¡n:</Resource>
+    <Resource tag="SEND">gá»­i tin nháº¯n</Resource>
+    <Resource tag="TITLE">ICQ</Resource>
+  </page>
+  <page name="IM_SKYPE">
+    <Resource tag="TITLE">Skype(tm) Calling</Resource>
+  </page>
+  <page name="IM_YIM">
+    <Resource tag="TITLE">Yahoo! Messenger</Resource>
+  </page>
+  <page name="INFO">
+    <Resource tag="ACCESSDENIED">Báº¡n Ä‘ang cá»‘ gáº¯ng truy cáº­p vÃ o trang khÃ´ng há»£p lá»‡.</Resource>
+    <Resource tag="CONTINUE">Tiáº¿p tá»¥c...</Resource>
+    <Resource tag="DISABLED">Quáº£n trá»‹ viÃªn cá»§a diá»…n Ä‘Ã n Ä‘Ã£ vÃ´ hiá»‡u hoÃ¡ chá»©c nÄƒng nÃ y.</Resource>
+    <Resource tag="EXCEPTION">Báº¡n Ä‘Ã£ Ä‘Äƒng nháº­p vá»›i tÃªn</Resource>
+    <Resource tag="FAILURE">There's been a system error processing your request. Please contact the forum admin explaining what you were doing when it happened.</Resource>
+    <Resource tag="INVALID">Trang truy cáº­p khÃ´ng tá»“n táº¡i hoáº·c báº¡n khÃ´ng cÃ³ quyá»n truy cáº­p vÃ o trang nÃ y.</Resource>
+    <Resource tag="MODERATED">BÃ i viáº¿t cá»§a báº¡n Ä‘Ã£ Ä‘Æ°á»£c gá»­i thÃ nh cÃ´ng.BÃ i viáº¿t pháº£i Ä‘Æ°á»£c duyá»‡t qua trÆ°á»›c khi hiá»ƒn thá»‹.</Resource>
+    <Resource tag="REGISTRATION">Má»™t email Ä‘Æ°á»£c gá»­i.\n\nBáº¡n cáº§n pháº£i xÃ¡c nháº­n Ä‘á»‹a chá»‰ mail báº±ng cÃ¡ch click vÃ o Ä‘Æ°á»ng dáº«n Ä‘Ã£ gá»­i Ä‘áº¿n cho báº¡n..</Resource>
+    <Resource tag="SUSPENDED">TÃ i khoáº£n cá»§a báº¡n bá»‹ táº¡m khoÃ¡.Thá»i háº¡n khoÃ¡ Ä‘áº¿n {0}.</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Tá»« chá»‘i truy cáº­p</Resource>
+    <Resource tag="TITLE_EXCEPTION">ThÃ´ng tin</Resource>
+    <Resource tag="TITLE_FAILURE">Failure</Resource>
+    <Resource tag="TITLE_INVALID">Lá»—i truy cáº­p</Resource>
+    <Resource tag="TITLE_MODERATED">ThÃ´ng Tin</Resource>
+    <Resource tag="TITLE_REGISTRATION">Cáº£m Æ¡n</Resource>
+    <Resource tag="TITLE_SUSPENDED">Táº¡m khoÃ¡</Resource>
+  </page>
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
+  <page name="LOGIN">
+    <Resource tag="AUTO">Ghi nhá»›:</Resource>
+    <Resource tag="BOTH_USERNAME_EMAIL">Báº¡n cáº§n pháº£i nháº­p cáº£ tÃªn Ä‘Äƒng nháº­p vÃ  email.</Resource>
+    <Resource tag="EMAIL">Email</Resource>
+    <Resource tag="EMAIL_SENT_PASSWORD">Email Ä‘Ã£ Ä‘Æ°á»£c gá»­i cho báº¡n vÆ¡i máº­t kháº©u má»›i.</Resource>
+    <Resource tag="FORUM_LOGIN">ÄÄƒng nháº­p diá»…n Ä‘Ã n</Resource>
+    <Resource tag="LOSTPASSWORD">QuÃªn máº­t kháº©u</Resource>
+    <Resource tag="PASSWORD">Máº­t kháº©u:</Resource>
+    <Resource tag="PASSWORD_ERROR">TÃªn Ä‘Äƒng nháº­p hoáº·c máº­t kháº©u khÃ´ng há»£p lá»‡.</Resource>
+    <Resource tag="RECOVER">Nháº­n láº¡i máº­t kháº©u</Resource>
+    <Resource tag="RECOVER_ERROR">Lá»—i táº¡o máº­t kháº©u má»›i.</Resource>
+    <Resource tag="SENDPASSWORD">gá»­i máº­t kháº©u</Resource>
+    <Resource tag="TITLE">ÄÄƒng nháº­p</Resource>
+    <Resource tag="USERNAME">TÃªn Ä‘Äƒng nháº­p:</Resource>
+    <Resource tag="WRONG_USERNAME_EMAIL">Sai tÃªn Ä‘Äƒng nháº­p hoáº·c email.</Resource>
+  </page>
+  <page name="MEMBERS">
+    <Resource tag="JOINED">Gia nháº­p</Resource>
+    <Resource tag="PAGES">{0} trang:</Resource>
+    <Resource tag="POSTS">BÃ i viáº¿t</Resource>
+    <Resource tag="RANK">Danh hiá»‡u</Resource>
+    <Resource tag="TITLE">ThÃ nh viÃªn</Resource>
+    <Resource tag="USERNAME">TÃªn sá»­ dá»¥ng</Resource>
+  </page>
+  <page name="MOD_FORUMUSER">
+    <Resource tag="ACCESSMASK">ÄÃ¡nh dáº¥u:</Resource>
+    <Resource tag="CANCEL">Há»§y</Resource>
+    <Resource tag="FIND">TÃ¬m thÃ nh viÃªn</Resource>
+    <Resource tag="TITLE">ThÃ nh viÃªn</Resource>
+    <Resource tag="UPDATE">Cáº­p nháº­t</Resource>
+    <Resource tag="USER">ThÃ nh viÃªn:</Resource>
+  </page>
+  <page name="MODERATE">
+    <Resource tag="ACCEPTED">ÄÃ£ cháº¥p nháº­n</Resource>
+    <Resource tag="ACCESSMASK">Access Mask</Resource>
+    <Resource tag="BY">bá»Ÿi {0}</Resource>
+    <Resource tag="CONFIRM_DELETE">XÃ³a chá»§ Ä‘á»?</Resource>
+    <Resource tag="DELETED">Chá»§ Ä‘á» Ä‘Ã£ xÃ³a.</Resource>
+    <Resource tag="EDIT">Sá»­a</Resource>
+    <Resource tag="INVITE">Má»i thÃ nh viÃªn</Resource>
+    <Resource tag="LASTPOST">BÃ i cuá»‘i</Resource>
+    <Resource tag="MEMBERS">ThÃ nh viÃªn</Resource>
+    <Resource tag="NO_POSTS">KhÃ´ng cÃ³ bÃ i viáº¿t</Resource>
+    <Resource tag="REMOVE">XÃ³a</Resource>
+    <Resource tag="REPLIES">Tráº£ lá»i</Resource>
+    <Resource tag="TITLE">Äiá»u hÃ nh</Resource>
+    <Resource tag="TOPIC_STARTER">TÃ¡c giáº£</Resource>
+    <Resource tag="TOPICS">Chá»§ Ä‘á»</Resource>
+    <Resource tag="USER">ThÃ nh viÃªn</Resource>
+    <Resource tag="VIEWS">Xem</Resource>
+  </page>
+  <page name="MODERATE_DEFAULT">
+    <Resource tag="CATEGORY">NhÃ³m</Resource>
+    <Resource tag="FORUM">Diá»…n Ä‘Ã n</Resource>
+    <Resource tag="REPORTED">BÃ¡o cÃ¡o ná»™i dung vi pháº¡m</Resource>
+    <Resource tag="REPORTEDSPAM">BÃ¡o cÃ¡o bÃ i viáº¿t Spam</Resource>
+    <Resource tag="TITLE">Äiá»u hÃ nh</Resource>
+    <Resource tag="UNAPPROVED">BÃ i chÆ°a duyá»‡t</Resource>
+  </page>
+  <page name="MODERATE_FORUM">
+    <Resource tag="APPROVE">Duyá»‡t bÃ i</Resource>
+    <Resource tag="APPROVED">ÄÃ£ duyá»‡t.</Resource>
+    <Resource tag="ASK_DELETE">XÃ³a bÃ i viáº¿t nÃ y?</Resource>
+    <Resource tag="COPYOVER">Update message text</Resource>
+    <Resource tag="DELETE">XÃ³a bÃ i</Resource>
+    <Resource tag="DELETED">ÄÃ£ xÃ³a.</Resource>
+    <Resource tag="MODIFIED">Post has been changed!</Resource>
+    <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
+    <Resource tag="RESOLVE">Resolve Post Copies</Resource>
+    <Resource tag="RESOLVED">Mark as resolved</Resource>
+    <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
+    <Resource tag="TOP">Chuyá»ƒn lÃªn trÃªn</Resource>
+    <Resource tag="UNAPPROVED">BÃ i chÆ°a duyá»‡t</Resource>
+  </page>
+  <page name="MOVEMESSAGE">
+    <Resource tag="CREATE_TOPIC">Táº¡o chá»§ Ä‘á» má»›i tá»« bÃ i viáº¿t</Resource>
+    <Resource tag="EMPTY_TOPIC">TÃªn chá»§ Ä‘á» khÃ´ng Ä‘Æ°á»£c bá» trá»‘ng</Resource>
+    <Resource tag="MOVE" />
+    <Resource tag="MOVE_MESSAGE">Di chuyá»ƒn</Resource>
+    <Resource tag="NEW_TOPIC">Táº¡o chá»§ Ä‘á» má»›i:</Resource>
+    <Resource tag="SELECT_FORUM_MOVETO">Chá»n diá»…n Ä‘Ã n chuyá»ƒn tá»›i:</Resource>
+    <Resource tag="SELECT_TOPIC_MOVETO">Chá»n chá»§ Ä‘á» chuyá»ƒn tá»›i:</Resource>
+  </page>
+  <page name="MOVETOPIC">
+    <Resource tag="LEAVE_POINTER">Äá»ƒ láº¡i liÃªn káº¿t á»Ÿ diá»…n Ä‘Ã n nguá»“n gá»‘c</Resource>
+    <Resource tag="MOVE">Di chuyá»ƒn chá»§ Ä‘á»</Resource>
+    <Resource tag="SELECT_FORUM">Chá»n diá»…n Ä‘Ã n muá»‘n di chuyá»ƒn bÃ i viáº¿t:</Resource>
+    <Resource tag="TITLE">Di chuyá»ƒn chá»§ Ä‘á»</Resource>
+  </page>
+  <page name="PMESSAGE">
+    <Resource tag="ALLUSERS">Táº¥t cáº£ thÃ nh viÃªn</Resource>
+    <Resource tag="CLEAR">XoÃ¡ sáº¡ch</Resource>
+    <Resource tag="FINDUSERS">TÃ¬m thÃ nh viÃªn</Resource>
+    <Resource tag="MAX_RECIPIENT_INFO">Báº¡n cÃ³ thá»ƒ gá»­i Tin nháº¯n nÃ y tá»›i tá»‘i Ä‘a [b]{0}[/b] NgÆ°á»i cho má»™t láº§n.</Resource>
+    <Resource tag="MESSAGE">Ná»™i dung:</Resource>
+    <Resource tag="MULTI_RECEIVER_INFO">TÃªn ngÆ°á»i nháº­n phÃ¢n tÃ¡ch nhau bá»Ÿi dáº¥u ';' ( Trong trÆ°á»ng há»£p gá»­i tá»›i nhiá»u ngÆ°á»i)</Resource>
+    <Resource tag="NEED_MESSAGE">Báº¡n pháº£i nháº­p ná»™i dung tin nháº¯n.</Resource>
+    <Resource tag="NEED_MORE_LETTERS">Please enter, at least, the first two letters of the user you wish to locate.</Resource>
+    <Resource tag="NEED_SUBJECT">Báº¡n pháº£i nháº­p tiÃªu Ä‘á».</Resource>
+    <Resource tag="NEED_TO">Báº¡n chÆ°a chá»n ngÆ°á»i nháº­n tin nháº¯n.</Resource>
+    <Resource tag="NO_SUCH_USER">KhÃ´ng tÃ¬m tháº¥y ngÆ°á»i nháº­n.</Resource>
+    <Resource tag="NOT_GUEST">Báº¡n khÃ´ng thá»ƒ gá»­i tin nháº¯n cho khÃ¡ch.</Resource>
+    <Resource tag="OWN_PMBOX_FULL">Há»™p tin nháº¯n cá»§a báº¡n Ä‘Ã£ bá»‹ Ä‘áº§y. Sá»‘ lÆ°á»£ng tin nháº¯n cho phÃ©p {0}. Xin xoÃ¡ bá»›t tin nháº¯n Ä‘á»ƒ tÄƒng thÃªm vÃ¹ng trá»‘ng cho há»™p tin nháº¯n.</Resource>
+    <Resource tag="PREVIEWTITLE">Xem trÆ°á»›c:</Resource>
+    <Resource tag="RECIPIENTS_PMBOX_FULL">Há»™p tin nháº¯n cá»§a {0} Ä‘Ã£ bá»‹ Ä‘áº§y . Há» khÃ´ng thá»ƒ nháº­n Ä‘Æ°á»£c tin nháº¯n cho tá»›i khi há»™p tin nháº¯n Ä‘Æ°á»£c tÄƒng thÃªm vÃ¹ng trá»‘ng.</Resource>
+    <Resource tag="SAVE">Gá»­i</Resource>
+    <Resource tag="SUBJECT">TiÃªu Ä‘á»:</Resource>
+    <Resource tag="TITLE">Gá»­i tin nháº¯n</Resource>
+    <Resource tag="TO">Äáº¿n:</Resource>
+    <Resource tag="TOO_MANY_RECIPIENTS">QuÃ¡ nhiá»u ngÆ°á»i nháº­n. Sá»‘ lÆ°á»£ng tá»‘i Ä‘a cho phÃ©p lÃ  {0}.</Resource>
+  </page>
+  <page name="POSTMESSAGE">
+    <Resource tag="ANNOUNCEMENT">ThÃ´ng bÃ¡o</Resource>
+    <Resource tag="ASK_POLL_DELETE">Báº¡n tháº­t sá»± muá»‘n xoÃ¡ bÃ¬nh chá»n cá»§a chá»§ Ä‘á» nÃ y?</Resource>
+    <Resource tag="CHOICE1">Tráº£ lá»i 1:</Resource>
+    <Resource tag="CHOICE2">Tráº£ lá»i 2:</Resource>
+    <Resource tag="CHOICE3">Tráº£ lá»i 3:</Resource>
+    <Resource tag="CHOICE4">Tráº£ lá»i 4:</Resource>
+    <Resource tag="CHOICE5">Tráº£ lá»i 5:</Resource>
+    <Resource tag="CHOICE6">Tráº£ lá»i 6:</Resource>
+    <Resource tag="CHOICE7">Tráº£ lá»i 7:</Resource>
+    <Resource tag="CHOICE8">Tráº£ lá»i 8:</Resource>
+    <Resource tag="CHOICE9">Tráº£ lá»i:</Resource>
+    <Resource tag="CREATEPOLL">Táº¡o bÃ¬nh chá»n</Resource>
+    <Resource tag="EDIT">Sá»­a bÃ i</Resource>
+    <Resource tag="EDITREASON">LÃ½ do chá»‰nh sá»­a:</Resource>
+    <Resource tag="FROM">Tá»«:</Resource>
+    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+    <Resource tag="MESSAGE">Ná»™i dung:</Resource>
+    <Resource tag="NEED_CHOICES">Ãt nháº¥t pháº£i cÃ³ 2 cÃ¢u tráº£ lá»i.</Resource>
+    <Resource tag="NEED_QUESTION">Báº¡n pháº£i nháº­p cÃ¢u há»i bÃ¬nh chá»n.</Resource>
+    <Resource tag="NEED_SUBJECT">ChÆ°a nháº­p tÃªn chá»§ Ä‘á».</Resource>
+    <Resource tag="NEWPOSTOPTIONS">TÃ¹y chá»n:</Resource>
+    <Resource tag="NEWTOPIC">Táº¡o chá»§ Ä‘á»</Resource>
+    <Resource tag="NORMAL">BÃ¬nh thÆ°á»ng</Resource>
+    <Resource tag="PERSISTENCY">Persistent:</Resource>
+    <Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
+    <Resource tag="POLL_EXPIRE">BÃ¬nh chá»n trong:</Resource>
+    <Resource tag="POLL_EXPIRE_EXPLAIN">[b]ngÃ y[/b] [ Ä‘á»ƒ trá»‘ng khÃ´ng háº¿t háº¡n ]</Resource>
+    <Resource tag="POLLQUESTION">CÃ¢u há»i:</Resource>
+    <Resource tag="POSTED">ÄÃ£ gá»­i:</Resource>
+    <Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
+    <Resource tag="PREVIEW">Xem trÆ°á»›c</Resource>
+    <Resource tag="PREVIEWTITLE">Xem trÆ°á»›c:</Resource>
+    <Resource tag="PRIORITY">Dáº¡ng:</Resource>
+    <Resource tag="REMOVEPOLL">XoÃ¡ bÃ¬nh chá»n</Resource>
+    <Resource tag="REPLY">Tráº£ lá»i</Resource>
+    <Resource tag="SAVE">gá»­i</Resource>
+    <Resource tag="SMILIES_HEADER">[b]ChÃ¨n biá»ƒu tÆ°á»£ng[/b]</Resource>
+    <Resource tag="SMILIES_MORE">ThÃªm biá»ƒu tÆ°á»£ng...</Resource>
+    <Resource tag="STICKY">ChÃº Ã½</Resource>
+    <Resource tag="SUBJECT">Chá»§ Ä‘á»:</Resource>
+    <Resource tag="TOPICATTACH">ÄÃ­nh kÃ¨m táº­p tin?</Resource>
+    <Resource tag="TOPICWATCH">Nháº­n thÃ´ng bÃ¡o cá»§a chá»§ Ä‘á» qua email?</Resource>
+    <Resource tag="WAIT">Báº¡n khÃ´ng gá»­i bÃ i trong {0:N0} giÃ¢y.</Resource>
+  </page>
+  <page name="POSTS">
+    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_USERNAME">Quáº£ng cÃ¡o</Resource>
+    <Resource tag="AIM">AIM</Resource>
+    <Resource tag="ATTACHMENTINFO">({0:N0}kb) Ä‘Ã£ Ä‘Æ°á»£c dowbload [b]{1:N0}[/b] láº§n.</Resource>
+    <Resource tag="ATTACHMENTS">Táº­p tin Ä‘Ã­nh kÃ¨m(s):</Resource>
+    <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CHOICE">Chá»n</Resource>
+    <Resource tag="CLOSE_TEXT">Close</Resource>
+    <Resource tag="CONFIRM_DELETEMESSAGE">XÃ³a tin nháº¯n?</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">XÃ³a chá»§ Ä‘á»?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">BÃ¡o cÃ¡o bÃ i viáº¿t cÃ³ ná»™i dung vi pháº¡m?</Resource>
+    <Resource tag="CONFIRM_REPORTSPAM">BÃ¡o cÃ¡o bÃ i viáº¿t Spam?</Resource>
+    <Resource tag="EDIT_REASON">LÃ½ do</Resource>
+    <Resource tag="EDIT_REASON_NA">ChÆ°a rÃµ</Resource>
+    <Resource tag="EDITED">Sá»­a</Resource>
+    <Resource tag="EDITED_BY_MOD">bá»Ÿi quáº£n trá»‹ viÃªn</Resource>
+    <Resource tag="EDITED_BY_USER">bá»Ÿi ngÆ°á»i viáº¿t</Resource>
+    <Resource tag="EMAIL">Email</Resource>
+    <Resource tag="EMAILTOPIC">Email chá»§ Ä‘á» nÃ y</Resource>
+    <Resource tag="EMPTY_MESSAGE">Xin nháº­p ná»™i dung bÃ i viáº¿t.</Resource>
+    <Resource tag="FORUM_JUMP">Di chuyá»ƒn</Resource>
+    <Resource tag="GROUPS">NhÃ³m</Resource>
+    <Resource tag="HOME">WWW</Resource>
+    <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} hÃ¬nh Ä‘Æ°á»£c Ä‘Ã­nh kÃ¨m:</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
+    <Resource tag="IMAGE_TEXT">Image</Resource>
+    <Resource tag="INFO_NOMORETOPICS">KhÃ´ng cÃ³ chá»§ Ä‘á» trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="INFO_TOPIC_LOCKED">Chá»§ Ä‘á» Ä‘Ã£ Ä‘Æ°á»£c khÃ³a.</Resource>
+    <Resource tag="INFO_TOPIC_UNLOCKED">Chá»§ Ä‘á» Ä‘Ã£ Ä‘Æ°á»£c má»Ÿ khÃ³a.</Resource>
+    <Resource tag="INFO_UNWATCH_TOPIC">Báº¡n sáº½ khÃ´ng Ä‘Æ°á»£c thÃ´ng bÃ¡o khi cÃ³ bÃ i viáº¿t má»›i trong chá»§ Ä‘á» nÃ y.</Resource>
+    <Resource tag="INFO_VOTED">Cáº£m Æ¡n báº¡n Ä‘Ã£ bÃ¬nh chá»n!</Resource>
+    <Resource tag="INFO_WATCH_TOPIC">Báº¡n sáº½ Ä‘Æ°á»£c thÃ´ng bÃ¡o khi cÃ³ bÃ i viáº¿t má»›i trong chá»§ Ä‘á» nÃ y.</Resource>
+    <Resource tag="IP">IP</Resource>
+    <Resource tag="JOINED">Gia nháº­p</Resource>
+    <Resource tag="LOCATION">Äáº¿n tá»«</Resource>
+    <Resource tag="MESSAGEDELETED_MOD">BÃ i viáº¿t Ä‘Æ°á»£c xoÃ¡ bá»Ÿi quáº£n trá»‹ viÃªn.</Resource>
+    <Resource tag="MESSAGEDELETED_USER">BÃ i viáº¿t Ä‘Æ°á»£c xoÃ¡ bá»Ÿi ngÆ°á»i gá»­i.</Resource>
+    <Resource tag="MSN">MSN</Resource>
+    <Resource tag="NEXTTOPIC">Chá»§ Ä‘á» káº¿ tiáº¿p</Resource>
+    <Resource tag="NORMAL">BÃ¬nh thÆ°á»ng</Resource>
+    <Resource tag="OPTIONS">TÃ¹y chá»n</Resource>
+    <Resource tag="PM">PM</Resource>
+    <Resource tag="POINTS">Äiá»ƒm</Resource>
+    <Resource tag="POLL_CLOSED">(BÃ¬nh chá»n Ä‘Ã£ Ä‘Ã³ng)</Resource>
+    <Resource tag="POST_REPLY">Viáº¿t bÃ i tráº£ lá»i</Resource>
+    <Resource tag="POSTED">ÄÃ£ gá»­i</Resource>
+    <Resource tag="POSTS">BÃ i viáº¿t</Resource>
+    <Resource tag="PREVTOPIC">Chá»§ Ä‘á» trÆ°á»›c</Resource>
+    <Resource tag="PRINTTOPIC">In chá»§ Ä‘á» nÃ y</Resource>
+    <Resource tag="QUESTION">CÃ¢u há»i bÃ¬nh chá»n</Resource>
+    <Resource tag="QUICKREPLY">Tráº£ lá»i nhanh</Resource>
+    <Resource tag="QUICKREPLY_HIDE">áº¨n Tráº£ Lá»i Nhanh</Resource>
+    <Resource tag="QUICKREPLY_SHOW">Hiá»ƒn thá»‹ Tráº£ Lá»i Nhanh</Resource>
+    <Resource tag="RANK">Danh hiá»‡u</Resource>
+    <Resource tag="REPORTEDFEEDBACK">Cáº£m Æ¡n báº¡n Ä‘Ã£ gá»­i bÃ¡o cÃ¡o vá» bÃ i viáº¿t nÃ y.</Resource>
+    <Resource tag="REPORTPOST">BÃ¡o cÃ¡o vi pháº¡m</Resource>
+    <Resource tag="REPORTSPAM">BÃ¡o cÃ¡o Spam</Resource>
+    <Resource tag="RSSTOPIC">RSS Feed</Resource>
+    <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="STATISTICS">Thá»‘ng kÃª</Resource>
+    <Resource tag="THREADED">Threaded</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">XÃ³a chá»§ Ä‘á»</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">KhÃ³a chá»§ Ä‘á»</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Di chuyá»ƒn chá»§ Ä‘á»</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Táº¡o chá»§ Ä‘á»</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Tráº£ Lá»i</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Má»Ÿ khÃ³a chá»§ Ä‘á»</Resource>
+    <Resource tag="TOGGLEPOST">Hiá»‡n/áº¨n bÃ i viáº¿t</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_HIDE">áº¨n bÃ i viáº¿t nÃ y</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_SHOW">Hiá»‡n bÃ i viáº¿t nÃ y</Resource>
+    <Resource tag="TOP">Chuyá»ƒn lÃªn trÃªn</Resource>
+    <Resource tag="TOPICBROWSERS">Ai Ä‘ang xem chá»§ Ä‘á» nÃ y?</Resource>
+    <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="UNWATCHTOPIC">chÆ°a xem chá»§ Ä‘á» nÃ y</Resource>
+    <Resource tag="USERPROFILE">Há»“ sÆ¡ ngÆ°á»i dÃ¹ng</Resource>
+    <Resource tag="VIEW">Xem</Resource>
+    <Resource tag="VOTES">Bá» phiáº¿u</Resource>
+    <Resource tag="WARN_ALREADY_VOTED">Báº¡n Ä‘Ã£ bÃ¬nh chá»n rá»“i.</Resource>
+    <Resource tag="WARN_EMAILLOGIN">Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ tiáº¿p tá»¥c.</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Diá»…n Ä‘Ã n Ä‘Ã£ Ä‘Æ°á»£c Ä‘Ã³ng.</Resource>
+    <Resource tag="WARN_PMLOGIN">Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ gá»­i tin nháº¯n.</Resource>
+    <Resource tag="WARN_POLL_CLOSED">BÃ¬nh chá»n Ä‘Ã£ Ä‘Ã³ng.</Resource>
+    <Resource tag="WARN_TOPIC_LOCKED">Chá»§ Ä‘á» Ä‘Ã£ Ä‘Æ°á»£c Ä‘Ã³ng.</Resource>
+    <Resource tag="WARN_WATCHLOGIN">Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ tiáº¿p tá»¥c.</Resource>
+    <Resource tag="WATCHTOPIC">Xem chá»§ Ä‘á» nÃ y</Resource>
+    <Resource tag="YIM">YAHOO</Resource>
+  </page>
+  <page name="PRINTTOPIC">
+    <Resource tag="POSTEDBY">Viáº¿t bá»Ÿi</Resource>
+  </page>
+  <page name="PROFILE">
+    <Resource tag="ABOUT">ThÃ´ng tin chung</Resource>
+    <Resource tag="ADMIN_USER">Admin User</Resource>
+    <Resource tag="AIM">AIM-Name:</Resource>
+    <Resource tag="AVATAR">HÃ¬nh Ä‘áº¡i diá»‡n</Resource>
+    <Resource tag="CONTACT">LiÃªn há»‡</Resource>
+    <Resource tag="DAYS">ngÃ y</Resource>
+    <Resource tag="EMAIL">E-mail:</Resource>
+    <Resource tag="ENDS">User suspension ends:</Resource>
+    <Resource tag="ERROR_ADMINISTRATORS">Báº¡n khÃ´ng thá»ƒ táº¡m khoÃ¡ Quáº£n trá»‹ viÃªn.</Resource>
+    <Resource tag="ERROR_FORUMMODERATORS">Báº¡n khÃ´ng thá»ƒ táº¡m khoÃ¡ NgÆ°á»i Ä‘iá»u hÃ nh.</Resource>
+    <Resource tag="ERROR_GUESTACCOUNT">Báº¡n khÃ´ng thá»ƒ táº¡m khoÃ¡ tÃ i khoáº£n cá»§a KhÃ¡ch viáº¿ng thÄƒm(guest).</Resource>
+    <Resource tag="GENDER">Giá»›i tÃ­nh:</Resource>
+    <Resource tag="GENDER0">ChÆ°a chá»n</Resource>
+    <Resource tag="GENDER1">Nam</Resource>
+    <Resource tag="GENDER2">Ná»¯</Resource>
+    <Resource tag="GROUPS">NhÃ³m:</Resource>
+    <Resource tag="HOURS">giá»</Resource>
+    <Resource tag="ICQ">ICQ-Number:</Resource>
+    <Resource tag="INTERESTS">Sá»Ÿ thÃ­ch:</Resource>
+    <Resource tag="JOINED">Gia nháº­p:</Resource>
+    <Resource tag="LAST10">10 bÃ i gáº§n nháº¥t</Resource>
+    <Resource tag="LASTVISIT">Láº§n cuá»‘i Ä‘Äƒng nháº­p:</Resource>
+    <Resource tag="MEMBERS">ThÃ nh viÃªn</Resource>
+    <Resource tag="MINUTES">phÃºt</Resource>
+    <Resource tag="MODERATE">Quyá»n truy cáº­p</Resource>
+    <Resource tag="MSN">MSN Messenger:</Resource>
+    <Resource tag="NUMALL">{0:N2}% trÃªn tá»•ng sá»‘ bÃ i viáº¿t</Resource>
+    <Resource tag="NUMDAY">{0:N2} bÃ i trÃªn ngÃ y</Resource>
+    <Resource tag="NUMPOSTS">Sá»‘ bÃ i viáº¿t:</Resource>
+    <Resource tag="OCCUPATION">Nghá» nghiá»‡p:</Resource>
+    <Resource tag="PM">Tin nháº¯n:</Resource>
+    <Resource tag="POSTED">ÄÃ£ gá»­i:</Resource>
+    <Resource tag="PROFILE">LÃ½ lá»‹ch:</Resource>
+    <Resource tag="RANK">Danh hiá»‡u:</Resource>
+    <Resource tag="REALNAME">TÃªn tháº­t:</Resource>
+    <Resource tag="REMOVESUSPENSION">Remove Suspension</Resource>
+    <Resource tag="SEARCHUSER">Xem táº¥t cáº£ cÃ¡c bÃ i cá»§a thÃ nh viÃªn nÃ y</Resource>
+    <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="STATISTICS">Thá»‘ng kÃª</Resource>
+    <Resource tag="SUSPEND">Suspend</Resource>
+    <Resource tag="SUSPEND_USER">Suspend User:</Resource>
+    <Resource tag="TOPIC">Chá»§ Ä‘á»:</Resource>
+    <Resource tag="USERNAME">TÃªn sá»­ dá»¥ng:</Resource>
+    <Resource tag="WEBLOG">Blog:</Resource>
+    <Resource tag="WEBSITE">Trang chá»§:</Resource>
+    <Resource tag="YIM">Yahoo Messenger:</Resource>
+  </page>
+  <page name="RECOVER_PASSWORD">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
+    <Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
+    <Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
+    <Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name to retrieve your password:</Resource>
+    <Resource tag="PAGE2_INSTRUCTIONS">Answer the following question to receive your password:</Resource>
+    <Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
+    <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
+    <Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
+    <Resource tag="TITLE">QuÃªn máº­t kháº©u</Resource>
+    <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
+  </page>
+  <page name="REGISTER">
+    <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Báº¡n Ä‘Ã£ Ä‘Äƒng kÃ½ thÃ nh cÃ´ng.[/center]</Resource>
+    <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
+    <Resource tag="ALREADY_REGISTERED">TÃªn sá»­ dá»¥ng hoáº·c email Ä‘Ã£ Ä‘Æ°á»£c dÃ¹ng Ä‘á»ƒ Ä‘Äƒng kÃ½.</Resource>
+    <Resource tag="BAD_EMAIL">Äá»‹a chá»‰ email báº¡n cung cáº¥p khÃ´ng há»£p lá»‡.</Resource>
+    <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">XÃ¡c nháº­n láº¡i máº­t kháº©u</Resource>
+    <Resource tag="CONTINUE">Tiáº¿p tá»¥c</Resource>
+    <Resource tag="CREATE_USER">ÄÄƒng kÃ½</Resource>
+    <Resource tag="DETAILS">ThÃ´ng tin Ä‘Äƒng kÃ½</Resource>
+    <Resource tag="EMAIL">Email</Resource>
+    <Resource tag="HOMEPAGE">Trang web</Resource>
+    <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
+    <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
+    <Resource tag="LOCATION">Äáº¿n tá»«</Resource>
+    <Resource tag="NEED_ANSWER">Báº¡n chÆ°a tráº£ lá»i CÃ¢u há»i báº£o máº­t.</Resource>
+    <Resource tag="NEED_EMAIL">Báº¡n chÆ°a nháº­p Email</Resource>
+    <Resource tag="NEED_MATCH">Máº­t kháº©u khÃ´ng giá»‘ng nhau.</Resource>
+    <Resource tag="NEED_PASSWORD">Báº¡n chÆ°a nháº­p Máº­t kháº©u.</Resource>
+    <Resource tag="NEED_QUESTION">Báº¡n chÆ°a nháº­p CÃ¢u há»i báº£o máº­t.</Resource>
+    <Resource tag="NEED_USERNAME">Báº¡n chÆ°a nháº­p TÃªn Ä‘Äƒng nháº­p.</Resource>
+    <Resource tag="PASSWORD">Máº­t kháº©u</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PREFERENCES">Tuá»³ chá»n</Resource>
+    <Resource tag="PROFILE">ThÃ´ng tin cÃ¡ nhÃ¢n</Resource>
+    <Resource tag="REGISTER">ÄÄƒng kÃ½</Resource>
+    <Resource tag="RETYPE_PASSWORD">Báº¡n chÆ°a nháº­p Máº­t kháº©u xÃ¡c nháº­n.</Resource>
+    <Resource tag="SECURITY_ANSWER">Tráº£ lá»i</Resource>
+    <Resource tag="SECURITY_QUESTION">CÃ¢u há»i báº£o máº­t</Resource>
+    <Resource tag="TERMS_AND_CONDITIONS_TITLE">Äiá»u khoáº£n sá»­ dá»¥ng</Resource>
+    <Resource tag="TIMEZONE">MÃºi giá»</Resource>
+    <Resource tag="TITLE">ÄÄƒng kÃ½ thÃ nh viÃªn</Resource>
+    <Resource tag="USERNAME">TÃªn Ä‘Äƒng nháº­p</Resource>
+    <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
+  </page>
+  <page name="RTE">
+    <Resource tag="BOLD">Äáº­m</Resource>
+    <Resource tag="CENTER">Canh giá»¯a</Resource>
+    <Resource tag="CLEAR">Clear Formatting</Resource>
+    <Resource tag="FORMATTED">Formatted</Resource>
+    <Resource tag="IMAGE">ChÃ¨n áº£nh</Resource>
+    <Resource tag="INDENT">Indent</Resource>
+    <Resource tag="ITALIC">NghiÃªng</Resource>
+    <Resource tag="LEFT">Canh lá» trÃ¡i</Resource>
+    <Resource tag="LINK">ChÃ¨n liÃªn káº¿t</Resource>
+    <Resource tag="NORMAL">Normal</Resource>
+    <Resource tag="ORDERED">Ordered List</Resource>
+    <Resource tag="OUTDENT">Outdent</Resource>
+    <Resource tag="RIGHT">Canh lá» pháº£it</Resource>
+    <Resource tag="SPELL">Kiá»ƒm tra ngá»¯ phÃ¡p</Resource>
+    <Resource tag="UNDERLINE">Gáº¡ch chÃ¢n</Resource>
+    <Resource tag="UNORDERED">Unordered List</Resource>
+  </page>
+  <page name="RULES">
+    <Resource tag="ACCEPT">TÃ´i Ä‘á»“ng Ã½ vá»›i cÃ¡c quy Ä‘á»‹nh nÃ y</Resource>
+    <Resource tag="DECLINE">KhÃ´ng Ä‘á»“ng Ã½</Resource>
+    <Resource tag="RULES_TEXT" editType="bbcode">
+			[size=5]&lt;p&gt;
+			ÄÄƒng k&amp;yacute; v&amp;agrave;o &lt;strong&gt;FORUM.VNPAY.VN&lt;/strong&gt; laÌ€ ho&amp;agrave;n to&amp;agrave;n miá»…n ph&amp;iacute; nháº±m táº¡o cÆ¡ há»™i giao lÆ°u giá»¯a nh&amp;acirc;n vi&amp;ecirc;n cá»§a c&amp;ocirc;ng ty vá»›i Kh&amp;aacute;ch h&amp;agrave;ng. Khi tham gia báº¡n pháº£i tu&amp;acirc;n theo c&amp;aacute;c quy Ä‘á»‹nh cá»§a diá»…n Ä‘&amp;agrave;n!
+			&lt;strong&gt;a&lt;/strong&gt;. Má»¥c Ä‘&amp;iacute;ch cá»§a c&amp;aacute;c quy Ä‘á»‹nh n&amp;agrave;y l&amp;agrave; Ä‘á»ƒ giá»¯ cho ná»™i dung cá»§a diá»…n d&amp;agrave;n Ä‘Æ°á»£c tá»‘t hÆ¡n, há»¯u &amp;iacute;ch hÆ¡n cho nhá»¯ng ngÆ°á»i tham gia diá»…n Ä‘&amp;agrave;n.
+			&lt;strong&gt;b&lt;/strong&gt;. Táº¥t cáº£ c&amp;aacute;c th&amp;agrave;nh vi&amp;ecirc;n cá»§a diáº½n Ä‘&amp;agrave;n Ä‘á»u pháº£i tu&amp;acirc;n thá»§ nhá»¯ng quy Ä‘á»‹nh sau
+			&lt;strong&gt;c&lt;/strong&gt;. Nhá»¯ng th&amp;agrave;nh vi&amp;ecirc;n n&amp;agrave;o vi pháº¡m quy Ä‘á»‹nh sáº½ Ä‘Æ°á»£c &lt;strong&gt;Administrator &lt;/strong&gt;hoáº·c c&amp;aacute;c &lt;strong&gt;Moderators &lt;/strong&gt;nháº¯c nhá»Ÿ láº§n Ä‘áº§u ti&amp;ecirc;n báº±ng tin nháº¯n c&amp;aacute; nh&amp;acirc;n hoáº·c nháº¯c nhá»Ÿ ngay trong b&amp;agrave;i viáº¿t vi pháº¡m. Náº¿u th&amp;agrave;nh vi&amp;ecirc;n Ä‘&amp;oacute; kh&amp;ocirc;ng sá»­a láº¡i cho ph&amp;ugrave; há»£p hoáº·c kh&amp;ocirc;ng c&amp;oacute; l&amp;yacute; do ch&amp;iacute;nh Ä‘&amp;aacute;ng th&amp;igrave; b&amp;agrave;i viáº¿t sáº½ Ä‘Æ°á»£c bi&amp;ecirc;n táº­p láº¡i (náº¿u ná»™i dung hay), hoáº·c sáº½ bá»‹ x&amp;oacute;a, users Ä‘&amp;oacute; sáº½ bá»‹ loáº¡i khá»i diá»…n Ä‘&amp;agrave;n. Trong trÆ°á»ng há»£p cáº§n thiáº¿t, Administrator hoáº·c Moderators c&amp;oacute; quyá»n bi&amp;ecirc;n táº­p m&amp;agrave; kh&amp;ocirc;ng cáº§n pháº£i th&amp;ocirc;ng b&amp;aacute;o trÆ°á»›c.
+			&lt;strong&gt;d&lt;/strong&gt;. C&amp;aacute;c quy Ä‘á»‹nh n&amp;agrave;y sáº½ Ä‘Æ°á»£c bá»• sung, thay Ä‘á»•i cho ph&amp;ugrave; há»£p vá»›i sá»± ph&amp;aacute;t triá»ƒn cá»§a diá»…n Ä‘&amp;agrave;n. Khi quy Ä‘á»‹nh Ä‘Æ°á»£c thay Ä‘á»•i th&amp;igrave; Administrator sáº½ gá»­i e-mail Ä‘áº¿n táº¥t cáº£ má»i ngÆ°á»i Ä‘á»ƒ th&amp;ocirc;ng b&amp;aacute;o.
+			&lt;/p&gt;
+			[size=7]&lt;p&gt;V&amp;agrave; sau Ä‘&amp;acirc;y l&amp;agrave; nhá»¯ng quy Ä‘á»‹nh m&amp;agrave; c&amp;aacute;c báº¡n cáº§n pháº£i nhá»› ká»¹ khi tham gia &lt;a href="http://forum.vnpay.vn"&gt;&lt;strong&gt; FORUM.VNPAY.VN&lt;/strong&gt;&lt;/a&gt; [/size]
+			&lt;strong&gt;1&lt;/strong&gt;. Diá»…n Ä‘&amp;agrave;n kh&amp;ocirc;ng cháº¥p nháº­n báº¥t cá»© th&amp;ocirc;ng tin n&amp;agrave;o Ä‘i ngÆ°á»£c láº¡i vá»›i thuáº§n phong má»¹ tá»¥c v&amp;agrave; truyá»n thá»‘ng vÄƒn ho&amp;aacute; cá»§a nÆ°á»›c Viá»‡t Nam, kh&amp;ocirc;ng cháº¥p nháº­n báº¥t cá»© chá»§ Ä‘á» tháº£o luáº­n hoáº·c c&amp;oacute; &amp;yacute; g&amp;acirc;y hiá»ƒu láº§m vá» ch&amp;iacute;nh trá»‹, vi pháº¡m luáº­t ph&amp;aacute;p cá»§a nh&amp;agrave; nÆ°á»›c CHXHCN Viá»‡t Nam. Má»i b&amp;agrave;i viáº¿t c&amp;oacute; ná»™i dung hoáº·c chá»©a li&amp;ecirc;n káº¿t Ä‘áº¿n c&amp;aacute;c trang web c&amp;oacute; ná»™i dung vi pháº¡m nhá»¯ng Ä‘iá»u tr&amp;ecirc;n Ä‘á»u sáº½ Ä‘Æ°á»£c x&amp;oacute;a hoáº·c bi&amp;ecirc;n táº­p m&amp;agrave; kh&amp;ocirc;ng cáº§n th&amp;ocirc;ng b&amp;aacute;o trÆ°á»›c.
+			&lt;strong&gt;2&lt;/strong&gt;. Th&amp;agrave;nh vi&amp;ecirc;n kh&amp;ocirc;ng Ä‘Æ°á»£c ph&amp;eacute;p spam báº±ng nhá»¯ng h&amp;igrave;nh thá»©c sau : Gá»­i nhiá»u b&amp;agrave;i viáº¿t c&amp;ugrave;ng ná»™i dung hoáº·c c&amp;oacute; ná»™i dung tÆ°Æ¡ng tá»± nhau trong má»™t hoáº·c nhiá»u chuy&amp;ecirc;n má»¥c (gá»­i 3 b&amp;agrave;i trá»Ÿ sáº½ bá»‹ x&amp;oacute;a); Gá»­i nhiá»u b&amp;agrave;i viáº¿t kh&amp;ocirc;ng c&amp;oacute; &amp;yacute; nghÄ©a hoáº·c kh&amp;ocirc;ng ph&amp;ugrave; há»£p vá»›i chá»§ Ä‘á» Ä‘ang tham gia.
+			&lt;strong&gt;3&lt;/strong&gt;. Th&amp;agrave;nh vi&amp;ecirc;n sáº½ pháº£i chá»‹u tr&amp;aacute;ch nhiá»‡m vá» ná»™i dung do m&amp;igrave;nh gá»­i l&amp;ecirc;n. Ban Ä‘iá»u h&amp;agrave;nh diá»…n Ä‘&amp;agrave;n sáº½ kh&amp;ocirc;ng chá»‹u tr&amp;aacute;ch nhiá»‡m vá» báº¥t ká»³ ná»™i dung n&amp;agrave;o do th&amp;agrave;nh vi&amp;ecirc;n gá»­i l&amp;ecirc;n. Má»i khiáº¿u náº¡i vá» ná»™i dung b&amp;agrave;i viáº¿t xin gá»­i vá» cho Ban Äiá»u H&amp;agrave;nh, ch&amp;uacute;ng t&amp;ocirc;i sáº½ giáº£i quyáº¿t t&amp;ugrave;y theo trÆ°á»ng há»£p.
+			&lt;strong&gt;4&lt;/strong&gt;. Kh&amp;ocirc;ng Ä‘Æ°á»£c gá»­i c&amp;aacute;c b&amp;agrave;i viáº¿t kh&amp;ocirc;ng li&amp;ecirc;n quan Ä‘áº¿n chuy&amp;ecirc;n má»¥c hoáº·c chá»§ Ä‘á» Ä‘ang tham gia. Kh&amp;ocirc;ng Ä‘Æ°á»£c gá»­i c&amp;aacute;c b&amp;agrave;i viáº¿t kh&amp;ocirc;ng c&amp;oacute; ti&amp;ecirc;u Ä‘á» r&amp;otilde; r&amp;agrave;ng hoáº·c kh&amp;ocirc;ng giá»‘ng &amp;yacute; vá»›i ná»™i dung b&amp;ecirc;n trong.
+			&lt;strong&gt;5&lt;/strong&gt;. Nhá»¯ng th&amp;agrave;nh vi&amp;ecirc;n cá»‘ t&amp;igrave;nh vi pháº¡m hoáº·c vi pháº¡m nhiá»u láº§n quy Ä‘á»‹nh cá»§a&lt;a href="http://forum.vnpay.vn"&gt;&lt;strong&gt; FORUM.VNPAY.VN&lt;/strong&gt;&lt;/a&gt; sáº½ bá»‹ loáº¡i ra khá»i diá»…n Ä‘&amp;agrave;n.
+			&lt;/p&gt;
+			[/size]
 
-			YÃªu cáº§u thay Ä‘á»•i Ä‘á»‹a chá»‰ email cá»§a báº¡n tá»›i email má»›i {newemail} Ä‘Ã£ hoÃ n táº¥t!
-
-			Xin hÃ£y click vÃ o liÃªn káº¿t dÆ°á»›i Ä‘Ã¢y Ä‘á»ƒ xÃ¡c nháº­n:
-
-			{link}
-
-			Sau Ä‘Ã³ nháº­p mÃ£ xÃ¡c nháº­n:
-
-			{key}
-
-			Xin bá» qua email nÃ y náº¿u báº¡n khÃ´ng cÃ³ yÃªu cáº§u Ä‘á»•i Ä‘á»‹a chá»‰ email.
-
-			{forumname} at {forumlink}
+			[center][size=6]Báº±ng viá»‡c Click vÃ o [b]TÃ´i Ä‘á»“ng Ã½ vá»›i cÃ¡c quy Ä‘á»‹nh nÃ y  .[/b]cÃ³ nghÄ©a lÃ  báº¡n Ä‘Ã£ cháº¥p nháº­n cÃ¡c Ä‘iá»u khoáº£n bÃªn trÃªn khi tham gia diá»…n Ä‘Ã n[/size][/center]
 		</Resource>
-		<Resource tag="CHANGEEMAIL_HTML" editType="html">
+    <Resource tag="TITLE">Ná»™i quy diá»…n Ä‘Ã n</Resource>
+  </page>
+  <page name="SEARCH">
+    <Resource tag="ALLFORUMS">Táº¥t cáº£ diá»…n Ä‘Ã n</Resource>
+    <Resource tag="BTNSEARCH">TÃ¬m kiáº¿m</Resource>
+    <Resource tag="BY">bá»Ÿi</Resource>
+    <Resource tag="LOADING_SEARCH">Äang táº£i káº¿t quáº£ tÃ¬m kiáº¿m...</Resource>
+    <Resource tag="MATCH_ALL">ChÃ­nh xÃ¡c</Resource>
+    <Resource tag="MATCH_ANY">Gáº§n Ä‘Ãºng</Resource>
+    <Resource tag="MATCH_EXACT">ChÃ­nh xÃ¡c cá»¥m tá»«</Resource>
+    <Resource tag="NO_SEARCH_RESULTS">[b]KhÃ´ng tÃ¬m tháº¥y káº¿t quáº£ nÃ o.[/b]</Resource>
+    <Resource tag="POSTED">ÄÃ£ gá»­i:</Resource>
+    <Resource tag="POSTEDBY">Viáº¿t bá»Ÿi</Resource>
+    <Resource tag="POSTS">BÃ i viáº¿t</Resource>
+    <Resource tag="RESULT10">10 káº¿t quáº£ trÃªn trang</Resource>
+    <Resource tag="RESULT25">25 káº¿t quáº£ trÃªn trang</Resource>
+    <Resource tag="RESULT5">5 káº¿t quáº£ trÃªn trang</Resource>
+    <Resource tag="RESULT50">50 káº¿t quáº£ trÃªn trang</Resource>
+    <Resource tag="RESULTS">Káº¿t quáº£</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="TITLE">TÃ¬m kiáº¿m</Resource>
+    <Resource tag="TOPIC">Chá»§ Ä‘á»:</Resource>
+  </page>
+  <page name="SHOWSMILIES">
+    <Resource tag="CLOSE_WINDOW">ÄÃ³ng cá»­a sá»•</Resource>
+    <Resource tag="HEADER_CODE">Code</Resource>
+    <Resource tag="HEADER_MEANING">Meaning</Resource>
+    <Resource tag="HEADER_SMILE">Smile</Resource>
+    <Resource tag="TITLE">Available Smilies</Resource>
+  </page>
+  <page name="TEMPLATES">
+    <Resource tag="CHANGEEMAIL_HTML" editType="html">
 			&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 			&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
 			&lt;head&gt;
@@ -175,22 +849,31 @@
 			&lt;/body&gt;
 			&lt;/html&gt;
 		</Resource>
-		<Resource tag="EMAILTOPIC">
+    <Resource tag="CHANGEEMAIL_TEXT">
+			Xin chÃ o {user},
+
+			YÃªu cáº§u thay Ä‘á»•i Ä‘á»‹a chá»‰ email cá»§a báº¡n tá»›i email má»›i {newemail} Ä‘Ã£ hoÃ n táº¥t!
+
+			Xin hÃ£y click vÃ o liÃªn káº¿t dÆ°á»›i Ä‘Ã¢y Ä‘á»ƒ xÃ¡c nháº­n:
+
+			{link}
+
+			Sau Ä‘Ã³ nháº­p mÃ£ xÃ¡c nháº­n:
+
+			{key}
+
+			Xin bá» qua email nÃ y náº¿u báº¡n khÃ´ng cÃ³ yÃªu cáº§u Ä‘á»•i Ä‘á»‹a chá»‰ email.
+
+			{forumname} at {forumlink}
+		</Resource>
+    <Resource tag="EMAILTOPIC">
 			Hello!
 
 			{user} thought you might be interested in reading this:
 
 			{link}
 		</Resource>
-		<Resource tag="PASSWORDRETRIEVAL_TEXT">
-			A new password has been generated for you on {forumname} at {forumlink}.
-
-			Please return to the site and log in using the following information:
-
-			User Name: {username}
-			Password: {password}
-		</Resource>
-		<Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
+    <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
 			&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 			&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
 			&lt;head&gt;
@@ -210,25 +893,32 @@
 			&lt;/body&gt;
 			&lt;/html&gt;
 		</Resource>
-		<Resource tag="PMNOTIFICATION_TEXT">
+    <Resource tag="PASSWORDRETRIEVAL_TEXT">
+			A new password has been generated for you on {forumname} at {forumlink}.
+
+			Please return to the site and log in using the following information:
+
+			User Name: {username}
+			Password: {password}
+		</Resource>
+    <Resource tag="PMNOTIFICATION_HTML" editType="html" />
+    <Resource tag="PMNOTIFICATION_TEXT">
 			A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
 
 			To read the message, open the following link in your browser:
 
 			{link}
 		</Resource>
-		<Resource tag="PMNOTIFICATION_HTML" editType="html">
-		</Resource>
-		<Resource tag="TOPICPOST_TEXT">
+    <Resource tag="TOPICPOST_HTML" editType="html" />
+    <Resource tag="TOPICPOST_TEXT">
 			A new message has been posted in the thread {topic} at {forumname}.
 
 			To read the message, open the following link in your browser:
 
 			{link}
 		</Resource>
-		<Resource tag="TOPICPOST_HTML" editType="html">
-		</Resource>
-		<Resource tag="VERIFYEMAIL_TEXT">
+    <Resource tag="VERIFYEMAIL_HTML" editType="html" />
+    <Resource tag="VERIFYEMAIL_TEXT">
 			You have requested to join {forumname}, but before you can join your email address must be verified.
 
 			To verify your email address open the following link in your web browser:
@@ -241,806 +931,86 @@
 
 			Visit {forumname} at {forumlink}
 		</Resource>
-		<Resource tag="VERIFYEMAIL_HTML" editType="html">
-		</Resource>
-	</page>
-	<page name="BUTTON">
-		<Resource tag="BUTTON_NEWTOPIC">Chá»§ Ä‘á» má»›i</Resource>
-		<Resource tag="BUTTON_NEWTOPIC_TT">Gá»­i chá»§ Ä‘á» má»›i lÃªn diá»…n Ä‘Ã n</Resource>
-		<Resource tag="BUTTON_MODERATE">Kiá»ƒm duyá»‡t</Resource>
-		<Resource tag="BUTTON_MODERATE_TT">Delete, lock, unlock, and move topics this forum</Resource>
-		<Resource tag="BUTTON_ATTACH">ÄÃ­nh kÃ¨m</Resource>
-		<Resource tag="BUTTON_ATTACH_TT">Gá»­i táº­p tin Ä‘Ã­nh kÃ¨m bÃ i viáº¿t nÃ y</Resource>
-		<Resource tag="BUTTON_EDIT">Sá»­a</Resource>
-		<Resource tag="BUTTON_EDIT_TT">Sá»­a bÃ i viáº¿t nÃ y</Resource>
-		<Resource tag="BUTTON_MOVE">Di chuyá»ƒn</Resource>
-		<Resource tag="BUTTON_MOVE_TT">Di chuyá»ƒn bÃ i viáº¿t nÃ y</Resource>
-		<Resource tag="BUTTON_DELETE">XoÃ¡</Resource>
-		<Resource tag="BUTTON_DELETE_TT">XoÃ¡ bÃ i viáº¿t nÃ y</Resource>
-		<Resource tag="BUTTON_UNDELETE">KhÃ´i phá»¥c</Resource>
-		<Resource tag="BUTTON_UNDELETE_TT">KhÃ´i phá»¥c bÃ i viáº¿t nÃ y</Resource>
-		<Resource tag="BUTTON_REPLY">Tráº£ lá»i</Resource>
-		<Resource tag="BUTTON_REPLY_TT">Tráº£ lá»i tin nháº¯n nÃ y</Resource>
-		<Resource tag="BUTTON_QUOTE">TrÃ­ch dáº«n</Resource>
-		<Resource tag="BUTTON_QUOTE_TT">Tráº£ lá»i vá»›i trÃ­ch dáº«n</Resource>
-		<Resource tag="BUTTON_POSTREPLY">Tráº£ lá»i</Resource>
-		<Resource tag="BUTTON_POSTREPLY_TT">Gá»­i bÃ i tráº£ lá»i cho chá»§ Ä‘á» nÃ y</Resource>
-		<Resource tag="BUTTON_NEWTOPIC">Gá»­i chá»§ Ä‘á»</Resource>
-		<Resource tag="BUTTON_NEWTOPIC_TT">Gá»­i má»™t chá»§ Ä‘á» má»›i lÃªn diá»…n Ä‘Ã n nÃ y</Resource>
-		<Resource tag="BUTTON_DELETETOPIC">XoÃ¡</Resource>
-		<Resource tag="BUTTON_DELETETOPIC_TT">XoÃ¡ chá»§ Ä‘á» nÃ y</Resource>
-		<Resource tag="BUTTON_LOCKTOPIC">KhoÃ¡</Resource>
-		<Resource tag="BUTTON_LOCKTOPIC_TT">KhoÃ¡ chá»§ Ä‘á» nÃ y</Resource>
-		<Resource tag="BUTTON_UNLOCKTOPIC">Má»Ÿ khoÃ¡</Resource>
-		<Resource tag="BUTTON_UNLOCKTOPIC_TT">Má»Ÿ khoÃ¡ chá»§ Ä‘á» nÃ y</Resource>
-		<Resource tag="BUTTON_MOVETOPIC">Di chuyá»ƒn</Resource>
-		<Resource tag="BUTTON_MOVETOPIC_TT">Di chuyá»ƒn chá»§ Ä‘á» nÃ y</Resource>
-		<Resource tag="BUTTON_NEWPM">Gá»­i tin nháº¯n</Resource>
-		<Resource tag="BUTTON_NEWPM_TT">Táº¡o má»›i tin nháº¯n riÃªng</Resource>
-	</page>
-	<page name="TOOLBAR">
-		<!-- "Toolbar" at top of most pages -->
-		<Resource tag="SEARCH">TÃ¬m kiáº¿m</Resource>
-		<Resource tag="ADMIN">Quáº£n trá»‹</Resource>
-		<Resource tag="MODERATE">Äiá»u hÃ nh</Resource>
-		<Resource tag="ACTIVETOPICS">Chá»§ Ä‘á» cÃ³ bÃ i má»›i</Resource>
-		<Resource tag="MYPROFILE">Trang cÃ¡ nhÃ¢n</Resource>
-		<Resource tag="MEMBERS">ThÃ nh viÃªn</Resource>
-		<Resource tag="LOGOUT">ThoÃ¡t</Resource>
-		<Resource tag="LOGIN">ÄÄƒng nháº­p</Resource>
-		<Resource tag="REGISTER">ÄÄƒng KÃ½</Resource>
-		<Resource tag="LOGGED_IN_AS">ÄÄƒng nháº­p vá»›i tÃªn: {0}</Resource>
-		<Resource tag="WELCOME_GUEST">ChÃ o má»«ng khÃ¡ch</Resource>
-		<Resource tag="LOGOUT_QUESTION">Báº¡n muá»‘n Ä‘Äƒng xuáº¥t?</Resource>
-		<Resource tag="HELP">Trá»£ giÃºp</Resource>
-		<Resource tag="NEWPM">({0} ChÆ°a Ä‘á»c)</Resource>
-	</page>
-	<page name="ICONLEGEND">
-		<!-- Common icon texts -->
-		<Resource tag="NEW_POSTS">BÃ i viáº¿t má»›i</Resource>
-		<Resource tag="NO_NEW_POSTS">KhÃ´ng cÃ³ bÃ i viáº¿t má»›i</Resource>
-		<Resource tag="ANNOUNCEMENT">ThÃ´ng bÃ¡o</Resource>
-		<Resource tag="ANNOUNCEMENT_NEW">ThÃ´ng bÃ¡o (CÃ³ bÃ i viáº¿t má»›i)</Resource>
-		<Resource tag="NEW_POSTS_LOCKED">BÃ i viáº¿t má»›i (ÄÃ£ KhÃ³a)</Resource>
-		<Resource tag="NO_NEW_POSTS_LOCKED">KhÃ´ng cÃ³ bÃ i viáº¿t má»›i (ÄÃ£ KhÃ³a)</Resource>
-		<Resource tag="FORUM_LOCKED">Diá»…n Ä‘Ã n Ä‘Ã£ khÃ³a</Resource>
-		<Resource tag="MOVED">ÄÃ£ chuyá»ƒn</Resource>
-		<Resource tag="POLL">BÃ¬nh chá»n</Resource>
-		<Resource tag="POLL_NEW">BÃ¬nh chá»n (CÃ³ bÃ i viáº¿t má»›i)</Resource>
-		<Resource tag="STICKY">ChÃº Ã½</Resource>
-	</page>
-	<page name="ATTACHMENTS">
-		<Resource tag="TITLE">ÄÃ­nh kÃ¨m</Resource>
-		<Resource tag="UPLOAD">Upload</Resource>
-		<Resource tag="SELECT_FILE">Chá»n táº­p tin báº¡n muá»‘n upload.</Resource>
-		<Resource tag="UPLOAD_TITLE">Upload File</Resource>
-		<Resource tag="FILENAME">TÃªn táº­p tin</Resource>
-		<Resource tag="SIZE">Dung lÆ°á»£ng</Resource>
-		<Resource tag="DELETE">XÃ³a</Resource>
-		<Resource tag="FILEERROR">Táº­p tin '{0}' khÃ´ng há»£p lá»‡.</Resource>
-		<Resource tag="ASK_DELETE">XÃ³a táº­p tin Ä‘Ã­nh kÃ¨m nÃ y?</Resource>
-		<Resource tag="ERROR_TOOBIG">Báº¡n khÃ´ng thá»ƒ Ä‘Ã­nh kÃ¨m táº­p tin quÃ¡ lá»›n.</Resource>
-		<Resource tag="ALLOWED_EXTENSIONS">CÃ¡c Ä‘á»‹nh dáº¡ng cho phÃ©p</Resource>
-		<Resource tag="DISALLOWED_EXTENSIONS">CÃ¡c Ä‘á»‹nh dáº¡ng bá»‹ cáº¥m</Resource>
-	</page>
-	<page name="DEFAULT">
-		<!-- default.aspx -->
-		<Resource tag="MAIN_FORUM_RSS">Diá»…n Ä‘Ã n chÃ­nh RSS</Resource>
-		<Resource tag="FORUM">Diá»…n Ä‘Ã n</Resource>
-		<Resource tag="TOPICS">Chá»§ Ä‘á»</Resource>
-		<Resource tag="POSTS">BÃ i viáº¿t</Resource>
-		<Resource tag="LASTPOST">BÃ i cuá»‘i</Resource>
-		<Resource tag="MODERATORS">Äiá»u hÃ nh</Resource>
-		<Resource tag="CURRENT_TIME">Giá» hiá»‡n táº¡i: {0}.</Resource>
-		<Resource tag="LAST_VISIT">Láº§n cuá»‘i báº¡n truy cáº­p diá»…n Ä‘Ã n: {0}.</Resource>
-		<Resource tag="STATS_POSTS">CÃ³ {0:N0} bÃ i viáº¿t vÃ  {1:N0} chá»§ Ä‘á» trong tá»•ng sá»‘ {2:N0} diá»…n Ä‘Ã n.</Resource>
-		<Resource tag="STATS_LASTPOST">BÃ i viáº¿t cuá»‘i {0} bá»Ÿi.</Resource>
-		<Resource tag="STATS_MEMBERS">Diá»…n Ä‘Ã n cÃ³ táº¥t cáº£ {0:N0} thÃ nh viÃªn.</Resource>
-		<Resource tag="STATS_LASTMEMBER">ChÃ o má»«ng thÃ nh viÃªn má»›i nháº¥t: </Resource>
-		<Resource tag="IN"> {0}</Resource>
-		<Resource tag="BY">bá»Ÿi {0}</Resource>
-		<Resource tag="NO_POSTS">KhÃ´ng cÃ³ bÃ i viáº¿t</Resource>
-		<Resource tag="UNREAD1">Báº¡n cÃ³ {0} tin nháº¯n má»›i.</Resource>
-		<Resource tag="UNREAD0">Báº¡n cÃ³ {0} tin nháº¯n má»›i.</Resource>
-		<Resource tag="INFORMATION">ThÃ´ng tin</Resource>
-		<Resource tag="STATS">Thá»‘ng kÃª</Resource>
-		<Resource tag="ACTIVE_USERS">ThÃ nh viÃªn trá»±c tuyáº¿n</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} ngÆ°á»i trá»±c tuyáº¿n</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} ngÆ°á»i trá»±c tuyáº¿n</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} thÃ nh viÃªn</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} thÃ nh viÃªn</Resource>
-		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} khÃ¡ch</Resource>
-		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} khÃ¡ch</Resource>
-		<Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} áº¨n truy cáº­p</Resource>
-		<Resource tag="VIEWING">({0} Ä‘ang xem)</Resource>
-		<Resource tag="NO_FORUM_ACCESS">(KhÃ´ng truy cáº­p)</Resource>
-		<Resource tag="MARKALL">ÄÃ¡nh dáº¥u táº¥t cáº£ diá»…n Ä‘Ã n Ä‘Ã£ Ä‘á»c</Resource>
-		<Resource tag="GO_LAST_POST">Xem bÃ i viáº¿t cuá»‘i</Resource>
-		<Resource tag="ACTIVE_DISCUSSIONS">Diá»…n Ä‘Ã n hoáº¡t Ä‘á»™ng</Resource>
-		<Resource tag="LATEST_POSTS">BÃ i viáº¿t cuá»‘i</Resource>
-	</page>
-	<page name="TOPICS">
-		<!-- topics.aspx -->
-		<Resource tag="TOPICS">Chá»§ Ä‘á»</Resource>
-		<Resource tag="TOPIC_STARTER">TÃ¡c giáº£</Resource>
-		<Resource tag="REPLIES">Tráº£ Lá»i</Resource>
-		<Resource tag="VIEWS">Xem</Resource>
-		<Resource tag="LASTPOST">BÃ i cuá»‘i</Resource>
-		<Resource tag="NO_POSTS">KhÃ´ng cÃ³ bÃ i viáº¿t</Resource>
-		<Resource tag="WATCHFORUM">Theo dÃµi diá»…n Ä‘Ã n nÃ y</Resource>
-		<Resource tag="UNWATCHFORUM">Há»§y theo dÃµi diá»…n Ä‘Ã n nÃ y</Resource>
-		<Resource tag="SHOWTOPICS">Xem chá»§ Ä‘á»</Resource>
-		<Resource tag="ALL">Táº¥t cáº£</Resource>
-		<Resource tag="LAST_DAY">Tá»« hÃ´m qua</Resource>
-		<Resource tag="LAST_TWO_DAYS">cÃ¡ch Ä‘Ã¢y 2 ngÃ y</Resource>
-		<Resource tag="LAST_WEEK">cÃ¡ch Ä‘Ã¢y 1 tuáº§n</Resource>
-		<Resource tag="LAST_TWO_WEEKS">cÃ¡ch Ä‘Ã¢y 2 tuáº§n</Resource>
-		<Resource tag="LAST_MONTH">cÃ¡ch Ä‘Ã¢y 1 thÃ¡ng</Resource>
-		<Resource tag="LAST_TWO_MONTHS">cÃ¡ch Ä‘Ã¢y 2 thÃ¡ng</Resource>
-		<Resource tag="LAST_SIX_MONTHS">cÃ¡ch Ä‘Ã¢y 6 thÃ¡ng</Resource>
-		<Resource tag="LAST_YEAR">cÃ¡ch Ä‘Ã¢y 1 nÄƒm</Resource>
-		<Resource tag="BY">bá»Ÿi {0}</Resource>
-		<Resource tag="FORUMUSERS">Ai Ä‘ang xem trang nÃ y?</Resource>
-		<Resource tag="CREATED">Táº¡o</Resource>
-		<Resource tag="WARN_FORUM_LOCKED">Diá»…n Ä‘Ã n Ä‘Ã£ khÃ³a.</Resource>
-		<Resource tag="WARN_LOGIN_FORUMWATCH">Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xem diá»…n Ä‘Ã n.</Resource>
-		<Resource tag="INFO_WATCH_FORUM">Báº¡n sáº½ Ä‘Æ°á»£c thÃ´ng bÃ¡o khi cÃ³ bÃ i viáº¿t má»›i trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="INFO_UNWATCH_FORUM">Báº¡n sáº½ khÃ´ng Ä‘Æ°á»£c thÃ´ng bÃ¡o khi cÃ³ bÃ i viáº¿t má»›i trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="MARKREAD">ÄÃ¡nh dáº¥u diá»…n Ä‘Ã n Ä‘Ã£ Ä‘á»c</Resource>
-		<Resource tag="SUBFORUMS">Diá»…n Ä‘Ã n con ({0}) </Resource>
-		<Resource tag="RSSFEED">Rss Feed</Resource>
-		<Resource tag="TODAYAT">[b]HÃ´m nay[/b] lÃºc {0:T}</Resource>
-		<Resource tag="YESTERDAYAT">[b]HÃ´m qua[/b] vÃ o lÃºc {0:T}</Resource>
-		<Resource tag="GOTO_POST_PAGER">[ Chuyáº¿n Ä‘áº¿n trang: {0} ]</Resource>
-	</page>
-	<page name="POSTS">
-		<!-- posts.aspx -->
-		<Resource tag="USERPROFILE">Há»“ sÆ¡ ngÆ°á»i dÃ¹ng</Resource>
-		<Resource tag="TOGGLEPOST">Hiá»‡n/áº¨n bÃ i viáº¿t</Resource>
-		<Resource tag="TOGGLEUSERPOSTS_HIDE">áº¨n bÃ i viáº¿t nÃ y</Resource>
-		<Resource tag="TOGGLEUSERPOSTS_SHOW">Hiá»‡n bÃ i viáº¿t nÃ y</Resource>
-		<Resource tag="QUICKREPLY">Tráº£ lá»i nhanh</Resource>
-		<Resource tag="QUICKREPLY_SHOW">Hiá»ƒn thá»‹ Tráº£ Lá»i Nhanh</Resource>
-		<Resource tag="QUICKREPLY_HIDE">áº¨n Tráº£ Lá»i Nhanh</Resource>
-		<Resource tag="OPTIONS">TÃ¹y chá»n</Resource>
-		<Resource tag="VIEW">Xem</Resource>
-		<Resource tag="POST_REPLY">Viáº¿t bÃ i tráº£ lá»i</Resource>
-		<Resource tag="QUESTION">CÃ¢u há»i bÃ¬nh chá»n</Resource>
-		<Resource tag="CHOICE">Chá»n</Resource>
-		<Resource tag="VOTES">Bá» phiáº¿u</Resource>
-		<Resource tag="STATISTICS">Thá»‘ng kÃª</Resource>
-		<Resource tag="PREVTOPIC">Chá»§ Ä‘á» trÆ°á»›c</Resource>
-		<Resource tag="NEXTTOPIC">Chá»§ Ä‘á» káº¿ tiáº¿p</Resource>
-		<Resource tag="WATCHTOPIC">Xem chá»§ Ä‘á» nÃ y</Resource>
-		<Resource tag="UNWATCHTOPIC">chÆ°a xem chá»§ Ä‘á» nÃ y</Resource>
-		<Resource tag="EMAILTOPIC">Email chá»§ Ä‘á» nÃ y</Resource>
-		<Resource tag="PRINTTOPIC">In chá»§ Ä‘á» nÃ y</Resource>
-		<Resource tag="RSSTOPIC">RSS Feed</Resource>
-		<Resource tag="POSTED">ÄÃ£ gá»­i</Resource>
-		<Resource tag="TOP">Chuyá»ƒn lÃªn trÃªn</Resource>
-		<Resource tag="CONFIRM_DELETEMESSAGE">XÃ³a tin nháº¯n?</Resource>
-		<Resource tag="CONFIRM_DELETETOPIC">XÃ³a chá»§ Ä‘á»?</Resource>
-		<Resource tag="RANK">Danh hiá»‡u</Resource>
-		<Resource tag="GROUPS">NhÃ³m</Resource>
-		<Resource tag="JOINED">Gia nháº­p</Resource>
-		<Resource tag="POSTS">BÃ i viáº¿t</Resource>
-		<Resource tag="POINTS">Äiá»ƒm</Resource>
-		<Resource tag="LOCATION">Äáº¿n tá»«</Resource>
-		<Resource tag="TOPICBROWSERS">Ai Ä‘ang xem chá»§ Ä‘á» nÃ y?</Resource>
-		<Resource tag="INFO_TOPIC_LOCKED">Chá»§ Ä‘á» Ä‘Ã£ Ä‘Æ°á»£c khÃ³a.</Resource>
-		<Resource tag="INFO_TOPIC_UNLOCKED">Chá»§ Ä‘á» Ä‘Ã£ Ä‘Æ°á»£c má»Ÿ khÃ³a.</Resource>
-		<Resource tag="WARN_TOPIC_LOCKED">Chá»§ Ä‘á» Ä‘Ã£ Ä‘Æ°á»£c Ä‘Ã³ng.</Resource>
-		<Resource tag="WARN_FORUM_LOCKED">Diá»…n Ä‘Ã n Ä‘Ã£ Ä‘Æ°á»£c Ä‘Ã³ng.</Resource>
-		<Resource tag="WARN_PMLOGIN">Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ gá»­i tin nháº¯n.</Resource>
-		<Resource tag="WARN_ALREADY_VOTED">Báº¡n Ä‘Ã£ bÃ¬nh chá»n rá»“i.</Resource>
-		<Resource tag="WARN_POLL_CLOSED">BÃ¬nh chá»n Ä‘Ã£ Ä‘Ã³ng.</Resource>
-		<Resource tag="POLL_CLOSED">(BÃ¬nh chá»n Ä‘Ã£ Ä‘Ã³ng)</Resource>
-		<Resource tag="INFO_VOTED">Cáº£m Æ¡n báº¡n Ä‘Ã£ bÃ¬nh chá»n!</Resource>
-		<Resource tag="WARN_WATCHLOGIN">Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ tiáº¿p tá»¥c.</Resource>
-		<Resource tag="INFO_WATCH_TOPIC">Báº¡n sáº½ Ä‘Æ°á»£c thÃ´ng bÃ¡o khi cÃ³ bÃ i viáº¿t má»›i trong chá»§ Ä‘á» nÃ y.</Resource>
-		<Resource tag="INFO_UNWATCH_TOPIC">Báº¡n sáº½ khÃ´ng Ä‘Æ°á»£c thÃ´ng bÃ¡o khi cÃ³ bÃ i viáº¿t má»›i trong chá»§ Ä‘á» nÃ y.</Resource>
-		<Resource tag="INFO_NOMORETOPICS">KhÃ´ng cÃ³ chá»§ Ä‘á» trong diá»…n Ä‘Ã n nÃ y.</Resource>
-		<Resource tag="WARN_EMAILLOGIN">Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ tiáº¿p tá»¥c.</Resource>
-		<Resource tag="ATTACHMENTS">Táº­p tin Ä‘Ã­nh kÃ¨m(s):</Resource>
-		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} hÃ¬nh Ä‘Æ°á»£c Ä‘Ã­nh kÃ¨m:</Resource>
-		<Resource tag="ATTACHMENTINFO">({0:N0}kb) Ä‘Ã£ Ä‘Æ°á»£c dowbload [b]{1:N0}[/b] láº§n.</Resource>
-		<Resource tag="NORMAL">BÃ¬nh thÆ°á»ng</Resource>
-		<Resource tag="THREADED">Threaded</Resource>
-		<Resource tag="FORUM_JUMP">Di chuyá»ƒn</Resource>
-		<Resource tag="TIP_REPLY_TOPIC">Tráº£ Lá»i</Resource>
-		<Resource tag="TIP_NEW_TOPIC">Táº¡o chá»§ Ä‘á»</Resource>
-		<Resource tag="TIP_DELETE_TOPIC">XÃ³a chá»§ Ä‘á»</Resource>
-		<Resource tag="TIP_LOCK_TOPIC">KhÃ³a chá»§ Ä‘á»</Resource>
-		<Resource tag="TIP_UNLOCK_TOPIC">Má»Ÿ khÃ³a chá»§ Ä‘á»</Resource>
-		<Resource tag="TIP_MOVE_TOPIC">Di chuyá»ƒn chá»§ Ä‘á»</Resource>
-		<Resource tag="AD_USERNAME">Quáº£ng cÃ¡o</Resource>
-		<Resource tag="AD_SIGNATURE">
-		</Resource>
-		<Resource tag="REPORTPOST">BÃ¡o cÃ¡o vi pháº¡m</Resource>
-		<Resource tag="REPORTSPAM">BÃ¡o cÃ¡o Spam</Resource>
-		<Resource tag="CONFIRM_REPORTPOST">BÃ¡o cÃ¡o bÃ i viáº¿t cÃ³ ná»™i dung vi pháº¡m?</Resource>
-		<Resource tag="CONFIRM_REPORTSPAM">BÃ¡o cÃ¡o bÃ i viáº¿t Spam?</Resource>
-		<Resource tag="REPORTEDFEEDBACK">Cáº£m Æ¡n báº¡n Ä‘Ã£ gá»­i bÃ¡o cÃ¡o vá» bÃ i viáº¿t nÃ y.</Resource>
-		<Resource tag="EMPTY_MESSAGE">Xin nháº­p ná»™i dung bÃ i viáº¿t.</Resource>
-		<Resource tag="EDITED">Sá»­a</Resource>
-		<Resource tag="EDITED_BY_USER">bá»Ÿi ngÆ°á»i viáº¿t</Resource>
-		<Resource tag="EDITED_BY_MOD">bá»Ÿi quáº£n trá»‹ viÃªn</Resource>
-		<Resource tag="EDIT_REASON">LÃ½ do</Resource>
-		<Resource tag="EDIT_REASON_NA">ChÆ°a rÃµ</Resource>
-		<Resource tag="IP">IP</Resource>
-		<Resource tag="PM">PM</Resource>
-		<Resource tag="EMAIL">Email</Resource>
-		<Resource tag="HOME">WWW</Resource>
-		<Resource tag="BLOG">BLOG</Resource>
-		<Resource tag="MSN">MSN</Resource>
-		<Resource tag="AIM">AIM</Resource>
-		<Resource tag="YIM">YAHOO</Resource>
-		<Resource tag="ICQ">ICQ</Resource>
-		<Resource tag="SKYPE">SKYPE</Resource>
-		<Resource tag="MESSAGEDELETED_USER">BÃ i viáº¿t Ä‘Æ°á»£c xoÃ¡ bá»Ÿi ngÆ°á»i gá»­i.</Resource>
-		<Resource tag="MESSAGEDELETED_MOD">BÃ i viáº¿t Ä‘Æ°á»£c xoÃ¡ bá»Ÿi quáº£n trá»‹ viÃªn.</Resource>
-	</page>
-	<page name="ACTIVE">
-		<!-- active.aspx -->
-		<Resource tag="LAST_24">(Trong vÃ²ng 24 tiáº¿ng)</Resource>
-		<Resource tag="TITLE">Chá»§ Ä‘á» cÃ³ bÃ i má»›i</Resource>
-		<Resource tag="SINCE">Ká»ƒ tá»«</Resource>
-		<Resource tag="LAST_VISIT">láº§n cuá»‘i vÃ o diá»…n Ä‘Ã n {0}</Resource>
-		<Resource tag="LAST_HOUR">1 giá» trÆ°á»›c Ä‘Ã¢y</Resource>
-		<Resource tag="LAST_TWO_HOURS">2 giá» trÆ°á»›c Ä‘Ã¢y</Resource>
-		<Resource tag="LAST_DAY">1 ngÃ y trÆ°á»›c Ä‘Ã¢y</Resource>
-		<Resource tag="LAST_TWO_DAYS">2 ngÃ y trÆ°á»›c Ä‘Ã¢y</Resource>
-		<Resource tag="LAST_WEEK">1 tuáº§n trÆ°á»›c Ä‘Ã¢y</Resource>
-		<Resource tag="LAST_TWO_WEEKS">2 tuáº§n trÆ°á»›c Ä‘Ã¢y</Resource>
-		<Resource tag="LAST_MONTH">1 thÃ¡ng trÆ°á»›c Ä‘Ã¢y</Resource>
-		<Resource tag="TOPICS">Chá»§ Ä‘á»</Resource>
-		<Resource tag="TOPIC_STARTER">TÃ¡c giÃ¡</Resource>
-		<Resource tag="REPLIES">Tráº£ lá»i</Resource>
-		<Resource tag="RSSFEED">Rss Feed</Resource>
-		<Resource tag="VIEWS">Xem</Resource>
-		<Resource tag="LASTPOST">BÃ i cuá»‘i</Resource>
-		<Resource tag="BY">bá»Ÿi {0}</Resource>
-		<Resource tag="NO_POSTS">KhÃ´ng cÃ³ bÃ i viáº¿t</Resource>
-	</page>
-	<page name="ACTIVEUSERS">
-		<!-- activeusers.aspx -->
-		<Resource tag="TITLE">ThÃ nh viÃªn trá»±c tuyáº¿n</Resource>
-		<Resource tag="USERNAME">TÃªn ngÆ°á»i dÃ¹ng</Resource>
-		<Resource tag="LOGGED_IN">ÄÄƒng nháº­p lÃºc</Resource>
-		<Resource tag="LAST_ACTIVE">Láº§n cuá»‘i truy cáº­p</Resource>
-		<Resource tag="ACTIVE">ÄÃ£ hoáº¡t Ä‘á»™ng</Resource>
-		<Resource tag="BROWSER">TrÃ¬nh duyá»‡t</Resource>
-		<Resource tag="PLATFORM">Há»‡ Ä‘iá»u hÃ nh</Resource>
-		<Resource tag="MINUTES">{0:N0} phÃºt</Resource>
-	</page>
-	<page name="APPROVE">
-		<!-- approve.aspx -->
-		<Resource tag="TITLE">XÃ¡c nháº­n email</Resource>
-		<Resource tag="EMAIL_VERIFIED">Email Ä‘Ã£ Ä‘Æ°á»£c xÃ¡c nháº­n.</Resource>
-		<Resource tag="EMAIL_VERIFY_FAILED">Lá»—i xÃ¡c nháº­n á»‹ia chá»‰ email.</Resource>
-		<Resource tag="ENTER_KEY">Nháº­p mÃ£ xÃ¡c nháº­n</Resource>
-		<Resource tag="VALIDATE">XÃ¡c nháº­n</Resource>
-	</page>
-	<page name="CP_PM">
-		<!-- cp_pm.ascx -->
-		<Resource tag="TITLE">Tin nháº¯n</Resource>
-		<Resource tag="NEW_MESSAGE">Gá»­i tin nháº¯n</Resource>
-		<Resource tag="INBOX">Tin nháº¯n</Resource>
-		<Resource tag="SENTITEMS">ÄÃ£ gá»­i</Resource>
-		<Resource tag="ARCHIVE">LÆ°u trá»¯</Resource>
-		<Resource tag="ARCHIVESELECTED">LÆ°u tin Ä‘Ã£ chá»n</Resource>
-		<Resource tag="DELETESELECTED">XoÃ¡ tin Ä‘Ã£ chá»n</Resource>
-		<Resource tag="SUBJECT">TiÃªu Ä‘á»</Resource>
-		<Resource tag="FROM">NgÆ°á»i gá»­i</Resource>
-		<Resource tag="TO">NgÆ°á»i nháº­n</Resource>
-		<Resource tag="DATE">NgÃ y</Resource>
-		<Resource tag="MSGDELETED1">1 Tin nháº¯n Ä‘Ã£ Ä‘Æ°á»£c xoÃ¡.</Resource>
-		<Resource tag="MSGDELETED2">{0} Tin nháº¯n Ä‘Ã£ Ä‘Æ°á»£c xoÃ¡.</Resource>
-		<Resource tag="MSG_ARCHIVED">Tin nháº¯n Ä‘Ã£ Ä‘Æ°á»£c lÆ°u trá»¯ thÃ nh cÃ´ng.</Resource>
-		<Resource tag="MSG_ARCHIVED+">{0} Tin nháº¯n Ä‘Ã£ Ä‘Æ°á»£c lÆ°u trá»¯ thÃ nh cÃ´ng.</Resource>
-		<Resource tag="CONFIRM_DELETE">XoÃ¡ táº¥t cáº£ cÃ¡c tin nháº¯n Ä‘Æ°á»£c chá»n?</Resource>
-		<Resource tag="MSG_DELETED">Tin nháº¯n Ä‘Ã£ Ä‘Æ°á»£c xoÃ¡.</Resource>
-		<Resource tag="NO_MESSAGES">KhÃ´ng tÃ¬m tháº¥y tin nháº¯n nÃ o.</Resource>
-		<Resource tag="POSTED">Posted:</Resource>
-	</page>
-	<page name="CP_EDITAVATAR">
-		<Resource tag="TITLE">Sá»­a hÃ¬nh Ä‘áº¡i diá»‡n</Resource>
-		<Resource tag="AVATAR">HÃ¬nh Ä‘áº¡i diá»‡n</Resource>
-		<Resource tag="AVATARCURRENT">HÃ¬nh hiá»‡n táº¡i</Resource>
-		<Resource tag="AVATARNEW">chá»n hÃ¬nh má»›i</Resource>
-		<Resource tag="AVATARUPLOAD">Upload hÃ¬nh:</Resource>
-		<Resource tag="AVATARDELETE">XÃ³a hÃ¬nh</Resource>
-		<Resource tag="AVATARREMOTE">Nháº­p Ä‘Æ°á»ng dáº«n hÃ¬nh:</Resource>
-		<Resource tag="OURAVATAR">Chá»n hÃ¬nh tá»« thÆ° viá»‡n:</Resource>
-		<Resource tag="OURAVATAR_SELECT">Click vÃ o Ä‘Ã¢y Ä‘á»ƒ chá»n</Resource>
-		<Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
-		<Resource tag="NOAVATAR">[ KhÃ´ng cÃ³ hÃ¬nh ]</Resource>
-		<Resource tag="WARN_TOOBIG">HÃ¬nh khÃ´ng thá»ƒ lá»›n hÆ¡n {0}x{1} px.</Resource>
-		<Resource tag="WARN_SIZE">HÃ¬nh cá»§a báº¡n cÃ³ kÃ­ch thÆ°á»›c {0}x{1} px.</Resource>
-		<Resource tag="WARN_RESIZED">HÃ¬nh Ä‘Ã£ Ä‘Æ°á»£c chá»‰nh láº¡i kÃ­ch thÆ°á»›c phÃ¹ há»£p.</Resource>
-		<Resource tag="WARN_BIGFILE">Dung lÆ°Æ¡ng hÃ¬nh khÃ´ng thá»ƒ lá»›n hÆ¡n {0} bytes.</Resource>
-		<Resource tag="WARN_FILESIZE">HÃ¬nh cá»§a báº¡n cÃ³ dung lÆ°á»£ng {0} bytes.</Resource>
-		<Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
-	</page>
-	<page name="CP_EDITPROFILE">
-		<!-- cp_editprofile.aspx -->
-		<Resource tag="TITLE">Sá»­a lÃ½ lá»‹ch</Resource>
-		<Resource tag="LOCATION">Äáº¿n tá»«</Resource>
-		<Resource tag="WHERE">Báº¡n Ä‘ang á»Ÿ Ä‘Ã¢u?</Resource>
-		<Resource tag="HOMEPAGE">Trang chá»§</Resource>
-		<Resource tag="HOMEPAGE2">Trang chá»§ cá»§a báº¡n:</Resource>
-		<Resource tag="TIMEZONE">MÃºi giá»</Resource>
-		<Resource tag="TIMEZONE2">Chá»n mÃºi giá» cá»§a báº¡n.</Resource>
-		<Resource tag="CHANGE_EMAIL">Äá»•i email</Resource>
-		<Resource tag="EMAIL">Báº¡n pháº£i nháº­p Ä‘á»‹a chá»‰ email chÃ­nh xÃ¡c.</Resource>
-		<Resource tag="MAIL_SENT">Má»™t email Ä‘Æ°á»£c gá»­i Ä‘áº¿n {0}.\n\nBáº¡n cáº§n pháº£i xÃ¡c nháº­n Ä‘á»‹a chá»‰ mail báº±ng cÃ¡ch click vÃ o Ä‘Æ°á»ng dáº«n Ä‘Ã£ gá»­i Ä‘áº¿n cho báº¡n.</Resource>
-		<Resource tag="FORUM_SETTINGS">Thiáº¿t láº­p diá»…n Ä‘Ã n</Resource>
-		<Resource tag="SELECT_THEME">Chá»n giao diá»‡n:</Resource>
-		<Resource tag="SELECT_LANGUAGE">Chá»n ngÃ´n ngá»¯:</Resource>
-		<Resource tag="WEBLOG2">Weblog:</Resource>
-		<Resource tag="MESSENGER">Instant messaging services</Resource>
-		<Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
-		<Resource tag="ABOUTYOU">ThÃ´ng tin cá»§a báº¡n</Resource>
-		<Resource tag="REALNAME2">TÃªn tháº­t cá»§a báº¡n?</Resource>
-		<Resource tag="BAD_EMAIL">Báº¡n Ä‘Ã£ nháº­p Ä‘á»‹a chá»‰ email khÃ´ng há»£p lá»‡.</Resource>
-		<Resource tag="BAD_MSN">Báº¡n Ä‘Ã£ nháº­p Ä‘á»‹a chá»‰ email khÃ´ng há»£p lá»‡ cho tÃ i khoáº£n MSN.</Resource>
-		<Resource tag="BAD_HOME">Báº¡n Ä‘Ã£ nháº­p Ä‘á»‹a chá»‰ khÃ´ng há»£p lá»‡ cho trang chá»§ cá»§a báº¡n.</Resource>
-		<Resource tag="BAD_WEBLOG">Báº¡n Ä‘Ã£ nháº­p Ä‘á»‹a chá»‰ khÃ´ng há»£p lá»‡ cho weblog.</Resource>
-		<Resource tag="BAD_ICQ">Báº¡n Ä‘Ã£ nháº­p khÃ´ng há»£p lá»‡ cho sá»‘ ICQ.</Resource>
-		<Resource tag="PM_EMAIL_NOTIFICATION">Nháº­n email thÃ´ng bÃ¡o khi cÃ³ tin nháº¯n má»›i?</Resource>
-		<Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
-		<Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
-		<Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
-		<Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
-		<Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
-	</page>
-	<page name="CP_MESSAGE">
-		<!-- cp_message.aspx -->
-		<Resource tag="INBOX">Tin nháº¯n</Resource>
-		<Resource tag="SENTITEMS">ÄÃ£ gá»­i</Resource>
-		<Resource tag="MSG_DELETED">Tin nháº¯n Ä‘Ã£ xÃ³a.</Resource>
-		<Resource tag="POSTED">Gá»­i:</Resource>
-	</page>
-	<page name="CP_PROFILE">
-		<!-- cp_profile.aspx -->
-		<Resource tag="NEW_MESSAGE">Soáº¡n tin nháº¯n</Resource>
-		<Resource tag="CONTROL_PANEL">Báº£ng Ä‘iá»u khiá»ƒn</Resource>
-		<Resource tag="MESSENGER">Ná»™i dung:</Resource>
-		<Resource tag="PERSONAL_PROFILE">LÃ½ lá»‹ch cÃ¡ nhÃ¢n:</Resource>
-		<Resource tag="INBOX">Tin nháº¯n</Resource>
-		<Resource tag="SENTITEMS">ÄÃ£ gá»­i</Resource>
-		<Resource tag="ARCHIVE">LÆ°u trá»¯</Resource>
-		<Resource tag="EDIT_PROFILE">Sá»­a lÃ½ lá»‹ch</Resource>
-		<Resource tag="EDIT_AVATAR">Sá»­a hÃ¬nh Ä‘áº¡i diá»‡n</Resource>
-		<Resource tag="SIGNATURE">Chá»¯ kÃ½</Resource>
-		<Resource tag="SUBSCRIPTIONS">Chá»§ Ä‘á» theo dÃµi</Resource>
-		<Resource tag="CHANGE_PASSWORD">Äá»•i máº­t kháº©u</Resource>
-		<Resource tag="YOUR_ACCOUNT">TÃ i khoáº£n cá»§a báº¡n</Resource>
-		<Resource tag="YOUR_USERNAME">TÃªn Ä‘Äƒng nháº­p:</Resource>
-		<Resource tag="YOUR_EMAIL">Email:</Resource>
-		<Resource tag="NUMPOSTS">Sá»‘ bÃ i viáº¿t:</Resource>
-		<Resource tag="GROUPS">NhÃ³m:</Resource>
-		<Resource tag="JOINED">NgÃ y tham gia:</Resource>
-		<Resource tag="EDIT_SIGNATURE">Sá»­a chá»¯ kÃ½</Resource>
-	</page>
-	<page name="CP_SIGNATURE">
-		<!-- cp_signature.aspx -->
-		<Resource tag="TITLE">Sá»­a chá»¯ kÃ½</Resource>
-		<Resource tag="SIGNATURE">Chá»¯ kÃ½:</Resource>
-	</page>
-	<page name="CP_SUBSCRIPTIONS">
-		<!-- cp_subscriptions.aspx -->
-		<Resource tag="TITLE">Chá»§ Ä‘á» theo dÃµi</Resource>
-		<Resource tag="FORUMS">Diá»…n Ä‘Ã n</Resource>
-		<Resource tag="FORUM">Diá»…n Ä‘Ã n</Resource>
-		<Resource tag="TOPICS">Chá»§ Ä‘á»</Resource>
-		<Resource tag="REPLIES">Tráº£ lá»›i</Resource>
-		<Resource tag="LASTPOST">BÃ i cuá»‘i</Resource>
-		<Resource tag="TOPIC">Chá»§ Ä‘á»</Resource>
-		<Resource tag="VIEWS">Xem</Resource>
-		<Resource tag="UNSUBSCRIBE">Ngá»«ng theo dÃµi</Resource>
-		<Resource tag="LASTPOSTLINK">{0} bá»Ÿi {1}</Resource>
-		<Resource tag="WARN_SELECTTOPICS">Xin chá»n chá»§ Ä‘á» cáº§n ngá»«ng theo dÃµi.</Resource>
-		<Resource tag="WARN_SELECTFORUMS">Xin chá»n diá»…n Ä‘Ã n cáº§n ngá»«ng theo dÃµi.</Resource>
-	</page>
-	<page name="CP_CHANGEPASSWORD">
-		<!-- cp_changepassword.aspx -->
-		<Resource tag="TITLE">Äá»•i máº­t kháº©u</Resource>
-		<Resource tag="CHANGE_BUTTON">Gá»­i</Resource>
-		<Resource tag="OLD_PASSWORD">Máº­t kháº©u cÅ©:</Resource>
-		<Resource tag="NEW_PASSWORD">Máº­t kháº©u má»›i:</Resource>
-		<Resource tag="CONFIRM_PASSWORD">Nháº­p láº¡i máº­t kháº©u má»›i:</Resource>
-		<Resource tag="NO_PASSWORD_MATCH">Máº­t kháº©u xÃ¡c nháº­n khÃ´ng Ä‘Ãºng.</Resource>
-		<Resource tag="PASSWORD_INCORRECT">Máº­t kháº©u cÅ© khÃ´ng Ä‘Ãºng hoáº·c Máº­t kháº©u má»›i khÃ´ng há»£p lá»‡.</Resource>
-		<Resource tag="PASSWORD_BAD_LENGTH">Máº­t kháº©u má»›i pháº£i tá»«: {0} kÃ­ tá»± trá»Ÿ lÃªn.</Resource>
-		<Resource tag="PASSWORD_NOT_COMPLEX">Máº­t kháº©u pháº£i chá»©a kÃ½ tá»± Ä‘áº·c biá»‡t: {1}.</Resource>
-		<Resource tag="CHANGE_SUCCESS">Thay Ä‘á»•i máº­t kháº©u thÃ nh cÃ´ng.</Resource>
-		<Resource tag="NEED_OLD_PASSWORD">Báº¡n chÆ°a nháº­p máº­t kháº©u cÅ©.</Resource>
-		<Resource tag="NEED_NEW_PASSWORD">Báº¡n chÆ°a nháº­p máº­t kháº©u má»›i.</Resource>
-		<Resource tag="NEED_NEW_CONFIRM_PASSWORD">Báº¡n chÆ°a xÃ¡c nháº­n láº¡i máº­t kháº©u má»›i.</Resource>
-	</page>
-	<page name="EMAILTOPIC">
-		<!-- emailtopic.aspx -->
-		<Resource tag="TITLE">Gá»­i cho báº¡n bÃ¨</Resource>
-		<Resource tag="TO">Gá»­i Ä‘áº¿n (Ä‘á»‹a chá»‰ email):</Resource>
-		<Resource tag="SUBJECT">TiÃªu Ä‘á»:</Resource>
-		<Resource tag="MESSAGE">Ná»™i dung:</Resource>
-		<Resource tag="SEND">Gá»­i Email</Resource>
-		<Resource tag="NEED_EMAIL">Báº¡n nháº­p Ä‘á»‹a chá»‰ email há»£p lá»‡.</Resource>
-		<Resource tag="FAILED">KhÃ´ng gá»­i Ä‘Æ°á»£c email.\n\n{0}</Resource>
-	</page>
-	<page name="INFO">
-		<!-- info.aspx -->
-		<Resource tag="CONTINUE">Tiáº¿p tá»¥c...</Resource>
-		<Resource tag="MODERATED">BÃ i viáº¿t cá»§a báº¡n Ä‘Ã£ Ä‘Æ°á»£c gá»­i thÃ nh cÃ´ng.BÃ i viáº¿t pháº£i Ä‘Æ°á»£c duyá»‡t qua trÆ°á»›c khi hiá»ƒn thá»‹.</Resource>
-		<Resource tag="SUSPENDED">TÃ i khoáº£n cá»§a báº¡n bá»‹ táº¡m khoÃ¡.Thá»i háº¡n khoÃ¡ Ä‘áº¿n {0}.</Resource>
-		<Resource tag="REGISTRATION">Má»™t email Ä‘Æ°á»£c gá»­i.\n\nBáº¡n cáº§n pháº£i xÃ¡c nháº­n Ä‘á»‹a chá»‰ mail báº±ng cÃ¡ch click vÃ o Ä‘Æ°á»ng dáº«n Ä‘Ã£ gá»­i Ä‘áº¿n cho báº¡n..</Resource>
-		<Resource tag="ACCESSDENIED">Báº¡n Ä‘ang cá»‘ gáº¯ng truy cáº­p vÃ o trang khÃ´ng há»£p lá»‡.</Resource>
-		<Resource tag="DISABLED">Quáº£n trá»‹ viÃªn cá»§a diá»…n Ä‘Ã n Ä‘Ã£ vÃ´ hiá»‡u hoÃ¡ chá»©c nÄƒng nÃ y.</Resource>
-		<Resource tag="INVALID">Trang truy cáº­p khÃ´ng tá»“n táº¡i hoáº·c báº¡n khÃ´ng cÃ³ quyá»n truy cáº­p vÃ o trang nÃ y.</Resource>
-		<Resource tag="FAILURE">There's been a system error processing your request. Please contact the forum admin explaining what you were doing when it happened.</Resource>
-		<Resource tag="EXCEPTION">Báº¡n Ä‘Ã£ Ä‘Äƒng nháº­p vá»›i tÃªn</Resource>
-		<Resource tag="TITLE_INVALID">Lá»—i truy cáº­p</Resource>
-		<Resource tag="TITLE_MODERATED">ThÃ´ng Tin</Resource>
-		<Resource tag="TITLE_SUSPENDED">Táº¡m khoÃ¡</Resource>
-		<Resource tag="TITLE_REGISTRATION">Cáº£m Æ¡n</Resource>
-		<Resource tag="TITLE_ACCESSDENIED">Tá»« chá»‘i truy cáº­p</Resource>
-		<Resource tag="TITLE_EXCEPTION">ThÃ´ng tin</Resource>
-		<Resource tag="TITLE_FAILURE">Failure</Resource>
-	</page>
-	<page name="LOGIN">
-		<!-- login.aspx -->
-		<Resource tag="TITLE">ÄÄƒng nháº­p</Resource>
-		<Resource tag="USERNAME">TÃªn Ä‘Äƒng nháº­p:</Resource>
-		<Resource tag="PASSWORD">Máº­t kháº©u:</Resource>
-		<Resource tag="AUTO">Ghi nhá»›:</Resource>
-		<Resource tag="LOSTPASSWORD">QuÃªn máº­t kháº©u</Resource>
-		<Resource tag="FORUM_LOGIN">ÄÄƒng nháº­p diá»…n Ä‘Ã n</Resource>
-		<Resource tag="EMAIL">Email</Resource>
-		<Resource tag="PASSWORD_ERROR">TÃªn Ä‘Äƒng nháº­p hoáº·c máº­t kháº©u khÃ´ng há»£p lá»‡.</Resource>
-		<Resource tag="RECOVER">Nháº­n láº¡i máº­t kháº©u</Resource>
-		<Resource tag="WRONG_USERNAME_EMAIL">Sai tÃªn Ä‘Äƒng nháº­p hoáº·c email.</Resource>
-		<Resource tag="EMAIL_SENT_PASSWORD">Email Ä‘Ã£ Ä‘Æ°á»£c gá»­i cho báº¡n vÆ¡i máº­t kháº©u má»›i.</Resource>
-		<Resource tag="SENDPASSWORD">gá»­i máº­t kháº©u</Resource>
-		<Resource tag="BOTH_USERNAME_EMAIL">Báº¡n cáº§n pháº£i nháº­p cáº£ tÃªn Ä‘Äƒng nháº­p vÃ  email.</Resource>
-		<Resource tag="RECOVER_ERROR">Lá»—i táº¡o máº­t kháº©u má»›i.</Resource>
-	</page>
-	<page name="RECOVER_PASSWORD">
-		<Resource tag="TITLE">QuÃªn máº­t kháº©u</Resource>
-		<Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name to retrieve your password:</Resource>
-		<Resource tag="PAGE2_INSTRUCTIONS">Answer the following question to receive your password:</Resource>
-		<Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
-		<Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
-		<Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
-		<Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
-		<Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
-		<Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
-		<Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
-		<Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
-	</page>
-	<page name="REGISTER">
-		<!-- register.aspx -->
-		<Resource tag="TITLE">ÄÄƒng kÃ½ thÃ nh viÃªn</Resource>
-		<Resource tag="TERMS_AND_CONDITIONS_TITLE">Äiá»u khoáº£n sá»­ dá»¥ng</Resource>
-		<Resource tag="DETAILS">ThÃ´ng tin Ä‘Äƒng kÃ½</Resource>
-		<Resource tag="USERNAME">TÃªn Ä‘Äƒng nháº­p</Resource>
-		<Resource tag="NEED_USERNAME">Báº¡n chÆ°a nháº­p TÃªn Ä‘Äƒng nháº­p.</Resource>
-		<Resource tag="PASSWORD">Máº­t kháº©u</Resource>
-		<Resource tag="NEED_PASSWORD">Báº¡n chÆ°a nháº­p Máº­t kháº©u.</Resource>
-		<Resource tag="NEED_QUESTION">Báº¡n chÆ°a nháº­p CÃ¢u há»i báº£o máº­t.</Resource>
-		<Resource tag="NEED_ANSWER">Báº¡n chÆ°a tráº£ lá»i CÃ¢u há»i báº£o máº­t.</Resource>
-		<Resource tag="RETYPE_PASSWORD">Báº¡n chÆ°a nháº­p Máº­t kháº©u xÃ¡c nháº­n.</Resource>
-		<Resource tag="NEED_EMAIL">Báº¡n chÆ°a nháº­p Email</Resource>
-		<Resource tag="NEED_MATCH">Máº­t kháº©u khÃ´ng giá»‘ng nhau.</Resource>
-		<Resource tag="EMAIL">Email</Resource>
-		<Resource tag="PROFILE">ThÃ´ng tin cÃ¡ nhÃ¢n</Resource>
-		<Resource tag="LOCATION">Äáº¿n tá»«</Resource>
-		<Resource tag="HOMEPAGE">Trang web</Resource>
-		<Resource tag="PREFERENCES">Tuá»³ chá»n</Resource>
-		<Resource tag="TIMEZONE">MÃºi giá»</Resource>
-		<Resource tag="ALREADY_REGISTERED">TÃªn sá»­ dá»¥ng hoáº·c email Ä‘Ã£ Ä‘Æ°á»£c dÃ¹ng Ä‘á»ƒ Ä‘Äƒng kÃ½.</Resource>
-		<Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
-		<Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
-		<Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
-		<Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
-		<Resource tag="REGISTER">ÄÄƒng kÃ½</Resource>
-		<Resource tag="CONFIRM_PASSWORD">XÃ¡c nháº­n láº¡i máº­t kháº©u</Resource>
-		<Resource tag="SECURITY_QUESTION">CÃ¢u há»i báº£o máº­t</Resource>
-		<Resource tag="SECURITY_ANSWER">Tráº£ lá»i</Resource>
-		<Resource tag="CREATE_USER">ÄÄƒng kÃ½</Resource>
-		<Resource tag="CONTINUE">Tiáº¿p tá»¥c</Resource>
-		<Resource tag="BAD_EMAIL">Äá»‹a chá»‰ email báº¡n cung cáº¥p khÃ´ng há»£p lá»‡.</Resource>
-		<Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
-		<Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Báº¡n Ä‘Ã£ Ä‘Äƒng kÃ½ thÃ nh cÃ´ng.[/center]</Resource>
-		<Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
-	</page>
-	<page name="RULES">
-		<!-- rules.aspx -->
-		<Resource tag="TITLE">Ná»™i quy diá»…n Ä‘Ã n</Resource>
-		<Resource tag="ACCEPT">TÃ´i Ä‘á»“ng Ã½ vá»›i cÃ¡c quy Ä‘á»‹nh nÃ y</Resource>
-		<Resource tag="DECLINE">KhÃ´ng Ä‘á»“ng Ã½</Resource>
-		<Resource tag="RULES_TEXT" editType="bbcode">
-			[size=5]&lt;p&gt;
-			ÄÄƒng k&amp;yacute; v&amp;agrave;o &lt;strong&gt;FORUM.VNPAY.VN&lt;/strong&gt; laÌ€ ho&amp;agrave;n to&amp;agrave;n miá»…n ph&amp;iacute; nháº±m táº¡o cÆ¡ há»™i giao lÆ°u giá»¯a nh&amp;acirc;n vi&amp;ecirc;n cá»§a c&amp;ocirc;ng ty vá»›i Kh&amp;aacute;ch h&amp;agrave;ng. Khi tham gia báº¡n pháº£i tu&amp;acirc;n theo c&amp;aacute;c quy Ä‘á»‹nh cá»§a diá»…n Ä‘&amp;agrave;n!
-			&lt;strong&gt;a&lt;/strong&gt;. Má»¥c Ä‘&amp;iacute;ch cá»§a c&amp;aacute;c quy Ä‘á»‹nh n&amp;agrave;y l&amp;agrave; Ä‘á»ƒ giá»¯ cho ná»™i dung cá»§a diá»…n d&amp;agrave;n Ä‘Æ°á»£c tá»‘t hÆ¡n, há»¯u &amp;iacute;ch hÆ¡n cho nhá»¯ng ngÆ°á»i tham gia diá»…n Ä‘&amp;agrave;n.
-			&lt;strong&gt;b&lt;/strong&gt;. Táº¥t cáº£ c&amp;aacute;c th&amp;agrave;nh vi&amp;ecirc;n cá»§a diáº½n Ä‘&amp;agrave;n Ä‘á»u pháº£i tu&amp;acirc;n thá»§ nhá»¯ng quy Ä‘á»‹nh sau
-			&lt;strong&gt;c&lt;/strong&gt;. Nhá»¯ng th&amp;agrave;nh vi&amp;ecirc;n n&amp;agrave;o vi pháº¡m quy Ä‘á»‹nh sáº½ Ä‘Æ°á»£c &lt;strong&gt;Administrator &lt;/strong&gt;hoáº·c c&amp;aacute;c &lt;strong&gt;Moderators &lt;/strong&gt;nháº¯c nhá»Ÿ láº§n Ä‘áº§u ti&amp;ecirc;n báº±ng tin nháº¯n c&amp;aacute; nh&amp;acirc;n hoáº·c nháº¯c nhá»Ÿ ngay trong b&amp;agrave;i viáº¿t vi pháº¡m. Náº¿u th&amp;agrave;nh vi&amp;ecirc;n Ä‘&amp;oacute; kh&amp;ocirc;ng sá»­a láº¡i cho ph&amp;ugrave; há»£p hoáº·c kh&amp;ocirc;ng c&amp;oacute; l&amp;yacute; do ch&amp;iacute;nh Ä‘&amp;aacute;ng th&amp;igrave; b&amp;agrave;i viáº¿t sáº½ Ä‘Æ°á»£c bi&amp;ecirc;n táº­p láº¡i (náº¿u ná»™i dung hay), hoáº·c sáº½ bá»‹ x&amp;oacute;a, users Ä‘&amp;oacute; sáº½ bá»‹ loáº¡i khá»i diá»…n Ä‘&amp;agrave;n. Trong trÆ°á»ng há»£p cáº§n thiáº¿t, Administrator hoáº·c Moderators c&amp;oacute; quyá»n bi&amp;ecirc;n táº­p m&amp;agrave; kh&amp;ocirc;ng cáº§n pháº£i th&amp;ocirc;ng b&amp;aacute;o trÆ°á»›c.
-			&lt;strong&gt;d&lt;/strong&gt;. C&amp;aacute;c quy Ä‘á»‹nh n&amp;agrave;y sáº½ Ä‘Æ°á»£c bá»• sung, thay Ä‘á»•i cho ph&amp;ugrave; há»£p vá»›i sá»± ph&amp;aacute;t triá»ƒn cá»§a diá»…n Ä‘&amp;agrave;n. Khi quy Ä‘á»‹nh Ä‘Æ°á»£c thay Ä‘á»•i th&amp;igrave; Administrator sáº½ gá»­i e-mail Ä‘áº¿n táº¥t cáº£ má»i ngÆ°á»i Ä‘á»ƒ th&amp;ocirc;ng b&amp;aacute;o.
-			&lt;/p&gt;
-			[size=7]&lt;p&gt;V&amp;agrave; sau Ä‘&amp;acirc;y l&amp;agrave; nhá»¯ng quy Ä‘á»‹nh m&amp;agrave; c&amp;aacute;c báº¡n cáº§n pháº£i nhá»› ká»¹ khi tham gia &lt;a href="http://forum.vnpay.vn"&gt;&lt;strong&gt; FORUM.VNPAY.VN&lt;/strong&gt;&lt;/a&gt; [/size]
-			&lt;strong&gt;1&lt;/strong&gt;. Diá»…n Ä‘&amp;agrave;n kh&amp;ocirc;ng cháº¥p nháº­n báº¥t cá»© th&amp;ocirc;ng tin n&amp;agrave;o Ä‘i ngÆ°á»£c láº¡i vá»›i thuáº§n phong má»¹ tá»¥c v&amp;agrave; truyá»n thá»‘ng vÄƒn ho&amp;aacute; cá»§a nÆ°á»›c Viá»‡t Nam, kh&amp;ocirc;ng cháº¥p nháº­n báº¥t cá»© chá»§ Ä‘á» tháº£o luáº­n hoáº·c c&amp;oacute; &amp;yacute; g&amp;acirc;y hiá»ƒu láº§m vá» ch&amp;iacute;nh trá»‹, vi pháº¡m luáº­t ph&amp;aacute;p cá»§a nh&amp;agrave; nÆ°á»›c CHXHCN Viá»‡t Nam. Má»i b&amp;agrave;i viáº¿t c&amp;oacute; ná»™i dung hoáº·c chá»©a li&amp;ecirc;n káº¿t Ä‘áº¿n c&amp;aacute;c trang web c&amp;oacute; ná»™i dung vi pháº¡m nhá»¯ng Ä‘iá»u tr&amp;ecirc;n Ä‘á»u sáº½ Ä‘Æ°á»£c x&amp;oacute;a hoáº·c bi&amp;ecirc;n táº­p m&amp;agrave; kh&amp;ocirc;ng cáº§n th&amp;ocirc;ng b&amp;aacute;o trÆ°á»›c.
-			&lt;strong&gt;2&lt;/strong&gt;. Th&amp;agrave;nh vi&amp;ecirc;n kh&amp;ocirc;ng Ä‘Æ°á»£c ph&amp;eacute;p spam báº±ng nhá»¯ng h&amp;igrave;nh thá»©c sau : Gá»­i nhiá»u b&amp;agrave;i viáº¿t c&amp;ugrave;ng ná»™i dung hoáº·c c&amp;oacute; ná»™i dung tÆ°Æ¡ng tá»± nhau trong má»™t hoáº·c nhiá»u chuy&amp;ecirc;n má»¥c (gá»­i 3 b&amp;agrave;i trá»Ÿ sáº½ bá»‹ x&amp;oacute;a); Gá»­i nhiá»u b&amp;agrave;i viáº¿t kh&amp;ocirc;ng c&amp;oacute; &amp;yacute; nghÄ©a hoáº·c kh&amp;ocirc;ng ph&amp;ugrave; há»£p vá»›i chá»§ Ä‘á» Ä‘ang tham gia.
-			&lt;strong&gt;3&lt;/strong&gt;. Th&amp;agrave;nh vi&amp;ecirc;n sáº½ pháº£i chá»‹u tr&amp;aacute;ch nhiá»‡m vá» ná»™i dung do m&amp;igrave;nh gá»­i l&amp;ecirc;n. Ban Ä‘iá»u h&amp;agrave;nh diá»…n Ä‘&amp;agrave;n sáº½ kh&amp;ocirc;ng chá»‹u tr&amp;aacute;ch nhiá»‡m vá» báº¥t ká»³ ná»™i dung n&amp;agrave;o do th&amp;agrave;nh vi&amp;ecirc;n gá»­i l&amp;ecirc;n. Má»i khiáº¿u náº¡i vá» ná»™i dung b&amp;agrave;i viáº¿t xin gá»­i vá» cho Ban Äiá»u H&amp;agrave;nh, ch&amp;uacute;ng t&amp;ocirc;i sáº½ giáº£i quyáº¿t t&amp;ugrave;y theo trÆ°á»ng há»£p.
-			&lt;strong&gt;4&lt;/strong&gt;. Kh&amp;ocirc;ng Ä‘Æ°á»£c gá»­i c&amp;aacute;c b&amp;agrave;i viáº¿t kh&amp;ocirc;ng li&amp;ecirc;n quan Ä‘áº¿n chuy&amp;ecirc;n má»¥c hoáº·c chá»§ Ä‘á» Ä‘ang tham gia. Kh&amp;ocirc;ng Ä‘Æ°á»£c gá»­i c&amp;aacute;c b&amp;agrave;i viáº¿t kh&amp;ocirc;ng c&amp;oacute; ti&amp;ecirc;u Ä‘á» r&amp;otilde; r&amp;agrave;ng hoáº·c kh&amp;ocirc;ng giá»‘ng &amp;yacute; vá»›i ná»™i dung b&amp;ecirc;n trong.
-			&lt;strong&gt;5&lt;/strong&gt;. Nhá»¯ng th&amp;agrave;nh vi&amp;ecirc;n cá»‘ t&amp;igrave;nh vi pháº¡m hoáº·c vi pháº¡m nhiá»u láº§n quy Ä‘á»‹nh cá»§a&lt;a href="http://forum.vnpay.vn"&gt;&lt;strong&gt; FORUM.VNPAY.VN&lt;/strong&gt;&lt;/a&gt; sáº½ bá»‹ loáº¡i ra khá»i diá»…n Ä‘&amp;agrave;n.
-			&lt;/p&gt;
-			[/size]
-
-			[center][size=6]Báº±ng viá»‡c Click vÃ o [b]TÃ´i Ä‘á»“ng Ã½ vá»›i cÃ¡c quy Ä‘á»‹nh nÃ y  .[/b]cÃ³ nghÄ©a lÃ  báº¡n Ä‘Ã£ cháº¥p nháº­n cÃ¡c Ä‘iá»u khoáº£n bÃªn trÃªn khi tham gia diá»…n Ä‘Ã n[/size][/center]
-		</Resource>
-	</page>
-	<page name="MEMBERS">
-		<!-- members.aspx -->
-		<Resource tag="TITLE">ThÃ nh viÃªn</Resource>
-		<Resource tag="USERNAME">TÃªn sá»­ dá»¥ng</Resource>
-		<Resource tag="RANK">Danh hiá»‡u</Resource>
-		<Resource tag="JOINED">Gia nháº­p</Resource>
-		<Resource tag="POSTS">BÃ i viáº¿t</Resource>
-		<Resource tag="PAGES">{0} trang:</Resource>
-	</page>
-	<page name="MODERATE">
-		<!-- moderate.aspx -->
-		<Resource tag="TITLE">Äiá»u hÃ nh</Resource>
-		<Resource tag="TOPICS">Chá»§ Ä‘á»</Resource>
-		<Resource tag="TOPIC_STARTER">TÃ¡c giáº£</Resource>
-		<Resource tag="REPLIES">Tráº£ lá»i</Resource>
-		<Resource tag="VIEWS">Xem</Resource>
-		<Resource tag="LASTPOST">BÃ i cuá»‘i</Resource>
-		<Resource tag="CONFIRM_DELETE">XÃ³a chá»§ Ä‘á»?</Resource>
-		<Resource tag="BY">bá»Ÿi {0}</Resource>
-		<Resource tag="DELETED">Chá»§ Ä‘á» Ä‘Ã£ xÃ³a.</Resource>
-		<Resource tag="NO_POSTS">KhÃ´ng cÃ³ bÃ i viáº¿t</Resource>
-		<Resource tag="MEMBERS">ThÃ nh viÃªn</Resource>
-		<Resource tag="USER">ThÃ nh viÃªn</Resource>
-		<Resource tag="ACCEPTED">ÄÃ£ cháº¥p nháº­n</Resource>
-		<Resource tag="ACCESSMASK">Access Mask</Resource>
-		<Resource tag="EDIT">Sá»­a</Resource>
-		<Resource tag="REMOVE">XÃ³a</Resource>
-		<Resource tag="INVITE">Má»i thÃ nh viÃªn</Resource>
-	</page>
-	<page name="MOVETOPIC">
-		<!-- movetopic.aspx -->
-		<Resource tag="TITLE">Di chuyá»ƒn chá»§ Ä‘á»</Resource>
-		<Resource tag="SELECT_FORUM">Chá»n diá»…n Ä‘Ã n muá»‘n di chuyá»ƒn bÃ i viáº¿t:</Resource>
-		<Resource tag="MOVE">Di chuyá»ƒn chá»§ Ä‘á»</Resource>
-		<Resource tag="LEAVE_POINTER">Äá»ƒ láº¡i liÃªn káº¿t á»Ÿ diá»…n Ä‘Ã n nguá»“n gá»‘c</Resource>
-	</page>
-	<page name="PMESSAGE">
-		<!-- pmessage.aspx -->
-		<Resource tag="TITLE">Gá»­i tin nháº¯n</Resource>
-		<Resource tag="PREVIEWTITLE">Xem trÆ°á»›c:</Resource>
-		<Resource tag="TO">Äáº¿n:</Resource>
-		<Resource tag="SUBJECT">TiÃªu Ä‘á»:</Resource>
-		<Resource tag="MESSAGE">Ná»™i dung:</Resource>
-		<Resource tag="NEED_TO">Báº¡n chÆ°a chá»n ngÆ°á»i nháº­n tin nháº¯n.</Resource>
-		<Resource tag="NEED_SUBJECT">Báº¡n pháº£i nháº­p tiÃªu Ä‘á».</Resource>
-		<Resource tag="NEED_MESSAGE">Báº¡n pháº£i nháº­p ná»™i dung tin nháº¯n.</Resource>
-		<Resource tag="SAVE">Gá»­i</Resource>
-		<Resource tag="NO_SUCH_USER">KhÃ´ng tÃ¬m tháº¥y ngÆ°á»i nháº­n.</Resource>
-		<Resource tag="NOT_GUEST">Báº¡n khÃ´ng thá»ƒ gá»­i tin nháº¯n cho khÃ¡ch.</Resource>
-		<Resource tag="NEED_MORE_LETTERS">Please enter, at least, the first two letters of the user you wish to locate.</Resource>
-		<Resource tag="FINDUSERS">TÃ¬m thÃ nh viÃªn</Resource>
-		<Resource tag="ALLUSERS">Táº¥t cáº£ thÃ nh viÃªn</Resource>
-		<Resource tag="CLEAR">XoÃ¡ sáº¡ch</Resource>
-		<Resource tag="OWN_PMBOX_FULL">Há»™p tin nháº¯n cá»§a báº¡n Ä‘Ã£ bá»‹ Ä‘áº§y. Sá»‘ lÆ°á»£ng tin nháº¯n cho phÃ©p {0}. Xin xoÃ¡ bá»›t tin nháº¯n Ä‘á»ƒ tÄƒng thÃªm vÃ¹ng trá»‘ng cho há»™p tin nháº¯n.</Resource>
-		<Resource tag="RECIPIENTS_PMBOX_FULL">Há»™p tin nháº¯n cá»§a {0} Ä‘Ã£ bá»‹ Ä‘áº§y . Há» khÃ´ng thá»ƒ nháº­n Ä‘Æ°á»£c tin nháº¯n cho tá»›i khi há»™p tin nháº¯n Ä‘Æ°á»£c tÄƒng thÃªm vÃ¹ng trá»‘ng.</Resource>
-		<Resource tag="MAX_RECIPIENT_INFO">Báº¡n cÃ³ thá»ƒ gá»­i Tin nháº¯n nÃ y tá»›i tá»‘i Ä‘a [b]{0}[/b] NgÆ°á»i cho má»™t láº§n.</Resource>
-		<Resource tag="MULTI_RECEIVER_INFO">TÃªn ngÆ°á»i nháº­n phÃ¢n tÃ¡ch nhau bá»Ÿi dáº¥u ';' ( Trong trÆ°á»ng há»£p gá»­i tá»›i nhiá»u ngÆ°á»i)</Resource>
-		<Resource tag="TOO_MANY_RECIPIENTS">QuÃ¡ nhiá»u ngÆ°á»i nháº­n. Sá»‘ lÆ°á»£ng tá»‘i Ä‘a cho phÃ©p lÃ  {0}.</Resource>
-	</page>
-	<page name="POSTMESSAGE">
-		<!-- postmessage.aspx -->
-		<Resource tag="NEWTOPIC">Táº¡o chá»§ Ä‘á»</Resource>
-		<Resource tag="REPLY">Tráº£ lá»i</Resource>
-		<Resource tag="EDIT">Sá»­a bÃ i</Resource>
-		<Resource tag="PREVIEW">Xem trÆ°á»›c</Resource>
-		<Resource tag="PREVIEWTITLE">Xem trÆ°á»›c:</Resource>
-		<Resource tag="SUBJECT">Chá»§ Ä‘á»:</Resource>
-		<Resource tag="FROM">Tá»«:</Resource>
-		<Resource tag="PRIORITY">Dáº¡ng:</Resource>
-		<Resource tag="MESSAGE">Ná»™i dung:</Resource>
-		<Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
-		<Resource tag="NORMAL">BÃ¬nh thÆ°á»ng</Resource>
-		<Resource tag="STICKY">ChÃº Ã½</Resource>
-		<Resource tag="ANNOUNCEMENT">ThÃ´ng bÃ¡o</Resource>
-		<Resource tag="CREATEPOLL">Táº¡o bÃ¬nh chá»n</Resource>
-		<Resource tag="REMOVEPOLL">XoÃ¡ bÃ¬nh chá»n</Resource>
-		<Resource tag="POLLQUESTION">CÃ¢u há»i:</Resource>
-		<Resource tag="CHOICE1">Tráº£ lá»i 1:</Resource>
-		<Resource tag="CHOICE2">Tráº£ lá»i 2:</Resource>
-		<Resource tag="CHOICE3">Tráº£ lá»i 3:</Resource>
-		<Resource tag="CHOICE4">Tráº£ lá»i 4:</Resource>
-		<Resource tag="CHOICE5">Tráº£ lá»i 5:</Resource>
-		<Resource tag="CHOICE6">Tráº£ lá»i 6:</Resource>
-		<Resource tag="CHOICE7">Tráº£ lá»i 7:</Resource>
-		<Resource tag="CHOICE8">Tráº£ lá»i 8:</Resource>
-		<Resource tag="CHOICE9">Tráº£ lá»i:</Resource>
-		<Resource tag="POLL_EXPIRE">BÃ¬nh chá»n trong:</Resource>
-		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]ngÃ y[/b] [ Ä‘á»ƒ trá»‘ng khÃ´ng háº¿t háº¡n ]</Resource>
-		<Resource tag="NEED_SUBJECT">ChÆ°a nháº­p tÃªn chá»§ Ä‘á».</Resource>
-		<Resource tag="WAIT">Báº¡n khÃ´ng gá»­i bÃ i trong {0:N0} giÃ¢y.</Resource>
-		<Resource tag="POSTED">ÄÃ£ gá»­i:</Resource>
-		<Resource tag="SAVE">gá»­i</Resource>
-		<Resource tag="NEED_QUESTION">Báº¡n pháº£i nháº­p cÃ¢u há»i bÃ¬nh chá»n.</Resource>
-		<Resource tag="NEED_CHOICES">Ãt nháº¥t pháº£i cÃ³ 2 cÃ¢u tráº£ lá»i.</Resource>
-		<Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
-		<Resource tag="SMILIES_HEADER">[b]ChÃ¨n biá»ƒu tÆ°á»£ng[/b]</Resource>
-		<Resource tag="SMILIES_MORE">ThÃªm biá»ƒu tÆ°á»£ng...</Resource>
-		<Resource tag="EDITREASON">LÃ½ do chá»‰nh sá»­a:</Resource>
-		<Resource tag="PERSISTENCY">Persistent:</Resource>
-		<Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
-		<Resource tag="NEWPOSTOPTIONS">TÃ¹y chá»n:</Resource>
-		<Resource tag="TOPICWATCH">Nháº­n thÃ´ng bÃ¡o cá»§a chá»§ Ä‘á» qua email?</Resource>
-		<Resource tag="TOPICATTACH">ÄÃ­nh kÃ¨m táº­p tin?</Resource>
-		<Resource tag="ASK_POLL_DELETE">Báº¡n tháº­t sá»± muá»‘n xoÃ¡ bÃ¬nh chá»n cá»§a chá»§ Ä‘á» nÃ y?</Resource>
-	</page>
-	<page name="SHOWSMILIES">
-		<!-- showsmilies.ascx -->
-		<Resource tag="TITLE">Available Smilies</Resource>
-		<Resource tag="HEADER_CODE">Code</Resource>
-		<Resource tag="HEADER_SMILE">Smile</Resource>
-		<Resource tag="HEADER_MEANING">Meaning</Resource>
-		<Resource tag="CLOSE_WINDOW">ÄÃ³ng cá»­a sá»•</Resource>
-	</page>
-	<page name="PRINTTOPIC">
-		<!-- printtopic.aspx -->
-		<Resource tag="POSTEDBY">Viáº¿t bá»Ÿi</Resource>
-	</page>
-	<page name="PROFILE">
-		<!-- profile.aspx -->
-		<Resource tag="MEMBERS">ThÃ nh viÃªn</Resource>
-		<Resource tag="PROFILE">LÃ½ lá»‹ch:</Resource>
-		<Resource tag="ABOUT">ThÃ´ng tin chung</Resource>
-		<Resource tag="USERNAME">TÃªn sá»­ dá»¥ng:</Resource>
-		<Resource tag="GROUPS">NhÃ³m:</Resource>
-		<Resource tag="RANK">Danh hiá»‡u:</Resource>
-		<Resource tag="JOINED">Gia nháº­p:</Resource>
-		<Resource tag="EMAIL">E-mail:</Resource>
-		<Resource tag="LASTVISIT">Láº§n cuá»‘i Ä‘Äƒng nháº­p:</Resource>
-		<Resource tag="STATISTICS">Thá»‘ng kÃª</Resource>
-		<Resource tag="NUMPOSTS">Sá»‘ bÃ i viáº¿t:</Resource>
-		<Resource tag="LAST10">10 bÃ i gáº§n nháº¥t</Resource>
-		<Resource tag="MODERATE">Quyá»n truy cáº­p</Resource>
-		<Resource tag="TOPIC">Chá»§ Ä‘á»:</Resource>
-		<Resource tag="POSTED">ÄÃ£ gá»­i:</Resource>
-		<Resource tag="ENDS">User suspension ends:</Resource>
-		<Resource tag="SUSPEND_USER">Suspend User:</Resource>
-		<Resource tag="ADMIN_USER">Admin User</Resource>
-		<Resource tag="REMOVESUSPENSION">Remove Suspension</Resource>
-		<Resource tag="SUSPEND">Suspend</Resource>
-		<Resource tag="DAYS">ngÃ y</Resource>
-		<Resource tag="HOURS">giá»</Resource>
-		<Resource tag="MINUTES">phÃºt</Resource>
-		<Resource tag="AVATAR">HÃ¬nh Ä‘áº¡i diá»‡n</Resource>
-		<Resource tag="CONTACT">LiÃªn há»‡</Resource>
-		<Resource tag="PM">Tin nháº¯n:</Resource>
-		<Resource tag="MSN">MSN Messenger:</Resource>
-		<Resource tag="YIM">Yahoo Messenger:</Resource>
-		<Resource tag="AIM">AIM-Name:</Resource>
-		<Resource tag="ICQ">ICQ-Number:</Resource>
-		<Resource tag="SKYPE">Skype(tm) ID:</Resource>
-		<Resource tag="REALNAME">TÃªn tháº­t:</Resource>
-		<Resource tag="WEBSITE">Trang chá»§:</Resource>
-		<Resource tag="WEBLOG">Blog:</Resource>
-		<Resource tag="OCCUPATION">Nghá» nghiá»‡p:</Resource>
-		<Resource tag="INTERESTS">Sá»Ÿ thÃ­ch:</Resource>
-		<Resource tag="GENDER">Giá»›i tÃ­nh:</Resource>
-		<Resource tag="GENDER0">ChÆ°a chá»n</Resource>
-		<Resource tag="GENDER1">Nam</Resource>
-		<Resource tag="GENDER2">Ná»¯</Resource>
-		<Resource tag="NUMALL">{0:N2}% trÃªn tá»•ng sá»‘ bÃ i viáº¿t</Resource>
-		<Resource tag="NUMDAY">{0:N2} bÃ i trÃªn ngÃ y</Resource>
-		<Resource tag="ERROR_ADMINISTRATORS">Báº¡n khÃ´ng thá»ƒ táº¡m khoÃ¡ Quáº£n trá»‹ viÃªn.</Resource>
-		<Resource tag="ERROR_FORUMMODERATORS">Báº¡n khÃ´ng thá»ƒ táº¡m khoÃ¡ NgÆ°á»i Ä‘iá»u hÃ nh.</Resource>
-		<Resource tag="ERROR_GUESTACCOUNT">Báº¡n khÃ´ng thá»ƒ táº¡m khoÃ¡ tÃ i khoáº£n cá»§a KhÃ¡ch viáº¿ng thÄƒm(guest).</Resource>
-		<Resource tag="SEARCHUSER">Xem táº¥t cáº£ cÃ¡c bÃ i cá»§a thÃ nh viÃªn nÃ y</Resource>
-	</page>
-	<page name="SEARCH">
-		<!-- search.aspx -->
-		<Resource tag="TITLE">TÃ¬m kiáº¿m</Resource>
-		<Resource tag="BTNSEARCH">TÃ¬m kiáº¿m</Resource>
-		<Resource tag="RESULTS">Káº¿t quáº£</Resource>
-		<Resource tag="TOPIC">Chá»§ Ä‘á»:</Resource>
-		<Resource tag="POSTED">ÄÃ£ gá»­i:</Resource>
-		<Resource tag="ALLFORUMS">Táº¥t cáº£ diá»…n Ä‘Ã n</Resource>
-		<Resource tag="RESULT5">5 káº¿t quáº£ trÃªn trang</Resource>
-		<Resource tag="RESULT10">10 káº¿t quáº£ trÃªn trang</Resource>
-		<Resource tag="RESULT25">25 káº¿t quáº£ trÃªn trang</Resource>
-		<Resource tag="RESULT50">50 káº¿t quáº£ trÃªn trang</Resource>
-		<Resource tag="POSTS">BÃ i viáº¿t</Resource>
-		<Resource tag="POSTEDBY">Viáº¿t bá»Ÿi</Resource>
-		<Resource tag="MATCH_ALL">ChÃ­nh xÃ¡c</Resource>
-		<Resource tag="MATCH_ANY">Gáº§n Ä‘Ãºng</Resource>
-		<Resource tag="MATCH_EXACT">ChÃ­nh xÃ¡c cá»¥m tá»«</Resource>
-		<Resource tag="NO_SEARCH_RESULTS">[b]KhÃ´ng tÃ¬m tháº¥y káº¿t quáº£ nÃ o.[/b]</Resource>
-		<Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
-		<Resource tag="BY">bá»Ÿi</Resource>
-		<Resource tag="LOADING_SEARCH">Äang táº£i káº¿t quáº£ tÃ¬m kiáº¿m...</Resource>
-	</page>
-	<page name="MODERATE_DEFAULT">
-		<Resource tag="TITLE">Äiá»u hÃ nh</Resource>
-		<Resource tag="FORUM">Diá»…n Ä‘Ã n</Resource>
-		<Resource tag="UNAPPROVED">BÃ i chÆ°a duyá»‡t</Resource>
-		<Resource tag="REPORTED">BÃ¡o cÃ¡o ná»™i dung vi pháº¡m</Resource>
-		<Resource tag="REPORTEDSPAM">BÃ¡o cÃ¡o bÃ i viáº¿t Spam</Resource>
-		<Resource tag="CATEGORY">NhÃ³m</Resource>
-	</page>
-	<page name="MODERATE_FORUM">
-		<Resource tag="UNAPPROVED">BÃ i chÆ°a duyá»‡t</Resource>
-		<Resource tag="TOP">Chuyá»ƒn lÃªn trÃªn</Resource>
-		<Resource tag="APPROVE">Duyá»‡t bÃ i</Resource>
-		<Resource tag="DELETE">XÃ³a bÃ i</Resource>
-		<Resource tag="ASK_DELETE">XÃ³a bÃ i viáº¿t nÃ y?</Resource>
-		<Resource tag="APPROVED">ÄÃ£ duyá»‡t.</Resource>
-		<Resource tag="DELETED">ÄÃ£ xÃ³a.</Resource>
-		<Resource tag="MODIFIED">Post has been changed!</Resource>
-		<Resource tag="RESOLVE">Resolve Post Copies</Resource>
-		<Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
-		<Resource tag="COPYOVER">Update message text</Resource>
-		<Resource tag="RESOLVED">Mark as resolved</Resource>
-		<Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
-	</page>
-	<page name="MOD_FORUMUSER">
-		<Resource tag="TITLE">ThÃ nh viÃªn</Resource>
-		<Resource tag="USER">ThÃ nh viÃªn:</Resource>
-		<Resource tag="FIND">TÃ¬m thÃ nh viÃªn</Resource>
-		<Resource tag="ACCESSMASK">ÄÃ¡nh dáº¥u:</Resource>
-		<Resource tag="UPDATE">Cáº­p nháº­t</Resource>
-		<Resource tag="CANCEL">Há»§y</Resource>
-	</page>
-	<page name="RTE">
-		<Resource tag="BOLD">Äáº­m</Resource>
-		<Resource tag="ITALIC">NghiÃªng</Resource>
-		<Resource tag="UNDERLINE">Gáº¡ch chÃ¢n</Resource>
-		<Resource tag="LEFT">Canh lá» trÃ¡i</Resource>
-		<Resource tag="CENTER">Canh giá»¯a</Resource>
-		<Resource tag="RIGHT">Canh lá» pháº£it</Resource>
-		<Resource tag="ORDERED">Ordered List</Resource>
-		<Resource tag="UNORDERED">Unordered List</Resource>
-		<Resource tag="OUTDENT">Outdent</Resource>
-		<Resource tag="INDENT">Indent</Resource>
-		<Resource tag="LINK">ChÃ¨n liÃªn káº¿t</Resource>
-		<Resource tag="IMAGE">ChÃ¨n áº£nh</Resource>
-		<Resource tag="SPELL">Kiá»ƒm tra ngá»¯ phÃ¡p</Resource>
-		<Resource tag="NORMAL">Normal</Resource>
-		<Resource tag="CLEAR">Clear Formatting</Resource>
-		<Resource tag="FORMATTED">Formatted</Resource>
-	</page>
-	<page name="AVATAR">
-		<Resource tag="TITLE">HÃ¬nh Ä‘áº¡i diá»‡n</Resource>
-		<Resource tag="EDITPROFILE">Äá»•i hÃ¬nh</Resource>
-	</page>
-	<page name="IM_YIM">
-		<Resource tag="TITLE">Yahoo! Messenger</Resource>
-	</page>
-	<page name="IM_AIM">
-		<Resource tag="TITLE">AOL Instant Messenger</Resource>
-	</page>
-	<page name="IM_ICQ">
-		<Resource tag="TITLE">ICQ</Resource>
-		<Resource tag="NAME">TÃªn cá»§a báº¡n:</Resource>
-		<Resource tag="EMAIL">E-mail:</Resource>
-		<Resource tag="SEND">gá»­i tin nháº¯n</Resource>
-		<Resource tag="BODY">Nháº­p ná»™i dung á»Ÿ Ä‘Ã¢y:</Resource>
-	</page>
-	<page name="IM_EMAIL">
-		<Resource tag="TITLE">E-mail</Resource>
-		<Resource tag="SEND">Gá»­i</Resource>
-		<Resource tag="SUBJECT">TiÃªu Ä‘á»:</Resource>
-		<Resource tag="BODY">Ná»™i dung:</Resource>
-		<Resource tag="ERROR">CÃ³ lá»—i xáº£y ra trong quÃ¡ trÃ¬nh gá»­i mail.</Resource>
-	</page>
-	<page name="IM_SKYPE">
-		<Resource tag="TITLE">Skype(tm) Calling</Resource>
-	</page>
+  </page>
+  <page name="TIMEZONES">
+    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
+    <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) Eniwetok, Kwajalein</Resource>
+    <Resource tag="UTC2">(UTC+2:00) Jerusalem, Kaliningrad, South Africa</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Ascension</Resource>
+    <Resource tag="UTC3">(UTC+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
+    <Resource tag="UTC3.5">(UTC+3:30) Tehran</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
+    <Resource tag="UTC4">(UTC+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="UTC-4">(UTC-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+    <Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
+    <Resource tag="UTC5">(UTC+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
+    <Resource tag="UTC5.5">(UTC+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
+    <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
+    <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
+  </page>
+  <page name="TOOLBAR">
+    <Resource tag="ACTIVETOPICS">Chá»§ Ä‘á» cÃ³ bÃ i má»›i</Resource>
+    <Resource tag="ADMIN">Quáº£n trá»‹</Resource>
+    <Resource tag="HELP">Trá»£ giÃºp</Resource>
+    <Resource tag="LOGGED_IN_AS">ÄÄƒng nháº­p vá»›i tÃªn: {0}</Resource>
+    <Resource tag="LOGIN">ÄÄƒng nháº­p</Resource>
+    <Resource tag="LOGOUT">ThoÃ¡t</Resource>
+    <Resource tag="LOGOUT_QUESTION">Báº¡n muá»‘n Ä‘Äƒng xuáº¥t?</Resource>
+    <Resource tag="MEMBERS">ThÃ nh viÃªn</Resource>
+    <Resource tag="MODERATE">Äiá»u hÃ nh</Resource>
+    <Resource tag="MYPROFILE">Trang cÃ¡ nhÃ¢n</Resource>
+    <Resource tag="NEWPM">({0} ChÆ°a Ä‘á»c)</Resource>
+    <Resource tag="REGISTER">ÄÄƒng KÃ½</Resource>
+    <Resource tag="SEARCH">TÃ¬m kiáº¿m</Resource>
+    <Resource tag="WELCOME_GUEST">ChÃ o má»«ng khÃ¡ch</Resource>
+  </page>
+  <page name="TOPICS">
+    <Resource tag="ALL">Táº¥t cáº£</Resource>
+    <Resource tag="BY">bá»Ÿi {0}</Resource>
+    <Resource tag="CREATED">Táº¡o</Resource>
+    <Resource tag="FORUMUSERS">Ai Ä‘ang xem trang nÃ y?</Resource>
+    <Resource tag="GOTO_POST_PAGER">[ Chuyáº¿n Ä‘áº¿n trang: {0} ]</Resource>
+    <Resource tag="INFO_UNWATCH_FORUM">Báº¡n sáº½ khÃ´ng Ä‘Æ°á»£c thÃ´ng bÃ¡o khi cÃ³ bÃ i viáº¿t má»›i trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="INFO_WATCH_FORUM">Báº¡n sáº½ Ä‘Æ°á»£c thÃ´ng bÃ¡o khi cÃ³ bÃ i viáº¿t má»›i trong diá»…n Ä‘Ã n nÃ y.</Resource>
+    <Resource tag="LAST_DAY">Tá»« hÃ´m qua</Resource>
+    <Resource tag="LAST_MONTH">cÃ¡ch Ä‘Ã¢y 1 thÃ¡ng</Resource>
+    <Resource tag="LAST_SIX_MONTHS">cÃ¡ch Ä‘Ã¢y 6 thÃ¡ng</Resource>
+    <Resource tag="LAST_TWO_DAYS">cÃ¡ch Ä‘Ã¢y 2 ngÃ y</Resource>
+    <Resource tag="LAST_TWO_MONTHS">cÃ¡ch Ä‘Ã¢y 2 thÃ¡ng</Resource>
+    <Resource tag="LAST_TWO_WEEKS">cÃ¡ch Ä‘Ã¢y 2 tuáº§n</Resource>
+    <Resource tag="LAST_WEEK">cÃ¡ch Ä‘Ã¢y 1 tuáº§n</Resource>
+    <Resource tag="LAST_YEAR">cÃ¡ch Ä‘Ã¢y 1 nÄƒm</Resource>
+    <Resource tag="LASTPOST">BÃ i cuá»‘i</Resource>
+    <Resource tag="MARKREAD">ÄÃ¡nh dáº¥u diá»…n Ä‘Ã n Ä‘Ã£ Ä‘á»c</Resource>
+    <Resource tag="NO_POSTS">KhÃ´ng cÃ³ bÃ i viáº¿t</Resource>
+    <Resource tag="REPLIES">Tráº£ Lá»i</Resource>
+    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SHOWTOPICS">Xem chá»§ Ä‘á»</Resource>
+    <Resource tag="SUBFORUMS">Diá»…n Ä‘Ã n con ({0}) </Resource>
+    <Resource tag="TODAYAT">[b]HÃ´m nay[/b] lÃºc {0:T}</Resource>
+    <Resource tag="TOPIC_STARTER">TÃ¡c giáº£</Resource>
+    <Resource tag="TOPICS">Chá»§ Ä‘á»</Resource>
+    <Resource tag="UNWATCHFORUM">Há»§y theo dÃµi diá»…n Ä‘Ã n nÃ y</Resource>
+    <Resource tag="VIEWS">Xem</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">Diá»…n Ä‘Ã n Ä‘Ã£ khÃ³a.</Resource>
+    <Resource tag="WARN_LOGIN_FORUMWATCH">Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xem diá»…n Ä‘Ã n.</Resource>
+    <Resource tag="WATCHFORUM">Theo dÃµi diá»…n Ä‘Ã n nÃ y</Resource>
+    <Resource tag="YESTERDAYAT">[b]HÃ´m qua[/b] vÃ o lÃºc {0:T}</Resource>
+  </page>
 </Resources>
