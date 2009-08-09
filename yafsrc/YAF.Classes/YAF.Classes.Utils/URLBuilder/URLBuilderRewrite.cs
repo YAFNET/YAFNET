@@ -162,7 +162,7 @@ namespace YAF.Classes
 
 		private string GetCacheName( string type, int id )
 		{
-			return String.Format(@"urlRewritingDT-{0}-Range-{1}-to-{2}", type, HighRange(id), LowRange(id)); 
+			return String.Format( @"urlRewritingDT-{0}-Range-{1}-to-{2}", type, HighRange( id ), LowRange( id ) );
 		}
 
 		private static string CleanStringForURL( string str )
@@ -176,16 +176,19 @@ namespace YAF.Classes
 			str = str.Replace( "&", "and" );
 
 			// normalize the Unicode
-			str = str.Normalize( NormalizationForm.FormKD );
+			str = str.Normalize( NormalizationForm.FormD );
 
 			for ( int i = 0; i < str.Length; i++ )
 			{
-				if ( char.IsWhiteSpace( str [i] ) ) sb.Append( '-' );
-				else if ( char.GetUnicodeCategory( str [i] ) != UnicodeCategory.NonSpacingMark
-					&& !char.IsPunctuation( str [i] ) 
-					&& !char.IsSymbol( str [i] ) 
-					)
-					sb.Append( str[i] );
+				char currentChar = str[i];
+
+				if ( char.IsWhiteSpace( currentChar ) || currentChar == '.' ) sb.Append( '-' );
+				else if ( currentChar == '_' ) sb.Append( '_' );
+				else if ( char.GetUnicodeCategory( currentChar ) != UnicodeCategory.NonSpacingMark
+					&& !char.IsPunctuation( currentChar ) 
+					&& !char.IsSymbol( currentChar )
+					&& currentChar < 128 )
+					sb.Append( currentChar );
 			}
 
 			return sb.ToString();
