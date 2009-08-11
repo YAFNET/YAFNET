@@ -99,7 +99,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	create table [{databaseOwner}].[{objectQualifier}Group](
 		GroupID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
-		Name			nvarchar (50) NOT NULL ,
+		[Name]		nvarchar (255) NOT NULL ,
 		Flags			int not null constraint DF_{objectQualifier}Group_Flags default (0)
 	)
 GO
@@ -792,6 +792,10 @@ if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{o
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add Flags int not null constraint [DF_{objectQualifier}Group_Flags] default (0)
 end
+GO
+
+if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and name='Name' and prec < 255)
+ 	alter table [{databaseOwner}].[{objectQualifier}Group] alter column [Name] nvarchar(255) NOT NULL
 GO
 
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsAdmin')
