@@ -27,7 +27,10 @@ using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	public class UserPageBase
+	/// <summary>
+	/// User Page Class.
+	/// </summary>
+	public partial class UserPageBase
 	{
 		private System.Data.DataRow _page = null;
 		private UserFlags _userFlags = null;
@@ -36,7 +39,7 @@ namespace YAF.Classes.Core
 		public event EventHandler<EventArgs> BeforeInit;
 		public event EventHandler<EventArgs> AfterInit;
 
-		public System.Data.DataRow Page
+		public virtual System.Data.DataRow Page
 		{
 			get
 			{

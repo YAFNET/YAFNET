@@ -31,29 +31,29 @@ namespace YAF.Classes.Core
 	/// <summary>
 	/// Context class that accessable with the same instance from all locations
 	/// </summary>
-	public sealed class YafContext : UserPageBase, IDisposable
+	public partial class YafContext : UserPageBase, IDisposable
 	{
-		private readonly SingleClassInstanceFactory _singleInstanceFactory = new SingleClassInstanceFactory();
-		private readonly Dictionary<string, object> _variables = new Dictionary<string, object>();
+		protected SingleClassInstanceFactory _singleInstanceFactory = new SingleClassInstanceFactory();
+		protected Dictionary<string, object> _variables = new Dictionary<string, object>();
+		protected ForumPage _currentForumPage = null;
 
 		public event EventHandler<EventArgs> Init;
 		public event EventHandler<EventArgs> PageLoad;
 		public event EventHandler<EventArgs> PageUnload;
 		public event EventHandler<EventArgs> Unload;
-		private ForumPage _currentForumPage = null;
 
-		private YafContext()
+		protected YafContext()
 		{
 			// init context...
 			if (Init != null) Init(this, new EventArgs());
 		}
 
-		void ForumPageLoad(object sender, EventArgs e)
+		protected void ForumPageLoad( object sender, EventArgs e )
 		{
 			if ( PageLoad != null ) PageLoad(this,new EventArgs());
 		}
 
-		void ForumPageUnload(object sender, EventArgs e)
+		protected void ForumPageUnload( object sender, EventArgs e )
 		{
 			if (PageUnload != null) PageUnload(this, new EventArgs());
 		}
@@ -286,7 +286,7 @@ namespace YAF.Classes.Core
 		/// <summary>
 		/// Current Board Settings
 		/// </summary>
-		public YafBoardSettings BoardSettings
+		public virtual YafBoardSettings BoardSettings
 		{
 			get
 			{
@@ -313,7 +313,7 @@ namespace YAF.Classes.Core
 
 		public void AddLoadMessage(string loadMessage)
 		{
-			this.LoadMessage.Add( loadMessage );
+			LoadMessage.Add( loadMessage );
 		}
 	}
 }

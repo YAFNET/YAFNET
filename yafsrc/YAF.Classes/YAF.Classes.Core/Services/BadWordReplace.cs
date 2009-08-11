@@ -139,7 +139,7 @@ namespace YAF.Classes.Core
 				{
 					// disable this regular expression henceforth...
 					item.Active = false;
-          YAF.Classes.Data.DB.eventlog_create( null, "BadWordReplace", x, YAF.Classes.Data.EventLogTypes.Warning );
+          YAF.Classes.Data.DB.eventlog_create( null, "BadWordReplace", x, EventLogTypes.Warning );
 				}
 #endif
 			}

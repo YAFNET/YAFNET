@@ -24,7 +24,7 @@ using YAF.Modules;
 
 namespace YAF.Classes.Core
 {
-	public static class YafServices
+	public static partial class YafServices
 	{
 		public static YafBadWordReplace BadWordReplace
 		{
