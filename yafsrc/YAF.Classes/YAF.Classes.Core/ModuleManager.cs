@@ -64,7 +64,7 @@ namespace YAF.Modules
 			_moduleClassTypes = YafContext.Current.Cache[_cacheName] as List<Type>;
 		}
 
-		private static List<Type> FindModules(IList assemblies, string moduleNamespace, string moduleBaseInterface )
+		protected static List<Type> FindModules(IList assemblies, string moduleNamespace, string moduleBaseInterface )
 		{
 			List<Type> moduleClassTypes = new List<Type>();
 
