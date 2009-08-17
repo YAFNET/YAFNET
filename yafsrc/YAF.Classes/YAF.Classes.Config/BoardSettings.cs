@@ -410,7 +410,13 @@ namespace YAF.Classes
 			get { return _reg.GetValue<bool>("AvatarRemote", false); }
 			set { _reg.SetValue<bool>("AvatarRemote", value); }
 		}
-		public bool AllowEmailChange
+        //JoeOuts: added 8/17/09
+        public bool AvatarGravatar
+        {
+            get { return _reg.GetValue<bool>("AvatarGravatar", false); }
+            set { _reg.SetValue<bool>("AvatarGravatar", value); }
+        }
+        public bool AllowEmailChange
 		{
 			get { return _reg.GetValue<bool>("AllowEmailChange", true); }
 			set { _reg.SetValue<bool>("AllowEmailChange", value); }
@@ -567,6 +573,13 @@ namespace YAF.Classes
 			get { return _reg.GetValue<string>("ForumEmail", ""); }
 			set { _reg.SetValue<string>("ForumEmail", value); }
 		}
+        //JoeOuts: added 8/17/09
+        public string GravatarRating
+        {
+            get { return _reg.GetValueString("GravatarRating", "G"); }
+            set { _reg.SetValueString("GravatarRating", value); }
+        }
+
 
 		// Wes: Removed
 		//public string SmtpServer
