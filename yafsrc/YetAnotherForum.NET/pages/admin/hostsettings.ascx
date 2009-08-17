@@ -775,6 +775,19 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
+                                    <b>Gravatar Rating:</b><br>
+                                    Max rating of Gravatar.</td>
+                                <td class="post">
+                                    <asp:DropDownList ID="GravatarRating" runat="server">
+                                    <asp:ListItem Value="G"></asp:ListItem>
+                                    <asp:ListItem Value="PG"></asp:ListItem>
+                                    <asp:ListItem Value="R"></asp:ListItem>
+                                    <asp:ListItem Value="X"></asp:ListItem>
+                                    </asp:DropDownList>
+                                    </td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
                                     <b>Avatar Width:</b><br>
                                     Maximum width for avatars.</td>
                                 <td class="post">
