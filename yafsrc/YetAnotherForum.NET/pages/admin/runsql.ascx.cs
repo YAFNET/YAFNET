@@ -64,8 +64,8 @@ namespace YAF.Pages.Admin
 				connMan.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
 				string sql = txtQuery.Text.Trim();
 				// connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
-				sql = sql.Replace( "{databaseOwner}", DBAccess.DatabaseOwner );
-				sql = sql.Replace( "{objectQualifier}", DBAccess.ObjectQualifier );
+				sql = sql.Replace( "{databaseOwner}", YafDBAccess.DatabaseOwner );
+				sql = sql.Replace( "{objectQualifier}", YafDBAccess.ObjectQualifier );
 				txtResult.Text = DB.db_runsql( sql, connMan );
 			}
 		}

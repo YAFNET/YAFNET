@@ -47,6 +47,13 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
+			// if already logged in..
+			if ( User != null )
+			{
+				// redirect to front page...
+				YafBuildLink.Redirect( ForumPages.forum );
+			}
+
 			if ( !IsPostBack )
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );

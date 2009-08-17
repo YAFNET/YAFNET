@@ -16,7 +16,7 @@
                                 You are running YetAnotherForum.NET version <b>
                                     <%=YafForumInfo.AppVersionName%></b>.</p>
                             <p>
-                                The latest available version is <b>
+                                The latest final version available is <b>
                                     <%=LastVersion%></b> released <b>
                                         <%=LastVersionDate%></b> .</p>
                             <p runat="server" id="Upgrade" visible="false">

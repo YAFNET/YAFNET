@@ -198,9 +198,9 @@ namespace YAF.Pages // YAF.Pages
 		{
 			DataSet ds = YafServices.DBBroker.BoardLayout( PageContext.PageBoardID, PageContext.PageUserID,
 			                                               PageContext.PageCategoryID, PageContext.PageForumID );
-			if ( ds.Tables [DBAccess.GetObjectName("Forum")].Rows.Count > 0 )
+			if ( ds.Tables [YafDBAccess.GetObjectName("Forum")].Rows.Count > 0 )
 			{
-				ForumList.DataSource = ds.Tables [DBAccess.GetObjectName("Forum")].Rows;
+				ForumList.DataSource = ds.Tables [YafDBAccess.GetObjectName("Forum")].Rows;
 				SubForums.Visible = true;
 			}
 

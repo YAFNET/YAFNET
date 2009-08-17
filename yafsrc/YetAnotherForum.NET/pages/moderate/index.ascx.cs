@@ -118,7 +118,7 @@ namespace YAF.Pages.moderate
 		{
 			// get list of forums and their moderating data
 			using (DataSet ds = DB.forum_moderatelist(PageContext.PageUserID, PageContext.PageBoardID))
-				CategoryList.DataSource = ds.Tables[DBAccess.GetObjectName("Category")];
+				CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
 
 			// bind data to controls
 			DataBind();
