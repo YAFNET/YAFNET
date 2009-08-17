@@ -16,7 +16,7 @@ namespace YAF.Controls
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			DataSet ds = YafServices.DBBroker.BoardLayout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null);
-			CategoryList.DataSource = ds.Tables[DBAccess.GetObjectName("Category")];
+			CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
 			CategoryList.DataBind();
 		}
 
