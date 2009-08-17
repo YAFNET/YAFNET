@@ -111,7 +111,30 @@ namespace YAF.Controls
 				Avatar.Text = row ["Avatar"].ToString();
 				DeleteAvatar.Visible = true;
 			}
-			else
+            else if (PageContext.BoardSettings.AvatarGravatar)
+            {
+                System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
+                byte[] bs = System.Text.Encoding.UTF8.GetBytes(PageContext.User.Email);
+                bs = x.ComputeHash(bs);
+                System.Text.StringBuilder s = new System.Text.StringBuilder();
+                foreach (byte b in bs)
+                {
+                    s.Append(b.ToString("x2").ToLower());
+                }
+                string emailHash = s.ToString();
+
+                string gravatarUrl = "http://www.gravatar.com/avatar/" + emailHash + ".jpg?r=" + PageContext.BoardSettings.GravatarRating;
+
+                AvatarImg.ImageUrl = String.Format("{3}resource.ashx?url={0}&width={1}&height={2}",
+                Server.UrlEncode(gravatarUrl),
+                PageContext.BoardSettings.AvatarWidth,
+                PageContext.BoardSettings.AvatarHeight,
+                YafForumInfo.ForumRoot);
+
+                NoAvatar.Text = "Gravatar Image";
+                NoAvatar.Visible = true;
+            }
+            else
 			{
 				AvatarImg.ImageUrl = "../images/noavatar.gif";
 				NoAvatar.Visible = true;
