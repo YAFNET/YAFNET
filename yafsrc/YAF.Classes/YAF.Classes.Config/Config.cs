@@ -170,14 +170,53 @@ namespace YAF.Classes
 				return Config.GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
 			}
 		}
-
-		static public string DatabaseObjectQualifier
+        
+        static public string DatabaseObjectQualifier
 		{
 			get
 			{
 				return Config.GetConfigValueAsString("YAF.DatabaseObjectQualifier") ?? "yaf_";
 			}
-		} 
+		}
+
+        // Different data layers specific settings
+
+       
+        static public String DatabaseEncoding
+        {          
+            get          
+            {              
+                return Config.GetConfigValueAsString("YAF.DatabaseEncoding"); 
+           
+            }       
+        }
+    
+        static public String DatabaseCollation       
+        {            
+            get            
+            {              
+                return Config.GetConfigValueAsString("YAF.DatabaseCollation");
+           
+            }        
+        } 
+       
+        static public String SchemaName
+        {
+           get            
+           {      
+               return Config.GetConfigValueAsString("YAF.DatabaseSchemaName");       
+           }        
+        }
+
+       static public String WithOIDs
+       {            
+          get           
+          {           
+              return Config.GetConfigValueAsString("YAF.DatabaseWithOIDs");
+           
+          }       
+       }
+
 		#endregion
 
 		/// <summary>
