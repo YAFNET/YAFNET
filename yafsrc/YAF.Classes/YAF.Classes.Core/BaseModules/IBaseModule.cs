@@ -62,9 +62,9 @@ namespace YAF.Modules
 	public class YafBaseModuleManager : YafModuleManager<IBaseModule>
 	{
 		YafBaseModuleManager()
-			: base(BuildManager.CodeAssemblies, "YAF.Modules", "YAF.Modules.IBaseModule")
+			: base( BuildManager.CodeAssemblies, "YAF.Modules", "YAF.Modules.IBaseModule" )
 		{
-
+			
 		}
 
 		public void InitModulesBeforeForumPage(YafContext currentContext, object forumControl)

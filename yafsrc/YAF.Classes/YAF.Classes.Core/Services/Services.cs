@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using YAF.Classes.Data;
 using YAF.Classes.Utils;
 using YAF.Modules;
 

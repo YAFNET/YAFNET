@@ -53,7 +53,7 @@ namespace YAF.Classes.Core
 				{
 					// get fresh values
 					moderator = DB.forum_moderators();
-					moderator.TableName = DBAccess.GetObjectName( "Moderator" );
+					moderator.TableName = YafDBAccess.GetObjectName( "Moderator" );
 
 					// cache it for the time specified by admin
 					YafContext.Current.Cache.Add(key, moderator, null, DateTime.Now.AddMinutes(YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null);
@@ -70,7 +70,7 @@ namespace YAF.Classes.Core
 				{
 					// just get all categories since the list is short
 					category = DB.category_list( boardID, null );
-					category.TableName = DBAccess.GetObjectName( "Category" );
+					category.TableName = YafDBAccess.GetObjectName( "Category" );
 					YafContext.Current.Cache.Add(key, category, null, DateTime.Now.AddMinutes(YafContext.Current.BoardSettings.BoardCategoriesCacheTimeout), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null);
 				}	
 
@@ -80,7 +80,7 @@ namespace YAF.Classes.Core
 				if ( categoryID != null )
 				{
 					// make sure this only has the category desired in the dataset
-					foreach ( DataRow row in ds.Tables [DBAccess.GetObjectName("Category")].Rows )
+					foreach ( DataRow row in ds.Tables [YafDBAccess.GetObjectName("Category")].Rows )
 					{
 						if ( Convert.ToInt32( row ["CategoryID"] ) != Convert.ToInt32(categoryID) )
 						{
@@ -88,20 +88,20 @@ namespace YAF.Classes.Core
 							row.Delete();
 						}
 					}
-					ds.Tables [DBAccess.GetObjectName( "Category" )].AcceptChanges();
+					ds.Tables [YafDBAccess.GetObjectName( "Category" )].AcceptChanges();
 				}
 
 				DataTable forum = DB.forum_listread( boardID, userID, categoryID, parentID );
-				forum.TableName = DBAccess.GetObjectName( "Forum" );
+				forum.TableName = YafDBAccess.GetObjectName( "Forum" );
 				ds.Tables.Add( forum.Copy() );
 
-				ds.Relations.Add( "FK_Forum_Category", ds.Tables [DBAccess.GetObjectName( "Category" )].Columns ["CategoryID"], ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["CategoryID"], false );
-				ds.Relations.Add( "FK_Moderator_Forum", ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["ForumID"], ds.Tables [DBAccess.GetObjectName( "Moderator" )].Columns ["ForumID"], false );
+				ds.Relations.Add( "FK_Forum_Category", ds.Tables [YafDBAccess.GetObjectName( "Category" )].Columns ["CategoryID"], ds.Tables [YafDBAccess.GetObjectName( "Forum" )].Columns ["CategoryID"], false );
+				ds.Relations.Add( "FK_Moderator_Forum", ds.Tables [YafDBAccess.GetObjectName( "Forum" )].Columns ["ForumID"], ds.Tables [YafDBAccess.GetObjectName( "Moderator" )].Columns ["ForumID"], false );
 
 				bool deletedCategory = false;
 
 				// remove empty categories...
-				foreach ( DataRow row in ds.Tables[DBAccess.GetObjectName( "Category" )].Rows )
+				foreach ( DataRow row in ds.Tables[YafDBAccess.GetObjectName( "Category" )].Rows )
 				{
 					DataRow[] childRows = row.GetChildRows( "FK_Forum_Category" );
 
@@ -113,7 +113,7 @@ namespace YAF.Classes.Core
 					}
 				}
 
-				if ( deletedCategory ) ds.Tables[DBAccess.GetObjectName( "Category" )].AcceptChanges();
+				if ( deletedCategory ) ds.Tables[YafDBAccess.GetObjectName( "Category" )].AcceptChanges();
 
 				return ds;
 			}

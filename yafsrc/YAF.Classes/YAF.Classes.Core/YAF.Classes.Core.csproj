@@ -117,6 +117,7 @@
     <Compile Include="Context\UserPageBase.cs" />
     <Compile Include="Handlers\ThemeHandler.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
+    <Compile Include="Helpers\DynamicConnectionManager.cs" />
     <Compile Include="Helpers\MembershipHelper.cs" />
     <Compile Include="Helpers\StaticDataHelper.cs" />
     <Compile Include="Helpers\UserDataHelper.cs" />
