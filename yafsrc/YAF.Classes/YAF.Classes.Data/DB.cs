@@ -41,7 +41,7 @@ namespace YAF.Classes.Data
 				using ( SqlCommand cmd = new SqlCommand( "select sum(cast(size as integer))/128 from sysfiles" ) )
 				{
 					cmd.CommandType = CommandType.Text;
-					return (int)DBAccess.ExecuteScalar( cmd );
+					return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 				}
 			}
 		}
@@ -165,7 +165,7 @@ namespace YAF.Classes.Data
 			{
 				try
 				{
-					using ( SqlCommand cmd = DBAccess.GetCommand( "pageload" ) )
+					using ( SqlCommand cmd = YafDBAccess.GetCommand( "pageload" ) )
 					{
 						cmd.CommandType = CommandType.StoredProcedure;
 						cmd.Parameters.AddWithValue( "SessionID", sessionID );
@@ -180,7 +180,7 @@ namespace YAF.Classes.Data
 						cmd.Parameters.AddWithValue( "TopicID", topicID );
 						cmd.Parameters.AddWithValue( "MessageID", messageID );
 						cmd.Parameters.AddWithValue( "DontTrack", donttrack );
-						using ( DataTable dt = DBAccess.GetData( cmd ) )
+						using ( DataTable dt = YafDBAccess.Current.GetData( cmd ) )
 						{
 							if ( dt.Rows.Count > 0 )
 								return dt.Rows[0];
@@ -357,9 +357,9 @@ namespace YAF.Classes.Data
 
 			searchSql += " ORDER BY c.Posted DESC";
 
-			using ( SqlCommand cmd = DBAccess.GetCommand( searchSql, true ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( searchSql, true ) )
 			{
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -377,24 +377,24 @@ namespace YAF.Classes.Data
 			{
 				using ( DataSet ds = new DataSet() )
 				{
-					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( DBAccess.IsolationLevel ) )
+					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YafDBAccess.IsolationLevel ) )
 					{
-						using ( SqlDataAdapter da = new SqlDataAdapter( DBAccess.GetObjectName( "category_list" ), connMan.DBConnection ) )
+						using ( SqlDataAdapter da = new SqlDataAdapter( YafDBAccess.GetObjectName( "category_list" ), connMan.DBConnection ) )
 						{
 							da.SelectCommand.Transaction = trans;
 							da.SelectCommand.Parameters.AddWithValue( "BoardID", boardID );
 							da.SelectCommand.CommandType = CommandType.StoredProcedure;
-							da.Fill( ds, DBAccess.GetObjectName( "Category" ) );
-							da.SelectCommand.CommandText = DBAccess.GetObjectName( "forum_list" );
-							da.Fill( ds, DBAccess.GetObjectName( "ForumUnsorted" ) );
+							da.Fill( ds, YafDBAccess.GetObjectName( "Category" ) );
+							da.SelectCommand.CommandText = YafDBAccess.GetObjectName( "forum_list" );
+							da.Fill( ds, YafDBAccess.GetObjectName( "ForumUnsorted" ) );
 
-							DataTable dtForumListSorted = ds.Tables[DBAccess.GetObjectName( "ForumUnsorted" )].Clone();
-							dtForumListSorted.TableName = DBAccess.GetObjectName( "Forum" );
+							DataTable dtForumListSorted = ds.Tables[YafDBAccess.GetObjectName( "ForumUnsorted" )].Clone();
+							dtForumListSorted.TableName = YafDBAccess.GetObjectName( "Forum" );
 							ds.Tables.Add( dtForumListSorted );
 							dtForumListSorted.Dispose();
-							forum_list_sort_basic( ds.Tables[DBAccess.GetObjectName( "ForumUnsorted" )], ds.Tables[DBAccess.GetObjectName( "Forum" )], 0, 0 );
-							ds.Tables.Remove( DBAccess.GetObjectName( "ForumUnsorted" ) );
-							ds.Relations.Add( "FK_Forum_Category", ds.Tables[DBAccess.GetObjectName( "Category" )].Columns["CategoryID"], ds.Tables[DBAccess.GetObjectName( "Forum" )].Columns["CategoryID"] );
+							forum_list_sort_basic( ds.Tables[YafDBAccess.GetObjectName( "ForumUnsorted" )], ds.Tables[YafDBAccess.GetObjectName( "Forum" )], 0, 0 );
+							ds.Tables.Remove( YafDBAccess.GetObjectName( "ForumUnsorted" ) );
+							ds.Relations.Add( "FK_Forum_Category", ds.Tables[YafDBAccess.GetObjectName( "Category" )].Columns["CategoryID"], ds.Tables[YafDBAccess.GetObjectName( "Forum" )].Columns["CategoryID"] );
 							trans.Commit();
 						}
 
@@ -425,13 +425,13 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public DataTable accessmask_list( object boardID, object accessMaskID, object excludeFlags )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "accessmask_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "accessmask_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
 				cmd.Parameters.AddWithValue( "ExcludeFlags", excludeFlags );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -441,11 +441,11 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public bool accessmask_delete( object accessMaskID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "accessmask_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "accessmask_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
-				return (int)DBAccess.ExecuteScalar( cmd ) != 0;
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd ) != 0;
 			}
 		}
 		/// <summary>
@@ -467,7 +467,7 @@ namespace YAF.Classes.Data
 		/// <param name="downloadAccess">Download Access?</param>
 		static public void accessmask_save( object accessMaskID, object boardID, object name, object readAccess, object postAccess, object replyAccess, object priorityAccess, object pollAccess, object voteAccess, object moderatorAccess, object editAccess, object deleteAccess, object uploadAccess, object downloadAccess )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "accessmask_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "accessmask_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
@@ -484,7 +484,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "DeleteAccess", deleteAccess );
 				cmd.Parameters.AddWithValue( "UploadAccess", uploadAccess );
 				cmd.Parameters.AddWithValue( "DownloadAccess", downloadAccess );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -498,12 +498,12 @@ namespace YAF.Classes.Data
 		/// <returns>Returns a DataTable of active users</returns>
 		static public DataTable active_list( object boardID, object Guests )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "active_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "active_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Guests", Guests );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -514,11 +514,11 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable of all ative users in a forum</returns>
 		static public DataTable active_listforum( object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "active_listforum" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "active_listforum" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -528,11 +528,11 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable of all users that are in a topic</returns>
 		static public DataTable active_listtopic( object topicID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "active_listtopic" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "active_listtopic" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -543,11 +543,11 @@ namespace YAF.Classes.Data
 		/// <returns>DataRow of activity stata</returns>
 		static public DataRow active_stats( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "active_stats" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "active_stats" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				using ( DataTable dt = DBAccess.GetData( cmd ) )
+				using ( DataTable dt = YafDBAccess.Current.GetData( cmd ) )
 				{
 					return dt.Rows[0];
 				}
@@ -565,13 +565,13 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable with attachement list</returns>
 		static public DataTable attachment_list( object messageID, object attachmentID, object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "attachment_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "attachment_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
 				cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -584,7 +584,7 @@ namespace YAF.Classes.Data
 		/// <param name="stream">stream of bytes</param>
 		static public void attachment_save( object messageID, object fileName, object bytes, object contentType, System.IO.Stream stream )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "attachment_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "attachment_save" ) )
 			{
 				byte[] fileData = null;
 				if ( stream != null )
@@ -599,7 +599,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Bytes", bytes );
 				cmd.Parameters.AddWithValue( "ContentType", contentType );
 				cmd.Parameters.AddWithValue( "FileData", fileData );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		//ABOT CHANGE 16.04.04
@@ -614,22 +614,22 @@ namespace YAF.Classes.Data
 			//If the files are actually saved in the Hard Drive
 			if ( !UseFileTable )
 			{
-				using ( SqlCommand cmd = DBAccess.GetCommand( "attachment_list" ) )
+				using ( SqlCommand cmd = YafDBAccess.GetCommand( "attachment_list" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
-					DataTable tbAttachments = DBAccess.GetData( cmd );
+					DataTable tbAttachments = YafDBAccess.Current.GetData( cmd );
 					string sUpDir = HttpContext.Current.Server.MapPath( YAF.Classes.Config.UploadDir );
 					foreach ( DataRow row in tbAttachments.Rows )
 						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, row["MessageID"], row["FileName"] ) );
 				}
 
 			}
-			using ( SqlCommand cmd = DBAccess.GetCommand( "attachment_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "attachment_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 			//End ABOT CHANGE 16.04.04
 		}
@@ -641,11 +641,11 @@ namespace YAF.Classes.Data
 		/// <param name="attachmentID">ID of attachemnt to download</param>
 		static public void attachment_download( object attachmentID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "attachment_download" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "attachment_download" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -659,12 +659,12 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable of banned IPs</returns>
 		static public DataTable bannedip_list( object boardID, object ID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "bannedip_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "bannedip_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "ID", ID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -675,13 +675,13 @@ namespace YAF.Classes.Data
 		/// <param name="Mask">Mask</param>
 		static public void bannedip_save( object ID, object boardID, object Mask )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "bannedip_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "bannedip_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ID", ID );
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Mask", Mask );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		/// <summary>
@@ -690,11 +690,11 @@ namespace YAF.Classes.Data
 		/// <param name="ID">ID of banned ip to delete</param>
 		static public void bannedip_delete( object ID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "bannedip_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "bannedip_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ID", ID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -707,11 +707,11 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable</returns>
 		static public DataTable board_list( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "board_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "board_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -721,11 +721,11 @@ namespace YAF.Classes.Data
 		/// <returns>DataRow of Poststats</returns>
 		static public DataRow board_poststats( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "board_poststats" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "board_poststats" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				using ( DataTable dt = DBAccess.GetData( cmd ) )
+				using ( DataTable dt = YafDBAccess.Current.GetData( cmd ) )
 				{
 					return dt.Rows[0];
 				}
@@ -744,11 +744,11 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">BoardID of board to do re-sync for, if null, all boards are re-synced</param>
 		static public void board_resync( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "board_resync" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "board_resync" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		/// <summary>
@@ -761,12 +761,12 @@ namespace YAF.Classes.Data
 		}
 		static public DataRow board_stats( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "board_stats" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "board_stats" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 
-				using ( DataTable dt = DBAccess.GetData( cmd ) )
+				using ( DataTable dt = YafDBAccess.Current.GetData( cmd ) )
 				{
 					return dt.Rows[0];
 				}
@@ -780,13 +780,13 @@ namespace YAF.Classes.Data
 		/// <param name="allowThreaded">Boolen value, allowThreaded</param>
 		static public void board_save( object boardID, object name, object allowThreaded )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "board_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "board_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Name", name );
 				cmd.Parameters.AddWithValue( "AllowThreaded", allowThreaded );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -800,7 +800,7 @@ namespace YAF.Classes.Data
 		/// <param name="boardRolesName">Roles Provider Application Name for new board</param>
 		static public void board_create( object adminUsername, object adminUserKey, object boardName, object boardMembershipName, object boardRolesName )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "board_create" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "board_create" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardName", boardName );
@@ -809,7 +809,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "UserName", adminUsername );
 				cmd.Parameters.AddWithValue( "UserKey", adminUserKey );
 				cmd.Parameters.AddWithValue( "IsHostAdmin", 0 );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		/// <summary>
@@ -818,11 +818,11 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">ID of board to delete</param>
 		static public void board_delete( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "board_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "board_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -835,11 +835,11 @@ namespace YAF.Classes.Data
 		/// <returns>Bool value indicationg if category was deleted</returns>
 		static public bool category_delete( object CategoryID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "category_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "category_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "CategoryID", CategoryID );
-				return (int)DBAccess.ExecuteScalar( cmd ) != 0;
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd ) != 0;
 			}
 		}
 		/// <summary>
@@ -850,12 +850,12 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable with a list of forums in a category</returns>
 		static public DataTable category_list( object boardID, object categoryID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "category_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "category_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "CategoryID", categoryID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -867,13 +867,13 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public DataTable category_listread( object boardID, object userID, object categoryID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "category_listread" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "category_listread" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "CategoryID", categoryID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -884,12 +884,12 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public DataTable category_simplelist( int startID, int limit )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "category_simplelist" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "category_simplelist" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "StartID", startID );
 				cmd.Parameters.AddWithValue( "Limit", limit );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -901,7 +901,7 @@ namespace YAF.Classes.Data
 		/// <param name="SortOrder">Sort Order</param>
 		static public void category_save( object boardID, object categoryId, object name, object categoryImage, object sortOrder )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "category_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "category_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
@@ -909,7 +909,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Name", name );
 				cmd.Parameters.AddWithValue( "CategoryImage", categoryImage );
 				cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -923,13 +923,13 @@ namespace YAF.Classes.Data
 		/// <param name="Email">email of user</param>
 		static public void checkemail_save( object userID, object hash, object email )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "checkemail_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "checkemail_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Hash", hash );
 				cmd.Parameters.AddWithValue( "Email", email );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		/// <summary>
@@ -939,11 +939,11 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable with user information</returns>
 		static public DataTable checkemail_update( object hash )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "checkemail_update" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "checkemail_update" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "Hash", hash );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -953,11 +953,11 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable with check email information</returns>
 		static public DataTable checkemail_list( object email )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "checkemail_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "checkemail_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "Email", email );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -970,13 +970,13 @@ namespace YAF.Classes.Data
 		/// <param name="choiceID">Choice of the vote</param>
 		static public void choice_vote( object choiceID, object userID, object remoteIP )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "choice_vote" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "choice_vote" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ChoiceID", choiceID );
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "RemoteIP", remoteIP );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -987,14 +987,14 @@ namespace YAF.Classes.Data
 			try
 			{
 				if ( userID == null ) userID = DBNull.Value;
-				using ( SqlCommand cmd = DBAccess.GetCommand( "eventlog_create" ) )
+				using ( SqlCommand cmd = YafDBAccess.GetCommand( "eventlog_create" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "Type", (object)type );
 					cmd.Parameters.AddWithValue( "UserID", (object)userID );
 					cmd.Parameters.AddWithValue( "Source", (object)source.ToString() );
 					cmd.Parameters.AddWithValue( "Description", (object)description.ToString() );
-					DBAccess.ExecuteNonQuery( cmd );
+					YafDBAccess.Current.ExecuteNonQuery( cmd );
 				}
 			}
 			catch
@@ -1032,22 +1032,22 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">Specifies board. It is ignored if eventLogID parameter is not null.</param>
 		static private void eventlog_delete( object eventLogID, object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "eventlog_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "eventlog_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "EventLogID", eventLogID );
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public DataTable eventlog_list( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "eventlog_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "eventlog_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		#endregion EventLog
@@ -1058,11 +1058,11 @@ namespace YAF.Classes.Data
 		{
 			try
 			{
-				using ( SqlCommand cmd = DBAccess.GetCommand( "extension_delete" ) )
+				using ( SqlCommand cmd = YafDBAccess.GetCommand( "extension_delete" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "ExtensionId", extensionId );
-					DBAccess.ExecuteNonQuery( cmd );
+					YafDBAccess.Current.ExecuteNonQuery( cmd );
 				}
 			}
 			catch
@@ -1074,11 +1074,11 @@ namespace YAF.Classes.Data
 		// Get Extension record by extensionId
 		static public DataTable extension_edit( object extensionId )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "extension_edit" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "extension_edit" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "extensionId", extensionId );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 
 		}
@@ -1086,12 +1086,12 @@ namespace YAF.Classes.Data
 		// Used to validate a file before uploading
 		static public DataTable extension_list( object boardID, object extension )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "extension_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "extension_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Extension", extension );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 
 		}
@@ -1099,12 +1099,12 @@ namespace YAF.Classes.Data
 		// Returns an extension list for a given Board
 		static public DataTable extension_list( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "extension_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "extension_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Extension", "" );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 
 		}
@@ -1114,13 +1114,13 @@ namespace YAF.Classes.Data
 		{
 			try
 			{
-				using ( SqlCommand cmd = DBAccess.GetCommand( "extension_save" ) )
+				using ( SqlCommand cmd = YafDBAccess.GetCommand( "extension_save" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "extensionId", extensionId );
 					cmd.Parameters.AddWithValue( "BoardId", boardID );
 					cmd.Parameters.AddWithValue( "Extension", Extension );
-					DBAccess.ExecuteNonQuery( cmd );
+					YafDBAccess.Current.ExecuteNonQuery( cmd );
 				}
 			}
 			catch
@@ -1137,13 +1137,13 @@ namespace YAF.Classes.Data
 		/// <param name="choiceID">Choice of the vote</param>
 		static public DataTable pollvote_check( object pollid, object userid, object remoteip )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "pollvote_check" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "pollvote_check" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "PollID", pollid );
 				cmd.Parameters.AddWithValue( "UserID", userid );
 				cmd.Parameters.AddWithValue( "RemoteIP", remoteip );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		#endregion
@@ -1156,11 +1156,11 @@ namespace YAF.Classes.Data
 		/// <param name="ForumID">ID of forum to delete all attachemnts out of</param>
 		static private void forum_deleteAttachments( object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_listtopics" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_listtopics" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				using ( DataTable dt = DBAccess.GetData( cmd ) )
+				using ( DataTable dt = YafDBAccess.Current.GetData( cmd ) )
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
@@ -1178,18 +1178,18 @@ namespace YAF.Classes.Data
 		/// <returns>bool to indicate that forum has been deleted</returns>
 		static public bool forum_delete( object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_listSubForums" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_listSubForums" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				if ( DBAccess.ExecuteScalar( cmd ) is DBNull )
+				if ( YafDBAccess.Current.ExecuteScalar( cmd ) is DBNull )
 				{
 					forum_deleteAttachments( forumID );
-					using ( SqlCommand cmd_new = DBAccess.GetCommand( "forum_delete" ) )
+					using ( SqlCommand cmd_new = YafDBAccess.GetCommand( "forum_delete" ) )
 					{
 						cmd_new.CommandType = CommandType.StoredProcedure;
 						cmd_new.Parameters.AddWithValue( "ForumID", forumID );
-						DBAccess.ExecuteNonQuery( cmd_new );
+						YafDBAccess.Current.ExecuteNonQuery( cmd_new );
 					}
 					return true;
 				}
@@ -1207,12 +1207,12 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable of moderated forums</returns>
 		static public DataTable forum_listallMyModerated( object boardID, object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_listallmymoderated" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_listallmymoderated" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		//END ABOT NEW 16.04.04
@@ -1224,12 +1224,12 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable with list of topics from a forum</returns>
 		static public DataTable forum_list( object boardID, object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -1253,13 +1253,13 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable of all accessible forums</returns>
 		static public DataTable forum_listall( object boardID, object userID, object startAt )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_listall" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_listall" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Root", startAt );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -1280,12 +1280,12 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public DataTable forum_simplelist( int StartID, int Limit )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_simplelist" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_simplelist" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "StartID", StartID );
 				cmd.Parameters.AddWithValue( "Limit", Limit );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -1297,7 +1297,7 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable with list</returns>
 		static public DataTable forum_listall_fromCat( object boardID, object categoryID, bool emptyFirstRow )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_listall_fromCat" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_listall_fromCat" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
@@ -1305,7 +1305,7 @@ namespace YAF.Classes.Data
 
 				int intCategoryID = Convert.ToInt32( categoryID.ToString() );
 
-				using ( DataTable dt = DBAccess.GetData( cmd ) )
+				using ( DataTable dt = YafDBAccess.Current.GetData( cmd ) )
 				{
 					return forum_sort_list( dt, 0, intCategoryID, 0, null, emptyFirstRow );
 				}
@@ -1318,11 +1318,11 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public DataTable forum_listpath( object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_listpath" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_listpath" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -1335,14 +1335,14 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable with list</returns>
 		static public DataTable forum_listread( object boardID, object userID, object categoryID, object parentID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_listread" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_listread" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "CategoryID", categoryID );
 				cmd.Parameters.AddWithValue( "ParentID", parentID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -1358,24 +1358,24 @@ namespace YAF.Classes.Data
 			{
 				using ( DataSet ds = new DataSet() )
 				{
-					using ( SqlDataAdapter da = new SqlDataAdapter( DBAccess.GetObjectName( "category_list" ), connMan.OpenDBConnection ) )
+					using ( SqlDataAdapter da = new SqlDataAdapter( YafDBAccess.GetObjectName( "category_list" ), connMan.OpenDBConnection ) )
 					{
-						using ( SqlTransaction trans = da.SelectCommand.Connection.BeginTransaction( DBAccess.IsolationLevel ) )
+						using ( SqlTransaction trans = da.SelectCommand.Connection.BeginTransaction( YafDBAccess.IsolationLevel ) )
 						{
 							da.SelectCommand.Transaction = trans;
 							da.SelectCommand.Parameters.AddWithValue( "BoardID", boardID );
 							da.SelectCommand.CommandType = CommandType.StoredProcedure;
-							da.Fill( ds, DBAccess.GetObjectName( "Category" ) );
-							da.SelectCommand.CommandText = DBAccess.GetObjectName( "forum_moderatelist" );
+							da.Fill( ds, YafDBAccess.GetObjectName( "Category" ) );
+							da.SelectCommand.CommandText = YafDBAccess.GetObjectName( "forum_moderatelist" );
 							da.SelectCommand.Parameters.AddWithValue( "UserID", userID );
-							da.Fill( ds, DBAccess.GetObjectName( "ForumUnsorted" ) );
-							DataTable dtForumListSorted = ds.Tables[DBAccess.GetObjectName( "ForumUnsorted" )].Clone();
-							dtForumListSorted.TableName = DBAccess.GetObjectName( "Forum" );
+							da.Fill( ds, YafDBAccess.GetObjectName( "ForumUnsorted" ) );
+							DataTable dtForumListSorted = ds.Tables[YafDBAccess.GetObjectName( "ForumUnsorted" )].Clone();
+							dtForumListSorted.TableName = YafDBAccess.GetObjectName( "Forum" );
 							ds.Tables.Add( dtForumListSorted );
 							dtForumListSorted.Dispose();
-							forum_list_sort_basic( ds.Tables[DBAccess.GetObjectName( "ForumUnsorted" )], ds.Tables[DBAccess.GetObjectName( "Forum" )], 0, 0 );
-							ds.Tables.Remove( DBAccess.GetObjectName( "ForumUnsorted" ) );
-							ds.Relations.Add( "FK_Forum_Category", ds.Tables[DBAccess.GetObjectName( "Category" )].Columns["CategoryID"], ds.Tables[DBAccess.GetObjectName( "Forum" )].Columns["CategoryID"] );
+							forum_list_sort_basic( ds.Tables[YafDBAccess.GetObjectName( "ForumUnsorted" )], ds.Tables[YafDBAccess.GetObjectName( "Forum" )], 0, 0 );
+							ds.Tables.Remove( YafDBAccess.GetObjectName( "ForumUnsorted" ) );
+							ds.Relations.Add( "FK_Forum_Category", ds.Tables[YafDBAccess.GetObjectName( "Category" )].Columns["CategoryID"], ds.Tables[YafDBAccess.GetObjectName( "Forum" )].Columns["CategoryID"] );
 							trans.Commit();
 						}
 						return ds;
@@ -1386,10 +1386,10 @@ namespace YAF.Classes.Data
 
 		static public DataTable forum_moderators()
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_moderators" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_moderators" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -1408,18 +1408,18 @@ namespace YAF.Classes.Data
 		/// <param name="forumID">If null, all forums in board are updated</param>
 		static public void forum_resync( object boardID, object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_resync" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_resync" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public long forum_save( object forumID, object categoryID, object parentID, object name, object description, object sortOrder, object locked, object hidden, object isTest, object moderated, object accessMaskID, object remoteURL, object themeURL, bool dummy )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forum_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forum_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
@@ -1435,7 +1435,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "RemoteURL", remoteURL );
 				cmd.Parameters.AddWithValue( "ThemeURL", themeURL );
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
-				return long.Parse( DBAccess.ExecuteScalar( cmd ).ToString() );
+				return long.Parse( YafDBAccess.Current.ExecuteScalar( cmd ).ToString() );
 			}
 		}
 
@@ -1584,31 +1584,31 @@ namespace YAF.Classes.Data
 		#region ForumAccess
 		static public DataTable forumaccess_list( object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forumaccess_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forumaccess_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void forumaccess_save( object forumID, object groupID, object accessMaskID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forumaccess_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forumaccess_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
 				cmd.Parameters.AddWithValue( "GroupID", groupID );
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public DataTable forumaccess_group( object groupID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "forumaccess_group" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "forumaccess_group" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "GroupID", groupID );
-				return userforumaccess_sort_list( DBAccess.GetData( cmd ), 0, 0, 0 );
+				return userforumaccess_sort_list( YafDBAccess.Current.GetData( cmd ), 0, 0, 0 );
 			}
 		}
 		#endregion
@@ -1616,36 +1616,36 @@ namespace YAF.Classes.Data
 		#region Group
 		static public DataTable group_list( object boardID, object groupID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "group_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "group_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "GroupID", groupID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void group_delete( object groupID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "group_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "group_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "GroupID", groupID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public DataTable group_member( object boardID, object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "group_member" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "group_member" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public long group_save( object groupID, object boardID, object name, object isAdmin, object isGuest, object isStart, object isModerator, object accessMaskID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "group_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "group_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "GroupID", groupID );
@@ -1656,7 +1656,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "IsStart", isStart );
 				cmd.Parameters.AddWithValue( "IsModerator", isModerator );
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
-				return long.Parse( DBAccess.ExecuteScalar( cmd ).ToString() );
+				return long.Parse( YafDBAccess.Current.ExecuteScalar( cmd ).ToString() );
 			}
 		}
 		#endregion
@@ -1664,25 +1664,25 @@ namespace YAF.Classes.Data
 		#region Mail
 		static public void mail_delete( object mailID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "mail_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "mail_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MailID", mailID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public DataTable mail_list( object processId )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "mail_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "mail_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ProcessID", processId );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void mail_createwatch( object topicID, object from, object fromName, object subject, object body, object bodyHtml, object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "mail_createwatch" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "mail_createwatch" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
@@ -1692,12 +1692,12 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Body", body );
 				cmd.Parameters.AddWithValue( "BodyHtml", bodyHtml );
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void mail_create( object from, object fromName, object to, object toName, object subject, object body, object bodyHtml )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "mail_create" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "mail_create" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "From", from );
@@ -1707,7 +1707,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Subject", subject );
 				cmd.Parameters.AddWithValue( "Body", body );
 				cmd.Parameters.AddWithValue( "BodyHtml", bodyHtml );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -1716,33 +1716,33 @@ namespace YAF.Classes.Data
 
 		static public DataTable post_list( object topicID, object updateViewCount, bool showDeleted )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "post_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "post_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
 				cmd.Parameters.AddWithValue( "UpdateViewCount", updateViewCount );
 				cmd.Parameters.AddWithValue( "ShowDeleted", showDeleted );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public DataTable post_list_reverse10( object topicID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "post_list_reverse10" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "post_list_reverse10" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public DataTable post_last10user( object boardID, object userID, object pageUserID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "post_last10user" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "post_last10user" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "PageUserID", pageUserID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -1758,11 +1758,11 @@ namespace YAF.Classes.Data
 			list.Columns.Add( "UserName", typeof( string ) );
 			list.Columns.Add( "Signature", typeof( string ) );
 
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_reply_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_reply_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
-				DataTable dtr = DBAccess.GetData( cmd );
+				DataTable dtr = YafDBAccess.Current.GetData( cmd );
 
 				for ( int i = 0; i < dtr.Rows.Count; i++ )
 				{
@@ -1786,11 +1786,11 @@ namespace YAF.Classes.Data
 		// gets list of nested replies to message
 		static private void message_getRepliesList_populate( DataTable listsource, DataTable list, int messageID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_reply_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_reply_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
-				DataTable dtr = DBAccess.GetData( cmd );
+				DataTable dtr = YafDBAccess.Current.GetData( cmd );
 
 				for ( int i = 0; i < dtr.Rows.Count; i++ )
 				{
@@ -1814,24 +1814,24 @@ namespace YAF.Classes.Data
 		//creates new topic, using some parameters from message itself
 		static public long topic_create_by_message( object messageID, object forumId, object newTopicSubj )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_create_by_message" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_create_by_message" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
 				cmd.Parameters.AddWithValue( "ForumID", forumId );
 				cmd.Parameters.AddWithValue( "Subject", newTopicSubj );
-				DataTable dt = DBAccess.GetData( cmd );
+				DataTable dt = YafDBAccess.Current.GetData( cmd );
 				return long.Parse( dt.Rows[0]["TopicID"].ToString() );
 			}
 		}
 
 		static public DataTable message_list( object messageID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -1847,50 +1847,50 @@ namespace YAF.Classes.Data
 		// <summary> Retrieve all reported messages with the correct forumID argument. </summary>
 		static public DataTable message_listreported( object messageFlag, object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_listreported" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_listreported" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
 				cmd.Parameters.AddWithValue( "MessageFlag", messageFlag );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
 		// <summary> Save reported message back to the database. </summary>
 		static public void message_report( object reportFlag, object messageID, object userID, object reportedDateTime )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_report" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_report" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ReportFlag", reportFlag );
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
 				cmd.Parameters.AddWithValue( "ReporterID", userID );
 				cmd.Parameters.AddWithValue( "ReportedDate", reportedDateTime );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		// <summary> Copy current Message text over reported Message text. </summary>
 		static public void message_reportcopyover( object messageID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_reportcopyover" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_reportcopyover" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		// <summary> Copy current Message text over reported Message text. </summary>
 		static public void message_reportresolve( object messageFlag, object messageID, object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_reportresolve" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_reportresolve" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageFlag", messageFlag );
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -1907,11 +1907,11 @@ namespace YAF.Classes.Data
 			if ( DeleteLinked )
 			{
 				//Delete replies
-				using ( SqlCommand cmd = DBAccess.GetCommand( "message_getReplies" ) )
+				using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_getReplies" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
-					DataTable tbReplies = DBAccess.GetData( cmd );
+					DataTable tbReplies = YafDBAccess.Current.GetData( cmd );
 
 					foreach ( DataRow row in tbReplies.Rows )
 						message_deleteRecursively( row["MessageID"], isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, true, eraseMessages );
@@ -1921,11 +1921,11 @@ namespace YAF.Classes.Data
 			//If the files are actually saved in the Hard Drive
 			if ( !UseFileTable )
 			{
-				using ( SqlCommand cmd = DBAccess.GetCommand( "attachment_list" ) )
+				using ( SqlCommand cmd = YafDBAccess.GetCommand( "attachment_list" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
-					DataTable tbAttachments = DBAccess.GetData( cmd );
+					DataTable tbAttachments = YafDBAccess.Current.GetData( cmd );
 					string sUpDir = HttpContext.Current.Server.MapPath( Config.UploadDir );
 					foreach ( DataRow row in tbAttachments.Rows )
 						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, messageID, row["FileName"] ) );
@@ -1935,26 +1935,26 @@ namespace YAF.Classes.Data
 			// Ederon : erase message for good
 			if ( eraseMessages )
 			{
-				using ( SqlCommand cmd = DBAccess.GetCommand( "message_delete" ) )
+				using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_delete" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
 					cmd.Parameters.AddWithValue( "EraseMessage", eraseMessages );
-					DBAccess.ExecuteNonQuery( cmd );
+					YafDBAccess.Current.ExecuteNonQuery( cmd );
 				}
 			}
 			else
 			{
 				//Delete Message
 				// undelete function added
-				using ( SqlCommand cmd = DBAccess.GetCommand( "message_deleteundelete" ) )
+				using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_deleteundelete" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
 					cmd.Parameters.AddWithValue( "isModeratorChanged", isModeratorChanged );
 					cmd.Parameters.AddWithValue( "DeleteReason", deleteReason );
 					cmd.Parameters.AddWithValue( "isDeleteAction", isDeleteAction );
-					DBAccess.ExecuteNonQuery( cmd );
+					YafDBAccess.Current.ExecuteNonQuery( cmd );
 				}
 			}
 		}
@@ -1962,11 +1962,11 @@ namespace YAF.Classes.Data
 		// <summary> Set flag on message to approved and store in DB </summary>
 		static public void message_approve( object messageID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_approve" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_approve" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		/// <summary>
@@ -1977,12 +1977,12 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public DataTable message_simplelist( int StartID, int Limit )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_simplelist" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_simplelist" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "StartID", StartID );
 				cmd.Parameters.AddWithValue( "Limit", Limit );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -1993,7 +1993,7 @@ namespace YAF.Classes.Data
 		}
 		static public void message_update( object messageID, object priority, object message, object subject, object flags, object reasonOfEdit, object isModeratorChanged, object overrideApproval )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_update" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_update" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
@@ -2004,13 +2004,13 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Reason", reasonOfEdit );
 				cmd.Parameters.AddWithValue( "IsModeratorChanged", isModeratorChanged );
 				cmd.Parameters.AddWithValue( "OverrideApproval", overrideApproval );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		// <summary> Save message to DB. </summary>
 		static public bool message_save( object topicID, object userID, object message, object userName, object ip, object posted, object replyTo, object flags, ref long messageID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_save" ) )
 			{
 				SqlParameter paramMessageID = new SqlParameter( "MessageID", messageID );
 				paramMessageID.Direction = ParameterDirection.Output;
@@ -2026,50 +2026,50 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "BlogPostID", null );		// Ederon : 6/16/2007
 				cmd.Parameters.AddWithValue( "Flags", flags );
 				cmd.Parameters.Add( paramMessageID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 				messageID = (long)paramMessageID.Value;
 				return true;
 			}
 		}
 		static public DataTable message_unapproved( object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_unapproved" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_unapproved" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public DataTable message_findunread( object topicID, object lastRead )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_findunread" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_findunread" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
 				cmd.Parameters.AddWithValue( "LastRead", lastRead );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
 		// message movind function
 		static public void message_move( object messageID, object moveToTopic, bool moveAll )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_move" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_move" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
 				cmd.Parameters.AddWithValue( "MoveToTopic", moveToTopic );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 			//moveAll=true anyway
 			// it's in charge of moving answers of moved post
 			if ( moveAll )
 			{
-				using ( SqlCommand cmd = DBAccess.GetCommand( "message_getReplies" ) )
+				using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_getReplies" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
-					DataTable tbReplies = DBAccess.GetData( cmd );
+					DataTable tbReplies = YafDBAccess.Current.GetData( cmd );
 					foreach ( DataRow row in tbReplies.Rows )
 					{
 						message_moveRecursively( row["MessageID"], moveToTopic );
@@ -2085,21 +2085,21 @@ namespace YAF.Classes.Data
 			bool UseFileTable = GetBooleanRegistryValue( "UseFileTable" );
 
 			//Delete replies
-			using ( SqlCommand cmd = DBAccess.GetCommand( "message_getReplies" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_getReplies" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
-				DataTable tbReplies = DBAccess.GetData( cmd );
+				DataTable tbReplies = YafDBAccess.Current.GetData( cmd );
 				foreach ( DataRow row in tbReplies.Rows )
 				{
 					message_moveRecursively( row["messageID"], moveToTopic );
 				}
-				using ( SqlCommand innercmd = DBAccess.GetCommand( "message_move" ) )
+				using ( SqlCommand innercmd = YafDBAccess.GetCommand( "message_move" ) )
 				{
 					innercmd.CommandType = CommandType.StoredProcedure;
 					innercmd.Parameters.AddWithValue( "MessageID", messageID );
 					innercmd.Parameters.AddWithValue( "MoveToTopic", moveToTopic );
-					DBAccess.ExecuteNonQuery( innercmd );
+					YafDBAccess.Current.ExecuteNonQuery( innercmd );
 				}
 			}
 		}
@@ -2134,7 +2134,7 @@ namespace YAF.Classes.Data
 		/// <param name="category">Cateogry of medals to list. Must be complemented with not-null boardID parameter.</param>
 		static private DataTable medal_list( object boardID, object medalID, object category )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "medal_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "medal_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
@@ -2142,7 +2142,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "MedalID", medalID );
 				cmd.Parameters.AddWithValue( "Category", category );
 
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -2154,13 +2154,13 @@ namespace YAF.Classes.Data
 		/// <returns>List of users with their user id and usernames, who own this medal.</returns>
 		static public DataTable medal_listusers( object medalID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "medal_listusers" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "medal_listusers" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
 				cmd.Parameters.AddWithValue( "MedalID", medalID );
 
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -2190,7 +2190,7 @@ namespace YAF.Classes.Data
 		/// <param name="category">Cateogry of medals to delete. Must be complemented with not-null boardID parameter.</param>
 		static private void medal_delete( object boardID, object medalID, object category )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "medal_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "medal_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
@@ -2198,7 +2198,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "MedalID", medalID );
 				cmd.Parameters.AddWithValue( "Category", category );
 
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2228,7 +2228,7 @@ namespace YAF.Classes.Data
 			object medalURL, object ribbonURL, object smallMedalURL, object smallRibbonURL, object smallMedalWidth,
 			object smallMedalHeight, object smallRibbonWidth, object smallRibbonHeight, object sortOrder, object flags )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "medal_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "medal_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
@@ -2250,7 +2250,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Flags", flags );
 
 				// command succeeded if returned value is greater than zero (number of affected rows)
-				return (int)DBAccess.ExecuteScalar( cmd ) > 0;
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd ) > 0;
 			}
 		}
 
@@ -2263,7 +2263,7 @@ namespace YAF.Classes.Data
 		/// <param name="move">Change of sort.</param>
 		static public void medal_resort( object boardID, object medalID, int move )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "medal_resort" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "medal_resort" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
@@ -2271,7 +2271,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "MedalID", medalID );
 				cmd.Parameters.AddWithValue( "Move", move );
 
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2283,14 +2283,14 @@ namespace YAF.Classes.Data
 		/// <param name="medalID">ID of medal.</param>
 		static public void group_medal_delete( object groupID, object medalID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "group_medal_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "group_medal_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
 				cmd.Parameters.AddWithValue( "GroupID", groupID );
 				cmd.Parameters.AddWithValue( "MedalID", medalID );
 
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2302,14 +2302,14 @@ namespace YAF.Classes.Data
 		/// <param name="medalID">ID of medal to list.</param>
 		static public DataTable group_medal_list( object groupID, object medalID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "group_medal_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "group_medal_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
 				cmd.Parameters.AddWithValue( "GroupID", groupID );
 				cmd.Parameters.AddWithValue( "MedalID", medalID );
 
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -2327,7 +2327,7 @@ namespace YAF.Classes.Data
 			object groupID, object medalID, object message,
 			object hide, object onlyRibbon, object sortOrder )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "group_medal_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "group_medal_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
@@ -2338,7 +2338,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "OnlyRibbon", onlyRibbon );
 				cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
 
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2351,14 +2351,14 @@ namespace YAF.Classes.Data
 		/// <param name="medalID">ID of medal.</param>
 		static public void user_medal_delete( object userID, object medalID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_medal_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_medal_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "MedalID", medalID );
 
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2370,14 +2370,14 @@ namespace YAF.Classes.Data
 		/// <param name="medalID">ID of medal to list.</param>
 		static public DataTable user_medal_list( object userID, object medalID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_medal_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_medal_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "MedalID", medalID );
 
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -2396,7 +2396,7 @@ namespace YAF.Classes.Data
 			object userID, object medalID, object message,
 			object hide, object onlyRibbon, object sortOrder, object dateAwarded )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_medal_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_medal_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
@@ -2408,7 +2408,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
 				cmd.Parameters.AddWithValue( "DateAwarded", dateAwarded );
 
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2420,13 +2420,13 @@ namespace YAF.Classes.Data
 		/// <returns>List of medals, ribbon bar only first.</returns>
 		static public DataTable user_listmedals( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_listmedals" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_listmedals" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
 				cmd.Parameters.AddWithValue( "UserID", userID );
 
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -2435,30 +2435,30 @@ namespace YAF.Classes.Data
 		#region NntpForum
 		static public DataTable nntpforum_list( object boardID, object minutes, object nntpForumID, object active )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "nntpforum_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "nntpforum_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Minutes", minutes );
 				cmd.Parameters.AddWithValue( "NntpForumID", nntpForumID );
 				cmd.Parameters.AddWithValue( "Active", active );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void nntpforum_update( object nntpForumID, object lastMessageNo, object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "nntpforum_update" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "nntpforum_update" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "NntpForumID", nntpForumID );
 				cmd.Parameters.AddWithValue( "LastMessageNo", lastMessageNo );
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void nntpforum_save( object nntpForumID, object nntpServerID, object groupName, object forumID, object active )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "nntpforum_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "nntpforum_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "NntpForumID", nntpForumID );
@@ -2466,16 +2466,16 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "GroupName", groupName );
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
 				cmd.Parameters.AddWithValue( "Active", active );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void nntpforum_delete( object nntpForumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "nntpforum_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "nntpforum_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "NntpForumID", nntpForumID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -2483,17 +2483,17 @@ namespace YAF.Classes.Data
 		#region NntpServer
 		static public DataTable nntpserver_list( object boardID, object nntpServerID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "nntpserver_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "nntpserver_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "NntpServerID", nntpServerID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void nntpserver_save( object nntpServerID, object boardID, object name, object address, object port, object userName, object userPass )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "nntpserver_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "nntpserver_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "NntpServerID", nntpServerID );
@@ -2503,16 +2503,16 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Port", port );
 				cmd.Parameters.AddWithValue( "UserName", userName );
 				cmd.Parameters.AddWithValue( "UserPass", userPass );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void nntpserver_delete( object nntpServerID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "nntpserver_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "nntpserver_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "NntpServerID", nntpServerID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -2520,16 +2520,16 @@ namespace YAF.Classes.Data
 		#region NntpTopic
 		static public DataTable nntptopic_list( object thread )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "nntptopic_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "nntptopic_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "Thread", thread );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void nntptopic_savemessage( object nntpForumID, object topic, object body, object userID, object userName, object ip, object posted, object thread )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "nntptopic_savemessage" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "nntptopic_savemessage" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "NntpForumID", nntpForumID );
@@ -2540,7 +2540,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "IP", ip );
 				cmd.Parameters.AddWithValue( "Posted", posted );
 				cmd.Parameters.AddWithValue( "Thread", thread );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -2558,13 +2558,13 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public DataTable pmessage_list( object toUserID, object fromUserID, object userPMessageID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "pmessage_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "pmessage_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ToUserID", toUserID );
 				cmd.Parameters.AddWithValue( "FromUserID", fromUserID );
 				cmd.Parameters.AddWithValue( "UserPMessageID", userPMessageID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -2589,12 +2589,12 @@ namespace YAF.Classes.Data
 		/// <param name="fromOutbox">If true, removes the message from the outbox.  Otherwise deletes the message completely.</param>
 		static public void pmessage_delete( object userPMessageID, bool fromOutbox )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "pmessage_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "pmessage_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserPMessageID", userPMessageID );
 				cmd.Parameters.AddWithValue( "FromOutbox", fromOutbox );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		/// <summary>
@@ -2613,17 +2613,17 @@ namespace YAF.Classes.Data
 		/// <param name="pMessageID">The ID of the private message</param>
 		public static void pmessage_archive( object userPMessageID )
 		{
-			using ( SqlCommand sqlCommand = DBAccess.GetCommand( "pmessage_archive" ) )
+			using ( SqlCommand sqlCommand = YafDBAccess.GetCommand( "pmessage_archive" ) )
 			{
 				sqlCommand.CommandType = CommandType.StoredProcedure;
 				sqlCommand.Parameters.AddWithValue( "UserPMessageID", userPMessageID );
-				DBAccess.ExecuteNonQuery( sqlCommand );
+				YafDBAccess.Current.ExecuteNonQuery( sqlCommand );
 			}
 		}
 
 		static public void pmessage_save( object fromUserID, object toUserID, object subject, object body, object Flags )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "pmessage_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "pmessage_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "FromUserID", fromUserID );
@@ -2631,34 +2631,34 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Subject", subject );
 				cmd.Parameters.AddWithValue( "Body", body );
 				cmd.Parameters.AddWithValue( "Flags", Flags );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void pmessage_markread( object userPMessageID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "pmessage_markread" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "pmessage_markread" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserPMessageID", userPMessageID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public DataTable pmessage_info()
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "pmessage_info" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "pmessage_info" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void pmessage_prune( object daysRead, object daysUnread )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "pmessage_prune" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "pmessage_prune" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "DaysRead", daysRead );
 				cmd.Parameters.AddWithValue( "DaysUnread", daysUnread );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -2666,16 +2666,16 @@ namespace YAF.Classes.Data
 		#region Poll
 		static public DataTable poll_stats( object pollID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "poll_stats" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "poll_stats" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "PollID", pollID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public int poll_save( object question, object c1, object c2, object c3, object c4, object c5, object c6, object c7, object c8, object c9, object closes )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "poll_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "poll_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "Question", question );
@@ -2689,57 +2689,57 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Choice8", c8 );
 				cmd.Parameters.AddWithValue( "Choice9", c9 );
 				cmd.Parameters.AddWithValue( "Closes", closes );
-				return (int)DBAccess.ExecuteScalar( cmd );
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 		static public void poll_update( object pollID, object question, object closes )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "poll_update" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "poll_update" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "PollID", pollID );
 				cmd.Parameters.AddWithValue( "Question", question );
 				cmd.Parameters.AddWithValue( "Closes", closes );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void poll_remove( object pollID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "poll_remove" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "poll_remove" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "PollID", pollID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public void choice_delete( object choiceID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "choice_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "choice_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ChoiceID", choiceID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void choice_update( object choiceID, object choice )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "choice_update" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "choice_update" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ChoiceID", choiceID );
 				cmd.Parameters.AddWithValue( "Choice", choice );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void choice_add( object pollID, object choice )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "choice_add" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "choice_add" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "PollID", pollID );
 				cmd.Parameters.AddWithValue( "Choice", choice );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2748,17 +2748,17 @@ namespace YAF.Classes.Data
 		#region Rank
 		static public DataTable rank_list( object boardID, object rankID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "rank_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "rank_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "RankID", rankID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void rank_save( object rankID, object boardID, object name, object isStart, object isLadder, object minPosts, object rankImage )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "rank_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "rank_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "RankID", rankID );
@@ -2768,16 +2768,16 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "IsLadder", isLadder );
 				cmd.Parameters.AddWithValue( "MinPosts", minPosts );
 				cmd.Parameters.AddWithValue( "RankImage", rankImage );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void rank_delete( object rankID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "rank_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "rank_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "RankID", rankID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -2785,35 +2785,35 @@ namespace YAF.Classes.Data
 		#region Smiley
 		static public DataTable smiley_list( object boardID, object smileyID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "smiley_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "smiley_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "SmileyID", smileyID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public DataTable smiley_listunique( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "smiley_listunique" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "smiley_listunique" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void smiley_delete( object smileyID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "smiley_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "smiley_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "SmileyID", smileyID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void smiley_save( object smileyID, object boardID, object code, object icon, object emoticon, object sortOrder, object replace )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "smiley_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "smiley_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "SmileyID", smileyID );
@@ -2823,18 +2823,18 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Emoticon", emoticon );
 				cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
 				cmd.Parameters.AddWithValue( "Replace", replace );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void smiley_resort( object boardID, object smileyID, int move )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "smiley_resort" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "smiley_resort" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "SmileyID", smileyID );
 				cmd.Parameters.AddWithValue( "Move", move );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -2842,26 +2842,26 @@ namespace YAF.Classes.Data
 		#region BBCode
 		static public DataTable bbcode_list( object boardID, object bbcodeID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "bbcode_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "bbcode_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "BBCodeID", bbcodeID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void bbcode_delete( object bbcodeID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "bbcode_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "bbcode_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BBCodeID", bbcodeID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void bbcode_save( object bbcodeID, object boardID, object name, object description, object onclickjs, object displayjs, object editjs, object displaycss, object searchregex, object replaceregex, object variables, object usemodule, object moduleclass, object execorder )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "bbcode_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "bbcode_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BBCodeID", bbcodeID );
@@ -2878,7 +2878,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "UseModule", usemodule );
 				cmd.Parameters.AddWithValue( "ModuleClass", moduleclass );
 				cmd.Parameters.AddWithValue( "ExecOrder", execorder );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -2891,12 +2891,12 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable filled will registry entries</returns>
 		static public DataTable registry_list( object name, object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "registry_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "registry_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "Name", name );
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -2923,12 +2923,12 @@ namespace YAF.Classes.Data
 		/// <param name="Value">Value associated with this entry which can be null</param>
 		static public void registry_save( object name, object value )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "registry_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "registry_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "Name", name );
 				cmd.Parameters.AddWithValue( "Value", value );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		/// <summary>
@@ -2939,13 +2939,13 @@ namespace YAF.Classes.Data
 		/// <param name="BoardID">The BoardID for this entry</param>
 		static public void registry_save( object name, object value, object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "registry_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "registry_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "Name", name );
 				cmd.Parameters.AddWithValue( "Value", value );
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -2957,10 +2957,10 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public DataTable system_list()
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "system_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "system_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		#endregion
@@ -2968,32 +2968,32 @@ namespace YAF.Classes.Data
 		#region Topic
 		static public void topic_poll_update( object topicID, object messageID, object pollID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_poll_update" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_poll_update" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
 				cmd.Parameters.AddWithValue( "PollID", pollID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public int topic_prune(object boardID, object forumID, object days, object permDelete )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_prune" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_prune" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("BoardID", boardID);
 				cmd.Parameters.AddWithValue("ForumID", forumID );
 				cmd.Parameters.AddWithValue("Days", days );
                 cmd.Parameters.AddWithValue("PermDelete", permDelete);
-				return (int)DBAccess.ExecuteScalar( cmd );
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 
 		static public DataTable topic_list( object forumID, object userId, object announcement, object date, object offset, object count )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
@@ -3002,7 +3002,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Date", date );
 				cmd.Parameters.AddWithValue( "Offset", offset );
 				cmd.Parameters.AddWithValue( "Count", count );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -3013,69 +3013,69 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public DataTable topic_simplelist( int StartID, int Limit )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_simplelist" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_simplelist" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "StartID", StartID );
 				cmd.Parameters.AddWithValue( "Limit", Limit );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void topic_move( object topicID, object forumID, object showMoved )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_move" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_move" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
 				cmd.Parameters.AddWithValue( "ShowMoved", showMoved );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public DataTable topic_announcements( object boardID, object numOfPostsToRetrieve, object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_announcements" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_announcements" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "NumPosts", numOfPostsToRetrieve );
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
 		static public DataTable topic_latest( object boardID, object numOfPostsToRetrieve, object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_latest" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_latest" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "NumPosts", numOfPostsToRetrieve );
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public DataTable topic_active( object boardID, object userID, object since, object categoryID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_active" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_active" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Since", since );
 				cmd.Parameters.AddWithValue( "CategoryID", categoryID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		//ABOT NEW 16.04.04:Delete all topic's messages
 		static private void topic_deleteAttachments( object topicID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_listmessages" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_listmessages" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
-				using ( DataTable dt = DBAccess.GetData( cmd ) )
+				using ( DataTable dt = YafDBAccess.Current.GetData( cmd ) )
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
@@ -3094,45 +3094,45 @@ namespace YAF.Classes.Data
 			//ABOT CHANGE 16.04.04
 			topic_deleteAttachments( topicID );
 			//END ABOT CHANGE 16.04.04
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
 				cmd.Parameters.AddWithValue( "EraseTopic", eraseTopic );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public DataTable topic_findprev( object topicID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_findprev" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_findprev" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public DataTable topic_findnext( object topicID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_findnext" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_findnext" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void topic_lock( object topicID, object locked )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_lock" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_lock" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
 				cmd.Parameters.AddWithValue( "Locked", locked );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public long topic_save( object forumID, object subject, object message, object userID, object priority, object pollID, object userName, object ip, object posted, object blogPostID, object flags, ref long messageID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
@@ -3147,18 +3147,18 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "BlogPostID", blogPostID );
 				cmd.Parameters.AddWithValue( "Flags", flags );
 
-				DataTable dt = DBAccess.GetData( cmd );
+				DataTable dt = YafDBAccess.Current.GetData( cmd );
 				messageID = long.Parse( dt.Rows[0]["MessageID"].ToString() );
 				return long.Parse( dt.Rows[0]["TopicID"].ToString() );
 			}
 		}
 		static public DataRow topic_info( object topicID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_info" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_info" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
-				using ( DataTable dt = DBAccess.GetData( cmd ) )
+				using ( DataTable dt = YafDBAccess.Current.GetData( cmd ) )
 				{
 					if ( dt.Rows.Count > 0 )
 						return dt.Rows[0];
@@ -3177,12 +3177,12 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable with replace words</returns>
 		static public DataTable replace_words_list( object boardId, object id )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "replace_words_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "replace_words_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardId );
 				cmd.Parameters.AddWithValue( "ID", id );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -3193,14 +3193,14 @@ namespace YAF.Classes.Data
 		/// <param name="goodword">good word</param>
 		static public void replace_words_save( object boardId, object id, object badword, object goodword )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "replace_words_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "replace_words_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ID", id );
 				cmd.Parameters.AddWithValue( "BoardID", boardId );
 				cmd.Parameters.AddWithValue( "badword", badword );
 				cmd.Parameters.AddWithValue( "goodword", goodword );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		/// <summary>
@@ -3209,11 +3209,11 @@ namespace YAF.Classes.Data
 		/// <param name="ID">ID of bad/good word to delete</param>
 		static public void replace_words_delete( object ID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "replace_words_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "replace_words_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ID", ID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -3222,29 +3222,29 @@ namespace YAF.Classes.Data
 
 		static public void user_addignoreduser( object userId, object ignoredUserId )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_addignoreduser" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_addignoreduser" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserId", userId );
 				cmd.Parameters.AddWithValue( "IgnoredUserId", ignoredUserId );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public void user_removeignoreduser( object userId, object ignoredUserId )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_removeignoreduser" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_removeignoreduser" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserId", userId );
 				cmd.Parameters.AddWithValue( "IgnoredUserId", ignoredUserId );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public bool user_isuserignored( object userId, object ignoredUserId )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_isuserignored" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_isuserignored" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserId", userId );
@@ -3252,7 +3252,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.Add( "result", SqlDbType.Bit );
 				cmd.Parameters["result"].Direction = ParameterDirection.ReturnValue;
 
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 
 				return Convert.ToBoolean( cmd.Parameters["result"].Value );
 			}
@@ -3267,7 +3267,7 @@ namespace YAF.Classes.Data
 		}
 		static public DataTable user_list( object boardID, object userID, object approved, object groupID, object rankID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
@@ -3275,7 +3275,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Approved", approved );
 				cmd.Parameters.AddWithValue( "GroupID", groupID );
 				cmd.Parameters.AddWithValue( "RankID", rankID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -3286,113 +3286,113 @@ namespace YAF.Classes.Data
 		/// <returns></returns>
 		static public DataTable user_simplelist( int StartID, int Limit )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_simplelist" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_simplelist" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "StartID", StartID );
 				cmd.Parameters.AddWithValue( "Limit", Limit );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void user_delete( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void user_setrole( int boardID, object providerUserKey, object role )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_setrole" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_setrole" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
 				cmd.Parameters.AddWithValue( "Role", role );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void user_setinfo( int boardID, System.Web.Security.MembershipUser user )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "update {databaseOwner}.{objectQualifier}User set Name=@UserName,Email=@Email where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey", true ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "update {databaseOwner}.{objectQualifier}User set Name=@UserName,Email=@Email where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey", true ) )
 			{
 				cmd.CommandType = CommandType.Text;
 				cmd.Parameters.AddWithValue( "UserName", user.UserName );
 				cmd.Parameters.AddWithValue( "Email", user.Email );
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "ProviderUserKey", user.ProviderUserKey );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void user_migrate( object userID, object providerUserKey, object updateProvider )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_migrate" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_migrate" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "UpdateProvider", updateProvider );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void user_deleteold( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_deleteold" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_deleteold" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void user_approve( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_approve" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_approve" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void user_approveall( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_approveall" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_approveall" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void user_suspend( object userID, object suspend )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_suspend" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_suspend" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Suspend", suspend );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public bool user_changepassword( object userID, object oldPassword, object newPassword )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_changepassword" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_changepassword" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "OldPassword", oldPassword );
 				cmd.Parameters.AddWithValue( "NewPassword", newPassword );
-				return (bool)DBAccess.ExecuteScalar( cmd );
+				return (bool)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 
 		static public int user_pmcount( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_pmcount" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_pmcount" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return (int)DBAccess.ExecuteScalar( cmd );
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 
@@ -3400,7 +3400,7 @@ namespace YAF.Classes.Data
 				object timeZone, object languageFile, object themeFile, object overrideDefaultThemes, object approved,
 				object pmNotification )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
@@ -3413,12 +3413,12 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "OverrideDefaultTheme", overrideDefaultThemes );
 				cmd.Parameters.AddWithValue( "Approved", approved );
 				cmd.Parameters.AddWithValue( "PMNotification", pmNotification );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void user_adminsave( object boardID, object userID, object name, object email, object flags, object rankID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_adminsave" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_adminsave" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
@@ -3427,29 +3427,29 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Email", email );
 				cmd.Parameters.AddWithValue( "Flags", flags );
 				cmd.Parameters.AddWithValue( "RankID", rankID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public DataTable user_emails( object boardID, object groupID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_emails" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_emails" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "GroupID", groupID );
 
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public DataTable user_accessmasks( object boardID, object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_accessmasks" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_accessmasks" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserID", userID );
 
-				return userforumaccess_sort_list( DBAccess.GetData( cmd ), 0, 0, 0 );
+				return userforumaccess_sort_list( YafDBAccess.Current.GetData( cmd ), 0, 0, 0 );
 			}
 		}
 
@@ -3516,89 +3516,89 @@ namespace YAF.Classes.Data
 
 		static public object user_recoverpassword( object boardID, object userName, object email )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_recoverpassword" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_recoverpassword" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserName", userName );
 				cmd.Parameters.AddWithValue( "Email", email );
-				return DBAccess.ExecuteScalar( cmd );
+				return YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 		static public void user_savepassword( object userID, object password )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_savepassword" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_savepassword" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Password", FormsAuthentication.HashPasswordForStoringInConfigFile( password.ToString(), "md5" ) );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public object user_login( object boardID, object name, object password )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_login" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_login" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Name", name );
 				cmd.Parameters.AddWithValue( "Password", password );
-				return DBAccess.ExecuteScalar( cmd );
+				return YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 		static public DataTable user_avatarimage( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_avatarimage" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_avatarimage" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public int user_get( int boardID, object providerUserKey )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "select UserID from {databaseOwner}.{objectQualifier}User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey", true ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "select UserID from {databaseOwner}.{objectQualifier}User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey", true ) )
 			{
 				cmd.CommandType = CommandType.Text;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
-				return (int)(DBAccess.ExecuteScalar( cmd ) ?? 0);
+				return (int)(YafDBAccess.Current.ExecuteScalar( cmd ) ?? 0);
 			}
 		}
 		static public DataTable user_find( object boardID, bool filter, object userName, object email )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_find" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_find" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Filter", filter );
 				cmd.Parameters.AddWithValue( "UserName", userName );
 				cmd.Parameters.AddWithValue( "Email", email );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public string user_getsignature( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_getsignature" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_getsignature" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return DBAccess.ExecuteScalar( cmd ).ToString();
+				return YafDBAccess.Current.ExecuteScalar( cmd ).ToString();
 			}
 		}
 		static public void user_savesignature( object userID, object signature )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_savesignature" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_savesignature" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Signature", signature );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void user_saveavatar( object userID, object avatar, System.IO.Stream stream, object avatarImageType )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_saveavatar" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_saveavatar" ) )
 			{
 				byte[] data = null;
 
@@ -3614,16 +3614,16 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Avatar", avatar );
 				cmd.Parameters.AddWithValue( "AvatarImage", data );
 				cmd.Parameters.AddWithValue( "AvatarImageType", avatarImageType );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void user_deleteavatar( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_deleteavatar" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_deleteavatar" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -3631,11 +3631,11 @@ namespace YAF.Classes.Data
 		{
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{
-				using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( DBAccess.IsolationLevel ) )
+				using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YafDBAccess.IsolationLevel ) )
 				{
 					try
 					{
-						using ( SqlCommand cmd = DBAccess.GetCommand( "user_save", connMan.DBConnection ) )
+						using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_save", connMan.DBConnection ) )
 						{
 							cmd.Transaction = trans;
 							cmd.CommandType = CommandType.StoredProcedure;
@@ -3671,7 +3671,7 @@ namespace YAF.Classes.Data
 		{
 			try
 			{
-				using ( SqlCommand cmd = DBAccess.GetCommand( "user_aspnet" ) )
+				using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_aspnet" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 
@@ -3680,7 +3680,7 @@ namespace YAF.Classes.Data
 					cmd.Parameters.AddWithValue( "Email", email );
 					cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
 					cmd.Parameters.AddWithValue( "IsApproved", isApproved );
-					return (int)DBAccess.ExecuteScalar( cmd );
+					return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 				}
 			}
 			catch ( Exception x )
@@ -3691,87 +3691,87 @@ namespace YAF.Classes.Data
 		}
 		static public int user_guest( object boardID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_guest" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_guest" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				return (int)DBAccess.ExecuteScalar( cmd );
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 		static public DataTable user_activity_rank( object boardID, object startDate, object displayNumber )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_activity_rank" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_activity_rank" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "StartDate", startDate );
 				cmd.Parameters.AddWithValue( "DisplayNumber", displayNumber );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public int user_nntp( object boardID, object userName, object email )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_nntp" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_nntp" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserName", userName );
 				cmd.Parameters.AddWithValue( "Email", email );
-				return (int)DBAccess.ExecuteScalar( cmd );
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 
 		static public void user_addpoints( object userID, object points )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_addpoints" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_addpoints" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Points", points );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public void user_removepointsByTopicID( object topicID, object points )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_removepointsbytopicid" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_removepointsbytopicid" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
 				cmd.Parameters.AddWithValue( "Points", points );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public void user_removepoints( object userID, object points )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_removepoints" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_removepoints" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Points", points );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public void user_setpoints( object userID, object points )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_setpoints" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_setpoints" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Points", points );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		static public int user_getpoints( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "user_getpoints" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_getpoints" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return (int)DBAccess.ExecuteScalar( cmd );
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 		#endregion
@@ -3779,33 +3779,33 @@ namespace YAF.Classes.Data
 		#region UserForum
 		static public DataTable userforum_list( object userID, object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "userforum_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "userforum_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void userforum_delete( object userID, object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "userforum_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "userforum_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void userforum_save( object userID, object forumID, object accessMaskID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "userforum_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "userforum_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -3813,22 +3813,22 @@ namespace YAF.Classes.Data
 		#region UserGroup
 		static public DataTable usergroup_list( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "usergroup_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "usergroup_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void usergroup_save( object userID, object groupID, object member )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "usergroup_save" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "usergroup_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "GroupID", groupID );
 				cmd.Parameters.AddWithValue( "Member", member );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -3836,40 +3836,40 @@ namespace YAF.Classes.Data
 		#region WatchForum
 		static public void watchforum_add( object userID, object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "watchforum_add" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "watchforum_add" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public DataTable watchforum_list( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "watchforum_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "watchforum_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public DataTable watchforum_check( object userID, object forumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "watchforum_check" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "watchforum_check" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void watchforum_delete( object watchForumID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "watchforum_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "watchforum_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "WatchForumID", watchForumID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -3877,40 +3877,40 @@ namespace YAF.Classes.Data
 		#region WatchTopic
 		static public DataTable watchtopic_list( object userID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "watchtopic_list" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "watchtopic_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public DataTable watchtopic_check( object userID, object topicID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "watchtopic_check" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "watchtopic_check" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 		static public void watchtopic_delete( object watchTopicID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "watchtopic_delete" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "watchtopic_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "WatchTopicID", watchTopicID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		static public void watchtopic_add( object userID, object topicID )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "watchtopic_add" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "watchtopic_add" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
@@ -3943,10 +3943,10 @@ namespace YAF.Classes.Data
 		{
 			string tSQL = "select Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID=" +
 														forumId + " and b.ForumID = a.ForumID";
-			using ( SqlCommand cmd = DBAccess.GetCommand( tSQL, true ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( tSQL, true ) )
 			{
 				cmd.CommandType = CommandType.Text;
-				return DBAccess.GetData( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 
@@ -3962,7 +3962,7 @@ namespace YAF.Classes.Data
 
 			sb.AppendLine( "DECLARE @TableName sysname" );
 			sb.AppendLine( "DECLARE cur_showfragmentation CURSOR FOR" );
-			sb.AppendFormat( "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", DBAccess.ObjectQualifier );
+			sb.AppendFormat( "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", YafDBAccess.ObjectQualifier );
 			sb.AppendLine( "OPEN cur_showfragmentation" );
 			sb.AppendLine( "FETCH NEXT FROM cur_showfragmentation INTO @TableName" );
 			sb.AppendLine( "WHILE @@FETCH_STATUS = 0" );
@@ -3996,7 +3996,7 @@ namespace YAF.Classes.Data
 			sb.AppendLine( "DECLARE @MyTable VARCHAR(255)" );
 			sb.AppendLine( "DECLARE myCursor" );
 			sb.AppendLine( "CURSOR FOR" );
-			sb.AppendFormat( "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", DBAccess.ObjectQualifier );
+			sb.AppendFormat( "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", YafDBAccess.ObjectQualifier );
 			sb.AppendLine( "OPEN myCursor" );
 			sb.AppendLine( "FETCH NEXT" );
 			sb.AppendLine( "FROM myCursor INTO @MyTable" );
@@ -4029,7 +4029,7 @@ namespace YAF.Classes.Data
 				cmd.CommandTimeout = 9999;
 				SqlDataReader reader = null;
 
-				using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( DBAccess.IsolationLevel ) )
+				using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YafDBAccess.IsolationLevel ) )
 				{
 					try
 					{
@@ -4120,20 +4120,20 @@ namespace YAF.Classes.Data
 
 		public static void system_deleteinstallobjects()
 		{
-			string tSQL = "DROP PROCEDURE" + DBAccess.GetObjectName( "system_initialize" );
-			using ( SqlCommand cmd = DBAccess.GetCommand( tSQL, true ) )
+			string tSQL = "DROP PROCEDURE" + YafDBAccess.GetObjectName( "system_initialize" );
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( tSQL, true ) )
 			{
 				cmd.CommandType = CommandType.Text;
-				DBAccess.ExecuteNonQuery( cmd );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 
 		public static void system_initialize_executescripts( string script, string scriptFile, bool useTransactions )
 		{
 			// apply database owner
-			script = script.Replace( "{databaseOwner}", DBAccess.DatabaseOwner );
+			script = script.Replace( "{databaseOwner}", YafDBAccess.DatabaseOwner );
 			// apply object qualifier
-			script = script.Replace( "{objectQualifier}", DBAccess.ObjectQualifier );
+			script = script.Replace( "{objectQualifier}", YafDBAccess.ObjectQualifier );
 
 			string[] statements = System.Text.RegularExpressions.Regex.Split( script, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
 
@@ -4142,7 +4142,7 @@ namespace YAF.Classes.Data
 				// use transactions...
 				if ( useTransactions )
 				{
-					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
+					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.YafDBAccess.IsolationLevel ) )
 					{
 						foreach ( string sql0 in statements )
 						{
@@ -4211,7 +4211,7 @@ namespace YAF.Classes.Data
 		{
 			using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
 			{
-				using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
+				using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.YafDBAccess.IsolationLevel ) )
 				{
 					// REVIEW : Ederon - would "{databaseOwner}.{objectQualifier}" work, might need only "{objectQualifier}"
 					using ( SqlDataAdapter da = new SqlDataAdapter( "select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like '{databaseOwner}.{objectQualifier}%'", connMan.OpenDBConnection ) )
@@ -4282,7 +4282,7 @@ namespace YAF.Classes.Data
 		}
 		public static void system_initialize( string forumName, string timeZone, string forumEmail, string smtpServer, string userName, string userEmail, object providerUserKey )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "system_initialize" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "system_initialize" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "@Name", forumName );
@@ -4293,19 +4293,19 @@ namespace YAF.Classes.Data
 				// vzrus:The input parameter should be implemented in the system initialize and board_create procedures, else there will be an error in create watch because the user email is missing
 				//cmd.Parameters.AddWithValue("@UserEmail", userEmail);
 				cmd.Parameters.AddWithValue( "@UserKey", providerUserKey );
-				YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
+				YAF.Classes.Data.YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 
 		}
 
 		public static void system_updateversion( int version, string versionname )
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "system_updateversion" ) )
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "system_updateversion" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "@Version", version );
 				cmd.Parameters.AddWithValue( "@VersionName", versionname );
-				YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
+				YAF.Classes.Data.YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
 

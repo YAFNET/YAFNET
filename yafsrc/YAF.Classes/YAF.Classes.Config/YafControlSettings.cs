@@ -37,7 +37,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return PageSingleton<YafControlSettings>.Instance; 
+				return PageSingleton<YafControlSettings>.Instance;
 			}
 		}
 
