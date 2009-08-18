@@ -3314,6 +3314,7 @@ namespace YAF.Classes.Data
 				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
+        // TODO: The method is not in use
 		static public void user_setinfo( int boardID, System.Web.Security.MembershipUser user )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "update {databaseOwner}.{objectQualifier}User set Name=@UserName,Email=@Email where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey", true ) )
@@ -3626,7 +3627,7 @@ namespace YAF.Classes.Data
 				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
-
+        // TODO: The method is not in use
 		static public bool user_register( object boardID, object userName, object password, object hash, object email, object location, object homePage, object timeZone, bool approved )
 		{
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
