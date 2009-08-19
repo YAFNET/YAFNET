@@ -4552,9 +4552,12 @@ begin
 		select 
 			a.Email 
 		from 
-			{objectQualifier}User a join [{databaseOwner}].[{objectQualifier}UserGroup] b on b.UserID=a.UserID
+			{objectQualifier}User a
+			join [{databaseOwner}].[{objectQualifier}UserGroup] b on b.UserID=a.UserID
+			join [{databaseOwner}].[{objectQualifier}Group] c on c.GroupID=b.GroupID
 		where 
 			b.GroupID = @GroupID and 
+			(c.Flags & 2)=0 and
 			a.Email is not null and 
 			a.Email<>''
 end
