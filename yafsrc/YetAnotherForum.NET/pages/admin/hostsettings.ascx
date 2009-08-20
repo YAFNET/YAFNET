@@ -769,14 +769,14 @@
                             <tr>
                                 <td class="postheader">
                                     <b>Allow Gravatars:</b><br>
-                                    Can users use Gravatars.</td>
+                                    Automatically use users Gavatars if they exist (note: may require additional processing).</td>
                                 <td class="post">
                                     <asp:CheckBox ID="AvatarGravatar" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Gravatar Rating:</b><br>
-                                    Max rating of Gravatar.</td>
+                                    Max rating of Gravatar if allowed.</td>
                                 <td class="post">
                                     <asp:DropDownList ID="GravatarRating" runat="server">
                                     <asp:ListItem Value="G"></asp:ListItem>

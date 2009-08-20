@@ -125,6 +125,13 @@ namespace YAF.Pages.Admin
 						Convert.ChangeType( settingCollection.SettingsString[name].GetValue( PageContext.BoardSettings, null ),
 																typeof( string ) );
 				}
+				else if ( control != null && control is DropDownList && settingCollection.SettingsString[name].CanRead )
+				{
+					ListItem listItem = ( (DropDownList)control ).Items.FindByValue(
+						settingCollection.SettingsString[name].GetValue( PageContext.BoardSettings, null ).ToString() );
+
+					if ( listItem != null ) listItem.Selected = true;
+				}
 			}
 
 			// handle int fields...
@@ -180,6 +187,11 @@ namespace YAF.Pages.Admin
 				if (control != null && control is TextBox && settingCollection.SettingsString[name].CanWrite)
 				{
 					settingCollection.SettingsString[name].SetValue( PageContext.BoardSettings, ((TextBox)control).Text.Trim(), null );
+				}
+				else if ( control != null && control is DropDownList && settingCollection.SettingsString[name].CanWrite )
+				{
+					settingCollection.SettingsString[name].SetValue( PageContext.BoardSettings,
+																													 Convert.ToString( ( (DropDownList)control ).SelectedItem.Value ), null );
 				}
 			}
 

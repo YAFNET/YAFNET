@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td class="postfooter" align="center" colspan="2">
-                <asp:Button ID="Send" runat="server" Text="Send" OnClick="Send_Click"></asp:Button></td>
+                <asp:Button ID="Send" runat="server" Text="Send" OnClick="Send_Click" OnClientClick="return confirm('Are you sure you want to send this mail?');"></asp:Button></td>
         </tr>
     </table>
 </YAF:AdminMenu>
