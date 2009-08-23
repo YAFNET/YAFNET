@@ -217,8 +217,8 @@ namespace YAF.Classes.Core
 
 		private void InitProviderSettings()
 		{
-			Membership.ApplicationName = PageContext.BoardSettings.MembershipAppName;
-			Roles.ApplicationName = PageContext.BoardSettings.RolesAppName;
+			PageContext.CurrentMembership.ApplicationName = PageContext.BoardSettings.MembershipAppName;
+			PageContext.CurrentRoles.ApplicationName = PageContext.BoardSettings.RolesAppName;
 		}
 		#endregion
 

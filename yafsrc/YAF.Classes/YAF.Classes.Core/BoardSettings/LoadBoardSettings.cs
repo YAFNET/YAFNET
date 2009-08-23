@@ -29,11 +29,11 @@ namespace YAF.Classes.Core
 		private void SetupLegacyBoardSettings(DataRow board)
 		{
 			_membershipAppName = (String.IsNullOrEmpty(board["MembershipAppName"].ToString()))
-														? System.Web.Security.Membership.ApplicationName
+														? YafContext.Current.CurrentMembership.ApplicationName
 														: board["MembershipAppName"].ToString();
 
 			_rolesAppName = (String.IsNullOrEmpty(board["RolesAppName"].ToString()))
-												? System.Web.Security.Roles.ApplicationName
+												? YafContext.Current.CurrentRoles.ApplicationName
 												: board["RolesAppName"].ToString();
 
 			_legacyBoardSettings = new YafLegacyBoardSettings(board["Name"].ToString(), Convert.ToString(board["SQLVersion"]),

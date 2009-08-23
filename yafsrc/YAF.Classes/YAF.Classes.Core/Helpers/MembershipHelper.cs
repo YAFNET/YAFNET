@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Security;
+using System.Web;
 using System.Web.Profile;
 using System.Web.Security;
 using YAF.Classes;
@@ -32,6 +33,46 @@ namespace YAF.Classes.Core
 {
 	public static class RoleMembershipHelper
 	{
+		public static void CreateRole( string roleName )
+		{
+			YafContext.Current.CurrentRoles.CreateRole( roleName );
+		}
+
+		public static void DeleteRole( string roleName, bool throwOnPopulatedRole )
+		{
+			YafContext.Current.CurrentRoles.DeleteRole( roleName, throwOnPopulatedRole );
+		}
+
+		public static string[] GetAllRoles()
+		{
+			return YafContext.Current.CurrentRoles.GetAllRoles();
+		}
+
+		public static bool RoleExists( string roleName )
+		{
+			return YafContext.Current.CurrentRoles.RoleExists( roleName );
+		}
+
+		public static bool IsUserInRole( string username, string role )
+		{
+			return YafContext.Current.CurrentRoles.IsUserInRole( username, role );
+		}
+
+		public static void AddUserToRole( string username, string role )
+		{
+			YafContext.Current.CurrentRoles.AddUsersToRoles( new string[] {username}, new string[] {role} );
+		}
+
+		public static void RemoveUserFromRole( string username, string role )
+		{
+			YafContext.Current.CurrentRoles.RemoveUsersFromRoles( new string[] { username }, new string[] { role } );
+		}
+
+		public static string[] GetRolesForUser( string username )
+		{
+			return YafContext.Current.CurrentRoles.GetRolesForUser( username );
+		}
+
 		/// <summary>
 		/// Takes all YAF users and creates them in the Membership Provider
 		/// </summary>
@@ -53,7 +94,7 @@ namespace YAF.Classes.Core
 		static private void MigrateUsersFromDT( int pageBoardID, bool approved, DataTable dt )
 		{
 			// is this the Yaf membership provider?
-			bool isYafProvider = ( Membership.Provider.GetType().Name == "YafMembershipProvider" );
+			bool isYafProvider = ( YafContext.Current.CurrentMembership.GetType().Name == "YafMembershipProvider" );
 			bool isLegacyYafDB = dt.Columns.Contains( "Location" );
 
 			foreach ( DataRow row in dt.Rows )
@@ -71,7 +112,7 @@ namespace YAF.Classes.Core
 				// verify this user & email are not empty
 				if ( !String.IsNullOrEmpty( name ) && !String.IsNullOrEmpty( email ) )
 				{
-					MembershipUser user = Membership.GetUser( name );
+					MembershipUser user = UserMembershipHelper.GetUser( name, false );
 
 					if ( user == null )
 					{
@@ -123,15 +164,15 @@ namespace YAF.Classes.Core
 					else
 					{
 						// just update the link just in case...
-						YAF.Classes.Data.DB.user_migrate( row ["UserID"], user.ProviderUserKey, false );
+						DB.user_migrate( row ["UserID"], user.ProviderUserKey, false );
 					}
 
 					// setup roles for this user...
-					using ( DataTable dtGroups = YAF.Classes.Data.DB.usergroup_list( row ["UserID"] ) )
+					using ( DataTable dtGroups = DB.usergroup_list( row ["UserID"] ) )
 					{
 						foreach ( DataRow rowGroup in dtGroups.Rows )
 						{
-							Roles.AddUserToRole( user.UserName, rowGroup ["Name"].ToString() );
+							AddUserToRole( user.UserName, rowGroup["Name"].ToString() );
 						}
 					}
 				}
@@ -148,7 +189,7 @@ namespace YAF.Classes.Core
 			do
 			{
 				password = Membership.GeneratePassword( 7 + retry, 1 + retry );
-				user = Membership.CreateUser( name, password, email, question, answer, approved, out status );
+				user = YafContext.Current.CurrentMembership.CreateUser( name, password, email, question, answer, approved, null, out status );
 			}
 			while ( status == MembershipCreateStatus.InvalidPassword && ++retry < 10 );
 
@@ -174,7 +215,7 @@ namespace YAF.Classes.Core
 						string roleName = row["Name"].ToString();
 
 						if (!String.IsNullOrEmpty(roleName))
-							Roles.AddUserToRole(userName, roleName);
+							AddUserToRole(userName, roleName);
 					}
 				}
 			}
@@ -196,9 +237,9 @@ namespace YAF.Classes.Core
 
 					// testing if this role is a "Guest" role...
 					// if it is, we aren't syncing it.
-					if (!String.IsNullOrEmpty(name) && !roleFlags.IsGuest && !Roles.RoleExists(name))
+					if (!String.IsNullOrEmpty(name) && !roleFlags.IsGuest && !RoleExists(name))
 					{
-						Roles.CreateRole(name);
+						CreateRole(name);
 					}
 				}
 
@@ -236,17 +277,17 @@ namespace YAF.Classes.Core
 
 			try
 			{
-				userID = YAF.Classes.Data.DB.user_aspnet(pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved);
+				userID = DB.user_aspnet(pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved);
 
-				foreach (string role in Roles.GetRolesForUser(user.UserName))
+				foreach (string role in GetRolesForUser(user.UserName))
 				{
-					YAF.Classes.Data.DB.user_setrole(pageBoardID, user.ProviderUserKey, role);
+					DB.user_setrole(pageBoardID, user.ProviderUserKey, role);
 				}
 				//YAF.Classes.Data.DB.eventlog_create(DBNull.Value, user, string.Format("Created forum user {0}", user.UserName));
 			}
 			catch (Exception x)
 			{
-				YAF.Classes.Data.DB.eventlog_create(DBNull.Value, "CreateForumUser", x);
+				DB.eventlog_create(DBNull.Value, "CreateForumUser", x);
 			}
 
 			return userID;
@@ -272,15 +313,15 @@ namespace YAF.Classes.Core
 		/// <param name="pageBoardID">Current BoardID</param>
 		public static void UpdateForumUser(MembershipUser user, int pageBoardID)
 		{
-            if (user == null) // Check to make sure its not a guest
-            {
-                return;
-            }
+      if (user == null) // Check to make sure its not a guest
+      {
+          return;
+      }
 
-			int nUserID = YAF.Classes.Data.DB.user_aspnet(pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved);
+			int nUserID = DB.user_aspnet(pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved);
 			// get user groups...
-			DataTable groupTable = YAF.Classes.Data.DB.group_member( pageBoardID, nUserID );
-			string [] roles = Roles.GetRolesForUser( user.UserName );
+			DataTable groupTable = DB.group_member( pageBoardID, nUserID );
+			string [] roles = GetRolesForUser( user.UserName );
 
 			// add groups...
 			foreach (string role in roles)
@@ -288,7 +329,7 @@ namespace YAF.Classes.Core
 				if ( !GroupInGroupTable( role, groupTable ) )
 				{
 					// add the role...
-					YAF.Classes.Data.DB.user_setrole( pageBoardID, user.ProviderUserKey, role );
+					DB.user_setrole( pageBoardID, user.ProviderUserKey, role );
 				}
 			}
 			// remove groups...
@@ -297,7 +338,7 @@ namespace YAF.Classes.Core
 				if ( !RoleInRoleArray( row ["Name"].ToString(), roles ) )
 				{
 					// remove since there is no longer an association in the membership...
-					YAF.Classes.Data.DB.usergroup_save( nUserID, row ["GroupID"], 0 );
+					DB.usergroup_save( nUserID, row ["GroupID"], 0 );
 				}
 			}
 		}
@@ -334,6 +375,60 @@ namespace YAF.Classes.Core
 	/// </summary>
 	public static partial class UserMembershipHelper
 	{
+
+		public static MembershipUser GetUser()
+		{
+			return GetUser( false );
+		}
+
+		public static MembershipUser GetUser( string username )
+		{
+			return GetUser( username, false );
+		}
+
+		public static MembershipUser GetUser( string username, bool updateOnlineStatus )
+		{
+			return YafContext.Current.CurrentMembership.GetUser( username, updateOnlineStatus );
+		}
+
+		public static MembershipUser GetUser( object providerKey )
+		{
+			return YafContext.Current.CurrentMembership.GetUser( providerKey, false );
+		}
+
+		public static MembershipUser GetUser( object providerKey, bool updateOnlineStatus )
+		{
+			return YafContext.Current.CurrentMembership.GetUser( providerKey, updateOnlineStatus );
+		}
+
+		public static MembershipUser GetUser(bool updateOnlineStatus)
+		{
+			if ( HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated )
+			{
+				return GetUser( HttpContext.Current.User.Identity.Name, updateOnlineStatus );
+			}
+
+			return null;
+		}
+
+		public static MembershipUserCollection GetAllUsers()
+		{
+			int totalRecords;
+			return YafContext.Current.CurrentMembership.GetAllUsers( 1, 999999, out totalRecords );
+		}
+
+		public static MembershipUserCollection FindUsersByName( string username )
+		{
+			int totalRecords;
+			return YafContext.Current.CurrentMembership.FindUsersByName( username, 1, 999999, out totalRecords );
+		}
+
+		public static MembershipUserCollection FindUsersByEmail( string email )
+		{
+			int totalRecords;
+			return YafContext.Current.CurrentMembership.FindUsersByEmail( email, 1, 999999, out totalRecords );
+		}
+
 		/// <summary>
 		/// Helper function that gets user data from the DB (or cache)
 		/// </summary>
@@ -436,7 +531,7 @@ namespace YAF.Classes.Core
 		public static MembershipUser GetMembershipUser(object providerUserKey)
 		{
 			// convert to provider type...
-			return Membership.GetUser(TypeHelper.ConvertObjectToType(providerUserKey,Config.ProviderKeyType));
+			return GetUser(TypeHelper.ConvertObjectToType(providerUserKey,Config.ProviderKeyType));
 		}
 
 		/// <summary>
@@ -460,7 +555,7 @@ namespace YAF.Classes.Core
 		/// <returns></returns>
 		public static MembershipUser GetMembershipUser(string userName)
 		{
-			return Membership.GetUser(userName);
+			return GetUser(userName);
 		}
 
 		/// <summary>
@@ -476,9 +571,9 @@ namespace YAF.Classes.Core
 
 			if (providerUserKey != null)
 			{
-				MembershipUser user = Membership.GetUser(TypeHelper.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+				MembershipUser user = GetUser(TypeHelper.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
 				user.Email = newEmail;
-				Membership.UpdateUser(user);
+				YafContext.Current.CurrentMembership.UpdateUser( user );
 				DB.user_aspnet(YafContext.Current.PageBoardID, user.UserName, newEmail, user.ProviderUserKey, user.IsApproved);
 				return true;
 			}
@@ -493,7 +588,7 @@ namespace YAF.Classes.Core
 			if (userName != string.Empty)
 			{
 				DB.user_delete(userID);
-				Membership.DeleteUser(userName, true);
+				YafContext.Current.CurrentMembership.DeleteUser( userName, true );
 
 				return true;
 			}
@@ -507,9 +602,9 @@ namespace YAF.Classes.Core
 
 			if (providerUserKey != null)
 			{
-				MembershipUser user = Membership.GetUser(TypeHelper.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+				MembershipUser user = GetUser(TypeHelper.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
 				if (!user.IsApproved) user.IsApproved = true;
-				Membership.UpdateUser(user);
+				YafContext.Current.CurrentMembership.UpdateUser( user );
 				DB.user_approve(userID);
 
 				return true;
@@ -521,7 +616,7 @@ namespace YAF.Classes.Core
 		public static void DeleteAllUnapproved(DateTime createdCutoff )
 		{
 			// get all users...
-			MembershipUserCollection allUsers = Membership.GetAllUsers();
+			MembershipUserCollection allUsers = GetAllUsers();
 
 			// iterate through each one...
 			foreach (MembershipUser user in allUsers)
@@ -530,7 +625,7 @@ namespace YAF.Classes.Core
 				{
 					// delete this user...
 					DB.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
-					Membership.DeleteUser(user.UserName, true);
+					YafContext.Current.CurrentMembership.DeleteUser( user.UserName, true );
 				}
 			}
 		}
@@ -542,7 +637,7 @@ namespace YAF.Classes.Core
 		public static void ApproveAll()
 		{
 			// get all users...
-			MembershipUserCollection allUsers = Membership.GetAllUsers();
+			MembershipUserCollection allUsers = GetAllUsers();
 
 			// iterate through each one...
 			foreach (MembershipUser user in allUsers)
@@ -551,7 +646,7 @@ namespace YAF.Classes.Core
 				{
 					// approve this user...
 					user.IsApproved = true;
-					Membership.UpdateUser(user);
+					YafContext.Current.CurrentMembership.UpdateUser(user);
 					int id = GetUserIDFromProviderUserKey( user.ProviderUserKey );
 					if ( id > 0 )
 						DB.user_approve( id );
@@ -572,14 +667,14 @@ namespace YAF.Classes.Core
 
 			if (userName != null)
 			{
-				if (Membership.FindUsersByName(userName).Count > 0)
+				if (FindUsersByName(userName).Count > 0)
 				{
 					exists = true;
 				}
 			}
 			else if (email != null)
 			{
-				if (Membership.FindUsersByEmail(email).Count > 0)
+				if (FindUsersByEmail(email).Count > 0)
 				{
 					exists = true;
 				}

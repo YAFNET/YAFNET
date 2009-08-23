@@ -508,8 +508,9 @@ namespace YAF.Classes.Core
 
 					System.Data.DataRow pageRow;
 
-					// Find user name
-					MembershipUser user = Membership.GetUser();
+					// get the current user and update the user last access flag datetime.
+					MembershipUser user = UserMembershipHelper.GetUser( true );
+
 					if (user != null && HttpContext.Current.Session["UserUpdated"] == null)
 					{
 						RoleMembershipHelper.UpdateForumUser(user, this.PageBoardID);

@@ -243,6 +243,34 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		public MembershipProvider CurrentMembership
+		{
+			get
+			{
+				if ( !String.IsNullOrEmpty(Config.MembershipProvider) && Membership.Providers[Config.MembershipProvider] != null )
+				{
+					return Membership.Providers[Config.MembershipProvider];
+				}
+
+				// return default membership provider
+				return Membership.Provider;
+			}
+		}
+
+		public RoleProvider CurrentRoles
+		{
+			get
+			{
+				if ( !String.IsNullOrEmpty( Config.RoleProvider ) && Roles.Providers[Config.RoleProvider] != null )
+				{
+					return Roles.Providers[Config.RoleProvider];
+				}
+
+				// return default role provider
+				return Roles.Provider;
+			}
+		}
+
 		private MembershipUser _user = null;
 
 		/// <summary>
@@ -252,13 +280,21 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				if (_user == null)
-					_user = Membership.GetUser();
+				if ( _user == null )
+					_user = UserMembershipHelper.GetUser();
 				return _user;
 			}
 			set
 			{
 				_user = value;
+			}
+		}
+
+		public CombinedUserDataHelper CurrentUserData
+		{
+			get
+			{
+				return _singleInstanceFactory.GetInstance<CombinedUserDataHelper>();
 			}
 		}
 

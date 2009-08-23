@@ -36,6 +36,12 @@ namespace YAF.Classes.Core
 		{
 		}
 
+		public CombinedUserDataHelper()
+			: this( YafContext.Current.PageUserID )
+		{
+			
+		}
+
 		private void InitUserData()
 		{
 			if (_membershipUser != null)

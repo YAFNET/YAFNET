@@ -18,12 +18,9 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web.Caching;
 using System.Web;
 using System.Collections;
-using YAF.Classes;
 
 namespace YAF.Classes.Core
 {
@@ -87,7 +84,7 @@ namespace YAF.Classes.Core
 		/// <summary>
 		/// Default constuctor uses HttpContext.Current as source for obtaining Cache object
 		/// </summary>
-		public YafCache() : this(HttpContext.Current.Cache) { }
+		public YafCache() : this( HttpRuntime.Cache ) { }
 		/// <summary>
 		/// Initializes class with specified Cache object
 		/// </summary>

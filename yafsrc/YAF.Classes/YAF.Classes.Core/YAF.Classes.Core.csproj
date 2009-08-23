@@ -125,6 +125,7 @@
     <Compile Include="Localization\Localization.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Nntp\Nntp.cs" />
+    <Compile Include="Services\Avatars.cs" />
     <Compile Include="Services\CheckBannedIps.cs" />
     <Compile Include="Services\InitDb.cs" />
     <Compile Include="Services\InitService.cs" />

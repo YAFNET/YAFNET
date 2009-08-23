@@ -90,5 +90,13 @@ namespace YAF.Classes.Core
 				return YafContext.Current.InstanceFactory.GetInstance<YafCheckBannedIps>();
 			}
 		}
+
+		public static YafAvatars Avatar
+		{
+			get
+			{
+				return YafContext.Current.InstanceFactory.GetInstance<YafAvatars>();
+			}
+		}
 	}
 }

@@ -138,6 +138,23 @@ namespace YAF.Classes
 			}
 		}
 
+		static public string MembershipProvider
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.MembershipProvider" ) ?? string.Empty;
+			}
+		}
+
+		static public string RoleProvider
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.RoleProvider" ) ?? string.Empty;
+			}
+		}
+
+
 		static public bool AllowLoginAndLogoff
 		{
 			get

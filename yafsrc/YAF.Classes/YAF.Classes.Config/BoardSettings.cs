@@ -576,8 +576,8 @@ namespace YAF.Classes
         //JoeOuts: added 8/17/09
         public string GravatarRating
         {
-            get { return _reg.GetValueString("GravatarRating", "G"); }
-            set { _reg.SetValueString("GravatarRating", value); }
+					get { return _reg.GetValue<string>( "GravatarRating", "G" ); }
+					set { _reg.SetValue<string>( "GravatarRating", value ); }
         }
 
 
