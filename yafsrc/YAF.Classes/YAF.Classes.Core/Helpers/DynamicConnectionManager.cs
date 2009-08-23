@@ -11,7 +11,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				if ( YafContext.Current.Vars["ConnectionString"] != null )
+				if ( YafContext.Current.Vars.ContainsKey( "ConnectionString" ) )
 				{
 					return YafContext.Current.Vars["ConnectionString"] as string;
 				}
