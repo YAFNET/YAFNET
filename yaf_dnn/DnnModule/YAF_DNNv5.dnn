@@ -38,7 +38,7 @@
 					<name>yaf_dnn.dll</name>
 				</file>
 				<file>
-					<name>YAF.Classes.Base.dll</name>
+					<name>YAF.Classes.Core.dll</name>
 				</file>
 				<file>
 					<name>YAF.Classes.Config.dll</name>

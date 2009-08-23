@@ -51,9 +51,9 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="YAF.Classes.Config">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="YAF.Classes.Config, Version=1.9.3.0, Culture=neutral, PublicKeyToken=8b49dc47f4701f66, processorArchitecture=MSIL">
       <HintPath>..\yafsrc\YetAnotherForum.NET\Bin\Net3.5\YAF.Classes.Config.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -1,22 +1,31 @@
-﻿using System;
+﻿#region Usings
+
 using System.Web;
 using YAF.Classes;
 
+#endregion
+
 namespace yaf_dnn
 {
-	public class DotNetNukeUrlBuilder : YAF.Classes.IUrlBuilder
-	{
-		public string BuildUrl(string url)
-		{
-			// escape & to &amp;
-			url = url.Replace("&", "&amp;");
+    public class DotNetNukeUrlBuilder : IUrlBuilder
+    {
+        #region IUrlBuilder Members
 
-			string scriptname = HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"];
-			string tabid = HttpContext.Current.Request.QueryString["tabid"];
+        public string BuildUrl(string url)
+        {
+            // escape & to &amp;
+            url = url.Replace("&", "&amp;");
 
-			string builturl = tabid != null ? string.Format("{0}?tabid={1}&{2}", scriptname, tabid, url) : string.Format("{0}?{1}", scriptname, url);
+            string scriptname = HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"];
+            string tabid = HttpContext.Current.Request.QueryString["tabid"];
 
-			return builturl;
-		}
-	}
+            string builturl = tabid != null
+                                  ? string.Format("{0}?tabid={1}&{2}", scriptname, tabid, url)
+                                  : string.Format("{0}?{1}", scriptname, url);
+
+            return builturl;
+        }
+
+        #endregion
+    }
 }
