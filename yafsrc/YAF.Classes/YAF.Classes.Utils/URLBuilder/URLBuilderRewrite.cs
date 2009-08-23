@@ -183,7 +183,6 @@ namespace YAF.Classes
 				char currentChar = str[i];
 
 				if ( char.IsWhiteSpace( currentChar ) || currentChar == '.' ) sb.Append( '-' );
-				else if ( currentChar == '_' ) sb.Append( '_' );
 				else if ( char.GetUnicodeCategory( currentChar ) != UnicodeCategory.NonSpacingMark
 					&& !char.IsPunctuation( currentChar ) 
 					&& !char.IsSymbol( currentChar )

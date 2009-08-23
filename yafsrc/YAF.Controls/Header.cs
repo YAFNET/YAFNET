@@ -105,7 +105,7 @@ namespace YAF.Controls
 
 			buildHeader.AppendFormat( @"<table width=""100%"" cellspacing=""0"" class=""content"" cellpadding=""0"" id=""yafheader""><tr>" );
 
-			MembershipUser user = Membership.GetUser();
+			MembershipUser user = UserMembershipHelper.GetUser();
 
 			if ( user != null )
 			{

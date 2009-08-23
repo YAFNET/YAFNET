@@ -60,12 +60,12 @@ namespace YAF.Controls.Statistics
 			System.Text.StringBuilder html = new System.Text.StringBuilder();
 
 			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ActiveDiscussions );
-			DataTable dt = YafCache.Current [cacheKey] as DataTable;
+			DataTable dt = PageContext.Cache [cacheKey] as DataTable;
 
 			if ( dt == null )
 			{
 				dt = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, _displayNumber, PageContext.PageUserID );
-				YafCache.Current.Insert(cacheKey, dt, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
+				PageContext.Cache.Insert(cacheKey, dt, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
 			}		
 
 			html.Append( "<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">" );

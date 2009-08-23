@@ -222,6 +222,23 @@ namespace YAF.Classes.Utils
 				HttpContext.Current.Session ["SearchDataTable"] = value;
 			}
 		}
+
+		static public int? ActiveTopicSince
+		{
+			get
+			{
+				if ( HttpContext.Current.Session["ActiveTopicSince"] != null )
+				{
+					return (int)HttpContext.Current.Session["ActiveTopicSince"];
+				}
+
+				return null;
+			}
+			set
+			{
+				HttpContext.Current.Session["ActiveTopicSince"] = value;
+			}
+		}
 	}
 
 	public class PanelSessionState	

@@ -55,12 +55,12 @@ namespace YAF.Controls.Statistics
 			string actRank = "";
 			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ActiveUsers );
 
-			DataTable rankDT = YafCache.Current [cacheKey] as DataTable;
+			DataTable rankDT = PageContext.Cache [cacheKey] as DataTable;
 
 			if ( rankDT == null )
 			{
 				rankDT = YAF.Classes.Data.DB.user_activity_rank( PageContext.PageBoardID, DateTime.Now.AddDays( -LastNumOfDays ), DisplayNumber );
-				YafCache.Current.Insert( cacheKey, rankDT, null, DateTime.Now.AddMinutes( 10 ), TimeSpan.Zero );
+				PageContext.Cache.Insert( cacheKey, rankDT, null, DateTime.Now.AddMinutes( 10 ), TimeSpan.Zero );
 			}
 
 			actRank += "<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">";

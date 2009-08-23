@@ -56,7 +56,7 @@ namespace YAF.Controls
 			if ( !String.IsNullOrEmpty( _localizedLabel.LocalizedTag ) )
 			{
 				this.Controls.Add( _localizedLabel );
-			}	
+			}
 		}
 
 		protected override void Render( HtmlTextWriter output )

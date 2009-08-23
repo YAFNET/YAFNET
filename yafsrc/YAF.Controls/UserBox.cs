@@ -33,498 +33,456 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-    public class UserBox : BaseControl
-    {
-        private MessageFlags _messageFlags;
-        private DataRowView _row = null;
-        public DataRowView DataRow
-        {
-            get
-            {
-                return _row;
-            }
-            set
-            {
-                _row = (DataRowView)value;
-                _messageFlags = (_row != null) ? new YAF.Classes.Data.MessageFlags(_row["Flags"]) : new MessageFlags(0);
-            }
-        }
-
-        protected int UserId
-        {
-            get
-            {
-                if (DataRow != null)
-                    return Convert.ToInt32(DataRow["UserID"]);
-
-                return 0;
-            }
-        }
-
-        private Hashtable _pageCache = null;
-        public Hashtable PageCache
-        {
-            get
-            {
-                return _pageCache;
-            }
-            set
-            {
-                _pageCache = value;
-            }
-        }
-
-        private bool PostDeleted
-        {
-            get
-            {
-                return _messageFlags.IsDeleted;
-            }
-        }
-
-        protected string CachedUserBox
-        {
-            get
-            {
-                if (PageCache != null && DataRow != null)
-                {
-                    // get cache for user boxes
-                    object cache = PageCache[Constants.Cache.UserBoxes];
-
-                    // is it hashtable?
-                    if (cache != null && cache is Hashtable)
-                    {
-                        // get only record for user who made message being
-                        cache = ((Hashtable)cache)[UserId];
-
-                        // return from cache if there is something there
-                        if (cache != null && cache.ToString() != "") return cache.ToString();
-                    }
-                }
-
-                return null;
-            }
-            set
-            {
-                if (PageCache != null && DataRow != null)
-                {
-                    // get cache for user boxes
-                    object cache = PageCache[Constants.Cache.UserBoxes];
-
-                    // is it hashtable?
-                    if (cache != null && cache is Hashtable)
-                    {
-                        // save userbox for user of this id to cache
-                        ((Hashtable)cache)[UserId] = value;
-                    }
-                    else
-                    {
-                        // create new hashtable for userbox caching
-                        cache = new Hashtable();
-
-                        // save userbox of this user
-                        ((Hashtable)cache)[UserId] = value;
-
-                        // save cache
-                        PageCache[Constants.Cache.UserBoxes] = cache;
-                    }
-                }
-            }
-        }
-
-        private YafUserProfile _userProfile = null;
-        protected YafUserProfile UserProfile
-        {
-            get
-            {
-                if (_userProfile == null)
-                {
-                    // setup instance of the user profile...
-                    _userProfile = YafUserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(UserId));
-                }
-
-                return _userProfile;
-            }
-        }
-
-        public UserBox()
-        {
-
-        }
-
-        protected override void Render(HtmlTextWriter output)
-        {
-            output.WriteLine(String.Format(@"<div class=""yafUserBox"" id=""{0}"">", this.ClientID));
-
-            string userBox = CachedUserBox;
-
-            if (string.IsNullOrEmpty(userBox))
-            {
-                userBox = CreateUserBox();
-                // cache...
-                CachedUserBox = userBox;
-            }
-
-            // output the user box info...
-            output.WriteLine(userBox);
-
-            output.WriteLine("</div>");
-        }
-
-        protected string CreateUserBox()
-        {
-            string userBox = PageContext.BoardSettings.UserBox;
-            // Avatar
-            userBox = MatchUserBoxAvatar(userBox);
-
-            // User Medals
-            userBox = MatchUserBoxMedals(userBox);
-
-            // Rank Image
-            userBox = MatchUserBoxRankImages(userBox);
-
-            // Rank
-            userBox = MatchUserBoxRank(userBox);
-
-            // Groups
-            userBox = MatchUserBoxGroups(userBox);
-
-            if (!PostDeleted)
-            {
-                // Ederon : 02/24/2007
-                // Joined Date
-                userBox = MatchUserBoxJoinedDate(userBox);
-
-                // Posts
-                userBox = MatchUserBoxPostCount(userBox);
-
-                // Points
-                userBox = MatchUserBoxPoints(userBox);
-
-                // Location
-                userBox = MatchUserBoxLocation(userBox);
-            }
-            else
-            {
-                userBox = MatchUserBoxClearAll(userBox);
-            }
-
-            return userBox;
-        }
-
-        private string MatchUserBoxClearAll(string userBox)
-        {
-            const string filler = "";
-
-            Regex rx = new Regex(Constants.UserBox.JoinDate);
-            userBox = rx.Replace(userBox, filler);
-            rx = new Regex(Constants.UserBox.Posts);
-            userBox = rx.Replace(userBox, filler);
-            rx = new Regex(Constants.UserBox.Points);
-            userBox = rx.Replace(userBox, filler);
-            rx = new Regex(Constants.UserBox.Location);
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
-
-        private string MatchUserBoxLocation(string userBox)
-        {
-            string filler = "";
-            Regex rx = new Regex(Constants.UserBox.Location);
-
-            if (UserProfile.Location != string.Empty)
-            {
-                filler = String.Format(
-                    PageContext.BoardSettings.UserBoxLocation,
-                    PageContext.Localization.GetText("location"),
-                    FormatMsg.RepairHtml(UserProfile.Location, false)
-                    );
-            }
-
-            // replaces template placeholder with actual location
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
-
-        private string MatchUserBoxPoints(string userBox)
-        {
-            string filler = "";
-            Regex rx = new Regex(Constants.UserBox.Points);
-
-            if (PageContext.BoardSettings.DisplayPoints)
-            {
-                filler = String.Format(
-                    PageContext.BoardSettings.UserBoxPoints,
-                    PageContext.Localization.GetText("points"),
-                    DataRow["Points"]
-                    );
-            }
-
-            // replaces template placeholder with actual points
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
-
-        private string MatchUserBoxPostCount(string userBox)
-        {
-            Regex rx = new Regex(Constants.UserBox.Posts);
-
-            string filler = String.Format(
-                PageContext.BoardSettings.UserBoxPosts,
-                PageContext.Localization.GetText("posts"),
-                DataRow["Posts"]
-                );
-
-            // replaces template placeholder with actual post count
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
-
-        private string MatchUserBoxJoinedDate(string userBox)
-        {
-            string filler = "";
-            Regex rx = new Regex(Constants.UserBox.JoinDate);
-
-            if (PageContext.BoardSettings.DisplayJoinDate)
-            {
-                filler = String.Format(
-                    PageContext.BoardSettings.UserBoxJoinDate,
-                    PageContext.Localization.GetText("joined"),
-                    YafServices.DateTime.FormatDateShort((DateTime)DataRow["Joined"])
-                    );
-            }
-
-            // replaces template placeholder with actual join date
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
-
-        private string MatchUserBoxGroups(string userBox)
-        {
-            string filler = "";
-            Regex rx;
-            rx = new Regex(Constants.UserBox.Groups);
-
-            if (PageContext.BoardSettings.ShowGroups)
-            {
-                System.Text.StringBuilder groupsText = new System.Text.StringBuilder(500);
-
-                bool bFirst = true;
-
-                foreach (string role in System.Web.Security.Roles.GetRolesForUser(DataRow["UserName"].ToString()))
-                {
-                    if (bFirst)
-                    {
-                        groupsText.AppendLine(role);
-                        bFirst = false;
-                    }
-                    else
-                    {
-                        groupsText.AppendFormat(", {0}", role);
-                    }
-                }
-
-                filler = String.Format(
-                    PageContext.BoardSettings.UserBoxGroups,
-                    PageContext.Localization.GetText("groups"),
-                    groupsText.ToString()
-                    );
-
-                // mddubs : 02/21/2009
-                // Remove the space before the first comma when multiple groups exist.
-                filler = filler.Replace("\r\n,", ",");
-            }
-
-            // replaces template placeholder with actual groups
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
-
-        private string MatchUserBoxRank(string userBox)
-        {
-            Regex rx = new Regex(Constants.UserBox.Rank);
-
-            string filler = String.Format(
-                PageContext.BoardSettings.UserBoxRank,
-                PageContext.Localization.GetText("rank"),
-                DataRow["RankName"]
-                );
-
-            // replaces template placeholder with actual rank
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
-
-        private string MatchUserBoxRankImages(string userBox)
-        {
-            string filler = "";
-            Regex rx = new Regex(Constants.UserBox.RankImage);
-
-            if (DataRow["RankImage"].ToString().Length > 0)
-            {
-                filler = String.Format(PageContext.BoardSettings.UserBoxRankImage,
-                                        String.Format(@"<img class=""rankimage"" src=""{0}images/ranks/{1}"" alt="""" />",
-                                                       YafForumInfo.ForumRoot, DataRow["RankImage"]));
-            }
-
-            // replaces template placeholder with actual rank image
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
-
-        private string MatchUserBoxMedals(string userBox)
-        {
-            string filler = "";
-            Regex rx = new Regex(Constants.UserBox.Medals);
-
-            if (PageContext.BoardSettings.ShowMedals)
-            {
-                using (DataTable dt = DB.user_listmedals(UserId))
-                {
-                    System.Text.StringBuilder ribbonBar = new System.Text.StringBuilder(500);
-                    System.Text.StringBuilder medals = new System.Text.StringBuilder(500);
-
-                    DataRow r;
-                    MedalFlags f;
-
-                    int i = 0;
-                    int inRow = 0;
-
-                    // do ribbon bar first
-                    while (dt.Rows.Count > i)
-                    {
-                        r = dt.Rows[i];
-                        f = new MedalFlags(r["Flags"]);
-
-                        // do only ribbon bar items first
-                        if (!SqlDataLayerConverter.VerifyBool(r["OnlyRibbon"])) break;
-
-                        // skip hidden medals
-                        if (!f.AllowHiding || !SqlDataLayerConverter.VerifyBool(r["Hide"]))
-                        {
-                            if (inRow == 3)
-                            {
-                                // add break - only three ribbons in a row
-                                ribbonBar.Append("<br />");
-                                inRow = 0;
-                            }
-
-                            ribbonBar.AppendFormat(
-                                "<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
-                                YafForumInfo.ForumRoot,
-                                r["SmallRibbonURL"],
-                                r["SmallRibbonWidth"],
-                                r["SmallRibbonHeight"],
-                                r["Name"],
-                                f.ShowMessage ? String.Format(": {0}", r["Message"]) : ""
-                                );
-
-                            inRow++;
-                        }
-
-                        // move to next row
-                        i++;
-                    }
-
-                    // follow with the rest
-                    while (dt.Rows.Count > i)
-                    {
-                        r = dt.Rows[i];
-                        f = new MedalFlags(r["Flags"]);
-
-                        // skip hidden medals
-                        if (!f.AllowHiding || !SqlDataLayerConverter.VerifyBool(r["Hide"]))
-                        {
-                            medals.AppendFormat(
-                                "<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" title=\"{4}{5}\" />",
-                                YafForumInfo.ForumRoot,
-                                r["SmallMedalURL"],
-                                r["SmallMedalWidth"],
-                                r["SmallMedalHeight"],
-                                r["Name"],
-                                f.ShowMessage ? String.Format(": {0}", r["Message"]) : ""
-                                );
-                        }
-
-                        // move to next row
-                        i++;
-                    }
-
-                    filler = String.Format(
-                        PageContext.BoardSettings.UserBoxMedals,
-                        ribbonBar.ToString(),
-                        medals.ToString()
-                        );
-                }
-            }
-
-            // replaces template placeholder with actual medals
-            userBox = rx.Replace(userBox, filler);
-
-            return userBox;
-        }
-
-        private string MatchUserBoxAvatar(string userBox)
-        {
-            string filler = "";
-            Regex rx = new Regex(Constants.UserBox.Avatar);
-
-            if (!PostDeleted &&
-                 (PageContext.BoardSettings.AvatarUpload && DataRow["HasAvatarImage"] != null && long.Parse(DataRow["HasAvatarImage"].ToString()) > 0))
-            {
-                filler = String.Format(
-                    PageContext.BoardSettings.UserBoxAvatar,
-                    String.Format(
-                        @"<img class=""avatarimage"" src=""{1}resource.ashx?u={0}"" alt="""" />",
-                        UserId,
-                        YafForumInfo.ForumRoot
-                        )
-                    );
-            }
-            else if (!PostDeleted &&
-                      DataRow["Avatar"].ToString().Length > 0) // Took out PageContext.BoardSettings.AvatarRemote
-            {
-                filler = String.Format(
-                    PageContext.BoardSettings.UserBoxAvatar,
-                    String.Format(
-                        @"<img class=""avatarimage"" src=""{3}resource.ashx?url={0}&amp;width={1}&amp;height={2}"" alt="""" /><br clear=""all"" />",
-                        HttpContext.Current.Server.UrlEncode(DataRow["Avatar"].ToString()),
-                        PageContext.BoardSettings.AvatarWidth,
-                        PageContext.BoardSettings.AvatarHeight,
-                        YafForumInfo.ForumRoot
-                        )
-                    );
-            }
-                //JoeOuts added 8/17/09 for Gravatar use
-            else if (!PostDeleted && PageContext.BoardSettings.AvatarGravatar)
-            {
-                System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
-                byte[] bs = System.Text.Encoding.UTF8.GetBytes(PageContext.User.Email);
-                bs = x.ComputeHash(bs);
-                System.Text.StringBuilder s = new System.Text.StringBuilder();
-                foreach (byte b in bs)
-                {
-                    s.Append(b.ToString("x2").ToLower());
-                }
-                string emailHash = s.ToString();
-
-                string gravatarUrl = "http://www.gravatar.com/avatar/" + emailHash + ".jpg?r=" + PageContext.BoardSettings.GravatarRating;
-
-                filler = String.Format(
-                    PageContext.BoardSettings.UserBoxAvatar,
-                    String.Format(
-                        @"<img class=""avatarimage"" src=""{3}resource.ashx?url={0}&amp;width={1}&amp;height={2}"" alt="""" /><br clear=""all"" />",
-                        HttpContext.Current.Server.UrlEncode(gravatarUrl),
-                        PageContext.BoardSettings.AvatarWidth,
-                        PageContext.BoardSettings.AvatarHeight,
-                        YafForumInfo.ForumRoot
-                        )
-                    );
-            }
-
-            // replaces template placeholder with actual avatar
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
-    }
+	public class UserBox : BaseControl
+	{
+		private MessageFlags _messageFlags;
+		private DataRowView _row = null;
+		public DataRowView DataRow
+		{
+			get
+			{
+				return _row;
+			}
+			set
+			{
+				_row = (DataRowView)value;
+				_messageFlags = ( _row != null ) ? new YAF.Classes.Data.MessageFlags( _row["Flags"] ) : new MessageFlags( 0 );
+			}
+		}
+
+		protected int UserId
+		{
+			get
+			{
+				if ( DataRow != null )
+					return Convert.ToInt32( DataRow["UserID"] );
+
+				return 0;
+			}
+		}
+
+		private Hashtable _pageCache = null;
+		public Hashtable PageCache
+		{
+			get
+			{
+				return _pageCache;
+			}
+			set
+			{
+				_pageCache = value;
+			}
+		}
+
+		private bool PostDeleted
+		{
+			get
+			{
+				return _messageFlags.IsDeleted;
+			}
+		}
+
+		protected string CachedUserBox
+		{
+			get
+			{
+				if ( PageCache != null && DataRow != null )
+				{
+					// get cache for user boxes
+					object cache = PageCache[Constants.Cache.UserBoxes];
+
+					// is it hashtable?
+					if ( cache != null && cache is Hashtable )
+					{
+						// get only record for user who made message being
+						cache = ( (Hashtable)cache )[UserId];
+
+						// return from cache if there is something there
+						if ( cache != null && cache.ToString() != "" ) return cache.ToString();
+					}
+				}
+
+				return null;
+			}
+			set
+			{
+				if ( PageCache != null && DataRow != null )
+				{
+					// get cache for user boxes
+					object cache = PageCache[Constants.Cache.UserBoxes];
+
+					// is it hashtable?
+					if ( cache != null && cache is Hashtable )
+					{
+						// save userbox for user of this id to cache
+						( (Hashtable)cache )[UserId] = value;
+					}
+					else
+					{
+						// create new hashtable for userbox caching
+						cache = new Hashtable();
+
+						// save userbox of this user
+						( (Hashtable)cache )[UserId] = value;
+
+						// save cache
+						PageCache[Constants.Cache.UserBoxes] = cache;
+					}
+				}
+			}
+		}
+
+		private YafUserProfile _userProfile = null;
+		protected YafUserProfile UserProfile
+		{
+			get
+			{
+				if ( _userProfile == null )
+				{
+					// setup instance of the user profile...
+					_userProfile = YafUserProfile.GetProfile( UserMembershipHelper.GetUserNameFromID( UserId ) );
+				}
+
+				return _userProfile;
+			}
+		}
+
+		public UserBox()
+		{
+
+		}
+
+		protected override void Render( HtmlTextWriter output )
+		{
+			output.WriteLine( String.Format( @"<div class=""yafUserBox"" id=""{0}"">", this.ClientID ) );
+
+			string userBox = CachedUserBox;
+
+			if ( string.IsNullOrEmpty( userBox ) )
+			{
+				userBox = CreateUserBox();
+				// cache...
+				CachedUserBox = userBox;
+			}
+
+			// output the user box info...
+			output.WriteLine( userBox );
+
+			output.WriteLine( "</div>" );
+		}
+
+		protected string CreateUserBox()
+		{
+			string userBox = PageContext.BoardSettings.UserBox;
+			// Avatar
+			userBox = MatchUserBoxAvatar( userBox );
+
+			// User Medals
+			userBox = MatchUserBoxMedals( userBox );
+
+			// Rank Image
+			userBox = MatchUserBoxRankImages( userBox );
+
+			// Rank
+			userBox = MatchUserBoxRank( userBox );
+
+			// Groups
+			userBox = MatchUserBoxGroups( userBox );
+
+			if ( !PostDeleted )
+			{
+				// Ederon : 02/24/2007
+				// Joined Date
+				userBox = MatchUserBoxJoinedDate( userBox );
+
+				// Posts
+				userBox = MatchUserBoxPostCount( userBox );
+
+				// Points
+				userBox = MatchUserBoxPoints( userBox );
+
+				// Location
+				userBox = MatchUserBoxLocation( userBox );
+			}
+			else
+			{
+				userBox = MatchUserBoxClearAll( userBox );
+			}
+
+			return userBox;
+		}
+
+		private string MatchUserBoxClearAll( string userBox )
+		{
+			const string filler = "";
+
+			Regex rx = new Regex( Constants.UserBox.JoinDate );
+			userBox = rx.Replace( userBox, filler );
+			rx = new Regex( Constants.UserBox.Posts );
+			userBox = rx.Replace( userBox, filler );
+			rx = new Regex( Constants.UserBox.Points );
+			userBox = rx.Replace( userBox, filler );
+			rx = new Regex( Constants.UserBox.Location );
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
+
+		private string MatchUserBoxLocation( string userBox )
+		{
+			string filler = "";
+			Regex rx = new Regex( Constants.UserBox.Location );
+
+			if ( UserProfile.Location != string.Empty )
+			{
+				filler = String.Format(
+						PageContext.BoardSettings.UserBoxLocation,
+						PageContext.Localization.GetText( "location" ),
+						FormatMsg.RepairHtml( UserProfile.Location, false )
+						);
+			}
+
+			// replaces template placeholder with actual location
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
+
+		private string MatchUserBoxPoints( string userBox )
+		{
+			string filler = "";
+			Regex rx = new Regex( Constants.UserBox.Points );
+
+			if ( PageContext.BoardSettings.DisplayPoints )
+			{
+				filler = String.Format(
+						PageContext.BoardSettings.UserBoxPoints,
+						PageContext.Localization.GetText( "points" ),
+						DataRow["Points"]
+						);
+			}
+
+			// replaces template placeholder with actual points
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
+
+		private string MatchUserBoxPostCount( string userBox )
+		{
+			Regex rx = new Regex( Constants.UserBox.Posts );
+
+			string filler = String.Format(
+					PageContext.BoardSettings.UserBoxPosts,
+					PageContext.Localization.GetText( "posts" ),
+					DataRow["Posts"]
+					);
+
+			// replaces template placeholder with actual post count
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
+
+		private string MatchUserBoxJoinedDate( string userBox )
+		{
+			string filler = "";
+			Regex rx = new Regex( Constants.UserBox.JoinDate );
+
+			if ( PageContext.BoardSettings.DisplayJoinDate )
+			{
+				filler = String.Format(
+						PageContext.BoardSettings.UserBoxJoinDate,
+						PageContext.Localization.GetText( "joined" ),
+						YafServices.DateTime.FormatDateShort( (DateTime)DataRow["Joined"] )
+						);
+			}
+
+			// replaces template placeholder with actual join date
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
+
+		private string MatchUserBoxGroups( string userBox )
+		{
+			string filler = "";
+			Regex rx;
+			rx = new Regex( Constants.UserBox.Groups );
+
+			if ( PageContext.BoardSettings.ShowGroups )
+			{
+				System.Text.StringBuilder groupsText = new System.Text.StringBuilder( 500 );
+
+				bool bFirst = true;
+
+				foreach ( string role in RoleMembershipHelper.GetRolesForUser( DataRow["UserName"].ToString() ) )
+				{
+					if ( bFirst )
+					{
+						groupsText.AppendLine( role );
+						bFirst = false;
+					}
+					else
+					{
+						groupsText.AppendFormat( ", {0}", role );
+					}
+				}
+
+				filler = String.Format(
+						PageContext.BoardSettings.UserBoxGroups,
+						PageContext.Localization.GetText( "groups" ),
+						groupsText.ToString()
+						);
+
+				// mddubs : 02/21/2009
+				// Remove the space before the first comma when multiple groups exist.
+				filler = filler.Replace( "\r\n,", "," );
+			}
+
+			// replaces template placeholder with actual groups
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
+
+		private string MatchUserBoxRank( string userBox )
+		{
+			Regex rx = new Regex( Constants.UserBox.Rank );
+
+			string filler = String.Format(
+					PageContext.BoardSettings.UserBoxRank,
+					PageContext.Localization.GetText( "rank" ),
+					DataRow["RankName"]
+					);
+
+			// replaces template placeholder with actual rank
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
+
+		private string MatchUserBoxRankImages( string userBox )
+		{
+			string filler = "";
+			Regex rx = new Regex( Constants.UserBox.RankImage );
+
+			if ( DataRow["RankImage"].ToString().Length > 0 )
+			{
+				filler = String.Format( PageContext.BoardSettings.UserBoxRankImage,
+																String.Format( @"<img class=""rankimage"" src=""{0}images/ranks/{1}"" alt="""" />",
+																							 YafForumInfo.ForumRoot, DataRow["RankImage"] ) );
+			}
+
+			// replaces template placeholder with actual rank image
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
+
+		private string MatchUserBoxMedals( string userBox )
+		{
+			string filler = "";
+			Regex rx = new Regex( Constants.UserBox.Medals );
+
+			if ( PageContext.BoardSettings.ShowMedals )
+			{
+				using ( DataTable dt = DB.user_listmedals( UserId ) )
+				{
+					System.Text.StringBuilder ribbonBar = new System.Text.StringBuilder( 500 );
+					System.Text.StringBuilder medals = new System.Text.StringBuilder( 500 );
+
+					DataRow r;
+					MedalFlags f;
+
+					int i = 0;
+					int inRow = 0;
+
+					// do ribbon bar first
+					while ( dt.Rows.Count > i )
+					{
+						r = dt.Rows[i];
+						f = new MedalFlags( r["Flags"] );
+
+						// do only ribbon bar items first
+						if ( !SqlDataLayerConverter.VerifyBool( r["OnlyRibbon"] ) ) break;
+
+						// skip hidden medals
+						if ( !f.AllowHiding || !SqlDataLayerConverter.VerifyBool( r["Hide"] ) )
+						{
+							if ( inRow == 3 )
+							{
+								// add break - only three ribbons in a row
+								ribbonBar.Append( "<br />" );
+								inRow = 0;
+							}
+
+							ribbonBar.AppendFormat(
+									"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
+									YafForumInfo.ForumRoot,
+									r["SmallRibbonURL"],
+									r["SmallRibbonWidth"],
+									r["SmallRibbonHeight"],
+									r["Name"],
+									f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : ""
+									);
+
+							inRow++;
+						}
+
+						// move to next row
+						i++;
+					}
+
+					// follow with the rest
+					while ( dt.Rows.Count > i )
+					{
+						r = dt.Rows[i];
+						f = new MedalFlags( r["Flags"] );
+
+						// skip hidden medals
+						if ( !f.AllowHiding || !SqlDataLayerConverter.VerifyBool( r["Hide"] ) )
+						{
+							medals.AppendFormat(
+									"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" title=\"{4}{5}\" />",
+									YafForumInfo.ForumRoot,
+									r["SmallMedalURL"],
+									r["SmallMedalWidth"],
+									r["SmallMedalHeight"],
+									r["Name"],
+									f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : ""
+									);
+						}
+
+						// move to next row
+						i++;
+					}
+
+					filler = String.Format(
+							PageContext.BoardSettings.UserBoxMedals,
+							ribbonBar.ToString(),
+							medals.ToString()
+							);
+				}
+			}
+
+			// replaces template placeholder with actual medals
+			userBox = rx.Replace( userBox, filler );
+
+			return userBox;
+		}
+
+		private string MatchUserBoxAvatar( string userBox )
+		{
+			string filler = "";
+			Regex rx = new Regex( Constants.UserBox.Avatar );
+
+			if ( !PostDeleted )
+			{
+				string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser( UserId );
+
+				if ( !String.IsNullOrEmpty( avatarUrl ))
+				{
+					filler = String.Format( PageContext.BoardSettings.UserBoxAvatar,
+					                        String.Format( @"<img class=""avatarimage"" src=""{0}"" alt="""" />", avatarUrl ) );
+				}
+			}
+
+			// replaces template placeholder with actual avatar
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
+	}
 }

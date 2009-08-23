@@ -84,14 +84,14 @@ namespace YAF.Controls
 				YafCache.GetBoardCacheKey( String.Format( Constants.Cache.ForumJump,
 				                                          PageContext.User != null ? PageContext.PageUserID.ToString() : "Guest" ) );
 			DataTable dataTable;
-			if ( YafCache.Current [cacheKey] != null )
+			if ( PageContext.Cache [cacheKey] != null )
 			{
-				dataTable = ( DataTable ) YafCache.Current [cacheKey];
+				dataTable = ( DataTable ) PageContext.Cache [cacheKey];
 			}
 			else
 			{
 				dataTable = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
-				YafCache.Current.Insert( cacheKey, dataTable, null, DateTime.Now.AddMinutes( 5 ), TimeSpan.Zero );
+				PageContext.Cache.Insert( cacheKey, dataTable, null, DateTime.Now.AddMinutes( 5 ), TimeSpan.Zero );
 			}
 
 			writer.WriteLine( String.Format( @"<select name=""{0}"" onchange=""{1}"" id=""{2}"">", this.UniqueID, Page.ClientScript.GetPostBackClientHyperlink( this, this.ID ), this.ClientID ) );

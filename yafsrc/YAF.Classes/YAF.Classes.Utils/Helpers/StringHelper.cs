@@ -138,5 +138,27 @@ namespace YAF.Classes.Utils
 
 			return text;
 		}
+
+		/// <summary>
+		/// Converts a string into it's hexadecimal representation.
+		/// </summary>
+		/// <param name="strValue"></param>
+		/// <returns></returns>
+		static public string StringToHexBytes( string strValue )
+		{
+			System.Security.Cryptography.MD5CryptoServiceProvider md5CryptoServiceProvider = new System.Security.Cryptography.MD5CryptoServiceProvider();
+
+			byte[] emailBytes = System.Text.Encoding.UTF8.GetBytes( strValue );
+			emailBytes = md5CryptoServiceProvider.ComputeHash( emailBytes );
+
+			System.Text.StringBuilder s = new System.Text.StringBuilder();
+
+			foreach ( byte b in emailBytes )
+			{
+				s.Append( b.ToString( "x2" ).ToLower() );
+			}
+
+			return s.ToString();
+		}
 	}
 }
