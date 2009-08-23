@@ -92,14 +92,14 @@ namespace YAF.Controls
 			// update the membership too...
 			if (!IsGuestX.Checked)
 			{
-				MembershipUser user = Membership.GetUser(Name.Text);
+				MembershipUser user = UserMembershipHelper.GetUser(Name.Text );
 
 				if (Email.Text.Trim() != user.Email)
 				{
 					user.IsApproved = IsApproved.Checked;
 					// update the e-mail here too...
 					user.Email = Email.Text.Trim();
-					System.Web.Security.Membership.UpdateUser(user);
+					PageContext.CurrentMembership.UpdateUser(user);
 				}
 			}
 

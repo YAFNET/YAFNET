@@ -117,7 +117,7 @@ namespace YAF.Pages.Admin
 					// delete role
 					DB.group_delete(e.CommandArgument);
 					// remove cache of forum moderators
-					YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+					PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 					// re-bind data
 					BindData();
 					break;
@@ -141,7 +141,7 @@ namespace YAF.Pages.Admin
 					break;
 				case "delete":
 					// delete role from provider data
-					Roles.DeleteRole(e.CommandArgument.ToString(), false);
+					RoleMembershipHelper.DeleteRole(e.CommandArgument.ToString(), false);
 					// re-bind data
 					BindData();
 					break;
@@ -177,7 +177,7 @@ namespace YAF.Pages.Admin
 			_availableRoles.Clear();
 
 			// get all provider roles
-			foreach (string role in Roles.GetAllRoles())
+			foreach ( string role in RoleMembershipHelper.GetAllRoles() )
 			{
 				// make filter string, we want to filer by role name
 				string filter = string.Format("Name='{0}'", role.Replace("'", "''"));

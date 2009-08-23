@@ -46,6 +46,7 @@ namespace YAF.Pages // YAF.Pages
 		public register()
 			: base("REGISTER")
 		{
+			CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
 		}
 
 		protected void Page_Load(object sender, System.EventArgs e)
@@ -82,8 +83,8 @@ namespace YAF.Pages // YAF.Pages
 
   			// password requirement parameters...
 				LocalizedLabel requirementText = (LocalizedLabel) createUserTemplateRef.FindControl( "LocalizedLabelRequirementsText" );
-				requirementText.Param0 = Membership.MinRequiredPasswordLength.ToString();
-				requirementText.Param1 = Membership.MinRequiredNonAlphanumericCharacters.ToString();
+				requirementText.Param0 = PageContext.CurrentMembership.MinRequiredPasswordLength.ToString();
+				requirementText.Param1 = PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters.ToString();
 
 				// handle other steps localization
 				((Button)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"ProfileNextButton")).Text = GetText("SAVE");
@@ -120,7 +121,7 @@ namespace YAF.Pages // YAF.Pages
 				}
 
 				PlaceHolder questionAnswerPlaceHolder = ( PlaceHolder ) createUserTemplateRef.FindControl( "QuestionAnswerPlaceHolder" );
-				questionAnswerPlaceHolder.Visible = Membership.RequiresQuestionAndAnswer;
+				questionAnswerPlaceHolder.Visible = PageContext.CurrentMembership.RequiresQuestionAndAnswer;
 
 				CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
 
@@ -144,7 +145,7 @@ namespace YAF.Pages // YAF.Pages
 				TextBox locationTextBox = ((TextBox)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"Location"));
 				TextBox homepageTextBox = ((TextBox)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"Homepage"));
 
-				MembershipUser user = Membership.GetUser(CreateUserWizard1.UserName);
+				MembershipUser user = UserMembershipHelper.GetUser( CreateUserWizard1.UserName );
 
 				// setup/save the profile
 				YafUserProfile userProfile = YafUserProfile.GetProfile(CreateUserWizard1.UserName);
@@ -212,7 +213,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void CreateUserWizard1_CreatedUser(object sender, EventArgs e)
 		{
-			MembershipUser user = Membership.GetUser(CreateUserWizard1.UserName);
+			MembershipUser user = UserMembershipHelper.GetUser( CreateUserWizard1.UserName );
 
 			// setup inital roles (if any) for this user
 			RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, CreateUserWizard1.UserName);

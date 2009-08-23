@@ -120,7 +120,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void PasswordRecovery1_VerifyingUser( object sender, LoginCancelEventArgs e )
 		{			
-			MembershipUser user = Membership.GetUser( PasswordRecovery1.UserName );
+			MembershipUser user = PageContext.CurrentMembership.GetUser( PasswordRecovery1.UserName, false );
 
 			if ( user != null )
 			{

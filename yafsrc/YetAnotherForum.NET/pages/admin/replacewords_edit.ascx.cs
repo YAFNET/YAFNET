@@ -71,7 +71,7 @@ namespace YAF.Pages.Admin
 		private void add_Click( object sender, EventArgs e )
 		{
 			YAF.Classes.Data.DB.replace_words_save( PageContext.PageBoardID, Request.QueryString ["i"], badword.Text, goodword.Text );
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ReplaceWords ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ReplaceWords ) );
 			YafBuildLink.Redirect( ForumPages.admin_replacewords );
 		}
 

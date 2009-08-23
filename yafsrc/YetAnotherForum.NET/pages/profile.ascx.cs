@@ -169,7 +169,7 @@ namespace YAF.Pages // YAF.Pages
 				AvatarTab.Visible = false;
 			}
 
-			Groups.DataSource = Roles.GetRolesForUser(UserMembershipHelper.GetUserNameFromID(userID));
+			Groups.DataSource = RoleMembershipHelper.GetRolesForUser(UserMembershipHelper.GetUserNameFromID(userID));
 
 			//EmailRow.Visible = PageContext.IsAdmin;
 			ModerateTab.Visible = PageContext.IsAdmin || PageContext.IsForumModerator;

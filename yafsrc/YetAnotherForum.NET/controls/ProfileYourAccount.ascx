@@ -13,7 +13,7 @@
         </td>
         <td class="post">            
             <asp:Label ID="Name" runat="server" /></td>
-        <td rowspan="5" align="center" class="post"><asp:Image runat="server" ID="AvatarImage" CssClass="avatarimage" AlternateText="" />
+        <td rowspan="5" align="center" class="post"><asp:Image runat="server" ID="AvatarImage" CssClass="avatarimage" AlternateText="avatar" />
         </td>
     </tr>
     <tr>

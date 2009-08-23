@@ -116,7 +116,7 @@ namespace YAF.Pages.Admin
 				file.Close();
 
 				// invalidate the cache...
-				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
+				PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 				YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 			}
 

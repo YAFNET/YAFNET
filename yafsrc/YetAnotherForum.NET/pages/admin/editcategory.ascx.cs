@@ -181,7 +181,7 @@ namespace YAF.Pages.Admin
 			// save category
 			DB.category_save( PageContext.PageBoardID, CategoryID, name, categoryImage, sortOrder );
 			// remove category cache...
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
 			// redirect
 			YafBuildLink.Redirect( ForumPages.admin_forums );
 		}

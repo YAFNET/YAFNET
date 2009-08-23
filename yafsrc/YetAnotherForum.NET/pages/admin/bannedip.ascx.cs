@@ -69,7 +69,7 @@ namespace YAF.Pages.Admin
 				YAF.Classes.Data.DB.bannedip_delete( e.CommandArgument );
 
 				// clear cache of banned IPs for this board
-				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.BannedIP ) );
+				PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.BannedIP ) );
 
 				BindData();
 				PageContext.AddLoadMessage( "Removed IP address ban." );

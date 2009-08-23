@@ -190,7 +190,7 @@ namespace YAF.Pages // YAF.Pages
 				YafBuildLink.Redirect(ForumPages.moderate, "f={0}", PageContext.PageForumID);
 
 				// clear moderatorss cache
-				YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+				PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 			}
 		}
 

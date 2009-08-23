@@ -113,15 +113,15 @@ namespace YAF.Controls
 					string userName = UserMembershipHelper.GetUserNameFromID(CurrentUserID);
 
 					// add/remove user from roles in membership provider
-					if (isChecked && !Roles.IsUserInRole(userName, roleName))
-						Roles.AddUserToRole(userName, roleName);
-					else if (!isChecked && Roles.IsUserInRole(userName, roleName))
-						Roles.RemoveUserFromRole(userName, roleName);
+					if (isChecked && !RoleMembershipHelper.IsUserInRole(userName, roleName))
+						RoleMembershipHelper.AddUserToRole( userName, roleName );
+					else if ( !isChecked && RoleMembershipHelper.IsUserInRole( userName, roleName ) )
+						RoleMembershipHelper.RemoveUserFromRole( userName, roleName );
 				}
 			}
 
 			// update forum moderators cache just in case something was changed...
-			YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+			PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 
 			BindData();
 		}

@@ -89,21 +89,21 @@ namespace YAF.Pages.Admin
 				case "moveup":
 					YAF.Classes.Data.DB.smiley_resort( PageContext.PageBoardID, e.CommandArgument, -1 );
 					// invalidate the cache...
-					YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
+					PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 					BindData();
 					YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 					break;
 				case "movedown":
 					YAF.Classes.Data.DB.smiley_resort( PageContext.PageBoardID, e.CommandArgument, 1 );
 					// invalidate the cache...
-					YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
+					PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 					BindData();
 					YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 					break;
 				case "delete":
 					YAF.Classes.Data.DB.smiley_delete( e.CommandArgument );
 					// invalidate the cache...
-					YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
+					PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 					BindData();
 					YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 					break;

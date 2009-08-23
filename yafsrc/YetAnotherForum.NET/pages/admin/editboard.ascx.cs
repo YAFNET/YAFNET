@@ -23,6 +23,7 @@ using System.Data;
 using System.Web.Security;
 using System.Web.UI.WebControls;
 using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
@@ -168,21 +169,21 @@ namespace YAF.Pages.Admin
 		protected void CreateBoard( string adminName, string adminPassword, string adminEmail, string adminPasswordQuestion, string adminPasswordAnswer, string boardName, string boardMembershipAppName, string boardRolesAppName, bool createUserAndRoles )
 		{
 			// Store current App Names
-			string currentMembershipAppName = Membership.ApplicationName;
-			string currentRolesAppName = Roles.ApplicationName;
+			string currentMembershipAppName = PageContext.CurrentMembership.ApplicationName;
+			string currentRolesAppName = PageContext.CurrentRoles.ApplicationName;
 
 			if ( !String.IsNullOrEmpty( boardMembershipAppName ) && !String.IsNullOrEmpty( boardRolesAppName ) )
 			{
 				// Change App Names for new board
-				Membership.ApplicationName = boardMembershipAppName;
-				Roles.ApplicationName = boardRolesAppName;
+				PageContext.CurrentMembership.ApplicationName = boardMembershipAppName;
+				PageContext.CurrentMembership.ApplicationName = boardRolesAppName;
 			}
 
 			if ( createUserAndRoles )
 			{
 				// Create new admin users
 				MembershipCreateStatus createStatus;
-				MembershipUser newAdmin = Membership.CreateUser( adminName, adminPassword, adminEmail, adminPasswordQuestion, adminPasswordAnswer, true, out createStatus );
+				MembershipUser newAdmin = PageContext.CurrentMembership.CreateUser( adminName, adminPassword, adminEmail, adminPasswordQuestion, adminPasswordAnswer, true, null, out createStatus );
 				if ( createStatus != MembershipCreateStatus.Success )
 				{
 					PageContext.AddLoadMessage( string.Format( "Create User Failed: {0}", GetMembershipErrorMessage( createStatus ) ) );
@@ -190,11 +191,11 @@ namespace YAF.Pages.Admin
 				}
 
 				// Create groups required for the new board
-				Roles.CreateRole( "Administrators" );
-				Roles.CreateRole( "Registered" );
+				RoleMembershipHelper.CreateRole( "Administrators" );
+				RoleMembershipHelper.CreateRole( "Registered" );
 
 				// Add new admin users to group
-				Roles.AddUserToRole( newAdmin.UserName, "Administrators" );
+				RoleMembershipHelper.AddUserToRole( newAdmin.UserName, "Administrators" );
 
 				// Create Board
 				YAF.Classes.Data.DB.board_create( newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName );
@@ -202,15 +203,15 @@ namespace YAF.Pages.Admin
 			else
 			{
 				// new admin
-				MembershipUser newAdmin = Membership.GetUser();
+				MembershipUser newAdmin = UserMembershipHelper.GetUser();
 
 				// Create Board
 				YAF.Classes.Data.DB.board_create( newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName );
 			}
 
 			// Return application name to as they were before.
-			Membership.ApplicationName = currentMembershipAppName;
-			Roles.ApplicationName = currentRolesAppName;
+			YafContext.Current.CurrentMembership.ApplicationName = currentMembershipAppName;
+			YafContext.Current.CurrentRoles.ApplicationName = currentRolesAppName;
 		}
 
 		protected void CreateAdminUser_CheckedChanged( object sender, EventArgs e )

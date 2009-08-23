@@ -39,25 +39,19 @@ namespace YAF.Controls
 			// Bind			
 			DataBind();
 
-			CombinedUserDataHelper userData = new CombinedUserDataHelper(PageContext.PageUserID);
+			
 
 			//TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
-			AccountEmail.Text = userData.Membership.Email;
-			Name.Text = HtmlEncode( userData.Membership.UserName );
-			Joined.Text = YafServices.DateTime.FormatDateTime( userData.Joined );
-			NumPosts.Text = String.Format( "{0:N0}", userData.NumPosts );
+			AccountEmail.Text = PageContext.CurrentUserData.Membership.Email;
+			Name.Text = HtmlEncode( PageContext.CurrentUserData.Membership.UserName );
+			Joined.Text = YafServices.DateTime.FormatDateTime( PageContext.CurrentUserData.Joined );
+			NumPosts.Text = String.Format( "{0:N0}", PageContext.CurrentUserData.NumPosts );
 
-			if ( PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage )
+			string avatarImg = YafServices.Avatar.GetAvatarUrlForCurrentUser();
+      
+			if ( !String.IsNullOrEmpty(avatarImg))
 			{
-				AvatarImage.ImageUrl = String.Format( "{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, PageContext.PageUserID );
-			}
-			else if ( !String.IsNullOrEmpty( userData.Avatar ) ) // Took out PageContext.BoardSettings.AvatarRemote
-			{
-				AvatarImage.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
-					Server.UrlEncode( userData.Avatar ),
-					PageContext.BoardSettings.AvatarWidth,
-					PageContext.BoardSettings.AvatarHeight,
-					YafForumInfo.ForumRoot );
+				AvatarImage.ImageUrl = avatarImg;
 			}
 			else
 			{

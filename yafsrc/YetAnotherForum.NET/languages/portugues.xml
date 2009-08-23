@@ -102,7 +102,7 @@
     <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
     <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
     <Resource tag="BBCODE_CODE">Código:</Resource>
-    <Resource tag="BBCODE_QUOTE">Quota:</Resource>
+    <Resource tag="BBCODE_QUOTE">Citação:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} escreveu:</Resource>
     <Resource tag="CAN_DELETE">Você [b]pode[/b] excluir suas participações deste fórum.</Resource>
     <Resource tag="CAN_EDIT">Você [b]pode[/b] editar suas participações neste fórum.</Resource>

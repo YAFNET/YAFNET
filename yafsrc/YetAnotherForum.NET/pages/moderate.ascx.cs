@@ -124,7 +124,7 @@ namespace YAF.Pages // YAF.Pages
 					YAF.Classes.Data.DB.userforum_delete( e.CommandArgument, PageContext.PageForumID );
 					BindData();
 					// clear moderatorss cache
-					YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+					PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 					break;
 			}
 		}

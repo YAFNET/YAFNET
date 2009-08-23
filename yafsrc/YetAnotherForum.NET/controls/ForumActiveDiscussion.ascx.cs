@@ -51,13 +51,13 @@ namespace YAF.Controls
 			if (PageContext.IsGuest)
 			{
 				// allow caching since this is a guest...				
-				activeTopics = YafCache.Current[cacheKey] as DataTable;
+				activeTopics = PageContext.Cache[cacheKey] as DataTable;
 			}
 
 			if (activeTopics == null)
 			{
 				activeTopics = YAF.Classes.Data.DB.topic_latest(PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID);
-				if (PageContext.IsGuest) YafCache.Current.Insert(cacheKey, activeTopics, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
+				if (PageContext.IsGuest) PageContext.Cache.Insert(cacheKey, activeTopics, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
 			}
 
 			LatestPosts.DataSource = activeTopics;

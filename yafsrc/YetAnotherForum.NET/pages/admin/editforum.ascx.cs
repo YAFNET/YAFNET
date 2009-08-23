@@ -208,12 +208,12 @@ namespace YAF.Pages.Admin
 			YafBuildLink.Redirect( ForumPages.admin_editforum, "f={0}", ForumID );
 		}
 
-		private static void ClearCaches()
+		private void ClearCaches()
 		{
 			// clear moderatorss cache
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
 			// clear category cache...
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
 		}
 
 		private void Cancel_Click( object sender, System.EventArgs e )

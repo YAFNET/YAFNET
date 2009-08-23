@@ -16,8 +16,8 @@
 		</tr>
 		<tr>
 			<td class="footer1" colspan="2" align="center">
-				<asp:Button ID="save" runat="server" Text="Save" OnClick="save_Click"></asp:Button>
-				<asp:Button ID="cancel" runat="server" Text="Cancel" OnClick="cancel_Click"></asp:Button>
+				<asp:Button ID="save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button>
+				<asp:Button ID="cancel" runat="server" Text="Cancel" OnClick="Cancel_Click"></asp:Button>
 			</td>
 		</tr>
 	</table>

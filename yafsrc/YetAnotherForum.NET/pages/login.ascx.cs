@@ -42,7 +42,8 @@ namespace YAF.Pages // YAF.Pages
 
 		public login()
 			: base( "LOGIN" )
-		{ 
+		{
+			Login1.MembershipProvider = Config.MembershipProvider;
 		}
 
 		protected void Page_Load( object sender, System.EventArgs e )

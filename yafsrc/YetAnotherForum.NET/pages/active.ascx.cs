@@ -72,11 +72,18 @@ namespace YAF.Pages // YAF.Pages
 				Since.Items.Add( new ListItem( GetText( "last_week" ), "7" ) );
 				Since.Items.Add( new ListItem( GetText( "last_two_weeks" ), "14" ) );
 				Since.Items.Add( new ListItem( GetText( "last_month" ), "31" ) );
-                if (Session["ActiveTopicSince"] != null)
-                { Since.SelectedIndex = Convert.ToInt32(Session["ActiveTopicSince"]); }
-                else
-                    Since.SelectedIndex = 0;
+
+				if ( Mession.ActiveTopicSince.HasValue )
+				{
+					ListItem activeTopicItem = Since.Items.FindByValue( Mession.ActiveTopicSince.Value.ToString() );
+					if ( activeTopicItem != null ) activeTopicItem.Selected = true;
+				}
+				else
+				{
+					Since.SelectedIndex = 0;
+				}
 			}
+
 			BindData();
 		}
 
@@ -87,20 +94,20 @@ namespace YAF.Pages // YAF.Pages
 
 		private void BindData()
 		{
-			DateTime SinceDate = DateTime.Now;
-			int SinceValue = 0;
+			DateTime sinceDate = DateTime.Now;
+			int sinceValue = 0;
 
 			if ( Since.SelectedItem != null )
 			{
-				SinceValue = int.Parse( Since.SelectedItem.Value );
-				SinceDate = DateTime.Now;
-				if ( SinceValue > 0 )
-					SinceDate = DateTime.Now - TimeSpan.FromDays( SinceValue );
-				else if ( SinceValue < 0 )
-					SinceDate = DateTime.Now + TimeSpan.FromHours( SinceValue );
+				sinceValue = int.Parse( Since.SelectedItem.Value );
+				sinceDate = DateTime.Now;
+				if ( sinceValue > 0 )
+					sinceDate = DateTime.Now - TimeSpan.FromDays( sinceValue );
+				else if ( sinceValue < 0 )
+					sinceDate = DateTime.Now + TimeSpan.FromHours( sinceValue );
 			}
-			if ( SinceValue == 0 )
-				SinceDate = Mession.LastVisit;
+			if ( sinceValue == 0 )
+				sinceDate = Mession.LastVisit;
 
 
 			PagedDataSource pds = new PagedDataSource();
@@ -110,7 +117,7 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( PageContext.Settings.CategoryID != 0 ) categoryIDObject = PageContext.Settings.CategoryID;
 
-			DataView dv = YAF.Classes.Data.DB.topic_active( PageContext.PageBoardID, PageContext.PageUserID, SinceDate, categoryIDObject ).DefaultView;
+			DataView dv = YAF.Classes.Data.DB.topic_active( PageContext.PageBoardID, PageContext.PageUserID, sinceDate, categoryIDObject ).DefaultView;
 			pds.DataSource = dv;
 			Pager.Count = dv.Count;
 			Pager.PageSize = 15;
@@ -124,11 +131,11 @@ namespace YAF.Pages // YAF.Pages
 
 		protected string PrintForumName( DataRowView row )
 		{
-			string forumName = ( string )row ["ForumName"];
+			string forumName = (string)row["ForumName"];
 			string html = "";
 			if ( forumName != _lastForumName )
 			{
-				html = String.Format( @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"">{0}</a></td></tr>", forumName, YafBuildLink.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ) );
+				html = String.Format( @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"">{0}</a></td></tr>", forumName, YafBuildLink.GetLink( ForumPages.topics, "f={0}", row["ForumID"] ) );
 				_lastForumName = forumName;
 			}
 			return html;
@@ -136,8 +143,8 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Since_SelectedIndexChanged( object sender, System.EventArgs e )
 		{
-            Pager.CurrentPageIndex = 0;
-            Session["ActiveTopicSince"] = Since.SelectedIndex;
+			Pager.CurrentPageIndex = 0;
+			Mession.ActiveTopicSince = Convert.ToInt32( Since.SelectedValue );
 			BindData();
 		}
 	}

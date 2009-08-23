@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="German">
+<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" code="de" language="German">
   <page name="ACTIVE">
     <Resource tag="BY">von {0}</Resource>
     <Resource tag="LAST_24">( In den letzten 24 Stunden)</Resource>

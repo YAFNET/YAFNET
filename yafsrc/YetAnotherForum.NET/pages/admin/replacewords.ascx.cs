@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
 			else if ( e.CommandName == "delete" )
 			{
 				YAF.Classes.Data.DB.replace_words_delete( e.CommandArgument );
-				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ReplaceWords ) );
+				PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ReplaceWords ) );
 				BindData();
 			}
 			else if ( e.CommandName == "export" )

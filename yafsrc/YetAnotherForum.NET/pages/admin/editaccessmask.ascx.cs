@@ -101,7 +101,7 @@ namespace YAF.Pages.Admin
 				DownloadAccess.Checked
 				);
 
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
 
 			YafBuildLink.Redirect( ForumPages.admin_accessmasks );
 		}

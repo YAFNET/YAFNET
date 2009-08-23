@@ -119,7 +119,7 @@ namespace YAF.Pages.Admin
 				txtModuleClass.Text,
 				int.Parse( txtExecOrder.Text )
 			);
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.CustomBBCode ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.CustomBBCode ) );
 			YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 			YafBuildLink.Redirect( ForumPages.admin_bbcode );
 		}

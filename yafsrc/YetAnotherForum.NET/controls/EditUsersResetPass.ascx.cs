@@ -56,10 +56,10 @@ namespace YAF.Controls
 			if ( !IsPostBack )
 			{
 				lblPassRequirements.Text = String.Format("{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).",
-				                                          Membership.MinRequiredPasswordLength,
-				                                          Membership.MinRequiredNonAlphanumericCharacters );
+																									PageContext.CurrentMembership.MinRequiredPasswordLength,
+																									PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters );
 
-				if ( !Membership.EnablePasswordReset )
+				if ( !PageContext.CurrentMembership.EnablePasswordReset )
 				{
 					PasswordResetErrorHolder.Visible = true;
 					btnResetPassword.Enabled = false;

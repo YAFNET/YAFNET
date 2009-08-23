@@ -78,7 +78,7 @@ namespace YAF.Pages.Admin
 				case "delete":
 					if ( YAF.Classes.Data.DB.accessmask_delete( e.CommandArgument ) )
 					{
-						YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
+						PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
 						BindData();
 					}
 					else

@@ -60,7 +60,7 @@ namespace YAF.Pages.Admin
 			}
 		}
 
-		protected void save_Click( object sender, EventArgs e )
+		protected void Save_Click( object sender, EventArgs e )
 		{
 			String [] ipParts = mask.Text.Trim().Split( '.' );
 
@@ -112,13 +112,13 @@ namespace YAF.Pages.Admin
 			YAF.Classes.Data.DB.bannedip_save( Request.QueryString ["i"], PageContext.PageBoardID, mask.Text.Trim() );
 
 			// clear cache of banned IPs for this board
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.BannedIP ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.BannedIP ) );
 
 			// go back to banned IP's administration page
 			YafBuildLink.Redirect( ForumPages.admin_bannedip );
 		}
 
-		protected void cancel_Click( object sender, EventArgs e )
+		protected void Cancel_Click( object sender, EventArgs e )
 		{
 			YafBuildLink.Redirect( ForumPages.admin_bannedip );
 		}

@@ -80,7 +80,7 @@ using YAF.Classes.Utils;
 				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
 
 				MembershipCreateStatus status;
-				MembershipUser user = Membership.CreateUser( newUsername, Password.Text.Trim(), newEmail, Question.Text.Trim(), Answer.Text.Trim(), !PageContext.BoardSettings.EmailVerification, out status);
+				MembershipUser user = PageContext.CurrentMembership.CreateUser( newUsername, Password.Text.Trim(), newEmail, Question.Text.Trim(), Answer.Text.Trim(), !PageContext.BoardSettings.EmailVerification, null, out status );
 
 				if (status != MembershipCreateStatus.Success)
 				{

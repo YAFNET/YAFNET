@@ -140,13 +140,13 @@ namespace YAF.Pages.Admin
 				if (oldRoleName != string.Empty || IsGuestX.Checked)
 				{
 					// delete and re-create (if not guest role)
-					System.Web.Security.Roles.DeleteRole(oldRoleName, false);
+					RoleMembershipHelper.DeleteRole(oldRoleName, false);
 				}
 
 				if (!IsGuestX.Checked)
 				{
 					// simply create it
-					System.Web.Security.Roles.CreateRole(roleName);
+					RoleMembershipHelper.CreateRole( roleName );
 				}
 			}
 
@@ -169,7 +169,7 @@ namespace YAF.Pages.Admin
 			}
 
 			// remove caching in case something got updated...
-			YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+			PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 
 			// Done, redirect to role editing page
 			YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);

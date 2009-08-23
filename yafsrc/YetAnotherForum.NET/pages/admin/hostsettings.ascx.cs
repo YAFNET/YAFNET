@@ -256,20 +256,20 @@ namespace YAF.Pages.Admin
 		protected void ResetCacheAll_Click( object sender, System.EventArgs e )
 		{
 			// clear all cache keys
-			YafCache.Current.Clear();
+			PageContext.Cache.Clear();
 
 			CheckCache();
 		}
 
 		private void RemoveCacheKey( string key )
 		{
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( key ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( key ) );
 			CheckCache();
 		}
 
 		private bool CheckCacheKey( string key )
 		{
-			return YafCache.Current[YafCache.GetBoardCacheKey( key )] != null;
+			return PageContext.Cache[YafCache.GetBoardCacheKey( key )] != null;
 		}
 
 		private void CheckCache()
@@ -278,7 +278,7 @@ namespace YAF.Pages.Admin
 			ActiveDiscussionsCacheReset.Enabled = CheckCacheKey( Constants.Cache.ActiveDiscussions ) || CheckCacheKey( Constants.Cache.ForumActiveDiscussions );
 			BoardModeratorsCacheReset.Enabled = CheckCacheKey( Constants.Cache.ForumModerators );
 			BoardCategoriesCacheReset.Enabled = CheckCacheKey( Constants.Cache.ForumCategory );
-			ResetCacheAll.Enabled = YafCache.Current.Count > 0;
+			ResetCacheAll.Enabled = PageContext.Cache.Count > 0;
 		}
 	}
 }

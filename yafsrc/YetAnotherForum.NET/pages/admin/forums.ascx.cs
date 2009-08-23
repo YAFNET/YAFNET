@@ -19,15 +19,8 @@
  */
 
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
 using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Utils;
@@ -108,14 +101,14 @@ namespace YAF.Pages.Admin
 			
 		}
 
-		private static void ClearCaches()
+		private void ClearCaches()
 		{
 			// clear moderatorss cache
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
 			// clear category cache...
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
 			// clear active discussions cache..
-			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumActiveDiscussions ) );
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumActiveDiscussions ) );
 		}
 
 		protected void NewForum_Click(object sender, System.EventArgs e)

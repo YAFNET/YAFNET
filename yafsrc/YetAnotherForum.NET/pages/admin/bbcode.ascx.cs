@@ -55,7 +55,7 @@ namespace YAF.Pages.Admin
 			else if ( e.CommandName == "delete" )
 			{
 				DB.bbcode_delete( e.CommandArgument );
-				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.CustomBBCode ) );
+				PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.CustomBBCode ) );
 				BindData();
 			}
 			else if ( e.CommandName == "export" )
