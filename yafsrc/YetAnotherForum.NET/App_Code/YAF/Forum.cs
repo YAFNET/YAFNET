@@ -63,7 +63,7 @@ namespace YAF
 
 		public Forum()
 		{
-			this.Init += new EventHandler(Forum_Init);
+			this.Load += new EventHandler(Forum_Load);
 			this.Unload += new EventHandler(Forum_Unload);
 
 			// setup header/footer
@@ -79,7 +79,7 @@ namespace YAF
 			YafContext.Current.Dispose();
 		}
 
-		protected void Forum_Init( object sender, EventArgs e )
+		private void Forum_Load( object sender, EventArgs e )
 		{
 			// init the modules and run them immediately...
 			YafContext.Current.BaseModuleManager.Load();
