@@ -247,7 +247,14 @@ namespace YAF.Classes.Core
 			{
 				if ( _topPageControl == null )
 				{
-					_topPageControl = ControlHelper.FindControlRecursiveBoth(this, "YafHead") ?? ForumHeader.ThisControl;
+					if ( Page != null && Page.Header != null )
+					{
+						_topPageControl = Page.Header;
+					}
+					else
+					{
+						_topPageControl = ControlHelper.FindControlRecursiveBoth( this, "YafHead" ) ?? ForumHeader.ThisControl;
+					}
 				}
 
 				return _topPageControl; 
