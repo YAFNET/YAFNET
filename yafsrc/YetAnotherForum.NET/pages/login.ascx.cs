@@ -43,11 +43,13 @@ namespace YAF.Pages // YAF.Pages
 		public login()
 			: base( "LOGIN" )
 		{
-			Login1.MembershipProvider = Config.MembershipProvider;
+			
 		}
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
+			Login1.MembershipProvider = Config.MembershipProvider;
+
 			// Ederon : guess we don't need this if anymore
 			//if ( !CanLogin )
 			//	YafBuildLink.Redirect( ForumPages.forum );

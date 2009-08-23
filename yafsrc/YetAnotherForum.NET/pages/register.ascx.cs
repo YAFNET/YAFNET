@@ -46,11 +46,13 @@ namespace YAF.Pages // YAF.Pages
 		public register()
 			: base("REGISTER")
 		{
-			CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
+			
 		}
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
+			CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
+
 			// Ederon : guess we don't need to test CanLogin anymore
 			if ( /*!CanLogin ||*/ PageContext.BoardSettings.DisableRegistrations)
 				YafBuildLink.AccessDenied();
