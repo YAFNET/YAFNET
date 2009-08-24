@@ -24,6 +24,56 @@ using YAF.Classes.Data;
 
 namespace YAF.Modules
 {
+	[AttributeUsage( AttributeTargets.Class )]
+	public class YafModule : System.Attribute
+	{
+		private string _moduleName;
+		public string ModuleName
+		{
+			get
+			{
+				return _moduleName;
+			}
+			set
+			{
+				_moduleName = value;
+			}
+		}
+
+		private string _moduleAuthor;
+		public string ModuleAuthor
+		{
+			get
+			{
+				return _moduleAuthor;
+			}
+			set
+			{
+				_moduleAuthor = value;
+			}
+		}
+
+		private int _moduleVersion;
+		public int ModuleVersion
+		{
+			get
+			{
+				return _moduleVersion;
+			}
+			set
+			{
+				_moduleVersion = value;
+			}
+		}
+
+		public YafModule( string moduleName, string moduleAuthor, int moduleVersion )
+		{
+			_moduleName = moduleName;
+			_moduleAuthor = moduleAuthor;
+			_moduleVersion = moduleVersion;
+		}
+	}
+
 	public interface IBaseModule : IDisposable
 	{
 		YafContext PageContext
@@ -37,21 +87,6 @@ namespace YAF.Modules
 			set;
 		}
 
-		string ModuleName
-		{
-			get;
-		}
-
-		string ModuleAuthor
-		{
-			get;
-		}
-
-		int ModuleVersion
-		{
-			get;
-		}
-
 		void InitBeforePage();
 		void InitAfterPage();
 	}
@@ -62,9 +97,9 @@ namespace YAF.Modules
 	public class YafBaseModuleManager : YafModuleManager<IBaseModule>
 	{
 		YafBaseModuleManager()
-			: base( BuildManager.CodeAssemblies, "YAF.Modules", "YAF.Modules.IBaseModule" )
+			: base( "YAF.Modules", "YAF.Modules.IBaseModule" )
 		{
-			
+			InitModules( BuildManager.CodeAssemblies );
 		}
 
 		public void InitModulesBeforeForumPage(YafContext currentContext, object forumControl)

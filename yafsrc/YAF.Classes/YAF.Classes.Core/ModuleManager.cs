@@ -21,18 +21,72 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using YAF.Classes.Core;
+using YAF.Classes.Utils;
 
 namespace YAF.Modules
 {
 	public abstract class YafModuleManager<T>
 	{
 		protected string _cacheName = String.Empty;
-		protected List<T> _modules = null;
+		protected List<T> _modules = new List<T>();
 		protected List<Type> _moduleClassTypes = null;
 		protected bool _loaded = false;
 
 		public event EventHandler<EventArgs> LoadModules;
 		public event EventHandler<EventArgs> UnloadModules;
+
+		private string _moduleNamespace;
+		public String ModuleNamespace
+		{
+			get
+			{
+				return _moduleNamespace;
+			}
+			protected set
+			{
+				_moduleNamespace = value;
+			}
+		}
+
+		private string _moduleBaseType;
+		public String ModuleBaseType
+		{
+			get
+			{
+				return _moduleBaseType;
+			}
+			protected set
+			{
+				_moduleBaseType = value;
+			}
+		}
+
+		protected String CacheName
+		{
+			get
+			{
+				return "YafModuleManager_" + ModuleBaseType;
+			}
+		}
+
+		protected List<Type> ModuleClassTypes
+		{
+			get
+			{
+				if ( _moduleClassTypes == null && YafContext.Current.Cache[CacheName] != null )
+				{
+					_moduleClassTypes = YafContext.Current.Cache[CacheName] as List<Type>;
+				}
+
+				return _moduleClassTypes;
+			}
+			set
+			{
+				if ( value == null ) YafContext.Current.Cache.Remove( CacheName );
+				else YafContext.Current.Cache[CacheName] = value;
+				_moduleClassTypes = value;
+			}
+		}
 
 		public List<T> Modules
 		{
@@ -50,18 +104,28 @@ namespace YAF.Modules
 			}
 		}
 
-		protected YafModuleManager( IList assemblies, string moduleNamespace, string moduleBaseType )
+		protected YafModuleManager( string moduleNamespace, string moduleBaseType )
 		{
-			_cacheName = "YafModuleManager_" + moduleBaseType;
-			_modules = new List<T>();
-			
-			if (YafContext.Current.Cache[_cacheName] == null)
+			ModuleNamespace = moduleNamespace;
+			ModuleBaseType = moduleBaseType;
+		}
+
+		protected void InitModules( IList assemblies )
+		{
+			if ( ModuleClassTypes == null )
 			{
 				// load modules...
-				YafContext.Current.Cache[_cacheName] = FindModules( assemblies, moduleNamespace, moduleBaseType );
+				ModuleClassTypes = FindModules( assemblies, ModuleNamespace, ModuleBaseType );
 			}
+		}
 
-			_moduleClassTypes = YafContext.Current.Cache[_cacheName] as List<Type>;
+		protected void InitModules( List<Assembly> assemblies )
+		{
+			if ( ModuleClassTypes == null )
+			{
+				// load modules...
+				ModuleClassTypes = FindModules( assemblies, ModuleNamespace, ModuleBaseType );
+			}
 		}
 
 		protected static List<Type> FindModules(IList assemblies, string moduleNamespace, string moduleBaseInterface )
@@ -99,7 +163,7 @@ namespace YAF.Modules
 		{
 			if (!_loaded)
 			{
-				foreach ( Type module in _moduleClassTypes )
+				foreach ( Type module in ModuleClassTypes )
 				{
 					_modules.Add( GetInstance( module ) );
 				}

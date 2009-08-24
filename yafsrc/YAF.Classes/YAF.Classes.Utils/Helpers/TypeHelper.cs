@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -88,6 +89,29 @@ namespace YAF.Classes.Utils
 			if ( instance is T )
 			{
 				return instance as T;
+			}
+
+			return null;
+		}
+
+		static public List<T> ConvertToGenericList<T>( IList listObjects )
+		{
+			List<T> convertedList = new List<T>( listObjects.Count );
+
+			foreach ( object listObject in listObjects )
+			{
+				convertedList.Add( (T)listObject );
+			}
+
+			return convertedList;
+		}
+
+		static public object[] GetCustomAttributes( Type objectType, Type attributeType )
+		{
+			object[] myAttrOnType = objectType.GetCustomAttributes( attributeType, false );
+			if ( myAttrOnType.Length > 0 )
+			{
+				return myAttrOnType;
 			}
 
 			return null;

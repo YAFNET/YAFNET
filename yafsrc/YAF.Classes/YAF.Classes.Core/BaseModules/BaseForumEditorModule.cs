@@ -131,9 +131,9 @@ namespace YAF.Editors
 	public class YafEditorModuleManager : YafModuleManager<BaseForumEditor>
 	{
 		YafEditorModuleManager()
-			: base(BuildManager.CodeAssemblies, "YAF.Editors", "YAF.Editors.IBaseEditorModule")
+			: base("YAF.Editors", "YAF.Editors.IBaseEditorModule")
 		{
-
+			InitModules( BuildManager.CodeAssemblies );
 		}
 
 		public BaseForumEditor GetEditorInstance( int moduleId )
