@@ -216,14 +216,14 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return 0x01090360;
+				return 0x01090370;
 			}
 		}
 		static public DateTime AppVersionDate
 		{
 			get
 			{
-				return new DateTime(2009, 8, 05);
+				return new DateTime(2009, 8, 24);
 			}
 		}
 		#endregion
