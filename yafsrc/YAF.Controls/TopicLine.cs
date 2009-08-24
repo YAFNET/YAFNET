@@ -18,6 +18,7 @@
  */
 using System;
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 using YAF.Classes;
 using YAF.Classes.Core;
@@ -99,14 +100,7 @@ namespace YAF.Controls
 			string linkParams = "t={0}";
 			if (FindUnread) linkParams += "&find=unread";
 
-			string firstMessage = null;
-
-			if (_row["FirstMessage"] != DBNull.Value)
-			{
-				firstMessage = 	_row["FirstMessage"].ToString();
-			}
-
-			RenderAnchorBegin(writer, YafBuildLink.GetLink(ForumPages.posts, linkParams, _row["LinkTopicID"]), "post_link", StringHelper.Truncate(YafServices.BadWordReplace.Replace(firstMessage), 255));
+			RenderAnchorBegin( writer, YafBuildLink.GetLink( ForumPages.posts, linkParams, _row["LinkTopicID"] ), "post_link", GetCleanedTopicMessage(_row["FirstMessage"], _row["LinkTopicID"] ) );
 
 			writer.WriteLine(YafServices.BadWordReplace.Replace(Convert.ToString(_row["Subject"])));
 			writer.WriteEndTag("a");
@@ -175,6 +169,37 @@ namespace YAF.Controls
 
 			writer.WriteEndTag("tr");
 			writer.WriteLine();
+		}
+
+		private string GetCleanedTopicMessage( object firstMessage, object topicId )
+		{
+			string cacheKey = String.Format( Constants.Cache.FirstPostCleaned, YafContext.Current.PageBoardID, topicId.ToString() );
+			string message = String.Empty;
+
+			if (firstMessage != DBNull.Value)
+			{
+				message = YafContext.Current.Cache[cacheKey] as String;
+				
+				if ( String.IsNullOrEmpty( message ) )
+				{
+					message = firstMessage.ToString();
+
+					if ( !String.IsNullOrEmpty( message ) )
+					{
+						MessageFlags flags = new MessageFlags();
+
+						flags.IsBBCode = true;
+						flags.IsSmilies = true;
+
+						message =
+							StringHelper.Truncate( Regex.Replace( FormatMsg.FormatMessage( message, flags ).Replace( "<br/>", " " ), @"<[^>]+>", string.Empty ), 255 );
+
+						YafContext.Current.Cache.Insert( cacheKey, message, null, DateTime.Now.AddMinutes( YafContext.Current.BoardSettings.FirstPostCacheTimeout ), TimeSpan.Zero );
+					}
+				}
+			}
+
+			return message;
 		}
 
 		private string FormatViews()
