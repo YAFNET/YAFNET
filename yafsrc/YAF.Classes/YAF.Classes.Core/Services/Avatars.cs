@@ -49,13 +49,12 @@ namespace YAF.Classes.Core
 			//JoeOuts added 8/17/09 for Gravatar use
 			else if ( YafContext.Current.BoardSettings.AvatarGravatar )
 			{
-				// if no avatar -- use "NoAvatar" image.
-				string gravatarUrl = String.Format( @"http://www.gravatar.com/avatar/{0}.jpg?r={1}&d={2}",
+				//string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
+
+				string gravatarUrl = String.Format( @"http://www.gravatar.com/avatar/{0}.jpg?r={1}", //&d={2} don't use a default...
 				                                    StringHelper.StringToHexBytes( userData.Email ),
-				                                    YafContext.Current.BoardSettings.GravatarRating,
-				                                    HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}",
-				                                                                                         YafForumInfo.ForumBaseUrl,
-				                                                                                         "NoAvatar.gif" ) ) );
+				                                    YafContext.Current.BoardSettings.GravatarRating );
+				                                    
 																						
 
 				avatarUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
