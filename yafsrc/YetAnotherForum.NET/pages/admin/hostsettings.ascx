@@ -868,6 +868,15 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td class="postheader">
+                                    <b>First Post "Title" Cache Timeout:</b><br />
+                                    First Post "Title" for SEO Cache Timeout (in minutes)
+                                </td>
+                                <td class="post">
+                                    <asp:TextBox runat="server" ID="FirstPostCacheTimeout" />
+                                </td>
+                            </tr>                            
+                            <tr>
                                 <td class="footer1" colspan="2">
                                     <asp:Button runat="server" ID="ResetCacheAll" Text="Clear Cache" OnClick="ResetCacheAll_Click" /></td>
                             </tr>

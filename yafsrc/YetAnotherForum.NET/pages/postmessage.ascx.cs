@@ -500,6 +500,9 @@ namespace YAF.Pages
 
 			HandlePostToBlog(_forumEditor.Text, Subject.Text);
 
+			// remove cache if it exists...
+			PageContext.Cache.Remove( string.Format( Constants.Cache.FirstPostCleaned, PageContext.PageBoardID, TopicID ) );
+
 			return nMessageID;
 		}
 
