@@ -53,25 +53,46 @@ namespace YAF.Classes.Utils
 		static public T FindControlAs<T>(Control sourceControl, string id) where T : class
 		{
 			Control foundControl = sourceControl.FindControl( id );
-			return foundControl != null ? TypeHelper.ConvertToClass<T>( foundControl ) : null;
+			if ( foundControl != null && foundControl is T )
+			{
+				return TypeHelper.ConvertToClass<T>( foundControl );
+			}
+
+			return null;
 		}
 
 		static public T FindControlRecursiveAs<T>(Control sourceControl, string id) where T : class
 		{
 			Control foundControl = FindControlRecursive( sourceControl, id );
-			return foundControl != null ? TypeHelper.ConvertToClass<T>(foundControl) : null;
+			if ( foundControl != null && foundControl is T )
+			{
+				return TypeHelper.ConvertToClass<T>( foundControl );
+			}
+
+			return null;
 		}
 
 		static public T FindControlRecursiveReverseAs<T>(Control sourceControl, string id) where T : class
 		{
 			Control foundControl = FindControlRecursiveReverse(sourceControl, id);
-			return foundControl != null ? TypeHelper.ConvertToClass<T>(foundControl) : null;
+			if ( foundControl != null && foundControl is T )
+			{
+				return TypeHelper.ConvertToClass<T>( foundControl );
+			}
+
+			return null;
 		}
 
 		static public T FindControlRecursiveBothAs<T>(Control sourceControl, string id) where T : class
 		{
 			Control foundControl = FindControlRecursiveBoth(sourceControl, id);
-			return foundControl != null ? TypeHelper.ConvertToClass<T>(foundControl) : null;
+
+			if ( foundControl != null && foundControl is T )
+			{
+				return TypeHelper.ConvertToClass<T>( foundControl );
+			}
+
+			return null;
 		}
 
 		/// <summary>
