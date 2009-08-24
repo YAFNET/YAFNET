@@ -263,21 +263,6 @@ namespace YAF.Classes.Core
 
 		protected void SetupHeaderElements()
 		{
-			if ( PageContext.BoardSettings.AllowThemedLogo && !Config.IsAnyPortal )
-			{
-				string graphicSrc = GetThemeContents( "FORUM", "BANNER", null );
-
-				if ( !String.IsNullOrEmpty(graphicSrc))
-				{
-					HtmlImage graphicCtrl = ControlHelper.FindControlRecursiveBothAs<HtmlImage>( this, "imgBanner" );
-
-					if ( graphicCtrl != null )
-					{
-						graphicCtrl.Src = graphicSrc;
-					}
-				}
-			}
-
 			InsertCssRefresh(TopPageControl);
 		}
 
@@ -286,8 +271,8 @@ namespace YAF.Classes.Core
 			// sets up the head elements in addition to the Css and image elements
 			SetupHeaderElements();
 			// setup the forum control header & footer properties
-			ForumHeader.SimpleRender = !_showToolBar;
-			ForumFooter.SimpleRender = !_showFooter;
+			ForumHeader.SimpleRender = !ShowToolBar;
+			ForumFooter.SimpleRender = !ShowFooter;
 		}
 
 		/// <summary>
@@ -377,17 +362,25 @@ namespace YAF.Classes.Core
 		/// <summary>
 		/// Set to false if you don't want the menus at top and bottom. Only admin pages will set this to false
 		/// </summary>
-		protected bool ShowToolBar
+		public bool ShowToolBar
 		{
-			set
+			get
+			{
+				return _showToolBar;
+			}
+			protected set
 			{
 				_showToolBar = value;
 			}
 		}
 
-		protected bool ShowFooter
+		public bool ShowFooter
 		{
-			set
+			get
+			{
+				return _showFooter;
+			}
+			protected set
 			{
 				_showFooter = value;
 			}
