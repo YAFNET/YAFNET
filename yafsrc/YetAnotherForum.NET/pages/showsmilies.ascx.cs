@@ -38,21 +38,10 @@ namespace YAF.Pages
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (!IsPostBack && !PageContext.IsGuest)
-			{
-				ShowToolBar = false;
+			ShowToolBar = false;
+			ShowFooter = false;
 
-				try
-				{
-					Parent.Parent.FindControl("imgBanner").Visible = false;
-				}
-				catch
-				{
-					// control is nested more than anticipated
-				}
-
-				BindData();
-			}
+			BindData();
 		}
 
 		private void BindData()
