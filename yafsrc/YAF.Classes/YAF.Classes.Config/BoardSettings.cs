@@ -340,6 +340,11 @@ namespace YAF.Classes
 			get { return _reg.GetValue<int>("ReplaceRulesCacheTimeout", 1440); }
 			set { _reg.SetValue<int>("ReplaceRulesCacheTimeout", value); }
 		}
+		public int FirstPostCacheTimeout
+		{
+			get { return _reg.GetValue<int>( "FirstPostCacheTimeout", 120 ); }
+			set { _reg.SetValue<int>( "FirstPostCacheTimeout", value ); }
+		}
 
 		public int MaxPostSize
 		{

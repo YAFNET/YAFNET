@@ -66,6 +66,7 @@ namespace YAF.Classes
 			public const string ReplaceWords = "ReplaceWords";
 			public const string ReplaceRules = "ReplaceRules{0}";
 			public const string ForumJump = "ForumJump{0}";
+			public const string FirstPostCleaned = "FirstPostCleaned{0}{1}";
 		}
 	}
 }
