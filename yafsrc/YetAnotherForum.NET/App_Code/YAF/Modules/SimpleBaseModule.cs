@@ -96,34 +96,6 @@ namespace YAF.Modules
 
 		#endregion
 
-		#region IBaseModule Module Information
-
-		virtual public string ModuleAuthor
-		{
-			get
-			{
-				return "";
-			}
-		}
-
-		virtual public string ModuleName
-		{
-			get
-			{
-				return "";
-			}
-		}
-
-		virtual public int ModuleVersion
-		{
-			get
-			{
-				return 0;
-			}
-		}
-
-		#endregion
-
 		#region IDisposable Members
 
 		virtual public void Dispose()

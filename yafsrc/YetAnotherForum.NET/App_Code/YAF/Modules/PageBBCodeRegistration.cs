@@ -33,6 +33,7 @@ namespace YAF.Modules
 	/// <summary>
 	/// Summary description for PageTitleModule
 	/// </summary>
+	[YafModule( "Page BBCode Registration Module", "Tiny Gecko", 1 )]
 	public class PageBBCodeRegistration : SimpleBaseModule
 	{
 		public PageBBCodeRegistration()

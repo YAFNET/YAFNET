@@ -28,6 +28,7 @@ namespace YAF.Modules
 	/// <summary>
 	/// Module that handles individual page security features -- needs to be expanded.
 	/// </summary>
+	[YafModule( "Page Security Module", "Tiny Gecko", 1 )]
 	public class PageSecurityModule : SimpleBaseModule
 	{
 		public PageSecurityModule()

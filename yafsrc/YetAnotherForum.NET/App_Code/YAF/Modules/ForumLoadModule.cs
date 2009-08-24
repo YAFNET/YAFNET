@@ -31,6 +31,7 @@ namespace YAF.Modules
 	/// <summary>
 	/// Summary description for PagePopupModule
 	/// </summary>
+	[YafModule( "Forum Load Module", "Tiny Gecko", 1 )]
 	public class ForumLoadModule : SimpleBaseModule
 	{
 		public ForumLoadModule()

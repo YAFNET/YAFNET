@@ -28,6 +28,7 @@ namespace YAF.Modules
 	/// <summary>
 	/// Module that handles page permission feature
 	/// </summary>
+	[YafModule( "Page Permission Module", "Tiny Gecko", 1 )]
 	public class PagePermissionModule : SimpleBaseModule
 	{
 		public PagePermissionModule()

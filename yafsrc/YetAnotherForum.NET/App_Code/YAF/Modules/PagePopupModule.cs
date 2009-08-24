@@ -27,6 +27,7 @@ namespace YAF.Modules
 	/// <summary>
 	/// Summary description for PagePopupModule
 	/// </summary>
+	[YafModule( "Page Popup Module", "Tiny Gecko", 1 )]
 	public class PagePopupModule : SimpleBaseModule
 	{
 		protected YAF.Controls.ModalNotification _errorPopup = null;

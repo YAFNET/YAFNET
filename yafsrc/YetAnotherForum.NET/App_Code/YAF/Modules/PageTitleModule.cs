@@ -31,6 +31,7 @@ namespace YAF.Modules
 	/// <summary>
 	/// Summary description for PageTitleModule
 	/// </summary>
+	[YafModule("Page Title Module", "Tiny Gecko",1)]
 	public class PageTitleModule : SimpleBaseModule
 	{
 		protected string _forumPageTitle = null;
