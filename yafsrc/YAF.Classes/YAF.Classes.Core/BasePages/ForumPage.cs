@@ -269,11 +269,10 @@ namespace YAF.Classes.Core
 
 				if ( !String.IsNullOrEmpty(graphicSrc))
 				{
-					object imgCtrl = ControlHelper.FindControlRecursiveBoth( this, "imgBanner" );
+					HtmlImage graphicCtrl = ControlHelper.FindControlRecursiveBothAs<HtmlImage>( this, "imgBanner" );
 
-					if ( imgCtrl is HtmlImage )
+					if ( graphicCtrl != null )
 					{
-						HtmlImage graphicCtrl = (HtmlImage) imgCtrl;
 						graphicCtrl.Src = graphicSrc;
 					}
 				}
