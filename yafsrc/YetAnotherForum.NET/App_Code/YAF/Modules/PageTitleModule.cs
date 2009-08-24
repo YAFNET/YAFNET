@@ -117,11 +117,10 @@ namespace YAF.Modules
 			else
 			{
 				// old style
-				object objTitle = ControlHelper.FindControlRecursiveBoth( CurrentForumPage, "ForumTitle" );
+				HtmlTitle title = ControlHelper.FindControlRecursiveBothAs<HtmlTitle>( CurrentForumPage, "ForumTitle" );
 
-				if ( objTitle != null && objTitle is HtmlTitle )
+				if ( title != null )
 				{
-					HtmlTitle title = objTitle as HtmlTitle;
 					title.Text = _forumPageTitle;
 				}
 			}
