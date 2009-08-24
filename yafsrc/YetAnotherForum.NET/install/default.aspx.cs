@@ -21,12 +21,14 @@
 using System;
 using System.Configuration;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Web.Security;
 using System.Web.UI.WebControls;
 using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -43,26 +45,90 @@ namespace YAF.Install
 		private const string _bbcodeImport = "bbCodeExtensions.xml";
 		private const string _fileImport = "fileExtensions.xml";
 
-		#region events
+		#region Properties
+		private bool IsInstalled
+		{
+			get
+			{
+				return !String.IsNullOrEmpty( Config.GetConfigValueAsString( "YAF.configPassword" ) );
+			}
+		}
+
+		private int PageBoardID
+		{
+			get
+			{
+				try
+				{
+					return int.Parse( YAF.Classes.Config.BoardID );
+				}
+				catch
+				{
+					return 1;
+				}
+			}
+		}
+
+		private string CurrentWizardStepID
+		{
+			get
+			{
+				return InstallWizard.WizardSteps[InstallWizard.ActiveStepIndex].ID;
+			}
+			set
+			{
+				int index = IndexOfWizardID( value );
+				if ( index >= 0 )
+				{
+					InstallWizard.MoveTo( InstallWizard.WizardSteps[index] );
+				}
+			}
+		}
+
+		private Configuration _webConfig = null;
+		private Configuration WebConfig
+		{
+			get
+			{
+				if ( _webConfig == null )
+					_webConfig = WebConfigurationManager.OpenWebConfiguration( "~/" );
+
+				return _webConfig;
+			}
+		}
+
+		#endregion
+
+		#region Event Handling
+		protected void Page_Init( object sender, EventArgs e )
+		{
+			// set the connection manager to the dynamic...
+			YafDBAccess.Current.SetConnectionManagerAdapter<YAF.Classes.Core.YafDynamicDBConnManager>();
+		}
+
 		private void Page_Load( object sender, System.EventArgs e )
 		{
+
 			if ( !IsPostBack )
 			{
-				Cache ["DBVersion"] = DB.DBVersion;
+				Cache["DBVersion"] = DB.DBVersion;
 
-				InstallWizard.ActiveStepIndex = IsInstalled ? 1 : 0;
-				
+				CurrentWizardStepID = IsInstalled ? "WizEnterPassword" : "WizCreatePassword";//"WizDatabaseConnection";
+
 				if ( !IsInstalled )
 				{
 					// fake the board settings
 					YafContext.Current.BoardSettings = new YafBoardSettings();
 				}
 
-				TimeZones.DataSource = YafStaticData.TimeZones( "english.xml" );
+				TimeZones.DataSource = StaticDataHelper.TimeZones( "english.xml" );
 
 				DataBind();
 
 				TimeZones.Items.FindByValue( "0" ).Selected = true;
+
+				// see if we need to do migration again...
+
 			}
 		}
 
@@ -80,16 +146,16 @@ namespace YAF.Install
 			}
 		}
 
-		protected void Password_Postback(object sender, System.EventArgs e)
+		protected void Password_Postback( object sender, System.EventArgs e )
 		{
 			// prepare even arguments for calling Wizard_NextButtonClick event handler
-			WizardNavigationEventArgs eventArgs = new WizardNavigationEventArgs(InstallWizard.ActiveStepIndex, InstallWizard.ActiveStepIndex + 1);
+			WizardNavigationEventArgs eventArgs = new WizardNavigationEventArgs( InstallWizard.ActiveStepIndex, InstallWizard.ActiveStepIndex + 1 );
 
 			// call it
-			Wizard_NextButtonClick(sender, eventArgs);
+			Wizard_NextButtonClick( sender, eventArgs );
 
 			// move to next step only if it wasn't cancelled within next button event handler
-			if (!eventArgs.Cancel) InstallWizard.MoveTo(InstallWizard.WizardSteps[eventArgs.NextStepIndex]);
+			if ( !eventArgs.Cancel ) InstallWizard.MoveTo( InstallWizard.WizardSteps[eventArgs.NextStepIndex] );
 		}
 
 		protected void Wizard_FinishButtonClick( object sender, WizardNavigationEventArgs e )
@@ -110,7 +176,7 @@ namespace YAF.Install
 		{
 			// go back only from last step (to user/roles migration)
 			if ( e.CurrentStepIndex == ( InstallWizard.WizardSteps.Count - 1 ) )
-				InstallWizard.MoveTo( InstallWizard.WizardSteps [e.CurrentStepIndex - 1] );
+				InstallWizard.MoveTo( InstallWizard.WizardSteps[e.CurrentStepIndex - 1] );
 			else
 				// othwerise cancel action
 				e.Cancel = true;
@@ -118,15 +184,15 @@ namespace YAF.Install
 
 		protected void Wizard_ActiveStepChanged( object sender, EventArgs e )
 		{
-			if ( InstallWizard.ActiveStepIndex == 1 && !IsInstalled )
+			if ( CurrentWizardStepID == "WizCreatePassword" && !IsInstalled )
 			{
 				InstallWizard.ActiveStepIndex++;
 			}
-			else if ( InstallWizard.ActiveStepIndex == 3 && DB.IsForumInstalled )
+			else if ( CurrentWizardStepID == "WizCreateForum" && DB.IsForumInstalled )
 			{
 				InstallWizard.ActiveStepIndex++;
 			}
-			else if ( InstallWizard.ActiveStepIndex == 4 )
+			else if ( CurrentWizardStepID == "WizMigrateUsers" )
 			{
 				if ( !IsInstalled )
 				{
@@ -135,138 +201,315 @@ namespace YAF.Install
 				}
 				else
 				{
-					object version = Cache["DBVersion"];
+					object version = Cache["DBVersion"] ?? DB.DBVersion;
 
-					if ( version == null ) version = DB.DBVersion;
-
-					if (((int)version) >= 30 || ((int)version) == -1 )
+					if ( ( (int)version ) >= 30 || ( (int)version ) == -1 )
 					{
 						// migration is NOT needed...
 						InstallWizard.ActiveStepIndex++;
 					}
 
-					Cache.Remove("DBVersion");
+					Cache.Remove( "DBVersion" );
 				}
+			}
+		}
+
+		protected void Wizard_Load( object sender, EventArgs e )
+		{
+			switch ( CurrentWizardStepID )
+			{
+				case "WizDatabaseConnection":
+					// fill with connection strings...
+					FillWithConnectionStrings();
+					break;
+				case "WizValidatePermission":
+					//ValidatePermissionStep();
+					break;
 			}
 		}
 
 		protected void Wizard_NextButtonClick( object sender, WizardNavigationEventArgs e )
 		{
 			e.Cancel = true;
-			//try
+
+			switch ( InstallWizard.WizardSteps[e.CurrentStepIndex].ID )
 			{
-				switch ( e.CurrentStepIndex )
-				{
-					case 0:
-						if ( TextBox1.Text == string.Empty )
-						{
-							AddLoadMessage( "Missing configuration password." );
-							return;
-						}
-						else if ( TextBox2.Text != TextBox1.Text )
-						{
-							AddLoadMessage( "Password not verified." );
-							return;
-						}
+				case "WizDatabaseConnection":
+					e.Cancel = false;
+					break;
+				case "WizCreatePassword":
+					if ( TextBox1.Text == string.Empty )
+					{
+						AddLoadMessage( "Missing configuration password." );
+						break;
+					}
 
-						try
-						{
-							Configuration config = WebConfigurationManager.OpenWebConfiguration( "~/" );
-							AppSettingsSection appSettings = config.GetSection( "appSettings" ) as AppSettingsSection;
+					if ( TextBox2.Text != TextBox1.Text )
+					{
+						AddLoadMessage( "Password not verified." );
+						break;
+					}
 
-							if ( appSettings != null )
+					try
+					{
+						AppSettingsSection appSettings = WebConfig.GetSection( "appSettings" ) as AppSettingsSection;
+
+						if ( appSettings != null )
+						{
+							if ( appSettings.Settings["YAF.ConfigPassword"] != null )
 							{
-								if ( appSettings.Settings ["YAF.ConfigPassword"] != null )
-								{
-									appSettings.Settings.Remove( "YAF.ConfigPassword" );
-								}
-
-								appSettings.Settings.Add( "YAF.ConfigPassword", TextBox1.Text );
+								appSettings.Settings.Remove( "YAF.ConfigPassword" );
 							}
 
-							config.Save( ConfigurationSaveMode.Modified );
-							e.Cancel = false;
+							appSettings.Settings.Add( "YAF.ConfigPassword", TextBox1.Text );
 						}
-						catch
-						{
-							// just a warning now...
-							throw new Exception( "Cannot save the YAF.ConfigPassword to the app.config file. Please verify that the ASPNET user has write access permissions to the app.config file. Or modify the app.config \"YAF.ConfigPassword\" key with a plaintext password and try again." );
-						}					
 
-						break;
-					case 1:
-						if ( Config.GetConfigValueAsString( "YAF.ConfigPassword" ) == System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox3.Text, "md5" ) ||
-									Config.GetConfigValueAsString( "YAF.ConfigPassword" ) == TextBox3.Text.Trim() )
-							e.Cancel = false;
-						else
-							AddLoadMessage( "Wrong password!" );
-						break;
-					case 2:
-						if ( UpgradeDatabase( FullTextSupport.Checked ) )
-							e.Cancel = false;
-						break;
-					case 3:
-						if ( CreateForum() )
-							e.Cancel = false;
-						break;
-					case 4:
-						// migrate users/roles only if user does not want to skip
-						if ( !skipMigration.Checked )
-						{
-							RoleMembershipHelper.SyncRoles( PageBoardID );
-							RoleMembershipHelper.SyncUsers( PageBoardID );
-						}
+						WebConfig.Save( ConfigurationSaveMode.Modified );
 						e.Cancel = false;
-						break;
-					case 5:
-						YafContext.Current.BoardSettings = null;
-						break;
-					default:
-						throw new ApplicationException( e.CurrentStepIndex.ToString() );
-				}
+					}
+					catch
+					{
+						// just a warning now...
+						throw new Exception(
+							"Cannot save the YAF.ConfigPassword to the app.config file. Please verify that the ASPNET user has write access permissions to the app.config file. Or modify the app.config \"YAF.ConfigPassword\" key with a plaintext password and try again." );
+					}
+
+					break;
+				case "WizEnterPassword":
+					if ( Config.GetConfigValueAsString( "YAF.ConfigPassword" ) ==
+							 FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox3.Text, "md5" ) ||
+							 Config.GetConfigValueAsString( "YAF.ConfigPassword" ) == TextBox3.Text.Trim() )
+						e.Cancel = false;
+					else
+						AddLoadMessage( "Wrong password!" );
+					break;
+				case "WizCreateForum":
+					if ( CreateForum() )
+						e.Cancel = false;
+					break;
+				case "WizInitDatabase":
+					if ( UpgradeDatabase( FullTextSupport.Checked ) )
+						e.Cancel = false;
+					break;
+				case "WizMigrateUsers":
+					// migrate users/roles only if user does not want to skip
+					if ( !skipMigration.Checked )
+					{
+						RoleMembershipHelper.SyncRoles( PageBoardID );
+						RoleMembershipHelper.SyncUsers( PageBoardID );
+					}
+					e.Cancel = false;
+					break;
+				case "WizFinished":
+					YafContext.Current.BoardSettings = null;
+					break;
+				default:
+					throw new ApplicationException( "Installation Wizard step not handled: " + InstallWizard.WizardSteps[e.CurrentStepIndex].ID );
 			}
-			/*catch ( Exception x )
-			{
-				AddLoadMessage( x.Message );
-			}*/
 		}
+
+		protected void rblYAFDatabase_SelectedIndexChanged( object sender, EventArgs e )
+		{
+			if ( rblYAFDatabase.SelectedValue == "create" )
+			{
+				ExistingConnectionHolder.Visible = false;
+				NewConnectionHolder.Visible = true;
+			}
+			else if ( rblYAFDatabase.SelectedValue == "existing" )
+			{
+				ExistingConnectionHolder.Visible = true;
+				NewConnectionHolder.Visible = false;
+			}
+		}
+
+		protected void btnTestDBConnection_Click( object sender, EventArgs e )
+		{
+			// attempt to connect selected DB...
+			YafContext.Current["ConnectionString"] = CurrentConnString;
+
+			try
+			{
+				using ( YafDBConnManager connection = YafDBAccess.Current.GetConnectionManager())
+				{
+					// attempt to connect to the db...
+					SqlConnection conn = connection.OpenDBConnection;
+				}
+
+				// success
+				UpdateConnectionInfo( "Connection Succeeded", "successinfo" );
+			}
+			catch ( Exception x )
+			{
+				// unable to connect...
+				UpdateConnectionInfo( "Failed to connect:<br/><br/>" + x.Message, "errorinfo" );
+			}
+		}
+
+		protected void chkDBIntegratedSecurity_CheckChanged( object sender, EventArgs e )
+		{
+			DBUsernamePasswordHolder.Visible = !chkDBIntegratedSecurity.Checked;
+		}
+
 		#endregion
 
-		protected override void Render( System.Web.UI.HtmlTextWriter writer )
+		#region Event Helper Functions
+		private bool UpdateDatabaseConnection()
 		{
-			base.Render( writer );
-			if ( _loadMessage != "" )
+			if ( rblYAFDatabase.SelectedValue == "existing" && lbConnections.SelectedIndex >= 0 )
 			{
-				writer.WriteLine( "<script language='javascript'>" );
-				writer.WriteLine( "onload = function() {" );
-				writer.WriteLine( "	alert('{0}');", _loadMessage );
-				writer.WriteLine( "}" );
-				writer.WriteLine( "</script>" );
+				string selectedConnection = lbConnections.SelectedValue;
+
+				if ( selectedConnection != "yafnet" )
+				{
+					// make sure permissions allow modifying the AppSettings...
+					if ( !HasAppSettingWritePermission() )
+					{
+						NoWriteAppSettingsHolder.Visible = true;
+						AppSettingsSection appSettings = WebConfig.GetSection( "appSettings" ) as AppSettingsSection;
+						if ( appSettings != null ) lblAppSettingsFile.Text = appSettings.File;
+						lblConnectionStringName.Text = selectedConnection;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		private void UpdateConnectionInfo(string info, string cssClass)
+		{
+			ConnectionInfoHolder.Visible = true;
+			lblConnectionDetails.Text = info;
+			lblConnectionDetails.CssClass = cssClass;
+		}
+
+		private void FillWithConnectionStrings()
+		{
+			if ( lbConnections.Items.Count == 0 )
+			{
+				foreach ( ConnectionStringSettings connectionString in ConfigurationManager.ConnectionStrings )
+				{
+					lbConnections.Items.Add( connectionString.Name );
+				}
 			}
 		}
 
-		void AddLoadMessage( string msg )
-		{
-			msg = msg.Replace( "\\", "\\\\" );
-			msg = msg.Replace( "'", "\\'" );
-			msg = msg.Replace( "\r\n", "\\r\\n" );
-			msg = msg.Replace( "\n", "\\n" );
-			msg = msg.Replace( "\"", "\\\"" );
-			_loadMessage += msg + "\\n\\n";
-		}
-
-		#region property IsInstalled
-		private bool IsInstalled
+		private string CurrentConnString
 		{
 			get
 			{
-				return !String.IsNullOrEmpty( Config.GetConfigValueAsString( "YAF.configPassword" ) );
+				SqlConnectionStringBuilder connBuilder = new SqlConnectionStringBuilder();
+
+				if ( rblYAFDatabase.SelectedValue == "existing" )
+				{
+					string connName = lbConnections.SelectedValue;
+
+					if ( !String.IsNullOrEmpty( connName ))
+					{
+						// pull from existing connection string...
+						return ConfigurationManager.ConnectionStrings[connName].ConnectionString;
+					}
+
+					return string.Empty;
+				}
+
+				connBuilder.DataSource = txtDBDataSource.Text.Trim();
+				connBuilder.InitialCatalog = txtDBInitialCatalog.Text.Trim();
+
+				if ( chkDBIntegratedSecurity.Checked )
+				{
+					connBuilder.IntegratedSecurity = chkDBIntegratedSecurity.Checked;
+				}
+				else
+				{
+					connBuilder.UserID = txtDBUserID.Text.Trim();
+					connBuilder.Password = txtDBPassword.Text.Trim();
+				}
+
+				return connBuilder.ConnectionString;
 			}
 		}
-		#endregion
 
-		#region method UpgradeDatabase
-		bool UpgradeDatabase(bool fullText)
+		private bool HasConnectionStringWritePermission()
+		{
+			ConnectionStringsSection connStrings = WebConfig.GetSection( "ConnectionStrings" ) as ConnectionStringsSection;
+			const string testKeyStr = "YAF.TestString";
+
+			if ( connStrings == null )
+			{
+				return false;
+			}
+
+			bool hasWriteAccess = false;
+			try
+			{
+				if ( connStrings.ConnectionStrings[testKeyStr] != null )
+				{
+					connStrings.ConnectionStrings.Remove( testKeyStr );
+				}
+
+				connStrings.ConnectionStrings.Add( new ConnectionStringSettings(testKeyStr,"TestConnectionString;") );
+
+				WebConfig.Save( ConfigurationSaveMode.Modified );
+
+				// remove the test key immediately...
+				if ( connStrings.ConnectionStrings[testKeyStr] != null )
+				{
+					connStrings.ConnectionStrings.Remove( testKeyStr );
+				}
+
+				WebConfig.Save( ConfigurationSaveMode.Modified );
+
+				hasWriteAccess = true;
+			}
+			catch
+			{
+				hasWriteAccess = false;
+			}
+
+			return hasWriteAccess;
+		}
+
+		private bool HasAppSettingWritePermission()
+		{
+			AppSettingsSection appSettings = WebConfig.GetSection( "appSettings" ) as AppSettingsSection;
+			const string testKeyStr = "YAF.TestWrite";
+
+			if ( appSettings == null )
+			{
+				return false;
+			}
+
+			bool hasWriteAccess = false;
+			try
+			{
+				if ( appSettings.Settings[testKeyStr] != null )
+				{
+					appSettings.Settings.Remove( testKeyStr );
+				}
+
+				appSettings.Settings.Add( testKeyStr, "TestKey" );
+
+				WebConfig.Save( ConfigurationSaveMode.Modified );
+
+				// remove the test key immediately...
+				if ( appSettings.Settings[testKeyStr] != null )
+				{
+					appSettings.Settings.Remove( testKeyStr );
+				}
+
+				WebConfig.Save( ConfigurationSaveMode.Modified );
+
+				hasWriteAccess = true;
+			}
+			catch
+			{
+				hasWriteAccess = false;
+			}
+
+			return hasWriteAccess;
+		}
+
+		private bool UpgradeDatabase( bool fullText )
 		{
 			//try
 			{
@@ -281,7 +524,7 @@ namespace YAF.Install
 
 				int prevVersion = DB.DBVersion;
 
-				DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+				DB.system_updateversion( YafForumInfo.AppVersion, YafForumInfo.AppVersionName );
 
 				// Ederon : 9/7/2007
 				// resync all boards - necessary for propr last post bubbling
@@ -315,8 +558,8 @@ namespace YAF.Install
 					}
 				}
 
-                //vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
-                //DB.system_deleteinstallobjects();
+				//vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
+				//DB.system_deleteinstallobjects();
 			}
 			/*catch ( Exception x )
 			{
@@ -340,9 +583,7 @@ namespace YAF.Install
 
 			return true;
 		}
-		#endregion
 
-		#region method CreateForum
 		private bool CreateForum()
 		{
 			if ( DB.IsForumInstalled )
@@ -388,7 +629,7 @@ namespace YAF.Install
 
 				// create the admin user...
 				MembershipCreateStatus status;
-				user = Membership.CreateUser( UserName.Text, Password1.Text, AdminEmail.Text, SecurityQuestion.Text, SecurityAnswer.Text, true, out status );
+				user = YafContext.Current.CurrentMembership.CreateUser( UserName.Text, Password1.Text, AdminEmail.Text, SecurityQuestion.Text, SecurityAnswer.Text, true, null, out status );
 				if ( status != MembershipCreateStatus.Success )
 				{
 					AddLoadMessage( string.Format( "Create Admin User Failed: {0}", GetMembershipErrorMessage( status ) ) );
@@ -398,7 +639,7 @@ namespace YAF.Install
 			else
 			{
 				// try to get data for the existing user...
-				user = Membership.GetUser( ExistingUserName.Text.Trim() );
+				user = UserMembershipHelper.GetUser( ExistingUserName.Text.Trim() );
 
 				if ( user == null )
 				{
@@ -410,25 +651,25 @@ namespace YAF.Install
 			try
 			{
 				// add administrators and registered if they don't already exist...
-				if ( !Roles.RoleExists( "Administrators" ) )
+				if ( !RoleMembershipHelper.RoleExists( "Administrators" ) )
 				{
-					Roles.CreateRole( "Administrators" );
+					RoleMembershipHelper.CreateRole( "Administrators" );
 				}
-				if ( !Roles.RoleExists( "Registered" ) )
+				if ( !RoleMembershipHelper.RoleExists( "Registered" ) )
 				{
-					Roles.CreateRole( "Registered" );
+					RoleMembershipHelper.CreateRole( "Registered" );
 				}
-				if ( !Roles.IsUserInRole( user.UserName, "Administrators" ) )
+				if ( !RoleMembershipHelper.IsUserInRole( user.UserName, "Administrators" ) )
 				{
-					Roles.AddUserToRole( user.UserName, "Administrators" );
+					RoleMembershipHelper.AddUserToRole( user.UserName, "Administrators" );
 				}
 
 				// logout administrator...
 				FormsAuthentication.SignOut();
-                YAF.Classes.Data.DB.system_initialize(TheForumName.Text, TimeZones.SelectedItem.Value, ForumEmailAddress.Text, "", user.UserName, user.Email, user.ProviderUserKey);
-                YAF.Classes.Data.DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName); DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
-                //vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
-                //YAF.Classes.Data.DB.system_deleteinstallobjects();
+				YAF.Classes.Data.DB.system_initialize( TheForumName.Text, TimeZones.SelectedItem.Value, ForumEmailAddress.Text, "", user.UserName, user.Email, user.ProviderUserKey );
+				YAF.Classes.Data.DB.system_updateversion( YafForumInfo.AppVersion, YafForumInfo.AppVersionName ); DB.system_updateversion( YafForumInfo.AppVersion, YafForumInfo.AppVersionName );
+				//vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
+				//YAF.Classes.Data.DB.system_deleteinstallobjects();
 				// load default bbcode if available...
 				if ( File.Exists( Request.MapPath( _bbcodeImport ) ) )
 				{
@@ -458,7 +699,34 @@ namespace YAF.Install
 			}
 			return true;
 		}
+
+		private int IndexOfWizardID( string id )
+		{
+			WizardStepBase step = InstallWizard.FindControl( id ) as WizardStepBase;
+
+			if ( step != null )
+			{
+				return InstallWizard.WizardSteps.IndexOf( step );
+			}
+
+			return -1;
+		}
+
 		#endregion
+
+		#region General Helper Functions
+		protected override void Render( System.Web.UI.HtmlTextWriter writer )
+		{
+			base.Render( writer );
+			if ( _loadMessage != "" )
+			{
+				writer.WriteLine( "<script language='javascript'>" );
+				writer.WriteLine( "onload = function() {" );
+				writer.WriteLine( "	alert('{0}');", _loadMessage );
+				writer.WriteLine( "}" );
+				writer.WriteLine( "</script>" );
+			}
+		}
 
 		public string GetMembershipErrorMessage( MembershipCreateStatus status )
 		{
@@ -496,24 +764,18 @@ namespace YAF.Install
 			}
 		}
 
-		#region property PageBoardID
-		private int PageBoardID
+		void AddLoadMessage( string msg )
 		{
-			get
-			{
-				try
-				{
-					return int.Parse( YAF.Classes.Config.BoardID );
-				}
-				catch
-				{
-					return 1;
-				}
-			}
+			msg = msg.Replace( "\\", "\\\\" );
+			msg = msg.Replace( "'", "\\'" );
+			msg = msg.Replace( "\r\n", "\\r\\n" );
+			msg = msg.Replace( "\n", "\\n" );
+			msg = msg.Replace( "\"", "\\\"" );
+			_loadMessage += msg + "\\n\\n";
 		}
 		#endregion
 
-		#region method ExecuteScript
+		#region DB Helper Functions
 		private void ExecuteScript( string scriptFile, bool useTransactions )
 		{
 			string script = null;
@@ -534,18 +796,14 @@ namespace YAF.Install
 			{
 				throw new Exception( "Failed to read " + scriptFile, x );
 			}
-			
 
-            DB.system_initialize_executescripts(script,scriptFile, useTransactions);
-	
+			DB.system_initialize_executescripts( script, scriptFile, useTransactions );
 		}
-		#endregion
 
-		#region method FixAccess
 		private void FixAccess( bool bGrant )
 		{
-            DB.system_initialize_fixaccess(bGrant);		
+			DB.system_initialize_fixaccess( bGrant );
 		}
 		#endregion
-}
+	}
 }
