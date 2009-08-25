@@ -39,6 +39,17 @@ namespace YAF.Pages // YAF.Pages
 	public partial class search : YAF.Classes.Core.ForumPage
 	{
 		private bool _searchHandled = false;
+		protected bool SearchHandled
+		{
+			get
+			{
+				return _searchHandled;
+			}
+			set
+			{
+				_searchHandled = value;
+			}
+		}
 
 		/// <summary>
 		/// The search page constructor.
@@ -143,6 +154,13 @@ namespace YAF.Pages // YAF.Pages
 					doSearch = true;
 				}
 
+				// set the search box size via the max settings in the boardsettings.
+				if ( PageContext.BoardSettings.SearchStringMaxLength > 0)
+				{
+					txtSearchStringWhat.MaxLength = PageContext.BoardSettings.SearchStringMaxLength;
+					txtSearchStringFromWho.MaxLength = PageContext.BoardSettings.SearchStringMaxLength;
+				}
+
 				if ( doSearch ) SearchBindData( true );
 			}
 		}
@@ -157,7 +175,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 			try
 			{
-				if ( newSearch && !CheckSearchRequest() )
+				if ( newSearch && !IsValidSearchRequest() )
 				{
 					return;
 				}
@@ -167,8 +185,8 @@ namespace YAF.Pages // YAF.Pages
 					SearchWhatFlags sfw = (SearchWhatFlags)System.Enum.Parse( typeof( SearchWhatFlags ), listSearchFromWho.SelectedValue );
 					int forumID = int.Parse( listForum.SelectedValue );
 
-					DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult( txtSearchStringWhat.Text,
-					                                                                 txtSearchStringFromWho.Text, sfw, sw, forumID,
+					DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult( SearchWhatCleaned,
+					                                                                 SearchWhoCleaned, sfw, sw, forumID,
 					                                                                 PageContext.PageUserID, PageContext.PageBoardID,
 					                                                                 PageContext.BoardSettings.ReturnSearchMax,
 					                                                                 PageContext.BoardSettings.UseFullTextSearch );
@@ -227,32 +245,87 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		protected bool CheckSearchRequest()
+		protected bool IsValidSearchRequest()
 		{
-			bool whatValid = CheckSearchText( txtSearchStringWhat.Text ),
-				whoValid = CheckSearchText( txtSearchStringFromWho.Text ),
-				whatNull = txtSearchStringWhat.Text.Trim().Length == 0,
-				whoNull = txtSearchStringFromWho.Text.Trim().Length == 0;
+			bool whatValid = IsValidSearchText( SearchWhatCleaned );
+			bool whoValid = IsValidSearchText( SearchWhoCleaned );
 
-			if ( (!whoNull && whoValid && ((whatNull && !whatValid) || (!whatNull && whatValid))) ||
-				(whoNull && !whoValid && !whatNull && whatValid) )
+			// they are both valid...
+			if ( whoValid && whatValid )
 			{
 				return true;
 			}
-			else
+
+			if ( !whoValid && whatValid )
 			{
-				if ( !_searchHandled )
-					PageContext.AddLoadMessage( GetTextFormatted( "SEARCH_CRITERIA_ERROR",
-																										 PageContext.BoardSettings.SearchStringMinLength ) );
-				_searchHandled = true;
-				return false;
+				// makes sure no value is used...
+				SearchWhoCleaned = String.Empty;
+
+				// valid search...
+				return true;
 			}
+
+			// !whatValid is always true... could be removed but left for clarity.
+			if ( whoValid && !whatValid )
+			{
+				// make sure no value is used...
+				SearchWhatCleaned = String.Empty;
+
+				// valid search...
+				return true;
+			}
+
+			bool searchTooSmall = false;
+			bool searchTooLarge = false;
+
+			if ( String.IsNullOrEmpty( SearchWhoCleaned ) && IsSearchTextTooSmall( SearchWhatCleaned ) )
+			{
+				searchTooSmall = true;
+			}
+			else if ( String.IsNullOrEmpty( SearchWhatCleaned ) && IsSearchTextTooSmall( SearchWhoCleaned ) )
+			{
+				searchTooSmall = true;
+			}
+			else if ( String.IsNullOrEmpty( SearchWhoCleaned ) && IsSearchTextTooLarge( SearchWhatCleaned ) )
+			{
+				searchTooLarge = true;
+			}
+			else if ( String.IsNullOrEmpty( SearchWhatCleaned ) && IsSearchTextTooLarge( SearchWhoCleaned ) )
+			{
+				searchTooLarge = true;
+			}
+
+			// search may not be valid for some reason...
+			if ( searchTooSmall )
+			{
+				PageContext.AddLoadMessage( GetTextFormatted( "SEARCH_CRITERIA_ERROR_MIN",
+				                                              PageContext.BoardSettings.SearchStringMinLength ) );
+			}
+			else if ( searchTooLarge )
+			{
+				PageContext.AddLoadMessage( GetTextFormatted( "SEARCH_CRITERIA_ERROR_MAX",
+				                                              PageContext.BoardSettings.SearchStringMaxLength ) );						
+			}
+
+			return false;
 		}
 
-		protected bool CheckSearchText(string searchText)
+		protected bool IsValidSearchText(string searchText)
 		{
-			return searchText.Trim().Length >= PageContext.BoardSettings.SearchStringMinLength &&
+			return !String.IsNullOrEmpty( searchText ) && !IsSearchTextTooSmall(searchText) && !IsSearchTextTooLarge( searchText ) && 
 				Regex.IsMatch( searchText, PageContext.BoardSettings.SearchStringPattern );
+		}
+
+		protected bool IsSearchTextTooSmall( string text )
+		{
+			if ( text.Length < PageContext.BoardSettings.SearchStringMinLength ) return true;
+			return false;
+		}
+
+		protected bool IsSearchTextTooLarge( string text )
+		{
+			if ( text.Length > PageContext.BoardSettings.SearchStringMaxLength ) return true;
+			return false;
 		}
 
 		protected void OnUpdateHistoryNavigate( object sender, HistoryEventArgs e )
@@ -277,6 +350,44 @@ namespace YAF.Pages // YAF.Pages
 
 				// use existing search data...
 				SearchUpdatePanel.Update();
+			}
+		}
+
+		private string _searchWhatCleaned;
+		protected string SearchWhatCleaned
+		{
+			get
+			{
+				if ( _searchWhatCleaned == null )
+				{
+					_searchWhatCleaned =
+						StringHelper.RemoveMultipleSingleQuotes( StringHelper.RemoveMultipleWhitespace( txtSearchStringWhat.Text.Trim() ) );
+				}
+
+				return _searchWhatCleaned;
+			}
+			set
+			{
+				_searchWhatCleaned = value;
+			}
+		}
+
+		private string _searchWhoCleaned;
+		protected string SearchWhoCleaned
+		{
+			get
+			{
+				if ( _searchWhoCleaned == null )
+				{
+					_searchWhoCleaned =
+						StringHelper.RemoveMultipleSingleQuotes( StringHelper.RemoveMultipleWhitespace( txtSearchStringFromWho.Text.Trim() ) );
+				}
+
+				return _searchWhoCleaned;
+			}
+			set
+			{
+				_searchWhoCleaned = value;
 			}
 		}
 	}

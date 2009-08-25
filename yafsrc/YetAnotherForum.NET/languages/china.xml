@@ -841,6 +841,8 @@
     <Resource tag="RESULT50">每页 50 条</Resource>
     <Resource tag="RESULTS">搜索结果</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Search texts must be less than {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
     <Resource tag="TITLE">搜索</Resource>
     <Resource tag="TOPIC">话题:</Resource>
   </page>

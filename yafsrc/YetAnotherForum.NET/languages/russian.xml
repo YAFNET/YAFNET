@@ -808,6 +808,8 @@
     <Resource tag="RESULT50">50 результатов на страницу</Resource>
     <Resource tag="RESULTS">Результаты</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR">Текст для поиска должен быть длиной не менее {0} символов и должен соответствовать правилам форума для описка (смотрите FAQ форума для дальнейшей информации).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Search texts must be less than {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
     <Resource tag="TITLE">Поиск</Resource>
     <Resource tag="TOPIC">Тема:</Resource>
   </page>

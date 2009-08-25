@@ -51,14 +51,10 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
-
-			// Ederon : guess we don't need to test CanLogin anymore
-			if ( /*!CanLogin ||*/ PageContext.BoardSettings.DisableRegistrations)
-				YafBuildLink.AccessDenied();
-
 			if (!IsPostBack)
 			{
+				CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
+
 				PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 				PageLinks.AddLink(GetText("TITLE"));
 

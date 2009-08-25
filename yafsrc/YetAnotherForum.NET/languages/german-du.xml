@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" code="de" language="German">
+<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="German" code="de">
   <page name="ACTIVE">
     <Resource tag="BY">von {0}</Resource>
     <Resource tag="LAST_24">( In den letzten 24 Stunden)</Resource>
@@ -809,6 +809,8 @@
     <Resource tag="RESULT50">50 Ergebnisse pro Seite</Resource>
     <Resource tag="RESULTS">Ergebnisse</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR">Suchtexte müssen mindestens {0} Zeichen lang sein und mit den Regeln des Forums übereinstimmen (Siehe FAQ).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Search texts must be less than {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
     <Resource tag="TITLE">Suche</Resource>
     <Resource tag="TOPIC">Thema:</Resource>
   </page>

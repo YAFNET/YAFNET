@@ -808,6 +808,8 @@
     <Resource tag="RESULT50">50 نتیجه در هر صفحه</Resource>
     <Resource tag="RESULTS">نتایج</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR">.متن مورد جستجو باید حداقل {0} کاراکتر طول داشته باشد و با قوانین انجمن برای جستجو مطابقت کند.برای اطلاعات بیشتر بخش پرسشهای متداول را ببینید</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Search texts must be less than {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
     <Resource tag="TITLE">جستجو</Resource>
     <Resource tag="TOPIC">عنوان:</Resource>
   </page>

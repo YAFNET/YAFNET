@@ -274,14 +274,21 @@
                             <tr>
                                 <td class="postheader">
                                     <b>Search Text Minimal Length:</b><br>
-                                    Minimal length of the search string allowed</td>
+                                    Minimal length of the search string allowed.</td>
                                 <td class="post">
                                     <asp:TextBox ID="SearchStringMinLength" runat="server"></asp:TextBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
+                                    <b>Search Text Maximum Length:</b><br>
+                                    Maximum length of the search string allowed.</td>
+                                <td class="post">
+                                    <asp:TextBox ID="SearchStringMaxLength" runat="server"></asp:TextBox></td>
+                            </tr>                            
+                            <tr>
+                                <td class="postheader">
                                     <b>Search Text Pattern:</b><br>
-                                    Allowed search text pattern</td>
+                                    Allowed search text (Regular Expression) pattern.</td>
                                 <td class="post">
                                     <asp:TextBox ID="SearchStringPattern" runat="server"></asp:TextBox></td>
                             </tr>

@@ -44,14 +44,10 @@ namespace YAF.Pages // YAF.Pages
 
     protected void Page_Load( object sender, EventArgs e )
     {
-			PasswordRecovery1.MembershipProvider = Config.MembershipProvider;
-
-		// Ederon : guess we don't need this if anymore
-		//if ( !CanLogin )
-        //YafBuildLink.Redirect( ForumPages.forum );
-
       if ( !IsPostBack )
       {
+				PasswordRecovery1.MembershipProvider = Config.MembershipProvider;
+
         PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
         PageLinks.AddLink( GetText( "TITLE" ) );
 
