@@ -297,6 +297,11 @@ namespace YAF.Classes
 			get { return _reg.GetValue<int>("SearchStringMinLength", 4); }
 			set { _reg.SetValue<int>("SearchStringMinLength", value); }
 		}
+		public int SearchStringMaxLength
+		{
+			get { return _reg.GetValue<int>( "SearchStringMaxLength", 50 ); }
+			set { _reg.SetValue<int>( "SearchStringMaxLength", value ); }
+		}
 		public int SearchPermissions
 		{
 			get { return _reg.GetValue<int>("SearchPermissions", (int)ViewPermissions.Everyone); }

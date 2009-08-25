@@ -212,6 +212,8 @@ namespace YAF.Classes.Data
 		/// <returns>Results</returns>
 		static public DataTable GetSearchResult( string toSearchWhat, string toSearchFromWho, SearchWhatFlags searchFromWhoMethod, SearchWhatFlags searchWhatMethod, int forumIDToStartAt, int userID, int boardId, int maxResults, bool useFullText )
 		{
+			// TODO: Break up this function to be more managable.
+
 			bool bFirst = true;
 			System.Text.StringBuilder forumIds = new System.Text.StringBuilder();
 

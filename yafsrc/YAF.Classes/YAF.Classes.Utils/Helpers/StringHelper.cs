@@ -152,6 +152,17 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
+		/// Removes multiple single quote ' characters from a string.
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
+		static public string RemoveMultipleSingleQuotes( string text )
+		{
+			Regex r = new Regex( @"\'" );
+			return r.Replace( text, @"'" );
+		}
+
+		/// <summary>
 		/// Converts a string into it's hexadecimal representation.
 		/// </summary>
 		/// <param name="strValue"></param>
