@@ -62,38 +62,11 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v2.0|AnyCPU' ">
-    <Reference Include="CookComputing.XmlRpcV2, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\YetAnotherForum.NET\Bin\Net2.0\CookComputing.XmlRpcV2.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v2.0|AnyCPU' ">
-    <Reference Include="CookComputing.XmlRpcV2, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\YetAnotherForum.NET\Bin\Net2.0\CookComputing.XmlRpcV2.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v3.5|AnyCPU' ">
-    <Reference Include="CookComputing.XmlRpcV2, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\YetAnotherForum.NET\Bin\Net3.5\CookComputing.XmlRpcV2.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release NET v3.5|AnyCPU' ">
-    <Reference Include="CookComputing.XmlRpcV2, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\YetAnotherForum.NET\Bin\Net3.5\CookComputing.XmlRpcV2.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildLink.cs" />
     <Compile Include="ForumInfo.cs" />
     <Compile Include="Helpers\BBCodeHelper.cs" />
     <Compile Include="Helpers\ControlHelper.cs" />
-    <Compile Include="ExternalAPI\MetaWeblog.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\IPHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
