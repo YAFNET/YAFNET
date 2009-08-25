@@ -41,128 +41,6 @@ namespace YAF.Classes.UI
 		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
 		/// <summary>
-		/// Formats message by converting "Forum Code" to HTML.
-		/// </summary>
-		/// <param name="basePage">Forum Page</param>
-		/// <param name="Message">Message to Convert</param>
-		/// <returns>Converted Message Text</returns>
-		static protected string ConvertForumCode( string message )
-		{
-			string tmp = "";
-			bool inCode = false;
-
-			for ( int i = 0; i < message.Length; i++ )
-			{
-				if ( message [i] == '[' )
-				{
-					int e1 = message.IndexOf( ']', i );
-					int e2 = message.IndexOf( '=', i );
-
-					if ( e1 > 0 )
-					{
-						bool none = false;
-						string cmd, arg = null;
-
-						if ( e2 < 0 || e2 > e1 )
-						{
-							cmd = message.Substring( i + 1, e1 - i - 1 );
-							arg = null;
-						}
-						else
-						{
-							cmd = message.Substring( i + 1, e2 - i - 1 );
-							arg = message.Substring( e2 + 1, e1 - e2 - 1 );
-
-							arg = arg.Trim();
-
-							arg = HttpContext.Current.Server.HtmlDecode( arg );
-							if ( arg.Length > 2 && arg [0] == '"' && arg [arg.Length - 1] == '"' )
-								arg = arg.Substring( 1, arg.Length - 2 );
-						}
-
-						cmd = cmd.ToLower();
-						if ( !inCode || cmd == "/code" )
-						{
-							switch ( cmd )
-							{
-								case "b":
-									tmp += "<b>";
-									break;
-								case "/b":
-									tmp += "</b>";
-									break;
-								case "i":
-									tmp += "<em>";
-									break;
-								case "/i":
-									tmp += "</em>";
-									break;
-								case "u":
-									tmp += "<u>";
-									break;
-								case "/u":
-									tmp += "</u>";
-									break;
-								case "url":
-									if ( arg != null )
-									{
-										if ( YafContext.Current.BoardSettings.BlankLinks )
-											tmp += String.Format( "<a target=\"_blank\" href=\"{0}\">", arg );
-										else
-											tmp += String.Format( "<a target=\"_top\" href=\"{0}\">", arg );
-									}
-									else
-										tmp += "<a>";
-									break;
-								case "/url":
-									tmp += "</a>";
-									break;
-								case "img":
-									tmp += "<img src=\"";
-									break;
-								case "/img":
-									tmp += "\"/>";
-									break;
-								case "color":
-									if ( arg != null )
-										tmp += String.Format( "<span style=\"color:{0}\">", arg );
-									else
-										tmp += "<span>";
-									break;
-								case "/color":
-									tmp += "</span>";
-									break;
-								case "code":
-									tmp += "<pre>";
-									inCode = true;
-									break;
-								case "/code":
-									tmp += "</pre>";
-									inCode = false;
-									break;
-								default:
-									none = true;
-									break;
-							}
-						}
-						else
-						{
-							none = true;
-						}
-						if ( !none )
-						{
-							i = e1;
-							continue;
-						}
-					}
-				}
-				tmp += message [i];
-			}
-
-			return tmp;
-		}
-
-		/// <summary>
 		/// For backwards compatibility
 		/// </summary>
 		/// <param name="message"></param>
@@ -348,27 +226,6 @@ namespace YAF.Classes.UI
 			return quote.Replace( body, "" ).TrimStart();
 		}
 
-		static private bool IsValidTag( string tag, string [] allowedTags )
-		{
-			if ( tag.IndexOf( "javascript" ) >= 0 ) return false;
-			if ( tag.IndexOf( "vbscript" ) >= 0 ) return false;
-			if ( tag.IndexOf( "onclick" ) >= 0 ) return false;
-
-			char [] endchars = new char [] { ' ', '>', '/', '\t' };
-
-			int pos = tag.IndexOfAny( endchars, 1 );
-			if ( pos > 0 ) tag = tag.Substring( 0, pos );
-			if ( tag [0] == '/' ) tag = tag.Substring( 1 );
-
-			// check if it's a valid tag
-			foreach ( string aTag in allowedTags )
-			{
-				if ( tag == aTag ) return true;
-			}
-
-			return false;
-		}
-
 		static public string RepairHtml( string html, bool allowHtml )
 		{
 			if ( !allowHtml )
@@ -389,7 +246,7 @@ namespace YAF.Classes.UI
 				{
 					string tag = html.Substring( m [i].Index + 1, m [i].Length - 1 ).Trim().ToLower();
 
-					if ( !IsValidTag( tag, allowedTags ) )
+					if ( !HtmlHelper.IsValidTag( tag, allowedTags ) )
 					{
 						html = html.Remove( m [i].Index, m [i].Length );
 						// just don't show this tag for now

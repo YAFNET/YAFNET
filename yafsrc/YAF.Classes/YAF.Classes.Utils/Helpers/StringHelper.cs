@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace YAF.Classes.Utils
 {
@@ -137,6 +138,17 @@ namespace YAF.Classes.Utils
 			if (nullify && text.Trim().Length == 0) text = null;
 
 			return text;
+		}
+
+		/// <summary>
+		/// Removes multiple whitespace characters from a string.
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
+		static public string RemoveMultipleWhitespace(string text )
+		{
+			Regex r = new Regex(@"\s+");
+			return r.Replace( text, @" " );
 		}
 
 		/// <summary>
