@@ -547,7 +547,7 @@ namespace YAF.Pages
 				try
 				{
 					// Post to blog
-					MetaWeblog blog = new MetaWeblog(PageContext.Profile.BlogServiceUrl);
+					YAF.Utilities.MetaWeblog blog = new YAF.Utilities.MetaWeblog( PageContext.Profile.BlogServiceUrl );
 					blogPostID = blog.newPost(PageContext.Profile.BlogServicePassword, PageContext.Profile.BlogServiceUsername, BlogPassword.Text, subject, message);
 				}
 				catch
