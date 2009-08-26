@@ -19,10 +19,7 @@ namespace YAF.Classes.Pattern
 
 		static private T GetInstance()
 		{
-			/*
-			Page currentPage = HttpContext.Current.Handler as Page;
-
-			if ( currentPage == null )
+			if ( HttpContext.Current == null )
 			{
 				if ( _instance == null )
 				{
@@ -30,9 +27,6 @@ namespace YAF.Classes.Pattern
 				}
 				return _instance;
 			}			
-
-			return (T)( currentPage.Items[typeStr] ?? ( currentPage.Items[typeStr] = (T)Activator.CreateInstance( typeof( T ), true ) ) );
-			*/
 
 			string typeStr = typeof( T ).ToString();
 

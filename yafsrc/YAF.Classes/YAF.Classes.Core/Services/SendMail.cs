@@ -171,7 +171,7 @@ namespace YAF.Classes.Core
 			catch (Exception x)
 			{
 				// log the error...
-				YAF.Classes.Data.DB.eventlog_create(1, "SendMailThread", x);
+				//YAF.Classes.Data.DB.eventlog_create(1, "SendMailThread", x);
 			}
 			finally
 			{

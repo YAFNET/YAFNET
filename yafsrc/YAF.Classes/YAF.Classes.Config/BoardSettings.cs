@@ -172,6 +172,11 @@ namespace YAF.Classes
 			get { return _regBoard.GetValue<bool>("FileExtensionAreAllowed", true); }
 			set { _regBoard.SetValue<bool>("FileExtensionAreAllowed", value); }
 		}
+		public string NotificationOnUserRegisterEmailList
+		{
+			get { return _regBoard.GetValue<string>( "NotificationOnUserRegisterEmailList", null ); }
+			set { _regBoard.SetValue<string>( "NotificationOnUserRegisterEmailList", value ); }
+		}
 
 		// didn't know where else to put this :)
 		public string SQLVersion
