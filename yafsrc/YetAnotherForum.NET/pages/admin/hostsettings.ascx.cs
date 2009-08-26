@@ -158,7 +158,7 @@ namespace YAF.Pages.Admin
 			AvatarSize.Text = (PageContext.BoardSettings.AvatarSize != 0) ? PageContext.BoardSettings.AvatarSize.ToString() : "";
 			MaxFileSize.Text = (PageContext.BoardSettings.MaxFileSize != 0) ? PageContext.BoardSettings.MaxFileSize.ToString() : "";
 
-			SQLVersion.Text = PageContext.BoardSettings.SQLVersion;
+			SQLVersion.Text = HtmlEncode( PageContext.BoardSettings.SQLVersion );
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
