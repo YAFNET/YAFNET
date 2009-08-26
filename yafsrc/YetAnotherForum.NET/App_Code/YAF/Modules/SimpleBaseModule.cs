@@ -40,22 +40,39 @@ namespace YAF.Modules
 
 		}
 
+		virtual public void InitForum()
+		{
+			
+		}
+
+		public void Init()
+		{
+			ForumControl.BeforeForumPageLoad += new EventHandler<YafBeforeForumPageLoad>( ForumControl_BeforeForumPageLoad );
+			ForumControl.AfterForumPageLoad += new EventHandler<YafAfterForumPageLoad>( ForumControl_AfterForumPageLoad );
+
+			InitForum();
+		}
+
+		void ForumControl_AfterForumPageLoad( object sender, YafAfterForumPageLoad e )
+		{
+			InitAfterPage();
+		}
+
+		void ForumControl_BeforeForumPageLoad( object sender, YafBeforeForumPageLoad e )
+		{
+			InitBeforePage();
+		}
+
 		#region IBaseModule Basic Members
 
-		protected YafContext _pageContext;
 		public YafContext PageContext
 		{
 			get
 			{
-				return _pageContext;
-			}
-			set
-			{
-				_pageContext = value;
+				return YafContext.Current;
 			}
 		}
 
-		protected ForumPage _currentForumPage;
 		public ForumPage CurrentForumPage
 		{
 			get

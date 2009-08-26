@@ -48,6 +48,26 @@ namespace YAF
 	}
 
 	/// <summary>
+	/// EventArgs class for the YafBeforeForumPageLoad event
+	/// </summary>
+	public class YafBeforeForumPageLoad : EventArgs
+	{
+		public YafBeforeForumPageLoad()
+		{
+		}
+	}
+
+	/// <summary>
+	/// EventArgs class for the YafForumPageReady event -- created for future options
+	/// </summary>
+	public class YafAfterForumPageLoad : EventArgs
+	{
+		public YafAfterForumPageLoad()
+		{
+		}
+	}
+
+	/// <summary>
 	/// Summary description for Forum.
 	/// </summary>
 	[ToolboxData( "<{0}:Forum runat=\"server\"></{0}:Forum>" )]
@@ -60,6 +80,8 @@ namespace YAF
 		private ForumPages _page;
 		private ForumPage _currentForumPage;
 		public event EventHandler<ForumPageTitleArgs> PageTitleSet;
+		public event EventHandler<YafBeforeForumPageLoad> BeforeForumPageLoad;
+		public event EventHandler<YafAfterForumPageLoad> AfterForumPageLoad;
 
 		public Forum()
 		{
@@ -71,6 +93,10 @@ namespace YAF
 			_footer = new YAF.Controls.Footer();
 			_origHeaderClientID = _header.ClientID;
 			_origFooterClientID = _footer.ClientID;
+
+			// init the modules and run them immediately...
+			YafContext.Current.BaseModuleManager.Load();
+			YafContext.Current.BaseModuleManager.CallInitModules( this );
 		}
 
 		void Forum_Unload(object sender, EventArgs e)
@@ -81,9 +107,8 @@ namespace YAF
 
 		private void Forum_Load( object sender, EventArgs e )
 		{
-			// init the modules and run them immediately...
-			YafContext.Current.BaseModuleManager.Load();
-			YafContext.Current.BaseModuleManager.InitModulesBeforeForumPage(YafContext.Current, this);
+			// context is ready to be loaded, call the before page load event...
+			if ( BeforeForumPageLoad != null ) BeforeForumPageLoad( this, new YafBeforeForumPageLoad() );
 
 			// "forum load" should be done by now, load the user and page...
 			int userId = YafContext.Current.PageUserID;
@@ -122,7 +147,7 @@ namespace YAF
 					this.Controls.Add( _footer );
 
 				// load plugins/functionality modules
-				YafContext.Current.BaseModuleManager.InitModulesAfterForumPage();
+				if ( AfterForumPageLoad != null ) AfterForumPageLoad( this, new YafAfterForumPageLoad() );
 			}
 			catch ( System.IO.FileNotFoundException )
 			{
