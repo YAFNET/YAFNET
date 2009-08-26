@@ -76,19 +76,13 @@ namespace YAF.Modules
 
 	public interface IBaseModule : IDisposable
 	{
-		YafContext PageContext
-		{
-			get;
-			set;
-		}
 		object ForumControlObj
 		{
 			get;
 			set;
 		}
 
-		void InitBeforePage();
-		void InitAfterPage();
+		void Init();
 	}
 
 	/// <summary>
@@ -99,24 +93,15 @@ namespace YAF.Modules
 		YafBaseModuleManager()
 			: base( "YAF.Modules", "YAF.Modules.IBaseModule" )
 		{
-			InitModules( BuildManager.CodeAssemblies );
+			base.InitModules( BuildManager.CodeAssemblies );
 		}
 
-		public void InitModulesBeforeForumPage(YafContext currentContext, object forumControl)
+		public void CallInitModules( object forumControl )
 		{
-			foreach (IBaseModule currentModule in Modules)
+			foreach ( IBaseModule currentModule in Modules )
 			{
 				currentModule.ForumControlObj = forumControl;
-				currentModule.PageContext = currentContext;
-				currentModule.InitBeforePage();
-			}
-		}
-
-		public void InitModulesAfterForumPage()
-		{
-			foreach (IBaseModule currentModule in Modules)
-			{
-				currentModule.InitAfterPage();
+				currentModule.Init();
 			}
 		}
 	}
