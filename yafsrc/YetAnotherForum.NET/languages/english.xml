@@ -120,6 +120,7 @@
     <Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
     <Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
     <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
+		<Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
     <Resource tag="FONT_COLOR">Font Color:</Resource>
@@ -860,14 +861,24 @@ If you did not request a change to your email address please simply ignore this 
 
 {forumname} at {forumlink}
 </Resource>
-    <Resource tag="EMAILTOPIC">
+<Resource tag="EMAILTOPIC">
 Hello!
 
 {user} thought you might be interested in reading this:
 
 {link}
 </Resource>
-    <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
+	<Resource tag="NOTIFICATION_ON_USER_REGISTER">
+		Hello!
+
+		A new user has registered on the {forumname} forum:
+		
+		User Name: {user}
+		User Email: {email}
+		
+		Administration Link: {adminlink}
+	</Resource>
+		<Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
 &lt;head&gt;

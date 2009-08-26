@@ -137,6 +137,7 @@
     <Resource tag="LOADING">Äang táº£i...</Resource>
     <Resource tag="MAX_ONLINE">ThÃ nh viÃªn trá»±c tuyáº¿n ká»· lá»¥c nhiá»u nháº¥t lÃ  {0}, vÃ o {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">ThÃ´ng bÃ¡o</Resource>
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Trang</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Tin nháº¯n má»›i tá»« {0} vÃ o lÃºc {1}</Resource>
@@ -875,6 +876,16 @@
 
 			{link}
 		</Resource>
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER">
+		Hello!
+
+		A new user has registered on the {forumname} forum:
+		
+		User Name: {user}
+		User Email: {email}
+		
+		Administration Link: {adminlink}
+	</Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
 			&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 			&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;

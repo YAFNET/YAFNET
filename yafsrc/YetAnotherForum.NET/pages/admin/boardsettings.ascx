@@ -16,7 +16,7 @@
 				<b>Forum Name:</b><br />
 				The name of the forum.</td>
 			<td class="post" width="50%">
-				<asp:TextBox ID="Name" runat="server" Width="300"></asp:TextBox></td>
+				<asp:TextBox ID="Name" runat="server" Width="100%"></asp:TextBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
@@ -64,6 +64,14 @@
 				<asp:DropDownList ID="FileExtensionAllow" runat="server">
 				</asp:DropDownList></td>
 		</tr>		
+		<tr>
+			<td class="postheader">
+				<b>Send Email Notification On User Register to Emails:</b><br />
+				Semi-colon (;) separated list of emails to send a notification to on user registration.</td>
+			<td class="post">
+				<asp:TextBox ID="NotificationOnUserRegisterEmailList" runat="server" Width="100%"></asp:TextBox></td>
+		</tr>			
+		
 		<tr>
 			<td class="postfooter" align="center" colspan="2">
 				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button></td>

@@ -221,6 +221,7 @@ namespace YAF.Pages // YAF.Pages
 
 			// create empty profile just so they have one
 			YafUserProfile userProfile = YafUserProfile.GetProfile(CreateUserWizard1.UserName);
+
 			// setup their inital profile information
 			userProfile.Save();
 
@@ -254,6 +255,33 @@ namespace YAF.Pages // YAF.Pages
 
 				verifyEmail.SendEmail( new System.Net.Mail.MailAddress( email, user.UserName ), subject, true );
 			}
+
+			if ( !String.IsNullOrEmpty(PageContext.BoardSettings.NotificationOnUserRegisterEmailList) )
+			{
+				// send user register notification to the following admin users...
+				string[] emails = PageContext.BoardSettings.NotificationOnUserRegisterEmailList.Split( ';' );
+
+				YafTemplateEmail notifyAdmin = new YafTemplateEmail();
+
+				string subject =
+					String.Format( PageContext.Localization.GetText( "COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT" ),
+					               PageContext.BoardSettings.Name );
+
+				notifyAdmin.TemplateParams["{adminlink}"] = String.Format( "{1}{0}", YafBuildLink.GetLinkNotEscaped( ForumPages.admin_admin ), YafForumInfo.ServerURL );
+				notifyAdmin.TemplateParams["{user}"] = user.UserName;
+				notifyAdmin.TemplateParams["{email}"] = user.Email;
+				notifyAdmin.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
+
+				string emailBody = notifyAdmin.ProcessTemplate( "NOTIFICATION_ON_USER_REGISTER" );
+
+				foreach( string email in emails )
+				{
+					if ( !String.IsNullOrEmpty( email.Trim() ) )
+					{
+						YafServices.SendMail.Queue( PageContext.BoardSettings.ForumEmail, email.Trim(), subject, emailBody );
+					}
+				}
+			}
 		}
 
 		protected void CreateUserWizard1_CreatingUser(object sender, LoginCancelEventArgs e)
@@ -279,7 +307,6 @@ namespace YAF.Pages // YAF.Pages
 				e.Cancel = true;
 			}
 		}
-
 
 		public override bool IsProtected
 		{

@@ -149,6 +149,7 @@
     <Resource tag="LOADING">Loading...</Resource>
     <Resource tag="MAX_ONLINE">Grootste aantal gebruikers ooit online was {0}, {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Pages</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Nieuw privé-bericht van {0} op {1}</Resource>
@@ -921,6 +922,16 @@ Hello!
 
 {link}
 </Resource>
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER">
+		Hello!
+
+		A new user has registered on the {forumname} forum:
+		
+		User Name: {user}
+		User Email: {email}
+		
+		Administration Link: {adminlink}
+	</Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;

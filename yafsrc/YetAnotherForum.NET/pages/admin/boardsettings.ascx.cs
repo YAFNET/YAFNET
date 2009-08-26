@@ -66,6 +66,7 @@ namespace YAF.Pages.Admin
 				SetSelectedOnList( ref ShowTopic, PageContext.BoardSettings.ShowTopicsDefault.ToString() );
 				SetSelectedOnList( ref FileExtensionAllow, PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1" );
 
+				NotificationOnUserRegisterEmailList.Text = PageContext.BoardSettings.NotificationOnUserRegisterEmailList;
 				AllowThemedLogo.Checked = PageContext.BoardSettings.AllowThemedLogo;
 			}
 		}
@@ -105,6 +106,7 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.ShowTopicsDefault = Convert.ToInt32( ShowTopic.SelectedValue );
 			PageContext.BoardSettings.AllowThemedLogo = AllowThemedLogo.Checked;
 			PageContext.BoardSettings.FileExtensionAreAllowed = ( Convert.ToInt32( FileExtensionAllow.SelectedValue ) == 0 ? true : false );
+			PageContext.BoardSettings.NotificationOnUserRegisterEmailList = NotificationOnUserRegisterEmailList.Text.Trim();
 
 			/// save the settings to the database
 			((YafLoadBoardSettings)PageContext.BoardSettings).SaveRegistry();
