@@ -44,7 +44,7 @@ namespace YAF.Modules
 		void CurrentPage_Load(object sender, EventArgs e)
 		{
 			// no security features for login/logout pages
-			if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.logout)
+			if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.approve || ForumPageType == ForumPages.logout)
 				return;
 
 			// check if it's a "registered user only page" and check permissions.
