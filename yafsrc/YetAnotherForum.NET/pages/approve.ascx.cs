@@ -100,5 +100,10 @@ namespace YAF.Pages // YAF.Pages
         YafBuildLink.Redirect( ForumPages.login );
 			}
 		}
+
+		public override bool IsProtected
+		{
+			get { return false; }
+		}
 	}
 }
