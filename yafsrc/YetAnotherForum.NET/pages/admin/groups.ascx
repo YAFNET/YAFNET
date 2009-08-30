@@ -6,25 +6,30 @@
 			<HeaderTemplate>
 				<tr>
 					<td class="header1" colspan="6">
-						Provider Roles</td>
+						Provider Roles
+					</td>
 				</tr>
 				<tr>
 					<td colspan="6" class="post">
 						Note: Deleting a role here removes it completely from the provider. "Add to YAF"
-						to make this role accessible in the forum.</td>
+						to make this role accessible in the forum.
+					</td>
 				</tr>
 				<tr>
 					<td class="header2" colspan="5">
-						Name</td>
+						Name
+					</td>
 					<td class="header2">
-						&nbsp;</td>
+						&nbsp;
+					</td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr>
 					<td class="post" colspan="5">
 						<%# Container.DataItem %>
-						(Unlinked)</td>
+						(Unlinked)
+					</td>
 					<td class="post">
 						<asp:LinkButton ID="LinkButtonAdd" runat="server" CommandName="add" CommandArgument='<%# Container.DataItem %>'>Add to YAF</asp:LinkButton>
 						|
@@ -38,25 +43,35 @@
 			<HeaderTemplate>
 				<tr>
 					<td class="header1" colspan="6">
-						YetAnotherForum Roles</td>
+						YetAnotherForum Roles
+					</td>
 				</tr>
-				<td colspan="6" class="post">
-					Note: Deleting one of these "linked" roles outside of YAF will cause user data loss.
-					If you want to delete the role, first "Delete from YAF" then the role can be managed
-					outside of YAF.</td>
+				<tr>
+					<td colspan="6" class="post">
+						Note: Deleting one of these "linked" roles outside of YAF will cause user data loss.
+						If you want to delete the role, first "Delete from YAF" then the role can be managed
+						outside of YAF.
+					</td>
+				</tr>
 				<tr>
 					<td class="header2">
-						Name</td>
+						Name
+					</td>
 					<td class="header2">
-						Is Guest</td>
+						Is Guest
+					</td>
 					<td class="header2">
-						Is Start</td>
+						Is Start
+					</td>
 					<td class="header2">
-						Is Moderator</td>
+						Is Moderator
+					</td>
 					<td class="header2">
-						Is Admin</td>
+						Is Admin
+					</td>
 					<td class="header2">
-						&nbsp;</td>
+						&nbsp;
+					</td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
@@ -89,7 +104,8 @@
 		</asp:Repeater>
 		<tr>
 			<td class="footer1" colspan="7">
-				<asp:LinkButton ID="NewGroup" runat="server" OnClick="NewGroup_Click">New Role</asp:LinkButton></td>
+				<asp:LinkButton ID="NewGroup" runat="server" OnClick="NewGroup_Click">New Role</asp:LinkButton>
+			</td>
 		</tr>
 	</table>
 </YAF:AdminMenu>

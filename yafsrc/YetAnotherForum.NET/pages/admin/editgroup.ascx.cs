@@ -18,6 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System;
 using System.Data;
 using System.Web.UI.WebControls;
 using YAF.Classes;
@@ -133,21 +134,27 @@ namespace YAF.Pages.Admin
 
 			// save role and get its ID if it's new (if it's old role, we get it anyway)
 			roleID = DB.group_save(roleID, PageContext.PageBoardID, roleName, IsAdminX.Checked, IsGuestX.Checked, IsStartX.Checked, IsModeratorX.Checked, AccessMaskID.SelectedValue);
-
-			// if role doesn't exist in provider's data source, create it or rename it
-			if (!System.Web.Security.Roles.RoleExists(roleName))
+			
+			// see if need to rename an existing role...
+			if ( roleName != oldRoleName && RoleMembershipHelper.RoleExists( oldRoleName ) && !RoleMembershipHelper.RoleExists( roleName ) && !IsGuestX.Checked )
 			{
-				if (oldRoleName != string.Empty || IsGuestX.Checked)
-				{
-					// delete and re-create (if not guest role)
-					RoleMembershipHelper.DeleteRole(oldRoleName, false);
-				}
+				// transfer users in addition to changing the name of the role...
+				string[] users = PageContext.CurrentRoles.GetUsersInRole( oldRoleName );
 
-				if (!IsGuestX.Checked)
-				{
-					// simply create it
-					RoleMembershipHelper.CreateRole( roleName );
-				}
+				// delete the old role...
+				RoleMembershipHelper.DeleteRole( oldRoleName, false );
+
+				// create new role...
+				RoleMembershipHelper.CreateRole( roleName );
+
+				// put users into new role...
+				PageContext.CurrentRoles.AddUsersToRoles( users, new string[] {roleName} );
+			}
+			// if role doesn't exist in provider's data source, create it
+			else if ( !RoleMembershipHelper.RoleExists( roleName ) && !IsGuestX.Checked )
+			{
+				// simply create it
+				RoleMembershipHelper.CreateRole( roleName );
 			}
 
 			// Access masks for newly existing role
@@ -160,10 +167,10 @@ namespace YAF.Pages.Admin
 					RepeaterItem item = AccessList.Items[i];
 
 					// get forum ID
-					int ForumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
+					int forumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
 
 					// save forum access maks for this role
-					DB.forumaccess_save(ForumID, roleID, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
+					DB.forumaccess_save(forumID, roleID, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
 				}
 				YafBuildLink.Redirect(ForumPages.admin_groups);
 			}
