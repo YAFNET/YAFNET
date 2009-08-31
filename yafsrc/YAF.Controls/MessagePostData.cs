@@ -50,7 +50,7 @@ namespace YAF.Controls
 					// add attached files control...
 					MessageAttached attached = new MessageAttached();
 					attached.MessageID = Convert.ToInt32(DataRow["MessageID"]);
-					attached.UserName = DataRow["Username"].ToString();
+					attached.UserName = DataRow["UserName"].ToString();
 					this.Controls.Add(attached);
 				}
 			}
