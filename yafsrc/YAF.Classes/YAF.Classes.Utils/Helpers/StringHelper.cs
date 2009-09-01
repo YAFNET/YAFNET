@@ -18,6 +18,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -91,6 +92,8 @@ namespace YAF.Classes.Utils
 		/// <returns>truncated string</returns>
 		public static string TruncateMiddle(string input, int limit)
 		{
+			
+
 			string output = input;
 			const string middle = "...";
 

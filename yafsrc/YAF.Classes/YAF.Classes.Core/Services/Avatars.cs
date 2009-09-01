@@ -47,7 +47,7 @@ namespace YAF.Classes.Core
 					YafForumInfo.ForumRoot );
 			}
 			//JoeOuts added 8/17/09 for Gravatar use
-			else if ( YafContext.Current.BoardSettings.AvatarGravatar )
+			else if ( YafContext.Current.BoardSettings.AvatarGravatar && !String.IsNullOrEmpty( userData.Email ) )
 			{
 				//string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
 

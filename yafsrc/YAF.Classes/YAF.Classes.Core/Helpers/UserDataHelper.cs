@@ -32,7 +32,7 @@ namespace YAF.Classes.Core
 		}
 
 		public CombinedUserDataHelper(int userID)
-			: this(UserMembershipHelper.GetMembershipUser(userID), userID)
+			: this(UserMembershipHelper.GetMembershipUserById(userID), userID)
 		{
 		}
 

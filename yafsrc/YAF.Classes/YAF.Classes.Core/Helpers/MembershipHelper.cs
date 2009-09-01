@@ -528,10 +528,16 @@ namespace YAF.Classes.Core
 		/// </summary>
 		/// <param name="providerUserKey"></param>
 		/// <returns></returns>
-		public static MembershipUser GetMembershipUser(object providerUserKey)
+		public static MembershipUser GetMembershipUserByKey(object providerUserKey)
 		{
 			// convert to provider type...
 			return GetUser(TypeHelper.ConvertObjectToType(providerUserKey,Config.ProviderKeyType));
+		}
+
+		public static MembershipUser GetMembershipUserById( long? userID )
+		{
+			if ( userID.HasValue ) return GetMembershipUserById( userID.Value );
+			return null;
 		}
 
 		/// <summary>
@@ -539,11 +545,11 @@ namespace YAF.Classes.Core
 		/// </summary>
 		/// <param name="userID"></param>
 		/// <returns></returns>
-		public static MembershipUser GetMembershipUser( long userID )
+		public static MembershipUser GetMembershipUserById( long userID )
 		{
 			object providerUserKey = GetProviderUserKeyFromID( userID );
 			if ( providerUserKey != null )
-				return GetMembershipUser( providerUserKey );
+				return GetMembershipUserByKey( providerUserKey );
 
 			return null;
 		}
@@ -553,7 +559,7 @@ namespace YAF.Classes.Core
 		/// </summary>
 		/// <param name="userName"></param>
 		/// <returns></returns>
-		public static MembershipUser GetMembershipUser(string userName)
+		public static MembershipUser GetMembershipUserByName(string userName)
 		{
 			return GetUser(userName);
 		}
