@@ -71,7 +71,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 			int userID = (int)Security.StringToLongOrRedirect(Request.QueryString["u"]);
 
-			MembershipUser user = UserMembershipHelper.GetMembershipUser(userID);
+			MembershipUser user = UserMembershipHelper.GetMembershipUserById(userID);
 
 			if (user == null)
 			{

@@ -53,7 +53,7 @@ namespace YAF.Pages // YAF.Pages
 			if ( !IsPostBack )
 			{
 				// get user data...
-				MembershipUser user = UserMembershipHelper.GetMembershipUser( UserID );
+				MembershipUser user = UserMembershipHelper.GetMembershipUserById( UserID );
 
 				if ( user == null )
 				{

@@ -53,7 +53,7 @@ namespace YAF.Pages // YAF.Pages
 			if ( !IsPostBack )
 			{
 				// get user data...
-				MembershipUser user = UserMembershipHelper.GetMembershipUser( UserID );
+				MembershipUser user = UserMembershipHelper.GetMembershipUserById( UserID );
 
 				if ( user == null )
 				{
@@ -73,7 +73,7 @@ namespace YAF.Pages // YAF.Pages
 			try
 			{
 				// get "to" user...
-				MembershipUser toUser = UserMembershipHelper.GetMembershipUser( UserID );
+				MembershipUser toUser = UserMembershipHelper.GetMembershipUserById( UserID );
 
 				// send it...
 				YafServices.SendMail.Send( new System.Net.Mail.MailAddress( PageContext.User.Email, PageContext.User.UserName ), new System.Net.Mail.MailAddress( toUser.Email.Trim(), toUser.UserName.Trim() ), Subject.Text.Trim(), Body.Text.Trim() );

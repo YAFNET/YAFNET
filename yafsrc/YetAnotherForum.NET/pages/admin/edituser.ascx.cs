@@ -47,7 +47,7 @@ namespace YAF.Pages.Admin
 		{
 			get
 			{
-				return ( int )this.PageContext.QueryIDs ["u"];
+				return (int)this.PageContext.QueryIDs["u"];
 			}
 		}
 
@@ -64,7 +64,7 @@ namespace YAF.Pages.Admin
 
 			if ( dt.Rows.Count == 1 )
 			{
-				DataRow userRow = dt.Rows [0];
+				DataRow userRow = dt.Rows[0];
 
 				// do admin permission check...
 				if ( !PageContext.IsHostAdmin && IsUserHostAdmin( userRow ) )
@@ -78,23 +78,23 @@ namespace YAF.Pages.Admin
 					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 					PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 					PageLinks.AddLink( "Users", YafBuildLink.GetLink( ForumPages.admin_users ) );
-					PageLinks.AddLink( String.Format( "Edit User \"{0}\"", userRow ["Name"].ToString() ) );
+					PageLinks.AddLink( String.Format( "Edit User \"{0}\"", userRow["Name"].ToString() ) );
 
 					// do a quick user membership sync...
-					MembershipUser user = UserMembershipHelper.GetMembershipUser( CurrentUserID );
+					MembershipUser user = UserMembershipHelper.GetMembershipUserById( CurrentUserID );
 
-                    // update if the user is not Guest
-                    if (!UserMembershipHelper.IsGuestUser(CurrentUserID))
-                    {
-                        RoleMembershipHelper.UpdateForumUser(user, PageContext.PageBoardID);
-                    }
+					// update if the user is not Guest
+					if ( !UserMembershipHelper.IsGuestUser( CurrentUserID ) )
+					{
+						RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
+					}
 				}
 			}
 		}
 
 		protected bool IsUserHostAdmin( DataRow userRow )
 		{
-			UserFlags userFlags = new UserFlags( userRow ["Flags"] );
+			UserFlags userFlags = new UserFlags( userRow["Flags"] );
 			return userFlags.IsHostAdmin;
 		}
 	}

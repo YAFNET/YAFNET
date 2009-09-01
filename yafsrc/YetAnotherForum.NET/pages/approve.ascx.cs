@@ -87,7 +87,7 @@ namespace YAF.Pages // YAF.Pages
 			if ( keyVerified )
 			{
         // approve and update e-mail in the membership as well...
-        System.Web.Security.MembershipUser user = UserMembershipHelper.GetMembershipUser( row ["ProviderUserKey"] );
+        System.Web.Security.MembershipUser user = UserMembershipHelper.GetMembershipUserByKey( row ["ProviderUserKey"] );
         if (!user.IsApproved) user.IsApproved = true;
         // update the email if anything was returned...
         if (user.Email != dbEmail && dbEmail != "" ) user.Email = dbEmail;

@@ -85,7 +85,7 @@ namespace YAF.Controls
 			// change password...
 			try
 			{
-				MembershipUser user = UserMembershipHelper.GetMembershipUser(CurrentUserID);
+				MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID.Value);
 
 				if (user != null)
 				{
@@ -130,7 +130,7 @@ namespace YAF.Controls
 			// reset password...
 			try
 			{
-				MembershipUser user = UserMembershipHelper.GetMembershipUser(CurrentUserID);
+				MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID.Value);
 
 				if (user != null)
 				{
