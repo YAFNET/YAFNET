@@ -86,6 +86,7 @@ namespace YAF
 		public Forum()
 		{
 			this.Load += new EventHandler(Forum_Load);
+			this.Init += new EventHandler( Forum_Init );
 			this.Unload += new EventHandler(Forum_Unload);
 
 			// setup header/footer
@@ -97,6 +98,19 @@ namespace YAF
 			// init the modules and run them immediately...
 			YafContext.Current.BaseModuleManager.Load();
 			YafContext.Current.BaseModuleManager.CallInitModules( this );
+		}
+
+		void Forum_Init( object sender, EventArgs e )
+		{
+			// handle script manager first...
+			if ( ScriptManager.GetCurrent( Page ) == null )
+			{
+				// add a script manager since one doesn't exist...
+				ScriptManager yafScriptManager = new ScriptManager();
+				yafScriptManager.ID = "YafScriptManager";
+				yafScriptManager.EnablePartialRendering = true;
+				this.Controls.Add( yafScriptManager );
+			}
 		}
 
 		void Forum_Unload(object sender, EventArgs e)
@@ -118,16 +132,6 @@ namespace YAF
 
 			try
 			{
-				// handle script manager first...
-				if ( ScriptManager.GetCurrent( Page ) == null )
-				{
-					// add a script manager since one doesn't exist...
-					ScriptManager yafScriptManager = new ScriptManager();
-					yafScriptManager.ID = "YafScriptManager";
-					yafScriptManager.EnablePartialRendering = true;
-					this.Controls.Add( yafScriptManager );
-				}
-
 				_currentForumPage = (ForumPage)LoadControl(src);
 
 				_currentForumPage.ForumFooter = _footer;
