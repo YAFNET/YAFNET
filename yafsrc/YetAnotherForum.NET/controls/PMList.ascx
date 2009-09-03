@@ -3,6 +3,7 @@
 	EnableTheming="true" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
+
 <asp:GridView ID="MessagesView" runat="server" OnRowCreated="MessagesView_RowCreated"
 	DataKeyNames="UserPMessageID" Width="99%" GridLines="None" CellSpacing="1" ShowFooter="true"
 	AutoGenerateColumns="false" CssClass="content" EmptyDataText='<%#GetLocalizedText("NO_MESSAGES") %>'
@@ -12,6 +13,21 @@
 	<AlternatingRowStyle CssClass="post_alt" />
 	<FooterStyle CssClass="footer1" />
 	<Columns>
+		<asp:TemplateField>
+			<HeaderTemplate>
+				&nbsp;</HeaderTemplate>
+			<ItemTemplate>
+				<asp:CheckBox runat="server" ID="ItemCheck" /></ItemTemplate>
+			<FooterTemplate>
+				<YAF:ThemeButton runat="server" ID="ArchiveSelected" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="ARCHIVESELECTED"
+					OnClick="ArchiveSelected_Click" Visible="<%#this.View == PMView.Inbox %>" />
+				<YAF:ThemeButton runat="server" ID="DeleteSelected" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="DELETESELECTED"
+					OnLoad="DeleteSelected_Load" OnClick="DeleteSelected_Click" />
+			</FooterTemplate>
+			<HeaderStyle Width="50px" />
+			<ItemStyle Width="50px" HorizontalAlign="Center" />
+			<FooterStyle HorizontalAlign="Center" />
+		</asp:TemplateField>	
 		<asp:TemplateField>
 			<HeaderTemplate>
 				&nbsp;</HeaderTemplate>
@@ -35,7 +51,7 @@
 				<asp:Image runat="server" ID="SortSubject" AlternateText="Sort Subject" />
 				<asp:LinkButton runat="server" ID="SubjectLink" OnClick="SubjectLink_Click" Text='<%#GetLocalizedText("SUBJECT") %>' />
 			</HeaderTemplate>
-			<HeaderStyle Width="40%" />
+			<HeaderStyle Width="60%" />
 			<ItemTemplate>
 				<a href='<%# GetMessageLink(Eval("UserPMessageID")) %>'>
 					<%# HtmlEncode(Eval("Subject")) %>
@@ -50,22 +66,6 @@
 			<ItemTemplate>
 				<%# YafServices.DateTime.FormatDateTime((DateTime)Eval("Created"))%>
 			</ItemTemplate>
-		</asp:TemplateField>
-		<asp:TemplateField>
-			<HeaderTemplate>
-				&nbsp;</HeaderTemplate>
-			<ItemTemplate>
-				<asp:CheckBox runat="server" ID="ItemCheck" /></ItemTemplate>
-			<FooterTemplate>
-				<YAF:ThemeButton runat="server" ID="ArchiveSelected" CssClass="yaflittlebutton" TextLocalizedTag="ARCHIVESELECTED"
-					OnClick="ArchiveSelected_Click" Visible="<%#this.View == PMView.Inbox %>" />
-				<br />
-				<YAF:ThemeButton runat="server" ID="DeleteSelected" CssClass="yaflittlebutton" TextLocalizedTag="DELETESELECTED"
-					OnLoad="DeleteSelected_Load" OnClick="DeleteSelected_Click" />
-			</FooterTemplate>
-			<HeaderStyle Width="125px" />
-			<ItemStyle Width="125px" HorizontalAlign="Center" />
-			<FooterStyle Width="125px" HorizontalAlign="Center" />
 		</asp:TemplateField>
 	</Columns>
 </asp:GridView>

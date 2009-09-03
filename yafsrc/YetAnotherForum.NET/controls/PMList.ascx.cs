@@ -121,12 +121,12 @@ namespace YAF.Controls
 				toUserID = PageContext.PageUserID;
 			using (DataView dv = DB.pmessage_list(toUserID, fromUserID, null).DefaultView)
 			{
-				if (View == PMView.Outbox)
+				if ( View == PMView.Inbox )
+					dv.RowFilter = "IsDeleted = False AND IsArchived = False";
+				else if (View == PMView.Outbox)
 					dv.RowFilter = "IsInOutbox = True";
 				else if (View == PMView.Archive)
 					dv.RowFilter = "IsArchived = True";
-				else
-					dv.RowFilter = "IsArchived = False";
 
 				dv.Sort = String.Format("{0} {1}", ViewState["SortField"], (bool)ViewState["SortAsc"] ? "asc" : "desc");
 
@@ -263,6 +263,17 @@ namespace YAF.Controls
 				SortDate.Visible = (string)ViewState["SortField"] == "Created";
 				SortDate.ImageUrl =
 					PageContext.Theme.GetItem("SORT", (bool)ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+			}
+			else if ( e.Row.RowType == DataControlRowType.Footer)
+			{
+				int rolCount = e.Row.Cells.Count;
+
+				for(int i=rolCount-1;i>=1;i--)
+				{
+					e.Row.Cells.RemoveAt( i );
+				}
+
+				e.Row.Cells[0].ColumnSpan = rolCount;
 			}
 		}
 

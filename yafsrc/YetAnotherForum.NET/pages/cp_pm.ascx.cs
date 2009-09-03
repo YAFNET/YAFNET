@@ -37,11 +37,12 @@ namespace YAF.Pages
 {
 	public partial class cp_pm : ForumPageRegistered
 	{
-		private PMView _View;
+		private PMView _view;
 
 		public cp_pm()
 			: base("CP_PM")
-		{ }
+		{
+		}
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -51,31 +52,37 @@ namespace YAF.Pages
 
 			if (!IsPostBack)
 			{
-				_View = PMViewConverter.FromQueryString(Request.QueryString["v"]);
-				if (_View == PMView.Inbox)
-					this.PMTabs.ActiveTab = this.InboxTab;
-				else if (_View == PMView.Outbox)
-					this.PMTabs.ActiveTab = this.OutboxTab;
-				else if (_View == PMView.Archive)
-					this.PMTabs.ActiveTab = this.ArchiveTab;
+				_view = PMViewConverter.FromQueryString(Request.QueryString["v"]);
+
+				PmTabs.SelectedIndex = (int)_view;
+				//if (_view == PMView.Inbox)
+				//  this.PMTabs.ActiveTab = this.InboxTab;
+				//else if (_view == PMView.Outbox)
+				//  this.PMTabs.ActiveTab = this.OutboxTab;
+				//else if (_view == PMView.Archive)
+				//  this.PMTabs.ActiveTab = this.ArchiveTab;
 
 				PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 				PageLinks.AddLink(PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"));
 
-				InboxTab.HeaderText = GetText("INBOX");
-				OutboxTab.HeaderText = GetText("SENTITEMS");
-				ArchiveTab.HeaderText = GetText("ARCHIVE");
+				PmTabs.Views[0].Text = GetText( "INBOX" );
+				PmTabs.Views[1].Text = GetText( "SENTITEMS" );
+				PmTabs.Views[2].Text = GetText( "ARCHIVE" );
+
+				//InboxTab.HeaderText = GetText("INBOX");
+				//OutboxTab.HeaderText = GetText("SENTITEMS");
+				//ArchiveTab.HeaderText = GetText("ARCHIVE");
 
 				NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage);
 				NewPM2.NavigateUrl = NewPM.NavigateUrl;
 
 				// inbox tab
-				ScriptManager.RegisterClientScriptBlock(InboxTabUpdatePanel, typeof(UpdatePanel), "InboxTabRefresh", String.Format("function InboxTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", InboxTabUpdatePanel.ClientID, '{', '}'), true);
+				//ScriptManager.RegisterClientScriptBlock(InboxTabUpdatePanel, typeof(UpdatePanel), "InboxTabRefresh", String.Format("function InboxTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", InboxTabUpdatePanel.ClientID, '{', '}'), true);
 				// sent tab
-				ScriptManager.RegisterClientScriptBlock(SentTabUpdatePanel, typeof(UpdatePanel), "SentTabRefresh", String.Format("function SentTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", SentTabUpdatePanel.ClientID, '{', '}'), true);
+				//ScriptManager.RegisterClientScriptBlock(SentTabUpdatePanel, typeof(UpdatePanel), "SentTabRefresh", String.Format("function SentTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", SentTabUpdatePanel.ClientID, '{', '}'), true);
 				// archive tab
-				ScriptManager.RegisterClientScriptBlock(ArchiveTabUpdatePanel, typeof(UpdatePanel), "ArchiveTabRefresh", String.Format("function ArchiveTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", ArchiveTabUpdatePanel.ClientID, '{', '}'), true);
+				//ScriptManager.RegisterClientScriptBlock(ArchiveTabUpdatePanel, typeof(UpdatePanel), "ArchiveTabRefresh", String.Format("function ArchiveTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", ArchiveTabUpdatePanel.ClientID, '{', '}'), true);
 
 			}
 
@@ -83,7 +90,7 @@ namespace YAF.Pages
 
 		protected PMView View
 		{
-			get { return _View; }
+			get { return _view; }
 		}
 	}
 }

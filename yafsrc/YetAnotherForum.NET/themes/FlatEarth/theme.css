@@ -1,3 +1,5 @@
+@import "jquery/jquery-ui.css";
+
 .yafnet {
 	background: url('earthback.jpg');
 	font-family: Arial, Helvetica, sans-serif;

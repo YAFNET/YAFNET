@@ -46,17 +46,6 @@ namespace YAF.Pages.Admin
 				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Host Settings", "" );
 
-				// Jaben 9/21: Removed localization. Admin isn't localized.
-				this.SettingsTab.HeaderText = "Host Settings";
-				this.FeaturesTab.HeaderText = "Features";
-				this.DisplayTab.HeaderText = "Show/Display Items";
-				this.AdvertsTab.HeaderText = "Adverts";
-				this.EditorTab.HeaderText = "Editors";
-				this.PermissionTab.HeaderText = "Permission";
-				this.TemplatesTab.HeaderText = "Templates";
-				this.AvatarsTab.HeaderText = "Avatars";
-				this.CacheTab.HeaderText = "Cache";
-
 				BindData();
 			}
 
@@ -100,7 +89,7 @@ namespace YAF.Pages.Admin
 			// handle checked fields...
 			foreach ( string name in settingCollection.SettingsBool.Keys)
 			{
-				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
+				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
 				if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanRead)
 				{
@@ -115,7 +104,7 @@ namespace YAF.Pages.Admin
 			// handle string fields...
 			foreach (string name in settingCollection.SettingsString.Keys)
 			{
-				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
+				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
 				if (control != null && control is TextBox && settingCollection.SettingsString[name].CanRead)
 				{
@@ -137,7 +126,7 @@ namespace YAF.Pages.Admin
 			// handle int fields...
 			foreach (string name in settingCollection.SettingsInt.Keys)
 			{
-				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
+				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
 				if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanRead)
 				{
@@ -171,7 +160,7 @@ namespace YAF.Pages.Admin
 			// handle checked fields...
 			foreach (string name in settingCollection.SettingsBool.Keys)
 			{
-				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
+				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
 				if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
 				{
@@ -182,7 +171,7 @@ namespace YAF.Pages.Admin
 			// handle string fields...
 			foreach (string name in settingCollection.SettingsString.Keys)
 			{
-				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
+				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
 				if (control != null && control is TextBox && settingCollection.SettingsString[name].CanWrite)
 				{
@@ -198,7 +187,7 @@ namespace YAF.Pages.Admin
 			// handle int fields...
 			foreach (string name in settingCollection.SettingsInt.Keys)
 			{
-				Control control = ControlHelper.FindControlRecursive( PMTabs, name );
+				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
 				if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanWrite)
 				{

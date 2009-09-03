@@ -75,7 +75,7 @@ namespace YAF.Pages // YAF.Pages
 				TextBox userName = ControlHelper.FindControlAs<TextBox>( Login1, "UserName" );
 				TextBox password = ControlHelper.FindControlAs<TextBox>( Login1, "Password" );
 				Button forumLogin = ControlHelper.FindControlAs<Button>( Login1, "LoginButton" );
-				HyperLink passwordRecovery = ControlHelper.FindControlAs<HyperLink>( Login1, "PasswordRecovery" );
+				Button passwordRecovery = ControlHelper.FindControlAs<Button>( Login1, "PasswordRecovery" );
 
 				/*
 				RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
@@ -90,7 +90,6 @@ namespace YAF.Pages // YAF.Pages
 				if ( passwordRecovery != null )
 				{
 					passwordRecovery.Text = GetText( "lostpassword" );
-					passwordRecovery.NavigateUrl = YafBuildLink.GetLink( ForumPages.recoverpassword );
 				}
 
 				if ( password != null && forumLogin != null)
@@ -134,6 +133,11 @@ namespace YAF.Pages // YAF.Pages
 		public override bool IsProtected
 		{
 			get { return false; }
+		}
+
+		protected void PasswordRecovery_Click( object sender, EventArgs e )
+		{
+			YafBuildLink.Redirect( ForumPages.recoverpassword );
 		}
 	}
 }

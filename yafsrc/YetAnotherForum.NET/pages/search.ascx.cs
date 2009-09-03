@@ -57,6 +57,7 @@ namespace YAF.Pages // YAF.Pages
 		public search()
 			: base( "SEARCH" )
 		{
+
 		}
 
 		private HtmlForm GetServerForm( ControlCollection parent )
@@ -109,7 +110,6 @@ namespace YAF.Pages // YAF.Pages
 				listSearchWhat.Items.Add( new ListItem( GetText( "match_any" ), "1" ) );
 				listSearchWhat.Items.Add( new ListItem( GetText( "match_exact" ), "2" ) );
 
-
 				listSearchFromWho.SelectedIndex = 0;
 				listSearchWhat.SelectedIndex = 0;
 
@@ -129,8 +129,7 @@ namespace YAF.Pages // YAF.Pages
 				//    listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
 				//}
 
-				LoadingModal.HeaderText = GetText( "LOADING" );
-				LoadingModal.MainText = GetText( "LOADING_SEARCH" );
+				LoadingModal.Title = GetText( "LOADING" );
 
 				listForum.DataSource = DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
 				listForum.DataValueField = "ForumID";
@@ -389,6 +388,11 @@ namespace YAF.Pages // YAF.Pages
 			{
 				_searchWhoCleaned = value;
 			}
+		}
+
+		protected void LoadingModalText_Load( object sender, EventArgs e )
+		{
+			LoadingModalText.Text = GetText( "LOADING_SEARCH" );
 		}
 	}
 }

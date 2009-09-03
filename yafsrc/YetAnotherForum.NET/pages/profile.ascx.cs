@@ -144,12 +144,12 @@ namespace YAF.Pages // YAF.Pages
 
 			Skype.Visible = (User != null && !String.IsNullOrEmpty(userData.Profile.Skype));
 			Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
-
+      
 			// localize tab titles...
-			AboutTab.HeaderText = GetText("ABOUT");
-			StatisticsTab.HeaderText = GetText("STATISTICS");
-			AvatarTab.HeaderText = GetText("AVATAR");
-			Last10PostsTab.HeaderText = GetText("LAST10");
+			ProfileTabs.Views["AboutTab"].Text = GetText( "ABOUT" );
+			ProfileTabs.Views["StatisticsTab"].Text = GetText("STATISTICS");
+			ProfileTabs.Views["AvatarTab"].Text = GetText("AVATAR");
+			ProfileTabs.Views["Last10PostsTab"].Text = GetText("LAST10");
 
 			if (PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage)
 			{
@@ -172,7 +172,7 @@ namespace YAF.Pages // YAF.Pages
 			Groups.DataSource = RoleMembershipHelper.GetRolesForUser(UserMembershipHelper.GetUserNameFromID(userID));
 
 			//EmailRow.Visible = PageContext.IsAdmin;
-			ModerateTab.Visible = PageContext.IsAdmin || PageContext.IsForumModerator;
+			ProfileTabs.Views["ModerateTab"].Visible = PageContext.IsAdmin || PageContext.IsForumModerator;
 			AdminUserButton.Visible = PageContext.IsAdmin;
 
 			if (LastPosts.Visible)

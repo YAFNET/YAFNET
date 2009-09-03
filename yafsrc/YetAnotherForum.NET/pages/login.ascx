@@ -1,6 +1,6 @@
 <%@ Control Language="c#" CodeFile="login.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.login" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<asp:UpdatePanel ID="UpdateLoginPanel" runat="server">
+<asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <div align="center">
             <asp:Login ID="Login1" runat="server" RememberMeSet="True" OnLoginError="Login1_LoginError" OnAuthenticate="Login1_Authenticate"
@@ -40,9 +40,9 @@
                                     </tr>
                                     <tr>
                                         <td align="center" colspan="2" class="postfooter" style="height: 24px">
-                                            <asp:HyperLink ID="PasswordRecovery" runat="server" />
+																						<asp:Button ID="PasswordRecovery" runat="server" CausesValidation="false" class="pbutton" OnClick="PasswordRecovery_Click" />
                                             |
-                                            <asp:Button ID="LoginButton" runat="server" CommandName="Login" ValidationGroup="Login1" />
+                                            <asp:Button ID="LoginButton" runat="server" class="pbutton" CommandName="Login" ValidationGroup="Login1" />
                                         </td>
                                     </tr>
                                 </table>
@@ -54,6 +54,7 @@
         </div>
     </ContentTemplate>
 </asp:UpdatePanel>
+
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

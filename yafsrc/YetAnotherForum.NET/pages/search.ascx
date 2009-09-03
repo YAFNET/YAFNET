@@ -4,7 +4,10 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <script type="text/javascript">
 function EndRequestHandler(sender, args) {
-   $find('LoadingModal').hide();
+	$('#<%=LoadingModal.ClientID%>').dialog('close');
+}
+function ShowLoadingDialog() {
+	$('#<%=LoadingModal.ClientID%>').dialog('open');
 }
 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 </script>
@@ -43,7 +46,7 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
     </tr>
     <tr>
         <td class="postheader" colspan="2" align="center">
-            <asp:Button ID="btnSearch" CssClass="pbutton" runat="server" OnClick="btnSearch_Click" OnClientClick="$find('LoadingModal').show(); return true;" />
+            <asp:Button ID="btnSearch" CssClass="pbutton" runat="server" OnClick="btnSearch_Click" OnClientClick="ShowLoadingDialog(); return true;" />
         </td>
     </tr>
 </table>
@@ -157,7 +160,11 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
         <YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" />
     </ContentTemplate>
 </asp:UpdatePanel>
-<YAF:ModalNotification ID="LoadingModal" BehaviorID="LoadingModal" runat="server" OkButtonVisible="false" />
+<DotNetAge:Dialog ID="LoadingModal" runat="server" ShowModal="true" DialogButtons="None">
+	<BodyTemplate runat="server">
+		<span class="modalOuter"><span class="modalInner"><asp:Literal ID="LoadingModalText" runat="server" OnLoad="LoadingModalText_Load"></asp:Literal></span></span>
+	</BodyTemplate>
+</DotNetAge:Dialog>
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

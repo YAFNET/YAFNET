@@ -142,9 +142,8 @@ namespace YAF.Pages // YAF.Pages
 					NewTopic2.Visible = false;
 				}
 
-				// Ederon : 9/9/2007 - moderators can relpy in locked topics
-				if ( !PageContext.ForumReplyAccess ||
-					( ( _topicFlags.IsLocked || _forumFlags.IsLocked ) && !PageContext.ForumModeratorAccess ) )
+				// Ederon : 9/9/2007 - moderators can reply in locked topics
+				if ( !PageContext.ForumReplyAccess || ( ( _topicFlags.IsLocked || _forumFlags.IsLocked ) && !PageContext.ForumModeratorAccess ) )
 				{
 					PostReplyLink1.Visible = PostReplyLink2.Visible = false;
 					QuickReplyPlaceHolder.Visible = false;

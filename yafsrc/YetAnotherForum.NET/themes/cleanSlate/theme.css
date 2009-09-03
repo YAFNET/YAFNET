@@ -1,3 +1,5 @@
+@import "jquery/jquery-ui.css";
+
 .yafnet {
 	font-family: arial,helvetica,"lucida grande",verdana,sans-serif;
 	font-size: 9.5pt;
@@ -18,7 +20,8 @@
 	margin: 5px 0px 5px 0px;
 	color: #333333;
 	border-collapse: collapse;
-	border: solid 1px #eeeeee;
+	border: solid 1px #eeeeee;	
+	
 }
 
 .yafnet tr.forumRowTitle,
@@ -29,6 +32,7 @@
 	color: #ffffff;
 	font-weight: bold;
 	font-size: 10.5pt;
+	
 }
 
 .yafnet tr.forumRowFoot,
@@ -41,7 +45,7 @@
 
 .yafnet table.content td {
 	padding: 10px;
-	border: solid 1px #eeeeee;
+	border: solid 1px #eeeeee;	
 }
 
 .yafnet tr.forumRowTitle th
@@ -55,7 +59,7 @@
 .yafnet .header
 {
     background-color: #eeeeee;
-    font-weight: bold;
+    font-weight: bold;    
 }
 
 .yafnet .forumLinkCol div.forumheading a,
@@ -525,68 +529,17 @@
 .yafnet .ajax__scroll_auto {overflow:auto}
 
 /*Modal Popup*/
-.modalBackground
+.modalInner
 {
-	background-color:#000;
-	filter:alpha(opacity=80);
-	opacity:0.8;
-}
-
-.modalPopup
-{
-	background-color: #ffffff;
-	border: solid 1px #aaaaaa;
-	width: 400px;
-}
-
-.modalPopup .modalBase
-{
-
-}
-
-.modalPopup .modalHeader
-{
-    background-color: #ee6943;
-	color: #ffffff;
-	font-weight: bold;
-	padding-left: 10px;
-	font-size: 15px;
-	line-height: 30px;
-}
-
-.modalPopup .modalInner
-{
-	padding: 10px;
 	text-align:center;
-}
-
-.modalPopup .modalInnerMain
-{
-	font-size: 9pt;
-	font-weight: bold;
-	color: #444444;
-	text-align: center;
-}
-
-.modalPopup .modalInnerSub
-{
-	font-size: 8pt;
-	color: #333333;
-	text-align: center;
-}
-
-.modalPopup .modalFooter
-{
-	padding: 5px;
-	background-color: #f4f4f4;	
-	line-height: 20px;
-}
-
-.modalPopup .modalFooter input
-{
 	display:block;
-	vertical-align: middle;
-	margin:0 auto;
+	font-weight:bold;
+}
+
+.modalOuter
+{
+	margin:10px;
+	display:block;
 }
 
 /* Goto Page Form */

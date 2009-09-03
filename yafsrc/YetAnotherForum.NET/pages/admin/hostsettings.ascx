@@ -3,9 +3,16 @@
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../../controls/PMList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
-	<ajaxToolkit:TabContainer runat="server" ID="PMTabs" CssClass="ajax__tab_yaf">
-		<ajaxToolkit:TabPanel runat="server" ID="SettingsTab">
-			<ContentTemplate>
+	<DotNetAge:Tabs ID="HostSettingsTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
+		AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false"
+		EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd=""
+		OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove=""
+		OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false" Spinner="">
+		<Animations>
+		</Animations>
+		<Views>
+			<DotNetAge:View runat="server" ID="View1" Text="Host Settings" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
 				<table class="content" cellspacing="1" width="100%" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -206,10 +213,9 @@
 						</td>
 					</tr>
 				</table>
-			</ContentTemplate>
-		</ajaxToolkit:TabPanel>
-		<ajaxToolkit:TabPanel runat="server" ID="FeaturesTab">
-			<ContentTemplate>
+			</DotNetAge:View>
+			<DotNetAge:View runat="server" ID="View2" Text="Features" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
+				Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -447,10 +453,9 @@
 						</td>
 					</tr>
 				</table>
-			</ContentTemplate>
-		</ajaxToolkit:TabPanel>
-		<ajaxToolkit:TabPanel runat="server" ID="DisplayTab">
-			<ContentTemplate>
+			</DotNetAge:View>
+			<DotNetAge:View runat="server" ID="View3" Text="Display" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
+				Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -645,10 +650,9 @@
 						</td>
 					</tr>
 				</table>
-			</ContentTemplate>
-		</ajaxToolkit:TabPanel>
-		<ajaxToolkit:TabPanel runat="server" ID="AdvertsTab">
-			<ContentTemplate>
+			</DotNetAge:View>
+			<DotNetAge:View runat="server" ID="View4" Text="Adverts" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
+				Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -675,10 +679,9 @@
 						</td>
 					</tr>
 				</table>
-			</ContentTemplate>
-		</ajaxToolkit:TabPanel>
-		<ajaxToolkit:TabPanel runat="server" ID="EditorTab">
-			<ContentTemplate>
+			</DotNetAge:View>
+			<DotNetAge:View runat="server" ID="View5" Text="Editors" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
+				Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -708,10 +711,9 @@
 						</td>
 					</tr>
 				</table>
-			</ContentTemplate>
-		</ajaxToolkit:TabPanel>
-		<ajaxToolkit:TabPanel runat="server" ID="PermissionTab">
-			<ContentTemplate>
+			</DotNetAge:View>
+			<DotNetAge:View runat="server" ID="View6" Text="Permission" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
+				Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -830,10 +832,9 @@
 						</td>
 					</tr>
 				</table>
-			</ContentTemplate>
-		</ajaxToolkit:TabPanel>
-		<ajaxToolkit:TabPanel runat="server" ID="TemplatesTab">
-			<ContentTemplate>
+			</DotNetAge:View>
+			<DotNetAge:View runat="server" ID="View7" Text="Templates" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
+				Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -931,10 +932,9 @@
 						</td>
 					</tr>
 				</table>
-			</ContentTemplate>
-		</ajaxToolkit:TabPanel>
-		<ajaxToolkit:TabPanel runat="server" ID="AvatarsTab">
-			<ContentTemplate>
+			</DotNetAge:View>
+			<DotNetAge:View runat="server" ID="View8" Text="Avatars" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
+				Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -1010,10 +1010,9 @@
 						</td>
 					</tr>
 				</table>
-			</ContentTemplate>
-		</ajaxToolkit:TabPanel>
-		<ajaxToolkit:TabPanel runat="server" ID="CacheTab">
-			<ContentTemplate>
+			</DotNetAge:View>
+			<DotNetAge:View runat="server" ID="View9" Text="Cache" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
+				Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -1085,9 +1084,9 @@
 						</td>
 					</tr>
 				</table>
-			</ContentTemplate>
-		</ajaxToolkit:TabPanel>
-	</ajaxToolkit:TabContainer>
+			</DotNetAge:View>
+		</Views>
+	</DotNetAge:Tabs>
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="postfooter" align="center">

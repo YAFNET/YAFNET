@@ -1,3 +1,5 @@
+@import "jquery/jquery-ui.css";
+
 .yafnet {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
@@ -161,7 +163,7 @@
 	padding: 0px;
 	margin: 0px;
 	border-collapse: collapse;
-	color: #000000;
+	color: #000000;	
 }
 .yafnet .postformheader {
 	background-color: #EEEEEE;

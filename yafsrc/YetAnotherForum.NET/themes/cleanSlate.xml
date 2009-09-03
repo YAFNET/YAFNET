@@ -46,4 +46,7 @@
 		<Resource tag="RCAP">~/vote_rcap.gif</Resource>
 		<Resource tag="BAR">~/voting_bar.gif</Resource>
 	</page>
+	<page name="PAGE_OVERRIDE">
+		<!--Resource tag="FORUM">~/forum.ascx</Resource-->		
+	</page>
 </Resources>

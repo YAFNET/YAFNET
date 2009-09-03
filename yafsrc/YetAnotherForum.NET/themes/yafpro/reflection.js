@@ -1,31 +1,27 @@
 /**
- * reflection.js v1.7
- *
- * Contributors: Cow http://cow.neondragon.net
- *               Gfx http://www.jroller.com/page/gfx/
- *               Sitharus http://www.sitharus.com
- *               Andreas Linde http://www.andreaslinde.de
- *               Tralala, coder @ http://www.vbulletin.org
- *
+ * reflection.js v2.0
+ * http://cow.neondragon.net/stuff/reflection/
  * Freely distributable under MIT-style license.
  */
  
 /* From prototype.js */
-document.getElementsByClassName = function(className) {
-	var children = document.getElementsByTagName('*') || document.all;
-	var elements = new Array();
-  
-	for (var i = 0; i < children.length; i++) {
-		var child = children[i];
-		var classNames = child.className.split(' ');
-		for (var j = 0; j < classNames.length; j++) {
-			if (classNames[j] == className) {
-				elements.push(child);
-				break;
+if (!document.myGetElementsByClassName) {
+	document.myGetElementsByClassName = function(className) {
+		var children = document.getElementsByTagName('*') || document.all;
+		var elements = new Array();
+	  
+		for (var i = 0; i < children.length; i++) {
+			var child = children[i];
+			var classNames = child.className.split(' ');
+			for (var j = 0; j < classNames.length; j++) {
+				if (classNames[j] == className) {
+					elements.push(child);
+					break;
+				}
 			}
 		}
+		return elements;
 	}
-	return elements;
 }
 
 var Reflection = {
@@ -53,7 +49,7 @@ var Reflection = {
 			var classes = p.className.split(' ');
 			var newClasses = '';
 			for (j=0;j<classes.length;j++) {
-				if (classes[j] != "avatarimage") {
+				if (classes[j] != "reflect") {
 					if (newClasses) {
 						newClasses += ' '
 					}
@@ -84,6 +80,8 @@ var Reflection = {
 				var reflection = document.createElement('img');
 				reflection.src = p.src;
 				reflection.style.width = reflectionWidth+'px';
+				reflection.style.display = 'block';
+				reflection.style.height = p.height+"px";
 				
 				reflection.style.marginBottom = "-"+(p.height-reflectionHeight)+'px';
 				reflection.style.filter = 'flipv progid:DXImageTransform.Microsoft.Alpha(opacity='+(options['opacity']*100)+', style=1, finishOpacity=0, startx=0, starty=0, finishx=0, finishy='+(options['height']*100)+')';
@@ -134,11 +132,8 @@ var Reflection = {
 					gradient.addColorStop(0, "rgba(255, 255, 255, "+(1-options['opacity'])+")");
 		
 					context.fillStyle = gradient;
-					if (navigator.appVersion.indexOf('WebKit') != -1) {
-						context.fill();
-					} else {
-						context.fillRect(0, 0, reflectionWidth, reflectionHeight*2);
-					}
+					context.rect(0, 0, reflectionWidth, reflectionHeight*2);
+					context.fill();
 				}
 			}
 		} catch (e) {
@@ -154,7 +149,7 @@ var Reflection = {
 }
 
 function addReflections() {
-	var rimages = document.getElementsByClassName('avatarimage');
+	var rimages = document.myGetElementsByClassName('reflect');
 	for (i=0;i<rimages.length;i++) {
 		var rheight = null;
 		var ropacity = null;
