@@ -3142,19 +3142,27 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_delete](@UserPMess
 BEGIN
 	DECLARE @PMessageID int
 
-	SET @PMessageID = (SELECT TOP 1 PMessageID FROM [{databaseOwner}].[{objectQualifier}UserPMessage] where [UserPMessageID] = @UserPMessageID);
-
-	-- set IsInOutbox bit which will remove it from the senders outbox
-	UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] ^ 8) WHERE UserPMessageID = @UserPMessageID
+	SET @PMessageID = (SELECT TOP 1 PMessageID FROM [{databaseOwner}].[{objectQualifier}UserPMessage] where UserPMessageID = @UserPMessageID);
 	
-	DECLARE @MsgCount int
-	SET @MsgCount = (SELECT COUNT (UserPMessageID) FROM [{databaseOwner}].[{objectQualifier}UserPMessage]  WHERE  ([Flags] & 8)=0) ;
-	
-	IF @MsgCount =0 
+	IF ( @FromOutbox = 1 AND EXISTS(SELECT (1) FROM [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE UserPMessageID = @UserPMessageID AND IsInOutbox = 1 ) )
 	BEGIN
+		-- set IsInOutbox bit which will remove it from the senders outbox
+		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] ^ 2) WHERE UserPMessageID = @UserPMessageID
+	END
+	
+	IF ( @FromOutbox = 0 )
+	BEGIN
+		-- set is deleted...
+		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] ^ 8) WHERE UserPMessageID = @UserPMessageID
+	END	
+	
+	-- see if there are no longer references to this PM.
+	IF ( EXISTS(SELECT (1) FROM [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE UserPMessageID = @UserPMessageID AND IsInOutbox = 0 AND IsDeleted = 1 ) )
+	BEGIN
+		-- delete
 		DELETE FROM [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE [PMessageID] = @PMessageID
 		DELETE FROM [{databaseOwner}].[{objectQualifier}PMessage] WHERE [PMessageID] = @PMessageID
-	END
+	END	
 
 END
 GO
@@ -3162,20 +3170,18 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_info] as
 begin
 	select
-		NumRead	= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsRead<>0  AND IsDeleted<>8),
-		NumUnread = (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsRead=0  AND IsDeleted<>8),
-		NumTotal = (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsDeleted<>8)
+		NumRead	= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsRead<>0  AND IsDeleted<>1),
+		NumUnread = (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsRead=0  AND IsDeleted<>1),
+		NumTotal = (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsDeleted<>1)
 end
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_list](@FromUserID int=null,@ToUserID int=null,@UserPMessageID int=null) AS
 BEGIN
-	SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body, Flags, IsRead, IsInOutbox, IsArchived
+	SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body, Flags, IsRead, IsInOutbox, IsArchived, IsDeleted
 		FROM [{databaseOwner}].[{objectQualifier}PMessageView]
 		WHERE	((@UserPMessageID IS NOT NULL AND UserPMessageID=@UserPMessageID) OR 
-				 (@ToUserID   IS NOT NULL AND ToUserID = @ToUserID) OR 
-				 (@FromUserID IS NOT NULL AND FromUserID = @FromUserID) AND
-				 IsDeleted=0)
+				 (@ToUserID   IS NOT NULL AND ToUserID = @ToUserID) OR (@FromUserID IS NOT NULL AND FromUserID = @FromUserID))
 		ORDER BY Created DESC
 END
 GO
