@@ -509,6 +509,7 @@ namespace YAF.Classes.Core
 
 		public string HtmlEncode( object data )
 		{
+			if ( data == null || !(data is string)) return null;
 			return Server.HtmlEncode( data.ToString() );
 		}
 

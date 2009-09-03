@@ -99,6 +99,11 @@ namespace YAF.Classes.Core
 			RegisterJQuery( YafContext.Current.CurrentForumPage.TopPageControl );
 		}
 
+		public void RegisterJQueryUI()
+		{
+			RegisterJQueryUI( YafContext.Current.CurrentForumPage.TopPageControl );
+		}
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -111,6 +116,20 @@ namespace YAF.Classes.Core
 				element.Controls.Add(
 					ControlHelper.MakeJsIncludeControl( "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" ) );
 				AddPageElement( "jquery" );
+			}
+		}
+
+		public void RegisterJQueryUI( Control element )
+		{
+			if ( !PageElementExists( "jqueryui" ) )
+			{
+				// requires jQuery first...
+				if ( !PageElementExists( "jquery" ) ) RegisterJQuery( element );
+
+				// load jQuery UI from google...
+				element.Controls.Add(
+					ControlHelper.MakeJsIncludeControl( "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" ) );
+				AddPageElement( "jqueryui" );
 			}
 		}
 	}
