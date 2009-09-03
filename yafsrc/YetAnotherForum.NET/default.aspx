@@ -1,12 +1,12 @@
 <%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <script runat="server">
-    public void Page_Error( object sender, System.EventArgs e )
-    {
-        Exception x = Server.GetLastError();
-        YAF.Classes.Data.DB.eventlog_create( YafContext.Current.PageUserID, this, x );
-        YAF.Classes.Core.CreateMail.CreateLogEmail( x );
-    }		
+	public void Page_Error( object sender, System.EventArgs e )
+	{
+		Exception x = Server.GetLastError();
+		YAF.Classes.Data.DB.eventlog_create(YafServices.InitializeDb.Initialized ? (int?)YafContext.Current.PageUserID : null , this, x );
+		YAF.Classes.Core.CreateMail.CreateLogEmail( x );
+	}		
 </script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
