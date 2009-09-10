@@ -185,6 +185,26 @@ namespace YAF.Classes.Core
 				);
 		}
 
+		/// <summary>
+		/// Adds item to the cache.
+		/// </summary>
+		/// <param name="key">Key identifying item in cache.</param>
+		/// <param name="value">Cached value.</param>
+		/// <param name="absoluteExpiration">Absolute expiration date.</param>
+		/// <returns></returns>
+		public object Add( string key, object value, DateTime absoluteExpiration )
+		{
+			return _cache.Add(
+				CreateKey( key ),
+				value,
+				null,
+				absoluteExpiration,
+				Cache.NoSlidingExpiration,
+				CacheItemPriority.Default,
+				null
+				);
+		}
+
 
 		/// <summary>
 		/// Inserts item to the cache.

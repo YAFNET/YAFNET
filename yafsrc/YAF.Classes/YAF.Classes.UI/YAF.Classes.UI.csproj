@@ -108,6 +108,7 @@
     <Compile Include="ClientSide\SmartScroller.cs" />
     <Compile Include="FormatMsg.cs" />
     <Compile Include="BBCode\HighLighter.cs" />
+    <Compile Include="jQuery\Lightbox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BBCode\ReplaceRulesCreator.cs" />
   </ItemGroup>

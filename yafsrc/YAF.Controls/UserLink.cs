@@ -32,19 +32,15 @@ namespace YAF.Controls
 	{
 		public UserLink()
 		{
-			this.Load += new EventHandler( UserLink_Load );
-		}
 
-		private void UserLink_Load( object sender, EventArgs e )
-		{
 		}
 
 		protected override void Render( HtmlTextWriter output )
 		{
-			if ( _userID != -1 && !String.IsNullOrEmpty( _userName ) )
+			if ( UserID != -1 && !String.IsNullOrEmpty( UserName ) )
 			{
 				// is this the guest user? If so, guest's don't have a profile.
-				bool isGuest = UserMembershipHelper.IsGuestUser( _userID );
+				bool isGuest = UserMembershipHelper.IsGuestUser( UserID );
 
 				output.BeginRender();
 
@@ -52,137 +48,158 @@ namespace YAF.Controls
 				{
 					output.WriteBeginTag( "a" );
 					if ( !String.IsNullOrEmpty( this.ClientID ) ) output.WriteAttribute( "id", this.ClientID );
-					output.WriteAttribute( "href", YafBuildLink.GetLink( ForumPages.profile, "u={0}", _userID ) );
-					output.WriteAttribute( "title", HtmlEncode( _userName ) );
-					if ( _blankTarget ) output.WriteAttribute( "target", "_blank" );
-					if ( !String.IsNullOrEmpty( _onclick ) ) output.WriteAttribute( "onclick", _onclick );
-					if ( !String.IsNullOrEmpty( _onmouseover ) ) output.WriteAttribute( "onmouseover", _onmouseover );
-					if ( !String.IsNullOrEmpty( _cssClass ) ) output.WriteAttribute( "class", _cssClass );
+					output.WriteAttribute( "href", YafBuildLink.GetLink( ForumPages.profile, "u={0}", UserID ) );
+					output.WriteAttribute( "title", HtmlEncode( UserName ) );
+					if ( BlankTarget ) output.WriteAttribute( "target", "_blank" );
+					if ( !String.IsNullOrEmpty( OnClick ) ) output.WriteAttribute( "onclick", OnClick );
+					if ( !String.IsNullOrEmpty( OnMouseOver ) ) output.WriteAttribute( "onmouseover", OnMouseOver );
+					if ( !String.IsNullOrEmpty( CssClass ) ) output.WriteAttribute( "class", CssClass );
 					output.Write( HtmlTextWriter.TagRightChar );
 				}
 
-				output.WriteEncodedText( _userName );
+				output.WriteEncodedText( UserName );
 
 				if ( !isGuest )
 				{
 					output.WriteEndTag( "a" );
 				}
 
-				if ( !String.IsNullOrEmpty( _postfixText ) )
+				if ( !String.IsNullOrEmpty( PostfixText ) )
 				{
-					output.Write( _postfixText );
+					output.Write( PostfixText );
 				}
 
 				output.EndRender();
 			}
 		}
 
-		public string _cssClass = string.Empty;
 		public string CssClass
 		{
 			get
 			{
-				return _cssClass;
+				if ( ViewState["CssClass"] != null )
+				{
+					return ViewState["CssClass"].ToString();
+				}
+				return string.Empty;
 			}
 			set
 			{
-				_cssClass = value;
+				ViewState["CssClass"] = value;
 			}
 		}
 
 		/// <summary>
 		/// The onclick value for the profile link
 		/// </summary>
-		private string _onclick = string.Empty;
 		public string OnClick
 		{
 			get
 			{
-				return _onclick;
+				if ( ViewState["OnClick"] != null )
+				{
+					return ViewState["OnClick"].ToString();
+				}
+				return string.Empty;
 			}
 			set
 			{
-				_onclick = value;
+				ViewState["OnClick"] = value;
 			}
 		}
 
 		/// <summary>
 		/// The onmouseover value for the profile link
 		/// </summary>
-		private string _onmouseover = string.Empty;
 		public string OnMouseOver
 		{
 			get
 			{
-				return _onmouseover;
+				if ( ViewState["OnMouseOver"] != null )
+				{
+					return ViewState["OnMouseOver"].ToString();
+				}
+				return string.Empty;
 			}
 			set
 			{
-				_onmouseover = value;
+				ViewState["OnMouseOver"] = value;
 			}
 		}
 
 		/// <summary>
 		/// The name of the user for this profile link
 		/// </summary>
-		private string _userName = string.Empty;
 		public string UserName
 		{
 			get
 			{
-				return _userName;
+				if ( ViewState["UserName"] != null )
+				{
+					return ViewState["UserName"].ToString();
+				}
+				return string.Empty;
 			}
 			set
 			{
-				_userName = value;
+				ViewState["UserName"] = value;
 			}
 		}
 
 		/// <summary>
 		/// The name of the user for this profile link
 		/// </summary>
-		private string _postfixText = string.Empty;
 		public string PostfixText
 		{
 			get
 			{
-				return _postfixText;
+				if ( ViewState ["PostfixText"] != null )
+				{
+					return ViewState ["PostfixText"].ToString();
+				}
+				return string.Empty;
 			}
 			set
 			{
-				_postfixText = value;
+				ViewState ["PostfixText"] = value;
 			}
 		}
 
 		/// <summary>
 		/// The userid of this user for the link
 		/// </summary>
-		private int _userID = -1;
 		public int UserID
 		{
 			get
 			{
-				return _userID;
+				if ( ViewState["UserID"] != null )
+				{
+					return Convert.ToInt32( ViewState["UserID"] );
+				}
+				return -1;
 			}
 			set
 			{
-				_userID = value;
+				ViewState["UserID"] = value;
 			}
 		}
 
 		/// <summary>
 		/// Make the link target "blank" to open in a new window.
 		/// </summary>
-		private bool _blankTarget = false;
 		public bool BlankTarget
 		{
 			get
 			{
-				return _blankTarget;
+				if ( ViewState["BlankTarget"] != null )
+				{
+					return Convert.ToBoolean( ViewState["BlankTarget"] );
+				}
+				return false;
 			}
 			set
 			{
-				_blankTarget = value;
+				ViewState["BlankTarget"] = value;
 			}
 		}
 	}

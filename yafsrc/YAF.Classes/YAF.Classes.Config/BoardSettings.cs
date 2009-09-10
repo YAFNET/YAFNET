@@ -193,7 +193,8 @@ namespace YAF.Classes
 				return new TimeSpan(min / 60, min % 60, 0);
 			}
 		}
-		// int settings
+		#region int settings
+
 		public int TimeZoneRaw
 		{
 			get { return _reg.GetValue<int>("TimeZone", 0); }
@@ -374,7 +375,16 @@ namespace YAF.Classes
 			set { _reg.SetValue<int>("ImageAttachmentResizeWidth", value); }
 		}
 
-		// boolean settings
+		public int ShoutboxShowMessageCount
+		{
+			get { return _reg.GetValue<int>( "ShoutboxShowMessageCount", 30 ); }
+			set { _reg.SetValue<int>( "ShoutboxShowMessageCount", value ); }
+		}
+
+		#endregion
+
+		#region boolean settings
+
 		public bool EmailVerification
 		{
 			get { return _reg.GetValue<bool>("EmailVerification", false); }
@@ -425,13 +435,13 @@ namespace YAF.Classes
 			get { return _reg.GetValue<bool>("AvatarRemote", false); }
 			set { _reg.SetValue<bool>("AvatarRemote", value); }
 		}
-        //JoeOuts: added 8/17/09
-        public bool AvatarGravatar
-        {
-            get { return _reg.GetValue<bool>("AvatarGravatar", false); }
-            set { _reg.SetValue<bool>("AvatarGravatar", value); }
-        }
-        public bool AllowEmailChange
+		//JoeOuts: added 8/17/09
+		public bool AvatarGravatar
+		{
+			get { return _reg.GetValue<bool>("AvatarGravatar", false); }
+			set { _reg.SetValue<bool>("AvatarGravatar", value); }
+		}
+		public bool AllowEmailChange
 		{
 			get { return _reg.GetValue<bool>("AllowEmailChange", true); }
 			set { _reg.SetValue<bool>("AllowEmailChange", value); }
@@ -582,36 +592,35 @@ namespace YAF.Classes
 			set { _reg.SetValue<bool>("EnableImageAttachmentResize", value); }
 		}
 
-		// string settings
+		public bool ShowShoutbox
+		{
+			get { return _reg.GetValue<bool>( "ShowShoutbox", true ); }
+			set { _reg.SetValue<bool>( "ShowShoutbox", value ); }
+		}
+
+		public bool AllowUserInfoCaching
+		{
+			get { return _reg.GetValue<bool>( "AllowUserInfoCaching", true ); }
+			set { _reg.SetValue<bool>( "AllowUserInfoCaching", value ); }
+		}
+
+		#endregion
+
+		#region string settings
+
 		public string ForumEmail
 		{
 			get { return _reg.GetValue<string>("ForumEmail", ""); }
 			set { _reg.SetValue<string>("ForumEmail", value); }
 		}
-        //JoeOuts: added 8/17/09
-        public string GravatarRating
-        {
-					get { return _reg.GetValue<string>( "GravatarRating", "G" ); }
-					set { _reg.SetValue<string>( "GravatarRating", value ); }
-        }
 
+		//JoeOuts: added 8/17/09
+		public string GravatarRating
+		{
+			get { return _reg.GetValue<string>( "GravatarRating", "G" ); }
+			set { _reg.SetValue<string>( "GravatarRating", value ); }
+		}
 
-		// Wes: Removed
-		//public string SmtpServer
-		//{
-		//    get { return _reg.GetValue<string>( "SmtpServer", null ); }
-		//    set { _reg.SetValue<string>( "SmtpServer", value ); }
-		//}
-		//public string SmtpUserName
-		//{
-		//    get { return _reg.GetValue<string>( "SmtpUserName", null ); }
-		//    set { _reg.SetValue<string>( "SmtpUserName", value ); }
-		//}
-		//public string SmtpUserPass
-		//{
-		//    get { return _reg.GetValue<string>( "SmtpUserPass", null ); }
-		//    set { _reg.SetValue<string>( "SmtpUserPass", value ); }
-		//}
 		public string AcceptedHTML
 		{
 			get { return _reg.GetValue<string>("AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address"); }
@@ -628,20 +637,11 @@ namespace YAF.Classes
 			set { _reg.SetValue<string>("CustomLoginRedirectUrl", value); }
 		}
 
-		// Wes:Removed
-		///* Ederon : 9/9/2007 */
-		//public string SmtpServerPort
-		//{
-		//    get { return _reg.GetValue<string>( "SmtpServerPort", null ); }
-		//    set { _reg.SetValue<string>( "SmtpServerPort", value ); }
-		//}
-		// Ederon : 12/14/2007
 		public string SearchStringPattern
 		{
 			get { return _reg.GetValue<string>("SearchStringPattern", ".*"); }
 			set { _reg.SetValue<string>("SearchStringPattern", value); }
 		}
-
 
 		/* Ederon : 6/16/2007 */
 		public bool DisplayJoinDate
@@ -682,13 +682,6 @@ namespace YAF.Classes
 			set { _reg.SetValue<bool>("AllowEmailTopic", value); }
 		}
 
-		// Wes: Removed
-		///* Ederon : 9/9/2007 */
-		//public bool SmtpServerSsl
-		//{
-		//    get { return _reg.GetValue<bool>( "SmtpServerSsl", false ); }
-		//    set { _reg.SetValue<bool>( "SmtpServerSsl", value ); }
-		//}
 		/* Ederon : 12/9/2007 */
 		public bool RequireLogin
 		{
@@ -765,6 +758,8 @@ namespace YAF.Classes
 			set { _reg.SetValue<string>("UserBoxLocation", value); }
 		}
 		/* 7/14/2007 */
+
+		#endregion
 	}
 
 	public class YafBoardSettingCollection

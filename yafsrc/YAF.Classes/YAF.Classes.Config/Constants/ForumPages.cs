@@ -64,6 +64,7 @@ namespace YAF.Classes
 		moderate_unapprovedposts,
 		moderate_reportedspam,
 		error,
+		shoutbox,
 		avatar,
 		im_yim,
 		im_aim,

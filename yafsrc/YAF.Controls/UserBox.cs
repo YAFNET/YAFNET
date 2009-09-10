@@ -379,83 +379,83 @@ namespace YAF.Controls
 
 			if ( PageContext.BoardSettings.ShowMedals )
 			{
-				using ( DataTable dt = DB.user_listmedals( UserId ) )
+				DataTable dt = YafServices.DBBroker.UserMedals( UserId );
+
+				System.Text.StringBuilder ribbonBar = new System.Text.StringBuilder( 500 );
+				System.Text.StringBuilder medals = new System.Text.StringBuilder( 500 );
+
+				DataRow r;
+				MedalFlags f;
+
+				int i = 0;
+				int inRow = 0;
+
+				// do ribbon bar first
+				while ( dt.Rows.Count > i )
 				{
-					System.Text.StringBuilder ribbonBar = new System.Text.StringBuilder( 500 );
-					System.Text.StringBuilder medals = new System.Text.StringBuilder( 500 );
+					r = dt.Rows[i];
+					f = new MedalFlags( r["Flags"] );
 
-					DataRow r;
-					MedalFlags f;
+					// do only ribbon bar items first
+					if ( !SqlDataLayerConverter.VerifyBool( r["OnlyRibbon"] ) ) break;
 
-					int i = 0;
-					int inRow = 0;
-
-					// do ribbon bar first
-					while ( dt.Rows.Count > i )
+					// skip hidden medals
+					if ( !f.AllowHiding || !SqlDataLayerConverter.VerifyBool( r["Hide"] ) )
 					{
-						r = dt.Rows[i];
-						f = new MedalFlags( r["Flags"] );
-
-						// do only ribbon bar items first
-						if ( !SqlDataLayerConverter.VerifyBool( r["OnlyRibbon"] ) ) break;
-
-						// skip hidden medals
-						if ( !f.AllowHiding || !SqlDataLayerConverter.VerifyBool( r["Hide"] ) )
+						if ( inRow == 3 )
 						{
-							if ( inRow == 3 )
-							{
-								// add break - only three ribbons in a row
-								ribbonBar.Append( "<br />" );
-								inRow = 0;
-							}
-
-							ribbonBar.AppendFormat(
-									"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
-									YafForumInfo.ForumRoot,
-									r["SmallRibbonURL"],
-									r["SmallRibbonWidth"],
-									r["SmallRibbonHeight"],
-									r["Name"],
-									f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : ""
-									);
-
-							inRow++;
+							// add break - only three ribbons in a row
+							ribbonBar.Append( "<br />" );
+							inRow = 0;
 						}
 
-						// move to next row
-						i++;
+						ribbonBar.AppendFormat(
+								"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
+								YafForumInfo.ForumRoot,
+								r["SmallRibbonURL"],
+								r["SmallRibbonWidth"],
+								r["SmallRibbonHeight"],
+								r["Name"],
+								f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : ""
+								);
+
+						inRow++;
 					}
 
-					// follow with the rest
-					while ( dt.Rows.Count > i )
-					{
-						r = dt.Rows[i];
-						f = new MedalFlags( r["Flags"] );
-
-						// skip hidden medals
-						if ( !f.AllowHiding || !SqlDataLayerConverter.VerifyBool( r["Hide"] ) )
-						{
-							medals.AppendFormat(
-									"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" />",
-									YafForumInfo.ForumRoot,
-									r["SmallMedalURL"],
-									r["SmallMedalWidth"],
-									r["SmallMedalHeight"],
-									r["Name"],
-									f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : ""
-									);
-						}
-
-						// move to next row
-						i++;
-					}
-
-					filler = String.Format(
-							PageContext.BoardSettings.UserBoxMedals,
-							ribbonBar.ToString(),
-							medals.ToString()
-							);
+					// move to next row
+					i++;
 				}
+
+				// follow with the rest
+				while ( dt.Rows.Count > i )
+				{
+					r = dt.Rows[i];
+					f = new MedalFlags( r["Flags"] );
+
+					// skip hidden medals
+					if ( !f.AllowHiding || !SqlDataLayerConverter.VerifyBool( r["Hide"] ) )
+					{
+						medals.AppendFormat(
+								"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" />",
+								YafForumInfo.ForumRoot,
+								r["SmallMedalURL"],
+								r["SmallMedalWidth"],
+								r["SmallMedalHeight"],
+								r["Name"],
+								f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : ""
+								);
+					}
+
+					// move to next row
+					i++;
+				}
+
+				filler = String.Format(
+						PageContext.BoardSettings.UserBoxMedals,
+						ribbonBar.ToString(),
+						medals.ToString()
+						);
+
 			}
 
 			// replaces template placeholder with actual medals
@@ -473,10 +473,10 @@ namespace YAF.Controls
 			{
 				string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser( UserId );
 
-				if ( !String.IsNullOrEmpty( avatarUrl ))
+				if ( !String.IsNullOrEmpty( avatarUrl ) )
 				{
 					filler = String.Format( PageContext.BoardSettings.UserBoxAvatar,
-					                        String.Format( @"<img class=""avatarimage"" src=""{0}"" alt="""" />", avatarUrl ) );
+																	String.Format( @"<img class=""avatarimage"" src=""{0}"" alt="""" />", avatarUrl ) );
 				}
 			}
 

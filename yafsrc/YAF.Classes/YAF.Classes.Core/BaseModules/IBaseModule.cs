@@ -17,6 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Web.Compilation;
 using YAF.Classes;
 using YAF.Classes.Core;
@@ -93,7 +95,13 @@ namespace YAF.Modules
 		YafBaseModuleManager()
 			: base( "YAF.Modules", "YAF.Modules.IBaseModule" )
 		{
-			base.InitModules( BuildManager.CodeAssemblies );
+			if ( ModuleClassTypes == null )
+			{
+				// re-add these modules...
+				base.AddModules( BuildManager.CodeAssemblies );
+				// get the .Core module to add...
+				base.AddModules( new List<Assembly>() {Assembly.GetExecutingAssembly()} );
+			}
 		}
 
 		public void CallInitModules( object forumControl )

@@ -62,11 +62,14 @@ namespace YAF.Classes
 			public const string ForumActiveDiscussions = "ForumActiveDiscussions";
 			public const string ForumModerators = "ForumModerators";
 			public const string ForumCategory = "ForumCategory";
+			public const string UserIgnoreList = "UserIgnoreList{0}";
+			public const string UserMedals = "UserMedals{0}";
 			public const string UserBoxes = "UserBoxes";
 			public const string ReplaceWords = "ReplaceWords";
 			public const string ReplaceRules = "ReplaceRules{0}";
 			public const string ForumJump = "ForumJump{0}";
 			public const string FirstPostCleaned = "FirstPostCleaned{0}{1}";
+			public const string Shoutbox = "Shoutbox";
 		}
 	}
 }

@@ -110,22 +110,20 @@ namespace YAF.Modules
 			ModuleBaseType = moduleBaseType;
 		}
 
-		protected void InitModules( IList assemblies )
+		protected void AddModules( IList assemblies )
 		{
 			if ( ModuleClassTypes == null )
-			{
-				// load modules...
 				ModuleClassTypes = FindModules( assemblies, ModuleNamespace, ModuleBaseType );
-			}
+			else
+				ModuleClassTypes.AddRange( FindModules( assemblies, ModuleNamespace, ModuleBaseType ) );
 		}
 
-		protected void InitModules( List<Assembly> assemblies )
+		protected void AddModules( List<Assembly> assemblies )
 		{
 			if ( ModuleClassTypes == null )
-			{
-				// load modules...
 				ModuleClassTypes = FindModules( assemblies, ModuleNamespace, ModuleBaseType );
-			}
+			else
+				ModuleClassTypes.AddRange( FindModules( assemblies, ModuleNamespace, ModuleBaseType ) );
 		}
 
 		protected static List<Type> FindModules(IList assemblies, string moduleNamespace, string moduleBaseInterface )

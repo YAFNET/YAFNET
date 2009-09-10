@@ -3260,6 +3260,17 @@ namespace YAF.Classes.Data
 			}
 		}
 
+		static public DataTable user_ignoredlist( object userId )
+		{
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_ignoredlist" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "UserId", userId );
+
+				return YafDBAccess.Current.GetData( cmd );
+			}
+		}
+
 		#endregion
 
 		#region User
@@ -4309,6 +4320,44 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "@Version", version );
 				cmd.Parameters.AddWithValue( "@VersionName", versionname );
 				YAF.Classes.Data.YafDBAccess.Current.ExecuteNonQuery( cmd );
+			}
+		}
+
+		#endregion
+
+		#region DLESKTECH_ShoutBox
+
+		public static DataTable shoutbox_getmessages(int numberOfMessages)
+		{
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "shoutbox_getmessages" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "NumberOfMessages", numberOfMessages );
+				return YafDBAccess.Current.GetData( cmd );
+			}
+		}
+
+		public static bool shoutbox_savemessage( string message, string usernName, int userID, object ip )
+		{
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "shoutbox_savemessage" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "Message", message );
+				cmd.Parameters.AddWithValue( "UserName", usernName );
+				cmd.Parameters.AddWithValue( "UserID", userID );
+				cmd.Parameters.AddWithValue( "IP", ip );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
+				return true;
+			}
+		}
+
+		public static Boolean shoutbox_clearmessages()
+		{
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "shoutbox_clearmessages" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
+				return true;
 			}
 		}
 

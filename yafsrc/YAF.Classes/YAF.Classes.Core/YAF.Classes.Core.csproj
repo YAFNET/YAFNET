@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="BaseControls\BaseControl.cs" />
     <Compile Include="BaseControls\IYafHeaderFooter.cs" />
+    <Compile Include="Tasks\IBackgroundTask.cs" />
     <Compile Include="BasePages\AdminPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -152,8 +153,11 @@
     <Compile Include="Services\SendMail.cs" />
     <Compile Include="Services\Services.cs" />
     <Compile Include="Services\StopWatch.cs" />
+    <Compile Include="Tasks\CleanUpTask.cs" />
+    <Compile Include="Tasks\MailSendTask.cs" />
+    <Compile Include="Tasks\MigrateUsersTask.cs" />
     <Compile Include="Theme\Theme.cs" />
-    <Compile Include="YAFInitModule.cs" />
+    <Compile Include="YAFTaskModule.cs" />
     <Compile Include="BaseModules\IBaseModule.cs" />
   </ItemGroup>
   <ItemGroup>

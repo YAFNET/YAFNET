@@ -32,6 +32,7 @@ namespace YAF.Classes
 		private int _boardID;
 		private int _categoryID;
 		private int _lockedForum = 0;
+		private bool _popup = false;
 
 		public static YafControlSettings Current
 		{
@@ -72,6 +73,18 @@ namespace YAF.Classes
 			{
 				_categoryID = value;
 			}
+		}
+
+		public bool Popup
+		{
+			get
+			{
+				return _popup;
+			}
+			set
+			{
+				_popup = value;
+			}			
 		}
 
 		public int LockedForum

@@ -83,6 +83,19 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		private bool _allowAsPopup = false;
+		public bool AllowAsPopup
+		{
+			get
+			{
+				return _allowAsPopup;
+			}
+			protected set
+			{
+				_allowAsPopup = value;
+			}
+		}
+
 		private IYafHeader _header = null;
 		public IYafHeader ForumHeader
 		{

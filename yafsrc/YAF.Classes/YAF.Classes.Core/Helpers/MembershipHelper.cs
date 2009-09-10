@@ -18,14 +18,10 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
-using System.Security;
+using System.Threading;
 using System.Web;
-using System.Web.Profile;
 using System.Web.Security;
-using YAF.Classes;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
@@ -99,6 +95,9 @@ namespace YAF.Classes.Core
 
 			foreach ( DataRow row in dt.Rows )
 			{
+				// make sure this thread isn't aborted...
+				if ( !Thread.CurrentThread.IsAlive ) break;
+
 				// skip the guest user
 				if ( ( int )row ["IsGuest"] > 0 )
 					continue;
@@ -120,12 +119,12 @@ namespace YAF.Classes.Core
 
 						if ( status != MembershipCreateStatus.Success )
 						{
-							throw new ApplicationException( string.Format( "Failed to create user {0}: {1}", name, status ) );
+							DB.eventlog_create( 0, "MigrateUsers", string.Format( "Failed to create user {0}: {1}", name, status ) );
 						}
 						else
 						{
 							// update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
-							YAF.Classes.Data.DB.user_migrate( row ["UserID"], user.ProviderUserKey, isYafProvider );
+							DB.user_migrate( row ["UserID"], user.ProviderUserKey, isYafProvider );
 
 							user.Comment = "Migrated from YetAnotherForum.NET";
 							Membership.UpdateUser( user );
@@ -437,6 +436,7 @@ namespace YAF.Classes.Core
 		/// <returns></returns>
 		public static DataRow GetUserRowForID( long userID, bool allowCached )
 		{
+			
 			string cacheKey = string.Format( "UserListForID{0}", userID );
 			DataRow userRow = YafContext.Current.Cache [YafCache.GetBoardCacheKey( cacheKey )] as DataRow;
 
@@ -446,8 +446,8 @@ namespace YAF.Classes.Core
 				if ( dt.Rows.Count == 1 )
 				{
 					userRow = dt.Rows [0];
-					// cache it
-					YafContext.Current.Cache[YafCache.GetBoardCacheKey(cacheKey)] = userRow;
+					// cache it for 10 minutes...
+					YafContext.Current.Cache.Add( YafCache.GetBoardCacheKey( cacheKey ), userRow, DateTime.Now.AddMinutes( 10 ) );
 				}
 			}
 

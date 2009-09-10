@@ -66,10 +66,12 @@
     <Compile Include="BuildLink.cs" />
     <Compile Include="ForumInfo.cs" />
     <Compile Include="Helpers\BBCodeHelper.cs" />
+    <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\ControlHelper.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\IPHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="MySession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security.cs" />

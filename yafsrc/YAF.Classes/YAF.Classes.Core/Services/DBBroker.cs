@@ -17,6 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
+using System.Collections.Generic;
 using System.Data;
 using YAF.Classes;
 using YAF.Classes.Data;
@@ -29,6 +30,45 @@ namespace YAF.Classes.Core
 	/// </summary>
 	public class YafDBBroker
 	{
+		public List<int> UserIgnoredList( int userId )
+		{
+			string key = YafCache.GetBoardCacheKey( String.Format( Constants.Cache.UserIgnoreList, userId ) );
+			List<int> userList = YafContext.Current.Cache[key] as List<int>;
+
+			// was it in the cache?
+			if ( userList == null )
+			{
+				// get fresh values
+				DataTable userListDt = DB.user_ignoredlist( userId );
+
+				// convert to list...
+				userList = TypeHelper.ConvertDataTableToList<int>( userListDt );
+
+				// cache it for the time specified by admin
+				YafContext.Current.Cache.Add( key, userList, DateTime.Now.AddMinutes( 10 ) );
+			}
+
+			return userList;
+		}
+
+		public DataTable UserMedals( int userId )
+		{
+			string key = YafCache.GetBoardCacheKey( String.Format( Constants.Cache.UserMedals, userId ) );
+			DataTable dt = YafContext.Current.Cache[key] as DataTable;
+
+			// was it in the cache?
+			if ( dt == null )
+			{
+				// get fresh values
+				dt = DB.user_listmedals( userId );
+
+				// cache it for the time specified by admin
+				YafContext.Current.Cache.Add( key, dt, DateTime.Now.AddMinutes( 10 ) );
+			}
+
+			return dt;
+		}
+
 		/// <summary>
 		/// Returns the layout of the board
 		/// </summary>

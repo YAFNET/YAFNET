@@ -14,66 +14,45 @@ namespace YAF.Classes.Core
 	public class CombinedUserDataHelper
 	{
 		private MembershipUser _membershipUser = null;
-		private YafUserProfile _userProfile = null;
-		private DataRow _userDBRow = null;
-		private DataRowConvert _rowConvert = null;
 		private int? _userID = null;
 
-		public CombinedUserDataHelper(MembershipUser membershipUser, int userID)
+		public CombinedUserDataHelper( MembershipUser membershipUser, int userID )
 		{
 			_userID = userID;
 			_membershipUser = membershipUser;
 			InitUserData();
 		}
 
-		public CombinedUserDataHelper(MembershipUser membershipUser)
-			: this(membershipUser, UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey))
+		public CombinedUserDataHelper( MembershipUser membershipUser )
+			: this( membershipUser, UserMembershipHelper.GetUserIDFromProviderUserKey( membershipUser.ProviderUserKey ) )
 		{
 		}
 
-		public CombinedUserDataHelper(int userID)
-			: this(UserMembershipHelper.GetMembershipUserById(userID), userID)
+		public CombinedUserDataHelper( int userID )
+			: this( UserMembershipHelper.GetMembershipUserById( userID ), userID )
 		{
 		}
 
 		public CombinedUserDataHelper()
 			: this( YafContext.Current.PageUserID )
 		{
-			
+
 		}
 
 		private void InitUserData()
 		{
-			if (_membershipUser != null)
+			if ( _membershipUser != null && !_userID.HasValue )
 			{
-				if (_userID == null)
+				if ( _userID == null )
 				{
 					// get the user id
-					_userID = UserMembershipHelper.GetUserIDFromProviderUserKey(_membershipUser.ProviderUserKey);
-				}
-				_userProfile = YafUserProfile.GetProfile(_membershipUser.UserName);
-				// get the data for this user from the DB...
-				DataRow userRow = UserMembershipHelper.GetUserRowForID((int)_userID, false);
-				if (userRow != null)
-				{
-					_userDBRow = userRow;
-					_rowConvert = new DataRowConvert(_userDBRow);
+					_userID = UserMembershipHelper.GetUserIDFromProviderUserKey( _membershipUser.ProviderUserKey );
 				}
 			}
-			else if (_userID != null)
+
+			if ( !_userID.HasValue )
 			{
-				// see if this is the guest user
-				DataRow userRow = UserMembershipHelper.GetUserRowForID((int)_userID, false);
-				if (userRow != null)
-				{
-					_userDBRow = userRow;
-					_userProfile = YafUserProfile.GetProfile(_userDBRow["Name"].ToString());
-					_rowConvert = new DataRowConvert(_userDBRow);
-				}
-			}
-			else
-			{
-				throw new Exception("Cannot locate user information.");
+				throw new Exception( "Cannot locate user information." );
 			}
 		}
 
@@ -81,9 +60,26 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				if (_userID != null) return (int)_userID;
+				if ( _userID != null ) return (int)_userID;
 
 				return 0;
+			}
+		}
+
+		public string UserName
+		{
+			get
+			{
+				if ( _membershipUser != null )
+				{
+					return _membershipUser.UserName;
+				}
+				else if ( _userID.HasValue )
+				{
+					return RowConvert.AsString( "Name" );
+				}
+
+				return null;
 			}
 		}
 
@@ -91,9 +87,9 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				if (_userDBRow != null)
+				if ( DBRow != null )
 				{
-					if (Convert.ToInt32(_userDBRow["IsGuest"]) > 0) return true;
+					if ( Convert.ToInt32( DBRow["IsGuest"] ) > 0 ) return true;
 				}
 
 				return false;
@@ -108,19 +104,46 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		private YafUserProfile _userProfile = null;
 		public YafUserProfile Profile
 		{
 			get
 			{
+				if ( _userProfile == null && !String.IsNullOrEmpty( UserName ) )
+				{
+					// init the profile...
+					_userProfile = YafUserProfile.GetProfile( UserName );
+				}
+
 				return _userProfile;
 			}
 		}
 
+		private DataRow _userDBRow = null;
 		public DataRow DBRow
 		{
 			get
 			{
+				if ( _userDBRow == null && _userID.HasValue )
+				{
+					_userDBRow = UserMembershipHelper.GetUserRowForID( _userID.Value, YafContext.Current.BoardSettings.AllowUserInfoCaching );
+				}
+
 				return _userDBRow;
+			}
+		}
+
+		private DataRowConvert _rowConvert = null;
+		protected DataRowConvert RowConvert
+		{
+			get
+			{
+				if ( _rowConvert == null && DBRow != null )
+				{
+					_rowConvert = new DataRowConvert( DBRow );
+				}
+
+				return _rowConvert;
 			}
 		}
 
@@ -128,9 +151,9 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				if (IsGuest)
+				if ( IsGuest )
 				{
-					return _rowConvert.AsString("Email");
+					return RowConvert.AsString( "Email" );
 				}
 
 				return Membership.Email;
@@ -141,7 +164,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsString("ThemeFile");
+				return RowConvert.AsString( "ThemeFile" );
 			}
 		}
 
@@ -149,7 +172,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsString("LanguageFile");
+				return RowConvert.AsString( "LanguageFile" );
 			}
 		}
 
@@ -157,7 +180,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsString("Signature");
+				return RowConvert.AsString( "Signature" );
 			}
 		}
 
@@ -165,7 +188,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsString("Avatar");
+				return RowConvert.AsString( "Avatar" );
 			}
 		}
 
@@ -173,7 +196,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsString("RankName");
+				return RowConvert.AsString( "RankName" );
 			}
 		}
 
@@ -181,7 +204,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsInt32("NumPosts");
+				return RowConvert.AsInt32( "NumPosts" );
 			}
 		}
 
@@ -189,7 +212,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsInt32("TimeZone");
+				return RowConvert.AsInt32( "TimeZone" );
 			}
 		}
 
@@ -197,7 +220,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsInt32("Points");
+				return RowConvert.AsInt32( "Points" );
 			}
 		}
 
@@ -205,7 +228,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsBool("OverrideDefaultThemes");
+				return RowConvert.AsBool( "OverrideDefaultThemes" );
 			}
 		}
 
@@ -213,7 +236,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsBool("PMNotification");
+				return RowConvert.AsBool( "PMNotification" );
 			}
 		}
 
@@ -221,7 +244,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsDateTime("Joined");
+				return RowConvert.AsDateTime( "Joined" );
 			}
 		}
 
@@ -229,7 +252,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return _rowConvert.AsDateTime("LastVisit");
+				return RowConvert.AsDateTime( "LastVisit" );
 			}
 		}
 
@@ -239,9 +262,9 @@ namespace YAF.Classes.Core
 			{
 				bool hasImage = false;
 
-				if (DBRow["HasAvatarImage"] != null && DBRow["HasAvatarImage"] != DBNull.Value)
+				if ( DBRow["HasAvatarImage"] != null && DBRow["HasAvatarImage"] != DBNull.Value )
 				{
-					hasImage = _rowConvert.AsInt64("HasAvatarImage") > 0;
+					hasImage = RowConvert.AsInt64( "HasAvatarImage" ) > 0;
 				}
 
 				return hasImage;

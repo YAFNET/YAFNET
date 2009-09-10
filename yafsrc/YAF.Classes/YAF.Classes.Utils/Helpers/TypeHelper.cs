@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace YAF.Classes.Utils
@@ -92,6 +93,18 @@ namespace YAF.Classes.Utils
 			}
 
 			return null;
+		}
+
+		static public List<T> ConvertDataTableToList<T>( DataTable dataTable )
+		{
+			List<T> list = new List<T>();
+
+			foreach( DataRow item in dataTable.Rows)
+			{
+				list.Add( (T) Convert.ChangeType( item[0], typeof ( T ) ) );
+			}
+
+			return list;
 		}
 
 		static public List<T> ConvertToGenericList<T>( IList listObjects )
