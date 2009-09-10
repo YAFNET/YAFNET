@@ -820,7 +820,14 @@
     <Resource tag="HEADER_SMILE">Smile</Resource>
     <Resource tag="TITLE">Available Smilies</Resource>
   </page>
-  <page name="TEMPLATES">
+	<page name="SHOUTBOX">
+		<Resource tag="TITLE">ShoutBox</Resource>
+		<Resource tag="HEADING">Chat with other members</Resource>
+		<Resource tag="SUBMIT">Submit</Resource>
+		<Resource tag="CLEAR">Clear</Resource>
+		<Resource tag="FLYOUT">Fly Out</Resource>
+	</page>
+	<page name="TEMPLATES">
     <Resource tag="CHANGEEMAIL_HTML" editType="html">
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;

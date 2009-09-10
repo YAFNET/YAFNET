@@ -224,40 +224,33 @@
 					</tr>
 					<tr>
 						<td class="postheader">
-							<b>Show Forum Statistics:</b><br />
-							Enable or disable display of forum statistics on board index page.
+							<b>Remove Nested Quotes:</b><br />
+							Automatically remove nested [quote] tags from replies.
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="ShowForumStatistics" runat="server"></asp:CheckBox>
+							<asp:CheckBox ID="RemoveNestedQuotes" runat="server"></asp:CheckBox>
+						</td>
+					</tr>					
+					<tr>
+						<td class="postheader">
+							<b>Disable "NoFollow" Tag on Links on Posts Older Than:</b><br />
+							If "NoFollow" is enabled above, this is disable no follow for links on messages
+							older then X days old (which takes into consideration last edited).
+						</td>
+						<td class="post">
+							<asp:TextBox ID="DisableNoFollowLinksAfterDay" runat="server"></asp:TextBox>
 						</td>
 					</tr>
 					<tr>
 						<td class="postheader">
-							<b>Show Active Discussions:</b><br />
-							Enable or disable display of active discussions list on board index page.
+							<b>Smilies Display Grid Size:</b><br />
+							Number of smilies to show by number of rows and columns.
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="ShowActiveDiscussions" runat="server"></asp:CheckBox>
+							<asp:TextBox ID="SmiliesPerRow" runat="server"></asp:TextBox><b>x</b>
+							<asp:TextBox ID="SmiliesColumns" runat="server"></asp:TextBox>
 						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Show RSS Links:</b><br />
-							Enable or disable display of RSS links throughout the forum.
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="ShowRSSLink" runat="server"></asp:CheckBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Show Forum Jump Box:</b><br />
-							Enable or disable display of the Forum Jump Box throughout the forum.
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="ShowForumJump" runat="server"></asp:CheckBox>
-						</td>
-					</tr>
+					</tr>					
 					<tr>
 						<td class="postheader">
 							<b>Display Points System:</b><br />
@@ -513,6 +506,51 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>Show Forum Statistics:</b><br />
+							Enable or disable display of forum statistics on board index page.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ShowForumStatistics" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Show Active Discussions:</b><br />
+							Enable or disable display of active discussions list on board index page.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ShowActiveDiscussions" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Show RSS Links:</b><br />
+							Enable or disable display of RSS links throughout the forum.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ShowRSSLink" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Show Forum Jump Box:</b><br />
+							Enable or disable display of the Forum Jump Box throughout the forum.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ShowForumJump" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Show Shoutbox:</b><br />
+							Enable or disable display of the Shoutbox (Chat Module) in the forum page.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ShowShoutbox" runat="server"></asp:CheckBox>
+						</td>
+					</tr>							
+					<tr>
+						<td class="postheader">
 							<b>Show Groups:</b><br />
 							Should the groups a user is part of be visible on the posts page.
 						</td>
@@ -586,15 +624,6 @@
 					</tr>
 					<tr>
 						<td class="postheader">
-							<b>Remove Nested Quotes:</b><br />
-							Automatically remove nested [quote] tags from replies.
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="RemoveNestedQuotes" runat="server"></asp:CheckBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
 							<b>Active Discussions Count:</b><br />
 							Number of records to display in Active Discussions list on forum index.
 						</td>
@@ -609,26 +638,6 @@
 						</td>
 						<td class="post">
 							<asp:CheckBox ID="UseNoFollowLinks" runat="server"></asp:CheckBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Disable "NoFollow" Tag on Links on Posts Older Than:</b><br />
-							If "NoFollow" is enabled above, this is disable no follow for links on messages
-							older then X days old (which takes into consideration last edited).
-						</td>
-						<td class="post">
-							<asp:TextBox ID="DisableNoFollowLinksAfterDay" runat="server"></asp:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Smilies Display Grid Size:</b><br />
-							Number of smilies to show by number of rows and columns.
-						</td>
-						<td class="post">
-							<asp:TextBox ID="SmiliesPerRow" runat="server"></asp:TextBox><b>x</b>
-							<asp:TextBox ID="SmiliesColumns" runat="server"></asp:TextBox>
 						</td>
 					</tr>
 					<tr>
@@ -1090,7 +1099,7 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="postfooter" align="center">
-				<asp:Button ID="Save" runat="server" Text="Save Settings" OnClick="Save_Click"></asp:Button>
+				<asp:Button ID="Save" runat="server" Text="Save Settings" CssClass="pbutton" OnClick="Save_Click"></asp:Button>
 			</td>
 		</tr>
 	</table>

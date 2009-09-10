@@ -1,18 +1,20 @@
 <%@ Control Language="c#" CodeFile="postmessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" %>
-<%@ Import Namespace="YAF.Classes.Core"%>
-<%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
+<%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Register TagPrefix="YAF" TagName="smileys" Src="../controls/smileys.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" cellspacing="1" cellpadding="4" width="100%" align="center">
 	<tr>
 		<td class="header1" align="center" colspan="2">
-			<asp:Label ID="Title" runat="server" /></td>
+			<asp:Label ID="Title" runat="server" />
+		</td>
 	</tr>
 	<tr id="PreviewRow" runat="server" visible="false">
 		<td class="postformheader" valign="top">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
 		</td>
 		<td class="post" valign="top" id="PreviewCell" runat="server">
-		    <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
+			<YAF:MessagePost ID="PreviewMessagePost" runat="server" />
 		</td>
 	</tr>
 	<tr id="SubjectRow" runat="server">
@@ -20,11 +22,13 @@
 			<YAF:LocalizedLabel runat="server" LocalizedTag="subject" />
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox ID="Subject" runat="server" CssClass="edit" Width="400" MaxLength="100" /></td>
+			<asp:TextBox ID="Subject" runat="server" CssClass="edit" Width="400" MaxLength="100" />
+		</td>
 	</tr>
 	<tr id="BlogRow" visible="false" runat="server">
 		<td class="postformheader" width="20%">
-			Post to blog?</td>
+			Post to blog?
+		</td>
 		<td class="post" width="80%">
 			<asp:CheckBox ID="PostToBlog" runat="server" />
 			Blog Password:
@@ -37,7 +41,8 @@
 			<YAF:LocalizedLabel runat="server" LocalizedTag="from" />
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox ID="From" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:TextBox ID="From" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PriorityRow" runat="server">
 		<td class="postformheader" width="20%">
@@ -59,17 +64,21 @@
 	</tr>
 	<tr id="CreatePollRow" runat="server">
 		<td class="postformheader" width="20%">
-		    <YAF:ThemeButton ID="CreatePoll" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="CREATEPOLL"
-                OnClick="CreatePoll_Click" /></td>
+			<YAF:ThemeButton ID="CreatePoll" runat="server" CssClass="yafcssbigbutton leftItem"
+				TextLocalizedTag="CREATEPOLL" OnClick="CreatePoll_Click" />
+		</td>
 		<td class="post" width="80%">
-			&nbsp;</td>
+			&nbsp;
+		</td>
 	</tr>
 	<tr id="RemovePollRow" runat="server">
 		<td class="postformheader" width="20%">
-		    <YAF:ThemeButton ID="RemovePoll" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="REMOVEPOLL"
-                OnCommand="RemovePoll_Command" OnLoad="RemovePoll_Load" /></td>
+			<YAF:ThemeButton ID="RemovePoll" runat="server" CssClass="yafcssbigbutton leftItem"
+				TextLocalizedTag="REMOVEPOLL" OnCommand="RemovePoll_Command" OnLoad="RemovePoll_Load" />
+		</td>
 		<td class="post" width="80%">
-			&nbsp;</td>
+			&nbsp;
+		</td>
 	</tr>
 	<tr id="PollRow1" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -78,7 +87,8 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox MaxLength="50" ID="Question" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:TextBox MaxLength="50" ID="Question" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PollRow2" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -87,7 +97,9 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice1ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice1" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice1ID" runat="server" />
+			<asp:TextBox MaxLength="50" ID="PollChoice1" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PollRow3" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -96,7 +108,9 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice2ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice2" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice2ID" runat="server" />
+			<asp:TextBox MaxLength="50" ID="PollChoice2" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PollRow4" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -105,7 +119,9 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice3ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice3" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice3ID" runat="server" />
+			<asp:TextBox MaxLength="50" ID="PollChoice3" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PollRow5" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -114,7 +130,9 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice4ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice4" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice4ID" runat="server" />
+			<asp:TextBox MaxLength="50" ID="PollChoice4" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PollRow6" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -123,7 +141,9 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice5ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice5" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice5ID" runat="server" />
+			<asp:TextBox MaxLength="50" ID="PollChoice5" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PollRow7" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -132,7 +152,9 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice6ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice6" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice6ID" runat="server" />
+			<asp:TextBox MaxLength="50" ID="PollChoice6" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PollRow8" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -141,7 +163,9 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice7ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice7" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice7ID" runat="server" />
+			<asp:TextBox MaxLength="50" ID="PollChoice7" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PollRow9" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -150,7 +174,9 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice8ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice8" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice8ID" runat="server" />
+			<asp:TextBox MaxLength="50" ID="PollChoice8" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PollRow10" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -159,7 +185,9 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice9ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice9" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice9ID" runat="server" />
+			<asp:TextBox MaxLength="50" ID="PollChoice9" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr id="PollRowExpire" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -176,7 +204,7 @@
 		<td class="postformheader" width="20%" valign="top">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="message" />
 			<br />
-			<uc1:smileys runat="server" OnClick="insertsmiley" />
+			<YAF:smileys runat="server" OnClick="insertsmiley" />
 		</td>
 		<td class="post" id="EditorLine" width="80%" runat="server">
 			<!-- editor goes here -->
@@ -199,7 +227,8 @@
 			<YAF:LocalizedLabel runat="server" LocalizedTag="Captcha_Image" />
 		</td>
 		<td class="post">
-			<asp:Image ID="imgCaptcha" runat="server" /></td>
+			<asp:Image ID="imgCaptcha" runat="server" />
+		</td>
 	</tr>
 	<tr runat="server" id="tr_captcha2" visible="false">
 		<td class="postformheader" valign="top">
@@ -214,18 +243,20 @@
 			<YAF:LocalizedLabel runat="server" LocalizedTag="EditReason" />
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox ID="ReasonEditor" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:TextBox ID="ReasonEditor" runat="server" CssClass="edit" Width="400" />
+		</td>
 	</tr>
 	<tr>
-		<td class="footer1">&nbsp;
-		</td>	
 		<td class="footer1">
-                <YAF:ThemeButton ID="Preview" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="PREVIEW"
-                OnClick="Preview_Click" />	
-                <YAF:ThemeButton ID="PostReply" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="SAVE"
-                OnClick="PostReply_Click" />	    
-                <YAF:ThemeButton ID="Cancel" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="CANCEL"
-                OnClick="Cancel_Click" />                            	
+			&nbsp;
+		</td>
+		<td class="footer1">
+			<YAF:ThemeButton ID="Preview" runat="server" CssClass="yafcssbigbutton leftItem"
+				TextLocalizedTag="PREVIEW" OnClick="Preview_Click" />
+			<YAF:ThemeButton ID="PostReply" runat="server" CssClass="yafcssbigbutton leftItem"
+				TextLocalizedTag="SAVE" OnClick="PostReply_Click" />
+			<YAF:ThemeButton ID="Cancel" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="CANCEL"
+				OnClick="Cancel_Click" />
 		</td>
 	</tr>
 </table>
@@ -258,9 +289,12 @@
 		</tr>
 		<tr class="post">
 			<td>
-				&nbsp;</td>
+				&nbsp;
+			</td>
 			<td valign="top" class="message">
-			    <YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false" DataRow="<%# Container.DataItem %>"></YAF:MessagePostData>
+				<YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false"
+					DataRow="<%# Container.DataItem %>">
+				</YAF:MessagePostData>
 			</td>
 		</tr>
 	</ItemTemplate>
@@ -280,15 +314,16 @@
 		</tr>
 		<tr class="post_alt">
 			<td>
-				&nbsp;</td>
+				&nbsp;
+			</td>
 			<td valign="top" class="message">
-			    <YAF:MessagePostData ID="MessagePostAlt" runat="server" ShowAttachments="false" DataRow="<%# Container.DataItem %>"></YAF:MessagePostData>
+				<YAF:MessagePostData ID="MessagePostAlt" runat="server" ShowAttachments="false" DataRow="<%# Container.DataItem %>">
+				</YAF:MessagePostData>
 			</td>
 		</tr>
 	</AlternatingItemTemplate>
 </asp:Repeater>
-<iframe runat="server" visible="false" id="LastPostsIFrame" name="lastposts" width="100%"
-	height="300" frameborder="0" marginheight="2" marginwidth="2" scrolling="yes"></iframe>
+<YAF:LastPosts ID="LastPosts1" runat="server" Visible="false" />
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

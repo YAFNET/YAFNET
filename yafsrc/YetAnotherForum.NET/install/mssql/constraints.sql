@@ -240,7 +240,6 @@ go
 
 /* Drop old primary keys */
 
-
 if exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}BannedIP]') and name='PK_BannedIP')
 	alter table [{databaseOwner}].[{objectQualifier}BannedIP] drop constraint [PK_BannedIP]
 go
@@ -629,6 +628,10 @@ if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}]
 	alter table [{databaseOwner}].[{objectQualifier}IgnoreUser] with nocheck add constraint [PK_{objectQualifier}IgnoreUser] PRIMARY KEY CLUSTERED (UserID, IgnoredUserID)
 go
 
+if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name='PK_{objectQualifier}ShoutboxMessage')
+	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] with nocheck add constraint [PK_{objectQualifier}ShoutboxMessage] PRIMARY KEY CLUSTERED (ShoutBoxMessageID)
+go
+
 /*
 ** Unique constraints
 */
@@ -717,7 +720,6 @@ go
 if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IX_{objectQualifier}User')
 	alter table [{databaseOwner}].[{objectQualifier}User] add constraint IX_{objectQualifier}User unique nonclustered(BoardID,Name)
 go
-
 
 /*
 ** Foreign keys
@@ -963,21 +965,17 @@ if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Messa
 	alter table [{databaseOwner}].[{objectQualifier}Message] add constraint [FK_{objectQualifier}Message_{objectQualifier}Message] foreign key(ReplyTo) references [{databaseOwner}].[{objectQualifier}Message](MessageID)
 go
 
-
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserPMessage_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add constraint [FK_{objectQualifier}UserPMessage_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
 go
-
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserPMessage_{objectQualifier}PMessage' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add constraint [FK_{objectQualifier}UserPMessage_{objectQualifier}PMessage] foreign key (PMessageID) references [{databaseOwner}].[{objectQualifier}PMessage] (PMessageID)
 go
 
-
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Registry_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Registry]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}Registry] add constraint [FK_{objectQualifier}Registry_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board](BoardID) on delete cascade
 go
-
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}PollVote_{objectQualifier}Poll' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}PollVote]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] add constraint [FK_{objectQualifier}PollVote_{objectQualifier}Poll] foreign key(PollID) references [{databaseOwner}].[{objectQualifier}Poll](PollID) on delete cascade

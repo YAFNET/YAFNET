@@ -133,21 +133,26 @@ namespace YAF
 			try
 			{
 				_currentForumPage = (ForumPage)LoadControl(src);
-
 				_currentForumPage.ForumFooter = _footer;
 				_currentForumPage.ForumHeader = _header;
+
+				// don't allow as a popup if it's not allowed by the page...
+				if (!_currentForumPage.AllowAsPopup && Popup)
+				{
+					Popup = false;
+				}
 
 				// set the YafContext ForumPage...
 				YafContext.Current.CurrentForumPage = _currentForumPage;
 			
 				// add the header control before the page rendering...
-				if ( YafContext.Current.Settings.LockedForum == 0 && _origHeaderClientID == _header.ClientID )
+				if ( !Popup && YafContext.Current.Settings.LockedForum == 0 && _origHeaderClientID == _header.ClientID )
 					this.Controls.AddAt( 0, _header );
 
 				this.Controls.Add(_currentForumPage);
 
 				// add the footer control after the page...
-				if ( YafContext.Current.Settings.LockedForum == 0 && _origFooterClientID == _footer.ClientID )
+				if ( !Popup && YafContext.Current.Settings.LockedForum == 0 && _origFooterClientID == _footer.ClientID )
 					this.Controls.Add( _footer );
 
 				// load plugins/functionality modules
@@ -280,6 +285,18 @@ namespace YAF
 			get
 			{
 				return YafContext.Current.PageUserID;
+			}
+		}
+
+		public bool Popup
+		{
+			get
+			{
+				return YafControlSettings.Current.Popup;
+			}
+			set
+			{
+				YafControlSettings.Current.Popup = value;
 			}
 		}
 

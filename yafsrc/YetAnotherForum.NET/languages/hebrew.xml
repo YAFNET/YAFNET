@@ -814,6 +814,13 @@
     <Resource tag="TITLE">חיפוש</Resource>
     <Resource tag="TOPIC">דיון:</Resource>
   </page>
+  <page name="SHOUTBOX">
+    <Resource tag="CLEAR">Clear</Resource>
+    <Resource tag="FLYOUT">Fly Out</Resource>
+    <Resource tag="HEADING">Chat with other members</Resource>
+    <Resource tag="SUBMIT">Submit</Resource>
+    <Resource tag="TITLE">ShoutBox</Resource>
+  </page>
   <page name="SHOWSMILIES">
     <Resource tag="CLOSE_WINDOW">סגור חלון</Resource>
     <Resource tag="HEADER_CODE">קוד</Resource>

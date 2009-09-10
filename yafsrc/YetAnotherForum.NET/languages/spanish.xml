@@ -852,6 +852,13 @@
     <Resource tag="TITLE">Buscar</Resource>
     <Resource tag="TOPIC">Tema:</Resource>
   </page>
+  <page name="SHOUTBOX">
+    <Resource tag="CLEAR">Clear</Resource>
+    <Resource tag="FLYOUT">Fly Out</Resource>
+    <Resource tag="HEADING">Chat with other members</Resource>
+    <Resource tag="SUBMIT">Submit</Resource>
+    <Resource tag="TITLE">ShoutBox</Resource>
+  </page>
   <page name="SHOWSMILIES">
     <Resource tag="CLOSE_WINDOW">Cerrar ventana</Resource>
     <Resource tag="HEADER_CODE">Codigo</Resource>

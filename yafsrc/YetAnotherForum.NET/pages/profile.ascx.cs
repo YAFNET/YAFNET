@@ -47,6 +47,7 @@ namespace YAF.Pages // YAF.Pages
 		public profile()
 			: base("PROFILE")
 		{
+			AllowAsPopup = true;
 		}
 
 		protected void Page_Load(object sender, System.EventArgs e)

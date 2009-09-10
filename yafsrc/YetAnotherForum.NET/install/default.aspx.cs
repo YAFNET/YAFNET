@@ -24,8 +24,11 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Data.SqlClient;
+using System.Security.Permissions;
+using System.Web;
 using System.Web.Configuration;
 using System.Web.Security;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using YAF.Classes;
 using YAF.Classes.Core;
@@ -42,15 +45,19 @@ namespace YAF.Install
 		protected int _dbVersionBeforeUpgrade;
 		private string _loadMessage = "";
 
+		private const string _appPasswordKey = "YAF.ConfigPassword";
+
 		private const string _bbcodeImport = "bbCodeExtensions.xml";
 		private const string _fileImport = "fileExtensions.xml";
+
+		private ConfigHelper _config = new ConfigHelper();
 
 		#region Properties
 		private bool IsInstalled
 		{
 			get
 			{
-				return !String.IsNullOrEmpty( Config.GetConfigValueAsString( "YAF.configPassword" ) );
+				return !String.IsNullOrEmpty( _config.GetConfigValueAsString( _appPasswordKey ) );
 			}
 		}
 
@@ -80,315 +87,7 @@ namespace YAF.Install
 				int index = IndexOfWizardID( value );
 				if ( index >= 0 )
 				{
-					InstallWizard.MoveTo( InstallWizard.WizardSteps[index] );
-				}
-			}
-		}
-
-		private Configuration _webConfig = null;
-		private Configuration WebConfig
-		{
-			get
-			{
-				if ( _webConfig == null )
-					_webConfig = WebConfigurationManager.OpenWebConfiguration( "~/" );
-
-				return _webConfig;
-			}
-		}
-
-		#endregion
-
-		#region Event Handling
-		protected void Page_Init( object sender, EventArgs e )
-		{
-			// set the connection manager to the dynamic...
-			YafDBAccess.Current.SetConnectionManagerAdapter<YAF.Classes.Core.YafDynamicDBConnManager>();
-		}
-
-		private void Page_Load( object sender, System.EventArgs e )
-		{
-
-			if ( !IsPostBack )
-			{
-				Cache["DBVersion"] = DB.DBVersion;
-
-				CurrentWizardStepID = IsInstalled ? "WizEnterPassword" : "WizCreatePassword";//"WizDatabaseConnection";
-
-				if ( !IsInstalled )
-				{
-					// fake the board settings
-					YafContext.Current.BoardSettings = new YafBoardSettings();
-				}
-
-				TimeZones.DataSource = StaticDataHelper.TimeZones( "english.xml" );
-
-				DataBind();
-
-				TimeZones.Items.FindByValue( "0" ).Selected = true;
-
-				// see if we need to do migration again...
-
-			}
-		}
-
-		protected void UserChoice_SelectedIndexChanged( object sender, EventArgs e )
-		{
-			if ( UserChoice.SelectedValue == "create" )
-			{
-				ExistingUserHolder.Visible = false;
-				CreateAdminUserHolder.Visible = true;
-			}
-			else if ( UserChoice.SelectedValue == "existing" )
-			{
-				ExistingUserHolder.Visible = true;
-				CreateAdminUserHolder.Visible = false;
-			}
-		}
-
-		protected void Password_Postback( object sender, System.EventArgs e )
-		{
-			// prepare even arguments for calling Wizard_NextButtonClick event handler
-			WizardNavigationEventArgs eventArgs = new WizardNavigationEventArgs( InstallWizard.ActiveStepIndex, InstallWizard.ActiveStepIndex + 1 );
-
-			// call it
-			Wizard_NextButtonClick( sender, eventArgs );
-
-			// move to next step only if it wasn't cancelled within next button event handler
-			if ( !eventArgs.Cancel ) InstallWizard.MoveTo( InstallWizard.WizardSteps[eventArgs.NextStepIndex] );
-		}
-
-		protected void Wizard_FinishButtonClick( object sender, WizardNavigationEventArgs e )
-		{
-			if ( YAF.Classes.Config.IsDotNetNuke )
-			{
-				//Redirect back to the portal main page.
-				string rPath = YafForumInfo.ForumRoot;
-				int pos = rPath.IndexOf( "/", 2 );
-				rPath = rPath.Substring( 0, pos );
-				Response.Redirect( rPath );
-			}
-			else
-				Response.Redirect( "~/" );
-		}
-
-		protected void Wizard_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
-		{
-			// go back only from last step (to user/roles migration)
-			if ( e.CurrentStepIndex == ( InstallWizard.WizardSteps.Count - 1 ) )
-				InstallWizard.MoveTo( InstallWizard.WizardSteps[e.CurrentStepIndex - 1] );
-			else
-				// othwerise cancel action
-				e.Cancel = true;
-		}
-
-		protected void Wizard_ActiveStepChanged( object sender, EventArgs e )
-		{
-			if ( CurrentWizardStepID == "WizCreatePassword" && !IsInstalled )
-			{
-				InstallWizard.ActiveStepIndex++;
-			}
-			else if ( CurrentWizardStepID == "WizCreateForum" && DB.IsForumInstalled )
-			{
-				InstallWizard.ActiveStepIndex++;
-			}
-			else if ( CurrentWizardStepID == "WizMigrateUsers" )
-			{
-				if ( !IsInstalled )
-				{
-					// no migration because it's a new install...
-					InstallWizard.ActiveStepIndex++;
-				}
-				else
-				{
-					object version = Cache["DBVersion"] ?? DB.DBVersion;
-
-					if ( ( (int)version ) >= 30 || ( (int)version ) == -1 )
-					{
-						// migration is NOT needed...
-						InstallWizard.ActiveStepIndex++;
-					}
-
-					Cache.Remove( "DBVersion" );
-				}
-			}
-		}
-
-		protected void Wizard_Load( object sender, EventArgs e )
-		{
-			switch ( CurrentWizardStepID )
-			{
-				case "WizDatabaseConnection":
-					// fill with connection strings...
-					FillWithConnectionStrings();
-					break;
-				case "WizValidatePermission":
-					//ValidatePermissionStep();
-					break;
-			}
-		}
-
-		protected void Wizard_NextButtonClick( object sender, WizardNavigationEventArgs e )
-		{
-			e.Cancel = true;
-
-			switch ( InstallWizard.WizardSteps[e.CurrentStepIndex].ID )
-			{
-				case "WizDatabaseConnection":
-					e.Cancel = false;
-					break;
-				case "WizCreatePassword":
-					if ( TextBox1.Text == string.Empty )
-					{
-						AddLoadMessage( "Missing configuration password." );
-						break;
-					}
-
-					if ( TextBox2.Text != TextBox1.Text )
-					{
-						AddLoadMessage( "Password not verified." );
-						break;
-					}
-
-					try
-					{
-						AppSettingsSection appSettings = WebConfig.GetSection( "appSettings" ) as AppSettingsSection;
-
-						if ( appSettings != null )
-						{
-							if ( appSettings.Settings["YAF.ConfigPassword"] != null )
-							{
-								appSettings.Settings.Remove( "YAF.ConfigPassword" );
-							}
-
-							appSettings.Settings.Add( "YAF.ConfigPassword", TextBox1.Text );
-						}
-
-						WebConfig.Save( ConfigurationSaveMode.Modified );
-						e.Cancel = false;
-					}
-					catch
-					{
-						// just a warning now...
-						throw new Exception(
-							"Cannot save the YAF.ConfigPassword to the app.config file. Please verify that the ASPNET user has write access permissions to the app.config file. Or modify the app.config \"YAF.ConfigPassword\" key with a plaintext password and try again." );
-					}
-
-					break;
-				case "WizEnterPassword":
-					if ( Config.GetConfigValueAsString( "YAF.ConfigPassword" ) ==
-							 FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox3.Text, "md5" ) ||
-							 Config.GetConfigValueAsString( "YAF.ConfigPassword" ) == TextBox3.Text.Trim() )
-						e.Cancel = false;
-					else
-						AddLoadMessage( "Wrong password!" );
-					break;
-				case "WizCreateForum":
-					if ( CreateForum() )
-						e.Cancel = false;
-					break;
-				case "WizInitDatabase":
-					if ( UpgradeDatabase( FullTextSupport.Checked ) )
-						e.Cancel = false;
-					break;
-				case "WizMigrateUsers":
-					// migrate users/roles only if user does not want to skip
-					if ( !skipMigration.Checked )
-					{
-						RoleMembershipHelper.SyncRoles( PageBoardID );
-						RoleMembershipHelper.SyncUsers( PageBoardID );
-					}
-					e.Cancel = false;
-					break;
-				case "WizFinished":
-					YafContext.Current.BoardSettings = null;
-					break;
-				default:
-					throw new ApplicationException( "Installation Wizard step not handled: " + InstallWizard.WizardSteps[e.CurrentStepIndex].ID );
-			}
-		}
-
-		protected void rblYAFDatabase_SelectedIndexChanged( object sender, EventArgs e )
-		{
-			if ( rblYAFDatabase.SelectedValue == "create" )
-			{
-				ExistingConnectionHolder.Visible = false;
-				NewConnectionHolder.Visible = true;
-			}
-			else if ( rblYAFDatabase.SelectedValue == "existing" )
-			{
-				ExistingConnectionHolder.Visible = true;
-				NewConnectionHolder.Visible = false;
-			}
-		}
-
-		protected void btnTestDBConnection_Click( object sender, EventArgs e )
-		{
-			// attempt to connect selected DB...
-			YafContext.Current["ConnectionString"] = CurrentConnString;
-
-			try
-			{
-				using ( YafDBConnManager connection = YafDBAccess.Current.GetConnectionManager())
-				{
-					// attempt to connect to the db...
-					SqlConnection conn = connection.OpenDBConnection;
-				}
-
-				// success
-				UpdateConnectionInfo( "Connection Succeeded", "successinfo" );
-			}
-			catch ( Exception x )
-			{
-				// unable to connect...
-				UpdateConnectionInfo( "Failed to connect:<br/><br/>" + x.Message, "errorinfo" );
-			}
-		}
-
-		protected void chkDBIntegratedSecurity_CheckChanged( object sender, EventArgs e )
-		{
-			DBUsernamePasswordHolder.Visible = !chkDBIntegratedSecurity.Checked;
-		}
-
-		#endregion
-
-		#region Event Helper Functions
-		private bool UpdateDatabaseConnection()
-		{
-			if ( rblYAFDatabase.SelectedValue == "existing" && lbConnections.SelectedIndex >= 0 )
-			{
-				string selectedConnection = lbConnections.SelectedValue;
-
-				if ( selectedConnection != "yafnet" )
-				{
-					// make sure permissions allow modifying the AppSettings...
-					if ( !HasAppSettingWritePermission() )
-					{
-						NoWriteAppSettingsHolder.Visible = true;
-						AppSettingsSection appSettings = WebConfig.GetSection( "appSettings" ) as AppSettingsSection;
-						if ( appSettings != null ) lblAppSettingsFile.Text = appSettings.File;
-						lblConnectionStringName.Text = selectedConnection;
-					}
-				}
-			}
-
-			return false;
-		}
-
-		private void UpdateConnectionInfo(string info, string cssClass)
-		{
-			ConnectionInfoHolder.Visible = true;
-			lblConnectionDetails.Text = info;
-			lblConnectionDetails.CssClass = cssClass;
-		}
-
-		private void FillWithConnectionStrings()
-		{
-			if ( lbConnections.Items.Count == 0 )
-			{
-				foreach ( ConnectionStringSettings connectionString in ConfigurationManager.ConnectionStrings )
-				{
-					lbConnections.Items.Add( connectionString.Name );
+					InstallWizard.ActiveStepIndex = index;
 				}
 			}
 		}
@@ -403,7 +102,7 @@ namespace YAF.Install
 				{
 					string connName = lbConnections.SelectedValue;
 
-					if ( !String.IsNullOrEmpty( connName ))
+					if ( !String.IsNullOrEmpty( connName ) )
 					{
 						// pull from existing connection string...
 						return ConfigurationManager.ConnectionStrings[connName].ConnectionString;
@@ -429,75 +128,491 @@ namespace YAF.Install
 			}
 		}
 
-		private bool HasConnectionStringWritePermission()
+		#endregion
+
+		#region Event Handling
+		protected void Page_Init( object sender, EventArgs e )
 		{
-			ConnectionStringsSection connStrings = WebConfig.GetSection( "ConnectionStrings" ) as ConnectionStringsSection;
-			const string testKeyStr = "YAF.TestString";
-
-			if ( connStrings == null )
-			{
-				return false;
-			}
-
-			bool hasWriteAccess = false;
-			try
-			{
-				if ( connStrings.ConnectionStrings[testKeyStr] != null )
-				{
-					connStrings.ConnectionStrings.Remove( testKeyStr );
-				}
-
-				connStrings.ConnectionStrings.Add( new ConnectionStringSettings(testKeyStr,"TestConnectionString;") );
-
-				WebConfig.Save( ConfigurationSaveMode.Modified );
-
-				// remove the test key immediately...
-				if ( connStrings.ConnectionStrings[testKeyStr] != null )
-				{
-					connStrings.ConnectionStrings.Remove( testKeyStr );
-				}
-
-				WebConfig.Save( ConfigurationSaveMode.Modified );
-
-				hasWriteAccess = true;
-			}
-			catch
-			{
-				hasWriteAccess = false;
-			}
-
-			return hasWriteAccess;
+			// set the connection manager to the dynamic...
+			YafDBAccess.Current.SetConnectionManagerAdapter<YAF.Classes.Core.YafDynamicDBConnManager>();
 		}
 
-		private bool HasAppSettingWritePermission()
+		private void Page_Load( object sender, System.EventArgs e )
 		{
-			AppSettingsSection appSettings = WebConfig.GetSection( "appSettings" ) as AppSettingsSection;
-			const string testKeyStr = "YAF.TestWrite";
+			YafContext.Current.PageElements.RegisterJQuery( Page.Header );
 
-			if ( appSettings == null )
+			if ( !IsPostBack )
 			{
-				return false;
+				if ( Session["InstallWizardFinal"] != null )
+				{
+					CurrentWizardStepID = "WizFinished";
+					Session.Remove( "InstallWizardFinal" );
+				}
+				else
+				{
+					Cache["DBVersion"] = DB.DBVersion;
+
+					CurrentWizardStepID = IsInstalled ? "WizEnterPassword" : "WizValidatePermission"; //"WizCreatePassword"
+
+					if ( !IsInstalled )
+					{
+						// fake the board settings
+						YafContext.Current.BoardSettings = new YafBoardSettings();
+					}
+
+					TimeZones.DataSource = StaticDataHelper.TimeZones( "english.xml" );
+					DataBind();
+					TimeZones.Items.FindByValue( "0" ).Selected = true;
+				}
+			}
+		}
+
+		protected void UserChoice_SelectedIndexChanged( object sender, EventArgs e )
+		{
+			if ( UserChoice.SelectedValue == "create" )
+			{
+				ExistingUserHolder.Visible = false;
+				CreateAdminUserHolder.Visible = true;
+			}
+			else if ( UserChoice.SelectedValue == "existing" )
+			{
+				ExistingUserHolder.Visible = true;
+				CreateAdminUserHolder.Visible = false;
+			}
+		}
+
+		protected void Wizard_FinishButtonClick( object sender, WizardNavigationEventArgs e )
+		{
+			// reset the board settings...
+			YafContext.Current.BoardSettings = null;
+
+			if ( YAF.Classes.Config.IsDotNetNuke )
+			{
+				//Redirect back to the portal main page.
+				string rPath = YafForumInfo.ForumRoot;
+				int pos = rPath.IndexOf( "/", 2 );
+				rPath = rPath.Substring( 0, pos );
+				Response.Redirect( rPath );
+			}
+			else
+				Response.Redirect( "~/" );
+		}
+
+		protected void Wizard_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
+		{
+
+			if ( CurrentWizardStepID == "WizTestSettings")
+			{
+				CurrentWizardStepID = "WizDatabaseConnection";
 			}
 
-			bool hasWriteAccess = false;
+			e.Cancel = false;
+			
+			//// go back only from last step (to user/roles migration)
+			//if ( e.CurrentStepIndex == ( InstallWizard.WizardSteps.Count - 1 ) )
+			//  InstallWizard.MoveTo( InstallWizard.WizardSteps[e.CurrentStepIndex - 1] );
+			//else
+			//  // othwerise cancel action
+			//  e.Cancel = true;
+		}
+
+		protected void Wizard_ActiveStepChanged( object sender, EventArgs e )
+		{
+			bool previousVisible = false;
+
+			switch ( CurrentWizardStepID )
+			{
+				case "WizCreatePassword":
+					if ( _config.AppSettings != null ) lblConfigPasswordAppSettingFile.Text = _config.AppSettings.File;
+					if ( IsInstalled )
+					{
+						// no need for this setup if IsInstalled...
+						InstallWizard.ActiveStepIndex++;						
+					}
+					break;
+				case "WizCreateForum":
+					if ( DB.IsForumInstalled )
+					{
+						InstallWizard.ActiveStepIndex++;
+					}
+					break;
+				case "WizMigrateUsers":
+					if ( !IsInstalled )
+					{
+						// no migration because it's a new install...
+						CurrentWizardStepID = "WizFinished";
+					}
+					else
+					{
+						object version = Cache["DBVersion"] ?? DB.DBVersion;
+
+						if ( ( (int)version ) >= 30 || ( (int)version ) == -1 )
+						{
+							// migration is NOT needed...
+							CurrentWizardStepID = "WizFinished";
+						}
+
+						Cache.Remove( "DBVersion" );
+					}
+					// get user count
+					if (CurrentWizardStepID == "WizMigrateUsers") lblMigrateUsersCount.Text = DB.user_list( PageBoardID, null, true ).Rows.Count.ToString();
+					break;
+				case "WizDatabaseConnection":
+					previousVisible = true;
+					// fill with connection strings...
+					lblConnStringAppSettingName.Text = Config.ConnectionStringName;
+					FillWithConnectionStrings();
+					break;
+				case "WizManualDatabaseConnection":
+					if ( _config.AppSettings != null ) lblAppSettingsFile.Text = _config.AppSettings.File;
+					previousVisible = true;
+					break;
+				case "WizManuallySetPassword":
+					if ( _config.AppSettings != null ) lblAppSettingsFile2.Text = _config.AppSettings.File;
+					break;
+				case "WizTestSettings":
+					previousVisible = true;
+					break;
+				case "WizValidatePermission":
+					//ValidatePermissionStep();
+					break;
+				case "WizMigratingUsers":
+					// disable the next button...
+					Button btnNext = ControlHelper.FindControlAs<Button>( InstallWizard, "StepNavigationTemplateContainerID$StepNextButton" );
+					if ( btnNext != null )
+						btnNext.Enabled = false;
+					break;
+			}
+
+			Button btnPrevious = ControlHelper.FindControlAs<Button>( InstallWizard, "StepNavigationTemplateContainerID$StepPreviousButton" );
+
+			if ( btnPrevious != null )
+				btnPrevious.Visible = previousVisible;
+		}
+
+		protected void Wizard_NextButtonClick( object sender, WizardNavigationEventArgs e )
+		{
+			e.Cancel = true;
+
+			switch ( CurrentWizardStepID )
+			{
+				case "WizValidatePermission":
+					e.Cancel = false;
+					break;
+				case "WizDatabaseConnection":
+					// save the database settings...
+					UpdateDBFailureType type = UpdateDatabaseConnection();
+					e.Cancel = false;
+
+					if ( type == UpdateDBFailureType.None )
+					{
+						// jump to test settings...
+						CurrentWizardStepID = "WizTestSettings";
+					}
+					else
+					{
+						// failure -- show the next section but specify which errors...
+						if ( type == UpdateDBFailureType.AppSettingsWrite )
+						{
+							NoWriteAppSettingsHolder.Visible = true;
+						}
+						else if ( type == UpdateDBFailureType.ConnectionStringWrite )
+						{
+							NoWriteDBSettingsHolder.Visible = true;
+							lblDBConnStringName.Text = Config.ConnectionStringName;
+							lblDBConnStringValue.Text = CurrentConnString;
+						}
+					}
+					break;
+				case "WizManualDatabaseConnection":
+					e.Cancel = false;
+					break;
+				case "WizCreatePassword":
+					if ( txtCreatePassword1.Text.Trim() == string.Empty )
+					{
+						AddLoadMessage( "Please enter a configuration password." );
+						break;
+					}
+
+					if ( txtCreatePassword2.Text != txtCreatePassword1.Text )
+					{
+						AddLoadMessage( "Verification is not the same as your password." );
+						break;
+					}
+
+					e.Cancel = false;
+
+					if ( _config.WriteAppSetting( _appPasswordKey, txtCreatePassword1.Text ) )
+					{
+						// advance to the testing section since the password is now set...
+						CurrentWizardStepID = "WizDatabaseConnection";
+					}
+					break;
+				case "WizManuallySetPassword":
+					if ( IsInstalled ) e.Cancel = false;
+					else
+					{
+						AddLoadMessage( "You must update your appSettings with the YAF.ConfigPassword Key to continue. NOTE: The key name is case sensitive." );
+					}
+					break;
+				case "WizTestSettings":
+					e.Cancel = false;
+					break;
+				case "WizEnterPassword":
+					if ( _config.GetConfigValueAsString( "YAF.ConfigPassword" ) ==
+							 FormsAuthentication.HashPasswordForStoringInConfigFile( txtEnteredPassword.Text, "md5" ) ||
+							 _config.GetConfigValueAsString( "YAF.ConfigPassword" ) == txtEnteredPassword.Text.Trim() )
+					{
+						e.Cancel = false;
+						// move to test settings...
+						CurrentWizardStepID = "WizTestSettings";
+					}
+					else
+						AddLoadMessage( "Wrong password!" );
+					break;
+				case "WizCreateForum":
+					if ( CreateForum() )
+						e.Cancel = false;
+					break;
+				case "WizInitDatabase":
+					if ( UpgradeDatabase( FullTextSupport.Checked ) )
+						e.Cancel = false;
+					break;
+				case "WizMigrateUsers":
+					// migrate users/roles only if user does not want to skip
+					if ( !skipMigration.Checked )
+					{
+						RoleMembershipHelper.SyncRoles( PageBoardID );
+						// start the background migration task...
+						MigrateUsersTask.Start( PageBoardID );
+					}
+					e.Cancel = false;
+					break;
+				case "WizFinished":
+					break;
+				default:
+					throw new ApplicationException( "Installation Wizard step not handled: " + InstallWizard.WizardSteps[e.CurrentStepIndex].ID );
+			}
+		}
+
+		protected void rblYAFDatabase_SelectedIndexChanged( object sender, EventArgs e )
+		{
+			if ( rblYAFDatabase.SelectedValue == "create" )
+			{
+				ExistingConnectionHolder.Visible = false;
+				NewConnectionHolder.Visible = true;
+			}
+			else if ( rblYAFDatabase.SelectedValue == "existing" )
+			{
+				ExistingConnectionHolder.Visible = true;
+				NewConnectionHolder.Visible = false;
+			}
+		}
+
+		protected void btnTestDBConnection_Click( object sender, EventArgs e )
+		{
+			// attempt to connect selected DB...
+			YafContext.Current["ConnectionString"] = CurrentConnString;
+			string message;
+
+			if ( !TestDatabaseConnection( out message ) )
+			{
+				UpdateInfoPanel( ConnectionInfoHolder, lblConnectionDetails, "Failed to connect:<br/><br/>" + message, "errorinfo" );
+			}
+			else
+			{
+				UpdateInfoPanel( ConnectionInfoHolder, lblConnectionDetails, "Connection Succeeded", "successinfo" );
+			}
+
+			// we're done with it...
+			YafContext.Current.Vars.Remove( "ConnectionString" );
+		}
+
+		protected void btnTestDBConnectionManual_Click( object sender, EventArgs e )
+		{
+			// attempt to connect DB...
+			string message;
+
+			if ( !TestDatabaseConnection( out message ) )
+			{
+				UpdateInfoPanel( ManualConnectionInfoHolder, lblConnectionDetailsManual, "Failed to connect:<br/><br/>" + message, "errorinfo" );
+			}
+			else
+			{
+				UpdateInfoPanel( ManualConnectionInfoHolder, lblConnectionDetailsManual, "Connection Succeeded", "successinfo" );
+			}
+
+		}
+
+		protected void chkDBIntegratedSecurity_CheckChanged( object sender, EventArgs e )
+		{
+			DBUsernamePasswordHolder.Visible = !chkDBIntegratedSecurity.Checked;
+		}
+
+		protected void btnTestPermissions_Click( object sender, EventArgs e )
+		{
+			UpdateStatusLabel( lblPermissionApp, 1 );
+			UpdateStatusLabel( lblPermissionUpload, 1 );
+
+			UpdateStatusLabel( lblPermissionApp, DirectoryHasWritePermission( Server.MapPath( "~/" ) ) ? 2 : 0 );
+			UpdateStatusLabel( lblPermissionUpload, DirectoryHasWritePermission( Server.MapPath( Config.UploadDir ) ) ? 2 : 0 );
+		}
+
+		protected void btnTestSmtp_Click( object sender, EventArgs e )
+		{
 			try
 			{
-				if ( appSettings.Settings[testKeyStr] != null )
+				YafServices.SendMail.Send(txtTestFromEmail.Text.Trim(), txtTestToEmail.Text.Trim(), "Test Email From Yet Another Forum.NET", "The email sending appears to be working from your YAF installation." );
+				// success
+				UpdateInfoPanel( SmtpInfoHolder, lblSmtpTestDetails, "Mail Sent. Verify it's received at your entered email address.", "successinfo" );
+			}
+			catch ( Exception x )
+			{
+				UpdateInfoPanel( SmtpInfoHolder, lblSmtpTestDetails, "Failed to connect:<br/><br/>" + x.Message, "errorinfo" );
+			}
+		}
+
+		protected void UpdateStatusTimer_Tick( object sender, EventArgs e )
+		{
+			// see if the migration is done....
+			if ( YafTaskModule.Current.TaskManager.ContainsKey( MigrateUsersTask.TaskName ) && YafTaskModule.Current.TaskManager[MigrateUsersTask.TaskName].IsRunning)
+			{
+				// proceed...
+				return;
+			}
+
+			if ( Session["InstallWizardFinal"] == null )
+				Session.Add( "InstallWizardFinal", true );
+
+			// done here...
+			Response.Redirect( "default.aspx" );
+		}
+
+		#endregion
+
+		#region Event Helper Functions
+		/// <summary>
+		/// Tests database connection. Can probably be moved to DB class.
+		/// </summary>
+		/// <param name="exceptionMessage"></param>
+		/// <returns></returns>
+		private static bool TestDatabaseConnection(out string exceptionMessage)
+		{
+			bool success = false;
+			exceptionMessage = String.Empty;
+
+			try
+			{
+				using ( YafDBConnManager connection = YafDBAccess.Current.GetConnectionManager() )
 				{
-					appSettings.Settings.Remove( testKeyStr );
+					// attempt to connect to the db...
+					SqlConnection conn = connection.OpenDBConnection;
 				}
 
-				appSettings.Settings.Add( testKeyStr, "TestKey" );
+				// success
+				success = true;
+			}
+			catch ( Exception x )
+			{
+				// unable to connect...
+				exceptionMessage = x.Message;
+			}
 
-				WebConfig.Save( ConfigurationSaveMode.Modified );
+			return success;
+		}
 
-				// remove the test key immediately...
-				if ( appSettings.Settings[testKeyStr] != null )
+		enum UpdateDBFailureType
+		{
+			None,
+			AppSettingsWrite,
+			ConnectionStringWrite
+		}
+
+		private UpdateDBFailureType UpdateDatabaseConnection()
+		{
+			if ( rblYAFDatabase.SelectedValue == "existing" && lbConnections.SelectedIndex >= 0 )
+			{
+				string selectedConnection = lbConnections.SelectedValue;
+				if ( selectedConnection != Config.ConnectionStringName )
 				{
-					appSettings.Settings.Remove( testKeyStr );
+					// have to write to the appSettings...
+					if ( !_config.WriteAppSetting( "YAF.ConnectionStringName", selectedConnection ) )
+					{
+						lblConnectionStringName.Text = selectedConnection;
+						// failure to write App Settings..
+						return UpdateDBFailureType.AppSettingsWrite;
+					}
+				}
+			}
+			else if ( rblYAFDatabase.SelectedValue == "create" )
+			{
+				if ( !_config.WriteConnectionString( Config.ConnectionStringName, CurrentConnString, "System.Data.SqlClient" ) )
+				{
+					// failure to write db Settings..
+					return UpdateDBFailureType.ConnectionStringWrite;					
+				}
+			}
+
+			return UpdateDBFailureType.None;
+		}
+
+		private static void UpdateInfoPanel(Control infoHolder, Label detailsLabel, string info, string cssClass)
+		{
+			infoHolder.Visible = true;
+			detailsLabel.Text = info;
+			detailsLabel.CssClass = cssClass;
+		}
+
+		private static void UpdateStatusLabel( Label theLabel, int status )
+		{
+			switch( status )
+			{
+				case 0:
+					theLabel.Text = "No";
+					theLabel.ForeColor = Color.Red;
+					break;
+				case 1:
+					theLabel.Text = "Unchcked";
+					theLabel.ForeColor = Color.Gray;
+					break;
+				case 2:
+					theLabel.Text = "YES";
+					theLabel.ForeColor = Color.Green;
+					break;
+			}
+		}
+
+		private void FillWithConnectionStrings()
+		{
+			if ( lbConnections.Items.Count == 0 )
+			{
+				foreach ( ConnectionStringSettings connectionString in ConfigurationManager.ConnectionStrings )
+				{
+					lbConnections.Items.Add( connectionString.Name );
 				}
 
-				WebConfig.Save( ConfigurationSaveMode.Modified );
+				ListItem item = lbConnections.Items.FindByText( "yafnet" );
+				if (item != null )
+				{
+					item.Selected = true;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Validates write permission in a specific directory. Should be moved to YAF.Classes.Utils.
+		/// </summary>
+		/// <param name="directory"></param>
+		/// <returns></returns>
+		private static bool DirectoryHasWritePermission( string directory )
+		{
+			bool hasWriteAccess = false;
+
+			try
+			{
+				// see if we have permission
+				FileIOPermission fp = new FileIOPermission( FileIOPermissionAccess.Write, directory );
+				fp.Demand();
 
 				hasWriteAccess = true;
 			}
@@ -506,7 +621,7 @@ namespace YAF.Install
 				hasWriteAccess = false;
 			}
 
-			return hasWriteAccess;
+			return hasWriteAccess;			
 		}
 
 		private bool UpgradeDatabase( bool fullText )
@@ -702,7 +817,7 @@ namespace YAF.Install
 
 		private int IndexOfWizardID( string id )
 		{
-			WizardStepBase step = InstallWizard.FindControl( id ) as WizardStepBase;
+			WizardStepBase step = ControlHelper.FindWizardControlRecursive( InstallWizard, id ) as WizardStepBase;
 
 			if ( step != null )
 			{

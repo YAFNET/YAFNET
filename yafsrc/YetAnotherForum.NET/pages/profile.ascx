@@ -1,8 +1,9 @@
 <%@ Control Language="c#" CodeFile="profile.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.profile" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
-<%@ Register TagPrefix="uc1" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
-<%@ Register TagPrefix="uc1" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
-<%@ Register TagPrefix="uc1" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
@@ -198,6 +199,7 @@
 							TextLocalizedTag="SEARCHUSER" ImageThemeTag="SEARCH" />
 						<br style="clear: both" />
 						<table width="100%" cellspacing="1" cellpadding="0">
+			
 							<asp:Repeater ID="LastPosts" runat="server">
 								<ItemTemplate>
 									<tr class="postheader">
@@ -226,7 +228,7 @@
 					</DotNetAge:View>
 					<DotNetAge:View runat="server" ID="ModerateTab" Text="Moderation" NavigateUrl=""
 						HeaderCssClass="" HeaderStyle="" Visible="false" Target="_blank">
-						<uc1:ForumAccess runat="server" ID="ForumAccessControl" />
+						<YAF:ForumAccess runat="server" ID="ForumAccessControl" />
 						<table width="100%" cellspacing="1" cellpadding="0">
 							<tr class="header2">
 								<td class="header2" colspan="2">
@@ -234,8 +236,8 @@
 								</td>
 							</tr>
 						</table>
-						<uc1:SuspendUser runat="server" ID="SuspendUserControl" ShowHeader="False" />
-						<uc1:SignatureEdit runat="server" ID="SignatureEditControl" ShowHeader="False" />
+						<YAF:SuspendUser runat="server" ID="SuspendUserControl" ShowHeader="False" />
+						<YAF:SignatureEdit runat="server" ID="SignatureEditControl" ShowHeader="False" />
 					</DotNetAge:View>
 				</Views>
 			</DotNetAge:Tabs>

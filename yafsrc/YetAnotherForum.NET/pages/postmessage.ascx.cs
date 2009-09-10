@@ -311,18 +311,10 @@ namespace YAF.Pages
 				TopicAttachBr.Visible = false;
 			}
 
-			if ( YAF.Classes.Config.IsDotNetNuke || YAF.Classes.Config.IsRainbow || YAF.Classes.Config.IsPortal )
-			{
-				// can't use the last post iframe
-				LastPosts.Visible = true;
-				LastPosts.DataSource = DB.post_list_reverse10( TopicID );
-				LastPosts.DataBind();
-			}
-			else
-			{
-				LastPostsIFrame.Visible = true;
-				LastPostsIFrame.Attributes.Add( "src", string.Format( "{0}framehelper.aspx?g=lastposts&t={1}", YafForumInfo.ForumRoot, TopicID ) );
-			}
+			// setup the last post AJAX frame...
+			LastPosts1.Visible = true;
+			LastPosts1.DataSource = DB.post_list_reverse10( TopicID );
+			LastPosts1.DataBind();
 		}
 
 		private bool CanEditPostCheck(DataRow message)

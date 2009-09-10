@@ -860,6 +860,22 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_isuserignored]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_ignoredlist]') AND Objectproperty(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_ignoredlist]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}shoutbox_getmessages]') AND Objectproperty(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_getmessages]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}shoutbox_savemessage]') AND Objectproperty(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}shoutbox_clearmessages]') AND Objectproperty(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_clearmessages]
+GO
+
 
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
@@ -6127,4 +6143,64 @@ AS BEGIN
 	END
 	
 END	
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_ignoredlist]
+    @UserId int
+AS
+BEGIN
+	SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId
+END	
+GO
+
+/*****************************************************************************************************
+//  Original code by: DLESKTECH at http://www.dlesktech.com/support.aspx
+//  Modifications by: KASL Technologies at www.kasltechnologies.com
+//  Modifications for integration into YAF/Conventions by Jaben Cargman
+*****************************************************************************************************/
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_getmessages]
+(
+  @NumberOfMessages int
+)  
+AS
+BEGIN	
+	SET ROWCOUNT @NumberOfMessages
+
+	SELECT
+		Username,
+		UserID,
+		Message,
+		[Date]
+	FROM
+		[{databaseOwner}].[{objectQualifier}ShoutboxMessage]
+	ORDER BY Date DESC
+	
+	SET ROWCOUNT 0
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage](
+	@UserName		nvarchar(50)=null,
+	@UserID			int,
+	@Message		ntext,
+	@Date			datetime=null,
+	@IP				varchar(15)
+)
+AS
+BEGIN
+	
+	IF @Date IS NULL
+		SET @Date = GETDATE()
+
+	INSERT [{databaseOwner}].[{objectQualifier}ShoutboxMessage] (UserName, UserID, Message, Date, IP)
+	VALUES (@UserName, @UserID, @Message, @Date, @IP)
+
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_clearmessages] AS
+BEGIN
+	DELETE FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] WHERE DATEDIFF(day, Date, getdate()) > 1
+END
 GO

@@ -508,6 +508,20 @@ begin
 end
 GO
 
+
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+begin
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}ShoutboxMessage](
+		[ShoutBoxMessageID] [int] IDENTITY(1,1) NOT NULL,		
+		[UserID] [int] NULL,
+		[UserName] [nvarchar](50) NOT NULL,
+		[Message] [ntext] NULL,
+		[Date] [datetime] NOT NULL,
+		[IP] [varchar](50) NOT NULL
+	)
+end
+GO	
+
 /*
 ** Added columns
 */

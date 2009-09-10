@@ -1,6 +1,10 @@
 /*
 	This File is for basic LAYOUT CSS -- Not for Color/Design which should stay in the theme.css file
 */
+.PopupBody
+{
+	margin: 0;
+}
 .yafnet
 {
 	padding: 5px;

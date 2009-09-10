@@ -46,6 +46,7 @@ namespace YAF.Pages
 		{
 			if ( !IsPostBack )
 			{
+				ShoutBox1.Visible = PageContext.BoardSettings.ShowShoutbox;
 				ForumStats.Visible = PageContext.BoardSettings.ShowForumStatistics;
 				ActiveDiscussions.Visible = PageContext.BoardSettings.ShowActiveDiscussions;
 

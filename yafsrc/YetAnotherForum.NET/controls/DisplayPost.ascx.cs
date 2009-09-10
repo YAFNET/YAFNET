@@ -18,6 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -552,19 +553,38 @@ function toggleMessage(divId)
 			return "100";
 		}
 
+		private List<int> _userIgnoreList = null;
 		private bool IsIgnored(int ignoredUserId)
 		{
-			return YAF.Classes.Data.DB.user_isuserignored(PageContext.PageUserID, ignoredUserId);
+			if ( _userIgnoreList == null )
+			{
+				_userIgnoreList = YafServices.DBBroker.UserIgnoredList( PageContext.PageUserID );
+			}
+
+			if ( _userIgnoreList.Count > 0 )
+			{
+				return _userIgnoreList.Contains( ignoredUserId );
+			}
+
+			return false;
+		}
+
+		private void ClearIgnoreCache()
+		{
+			string key = YafCache.GetBoardCacheKey( String.Format( Constants.Cache.UserIgnoreList, PageContext.PageUserID ) );
+			PageContext.Cache.Remove( key );
 		}
 
 		private void AddIgnored(int ignoredUserId)
 		{
 			YAF.Classes.Data.DB.user_addignoreduser(PageContext.PageUserID, ignoredUserId);
+			ClearIgnoreCache();
 		}
 
 		private void RemoveIgnored(int ignoredUserId)
 		{
 			YAF.Classes.Data.DB.user_removeignoreduser(PageContext.PageUserID, ignoredUserId);
+			ClearIgnoreCache();
 		}
 
 		private void PopMenu1_ItemClick(object sender, PopEventArgs e)
