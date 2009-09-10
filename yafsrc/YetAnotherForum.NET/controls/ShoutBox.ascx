@@ -103,8 +103,10 @@
 									</ItemTemplate>
 								</asp:Repeater>
 							</td>
-							<td id="tdFlyOut" runat="server" class="post" style="text-align: center;">
-								<asp:Button ID="btnFlyOut" OnClientClick="openwin()" CssClass="pbutton" Text="FlyOut" runat="server" />								
+							<td class="post" style="text-align: center;">
+								<asp:PlaceHolder ID="FlyOutHolder" runat="server">
+									<asp:Button ID="btnFlyOut" OnClientClick="openwin()" CssClass="pbutton" Text="FlyOut" runat="server" />								
+								</asp:PlaceHolder>
 							</td>
 						</tr>
 					</asp:PlaceHolder>

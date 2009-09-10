@@ -56,7 +56,8 @@ namespace YAF.Controls
 				btnClear.Text = PageContext.Localization.GetText( "SHOUTBOX", "CLEAR" );
 				btnButton.Text = PageContext.Localization.GetText( "SHOUTBOX", "SUBMIT" );
 
-				tdFlyOut.Visible = !YafControlSettings.Current.Popup;
+				FlyOutHolder.Visible = !YafControlSettings.Current.Popup;
+				CollapsibleImageShoutBox.Visible = !YafControlSettings.Current.Popup;
 
 				DataBind();
 			}
