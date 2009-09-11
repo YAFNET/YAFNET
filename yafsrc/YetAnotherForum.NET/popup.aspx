@@ -13,7 +13,7 @@
 		if ( YafContext.Current != null && YafContext.Current.CurrentForumPage != null && YafContext.Current.CurrentForumPage.AllowAsPopup == false )
 		{
 			// redirect back to default.aspx page...
-			Response.Redirect( String.Format( "{0}?{1}", Config.BaseScriptFile, Request.QueryString.ToString() ) );
+			Response.Redirect( String.Format( "{0}?{1}", YAF.Classes.Config.BaseScriptFile, Request.QueryString.ToString() ) );
 		}
 	}
 </script>
