@@ -66,6 +66,71 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		/// <summary>
+		/// Registers a Javascript block using the script manager. Adds script tags.
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="script"></param>
+		public void RegisterJsBlock(string name, string script )
+		{
+			RegisterJsBlock( YafContext.Current.CurrentForumPage, name, script );
+		}
+
+		/// <summary>
+		/// Registers a Javascript block using the script manager. Adds script tags.
+		/// </summary>
+		/// <param name="thisControl"></param>
+		/// <param name="name"></param>
+		/// <param name="script"></param>
+		public void RegisterJsBlock( Control thisControl, string name, string script )
+		{
+			ScriptManager.RegisterClientScriptBlock( thisControl, thisControl.GetType(), name, script,
+																							 true );
+		}
+
+		/// <summary>
+		/// Registers a Javascript include using the script manager.
+		/// </summary>
+		/// <param name="thisControl"></param>
+		/// <param name="name"></param>
+		/// <param name="url"></param>
+		public void RegisterJsInclude( Control thisControl, string name, string url )
+		{
+			ScriptManager.RegisterClientScriptInclude( thisControl, thisControl.GetType(), name, url );
+		}
+
+		/// <summary>
+		/// Registers a Javascript include using the script manager.
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="url"></param>
+		public void RegisterJsInclude( string name, string url )
+		{
+			RegisterJsInclude( YafContext.Current.CurrentForumPage, name, url );
+		}
+
+		/// <summary>
+		/// Registers a Javascript resource include using the script manager.
+		/// </summary>
+		/// <param name="thisControl"></param>
+		/// <param name="name"></param>
+		/// <param name="relativeResourceUrl"></param>
+		public void RegisterJsResourceInclude( Control thisControl, string name, string relativeResourceUrl )
+		{
+			ScriptManager.RegisterClientScriptInclude( thisControl, thisControl.GetType(), name,
+			                                           YafForumInfo.GetURLToResource( relativeResourceUrl ) );
+		}
+
+		/// <summary>
+		/// Registers a Javascript resource include using the script manager.
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="relativeResourceUrl"></param>
+		public void RegisterJsResourceInclude( string name, string relativeResourceUrl )
+		{
+			RegisterJsResourceInclude( YafContext.Current.CurrentForumPage, name, relativeResourceUrl );			
+		}
+
 		public void RegisterCssBlock(string name, string cssContents)
 		{
 			RegisterCssBlock(YafContext.Current.CurrentForumPage.TopPageControl, name, cssContents);
@@ -78,6 +143,16 @@ namespace YAF.Classes.Core
 		public void RegisterCssInclude(string cssUrl)
 		{
 			RegisterCssInclude(YafContext.Current.CurrentForumPage.TopPageControl, cssUrl);
+		}
+
+		/// <summary>
+		/// Add the given CSS to the page header within a style tag
+		/// </summary>
+		/// <param name="cssUrlResource">Url of the CSS Resource file to add</param>
+		public void RegisterCssIncludeResource( string cssUrlResource )
+		{
+			RegisterCssInclude( YafContext.Current.CurrentForumPage.TopPageControl,
+			                    YafForumInfo.GetURLToResource( cssUrlResource ) );
 		}
 
 		/// <summary>
