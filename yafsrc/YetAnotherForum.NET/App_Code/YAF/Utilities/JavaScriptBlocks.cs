@@ -72,8 +72,8 @@ function toggleMessage(divId)
 			get
 			{
 				return
-					@"$(document).ready(function() { 
-					$.Lightbox.construct({
+					@"jQuery(document).ready(function() { 
+					jQuery.Lightbox.construct({
 						show_linkback:	false,
 						show_helper_text: false,
 				text: {

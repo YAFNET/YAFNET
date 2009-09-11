@@ -62,9 +62,9 @@
 	<form runat="server">
 
 	<script type="text/javascript">
-		$('form').submit(function() {
-			$('.wizStep').animate({ opacity: '0.4' }, 'fast');
-			$('.wizMain').addClass('wizLoader');			
+		jQuery('form').submit(function() {
+		jQuery('.wizStep').animate({ opacity: '0.4' }, 'fast');
+		jQuery('.wizMain').addClass('wizLoader');			
 		});	
 	</script>
 
