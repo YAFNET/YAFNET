@@ -311,10 +311,9 @@ namespace YAF.Pages
 				TopicAttachBr.Visible = false;
 			}
 
-			// setup the last post AJAX frame...
+			// show the last posts AJAX frame...
 			LastPosts1.Visible = true;
-			LastPosts1.DataSource = DB.post_list_reverse10( TopicID );
-			LastPosts1.DataBind();
+			LastPosts1.TopicID = TopicID.Value;
 		}
 
 		private bool CanEditPostCheck(DataRow message)
@@ -741,11 +740,11 @@ namespace YAF.Pages
 
 			if ( PageContext.BoardSettings.AllowSignatures )
 			{
-				using ( DataTable userDT = DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
+				using ( DataTable userDt = DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
 				{
-					if ( !userDT.Rows [0].IsNull( "Signature" ) )
+					if ( !userDt.Rows [0].IsNull( "Signature" ) )
 					{
-						PreviewMessagePost.Signature = userDT.Rows [0] ["Signature"].ToString();
+						PreviewMessagePost.Signature = userDt.Rows [0] ["Signature"].ToString();
 					}
 				}
 			}
@@ -768,6 +767,6 @@ namespace YAF.Pages
 			get { return PageContext.QueryIDs["q"]; }
 		}
 		
-#endregion
+		#endregion
 	}
 }

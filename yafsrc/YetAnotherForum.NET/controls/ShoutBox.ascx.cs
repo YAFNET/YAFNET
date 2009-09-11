@@ -39,6 +39,8 @@ namespace YAF.Controls
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
+			YafContext.Current.PageElements.RegisterJsBlock( shoutBoxUpdatePanel, "DisablePageManagerScrollJs", YAF.Utilities.JavaScriptBlocks.DisablePageManagerScrollJs );
+
 			if ( PageContext.User != null )
 			{
 				//phShoutText.Visible = true;

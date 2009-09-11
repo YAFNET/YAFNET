@@ -142,22 +142,22 @@ namespace YAF.Controls
 			if ( HomePage.Text.Length > 0 && !HomePage.Text.StartsWith( "http://" ) )
 				HomePage.Text = "http://" + HomePage.Text;
 
-			if ( MSN.Text.Length > 0 && !General.IsValidEmail( MSN.Text ) )
+			if ( MSN.Text.Length > 0 && !ValidationHelper.IsValidEmail( MSN.Text ) )
 			{
 				PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_MSN" ) );
 				return;
 			}
-			if ( HomePage.Text.Length > 0 && !General.IsValidURL( HomePage.Text ) )
+			if ( HomePage.Text.Length > 0 && !ValidationHelper.IsValidURL( HomePage.Text ) )
 			{
 				PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_HOME" ) );
 				return;
 			}
-			if ( Weblog.Text.Length > 0 && !General.IsValidURL( Weblog.Text ) )
+			if ( Weblog.Text.Length > 0 && !ValidationHelper.IsValidURL( Weblog.Text ) )
 			{
 				PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_WEBLOG" ) );
 				return;
 			}
-			if ( ICQ.Text.Length > 0 && !General.IsValidInt( ICQ.Text ) )
+			if ( ICQ.Text.Length > 0 && !ValidationHelper.IsValidInt( ICQ.Text ) )
 			{
 				PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_ICQ" ) );
 				return;
@@ -167,7 +167,7 @@ namespace YAF.Controls
 			{
 				string newEmail = Email.Text.Trim();
 
-				if ( !General.IsValidEmail( newEmail ) )
+				if ( !ValidationHelper.IsValidEmail( newEmail ) )
 				{
 					PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_EMAIL" ) );
 					return;

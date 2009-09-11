@@ -35,21 +35,6 @@ namespace YAF.Controls
 	/// </summary>
 	public partial class DisplayPost : YAF.Classes.Core.BaseUserControl
 	{
-		private const string _toogleMessageJs =
-			@"
-function toggleMessage(divId)
-{
-    if(divId != null)
-    {
-        var o = $get(divId);
-
-        if(o != null)
-        {
-            o.style.display = (o.style.display == ""none"" ? ""block"" : ""none"");
-        }
-    }
-}
-";
 		#region Data Members
 
 		// for parent page referencing
@@ -121,24 +106,11 @@ function toggleMessage(divId)
 
 			// setup jQuery, LightBox and YAF JS...
 			YafContext.Current.PageElements.RegisterJQuery();
-			ScriptManager.RegisterClientScriptInclude( this, typeof ( DisplayPost ), "lightboxjs",
-			                                           YafForumInfo.GetURLToResource( "js/jquery.lightbox.min.js" ) );
-			YafContext.Current.PageElements.RegisterCssInclude( YafForumInfo.GetURLToResource( "css/jquery.lightbox.css" ) );
-			ScriptManager.RegisterClientScriptInclude(this, typeof(DisplayPost), "yafjs", YafForumInfo.GetURLToResource("js/yaf.js"));
-			ScriptManager.RegisterClientScriptBlock( this, typeof ( DisplayPost ), "toggleMessageJs", _toogleMessageJs, true );
-			ScriptManager.RegisterClientScriptBlock( this, typeof ( DisplayPost ), "lightboxloadjs",
-				@"$(document).ready(function() { 
-					$.Lightbox.construct({
-						show_linkback:	false,
-						show_helper_text: false,
-				text: {
-					image:		'" + PageContext.Localization.GetText("IMAGE_TEXT") + @"',
-					close:    '" + PageContext.Localization.GetText("CLOSE_TEXT") + @"',
-					download:    '" + PageContext.Localization.GetText("IMAGE_DOWNLOAD") + @"',
-					}
-				});
-			});",
-			                                         true );
+			YafContext.Current.PageElements.RegisterJsResourceInclude( "lightboxjs", "js/jquery.lightbox.min.js" );
+			YafContext.Current.PageElements.RegisterCssIncludeResource( "css/jquery.lightbox.css" );
+			YafContext.Current.PageElements.RegisterJsResourceInclude( "yafjs", "js/yaf.js" );
+			YafContext.Current.PageElements.RegisterJsBlock( "toggleMessageJs", YAF.Utilities.JavaScriptBlocks.ToogleMessageJs );
+			YafContext.Current.PageElements.RegisterJsBlock( "lightboxloadjs", YAF.Utilities.JavaScriptBlocks.LightBoxLoadJs );
 
 			NameCell.ColSpan = int.Parse(GetIndentSpan());
 

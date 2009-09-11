@@ -261,68 +261,18 @@
 	</tr>
 </table>
 <br />
-<asp:Repeater ID="LastPosts" runat="server" Visible="false">
-	<HeaderTemplate>
-		<table class="content" cellspacing="1" cellpadding="0" width="100%" align="center">
-			<tr>
-				<td class="header2" align="center" colspan="2">
-					<YAF:LocalizedLabel runat="server" LocalizedTag="last10" />
-				</td>
-			</tr>
-	</HeaderTemplate>
-	<FooterTemplate>
-		</table>
-	</FooterTemplate>
-	<ItemTemplate>
-		<tr class="postheader">
-			<td width="140">
-				<b><a href="<%# YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.profile,"u={0}",Eval( "UserID")) %>">
-					<%# Eval( "UserName") %>
-				</a></b>
-			</td>
-			<td width="80%" class="small" align="left">
-				<b>
-					<YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
-				</b>
-				<%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
-			</td>
-		</tr>
-		<tr class="post">
-			<td>
-				&nbsp;
-			</td>
-			<td valign="top" class="message">
-				<YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false"
-					DataRow="<%# Container.DataItem %>">
-				</YAF:MessagePostData>
-			</td>
-		</tr>
-	</ItemTemplate>
-	<AlternatingItemTemplate>
-		<tr class="postheader">
-			<td width="140">
-				<b><a href="<%# YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.profile,"u={0}",Eval( "UserID")) %>">
-					<%# Eval( "UserName") %>
-				</a></b>
-			</td>
-			<td width="80%" class="small" align="left">
-				<b>
-					<YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
-				</b>
-				<%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
-			</td>
-		</tr>
-		<tr class="post_alt">
-			<td>
-				&nbsp;
-			</td>
-			<td valign="top" class="message">
-				<YAF:MessagePostData ID="MessagePostAlt" runat="server" ShowAttachments="false" DataRow="<%# Container.DataItem %>">
-				</YAF:MessagePostData>
-			</td>
-		</tr>
-	</AlternatingItemTemplate>
-</asp:Repeater>
+
+<script type="text/javascript">
+
+	var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+	prm.add_beginRequest(beginRequest);
+
+	function beginRequest() {
+		prm._scrollPosition = null;
+	}
+
+</script>
 <YAF:LastPosts ID="LastPosts1" runat="server" Visible="false" />
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />

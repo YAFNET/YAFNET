@@ -4,11 +4,9 @@
 	function insertsmiley(code, path) {
 		InsertSmileyForShoutBox(code, path);
 	}
-
 	function InsertSmileyForShoutBox(code, path) {
 		InsertStringAtCurrentCursorPositionOrOverwriteSelectedText(document.getElementById('<%=messageTextBox.ClientID %>'), code)
 	}
-
 	function InsertStringAtCurrentCursorPositionOrOverwriteSelectedText(control, insertionText) {
 		control.focus();
 		if (control.value == '') {
@@ -17,24 +15,11 @@
 		else
 			control.value += ' ' + insertionText;
 	}
-
-	function openwin() {
+	function openShoutBoxWin() {
 		var hostname = window.location.hostname
 		window.open("<%=YafForumInfo.ForumBaseUrl %>popup.aspx?g=shoutbox", "mywindow", "location=0,status=0,scrollbars=0,resizable=1,width=350,height=475");
 		return false;
 	}
-</script>
-
-<script type="text/javascript">
-
-	var prm = Sys.WebForms.PageRequestManager.getInstance();
-
-	prm.add_beginRequest(beginRequest);
-
-	function beginRequest() {
-		prm._scrollPosition = null;
-	}
-
 </script>
 
 <asp:Panel ID="shoutBoxPanel" DefaultButton="btnButton" runat="server" Visible="false">
@@ -105,7 +90,7 @@
 							</td>
 							<td class="post" style="text-align: center;">
 								<asp:PlaceHolder ID="FlyOutHolder" runat="server">
-									<asp:Button ID="btnFlyOut" OnClientClick="openwin()" CssClass="pbutton" Text="FlyOut" runat="server" />								
+									<asp:Button ID="btnFlyOut" OnClientClick="openShoutBoxWin();" CssClass="pbutton" Text="FlyOut" runat="server" />								
 								</asp:PlaceHolder>
 							</td>
 						</tr>
