@@ -131,7 +131,8 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return Convert.ToDateTime(DataRow["Posted"]);
+				if ( DataRow != null ) return Convert.ToDateTime(DataRow["Posted"]);
+				return DateTime.Now;
 			}
 		}
 
@@ -139,7 +140,8 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return Convert.ToDateTime(DataRow["Edited"]);
+				if ( DataRow != null ) return Convert.ToDateTime(DataRow["Edited"]);
+				return DateTime.Now;
 			}
 		}
 
@@ -147,7 +149,7 @@ namespace YAF.Controls
 		{
 			get
 			{
-				if (ShowSignature && PageContext.BoardSettings.AllowSignatures && DataRow["Signature"] != DBNull.Value && DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow["Signature"].ToString().Trim().Length > 0)
+				if ( DataRow != null && ShowSignature && PageContext.BoardSettings.AllowSignatures && DataRow["Signature"] != DBNull.Value && DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow["Signature"].ToString().Trim().Length > 0 )
 				{
 					return DataRow["Signature"].ToString();
 				}
@@ -160,9 +162,14 @@ namespace YAF.Controls
 		{
 			get
 			{
-				string message = DataRow["Message"].ToString();
+				if ( DataRow != null )
+				{
+					string message = DataRow["Message"].ToString();
 
-				return TruncateMessage(message);
+					return TruncateMessage(message);
+				}
+
+				return string.Empty;
 			}
 		}
 		public static string TruncateMessage(string message)
