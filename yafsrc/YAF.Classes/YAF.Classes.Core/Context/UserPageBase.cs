@@ -531,7 +531,7 @@ namespace YAF.Classes.Core
 							platform = "Win7";
 						else
 							// check if it's a search engine spider...
-							isSearchEngine = General.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent);
+							isSearchEngine = UserAgentHelper.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent);
 					}
 
 					int? categoryID = TypeHelper.ValidInt(HttpContext.Current.Request.QueryString["c"]);

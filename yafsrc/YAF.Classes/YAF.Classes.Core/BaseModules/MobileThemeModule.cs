@@ -19,26 +19,52 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Web;
+using YAF.Classes.Core;
+using YAF.Classes.Utils;
 
-namespace YAF.Classes.Utils
+namespace YAF.Modules
 {
-	public static class ValidationHelper
+	[YafModule( "Mobile Theme Module", "Tiny Gecko", 1 )]
+	public class MobileThemeModule : IBaseModule
 	{
-		static public bool IsValidEmail( string email )
+		private object _forumControlObj;
+		public object ForumControlObj
 		{
-			return Regex.IsMatch( email, @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$", RegexOptions.IgnoreCase );
+			get
+			{
+				return _forumControlObj;
+			}
+			set
+			{
+				_forumControlObj = value;
+			}
 		}
 
-		static public bool IsValidURL( string url )
+		public void Init()
 		{
-			return Regex.IsMatch( url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$" );
+			// hook the page init for mail sending...
+			YafContext.Current.AfterInit +=new EventHandler<EventArgs>( Current_AfterInit );
+
 		}
 
-		static public bool IsValidInt( string intstr )
+		void Current_AfterInit( object sender, EventArgs e )
 		{
-			int value;
-			return int.TryParse( intstr, out value );
+			// see if this is a mobile device...
+			if ( UserAgentHelper.IsMobile( HttpContext.Current.Request.UserAgent ))
+			{
+				// change the theme to mobile...
+				
+			}
 		}
+
+		#region IDisposable Members
+
+		public void Dispose()
+		{
+
+		}
+
+		#endregion
 	}
 }

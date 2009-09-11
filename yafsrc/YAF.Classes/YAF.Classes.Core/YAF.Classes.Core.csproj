@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="BaseControls\BaseControl.cs" />
     <Compile Include="BaseControls\IYafHeaderFooter.cs" />
+    <Compile Include="BaseModules\MobileThemeModule.cs" />
     <Compile Include="Tasks\IBackgroundTask.cs" />
     <Compile Include="BasePages\AdminPage.cs">
       <SubType>ASPXCodeBehind</SubType>

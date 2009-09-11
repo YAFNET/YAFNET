@@ -59,76 +59,21 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="node"></param>
 		/// <returns></returns>
-		public static decimal GetHourOffsetFromNode(XmlNode node)
+		public static decimal GetHourOffsetFromNode( XmlNode node )
 		{
 			// calculate hours -- can use prefix of either UTC or GMT...
 			decimal hours = 0;
 
 			try
 			{
-				hours = Convert.ToDecimal(node.Attributes["tag"].Value.Replace("UTC", "").Replace("GMT", ""));
+				hours = Convert.ToDecimal( node.Attributes["tag"].Value.Replace( "UTC", "" ).Replace( "GMT", "" ) );
 			}
-			catch (FormatException ex)
+			catch ( FormatException ex )
 			{
-				hours = Convert.ToDecimal(node.Attributes["tag"].Value.Replace(".", ",").Replace("UTC", "").Replace("GMT", ""));
+				hours = Convert.ToDecimal( node.Attributes["tag"].Value.Replace( ".", "," ).Replace( "UTC", "" ).Replace( "GMT", "" ) );
 			}
 
 			return hours;
-		}
-
-		/// <summary>
-		/// Validates if the useragent is a search engine spider or not
-		/// </summary>
-		/// <param name="UserAgent"></param>
-		/// <returns></returns>
-		static public bool IsSearchEngineSpider( string userAgent )
-		{
-			string [] spiderstrings = 
-				{
-					"Googlebot", "Slurp", "abachoBOT", "abcdatos_botlink", "AESOP_com_SpiderMan", "ah-ha.com crawler", "ia_archiver",
-					"Scooter", "Mercator", "AltaVista-Intranet", "FAST-WebCrawler", "Acoon Robot", "antibot", "Atomz", "AxmoRobot",
-					"Buscaplus Robi", "CanSeek", "ChristCRAWLER", "Clushbot", "Crawler", "RaBot", "DeepIndex", "DittoSpyder", "Jack",
-					"EARTHCOM.info", "Speedy Spider", "ArchitextSpider", "EuripBot", "Arachnoidea", "EZResult", "FyberSearch", "geckobot",
-					"GenCrawler", "GeonaBot", "getRAX", "moget", "Aranha", "Toutatis", "Hubater", "IlTrovatore-Setaccio", "IncyWincy",
-					"UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot", "Knowledge.com", "kuloko-bot", "LNSpiderguy", "Linknzbot",
-					"lookbot", "MantraAgent", "NetResearchServer", "Lycos", "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", "mozDex",
-					"MSNBOT", "Navadoo Crawler", "Gulliver", "ObjectsSearch", "OnetSzukaj", "PicoSearch", "PJspider", "DIIbot",
-					"nttdirectory_robot", "maxbot.com", "Openfind", "psbot", "CrawlerBoy", "QweeryBot", "AlkalineBOT", "StackRambler",
-					"SeznamBot", "Search-10", "Fluffy", "Scrubby", "asterias", "speedfind ramBot xtreme", "Kototoi", "SearchByUsa",
-					"Searchspider", "SightQuestBot", "Spider_Monkey", "Surfnomore", "teoma", "ESISmartSpider", "UK Searcher Spider",
-					"appie", "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot", "Yandex", "Yellopet-Spider", "Findexa Crawler",
-					"YBSbot"
-				};
-
-			// see if the current useragent is one of these spiders...
-			string userAgentLow = userAgent.ToLower();
-
-			foreach ( string spider in spiderstrings )
-			{
-				if ( userAgentLow.Contains( spider.Trim().ToLower() ) )
-				{
-					// it's a spider...
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		static public bool IsValidEmail( string email )
-		{
-			return Regex.IsMatch( email, @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$", RegexOptions.IgnoreCase );
-		}
-
-		static public bool IsValidURL( string url )
-		{
-			return Regex.IsMatch( url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$" );
-		}
-
-		static public bool IsValidInt( string intstr )
-		{
-			int value;
-			return int.TryParse( intstr, out value );
 		}
 
 		static public string TraceResources()
@@ -136,7 +81,7 @@ namespace YAF.Classes.Utils
 			System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
 
 			// get a list of resource names from the manifest
-			string [] resNames = a.GetManifestResourceNames();
+			string[] resNames = a.GetManifestResourceNames();
 
 			// populate the textbox with information about our resources
 			// also look for images and put them in our arraylist
@@ -156,7 +101,7 @@ namespace YAF.Classes.Utils
 		/* Ederon : 9/12/2007 */
 		static public bool BinaryAnd( object value, object checkAgainst )
 		{
-            return BinaryAnd(SqlDataLayerConverter.VerifyInt32(value), SqlDataLayerConverter.VerifyInt32(checkAgainst));
+			return BinaryAnd( SqlDataLayerConverter.VerifyInt32( value ), SqlDataLayerConverter.VerifyInt32( checkAgainst ) );
 		}
 		static public bool BinaryAnd( int value, int checkAgainst )
 		{
@@ -179,7 +124,7 @@ namespace YAF.Classes.Utils
 		/// <returns>True if messages differ, false if they are identical.</returns>
 		static public bool CompareMessage( Object originalMessage, Object newMessage )
 		{
-			return ( ( String )originalMessage != ( String )newMessage );
+			return ( (String)originalMessage != (String)newMessage );
 		}
 	}
 }

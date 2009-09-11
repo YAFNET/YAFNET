@@ -71,6 +71,7 @@
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\IPHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Helpers\UserAgentHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="MySession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
