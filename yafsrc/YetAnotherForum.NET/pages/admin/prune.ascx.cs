@@ -40,54 +40,64 @@ namespace YAF.Pages.Admin
 	public partial class prune : YAF.Classes.Core.AdminPage
 	{
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) {
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
-				PageLinks.AddLink("Prune","");
+			if ( !IsPostBack )
+			{
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Prune", "" );
 
 				days.Text = "60";
 				BindData();
 			}
+
+			lblPruneInfo.Text = "";
+
+			if ( YafTaskModule.Current.TaskManager.ContainsKey(PruneTopicTask.TaskName))
+			{
+				lblPruneInfo.Text = "NOTE: Prune Task is currently RUNNING. Cannot start a new prune task until it's finished.";
+				commit.Enabled = false;
+			}
 		}
 
-		private void BindData() {
-			forumlist.DataSource = YAF.Classes.Data.DB.forum_listread(PageContext.PageBoardID,PageContext.PageUserID,null,null);
+		private void BindData()
+		{
+			forumlist.DataSource = YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, null, null );
 			forumlist.DataValueField = "ForumID";
 			forumlist.DataTextField = "Forum";
 			DataBind();
-			forumlist.Items.Insert(0,new ListItem("All Forums","0"));
+			forumlist.Items.Insert( 0, new ListItem( "All Forums", "0" ) );
 		}
 
-		private void commit_Click(object sender,EventArgs e) {
-            int Count = YAF.Classes.Data.DB.topic_prune(PageContext.PageBoardID, forumlist.SelectedValue, days.Text, permDeleteChkBox.Checked);
-			PageContext.AddLoadMessage(String.Format("{0} topic(s) deleted.",Count));
-		}
-
-
-		protected void PruneButton_Load(object sender, System.EventArgs e)
+		private void commit_Click( object sender, EventArgs e )
 		{
-			((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", "Do you really want to prune topics? This process is irreversible.");
+			PruneTopicTask.Start(PageContext.PageBoardID, Convert.ToInt32(forumlist.SelectedValue), Convert.ToInt32(days.Text), permDeleteChkBox.Checked );
+			PageContext.AddLoadMessage( "Prune Task Scheduled" );
+		}
+
+		protected void PruneButton_Load( object sender, System.EventArgs e )
+		{
+			( (Button)sender ).Attributes["onclick"] = String.Format( "return confirm('{0}')", "Do you really want to prune topics? This process is irreversible." );
 		}
 
 		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
-			commit.Click += new EventHandler(commit_Click);
+			commit.Click += new EventHandler( commit_Click );
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
+		{
 		}
 		#endregion
 	}

@@ -7,6 +7,11 @@
 				Prune Topics</td>
 		</tr>
 		<tr>
+		    <td class="header2" colspan="2">
+		        <asp:Label ID="lblPruneInfo" runat="server"></asp:Label>
+		    </td>
+		</tr>
+		<tr>
 			<td class="postheader" width="50%">
 				<b>Select forum to prune:</b></td>
 			<td class="post" width="50%">
@@ -29,7 +34,7 @@
 		</tr>
 		<tr>
 			<td class="footer1" colspan="2" align="center">
-				<asp:Button ID="commit" runat="server" Text="Prune" OnLoad="PruneButton_Load"></asp:Button>
+				<asp:Button ID="commit" runat="server" class="pbutton" Text="Start Prune Task" OnLoad="PruneButton_Load"></asp:Button>
 			</td>
 		</tr>
 	</table>
