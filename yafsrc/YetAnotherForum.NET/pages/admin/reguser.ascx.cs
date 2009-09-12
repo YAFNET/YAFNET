@@ -21,15 +21,10 @@
 namespace YAF.Pages.Admin
 {
 	using System;
-	using System.Data;
-	using System.Drawing;
-	using System.Web;
 	using System.Web.Security;
-	using System.Web.UI.WebControls;
-	using System.Web.UI.HtmlControls;
 	using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
+	using YAF.Classes.Core;
+	using YAF.Classes.Utils;
 
 	/// <summary>
 	///		Summary description for reguser.
@@ -64,7 +59,7 @@ using YAF.Classes.Utils;
 				string newEmail = Email.Text.Trim();
 				string newUsername = UserName.Text.Trim();
 
-				if ( !General.IsValidEmail( newEmail ) )
+				if ( !ValidationHelper.IsValidEmail( newEmail ) )
 				{
 					PageContext.AddLoadMessage( "You have entered an illegal e-mail address." );
 					return;
@@ -82,7 +77,7 @@ using YAF.Classes.Utils;
 				MembershipCreateStatus status;
 				MembershipUser user = PageContext.CurrentMembership.CreateUser( newUsername, Password.Text.Trim(), newEmail, Question.Text.Trim(), Answer.Text.Trim(), !PageContext.BoardSettings.EmailVerification, null, out status );
 
-				if (status != MembershipCreateStatus.Success)
+				if ( status != MembershipCreateStatus.Success )
 				{
 					// error of some kind
 					PageContext.AddLoadMessage( "Membership Error Creating User: " + status.ToString() );
@@ -110,14 +105,14 @@ using YAF.Classes.Utils;
 					// send template email
 					YafTemplateEmail verifyEmail = new YafTemplateEmail( "VERIFYEMAIL" );
 
-					verifyEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}", YafBuildLink.GetLink( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
-					verifyEmail.TemplateParams ["{key}"] = hash;
-					verifyEmail.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
-					verifyEmail.TemplateParams ["{forumlink}"] = String.Format( "{0}", ForumURL );
+					verifyEmail.TemplateParams["{link}"] = String.Format( "{1}{0}", YafBuildLink.GetLink( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
+					verifyEmail.TemplateParams["{key}"] = hash;
+					verifyEmail.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
+					verifyEmail.TemplateParams["{forumlink}"] = String.Format( "{0}", ForumURL );
 
 					string subject = String.Format( PageContext.Localization.GetText( "COMMON", "EMAILVERIFICATION_SUBJECT" ), PageContext.BoardSettings.Name );
 
-					verifyEmail.SendEmail( new System.Net.Mail.MailAddress( newEmail, newUsername ), subject, true);
+					verifyEmail.SendEmail( new System.Net.Mail.MailAddress( newEmail, newUsername ), subject, true );
 				}
 
 				// success
