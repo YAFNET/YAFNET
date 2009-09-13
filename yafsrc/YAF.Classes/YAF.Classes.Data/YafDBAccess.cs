@@ -232,7 +232,29 @@ namespace YAF.Classes.Data
 							name
 							);
 		}
+        public static bool TestConnection(ref string exceptionMessage)
+        {
+            bool success = false;
 
+            try
+            {
+                using (YafDBConnManager connection = YafDBAccess.Current.GetConnectionManager())
+                {
+                    // attempt to connect to the db...
+                    SqlConnection conn = connection.OpenDBConnection;
+                }
+
+                // success
+                success = true;
+            }
+            catch (Exception x)
+            {
+                // unable to connect...
+                exceptionMessage = x.Message;
+            }
+
+            return success;
+        }
 		/// <summary>
 		/// Creates new SqlCommand based on command text applying all qualifiers to the name.
 		/// </summary>

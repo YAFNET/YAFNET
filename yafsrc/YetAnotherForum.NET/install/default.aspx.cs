@@ -495,31 +495,13 @@ namespace YAF.Install
 		/// Tests database connection. Can probably be moved to DB class.
 		/// </summary>
 		/// <param name="exceptionMessage"></param>
-		/// <returns></returns>
-		private static bool TestDatabaseConnection(out string exceptionMessage)
-		{
-			bool success = false;
-			exceptionMessage = String.Empty;
+		/// <returns></returns>       
 
-			try
-			{
-				using ( YafDBConnManager connection = YafDBAccess.Current.GetConnectionManager() )
-				{
-					// attempt to connect to the db...
-					SqlConnection conn = connection.OpenDBConnection;
-				}
-
-				// success
-				success = true;
-			}
-			catch ( Exception x )
-			{
-				// unable to connect...
-				exceptionMessage = x.Message;
-			}
-
-			return success;
-		}
+        private static bool TestDatabaseConnection(out string exceptionMessage)
+        {
+            exceptionMessage = String.Empty;
+            return YafDBAccess.TestConnection(ref exceptionMessage);
+        }
 
 		enum UpdateDBFailureType
 		{
@@ -911,7 +893,7 @@ namespace YAF.Install
 			{
 				throw new Exception( "Failed to read " + scriptFile, x );
 			}
-
+            
 			DB.system_initialize_executescripts( script, scriptFile, useTransactions );
 		}
 
