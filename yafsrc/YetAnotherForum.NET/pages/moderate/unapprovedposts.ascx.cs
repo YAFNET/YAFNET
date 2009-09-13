@@ -111,7 +111,7 @@ namespace YAF.Pages.moderate
 					// tell user message was approved
 					PageContext.AddLoadMessage(GetText("APPROVED"));
 					// create subscriptions for topic
-					CreateMail.CreateWatchEmail(e.CommandArgument);
+					CreateMail.WatchEmail(e.CommandArgument);
 					break;
 				case "delete":
 					// delete message

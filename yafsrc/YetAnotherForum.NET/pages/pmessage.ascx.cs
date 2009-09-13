@@ -326,7 +326,7 @@ namespace YAF.Pages
 					DB.pmessage_save( PageContext.PageUserID, recipientID [i], Subject.Text, body, messageFlags.BitValue );
 
 					if ( PageContext.BoardSettings.AllowPMEmailNotification )
-						SendPMNotification( recipientID [i], Subject.Text );
+						CreateMail.PmNotification( recipientID[i], Subject.Text );
 				}
 
 				// redirect to outbox (sent items), not control panel
@@ -451,78 +451,6 @@ namespace YAF.Pages
 			AllUsers.Visible = PageContext.IsAdmin;
 			// clear button is not necessary now
 			Clear.Visible = false;
-		}
-
-		#endregion
-
-
-		#region Private Methods
-
-		/// <summary>
-		/// Sends notification about new PM in user's inbox.
-		/// </summary>
-		/// <param name="toUserID">User supposed to receive notification about new PM.</param>
-		/// <param name="subject">Subject of PM user is notified about.</param>
-		private void SendPMNotification( int toUserID, string subject )
-		{
-			/// TODO : add email to email queue?
-
-			try
-			{
-				// user's PM notification setting
-				bool pmNotificationAllowed;
-				// user's email
-				string toEMail;
-
-				// read user's info from DB
-				using ( DataTable dt = DB.user_list( PageContext.PageBoardID, toUserID, true ) )
-				{
-					pmNotificationAllowed = ( bool )dt.Rows [0] ["PMNotification"];
-					toEMail = ( string )dt.Rows [0] ["EMail"];
-				}
-
-				if ( pmNotificationAllowed )
-				{
-					// user has PM notification set on
-
-					int userPMessageID;
-					//string senderEmail;
-
-					// get the PM ID
-					// Ederon : 11/21/2007 - PageBoardID as parameter of DB.pmessage_list?
-					// using (DataTable dt = DB.pmessage_list(toUserID, PageContext.PageBoardID, null))
-					using ( DataTable dt = DB.pmessage_list( toUserID, null, null ) )
-						userPMessageID = ( int )dt.Rows [0] ["UserPMessageID"];
-
-					// get the sender e-mail -- DISABLED: too much information...
-					//using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
-					//	senderEmail = ( string ) dt.Rows [0] ["Email"];
-
-					// send this user a PM notification e-mail
-					YafTemplateEmail pmNotification = new YafTemplateEmail( "PMNOTIFICATION" );
-
-					pmNotification.TemplateLanguageFile = UserHelper.GetUserLanguageFile( toUserID );
-
-					// fill the template with relevant info
-					pmNotification.TemplateParams ["{fromuser}"] = PageContext.PageUserName;
-					pmNotification.TemplateParams ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YafBuildLink.GetLinkNotEscaped( ForumPages.cp_message, "pm={0}", userPMessageID ), YafForumInfo.ServerURL );
-					pmNotification.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
-					pmNotification.TemplateParams ["{subject}"] = subject;
-
-					// create notification email subject
-					string emailSubject = string.Format( GetText( "COMMON", "PM_NOTIFICATION_SUBJECT" ), PageContext.PageUserName, PageContext.BoardSettings.Name, subject );
-
-					// send email
-					pmNotification.SendEmail( new System.Net.Mail.MailAddress( toEMail ), subject, true );
-				}
-			}
-			catch ( Exception x )
-			{
-				// report exception to the forum's event log
-				DB.eventlog_create( PageContext.PageUserID, this, x );
-				// tell user about failure
-				PageContext.AddLoadMessage( GetTextFormatted( "failed", x.Message ) );
-			}
 		}
 
 		#endregion

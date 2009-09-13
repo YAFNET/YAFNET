@@ -13,7 +13,7 @@
 				Name of this role.
 			</td>
 			<td class="post" width="50%">
-				<asp:TextBox Style="width: 300px" ID="Name" Enabled="false" runat="server" />
+				<asp:TextBox Style="width: 300px" ID="Name" runat="server" />
 			</td>
 		</tr>
 		<tr>

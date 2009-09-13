@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using YAF.Classes;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
@@ -67,6 +68,35 @@ namespace YAF.Classes.Core
 			}
 
 			return dt;
+		}
+
+		public List<Moderator> GetAllModerators()
+		{
+			// get the cached version of forum moderators if it's valid
+			string key = YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators );
+			DataTable moderator = YafContext.Current.Cache[key] as DataTable;
+
+			if ( moderator == null )
+			{
+				// get fresh values
+				moderator = DB.forum_moderators();
+				moderator.TableName = YafDBAccess.GetObjectName( "Moderator" );
+
+				// cache it for the time specified by admin
+				YafContext.Current.Cache.Add( key, moderator, null, DateTime.Now.AddMinutes( YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout ), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null );
+			}
+
+			List<Moderator> moderatorList = new List<Moderator>();
+
+			// convert to object...
+			foreach( DataRow row in moderator.Rows )
+			{
+				moderatorList.Add( new Moderator( Convert.ToInt64( row["ForumID"] ), Convert.ToInt64( row["ModeratorID"] ),
+				                                  row["ModeratorName"].ToString(),
+				                                  SqlDataLayerConverter.VerifyBool( row["IsGroup"] ) ) );
+			}
+
+			return moderatorList;
 		}
 
 		/// <summary>

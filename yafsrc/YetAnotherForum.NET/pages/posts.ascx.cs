@@ -255,7 +255,7 @@ namespace YAF.Pages // YAF.Pages
 			{
 				// Ederon : 7/26/2007
 				// send new post notification to users watching this topic/forum
-				CreateMail.CreateWatchEmail(nMessageID);
+				CreateMail.WatchEmail(nMessageID);
 				// redirect to newly posted message
 				YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", nMessageID);
 			}

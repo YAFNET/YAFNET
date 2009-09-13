@@ -67,6 +67,7 @@
     <Compile Include="Flags\MedalFlags.cs" />
     <Compile Include="Flags\TopicFlags.cs" />
     <Compile Include="DB.cs" />
+    <Compile Include="Moderator.cs" />
     <Compile Include="YafDBAccess.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
     <Compile Include="Flags\FlagsBase.cs" />

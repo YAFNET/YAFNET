@@ -19,6 +19,7 @@
  */
 
 using System;
+using System.Linq;
 using System.Data;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
@@ -587,7 +588,7 @@ namespace YAF.Pages
 			// Create notification emails
 			if (bApproved)
 			{
-				CreateMail.CreateWatchEmail(nMessageID);
+				CreateMail.WatchEmail(nMessageID);
 
 				if ( PageContext.ForumUploadAccess && TopicAttach.Checked )
 				{
