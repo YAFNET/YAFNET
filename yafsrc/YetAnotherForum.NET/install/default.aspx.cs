@@ -23,7 +23,6 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Data.SqlClient;
 using System.Security.Permissions;
 using System.Web;
 using System.Web.Configuration;
@@ -94,11 +93,10 @@ namespace YAF.Install
 
 		private string CurrentConnString
 		{
-			get
-			{
-				SqlConnectionStringBuilder connBuilder = new SqlConnectionStringBuilder();
 
-				if ( rblYAFDatabase.SelectedValue == "existing" )
+			get
+			{	
+                if ( rblYAFDatabase.SelectedValue == "existing" )
 				{
 					string connName = lbConnections.SelectedValue;
 
@@ -111,20 +109,13 @@ namespace YAF.Install
 					return string.Empty;
 				}
 
-				connBuilder.DataSource = txtDBDataSource.Text.Trim();
-				connBuilder.InitialCatalog = txtDBInitialCatalog.Text.Trim();
+                return YafDBAccess.GetConnectionString
+                    ( txtDBDataSource.Text.Trim(), 
+                    txtDBInitialCatalog.Text.Trim(),
+                    chkDBIntegratedSecurity.Checked,
+                    txtDBUserID.Text.Trim(),
+                    txtDBPassword.Text.Trim() );
 
-				if ( chkDBIntegratedSecurity.Checked )
-				{
-					connBuilder.IntegratedSecurity = chkDBIntegratedSecurity.Checked;
-				}
-				else
-				{
-					connBuilder.UserID = txtDBUserID.Text.Trim();
-					connBuilder.Password = txtDBPassword.Text.Trim();
-				}
-
-				return connBuilder.ConnectionString;
 			}
 		}
 

@@ -232,6 +232,32 @@ namespace YAF.Classes.Data
 							name
 							);
 		}
+        public static string GetConnectionString( 
+            string dataSource,
+            string initialCatalog,
+            bool integratedSecurity, 
+            string userID, 
+            string userPassword )
+        {
+
+            SqlConnectionStringBuilder connBuilder = new SqlConnectionStringBuilder();
+
+            connBuilder.DataSource = dataSource;
+            connBuilder.InitialCatalog = initialCatalog;
+
+            if (integratedSecurity)
+            {
+                connBuilder.IntegratedSecurity = integratedSecurity;
+            }
+            else
+            {
+                connBuilder.UserID = userID;
+                connBuilder.Password = userPassword;
+            }
+
+            return connBuilder.ConnectionString;
+            
+        }
         public static bool TestConnection(ref string exceptionMessage)
         {
             bool success = false;
