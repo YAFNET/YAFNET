@@ -2985,10 +2985,12 @@ namespace YAF.Classes.Data
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_prune" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("BoardID", boardID);
-				cmd.Parameters.AddWithValue("ForumID", forumID );
-				cmd.Parameters.AddWithValue("Days", days );
-                cmd.Parameters.AddWithValue("PermDelete", permDelete);
+				cmd.Parameters.AddWithValue( "BoardID", boardID );
+				cmd.Parameters.AddWithValue( "ForumID", forumID );
+				cmd.Parameters.AddWithValue( "Days", days );
+				cmd.Parameters.AddWithValue( "PermDelete", permDelete );
+
+				cmd.CommandTimeout = 99999;
 				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}

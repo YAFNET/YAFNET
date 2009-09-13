@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using System.Linq;
 
 namespace YAF.Classes.Core
 {
@@ -44,8 +45,8 @@ namespace YAF.Classes.Core
 		public CleanUpTask()
 		{
 			// set interval values...
-			this.RunPeriodMs = 250;
-			this.StartDelayMs = 250;
+			this.RunPeriodMs = 500;
+			this.StartDelayMs = 500;
 		}
 
 		public override void RunOnce()
@@ -59,7 +60,11 @@ namespace YAF.Classes.Core
 					{
 						IBackgroundTask task = Module.TaskManager[instanceName];
 
-						if ( task != null && !task.IsRunning )
+						if ( task == null )
+						{
+							Module.TaskManager.Remove( instanceName );
+						}
+						else if ( task != null && !task.IsRunning )
 						{
 							Module.TaskManager.Remove( instanceName );
 							task.Dispose();

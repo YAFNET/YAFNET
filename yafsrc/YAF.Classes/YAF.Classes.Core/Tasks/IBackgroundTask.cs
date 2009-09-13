@@ -34,6 +34,11 @@ namespace YAF.Classes.Core
 			set;
 		}
 
+		DateTime Started
+		{
+			get;
+		}
+
 		bool IsRunning
 		{
 			get;
@@ -52,6 +57,7 @@ namespace YAF.Classes.Core
 	{
 		protected int _boardId = YafControlSettings.Current.BoardID;
 		protected bool _isRunning = false;
+		protected DateTime _started;
 		protected HttpApplication _appContext = null;
 		protected object _lockObject = new object();
 
@@ -82,8 +88,21 @@ namespace YAF.Classes.Core
 			{
 				lock ( _lockObject )
 				{
+					if ( !_isRunning && value )
+					{
+						_started = DateTime.Now;
+					}
+
 					_isRunning = value;
 				}
+			}
+		}
+
+		virtual public DateTime Started
+		{
+			get
+			{
+				return _started;
 			}
 		}
 

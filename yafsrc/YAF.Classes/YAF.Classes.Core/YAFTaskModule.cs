@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Web;
 using System.Threading;
 using YAF.Classes.Data;
@@ -93,7 +94,7 @@ namespace YAF.Classes.Core
 						_moduleInitialized = true;
 
 						// create intermittent cleanup task...
-						StartTask( "CleanUpTask", new CleanUpTask() );
+						StartTask( "CleanUpTask", new CleanUpTask() { Module = this } );
 					}
 				} // now lock is released and the static variable is true..
 			}

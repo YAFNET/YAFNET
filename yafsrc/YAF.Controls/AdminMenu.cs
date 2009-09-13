@@ -87,7 +87,8 @@ namespace YAF.Controls
 			{
 				{"Prune Topics",YafBuildLink.GetLink( ForumPages.admin_prune)},
 				{"Private Messages",YafBuildLink.GetLink( ForumPages.admin_pm)},
-				{"Attachments",YafBuildLink.GetLink( ForumPages.admin_attachments)},				
+				{"Attachments",YafBuildLink.GetLink( ForumPages.admin_attachments)},			
+				{"Task Manager",YafBuildLink.GetLink( ForumPages.admin_taskmanager)},	
 				{"Event Log",YafBuildLink.GetLink( ForumPages.admin_eventlog)}				
 			};
 

@@ -122,6 +122,7 @@ namespace YAF.Classes
 		admin_bbcode_edit,
 		admin_bbcode_import,
 		admin_reindex,
-		admin_runsql
+		admin_runsql,
+		admin_taskmanager
 	}
 }

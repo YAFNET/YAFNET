@@ -67,11 +67,13 @@ namespace YAF.Classes.Core
 		{
 			if ( !YafTaskModule.Current.TaskManager.ContainsKey( TaskName ) )
 			{
-				PruneTopicTask task = new PruneTopicTask();
-				task.BoardID = boardId;
-				task.ForumId = forumId;
-				task.Days = days;
-				task.PermDelete = permDelete;
+				PruneTopicTask task = new PruneTopicTask
+				                      	{
+				                      		BoardID = boardId,
+				                      		ForumId = forumId,
+				                      		Days = days,
+				                      		PermDelete = permDelete
+				                      	};
 				YafTaskModule.Current.StartTask( TaskName, task );
 			}
 		}
@@ -82,11 +84,11 @@ namespace YAF.Classes.Core
 			{
 				int count = DB.topic_prune(BoardID, ForumId, Days, PermDelete);
 
-				DB.eventlog_create( 0, TaskName, String.Format( "Prune Task Complete. Pruned {0} topics.", count ), 2 );
+				DB.eventlog_create( null, TaskName, String.Format( "Prune Task Complete. Pruned {0} topics.", count ), 2 );
 			}
 			catch(Exception x)
 			{
-				DB.eventlog_create( 0, TaskName, String.Format( "Error In Prune Topic Task: {0}", x.Message ) );
+				DB.eventlog_create( null, TaskName, String.Format( "Error In Prune Topic Task: {0}", x.Message ) );
 			}
 		}
 	}
