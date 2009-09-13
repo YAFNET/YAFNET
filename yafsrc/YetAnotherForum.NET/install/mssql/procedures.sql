@@ -4108,6 +4108,7 @@ BEGIN
 	OPEN @c
 	FETCH @c into @TopicID
 	WHILE @@FETCH_STATUS=0 BEGIN
+		IF (@Count % 100 = 1) WAITFOR DELAY '000:00:05'
 		EXEC [{databaseOwner}].[{objectQualifier}topic_delete] @TopicID, @PermDelete
 		SET @Count = @Count + 1
 		FETCH @c INTO @TopicID
