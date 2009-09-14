@@ -3961,65 +3961,100 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}topic_list]
 )
 AS
 begin
-	create table #data(
-		RowNo	int identity primary key not null,
-		TopicID	int not null
+	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED -- Hold no locks; allows more concurrency
+	
+	CREATE TABLE #data(
+			RowNo	int identity primary key not null,
+			TopicID	int not null
 	)
 
-	insert into #data(TopicID)
-	select
-		c.TopicID
-	from
-		[{databaseOwner}].[{objectQualifier}Topic] c join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-	where
-		c.ForumID = @ForumID
-	and
-		(@Date is null or c.Posted>=@Date or c.LastPosted>=@Date or Priority>0) 
-	and
-		((@Announcement=1 and c.Priority=2) or (@Announcement=0 and c.Priority<>2) or (@Announcement<0)) 
-	and	
-		(c.TopicMovedID is not null or c.NumPosts > 0) 
-	and
-		c.IsDeleted = 0
-	order by
-		Priority desc,
-		c.LastPosted desc
+	DECLARE	@RowCount int
+	DECLARE @ShowMoved BIT
 
-	declare	@RowCount int
-	set @RowCount = (select count(1) from #data)
+	-- Step 1: Does the host setting show moved topic pointers?
+	SELECT @ShowMoved = CAST(CAST(Value as NVarChar) AS BIT) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE Name='showmoved'
+	
+	-- Step 2: Get the "root" topics (i.e. non-moved)
+	INSERT #data(TopicID)
+	SELECT c.TopicID
+	FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
+		ON b.UserID=c.UserID 
+	JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
+		ON d.ForumID=c.ForumID
+	WHERE c.ForumID = @ForumID
+		AND	(@Date IS NULL OR c.Posted>=@Date OR c.LastPosted>=@Date OR Priority>0) 
+		AND ((@Announcement=1 AND c.Priority=2) OR (@Announcement=0 AND c.Priority<>2) OR (@Announcement<0)) 
+		AND	(c.Flags & 8) = 0
+		AND	(c.TopicMovedID IS NOT NULL OR c.NumPosts > 0) 
+	ORDER BY Priority DESC,	c.LastPosted DESC
 
-	select
-		[RowCount] = @RowCount,
-		c.ForumID,
-		c.TopicID,
-		c.Posted,
-		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
-		c.TopicMovedID,
-		[Subject] = c.Topic,
-		c.UserID,
-		Starter = IsNull(c.UserName,b.Name),
-		Replies = c.NumPosts - 1,
-		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
-		[Views] = c.Views,
-		LastPosted = c.LastPosted,
-		LastUserID = c.LastUserID,
-		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
-		LastMessageID = c.LastMessageID,
-		LastTopicID = c.TopicID,
-		TopicFlags = c.Flags,
-		c.Priority,
-		c.PollID,
-		ForumFlags = d.Flags,
-		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0)
-	from
-		[{databaseOwner}].[{objectQualifier}Topic] c 
-		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID 
-		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID 
-		join #data e on e.TopicID=c.TopicID
-	where
-		e.RowNo between @Offset+1 and @Offset + @Count
-	order by
-		e.RowNo
+	SET @RowCount = @@ROWCOUNT	
+
+	IF @ShowMoved = 1
+		SELECT
+			[RowCount] = @RowCount,
+			c.ForumID,
+			c.TopicID,
+			c.Posted,
+			LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
+			c.TopicMovedID,
+			Subject = c.Topic,
+			c.UserID,
+			Starter = IsNull(c.UserName,b.Name),
+			Replies = c.NumPosts - 1,
+			NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
+			Views = c.Views,
+			LastPosted = c.LastPosted,
+			LastUserID = c.LastUserID,
+			LastUserName = IsNull(c.LastUserName,(SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+			LastMessageID = c.LastMessageID,
+			LastTopicID = c.TopicID,
+			TopicFlags = c.Flags,
+			c.Priority,
+			c.PollID,
+			ForumFlags = d.Flags,
+			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0)
+		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
+			ON b.UserID=c.UserID
+		JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
+			ON d.ForumID=c.ForumID 
+		JOIN #data e 
+			ON e.TopicID=c.TopicID
+		WHERE e.RowNo BETWEEN @Offset+1 AND @Offset + @Count
+		ORDER BY e.RowNo
+	ELSE -- Do not show moved topics
+		SELECT
+			[RowCount] = @RowCount,
+			c.ForumID,
+			c.TopicID,
+			c.Posted,
+			LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
+			c.TopicMovedID,
+			Subject = c.Topic,
+			c.UserID,
+			Starter = IsNull(c.UserName,b.Name),
+			NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
+			Replies = c.NumPosts - 1,
+			Views = c.Views,
+			LastPosted = c.LastPosted,
+			LastUserID = c.LastUserID,
+			LastUserName = IsNull(c.LastUserName,(SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+			LastMessageID = c.LastMessageID,
+			LastTopicID = c.TopicID,
+			TopicFlags = c.Flags,
+			c.Priority,
+			c.PollID,
+			ForumFlags = d.Flags,
+			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0)
+		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
+			ON b.UserID=c.UserID
+		JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
+			ON d.ForumID=c.ForumID 
+		JOIN #data e 
+			ON e.TopicID=c.TopicID
+		WHERE e.RowNo BETWEEN @Offset+1 AND @Offset + @Count
+			AND c.TopicMovedID IS NULL
+		ORDER BY e.RowNo
 end
 GO
 
@@ -4099,7 +4134,7 @@ BEGIN
 		SELECT 
 			TopicID
 		FROM 
-			yaf_Topic
+			[{databaseOwner}].[{objectQualifier}Topic]
 		WHERE 
 			Priority = 0 and
 			(Flags & 512) = 0 and					/* not flagged as persistent */
