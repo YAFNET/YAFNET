@@ -34,7 +34,7 @@
   <page name="APPROVE">
     <Resource tag="EMAIL_VERIFIED">Ваш адрес электронной почты не был проверен.</Resource>
     <Resource tag="EMAIL_VERIFY_FAILED">Невозможно проверить адрес электронной почты.</Resource>
-    <Resource tag="ENTER_KEY">Введите ключ подтверждения</Resource>
+    <Resource tag="ENTER_KEY">Введите код подтверждения</Resource>
     <Resource tag="TITLE">Проверить адрес Email</Resource>
     <Resource tag="VALIDATE">Подтвердить</Resource>
   </page>
@@ -57,11 +57,11 @@
     <Resource tag="TITLE">Аватары</Resource>
   </page>
   <page name="BBCODEMODULE">
-    <Resource tag="SPOILERMOD_DESCRIPTION">Поместите текст под спойлером сюда</Resource>
+    <Resource tag="SPOILERMOD_DESCRIPTION">Поместите сюда текст под спойлером</Resource>
     <Resource tag="SPOILERMOD_HIDE">Скрыть спойлер</Resource>
     <Resource tag="SPOILERMOD_SHOW">Открыть спойлер</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Нажмите здесь, чтобы просмотреть/скрыть текст (применить спойлер)</Resource>
-    <Resource tag="YOUTUBEMOD_DESCRIPTION">Введите сюда адрес ссылки URLYouTube </Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">Введите сюда адрес ссылки (URL) YouTube </Resource>
   </page>
   <page name="BUTTON">
     <Resource tag="BUTTON_ATTACH">Прикрепить</Resource>
@@ -133,16 +133,16 @@
     <Resource tag="GENERATED">Страница сгенерирована за {0:N3} секунды.</Resource>
     <Resource tag="GO">Перейти</Resource>
     <Resource tag="GOTOPAGE_HEADER">Перейти на страницу...</Resource>
-    <Resource tag="HIDDEN">Hidden</Resource>
+    <Resource tag="HIDDEN">Скрыт</Resource>
     <Resource tag="LOADING">Загрузка...</Resource>
     <Resource tag="MAX_ONLINE">Больше всего пользователей ({0}) было {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Уведомление</Resource>
-    <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
     <Resource tag="OK">Принять</Resource>
     <Resource tag="PAGES">Страницы</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Новое личное сообщение от {0} на {1}</Resource>
     <Resource tag="POWERED_BY">Форум </Resource>
-    <Resource tag="REGMAIL_SENT">A mail has been sent. Check your inbox and click the link in the mail.</Resource>
+    <Resource tag="REGMAIL_SENT">Сообщение по электронной почте отправлено. Проверьте свою почту и перейдите по ссылке в сообщении.</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Сообщение по электронной почте будет отправлено Вам после регистрации. Для входа на сайт вы должны проверить ваш почтовый ящик и перейти по ссылке в сообщении.</Resource>
     <Resource tag="SAVE">Сохранить</Resource>
     <Resource tag="SUBMIT">Отправить</Resource>
@@ -169,11 +169,11 @@
     <Resource tag="NEED_NEW_PASSWORD">Необходим новый пароль.</Resource>
     <Resource tag="NEED_OLD_PASSWORD">Необходим старый пароль.</Resource>
     <Resource tag="NEW_PASSWORD">Новый пароль:</Resource>
-    <Resource tag="NO_PASSWORD_MATCH">Новые пароли не совпадают.</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">Пароли не совпадают.</Resource>
     <Resource tag="OLD_PASSWORD">Старый пароль:</Resource>
     <Resource tag="PASSWORD_BAD_LENGTH">Минимальная длина нового пароля: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Пароль неверен или новый пароль недействителен.</Resource>
-    <Resource tag="PASSWORD_NOT_COMPLEX">Не буквенно цифровые символы необходимы в пароле: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">Необходимое количество спецсимволов в пароле: {1}.</Resource>
     <Resource tag="TITLE">Изменить пароль</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -201,7 +201,7 @@
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
     <Resource tag="BAD_ICQ">Вы ввели недопустимой знаечние для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели недействительный адрес электронной почты для учётной записи MSN.</Resource>
-    <Resource tag="BAD_WEBLOG">Вы вввели неработающий адрес для вашего блога.</Resource>
+    <Resource tag="BAD_WEBLOG">Вы ввели неработающий адрес для вашего блога.</Resource>
     <Resource tag="CHANGE_EMAIL">Изменить адрес электронной почты</Resource>
     <Resource tag="EMAIL">Ваш адрес электронной почты должен быть всегда действительным.</Resource>
     <Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
@@ -234,7 +234,7 @@
   </page>
   <page name="CP_PM">
     <Resource tag="ARCHIVE">Архив</Resource>
-    <Resource tag="ARCHIVESELECTED">Выбранный архив</Resource>
+    <Resource tag="ARCHIVESELECTED">Поместить в архив</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить все выбранные сообщения?</Resource>
     <Resource tag="DATE">Дата</Resource>
     <Resource tag="DELETESELECTED">Удалить выделенное</Resource>
@@ -299,7 +299,7 @@
     <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} активных пользователей</Resource>
     <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} гость</Resource>
     <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} гостей</Resource>
-    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} скрытых</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} участник</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} участников</Resource>
     <Resource tag="BY"> {0}</Resource>
@@ -462,7 +462,7 @@
   <page name="MODERATE_DEFAULT">
     <Resource tag="CATEGORY">Категория</Resource>
     <Resource tag="FORUM">Форум</Resource>
-    <Resource tag="REPORTED">Сообщено как злоупотребления</Resource>
+    <Resource tag="REPORTED">Сообщено как злоупотребление</Resource>
     <Resource tag="REPORTEDSPAM">Сообщено как спам</Resource>
     <Resource tag="TITLE">Модерировать</Resource>
     <Resource tag="UNAPPROVED">Неодобренные сообщения</Resource>
@@ -590,15 +590,15 @@
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">Пользователь {0} прикрепил следующие файлы:</Resource>
-    <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
-    <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
-    <Resource tag="IMAGE_RESIZE_VIEWS">{0} View(s)</Resource>
-    <Resource tag="IMAGE_TEXT">Image</Resource>
+    <Resource tag="IMAGE_DOWNLOAD">Загрузить изображение</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Нажмите, чтобы увеличить</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">{0} Просмотр(ов)</Resource>
+    <Resource tag="IMAGE_TEXT">Изображение</Resource>
     <Resource tag="INFO_NOMORETOPICS">На этом форуме больше нет тем.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Тема закрыта.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">Тема открыта.</Resource>
     <Resource tag="INFO_UNWATCH_TOPIC">Вы больше не будете получать уведомления в случае появления новых сообщений в этой теме.</Resource>
-    <Resource tag="INFO_VOTED">Спаисбо за ваше мнение!</Resource>
+    <Resource tag="INFO_VOTED">Спасибо за Ваше мнение!</Resource>
     <Resource tag="INFO_WATCH_TOPIC">Вы получите уведомления в случае появления новых сообщений в этой теме.</Resource>
     <Resource tag="IP">IP</Resource>
     <Resource tag="JOINED">Зарегистрирован</Resource>
@@ -640,7 +640,7 @@
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Показывать сообщения пользователя</Resource>
     <Resource tag="TOP">Вверх</Resource>
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
-    <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="TOTAL">Всего</Resource>
     <Resource tag="UNWATCHTOPIC">Не отслеживать эту тему</Resource>
     <Resource tag="USERPROFILE">Профиль пользователя</Resource>
     <Resource tag="VIEW">Просмотр</Resource>
@@ -741,8 +741,8 @@
     <Resource tag="NEED_QUESTION">Контрольный вопрос обязателен.</Resource>
     <Resource tag="NEED_USERNAME">Имя пользователя обязательно.</Resource>
     <Resource tag="PASSWORD">Пароль</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">минимальная длина - {0}. Количество спецсимволов($#@!) - {1}.</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Требования к паролю</Resource>
     <Resource tag="PREFERENCES">Ваши предпочтения</Resource>
     <Resource tag="PROFILE">Информация в профиле</Resource>
     <Resource tag="REGISTER">Регистрация</Resource>
@@ -758,7 +758,7 @@
   <page name="RTE">
     <Resource tag="BOLD">Жирный</Resource>
     <Resource tag="CENTER">По центру</Resource>
-    <Resource tag="CLEAR">Очистить форматирование</Resource>
+    <Resource tag="CLEAR">Отменить форматирование</Resource>
     <Resource tag="FORMATTED">Отформатировано</Resource>
     <Resource tag="IMAGE">Добавить изображение</Resource>
     <Resource tag="INDENT">Отступ</Resource>
@@ -808,18 +808,18 @@
     <Resource tag="RESULT5">5 результатов на страницу</Resource>
     <Resource tag="RESULT50">50 результатов на страницу</Resource>
     <Resource tag="RESULTS">Результаты</Resource>
-    <Resource tag="SEARCH_CRITERIA_ERROR">Текст для поиска должен быть длиной не менее {0} символов и должен соответствовать правилам форума для описка (смотрите FAQ форума для дальнейшей информации).</Resource>
-    <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Search texts must be less than {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
-    <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR">Текст для поиска должен быть длиной не менее {0} символов и должен соответствовать правилам форума для поиска (смотрите FAQ форума для дальнейшей информации).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Длина текста для поиска не должна превышать {0} символов и должна соответствовать правилам форума для поиска (смотрите FAQ форума для дальнейшей информации).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Длина текста для поиска не должна быть меньше {0} символов и должна соответствовать правилам форума для поиска (смотрите FAQ форума для дальнейшей информации).</Resource>
     <Resource tag="TITLE">Поиск</Resource>
     <Resource tag="TOPIC">Тема:</Resource>
   </page>
   <page name="SHOUTBOX">
-    <Resource tag="CLEAR">Clear</Resource>
-    <Resource tag="FLYOUT">Fly Out</Resource>
-    <Resource tag="HEADING">Chat with other members</Resource>
-    <Resource tag="SUBMIT">Submit</Resource>
-    <Resource tag="TITLE">ShoutBox</Resource>
+    <Resource tag="CLEAR">Очистить</Resource>
+    <Resource tag="FLYOUT">Открепить</Resource>
+    <Resource tag="HEADING">Поговорите с другими пользователями</Resource>
+    <Resource tag="SUBMIT">Отправить</Resource>
+    <Resource tag="TITLE">Чат</Resource>
   </page>
   <page name="SHOWSMILIES">
     <Resource tag="CLOSE_WINDOW">Закрыть окно</Resource>
@@ -841,7 +841,7 @@
       --&gt;
       &lt;/style&gt;
       &lt;/head&gt;&lt;body&gt;
-      &lt;p class="style1"&gt; Добро пожаловать &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
+      &lt;p class="style1"&gt; Добро пожаловать, &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
       &lt;p class="style1"&gt; Ваш запрос на изменение адреса электронной почты &lt;strong&gt;{newemail}&lt;/strong&gt; почти исполнен!&lt;/p&gt;
       &lt;p class="style1"&gt; Просто подтвердите изменение перейдя по этой ссылке:&lt;/p&gt;
       &lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
@@ -877,14 +877,14 @@
       {link}
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
-		Hello!
+		Пивет!
 
-		A new user has registered on the {forumname} forum:
+		На форуме {forumname} зарегистрирован новый пользователь:
 		
-		User Name: {user}
-		User Email: {email}
+		Имя пользователя: {user}
+		Адрес электронной почты: {email}
 		
-		Administration Link: {adminlink}
+		Ссылка для администратора: {adminlink}
 	</Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
       &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
@@ -960,7 +960,7 @@
     <Resource tag="UTC3">(UTC+3:00) Москва, Багдад, Эль-Риад, Найроби</Resource>
     <Resource tag="UTC-3">(UTC-3:00) Бразилия, Буэйнос Айрес, Джорджтаун, Фолкленды</Resource>
     <Resource tag="UTC3.5">(UTC+3:30) Тегеран</Resource>
-    <Resource tag="UTC-3.5">(UTC-3:30) Ньюфоундленд</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Ньюфаундленд</Resource>
     <Resource tag="UTC4">(UTC+4:00) Баку, Тбилиси, Мускат, Абу Даби</Resource>
     <Resource tag="UTC-4">(UTC-4:00) Атлантическое время(Канада), Каракас, Ла Пас</Resource>
     <Resource tag="UTC4.5">(UTC+4:30) Кабул</Resource>
@@ -986,7 +986,7 @@
     <Resource tag="LOGGED_IN_AS">Вы вошли как: {0}</Resource>
     <Resource tag="LOGIN">Вход</Resource>
     <Resource tag="LOGOUT">Выход</Resource>
-    <Resource tag="LOGOUT_QUESTION">Вы уверены, что желаете выйти?</Resource>
+    <Resource tag="LOGOUT_QUESTION">Вы уверены, что действительно желаете выйти?</Resource>
     <Resource tag="MEMBERS">Участники</Resource>
     <Resource tag="MODERATE">Модерировать</Resource>
     <Resource tag="MYPROFILE">Мой профиль</Resource>
