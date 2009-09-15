@@ -3957,8 +3957,10 @@ namespace YAF.Classes.Data
 		#endregion
 		static public DataTable rsstopic_list( int forumId )
 		{
-			string tSQL = "select Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID=" +
-														forumId + " and b.ForumID = a.ForumID";
+            // TODO: vzrus: possible move to an sp and registry settings for rsstopiclimit
+            int topicLimit = 1000;           
+			string tSQL = "select top " + topicLimit + " Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID=" +
+                                                        forumId + " and b.ForumID = a.ForumID and a.IsDeleted = 0;";
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( tSQL, true ) )
 			{
 				cmd.CommandType = CommandType.Text;
