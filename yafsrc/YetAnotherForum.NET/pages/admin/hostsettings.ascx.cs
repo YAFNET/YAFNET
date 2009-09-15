@@ -80,7 +80,7 @@ namespace YAF.Pages.Admin
 		{
 			TimeZoneRaw.DataSource = StaticDataHelper.TimeZones();
 			ForumEditor.DataSource = PageContext.EditorModuleManager.GetEditorsTable();
-
+            // TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.DB.FullTextSupported  property.
 			DataBind();
 
 			// load Board Setting collection information...

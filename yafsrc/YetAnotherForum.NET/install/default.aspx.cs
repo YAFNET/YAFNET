@@ -118,7 +118,7 @@ namespace YAF.Install
 
 			}
 		}
-
+        
 		#endregion
 
 		#region Event Handling
@@ -134,6 +134,7 @@ namespace YAF.Install
 
 			if ( !IsPostBack )
 			{
+                
 				if ( Session["InstallWizardFinal"] != null )
 				{
 					CurrentWizardStepID = "WizFinished";
@@ -154,6 +155,7 @@ namespace YAF.Install
 					TimeZones.DataSource = StaticDataHelper.TimeZones( "english.xml" );
 					DataBind();
 					TimeZones.Items.FindByValue( "0" ).Selected = true;
+                    FullTextSupport.Visible = DB.FullTextSupported;
 				}
 			}
 		}
