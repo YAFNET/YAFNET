@@ -28,8 +28,181 @@ namespace YAF.Classes.Data
 {
 	public static class DB
 	{
-		#region Basic Forum Properties
+        #region ConnectionStringOptions 
+        //Parameter 1
+        public static string Parameter1_Name  
+        {
+            get
+            {
+                return "Data Source";
+            }
+        } 
+        public static string Parameter1_Value
+        {
+            get
+            {
+                return "(localhost)";
+            }
+        }
 
+        public static bool  Parameter1_Visible
+        {
+            get
+            {
+                return true;
+            }
+        }
+        //Parameter 2
+        public static string Parameter2_Name
+        {
+            get
+            {
+                return "Initial Catalog";
+            }
+        }
+        public static string Parameter2_Value
+        {
+            get
+            {
+                return "";
+            }
+        }
+        
+        public static bool Parameter2_Visible
+        {
+            get
+            {
+                return true;
+            }
+        }
+        //Parameter 3
+        public static string Parameter3_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+        public static string Parameter3_Value
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter3_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Parameter 4
+        public static string Parameter4_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+        public static string Parameter4_Value
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter4_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Check boxes
+
+        //Parameter 11 hides user password placeholder! 12 reserved for User Instance
+        
+        public static string Parameter11_Name
+        {
+            get
+            {
+                return "Use Integrated Security";
+            }
+        }
+       
+        public static bool Parameter11_Value
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public static bool Parameter11_Visible
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+          public static string Parameter12_Name
+        {
+            get
+            {
+             
+                return "";
+            }
+        }
+       
+        public static bool Parameter12_Value
+        {
+            get
+            {                            
+                    return false;
+            }
+        }
+
+        public static bool Parameter12_Visible
+        {
+            get
+            {              
+                    return false;
+            }
+        }
+
+        public static string Parameter13_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter13_Value
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public static bool Parameter13_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        
+        #endregion
+
+		#region Basic Forum Properties
+        
+       
 		/// <summary>
 		/// Gets the database size
 		/// </summary>

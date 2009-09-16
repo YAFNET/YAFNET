@@ -167,15 +167,31 @@
 						Note: Connection String will be saved as "<asp:Label ID="lblConnStringAppSettingName"
 							runat="server" Text="yafnet" />".
 						<br />
+						
+						
 						<br />
-						Data Source:<br />
-						<asp:TextBox runat="server" ID="txtDBDataSource" Text="(local)" Width="500px" /><br />
+						<asp:Label ID="Parameter1_Name" runat="server" Width="500px" />
+						<br />											
+						<asp:TextBox runat="server" ID="Parameter1_Value" Text="(local)" Width="500px" /><br />
 						<br />
-						Initial Catalog:<br />
-						<asp:TextBox runat="server" ID="txtDBInitialCatalog" Width="500px" /><br />
+						<asp:Label ID="Parameter2_Name" runat="server" Width="500px" />
 						<br />
-						<asp:CheckBox ID="chkDBIntegratedSecurity" runat="server" Checked="true" Text="Use Integrated Security"
-							AutoPostBack="true" OnCheckedChanged="chkDBIntegratedSecurity_CheckChanged" />
+						<asp:TextBox runat="server" ID="Parameter2_Value" Width="500px" /><br />
+						<br />
+						<asp:Label ID="Parameter3_Name" runat="server" Width="500px" />
+						<br />
+						<asp:TextBox runat="server" ID="Parameter3_Value" Width="500px" /><br />
+						<br />
+						<asp:Label ID="Parameter4_Name" runat="server" Width="500px" />
+						<br />
+						<asp:TextBox runat="server" ID="Parameter4_Value" Width="500px" /><br />
+						<br />
+						<asp:CheckBox ID="Parameter11_Value" runat="server" Checked="true" Text="Use Integrated Security"
+							AutoPostBack="true" OnCheckedChanged="Parameter11_Value_CheckChanged" />
+						<asp:CheckBox ID="Parameter12_Value" runat="server" Checked="true" 
+							AutoPostBack="true"  />	
+						<asp:CheckBox ID="Parameter13_Value" runat="server" Checked="true" 
+							AutoPostBack="true"  />		
 						<br />
 						<br />
 						<asp:PlaceHolder ID="DBUsernamePasswordHolder" Visible="false" runat="server">User

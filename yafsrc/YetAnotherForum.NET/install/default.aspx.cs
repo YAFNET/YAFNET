@@ -110,11 +110,15 @@ namespace YAF.Install
 				}
 
                 return YafDBAccess.GetConnectionString
-                    ( txtDBDataSource.Text.Trim(), 
-                    txtDBInitialCatalog.Text.Trim(),
-                    chkDBIntegratedSecurity.Checked,
-                    txtDBUserID.Text.Trim(),
-                    txtDBPassword.Text.Trim() );
+                    ( Parameter1_Value.Text.Trim( ), 
+                    Parameter2_Value.Text.Trim( ),
+                    Parameter3_Value.Text.Trim( ),
+                    Parameter4_Value.Text.Trim( ),
+                    Parameter11_Value.Checked,
+                    Parameter12_Value.Checked,
+                    Parameter13_Value.Checked,
+                    txtDBUserID.Text.Trim( ),
+                    txtDBPassword.Text.Trim( ) );
 
 			}
 		}
@@ -131,9 +135,10 @@ namespace YAF.Install
 		private void Page_Load( object sender, System.EventArgs e )
 		{
 			YafContext.Current.PageElements.RegisterJQuery( Page.Header );
+            
 
 			if ( !IsPostBack )
-			{
+			{               
                 
 				if ( Session["InstallWizardFinal"] != null )
 				{
@@ -156,6 +161,41 @@ namespace YAF.Install
 					DataBind();
 					TimeZones.Items.FindByValue( "0" ).Selected = true;
                     FullTextSupport.Visible = DB.FullTextSupported;
+
+                    // Connection string parameters text boxes
+                    Parameter1_Name.Text = DB.Parameter1_Name;
+
+                    Parameter1_Value.Text = DB.Parameter1_Value;                    
+                    Parameter1_Value.Visible = DB.Parameter1_Visible;
+
+                    Parameter2_Name.Text = DB.Parameter2_Name;
+
+                    Parameter2_Value.Text = DB.Parameter2_Value;
+                    Parameter2_Value.Visible = DB.Parameter2_Visible;
+
+                    Parameter3_Name.Text = DB.Parameter3_Name;
+
+                    Parameter3_Value.Text = DB.Parameter3_Value;
+                    Parameter3_Value.Visible = DB.Parameter3_Visible;
+
+                    Parameter4_Name.Text = DB.Parameter4_Name;
+
+                    Parameter4_Value.Text = DB.Parameter4_Value;
+                    Parameter4_Value.Visible = DB.Parameter4_Visible;
+
+                    //  Connection string parameters  check boxes
+
+                    Parameter11_Value.Text = DB.Parameter11_Name;
+                    Parameter11_Value.Checked = DB.Parameter11_Value;
+                    Parameter11_Value.Visible = DB.Parameter11_Visible;
+
+                    Parameter12_Value.Text = DB.Parameter12_Name;
+                    Parameter12_Value.Checked = DB.Parameter12_Value;
+                    Parameter12_Value.Visible = DB.Parameter12_Visible;
+
+                    Parameter13_Value.Text = DB.Parameter13_Name;
+                    Parameter13_Value.Checked = DB.Parameter13_Value;
+                    Parameter13_Value.Visible = DB.Parameter13_Visible;
 				}
 			}
 		}
@@ -437,10 +477,10 @@ namespace YAF.Install
 
 		}
 
-		protected void chkDBIntegratedSecurity_CheckChanged( object sender, EventArgs e )
+		protected void Parameter11_Value_CheckChanged( object sender, EventArgs e )
 		{
-			DBUsernamePasswordHolder.Visible = !chkDBIntegratedSecurity.Checked;
-		}
+			DBUsernamePasswordHolder.Visible = !Parameter11_Value.Checked;
+		}    
 
 		protected void btnTestPermissions_Click( object sender, EventArgs e )
 		{
@@ -480,7 +520,8 @@ namespace YAF.Install
 			// done here...
 			Response.Redirect( "default.aspx" );
 		}
-
+     
+ 
 		#endregion
 
 		#region Event Helper Functions
