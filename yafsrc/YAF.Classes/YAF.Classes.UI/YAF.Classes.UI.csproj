@@ -55,7 +55,6 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DNA.UI.JQuery, Version=1.1.15.42021, Culture=neutral, PublicKeyToken=40f672d8570a48f9, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq">
@@ -64,12 +63,12 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-		<Reference Include="System.Core">
-			<RequiredTargetFramework>3.5</RequiredTargetFramework>
-		</Reference>
-		<Reference Include="System.Web.Extensions">
-		</Reference>
-	</ItemGroup>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+    </Reference>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="BBCode\YafBBCode.cs" />
     <Compile Include="BBCode\ReplaceRules.cs" />
@@ -77,7 +76,6 @@
     <Compile Include="ClientSide\SmartScroller.cs" />
     <Compile Include="FormatMsg.cs" />
     <Compile Include="BBCode\HighLighter.cs" />
-    <Compile Include="jQuery\Lightbox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BBCode\ReplaceRulesCreator.cs" />
   </ItemGroup>

@@ -40,7 +40,7 @@ namespace YAF.Controls
 		/// Name of the script block to control the collapsing/expanding
 		/// of the control.
 		/// </summary>
-		private const string _dataPanelScript = "DataPanel";
+		private const string _dataPanelScript = "DataPanelJs";
 		/// <summary>
 		/// Method to extract the script block text from the control
 		/// resources and register it as a client script block.

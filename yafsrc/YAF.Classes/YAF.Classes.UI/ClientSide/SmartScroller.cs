@@ -21,6 +21,7 @@ using System;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI;
+using YAF.Classes.Core;
 
 namespace YAF.Classes.UI
 {
@@ -37,42 +38,9 @@ namespace YAF.Classes.UI
 		private HtmlInputHidden _hidScrollTop = new HtmlInputHidden();
 		
 		public SmartScroller() {}
-		
-		private HtmlForm GetServerForm(ControlCollection parent)
-		{
-			HtmlForm tmpHtmlForm = null;
-            
-			foreach (Control child in parent)
-			{                                
-				Type t = child.GetType();
-				if (t == typeof(System.Web.UI.HtmlControls.HtmlForm))
-					return (HtmlForm)child;
-                
-				if (child.HasControls())    
-				{
-					tmpHtmlForm = GetServerForm(child.Controls);
-					if (tmpHtmlForm != null && tmpHtmlForm.ClientID != null)
-						return tmpHtmlForm;
-				}
-			}
-        
-			return null;
-		}
 
 		protected override void OnInit(EventArgs e)
-		{			
-			string formID = "Form";
-
-			if (Page.Parent != null)
-				_theForm = GetServerForm(Page.Parent.Controls);
-			else
-				_theForm = GetServerForm(Page.Controls);
-
-			if (_theForm != null && _theForm.ClientID != null)
-			{
-				formID = _theForm.ClientID;
-			}
-										
+		{				
 			_hidScrollLeft.ID = "scrollLeft";
 			_hidScrollTop.ID = "scrollTop";
 	
@@ -80,20 +48,6 @@ namespace YAF.Classes.UI
 			this.Controls.Add(_hidScrollTop);						
 	
 			string scriptString = @"
-
-  function yaf_GetForm()
-  {
-    var theform;
-    if (window.navigator.appName.toLowerCase().indexOf(""microsoft"") > -1)
-    {
-	  theform = document." + formID + @";
-	}
-	else {
-	  theform = document.forms[""" + formID + @"""];
-    }
-    return theform;
-  }
-
   function yaf_SmartScroller_GetCoords()
   {
     var scrollX, scrollY;
@@ -114,42 +68,33 @@ namespace YAF.Classes.UI
       scrollX = window.pageXOffset;
       scrollY = window.pageYOffset;
     }
-	var cForm = yaf_GetForm();
-    cForm." + _hidScrollLeft.ClientID + @".value = scrollX;
-    cForm." + _hidScrollTop.ClientID + @".value = scrollY;
+	  jQuery('#" + _hidScrollLeft.ClientID + @"').val( scrollX );
+		jQuery('#" + _hidScrollTop.ClientID + @"').val( scrollY );
   }
 
   function yaf_SmartScroller_Scroll()
   {
-    var cForm = yaf_GetForm();
-    var x = cForm." + _hidScrollLeft.ClientID + @".value;
-    var y = cForm." + _hidScrollTop.ClientID + @".value;
-		if (x || y) window.scrollTo(x, y);
-		if (oldOnLoad != null) oldOnLoad();
+		var x = jQuery('#" + _hidScrollLeft.ClientID + @"').val();
+		var y = jQuery('#" + _hidScrollTop.ClientID + @"').val();
+		if (x || y) window.scrollTo(x,y);
   }
 
 	function yaf_SmartScroller_Reset()
 	{
-    var cForm = yaf_GetForm();
-    var x = cForm." + _hidScrollLeft.ClientID + @".value;
-    var y = cForm." + _hidScrollTop.ClientID + @".value;
-		if ( x ) x = 0;
-		if ( y ) y = 0;		
+	  jQuery('#" + _hidScrollLeft.ClientID + @"').val( 0 );
+		jQuery('#" + _hidScrollTop.ClientID + @"').val( 0 );	
 		// force change...
-		window.scrollTo(0,0);		
+		window.scrollTo(0,0);
 	}
-	
-	var oldOnLoad = window.onload;
-  
-  window.onload = yaf_SmartScroller_Scroll;
-  window.onscroll = yaf_SmartScroller_GetCoords;
-  window.onclick = yaf_SmartScroller_GetCoords;
-  window.onkeypress = yaf_SmartScroller_GetCoords;
 
+	jQuery(window).bind('scroll', yaf_SmartScroller_GetCoords);
+	jQuery(window).bind('click', yaf_SmartScroller_GetCoords);
+	jQuery(window).bind('keypress', yaf_SmartScroller_GetCoords);
+	jQuery(document).ready(yaf_SmartScroller_Scroll);
 ";
 
-
-			ScriptManager.RegisterStartupScript( Page, Page.GetType(), "SmartScroller", scriptString, true );
+			YafContext.Current.PageElements.RegisterJQuery();
+			YafContext.Current.PageElements.RegisterJsBlock( "SmartScrollerJs", scriptString );
 		}
 
 		protected override void Render(HtmlTextWriter writer)
@@ -161,12 +106,8 @@ namespace YAF.Classes.UI
 		public void RegisterStartupReset()
 		{
 			Reset();
-			string script = @"
-
-				Sys.WebForms.PageRequestManager.getInstance().add_endRequest(yaf_SmartScroller_Reset);
-
-			";
-			ScriptManager.RegisterStartupScript( Page, Page.GetType(), "SmartScrollerReset", script, true );
+			const string script = @"Sys.WebForms.PageRequestManager.getInstance().add_endRequest(yaf_SmartScroller_Reset);";
+			YafContext.Current.PageElements.RegisterJsBlockStartup( "SmartScrollerResetJs", script );
 		}
 
 		public void Reset()

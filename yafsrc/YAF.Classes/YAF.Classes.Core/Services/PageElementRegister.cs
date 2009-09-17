@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
@@ -84,8 +85,36 @@ namespace YAF.Classes.Core
 		/// <param name="script"></param>
 		public void RegisterJsBlock( Control thisControl, string name, string script )
 		{
-			ScriptManager.RegisterClientScriptBlock( thisControl, thisControl.GetType(), name, script,
-																							 true );
+			if ( !PageElementExists( name ) )
+			{
+				ScriptManager.RegisterClientScriptBlock( thisControl, thisControl.GetType(), name,
+				                                         JsAndCssHelper.CompressJavaScript( script ), true );
+			}
+		}
+
+		/// <summary>
+		/// Registers a Javascript block using the script manager. Adds script tags.
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="script"></param>
+		public void RegisterJsBlockStartup( string name, string script )
+		{
+			RegisterJsBlockStartup( YafContext.Current.CurrentForumPage, name, script );
+		}
+
+		/// <summary>
+		/// Registers a Javascript block using the script manager. Adds script tags.
+		/// </summary>
+		/// <param name="thisControl"></param>
+		/// <param name="name"></param>
+		/// <param name="script"></param>
+		public void RegisterJsBlockStartup( Control thisControl, string name, string script )
+		{
+			if ( !PageElementExists( name ) )
+			{
+				ScriptManager.RegisterStartupScript( thisControl, thisControl.GetType(), name,
+				                                     JsAndCssHelper.CompressJavaScript( script ), true );
+			}
 		}
 
 		/// <summary>
@@ -96,7 +125,11 @@ namespace YAF.Classes.Core
 		/// <param name="url"></param>
 		public void RegisterJsInclude( Control thisControl, string name, string url )
 		{
-			ScriptManager.RegisterClientScriptInclude( thisControl, thisControl.GetType(), name, url );
+			if ( !PageElementExists( name ) )
+			{
+				ScriptManager.RegisterClientScriptInclude( thisControl, thisControl.GetType(), name, url );
+				AddPageElement( name );
+			}
 		}
 
 		/// <summary>
@@ -117,8 +150,12 @@ namespace YAF.Classes.Core
 		/// <param name="relativeResourceUrl"></param>
 		public void RegisterJsResourceInclude( Control thisControl, string name, string relativeResourceUrl )
 		{
-			ScriptManager.RegisterClientScriptInclude( thisControl, thisControl.GetType(), name,
-			                                           YafForumInfo.GetURLToResource( relativeResourceUrl ) );
+			if ( !PageElementExists( name ) )
+			{
+				ScriptManager.RegisterClientScriptInclude( thisControl, thisControl.GetType(), name,
+				                                           YafForumInfo.GetURLToResource( relativeResourceUrl ) );
+				AddPageElement( name );
+			}
 		}
 
 		/// <summary>
@@ -128,12 +165,12 @@ namespace YAF.Classes.Core
 		/// <param name="relativeResourceUrl"></param>
 		public void RegisterJsResourceInclude( string name, string relativeResourceUrl )
 		{
-			RegisterJsResourceInclude( YafContext.Current.CurrentForumPage, name, relativeResourceUrl );			
+			RegisterJsResourceInclude( YafContext.Current.CurrentForumPage, name, relativeResourceUrl );
 		}
 
 		public void RegisterCssBlock(string name, string cssContents)
 		{
-			RegisterCssBlock(YafContext.Current.CurrentForumPage.TopPageControl, name, cssContents);
+			RegisterCssBlock( YafContext.Current.CurrentForumPage.TopPageControl, name, JsAndCssHelper.CompressCss( cssContents ) );
 		}
 
 		/// <summary>
@@ -186,10 +223,30 @@ namespace YAF.Classes.Core
 		{
 			if (!PageElementExists("jquery"))
 			{
+				bool registerJQuery = true;
+
+				string key = "JQuery-Javascripts";
+				// check to see if DotNetAge is around and has registered jQuery for us...
+				if ( HttpContext.Current.Items[key] != null )
+				{
+					var collection = (HttpContext.Current.Items[key] as System.Collections.Specialized.StringCollection);
+
+					if ( collection != null && collection.Contains( "jquery" ) )
+					{
+						registerJQuery = false;
+					}
+				}
+				else if ( Config.IsDotNetNuke )
+				{
+					// latest version of DNN (v5) should register jQuery for us...
+					registerJQuery = false;
+				}
+
 				// load jQuery from google...
 				//const string jQueryLoad = "<script type=\"text/javascript\" src=\"\"></script>";
-				element.Controls.Add(
-					ControlHelper.MakeJsIncludeControl( "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" ) );
+				if ( !registerJQuery )
+					element.Controls.Add(
+						ControlHelper.MakeJsIncludeControl( "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" ) );
 				AddPageElement( "jquery" );
 			}
 		}

@@ -410,8 +410,8 @@ namespace YAF.Classes.UI
 		{
 			DataTable bbCodeTable = YafBBCode.GetCustomBBCode();
 			string scriptID = "custombbcode";
-			System.Text.StringBuilder jsScriptBuilder = new System.Text.StringBuilder();
-			System.Text.StringBuilder cssBuilder = new System.Text.StringBuilder();
+			var jsScriptBuilder = new System.Text.StringBuilder();
+			var cssBuilder = new System.Text.StringBuilder();
 
 			jsScriptBuilder.Append( "\r\n" );
 			cssBuilder.Append( "\r\n" );
@@ -448,7 +448,7 @@ namespace YAF.Classes.UI
 
 			if ( jsScriptBuilder.ToString().Trim().Length > 0 )
 			{
-				ScriptManager.RegisterClientScriptBlock(currentPage, currentType, scriptID + "_script", jsScriptBuilder.ToString(), true );
+				YafContext.Current.PageElements.RegisterJsBlock( currentPage, scriptID + "_script", jsScriptBuilder.ToString() );
 			}
 
 			if ( cssBuilder.ToString().Trim().Length > 0 )
@@ -468,7 +468,7 @@ namespace YAF.Classes.UI
 		{
 			Regex regExSearch = new Regex( _rgxBBCodeLocalizationTag, _options );
 
-			System.Text.StringBuilder sb = new System.Text.StringBuilder( strToLocalize );
+			var sb = new System.Text.StringBuilder( strToLocalize );
 
 			Match m = regExSearch.Match( strToLocalize );
 			while ( m.Success )

@@ -82,7 +82,7 @@ namespace YAF.Controls
 			_popupControlExt.Position = PopupControlPopupPosition.Bottom;
 
 			// init the necessary js...
-			ScriptManager.RegisterClientScriptInclude( this, typeof( Pager ), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource( "js/yaf.js" ) );
+			PageContext.PageElements.RegisterJsResourceInclude( "yafjs", "js/yaf.js" );
 
 			// change the cursor to hand when over link...
 			_pageLabel.Attributes.Add( "onmouseover", @"yaf_mouseover()" );

@@ -17,17 +17,21 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using Yahoo.Yui.Compressor;
 
-namespace YAF.Classes.UI
+namespace YAF.Classes.Utils
 {
-	public class jQueryLightBox
+	public static class JsAndCssHelper
 	{
-		
+		public static string CompressJavaScript( string javaScript )
+		{
+			return JavaScriptCompressor.Compress( javaScript );
+		}
+
+		public static string CompressCss( string css )
+		{
+			return CssCompressor.Compress( css );
+		}
 	}
 }

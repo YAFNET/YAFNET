@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -32,16 +33,16 @@ namespace YAF.Classes.Utils
 		/// <param name="length">the length of the random string</param>
 		/// <param name="pickfrom">the string of characters to pick randomly from</param>
 		/// <returns></returns>
-		public static string GenerateRandomString(int length, string pickfrom)
+		public static string GenerateRandomString( int length, string pickfrom )
 		{
 			Random r = new Random();
 			string result = "";
 			int picklen = pickfrom.Length - 1;
 			int index = 0;
-			for (int i = 0; i < length; i++)
+			for ( int i = 0; i < length; i++ )
 			{
-				index = r.Next(picklen);
-				result = result + pickfrom.Substring(index, 1);
+				index = r.Next( picklen );
+				result = result + pickfrom.Substring( index, 1 );
 			}
 			return result;
 		}
@@ -52,30 +53,30 @@ namespace YAF.Classes.Utils
 		/// <param name="input">input string</param>
 		/// <param name="limit">max size of string</param>
 		/// <returns>truncated string</returns>
-		public static string Truncate(string input, int limit)
+		public static string Truncate( string input, int limit )
 		{
 			string output = input;
 
-			if (String.IsNullOrEmpty(input)) return null;
+			if ( String.IsNullOrEmpty( input ) ) return null;
 
 			// Check if the string is longer than the allowed amount
 			// otherwise do nothing
-			if (output.Length > limit && limit > 0)
+			if ( output.Length > limit && limit > 0 )
 			{
 				// cut the string down to the maximum number of characters
-				output = output.Substring(0, limit);
+				output = output.Substring( 0, limit );
 
 				// Check if the space right after the truncate point 
 				// was a space. if not, we are in the middle of a word and 
 				// need to cut out the rest of it
-				if (input.Substring(output.Length, 1) != " ")
+				if ( input.Substring( output.Length, 1 ) != " " )
 				{
-					int LastSpace = output.LastIndexOf(" ");
+					int LastSpace = output.LastIndexOf( " " );
 
 					// if we found a space then, cut back to that space
-					if (LastSpace != -1)
+					if ( LastSpace != -1 )
 					{
-						output = output.Substring(0, LastSpace);
+						output = output.Substring( 0, LastSpace );
 					}
 				}
 				// Finally, add the "..."
@@ -90,55 +91,55 @@ namespace YAF.Classes.Utils
 		/// <param name="input">input string</param>
 		/// <param name="limit">max size of string</param>
 		/// <returns>truncated string</returns>
-		public static string TruncateMiddle(string input, int limit)
+		public static string TruncateMiddle( string input, int limit )
 		{
-			
+
 
 			string output = input;
 			const string middle = "...";
 
 			// Check if the string is longer than the allowed amount
 			// otherwise do nothing
-			if (output.Length > limit && limit > 0)
+			if ( output.Length > limit && limit > 0 )
 			{
 				// figure out how much to make it fit...
-				int left = (limit / 2) - (middle.Length / 2);
-				int right = limit - left - (middle.Length / 2);
+				int left = ( limit / 2 ) - ( middle.Length / 2 );
+				int right = limit - left - ( middle.Length / 2 );
 
-				if ((left + right + middle.Length) < limit)
+				if ( ( left + right + middle.Length ) < limit )
 				{
 					right++;
 				}
-				else if ((left + right + middle.Length) > limit)
+				else if ( ( left + right + middle.Length ) > limit )
 				{
 					right--;
 				}
 
 				// cut the left side
-				output = input.Substring(0, left);
+				output = input.Substring( 0, left );
 				// add the middle
 				output += middle;
 				// add the right side...
-				output += input.Substring(input.Length - right, right);
+				output += input.Substring( input.Length - right, right );
 			}
 			return output;
 		}
 
 		/* Ederon - 9/9/2007 */
-		static public string ProcessText(string text)
+		static public string ProcessText( string text )
 		{
-			return ProcessText(text, true);
+			return ProcessText( text, true );
 		}
 
-		static public string ProcessText(string text, bool nullify)
+		static public string ProcessText( string text, bool nullify )
 		{
-			return ProcessText(text, nullify, true);
+			return ProcessText( text, nullify, true );
 		}
 
-		static public string ProcessText(string text, bool nullify, bool trim)
+		static public string ProcessText( string text, bool nullify, bool trim )
 		{
-			if (trim) text = text.Trim();
-			if (nullify && text.Trim().Length == 0) text = null;
+			if ( trim ) text = text.Trim();
+			if ( nullify && text.Trim().Length == 0 ) text = null;
 
 			return text;
 		}
@@ -148,9 +149,9 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		static public string RemoveMultipleWhitespace(string text )
+		static public string RemoveMultipleWhitespace( string text )
 		{
-			Regex r = new Regex(@"\s+");
+			Regex r = new Regex( @"\s+" );
 			return r.Replace( text, @" " );
 		}
 
@@ -185,6 +186,28 @@ namespace YAF.Classes.Utils
 			}
 
 			return s.ToString();
+		}
+
+		/// <summary>
+		/// Converts a String to a MemoryStream.
+		/// </summary>
+		/// <param name="str"></param>
+		/// <returns></returns>
+		static public MemoryStream StringToStream( string str )
+		{
+			byte[] byteArray = Encoding.ASCII.GetBytes( str );
+			return new MemoryStream( byteArray );
+		}
+
+		/// <summary>
+		/// Converts a Stream to a String.
+		/// </summary>
+		/// <param name="theStream"></param>
+		/// <returns></returns>
+		static public string StreamToString( Stream theStream )
+		{
+			StreamReader reader = new StreamReader( theStream );
+			return reader.ReadToEnd(); 
 		}
 	}
 }
