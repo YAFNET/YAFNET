@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeFile="DisplayPost.ascx.cs" Inherits="YAF.Controls.DisplayPost"
     EnableViewState="false" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
-<tr class="postheader">
+<tr class="postheader">		
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" class="postUser" runat="server">
         <a name="post<%# DataRow["MessageID"] %>" /><b>
@@ -40,7 +40,7 @@
     </td>
     <td valign="top" class="message">
         <div class="postdiv">
-            <asp:panel id="panMessage" runat="server">        
+            <asp:panel id="panMessage" runat="server">      
                 <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>"></YAF:MessagePostData>
             </asp:panel>
         </div>

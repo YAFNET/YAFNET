@@ -27,7 +27,7 @@ namespace YAF.Controls
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
-			YafContext.Current.PageElements.RegisterJsBlock( LastPostUpdatePanel,  "DisablePageManagerScrollJs", YAF.Utilities.JavaScriptBlocks.DisablePageManagerScrollJs );
+			YafContext.Current.PageElements.RegisterJsBlockStartup( LastPostUpdatePanel, "DisablePageManagerScrollJs", YAF.Utilities.JavaScriptBlocks.DisablePageManagerScrollJs );
 
 			BindData();
 		}

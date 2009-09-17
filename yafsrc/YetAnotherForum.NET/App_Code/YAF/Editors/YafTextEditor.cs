@@ -19,6 +19,7 @@
 using System;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Core;
 using YAF.Editors;
 
 namespace YAF.Editors
@@ -46,24 +47,21 @@ namespace YAF.Editors
 			// Ederon : 9/6/2007
 			/*if (this.Visible || this.)
 			{*/
-			ScriptManager.RegisterClientScriptInclude(Page, Page.GetType(), "yafeditorjs", ResolveUrl("yafEditor/yafEditor.js"));
+			YafContext.Current.PageElements.RegisterJsInclude( "YafEditorJs", ResolveUrl( "yafEditor/yafEditor.js" ) );
 
-			ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "createyafeditor",
-				"var " + SafeID + "=new yafEditor('" + SafeID + "');\n" +
-				"function setStyle(style,option) {\n" +
-				"	" + SafeID + ".FormatText(style,option);\n" +
-				"}\n", true);
+			YafContext.Current.PageElements.RegisterJsBlock( "CreateYafEditorJs",
+			                                                 "var " + SafeID + "=new yafEditor('" + SafeID + "');\n" +
+			                                                 "function setStyle(style,option) {\n" + "	" + SafeID +
+			                                                 ".FormatText(style,option);\n" + "}\n" );
 
 			RegisterSmilieyScript();
-			/*}*/
 		}
 
 		protected virtual void RegisterSmilieyScript()
 		{
-			ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "insertsmiley",
-				"function insertsmiley(code) {\n" +
-				"	" + SafeID + ".InsertSmiley(code);\n" +
-				"}\n", true);
+			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
+			                                                 "function insertsmiley(code) {\n" + "	" + SafeID +
+			                                                 ".InsertSmiley(code);\n" + "}\n" );
 		}
 
 		public override bool Active

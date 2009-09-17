@@ -58,7 +58,7 @@ namespace YAF.Editors
 				pInfo = _typEditor.GetProperty("Height");
 				pInfo.SetValue(_editor, Unit.Pixel(300), null);
 
-				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "fckeditorjs", string.Format(@"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", ResolveUrl("FCKEditorV2/FCKEditor.js")));
+				YafContext.Current.PageElements.RegisterJsInclude( "FckEditorJs", ResolveUrl( "FCKEditorV2/FCKEditor.js" ) );
 
 				RegisterSmilieyScript();
 			}
@@ -67,15 +67,12 @@ namespace YAF.Editors
 		protected virtual void RegisterSmilieyScript()
 		{
 			// insert smiliey code -- can't get this working with FireFox!
-			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
-				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
-				"function insertsmiley(code,img) {\n" +
-				"var oEditor = FCKeditorAPI.GetInstance('" + SafeID + "');\n" +
-				"if ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {\n" +
-				"oEditor.InsertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }\n" +
-				"else alert( 'You must be on WYSIWYG mode!' );\n" +
-				"}\n" +
-				"</script>\n");
+			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
+			                                                 "function insertsmiley(code,img) {\n" +
+			                                                 "var oEditor = FCKeditorAPI.GetInstance('" + SafeID + "');\n" +
+			                                                 "if ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {\n" +
+			                                                 "oEditor.InsertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }\n" +
+			                                                 "else alert( 'You must be on WYSIWYG mode!' );\n" + "}\n" );
 		}
 
 		#region Properties
@@ -148,7 +145,7 @@ namespace YAF.Editors
 				pInfo = _typEditor.GetProperty("BasePath");
 				pInfo.SetValue(_editor, ResolveUrl("FCKEditorV1/"), null);
 
-				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "fckeditorjs", string.Format(@"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", ResolveUrl("FCKEditorV1/FCKEditor.js")));
+				YafContext.Current.PageElements.RegisterJsInclude( "FckEditorJs", ResolveUrl( "FCKEditorV1/FCKEditor.js" ) );
 			}
 		}
 

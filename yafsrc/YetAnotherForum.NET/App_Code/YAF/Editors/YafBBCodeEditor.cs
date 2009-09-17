@@ -99,6 +99,7 @@ namespace YAF.Editors
 			writer.WriteLine("	</td></tr>");
 			writer.WriteLine("	<tr><td valign='middle'>");
 
+			//TODO: Convert to a control...
 			writer.WriteLine(YafContext.Current.Localization.GetText("COMMON", "FONT_COLOR"));
 			writer.WriteLine("<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", SafeID);
 			writer.WriteLine("<option value=\"\">Default</option>");
@@ -112,6 +113,7 @@ namespace YAF.Editors
 
 			writer.WriteLine("</select>");
 
+			//TODO: Just convert to a drop down control...
 			writer.WriteLine(YafContext.Current.Localization.GetText("COMMON", "FONT_SIZE"));
 			writer.WriteLine("<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", SafeID);
 			writer.WriteLine("<option value=\"1\">1</option>");
@@ -152,7 +154,7 @@ namespace YAF.Editors
 			// this call is supposed to be after editor load since it may use
 			// JS variables created in editor_load...
 			YAF.Classes.UI.YafBBCode.RegisterCustomBBCodePageElements(Page, this.GetType(), SafeID);
-			ScriptManager.RegisterClientScriptInclude(this, typeof(BBCodeEditor), "yafjs", YafForumInfo.GetURLToResource("js/yaf.js"));
+			YafContext.Current.PageElements.RegisterJsResourceInclude( "yafjs", "js/yaf.js" );
 		}
 
 		#region Properties

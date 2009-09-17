@@ -69,16 +69,15 @@ namespace YAF.Editors
 	{
 		protected override void RegisterTinyMceCustomJS()
 		{
-			ScriptManager.RegisterClientScriptInclude(Page, Page.GetType(), "tinymceinit",
-																								 ResolveUrl("tiny_mce/tiny_mce_init.js"));
+			YafContext.Current.PageElements.RegisterJsInclude( "tinymceinit", ResolveUrl( "tiny_mce/tiny_mce_init.js" ) );
 		}
 
 		protected override void RegisterSmilieyScript()
 		{
-			ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "insertsmiley",
-				"function insertsmiley(code,img) {\n" +
-				"	tinyMCE.execCommand('mceInsertContent',false,'<img src=\"' + img + '\" alt=\"\" />');\n" +
-				"}\n", true);
+			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
+			                                                 "function insertsmiley(code,img) {\n" +
+			                                                 "	tinyMCE.execCommand('mceInsertContent',false,'<img src=\"' + img + '\" alt=\"\" />');\n" +
+			                                                 "}\n" );
 		}
 
 		public override string Description

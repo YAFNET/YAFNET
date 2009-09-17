@@ -82,7 +82,7 @@ function toggleMessage(divId)
 					close:    '" +
 					YafContext.Current.Localization.GetText( "CLOSE_TEXT" ) + @"',
 					download:    '" +
-					YafContext.Current.Localization.GetText( "IMAGE_DOWNLOAD" ) + @"',
+					YafContext.Current.Localization.GetText( "IMAGE_DOWNLOAD" ) + @"'
 					}
 				});
 			});";				

@@ -71,12 +71,9 @@ namespace YAF.Editors
 
 		protected virtual void RegisterSmilieyScript()
 		{
-			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
-				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
-				"function insertsmiley(code){" +
-				"FTB_InsertText('" + SafeID + "',code);" +
-				"}\n" +
-				"</script>\n");
+			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
+			                                                 "function insertsmiley(code){" + "FTB_InsertText('" + SafeID +
+			                                                 "',code);" + "}\n" );
 		}
 
 		#region Properties
@@ -129,12 +126,9 @@ namespace YAF.Editors
 
 		protected override void RegisterSmilieyScript()
 		{
-			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
-				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
-				"function insertsmiley(code,img){" +
-				"FTB_API['" + SafeID + "'].InsertHtml('<img src=\"' + img + '\" alt=\"\" />');" +
-				"}\n" +
-				"</script>\n");
+			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
+			                                                 @"function insertsmiley(code,img){" + "FTB_API['" + SafeID +
+			                                                 "'].InsertHtml('<img src=\"' + img + '\" alt=\"\" />');" + "}\n" );
 		}
 
 		public override int ModuleId

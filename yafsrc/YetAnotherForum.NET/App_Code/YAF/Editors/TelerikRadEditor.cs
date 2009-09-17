@@ -78,12 +78,11 @@ namespace YAF.Editors
 
 		protected virtual void RegisterSmilieyScript()
 		{
-			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
-					@"<script type='text/javascript'>function insertsmiley(code,img){" + "\n" +
-                "var editor = $find('" + _editor.ClientID + "');" +
-                "editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n" +
-                "}\n" + 
-                "</script>");
+			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
+			                                                 @"function insertsmiley(code,img){" + "\n" + "var editor = $find('" +
+			                                                 _editor.ClientID + "');" +
+			                                                 "editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n" +
+			                                                 "}\n" );
 		}
 
 		#region Properties
