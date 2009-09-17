@@ -59,11 +59,11 @@ namespace YAF.Classes.Data
 		/// </summary>
 		public enum Flags : int
 		{
+			IsLocked = 1,
 			IsDeleted = 8,
-			IsLocked = 32,
-			IsPersistent = 512
+			IsPersistent = 512,
+			IsQuestion = 1024
 			/* for future use
-			xxxxxxxx = 1024,
 			xxxxxxxx = 2048,
 			xxxxxxxx = 4096,
 			xxxxxxxx = 8192,
@@ -103,6 +103,15 @@ namespace YAF.Classes.Data
 		{
 			get { return this[9]; }
 			set { this[9] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets whether topic is a question.
+		/// </summary>
+		public virtual bool IsQuestion // int value 1024
+		{
+			get { return this[EnumToIndex(Flags.IsQuestion)]; }
+			set { this[EnumToIndex( Flags.IsQuestion )] = value; }
 		}
 
 		#endregion

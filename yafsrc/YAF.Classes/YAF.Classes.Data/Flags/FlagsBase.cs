@@ -136,6 +136,16 @@ namespace YAF.Classes.Data
 		#region Public Members & Indexers
 
 		/// <summary>
+		/// Converts a Flag Enum to the associated index value.
+		/// </summary>
+		/// <param name="theEnum"></param>
+		/// <returns></returns>
+		public int EnumToIndex( Enum theEnum )
+		{
+			return Convert.ToInt32(Math.Sqrt(Convert.ToInt32(theEnum))) - 1;
+		}
+
+		/// <summary>
 		/// Gets or sets bit at position specified by index.
 		/// </summary>
 		/// <param name="index">Zero-based index of bit to get or set.</param>
