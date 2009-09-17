@@ -18,20 +18,29 @@
  */
 using System;
 using System.IO;
-using Yahoo.Yui.Compressor;
 
 namespace YAF.Classes.Utils
 {
 	public static class JsAndCssHelper
 	{
+		/// <summary>
+		/// Currently doesn't do anything. Need to find a GPL Javascript Compressor
+		/// </summary>
+		/// <param name="javaScript"></param>
+		/// <returns></returns>
 		public static string CompressJavaScript( string javaScript )
 		{
-			return JavaScriptCompressor.Compress( javaScript );
+			return javaScript;
 		}
 
+		/// <summary>
+		/// Currently doesn't do anything. Need to find a GPL CSS Compressor
+		/// </summary>
+		/// <param name="css"></param>
+		/// <returns></returns>
 		public static string CompressCss( string css )
 		{
-			return CssCompressor.Compress( css );
+			return css;
 		}
 	}
 }
