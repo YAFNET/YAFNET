@@ -211,7 +211,9 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		LastUserName	nvarchar (50) NULL,
 		NumPosts		int NOT NULL,
 		Flags			int not null constraint [DF_{objectQualifier}Topic_Flags] default (0),
-		IsDeleted		AS (CONVERT([bit],sign([Flags]&(8)),0))
+		IsDeleted		AS (CONVERT([bit],sign([Flags]&(8)),0)),
+		[IsQuestion]    AS (CONVERT([bit],sign([Flags]&(1024)),(0))),
+		[AnswerMessageId] [int] NULL
 	)
 GO
 
@@ -622,6 +624,19 @@ go
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add Flags int not null constraint DF_{objectQualifier}User_Flags default (0)
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsQuestion')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add IsQuestion AS (CONVERT([bit],sign([Flags]&(1024)),(0)))
+end
+GO
+
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='AnswerMessageId')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add AnswerMessageId INT NULL
 end
 GO
 
