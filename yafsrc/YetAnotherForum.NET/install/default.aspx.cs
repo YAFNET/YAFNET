@@ -173,7 +173,9 @@ namespace YAF.Install
 					DataBind();
 					TimeZones.Items.FindByValue( "0" ).Selected = true;
                     FullTextSupport.Visible = DB.FullTextSupported;
-
+                    
+                    DBUsernamePasswordHolder.Visible = DB.PasswordPlaceholderVisible;
+                   
                     // Connection string parameters text boxes
                     Parameter1_Name.Text = DB.Parameter1_Name;
                     Parameter1_Value.Text = DB.Parameter1_Value;                    
@@ -191,29 +193,29 @@ namespace YAF.Install
                     Parameter4_Value.Text = DB.Parameter4_Value;
                     Parameter4_Value.Visible = DB.Parameter4_Visible;
 
-                    Parameter5_Name.Text = DB.Parameter4_Name;
-                    Parameter5_Value.Text = DB.Parameter4_Value;
-                    Parameter5_Value.Visible = DB.Parameter4_Visible;
+                    Parameter5_Name.Text = DB.Parameter5_Name;
+                    Parameter5_Value.Text = DB.Parameter5_Value;
+                    Parameter5_Value.Visible = DB.Parameter5_Visible;
 
-                    Parameter6_Name.Text = DB.Parameter4_Name;
-                    Parameter6_Value.Text = DB.Parameter4_Value;
-                    Parameter6_Value.Visible = DB.Parameter4_Visible;
+                    Parameter6_Name.Text = DB.Parameter6_Name;
+                    Parameter6_Value.Text = DB.Parameter6_Value;
+                    Parameter6_Value.Visible = DB.Parameter6_Visible;
 
-                    Parameter7_Name.Text = DB.Parameter4_Name;
-                    Parameter7_Value.Text = DB.Parameter4_Value;
-                    Parameter7_Value.Visible = DB.Parameter4_Visible;
+                    Parameter7_Name.Text = DB.Parameter7_Name;
+                    Parameter7_Value.Text = DB.Parameter7_Value;
+                    Parameter7_Value.Visible = DB.Parameter7_Visible;
 
-                    Parameter8_Name.Text = DB.Parameter4_Name;
-                    Parameter8_Value.Text = DB.Parameter4_Value;
-                    Parameter8_Value.Visible = DB.Parameter4_Visible;
+                    Parameter8_Name.Text = DB.Parameter8_Name;
+                    Parameter8_Value.Text = DB.Parameter8_Value;
+                    Parameter8_Value.Visible = DB.Parameter8_Visible;
 
-                    Parameter9_Name.Text = DB.Parameter4_Name;
-                    Parameter9_Value.Text = DB.Parameter4_Value;
-                    Parameter9_Value.Visible = DB.Parameter4_Visible;
+                    Parameter9_Name.Text = DB.Parameter9_Name;
+                    Parameter9_Value.Text = DB.Parameter9_Value;
+                    Parameter9_Value.Visible = DB.Parameter9_Visible;
 
-                    Parameter10_Name.Text = DB.Parameter4_Name;
-                    Parameter10_Value.Text = DB.Parameter4_Value;
-                    Parameter10_Value.Visible = DB.Parameter4_Visible;
+                    Parameter10_Name.Text = DB.Parameter10_Name;
+                    Parameter10_Value.Text = DB.Parameter10_Value;
+                    Parameter10_Value.Visible = DB.Parameter10_Visible;
 
                     //  Connection string parameters  check boxes
 
