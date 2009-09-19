@@ -110,13 +110,25 @@ namespace YAF.Install
 				}
 
                 return YafDBAccess.GetConnectionString
-                    ( Parameter1_Value.Text.Trim( ), 
+                    (Parameter1_Value.Text.Trim( ), 
                     Parameter2_Value.Text.Trim( ),
                     Parameter3_Value.Text.Trim( ),
                     Parameter4_Value.Text.Trim( ),
+                    Parameter5_Value.Text.Trim(),
+                    Parameter6_Value.Text.Trim(),
+                    Parameter7_Value.Text.Trim(),
+                    Parameter8_Value.Text.Trim(),
+                    Parameter9_Value.Text.Trim(),
+                    Parameter10_Value.Text.Trim(),
                     Parameter11_Value.Checked,
                     Parameter12_Value.Checked,
                     Parameter13_Value.Checked,
+                    Parameter14_Value.Checked,
+                    Parameter15_Value.Checked,
+                    Parameter16_Value.Checked,
+                    Parameter17_Value.Checked,
+                    Parameter18_Value.Checked,
+                    Parameter19_Value.Checked,
                     txtDBUserID.Text.Trim( ),
                     txtDBPassword.Text.Trim( ) );
 
@@ -164,24 +176,44 @@ namespace YAF.Install
 
                     // Connection string parameters text boxes
                     Parameter1_Name.Text = DB.Parameter1_Name;
-
                     Parameter1_Value.Text = DB.Parameter1_Value;                    
                     Parameter1_Value.Visible = DB.Parameter1_Visible;
 
                     Parameter2_Name.Text = DB.Parameter2_Name;
-
                     Parameter2_Value.Text = DB.Parameter2_Value;
                     Parameter2_Value.Visible = DB.Parameter2_Visible;
 
                     Parameter3_Name.Text = DB.Parameter3_Name;
-
                     Parameter3_Value.Text = DB.Parameter3_Value;
                     Parameter3_Value.Visible = DB.Parameter3_Visible;
 
                     Parameter4_Name.Text = DB.Parameter4_Name;
-
                     Parameter4_Value.Text = DB.Parameter4_Value;
                     Parameter4_Value.Visible = DB.Parameter4_Visible;
+
+                    Parameter5_Name.Text = DB.Parameter4_Name;
+                    Parameter5_Value.Text = DB.Parameter4_Value;
+                    Parameter5_Value.Visible = DB.Parameter4_Visible;
+
+                    Parameter6_Name.Text = DB.Parameter4_Name;
+                    Parameter6_Value.Text = DB.Parameter4_Value;
+                    Parameter6_Value.Visible = DB.Parameter4_Visible;
+
+                    Parameter7_Name.Text = DB.Parameter4_Name;
+                    Parameter7_Value.Text = DB.Parameter4_Value;
+                    Parameter7_Value.Visible = DB.Parameter4_Visible;
+
+                    Parameter8_Name.Text = DB.Parameter4_Name;
+                    Parameter8_Value.Text = DB.Parameter4_Value;
+                    Parameter8_Value.Visible = DB.Parameter4_Visible;
+
+                    Parameter9_Name.Text = DB.Parameter4_Name;
+                    Parameter9_Value.Text = DB.Parameter4_Value;
+                    Parameter9_Value.Visible = DB.Parameter4_Visible;
+
+                    Parameter10_Name.Text = DB.Parameter4_Name;
+                    Parameter10_Value.Text = DB.Parameter4_Value;
+                    Parameter10_Value.Visible = DB.Parameter4_Visible;
 
                     //  Connection string parameters  check boxes
 
@@ -196,6 +228,32 @@ namespace YAF.Install
                     Parameter13_Value.Text = DB.Parameter13_Name;
                     Parameter13_Value.Checked = DB.Parameter13_Value;
                     Parameter13_Value.Visible = DB.Parameter13_Visible;
+                    
+                    Parameter14_Value.Text = DB.Parameter14_Name;
+                    Parameter14_Value.Checked = DB.Parameter14_Value;
+                    Parameter14_Value.Visible = DB.Parameter14_Visible;
+
+                    Parameter15_Value.Text = DB.Parameter15_Name;
+                    Parameter15_Value.Checked = DB.Parameter15_Value;
+                    Parameter15_Value.Visible = DB.Parameter15_Visible;
+
+                    Parameter16_Value.Text = DB.Parameter16_Name;
+                    Parameter16_Value.Checked = DB.Parameter16_Value;
+                    Parameter16_Value.Visible = DB.Parameter16_Visible;
+
+                    Parameter17_Value.Text = DB.Parameter17_Name;
+                    Parameter17_Value.Checked = DB.Parameter17_Value;
+                    Parameter17_Value.Visible = DB.Parameter17_Visible;
+
+                    Parameter18_Value.Text = DB.Parameter18_Name;
+                    Parameter18_Value.Checked = DB.Parameter18_Value;
+                    Parameter18_Value.Visible = DB.Parameter18_Visible;
+
+                    Parameter19_Value.Text = DB.Parameter19_Name;
+                    Parameter19_Value.Checked = DB.Parameter19_Value;
+                    Parameter19_Value.Visible = DB.Parameter19_Visible;
+
+
 				}
 			}
 		}
@@ -562,7 +620,7 @@ namespace YAF.Install
 			}
 			else if ( rblYAFDatabase.SelectedValue == "create" )
 			{
-				if ( !_config.WriteConnectionString( Config.ConnectionStringName, CurrentConnString, "System.Data.SqlClient" ) )
+                if (!_config.WriteConnectionString(Config.ConnectionStringName, CurrentConnString, DB.ProviderAssemblyName))
 				{
 					// failure to write db Settings..
 					return UpdateDBFailureType.ConnectionStringWrite;					

@@ -166,32 +166,57 @@
 							Create New Connection String</h4>
 						Note: Connection String will be saved as "<asp:Label ID="lblConnStringAppSettingName"
 							runat="server" Text="yafnet" />".
-						<br />
-						
-						
+						<br />			
 						<br />
 						<asp:Label ID="Parameter1_Name" runat="server" Width="500px" />
 						<br />											
 						<asp:TextBox runat="server" ID="Parameter1_Value" Text="(local)" Width="500px" /><br />
 						<br />
 						<asp:Label ID="Parameter2_Name" runat="server" Width="500px" />
-						<br />
 						<asp:TextBox runat="server" ID="Parameter2_Value" Width="500px" /><br />
 						<br />
 						<asp:Label ID="Parameter3_Name" runat="server" Width="500px" />
-						<br />
 						<asp:TextBox runat="server" ID="Parameter3_Value" Width="500px" /><br />
 						<br />
 						<asp:Label ID="Parameter4_Name" runat="server" Width="500px" />
-						<br />
 						<asp:TextBox runat="server" ID="Parameter4_Value" Width="500px" /><br />
 						<br />
+						<asp:Label ID="Parameter5_Name" runat="server" Width="500px" />
+						<asp:TextBox runat="server" ID="Parameter5_Value" Width="500px" /><br />
+						<br />
+						<asp:Label ID="Parameter6_Name" runat="server" Width="500px" />
+						<asp:TextBox runat="server" ID="Parameter6_Value" Width="500px" /><br />
+						<br />
+						<asp:Label ID="Parameter7_Name" runat="server" Width="500px" />
+						<asp:TextBox runat="server" ID="Parameter7_Value" Width="500px" /><br />
+						<br />
+						<asp:Label ID="Parameter8_Name" runat="server" Width="500px" />
+						<asp:TextBox runat="server" ID="Parameter8_Value" Width="500px" /><br />
+						<br />
+						<asp:Label ID="Parameter9_Name" runat="server" Width="500px" />
+						<asp:TextBox runat="server" ID="Parameter9_Value" Width="500px" /><br />
+						<br />
+						<asp:Label ID="Parameter10_Name" runat="server" Width="500px" />
+						<asp:TextBox runat="server" ID="Parameter10_Value" Width="500px" /><br />
+						<br />						
 						<asp:CheckBox ID="Parameter11_Value" runat="server" Checked="true" Text="Use Integrated Security"
 							AutoPostBack="true" OnCheckedChanged="Parameter11_Value_CheckChanged" />
 						<asp:CheckBox ID="Parameter12_Value" runat="server" Checked="true" 
 							AutoPostBack="true"  />	
 						<asp:CheckBox ID="Parameter13_Value" runat="server" Checked="true" 
+							AutoPostBack="true"  />	
+						<asp:CheckBox ID="Parameter14_Value" runat="server" Checked="true" 
 							AutoPostBack="true"  />		
+						<asp:CheckBox ID="Parameter15_Value" runat="server" Checked="true" 
+							AutoPostBack="true"  />	
+						<asp:CheckBox ID="Parameter16_Value" runat="server" Checked="true" 
+							AutoPostBack="true"  />	
+						<asp:CheckBox ID="Parameter17_Value" runat="server" Checked="true" 
+							AutoPostBack="true"  />
+						<asp:CheckBox ID="Parameter18_Value" runat="server" Checked="true" 
+							AutoPostBack="true"  />	
+						<asp:CheckBox ID="Parameter19_Value" runat="server" Checked="true" 
+							AutoPostBack="true"  />						
 						<br />
 						<br />
 						<asp:PlaceHolder ID="DBUsernamePasswordHolder" Visible="false" runat="server">User

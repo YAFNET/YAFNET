@@ -28,7 +28,23 @@ namespace YAF.Classes.Data
 {
 	public static class DB
 	{
-        #region ConnectionStringOptions 
+        #region ConnectionStringOptions
+        public static string ProviderAssemblyName
+        {
+            get
+            {
+                return "System.Data.SqlClient";
+            }
+        }
+        public static bool PasswordPlaceholderVisible
+        {
+            get
+            {
+                return false;
+            }
+        } 
+    
+        // Text boxes : Parameters 1-10 
         //Parameter 1
         public static string Parameter1_Name  
         {
@@ -121,9 +137,148 @@ namespace YAF.Classes.Data
                 return false;
             }
         }
-        //Check boxes
+        //Parameter 5
+        public static string Parameter5_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+        public static string Parameter5_Value
+        {
+            get
+            {
+                return "";
+            }
+        }
 
-        //Parameter 11 hides user password placeholder! 12 reserved for User Instance
+        public static bool Parameter5_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Parameter 6
+        public static string Parameter6_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+        public static string Parameter6_Value
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter6_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Parameter 7
+        public static string Parameter7_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+        public static string Parameter7_Value
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter7_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Parameter 8
+        public static string Parameter8_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+        public static string Parameter8_Value
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter8_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Parameter 9
+        public static string Parameter9_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+        public static string Parameter9_Value
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter9_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        //Parameter 10
+        public static string Parameter10_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+        public static string Parameter10_Value
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter10_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Check boxes: Parameters 11-19 
+
+        //Parameter 11 hides user password placeholder! 
         
         public static string Parameter11_Name
         {
@@ -148,7 +303,7 @@ namespace YAF.Classes.Data
                 return true;
             }
         }
-
+        //Parameter 12 (reserved for 'User Instance' in MS SQL SERVER)
           public static string Parameter12_Name
         {
             get
@@ -173,7 +328,7 @@ namespace YAF.Classes.Data
                     return false;
             }
         }
-
+        //Parameter 13
         public static string Parameter13_Name
         {
             get
@@ -191,6 +346,151 @@ namespace YAF.Classes.Data
         }
 
         public static bool Parameter13_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Parameter 14
+        public static string Parameter14_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter14_Value
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public static bool Parameter14_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Parameter 15
+        public static string Parameter15_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter15_Value
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public static bool Parameter15_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        //Parameter 16
+        public static string Parameter16_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter16_Value
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public static bool Parameter16_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Parameter 17
+        public static string Parameter17_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter17_Value
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public static bool Parameter17_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Parameter 18
+        public static string Parameter18_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter18_Value
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public static bool Parameter18_Visible
+        {
+            get
+            {
+                return false;
+            }
+        }
+        //Parameter 19
+        public static string Parameter19_Name
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public static bool Parameter19_Value
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public static bool Parameter19_Visible
         {
             get
             {
