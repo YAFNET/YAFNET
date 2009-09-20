@@ -189,13 +189,6 @@ namespace YAF.Classes.Core
 				YafBuildLink.RedirectInfoPage( InfoMessage.Suspended );
 			}
 
-			// This happens when user logs in
-			if ( Mession.LastVisit == DateTime.MinValue )
-			{
-				if ( PageContext.UnreadPrivate > 0 )
-					PageContext.AddLoadMessage( GetTextFormatted( "UNREAD_MSG" , PageContext.UnreadPrivate ) );
-			}
-
 			if ( !PageContext.IsGuest && PageContext.Page ["PreviousVisit"] != DBNull.Value && !Mession.HasLastVisit )
 			{
 				Mession.LastVisit = Convert.ToDateTime( PageContext.Page ["PreviousVisit"] );

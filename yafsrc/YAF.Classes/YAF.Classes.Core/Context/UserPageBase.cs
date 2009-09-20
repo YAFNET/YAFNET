@@ -444,6 +444,20 @@ namespace YAF.Classes.Core
 			}
 		}
 
+	    public DateTime LastUnreadPm
+	    {
+
+            get
+            {
+                if (String.IsNullOrEmpty(Page["LastUnreadPm"].ToString()))
+                    return DateTime.MinValue;
+                else
+                {
+                   return Convert.ToDateTime(Page["LastUnreadPm"]);
+                }
+            }
+	    }
+
 		/// <summary>
 		/// The time zone offset for the user
 		/// </summary>

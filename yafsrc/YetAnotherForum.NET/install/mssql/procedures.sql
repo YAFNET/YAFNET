@@ -3145,6 +3145,7 @@ begin
 		TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
 		MailsPending		= (select count(1) from [{databaseOwner}].[{objectQualifier}Mail]),
 		Incoming			= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=a.UserID and IsRead=0),
+		LastUnreadPm		= (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=a.UserID and upm.IsRead=0 ORDER BY pm.Created DESC),
 		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)
 	from
 		[{databaseOwner}].[{objectQualifier}User] a

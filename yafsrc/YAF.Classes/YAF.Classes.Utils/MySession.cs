@@ -111,6 +111,21 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+        static public DateTime LastPm
+        {
+            get
+            {
+                if (HttpContext.Current.Session["lastpm"] != null)
+                    return (DateTime)HttpContext.Current.Session["lastpm"];
+                else
+                    return DateTime.MinValue;
+            }
+            set
+            {
+                HttpContext.Current.Session["lastpm"] = value;
+            }
+        }
+
 		static public bool HasLastVisit
 		{
 			get

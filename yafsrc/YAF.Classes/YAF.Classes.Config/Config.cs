@@ -365,11 +365,19 @@ namespace YAF.Classes
 			}
 		}
 
+        static public bool IsPortalomatic
+        {
+            get
+            {
+                return HttpContext.Current.Session["Portalomatic.NET"] != null;
+            }
+        }
+
 		static public bool IsAnyPortal
 		{
 			get
 			{
-				return (IsDotNetNuke || IsRainbow || IsMojoPortal || IsPortal);
+                return (IsDotNetNuke || IsRainbow || IsMojoPortal || IsPortal || IsPortalomatic);
 			}
 		}
 
@@ -405,6 +413,10 @@ namespace YAF.Classes
 					{
 						urlAssembly = "Portal.UrlBuilder,Portal";
 					}
+                    else if (IsPortalomatic)
+                    {
+                        urlAssembly = "Portalomatic.NET.Utils.URLBuilder,Portalomatic.NET.Utils";
+                    }
 					else if (EnableURLRewriting)
 					{
 						urlAssembly = "YAF.Classes.RewriteUrlBuilder,YAF.Classes.Utils";
