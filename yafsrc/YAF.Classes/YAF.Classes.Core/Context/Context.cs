@@ -34,7 +34,7 @@ namespace YAF.Classes.Core
 	public partial class YafContext : UserPageBase, IDisposable
 	{
 		protected SingleClassInstanceFactory _singleInstanceFactory = new SingleClassInstanceFactory();
-		protected Dictionary<string, object> _variables = new Dictionary<string, object>();
+		protected TypeDictionary _variables = new TypeDictionary();
 		protected ForumPage _currentForumPage = null;
 
 		public event EventHandler<EventArgs> Init;
@@ -137,7 +137,7 @@ namespace YAF.Classes.Core
 			}
 		}
 
-		public Dictionary<string,object> Vars
+		public TypeDictionary Vars
 		{
 			get
 			{

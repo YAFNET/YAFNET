@@ -18,47 +18,34 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.UI;
 
 namespace YAF.Classes.Pattern
 {
-	// Singleton factory implementation
-	public static class PageSingleton<T> where T : class
+	/// <summary>
+	/// Allows basic type conversion of Dictionary objects.
+	/// </summary>
+	public class TypeDictionary : Dictionary<string, object>
 	{
-		// static constructor, 
-		//runtime ensures thread safety
-		static PageSingleton()
+		public T AsType<T>( string key )
 		{
-			// create the single instance 
-			//_instance = GetInstance();
+			return (T) Convert.ChangeType( this[key], typeof ( T ) );
 		}
 
-		static private T GetInstance()
+		public bool AsBoolean( string key )
 		{
-			if ( HttpContext.Current == null )
-			{
-				if ( _instance == null )
-				{
-					_instance = (T)Activator.CreateInstance( typeof( T ), true );
-				}
-				return _instance;
-			}			
-
-			string typeStr = typeof( T ).ToString();
-
-			return (T)( HttpContext.Current.Items[typeStr] ?? ( HttpContext.Current.Items[typeStr] = (T)Activator.CreateInstance( typeof( T ), true ) ) );
+			return AsType<bool>( key );
 		}
 
-		private static T _instance = null;
-		public static T Instance
+		public int AsInt( string key )
 		{
-			private set { _instance = value; }
-			get
-			{
-				return GetInstance();
-			}
+			return AsType<int>( key );
+		}
+
+		public string AsString( string key )
+		{
+			return AsType<string>( key );
 		}
 	}
 }
