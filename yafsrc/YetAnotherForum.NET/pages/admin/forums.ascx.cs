@@ -35,6 +35,8 @@ namespace YAF.Pages.Admin
 	{
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
+			PageContext.PageElements.RegisterJsResourceInclude( "blockUIJs", "js/jquery.blockUI.js" );
+
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
@@ -52,7 +54,7 @@ namespace YAF.Pages.Admin
 
 		protected void DeleteForum_Load(object sender, System.EventArgs e) 
 		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this forum?')";
+			( (LinkButton)sender ).Attributes["onclick"] = "return (confirm('Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?') && confirm('Are you POSITIVE?'));";
 		}
 
 		private void BindData() 
@@ -91,14 +93,16 @@ namespace YAF.Pages.Admin
 					YafBuildLink.Redirect( ForumPages.admin_editforum,"f={0}",e.CommandArgument);
 					break;
 				case "delete":
-					YAF.Classes.Data.DB.forum_delete(e.CommandArgument);
-					BindData();
-					// clear caches...
-					ClearCaches();
+					// schedule...
+					ForumDeleteTask.Start( PageContext.PageBoardID, Convert.ToInt32(e.CommandArgument) );
+          // enable timer...
+					UpdateStatusTimer.Enabled = true;
+					// show blocking ui...
+					PageContext.PageElements.RegisterJsBlockStartup( "BlockUIExecuteJs",
+					                                                 YAF.Utilities.JavaScriptBlocks.BlockUIExecuteJs(
+																														"DeleteForumMessage " ) );
 					break;
 			}
-
-			
 		}
 
 		private void ClearCaches()
@@ -138,6 +142,24 @@ namespace YAF.Pages.Admin
 		protected void NewCategory_Click(object sender, System.EventArgs e)
 		{
 			YafBuildLink.Redirect( ForumPages.admin_editcategory);
+		}
+
+		protected void UpdateStatusTimer_Tick( object sender, EventArgs e )
+		{
+			// see if the migration is done....
+			if ( YafTaskModule.Current.TaskManager.ContainsKey( ForumDeleteTask.TaskName ) && YafTaskModule.Current.TaskManager[ForumDeleteTask.TaskName].IsRunning )
+			{
+				// continue...
+				return;
+			}
+
+			UpdateStatusTimer.Enabled = false;
+			// rebind...
+			BindData();
+			// clear caches...
+			ClearCaches();
+			// done here...
+			YafBuildLink.Redirect( ForumPages.admin_forums );
 		}
 	}
 }
