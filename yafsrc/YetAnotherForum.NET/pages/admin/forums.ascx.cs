@@ -35,6 +35,7 @@ namespace YAF.Pages.Admin
 	{
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
+			PageContext.PageElements.RegisterJQuery();
 			PageContext.PageElements.RegisterJsResourceInclude( "blockUIJs", "js/jquery.blockUI.js" );
 
 			if(!IsPostBack) 
