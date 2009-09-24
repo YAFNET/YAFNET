@@ -21,7 +21,9 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Security;
 
 namespace YAF.Classes.Data
@@ -1084,22 +1086,37 @@ namespace YAF.Classes.Data
 		/// <param name="attachmentID">ID of attachment to delete</param>
 		static public void attachment_delete( object attachmentID )
 		{
-			bool UseFileTable = GetBooleanRegistryValue( "UseFileTable" );
-
+			bool useFileTable = GetBooleanRegistryValue( "UseFileTable" );
+      
 			//If the files are actually saved in the Hard Drive
-			if ( !UseFileTable )
+			if ( !useFileTable )
 			{
 				using ( SqlCommand cmd = YafDBAccess.GetCommand( "attachment_list" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
 					DataTable tbAttachments = YafDBAccess.Current.GetData( cmd );
-					string sUpDir = HttpContext.Current.Server.MapPath( YAF.Classes.Config.UploadDir );
-					foreach ( DataRow row in tbAttachments.Rows )
-						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, row["MessageID"], row["FileName"] ) );
-				}
 
+					string uploadDir = HostingEnvironment.MapPath( Config.UploadDir );
+
+					foreach ( DataRow row in tbAttachments.Rows )
+					{
+						try
+						{
+							string fileName = String.Format( "{0}{1}.{2}", uploadDir, row["MessageID"], row["FileName"] );
+							if ( File.Exists( fileName ) )
+							{
+								File.Delete( fileName );
+							}
+						}
+						catch
+						{
+							// error deleting that file... 
+						}
+					}		
+				}
 			}
+
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "attachment_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
@@ -1108,7 +1125,6 @@ namespace YAF.Classes.Data
 			}
 			//End ABOT CHANGE 16.04.04
 		}
-
 
 		/// <summary>
 		/// Attachement dowload
@@ -1639,7 +1655,10 @@ namespace YAF.Classes.Data
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
-						topic_delete( row["TopicID"] );
+						if ( row != null && row["TopicID"] != DBNull.Value )
+						{
+							topic_delete( row["TopicID"], true );
+						}
 					}
 				}
 			}
@@ -1663,6 +1682,7 @@ namespace YAF.Classes.Data
 					using ( SqlCommand cmd_new = YafDBAccess.GetCommand( "forum_delete" ) )
 					{
 						cmd_new.CommandType = CommandType.StoredProcedure;
+						cmd_new.CommandTimeout = 99999;
 						cmd_new.Parameters.AddWithValue( "ForumID", forumID );
 						YafDBAccess.Current.ExecuteNonQuery( cmd_new );
 					}
@@ -2375,11 +2395,11 @@ namespace YAF.Classes.Data
 		{
 			message_deleteRecursively( messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, isLinked, false );
 		}
-		static private void message_deleteRecursively( object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked, bool isLinked, bool eraseMessages )
+		static private void message_deleteRecursively( object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool deleteLinked, bool isLinked, bool eraseMessages )
 		{
-			bool UseFileTable = GetBooleanRegistryValue( "UseFileTable" );
+			bool useFileTable = GetBooleanRegistryValue( "UseFileTable" );
 
-			if ( DeleteLinked )
+			if ( deleteLinked )
 			{
 				//Delete replies
 				using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_getReplies" ) )
@@ -2389,21 +2409,37 @@ namespace YAF.Classes.Data
 					DataTable tbReplies = YafDBAccess.Current.GetData( cmd );
 
 					foreach ( DataRow row in tbReplies.Rows )
-						message_deleteRecursively( row["MessageID"], isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, true, eraseMessages );
+						message_deleteRecursively( row["MessageID"], isModeratorChanged, deleteReason, isDeleteAction, deleteLinked, true, eraseMessages );
 				}
 			}
 
 			//If the files are actually saved in the Hard Drive
-			if ( !UseFileTable )
+			if ( !useFileTable )
 			{
 				using ( SqlCommand cmd = YafDBAccess.GetCommand( "attachment_list" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
 					DataTable tbAttachments = YafDBAccess.Current.GetData( cmd );
-					string sUpDir = HttpContext.Current.Server.MapPath( Config.UploadDir );
+
+					string uploadDir = HostingEnvironment.MapPath( Config.UploadDir );
+
 					foreach ( DataRow row in tbAttachments.Rows )
-						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, messageID, row["FileName"] ) );
+					{
+						try
+						{
+							string fileName = String.Format( "{0}{1}.{2}", uploadDir, messageID, row["FileName"] );
+							if ( File.Exists( fileName ) )
+							{
+								File.Delete( fileName );
+							}
+						}
+						catch
+						{
+							// error deleting that file... 
+						}
+					}		
+						
 				}
 			}
 

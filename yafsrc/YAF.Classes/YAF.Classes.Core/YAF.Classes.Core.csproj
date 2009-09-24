@@ -63,15 +63,16 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-		<Reference Include="System.Core">
-		</Reference>
-		<Reference Include="System.Web.Extensions">
-		</Reference>
-	</ItemGroup>
+    <Reference Include="System.Core">
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+    </Reference>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseControls\BaseControl.cs" />
     <Compile Include="BaseControls\IYafHeaderFooter.cs" />
     <Compile Include="BaseModules\MobileThemeModule.cs" />
+    <Compile Include="Tasks\ForumDeleteTask.cs" />
     <Compile Include="Tasks\PruneTopicTask.cs" />
     <Compile Include="Tasks\IBackgroundTask.cs" />
     <Compile Include="BasePages\AdminPage.cs">
