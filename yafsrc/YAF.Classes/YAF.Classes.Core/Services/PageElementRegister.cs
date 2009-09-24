@@ -244,9 +244,12 @@ namespace YAF.Classes.Core
 
 				// load jQuery from google...
 				//const string jQueryLoad = "<script type=\"text/javascript\" src=\"\"></script>";
-				if ( !registerJQuery )
+				if ( registerJQuery )
+				{
 					element.Controls.Add(
 						ControlHelper.MakeJsIncludeControl( "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" ) );
+				}
+
 				AddPageElement( "jquery" );
 			}
 		}
