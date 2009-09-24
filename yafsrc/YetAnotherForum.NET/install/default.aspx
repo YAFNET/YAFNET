@@ -234,7 +234,7 @@
 						OnClick="btnTestDBConnection_Click" OnClientClick="return true;" />
 					<asp:PlaceHolder ID="ConnectionInfoHolder" runat="server" Visible="false">
 						<h4 class="lined">
-							Connection Details</asp:Literal></h4>
+							Connection Details</h4>
 						<div>
 							<asp:Label ID="lblConnectionDetails" runat="server"></asp:Label>
 						</div>
