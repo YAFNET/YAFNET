@@ -89,6 +89,19 @@ function toggleMessage(divId)
 			}
 		}
 
+		/// <summary>
+		/// Requires {0} formatted elementId.
+		/// </summary>
+		public static string BlockUIExecuteJs(string elementId)
+		{
+			return
+				string.Format(
+					@"jQuery(document).ready(function() {{ 
+            jQuery.blockUI({{ message: jQuery('#{0}') }}); 
+        }});",
+					elementId );
+		}
+
 
 	}
 }
