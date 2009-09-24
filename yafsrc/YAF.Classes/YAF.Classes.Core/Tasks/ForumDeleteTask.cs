@@ -47,8 +47,10 @@ namespace YAF.Classes.Core
 			
 		}
 
-		static public void Start(int boardId,int forumId)
+		static public bool Start(int boardId,int forumId)
 		{
+			if ( YafTaskModule.Current == null ) return false;
+
 			if ( !YafTaskModule.Current.TaskManager.ContainsKey( TaskName ) )
 			{
 				ForumDeleteTask task = new ForumDeleteTask
@@ -58,6 +60,8 @@ namespace YAF.Classes.Core
 				                      	};
 				YafTaskModule.Current.StartTask( TaskName, task );
 			}
+
+			return true;
 		}
 
 		public override void RunOnce()

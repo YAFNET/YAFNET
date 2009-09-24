@@ -52,7 +52,7 @@ namespace YAF.Modules
 		void Current_AfterInit( object sender, EventArgs e )
 		{
 			// add the mailing task if it's not already added...
-			if ( !YafTaskModule.Current.TaskManager.ContainsKey( _keyName ) )
+			if ( YafTaskModule.Current != null && !YafTaskModule.Current.TaskManager.ContainsKey( _keyName ) )
 			{
 				// start it...
 				YafTaskModule.Current.StartTask( _keyName, new MailSendTask() );

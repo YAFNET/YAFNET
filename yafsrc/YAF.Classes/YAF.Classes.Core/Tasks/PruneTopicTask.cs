@@ -63,8 +63,10 @@ namespace YAF.Classes.Core
 			
 		}
 
-		static public void Start(int boardId,int forumId,int days,bool permDelete)
+		static public bool Start(int boardId,int forumId,int days,bool permDelete)
 		{
+			if ( YafTaskModule.Current == null ) return false;
+
 			if ( !YafTaskModule.Current.TaskManager.ContainsKey( TaskName ) )
 			{
 				PruneTopicTask task = new PruneTopicTask
@@ -76,6 +78,8 @@ namespace YAF.Classes.Core
 				                      	};
 				YafTaskModule.Current.StartTask( TaskName, task );
 			}
+
+			return true;
 		}
 
 		public override void RunOnce()

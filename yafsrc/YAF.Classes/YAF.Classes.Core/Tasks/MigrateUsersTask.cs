@@ -42,14 +42,17 @@ namespace YAF.Classes.Core
 			
 		}
 
-		static public void Start(int boardId)
+		static public bool Start(int boardId)
 		{
+			if ( YafTaskModule.Current == null ) return false;
+
 			if ( !YafTaskModule.Current.TaskManager.ContainsKey( TaskName ) )
 			{
-				MigrateUsersTask task = new MigrateUsersTask();
-				task.BoardID = boardId;
+				MigrateUsersTask task = new MigrateUsersTask {BoardID = boardId};
 				YafTaskModule.Current.StartTask( TaskName, task );
 			}
+
+			return true;
 		}
 
 		public override void RunOnce()
