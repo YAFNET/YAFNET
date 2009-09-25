@@ -1,17 +1,16 @@
 function toggleContainer(id, senderId, showText, hideText){
-	var el = document.getElementById(id);
-    var sender = document.getElementById(senderId)
-	if (el.style.display == "none"){
-		el.style.display = "block";
-        sender.title = hideText;
-        sender.innerHTML = hideText;
-        sender.className = "hide";
-	} else {
-		el.style.display = "none";
-        sender.title = showText;
-        sender.innerHTML = showText;
-        sender.className = "show";
-	}
+	var el = jQuery('#' + id);
+	var sender = jQuery('#' + senderId);
+
+	el.toggle(function() {
+		sender.attr("title", hideText);
+		sender.html(hideText);
+		sender.addClass('hide');
+	}, function() {
+		sender.attr("title", showText);
+		sender.html(showText);
+		sender.addClass('show');
+	});
 }
 
 function getEvent(eventobj) {

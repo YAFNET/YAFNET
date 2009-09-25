@@ -545,9 +545,10 @@
 /* Goto Page Form */
 .gotoPageForm
 {
+	font-family: Arial, Verdana, Tahoma;
 	background-color: #f0f0f0;
 	border: solid 1px #555555;
-	width: 76px;
+	width: 80px;
 	margin: 1px;	
 	font-size: 9pt;		
 }
@@ -557,7 +558,7 @@
 }
 .gotoPageForm .gotoHeader
 {
-    background-color: #efefef;
+  background-color: #aaa;
 	color: #000000;
 	font-weight: bold;	
 	padding: 2px;	

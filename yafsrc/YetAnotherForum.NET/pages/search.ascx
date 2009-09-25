@@ -162,7 +162,11 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 </asp:UpdatePanel>
 <DotNetAge:Dialog ID="LoadingModal" runat="server" ShowModal="true" DialogButtons="None">
 	<BodyTemplate runat="server">
-		<span class="modalOuter"><span class="modalInner"><asp:Literal ID="LoadingModalText" runat="server" OnLoad="LoadingModalText_Load"></asp:Literal></span></span>
+		<span class="modalOuter"><span class="modalInner"><asp:Literal ID="LoadingModalText" runat="server" OnLoad="LoadingModalText_Load"></asp:Literal>
+		</span></span>
+		<div align="center">
+			<asp:Image ID="LoadingImage" runat="server" ImageUrl="../images/loading-white.gif" alt="Searching..." />
+		</div>		
 	</BodyTemplate>
 </DotNetAge:Dialog>
 <div id="DivSmartScroller">
