@@ -1,0 +1,832 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YAF.Controls</name>
+    </assembly>
+    <members>
+        <member name="T:YAF.Controls.LocalizedLabel">
+            <summary>
+            Makes a very simple localized label
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.LocalizedLabel.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Shows the localized text string (if available)
+            </summary>
+            <param name="output"></param>
+        </member>
+        <member name="T:YAF.Controls.DataPanel">
+            <summary>
+            Web control which provides a panel control as a 
+            collapsible/expandable control container. The control
+            provides a panel title and action link, either/both 
+            may provide the expand/collapse action as a hot-link.
+            </summary>
+            <remarks>
+            The control is used by registering the library in the
+            Visual Studio Toolbox, and then dragging it onto the
+            ASP.NET form.  For the control to be truly
+            expandable/collapsible, the style tag 'POSITION: absolute'
+            should be removed from the HTML control definition, or
+            else the control should be place in another control
+            such as a table.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._dataPanelScript">
+            <summary>
+            Name of the script block to control the collapsing/expanding
+            of the control.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._allowTitleExpandCollapse">
+            <summary>
+            The constant string "AllowTitleExpandCollapse".
+            </summary>
+            <remarks>
+            This value is the key for the property
+            state parameter in the <see cref="P:System.Web.UI.Control.ViewState"/>
+            object.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._collapsed">
+            <summary>
+            The constant string "Collapsed".
+            </summary>
+            <remarks>
+            This value is the key for the property
+            state parameter in the 
+            <see cref="P:System.Web.UI.Control.ViewState">ViewState</see>
+            object.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._collapsible">
+            <summary>
+            The constant string "Collapsible".
+            </summary>
+            <remarks>
+            This value is the key for the property
+            state parameter in the 
+            <see cref="P:System.Web.UI.Control.ViewState">ViewState</see>
+            object.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._collapseImageUrl">
+            <summary>
+            The constant string "CollapseImageUrl".
+            </summary>
+            <remarks>
+            This value is the key for the property
+            state parameter in the 
+            <see cref="P:System.Web.UI.Control.ViewState">ViewState</see>
+            object.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._collapseText">
+            <summary>
+            The constant string "CollapseText".
+            </summary>
+            <remarks>
+            This value is the key for the property
+            state parameter in the 
+            <see cref="P:System.Web.UI.Control.ViewState">ViewState</see>
+            object.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._expandImageUrl">
+            <summary>
+            The constant string "ExpandImageUrl".
+            </summary>
+            <remarks>
+            This value is the key for the property
+            state parameter in the 
+            <see cref="P:System.Web.UI.Control.ViewState">ViewState</see>
+            object.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._expandText">
+            <summary>
+            The constant string "ExpandText".
+            </summary>
+            <remarks>
+            This value is the key for the property
+            state parameter in the 
+            <see cref="P:System.Web.UI.Control.ViewState">ViewState</see>
+            object.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._titleText">
+            <summary>
+            The constant string "TitleText".
+            </summary>
+            <remarks>
+            This value is the key for the property
+            state parameter in the 
+            <see cref="P:System.Web.UI.Control.ViewState">ViewState</see>
+            object.
+            </remarks>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.RegisterControlScript">
+            <summary>
+            Method to extract the script block text from the control
+            resources and register it as a client script block.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._controlTable">
+            <summary>
+            The layout table element for the control.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._headerRow">
+            <summary>
+            The header row element for the control.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._titleCell">
+            <summary>
+            The header title cell element for the control.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._actionCell">
+            <summary>
+            The cell element that contains the expand/collapse action link or
+            image for the control.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._contentRow">
+            <summary>
+            The row element for the user content controls.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._contentCell">
+            <summary>
+            The cell element for the user content panel.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._headerPanel">
+            <summary>
+            The header panel element that is contained by the the
+            header row element.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._titleLink">
+            <summary>
+            The title hyperlink element of the control.
+            </summary>
+            <remarks>
+            This link is active only if the 
+            <see cref="P:YAF.Controls.DataPanel.AllowTitleExpandCollapse"/> property is true.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._actionLink">
+            <summary>
+            The action hyperlink element of the control.
+            </summary>
+            <remarks>
+            This link is active only if the
+            <see cref="P:YAF.Controls.DataPanel.HideActionExpandCollapse"/> is false.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._currentState">
+            <summary>
+            Hidden input field which is set by the client script to
+            indicate if the control has been expanded or collapsed by the user.
+            </summary>
+            <remarks>
+            If the control is collapsed, the value of this field is "true" (string).
+            If the control is expanded, the value of this field is "false" (string).
+            </remarks>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+            <remarks>
+            If the <see cref="P:System.Web.UI.WebControls.WebControl.Width">Width</see> of the control is not set,
+            the value of '100%' is set as default.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._hideActionExpandCollapse">
+            <summary>
+            The constant string "HideActionExpandCollapse".
+            </summary>
+            <remarks>
+            This value is the key for the property
+            state parameter in the 
+            <see cref="P:System.Web.UI.Control.ViewState">ViewState</see>
+            object.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.DataPanel._titleStyle">
+            <summary>
+            The member used for the <see cref="P:YAF.Controls.DataPanel.TitleStyle"/>
+            property.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.HtmlColorString(System.Drawing.Color)">
+            <summary>
+            Converts a <see cref="T:System.Drawing.Color"/> object to an HTML
+            compliant string.
+            </summary>
+            <param name="StyleColor">
+            The <see cref="T:System.Drawing.Color"/> object to convert.
+            </param>
+            <returns>The HTML colour string.</returns>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.ApplyStyle(System.Web.UI.HtmlControls.HtmlTableCell,System.Web.UI.WebControls.Style)">
+            <summary>
+            Applies a <see cref="T:System.Web.UI.WebControls.Style"/> object to an
+            <see cref="T:System.Web.UI.HtmlControls.HtmlTableCell"/> object.
+            </summary>
+            <param name="Cell">
+            <see cref="T:System.Web.UI.HtmlControls.HtmlTableCell"/> object to apply to.
+            </param>
+            <param name="ControlStyle">
+            The <see cref="T:System.Web.UI.WebControls.Style"/> object to apply.
+            </param>
+            The <see cref="T:System.Web.UI.WebControls.Style"/> properties are converted
+            to the <see cref="T:System.Web.UI.HtmlControls.HtmlTableCell"/> object 
+            <see cref="T:System.Web.UI.CssStyleCollection"/> attributes.
+        </member>
+        <member name="M:YAF.Controls.DataPanel.PanelUrl(System.Boolean,System.Boolean)">
+            <summary>
+            Creates the expand/collapse hyper-links for the control.
+            </summary>
+            <param name="UseImages">
+            True if images are used in the action link (right-hand side
+            of the control). Otherwise false.
+            </param>
+            <param name="TitleIsLink">
+            True if the title is a link (left-hand side of the control).
+            Otherwise false.
+            </param>
+            <returns>
+            The hyper-link as a string.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.UpdateControlsState">
+            <summary>
+            Updates the control appearance state based on the
+            various properties of the control.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.CreateControlComponents">
+            <summary>
+            Creates the control sub-components of the
+            control.
+            </summary>
+            <remarks>
+            Sets the user <see cref="F:YAF.Controls.DataPanel._contentCell"/> container
+            object render delegate as the
+            <see cref="M:YAF.Controls.DataPanel.RenderPanelContent(System.Web.UI.HtmlTextWriter,System.Web.UI.Control)"/> method using the
+            <see cref="M:System.Web.UI.Control.SetRenderMethodDelegate(System.Web.UI.RenderMethod)">
+            SetRenderMethodDelegate</see> method. This allows
+            the content (this panel control) to be rendered as a 
+            child object of the <see cref="F:YAF.Controls.DataPanel._contentCell"/> container.
+            </remarks>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.RenderPanelContent(System.Web.UI.HtmlTextWriter,System.Web.UI.Control)">
+            <summary>
+            Delegate member called when the <see cref="F:YAF.Controls.DataPanel._contentCell"/>
+            is to be rendered.
+            </summary>
+            <param name="Writer">HTML writer object to render to.</param>
+            <param name="Ctl">Control to render.</param>
+            <remarks>
+            This control (DataPanel) contents are rendered using the
+            <see cref="M:System.Web.UI.WebControls.WebControl.RenderContents(System.Web.UI.HtmlTextWriter)">RenderContents</see>
+            method. This method renders all the child controls added to 
+            the DataPanel control during design time.
+            </remarks>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.SetControlHierarchy">
+            <summary>
+            Sets the parent/child control relationships for all child
+            controls in this composite control.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.CreateChildControls">
+            <summary>
+            Overrides the <see cref="M:System.Web.UI.Control.CreateChildControls"/> method.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.OnPreRender(System.EventArgs)">
+            <summary>
+            Overrides the <see cref="M:System.Web.UI.Control.OnPreRender(System.EventArgs)"/> method.
+            </summary>
+            <param name="e">An <see cref="T:System.EventArgs"/> object that contains 
+            the event data.</param>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.LoadViewState(System.Object)">
+            <summary>
+            Overrides the <see cref="M:System.Web.UI.Control.LoadViewState(System.Object)"/> method.
+            </summary>
+            <param name="savedState">An <see cref="T:System.Object"/>
+            that represents the control
+            state to be restored.</param>
+            <remarks>
+            Loads the <see cref="P:YAF.Controls.DataPanel.TitleStyle"/> state in addition
+            to the base class states.
+            </remarks>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.SaveViewState">
+            <summary>
+            Overrides the <see cref="M:System.Web.UI.Control.SaveViewState"/>
+            method.
+            </summary>
+            <returns>
+            Returns the server control's current view state.
+            If there is no view state associated with the control,
+            this method returns a null reference (Nothing in Visual Basic).
+            </returns>
+            <remarks>
+            Saves the <see cref="P:YAF.Controls.DataPanel.TitleStyle"/> state in addition
+            to the base class states.
+            </remarks>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.OnInit(System.EventArgs)">
+            <summary>
+            Overrides the <see cref="M:System.Web.UI.Control.OnInit(System.EventArgs)"/> method.
+            </summary>
+            <param name="e">The 
+            <see cref="T:System.EventArgs">EventArgs</see> object 
+            that contains the event data. 
+            </param>
+            <remarks>
+            The control registers for postback data in this method.
+            </remarks>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Sends server control content to a provided 
+            <see cref="T:System.Web.UI.HtmlTextWriter"/> object, which writes the 
+            content to be rendered on the client.
+            </summary>
+            <param name="writer">
+            The HtmlTextWriter object that receives the server 
+            control content.</param>
+            <remarks>
+            The control creates an outer panel object that is rendered
+            in this method.
+            </remarks>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.RaisePostDataChangedEvent">
+            <summary>
+            This method is required for the
+            <see cref="T:System.Web.UI.IPostBackDataHandler"/> implementation.
+            </summary>
+            <remarks>
+            This method is not implemented as no
+            postback event is required.
+            </remarks>
+        </member>
+        <member name="M:YAF.Controls.DataPanel.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Processes post back data for this control.
+            </summary>
+            <param name="postDataKey">
+            The key identifier for the control.</param>
+            <param name="postCollection">
+            The collection of all incoming name values.
+            </param>
+            <returns>
+            True if the server control's state changes as a 
+            result of the post back; otherwise false.
+            </returns>
+            <remarks>
+            <para>
+            The control sets the <see cref="P:YAF.Controls.DataPanel.Collapsed"/>
+            property from the value obtained from the
+            hidden input field used to determine the
+            collapsed state and set by script on the client.
+            </para>
+            <para>
+            This method always returns false, as no event
+            notification is required.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.AllowTitleExpandCollapse">
+            <summary>
+            Set to true to allow clicking the panel
+            header title to expand/collapse the content panel.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Web.UI.Control.ViewState">ViewState</see> 
+            object is used to save the
+            value of this property between postbacks.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.Collapsed">
+            <summary>
+            Set to true to collapse the content panel, 
+            else false to expand.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Web.UI.Control.ViewState">ViewState</see>
+            object is used to save the
+            value of this property between postbacks.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.Collapsible">
+            <summary>
+            Set to true to enable the user content panel to
+            collapse, else false to disable.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Web.UI.Control.ViewState">ViewState</see> 
+            object is used to save the
+            value of this property between postbacks.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.CollapseImageUrl">
+            <summary>
+            Url of the image to use for the collapse-action link.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Web.UI.Control.ViewState">ViewState</see> 
+            object is used to save the
+            value of this property between postbacks.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.CollapseText">
+            <summary>
+            Text to use for the collapse-action link.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Web.UI.Control.ViewState">ViewState</see> 
+            object is used to save the
+            value of this property between postbacks.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.ExpandImageUrl">
+            <summary>
+            Url of the image to use for the expand-action link.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Web.UI.Control.ViewState">ViewState</see> 
+            object is used to save the
+            value of this property between postbacks.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.ExpandText">
+            <summary>
+            Text to use for the expand-action link.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Web.UI.Control.ViewState">ViewState</see> 
+            object is used to save the
+            value of this property between postbacks.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.HideActionExpandCollapse">
+            <summary>
+            Set to true to hide the text/image action link which expands
+            or collapses the content panel.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Web.UI.Control.ViewState">ViewState</see> 
+            object is used to save the
+            value of this property between postbacks.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.TitleText">
+            <summary>
+            Text that will appear on the control title header.
+            </summary>
+            <remarks>
+            The <see cref="P:System.Web.UI.Control.ViewState">ViewState</see> 
+            object is used to save the
+            value of this property between postbacks.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.TitleStyle">
+            <summary>
+            Display style of the control title header.
+            </summary>
+            <remarks>
+            The <see cref="M:YAF.Controls.DataPanel.SaveViewState"/> override is used to save
+            the value of this property between postbacks, while
+            the <see cref="M:YAF.Controls.DataPanel.LoadViewState(System.Object)"/> override is used to restore
+            the value.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.HeaderPanelId">
+            <summary>
+            Helper property to return the correct control id for the
+            header panel object.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.DataPanel.CollapsedStateId">
+            <summary>
+            Helper property to return the correct control id for the
+            hidden input object that holds the control collapsed state
+            string.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ProfileMenu">
+            <summary>
+            Summary description for ForumUsers.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.MessagePost">
+            <summary>
+            Shows a Message Post
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ForumUsers">
+            <summary>
+            Summary description for ForumUsers.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.Container">
+            <summary>
+            Rendered DIV container
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Container.ExpandLink">
+            <summary>
+            Summary description for ForumJump.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Container.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders surrounding div
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Container.RenderRoundedCorners(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders surrounding DIV for Sliding Doors Rounded Corners technique
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Container.RenderContents(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders contents div and childcontrols
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Container.ContentsClientID">
+            <summary>
+            Client ID for Contents DIV - Required for Javascript
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Container.LinkClientID">
+            <summary>
+            Client ID for HTML Link - Required for Javascript
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Container.Contents">
+            <summary>
+            Contents to render within the container
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Container.CSSClass">
+            <summary>
+            Css Clas for surrounding DIV
+            </summary>
+            
+        </member>
+        <member name="P:YAF.Controls.Container.ShowText">
+            <summary>
+            Hide Text required for expanding/collapsing container
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Container.HideText">
+            <summary>
+            Hide Text required for expanding/collapsing container
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Container.Title">
+            <summary>
+            If present renders a h2 html tag
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Container.RoundedCorners">
+            <summary>
+            If true, renders SLIDING doors technique additional DIV tags
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.UserLink">
+            <summary>
+            Provides a basic "profile link" for a YAF User
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLink.OnClick">
+            <summary>
+            The onclick value for the profile link
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLink.OnMouseOver">
+            <summary>
+            The onmouseover value for the profile link
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLink.UserName">
+            <summary>
+            The name of the user for this profile link
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLink.PostfixText">
+            <summary>
+            The name of the user for this profile link
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLink.UserID">
+            <summary>
+            The userid of this user for the link
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLink.BlankTarget">
+            <summary>
+            Make the link target "blank" to open in a new window.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.GetPriorityMessage(System.Data.DataRowView)">
+            <summary>
+            Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
+            </summary>
+            <param name="row">Current Topic Data Row</param>
+            <returns>Topic status text</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YAF.Controls.TopicLine.FormatReplies" -->
+        <member name="M:YAF.Controls.TopicLine.RenderLastPost(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Formats the Last Post for the Topic Line
+            </summary>		
+        </member>
+        <member name="M:YAF.Controls.TopicLine.CreatePostPager(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create pager for post.
+            </summary>
+            
+        </member>
+        <member name="T:YAF.Controls.ThemeImage">
+            <summary>
+            Provides a image with themed src
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeImage.ThemePage">
+            <summary>
+            Set/Get the ThemePage -- Defaults to "ICONS"
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeImage.ThemeTag">
+            <summary>
+            Set/Get the actual theme item
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.PopMenu">
+            <summary>
+            Summary description for ForumJump.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.Header">
+            <summary>
+            Summary description for Header.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Header.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the header.
+            </summary>
+            <param name="writer">The HtmlTextWriter that we are using.</param>
+        </member>
+        <member name="M:YAF.Controls.Statistics.ActiveDiscussions.#ctor">
+            <summary>
+            The default constructor for ActiveDiscussions.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Statistics.ActiveDiscussions.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the ActiveDiscussions class.
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="T:YAF.Controls.IconLegend">
+            <summary>
+            Summary description for ForumUsers.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ThemeButton.ThemeButton_Load(System.Object,System.EventArgs)">
+            <summary>
+            Setup the controls before render
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.ImageThemePage">
+            <summary>
+            ThemePage for the optional button image
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.ImageThemeTag">
+            <summary>
+            ThemeTag for the optional button image
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.TextLocalizedPage">
+            <summary>
+            Localized Page for the optional button text
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.TextLocalizedTag">
+            <summary>
+            Localized Tag for the optional button text
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.CssClass">
+            <summary>
+            Defaults to "yafcssbutton"
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.NavigateUrl">
+            <summary>
+            Setting the link property will make this control non-postback.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.TitleLocalizedPage">
+            <summary>
+            Localized Page for the optional link description (title)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.TitleLocalizedTag">
+            <summary>
+            Localized Tag for the optional link description (title)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.TitleNonLocalized">
+            <summary>
+            Non-localized Title for optional link description
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ForumJump">
+            <summary>
+            Summary description for ForumJump.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ActiveUsers">
+            <summary>
+            Summary description for ForumUsers.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.PageLinks">
+            <summary>
+            Summary description for PageLinks.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.PageLinks.Clear">
+            <summary>
+            Clear all Links
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.AlphaSort">
+            <summary>
+            Summary description for Footer.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.Pager">
+            <summary>
+            Summary description for Pager.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.MyLinkButton">
+            <summary>
+            Inherited from LinkButton. Shows only plain text when disabled
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.MessagePostData">
+            <summary>
+            Shows a Message Post
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Statistics.MostActiveUsers.#ctor">
+            <summary>
+            The default constructor for MostActiveUsers.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Statistics.MostActiveUsers.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the MostActiveUsers class.
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="T:YAF.Controls.PageAccess">
+            <summary>
+            Summary description for PageLinks.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.AdminMenu">
+            <summary>
+            Summary description for AdminMenu.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.HelpMenu">
+            <summary>
+            Summary description for AdminMenu.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.Footer">
+            <summary>
+            Summary description for Footer.
+            </summary>
+        </member>
+    </members>
+</doc>

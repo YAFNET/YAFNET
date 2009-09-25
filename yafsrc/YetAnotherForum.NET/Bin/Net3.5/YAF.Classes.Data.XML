@@ -1,0 +1,1087 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YAF.Classes.Data</name>
+    </assembly>
+    <members>
+        <member name="T:YAF.Classes.Data.FlagsBase">
+            <summary>
+            Abstract class as a foundation for various flags implementations
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.#ctor">
+            <summary>
+            Creates new instance with all bits set to false (integer 0).
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.#ctor(System.Int32)">
+            <summary>
+            Creates new instance and initialize it with value of bitValue parameter.
+            </summary>
+            <param name="bitValue">Inicialization integer value.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.#ctor(System.Boolean[])">
+            <summary>
+            Creates new instance with bits set according to param array.
+            </summary>
+            <param name="bits">Boolean values to initialize class with. If their number is lower than 32, remaining bits are set to false. If more than 32 values is specified, excess values are ignored.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.GetBitAsBool(System.Int32,System.Int32)">
+            <summary>
+            Gets boolean indicating whether bit on bitShift position in bitValue integer is set or not.
+            </summary>
+            <param name="bitValue">Integer value.</param>
+            <param name="bitShift">Zero-based position of bit to get.</param>
+            <returns>Returns boolean indicating whether bit at bitShift position is set or not.</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.SetBitFromBool(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Sets or unsets bit of bitValue integer at position specified by bitShift, depending on value parameter.
+            </summary>
+            <param name="bitValue">Integer value.</param>
+            <param name="bitShift">Zero-based position of bit to set.</param>
+            <param name="value">New boolean value of bit.</param>
+            <returns>Returns new integer value with bit at position specified by bitShift parameter set to value.</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.GetIntFromBoolArray(System.Boolean[])">
+            <summary>
+            Creates an integer value from an array of booleans.
+            </summary>
+            <param name="arrayBool">array of boolean</param>
+            <returns>bit field of the array</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.FlagsBase.EnumToIndex(System.Enum)">
+            <summary>
+            Converts a Flag Enum to the associated index value.
+            </summary>
+            <param name="theEnum"></param>
+            <returns></returns>
+        </member>
+        <member name="P:YAF.Classes.Data.FlagsBase.Item(System.Int32)">
+            <summary>
+            Gets or sets bit at position specified by index.
+            </summary>
+            <param name="index">Zero-based index of bit to get or set.</param>
+            <returns>Boolean value indicating whether bit at position specified by index is set or not.</returns>
+        </member>
+        <member name="P:YAF.Classes.Data.FlagsBase.BitValue">
+            <summary>
+            Gets or sets integer value of flags.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.ReadAccess">
+            <summary>
+            Gets or sets read access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.PostAccess">
+            <summary>
+            Gets or sets post access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.ReplyAccess">
+            <summary>
+            Gets or sets reply access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.PriorityAccess">
+            <summary>
+            Gets or sets priority access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.PollAccess">
+            <summary>
+            Gets or sets poll access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.VoteAccess">
+            <summary>
+            Gets or sets vote access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.ModeratorAccess">
+            <summary>
+            Gets or sets moderator access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.EditAccess">
+            <summary>
+            Gets or sets edit access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.DeleteAccess">
+             <summary>
+            Gets or sets delete access right.
+             </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.UploadAccess">
+            <summary>
+            Gets or sets upload access right.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.AccessFlags.DownloadAccess">
+            <summary>
+            Gets or sets download access right.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.AccessFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.YafDBConnManager">
+            <summary>
+            Provides open/close management for DB Connections
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnManager.DBConnection">
+            <summary>
+            Gets the current DB Connection in any state.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnManager.OpenDBConnection">
+            <summary>
+            Gets an open connection to the DB. Can be called any number of times.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.SetConnectionManagerAdapter``1">
+            <summary>
+            Change the Connection Manager used in all DB operations.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetObjectName(System.String)">
+            <summary>
+            Gets qualified object name
+            </summary>
+            <param name="name">Base name of an object</param>
+            <returns>Returns qualified object name of format {databaseOwner}.{objectQualifier}name</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Boolean)">
+            <summary>
+            Creates new SqlCommand based on command text applying all qualifiers to the name.
+            </summary>
+            <param name="commandText">Command text to qualify.</param>
+            <param name="isText">Determines whether command text is text or stored procedure.</param>
+            <returns>New SqlCommand</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Boolean,System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Creates new SqlCommand based on command text applying all qualifiers to the name.
+            </summary>
+            <param name="commandText">Command text to qualify.</param>
+            <param name="isText">Determines whether command text is text or stored procedure.</param>
+            <param name="connection">Connection to use with command.</param>
+            <returns>New SqlCommand</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String)">
+            <summary>
+            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+            </summary>
+            <param name="storedProcedure">Base of stored procedure name.</param>
+            <returns>New SqlCommand</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Data.SqlClient.SqlConnection)">
+            <summary>
+            Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+            </summary>
+            <param name="storedProcedure">Base of stored procedure name.</param>
+            <param name="connection">Connection to use with command.</param>
+            <returns>New SqlCommand</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Gets a whole dataset out of the database
+            </summary>
+            <param name="cmd">The SQL Command</param>
+            <returns>Dataset with the results</returns>
+            <remarks>Without transaction.</remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetDatasetBasic(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            Used internally to get data for all the other functions
+            </summary>
+            <param name="cmd"></param>
+            <param name="transaction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Gets data out of the database
+            </summary>
+            <param name="cmd">The SQL Command</param>
+            <returns>DataTable with the results</returns>
+            <remarks>Without transaction.</remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.String)">
+            <summary>
+            Gets data out of database using a plain text string command
+            </summary>
+            <param name="commandText">command text to be executed</param>
+            <returns>DataTable with results</returns>
+            <remarks>Without transaction.</remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Executes a NonQuery
+            </summary>
+            <param name="cmd">NonQuery to execute</param>
+            <remarks>Without transaction</remarks>
+        </member>
+        <member name="T:YAF.Classes.Data.DataRowConvert">
+            <summary>
+            Helper class to do basic data conversion for a DataRow.	
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.UserFlags">
+            <summary>
+            User flags manipulation class from the DB.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsHostAdmin">
+            <summary>
+            Gets or sets whether user is host administrator.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsApproved">
+            <summary>
+            Gets or sets whether user is approved for posting.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsGuest">
+            <summary>
+            Gets or sets whether user is guest, i.e. not registered and logged in.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsCaptchaExcluded">
+            <summary>
+            Gets or sets whether user is guest, i.e. not registered and logged in.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.UserFlags.IsActiveExcluded">
+            <summary>
+            Gets or sets whether user is excluded from the "Active Users" list on the forum pages.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.UserFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.RankFlags.IsStart">
+            <summary>
+            Gets or sets whether rank is default starting rank of new users.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.RankFlags.IsLadder">
+            <summary>
+            Gets or sets whether rank is ladder rank.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.RankFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TopicFlags.IsLocked">
+            <summary>
+            Gets or sets whether topic is locked. Locked topics cannot be modified/deleted/replied to.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TopicFlags.IsDeleted">
+            <summary>
+            Gets or sets whether topic is deleted.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TopicFlags.IsPersistent">
+            <summary>
+            Gets or sets whether topic is persistent. Persistent topics cannot be purged.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TopicFlags.IsQuestion">
+            <summary>
+            Gets or sets whether topic is a question.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.TopicFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsHtml">
+            <summary>
+            Gets or sets whether message allows HTML.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsBBCode">
+            <summary>
+            Gets or sets whether message allows BB code.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsSmilies">
+            <summary>
+            Gets or sets whether message allows smilies.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsApproved">
+            <summary>
+            Gets or sets whether message is approved for publishing.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsLocked">
+            <summary>
+            Gets or sets whether message is locked. Locked messages cannot be modified/deleted/replied to.
+            </summary>
+            <remarks>
+            Used for "ghost" posts that don't really exist, such as advertisement posts.
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.NotFormatted">
+            <summary>
+            Gets or sets whether message is not formatted.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsReportedAbuse">
+            <summary>
+            Gets or sets whether message is reported as abusive.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MessageFlags.IsReportedSpam">
+             <summary>
+            Gets or sets whether message is reported as spam.
+             </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.MessageFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ForumFlags.IsLocked">
+            <summary>
+            Gets or sets whether forum allows locked. No posting/activity can be made in locked forums.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ForumFlags.IsHidden">
+            <summary>
+            Gets or sets whether forum is hidden to users without read access.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ForumFlags.IsTest">
+            <summary>
+            Gets or sets whether forum does not count to users' postcount.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.ForumFlags.IsModerated">
+            <summary>
+            Gets or sets whether forum is moderated. Posts in moderated posts has to be approved by moderator before they are published.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.ForumFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.GetSearchResult(System.String,System.String,YAF.Classes.SearchWhatFlags,YAF.Classes.SearchWhatFlags,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Returns Search results
+            </summary>
+            <param name="ToSearch"></param>
+            <param name="sf">Field to search</param>
+            <param name="sw">Search what</param>
+            <param name="fid"></param>
+            <param name="UserID">ID of user</param>
+            <returns>Results</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.ds_forumadmin(System.Object)">
+            <summary>
+            Gets a list of categories????
+            </summary>
+            <param name="boardID">BoardID</param>
+            <returns>DataSet with categories</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.accessmask_list(System.Object,System.Object)">
+            <summary>
+            Gets a list of access mask properities
+            </summary>
+            <param name="boardID">ID of Board</param>
+            <param name="accessMaskID">ID of access mask</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.accessmask_list(System.Object,System.Object,System.Object)">
+            <summary>
+            Gets a list of access mask properities
+            </summary>
+            <param name="boardID">ID of Board</param>
+            <param name="accessMaskID">ID of access mask</param>
+            <param name="excludeFlags">Ommit access masks with this flags set.</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.accessmask_delete(System.Object)">
+            <summary>
+            Deletes an access mask
+            </summary>
+            <param name="accessMaskID">ID of access mask</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.accessmask_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Saves changes to a access mask 
+            </summary>
+            <param name="accessMaskID">ID of access mask</param>
+            <param name="boardID">ID of board</param>
+            <param name="name">Name of access mask</param>
+            <param name="readAccess">Read Access?</param>
+            <param name="postAccess">Post Access?</param>
+            <param name="replyAccess">Reply Access?</param>
+            <param name="priorityAccess">Priority Access?</param>
+            <param name="pollAccess">Poll Access?</param>
+            <param name="voteAccess">Vote Access?</param>
+            <param name="moderatorAccess">Moderator Access?</param>
+            <param name="editAccess">Edit Access?</param>
+            <param name="deleteAccess">Delete Access?</param>
+            <param name="uploadAccess">Upload Access?</param>
+            <param name="downloadAccess">Download Access?</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.active_list(System.Object,System.Object)">
+            <summary>
+            Gets list of active users
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="Guests"></param>
+            <returns>Returns a DataTable of active users</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.active_listforum(System.Object)">
+            <summary>
+            Gets the list of active users within a certain forum
+            </summary>
+            <param name="forumID">forumID</param>
+            <returns>DataTable of all ative users in a forum</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.active_listtopic(System.Object)">
+            <summary>
+            Gets the list of active users in a topic
+            </summary>
+            <param name="topicID">ID of topic </param>
+            <returns>DataTable of all users that are in a topic</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.active_stats(System.Object)">
+            <summary>
+            Gets the activity statistics for a board
+            </summary>
+            <param name="boardID">boardID</param>
+            <returns>DataRow of activity stata</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.attachment_list(System.Object,System.Object,System.Object)">
+            <summary>
+            Gets a list of attachments
+            </summary>
+            <param name="messageID">messageID</param>
+            <param name="attachmentID">attachementID</param>
+            <param name="boardID">boardID</param>
+            <returns>DataTable with attachement list</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.attachment_save(System.Object,System.Object,System.Object,System.Object,System.IO.Stream)">
+            <summary>
+            saves attachment
+            </summary>
+            <param name="messageID">messageID</param>
+            <param name="fileName">File Name</param>
+            <param name="bytes">number of bytes</param>
+            <param name="contentType">type of attchment</param>
+            <param name="stream">stream of bytes</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.attachment_delete(System.Object)">
+            <summary>
+            Delete attachment
+            </summary>
+            <param name="attachmentID">ID of attachment to delete</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.attachment_download(System.Object)">
+            <summary>
+            Attachement dowload
+            </summary>
+            <param name="attachmentID">ID of attachemnt to download</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.bannedip_list(System.Object,System.Object)">
+            <summary>
+            List of Baned IP's
+            </summary>
+            <param name="boardID">ID of board</param>
+            <param name="ID">ID</param>
+            <returns>DataTable of banned IPs</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.bannedip_save(System.Object,System.Object,System.Object)">
+            <summary>
+            Saves baned ip in database
+            </summary>
+            <param name="ID">ID</param>
+            <param name="boardID">BoardID</param>
+            <param name="Mask">Mask</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.bannedip_delete(System.Object)">
+            <summary>
+            Deletes Banned IP
+            </summary>
+            <param name="ID">ID of banned ip to delete</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.board_list(System.Object)">
+            <summary>
+            Gets a list of information about a board
+            </summary>
+            <param name="boardID">board id</param>
+            <returns>DataTable</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.board_poststats(System.Object)">
+            <summary>
+            Gets posting statistics
+            </summary>
+            <param name="boardID">BoardID</param>
+            <returns>DataRow of Poststats</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.board_resync">
+            <summary>
+            Recalculates topic and post numbers and updates last post for all forums in all boards
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.board_resync(System.Object)">
+            <summary>
+            Recalculates topic and post numbers and updates last post for specified board
+            </summary>
+            <param name="boardID">BoardID of board to do re-sync for, if null, all boards are re-synced</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.board_stats">
+            <summary>
+            Gets statistica about number of posts etc.
+            </summary>
+            <returns>DataRow</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.board_save(System.Object,System.Object,System.Object)">
+            <summary>
+            Saves board information
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="name">Name of Board</param>
+            <param name="allowThreaded">Boolen value, allowThreaded</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.board_create(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Creates a new board
+            </summary>
+            <param name="adminUsername">Membership Provider User Name</param>
+            <param name="adminUserKey">Membership Provider User Key</param>
+            <param name="boardName">Name of new board</param>
+            <param name="boardMembershipName">Membership Provider Application Name for new board</param>
+            <param name="boardRolesName">Roles Provider Application Name for new board</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.board_delete(System.Object)">
+            <summary>
+            Deletes a board
+            </summary>
+            <param name="boardID">ID of board to delete</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.category_delete(System.Object)">
+            <summary>
+            Deletes a category
+            </summary>
+            <param name="CategoryID">ID of category to delete</param>
+            <returns>Bool value indicationg if category was deleted</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.category_list(System.Object,System.Object)">
+            <summary>
+            Gets a list of forums in a category
+            </summary>
+            <param name="boardID">boardID</param>
+            <param name="categoryID">categotyID</param>
+            <returns>DataTable with a list of forums in a category</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.category_listread(System.Object,System.Object,System.Object)">
+            <summary>
+            Gets a list of forum categories
+            </summary>
+            <param name="boardID"></param>
+            <param name="userID"></param>
+            <param name="categoryID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.category_simplelist(System.Int32,System.Int32)">
+            <summary>
+            Lists categories very simply (for URL rewriting)
+            </summary>
+            <param name="StartID"></param>
+            <param name="Limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.category_save(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Saves changes to a category
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="CategoryID">CategoryID so save changes to</param>
+            <param name="Name">Name of the category</param>
+            <param name="SortOrder">Sort Order</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.checkemail_save(System.Object,System.Object,System.Object)">
+            <summary>
+            Saves a new email into the table for verification
+            </summary>
+            <param name="UserID">ID of user to verify</param>
+            <param name="Hash">Hash of user</param>
+            <param name="Email">email of user</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.checkemail_update(System.Object)">
+            <summary>
+            Updates a hash
+            </summary>
+            <param name="hash">New hash</param>
+            <returns>DataTable with user information</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.checkemail_list(System.Object)">
+            <summary>
+            Gets a check email entry based on email or all if no email supplied
+            </summary>
+            <param name="email">Associated email</param>
+            <returns>DataTable with check email information</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.choice_vote(System.Object,System.Object,System.Object)">
+            <summary>
+            Saves a vote in the database
+            </summary>
+            <param name="choiceID">Choice of the vote</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.eventlog_delete(System.Int32)">
+            <summary>
+            Deletes all event log entries for given board.
+            </summary>
+            <param name="boardID">ID of board.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.eventlog_delete(System.Object)">
+            <summary>
+            Deletes event log entry of given ID.
+            </summary>
+            <param name="eventLogID">ID of event log entry.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.eventlog_delete(System.Object,System.Object)">
+            <summary>
+            Calls underlying stroed procedure for deletion of event log entry(ies).
+            </summary>
+            <param name="eventLogID">When not null, only given event log entry is deleted.</param>
+            <param name="boardID">Specifies board. It is ignored if eventLogID parameter is not null.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.pollvote_check(System.Object,System.Object,System.Object)">
+            <summary>
+            Checks for a vote in the database
+            </summary>
+            <param name="choiceID">Choice of the vote</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_deleteAttachments(System.Object)">
+            <summary>
+            Deletes attachments out of a entire forum
+            </summary>
+            <param name="ForumID">ID of forum to delete all attachemnts out of</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_delete(System.Object)">
+            <summary>
+            Deletes a forum
+            </summary>
+            <param name="ForumID">forum to delete</param>
+            <returns>bool to indicate that forum has been deleted</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_listallMyModerated(System.Object,System.Object)">
+            <summary>
+            Lists all moderated forums for a user
+            </summary>
+            <param name="boardID">board if of moderators</param>
+            <param name="userID">user id</param>
+            <returns>DataTable of moderated forums</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_list(System.Object,System.Object)">
+            <summary>
+            Gets a list of topics in a forum
+            </summary>
+            <param name="boardID">boardID</param>
+            <param name="ForumID">forumID</param>
+            <returns>DataTable with list of topics from a forum</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_listall(System.Object,System.Object)">
+            <summary>
+            Listes all forums accessible to a user
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="userID">ID of user</param>
+            <returns>DataTable of all accessible forums</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_listall(System.Object,System.Object,System.Object)">
+            <summary>
+            Lists all forums accessible to a user
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="userID">ID of user</param>
+            <param name="startAt">startAt ID</param>
+            <returns>DataTable of all accessible forums</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_listall_fromCat(System.Object,System.Object)">
+            <summary>
+            Lists all forums within a given subcategory
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="CategoryID">CategoryID</param>
+            <returns>DataTable with list</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_simplelist(System.Int32,System.Int32)">
+            <summary>
+            Lists forums very simply (for URL rewriting)
+            </summary>
+            <param name="StartID"></param>
+            <param name="Limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_listall_fromCat(System.Object,System.Object,System.Boolean)">
+            <summary>
+            Lists all forums within a given subcategory
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="CategoryID">CategoryID</param>
+            <param name="EmptyFirstRow">EmptyFirstRow</param>
+            <returns>DataTable with list</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_listpath(System.Object)">
+            <summary>
+            Sorry no idea what this does
+            </summary>
+            <param name="forumID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_listread(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Lists read topics
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="UserID">UserID</param>
+            <param name="CategoryID">CategoryID</param>
+            <param name="parentID">ParentID</param>
+            <returns>DataTable with list</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_moderatelist(System.Object,System.Object)">
+            <summary>
+            Return admin view of Categories with Forums/Subforums ordered accordingly.
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="userID">UserID</param>
+            <returns>DataSet with categories</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_resync(System.Object)">
+            <summary>
+            Updates topic and post count and last topic for all forums in specified board
+            </summary>
+            <param name="boardID">BoardID</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_resync(System.Object,System.Object)">
+            <summary>
+            Updates topic and post count and last topic for specified forum
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="forumID">If null, all forums in board are updated</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.message_simplelist(System.Int32,System.Int32)">
+            <summary>
+            Get message topic IDs (for URL rewriting)
+            </summary>
+            <param name="StartID"></param>
+            <param name="Limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.medal_list(System.Object)">
+            <summary>
+            Lists given medal.
+            </summary>
+            <param name="medalID">ID of medal to list.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.medal_list(System.Object,System.Object)">
+            <summary>
+            Lists given medals.
+            </summary>
+            <param name="boardID">ID of board of which medals to list. Required.</param>
+            <param name="category">Cateogry of medals to list. Can be null. In such case this parameter is ignored.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.medal_list(System.Object,System.Object,System.Object)">
+            <summary>
+            Lists medals.
+            </summary>
+            <param name="boardID">ID of board of which medals to list. Can be null if medalID parameter is specified.</param>
+            <param name="medalID">ID of medal to list. When specified, boardID and category parameters are ignored.</param>
+            <param name="category">Cateogry of medals to list. Must be complemented with not-null boardID parameter.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.medal_listusers(System.Object)">
+            <summary>
+            List users who own this medal.
+            </summary>
+            <param name="medalID">Medal of which owners to get.</param>
+            <returns>List of users with their user id and usernames, who own this medal.</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.medal_delete(System.Object)">
+            <summary>
+            Deletes given medal.
+            </summary>
+            <param name="medalID">ID of medal to delete.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.medal_delete(System.Object,System.Object)">
+            <summary>
+            Deletes given medals.
+            </summary>
+            <param name="boardID">ID of board of which medals to delete. Required.</param>
+            <param name="category">Cateogry of medals to delete. Can be null. In such case this parameter is ignored.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.medal_delete(System.Object,System.Object,System.Object)">
+            <summary>
+            Deletes medals.
+            </summary>
+            <param name="boardID">ID of board of which medals to delete. Can be null if medalID parameter is specified.</param>
+            <param name="medalID">ID of medal to delete. When specified, boardID and category parameters are ignored.</param>
+            <param name="category">Cateogry of medals to delete. Must be complemented with not-null boardID parameter.</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YAF.Classes.Data.DB.medal_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)" -->
+        <member name="M:YAF.Classes.Data.DB.medal_resort(System.Object,System.Object,System.Int32)">
+            <summary>
+            Changes medal's sort order.
+            </summary>
+            <param name="boardID">ID of board.</param>
+            <param name="medalID">ID of medal to re-sort.</param>
+            <param name="move">Change of sort.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.group_medal_delete(System.Object,System.Object)">
+            <summary>
+            Deletes medal allocation to a group.
+            </summary>
+            <param name="groupID">ID of group owning medal.</param>
+            <param name="medalID">ID of medal.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.group_medal_list(System.Object,System.Object)">
+            <summary>
+            Lists medal(s) assigned to the group
+            </summary>
+            <param name="groupID">ID of group of which to list medals.</param>
+            <param name="medalID">ID of medal to list.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.group_medal_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Saves new or update existing group-medal allocation.
+            </summary>
+            <param name="groupID">ID of user group.</param>
+            <param name="medalID">ID of medal.</param>
+            <param name="message">Medal message, to override medal's default one. Can be null.</param>
+            <param name="hide">Hide medal in user box.</param>
+            <param name="onlyRibbon">Show only ribbon bar in user box.</param>
+            <param name="sortOrder">Sort order in user box. Overrides medal's default sort order.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.user_medal_delete(System.Object,System.Object)">
+            <summary>
+            Deletes medal allocation to a user.
+            </summary>
+            <param name="userID">ID of user owning medal.</param>
+            <param name="medalID">ID of medal.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.user_medal_list(System.Object,System.Object)">
+            <summary>
+            Lists medal(s) assigned to the group
+            </summary>
+            <param name="userID">ID of user who was given medal.</param>
+            <param name="medalID">ID of medal to list.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.user_medal_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Saves new or update existing user-medal allocation.
+            </summary>
+            <param name="userID">ID of user.</param>
+            <param name="medalID">ID of medal.</param>
+            <param name="message">Medal message, to override medal's default one. Can be null.</param>
+            <param name="hide">Hide medal in user box.</param>
+            <param name="onlyRibbon">Show only ribbon bar in user box.</param>
+            <param name="sortOrder">Sort order in user box. Overrides medal's default sort order.</param>
+            <param name="dateAwarded">Date when medal was awarded to a user. Is ignored when existing user-medal allocation is edited.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.user_listmedals(System.Object)">
+            <summary>
+            Lists all medals held by user as they are to be shown in user box.
+            </summary>
+            <param name="userID">ID of user.</param>
+            <returns>List of medals, ribbon bar only first.</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.pmessage_list(System.Object,System.Object,System.Object)">
+            <summary>
+            Returns a list of private messages based on the arguments specified.
+            If pMessageID != null, returns the PM of id pMessageId.
+            If toUserID != null, returns the list of PMs sent to the user with the given ID.
+            If fromUserID != null, returns the list of PMs sent by the user of the given ID.
+            </summary>
+            <param name="toUserID"></param>
+            <param name="fromUserID"></param>
+            <param name="pMessageID">The id of the private message</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.pmessage_list(System.Object)">
+            <summary>
+            Returns a list of private messages based on the arguments specified.
+            If pMessageID != null, returns the PM of id pMessageId.
+            If toUserID != null, returns the list of PMs sent to the user with the given ID.
+            If fromUserID != null, returns the list of PMs sent by the user of the given ID.
+            </summary>
+            <param name="toUserID"></param>
+            <param name="fromUserID"></param>
+            <param name="pMessageID">The id of the private message</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.pmessage_delete(System.Object,System.Boolean)">
+            <summary>
+            Deletes the private message from the database as per the given parameter.  If <paramref name="fromOutbox"/> is true,
+            the message is only removed from the user's outbox.  Otherwise, it is completely delete from the database.
+            </summary>
+            <param name="pMessageID"></param>
+            <param name="fromOutbox">If true, removes the message from the outbox.  Otherwise deletes the message completely.</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.pmessage_delete(System.Object)">
+            <summary>
+            Deletes the private message from the database as per the given parameter.  If fromOutbox is true,
+            the message is only deleted from the user's outbox.  Otherwise, it is completely delete from the database.
+            </summary>
+            <param name="userPMessageID"></param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.pmessage_archive(System.Object)">
+            <summary>
+            Archives the private message of the given id.  Archiving moves the message from the user's inbox to his message archive.
+            </summary>
+            <param name="pMessageID">The ID of the private message</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.registry_list(System.Object,System.Object)">
+            <summary>
+            Retrieves entries in the board settings registry
+            </summary>
+            <param name="Name">Use to specify return of specific entry only. Setting this to null returns all entries.</param>
+            <returns>DataTable filled will registry entries</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.registry_list(System.Object)">
+            <summary>
+            Retrieves entries in the board settings registry
+            </summary>
+            <param name="Name">Use to specify return of specific entry only. Setting this to null returns all entries.</param>
+            <returns>DataTable filled will registry entries</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.registry_list">
+            <summary>
+            Retrieves all the entries in the board settings registry
+            </summary>
+            <returns>DataTable filled will all registry entries</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.registry_save(System.Object,System.Object)">
+            <summary>
+            Saves a single registry entry pair to the database.
+            </summary>
+            <param name="Name">Unique name associated with this entry</param>
+            <param name="Value">Value associated with this entry which can be null</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.registry_save(System.Object,System.Object,System.Object)">
+            <summary>
+            Saves a single registry entry pair to the database.
+            </summary>
+            <param name="Name">Unique name associated with this entry</param>
+            <param name="Value">Value associated with this entry which can be null</param>
+            <param name="BoardID">The BoardID for this entry</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.system_list">
+            <summary>
+            Not in use anymore. Only required for old database versions.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.topic_simplelist(System.Int32,System.Int32)">
+            <summary>
+            Lists topics very simply (for URL rewriting)
+            </summary>
+            <param name="StartID"></param>
+            <param name="Limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.replace_words_list(System.Object,System.Object)">
+            <summary>
+            Gets a list of replace words
+            </summary>
+            <returns>DataTable with replace words</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.replace_words_save(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Saves changs to a words
+            </summary>
+            <param name="id">ID of bad/good word</param>
+            <param name="badword">bad word</param>
+            <param name="goodword">good word</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.replace_words_delete(System.Object)">
+            <summary>
+            Deletes a bad/good word
+            </summary>
+            <param name="ID">ID of bad/good word to delete</param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.user_simplelist(System.Int32,System.Int32)">
+            <summary>
+            For URL Rewriting
+            </summary>
+            <param name="StartID"></param>
+            <param name="Limit"></param>
+            <returns></returns>
+        </member>
+        <member name="P:YAF.Classes.Data.DB.DBSize">
+            <summary>
+            Gets the database size
+            </summary>
+            <returns>intager value for database size</returns>
+        </member>
+        <member name="P:YAF.Classes.Data.MedalFlags.ShowMessage">
+            <summary>
+            Gets or sets whether medal message is shown.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MedalFlags.AllowRibbon">
+            <summary>
+            Gets or sets whether medal can be displayed as ribbon bar.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MedalFlags.AllowHiding">
+            <summary>
+            Gets or sets whether medal can be hidden by user.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.MedalFlags.AllowReOrdering">
+            <summary>
+            Gets or sets whether medal can be re-ordered by user.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.MedalFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.GroupFlags.IsAdmin">
+            <summary>
+            Gets or sets whether group/role has administrator privilegies
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.GroupFlags.IsGuest">
+            <summary>
+            Gets or sets whether group/role is guest role.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.GroupFlags.IsStart">
+            <summary>
+            Gets or sets whether group/role is starting role for new users.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.GroupFlags.IsModerator">
+            <summary>
+            Gets or sets whether group/role has moderator privilegies.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.GroupFlags.Flags">
+            <summary>
+            Use for bit comparisons
+            </summary>
+        </member>
+    </members>
+</doc>

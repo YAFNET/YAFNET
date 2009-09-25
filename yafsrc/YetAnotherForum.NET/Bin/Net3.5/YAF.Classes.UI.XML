@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YAF.Classes.UI</name>
+    </assembly>
+    <members>
+        <member name="T:YAF.Classes.UI.SmartScroller">
+            <summary>
+            Summary description for SmartScroller.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.FormatMsg">
+            <summary>
+            Summary description for FormatMsg.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.AddSmiles(System.String)">
+            <summary>
+            For backwards compatibility
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.AddSmiles(YAF.Classes.UI.ReplaceRules@)">
+            <summary>
+            Adds smiles replacement rules to the collection from the DB
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.RemoveNestedQuotes(System.String)">
+            <summary>
+            Removes nested YafBBCode quotes from the given message body.
+            </summary>
+            <param name="body">Message body test to remove nested quotes from</param>
+            <returns>A version of <paramref name="body"/> that contains no nested quotes.</returns>
+        </member>
+        <member name="T:YAF.Classes.UI.ReplaceRulesCreator">
+            <summary>
+            Gets an instance of replace rules and uses
+            caching if possible.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.ReplaceRulesCreator.GetInstance(System.Boolean[])">
+            <summary>
+            Gets relace rules instance for given flags.
+            </summary>
+            <param name="uniqueFlags">Flags identifying replace rules.</param>
+            <returns>ReplaceRules for given unique flags.</returns>
+        </member>
+        <member name="M:YAF.Classes.UI.ReplaceRulesCreator.ClearCache">
+            <summary>
+            Clears all ReplaceRules from the cache.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.ReplaceRules">
+            <summary>
+            Provides a way to handle layers of replacements rules
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.ReplaceRules.Clone">
+            <summary>
+            This clone method is a Deep Clone -- including all data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:YAF.Classes.UI.ReplaceRules.HasRules">
+            <summary>
+            Gets a value indicating whether any rules have been added.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.BaseReplaceRule">
+            <summary>
+            Base class for all replacement rules.
+            Provides compare functionality based on the rule rank.
+            Override replace to handle replacement differently.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.SimpleReplaceRule">
+            <summary>
+            Not regular expression, just a simple replace
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.SimpleRegexReplaceRule">
+            <summary>
+            For basic regex with no variables
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.SingleRegexReplaceRule">
+            <summary>
+            For basic regex with no variables
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.VariableRegexReplaceRule">
+            <summary>
+            For complex regex with variable/default and truncate support
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.VariableRegexReplaceRule.ManageVariableValue(System.String,System.String,System.String)">
+            <summary>
+            Override to change default variable handling...
+            </summary>
+            <param name="variableName"></param>
+            <param name="variableValue"></param>
+            <param name="handlingValue">variable transfermation desired</param>
+            <returns></returns>
+        </member>
+        <member name="T:YAF.Classes.UI.FontSizeRegexReplaceRule">
+            <summary>
+            For the font size with replace
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.PostTopicRegexReplaceRule">
+            <summary>
+            For the font size with replace
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.CodeRegexReplaceRule">
+            <summary>
+            Simple code block regular express replace
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.CodeRegexReplaceRule.GetInnerValue(System.String)">
+            <summary>
+            This just overrides how the inner value is handled
+            </summary>
+            <param name="innerValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YAF.Classes.UI.SyntaxHighlightedCodeRegexReplaceRule">
+            <summary>
+            Syntax Highlighted code block regular express replace
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.SyntaxHighlightedCodeRegexReplaceRule.GetInnerValue(System.String)">
+            <summary>
+            This just overrides how the inner value is handled
+            </summary>
+            <param name="innerValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YAF.Classes.UI.HtmlReplacementCollection">
+            <summary>
+            Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.HtmlReplacementCollection.RandomizeInstance">
+            <summary>
+            get a random number for the instance
+            so it's harder to guess the replacement format
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.HtmlReplacementCollection.Reconstruct(System.String@)">
+            <summary>
+            Reconstructs the text from the collection elements...
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="M:YAF.Classes.UI.HtmlReplacementCollection.GetReplacementsFromText(System.String@)">
+            <summary>
+            Pull replacement blocks from the text
+            </summary>
+            <param name="html"></param>
+        </member>
+        <member name="T:YAF.Classes.UI.HtmlReplacementBlock">
+            <summary>
+            Simple class that doesn't do anything except store a tag.
+            Why a class? Because I may want to add to it someday...
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.CaptchaImage">
+            <summary>
+            CaptchaImage Class
+            Thanks to "prujohn" on the YAF Forum for his work.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.YafBBCode">
+            <summary>
+            Summary description for YafBBCode.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.YafBBCode.MakeHtml(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Converts a string containing YafBBCode to the equivalent HTML string.
+            </summary>
+            <param name="inputString">Input string containing YafBBCode to convert to HTML</param>
+            <param name="doFormatting"></param>
+            <param name="targetBlankOverride"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.UI.YafBBCode.ConvertBBCodeToHtmlForEdit(System.String)">
+            <summary>
+            Converts a message containing YafBBCode to HTML appropriate for editing in a rich text editor.
+            </summary>
+            <remarks>
+            YafBBCode quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string 
+            returned, as to appear in plaintext in rich text editors.
+            </remarks>
+            <param name="message">String containing the body of the message to convert</param>
+            <returns>The converted text</returns>
+        </member>
+        <member name="M:YAF.Classes.UI.YafBBCode.CreateBBCodeRules(YAF.Classes.UI.ReplaceRules@,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Creates the rules that convert YafBBCode to HTML
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.YafBBCode.CreateBBCodeRules(YAF.Classes.UI.ReplaceRules@,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Creates the rules that convert YafBBCode to HTML
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.YafBBCode.AddCustomBBCodeRules(YAF.Classes.UI.ReplaceRules@)">
+            <summary>
+            Applies Custom YafBBCode Rules from the YafBBCode table
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.YafBBCode.RegisterCustomBBCodePageElements(System.Web.UI.Page,System.Type)">
+            <summary>
+            Helper function that dandles registering "custom bbcode" javascript (if there is any)
+            for all the custom YafBBCode.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.YafBBCode.RegisterCustomBBCodePageElements(System.Web.UI.Page,System.Type,System.String)">
+            <summary>
+            Helper function that dandles registering "custom bbcode" javascript (if there is any)
+            for all the custom YafBBCode. Defining editorID make the system also show "editor js" (if any).
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.YafBBCode.LocalizeCustomBBCodeElement(System.String)">
+            <summary>
+            Handles localization for a Custom YafBBCode Elements using
+            the code [localization=tag]default[/localization]
+            </summary>
+            <param name="strToLocalize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.UI.YafBBCode.EncodeHTML(System.String)">
+            <summary>
+            Encodes HTML - same as <see cref="M:System.Web.HttpServerUtility.HtmlEncode(System.String)"/>
+            </summary>
+            <param name="html"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.UI.YafBBCode.DecodeHTML(System.String)">
+            <summary>
+            Decodes HTML - same as <see cref="M:System.Web.HttpServerUtility.HtmlDecode(System.String)"/>
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

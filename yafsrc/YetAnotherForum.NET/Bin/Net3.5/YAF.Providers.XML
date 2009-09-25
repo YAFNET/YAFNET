@@ -1,0 +1,451 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YAF.Providers</name>
+    </assembly>
+    <members>
+        <member name="T:YAF.Providers.Profile.YafProfileProvider">
+            <summary>
+            YAF Custom Profile Provider
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Profile.YafProfileProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Sets up the profile providers
+            </summary>
+            <param name="name"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GenerateSalt">
+            <summary>
+            Creates a random string used as Salt for hashing
+            </summary>
+            <returns> Random string</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GeneratePassword(System.Int32,System.Int32)">
+            <summary>
+            Creates a random password based on a miniumum length and a minimum number of non-alphanumeric characters
+            </summary>
+            <param name="minPassLength">Minimum characters in the password</param>
+            <param name="minNonAlphas">Minimum non-alphanumeric characters</param>
+            <returns> Random string</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.EncodeString(System.String,System.Int32,System.String,System.Boolean,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Encrypt string to hash method.
+            </summary>
+            <param name="clearString">UnEncrypted Clear String</param>
+            <param name="encMethod">Clear/Hashed/Encrypted</param>
+            <param name="salt">Salt to be used in Hash method</param>
+            <param name="useSalt">Salt to be used in Hash method</param>
+            <param name="passwordHex">Output as Hex or as Base 64</param>
+            <returns> Encrypted string</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.DecodeString(System.String,System.Int32)">
+            <summary>
+            Decrypt string using passwordFormat.
+            </summary>
+            <param name="pass">Password to be decrypted</param>
+            <param name="passwordFormat">Method of encryption</param>
+            <returns> Unencrypted string</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.Hash(System.Byte[],System.String)">
+            <summary>
+            Hashes clear bytes to given hashtype
+            </summary>
+            <param name="clearBytes">Clear bytes to hash</param>
+            <param name="hashType">hash Algorithm to be used</param>
+            <returns> Hashed bytes </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GeneratePasswordBuffer(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a password buffer from salt and password ready for hashing/encrypting
+            </summary>
+            <param name="salt">Salt to be applied to hashing algorithm</param>
+             <param name="clearString">Clear string to hash</param>
+            <param name="standardComp">Use Standard asp.net membership method of creating the buffer</param>
+            <returns> Salted Password as Byte Array </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.Hash(System.String,System.String,System.String,System.Boolean,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Hashes a clear string to the given hashtype
+            </summary>
+            <param name="clearString">Clear string to hash</param>
+            <param name="hashType">hash Algorithm to be used</param>
+            <param name="salt">Salt to be applied to hashing algorithm</param>
+            <param name="useSalt">Should salt be applied to hashing algorithm</param>
+            <param name="passwordHex">Output hashed string as Hex and not Base64</param>
+            <returns> Hashed String as Hex or Base64 </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.IsPasswordCompliant(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Check to see if password(string) matches required criteria.
+            </summary>
+            <param name="password">Password to be checked</param>
+            <param name="minLength">Minimum length required</param>
+            <param name="minNonAlphaNumerics">Minimum number of Non-alpha numerics in password</param>
+            <param name="strengthRegEx">Regular Expression Strength</param>
+            <returns> True/False </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.IsPasswordCompliant(System.String)">
+            <summary>
+            Check to see if password(string) matches required criteria.
+            </summary>
+            <param name="password">Password to be checked</param>
+            <returns> True/False </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initialie Membership Provider
+            </summary>
+            <param name="name">Membership Provider Name</param>
+            <param name="config">NameValueCollection of configuration items</param>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.ChangePassword(System.String,System.String,System.String)">
+            <summary>
+            Change Users password
+            </summary>
+            <param name="username">Username to change password for</param>
+            <param name="oldpassword">Password</param>
+            <param name="newPassword">New question</param>
+            <returns> Boolean depending on whether the change was successful</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YAF.Providers.Membership.YafMembershipProvider.ChangePasswordQuestionAndAnswer(System.String,System.String,System.String,System.String)" -->
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.CreateUser(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Object,System.Web.Security.MembershipCreateStatus@)">
+            <summary>
+            Create user and add to provider
+            </summary>
+            <param name="username">Username</param>
+            <param name="password">Password</param>
+            <param name="email">Email Address</param>
+            <param name="passwordQuestion">Password Question</param>
+            <param name="passwordAnswer">Password Answer - used for password retrievals.</param>
+            <param name="isApproved">Is the User approved?</param>
+            <param name="providerUserKey">Provider User Key to identify the User</param>
+            <param name="status">Out - MembershipCreateStatus object containing status of the Create User process</param>
+            <returns> Boolean depending on whether the deletion was successful</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.DeleteUser(System.String,System.Boolean)">
+            <summary>
+            Delete User and User's information from provider
+            </summary>
+            <param name="username">Username to delete</param>
+            <param name="deleteAllRelatedData">Delete all related daata</param>
+            <returns> Boolean depending on whether the deletion was successful</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.FindUsersByEmail(System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Retrieves all users into a MembershupUserCollection where Email Matches
+            </summary>
+            <param name="emailToMatch">Email use as filter criteria</param>
+            <param name="pageIndex">Page Index</param>
+            <param name="userIsOnline">How many records to the page</param>
+            <param name="totalRecords">Out - Number of records held</param>
+            <returns>MembershipUser Collection</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.FindUsersByName(System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Retrieves all users into a MembershupUserCollection where Username matches
+            </summary>
+            <param name="usernameToMatch">Username use as filter criteria</param>
+            <param name="pageIndex">Page Index</param>
+            <param name="userIsOnline">How many records to the page</param>
+            <param name="totalRecords">Out - Number of records held</param>
+            <returns>MembershipUser Collection</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetAllUsers(System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Retrieves all users into a MembershupUserCollection
+            </summary>
+            <param name="pageIndex">Page Index</param>
+            <param name="userIsOnline">How many records to the page</param>
+            <param name="totalRecords">Out - Number of records held</param>
+            <returns>MembershipUser Collection</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetNumberOfUsersOnline">
+            <summary>
+            Retrieves the number of users currently online for this application
+            </summary>
+            <returns>Number of users online</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetPassword(System.String,System.String)">
+            <summary>
+            Retrieves the Users password (if EnablePasswordRetrieval is true)
+            </summary>
+            <param name="username">Username to retrieve password for</param>
+            <param name="answer">Answer to the Users Membership Question</param>
+            <param name="newPasswordQuestion">New question</param>
+            <param name="newPasswordAnswer">New answer</param>
+            <returns> Password unencrypted</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetUser(System.String,System.Boolean)">
+            <summary>
+            Retrieves a MembershipUser object from the criteria given
+            </summary>
+            <param name="username">Username to be foundr</param>
+            <param name="userIsOnline">Is the User currently online</param>
+            <returns>MembershipUser object</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetUser(System.Object,System.Boolean)">
+            <summary>
+            Retrieves a MembershipUser object from the criteria given
+            </summary>
+            <param name="providerUserKey">User to be found based on UserKey</param>
+            <param name="userIsOnline">Is the User currently online</param>
+            <returns>MembershipUser object</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetUserNameByEmail(System.String)">
+            <summary>
+            Retrieves a MembershipUser object from the criteria given
+            </summary>
+            <param name="providerUserKey">User to be found based on UserKey</param>
+            <param name="userIsOnline">Is the User currently online</param>
+            <returns>Username as string</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.ResetPassword(System.String,System.String)">
+            <summary>
+            Reset a users password - *
+            </summary>
+            <param name="username">User to be found based by Name</param>
+            <param name="answer">Verifcation that it is them</param>
+            <returns>Username as string</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.UnlockUser(System.String)">
+            <summary>
+            Unlocks a users account
+            </summary>
+            <param name="username">User to be found based by Name</param>
+            <returns>True/False is users account has been unlocked</returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.UpdateUser(System.Web.Security.MembershipUser)">
+            <summary>
+            Updates a providers user information
+            </summary>
+            <param name="user">MembershipUser object</param>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.ValidateUser(System.String,System.String)">
+            <summary>
+            Validates a user by user name / password
+            </summary>
+            <param name="username">Username</param>
+            <param name="password">Password</param>
+            /// <returns>True/False whether username/password match what is on database.</returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.DB.AddUserToRole(System.Object,System.Object,System.Object)">
+            <summary>
+            Database Action - Add User to Role
+            </summary>
+            <param name="appName">Application Name</param>
+            <param name="userName">User Name</param>
+            <param name="roleName">Role Name</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.DB.CreateRole(System.Object,System.Object)">
+            <summary>
+            Database Action - Create Role
+            </summary>
+            <param name="appName">Application Name</param>
+            <param name="roleName">Role Name</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.DB.DeleteRole(System.Object,System.Object,System.Object)">
+            <summary>
+            Database Action - Delete Role
+            </summary>
+            <param name="appName">Application Name</param>
+            <param name="roleName">Role Name</param>
+            <returns>Status as integer</returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.DB.FindUsersInRole(System.Object,System.Object)">
+            <summary>
+            Database Action - Find Users in Role
+            </summary>
+            <param name="appName">Application Name</param>
+            <param name="roleName">Role Name</param>
+            <returns>Datatable containing User Information</returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.DB.GetRoles(System.Object,System.Object)">
+            <summary>
+            Database Action - Get Roles
+            </summary>
+            <param name="appName">Application Name</param>
+            <param name="roleNames">Role Name</param>
+            <returns>Database containing Role Information</returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.DB.GetRoleExists(System.Object,System.Object)">
+            <summary>
+            Database Action - Get Role Exists
+            </summary>
+            <param name="appName">Application Name</param>
+            <param name="roleName">Role Name</param>
+            <returns>Database containing Role Information</returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.DB.IsUserInRole(System.Object,System.Object,System.Object)">
+            <summary>
+            Database Action - Add User to Role
+            </summary>
+            <param name="appName">Application Name</param>
+            <param name="userName">User Name</param>
+            <param name="roleName">Role Name</param>
+            <returns>DataTable with user information</returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.DB.RemoveUserFromRole(System.Object,System.String,System.String)">
+            <summary>
+            Database Action - Remove User From Role
+            </summary>
+            <param name="appName">Application Name</param>
+            <param name="userName">User Name</param>
+            <param name="roleName">Role Name</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Sets up the profile providers
+            </summary>
+            <param name="name"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.AddUsersToRoles(System.String[],System.String[])">
+            <summary>
+            Adds a list of users to a list of groups
+            </summary>
+            <param name="usernames">List of Usernames</param>
+            <param name="roleNames">List of Rolenames</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.CreateRole(System.String)">
+            <summary>
+            Creates a role
+            </summary>
+            <param name="roleName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.DeleteRole(System.String,System.Boolean)">
+            <summary>
+            Deletes a role
+            </summary>
+            <param name="roleName"></param>
+            <param name="throwOnPopulatedRole"></param>
+            <returns>True or False</returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.FindUsersInRole(System.String,System.String)">
+            <summary>
+            Adds a list of users to a list of groups
+            </summary>
+            <param name="roleName">Rolename</param>
+            <param name="usernameToMatch">like Username used in search</param>
+            <returns>List of Usernames</returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.GetAllRoles">
+            <summary>
+            Grabs all the roles from the DB
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.GetRolesForUser(System.String)">
+            <summary>
+            Grabs all the roles from the DB
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.GetUsersInRole(System.String)">
+            <summary>
+            Gets a list of usernames in a a particular role
+            </summary>
+            <param name="roleName">Rolename</param>
+            <returns>List of Usernames</returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.IsUserInRole(System.String,System.String)">
+            <summary>
+            Check to see if user belongs to a role
+            </summary>
+            <param name="username">Username</param>
+            <param name="roleName">Rolename</param>
+            <returns>True/False</returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.RemoveUsersFromRoles(System.String[],System.String[])">
+            <summary>
+            Remove Users From Roles
+            </summary>
+            <param name="usernames">Usernames</param>
+            <param name="roleNames">Rolenames</param>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.RoleExists(System.String)">
+            <summary>
+            Check to see if a role exists
+            </summary>
+            <param name="roleName">Rolename</param>
+            <returns>True/False</returns>
+        </member>
+        <member name="M:YAF.Providers.Utils.ExceptionReporter.ExceptionXML">
+            <summary>
+            Return XMLDocument containing text for the Exceptions
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Utils.ExceptionReporter.GetReport(System.String,System.String)">
+            <summary>
+            Get Exception String
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Utils.ExceptionReporter.Throw(System.String,System.String)">
+            <summary>
+            Throw Exception
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Utils.ExceptionReporter.ThrowArgument(System.String,System.String)">
+            <summary>
+            Throw ArgumentException
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Utils.ExceptionReporter.ThrowArgumentNull(System.String,System.String)">
+            <summary>
+            Throw ArgumentNullException
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Utils.ExceptionReporter.ThrowNotSupported(System.String,System.String)">
+            <summary>
+            Throw NotSupportedException
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Utils.ExceptionReporter.ThrowProvider(System.String,System.String)">
+            <summary>
+            Throw ProviderException
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Utils.ExceptionReporter.ProviderExceptionFile">
+            <summary>
+            Get Exception XML File Name from AppSettings
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Membership.UserPasswordInfo.#ctor(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean,System.DateTime,System.DateTime,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Called to create a new UserPasswordInfo class instance.
+            </summary>
+            <param name="password"></param>
+            <param name="passwordSalt"></param>
+            <param name="passwordQuestion"></param>
+            <param name="passwordAnswer"></param>
+            <param name="passwordFormat"></param>
+            <param name="failedPasswordAttempts"></param>
+            <param name="failedAnswerAttempts"></param>
+            <param name="isApproved"></param>
+            <param name="useSalt"></param>
+            <param name="lastLogin"></param>
+            <param name="lastActivity"></param>
+        </member>
+        <member name="M:YAF.Providers.Membership.UserPasswordInfo.IsCorrectPassword(System.String)">
+            <summary>
+            Checks the password against the one provided for validity
+            </summary>
+            <param name="passwordToCheck"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.UserPasswordInfo.IsCorrectAnswer(System.String)">
+            <summary>
+            Checks the user answer against the one provided for validity
+            </summary>
+            <param name="answerToCheck"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

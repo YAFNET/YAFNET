@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YAF.Classes.Config</name>
+    </assembly>
+    <members>
+        <member name="T:YAF.Classes.Pattern.RegistryDictionaryOverride">
+            <summary>
+            Provides a method for automatic overriding of a base hash...
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Constants">
+            <summary>
+            For globally or multiple times used constants
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Constants.UserBox">
+            <summary>
+            Constants for UserBox templating
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Constants.Cache">
+            <summary>
+            Cache key constants
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.TypeDictionary">
+            <summary>
+            Allows basic type conversion of Dictionary objects.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Config">
+            <summary>
+            Static class that access the app settings in the web.config file
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BoardID">
+            <summary>
+            Current BoardID -- default is 1.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.CategoryID">
+            <summary>
+            Current CategoryID -- default is null.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.EnableURLRewriting">
+            <summary>
+            Is Url Rewriting enabled? -- default is false.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BaseScriptFile">
+            <summary>
+            Used for Url Rewriting -- default is "default.aspx"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BaseUrl">
+            <summary>
+            Returns null if value does not exist.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UploadDir">
+            <summary>
+            Directory to use for uploading -- default is "~/upload/"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ShowToolBar">
+            <summary>
+            Display the default toolbar at the top -- default is "true"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ShowFooter">
+            <summary>
+            Diisplay the footer at the bottom of the page -- default is "true"
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UseSMTPSSL">
+            <summary>
+            Use an SSL connection for the SMTP server -- default is "false"
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.ForumPages">
+            <summary>
+            List of all pages available in the YAF forum
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UrlBuilder">
+            <summary>
+            Implements URL Builder.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.IUrlBuilder">
+            <summary>
+            Defines interface for UrlBuilder class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.IUrlBuilder.BuildUrl(System.String)">
+            <summary>
+            Builds URL for calling page with URL argument as and parameter.
+            </summary>
+            <param name="url">URL to use as a parameter.</param>
+            <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+        </member>
+        <member name="M:YAF.Classes.UrlBuilder.BuildUrl(System.String)">
+            <summary>
+            Builds URL for calling page with parameter URL as page's escaped parameter.
+            </summary>
+            <param name="url">URL to put into parameter.</param>
+            <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+        </member>
+        <member name="T:YAF.Classes.YafControlSettings">
+            <summary>
+            Class provides glue/settings transfer between YAF forum control and base classes
+            </summary>
+        </member>
+    </members>
+</doc>
