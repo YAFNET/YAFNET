@@ -19,7 +19,6 @@
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using AjaxControlToolkit;
 using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Utils;
@@ -31,7 +30,6 @@ namespace YAF.Controls
 	/// </summary>
 	public class Pager : BaseControl, System.Web.UI.IPostBackEventHandler
 	{
-		private PopupControlExtender _popupControlExt = new PopupControlExtender();
 		private Label _pageLabel = new Label();
 		private GotoPageForm _gotoPageForm = new GotoPageForm();
 		private bool _usePostBack = true;
@@ -63,6 +61,10 @@ namespace YAF.Controls
 
 		void Pager_Init( object sender, EventArgs e )
 		{
+			// init the necessary js...
+			PageContext.PageElements.RegisterJQuery();
+			PageContext.PageElements.RegisterJsResourceInclude( "yafjs", "js/yaf.js" );
+
 			if ( !_ignorePageIndex && System.Web.HttpContext.Current.Request.QueryString ["p"] != null )
 			{
 				// set a new page...
@@ -71,22 +73,69 @@ namespace YAF.Controls
 
 			_pageLabel.ID = GetExtendedID( "PageLabel" );
 			_gotoPageForm.ID = GetExtendedID( "GotoPageForm" );
-			_popupControlExt.ID = GetExtendedID( "PopupControlExt" );
 
 			this.Controls.Add( _pageLabel );
-			this.Controls.Add( _popupControlExt );
 			this.Controls.Add( _gotoPageForm );
 
-			_popupControlExt.TargetControlID = _pageLabel.ID;
-			_popupControlExt.PopupControlID = _gotoPageForm.ID;
-			_popupControlExt.Position = PopupControlPopupPosition.Bottom;
+			PageContext.PageElements.RegisterCssBlock( "PagerCss", "#simplemodal-overlay {background-color:#000;}" );
+			_pageLabel.Attributes.Add( "style", "cursor: pointer" );
 
-			// init the necessary js...
-			PageContext.PageElements.RegisterJsResourceInclude( "yafjs", "js/yaf.js" );
+			string onOpenJs =
+				@"onOpen: function (dialog) {	dialog.container.fadeIn('slow'); }";
+
+			string modalFunction =
+				String.Format(
+					@"jQuery.fn.getBox = function() {{
+  return {{
+    left: $(this).offset().left,
+    top: $(this).offset().top,
+    width: $(this).outerWidth(),
+    height: $(this).outerHeight()
+  }};
+}};
+
+var gotoForumSuppressClick = false;
+
+openGotoPageClick = function(e) {{
+	gotoForumSuppressClick = true;
+}};
+
+openGotoPageForm = function(id) {{
+var labelBox = jQuery('#' + id).getBox();
+var modalBox = jQuery('#{0}').getBox();
+var gotoForm = jQuery('#{0}');
+
+gotoForm.css({{position:'absolute',zindex:999,top:labelBox.top+labelBox.height,left:labelBox.left}});
+gotoForm.fadeIn( 'slow', function() {{
+	jQuery('#{0}').bind('click', openGotoPageClick);
+	jQuery(document).bind('click', function() {{
+		if ( !gotoForumSuppressClick )
+		{{
+			jQuery('#{0}').hide();
+			var fn = arguments.callee;
+			jQuery(document).unbind('click', fn);
+			jQuery('#{0}').unbind('click', openGotoPageClick);
+		}}
+		gotoForumSuppressClick = false;
+	}});                      
+}});
+}};
+
+", _gotoPageForm.ClientID, "forum1", _gotoPageForm.MainPanel.ClientID );
+
+			// register...
+			PageContext.PageElements.RegisterJsBlock( "OpenGotoPageFormJs", modalFunction );
+
+
+			PageContext.PageElements.RegisterJsBlockStartup( "PagerForm" + this.ClientID,
+			                                          String.Format(
+			                                          	@"jQuery('#{0}').click(function() {{ openGotoPageForm('{0}'); }});",
+			                                          	_pageLabel.ClientID ) );
+
 
 			// change the cursor to hand when over link...
-			_pageLabel.Attributes.Add( "onmouseover", @"yaf_mouseover()" );
-			_popupControlExt.Animations = @"<OnHide><Sequence><FadeOut duration=""0.3"" fps=""30"" minimumOpacity=""0""></FadeOut><HideAction Visible=""false"" /></Sequence></OnHide><OnShow><Sequence><HideAction Visible=""true"" /><FadeIn duration=""0.3"" fps=""30""></FadeIn></Sequence></OnShow>";
+			//_pageLabel.Attributes.Add( "onmouseover", @"yaf_mouseover()" );
+			//_popupControlExt.Animations = @"<OnHide><Sequence><FadeOut duration=""0.3"" fps=""30"" minimumOpacity=""0""></FadeOut><HideAction Visible=""false"" /></Sequence></OnHide><OnShow><Sequence><HideAction Visible=""true"" /><FadeIn duration=""0.3"" fps=""30""></FadeIn></Sequence></OnShow>";
 
 			// hook up events...
 			_gotoPageForm.GotoPageClick += new EventHandler<GotoPageForumEventArgs>( _gotoPageForm_GotoPageClick );
@@ -133,9 +182,7 @@ namespace YAF.Controls
 
 			output.WriteLine( String.Format( @"<div class=""yafpager"" id=""{0}"">", this.ClientID ) );
 
-			_popupControlExt.RenderControl( output );
-
-			output.WriteLine( @"<span class=""pagecount"">" );
+			_pageLabel.CssClass = "pagecount";
 
 			// have to be careful about localization because the pager is used in the admin pages...
 			string pagesText = "Pages";
@@ -148,8 +195,6 @@ namespace YAF.Controls
 
 			// render this control...
 			_pageLabel.RenderControl( output );
-
-			output.WriteLine( @"</span>" );
 
 			OutputLinks( output, UsePostBack );
 

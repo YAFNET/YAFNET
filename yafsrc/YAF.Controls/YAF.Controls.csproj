@@ -57,10 +57,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="AjaxControlToolkit, Version=3.0.20229.22157, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\YetAnotherForum.NET\Bin\Net3.5\AjaxControlToolkit.dll</HintPath>
-    </Reference>
     <Reference Include="System.Core">
     </Reference>
     <Reference Include="System.Web.Extensions">
@@ -86,14 +82,12 @@
     <Compile Include="MessagePost.cs" />
     <Compile Include="MessagePostData.cs" />
     <Compile Include="MessageSignature.cs" />
-    <Compile Include="ModalBase.cs" />
     <Compile Include="BBCodeModule.cs" />
     <Compile Include="MyLinkButton.cs" />
     <Compile Include="PageAccess.cs" />
     <Compile Include="PageLinks.cs" />
     <Compile Include="Pager.cs" />
     <Compile Include="PopMenu.cs" />
-    <Compile Include="ModalNotification.cs" />
     <Compile Include="ProfileMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statistics\ActiveDiscussions.cs" />

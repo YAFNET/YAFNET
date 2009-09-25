@@ -30,6 +30,23 @@ namespace YAF.Controls
 		private TextBox _gotoTextBox = new TextBox();
 		private Button _gotoButton = new Button();
 		private Label _headerText = new Label();
+		private HtmlGenericControl _divInner = new HtmlGenericControl();
+
+		public Panel MainPanel
+		{
+			get
+			{
+				return _mainPanel;
+			}
+		}
+
+		public HtmlGenericControl InnerDiv
+		{
+			get
+			{
+				return _divInner;
+			}
+		}
 
 		public GotoPageForm()
 			: base()
@@ -65,6 +82,7 @@ namespace YAF.Controls
 			this.Controls.Add( _mainPanel );
 
 			_mainPanel.CssClass = "gotoBase";
+			_mainPanel.ID = GetExtendedID( "gotoBase" );
 
 			HtmlGenericControl divHeader = new HtmlGenericControl( "div" );
 
@@ -77,10 +95,10 @@ namespace YAF.Controls
 
 			divHeader.Controls.Add( _headerText );
 
-			HtmlGenericControl divInner = new HtmlGenericControl( "div" );
-			divInner.Attributes.Add( "class", "gotoInner" );
+			_divInner.Attributes.Add( "class", "gotoInner" );
+			_divInner.ID = GetExtendedID( "gotoInner" );
 
-			_mainPanel.Controls.Add( divInner );
+			_mainPanel.Controls.Add( _divInner );
 
 			_gotoButton.ID = GetExtendedID( "GotoButton" );
 			_gotoButton.Style.Add( HtmlTextWriterStyle.Width, "30px" );
@@ -93,8 +111,8 @@ namespace YAF.Controls
 			_gotoTextBox.ID = GetExtendedID( "GotoTextBox" );
 			_gotoTextBox.Style.Add( HtmlTextWriterStyle.Width, "30px" );
 
-			divInner.Controls.Add( _gotoTextBox );
-			divInner.Controls.Add( _gotoButton );
+			_divInner.Controls.Add( _gotoTextBox );
+			_divInner.Controls.Add( _gotoButton );
 
 			// add enter key support...
 			_gotoTextBox.Attributes.Add( "onkeydown",
