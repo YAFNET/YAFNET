@@ -36,12 +36,12 @@ namespace YAF.Modules
 			
 		}
 
-		override public void InitAfterPage()
+		public override void InitBeforePage()
 		{
-			CurrentForumPage.Load += new EventHandler(CurrentPage_Load);
+			PageContext.PagePreLoad += new EventHandler<EventArgs>( CurrentForumPage_PreLoad );
 		}
 
-		void CurrentPage_Load(object sender, EventArgs e)
+		void CurrentForumPage_PreLoad( object sender, EventArgs e )
 		{
 			// no security features for login/logout pages
 			if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.approve || ForumPageType == ForumPages.logout)
