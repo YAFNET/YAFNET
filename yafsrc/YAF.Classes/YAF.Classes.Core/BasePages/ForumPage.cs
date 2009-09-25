@@ -66,6 +66,7 @@ namespace YAF.Classes.Core
 		private bool _checkSuspended = true;
 		private string _transPage = string.Empty;
 
+		public event EventHandler<EventArgs> PreLoad;
 		public event EventHandler<ForumPageRenderedArgs> ForumPageRendered;
 
 		protected bool _isAdminPage = false;
@@ -159,6 +160,9 @@ namespace YAF.Classes.Core
 		/// <param name="e"></param>
 		void ForumPage_Init( object sender, EventArgs e )
 		{
+			// fire init event...
+			YafContext.Current.ForumPageInit( this, new EventArgs() );
+
 			if ( _noDataBase )
 				return;
 
@@ -198,6 +202,9 @@ namespace YAF.Classes.Core
 			{
 				Mession.LastVisit = DateTime.Now;
 			}
+
+			// fire preload event...
+			YafContext.Current.ForumPagePreLoad( this, new EventArgs() );
 		}
 
 		/// <summary>

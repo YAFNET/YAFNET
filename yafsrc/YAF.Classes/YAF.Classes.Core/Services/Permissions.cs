@@ -60,7 +60,7 @@ namespace YAF.Classes.Core
 				{
 					if (Config.AllowLoginAndLogoff)
 					{
-						YafBuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
+						YafBuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", HttpUtility.UrlEncode(General.GetSafeRawUrl()));
 						noAccess = false;
 					}
 					else if (!String.IsNullOrEmpty(YafContext.Current.BoardSettings.CustomLoginRedirectUrl))
@@ -70,7 +70,7 @@ namespace YAF.Classes.Core
 						if (loginRedirectUrl.Contains("{0}"))
 						{
 							// process for return url..
-							loginRedirectUrl = String.Format(loginRedirectUrl, General.GetSafeRawUrl(HttpContext.Current.Request.Url.ToString()));
+							loginRedirectUrl = String.Format(loginRedirectUrl, HttpUtility.UrlEncode(General.GetSafeRawUrl(HttpContext.Current.Request.Url.ToString())));
 						}
 						// allow custom redirect...
 						HttpContext.Current.Response.Redirect(loginRedirectUrl);

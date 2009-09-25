@@ -38,7 +38,9 @@ namespace YAF.Classes.Core
 		protected ForumPage _currentForumPage = null;
 
 		public event EventHandler<EventArgs> Init;
+		public event EventHandler<EventArgs> PageInit;
 		public event EventHandler<EventArgs> PageLoad;
+		public event EventHandler<EventArgs> PagePreLoad;
 		public event EventHandler<EventArgs> PageUnload;
 		public event EventHandler<EventArgs> Unload;
 
@@ -46,6 +48,26 @@ namespace YAF.Classes.Core
 		{
 			// init context...
 			if (Init != null) Init(this, new EventArgs());
+		}
+
+		/// <summary>
+		/// Fired from ForumPage
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		internal void ForumPageInit( object sender, EventArgs e)
+		{
+			if ( PageInit != null ) PageInit(this,new EventArgs());
+		}
+
+		/// <summary>
+		/// Fired from ForumPage
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		internal void ForumPagePreLoad( object sender, EventArgs e)
+		{
+			if ( PagePreLoad != null ) PagePreLoad(this,new EventArgs());
 		}
 
 		protected void ForumPageLoad( object sender, EventArgs e )
