@@ -31,11 +31,11 @@ namespace YAF.Classes
 	/// </summary>
 	public static class Config
 	{
-		static public string GetConfigValueAsString(string configKey)
+		static public string GetConfigValueAsString( string configKey )
 		{
-			foreach (string key in WebConfigurationManager.AppSettings.AllKeys)
+			foreach ( string key in WebConfigurationManager.AppSettings.AllKeys )
 			{
-				if (key.Equals(configKey, StringComparison.CurrentCultureIgnoreCase))
+				if ( key.Equals( configKey, StringComparison.CurrentCultureIgnoreCase ) )
 				{
 					return ConfigurationManager.AppSettings[key];
 				}
@@ -44,13 +44,13 @@ namespace YAF.Classes
 			return null;
 		}
 
-		static public bool GetConfigValueAsBool(string configKey, bool defaultValue)
+		static public bool GetConfigValueAsBool( string configKey, bool defaultValue )
 		{
-			string value = GetConfigValueAsString(configKey);
+			string value = GetConfigValueAsString( configKey );
 
-			if (!String.IsNullOrEmpty(value))
+			if ( !String.IsNullOrEmpty( value ) )
 			{
-				return Convert.ToBoolean(value.ToLower());
+				return Convert.ToBoolean( value.ToLower() );
 			}
 
 			return defaultValue;
@@ -63,7 +63,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return (GetConfigValueAsString("YAF.BoardID") ?? "1");
+				return ( GetConfigValueAsString( "YAF.BoardID" ) ?? "1" );
 			}
 		}
 
@@ -74,7 +74,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsString("YAF.CategoryID");
+				return GetConfigValueAsString( "YAF.CategoryID" );
 			}
 		}
 
@@ -85,7 +85,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsBool("YAF.EnableUrlRewriting", false);
+				return GetConfigValueAsBool( "YAF.EnableUrlRewriting", false );
 			}
 		}
 
@@ -96,7 +96,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return (GetConfigValueAsString("YAF.BaseScriptFile") ?? "default.aspx");
+				return ( GetConfigValueAsString( "YAF.BaseScriptFile" ) ?? "default.aspx" );
 			}
 		}
 
@@ -107,7 +107,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsString("YAF.BaseURL");
+				return GetConfigValueAsString( "YAF.BaseURL" );
 			}
 		}
 
@@ -115,7 +115,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsBool("YAF.BaseURLOverrideDomain", false);
+				return GetConfigValueAsBool( "YAF.BaseURLOverrideDomain", false );
 			}
 		}
 
@@ -126,7 +126,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsString("YAF.UploadDir") ?? "~/upload/";
+				return GetConfigValueAsString( "YAF.UploadDir" ) ?? "~/upload/";
 			}
 		}
 
@@ -134,7 +134,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsString("YAF.ProviderKeyType") ?? "System.Guid";
+				return GetConfigValueAsString( "YAF.ProviderKeyType" ) ?? "System.Guid";
 			}
 		}
 
@@ -154,12 +154,11 @@ namespace YAF.Classes
 			}
 		}
 
-
 		static public bool AllowLoginAndLogoff
 		{
 			get
 			{
-				return GetConfigValueAsBool("YAF.AllowLoginAndLogoff", true);
+				return GetConfigValueAsBool( "YAF.AllowLoginAndLogoff", true );
 			}
 		}
 
@@ -167,7 +166,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsString("YAF.Root");
+				return GetConfigValueAsString( "YAF.Root" );
 			}
 		}
 
@@ -176,7 +175,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsString("YAF.ConnectionStringName") ?? "yafnet";
+				return GetConfigValueAsString( "YAF.ConnectionStringName" ) ?? "yafnet";
 			}
 		}
 
@@ -184,55 +183,55 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return Config.GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
+				return Config.GetConfigValueAsString( "YAF.DatabaseOwner" ) ?? "dbo";
 			}
 		}
-        
-        static public string DatabaseObjectQualifier
+
+		static public string DatabaseObjectQualifier
 		{
 			get
 			{
-				return Config.GetConfigValueAsString("YAF.DatabaseObjectQualifier") ?? "yaf_";
+				return Config.GetConfigValueAsString( "YAF.DatabaseObjectQualifier" ) ?? "yaf_";
 			}
 		}
 
-        // Different data layers specific settings
+		// Different data layers specific settings
 
-       
-        static public String DatabaseEncoding
-        {          
-            get          
-            {              
-                return Config.GetConfigValueAsString("YAF.DatabaseEncoding"); 
-           
-            }       
-        }
-    
-        static public String DatabaseCollation       
-        {            
-            get            
-            {              
-                return Config.GetConfigValueAsString("YAF.DatabaseCollation");
-           
-            }        
-        } 
-       
-        static public String SchemaName
-        {
-           get            
-           {      
-               return Config.GetConfigValueAsString("YAF.DatabaseSchemaName");       
-           }        
-        }
 
-       static public String WithOIDs
-       {            
-          get           
-          {           
-              return Config.GetConfigValueAsString("YAF.DatabaseWithOIDs");
-           
-          }       
-       }
+		static public String DatabaseEncoding
+		{
+			get
+			{
+				return Config.GetConfigValueAsString( "YAF.DatabaseEncoding" );
+
+			}
+		}
+
+		static public String DatabaseCollation
+		{
+			get
+			{
+				return Config.GetConfigValueAsString( "YAF.DatabaseCollation" );
+
+			}
+		}
+
+		static public String SchemaName
+		{
+			get
+			{
+				return Config.GetConfigValueAsString( "YAF.DatabaseSchemaName" );
+			}
+		}
+
+		static public String WithOIDs
+		{
+			get
+			{
+				return Config.GetConfigValueAsString( "YAF.DatabaseWithOIDs" );
+
+			}
+		}
 
 		#endregion
 
@@ -243,7 +242,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsBool("YAF.ShowToolBar", true);
+				return GetConfigValueAsBool( "YAF.ShowToolBar", true );
 			}
 		}
 
@@ -254,7 +253,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsBool("YAF.ShowFooter", true);
+				return GetConfigValueAsBool( "YAF.ShowFooter", true );
 			}
 		}
 
@@ -265,7 +264,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsBool("YAF.UseSMTPSSL", false);
+				return GetConfigValueAsBool( "YAF.UseSMTPSSL", false );
 			}
 		}
 
@@ -274,7 +273,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsString("YAF.RadEditorSkin") ?? "Vista";
+				return GetConfigValueAsString( "YAF.RadEditorSkin" ) ?? "Vista";
 			}
 		}
 
@@ -282,8 +281,8 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsString("YAF.RadEditorToolsFile") ??
-							 String.Format("{0}/editors/RadEditor/ToolsFile.xml", Config.Root);
+				return GetConfigValueAsString( "YAF.RadEditorToolsFile" ) ??
+							 String.Format( "{0}/editors/RadEditor/ToolsFile.xml", Config.Root );
 			}
 		}
 
@@ -291,11 +290,11 @@ namespace YAF.Classes
 		{
 			get
 			{
-				string value = GetConfigValueAsString("YAF.UseRadEditorToolsFile");
+				string value = GetConfigValueAsString( "YAF.UseRadEditorToolsFile" );
 
-				if (!String.IsNullOrEmpty(value))
+				if ( !String.IsNullOrEmpty( value ) )
 				{
-					switch (value.ToLower().Substring(0, 1))
+					switch ( value.ToLower().Substring( 0, 1 ) )
 					{
 						case "1":
 						case "t":
@@ -321,12 +320,12 @@ namespace YAF.Classes
 			}
 		}
 
-		[Obsolete("Legacy: Phasing out")]
+		[Obsolete( "Legacy: Phasing out" )]
 		static public string LogToMail
 		{
 			get
 			{
-				return GetConfigValueAsString("YAF.LogToMail");
+				return GetConfigValueAsString( "YAF.LogToMail" );
 			}
 		}
 
@@ -335,7 +334,7 @@ namespace YAF.Classes
 			get
 			{
 				object obj = HttpContext.Current.Items["PortalSettings"];
-				return obj != null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke") >= 0;
+				return obj != null && obj.GetType().ToString().ToLower().IndexOf( "dotnetnuke" ) >= 0;
 			}
 		}
 
@@ -344,7 +343,7 @@ namespace YAF.Classes
 			get
 			{
 				object obj = HttpContext.Current.Items["SiteSettings"];
-				return obj != null && obj.GetType().ToString().ToLower().IndexOf("mojoportal") >= 0;
+				return obj != null && obj.GetType().ToString().ToLower().IndexOf( "mojoportal" ) >= 0;
 			}
 		}
 
@@ -353,7 +352,7 @@ namespace YAF.Classes
 			get
 			{
 				object obj = HttpContext.Current.Items["PortalSettings"];
-				return obj != null && obj.GetType().ToString().ToLower().IndexOf("rainbow") >= 0;
+				return obj != null && obj.GetType().ToString().ToLower().IndexOf( "rainbow" ) >= 0;
 			}
 		}
 
@@ -365,19 +364,19 @@ namespace YAF.Classes
 			}
 		}
 
-        static public bool IsPortalomatic
-        {
-            get
-            {
-                return HttpContext.Current.Session["Portalomatic.NET"] != null;
-            }
-        }
+		static public bool IsPortalomatic
+		{
+			get
+			{
+				return HttpContext.Current.Session["Portalomatic.NET"] != null;
+			}
+		}
 
 		static public bool IsAnyPortal
 		{
 			get
 			{
-                return (IsDotNetNuke || IsRainbow || IsMojoPortal || IsPortal || IsPortalomatic);
+				return ( IsDotNetNuke || IsRainbow || IsMojoPortal || IsPortal || IsPortalomatic );
 			}
 		}
 
@@ -393,31 +392,31 @@ namespace YAF.Classes
 		{
 			get
 			{
-				if (HttpContext.Current.Application[UrlBuilderKeyName] == null)
+				if ( HttpContext.Current.Application[UrlBuilderKeyName] == null )
 				{
 					string urlAssembly;
 
-					if (IsRainbow)
+					if ( IsRainbow )
 					{
 						urlAssembly = "yaf_rainbow.RainbowUrlBuilder,yaf_rainbow";
 					}
-					else if (IsDotNetNuke)
+					else if ( IsDotNetNuke )
 					{
 						urlAssembly = "yaf_dnn.DotNetNukeUrlBuilder,yaf_dnn";
 					}
-					else if (IsMojoPortal)
+					else if ( IsMojoPortal )
 					{
 						urlAssembly = "yaf_mojo.MojoPortalUrlBuilder,yaf_mojo";
 					}
-					else if (IsPortal)
+					else if ( IsPortal )
 					{
 						urlAssembly = "Portal.UrlBuilder,Portal";
 					}
-                    else if (IsPortalomatic)
-                    {
-                        urlAssembly = "Portalomatic.NET.Utils.URLBuilder,Portalomatic.NET.Utils";
-                    }
-					else if (EnableURLRewriting)
+					else if ( IsPortalomatic )
+					{
+						urlAssembly = "Portalomatic.NET.Utils.URLBuilder,Portalomatic.NET.Utils";
+					}
+					else if ( EnableURLRewriting )
 					{
 						urlAssembly = "YAF.Classes.RewriteUrlBuilder,YAF.Classes.Utils";
 					}
@@ -426,7 +425,7 @@ namespace YAF.Classes
 						urlAssembly = "YAF.Classes.UrlBuilder";
 					}
 
-					HttpContext.Current.Application[UrlBuilderKeyName] = Activator.CreateInstance(Type.GetType(urlAssembly));
+					HttpContext.Current.Application[UrlBuilderKeyName] = Activator.CreateInstance( Type.GetType( urlAssembly ) );
 				}
 
 				return (IUrlBuilder)HttpContext.Current.Application[UrlBuilderKeyName];
