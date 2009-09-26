@@ -19,7 +19,7 @@
             <tr>
                 <td class="post">
                     <b>*.<%# HtmlEncode(Eval("extension")) %></b></td>
-                <td class="post">
+                <td class="post" style="white-space:nowrap">
                     <asp:LinkButton runat="server" Text="Edit" CommandName="edit" CommandArgument='<%# Eval("extensionId") %>'
                         ID="Linkbutton1">
                     </asp:LinkButton>
