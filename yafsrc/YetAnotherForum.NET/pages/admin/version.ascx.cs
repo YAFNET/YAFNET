@@ -55,6 +55,9 @@ namespace YAF.Pages.Admin
 				_lastVersion = 0;
 			}
 			Upgrade.Visible = _lastVersion > YafForumInfo.AppVersionCode;
+
+
+			DataBind();
 		}
 
 		protected string LastVersion

@@ -100,10 +100,47 @@
 {
 	display: inline;
 }
-/* One Exception: Default CSS for Syntaxt Highlighting */
+/* Exception: Default CSS for Syntaxt Highlighting */
 .yafnet .yafcodehighlighting .keytype { color : #FF9933; font-weight : normal; }
 .yafnet .yafcodehighlighting .keyword { color : #224FFF; font-weight : normal; }
 .yafnet .yafcodehighlighting .integer { color : #FF0032; }
 .yafnet .yafcodehighlighting .comment { color : #008100; }
 .yafnet .yafcodehighlighting .errors { color : #FF0000; font-weight : bold; }
 .yafnet .yafcodehighlighting .string { color : #FF0022; }
+
+/* Exception: Admin Styling */
+.yafnet .adminContainer
+{
+	width: 100%;
+}
+.yafnet .adminMenu
+{
+	padding: 5px;
+}
+.yafnet .adminMenuAccordian
+{
+	width: 200px;	
+}
+.yafnet .adminMenu ul
+{
+	margin: 0;
+	padding: 0;	
+}
+.yafnet .adminMenu li img
+{
+	vertical-align: bottom;
+}
+.yafnet .adminMenu li
+{
+	white-space:nowrap;
+	font-size: 10pt;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 4px;
+	margin-bottom: 5px;
+}
+.yafnet .adminContent
+{
+	width: 100%;
+	vertical-align: top;
+	padding-left: 5px;
+}

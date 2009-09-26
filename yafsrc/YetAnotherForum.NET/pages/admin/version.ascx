@@ -14,11 +14,11 @@
                         <td>
                             <p>
                                 You are running YetAnotherForum.NET version <b>
-                                    <%=YafForumInfo.AppVersionName%></b>.</p>
+                                    <%#YafForumInfo.AppVersionName%></b>.</p>
                             <p>
                                 The latest final version available is <b>
-                                    <%=LastVersion%></b> released <b>
-                                        <%=LastVersionDate%></b> .</p>
+                                    <%#LastVersion%></b> released <b>
+                                        <%#LastVersionDate%></b> .</p>
                             <p runat="server" id="Upgrade" visible="false">
                                 You can download the latest version from <a target="_top" href="http://sourceforge.net/project/showfiles.php?group_id=90539">
                                     here</a>.</p>

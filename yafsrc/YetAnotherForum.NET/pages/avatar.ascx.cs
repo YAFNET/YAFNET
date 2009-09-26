@@ -75,6 +75,9 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
+			// make sure event validation is off... fails on this page
+			Page.EnableEventValidation = false;
+
 			if ( Request.QueryString ["u"] != null )
 			{
 				returnUserID = Convert.ToInt32( Request.QueryString ["u"] );

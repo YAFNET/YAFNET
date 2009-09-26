@@ -4,37 +4,45 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="2">
-				Prune Topics</td>
+				Prune Topics
+			</td>
 		</tr>
 		<tr>
-		    <td class="header2" colspan="2">
-		        <asp:Label ID="lblPruneInfo" runat="server"></asp:Label>
-		    </td>
+			<td class="header2" colspan="2">
+				<asp:Label ID="lblPruneInfo" runat="server"></asp:Label>
+			</td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Select forum to prune:</b></td>
+				<b>Select forum to prune:</b>
+			</td>
 			<td class="post" width="50%">
 				<asp:DropDownList ID="forumlist" runat="server">
 				</asp:DropDownList>
+			</td>
 		</tr>
 		<tr>
 			<td class="postheader">
 				<b>Enter minimum age in days:</b><br />
-				Topics with the last post older than this will be deleted.</td>
+				Topics with the last post older than this will be deleted.
+			</td>
 			<td class="post">
 				<asp:TextBox ID="days" runat="server"></asp:TextBox>
+			</td>
 		</tr>
-				<tr>
+		<tr>
 			<td class="postheader">
 				<b>Permanently remove from DB:</b><br />
-				All Topics marked with the Deleted flag will be permanently deleted.</td>
+				All Topics marked with the Deleted flag will be permanently deleted.
+			</td>
 			<td class="post">
-				<asp:CheckBox id="permDeleteChkBox" runat="server" />
+				<asp:CheckBox ID="permDeleteChkBox" runat="server" />
+			</td>
 		</tr>
 		<tr>
 			<td class="footer1" colspan="2" align="center">
-				<asp:Button ID="commit" runat="server" class="pbutton" Text="Start Prune Task" OnLoad="PruneButton_Load"></asp:Button>
+				<asp:Button ID="commit" runat="server" class="pbutton" Text="Start Prune Task" OnLoad="PruneButton_Load">
+				</asp:Button>
 			</td>
 		</tr>
 	</table>

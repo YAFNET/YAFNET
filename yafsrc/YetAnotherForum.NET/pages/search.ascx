@@ -165,7 +165,7 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 		<span class="modalOuter"><span class="modalInner"><asp:Literal ID="LoadingModalText" runat="server" OnLoad="LoadingModalText_Load"></asp:Literal>
 		</span></span>
 		<div align="center">
-			<asp:Image ID="LoadingImage" runat="server" ImageUrl="../images/loading-white.gif" alt="Searching..." />
+			<asp:Image ID="LoadingImage" runat="server" alt="Searching..." />
 		</div>		
 	</BodyTemplate>
 </DotNetAge:Dialog>

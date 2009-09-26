@@ -173,32 +173,26 @@ namespace YAF.Pages.Admin
 		{
 			// cast object to the DataRowView
 			DataRowView row = (DataRowView)dataRow;
+
 			// set defaults
-			string imageName = "eventError.gif";
 			string imageType = "Error";
 
 			// find out of what type event log entry is
-			switch ((int)row["Type"])
+			switch ( (int) row["Type"] )
 			{
-				// it's warning
 				case 1:
-					imageName = "eventWarning.gif";
 					imageType = "Warning";
 					break;
-
-				// it's information
 				case 2:
-					imageName = "eventInfo.gif";
 					imageType = "Information";
 					break;
 			}
 
 			// return HTML code of event log entry image
 			return String.Format(
-						"<img src=\"{2}images/{0}\" width=\"16\" height=\"16\" alt=\"{1}\" title=\"{0}\" />",
-						imageName,
-						imageType,
-						YafForumInfo.ForumRoot
+						@"<img src=""{0}"" alt=""{1}"" title=""{1}"" />",
+						YafForumInfo.GetURLToResource( String.Format("icons/{0}.png", imageType.ToLower()) ),
+						imageType
 						);
 		}
 

@@ -46,7 +46,7 @@
 		}
 		.wizLoader
 		{
-			background: url(../images/loading-white.gif) white no-repeat center center;
+			background: url(../resources/images/loading-white.gif) white no-repeat center center;
 			z-index: 9999;
 		}
 		.wizMain td
@@ -401,7 +401,7 @@
 						<ContentTemplate>
 							<asp:Timer ID="UpdateStatusTimer" runat="server" Interval="5000" OnTick="UpdateStatusTimer_Tick" />
 							<div align="center">
-								<asp:Image ID="LoadingImage" runat="server" ImageUrl="../images/loading-white.gif" />
+								<asp:Image ID="LoadingImage" runat="server" ImageUrl="../resources/images/loading-white.gif" />
 								<br />
 								<b>Migrating Roles and Users...</b>
 							</div>

@@ -40,6 +40,8 @@ namespace YAF.Pages.Admin
 
 			if(!IsPostBack) 
 			{
+				LoadingImage.ImageUrl = YafForumInfo.GetURLToResource( "images/loading-white.gif" );
+
 				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
 				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Forums","");

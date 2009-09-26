@@ -85,6 +85,8 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if ( !IsPostBack )
 			{
+				LoadingImage.ImageUrl = YafForumInfo.GetURLToResource( "images/loading-white.gif" );
+
 				PageLinks.AddLink( PageContext.BoardSettings.Name,
 				                   YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );

@@ -1,7 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportedspam.ascx.cs"
 	Inherits="YAF.Pages.moderate.reportedspam" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="List" runat="server">
 	<HeaderTemplate>

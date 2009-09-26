@@ -69,7 +69,7 @@
 			Deleting Forum</h2>
 		<p>Please do not navigate away from this page while the deletion is in progress...</p>
 		<div align="center">
-			<asp:Image ID="Image1" runat="server" ImageUrl="../../images/loading-white.gif" alt="Processing..." />
+			<asp:Image ID="LoadingImage" runat="server" alt="Processing..." />
 		</div>
 		<br />
 		</div>
