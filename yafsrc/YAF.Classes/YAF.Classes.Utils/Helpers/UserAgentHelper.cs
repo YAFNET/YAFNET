@@ -19,19 +19,23 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace YAF.Classes.Utils
 {
+	///<summary>
+	/// Helper for Figuring out the User Agent.
+	///</summary>
 	public static class UserAgentHelper
 	{
 		/// <summary>
-		/// Validates if the useragent is a search engine spider or not
+		/// Validates if the useragent is a search engine spider
 		/// </summary>
-		/// <param name="UserAgent"></param>
+		/// <param name="userAgent"></param>
 		/// <returns></returns>
 		static public bool IsSearchEngineSpider( string userAgent )
 		{
-			string[] spiderstrings = 
+			string[] spiderContains = 
 				{
 					"Googlebot", "Slurp", "abachoBOT", "abcdatos_botlink", "AESOP_com_SpiderMan", "ah-ha.com crawler", "ia_archiver",
 					"Scooter", "Mercator", "AltaVista-Intranet", "FAST-WebCrawler", "Acoon Robot", "antibot", "Atomz", "AxmoRobot",
@@ -48,27 +52,32 @@ namespace YAF.Classes.Utils
 					"YBSbot"
 				};
 
-			// see if the current useragent is one of these spiders...
-			string userAgentLow = userAgent.ToLower();
-
-			foreach ( string spider in spiderstrings )
+			if ( !String.IsNullOrEmpty(userAgent))
 			{
-				if ( userAgentLow.Contains( spider.Trim().ToLower() ) )
-				{
-					// it's a spider...
-					return true;
-				}
+				return spiderContains.Select( s => s.ToLower() ).Contains( userAgent.ToLower() );
 			}
 
 			return false;
 		}
 
-		public static bool IsMobile( string userAgent )
+		/// <summary>
+		/// Tests if the user agent is a mobile device.
+		/// </summary>
+		/// <param name="userAgent"></param>
+		/// <returns></returns>
+		public static bool IsMobileDevice( string userAgent )
 		{
-			userAgent = userAgent.ToLower();
-			return userAgent.Contains( "iphone" ) | userAgent.Contains( "ppc" ) | userAgent.Contains( "windows ce" ) |
-			       userAgent.Contains( "blackberry" ) | userAgent.Contains( "opera mini" ) | userAgent.Contains( "mobile" ) |
-			       userAgent.Contains( "palm" ) | userAgent.Contains( "portable" );
+			string[] mobileContains = 
+				{
+					"iphone", "ppc", "windows ce", "blackberry", "opera mini", "mobile", "palm", "portable"
+				};
+
+			if ( !String.IsNullOrEmpty( userAgent ) )
+			{
+				return mobileContains.Contains( userAgent.ToLower() );
+			}
+
+			return false;
 		}
 	}
 }

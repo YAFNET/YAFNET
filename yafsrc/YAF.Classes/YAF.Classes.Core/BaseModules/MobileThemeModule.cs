@@ -43,18 +43,16 @@ namespace YAF.Modules
 
 		public void Init()
 		{
-			// hook the page init for mail sending...
-			YafContext.Current.AfterInit +=new EventHandler<EventArgs>( Current_AfterInit );
-
+			YafContext.Current.AfterInit += new EventHandler<EventArgs>( Current_AfterInit );
 		}
 
 		void Current_AfterInit( object sender, EventArgs e )
 		{
 			// see if this is a mobile device...
-			if ( UserAgentHelper.IsMobile( HttpContext.Current.Request.UserAgent ))
+			if ( HttpContext.Current != null && UserAgentHelper.IsMobileDevice( HttpContext.Current.Request.UserAgent ) )
 			{
 				// change the theme to mobile...
-				
+				//TODO: Add Mobile Theme Code
 			}
 		}
 

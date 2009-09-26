@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<YafMenu>
+  <YafMenuSection Title="Host Administration" HostAdminOnly="true">
+    <YafMenuItem>
+      <Title>Host Settings</Title>
+      <ForumPage>admin_hostsettings</ForumPage>
+      <Image>hammer-screwdriver</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Boards</Title>
+      <ForumPage>admin_boards</ForumPage>
+      <Image>tables</Image>
+    </YafMenuItem>
+  </YafMenuSection>
+  <YafMenuSection Title="Settings" HostAdminOnly="false">
+    <YafMenuItem>
+      <Title>Admin Index</Title>
+      <ForumPage>admin_admin</ForumPage>
+      <Image>megaphone</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Board Settings</Title>
+      <ForumPage>admin_boardsettings</ForumPage>
+      <Image>node-design</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Forums</Title>
+      <ForumPage>admin_forums</ForumPage>
+      <Image>sticky-notes-pin</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Smiles</Title>
+      <ForumPage>admin_smilies</ForumPage>
+      <Image>smiley</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>File Extensions</Title>
+      <ForumPage>admin_extensions</ForumPage>
+      <Image>gear--pencil</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>BBCode Extensions</Title>
+      <ForumPage>admin_bbcode</ForumPage>
+      <Image>script-text</Image>
+    </YafMenuItem>
+  </YafMenuSection>
+  <YafMenuSection Title="Users and Roles" HostAdminOnly="false">
+    <YafMenuItem>
+      <Title>Access Masks</Title>
+      <ForumPage>admin_accessmasks</ForumPage>
+      <Image>puzzle</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Roles</Title>
+      <ForumPage>admin_groups</ForumPage>
+      <Image>marker</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Users</Title>
+      <ForumPage>admin_users</ForumPage>
+      <Image>user</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Ranks</Title>
+      <ForumPage>admin_ranks</ForumPage>
+      <Image>marker</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Medals</Title>
+      <ForumPage>admin_medals</ForumPage>
+      <Image>trophy</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Mail</Title>
+      <ForumPage>admin_mail</ForumPage>
+      <Image>mail</Image>
+    </YafMenuItem>
+  </YafMenuSection>
+  <YafMenuSection Title="Maintenance" HostAdminOnly="false">
+    <YafMenuItem>
+      <Title>Prune Topics</Title>
+      <ForumPage>admin_prune</ForumPage>
+      <Image>bin</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Private Messages</Title>
+      <ForumPage>admin_pm</ForumPage>
+      <Image>mails</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Attachments</Title>
+      <ForumPage>admin_attachments</ForumPage>
+      <Image>folders-stack</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Task Manager</Title>
+      <ForumPage>admin_taskmanager</ForumPage>
+      <Image>applications-stack</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Event Log</Title>
+      <ForumPage>admin_eventlog</ForumPage>
+      <Image>book-open-next</Image>
+    </YafMenuItem>
+  </YafMenuSection>
+  <YafMenuSection Title="Database" HostAdminOnly="false">
+    <YafMenuItem>
+      <Title>Reindex DB</Title>
+      <ForumPage>admin_reindex</ForumPage>
+      <Image>lightning</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Run SQL Query</Title>
+      <ForumPage>admin_runsql</ForumPage>
+      <Image>sql</Image>
+    </YafMenuItem>
+  </YafMenuSection>
+  <YafMenuSection Title="NNTP" HostAdminOnly="false">
+    <YafMenuItem>
+      <Title>NNTP Servers</Title>
+      <ForumPage>admin_nntpservers</ForumPage>
+      <Image>newspaper</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>NNTP Forums</Title>
+      <ForumPage>admin_nntpforums</ForumPage>
+      <Image>newspaper</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Retrieve Articles</Title>
+      <ForumPage>admin_nntpretrieve</ForumPage>
+      <Image>newspaper</Image>
+    </YafMenuItem>
+  </YafMenuSection>
+  <YafMenuSection Title="Upgrade" HostAdminOnly="false">
+    <YafMenuItem>
+      <Title>Version Check</Title>
+      <ForumPage>admin_version</ForumPage>
+      <Image>question-balloon</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Install</Title>
+      <Link>~install/</Link>
+      <Image>switch</Image>
+    </YafMenuItem>
+  </YafMenuSection>
+</YafMenu>

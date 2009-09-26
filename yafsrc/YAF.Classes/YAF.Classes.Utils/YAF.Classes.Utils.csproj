@@ -85,7 +85,7 @@
     <Compile Include="Security.cs" />
     <Compile Include="General.cs" />
     <Compile Include="Helpers\TypeHelper.cs" />
-    <Compile Include="URLBuilder\URLBuilderRewrite.cs" />
+    <Compile Include="URLBuilder\RewriteUrlBuilder.cs" />
     <Compile Include="URLBuilder\UrlParser.cs" />
     <Compile Include="UserProfile.cs" />
     <Compile Include="Helpers\QueryStringIDHelper.cs" />

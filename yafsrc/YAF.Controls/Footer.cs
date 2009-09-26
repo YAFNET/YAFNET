@@ -71,11 +71,24 @@ namespace YAF.Controls
 
 			footer.Append( @"<br/><div class=""content"" style=""text-align:right;font-size:7pt"">" );
 
+			bool br = false;
+
 			// append theme Credit if it exists...
 			if ( !String.IsNullOrEmpty( themeCredit ) )
 			{
-				footer.Append( @"<span id=""themecredit"" style=""color:#999999"">" + themeCredit + @"</span><br />" );
+				footer.AppendFormat( @"<span id=""themecredit"" style=""color:#999999"">{0}</span>", themeCredit );
+				br = true;
 			}
+
+			if ( PageContext.CurrentForumPage.IsAdminPage )
+			{
+				if ( br ) footer.Append( " | " );
+				// show admin icons license...
+				footer.Append( @"<span id=""themecredit"" style=""color:#999999""><a target=""_blank"" href=""http://www.pinvoke.com/"">Fugue Icons</a> &copy; 2009 Yusuke Kamiyamane</span>" );
+				br = true;
+			}
+
+			if ( br ) footer.Append( "<br/>" );
 
 			footer.Append( @"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">" );
 			footer.Append( PageContext.Localization.GetText( "COMMON", "POWERED_BY" ) );
@@ -95,6 +108,10 @@ namespace YAF.Controls
 				else if (YAF.Classes.Config.IsMojoPortal)
 				{
 					footer.Append(" Under MojoPortal ");
+				}
+				else if ( YAF.Classes.Config.IsPortalomatic )
+				{
+					footer.Append( " Under Portalomatic " );
 				}
 			}
 

@@ -52,8 +52,19 @@
     <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.Controls.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DNA, Version=1.1.15.42020, Culture=neutral, PublicKeyToken=04e5dde674b371f8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\YetAnotherForum.NET\Bin\Net3.5\DNA.dll</HintPath>
+    </Reference>
+    <Reference Include="DNA.UI.JQuery, Version=1.1.15.42021, Culture=neutral, PublicKeyToken=40f672d8570a48f9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\YetAnotherForum.NET\Bin\Net3.5\DNA.UI.JQuery.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
@@ -65,7 +76,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveUsers.cs" />
-    <Compile Include="AdminMenu.cs" />
+    <Compile Include="AdminMenu\AdminMenu.cs" />
+    <Compile Include="AdminMenu\YafMenu.cs">
+      <DependentUpon>YafMenu.xsd</DependentUpon>
+    </Compile>
     <Compile Include="AlphaSort.cs" />
     <Compile Include="CollapsibleImage.cs" />
     <Compile Include="Container.cs" />
@@ -147,6 +161,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AdminMenu\AdminMenuDef.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AdminMenu\YafMenu.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>YafMenu.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

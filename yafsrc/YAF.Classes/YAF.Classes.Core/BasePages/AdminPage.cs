@@ -33,9 +33,9 @@ namespace YAF.Classes.Core
 		/// Creates the Administration page.
 		/// </summary>
 		public AdminPage()
-			: base( null )
+			: this( null )
 		{
-			this.Load += new EventHandler( AdminPage_Load );
+
 		}
 
 		public AdminPage( string transPage )

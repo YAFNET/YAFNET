@@ -80,9 +80,6 @@ namespace YAF.Controls
 			PageContext.PageElements.RegisterCssBlock( "PagerCss", "#simplemodal-overlay {background-color:#000;}" );
 			_pageLabel.Attributes.Add( "style", "cursor: pointer" );
 
-			string onOpenJs =
-				@"onOpen: function (dialog) {	dialog.container.fadeIn('slow'); }";
-
 			string modalFunction =
 				String.Format(
 					@"jQuery.fn.getBox = function() {{
