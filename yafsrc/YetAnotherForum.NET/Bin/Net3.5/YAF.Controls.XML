@@ -689,6 +689,39 @@
             </summary>
             <param name="writer">The HtmlTextWriter that we are using.</param>
         </member>
+        <member name="T:YafMenu">
+            <remarks/>
+        </member>
+        <member name="P:YafMenu.Items">
+            <remarks/>
+        </member>
+        <member name="T:YafMenuYafMenuSection">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSection.HostAdminOnly">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSection.YafMenuItem">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSection.Title">
+            <remarks/>
+        </member>
+        <member name="T:YafMenuYafMenuSectionYafMenuItem">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Title">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.ForumPage">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Image">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Link">
+            <remarks/>
+        </member>
         <member name="M:YAF.Controls.Statistics.ActiveDiscussions.#ctor">
             <summary>
             The default constructor for ActiveDiscussions.
@@ -797,6 +830,19 @@
             Shows a Message Post
             </summary>
         </member>
+        <member name="T:YAF.Controls.AdminMenu">
+            <summary>
+            Summary description for AdminMenu.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(DNA.UI.JQuery.NavView,YafMenuYafMenuSectionYafMenuItem[])">
+            <summary>
+            Builds a Url List
+            </summary>
+            <param name="view"></param>
+            <param name="listItems"></param>
+            <returns></returns>
+        </member>
         <member name="M:YAF.Controls.Statistics.MostActiveUsers.#ctor">
             <summary>
             The default constructor for MostActiveUsers.
@@ -811,11 +857,6 @@
         <member name="T:YAF.Controls.PageAccess">
             <summary>
             Summary description for PageLinks.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.AdminMenu">
-            <summary>
-            Summary description for AdminMenu.
             </summary>
         </member>
         <member name="T:YAF.Controls.HelpMenu">

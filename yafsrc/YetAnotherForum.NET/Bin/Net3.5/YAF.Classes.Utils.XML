@@ -231,11 +231,23 @@
             <param name="icon">Name of icon image file.</param>
             <returns>URL of a smilie.</returns>
         </member>
+        <member name="T:YAF.Classes.Utils.UserAgentHelper">
+            <summary>
+             Helper for Figuring out the User Agent.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Utils.UserAgentHelper.IsSearchEngineSpider(System.String)">
             <summary>
-            Validates if the useragent is a search engine spider or not
+            Validates if the useragent is a search engine spider
             </summary>
-            <param name="UserAgent"></param>
+            <param name="userAgent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.UserAgentHelper.IsMobileDevice(System.String)">
+            <summary>
+            Tests if the user agent is a mobile device.
+            </summary>
+            <param name="userAgent"></param>
             <returns></returns>
         </member>
         <member name="M:YAF.Classes.Utils.YafUserProfile.GetProfile(System.String)">
