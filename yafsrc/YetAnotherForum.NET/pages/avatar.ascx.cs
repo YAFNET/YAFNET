@@ -19,23 +19,11 @@
  */
 using System;
 using System.IO;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Collections.Specialized;
 using System.Collections.Generic;
 using YAF.Classes;
-using YAF.Classes.Core;
 using YAF.Classes.Utils;
-using YAF.Classes.Data;
 
 namespace YAF.Pages // YAF.Pages
 {
@@ -75,9 +63,6 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			// make sure event validation is off... fails on this page
-			Page.EnableEventValidation = false;
-
 			if ( Request.QueryString ["u"] != null )
 			{
 				returnUserID = Convert.ToInt32( Request.QueryString ["u"] );
