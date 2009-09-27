@@ -1,4 +1,4 @@
-﻿tinyMCE.init({
+tinyMCE.init({
 	mode : "textareas",
 	editor_selector : "YafTextEditor",
 	theme : "advanced",
@@ -11,6 +11,5 @@
 	//theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking",
 	theme_advanced_toolbar_location : "top",
 	theme_advanced_toolbar_align : "left",
-	theme_advanced_path_location : "bottom",
-	//extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"
+	theme_advanced_path_location : "bottom"
 });
