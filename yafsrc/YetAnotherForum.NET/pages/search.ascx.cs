@@ -85,8 +85,6 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if ( !IsPostBack )
 			{
-				LoadingImage.ImageUrl = YafForumInfo.GetURLToResource( "images/loading-white.gif" );
-
 				PageLinks.AddLink( PageContext.BoardSettings.Name,
 				                   YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
@@ -395,6 +393,11 @@ namespace YAF.Pages // YAF.Pages
 		protected void LoadingModalText_Load( object sender, EventArgs e )
 		{
 			LoadingModalText.Text = GetText( "LOADING_SEARCH" );
+		}
+
+		protected void LoadingImage_Load( object sender, EventArgs e )
+		{
+			LoadingImage.ImageUrl = YafForumInfo.GetURLToResource( "images/loading-white.gif" );			
 		}
 	}
 }
