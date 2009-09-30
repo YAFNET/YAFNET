@@ -883,6 +883,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}accessmask_delete](@AccessMaskID int) as
 begin
+	SET ARITHABORT ON
 	declare @flag int
 	
 	set @flag=1
@@ -897,6 +898,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}accessmask_list](@BoardID int,@AccessMaskID int=null,@ExcludeFlags int = 0) as
 begin
+	SET ARITHABORT ON
 	if @AccessMaskID is null
 		select 
 			a.* 
@@ -937,6 +939,7 @@ create procedure [{databaseOwner}].[{objectQualifier}accessmask_save](
 	@DownloadAccess		bit
 ) as
 begin
+	SET ARITHABORT ON
 	declare @Flags	int
 	
 	set @Flags = 0
@@ -965,6 +968,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0) as
 begin
+	SET ARITHABORT ON
 	-- delete non-active
 	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,getdate())>5
 	-- select active
@@ -1031,6 +1035,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}active_listforum](@ForumID int) as
 begin
+	SET ARITHABORT ON
 	select
 		UserID		= a.UserID,
 		UserName	= b.Name,
@@ -1052,6 +1057,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}active_listtopic](@TopicID int) as
 begin
+	SET ARITHABORT ON
 	select
 		UserID		= a.UserID,
 		UserName	= b.Name,
@@ -1073,6 +1079,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}active_stats](@BoardID int) as
 begin
+	SET ARITHABORT ON
 	select
 		ActiveUsers = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.BoardID = @BoardID AND usr.IsActiveExcluded = 0),
 		ActiveMembers = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.BoardID = @BoardID and exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] y inner join [{databaseOwner}].[{objectQualifier}Group] z on y.GroupID=z.GroupID where y.UserID=x.UserID and (z.Flags & 2)=0  AND usr.IsActiveExcluded = 0)),
@@ -1087,6 +1094,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}active_updatemaxstats]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
 	DECLARE @count int, @max int, @maxStr nvarchar(255), @countStr nvarchar(255), @dtStr nvarchar(255)
 	
 	SET @count = ISNULL((SELECT COUNT(DISTINCT IP + '.' + CAST(UserID as varchar(10))) FROM [{databaseOwner}].[{objectQualifier}Active] WITH (NOLOCK) WHERE BoardID = @BoardID),0)
@@ -1109,17 +1117,20 @@ END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}attachment_delete](@AttachmentID int) as begin
+	SET ARITHABORT ON
 	delete from [{databaseOwner}].[{objectQualifier}Attachment] where AttachmentID=@AttachmentID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}attachment_download](@AttachmentID int) as
 begin
+	SET ARITHABORT ON
 	update [{databaseOwner}].[{objectQualifier}Attachment] set Downloads=Downloads+1 where AttachmentID=@AttachmentID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID int=null,@AttachmentID int=null,@BoardID int=null) as begin
+	SET ARITHABORT ON
 	if @MessageID is not null
 		select 
 			a.*,
@@ -1169,18 +1180,21 @@ end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}attachment_save](@MessageID int,@FileName nvarchar(255),@Bytes int,@ContentType nvarchar(50)=null,@FileData image=null) as begin
+	SET ARITHABORT ON
 	insert into [{databaseOwner}].[{objectQualifier}Attachment](MessageID,FileName,Bytes,ContentType,Downloads,FileData) values(@MessageID,@FileName,@Bytes,@ContentType,0,@FileData)
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}bannedip_delete](@ID int) as
 begin
+	SET ARITHABORT ON
 	delete from [{databaseOwner}].[{objectQualifier}BannedIP] where ID = @ID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}bannedip_list](@BoardID int,@ID int=null) as
 begin
+	SET ARITHABORT ON
 	if @ID is null
 		select * from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
 	else
@@ -1190,6 +1204,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}bannedip_save](@ID int=null,@BoardID int,@Mask nvarchar(15)) as
 begin
+	SET ARITHABORT ON
 	if @ID is null or @ID = 0 begin
 		insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since) values(@BoardID,@Mask,getdate())
 	end
@@ -1208,6 +1223,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}board_create](
 	@IsHostAdmin	bit
 ) as 
 begin
+	SET ARITHABORT ON
 	declare @BoardID				int
 	declare @TimeZone				int
 	declare @ForumEmail				nvarchar(50)
@@ -1307,6 +1323,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}board_delete](@BoardID int) as
 begin
+	SET ARITHABORT ON
 	declare @tmpForumID int;
 	declare forum_cursor cursor for
 		select ForumID 
@@ -1339,6 +1356,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}board_list](@BoardID int=null) as
 begin
+	SET ARITHABORT ON
 	select
 		a.*,
 		SQLVersion = @@VERSION
@@ -1351,6 +1369,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}board_poststats](@BoardID int) as
 BEGIN
+	SET ARITHABORT ON
 	SELECT
 		Posts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] a join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID AND (a.Flags & 24)=16),
 		Topics = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] a join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ForumID join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID AND (a.Flags & 8) <> 8),
@@ -1400,6 +1419,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50),@AllowThreaded bit) as
 begin
+	SET ARITHABORT ON
 	update [{databaseOwner}].[{objectQualifier}Board] set
 		Name = @Name,
 		AllowThreaded = @AllowThreaded
@@ -1411,6 +1431,7 @@ create procedure [{databaseOwner}].[{objectQualifier}board_stats]
 	@BoardID	int = null
 as 
 begin
+	SET ARITHABORT ON
 	if (@BoardID is null) begin
 		select
 			NumPosts	= (select count(1) from [{databaseOwner}].[{objectQualifier}Message] where IsApproved = 1 AND IsDeleted = 0),
@@ -1441,6 +1462,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}category_delete](@CategoryID int) as
 begin
+	SET ARITHABORT ON
 	declare @flag int
  
 	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where CategoryID = @CategoryID)
@@ -1458,6 +1480,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}category_list](@BoardID int,@CategoryID int=null) as
 begin
+	SET ARITHABORT ON
 	if @CategoryID is null
 		select * from [{databaseOwner}].[{objectQualifier}Category] where BoardID = @BoardID order by SortOrder
 	else
@@ -1467,6 +1490,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}category_listread](@BoardID int,@UserID int,@CategoryID int=null) as
 begin
+	SET ARITHABORT ON
 	select 
 		a.CategoryID,
 		a.Name,
@@ -1501,6 +1525,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}category_save]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
     IF @CategoryID > 0
     BEGIN
         UPDATE [{databaseOwner}].[{objectQualifier}Category]
@@ -1532,6 +1557,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}checkemail_list]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
 	IF @Email IS NULL
 		SELECT * FROM [{databaseOwner}].[{objectQualifier}CheckEmail]
 	ELSE
@@ -1547,6 +1573,7 @@ create procedure [{databaseOwner}].[{objectQualifier}checkemail_save]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
 	INSERT INTO [{databaseOwner}].[{objectQualifier}CheckEmail]
 		(UserID,Email,Created,Hash)
 	VALUES
@@ -1556,6 +1583,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}checkemail_update](@Hash nvarchar(32)) as
 begin
+	SET ARITHABORT ON
 	declare @UserID int
 	declare @CheckEmailID int
 	declare @Email nvarchar(50)
@@ -1588,6 +1616,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}choice_vote](@ChoiceID int,@UserID int = NULL, @RemoteIP nvarchar(10) = NULL) AS
 BEGIN
+	SET ARITHABORT ON
 	DECLARE @PollID int
 
 	SET @PollID = (SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Choice] WHERE ChoiceID = @ChoiceID)
@@ -1610,6 +1639,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_create](@UserID int,@Source nvarchar(50),@Description ntext,@Type int) as
 begin
+	SET ARITHABORT ON
 	insert into [{databaseOwner}].[{objectQualifier}EventLog](UserID,Source,Description,Type)
 	values(@UserID,@Source,@Description,@Type)
 
@@ -1632,6 +1662,7 @@ create procedure [{databaseOwner}].[{objectQualifier}eventlog_delete]
 	@BoardID int = null
 ) as
 begin
+	SET ARITHABORT ON
 	-- either EventLogID or BoardID must be null, not both at the same time
 	if (@EventLogID is null) begin
 		-- delete all events of this board
@@ -1649,6 +1680,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_list](@BoardID int) as
 begin
+	SET ARITHABORT ON
 	select
 		a.*,
 		ISNULL(b.[Name],'System') as [Name]
@@ -1664,6 +1696,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}extension_delete] (@ExtensionID int) as
 begin
+	SET ARITHABORT ON
 	delete from [{databaseOwner}].[{objectQualifier}Extension] 
 	where ExtensionID = @ExtensionID
 end
@@ -1671,6 +1704,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}extension_edit] (@ExtensionID int=NULL) as
 BEGIN
+	SET ARITHABORT ON
 	SELECT * 
 	FROM [{databaseOwner}].[{objectQualifier}Extension] 
 	WHERE ExtensionID = @ExtensionID 
@@ -1680,6 +1714,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}extension_list] (@BoardID int, @Extension nvarchar(10)) as
 BEGIN
+	SET ARITHABORT ON
 
 	-- If an extension is passed, then we want to check for THAT extension
 	IF LEN(@Extension) > 0
@@ -1711,6 +1746,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}extension_save] (@ExtensionID int=null,@BoardID int,@Extension nvarchar(10)) as
 begin
+	SET ARITHABORT ON
 	if @ExtensionID is null or @ExtensionID = 0 begin
 		insert into [{databaseOwner}].[{objectQualifier}Extension] (BoardID,Extension) 
 		values(@BoardID,@Extension)
@@ -1725,6 +1761,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forum_delete](@ForumID int) as
 begin
+	SET ARITHABORT ON
 	-- Maybe an idea to use cascading foreign keys instead? Too bad they don't work on MS SQL 7.0...
 	update [{databaseOwner}].[{objectQualifier}Forum] set LastMessageID=null,LastTopicID=null where ForumID=@ForumID
 	update [{databaseOwner}].[{objectQualifier}Topic] set LastMessageID=null where ForumID=@ForumID
@@ -1777,6 +1814,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_list](@BoardID int,@ForumID int=null) as
 begin
+	SET ARITHABORT ON
 	if @ForumID = 0 set @ForumID = null
 	if @ForumID is null
 		select a.* from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID order by a.SortOrder
@@ -1787,9 +1825,10 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forum_listall] (@BoardID int,@UserID int,@root int = 0) as
 begin
+	SET ARITHABORT ON
 if @root = 0
 begin
-    select
+	  select
         b.CategoryID,
         Category = b.Name,
         a.ForumID,
@@ -1865,6 +1904,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}forum_listall_fromcat](@BoardID int,@CategoryID int) AS
 BEGIN
+	SET ARITHABORT ON
 	SELECT     b.CategoryID, b.Name AS Category, a.ForumID, a.Name AS Forum, a.ParentID
 	FROM         [{databaseOwner}].[{objectQualifier}Forum] a INNER JOIN
 						  [{databaseOwner}].[{objectQualifier}Category] b ON b.CategoryID = a.CategoryID
@@ -1879,6 +1919,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_listallmymoderated](@BoardID int,@UserID int) as
 begin
+	SET ARITHABORT ON
 	select
 		b.CategoryID,
 		Category = b.Name,
@@ -1938,6 +1979,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_listpath](@ForumID int) as
 begin
+	SET ARITHABORT ON
 	-- supports up to 4 levels of nested forums
 	select
 		a.ForumID,
@@ -1995,6 +2037,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_listread](@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null) as
 begin
+	SET ARITHABORT ON
 	select 
 		a.CategoryID, 
 		Category		= a.Name, 
@@ -2033,19 +2076,22 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_listSubForums](@ForumID int) as
 begin
+	SET ARITHABORT ON
 	select Sum(1) from [{databaseOwner}].[{objectQualifier}Forum] where ParentID = @ForumID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_listtopics](@ForumID int) as
 begin
-select * from [{databaseOwner}].[{objectQualifier}Topic]
-Where ForumID = @ForumID
+	SET ARITHABORT ON
+	select * from [{databaseOwner}].[{objectQualifier}Topic]
+	Where ForumID = @ForumID
 end
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}forum_moderatelist](@BoardID int,@UserID int) AS
 BEGIN
+	SET ARITHABORT ON
 
 SELECT
 		b.*,
@@ -2083,15 +2129,16 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_moderators] as
 BEGIN
+	SET ARITHABORT ON
 	select
 		ForumID = a.ForumID, 
 		ModeratorID = a.GroupID, 
 		ModeratorName = b.Name,
 		IsGroup=1
 	from
-		[{databaseOwner}].[{objectQualifier}ForumAccess] a
-		INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b ON b.GroupID = a.GroupID
-		INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c ON c.AccessMaskID = a.AccessMaskID
+		[{databaseOwner}].[{objectQualifier}ForumAccess] a WITH(NOLOCK)
+		INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) ON b.GroupID = a.GroupID
+		INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c WITH(NOLOCK) ON c.AccessMaskID = a.AccessMaskID
 	where
 		(b.Flags & 1)=0 and
 		(c.Flags & 64)<>0
@@ -2102,20 +2149,19 @@ BEGIN
 		ModeratorName = usr.Name,
 		IsGroup=0
 	from
-		[{databaseOwner}].[{objectQualifier}User] usr
+		[{databaseOwner}].[{objectQualifier}User] usr WITH(NOLOCK)
 		INNER JOIN (
 			select
 				UserID				= a.UserID,
 				ForumID				= x.ForumID,
-				ModeratorAccess		= max(x.ModeratorAccess)
+				ModeratorAccess		= MAX(ModeratorAccess)
 			from
-				[{databaseOwner}].[{objectQualifier}vaccessfull] as x
-				INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a on a.UserID=x.UserID
-				INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b on b.GroupID=a.GroupID
+				[{databaseOwner}].[{objectQualifier}vaccessfull] as x WITH(NOLOCK)
+				INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a WITH(NOLOCK) on a.UserID=x.UserID
+				INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) on b.GroupID=a.GroupID
 			WHERE 
-				x.AdminGroup = 0
-			GROUP BY
-				a.UserID,x.ForumID		
+				ModeratorAccess <> 0 AND x.AdminGroup = 0
+			GROUP BY a.UserId, x.ForumID
 		) access ON usr.UserID = access.UserID
 	where
 		access.ModeratorAccess<>0
@@ -2141,6 +2187,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}forum_save](
 	@AccessMaskID	int = null
 ) as
 begin
+	SET ARITHABORT ON
 	declare @BoardID	int
 	declare @Flags		int
 	
@@ -2180,6 +2227,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_updatelastpost](@ForumID int) as
 begin
+	SET ARITHABORT ON
 	update [{databaseOwner}].[{objectQualifier}Forum] set
 		LastPosted = (select top 1 y.Posted from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0 order by y.Posted desc),
 		LastTopicID = (select top 1 y.TopicID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
@@ -2192,6 +2240,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_updatestats](@ForumID int) as
 begin
+	SET ARITHABORT ON
 	update [{databaseOwner}].[{objectQualifier}Forum] set 
 		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x join [{databaseOwner}].[{objectQualifier}Topic] y on y.TopicID=x.TopicID where y.ForumID = @ForumID and x.IsApproved = 1 and x.IsDeleted = 0 and y.IsDeleted = 0 ),
 		NumTopics = (select count(distinct x.TopicID) from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and y.IsApproved = 1 and y.IsDeleted = 0 and x.IsDeleted = 0)
@@ -2201,6 +2250,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forumaccess_group](@GroupID int) as
 begin
+	SET ARITHABORT ON
 	select 
 		a.*,
 		ForumName = b.Name,
@@ -2221,6 +2271,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forumaccess_list](@ForumID int) as
 begin
+	SET ARITHABORT ON
 	select 
 		a.*,
 		GroupName=b.Name 
@@ -2238,6 +2289,7 @@ create procedure [{databaseOwner}].[{objectQualifier}forumaccess_save](
 	@AccessMaskID		int
 ) as
 begin
+	SET ARITHABORT ON
 	update [{databaseOwner}].[{objectQualifier}ForumAccess]
 		set AccessMaskID=@AccessMaskID
 	where 
@@ -2248,6 +2300,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}group_delete](@GroupID int) as
 begin
+	SET ARITHABORT ON
 	delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where GroupID = @GroupID
 	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where GroupID = @GroupID
 	delete from [{databaseOwner}].[{objectQualifier}Group] where GroupID = @GroupID
@@ -2256,6 +2309,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}group_list](@BoardID int,@GroupID int=null) as
 begin
+	SET ARITHABORT ON
 	if @GroupID is null
 		select * from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID
 	else
@@ -2265,6 +2319,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}group_member](@BoardID int,@UserID int) as
 begin
+	SET ARITHABORT ON
 	select 
 		a.GroupID,
 		a.Name,
@@ -2289,6 +2344,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}group_save](
 	@AccessMaskID	int=null
 ) as
 begin
+	SET ARITHABORT ON
 	declare @Flags	int
 	
 	set @Flags = 0
@@ -2326,6 +2382,7 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_create]
 )
 AS 
 BEGIN
+	SET ARITHABORT ON
 	insert into [{databaseOwner}].[{objectQualifier}Mail]
 		(FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
 	values
@@ -2345,6 +2402,7 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
 	insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
 	select
 		@From,
@@ -2395,6 +2453,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}mail_delete](@MailID int) as
 BEGIN
+	SET ARITHABORT ON
 	DELETE FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE MailID = @MailID
 END
 GO
@@ -2405,6 +2464,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}mail_list]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
 	UPDATE [{databaseOwner}].[{objectQualifier}Mail]
 	SET 
 		SendTries = SendTries + 1,
@@ -2419,6 +2479,8 @@ END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID int) as begin
+	SET ARITHABORT ON
+
 	declare	@UserID		int
 	declare	@ForumID	int
 	declare	@TopicID	int
@@ -2473,6 +2535,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}message_delete](@MessageID int, @EraseMessage bit = 0) as
 begin
+	SET ARITHABORT ON
+
 	declare @TopicID		int
 	declare @ForumID		int
 	declare @MessageCount	int
@@ -2536,6 +2600,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}message_findunread](@TopicID int,@LastRead datetime) as
 begin
+	SET ARITHABORT ON
 	select top 1 MessageID from [{databaseOwner}].[{objectQualifier}Message]
 	where TopicID=@TopicID and Posted>@LastRead
 	order by Posted
@@ -2550,6 +2615,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_list](@MessageID int) AS
 BEGIN
+	SET ARITHABORT ON
 	SELECT
 		a.MessageID,
 		a.UserID,
@@ -2583,6 +2649,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreported](@MessageFlag int, @ForumID int) AS
 BEGIN
+	SET ARITHABORT ON
 	SELECT
 		a.*,
 		OriginalMessage = b.[Message],
@@ -2614,7 +2681,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_report](@ReportFlag int, @MessageID int, @ReporterID int, @ReportedDate datetime ) AS
 BEGIN
-	
+	SET ARITHABORT ON
+		
 	IF NOT exists(SELECT MessageID from [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID=@MessageID AND UserID=@ReporterID)
 		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReportedAudit](MessageID,UserID,Reported) VALUES (@MessageID,@ReporterID,@ReportedDate)
 
@@ -2638,6 +2706,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_reportresolve](@MessageFlag int, @MessageID int, @UserID int) AS
 BEGIN
+	SET ARITHABORT ON
+
 	UPDATE [{databaseOwner}].[{objectQualifier}MessageReported]
 	SET Resolved = 1, ResolvedBy = @UserID, ResolvedDate = GETDATE()
 	WHERE MessageID = @MessageID;
@@ -2651,6 +2721,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_reportcopyover](@MessageID int) AS
 BEGIN
+	SET ARITHABORT ON
 	UPDATE [{databaseOwner}].[{objectQualifier}MessageReported]
 	SET [{databaseOwner}].[{objectQualifier}MessageReported].Message = m.Message
 	FROM [{databaseOwner}].[{objectQualifier}MessageReported] mr
@@ -2673,6 +2744,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_save](
 )
 AS
 BEGIN
+	SET ARITHABORT ON
 	DECLARE @ForumID INT, @ForumFlags INT, @Position INT, @Indent INT
 
 	IF @Posted IS NULL
@@ -2739,6 +2811,7 @@ END
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumID int) as begin
+	SET ARITHABORT ON
 	select
 		MessageID	= b.MessageID,
 		UserID		= b.UserID,
@@ -2765,6 +2838,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext, @Reason as nvarchar(100), @IsModeratorChanged bit, @OverrideApproval bit = null) as
 begin
+	SET ARITHABORT ON
 	declare @TopicID	int
 	declare	@ForumFlags	int
 
@@ -2812,6 +2886,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}nntpforum_delete](@NntpForumID int) as
 begin
+	SET ARITHABORT ON
 	delete from [{databaseOwner}].[{objectQualifier}NntpTopic] where NntpForumID = @NntpForumID
 	delete from [{databaseOwner}].[{objectQualifier}NntpForum] where NntpForumID = @NntpForumID
 end
@@ -2819,6 +2894,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}nntpforum_list](@BoardID int,@Minutes int=null,@NntpForumID int=null,@Active bit=null) as
 begin
+	SET ARITHABORT ON
 	select
 		a.Name,
 		a.Address,
@@ -2850,6 +2926,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}nntpforum_save](@NntpForumID int=null,@NntpServerID int,@GroupName nvarchar(100),@ForumID int,@Active bit) as
 begin
+	SET ARITHABORT ON
 	if @NntpForumID is null
 		insert into [{databaseOwner}].[{objectQualifier}NntpForum](NntpServerID,GroupName,ForumID,LastMessageNo,LastUpdate,Active)
 		values(@NntpServerID,@GroupName,@ForumID,0,getdate(),@Active)
@@ -2865,6 +2942,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}nntpforum_update](@NntpForumID int,@LastMessageNo int,@UserID int) as
 begin
+	SET ARITHABORT ON
 	declare	@ForumID	int
 	
 	select @ForumID=ForumID from [{databaseOwner}].[{objectQualifier}NntpForum] where NntpForumID=@NntpForumID
@@ -2886,6 +2964,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}nntpserver_delete](@NntpServerID int) as
 begin
+	SET ARITHABORT ON
 	delete from [{databaseOwner}].[{objectQualifier}NntpTopic] where NntpForumID in (select NntpForumID from [{databaseOwner}].[{objectQualifier}NntpForum] where NntpServerID = @NntpServerID)
 	delete from [{databaseOwner}].[{objectQualifier}NntpForum] where NntpServerID = @NntpServerID
 	delete from [{databaseOwner}].[{objectQualifier}NntpServer] where NntpServerID = @NntpServerID
@@ -2894,6 +2973,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}nntpserver_list](@BoardID int=null,@NntpServerID int=null) as
 begin
+	SET ARITHABORT ON
 	if @NntpServerID is null
 		select * from [{databaseOwner}].[{objectQualifier}NntpServer] where BoardID=@BoardID order by Name
 	else
@@ -2910,6 +2990,7 @@ create procedure [{databaseOwner}].[{objectQualifier}nntpserver_save](
 	@UserName	nvarchar(50)=null,
 	@UserPass	nvarchar(50)=null
 ) as begin
+	SET ARITHABORT ON
 	if @NntpServerID is null
 		insert into [{databaseOwner}].[{objectQualifier}NntpServer](Name,BoardID,Address,Port,UserName,UserPass)
 		values(@Name,@BoardID,@Address,@Port,@UserName,@UserPass)
@@ -2926,6 +3007,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}nntptopic_list](@Thread char(32)) as
 begin
+	SET ARITHABORT ON
 	select
 		a.*
 	from
@@ -2946,6 +3028,7 @@ create procedure [{databaseOwner}].[{objectQualifier}nntptopic_savemessage](
 	@Thread			char(32)
 ) as 
 begin
+	SET ARITHABORT ON
 	declare	@ForumID	int
 	declare @TopicID	int
 	declare	@MessageID	int
@@ -3011,6 +3094,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@DontTrack	bit = 0
 ) as
 begin
+	SET ARITHABORT ON
 	declare @UserID			int
 	declare @UserBoardID	int
 	declare @IsGuest		tinyint
@@ -3021,15 +3105,15 @@ begin
 
 	if @UserKey is null
 	begin
-		select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0
+		select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
 		set @rowcount=@@rowcount
-		if @rowcount<>1
+		if (@rowcount = 0)
 		begin
 			raiserror('Found %d possible guest users. There should be one and only one user marked as guest.',16,1,@rowcount)
 		end
 		set @IsGuest = 1
 		set @UserBoardID = @BoardID
-	end else
+	end else	
 	begin
 		select @UserID = UserID, @UserBoardID = BoardID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and ProviderUserKey=@UserKey
 		set @IsGuest = 0
@@ -3157,6 +3241,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_delete](@UserPMessageID int, @FromOutbox bit = 0) as
 BEGIN
+	SET ARITHABORT ON
 	DECLARE @PMessageID int
 
 	SET @PMessageID = (SELECT TOP 1 PMessageID FROM [{databaseOwner}].[{objectQualifier}UserPMessage] where UserPMessageID = @UserPMessageID);
@@ -3186,6 +3271,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_info] as
 begin
+	SET ARITHABORT ON
 	select
 		NumRead	= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsRead<>0  AND IsDeleted<>1),
 		NumUnread = (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsRead=0  AND IsDeleted<>1),
@@ -3195,6 +3281,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_list](@FromUserID int=null,@ToUserID int=null,@UserPMessageID int=null) AS
 BEGIN
+	SET ARITHABORT ON
 	SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body, Flags, IsRead, IsInOutbox, IsArchived, IsDeleted
 		FROM [{databaseOwner}].[{objectQualifier}PMessageView]
 		WHERE	((@UserPMessageID IS NOT NULL AND UserPMessageID=@UserPMessageID) OR 
@@ -3206,12 +3293,14 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_markread](@UserPMessageID int=null)
 AS
 BEGIN
+	SET ARITHABORT ON
 	UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = [Flags] | 1 WHERE UserPMessageID = @UserPMessageID AND IsRead = 0
 END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}pmessage_prune](@DaysRead int,@DaysUnread int) as
 begin
+	SET ARITHABORT ON
 	delete from [{databaseOwner}].[{objectQualifier}UserPMessage]
 	where IsRead<>0
 	and datediff(dd,(select Created from [{databaseOwner}].[{objectQualifier}PMessage] x where x.PMessageID=[{databaseOwner}].[{objectQualifier}UserPMessage].PMessageID),getdate())>@DaysRead
@@ -3233,6 +3322,7 @@ create procedure [{databaseOwner}].[{objectQualifier}pmessage_save](
 	@Flags		int
 ) as
 begin
+	SET ARITHABORT ON
 	declare @PMessageID int
 	declare @UserID int
 
@@ -3264,6 +3354,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_archive](@UserPMessageID int = NULL) AS
 BEGIN
+	SET ARITHABORT ON
 	-- set IsArchived bit
 	UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] | 4) WHERE UserPMessageID = @UserPMessageID AND IsArchived = 0
 END
@@ -3283,6 +3374,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}poll_save](
 	@Closes 	datetime = null
 ) as
 begin
+	SET ARITHABORT ON
 	declare @PollID	int
 	insert into [{databaseOwner}].[{objectQualifier}Poll](Question,Closes) values(@Question,@Closes)
 	set @PollID = SCOPE_IDENTITY()
@@ -3319,6 +3411,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}poll_stats](@PollID int) AS
 BEGIN
+	SET ARITHABORT ON
 	SELECT
 		a.PollID,
 		b.Question,
@@ -3338,7 +3431,7 @@ END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollvote_check](@PollID int, @UserID int = NULL,@RemoteIP nvarchar(10) = NULL) AS
-
+	SET ARITHABORT ON
 	IF @UserID IS NULL
 	BEGIN
 		IF @RemoteIP IS NOT NULL
@@ -3356,6 +3449,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}post_last10user](@BoardID int,@UserID int,@PageUserID int) as
 begin
+	SET ARITHABORT ON
 	set nocount on
 
 	select top 10
@@ -3388,6 +3482,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1) as
 begin
+	SET ARITHABORT ON
 	set nocount on
 	if @UpdateViewCount>0
 		update [{databaseOwner}].[{objectQualifier}Topic] set Views = Views + 1 where TopicID = @TopicID
@@ -3439,6 +3534,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}post_list_reverse10](@TopicID int) as
 begin
+	SET ARITHABORT ON
 	set nocount on
 
 	select top 10
@@ -3462,11 +3558,13 @@ end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}rank_delete](@RankID int) as begin
+	SET ARITHABORT ON
 	delete from [{databaseOwner}].[{objectQualifier}Rank] where RankID = @RankID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}rank_list](@BoardID int,@RankID int=null) as begin
+	SET ARITHABORT ON
 	if @RankID is null
 		select
 			a.*
@@ -3497,6 +3595,7 @@ create procedure [{databaseOwner}].[{objectQualifier}rank_save](
 	@RankImage	nvarchar(50)=null
 ) as
 begin
+	SET ARITHABORT ON
 	declare @Flags int
 
 	if @IsLadder=0 set @MinPosts = null
@@ -3523,6 +3622,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}registry_list](@Name nvarchar(50) = null,@BoardID int = null) as
 BEGIN
+	SET ARITHABORT ON
 	if @BoardID is null
 	begin
 		IF @Name IS NULL OR @Name = ''
@@ -3551,6 +3651,7 @@ create procedure [{databaseOwner}].[{objectQualifier}registry_save](
 	@BoardID int = null
 ) AS
 BEGIN
+	SET ARITHABORT ON
 	if @BoardID is null
 	begin
 		if exists(select 1 from [{databaseOwner}].[{objectQualifier}Registry] where lower(Name)=lower(@Name))
@@ -3573,6 +3674,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_delete](@ID int) AS
 BEGIN
+	SET ARITHABORT ON
 	DELETE FROM [{databaseOwner}].[{objectQualifier}replace_words] WHERE id = @ID
 END
 GO
@@ -3583,6 +3685,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_list]
 	@ID int = null
 )
 AS BEGIN
+	SET ARITHABORT ON
 	IF (@ID IS NOT NULL AND @ID <> 0)
 		SELECT * FROM [{databaseOwner}].[{objectQualifier}Replace_Words] WHERE BoardID = @BoardID AND ID = @ID
 	ELSE
@@ -3599,6 +3702,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_save]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
 	IF (@ID IS NOT NULL AND @ID <> 0)
 	BEGIN
 		UPDATE [{databaseOwner}].[{objectQualifier}replace_words] SET BadWord = @BadWord, GoodWord = @GoodWord WHERE ID = @ID		
@@ -3613,6 +3717,7 @@ END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}smiley_delete](@SmileyID int=null) as begin
+	SET ARITHABORT ON
 	if @SmileyID is not null
 		delete from [{databaseOwner}].[{objectQualifier}Smiley] where SmileyID=@SmileyID
 	else
@@ -3622,6 +3727,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}smiley_list](@BoardID int,@SmileyID int=null) as
 begin
+	SET ARITHABORT ON
 	if @SmileyID is null
 		select * from [{databaseOwner}].[{objectQualifier}Smiley] where BoardID=@BoardID order by SortOrder, LEN(Code) desc
 	else
@@ -3631,6 +3737,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}smiley_listunique](@BoardID int) as
 begin
+	SET ARITHABORT ON
 	select 
 		Icon, 
 		Emoticon,
@@ -3650,6 +3757,7 @@ end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}smiley_save](@SmileyID int=null,@BoardID int,@Code nvarchar(10),@Icon nvarchar(50),@Emoticon nvarchar(50),@SortOrder tinyint,@Replace smallint=0) as begin
+	SET ARITHABORT ON
 	if @SmileyID is not null begin
 		update [{databaseOwner}].[{objectQualifier}Smiley] set Code = @Code, Icon = @Icon, Emoticon = @Emoticon, SortOrder = @SortOrder where SmileyID = @SmileyID
 	end
@@ -3665,6 +3773,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}smiley_resort](@BoardID int,@SmileyID int,@Move int) as
 begin
+	SET ARITHABORT ON
 	declare @Position int
 
 	SELECT @Position=SortOrder FROM [{databaseOwner}].[{objectQualifier}Smiley] WHERE BoardID=@BoardID and SmileyID=@SmileyID
@@ -3708,6 +3817,7 @@ create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
 	
 ) as 
 begin
+	SET ARITHABORT ON
 	DECLARE @tmpValue AS nvarchar(100)
 
 	-- initalize required 'registry' settings
@@ -3730,7 +3840,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}system_updateversion]
 ) 
 AS
 BEGIN
-
+	SET ARITHABORT ON
 	DECLARE @tmpValue AS nvarchar(100)
 	SET @tmpValue = CAST(@Version AS nvarchar(100))
 	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'Version', @tmpValue
@@ -3741,6 +3851,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}topic_active](@BoardID int,@UserID int,@Since datetime,@CategoryID int=null) as
 begin
+	SET ARITHABORT ON
 	select
 		c.ForumID,
 		c.TopicID,
@@ -3788,6 +3899,7 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_delete] (@TopicID int,@UpdateLastPost bit=1,@EraseTopic bit=0) 
 AS
 BEGIN
+	SET ARITHABORT ON
 	SET NOCOUNT ON
 	DECLARE @ForumID int
 	DECLARE @pollID int
@@ -3846,6 +3958,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}topic_findnext](@TopicID int) as
 begin
+	SET ARITHABORT ON
 	declare @LastPosted datetime
 	declare @ForumID int
 	select @LastPosted = LastPosted, @ForumID = ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
@@ -3855,6 +3968,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}topic_findprev](@TopicID int) AS 
 BEGIN
+	SET ARITHABORT ON
 	DECLARE @LastPosted datetime
 	DECLARE @ForumID int
 	SELECT @LastPosted = LastPosted, @ForumID = ForumID FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID
@@ -3869,6 +3983,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_info]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
 	IF @TopicID = 0 SET @TopicID = NULL
 
 	IF @TopicID IS NULL
@@ -3897,7 +4012,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_announcements]
 )
 AS
 BEGIN
-
+	SET ARITHABORT ON
 	DECLARE @SQL nvarchar(500)
 
 	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.TopicID, t.LastMessageID FROM'
@@ -3919,6 +4034,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
 	SET ROWCOUNT @NumPosts
 	
 	SELECT
@@ -3962,6 +4078,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}topic_list]
 )
 AS
 begin
+	SET ARITHABORT ON
 	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED -- Hold no locks; allows more concurrency
 	
 	CREATE TABLE #data(
@@ -4061,6 +4178,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}topic_listmessages](@TopicID int) as
 begin
+	SET ARITHABORT ON
 	select * from [{databaseOwner}].[{objectQualifier}Message]
 	where TopicID = @TopicID
 end
@@ -4068,6 +4186,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}topic_lock](@TopicID int,@Locked bit) as
 begin
+	SET ARITHABORT ON
 	if @Locked<>0
 		update [{databaseOwner}].[{objectQualifier}Topic] set Flags = Flags | 1 where TopicID = @TopicID
 	else
@@ -4077,6 +4196,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}topic_move](@TopicID int,@ForumID int,@ShowMoved bit) AS
 begin
+	SET ARITHABORT ON
     declare @OldForumID int
 
     select @OldForumID = ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
@@ -4104,6 +4224,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_prune](@BoardID int, @ForumID int=null,@Days int, @PermDelete bit) as
 BEGIN
+	SET ARITHABORT ON
 	DECLARE @c cursor
 	DECLARE @TopicID int
 	DECLARE @Count int
@@ -4173,6 +4294,7 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 	@Flags		int
 ) as
 begin
+	SET ARITHABORT ON
 	declare @TopicID int
 	declare @MessageID int
 
@@ -4195,7 +4317,7 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}topic_updatelastpost]
 (@ForumID int=null,@TopicID int=null) as
 begin
-
+	SET ARITHABORT ON
     if @TopicID is not null
         update [{databaseOwner}].[{objectQualifier}Topic] set
             LastPosted = (select top 1 x.Posted from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
@@ -4218,6 +4340,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_accessmasks](@BoardID int,@UserID int) as
 begin
+	SET ARITHABORT ON
+	
 	select * from(
 		select
 			AccessMaskID	= e.AccessMaskID,
@@ -4282,6 +4406,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_activity_rank]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
+	
 	DECLARE @GuestUserID int
 
 	SET ROWCOUNT @DisplayNumber
@@ -4321,6 +4447,8 @@ GO
 
 create PROCEDURE [{databaseOwner}].[{objectQualifier}user_addpoints] (@UserID int,@Points int) AS
 BEGIN
+	SET ARITHABORT ON
+	
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points + @Points WHERE UserID = @UserID
 END
 
@@ -4329,6 +4457,8 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}user_adminsave]
 (@BoardID int,@UserID int,@Name nvarchar(50),@Email nvarchar(50),@Flags int,@RankID int) as
 begin
+	SET ARITHABORT ON
+	
 	update [{databaseOwner}].[{objectQualifier}User] set
 		Name = @Name,
 		Email = @Email,
@@ -4341,6 +4471,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_approve](@UserID int) as
 begin
+	SET ARITHABORT ON
+	
 	declare @CheckEmailID int
 	declare @Email nvarchar(50)
 
@@ -4361,7 +4493,8 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_approveall](@BoardID int) as
 begin
-
+	SET ARITHABORT ON
+	
 	DECLARE userslist CURSOR FOR 
 		SELECT UserID FROM [{databaseOwner}].[{objectQualifier}User] WHERE BoardID=@BoardID AND (Flags & 2)=0
 		FOR READ ONLY
@@ -4386,6 +4519,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_aspnet](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@ProviderUserKey nvarchar(64),@IsApproved bit) as
 BEGIN
+	SET ARITHABORT ON
 	SET NOCOUNT ON
 
 	DECLARE @UserID int, @RankID int, @approvedFlag int
@@ -4427,6 +4561,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_migrate]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
+
 	DECLARE @Password nvarchar(255), @IsApproved bit, @LastActivity datetime, @Joined datetime
 	
 	UPDATE {objectQualifier}User SET ProviderUserKey = @ProviderUserKey where UserID = @UserID
@@ -4463,6 +4599,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_avatarimage]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
+
 	SELECT
 		UserID,
 		AvatarImage,
@@ -4476,6 +4614,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_changepassword](@UserID int,@OldPassword nvarchar(32),@NewPassword nvarchar(32)) as
 begin
+	SET ARITHABORT ON
+
 	declare @CurrentOld nvarchar(32)
 	select @CurrentOld = Password from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
 	if @CurrentOld<>@OldPassword begin
@@ -4491,6 +4631,7 @@ CREATE PROC [{databaseOwner}].[{objectQualifier}user_pmcount]
 	@UserID int
 AS
 BEGIN
+	SET ARITHABORT ON
 	DECLARE @Count int
 
 	-- get count of pm's in user's sent items
@@ -4518,6 +4659,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_delete](@UserID int) as
 begin
+	SET ARITHABORT ON
+
 	declare @GuestUserID	int
 	declare @UserName		nvarchar(50)
 	declare @GuestCount		int
@@ -4570,6 +4713,8 @@ end
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_deleteavatar](@UserID int) as begin
+	SET ARITHABORT ON
+
 	UPDATE
 		[{databaseOwner}].[{objectQualifier}User]
 	SET
@@ -4583,6 +4728,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_deleteold](@BoardID int) as
 begin
+	SET ARITHABORT ON
+
 	declare @Since datetime
 
 	set @Since = getdate()
@@ -4596,6 +4743,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_emails](@BoardID int,@GroupID int=null) as
 begin
+	SET ARITHABORT ON
+
 	if @GroupID = 0 set @GroupID = null
 	if @GroupID is null
 		select 
@@ -4624,6 +4773,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_find](@BoardID int,@Filter bit,@UserName nvarchar(50)=null,@Email nvarchar(50)=null) as
 begin
+	SET ARITHABORT ON
+
 	if @Filter<>0
 	begin
 		if @UserName is not null
@@ -4655,12 +4806,16 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getpoints] (@UserID int) AS
 BEGIN
+	SET ARITHABORT ON
+
 	SELECT Points FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID
 END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_getsignature](@UserID int) as
 begin
+	SET ARITHABORT ON
+
 	select Signature from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
 end
 GO
@@ -4671,6 +4826,8 @@ create procedure [{databaseOwner}].[{objectQualifier}user_guest]
 )
 as
 begin
+	SET ARITHABORT ON
+
 	select top 1
 		a.UserID
 	from
@@ -4685,6 +4842,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_list](@BoardID int,@UserID int=null,@Approved bit=null,@GroupID int=null,@RankID int=null) as
 begin
+	SET ARITHABORT ON
+
 	if @UserID is not null
 		select 
 			a.*,
@@ -4751,6 +4910,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_login](@BoardID int,@Name nvarchar(50),@Password nvarchar(32)) as
 begin
+	SET ARITHABORT ON
+
 	declare @UserID int
 
 	-- Try correct board first
@@ -4779,6 +4940,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_nntp](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50)) as
 begin
+	SET ARITHABORT ON
+
 	declare @UserID int
 
 	set @UserName = @UserName + ' (NNTP)'
@@ -4804,6 +4967,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_recoverpassword](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50)) as
 begin
+	SET ARITHABORT ON
+
 	declare @UserID int
 	select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID = @BoardID and Name = @UserName and Email = @Email
 	if @UserID is null begin
@@ -4818,12 +4983,16 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removepoints] (@UserID int,@Points int) AS
 BEGIN
+	SET ARITHABORT ON
+
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points - @Points WHERE UserID = @UserID
 END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removepointsbytopicid] (@TopicID int,@Points int) AS
 BEGIN
+	SET ARITHABORT ON
+
 	declare @UserID int
 	select @UserID = UserID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
 	update [{databaseOwner}].[{objectQualifier}User] SET points = points - @Points WHERE userID = @UserID
@@ -4832,6 +5001,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_resetpoints] AS
 BEGIN
+	SET ARITHABORT ON
+
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = NumPosts * 3
 END
 GO
@@ -4850,6 +5021,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@ProviderUserKey	nvarchar(64) = null)
 AS
 begin
+	SET ARITHABORT ON
+
 	declare @RankID int
 	declare @Flags int
 	
@@ -4895,6 +5068,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_saveavatar]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
+
 	IF @Avatar IS NOT NULL 
 	BEGIN
 		UPDATE
@@ -4923,24 +5098,32 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_savepassword](@UserID int,@Password nvarchar(32)) as
 begin
+	SET ARITHABORT ON
+
 	update [{databaseOwner}].[{objectQualifier}User] set Password = @Password where UserID = @UserID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_savesignature](@UserID int,@Signature ntext) as
 begin
+	SET ARITHABORT ON
+
 	update [{databaseOwner}].[{objectQualifier}User] set Signature = @Signature where UserID = @UserID
 end
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_setpoints] (@UserID int,@Points int) AS
 BEGIN
+	SET ARITHABORT ON
+
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = @Points WHERE UserID = @UserID
 END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_setrole](@BoardID int,@ProviderUserKey nvarchar(64),@Role nvarchar(50)) as
 begin
+	SET ARITHABORT ON
+
 	declare @UserID int, @GroupID int
 	
 	select @UserID=UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey
@@ -4980,12 +5163,16 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_suspend](@UserID int,@Suspend datetime=null) as
 begin
+	SET ARITHABORT ON
+
 	update [{databaseOwner}].[{objectQualifier}User] set Suspended = @Suspend where UserID=@UserID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_upgrade](@UserID int) as
 begin
+	SET ARITHABORT ON
+
 	declare @RankID		int
 	declare @Flags		int
 	declare @MinPosts	int
@@ -5023,12 +5210,16 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}userforum_delete](@UserID int,@ForumID int) as
 begin
+	SET ARITHABORT ON
+
 	delete from [{databaseOwner}].[{objectQualifier}UserForum] where UserID=@UserID and ForumID=@ForumID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}userforum_list](@UserID int=null,@ForumID int=null) as 
 begin
+	SET ARITHABORT ON
+
 	select 
 		a.*,
 		b.AccessMaskID,
@@ -5048,6 +5239,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}userforum_save](@UserID int,@ForumID int,@AccessMaskID int) as
 begin
+	SET ARITHABORT ON
+
 	if exists(select 1 from [{databaseOwner}].[{objectQualifier}UserForum] where UserID=@UserID and ForumID=@ForumID)
 		update [{databaseOwner}].[{objectQualifier}UserForum] set AccessMaskID=@AccessMaskID where UserID=@UserID and ForumID=@ForumID
 	else
@@ -5056,6 +5249,8 @@ end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}usergroup_list](@UserID int) as begin
+	SET ARITHABORT ON
+
 	select 
 		b.GroupID,
 		b.Name
@@ -5071,6 +5266,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}usergroup_save](@UserID int,@GroupID int,@Member bit) as
 begin
+	SET ARITHABORT ON
+
 	if @Member=0
 		delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID=@UserID and GroupID=@GroupID
 	else
@@ -5082,12 +5279,16 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}userpmessage_delete](@UserPMessageID int) as
 begin
+	SET ARITHABORT ON
+
 	delete from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserPMessageID=@UserPMessageID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}userpmessage_list](@UserPMessageID int) as
 begin
+	SET ARITHABORT ON
+
 	SELECT
 		a.*,
 		FromUser = b.Name,
@@ -5109,6 +5310,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}watchforum_add](@UserID int,@ForumID int) as
 begin
+	SET ARITHABORT ON
+
 	insert into [{databaseOwner}].[{objectQualifier}WatchForum](ForumID,UserID,Created)
 	select @ForumID, @UserID, getdate()
 	where not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchForum] where ForumID=@ForumID and UserID=@UserID)
@@ -5117,18 +5320,24 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}watchforum_check](@UserID int,@ForumID int) as
 begin
+	SET ARITHABORT ON
+
 	SELECT WatchForumID FROM [{databaseOwner}].[{objectQualifier}WatchForum] WHERE UserID = @UserID AND ForumID = @ForumID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}watchforum_delete](@WatchForumID int) as
 begin
+	SET ARITHABORT ON
+
 	delete from [{databaseOwner}].[{objectQualifier}WatchForum] where WatchForumID = @WatchForumID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}watchforum_list](@UserID int) as
 begin
+	SET ARITHABORT ON
+
 	select
 		a.*,
 		ForumName = b.Name,
@@ -5149,6 +5358,8 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}watchtopic_add](@UserID int,@TopicID int) as
 begin
+	SET ARITHABORT ON
+
 	insert into [{databaseOwner}].[{objectQualifier}WatchTopic](TopicID,UserID,Created)
 	select @TopicID, @UserID, getdate()
 	where not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchTopic] where TopicID=@TopicID and UserID=@UserID)
@@ -5157,18 +5368,22 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}watchtopic_check](@UserID int,@TopicID int) as
 begin
+	SET ARITHABORT ON
+
 	SELECT WatchTopicID FROM [{databaseOwner}].[{objectQualifier}WatchTopic] WHERE UserID = @UserID AND TopicID = @TopicID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}watchtopic_delete](@WatchTopicID int) as
 begin
+	SET ARITHABORT ON
 	delete from [{databaseOwner}].[{objectQualifier}WatchTopic] where WatchTopicID = @WatchTopicID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}watchtopic_list](@UserID int) as
 begin
+	SET ARITHABORT ON
 	select
 		a.*,
 		TopicName = b.Topic,
@@ -5188,6 +5403,7 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}message_reply_list](@MessageID int) as
 begin
+	SET ARITHABORT ON
 	set nocount on
 	select
                 a.MessageID,
@@ -5214,6 +5430,8 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}message_deleteundelete](@MessageID int, @isModeratorChanged bit, @DeleteReason nvarchar(100), @isDeleteAction int) as
 begin
+	SET ARITHABORT ON
+
 	declare @TopicID		int
 	declare @ForumID		int
 	declare @MessageCount	int
@@ -5271,8 +5489,8 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_create_by_message] (
 	@Subject	nvarchar(100)
 ) as
 begin
-
-
+	SET ARITHABORT ON
+	
 declare		@UserID		int
 declare		@Posted		datetime
 
@@ -5296,6 +5514,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_move] (@MessageID int, @MoveToTopic int) AS
 BEGIN
+	SET ARITHABORT ON
 DECLARE
 	@Position int,
 	@ReplyToID int,
@@ -5393,6 +5612,8 @@ create proc [{databaseOwner}].[{objectQualifier}forum_resync]
 	@ForumID int = null
 AS
 begin
+	SET ARITHABORT ON
+
 	if (@ForumID is null) begin
 		declare curForums cursor for
 			select 
@@ -5433,6 +5654,8 @@ create proc [{databaseOwner}].[{objectQualifier}board_resync]
 	@BoardID int = null
 as
 begin
+	SET ARITHABORT ON
+
 	if (@BoardID is null) begin
 		declare curBoards cursor for
 			select BoardID from	[{databaseOwner}].[{objectQualifier}Board]
@@ -5463,6 +5686,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}category_simplelist](
                 @Limit   INT  = 500)
 AS
     BEGIN
+		SET ARITHABORT ON
+    
         SET ROWCOUNT  @Limit
         SELECT   c.[CategoryID],
                  c.[Name]
@@ -5479,6 +5704,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}forum_simplelist](
                 @Limit   INT  = 500)
 AS
     BEGIN
+				SET ARITHABORT ON				
         SET ROWCOUNT  @Limit
         SELECT   f.[ForumID],
                  f.[Name]
@@ -5495,6 +5721,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_simplelist](
                 @Limit   INT  = 1000)
 AS
     BEGIN
+				SET ARITHABORT ON				
         SET ROWCOUNT  @Limit
         SELECT   m.[MessageID],
                  m.[TopicID]
@@ -5512,6 +5739,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_simplelist](
                 @Limit   INT  = 500)
 AS
     BEGIN
+			SET ARITHABORT ON				
         SET ROWCOUNT  @Limit
         SELECT   t.[TopicID],
                  t.[Topic]
@@ -5528,6 +5756,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_simplelist](
                 @Limit   INT  = 500)
 AS
     BEGIN
+	SET ARITHABORT ON
+			
         SET ROWCOUNT  @Limit
         SELECT   a.[UserID],
                  a.[Name]
@@ -5547,6 +5777,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_delete]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
+	
 	IF @BBCodeID IS NOT NULL
 		DELETE FROM [{objectQualifier}BBCode] WHERE BBCodeID = @BBCodeID
 	ELSE
@@ -5561,6 +5793,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_list]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
+	
 	IF @BBCodeID IS NULL
 		SELECT * FROM [{objectQualifier}BBCode] WHERE BoardID = @BoardID ORDER BY ExecOrder, [Name] DESC
 	ELSE
@@ -5587,6 +5821,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_save]
 )
 AS
 BEGIN
+	SET ARITHABORT ON
+	
 	IF @BBCodeID IS NOT NULL BEGIN
 		UPDATE
 			[{objectQualifier}BBCode]
@@ -5622,6 +5858,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}choice_add](
 	@Choice		nvarchar(50)
 ) as
 begin
+	SET ARITHABORT ON
 
 	insert into [{databaseOwner}].[{objectQualifier}Choice]
 		(PollID, Choice, Votes)
@@ -5636,6 +5873,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}topic_poll_update](
 	@PollID		int=null
 ) as
 begin
+	SET ARITHABORT ON
+
 	if not (@TopicID is null) begin
 		update [{databaseOwner}].[{objectQualifier}Topic] 
 			set PollID = @PollID 
@@ -5654,6 +5893,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}choice_update](
 	@Choice		nvarchar(50)
 ) as
 begin
+	SET ARITHABORT ON
 
 	update [{databaseOwner}].[{objectQualifier}Choice]
 		set Choice = @Choice
@@ -5665,6 +5905,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}choice_delete](
 	@ChoiceID	int
 ) as
 begin
+	SET ARITHABORT ON
+
 	delete from [{databaseOwner}].[{objectQualifier}Choice]
 		where ChoiceID = @ChoiceID
 end
@@ -5676,6 +5918,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}poll_update](
 	@Closes 	datetime = null
 ) as
 begin
+	SET ARITHABORT ON
+
 	update [{databaseOwner}].[{objectQualifier}Poll]
 		set Question	=	@Question,
 			Closes		=	@Closes
@@ -5688,6 +5932,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}poll_remove](
 	@PollID int
 ) as
 begin
+	SET ARITHABORT ON
+
 	-- delete vote records first
 	delete from [{databaseOwner}].[{objectQualifier}PollVote] where PollID = @PollID
 	-- delete choices first
@@ -5707,10 +5953,9 @@ create proc [{databaseOwner}].[{objectQualifier}group_medal_delete]
 	@GroupID int,
 	@MedalID int
 as begin
-
+	SET ARITHABORT ON
 
 	delete from [{databaseOwner}].[{objectQualifier}GroupMedal] where [GroupID]=@GroupID and [MedalID]=@MedalID
-
 end
 GO
 
@@ -5718,6 +5963,7 @@ CREATE proc [{databaseOwner}].[{objectQualifier}group_medal_list]
 	@GroupID int = null,
 	@MedalID int = null
 as begin
+	SET ARITHABORT ON
 
 	select 
 		a.[MedalID],
@@ -5761,6 +6007,7 @@ create proc [{databaseOwner}].[{objectQualifier}group_medal_save]
    @OnlyRibbon bit,
    @SortOrder tinyint
 as begin
+	SET ARITHABORT ON
 
 	if exists(select 1 from [{databaseOwner}].[{objectQualifier}GroupMedal] where [GroupID]=@GroupID and [MedalID]=@MedalID) begin
 		update [{databaseOwner}].[{objectQualifier}GroupMedal]
@@ -5789,6 +6036,7 @@ CREATE proc [{databaseOwner}].[{objectQualifier}medal_delete]
 	@MedalID	int = null,
 	@Category	nvarchar(50) = null
 as begin
+	SET ARITHABORT ON
 
 	if not @MedalID is null begin
 		delete from [{databaseOwner}].[{objectQualifier}GroupMedal] where [MedalID] = @MedalID
@@ -5823,7 +6071,7 @@ CREATE proc [{databaseOwner}].[{objectQualifier}medal_list]
 	@MedalID	int = null,
 	@Category	nvarchar(50) = null
 as begin
-
+	SET ARITHABORT ON
 	if not @MedalID is null begin
 		select 
 			* 
@@ -5864,7 +6112,7 @@ GO
 CREATE proc [{databaseOwner}].[{objectQualifier}medal_listusers]
 	@MedalID	int
 as begin
-
+	SET ARITHABORT ON
 	(select 
 		a.UserID, a.Name
 	from 
@@ -5892,6 +6140,7 @@ create proc [{databaseOwner}].[{objectQualifier}medal_resort]
 	@BoardID int,@MedalID int,@Move int
 as
 begin
+	SET ARITHABORT ON
 	declare @Position int
 	declare @Category nvarchar(50)
 
@@ -5958,7 +6207,7 @@ CREATE proc [{databaseOwner}].[{objectQualifier}medal_save]
 	@SortOrder tinyint = 255,
 	@Flags int = 0
 as begin
-
+	SET ARITHABORT ON
 	if @MedalID is null begin
 		insert into [{databaseOwner}].[{objectQualifier}Medal]
 			([BoardID],[Name],[Description],[Message],[Category],
@@ -6001,7 +6250,7 @@ GO
 create proc [{databaseOwner}].[{objectQualifier}user_listmedals]
 	@UserID	int
 as begin
-
+	SET ARITHABORT ON
 	(select
 		a.[MedalID],
 		a.[Name],
@@ -6061,8 +6310,7 @@ create proc [{databaseOwner}].[{objectQualifier}user_medal_delete]
 	@UserID int,
 	@MedalID int
 as begin
-
-
+	SET ARITHABORT ON
 	delete from [{databaseOwner}].[{objectQualifier}UserMedal] where [UserID]=@UserID and [MedalID]=@MedalID
 
 end
@@ -6072,7 +6320,7 @@ create proc [{databaseOwner}].[{objectQualifier}user_medal_list]
 	@UserID int = null,
 	@MedalID int = null
 as begin
-
+	SET ARITHABORT ON
 	select 
 		a.[MedalID],
 		a.[Name],
@@ -6117,7 +6365,7 @@ create proc [{databaseOwner}].[{objectQualifier}user_medal_save]
 	@SortOrder tinyint,
 	@DateAwarded datetime = NULL
 as begin
-
+	SET ARITHABORT ON
 	if exists(select 1 from [{databaseOwner}].[{objectQualifier}UserMedal] where [UserID]=@UserID and [MedalID]=@MedalID) begin
 		update [{databaseOwner}].[{objectQualifier}UserMedal]
 		set
@@ -6148,6 +6396,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_addignoreduser]
 	@UserId int,
 	@IgnoredUserId int
 AS BEGIN
+	SET ARITHABORT ON
 	IF NOT EXISTS (SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @ignoredUserId)
 	BEGIN
 		INSERT INTO [{databaseOwner}].[{objectQualifier}IgnoreUser] (UserID, IgnoredUserID) VALUES (@UserId, @IgnoredUserId)
@@ -6159,7 +6408,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removeignoreduser]
     @UserId int,
     @IgnoredUserId int
 AS BEGIN
-
+	SET ARITHABORT ON
 	DELETE FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @ignoredUserId
 	
 END
@@ -6169,7 +6418,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_isuserignored]
     @UserId int,
     @IgnoredUserId int
 AS BEGIN
-
+	SET ARITHABORT ON
 	IF EXISTS(SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @ignoredUserId)
 	BEGIN
 		RETURN 1
@@ -6186,6 +6435,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_ignoredlist]
     @UserId int
 AS
 BEGIN
+	SET ARITHABORT ON
 	SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId
 END	
 GO
@@ -6202,6 +6452,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_getmessages]
 )  
 AS
 BEGIN	
+	SET ARITHABORT ON
 	SET ROWCOUNT @NumberOfMessages
 
 	SELECT
@@ -6226,7 +6477,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage](
 )
 AS
 BEGIN
-	
+	SET ARITHABORT ON
 	IF @Date IS NULL
 		SET @Date = GETDATE()
 
@@ -6238,6 +6489,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_clearmessages] AS
 BEGIN
+	SET ARITHABORT ON
 	DELETE FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] WHERE DATEDIFF(day, Date, getdate()) > 1
 END
 GO
