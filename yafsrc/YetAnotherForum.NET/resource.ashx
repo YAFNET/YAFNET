@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Data;
+using System.Net;
 using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
@@ -126,6 +127,14 @@ namespace YAF
 
 		private void GetResponseLocalAvatar(HttpContext context)
 		{
+			string eTag = String.Format( @"""{0}""", context.Request.QueryString["u"] );
+
+			if ( CheckETag( context, eTag ) )
+			{
+				// found eTag... no need to resend/create this image -- just mark another view?
+				return;
+			}					
+			
 			using (DataTable dt = YAF.Classes.Data.DB.user_avatarimage(context.Request.QueryString["u"]))
 			{
 				foreach (DataRow row in dt.Rows)
@@ -134,10 +143,14 @@ namespace YAF
 					string contentType = row["AvatarImageType"].ToString();
 
 					context.Response.Clear();
-					if (!String.IsNullOrEmpty(contentType))
+					if (String.IsNullOrEmpty(contentType))
 					{
-						context.Response.ContentType = contentType;
+						contentType = "image/jpeg";
 					}
+					context.Response.ContentType = contentType;
+					context.Response.Cache.SetCacheability( HttpCacheability.Public );
+					context.Response.Cache.SetExpires( DateTime.Now.AddHours( 2 ) );
+					context.Response.Cache.SetETag( eTag );					
 					context.Response.OutputStream.Write(data, 0, data.Length);
 					break;
 				}
@@ -155,18 +168,26 @@ namespace YAF
 
 			try
 			{
+				int maxwidth = int.Parse( context.Request.QueryString["width"] );
+				int maxheight = int.Parse( context.Request.QueryString["height"] );
+
+				string eTag = String.Format( @"""{0}""", (context.Request.QueryString["url"]+maxheight.ToString()+maxwidth.ToString()).GetHashCode() );
+
+				if ( CheckETag( context, eTag ) )
+				{
+					// found eTag... no need to download this image...
+					return;
+				}						
+				
 				Stream input = wc.OpenRead(wb);
 				img = new Bitmap(input);
 				input.Close();
-
-				int maxwidth = int.Parse(context.Request.QueryString["width"]);
-				int maxheight = int.Parse(context.Request.QueryString["height"]);
 				int width = img.Width;
 				int height = img.Height;
 
 				if (width <= maxwidth && height <= maxheight)
 					context.Response.Redirect(wb);
-
+				
 				if (width > maxwidth)
 				{
 					height = Convert.ToInt32((double)height / (double)width * (double)maxwidth);
@@ -192,8 +213,10 @@ namespace YAF
 
 				// Output the data
 				context.Response.ContentType = "image/jpeg";
+				context.Response.Cache.SetCacheability( HttpCacheability.Public );
+				context.Response.Cache.SetExpires( DateTime.Now.AddHours( 2 ) );
+				context.Response.Cache.SetETag( eTag );
 				bmp.Save(context.Response.OutputStream, ImageFormat.Jpeg);
-
 			}
 			finally
 			{
@@ -268,6 +291,15 @@ namespace YAF
 		{
 			try
 			{
+				string eTag = String.Format( @"""{0}""", context.Request.QueryString["i"] );
+
+				if ( CheckETag( context, eTag ) )
+				{
+					// found eTag... no need to resend/create this image -- just mark another view?
+					YAF.Classes.Data.DB.attachment_download( context.Request.QueryString["i"] );
+					return;
+				}						
+				
 				// AttachmentID
 				using (DataTable dt = YAF.Classes.Data.DB.attachment_list(null, context.Request.QueryString["i"], null))
 				{
@@ -309,7 +341,11 @@ namespace YAF
 						}
 
 						context.Response.ContentType = row["ContentType"].ToString();
+						context.Response.Cache.SetCacheability( HttpCacheability.Public );
+						context.Response.Cache.SetETag( eTag );						
 						context.Response.OutputStream.Write(data, 0, data.Length);
+						
+						// add a download count...
 						YAF.Classes.Data.DB.attachment_download(context.Request.QueryString["i"]);
 						break;
 					}
@@ -324,18 +360,33 @@ namespace YAF
 
 		private void GetResponseImagePreview(HttpContext context)
 		{
-			// default is 200 width.
-			int previewWidth = 200;
+			// default is 200x200
+			int previewMaxWidth = 200;
+			int previewMaxHeight = 200;
 			string localizationFile = "english.xml";
 
 			if (context.Session["imagePreviewWidth"] != null && context.Session["imagePreviewWidth"] is int )
 			{
-				previewWidth = (int) context.Session["imagePreviewWidth"];
+				previewMaxWidth = (int)context.Session["imagePreviewWidth"];
 			}
+
+			if ( context.Session["imagePreviewHeight"] != null && context.Session["imagePreviewHeight"] is int )
+			{
+				previewMaxHeight = (int)context.Session["imagePreviewHeight"];
+			}			
 			
 			if ( context.Session["localizationFile"] != null && context.Session["localizationFile"] is string )
 			{
 				localizationFile = context.Session["localizationFile"].ToString();
+			}
+
+			string eTag = String.Format( @"""{0}""",
+			                             (context.Request.QueryString["p"] + localizationFile.GetHashCode().ToString()) );
+			
+			if ( CheckETag( context, eTag ))
+			{
+				// found eTag... no need to resend/create this image...
+				return;
 			}
 
 			try
@@ -383,55 +434,22 @@ namespace YAF
 							data.Write(buffer, 0, buffer.Length);
 						}
 
+						// reset position...
 						data.Position = 0;
-						context.Response.ContentType = "image/png";
-						//context.Response.AppendHeader("Content-Disposition", String.Format("attachment; filename={0}", HttpUtility.UrlEncode(row["FileName"].ToString()).Replace("+", "%20")));
-						using (Bitmap src = new Bitmap(data))
-						{
-							double srcAspect = (double)src.Width / (double)src.Height;
-							using (Bitmap dst = new Bitmap(previewWidth + 6, (int)(previewWidth / srcAspect + 6), System.Drawing.Imaging.PixelFormat.Format24bppRgb))
-							{
-								Rectangle rSrcImg = new Rectangle(0, 0, src.Width, src.Height);
-								Rectangle rDstImg = new Rectangle(3, 3, dst.Width - 6, dst.Height - 20);
-								Rectangle rDstTxt = new Rectangle(0, rDstImg.Height, previewWidth + 5, 20);
-								using (Graphics g = Graphics.FromImage(dst))
-								{
-									g.Clear(Color.FromArgb(64, 64, 64));
-									g.FillRectangle(Brushes.White, rDstImg);
-									g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-									g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bicubic;
-									g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-									g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
-									
-									using (Font f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
-									{
-										using (SolidBrush brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
-										{
-											YafLocalization localization = new YafLocalization( "POSTS" );
-											localization.LoadTranslation( localizationFile );
 
-											StringFormat sf = new StringFormat();
-											
-											sf.Alignment = StringAlignment.Near;
-											sf.LineAlignment = StringAlignment.Center;
-											g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt, sf);
-											
-											sf.Alignment = StringAlignment.Far;
-											int muh = (int) row["Downloads"];
-											g.DrawString(string.Format(localization.GetText("IMAGE_RESIZE_VIEWS"), muh.ToString()), f, brush, rDstTxt, sf);
-										}
-									}
-								}
-								using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
-								{
-									dst.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-									context.Response.OutputStream.Write(ms.ToArray(), 0, (int)ms.Length);
-								}
-							}
-						}
+						MemoryStream ms = GetImageResized( data, previewMaxWidth, previewMaxHeight, (int)row["Downloads"], localizationFile );
+
+						context.Response.ContentType = "image/png";
+						
+						// output stream...
+						context.Response.OutputStream.Write( ms.ToArray(), 0, (int)ms.Length );
+						context.Response.Cache.SetCacheability( HttpCacheability.Public );
+						context.Response.Cache.SetExpires( DateTime.Now.AddHours( 2 ) );
+						context.Response.Cache.SetETag( eTag );
+
 						data.Dispose();
-						context.Response.Cache.SetCacheability(HttpCacheability.Public);
-						context.Response.Cache.SetExpires(DateTime.Now.AddHours(1));
+						ms.Dispose();
+						
 						break;
 					}
 				}
@@ -443,6 +461,99 @@ namespace YAF
 			}
 		}
 		// TommyB: End MOD: Preview Images
+
+		private MemoryStream GetImageResized( MemoryStream data, int previewWidth, int previewHeight, int downloads, string localizationFile )
+		{
+			const int pixelPadding = 6;
+			const int bottomSize = 13;
+			
+			using ( Bitmap src = new Bitmap( data ) )
+			{
+				// default to width-based resizing...
+				int width = previewWidth;
+				int height = (int) (previewWidth/((double)src.Width / (double)src.Height));
+				
+				if ( src.Width <= previewWidth && src.Height <= previewHeight )
+				{
+					// no resizing necessary...
+					width = src.Width;
+					height = src.Height;
+				}
+				else if ( height > previewHeight )
+				{
+					// aspect is based on the height, not the width...
+					width = (int)( previewHeight / ( (double)src.Height / (double)src.Width ) );
+					height = previewHeight;
+				}
+
+				using ( Bitmap dst = new Bitmap( width + pixelPadding, height + bottomSize + pixelPadding, System.Drawing.Imaging.PixelFormat.Format24bppRgb ) )
+				{
+					Rectangle rSrcImg = new Rectangle( 0, 0, src.Width, src.Height );
+					Rectangle rDstImg = new Rectangle( 3, 3, dst.Width - pixelPadding, dst.Height - pixelPadding - bottomSize );
+					Rectangle rDstTxt = new Rectangle( 3, rDstImg.Height + 3, previewWidth, bottomSize );
+					using ( Graphics g = Graphics.FromImage( dst ) )
+					{
+						g.Clear( Color.FromArgb( 64, 64, 64 ) );
+						g.FillRectangle( Brushes.White, rDstImg );
+						
+						g.CompositingMode = CompositingMode.SourceOver;
+						g.CompositingQuality = CompositingQuality.GammaCorrected;
+						g.SmoothingMode = SmoothingMode.HighQuality;
+						g.InterpolationMode = InterpolationMode.HighQualityBicubic;						
+
+						g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+						g.DrawImage( src, rDstImg, rSrcImg, GraphicsUnit.Pixel );
+
+						using ( Font f = new Font( "Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel ) )
+						{
+							using ( SolidBrush brush = new SolidBrush( Color.FromArgb( 191, 191, 191 ) ) )
+							{
+								YafLocalization localization = new YafLocalization( "POSTS" );
+								localization.LoadTranslation( localizationFile );
+
+								StringFormat sf = new StringFormat();
+
+								sf.Alignment = StringAlignment.Near;
+								sf.LineAlignment = StringAlignment.Center;
+								g.DrawString( localization.GetText( "IMAGE_RESIZE_ENLARGE" ), f, brush, rDstTxt, sf );
+
+								sf.Alignment = StringAlignment.Far;
+								g.DrawString( string.Format( localization.GetText( "IMAGE_RESIZE_VIEWS" ), downloads.ToString() ), f, brush, rDstTxt, sf );
+							}
+						}
+					}
+					
+					System.IO.MemoryStream ms = new System.IO.MemoryStream();
+					// save the bitmap to the stream...
+					dst.Save( ms, ImageFormat.Png );
+					ms.Position = 0;
+					
+					return ms;
+				}
+			}			
+		}
+
+		/// <summary>
+		/// Check if the ETag that sent from the client is match to the current ETag.
+		/// If so, set the status code to 'Not Modified' and stop the response.
+		/// </summary>
+		private static bool CheckETag( HttpContext context, string eTagCode )
+		{
+			string ifNoneMatch = context.Request.Headers["If-None-Match"];
+			if ( eTagCode.Equals( ifNoneMatch, StringComparison.Ordinal ) )
+			{
+				context.Response.AppendHeader( "Content-Length", "0" );
+				context.Response.StatusCode = (int)HttpStatusCode.NotModified;
+				context.Response.StatusDescription = "Not modified";
+				context.Response.SuppressContent = true;
+				context.Response.Cache.SetCacheability( HttpCacheability.Public );
+				context.Response.Cache.SetETag( eTagCode );
+				context.Response.End();
+				return true;
+			}
+
+			return false;
+		}		
 
 		private void GetResponseGoogleSpell(HttpContext context)
 		{
