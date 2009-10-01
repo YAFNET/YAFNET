@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Web;
 
 namespace YAF.Classes.Utils
 {
@@ -55,6 +56,21 @@ namespace YAF.Classes.Utils
 			if ( !String.IsNullOrEmpty(userAgent))
 			{
 				return spiderContains.Select( s => s.ToLower() ).Contains( userAgent.ToLower() );
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Is this user agent IE v6?
+		/// </summary>
+		/// <returns></returns>
+		public static bool IsBrowserIE6()
+		{
+			if ( HttpContext.Current.Request.Browser.Browser.Contains( "IE" ) && HttpContext.Current.Request.Browser.Version.StartsWith("6.") )
+			{
+				// IE version 6
+				return true;
 			}
 
 			return false;
