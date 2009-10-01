@@ -84,9 +84,19 @@ namespace YAF.Pages
 			}
 			else if (EditTopicID != null)
 			{
-				using (DataTable dt = DB.message_list(EditTopicID))
-					currentRow = dt.Rows[0];
+				DataTable dt = DB.message_list( EditTopicID );
+
+				if ( dt.Rows.Count == 0 )
+				{
+					// we're done here...
+					YafBuildLink.RedirectInfoPage( InfoMessage.Invalid );
+					return;
+				}
+				
+				currentRow = dt.Rows[0];
+
 				_ownerUserId = Convert.ToInt32(currentRow["UserId"]);
+
 				if (!CanEditPostCheck(currentRow))
 					YafBuildLink.AccessDenied();
 			}
