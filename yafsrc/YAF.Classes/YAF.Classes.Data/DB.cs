@@ -19,10 +19,12 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Web;
+using System.Linq;
 using System.Web.Hosting;
 using System.Web.Security;
 
@@ -4662,14 +4664,17 @@ namespace YAF.Classes.Data
 			// apply object qualifier
 			script = script.Replace( "{objectQualifier}", YafDBAccess.ObjectQualifier );
 
-			string[] statements = System.Text.RegularExpressions.Regex.Split( script, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
+			List<string> statements = System.Text.RegularExpressions.Regex.Split( script, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase ).ToList();
+
+			// add SET ARITHABORT ON
+			statements.Insert( 0, "SET ARITHABORT ON" );
 
 			using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
 			{
 				// use transactions...
 				if ( useTransactions )
 				{
-					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.YafDBAccess.IsolationLevel ) )
+          using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.YafDBAccess.IsolationLevel ) )
 					{
 						foreach ( string sql0 in statements )
 						{
@@ -4707,6 +4712,8 @@ namespace YAF.Classes.Data
 					foreach ( string sql0 in statements )
 					{
 						string sql = sql0.Trim();
+						// add ARITHABORT option
+						sql = "SET ARITHABORT ON\r\nGO\r\n" + sql;
 
 						try
 						{
