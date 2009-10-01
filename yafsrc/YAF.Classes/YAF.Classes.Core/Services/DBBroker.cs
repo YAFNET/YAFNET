@@ -109,41 +109,27 @@ namespace YAF.Classes.Core
 		/// <returns>Returns board layout</returns>
 		public DataSet BoardLayout( object boardID, object userID, object categoryID, object parentID )
 		{
-			// is the guest?
-			bool isGuest = UserMembershipHelper.IsGuestUser( userID );
-
-			bool hasModerator = false;
-
 			if ( categoryID != null && long.Parse( categoryID.ToString() ) == 0 )
 				categoryID = null;
 
 			using ( DataSet ds = new DataSet() )
 			{
-				string key = string.Empty;
+				// get the cached version of forum moderators if it's valid
+				string key = YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators );
+				DataTable moderator = YafContext.Current.Cache [key] as DataTable;
 
-				if ( YafContext.Current.BoardSettings.ShowModeratorList )
+				// was it in the cache?
+				if ( moderator == null )
 				{
-					// get the cached version of forum moderators if it's valid
-					key = YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators );
-					DataTable moderator = YafContext.Current.Cache[key] as DataTable;
+					// get fresh values
+					moderator = DB.forum_moderators();
+					moderator.TableName = YafDBAccess.GetObjectName( "Moderator" );
 
-					// was it in the cache?
-					if ( moderator == null )
-					{
-						// get fresh values
-						moderator = DB.forum_moderators();
-						moderator.TableName = YafDBAccess.GetObjectName( "Moderator" );
-
-						// cache it for the time specified by admin
-						YafContext.Current.Cache.Add( key, moderator, null,
-						                              DateTime.Now.AddMinutes(
-						                              	YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout ), TimeSpan.Zero,
-						                              System.Web.Caching.CacheItemPriority.Default, null );
-					}
-					// insert it into this DataSet
-					ds.Tables.Add( moderator.Copy() );
-					hasModerator = true;
+					// cache it for the time specified by admin
+					YafContext.Current.Cache.Add(key, moderator, null, DateTime.Now.AddMinutes(YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null);
 				}
+				// insert it into this DataSet
+				ds.Tables.Add( moderator.Copy() );
 
 				// get the Category Table
 				key = YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory );
@@ -175,39 +161,12 @@ namespace YAF.Classes.Core
 					ds.Tables [YafDBAccess.GetObjectName( "Category" )].AcceptChanges();
 				}
 
-				DataTable forum = null;
-
-				if ( isGuest && categoryID == null && parentID == null )
-				{
-					// get the cached version of forum moderators if it's valid
-					key = YafCache.GetBoardCacheKey( Constants.Cache.ForumListAll );
-					forum = YafContext.Current.Cache[key] as DataTable;
-
-					// was it in the cache?
-					if ( forum == null )
-					{
-						// get fresh values
-						forum = DB.forum_listread( boardID, userID, categoryID, parentID );
-						forum.TableName = YafDBAccess.GetObjectName( "Forum" );
-
-						// cache it for the time specified by admin
-						YafContext.Current.Cache.Add( key, forum, null,
-																					DateTime.Now.AddMinutes(
-																						YafContext.Current.BoardSettings.BoardForumListAllGuestCacheTimeout ), TimeSpan.Zero,
-																					System.Web.Caching.CacheItemPriority.Default, null );
-					}
-				}
-				else
-				{
-					forum = DB.forum_listread( boardID, userID, categoryID, parentID );
-					forum.TableName = YafDBAccess.GetObjectName( "Forum" );
-				}
-
-				// insert it into this DataSet
+				DataTable forum = DB.forum_listread( boardID, userID, categoryID, parentID );
+				forum.TableName = YafDBAccess.GetObjectName( "Forum" );
 				ds.Tables.Add( forum.Copy() );
 
 				ds.Relations.Add( "FK_Forum_Category", ds.Tables [YafDBAccess.GetObjectName( "Category" )].Columns ["CategoryID"], ds.Tables [YafDBAccess.GetObjectName( "Forum" )].Columns ["CategoryID"], false );
-				if ( hasModerator ) ds.Relations.Add( "FK_Moderator_Forum", ds.Tables [YafDBAccess.GetObjectName( "Forum" )].Columns ["ForumID"], ds.Tables [YafDBAccess.GetObjectName( "Moderator" )].Columns ["ForumID"], false );
+				ds.Relations.Add( "FK_Moderator_Forum", ds.Tables [YafDBAccess.GetObjectName( "Forum" )].Columns ["ForumID"], ds.Tables [YafDBAccess.GetObjectName( "Moderator" )].Columns ["ForumID"], false );
 
 				bool deletedCategory = false;
 

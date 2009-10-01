@@ -62,7 +62,6 @@ namespace YAF.Classes
 			public const string ForumActiveDiscussions = "ForumActiveDiscussions";
 			public const string ForumModerators = "ForumModerators";
 			public const string ForumCategory = "ForumCategory";
-			public const string ForumListAll = "ForumListAllGuestBoard";
 			public const string UserIgnoreList = "UserIgnoreList{0}";
 			public const string UserMedals = "UserMedals{0}";
 			public const string UserBoxes = "UserBoxes";

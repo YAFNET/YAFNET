@@ -605,10 +605,21 @@ namespace YAF.Classes.Core
 				catch (Exception x)
 				{
 #if !DEBUG
-	// log the exception...
+					// log the exception...
 					YAF.Classes.Data.DB.eventlog_create( null, "Failure Initializing User/Page.", x, EventLogTypes.Warning );
-					// show a failure notice since something is probably up with membership...
-					YafBuildLink.RedirectInfoPage( InfoMessage.Failure );
+					// log the user out...
+					FormsAuthentication.SignOut();
+
+					if ( YafContext.Current.ForumPageType != ForumPages.info )
+					{
+						// show a failure notice since something is probably up with membership...
+						YafBuildLink.RedirectInfoPage( InfoMessage.Failure );
+					}
+					else
+					{
+						// totally failing... just re-throw the exception...
+						throw;
+					}
 #else
 					// re-throw exception...
 					throw;
