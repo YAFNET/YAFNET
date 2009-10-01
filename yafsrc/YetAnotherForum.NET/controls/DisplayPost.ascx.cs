@@ -543,8 +543,9 @@ namespace YAF.Controls
 
 		private void ClearIgnoreCache()
 		{
+			// clear for the session
 			string key = YafCache.GetBoardCacheKey( String.Format( Constants.Cache.UserIgnoreList, PageContext.PageUserID ) );
-			PageContext.Cache.Remove( key );
+			Session.Remove( key );
 		}
 
 		private void AddIgnored(int ignoredUserId)
