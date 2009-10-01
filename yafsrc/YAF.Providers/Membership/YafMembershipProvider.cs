@@ -439,7 +439,7 @@ namespace YAF.Providers.Membership
             _minimumRequiredPasswordLength = int.Parse(config["minRequiredPasswordLength"] ?? "6");
 
             // Minimum Required Non Alpha-numeric Characters from Provider configuration
-						_minRequiredNonAlphanumericCharacters = int.Parse( config["minRequiredNonalphanumericCharacters"] ?? "1" );
+						_minRequiredNonAlphanumericCharacters = int.Parse( config["minRequiredNonalphanumericCharacters"] ?? "0" );
 
             // Maximum number of allowed password attempts
             _maxInvalidPasswordAttempts = int.Parse(config["maxInvalidPasswordAttempts"] ?? "5");
