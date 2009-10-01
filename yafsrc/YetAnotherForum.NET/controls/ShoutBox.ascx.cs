@@ -107,6 +107,8 @@ namespace YAF.Controls
 
 		private void BindData()
 		{
+			if ( !this.Visible ) return;
+
 			DataTable shoutBoxMessages = (DataTable)PageContext.Cache[CacheKey];
 
 			if ( shoutBoxMessages == null )
