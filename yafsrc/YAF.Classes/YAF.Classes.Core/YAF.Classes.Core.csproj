@@ -80,7 +80,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BoardSettings\LoadBoardSettings.cs" />
-    <Compile Include="Context\Context.cs" />
+    <Compile Include="Context\YafContext.cs" />
     <Compile Include="Handlers\LocalizationHandler.cs" />
     <Compile Include="Context\UserPageBase.cs" />
     <Compile Include="Handlers\ThemeHandler.cs" />
