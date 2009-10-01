@@ -143,8 +143,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_upgrade]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-		IF (@PreviousVersion = 31) OR (@PreviousVersion = 32)
+    		IF (@PreviousVersion = 31) OR (@PreviousVersion = 32)
 		BEGIN
 			-- RESOLVE SALT ISSUE IN 193 BETA and RC2
 			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET PasswordSalt='UwB5AHMAdABlAG0ALgBCAHkAdABlAFsAXQA=' WHERE PasswordSalt IS NOT NULL;
@@ -161,8 +160,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createapplication]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	SET @ApplicationID = (SELECT ApplicationID FROM [{databaseOwner}].[{objectQualifier}prov_Application] WHERE ApplicationNameLwd=LOWER(@ApplicationName))
+    	SET @ApplicationID = (SELECT ApplicationID FROM [{databaseOwner}].[{objectQualifier}prov_Application] WHERE ApplicationNameLwd=LOWER(@ApplicationName))
 	
 	IF (@ApplicationID IS Null)
 	BEGIN
@@ -184,8 +182,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_changepassword]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationId OUTPUT
 	
@@ -205,8 +202,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_changepasswordquestion
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationId OUTPUT
 	
@@ -231,8 +227,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createuser]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationId OUTPUT
 	IF @UserKey IS NULL
@@ -251,8 +246,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_deleteuser]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier, @UserID nvarchar(64)
+    	DECLARE @ApplicationID uniqueidentifier, @UserID nvarchar(64)
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
@@ -280,8 +274,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_findusersbyemail]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-
+    
     -- Set the page bounds
 	DECLARE @ApplicationID uniqueidentifier
 
@@ -315,8 +308,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_findusersbyname]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-
+    
     -- Set the page bounds
 	DECLARE @ApplicationID uniqueidentifier
 
@@ -349,8 +341,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getallusers]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-
+    
     -- Set the page bounds
 	DECLARE @ApplicationID uniqueidentifier
 
@@ -383,8 +374,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getnumberofusersonline
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ActivityDate DateTime
+    	DECLARE @ActivityDate DateTime
 	SET @ActivityDate = DATEADD(n, - @TimeWindow, @CurrentTimeUTC)
 
 	DECLARE @ApplicationID uniqueidentifier
@@ -407,8 +397,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getuser]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
@@ -433,8 +422,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getusernamebyemail]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
 	SELECT m.Username FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m INNER JOIN [{databaseOwner}].[{objectQualifier}prov_Application] a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationID = @ApplicationID AND m.EmailLwd = LOWER(@Email);
@@ -454,8 +442,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_resetpassword]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
@@ -478,8 +465,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_unlockuser]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
@@ -506,8 +492,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_updateuser]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
@@ -550,8 +535,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_addusertorole]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @UserID nvarchar(64)
+    	DECLARE @UserID nvarchar(64)
 	DECLARE @RoleID uniqueidentifier
 	DECLARE @ApplicationID uniqueidentifier
 	
@@ -573,8 +557,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_deleterole]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @RoleID uniqueidentifier
+    	DECLARE @RoleID uniqueidentifier
 	DECLARE @ErrorCode int
 	DECLARE @ApplicationID uniqueidentifier
 	
@@ -606,8 +589,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_findusersinrole]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @RoleID uniqueidentifier
+    	DECLARE @RoleID uniqueidentifier
 	DECLARE @ApplicationID uniqueidentifier
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
@@ -626,8 +608,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_createrole]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
@@ -643,8 +624,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_getroles]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 	
  	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
@@ -673,8 +653,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_isuserinrole]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
@@ -693,8 +672,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_removeuserfromrol
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @UserID nvarchar(64)
+    	DECLARE @UserID nvarchar(64)
 	DECLARE @RoleID uniqueidentifier
 	DECLARE @ApplicationID uniqueidentifier
 
@@ -715,8 +693,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_exists]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
@@ -736,8 +713,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_deleteinactive
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
@@ -761,8 +737,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_deleteprofiles
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
     DECLARE @UserName     nvarchar(256)
     DECLARE @CurrentPos   int
     DECLARE @NextPos      int
@@ -821,8 +796,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_getprofiles]
 )
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
@@ -867,8 +841,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_getnumberinact
     @InactiveSinceDate      datetime
 AS
 BEGIN
-    SET ARITHABORT ON
-	DECLARE @ApplicationID uniqueidentifier
+    	DECLARE @ApplicationID uniqueidentifier
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
