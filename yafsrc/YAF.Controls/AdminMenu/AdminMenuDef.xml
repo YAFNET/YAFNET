@@ -33,7 +33,12 @@
       <ForumPage>admin_smilies</ForumPage>
       <Image>smiley</Image>
     </YafMenuItem>
-    <YafMenuItem>
+		<YafMenuItem>
+			<Title>Replace Words</Title>
+			<ForumPage>admin_replacewords</ForumPage>
+			<Image>sticky-note-text</Image>
+		</YafMenuItem>
+		<YafMenuItem>
       <Title>File Extensions</Title>
       <ForumPage>admin_extensions</ForumPage>
       <Image>gear--pencil</Image>
@@ -63,7 +68,7 @@
     <YafMenuItem>
       <Title>Ranks</Title>
       <ForumPage>admin_ranks</ForumPage>
-      <Image>marker</Image>
+      <Image>megaphone</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Medals</Title>
