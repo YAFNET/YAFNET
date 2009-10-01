@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="YAF Pro" dir="yafpro">
   <page name="THEME">
-    <Resource tag="HEADER">
-      &lt;script type="text/javascript" src="~/reflection.js"&gt;&lt;/script&gt;
-    </Resource>
     <Resource tag="CREDIT">YAFPro Theme Created by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
   </page>
 	<page name="ICONS">
