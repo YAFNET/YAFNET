@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Web;
 using YAF.Classes;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
@@ -34,7 +35,8 @@ namespace YAF.Classes.Core
 		public List<int> UserIgnoredList( int userId )
 		{
 			string key = YafCache.GetBoardCacheKey( String.Format( Constants.Cache.UserIgnoreList, userId ) );
-			List<int> userList = YafContext.Current.Cache[key] as List<int>;
+			// stored in the user session...
+			List<int> userList = HttpContext.Current.Session[key] as List<int>;
 
 			// was it in the cache?
 			if ( userList == null )
@@ -43,10 +45,10 @@ namespace YAF.Classes.Core
 				DataTable userListDt = DB.user_ignoredlist( userId );
 
 				// convert to list...
-				userList = TypeHelper.ConvertDataTableToList<int>( userListDt );
+				userList = TypeHelper.ConvertDataTableColumnToList<int>( "IgnoredUserID", userListDt );
 
-				// cache it for the time specified by admin
-				YafContext.Current.Cache.Add( key, userList, DateTime.Now.AddMinutes( 10 ) );
+				// store it in the user session...
+				HttpContext.Current.Session.Add( key, userList );
 			}
 
 			return userList;

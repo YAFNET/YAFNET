@@ -95,13 +95,25 @@ namespace YAF.Classes.Utils
 			return null;
 		}
 
-		static public List<T> ConvertDataTableToList<T>( DataTable dataTable )
+		static public List<T> ConvertDataTableFirstColumnToList<T>( DataTable dataTable )
+		{
+			List<T> list = new List<T>();
+
+			foreach ( DataRow item in dataTable.Rows )
+			{
+				list.Add( (T)Convert.ChangeType( item[0], typeof( T ) ) );
+			}
+
+			return list;
+		}
+
+		static public List<T> ConvertDataTableColumnToList<T>( string columnName, DataTable dataTable )
 		{
 			List<T> list = new List<T>();
 
 			foreach( DataRow item in dataTable.Rows)
 			{
-				list.Add( (T) Convert.ChangeType( item[0], typeof ( T ) ) );
+				list.Add( (T)Convert.ChangeType( item[columnName], typeof( T ) ) );
 			}
 
 			return list;
