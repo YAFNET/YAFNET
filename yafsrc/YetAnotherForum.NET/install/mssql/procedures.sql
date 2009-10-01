@@ -3972,7 +3972,7 @@ begin
 	DECLARE @ShowMoved BIT
 
 	-- Step 1: Does the host setting show moved topic pointers?
-	SELECT @ShowMoved = CAST(CAST(Value as NVarChar) AS BIT) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE Name='showmoved'
+	SELECT @ShowMoved = CASE WHEN CAST(Value as NVarChar) = 'True' THEN 1 ELSE 0 END FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE Name='showmoved'
 	
 	-- Step 2: Get the "root" topics (i.e. non-moved)
 	INSERT #data(TopicID)
