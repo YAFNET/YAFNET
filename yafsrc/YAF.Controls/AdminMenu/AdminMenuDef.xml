@@ -68,7 +68,7 @@
     <YafMenuItem>
       <Title>Ranks</Title>
       <ForumPage>admin_ranks</ForumPage>
-      <Image>megaphone</Image>
+      <Image>target</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Medals</Title>
