@@ -368,6 +368,13 @@ namespace YAF.Classes
 			get { return _reg.GetValue<int>("MaxPostSize", Int16.MaxValue); }
 			set { _reg.SetValue<int>("MaxPostSize", value); }
 		}
+
+        public int MaxNumberOfAttachments
+        {
+            get { return _reg.GetValue<int>("MaxNumberOfAttachments", 5); }
+            set { _reg.SetValue<int>("MaxNumberOfAttachments", value); }
+        }
+
 		// Ederon : 02/17/2009
 		public int PictureAttachmentDisplayTreshold
 		{
@@ -766,57 +773,5 @@ namespace YAF.Classes
 		/* 7/14/2007 */
 
 		#endregion
-	}
-
-	public class YafBoardSettingCollection
-	{
-		protected Dictionary<string, PropertyInfo> _settingsString = new Dictionary<string, PropertyInfo>();
-		protected Dictionary<string, PropertyInfo> _settingsBool = new Dictionary<string, PropertyInfo>();
-		protected Dictionary<string, PropertyInfo> _settingsInt = new Dictionary<string, PropertyInfo>();	
-		protected Dictionary<string, PropertyInfo> _settingsOther = new Dictionary<string, PropertyInfo>();
-
-		public Dictionary<string, PropertyInfo> SettingsString
-		{
-			get { return _settingsString; }
-		}
-		public Dictionary<string, PropertyInfo> SettingsBool
-		{
-			get { return _settingsBool; }
-		}
-		public Dictionary<string, PropertyInfo> SettingsInt
-		{
-			get { return _settingsInt; }
-		}
-		public Dictionary<string, PropertyInfo> SettingsOther
-		{
-			get { return _settingsOther; }
-		}
-
-		// do some basic sorting -- would be unnecessary with LINQ
-		public YafBoardSettingCollection( YafBoardSettings boardSettings )
-		{
-			Type boardSettingsType = boardSettings.GetType();
-
-			foreach (PropertyInfo info in boardSettingsType.GetProperties())
-			{
-				if (info.PropertyType == typeof( string ))
-				{
-					// add to string fields...
-					SettingsString.Add( info.Name, info );
-				}
-				else if (info.PropertyType == typeof( bool ))
-				{
-					SettingsBool.Add( info.Name, info );
-				}
-				else if (info.PropertyType == typeof( int ))
-				{
-					SettingsInt.Add( info.Name, info );
-				}
-				else
-				{
-					SettingsOther.Add( info.Name, info );
-				}
-			}			
-		}
 	}
 }

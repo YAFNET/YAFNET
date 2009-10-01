@@ -68,7 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoardSettings.cs" />
+    <Compile Include="YafBoardSettings.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Constants\Enums.cs" />
     <Compile Include="Constants\ForumPages.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="Pattern\TypeDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlBuilder.cs" />
+    <Compile Include="YafBoardSettingCollection.cs" />
     <Compile Include="YafControlSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
