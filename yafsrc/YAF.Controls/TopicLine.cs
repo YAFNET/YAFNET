@@ -195,6 +195,8 @@ namespace YAF.Controls
 						message = StringHelper.RemoveMultipleWhitespace( BBCodeHelper.StripBBCode(HtmlHelper.StripHtml( CleanHtmlString( message ) )) );
 						message = StringHelper.Truncate( message, 255 );
 
+						if ( String.IsNullOrEmpty( message ) ) message = "";
+
 						YafContext.Current.Cache.Insert( cacheKey, message, null, DateTime.Now.AddMinutes( YafContext.Current.BoardSettings.FirstPostCacheTimeout ), TimeSpan.Zero );
 					}
 				}
