@@ -336,6 +336,11 @@ namespace YAF.Classes
 			set { _reg.SetValue<int>("DisableNoFollowLinksAfterDay", value); }
 		}
 		// Ederon : 01/18/2007
+		public int BoardForumListAllGuestCacheTimeout
+		{
+			get { return _reg.GetValue<int>( "BoardForumListAllGuestCacheTimeout", 1440 ); }
+			set { _reg.SetValue<int>( "BoardForumListAllGuestCacheTimeout", value ); }
+		}
 		public int BoardModeratorsCacheTimeout
 		{
 			get { return _reg.GetValue<int>("BoardModeratorsCacheTimeout", 1440); }
