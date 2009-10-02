@@ -44,7 +44,7 @@ namespace YAF.Classes.Core
 		public event EventHandler<EventArgs> PageUnload;
 		public event EventHandler<EventArgs> Unload;
 
-		protected YafContext()
+		public YafContext()
 		{
 			// init context...
 			if (Init != null) Init(this, new EventArgs());

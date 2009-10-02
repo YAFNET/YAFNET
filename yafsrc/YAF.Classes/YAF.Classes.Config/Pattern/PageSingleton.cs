@@ -25,7 +25,7 @@ using System.Web.UI;
 namespace YAF.Classes.Pattern
 {
 	// Singleton factory implementation
-	public static class PageSingleton<T> where T : class
+	public static class PageSingleton<T> where T : class, new()
 	{
 		// static constructor, 
 		//runtime ensures thread safety
