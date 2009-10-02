@@ -34,7 +34,7 @@
 			</tr>
 		</ItemTemplate>
 	</asp:Repeater>
-	<tr>
+	<tr id="uploadtitletr" runat="server">
 		<td class="header2">
 			<YAF:LocalizedLabel ID="UploadTitle" LocalizedTag="UPLOAD_TITLE" runat="server" />
 		</td>
@@ -43,7 +43,7 @@
 		<td class="header2">
 			&nbsp;</td>
 	</tr>
-	<tr>
+	<tr id="selectfiletr" runat="server">
 		<td class="postheader">
 			<YAF:LocalizedLabel ID="SelectFile" LocalizedTag="SELECT_FILE" runat="server" />
 		</td>

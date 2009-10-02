@@ -78,6 +78,15 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>Maximum Number of Attachments per Post:</b><br />
+							Maximum Number of uploaded files per Post. Set to 0 for unlimited.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="MaxNumberOfAttachments" runat="server"></asp:TextBox>
+						</td>
+					</tr>					
+					<tr>
+						<td class="postheader">
 							<b>Max File Size:</b><br />
 							Maximum size of uploaded files. Leave empty for no limit.
 						</td>
@@ -181,7 +190,7 @@
 					</tr>
 					<tr>
 						<td class="header1" colspan="2">
-							Image Attachement Settings
+							Image Attachment Settings
 						</td>
 					</tr>
 					<tr>

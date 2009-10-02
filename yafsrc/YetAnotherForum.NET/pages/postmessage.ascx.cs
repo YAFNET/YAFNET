@@ -65,16 +65,7 @@ namespace YAF.Pages
 
 			if (QuotedTopicID != null)
 			{
-				DataTable dt = DB.message_list( QuotedTopicID );
-
-				if ( dt.Rows.Count == 0 )
-				{
-					// we're done here...
-					YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
-					return;
-				}
-
-				currentRow = dt.Rows[0];
+				currentRow = DBHelper.GetFirstRowOrInvalid( DB.message_list( QuotedTopicID ) );
 
 				if (Convert.ToInt32(currentRow["TopicID"]) != PageContext.PageTopicID)
 					YafBuildLink.AccessDenied();
@@ -84,16 +75,7 @@ namespace YAF.Pages
 			}
 			else if (EditTopicID != null)
 			{
-				DataTable dt = DB.message_list( EditTopicID );
-
-				if ( dt.Rows.Count == 0 )
-				{
-					// we're done here...
-					YafBuildLink.RedirectInfoPage( InfoMessage.Invalid );
-					return;
-				}
-				
-				currentRow = dt.Rows[0];
+				currentRow = DBHelper.GetFirstRowOrInvalid( DB.message_list( EditTopicID ) );
 
 				_ownerUserId = Convert.ToInt32(currentRow["UserId"]);
 

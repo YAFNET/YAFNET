@@ -70,10 +70,9 @@ namespace YAF.Pages
 
 			if ( Request.QueryString ["m"] != null )
 			{
-				using ( DataTable dt = DB.message_list( Request.QueryString ["m"] ) )
-				{
-					_messageRow = dt.Rows [0];
-				}
+
+				_messageRow =
+					DBHelper.GetFirstRowOrInvalid( DB.message_list( Security.StringToLongOrRedirect( Request.QueryString["m"] ) ) );
 
 				if ( !PageContext.ForumModeratorAccess && PageContext.PageUserID != ( int )_messageRow ["UserID"] )
 				{

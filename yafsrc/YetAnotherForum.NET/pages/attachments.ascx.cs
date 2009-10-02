@@ -116,6 +116,15 @@ namespace YAF.Pages // YAF.Pages
 			// show disallowed or allowed localized text depending on the Board Setting
 			ExtensionTitle.LocalizedTag = ( PageContext.BoardSettings.FileExtensionAreAllowed ? "ALLOWED_EXTENSIONS" : "DISALLOWED_EXTENSIONS" );
 
+            if (PageContext.BoardSettings.MaxNumberOfAttachments > 0)
+            {
+                if (dt.Rows.Count > (PageContext.BoardSettings.MaxNumberOfAttachments - 1))
+                {
+                    uploadtitletr.Visible = false;
+                    selectfiletr.Visible = false;
+                }
+            }
+
 			DataBind();
 		}
 
@@ -136,6 +145,8 @@ namespace YAF.Pages // YAF.Pages
 				case "delete":
 					YAF.Classes.Data.DB.attachment_delete( e.CommandArgument );
 					BindData();
+                    uploadtitletr.Visible = true;
+                    selectfiletr.Visible = true;
 					break;
 			}
 		}
