@@ -60,6 +60,7 @@ namespace YAF.Controls
 			string attachGroupId = System.Guid.NewGuid().ToString().Substring( 0, 5 );
 
 			HttpContext.Current.Session["imagePreviewWidth"] = PageContext.BoardSettings.ImageAttachmentResizeWidth;
+			HttpContext.Current.Session["imagePreviewHeight"] = PageContext.BoardSettings.ImageAttachmentResizeHeight;
 			HttpContext.Current.Session["localizationFile"] = PageContext.Localization.LanguageFileName;
 
 			using (DataTable attachListDT = YAF.Classes.Data.DB.attachment_list(this.MessageID, null, null))

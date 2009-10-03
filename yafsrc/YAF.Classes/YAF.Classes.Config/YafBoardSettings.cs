@@ -388,6 +388,12 @@ namespace YAF.Classes
 			set { _reg.SetValue<int>("ImageAttachmentResizeWidth", value); }
 		}
 
+		public int ImageAttachmentResizeHeight
+		{
+			get { return _reg.GetValue<int>( "ImageAttachmentResizeHeight", 200 ); }
+			set { _reg.SetValue<int>( "ImageAttachmentResizeHeight", value ); }
+		}
+
 		public int ShoutboxShowMessageCount
 		{
 			get { return _reg.GetValue<int>( "ShoutboxShowMessageCount", 30 ); }
