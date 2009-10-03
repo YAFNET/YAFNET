@@ -127,33 +127,40 @@ namespace YAF
 
 		private void GetResponseLocalAvatar(HttpContext context)
 		{
-			string eTag = String.Format( @"""{0}""", context.Request.QueryString["u"] );
+			try
+			{
+				string eTag = String.Format( @"""{0}""", context.Request.QueryString["u"] );
 
-			if ( CheckETag( context, eTag ) )
-			{
-				// found eTag... no need to resend/create this image -- just mark another view?
-				return;
-			}					
-			
-			using (DataTable dt = YAF.Classes.Data.DB.user_avatarimage(context.Request.QueryString["u"]))
-			{
-				foreach (DataRow row in dt.Rows)
+				if ( CheckETag( context, eTag ) )
 				{
-					byte[] data = (byte[])row["AvatarImage"];
-					string contentType = row["AvatarImageType"].ToString();
-
-					context.Response.Clear();
-					if (String.IsNullOrEmpty(contentType))
-					{
-						contentType = "image/jpeg";
-					}
-					context.Response.ContentType = contentType;
-					context.Response.Cache.SetCacheability( HttpCacheability.Public );
-					context.Response.Cache.SetExpires( DateTime.Now.AddHours( 2 ) );
-					context.Response.Cache.SetETag( eTag );					
-					context.Response.OutputStream.Write(data, 0, data.Length);
-					break;
+					// found eTag... no need to resend/create this image -- just mark another view?
+					return;
 				}
+	
+				using ( DataTable dt = YAF.Classes.Data.DB.user_avatarimage( context.Request.QueryString["u"] ) )
+				{
+					foreach ( DataRow row in dt.Rows )
+					{
+						byte[] data = (byte[]) row["AvatarImage"];
+						string contentType = row["AvatarImageType"].ToString();
+
+						context.Response.Clear();
+						if ( String.IsNullOrEmpty( contentType ) )
+						{
+							contentType = "image/jpeg";
+						}
+						context.Response.ContentType = contentType;
+						context.Response.Cache.SetCacheability( HttpCacheability.Public );
+						context.Response.Cache.SetExpires( DateTime.Now.AddHours( 2 ) );
+						context.Response.Cache.SetETag( eTag );
+						context.Response.OutputStream.Write( data, 0, data.Length );
+						break;
+					}
+				}
+			}
+			catch ( Exception )
+			{
+				
 			}
 		}
 
@@ -548,7 +555,7 @@ namespace YAF
 				context.Response.SuppressContent = true;
 				context.Response.Cache.SetCacheability( HttpCacheability.Public );
 				context.Response.Cache.SetETag( eTagCode );
-				context.Response.End();
+				context.Response.Flush();
 				return true;
 			}
 
