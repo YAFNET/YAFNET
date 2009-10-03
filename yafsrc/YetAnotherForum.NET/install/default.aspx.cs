@@ -95,8 +95,8 @@ namespace YAF.Install
 		{
 
 			get
-			{	
-                if ( rblYAFDatabase.SelectedValue == "existing" )
+			{
+				if ( rblYAFDatabase.SelectedValue == "existing" )
 				{
 					string connName = lbConnections.SelectedValue;
 
@@ -109,32 +109,32 @@ namespace YAF.Install
 					return string.Empty;
 				}
 
-                return YafDBAccess.GetConnectionString
-                    (Parameter1_Value.Text.Trim( ), 
-                    Parameter2_Value.Text.Trim( ),
-                    Parameter3_Value.Text.Trim( ),
-                    Parameter4_Value.Text.Trim( ),
-                    Parameter5_Value.Text.Trim(),
-                    Parameter6_Value.Text.Trim(),
-                    Parameter7_Value.Text.Trim(),
-                    Parameter8_Value.Text.Trim(),
-                    Parameter9_Value.Text.Trim(),
-                    Parameter10_Value.Text.Trim(),
-                    Parameter11_Value.Checked,
-                    Parameter12_Value.Checked,
-                    Parameter13_Value.Checked,
-                    Parameter14_Value.Checked,
-                    Parameter15_Value.Checked,
-                    Parameter16_Value.Checked,
-                    Parameter17_Value.Checked,
-                    Parameter18_Value.Checked,
-                    Parameter19_Value.Checked,
-                    txtDBUserID.Text.Trim( ),
-                    txtDBPassword.Text.Trim( ) );
+				return YafDBAccess.GetConnectionString
+						( Parameter1_Value.Text.Trim(),
+						Parameter2_Value.Text.Trim(),
+						Parameter3_Value.Text.Trim(),
+						Parameter4_Value.Text.Trim(),
+						Parameter5_Value.Text.Trim(),
+						Parameter6_Value.Text.Trim(),
+						Parameter7_Value.Text.Trim(),
+						Parameter8_Value.Text.Trim(),
+						Parameter9_Value.Text.Trim(),
+						Parameter10_Value.Text.Trim(),
+						Parameter11_Value.Checked,
+						Parameter12_Value.Checked,
+						Parameter13_Value.Checked,
+						Parameter14_Value.Checked,
+						Parameter15_Value.Checked,
+						Parameter16_Value.Checked,
+						Parameter17_Value.Checked,
+						Parameter18_Value.Checked,
+						Parameter19_Value.Checked,
+						txtDBUserID.Text.Trim(),
+						txtDBPassword.Text.Trim() );
 
 			}
 		}
-        
+
 		#endregion
 
 		#region Event Handling
@@ -147,11 +147,11 @@ namespace YAF.Install
 		private void Page_Load( object sender, System.EventArgs e )
 		{
 			YafContext.Current.PageElements.RegisterJQuery( Page.Header );
-            
+
 
 			if ( !IsPostBack )
-			{               
-                
+			{
+
 				if ( Session["InstallWizardFinal"] != null )
 				{
 					CurrentWizardStepID = "WizFinished";
@@ -294,13 +294,13 @@ namespace YAF.Install
 		protected void Wizard_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
 		{
 
-			if ( CurrentWizardStepID == "WizTestSettings")
+			if ( CurrentWizardStepID == "WizTestSettings" )
 			{
 				CurrentWizardStepID = "WizDatabaseConnection";
 			}
 
 			e.Cancel = false;
-			
+
 			//// go back only from last step (to user/roles migration)
 			//if ( e.CurrentStepIndex == ( InstallWizard.WizardSteps.Count - 1 ) )
 			//  InstallWizard.MoveTo( InstallWizard.WizardSteps[e.CurrentStepIndex - 1] );
@@ -320,7 +320,7 @@ namespace YAF.Install
 					if ( IsInstalled )
 					{
 						// no need for this setup if IsInstalled...
-						InstallWizard.ActiveStepIndex++;						
+						InstallWizard.ActiveStepIndex++;
 					}
 					break;
 				case "WizCreateForum":
@@ -348,7 +348,7 @@ namespace YAF.Install
 						Cache.Remove( "DBVersion" );
 					}
 					// get user count
-					if (CurrentWizardStepID == "WizMigrateUsers") lblMigrateUsersCount.Text = DB.user_list( PageBoardID, null, true ).Rows.Count.ToString();
+					if ( CurrentWizardStepID == "WizMigrateUsers" ) lblMigrateUsersCount.Text = DB.user_list( PageBoardID, null, true ).Rows.Count.ToString();
 					break;
 				case "WizDatabaseConnection":
 					previousVisible = true;
@@ -540,7 +540,7 @@ namespace YAF.Install
 		protected void Parameter11_Value_CheckChanged( object sender, EventArgs e )
 		{
 			DBUsernamePasswordHolder.Visible = !Parameter11_Value.Checked;
-		}    
+		}
 
 		protected void btnTestPermissions_Click( object sender, EventArgs e )
 		{
@@ -555,7 +555,7 @@ namespace YAF.Install
 		{
 			try
 			{
-				YafServices.SendMail.Send(txtTestFromEmail.Text.Trim(), txtTestToEmail.Text.Trim(), "Test Email From Yet Another Forum.NET", "The email sending appears to be working from your YAF installation." );
+				YafServices.SendMail.Send( txtTestFromEmail.Text.Trim(), txtTestToEmail.Text.Trim(), "Test Email From Yet Another Forum.NET", "The email sending appears to be working from your YAF installation." );
 				// success
 				UpdateInfoPanel( SmtpInfoHolder, lblSmtpTestDetails, "Mail Sent. Verify it's received at your entered email address.", "successinfo" );
 			}
@@ -568,7 +568,7 @@ namespace YAF.Install
 		protected void UpdateStatusTimer_Tick( object sender, EventArgs e )
 		{
 			// see if the migration is done....
-			if ( YafTaskModule.Current.TaskManager.ContainsKey( MigrateUsersTask.TaskName ) && YafTaskModule.Current.TaskManager[MigrateUsersTask.TaskName].IsRunning)
+			if ( YafTaskModule.Current.TaskManager.ContainsKey( MigrateUsersTask.TaskName ) && YafTaskModule.Current.TaskManager[MigrateUsersTask.TaskName].IsRunning )
 			{
 				// proceed...
 				return;
@@ -580,8 +580,8 @@ namespace YAF.Install
 			// done here...
 			Response.Redirect( "default.aspx" );
 		}
-     
- 
+
+
 		#endregion
 
 		#region Event Helper Functions
@@ -591,11 +591,11 @@ namespace YAF.Install
 		/// <param name="exceptionMessage"></param>
 		/// <returns></returns>       
 
-        private static bool TestDatabaseConnection(out string exceptionMessage)
-        {
-            exceptionMessage = String.Empty;
-            return YafDBAccess.TestConnection(ref exceptionMessage);
-        }
+		private static bool TestDatabaseConnection( out string exceptionMessage )
+		{
+			exceptionMessage = String.Empty;
+			return YafDBAccess.TestConnection( ref exceptionMessage );
+		}
 
 		enum UpdateDBFailureType
 		{
@@ -622,17 +622,17 @@ namespace YAF.Install
 			}
 			else if ( rblYAFDatabase.SelectedValue == "create" )
 			{
-                if (!_config.WriteConnectionString(Config.ConnectionStringName, CurrentConnString, DB.ProviderAssemblyName))
+				if ( !_config.WriteConnectionString( Config.ConnectionStringName, CurrentConnString, DB.ProviderAssemblyName ) )
 				{
 					// failure to write db Settings..
-					return UpdateDBFailureType.ConnectionStringWrite;					
+					return UpdateDBFailureType.ConnectionStringWrite;
 				}
 			}
 
 			return UpdateDBFailureType.None;
 		}
 
-		private static void UpdateInfoPanel(Control infoHolder, Label detailsLabel, string info, string cssClass)
+		private static void UpdateInfoPanel( Control infoHolder, Label detailsLabel, string info, string cssClass )
 		{
 			infoHolder.Visible = true;
 			detailsLabel.Text = info;
@@ -641,7 +641,7 @@ namespace YAF.Install
 
 		private static void UpdateStatusLabel( Label theLabel, int status )
 		{
-			switch( status )
+			switch ( status )
 			{
 				case 0:
 					theLabel.Text = "No";
@@ -668,7 +668,7 @@ namespace YAF.Install
 				}
 
 				ListItem item = lbConnections.Items.FindByText( "yafnet" );
-				if (item != null )
+				if ( item != null )
 				{
 					item.Selected = true;
 				}
@@ -697,7 +697,7 @@ namespace YAF.Install
 				hasWriteAccess = false;
 			}
 
-			return hasWriteAccess;			
+			return hasWriteAccess;
 		}
 
 		private bool UpgradeDatabase( bool fullText )
@@ -722,7 +722,7 @@ namespace YAF.Install
 				DB.board_resync();
 
 				// upgrade providers...
-                YAF.Providers.Membership.DB.Current.UpgradeMembership(prevVersion, YafForumInfo.AppVersion);
+				YAF.Providers.Membership.DB.Current.UpgradeMembership( prevVersion, YafForumInfo.AppVersion );
 
 				if ( DB.IsForumInstalled && prevVersion < 30 )
 				{
@@ -987,7 +987,7 @@ namespace YAF.Install
 			{
 				throw new Exception( "Failed to read " + scriptFile, x );
 			}
-            
+
 			DB.system_initialize_executescripts( script, scriptFile, useTransactions );
 		}
 
