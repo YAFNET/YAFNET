@@ -37,13 +37,34 @@ namespace YAF.Classes.Core
 		protected TypeDictionary _variables = new TypeDictionary();
 		protected ForumPage _currentForumPage = null;
 
+		/// <summary>
+		/// On YafContext Constructor Call
+		/// </summary>
 		public event EventHandler<EventArgs> Init;
+		/// <summary>
+		/// On ForumPage Init Call
+		/// </summary>
 		public event EventHandler<EventArgs> PageInit;
+		/// <summary>
+		/// On ForumPage Load Call
+		/// </summary>
 		public event EventHandler<EventArgs> PageLoad;
+		/// <summary>
+		/// On ForumPage PreLoad (Before Load) Call
+		/// </summary>
 		public event EventHandler<EventArgs> PagePreLoad;
+    /// <summary>
+    /// On ForumPage Unload Call
+    /// </summary>
 		public event EventHandler<EventArgs> PageUnload;
+		/// <summary>
+		/// On YafContext Unload Call
+		/// </summary>
 		public event EventHandler<EventArgs> Unload;
 
+		/// <summary>
+		/// YafContext Constructor
+		/// </summary>
 		public YafContext()
 		{
 			// init context...
@@ -100,6 +121,9 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		/// <summary>
+		/// Provides access to the YafContext Per-Instance Class Factory
+		/// </summary>
 		public SingleClassInstanceFactory InstanceFactory
 		{
 			get
@@ -159,6 +183,10 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		/// <summary>
+		/// YafContext Global Instance Variables
+		/// Use for plugins or other situations where a value is needed per instance.
+		/// </summary>
 		public TypeDictionary Vars
 		{
 			get
@@ -167,6 +195,11 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		/// <summary>
+		/// Returns a value from the YafContext Global Instance Variables (Vars) collection.
+		/// </summary>
+		/// <param name="varName"></param>
+		/// <returns>Value if it's found, null if it doesn't exist.</returns>
 		public object this[string varName]
 		{
 			get
@@ -265,6 +298,9 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		/// <summary>
+		/// Current Membership Provider used by YAF
+		/// </summary>
 		public MembershipProvider CurrentMembership
 		{
 			get
@@ -279,6 +315,9 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		/// <summary>
+		/// Current Membership Roles Provider used by YAF
+		/// </summary>
 		public RoleProvider CurrentRoles
 		{
 			get
@@ -312,6 +351,9 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		/// <summary>
+		/// Instance of the Combined UserData for the current user.
+		/// </summary>
 		public CombinedUserDataHelper CurrentUserData
 		{
 			get
@@ -369,6 +411,10 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		/// <summary>
+		/// Helper Function that adds a "load message" to the load message class.
+		/// </summary>
+		/// <param name="loadMessage"></param>
 		public void AddLoadMessage(string loadMessage)
 		{
 			LoadMessage.Add( loadMessage );
