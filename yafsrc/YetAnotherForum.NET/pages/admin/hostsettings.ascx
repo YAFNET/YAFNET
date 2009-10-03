@@ -214,13 +214,22 @@
 					</tr>
 					<tr>
 						<td class="postheader">
-							<b>Image Attachment Resize Width:</b><br />
-							Width of the resized attachment images.
+							<b>Image Attachment Resize Max Width:</b><br />
+							Maximum Width of the resized attachment images.
 						</td>
 						<td class="post">
 							<asp:TextBox ID="ImageAttachmentResizeWidth" runat="server"></asp:TextBox>
 						</td>
 					</tr>
+				<tr>
+						<td class="postheader">
+							<b>Image Attachment Resize Max Height:</b><br />
+							Maximum Height of the resized attachment images.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="ImageAttachmentResizeHeight" runat="server"></asp:TextBox>
+						</td>
+					</tr>					
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View2" Text="Features" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
