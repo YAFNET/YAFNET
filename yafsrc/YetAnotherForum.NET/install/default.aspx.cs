@@ -722,7 +722,7 @@ namespace YAF.Install
 				DB.board_resync();
 
 				// upgrade providers...
-				YAF.Providers.Membership.DB.UpgradeMembership( prevVersion, YafForumInfo.AppVersion );
+                YAF.Providers.Membership.DB.Current.UpgradeMembership(prevVersion, YafForumInfo.AppVersion);
 
 				if ( DB.IsForumInstalled && prevVersion < 30 )
 				{
