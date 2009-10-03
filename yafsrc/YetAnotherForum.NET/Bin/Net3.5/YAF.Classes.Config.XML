@@ -113,5 +113,10 @@
             Class provides glue/settings transfer between YAF forum control and base classes
             </summary>
         </member>
+        <member name="T:YAF.Classes.YafBoardSettingCollection">
+            <summary>
+            Gets the Board Settings as dictionary item for easy iteration.
+            </summary>
+        </member>
     </members>
 </doc>
