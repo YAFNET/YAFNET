@@ -1,0 +1,401 @@
+/* Yet Another Forum.net
+ * Copyright (C) 2006-2009 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+using System;
+using System.Data;
+using System.Threading;
+using System.Web;
+using System.Web.Security;
+using YAF.Classes.Data;
+using YAF.Classes.Utils;
+
+namespace YAF.Classes.Core
+{
+	/// <summary>
+	/// This is a stop-gap class to help with syncing operations
+	/// with users/membership.
+	/// </summary>
+	public static partial class UserMembershipHelper
+	{
+
+		public static MembershipUser GetUser()
+		{
+			return GetUser( false );
+		}
+
+		public static MembershipUser GetUser( string username )
+		{
+			return GetUser( username, false );
+		}
+
+		public static MembershipUser GetUser( string username, bool updateOnlineStatus )
+		{
+			return YafContext.Current.CurrentMembership.GetUser( username, updateOnlineStatus );
+		}
+
+		public static MembershipUser GetUser( object providerKey )
+		{
+			return YafContext.Current.CurrentMembership.GetUser( providerKey, false );
+		}
+
+		public static MembershipUser GetUser( object providerKey, bool updateOnlineStatus )
+		{
+			return YafContext.Current.CurrentMembership.GetUser( providerKey, updateOnlineStatus );
+		}
+
+		public static MembershipUser GetUser( bool updateOnlineStatus )
+		{
+			if ( HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated )
+			{
+				return GetUser( HttpContext.Current.User.Identity.Name, updateOnlineStatus );
+			}
+
+			return null;
+		}
+
+		public static MembershipUserCollection GetAllUsers()
+		{
+			int totalRecords;
+			return YafContext.Current.CurrentMembership.GetAllUsers( 1, 999999, out totalRecords );
+		}
+
+		public static MembershipUserCollection FindUsersByName( string username )
+		{
+			int totalRecords;
+			return YafContext.Current.CurrentMembership.FindUsersByName( username, 1, 999999, out totalRecords );
+		}
+
+		public static MembershipUserCollection FindUsersByEmail( string email )
+		{
+			int totalRecords;
+			return YafContext.Current.CurrentMembership.FindUsersByEmail( email, 1, 999999, out totalRecords );
+		}
+
+		/// <summary>
+		/// Helper function that gets user data from the DB (or cache)
+		/// </summary>
+		/// <param name="userID"></param>
+		/// <param name="allowCached"></param>
+		/// <returns></returns>
+		public static DataRow GetUserRowForID( long userID, bool allowCached )
+		{
+
+			string cacheKey = string.Format( "UserListForID{0}", userID );
+			DataRow userRow = YafContext.Current.Cache[YafCache.GetBoardCacheKey( cacheKey )] as DataRow;
+
+			if ( userRow == null || !allowCached )
+			{
+				DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, userID, DBNull.Value );
+				if ( dt.Rows.Count == 1 )
+				{
+					userRow = dt.Rows[0];
+					// cache it for 10 minutes...
+					YafContext.Current.Cache.Add( YafCache.GetBoardCacheKey( cacheKey ), userRow, DateTime.Now.AddMinutes( 10 ) );
+				}
+			}
+
+			return userRow;
+		}
+
+		public static DataRow GetUserRowForID( int userID, bool allowCached )
+		{
+			return GetUserRowForID( (long)userID, allowCached );
+		}
+
+		/// <summary>
+		/// Default allows the user row to be cached (mostly used for Provider key and UserID which never change)
+		/// </summary>
+		/// <param name="userID"></param>
+		/// <returns></returns>
+		public static DataRow GetUserRowForID( long userID )
+		{
+			return GetUserRowForID( userID, true );
+		}
+
+		public static DataRow GetUserRowForID( int userID )
+		{
+			return GetUserRowForID( (long)userID );
+		}
+
+		/// <summary>
+		/// Gets the user provider key from the UserID for a user
+		/// </summary>
+		/// <param name="userID"></param>
+		/// <returns></returns>
+		public static object GetProviderUserKeyFromID( long userID )
+		{
+			object providerUserKey = null;
+
+			DataRow row = GetUserRowForID( userID );
+			if ( row != null )
+			{
+				if ( row["ProviderUserKey"] != DBNull.Value )
+					providerUserKey = row["ProviderUserKey"];
+			}
+
+			return providerUserKey;
+		}
+
+		/// <summary>
+		/// Gets the user name from the UesrID
+		/// </summary>
+		/// <param name="userID"></param>
+		/// <returns></returns>
+		public static string GetUserNameFromID( long userID )
+		{
+			string userName = string.Empty;
+
+			DataRow row = GetUserRowForID( userID );
+			if ( row != null )
+			{
+				if ( row["Name"] != DBNull.Value )
+					userName = row["Name"].ToString();
+			}
+
+			return userName;
+		}
+
+		/// <summary>
+		/// Get the UserID from the ProviderUserKey
+		/// </summary>
+		/// <param name="providerUserKey"></param>
+		/// <returns></returns>
+		public static int GetUserIDFromProviderUserKey( object providerUserKey )
+		{
+			int userID = DB.user_get( YafContext.Current.PageBoardID, providerUserKey );
+			return userID;
+		}
+
+		/// <summary>
+		/// get the membership user from the providerUserKey
+		/// </summary>
+		/// <param name="providerUserKey"></param>
+		/// <returns></returns>
+		public static MembershipUser GetMembershipUserByKey( object providerUserKey )
+		{
+			// convert to provider type...
+			return GetUser( TypeHelper.ConvertObjectToType( providerUserKey, Config.ProviderKeyType ) );
+		}
+
+		public static MembershipUser GetMembershipUserById( long? userID )
+		{
+			if ( userID.HasValue ) return GetMembershipUserById( userID.Value );
+			return null;
+		}
+
+		/// <summary>
+		/// get the membership user from the userID
+		/// </summary>
+		/// <param name="userID"></param>
+		/// <returns></returns>
+		public static MembershipUser GetMembershipUserById( long userID )
+		{
+			object providerUserKey = GetProviderUserKeyFromID( userID );
+			if ( providerUserKey != null )
+				return GetMembershipUserByKey( providerUserKey );
+
+			return null;
+		}
+
+		/// <summary>
+		/// get the membership user from the userName
+		/// </summary>
+		/// <param name="userName"></param>
+		/// <returns></returns>
+		public static MembershipUser GetMembershipUserByName( string userName )
+		{
+			return GetUser( userName );
+		}
+
+		/// <summary>
+		/// Helper function to update a user's email address.
+		/// Syncs with both the YAF DB and Membership Provider.
+		/// </summary>
+		/// <param name="userID"></param>
+		/// <param name="newEmail"></param>
+		/// <returns></returns>
+		public static bool UpdateEmail( int userID, string newEmail )
+		{
+			object providerUserKey = GetProviderUserKeyFromID( userID );
+
+			if ( providerUserKey != null )
+			{
+				MembershipUser user = GetUser( TypeHelper.ConvertObjectToType( providerUserKey, Config.ProviderKeyType ) );
+				user.Email = newEmail;
+				YafContext.Current.CurrentMembership.UpdateUser( user );
+				DB.user_aspnet( YafContext.Current.PageBoardID, user.UserName, newEmail, user.ProviderUserKey, user.IsApproved );
+				return true;
+			}
+
+			return false;
+		}
+
+		public static bool DeleteUser( int userID )
+		{
+			string userName = GetUserNameFromID( userID );
+
+			if ( userName != string.Empty )
+			{
+				DB.user_delete( userID );
+				YafContext.Current.CurrentMembership.DeleteUser( userName, true );
+
+				return true;
+			}
+
+			return false;
+		}
+
+		public static bool ApproveUser( int userID )
+		{
+			object providerUserKey = GetProviderUserKeyFromID( userID );
+
+			if ( providerUserKey != null )
+			{
+				MembershipUser user = GetUser( TypeHelper.ConvertObjectToType( providerUserKey, Config.ProviderKeyType ) );
+				if ( !user.IsApproved ) user.IsApproved = true;
+				YafContext.Current.CurrentMembership.UpdateUser( user );
+				DB.user_approve( userID );
+
+				return true;
+			}
+
+			return false;
+		}
+
+		public static void DeleteAllUnapproved( DateTime createdCutoff )
+		{
+			// get all users...
+			MembershipUserCollection allUsers = GetAllUsers();
+
+			// iterate through each one...
+			foreach ( MembershipUser user in allUsers )
+			{
+				if ( !user.IsApproved && user.CreationDate < createdCutoff )
+				{
+					// delete this user...
+					DB.user_delete( GetUserIDFromProviderUserKey( user.ProviderUserKey ) );
+					YafContext.Current.CurrentMembership.DeleteUser( user.UserName, true );
+				}
+			}
+		}
+
+		/// <summary>
+		/// For the admin fuction: approve all users. Approves all
+		/// users waiting for approval 
+		/// </summary>
+		public static void ApproveAll()
+		{
+			// get all users...
+			MembershipUserCollection allUsers = GetAllUsers();
+
+			// iterate through each one...
+			foreach ( MembershipUser user in allUsers )
+			{
+				if ( !user.IsApproved )
+				{
+					// approve this user...
+					user.IsApproved = true;
+					YafContext.Current.CurrentMembership.UpdateUser( user );
+					int id = GetUserIDFromProviderUserKey( user.ProviderUserKey );
+					if ( id > 0 )
+						DB.user_approve( id );
+				}
+			}
+		}
+
+		/// <summary>
+		/// Checks Membership Provider to see if a user
+		/// with the username and email passed exists.
+		/// </summary>
+		/// <param name="userName"></param>
+		/// <param name="email"></param>
+		/// <returns>true if they exist</returns>
+		public static bool UserExists( string userName, string email )
+		{
+			bool exists = false;
+
+			if ( userName != null )
+			{
+				if ( FindUsersByName( userName ).Count > 0 )
+				{
+					exists = true;
+				}
+			}
+			else if ( email != null )
+			{
+				if ( FindUsersByEmail( email ).Count > 0 )
+				{
+					exists = true;
+				}
+			}
+
+			return exists;
+		}
+
+
+		/// <summary>
+		/// Simply tells you if the userID passed is the Guest user
+		/// for the current board
+		/// </summary>
+		/// <param name="userID">ID of user to lookup</param>
+		/// <returns>true if the userid is a guest user</returns>
+		public static bool IsGuestUser( object userID )
+		{
+			if ( userID == null || userID is DBNull )
+			{
+				// if supplied userID is null,user is guest
+				return true;
+			}
+			else
+			{
+				// otherwise evaluate him
+				return IsGuestUser( (int)userID );
+			}
+		}
+		/// <summary>
+		/// Simply tells you if the userID passed is the Guest user
+		/// for the current board
+		/// </summary>
+		/// <param name="userID">ID of user to lookup</param>
+		/// <returns>true if the userid is a guest user</returns>
+		public static bool IsGuestUser( int userID )
+		{
+			int guestUserID = -1;
+			// obtain board specific cache key
+			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.GuestUserID );
+
+			// check if there is value cached
+			if ( YafContext.Current.Cache[cacheKey] == null )
+			{
+				// get the guest user for this board...
+				guestUserID = DB.user_guest( YafContext.Current.PageBoardID );
+				// cache it
+				YafContext.Current.Cache[cacheKey] = guestUserID;
+			}
+			else
+			{
+				// retrieve guest user id from cache
+				guestUserID = Convert.ToInt32( YafContext.Current.Cache[cacheKey] );
+			}
+
+			// compare user id from parameter with guest user id
+			return ( userID == guestUserID );
+		}
+	}
+}

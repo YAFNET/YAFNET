@@ -29,152 +29,6 @@ using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	public class YafTemplateEmail
-	{
-
-#region Properties
-
-		private string _templateName;
-
-		public string TemplateName
-		{
-			get { return _templateName; }
-			set { _templateName = value; }
-		}
-
-		private string _templateLanguageFile;
-		public string TemplateLanguageFile
-		{
-			get
-			{
-				return _templateLanguageFile;
-			}
-			set
-			{
-				_templateLanguageFile = value;
-			}
-		}
-
-		private bool _htmlEnabled;
-
-		public bool HtmlEnabled
-		{
-			get	{	return _htmlEnabled; }
-			set	{	_htmlEnabled = value;	}
-		}
-
-		private StringDictionary _templateParams = new StringDictionary();
-		public StringDictionary TemplateParams
-		{
-			get
-			{
-				return _templateParams;
-			}
-			set
-			{
-				_templateParams = value;
-			}
-		} 
-
-#endregion
-		
-		public YafTemplateEmail()
-			: this( null, true )
-		{
-
-		}
-		public YafTemplateEmail( string templateName )
-			: this( templateName, true )
-		{
-
-		}
-		public YafTemplateEmail( string templateName, bool htmlEnabled )
-		{
-			_templateName = templateName;
-			_htmlEnabled = htmlEnabled;
-		}
-
-		/// <summary>
-		/// Reads a template from the language file
-		/// </summary>
-		/// <returns>The template</returns>
-		private string ReadTemplate(string templateName, string templateLanguageFile)
-		{
-			if ( !String.IsNullOrEmpty( templateName ) )
-			{
-				if ( !String.IsNullOrEmpty( templateLanguageFile ))
-				{
-					YafLocalization localization = new YafLocalization();
-					localization.LoadTranslation( templateLanguageFile );
-					return localization.GetText( "TEMPLATES", templateName );
-				}
-
-				return YafContext.Current.Localization.GetText( "TEMPLATES", templateName );
-			}
-
-			return null;
-		}
-
-		/// <summary>
-		/// Creates an email from a template
-		/// </summary>
-		/// <returns></returns>
-		public string ProcessTemplate(string templateName)
-		{
-			string email = ReadTemplate( templateName, TemplateLanguageFile );
-
-			if ( !String.IsNullOrEmpty( email ) )
-			{
-				foreach ( string key in _templateParams.Keys )
-				{
-					email = email.Replace( key, _templateParams [key] );
-				}
-			}
-
-			return email;
-		}
-
-		public void SendEmail( MailAddress toAddress, string subject, bool useSendThread )
-		{
-			this.SendEmail( new MailAddress( YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name ), toAddress, subject, useSendThread );
-		}
-
-		public void SendEmail( MailAddress fromAddress, MailAddress toAddress, string subject, bool useSendThread)
-		{
-			string textBody = null, htmlBody = null;
-
-			textBody = ProcessTemplate( TemplateName + "_TEXT" ).Trim();
-			htmlBody = ProcessTemplate( TemplateName + "_HTML" ).Trim();
-
-			// null out html if it's not desired
-			if ( !HtmlEnabled || String.IsNullOrEmpty( htmlBody ) ) htmlBody = null;
-
-			if ( useSendThread )
-			{
-				// create this email in the send mail table...
-				Data.DB.mail_create( fromAddress.Address, fromAddress.DisplayName, toAddress.Address, toAddress.DisplayName, subject, textBody, htmlBody );
-			}
-			else
-			{
-				// just send directly
-				YafServices.SendMail.Send( fromAddress, toAddress, subject, textBody, htmlBody );
-			}
-		}
-
-		public void CreateWatch( int topicID, int userId, MailAddress fromAddress, string subject )
-		{
-			string textBody = null, htmlBody = null;
-
-			textBody = ProcessTemplate( TemplateName + "_TEXT" ).Trim();
-			htmlBody = ProcessTemplate( TemplateName + "_HTML" ).Trim();
-
-			// null out html if it's not desired
-			if ( !HtmlEnabled || String.IsNullOrEmpty( htmlBody ) ) htmlBody = null;
-
-			DB.mail_createwatch( topicID, fromAddress.Address, fromAddress.DisplayName, subject, textBody, htmlBody, userId);
-		}
-	}
-
 	public static class CreateMail
 	{
 		/// <summary>
@@ -198,22 +52,22 @@ namespace YAF.Classes.Core
 
 				foreach ( string part in config.Split( ';' ) )
 				{
-					string [] pair = part.Split( '=' );
+					string[] pair = part.Split( '=' );
 					if ( pair.Length != 2 ) continue;
 
-					switch ( pair [0].Trim().ToLower() )
+					switch ( pair[0].Trim().ToLower() )
 					{
 						case "email":
-							email = pair [1].Trim();
+							email = pair[1].Trim();
 							break;
 						case "server":
-							server = pair [1].Trim();
+							server = pair[1].Trim();
 							break;
 						case "user":
-							SmtpUserName = pair [1].Trim();
+							SmtpUserName = pair[1].Trim();
 							break;
 						case "pass":
-							SmtpPassword = pair [1].Trim();
+							SmtpPassword = pair[1].Trim();
 							break;
 					}
 				}
@@ -241,32 +95,32 @@ namespace YAF.Classes.Core
 				msg.Append( "<tr><th colspan=2>QueryString</th></tr>" );
 				foreach ( string key in HttpContext.Current.Request.QueryString.AllKeys )
 				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.QueryString [key] );
+					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.QueryString[key] );
 				}
 				msg.Append( "<tr><th colspan=2>Form</th></tr>" );
 				foreach ( string key in HttpContext.Current.Request.Form.AllKeys )
 				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.Form [key] );
+					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.Form[key] );
 				}
 				msg.Append( "<tr><th colspan=2>ServerVariables</th></tr>" );
 				foreach ( string key in HttpContext.Current.Request.ServerVariables.AllKeys )
 				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.ServerVariables [key] );
+					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.ServerVariables[key] );
 				}
 				msg.Append( "<tr><th colspan=2>Session</th></tr>" );
 				foreach ( string key in HttpContext.Current.Session )
 				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Session [key] );
+					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Session[key] );
 				}
 				msg.Append( "<tr><th colspan=2>Application</th></tr>" );
 				foreach ( string key in HttpContext.Current.Application )
 				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Application [key] );
+					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Application[key] );
 				}
 				msg.Append( "<tr><th colspan=2>Cookies</th></tr>" );
 				foreach ( string key in HttpContext.Current.Request.Cookies.AllKeys )
 				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.Cookies [key].Value );
+					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.Cookies[key].Value );
 				}
 				msg.Append( "</table>" );
 
@@ -315,8 +169,8 @@ namespace YAF.Classes.Core
 					// Send track mails
 					string subject = String.Format( YafContext.Current.Localization.GetText( "COMMON", "TOPIC_NOTIFICATION_SUBJECT" ), YafContext.Current.BoardSettings.Name );
 
-					watchEmail.TemplateParams ["{forumname}"] = YafContext.Current.BoardSettings.Name;
-					watchEmail.TemplateParams ["{topic}"] = row ["Topic"].ToString();
+					watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
+					watchEmail.TemplateParams["{topic}"] = row["Topic"].ToString();
 					watchEmail.TemplateParams["{link}"] = String.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "m={0}#post{0}", messageID ) );
 
 					watchEmail.CreateWatch( Convert.ToInt32( row["TopicID"] ), userId, new MailAddress( YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name ), subject );

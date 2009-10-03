@@ -17,25 +17,50 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Web;
-using System.Configuration.Provider;
-using System.Configuration;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Web.Security;
-using System.Text.RegularExpressions;
-using System.Security.Cryptography;
 using System.Data;
 using System.Data.SqlClient;
+using YAF.Classes;
 using YAF.Classes.Data;
+using YAF.Classes.Pattern;
 
 namespace YAF.Providers.Profile
 {
-	public static class DB
+	public class YafProfileDBConnManager : YafDBConnManager
 	{
-		static public DataSet GetProfiles( object appName, object pageIndex, object pageSize, object userNameToMatch, object inactiveSinceDate )
+		public override string ConnectionString
+		{
+			get
+			{
+				if ( HttpContext.Current.Application[YafProfileProvider.ConnStrAppKeyName] != null )
+				{
+					return HttpContext.Current.Application[YafProfileProvider.ConnStrAppKeyName] as string;
+				}
+
+				return Config.ConnectionString;
+			}
+		}
+	}
+
+	public class DB
+	{
+		private YafDBAccess _dbAccess = new YafDBAccess();
+
+		public static DB Current
+		{
+			get
+			{
+				return PageSingleton<DB>.Instance;
+			}
+		}
+
+		public DB()
+		{
+			_dbAccess.SetConnectionManagerAdapter<YafProfileDBConnManager>();
+		}
+
+		public DataSet GetProfiles( object appName, object pageIndex, object pageSize, object userNameToMatch, object inactiveSinceDate )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "prov_profile_getprofiles" ) )
 			{
@@ -45,22 +70,22 @@ namespace YAF.Providers.Profile
 				cmd.Parameters.AddWithValue( "PageSize", pageSize );
 				cmd.Parameters.AddWithValue( "UserNameToMatch", userNameToMatch );
 				cmd.Parameters.AddWithValue( "InactiveSinceDate", inactiveSinceDate );
-				return YafDBAccess.Current.GetDataset( cmd );
+				return _dbAccess.GetDataset( cmd );
 			}
 		}
 
-		static public DataTable GetProfileStructure()
+		public DataTable GetProfileStructure()
 		{
 			string sql = String.Format( @"SELECT TOP 1 * FROM {0}", YafDBAccess.GetObjectName( "prov_Profile" ) );
 
 			using ( SqlCommand cmd = new SqlCommand( sql ) )
 			{
 				cmd.CommandType = CommandType.Text;
-				return YafDBAccess.Current.GetData( cmd );
+				return _dbAccess.GetData( cmd );
 			}
 		}
 
-		static public void AddProfileColumn( string Name, SqlDbType columnType, int size )
+		public void AddProfileColumn( string name, SqlDbType columnType, int size )
 		{
 			// get column type...
 			string type = columnType.ToString();
@@ -70,18 +95,18 @@ namespace YAF.Providers.Profile
 				type += "(" + size.ToString() + ")";
 			}
 
-			string sql = String.Format( "ALTER TABLE {0} ADD [{1}] {2} NULL", YafDBAccess.GetObjectName( "prov_Profile" ), Name, type );
+			string sql = String.Format( "ALTER TABLE {0} ADD [{1}] {2} NULL", YafDBAccess.GetObjectName( "prov_Profile" ), name, type );
 
 			using ( SqlCommand cmd = new SqlCommand( sql ) )
 			{
 				cmd.CommandType = CommandType.Text;
-				YafDBAccess.Current.ExecuteNonQuery( cmd );
+				_dbAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
-		static public object GetProviderUserKey( object appName, object username )
+		public object GetProviderUserKey( object appName, object username )
 		{
-			DataRow row = YAF.Providers.Membership.DB.GetUser( appName.ToString(), null, username.ToString(), false );
+			DataRow row = YAF.Providers.Membership.DB.Current.GetUser( appName.ToString(), null, username.ToString(), false );
 
 			if ( row != null )
 			{
@@ -91,7 +116,7 @@ namespace YAF.Providers.Profile
 			return null;
 		}
 
-		static public void SetProfileProperties( object appName, object userID, System.Configuration.SettingsPropertyValueCollection values, System.Collections.Generic.List<SettingsPropertyColumn> settingsColumnsList )
+		public void SetProfileProperties( object appName, object userID, System.Configuration.SettingsPropertyValueCollection values, System.Collections.Generic.List<SettingsPropertyColumn> settingsColumnsList )
 		{
 			using ( SqlCommand cmd = new SqlCommand() )
 			{
@@ -147,40 +172,40 @@ namespace YAF.Providers.Profile
 				cmd.CommandText = sqlCommand.ToString();
 				cmd.CommandType = CommandType.Text;
 
-				YafDBAccess.Current.ExecuteNonQuery( cmd );
+				_dbAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
-		static public int DeleteProfiles( object appName, object userNames )
+		public int DeleteProfiles( object appName, object userNames )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "prov_profile_deleteprofiles" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ApplicationName", appName );
 				cmd.Parameters.AddWithValue( "UserNames", userNames );
-				return Convert.ToInt32( YafDBAccess.Current.ExecuteScalar( cmd ) );
+				return Convert.ToInt32( _dbAccess.ExecuteScalar( cmd ) );
 			}
 		}
 
-		static public int DeleteInactiveProfiles( object appName, object inactiveSinceDate )
+		public int DeleteInactiveProfiles( object appName, object inactiveSinceDate )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "prov_profile_deleteinactive" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ApplicationName", appName );
 				cmd.Parameters.AddWithValue( "InactiveSinceDate", inactiveSinceDate );
-				return Convert.ToInt32( YafDBAccess.Current.ExecuteScalar( cmd ) );
+				return Convert.ToInt32( _dbAccess.ExecuteScalar( cmd ) );
 			}
 		}
 
-		static public int GetNumberInactiveProfiles( object appName, object inactiveSinceDate )
+		public int GetNumberInactiveProfiles( object appName, object inactiveSinceDate )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "prov_profile_getnumberinactiveprofiles" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ApplicationName", appName );
 				cmd.Parameters.AddWithValue( "InactiveSinceDate", inactiveSinceDate );
-				return Convert.ToInt32( YafDBAccess.Current.ExecuteScalar( cmd ) );
+				return Convert.ToInt32( _dbAccess.ExecuteScalar( cmd ) );
 			}
 		}
 

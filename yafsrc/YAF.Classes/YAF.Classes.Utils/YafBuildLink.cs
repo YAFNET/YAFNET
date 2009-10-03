@@ -95,7 +95,7 @@ namespace YAF.Classes.Utils
 		/// <param name="page">Page to which to redirect response.</param>
 		static public void Redirect(ForumPages page)
 		{
-			HttpContext.Current.Response.Redirect(GetLinkNotEscaped(page));
+			HttpContext.Current.Server.Transfer( GetLinkNotEscaped( page ) );
 		}
 		/// <summary>
 		/// Redirects to the given page with parameters.
@@ -105,7 +105,7 @@ namespace YAF.Classes.Utils
 		/// <param name="args">Array of page parameters.</param>
 		static public void Redirect(ForumPages page, string format, params object[] args)
 		{
-			HttpContext.Current.Response.Redirect(GetLinkNotEscaped(page, format, args));
+			HttpContext.Current.Server.Transfer( GetLinkNotEscaped( page, format, args ) );
 		}
 
 		/// <summary>

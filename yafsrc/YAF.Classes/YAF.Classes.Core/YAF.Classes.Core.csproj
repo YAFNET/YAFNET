@@ -73,36 +73,38 @@
     <Compile Include="BaseControls\BaseControl.cs" />
     <Compile Include="BaseControls\IYafHeaderFooter.cs" />
     <Compile Include="BaseModules\MobileThemeModule.cs" />
+    <Compile Include="Helpers\RoleMembershipHelper.cs" />
+    <Compile Include="Services\YafTemplateMail.cs" />
     <Compile Include="Tasks\ForumDeleteTask.cs" />
     <Compile Include="Tasks\PruneTopicTask.cs" />
     <Compile Include="Tasks\IBackgroundTask.cs" />
     <Compile Include="BasePages\AdminPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BoardSettings\LoadBoardSettings.cs" />
+    <Compile Include="BoardSettings\YafLoadBoardSettings.cs" />
     <Compile Include="Context\YafContext.cs" />
     <Compile Include="Handlers\LocalizationHandler.cs" />
     <Compile Include="Context\UserPageBase.cs" />
     <Compile Include="Handlers\ThemeHandler.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\DynamicConnectionManager.cs" />
-    <Compile Include="Helpers\MembershipHelper.cs" />
+    <Compile Include="Helpers\UserMembershipHelper.cs" />
     <Compile Include="Helpers\StaticDataHelper.cs" />
     <Compile Include="Helpers\UserDataHelper.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
-    <Compile Include="Localization\Localization.cs" />
+    <Compile Include="Localization\YafLocalization.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Nntp\Nntp.cs" />
-    <Compile Include="Services\Avatars.cs" />
-    <Compile Include="Services\CheckBannedIps.cs" />
-    <Compile Include="Services\InitDb.cs" />
+    <Compile Include="Services\YafAvatars.cs" />
+    <Compile Include="Services\YafCheckBannedIps.cs" />
+    <Compile Include="Services\YafInitializeDb.cs" />
     <Compile Include="Services\InitService.cs" />
-    <Compile Include="Services\Permissions.cs" />
-    <Compile Include="Services\BadWordReplace.cs" />
-    <Compile Include="Services\Caching.cs" />
+    <Compile Include="Services\YafPermissions.cs" />
+    <Compile Include="Services\YafBadWordReplace.cs" />
+    <Compile Include="Services\YafCache.cs" />
     <Compile Include="Services\CreateMail.cs" />
-    <Compile Include="Services\DateTime.cs" />
-    <Compile Include="Services\DBBroker.cs" />
+    <Compile Include="Services\YafDateTime.cs" />
+    <Compile Include="Services\YafDBBroker.cs" />
     <Compile Include="BaseModules\BaseForumEditorModule.cs" />
     <Compile Include="BaseControls\BaseUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -113,17 +115,17 @@
     <Compile Include="BasePages\ForumPageRegistered.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ModuleManager.cs" />
+    <Compile Include="YafModuleManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LoadMessage.cs" />
     <Compile Include="Services\PageElementRegister.cs" />
-    <Compile Include="Services\SendMail.cs" />
-    <Compile Include="Services\Services.cs" />
-    <Compile Include="Services\StopWatch.cs" />
+    <Compile Include="Services\YafSendMail.cs" />
+    <Compile Include="Services\YafServices.cs" />
+    <Compile Include="Services\YafStopWatch.cs" />
     <Compile Include="Tasks\CleanUpTask.cs" />
     <Compile Include="Tasks\MailSendTask.cs" />
     <Compile Include="Tasks\MigrateUsersTask.cs" />
-    <Compile Include="Theme\Theme.cs" />
+    <Compile Include="Theme\YafTheme.cs" />
     <Compile Include="YAFTaskModule.cs" />
     <Compile Include="BaseModules\IBaseModule.cs" />
   </ItemGroup>

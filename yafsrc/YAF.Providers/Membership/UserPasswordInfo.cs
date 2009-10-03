@@ -28,8 +28,8 @@ namespace YAF.Providers.Membership
 		// Instance Variables
 		string _password, _passwordSalt, _passwordQuestion, _passwordAnswer;
 		int _passwordFormat, _failedPasswordAttempts, _failedAnswerAttempts;
-        bool _isApproved, _useSalt, _hashHex, _msCompliant;
-        string _hashCase, _hashRemoveChars;
+		bool _isApproved, _useSalt, _hashHex, _msCompliant;
+		string _hashCase, _hashRemoveChars;
 		DateTime _lastLogin, _lastActivity;
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace YAF.Providers.Membership
 		/// <param name="lastActivity"></param>
 		public UserPasswordInfo( string password, string passwordSalt, string passwordQuestion, string passwordAnswer,
 														int passwordFormat, int failedPasswordAttempts, int failedAnswerAttempts,
-                                                        bool isApproved, bool useSalt, DateTime lastLogin, DateTime lastActivity, bool hashHex, string hashCase, string hashRemoveChars, bool msCompliant)
+																												bool isApproved, bool useSalt, DateTime lastLogin, DateTime lastActivity, bool hashHex, string hashCase, string hashRemoveChars, bool msCompliant )
 		{
 			// nothing to do except set the local variables...
 			_password = password;
@@ -62,24 +62,24 @@ namespace YAF.Providers.Membership
 			_lastLogin = lastLogin;
 			_lastActivity = lastActivity;
 			_useSalt = useSalt;
-            _hashHex = hashHex;
-            _hashCase = hashCase;
-            _hashRemoveChars = hashRemoveChars;
-            _msCompliant = msCompliant;
+			_hashHex = hashHex;
+			_hashCase = hashCase;
+			_hashRemoveChars = hashRemoveChars;
+			_msCompliant = msCompliant;
 		}
 
 		// used to create an instance of this class from the DB...
 		public static UserPasswordInfo CreateInstanceFromDB( string appName, string username, bool updateUser, bool useSalt, bool hashHex, string hashCase, string hashRemoveChars, bool msCompliant )
 		{
-			DataTable userData = DB.GetUserPasswordInfo( appName, username, updateUser );
+			DataTable userData = DB.Current.GetUserPasswordInfo( appName, username, updateUser );
 
 			if ( userData.Rows.Count > 0 )
 			{
-				DataRow userInfo = userData.Rows [0];
+				DataRow userInfo = userData.Rows[0];
 				// create a new instance of the UserPasswordInfo class
-				return new UserPasswordInfo( Utils.Transform.ToString( userInfo ["Password"] ), Utils.Transform.ToString( userInfo ["PasswordSalt"] ), Utils.Transform.ToString( userInfo ["PasswordQuestion"] ), Utils.Transform.ToString( userInfo ["PasswordAnswer"] ),
-																		Utils.Transform.ToInt( userInfo ["PasswordFormat"] ), Utils.Transform.ToInt( userInfo ["FailedPasswordAttempts"] ), Utils.Transform.ToInt( userInfo ["FailedAnswerAttempts"] ),
-																		Utils.Transform.ToBool( userInfo ["IsApproved"] ), useSalt, Utils.Transform.ToDateTime( userInfo ["LastLogin"] ), Utils.Transform.ToDateTime( userInfo ["LastActivity"] ), hashHex, hashCase, hashRemoveChars, msCompliant );
+				return new UserPasswordInfo( Utils.Transform.ToString( userInfo["Password"] ), Utils.Transform.ToString( userInfo["PasswordSalt"] ), Utils.Transform.ToString( userInfo["PasswordQuestion"] ), Utils.Transform.ToString( userInfo["PasswordAnswer"] ),
+																		Utils.Transform.ToInt( userInfo["PasswordFormat"] ), Utils.Transform.ToInt( userInfo["FailedPasswordAttempts"] ), Utils.Transform.ToInt( userInfo["FailedAnswerAttempts"] ),
+																		Utils.Transform.ToBool( userInfo["IsApproved"] ), useSalt, Utils.Transform.ToDateTime( userInfo["LastLogin"] ), Utils.Transform.ToDateTime( userInfo["LastActivity"] ), hashHex, hashCase, hashRemoveChars, msCompliant );
 			}
 
 			// nothing found, return null.
@@ -93,7 +93,7 @@ namespace YAF.Providers.Membership
 		/// <returns></returns>
 		public bool IsCorrectPassword( string passwordToCheck )
 		{
-			return this.Password.Equals( YafMembershipProvider.EncodeString( passwordToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.HashHex, this.hashCase, this.hashRemoveChars, this.msCompliant) );
+			return this.Password.Equals( YafMembershipProvider.EncodeString( passwordToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.HashHex, this.hashCase, this.hashRemoveChars, this.msCompliant ) );
 		}
 
 		/// <summary>
@@ -103,7 +103,7 @@ namespace YAF.Providers.Membership
 		/// <returns></returns>
 		public bool IsCorrectAnswer( string answerToCheck )
 		{
-			return this.PasswordAnswer.Equals( ( YafMembershipProvider.EncodeString( answerToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.HashHex, this.hashCase, this.hashRemoveChars, this.msCompliant) ) );
+			return this.PasswordAnswer.Equals( ( YafMembershipProvider.EncodeString( answerToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.HashHex, this.hashCase, this.hashRemoveChars, this.msCompliant ) ) );
 		}
 
 		public string Password
@@ -161,25 +161,25 @@ namespace YAF.Providers.Membership
 			get { return _useSalt; }
 		}
 
-        public Boolean HashHex
-        {
-            get { return _hashHex; }
-        }
+		public Boolean HashHex
+		{
+			get { return _hashHex; }
+		}
 
-        public String hashCase
-        {
-            get { return _hashCase; }
-        }
+		public String hashCase
+		{
+			get { return _hashCase; }
+		}
 
-        public String hashRemoveChars
-        {
-            get { return _hashRemoveChars; }
-        }
+		public String hashRemoveChars
+		{
+			get { return _hashRemoveChars; }
+		}
 
-        public bool msCompliant
-        {
-            get { return _msCompliant; }
-        }
+		public bool msCompliant
+		{
+			get { return _msCompliant; }
+		}
 
 	}
 }

@@ -20,21 +20,10 @@ using System;
 using System.Data;
 using System.Web;
 using System.Web.Profile;
-using System.Web.Hosting;
-using System.Web.DataAccess;
-using System.Web.Util;
-using System.Web.Configuration;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
-using System.Configuration.Provider;
 using System.Configuration;
-using System.Security;
-using System.Security.Principal;
-using System.Security.Permissions;
-using System.Globalization;
-using System.Runtime.Serialization;
 using YAF.Providers.Utils;
 
 namespace YAF.Providers.Profile
@@ -44,7 +33,9 @@ namespace YAF.Providers.Profile
 	/// </summary>
 	public class YafProfileProvider : ProfileProvider
 	{
-		private string _appName;
+		static public string ConnStrAppKeyName = "YafProfileConnectionString";
+
+		private string _appName, _connStrName;
 		private bool _propertiesSetup = false;
 		private System.Collections.Generic.List<SettingsPropertyColumn> _settingsColumnsList = new System.Collections.Generic.List<SettingsPropertyColumn>();
 
@@ -70,13 +61,13 @@ namespace YAF.Providers.Profile
 				string key = GenerateCacheKey( "UserProfileDictionary" );
 
 				// get the roles collection...
-				Dictionary<string, SettingsPropertyValueCollection> userProfileDic = System.Web.HttpContext.Current.Cache [key] as Dictionary<string, SettingsPropertyValueCollection>;
+				Dictionary<string, SettingsPropertyValueCollection> userProfileDic = System.Web.HttpContext.Current.Cache[key] as Dictionary<string, SettingsPropertyValueCollection>;
 
 				if ( userProfileDic == null )
 				{
 					// make sure it exists in the cache...
 					userProfileDic = new Dictionary<string, SettingsPropertyValueCollection>();
-					System.Web.HttpContext.Current.Cache [key] = userProfileDic;
+					System.Web.HttpContext.Current.Cache[key] = userProfileDic;
 				}
 
 				return userProfileDic;
@@ -94,7 +85,7 @@ namespace YAF.Providers.Profile
 		private void ClearUserProfileCache()
 		{
 			string key = GenerateCacheKey( "UserProfileDictionary" );
-			System.Web.HttpContext.Current.Cache [key] = null;
+			System.Web.HttpContext.Current.Cache[key] = null;
 		}
 
 		private string GenerateCacheKey( string name )
@@ -115,10 +106,29 @@ namespace YAF.Providers.Profile
 			if ( config == null )
 				throw new ArgumentNullException( "config" );
 
+			// Connection String Name
+			_connStrName = Utils.Transform.ToString( config["connectionStringName"] ?? String.Empty );
+
 			// application name
-			_appName = config ["applicationName"];
+			_appName = config["applicationName"];
 			if ( string.IsNullOrEmpty( _appName ) )
 				_appName = "YetAnotherForum";
+
+			// is the connection string set?
+			if ( !String.IsNullOrEmpty( _connStrName ) )
+			{
+				string connStr = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
+
+				// set the app variable...
+				if ( HttpContext.Current.Application[ConnStrAppKeyName] == null )
+				{
+					HttpContext.Current.Application.Add( ConnStrAppKeyName, connStr );
+				}
+				else
+				{
+					HttpContext.Current.Application[ConnStrAppKeyName] = connStr;
+				}
+			}
 
 			base.Initialize( name, config );
 		}
@@ -137,7 +147,7 @@ namespace YAF.Providers.Profile
 					int size;
 
 					// parse custom provider data...
-					GetDbTypeAndSizeFromString( property.Attributes ["CustomProviderData"].ToString(), out dbType, out size );
+					GetDbTypeAndSizeFromString( property.Attributes["CustomProviderData"].ToString(), out dbType, out size );
 
 					// default the size to 256 if no size is specified
 					if ( dbType == SqlDbType.NVarChar && size == -1 )
@@ -148,7 +158,7 @@ namespace YAF.Providers.Profile
 				}
 
 				// sync profile table structure with the db...
-				DataTable structure = DB.GetProfileStructure();
+				DataTable structure = DB.Current.GetProfileStructure();
 
 				// verify all the columns are there...
 				foreach ( SettingsPropertyColumn column in _settingsColumnsList )
@@ -157,7 +167,7 @@ namespace YAF.Providers.Profile
 					if ( !structure.Columns.Contains( column.Settings.Name ) )
 					{
 						// if not, create it...
-						DB.AddProfileColumn( column.Settings.Name, column.DataType, column.Size );
+						DB.Current.AddProfileColumn( column.Settings.Name, column.DataType, column.Size );
 					}
 				}
 
@@ -180,7 +190,7 @@ namespace YAF.Providers.Profile
 					int size;
 
 					// parse custom provider data...
-					GetDbTypeAndSizeFromString( value.Property.Attributes ["CustomProviderData"].ToString(), out dbType, out size );
+					GetDbTypeAndSizeFromString( value.Property.Attributes["CustomProviderData"].ToString(), out dbType, out size );
 
 					// default the size to 256 if no size is specified
 					if ( dbType == SqlDbType.NVarChar && size == -1 )
@@ -191,7 +201,7 @@ namespace YAF.Providers.Profile
 				}
 
 				// sync profile table structure with the db...
-				DataTable structure = DB.GetProfileStructure();
+				DataTable structure = DB.Current.GetProfileStructure();
 
 				// verify all the columns are there...
 				foreach ( SettingsPropertyColumn column in _settingsColumnsList )
@@ -200,7 +210,7 @@ namespace YAF.Providers.Profile
 					if ( !structure.Columns.Contains( column.Settings.Name ) )
 					{
 						// if not, create it...
-						DB.AddProfileColumn( column.Settings.Name, column.DataType, column.Size );
+						DB.Current.AddProfileColumn( column.Settings.Name, column.DataType, column.Size );
 					}
 				}
 
@@ -220,20 +230,20 @@ namespace YAF.Providers.Profile
 			}
 
 			// split the data
-			string [] chunk = providerData.Split( new char [] { ';' } );
+			string[] chunk = providerData.Split( new char[] { ';' } );
 
 			// first item is the column name...
-			string columnName = chunk [0];
+			string columnName = chunk[0];
 
 			// get the datatype and ignore case...
-			dbType = ( SqlDbType )Enum.Parse( typeof( SqlDbType ), chunk [1], true );
+			dbType = (SqlDbType)Enum.Parse( typeof( SqlDbType ), chunk[1], true );
 
 			if ( chunk.Length > 2 )
 			{
 				// handle size...
-				if ( !Int32.TryParse( chunk [2], out size ) )
+				if ( !Int32.TryParse( chunk[2], out size ) )
 				{
-					throw new ArgumentException( "Unable to parse as integer: " + chunk [2] );
+					throw new ArgumentException( "Unable to parse as integer: " + chunk[2] );
 				}
 			}
 
@@ -250,10 +260,10 @@ namespace YAF.Providers.Profile
 			// just clear the whole thing...
 			ClearUserProfileCache();
 
-			return DB.DeleteInactiveProfiles( this.ApplicationName, userInactiveSinceDate );
+			return DB.Current.DeleteInactiveProfiles( this.ApplicationName, userInactiveSinceDate );
 		}
 
-		public override int DeleteProfiles( string [] usernames )
+		public override int DeleteProfiles( string[] usernames )
 		{
 			if ( usernames == null || usernames.Length < 1 )
 			{
@@ -266,7 +276,7 @@ namespace YAF.Providers.Profile
 
 			for ( int i = 0; i < usernames.Length; i++ )
 			{
-				string username = usernames [i].Trim();
+				string username = usernames[i].Trim();
 
 				if ( username.Length > 0 )
 				{
@@ -279,7 +289,7 @@ namespace YAF.Providers.Profile
 			}
 
 			// call the DB...
-			return DB.DeleteProfiles( this.ApplicationName, userNameBuilder.ToString() );
+			return DB.Current.DeleteProfiles( this.ApplicationName, userNameBuilder.ToString() );
 		}
 
 		public override int DeleteProfiles( ProfileInfoCollection profiles )
@@ -294,12 +304,12 @@ namespace YAF.Providers.Profile
 				ExceptionReporter.ThrowArgument( "PROFILE", "PROFILESEMPTY" );
 			}
 
-			string [] usernames = new string [profiles.Count];
+			string[] usernames = new string[profiles.Count];
 
 			int index = 0;
 			foreach ( ProfileInfo profile in profiles )
 			{
-				usernames [index++] = profile.UserName;
+				usernames[index++] = profile.UserName;
 			}
 
 			return DeleteProfiles( usernames );
@@ -332,7 +342,7 @@ namespace YAF.Providers.Profile
 				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
 			}
 
-			return DB.GetNumberInactiveProfiles( this.ApplicationName, userInactiveSinceDate );
+			return DB.Current.GetNumberInactiveProfiles( this.ApplicationName, userInactiveSinceDate );
 		}
 
 		private ProfileInfoCollection GetProfileAsCollection( ProfileAuthenticationOption authenticationOption, int pageIndex, int pageSize, object userNameToMatch, object inactiveSinceDate, out int totalRecords )
@@ -351,13 +361,13 @@ namespace YAF.Providers.Profile
 			}
 
 			// get all the profiles...
-			DataSet allProfilesDS = DB.GetProfiles( this.ApplicationName, pageIndex, pageSize, userNameToMatch, inactiveSinceDate );
+			DataSet allProfilesDS = DB.Current.GetProfiles( this.ApplicationName, pageIndex, pageSize, userNameToMatch, inactiveSinceDate );
 
 			// create an instance for the profiles...
 			ProfileInfoCollection profiles = new ProfileInfoCollection();
 
-			DataTable allProfilesDT = allProfilesDS.Tables [0];
-			DataTable profilesCountDT = allProfilesDS.Tables [1];
+			DataTable allProfilesDT = allProfilesDS.Tables[0];
+			DataTable profilesCountDT = allProfilesDS.Tables[1];
 
 			foreach ( DataRow profileRow in allProfilesDT.Rows )
 			{
@@ -365,33 +375,33 @@ namespace YAF.Providers.Profile
 				DateTime lastActivity;
 				DateTime lastUpdated = DateTime.UtcNow;
 
-				username = profileRow ["Username"].ToString();
-				lastActivity = DateTime.SpecifyKind( Convert.ToDateTime( profileRow ["LastActivity"] ), DateTimeKind.Utc );
-				lastUpdated = DateTime.SpecifyKind( Convert.ToDateTime( profileRow ["LastUpdated"] ), DateTimeKind.Utc );
+				username = profileRow["Username"].ToString();
+				lastActivity = DateTime.SpecifyKind( Convert.ToDateTime( profileRow["LastActivity"] ), DateTimeKind.Utc );
+				lastUpdated = DateTime.SpecifyKind( Convert.ToDateTime( profileRow["LastUpdated"] ), DateTimeKind.Utc );
 
 				profiles.Add( new ProfileInfo( username, false, lastActivity, lastUpdated, 0 ) );
 			}
 
 			// get the first record which is the count...
-			totalRecords = Convert.ToInt32( profilesCountDT.Rows [0] [0] );
+			totalRecords = Convert.ToInt32( profilesCountDT.Rows[0][0] );
 
 			return profiles;
 		}
 
 		public override System.Configuration.SettingsPropertyValueCollection GetPropertyValues( System.Configuration.SettingsContext context, System.Configuration.SettingsPropertyCollection collection )
 		{
-			SettingsPropertyValueCollection settingPropertyCollection = new SettingsPropertyValueCollection();			
+			SettingsPropertyValueCollection settingPropertyCollection = new SettingsPropertyValueCollection();
 
 			if ( collection == null || collection.Count < 1 || context == null )
 				return settingPropertyCollection;
 
-			string username = context ["UserName"].ToString();
-			
+			string username = context["UserName"].ToString();
+
 			if ( String.IsNullOrEmpty( username ) )
 				return settingPropertyCollection;
 
 			// this provider doesn't support anonymous users
-			if ( !Convert.ToBoolean( context ["IsAuthenticated"] ) )
+			if ( !Convert.ToBoolean( context["IsAuthenticated"] ) )
 			{
 				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
 			}
@@ -403,7 +413,7 @@ namespace YAF.Providers.Profile
 			if ( UserProfileCache.ContainsKey( username.ToLower() ) )
 			{
 				// just use the cached version...
-				return UserProfileCache [username.ToLower()];
+				return UserProfileCache[username.ToLower()];
 			}
 			else
 			{
@@ -414,16 +424,16 @@ namespace YAF.Providers.Profile
 				}
 
 				// get this profile from the DB
-				DataSet profileDS = DB.GetProfiles( this.ApplicationName, 0, 1, username, null );
-				DataTable profileDT = profileDS.Tables [0];
+				DataSet profileDS = DB.Current.GetProfiles( this.ApplicationName, 0, 1, username, null );
+				DataTable profileDT = profileDS.Tables[0];
 
 				if ( profileDT.Rows.Count > 0 )
 				{
-					DataRow row = profileDT.Rows [0];
+					DataRow row = profileDT.Rows[0];
 					// load the data into the collection...
 					foreach ( SettingsPropertyValue prop in settingPropertyCollection )
 					{
-						object val = row [prop.Name];
+						object val = row[prop.Name];
 						//Only initialize a SettingsPropertyValue for non-null values
 						if ( !( val is DBNull || val == null ) )
 						{
@@ -442,13 +452,13 @@ namespace YAF.Providers.Profile
 
 		public override void SetPropertyValues( System.Configuration.SettingsContext context, System.Configuration.SettingsPropertyValueCollection collection )
 		{
-			string username = ( string ) context ["UserName"];
+			string username = (string)context["UserName"];
 
 			if ( username == null || username.Length < 1 || collection.Count < 1 )
 				return;
 
 			// this provider doesn't support anonymous users
-			if ( !Convert.ToBoolean(context["IsAuthenticated"]) )
+			if ( !Convert.ToBoolean( context["IsAuthenticated"] ) )
 			{
 				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
 			}
@@ -471,11 +481,11 @@ namespace YAF.Providers.Profile
 			// load the data for the configuration
 			LoadFromPropertyValueCollection( collection );
 
-			object userID = DB.GetProviderUserKey( this.ApplicationName, username );
+			object userID = DB.Current.GetProviderUserKey( this.ApplicationName, username );
 			if ( userID != null )
 			{
 				// start saving...
-				DB.SetProfileProperties( this.ApplicationName, userID, collection, _settingsColumnsList );
+				DB.Current.SetProfileProperties( this.ApplicationName, userID, collection, _settingsColumnsList );
 				// erase from the cache
 				DeleteFromProfileCacheIfExists( username.ToLower() );
 			}
