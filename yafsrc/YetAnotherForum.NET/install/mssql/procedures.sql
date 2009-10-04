@@ -963,10 +963,10 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0) as
+create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ActiveTime int) as
 begin
 		-- delete non-active
-	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,getdate())>5
+	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,getdate())>@ActiveTime
 	-- select active
 	if @Guests<>0
 		select

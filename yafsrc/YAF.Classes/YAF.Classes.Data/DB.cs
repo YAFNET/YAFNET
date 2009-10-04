@@ -975,13 +975,14 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">BoardID</param>
 		/// <param name="Guests"></param>
 		/// <returns>Returns a DataTable of active users</returns>
-		static public DataTable active_list( object boardID, object Guests )
+		static public DataTable active_list( object boardID, object Guests,int activeTime )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "active_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Guests", Guests );
+                cmd.Parameters.AddWithValue( "ActiveTime", activeTime );
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}

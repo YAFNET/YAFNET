@@ -50,7 +50,7 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
-				DataTable dt = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, true );
+                DataTable dt = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, true, PageContext.BoardSettings.ActiveListTime);
 
 				// remove hidden users...
 				foreach ( DataRow row in dt.Rows )

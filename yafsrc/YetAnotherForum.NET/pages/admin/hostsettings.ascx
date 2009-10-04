@@ -240,6 +240,15 @@
 							Features
 						</td>
 					</tr>
+						<tr>
+						<td class="postheader">
+							<b>Active Users Time:</b><br />
+							Number of minutes to display users in Active Users list.
+						</td>						
+						<td class="post">
+							<asp:TextBox ID="ActiveListTime" runat="server" />
+						</td>
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Remove Nested Quotes:</b><br />
@@ -287,7 +296,7 @@
 						<td class="post">
 							<asp:TextBox ID="LockPosts" runat="server"></asp:TextBox>
 						</td>
-					</tr>
+					</tr>					
 					<tr>
 						<td class="postheader">
 							<b>Allow Post to Blog:</b><br />
@@ -463,6 +472,7 @@
 							<asp:TextBox ID="PrivateMessageMaxRecipients" runat="server"></asp:TextBox>
 						</td>
 					</tr>
+				
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View3" Text="Display" NavigateUrl="" HeaderCssClass="" HeaderStyle=""

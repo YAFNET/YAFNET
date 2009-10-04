@@ -399,6 +399,12 @@ namespace YAF.Classes
 			get { return _reg.GetValue<int>( "ShoutboxShowMessageCount", 30 ); }
 			set { _reg.SetValue<int>( "ShoutboxShowMessageCount", value ); }
 		}
+        //vzrus
+        public int ActiveListTime
+        {
+            get { return _regBoard.GetValue<int>("ActiveListTime", 5); }
+            set { _regBoard.SetValue<int>("ActiveListTime", value); }
+        }
 
 		#endregion
 

@@ -441,7 +441,7 @@
             <param name="uploadAccess">Upload Access?</param>
             <param name="downloadAccess">Download Access?</param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.active_list(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.active_list(System.Object,System.Object,System.Int32)">
             <summary>
             Gets list of active users
             </summary>

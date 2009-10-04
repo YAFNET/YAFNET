@@ -35,7 +35,7 @@ namespace YAF.Controls
 		{
 			// Active users
 			// Call this before forum_stats to clean up active users
-			ActiveUsers1.ActiveUserTable = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, null);
+            ActiveUsers1.ActiveUserTable = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, null, PageContext.BoardSettings.ActiveListTime);
 
 			// "Active Users" Count and Most Users Count
 			DataRow activeStats = YAF.Classes.Data.DB.active_stats(PageContext.PageBoardID);
