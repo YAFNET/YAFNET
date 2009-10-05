@@ -1,5 +1,6 @@
 ﻿#region Usings
 
+using System;
 using System.Web;
 using YAF.Classes;
 
@@ -25,6 +26,11 @@ namespace yaf_dnn
 
             return builturl;
         }
+
+				public string BuildUrlFull( string url )
+				{
+					return String.Format( "{0}{1}", UrlBuilder.BaseUrl, BuildUrlFull( url ) );
+				}
 
         #endregion
     }
