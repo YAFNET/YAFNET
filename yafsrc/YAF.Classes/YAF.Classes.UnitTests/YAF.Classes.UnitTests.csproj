@@ -81,6 +81,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HttpSimulator\HttpSimulator.cs" />
+    <Compile Include="HttpSimulator\ReflectionHelper.cs" />
+    <Compile Include="HttpSimulator\SimulatedHttpRequest.cs" />
+    <Compile Include="UrlBuilderTests.cs" />
     <Compile Include="ProviderTests.cs" />
     <Compile Include="UtilTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
