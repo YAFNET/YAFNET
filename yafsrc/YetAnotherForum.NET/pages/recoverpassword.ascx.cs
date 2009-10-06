@@ -144,7 +144,7 @@ namespace YAF.Pages // YAF.Pages
 
 							string subject = GetTextFormatted( "VERIFICATION_EMAIL_SUBJECT", PageContext.BoardSettings.Name );
 
-							verifyEmail.TemplateParams["{link}"] = String.Format( "{1}{0}", YafBuildLink.GetLinkNotEscaped( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
+							verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped( ForumPages.approve, true, "k={0}", hash );
 							verifyEmail.TemplateParams["{key}"] = hash;
 							verifyEmail.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
 							verifyEmail.TemplateParams["{forumlink}"] = String.Format( "{0}", YafForumInfo.ForumURL );

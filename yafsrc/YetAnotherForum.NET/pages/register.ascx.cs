@@ -248,7 +248,7 @@ namespace YAF.Pages // YAF.Pages
 
 				string subject = GetTextFormatted( "VERIFICATION_EMAIL_SUBJECT", PageContext.BoardSettings.Name);
 
-				verifyEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}", YafBuildLink.GetLinkNotEscaped( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
+				verifyEmail.TemplateParams ["{link}"] = YafBuildLink.GetLinkNotEscaped( ForumPages.approve, true, "k={0}", hash );
 				verifyEmail.TemplateParams ["{key}"] = hash;
 				verifyEmail.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
 				verifyEmail.TemplateParams ["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
@@ -267,7 +267,7 @@ namespace YAF.Pages // YAF.Pages
 					String.Format( PageContext.Localization.GetText( "COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT" ),
 					               PageContext.BoardSettings.Name );
 
-				notifyAdmin.TemplateParams["{adminlink}"] = String.Format( "{1}{0}", YafBuildLink.GetLinkNotEscaped( ForumPages.admin_admin ), YafForumInfo.ServerURL );
+				notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped( ForumPages.admin_admin, true );
 				notifyAdmin.TemplateParams["{user}"] = user.UserName;
 				notifyAdmin.TemplateParams["{email}"] = user.Email;
 				notifyAdmin.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;

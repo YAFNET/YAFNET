@@ -105,7 +105,7 @@ namespace YAF.Pages.Admin
 					// send template email
 					YafTemplateEmail verifyEmail = new YafTemplateEmail( "VERIFYEMAIL" );
 
-					verifyEmail.TemplateParams["{link}"] = String.Format( "{1}{0}", YafBuildLink.GetLink( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
+					verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLink( ForumPages.approve, true, "k={0}", hash );
 					verifyEmail.TemplateParams["{key}"] = hash;
 					verifyEmail.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
 					verifyEmail.TemplateParams["{forumlink}"] = String.Format( "{0}", ForumURL );

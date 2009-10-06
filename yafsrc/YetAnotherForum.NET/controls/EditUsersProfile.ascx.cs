@@ -182,7 +182,7 @@ namespace YAF.Controls
 					YafTemplateEmail changeEmail = new YafTemplateEmail( "CHANGEEMAIL" );
 
 					changeEmail.TemplateParams ["{user}"] = PageContext.PageUserName;
-					changeEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YafBuildLink.GetLinkNotEscaped( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
+					changeEmail.TemplateParams ["{link}"] = String.Format( "{0}\r\n\r\n", YafBuildLink.GetLinkNotEscaped( ForumPages.approve, true, "k={0}", hash ) );
 					changeEmail.TemplateParams ["{newemail}"] = Email.Text;
 					changeEmail.TemplateParams ["{key}"] = hash;
 					changeEmail.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;

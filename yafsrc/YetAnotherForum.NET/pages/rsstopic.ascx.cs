@@ -63,8 +63,7 @@ namespace YAF.Pages // YAF.Pages
 						foreach (DataRow row in dt.Rows)
 							rf.AddRSSItem(writer,
 							              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
-							              YafForumInfo.ServerURL +
-							              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Request.QueryString["t"]),
+							              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]),
 							              YafServices.BadWordReplace.Replace(row["Message"].ToString()),
 							              Convert.ToDateTime(row["Posted"]).ToString("r"));
 					}
@@ -77,8 +76,7 @@ namespace YAF.Pages // YAF.Pages
 						foreach (DataRow row in dt.Rows)
 							rf.AddRSSItem(writer,
 							              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
-							              YafForumInfo.ServerURL +
-							              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Request.QueryString["t"]),
+							              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]),
 							              YafServices.BadWordReplace.Replace(row["Message"].ToString()),
 							              Convert.ToDateTime(row["Posted"]).ToString("r"));
 					}
@@ -96,8 +94,7 @@ namespace YAF.Pages // YAF.Pages
 							foreach (DataRow row in dt.Rows)
 								rf.AddRSSItem(writer,
 								              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
-								              YafForumInfo.ServerURL +
-								              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Request.QueryString["t"]),
+								              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]),
 								              FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])),
 								              Convert.ToDateTime(row["Posted"]).ToString("r"));
 						}
@@ -112,7 +109,7 @@ namespace YAF.Pages // YAF.Pages
 						{
 							rf.AddRSSItem(writer,
 							              YafServices.BadWordReplace.Replace(row["Forum"].ToString()),
-							              YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", row["ForumID"]),
+							              YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
 							              YafServices.BadWordReplace.Replace(row["Description"].ToString()));
 						}
 					}
@@ -132,7 +129,7 @@ namespace YAF.Pages // YAF.Pages
                             {
                                 rf.AddRSSItem(writer,
                                               YafServices.BadWordReplace.Replace(row["Topic"].ToString()),
-                                              YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", row["TopicID"]),
+                                              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]),
                                               YafServices.BadWordReplace.Replace(row["Topic"].ToString()),
                                               Convert.ToDateTime(row["Posted"]).ToString("r"));
                             }
@@ -151,8 +148,7 @@ using (
 	{
 		rf.AddRSSItem(writer,
 		              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
-		              YafForumInfo.ServerURL +
-		              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", row["LinkTopicID"]),
+		              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
 		              YafServices.BadWordReplace.Replace(row["Subject"].ToString()));
 	}
 }

@@ -67,7 +67,7 @@ namespace YAF.Pages // YAF.Pages
 
 				YafTemplateEmail emailTopic = new YafTemplateEmail();
 
-				emailTopic.TemplateParams ["{link}"] = String.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
+				emailTopic.TemplateParams ["{link}"] = YafBuildLink.GetLinkNotEscaped( ForumPages.posts, true, "t={0}", PageContext.PageTopicID );
 				emailTopic.TemplateParams ["{user}"] = PageContext.PageUserName;
 
 				Message.Text = emailTopic.ProcessTemplate( "EMAILTOPIC" );
