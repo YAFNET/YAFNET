@@ -514,7 +514,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return string.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLink( ForumPages.forum ) );
+				return YafBuildLink.GetLink( ForumPages.forum, true );
 			}
 		}
 

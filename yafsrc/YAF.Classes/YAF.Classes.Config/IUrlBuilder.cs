@@ -26,10 +26,17 @@ namespace YAF.Classes
 	public interface IUrlBuilder
 	{
 		/// <summary>
-		/// Builds URL for calling page with URL argument as and parameter.
+		/// Builds path for calling page with URL argument as the parameter.
 		/// </summary>
 		/// <param name="url">URL to use as a parameter.</param>
 		/// <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
 		string BuildUrl(string url);
+
+		/// <summary>
+		/// Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
+		/// </summary>
+		/// <param name="url">URL to use as a parameter.</param>
+		/// <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+		string BuildUrlFull( string url );
 	}
 }

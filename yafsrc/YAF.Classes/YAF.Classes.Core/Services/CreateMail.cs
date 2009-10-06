@@ -171,7 +171,8 @@ namespace YAF.Classes.Core
 
 					watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
 					watchEmail.TemplateParams["{topic}"] = row["Topic"].ToString();
-					watchEmail.TemplateParams["{link}"] = String.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "m={0}#post{0}", messageID ) );
+					watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped( ForumPages.posts, true, "m={0}#post{0}",
+					                                                                      messageID );
 
 					watchEmail.CreateWatch( Convert.ToInt32( row["TopicID"] ), userId, new MailAddress( YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name ), subject );
 				}
@@ -223,7 +224,7 @@ namespace YAF.Classes.Core
 
 					// fill the template with relevant info
 					pmNotification.TemplateParams["{fromuser}"] = YafContext.Current.PageUserName;
-					pmNotification.TemplateParams["{link}"] = String.Format( "{1}{0}\r\n\r\n", YafBuildLink.GetLinkNotEscaped( ForumPages.cp_message, "pm={0}", userPMessageID ), YafForumInfo.ServerURL );
+					pmNotification.TemplateParams["{link}"] = String.Format( "{0}\r\n\r\n", YafBuildLink.GetLinkNotEscaped( ForumPages.cp_message, true, "pm={0}", userPMessageID ) );
 					pmNotification.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
 					pmNotification.TemplateParams["{subject}"] = subject;
 

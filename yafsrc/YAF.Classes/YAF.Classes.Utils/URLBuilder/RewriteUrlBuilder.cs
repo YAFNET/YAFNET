@@ -53,12 +53,18 @@ namespace YAF.Classes
 			return ( int ) ( Math.Floor( ( double ) ( id / cacheSize ) ) * cacheSize );
 		}
 
+		public string BuildUrlFull(String url )
+		{
+			// append the full base server url to the beginning of the url (e.g. http://mydomain.com)
+			return String.Format( "{0}{1}", UrlBuilder.BaseUrl, BuildUrl( url ) );			
+		}
+
 		public string BuildUrl( string url )
 		{
-			string newURL = string.Format( "{0}{1}?{2}", UrlBuilder.BaseUrl, UrlBuilder.ScriptName, url );
+			string newURL = string.Format( "{0}{1}?{2}", UrlBuilder.Path, UrlBuilder.ScriptName, url );
 
 			// create scriptName
-			string scriptName = string.Format( "{0}{1}", UrlBuilder.BaseUrl, UrlBuilder.ScriptName );
+			string scriptName = string.Format( "{0}{1}", UrlBuilder.Path, UrlBuilder.ScriptName );
 
 			// get the base script file from the config -- defaults to, well, default.aspx :)
 			string scriptFile = Config.BaseScriptFile;

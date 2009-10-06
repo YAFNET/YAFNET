@@ -49,11 +49,38 @@ namespace YAF.Classes.Utils
 		/// Gets link to the page.
 		/// </summary>
 		/// <param name="page">Page to which to create a link.</param>
+		/// <param name="fullUrl"></param>
+		/// <returns>URL to the given page.</returns>
+		static public string GetLink( ForumPages page, bool fullUrl )
+		{
+			return fullUrl ? Config.UrlBuilder.BuildUrlFull( string.Format( "g={0}", page ) ) : Config.UrlBuilder.BuildUrl( string.Format( "g={0}", page ) );
+		}
+
+		/// <summary>
+		/// Gets link to the page.
+		/// </summary>
+		/// <param name="page">Page to which to create a link.</param>
 		/// <returns>URL to the given page.</returns>
 		static public string GetLink(ForumPages page)
 		{
-			return Config.UrlBuilder.BuildUrl(string.Format("g={0}", page));
+			return GetLink( page, false );
 		}
+
+		/// <summary>
+		/// Gets link to the page with given parameters.
+		/// </summary>
+		/// <param name="page">Page to which to create a link.</param>
+		/// <param name="format">Format of parameters.</param>
+		/// <param name="args">Array of page parameters.</param>
+		/// <param name="fullUrl"></param>
+		/// <returns>URL to the given page with parameters.</returns>
+		static public string GetLink(ForumPages page, bool fullUrl, string format, params object[] args)
+		{
+			return fullUrl
+			       	? Config.UrlBuilder.BuildUrlFull( string.Format( "g={0}&{1}", page, string.Format( format, args ) ) )
+			       	: Config.UrlBuilder.BuildUrl( string.Format( "g={0}&{1}", page, string.Format( format, args ) ) );
+		}
+
 		/// <summary>
 		/// Gets link to the page with given parameters.
 		/// </summary>
@@ -61,21 +88,45 @@ namespace YAF.Classes.Utils
 		/// <param name="format">Format of parameters.</param>
 		/// <param name="args">Array of page parameters.</param>
 		/// <returns>URL to the given page with parameters.</returns>
-		static public string GetLink(ForumPages page, string format, params object[] args)
+		static public string GetLink( ForumPages page, string format, params object[] args )
 		{
-			return Config.UrlBuilder.BuildUrl(string.Format("g={0}&{1}", page, string.Format(format, args)));
+			return GetLink( page, false, format, args );
 		}
 
+		/// <summary>
+		/// Unescapes ampersands in the link to the given page.
+		/// </summary>
+		/// <param name="page">Page to which to create a link.</param>
+		/// <param name="fullUrl"></param>
+		/// <returns>URL to the given page with unescaped ampersands.</returns>
+		static public string GetLinkNotEscaped(ForumPages page, bool fullUrl)
+		{
+			return GetLink( page, fullUrl ).Replace( "&amp;", "&" );
+		}
 
 		/// <summary>
 		/// Unescapes ampersands in the link to the given page.
 		/// </summary>
 		/// <param name="page">Page to which to create a link.</param>
 		/// <returns>URL to the given page with unescaped ampersands.</returns>
-		static public string GetLinkNotEscaped(ForumPages page)
+		static public string GetLinkNotEscaped( ForumPages page )
 		{
-			return GetLink(page).Replace("&amp;", "&");
+			return GetLink( page, false ).Replace( "&amp;", "&" );
 		}
+
+		/// <summary>
+		/// Unescapes ampersands in the link to the given page with parameters.
+		/// </summary>
+		/// <param name="page">Page to which to create a link.</param>
+		/// <param name="fullUrl"></param>
+		/// <param name="format">Format of parameters.</param>
+		/// <param name="args">Array of page parameters.</param>
+		/// <returns>URL to the given page with parameters and unescaped ampersands.</returns>
+		static public string GetLinkNotEscaped(ForumPages page, bool fullUrl, string format, params object[] args)
+		{
+			return GetLink(page, fullUrl, format, args).Replace("&amp;", "&");
+		}
+
 		/// <summary>
 		/// Unescapes ampersands in the link to the given page with parameters.
 		/// </summary>
@@ -83,11 +134,10 @@ namespace YAF.Classes.Utils
 		/// <param name="format">Format of parameters.</param>
 		/// <param name="args">Array of page parameters.</param>
 		/// <returns>URL to the given page with parameters and unescaped ampersands.</returns>
-		static public string GetLinkNotEscaped(ForumPages page, string format, params object[] args)
+		static public string GetLinkNotEscaped( ForumPages page, string format, params object[] args )
 		{
-			return GetLink(page, format, args).Replace("&amp;", "&");
+			return GetLink( page, false, format, args ).Replace( "&amp;", "&" );
 		}
-
 
 		/// <summary>
 		/// Redirects to the given page.

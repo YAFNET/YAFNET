@@ -18,6 +18,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using YAF.Classes.Data;
@@ -25,126 +26,59 @@ using YAF.Classes.Data;
 namespace YAF.Classes.Utils
 {
 	/// <summary>
-	/// Class provides misc helper functions and forum version information
+	/// Class provides helper functions related to the forum path and urls as well as forum version information.
 	/// </summary>
 	public static class YafForumInfo
 	{
 		/// <summary>
-		/// The forum path (external).
+		/// The forum path (client-side).
 		/// May not be the actual URL of the forum.
 		/// </summary>
 		static public string ForumRoot
 		{
 			get
 			{
-				string _forumRoot = null;
-
-				try
-				{
-					_forumRoot = UrlBuilder.BaseUrl;
-					if (!_forumRoot.EndsWith("/")) _forumRoot += "/";
-				}
-				catch (Exception)
-				{
-					_forumRoot = "/";
-				}
-
-				return _forumRoot;
+				return UrlBuilder.Path;
 			}
 		}
 
 		/// <summary>
-		/// The forum path (internal).
+		/// The forum path (server-side).
 		/// May not be the actual URL of the forum.
 		/// </summary>
 		static public string ForumFileRoot
 		{
 			get
 			{
-				return UrlBuilder.RootUrl;
+				return UrlBuilder.FileRoot;
 			}
 		}
 
 		/// <summary>
-		/// Server URL based on the server variables. May not actually be 
-		/// the URL of the forum.
-		/// </summary>
-		static public string ServerURL
-		{
-			get
-			{
-				StringBuilder url = new StringBuilder();
-
-				if (!Config.BaseUrlOverrideDomain)
-				{
-					long serverPort = long.Parse(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]);
-					bool isSecure = (HttpContext.Current.Request.ServerVariables["HTTPS"] == "ON" || serverPort == 443);
-
-					url.Append("http");
-
-					if (isSecure)
-					{
-						url.Append("s");
-					}
-
-					url.AppendFormat("://{0}", HttpContext.Current.Request.ServerVariables["SERVER_NAME"]);
-
-					if ((!isSecure && serverPort != 80) || (isSecure && serverPort != 443))
-					{
-						url.AppendFormat(":{0}", serverPort.ToString());
-					}
-				}
-				else
-				{
-					// pull the domain from BaseUrl...
-					string[] sections = UrlBuilder.BaseUrl.Split(new char[] { '/' });
-
-					// add the necessary sections...
-					// http(s)
-					url.Append(sections[0]);
-					url.Append("//");
-					url.Append(sections[1]);
-				}
-
-				return url.ToString();
-			}
-		}
-
-		/// <summary>
-		/// Complete external URL of the forum.
+		/// Complete external (client-side) URL of the forum. (e.g. http://myforum.com/forum/
 		/// </summary>
 		static public string ForumBaseUrl
 		{
 			get
 			{
-				if (!Config.BaseUrlOverrideDomain)
-				{
-					return ServerURL + ForumRoot;
-				}
-				else
-				{
-					// just return the base url...
-					return UrlBuilder.BaseUrl;
-				}
+				return UrlBuilder.BaseUrl + UrlBuilder.Path;
 			}
 		}
 
+		/// <summary>
+		/// Full Url to the Root of the Forum
+		/// </summary>
 		static public string ForumURL
 		{
 			get
 			{
-				if (!Config.BaseUrlOverrideDomain)
-				{
-					return string.Format("{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLink(ForumPages.forum));
-				}
-				else
-				{
-					// link will include the url and domain...
-					return YafBuildLink.GetLink(ForumPages.forum);
-				}
+				return YafBuildLink.GetLink( ForumPages.forum, true );
 			}
 		}
 
+		///<summary>
+		/// Returns true if the current site is a localhost.
+		///</summary>
 		static public bool IsLocal
 		{
 			get
@@ -165,6 +99,11 @@ namespace YAF.Classes.Utils
 		}
 
 		#region Version Information
+		///<summary>
+		/// Creates a string that is the YAF Application Version from a long value
+		///</summary>
+		///<param name="code">Value of Current Version</param>
+		///<returns>Application Version String</returns>
 		static public string AppVersionNameFromCode(long code)
 		{
 			string version;
@@ -198,6 +137,10 @@ namespace YAF.Classes.Utils
 
 			return version;
 		}
+
+		/// <summary>
+		/// YAF Current App Version string
+		/// </summary>
 		static public string AppVersionName
 		{
 			get
@@ -205,6 +148,10 @@ namespace YAF.Classes.Utils
 				return AppVersionNameFromCode(AppVersionCode);
 			}
 		}
+
+		/// <summary>
+		/// YAF Current Database Version
+		/// </summary>
 		static public int AppVersion
 		{
 			get
@@ -212,18 +159,26 @@ namespace YAF.Classes.Utils
 				return 34;
 			}
 		}
+
+		/// <summary>
+		/// YAF Current Application Version
+		/// </summary>
 		static public long AppVersionCode
 		{
 			get
 			{
-				return 0x01090402;
+				return 0x01090412;
 			}
 		}
+
+		/// <summary>
+		/// YAF Current Build Date
+		/// </summary>
 		static public DateTime AppVersionDate
 		{
 			get
 			{
-				return new DateTime(2009, 9, 26);
+				return new DateTime( 2009, 10, 4 );
 			}
 		}
 		#endregion

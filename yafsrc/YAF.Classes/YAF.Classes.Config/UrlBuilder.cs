@@ -18,6 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
+using System.Text;
 using System.Web;
 using System.Collections.Specialized;
 
@@ -29,10 +30,9 @@ namespace YAF.Classes
 	public class UrlBuilder : IUrlBuilder
 	{
 		private static readonly StringDictionary _baseUrls = new StringDictionary();
-		private static string _fileRoot = null;
 
 		/// <summary>
-		/// Builds URL for calling page with parameter URL as page's escaped parameter.
+		/// Builds path for calling page with parameter URL as page's escaped parameter.
 		/// </summary>
 		/// <param name="url">URL to put into parameter.</param>
 		/// <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
@@ -42,7 +42,18 @@ namespace YAF.Classes
 			url = url.Replace("&", "&amp;");
 
 			// return URL to current script with URL from parameter as script's parameter
-			return String.Format("{0}{1}?{2}", UrlBuilder.BaseUrl, UrlBuilder.ScriptName, url);
+			return String.Format("{0}{1}?{2}", Path, ScriptName, url);
+		}
+
+		/// <summary>
+		/// Builds Full URL for calling page with parameter URL as page's escaped parameter.
+		/// </summary>
+		/// <param name="url">URL to put into parameter.</param>
+		/// <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+		public string BuildUrlFull( string url )
+		{
+			// append the full base server url to the beginning of the url (e.g. http://mydomain.com)
+			return String.Format( "{0}{1}", BaseUrl, BuildUrl( url ) );
 		}
 
 		static public string ScriptName
@@ -50,7 +61,7 @@ namespace YAF.Classes
 			get
 			{
 				string scriptName = HttpContext.Current.Request.FilePath.ToLower();
-				return scriptName.Substring(scriptName.LastIndexOf('/'));
+				return scriptName.Substring(scriptName.LastIndexOf('/') + 1);
 			}
 		}
 
@@ -63,6 +74,30 @@ namespace YAF.Classes
 			}
 		}
 
+		static public string GetBaseUrlFromVariables()
+		{
+			StringBuilder url = new StringBuilder();
+
+			long serverPort = long.Parse( HttpContext.Current.Request.ServerVariables["SERVER_PORT"] );
+			bool isSecure = (HttpContext.Current.Request.ServerVariables["HTTPS"] == "ON" || serverPort == 443);
+
+			url.Append( "http" );
+
+			if ( isSecure )
+			{
+				url.Append( "s" );
+			}
+
+			url.AppendFormat( "://{0}", HttpContext.Current.Request.ServerVariables["SERVER_NAME"] );
+
+			if ( (!isSecure && serverPort != 80) || (isSecure && serverPort != 443) )
+			{
+				url.AppendFormat( ":{0}", serverPort.ToString() );
+			}
+
+			return url.ToString();
+		}
+
 		static public string BaseUrl
 		{
 			get
@@ -71,20 +106,19 @@ namespace YAF.Classes
 
 				try
 				{
-					// Lookup the BaseUrl based on the current path. 
+					// Lookup the AppRoot based on the current path. 
 					baseUrl = _baseUrls[HttpContext.Current.Request.FilePath];
 
-					if (String.IsNullOrEmpty(baseUrl))
+					if ( String.IsNullOrEmpty( baseUrl ) )
 					{
-						// Each different filepath (multiboard) will specify a BaseUrl key in their own web.config in their directory.
-						if (!String.IsNullOrEmpty(YAF.Classes.Config.BaseUrl))
+						// Each different filepath (multiboard) will specify a AppRoot key in their own web.config in their directory.
+						if ( !String.IsNullOrEmpty( Config.BaseUrlMask ) )
 						{
-							baseUrl = TreatBaseUrl(YAF.Classes.Config.BaseUrl);
+							baseUrl = TreatBaseUrl( Config.BaseUrlMask );
 						}
 						else
 						{
-							// If BaseUrl isn't found, use Root.
-							baseUrl = RootUrl;
+							baseUrl = GetBaseUrlFromVariables();
 						}
 
 						// save to cache
@@ -93,110 +127,90 @@ namespace YAF.Classes
 				}
 				catch (Exception)
 				{
-					baseUrl = HttpContext.Current.Request.ApplicationPath;
+					baseUrl = GetBaseUrlFromVariables();
 				}
 
 				return baseUrl;
 			}
 		}
 
-		private static string TreatBaseUrl(string baseUrl)
+		protected static string TreatBaseUrl( string baseUrl )
 		{
-			if (baseUrl.StartsWith("~"))
-			{
-				// transform with application path...
-				baseUrl = baseUrl.Replace("~", HttpContext.Current.Request.ApplicationPath);
-			}
-
-			if (baseUrl.StartsWith("//"))
-			{
-				// remove extra slash
-				baseUrl = baseUrl.Substring(1, baseUrl.Length - 1);
-			}
-
 			if (baseUrl.EndsWith("/"))
 			{
 				// remove ending slash...
-				baseUrl = baseUrl.Substring(0, baseUrl.LastIndexOf('/'));
+				baseUrl = baseUrl.Remove( baseUrl.Length-1, 1 );
 			}
-
-			// remove the :// for the second so the double slashes don't get removed...
-			baseUrl = baseUrl.Replace( "://", ":æñó:" );
-
-			// remove redundant slashes...
-			while (baseUrl.Contains("//"))
-			{
-				baseUrl = baseUrl.Replace("//", "/");
-			}
-
-			// put the valid double slashes back...
-			baseUrl = baseUrl.Replace( ":æñó:", "://" );
 
 			return baseUrl;
 		}
 
-		static public string RootUrl
+		protected static string TreatPathStr( string altRoot )
+		{
+			string _path = string.Empty;
+
+			try
+			{
+				_path = HttpContext.Current.Request.ApplicationPath;
+
+				if ( _path.EndsWith( "/" ) ) _path += "/";
+
+				if ( !String.IsNullOrEmpty( altRoot ) )
+				{
+					// use specified root
+					_path = altRoot;
+
+					if ( _path.StartsWith( "~" ) )
+					{
+						// transform with application path...
+						_path = _path.Replace( "~", HttpContext.Current.Request.ApplicationPath );
+					}
+
+					if ( _path[0] != '/' ) _path = _path.Insert( 0, "/" );
+				}
+				else if ( YAF.Classes.Config.IsDotNetNuke )
+				{
+					_path += "DesktopModules/YetAnotherForumDotNet/";
+				}
+				else if ( YAF.Classes.Config.IsRainbow )
+				{
+					_path += "DesktopModules/Forum/";
+				}
+				else if ( YAF.Classes.Config.IsPortal )
+				{
+					_path += "Modules/Forum/";
+				}
+
+				if ( !_path.EndsWith( "/" ) ) _path += "/";
+
+				// remove redundant slashes...
+				while ( _path.Contains( "//" ) )
+				{
+					_path = _path.Replace( "//", "/" );
+				}
+			}
+			catch ( Exception )
+			{
+				_path = "/";
+			}
+
+			return _path;			
+		}
+
+		static public string FileRoot
 		{
 			get
 			{
-				if (_fileRoot != null)
-				{
-					if (_fileRoot.Contains("//"))
-					{
-						_fileRoot = null;
-					}
-					else
-					{
-						return _fileRoot;
-					}
-				}
+				return TreatPathStr( Config.FileRoot );
+			}
+		}
 
-				try
-				{
-					_fileRoot = HttpContext.Current.Request.ApplicationPath;
 
-					if (!_fileRoot.EndsWith("/")) _fileRoot += "/";
-
-					if (YAF.Classes.Config.Root != null)
-					{
-						// use specified root
-						_fileRoot = YAF.Classes.Config.Root;
-
-						if (_fileRoot.StartsWith("~"))
-						{
-							// transform with application path...
-							_fileRoot = _fileRoot.Replace("~", HttpContext.Current.Request.ApplicationPath);
-						}
-
-						if (_fileRoot[0] != '/') _fileRoot = _fileRoot.Insert(0, "/");
-					}
-					else if (YAF.Classes.Config.IsDotNetNuke)
-					{
-						_fileRoot += "DesktopModules/YetAnotherForumDotNet/";
-					}
-					else if (YAF.Classes.Config.IsRainbow)
-					{
-						_fileRoot += "DesktopModules/Forum/";
-					}
-					else if (YAF.Classes.Config.IsPortal)
-					{
-						_fileRoot += "Modules/Forum/";
-					}
-
-					if (!_fileRoot.EndsWith("/")) _fileRoot += "/";
-
-					// remove redundant slashes...
-					while (_fileRoot.Contains("//"))
-					{
-						_fileRoot = _fileRoot.Replace("//", "/");
-					}
-				}
-				catch (Exception)
-				{
-					_fileRoot = "/";
-				}
-
-				return _fileRoot;
+		static public string Path
+		{
+			get
+			{
+				return TreatPathStr( Config.AppRoot );
 			}
 		}
 	}
