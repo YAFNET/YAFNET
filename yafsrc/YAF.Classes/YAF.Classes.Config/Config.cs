@@ -23,6 +23,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Management;
 using System.Reflection;
+using YAF.Classes.Pattern;
 
 namespace YAF.Classes
 {
@@ -100,33 +101,38 @@ namespace YAF.Classes
 			}
 		}
 
-		/// <summary>
-		/// Returns null if value does not exist.
-		/// </summary>
-		static public string BaseUrl
+		static public string FileRoot
 		{
 			get
 			{
-				return GetConfigValueAsString( "YAF.BaseURL" );
+				return GetConfigValueAsString( "YAF.FileRoot" ) ?? AppRoot;
 			}
 		}
 
-		static public bool BaseUrlOverrideDomain
+		static public string AppRoot
 		{
 			get
 			{
-				return GetConfigValueAsBool( "YAF.BaseURLOverrideDomain", false );
+				return GetConfigValueAsString( "YAF.AppRoot" ) ?? "~/";
+			}
+		}
+
+		static public string BaseUrlMask
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.BaseUrlMask" ) ?? String.Empty;
 			}
 		}
 
 		/// <summary>
-		/// Directory to use for uploading -- default is "~/upload/"
+		/// Directory to use for uploading -- default is "FileRoot + /upload/"
 		/// </summary>
 		static public string UploadDir
 		{
 			get
 			{
-				return GetConfigValueAsString( "YAF.UploadDir" ) ?? "~/upload/";
+				return GetConfigValueAsString( "YAF.UploadDir" ) ?? ( FileRoot + "~/upload/" );
 			}
 		}
 
@@ -159,14 +165,6 @@ namespace YAF.Classes
 			get
 			{
 				return GetConfigValueAsBool( "YAF.AllowLoginAndLogoff", true );
-			}
-		}
-
-		static public string Root
-		{
-			get
-			{
-				return GetConfigValueAsString( "YAF.Root" );
 			}
 		}
 
@@ -282,7 +280,7 @@ namespace YAF.Classes
 			get
 			{
 				return GetConfigValueAsString( "YAF.RadEditorToolsFile" ) ??
-							 String.Format( "{0}/editors/RadEditor/ToolsFile.xml", Config.Root );
+							 String.Format( "{0}/editors/RadEditor/ToolsFile.xml", Config.FileRoot );
 			}
 		}
 
