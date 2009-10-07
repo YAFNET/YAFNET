@@ -63,12 +63,17 @@
     <YafMenuItem>
       <Title>Users</Title>
       <ForumPage>admin_users</ForumPage>
-      <Image>user</Image>
+      <Image>user</Image>			
     </YafMenuItem>
-    <YafMenuItem>
-      <Title>Ranks</Title>
-      <ForumPage>admin_ranks</ForumPage>
-      <Image>target</Image>
+		<YafMenuItem>
+			<Title>Ranks</Title>
+			<ForumPage>admin_ranks</ForumPage>
+			<Image>target</Image>
+		</YafMenuItem>
+		<YafMenuItem>
+      <Title>Banned IPs</Title>
+      <ForumPage>admin_bannedip</ForumPage>
+      <Image>lock</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Medals</Title>
