@@ -123,6 +123,7 @@ namespace YAF.Classes
 		admin_bbcode_import,
 		admin_reindex,
 		admin_runsql,
-		admin_taskmanager
+		admin_taskmanager,
+        admin_test_data
 	}
 }

@@ -119,6 +119,11 @@
       <ForumPage>admin_runsql</ForumPage>
       <Image>sql</Image>
     </YafMenuItem>
+    <YafMenuItem>
+      <Title>Test data</Title>
+      <ForumPage>admin_test_data</ForumPage>
+      <Image>test_data</Image>
+     </YafMenuItem>
   </YafMenuSection>
   <YafMenuSection Title="NNTP" HostAdminOnly="false">
     <YafMenuItem>
