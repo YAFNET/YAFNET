@@ -514,7 +514,8 @@ BEGIN
 	EmailLwd = LOWER(@Email),
 	IsApproved = @IsApproved,
 	LastLogin = @LastLogin,
-	LastActivity = @LastActivity
+	LastActivity = @LastActivity,
+	Comment = @Comment
 	WHERE ApplicationID = @ApplicationID AND
 	UserID = @UserKey;
 
