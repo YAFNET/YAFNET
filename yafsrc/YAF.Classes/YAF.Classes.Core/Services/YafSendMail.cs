@@ -71,11 +71,14 @@ namespace YAF.Classes.Core
 
 				Encoding textEncoding = Encoding.UTF8;
 
+				// TODO: Add code that figures out encoding...
+				/*
 				if ( !Regex.IsMatch( bodyText, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) ||
 								!Regex.IsMatch( subject, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) )
 				{
 					textEncoding = Encoding.Unicode;
 				}
+				*/
 
 				// add text view...
 				emailMessage.AlternateViews.Add( System.Net.Mail.AlternateView.CreateAlternateViewFromString( bodyText, textEncoding, "text/plain" ) );
