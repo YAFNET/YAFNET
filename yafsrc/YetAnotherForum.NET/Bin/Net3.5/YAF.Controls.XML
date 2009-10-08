@@ -722,6 +722,9 @@
         <member name="P:YafMenuYafMenuSectionYafMenuItem.Link">
             <remarks/>
         </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Debug">
+            <remarks/>
+        </member>
         <member name="M:YAF.Controls.Statistics.ActiveDiscussions.#ctor">
             <summary>
             The default constructor for ActiveDiscussions.

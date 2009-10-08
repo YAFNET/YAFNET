@@ -4,6 +4,11 @@
         <name>YAF.Classes.Config</name>
     </assembly>
     <members>
+        <member name="T:YAF.Classes.YafBoardSettingCollection">
+            <summary>
+            Gets the Board Settings as dictionary item for easy iteration.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Pattern.RegistryDictionaryOverride">
             <summary>
             Provides a method for automatic overriding of a base hash...
@@ -54,14 +59,9 @@
             Used for Url Rewriting -- default is "default.aspx"
             </summary>
         </member>
-        <member name="P:YAF.Classes.Config.BaseUrl">
-            <summary>
-            Returns null if value does not exist.
-            </summary>
-        </member>
         <member name="P:YAF.Classes.Config.UploadDir">
             <summary>
-            Directory to use for uploading -- default is "~/upload/"
+            Directory to use for uploading -- default is "FileRoot + /upload/"
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.ShowToolBar">
@@ -96,14 +96,28 @@
         </member>
         <member name="M:YAF.Classes.IUrlBuilder.BuildUrl(System.String)">
             <summary>
-            Builds URL for calling page with URL argument as and parameter.
+            Builds path for calling page with URL argument as the parameter.
+            </summary>
+            <param name="url">URL to use as a parameter.</param>
+            <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+        </member>
+        <member name="M:YAF.Classes.IUrlBuilder.BuildUrlFull(System.String)">
+            <summary>
+            Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
             </summary>
             <param name="url">URL to use as a parameter.</param>
             <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
         </member>
         <member name="M:YAF.Classes.UrlBuilder.BuildUrl(System.String)">
             <summary>
-            Builds URL for calling page with parameter URL as page's escaped parameter.
+            Builds path for calling page with parameter URL as page's escaped parameter.
+            </summary>
+            <param name="url">URL to put into parameter.</param>
+            <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+        </member>
+        <member name="M:YAF.Classes.UrlBuilder.BuildUrlFull(System.String)">
+            <summary>
+            Builds Full URL for calling page with parameter URL as page's escaped parameter.
             </summary>
             <param name="url">URL to put into parameter.</param>
             <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
@@ -111,11 +125,6 @@
         <member name="T:YAF.Classes.YafControlSettings">
             <summary>
             Class provides glue/settings transfer between YAF forum control and base classes
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.YafBoardSettingCollection">
-            <summary>
-            Gets the Board Settings as dictionary item for easy iteration.
             </summary>
         </member>
     </members>

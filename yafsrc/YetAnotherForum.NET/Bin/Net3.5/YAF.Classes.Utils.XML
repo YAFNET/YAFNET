@@ -4,6 +4,18 @@
         <name>YAF.Classes.Utils</name>
     </assembly>
     <members>
+        <member name="M:YAF.Classes.Utils.YafUserProfile.GetProfile(System.String)">
+            <summary>
+            Helper function to get a profile from the system
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.SimpleURLParameterParser">
+            <summary>
+            Helps parse URLs
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Utils.JsAndCssHelper.CompressJavaScript(System.String)">
             <summary>
             Currently doesn't do anything. Need to find a GPL Javascript Compressor
@@ -62,6 +74,221 @@
             This method validates request whether it comes from same server in case it's HTTP POST.
             </summary>
             <param name="request">Request to validate.</param>
+        </member>
+        <member name="T:YAF.Classes.Utils.YafForumInfo">
+            <summary>
+            Class provides helper functions related to the forum path and urls as well as forum version information.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafForumInfo.GetURLToResource(System.String)">
+            <summary>
+            Helper function that creates the the url of a resource.
+            </summary>
+            <param name="resourceName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafForumInfo.AppVersionNameFromCode(System.Int64)">
+            <summary>
+             Creates a string that is the YAF Application Version from a long value
+            </summary>
+            <param name="code">Value of Current Version</param>
+            <returns>Application Version String</returns>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumRoot">
+            <summary>
+            The forum path (client-side).
+            May not be the actual URL of the forum.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumFileRoot">
+            <summary>
+            The forum path (server-side).
+            May not be the actual URL of the forum.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumBaseUrl">
+            <summary>
+            Complete external (client-side) URL of the forum. (e.g. http://myforum.com/forum/
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumURL">
+            <summary>
+            Full Url to the Root of the Forum
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.IsLocal">
+            <summary>
+             Returns true if the current site is a localhost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersionName">
+            <summary>
+            YAF Current App Version string
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersion">
+            <summary>
+            YAF Current Database Version
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersionCode">
+            <summary>
+            YAF Current Application Version
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafForumInfo.AppVersionDate">
+            <summary>
+            YAF Current Build Date
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.InfoMessage">
+            <summary>
+            Enumerates forum info messages.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.YafBuildLink">
+            <summary>
+            Static class with link building functions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.Boolean)">
+            <summary>
+            Gets link to the page.
+            </summary>
+            <param name="page">Page to which to create a link.</param>
+            <param name="fullUrl"></param>
+            <returns>URL to the given page.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages)">
+            <summary>
+            Gets link to the page.
+            </summary>
+            <param name="page">Page to which to create a link.</param>
+            <returns>URL to the given page.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.Boolean,System.String,System.Object[])">
+            <summary>
+            Gets link to the page with given parameters.
+            </summary>
+            <param name="page">Page to which to create a link.</param>
+            <param name="format">Format of parameters.</param>
+            <param name="args">Array of page parameters.</param>
+            <param name="fullUrl"></param>
+            <returns>URL to the given page with parameters.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.String,System.Object[])">
+            <summary>
+            Gets link to the page with given parameters.
+            </summary>
+            <param name="page">Page to which to create a link.</param>
+            <param name="format">Format of parameters.</param>
+            <param name="args">Array of page parameters.</param>
+            <returns>URL to the given page with parameters.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages,System.Boolean)">
+            <summary>
+            Unescapes ampersands in the link to the given page.
+            </summary>
+            <param name="page">Page to which to create a link.</param>
+            <param name="fullUrl"></param>
+            <returns>URL to the given page with unescaped ampersands.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages)">
+            <summary>
+            Unescapes ampersands in the link to the given page.
+            </summary>
+            <param name="page">Page to which to create a link.</param>
+            <returns>URL to the given page with unescaped ampersands.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages,System.Boolean,System.String,System.Object[])">
+            <summary>
+            Unescapes ampersands in the link to the given page with parameters.
+            </summary>
+            <param name="page">Page to which to create a link.</param>
+            <param name="fullUrl"></param>
+            <param name="format">Format of parameters.</param>
+            <param name="args">Array of page parameters.</param>
+            <returns>URL to the given page with parameters and unescaped ampersands.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages,System.String,System.Object[])">
+            <summary>
+            Unescapes ampersands in the link to the given page with parameters.
+            </summary>
+            <param name="page">Page to which to create a link.</param>
+            <param name="format">Format of parameters.</param>
+            <param name="args">Array of page parameters.</param>
+            <returns>URL to the given page with parameters and unescaped ampersands.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.ForumPages)">
+            <summary>
+            Redirects to the given page.
+            </summary>
+            <param name="page">Page to which to redirect response.</param>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.ForumPages,System.String,System.Object[])">
+            <summary>
+            Redirects to the given page with parameters.
+            </summary>
+            <param name="page">Page to which to redirect response.</param>
+            <param name="format">Format of parameters.</param>
+            <param name="args">Array of page parameters.</param>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.RedirectInfoPage(YAF.Classes.Utils.InfoMessage)">
+            <summary>
+            Redirects response to the info page.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.AccessDenied">
+            <summary>
+            Redirects response to the access denied page.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.Smiley(System.String)">
+            <summary>
+            Gets URL of given smilie.
+            </summary>
+            <param name="icon">Name of icon image file.</param>
+            <returns>URL of a smilie.</returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.Mession">
+            <summary>
+            All references to session should go into this class
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.Mession.GetForumRead(System.Int32)">
+            <summary>
+            Gets the last time the forum was read.
+            </summary>
+            <param name="forumID">This is the ID of the forum you wish to get the last read date from.</param>
+            <returns>A DateTime object of when the forum was last read.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.Mession.SetForumRead(System.Int32,System.DateTime)">
+            <summary>
+            Sets the time that the forum was read.
+            </summary>
+            <param name="forumID">The forum ID that was read.</param>
+            <param name="date">The DateTime you wish to set the read to.</param>
+        </member>
+        <member name="M:YAF.Classes.Utils.Mession.GetTopicRead(System.Int32)">
+            <summary>
+            Returns the last time that the topicID was read.
+            </summary>
+            <param name="topicID">The topicID you wish to find the DateTime object for.</param>
+            <returns>The DateTime object from the topicID.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.Mession.SetTopicRead(System.Int32,System.DateTime)">
+            <summary>
+            Sets the time that the topicID was read.
+            </summary>
+            <param name="topicID">The topic ID that was read.</param>
+            <param name="date">The DateTime you wish to set the read to.</param>
+        </member>
+        <member name="P:YAF.Classes.Utils.PanelSessionState.Item(System.String)">
+            <summary>
+            Gets panel session state.
+            </summary>
+            <param name="panelID">panelID</param>
+            <returns></returns>
         </member>
         <member name="M:YAF.Classes.Utils.IPHelper.Str2IP(System.String[])">
             <summary>
@@ -243,6 +470,13 @@
             <param name="newMessage">New message text.</param>
             <returns>True if messages differ, false if they are identical.</returns>
         </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRowOrInvalid(System.Data.DataTable)">
+            <summary>
+            Gets the first row of the data table or redirects to invalid request
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
         <member name="M:YAF.Classes.Utils.StringHelper.GenerateRandomString(System.Int32,System.String)">
             <summary>
             Returns a "random" alpha-numeric string of specified length and characters.
@@ -301,173 +535,6 @@
             </summary>
             <param name="theStream"></param>
             <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRowOrInvalid(System.Data.DataTable)">
-            <summary>
-            Gets the first row of the data table or redirects to invalid request
-            </summary>
-            <param name="dt"></param>
-            <returns></returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.InfoMessage">
-            <summary>
-            Enumerates forum info messages.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Utils.YafBuildLink">
-            <summary>
-            Static class with link building functions.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages)">
-            <summary>
-            Gets link to the page.
-            </summary>
-            <param name="page">Page to which to create a link.</param>
-            <returns>URL to the given page.</returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.String,System.Object[])">
-            <summary>
-            Gets link to the page with given parameters.
-            </summary>
-            <param name="page">Page to which to create a link.</param>
-            <param name="format">Format of parameters.</param>
-            <param name="args">Array of page parameters.</param>
-            <returns>URL to the given page with parameters.</returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages)">
-            <summary>
-            Unescapes ampersands in the link to the given page.
-            </summary>
-            <param name="page">Page to which to create a link.</param>
-            <returns>URL to the given page with unescaped ampersands.</returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.ForumPages,System.String,System.Object[])">
-            <summary>
-            Unescapes ampersands in the link to the given page with parameters.
-            </summary>
-            <param name="page">Page to which to create a link.</param>
-            <param name="format">Format of parameters.</param>
-            <param name="args">Array of page parameters.</param>
-            <returns>URL to the given page with parameters and unescaped ampersands.</returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.ForumPages)">
-            <summary>
-            Redirects to the given page.
-            </summary>
-            <param name="page">Page to which to redirect response.</param>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.ForumPages,System.String,System.Object[])">
-            <summary>
-            Redirects to the given page with parameters.
-            </summary>
-            <param name="page">Page to which to redirect response.</param>
-            <param name="format">Format of parameters.</param>
-            <param name="args">Array of page parameters.</param>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.RedirectInfoPage(YAF.Classes.Utils.InfoMessage)">
-            <summary>
-            Redirects response to the info page.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.AccessDenied">
-            <summary>
-            Redirects response to the access denied page.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.Smiley(System.String)">
-            <summary>
-            Gets URL of given smilie.
-            </summary>
-            <param name="icon">Name of icon image file.</param>
-            <returns>URL of a smilie.</returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.YafForumInfo">
-            <summary>
-            Class provides misc helper functions and forum version information
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafForumInfo.GetURLToResource(System.String)">
-            <summary>
-            Helper function that creates the the url of a resource.
-            </summary>
-            <param name="resourceName"></param>
-            <returns></returns>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumRoot">
-            <summary>
-            The forum path (external).
-            May not be the actual URL of the forum.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumFileRoot">
-            <summary>
-            The forum path (internal).
-            May not be the actual URL of the forum.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.ServerURL">
-            <summary>
-            Server URL based on the server variables. May not actually be 
-            the URL of the forum.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumBaseUrl">
-            <summary>
-            Complete external URL of the forum.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.YafUserProfile.GetProfile(System.String)">
-            <summary>
-            Helper function to get a profile from the system
-            </summary>
-            <param name="userName"></param>
-            <returns></returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.Mession">
-            <summary>
-            All references to session should go into this class
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.Mession.GetForumRead(System.Int32)">
-            <summary>
-            Gets the last time the forum was read.
-            </summary>
-            <param name="forumID">This is the ID of the forum you wish to get the last read date from.</param>
-            <returns>A DateTime object of when the forum was last read.</returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.Mession.SetForumRead(System.Int32,System.DateTime)">
-            <summary>
-            Sets the time that the forum was read.
-            </summary>
-            <param name="forumID">The forum ID that was read.</param>
-            <param name="date">The DateTime you wish to set the read to.</param>
-        </member>
-        <member name="M:YAF.Classes.Utils.Mession.GetTopicRead(System.Int32)">
-            <summary>
-            Returns the last time that the topicID was read.
-            </summary>
-            <param name="topicID">The topicID you wish to find the DateTime object for.</param>
-            <returns>The DateTime object from the topicID.</returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.Mession.SetTopicRead(System.Int32,System.DateTime)">
-            <summary>
-            Sets the time that the topicID was read.
-            </summary>
-            <param name="topicID">The topic ID that was read.</param>
-            <param name="date">The DateTime you wish to set the read to.</param>
-        </member>
-        <member name="P:YAF.Classes.Utils.PanelSessionState.Item(System.String)">
-            <summary>
-            Gets panel session state.
-            </summary>
-            <param name="panelID">panelID</param>
-            <returns></returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.SimpleURLParameterParser">
-            <summary>
-            Helps parse URLs
-            </summary>
         </member>
     </members>
 </doc>

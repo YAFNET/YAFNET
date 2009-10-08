@@ -428,6 +428,109 @@
             <param name="prefix"></param>
             <returns></returns>
         </member>
+        <member name="T:YAF.Classes.Core.UserMembershipHelper">
+            <summary>
+            This is a stop-gap class to help with syncing operations
+            with users/membership.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetUserRowForID(System.Int64,System.Boolean)">
+            <summary>
+            Helper function that gets user data from the DB (or cache)
+            </summary>
+            <param name="userID"></param>
+            <param name="allowCached"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetUserRowForID(System.Int64)">
+            <summary>
+            Default allows the user row to be cached (mostly used for Provider key and UserID which never change)
+            </summary>
+            <param name="userID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetProviderUserKeyFromID(System.Int64)">
+            <summary>
+            Gets the user provider key from the UserID for a user
+            </summary>
+            <param name="userID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetUserNameFromID(System.Int64)">
+            <summary>
+            Gets the user name from the UesrID
+            </summary>
+            <param name="userID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetUserIDFromProviderUserKey(System.Object)">
+            <summary>
+            Get the UserID from the ProviderUserKey
+            </summary>
+            <param name="providerUserKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetMembershipUserByKey(System.Object)">
+            <summary>
+            get the membership user from the providerUserKey
+            </summary>
+            <param name="providerUserKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetMembershipUserById(System.Int64)">
+            <summary>
+            get the membership user from the userID
+            </summary>
+            <param name="userID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetMembershipUserByName(System.String)">
+            <summary>
+            get the membership user from the userName
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.UpdateEmail(System.Int32,System.String)">
+            <summary>
+            Helper function to update a user's email address.
+            Syncs with both the YAF DB and Membership Provider.
+            </summary>
+            <param name="userID"></param>
+            <param name="newEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.ApproveAll">
+            <summary>
+            For the admin fuction: approve all users. Approves all
+            users waiting for approval 
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.UserExists(System.String,System.String)">
+            <summary>
+            Checks Membership Provider to see if a user
+            with the username and email passed exists.
+            </summary>
+            <param name="userName"></param>
+            <param name="email"></param>
+            <returns>true if they exist</returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.IsGuestUser(System.Object)">
+            <summary>
+            Simply tells you if the userID passed is the Guest user
+            for the current board
+            </summary>
+            <param name="userID">ID of user to lookup</param>
+            <returns>true if the userid is a guest user</returns>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.IsGuestUser(System.Int32)">
+            <summary>
+            Simply tells you if the userID passed is the Guest user
+            for the current board
+            </summary>
+            <param name="userID">ID of user to lookup</param>
+            <returns>true if the userid is a guest user</returns>
+        </member>
         <member name="T:YAF.Classes.Core.AdminPage">
             <summary>
             Summary description for AdminPage.
@@ -473,224 +576,6 @@
             </summary>
             <param name="toUserID">User supposed to receive notification about new PM.</param>
             <param name="subject">Subject of PM user is notified about.</param>
-        </member>
-        <member name="M:YAF.Classes.Core.UserHelper.GetUserLanguageFile(System.Int64)">
-            <summary>
-            
-            </summary>
-            <param name="userId"></param>
-            <returns>language file name. If null -- use default language</returns>
-        </member>
-        <member name="M:YAF.Classes.Core.CaptchaHelper.GetCaptchaString">
-            <summary>
-            Gets the CaptchaString using the BoardSettings
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:YAF.Classes.Core.CombinedUserDataHelper">
-            <summary>
-            Helps get a complete user profile from various locations
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.LocalizationHandler.InitLocalization">
-            <summary>
-            Set up the localization
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.LocalizationHandler.InitCulture">
-            <summary>
-            Set the culture and UI culture to the browser's accept language
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.LocalizationHandler.TranslationPage">
-            <summary>
-            Current TransPage for Localization
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Localizer">
-            <summary>
-            Summary description for Localizer.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.IYafHeader">
-            <summary>
-            Yaf Header Interface
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.IYafFooter">
-            <summary>
-            Yaf Footer Interface
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.MailSendTask">
-            <summary>
-            Sends Email in the background.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.PruneTopicTask">
-            <summary>
-            Run when we want to do migration of users in the background...
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.BaseUserControl">
-            <summary>
-            Summary description for ForumUsers.
-            </summary>
-        </member>
-        <member name="T:YAF.Modules.YafBaseModuleManager">
-            <summary>
-            Handles IBaseModule types.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.ForumPageRenderedArgs">
-            <summary>
-            EventArgs class for the PageTitleSet event
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.ThemeHandler.InitTheme">
-            <summary>
-            Sets the theme class up for usage
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.MigrateUsersTask">
-            <summary>
-            Run when we want to do migration of users in the background...
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.LoadMessage.Add(System.String)">
-            <summary>
-            AddLoadMessage creates a message that will be returned on the next page load.
-            </summary>
-            <param name="message">The message you wish to display.</param>
-        </member>
-        <member name="M:YAF.Classes.Core.LoadMessage.AddSession(System.String)">
-            <summary>
-            AddLoadMessageSession creates a message that will be returned on the next page.
-            </summary>
-            <param name="message">The message you wish to display.</param>
-        </member>
-        <member name="T:YAF.Classes.Core.YafContext">
-            <summary>
-            Context class that accessable with the same instance from all locations
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.YafContext.ForumPageInit(System.Object,System.EventArgs)">
-            <summary>
-            Fired from ForumPage
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:YAF.Classes.Core.YafContext.ForumPagePreLoad(System.Object,System.EventArgs)">
-            <summary>
-            Fired from ForumPage
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.Current">
-            <summary>
-            Get the instance of the Forum Context
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.CurrentForumPage">
-            <summary>
-            Forum page instance of the current forum page.
-            May not be valid until everything is initialized.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.Localization">
-            <summary>
-            Current Page Localization
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.Theme">
-            <summary>
-            Current Page Theme
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.Cache">
-            <summary>
-            Current System-Wide Cache
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.PageElements">
-            <summary>
-            Current Page Elements
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.LoadMessage">
-            <summary>
-            Current Page Load Message
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.QueryIDs">
-            <summary>
-            Current Page Query ID Helper
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.BaseModuleManager">
-            <summary>
-            Current Page Instance of the Module Manager
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.EditorModuleManager">
-            <summary>
-            Current Page Instance of the Module Manager
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.Profile">
-            <summary>
-            Current Page User Profile
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.Settings">
-            <summary>
-            Current Page Control Settings from Forum Control
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.User">
-            <summary>
-            Current Membership User
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.ForumPageType">
-            <summary>
-            Get the current page as the forumPage Enum (for comparison)
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.YafContext.BoardSettings">
-            <summary>
-            Current Board Settings
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTheme.IsValidTheme(System.String)">
-            <summary>
-            Basic testing of the theme's validity...
-            </summary>
-            <param name="themeFile"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTheme.BuildThemePath(System.String)">
-            <summary>
-            Gets full path to the given theme file.
-            </summary>
-            <param name="filename">Short name of theme file.</param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTheme.GetCollapsiblePanelImageURL(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
-            <summary>
-            Gets the collapsible panel image url (expanded or collapsed). 
-            
-            <param name="panelID">ID of collapsible panel</param>
-            <param name="defaultState">Default Panel State</param>
-            </summary>
-            <returns>Image URL</returns>
-        </member>
-        <member name="P:YAF.Classes.Core.YafTheme.ThemeFile">
-            <summary>
-            Get or Set the current Theme File
-            </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafCache">
             <summary>
@@ -838,6 +723,13 @@
             Enumeration of methods for generating cache keys
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.UserHelper.GetUserLanguageFile(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="userId"></param>
+            <returns>language file name. If null -- use default language</returns>
+        </member>
         <member name="T:YAF.Classes.Core.YafSendMail">
             <summary>
             Functions to send email via SMTP
@@ -858,20 +750,73 @@
             for any instance except the HttpModule instance.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Core.YafDBBroker">
+        <member name="M:YAF.Classes.Core.CaptchaHelper.GetCaptchaString">
             <summary>
-            Class used for multi-step DB operations so they can be cached, etc.
+            Gets the CaptchaString using the BoardSettings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:YAF.Classes.Core.CombinedUserDataHelper">
+            <summary>
+            Helps get a complete user profile from various locations
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Core.LocalizationHandler.InitLocalization">
             <summary>
-            Returns the layout of the board
+            Set up the localization
             </summary>
-            <param name="boardID">BoardID</param>
-            <param name="userID">UserID</param>
-            <param name="categoryID">CategoryID</param>
-            <param name="parentID">ParentID</param>
-            <returns>Returns board layout</returns>
+        </member>
+        <member name="M:YAF.Classes.Core.LocalizationHandler.InitCulture">
+            <summary>
+            Set the culture and UI culture to the browser's accept language
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.LocalizationHandler.TranslationPage">
+            <summary>
+            Current TransPage for Localization
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Localizer">
+            <summary>
+            Summary description for Localizer.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.IYafHeader">
+            <summary>
+            Yaf Header Interface
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.IYafFooter">
+            <summary>
+            Yaf Footer Interface
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.MailSendTask">
+            <summary>
+            Sends Email in the background.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.PruneTopicTask">
+            <summary>
+            Run when we want to do migration of users in the background...
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTemplateEmail.ReadTemplate(System.String,System.String)">
+            <summary>
+            Reads a template from the language file
+            </summary>
+            <returns>The template</returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTemplateEmail.ProcessTemplate(System.String)">
+            <summary>
+            Creates an email from a template
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:YAF.Classes.Core.BaseUserControl">
+            <summary>
+            Summary description for ForumUsers.
+            </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafDateTime.FormatDateTime(System.Object)">
             <summary>
@@ -926,18 +871,6 @@
             Returns the time zone offset for the current user compared to the forum time zone.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.YafTemplateEmail.ReadTemplate(System.String,System.String)">
-            <summary>
-            Reads a template from the language file
-            </summary>
-            <returns>The template</returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafTemplateEmail.ProcessTemplate(System.String)">
-            <summary>
-            Creates an email from a template
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:YAF.Classes.Core.YafBadWordReplace.Replace(System.String)">
             <summary>
             Searches through SearchText and replaces "bad words" with "good words"
@@ -945,139 +878,261 @@
             </summary>
             <param name="searchText">The string to search through.</param>
         </member>
-        <member name="M:YAF.Classes.Core.YafLocalization.GetTextFormatted(System.String,System.Object[])">
+        <member name="M:YAF.Classes.Core.YafLoadBoardSettings.SaveRegistry">
             <summary>
-            Formats a localized string -- but verifies the parameter count matches
+            Saves the whole setting registry to the database.
             </summary>
-            <param name="text"></param>
-            <param name="args"></param>
+        </member>
+        <member name="T:YAF.Modules.YafBaseModuleManager">
+            <summary>
+            Handles IBaseModule types.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.ForumPageRenderedArgs">
+            <summary>
+            EventArgs class for the PageTitleSet event
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafDBBroker">
+            <summary>
+            Class used for multi-step DB operations so they can be cached, etc.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Returns the layout of the board
+            </summary>
+            <param name="boardID">BoardID</param>
+            <param name="userID">UserID</param>
+            <param name="categoryID">CategoryID</param>
+            <param name="parentID">ParentID</param>
+            <returns>Returns board layout</returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTheme.IsValidTheme(System.String)">
+            <summary>
+            Basic testing of the theme's validity...
+            </summary>
+            <param name="themeFile"></param>
             <returns></returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafLocalization.FormatString(System.String,System.Object[])">
+        <member name="M:YAF.Classes.Core.YafTheme.BuildThemePath(System.String)">
             <summary>
-            Formats string using current culture.
+            Gets full path to the given theme file.
             </summary>
-            <param name="format">Format string.</param>
-            <param name="args">Parameters used in format string.</param>
-            <returns>Formatted string.</returns>
-            <remarks>If current localization culture is neutral, it's not used in formatting.</remarks>
-        </member>
-        <member name="M:YAF.Classes.Core.YafLocalization.FormatDateTime(System.String,System.DateTime)">
-            <summary>
-            Formats date using given formatting string and current culture.
-            </summary>
-            <param name="format">Format string.</param>
-            <param name="date">Date to format.</param>
-            <returns>Formatted string.</returns>
-            <remarks>If current localization culture is neutral, it's not used in formatting.</remarks>
-        </member>
-        <member name="P:YAF.Classes.Core.YafLocalization.TransPage">
-            <summary>
-            What section of the xml is used to translate this page
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.UserMembershipHelper">
-            <summary>
-            This is a stop-gap class to help with syncing operations
-            with users/membership.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetUserRowForID(System.Int64,System.Boolean)">
-            <summary>
-            Helper function that gets user data from the DB (or cache)
-            </summary>
-            <param name="userID"></param>
-            <param name="allowCached"></param>
+            <param name="filename">Short name of theme file.</param>
             <returns></returns>
         </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetUserRowForID(System.Int64)">
+        <member name="M:YAF.Classes.Core.YafTheme.GetCollapsiblePanelImageURL(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
             <summary>
-            Default allows the user row to be cached (mostly used for Provider key and UserID which never change)
+            Gets the collapsible panel image url (expanded or collapsed). 
+            
+            <param name="panelID">ID of collapsible panel</param>
+            <param name="defaultState">Default Panel State</param>
             </summary>
-            <param name="userID"></param>
-            <returns></returns>
+            <returns>Image URL</returns>
         </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetProviderUserKeyFromID(System.Int64)">
+        <member name="P:YAF.Classes.Core.YafTheme.ThemeFile">
             <summary>
-            Gets the user provider key from the UserID for a user
-            </summary>
-            <param name="userID"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetUserNameFromID(System.Int64)">
-            <summary>
-            Gets the user name from the UesrID
-            </summary>
-            <param name="userID"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetUserIDFromProviderUserKey(System.Object)">
-            <summary>
-            Get the UserID from the ProviderUserKey
-            </summary>
-            <param name="providerUserKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetMembershipUserByKey(System.Object)">
-            <summary>
-            get the membership user from the providerUserKey
-            </summary>
-            <param name="providerUserKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetMembershipUserById(System.Int64)">
-            <summary>
-            get the membership user from the userID
-            </summary>
-            <param name="userID"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.GetMembershipUserByName(System.String)">
-            <summary>
-            get the membership user from the userName
-            </summary>
-            <param name="userName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.UpdateEmail(System.Int32,System.String)">
-            <summary>
-            Helper function to update a user's email address.
-            Syncs with both the YAF DB and Membership Provider.
-            </summary>
-            <param name="userID"></param>
-            <param name="newEmail"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.ApproveAll">
-            <summary>
-            For the admin fuction: approve all users. Approves all
-            users waiting for approval 
+            Get or Set the current Theme File
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.UserExists(System.String,System.String)">
+        <member name="M:YAF.Classes.Core.ThemeHandler.InitTheme">
             <summary>
-            Checks Membership Provider to see if a user
-            with the username and email passed exists.
+            Sets the theme class up for usage
             </summary>
-            <param name="userName"></param>
-            <param name="email"></param>
-            <returns>true if they exist</returns>
         </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.IsGuestUser(System.Object)">
+        <member name="T:YAF.Classes.Core.MigrateUsersTask">
             <summary>
-            Simply tells you if the userID passed is the Guest user
-            for the current board
+            Run when we want to do migration of users in the background...
             </summary>
-            <param name="userID">ID of user to lookup</param>
-            <returns>true if the userid is a guest user</returns>
         </member>
-        <member name="M:YAF.Classes.Core.UserMembershipHelper.IsGuestUser(System.Int32)">
+        <member name="M:YAF.Classes.Core.LoadMessage.Add(System.String)">
             <summary>
-            Simply tells you if the userID passed is the Guest user
-            for the current board
+            AddLoadMessage creates a message that will be returned on the next page load.
             </summary>
-            <param name="userID">ID of user to lookup</param>
-            <returns>true if the userid is a guest user</returns>
+            <param name="message">The message you wish to display.</param>
+        </member>
+        <member name="M:YAF.Classes.Core.LoadMessage.AddSession(System.String)">
+            <summary>
+            AddLoadMessageSession creates a message that will be returned on the next page.
+            </summary>
+            <param name="message">The message you wish to display.</param>
+        </member>
+        <member name="T:YAF.Classes.Core.YafContext">
+            <summary>
+            Context class that accessable with the same instance from all locations
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafContext.#ctor">
+            <summary>
+            YafContext Constructor
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafContext.ForumPageInit(System.Object,System.EventArgs)">
+            <summary>
+            Fired from ForumPage
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafContext.ForumPagePreLoad(System.Object,System.EventArgs)">
+            <summary>
+            Fired from ForumPage
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafContext.AddLoadMessage(System.String)">
+            <summary>
+            Helper Function that adds a "load message" to the load message class.
+            </summary>
+            <param name="loadMessage"></param>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.Init">
+            <summary>
+            On YafContext Constructor Call
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.PageInit">
+            <summary>
+            On ForumPage Init Call
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.PageLoad">
+            <summary>
+            On ForumPage Load Call
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.PagePreLoad">
+            <summary>
+            On ForumPage PreLoad (Before Load) Call
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.PageUnload">
+            <summary>
+            On ForumPage Unload Call
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.Unload">
+            <summary>
+            On YafContext Unload Call
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.Current">
+            <summary>
+            Get the instance of the Forum Context
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.InstanceFactory">
+            <summary>
+            Provides access to the YafContext Per-Instance Class Factory
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.CurrentForumPage">
+            <summary>
+            Forum page instance of the current forum page.
+            May not be valid until everything is initialized.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.Globals">
+            <summary>
+            Access to the Context Global Variable Repository Class
+            which is a helper class that accesses YafContext.Vars with strongly
+            typed properties for primary variables. 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.Localization">
+            <summary>
+            Current Page Localization
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.Theme">
+            <summary>
+            Current Page Theme
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.Cache">
+            <summary>
+            Current System-Wide Cache
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.Vars">
+            <summary>
+            YafContext Global Instance Variables
+            Use for plugins or other situations where a value is needed per instance.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.Item(System.String)">
+            <summary>
+            Returns a value from the YafContext Global Instance Variables (Vars) collection.
+            </summary>
+            <param name="varName"></param>
+            <returns>Value if it's found, null if it doesn't exist.</returns>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.PageElements">
+            <summary>
+            Current Page Elements
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.LoadMessage">
+            <summary>
+            Current Page Load Message
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.QueryIDs">
+            <summary>
+            Current Page Query ID Helper
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.BaseModuleManager">
+            <summary>
+            Current Page Instance of the Module Manager
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.EditorModuleManager">
+            <summary>
+            Current Page Instance of the Module Manager
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.Profile">
+            <summary>
+            Current Page User Profile
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.Settings">
+            <summary>
+            Current Page Control Settings from Forum Control
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.CurrentMembership">
+            <summary>
+            Current Membership Provider used by YAF
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.CurrentRoles">
+            <summary>
+            Current Membership Roles Provider used by YAF
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.User">
+            <summary>
+            Current Membership User
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.CurrentUserData">
+            <summary>
+            Instance of the Combined UserData for the current user.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.ForumPageType">
+            <summary>
+            Get the current page as the forumPage Enum (for comparison)
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.BoardSettings">
+            <summary>
+            Current Board Settings
+            </summary>
         </member>
         <member name="M:YAF.Classes.Core.RoleMembershipHelper.SyncUsers(System.Int32)">
             <summary>
@@ -1123,9 +1178,46 @@
             <param name="user">Current Membership User</param>
             <param name="pageBoardID">Current BoardID</param>
         </member>
-        <member name="M:YAF.Classes.Core.YafLoadBoardSettings.SaveRegistry">
+        <member name="M:YAF.Classes.Core.YafLocalization.GetTextFormatted(System.String,System.Object[])">
             <summary>
-            Saves the whole setting registry to the database.
+            Formats a localized string -- but verifies the parameter count matches
+            </summary>
+            <param name="text"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.FormatString(System.String,System.Object[])">
+            <summary>
+            Formats string using current culture.
+            </summary>
+            <param name="format">Format string.</param>
+            <param name="args">Parameters used in format string.</param>
+            <returns>Formatted string.</returns>
+            <remarks>If current localization culture is neutral, it's not used in formatting.</remarks>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.FormatDateTime(System.String,System.DateTime)">
+            <summary>
+            Formats date using given formatting string and current culture.
+            </summary>
+            <param name="format">Format string.</param>
+            <param name="date">Date to format.</param>
+            <returns>Formatted string.</returns>
+            <remarks>If current localization culture is neutral, it's not used in formatting.</remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.YafLocalization.TransPage">
+            <summary>
+            What section of the xml is used to translate this page
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.ContextVariableRepository">
+            <summary>
+            Place to put helper properties for context variables inside.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ContextVariableRepository.IsSuspendCheckEnabled">
+            <summary>
+            Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
+            Setting to false effectively disables suspend checking.
             </summary>
         </member>
     </members>
