@@ -16,45 +16,51 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using System.Web;
+using System.Web.Security;
+using YAF.Classes.Data;
+using YAF.Classes.Pattern;
+using YAF.Classes.Utils;
 
-namespace YAF.Classes.Pattern
+namespace YAF.Classes.Core
 {
 	/// <summary>
-	/// Allows basic type conversion of Dictionary objects.
+	/// Place to put helper properties for context variables inside.
 	/// </summary>
-	public class TypeDictionary : Dictionary<string, object>
+	public class ContextVariableRepository
 	{
-		public T AsType<T>( string key, T defaultValue )
+		private TypeDictionary _dic = null;
+		protected TypeDictionary Vars
 		{
-			if ( !ContainsKey( key ) ) return defaultValue;
-			return (T)Convert.ChangeType( this[key], typeof( T ) );
+			get
+			{
+				return _dic;
+			}
 		}
 
-		public T AsType<T>( string key )
+		public ContextVariableRepository( TypeDictionary dictionary )
 		{
-			return (T) Convert.ChangeType( this[key], typeof ( T ) );
+			_dic = dictionary;
 		}
 
-		public bool? AsBoolean( string key )
+		/// <summary>
+		/// Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
+		/// Setting to false effectively disables suspend checking.
+		/// </summary>
+		public bool IsSuspendCheckEnabled
 		{
-			if ( !ContainsKey( key ) ) return null;
-			return AsType<bool>( key );
-		}
-
-		public int? AsInt( string key )
-		{
-			if ( !ContainsKey( key ) ) return null;
-			return AsType<int>( key );
-		}
-
-		public string AsString( string key )
-		{
-			if ( !ContainsKey( key ) ) return null;
-			return AsType<string>( key );
+			set
+			{
+				Vars["IsSuspendCheckEnabled"] = value;
+			}
+			get
+			{
+				return Vars.AsBoolean( "IsSuspendCheckEnabled" ) ?? true;
+			}
 		}
 	}
 }

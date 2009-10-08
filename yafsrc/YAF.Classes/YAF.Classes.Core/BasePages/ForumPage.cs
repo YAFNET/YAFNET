@@ -63,10 +63,8 @@ namespace YAF.Classes.Core
 		private bool _noDataBase = false;
 		private bool _showToolBar = Config.ShowToolBar;
 		private bool _showFooter = Config.ShowFooter;
-		private bool _checkSuspended = true;
 		private string _transPage = string.Empty;
 
-		public event EventHandler<EventArgs> PreLoad;
 		public event EventHandler<ForumPageRenderedArgs> ForumPageRendered;
 
 		protected bool _isAdminPage = false;
@@ -173,36 +171,6 @@ namespace YAF.Classes.Core
 			// set the current translation page...
 			YafContext.Current.InstanceFactory.GetInstance<LocalizationHandler>().TranslationPage = _transPage;
 
-			// initialize the providers...
-			InitProviderSettings();
-
-			// check if login is required
-			if ( PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && IsProtected )
-			{
-				// redirect to login page if login is required
-				YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
-			}
-
-			if ( _checkSuspended && PageContext.IsSuspended )
-			{
-				if ( PageContext.SuspendedUntil < DateTime.Now )
-				{
-					YAF.Classes.Data.DB.user_suspend( PageContext.PageUserID, null );
-					HttpContext.Current.Response.Redirect( General.GetSafeRawUrl() );
-				}
-				YafBuildLink.RedirectInfoPage( InfoMessage.Suspended );
-			}
-
-			if ( !PageContext.IsGuest && PageContext.Page ["PreviousVisit"] != DBNull.Value && !Mession.HasLastVisit )
-			{
-				Mession.LastVisit = Convert.ToDateTime( PageContext.Page ["PreviousVisit"] );
-				Mession.HasLastVisit = true;
-			}
-			else if ( Mession.LastVisit == DateTime.MinValue )
-			{
-				Mession.LastVisit = DateTime.Now;
-			}
-
 			// fire preload event...
 			YafContext.Current.ForumPagePreLoad( this, new EventArgs() );
 		}
@@ -226,12 +194,6 @@ namespace YAF.Classes.Core
 		{
 			// release cache
 			if (_pageCache != null) _pageCache.Clear();
-		}
-
-		private void InitProviderSettings()
-		{
-			PageContext.CurrentMembership.ApplicationName = PageContext.BoardSettings.MembershipAppName;
-			PageContext.CurrentRoles.ApplicationName = PageContext.BoardSettings.RolesAppName;
 		}
 		#endregion
 
@@ -399,14 +361,6 @@ namespace YAF.Classes.Core
 			}
 		}
 		#endregion
-
-		public bool CheckSuspended
-		{
-			set
-			{
-				_checkSuspended = value;
-			}
-		}
 
 		static public object IsNull( string value )
 		{

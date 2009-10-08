@@ -31,10 +31,11 @@ namespace YAF.Classes.Core
 	/// <summary>
 	/// Context class that accessable with the same instance from all locations
 	/// </summary>
-	public partial class YafContext : UserPageBase, IDisposable
+	public partial class YafContext : UserPageBase,  IDisposable
 	{
 		protected SingleClassInstanceFactory _singleInstanceFactory = new SingleClassInstanceFactory();
 		protected TypeDictionary _variables = new TypeDictionary();
+		protected ContextVariableRepository _repository;
 		protected ForumPage _currentForumPage = null;
 
 		/// <summary>
@@ -67,6 +68,9 @@ namespace YAF.Classes.Core
 		/// </summary>
 		public YafContext()
 		{
+			// init the respository
+			_repository = new ContextVariableRepository( _variables );
+
 			// init context...
 			if (Init != null) Init(this, new EventArgs());
 		}
@@ -147,6 +151,19 @@ namespace YAF.Classes.Core
 				_currentForumPage = value;
 				value.Load += new EventHandler(ForumPageLoad);
 				value.Unload += new EventHandler(ForumPageUnload);				
+			}
+		}
+
+		/// <summary>
+		/// Access to the Context Global Variable Repository Class
+		/// which is a helper class that accesses YafContext.Vars with strongly
+		/// typed properties for primary variables. 
+		/// </summary>
+		public ContextVariableRepository Globals
+		{
+			get
+			{
+				return _repository;
 			}
 		}
 
