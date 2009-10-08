@@ -102,6 +102,8 @@ public partial class YafMenuYafMenuSectionYafMenuItem {
     
     private string linkField;
     
+    private string debugField;
+    
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public string Title {
@@ -143,6 +145,17 @@ public partial class YafMenuYafMenuSectionYafMenuItem {
         }
         set {
             this.linkField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string Debug {
+        get {
+            return this.debugField;
+        }
+        set {
+            this.debugField = value;
         }
     }
 }

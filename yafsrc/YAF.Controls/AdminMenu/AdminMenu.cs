@@ -126,9 +126,25 @@ namespace YAF.Controls
 		{
 			if ( listItems.Length > 0 )
 			{
+				view.ItemCssClass = "YafMenuItem";
+				view.ItemIconClass = "YafMenuItemIcon";
+
 				// add each YafMenuItem to the NavView...
 				foreach( var item in listItems )
 				{
+					bool isVisible = true;
+
+					if ( !String.IsNullOrEmpty(item.Debug) && Convert.ToBoolean( item.Debug ) == true )
+					{
+						isVisible = false;
+#if DEBUG
+						// only visible with debug...
+						isVisible = true;
+#endif
+					}
+
+					if ( !isVisible ) continue;
+
 					string url = string.Empty;
 
 					if ( !String.IsNullOrEmpty(item.Link) )
@@ -152,9 +168,6 @@ namespace YAF.Controls
 						// just add the item regular style..
 						view.AddItem( item.Title, url );	
 					}
-
-					view.ItemCssClass = "YafMenuItem";
-					view.ItemIconClass = "YafMenuItemIcon";
 				}
 			}
 		}

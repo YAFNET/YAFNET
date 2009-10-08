@@ -125,9 +125,10 @@
       <Image>sql</Image>
     </YafMenuItem>
     <YafMenuItem>
-      <Title>Test data</Title>
+      <Title>Create Test Data</Title>
       <ForumPage>admin_test_data</ForumPage>
-      <Image>test_data</Image>
+      <Image>database-import</Image>
+			<Debug>true</Debug>
      </YafMenuItem>
   </YafMenuSection>
   <YafMenuSection Title="NNTP" HostAdminOnly="false">
