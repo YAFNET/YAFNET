@@ -76,6 +76,8 @@ namespace YAF.Modules
 
 		protected void RegisterLoadString()
 		{
+			PageContext.PageElements.RegisterJQuery();
+
 			if ( PageContext.LoadMessage.LoadString.Length > 0 )
 			{
 				if ( ScriptManager.GetCurrent( ForumControl.Page ) != null )
@@ -137,7 +139,7 @@ namespace YAF.Modules
 			base.OnPreRender( e );
 
 			// add js for client-side error settings...
-			string jsFunction = String.Format( "\n{4} = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && $('#{1}') != null) {2}\n$('#{1}').text(newErrorStr);\n$('#{0}').dialog('open');\n{3}\n{3}\n", this.ClientID, MainTextClientID, '{', '}', ShowModalFunction );
+			string jsFunction = String.Format( "\n{4} = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && jQuery('#{1}') != null) {2}\njQuery('#{1}').text(newErrorStr);\njQuery('#{0}').dialog('open');\n{3}\n{3}\n", this.ClientID, MainTextClientID, '{', '}', ShowModalFunction );
 			ScriptManager.RegisterClientScriptBlock( this, typeof( PopupDialogNotification ), ShowModalFunction, jsFunction, true );
 		}
 
@@ -155,7 +157,7 @@ namespace YAF.Modules
 			BodyTemplate = _template;
 
 			_okayButton.Text = "OK";
-			_okayButton.OnClientClick = "$(this).dialog('close');"; ;
+			_okayButton.OnClientClick = "jQuery(this).dialog('close');"; ;
 			Buttons.Add( _okayButton );
 		}
 
