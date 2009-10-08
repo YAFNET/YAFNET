@@ -286,7 +286,7 @@ BEGIN
     SET @PagingLowerBoundary = @PageSize * @PageIndex
     SET @PagingUpperBoundary = @PageSize - 1 + @PagingLowerBoundary
     
-	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1), UserID nvarchar(64))
+	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1), UserID nvarchar(64) collate database_default)
 	
 	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m INNER JOIN [{databaseOwner}].[{objectQualifier}prov_Application] a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationID = @ApplicationID AND m.EmailLwd = LOWER(@EmailAddress)
 
@@ -320,7 +320,7 @@ BEGIN
     SET @PagingLowerBoundary = @PageSize * @PageIndex
     SET @PagingUpperBoundary = @PageSize - 1 + @PagingLowerBoundary
     
-	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID nvarchar(64))
+	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID nvarchar(64) collate database_default)
 	
 	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m INNER JOIN [{databaseOwner}].[{objectQualifier}prov_Application] a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationID = @ApplicationID AND m.UsernameLwd LIKE '%' + LOWER(@Username) + '%'
 
@@ -353,7 +353,7 @@ BEGIN
     SET @PagingLowerBoundary = @PageSize * @PageIndex
     SET @PagingUpperBoundary = @PageSize - 1 + @PagingLowerBoundary
     
-	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID nvarchar(64))
+	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID nvarchar(64) collate database_default)
 	
 	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m INNER JOIN [{databaseOwner}].[{objectQualifier}prov_Application] a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationID = @ApplicationID
 
@@ -811,7 +811,7 @@ BEGIN
     CREATE TABLE #PageIndexForUsers
     (
         IndexID int IDENTITY (0, 1) NOT NULL,
-        UserID nvarchar(64)
+        UserID nvarchar(64) collate database_default
     )
 
     -- Insert into our temp table
