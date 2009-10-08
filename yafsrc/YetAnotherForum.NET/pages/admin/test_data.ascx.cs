@@ -54,19 +54,20 @@ namespace YAF.Pages.Admin
 				TimeZones.DataSource = StaticDataHelper.TimeZones( );
                 ForumsCategory.DataSource = categories;                
                 TopicsCategory.DataSource = categories;
-                PostsCategory.DataSource = categories;
-                DataTable _accessMaskList = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID, null);
-                ForumsStartMask.DataSource = _accessMaskList;
-                ForumsStartMask.SelectedIndex = 3;
-                ForumsAdminMask.DataSource = _accessMaskList;
+                PostsCategory.DataSource = categories;                
+                ForumsStartMask.DataSource = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID, null);
+                if ( ForumsStartMask.Items.Count > 1 )
+                ForumsStartMask.SelectedIndex = 1;
+                ForumsAdminMask.DataSource = ForumsStartMask.DataSource;
                 ForumsAdminMask.SelectedIndex = 0;
                 ForumsGroups.DataSource = YAF.Classes.Data.DB.group_list(PageContext.PageBoardID, null);
-               // System.Data.DataTable parents = YAF.Classes.Data.DB.forum_listall_fromCat( PageContext.PageBoardID, Convert.ToInt32( ForumsCategory.SelectedValue ) );
+               
+                DataBind();
+               
                 ForumsCategory.SelectedIndex = -1;
                 TopicsCategory.ClearSelection();
-                PostsCategory.ClearSelection();
-               //ForumsParent.DataBind( );
-                DataBind( );
+                PostsCategory.ClearSelection();              
+                
                 ForumsCategory.SelectedIndex = -1;
 
                 
@@ -197,11 +198,11 @@ namespace YAF.Pages.Admin
                     return;
                 }
 
-                string mesRetStr = string.Format("Created: /n {0} Users, {1} Boards, {2} Categories, {3} Forums, {4} Topics, {5} Messages, {6} PMessages  Created. {7} Users, {8} Boards, {9} Categories, {10} Forums, {11} Topics, {12} Messages, {13} PMessages Deleted.", CreateUsers(), CreateBoards(), CreateCategories(), CreateForums(), CreateTopics(), CreatePosts(), CreatePMessages(), DeleteTestUsers(), DeleteTestBoards(), DeleteTestCategories(), DeleteTestForums(), DeleteTestTopics(), DeleteTestPosts(), DeleteTestPMessages());
-              
-                PageContext.AddLoadMessage( mesRetStr );
-                YafBuildLink.Redirect(ForumPages.admin_test_data);
+                string mesRetStr = string.Format("Created: {0} Users, {1} Boards, {2} Categories, {3} Forums, {4} Topics, {5} Messages, {6} PMessages  Created. {7} Users, {8} Boards, {9} Categories, {10} Forums, {11} Topics, {12} Messages, {13} PMessages Deleted.", CreateUsers(), CreateBoards(), CreateCategories(), CreateForums(), CreateTopics(), CreatePosts(), CreatePMessages(), DeleteTestUsers(), DeleteTestBoards(), DeleteTestCategories(), DeleteTestForums(), DeleteTestTopics(), DeleteTestPosts(), DeleteTestPMessages());
+                YAF.Classes.Data.DB.eventlog_create(PageContext.PageUserID, this.GetType().ToString(), "<b>Test Data Generator reports:</b><br /><p>" + mesRetStr + "</p>", EventLogTypes.Information);
                
+                PageContext.AddLoadMessage( mesRetStr );
+                // YafBuildLink.Redirect(ForumPages.admin_test_data);               
             }
         }
 
@@ -228,10 +229,13 @@ namespace YAF.Pages.Admin
          }
         protected void PostsForum_OnSelectedIndexChanged(object sender, EventArgs e)
          {
-
-             System.Data.DataTable topics = YAF.Classes.Data.DB.topic_list(Convert.ToInt32(PostsForum.SelectedValue), PageContext.PageUserID, 0, null, 0, 100);
-             PostsTopic.DataSource = topics;
-             PostsTopic.DataBind();
+             int _forumID = 0;
+             if (int.TryParse(PostsForum.SelectedValue, out _forumID))
+             {
+                 System.Data.DataTable topics = YAF.Classes.Data.DB.topic_list(Convert.ToInt32(PostsForum.SelectedValue), PageContext.PageUserID, 0, null, 0, 100);
+                 PostsTopic.DataSource = topics;
+                 PostsTopic.DataBind();
+             }
 
          }
 
@@ -509,7 +513,7 @@ namespace YAF.Pages.Admin
             {
 
                 randomGuid = System.Guid.NewGuid( ).ToString( );
-                YAF.Classes.Data.DB.message_save( topicID, PageContext.PageUserID, "msgd-" + randomGuid, PageContext.User.UserName, Request.UserHostAddress, null, _replyTo, GetMessageFlags( ), ref messageid );
+                YAF.Classes.Data.DB.message_save(topicID, PageContext.PageUserID, "msgd-" + randomGuid + "  " + MyMessage.Text.Trim(), PageContext.User.UserName, Request.UserHostAddress, null, _replyTo, GetMessageFlags(), ref messageid);
                 //   User != null ? null : From.Text
             }
             return iposts;
@@ -665,7 +669,15 @@ namespace YAF.Pages.Admin
               }
               return delCount;
          }
-        protected int DeleteTestPosts( )
+        protected int DeleteTestPosts()
+        {   
+                int ii = 0;
+                if (int.TryParse(DeletedMessagesNumber.Text.Trim(),out ii))
+                    return DeleteTestPosts(ii); 
+                else              
+                    return DeleteTestPosts(null);
+        }
+        protected int DeleteTestPosts( int? numDel )
          {
 
              if ( !DeletePostsCheckBox.Checked )
@@ -673,6 +685,8 @@ namespace YAF.Pages.Admin
              int _boardMessages = 0;
              if (!int.TryParse(boardObjectStats["Posts"].ToString(), out _boardMessages))
                   return 0;
+   
+
 
               int delCount = 0;
               int startMessageList = 0;
@@ -684,11 +698,28 @@ namespace YAF.Pages.Admin
              foreach ( DataRow dr in _postList.Rows )
              {
                  DataTable _messageList = YAF.Classes.Data.DB.message_list(dr[ "MessageID" ]);
-                 if (System.Text.RegularExpressions.Regex.IsMatch(_messageList.Rows[0]["Message"].ToString().Replace(messagePrefix, ""), regBase))
+
+                 System.Text.RegularExpressions.Regex regx = new System.Text.RegularExpressions.Regex(regBase);
+                 System.Text.RegularExpressions.MatchCollection matches = regx.Matches(_messageList.Rows[0]["Message"].ToString().Replace(messagePrefix, ""));
+
+                 foreach (System.Text.RegularExpressions.Match match in matches)
+                 {
+                     YAF.Classes.Data.DB.message_delete(dr["MessageID"], false, "", 1, true);
+                     delCount++;
+                     if (numDel != null)
+                     {
+                         numDel--;
+                         if (numDel == 0) return delCount;
+                     }
+                     break;
+                 }
+                
+
+                 /* if (System.Text.RegularExpressions.Regex.IsMatch(_messageList.Rows[0]["Message"].ToString().Replace(messagePrefix, ""), regBase))
                  {
                      YAF.Classes.Data.DB.message_delete( dr["MessageID"], false, "", 1, true );
                      delCount++;
-                 }
+                 }*/
 
              }
              startMessageList = startMessageList + delCommonLimit;

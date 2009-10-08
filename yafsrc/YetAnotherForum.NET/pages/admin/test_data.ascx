@@ -30,7 +30,7 @@
 					</tr>
 					<tr>
 						<td class="postheader" width="50%">
-							Create in CurrentBoard:
+							In Current Board:
 						</td>
 						<td class="post">
 							<asp:CheckBox ID="CreateUsersInCurrentBoardCheckBox" Enabled="false" runat="server"
@@ -241,6 +241,15 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="postheader" width="50%">
+							In Current Board:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="CheckBox1" Enabled="false" runat="server"
+								Checked="true" />
+						</td>
+					</tr>
+					<tr>
 						<td class="postheader">
 							Number of Forums in Each Category:
 						</td>
@@ -281,6 +290,15 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="postheader" width="50%">
+							From Current Board:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="CheckBox2" Enabled="false" runat="server"
+								Checked="true" />
+						</td>
+					</tr>
+					<tr>
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
 						</td>
@@ -303,6 +321,15 @@
 							<asp:TextBox ID="ForumsNumber" runat="server">0</asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator6" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="ForumsNumber" ErrorMessage="Forums' number is required."></asp:RequiredFieldValidator>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader" width="50%">
+							In Current Board:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="CheckBox3" Enabled="false" runat="server"
+								Checked="true" />
 						</td>
 					</tr>
 					<tr>
@@ -402,6 +429,15 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="postheader" width="50%">
+							From Current Board:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="CheckBox4" Enabled="false" runat="server"
+								Checked="true" />
+						</td>
+					</tr>
+					<tr>
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
 						</td>
@@ -424,6 +460,15 @@
 							<asp:TextBox ID="TopicsNumber" runat="server">0</asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator7" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="TopicsNumber" ErrorMessage="Categories' number is required."></asp:RequiredFieldValidator>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader" width="50%">
+							In Current Board:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="CheckBox5" Enabled="false" runat="server"
+								Checked="true" />
 						</td>
 					</tr>
 					<tr>
@@ -482,6 +527,15 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="postheader" width="50%">
+							From Current Board:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="CheckBox6" Enabled="false" runat="server"
+								Checked="true" />
+						</td>
+					</tr>
+					<tr>
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
 						</td>
@@ -504,6 +558,15 @@
 							<asp:TextBox ID="PostsNumber" runat="server">0</asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator8" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="PostsNumber" ErrorMessage="Categories' number is required."></asp:RequiredFieldValidator>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader" width="50%">
+							In Current Board:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="CheckBox7" Enabled="false" runat="server"
+								Checked="true" />
 						</td>
 					</tr>
 					<tr>
@@ -536,6 +599,14 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="postheader" width="50%">
+							Enter your custom message for each test message:
+						</td>
+						<td class="post">
+							<asp:TextBox ID="MyMessage" runat="server" TextMode="MultiLine" style="width:240px;height:auto"  ></asp:TextBox>							
+						</td>
+					</tr>
+					<tr>
 						<td class="header1" colspan="2">
 							Delete Test Messages
 						</td>
@@ -545,7 +616,24 @@
 							Delete All Test Messages:
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="DeletePostsCheckBox" runat="server" Enabled="false" Checked="false" />
+							<asp:CheckBox ID="DeletePostsCheckBox" runat="server" Enabled="true" Checked="false" />
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader" width="50%">
+							Delete Specific Number:
+						</td>
+						<td class="post">
+							<asp:TextBox ID="DeletedMessagesNumber" runat="server">All</asp:TextBox>							
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader" width="50%">
+							From Current Board:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="CheckBox8" Enabled="false" runat="server"
+								Checked="true" />
 						</td>
 					</tr>
 					<tr>
@@ -573,6 +661,15 @@
 								Text="0" ControlToValidate="PMessagesNumber" ErrorMessage="Pmessages's number is required."></asp:RequiredFieldValidator>
 						</td>
 					</tr>
+					<tr>
+						<td class="postheader" width="50%">
+							In Current Board:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="CheckBox9" Enabled="false" runat="server"
+								Checked="true" />
+						</td>
+					</tr>					
 					<tr>
 						<td class="postheader" width="50%">
 							From User:
@@ -615,18 +712,38 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="postheader" width="50%">
+							From Current Board:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="CheckBox10" Enabled="false" runat="server"
+								Checked="true" />
+						</td>
+					</tr>
+					<tr>
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
 						</td>
 					</tr>
 				</table>
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View8" Text="Combinations" NavigateUrl="" HeaderCssClass=""
-				HeaderStyle="" Target="_blank" Enabled="false">
+			<DotNetAge:View runat="server" ID="View8" Text="Help" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank" Enabled="true">
 				<table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header2" align="center" colspan="2">
-							Delete Test Data:
+						    <p>Usage guid</p>
+							<p>Test data generator is a utility to test Yet Another Forum performance.</p>
+							<br />
+							The operations take a lot of time if you generate whales of data.
+							All the time browser page will look like something hangs. On completiing you will see notification window.
+							If you want to generate hundreds thousands records it can take,
+							hours or even days.
+							<p>Some records are not deleteable, so <b>never</b> use it in production enviroment 
+							or use custom scripts to delete the objects.</p>
+							<p>You can have problems with some records deletion in MS SQL Server. Keep in mind that the feature made for test data generation in a separate data base.</p>
+							<br />
+							
 						</td>
 					</tr>
 				</table>
