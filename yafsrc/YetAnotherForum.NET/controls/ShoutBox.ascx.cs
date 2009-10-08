@@ -63,6 +63,13 @@ namespace YAF.Controls
 
 				DataBind();
 			}
+
+			if ( shoutBoxPanel.Visible )
+			{
+				// set the focus to default to the shoutbox message text box...
+				if ( String.IsNullOrEmpty( Page.Form.DefaultFocus ) )
+					Page.Form.DefaultFocus = messageTextBox.ClientID;
+			}
 		}
 
 		protected void ShoutBoxRefreshTimer_Tick( object sender, EventArgs e )
