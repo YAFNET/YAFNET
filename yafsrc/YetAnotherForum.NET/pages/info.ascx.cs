@@ -47,9 +47,8 @@ namespace YAF.Pages // YAF.Pages
 		public info()
 			: base("INFO")
 		{
-			CheckSuspended = false;
+			PageContext.Globals.IsSuspendCheckEnabled = false;
 		}
-
 
 		/// <summary>
 		/// Creates page links for this page.

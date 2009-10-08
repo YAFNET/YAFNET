@@ -42,7 +42,7 @@ namespace YAF.Pages // YAF.Pages
 	{
 		public logout() : base("LOGOUT")
 		{
-			CheckSuspended = false;
+			PageContext.Globals.IsSuspendCheckEnabled = false;
 		}
 
 		protected void Page_Load(object sender, System.EventArgs e)

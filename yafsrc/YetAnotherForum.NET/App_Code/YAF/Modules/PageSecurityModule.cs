@@ -47,6 +47,13 @@ namespace YAF.Modules
 			if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.approve || ForumPageType == ForumPages.logout)
 				return;
 
+			// check if login is required
+			if ( PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && CurrentForumPage.IsProtected )
+			{
+				// redirect to login page if login is required
+				CurrentForumPage.RedirectNoAccess();
+			}
+
 			// check if it's a "registered user only page" and check permissions.
 			if (CurrentForumPage.IsRegisteredPage && CurrentForumPage.User == null)
 			{
