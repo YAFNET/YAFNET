@@ -27,14 +27,22 @@
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator1" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="UsersNumber" ErrorMessage="User's number is required."></asp:RequiredFieldValidator>
 						</td>
-					</tr>
+					</tr>					
 					<tr>
 						<td class="postheader" width="50%">
-							In Current Board:
+							Create Users:
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="CreateUsersInCurrentBoardCheckBox" Enabled="false" runat="server"
-								Checked="true" />
+						<asp:RadioButtonList ID="UsersBoardsOptions"  Enabled="false"   AutoPostBack="true" runat="server"
+							 	OnSelectedIndexChanged="UsersBoardsOptions_OnSelectedIndexChanged" />								
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">						
+						</td>
+						<td class="post">
+							<asp:DropDownList ID="UsersBoardsList" runat="server"  Visible="false" DataValueField="BoardID" DataTextField="Name">
+							</asp:DropDownList>
 						</td>
 					</tr>
 					<tr>
@@ -102,29 +110,7 @@
 							<asp:DropDownList ID="TimeZones" runat="server" DataValueField="Value" DataTextField="Name">
 							</asp:DropDownList>
 						</td>
-					</tr>
-					<tr>
-						<td class="header1" colspan="2">
-							Delete Test Users
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							Delete All Test Users:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="DeleteUsersCheckBox" runat="server" Enabled="true" Checked="false" />
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							From Current Board:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="DeleteUsersCurrentBoardCheckBox" Enabled="false" runat="server"
-								Checked="true" />
-						</td>
-					</tr>
+					</tr>								
 					<tr>
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
@@ -137,7 +123,7 @@
 				<table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header1" colspan="2">
-							Create Boards
+							Create Test Boards
 						</td>
 					</tr>
 					<tr>
@@ -202,19 +188,7 @@
 								<asp:TextBox ID="BoardsMessagesNumber" runat="server" Enabled="false" datavaluefield="TopicID"
 									datatextfield="Subject">0</asp:TextBox>
 							</td>
-						</tr>
-						<td class="header1" colspan="2">
-							Delete Boards
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							Delete All Test Boards:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="DeleteBoardsCheckBox" runat="server" Enabled="false" Checked="false" />
-						</td>
-					</tr>
+						</tr>				
 					<tr>
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
@@ -242,19 +216,27 @@
 					</tr>
 					<tr>
 						<td class="postheader" width="50%">
-							In Current Board:
+							Create Categories:
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="CheckBox1" Enabled="false" runat="server"
-								Checked="true" />
+						<asp:RadioButtonList ID="CategoriesBoardsOptions"  Enabled="false"   AutoPostBack="true" runat="server"
+							 	OnSelectedIndexChanged="CategoriesBoardsOptions_OnSelectedIndexChanged" />								
 						</td>
 					</tr>
+					<tr>
+						<td class="postheader">						
+						</td>
+						<td class="post">
+							<asp:DropDownList ID="CategoriesBoardsList" runat="server"  Visible="false" DataValueField="BoardID" DataTextField="Name">
+							</asp:DropDownList>
+						</td>
+					</tr>					
 					<tr>
 						<td class="postheader">
 							Number of Forums in Each Category:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="CategoriesForumsNumber" runat="server" Enabled="false" datavaluefield="TopicID"
+							<asp:TextBox ID="CategoriesForumsNumber" runat="server" Enabled="true" datavaluefield="TopicID"
 								datatextfield="Subject">0</asp:TextBox>
 						</td>
 					</tr>
@@ -263,7 +245,7 @@
 							Number of Topics in Each Forum:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="CategoriesTopicsNumber" runat="server" Enabled="false" datavaluefield="TopicID"
+							<asp:TextBox ID="CategoriesTopicsNumber" runat="server" Enabled="true" datavaluefield="TopicID"
 								datatextfield="Subject">0</asp:TextBox>
 						</td>
 					</tr>
@@ -272,33 +254,11 @@
 							Number of Messages in Each Topic:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="CategoriesMessagesNumber" runat="server" Enabled="false" datavaluefield="TopicID"
+							<asp:TextBox ID="CategoriesMessagesNumber" runat="server" Enabled="true" datavaluefield="TopicID"
 								datatextfield="Subject">0</asp:TextBox>
 						</td>
-					</tr>
-					<tr>
-						<td class="header1" colspan="2">
-							Delete Test Categories
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							Delete All Test Categories:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="DeleteCategoriesCheckBox" runat="server" Enabled="false" Checked="false" />
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							From Current Board:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="CheckBox2" Enabled="false" runat="server"
-								Checked="true" />
-						</td>
-					</tr>
-					<tr>
+					</tr>			
+					<tr>			
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
 						</td>
@@ -414,29 +374,7 @@
 							<asp:TextBox ID="ForumsMessagesNumber" runat="server" Enabled="true" datavaluefield="TopicID"
 								datatextfield="Subject">0</asp:TextBox>
 						</td>
-					</tr>
-					<tr>
-						<td class="header1" colspan="2">
-							Delete Test Forums
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							Delete All Test Forums:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="DeleteForumsCheckBox" runat="server" Enabled="true" Checked="false" />
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							From Current Board:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="CheckBox4" Enabled="false" runat="server"
-								Checked="true" />
-						</td>
-					</tr>
+					</tr>								
 					<tr>
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
@@ -512,29 +450,7 @@
 							<asp:TextBox ID="TopicsMessagesNumber" runat="server" Enabled="true" datavaluefield="TopicID"
 								datatextfield="Subject">0</asp:TextBox>
 						</td>
-					</tr>
-					<tr>
-						<td class="header1" colspan="2">
-							Delete Test Topics
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							Delete All Test Topics:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="DeleteTopicsCheckBox" runat="server" Enabled="false" Checked="false" />
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							From Current Board:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="CheckBox6" Enabled="false" runat="server"
-								Checked="true" />
-						</td>
-					</tr>
+					</tr>			
 					<tr>
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
@@ -605,37 +521,7 @@
 						<td class="post">
 							<asp:TextBox ID="MyMessage" runat="server" TextMode="MultiLine" style="width:240px;height:auto"  ></asp:TextBox>							
 						</td>
-					</tr>
-					<tr>
-						<td class="header1" colspan="2">
-							Delete Test Messages
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							Delete All Test Messages:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="DeletePostsCheckBox" runat="server" Enabled="true" Checked="false" />
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							Delete Specific Number:
-						</td>
-						<td class="post">
-							<asp:TextBox ID="DeletedMessagesNumber" runat="server">All</asp:TextBox>							
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							From Current Board:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="CheckBox8" Enabled="false" runat="server"
-								Checked="true" />
-						</td>
-					</tr>
+					</tr>		
 					<tr>
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
@@ -661,15 +547,23 @@
 								Text="0" ControlToValidate="PMessagesNumber" ErrorMessage="Pmessages's number is required."></asp:RequiredFieldValidator>
 						</td>
 					</tr>
-					<tr>
+	                <tr>
 						<td class="postheader" width="50%">
-							In Current Board:
+							Create Messages:
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="CheckBox9" Enabled="false" runat="server"
-								Checked="true" />
+						<asp:RadioButtonList ID="PMessagesBoardsOptions"  Enabled="false"   AutoPostBack="true" runat="server"
+							 	OnSelectedIndexChanged="PMessagesBoardsOptions_OnSelectedIndexChanged" />								
 						</td>
-					</tr>					
+					</tr>
+					<tr>
+						<td class="postheader">						
+						</td>
+						<td class="post">
+							<asp:DropDownList ID="PMessagesBoardsList" runat="server"   DataValueField="BoardID" Enabled="false" DataTextField="Name">
+							</asp:DropDownList>
+						</td>
+					</tr>						
 					<tr>
 						<td class="postheader" width="50%">
 							From User:
@@ -699,27 +593,21 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="header1" colspan="2">
-							Delete Test Private Messages(Disabled)
+						<td class="postheader" width="50%">
+							Mark All Private Messages As Read:
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="MarkRead" runat="server" Enabled="true" Checked="true" />
 						</td>
 					</tr>
 					<tr>
 						<td class="postheader" width="50%">
-							Delete All Test Private Messages:
+							Enter your custom message for each test private message:
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="DeletePMessagesCheckBox" runat="server" Enabled="false" Checked="false" />
+							<asp:TextBox ID="PMessageText" runat="server" TextMode="MultiLine" style="width:280px;height:auto"  ></asp:TextBox>							
 						</td>
-					</tr>
-					<tr>
-						<td class="postheader" width="50%">
-							From Current Board:
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="CheckBox10" Enabled="false" runat="server"
-								Checked="true" />
-						</td>
-					</tr>
+					</tr>							
 					<tr>
 						<td class="postheader" colspan="2">
 							Warning! This is a test/debug feature. Never use it in production environment.
@@ -732,16 +620,14 @@
 				<table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
 						<td class="header2" align="center" colspan="2">
-						    <p>Usage guid</p>
+						    <p>Usage guide.</p>
 							<p>Test data generator is a utility to test Yet Another Forum performance.</p>
 							<br />
-							The operations take a lot of time if you generate whales of data.
+							The operations take a lot of time, if you generate whales of data.
 							All the time browser page will look like something hangs. On completiing you will see notification window.
 							If you want to generate hundreds thousands records it can take,
 							hours or even days.
-							<p>Some records are not deleteable, so <b>never</b> use it in production enviroment 
-							or use custom scripts to delete the objects.</p>
-							<p>You can have problems with some records deletion in MS SQL Server. Keep in mind that the feature made for test data generation in a separate data base.</p>
+							<p><b>never</b> use it in production enviroment as you can't delete data using the test data generator.</p>							
 							<br />
 							
 						</td>
@@ -755,7 +641,7 @@
 			<td class="postfooter" align="center">
 				<asp:Button ID="LaunchGenerator" runat="server" Text="Launch Generator" CssClass="pbutton"
 					OnClick="CreateTestData_Click"></asp:Button>
-				<asp:Button ID="cancel" runat="server" Text="Cancel" CssClass="pbutton" OnClick="cancel_Click"></asp:Button>
+				<asp:Button ID="Cancel" runat="server" Text="Cancel" CssClass="pbutton" OnClick="Cancel_Click"></asp:Button>
 			</td>
 		</tr>
 	</table>
