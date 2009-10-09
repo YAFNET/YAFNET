@@ -589,8 +589,7 @@ namespace YAF.Install
 
 		private static bool TestDatabaseConnection( out string exceptionMessage )
 		{
-			exceptionMessage = String.Empty;
-			return YafDBAccess.TestConnection( ref exceptionMessage );
+			return YafDBAccess.TestConnection( out exceptionMessage );
 		}
 
 		enum UpdateDBFailureType
