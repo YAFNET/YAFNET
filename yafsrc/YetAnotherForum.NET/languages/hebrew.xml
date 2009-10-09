@@ -234,12 +234,17 @@
   </page>
   <page name="CP_PM">
     <Resource tag="ARCHIVE">ארכיון</Resource>
+    <Resource tag="ARCHIVEALL">Archive All</Resource>
     <Resource tag="ARCHIVESELECTED">העבר לארכיון</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
     <Resource tag="CONFIRM_DELETE">האם למחוק את כל ההודעות המסומנות?</Resource>
+    <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">תאריך</Resource>
+    <Resource tag="DELETEALL">Delete All</Resource>
     <Resource tag="DELETESELECTED">מחק מסומנים</Resource>
     <Resource tag="FROM">מאת</Resource>
     <Resource tag="INBOX">תיבת דואר נכנס</Resource>
+    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MSG_ARCHIVED">ההודעה נגנזה בארכיון.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} הודעות נגנזו בארכיון.</Resource>
     <Resource tag="MSG_DELETED">ההודעה נמחקה.</Resource>

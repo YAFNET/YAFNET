@@ -234,12 +234,17 @@
   </page>
   <page name="CP_PM">
     <Resource tag="ARCHIVE">Архив</Resource>
+    <Resource tag="ARCHIVEALL">Archive All</Resource>
     <Resource tag="ARCHIVESELECTED">Поместить в архив</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить все выбранные сообщения?</Resource>
+    <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">Дата</Resource>
+    <Resource tag="DELETEALL">Delete All</Resource>
     <Resource tag="DELETESELECTED">Удалить выделенное</Resource>
     <Resource tag="FROM">От</Resource>
     <Resource tag="INBOX">Входящие</Resource>
+    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Сообщение отправлено в архив.</Resource>
     <Resource tag="MSG_ARCHIVED+">Было отправлено в архив {0} сообщений.</Resource>
     <Resource tag="MSG_DELETED">Сообщение было удалено.</Resource>

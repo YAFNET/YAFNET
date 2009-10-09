@@ -267,12 +267,17 @@
   </page>
   <page name="CP_PM">
     <Resource tag="ARCHIVE">Archief</Resource>
+    <Resource tag="ARCHIVEALL">Archive All</Resource>
     <Resource tag="ARCHIVESELECTED">Archiveer selectie</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
     <Resource tag="CONFIRM_DELETE">Wis alle geselecteerde berichten?</Resource>
+    <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">Datum</Resource>
+    <Resource tag="DELETEALL">Delete All</Resource>
     <Resource tag="DELETESELECTED">Verwijder selectie</Resource>
     <Resource tag="FROM">Van</Resource>
     <Resource tag="INBOX">Postvak in</Resource>
+    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Bericht is gearchiveerd.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} berichten gearchiveerd.</Resource>
     <Resource tag="MSG_DELETED">Bericht is gewist.</Resource>

@@ -234,12 +234,17 @@
   </page>
   <page name="CP_PM">
     <Resource tag="ARCHIVE">Lưu trữ</Resource>
+    <Resource tag="ARCHIVEALL">Archive All</Resource>
     <Resource tag="ARCHIVESELECTED">Lưu tin đã chọn</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
     <Resource tag="CONFIRM_DELETE">Xoá tất cả các tin nhắn được chọn?</Resource>
+    <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">Ngày</Resource>
+    <Resource tag="DELETEALL">Delete All</Resource>
     <Resource tag="DELETESELECTED">Xoá tin đã chọn</Resource>
     <Resource tag="FROM">Người gửi</Resource>
     <Resource tag="INBOX">Tin nhắn</Resource>
+    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Tin nhắn đã được lưu trữ thành công.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} Tin nhắn đã được lưu trữ thành công.</Resource>
     <Resource tag="MSG_DELETED">Tin nhắn đã được xoá.</Resource>

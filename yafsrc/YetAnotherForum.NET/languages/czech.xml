@@ -266,12 +266,17 @@
   </page>
   <page name="CP_PM">
     <Resource tag="ARCHIVE">Archiv</Resource>
+    <Resource tag="ARCHIVEALL">Archive All</Resource>
     <Resource tag="ARCHIVESELECTED">Archivuj výběr</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
     <Resource tag="CONFIRM_DELETE">Smazat všechny vybrané zprávy?</Resource>
+    <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">Datum</Resource>
+    <Resource tag="DELETEALL">Delete All</Resource>
     <Resource tag="DELETESELECTED">Smaž výběr</Resource>
     <Resource tag="FROM">Od</Resource>
     <Resource tag="INBOX">Došlé</Resource>
+    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Zpráva byla zaarchivována.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} zpráv bylo zaarchivováno.</Resource>
     <Resource tag="MSG_DELETED">Zpráva byla smazána.</Resource>

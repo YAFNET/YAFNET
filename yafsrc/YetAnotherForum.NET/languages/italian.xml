@@ -234,12 +234,17 @@
   </page>
   <page name="CP_PM">
     <Resource tag="ARCHIVE">Archivio</Resource>
+    <Resource tag="ARCHIVEALL">Archive All</Resource>
     <Resource tag="ARCHIVESELECTED">Archivia Selezionati</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
     <Resource tag="CONFIRM_DELETE">Cancella tutti i messaggi?</Resource>
+    <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">Data</Resource>
+    <Resource tag="DELETEALL">Delete All</Resource>
     <Resource tag="DELETESELECTED">Cancella Selezionati</Resource>
     <Resource tag="FROM">Da</Resource>
     <Resource tag="INBOX">In arrivo</Resource>
+    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Messaggio archiviato.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} messaggi archiviati.</Resource>
     <Resource tag="MSG_DELETED">Messaggio cancellato.</Resource>

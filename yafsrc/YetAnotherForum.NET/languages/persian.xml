@@ -234,12 +234,17 @@
   </page>
   <page name="CP_PM">
     <Resource tag="ARCHIVE">آرشیو</Resource>
+    <Resource tag="ARCHIVEALL">Archive All</Resource>
     <Resource tag="ARCHIVESELECTED">آرشیو کردن موارد انتخابی</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
     <Resource tag="CONFIRM_DELETE">تمامی پیغامهای انتخاب شده حذف شود؟</Resource>
+    <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">تاریخ</Resource>
+    <Resource tag="DELETEALL">Delete All</Resource>
     <Resource tag="DELETESELECTED">حذف موارد انتخابی</Resource>
     <Resource tag="FROM">از</Resource>
     <Resource tag="INBOX">صندوق</Resource>
+    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MSG_ARCHIVED">پیغام آرشیو شد</Resource>
     <Resource tag="MSG_ARCHIVED+">{0}.پیغام آرشیو شد</Resource>
     <Resource tag="MSG_DELETED">پیغام حذف شد.</Resource>

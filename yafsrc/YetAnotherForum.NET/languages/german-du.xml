@@ -111,12 +111,12 @@
     <Resource tag="CAN_REPLY">Du [b]kannst[/b] Antworten zu Themen in diesem Forum erstellen.</Resource>
     <Resource tag="CAN_VOTE">Du [b]kannst[/b] bei Umfragen in diesem Forum abstimmen.</Resource>
     <Resource tag="CANCEL">Abbrechen</Resource>
-    <Resource tag="CANNOT_DELETE">Du kannst deine Beiträge [b]nicht[/b] in diesem Forum löschen.</Resource>
-    <Resource tag="CANNOT_EDIT">Du kannst  deine Beiträge [b]nicht[/b] in diesem Forum editieren.</Resource>
+    <Resource tag="CANNOT_DELETE">Du darfst deine Beiträge [b]nicht[/b] löschen.</Resource>
+    <Resource tag="CANNOT_EDIT">Du darfst deine Beiträge [b]nicht[/b] editieren.</Resource>
     <Resource tag="CANNOT_POLL">Du kannst [b]keine[/b] Umfragen in diesem Forum erstellen.</Resource>
     <Resource tag="CANNOT_POST">Du kannst [b]keine[/b] neue Themen in diesem Forum eröffnen.</Resource>
     <Resource tag="CANNOT_REPLY">Du kannst [b]keine[/b] Antworten zu Themen in diesem Forum erstellen.</Resource>
-    <Resource tag="CANNOT_VOTE">Du [b]darfst nicht[/b] bei Umfragen in diesem Forum abstimmen.</Resource>
+    <Resource tag="CANNOT_VOTE">Du kannst [b]nicht[/b] an Umfragen teilnehmen.</Resource>
     <Resource tag="CAPTCHA_ENTER">Die Buchstaben des Sicherheitscode eingeben</Resource>
     <Resource tag="CAPTCHA_IMAGE">Sicherheitscode</Resource>
     <Resource tag="CHANGEEMAIL_SUBJECT">E-Mail geändet</Resource>
@@ -137,7 +137,7 @@
     <Resource tag="LOADING">Lade...</Resource>
     <Resource tag="MAX_ONLINE">Mitgliederrekord: {0} gleichzeitig online ({1}).</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Mitteilung</Resource>
-    <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Neuer Benutzer in Forum {0} angemeldet</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Seiten</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Neue private Nachricht von {0} am {1}</Resource>
@@ -171,7 +171,7 @@
     <Resource tag="NEW_PASSWORD">Neues Passwort:</Resource>
     <Resource tag="NO_PASSWORD_MATCH">Die neuen Passwörter stimmen nicht überein.</Resource>
     <Resource tag="OLD_PASSWORD">Altes Passwort:</Resource>
-    <Resource tag="PASSWORD_BAD_LENGTH">Das neue Passwort muss mintestend {0} Stellen haben.</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">Das neue Passwort muss mindestens {0} Stellen haben.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Das Passort ist falsch oder das neue Passwort ist unzulässig.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Es müssen mindestens {1} Sonderzeichen enthalten sein.</Resource>
     <Resource tag="TITLE">Passwort ändern</Resource>
@@ -211,7 +211,7 @@
     <Resource tag="MAIL_SENT">Eine E-Mail wurde an {0} gesendet.\n\nDu musst diese Adresse bestätigen, indem du\nden Link in der E-Mail aufrufst.</Resource>
     <Resource tag="MESSENGER">Messenger</Resource>
     <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
-    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Zusätzliche Parameter, die für einige Blog-APIs benötigt werden [b]könnten[/b] (Subtext braucht das aber nicht). Falls du unsicher sein solltest, dann erstmal leer lassen.)</Resource>
     <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Benutzername:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post nach MetaWeblog (API Einstellungen)</Resource>
@@ -234,12 +234,17 @@
   </page>
   <page name="CP_PM">
     <Resource tag="ARCHIVE">Archiv</Resource>
+    <Resource tag="ARCHIVEALL">Alles Archivieren</Resource>
     <Resource tag="ARCHIVESELECTED">Markierte Archivieren</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
     <Resource tag="CONFIRM_DELETE">Alle ausgewählten Nachrichten löschen?</Resource>
+    <Resource tag="CONFIRM_DELETEALL">Alle Nachrichten löschen?</Resource>
     <Resource tag="DATE">Am</Resource>
-    <Resource tag="DELETESELECTED">Markierte Loeschen</Resource>
+    <Resource tag="DELETEALL">Alle Löschen</Resource>
+    <Resource tag="DELETESELECTED">Markierte Löschen</Resource>
     <Resource tag="FROM">Von</Resource>
     <Resource tag="INBOX">Posteingang</Resource>
+    <Resource tag="MARK_ALL_ASREAD">Alle als gelesen markieren</Resource>
     <Resource tag="MSG_ARCHIVED">Die Nachricht wurde archiviert.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} Nachrichten wurden archiviert.</Resource>
     <Resource tag="MSG_DELETED">Die Nachricht wurde gelöscht.</Resource>
@@ -648,7 +653,7 @@
     <Resource tag="WARN_ALREADY_VOTED">Du hast bereits abgestimmt.</Resource>
     <Resource tag="WARN_EMAILLOGIN">Um E-Mails versenden zu können, musst Du registriert sein.</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Dieses Forum ist geschlossen.</Resource>
-    <Resource tag="WARN_PMLOGIN">Um private Nachrichten zu versenden zu können, musst Du eingeloggt sein.</Resource>
+    <Resource tag="WARN_PMLOGIN">Um private Nachrichten versenden zu können, musst Du eingeloggt sein.</Resource>
     <Resource tag="WARN_POLL_CLOSED">Die Umfrage ist beendet.</Resource>
     <Resource tag="WARN_TOPIC_LOCKED">Dieses Thema wurde geschlossen!</Resource>
     <Resource tag="WARN_WATCHLOGIN">Du musst registriert sein, um dieses Thema zu lesen.</Resource>
@@ -694,7 +699,7 @@
     <Resource tag="RANK">Rang:</Resource>
     <Resource tag="REALNAME">Echter Name:</Resource>
     <Resource tag="REMOVESUSPENSION">Sperre aufheben</Resource>
-    <Resource tag="SEARCHUSER">View All Posts by User</Resource>
+    <Resource tag="SEARCHUSER">Alle Beiträge des Mitglieds anschauen</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
     <Resource tag="SUSPEND">Sperren</Resource>
@@ -741,8 +746,8 @@
     <Resource tag="NEED_QUESTION">Die Sicherheitsfrage wird benötigt.</Resource>
     <Resource tag="NEED_USERNAME">Der Benutzername muss angegeben werden.</Resource>
     <Resource tag="PASSWORD">Passwort</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TEXT"> Mindestens {0} Zeichen benötigt, davon müssen mindestens {1} Zeichen ein Sonderzeichen (z.B: $#@!) sein.</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Anforderungen an das Passwort</Resource>
     <Resource tag="PREFERENCES">Einstellungen</Resource>
     <Resource tag="PROFILE">Profil Informationen</Resource>
     <Resource tag="REGISTER">Registrieren</Resource>
@@ -777,18 +782,18 @@
     <Resource tag="ACCEPT">Ich bin mit diesen Regeln einverstanden</Resource>
     <Resource tag="DECLINE">Ich bin mit diesen Regeln nicht einverstanden</Resource>
     <Resource tag="RULES_TEXT" editType="bbcode">
-      [size=5]Die Administratoren und Moderatoren dieses Forums bemühen sich, Beiträge mit fragwürdigem Inhalt so schnell wie möglich zu bearbeiten oder ganz zu löschen, aber es ist nicht möglich, jede einzelne Nachricht zu überprüfen. Du bestätigst mit Absenden dieser Einverständniserklärung, dass du akzeptierst, dass jeder Beitrag in diesem Forum die Meinung des Urhebers wiedergibt und dass die Administratoren, Moderatoren und Betreiber dieses Forums nur für ihre eigenen Beiträge verantwortlich sind.
+[size=5]Die Administratoren und Moderatoren dieses Forums bemühen sich, Beiträge mit fragwürdigem Inhalt so schnell wie möglich zu bearbeiten oder ganz zu löschen, aber es ist nicht möglich, jede einzelne Nachricht zu überprüfen. Du bestätigst mit Absenden dieser Einverständniserklärung, dass du akzeptierst, dass jeder Beitrag in diesem Forum die Meinung des Urhebers wiedergibt und dass die Administratoren, Moderatoren und Betreiber dieses Forums nur für ihre eigenen Beiträge verantwortlich sind.
 
-      Du verpflichtest dich, keine beleidigenden, obszönen, vulgären, verleumdenden, gewaltverherrlichenden oder aus anderen Gründen strafbaren Inhalte in diesem Forum zu veröffentlichen. Verstöße gegen diese Regel führen zu sofortiger und permanenter Sperrung, wir behalten uns vor Verbindungsdaten u.ä. an die strafverfolgenden Behörden weiterzugeben. 
+Du verpflichtest dich, keine beleidigenden, obszönen, vulgären, verleumdenden, gewaltverherrlichenden oder aus anderen Gründen strafbaren Inhalte in diesem Forum zu veröffentlichen. Verstöße gegen diese Regel führen zu sofortiger und permanenter Sperrung, wir behalten uns vor Verbindungsdaten u.ä. an die strafverfolgenden Behörden weiterzugeben. 
 
-	  Du räumst den Betreibern, Administratoren und Moderatoren dieses Forums das Recht ein, Beiträge nach eigenem Ermessen zu entfernen, zu bearbeiten, zu verschieben oder zu sperren. Du stimmst zu, dass die im Rahmen der Registrierung erhobenen Daten in einer Datenbank gespeichert werden.
+Du räumst den Betreibern, Administratoren und Moderatoren dieses Forums das Recht ein, Beiträge nach eigenem Ermessen zu entfernen, zu bearbeiten, zu verschieben oder zu sperren. Du stimmst zu, dass die im Rahmen der Registrierung erhobenen Daten in einer Datenbank gespeichert werden.
 
-      Dieses System verwendet Cookies, um Informationen auf deinem Computer zu speichern. Diese Cookies enthalten keine der oben angegebenen Informationen, sondern dienen ausschließlich deinem Komfort. Deine Mail-Adresse wird nur zur Bestätigung der Registrierung und ggf. zum Versand eines neuen Passwortes verwandt.
+Dieses System verwendet Cookies, um Informationen auf deinem Computer zu speichern. Diese Cookies enthalten keine der oben angegebenen Informationen, sondern dienen ausschließlich deinem Komfort. Deine Mail-Adresse wird nur zur Bestätigung der Registrierung und ggf. zum Versand eines neuen Passwortes verwandt.
 
-      Du verpflichtest Dich keine automatischen Tools, Scripte, Browseraddons usw. zum Anmelden an diesem Forum bzw. zum Schreiben von Beiträgen in diesem Forum zu benutzen.
+Du verpflichtest Dich keine automatischen Tools, Scripte, Browseraddons usw. zum Anmelden an diesem Forum bzw. zum Schreiben von Beiträgen in diesem Forum zu benutzen.
 
-      Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen zu.
-      [/size]
+Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen zu.
+[/size]
     </Resource>
     <Resource tag="TITLE">Regeln und Hinweise für dieses Forum</Resource>
   </page>
@@ -809,18 +814,17 @@
     <Resource tag="RESULT5">5 Ergebnisse pro Seite</Resource>
     <Resource tag="RESULT50">50 Ergebnisse pro Seite</Resource>
     <Resource tag="RESULTS">Ergebnisse</Resource>
-    <Resource tag="SEARCH_CRITERIA_ERROR">Suchtexte müssen mindestens {0} Zeichen lang sein und mit den Regeln des Forums übereinstimmen (Siehe FAQ).</Resource>
-    <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Search texts must be less than {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
-    <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Suchtexte müssen weniger als {0} Zeichen haben und mit den Regeln des Forums übereinstimmen (Siehe FAQ).</Resource>
+    <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Suchtexte müssen mindestens {0} Zeichen lang sein und mit den Regeln des Forums übereinstimmen (Siehe FAQ).</Resource>
     <Resource tag="TITLE">Suche</Resource>
     <Resource tag="TOPIC">Thema:</Resource>
   </page>
   <page name="SHOUTBOX">
-    <Resource tag="CLEAR">Clear</Resource>
-    <Resource tag="FLYOUT">Fly Out</Resource>
-    <Resource tag="HEADING">Chat with other members</Resource>
-    <Resource tag="SUBMIT">Submit</Resource>
-    <Resource tag="TITLE">ShoutBox</Resource>
+    <Resource tag="CLEAR">Eingabe Löschen</Resource>
+    <Resource tag="FLYOUT">Chat in eigenem Fenster öffnen</Resource>
+    <Resource tag="HEADING">Mit anderen Mitgliedern Chatten</Resource>
+    <Resource tag="SUBMIT">Absenden</Resource>
+    <Resource tag="TITLE">ShoutBox (Mini-Chat)</Resource>
   </page>
   <page name="SHOWSMILIES">
     <Resource tag="CLOSE_WINDOW">Fenster Schließen</Resource>
@@ -878,14 +882,14 @@ Hallo!
 {link}
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
-		Hello!
+Hallo,
 
-		A new user has registered on the {forumname} forum:
+ein neuer Benutzer hat sich im Forum {forumname} angemeldet:
 		
-		User Name: {user}
-		User Email: {email}
+Benutzername: {user}
+Email: {email}
 		
-		Administration Link: {adminlink}
+Admin-Link: {adminlink}
 	</Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
@@ -947,65 +951,35 @@ Der Bestätigungscode lautet
     </Resource>
   </page>
   <page name="TIMEZONES">
-    <Resource tag="GMT0">(GMT) Casablanca, Dublin, Edinburgh, London, Lissabon, Monrovia</Resource>
-    <Resource tag="GMT1">(GMT+1:00) Berlin, Brüssel, Kristiansund, Madrid, Paris, Rom, Warschau</Resource>
-    <Resource tag="GMT-1">(GMT-1:00) Azoren, Kapverdische Inseln</Resource>
-    <Resource tag="GMT10">(GMT+10:00) Melbourne, Papua Neu Guinea, Sydney, Wladiwostok</Resource>
-    <Resource tag="GMT-10">(GMT-10:00) Hawaii</Resource>
-    <Resource tag="GMT11">(GMT+11:00) Magadan, Neukaledionien, Salomonen</Resource>
-    <Resource tag="GMT-11">(GMT-11:00) Midway Inseln, Samoa</Resource>
-    <Resource tag="GMT12">(GMT+12:00) Auckland, Wellington, Fidschi, Marshall-Inseln</Resource>
-    <Resource tag="GMT-12">(GMT-12:00) Enitwetok, Kwajalien (Datumsgrenze Westen)</Resource>
-    <Resource tag="GMT2">(GMT+2:00) Kaliningrad, Süd Afrika</Resource>
-    <Resource tag="GMT-2">(GMT-2:00) Mittelatlantik, Ascention, St Helena</Resource>
-    <Resource tag="GMT3">(GMT+3:00) Bagdad, Er Riad, Moskau, Nairobi</Resource>
-    <Resource tag="GMT-3">(GMT-3:00) Brasilien, Buenos Aires, Georgetown, Falkland Inseln</Resource>
-    <Resource tag="GMT3.5">(GMT+3:30) Teheran</Resource>
-    <Resource tag="GMT-3.5">(GMT-3:30) Neufundland</Resource>
-    <Resource tag="GMT4">(GMT+4:00) Abu Dhabi, Baku, Muskat, Tbilisi</Resource>
-    <Resource tag="GMT-4">(GMT-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
-    <Resource tag="GMT4.5">(GMT+4:30) Kabul</Resource>
-    <Resource tag="GMT5">(GMT+5:00) Jekaterinburg, Islamabad, Karatschi, Taschkent</Resource>
-    <Resource tag="GMT-5">(GMT-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
-    <Resource tag="GMT5.5">(GMT+5:30) Mumbay, Kolkata, Madras, Neu-Delhi</Resource>
-    <Resource tag="GMT6">(GMT+6:00) Almaty, Colomba, Dhaka</Resource>
-    <Resource tag="GMT-6">(GMT-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
-    <Resource tag="GMT7">(GMT+7:00) Bangkok, Hanoi, Jakarta</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Arizona</Resource>
-    <Resource tag="GMT-7">(GMT-7:00) Mountain Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT8">(GMT+8:00) Peking, Hong Kong, Perth, Singapur, Taipeh</Resource>
-    <Resource tag="GMT-8">(GMT-8:00) Pacific Time (US &amp; Canada)</Resource>
-    <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokio, Jakutsk</Resource>
-    <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
-    <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
-    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
-    <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
-    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
-    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lissabon, Monrovia</Resource>
+    <Resource tag="UTC1">(UTC+1:00) Berlin, Brüssel, Kristiansund, Madrid, Paris, Rom, Warschau</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azoren, Kapverdische Inseln</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua Neu Guinea, Sydney, Wladiwostok</Resource>
     <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
-    <Resource tag="UTC11">(UTC+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
-    <Resource tag="UTC-11">(UTC-11:00) Midway Island, Samoa</Resource>
-    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
-    <Resource tag="UTC-12">(UTC-12:00) Eniwetok, Kwajalein</Resource>
-    <Resource tag="UTC2">(UTC+2:00) Jerusalem, Kaliningrad, South Africa</Resource>
-    <Resource tag="UTC-2">(UTC-2:00) Ascension</Resource>
-    <Resource tag="UTC3">(UTC+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
-    <Resource tag="UTC-3">(UTC-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
-    <Resource tag="UTC3.5">(UTC+3:30) Tehran</Resource>
-    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
-    <Resource tag="UTC4">(UTC+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Magadan, Neukaledionien, Salomonen</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Midway Inseln, Samoa</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fidschi, Marshall-Inseln</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) Enitwetok, Kwajalien (Datumsgrenze Westen)</Resource>
+    <Resource tag="UTC2">(UTC+2:00) Kaliningrad, Süd Afrika</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Mittelatlantik, Ascention, St Helena</Resource>
+    <Resource tag="UTC3">(UTC+3:00) Bagdad, Er Riad, Moskau, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brasilien, Buenos Aires, Georgetown, Falkland Inseln</Resource>
+    <Resource tag="UTC3.5">(UTC+3:30) Teheran</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Neufundland</Resource>
+    <Resource tag="UTC4">(UTC+4:00) Abu Dhabi, Baku, Muskat, Tbilisi</Resource>
     <Resource tag="UTC-4">(UTC-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
     <Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
-    <Resource tag="UTC5">(UTC+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
-    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
-    <Resource tag="UTC5.5">(UTC+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="UTC5">(UTC+5:00) Jekaterinburg, Islamabad, Karatschi, Taschkent</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Kanada), Bogota, Lima, Quito</Resource>
+    <Resource tag="UTC5.5">(UTC+5:30) Mumbay, Kolkata, Madras, Neu-Delhi</Resource>
     <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
-    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Kanada), Mexico City</Resource>
     <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
     <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
-    <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
-    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
-    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Mountain Time (US &amp; Kanada)</Resource>
+    <Resource tag="UTC8">(UTC+8:00) Peking, Hong Kong, Perth, Singapur, Taipeh</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Kanada)</Resource>
+    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokio, Jakutsk</Resource>
     <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
     <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
   </page>

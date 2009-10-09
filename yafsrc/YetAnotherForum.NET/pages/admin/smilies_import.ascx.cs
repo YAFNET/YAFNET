@@ -32,6 +32,7 @@ using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
+
 namespace YAF.Pages.Admin
 {
 	/// <summary>
@@ -94,12 +95,32 @@ namespace YAF.Pages.Admin
 
 			using ( System.IO.StreamReader file = new System.IO.StreamReader( fileName ) )
 			{
-				// Delete existing smilies?
-				if ( DeleteExisting.Checked )
-				{
-					YAF.Classes.Data.DB.smiley_delete( null );
-				}
-
+                int sortOrder = 1;
+                
+                // Delete existing smilies?
+                if (DeleteExisting.Checked)
+                {
+                    YAF.Classes.Data.DB.smiley_delete(null);
+                }
+                else
+                {
+                    // Get max value of SortOrder
+                    using (DataView dv = YAF.Classes.Data.DB.smiley_listunique(PageContext.PageBoardID).DefaultView)
+                    {
+                        dv.Sort = "SortOrder desc";
+                        if (dv.Count > 0)
+                        {
+                            DataRowView dr = dv[0];
+                            if (dr != null)
+                            {
+                                object o = dr["SortOrder"];
+                                if (int.TryParse(o.ToString(), out sortOrder))
+                                    sortOrder++;
+                            }
+                        }
+                    }
+                }
+                                
 				do
 				{
 					string line = file.ReadLine();
@@ -108,8 +129,11 @@ namespace YAF.Pages.Admin
 
 					string [] lineSplit = System.Text.RegularExpressions.Regex.Split( line, split, System.Text.RegularExpressions.RegexOptions.None );
 
-					if ( lineSplit.Length == 3 )
-						YAF.Classes.Data.DB.smiley_save( null, PageContext.PageBoardID, lineSplit [2], lineSplit [0], lineSplit [1], 0, 0 );
+                    if (lineSplit.Length == 3)
+                    {
+                        YAF.Classes.Data.DB.smiley_save(null, PageContext.PageBoardID, lineSplit[2], lineSplit[0], lineSplit[1], sortOrder, 0);
+                        sortOrder++;
+                    }
 
 				} while ( true );
 

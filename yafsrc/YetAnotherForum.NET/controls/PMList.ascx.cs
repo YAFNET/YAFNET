@@ -38,12 +38,12 @@ namespace YAF.Controls
 
 	public partial class PMList : YAF.Classes.Core.BaseUserControl
 	{
-		protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Load( object sender, EventArgs e )
 		{
-			if (ViewState["SortField"] == null)
-				SetSort("Created", false);
+			if ( ViewState["SortField"] == null )
+				SetSort( "Created", false );
 
-			if (!IsPostBack)
+			if ( !IsPostBack )
 			{
 				// setup pager...
 				MessagesView.AllowPaging = true;
@@ -65,13 +65,13 @@ namespace YAF.Controls
 		/// <summary>
 		/// Gets or sets the current view for the user's private messages.
 		/// </summary>
-		[Category("Behavior")]
-		[Description("Gets or sets the current view for the user's private messages.")]
+		[Category( "Behavior" )]
+		[Description( "Gets or sets the current view for the user's private messages." )]
 		public PMView View
 		{
 			get
 			{
-				if (ViewState["View"] != null)
+				if ( ViewState["View"] != null )
 					return (PMView)ViewState["View"];
 				else
 					return PMView.Inbox;
@@ -81,31 +81,31 @@ namespace YAF.Controls
 
 		protected string GetTitle()
 		{
-			if (View == PMView.Outbox)
-				return GetLocalizedText("SENTITEMS");
-			else if (View == PMView.Inbox)
-				return GetLocalizedText("INBOX");
+			if ( View == PMView.Outbox )
+				return GetLocalizedText( "SENTITEMS" );
+			else if ( View == PMView.Inbox )
+				return GetLocalizedText( "INBOX" );
 			else
-				return GetLocalizedText("ARCHIVE");
+				return GetLocalizedText( "ARCHIVE" );
 		}
 
-		protected string GetLocalizedText(string text)
+		protected string GetLocalizedText( string text )
 		{
-			return HtmlEncode(PageContext.Localization.GetText(text));
+			return HtmlEncode( PageContext.Localization.GetText( text ) );
 		}
 
 		protected string GetMessageUserHeader()
 		{
-			return GetLocalizedText(View == PMView.Outbox ? "to" : "from");
+			return GetLocalizedText( View == PMView.Outbox ? "to" : "from" );
 		}
 
-		protected string GetMessageLink(object messageId)
+		protected string GetMessageLink( object messageId )
 		{
-			return YafBuildLink.GetLink(ForumPages.cp_message, "pm={0}&v={1}", messageId,
-										 PMViewConverter.ToQueryStringParam(View));
+			return YafBuildLink.GetLink( ForumPages.cp_message, "pm={0}&v={1}", messageId,
+										 PMViewConverter.ToQueryStringParam( View ) );
 		}
 
-		protected string FormatBody(object o)
+		protected string FormatBody( object o )
 		{
 			DataRowView row = (DataRowView)o;
 			return (string)row["Body"];
@@ -115,20 +115,20 @@ namespace YAF.Controls
 		{
 			object toUserID = null;
 			object fromUserID = null;
-			if (View == PMView.Outbox)
+			if ( View == PMView.Outbox )
 				fromUserID = PageContext.PageUserID;
 			else
 				toUserID = PageContext.PageUserID;
-			using (DataView dv = DB.pmessage_list(toUserID, fromUserID, null).DefaultView)
+			using ( DataView dv = DB.pmessage_list( toUserID, fromUserID, null ).DefaultView )
 			{
 				if ( View == PMView.Inbox )
 					dv.RowFilter = "IsDeleted = False AND IsArchived = False";
-				else if (View == PMView.Outbox)
+				else if ( View == PMView.Outbox )
 					dv.RowFilter = "IsInOutbox = True";
-				else if (View == PMView.Archive)
+				else if ( View == PMView.Archive )
 					dv.RowFilter = "IsArchived = True";
 
-				dv.Sort = String.Format("{0} {1}", ViewState["SortField"], (bool)ViewState["SortAsc"] ? "asc" : "desc");
+				dv.Sort = String.Format( "{0} {1}", ViewState["SortField"], (bool)ViewState["SortAsc"] ? "asc" : "desc" );
 
 				PagerTop.Count = dv.Count;
 
@@ -138,63 +138,145 @@ namespace YAF.Controls
 			}
 		}
 
-		protected void ArchiveSelected_Click(object source, EventArgs e)
+		protected void ArchiveSelected_Click( object source, EventArgs e )
 		{
-			if (this.View != PMView.Inbox)
+			if ( this.View != PMView.Inbox )
 				return;
 
 			long archivedCount = 0;
-			foreach (GridViewRow item in MessagesView.Rows)
+			foreach ( GridViewRow item in MessagesView.Rows )
 			{
-				if (((CheckBox)item.FindControl("ItemCheck")).Checked)
+				if ( ( (CheckBox)item.FindControl( "ItemCheck" ) ).Checked )
 				{
-					DB.pmessage_archive(MessagesView.DataKeys[item.RowIndex].Value);
+					DB.pmessage_archive( MessagesView.DataKeys[item.RowIndex].Value );
 					archivedCount++;
 				}
 			}
 
 			BindData();
 
-			if (archivedCount == 1)
-				PageContext.AddLoadMessage(PageContext.Localization.GetText("MSG_ARCHIVED"));
+			if ( archivedCount == 1 )
+				PageContext.AddLoadMessage( PageContext.Localization.GetText( "MSG_ARCHIVED" ) );
 			else
-				PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("MSG_ARCHIVED+"), archivedCount));
+				PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "MSG_ARCHIVED+" ), archivedCount ) );
 		}
 
-		protected void DeleteSelected_Click(object source, EventArgs e)
+		protected void ArchiveAll_Click( object source, EventArgs e )
+		{
+			if ( this.View != PMView.Inbox )
+				return;
+
+			long archivedCount = 0;
+			using ( DataView dv = DB.pmessage_list( PageContext.PageUserID, null, null ).DefaultView )
+			{
+				dv.RowFilter = "IsDeleted = False AND IsArchived = False";
+
+				foreach ( DataRowView item in dv )
+				{
+					DB.pmessage_archive( item["UserPMessageID"] );
+					archivedCount++;
+				}
+			}
+
+			BindData();
+			PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "MSG_ARCHIVED+" ), archivedCount ) );
+		}
+
+		protected void MarkAsRead_Click( object source, EventArgs e )
+		{
+			if ( this.View == PMView.Outbox )
+				return;
+
+			using ( DataView dv = DB.pmessage_list( PageContext.PageUserID, null, null ).DefaultView )
+			{
+				if ( View == PMView.Inbox )
+					dv.RowFilter = "IsRead = False AND IsDeleted = False AND IsArchived = False";
+				else if ( View == PMView.Archive )
+					dv.RowFilter = "IsRead = False AND IsArchived = True";
+
+				foreach ( DataRowView item in dv )
+				{
+					DB.pmessage_markread( item["UserPMessageID"] );
+				}
+			}
+
+			BindData();
+		}
+
+		protected void DeleteSelected_Click( object source, EventArgs e )
 		{
 			long nItemCount = 0;
-			foreach (GridViewRow item in MessagesView.Rows)
+			foreach ( GridViewRow item in MessagesView.Rows )
 			{
-				if (((CheckBox)item.FindControl("ItemCheck")).Checked)
+				if ( ( (CheckBox)item.FindControl( "ItemCheck" ) ).Checked )
 				{
-					if (View == PMView.Outbox)
-						DB.pmessage_delete(MessagesView.DataKeys[item.RowIndex].Value, true);
+					if ( View == PMView.Outbox )
+						DB.pmessage_delete( MessagesView.DataKeys[item.RowIndex].Value, true );
 					else
-						DB.pmessage_delete(MessagesView.DataKeys[item.RowIndex].Value);
+						DB.pmessage_delete( MessagesView.DataKeys[item.RowIndex].Value );
 					nItemCount++;
 				}
 			}
 
 			BindData();
-			if (nItemCount == 1)
-				PageContext.AddLoadMessage(PageContext.Localization.GetText("msgdeleted1"));
+			if ( nItemCount == 1 )
+				PageContext.AddLoadMessage( PageContext.Localization.GetText( "msgdeleted1" ) );
 			else
 				PageContext.AddLoadMessage(
-					PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));
+					PageContext.Localization.GetTextFormatted( "msgdeleted2", nItemCount ) );
 		}
 
-		protected string GetImage(object o)
+		protected void DeleteAll_Click( object source, EventArgs e )
 		{
-			if (SqlDataLayerConverter.VerifyBool(((DataRowView)o)["IsRead"]))
-				return PageContext.Theme.GetItem("ICONS", "TOPIC");
+			long nItemCount = 0;
+
+			object toUserID = null;
+			object fromUserID = null;
+			bool isoutbox = false;
+
+			if ( View == PMView.Outbox )
+			{
+				fromUserID = PageContext.PageUserID;
+				isoutbox = true;
+			}
 			else
-				return PageContext.Theme.GetItem("ICONS", "TOPIC_NEW");
+				toUserID = PageContext.PageUserID;
+
+			using ( DataView dv = DB.pmessage_list( toUserID, fromUserID, null ).DefaultView )
+			{
+				if ( View == PMView.Inbox )
+					dv.RowFilter = "IsDeleted = False AND IsArchived = False";
+				else if ( View == PMView.Outbox )
+					dv.RowFilter = "IsInOutbox = True";
+				else if ( View == PMView.Archive )
+					dv.RowFilter = "IsArchived = True";
+
+				foreach ( DataRowView item in dv )
+				{
+					if ( isoutbox )
+						DB.pmessage_delete( item["UserPMessageID"], true );
+					else
+						DB.pmessage_delete( item["UserPMessageID"] );
+					nItemCount++;
+				}
+			}
+
+			BindData();
+			PageContext.AddLoadMessage(
+					PageContext.Localization.GetTextFormatted( "msgdeleted2", nItemCount ) );
 		}
 
-		private void SetSort(string field, bool asc)
+		protected string GetImage( object o )
 		{
-			if (ViewState["SortField"] != null && (string)ViewState["SortField"] == field)
+			if ( SqlDataLayerConverter.VerifyBool( ( (DataRowView)o )["IsRead"] ) )
+				return PageContext.Theme.GetItem( "ICONS", "TOPIC" );
+			else
+				return PageContext.Theme.GetItem( "ICONS", "TOPIC_NEW" );
+		}
+
+		private void SetSort( string field, bool asc )
+		{
+			if ( ViewState["SortField"] != null && (string)ViewState["SortField"] == field )
 			{
 				ViewState["SortAsc"] = !(bool)ViewState["SortAsc"];
 			}
@@ -205,70 +287,80 @@ namespace YAF.Controls
 			}
 		}
 
-		protected void SubjectLink_Click(object sender, EventArgs e)
+		protected void SubjectLink_Click( object sender, EventArgs e )
 		{
-			SetSort("Subject", true);
+			SetSort( "Subject", true );
 			BindData();
 		}
 
-		protected void FromLink_Click(object sender, EventArgs e)
+		protected void FromLink_Click( object sender, EventArgs e )
 		{
-			if (View == PMView.Outbox)
-				SetSort("ToUser", true);
+			if ( View == PMView.Outbox )
+				SetSort( "ToUser", true );
 			else
-				SetSort("FromUser", true);
+				SetSort( "FromUser", true );
 			BindData();
 		}
 
-		protected void DateLink_Click(object sender, EventArgs e)
+		protected void DateLink_Click( object sender, EventArgs e )
 		{
-			SetSort("Created", false);
+			SetSort( "Created", false );
 			BindData();
 		}
 
-		protected void DeleteSelected_Load(object sender, EventArgs e)
+		protected void ArchiveAll_Load( object sender, EventArgs e )
 		{
-			((ThemeButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", PageContext.Localization.GetText("confirm_delete"));
+			( (ThemeButton)sender ).Attributes["onclick"] = String.Format( "return confirm('{0}')", PageContext.Localization.GetText( "CONFIRM_ARCHIVEALL" ) );
 		}
 
-		protected void MessagesView_RowCreated(object sender, GridViewRowEventArgs e)
+		protected void DeleteSelected_Load( object sender, EventArgs e )
 		{
-			if (e.Row.RowType == DataControlRowType.Header)
+			( (ThemeButton)sender ).Attributes["onclick"] = String.Format( "return confirm('{0}')", PageContext.Localization.GetText( "CONFIRM_DELETE" ) );
+		}
+
+		protected void DeleteAll_Load( object sender, EventArgs e )
+		{
+			( (ThemeButton)sender ).Attributes["onclick"] = String.Format( "return confirm('{0}')", PageContext.Localization.GetText( "CONFIRM_DELETEALL" ) );
+		}
+
+		protected void MessagesView_RowCreated( object sender, GridViewRowEventArgs e )
+		{
+			if ( e.Row.RowType == DataControlRowType.Header )
 			{
 				GridView oGridView = (GridView)sender;
-				GridViewRow oGridViewRow = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Insert);
+				GridViewRow oGridViewRow = new GridViewRow( 0, 0, DataControlRowType.Header, DataControlRowState.Insert );
 				TableCell oTableCell = new TableCell();
 
 				// Add Header to top with column span of 5... no need for two tables.
 				oTableCell.Text = GetTitle();
 				oTableCell.CssClass = "header1";
 				oTableCell.ColumnSpan = 5;
-				oGridViewRow.Cells.Add(oTableCell);
-				oGridView.Controls[0].Controls.AddAt(0, oGridViewRow);
+				oGridViewRow.Cells.Add( oTableCell );
+				oGridView.Controls[0].Controls.AddAt( 0, oGridViewRow );
 
-				Image SortFrom = (Image)e.Row.FindControl("SortFrom");
-				Image SortSubject = (Image)e.Row.FindControl("SortSubject");
-				Image SortDate = (Image)e.Row.FindControl("SortDate");
+				Image SortFrom = (Image)e.Row.FindControl( "SortFrom" );
+				Image SortSubject = (Image)e.Row.FindControl( "SortSubject" );
+				Image SortDate = (Image)e.Row.FindControl( "SortDate" );
 
-				SortFrom.Visible = (View == PMView.Outbox)
+				SortFrom.Visible = ( View == PMView.Outbox )
 									? (string)ViewState["SortField"] == "ToUser"
 									: (string)ViewState["SortField"] == "FromUser";
 				SortFrom.ImageUrl =
-					PageContext.Theme.GetItem("SORT", (bool)ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+					PageContext.Theme.GetItem( "SORT", (bool)ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING" );
 
 				SortSubject.Visible = (string)ViewState["SortField"] == "Subject";
 				SortSubject.ImageUrl =
-					PageContext.Theme.GetItem("SORT", (bool)ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+					PageContext.Theme.GetItem( "SORT", (bool)ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING" );
 
 				SortDate.Visible = (string)ViewState["SortField"] == "Created";
 				SortDate.ImageUrl =
-					PageContext.Theme.GetItem("SORT", (bool)ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+					PageContext.Theme.GetItem( "SORT", (bool)ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING" );
 			}
-			else if ( e.Row.RowType == DataControlRowType.Footer)
+			else if ( e.Row.RowType == DataControlRowType.Footer )
 			{
 				int rolCount = e.Row.Cells.Count;
 
-				for(int i=rolCount-1;i>=1;i--)
+				for ( int i=rolCount-1; i>=1; i-- )
 				{
 					e.Row.Cells.RemoveAt( i );
 				}
@@ -277,7 +369,7 @@ namespace YAF.Controls
 			}
 		}
 
-		protected void PagerTop_PageChange(object sender, EventArgs e)
+		protected void PagerTop_PageChange( object sender, EventArgs e )
 		{
 			// rebind
 			BindData();
@@ -304,13 +396,13 @@ namespace YAF.Controls
 		/// </summary>
 		/// <param name="view"></param>
 		/// <returns></returns>
-		public static string ToQueryStringParam(PMView view)
+		public static string ToQueryStringParam( PMView view )
 		{
-			if (view == PMView.Outbox)
+			if ( view == PMView.Outbox )
 				return "out";
-			else if (view == PMView.Inbox)
+			else if ( view == PMView.Inbox )
 				return "in";
-			else if (view == PMView.Archive)
+			else if ( view == PMView.Archive )
 				return "arch";
 			else
 				return null;
@@ -321,12 +413,12 @@ namespace YAF.Controls
 		/// </summary>
 		/// <param name="param"></param>
 		/// <returns></returns>
-		public static PMView FromQueryString(string param)
+		public static PMView FromQueryString( string param )
 		{
-			if (String.IsNullOrEmpty(param))
+			if ( String.IsNullOrEmpty( param ) )
 				return PMView.Inbox;
 
-			switch (param.ToLower())
+			switch ( param.ToLower() )
 			{
 				case "out":
 					return PMView.Outbox;
