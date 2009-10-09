@@ -156,7 +156,7 @@ namespace YAF.Classes.Data
 		static private IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
 		static private string _dbOwner;
 		static private string _objectQualifier;
-		private Type _connectionManagerType = typeof ( YafDBConnManager );
+		private Type _connectionManagerType = typeof( YafDBConnManager );
 
 		public static YafDBAccess Current
 		{
@@ -168,7 +168,7 @@ namespace YAF.Classes.Data
 
 		public YafDBConnManager GetConnectionManager()
 		{
-			return (YafDBConnManager) Activator.CreateInstance( _connectionManagerType );
+			return (YafDBConnManager)Activator.CreateInstance( _connectionManagerType );
 		}
 
 		/// <summary>
@@ -176,7 +176,7 @@ namespace YAF.Classes.Data
 		/// </summary>
 		public void SetConnectionManagerAdapter<T>()
 		{
-			Type newConnectionManager = typeof ( T );
+			Type newConnectionManager = typeof( T );
 
 			if ( newConnectionManager.BaseType == typeof( YafDBConnManager ) )
 			{
@@ -232,71 +232,102 @@ namespace YAF.Classes.Data
 							name
 							);
 		}
-        public static string GetConnectionString( 
-            string parm1,
-            string parm2,
-            string parm3,
-            string parm4,
-            string parm5,
-            string parm6,
-            string parm7,
-            string parm8,
-            string parm9,
-            string parm10,
-            bool parm11,
-            bool parm12,
-            bool parm13,
-            bool parm14,
-            bool parm15,
-            bool parm16,
-            bool parm17,
-            bool parm18,
-            bool parm19,
-            string userID, 
-            string userPassword )
-        {
 
-            SqlConnectionStringBuilder connBuilder = new SqlConnectionStringBuilder();
+		/// <summary>
+		/// Creates a Connection String from the parameters. 
+		/// </summary>
+		/// <param name="parm1"></param>
+		/// <param name="parm2"></param>
+		/// <param name="parm3"></param>
+		/// <param name="parm4"></param>
+		/// <param name="parm5"></param>
+		/// <param name="parm6"></param>
+		/// <param name="parm7"></param>
+		/// <param name="parm8"></param>
+		/// <param name="parm9"></param>
+		/// <param name="parm10"></param>
+		/// <param name="parm11"></param>
+		/// <param name="parm12"></param>
+		/// <param name="parm13"></param>
+		/// <param name="parm14"></param>
+		/// <param name="parm15"></param>
+		/// <param name="parm16"></param>
+		/// <param name="parm17"></param>
+		/// <param name="parm18"></param>
+		/// <param name="parm19"></param>
+		/// <param name="userID"></param>
+		/// <param name="userPassword"></param>
+		/// <returns></returns>
+		public static string GetConnectionString(
+				string parm1,
+				string parm2,
+				string parm3,
+				string parm4,
+				string parm5,
+				string parm6,
+				string parm7,
+				string parm8,
+				string parm9,
+				string parm10,
+				bool parm11,
+				bool parm12,
+				bool parm13,
+				bool parm14,
+				bool parm15,
+				bool parm16,
+				bool parm17,
+				bool parm18,
+				bool parm19,
+				string userID,
+				string userPassword )
+		{
+			// TODO: Parameters should be in a List<ConnectionParameters>
+			SqlConnectionStringBuilder connBuilder = new SqlConnectionStringBuilder();
 
-            connBuilder.DataSource = parm1;
-            connBuilder.InitialCatalog = parm2;
+			connBuilder.DataSource = parm1;
+			connBuilder.InitialCatalog = parm2;
 
-            if (parm11)
-            {
-                connBuilder.IntegratedSecurity = parm11;
-            }
-            else
-            {
-                connBuilder.UserID = userID;
-                connBuilder.Password = userPassword;
-            }
+			if ( parm11 )
+			{
+				connBuilder.IntegratedSecurity = true;
+			}
+			else
+			{
+				connBuilder.UserID = userID;
+				connBuilder.Password = userPassword;
+			}
 
-            return connBuilder.ConnectionString;
-            
-        }
-        public static bool TestConnection(ref string exceptionMessage)
-        {
-            bool success = false;
+			return connBuilder.ConnectionString;
+		}
 
-            try
-            {
-                using (YafDBConnManager connection = YafDBAccess.Current.GetConnectionManager())
-                {
-                    // attempt to connect to the db...
-                    SqlConnection conn = connection.OpenDBConnection;
-                }
+		/// <summary>
+		/// Test the DB Connection.
+		/// </summary>
+		/// <param name="exceptionMessage">outbound ExceptionMessage</param>
+		/// <returns>true if successfully connected</returns>
+		public static bool TestConnection( out string exceptionMessage )
+		{
+			bool success = false;
 
-                // success
-                success = true;
-            }
-            catch (Exception x)
-            {
-                // unable to connect...
-                exceptionMessage = x.Message;
-            }
+			try
+			{
+				using ( YafDBConnManager connection = YafDBAccess.Current.GetConnectionManager() )
+				{
+					// attempt to connect to the db...
+					SqlConnection conn = connection.OpenDBConnection;
+				}
 
-            return success;
-        }
+				// success
+				success = true;
+			}
+			catch ( Exception x )
+			{
+				// unable to connect...
+				exceptionMessage = x.Message;
+			}
+
+			return success;
+		}
 		/// <summary>
 		/// Creates new SqlCommand based on command text applying all qualifiers to the name.
 		/// </summary>
@@ -458,7 +489,7 @@ namespace YAF.Classes.Data
 
 			try
 			{
-				return GetDatasetBasic( cmd, transaction ).Tables [0];
+				return GetDatasetBasic( cmd, transaction ).Tables[0];
 			}
 			finally
 			{
@@ -485,7 +516,7 @@ namespace YAF.Classes.Data
 				{
 					cmd.CommandType = CommandType.Text;
 					cmd.CommandText = commandText;
-					return GetDatasetBasic( cmd, transaction ).Tables [0];
+					return GetDatasetBasic( cmd, transaction ).Tables[0];
 				}
 			}
 			finally
@@ -592,32 +623,32 @@ namespace YAF.Classes.Data
 
 		public string AsString( string columnName )
 		{
-			if ( _dbRow [columnName] == DBNull.Value ) return null;
-			return _dbRow [columnName].ToString();
+			if ( _dbRow[columnName] == DBNull.Value ) return null;
+			return _dbRow[columnName].ToString();
 		}
 
 		public bool AsBool( string columnName )
 		{
-			if ( _dbRow [columnName] == DBNull.Value ) return false;
-			return Convert.ToBoolean( _dbRow [columnName] );
+			if ( _dbRow[columnName] == DBNull.Value ) return false;
+			return Convert.ToBoolean( _dbRow[columnName] );
 		}
 
 		public DateTime? AsDateTime( string columnName )
 		{
-			if ( _dbRow [columnName] == DBNull.Value ) return null;
-			return Convert.ToDateTime( _dbRow [columnName] );
+			if ( _dbRow[columnName] == DBNull.Value ) return null;
+			return Convert.ToDateTime( _dbRow[columnName] );
 		}
 
 		public int? AsInt32( string columnName )
 		{
-			if ( _dbRow [columnName] == DBNull.Value ) return null;
-			return Convert.ToInt32( _dbRow [columnName] );
+			if ( _dbRow[columnName] == DBNull.Value ) return null;
+			return Convert.ToInt32( _dbRow[columnName] );
 		}
 
 		public long? AsInt64( string columnName )
 		{
-			if ( _dbRow [columnName] == DBNull.Value ) return null;
-			return Convert.ToInt64( _dbRow [columnName] );
+			if ( _dbRow[columnName] == DBNull.Value ) return null;
+			return Convert.ToInt64( _dbRow[columnName] );
 		}
 	}
 
