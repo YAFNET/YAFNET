@@ -31,6 +31,7 @@ using System.Security.Cryptography;
 using System.Data;
 using System.Data.SqlClient;
 using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Data;
 using YAF.Classes.Pattern;
 
@@ -42,9 +43,9 @@ namespace YAF.Providers.Roles
 		{
 			get
 			{
-				if ( HttpContext.Current.Application[YafRoleProvider.ConnStrAppKeyName] != null )
+				if ( YafContext.Application[YafRoleProvider.ConnStrAppKeyName] != null )
 				{
-					return HttpContext.Current.Application[YafRoleProvider.ConnStrAppKeyName] as string;
+					return YafContext.Application[YafRoleProvider.ConnStrAppKeyName] as string;
 				}
 
 				return Config.ConnectionString;

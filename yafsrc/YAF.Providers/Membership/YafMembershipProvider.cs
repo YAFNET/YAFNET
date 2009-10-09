@@ -30,6 +30,7 @@ using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using System.Data;
 using System.Globalization;
+using YAF.Classes.Core;
 using YAF.Providers.Utils;
 
 namespace YAF.Providers.Membership
@@ -503,13 +504,13 @@ namespace YAF.Providers.Membership
 				string connStr = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
 
 				// set the app variable...
-				if ( HttpContext.Current.Application[ConnStrAppKeyName] == null )
+				if ( YafContext.Application[ConnStrAppKeyName] == null )
 				{
-					HttpContext.Current.Application.Add(ConnStrAppKeyName, connStr );
+					YafContext.Application.Add(ConnStrAppKeyName, connStr );
 				}
 				else
 				{
-					HttpContext.Current.Application[ConnStrAppKeyName] = connStr;
+					YafContext.Application[ConnStrAppKeyName] = connStr;
 				}
 			}
 

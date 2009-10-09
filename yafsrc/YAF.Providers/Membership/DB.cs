@@ -34,9 +34,10 @@ namespace YAF.Providers.Membership
 		{
 			get
 			{
-				if ( HttpContext.Current.Application[YafMembershipProvider.ConnStrAppKeyName] != null )
+
+				if ( YafContext.Application[YafMembershipProvider.ConnStrAppKeyName] != null )
 				{
-					return HttpContext.Current.Application[YafMembershipProvider.ConnStrAppKeyName] as string;
+					return YafContext.Application[YafMembershipProvider.ConnStrAppKeyName] as string;
 				}
 
 				return Config.ConnectionString;

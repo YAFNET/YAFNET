@@ -104,9 +104,9 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				if ( HttpContext.Current.Application[_moduleAppName] != null )
+				if ( YafContext.Application[_moduleAppName] != null )
 				{
-					return HttpContext.Current.Application[_moduleAppName] as YafTaskModule;
+					return YafContext.Application[_moduleAppName] as YafTaskModule;
 				}
 
 				return null;

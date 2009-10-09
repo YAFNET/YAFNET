@@ -22,6 +22,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using YAF.Classes;
+using YAF.Classes.Core;
 using YAF.Classes.Data;
 using YAF.Classes.Pattern;
 
@@ -33,9 +34,9 @@ namespace YAF.Providers.Profile
 		{
 			get
 			{
-				if ( HttpContext.Current.Application[YafProfileProvider.ConnStrAppKeyName] != null )
+				if ( YafContext.Application[YafProfileProvider.ConnStrAppKeyName] != null )
 				{
-					return HttpContext.Current.Application[YafProfileProvider.ConnStrAppKeyName] as string;
+					return YafContext.Application[YafProfileProvider.ConnStrAppKeyName] as string;
 				}
 
 				return Config.ConnectionString;

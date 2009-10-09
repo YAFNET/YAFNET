@@ -125,8 +125,10 @@ namespace YAF.Classes.Core
 
 		virtual public void Run()
 		{
-			IsRunning = true;
+			YafContext.Application = AppContext.Application;
 
+			IsRunning = true;
+			
 			RunOnce();
 
 			IsRunning = false;
@@ -185,6 +187,8 @@ namespace YAF.Classes.Core
 		{
 			if ( !IsRunning )
 			{
+				YafContext.Application = AppContext.Application;
+
 				// we're running this thread now...
 				IsRunning = true;
 

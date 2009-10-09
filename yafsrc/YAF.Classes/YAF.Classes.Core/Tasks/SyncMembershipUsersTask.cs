@@ -26,9 +26,9 @@ namespace YAF.Classes.Core
 	/// <summary>
 	/// Run when we want to do migration of users in the background...
 	/// </summary>
-	public class MigrateUsersTask : LongBackgroundTask
+	public class SyncMembershipUsersTask : LongBackgroundTask
 	{
-		private const string _taskName = "MigrateUsersTask";
+		private const string _taskName = "SyncMembershipUsersTask";
 		public static string TaskName
 		{
 			get
@@ -37,7 +37,7 @@ namespace YAF.Classes.Core
 			}
 		}
 
-		public MigrateUsersTask()
+		public SyncMembershipUsersTask()
 		{
 			
 		}
@@ -48,7 +48,7 @@ namespace YAF.Classes.Core
 
 			if ( !YafTaskModule.Current.TaskManager.ContainsKey( TaskName ) )
 			{
-				MigrateUsersTask task = new MigrateUsersTask {BoardID = boardId};
+				SyncMembershipUsersTask task = new SyncMembershipUsersTask { BoardID = boardId };
 				YafTaskModule.Current.StartTask( TaskName, task );
 			}
 
@@ -57,14 +57,14 @@ namespace YAF.Classes.Core
 
 		public override void RunOnce()
 		{
-			try
+			//try
 			{
-				// attempt to run the migration code...
-				RoleMembershipHelper.SyncUsers( BoardID );
+				// attempt to run the sync code...
+				RoleMembershipHelper.SyncAllMembershipUsers( BoardID );
 			}
-			catch(Exception x)
+			//catch(Exception x)
 			{
-				DB.eventlog_create( null, TaskName, String.Format( "Error In MigrateUsers Task: {0}", x.Message ) );
+				//DB.eventlog_create( null, TaskName, String.Format( "Error In SyncMembershipUsers Task: {0}", x.Message ) );
 			}
 		}
 	}

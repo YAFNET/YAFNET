@@ -18,9 +18,11 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading;
 using System.Web;
+using System.Linq;
 using System.Web.Security;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
@@ -261,6 +263,21 @@ namespace YAF.Classes.Core
 				}
 						*/
 			}
+		}
+
+		/// <summary>
+		/// Goes through every membership user and manually "syncs" them to the forum.
+		/// Best for an existing membership structure -- will migrate all users at once 
+		/// rather then one at a time...
+		/// </summary>
+		public static void SyncAllMembershipUsers(int pageBoardId)
+		{
+			int totalRecords;
+
+			// get all users in membership...
+			List<MembershipUser> users = YafContext.Current.CurrentMembership.GetAllUsers( 0, 999999, out totalRecords ).Cast<MembershipUser>().ToList();
+			// create/update users...
+			users.ForEach( a => UpdateForumUser( a, pageBoardId ) );
 		}
 
 		/// <summary>

@@ -61,7 +61,7 @@ namespace YAF.Classes.Data
         {
             get
             {
-                return "(localhost)";
+                return "(local)";
             }
         }
 

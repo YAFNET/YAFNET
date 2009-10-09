@@ -36,6 +36,7 @@ namespace YAF.Classes.Core
 		protected SingleClassInstanceFactory _singleInstanceFactory = new SingleClassInstanceFactory();
 		protected TypeDictionary _variables = new TypeDictionary();
 		protected ContextVariableRepository _repository;
+		protected static HttpApplicationState _application = null;
 		protected ForumPage _currentForumPage = null;
 
 		/// <summary>
@@ -122,6 +123,39 @@ namespace YAF.Classes.Core
 			get
 			{
 				return PageSingleton<YafContext>.Instance;
+			}
+		}
+
+		/// <summary>
+		/// Get the instance of the Http Context if available
+		/// </summary>
+		public static HttpContext HttpContext
+		{
+			get
+			{
+				return HttpContext.Current ?? null;
+			}
+		}
+
+		/// <summary>
+		/// Get/set the current state of the Http Application.
+		/// Defaults to HttpContext.Current.Application. If not available
+		/// pulls from application variable.
+		/// </summary>
+		public static HttpApplicationState Application
+		{
+			get
+			{
+				if ( HttpContext.Current != null )
+				{
+					return HttpContext.Current.Application;
+				}
+
+				return _application;
+			}
+			set
+			{
+				_application = value;
 			}
 		}
 
@@ -409,21 +443,21 @@ namespace YAF.Classes.Core
 			{
 				string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardSettings);
 
-				if (HttpContext.Current.Application[key] == null)
-					HttpContext.Current.Application[key] = new YafLoadBoardSettings(PageBoardID);
+				if (YafContext.Application[key] == null)
+					YafContext.Application[key] = new YafLoadBoardSettings(PageBoardID);
 
-				return (YafBoardSettings)HttpContext.Current.Application[key];
+				return (YafBoardSettings)YafContext.Application[key];
 			}
 			set
 			{
 				string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardSettings);
 
 				if (value == null)
-					HttpContext.Current.Application.Remove(key);
+					YafContext.Application.Remove(key);
 				else
 				{
 					// set the updated board settings...	
-					HttpContext.Current.Application[key] = value;
+					YafContext.Application[key] = value;
 				}
 			}
 		}

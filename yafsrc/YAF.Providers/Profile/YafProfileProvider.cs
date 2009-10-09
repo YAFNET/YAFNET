@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using System.Configuration;
+using YAF.Classes.Core;
 using YAF.Providers.Utils;
 
 namespace YAF.Providers.Profile
@@ -120,13 +121,13 @@ namespace YAF.Providers.Profile
 				string connStr = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
 
 				// set the app variable...
-				if ( HttpContext.Current.Application[ConnStrAppKeyName] == null )
+				if ( YafContext.Application[ConnStrAppKeyName] == null )
 				{
-					HttpContext.Current.Application.Add( ConnStrAppKeyName, connStr );
+					YafContext.Application.Add( ConnStrAppKeyName, connStr );
 				}
 				else
 				{
-					HttpContext.Current.Application[ConnStrAppKeyName] = connStr;
+					YafContext.Application[ConnStrAppKeyName] = connStr;
 				}
 			}
 

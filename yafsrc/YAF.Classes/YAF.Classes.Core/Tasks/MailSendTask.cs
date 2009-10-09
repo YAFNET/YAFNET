@@ -45,7 +45,7 @@ namespace YAF.Modules
 		public void Init()
 		{
 			// hook the page init for mail sending...
-			YafContext.Current.AfterInit +=new EventHandler<EventArgs>( Current_AfterInit );
+			YafContext.Current.AfterInit += new EventHandler<EventArgs>( Current_AfterInit );
 
 		}
 

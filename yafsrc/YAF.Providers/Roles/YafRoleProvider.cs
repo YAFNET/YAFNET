@@ -63,13 +63,13 @@ namespace YAF.Providers.Roles
 				string key = GenerateCacheKey( "UserRoleDictionary" );
 
 				// get the roles collection...
-				Dictionary<string, StringCollection> userRoleDic = System.Web.HttpContext.Current.Cache [key] as Dictionary<string, StringCollection>;
+				Dictionary<string, StringCollection> userRoleDic = YafContext.Current.Cache [key] as Dictionary<string, StringCollection>;
 
 				if ( userRoleDic == null )
 				{
 					// make sure it exists in the cache...
 					userRoleDic = new Dictionary<string, StringCollection>();
-					System.Web.HttpContext.Current.Cache [key] = userRoleDic;
+					YafContext.Current.Cache [key] = userRoleDic;
 				}
 
 				return userRoleDic;
@@ -87,7 +87,7 @@ namespace YAF.Providers.Roles
 		private void ClearUserRoleCache()
 		{
 			string key = GenerateCacheKey( "UserRoleDictionary" );
-			HttpContext.Current.Cache.Remove( key );
+			YafContext.Current.Cache.Remove( key );
 		}
 
 		private string GenerateCacheKey( string name )
@@ -117,13 +117,13 @@ namespace YAF.Providers.Roles
 				string connStr = ConfigurationManager.ConnectionStrings[_connStrName].ConnectionString;
 
 				// set the app variable...
-				if ( HttpContext.Current.Application[ConnStrAppKeyName] == null )
+				if ( YafContext.Application[ConnStrAppKeyName] == null )
 				{
-					HttpContext.Current.Application.Add( ConnStrAppKeyName, connStr );
+					YafContext.Application.Add( ConnStrAppKeyName, connStr );
 				}
 				else
 				{
-					HttpContext.Current.Application[ConnStrAppKeyName] = connStr;
+					YafContext.Application[ConnStrAppKeyName] = connStr;
 				}
 			}
 
