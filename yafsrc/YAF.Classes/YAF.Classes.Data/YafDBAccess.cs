@@ -307,6 +307,7 @@ namespace YAF.Classes.Data
 		/// <returns>true if successfully connected</returns>
 		public static bool TestConnection( out string exceptionMessage )
 		{
+			exceptionMessage = string.Empty;
 			bool success = false;
 
 			try
