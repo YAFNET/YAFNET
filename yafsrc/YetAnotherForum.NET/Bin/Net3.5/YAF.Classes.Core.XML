@@ -197,6 +197,17 @@
             True if board is private (20050909 CHP)
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.ContextVariableRepository">
+            <summary>
+            Place to put helper properties for context variables inside.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ContextVariableRepository.IsSuspendCheckEnabled">
+            <summary>
+            Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
+            Setting to false effectively disables suspend checking.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssBlock(System.Web.UI.Control,System.String,System.String)">
             <summary>
             Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
@@ -1023,6 +1034,18 @@
             Get the instance of the Forum Context
             </summary>
         </member>
+        <member name="P:YAF.Classes.Core.YafContext.HttpContext">
+            <summary>
+            Get the instance of the Http Context if available
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafContext.Application">
+            <summary>
+            Get/set the current state of the Http Application.
+            Defaults to HttpContext.Current.Application. If not available
+            pulls from application variable.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Core.YafContext.InstanceFactory">
             <summary>
             Provides access to the YafContext Per-Instance Class Factory
@@ -1153,6 +1176,13 @@
             </summary>
             <param name="pageBoardID"></param>
         </member>
+        <member name="M:YAF.Classes.Core.RoleMembershipHelper.SyncAllMembershipUsers(System.Int32)">
+            <summary>
+            Goes through every membership user and manually "syncs" them to the forum.
+            Best for an existing membership structure -- will migrate all users at once 
+            rather then one at a time...
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.RoleMembershipHelper.CreateForumUser(System.Web.Security.MembershipUser,System.Int32)">
             <summary>
             Creates the user in the YAF DB from the ASP.NET Membership user information.
@@ -1209,15 +1239,9 @@
             What section of the xml is used to translate this page
             </summary>
         </member>
-        <member name="T:YAF.Classes.Core.ContextVariableRepository">
+        <member name="T:YAF.Classes.Core.SyncMembershipUsersTask">
             <summary>
-            Place to put helper properties for context variables inside.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ContextVariableRepository.IsSuspendCheckEnabled">
-            <summary>
-            Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
-            Setting to false effectively disables suspend checking.
+            Run when we want to do migration of users in the background...
             </summary>
         </member>
     </members>

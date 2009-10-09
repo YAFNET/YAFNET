@@ -156,6 +156,40 @@
             <param name="name">Base name of an object</param>
             <returns>Returns qualified object name of format {databaseOwner}.{objectQualifier}name</returns>
         </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionString(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.String)">
+            <summary>
+            Creates a Connection String from the parameters. 
+            </summary>
+            <param name="parm1"></param>
+            <param name="parm2"></param>
+            <param name="parm3"></param>
+            <param name="parm4"></param>
+            <param name="parm5"></param>
+            <param name="parm6"></param>
+            <param name="parm7"></param>
+            <param name="parm8"></param>
+            <param name="parm9"></param>
+            <param name="parm10"></param>
+            <param name="parm11"></param>
+            <param name="parm12"></param>
+            <param name="parm13"></param>
+            <param name="parm14"></param>
+            <param name="parm15"></param>
+            <param name="parm16"></param>
+            <param name="parm17"></param>
+            <param name="parm18"></param>
+            <param name="parm19"></param>
+            <param name="userID"></param>
+            <param name="userPassword"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.TestConnection(System.String@)">
+            <summary>
+            Test the DB Connection.
+            </summary>
+            <param name="exceptionMessage">outbound ExceptionMessage</param>
+            <returns>true if successfully connected</returns>
+        </member>
         <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Boolean)">
             <summary>
             Creates new SqlCommand based on command text applying all qualifiers to the name.
