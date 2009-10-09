@@ -42,8 +42,13 @@ namespace YAF.Pages.Admin
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
+			PageContext.PageElements.RegisterJQuery();
+			PageContext.PageElements.RegisterJsResourceInclude( "blockUIJs", "js/jquery.blockUI.js" );
+
 			if ( !IsPostBack )
 			{
+				LoadingImage.ImageUrl = YafForumInfo.GetURLToResource( "images/loading-white.gif" );
+
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Users", "" );
@@ -170,6 +175,33 @@ namespace YAF.Pages.Admin
 		{
 			// rebind
 			BindData();
+		}
+
+		protected void SyncUsers_Click( object sender, EventArgs e )
+		{
+			// start...
+			SyncMembershipUsersTask.Start( PageContext.PageBoardID );
+			// enable timer...
+			UpdateStatusTimer.Enabled = true;
+			// show blocking ui...
+			PageContext.PageElements.RegisterJsBlockStartup( "BlockUIExecuteJs",
+																											 YAF.Utilities.JavaScriptBlocks.BlockUIExecuteJs(
+																												"SyncUsersMessage" ) );			
+		}
+
+		protected void UpdateStatusTimer_Tick( object sender, EventArgs e )
+		{
+			// see if the migration is done....
+			if ( YafTaskModule.Current.TaskManager.ContainsKey( SyncMembershipUsersTask.TaskName ) && YafTaskModule.Current.TaskManager[SyncMembershipUsersTask.TaskName].IsRunning )
+			{
+				// continue...
+				return;
+			}
+
+			UpdateStatusTimer.Enabled = false;
+
+			// done here...
+			YafBuildLink.Redirect( ForumPages.admin_users );
 		}
 	}
 }

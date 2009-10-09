@@ -148,10 +148,8 @@ namespace YAF.Install
 		{
 			YafContext.Current.PageElements.RegisterJQuery( Page.Header );
 
-
 			if ( !IsPostBack )
 			{
-
 				if ( Session["InstallWizardFinal"] != null )
 				{
 					CurrentWizardStepID = "WizFinished";
@@ -254,8 +252,6 @@ namespace YAF.Install
 					Parameter19_Value.Text = DB.Parameter19_Name;
 					Parameter19_Value.Checked = DB.Parameter19_Value;
 					Parameter19_Value.Visible = DB.Parameter19_Visible;
-
-
 				}
 			}
 		}

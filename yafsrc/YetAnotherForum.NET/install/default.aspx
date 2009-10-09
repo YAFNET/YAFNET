@@ -51,10 +51,11 @@
 		}
 		.wizMain td
 		{
-			padding: 10px;
+			padding: 10px;			
 		}
 		.wizMain
 		{
+			margin: 0 auto;
 		}
 	</style>
 </head>
@@ -70,7 +71,7 @@
 
 	<asp:ScriptManager ID="ScriptManager1" runat="server">
 	</asp:ScriptManager>
-	<div align="center" id="wizContainer">
+	<div id="wizContainer">
 		<asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="1" BackColor="#EEEEEE"
 			BorderColor="#999999" BorderWidth="1px" Font-Names="Verdana" Font-Size="9pt" Width="650px"
 			CssClass="wizMain" DisplaySideBar="False" OnActiveStepChanged="Wizard_ActiveStepChanged"
