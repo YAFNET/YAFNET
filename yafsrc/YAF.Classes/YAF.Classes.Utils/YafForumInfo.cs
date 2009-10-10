@@ -167,7 +167,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return 0x01090412;
+				return 0x01090422;
 			}
 		}
 
@@ -178,7 +178,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return new DateTime( 2009, 10, 4 );
+				return new DateTime( 2009, 10, 10 );
 			}
 		}
 		#endregion
