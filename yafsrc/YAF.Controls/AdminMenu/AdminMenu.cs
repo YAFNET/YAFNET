@@ -43,6 +43,8 @@ namespace YAF.Controls
 
 		protected override void OnLoad( EventArgs e )
 		{
+			PageContext.PageElements.RegisterJQuery();
+
 			string defFile = "YAF.Controls.AdminMenu.AdminMenuDef.xml";
 
 			// load menu definition...

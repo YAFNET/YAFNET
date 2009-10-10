@@ -124,6 +124,7 @@ namespace YAF.Classes
 		admin_reindex,
 		admin_runsql,
 		admin_taskmanager,
-        admin_test_data
+		admin_test_data,
+		admin_restartapp
 	}
 }

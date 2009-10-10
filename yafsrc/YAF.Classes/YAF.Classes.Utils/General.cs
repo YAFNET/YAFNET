@@ -117,6 +117,34 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
+		/// Gets the current ASP.NET Hosting Security Level.
+		/// </summary>
+		/// <returns></returns>
+		static public AspNetHostingPermissionLevel GetCurrentTrustLevel()
+		{
+			foreach ( AspNetHostingPermissionLevel trustLevel in
+				new AspNetHostingPermissionLevel[]
+					{
+						AspNetHostingPermissionLevel.Unrestricted, AspNetHostingPermissionLevel.High, AspNetHostingPermissionLevel.Medium,
+						AspNetHostingPermissionLevel.Low, AspNetHostingPermissionLevel.Minimal
+					} )
+			{
+				try
+				{
+					new AspNetHostingPermission( trustLevel ).Demand();
+				}
+				catch ( System.Security.SecurityException )
+				{
+					continue;
+				}
+
+				return trustLevel;
+			}
+
+			return AspNetHostingPermissionLevel.None;
+		}
+
+		/// <summary>
 		/// Compares two messages.
 		/// </summary>
 		/// <param name="originalMessage">Original message text.</param>

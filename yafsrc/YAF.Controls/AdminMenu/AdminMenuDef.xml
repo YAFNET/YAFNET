@@ -11,7 +11,7 @@
       <ForumPage>admin_boards</ForumPage>
       <Image>tables</Image>
     </YafMenuItem>
-  </YafMenuSection>
+	</YafMenuSection>
   <YafMenuSection Title="Settings" HostAdminOnly="false">
     <YafMenuItem>
       <Title>Admin Index</Title>
@@ -112,7 +112,12 @@
       <ForumPage>admin_eventlog</ForumPage>
       <Image>book-open-next</Image>
     </YafMenuItem>
-  </YafMenuSection>
+		<YafMenuItem>
+			<Title>Restart App</Title>
+			<ForumPage>admin_restartapp</ForumPage>
+			<Image>gear</Image>
+		</YafMenuItem>
+	</YafMenuSection>
   <YafMenuSection Title="Database" HostAdminOnly="false">
     <YafMenuItem>
       <Title>Reindex DB</Title>

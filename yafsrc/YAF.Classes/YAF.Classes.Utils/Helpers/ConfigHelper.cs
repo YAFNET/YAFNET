@@ -18,17 +18,74 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
+using System.Security.Permissions;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Configuration;
 
 namespace YAF.Classes.Utils
 {
 	public class ConfigHelper
 	{
+		private AspNetHostingPermissionLevel? _trustLevel = null;
+		public AspNetHostingPermissionLevel TrustLevel
+		{
+			get
+			{
+				if ( !_trustLevel.HasValue )
+				{
+					_trustLevel = General.GetCurrentTrustLevel();
+				}
+
+				return _trustLevel.Value;
+			}
+		}
+
+		public T GetConfigSection<T>( string sectionName ) where T : class
+		{
+			T section = WebConfigurationManager.GetWebApplicationSection( sectionName ) as T;
+			return section;
+		}
+
+		public NameValueCollection AppSettings
+		{
+			get
+			{
+				return WebConfigurationManager.AppSettings;
+			}
+		}
+
+		public string GetConfigValueAsString( string keyName )
+		{
+			if ( this.TrustLevel == AspNetHostingPermissionLevel.High )
+			{
+				foreach ( string key in AppSettingsFull.Settings.AllKeys )
+				{
+					if ( key.Equals( keyName, StringComparison.CurrentCultureIgnoreCase ) )
+					{
+						return AppSettingsFull.Settings[key].Value;
+					}
+				}
+			}
+			else
+			{
+				foreach ( string key in AppSettings.AllKeys )
+				{
+					if ( key.Equals( keyName, StringComparison.CurrentCultureIgnoreCase ) )
+					{
+						return AppSettings[key];
+					}
+				}
+			}
+
+			return null;
+		}
+
 		private Configuration _webConfig = null;
-		public Configuration WebConfig
+		public Configuration WebConfigFull
 		{
 			get
 			{
@@ -39,23 +96,24 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		private AppSettingsSection _appSettings = null;
-		public AppSettingsSection AppSettings
+		private AppSettingsSection _appSettingsFull = null;
+		public AppSettingsSection AppSettingsFull
 		{
 			get
 			{
-				if ( _appSettings == null )
+				if ( _appSettingsFull == null )
 				{
-					_appSettings = GetConfigSection<AppSettingsSection>( "appSettings" );
+					_appSettingsFull = GetConfigSectionFull<AppSettingsSection>( "appSettings" );
 				}
 
-				return _appSettings;
+				return _appSettingsFull;
 			}
 		}
 
-		public T GetConfigSection<T>( string sectionName ) where T : class
+		[AspNetHostingPermission( SecurityAction.Demand, Level=AspNetHostingPermissionLevel.High )]
+		public T GetConfigSectionFull<T>( string sectionName ) where T : class
 		{
-			ConfigurationSection section = WebConfig.GetSection( sectionName );
+			ConfigurationSection section = WebConfigFull.GetSection( sectionName );
 			if ( section is T )
 			{
 				return section as T;
@@ -64,22 +122,10 @@ namespace YAF.Classes.Utils
 			return null;
 		}
 
-		public string GetConfigValueAsString( string keyName )
-		{
-			foreach ( string key in AppSettings.Settings.AllKeys )
-			{
-				if ( key.Equals( keyName, StringComparison.CurrentCultureIgnoreCase ) )
-				{
-					return AppSettings.Settings[key].Value;
-				}
-			}
-
-			return null;
-		}
-
+		[AspNetHostingPermission( SecurityAction.Demand, Level=AspNetHostingPermissionLevel.High )]
 		public bool WriteConnectionString( string keyName, string keyValue, string providerValue )
 		{
-			ConnectionStringsSection connStrings = GetConfigSection<ConnectionStringsSection>( "connectionStrings" );
+			ConnectionStringsSection connStrings = GetConfigSectionFull<ConnectionStringsSection>( "connectionStrings" );
 
 			if ( connStrings == null )
 			{
@@ -96,7 +142,7 @@ namespace YAF.Classes.Utils
 
 				connStrings.ConnectionStrings.Add( new ConnectionStringSettings( keyName, keyValue, providerValue ) );
 
-				WebConfig.Save( ConfigurationSaveMode.Modified );
+				WebConfigFull.Save( ConfigurationSaveMode.Modified );
 
 				writtenSuccessfully = true;
 			}
@@ -108,20 +154,21 @@ namespace YAF.Classes.Utils
 			return writtenSuccessfully;
 		}
 
+		[AspNetHostingPermission( SecurityAction.Demand, Level=AspNetHostingPermissionLevel.High )]
 		public bool WriteAppSetting( string keyName, string keyValue )
 		{
 			bool writtenSuccessfully = false;
 
 			try
 			{
-				if ( AppSettings.Settings[keyName] != null )
+				if ( AppSettingsFull.Settings[keyName] != null )
 				{
-					AppSettings.Settings.Remove( keyName );
+					AppSettingsFull.Settings.Remove( keyName );
 				}
 
-				AppSettings.Settings.Add( keyName, keyValue );
+				AppSettingsFull.Settings.Add( keyName, keyValue );
 
-				WebConfig.Save( ConfigurationSaveMode.Modified );
+				WebConfigFull.Save( ConfigurationSaveMode.Modified );
 
 				writtenSuccessfully = true;
 			}
