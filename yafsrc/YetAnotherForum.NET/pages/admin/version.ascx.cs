@@ -42,7 +42,7 @@ namespace YAF.Pages.Admin
 				PageLinks.AddLink( "Version Check", "" );
 			}
 
-			try
+			//try
 			{
 				using ( RegisterForum.Register reg = new RegisterForum.Register() )
 				{
@@ -50,10 +50,11 @@ namespace YAF.Pages.Admin
 					_lastVersionDate = reg.LatestVersionDate();
 				}
 			}
-			catch ( Exception )
+			//catch ( Exception )
 			{
-				_lastVersion = 0;
+				//_lastVersion = 0;
 			}
+
 			Upgrade.Visible = _lastVersion > YafForumInfo.AppVersionCode;
 
 
@@ -74,24 +75,5 @@ namespace YAF.Pages.Admin
 				return YafServices.DateTime.FormatDateShort( _lastVersionDate );
 			}
 		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-		}
-		#endregion
 	}
 }

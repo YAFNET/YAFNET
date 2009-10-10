@@ -312,7 +312,9 @@ namespace YAF.Install
 			switch ( CurrentWizardStepID )
 			{
 				case "WizCreatePassword":
-					if ( _config.AppSettings != null ) lblConfigPasswordAppSettingFile.Text = _config.AppSettings.File;
+					if ( _config.TrustLevel == AspNetHostingPermissionLevel.High && _config.AppSettingsFull != null ) lblConfigPasswordAppSettingFile.Text = _config.AppSettingsFull.File;
+					else lblConfigPasswordAppSettingFile.Text = "(Unknown! YAF default is app.config)";
+
 					if ( IsInstalled )
 					{
 						// no need for this setup if IsInstalled...
@@ -353,17 +355,18 @@ namespace YAF.Install
 					FillWithConnectionStrings();
 					break;
 				case "WizManualDatabaseConnection":
-					if ( _config.AppSettings != null ) lblAppSettingsFile.Text = _config.AppSettings.File;
+					if ( _config.TrustLevel == AspNetHostingPermissionLevel.High && _config.AppSettingsFull != null ) lblAppSettingsFile.Text = _config.AppSettingsFull.File;
+					else lblAppSettingsFile.Text = "(Unknown! YAF default is app.config)";
 					previousVisible = true;
 					break;
 				case "WizManuallySetPassword":
-					if ( _config.AppSettings != null ) lblAppSettingsFile2.Text = _config.AppSettings.File;
+					if ( _config.TrustLevel == AspNetHostingPermissionLevel.High && _config.AppSettingsFull != null ) lblAppSettingsFile2.Text = _config.AppSettingsFull.File;
+					else lblAppSettingsFile2.Text = "(Unknown! YAF default is app.config)";
 					break;
 				case "WizTestSettings":
 					previousVisible = true;
 					break;
 				case "WizValidatePermission":
-					//ValidatePermissionStep();
 					break;
 				case "WizMigratingUsers":
 					// disable the next button...
@@ -431,10 +434,14 @@ namespace YAF.Install
 
 					e.Cancel = false;
 
-					if ( _config.WriteAppSetting( _appPasswordKey, txtCreatePassword1.Text ) )
+					if ( _config.TrustLevel == AspNetHostingPermissionLevel.High && _config.WriteAppSetting( _appPasswordKey, txtCreatePassword1.Text ) )
 					{
 						// advance to the testing section since the password is now set...
 						CurrentWizardStepID = "WizDatabaseConnection";
+					}
+					else
+					{
+						CurrentWizardStepID = "WizManuallySetPassword";
 					}
 					break;
 				case "WizManuallySetPassword":
@@ -542,9 +549,21 @@ namespace YAF.Install
 		{
 			UpdateStatusLabel( lblPermissionApp, 1 );
 			UpdateStatusLabel( lblPermissionUpload, 1 );
+			UpdateStatusLabel( lblHostingTrust, 1 );
 
 			UpdateStatusLabel( lblPermissionApp, DirectoryHasWritePermission( Server.MapPath( "~/" ) ) ? 2 : 0 );
 			UpdateStatusLabel( lblPermissionUpload, DirectoryHasWritePermission( Server.MapPath( Config.UploadDir ) ) ? 2 : 0 );
+
+			if ( _config.TrustLevel == AspNetHostingPermissionLevel.High )
+			{
+				UpdateStatusLabel( lblHostingTrust, 2 );
+			}
+			else
+			{
+				UpdateStatusLabel( lblHostingTrust, 0 );
+			}
+
+			lblHostingTrust.Text = _config.TrustLevel.GetStringValue();
 		}
 
 		protected void btnTestSmtp_Click( object sender, EventArgs e )
@@ -606,20 +625,34 @@ namespace YAF.Install
 				string selectedConnection = lbConnections.SelectedValue;
 				if ( selectedConnection != Config.ConnectionStringName )
 				{
-					// have to write to the appSettings...
-					if ( !_config.WriteAppSetting( "YAF.ConnectionStringName", selectedConnection ) )
+					try
 					{
-						lblConnectionStringName.Text = selectedConnection;
-						// failure to write App Settings..
+						// have to write to the appSettings...
+						if ( !_config.WriteAppSetting( "YAF.ConnectionStringName", selectedConnection ) )
+						{
+							lblConnectionStringName.Text = selectedConnection;
+							// failure to write App Settings..
+							return UpdateDBFailureType.AppSettingsWrite;
+						}
+					}
+					catch
+					{
 						return UpdateDBFailureType.AppSettingsWrite;
 					}
 				}
 			}
 			else if ( rblYAFDatabase.SelectedValue == "create" )
 			{
-				if ( !_config.WriteConnectionString( Config.ConnectionStringName, CurrentConnString, DB.ProviderAssemblyName ) )
+				try
 				{
-					// failure to write db Settings..
+					if ( !_config.WriteConnectionString( Config.ConnectionStringName, CurrentConnString, DB.ProviderAssemblyName ) )
+					{
+						// failure to write db Settings..
+						return UpdateDBFailureType.ConnectionStringWrite;
+					}
+				}
+				catch
+				{
 					return UpdateDBFailureType.ConnectionStringWrite;
 				}
 			}

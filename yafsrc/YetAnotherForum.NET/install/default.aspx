@@ -88,6 +88,8 @@
 						still use the installation wizard.
 					</p>
 					<ul>
+						<li>Asp.Net Hosting Trust Level (if trust level is not "Full" you will need to manually modify all configuration files)... <b>
+							<asp:Label ID="lblHostingTrust" runat="server" ForeColor="Gray">Unchecked</asp:Label></b></li>					
 						<li>YAF Has Write Access to Root Application Directory ("~/")... <b>
 							<asp:Label ID="lblPermissionApp" runat="server" ForeColor="Gray">Unchecked</asp:Label></b></li>
 						<li>YAF Has Write Access to "~/Upload" directory... <b>
