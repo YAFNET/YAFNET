@@ -42,12 +42,12 @@
 		<asp:Repeater ID="RoleListYaf" runat="server" OnItemCommand="RoleListYaf_ItemCommand">
 			<HeaderTemplate>
 				<tr>
-					<td class="header1" colspan="6">
+					<td class="header1" colspan="7">
 						YetAnotherForum Roles
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6" class="post">
+					<td colspan="7" class="post">
 						Note: Deleting one of these "linked" roles outside of YAF will cause user data loss.
 						If you want to delete the role, first "Delete from YAF" then the role can be managed
 						outside of YAF.
@@ -68,6 +68,9 @@
 					</td>
 					<td class="header2">
 						Is Admin
+					</td>
+					<td class="header2">
+						PMs
 					</td>
 					<td class="header2">
 						&nbsp;
@@ -91,6 +94,9 @@
 					</td>
 					<td class="post">
 						<%# General.BinaryAnd(Eval( "Flags" ),1) %>
+					</td>
+					<td class="post">
+						<%# ((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? int.MaxValue.ToString() : Eval("PMLimit").ToString())%>
 					</td>
 					<td class="post">
 						<asp:LinkButton ID="LinkButtonEdit" runat="server" Visible='<%#(General.BinaryAnd(Eval( "Flags" ),2) == true ? false : true)%>'

@@ -61,11 +61,11 @@ namespace YAF.Pages
 		protected override void CreatePageLinks()
 		{
 			// forum index
-			PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+			PageLinks.AddLink( YafContext.Current.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 			// users control panel
-			PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
+			PageLinks.AddLink( YafContext.Current.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
 			// private messages
-			PageLinks.AddLink( PageContext.Localization.GetText( ForumPages.cp_pm.ToString(), "TITLE" ), YafBuildLink.GetLink( ForumPages.cp_pm ) );
+			PageLinks.AddLink( YafContext.Current.Localization.GetText( ForumPages.cp_pm.ToString(), "TITLE" ), YafBuildLink.GetLink( ForumPages.cp_pm ) );
 			// post new message
 			PageLinks.AddLink( GetText( "TITLE" ) );
 		}
@@ -81,7 +81,7 @@ namespace YAF.Pages
 		protected void Page_Init( object sender, EventArgs e )
 		{
 			// create editor based on administrator's settings
-			_editor = PageContext.EditorModuleManager.GetEditorInstance( PageContext.BoardSettings.ForumEditor );
+			_editor = YafContext.Current.EditorModuleManager.GetEditorInstance( YafContext.Current.BoardSettings.ForumEditor );
 			// add editor to the page
 			EditorLine.Controls.Add( _editor );
 		}
@@ -93,12 +93,12 @@ namespace YAF.Pages
 		protected void Page_Load( object sender, EventArgs e )
 		{
 			// if user isn't authenticated, redirect him to login page
-			if ( User == null || PageContext.IsGuest )
+			if ( User == null || YafContext.Current.IsGuest )
 				RedirectNoAccess();
 
 			// set attributes of editor
 			_editor.BaseDir = YafForumInfo.ForumRoot + "editors";
-			_editor.StyleSheet = PageContext.Theme.BuildThemePath( "theme.css" );
+			_editor.StyleSheet = YafContext.Current.Theme.BuildThemePath( "theme.css" );
 
 			// this needs to be done just once, not during postbacks
 			if ( !IsPostBack )
@@ -112,7 +112,7 @@ namespace YAF.Pages
 				Clear.Text = GetText( "CLEAR" );
 
 				// only administrators can send messages to all users
-				AllUsers.Visible = PageContext.IsAdmin;
+				AllUsers.Visible = YafContext.Current.IsAdmin;
 
 				if ( !String.IsNullOrEmpty( Request.QueryString ["p"] ) )
 				{
@@ -133,7 +133,7 @@ namespace YAF.Pages
 						int fromUserId = ( int )row ["FromUserID"];
 
 						// verify access to this PM
-						if ( toUserId != PageContext.PageUserID && fromUserId != PageContext.PageUserID ) YafBuildLink.AccessDenied();
+						if ( toUserId != YafContext.Current.PageUserID && fromUserId != YafContext.Current.PageUserID ) YafBuildLink.AccessDenied();
 
 						// handle subject
 						string subject = ( string )row ["Subject"];
@@ -151,7 +151,7 @@ namespace YAF.Pages
 						{
 							string body = row ["Body"].ToString();
 
-							if ( PageContext.BoardSettings.RemoveNestedQuotes )
+							if ( YafContext.Current.BoardSettings.RemoveNestedQuotes )
 								body = FormatMsg.RemoveNestedQuotes(body);
 
 							// Ensure quoted replies have bad words removed from them
@@ -173,7 +173,7 @@ namespace YAF.Pages
 					if ( Int32.TryParse( Request.QueryString ["u"], out toUserId ) )
 					{
 						// get user's name
-						using ( DataTable dt = DB.user_list( PageContext.PageBoardID, toUserId, true ) )
+						using ( DataTable dt = DB.user_list( YafContext.Current.PageBoardID, toUserId, true ) )
 						{
 							To.Text = dt.Rows [0] ["Name"] as string;
 							To.Enabled = false;
@@ -188,16 +188,16 @@ namespace YAF.Pages
 					// Blank PM
 
 					// multi-receiver info is relevant only when sending blank PM
-					if ( PageContext.BoardSettings.PrivateMessageMaxRecipients > 1 )
+					if ( YafContext.Current.BoardSettings.PrivateMessageMaxRecipients > 1 )
 					{
 						// format localized string
 						MultiReceiverInfo.Text = String.Format(
 							"<br />{0}<br />{1}",
 							String.Format(
-								PageContext.Localization.GetText( "MAX_RECIPIENT_INFO" ),
-								PageContext.BoardSettings.PrivateMessageMaxRecipients
+								YafContext.Current.Localization.GetText( "MAX_RECIPIENT_INFO" ),
+								YafContext.Current.BoardSettings.PrivateMessageMaxRecipients
 								),
-							PageContext.Localization.GetText( "MULTI_RECEIVER_INFO" )
+							YafContext.Current.Localization.GetText( "MULTI_RECEIVER_INFO" )
 							);
 						// display info
 						MultiReceiverInfo.Visible = true;
@@ -211,26 +211,26 @@ namespace YAF.Pages
 		/// Handles save button click event. 
 		/// </summary>
 		protected void Save_Click( object sender, EventArgs e )
-		{
+		{            
 			// recipient was set in dropdown
 			if ( ToList.Visible ) To.Text = ToList.SelectedItem.Text;
 			if ( To.Text.Length <= 0 )
 			{
 				// recipient is required field
-				PageContext.AddLoadMessage( GetText( "need_to" ) );
+				YafContext.Current.AddLoadMessage( GetText( "need_to" ) );
 				return;
 			}
 
 			// subject is required
 			if ( Subject.Text.Trim().Length <= 0 )
 			{
-				PageContext.AddLoadMessage( GetText( "need_subject" ) );
+				YafContext.Current.AddLoadMessage( GetText( "need_subject" ) );
 				return;
 			}
 			// message is required
 			if ( _editor.Text.Trim().Length <= 0 )
 			{
-				PageContext.AddLoadMessage( GetText( "need_message" ) );
+				YafContext.Current.AddLoadMessage( GetText( "need_message" ) );
 				return;
 			}
 
@@ -244,7 +244,7 @@ namespace YAF.Pages
 				messageFlags.IsHtml = _editor.UsesHTML;
 				messageFlags.IsBBCode = _editor.UsesBBCode;
 
-				DB.pmessage_save( PageContext.PageUserID, 0, Subject.Text, body, messageFlags.BitValue );
+                DB.pmessage_save(YafContext.Current.PageUserID, 0, Subject.Text, body, messageFlags.BitValue);
 
 				// redirect to outbox (sent items), not control panel
 				YafBuildLink.Redirect( ForumPages.cp_pm, "v={0}", "out" );
@@ -265,49 +265,48 @@ namespace YAF.Pages
 				// list of recipient's ids
 				int [] recipientID = new int [recipients.Count];
 
-				if ( recipients.Count > PageContext.BoardSettings.PrivateMessageMaxRecipients && !PageContext.IsAdmin && PageContext.BoardSettings.PrivateMessageMaxRecipients != 0 )
+				if ( recipients.Count > YafContext.Current.BoardSettings.PrivateMessageMaxRecipients && !YafContext.Current.IsAdmin && YafContext.Current.BoardSettings.PrivateMessageMaxRecipients != 0 )
 				{
 					// to many recipients
-					PageContext.AddLoadMessage( GetTextFormatted( "TOO_MANY_RECIPIENTS", PageContext.BoardSettings.PrivateMessageMaxRecipients ) );
+					YafContext.Current.AddLoadMessage( GetTextFormatted( "TOO_MANY_RECIPIENTS", YafContext.Current.BoardSettings.PrivateMessageMaxRecipients ) );
 					return;
 				}
 
 				// test sending user's PM count
-				if ( PageContext.BoardSettings.MaxPrivateMessagesPerUser != 0 &&
-					( DB.user_pmcount( PageContext.PageUserID ) + recipients.Count ) > PageContext.BoardSettings.MaxPrivateMessagesPerUser &&
-					!PageContext.IsAdmin )
+                DataRow drPMInfo = DB.user_pmcount(YafContext.Current.PageUserID).Rows[0];
+				if ( ( Convert.ToInt32( drPMInfo[ "NumberTotal" ] ) > Convert.ToInt32( drPMInfo[ "NumberAllowed" ] ) + recipients.Count  ) &&
+					!YafContext.Current.IsAdmin )
 				{
 					// user has full PM box
-					PageContext.AddLoadMessage( GetTextFormatted( "OWN_PMBOX_FULL", PageContext.BoardSettings.MaxPrivateMessagesPerUser ) );
+                    YafContext.Current.AddLoadMessage(GetTextFormatted("OWN_PMBOX_FULL", drPMInfo["NumberAllowed"]));
 					return;
 				}
 
 				// get recipients' IDs
 				for ( int i = 0; i < recipients.Count; i++ )
 				{
-					using ( DataTable dt = DB.user_find( PageContext.PageBoardID, false, recipients [i], null ) )
+					using ( DataTable dt = DB.user_find( YafContext.Current.PageBoardID, false, recipients [i], null ) )
 					{
 						if ( dt.Rows.Count != 1 )
 						{
-							PageContext.AddLoadMessage( GetTextFormatted( "NO_SUCH_USER", recipients [i] ) );
+							YafContext.Current.AddLoadMessage( GetTextFormatted( "NO_SUCH_USER", recipients [i] ) );
 							return;
 						}
                         else if (SqlDataLayerConverter.VerifyInt32(dt.Rows [0] ["IsGuest"]) > 0 )						
 						{
-							PageContext.AddLoadMessage( GetText( "NOT_GUEST" ) );
+							YafContext.Current.AddLoadMessage( GetText( "NOT_GUEST" ) );
 							return;
 						}
 
 						// get recipient's ID from the database
-						recipientID [i] = Convert.ToInt32( dt.Rows [0] ["UserID"] );
+						recipientID [ i ] = Convert.ToInt32( dt.Rows [ 0 ] [ "UserID" ] );
 
 						// test receiving user's PM count
-						if ( PageContext.BoardSettings.MaxPrivateMessagesPerUser != 0 &&
-							DB.user_pmcount( recipientID [i] ) >= PageContext.BoardSettings.MaxPrivateMessagesPerUser &&
-							!PageContext.IsAdmin )
+						if ( ( Convert.ToInt32( DB.user_pmcount( recipientID [ i ] ).Rows[ 0 ] ["NumberTotal"] ) >= Convert.ToInt32( DB.user_pmcount( recipientID [ i ] ).Rows[ 0 ] [ "NumberAllowed" ] ) ) &&
+							!YafContext.Current.IsAdmin )
 						{
 							// recipient has full PM box
-							PageContext.AddLoadMessage( GetTextFormatted( "RECIPIENTS_PMBOX_FULL", recipients [i] ) );
+							YafContext.Current.AddLoadMessage( GetTextFormatted( "RECIPIENTS_PMBOX_FULL", recipients [ i ] ) );
 							return;
 						}
 					}
@@ -323,9 +322,9 @@ namespace YAF.Pages
 					messageFlags.IsHtml = _editor.UsesHTML;
 					messageFlags.IsBBCode = _editor.UsesBBCode;
 
-					DB.pmessage_save( PageContext.PageUserID, recipientID [i], Subject.Text, body, messageFlags.BitValue );
+					DB.pmessage_save( YafContext.Current.PageUserID, recipientID [i], Subject.Text, body, messageFlags.BitValue );
 
-					if ( PageContext.BoardSettings.AllowPMEmailNotification )
+					if ( YafContext.Current.BoardSettings.AllowPMEmailNotification )
 						CreateMail.PmNotification( recipientID[i], Subject.Text );
 				}
 
@@ -352,9 +351,9 @@ namespace YAF.Pages
 			tFlags.IsHtml = _editor.UsesHTML;
 			tFlags.IsBBCode = _editor.UsesBBCode;
 
-			if ( PageContext.BoardSettings.AllowSignatures )
+			if ( YafContext.Current.BoardSettings.AllowSignatures )
 			{
-				using ( DataTable userDT = DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
+				using ( DataTable userDT = DB.user_list( YafContext.Current.PageBoardID, YafContext.Current.PageUserID, true ) )
 				{
 					if ( !userDT.Rows [0].IsNull( "Signature" ) )
 					{
@@ -383,12 +382,12 @@ namespace YAF.Pages
 			if ( To.Text.Length < 2 )
 			{
 				// need at least 2 latters of user's name
-				PageContext.AddLoadMessage( GetText( "NEED_MORE_LETTERS" ) );
+				YafContext.Current.AddLoadMessage( GetText( "NEED_MORE_LETTERS" ) );
 				return;
 			}
 
 			// try to find users by user name
-			using ( DataTable dt = DB.user_find( PageContext.PageBoardID, true, To.Text, null ) )
+			using ( DataTable dt = DB.user_find( YafContext.Current.PageBoardID, true, To.Text, null ) )
 			{
 				if ( dt.Rows.Count > 0 )
 				{
@@ -448,7 +447,7 @@ namespace YAF.Pages
 			To.Visible = true;
 			// show find users and all users (if user is admin)
 			FindUsers.Visible = true;
-			AllUsers.Visible = PageContext.IsAdmin;
+			AllUsers.Visible = YafContext.Current.IsAdmin;
 			// clear button is not necessary now
 			Clear.Visible = false;
 		}

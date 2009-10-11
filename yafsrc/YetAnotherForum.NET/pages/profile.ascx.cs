@@ -151,6 +151,7 @@ namespace YAF.Pages // YAF.Pages
 			ProfileTabs.Views["StatisticsTab"].Text = GetText("STATISTICS");
 			ProfileTabs.Views["AvatarTab"].Text = GetText("AVATAR");
 			ProfileTabs.Views["Last10PostsTab"].Text = GetText("LAST10");
+           
 
 			if (PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage)
 			{
@@ -174,7 +175,8 @@ namespace YAF.Pages // YAF.Pages
 
 			//EmailRow.Visible = PageContext.IsAdmin;
 			ProfileTabs.Views["ModerateTab"].Visible = PageContext.IsAdmin || PageContext.IsForumModerator;
-			AdminUserButton.Visible = PageContext.IsAdmin;
+            ProfileTabs.Views["ModerateTab"].Text = GetText("MODERATION");
+            AdminUserButton.Visible = PageContext.IsAdmin;
 
 			if (LastPosts.Visible)
 			{

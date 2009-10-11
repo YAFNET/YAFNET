@@ -211,17 +211,17 @@
     <Resource tag="MAIL_SENT">Сообщение по электронной почте было отправлено {0}.\n\nВам необходимо подтвердить ваш адерс электронной почты перейдя по ссылке в сообщении перед тем, как адрес электронной почты будет изменён.</Resource>
     <Resource tag="MESSENGER">Службы мгновенных сообщений</Resource>
     <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
-    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Опциональная настройка которая [b]возможно[/b] потребуется для некоторых блогов (однако SubText не требует этого). Если не уверены, то сначала попробуйте.)</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Опциональная настройка, которая [b]возможно[/b] потребуется для некоторых блогов (однако SubText не требует этого). Если не уверены, то сначала попробуйте.)</Resource>
     <Resource tag="METAWEBLOG_API_URL"> URL для MetaWeblog API:</Resource>
     <Resource tag="METAWEBLOG_API_USERNAME">Имя пользователя MetaWeblog API:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Разместить в MetaWeblog (Настройки API)</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Выберите другую тему форума:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте при получении нового личного сообщения?</Resource>
-    <Resource tag="REALNAME2">Какое ваше настоящее имя?</Resource>
+    <Resource tag="REALNAME2">Ваше настоящее имя:</Resource>
     <Resource tag="SELECT_LANGUAGE">Какой язык вы хотите использовать:</Resource>
     <Resource tag="SELECT_THEME">Выберите нужную тему:</Resource>
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
-    <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время м ыдолжны знать Ваш часовой пояс.</Resource>
+    <Resource tag="TIMEZONE2">Чтобы показывать местную дату и время мы должны знать Ваш часовой пояс.</Resource>
     <Resource tag="TITLE">Изменить профиль</Resource>
     <Resource tag="WEBLOG2">URL вашего публичного блога:</Resource>
     <Resource tag="WHERE">Где Вы находитесь?</Resource>
@@ -234,17 +234,17 @@
   </page>
   <page name="CP_PM">
     <Resource tag="ARCHIVE">Архив</Resource>
-    <Resource tag="ARCHIVEALL">Archive All</Resource>
+    <Resource tag="ARCHIVEALL">Всё в Архив</Resource>
     <Resource tag="ARCHIVESELECTED">Поместить в архив</Resource>
-    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
-    <Resource tag="CONFIRM_DELETE">Удалить все выбранные сообщения?</Resource>
-    <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">Поместить все сообщения в Архив?</Resource>
+    <Resource tag="CONFIRM_DELETE">Вы действительно желаете удалить все выбранные сообщения?</Resource>
+    <Resource tag="CONFIRM_DELETEALL">Вы действительно желаете удалить все сообщения?</Resource>
     <Resource tag="DATE">Дата</Resource>
-    <Resource tag="DELETEALL">Delete All</Resource>
-    <Resource tag="DELETESELECTED">Удалить выделенное</Resource>
+    <Resource tag="DELETEALL">Удалить всё</Resource>
+    <Resource tag="DELETESELECTED">Удалить выбранное</Resource>
     <Resource tag="FROM">От</Resource>
     <Resource tag="INBOX">Входящие</Resource>
-    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
+    <Resource tag="MARK_ALL_ASREAD">Отметить все как прочитанные</Resource>
     <Resource tag="MSG_ARCHIVED">Сообщение отправлено в архив.</Resource>
     <Resource tag="MSG_ARCHIVED+">Было отправлено в архив {0} сообщений.</Resource>
     <Resource tag="MSG_DELETED">Сообщение было удалено.</Resource>
@@ -419,7 +419,7 @@
     <Resource tag="EMAIL">Адрес Email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Было послано сообщение по почте с вашим новым паролем.</Resource>
     <Resource tag="FORUM_LOGIN">Логин форума</Resource>
-    <Resource tag="LOSTPASSWORD">Потерянный пароль</Resource>
+    <Resource tag="LOSTPASSWORD">Восстановления пароля</Resource>
     <Resource tag="PASSWORD">Пароль:</Resource>
     <Resource tag="PASSWORD_ERROR">Ведённые пароль или имя пользователя неверны. Попытайтесь снова.</Resource>
     <Resource tag="RECOVER">Восстановление пароля</Resource>
@@ -516,6 +516,9 @@
     <Resource tag="NO_SUCH_USER">Извините, но пользователь "{0}" не зарегистрирован на этом ресурсе.</Resource>
     <Resource tag="NOT_GUEST">Нельзя послать личное сообщение Гостю.</Resource>
     <Resource tag="OWN_PMBOX_FULL">Ваш ящик с личными сообщениями переполнен. Максимально разрешённое кол-во сообщений: {0}. Пожалуйста, удалите какие-нибудь сообщения для освобождения места.</Resource>
+    <Resource tag="PMLIMIT">
+        У Вас {0} личных сообщений: {1} Входящих и {2} Исходящих, из  {3} разрешённых. Ваш почтовый ящик заполнен на {4}%.
+    </Resource>
     <Resource tag="PREVIEWTITLE">Предпросмотр:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">У пользователя/пользователей {0} переполнен ящик входящих сообщений. Извините, но они не получат ваше личное сообщение до тех пор пока не освободят место.</Resource>
     <Resource tag="SAVE">Отправить</Resource>
@@ -577,7 +580,7 @@
     <Resource tag="ATTACHMENTS">Вложение(я):</Resource>
     <Resource tag="BLOG">БЛОГ</Resource>
     <Resource tag="CHOICE">Вариант</Resource>
-    <Resource tag="CLOSE_TEXT">Close</Resource>
+    <Resource tag="CLOSE_TEXT">Закрыть</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Удалить это ообщение?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Удалить эту тему?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Вы уверены, что желаете сообщить, что этот пост является злоупотреблением?</Resource>
@@ -688,7 +691,8 @@
     <Resource tag="LASTVISIT">Последнее посещение:</Resource>
     <Resource tag="MEMBERS">Участники</Resource>
     <Resource tag="MINUTES">минут</Resource>
-    <Resource tag="MSN">MSN Messenger:</Resource>
+    <Resource tag="MODERATION">Права доступа</Resource>
+    <Resource tag="MSN">Пейджер MSN:</Resource>
     <Resource tag="NUMALL">{0:N2}% от всех сообщений</Resource>
     <Resource tag="NUMDAY">{0:N2} сообщений в день</Resource>
     <Resource tag="NUMPOSTS">Число сообщений:</Resource>

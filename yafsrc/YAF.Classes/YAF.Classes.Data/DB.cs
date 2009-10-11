@@ -2141,7 +2141,7 @@ namespace YAF.Classes.Data
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
-		static public long group_save( object groupID, object boardID, object name, object isAdmin, object isGuest, object isStart, object isModerator, object accessMaskID )
+        static public long group_save( object groupID, object boardID, object name, object isAdmin, object isGuest, object isStart, object isModerator, object accessMaskID, object pmLimit )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "group_save" ) )
 			{
@@ -2154,6 +2154,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "IsStart", isStart );
 				cmd.Parameters.AddWithValue( "IsModerator", isModerator );
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
+                cmd.Parameters.AddWithValue( "PMLimit", pmLimit );
 				return long.Parse( YafDBAccess.Current.ExecuteScalar( cmd ).ToString() );
 			}
 		}
@@ -3270,7 +3271,7 @@ namespace YAF.Classes.Data
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
-		static public void rank_save( object rankID, object boardID, object name, object isStart, object isLadder, object minPosts, object rankImage )
+        static public void rank_save( object rankID, object boardID, object name, object isStart, object isLadder, object minPosts, object rankImage, object pmLimit )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "rank_save" ) )
 			{
@@ -3282,6 +3283,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "IsLadder", isLadder );
 				cmd.Parameters.AddWithValue( "MinPosts", minPosts );
 				cmd.Parameters.AddWithValue( "RankImage", rankImage );
+                cmd.Parameters.AddWithValue( "PMLimit", pmLimit );
 				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
@@ -3914,13 +3916,13 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		static public int user_pmcount( object userID )
+		static public DataTable user_pmcount( object userID )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_pmcount" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
+				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
 

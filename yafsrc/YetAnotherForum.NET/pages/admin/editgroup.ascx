@@ -44,6 +44,13 @@
 				<asp:CheckBox ID="IsAdminX" runat="server"></asp:CheckBox>
 			</td>
 		</tr>
+		<tr>
+			<td class="postheader" width="50%">
+				<b>PMessages:</b><br />
+				Max Private Messages allowed to Group members.</td>
+			<td class="post" width="50%">
+				<asp:TextBox Style="width: 60px" ID="PMLimit" runat="server" /></td>
+		</tr>
 		<tr runat="server" visible="false" id="IsGuestTR">
 			<td class="postheader">
 				<b>Is Guest:</b><br />
@@ -64,7 +71,7 @@
 			<td class="post">
 				<asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" />
 			</td>
-		</tr>
+		</tr>		
 		<asp:Repeater ID="AccessList" runat="server">
 			<HeaderTemplate>
 				<tr>

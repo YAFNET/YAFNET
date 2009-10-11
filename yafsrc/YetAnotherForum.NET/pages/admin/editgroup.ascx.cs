@@ -89,11 +89,12 @@ namespace YAF.Pages.Admin
 						IsAdminX.Checked = flags.IsAdmin;
 						IsStartX.Checked = flags.IsStart;
 						IsModeratorX.Checked = flags.IsModerator;
-
+                        PMLimit.Text = row["PMLimit"].ToString();                      
 						// IsGuest flag can be set for only one role. if it isn't for this, disable that row
 						if (flags.IsGuest) IsGuestTR.Visible = true;
 					}
 				}
+               
 			}
 		}
 
@@ -113,7 +114,12 @@ namespace YAF.Pages.Admin
 		/// </summary>
 		protected void Save_Click(object sender, System.EventArgs e)
 		{
-			// Role
+            if (!ValidationHelper.IsValidInt(PMLimit.Text.Trim()))
+            {
+                PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
+                return;
+            }
+            // Role
 			long roleID = 0;
 			// get role ID from page's parameter
 			if (Request.QueryString["i"] != null) roleID = long.Parse(Request.QueryString["i"]);
@@ -133,7 +139,7 @@ namespace YAF.Pages.Admin
 			}
 
 			// save role and get its ID if it's new (if it's old role, we get it anyway)
-			roleID = DB.group_save(roleID, PageContext.PageBoardID, roleName, IsAdminX.Checked, IsGuestX.Checked, IsStartX.Checked, IsModeratorX.Checked, AccessMaskID.SelectedValue);
+			roleID = DB.group_save(roleID, PageContext.PageBoardID, roleName, IsAdminX.Checked, IsGuestX.Checked, IsStartX.Checked, IsModeratorX.Checked, AccessMaskID.SelectedValue, PMLimit.Text);
 			
 			// see if need to rename an existing role...
 			if ( roleName != oldRoleName && RoleMembershipHelper.RoleExists( oldRoleName ) && !RoleMembershipHelper.RoleExists( roleName ) && !IsGuestX.Checked )

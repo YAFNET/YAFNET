@@ -30,7 +30,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes;
-using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
@@ -80,7 +79,7 @@ namespace YAF.Pages.Admin
 			// this needs to be done just once, not during postbacks
 			if (!IsPostBack)
 			{
-				// create page links
+                // create page links
 				CreatePageLinks();
 
 				// sync roles just in case...
@@ -135,7 +134,8 @@ namespace YAF.Pages.Admin
 			{
 				case "add":
 					// save role and get its ID
-					long groupID = DB.group_save(DBNull.Value, PageContext.PageBoardID, e.CommandArgument.ToString(), false, false, false, false, 1);
+                    int _initialPMessages = 0;
+                    long groupID = DB.group_save(DBNull.Value, PageContext.PageBoardID, e.CommandArgument.ToString(), false, false, false, false, 1, _initialPMessages);
 					// redirect to newly created role
 					YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", groupID);
 					break;
@@ -170,9 +170,10 @@ namespace YAF.Pages.Admin
 		{
 			// list roles of this board
 			DataTable dt = DB.group_list(PageContext.PageBoardID, null);
+
 			// set repeater datasource
 			RoleListYaf.DataSource = dt;
-
+           
 			// clear cached list of roles
 			_availableRoles.Clear();
 
@@ -181,7 +182,8 @@ namespace YAF.Pages.Admin
 			{
 				// make filter string, we want to filer by role name
 				string filter = string.Format("Name='{0}'", role.Replace("'", "''"));
-				// get given role of YAF
+				
+                // get given role of YAF
 				DataRow[] rows = dt.Select(filter);
 
 				// if this role is not in YAF DB, add it to the list of provider roles for syncing

@@ -1237,15 +1237,15 @@ begin
 	SET @BoardID = SCOPE_IDENTITY()
 
 	-- Rank
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) VALUES (@BoardID,'Administration',0,null)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit) VALUES (@BoardID,'Administration',0,null,1000)
 	SET @RankIDAdmin = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) VALUES(@BoardID,'Guest',0,null)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit) VALUES(@BoardID,'Guest',0,null,0)
 	SET @RankIDGuest = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) VALUES(@BoardID,'Newbie',3,0)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit) VALUES(@BoardID,'Newbie',3,0,10)
 	SET @RankIDNewbie = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) VALUES(@BoardID,'Member',2,10)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit) VALUES(@BoardID,'Member',2,10,30)
 	SET @RankIDMember = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) VALUES(@BoardID,'Advanced Member',2,30)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit) VALUES(@BoardID,'Advanced Member',2,30,100)
 	SET @RankIDAdvanced = SCOPE_IDENTITY()
 
 	-- AccessMask
@@ -1265,11 +1265,11 @@ begin
 	VALUES(@BoardID,'No Access',0)
 
 	-- Group
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Administrators',1)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit) values(@BoardID,'Administrators',1,2147483647)
 	set @GroupIDAdmin = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Guests',2)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit) values(@BoardID,'Guests',2,0)
 	SET @GroupIDGuest = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Registered',4)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit) values(@BoardID,'Registered',4,100)
 	SET @GroupIDMember = SCOPE_IDENTITY()	
 	
 	-- User (GUEST)
@@ -2285,7 +2285,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}group_save](
 	@IsStart		bit,
 	@IsModerator	bit,
 	@IsGuest		bit,
-	@AccessMaskID	int=null
+	@AccessMaskID	int=null,
+	@PMLimit int=null
 ) as
 begin
 		declare @Flags	int
@@ -2299,12 +2300,13 @@ begin
 	if @GroupID>0 begin
 		update [{databaseOwner}].[{objectQualifier}Group] set
 			Name = @Name,
-			Flags = @Flags
+			Flags = @Flags,
+			PMLimit = @PMLimit
 		where GroupID = @GroupID
 	end
 	else begin
-		insert into [{databaseOwner}].[{objectQualifier}Group](Name,BoardID,Flags)
-		values(@Name,@BoardID,@Flags);
+		insert into [{databaseOwner}].[{objectQualifier}Group](Name,BoardID,Flags,PMLimit)
+		values(@Name,@BoardID,@Flags,@PMLimit);
 		set @GroupID = SCOPE_IDENTITY()
 		insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID)
 		select @GroupID,a.ForumID,@AccessMaskID from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID
@@ -3196,11 +3198,11 @@ end
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_list](@FromUserID int=null,@ToUserID int=null,@UserPMessageID int=null) AS
-BEGIN
-		SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body, Flags, IsRead, IsInOutbox, IsArchived, IsDeleted
+BEGIN				
+		SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body,  Flags, IsRead, IsInOutbox, IsArchived, IsDeleted
 		FROM [{databaseOwner}].[{objectQualifier}PMessageView]
 		WHERE	((@UserPMessageID IS NOT NULL AND UserPMessageID=@UserPMessageID) OR 
-				 (@ToUserID   IS NOT NULL AND ToUserID = @ToUserID) OR (@FromUserID IS NOT NULL AND FromUserID = @FromUserID))
+				 (@ToUserID   IS NOT NULL AND ToUserID = @ToUserID) OR (@FromUserID IS NOT NULL AND FromUserID = @FromUserID))		
 		ORDER BY Created DESC
 END
 GO
@@ -3235,9 +3237,9 @@ create procedure [{databaseOwner}].[{objectQualifier}pmessage_save](
 	@Flags		int
 ) as
 begin
-		declare @PMessageID int
-	declare @UserID int
-
+	declare @PMessageID int
+	declare @UserID int      
+	 
 	insert into [{databaseOwner}].[{objectQualifier}PMessage](FromUserID,Created,Subject,Body,Flags)
 	values(@FromUserID,getdate(),@Subject,@Body,@Flags)
 
@@ -3248,7 +3250,7 @@ begin
 		select
 				a.UserID,@PMessageID,2
 		from
-				{objectQualifier}User a
+				[{databaseOwner}].[{objectQualifier}User] a
 				join [{databaseOwner}].[{objectQualifier}UserGroup] b on b.UserID=a.UserID
 				join [{databaseOwner}].[{objectQualifier}Group] c on c.GroupID=b.GroupID where
 				(c.Flags & 2)=0 and
@@ -3259,7 +3261,7 @@ begin
 	else
 	begin
 		insert into [{databaseOwner}].[{objectQualifier}UserPMessage](UserID,PMessageID,Flags) values(@ToUserID,@PMessageID,2)
-	end
+	end	
 end
 GO
 
@@ -3495,7 +3497,8 @@ create procedure [{databaseOwner}].[{objectQualifier}rank_save](
 	@IsStart	bit,
 	@IsLadder	bit,
 	@MinPosts	int,
-	@RankImage	nvarchar(50)=null
+	@RankImage	nvarchar(50)=null,
+	@PMLimit    int
 ) as
 begin
 		declare @Flags int
@@ -3512,12 +3515,13 @@ begin
 			Name = @Name,
 			Flags = @Flags,
 			MinPosts = @MinPosts,
-			RankImage = @RankImage
+			RankImage = @RankImage,
+			PMLimit = @PMLimit
 		where RankID = @RankID
 	end
 	else begin
-		insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,RankImage)
-		values(@BoardID,@Name,@Flags,@MinPosts,@RankImage);
+		insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,RankImage, PMLimit)
+		values(@BoardID,@Name,@Flags,@MinPosts,@RankImage,@PMLimit);
 	end
 end
 GO
@@ -4494,31 +4498,53 @@ end
 GO
 
 CREATE PROC [{databaseOwner}].[{objectQualifier}user_pmcount]
-	@UserID int
+	(@UserID int) 
 AS
 BEGIN
-		DECLARE @Count int
-
-	-- get count of pm's in user's sent items
+		DECLARE @CountIn int	
+		DECLARE @CountOut int
+		DECLARE @plimit1 int        
+        DECLARE @pcount int
+        
+      set @plimit1 = (SELECT TOP 1 (c.PMLimit) FROM [{databaseOwner}].[{objectQualifier}User] a 
+                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+                          ON a.UserID = b.UserID
+                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+                              ON b.GroupID = c.GroupID WHERE a.UserID = @UserID ORDER BY c.PMLimit DESC)
+      set @pcount = (SELECT TOP 1 c.PMLimit FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+                        JOIN [{databaseOwner}].[{objectQualifier}User] d
+                           ON c.RankID = d.RankID WHERE d.UserID = @UserID ORDER BY c.PMLimit DESC)
+      if (@plimit1 > @pcount) 
+      begin
+      set @pcount = @plimit1      
+      end 
+      
+    -- get count of pm's in user's sent items
+	
 	SELECT 
-		@Count=COUNT(*) 
+		@CountOut=COUNT(*) 
 	FROM 
 		[{databaseOwner}].[{objectQualifier}UserPMessage] a
 	INNER JOIN [{databaseOwner}].[{objectQualifier}PMessage] b ON a.PMessageID=b.PMessageID
 	WHERE 
 		(a.Flags & 2)<>0 AND
 		b.FromUserID = @UserID
-
-	-- add count of pm's in user's inbox
+    -- get count of pm's in user's received items
 	SELECT 
-		@Count=@Count+COUNT(*) 
+		@CountIn = COUNT(*)
 	FROM 
 		[{databaseOwner}].[{objectQualifier}UserPMessage] 
 	WHERE 
 		UserID = @UserID
+		
 
-	-- return total count
-	SELECT @Count
+	-- return all pm data
+	SELECT 
+		NumberIn = @CountIn,
+		NumberOut =  @CountOut,
+		NumberTotal = @CountIn + @CountOut,
+		NumberAllowed = @pcount	
+
 END
 GO
 

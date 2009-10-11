@@ -855,6 +855,23 @@ begin
 end
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='PMLimit')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] add PMLimit int null
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='PMLimit')
+begin
+grant update on [{databaseOwner}].[{objectQualifier}Group] to public
+		exec('update [{databaseOwner}].[{objectQualifier}Group] set PMLimit = 30 WHERE PMLimit IS NULL')
+		revoke update on [{databaseOwner}].[{objectQualifier}Group] from public	    
+end
+GO
+
+
+		
+
 -- AccessMask Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='Flags')
 begin
@@ -1049,6 +1066,20 @@ begin
 end
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int null
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
+begin
+grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
+		exec('update [{databaseOwner}].[{objectQualifier}Rank] set PMLimit = 30 WHERE PMLimit IS NULL')
+		revoke update on [{databaseOwner}].[{objectQualifier}Rank] from public	
+end
+GO
+
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='IsStart')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
@@ -1064,6 +1095,12 @@ begin
 	exec('update [{databaseOwner}].[{objectQualifier}Rank] set Flags = Flags | 2 where IsLadder<>0')
 	revoke update on [{databaseOwner}].[{objectQualifier}Rank] from public
 	alter table [{databaseOwner}].[{objectQualifier}Rank] drop column IsLadder
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add PMLimit int null
 end
 GO
 
@@ -1099,3 +1136,7 @@ BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}Category] ADD [CategoryImage] [nvarchar](255) NULL
 END
 GO
+
+
+
+

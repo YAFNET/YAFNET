@@ -3,6 +3,7 @@
 	EnableTheming="true" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
+
 <asp:GridView ID="MessagesView" runat="server" OnRowCreated="MessagesView_RowCreated"
 	DataKeyNames="UserPMessageID" Width="99%" GridLines="None" CellSpacing="1" ShowFooter="true"
 	AutoGenerateColumns="false" CssClass="content" EmptyDataText='<%#GetLocalizedText("NO_MESSAGES") %>'
@@ -74,4 +75,11 @@
 		</asp:TemplateField>
 	</Columns>
 </asp:GridView>
+ <table class="content" cellspacing="1" cellpadding="0" width="99%">
+            <tr class="postheader">
+                <td class="post">
+                  <asp:Label ID="PMInfoLink" runat="server" ></asp:Label>
+                </td>
+            </tr>
+  </table>
 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />

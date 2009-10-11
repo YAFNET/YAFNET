@@ -38,6 +38,13 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
+				<b>Private Messages:</b><br />
+				Max Private Messages allowed to Rank members.</td>
+			<td class="post" colspan="6">
+				<asp:TextBox ID="PMLimit" Text="0" runat="server" /></td>
+		</tr>
+		<tr>
+			<td class="postheader" colspan="4">
 				<b>Rank Image:</b><br />
 				This image will be shown next to users of this rank.</td>
 			<td class="post" colspan="7">

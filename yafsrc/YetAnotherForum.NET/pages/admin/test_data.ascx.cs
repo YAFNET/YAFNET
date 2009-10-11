@@ -310,11 +310,15 @@ namespace YAF.Pages.Admin
 
         private int CreateUsers()
         {
-            int _users_Number = 0;            
+            int _users_Number = 0; 
+           
             if ( !int.TryParse(UsersNumber.Text.Trim(), out  _users_Number ) ) return 0;
             if ( _users_Number <= 0 ) return 0;
+
+            int  _outCounter = 0;
             int boardID = 0;
             int _countLimit = 1;
+
             bool _excludeCurrentBoard = false;
                 switch(UsersBoardsOptions.SelectedIndex)
                 {
@@ -332,6 +336,7 @@ namespace YAF.Pages.Admin
             // if ( _users_Number > createCommonLimit ) _users_Number = createCommonLimit;
                 for (int iboards = 0; iboards < _countLimit; iboards++)
                 {
+                    if (boardID == 0) boardID = Convert.ToInt32(UsersBoardsOptions.Items[iboards].Value);
                     int i = 0;
                     for (i = 0; i < Convert.ToInt32(UsersNumber.Text.Trim()); i++)
                     {
@@ -346,7 +351,7 @@ namespace YAF.Pages.Admin
                             string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
                             MembershipCreateStatus status;
-                            MembershipUser user = PageContext.CurrentMembership.CreateUser(newUsername, Password.Text.Trim(), newEmail, Question.Text.Trim(), Answer.Text.Trim(), !PageContext.BoardSettings.EmailVerification, null, out status);
+                            MembershipUser user = YafContext.Current.CurrentMembership.CreateUser(newUsername, Password.Text.Trim(), newEmail, Question.Text.Trim(), Answer.Text.Trim(), !PageContext.BoardSettings.EmailVerification, null, out status);
 
                             if (status == MembershipCreateStatus.Success)
                             {
@@ -365,15 +370,16 @@ namespace YAF.Pages.Admin
                                 userProfile.Save();
 
                                 // save the time zone...
-                                if (!(boardID == PageContext.PageBoardID && _excludeCurrentBoard))                                     
-                                    YAF.Classes.Data.DB.user_save(UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey), boardID , null, null, Convert.ToInt32(TimeZones.SelectedValue), null, null, null, null, null);
-
+                                if (!(Convert.ToInt32(UsersBoardsOptions.Items[i].Value) == YafContext.Current.PageBoardID && _excludeCurrentBoard))
+                                {   YAF.Classes.Data.DB.user_save(UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey), boardID, null, null, Convert.ToInt32(TimeZones.SelectedValue), null, null, null, null, null);
+                                _outCounter++;
+                                }
                             }
                         }
                         retBoards++;
                     }
                 }
-                return retBoards;
+                return _outCounter;
         }
         private int CreateBoards()
         {

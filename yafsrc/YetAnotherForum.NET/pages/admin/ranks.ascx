@@ -16,6 +16,8 @@
 					<td class="header2">
 						Is Ladder</td>
 					<td class="header2">
+						PM limit</td>	
+					<td class="header2">
 						Command</td>
 				</tr>
 			</HeaderTemplate>
@@ -31,8 +33,10 @@
 						<%# LadderInfo(Container.DataItem) %>
 					</td>
 					<td class="post">
-						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "RankID") %>'>Edit</asp:LinkButton>
-						|
+						<%# Eval( "PMLimit" ) %>
+					</td>
+					<td class="post">
+						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "RankID") %>'>Edit</asp:LinkButton>						|
 						<asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "RankID") %>'>Delete</asp:LinkButton>
 					</td>
 				</tr>

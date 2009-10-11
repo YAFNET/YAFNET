@@ -59,6 +59,8 @@ namespace YAF.Pages.Admin
 						IsStart.Checked = flags.IsStart;
 						IsLadder.Checked = flags.IsLadder;
 						MinPosts.Text = row ["MinPosts"].ToString();
+                        PMLimit.Text = row["PMLimit"].ToString();
+                       
 						ListItem item = RankImage.Items.FindByText( row ["RankImage"].ToString() );
 						if ( item != null )
 						{
@@ -75,6 +77,7 @@ namespace YAF.Pages.Admin
 				{
 					Preview.Src = String.Format( "{0}images/spacer.gif", YafForumInfo.ForumRoot );
 				}
+               
 			}
 			RankImage.Attributes ["onchange"] = String.Format(
 					"getElementById('{1}_ctl01_Preview').src='{0}images/ranks/' + this.value",
@@ -146,6 +149,12 @@ namespace YAF.Pages.Admin
 
 		protected void Save_Click( object sender, System.EventArgs e )
 		{
+            if (!ValidationHelper.IsValidInt(PMLimit.Text.Trim()))
+            {
+                PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
+                return;
+            }
+
 			// Group
 			int RankID = 0;
 			if ( Request.QueryString ["r"] != null ) RankID = int.Parse( Request.QueryString ["r"] );
@@ -153,7 +162,7 @@ namespace YAF.Pages.Admin
 			object rankImage = null;
 			if ( RankImage.SelectedIndex > 0 )
 				rankImage = RankImage.SelectedValue;
-			YAF.Classes.Data.DB.rank_save( RankID, PageContext.PageBoardID, Name.Text, IsStart.Checked, IsLadder.Checked, MinPosts.Text, rankImage );
+            YAF.Classes.Data.DB.rank_save(RankID, PageContext.PageBoardID, Name.Text, IsStart.Checked, IsLadder.Checked, MinPosts.Text, rankImage, Convert.ToInt32(PMLimit.Text));
 
 			YafBuildLink.Redirect( ForumPages.admin_ranks );
 		}

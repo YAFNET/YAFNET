@@ -33,7 +33,7 @@
 							Create Users:
 						</td>
 						<td class="post">
-						<asp:RadioButtonList ID="UsersBoardsOptions"  Enabled="false"   AutoPostBack="true" runat="server"
+						<asp:RadioButtonList ID="UsersBoardsOptions"  Enabled="true"   AutoPostBack="true" runat="server"
 							 	OnSelectedIndexChanged="UsersBoardsOptions_OnSelectedIndexChanged" />								
 						</td>
 					</tr>

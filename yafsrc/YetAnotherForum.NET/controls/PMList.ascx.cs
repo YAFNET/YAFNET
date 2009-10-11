@@ -52,7 +52,11 @@ namespace YAF.Controls
 
 				PagerTop.PageSize = 10;
 				MessagesView.PageSize = 10;
-			}
+                DataTable dt = DB.user_pmcount( PageContext.PageUserID );
+                if ( dt.Rows.Count > 0 )
+                    PMInfoLink.Text = GetPMessageText( "PMLIMIT", dt.Rows[ 0 ][ "NumberTotal" ], dt.Rows[ 0 ][ "NumberIn" ],dt.Rows[ 0 ][ "NumberOut" ],dt.Rows[ 0 ][ "NumberAllowed" ] );
+			
+            }
 			else
 			{
 				// make sure addLoadMessage is empty...
@@ -79,7 +83,7 @@ namespace YAF.Controls
 			set { ViewState["View"] = value; }
 		}
 
-		protected string GetTitle()
+		protected string GetTitle( )
 		{
 			if ( View == PMView.Outbox )
 				return GetLocalizedText( "SENTITEMS" );
@@ -94,7 +98,20 @@ namespace YAF.Controls
 			return HtmlEncode( PageContext.Localization.GetText( text ) );
 		}
 
-		protected string GetMessageUserHeader()
+        protected string GetPMessageText( string text, object _total, object _inbox, object _outbox, object _limit )
+        {
+            object _percentage = 0;                      
+            if ( Convert.ToInt32( _limit ) != 0 )
+                _percentage = decimal.Round( ( Convert.ToDecimal( _total ) / Convert.ToDecimal( _limit ) ) * 100, 2 );
+            if ( YAF.Classes.Core.YafContext.Current.IsAdmin )
+            {
+                _limit = "\u221E";
+                _percentage = 0;
+            }
+            return HtmlEncode( PageContext.Localization.GetTextFormatted( text, _total, _inbox, _outbox, _limit, _percentage ) );
+        }
+
+		protected string GetMessageUserHeader( )
 		{
 			return GetLocalizedText( View == PMView.Outbox ? "to" : "from" );
 		}
@@ -119,6 +136,7 @@ namespace YAF.Controls
 				fromUserID = PageContext.PageUserID;
 			else
 				toUserID = PageContext.PageUserID;
+
 			using ( DataView dv = DB.pmessage_list( toUserID, fromUserID, null ).DefaultView )
 			{
 				if ( View == PMView.Inbox )
@@ -128,13 +146,13 @@ namespace YAF.Controls
 				else if ( View == PMView.Archive )
 					dv.RowFilter = "IsArchived = True";
 
-				dv.Sort = String.Format( "{0} {1}", ViewState["SortField"], (bool)ViewState["SortAsc"] ? "asc" : "desc" );
-
-				PagerTop.Count = dv.Count;
+				dv.Sort = String.Format( "{0} {1}", ViewState["SortField"], (bool)ViewState["SortAsc"] ? "asc" : "desc" );                
+				PagerTop.Count = dv.Count;               
 
 				MessagesView.PageIndex = PagerTop.CurrentPageIndex;
 				MessagesView.DataSource = dv;
-				MessagesView.DataBind();
+				MessagesView.DataBind();               
+
 			}
 		}
 
@@ -261,9 +279,8 @@ namespace YAF.Controls
 				}
 			}
 
-			BindData();
-			PageContext.AddLoadMessage(
-					PageContext.Localization.GetTextFormatted( "msgdeleted2", nItemCount ) );
+            BindData();
+            PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("msgdeleted2", nItemCount));			
 		}
 
 		protected string GetImage( object o )

@@ -47,7 +47,7 @@ namespace YAF.Pages.Admin
 				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
 				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Ranks","");
-
+                
 				BindData();
 			}
 		}
@@ -58,8 +58,8 @@ namespace YAF.Pages.Admin
 		}
 
 		private void BindData() 
-		{
-			RankList.DataSource = YAF.Classes.Data.DB.rank_list(PageContext.PageBoardID,null);
+		{        
+            RankList.DataSource =  YAF.Classes.Data.DB.rank_list(PageContext.PageBoardID, null);
 			DataBind();
 		}
 
@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
 			}
 			return tmp;
 		}
-
+      
 		protected bool BitSet(object _o,int bitmask) 
 		{
 			int i = (int)_o;
