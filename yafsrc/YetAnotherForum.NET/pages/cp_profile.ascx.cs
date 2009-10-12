@@ -31,7 +31,6 @@ using System.Web.UI.HtmlControls;
 using System.Globalization;
 using YAF.Classes.Core;
 using YAF.Classes;
-using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
