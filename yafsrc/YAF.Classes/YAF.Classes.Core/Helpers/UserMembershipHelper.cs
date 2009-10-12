@@ -368,6 +368,7 @@ namespace YAF.Classes.Core
 				return IsGuestUser( (int)userID );
 			}
 		}
+
 		/// <summary>
 		/// Simply tells you if the userID passed is the Guest user
 		/// for the current board
@@ -376,26 +377,49 @@ namespace YAF.Classes.Core
 		/// <returns>true if the userid is a guest user</returns>
 		public static bool IsGuestUser( int userID )
 		{
-			int guestUserID = -1;
-			// obtain board specific cache key
-			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.GuestUserID );
+			return GuestUserId == userID;
+		}
 
-			// check if there is value cached
-			if ( YafContext.Current.Cache[cacheKey] == null )
+	
+		/// <summary>
+		/// Gets the guest user id for the current board.
+		/// </summary>
+		public static int GuestUserId
+		{
+			get
 			{
-				// get the guest user for this board...
-				guestUserID = DB.user_guest( YafContext.Current.PageBoardID );
-				// cache it
-				YafContext.Current.Cache[cacheKey] = guestUserID;
-			}
-			else
-			{
-				// retrieve guest user id from cache
-				guestUserID = Convert.ToInt32( YafContext.Current.Cache[cacheKey] );
-			}
+				int guestUserID = -1;
+				// obtain board specific cache key
+				string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.GuestUserID );
 
-			// compare user id from parameter with guest user id
-			return ( userID == guestUserID );
+				// check if there is value cached
+				if ( YafContext.Current.Cache[cacheKey] == null )
+				{
+					// get the guest user for this board...
+					guestUserID = DB.user_guest( YafContext.Current.PageBoardID );
+					// cache it
+					YafContext.Current.Cache[cacheKey] = guestUserID;
+				}
+				else
+				{
+					// retrieve guest user id from cache
+					guestUserID = Convert.ToInt32( YafContext.Current.Cache[cacheKey] );
+				}
+
+				return guestUserID;
+			}
+		}
+
+		/// <summary>
+		/// Username of the Guest user for the current board.
+		/// </summary>
+		public static string GuestUserName
+		{
+			get
+			{
+				return DBHelper.GetFirstRowColumnAsValue<string>(
+					DB.user_list( YafContext.Current.PageBoardID, GuestUserId, true ), "Name", null );
+			}
 		}
 	}
 }

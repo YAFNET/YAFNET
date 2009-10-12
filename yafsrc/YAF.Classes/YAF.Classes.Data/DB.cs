@@ -4677,9 +4677,6 @@ namespace YAF.Classes.Data
 
 			List<string> statements = System.Text.RegularExpressions.Regex.Split( script, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase ).ToList();
 
-			// add SET ARITHABORT ON
-			statements.Insert( 0, "SET ARITHABORT ON" );
-
 			using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
 			{
 				// use transactions...
@@ -4724,7 +4721,7 @@ namespace YAF.Classes.Data
 					{
 						string sql = sql0.Trim();
 						// add ARITHABORT option
-						sql = "SET ARITHABORT ON\r\nGO\r\n" + sql;
+						//sql = "SET ARITHABORT ON\r\nGO\r\n" + sql;
 
 						try
 						{

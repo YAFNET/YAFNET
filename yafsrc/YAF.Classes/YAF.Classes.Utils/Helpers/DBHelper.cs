@@ -27,6 +27,24 @@ namespace YAF.Classes.Utils
 	public static class DBHelper
 	{
 		/// <summary>
+		/// Gets the specified column of the first row as the type specified. If not available returns default value.
+		/// </summary>
+		/// <typeparam name="T">Type if column to return</typeparam>
+		/// <param name="dt">DataTable to pull from</param>
+		/// <param name="columnName">Name of column to convert</param>
+		/// <param name="defaultValue">value to return if something is not available</param>
+		/// <returns></returns>
+		static public T GetFirstRowColumnAsValue<T>( DataTable dt, string columnName, T defaultValue )
+		{
+			if ( dt.Rows.Count > 0 && dt.Columns.Contains( columnName ) )
+			{
+				return (T) Convert.ChangeType( dt.Rows[0][columnName], typeof ( T ) );
+			}
+
+			return defaultValue;
+		}	
+
+		/// <summary>
 		/// Gets the first row of the data table or redirects to invalid request
 		/// </summary>
 		/// <param name="dt"></param>
