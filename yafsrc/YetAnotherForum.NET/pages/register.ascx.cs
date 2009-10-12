@@ -290,7 +290,7 @@ namespace YAF.Pages // YAF.Pages
 			CreateUserWizard1.UserName = CreateUserWizard1.UserName.Trim();
 
 			// username cannot contain semi-colon
-			if (CreateUserWizard1.UserName.Contains(";"))
+			if ( CreateUserWizard1.UserName.Contains( ";" ) || CreateUserWizard1.UserName.ToLower().Equals( UserMembershipHelper.GuestUserName.ToLower() ) )
 			{
 				PageContext.AddLoadMessage(GetText("BAD_USERNAME"));
 				e.Cancel = true;
