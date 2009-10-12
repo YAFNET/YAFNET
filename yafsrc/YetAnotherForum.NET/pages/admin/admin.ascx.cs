@@ -124,7 +124,7 @@ namespace YAF.Pages.Admin
 
 		private void BindData()
 		{
-            ActiveList.DataSource = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, true, PageContext.BoardSettings.ActiveListTime);
+            ActiveList.DataSource = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, true, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
 			UserList.DataSource = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, null, false );
 			DataBind();
 

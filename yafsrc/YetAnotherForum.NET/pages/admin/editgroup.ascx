@@ -49,7 +49,21 @@
 				<b>PMessages:</b><br />
 				Max Private Messages allowed to Group members.</td>
 			<td class="post" width="50%">
-				<asp:TextBox Style="width: 60px" ID="PMLimit" runat="server" /></td>
+				<asp:TextBox Style="width: 80px" ID="PMLimit" Text="0" runat="server" /></td>
+		</tr>
+		<tr>
+			<td class="postheader" width="50%">
+				<b>Style:</b><br />
+				Enter here combined style string for coloured nicks.</td>
+			<td class="post" width="50%">
+				<asp:TextBox Style="width: 300px" ID="StyleTextBox" runat="server" /></td>
+		</tr>
+		<tr>
+			<td class="postheader" width="50%">
+				<b>Priority:</b><br />
+				Enter here priority for different tasks.</td>
+			<td class="post" width="50%">
+				<asp:TextBox Style="width: 300px" ID="Priority" Text="0" runat="server" /></td>
 		</tr>
 		<tr runat="server" visible="false" id="IsGuestTR">
 			<td class="postheader">

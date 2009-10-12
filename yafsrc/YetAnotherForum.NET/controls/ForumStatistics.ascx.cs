@@ -34,9 +34,14 @@ namespace YAF.Controls
 		void ForumStatistics_Load( object sender, EventArgs e )
 		{
 			// Active users
-			// Call this before forum_stats to clean up active users
-            ActiveUsers1.ActiveUserTable = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, null, PageContext.BoardSettings.ActiveListTime);
+			// Call this before forum_stats to clean up active users'
+           DataTable dt = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, null, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
+           dt = YAF.Classes.UI.StyleHelper.ClearStyle(dt);
+         
+           ActiveUsers1.ActiveUserTable = dt;
 
+            ActiveUsers au = new ActiveUsers();
+            
 			// "Active Users" Count and Most Users Count
 			DataRow activeStats = YAF.Classes.Data.DB.active_stats(PageContext.PageBoardID);
 

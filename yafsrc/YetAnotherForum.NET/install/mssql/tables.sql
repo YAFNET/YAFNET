@@ -869,8 +869,18 @@ grant update on [{databaseOwner}].[{objectQualifier}Group] to public
 end
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Style')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] add Style nvarchar(255) null
+end
+GO
 
-		
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='SortOrder')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] add SortOrder smallint not null default (0)
+end
+GO
+
 
 -- AccessMask Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='Flags')
@@ -1080,6 +1090,19 @@ grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
 end
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Style')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add Style nvarchar(255) null
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='SortOrder')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add SortOrder smallint not null default (0)
+end
+GO
+
+
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='IsStart')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
@@ -1088,6 +1111,8 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] drop column IsStart
 end
 GO
+
+
 
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='IsLadder')
 begin

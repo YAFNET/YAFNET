@@ -89,7 +89,9 @@ namespace YAF.Pages.Admin
 						IsAdminX.Checked = flags.IsAdmin;
 						IsStartX.Checked = flags.IsStart;
 						IsModeratorX.Checked = flags.IsModerator;
-                        PMLimit.Text = row["PMLimit"].ToString();                      
+                        PMLimit.Text = row["PMLimit"].ToString();
+                        StyleTextBox.Text = row["Style"].ToString(); 
+                        Priority.Text = row["SortOrder"].ToString();
 						// IsGuest flag can be set for only one role. if it isn't for this, disable that row
 						if (flags.IsGuest) IsGuestTR.Visible = true;
 					}
@@ -119,6 +121,11 @@ namespace YAF.Pages.Admin
                 PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
                 return;
             }
+            if (!ValidationHelper.IsValidInt(Priority.Text.Trim()))
+            {
+                PageContext.AddLoadMessage("You should enter integer value for priority.");
+                return;
+            }
             // Role
 			long roleID = 0;
 			// get role ID from page's parameter
@@ -129,17 +136,17 @@ namespace YAF.Pages.Admin
 			string oldRoleName = string.Empty;
 
 			// if we are editing exising role, get it's original name
-			if (roleID != 0)
+			if ( roleID != 0 )
 			{
 				// get the current role name in the DB
-				using (DataTable dt = DB.group_list(YafContext.Current.PageBoardID, roleID))
+				using ( DataTable dt = DB.group_list( YafContext.Current.PageBoardID, roleID ) )
 				{
-					foreach (DataRow row in dt.Rows) oldRoleName = row["Name"].ToString();
+					foreach ( DataRow row in dt.Rows ) oldRoleName = row["Name"].ToString( );
 				}
 			}
 
 			// save role and get its ID if it's new (if it's old role, we get it anyway)
-			roleID = DB.group_save(roleID, PageContext.PageBoardID, roleName, IsAdminX.Checked, IsGuestX.Checked, IsStartX.Checked, IsModeratorX.Checked, AccessMaskID.SelectedValue, PMLimit.Text);
+            roleID = DB.group_save(roleID, PageContext.PageBoardID, roleName, IsAdminX.Checked, IsGuestX.Checked, IsStartX.Checked, IsModeratorX.Checked, AccessMaskID.SelectedValue, PMLimit.Text.Trim(), StyleTextBox.Text.Trim(), Priority.Text.Trim());
 			
 			// see if need to rename an existing role...
 			if ( roleName != oldRoleName && RoleMembershipHelper.RoleExists( oldRoleName ) && !RoleMembershipHelper.RoleExists( roleName ) && !IsGuestX.Checked )

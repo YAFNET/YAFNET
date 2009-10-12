@@ -45,6 +45,20 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
+				<b>Priority:</b><br />
+				Priority of rank is various things.</td>
+			<td class="post" colspan="6">
+				<asp:TextBox ID="RankPriority" Text="0" runat="server" /></td>
+		</tr>
+		<tr>
+			<td class="postheader" colspan="4">
+				<b>Style:</b><br />
+				Style of users links in active users, colore, font size...</td>
+			<td class="post" colspan="6">
+				<asp:TextBox ID="Style" Text="" runat="server" /></td>
+		</tr>
+		<tr>
+			<td class="postheader" colspan="4">
 				<b>Rank Image:</b><br />
 				This image will be shown next to users of this rank.</td>
 			<td class="post" colspan="7">

@@ -975,7 +975,7 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">BoardID</param>
 		/// <param name="Guests"></param>
 		/// <returns>Returns a DataTable of active users</returns>
-		static public DataTable active_list( object boardID, object Guests,int activeTime )
+		static public DataTable active_list( object boardID, object Guests,int activeTime, object stylesNicks )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "active_list" ) )
 			{
@@ -983,6 +983,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Guests", Guests );
                 cmd.Parameters.AddWithValue( "ActiveTime", activeTime );
+                cmd.Parameters.AddWithValue( "StyledNicks", stylesNicks );
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
@@ -1001,7 +1002,8 @@ namespace YAF.Classes.Data
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
-		/// <summary>
+       
+        /// <summary>
 		/// Gets the list of active users in a topic
 		/// </summary>
 		/// <param name="topicID">ID of topic </param>
@@ -2141,7 +2143,8 @@ namespace YAF.Classes.Data
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
-        static public long group_save( object groupID, object boardID, object name, object isAdmin, object isGuest, object isStart, object isModerator, object accessMaskID, object pmLimit )
+     
+        static public long group_save( object groupID, object boardID, object name, object isAdmin, object isGuest, object isStart, object isModerator, object accessMaskID, object pmLimit, object style, object sortOrder )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "group_save" ) )
 			{
@@ -2155,6 +2158,8 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "IsModerator", isModerator );
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
                 cmd.Parameters.AddWithValue( "PMLimit", pmLimit );
+                cmd.Parameters.AddWithValue("Style", style);
+                cmd.Parameters.AddWithValue("SortOrder", sortOrder);
 				return long.Parse( YafDBAccess.Current.ExecuteScalar( cmd ).ToString() );
 			}
 		}
@@ -3271,7 +3276,7 @@ namespace YAF.Classes.Data
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
-        static public void rank_save( object rankID, object boardID, object name, object isStart, object isLadder, object minPosts, object rankImage, object pmLimit )
+        static public void rank_save( object rankID, object boardID, object name, object isStart, object isLadder, object minPosts, object rankImage, object pmLimit, object style, object sortOrder )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "rank_save" ) )
 			{
@@ -3284,6 +3289,9 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "MinPosts", minPosts );
 				cmd.Parameters.AddWithValue( "RankImage", rankImage );
                 cmd.Parameters.AddWithValue( "PMLimit", pmLimit );
+                cmd.Parameters.AddWithValue( "Style", style );
+                cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
+
 				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}

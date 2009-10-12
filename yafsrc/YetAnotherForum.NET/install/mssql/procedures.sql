@@ -963,9 +963,9 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ActiveTime int) as
+create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ActiveTime int,@StyledNicks bit=0) as
 begin
-		-- delete non-active
+	-- delete non-active
 	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,getdate())>@ActiveTime
 	-- select active
 	if @Guests<>0
@@ -980,6 +980,9 @@ begin
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
 			IsHidden = ( a.IsActiveExcluded ),
+			Style = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+	        else ''	 end,			
 			UserCount = 1,
 			c.Login,
 			c.LastActive,
@@ -1006,6 +1009,9 @@ begin
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
 			IsHidden = ( a.IsActiveExcluded ),
+				Style = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+	        else ''	 end,				
 			UserCount = 1,
 			c.Login,
 			c.LastActive,
@@ -1014,8 +1020,9 @@ begin
 			c.Browser,
 			c.Platform
 		from
-			[{databaseOwner}].[{objectQualifier}User] a
-			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID
+			[{databaseOwner}].[{objectQualifier}User] a		
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID	
+			      
 		where
 			c.BoardID = @BoardID and
 			not exists(
@@ -1049,6 +1056,7 @@ begin
 		b.Name
 end
 GO
+
 
 create procedure [{databaseOwner}].[{objectQualifier}active_listtopic](@TopicID int) as
 begin
@@ -1237,15 +1245,15 @@ begin
 	SET @BoardID = SCOPE_IDENTITY()
 
 	-- Rank
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit) VALUES (@BoardID,'Administration',0,null,1000)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit,SortOrder) VALUES (@BoardID,'Administration',0,null,2147483647,0)
 	SET @RankIDAdmin = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit) VALUES(@BoardID,'Guest',0,null,0)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit,SortOrder) VALUES(@BoardID,'Guest',0,null,0,100)
 	SET @RankIDGuest = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit) VALUES(@BoardID,'Newbie',3,0,10)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit,SortOrder) VALUES(@BoardID,'Newbie',3,0,10,3)
 	SET @RankIDNewbie = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit) VALUES(@BoardID,'Member',2,10,30)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit,SortOrder) VALUES(@BoardID,'Member',2,10,30,2)
 	SET @RankIDMember = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit) VALUES(@BoardID,'Advanced Member',2,30,100)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit,SortOrder) VALUES(@BoardID,'Advanced Member',2,30,100,1)
 	SET @RankIDAdvanced = SCOPE_IDENTITY()
 
 	-- AccessMask
@@ -1265,11 +1273,11 @@ begin
 	VALUES(@BoardID,'No Access',0)
 
 	-- Group
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit) values(@BoardID,'Administrators',1,2147483647)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,Style,SortOrder) values(@BoardID,'Administrators',1,2147483647,'default!font-size: 8pt; color: red/flatearth!font-size: 8pt; color:blue',0)
 	set @GroupIDAdmin = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit) values(@BoardID,'Guests',2,0)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder) values(@BoardID,'Guests',2,0,1)
 	SET @GroupIDGuest = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit) values(@BoardID,'Registered',4,100)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder) values(@BoardID,'Registered',4,100,1)
 	SET @GroupIDMember = SCOPE_IDENTITY()	
 	
 	-- User (GUEST)
@@ -2286,7 +2294,9 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}group_save](
 	@IsModerator	bit,
 	@IsGuest		bit,
 	@AccessMaskID	int=null,
-	@PMLimit int=null
+	@PMLimit int=null,
+	@Style nvarchar(255),
+	@SortOrder smallint
 ) as
 begin
 		declare @Flags	int
@@ -2301,12 +2311,14 @@ begin
 		update [{databaseOwner}].[{objectQualifier}Group] set
 			Name = @Name,
 			Flags = @Flags,
-			PMLimit = @PMLimit
+			PMLimit = @PMLimit,
+			Style = @Style,
+			SortOrder = @SortOrder
 		where GroupID = @GroupID
 	end
 	else begin
-		insert into [{databaseOwner}].[{objectQualifier}Group](Name,BoardID,Flags,PMLimit)
-		values(@Name,@BoardID,@Flags,@PMLimit);
+		insert into [{databaseOwner}].[{objectQualifier}Group](Name,BoardID,Flags,PMLimit,Style, SortOrder)
+		values(@Name,@BoardID,@Flags,@PMLimit,@Style,@SortOrder);
 		set @GroupID = SCOPE_IDENTITY()
 		insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID)
 		select @GroupID,a.ForumID,@AccessMaskID from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID
@@ -3498,7 +3510,9 @@ create procedure [{databaseOwner}].[{objectQualifier}rank_save](
 	@IsLadder	bit,
 	@MinPosts	int,
 	@RankImage	nvarchar(50)=null,
-	@PMLimit    int
+	@PMLimit    int,
+	@Style      nvarchar(255),
+	@SortOrder  smallint  
 ) as
 begin
 		declare @Flags int
@@ -3516,12 +3530,14 @@ begin
 			Flags = @Flags,
 			MinPosts = @MinPosts,
 			RankImage = @RankImage,
-			PMLimit = @PMLimit
+			PMLimit = @PMLimit,
+			Style = @Style,
+			SortOrder = @SortOrder
 		where RankID = @RankID
 	end
 	else begin
-		insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,RankImage, PMLimit)
-		values(@BoardID,@Name,@Flags,@MinPosts,@RankImage,@PMLimit);
+		insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,RankImage, PMLimit,Style,SortOrder)
+		values(@BoardID,@Name,@Flags,@MinPosts,@RankImage,@PMLimit,@Style,@SortOrder);
 	end
 end
 GO

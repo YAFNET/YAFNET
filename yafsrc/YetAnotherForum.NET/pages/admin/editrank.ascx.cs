@@ -60,6 +60,8 @@ namespace YAF.Pages.Admin
 						IsLadder.Checked = flags.IsLadder;
 						MinPosts.Text = row ["MinPosts"].ToString();
                         PMLimit.Text = row["PMLimit"].ToString();
+                        Style.Text = row["Style"].ToString();
+                        RankPriority.Text = row["SortOrder"].ToString();
                        
 						ListItem item = RankImage.Items.FindByText( row ["RankImage"].ToString() );
 						if ( item != null )
@@ -154,6 +156,11 @@ namespace YAF.Pages.Admin
                 PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
                 return;
             }
+            if (!ValidationHelper.IsValidInt(RankPriority.Text.Trim()))
+            {
+                PageContext.AddLoadMessage("Rank Priority should be small integer.");
+                return;
+            }
 
 			// Group
 			int RankID = 0;
@@ -162,7 +169,7 @@ namespace YAF.Pages.Admin
 			object rankImage = null;
 			if ( RankImage.SelectedIndex > 0 )
 				rankImage = RankImage.SelectedValue;
-            YAF.Classes.Data.DB.rank_save(RankID, PageContext.PageBoardID, Name.Text, IsStart.Checked, IsLadder.Checked, MinPosts.Text, rankImage, Convert.ToInt32(PMLimit.Text));
+            YAF.Classes.Data.DB.rank_save(RankID, PageContext.PageBoardID, Name.Text, IsStart.Checked, IsLadder.Checked, MinPosts.Text, rankImage, Convert.ToInt32(PMLimit.Text), Style.Text.Trim(), RankPriority.Text.Trim());
 
 			YafBuildLink.Redirect( ForumPages.admin_ranks );
 		}

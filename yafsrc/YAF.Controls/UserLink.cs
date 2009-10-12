@@ -50,10 +50,13 @@ namespace YAF.Controls
 					if ( !String.IsNullOrEmpty( this.ClientID ) ) output.WriteAttribute( "id", this.ClientID );
 					output.WriteAttribute( "href", YafBuildLink.GetLink( ForumPages.profile, "u={0}", UserID ) );
 					output.WriteAttribute( "title", HtmlEncode( UserName ) );
+                   // output.WriteAttribute( "style", HtmlEncode( Style ) );
 					if ( BlankTarget ) output.WriteAttribute( "target", "_blank" );
 					if ( !String.IsNullOrEmpty( OnClick ) ) output.WriteAttribute( "onclick", OnClick );
 					if ( !String.IsNullOrEmpty( OnMouseOver ) ) output.WriteAttribute( "onmouseover", OnMouseOver );
 					if ( !String.IsNullOrEmpty( CssClass ) ) output.WriteAttribute( "class", CssClass );
+                    if (!String.IsNullOrEmpty(Style)) output.WriteAttribute("style", Style);
+                                        
 					output.Write( HtmlTextWriter.TagRightChar );
 				}
 
@@ -202,5 +205,21 @@ namespace YAF.Controls
 				ViewState["BlankTarget"] = value;
 			}
 		}
+
+        public string Style
+        {
+            get
+            {
+                if (ViewState["Style"] != null)
+                {
+                    return ViewState["Style"].ToString();                   
+                }              
+                return string.Empty;
+            }
+            set
+            {
+                ViewState["Style"] = value;
+            }
+        }
 	}
 }

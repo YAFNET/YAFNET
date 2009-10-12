@@ -31,10 +31,10 @@
 	<asp:Repeater ID="UserList" runat="server">
 		<ItemTemplate>
 			<tr>
-				<td class="post">
-					<YAF:UserLink ID="NameLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
-						UserName='<%# Eval("UserName").ToString() %>' />
-				    <asp:PlaceHolder ID="HiddenPlaceHolder" runat="server" Visible=<%# Convert.ToBoolean(Eval("IsHidden"))  %>>
+				<td class="post">		
+					<YAF:UserLink ID="NameLink"   runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' 				
+					 Style='<%# Eval("Style").ToString() %>' UserName='<%# Eval("UserName").ToString() %>'    />
+				    <asp:PlaceHolder ID="HiddenPlaceHolder" runat="server" Visible='<%# Convert.ToBoolean(Eval("IsHidden"))%>' >
 				    (<YAF:LocalizedLabel ID="Hidden" LocalizedTag="HIDDEN" runat="server" />)
 				    </asp:PlaceHolder>				    
 				</td>

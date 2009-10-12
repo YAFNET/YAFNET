@@ -44,6 +44,11 @@ DROP FUNCTION [{databaseOwner}].[{objectQualifier}medal_gethide]
 
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}get_userstyle]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[{objectQualifier}get_userstyle]
+
+GO
+
 create function [{databaseOwner}].[{objectQualifier}bitset](@Flags int,@Mask int) returns bit as
 
 begin
@@ -369,5 +374,29 @@ BEGIN
 
 	return @Hide
 
+END
+GO
+
+CREATE FUNCTION [{databaseOwner}].[{objectQualifier}get_userstyle]
+(	
+	@UserID int
+)
+RETURNS nvarchar(255)
+AS
+BEGIN
+declare @style nvarchar(255)
+	SET @style = ( SELECT TOP 1 c.Style FROM [{databaseOwner}].[{objectQualifier}User] a 
+                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+                          ON a.UserID = b.UserID
+                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+                              ON b.GroupID = c.GroupID 
+                              WHERE a.UserID = @UserID ORDER BY a.UserID ASC)
+       if ( @style is null or @style = '' )
+                  begin
+                              set @style = (SELECT TOP 1 c.Style FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+                                JOIN [{databaseOwner}].[{objectQualifier}User] d
+                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID ORDER BY c.RankID DESC)
+                 end
+      return @style
 END
 GO

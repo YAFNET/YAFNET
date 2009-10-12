@@ -747,6 +747,15 @@
 							<asp:TextBox ID="AcceptedHTML" runat="server"></asp:TextBox>
 						</td>
 					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Use styled nicks:</b><br />
+							If checked, you can use colors, font size change etc. for active users nicks.
+						</td>
+						<td class="post">
+							<asp:CheckBox runat="server" ID="UseStyledNicks" />
+						</td>
+					</tr>
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View6" Text="Permission" NavigateUrl="" HeaderCssClass="" HeaderStyle=""

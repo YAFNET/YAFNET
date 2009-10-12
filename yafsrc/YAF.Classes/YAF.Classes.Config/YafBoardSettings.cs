@@ -628,7 +628,12 @@ namespace YAF.Classes
 			get { return _reg.GetValue<bool>( "AllowUserInfoCaching", true ); }
 			set { _reg.SetValue<bool>( "AllowUserInfoCaching", value ); }
 		}
-
+        public bool UseStyledNicks
+		{
+            get { return _reg.GetValue<bool>("UseStyledNicks", true); }
+            set { _reg.SetValue<bool>("UseStyledNicks", value); }
+		}
+        
 		#endregion
 
 		#region string settings

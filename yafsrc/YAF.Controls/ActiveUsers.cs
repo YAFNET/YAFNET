@@ -82,6 +82,7 @@ namespace YAF.Controls
 
 					UserLink userLink = new UserLink();
 					userLink.UserID = Convert.ToInt32( row ["UserID"] );
+                    userLink.Style = row["Style"].ToString();
 					userLink.UserName = row ["UserName"].ToString();
 					userLink.ID = "UserLink" + userLink.UserID.ToString();
 
@@ -118,7 +119,7 @@ namespace YAF.Controls
 
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
-			writer.WriteLine( String.Format( @"<div class=""yafactiveusers"" id=""{0}"">", this.ClientID ) );
+            writer.WriteLine(String.Format(@"<div class=""yafactiveusers"" id=""{0}"">", this.ClientID));
 
 			bool bFirst = true;
 			foreach ( System.Web.UI.Control control in this.Controls )

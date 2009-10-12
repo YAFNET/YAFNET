@@ -37,7 +37,7 @@
                 <tr>
                     <td class="post" width="1%">
                         <YAF:ThemeImage ID="ForumStatsImage" runat="server" ThemeTag="FORUM_STATS" />
-                    </td>
+                    </td> 
                     <td class="post">
                         <asp:Label ID="StatsPostsTopicCount" runat="server" />
                         <br />
