@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Web;
 
 namespace YAF.Classes.Core
@@ -27,30 +28,43 @@ namespace YAF.Classes.Core
 	{
 		public LoadMessage()
 		{
-			YafContext.Current.Unload += new EventHandler<EventArgs>(Current_Unload);
+			YafContext.Current.Unload += new EventHandler<EventArgs>( Current_Unload );
 		}
 
-		void Current_Unload(object sender, EventArgs e)
+		void Current_Unload( object sender, EventArgs e )
 		{
 			// clear the load message...
 			Clear();
 		}
 
-		private string _loadString = "";
+		private List<string> _loadStringList = null;
+		public List<string> LoadStringList
+		{
+			get
+			{
+				if ( _loadStringList == null && HttpContext.Current.Session["LoadStringList"] != null )
+				{
+					// get this as the current "loadstring"
+					_loadStringList = HttpContext.Current.Session["LoadStringList"] as List<string>;
+					// session load string no longer needed
+					HttpContext.Current.Session["LoadStringList"] = null;
+				}
+				else if ( _loadStringList == null )
+				{
+					_loadStringList = new List<string>();
+				}
+
+				return _loadStringList;
+			}
+		}
 
 		#region Load Message
 		public string LoadString
 		{
 			get
 			{
-				if (HttpContext.Current.Session["LoadMessage"] != null)
-				{
-					// get this as the current "loadstring"
-					_loadString = HttpContext.Current.Session["LoadMessage"].ToString();
-					// session load string no longer needed
-					HttpContext.Current.Session["LoadMessage"] = null;
-				}
-				return _loadString;
+				if ( LoadStringList.Count() == 0 ) return String.Empty;
+				return LoadStringDelimited( "\r\n" );
 			}
 		}
 
@@ -58,38 +72,63 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				string message = LoadString;
-				message = message.Replace("\\", "\\\\");
-				message = message.Replace("'", "\\'");
-				message = message.Replace("\r\n", "\\r\\n");
-				message = message.Replace("\n", "\\n");
-				message = message.Replace("\"", "\\\"");
-				return message;
+				return CleanJsString( LoadString );
 			}
+		}
+
+		public static string CleanJsString( string jsString )
+		{
+			string message = jsString;
+			message = message.Replace( "\\", "\\\\" );
+			message = message.Replace( "'", "\\'" );
+			message = message.Replace( "\r\n", "\\r\\n" );
+			message = message.Replace( "\n", "\\n" );
+			message = message.Replace( "\"", "\\\"" );
+			return message;
+		}
+
+		public string LoadStringDelimited( string delimiter )
+		{
+			if ( LoadStringList.Count() == 0 ) return String.Empty;
+			return LoadStringList.Aggregate( ( current, next ) => current + delimiter + next );
 		}
 
 		/// <summary>
 		/// AddLoadMessage creates a message that will be returned on the next page load.
 		/// </summary>
 		/// <param name="message">The message you wish to display.</param>
-		public void Add(string message)
+		public void Add( string message )
 		{
-			_loadString += message + "\n\n";
+			LoadStringList.Add( message );
 		}
 
 		/// <summary>
 		/// AddLoadMessageSession creates a message that will be returned on the next page.
 		/// </summary>
 		/// <param name="message">The message you wish to display.</param>
-		public void AddSession(string message)
+		public void AddSession( string message )
 		{
-			HttpContext.Current.Session["LoadMessage"] = message + "\r\n";
+			List<string> list = null;
+
+			if ( HttpContext.Current.Session["LoadStringList"] != null )
+			{
+				list = HttpContext.Current.Session["LoadStringList"] as List<string>;
+			}
+			else
+			{
+				list = new List<string>();
+			}
+
+			// add it too the session list...
+			if ( list != null ) list.Add( message );
 		}
 
+		/// <summary>
+		/// Clear the Load String (error) List
+		/// </summary>
 		public void Clear()
 		{
-			string ls = this.LoadString;
-			_loadString = string.Empty;
+			LoadStringList.Clear();
 		}
 		#endregion
 	}
