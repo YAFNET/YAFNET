@@ -82,15 +82,15 @@ namespace YAF.Modules
 			{
 				if ( ScriptManager.GetCurrent( ForumControl.Page ) != null )
 				{
-					//ScriptManager.RegisterStartupScript( ForumControl.Page, typeof( Forum ), "modalNotification", String.Format( "var fpModal = function() {0} {2}; {1}\nSys.Application.remove_load(fpModal);\nSys.Application.add_load(fpModal);\n\n", '{', '}', dialogOpen ), true );
 
-					ScriptManager.RegisterStartupScript( ForumControl.Page, typeof( Forum ), "modalNotification", String.Format( "var fpModal = function() {1} {3}('{0}'); Sys.Application.remove_load(fpModal); {2}\nSys.Application.add_load(fpModal);\n\n", PageContext.LoadMessage.StringJavascript, '{', '}', _errorPopup.ShowModalFunction ), true );
+					string displayMessage = PageContext.LoadMessage.StringJavascript;
+
+					PageContext.PageElements.RegisterJsBlockStartup( ForumControl.Page, "modalNotification",
+					                                                 String.Format(
+					                                                 	"var fpModal = function() {1} {3}('{0}'); Sys.Application.remove_load(fpModal); {2}\nSys.Application.add_load(fpModal);\n\n",
+																														displayMessage, '{', '}',
+					                                                 	_errorPopup.ShowModalFunction ) );
 				}
-			}
-			else
-			{
-				// make sure we don't show the popup...
-				//ScriptManager.RegisterStartupScript( ForumControl.Page, typeof( Forum ), "modalNotificationRemove", "if (typeof(fpModal) != 'undefined') Sys.Application.remove_load(fpModal);\n", true );
 			}
 		}
 	}
@@ -140,7 +140,7 @@ namespace YAF.Modules
 
 			// add js for client-side error settings...
 			string jsFunction = String.Format( "\n{4} = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && jQuery('#{1}') != null) {2}\njQuery('#{1}').text(newErrorStr);\njQuery('#{0}').dialog('open');\n{3}\n{3}\n", this.ClientID, MainTextClientID, '{', '}', ShowModalFunction );
-			ScriptManager.RegisterClientScriptBlock( this, typeof( PopupDialogNotification ), ShowModalFunction, jsFunction, true );
+			YafContext.Current.PageElements.RegisterJsBlock( this, ShowModalFunction, jsFunction );
 		}
 
 		protected override void OnInit( EventArgs e )
