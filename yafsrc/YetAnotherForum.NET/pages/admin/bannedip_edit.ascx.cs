@@ -27,7 +27,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes;
-using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
