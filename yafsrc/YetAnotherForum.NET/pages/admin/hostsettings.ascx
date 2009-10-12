@@ -790,7 +790,7 @@
 							Allow users email notifications when new private messages arrive.
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="AllowPMNotifications" runat="server"></asp:CheckBox>
+							<asp:CheckBox ID="AllowPMEmailNotification" runat="server"></asp:CheckBox>
 						</td>
 					</tr>
 					<tr>
