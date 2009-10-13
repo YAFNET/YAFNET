@@ -13,7 +13,7 @@ namespace YAF.Classes.UI
         {
          foreach (DataRow dr in dt.Rows)
            {
-               string[] skins = dr["Style"].ToString().Trim().Split('/');
+                string[] skins = dr["Style"].ToString().Trim().Split('/');
                for (int i = 0; i < skins.GetLength(0); i++)
                {
                 string[] pair  = skins[i].Split('!');
