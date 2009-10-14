@@ -85,6 +85,29 @@ namespace YAF.Pages.Admin
 			}
 		}
 
+        //Mod By Touradg (herman_herman) 2009/10/15
+        protected void btnShrink_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                YafDBConnManager DBName = new YafDBConnManager();
+                String ShrinkSql = "DBCC SHRINKDATABASE(N'" + DBName.DBConnection.Database + "')";
+
+                SqlConnection ShrinkConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
+                SqlCommand ShrinkCmd = new SqlCommand(ShrinkSql, ShrinkConn);
+
+                ShrinkConn.Open();
+                ShrinkCmd.ExecuteNonQuery();
+                ShrinkConn.Close();
+                txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + DB.DBSize + "MB";
+            }
+            catch (Exception error)
+            {
+                txtIndexStatistics.Text = "Something went wrong with shrink operation.The reported error is: " + error.Message;
+            }
+
+        }
+
 		void connMan_InfoMessage( object sender, YafDBConnManager.YafDBConnInfoMessageEventArgs e )
 		{
 			txtIndexStatistics.Text = e.Message;
