@@ -233,10 +233,11 @@ namespace YAF.Pages
 				YafContext.Current.AddLoadMessage( GetText( "need_message" ) );
 				return;
 			}
-
-			if ( ToList.SelectedItem != null && ToList.SelectedItem.Value == "0" )
+            
+            if (ToList.SelectedItem != null && ToList.SelectedItem.Value == "0" )
 			{
-				// administrator is sending PMs tp all users
+             
+				// administrator is sending PMs tp all users           
 
 				string body = _editor.Text;
 				MessageFlags messageFlags = new MessageFlags();
@@ -263,7 +264,7 @@ namespace YAF.Pages
 				// list of recipients
 				List<string> recipients = new List<string>( To.Text.Split( ';' ) );
 				// list of recipient's ids
-				int [] recipientID = new int [recipients.Count];
+				int [,] recipientID = new int [recipients.Count,2];
 
 				if ( recipients.Count > YafContext.Current.BoardSettings.PrivateMessageMaxRecipients && !YafContext.Current.IsAdmin && YafContext.Current.BoardSettings.PrivateMessageMaxRecipients != 0 )
 				{
@@ -271,8 +272,11 @@ namespace YAF.Pages
 					YafContext.Current.AddLoadMessage( GetTextFormatted( "TOO_MANY_RECIPIENTS", YafContext.Current.BoardSettings.PrivateMessageMaxRecipients ) );
 					return;
 				}
-
+                
+                                  
 				// test sending user's PM count
+                // get user's name
+                
                 DataRow drPMInfo = DB.user_pmcount(YafContext.Current.PageUserID).Rows[0];
 				if ( ( Convert.ToInt32( drPMInfo[ "NumberTotal" ] ) > Convert.ToInt32( drPMInfo[ "NumberAllowed" ] ) + recipients.Count  ) &&
 					!YafContext.Current.IsAdmin )
@@ -299,12 +303,13 @@ namespace YAF.Pages
 						}
 
 						// get recipient's ID from the database
-						recipientID [ i ] = Convert.ToInt32( dt.Rows [ 0 ] [ "UserID" ] );
-
+						recipientID [ i, 0 ] = Convert.ToInt32( dt.Rows [ i ] [ "UserID" ] );
+                        recipientID [ i, 1 ] = Convert.ToInt32( dt.Rows [ i ][ "IsAdmin" ] );
 						// test receiving user's PM count
-						if ( ( Convert.ToInt32( DB.user_pmcount( recipientID [ i ] ).Rows[ 0 ] ["NumberTotal"] ) >= Convert.ToInt32( DB.user_pmcount( recipientID [ i ] ).Rows[ 0 ] [ "NumberAllowed" ] ) ) &&
-							!YafContext.Current.IsAdmin )
-						{
+                        
+						if ( ( Convert.ToInt32( DB.user_pmcount( recipientID [ i ,0] ).Rows[ 0 ] ["NumberTotal"] ) >= Convert.ToInt32( DB.user_pmcount( recipientID [ i , 0] ).Rows[ 0 ] [ "NumberAllowed" ] ) ) &&
+                            !YafContext.Current.IsAdmin && recipientID[i, 1]  == 0 )
+						{                            
 							// recipient has full PM box
 							YafContext.Current.AddLoadMessage( GetTextFormatted( "RECIPIENTS_PMBOX_FULL", recipients [ i ] ) );
 							return;
@@ -322,10 +327,10 @@ namespace YAF.Pages
 					messageFlags.IsHtml = _editor.UsesHTML;
 					messageFlags.IsBBCode = _editor.UsesBBCode;
 
-					DB.pmessage_save( YafContext.Current.PageUserID, recipientID [i], Subject.Text, body, messageFlags.BitValue );
+					DB.pmessage_save( YafContext.Current.PageUserID, recipientID [i,0], Subject.Text, body, messageFlags.BitValue );
 
 					if ( YafContext.Current.BoardSettings.AllowPMEmailNotification )
-						CreateMail.PmNotification( recipientID[i], Subject.Text );
+						CreateMail.PmNotification( recipientID[i,0], Subject.Text );
 				}
 
 				// redirect to outbox (sent items), not control panel
