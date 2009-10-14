@@ -82,6 +82,7 @@ namespace YAF.Controls
 
 					UserLink userLink = new UserLink();
 					userLink.UserID = Convert.ToInt32( row ["UserID"] );
+                    if (ActiveUserTable.Columns.Contains("Style"))
                     userLink.Style = row["Style"].ToString();
 					userLink.UserName = row ["UserName"].ToString();
 					userLink.ID = "UserLink" + userLink.UserID.ToString();
