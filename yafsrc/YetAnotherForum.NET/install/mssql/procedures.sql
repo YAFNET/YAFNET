@@ -3184,7 +3184,7 @@ BEGIN
 	END
 	
 	IF ( @FromOutbox = 0 )
-	BEGIN
+	BEGIN		
 		-- set is deleted...
 		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] ^ 8) WHERE UserPMessageID = @UserPMessageID
 	END	
@@ -4543,15 +4543,16 @@ BEGIN
 		[{databaseOwner}].[{objectQualifier}UserPMessage] a
 	INNER JOIN [{databaseOwner}].[{objectQualifier}PMessage] b ON a.PMessageID=b.PMessageID
 	WHERE 
-		(a.Flags & 2)<>0 AND
+		(a.Flags & 2)<>0  AND
 		b.FromUserID = @UserID
     -- get count of pm's in user's received items
 	SELECT 
-		@CountIn = COUNT(*)
+		@CountIn=COUNT(*) 
 	FROM 
-		[{databaseOwner}].[{objectQualifier}UserPMessage] 
-	WHERE 
-		UserID = @UserID
+		[{databaseOwner}].[{objectQualifier}PMessageView] a
+		WHERE
+		a.IsDeleted = 0 AND
+		a.ToUserID = @UserID
 		
 
 	-- return all pm data
