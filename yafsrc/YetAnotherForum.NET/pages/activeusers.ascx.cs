@@ -51,6 +51,7 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
                 DataTable dt = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, true, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
+                if (YafContext.Current.BoardSettings.UseStyledNicks)
                 dt = YAF.Classes.UI.StyleHelper.ClearStyle(dt);
                          
 				// remove hidden users...

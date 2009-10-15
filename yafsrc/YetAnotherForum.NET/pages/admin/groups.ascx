@@ -96,7 +96,7 @@
 						<%# General.BinaryAnd(Eval( "Flags" ),1) %>
 					</td>
 					<td class="post">
-						<%# ((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? int.MaxValue.ToString() : Eval("PMLimit").ToString())%>
+						<%# ((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? "\u221E".ToString() : Eval("PMLimit").ToString())%>
 					</td>
 					<td class="post">
 						<asp:LinkButton ID="LinkButtonEdit" runat="server" Visible='<%#(General.BinaryAnd(Eval( "Flags" ),2) == true ? false : true)%>'

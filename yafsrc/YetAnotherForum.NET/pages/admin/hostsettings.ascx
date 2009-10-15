@@ -456,15 +456,6 @@
 					</tr>
 					<tr>
 						<td class="postheader">
-							<b>Max Number of Private Messages per User:</b><br />
-							Maximum number of messages user can store (0 = unlimited)
-						</td>
-						<td class="post">
-							<asp:TextBox ID="MaxPrivateMessagesPerUser" runat="server"></asp:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
 							<b>Max no. of PM Recipients:</b><br />
 							Maximum allowed recipients per on PM sent (0 = unlimited)
 						</td>

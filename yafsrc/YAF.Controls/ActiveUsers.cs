@@ -38,14 +38,22 @@ namespace YAF.Controls
 					if ( ViewState ["ActiveUserTable"] != null )
 					{
 						_activeUserTable = ViewState ["ActiveUserTable"] as DataTable;
-					}
+                       
+					}                    
 				}
-
+                
+                   /* if (!_activeUserTable.Columns.Contains("Style"))
+                    {
+                        _activeUserTable.Columns.Add("Style", typeof(string));
+                        _activeUserTable.AcceptChanges();
+                    }*/
+               
+                
 				return _activeUserTable;
 			}
 			set
-			{
-				ViewState ["ActiveUserTable"] = value;
+            {   
+                 ViewState ["ActiveUserTable"] = value;
 				_activeUserTable = value;
 			}
 		}
@@ -73,17 +81,21 @@ namespace YAF.Controls
 		}
 
 		void ActiveUsers_PreRender( object sender, EventArgs e )
-		{
+		{        
 			if ( ActiveUserTable != null )
 			{
+               if (!ActiveUserTable.Columns.Contains("Style"))
+                {
+                    ActiveUserTable.Columns.Add("Style", typeof(string));
+                    ActiveUserTable.AcceptChanges();
+                }
 				foreach ( DataRow row in ActiveUserTable.Rows )
 				{
 					bool addControl = true;
-
+                   
 					UserLink userLink = new UserLink();
 					userLink.UserID = Convert.ToInt32( row ["UserID"] );
-                    if (ActiveUserTable.Columns.Contains("Style"))
-                    userLink.Style = row["Style"].ToString();
+                    userLink.Style = row["Style"].ToString();          
 					userLink.UserName = row ["UserName"].ToString();
 					userLink.ID = "UserLink" + userLink.UserID.ToString();
 
@@ -120,6 +132,7 @@ namespace YAF.Controls
 
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
+         
             writer.WriteLine(String.Format(@"<div class=""yafactiveusers"" id=""{0}"">", this.ClientID));
 
 			bool bFirst = true;

@@ -324,12 +324,7 @@ namespace YAF.Classes
 		{
 			get { return _reg.GetValue<int>("PrivateMessageMaxRecipients", 1); }
 			set { _reg.SetValue<int>("PrivateMessageMaxRecipients", value); }
-		}
-		public int MaxPrivateMessagesPerUser
-		{
-			get { return _reg.GetValue<int>("MaxPrivateMessagesPerUser", 30); }
-			set { _reg.SetValue<int>("MaxPrivateMessagesPerUser", value); }
-		}
+		}		
 		public int DisableNoFollowLinksAfterDay
 		{
 			get { return _reg.GetValue<int>("DisableNoFollowLinksAfterDay", 0); }
@@ -630,10 +625,9 @@ namespace YAF.Classes
 		}
         public bool UseStyledNicks
 		{
-            get { return _reg.GetValue<bool>("UseStyledNicks", true); }
+            get { return _reg.GetValue<bool>("UseStyledNicks", false); }
             set { _reg.SetValue<bool>("UseStyledNicks", value); }
-		}
-        
+		}       
 		#endregion
 
 		#region string settings
