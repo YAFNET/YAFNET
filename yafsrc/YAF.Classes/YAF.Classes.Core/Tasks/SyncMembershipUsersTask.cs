@@ -57,14 +57,14 @@ namespace YAF.Classes.Core
 
 		public override void RunOnce()
 		{
-			//try
+			try
 			{
 				// attempt to run the sync code...
 				RoleMembershipHelper.SyncAllMembershipUsers( BoardID );
 			}
-			//catch(Exception x)
+			catch(Exception x)
 			{
-				//DB.eventlog_create( null, TaskName, String.Format( "Error In SyncMembershipUsers Task: {0}", x.Message ) );
+				DB.eventlog_create( null, TaskName, String.Format( "Error In SyncMembershipUsers Task: {0}", x.Message ) );
 			}
 		}
 	}
