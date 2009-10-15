@@ -33,7 +33,7 @@
 				<tr>
 					<td class="header1" colspan="2">
 						<YAF:CollapsibleImage ID="CollapsibleImageShoutBox" runat="server" BorderWidth="0" Style="vertical-align: middle" DefaultState="Collapsed"
-                        PanelID='ShoutBoxPanel' AttachedControlID="shoutBoxPlaceHolder" />&nbsp;&nbsp;					
+                        PanelID='ShoutBoxPanel' AttachedControlID="shoutBoxPlaceHolder" OnClick="CollapsibleImageShoutBox_Click" />&nbsp;&nbsp;					
 						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="SHOUTBOX" LocalizedTag="TITLE"></YAF:LocalizedLabel>
 					</td>
 				</tr>

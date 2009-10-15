@@ -34,7 +34,13 @@ namespace YAF.Controls
 		public ShoutBox()
 			: base()
 		{
+			PreRender += new EventHandler( ShoutBox_PreRender );
+		}
 
+		void ShoutBox_PreRender( object sender, EventArgs e )
+		{
+			// set timer status based on if the place holder is visible...
+			shoutBoxRefreshTimer.Enabled = shoutBoxPlaceHolder.Visible;
 		}
 
 		protected void Page_Load( object sender, EventArgs e )
@@ -108,7 +114,7 @@ namespace YAF.Controls
 
 		private void BindData()
 		{
-			if ( !this.Visible ) return;
+			if ( !shoutBoxPlaceHolder.Visible ) return;
 
 			DataTable shoutBoxMessages = (DataTable)PageContext.Cache[CacheKey];
 
@@ -159,6 +165,11 @@ namespace YAF.Controls
 			code = code.Replace( "\\", "\\\\" );
 			string onClickScript = String.Format( "insertsmiley('{0}','{1}');return false;", code, path );
 			return onClickScript;
+		}
+
+		protected void CollapsibleImageShoutBox_Click( object sender, ImageClickEventArgs e )
+		{
+			DataBind();
 		}
 	}
 }
