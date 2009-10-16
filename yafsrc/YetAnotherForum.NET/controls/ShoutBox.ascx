@@ -82,7 +82,7 @@
 							<td class="post" style="padding-left: 5px; margin: 0;">
 								<asp:Repeater ID="smiliesRepeater" runat="server">
 									<ItemTemplate>
-										<asp:ImageButton ID="ImageButton1" ImageUrl='<%# YafForumInfo.ForumRoot + "images/emoticons/" + Eval("Icon") %>'
+										<asp:ImageButton ID="ImageButton1" ImageUrl='<%# YafForumInfo.ForumRoot + YafBoardFolders.Current.Categories + "/" + Eval("Icon") %>'
 											ToolTip='<%# Eval("Code") %>' OnClientClick='<%# FormatSmiliesOnClickString(Eval("Code").ToString(),Eval("Icon").ToString()) %>'
 											runat="server" />
 									</ItemTemplate>

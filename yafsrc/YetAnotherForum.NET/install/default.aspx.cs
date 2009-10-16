@@ -552,7 +552,7 @@ namespace YAF.Install
 			UpdateStatusLabel( lblHostingTrust, 1 );
 
 			UpdateStatusLabel( lblPermissionApp, DirectoryHasWritePermission( Server.MapPath( "~/" ) ) ? 2 : 0 );
-			UpdateStatusLabel( lblPermissionUpload, DirectoryHasWritePermission( Server.MapPath( Config.UploadDir ) ) ? 2 : 0 );
+			UpdateStatusLabel( lblPermissionUpload, DirectoryHasWritePermission( Server.MapPath( YafBoardFolders.Current.Uploads ) ) ? 2 : 0 );
 
 			if ( _config.TrustLevel == AspNetHostingPermissionLevel.High )
 			{

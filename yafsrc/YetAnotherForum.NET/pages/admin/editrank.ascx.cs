@@ -67,7 +67,7 @@ namespace YAF.Pages.Admin
 						if ( item != null )
 						{
 							item.Selected = true;
-							Preview.Src = String.Format( "{0}images/ranks/{1}", YafForumInfo.ForumRoot, row ["RankImage"] ); //path corrected
+							Preview.Src = String.Format( "{0}{1}/{2}", YafForumInfo.ForumRoot,YafBoardFolders.Current.Ranks, row ["RankImage"] ); //path corrected
 						}
 						else
 						{
@@ -82,8 +82,9 @@ namespace YAF.Pages.Admin
                
 			}
 			RankImage.Attributes ["onchange"] = String.Format(
-					"getElementById('{1}_ctl01_Preview').src='{0}images/ranks/' + this.value",
+					"getElementById('{2}_ctl01_Preview').src='{0}{1}/' + this.value",
 					YafForumInfo.ForumRoot,
+                    YafBoardFolders.Current.Ranks,
 					this.Parent.ID
 					);
 		}
@@ -121,7 +122,7 @@ namespace YAF.Pages.Admin
 				dr ["Description"] = "Select Rank Image";
 				dt.Rows.Add( dr );
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/ranks", YafForumInfo.ForumFileRoot ) ) );
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Ranks)));
 				System.IO.FileInfo [] files = dir.GetFiles( "*.*" );
 				long nFileID = 1;
 				foreach ( System.IO.FileInfo file in files )

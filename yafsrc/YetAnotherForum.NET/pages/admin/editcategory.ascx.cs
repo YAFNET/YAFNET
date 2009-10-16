@@ -53,9 +53,9 @@ namespace YAF.Pages.Admin
 				CreateImagesDataTable();
 
 				CategoryImages.Attributes ["onchange"] = String.Format(
-					"getElementById('{1}').src='{0}images/categories/' + this.value",
+					"getElementById('{1}').src='{0}{2}/' + this.value",
 					YafForumInfo.ForumRoot,
-					Preview.ClientID
+                    Preview.ClientID, YafBoardFolders.Current.Categories
 					);
 
 				Name.Style.Add( "width", "100%" );
@@ -106,7 +106,7 @@ namespace YAF.Pages.Admin
 					if ( item != null )
 					{
 						item.Selected = true;
-						Preview.Src = String.Format( "{0}images/categories/{1}", YafForumInfo.ForumRoot, row ["CategoryImage"] ); //path corrected
+                        Preview.Src = String.Format("{0}{2}/{1}", YafForumInfo.ForumRoot, row["CategoryImage"], YafBoardFolders.Current.Categories); //path corrected
 					}
 				}
 			}
@@ -125,7 +125,7 @@ namespace YAF.Pages.Admin
 				dr ["Description"] = "None";
 				dt.Rows.Add( dr );
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/categories", YafForumInfo.ForumFileRoot ) ) );
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Categories)));
 				if ( dir.Exists )
 				{
 					System.IO.FileInfo [] files = dir.GetFiles( "*.*" );

@@ -141,24 +141,26 @@ namespace YAF.Pages.Admin
 
 			// image of medal
 			output.AppendFormat(
-				"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
+				"<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
 				YafForumInfo.ForumRoot,
 				dr["SmallMedalURL"],
 				dr["SmallMedalWidth"],
 				dr["SmallMedalHeight"],
-				"Medal image as it'll be displayed in user box."
+				"Medal image as it'll be displayed in user box.",
+                YafBoardFolders.Current.Medals
 				);
 
 			// if available, create also ribbon bar image of medal
 			if (dr["SmallRibbonURL"] != null)
 			{
 				output.AppendFormat(
-					" &nbsp; <img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
+					" &nbsp; <img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
 					YafForumInfo.ForumRoot,
 					dr["SmallRibbonURL"],
 					dr["SmallRibbonWidth"],
 					dr["SmallRibbonHeight"],
-					"Ribbon bar image as it'll be displayed in user box."
+					"Ribbon bar image as it'll be displayed in user box.",
+                    YafBoardFolders.Current.Medals
 					);
 			}
 

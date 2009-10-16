@@ -1310,6 +1310,8 @@ begin
 	INSERT INTO [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) VALUES(@GroupIDAdmin,@ForumID,@AccessMaskIDAdmin)
 	INSERT INTO [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) VALUES(@GroupIDGuest,@ForumID,@AccessMaskIDReadOnly)
 	INSERT INTO [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) VALUES(@GroupIDMember,@ForumID,@AccessMaskIDMember)
+
+	SELECT @BoardID;
 end
 GO
 

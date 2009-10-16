@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="YafBoardFolders.cs" />
     <Compile Include="YafBoardSettings.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Constants\Enums.cs" />

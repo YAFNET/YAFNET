@@ -33,7 +33,7 @@
                             <%# Eval("Code") %>
                         </td>
                         <td class="post" align="center">
-                            <img src="<%# YafForumInfo.ForumRoot %>images/emoticons/<%# Eval("Icon") %>" /></td>
+                            <img src="<%# YafForumInfo.ForumRoot + YafBoardFolders.Current.Emoticons %>/<%# Eval("Icon") %>" /></td>
                         <td class="post">
                             <%# Eval("Emoticon") %>
                         </td>

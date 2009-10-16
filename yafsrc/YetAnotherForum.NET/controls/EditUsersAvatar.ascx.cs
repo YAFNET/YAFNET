@@ -58,7 +58,7 @@ namespace YAF.Controls
 				if ( Request.QueryString ["av"] != null )
 				{
 					// save the avatar right now...
-					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, Request.QueryString ["av"] ), null, null );
+					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{0}{1}/{2}", YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, Request.QueryString ["av"] ), null, null );
 				}
 
 				UpdateRemote.Text = PageContext.Localization.GetText( "COMMON", "UPDATE" );

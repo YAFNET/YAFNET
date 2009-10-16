@@ -27,7 +27,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "YetAnotherForum.NET", "YetA
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "17840"
+		VWDPort = "50176"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intelligencia.UrlRewriter", "URLRewriter.NET\Intelligencia.UrlRewriter.csproj", "{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}"

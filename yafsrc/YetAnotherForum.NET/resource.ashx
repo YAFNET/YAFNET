@@ -15,6 +15,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
@@ -255,10 +256,10 @@ namespace YAF
 
 						if (row.IsNull("FileData"))
 						{
-							string sUpDir = YAF.Classes.Config.UploadDir;
+                            string sUpDir = YafBoardFolders.Current.Uploads;
 
-							string oldFileName = context.Server.MapPath(String.Format("{0}{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
-							string newFileName = context.Server.MapPath(String.Format("{0}{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
+							string oldFileName = context.Server.MapPath(String.Format("{0}/{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
+							string newFileName = context.Server.MapPath(String.Format("{0}/{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
 
 							string fileName = string.Empty;
 
@@ -325,10 +326,10 @@ namespace YAF
 
 						if (row.IsNull("FileData"))
 						{
-							string sUpDir = YAF.Classes.Config.UploadDir;
+                            string sUpDir = YafBoardFolders.Current.Uploads;
 
-							string oldFileName = context.Server.MapPath(String.Format("{0}{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
-							string newFileName = context.Server.MapPath(String.Format("{0}{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
+							string oldFileName = context.Server.MapPath(String.Format("{0}/{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
+							string newFileName = context.Server.MapPath(String.Format("{0}/{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
 
 							string fileName = string.Empty;
 
@@ -416,10 +417,10 @@ namespace YAF
 
 						if (row.IsNull("FileData"))
 						{
-							string sUpDir = YAF.Classes.Config.UploadDir;
+                            string sUpDir = YafBoardFolders.Current.Uploads;
 
-							string oldFileName = context.Server.MapPath(String.Format("{0}{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
-							string newFileName = context.Server.MapPath(String.Format("{0}{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
+							string oldFileName = context.Server.MapPath(String.Format("{0}/{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
+							string newFileName = context.Server.MapPath(String.Format("{0}/{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
 
 							string fileName = string.Empty;
 

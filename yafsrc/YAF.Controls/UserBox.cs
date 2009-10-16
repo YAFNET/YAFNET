@@ -363,8 +363,8 @@ namespace YAF.Controls
 			if ( DataRow["RankImage"].ToString().Length > 0 )
 			{
 				filler = String.Format( PageContext.BoardSettings.UserBoxRankImage,
-																String.Format( @"<img class=""rankimage"" src=""{0}images/ranks/{1}"" alt="""" />",
-																							 YafForumInfo.ForumRoot, DataRow["RankImage"] ) );
+																String.Format( @"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />",
+                                                                                             YafForumInfo.ForumRoot, YafBoardFolders.Current.Ranks, DataRow["RankImage"]));
 			}
 
 			// replaces template placeholder with actual rank image
@@ -410,13 +410,14 @@ namespace YAF.Controls
 						}
 
 						ribbonBar.AppendFormat(
-								"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
+								"<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
 								YafForumInfo.ForumRoot,
 								r["SmallRibbonURL"],
 								r["SmallRibbonWidth"],
 								r["SmallRibbonHeight"],
 								r["Name"],
-								f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : ""
+								f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : "",
+                                YafBoardFolders.Current.Medals
 								);
 
 						inRow++;
@@ -436,13 +437,14 @@ namespace YAF.Controls
 					if ( !f.AllowHiding || !SqlDataLayerConverter.VerifyBool( r["Hide"] ) )
 					{
 						medals.AppendFormat(
-								"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" />",
+								"<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" />",
 								YafForumInfo.ForumRoot,
 								r["SmallMedalURL"],
 								r["SmallMedalWidth"],
 								r["SmallMedalHeight"],
 								r["Name"],
-								f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : ""
+								f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : "",
+                                YafBoardFolders.Current.Medals
 								);
 					}
 

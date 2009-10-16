@@ -1102,13 +1102,13 @@ namespace YAF.Classes.Data
 					cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
 					DataTable tbAttachments = YafDBAccess.Current.GetData( cmd );
 
-					string uploadDir = HostingEnvironment.MapPath( Config.UploadDir );
+                    string uploadDir = HostingEnvironment.MapPath(String.Concat(UrlBuilder.RootUrl, YafBoardFolders.Current.Uploads));
 
 					foreach ( DataRow row in tbAttachments.Rows )
 					{
 						try
 						{
-							string fileName = String.Format( "{0}{1}.{2}", uploadDir, row["MessageID"], row["FileName"] );
+							string fileName = String.Format( "{0}/{1}.{2}", uploadDir, row["MessageID"], row["FileName"] );
 							if ( File.Exists( fileName ) )
 							{
 								File.Delete( fileName );
@@ -1282,7 +1282,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Name", name );
 				cmd.Parameters.AddWithValue( "AllowThreaded", allowThreaded );
-				YafDBAccess.Current.ExecuteNonQuery( cmd );
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 
@@ -1294,7 +1294,7 @@ namespace YAF.Classes.Data
 		/// <param name="boardName">Name of new board</param>
 		/// <param name="boardMembershipName">Membership Provider Application Name for new board</param>
 		/// <param name="boardRolesName">Roles Provider Application Name for new board</param>
-		static public void board_create( object adminUsername, object adminUserKey, object boardName, object boardMembershipName, object boardRolesName )
+		static public int board_create( object adminUsername, object adminUserKey, object boardName, object boardMembershipName, object boardRolesName )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "board_create" ) )
 			{
@@ -1305,7 +1305,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "UserName", adminUsername );
 				cmd.Parameters.AddWithValue( "UserKey", adminUserKey );
 				cmd.Parameters.AddWithValue( "IsHostAdmin", 0 );
-				YafDBAccess.Current.ExecuteNonQuery( cmd );
+                return (int) YafDBAccess.Current.ExecuteNonQuery(cmd);
 			}
 		}
 		/// <summary>
@@ -2431,13 +2431,13 @@ namespace YAF.Classes.Data
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
 					DataTable tbAttachments = YafDBAccess.Current.GetData( cmd );
 
-					string uploadDir = HostingEnvironment.MapPath( Config.UploadDir );
+                    string uploadDir = HostingEnvironment.MapPath(String.Concat(UrlBuilder.RootUrl, YafBoardFolders.Current.Uploads));
 
 					foreach ( DataRow row in tbAttachments.Rows )
 					{
 						try
 						{
-							string fileName = String.Format( "{0}{1}.{2}", uploadDir, messageID, row["FileName"] );
+							string fileName = String.Format( "{0}/{1}.{2}", uploadDir, messageID, row["FileName"] );
 							if ( File.Exists( fileName ) )
 							{
 								File.Delete( fileName );
@@ -2445,6 +2445,7 @@ namespace YAF.Classes.Data
 						}
 						catch
 						{
+                            
 							// error deleting that file... 
 						}
 					}		

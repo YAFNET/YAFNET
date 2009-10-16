@@ -475,7 +475,7 @@ namespace YAF.Pages.Admin
 				dt.Rows.Add(dr);
 
 				// add files from medals folder
-				DirectoryInfo dir = new DirectoryInfo(Request.MapPath(String.Format("{0}images/medals", YafForumInfo.ForumFileRoot)));
+                DirectoryInfo dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Medals)));
 				FileInfo[] files = dir.GetFiles("*.*");
 
 				long nFileID = 1;
@@ -631,7 +631,7 @@ namespace YAF.Pages.Admin
 				// select found item
 				item.Selected = true;
 				// set preview image
-				preview.Src = String.Format("{0}images/medals/{1}", YafForumInfo.ForumRoot, imageURL);
+                preview.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumRoot, YafBoardFolders.Current.Medals, imageURL);
 			}
 			else
 			{
@@ -650,8 +650,9 @@ namespace YAF.Pages.Admin
 		{
 			// create javascript
 			imageSelector.Attributes["onchange"] = String.Format(
-				"getElementById('{1}').src='{0}images/medals/' + this.value",
+				"getElementById('{2}').src='{0}{1}/' + this.value",
 				YafForumInfo.ForumRoot,
+                YafBoardFolders.Current.Medals,
 				imagePreview.ClientID
 				);
 		}
@@ -665,7 +666,7 @@ namespace YAF.Pages.Admin
 		private Size GetImageSize(string filename)
 		{
 			using (System.Drawing.Image img = System.Drawing.Image.FromFile(
-						Server.MapPath(String.Format("{0}images/medals/{1}", YafForumInfo.ForumFileRoot, filename))))
+						Server.MapPath(String.Format("{0}{1}/{2}", YafForumInfo.ForumFileRoot,YafBoardFolders.Current.Medals, filename))))
 			{
 				return img.Size;
 			}

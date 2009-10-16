@@ -68,7 +68,7 @@ namespace YAF.Classes.Core
 				dt.Columns.Add("Theme", typeof(string));
 				dt.Columns.Add("FileName", typeof(string));
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.Web.HttpContext.Current.Request.MapPath(String.Format("{0}themes", YafForumInfo.ForumFileRoot)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.Web.HttpContext.Current.Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Themes)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.xml");
 				foreach (System.IO.FileInfo file in files)
 				{

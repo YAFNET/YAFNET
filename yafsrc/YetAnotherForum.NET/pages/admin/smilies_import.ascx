@@ -13,7 +13,7 @@
 	<td class=header1 colspan="2">Import Smiley Pack</td>
 </tr>
 <tr>
-	<td class=postheader width=50%><b>Choose .pak file:</b><br/>You'll have to unpack the smiley package and upload all files to your smiley directory (images/emoticons).</td>
+	<td class=postheader width=50%><b>Choose .pak file:</b><br/>You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).</td>
 	<td class=post width=50%><asp:dropdownlist id=File runat="server"/></td>
 </tr>
 <tr>

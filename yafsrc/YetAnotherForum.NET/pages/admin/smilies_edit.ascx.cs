@@ -65,7 +65,7 @@ namespace YAF.Pages.Admin
 				dr ["Description"] = "Select Smiley Image";
 				dt.Rows.Add( dr );
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/emoticons", YafForumInfo.ForumFileRoot ) ) );
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Emoticons)));
 				System.IO.FileInfo [] files = dir.GetFiles( "*.*" );
 				long nFileID = 1;
 				foreach ( System.IO.FileInfo file in files )
@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
 						Code.Text = dt.Rows [0] ["Code"].ToString();
 						Emotion.Text = dt.Rows [0] ["Emoticon"].ToString();
 						if ( Icon.Items.FindByText( dt.Rows [0] ["Icon"].ToString() ) != null ) Icon.Items.FindByText( dt.Rows [0] ["Icon"].ToString() ).Selected = true;
-						Preview.Src = String.Format( "{0}images/emoticons/{1}", YafForumInfo.ForumRoot, dt.Rows [0] ["Icon"] );
+						Preview.Src = String.Format( "{0}{1}/{2}", YafForumInfo.ForumRoot,YafBoardFolders.Current.Emoticons, dt.Rows [0] ["Icon"] );
 						SortOrder.Text = dt.Rows [0] ["SortOrder"].ToString();		// Ederon : 9/4/2007
 					}
 				}
@@ -106,9 +106,10 @@ namespace YAF.Pages.Admin
 				Preview.Src = String.Format( "{0}images/spacer.gif", YafForumInfo.ForumRoot );
 			}
 			Icon.Attributes ["onchange"] = String.Format(
-				"getElementById('{1}').src='{0}images/emoticons/' + this.value",
+				"getElementById('{2}').src='{0}{1}/' + this.value",
 				YafForumInfo.ForumRoot,
-				Preview.ClientID
+                YafBoardFolders.Current.Emoticons,
+                Preview.ClientID
 				);
 		}
 

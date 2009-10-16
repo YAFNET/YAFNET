@@ -32,7 +32,7 @@
 							AttachedControlID="forumList" />
 						&nbsp;&nbsp; <a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
 							
-							<asp:Image ID="uxCategoryImage" ImageUrl='<%# YafForumInfo.ForumRoot + "images/categories/" + DataBinder.Eval(Container.DataItem, "CategoryImage") %>' ImageAlign="AbsMiddle" Visible='<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "CategoryImage" ).ToString()) %>' runat="server" />
+							<asp:Image ID="uxCategoryImage" ImageUrl='<%# YafForumInfo.ForumRoot + YafBoardFolders.Current.Categories + "/" + DataBinder.Eval(Container.DataItem, "CategoryImage") %>' ImageAlign="AbsMiddle" Visible='<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "CategoryImage" ).ToString()) %>' runat="server" />
 							
 							<%# DataBinder.Eval(Container.DataItem, "Name") %>
 						</a>

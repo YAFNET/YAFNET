@@ -20,6 +20,7 @@
 
 using System;
 using System.Data;
+using System.IO;
 using System.Web.Security;
 using System.Web.UI.WebControls;
 using YAF.Classes;
@@ -179,6 +180,8 @@ namespace YAF.Pages.Admin
 				PageContext.CurrentMembership.ApplicationName = boardRolesAppName;
 			}
 
+		    int newBoardID = 0;
+
 			if ( createUserAndRoles )
 			{
 				// Create new admin users
@@ -198,7 +201,7 @@ namespace YAF.Pages.Admin
 				RoleMembershipHelper.AddUserToRole( newAdmin.UserName, "Administrators" );
 
 				// Create Board
-				YAF.Classes.Data.DB.board_create( newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName );
+				newBoardID = YAF.Classes.Data.DB.board_create( newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName );
 			}
 			else
 			{
@@ -206,8 +209,40 @@ namespace YAF.Pages.Admin
 				MembershipUser newAdmin = UserMembershipHelper.GetUser();
 
 				// Create Board
-				YAF.Classes.Data.DB.board_create( newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName );
+                newBoardID = YAF.Classes.Data.DB.board_create(newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName);
 			}
+
+
+            if (newBoardID > 0 && Config.MultiBoardFolders) // Successfully created the new board
+            {
+                string boardFolder = Server.MapPath(System.IO.Path.Combine(Config.BoardRoot, newBoardID.ToString() + "/"));
+
+                // Create New Folders.
+                if (!Directory.Exists(System.IO.Path.Combine(boardFolder, "Images")))
+                {
+                    // Create the Images Folders
+                    Directory.CreateDirectory(System.IO.Path.Combine(boardFolder, "Images"));
+                    // Create Sub Folders
+                    Directory.CreateDirectory(System.IO.Path.Combine(boardFolder, "Images\\Avatars"));
+                    Directory.CreateDirectory(System.IO.Path.Combine(boardFolder, "Images\\Categories"));
+                    Directory.CreateDirectory(System.IO.Path.Combine(boardFolder, "Images\\Emoticons"));
+                    Directory.CreateDirectory(System.IO.Path.Combine(boardFolder, "Images\\Medals"));
+                    Directory.CreateDirectory(System.IO.Path.Combine(boardFolder, "Images\\Ranks"));
+                    
+                }
+
+                if (!Directory.Exists(System.IO.Path.Combine(boardFolder,"Themes")))
+                {
+                    Directory.CreateDirectory(System.IO.Path.Combine(boardFolder, "Themes"));
+                    // Need to copy default theme to the Themes Folder
+                }
+
+                if (!Directory.Exists(System.IO.Path.Combine(boardFolder, "Uploads")))
+                {
+                    Directory.CreateDirectory(System.IO.Path.Combine(boardFolder, "Uploads"));
+                }
+            }
+
 
 			// Return application name to as they were before.
 			YafContext.Current.CurrentMembership.ApplicationName = currentMembershipAppName;

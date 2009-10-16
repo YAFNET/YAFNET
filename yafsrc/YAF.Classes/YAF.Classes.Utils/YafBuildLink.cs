@@ -182,7 +182,7 @@ namespace YAF.Classes.Utils
 		/// <returns>URL of a smilie.</returns>
 		static public string Smiley(string icon)
 		{
-			return String.Format("{0}images/emoticons/{1}", YafForumInfo.ForumRoot, icon);
+			return String.Format("{0}{1}/{2}", YafForumInfo.ForumRoot, YafBoardFolders.Current.Categories, icon);
 		}
 	}
 }
