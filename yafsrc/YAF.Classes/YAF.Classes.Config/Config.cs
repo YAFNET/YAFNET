@@ -125,16 +125,30 @@ namespace YAF.Classes
 			}
 		}
 
-		/// <summary>
-		/// Directory to use for uploading -- default is "FileRoot + /upload/"
-		/// </summary>
-		static public string UploadDir
-		{
-			get
-			{
-				return GetConfigValueAsString( "YAF.UploadDir" ) ?? ( FileRoot + "~/upload/" );
-			}
-		}
+        /// <summary>
+        /// Folder to use for board specific uploads, images, themes
+        /// Example : /Boards/
+        /// </summary>
+        static public string BoardRoot
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.BoardRoot") ?? String.Empty; // Use / to signify root
+            }
+        }
+
+        /// <summary>
+        /// Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
+        /// Example : true /false
+        /// </summary>
+        static public bool MultiBoardFolders
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.MultiBoardFolders", false);
+            }
+        }
+
 
 		static public string ProviderKeyType
 		{
