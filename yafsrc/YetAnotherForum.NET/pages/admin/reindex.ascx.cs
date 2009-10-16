@@ -85,7 +85,7 @@ namespace YAF.Pages.Admin
 			}
 		}
 
-        //Mod By Touradg (herman_herman) 2009/10/15
+        //Mod By Touradg (herman_herman) 2009/10/17
         protected void btnShrink_Click(object sender, EventArgs e)
         {
             try
@@ -108,6 +108,47 @@ namespace YAF.Pages.Admin
 
         }
 
+        protected void btnRecoveryMode_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                YafDBConnManager DBName = new YafDBConnManager();
+                String dbRecoveryMode = "";
+
+                if (RadioButtonList1.SelectedIndex == 0 )
+                {
+                    dbRecoveryMode = "FULL";
+                }
+
+                if (RadioButtonList1.SelectedIndex == 1)
+                {
+                    dbRecoveryMode = "SIMPLE";
+                }
+
+                if (RadioButtonList1.SelectedIndex == 2)
+                {
+                    dbRecoveryMode = "BULK_LOGGED";
+                }
+
+
+                String RecoveryMode = "ALTER DATABASE " + DBName.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
+
+                SqlConnection ShrinkConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
+                SqlCommand ShrinkCmd1 = new SqlCommand(RecoveryMode, ShrinkConn);
+
+                ShrinkConn.Open();
+                ShrinkCmd1.ExecuteNonQuery();
+                ShrinkConn.Close();
+                txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
+                
+            }
+            catch (Exception error)
+            {
+                txtIndexStatistics.Text = "Something went wrong with operation.The reported error is: " + error.Message;
+            }
+
+        }
+        //End of MOD
 		void connMan_InfoMessage( object sender, YafDBConnManager.YafDBConnInfoMessageEventArgs e )
 		{
 			txtIndexStatistics.Text = e.Message;
