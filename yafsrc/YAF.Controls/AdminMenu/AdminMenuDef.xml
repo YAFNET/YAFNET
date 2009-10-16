@@ -120,7 +120,7 @@
 	</YafMenuSection>
   <YafMenuSection Title="Database" HostAdminOnly="false">
     <YafMenuItem>
-      <Title>Reindex DB</Title>
+      <Title>DB Maintenance</Title>
       <ForumPage>admin_reindex</ForumPage>
       <Image>lightning</Image>
     </YafMenuItem>
