@@ -1102,7 +1102,7 @@ namespace YAF.Classes.Data
 					cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
 					DataTable tbAttachments = YafDBAccess.Current.GetData( cmd );
 
-                    string uploadDir = HostingEnvironment.MapPath(String.Concat(UrlBuilder.RootUrl, YafBoardFolders.Current.Uploads));
+                    string uploadDir = HostingEnvironment.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
 
 					foreach ( DataRow row in tbAttachments.Rows )
 					{
@@ -1274,7 +1274,7 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">BoardID</param>
 		/// <param name="name">Name of Board</param>
 		/// <param name="allowThreaded">Boolen value, allowThreaded</param>
-		static public void board_save( object boardID, object name, object allowThreaded )
+		static public int board_save( object boardID, object name, object allowThreaded )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "board_save" ) )
 			{
@@ -1305,7 +1305,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "UserName", adminUsername );
 				cmd.Parameters.AddWithValue( "UserKey", adminUserKey );
 				cmd.Parameters.AddWithValue( "IsHostAdmin", 0 );
-                return (int) YafDBAccess.Current.ExecuteNonQuery(cmd);
+                return (int) YafDBAccess.Current.ExecuteScalar(cmd);
 			}
 		}
 		/// <summary>
@@ -2431,7 +2431,7 @@ namespace YAF.Classes.Data
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
 					DataTable tbAttachments = YafDBAccess.Current.GetData( cmd );
 
-                    string uploadDir = HostingEnvironment.MapPath(String.Concat(UrlBuilder.RootUrl, YafBoardFolders.Current.Uploads));
+                    string uploadDir = HostingEnvironment.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
 
 					foreach ( DataRow row in tbAttachments.Rows )
 					{
