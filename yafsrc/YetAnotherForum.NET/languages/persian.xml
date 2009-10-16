@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Persian" code="fa">
-<!-- Translated by Touradg Morassaei - 1.9.4 - 2009/10/12 --> 
+<!-- Translated by Touradg Morassaei - 1.9.4 - 2009/10/16 --> 
  <page name="ACTIVE">
     <Resource tag="BY">بوسیله {0}</Resource>
     <Resource tag="LAST_24">( در 24 ساعت گذشته )</Resource>
@@ -24,7 +24,7 @@
   </page>
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">فعال</Resource>
-    <Resource tag="BROWSER">جستجوگر</Resource>
+    <Resource tag="BROWSER">مرورگر </Resource>
     <Resource tag="LAST_ACTIVE">آخرین زمان فعالیت</Resource>
     <Resource tag="LOGGED_IN">وارد شده</Resource>
     <Resource tag="MINUTES">{0:N0} دقیقه</Resource>
@@ -142,7 +142,7 @@
     <Resource tag="OK">تائید</Resource>
     <Resource tag="PAGES">صفحه</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">پیغام شخصی جدید از طرف {0} در {1}</Resource>
-    <Resource tag="POWERED_BY">l[,c</Resource>
+    <Resource tag="POWERED_BY">قدرت گرفته از</Resource>
     <Resource tag="REGMAIL_SENT">ایمیلی برای شما ارسال گردید.صندوق پستی خود را بررسی کنید و بر روی لینک در داخل ایمیل ارسال شده کلیک کنید.</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">ایمیلی برای شما ارسال خواهد گردید.صندوق پستی خود را بررسی کنید و بر روی لینک در داخل ایمیل ارسال شده کلیک کنید.</Resource>
     <Resource tag="SAVE">ذخیره</Resource>
@@ -572,7 +572,7 @@
     <Resource tag="WAIT">تا {0:N0} ثانیه دیگر مجاز به ارسال مجدد نمی باشید</Resource>
   </page>
   <page name="POSTS">
-    <Resource tag="AD_SIGNATURE" />
+    <Resource tag="AD_SIGNATURE">توضیحات</Resource>
     <Resource tag="AD_USERNAME">حامی مالی</Resource>
     <Resource tag="AIM">AIM</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) تعداد دانلود [b]{1:N0}[/b] بار.</Resource>
@@ -995,7 +995,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LOGOUT_QUESTION">آیا از خروج خود مطمئن هستید؟</Resource>
     <Resource tag="MEMBERS">اعضاء</Resource>
     <Resource tag="MODERATE">مدیریت</Resource>
-    <Resource tag="MYPROFILE">تنظیمان من (پروفایل)</Resource>
+    <Resource tag="MYPROFILE">تنظیمان من</Resource>
     <Resource tag="NEWPM">({0} پیغام خوانده نشده)</Resource>
     <Resource tag="REGISTER">ثبت نام</Resource>
     <Resource tag="SEARCH">جستجو</Resource>
