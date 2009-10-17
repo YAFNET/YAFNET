@@ -52,16 +52,14 @@ namespace YAF.Controls
 
 				PagerTop.PageSize = 10;
 				MessagesView.PageSize = 10;
-                DataTable dt = DB.user_pmcount( PageContext.PageUserID );
-                if ( dt.Rows.Count > 0 )
-                    PMInfoLink.Text = GetPMessageText( "PMLIMIT", dt.Rows[ 0 ][ "NumberTotal" ], dt.Rows[ 0 ][ "NumberIn" ],dt.Rows[ 0 ][ "NumberOut" ],dt.Rows[ 0 ][ "NumberAllowed" ] );
-			
+                
             }
 			else
 			{
 				// make sure addLoadMessage is empty...
-				PageContext.LoadMessage.Clear();
-			}
+				PageContext.LoadMessage.Clear();               
+			
+            }
 
 			BindData();
 		}
@@ -154,6 +152,7 @@ namespace YAF.Controls
 				MessagesView.DataBind();               
 
 			}
+            Stats_Renew();
 		}
 
 		protected void ArchiveSelected_Click( object source, EventArgs e )
@@ -391,6 +390,13 @@ namespace YAF.Controls
 			// rebind
 			BindData();
 		}
+        protected void Stats_Renew()
+        {
+            //Renew PM Statistics
+            DataTable dt = DB.user_pmcount(PageContext.PageUserID);
+            if (dt.Rows.Count > 0)
+                this.PMInfoLink.Text = GetPMessageText("PMLIMIT", dt.Rows[0]["NumberTotal"], dt.Rows[0]["NumberIn"], dt.Rows[0]["NumberOut"], dt.Rows[0]["NumberAllowed"]);
+        }
 	}
 
 	/// <summary>
@@ -446,6 +452,7 @@ namespace YAF.Controls
 				default:    // Inbox by default
 					return PMView.Inbox;
 			}
-		}
+		}        
+        
 	}
 }
