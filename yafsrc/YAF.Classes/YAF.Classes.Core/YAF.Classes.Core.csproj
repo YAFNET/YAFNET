@@ -77,6 +77,7 @@
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Helpers\RoleMembershipHelper.cs" />
     <Compile Include="Services\YafTemplateMail.cs" />
+    <Compile Include="Tasks\UserCleanUpTask.cs" />
     <Compile Include="Tasks\SyncMembershipUsersTask.cs" />
     <Compile Include="Tasks\ForumDeleteTask.cs" />
     <Compile Include="Tasks\PruneTopicTask.cs" />
