@@ -104,7 +104,7 @@ namespace YAF.Controls
 						strCode = strCode.Replace( "\"", "&quot;" );
 						strCode = strCode.Replace( "\\", "\\\\" );
 						strCode = strCode.Replace( "'", "\\'" );
-                        evt = String.Format("javascript:{0}('{1} ','{3}{4}/{2}')", _onclick, strCode, row["Icon"], YafForumInfo.ForumRoot, YafBoardFolders.Current.Categories);
+                        evt = String.Format("javascript:{0}('{1} ','{3}{4}/{2}')", _onclick, strCode, row["Icon"], YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons);
 					}
 					else
 					{
