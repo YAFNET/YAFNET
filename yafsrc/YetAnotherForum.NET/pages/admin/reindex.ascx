@@ -18,11 +18,11 @@
 			<td rowspan="3">
 			<asp:Button id="btnRecoveryMode" runat="server" onclick="btnRecoveryMode_Click" onclientclick="return confirm('Are you sure you want to change your database recovery mode?\nThe operation may make the DB inaccessible and may take a little while.\nDO THIS ONLY IF YOU KNOW WHAT YOU ARE DOING!');" text="Set Recovery Mode" Width="200px" />
 			<asp:RadioButtonList id="RadioButtonList1" runat="server">
-		<asp:listitem Selected="True">Full (Full Recovery allows the database to 
+		<asp:listitem Selected="True"> Full (Full Recovery allows the database to 
 		be recovered to the point of failure.)</asp:listitem>
-		<asp:listitem>Simple (Simple Recovery allows the database to be 
+		<asp:listitem> Simple (Simple Recovery allows the database to be 
 		recovered to the most recent backup.You need to backup your DB regularly.)</asp:listitem>
-		<asp:listitem>Bulk-Logged (Bulk-Logged Recovery allows bulk-logged 
+		<asp:listitem> Bulk-Logged (Bulk-Logged Recovery allows bulk-logged 
 		operations.)</asp:listitem>
 			</asp:RadioButtonList>
 			</td>

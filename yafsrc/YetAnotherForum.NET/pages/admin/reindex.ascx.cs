@@ -86,67 +86,69 @@ namespace YAF.Pages.Admin
 		}
 
         //Mod By Touradg (herman_herman) 2009/10/17
+        //Shrinking Database
         protected void btnShrink_Click(object sender, EventArgs e)
         {
-            try
+            using (YafDBConnManager DBName = new YafDBConnManager())
             {
-                YafDBConnManager DBName = new YafDBConnManager();
-                String ShrinkSql = "DBCC SHRINKDATABASE(N'" + DBName.DBConnection.Database + "')";
+                try
+                {
+                    String ShrinkSql = "DBCC SHRINKDATABASE(N'" + DBName.DBConnection.Database + "')";
 
-                SqlConnection ShrinkConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
-                SqlCommand ShrinkCmd = new SqlCommand(ShrinkSql, ShrinkConn);
+                    SqlConnection ShrinkConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
+                    SqlCommand ShrinkCmd = new SqlCommand(ShrinkSql, ShrinkConn);
 
-                ShrinkConn.Open();
-                ShrinkCmd.ExecuteNonQuery();
-                ShrinkConn.Close();
-                txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + DB.DBSize + "MB";
-            }
-            catch (Exception error)
-            {
-                txtIndexStatistics.Text = "Something went wrong with shrink operation.The reported error is: " + error.Message;
+                    ShrinkConn.Open();
+                    ShrinkCmd.ExecuteNonQuery();
+                    ShrinkConn.Close();
+                    txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + DB.DBSize + "MB";
+                }
+                catch (Exception error)
+                {
+                    txtIndexStatistics.Text = "Something went wrong with shrink operation.The reported error is: " + error.Message;
+                }
+
             }
 
         }
-
+        //Set Recovery Mode
         protected void btnRecoveryMode_Click(object sender, EventArgs e)
         {
-            try
+            using (YafDBConnManager DBName = new YafDBConnManager())
             {
-                YafDBConnManager DBName = new YafDBConnManager();
-                String dbRecoveryMode = "";
-
-                if (RadioButtonList1.SelectedIndex == 0 )
+                try
                 {
-                    dbRecoveryMode = "FULL";
-                }
+                    String dbRecoveryMode = "";
 
-                if (RadioButtonList1.SelectedIndex == 1)
+                    if (RadioButtonList1.SelectedIndex == 0)
+                    {
+                        dbRecoveryMode = "FULL";
+                    }
+
+                    if (RadioButtonList1.SelectedIndex == 1)
+                    {
+                        dbRecoveryMode = "SIMPLE";
+                    }
+
+                    if (RadioButtonList1.SelectedIndex == 2)
+                    {
+                        dbRecoveryMode = "BULK_LOGGED";
+                    }
+                    String RecoveryMode = "ALTER DATABASE " + DBName.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
+
+                    SqlConnection DbRecoveryConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
+                    SqlCommand DbRecoveryCmd = new SqlCommand(RecoveryMode, DbRecoveryConn);
+
+                    DbRecoveryConn.Open();
+                    DbRecoveryCmd.ExecuteNonQuery();
+                    DbRecoveryConn.Close();
+                    txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
+                }
+                catch (Exception error)
                 {
-                    dbRecoveryMode = "SIMPLE";
+                    txtIndexStatistics.Text = "Something went wrong with operation.The reported error is: " + error.Message;
                 }
-
-                if (RadioButtonList1.SelectedIndex == 2)
-                {
-                    dbRecoveryMode = "BULK_LOGGED";
-                }
-
-
-                String RecoveryMode = "ALTER DATABASE " + DBName.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
-
-                SqlConnection ShrinkConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
-                SqlCommand ShrinkCmd1 = new SqlCommand(RecoveryMode, ShrinkConn);
-
-                ShrinkConn.Open();
-                ShrinkCmd1.ExecuteNonQuery();
-                ShrinkConn.Close();
-                txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
-                
             }
-            catch (Exception error)
-            {
-                txtIndexStatistics.Text = "Something went wrong with operation.The reported error is: " + error.Message;
-            }
-
         }
         //End of MOD
 		void connMan_InfoMessage( object sender, YafDBConnManager.YafDBConnInfoMessageEventArgs e )
