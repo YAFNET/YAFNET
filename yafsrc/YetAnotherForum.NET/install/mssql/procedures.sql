@@ -1414,6 +1414,7 @@ begin
 		Name = @Name,
 		AllowThreaded = @AllowThreaded
 	where BoardID=@BoardID
+	select @BoardID 
 end
 GO
 
@@ -3162,7 +3163,7 @@ begin
 		TopicID				= @TopicID,
 		TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
 		MailsPending		= (select count(1) from [{databaseOwner}].[{objectQualifier}Mail]),
-		Incoming			= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=a.UserID and IsRead=0 and IsDeleted = 0),
+		Incoming			= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=a.UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0),
 		LastUnreadPm		= (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=a.UserID and upm.IsRead=0 ORDER BY pm.Created DESC),
 		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)
 	from
@@ -4521,6 +4522,8 @@ AS
 BEGIN
 		DECLARE @CountIn int	
 		DECLARE @CountOut int
+		DECLARE @CountArchivedIn int
+		DECLARE @CountArchivedOut int
 		DECLARE @plimit1 int        
         DECLARE @pcount int
         
@@ -4545,24 +4548,33 @@ BEGIN
 		[{databaseOwner}].[{objectQualifier}UserPMessage] a
 	INNER JOIN [{databaseOwner}].[{objectQualifier}PMessage] b ON a.PMessageID=b.PMessageID
 	WHERE 
-		(a.Flags & 2)<>0  AND
+		(a.Flags & 2)<>0 AND 
 		b.FromUserID = @UserID
-    -- get count of pm's in user's received items
+	-- get count of pm's in user's  received items
 	SELECT 
 		@CountIn=COUNT(*) 
 	FROM 
 		[{databaseOwner}].[{objectQualifier}PMessageView] a
 		WHERE
-		a.IsDeleted = 0 AND
+		a.IsDeleted = 0  AND a.IsArchived=0  AND
 		a.ToUserID = @UserID
-		
+	
+	SELECT 
+		@CountArchivedIn=COUNT(*) 
+	FROM 
+		[{databaseOwner}].[{objectQualifier}PMessageView] a
+		WHERE
+		a.IsArchived <>0 AND
+		a.ToUserID = @UserID
 
 	-- return all pm data
 	SELECT 
 		NumberIn = @CountIn,
 		NumberOut =  @CountOut,
-		NumberTotal = @CountIn + @CountOut,
-		NumberAllowed = @pcount	
+		NumberTotal = @CountIn + @CountOut + @CountArchivedIn,
+		NumberArchived =@CountArchivedIn,
+		NumberAllowed = @pcount
+			
 
 END
 GO

@@ -96,7 +96,7 @@ namespace YAF.Controls
 			return HtmlEncode( PageContext.Localization.GetText( text ) );
 		}
 
-        protected string GetPMessageText( string text, object _total, object _inbox, object _outbox, object _limit )
+        protected string GetPMessageText(string text, object _total, object _inbox, object _outbox, object _archive, object _limit)
         {
             object _percentage = 0;                      
             if ( Convert.ToInt32( _limit ) != 0 )
@@ -106,7 +106,7 @@ namespace YAF.Controls
                 _limit = "\u221E";
                 _percentage = 0;
             }
-            return HtmlEncode( PageContext.Localization.GetTextFormatted( text, _total, _inbox, _outbox, _limit, _percentage ) );
+            return HtmlEncode( PageContext.Localization.GetTextFormatted( text, _total, _inbox, _outbox, _archive, _limit, _percentage ) );
         }
 
 		protected string GetMessageUserHeader( )
@@ -395,7 +395,7 @@ namespace YAF.Controls
             //Renew PM Statistics
             DataTable dt = DB.user_pmcount(PageContext.PageUserID);
             if (dt.Rows.Count > 0)
-                this.PMInfoLink.Text = GetPMessageText("PMLIMIT", dt.Rows[0]["NumberTotal"], dt.Rows[0]["NumberIn"], dt.Rows[0]["NumberOut"], dt.Rows[0]["NumberAllowed"]);
+                this.PMInfoLink.Text = GetPMessageText("PMLIMIT_ALL", dt.Rows[0]["NumberTotal"], dt.Rows[0]["NumberIn"], dt.Rows[0]["NumberOut"], dt.Rows[0]["NumberArchived"], dt.Rows[0]["NumberAllowed"]);
         }
 	}
 
