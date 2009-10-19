@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Persian" code="fa">
-<!-- Translated by Touradg Morassaei - 1.9.4 - 2009/10/16 --> 
- <page name="ACTIVE">
+  <page name="ACTIVE">
     <Resource tag="BY">بوسیله {0}</Resource>
     <Resource tag="LAST_24">( در 24 ساعت گذشته )</Resource>
     <Resource tag="LAST_DAY">روز قبل</Resource>
@@ -97,6 +96,11 @@
     <Resource tag="BUTTON_UNDELETE_TT">یازیابی این ارسال</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">باز کردن قفل عنوان</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">بازکردن قفل این عنوان</Resource>
+  </page>
+  <page name="CHARACTER_CHECKER">
+    <Resource tag="ISEMPTY">محتوای ارسال نمی تواند خالی باشد.هدف شما از ارسال متن خالی چیست ؟</Resource>
+    <Resource tag="ISEXCEEDED">تعداد کاراکترهایی را که وارد کرده اید از تعداد مجاز بیشتر میباشد.لطفاً تعداد آنها را کاهش داده و دوباره تلاش کنید.</Resource>
+    <Resource tag="MAXNUMBEROF">حداكثر تعداد كاراكتر مجاز در هر ارسال‌:{0}</Resource>
   </page>
   <page name="COMMON">
     <Resource tag="BACK">برگشت</Resource>
@@ -517,6 +521,8 @@
     <Resource tag="NO_SUCH_USER">کاربری با این نام وجود ندارد.</Resource>
     <Resource tag="NOT_GUEST">امکان ارسال پیغام خصوصی به کاربر میهمان وجود ندارد.</Resource>
     <Resource tag="OWN_PMBOX_FULL">تعداد پیغامهای خصوصی ، ارسال شده و آرشیو شده شما بسیار زیاد می باشد.حداکثر تعداد مجاز {0} پیغام می باشد.</Resource>
+    <Resource tag="PMLIMIT">شما دارای {0} پیغام می باشید که شامل {1} پیغام ورودی و {2} پیغام خروجی از مجموع {3} پیغام مجاز می باشد.{4} درصد ظرفیت صندوق شما پر شده است. </Resource>
+    <Resource tag="PMLIMIT_ALL">شما دارای {0} پیغام می باشید که شامل {1} پیغام ورودی , {2} پیغام خروجی و {3} پیغام در آرشیو از مجموع {4} پیغام مجاز می باشد.{5} درصد ظرفیت صندوق شما پر شده است.</Resource>
     <Resource tag="PREVIEWTITLE">پیش نمایش:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">صندوق پیامهای کاربری که مایل به ارسال پیام به او هستید پر شده است.کاربر فوق باید قبل از دریافت پیغام جدید صندوق خود را تخلیه کند.</Resource>
     <Resource tag="SAVE">ارسال</Resource>
@@ -524,7 +530,6 @@
     <Resource tag="TITLE">ارسال پیغام خصوصی</Resource>
     <Resource tag="TO">به:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">تعداد دریافت کننده ها بسیار زیاد است.حداکثر تعداد مجاز {0} نفر می باشد.</Resource>
-    <Resource tag="PMLIMIT">پیغام مجاز می باشد.{4} درصد ظرفیت صندوق شما پر شده است. شما دارای {0} پیغام می باشید که شامل {1} پیغام ورودی و {2} پیغام خروجی از مجموع {3}</Resource>  
   </page>
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">اطلاعیه</Resource>
@@ -604,9 +609,9 @@
     <Resource tag="INFO_NOMORETOPICS">عناوین دیگری در این انجمن وجود ندارد.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">عنوان قفل شد.</Resource>
     <Resource tag="INFO_TOPIC_UNLOCKED">عنوان باز شد.</Resource>
-    <Resource tag="INFO_UNWATCH_TOPIC">از حالا به بعد درباره پستهای جدید این انجمن به شما اطلاع داده نمی شود.</Resource>
+    <Resource tag="INFO_UNWATCH_TOPIC">از هم اکنون درباره پستهای جدید این انجمن به شما اطلاع داده نمی شود.</Resource>
     <Resource tag="INFO_VOTED">از رای شما متشکریم!</Resource>
-    <Resource tag="INFO_WATCH_TOPIC">از حالا به بعد درباره پستهای جدید این انجمن به شما اطلاع داده می شود.</Resource>
+    <Resource tag="INFO_WATCH_TOPIC">از هم اکنون درباره پستهای جدید این انجمن به شما اطلاع داده می شود.</Resource>
     <Resource tag="IP">IP</Resource>
     <Resource tag="JOINED">تاریخ عضویت</Resource>
     <Resource tag="LOCATION">مکان</Resource>
@@ -690,8 +695,8 @@
     <Resource tag="LASTVISIT">آخرین ملاقات:</Resource>
     <Resource tag="MEMBERS">اعضاء</Resource>
     <Resource tag="MINUTES">دقیقه</Resource>
-    <Resource tag="MSN">MSN Messenger:</Resource>
     <Resource tag="MODERATION">مدیریت</Resource>
+    <Resource tag="MSN">MSN Messenger:</Resource>
     <Resource tag="NUMALL">{0:N2}% از تمام ارسالها</Resource>
     <Resource tag="NUMDAY">{0:N2} ارسال در روز</Resource>
     <Resource tag="NUMPOSTS">تعداد ارسالها:</Resource>

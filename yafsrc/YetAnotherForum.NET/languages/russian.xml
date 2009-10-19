@@ -97,6 +97,11 @@
     <Resource tag="BUTTON_UNLOCKTOPIC">Открыть</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Открыть эту тему</Resource>
   </page>
+  <page name="CHARACTER_CHECKER">
+    <Resource tag="ISEMPTY">Message body can not be empty.Why do you want to post an empty message?</Resource>
+    <Resource tag="ISEXCEEDED">You have exceeded the maximum number of characters in each post.Make it shorter and try again.</Resource>
+    <Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
+  </page>
   <page name="COMMON">
     <Resource tag="BACK">Назад</Resource>
     <Resource tag="BAD_CAPTCHA">Введённый текст отличается от текста на изображении.</Resource>

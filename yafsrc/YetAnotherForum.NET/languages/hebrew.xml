@@ -97,6 +97,11 @@
     <Resource tag="BUTTON_UNLOCKTOPIC">בטל נעילה</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">בטל/י נעילה על דיון זה</Resource>
   </page>
+  <page name="CHARACTER_CHECKER">
+    <Resource tag="ISEMPTY">Message body can not be empty.Why do you want to post an empty message?</Resource>
+    <Resource tag="ISEXCEEDED">You have exceeded the maximum number of characters in each post.Make it shorter and try again.</Resource>
+    <Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
+  </page>
   <page name="COMMON">
     <Resource tag="BACK">חזור</Resource>
     <Resource tag="BAD_CAPTCHA">הכיתוב שהוזן אינו תואם לכיתוב בתמונת האבטחה.</Resource>
@@ -516,6 +521,12 @@
     <Resource tag="NO_SUCH_USER">אין משתמש בשם זה.</Resource>
     <Resource tag="NOT_GUEST">לא ניתן לשלוח הודעות פרטיות לאורח.</Resource>
     <Resource tag="OWN_PMBOX_FULL">תיבת ההודעות הפרטיות שלך מלאה. מקסימום ההודעות המורשות הוא {0}. נא מחק/י הודעות על מנת לפנות מקום.</Resource>
+    <Resource tag="PMLIMIT">
+        You have {0} private messages: {1} in Inbox and {2} in Outbox from total {3} allowed. Your mail is box filled on {4}%.
+    </Resource>
+    <Resource tag="PMLIMIT_ALL">
+        You have {0} private messages: {1} in Inbox and {2} in Outbox, {3} In Archive from total {4} allowed. Your mail is box filled on {5}%.
+    </Resource>
     <Resource tag="PREVIEWTITLE">תצוגה מקדימה:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">למשתמש/ת {0} יש תיבת הודעות מלאה. מצטערים, אך הוא/היא לא יקבל/תקבל את ההודעה עד שהוא יפנה מקום.</Resource>
     <Resource tag="SAVE">שלח</Resource>
@@ -688,6 +699,7 @@
     <Resource tag="LASTVISIT">ביקור אחרון:</Resource>
     <Resource tag="MEMBERS">חברים</Resource>
     <Resource tag="MINUTES">דקות</Resource>
+    <Resource tag="MODERATION">Moderation</Resource>
     <Resource tag="MSN">MSN Messenger:</Resource>
     <Resource tag="NUMALL">{0:N2}% מכל ההודעות</Resource>
     <Resource tag="NUMDAY">{0:N2} הודעות ליום</Resource>

@@ -1038,4 +1038,9 @@ Visit {forumname} at {forumlink}
     <Resource tag="WATCHFORUM">Watch Forum</Resource>
     <Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
   </page>
+  <page name="CHARACTER_CHECKER">
+    <Resource tag="ISEMPTY">Message body can not be empty.Why do you want to post an empty message?</Resource>
+    <Resource tag="ISEXCEEDED">You have exceeded the maximum number of characters in each post.Make it shorter and try again.</Resource>
+    <Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
+  </page>
 </Resources>

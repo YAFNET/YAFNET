@@ -59,6 +59,7 @@ namespace YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
+
 			PageContext.QueryIDs = new QueryStringIDHelper( new string [] {"m", "t", "q"}, false );
 
 			DataRow currentRow = null;
@@ -96,6 +97,7 @@ namespace YAF.Pages
 
 			Title.Text = GetText("NEWTOPIC");
 			PollExpire.Attributes.Add("style", "width:50px");
+            LocalizedLblMaxNumberOfPost.Param0 = YafContext.Current.BoardSettings.MaxPostSize.ToString();
 
 			if (!IsPostBack)
 			{
@@ -373,6 +375,21 @@ namespace YAF.Pages
 		/// <returns>true if everything is verified</returns>
 		protected bool IsPostReplyVerified()
 		{
+
+            //To avoid posting whitespace(s) or empty messages
+            string PostedMessage = _forumEditor.Text.Trim();
+            if (PostedMessage.Length == 0)
+            {
+                PageContext.AddLoadMessage(GetText("ISEMPTY"));
+                return false;
+            }
+            //No need to check whitespace if they are actually posting something
+            if (_forumEditor.Text.Length >= YafContext.Current.BoardSettings.MaxPostSize)
+            {
+                PageContext.AddLoadMessage(GetText("ISEXCEEDED"));
+                return false;
+            }
+
 			if (SubjectRow.Visible && Subject.Text.Length <= 0)
 			{
 				PageContext.AddLoadMessage(GetText("NEED_SUBJECT"));
