@@ -4456,27 +4456,66 @@ namespace YAF.Classes.Data
 
 		#region vzrus addons
 		#region reindex page controls
+        //DB Maintenance page buttons name
 		public static string btnGetStatsName
 		{
 			get
 			{
-				return "View YAF Table Index Statistics";
+				return "Table Index Statistics";
 			}
 		}
-		public static bool btnReindexVisible
+        public static string btnShrinkName
+        {
+            get
+            {
+                return "Shrink Database";
+            }
+        }
+        public static string btnRecoveryModeName
+        {
+            get
+            {
+                return "Set Recovery Mode";
+            }
+        }
+        public static string btnReindexName
+        {
+            get
+            {
+                return "Reindex Tables";
+            }
+        }
+        //DB Maintenance page panels visibility
+        public static bool PanelGetStats 
 		{
 			get
 			{
 				return true;
 			}
 		}
-		public static string btnReindexName
-		{
-			get
-			{
-				return "Reindex YAF Tables";
-			}
-		}
+        public static bool PanelRecoveryMode
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public static bool PanelReindex
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public static bool PanelShrink
+        {
+            get
+            {
+                return true;
+            }
+        }
+    
+
 		#endregion
 		static public DataTable rsstopic_list( int forumId )
 		{
@@ -4892,6 +4931,57 @@ namespace YAF.Classes.Data
 
 		#endregion
 
-	}
+        #region Touradg Mods
+        //Shinking Operation
+        static public string db_shrink_warning(YafDBConnManager DBName)
+        {
+            return "";
+        }
+
+        public static void db_shrink(YafDBConnManager DBName)
+        {
+            String ShrinkSql = "DBCC SHRINKDATABASE(N'" + DBName.DBConnection.Database + "')";
+            SqlConnection ShrinkConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
+            SqlCommand ShrinkCmd = new SqlCommand(ShrinkSql, ShrinkConn);
+            ShrinkConn.Open();
+            ShrinkCmd.ExecuteNonQuery();
+            ShrinkConn.Close();
+            using (SqlCommand cmd = new SqlCommand(ShrinkSql.ToString(), DBName.OpenDBConnection))
+            {
+                cmd.Connection = DBName.DBConnection;
+                cmd.CommandTimeout = 9999;
+                cmd.ExecuteNonQuery();
+            }
+        }
+        //Set Recovery
+        static public string db_recovery_mode_warning(YafDBConnManager DBName)
+        {
+            return "";
+        }
+
+        public static void db_recovery_mode(YafDBConnManager DBName, string dbRecoveryMode)
+        {
+            String RecoveryMode = "ALTER DATABASE " + DBName.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
+            SqlConnection RecoveryModeConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
+            SqlCommand RecoveryModeCmd = new SqlCommand(RecoveryMode, RecoveryModeConn);
+            RecoveryModeConn.Open();
+            RecoveryModeCmd.ExecuteNonQuery();
+            RecoveryModeConn.Close();
+            using (SqlCommand cmd = new SqlCommand(RecoveryMode.ToString(), DBName.OpenDBConnection))
+            {
+                cmd.Connection = DBName.DBConnection;
+                cmd.CommandTimeout = 9999;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
+
+
+
+
+
+        #endregion
+    }
 
 }

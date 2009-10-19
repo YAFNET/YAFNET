@@ -11,11 +11,14 @@
 			</td>
 		</tr>
 		<tr class="footer1">
-			<td valign="top">
+		
+		<asp:Panel ID="PanelGetStats" runat="server" Enabled="False"><td valign="top">
 			<asp:Button id="btnGetStats" runat="server" onclick="btnGetStats_Click" text="Table Index Statistics" Width="200px" />
 			<br />
 			Show statistical information about YAF table indexes.</td>
-			<td rowspan="3">
+		</asp:Panel>
+			
+			<asp:Panel ID="PanelRecoveryMode" runat="server" Enabled="False"><td rowspan="3">
 			<asp:Button id="btnRecoveryMode" runat="server" onclick="btnRecoveryMode_Click" onclientclick="return confirm('Are you sure you want to change your database recovery mode?\nThe operation may make the DB inaccessible and may take a little while.\nDO THIS ONLY IF YOU KNOW WHAT YOU ARE DOING!');" text="Set Recovery Mode" Width="200px" />
 			<asp:RadioButtonList id="RadioButtonList1" runat="server">
 		<asp:listitem Selected="True"> Full (Full Recovery allows the database to 
@@ -25,24 +28,24 @@
 		<asp:listitem> Bulk-Logged (Bulk-Logged Recovery allows bulk-logged 
 		operations.)</asp:listitem>
 			</asp:RadioButtonList>
-			</td>
+			</td></asp:Panel>
 		</tr>
 		<tr class="footer1">
-			<td valign="top">
+		<asp:Panel ID="PanelReindex" runat="server" Enabled="False"><td valign="top">
 			<asp:Button id="btnReindex" runat="server" onclick="btnReindex_Click" onclientclick="return confirm('Are you sure you want to reindex all YAF tables?\nThe operation may make the DB inaccessible and may take a little while.');" text="Reindex Tables" Width="200px" />
 			<br />
 			With any data modification operations, table fragmentation can 
 			occur. This command can be used to rebuild all the indexes on all 
-			the tables in database to boost performance.</td>
+			the tables in database to boost performance.</td></asp:Panel>
 		</tr>
 		<tr class="footer1">
-			<td valign="top">
+		<asp:Panel ID="PanelShrink" runat="server" Enabled="False"><td valign="top">
 			<asp:Button id="btnShrink" runat="server" onclick="btnShrink_Click" onclientclick="return confirm('Are you sure you want to Shrink database?\nThe operation may make the DB inaccessible and may take a little while.');" text="Shrink Database" Width="200px" />
 			<br />
 			You can use the Shrink method to reduce the size of the files that 
 			make up the database manually. The data is stored more densely and 
 			unused pages are removed
-			</td>
+			</td></asp:Panel>
 		</tr>
 	</table>
 </YAF:AdminMenu>

@@ -22,7 +22,6 @@ using System.Text;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
@@ -47,9 +46,18 @@ namespace YAF.Pages.Admin
 
 			if ( !IsPostBack )
 			{
-                this.btnReindex.Visible = DB.btnReindexVisible;
+                //Check and see if it should make panels enable or not
+                this.PanelReindex.Enabled = DB.PanelReindex;
+                this.PanelShrink.Enabled = DB.PanelShrink;
+                this.PanelRecoveryMode.Enabled = DB.PanelRecoveryMode;
+                this.PanelGetStats.Enabled = DB.PanelGetStats;
+
+                //Get the name of buttons
                 this.btnReindex.Text = DB.btnReindexName;
-                this.btnGetStats.Text = DB.btnGetStatsName; 
+                this.btnGetStats.Text = DB.btnGetStatsName;
+                this.btnShrink.Text = DB.btnShrinkName;
+                this.btnRecoveryMode.Text = DB.btnRecoveryModeName;
+
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Reindex DB", "" );
@@ -75,6 +83,7 @@ namespace YAF.Pages.Admin
 			}
 		}
 
+        //Reindexing Database
 		protected void btnReindex_Click( object sender, EventArgs e )
 		{            
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
@@ -85,69 +94,53 @@ namespace YAF.Pages.Admin
 			}
 		}
 
-        //Mod By Touradg (herman_herman) 2009/10/17
+        //Mod By Touradg (herman_herman) 2009/10/19
         //Shrinking Database
         protected void btnShrink_Click(object sender, EventArgs e)
         {
             using (YafDBConnManager DBName = new YafDBConnManager())
+            try
             {
-                try
-                {
-                    String ShrinkSql = "DBCC SHRINKDATABASE(N'" + DBName.DBConnection.Database + "')";
-
-                    SqlConnection ShrinkConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
-                    SqlCommand ShrinkCmd = new SqlCommand(ShrinkSql, ShrinkConn);
-
-                    ShrinkConn.Open();
-                    ShrinkCmd.ExecuteNonQuery();
-                    ShrinkConn.Close();
-                    txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + DB.DBSize + "MB";
-                }
-                catch (Exception error)
-                {
-                    txtIndexStatistics.Text = "Something went wrong with shrink operation.The reported error is: " + error.Message;
-                }
-
+                DBName.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler(connMan_InfoMessage);
+                txtIndexStatistics.Text = DB.db_shrink_warning(DBName);
+                DB.db_shrink(DBName);
+                txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + DB.DBSize + "MB";
             }
-
+            catch (Exception error)
+            {
+                txtIndexStatistics.Text = "Something went wrong with operation.The reported error is: " + error.Message;
+            }
         }
-        //Set Recovery Mode
+
+        //Set Database Recovery Mode
         protected void btnRecoveryMode_Click(object sender, EventArgs e)
         {
-            using (YafDBConnManager DBName = new YafDBConnManager())
-            {
-                try
+                using (YafDBConnManager DBName = new YafDBConnManager())
                 {
+                    try
+                    {
                     String dbRecoveryMode = "";
-
                     if (RadioButtonList1.SelectedIndex == 0)
                     {
                         dbRecoveryMode = "FULL";
                     }
-
                     if (RadioButtonList1.SelectedIndex == 1)
                     {
                         dbRecoveryMode = "SIMPLE";
                     }
-
                     if (RadioButtonList1.SelectedIndex == 2)
                     {
                         dbRecoveryMode = "BULK_LOGGED";
                     }
-                    String RecoveryMode = "ALTER DATABASE " + DBName.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
-
-                    SqlConnection DbRecoveryConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
-                    SqlCommand DbRecoveryCmd = new SqlCommand(RecoveryMode, DbRecoveryConn);
-
-                    DbRecoveryConn.Open();
-                    DbRecoveryCmd.ExecuteNonQuery();
-                    DbRecoveryConn.Close();
-                    txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
-                }
-                catch (Exception error)
-                {
-                    txtIndexStatistics.Text = "Something went wrong with operation.The reported error is: " + error.Message;
-                }
+                        DBName.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler(connMan_InfoMessage);
+                        txtIndexStatistics.Text = DB.db_recovery_mode_warning(DBName);
+                        DB.db_recovery_mode(DBName,dbRecoveryMode);
+                        txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
+                    }
+                    catch (Exception error)
+                    {
+                        txtIndexStatistics.Text = "Something went wrong with this operation.The reported error is: " + error.Message;
+                    }
             }
         }
         //End of MOD
