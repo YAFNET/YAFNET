@@ -6339,6 +6339,6 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_clearmessages] AS
 BEGIN
-		DELETE FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] WHERE DATEDIFF(day, Date, getdate()) > 1
+		DELETE FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] WHERE DATEDIFF(minute, Date, getdate()) > 1
 END
 GO
