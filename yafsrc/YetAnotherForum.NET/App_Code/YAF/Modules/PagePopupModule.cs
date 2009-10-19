@@ -67,11 +67,19 @@ namespace YAF.Modules
 		/// </summary>
 		private void AddErrorPopup()
 		{
-			// add error control...
-			_errorPopup = new PopupDialogNotification();
-			_errorPopup.ID = "YafForumPageErrorPopup1";
+			if ( ForumControl.FindControl( "YafForumPageErrorPopup1" ) == null )
+			{
+				// add error control...
+				_errorPopup = new PopupDialogNotification();
+				_errorPopup.ID = "YafForumPageErrorPopup1";
 
-			ForumControl.Controls.Add( _errorPopup );
+				ForumControl.Controls.Add( _errorPopup );
+			}
+			else
+			{
+				// reference existing control...
+				_errorPopup = (PopupDialogNotification)ForumControl.FindControl( "YafForumPageErrorPopup1" );
+			}
 		}
 
 		protected void RegisterLoadString()
