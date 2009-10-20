@@ -20,6 +20,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace YAF.Classes.Utils
@@ -103,9 +105,16 @@ namespace YAF.Classes.Utils
 			return Convert.ToBoolean(o);
 		}
 
-		static public T ConvertToClass<T>(object instance) where T : class
+		/// <summary>
+		/// Converts the object to the class (T) or returns null if it's not 
+		/// an instance of that class or instance is null.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="instance"></param>
+		/// <returns></returns>
+		static public T ToClass<T>(this object instance) where T : class
 		{
-			if ( instance is T )
+			if ( instance != null && instance is T )
 			{
 				return instance as T;
 			}
@@ -113,31 +122,24 @@ namespace YAF.Classes.Utils
 			return null;
 		}
 
-		static public List<T> ConvertDataTableFirstColumnToList<T>( DataTable dataTable )
+		/// <summary>
+		/// Converts an object to Type using the Convert.ChangeType() call.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="instance"></param>
+		/// <returns></returns>
+		static public T ToType<T>( this object instance )
 		{
-			List<T> list = new List<T>();
-
-			foreach ( DataRow item in dataTable.Rows )
-			{
-				list.Add( (T)Convert.ChangeType( item[0], typeof( T ) ) );
-			}
-
-			return list;
+			return (T) Convert.ChangeType( instance, typeof ( T ) );
 		}
 
-		static public List<T> ConvertDataTableColumnToList<T>( string columnName, DataTable dataTable )
-		{
-			List<T> list = new List<T>();
-
-			foreach( DataRow item in dataTable.Rows)
-			{
-				list.Add( (T)Convert.ChangeType( item[columnName], typeof( T ) ) );
-			}
-
-			return list;
-		}
-
-		static public List<T> ConvertToGenericList<T>( IList listObjects )
+		/// <summary>
+		/// Converts an IList to a generic typed List<T>.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="listObjects"></param>
+		/// <returns></returns>
+		static public List<T> ToGenericList<T>( this IList listObjects )
 		{
 			List<T> convertedList = new List<T>( listObjects.Count );
 
@@ -147,6 +149,34 @@ namespace YAF.Classes.Utils
 			}
 
 			return convertedList;
+		}
+
+		/// <summary>
+		/// Converts an object to a different object (class) by copying fields (if they exist).
+		/// Used to convert annonomous objects to strongly typed objects.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		static public T ToDifferentClassType<T>( this object obj ) where T : class
+		{
+			//create instance of T type object:
+			var tmp = Activator.CreateInstance( typeof ( T ) );
+
+			//loop through the fields of the object you want to covert:       
+			foreach ( System.Reflection.FieldInfo fi in obj.GetType().GetFields() )
+			{
+				try
+				{
+					tmp.GetType().GetField( fi.Name ).SetValue( tmp, fi.GetValue( obj ) );
+				}
+				catch
+				{
+				}
+			}
+
+			//return the T type object:         
+			return (T) tmp;
 		}
 
 		static public object[] GetCustomAttributes( Type objectType, Type attributeType )

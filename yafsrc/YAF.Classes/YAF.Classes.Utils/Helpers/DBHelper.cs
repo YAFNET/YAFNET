@@ -38,11 +38,48 @@ namespace YAF.Classes.Utils
 		{
 			if ( dt.Rows.Count > 0 && dt.Columns.Contains( columnName ) )
 			{
-				return (T) Convert.ChangeType( dt.Rows[0][columnName], typeof ( T ) );
+				return dt.Rows[0][columnName].ToType<T>();
 			}
 
 			return defaultValue;
-		}	
+		}
+
+		/// <summary>
+		/// Converts the first column of a DataTable to a generic List of type T.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="dataTable"></param>
+		/// <returns></returns>
+		static public List<T> ConvertDataTableFirstColumnToList<T>( DataTable dataTable )
+		{
+			List<T> list = new List<T>();
+
+			foreach ( DataRow item in dataTable.Rows )
+			{
+				list.Add( item[0].ToType<T>() );
+			}
+
+			return list;
+		}
+
+		/// <summary>
+		/// Converts columnName in a DataTable to a generic List of type T.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="columnName"></param>
+		/// <param name="dataTable"></param>
+		/// <returns></returns>
+		static public List<T> ConvertDataTableColumnToList<T>( string columnName, DataTable dataTable )
+		{
+			List<T> list = new List<T>();
+
+			foreach ( DataRow item in dataTable.Rows )
+			{
+				list.Add( item[columnName].ToType<T>() );
+			}
+
+			return list;
+		}
 
 		/// <summary>
 		/// Gets the first row of the data table or redirects to invalid request

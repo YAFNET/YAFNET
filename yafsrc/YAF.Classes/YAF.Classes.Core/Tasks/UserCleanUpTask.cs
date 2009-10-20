@@ -102,7 +102,7 @@ namespace YAF.Classes.Core
 			try
 			{
 				// get all boards...
-				List<int> boardIds = TypeHelper.ConvertDataTableColumnToList<int>( "BoardID", DB.board_list( null ) );
+				List<int> boardIds = DBHelper.ConvertDataTableColumnToList<int>( "BoardID", DB.board_list( null ) );
 
 				// go through each board...
 				foreach ( int boardId in boardIds)

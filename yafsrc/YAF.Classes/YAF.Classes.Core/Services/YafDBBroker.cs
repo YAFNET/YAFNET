@@ -45,7 +45,7 @@ namespace YAF.Classes.Core
 				DataTable userListDt = DB.user_ignoredlist( userId );
 
 				// convert to list...
-				userList = TypeHelper.ConvertDataTableColumnToList<int>( "IgnoredUserID", userListDt );
+				userList = DBHelper.ConvertDataTableColumnToList<int>( "IgnoredUserID", userListDt );
 
 				// store it in the user session...
 				HttpContext.Current.Session.Add( key, userList );
