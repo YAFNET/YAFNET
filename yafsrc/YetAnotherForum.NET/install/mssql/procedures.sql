@@ -3164,7 +3164,7 @@ begin
 		TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
 		MailsPending		= (select count(1) from [{databaseOwner}].[{objectQualifier}Mail]),
 		Incoming			= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=a.UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0),
-		LastUnreadPm		= (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=a.UserID and upm.IsRead=0 ORDER BY pm.Created DESC),
+		LastUnreadPm		= (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=a.UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC),
 		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)
 	from
 		[{databaseOwner}].[{objectQualifier}User] a
@@ -3179,7 +3179,7 @@ BEGIN
 		DECLARE @PMessageID int
 
 	SET @PMessageID = (SELECT TOP 1 PMessageID FROM [{databaseOwner}].[{objectQualifier}UserPMessage] where UserPMessageID = @UserPMessageID);
-	
+		
 	IF ( @FromOutbox = 1 AND EXISTS(SELECT (1) FROM [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE UserPMessageID = @UserPMessageID AND IsInOutbox = 1 ) )
 	BEGIN
 		-- set IsInOutbox bit which will remove it from the senders outbox
@@ -3187,7 +3187,13 @@ BEGIN
 	END
 	
 	IF ( @FromOutbox = 0 )
-	BEGIN		
+	BEGIN
+			-- The pmessage is in archive but still is in sender outbox  
+	IF ( EXISTS(SELECT (1) FROM [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE UserPMessageID = @UserPMessageID AND IsInOutbox = 1 AND IsArchived = 1 AND IsDeleted = 0) )
+	BEGIN
+	-- Remove archive flag and set IsDeleted flag
+	UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = [Flags] ^ 4  WHERE UserPMessageID = @UserPMessageID AND IsArchived = 1	
+	END
 		-- set is deleted...
 		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] ^ 8) WHERE UserPMessageID = @UserPMessageID
 	END	
@@ -4522,8 +4528,7 @@ AS
 BEGIN
 		DECLARE @CountIn int	
 		DECLARE @CountOut int
-		DECLARE @CountArchivedIn int
-		DECLARE @CountArchivedOut int
+		DECLARE @CountArchivedIn int		
 		DECLARE @plimit1 int        
         DECLARE @pcount int
         

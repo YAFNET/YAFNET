@@ -1085,7 +1085,7 @@ GO
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='PMLimit')
 begin
 grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
-		exec('update [{databaseOwner}].[{objectQualifier}Rank] set PMLimit = 30 WHERE PMLimit IS NULL')
+		exec('update [{databaseOwner}].[{objectQualifier}Rank] set PMLimit = 0 WHERE PMLimit IS NULL')
 		revoke update on [{databaseOwner}].[{objectQualifier}Rank] from public	
 end
 GO

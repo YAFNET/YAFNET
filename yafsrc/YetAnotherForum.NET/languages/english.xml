@@ -523,9 +523,6 @@
     <Resource tag="TITLE">Post a Private Message</Resource>
     <Resource tag="TO">To:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
-    <Resource tag="PMLIMIT">
-        You have {0} private messages: {1} in Inbox and {2} in Outbox from total {3} allowed. Your mail is box filled on {4}%.
-    </Resource>
     <Resource tag="PMLIMIT_ALL">
         You have {0} private messages: {1} in Inbox and {2} in Outbox, {3} In Archive from total {4} allowed. Your mail is box filled on {5}%.
     </Resource>
