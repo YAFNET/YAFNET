@@ -227,13 +227,29 @@ namespace YAF.Pages.Admin
 						GroupSortOrder.Text = r["SortOrder"].ToString();
 						GroupOnlyRibbon.Checked = (bool)r["OnlyRibbon"];
 						GroupHide.Checked = (bool)r["Hide"];
+
+						// remove all user medals...
+						RemoveMedalsFromCache();
 					}
 					break;
 				case "remove":
 					DB.group_medal_delete(e.CommandArgument, Request.QueryString["m"]);
+
+					// remove all user medals...
+					RemoveMedalsFromCache();
+
 					BindData();
 					break;
 			}
+		}
+
+		/// <summary>
+		/// Removals all medals from the cache...
+		/// </summary>
+		protected void RemoveMedalsFromCache()
+		{
+			// remove all user medals...
+			PageContext.Cache.RemoveAllStartsWith( YafCache.GetBoardCacheKey( String.Format( Constants.Cache.UserMedals, "" ) ) );
 		}
 
 
@@ -270,6 +286,8 @@ namespace YAF.Pages.Admin
 				case "remove":
 					// delete user-medal
 					DB.user_medal_delete(e.CommandArgument, Request.QueryString["m"]);
+					// clear cache...
+					RemoveUserFromCache( Convert.ToInt32( Request.QueryString["m"] ) );
 					BindData();
 					break;
 			}
@@ -362,10 +380,22 @@ namespace YAF.Pages.Admin
 			// disable/hide edit controls
 			AddUserCancel_Click(sender, e);
 
+			// clear cache...
+			RemoveUserFromCache( Convert.ToInt32( UserID.Text ) );
+
 			// re-bind data
 			BindData();
 		}
 
+		/// <summary>
+		/// Removes an individual user from the cache...
+		/// </summary>
+		/// <param name="userId"></param>
+		protected void RemoveUserFromCache( int userId )
+		{
+			// remove user from cache...
+			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( String.Format( Constants.Cache.UserMedals, userId ) ) );			
+		}
 
 		/// <summary>
 		/// Hides user add/edit controls.

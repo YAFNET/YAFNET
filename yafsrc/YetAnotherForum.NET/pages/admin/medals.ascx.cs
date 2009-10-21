@@ -151,7 +151,7 @@ namespace YAF.Pages.Admin
 				);
 
 			// if available, create also ribbon bar image of medal
-			if (dr["SmallRibbonURL"] != null)
+			if ( !dr["SmallRibbonURL"].IsNullOrEmptyDBField() )
 			{
 				output.AppendFormat(
 					" &nbsp; <img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
