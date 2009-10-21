@@ -20,6 +20,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.DataSetExtensions;
+using System.Linq;
 using System.Text;
 
 namespace YAF.Classes.Utils
@@ -52,14 +54,8 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		static public List<T> ConvertDataTableFirstColumnToList<T>( DataTable dataTable )
 		{
-			List<T> list = new List<T>();
-
-			foreach ( DataRow item in dataTable.Rows )
-			{
-				list.Add( item[0].ToType<T>() );
-			}
-
-			return list;
+			return (from x in dataTable.AsEnumerable()
+			        select x.Field<T>( 0 )).ToList();
 		}
 
 		/// <summary>
@@ -71,14 +67,8 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		static public List<T> ConvertDataTableColumnToList<T>( string columnName, DataTable dataTable )
 		{
-			List<T> list = new List<T>();
-
-			foreach ( DataRow item in dataTable.Rows )
-			{
-				list.Add( item[columnName].ToType<T>() );
-			}
-
-			return list;
+			return (from x in dataTable.AsEnumerable()
+			        select x.Field<T>( columnName )).ToList();
 		}
 
 		/// <summary>
