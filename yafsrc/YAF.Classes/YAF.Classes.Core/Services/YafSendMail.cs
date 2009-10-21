@@ -127,16 +127,16 @@ namespace YAF.Classes.Core
 						{
 							System.Net.Mail.MailAddress toEmailAddress;
 
-							MailAddress fromEmailAddress = !TypeHelper.DbStringIsNullOrEmpty(dt.Rows[i]["FromUserName"]) ? new System.Net.Mail.MailAddress(fromEmail, dt.Rows[i]["FromUserName"].ToString().Trim()) : new System.Net.Mail.MailAddress(fromEmail);
+							MailAddress fromEmailAddress = !dt.Rows[i]["FromUserName"].IsNullOrEmptyDBField() ? new System.Net.Mail.MailAddress( fromEmail, dt.Rows[i]["FromUserName"].ToString().Trim() ) : new System.Net.Mail.MailAddress( fromEmail );
 
 							// create the TO email address...
-							if (!TypeHelper.DbStringIsNullOrEmpty(dt.Rows[i]["ToUserName"]))
+							if ( !dt.Rows[i]["ToUserName"].IsNullOrEmptyDBField() )
 							{
-								toEmailAddress = new System.Net.Mail.MailAddress(toEmail, dt.Rows[i]["ToUserName"].ToString().Trim());
+								toEmailAddress = new System.Net.Mail.MailAddress( toEmail, dt.Rows[i]["ToUserName"].ToString().Trim() );
 							}
 							else
 							{
-								toEmailAddress = new System.Net.Mail.MailAddress(toEmail);
+								toEmailAddress = new System.Net.Mail.MailAddress( toEmail );
 							}
 
 							string subject = dt.Rows[i]["Subject"].ToString();

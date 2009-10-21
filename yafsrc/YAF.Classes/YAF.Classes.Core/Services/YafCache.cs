@@ -291,6 +291,14 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		/// <summary>
+		/// Removes all cache items that start with the string.
+		/// </summary>
+		/// <param name="startsWith"></param>
+		public void RemoveAllStartsWith( string startsWith )
+		{
+			this.Remove( x => x.StartsWith( startsWith ) );
+		}
 
 		/// <summary>
 		/// Clear all cache entries from memory.

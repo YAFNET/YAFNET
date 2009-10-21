@@ -28,13 +28,6 @@ namespace YAF.Classes.Utils
 {
 	public static class TypeHelper
 	{
-		static public bool DbStringIsNullOrEmpty(object dbString)
-		{
-			if (dbString == DBNull.Value) return true;
-			if (String.IsNullOrEmpty(dbString.ToString().Trim())) return true;
-			return false;
-		}
-
 		/// <summary>
 		/// Converts an object to a type.
 		/// </summary>

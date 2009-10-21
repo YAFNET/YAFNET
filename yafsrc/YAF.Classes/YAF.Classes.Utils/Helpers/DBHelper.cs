@@ -98,5 +98,24 @@ namespace YAF.Classes.Utils
 
 			return null;
 		}		
+
+		/// <summary>
+		/// Tests if an DB object (in DataRow) is DBNull.Value, null or empty.
+		/// </summary>
+		/// <param name="columnValue"></param>
+		/// <returns></returns>
+		static public bool IsNullOrEmptyDBField( this object columnValue )
+		{
+			if ( columnValue == DBNull.Value )
+			{
+				return true;
+			}
+			else if ( String.IsNullOrEmpty( columnValue.ToString().Trim() ) )
+			{
+				return true;
+			}
+
+			return false;
+		}
 	}
 }

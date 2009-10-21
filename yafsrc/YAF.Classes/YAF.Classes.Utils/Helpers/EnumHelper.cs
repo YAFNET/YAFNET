@@ -208,29 +208,29 @@ namespace YAF.Classes.Utils
 			return enumValList;
 		}
 
-		public static T CastIntToEnum<T>( int value )
+		public static T ToEnum<T>( this int value )
 		{
 			Type enumType = typeof( T );
 			if ( enumType.BaseType != typeof( Enum ) )
-				throw new ApplicationException( "CastIntToEnum does not support non-enum types" );
+				throw new ApplicationException( "IntToEnum does not support non-enum types" );
 
 			return ( T )Enum.Parse( enumType, value.ToString() );
 		}
 
-		public static T CastStrToEnum<T>( string value )
+		public static T ToEnum<T>( this string value )
 		{
 			Type enumType = typeof( T );
 			if ( enumType.BaseType != typeof( Enum ) )
-				throw new ApplicationException( "CastStrToEnum does not support non-enum types" );
+				throw new ApplicationException( "StrToEnum does not support non-enum types" );
 
 			return ( T )Enum.Parse( enumType, value );
 		}
 
-		public static T CastObjToEnum<T>( object value )
+		public static T ToEnum<T>( this object value )
 		{
 			Type enumType = typeof( T );
 			if ( enumType.BaseType != typeof( Enum ) )
-				throw new ApplicationException( "CastObjToEnum does not support non-enum types" );
+				throw new ApplicationException( "ObjToEnum does not support non-enum types" );
 
 			return ( T )Enum.Parse( enumType, value.ToString() );
 		}
