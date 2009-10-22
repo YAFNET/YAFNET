@@ -53,7 +53,7 @@ namespace YAF.Controls.Statistics
 		{
 			int currentRank = 1;
 			string actRank = "";
-			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ActiveUsers );
+            string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.MostActiveUsers );
 
 			DataTable rankDT = PageContext.Cache [cacheKey] as DataTable;
 
