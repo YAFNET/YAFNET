@@ -542,6 +542,16 @@
             <param name="userID">ID of user to lookup</param>
             <returns>true if the userid is a guest user</returns>
         </member>
+        <member name="P:YAF.Classes.Core.UserMembershipHelper.GuestUserId">
+            <summary>
+            Gets the guest user id for the current board.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.UserMembershipHelper.GuestUserName">
+            <summary>
+            Username of the Guest user for the current board.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.AdminPage">
             <summary>
             Summary description for AdminPage.
@@ -707,6 +717,12 @@
             </summary>
             <param name="predicate">Predicate for matching cache keys.</param>
         </member>
+        <member name="M:YAF.Classes.Core.YafCache.RemoveAllStartsWith(System.String)">
+            <summary>
+            Removes all cache items that start with the string.
+            </summary>
+            <param name="startsWith"></param>
+        </member>
         <member name="M:YAF.Classes.Core.YafCache.Clear">
             <summary>
             Clear all cache entries from memory.
@@ -767,6 +783,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:YAF.Classes.Core.UserCleanUpTask">
+            <summary>
+            Does some user clean up tasks such as unsuspending users...
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.CombinedUserDataHelper">
             <summary>
             Helps get a complete user profile from various locations
@@ -785,6 +806,11 @@
         <member name="P:YAF.Classes.Core.LocalizationHandler.TranslationPage">
             <summary>
             Current TransPage for Localization
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.SyncMembershipUsersTask">
+            <summary>
+            Run when we want to do migration of users in the background...
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.Localizer">
@@ -968,6 +994,11 @@
             AddLoadMessageSession creates a message that will be returned on the next page.
             </summary>
             <param name="message">The message you wish to display.</param>
+        </member>
+        <member name="M:YAF.Classes.Core.LoadMessage.Clear">
+            <summary>
+            Clear the Load String (error) List
+            </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafContext">
             <summary>
@@ -1237,11 +1268,6 @@
         <member name="P:YAF.Classes.Core.YafLocalization.TransPage">
             <summary>
             What section of the xml is used to translate this page
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.SyncMembershipUsersTask">
-            <summary>
-            Run when we want to do migration of users in the background...
             </summary>
         </member>
     </members>

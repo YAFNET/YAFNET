@@ -61,6 +61,33 @@
             <param name="expression"></param>
             <returns></returns>
         </member>
+        <member name="M:YAF.Classes.Utils.TypeHelper.ToClass``1(System.Object)">
+            <summary>
+            Converts the object to the class (T) or returns null if it's not 
+            an instance of that class or instance is null.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.TypeHelper.ToType``1(System.Object)">
+            <summary>
+            Converts an object to Type using the Convert.ChangeType() call.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YAF.Classes.Utils.TypeHelper.ToGenericList``1(System.Collections.IList)" -->
+        <member name="M:YAF.Classes.Utils.TypeHelper.ToDifferentClassType``1(System.Object)">
+            <summary>
+            Converts an object to a different object (class) by copying fields (if they exist).
+            Used to convert annonomous objects to strongly typed objects.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
         <member name="M:YAF.Classes.Utils.Security.StringToLongOrRedirect(System.String)">
             <summary>
             Function that verifies a string is an integer value or it redirects to invalid "info" page.
@@ -462,6 +489,12 @@
             <param name="node"></param>
             <returns></returns>
         </member>
+        <member name="M:YAF.Classes.Utils.General.GetCurrentTrustLevel">
+            <summary>
+            Gets the current ASP.NET Hosting Security Level.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:YAF.Classes.Utils.General.CompareMessage(System.Object,System.Object)">
             <summary>
             Compares two messages.
@@ -470,11 +503,45 @@
             <param name="newMessage">New message text.</param>
             <returns>True if messages differ, false if they are identical.</returns>
         </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRowColumnAsValue``1(System.Data.DataTable,System.String,``0)">
+            <summary>
+            Gets the specified column of the first row as the type specified. If not available returns default value.
+            </summary>
+            <typeparam name="T">Type if column to return</typeparam>
+            <param name="dt">DataTable to pull from</param>
+            <param name="columnName">Name of column to convert</param>
+            <param name="defaultValue">value to return if something is not available</param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.ConvertDataTableFirstColumnToList``1(System.Data.DataTable)">
+            <summary>
+            Converts the first column of a DataTable to a generic List of type T.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="dataTable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.ConvertDataTableColumnToList``1(System.String,System.Data.DataTable)">
+            <summary>
+            Converts columnName in a DataTable to a generic List of type T.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="columnName"></param>
+            <param name="dataTable"></param>
+            <returns></returns>
+        </member>
         <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRowOrInvalid(System.Data.DataTable)">
             <summary>
             Gets the first row of the data table or redirects to invalid request
             </summary>
             <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.IsNullOrEmptyDBField(System.Object)">
+            <summary>
+            Tests if an DB object (in DataRow) is DBNull.Value, null or empty.
+            </summary>
+            <param name="columnValue"></param>
             <returns></returns>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.GenerateRandomString(System.Int32,System.String)">

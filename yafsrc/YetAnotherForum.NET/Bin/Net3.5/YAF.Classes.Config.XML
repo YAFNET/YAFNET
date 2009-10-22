@@ -59,9 +59,16 @@
             Used for Url Rewriting -- default is "default.aspx"
             </summary>
         </member>
-        <member name="P:YAF.Classes.Config.UploadDir">
+        <member name="P:YAF.Classes.Config.BoardRoot">
             <summary>
-            Directory to use for uploading -- default is "FileRoot + /upload/"
+            Folder to use for board specific uploads, images, themes
+            Example : /Boards/
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.MultiBoardFolders">
+            <summary>
+            Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
+            Example : true /false
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.ShowToolBar">
