@@ -528,7 +528,7 @@ namespace YAF.Providers.Membership
 		/// <returns> Boolean depending on whether the change was successful</returns>
 		public override bool ChangePassword( string username, string oldPassword, string newPassword )
 		{
-			string newPasswordSalt = string.Empty;
+			string passwordSalt = string.Empty;
 			string newEncPassword = string.Empty;
 
 			// Clean input
@@ -546,13 +546,20 @@ namespace YAF.Providers.Membership
 			if ( !currentPasswordInfo.IsCorrectPassword( oldPassword ) )
 				return false;
 
-			// generate a salt if desired...
-			if ( UseSalt ) newPasswordSalt = YafMembershipProvider.GenerateSalt();
+			
+			if ( UseSalt )
+			{
+				// generate a salt if one doesn't exist...
+				passwordSalt = String.IsNullOrEmpty( currentPasswordInfo.PasswordSalt )
+				               	? YafMembershipProvider.GenerateSalt()
+				               	: currentPasswordInfo.PasswordSalt;
+			}
+
 			// encode new password
-			newEncPassword = YafMembershipProvider.EncodeString( newPassword, (int)this.PasswordFormat, newPasswordSalt, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant );
+			newEncPassword = YafMembershipProvider.EncodeString( newPassword, (int)this.PasswordFormat, passwordSalt, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant );
 
 			// Call SQL Password to Change
-			DB.Current.ChangePassword( this.ApplicationName, username, newEncPassword, newPasswordSalt, (int)this.PasswordFormat, currentPasswordInfo.PasswordAnswer );
+			DB.Current.ChangePassword( this.ApplicationName, username, newEncPassword, passwordSalt, (int)this.PasswordFormat, currentPasswordInfo.PasswordAnswer );
 
 			// Return True
 			return true;
