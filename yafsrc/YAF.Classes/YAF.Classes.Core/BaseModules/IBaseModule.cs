@@ -92,6 +92,8 @@ namespace YAF.Modules
 	/// </summary>
 	public class YafBaseModuleManager : YafModuleManager<IBaseModule>
 	{
+		protected bool _initCalled = false;
+
 		YafBaseModuleManager()
 			: base( "YAF.Modules", "YAF.Modules.IBaseModule" )
 		{
@@ -106,10 +108,15 @@ namespace YAF.Modules
 
 		public void CallInitModules( object forumControl )
 		{
-			foreach ( IBaseModule currentModule in Modules )
+			if ( !_initCalled )
 			{
-				currentModule.ForumControlObj = forumControl;
-				currentModule.Init();
+				foreach ( IBaseModule currentModule in Modules )
+				{
+					currentModule.ForumControlObj = forumControl;
+					currentModule.Init();
+				}
+
+				_initCalled = true;
 			}
 		}
 	}

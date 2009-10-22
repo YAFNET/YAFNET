@@ -27,421 +27,421 @@ using YAF.Classes.Pattern;
 
 namespace YAF.Classes
 {
-    /// <summary>
-    /// Static class that access the app settings in the web.config file
-    /// </summary>
-    public static class Config
-    {
-        static public string GetConfigValueAsString(string configKey)
-        {
-            foreach (string key in WebConfigurationManager.AppSettings.AllKeys)
-            {
-                if (key.Equals(configKey, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    return ConfigurationManager.AppSettings[key];
-                }
-            }
+	/// <summary>
+	/// Static class that access the app settings in the web.config file
+	/// </summary>
+	public static class Config
+	{
+		static public string GetConfigValueAsString( string configKey )
+		{
+			foreach ( string key in WebConfigurationManager.AppSettings.AllKeys )
+			{
+				if ( key.Equals( configKey, StringComparison.CurrentCultureIgnoreCase ) )
+				{
+					return ConfigurationManager.AppSettings[key];
+				}
+			}
 
-            return null;
-        }
+			return null;
+		}
 
-        static public bool GetConfigValueAsBool(string configKey, bool defaultValue)
-        {
-            string value = GetConfigValueAsString(configKey);
+		static public bool GetConfigValueAsBool( string configKey, bool defaultValue )
+		{
+			string value = GetConfigValueAsString( configKey );
 
-            if (!String.IsNullOrEmpty(value))
-            {
-                return Convert.ToBoolean(value.ToLower());
-            }
+			if ( !String.IsNullOrEmpty( value ) )
+			{
+				return Convert.ToBoolean( value.ToLower() );
+			}
 
-            return defaultValue;
-        }
+			return defaultValue;
+		}
 
-        /// <summary>
-        /// Current BoardID -- default is 1.
-        /// </summary>
-        static public string BoardID
-        {
-            get
-            {
-                return (GetConfigValueAsString("YAF.BoardID") ?? "1");
-            }
-        }
+		/// <summary>
+		/// Current BoardID -- default is 1.
+		/// </summary>
+		static public string BoardID
+		{
+			get
+			{
+				return ( GetConfigValueAsString( "YAF.BoardID" ) ?? "1" );
+			}
+		}
 
-        /// <summary>
-        /// Current CategoryID -- default is null.
-        /// </summary>
-        static public string CategoryID
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.CategoryID");
-            }
-        }
+		/// <summary>
+		/// Current CategoryID -- default is null.
+		/// </summary>
+		static public string CategoryID
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.CategoryID" );
+			}
+		}
 
-        /// <summary>
-        /// Is Url Rewriting enabled? -- default is false.
-        /// </summary>
-        static public bool EnableURLRewriting
-        {
-            get
-            {
-                return GetConfigValueAsBool("YAF.EnableUrlRewriting", false);
-            }
-        }
+		/// <summary>
+		/// Is Url Rewriting enabled? -- default is false.
+		/// </summary>
+		static public bool EnableURLRewriting
+		{
+			get
+			{
+				return GetConfigValueAsBool( "YAF.EnableUrlRewriting", false );
+			}
+		}
 
-        /// <summary>
-        /// Used for Url Rewriting -- default is "default.aspx"
-        /// </summary>
-        static public string BaseScriptFile
-        {
-            get
-            {
-                return (GetConfigValueAsString("YAF.BaseScriptFile") ?? "default.aspx");
-            }
-        }
+		/// <summary>
+		/// Used for Url Rewriting -- default is "default.aspx"
+		/// </summary>
+		static public string BaseScriptFile
+		{
+			get
+			{
+				return ( GetConfigValueAsString( "YAF.BaseScriptFile" ) ?? "default.aspx" );
+			}
+		}
 
-        static public string FileRoot
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.FileRoot") ?? AppRoot;
-            }
-        }
+		static public string FileRoot
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.FileRoot" ) ?? AppRoot;
+			}
+		}
 
-        static public string AppRoot
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.AppRoot") ?? "~/";
-            }
-        }
+		static public string AppRoot
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.AppRoot" ) ?? "~/";
+			}
+		}
 
-        static public string BaseUrlMask
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.BaseUrlMask") ?? String.Empty;
-            }
-        }
+		static public string BaseUrlMask
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.BaseUrlMask" ) ?? String.Empty;
+			}
+		}
 
-        /// <summary>
-        /// Folder to use for board specific uploads, images, themes
-        /// Example : /Boards/
-        /// </summary>
-        static public string BoardRoot
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.BoardRoot") ?? String.Empty; // Use / to signify root
-            }
-        }
+		/// <summary>
+		/// Folder to use for board specific uploads, images, themes
+		/// Example : /Boards/
+		/// </summary>
+		static public string BoardRoot
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.BoardRoot" ) ?? String.Empty; // Use / to signify root
+			}
+		}
 
-        /// <summary>
-        /// Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
-        /// Example : true /false
-        /// </summary>
-        static public bool MultiBoardFolders
-        {
-            get
-            {
-                return GetConfigValueAsBool("YAF.MultiBoardFolders", false);
-            }
-        }
-
-
-        static public string ProviderKeyType
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.ProviderKeyType") ?? "System.Guid";
-            }
-        }
-
-        static public string MembershipProvider
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.MembershipProvider") ?? string.Empty;
-            }
-        }
-
-        static public string RoleProvider
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.RoleProvider") ?? string.Empty;
-            }
-        }
-
-        static public bool AllowLoginAndLogoff
-        {
-            get
-            {
-                return GetConfigValueAsBool("YAF.AllowLoginAndLogoff", true);
-            }
-        }
-
-        #region Database Settings
-        static public string ConnectionStringName
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.ConnectionStringName") ?? "yafnet";
-            }
-        }
-
-        static public string DatabaseOwner
-        {
-            get
-            {
-                return Config.GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
-            }
-        }
-
-        static public string DatabaseObjectQualifier
-        {
-            get
-            {
-                return Config.GetConfigValueAsString("YAF.DatabaseObjectQualifier") ?? "yaf_";
-            }
-        }
-
-        // Different data layers specific settings
+		/// <summary>
+		/// Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
+		/// Example : true /false
+		/// </summary>
+		static public bool MultiBoardFolders
+		{
+			get
+			{
+				return GetConfigValueAsBool( "YAF.MultiBoardFolders", false );
+			}
+		}
 
 
-        static public String DatabaseEncoding
-        {
-            get
-            {
-                return Config.GetConfigValueAsString("YAF.DatabaseEncoding");
+		static public string ProviderKeyType
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.ProviderKeyType" ) ?? "System.Guid";
+			}
+		}
 
-            }
-        }
+		static public string MembershipProvider
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.MembershipProvider" ) ?? string.Empty;
+			}
+		}
 
-        static public String DatabaseCollation
-        {
-            get
-            {
-                return Config.GetConfigValueAsString("YAF.DatabaseCollation");
+		static public string RoleProvider
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.RoleProvider" ) ?? string.Empty;
+			}
+		}
 
-            }
-        }
+		static public bool AllowLoginAndLogoff
+		{
+			get
+			{
+				return GetConfigValueAsBool( "YAF.AllowLoginAndLogoff", true );
+			}
+		}
 
-        static public String SchemaName
-        {
-            get
-            {
-                return Config.GetConfigValueAsString("YAF.DatabaseSchemaName");
-            }
-        }
+		#region Database Settings
+		static public string ConnectionStringName
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.ConnectionStringName" ) ?? "yafnet";
+			}
+		}
 
-        static public String WithOIDs
-        {
-            get
-            {
-                return Config.GetConfigValueAsString("YAF.DatabaseWithOIDs");
+		static public string DatabaseOwner
+		{
+			get
+			{
+				return Config.GetConfigValueAsString( "YAF.DatabaseOwner" ) ?? "dbo";
+			}
+		}
 
-            }
-        }
+		static public string DatabaseObjectQualifier
+		{
+			get
+			{
+				return Config.GetConfigValueAsString( "YAF.DatabaseObjectQualifier" ) ?? "yaf_";
+			}
+		}
 
-        #endregion
+		// Different data layers specific settings
 
-        /// <summary>
-        /// Display the default toolbar at the top -- default is "true"
-        /// </summary>
-        static public bool ShowToolBar
-        {
-            get
-            {
-                return GetConfigValueAsBool("YAF.ShowToolBar", true);
-            }
-        }
 
-        /// <summary>
-        /// Diisplay the footer at the bottom of the page -- default is "true"
-        /// </summary>
-        static public bool ShowFooter
-        {
-            get
-            {
-                return GetConfigValueAsBool("YAF.ShowFooter", true);
-            }
-        }
+		static public String DatabaseEncoding
+		{
+			get
+			{
+				return Config.GetConfigValueAsString( "YAF.DatabaseEncoding" );
 
-        /// <summary>
-        /// Use an SSL connection for the SMTP server -- default is "false"
-        /// </summary>
-        static public bool UseSMTPSSL
-        {
-            get
-            {
-                return GetConfigValueAsBool("YAF.UseSMTPSSL", false);
-            }
-        }
+			}
+		}
 
-        #region Telerik Rad Editor Settings
-        static public string RadEditorSkin
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.RadEditorSkin") ?? "Vista";
-            }
-        }
+		static public String DatabaseCollation
+		{
+			get
+			{
+				return Config.GetConfigValueAsString( "YAF.DatabaseCollation" );
 
-        static public string RadEditorToolsFile
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.RadEditorToolsFile") ??
-                             String.Format("{0}/editors/RadEditor/ToolsFile.xml", Config.FileRoot);
-            }
-        }
+			}
+		}
 
-        static public bool UseRadEditorToolsFile
-        {
-            get
-            {
-                string value = GetConfigValueAsString("YAF.UseRadEditorToolsFile");
+		static public String SchemaName
+		{
+			get
+			{
+				return Config.GetConfigValueAsString( "YAF.DatabaseSchemaName" );
+			}
+		}
 
-                if (!String.IsNullOrEmpty(value))
-                {
-                    switch (value.ToLower().Substring(0, 1))
-                    {
-                        case "1":
-                        case "t":
-                        case "y":
-                            return true;
-                        case "0":
-                        case "f":
-                        case "n":
-                            return false;
-                    }
-                }
+		static public String WithOIDs
+		{
+			get
+			{
+				return Config.GetConfigValueAsString( "YAF.DatabaseWithOIDs" );
 
-                return false;
-            }
-        }
-        #endregion
+			}
+		}
 
-        static public string ConnectionString
-        {
-            get
-            {
-                return ConfigurationManager.ConnectionStrings[ConnectionStringName].ConnectionString;
-            }
-        }
+		#endregion
 
-        [Obsolete("Legacy: Phasing out")]
-        static public string LogToMail
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.LogToMail");
-            }
-        }
+		/// <summary>
+		/// Display the default toolbar at the top -- default is "true"
+		/// </summary>
+		static public bool ShowToolBar
+		{
+			get
+			{
+				return GetConfigValueAsBool( "YAF.ShowToolBar", true );
+			}
+		}
 
-        static public bool IsDotNetNuke
-        {
-            get
-            {
-                object obj = HttpContext.Current.Items["PortalSettings"];
-                return obj != null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke") >= 0;
-            }
-        }
+		/// <summary>
+		/// Diisplay the footer at the bottom of the page -- default is "true"
+		/// </summary>
+		static public bool ShowFooter
+		{
+			get
+			{
+				return GetConfigValueAsBool( "YAF.ShowFooter", true );
+			}
+		}
 
-        static public bool IsMojoPortal
-        {
-            get
-            {
-                object obj = HttpContext.Current.Items["SiteSettings"];
-                return obj != null && obj.GetType().ToString().ToLower().IndexOf("mojoportal") >= 0;
-            }
-        }
+		/// <summary>
+		/// Use an SSL connection for the SMTP server -- default is "false"
+		/// </summary>
+		static public bool UseSMTPSSL
+		{
+			get
+			{
+				return GetConfigValueAsBool( "YAF.UseSMTPSSL", false );
+			}
+		}
 
-        static public bool IsRainbow
-        {
-            get
-            {
-                object obj = HttpContext.Current.Items["PortalSettings"];
-                return obj != null && obj.GetType().ToString().ToLower().IndexOf("rainbow") >= 0;
-            }
-        }
+		#region Telerik Rad Editor Settings
+		static public string RadEditorSkin
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.RadEditorSkin" ) ?? "Vista";
+			}
+		}
 
-        static public bool IsPortal
-        {
-            get
-            {
-                return HttpContext.Current.Session["YetAnotherPortal.net"] != null;
-            }
-        }
+		static public string RadEditorToolsFile
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.RadEditorToolsFile" ) ??
+                             String.Format( "{0}/editors/RadEditor/ToolsFile.xml", Config.FileRoot );
+			}
+		}
 
-        static public bool IsPortalomatic
-        {
-            get
-            {
-                return HttpContext.Current.Session["Portalomatic.NET"] != null;
-            }
-        }
+		static public bool UseRadEditorToolsFile
+		{
+			get
+			{
+				string value = GetConfigValueAsString( "YAF.UseRadEditorToolsFile" );
 
-        static public bool IsAnyPortal
-        {
-            get
-            {
-                return (IsDotNetNuke || IsRainbow || IsMojoPortal || IsPortal || IsPortalomatic);
-            }
-        }
+				if ( !String.IsNullOrEmpty( value ) )
+				{
+					switch ( value.ToLower().Substring( 0, 1 ) )
+					{
+						case "1":
+						case "t":
+						case "y":
+							return true;
+						case "0":
+						case "f":
+						case "n":
+							return false;
+					}
+				}
 
-        static private string UrlBuilderKeyName
-        {
-            get
-            {
-                return "yaf_UrlBuilder-Board" + YafControlSettings.Current.BoardID.ToString();
-            }
-        }
+				return false;
+			}
+		}
+		#endregion
 
-        static public IUrlBuilder UrlBuilder
-        {
-            get
-            {
-                if (HttpContext.Current.Application[UrlBuilderKeyName] == null)
-                {
-                    string urlAssembly;
+		static public string ConnectionString
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings[ConnectionStringName].ConnectionString;
+			}
+		}
 
-                    if (IsRainbow)
-                    {
-                        urlAssembly = "yaf_rainbow.RainbowUrlBuilder,yaf_rainbow";
-                    }
-                    else if (IsDotNetNuke)
-                    {
-                        urlAssembly = "yaf_dnn.DotNetNukeUrlBuilder,yaf_dnn";
-                    }
-                    else if (IsMojoPortal)
-                    {
-                        urlAssembly = "yaf_mojo.MojoPortalUrlBuilder,yaf_mojo";
-                    }
-                    else if (IsPortal)
-                    {
-                        urlAssembly = "Portal.UrlBuilder,Portal";
-                    }
-                    else if (IsPortalomatic)
-                    {
-                        urlAssembly = "Portalomatic.NET.Utils.URLBuilder,Portalomatic.NET.Utils";
-                    }
-                    else if (EnableURLRewriting)
-                    {
-                        urlAssembly = "YAF.Classes.RewriteUrlBuilder,YAF.Classes.Utils";
-                    }
-                    else
-                    {
-                        urlAssembly = "YAF.Classes.UrlBuilder";
-                    }
+		[Obsolete( "Legacy: Phasing out" )]
+		static public string LogToMail
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.LogToMail" );
+			}
+		}
 
-                    HttpContext.Current.Application[UrlBuilderKeyName] = Activator.CreateInstance(Type.GetType(urlAssembly));
-                }
+		static public bool IsDotNetNuke
+		{
+			get
+			{
+				object obj = HttpContext.Current.Items["PortalSettings"];
+				return obj != null && obj.GetType().ToString().ToLower().IndexOf( "dotnetnuke" ) >= 0;
+			}
+		}
 
-                return (IUrlBuilder)HttpContext.Current.Application[UrlBuilderKeyName];
-            }
-        }
-    }
+		static public bool IsMojoPortal
+		{
+			get
+			{
+				object obj = HttpContext.Current.Items["SiteSettings"];
+				return obj != null && obj.GetType().ToString().ToLower().IndexOf( "mojoportal" ) >= 0;
+			}
+		}
+
+		static public bool IsRainbow
+		{
+			get
+			{
+				object obj = HttpContext.Current.Items["PortalSettings"];
+				return obj != null && obj.GetType().ToString().ToLower().IndexOf( "rainbow" ) >= 0;
+			}
+		}
+
+		static public bool IsPortal
+		{
+			get
+			{
+				return HttpContext.Current.Session["YetAnotherPortal.net"] != null;
+			}
+		}
+
+		static public bool IsPortalomatic
+		{
+			get
+			{
+				return HttpContext.Current.Session["Portalomatic.NET"] != null;
+			}
+		}
+
+		static public bool IsAnyPortal
+		{
+			get
+			{
+				return ( IsDotNetNuke || IsRainbow || IsMojoPortal || IsPortal || IsPortalomatic );
+			}
+		}
+
+		static private string UrlBuilderKeyName
+		{
+			get
+			{
+				return "yaf_UrlBuilder-Board" + YafControlSettings.Current.BoardID.ToString();
+			}
+		}
+
+		static public IUrlBuilder UrlBuilder
+		{
+			get
+			{
+				if ( HttpContext.Current.Application[UrlBuilderKeyName] == null )
+				{
+					string urlAssembly;
+
+					if ( IsRainbow )
+					{
+						urlAssembly = "yaf_rainbow.RainbowUrlBuilder,yaf_rainbow";
+					}
+					else if ( IsDotNetNuke )
+					{
+						urlAssembly = "YAF.Classes.DotNetNukeUrlBuilder,YAF.Classes.Utils";
+					}
+					else if ( IsMojoPortal )
+					{
+						urlAssembly = "yaf_mojo.MojoPortalUrlBuilder,yaf_mojo";
+					}
+					else if ( IsPortal )
+					{
+						urlAssembly = "Portal.UrlBuilder,Portal";
+					}
+					else if ( IsPortalomatic )
+					{
+						urlAssembly = "Portalomatic.NET.Utils.URLBuilder,Portalomatic.NET.Utils";
+					}
+					else if ( EnableURLRewriting )
+					{
+						urlAssembly = "YAF.Classes.RewriteUrlBuilder,YAF.Classes.Utils";
+					}
+					else
+					{
+						urlAssembly = "YAF.Classes.UrlBuilder";
+					}
+
+					HttpContext.Current.Application[UrlBuilderKeyName] = Activator.CreateInstance( Type.GetType( urlAssembly ) );
+				}
+
+				return (IUrlBuilder)HttpContext.Current.Application[UrlBuilderKeyName];
+			}
+		}
+	}
 }
