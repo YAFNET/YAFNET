@@ -58,12 +58,7 @@ namespace YAF.Classes.Core
 			{
 				if (permission == ViewPermissions.RegisteredUsers)
 				{
-					if (Config.AllowLoginAndLogoff)
-					{
-						YafBuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", HttpUtility.UrlEncode(General.GetSafeRawUrl()));
-						noAccess = false;
-					}
-					else if (!String.IsNullOrEmpty(YafContext.Current.BoardSettings.CustomLoginRedirectUrl))
+					if ( !Config.AllowLoginAndLogoff && !String.IsNullOrEmpty(YafContext.Current.BoardSettings.CustomLoginRedirectUrl))
 					{
 						string loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
 
@@ -75,6 +70,22 @@ namespace YAF.Classes.Core
 						// allow custom redirect...
 						HttpContext.Current.Response.Redirect(loginRedirectUrl);
 						noAccess = false;
+					}
+					else if ( !Config.AllowLoginAndLogoff && Config.IsDotNetNuke )
+					{
+						// automatic DNN redirect...
+						string appPath = HttpContext.Current.Request.ApplicationPath;
+						if ( !appPath.EndsWith( "/" ) ) appPath += "/";
+
+						// redirect to DNN login...
+						HttpContext.Current.Response.Redirect( appPath + "Login.aspx?ReturnUrl=" +
+						                                       HttpUtility.UrlEncode( General.GetSafeRawUrl() ) );
+						noAccess = false;
+					}
+					else if ( Config.AllowLoginAndLogoff )
+					{
+						YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", HttpUtility.UrlEncode( General.GetSafeRawUrl() ) );
+						noAccess = false;						
 					}
 				}
 

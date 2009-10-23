@@ -105,7 +105,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsString( "YAF.FileRoot" ) ?? AppRoot;
+				return GetConfigValueAsString( "YAF.FileRoot" ) ?? String.Empty;
 			}
 		}
 
@@ -113,7 +113,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return GetConfigValueAsString( "YAF.AppRoot" ) ?? "~/";
+				return GetConfigValueAsString( "YAF.AppRoot" ) ?? String.Empty;
 			}
 		}
 

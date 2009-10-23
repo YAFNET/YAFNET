@@ -99,10 +99,10 @@ namespace YAF.Modules
 		{
 			if ( ModuleClassTypes == null )
 			{
-				// re-add these modules...
-				base.AddModules( BuildManager.CodeAssemblies );
 				// get the .Core module to add...
 				base.AddModules( new List<Assembly>() {Assembly.GetExecutingAssembly()} );
+				// re-add these modules...
+				base.AddModules( BuildManager.CodeAssemblies );
 			}
 		}
 

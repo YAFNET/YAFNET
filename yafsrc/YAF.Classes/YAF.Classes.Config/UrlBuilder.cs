@@ -153,7 +153,7 @@ namespace YAF.Classes
 			{
 				_path = HttpContext.Current.Request.ApplicationPath;
 
-				if ( _path.EndsWith( "/" ) ) _path += "/";
+				if ( !_path.EndsWith( "/" ) ) _path += "/";
 
 				if ( !String.IsNullOrEmpty( altRoot ) )
 				{
@@ -168,15 +168,15 @@ namespace YAF.Classes
 
 					if ( _path[0] != '/' ) _path = _path.Insert( 0, "/" );
 				}
-				else if ( YAF.Classes.Config.IsDotNetNuke )
+				else if ( Config.IsDotNetNuke )
 				{
 					_path += "DesktopModules/YetAnotherForumDotNet/";
 				}
-				else if ( YAF.Classes.Config.IsRainbow )
+				else if ( Config.IsRainbow )
 				{
 					_path += "DesktopModules/Forum/";
 				}
-				else if ( YAF.Classes.Config.IsPortal )
+				else if ( Config.IsPortal )
 				{
 					_path += "Modules/Forum/";
 				}
@@ -201,7 +201,15 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return TreatPathStr( Config.FileRoot );
+				string altRoot = Config.FileRoot;
+
+				if ( String.IsNullOrEmpty( altRoot ) && !String.IsNullOrEmpty(Config.AppRoot) )
+				{
+					// default to "AppRoot" if no file root specified and AppRoot specified...
+					altRoot = Config.AppRoot;
+				}
+
+				return TreatPathStr( altRoot );
 			}
 		}
 
