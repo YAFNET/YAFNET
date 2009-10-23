@@ -54,8 +54,8 @@ namespace YAF.Modules
 					YAF.Classes.Data.DB.user_suspend( PageContext.PageUserID, null );
 					HttpContext.Current.Response.Redirect( General.GetSafeRawUrl() );
 				}
-
-				YafBuildLink.RedirectInfoPage( InfoMessage.Suspended );
+				else
+					YafBuildLink.RedirectInfoPage( InfoMessage.Suspended );
 			}
 		}
 	}
