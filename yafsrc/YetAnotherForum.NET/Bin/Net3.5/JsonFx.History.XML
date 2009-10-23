@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JsonFx.History</name>
+    </assembly>
+    <members>
+        <member name="M:JsonFx.History.HistoryManager.#ctor">
+            <summary>
+            Ctor
+            </summary>
+            <remarks>
+            Uses iframe as tag name.
+            </remarks>
+        </member>
+        <member name="P:JsonFx.History.HistoryManager.StartState">
+            <summary>
+            Gets and sets the initial state object which represents this page request
+            </summary>
+        </member>
+        <member name="P:JsonFx.History.HistoryManager.Callback">
+            <summary>
+            Gets and sets the function name to be used as a callback when the history changes
+            </summary>
+        </member>
+        <member name="P:JsonFx.History.HistoryManager.HistoryUrl">
+            <summary>
+            Gets and sets the URL to be used when the history changes
+            for browsers that do not accept virtually built documents
+            </summary>
+            <remarks>Defaults to "~/robots.txt"</remarks>
+        </member>
+        <member name="P:JsonFx.History.HistoryManager.IsDebugMode">
+            <summary>
+            Gets and sets a value which shows or hides the history iframe.
+            </summary>
+        </member>
+        <member name="P:JsonFx.History.HistoryManager.UsePhysicalUrl">
+            <summary>
+            Gets a value which indicates if should use physical or virtual documents
+            </summary>
+        </member>
+    </members>
+</doc>

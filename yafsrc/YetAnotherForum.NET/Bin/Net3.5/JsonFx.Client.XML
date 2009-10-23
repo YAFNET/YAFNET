@@ -1,0 +1,600 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JsonFx.Client</name>
+    </assembly>
+    <members>
+        <member name="P:JsonFx.Handlers.IBuildResult.ContentType">
+            <summary>
+            Gets the file hash for the resulting resource data
+            </summary>
+        </member>
+        <member name="P:JsonFx.Handlers.IBuildResult.FileExtension">
+            <summary>
+            Gets the file extension for the resulting resource data
+            </summary>
+        </member>
+        <member name="P:JsonFx.Handlers.IBuildResult.Hash">
+            <summary>
+            Gets the file hash for the compacted resource data
+            </summary>
+        </member>
+        <member name="P:JsonFx.Handlers.IOptimizedResult.Source">
+            <summary>
+            Gets the original resource source
+            </summary>
+        </member>
+        <member name="P:JsonFx.Handlers.IOptimizedResult.PrettyPrinted">
+            <summary>
+            Gets the pretty-printed resource data
+            </summary>
+        </member>
+        <member name="P:JsonFx.Handlers.IOptimizedResult.Compacted">
+            <summary>
+            Gets the compacted resource data
+            </summary>
+        </member>
+        <member name="P:JsonFx.Handlers.IOptimizedResult.Gzipped">
+            <summary>
+            Gets the compacted resource data compressed with Gzip
+            </summary>
+        </member>
+        <member name="P:JsonFx.Handlers.IOptimizedResult.Deflated">
+            <summary>
+            Gets the compacted resource data compressed with Deflate
+            </summary>
+        </member>
+        <member name="P:JsonFx.Handlers.IDependentResult.VirtualPathDependencies">
+            <summary>
+            Gets the virtual paths which this resource is dependent upon
+            </summary>
+        </member>
+        <member name="T:JsonFx.Compilation.ResourceCodeProvider">
+            <summary>
+            Base class for all build-time resource compaction implementations.
+            </summary>
+            <remarks>
+            This was implemented as a CodeProvider rather than a BuildProvider
+            in order to gain access to the CompilerResults object.  This enables
+            a custom compiler to correctly report its errors in the Visual Studio
+            Error List.  Double clicking these errors takes the user to the actual
+            source at the point where the error occurred.
+            
+            Unfortunately, in Web Application Projects (WAP) the compilation happens
+            outside of Visual Studio leaving little or no trace of these errors.
+            The output of the resource will now also show an error listing.
+            </remarks>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceCodeProvider.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceCodeProvider.CompileResource(JsonFx.Compilation.IResourceBuildHelper,System.String,System.String@,System.String@)">
+            <summary>
+            Delegates compilation to the compiler implementation
+            </summary>
+            <param name="helper"></param>
+            <param name="virtualPath"></param>
+            <param name="preProcessed"></param>
+            <param name="compacted"></param>
+            <returns>original source</returns>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceCodeProvider.ReportErrors(System.CodeDom.Compiler.CompilerResults)">
+            <summary>
+            Adds any existing errors to the CompilerResults
+            </summary>
+            <param name="results"></param>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceCodeProvider.ProcessResource(JsonFx.Compilation.IResourceBuildHelper,System.String,System.String,System.String@,System.String@,System.Collections.Generic.List{JsonFx.BuildTools.ParseException})">
+            <summary>
+            Processes the source.
+            </summary>
+            <param name="helper"></param>
+            <param name="virtualPath"></param>
+            <param name="sourceText"></param>
+            <param name="resource"></param>
+            <param name="compacted"></param>
+            <param name="errors"></param>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceCodeProvider.ResetCodeProvider">
+            <summary>
+            Clear any state because code providers get reused by BuildManager
+            </summary>
+        </member>
+        <member name="P:JsonFx.Compilation.ResourceCodeProvider.ContentType">
+            <summary>
+            Gets the MIME type of the output.
+            </summary>
+        </member>
+        <member name="P:JsonFx.Compilation.ResourceCodeProvider.FileExtension">
+            <summary>
+            Gets the file extension of the output.
+            </summary>
+        </member>
+        <member name="P:JsonFx.Compilation.ResourceCodeProvider.GlobalizationKeys">
+            <summary>
+            Gets the list of globalization keys used by this resource
+            </summary>
+        </member>
+        <member name="T:JsonFx.Handlers.ETag">
+            <summary>
+            Generates an HTTP/1.1 Cache header Entity Tag (ETag)
+            </summary>
+            <remarks>
+            HTTP/1.1 RFC:
+            http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19
+            http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26
+            http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.25
+            http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.29
+            </remarks>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.HandleETag(System.Web.HttpContext)">
+            <summary>
+            Verifies if the client has a cached copy of the resource.
+            Sets up HttpResponse appropriately.
+            Returns true if cached.
+            </summary>
+            <param name="context"></param>
+            <returns>true if is cached</returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.HandleETag(System.Web.HttpContext,System.Web.HttpCacheability)">
+            <summary>
+            Verifies if the client has a cached copy of the resource.
+            Sets up HttpResponse appropriately.
+            Returns true if cached.
+            </summary>
+            <param name="context"></param>
+            <param name="cacheability"></param>
+            <returns>true if is cached</returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.HandleETag(System.Web.HttpContext,System.Web.HttpCacheability,System.Boolean)">
+            <summary>
+            Verifies if the client has a cached copy of the resource.
+            Sets up HttpResponse appropriately.
+            Returns true if cached.
+            </summary>
+            <param name="context"></param>
+            <param name="cacheability"></param>
+            <param name="forceRefresh"></param>
+            <returns>true if is cached</returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.GetMetaData(System.Boolean@)">
+            <summary>
+            Provides an algorithm for generating an HTTP/1.1 Cache header Entity Tag (ETag)
+            </summary>
+            <returns>the value used to generate the ETag</returns>
+            <remarks>
+            GetMetaData must return String, Byte[], or Stream
+            </remarks>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.GetLastModified">
+            <summary>
+            
+            </summary>
+            <returns>DateTime.MinValue if does not apply</returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.CalculateETag">
+            <summary>
+            Sets ETag.Value
+            </summary>
+            <param name="Entity"></param>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.FormatTimeHeader(System.DateTime)">
+            <summary>
+            Converts a DateTime to a valid header string
+            </summary>
+            <returns>null if DateTime.MinValue</returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.ETagsEqual(System.String,System.String)">
+            <summary>
+            see System.Web.StaticFileHandler
+            </summary>
+            <param name="etag1"></param>
+            <param name="etag2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.ComputeHash(System.String)">
+            <summary>
+            Generates a unique hash from string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.ComputeHash(System.IO.Stream)">
+            <summary>
+            Generates a unique hash from Stream
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.ComputeHash(System.Byte[])">
+            <summary>
+            Generates a unique hash from byte[]
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ETag.FormatBytes(System.Byte[])">
+            <summary>
+            Gets the hex digits for the given bytes
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="P:JsonFx.Handlers.ETag.Value">
+            <summary>
+            Gets the ETag value for the associated entity
+            </summary>
+        </member>
+        <member name="P:JsonFx.Handlers.ETag.LastModifiedUtc">
+            <summary>
+            Gets the UTC Last-Modified date for the resource. Returns DateTime.MinValue if does not apply.
+            </summary>
+        </member>
+        <member name="T:JsonFx.Handlers.HashETag">
+            <summary>
+            Generates an ETag for a specific Guid.
+            </summary>
+        </member>
+        <member name="M:JsonFx.Handlers.HashETag.#ctor(System.Guid)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="hash"></param>
+        </member>
+        <member name="M:JsonFx.Handlers.HashETag.#ctor(System.String)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="hash"></param>
+        </member>
+        <member name="M:JsonFx.Handlers.HashETag.GetMetaData(System.Boolean@)">
+            <summary>
+            Generates a unique ETag which changes when the Content changes
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JsonFx.Handlers.StringETag">
+            <summary>
+            Generates an ETag for an arbitrary string.
+            </summary>
+        </member>
+        <member name="M:JsonFx.Handlers.StringETag.#ctor(System.String)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="Content"></param>
+        </member>
+        <member name="M:JsonFx.Handlers.StringETag.GetMetaData(System.Boolean@)">
+            <summary>
+            Generates a unique ETag which changes when the Content changes
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JsonFx.Handlers.FileETag">
+            <summary>
+            Represents an ETag for a file on disk
+            </summary>
+            <remarks>
+            Generates a unique ETag which changes when the file changes
+            </remarks>
+        </member>
+        <member name="M:JsonFx.Handlers.FileETag.#ctor(System.String)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:JsonFx.Handlers.FileETag.GetMetaData(System.Boolean@)">
+            <summary>
+            Generates a unique ETag which changes when the file metadata changes
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Handlers.FileETag.GetLastModified">
+            <summary>
+            Gets the LastWriteTimeUtc time associated with the file
+            </summary>
+        </member>
+        <member name="T:JsonFx.Handlers.EmbeddedResourceETag">
+            <summary>
+            Represents an ETag for a file on disk
+            </summary>
+            <remarks>
+            Generates a unique ETag which changes when the file changes
+            </remarks>
+        </member>
+        <member name="M:JsonFx.Handlers.EmbeddedResourceETag.#ctor(System.Reflection.Assembly,System.String)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:JsonFx.Handlers.EmbeddedResourceETag.GetMetaData(System.Boolean@)">
+            <summary>
+            Generates a unique ETag which changes when the assembly changes
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JsonFx.Compilation.IGlobalizedBuildResult">
+            <summary>
+            A globalized compilation result which specifies the resource keys it needs.
+            </summary>
+        </member>
+        <member name="T:JsonFx.Handlers.DebugResourceHandlerFactory">
+            <summary>
+            Allows forcing the resource to pretty-print with "?debug"
+            </summary>
+        </member>
+        <member name="T:JsonFx.Handlers.ResourceHandlerFactory">
+            <summary>
+            ResourceHandler Factory
+            </summary>
+        </member>
+        <member name="T:JsonFx.Compilation.ResourceBuildProvider">
+            <summary>
+            The BuildProvider for all build-time resource compaction implementations.
+            This provider processes the source storing a debug and a release output.
+            The compilation result is a CompiledBuildResult class which has references
+            to both resources.
+            </summary>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceBuildProvider.GenerateTypeName(System.String)">
+            <summary>
+            Generates a Type name for the compiled resource
+            </summary>
+            <param name="virtualPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceBuildProvider.ComputeHash(System.String)">
+            <summary>
+            Generates a unique hash from string
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceBuildProvider.ComputeHash(System.IO.Stream)">
+            <summary>
+            Generates a unique hash from byte[]
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceBuildProvider.ComputeHash(System.Byte[])">
+            <summary>
+            Generates a unique hash from byte[]
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceBuildProvider.FormatBytes(System.Byte[])">
+            <summary>
+            Gets the hex digits for the given bytes
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Compilation.ResourceBuildProvider.QuoteSnippetStringCStyle(System.String)">
+            <summary>
+            Escapes a C# string using C-style escape sequences.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <remarks>
+            Adapted from Microsoft.CSharp.CSharpCodeGenerator.QuoteSnippetStringCStyle
+            Primary difference is does not wrap at 80 chars as can cause C# compiler to fail.
+            </remarks>
+        </member>
+        <member name="T:JsonFx.Client.ResourceInclude">
+            <summary>
+            Base control for referencing a ResourceHandler
+            </summary>
+        </member>
+        <member name="M:JsonFx.Client.ResourceInclude.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="P:JsonFx.Client.ResourceInclude.IsDebug">
+            <summary>
+            Gets and sets if should render a debuggable ("Pretty-Print") reference.
+            </summary>
+        </member>
+        <member name="P:JsonFx.Client.ResourceInclude.SourceUrl">
+            <summary>
+            Gets and sets resource url.
+            </summary>
+        </member>
+        <member name="P:JsonFx.Client.ResourceInclude.UsePageCulture">
+            <summary>
+            Gets and sets if page determines the culture or
+            if uses CurrentUICulture
+            </summary>
+        </member>
+        <member name="P:JsonFx.Client.ResourceInclude.SuppressLocalization">
+            <summary>
+            Gets and sets if will be manually emitting localization values
+            </summary>
+        </member>
+        <member name="P:JsonFx.Client.ResourceInclude.StyleFormat">
+            <summary>
+            Gets and sets if page determines the culture or
+            if uses CurrentUICulture
+            </summary>
+        </member>
+        <member name="P:JsonFx.Client.ResourceInclude.Attributes">
+            <summary>
+            Gets the collection of custom attributes
+            </summary>
+        </member>
+        <member name="T:JsonFx.Handlers.BuildResultType">
+            <remarks>
+            The possible encoding methods for build results
+            </remarks>
+        </member>
+        <member name="T:JsonFx.Handlers.ResourceHandler">
+            <summary>
+            general HTTP handler for external page resources
+            </summary>
+        </member>
+        <member name="M:JsonFx.Handlers.ResourceHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:JsonFx.Handlers.ResourceHandler.#ctor(System.Boolean,System.String)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="isDebug"></param>
+            <param name="cacheKey"></param>
+        </member>
+        <member name="M:JsonFx.Handlers.ResourceHandler.GetResourceInfo(System.Web.HttpContext,System.Boolean)">
+            <summary>
+            Determines the appropriate source for the incomming request
+            </summary>
+            <param name="context"></param>
+            <param name="isDebug"></param>
+            <returns>CompiledBuildResult</returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ResourceHandler.EnableStreamCompression(System.Web.HttpContext)">
+            <summary>
+            If supported, adds a runtime compression filter to the response output.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:JsonFx.Handlers.ResourceHandler.DisableStreamCompression(System.Web.HttpContext)">
+            <summary>
+            If supported, removes a runtime compression filter from the response output.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:JsonFx.Handlers.ResourceHandler.Create``1(System.String)">
+            <summary>
+            Strongly typed build result factory method
+            </summary>
+            <param name="virtualPath">app-relative virtual path</param>
+            <returns>strongly typed compiled object</returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ResourceHandler.GetOutputEncoding(System.Web.HttpContext)">
+            <summary>
+            Determines appropriate content-encoding.
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Handlers.ResourceHandler.GetOutputEncoding(JsonFx.Handlers.IOptimizedResult,System.Web.HttpContext,System.Boolean)">
+            <summary>
+            Determines the most compact Content-Encoding supported by request.
+            </summary>
+            <param name="acceptEncoding"></param>
+            <param name="isDebug"></param>
+            <returns>optimal format</returns>
+        </member>
+        <member name="T:JsonFx.Configuration.ScriptCompactionSection">
+            <summary>
+            Allows the app control over script compaction settings
+            </summary>
+        </member>
+        <member name="M:JsonFx.Compilation.DirectiveParser.#ctor(System.String,System.String)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="sourceText"></param>
+            <param name="virtualPath"></param>
+        </member>
+        <member name="M:JsonFx.Compilation.DirectiveParser.ParseDirective(System.String,System.String@,System.Collections.Generic.IDictionary{System.String,System.String}@,System.Int32@)">
+            <summary>
+            Grabs the next directive.
+            </summary>
+            <param name="source"></param>
+            <param name="directiveName"></param>
+            <param name="attribs"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.Compilation.DirectiveParser.ParseAttributes(System.Text.RegularExpressions.Match,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Parses the directive for its attributes.
+            </summary>
+            <param name="match"></param>
+            <param name="attribs"></param>
+            <returns>directive name</returns>
+        </member>
+        <member name="T:JsonFx.Client.ScriptDataBlock">
+            <summary>
+            Specifically for emitting runtime data to the page as JavaScript variables.
+            </summary>
+        </member>
+        <member name="M:JsonFx.Client.ScriptDataBlock.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.Client.ScriptDataBlock.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the data items as a block of JavaScript
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="P:JsonFx.Client.ScriptDataBlock.Item(System.String)">
+            <summary>
+            Gets and sets values in the JavaScript global namespace.
+            </summary>
+            <param name="varName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:JsonFx.Client.ScriptDataBlock.DataItems">
+            <summary>
+            Gets access to 
+            </summary>
+        </member>
+        <member name="P:JsonFx.Client.ScriptDataBlock.IsDebug">
+            <summary>
+            Gets and sets if should render as a debuggable ("Pretty-Print") block.
+            </summary>
+        </member>
+        <member name="T:JsonFx.Client.AutoDataBindControl">
+            <summary>
+            Control which will call DataBind if any properties are set containing databinding expressions.
+            </summary>
+            <remarks>
+            http://stackoverflow.com/questions/1417028/
+            </remarks>
+        </member>
+        <member name="M:JsonFx.Client.AutoDataBindControl.#cctor">
+            <summary>
+            CCtor
+            </summary>
+        </member>
+        <member name="M:JsonFx.Handlers.GlobalizedResourceHandler.#ctor(System.Boolean,System.String)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="isDebug"></param>
+            <param name="cacheKey"></param>
+        </member>
+        <member name="T:JsonFx.Compilation.ScriptCompactionAdapter">
+            <summary>
+            A simple adapter for connecting ResourceBuildProvider to YuiCompressor.NET/EcmaScript.NET.
+            </summary>
+        </member>
+        <member name="M:JsonFx.Compilation.BuildErrorReporter.#ctor(System.String)">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.Compilation.BuildErrorReporter.#ctor(System.String,System.Collections.Generic.IList{JsonFx.BuildTools.ParseException})">
+            <summary>
+            Ctor
+            </summary>
+            <remarks></remarks>
+        </member>
+    </members>
+</doc>

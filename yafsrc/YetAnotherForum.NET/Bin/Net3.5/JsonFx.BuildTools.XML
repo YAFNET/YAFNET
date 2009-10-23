@@ -1,0 +1,1247 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JsonFx.BuildTools</name>
+    </assembly>
+    <members>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.#ctor(System.String,System.Collections.Generic.IEnumerable{JsonFx.BuildTools.IO.ReadFilter})">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="filePath"></param>
+            <param name="source"></param>
+            <param name="filters"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{JsonFx.BuildTools.IO.ReadFilter})">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="filePath"></param>
+            <param name="source"></param>
+            <param name="filters"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.#ctor(System.String,System.String)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="filePath"></param>
+            <param name="source"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.Peek">
+            <summary>
+            Unfiltered look ahead
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.Read">
+            <summary>
+            Filtered read of the next source char.  Counters are incremented.
+            </summary>
+            <returns></returns>
+            <remarks>
+            NewLine sequences (CR/LF, LF, CR) are normalized to LF.
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.PutBack">
+            <summary>
+            Backs the current position up one.
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.Copy(System.Int32,System.Int32)">
+            <summary>
+            Copies a range from the source
+            </summary>
+            <param name="start">starting position, inclusive</param>
+            <param name="end">ending position, inclusive</param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.Peek(System.Int32)">
+            <summary>
+            Peeks with n chars of lookahead.
+            </summary>
+            <param name="lookahead"></param>
+            <returns>unfiltered read</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.Read(System.Boolean)">
+            <summary>
+            Reads the next char 
+            </summary>
+            <param name="filter">if filtering</param>
+            <returns>the next char, or -1 if at EOF</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.NormalizeSpaces(System.Char,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Normalized CR/CRLF/LF/FF to LF, or all whitespace to SPACE if NormalizeWhiteSpace is true
+            </summary>
+            <param name="ch"></param>
+            <param name="pos"></param>
+            <param name="line"></param>
+            <param name="col"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.CopyRead(System.Int32@)">
+            <summary>
+            Read for Copying (doesn't reset line.col counters)
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.Filter(System.Char)">
+            <summary>
+            Filters based upon an internal Trie
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.LineReader.Dispose(System.Boolean)">
+            <summary>
+            Free source resources.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="P:JsonFx.BuildTools.IO.LineReader.FilePath">
+            <summary>
+            Gets the path to the source file
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.IO.LineReader.Length">
+            <summary>
+            Gets the size of source file in chars
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.IO.LineReader.Line">
+            <summary>
+            Gets the current line number
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.IO.LineReader.Column">
+            <summary>
+            Gets the current col number
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.IO.LineReader.Position">
+            <summary>
+            Gets the current char position
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.IO.LineReader.EndOfFile">
+            <summary>
+            Gets if at end the end of file
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.IO.LineReader.NormalizeWhiteSpace">
+            <summary>
+            Gets and sets if whitespace is normalized while reading
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.IO.LineReader.Current">
+            <summary>
+            Gets the current char
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Writers.HtmlWriter.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Writers.HtmlWriter.#ctor(System.IO.Stream)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="writer">the underlying Stream</param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Writers.HtmlWriter.#ctor(System.IO.TextWriter)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="writer">the underlying TextWriter</param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Writers.HtmlWriter.WriteTag(JsonFx.BuildTools.HtmlDistiller.HtmlTag)">
+            <summary>
+            Renders the tag to the output
+            </summary>
+            <param name="tag"></param>
+            <param name="filter"></param>
+            <returns>true if rendered, false if not</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Writers.HtmlWriter.WriteAttributes(JsonFx.BuildTools.HtmlDistiller.HtmlTag)">
+            <summary>
+            Renders the style property
+            </summary>
+            <param name="tag"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Writers.HtmlWriter.WriteStyles(JsonFx.BuildTools.HtmlDistiller.HtmlTag)">
+            <summary>
+            Renders the style property
+            </summary>
+            <param name="output"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Writers.HtmlWriter.ToString">
+            <summary>
+            Returns a System.String that represents the current TextWriter.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Writers.HtmlWriter.System#IDisposable#Dispose">
+            <summary>
+            Releases all resources used by the System.IO.TextWriter object.
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.Writers.HtmlWriter.TextWriter">
+            <summary>
+            Gets the underlying TextWriter.
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.#ctor(System.String)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="filePath">path to source</param>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.#ctor(System.String,System.String)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="filePath">path to source</param>
+            <param name="source">actual source</param>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.ParseStyleSheet">
+            <summary>
+            (BNF) stylesheet : [ CDO | CDC | S | statement ]*;
+            </summary>
+            <returns>CSS StyleSheet parse tree</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.ParseStatement">
+            <summary>
+            (BNF) statement : ruleset | at-rule;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.ParseAtRule">
+            <summary>
+            (BNF) at-rule : ATKEYWORD S* any* [ block | ';' S* ];
+            </summary>
+            <returns></returns>
+            <remarks>
+            NOTE: each at-rule might parse differently according to CSS3
+            The @media block for example contains a block of statements
+            while other at-rules with a block contain a block of declarations
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.ParseRuleSet">
+            <summary>
+            (BNF) ruleset : selector? '{' S* declaration? [ ';' S* declaration? ]* '}' S*;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.ParseSelector">
+            <summary>
+            (BNF) selector: any+;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.ParseDeclaration">
+            <summary>
+            (BNF) declaration : property ':' S* value;
+            (BNF) property    : IDENT S*;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.ParseValue">
+            <summary>
+            (BNF) value :	[ any | block | ATKEYWORD S* ]+;
+            (BNF) any :		[ IDENT | NUMBER | PERCENTAGE | DIMENSION | STRING
+            				| DELIM | URI | HASH | UNICODE-RANGE | INCLUDES
+            				| FUNCTION S* any* ')' | DASHMATCH | '(' S* any* ')'
+            				| '[' S* any* ']' ] S*;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.Read(System.Char@)">
+            <summary>
+            
+            </summary>
+            <param name="ch"></param>
+            <returns>Success</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.Copy(System.Int32)">
+            <summary>
+            Copies chars from start until the position before the current position
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.CssCompactor.CssParser.PutBack">
+            <summary>
+            Put one character back
+            </summary>
+        </member>
+        <member name="T:JsonFx.BuildTools.Collections.TrieNode`2">
+            <summary>
+            A generic node for building a Trie
+            </summary>
+            <typeparam name="TKey">the Type used for the node path</typeparam>
+            <typeparam name="TValue">the Type used for the node value</typeparam>
+            <remarks>
+            http://en.wikipedia.org/wiki/Trie
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.Collections.TrieNode`2.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.Collections.TrieNode`2.#ctor(System.Int32)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.Collections.TrieNode`2.Contains(`0)">
+            <summary>
+            Determines if child exists
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JsonFx.BuildTools.CssCompactor.CssObject">
+            <summary>
+            CSS3 inconsistently specifies more than one grammar:
+            http://www.w3.org/TR/css3-syntax/#style
+            http://www.w3.org/TR/css3-syntax/#detailed-grammar
+            </summary>
+        </member>
+        <member name="T:JsonFx.BuildTools.CssCompactor.CssAtRule">
+            <summary>
+            
+            </summary>
+            <remarks>
+            NOTE: each at-rule might parse differently according to CSS3
+            The @media block for example contains a block of statements
+            while other at-rules with a block contain a block of declarations
+            </remarks>
+        </member>
+        <member name="T:JsonFx.BuildTools.IO.ReadFilter">
+            <summary>
+            Defines a character sequence to filter out when reading.
+            </summary>
+            <remarks>
+            If the sequence exists in the read source, it will be read out as if it was never there.
+            </remarks>
+        </member>
+        <member name="T:JsonFx.BuildTools.IO.FilterTrie">
+            <summary>
+            Creates a Trie out of ReadFilters
+            </summary>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.HtmlTagType">
+            <summary>
+            Defines the type of tag
+            </summary>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTagType.Unknown">
+            <summary>
+            Not defined
+            </summary>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTagType.Unparsed">
+            <summary>
+            Unparsed block
+            </summary>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTagType.BeginTag">
+            <summary>
+            Opening tag
+            </summary>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTagType.EndTag">
+            <summary>
+            Closing tag
+            </summary>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTagType.FullTag">
+            <summary>
+            Empty tag
+            </summary>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy">
+            <summary>
+            Defines a general taxonomy of tags
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#sec_5.2.
+            </remarks>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.None">
+            <summary>
+            Plain text, no tag
+            </summary>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Comment">
+            <summary>
+            HTML comments
+            </summary>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Text">
+            <summary>
+            textual elements
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/html401/struct/text.html
+            </remarks>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Inline">
+            <summary>
+            character level elements and text strings
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/html401/struct/text.html
+            </remarks>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Block">
+            <summary>
+            block-like elements
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/html401/struct/text.html
+            </remarks>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.List">
+            <summary>
+            list elements
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/html401/struct/lists.html
+            </remarks>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Table">
+            <summary>
+            tabular elements
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/html401/struct/tables.html
+            </remarks>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Style">
+            <summary>
+            style elements
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/html401/present/styles.html
+            http://www.w3.org/TR/html401/present/graphics.html
+            http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_presentationmodule
+            </remarks>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Form">
+            <summary>
+            form elements
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_forms
+            </remarks>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Script">
+            <summary>
+            script elements
+            </summary>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Embeded">
+            <summary>
+            embedded elements
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/html401/struct/objects.html
+            </remarks>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Document">
+            <summary>
+            document elements
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/html401/struct/global.html
+            </remarks>
+        </member>
+        <member name="F:JsonFx.BuildTools.HtmlDistiller.HtmlTaxonomy.Unknown">
+            <summary>
+            unknown elements
+            </summary>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.HtmlTag">
+            <summary>
+            Represents an HTML/XHTML tag
+            </summary>
+            <remarks>
+            http://www.w3.org/TR/html401/
+            http://www.w3.org/TR/xhtml1/
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlTag.#ctor(System.String,JsonFx.BuildTools.HtmlDistiller.Filters.IHtmlFilter)">
+            <summary>
+            Ctor.
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlTag.SetFullTag">
+            <summary>
+            Changes a BeginTag to a FullTag
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlTag.CreateCloseTag">
+            <summary>
+            Generates a closing tag which matches this tag
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlTag.CreateOpenTag">
+            <summary>
+            Generates an open tag which matches this tag
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlTag.ToString">
+            <summary>
+            Renders the tag without filtering.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlTag.FullTagRequired(System.String)">
+            <summary>
+            Determines if is full (i.e. empty) tag
+            </summary>
+            <param name="tag">lowercase tag name</param>
+            <returns>if is a full tag</returns>
+            <remarks>
+            http://www.w3.org/TR/html401/index/elements.html
+            http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#sec_5.2.
+            http://www.w3.org/TR/WD-html40-970917/index/elements.html
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlTag.CloseTagRequired(System.String)">
+            <summary>
+            Determines if the tag is required to be closed (in HTML 4.01)
+            </summary>
+            <param name="tag">lowercase tag name</param>
+            <returns></returns>
+            <remarks>
+            http://www.w3.org/TR/html401/index/elements.html
+            http://www.w3.org/TR/WD-html40-970917/index/elements.html
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlTag.GetTaxonomy(System.String)">
+             <summary>
+            
+             </summary>
+             <param name="tag">lowercase tag name</param>
+             <returns>the box type for a particular element</returns>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.TagType">
+            <summary>
+            Gets the tag type
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.Taxonomy">
+            <summary>
+            Gets the HTML taxonomy for the tag
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.TagName">
+            <summary>
+            Gets the tag name
+            </summary>
+            <remarks>
+            Note: always lowercase
+            </remarks>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.RawName">
+            <summary>
+            Gets the tag name in its original case
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.Attributes">
+            <summary>
+            Gets the collection of HTML attributes
+            </summary>
+            <remarks>
+            Note: allocates space for attributes as a side effect
+            </remarks>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.HasAttributes">
+            <summary>
+            Tests whether any attributes exist
+            </summary>
+            <remarks>
+            Note: does NOT allocate space for attributes as a side effect
+            </remarks>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.Styles">
+            <summary>
+            Gets the collection of CSS styles
+            </summary>
+            <remarks>
+            Note: allocates space for styles as a side effect
+            </remarks>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.HasStyles">
+            <summary>
+            Tests whether any styles exist
+            </summary>
+            <remarks>
+            Note: does NOT allocate space for styles as a side effect
+            </remarks>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.Content">
+            <summary>
+            Gets the content of unparsed blocks (e.g. comments)
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.EndDelim">
+            <summary>
+            Gets the end delimiter of unparsed blocks (e.g. comments)
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.FilteredAttributes">
+            <summary>
+            Gets a sequence of attributes which have been filtered by the IHtmlFilter
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlTag.FilteredStyles">
+            <summary>
+            Gets a sequence of attributes which have been filtered by the IHtmlFilter
+            </summary>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller">
+            <summary>
+            Parses HTML, repairing and scrubbing against various whitelist filters.
+            </summary>
+            <remarks>
+            Note: this class is thread-safe (all external changes are locked first)
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.#ctor(System.Int32)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="text">the text to parse</param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.#ctor(System.Int32,JsonFx.BuildTools.HtmlDistiller.Filters.IHtmlFilter)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="text">the text to parse</param>
+            <param name="filter"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.BeginIncrementalParsing">
+            <summary>
+            Starts parsing to be performed incrementally
+            </summary>
+            <remarks>
+            There is a performance hit for parsing in chunks.
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.EndIncrementalParsing">
+            <summary>
+            Stops incremental parsing and completes tag balancing, etc.
+            </summary>
+            <returns>the output text</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.Parse(System.String)">
+            <summary>
+            Parses the source using the current settings.
+            </summary>
+            <param name="source">the source to be parsed</param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.ParseTag">
+            <summary>
+            Attempts to parse the next sequence as a tag
+            </summary>
+            <returns>null if no tag was found (e.g. just LessThan char)</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.ParseBlock(System.String,System.String)">
+            <summary>
+            Parses for "unparsed blocks" (e.g. comments, code blocks)
+            </summary>
+            <returns>null if no comment found</returns>
+            <param name="startDelim"></param>
+            <param name="endDelim"></param>
+            <remarks>
+            This supports comments, DocType declarations, CDATA sections, and ASP/JSP-style blocks.
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.ParseStyles(JsonFx.BuildTools.HtmlDistiller.HtmlTag,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="tag"></param>
+            <param name="style"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.Init(System.String)">
+            <summary>
+            Reset state used for parsing
+            </summary>
+            <param name="fullReset">clears incremental state as well</param>
+            <remarks>Does not SyncLock, call inside lock</remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.ParseSyncPoint">
+            <summary>
+            Causes parsing to end preserving partial source
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.IsNameStartChar(System.Char)">
+            <summary>
+            
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+            <remarks>
+            http://www.w3.org/TR/REC-xml/#NT-NameStartChar
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.IsNameChar(System.Char)">
+            <summary>
+            
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+            <remarks>
+            http://www.w3.org/TR/REC-xml/#NT-NameChar
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.SkipWhiteSpace">
+            <summary>
+            Remove whitespace from the input source
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.PrevChar(System.Int32)">
+            <summary>
+            Gets a previous char whether buffered or written out
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.IncTextCount">
+            <summary>
+            Keeps running tally of the plain text length
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.EncodeHtmlEntity(System.Char)">
+            <summary>
+            Encodes special characters into safe representation
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.DecodeHtmlEntity(System.String,System.Int32,System.Char@)">
+            <summary>
+            Decodes HTML entities into special characters
+            </summary>
+            <param name="source"></param>
+            <param name="index"></param>
+            <param name="entity"></param>
+            <returns>the number of character consumed</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.ParseSafe(System.String)">
+            <summary>
+            Quick safe parsing.
+            </summary>
+            <param name="html">the source text</param>
+            <returns>the filtered markup</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.ParseSafe(System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Quick safe parsing.
+            </summary>
+            <param name="html">the source text</param>
+            <param name="maxLength">the maximum text length</param>
+            <param name="maxWordLength">the maximum length of a single word before wrapping</param>
+            <param name="autoLink">the maximum text length</param>
+            <returns>the filtered markup</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.Parse(System.String,JsonFx.BuildTools.HtmlDistiller.Filters.IHtmlFilter)">
+            <summary>
+            Quick parsing utility for common usage.
+            </summary>
+            <param name="html">the source text</param>
+            <param name="filter">a custom HtmlFilter</param>
+            <returns>the filtered markup</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.Parse(System.String,JsonFx.BuildTools.HtmlDistiller.Filters.IHtmlFilter,System.Int32)">
+            <summary>
+            Quick parsing utility for common usage.
+            </summary>
+            <param name="html">the source text</param>
+            <param name="filter">a custom HtmlFilter</param>
+            <param name="maxLength">the maximum text length</param>
+            <returns>the filtered markup</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.PlainText(System.String)">
+            <summary>
+            Quick conversion to plain text.
+            </summary>
+            <param name="html">the source text</param>
+            <param name="maxLength">the maximum text length</param>
+            <returns>plain text</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.PlainText(System.String,System.Int32)">
+            <summary>
+            Quick conversion to plain text.
+            </summary>
+            <param name="html">the source text</param>
+            <param name="maxLength">the maximum text length</param>
+            <returns>plain text</returns>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.HtmlFilter">
+            <summary>
+            Gets and sets the IHtmlFilter used in parsing
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.HtmlWriter">
+            <summary>
+            Gets and sets the IHtmlWriter used for output
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.MaxLength">
+            <summary>
+            Gets and sets the maximum number of text chars (tags don't count)
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.NormalizeWhitespace">
+            <summary>
+            Gets and sets if whitespace should be normalized
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.BalanceTags">
+            <summary>
+            Gets and sets if tags should be auto-balance
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.EncodeNonAscii">
+            <summary>
+            Gets and sets if non-ASCII chars should be encoded as HTML entities
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.TruncationIndicator">
+            <summary>
+            Gets and sets the suffix that indicates the input was truncated.
+            Note: setting to null defaults to ellipsis. Use String.Empty for no indicator.
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.Source">
+            <summary>
+            Gets and sets the source text
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.Taxonomy">
+            <summary>
+            Gets a value indicating the taxonomy of tags rendered
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.Current">
+            <summary>
+            Gets the current character.
+            </summary>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.IsEOF">
+            <summary>
+            Gets if at the end of source text.
+            </summary>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.HtmlDistiller.UnexpectedEofException">
+            <summary>
+            Exception which halts parsing preserving last sync point
+            </summary>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.Filters.IHtmlFilter">
+            <summary>
+            Defines a set of HTML tag/attribute/style filters
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.IHtmlFilter.FilterTag(JsonFx.BuildTools.HtmlDistiller.HtmlTag)">
+            <summary>
+            Filters tags, optionally allowing altering of tag
+            </summary>
+            <param name="tag">tag name</param>
+            <returns>if tag should be rendered</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.IHtmlFilter.FilterAttribute(System.String,System.String,System.String@)">
+            <summary>
+            Filters attributes, optionally allowing altering of attribute value
+            </summary>
+            <param name="tag">tag name</param>
+            <param name="attribute">attribute name</param>
+            <param name="value">attribute value</param>
+            <returns>if attribute should be rendered</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.IHtmlFilter.FilterStyle(System.String,System.String,System.String@)">
+            <summary>
+            Filters styles, optionally allowing altering of style value
+            </summary>
+            <param name="tag">tag name</param>
+            <param name="attribute">style name</param>
+            <param name="value">style value</param>
+            <returns>if style should be rendered</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.IHtmlFilter.FilterLiteral(System.String,System.Int32,System.Int32,System.String@)">
+            <summary>
+            Filters literals, optionally allowing replacement of literal value
+            </summary>
+            <param name="source">original string</param>
+            <param name="start">starting index inclusive</param>
+            <param name="end">ending index exclusive</param>
+            <param name="replacement">a replacement string</param>
+            <returns>true if <paramref name="replacement"/> should be used to replace literal</returns>
+            <remarks>
+            This uses the original source string, start and end rather than passing a substring
+            in order to not generate a strings for every literal.  The internals of HtmlDistiller
+            do not produce extra strings for literals so for efficiency sake, care should be taken
+            so that filters do not produce excessive extra strings either.
+            </remarks>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.Filters.WordBreakFilter">
+            <summary>
+            Defines a literal filter which optionally breaks words at a certain length
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.WordBreakFilter.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.WordBreakFilter.#ctor(System.Int32)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.WordBreakFilter.FilterLiteral(System.String,System.Int32,System.Int32,System.String@)">
+            <summary>
+            Optionally allows breaking of long words
+            </summary>
+            <param name="source"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <param name="replacement"></param>
+            <returns>true if literal was changed</returns>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.Filters.WordBreakFilter.HtmlWriter">
+            <summary>
+            Gets and sets the HtmlWriter associated with this instance.
+            </summary>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.Filters.HyperlinkFilter">
+            <summary>
+            Defines a filter which optionally auto-links URLs in literals
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.HyperlinkFilter.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.HyperlinkFilter.#ctor(System.Int32)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.HyperlinkFilter.#ctor(System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="autoLink"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.HyperlinkFilter.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+            <param name="autoLink"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.HyperlinkFilter.FilterLiteral(System.String,System.Int32,System.Int32,System.String@)">
+            <summary>
+            Optionally finds any URLs and wraps them with a hyperlink
+            </summary>
+            <param name="source">original string</param>
+            <param name="start">starting index inclusive</param>
+            <param name="end">ending index exclusive</param>
+            <param name="replacement">a replacement string</param>
+            <returns>true if <paramref name="replacement"/> should be used to replace literal</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.HyperlinkFilter.FilterUrl(System.String,System.Int32,System.Int32,System.String@)">
+            <summary>
+            Allows filtering of which URLs are allowed.
+            </summary>
+            <param name="source"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <param name="replacement">the value to replace with</param>
+            <returns>true if a replacement value was specified</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.HyperlinkFilter.DetectUrl(System.String,System.Int32,System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            Finds the location of URLs within the literal string.
+            </summary>
+            <param name="source">original source string</param>
+            <param name="start">starting index to check inclusive</param>
+            <param name="end">ending index to check exclusive</param>
+            <param name="index">the index where match starts</param>
+            <param name="length">the length of the match</param>
+            <returns>true if any found</returns>
+        </member>
+        <member name="P:JsonFx.BuildTools.HtmlDistiller.Filters.HyperlinkFilter.AutoLink">
+            <summary>
+            Gets and sets if should auto-wrap URLs in hyperlinks
+            </summary>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.Filters.StripHtmlFilter">
+            <summary>
+            HtmlFilter which strips all tags from the input
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StripHtmlFilter.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StripHtmlFilter.#ctor(System.Int32)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StripHtmlFilter.#ctor(System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+            <param name="autoLink"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StripHtmlFilter.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+            <param name="autoLink"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StripHtmlFilter.FilterTag(JsonFx.BuildTools.HtmlDistiller.HtmlTag)">
+            <summary>
+            Strips all tags
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StripHtmlFilter.FilterAttribute(System.String,System.String,System.String@)">
+            <summary>
+            Strips all attributes
+            </summary>
+            <param name="tag"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StripHtmlFilter.FilterStyle(System.String,System.String,System.String@)">
+            <summary>
+            Strips all styles
+            </summary>
+            <param name="tag"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.Filters.StrictHtmlFilter">
+            <summary>
+            HtmlFilter which allows only simple tags/attributes
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StrictHtmlFilter.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StrictHtmlFilter.#ctor(System.Int32)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StrictHtmlFilter.#ctor(System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+            <param name="autoLink"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StrictHtmlFilter.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+            <param name="autoLink"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StrictHtmlFilter.FilterTag(JsonFx.BuildTools.HtmlDistiller.HtmlTag)">
+            <summary>
+            Allows a restrictive set of simple tags
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StrictHtmlFilter.FilterAttribute(System.String,System.String,System.String@)">
+            <summary>
+            Allows a restrictive set of simple attributes
+            </summary>
+            <param name="tag"></param>
+            <param name="attribute"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.StrictHtmlFilter.FilterStyle(System.String,System.String,System.String@)">
+            <summary>
+            Strips all styles
+            </summary>
+            <param name="tag"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.Filters.SafeHtmlFilter">
+            <summary>
+            HtmlFilter which allows only safe tags/attributes/styles
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.SafeHtmlFilter.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.SafeHtmlFilter.#ctor(System.Int32)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.SafeHtmlFilter.#ctor(System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+            <param name="autoLink"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.SafeHtmlFilter.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+            <param name="autoLink"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.SafeHtmlFilter.FilterTag(JsonFx.BuildTools.HtmlDistiller.HtmlTag)">
+            <summary>
+            Allows a permissive set of safe tags
+            </summary>
+            <param name="tag">tag name</param>
+            <returns></returns>
+            <remarks>
+            http://www.w3.org/TR/html401/index/elements.html
+            http://webdesign.about.com/od/htmltags/a/bl_index.htm
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.SafeHtmlFilter.FilterAttribute(System.String,System.String,System.String@)">
+            <summary>
+            Allows a permissive set of safe attributes
+            </summary>
+            <param name="tag">tag name</param>
+            <param name="attribute">attribute name</param>
+            <param name="value">attribute value</param>
+            <returns></returns>
+            <remarks>
+            http://www.w3.org/TR/html401/index/attributes.html
+            </remarks>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.SafeHtmlFilter.FilterStyle(System.String,System.String,System.String@)">
+            <summary>
+            Allows a permissive set of safe attributes
+            </summary>
+            <param name="tag">tag name</param>
+            <param name="style">style name</param>
+            <param name="value">style value</param>
+            <returns></returns>
+            <remarks>
+            http://www.w3.org/TR/CSS21/propidx.html
+            </remarks>
+        </member>
+        <member name="T:JsonFx.BuildTools.HtmlDistiller.Filters.UnsafeHtmlFilter">
+            <summary>
+            HtmlFilter which allows all tags/attributes/styles/URLs.
+            Useful for cleansing potentially broken markup or just applying auto-linking and work-breaking.
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.UnsafeHtmlFilter.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.UnsafeHtmlFilter.#ctor(System.Int32)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.UnsafeHtmlFilter.#ctor(System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+            <param name="autoLink"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.UnsafeHtmlFilter.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Ctor
+            </summary>
+            <param name="maxWordLength"></param>
+            <param name="autoLink"></param>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.UnsafeHtmlFilter.FilterTag(JsonFx.BuildTools.HtmlDistiller.HtmlTag)">
+            <summary>
+            Allows all tags
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.UnsafeHtmlFilter.FilterAttribute(System.String,System.String,System.String@)">
+            <summary>
+            Allows all attributes
+            </summary>
+            <param name="tag"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.UnsafeHtmlFilter.FilterStyle(System.String,System.String,System.String@)">
+            <summary>
+            Allows all styles
+            </summary>
+            <param name="tag"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.HtmlDistiller.Filters.UnsafeHtmlFilter.FilterUrl(System.String,System.Int32,System.Int32,System.String@)">
+            <summary>
+            Allows all URLs.
+            </summary>
+            <param name="source"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <param name="replacement">the value to replace with</param>
+            <returns>true if a replacement value was specified</returns>
+        </member>
+        <member name="M:JsonFx.BuildTools.IO.FileUtility.PrepSavePath(System.String)">
+            <summary>
+            Makes sure directory exists and if file exists is not readonly.
+            </summary>
+            <param name="filename"></param>
+            <returns>if valid path</returns>
+        </member>
+    </members>
+</doc>
