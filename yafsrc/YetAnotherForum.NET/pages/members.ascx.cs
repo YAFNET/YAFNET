@@ -70,7 +70,7 @@ namespace YAF.Pages // YAF.Pages
 		/// <returns></returns>
 		protected string GetStringSafely(object svalue)
 		{
-			return HtmlEncode(svalue.ToString());
+			return svalue == null ? string.Empty : HtmlEncode( svalue.ToString() );
 		}
 
 		/// <summary>
