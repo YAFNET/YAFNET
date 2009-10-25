@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using System.Web.Hosting;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
@@ -74,7 +75,7 @@ namespace YAF.Classes.Core
 					else if ( !Config.AllowLoginAndLogoff && Config.IsDotNetNuke )
 					{
 						// automatic DNN redirect...
-						string appPath = HttpContext.Current.Request.ApplicationPath;
+						string appPath = HostingEnvironment.ApplicationVirtualPath;
 						if ( !appPath.EndsWith( "/" ) ) appPath += "/";
 
 						// redirect to DNN login...

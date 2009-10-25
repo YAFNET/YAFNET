@@ -21,6 +21,7 @@ using System;
 using System.Text;
 using System.Web;
 using System.Collections.Specialized;
+using System.Web.Hosting;
 
 namespace YAF.Classes
 {
@@ -151,7 +152,7 @@ namespace YAF.Classes
 
 			try
 			{
-				_path = HttpContext.Current.Request.ApplicationPath;
+				_path = HostingEnvironment.ApplicationVirtualPath;
 
 				if ( !_path.EndsWith( "/" ) ) _path += "/";
 
@@ -163,7 +164,7 @@ namespace YAF.Classes
 					if ( _path.StartsWith( "~" ) )
 					{
 						// transform with application path...
-						_path = _path.Replace( "~", HttpContext.Current.Request.ApplicationPath );
+						_path = _path.Replace( "~", HostingEnvironment.ApplicationVirtualPath );
 					}
 
 					if ( _path[0] != '/' ) _path = _path.Insert( 0, "/" );
