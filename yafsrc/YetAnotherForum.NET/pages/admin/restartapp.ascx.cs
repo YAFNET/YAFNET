@@ -31,9 +31,6 @@ namespace YAF.Pages.Admin
 	/// </summary>
 	public partial class restartapp : YAF.Classes.Core.AdminPage
 	{
-		private long _lastVersion;
-		private DateTime _lastVersionDate;
-
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
