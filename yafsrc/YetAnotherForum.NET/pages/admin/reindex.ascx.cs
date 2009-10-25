@@ -18,18 +18,7 @@
  */
 
 using System;
-using System.Text;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using YAF.Classes;
-using YAF.Classes.Core;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -46,17 +35,17 @@ namespace YAF.Pages.Admin
 
 			if ( !IsPostBack )
 			{
-                //Check and see if it should make panels enable or not
-                this.PanelReindex.Enabled = DB.PanelReindex;
-                this.PanelShrink.Enabled = DB.PanelShrink;
-                this.PanelRecoveryMode.Enabled = DB.PanelRecoveryMode;
-                this.PanelGetStats.Enabled = DB.PanelGetStats;
+				//Check and see if it should make panels enable or not
+				this.PanelReindex.Visible = DB.PanelReindex;
+				this.PanelShrink.Visible = DB.PanelShrink;
+				this.PanelRecoveryMode.Visible = DB.PanelRecoveryMode;
+				this.PanelGetStats.Visible = DB.PanelGetStats;
 
-                //Get the name of buttons
-                this.btnReindex.Text = DB.btnReindexName;
-                this.btnGetStats.Text = DB.btnGetStatsName;
-                this.btnShrink.Text = DB.btnShrinkName;
-                this.btnRecoveryMode.Text = DB.btnRecoveryModeName;
+				//Get the name of buttons
+				this.btnReindex.Text = DB.btnReindexName;
+				this.btnGetStats.Text = DB.btnGetStatsName;
+				this.btnShrink.Text = DB.btnShrinkName;
+				this.btnRecoveryMode.Text = DB.btnRecoveryModeName;
 
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
@@ -78,72 +67,72 @@ namespace YAF.Pages.Admin
 			{
 				connMan.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
 				// connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
-                txtIndexStatistics.Text = DB.db_getstats_warning(connMan);
-                DB.db_getstats( connMan );
+				txtIndexStatistics.Text = DB.db_getstats_warning( connMan );
+				DB.db_getstats( connMan );
 			}
 		}
 
-        //Reindexing Database
+		//Reindexing Database
 		protected void btnReindex_Click( object sender, EventArgs e )
-		{            
+		{
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{
 				connMan.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
-                txtIndexStatistics.Text = DB.db_reindex_warning(connMan);
-                DB.db_reindex( connMan );
+				txtIndexStatistics.Text = DB.db_reindex_warning( connMan );
+				DB.db_reindex( connMan );
 			}
 		}
 
-        //Mod By Touradg (herman_herman) 2009/10/19
-        //Shrinking Database
-        protected void btnShrink_Click(object sender, EventArgs e)
-        {
-            using (YafDBConnManager DBName = new YafDBConnManager())
-            try
-            {
-                DBName.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler(connMan_InfoMessage);
-                txtIndexStatistics.Text = DB.db_shrink_warning(DBName);
-                DB.db_shrink(DBName);
-                txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + DB.DBSize + "MB";
-            }
-            catch (Exception error)
-            {
-                txtIndexStatistics.Text = "Something went wrong with operation.The reported error is: " + error.Message;
-            }
-        }
+		//Mod By Touradg (herman_herman) 2009/10/19
+		//Shrinking Database
+		protected void btnShrink_Click( object sender, EventArgs e )
+		{
+			using ( YafDBConnManager DBName = new YafDBConnManager() )
+				try
+				{
+					DBName.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
+					txtIndexStatistics.Text = DB.db_shrink_warning( DBName );
+					DB.db_shrink( DBName );
+					txtIndexStatistics.Text = "Shrink operation was Successful.Your database size is now: " + DB.DBSize + "MB";
+				}
+				catch ( Exception error )
+				{
+					txtIndexStatistics.Text = "Something went wrong with operation.The reported error is: " + error.Message;
+				}
+		}
 
-        //Set Database Recovery Mode
-        protected void btnRecoveryMode_Click(object sender, EventArgs e)
-        {
-                using (YafDBConnManager DBName = new YafDBConnManager())
-                {
-                    try
-                    {
-                    String dbRecoveryMode = "";
-                    if (RadioButtonList1.SelectedIndex == 0)
-                    {
-                        dbRecoveryMode = "FULL";
-                    }
-                    if (RadioButtonList1.SelectedIndex == 1)
-                    {
-                        dbRecoveryMode = "SIMPLE";
-                    }
-                    if (RadioButtonList1.SelectedIndex == 2)
-                    {
-                        dbRecoveryMode = "BULK_LOGGED";
-                    }
-                        DBName.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler(connMan_InfoMessage);
-                        txtIndexStatistics.Text = DB.db_recovery_mode_warning(DBName);
-                        DB.db_recovery_mode(DBName,dbRecoveryMode);
-                        txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
-                    }
-                    catch (Exception error)
-                    {
-                        txtIndexStatistics.Text = "Something went wrong with this operation.The reported error is: " + error.Message;
-                    }
-            }
-        }
-        //End of MOD
+		//Set Database Recovery Mode
+		protected void btnRecoveryMode_Click( object sender, EventArgs e )
+		{
+			using ( YafDBConnManager DBName = new YafDBConnManager() )
+			{
+				try
+				{
+					String dbRecoveryMode = "";
+					if ( RadioButtonList1.SelectedIndex == 0 )
+					{
+						dbRecoveryMode = "FULL";
+					}
+					if ( RadioButtonList1.SelectedIndex == 1 )
+					{
+						dbRecoveryMode = "SIMPLE";
+					}
+					if ( RadioButtonList1.SelectedIndex == 2 )
+					{
+						dbRecoveryMode = "BULK_LOGGED";
+					}
+					DBName.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
+					txtIndexStatistics.Text = DB.db_recovery_mode_warning( DBName );
+					DB.db_recovery_mode( DBName, dbRecoveryMode );
+					txtIndexStatistics.Text = "Database recovery mode was successfuly set to " + dbRecoveryMode;
+				}
+				catch ( Exception error )
+				{
+					txtIndexStatistics.Text = "Something went wrong with this operation.The reported error is: " + error.Message;
+				}
+			}
+		}
+		//End of MOD
 		void connMan_InfoMessage( object sender, YafDBConnManager.YafDBConnInfoMessageEventArgs e )
 		{
 			txtIndexStatistics.Text = e.Message;
