@@ -45,7 +45,7 @@ namespace YAF.Controls
 
 			if ( AdminEditMode && PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey( "u" ) )
 			{
-				CurrentUserID = ( int )PageContext.QueryIDs ["u"];
+				CurrentUserID = (int)PageContext.QueryIDs["u"];
 			}
 			else
 			{
@@ -55,10 +55,12 @@ namespace YAF.Controls
 			if ( !IsPostBack )
 			{
 				// check if it's a link from the avatar picker
-				if ( Request.QueryString ["av"] != null )
+				if ( Request.QueryString["av"] != null )
 				{
 					// save the avatar right now...
-					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{0}{1}/{2}", YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, Request.QueryString ["av"] ), null, null );
+					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{0}{1}/{2}", YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, Request.QueryString["av"] ), null, null );
+					// clear the cache for this user...
+					UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
 				}
 
 				UpdateRemote.Text = PageContext.Localization.GetText( "COMMON", "UPDATE" );
@@ -68,13 +70,13 @@ namespace YAF.Controls
 				NoAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "NOAVATAR" );
 
 				DeleteAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "AVATARDELETE" );
-				DeleteAvatar.Attributes ["onclick"] = string.Format( "return confirm('{0}?')", PageContext.Localization.GetText( "CP_EDITAVATAR", "AVATARDELETE" ) );
+				DeleteAvatar.Attributes["onclick"] = string.Format( "return confirm('{0}?')", PageContext.Localization.GetText( "CP_EDITAVATAR", "AVATARDELETE" ) );
 
 				string addAdminParam = "";
 				if ( AdminEditMode ) addAdminParam = "u=" + CurrentUserID.ToString();
 
 				OurAvatar.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.avatar, addAdminParam );
-				OurAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "OURAVATAR_SELECT" );				
+				OurAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "OURAVATAR_SELECT" );
 			}
 
 			BindData();
@@ -84,9 +86,9 @@ namespace YAF.Controls
 		{
 			DataRow row;
 
-			using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, CurrentUserID, null))
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, null ) )
 			{
-				row = dt.Rows [0];
+				row = dt.Rows[0];
 			}
 
 			AvatarImg.Visible = true;
@@ -94,47 +96,47 @@ namespace YAF.Controls
 			DeleteAvatar.Visible = false;
 			NoAvatar.Visible = false;
 
-			if ( PageContext.BoardSettings.AvatarUpload && row ["HasAvatarImage"] != null && long.Parse( row ["HasAvatarImage"].ToString() ) > 0 )
+			if ( PageContext.BoardSettings.AvatarUpload && row["HasAvatarImage"] != null && long.Parse( row["HasAvatarImage"].ToString() ) > 0 )
 			{
 				AvatarImg.ImageUrl = String.Format( "{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, CurrentUserID );
 				Avatar.Text = "";
 				DeleteAvatar.Visible = true;
 			}
-			else if ( row ["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
+			else if ( row["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
 			{
 				AvatarImg.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
-					Server.UrlEncode( row ["Avatar"].ToString() ),
+					Server.UrlEncode( row["Avatar"].ToString() ),
 					PageContext.BoardSettings.AvatarWidth,
 					PageContext.BoardSettings.AvatarHeight,
 					YafForumInfo.ForumRoot );
 
-				Avatar.Text = row ["Avatar"].ToString();
+				Avatar.Text = row["Avatar"].ToString();
 				DeleteAvatar.Visible = true;
 			}
-            else if (PageContext.BoardSettings.AvatarGravatar)
-            {
-                System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
-                byte[] bs = System.Text.Encoding.UTF8.GetBytes(PageContext.User.Email);
-                bs = x.ComputeHash(bs);
-                System.Text.StringBuilder s = new System.Text.StringBuilder();
-                foreach (byte b in bs)
-                {
-                    s.Append(b.ToString("x2").ToLower());
-                }
-                string emailHash = s.ToString();
+			else if ( PageContext.BoardSettings.AvatarGravatar )
+			{
+				System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
+				byte[] bs = System.Text.Encoding.UTF8.GetBytes( PageContext.User.Email );
+				bs = x.ComputeHash( bs );
+				System.Text.StringBuilder s = new System.Text.StringBuilder();
+				foreach ( byte b in bs )
+				{
+					s.Append( b.ToString( "x2" ).ToLower() );
+				}
+				string emailHash = s.ToString();
 
-                string gravatarUrl = "http://www.gravatar.com/avatar/" + emailHash + ".jpg?r=" + PageContext.BoardSettings.GravatarRating;
+				string gravatarUrl = "http://www.gravatar.com/avatar/" + emailHash + ".jpg?r=" + PageContext.BoardSettings.GravatarRating;
 
-                AvatarImg.ImageUrl = String.Format("{3}resource.ashx?url={0}&width={1}&height={2}",
-                Server.UrlEncode(gravatarUrl),
-                PageContext.BoardSettings.AvatarWidth,
-                PageContext.BoardSettings.AvatarHeight,
-                YafForumInfo.ForumRoot);
+				AvatarImg.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
+				Server.UrlEncode( gravatarUrl ),
+				PageContext.BoardSettings.AvatarWidth,
+				PageContext.BoardSettings.AvatarHeight,
+				YafForumInfo.ForumRoot );
 
-                NoAvatar.Text = "Gravatar Image";
-                NoAvatar.Visible = true;
-            }
-            else
+				NoAvatar.Text = "Gravatar Image";
+				NoAvatar.Visible = true;
+			}
+			else
 			{
 				AvatarImg.ImageUrl = "../images/noavatar.gif";
 				NoAvatar.Visible = true;
@@ -142,8 +144,8 @@ namespace YAF.Controls
 
 			int rowSpan = 2;
 
-			AvatarUploadRow.Visible = (AdminEditMode ? true : PageContext.BoardSettings.AvatarUpload);
-			AvatarRemoteRow.Visible = (AdminEditMode ? true : PageContext.BoardSettings.AvatarRemote);
+			AvatarUploadRow.Visible = ( AdminEditMode ? true : PageContext.BoardSettings.AvatarUpload );
+			AvatarRemoteRow.Visible = ( AdminEditMode ? true : PageContext.BoardSettings.AvatarRemote );
 
 			if ( AdminEditMode || PageContext.BoardSettings.AvatarUpload ) rowSpan++;
 			if ( AdminEditMode || PageContext.BoardSettings.AvatarRemote ) rowSpan++;
@@ -154,6 +156,8 @@ namespace YAF.Controls
 		protected void DeleteAvatar_Click( object sender, System.EventArgs e )
 		{
 			YAF.Classes.Data.DB.user_deleteavatar( CurrentUserID );
+			// clear the cache for this user...
+			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
 			BindData();
 		}
 
@@ -169,9 +173,11 @@ namespace YAF.Controls
 		{
 			if ( Avatar.Text.Length > 0 && !Avatar.Text.StartsWith( "http://" ) )
 				Avatar.Text = "http://" + Avatar.Text;
-		
+
 			// update
 			YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, Avatar.Text.Trim(), null, null );
+			// clear the cache for this user...
+			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
 
 			// clear the URL out...
 			Avatar.Text = "";
@@ -212,7 +218,7 @@ namespace YAF.Controls
 								newHeight = y;
 							}
 
-							using ( System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap( img, new System.Drawing.Size( ( int )newWidth, ( int )newHeight ) ) )
+							using ( System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap( img, new System.Drawing.Size( (int)newWidth, (int)newHeight ) ) )
 							{
 								resized = new System.IO.MemoryStream();
 								bitmap.Save( resized, System.Drawing.Imaging.ImageFormat.Jpeg );
@@ -233,6 +239,9 @@ namespace YAF.Controls
 						{
 							YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, resized, "image/jpeg" );
 						}
+
+						// clear the cache for this user...
+						UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
 					}
 				}
 				catch

@@ -122,6 +122,9 @@ namespace YAF.Controls
 			// update forum moderators cache just in case something was changed...
 			PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 
+			// clear the cache for this user...
+			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
+
 			BindData();
 		}
 

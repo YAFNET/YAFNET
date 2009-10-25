@@ -85,6 +85,9 @@ namespace YAF.Controls
 				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, DBNull.Value );
 			}
 
+			// clear the cache for this user...
+			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
+
 			if ( InAdminPages )
 			{
 				BindData();

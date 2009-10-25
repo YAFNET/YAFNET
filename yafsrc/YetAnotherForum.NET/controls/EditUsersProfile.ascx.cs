@@ -229,6 +229,9 @@ namespace YAF.Controls
 			YAF.Classes.Data.DB.user_save( CurrentUserID, PageContext.PageBoardID, null, null,
 				Convert.ToInt32( TimeZones.SelectedValue ), Language.SelectedValue, Theme.SelectedValue, OverrideDefaultThemes.Checked, null, PMNotificationEnabled.Checked );
 
+			// clear the cache for this user...
+			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
+
 			if ( !AdminEditMode )
 			{
 				YafBuildLink.Redirect( ForumPages.cp_profile );
