@@ -130,13 +130,13 @@ namespace YAF
 		{
 			try
 			{
-				string eTag = String.Format( @"""{0}""", context.Request.QueryString["u"] );
+				//string eTag = String.Format( @"""{0}""", context.Request.QueryString["u"] );
 
-				if ( CheckETag( context, eTag ) )
-				{
+				//if ( CheckETag( context, eTag ) )
+				//{
 					// found eTag... no need to resend/create this image -- just mark another view?
-					return;
-				}
+					//return;
+				//}
 	
 				using ( DataTable dt = YAF.Classes.Data.DB.user_avatarimage( context.Request.QueryString["u"] ) )
 				{
@@ -153,7 +153,7 @@ namespace YAF
 						context.Response.ContentType = contentType;
 						context.Response.Cache.SetCacheability( HttpCacheability.Public );
 						context.Response.Cache.SetExpires( DateTime.Now.AddHours( 2 ) );
-						context.Response.Cache.SetETag( eTag );
+						//context.Response.Cache.SetETag( eTag );
 						context.Response.OutputStream.Write( data, 0, data.Length );
 						break;
 					}
@@ -326,7 +326,7 @@ namespace YAF
 
 						if (row.IsNull("FileData"))
 						{
-                            string sUpDir = YafBoardFolders.Current.Uploads;
+              string sUpDir = YafBoardFolders.Current.Uploads;
 
 							string oldFileName = context.Server.MapPath(String.Format("{0}/{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
 							string newFileName = context.Server.MapPath(String.Format("{0}/{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
