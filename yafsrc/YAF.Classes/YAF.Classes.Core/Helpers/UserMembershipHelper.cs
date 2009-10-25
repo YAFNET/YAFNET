@@ -88,6 +88,16 @@ namespace YAF.Classes.Core
 		}
 
 		/// <summary>
+		/// Verifies that the the user no longer has a cache...
+		/// </summary>
+		/// <param name="userId"></param>
+		public static void ClearCacheForUserId( long userId )
+		{
+			string cacheKey = string.Format( "UserListForID{0}", userId );
+			YafContext.Current.Cache.Remove( YafCache.GetBoardCacheKey( cacheKey ) );
+		}
+
+		/// <summary>
 		/// Helper function that gets user data from the DB (or cache)
 		/// </summary>
 		/// <param name="userID"></param>

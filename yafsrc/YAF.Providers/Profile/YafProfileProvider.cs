@@ -38,6 +38,7 @@ namespace YAF.Providers.Profile
 
 		private string _appName, _connStrName;
 		private bool _propertiesSetup = false;
+		private object _propertyLock = new object();
 		private System.Collections.Generic.List<SettingsPropertyColumn> _settingsColumnsList = new System.Collections.Generic.List<SettingsPropertyColumn>();
 
 		#region Override Public Properties
@@ -138,42 +139,45 @@ namespace YAF.Providers.Profile
 		{
 			if ( !_propertiesSetup )
 			{
-				// clear it out just in case something is still in there...
-				_settingsColumnsList.Clear();
-
-				// validiate all the properties and populate the internal settings collection
-				foreach ( SettingsProperty property in collection )
+				lock ( _propertyLock )
 				{
-					SqlDbType dbType;
-					int size;
+					// clear it out just in case something is still in there...
+					_settingsColumnsList.Clear();
 
-					// parse custom provider data...
-					GetDbTypeAndSizeFromString( property.Attributes["CustomProviderData"].ToString(), out dbType, out size );
-
-					// default the size to 256 if no size is specified
-					if ( dbType == SqlDbType.NVarChar && size == -1 )
+					// validiate all the properties and populate the internal settings collection
+					foreach ( SettingsProperty property in collection )
 					{
-						size = 256;
+						SqlDbType dbType;
+						int size;
+
+						// parse custom provider data...
+						GetDbTypeAndSizeFromString( property.Attributes["CustomProviderData"].ToString(), out dbType, out size );
+
+						// default the size to 256 if no size is specified
+						if ( dbType == SqlDbType.NVarChar && size == -1 )
+						{
+							size = 256;
+						}
+						_settingsColumnsList.Add( new SettingsPropertyColumn( property, dbType, size ) );
 					}
-					_settingsColumnsList.Add( new SettingsPropertyColumn( property, dbType, size ) );
-				}
 
-				// sync profile table structure with the db...
-				DataTable structure = DB.Current.GetProfileStructure();
+					// sync profile table structure with the db...
+					DataTable structure = DB.Current.GetProfileStructure();
 
-				// verify all the columns are there...
-				foreach ( SettingsPropertyColumn column in _settingsColumnsList )
-				{
-					// see if this column exists
-					if ( !structure.Columns.Contains( column.Settings.Name ) )
+					// verify all the columns are there...
+					foreach ( SettingsPropertyColumn column in _settingsColumnsList )
 					{
-						// if not, create it...
-						DB.Current.AddProfileColumn( column.Settings.Name, column.DataType, column.Size );
+						// see if this column exists
+						if ( !structure.Columns.Contains( column.Settings.Name ) )
+						{
+							// if not, create it...
+							DB.Current.AddProfileColumn( column.Settings.Name, column.DataType, column.Size );
+						}
 					}
-				}
 
-				// it's setup now...
-				_propertiesSetup = true;
+					// it's setup now...
+					_propertiesSetup = true;
+				}
 			}
 		}
 

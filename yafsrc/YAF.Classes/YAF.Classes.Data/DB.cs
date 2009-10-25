@@ -30,9 +30,12 @@ using System.Web.Security;
 
 namespace YAF.Classes.Data
 {
-	public static class DB
+	/// <summary>
+	/// All the Database functions for YAF
+	/// </summary>
+	public static partial class DB
 	{
-        #region ConnectionStringOptions
+    #region ConnectionStringOptions
         public static string ProviderAssemblyName
         {
             get
