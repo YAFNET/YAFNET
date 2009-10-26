@@ -651,6 +651,8 @@
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Unwatch this topic</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
+    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
+    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="VIEW">View</Resource>
     <Resource tag="VOTES">Votes</Resource>
     <Resource tag="WARN_ALREADY_VOTED">You have already voted.</Resource>

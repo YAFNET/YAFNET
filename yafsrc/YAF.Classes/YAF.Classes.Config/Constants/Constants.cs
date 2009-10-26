@@ -57,7 +57,8 @@ namespace YAF.Classes
 			public const string GuestUserID = "GuestUserID";
 			public const string CustomBBCode = "CustomBBCode";
 			public const string Smilies = "Smilies";
-            public const string MostActiveUsers = "MostActiveUsers";          
+            public const string MostActiveUsers = "MostActiveUsers";
+            public const string UsersOnlineStatus = "UsersOnlineStatus";
 			public const string ActiveDiscussions = "ActiveDiscussions";
 			public const string ForumActiveDiscussions = "ForumActiveDiscussions";
 			public const string ForumModerators = "ForumModerators";

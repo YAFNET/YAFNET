@@ -690,6 +690,8 @@
     <Resource tag="TOPICBROWSERS">Käyttäjät lukemassa tätä aihetta</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Lopeta aiheen seuranta</Resource>
+    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
+    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
     <Resource tag="VIEW">View</Resource>
     <Resource tag="VOTES">Ääniä</Resource>

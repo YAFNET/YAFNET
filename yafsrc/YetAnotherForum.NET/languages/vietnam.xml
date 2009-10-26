@@ -658,6 +658,8 @@
     <Resource tag="TOPICBROWSERS">Ai đang xem chủ đề này?</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">chưa xem chủ đề này</Resource>
+    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
+    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">Hồ sơ người dùng</Resource>
     <Resource tag="VIEW">Xem</Resource>
     <Resource tag="VOTES">Bỏ phiếu</Resource>

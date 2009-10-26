@@ -248,7 +248,17 @@
 						<td class="post">
 							<asp:TextBox ID="ActiveListTime" runat="server" />
 						</td>
-					</tr>
+					</tr>					
+					<tr>
+						<td class="postheader">
+							<b>Show User Online/Offline Status:</b><br />
+							If checked you everyone can see if user is online or offline in messages boxes.
+							Hidden users are always displayed as offline.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ShowUserOnlineStatusInPosts" runat="server"></asp:CheckBox>
+						</td>
+					</tr>		
 					<tr>
 						<td class="postheader">
 							<b>Remove Nested Quotes:</b><br />

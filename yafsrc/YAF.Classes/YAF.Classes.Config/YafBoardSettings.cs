@@ -625,9 +625,14 @@ namespace YAF.Classes
 		}
         public bool UseStyledNicks
 		{
-            get { return _reg.GetValue<bool>("UseStyledNicks", false); }
-            set { _reg.SetValue<bool>("UseStyledNicks", value); }
-		}       
+            get { return _reg.GetValue<bool>( "UseStyledNicks", false ); }
+            set { _reg.SetValue<bool>( "UseStyledNicks", value ); }
+		}
+        public bool ShowUserOnlineStatusInPosts
+        {
+            get { return _reg.GetValue<bool>( "ShowUserOnlineStatusInPosts", false ); }
+            set { _reg.SetValue<bool>( "ShowUserOnlineStatusInPosts", value ); }
+        }       
 		#endregion
 
 		#region string settings

@@ -654,6 +654,8 @@
     <Resource tag="TOPICBROWSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
     <Resource tag="TOTAL">مجموع</Resource>
     <Resource tag="UNWATCHTOPIC">عدم پیگیری وضعیت انجمن</Resource>
+    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
+    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">پروفايل كاربر</Resource>
     <Resource tag="VIEW">مشاهده</Resource>
     <Resource tag="VOTES">آراء</Resource>

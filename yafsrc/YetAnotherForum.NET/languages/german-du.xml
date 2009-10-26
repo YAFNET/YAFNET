@@ -658,6 +658,8 @@
     <Resource tag="TOPICBROWSERS">Benutzer, die gerade dieses Thema lesen</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Dieses Thema nicht mehr abonnieren</Resource>
+    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
+    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
     <Resource tag="VIEW">Ansicht</Resource>
     <Resource tag="VOTES">Stimmen</Resource>

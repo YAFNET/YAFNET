@@ -691,6 +691,8 @@
     <Resource tag="TOPICBROWSERS">Brukere av dette temaet</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Ikke overvåk dette emnet</Resource>
+    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
+    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
     <Resource tag="VIEW">View</Resource>
     <Resource tag="VOTES">Stemmer</Resource>

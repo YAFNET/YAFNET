@@ -677,6 +677,8 @@
     <Resource tag="TOPICBROWSERS">Utilisateurs actuellement sur ce sujet</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Ne plus surveiller ce sujet</Resource>
+    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
+    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
     <Resource tag="VIEW">Voir</Resource>
     <Resource tag="VOTES">Votes</Resource>

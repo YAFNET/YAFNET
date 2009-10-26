@@ -658,6 +658,8 @@
     <Resource tag="TOPICBROWSERS">משתמשים הצופים בדיון זה</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">בטל מעקב אחר דיון זה</Resource>
+    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
+    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
     <Resource tag="VIEW">צפה</Resource>
     <Resource tag="VOTES">הצבעות</Resource>

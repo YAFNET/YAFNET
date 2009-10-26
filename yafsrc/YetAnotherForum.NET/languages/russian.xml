@@ -98,9 +98,9 @@
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Открыть эту тему</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
-    <Resource tag="ISEMPTY">Message body can not be empty.Why do you want to post an empty message?</Resource>
-    <Resource tag="ISEXCEEDED">You have exceeded the maximum number of characters in each post.Make it shorter and try again.</Resource>
-    <Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
+    <Resource tag="ISEMPTY">Сообщение не может быть пустым.</Resource>
+    <Resource tag="ISEXCEEDED">Вы превысили допустимый размер сообщения. Пожалуйста, сократите его до допустимого размера.</Resource>
+    <Resource tag="MAXNUMBEROF">Максимальное число символов в каждом сообщении не более {0}</Resource>
   </page>
   <page name="COMMON">
     <Resource tag="BACK">Назад</Resource>
@@ -655,6 +655,8 @@
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
     <Resource tag="TOTAL">Всего</Resource>
     <Resource tag="UNWATCHTOPIC">Не отслеживать эту тему</Resource>
+    <Resource tag="USEROFFLINESTATUS">Пользователь находится на форуме</Resource>
+    <Resource tag="USERONLINESTATUS">Пользователя нет на форуме</Resource>
     <Resource tag="USERPROFILE">Профиль пользователя</Resource>
     <Resource tag="VIEW">Просмотр</Resource>
     <Resource tag="VOTES">Голоса</Resource>

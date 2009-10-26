@@ -813,6 +813,8 @@
     <Resource tag="TOPICBROWSERS">Vartotojai peržiūrėti šią temą </Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Nebestebėti šią temą </Resource>
+    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
+    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
     <Resource tag="VIEW">Vaizdas </Resource>
     <Resource tag="VOTES">Balsavimas </Resource>
