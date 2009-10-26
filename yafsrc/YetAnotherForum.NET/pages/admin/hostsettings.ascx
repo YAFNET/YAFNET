@@ -1125,6 +1125,15 @@
 							<asp:TextBox runat="server" ID="FirstPostCacheTimeout" />
 						</td>
 					</tr>
+						<tr>
+						<td class="postheader">
+							<b>Online User Status Cache Timeout:</b><br />
+							You can fine-tune it depending on your site activity (in milliseconds)
+						</td>
+						<td class="post">
+							<asp:TextBox runat="server" ID="OnlineStatusCacheTimeout" />
+						</td>
+					</tr>					
 					<tr>
 						<td class="footer1" colspan="2">
 							<asp:Button runat="server" ID="ResetCacheAll" Text="Clear Cache" OnClick="ResetCacheAll_Click" />

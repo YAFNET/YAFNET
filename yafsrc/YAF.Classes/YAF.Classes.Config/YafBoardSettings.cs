@@ -400,6 +400,11 @@ namespace YAF.Classes
             get { return _regBoard.GetValue<int>("ActiveListTime", 5); }
             set { _regBoard.SetValue<int>("ActiveListTime", value); }
         }
+        public int OnlineStatusCacheTimeout
+        {
+            get { return _reg.GetValue<int>("OnlineStatusCacheTimeout", 100); }
+            set { _reg.SetValue<int>("OnlineStatusCacheTimeout", value); }
+        }
 
 		#endregion
 

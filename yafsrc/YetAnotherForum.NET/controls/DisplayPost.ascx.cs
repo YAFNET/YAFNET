@@ -138,9 +138,9 @@ namespace YAF.Controls
                 
                    if (activeUsers == null)
                    {
-                       activeUsers = DB.active_list(YafContext.Current.PageBoardID, false, YafContext.Current.BoardSettings.ActiveListTime, false);
+                       activeUsers = DB.active_list( YafContext.Current.PageBoardID, false, YafContext.Current.BoardSettings.ActiveListTime, false );
                        //Time span should be set more exactly by experience 
-                       YafContext.Current.Cache.Insert(cacheKey, activeUsers, null, DateTime.MaxValue, TimeSpan.FromMilliseconds(100));
+                       YafContext.Current.Cache.Insert(cacheKey, activeUsers, null, DateTime.MaxValue, TimeSpan.FromMilliseconds( YafContext.Current.BoardSettings.OnlineStatusCacheTimeout ) );
                    }
                 
                 OnlineStatus.AlternateText = "Offline";
@@ -157,7 +157,7 @@ namespace YAF.Controls
                         break;
                     }
                 }
-            }
+            }           
 
             //vzrus end of add status
            

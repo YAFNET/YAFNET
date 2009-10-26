@@ -5,7 +5,7 @@
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" class="postUser" runat="server">
         <a name="post<%# DataRow["MessageID"] %>" /><b>
-            <asp:Image ID="OnlineStatus"  runat="server" /> <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>'
+            <asp:Image ID="OnlineStatus"  runat="server" Visible='<%# Convert.ToBoolean(YafContext.Current.BoardSettings.ShowUserOnlineStatusInPosts) %>' /> <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>'
                 UserName='<%#DataRow["UserName"]%>' />
         </b>
     </td>
