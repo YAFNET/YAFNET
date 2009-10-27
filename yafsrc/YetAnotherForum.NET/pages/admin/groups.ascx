@@ -16,7 +16,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="header2" colspan="5">
+					<td class="header2" colspan="6">
 						Name
 					</td>
 					<td class="header2">
@@ -26,7 +26,7 @@
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr>
-					<td class="post" colspan="5">
+					<td class="post" colspan="6">
 						<%# Container.DataItem %>
 						(Unlinked)
 					</td>
