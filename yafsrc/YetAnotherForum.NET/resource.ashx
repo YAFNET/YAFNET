@@ -172,6 +172,15 @@ namespace YAF
 			Bitmap bmp = null;
 			Graphics gfx = null;
 
+			if ( General.GetCurrentTrustLevel() != AspNetHostingPermissionLevel.High )
+			{
+				// don't bother... not supported.
+				YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(),
+				                                     "Remote Avatar is NOT supported on your Hosting Permission Level (must be High)",
+				                                     0 );
+				return;
+			}
+
 			string wb = context.Request.QueryString["url"];
 
 			try
