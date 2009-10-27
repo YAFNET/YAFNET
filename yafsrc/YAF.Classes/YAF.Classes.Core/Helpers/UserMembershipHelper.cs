@@ -421,8 +421,7 @@ namespace YAF.Classes.Core
 		{
 			get
 			{
-				return DBHelper.GetFirstRowColumnAsValue<string>(
-					DB.user_list( YafContext.Current.PageBoardID, GuestUserId, true ), "Name", null );
+				return DB.user_list( YafContext.Current.PageBoardID, GuestUserId, true ).GetFirstRowColumnAsValue<string>( "Name", null );
 			}
 		}
 	}
