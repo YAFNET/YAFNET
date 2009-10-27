@@ -19,124 +19,149 @@
 
 using System;
 using System.Data;
-using System.Configuration;
-using System.Linq;
-using System.Web;
+using System.Text;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
 using YAF.Classes.Core;
 using YAF.Classes.Data;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-    /// <summary>
-    /// Class for Thank you button
-    /// </summary>
-    public class ThankYou
-    {
-        public string Text;
-        public string Title;
-        public string messageID;
-        public string ThanksInfo;
-        public string Thanks;
-        public ThankYou()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
+	/// <summary>
+	/// Class for Thank you button
+	/// </summary>
+	public class ThankYou
+	{
+		public string Text
+		{
+			get;
+			set;
+		}
 
-        // <summary> This method is called asynchronously when the user clicks 
-        //           "Thank" button. </summary>
+		public string Title
+		{
+			get;
+			set;
+		}
 
-        [AjaxPro.AjaxMethod]
-        public ThankYou AddThanks(object msgID)
-        {
-            //Why does this throw the exception "Database is not initialized."?
-            YafServices.InitializeDb.Run();
-            this.messageID = msgID.ToString();
-            MembershipUser membershipUser = Membership.GetUser();
-            int FromUserID = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
-            string Username = DB.message_AddThanks(FromUserID, this.messageID);
-            if (Username == "")
-                return null;
-            this.ThanksInfo = ThanksNumber(Username);
-            this.Thanks = GetThanks();
-            this.Text = YafContext.Current.Localization.GetText("BUTTON", "BUTTON_THANKSDELETE");
-            this.Title = YafContext.Current.Localization.GetText("BUTTON", "BUTTON_THANKSDELETE_TT");
-            ThankYou objThankYou = new ThankYou();
-            objThankYou.messageID = messageID;
-            objThankYou.ThanksInfo = ThanksInfo;
-            objThankYou.Thanks = Thanks;
-            objThankYou.Text = Text;
-            objThankYou.Title = Title;
-            return objThankYou;
-        }
+		public int MessageID
+		{
+			get;
+			set;
+		}
 
-        // <summary> This method is called asynchronously when the user clicks 
-        //           on "Remove Thank Note" button. </summary>
-        [AjaxPro.AjaxMethod]
-        public ThankYou RemoveThanks(object msgID)
-        {
-            YafServices.InitializeDb.Run();
-            this.messageID = msgID.ToString();
-            MembershipUser membershipUser = Membership.GetUser();
-            int FromUserID = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
-            string Username = DB.message_RemoveThanks(FromUserID, this.messageID);
-            this.ThanksInfo = ThanksNumber(Username);
-            this.Thanks = GetThanks();
-            this.Text = YafContext.Current.Localization.GetText("BUTTON", "BUTTON_THANKS");
-            this.Title = YafContext.Current.Localization.GetText("BUTTON", "BUTTON_THANKS_TT");
-            ThankYou objThankYou = new ThankYou();
-            objThankYou.messageID = messageID;
-            objThankYou.ThanksInfo = ThanksInfo;
-            objThankYou.Thanks = Thanks;
-            objThankYou.Text = Text;
-            objThankYou.Title = Title;
-            return objThankYou;
-        }
+		public string ThanksInfo
+		{
+			get;
+			set;
+		}
 
-        // <summary> This method returns a string containing the HTML code for
-        //           showing the the post footer. the HTML content is the name of users
-        //           who thanked the post and the date they thanked. </summary>
-        protected string GetThanks()
-        {
-            string Filler = "";
-            using (DataTable dt = DB.message_GetThanks(Convert.ToInt32(messageID)))
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Filler += "<a id=\"" + dr["UserID"] + "\"href=\"" + String.Format("{0}{1}?{2}", YAF.Classes.UrlBuilder.BaseUrl, "/default.aspx", String.Format("g={0}&u={1}", YAF.Classes.ForumPages.profile, dr["UserID"])) + "\"><u>" + dr["Name"] + "</u></a>  " + String.Format(YafContext.Current.Localization.GetText("DEFAULT", "OnDate"), YafServices.DateTime.FormatDateShort(dr["ThanksDate"]).ToString()) + ",&nbsp;&nbsp;";
-                }
-            if (Filler != "")
-                Filler = Filler.Remove(Filler.LastIndexOf(","));
-            return Filler;
-        }
+		public string Thanks
+		{
+			get;
+			set;
+		}
 
-        // <summary> Same as the above method. To use in other classes. (this
-        //          method is used in Controls/DisplayPost.ascx.cs</summary>
-        public static string GetThanks(object msgID)
-        {
-            string Filler = "";
-            using (DataTable dt = DB.message_GetThanks(Convert.ToInt32(msgID.ToString())))
-                foreach (DataRow dr in dt.Rows)
-                    Filler += "<a id=\"" + dr["UserID"] + "\"href=\"" + String.Format("{0}{1}?{2}", YAF.Classes.UrlBuilder.BaseUrl, "/default.aspx", String.Format("g={0}&u={1}", YAF.Classes.ForumPages.profile, dr["UserID"])) + "\"><u>" + dr["Name"] + "</u></a>  " + String.Format(YafContext.Current.Localization.GetText("DEFAULT", "ONDATE"), YafServices.DateTime.FormatDateShort(dr["ThanksDate"]).ToString()) + ",&nbsp;&nbsp;";
-            if (Filler != "")
-                Filler = Filler.Remove(Filler.LastIndexOf(","));
-            return Filler;
-        }
+		public ThankYou()
+		{
 
-        // <summary> This method returns a string which shows how many times users have
-        // thanked the message with the provided messageID. Returns an empty string </summary>
-        protected string ThanksNumber(string Username)
-        {
-            int ThanksNumber = DB.message_ThanksNumber(messageID);
-            if (ThanksNumber == 0) return "";
-            else if (ThanksNumber == 1) return String.Format(YafContext.Current.Localization.GetText("POSTS", "THANKSINFOSINGLE"), Username);
-            else return String.Format(YafContext.Current.Localization.GetText("POSTS", "THANKSINFO"), ThanksNumber, Username);
-        }
-    }
+		}
+
+		/// <summary>
+		/// This method is called asynchronously when the user clicks "Thank" button.
+		/// </summary>
+		/// <param name="msgID"></param>
+		/// <returns></returns>
+		[AjaxPro.AjaxMethod]
+		public ThankYou AddThanks( object msgID )
+		{
+			MessageID = msgID.ToType<int>();
+
+			string username = DB.message_AddThanks( UserMembershipHelper.GetUserIDFromProviderUserKey( Membership.GetUser().ProviderUserKey ), MessageID );
+
+			// if the user is empty, return a null object...
+      if ( username.IsNullOrEmptyTrimmed() ) return null;
+
+			return CreateThankYou( username, "BUTTON_THANKSDELETE", "BUTTON_THANKSDELETE_TT" );
+		}
+
+		/// <summary>
+		/// This method is called asynchronously when the user clicks on "Remove Thank Note" button.
+		/// </summary>
+		/// <param name="msgID"></param>
+		/// <returns></returns>
+		[AjaxPro.AjaxMethod]
+		public ThankYou RemoveThanks( object msgID )
+		{
+			MessageID = msgID.ToType<int>();
+			string username = DB.message_RemoveThanks( UserMembershipHelper.GetUserIDFromProviderUserKey( Membership.GetUser().ProviderUserKey ), MessageID );
+
+			return CreateThankYou( username, "BUTTON_THANKS", "BUTTON_THANKS_TT" );
+		}
+
+		/// <summary>
+		/// Creates an instance of the thank you object from the current information.
+		/// </summary>
+		/// <param name="username"></param>
+		/// <param name="textTag"></param>
+		/// <param name="titleTag"></param>
+		/// <returns></returns>
+		private ThankYou CreateThankYou( string username, string textTag, string titleTag )
+		{
+			return new ThankYou
+			       	{
+			       		MessageID = MessageID,
+			       		ThanksInfo = ThanksNumber( username ),
+			       		Thanks = GetThanks( MessageID ),
+			       		Text = YafContext.Current.Localization.GetText( "BUTTON", textTag ),
+			       		Title = YafContext.Current.Localization.GetText( "BUTTON", titleTag )
+			       	};
+		}
+
+		/// <summary>
+		/// This method returns a string containing the HTML code for
+		/// showing the the post footer. the HTML content is the name of users
+		/// who thanked the post and the date they thanked.
+		/// </summary>
+		public static string GetThanks( object msgID )
+		{
+			StringBuilder filler = new StringBuilder();
+
+			using ( DataTable dt = DB.message_GetThanks( msgID.ToType<int>() ) )
+				foreach ( DataRow dr in dt.Rows )
+				{
+					if ( filler.Length > 0 ) filler.Append( ",&nbsp;" );
+
+					filler.AppendFormat( @"<a id=""{0}"" href=""{1}""><u>{2}</u></a> {3}", dr["UserID"],
+					                     String.Format( "{0}{1}?{2}", YAF.Classes.UrlBuilder.BaseUrl, "/default.aspx",
+					                                    String.Format( "g={0}&u={1}", YAF.Classes.ForumPages.profile, dr["UserID"] ) ),
+					                     dr["Name"],
+					                     String.Format( YafContext.Current.Localization.GetText( "DEFAULT", "ONDATE" ),
+					                                    YafServices.DateTime.FormatDateShort( dr["ThanksDate"] ) ) );
+				}
+
+			return filler.ToString();
+		}
+
+		/// <summary>
+		/// This method returns a string which shows how many times users have
+		/// thanked the message with the provided messageID. Returns an empty string.
+		/// </summary>
+		/// <returns></returns>
+		protected string ThanksNumber( string username )
+		{
+			int thanksNumber = DB.message_ThanksNumber( MessageID );
+
+			switch ( thanksNumber )
+			{
+				case 0:
+					return String.Empty;
+				case 1:
+					return String.Format( YafContext.Current.Localization.GetText( "POSTS", "THANKSINFOSINGLE" ), username );
+			}
+
+			return String.Format( YafContext.Current.Localization.GetText( "POSTS", "THANKSINFO" ), thanksNumber, username );
+		}
+	}
 }
 

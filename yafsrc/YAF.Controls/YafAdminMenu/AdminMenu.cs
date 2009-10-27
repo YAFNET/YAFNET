@@ -20,6 +20,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Web;
 using System.Web.UI;
 using System.Xml.Serialization;
 using DNA.UI.JQuery;
@@ -31,7 +32,7 @@ namespace YAF.Controls
 	/// <summary>
 	/// Summary description for AdminMenu.
 	/// </summary>
-	public class AdminMenu : BaseControl
+	public class AdminMenu : BasePanel
 	{
 		private DNA.UI.JQuery.Accordion _accordian = new Accordion();
 		private YafMenu _menuDef = null;
@@ -43,9 +44,9 @@ namespace YAF.Controls
 
 		protected override void OnLoad( EventArgs e )
 		{
-			PageContext.PageElements.RegisterJQuery();
+			const string defFile = "YAF.Controls.YafAdminMenu.AdminMenuDef.xml";
 
-			string defFile = "YAF.Controls.AdminMenu.AdminMenuDef.xml";
+			PageContext.PageElements.RegisterJQuery();
 
 			// load menu definition...
       var deserializer = new XmlSerializer(typeof(YafMenu));

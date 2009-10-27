@@ -52,7 +52,9 @@
     <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.Controls.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL" />
+    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL">
+      <HintPath>..\YetAnotherForum.NET\Bin\Net3.5\AjaxPro.2.dll</HintPath>
+    </Reference>
     <Reference Include="DNA, Version=1.1.15.42020, Culture=neutral, PublicKeyToken=04e5dde674b371f8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\YetAnotherForum.NET\Bin\Net3.5\DNA.dll</HintPath>
@@ -77,8 +79,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveUsers.cs" />
-    <Compile Include="AdminMenu\AdminMenu.cs" />
-    <Compile Include="AdminMenu\YafMenu.cs">
+    <Compile Include="YafAdminMenu\AdminMenu.cs" />
+    <Compile Include="YafAdminMenu\YafMenu.cs">
+      <DependentUpon>YafMenu.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="YafAdminMenu\YafMenu.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>YafMenu.xsd</DependentUpon>
     </Compile>
     <Compile Include="AlphaSort.cs" />
@@ -165,13 +172,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AdminMenu\AdminMenuDef.xml" />
+    <EmbeddedResource Include="YafAdminMenu\AdminMenuDef.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AdminMenu\YafMenu.xsd">
+    <None Include="YafAdminMenu\YafMenu.xsc">
+      <DependentUpon>YafMenu.xsd</DependentUpon>
+    </None>
+    <None Include="YafAdminMenu\YafMenu.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>YafMenu.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </None>
+    <None Include="YafAdminMenu\YafMenu.xss">
+      <DependentUpon>YafMenu.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
