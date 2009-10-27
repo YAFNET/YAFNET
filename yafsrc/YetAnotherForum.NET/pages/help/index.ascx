@@ -1,25 +1,25 @@
-
-
-
-
-<%@ Control language="c#" CodeFile="index.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.help.index" %>
-<YAF:PageLinks runat="server" id="PageLinks" />
-<YAF:helpmenu runat="server">
-
-<table class="content" width="100%" cellspacing="0" cellpadding="0">
-<tr><td class="post" valign="top">
-	<table width="100%" cellspacing="0" cellpadding="0">
-	<tr><td nowrap class="header2"><b>Search Help Topics</b></td></tr>
-	<tr>
-		<td nowrap class="post">
-			Enter keywords to search for:
-			<asp:textbox runat="server" id="search"/>
-			<asp:button runat="server" id="DoSearch" text="Search"/>
-		</td>
-	</tr>
+<%@ Control Language="c#" CodeFile="index.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.help.index" %>
+<YAF:PageLinks runat="server" ID="PageLinks" />
+<YAF:HelpMenu runat="server">
+	<table class="content" width="100%" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="post" valign="top">
+				<table width="100%" cellspacing="0" cellpadding="0">
+					<tr>
+						<td nowrap class="header2">
+							<b>Search Help Topics</b>
+						</td>
+					</tr>
+					<tr>
+						<td nowrap class="post">
+							Enter keywords to search for:
+							<asp:TextBox runat="server" ID="search" />
+							<asp:Button runat="server" ID="DoSearch" Text="Search" />
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
 	</table>
-</td></tr>
-</table>
-
-</YAF:helpmenu>
-<YAF:SmartScroller id="SmartScroller1" runat = "server" />
+</YAF:HelpMenu>
+<YAF:SmartScroller ID="SmartScroller1" runat="server" />
