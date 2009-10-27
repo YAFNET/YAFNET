@@ -125,6 +125,16 @@ namespace YAF.Classes.Utils
 			return output;
 		}
 
+		/// <summary>
+		/// When the string is trimmed, is it null or empty?
+		/// </summary>
+		/// <param name="str"></param>
+		/// <returns></returns>
+		static public bool IsNullOrEmptyTrimmed( this string str )
+		{
+			return str == null || String.IsNullOrEmpty( str.Trim() );
+		}
+
 		/* Ederon - 9/9/2007 */
 		static public string ProcessText( string text )
 		{
