@@ -163,7 +163,6 @@ namespace YAF.Classes.Core
 					int userId = Convert.ToInt32( row["UserID"] );
 
 					YafTemplateEmail watchEmail = new YafTemplateEmail( "TOPICPOST" );
-
 					watchEmail.TemplateLanguageFile = UserHelper.GetUserLanguageFile( userId );
 
 					// cleaned body as text...

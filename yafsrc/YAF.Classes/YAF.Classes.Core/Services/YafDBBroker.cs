@@ -45,7 +45,7 @@ namespace YAF.Classes.Core
 				DataTable userListDt = DB.user_ignoredlist( userId );
 
 				// convert to list...
-				userList = DBHelper.ConvertDataTableColumnToList<int>( "IgnoredUserID", userListDt );
+				userList = userListDt.GetColumnAsList<int>( "IgnoredUserID" );
 
 				// store it in the user session...
 				HttpContext.Current.Session.Add( key, userList );
@@ -57,48 +57,35 @@ namespace YAF.Classes.Core
 		public DataTable UserMedals( int userId )
 		{
 			string key = YafCache.GetBoardCacheKey( String.Format( Constants.Cache.UserMedals, userId ) );
-			DataTable dt = YafContext.Current.Cache[key] as DataTable;
 
-			// was it in the cache?
-			if ( dt == null )
-			{
-				// get fresh values
-				dt = DB.user_listmedals( userId );
-
-				// cache it for the time specified by admin
-				YafContext.Current.Cache.Add( key, dt, DateTime.Now.AddMinutes( 10 ) );
-			}
+			// get the medals cached...
+			DataTable dt = YafContext.Current.Cache.GetItem<DataTable>( key, 10, () => DB.user_listmedals( userId ) );
 
 			return dt;
+		}
+
+		public DataTable GetModerators()
+		{
+			DataTable moderator = DB.forum_moderators();
+			moderator.TableName = YafDBAccess.GetObjectName( "Moderator" );
+
+			return moderator;
 		}
 
 		public List<Moderator> GetAllModerators()
 		{
 			// get the cached version of forum moderators if it's valid
 			string key = YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators );
-			DataTable moderator = YafContext.Current.Cache[key] as DataTable;
 
-			if ( moderator == null )
-			{
-				// get fresh values
-				moderator = DB.forum_moderators();
-				moderator.TableName = YafDBAccess.GetObjectName( "Moderator" );
+			DataTable moderator = YafContext.Current.Cache.GetItem<DataTable>( key,
+			                                                                   YafContext.Current.BoardSettings.
+																																					BoardModeratorsCacheTimeout, GetModerators );
 
-				// cache it for the time specified by admin
-				YafContext.Current.Cache.Add( key, moderator, null, DateTime.Now.AddMinutes( YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout ), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null );
-			}
-
-			List<Moderator> moderatorList = new List<Moderator>();
-
-			// convert to object...
-			foreach( DataRow row in moderator.Rows )
-			{
-				moderatorList.Add( new Moderator( Convert.ToInt64( row["ForumID"] ), Convert.ToInt64( row["ModeratorID"] ),
-				                                  row["ModeratorName"].ToString(),
-				                                  SqlDataLayerConverter.VerifyBool( row["IsGroup"] ) ) );
-			}
-
-			return moderatorList;
+			return
+				moderator.ToListObject(
+					( row ) =>
+					new Moderator( Convert.ToInt64( row["ForumID"] ), Convert.ToInt64( row["ModeratorID"] ),
+					               row["ModeratorName"].ToString(), SqlDataLayerConverter.VerifyBool( row["IsGroup"] ) ) );
 		}
 
 		/// <summary>
@@ -118,34 +105,23 @@ namespace YAF.Classes.Core
 			{
 				// get the cached version of forum moderators if it's valid
 				string key = YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators );
-				DataTable moderator = YafContext.Current.Cache [key] as DataTable;
 
-				// was it in the cache?
-				if ( moderator == null )
-				{
-					// get fresh values
-					moderator = DB.forum_moderators();
-					moderator.TableName = YafDBAccess.GetObjectName( "Moderator" );
-
-					// cache it for the time specified by admin
-					YafContext.Current.Cache.Add(key, moderator, null, DateTime.Now.AddMinutes(YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null);
-				}
+				DataTable moderator = YafContext.Current.Cache.GetItem<DataTable>( key,
+																																					 YafContext.Current.BoardSettings.
+																																						BoardModeratorsCacheTimeout, GetModerators );
 				// insert it into this DataSet
 				ds.Tables.Add( moderator.Copy() );
 
 				// get the Category Table
 				key = YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory );
-				DataTable category = YafContext.Current.Cache [key] as DataTable;
-
-				// was it in the cache?
-				if ( category == null )
-				{
-					// just get all categories since the list is short
-					category = DB.category_list( boardID, null );
-					category.TableName = YafDBAccess.GetObjectName( "Category" );
-					YafContext.Current.Cache.Add(key, category, null, DateTime.Now.AddMinutes(YafContext.Current.BoardSettings.BoardCategoriesCacheTimeout), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null);
-				}	
-
+				DataTable category = YafContext.Current.Cache.GetItem<DataTable>( key,
+																																					 YafContext.Current.BoardSettings.
+																																						BoardCategoriesCacheTimeout, () =>
+																																						{
+																																							var catDt = DB.category_list( boardID, null );
+																																							catDt.TableName = YafDBAccess.GetObjectName( "Category" );
+																																							return catDt;
+																																						} );
 				// add it to this dataset				
 				ds.Tables.Add( category.Copy() );
 

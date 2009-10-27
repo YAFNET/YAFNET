@@ -36,7 +36,7 @@ namespace YAF.Classes.Utils
 		/// <param name="columnName">Name of column to convert</param>
 		/// <param name="defaultValue">value to return if something is not available</param>
 		/// <returns></returns>
-		static public T GetFirstRowColumnAsValue<T>( DataTable dt, string columnName, T defaultValue )
+		static public T GetFirstRowColumnAsValue<T>( this DataTable dt, string columnName, T defaultValue )
 		{
 			if ( dt.Rows.Count > 0 && dt.Columns.Contains( columnName ) )
 			{
@@ -47,12 +47,25 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
+		/// Converts a DataTable to a List of type T using the convert function.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="dt"></param>
+		/// <param name="convertFunction"></param>
+		/// <returns></returns>
+		static public List<T> ToListObject<T>( this DataTable dt, Func<DataRow,T> convertFunction )
+		{
+			return (from x in dt.AsEnumerable()
+			        select convertFunction( x )).ToList();
+		}
+
+		/// <summary>
 		/// Converts the first column of a DataTable to a generic List of type T.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="dataTable"></param>
 		/// <returns></returns>
-		static public List<T> ConvertDataTableFirstColumnToList<T>( DataTable dataTable )
+		static public List<T> GetFirstColumnAsList<T>( this DataTable dataTable )
 		{
 			return (from x in dataTable.AsEnumerable()
 			        select x.Field<T>( 0 )).ToList();
@@ -65,10 +78,25 @@ namespace YAF.Classes.Utils
 		/// <param name="columnName"></param>
 		/// <param name="dataTable"></param>
 		/// <returns></returns>
-		static public List<T> ConvertDataTableColumnToList<T>( string columnName, DataTable dataTable )
+		static public List<T> GetColumnAsList<T>( this DataTable dataTable, string columnName )
 		{
 			return (from x in dataTable.AsEnumerable()
 			        select x.Field<T>( columnName )).ToList();
+		}
+
+		/// <summary>
+		/// Gets the first row (DataRow) of a DataTable.
+		/// </summary>
+		/// <param name="dt"></param>
+		/// <returns></returns>
+		static public DataRow GetFirstRow( this DataTable dt )
+		{
+			if ( dt.Rows.Count > 0 )
+			{
+				return dt.Rows[0];
+			}
+
+			return null;
 		}
 
 		/// <summary>
@@ -78,10 +106,10 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		static public DataRow GetFirstRowOrInvalid( DataTable dt )
 		{
-			if ( dt.Rows.Count > 0 )
-			{
-				return dt.Rows[0];
-			}
+			DataRow row = dt.GetFirstRow();
+
+			if ( row != null )
+				return row;
 
 			// fail...
 			YafBuildLink.RedirectInfoPage( InfoMessage.Invalid );

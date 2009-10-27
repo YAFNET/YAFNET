@@ -316,6 +316,86 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		/// <summary>
+		/// Gets the cached item as a specific type.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="key"></param>
+		/// <returns></returns>
+		public T GetItem<T>( string key ) where T : class
+		{
+			if ( this[key] != null )
+				return (T)this[key];
+
+			return null;
+		}
+
+		/// <summary>
+		/// Gets the cached item as a specific type but if the item doesn't exist or 
+		/// is expired, will pull a new value from the function provided.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="key"></param>
+		/// <param name="expireMinutes"></param>
+		/// <param name="getValue"></param>
+		/// <returns></returns>
+		public T GetItem<T>( string key, int expireMinutes, Func<T> getValue ) where T : class
+		{
+			return GetItem<T>( key, expireMinutes, CacheItemPriority.Default, getValue );
+		}
+
+		private static readonly object[] _lockCacheItems = new object[101];
+		/// <summary>
+		/// Gets the cached item as a specific type but if the item doesn't exist or 
+		/// is expired, will pull a new value from the function provided.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="key"></param>
+		/// <param name="expireMinutes"></param>
+		/// <param name="priority"></param>
+		/// <param name="getValue"></param>
+		/// <returns></returns>
+		public T GetItem<T>( string key, int expireMinutes, CacheItemPriority priority, Func<T> getValue ) where T : class
+		{
+			int keyHash = key.GetHashCode();
+			// make positive if negative...
+			if ( keyHash < 0 ) keyHash = -keyHash;
+
+			// get the lock item id (value between 0 and 100)
+			int lockItemId = ( keyHash%100 );
+
+			// init the lock object if it hasn't been created yet...
+			if ( _lockCacheItems[lockItemId] == null )
+			{
+				_lockCacheItems[lockItemId] = new object();
+			}
+
+			var cachedItem = GetItem<T>( key );
+
+			if ( cachedItem == null )
+			{
+				lock ( _lockCacheItems[lockItemId] )
+				{
+					// now that we're on lockdown, try one more time...
+					cachedItem = GetItem<T>( key );
+
+					if ( cachedItem  == null )
+					{
+						// just get the value from the passed function...
+						cachedItem = getValue();
+
+						if ( cachedItem != null )
+						{
+							// cache the new value...
+							Add( key, cachedItem, null, DateTime.Now.AddMinutes( expireMinutes ), Cache.NoSlidingExpiration, priority, null );
+						}
+					}
+				}
+			}
+
+			return cachedItem;
+		}
+
 		#endregion
 	}
 

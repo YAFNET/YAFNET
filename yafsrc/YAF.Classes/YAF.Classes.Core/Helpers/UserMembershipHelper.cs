@@ -105,21 +105,15 @@ namespace YAF.Classes.Core
 		/// <returns></returns>
 		public static DataRow GetUserRowForID( long userID, bool allowCached )
 		{
+			if ( !allowCached ) return DB.user_list( YafContext.Current.PageBoardID, userID, DBNull.Value ).GetFirstRow();
 
-			string cacheKey = string.Format( "UserListForID{0}", userID );
-			DataRow userRow = YafContext.Current.Cache[YafCache.GetBoardCacheKey( cacheKey )] as DataRow;
+			// get the item cached...
+			string cacheKey = YafCache.GetBoardCacheKey( string.Format( "UserListForID{0}", userID ) );
 
-			if ( userRow == null || !allowCached )
-			{
-				DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, userID, DBNull.Value );
-				if ( dt.Rows.Count == 1 )
-				{
-					userRow = dt.Rows[0];
-					// cache it for 10 minutes...
-					YafContext.Current.Cache.Add( YafCache.GetBoardCacheKey( cacheKey ), userRow, DateTime.Now.AddMinutes( 10 ) );
-				}
-			}
-
+			DataRow userRow = YafContext.Current.Cache.GetItem<DataRow>( cacheKey, 5,
+			                                                             () =>
+			                                                             DB.user_list( YafContext.Current.PageBoardID, userID,
+			                                                                           DBNull.Value ).GetFirstRow() );
 			return userRow;
 		}
 

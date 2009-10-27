@@ -90,7 +90,7 @@ namespace YAF.Controls
 	}
 
 	/// <summary>
-	/// Summary description for ForumUsers.
+	/// Summary description for BaseControl.
 	/// </summary>
 	public class BaseControl : System.Web.UI.Control
 	{
