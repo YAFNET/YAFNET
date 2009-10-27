@@ -166,11 +166,15 @@ namespace YAF.Classes.Core
 
 					watchEmail.TemplateLanguageFile = UserHelper.GetUserLanguageFile( userId );
 
+					// cleaned body as text...
+					string bodyText = StringHelper.RemoveMultipleWhitespace( BBCodeHelper.StripBBCode( HtmlHelper.StripHtml( HtmlHelper.CleanHtmlString( row["Message"].ToString() ) ) ) );
+
 					// Send track mails
 					string subject = String.Format( YafContext.Current.Localization.GetText( "COMMON", "TOPIC_NOTIFICATION_SUBJECT" ), YafContext.Current.BoardSettings.Name );
 
 					watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
 					watchEmail.TemplateParams["{topic}"] = row["Topic"].ToString();
+					watchEmail.TemplateParams["{body}"] = bodyText;
 					watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped( ForumPages.posts, true, "m={0}#post{0}",
 					                                                                      messageID );
 
