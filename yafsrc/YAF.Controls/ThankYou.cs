@@ -21,6 +21,7 @@ using System;
 using System.Data;
 using System.Text;
 using System.Web.Security;
+using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
@@ -133,8 +134,7 @@ namespace YAF.Controls
 					if ( filler.Length > 0 ) filler.Append( ",&nbsp;" );
 
 					filler.AppendFormat( @"<a id=""{0}"" href=""{1}""><u>{2}</u></a> {3}", dr["UserID"],
-					                     String.Format( "{0}{1}?{2}", YAF.Classes.UrlBuilder.BaseUrl, "/default.aspx",
-					                                    String.Format( "g={0}&u={1}", YAF.Classes.ForumPages.profile, dr["UserID"] ) ),
+																YafBuildLink.GetLink( ForumPages.profile, "u={0}", dr["UserID"] ),
 					                     dr["Name"],
 					                     String.Format( YafContext.Current.Localization.GetText( "DEFAULT", "ONDATE" ),
 					                                    YafServices.DateTime.FormatDateShort( dr["ThanksDate"] ) ) );
