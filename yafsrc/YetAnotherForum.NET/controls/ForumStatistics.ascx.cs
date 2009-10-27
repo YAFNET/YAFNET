@@ -35,50 +35,48 @@ namespace YAF.Controls
 		{
 			// Active users
 			// Call this before forum_stats to clean up active users'
-           DataTable dt = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, null, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-           if (YafContext.Current.BoardSettings.UseStyledNicks)
-               YAF.Classes.UI.StyleHelper.DecodeStyleByTable( ref dt );
-         
-           ActiveUsers1.ActiveUserTable = dt;
+			DataTable dt = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, null, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks );
+			if ( YafContext.Current.BoardSettings.UseStyledNicks )
+				YAF.Classes.UI.StyleHelper.DecodeStyleByTable( ref dt );
 
-            ActiveUsers au = new ActiveUsers();
-            
+			ActiveUsers1.ActiveUserTable = dt;
+
+			ActiveUsers au = new ActiveUsers();
+
 			// "Active Users" Count and Most Users Count
-			DataRow activeStats = YAF.Classes.Data.DB.active_stats(PageContext.PageBoardID);
+			DataRow activeStats = YAF.Classes.Data.DB.active_stats( PageContext.PageBoardID );
 
-			ActiveUserCount.Text = FormatActiveUsers(activeStats);
+			ActiveUserCount.Text = FormatActiveUsers( activeStats );
 
 			// Forum Statistics
-			string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardStats);
-			DataRow statisticsDataRow = (DataRow)Cache[key];
-			if (statisticsDataRow == null)
-			{
-				statisticsDataRow = YAF.Classes.Data.DB.board_poststats(PageContext.PageBoardID);
-				Cache.Insert(key, statisticsDataRow, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ForumStatisticsCacheTimeout), TimeSpan.Zero);
-			}
-
+			string key = YafCache.GetBoardCacheKey( Constants.Cache.BoardStats );
+			DataRow statisticsDataRow = PageContext.Cache.GetItem<DataRow>( key,
+																																			PageContext.BoardSettings.ForumStatisticsCacheTimeout,
+																																			() =>
+																																			YAF.Classes.Data.DB.board_poststats(
+																																				PageContext.PageBoardID ) );
 			// show max users...
-			if (!statisticsDataRow.IsNull("MaxUsers"))
+			if ( !statisticsDataRow.IsNull( "MaxUsers" ) )
 			{
-				MostUsersCount.Text = PageContext.Localization.GetTextFormatted("MAX_ONLINE", statisticsDataRow["MaxUsers"], YafServices.DateTime.FormatDateTimeTopic(statisticsDataRow["MaxUsersWhen"]));
+				MostUsersCount.Text = PageContext.Localization.GetTextFormatted( "MAX_ONLINE", statisticsDataRow["MaxUsers"], YafServices.DateTime.FormatDateTimeTopic( statisticsDataRow["MaxUsersWhen"] ) );
 			}
 			else
 			{
-				MostUsersCount.Text = PageContext.Localization.GetTextFormatted("MAX_ONLINE", activeStats["ActiveUsers"], YafServices.DateTime.FormatDateTimeTopic(DateTime.Now));
+				MostUsersCount.Text = PageContext.Localization.GetTextFormatted( "MAX_ONLINE", activeStats["ActiveUsers"], YafServices.DateTime.FormatDateTimeTopic( DateTime.Now ) );
 			}
 
 			// Posts and Topic Count...
-			StatsPostsTopicCount.Text = PageContext.Localization.GetTextFormatted("stats_posts", statisticsDataRow["posts"], statisticsDataRow["topics"], statisticsDataRow["forums"]);
+			StatsPostsTopicCount.Text = PageContext.Localization.GetTextFormatted( "stats_posts", statisticsDataRow["posts"], statisticsDataRow["topics"], statisticsDataRow["forums"] );
 
 			// Last post
-			if (!statisticsDataRow.IsNull("LastPost"))
+			if ( !statisticsDataRow.IsNull( "LastPost" ) )
 			{
 				StatsLastPostHolder.Visible = true;
 
-				LastPostUserLink.UserID = Convert.ToInt32(statisticsDataRow["LastUserID"]);
+				LastPostUserLink.UserID = Convert.ToInt32( statisticsDataRow["LastUserID"] );
 				LastPostUserLink.UserName = statisticsDataRow["LastUser"].ToString();
 
-				StatsLastPost.Text = PageContext.Localization.GetTextFormatted("stats_lastpost", YafServices.DateTime.FormatDateTimeTopic((DateTime)statisticsDataRow["LastPost"]));
+				StatsLastPost.Text = PageContext.Localization.GetTextFormatted( "stats_lastpost", YafServices.DateTime.FormatDateTimeTopic( (DateTime)statisticsDataRow["LastPost"] ) );
 			}
 			else
 			{
@@ -86,11 +84,11 @@ namespace YAF.Controls
 			}
 
 			// Member Count
-			StatsMembersCount.Text = PageContext.Localization.GetTextFormatted("stats_members", statisticsDataRow["members"]);
+			StatsMembersCount.Text = PageContext.Localization.GetTextFormatted( "stats_members", statisticsDataRow["members"] );
 
 			// Newest Member
-			StatsNewestMember.Text = PageContext.Localization.GetText("stats_lastmember");
-			NewestMemberUserLink.UserID = Convert.ToInt32(statisticsDataRow["LastMemberID"]);
+			StatsNewestMember.Text = PageContext.Localization.GetText( "stats_lastmember" );
+			NewestMemberUserLink.UserID = Convert.ToInt32( statisticsDataRow["LastMemberID"] );
 			NewestMemberUserLink.UserName = statisticsDataRow["LastMember"].ToString();
 		}
 
@@ -98,10 +96,10 @@ namespace YAF.Controls
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
-			int activeUsers = Convert.ToInt32( activeStats ["ActiveUsers"] );
-			int activeHidden = Convert.ToInt32( activeStats ["ActiveHidden"] );
-			int activeMembers = Convert.ToInt32( activeStats["ActiveMembers"]);
-			int activeGuests = Convert.ToInt32( activeStats["ActiveGuests"]);
+			int activeUsers = Convert.ToInt32( activeStats["ActiveUsers"] );
+			int activeHidden = Convert.ToInt32( activeStats["ActiveHidden"] );
+			int activeMembers = Convert.ToInt32( activeStats["ActiveMembers"] );
+			int activeGuests = Convert.ToInt32( activeStats["ActiveGuests"] );
 
 			// show hidden count to admin...
 			if ( PageContext.IsAdmin ) activeUsers += activeHidden;
@@ -119,18 +117,18 @@ namespace YAF.Controls
 				sb.Append( PageContext.Localization.GetTextFormatted( activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers ) );
 			}
 
-			if ( activeMembers > 0 ) 
+			if ( activeMembers > 0 )
 			{
 				sb.Append( String.Format( ", {0}", PageContext.Localization.GetTextFormatted( activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers ) ) );
 			}
 
-			if ( activeGuests > 0 ) 
+			if ( activeGuests > 0 )
 			{
 				sb.Append( String.Format( ", {0}", PageContext.Localization.GetTextFormatted( activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests ) ) );
 			}
 
 			if ( activeHidden > 0 && PageContext.IsAdmin )
-			{	
+			{
 				sb.Append( String.Format( ", {0}", PageContext.Localization.GetTextFormatted( "ACTIVE_USERS_HIDDEN", activeHidden ) ) );
 			}
 
