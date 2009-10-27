@@ -31,6 +31,15 @@ namespace YAF.Classes.Utils
 			return Regex.Replace( text, @"<(.|\n)*?>", string.Empty );
 		}
 
+		static public string CleanHtmlString( string text )
+		{
+			text = text.Replace( "<br/>", " " );
+			text = text.Replace( "&quot;", "\"" );
+			text = text.Replace( "&nbsp;", " " );
+
+			return text;
+		}
+
 		/// <summary>
 		/// Validates an html tag against the allowedTags. Also check that
 		/// it doesn't have any "extra" features such as javascript in it.

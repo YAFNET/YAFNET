@@ -192,7 +192,7 @@ namespace YAF.Controls
 						flags.IsSmilies = true;
 
 						// process message... clean html, strip html, remove bbcode, etc...
-						message = StringHelper.RemoveMultipleWhitespace( BBCodeHelper.StripBBCode(HtmlHelper.StripHtml( CleanHtmlString( message ) )) );
+						message = StringHelper.RemoveMultipleWhitespace( BBCodeHelper.StripBBCode(HtmlHelper.StripHtml( HtmlHelper.CleanHtmlString( message ) )) );
 						message = StringHelper.Truncate( message, 255 );
 
 						if ( String.IsNullOrEmpty( message ) ) message = "";
@@ -203,15 +203,6 @@ namespace YAF.Controls
 			}
 
 			return message;
-		}
-
-		static private string CleanHtmlString( string text )
-		{
-			text = text.Replace( "<br/>", " " );
-			text = text.Replace( "&quot;", "\"" );
-			text = text.Replace( "&nbsp;", " " );
-
-			return text;
 		}
 
 		private string FormatViews()
