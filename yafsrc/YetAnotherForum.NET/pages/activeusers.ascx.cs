@@ -52,7 +52,7 @@ namespace YAF.Pages // YAF.Pages
 
                 DataTable dt = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, true, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
                 if (YafContext.Current.BoardSettings.UseStyledNicks)
-                dt = YAF.Classes.UI.StyleHelper.ClearStyle(dt);
+                    YAF.Classes.UI.StyleHelper.DecodeStyleByTable( ref dt );
                          
 				// remove hidden users...
 				foreach ( DataRow row in dt.Rows )

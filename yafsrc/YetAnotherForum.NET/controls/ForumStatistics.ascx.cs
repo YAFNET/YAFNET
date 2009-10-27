@@ -36,7 +36,8 @@ namespace YAF.Controls
 			// Active users
 			// Call this before forum_stats to clean up active users'
            DataTable dt = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, null, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-           dt = YAF.Classes.UI.StyleHelper.ClearStyle(dt);
+           if (YafContext.Current.BoardSettings.UseStyledNicks)
+               YAF.Classes.UI.StyleHelper.DecodeStyleByTable( ref dt );
          
            ActiveUsers1.ActiveUserTable = dt;
 
