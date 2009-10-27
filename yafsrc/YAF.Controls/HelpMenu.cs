@@ -24,7 +24,7 @@ namespace YAF.Controls
 	/// <summary>
 	/// Summary description for AdminMenu.
 	/// </summary>
-	public class HelpMenu : BaseControl
+	public class HelpMenu : BasePanel
 	{
 		public HelpMenu()
 		{

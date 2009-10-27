@@ -21,11 +21,74 @@ using System;
 using System.Data;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using YAF.Classes;
 using YAF.Classes.Core;
 
 namespace YAF.Controls
 {
+	/// <summary>
+	/// Control derived from Panel that includes a reference to the YafContext.
+	/// </summary>
+	public class BasePanel : Panel
+	{
+		public YafContext PageContext
+		{
+			get
+			{
+				if ( this.Site != null && this.Site.DesignMode == true )
+				{
+					// design-time, return null...
+					return null;
+				}
+				return YafContext.Current;
+			}
+		}
+
+		/// <summary>
+		/// Creates a Unique ID
+		/// </summary>
+		/// <param name="prefix"></param>
+		/// <returns></returns>
+		public string GetUniqueID( string prefix )
+		{
+			if ( !String.IsNullOrEmpty( prefix ) )
+			{
+				return prefix + System.Guid.NewGuid().ToString().Substring( 0, 5 );
+			}
+			else
+			{
+				return System.Guid.NewGuid().ToString().Substring( 0, 10 );
+			}
+		}
+
+		/// <summary>
+		/// Creates a ID Based on the Control Structure
+		/// </summary>
+		/// <param name="prefix"></param>
+		/// <returns></returns>
+		public string GetExtendedID( string prefix )
+		{
+			string createdID = null;
+
+			if ( !String.IsNullOrEmpty( this.ID ) )
+			{
+				createdID = this.ID + "_";
+			}
+
+			if ( !String.IsNullOrEmpty( prefix ) )
+			{
+				createdID += prefix;
+			}
+			else
+			{
+				createdID += System.Guid.NewGuid().ToString().Substring( 0,5 );
+			}
+
+			return createdID;
+		} 
+	}
+
 	/// <summary>
 	/// Summary description for ForumUsers.
 	/// </summary>
