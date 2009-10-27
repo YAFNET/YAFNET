@@ -92,6 +92,10 @@
     <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
     <Resource tag="BUTTON_REPLY">Reply</Resource>
     <Resource tag="BUTTON_REPLY_TT">Reply to Message</Resource>
+    <Resource tag="BUTTON_THANKS">Thank</Resource>
+    <Resource tag="BUTTON_THANKS_TT">Thank the post sender</Resource>
+    <Resource tag="BUTTON_THANKSDELETE">Remove Thank</Resource>
+    <Resource tag="BUTTON_THANKSDELETE_TT">Remove your thank note from the post sender</Resource>
     <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
     <Resource tag="BUTTON_UNDELETE_TT">Undelete this Post</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
@@ -345,6 +349,7 @@
     <Resource tag="MODERATORS">Moderadores</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Sem Acesso)</Resource>
     <Resource tag="NO_POSTS">Nenhuma Participação</Resource>
+    <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Participações</Resource>
     <Resource tag="STATS">Estatísticas</Resource>
     <Resource tag="STATS_LASTMEMBER">O membro mais recente é {0}.</Resource>
@@ -663,6 +668,10 @@
     <Resource tag="RSSTOPIC">Notícias RSS</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Estatísticas</Resource>
+    <Resource tag="THANKSFROM">Thanks: {0} times</Resource>
+    <Resource tag="THANKSINFO">{0} users thanked {1} for this useful post.</Resource>
+    <Resource tag="THANKSINFOSINGLE">1 user thanked {0} for this useful post.</Resource>
+    <Resource tag="THANKSTO">Was thanked: {0} time(s) in {1} post(s)</Resource>
     <Resource tag="THREADED">Indentada</Resource>
     <Resource tag="TIP_DELETE_TOPIC">Excluir este Tópico</Resource>
     <Resource tag="TIP_LOCK_TOPIC">Bloquear este Tópico</Resource>
@@ -737,6 +746,9 @@
     <Resource tag="STATISTICS">Estatísticas</Resource>
     <Resource tag="SUSPEND">Suspender</Resource>
     <Resource tag="SUSPEND_USER">Suspend User:</Resource>
+    <Resource tag="THANKSFROM">Number of thanks</Resource>
+    <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
+    <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
     <Resource tag="TOPIC">Tópico:</Resource>
     <Resource tag="USERNAME">Nome do Usuário:</Resource>
     <Resource tag="WEBLOG">Weblog:</Resource>

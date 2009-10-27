@@ -102,6 +102,47 @@ function toggleMessage(divId)
 					elementId );
 		}
 
+        /// <summary>
+        /// script for the addThanks button
+        /// </summary>
+        /// <param name="RemoveThankBoxHTML">HTML code for the "Remove Thank Note" button</param>
+        /// <returns></returns>
+        public static string addThanksJs(string RemoveThankBoxHTML)
+        {
+            return
+                string.Format("function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}" +
+            "function addThanksSuccess(res){{if (res.value != null) {{" +
+            "var dvThanks=document.getElementById('dvThanks' + res.value.messageID); dvThanks.innerHTML=res.value.Thanks;" +
+            "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.messageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
+            "dvThankbox=document.getElementById('dvThankBox' + res.value.messageID); dvThankbox.innerHTML={0};}}}}", RemoveThankBoxHTML);
+        }
+
+        /// <summary>
+        /// script for the removeThanks button
+        /// </summary>
+        /// <param name="RemoveThankBoxHTML">HTML code for the "Thank" button</param>
+        /// <returns></returns>
+        public static string removeThanksJs(string AddThankBoxHTML)
+        {
+            return
+                string.Format("function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}" +
+            "function removeThanksSuccess(res){{if (res.value != null) {{" +
+            "var dvThanks=document.getElementById('dvThanks' + res.value.messageID); dvThanks.innerHTML=res.value.Thanks;" +
+            "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.messageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
+            "dvThankbox=document.getElementById('dvThankBox' + res.value.messageID); dvThankbox.innerHTML={0};}}}}", AddThankBoxHTML);
+        }
+
+        /// <summary>
+        /// If asynchronous callback encounters any problem, this javascript function will be called.
+        /// </summary>
+        /// <returns></returns>
+        public static string asynchCallFailedJs
+        {
+            get
+            {
+                return "function CallFailed(res){{alert('Error Occured');}}";
+            }
+        }
 
 	}
 }

@@ -189,6 +189,12 @@ namespace YAF.Controls
 			// Groups
 			userBox = MatchUserBoxGroups( userBox );
 
+            //ThanksFrom
+            userBox = MatchUserBoxThanksFrom(userBox);
+
+            //ThanksTo
+            userBox = MatchUserBoxThanksTo(userBox);
+
 			if ( !PostDeleted )
 			{
 				// Ederon : 02/24/2007
@@ -224,7 +230,11 @@ namespace YAF.Controls
 			userBox = rx.Replace( userBox, filler );
 			rx = new Regex( Constants.UserBox.Location );
 			userBox = rx.Replace( userBox, filler );
-			return userBox;
+            rx = new Regex(Constants.UserBox.ThanksFrom);
+            userBox = rx.Replace(userBox, filler);
+            rx = new Regex(Constants.UserBox.ThanksTo);
+            userBox = rx.Replace(userBox, filler);
+            return userBox;
 		}
 
 		private string MatchUserBoxLocation( string userBox )
@@ -486,5 +496,34 @@ namespace YAF.Controls
 			userBox = rx.Replace( userBox, filler );
 			return userBox;
 		}
+        private string MatchUserBoxThanksFrom(string userBox)
+        {
+            string filler = "";
+            Regex rx = new Regex(Constants.UserBox.ThanksFrom);
+            filler = String.Format(
+                        PageContext.BoardSettings.UserBoxThanksFrom,
+                        String.Format(PageContext.Localization.GetText("thanksfrom"),
+                        DB.user_getthanks_from(DataRow["UserID"]))
+                        );
+
+            // replaces template placeholder with actual thanks from
+            userBox = rx.Replace(userBox, filler);
+            return userBox;
+        }
+
+        private string MatchUserBoxThanksTo(string userBox)
+        {
+            string filler = "";
+            Regex rx = new Regex(Constants.UserBox.ThanksTo);
+            int[] ThanksToArray = DB.user_getthanks_to(DataRow["UserID"]);
+            filler = String.Format(
+                        PageContext.BoardSettings.UserBoxThanksTo,
+                        String.Format(PageContext.Localization.GetText("thanksto"), ThanksToArray[0], ThanksToArray[1])
+                        );
+
+            // replaces template placeholder with actual thanks from
+            userBox = rx.Replace(userBox, filler);
+            return userBox;
+        }
 	}
 }

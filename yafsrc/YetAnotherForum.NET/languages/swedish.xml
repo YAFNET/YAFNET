@@ -93,6 +93,10 @@
     <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
     <Resource tag="BUTTON_REPLY">Reply</Resource>
     <Resource tag="BUTTON_REPLY_TT">Reply to Message</Resource>
+    <Resource tag="BUTTON_THANKS">Thank</Resource>
+    <Resource tag="BUTTON_THANKS_TT">Thank the post sender</Resource>
+    <Resource tag="BUTTON_THANKSDELETE">Remove Thank</Resource>
+    <Resource tag="BUTTON_THANKSDELETE_TT">Remove your thank note from the post sender</Resource>
     <Resource tag="BUTTON_UNDELETE">Undelete</Resource>
     <Resource tag="BUTTON_UNDELETE_TT">Undelete this Post</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
@@ -358,6 +362,7 @@
     <Resource tag="MODERATORS">Moderatorer</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Ingen åtkomst)</Resource>
     <Resource tag="NO_POSTS">Inga meddelanden</Resource>
+    <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Meddelanden</Resource>
     <Resource tag="STATS">Statistik</Resource>
     <Resource tag="STATS_LASTMEMBER">Den senaste medlemmen är {0}.</Resource>
@@ -676,6 +681,10 @@
     <Resource tag="RSSTOPIC">RSSkanal</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
+    <Resource tag="THANKSFROM">Thanks: {0} times</Resource>
+    <Resource tag="THANKSINFO">{0} users thanked {1} for this useful post.</Resource>
+    <Resource tag="THANKSINFOSINGLE">1 user thanked {0} for this useful post.</Resource>
+    <Resource tag="THANKSTO">Was thanked: {0} time(s) in {1} post(s)</Resource>
     <Resource tag="THREADED">Trådad</Resource>
     <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
     <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
@@ -750,6 +759,9 @@
     <Resource tag="STATISTICS">Statistik</Resource>
     <Resource tag="SUSPEND">Stäng av</Resource>
     <Resource tag="SUSPEND_USER">Suspend User:</Resource>
+    <Resource tag="THANKSFROM">Number of thanks</Resource>
+    <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
+    <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
     <Resource tag="TOPIC">Konversation:</Resource>
     <Resource tag="USERNAME">Användarnamn:</Resource>
     <Resource tag="WEBLOG">Webblogg:</Resource>

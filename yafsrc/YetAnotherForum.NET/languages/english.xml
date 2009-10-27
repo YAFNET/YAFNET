@@ -64,6 +64,10 @@
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
   </page>
   <page name="BUTTON">
+    <Resource tag="BUTTON_THANKS">Thank</Resource>
+    <Resource tag="BUTTON_THANKS_TT">Thank the post sender</Resource>
+    <Resource tag="BUTTON_THANKSDELETE">Remove Thank</Resource>
+    <Resource tag="BUTTON_THANKSDELETE_TT">Remove your thank note from the post sender</Resource>
     <Resource tag="BUTTON_ATTACH">Attach</Resource>
     <Resource tag="BUTTON_ATTACH_TT">Attach files to this post</Resource>
     <Resource tag="BUTTON_DELETE">Delete</Resource>
@@ -298,6 +302,7 @@
     <Resource tag="WARN_SELECTTOPICS">Please select topics to unsubscribe from first.</Resource>
   </page>
   <page name="DEFAULT">
+    <Resource tag="ONDATE">on {0}</Resource>    
     <Resource tag="ACTIVE_DISCUSSIONS">Active Discussions</Resource>
     <Resource tag="ACTIVE_USERS">Active Users</Resource>
     <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} active user</Resource>
@@ -573,6 +578,10 @@
     <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
   </page>
   <page name="POSTS">
+    <Resource tag="THANKSFROM">Thanks: {0} times</Resource>
+    <Resource tag="THANKSTO">Was thanked: {0} time(s) in {1} post(s)</Resource>
+    <Resource tag="THANKSINFO">{0} users thanked {1} for this useful post.</Resource>
+    <Resource tag="THANKSINFOSINGLE">1 user thanked {0} for this useful post.</Resource>
     <Resource tag="AD_SIGNATURE" />
     <Resource tag="AD_USERNAME">Sponsor</Resource>
     <Resource tag="AIM">AIM</Resource>
@@ -669,6 +678,9 @@
     <Resource tag="POSTEDBY">Posted by</Resource>
   </page>
   <page name="PROFILE">
+    <Resource tag="THANKSFROM">Number of thanks</Resource>
+    <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
+    <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
     <Resource tag="ABOUT">About</Resource>
     <Resource tag="ADMIN_USER">Admin User</Resource>
     <Resource tag="AIM">AIM-Name:</Resource>

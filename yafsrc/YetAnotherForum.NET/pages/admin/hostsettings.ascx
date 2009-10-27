@@ -978,6 +978,24 @@
 							<asp:TextBox ID="UserBoxLocation" runat="server"></asp:TextBox>
 						</td>
 					</tr>
+                    <tr>
+                        <td class="postheader">
+                            <b>Thanks From template:</b><br>
+                            Template for rendering user's thanks from.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="UserBoxThanksFrom" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <b>Thanks To template:</b><br>
+                            Template for rendering user's thanks to.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="UserBoxThanksTo" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View8" Text="Avatars" NavigateUrl="" HeaderCssClass="" HeaderStyle=""

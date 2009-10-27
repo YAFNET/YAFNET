@@ -92,6 +92,11 @@ namespace YAF.Pages // YAF.Pages
 			Interests.InnerHtml = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Interests));
 			Occupation.InnerHtml = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Occupation));
 			Gender.InnerText = GetText("GENDER" + userData.Profile.Gender);
+            ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"]).ToString();
+            int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"]);
+            ThanksToTimes.Text = ThanksToArray[0].ToString();
+            ThanksToPosts.Text = ThanksToArray[1].ToString();
+
 
 			lblaim.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.AIM));
 			lblicq.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.ICQ));

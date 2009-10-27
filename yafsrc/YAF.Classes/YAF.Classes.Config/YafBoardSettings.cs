@@ -792,6 +792,18 @@ namespace YAF.Classes
 			set { _reg.SetValue<string>("UserBoxLocation", value); }
 		}
 		/* 7/14/2007 */
+        
+        public string UserBoxThanksFrom
+        {
+            get { return _reg.GetValue<string>("UserBoxThanksFrom", "{0}<br />"); }
+            set { _reg.SetValue<string>("UserBoxThanksFrom", value); }
+        }
+
+        public string UserBoxThanksTo
+        {
+            get { return _reg.GetValue<string>("UserBoxThanksTo", "{0}<br />"); }
+            set { _reg.SetValue<string>("UserBoxThanksTo", value); }
+        }
 
 		#endregion
 	}

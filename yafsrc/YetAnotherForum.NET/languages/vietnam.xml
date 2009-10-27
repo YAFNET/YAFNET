@@ -92,6 +92,10 @@
     <Resource tag="BUTTON_QUOTE_TT">Trả lời với trích dẫn</Resource>
     <Resource tag="BUTTON_REPLY">Trả lời</Resource>
     <Resource tag="BUTTON_REPLY_TT">Trả lời tin nhắn này</Resource>
+    <Resource tag="BUTTON_THANKS">Thank</Resource>
+    <Resource tag="BUTTON_THANKS_TT">Thank the post sender</Resource>
+    <Resource tag="BUTTON_THANKSDELETE">Remove Thank</Resource>
+    <Resource tag="BUTTON_THANKSDELETE_TT">Remove your thank note from the post sender</Resource>
     <Resource tag="BUTTON_UNDELETE">Khôi phục</Resource>
     <Resource tag="BUTTON_UNDELETE_TT">Khôi phục bài viết này</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Mở khoá</Resource>
@@ -326,6 +330,7 @@
     <Resource tag="MODERATORS">Điều hành</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Không truy cập)</Resource>
     <Resource tag="NO_POSTS">Không có bài viết</Resource>
+    <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Bài viết</Resource>
     <Resource tag="STATS">Thống kê</Resource>
     <Resource tag="STATS_LASTMEMBER">Chào mừng thành viên mới nhất: </Resource>
@@ -644,6 +649,10 @@
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Thống kê</Resource>
+    <Resource tag="THANKSFROM">Thanks: {0} times</Resource>
+    <Resource tag="THANKSINFO">{0} users thanked {1} for this useful post.</Resource>
+    <Resource tag="THANKSINFOSINGLE">1 user thanked {0} for this useful post.</Resource>
+    <Resource tag="THANKSTO">Was thanked: {0} time(s) in {1} post(s)</Resource>
     <Resource tag="THREADED">Threaded</Resource>
     <Resource tag="TIP_DELETE_TOPIC">Xóa chủ đề</Resource>
     <Resource tag="TIP_LOCK_TOPIC">Khóa chủ đề</Resource>
@@ -719,6 +728,9 @@
     <Resource tag="STATISTICS">Thống kê</Resource>
     <Resource tag="SUSPEND">Suspend</Resource>
     <Resource tag="SUSPEND_USER">Suspend User:</Resource>
+    <Resource tag="THANKSFROM">Number of thanks</Resource>
+    <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
+    <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
     <Resource tag="TOPIC">Chủ đề:</Resource>
     <Resource tag="USERNAME">Tên sử dụng:</Resource>
     <Resource tag="WEBLOG">Blog:</Resource>

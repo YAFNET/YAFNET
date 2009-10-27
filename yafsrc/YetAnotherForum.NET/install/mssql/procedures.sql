@@ -876,10 +876,122 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_clearmessages]
 GO
 
+/* These stored procedures are for the Thanks Table. For safety, first check to see if they exist. If so, drop them. */
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_addthanks]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_addthanks]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_getthanks]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_getthanks]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_isthankedbyuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_isthankedbyuser]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_removethanks]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_removethanks]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_thanksnumber]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_thanksnumber]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_getthanks_from]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_from]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_getthanks_to]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_to]
+GO
 
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
 
+/* Procedures for "Thanks" Mod */
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_addthanks] 
+	@FromUserID int,
+	@MessageID int,
+	@paramOutput nvarchar(50) = null out
+AS
+BEGIN
+IF not exists (SELECT ThanksID FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE (MessageID = @MessageID AND ThanksFromUserID=@FromUserID))
+BEGIN
+DECLARE @ToUserID int
+	SET @ToUserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE (MessageID = @MessageID))
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Thanks] (ThanksFromUserID, ThanksToUserID, MessageID, ThanksDate) Values 
+								(@FromUserID, @ToUserId, @MessageID, GetDate())
+	SET @paramOutput = (SELECT [Name] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
+END
+ELSE
+	SET @paramOutput = ''
+END
+Go
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getthanks] 
+	@MessageID int
+AS
+BEGIN
+	SELECT a.ThanksFromUserID as UserID, a.ThanksDate, b.Name
+	FROM [{databaseOwner}].[{objectQualifier}Thanks] a 
+	Inner Join [{databaseOwner}].[{objectQualifier}User] b
+	ON (a.ThanksFromUserID = b.UserID) WHERE (MessageID=@MessageID)
+	ORDER BY a.ThanksDate DESC
+END
+Go
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_isthankedbyuser] 
+	@UserID int,
+	@MessageID int
+AS
+BEGIN
+	IF NOT EXISTS (SELECT ThanksID FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE (ThanksFromUserID=@UserID AND MessageID=@MessageID))
+		RETURN 0
+	ELSE
+		RETURN 1
+END
+Go
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_removethanks] 
+	@FromUserID int,
+	@MessageID int,
+	@paramOutput nvarchar(50) = null out
+AS
+BEGIN
+	DELETE FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE (ThanksFromUserID=@FromUserID AND MessageID=@MessageID)
+	DECLARE @ToUserID int
+	SET @ToUserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE (MessageID = @MessageID))
+	SET @paramOutput = (SELECT [Name] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
+END
+Go
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_thanksnumber] 
+	@MessageID int
+AS
+BEGIN
+RETURN (SELECT Count(*) from [{databaseOwner}].[{objectQualifier}Thanks] WHERE (MessageID=@MessageID))
+END
+Go
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_from] 
+	@UserID int
+AS
+BEGIN
+SELECT Count(*) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksFromUserID=@UserID
+END
+Go
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_to] 
+	@UserID			int,
+	@ThanksToNumber int output,
+	@ThanksToPostsNumber int output
+AS
+BEGIN
+SELECT @ThanksToNumber=(SELECT Count(*) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksToUserID=@UserID)	
+SELECT @ThanksToPostsNumber=(SELECT Count(DISTINCT MessageID) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksToUserID=@UserID)	
+END
+Go
+/* End of procedures for "Thanks" Mod */
 
 create procedure [{databaseOwner}].[{objectQualifier}accessmask_delete](@AccessMaskID int) as
 begin

@@ -3,6 +3,18 @@
 /*
 ** Create missing tables
 */
+
+/* Create Thanks Table */
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Thanks]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+CREATE TABLE [{databaseOwner}].[{objectQualifier}Thanks](
+	[ThanksID] [int] IDENTITY(1,1) NOT NULL,
+	[ThanksFromUserID] [int] NULL,
+	[ThanksToUserID] [int] NULL,
+	[MessageID] [int] NULL,
+	[ThanksDate] [smalldatetime] NULL
+	)
+go
+
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Active](
 		SessionID		nvarchar (24) NOT NULL ,

@@ -30,6 +30,10 @@
                 TitleLocalizedTag="BUTTON_UNDELETE_TT" />
             <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_QUOTE"
                 TitleLocalizedTag="BUTTON_QUOTE_TT" />
+            <span id="<%# "dvThankBox" + DataRow["MessageID"] %>">
+                <YAF:ThemeButton ID="Thank" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_THANKS"
+                    TitleLocalizedTag="BUTTON_THANKS_TT" />
+            </span>
         </div>
                 
     </td>
@@ -82,6 +86,17 @@
             <asp:LinkButton ID="ReportSpamButton" CommandName="ReportSpam" CommandArgument='<%# DataRow["MessageID"] %>'
                 runat="server"></asp:LinkButton>
             <span id="AdminInformation" runat="server" class="smallfont"></span>
+        </div>
+    </td>
+</tr>
+<tr class="<%#GetPostClass()%>">
+    <td style="padding: 5px;" colspan="2" valign="top">
+        <div style="font-weight: bold;" id="<%# "dvThanksInfo" + DataRow["MessageID"] %>">
+            <asp:Literal runat="server" ID="Literal1"></asp:Literal></div>
+    </td>
+    <td class="message" style="padding: 5px;" valign="top">
+        <div id="<%# "dvThanks" + DataRow["MessageID"] %>">
+            <asp:Literal runat="server" ID="Literal2"></asp:Literal>
         </div>
     </td>
 </tr>

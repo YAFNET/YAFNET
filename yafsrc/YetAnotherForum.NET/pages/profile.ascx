@@ -181,6 +181,30 @@
 								</td>
 								<td class="post" runat="server" id="Stats" />
 							</tr>
+                            <tr>
+                                <td class="postheader">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
+                                </td>
+                                <td class="post">
+                                    <asp:Label ID="ThanksFrom" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
+                                </td>
+                                <td class="post">
+                                    <asp:Label ID="ThanksToTimes" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
+                                </td>
+                                <td class="post">
+                                    <asp:Label ID="ThanksToPosts" runat="server" />
+                                </td>
+                            </tr>
 						</table>
 					</DotNetAge:View>
 					<DotNetAge:View runat="server" ID="AvatarTab" Text="Avatar" NavigateUrl="" HeaderCssClass=""

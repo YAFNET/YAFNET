@@ -71,6 +71,8 @@ namespace YAF.Pages.Admin
 			ControlHelper.AddStyleAttributeWidth( UserBoxRank, "200px" );
 			ControlHelper.AddStyleAttributeWidth( UserBoxRankImage, "200px" );
 			ControlHelper.AddStyleAttributeSize( AdPost, "400px", "150px" );
+            ControlHelper.AddStyleAttributeWidth(UserBoxThanksFrom, "200px");
+            ControlHelper.AddStyleAttributeWidth(UserBoxThanksTo, "200px");
 
 			// CheckCache
 			CheckCache();

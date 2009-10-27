@@ -2349,6 +2349,13 @@ namespace YAF.Classes.Data
 		static public void message_delete( object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked, bool eraseMessage )
 		{
 			message_deleteRecursively( messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false, eraseMessage );
+            //delete thanks related to this message
+            string qry = "DELETE FROM {databaseOwner}.{objectQualifier}Thanks WHERE MessageID = " + messageID;
+            using (SqlCommand cmd = YafDBAccess.GetCommand(qry, true, new YafDBConnManager().OpenDBConnection))
+            {
+                cmd.ExecuteNonQuery();
+            }
+
 		}
 
 		// <summary> Retrieve all reported messages with the correct forumID argument. </summary>
@@ -2627,7 +2634,83 @@ namespace YAF.Classes.Data
 				}
 			}
 		}
+        // functions for Thanks feature
 
+        // <summary> Checks if the message with the provided messageID is thanked 
+        //           by the user with the provided UserID. if so, returns true,
+        //           otherwise returns false. </summary>
+        static public bool message_isThankedByUser(object userID, object messageID)
+        {
+            using (SqlCommand cmd = YafDBAccess.GetCommand("message_isthankedbyuser"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter paramOutput = new SqlParameter();
+                paramOutput.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.AddWithValue("UserID", userID);
+                cmd.Parameters.AddWithValue("MessageID", messageID);
+                cmd.Parameters.Add(paramOutput);
+                YafDBAccess.Current.ExecuteNonQuery(cmd);
+                return Convert.ToBoolean(paramOutput.Value);
+            }
+        }
+
+        // <summary> Return the number of times the message with the provided messageID
+        //           has been thanked. </summary>
+        static public int message_ThanksNumber(object messageID)
+        {
+            using (SqlCommand cmd = YafDBAccess.GetCommand("message_thanksnumber"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter paramOutput = new SqlParameter();
+                paramOutput.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.AddWithValue("MessageID", messageID);
+                cmd.Parameters.Add(paramOutput);
+                YafDBAccess.Current.ExecuteNonQuery(cmd);
+                return Convert.ToInt32(paramOutput.Value);
+            }
+        }
+
+        // <summary> Returns the UserIDs and UserNames who have thanked the message
+        //           with the provided messageID. </summary>
+        static public DataTable message_GetThanks(object MessageID)
+        {
+            using (SqlCommand cmd = YafDBAccess.GetCommand("message_getthanks"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("MessageID", MessageID);
+                return YafDBAccess.Current.GetData(cmd);
+            }
+        }
+
+        static public string message_AddThanks(object FromUserID, object MessageID)
+        {
+            using (SqlCommand cmd = YafDBAccess.GetCommand("message_Addthanks"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+                paramOutput.Direction = ParameterDirection.Output;
+                cmd.Parameters.AddWithValue("FromUserID", FromUserID);
+                cmd.Parameters.AddWithValue("MessageID", MessageID);
+                cmd.Parameters.Add(paramOutput);
+                YafDBAccess.Current.ExecuteNonQuery(cmd);
+                return (paramOutput.Value.ToString());
+            }
+        }
+
+        static public string message_RemoveThanks(object FromUserID, object MessageID)
+        {
+            using (SqlCommand cmd = YafDBAccess.GetCommand("message_Removethanks"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+                paramOutput.Direction = ParameterDirection.Output;
+                cmd.Parameters.AddWithValue("FromUserID", FromUserID);
+                cmd.Parameters.AddWithValue("MessageID", MessageID);
+                cmd.Parameters.Add(paramOutput);
+                YafDBAccess.Current.ExecuteNonQuery(cmd);
+                return (paramOutput.Value.ToString());
+            }
+        }
 
 		#endregion
 
@@ -4316,6 +4399,52 @@ namespace YAF.Classes.Data
 				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
+        //<summary> Returns the number of times a specific user with the provided UserID 
+        // has thanked others.
+        static public int user_getthanks_from(object userID)
+        {
+
+            using (SqlCommand cmd = YafDBAccess.GetCommand("user_getthanks_from"))
+            {
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("UserID", userID);
+                return (int)YafDBAccess.Current.ExecuteScalar(cmd);
+            }
+        }
+
+        //<summary> Returns the number of times and posts that other users have thanked the 
+        // user with the provided userID.
+        static public int[] user_getthanks_to(object userID)
+        {
+            using (SqlCommand cmd = YafDBAccess.GetCommand("user_getthanks_to"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter paramThanksToNumber = new SqlParameter("ThanksToNumber", 0);
+                paramThanksToNumber.Direction = ParameterDirection.Output;
+                SqlParameter paramThanksToPostsNumber = new SqlParameter("ThanksToPostsNumber", 0);
+                paramThanksToPostsNumber.Direction = ParameterDirection.Output;
+                cmd.Parameters.AddWithValue("UserID", userID);
+
+                cmd.Parameters.Add(paramThanksToNumber);
+                cmd.Parameters.Add(paramThanksToPostsNumber);
+                YafDBAccess.Current.ExecuteNonQuery(cmd);
+
+                int ThanksToPostsNumber, ThanksToNumber;
+                if (paramThanksToNumber.Value == DBNull.Value)
+                {
+                    ThanksToNumber = 0;
+                    ThanksToPostsNumber = 0;
+                }
+                else
+                {
+                    ThanksToPostsNumber = Convert.ToInt32(paramThanksToPostsNumber.Value);
+                    ThanksToNumber = Convert.ToInt32(paramThanksToNumber.Value);
+                }
+                return new int[] { ThanksToNumber, ThanksToPostsNumber };
+            }
+        }
+
 		#endregion
 
 		#region UserForum

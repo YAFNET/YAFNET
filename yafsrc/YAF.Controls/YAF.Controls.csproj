@@ -52,6 +52,7 @@
     <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.Controls.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL" />
     <Reference Include="DNA, Version=1.1.15.42020, Culture=neutral, PublicKeyToken=04e5dde674b371f8, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\YetAnotherForum.NET\Bin\Net3.5\DNA.dll</HintPath>
@@ -107,6 +108,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statistics\ActiveDiscussions.cs" />
     <Compile Include="Statistics\MostActiveUser.cs" />
+    <Compile Include="ThankYou.cs" />
     <Compile Include="ThemeButton.cs" />
     <Compile Include="ThemeImage.cs" />
     <Compile Include="TopicLine.cs" />

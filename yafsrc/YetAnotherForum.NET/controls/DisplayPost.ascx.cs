@@ -83,7 +83,18 @@ namespace YAF.Controls
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			PopMenu1.Visible = !IsGuest;
+            AjaxPro.Utility.RegisterTypeForAjax(typeof(YAF.Controls.ThankYou));
+
+
+            string AddThankBoxHTML = "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.messageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+
+            string RemoveThankBoxHTML = "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.messageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup("addThanksJs", YAF.Utilities.JavaScriptBlocks.addThanksJs(RemoveThankBoxHTML));
+            YafContext.Current.PageElements.RegisterJsBlockStartup("removeThanksJs", YAF.Utilities.JavaScriptBlocks.removeThanksJs(AddThankBoxHTML));
+            YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", YAF.Utilities.JavaScriptBlocks.asynchCallFailedJs);
+
+            PopMenu1.Visible = !IsGuest;
 			if (PopMenu1.Visible)
 			{
 				PopMenu1.ItemClick += new PopEventHandler(PopMenu1_ItemClick);
@@ -178,6 +189,35 @@ namespace YAF.Controls
 			UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.deletemessage, "m={0}&action=undelete", MessageId);
 			Quote.Visible = !PostDeleted && CanReply && !IsLocked;
 			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, MessageId);
+
+            Thank.Visible = CanThankPost && !IsGuest;
+            if (DB.message_isThankedByUser(PageContext.PageUserID, DataRow["MessageID"]))
+            {
+                Thank.NavigateUrl = "javascript:removeThanks(" + DataRow["MessageID"] + ");";
+                Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
+                Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
+            }
+            else
+            {
+                Thank.NavigateUrl = "javascript:addThanks(" + DataRow["MessageID"] + ");";
+                Thank.TextLocalizedTag = "BUTTON_THANKS";
+                Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
+            }
+
+            int ThanksNumber = DB.message_ThanksNumber(DataRow["MessageID"]);
+            if (ThanksNumber != 0)
+            {
+                Literal2.Text = ThankYou.GetThanks(Convert.ToInt32(DataRow["MessageID"]));
+                if (ThanksNumber == 1)
+                {
+                    Literal1.Text = String.Format(PageContext.Localization.GetText("THANKSINFOSINGLE"), UserProfile.UserName);
+                }
+                else
+                {
+                    Literal1.Text = String.Format(PageContext.Localization.GetText("THANKSINFO"), ThanksNumber, UserProfile.UserName);
+                }
+            }
+
 
 			// report posts
 			ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
@@ -428,6 +468,14 @@ namespace YAF.Controls
 				return (DataRow["IP"].ToString() == "none");
 			}
 		}
+
+        protected bool CanThankPost
+        {
+            get
+            {
+                return ((int)DataRow["UserID"] != PageContext.PageUserID);
+            }
+        }
 
 		protected bool CanEditPost
 		{

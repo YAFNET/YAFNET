@@ -92,6 +92,10 @@
     <Resource tag="BUTTON_QUOTE_TT">پاسخ با ایجاد نقل قول</Resource>
     <Resource tag="BUTTON_REPLY">پاسخ</Resource>
     <Resource tag="BUTTON_REPLY_TT">پاسخ به پیغام</Resource>
+    <Resource tag="BUTTON_THANKS">تشکر</Resource>
+    <Resource tag="BUTTON_THANKS_TT">از فرستنده این ارسال تشکر کنید.</Resource>
+    <Resource tag="BUTTON_THANKSDELETE">حذف تشکر</Resource>
+    <Resource tag="BUTTON_THANKSDELETE_TT">تشکر خود را از فرستنده این ارسال پس بگیرید.</Resource>
     <Resource tag="BUTTON_UNDELETE">بازیابی</Resource>
     <Resource tag="BUTTON_UNDELETE_TT">یازیابی این ارسال</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">باز کردن قفل عنوان</Resource>
@@ -326,6 +330,7 @@
     <Resource tag="MODERATORS">مدیران</Resource>
     <Resource tag="NO_FORUM_ACCESS">(بدون دسترسی)</Resource>
     <Resource tag="NO_POSTS">ارسالی وجود ندارد</Resource>
+    <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">ارسالها</Resource>
     <Resource tag="STATS">آمار و ارقام</Resource>
     <Resource tag="STATS_LASTMEMBER">جدیدترین کاربر</Resource>
@@ -521,7 +526,6 @@
     <Resource tag="NO_SUCH_USER">کاربری با این نام وجود ندارد.</Resource>
     <Resource tag="NOT_GUEST">امکان ارسال پیغام خصوصی به کاربر میهمان وجود ندارد.</Resource>
     <Resource tag="OWN_PMBOX_FULL">تعداد پیغامهای خصوصی ، ارسال شده و آرشیو شده شما بسیار زیاد می باشد.حداکثر تعداد مجاز {0} پیغام می باشد.</Resource>
-    <Resource tag="PMLIMIT">شما دارای {0} پیغام می باشید که شامل {1} پیغام ورودی و {2} پیغام خروجی از مجموع {3} پیغام مجاز می باشد.{4} درصد ظرفیت صندوق شما پر شده است. </Resource>
     <Resource tag="PMLIMIT_ALL">شما دارای {0} پیغام می باشید که شامل {1} پیغام ورودی , {2} پیغام خروجی و {3} پیغام در آرشیو از مجموع {4} پیغام مجاز می باشد.{5} درصد ظرفیت صندوق شما پر شده است.</Resource>
     <Resource tag="PREVIEWTITLE">پیش نمایش:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">صندوق پیامهای کاربری که مایل به ارسال پیام به او هستید پر شده است.کاربر فوق باید قبل از دریافت پیغام جدید صندوق خود را تخلیه کند.</Resource>
@@ -640,6 +644,10 @@
     <Resource tag="RSSTOPIC">اشتراک عنوان</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">آمار</Resource>
+    <Resource tag="THANKSFROM">تشکرها: {0} بار</Resource>
+    <Resource tag="THANKSINFO">{0} کاربر از {1} برای ارسال مفیدش تشکر کرده اند.</Resource>
+    <Resource tag="THANKSINFOSINGLE">1 کاربر از {0} برای ارسال مفیدش تشکر کرده است.</Resource>
+    <Resource tag="THANKSTO">{0} تشکر دریافتی در {1} ارسال</Resource>
     <Resource tag="THREADED">بصورت رشته ای</Resource>
     <Resource tag="TIP_DELETE_TOPIC">حذف این عنوان</Resource>
     <Resource tag="TIP_LOCK_TOPIC">قفل این عنوان</Resource>
@@ -714,6 +722,9 @@
     <Resource tag="STATISTICS">آمار</Resource>
     <Resource tag="SUSPEND">تعلیق</Resource>
     <Resource tag="SUSPEND_USER">تعلیق کاربر:</Resource>
+    <Resource tag="THANKSFROM">تعداد تشکرها:</Resource>
+    <Resource tag="THANKSTOPOSTS">تعداد ارسال هایی که در آنهااز این کاربر تشکر شده است: </Resource>
+    <Resource tag="THANKSTOTIMES">تعداد دفعاتی که از این کاربر تشکر شده است:</Resource>
     <Resource tag="TOPIC">عنوان:</Resource>
     <Resource tag="USERNAME">نام کاربری:</Resource>
     <Resource tag="WEBLOG">وب لاگ:</Resource>
