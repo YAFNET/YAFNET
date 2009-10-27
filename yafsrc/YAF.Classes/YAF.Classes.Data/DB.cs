@@ -35,481 +35,481 @@ namespace YAF.Classes.Data
 	/// </summary>
 	public static partial class DB
 	{
-    #region ConnectionStringOptions
-        public static string ProviderAssemblyName
-        {
-            get
-            {
-                return "System.Data.SqlClient";
-            }
-        }
-        public static bool PasswordPlaceholderVisible
-        {
-            get
-            {
-                return false;
-            }
-        } 
-    
-        // Text boxes : Parameters 1-10 
-        //Parameter 1
-        public static string Parameter1_Name  
-        {
-            get
-            {
-                return "Data Source";
-            }
-        } 
-        public static string Parameter1_Value
-        {
-            get
-            {
-                return "(local)";
-            }
-        }
+		#region ConnectionStringOptions
+		public static string ProviderAssemblyName
+		{
+			get
+			{
+				return "System.Data.SqlClient";
+			}
+		}
+		public static bool PasswordPlaceholderVisible
+		{
+			get
+			{
+				return false;
+			}
+		}
 
-        public static bool  Parameter1_Visible
-        {
-            get
-            {
-                return true;
-            }
-        }
-        //Parameter 2
-        public static string Parameter2_Name
-        {
-            get
-            {
-                return "Initial Catalog";
-            }
-        }
-        public static string Parameter2_Value
-        {
-            get
-            {
-                return "";
-            }
-        }
-        
-        public static bool Parameter2_Visible
-        {
-            get
-            {
-                return true;
-            }
-        }
-        //Parameter 3
-        public static string Parameter3_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
-        public static string Parameter3_Value
-        {
-            get
-            {
-                return "";
-            }
-        }
+		// Text boxes : Parameters 1-10 
+		//Parameter 1
+		public static string Parameter1_Name
+		{
+			get
+			{
+				return "Data Source";
+			}
+		}
+		public static string Parameter1_Value
+		{
+			get
+			{
+				return "(local)";
+			}
+		}
 
-        public static bool Parameter3_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 4
-        public static string Parameter4_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
-        public static string Parameter4_Value
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter1_Visible
+		{
+			get
+			{
+				return true;
+			}
+		}
+		//Parameter 2
+		public static string Parameter2_Name
+		{
+			get
+			{
+				return "Initial Catalog";
+			}
+		}
+		public static string Parameter2_Value
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter4_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 5
-        public static string Parameter5_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
-        public static string Parameter5_Value
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter2_Visible
+		{
+			get
+			{
+				return true;
+			}
+		}
+		//Parameter 3
+		public static string Parameter3_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+		public static string Parameter3_Value
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter5_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 6
-        public static string Parameter6_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
-        public static string Parameter6_Value
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter3_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 4
+		public static string Parameter4_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+		public static string Parameter4_Value
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter6_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 7
-        public static string Parameter7_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
-        public static string Parameter7_Value
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter4_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 5
+		public static string Parameter5_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+		public static string Parameter5_Value
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter7_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 8
-        public static string Parameter8_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
-        public static string Parameter8_Value
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter5_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 6
+		public static string Parameter6_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+		public static string Parameter6_Value
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter8_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 9
-        public static string Parameter9_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
-        public static string Parameter9_Value
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter6_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 7
+		public static string Parameter7_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+		public static string Parameter7_Value
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter9_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
+		public static bool Parameter7_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 8
+		public static string Parameter8_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+		public static string Parameter8_Value
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        //Parameter 10
-        public static string Parameter10_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
-        public static string Parameter10_Value
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter8_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 9
+		public static string Parameter9_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+		public static string Parameter9_Value
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter10_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Check boxes: Parameters 11-19 
+		public static bool Parameter9_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
 
-        //Parameter 11 hides user password placeholder! 
-        
-        public static string Parameter11_Name
-        {
-            get
-            {
-                return "Use Integrated Security";
-            }
-        }
-       
-        public static bool Parameter11_Value
-        {
-            get
-            {
-                return true;
-            }
-        }
+		//Parameter 10
+		public static string Parameter10_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+		public static string Parameter10_Value
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter11_Visible
-        {
-            get
-            {
-                return true;
-            }
-        }
-        //Parameter 12 (reserved for 'User Instance' in MS SQL SERVER)
-          public static string Parameter12_Name
-        {
-            get
-            {
-             
-                return "";
-            }
-        }
-       
-        public static bool Parameter12_Value
-        {
-            get
-            {                            
-                    return false;
-            }
-        }
+		public static bool Parameter10_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Check boxes: Parameters 11-19 
 
-        public static bool Parameter12_Visible
-        {
-            get
-            {              
-                    return false;
-            }
-        }
-        //Parameter 13
-        public static string Parameter13_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
+		//Parameter 11 hides user password placeholder! 
 
-        public static bool Parameter13_Value
-        {
-            get
-            {
-                return false;
-            }
-        }
+		public static string Parameter11_Name
+		{
+			get
+			{
+				return "Use Integrated Security";
+			}
+		}
 
-        public static bool Parameter13_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 14
-        public static string Parameter14_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter11_Value
+		{
+			get
+			{
+				return true;
+			}
+		}
 
-        public static bool Parameter14_Value
-        {
-            get
-            {
-                return false;
-            }
-        }
+		public static bool Parameter11_Visible
+		{
+			get
+			{
+				return true;
+			}
+		}
+		//Parameter 12 (reserved for 'User Instance' in MS SQL SERVER)
+		public static string Parameter12_Name
+		{
+			get
+			{
 
-        public static bool Parameter14_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 15
-        public static string Parameter15_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
+				return "";
+			}
+		}
 
-        public static bool Parameter15_Value
-        {
-            get
-            {
-                return false;
-            }
-        }
+		public static bool Parameter12_Value
+		{
+			get
+			{
+				return false;
+			}
+		}
 
-        public static bool Parameter15_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
+		public static bool Parameter12_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 13
+		public static string Parameter13_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        //Parameter 16
-        public static string Parameter16_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter13_Value
+		{
+			get
+			{
+				return false;
+			}
+		}
 
-        public static bool Parameter16_Value
-        {
-            get
-            {
-                return false;
-            }
-        }
+		public static bool Parameter13_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 14
+		public static string Parameter14_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter16_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 17
-        public static string Parameter17_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter14_Value
+		{
+			get
+			{
+				return false;
+			}
+		}
 
-        public static bool Parameter17_Value
-        {
-            get
-            {
-                return false;
-            }
-        }
+		public static bool Parameter14_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 15
+		public static string Parameter15_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter17_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 18
-        public static string Parameter18_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
+		public static bool Parameter15_Value
+		{
+			get
+			{
+				return false;
+			}
+		}
 
-        public static bool Parameter18_Value
-        {
-            get
-            {
-                return false;
-            }
-        }
+		public static bool Parameter15_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
 
-        public static bool Parameter18_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        //Parameter 19
-        public static string Parameter19_Name
-        {
-            get
-            {
-                return "";
-            }
-        }
+		//Parameter 16
+		public static string Parameter16_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
 
-        public static bool Parameter19_Value
-        {
-            get
-            {
-                return false;
-            }
-        }
+		public static bool Parameter16_Value
+		{
+			get
+			{
+				return false;
+			}
+		}
 
-        public static bool Parameter19_Visible
-        {
-            get
-            {
-                return false;
-            }
-        }
-        
-        #endregion
+		public static bool Parameter16_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 17
+		public static string Parameter17_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+
+		public static bool Parameter17_Value
+		{
+			get
+			{
+				return false;
+			}
+		}
+
+		public static bool Parameter17_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 18
+		public static string Parameter18_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+
+		public static bool Parameter18_Value
+		{
+			get
+			{
+				return false;
+			}
+		}
+
+		public static bool Parameter18_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+		//Parameter 19
+		public static string Parameter19_Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+
+		public static bool Parameter19_Value
+		{
+			get
+			{
+				return false;
+			}
+		}
+
+		public static bool Parameter19_Visible
+		{
+			get
+			{
+				return false;
+			}
+		}
+
+		#endregion
 
 		#region Basic Forum Properties
-        
-       
+
+
 		/// <summary>
 		/// Gets the database size
 		/// </summary>
@@ -622,7 +622,7 @@ namespace YAF.Classes.Data
 
 		static private bool GetBooleanRegistryValue( string name )
 		{
-			using (DataTable dt = YAF.Classes.Data.DB.registry_list(name))
+			using ( DataTable dt = YAF.Classes.Data.DB.registry_list( name ) )
 			{
 				foreach ( DataRow dr in dt.Rows )
 				{
@@ -720,7 +720,7 @@ namespace YAF.Classes.Data
 			toSearchWhat = toSearchWhat.Replace( "'", "''" ).Trim();
 			toSearchFromWho = toSearchFromWho.Replace( "'", "''" ).Trim();
 
-			string searchSql = (maxResults == 0) ? "SELECT" : ("SELECT TOP " + maxResults.ToString());
+			string searchSql = ( maxResults == 0 ) ? "SELECT" : ( "SELECT TOP " + maxResults.ToString() );
 
 			searchSql += " a.ForumID, a.TopicID, a.Topic, b.UserID, IsNull(c.Username, b.Name) as Name, c.MessageID, c.Posted, c.Message, c.Flags ";
 			searchSql += "from {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
@@ -978,15 +978,15 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">BoardID</param>
 		/// <param name="Guests"></param>
 		/// <returns>Returns a DataTable of active users</returns>
-		static public DataTable active_list( object boardID, object Guests,int activeTime, object stylesNicks )
+		static public DataTable active_list( object boardID, object Guests, int activeTime, object stylesNicks )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "active_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Guests", Guests );
-                cmd.Parameters.AddWithValue( "ActiveTime", activeTime );
-                cmd.Parameters.AddWithValue( "StyledNicks", stylesNicks );
+				cmd.Parameters.AddWithValue( "ActiveTime", activeTime );
+				cmd.Parameters.AddWithValue( "StyledNicks", stylesNicks );
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
@@ -1005,8 +1005,8 @@ namespace YAF.Classes.Data
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
-       
-        /// <summary>
+
+		/// <summary>
 		/// Gets the list of active users in a topic
 		/// </summary>
 		/// <param name="topicID">ID of topic </param>
@@ -1095,7 +1095,7 @@ namespace YAF.Classes.Data
 		static public void attachment_delete( object attachmentID )
 		{
 			bool useFileTable = GetBooleanRegistryValue( "UseFileTable" );
-      
+
 			//If the files are actually saved in the Hard Drive
 			if ( !useFileTable )
 			{
@@ -1105,7 +1105,7 @@ namespace YAF.Classes.Data
 					cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
 					DataTable tbAttachments = YafDBAccess.Current.GetData( cmd );
 
-                    string uploadDir = HostingEnvironment.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+					string uploadDir = HostingEnvironment.MapPath( String.Concat( UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads ) );
 
 					foreach ( DataRow row in tbAttachments.Rows )
 					{
@@ -1121,7 +1121,7 @@ namespace YAF.Classes.Data
 						{
 							// error deleting that file... 
 						}
-					}		
+					}
 				}
 			}
 
@@ -1308,7 +1308,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "UserName", adminUsername );
 				cmd.Parameters.AddWithValue( "UserKey", adminUserKey );
 				cmd.Parameters.AddWithValue( "IsHostAdmin", 0 );
-                return (int) YafDBAccess.Current.ExecuteScalar(cmd);
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
 		/// <summary>
@@ -2026,7 +2026,7 @@ namespace YAF.Classes.Data
 			for ( int i = 0; i < listsource.Rows.Count; i++ )
 			{
 				DataRow row = listsource.Rows[i];
-				if ( (row["ParentID"]) == DBNull.Value )
+				if ( ( row["ParentID"] ) == DBNull.Value )
 					row["ParentID"] = 0;
 
 				if ( (int)row["ParentID"] == parentid )
@@ -2146,8 +2146,8 @@ namespace YAF.Classes.Data
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
-     
-        static public long group_save( object groupID, object boardID, object name, object isAdmin, object isGuest, object isStart, object isModerator, object accessMaskID, object pmLimit, object style, object sortOrder )
+
+		static public long group_save( object groupID, object boardID, object name, object isAdmin, object isGuest, object isStart, object isModerator, object accessMaskID, object pmLimit, object style, object sortOrder )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "group_save" ) )
 			{
@@ -2160,9 +2160,9 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "IsStart", isStart );
 				cmd.Parameters.AddWithValue( "IsModerator", isModerator );
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
-                cmd.Parameters.AddWithValue( "PMLimit", pmLimit );
-                cmd.Parameters.AddWithValue("Style", style);
-                cmd.Parameters.AddWithValue("SortOrder", sortOrder);
+				cmd.Parameters.AddWithValue( "PMLimit", pmLimit );
+				cmd.Parameters.AddWithValue( "Style", style );
+				cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
 				return long.Parse( YafDBAccess.Current.ExecuteScalar( cmd ).ToString() );
 			}
 		}
@@ -2349,13 +2349,15 @@ namespace YAF.Classes.Data
 		static public void message_delete( object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked, bool eraseMessage )
 		{
 			message_deleteRecursively( messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false, eraseMessage );
-            //delete thanks related to this message
-            string qry = "DELETE FROM {databaseOwner}.{objectQualifier}Thanks WHERE MessageID = " + messageID;
-            using (SqlCommand cmd = YafDBAccess.GetCommand(qry, true, new YafDBConnManager().OpenDBConnection))
-            {
-                cmd.ExecuteNonQuery();
-            }
 
+			//delete thanks related to this message
+			string sql = "DELETE FROM {databaseOwner}.{objectQualifier}Thanks WHERE MessageID = @MessageID";
+
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( sql, true ) )
+			{
+				cmd.Parameters.AddWithValue( "MessageID", messageID );
+				cmd.ExecuteNonQuery();
+			}
 		}
 
 		// <summary> Retrieve all reported messages with the correct forumID argument. </summary>
@@ -2441,7 +2443,7 @@ namespace YAF.Classes.Data
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
 					DataTable tbAttachments = YafDBAccess.Current.GetData( cmd );
 
-                    string uploadDir = HostingEnvironment.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+					string uploadDir = HostingEnvironment.MapPath( String.Concat( UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads ) );
 
 					foreach ( DataRow row in tbAttachments.Rows )
 					{
@@ -2455,11 +2457,11 @@ namespace YAF.Classes.Data
 						}
 						catch
 						{
-                            
+
 							// error deleting that file... 
 						}
-					}		
-						
+					}
+
 				}
 			}
 
@@ -2634,83 +2636,83 @@ namespace YAF.Classes.Data
 				}
 			}
 		}
-        // functions for Thanks feature
+		// functions for Thanks feature
 
-        // <summary> Checks if the message with the provided messageID is thanked 
-        //           by the user with the provided UserID. if so, returns true,
-        //           otherwise returns false. </summary>
-        static public bool message_isThankedByUser(object userID, object messageID)
-        {
-            using (SqlCommand cmd = YafDBAccess.GetCommand("message_isthankedbyuser"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter paramOutput = new SqlParameter();
-                paramOutput.Direction = ParameterDirection.ReturnValue;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                cmd.Parameters.AddWithValue("MessageID", messageID);
-                cmd.Parameters.Add(paramOutput);
-                YafDBAccess.Current.ExecuteNonQuery(cmd);
-                return Convert.ToBoolean(paramOutput.Value);
-            }
-        }
+		// <summary> Checks if the message with the provided messageID is thanked 
+		//           by the user with the provided UserID. if so, returns true,
+		//           otherwise returns false. </summary>
+		static public bool message_isThankedByUser( object userID, object messageID )
+		{
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_isthankedbyuser" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				SqlParameter paramOutput = new SqlParameter();
+				paramOutput.Direction = ParameterDirection.ReturnValue;
+				cmd.Parameters.AddWithValue( "UserID", userID );
+				cmd.Parameters.AddWithValue( "MessageID", messageID );
+				cmd.Parameters.Add( paramOutput );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
+				return Convert.ToBoolean( paramOutput.Value );
+			}
+		}
 
-        // <summary> Return the number of times the message with the provided messageID
-        //           has been thanked. </summary>
-        static public int message_ThanksNumber(object messageID)
-        {
-            using (SqlCommand cmd = YafDBAccess.GetCommand("message_thanksnumber"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter paramOutput = new SqlParameter();
-                paramOutput.Direction = ParameterDirection.ReturnValue;
-                cmd.Parameters.AddWithValue("MessageID", messageID);
-                cmd.Parameters.Add(paramOutput);
-                YafDBAccess.Current.ExecuteNonQuery(cmd);
-                return Convert.ToInt32(paramOutput.Value);
-            }
-        }
+		// <summary> Return the number of times the message with the provided messageID
+		//           has been thanked. </summary>
+		static public int message_ThanksNumber( object messageID )
+		{
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_thanksnumber" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				SqlParameter paramOutput = new SqlParameter();
+				paramOutput.Direction = ParameterDirection.ReturnValue;
+				cmd.Parameters.AddWithValue( "MessageID", messageID );
+				cmd.Parameters.Add( paramOutput );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
+				return Convert.ToInt32( paramOutput.Value );
+			}
+		}
 
-        // <summary> Returns the UserIDs and UserNames who have thanked the message
-        //           with the provided messageID. </summary>
-        static public DataTable message_GetThanks(object MessageID)
-        {
-            using (SqlCommand cmd = YafDBAccess.GetCommand("message_getthanks"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("MessageID", MessageID);
-                return YafDBAccess.Current.GetData(cmd);
-            }
-        }
+		// <summary> Returns the UserIDs and UserNames who have thanked the message
+		//           with the provided messageID. </summary>
+		static public DataTable message_GetThanks( object MessageID )
+		{
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_getthanks" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "MessageID", MessageID );
+				return YafDBAccess.Current.GetData( cmd );
+			}
+		}
 
-        static public string message_AddThanks(object FromUserID, object MessageID)
-        {
-            using (SqlCommand cmd = YafDBAccess.GetCommand("message_Addthanks"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
-                paramOutput.Direction = ParameterDirection.Output;
-                cmd.Parameters.AddWithValue("FromUserID", FromUserID);
-                cmd.Parameters.AddWithValue("MessageID", MessageID);
-                cmd.Parameters.Add(paramOutput);
-                YafDBAccess.Current.ExecuteNonQuery(cmd);
-                return (paramOutput.Value.ToString());
-            }
-        }
+		static public string message_AddThanks( object FromUserID, object MessageID )
+		{
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_Addthanks" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				SqlParameter paramOutput = new SqlParameter( "paramOutput", SqlDbType.NVarChar, 50 );
+				paramOutput.Direction = ParameterDirection.Output;
+				cmd.Parameters.AddWithValue( "FromUserID", FromUserID );
+				cmd.Parameters.AddWithValue( "MessageID", MessageID );
+				cmd.Parameters.Add( paramOutput );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
+				return ( paramOutput.Value.ToString() );
+			}
+		}
 
-        static public string message_RemoveThanks(object FromUserID, object MessageID)
-        {
-            using (SqlCommand cmd = YafDBAccess.GetCommand("message_Removethanks"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
-                paramOutput.Direction = ParameterDirection.Output;
-                cmd.Parameters.AddWithValue("FromUserID", FromUserID);
-                cmd.Parameters.AddWithValue("MessageID", MessageID);
-                cmd.Parameters.Add(paramOutput);
-                YafDBAccess.Current.ExecuteNonQuery(cmd);
-                return (paramOutput.Value.ToString());
-            }
-        }
+		static public string message_RemoveThanks( object FromUserID, object MessageID )
+		{
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_Removethanks" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				SqlParameter paramOutput = new SqlParameter( "paramOutput", SqlDbType.NVarChar, 50 );
+				paramOutput.Direction = ParameterDirection.Output;
+				cmd.Parameters.AddWithValue( "FromUserID", FromUserID );
+				cmd.Parameters.AddWithValue( "MessageID", MessageID );
+				cmd.Parameters.Add( paramOutput );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
+				return ( paramOutput.Value.ToString() );
+			}
+		}
 
 		#endregion
 
@@ -3363,7 +3365,7 @@ namespace YAF.Classes.Data
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
-        static public void rank_save( object rankID, object boardID, object name, object isStart, object isLadder, object minPosts, object rankImage, object pmLimit, object style, object sortOrder )
+		static public void rank_save( object rankID, object boardID, object name, object isStart, object isLadder, object minPosts, object rankImage, object pmLimit, object style, object sortOrder )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "rank_save" ) )
 			{
@@ -3375,9 +3377,9 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "IsLadder", isLadder );
 				cmd.Parameters.AddWithValue( "MinPosts", minPosts );
 				cmd.Parameters.AddWithValue( "RankImage", rankImage );
-                cmd.Parameters.AddWithValue( "PMLimit", pmLimit );
-                cmd.Parameters.AddWithValue( "Style", style );
-                cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
+				cmd.Parameters.AddWithValue( "PMLimit", pmLimit );
+				cmd.Parameters.AddWithValue( "Style", style );
+				cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
 
 				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
@@ -3589,7 +3591,7 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		static public int topic_prune(object boardID, object forumID, object days, object permDelete )
+		static public int topic_prune( object boardID, object forumID, object days, object permDelete )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "topic_prune" ) )
 			{
@@ -3938,7 +3940,7 @@ namespace YAF.Classes.Data
 				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
-        // TODO: The method is not in use
+		// TODO: The method is not in use
 		static public void user_setinfo( int boardID, System.Web.Security.MembershipUser user )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "update {databaseOwner}.{objectQualifier}User set Name=@UserName,Email=@Email where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey", true ) )
@@ -4187,7 +4189,7 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.Text;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
-				return (int)(YafDBAccess.Current.ExecuteScalar( cmd ) ?? 0);
+				return (int)( YafDBAccess.Current.ExecuteScalar( cmd ) ?? 0 );
 			}
 		}
 		static public DataTable user_find( object boardID, bool filter, object userName, object email )
@@ -4251,7 +4253,7 @@ namespace YAF.Classes.Data
 				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
-        // TODO: The method is not in use
+		// TODO: The method is not in use
 		static public bool user_register( object boardID, object userName, object password, object hash, object email, object location, object homePage, object timeZone, bool approved )
 		{
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
@@ -4399,51 +4401,51 @@ namespace YAF.Classes.Data
 				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
 			}
 		}
-        //<summary> Returns the number of times a specific user with the provided UserID 
-        // has thanked others.
-        static public int user_getthanks_from(object userID)
-        {
+		//<summary> Returns the number of times a specific user with the provided UserID 
+		// has thanked others.
+		static public int user_getthanks_from( object userID )
+		{
 
-            using (SqlCommand cmd = YafDBAccess.GetCommand("user_getthanks_from"))
-            {
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_getthanks_from" ) )
+			{
 
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("UserID", userID);
-                return (int)YafDBAccess.Current.ExecuteScalar(cmd);
-            }
-        }
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "UserID", userID );
+				return (int)YafDBAccess.Current.ExecuteScalar( cmd );
+			}
+		}
 
-        //<summary> Returns the number of times and posts that other users have thanked the 
-        // user with the provided userID.
-        static public int[] user_getthanks_to(object userID)
-        {
-            using (SqlCommand cmd = YafDBAccess.GetCommand("user_getthanks_to"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter paramThanksToNumber = new SqlParameter("ThanksToNumber", 0);
-                paramThanksToNumber.Direction = ParameterDirection.Output;
-                SqlParameter paramThanksToPostsNumber = new SqlParameter("ThanksToPostsNumber", 0);
-                paramThanksToPostsNumber.Direction = ParameterDirection.Output;
-                cmd.Parameters.AddWithValue("UserID", userID);
+		//<summary> Returns the number of times and posts that other users have thanked the 
+		// user with the provided userID.
+		static public int[] user_getthanks_to( object userID )
+		{
+			using ( SqlCommand cmd = YafDBAccess.GetCommand( "user_getthanks_to" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				SqlParameter paramThanksToNumber = new SqlParameter( "ThanksToNumber", 0 );
+				paramThanksToNumber.Direction = ParameterDirection.Output;
+				SqlParameter paramThanksToPostsNumber = new SqlParameter( "ThanksToPostsNumber", 0 );
+				paramThanksToPostsNumber.Direction = ParameterDirection.Output;
+				cmd.Parameters.AddWithValue( "UserID", userID );
 
-                cmd.Parameters.Add(paramThanksToNumber);
-                cmd.Parameters.Add(paramThanksToPostsNumber);
-                YafDBAccess.Current.ExecuteNonQuery(cmd);
+				cmd.Parameters.Add( paramThanksToNumber );
+				cmd.Parameters.Add( paramThanksToPostsNumber );
+				YafDBAccess.Current.ExecuteNonQuery( cmd );
 
-                int ThanksToPostsNumber, ThanksToNumber;
-                if (paramThanksToNumber.Value == DBNull.Value)
-                {
-                    ThanksToNumber = 0;
-                    ThanksToPostsNumber = 0;
-                }
-                else
-                {
-                    ThanksToPostsNumber = Convert.ToInt32(paramThanksToPostsNumber.Value);
-                    ThanksToNumber = Convert.ToInt32(paramThanksToNumber.Value);
-                }
-                return new int[] { ThanksToNumber, ThanksToPostsNumber };
-            }
-        }
+				int ThanksToPostsNumber, ThanksToNumber;
+				if ( paramThanksToNumber.Value == DBNull.Value )
+				{
+					ThanksToNumber = 0;
+					ThanksToPostsNumber = 0;
+				}
+				else
+				{
+					ThanksToPostsNumber = Convert.ToInt32( paramThanksToPostsNumber.Value );
+					ThanksToNumber = Convert.ToInt32( paramThanksToNumber.Value );
+				}
+				return new int[] { ThanksToNumber, ThanksToPostsNumber };
+			}
+		}
 
 		#endregion
 
@@ -4588,7 +4590,7 @@ namespace YAF.Classes.Data
 
 		#region vzrus addons
 		#region reindex page controls
-        //DB Maintenance page buttons name
+		//DB Maintenance page buttons name
 		public static string btnGetStatsName
 		{
 			get
@@ -4596,63 +4598,63 @@ namespace YAF.Classes.Data
 				return "Table Index Statistics";
 			}
 		}
-        public static string btnShrinkName
-        {
-            get
-            {
-                return "Shrink Database";
-            }
-        }
-        public static string btnRecoveryModeName
-        {
-            get
-            {
-                return "Set Recovery Mode";
-            }
-        }
-        public static string btnReindexName
-        {
-            get
-            {
-                return "Reindex Tables";
-            }
-        }
-        //DB Maintenance page panels visibility
-        public static bool PanelGetStats 
+		public static string btnShrinkName
+		{
+			get
+			{
+				return "Shrink Database";
+			}
+		}
+		public static string btnRecoveryModeName
+		{
+			get
+			{
+				return "Set Recovery Mode";
+			}
+		}
+		public static string btnReindexName
+		{
+			get
+			{
+				return "Reindex Tables";
+			}
+		}
+		//DB Maintenance page panels visibility
+		public static bool PanelGetStats
 		{
 			get
 			{
 				return true;
 			}
 		}
-        public static bool PanelRecoveryMode
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public static bool PanelReindex
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public static bool PanelShrink
-        {
-            get
-            {
-                return true;
-            }
-        }
-    
+		public static bool PanelRecoveryMode
+		{
+			get
+			{
+				return true;
+			}
+		}
+		public static bool PanelReindex
+		{
+			get
+			{
+				return true;
+			}
+		}
+		public static bool PanelShrink
+		{
+			get
+			{
+				return true;
+			}
+		}
+
 
 		#endregion
 		static public DataTable rsstopic_list( int forumId )
 		{
-            // TODO: vzrus: possible move to an sp and registry settings for rsstopiclimit
-            int topicLimit = 1000;           
+			// TODO: vzrus: possible move to an sp and registry settings for rsstopiclimit
+			int topicLimit = 1000;
 			string tSQL = "select top " + topicLimit + " Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID=" +
                                                         forumId + " and b.ForumID = a.ForumID and a.IsDeleted = 0;";
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( tSQL, true ) )
@@ -4816,7 +4818,7 @@ namespace YAF.Classes.Data
 			{
 				DataTable registry = YAF.Classes.Data.DB.registry_list( "Version" );
 
-				if ( (registry.Rows.Count == 0) || (Convert.ToInt32( registry.Rows[0]["Value"] ) < appVersion) )
+				if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows[0]["Value"] ) < appVersion ) )
 				{
 					// needs upgrading...
 					redirect = "install/default.aspx?upgrade=" + Convert.ToInt32( registry.Rows[0]["Value"] );
@@ -4854,7 +4856,7 @@ namespace YAF.Classes.Data
 				// use transactions...
 				if ( useTransactions )
 				{
-          using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.YafDBAccess.IsolationLevel ) )
+					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.YafDBAccess.IsolationLevel ) )
 					{
 						foreach ( string sql0 in statements )
 						{
@@ -5027,7 +5029,7 @@ namespace YAF.Classes.Data
 
 		#region DLESKTECH_ShoutBox
 
-		public static DataTable shoutbox_getmessages(int numberOfMessages)
+		public static DataTable shoutbox_getmessages( int numberOfMessages )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "shoutbox_getmessages" ) )
 			{
@@ -5063,57 +5065,50 @@ namespace YAF.Classes.Data
 
 		#endregion
 
-        #region Touradg Mods
-        //Shinking Operation
-        static public string db_shrink_warning(YafDBConnManager DBName)
-        {
-            return "";
-        }
+		#region Touradg Mods
+		//Shinking Operation
+		static public string db_shrink_warning( YafDBConnManager DBName )
+		{
+			return "";
+		}
 
-        public static void db_shrink(YafDBConnManager DBName)
-        {
-            String ShrinkSql = "DBCC SHRINKDATABASE(N'" + DBName.DBConnection.Database + "')";
-            SqlConnection ShrinkConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
-            SqlCommand ShrinkCmd = new SqlCommand(ShrinkSql, ShrinkConn);
-            ShrinkConn.Open();
-            ShrinkCmd.ExecuteNonQuery();
-            ShrinkConn.Close();
-            using (SqlCommand cmd = new SqlCommand(ShrinkSql.ToString(), DBName.OpenDBConnection))
-            {
-                cmd.Connection = DBName.DBConnection;
-                cmd.CommandTimeout = 9999;
-                cmd.ExecuteNonQuery();
-            }
-        }
-        //Set Recovery
-        static public string db_recovery_mode_warning(YafDBConnManager DBName)
-        {
-            return "";
-        }
+		public static void db_shrink( YafDBConnManager DBName )
+		{
+			String ShrinkSql = "DBCC SHRINKDATABASE(N'" + DBName.DBConnection.Database + "')";
+			SqlConnection ShrinkConn = new SqlConnection( YAF.Classes.Config.ConnectionString );
+			SqlCommand ShrinkCmd = new SqlCommand( ShrinkSql, ShrinkConn );
+			ShrinkConn.Open();
+			ShrinkCmd.ExecuteNonQuery();
+			ShrinkConn.Close();
+			using ( SqlCommand cmd = new SqlCommand( ShrinkSql.ToString(), DBName.OpenDBConnection ) )
+			{
+				cmd.Connection = DBName.DBConnection;
+				cmd.CommandTimeout = 9999;
+				cmd.ExecuteNonQuery();
+			}
+		}
+		//Set Recovery
+		static public string db_recovery_mode_warning( YafDBConnManager DBName )
+		{
+			return "";
+		}
 
-        public static void db_recovery_mode(YafDBConnManager DBName, string dbRecoveryMode)
-        {
-            String RecoveryMode = "ALTER DATABASE " + DBName.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
-            SqlConnection RecoveryModeConn = new SqlConnection(YAF.Classes.Config.ConnectionString);
-            SqlCommand RecoveryModeCmd = new SqlCommand(RecoveryMode, RecoveryModeConn);
-            RecoveryModeConn.Open();
-            RecoveryModeCmd.ExecuteNonQuery();
-            RecoveryModeConn.Close();
-            using (SqlCommand cmd = new SqlCommand(RecoveryMode.ToString(), DBName.OpenDBConnection))
-            {
-                cmd.Connection = DBName.DBConnection;
-                cmd.CommandTimeout = 9999;
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-
-
-
-
-
-
-        #endregion
-    }
+		public static void db_recovery_mode( YafDBConnManager DBName, string dbRecoveryMode )
+		{
+			String RecoveryMode = "ALTER DATABASE " + DBName.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
+			SqlConnection RecoveryModeConn = new SqlConnection( YAF.Classes.Config.ConnectionString );
+			SqlCommand RecoveryModeCmd = new SqlCommand( RecoveryMode, RecoveryModeConn );
+			RecoveryModeConn.Open();
+			RecoveryModeCmd.ExecuteNonQuery();
+			RecoveryModeConn.Close();
+			using ( SqlCommand cmd = new SqlCommand( RecoveryMode.ToString(), DBName.OpenDBConnection ) )
+			{
+				cmd.Connection = DBName.DBConnection;
+				cmd.CommandTimeout = 9999;
+				cmd.ExecuteNonQuery();
+			}
+		}
+		#endregion
+	}
 
 }
