@@ -112,9 +112,9 @@ function toggleMessage(divId)
             return
                 string.Format("function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}" +
             "function addThanksSuccess(res){{if (res.value != null) {{" +
-            "var dvThanks=document.getElementById('dvThanks' + res.value.messageID); dvThanks.innerHTML=res.value.Thanks;" +
-            "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.messageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
-            "dvThankbox=document.getElementById('dvThankBox' + res.value.messageID); dvThankbox.innerHTML={0};}}}}", RemoveThankBoxHTML);
+            "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
+            "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
+            "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}", RemoveThankBoxHTML);
         }
 
         /// <summary>
@@ -127,9 +127,9 @@ function toggleMessage(divId)
             return
                 string.Format("function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}" +
             "function removeThanksSuccess(res){{if (res.value != null) {{" +
-            "var dvThanks=document.getElementById('dvThanks' + res.value.messageID); dvThanks.innerHTML=res.value.Thanks;" +
-            "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.messageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
-            "dvThankbox=document.getElementById('dvThankBox' + res.value.messageID); dvThankbox.innerHTML={0};}}}}", AddThankBoxHTML);
+            "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
+            "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
+            "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}", AddThankBoxHTML);
         }
 
         /// <summary>
