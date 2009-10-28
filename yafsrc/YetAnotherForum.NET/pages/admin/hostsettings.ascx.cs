@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using YAF.Classes;
@@ -49,30 +50,23 @@ namespace YAF.Pages.Admin
 				BindData();
 			}
 
+			var txtBoxes =
+				ControlHelper.ControlListRecursive( this,
+				                                    ( c ) =>
+				                                    (c.GetType() == typeof ( TextBox ) &&
+				                                     ((TextBox) c).TextMode == TextBoxMode.SingleLine) ).Cast<TextBox>().ToList();
+			// default to 100% width...
+			txtBoxes.ForEach( x => x.Width = Unit.Percentage( 100 ) );
+
 			// Ederon : 7/1/2007
-			// set widths manually since ASP.NET "forgets" to do it for browsers other then IE
 			ControlHelper.AddStyleAttributeWidth( SmiliesPerRow, "25px" );
 			ControlHelper.AddStyleAttributeWidth( SmiliesColumns, "25px" );
-			ControlHelper.AddStyleAttributeWidth(ImageAttachmentResizeWidth, "50px");
-			ControlHelper.AddStyleAttributeWidth( ForumEmail, "200px" );
-			ControlHelper.AddStyleAttributeWidth( AcceptedHTML, "200px" );
+			ControlHelper.AddStyleAttributeWidth( ImageAttachmentResizeWidth, "50px" );
 			ControlHelper.AddStyleAttributeWidth( DisableNoFollowLinksAfterDay, "100px" );
 
 			// Ederon : 7/14/2007
 			ControlHelper.AddStyleAttributeSize( UserBox, "350px", "100px" );
-			ControlHelper.AddStyleAttributeWidth(CustomLoginRedirectUrl, "200px");
-			ControlHelper.AddStyleAttributeWidth( UserBoxAvatar, "200px" );
-			ControlHelper.AddStyleAttributeWidth( UserBoxMedals, "200px" );
-			ControlHelper.AddStyleAttributeWidth( UserBoxGroups, "200px" );
-			ControlHelper.AddStyleAttributeWidth( UserBoxJoinDate, "200px" );
-			ControlHelper.AddStyleAttributeWidth( UserBoxLocation, "200px" );
-			ControlHelper.AddStyleAttributeWidth( UserBoxPosts, "200px" );
-			ControlHelper.AddStyleAttributeWidth( UserBoxPoints, "200px" );
-			ControlHelper.AddStyleAttributeWidth( UserBoxRank, "200px" );
-			ControlHelper.AddStyleAttributeWidth( UserBoxRankImage, "200px" );
 			ControlHelper.AddStyleAttributeSize( AdPost, "400px", "150px" );
-            ControlHelper.AddStyleAttributeWidth(UserBoxThanksFrom, "200px");
-            ControlHelper.AddStyleAttributeWidth(UserBoxThanksTo, "200px");
 
 			// CheckCache
 			CheckCache();
@@ -82,36 +76,36 @@ namespace YAF.Pages.Admin
 		{
 			TimeZoneRaw.DataSource = StaticDataHelper.TimeZones();
 			ForumEditor.DataSource = PageContext.EditorModuleManager.GetEditorsTable();
-            // TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.DB.FullTextSupported  property.
+			// TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.DB.FullTextSupported  property.
 			DataBind();
 
 			// load Board Setting collection information...
 			YafBoardSettingCollection settingCollection = new YafBoardSettingCollection( PageContext.BoardSettings );
 
 			// handle checked fields...
-			foreach ( string name in settingCollection.SettingsBool.Keys)
+			foreach ( string name in settingCollection.SettingsBool.Keys )
 			{
 				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
-				if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanRead)
+				if ( control != null && control is CheckBox && settingCollection.SettingsBool[name].CanRead )
 				{
 					// get the value from the property...
-					((CheckBox)control).Checked =
+					( (CheckBox)control ).Checked =
 						(bool)
 						Convert.ChangeType( settingCollection.SettingsBool[name].GetValue( PageContext.BoardSettings, null ),
-						                    typeof ( bool ) );
+																typeof( bool ) );
 				}
 			}
 
 			// handle string fields...
-			foreach (string name in settingCollection.SettingsString.Keys)
+			foreach ( string name in settingCollection.SettingsString.Keys )
 			{
 				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
-				if (control != null && control is TextBox && settingCollection.SettingsString[name].CanRead)
+				if ( control != null && control is TextBox && settingCollection.SettingsString[name].CanRead )
 				{
 					// get the value from the property...
-					((TextBox)control).Text =
+					( (TextBox)control ).Text =
 						(string)
 						Convert.ChangeType( settingCollection.SettingsString[name].GetValue( PageContext.BoardSettings, null ),
 																typeof( string ) );
@@ -126,19 +120,19 @@ namespace YAF.Pages.Admin
 			}
 
 			// handle int fields...
-			foreach (string name in settingCollection.SettingsInt.Keys)
+			foreach ( string name in settingCollection.SettingsInt.Keys )
 			{
 				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
-				if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanRead)
+				if ( control != null && control is TextBox && settingCollection.SettingsInt[name].CanRead )
 				{
 					// get the value from the property...
-					((TextBox) control).Text =
+					( (TextBox)control ).Text =
 						settingCollection.SettingsInt[name].GetValue( PageContext.BoardSettings, null ).ToString();
 				}
-				else if ( control != null && control is DropDownList && settingCollection.SettingsInt[name].CanRead)
+				else if ( control != null && control is DropDownList && settingCollection.SettingsInt[name].CanRead )
 				{
-					ListItem listItem = ((DropDownList) control).Items.FindByValue(
+					ListItem listItem = ( (DropDownList)control ).Items.FindByValue(
 						settingCollection.SettingsInt[name].GetValue( PageContext.BoardSettings, null ).ToString() );
 
 					if ( listItem != null ) listItem.Selected = true;
@@ -146,8 +140,8 @@ namespace YAF.Pages.Admin
 			}
 
 			// special field handling...
-			AvatarSize.Text = (PageContext.BoardSettings.AvatarSize != 0) ? PageContext.BoardSettings.AvatarSize.ToString() : "";
-			MaxFileSize.Text = (PageContext.BoardSettings.MaxFileSize != 0) ? PageContext.BoardSettings.MaxFileSize.ToString() : "";
+			AvatarSize.Text = ( PageContext.BoardSettings.AvatarSize != 0 ) ? PageContext.BoardSettings.AvatarSize.ToString() : "";
+			MaxFileSize.Text = ( PageContext.BoardSettings.MaxFileSize != 0 ) ? PageContext.BoardSettings.MaxFileSize.ToString() : "";
 
 			SQLVersion.Text = HtmlEncode( PageContext.BoardSettings.SQLVersion );
 		}
@@ -160,24 +154,24 @@ namespace YAF.Pages.Admin
 			YafBoardSettingCollection settingCollection = new YafBoardSettingCollection( PageContext.BoardSettings );
 
 			// handle checked fields...
-			foreach (string name in settingCollection.SettingsBool.Keys)
+			foreach ( string name in settingCollection.SettingsBool.Keys )
 			{
 				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
-				if (control != null && control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
+				if ( control != null && control is CheckBox && settingCollection.SettingsBool[name].CanWrite )
 				{
-					settingCollection.SettingsBool[name].SetValue( PageContext.BoardSettings, ((CheckBox)control).Checked, null );
+					settingCollection.SettingsBool[name].SetValue( PageContext.BoardSettings, ( (CheckBox)control ).Checked, null );
 				}
 			}
 
 			// handle string fields...
-			foreach (string name in settingCollection.SettingsString.Keys)
+			foreach ( string name in settingCollection.SettingsString.Keys )
 			{
 				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
-				if (control != null && control is TextBox && settingCollection.SettingsString[name].CanWrite)
+				if ( control != null && control is TextBox && settingCollection.SettingsString[name].CanWrite )
 				{
-					settingCollection.SettingsString[name].SetValue( PageContext.BoardSettings, ((TextBox)control).Text.Trim(), null );
+					settingCollection.SettingsString[name].SetValue( PageContext.BoardSettings, ( (TextBox)control ).Text.Trim(), null );
 				}
 				else if ( control != null && control is DropDownList && settingCollection.SettingsString[name].CanWrite )
 				{
@@ -187,29 +181,29 @@ namespace YAF.Pages.Admin
 			}
 
 			// handle int fields...
-			foreach (string name in settingCollection.SettingsInt.Keys)
+			foreach ( string name in settingCollection.SettingsInt.Keys )
 			{
 				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
 
-				if (control != null && control is TextBox && settingCollection.SettingsInt[name].CanWrite)
+				if ( control != null && control is TextBox && settingCollection.SettingsInt[name].CanWrite )
 				{
-					string value = ((TextBox) control).Text.Trim();
+					string value = ( (TextBox)control ).Text.Trim();
 					int i = 0;
 
-					if ( String.IsNullOrEmpty( value )) i = 0;
+					if ( String.IsNullOrEmpty( value ) ) i = 0;
 					else int.TryParse( value, out i );
 
 					settingCollection.SettingsInt[name].SetValue( PageContext.BoardSettings, i, null );
 				}
-				else if (control != null && control is DropDownList && settingCollection.SettingsInt[name].CanWrite)
+				else if ( control != null && control is DropDownList && settingCollection.SettingsInt[name].CanWrite )
 				{
 					settingCollection.SettingsInt[name].SetValue( PageContext.BoardSettings,
-					                                                 Convert.ToInt32(((DropDownList) control).SelectedItem.Value), null );
+																													 Convert.ToInt32( ( (DropDownList)control ).SelectedItem.Value ), null );
 				}
 			}
 
 			// save the settings to the database
-			((YafLoadBoardSettings)PageContext.BoardSettings).SaveRegistry();
+			( (YafLoadBoardSettings)PageContext.BoardSettings ).SaveRegistry();
 
 			// reload all settings from the DB
 			PageContext.BoardSettings = null;

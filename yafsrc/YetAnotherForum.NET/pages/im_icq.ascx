@@ -4,7 +4,7 @@
 <table class="content" width="600" border="0" cellpadding="0" cellspacing="1">
 	<tr>
 		<td colspan="2" class="header1">
-			<img runat="server" id="Status" style="vertical-align: middle" /><YAF:LocalizedLabel
+			<img runat="server" id="Status" style="vertical-align: middle" alt="" /><YAF:LocalizedLabel
 				ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
 		</td>
 	</tr>

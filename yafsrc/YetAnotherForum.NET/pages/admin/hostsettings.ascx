@@ -84,7 +84,7 @@
 						<td class="post">
 							<asp:TextBox ID="MaxNumberOfAttachments" runat="server"></asp:TextBox>
 						</td>
-					</tr>					
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Max File Size:</b><br />
@@ -101,6 +101,16 @@
 						</td>
 						<td class="post">
 							<asp:TextBox ID="EditTimeOut" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Web Service Token:</b><br />
+							Token used to make secure web service calls. Constantly changing until you save
+							your host settings.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="WebServiceToken" runat="server"></asp:TextBox>
 						</td>
 					</tr>
 					<tr>
@@ -221,7 +231,7 @@
 							<asp:TextBox ID="ImageAttachmentResizeWidth" runat="server"></asp:TextBox>
 						</td>
 					</tr>
-				<tr>
+					<tr>
 						<td class="postheader">
 							<b>Image Attachment Resize Max Height:</b><br />
 							Maximum Height of the resized attachment images.
@@ -229,26 +239,26 @@
 						<td class="post">
 							<asp:TextBox ID="ImageAttachmentResizeHeight" runat="server"></asp:TextBox>
 						</td>
-					</tr>					
+					</tr>
 				</table>
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View2" Text="Features" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
-				Target="_blank">
+			<DotNetAge:View runat="server" ID="View2" Text="Features" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
 							Features
 						</td>
 					</tr>
-						<tr>
+					<tr>
 						<td class="postheader">
 							<b>Active Users Time:</b><br />
 							Number of minutes to display users in Active Users list.
-						</td>						
+						</td>
 						<td class="post">
 							<asp:TextBox ID="ActiveListTime" runat="server" />
 						</td>
-					</tr>					
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Show User Online/Offline Status:</b><br />
@@ -258,7 +268,7 @@
 						<td class="post">
 							<asp:CheckBox ID="ShowUserOnlineStatusInPosts" runat="server"></asp:CheckBox>
 						</td>
-					</tr>		
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Remove Nested Quotes:</b><br />
@@ -267,7 +277,7 @@
 						<td class="post">
 							<asp:CheckBox ID="RemoveNestedQuotes" runat="server"></asp:CheckBox>
 						</td>
-					</tr>					
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Disable "NoFollow" Tag on Links on Posts Older Than:</b><br />
@@ -287,7 +297,7 @@
 							<asp:TextBox ID="SmiliesPerRow" runat="server"></asp:TextBox><b>x</b>
 							<asp:TextBox ID="SmiliesColumns" runat="server"></asp:TextBox>
 						</td>
-					</tr>					
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Display Points System:</b><br />
@@ -306,7 +316,7 @@
 						<td class="post">
 							<asp:TextBox ID="LockPosts" runat="server"></asp:TextBox>
 						</td>
-					</tr>					
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Allow Post to Blog:</b><br />
@@ -473,11 +483,10 @@
 							<asp:TextBox ID="PrivateMessageMaxRecipients" runat="server"></asp:TextBox>
 						</td>
 					</tr>
-				
 				</table>
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View3" Text="Display" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
-				Target="_blank">
+			<DotNetAge:View runat="server" ID="View3" Text="Display" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -577,7 +586,7 @@
 						<td class="post">
 							<asp:CheckBox ID="ShowShoutbox" runat="server"></asp:CheckBox>
 						</td>
-					</tr>							
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Show Groups:</b><br />
@@ -689,8 +698,8 @@
 					</tr>
 				</table>
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View4" Text="Adverts" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
-				Target="_blank">
+			<DotNetAge:View runat="server" ID="View4" Text="Adverts" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -718,8 +727,8 @@
 					</tr>
 				</table>
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View5" Text="Editors" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
-				Target="_blank">
+			<DotNetAge:View runat="server" ID="View5" Text="Editors" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -759,8 +768,8 @@
 					</tr>
 				</table>
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View6" Text="Permission" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
-				Target="_blank">
+			<DotNetAge:View runat="server" ID="View6" Text="Permission" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -880,8 +889,8 @@
 					</tr>
 				</table>
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View7" Text="Templates" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
-				Target="_blank">
+			<DotNetAge:View runat="server" ID="View7" Text="Templates" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -978,28 +987,28 @@
 							<asp:TextBox ID="UserBoxLocation" runat="server"></asp:TextBox>
 						</td>
 					</tr>
-                    <tr>
-                        <td class="postheader">
-                            <b>Thanks From template:</b><br>
-                            Template for rendering user's thanks from.
-                        </td>
-                        <td class="post">
-                            <asp:TextBox ID="UserBoxThanksFrom" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <b>Thanks To template:</b><br>
-                            Template for rendering user's thanks to.
-                        </td>
-                        <td class="post">
-                            <asp:TextBox ID="UserBoxThanksTo" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
+					<tr>
+						<td class="postheader">
+							<b>Thanks From template:</b><br>
+							Template for rendering user's thanks from.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="UserBoxThanksFrom" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Thanks To template:</b><br>
+							Template for rendering user's thanks to.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="UserBoxThanksTo" runat="server"></asp:TextBox>
+						</td>
+					</tr>
 				</table>
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View8" Text="Avatars" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
-				Target="_blank">
+			<DotNetAge:View runat="server" ID="View8" Text="Avatars" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -1076,8 +1085,8 @@
 					</tr>
 				</table>
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View9" Text="Cache" NavigateUrl="" HeaderCssClass="" HeaderStyle=""
-				Target="_blank">
+			<DotNetAge:View runat="server" ID="View9" Text="Cache" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
 					<tr>
 						<td class="header1" colspan="2">
@@ -1143,7 +1152,7 @@
 							<asp:TextBox runat="server" ID="FirstPostCacheTimeout" />
 						</td>
 					</tr>
-						<tr>
+					<tr>
 						<td class="postheader">
 							<b>Online User Status Cache Timeout:</b><br />
 							You can fine-tune it depending on your site activity (in milliseconds)
@@ -1151,7 +1160,7 @@
 						<td class="post">
 							<asp:TextBox runat="server" ID="OnlineStatusCacheTimeout" />
 						</td>
-					</tr>					
+					</tr>
 					<tr>
 						<td class="footer1" colspan="2">
 							<asp:Button runat="server" ID="ResetCacheAll" Text="Clear Cache" OnClick="ResetCacheAll_Click" />
@@ -1164,7 +1173,8 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="postfooter" align="center">
-				<asp:Button ID="Save" runat="server" Text="Save Settings" CssClass="pbutton" OnClick="Save_Click"></asp:Button>
+				<asp:Button ID="Save" runat="server" Text="Save Settings" CssClass="pbutton" OnClick="Save_Click">
+				</asp:Button>
 			</td>
 		</tr>
 	</table>

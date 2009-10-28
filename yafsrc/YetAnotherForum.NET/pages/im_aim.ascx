@@ -11,9 +11,9 @@
                 <asp:HyperLink runat="server" ID="Buddy"><img src="http://cdn.aim.com/remote/i/hgen2.gif" width="109" height="67" border="0" alt="Add me to your Buddy List" /></asp:HyperLink></td>
             <td width="101" height="67">
                 <a href="http://www.aim.com/remote/index.adp">
-                    <img src="http://cdn.aim.com/remote/i/hgen_foot1.gif" width="107" height="34" border="0"></a><br />
+                    <img src="http://cdn.aim.com/remote/i/hgen_foot1.gif" width="107" height="34" alt="" border="0"></a><br />
                 <a href="http://aim.aol.com/aimnew/NS/congratsd2.adp?promo=106695">
-                    <img src="http://cdn.aim.com/remote/i/hgen_foot2.gif" width="107" height="33" border="0"></a></td>
+                    <img src="http://cdn.aim.com/remote/i/hgen_foot2.gif" width="107" height="33" alt="" border="0"></a></td>
         </tr>
     </table>
 </div>
