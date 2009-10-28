@@ -81,7 +81,7 @@ namespace YAF.Controls
 			string username = DB.message_AddThanks( UserMembershipHelper.GetUserIDFromProviderUserKey( Membership.GetUser().ProviderUserKey ), MessageID );
 
 			// if the user is empty, return a null object...
-      if ( username.IsNullOrEmptyTrimmed() ) return null;
+			if ( username.IsNullOrEmptyTrimmed() ) return null;
 
 			return CreateThankYou( username, "BUTTON_THANKSDELETE", "BUTTON_THANKSDELETE_TT" );
 		}
@@ -109,14 +109,18 @@ namespace YAF.Controls
 		/// <returns></returns>
 		private ThankYou CreateThankYou( string username, string textTag, string titleTag )
 		{
+			// load the DB so YafContext can work...
+			YafServices.InitializeDb.Run();
+
+			// return thank you object...
 			return new ThankYou
-			       	{
-			       		MessageID = MessageID,
-			       		ThanksInfo = ThanksNumber( username ),
-			       		Thanks = GetThanks( MessageID ),
-			       		Text = YafContext.Current.Localization.GetText( "BUTTON", textTag ),
-			       		Title = YafContext.Current.Localization.GetText( "BUTTON", titleTag )
-			       	};
+				{
+					MessageID = MessageID,
+					ThanksInfo = ThanksNumber( username ),
+					Thanks = GetThanks( MessageID ),
+					Text = YafContext.Current.Localization.GetText( "BUTTON", textTag ),
+					Title = YafContext.Current.Localization.GetText( "BUTTON", titleTag )
+				};
 		}
 
 		/// <summary>
@@ -135,9 +139,9 @@ namespace YAF.Controls
 
 					filler.AppendFormat( @"<a id=""{0}"" href=""{1}""><u>{2}</u></a> {3}", dr["UserID"],
 																YafBuildLink.GetLink( ForumPages.profile, "u={0}", dr["UserID"] ),
-					                     dr["Name"],
-					                     String.Format( YafContext.Current.Localization.GetText( "DEFAULT", "ONDATE" ),
-					                                    YafServices.DateTime.FormatDateShort( dr["ThanksDate"] ) ) );
+															 dr["Name"],
+															 String.Format( YafContext.Current.Localization.GetText( "DEFAULT", "ONDATE" ),
+																							YafServices.DateTime.FormatDateShort( dr["ThanksDate"] ) ) );
 				}
 
 			return filler.ToString();
