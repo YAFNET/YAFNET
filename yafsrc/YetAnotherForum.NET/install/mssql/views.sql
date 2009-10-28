@@ -1,9 +1,35 @@
-SET ANSI_NULLS ON
+/****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess]    Script Date: 10/27/2009 21:42:29 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+DROP VIEW [{databaseOwner}].[{objectQualifier}vaccess]
 GO
-SET QUOTED_IDENTIFIER ON
+
+/****** Object:  View [{databaseOwner}].[{objectQualifier}vaccessfull]    Script Date: 10/27/2009 21:42:29 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccessfull]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+DROP VIEW [{databaseOwner}].[{objectQualifier}vaccessfull]
 GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_vaccess_group]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[yaf_vaccess_group]
+
+/****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess_group]    Script Date: 10/27/2009 21:42:29 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_group]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+DROP VIEW [{databaseOwner}].[{objectQualifier}vaccess_group]
+GO
+
+/****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess_null]    Script Date: 10/27/2009 21:42:29 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+DROP VIEW [{databaseOwner}].[{objectQualifier}vaccess_null]
+GO
+
+/****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess_user]    Script Date: 10/27/2009 21:42:29 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+DROP VIEW [{databaseOwner}].[{objectQualifier}vaccess_user]
+GO
+
+/****** Object:  View [{databaseOwner}].[{objectQualifier}PMessageView]    Script Date: 10/27/2009 21:42:29 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}PMessageView]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+DROP VIEW [{databaseOwner}].[{objectQualifier}PMessageView]
+GO
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_group]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess_group]
 WITH SCHEMABINDING
 AS
 		select
@@ -24,39 +50,33 @@ AS
 			DownloadAccess	= convert(int,d.Flags & 1024),
 			AdminGroup		= convert(int,e.Flags & 1)
 		from
-			[dbo].[yaf_UserGroup] b
-			INNER JOIN [dbo].[yaf_ForumAccess] c on c.GroupID=b.GroupID
-			INNER JOIN [dbo].[yaf_AccessMask] d on d.AccessMaskID=c.AccessMaskID
-			INNER JOIN [dbo].[yaf_Group] e on e.GroupID=b.GroupID' 
+			[{databaseOwner}].[{objectQualifier}UserGroup] b
+			INNER JOIN [{databaseOwner}].[{objectQualifier}ForumAccess] c on c.GroupID=b.GroupID
+			INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] d on d.AccessMaskID=c.AccessMaskID
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Group] e on e.GroupID=b.GroupID' 
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_PMessageView]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'-- [dbo].[yaf_PMessageView]
 
-CREATE VIEW [dbo].[yaf_PMessageView]
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}PMessageView]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+EXEC dbo.sp_executesql @statement = N'-- [{databaseOwner}].[{objectQualifier}PMessageView]
+
+CREATE VIEW [{databaseOwner}].[{objectQualifier}PMessageView]
 AS
 SELECT
 	a.PMessageID, b.UserPMessageID, a.FromUserID, d.[Name] AS FromUser, 
 	b.[UserID] AS ToUserId, c.[Name] AS ToUser, a.Created, a.Subject, 
 	a.Body, a.Flags, b.IsRead, b.IsInOutbox, b.IsArchived, b.IsDeleted
 FROM
-	[dbo].[yaf_PMessage] a
+	[{databaseOwner}].[{objectQualifier}PMessage] a
 INNER JOIN
-	[dbo].[yaf_UserPMessage] b ON a.PMessageID = b.PMessageID
+	[{databaseOwner}].[{objectQualifier}UserPMessage] b ON a.PMessageID = b.PMessageID
 INNER JOIN
-	[dbo].[yaf_User] c ON b.UserID = c.UserID
+	[{databaseOwner}].[{objectQualifier}User] c ON b.UserID = c.UserID
 INNER JOIN
-	[dbo].[yaf_User] d ON a.FromUserID = d.UserID' 
+	[{databaseOwner}].[{objectQualifier}User] d ON a.FromUserID = d.UserID' 
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_vaccess_null]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[yaf_vaccess_null]
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_null]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess_null]
 WITH SCHEMABINDING
 AS
 		select
@@ -77,14 +97,12 @@ AS
 			DownloadAccess	= convert(int,0),
 			AdminGroup		= convert(int,0)
 		from
-			[dbo].[yaf_User] a' 
+			[{databaseOwner}].[{objectQualifier}User] a' 
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_vaccess_user]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[yaf_vaccess_user]
+
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess_user]
 WITH SCHEMABINDING
 AS
 	SELECT
@@ -105,15 +123,13 @@ AS
 			DownloadAccess	= convert(int,c.Flags & 1024),
 			AdminGroup		= convert(int,0)
 		from
-			[dbo].[yaf_UserForum] b
-			INNER JOIN [dbo].[yaf_AccessMask] c on c.AccessMaskID=b.AccessMaskID' 
+			[{databaseOwner}].[{objectQualifier}UserForum] b
+			INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c on c.AccessMaskID=b.AccessMaskID' 
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_vaccessfull]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[yaf_vaccessfull]
+
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccessfull]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccessfull]
 WITH SCHEMABINDING
 AS
 
@@ -140,7 +156,7 @@ select
 			DownloadAccess	,
 			AdminGroup		
 		from
-			[dbo].[yaf_vaccess_user] b
+			[{databaseOwner}].[{objectQualifier}vaccess_user] b
 		
 		union all
 		
@@ -160,7 +176,7 @@ select
 			DownloadAccess	,
 			AdminGroup	
 		from
-			[dbo].[yaf_vaccess_group] b
+			[{databaseOwner}].[{objectQualifier}vaccess_group] b
 
 		union all
 
@@ -180,25 +196,23 @@ select
 			DownloadAccess	,
 			AdminGroup	
 		from
-			[dbo].[yaf_vaccess_null] b
+			[{databaseOwner}].[{objectQualifier}vaccess_null] b
 ) access
 	GROUP BY
 		UserID,ForumID' 
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_vaccess]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'/****** Object:  View [dbo].[yaf_vaccess]    Script Date: 09/28/2009 22:26:00 ******/
-CREATE VIEW [dbo].[yaf_vaccess]
+
+
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess]') AND OBJECTPROPERTY(id, N'IsView') = 1)
+EXEC dbo.sp_executesql @statement = N'/****** Object:  View [{databaseOwner}].[{objectQualifier}vaccess]    Script Date: 09/28/2009 22:26:00 ******/
+CREATE VIEW [{databaseOwner}].[{objectQualifier}vaccess]
 AS
 	SELECT
 		UserID				= a.UserID,
 		ForumID				= x.ForumID,
 		IsAdmin				= max(convert(int,b.Flags & 1)),
 		IsForumModerator	= max(convert(int,b.Flags & 8)),
-		IsModerator			= (select count(1) from [dbo].[yaf_UserGroup] v,[dbo].[yaf_Group] w,[dbo].[yaf_ForumAccess] x,[dbo].[yaf_AccessMask] y where v.UserID=a.UserID and w.GroupID=v.GroupID and x.GroupID=w.GroupID and y.AccessMaskID=x.AccessMaskID and (y.Flags & 64)<>0),
+		IsModerator			= (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] v,[{databaseOwner}].[{objectQualifier}Group] w,[{databaseOwner}].[{objectQualifier}ForumAccess] x,[{databaseOwner}].[{objectQualifier}AccessMask] y where v.UserID=a.UserID and w.GroupID=v.GroupID and x.GroupID=w.GroupID and y.AccessMaskID=x.AccessMaskID and (y.Flags & 64)<>0),
 		ReadAccess			= max(x.ReadAccess),
 		PostAccess			= max(x.PostAccess),
 		ReplyAccess			= max(x.ReplyAccess),
@@ -211,8 +225,8 @@ AS
 		UploadAccess		= max(x.UploadAccess),		
 		DownloadAccess		= max(x.DownloadAccess)			
 	FROM
-		[dbo].[yaf_vaccessfull] as x WITH(NOLOCK)
-		INNER JOIN [dbo].[yaf_UserGroup] a WITH(NOLOCK) on a.UserID=x.UserID
-		INNER JOIN [dbo].[yaf_Group] b WITH(NOLOCK) on b.GroupID=a.GroupID
+		[{databaseOwner}].[{objectQualifier}vaccessfull] as x WITH(NOLOCK)
+		INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a WITH(NOLOCK) on a.UserID=x.UserID
+		INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) on b.GroupID=a.GroupID
 	GROUP BY
 		a.UserID,x.ForumID' 

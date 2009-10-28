@@ -2640,6 +2640,8 @@ begin
 		delete [{databaseOwner}].[{objectQualifier}MessageReported] where MessageID = @MessageID
 		delete [{databaseOwner}].[{objectQualifier}MessageReportedAudit] where MessageID = @MessageID
 		delete [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID
+		--delete thanks related to this message
+		delete [{databaseOwner}].[{objectQualifier}Thanks] where MessageID = @MessageID
 	end
 	else begin
 		-- "Delete" it only by setting deleted flag message
@@ -4735,6 +4737,10 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}EventLog] where UserID=@UserID	
 	delete from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID
 	delete from [{databaseOwner}].[{objectQualifier}PMessage] where FromUserID=@UserID AND PMessageID NOT IN (select PMessageID FROM [{databaseOwner}].[{objectQualifier}PMessage])
+	-- Delete all the thanks entries associated with this UserID.
+	delete from [{databaseOwner}].[{objectQualifier}Thanks] where ThanksFromUserID=@UserID
+	delete from [{databaseOwner}].[{objectQualifier}Thanks] where ThanksToUserID=@UserID	
+		
 	-- set messages as from guest so the User can be deleted
 	update [{databaseOwner}].[{objectQualifier}PMessage] SET FromUserID = @GuestUserID WHERE FromUserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}CheckEmail] where UserID = @UserID
