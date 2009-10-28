@@ -1148,12 +1148,15 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}active_listforum](@ForumID int) as
+create procedure [{databaseOwner}].[{objectQualifier}active_listforum](@ForumID int, @StyledNicks bit = 0) as
 begin
 		select
 		UserID		= a.UserID,
 		UserName	= b.Name,
 		IsHidden	= ( b.IsActiveExcluded ),
+		Style = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+	        else ''	 end,		
 		UserCount   = COUNT(a.UserID)
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a 
@@ -1170,12 +1173,15 @@ end
 GO
 
 
-create procedure [{databaseOwner}].[{objectQualifier}active_listtopic](@TopicID int) as
+create procedure [{databaseOwner}].[{objectQualifier}active_listtopic](@TopicID int,@StyledNicks bit = 0) as
 begin
 		select
 		UserID		= a.UserID,
 		UserName	= b.Name,
 		IsHidden = ( b.IsActiveExcluded ),
+		Style = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+	        else ''	 end,		
 		UserCount   = COUNT(a.UserID)
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a with(nolock)
@@ -1190,6 +1196,7 @@ begin
 		b.Name
 end
 GO
+
 
 create procedure [{databaseOwner}].[{objectQualifier}active_stats](@BoardID int) as
 begin

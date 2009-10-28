@@ -49,11 +49,17 @@ namespace YAF.Controls
 			{
 				if ( bTopic )
 				{
-					_activeUsers.ActiveUserTable = YAF.Classes.Data.DB.active_listtopic( PageContext.PageTopicID );
+                    DataTable dt = YAF.Classes.Data.DB.active_listtopic( PageContext.PageTopicID , PageContext.BoardSettings.UseStyledNicks);
+                    if (YAF.Classes.Core.YafContext.Current.BoardSettings.UseStyledNicks)
+                        YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dt);
+					_activeUsers.ActiveUserTable = dt;
 				}
 				else
 				{
-					_activeUsers.ActiveUserTable = YAF.Classes.Data.DB.active_listforum( PageContext.PageForumID );
+                    DataTable dt = YAF.Classes.Data.DB.active_listforum( PageContext.PageForumID , PageContext.BoardSettings.UseStyledNicks);
+                    if (YAF.Classes.Core.YafContext.Current.BoardSettings.UseStyledNicks)
+                        YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dt);
+                    _activeUsers.ActiveUserTable = dt;
 				}
 			}
 

@@ -144,14 +144,7 @@ namespace YAF.Controls
 			if ( YafContext.Current.BoardSettings.ShowUserOnlineStatusInPosts )
 			{
 				string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.UsersOnlineStatus );
-				DataTable activeUsers = PageContext.Cache.GetItem<DataTable>( cacheKey,
-																																			YafContext.Current.BoardSettings.
-																																				OnlineStatusCacheTimeout,
-																																			() =>
-																																			DB.active_list(
-																																				YafContext.Current.PageBoardID, false,
-																																				YafContext.Current.BoardSettings.
-																																					ActiveListTime, false ) );
+				DataTable activeUsers = YafContext.Current.Cache.GetItem<DataTable>( cacheKey, YafContext.Current.BoardSettings.OnlineStatusCacheTimeout,() => DB.active_list(YafContext.Current.PageBoardID, false,YafContext.Current.BoardSettings.ActiveListTime, false ) );
 				OnlineStatus.AlternateText = "Offline";
 				OnlineStatus.ToolTip = YafContext.Current.Localization.GetText( "USEROFFLINESTATUS" );
 				OnlineStatus.ImageUrl = YafContext.Current.Theme.BuildThemePath( "user_offline.gif" );

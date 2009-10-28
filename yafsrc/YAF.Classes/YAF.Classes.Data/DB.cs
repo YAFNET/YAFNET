@@ -978,7 +978,7 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">BoardID</param>
 		/// <param name="Guests"></param>
 		/// <returns>Returns a DataTable of active users</returns>
-		static public DataTable active_list( object boardID, object Guests, int activeTime, object stylesNicks )
+		static public DataTable active_list( object boardID, object Guests, int activeTime, object styledNicks )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "active_list" ) )
 			{
@@ -986,7 +986,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "Guests", Guests );
 				cmd.Parameters.AddWithValue( "ActiveTime", activeTime );
-				cmd.Parameters.AddWithValue( "StyledNicks", stylesNicks );
+				cmd.Parameters.AddWithValue( "StyledNicks", styledNicks );
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
@@ -996,12 +996,13 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="forumID">forumID</param>
 		/// <returns>DataTable of all ative users in a forum</returns>
-		static public DataTable active_listforum( object forumID )
+		static public DataTable active_listforum( object forumID, object styledNicks )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "active_listforum" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
+                cmd.Parameters.AddWithValue("StyledNicks", styledNicks);
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
@@ -1011,12 +1012,13 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="topicID">ID of topic </param>
 		/// <returns>DataTable of all users that are in a topic</returns>
-		static public DataTable active_listtopic( object topicID )
+        static public DataTable active_listtopic(object topicID, object styledNicks)
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "active_listtopic" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
+                cmd.Parameters.AddWithValue( "StyledNicks", styledNicks );
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}

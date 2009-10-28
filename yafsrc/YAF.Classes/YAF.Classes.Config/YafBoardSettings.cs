@@ -402,7 +402,7 @@ namespace YAF.Classes
 		}
 		public int OnlineStatusCacheTimeout
 		{
-			get { return _reg.GetValue<int>( "OnlineStatusCacheTimeout", 100 ); }
+			get { return _reg.GetValue<int>( "OnlineStatusCacheTimeout", 1 ); }
 			set { _reg.SetValue<int>( "OnlineStatusCacheTimeout", value ); }
 		}
 
