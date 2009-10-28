@@ -172,7 +172,7 @@ namespace YAF
 			Bitmap bmp = null;
 			Graphics gfx = null;
 
-			if ( General.GetCurrentTrustLevel() != AspNetHostingPermissionLevel.High )
+			if ( General.GetCurrentTrustLevel() < AspNetHostingPermissionLevel.High )
 			{
 				// don't bother... not supported.
 				YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(),
