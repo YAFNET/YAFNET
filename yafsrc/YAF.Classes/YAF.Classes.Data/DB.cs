@@ -2349,15 +2349,6 @@ namespace YAF.Classes.Data
 		static public void message_delete( object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked, bool eraseMessage )
 		{
 			message_deleteRecursively( messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false, eraseMessage );
-
-			//delete thanks related to this message
-			string sql = "DELETE FROM {databaseOwner}.{objectQualifier}Thanks WHERE MessageID = @MessageID";
-
-			using ( SqlCommand cmd = YafDBAccess.GetCommand( sql, true ) )
-			{
-				cmd.Parameters.AddWithValue( "MessageID", messageID );
-				cmd.ExecuteNonQuery();
-			}
 		}
 
 		// <summary> Retrieve all reported messages with the correct forumID argument. </summary>

@@ -18,6 +18,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -27,6 +28,27 @@ namespace YAF.Classes.Utils
 {
 	static public class ControlHelper
 	{
+		static public List<Control> ControlListRecursive( Control sourceControl, Func<Control,bool> isControl )
+		{
+			List<Control> list = new List<Control>();
+
+			var withParents = (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
+												 where c.HasControls()
+			                   select c).ToList();
+
+			// recusively call this function looking for controls...
+			withParents.ForEach( x => list.AddRange( ControlListRecursive( x, isControl ) ) );
+
+			// add controls from this level...
+			list.AddRange( (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
+			                where !c.HasControls()
+			                select c).ToList().Where( isControl ) );
+
+
+			// return the lot...
+			return list;
+		}
+
 		static public Control FindControlRecursiveReverse(Control sourceControl, string id)
 		{
 			Control foundControl = sourceControl.FindControl(id);
