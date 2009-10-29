@@ -1,25 +1,24 @@
-<%@ Page Language="C#" %>
-
+<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <script runat="server">
-    void Page_Load( object sender, System.EventArgs e )
-    {
-        yafForum.Header = yafHeader;
-        yafForum.Footer = yafFooter;
-    }
-    public void Page_Error( object sender, System.EventArgs e )
-    {
-        Exception x = Server.GetLastError();
-        YAF.Classes.Data.DB.eventlog_create( yafForum.PageUserID, this, x );
-        YAF.Classes.Core.CreateMail.CreateLogEmail( x );
-    }
+	void Page_Load( object sender, System.EventArgs e )
+	{
+		yafForum.Header = yafHeader;
+		yafForum.Footer = yafFooter;
+	}
+	public void Page_Error( object sender, System.EventArgs e )
+	{
+		Exception x = Server.GetLastError();
+		YAF.Classes.Data.DB.eventlog_create(YafServices.InitializeDb.Initialized ? (int?)YafContext.Current.PageUserID : null , this, x );
+		YAF.Classes.Core.CreateMail.CreateLogEmail( x );
+	}		
 </script>
-
-<html>
-<head id="YafHead" runat="server">
-    <meta name="Description" content="A bulletin board system written in ASP.NET">
-    <meta name="Keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource">
-    <!-- If you don't want the forum to set the page title, you can remove runat and id -->
-    <title>This title is overwritten</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta name="Description" content="Yet Another Forum.NET -- A bulletin board system written in ASP.NET" />
+    <meta name="Keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource" />
+    <title></title>
 </head>
 <body>
     <img src="~/images/YAFLogo.jpg" runat="server" alt="YetAnotherForum" id="imgBanner" />
@@ -39,8 +38,6 @@
                 <td width="200" valign="top">
                     <br /><br /><br /><br /><br />                   
                     <YAF:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="10" />
-                    <br />
-                    <YAF:ActiveDiscussions ID="ActiveDisccionsList" runat="server" DisplayNumber="10" />
                 </td>                
             </tr>
             <tr>
