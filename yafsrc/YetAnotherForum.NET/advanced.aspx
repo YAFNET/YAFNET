@@ -1,5 +1,7 @@
 <%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" %>
-<%@ Import Namespace="YAF.Classes.Core"%>
+
+<%@ Import Namespace="YAF.Classes.Core" %>
+
 <script runat="server">
 	void Page_Load( object sender, System.EventArgs e )
 	{
@@ -9,43 +11,47 @@
 	public void Page_Error( object sender, System.EventArgs e )
 	{
 		Exception x = Server.GetLastError();
-		YAF.Classes.Data.DB.eventlog_create(YafServices.InitializeDb.Initialized ? (int?)YafContext.Current.PageUserID : null , this, x );
+		YAF.Classes.Data.DB.eventlog_create( YafServices.InitializeDb.Initialized ? (int?)YafContext.Current.PageUserID : null, this, x );
 		YAF.Classes.Core.CreateMail.CreateLogEmail( x );
 	}		
 </script>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <meta name="Description" content="Yet Another Forum.NET -- A bulletin board system written in ASP.NET" />
-    <meta name="Keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource" />
-    <title></title>
+	<meta name="Description" content="Yet Another Forum.NET -- A bulletin board system written in ASP.NET" />
+	<meta name="Keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource" />
+	<title></title>
 </head>
 <body>
-    <img src="~/images/YAFLogo.jpg" runat="server" alt="YetAnotherForum" id="imgBanner" />
-    <br />
-    <form id="Form1" runat="server" enctype="multipart/form-data">
-        <table border="0" width="100%" cellpadding="0" cellspacing="0">
-            <tr>
-                <td colspan="3">
-                    <YAF:Header runat="server" ID="yafHeader" />
-                </td>
-            </tr>
-            <tr>
-                <td valign="top">
-                    <YAF:Forum runat="server" ID="yafForum" />
-                </td>
-                <td width="10">&nbsp;</td>
-                <td width="200" valign="top">
-                    <br /><br /><br /><br /><br />                   
-                    <YAF:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="10" />
-                </td>                
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <YAF:Footer runat="server" ID="yafFooter" />
-                </td>
-            </tr>
-        </table>
-    </form>
+	<div class="yafnet">
+		<img src="~/images/YAFLogo.jpg" runat="server" alt="YetAnotherForum" id="imgBanner" />
+		<br />
+		<form id="Form1" runat="server" enctype="multipart/form-data">
+		<table border="0" width="100%" cellpadding="0" cellspacing="0">
+			<tr>
+				<td colspan="3">
+					<YAF:Header runat="server" ID="yafHeader" />
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">
+					<YAF:Forum runat="server" ID="yafForum" />
+				</td>
+				<td width="10">
+					&nbsp;
+				</td>
+				<td width="200" valign="top">
+					<YAF:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="10" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<YAF:Footer runat="server" ID="yafFooter" />
+				</td>
+			</tr>
+		</table>
+		</form>
+	</div>
 </body>
 </html>
