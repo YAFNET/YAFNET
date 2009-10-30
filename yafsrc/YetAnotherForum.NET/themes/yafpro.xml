@@ -36,8 +36,8 @@
 		<Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>
     <Resource tag="PANEL_EXPAND">~/expand.gif</Resource>
     <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>
-		<Resource tag="USER_ONLINE">~/user_online.gif</Resource>
-		<Resource tag="USER_OFFLINE">~/user_offline.gif</Resource>
+		<Resource tag="USER_ONLINE">~/icon_useronline.png</Resource>
+		<Resource tag="USER_OFFLINE">~/icon_useroffline.png</Resource>
 	</page>
 	<page name="SORT">
 		<Resource tag="ASCENDING">~/sort_up.gif</Resource>

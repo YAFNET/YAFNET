@@ -28,7 +28,7 @@
 .yafnet td.header1,
 .yafnet tr.header1
 {
-    background-color: #ee6943;
+  background-color: #ee6943;
 	color: #ffffff;
 	font-weight: bold;
 	font-size: 10.5pt;
@@ -39,7 +39,7 @@
 .yafnet td.footer1,
 .yafnet td.footer2
 {
-    background-color: #eeeeee;
+  background-color: #eeeeee;
 	color: #000000;
 }
 
@@ -172,6 +172,18 @@
 .yafnet .postHeader .rightItem a
 {
     color: #000000;
+}
+
+.yafnet div.section
+{
+	padding: 5px;
+	background-color:#f2f2f2;
+	border: solid 1px #ddd;
+	color: #888;
+	font-size: 9pt;
+	text-align: center;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;	
 }
 
 .yafnet div.postdiv {
