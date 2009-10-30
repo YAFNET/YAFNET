@@ -62,7 +62,7 @@ namespace YAF.Classes.Core
 			return String.Format("{0}.{1}", key, boardID);
 		}
 
-		[Obsolete("Use YafContext.Cache instead.")]
+		[Obsolete("Use YafContext.Current.Cache instead.")]
 		public static YafCache Current
 		{
 			get
@@ -336,12 +336,31 @@ namespace YAF.Classes.Core
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="key"></param>
+		/// <param name="expireMilliseconds"></param>
+		/// <param name="getValue"></param>
+		/// <returns></returns>
+		public T GetItem<T>( string key, double expireMilliseconds, Func<T> getValue ) where T : class
+		{
+			return GetItem<T>( key, expireMilliseconds, CacheItemPriority.Default, getValue );
+		}
+
+		/// <summary>
+		/// Gets the cached item as a specific type but if the item doesn't exist or 
+		/// is expired, will pull a new value from the function provided.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="key"></param>
 		/// <param name="expireMinutes"></param>
 		/// <param name="getValue"></param>
 		/// <returns></returns>
 		public T GetItem<T>( string key, int expireMinutes, Func<T> getValue ) where T : class
 		{
 			return GetItem<T>( key, expireMinutes, CacheItemPriority.Default, getValue );
+		}
+
+		public T GetItem<T>( string key, int expireMinutes, CacheItemPriority priority, Func<T> getValue ) where T : class
+		{
+			return GetItem<T>( key, expireMinutes * 60000d, CacheItemPriority.Default, getValue );
 		}
 
 		private static readonly object[] _lockCacheItems = new object[101];
@@ -351,11 +370,11 @@ namespace YAF.Classes.Core
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="key"></param>
-		/// <param name="expireMinutes"></param>
+		/// <param name="expireMilliseconds"></param>
 		/// <param name="priority"></param>
 		/// <param name="getValue"></param>
 		/// <returns></returns>
-		public T GetItem<T>( string key, int expireMinutes, CacheItemPriority priority, Func<T> getValue ) where T : class
+		public T GetItem<T>( string key, double expireMilliseconds, CacheItemPriority priority, Func<T> getValue ) where T : class
 		{
 			int keyHash = key.GetHashCode();
 			// make positive if negative...
@@ -387,7 +406,7 @@ namespace YAF.Classes.Core
 						if ( cachedItem != null )
 						{
 							// cache the new value...
-							Add( key, cachedItem, null, DateTime.Now.AddMinutes( expireMinutes ), Cache.NoSlidingExpiration, priority, null );
+							Add( key, cachedItem, null, DateTime.Now.AddMilliseconds( expireMilliseconds ), Cache.NoSlidingExpiration, priority, null );
 						}
 					}
 				}

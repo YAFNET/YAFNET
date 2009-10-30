@@ -402,7 +402,7 @@ namespace YAF.Classes
 		}
 		public int OnlineStatusCacheTimeout
 		{
-			get { return _reg.GetValue<int>( "OnlineStatusCacheTimeout", 1 ); }
+			get { return _reg.GetValue<int>( "OnlineStatusCacheTimeout", 30000 ); }
 			set { _reg.SetValue<int>( "OnlineStatusCacheTimeout", value ); }
 		}
 
@@ -758,12 +758,12 @@ namespace YAF.Classes
 		}
 		public string UserBoxAvatar
 		{
-			get { return _reg.GetValue<string>( "UserBoxAvatar", "{0}<br clear=\"all\" />" ); }
+			get { return _reg.GetValue<string>( "UserBoxAvatar", @"<div class=""section"">{0}</div><br clear=""all"" />" ); }
 			set { _reg.SetValue<string>( "UserBoxAvatar", value ); }
 		}
 		public string UserBoxMedals
 		{
-			get { return _reg.GetValue<string>( "UserBoxMedals", "{0}{1}<br clear=\"all\" />" ); }
+			get { return _reg.GetValue<string>( "UserBoxMedals", @"<div class=""section medals"">Medals: {0}{1}</div><br clear=""all"" />" ); }
 			set { _reg.SetValue<string>( "UserBoxMedals", value ); }
 		}
 		public string UserBoxRankImage

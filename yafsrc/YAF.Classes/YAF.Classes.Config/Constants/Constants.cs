@@ -33,7 +33,7 @@ namespace YAF.Classes
 		/// </summary>
 		public struct UserBox
 		{
-			public const string DisplayTemplateDefault = "<yaf:rankimage /><yaf:rank /><yaf:avatar /><yaf:medals /><yaf:groups /><br /><yaf:joindate /><yaf:posts /><yaf:points /><yaf:location /><yaf:thanksfrom /><yaf:thanksto />";
+			public const string DisplayTemplateDefault = @"<yaf:avatar /><div class=""section""><yaf:rankimage /><yaf:rank /></div><br /><yaf:medals /><div class=""section""><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:points /><yaf:location /></div><br/><div class=""section""><yaf:thanksfrom /><yaf:thanksto /></div>";
 			public const string Avatar = @"<yaf:avatar\s*/>";
 			public const string Medals = @"<yaf:medals\s*/>";
 			public const string RankImage = @"<yaf:rankimage\s*/>";

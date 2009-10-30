@@ -52,15 +52,22 @@ namespace YAF.Classes
 				return _settings.Where( x => x.PropertyType == typeof( int ) ).ToDictionary( x => x.Name, x => x );
 			}
 		}
+		public Dictionary<string, PropertyInfo> SettingsDouble
+		{
+			get
+			{
+				return _settings.Where( x => x.PropertyType == typeof( double ) ).ToDictionary( x => x.Name, x => x );
+			}
+		}
 		public Dictionary<string, PropertyInfo> SettingsOther
 		{
 			get
 			{
+				var excludeTypes = new List<Type>() {typeof ( string ), typeof ( bool ), typeof ( int ), typeof ( double )};
+
 				return
 					_settings.Where(
-						x =>
-						x.PropertyType != typeof ( string ) && x.PropertyType != typeof ( int ) &&
-						x.PropertyType != typeof( bool ) ).ToDictionary( x => x.Name, x => x );
+						x => !excludeTypes.Contains( x.PropertyType ) ).ToDictionary( x => x.Name, x => x );
 			}
 		}
 

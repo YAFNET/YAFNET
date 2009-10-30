@@ -34,7 +34,7 @@ namespace YAF.Controls
 		{
 		}
 
-		protected override void OnPreRender( System.EventArgs e )
+		protected override void Render( System.Web.UI.HtmlTextWriter output )
 		{
 			LocalizedTitlePage = "POSTS";
 
@@ -61,8 +61,8 @@ namespace YAF.Controls
 					Alt = "Offline";
 				}
 			}
-
-			base.OnPreRender( e );
+			
+			base.Render( output );
 		}
 
 		/// <summary>

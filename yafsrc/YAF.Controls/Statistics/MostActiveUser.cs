@@ -18,13 +18,8 @@
  */
 using System;
 using System.Data;
-using System.Configuration;
-using System.Web;
-using System.Web.Security;
+using System.Text;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Data;
@@ -53,31 +48,67 @@ namespace YAF.Controls.Statistics
 		{
 			int currentRank = 1;
 			string actRank = "";
-            string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.MostActiveUsers );
+			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.MostActiveUsers );
 
-			DataTable rankDT = PageContext.Cache [cacheKey] as DataTable;
+			DataTable rankDt = PageContext.Cache.GetItem( cacheKey, 5,
+			                                              () =>
+			                                              DB.user_activity_rank( PageContext.PageBoardID,
+			                                                                     DateTime.Now.AddDays( -LastNumOfDays ),
+			                                                                     DisplayNumber ) );
 
-			if ( rankDT == null )
+			//// create XML data document...
+			//XmlDocument xml = new XmlDocument();
+
+			//rankDt.TableName = "UserActivityRank";
+			//xml.LoadXml( rankDt.DataSet.GetXml() );
+
+			//// transform using the MostActiveUser xslt...
+			//const string xsltFile = "YAF.Controls.Statistics.MostActiveUser.xslt";
+
+			//using ( Stream resourceStream = Assembly.GetAssembly( this.GetType() ).GetManifestResourceStream( xsltFile ) )
+			//{
+			//  if ( resourceStream != null )
+			//  {
+			//    XslCompiledTransform myXslTrans = new XslCompiledTransform();
+
+			//    //load the Xsl 
+			//    myXslTrans.Load( XmlReader.Create( resourceStream ) );
+			//    myXslTrans.Transform( xml.CreateNavigator(), xslArgs, writer );
+			//  }
+			//}
+
+			writer.BeginRender();
+
+			StringBuilder html = new StringBuilder();
+
+			html.AppendFormat( @"<div id=""{0}"" class=""yaf_activeuser"">", this.ClientID );
+			html.AppendFormat( @"<h2 class=""yaf_header"">{0}</h2>", "Most Active Users" );
+			html.AppendFormat( @"<h4 class=""yaf_subheader"">Last {0} Days</h4>", LastNumOfDays );
+
+			html.AppendLine( "<ol>" );
+
+			// flush...
+			writer.Write( html.ToString() );
+
+			foreach ( DataRow row in rankDt.Rows )
 			{
-				rankDT = YAF.Classes.Data.DB.user_activity_rank( PageContext.PageBoardID, DateTime.Now.AddDays( -LastNumOfDays ), DisplayNumber );
-				PageContext.Cache.Insert( cacheKey, rankDT, null, DateTime.Now.AddMinutes( 10 ), TimeSpan.Zero );
+				writer.WriteLine( "<li>" );
+
+				// render UserLink...
+				var userLink = new UserLink() { UserID = row.Field<int>( "ID" ), UserName = row.Field<string>( "Name" ) };
+				userLink.RenderControl( writer );
+
+				// render online image...
+				var onlineStatusImage = new OnlineStatusImage() { UserID = row.Field<int>( "ID" ) };
+				onlineStatusImage.RenderControl( writer );
+
+				writer.WriteLine( " " );
+				writer.WriteLine( String.Format( @"<span class=""NumberOfPosts"">({0})</span>", row.Field<int>( "NumOfPosts" ) ) );
+				writer.WriteLine( "</li>" );
 			}
 
-			actRank += "<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">";
-			actRank += "<tr><td class=\"header1\">Most Active Users</td></tr>";
-			actRank += String.Format("<tr><td class=\"header2\">Last {0} Days</td></tr>", LastNumOfDays);
-			actRank += @"<tr class=""post""><td>";
-
-			foreach ( System.Data.DataRow r in rankDT.Rows )
-			{			
-				int userID = Convert.ToInt32(r["ID"]);
-				actRank += string.Format( @"{3}.&nbsp;<a href=""{1}"">{0}</a> ({2})<br/>", r ["Name"], YafBuildLink.GetLink( ForumPages.profile, "u={0}", userID ), r ["NumOfPosts"], currentRank );
-				currentRank++;		
-			}
-
-			actRank += "</td></tr></table>";
-
-			writer.Write( actRank );
+			writer.WriteLine( "</ol>" );
+			writer.EndRender();
 		}
 
 		public int DisplayNumber
