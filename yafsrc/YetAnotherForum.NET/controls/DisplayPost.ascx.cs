@@ -86,9 +86,9 @@ namespace YAF.Controls
 			AjaxPro.Utility.RegisterTypeForAjax( typeof( YAF.Controls.ThankYou ) );
 
 
-			string AddThankBoxHTML = "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.messageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+			string AddThankBoxHTML = "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
 
-			string RemoveThankBoxHTML = "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.messageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+			string RemoveThankBoxHTML = "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
 
 			YafContext.Current.PageElements.RegisterJsBlockStartup( "addThanksJs", YAF.Utilities.JavaScriptBlocks.addThanksJs( RemoveThankBoxHTML ) );
 			YafContext.Current.PageElements.RegisterJsBlockStartup( "removeThanksJs", YAF.Utilities.JavaScriptBlocks.removeThanksJs( AddThankBoxHTML ) );
