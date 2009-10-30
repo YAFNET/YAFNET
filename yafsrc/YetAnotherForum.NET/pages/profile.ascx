@@ -3,7 +3,6 @@
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
@@ -59,6 +58,7 @@
 								</td>
 								<td width="50%" class="post">
 									<asp:Label ID="Name" runat="server" />
+									<YAF:OnlineStatusImage id="OnlineStatusImage1" runat="server" Style="vertical-align: bottom" />
 								</td>
 							</tr>
 							<tr runat="server" id="userGroupsRow">
@@ -70,7 +70,9 @@
 										<ItemTemplate>
 											<%# Container.DataItem %>
 										</ItemTemplate>
-										<SeparatorTemplate>, </SeparatorTemplate>
+										<SeparatorTemplate>
+											,
+										</SeparatorTemplate>
 									</asp:Repeater>
 								</td>
 							</tr>
@@ -181,30 +183,30 @@
 								</td>
 								<td class="post" runat="server" id="Stats" />
 							</tr>
-                            <tr>
-                                <td class="postheader">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
-                                </td>
-                                <td class="post">
-                                    <asp:Label ID="ThanksFrom" runat="server" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
-                                </td>
-                                <td class="post">
-                                    <asp:Label ID="ThanksToTimes" runat="server" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
-                                </td>
-                                <td class="post">
-                                    <asp:Label ID="ThanksToPosts" runat="server" />
-                                </td>
-                            </tr>
+							<tr>
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
+								</td>
+								<td class="post">
+									<asp:Label ID="ThanksFrom" runat="server" />
+								</td>
+							</tr>
+							<tr>
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
+								</td>
+								<td class="post">
+									<asp:Label ID="ThanksToTimes" runat="server" />
+								</td>
+							</tr>
+							<tr>
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
+								</td>
+								<td class="post">
+									<asp:Label ID="ThanksToPosts" runat="server" />
+								</td>
+							</tr>
 						</table>
 					</DotNetAge:View>
 					<DotNetAge:View runat="server" ID="AvatarTab" Text="Avatar" NavigateUrl="" HeaderCssClass=""
@@ -223,7 +225,6 @@
 							TextLocalizedTag="SEARCHUSER" ImageThemeTag="SEARCH" />
 						<br style="clear: both" />
 						<table width="100%" cellspacing="1" cellpadding="0">
-			
 							<asp:Repeater ID="LastPosts" runat="server">
 								<ItemTemplate>
 									<tr class="postheader">

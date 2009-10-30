@@ -139,6 +139,26 @@ namespace YAF.Pages.Admin
 				}
 			}
 
+			// handle double fields...
+			foreach ( string name in settingCollection.SettingsDouble.Keys )
+			{
+				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
+
+				if ( control != null && control is TextBox && settingCollection.SettingsDouble[name].CanRead )
+				{
+					// get the value from the property...
+					( (TextBox)control ).Text =
+						settingCollection.SettingsDouble[name].GetValue( PageContext.BoardSettings, null ).ToString();
+				}
+				else if ( control != null && control is DropDownList && settingCollection.SettingsDouble[name].CanRead )
+				{
+					ListItem listItem = ( (DropDownList)control ).Items.FindByValue(
+						settingCollection.SettingsDouble[name].GetValue( PageContext.BoardSettings, null ).ToString() );
+
+					if ( listItem != null ) listItem.Selected = true;
+				}
+			}
+
 			// special field handling...
 			AvatarSize.Text = ( PageContext.BoardSettings.AvatarSize != 0 ) ? PageContext.BoardSettings.AvatarSize.ToString() : "";
 			MaxFileSize.Text = ( PageContext.BoardSettings.MaxFileSize != 0 ) ? PageContext.BoardSettings.MaxFileSize.ToString() : "";
@@ -199,6 +219,28 @@ namespace YAF.Pages.Admin
 				{
 					settingCollection.SettingsInt[name].SetValue( PageContext.BoardSettings,
 																													 Convert.ToInt32( ( (DropDownList)control ).SelectedItem.Value ), null );
+				}
+			}
+
+			// handle double fields...
+			foreach ( string name in settingCollection.SettingsDouble.Keys )
+			{
+				Control control = ControlHelper.FindControlRecursive( HostSettingsTabs, name );
+
+				if ( control != null && control is TextBox && settingCollection.SettingsDouble[name].CanWrite )
+				{
+					string value = ( (TextBox)control ).Text.Trim();
+					double i = 0;
+
+					if ( String.IsNullOrEmpty( value ) ) i = 0;
+					else double.TryParse( value, out i );
+
+					settingCollection.SettingsDouble[name].SetValue( PageContext.BoardSettings, i, null );
+				}
+				else if ( control != null && control is DropDownList && settingCollection.SettingsDouble[name].CanWrite )
+				{
+					settingCollection.SettingsDouble[name].SetValue( PageContext.BoardSettings,
+																													 Convert.ToDouble( ( (DropDownList)control ).SelectedItem.Value ), null );
 				}
 			}
 
