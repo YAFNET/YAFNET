@@ -140,28 +140,6 @@ namespace YAF.Controls
 				btnTogglePost.Attributes["onclick"] = string.Format( "toggleMessage('{0}'); return false;", panMessage.ClientID );
 				panMessage.Style["display"] = "none";
 			}
-			//vzrus: add user online status
-			if ( YafContext.Current.BoardSettings.ShowUserOnlineStatusInPosts )
-			{
-				string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.UsersOnlineStatus );
-				DataTable activeUsers = YafContext.Current.Cache.GetItem<DataTable>( cacheKey, YafContext.Current.BoardSettings.OnlineStatusCacheTimeout,() => DB.active_list(YafContext.Current.PageBoardID, false,YafContext.Current.BoardSettings.ActiveListTime, false ) );
-				OnlineStatus.AlternateText = "Offline";
-				OnlineStatus.ToolTip = YafContext.Current.Localization.GetText( "USEROFFLINESTATUS" );
-				OnlineStatus.ImageUrl = YafContext.Current.Theme.BuildThemePath( "user_offline.gif" );
-
-				foreach ( DataRow dra in activeUsers.Rows )
-				{
-					if ( Convert.ToInt32( dra["UserID"] ) == UserId && !Convert.ToBoolean( dra["IsHidden"] ) )
-					{
-						OnlineStatus.ImageUrl = YafContext.Current.Theme.BuildThemePath( "user_online.gif" );
-						OnlineStatus.AlternateText = "Online";
-						OnlineStatus.ToolTip = YafContext.Current.Localization.GetText( "USERONLINESTATUS" );
-						break;
-					}
-				}
-			}
-
-			//vzrus end of add status
 		}
 
 		private void DisplayPost_PreRender( object sender, EventArgs e )
