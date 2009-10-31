@@ -29,7 +29,7 @@ namespace YAF.DotNetNuke
 
 		public string BuildUrlFull( string url )
 		{
-			return String.Format( "{0}{1}", UrlBuilder.BaseUrl, BuildUrlFull( url ) );
+			return String.Format( "{0}{1}", UrlBuilder.BaseUrl, BuildUrl( url ) );
 		}
 
 		#endregion
