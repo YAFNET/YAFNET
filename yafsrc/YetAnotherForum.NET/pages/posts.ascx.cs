@@ -316,12 +316,16 @@ namespace YAF.Pages // YAF.Pages
 
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
-			pds.PageSize = Pager.PageSize;			
+			pds.PageSize = Pager.PageSize;
 
-			using ( DataTable dt0 = YAF.Classes.Data.DB.post_list(PageContext.PageTopicID, IsPostBack ? 0 : 1, PageContext.BoardSettings.ShowDeletedMessages))
-			{
-				// get the default view...
-				DataView dt = dt0.DefaultView;
+            DataTable dt0 = YAF.Classes.Data.DB.post_list(PageContext.PageTopicID, IsPostBack ? 0 : 1, PageContext.BoardSettings.ShowDeletedMessages, YafContext.Current.BoardSettings.UseStyledNicks);			
+
+                if ( YafContext.Current.BoardSettings.UseStyledNicks )                               
+                    YAF.Classes.UI.StyleHelper.DecodeStyleByTable( ref dt0, true );
+                  
+                    // get the default view...
+                    DataView dt = dt0.DefaultView;
+               
 
 				// see if the deleted messages need to be edited out...
 				if ( PageContext.BoardSettings.ShowDeletedMessages &&
@@ -425,8 +429,8 @@ namespace YAF.Pages // YAF.Pages
 						break;
 					}
 				}
-			}
-
+			
+            dt0 = null;
 			pds.CurrentPageIndex = Pager.CurrentPageIndex;
 
 			if ( pds.CurrentPageIndex >= pds.PageCount ) pds.CurrentPageIndex = pds.PageCount - 1;

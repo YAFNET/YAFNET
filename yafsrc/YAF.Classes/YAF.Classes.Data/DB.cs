@@ -2223,7 +2223,7 @@ namespace YAF.Classes.Data
 
 		#region Message
 
-		static public DataTable post_list( object topicID, object updateViewCount, bool showDeleted )
+		static public DataTable post_list( object topicID, object updateViewCount, bool showDeleted, bool styledNicks )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "post_list" ) )
 			{
@@ -2231,6 +2231,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
 				cmd.Parameters.AddWithValue( "UpdateViewCount", updateViewCount );
 				cmd.Parameters.AddWithValue( "ShowDeleted", showDeleted );
+                cmd.Parameters.AddWithValue( "StyledNicks", styledNicks );                
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}

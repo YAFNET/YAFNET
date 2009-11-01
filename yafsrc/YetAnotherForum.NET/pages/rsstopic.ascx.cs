@@ -89,7 +89,7 @@ namespace YAF.Pages // YAF.Pages
 					{
 						using (
 							DataTable dt =
-								DB.post_list(PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages))
+								DB.post_list( PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, YafContext.Current.BoardSettings.UseStyledNicks ) )
 						{
 							foreach (DataRow row in dt.Rows)
 								rf.AddRSSItem(writer,

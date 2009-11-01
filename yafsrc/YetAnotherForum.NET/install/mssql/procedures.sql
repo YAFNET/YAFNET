@@ -3531,7 +3531,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1) as
+create procedure [{databaseOwner}].[{objectQualifier}post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1, @StyledNicks bit = 0) as
 begin
 		set nocount on
 	if @UpdateViewCount>0
@@ -3561,8 +3561,11 @@ begin
 		b.Points,
 		d.Views,
 		d.ForumID,
-		RankName = c.Name,
+		RankName = c.Name,		
 		c.RankImage,
+		Style = case(@StyledNicks)
+	        when 1 then  ISNULL(f.Style, c.Style)  
+	        else ''	 end,
 		Edited = IsNull(a.Edited,a.Posted),
 		HasAttachments	= (select count(1) from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=a.MessageID),
 		HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null)
@@ -3573,6 +3576,8 @@ begin
 		join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
 		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
+		join [{databaseOwner}].[{objectQualifier}UserGroup] e on e.UserID=b.UserID
+		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID
 	where
 		a.TopicID = @TopicID
 		AND a.IsApproved = 1
