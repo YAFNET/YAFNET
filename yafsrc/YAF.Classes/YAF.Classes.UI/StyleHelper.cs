@@ -24,8 +24,8 @@ namespace YAF.Classes.UI
 					string[] pair = styleRow[i].Split( '!' );
                     if (pair[0].ToLowerInvariant().Trim() == "default")
                     {
-                        if ( colorOnly ) GetColorOnly( pair[1] );
-                        dr["Style"] = pair[1];
+                        if (colorOnly) dr["Style"] = GetColorOnly(pair[1]);
+                        else dr["Style"] = pair[1];
                     }
 
 					for ( int j = 0; j < pair.Length; j++ )
@@ -49,8 +49,11 @@ namespace YAF.Classes.UI
 			for ( int i = 0; i < styleRow.GetLength( 0 ); i++ )
 			{
 				string[] pair = styleRow[i].Split( '!' );
-				if ( pair[0].ToLowerInvariant().Trim() == "default" )
-					dr["Style"] = pair[1];
+                if (pair[0].ToLowerInvariant().Trim() == "default")
+                {
+                    if (colorOnly) dr["Style"] = GetColorOnly(pair[1]);
+                    else dr["Style"] = pair[1];
+                }
 
 				for ( int j = 0; j < pair.Length; j++ )
 				{
