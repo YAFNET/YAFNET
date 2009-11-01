@@ -137,13 +137,16 @@ namespace YAF.Controls
 				{
 					if ( filler.Length > 0 ) filler.Append( ",&nbsp;" );
 
-					filler.AppendFormat( @"<a id=""{0}"" href=""{1}""><u>{2}</u></a> {3}", dr["UserID"],
+					filler.AppendFormat( @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", dr["UserID"],
 																YafBuildLink.GetLink( ForumPages.profile, "u={0}", dr["UserID"] ),
-															 dr["Name"],
-															 String.Format( YafContext.Current.Localization.GetText( "DEFAULT", "ONDATE" ),
-																							YafServices.DateTime.FormatDateShort( dr["ThanksDate"] ) ) );
-				}
+															 dr["Name"]);
 
+                    if (YafContext.Current.BoardSettings.ShowThanksDate)
+                    {
+                        filler.AppendFormat(@" {0}",String.Format(YafContext.Current.Localization.GetText( "DEFAULT", "ONDATE" ),
+													YafServices.DateTime.FormatDateShort( dr["ThanksDate"] ) ));
+                    }
+                }
 			return filler.ToString();
 		}
 

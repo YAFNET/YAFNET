@@ -640,6 +640,11 @@ namespace YAF.Classes
 			get { return _reg.GetValue<bool>( "ShowUserOnlineStatusInPosts", false ); }
 			set { _reg.SetValue<bool>( "ShowUserOnlineStatusInPosts", value ); }
 		}
+        public bool ShowThanksDate
+        {
+            get { return _reg.GetValue<bool>("ShowThanksDate", true); }
+            set { _reg.SetValue<bool>("ShowThanksDate", value); }
+        }
 		#endregion
 
 		#region string settings

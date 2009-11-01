@@ -271,6 +271,15 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>Show The Date on Which Users Have Thanked Posts:</b><br />
+							If checked users can see on which date posts have been thanked.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ShowThanksDate" runat="server"></asp:CheckBox>
+						</td>
+					</tr>					
+					<tr>
+						<td class="postheader">
 							<b>Remove Nested Quotes:</b><br />
 							Automatically remove nested [quote] tags from replies.
 						</td>
