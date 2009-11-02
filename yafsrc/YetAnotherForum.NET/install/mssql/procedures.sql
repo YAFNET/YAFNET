@@ -266,6 +266,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}group_save]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}group_rank_style]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}group_rank_style]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}mail_create]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}mail_create]
 GO
@@ -2449,6 +2453,16 @@ begin
 end
 GO
 
+CREATE procedure [{databaseOwner}].[{objectQualifier}group_rank_style]( @BoardID int) as
+begin
+SELECT 1 AS LegendID,[Name],Style FROM [{databaseOwner}].[{objectQualifier}Group]
+WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style
+UNION
+SELECT 2  AS LegendID,[Name],Style FROM [{databaseOwner}].[{objectQualifier}Rank]
+WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style
+end
+GO
+
 create procedure [{databaseOwner}].[{objectQualifier}mail_create]
 (
 	@From nvarchar(50),
@@ -3562,10 +3576,11 @@ begin
 		d.Views,
 		d.ForumID,
 		RankName = c.Name,		
-		c.RankImage,
+		c.RankImage,	
 		Style = case(@StyledNicks)
-	        when 1 then  ISNULL(f.Style, c.Style)  
-	        else ''	 end,
+	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID ORDER BY f.SortOrder), c.Style)  
+	        else ''	 end, 
 		Edited = IsNull(a.Edited,a.Posted),
 		HasAttachments	= (select count(1) from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=a.MessageID),
 		HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null)
@@ -3575,13 +3590,11 @@ begin
 		join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=a.TopicID
 		join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
 		join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
-		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
-		join [{databaseOwner}].[{objectQualifier}UserGroup] e on e.UserID=b.UserID
-		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID
+		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID	
 	where
 		a.TopicID = @TopicID
 		AND a.IsApproved = 1
-		AND (a.IsDeleted = 0 OR (@showdeleted = 1 AND a.IsDeleted = 1))
+		AND (a.IsDeleted = 0 OR (@showdeleted = 1 AND a.IsDeleted = 1)) 
 	order by
 		a.Posted asc
 end

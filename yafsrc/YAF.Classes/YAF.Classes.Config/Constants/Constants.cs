@@ -55,6 +55,7 @@ namespace YAF.Classes
 			public const string BannedIP = "BannedIP";
 			public const string BoardStats = "BoardStats";
 			public const string BoardSettings = "BoardSettings";
+            public const string GroupRankStyles = "GroupRankStyles";
 			public const string GuestUserID = "GuestUserID";
 			public const string CustomBBCode = "CustomBBCode";
 			public const string Smilies = "Smilies";
@@ -72,6 +73,8 @@ namespace YAF.Classes
 			public const string ForumJump = "ForumJump{0}";
 			public const string FirstPostCleaned = "FirstPostCleaned{0}{1}";
 			public const string Shoutbox = "Shoutbox";
+            
+            
 		}
 	}
 }

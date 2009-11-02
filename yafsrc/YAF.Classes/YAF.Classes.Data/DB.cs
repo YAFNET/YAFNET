@@ -5018,6 +5018,20 @@ namespace YAF.Classes.Data
 				YAF.Classes.Data.YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
+        /// <summary>
+        /// Returns info about all Groups and Rank styles. 
+        /// Used in GroupRankStyles cache.
+        /// Usage: LegendID = 1 - Select Groups, LegendID = 2 - select Ranks by Name 
+        /// </summary>
+        public static DataTable group_rank_style(object boardID)
+        {
+            using (SqlCommand cmd = YafDBAccess.GetCommand("group_rank_style"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@BoardID", boardID);
+               return YAF.Classes.Data.YafDBAccess.Current.GetData(cmd);
+            }
+        }
 
 		#endregion
 

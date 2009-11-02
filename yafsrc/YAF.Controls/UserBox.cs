@@ -320,19 +320,43 @@ namespace YAF.Controls
 				System.Text.StringBuilder groupsText = new System.Text.StringBuilder( 500 );
 
 				bool bFirst = true;
-
+                string roleStyle = null;
 				foreach ( string role in RoleMembershipHelper.GetRolesForUser( DataRow["UserName"].ToString() ) )
 				{
+                    // Get styles 	
+	            
+			    DataTable roleStyleTable =  YafContext.Current.Cache.GetItem<DataTable>( YafCache.GetBoardCacheKey( Constants.Cache.GroupRankStyles ),
+                YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
+                () => YAF.Classes.Data.DB.group_rank_style(YafContext.Current.PageBoardID ) );
+			       foreach( DataRow drow in roleStyleTable.Rows )
+                   {
+                      if ( Convert.ToInt32( drow["LegendID"] ) == 1 && drow["Style"] != null && drow["Name"].ToString() == role ) 
+                      {
+                        roleStyle = YAF.Classes.UI.StyleHelper.DecodeStyleByString(drow["Style"].ToString(),true);
+                        break;
+                      }
+                   }
+                    
+ 
 					if ( bFirst )
 					{
-						groupsText.AppendLine( role );
+                         if ( YafContext.Current.BoardSettings.UseStyledNicks )                         
+                        groupsText.AppendLine(string.Format(@"<span id=""{0}1"" runat=""server"" style =""{1}"">{0}</span>",role,roleStyle));
+                         else
+                        groupsText.AppendLine( role );
 						bFirst = false;
 					}
 					else
 					{
-						groupsText.AppendFormat( ", {0}", role );
+                         if ( YafContext.Current.BoardSettings.UseStyledNicks )
+                        groupsText.AppendLine(string.Format(@", <span id=""{0}1"" runat=""server"" style =""{1}"">{0}</span>",role,roleStyle));
+                         else
+                        groupsText.AppendFormat( ", {0}", role );
 					}
+                   
 				}
+
+                roleStyle = null;
 
 				filler = String.Format(
 						PageContext.BoardSettings.UserBoxGroups,
@@ -352,9 +376,30 @@ namespace YAF.Controls
 
 		private string MatchUserBoxRank( string userBox )
 		{
-			Regex rx = new Regex( Constants.UserBox.Rank );
-
-			string filler = String.Format(
+            // Get styles 	
+            string rankStyle = null;
+            DataTable roleStyleTable = YafContext.Current.Cache.GetItem<DataTable>(YafCache.GetBoardCacheKey(Constants.Cache.GroupRankStyles),
+            YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
+            () => YAF.Classes.Data.DB.group_rank_style(YafContext.Current.PageBoardID));
+            foreach (DataRow drow in roleStyleTable.Rows)
+            {
+                if (Convert.ToInt32(drow["LegendID"]) == 2 && drow["Style"] != null && drow["Name"].ToString() == DataRow["RankName"].ToString())
+                {
+                    rankStyle = YAF.Classes.UI.StyleHelper.DecodeStyleByString(drow["Style"].ToString(), true);
+                    break;
+                }
+            }
+             string filler =null;  
+           
+            Regex rx = new Regex( Constants.UserBox.Rank );
+            if ( YafContext.Current.BoardSettings.UseStyledNicks )
+            filler = String.Format(
+					PageContext.BoardSettings.UserBoxRank,
+					PageContext.Localization.GetText( "rank" ),
+					 string.Format(@"<span id=""{0}2"" runat=""server"" style =""{1}"">{0}</span>", DataRow["RankName"], rankStyle)
+					);              
+            else
+			 filler = String.Format(
 					PageContext.BoardSettings.UserBoxRank,
 					PageContext.Localization.GetText( "rank" ),
 					DataRow["RankName"]
