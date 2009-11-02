@@ -158,7 +158,7 @@ namespace YAF.Controls
 			Quote.Visible = !PostDeleted && CanReply && !IsLocked;
 			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, MessageId );
 
-			Thank.Visible = CanThankPost && !IsGuest;
+            Thank.Visible = CanThankPost && !PageContext.IsGuest;
 			if ( DB.message_isThankedByUser( PageContext.PageUserID, DataRow["MessageID"] ) )
 			{
 				Thank.NavigateUrl = "javascript:removeThanks(" + DataRow["MessageID"] + ");";
