@@ -330,6 +330,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreported]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_listreporters]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreporters]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_report]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_report]
 GO
@@ -2765,12 +2769,24 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreporters](@MessageID int) AS
+BEGIN
+	
+	SELECT b.UserID, UserName = a.Name, b.ReportedNumber 
+	FROM [{databaseOwner}].[{objectQualifier}User] a,
+	[{databaseOwner}].[{objectQualifier}MessageReportedAudit] b
+	WHERE a.UserID = b.UserID AND b.MessageID = @MessageID
+	
+END
+GO
+
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_report](@ReportFlag int, @MessageID int, @ReporterID int, @ReportedDate datetime ) AS
 BEGIN
 			
 	IF NOT exists(SELECT MessageID from [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID=@MessageID AND UserID=@ReporterID)
 		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReportedAudit](MessageID,UserID,Reported) VALUES (@MessageID,@ReporterID,@ReportedDate)
-
+    ELSE
+        UPDATE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] SET ReportedNumber = ( CASE WHEN ReportedNumber < 2147483647 THEN  ReportedNumber  + 1 ELSE ReportedNumber END ), Reported = @ReportedDate WHERE MessageID=@MessageID AND UserID=@ReporterID 
 	IF NOT exists(SELECT MessageID FROM [{databaseOwner}].[{objectQualifier}MessageReported] WHERE MessageID=@MessageID)
 	BEGIN
 		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReported](MessageID, [Message])

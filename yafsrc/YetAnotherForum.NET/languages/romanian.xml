@@ -525,6 +525,7 @@
     <Resource tag="DELETED">Postare aprobata.</Resource>
     <Resource tag="MODIFIED">Post has been changed!</Resource>
     <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
+    <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Resolve Post Copies</Resource>
     <Resource tag="RESOLVED">Mark as resolved</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>

@@ -152,8 +152,33 @@ namespace YAF.Pages.moderate
 		private void BindData()
 		{
 			// get reported posts for this forum
-			List.DataSource = DB.message_listreported( 7, PageContext.PageForumID );
 
+            DataTable dt = DB.message_listreported(7, PageContext.PageForumID);
+            dt.Columns.Add("Reporters", typeof(string));
+            dt.AcceptChanges();
+            int i = 0;
+            foreach (DataRow dr in dt.Rows)
+            {
+                DataTable _reportersList = YAF.Classes.Data.DB.message_listreporters(Convert.ToInt32(dr["MessageID"]));
+                if (_reportersList.Rows.Count > 0)
+                {
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    foreach (DataRow reporter in _reportersList.Rows)
+                    {
+                        string howMany = null;
+                        if (Convert.ToInt32(reporter["ReportedNumber"]) > 1)
+                        howMany = "(" + HtmlEncode( reporter["ReportedNumber"].ToString() ) + ")";                       
+
+                        sb.AppendFormat(@"<a id=""Link{1}{0}"" href=""{3}"" runat=""server"">{2}{4}</a>, ", i, HtmlEncode(Convert.ToInt32(reporter["UserID"])), HtmlEncode(reporter["UserName"].ToString()), YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(reporter["UserID"])),howMany);
+                       
+                        i++;
+                    }
+                    dr["Reporters"] = sb.ToString().TrimEnd().TrimEnd(',') ;
+                }
+
+            }
+            // get reported posts for this forum
+            List.DataSource = dt;
 			// bind data to controls
 			DataBind();
 		}

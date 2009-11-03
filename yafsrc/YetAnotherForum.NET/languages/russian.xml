@@ -491,6 +491,7 @@
     <Resource tag="DELETED">Сообщение удалёно.</Resource>
     <Resource tag="MODIFIED">Сообщение было отредактировано!</Resource>
     <Resource tag="NUMBERREPORTED">Сообщённое число случаев :</Resource>
+    <Resource tag="REPORTEDBY">Пожаловались:</Resource>
     <Resource tag="RESOLVE">Урегулировать копии сообщение</Resource>
     <Resource tag="RESOLVED">Пометить как урегулированные</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Сообщение было отмечено как урегулированное.</Resource>
@@ -647,9 +648,9 @@
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
     <Resource tag="THANKSFROM">Сказали Спасибо: {0} раз</Resource>
-    <Resource tag="THANKSINFO">{0} users thanked {1} for this useful post.</Resource>
-    <Resource tag="THANKSINFOSINGLE">1 user thanked {0} for this useful post.</Resource>
-    <Resource tag="THANKSTO">Was thanked: {0} time(s) in {1} post(s)</Resource>
+    <Resource tag="THANKSINFO">{0} пользователей поблагодарили {1} за этот пост.</Resource>
+    <Resource tag="THANKSINFOSINGLE">1 пользователь поблагодарил {0} за этот пост.</Resource>
+    <Resource tag="THANKSTO">Поблагодарили: {0} раз в {1} постах</Resource>
     <Resource tag="THREADED">Дерево</Resource>
     <Resource tag="TIP_DELETE_TOPIC">Удалить эту тему</Resource>
     <Resource tag="TIP_LOCK_TOPIC">Закрыть эту тему</Resource>

@@ -45,7 +45,15 @@
 						<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="MODIFIED" />
 					</b>
 				</label>
-			</td>
+			</td>			
+		</tr>
+		<tr  class="postheader">
+		<td>
+			<YAF:LocalizedLabel ID="ReportedByLabel" runat="server" LocalizedTag="REPORTEDBY" />			 
+		</td>
+		<td>
+			<asp:Label id="ReportersList"  runat="server" Text ='<%# Convert.ToString(Eval("Reporters")) %>'></asp:Label> 					
+		</td>
 		</tr>
 		<tr class="post">
 			<td valign="top" width="140">

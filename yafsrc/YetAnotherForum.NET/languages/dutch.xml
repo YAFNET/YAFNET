@@ -527,6 +527,7 @@
     <Resource tag="DELETED">Bericht verwijderd.</Resource>
     <Resource tag="MODIFIED">Bericht is gewijzigd!</Resource>
     <Resource tag="NUMBERREPORTED">Aantal keer gerapporteerd:</Resource>
+    <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Kopieën post oplossen</Resource>
     <Resource tag="RESOLVED">Markeer als opgeschoond</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Bericht is gemarkeerd als opgeschoond.</Resource>

@@ -1174,6 +1174,13 @@ BEGIN
 END
 GO
 
+-- MessageReportedAudit Table
+IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') AND name = N'ReportedNumber')
+BEGIN
+    ALTER TABLE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] ADD [ReportedNumber] int NOT NULL DEFAULT 1
+END
+GO
+
 
 
 
