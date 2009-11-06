@@ -704,6 +704,7 @@
     <Resource tag="JOINED">عضو شده:</Resource>
     <Resource tag="LAST10">10 ارسال آخر</Resource>
     <Resource tag="LASTVISIT">آخرین ملاقات:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">اعضاء</Resource>
     <Resource tag="MINUTES">دقیقه</Resource>
     <Resource tag="MODERATION">مدیریت</Resource>

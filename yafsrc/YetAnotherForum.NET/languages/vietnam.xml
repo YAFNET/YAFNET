@@ -709,6 +709,7 @@
     <Resource tag="JOINED">Gia nhập:</Resource>
     <Resource tag="LAST10">10 bài gần nhất</Resource>
     <Resource tag="LASTVISIT">Lần cuối đăng nhập:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Thành viên</Resource>
     <Resource tag="MINUTES">phút</Resource>
     <Resource tag="MODERATE">Quyền truy cập</Resource>

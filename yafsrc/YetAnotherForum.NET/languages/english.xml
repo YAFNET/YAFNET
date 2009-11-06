@@ -704,6 +704,7 @@
     <Resource tag="JOINED">Joined:</Resource>
     <Resource tag="LAST10">Last 10 Posts</Resource>
     <Resource tag="LASTVISIT">Last Visit:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Members</Resource>
     <Resource tag="MINUTES">minutes</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

@@ -767,8 +767,8 @@ namespace YAF.Classes
 			set { _reg.SetValue<string>( "UserBoxAvatar", value ); }
 		}
 		public string UserBoxMedals
-		{
-			get { return _reg.GetValue<string>( "UserBoxMedals", @"<div class=""section medals"">Medals: {0}{1}</div><br clear=""all"" />" ); }
+		{ 
+			get { return _reg.GetValue<string>( "UserBoxMedals", @"<div class=""section medals"">{0} {1}{2}</div><br clear=""all"" />" ); }
 			set { _reg.SetValue<string>( "UserBoxMedals", value ); }
 		}
 		public string UserBoxRankImage

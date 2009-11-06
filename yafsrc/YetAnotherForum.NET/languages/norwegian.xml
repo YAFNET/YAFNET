@@ -742,6 +742,7 @@
     <Resource tag="JOINED">Innmeldt:</Resource>
     <Resource tag="LAST10">Siste 10 innlegg</Resource>
     <Resource tag="LASTVISIT">Siste besøk:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Medlemmer</Resource>
     <Resource tag="MINUTES">minutter</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

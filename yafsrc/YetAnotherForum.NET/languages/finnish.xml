@@ -741,6 +741,7 @@
     <Resource tag="JOINED">Liittynyt:</Resource>
     <Resource tag="LAST10">Viimeiset 10 viestiä</Resource>
     <Resource tag="LASTVISIT">Viimeksi käynyt:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Käyttäjät</Resource>
     <Resource tag="MINUTES">minuuttia</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

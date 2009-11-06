@@ -880,6 +880,7 @@
     <Resource tag="JOINED">Prisijungė: </Resource>
     <Resource tag="LAST10">Paskutiniai 10 komentarų </Resource>
     <Resource tag="LASTVISIT">Paskutinį kartą lankėsi: </Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Nariai </Resource>
     <Resource tag="MINUTES">minučių </Resource>
     <Resource tag="MODERATION">Moderation</Resource>

@@ -709,6 +709,7 @@
     <Resource tag="JOINED">הצטרף:</Resource>
     <Resource tag="LAST10">10 הודעות אחרונות</Resource>
     <Resource tag="LASTVISIT">ביקור אחרון:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">חברים</Resource>
     <Resource tag="MINUTES">דקות</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

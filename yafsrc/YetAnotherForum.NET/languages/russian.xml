@@ -706,6 +706,7 @@
     <Resource tag="JOINED">Зарегистрировался:</Resource>
     <Resource tag="LAST10">Последние 10 сообщений</Resource>
     <Resource tag="LASTVISIT">Последнее посещение:</Resource>
+    <Resource tag="MEDALS">Медали:</Resource>
     <Resource tag="MEMBERS">Участники</Resource>
     <Resource tag="MINUTES">минут</Resource>
     <Resource tag="MODERATION">Права доступа</Resource>

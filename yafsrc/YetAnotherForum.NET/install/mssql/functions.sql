@@ -390,8 +390,8 @@ declare @style nvarchar(255)
                           ON a.UserID = b.UserID
                             JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
                               ON b.GroupID = c.GroupID 
-                              WHERE a.UserID = @UserID AND c.Style IS NOT NULL ORDER BY a.UserID ASC)
-       if ( @style is null or @style = '' )
+                              WHERE a.UserID = @UserID AND LEN(c.Style) > 3 ORDER BY a.UserID ASC)
+       if ( LEN(@style) < 3 OR @style IS NULL )
                   begin
                               set @style = (SELECT TOP 1 c.Style FROM [{databaseOwner}].[{objectQualifier}Rank] c 
                                 JOIN [{databaseOwner}].[{objectQualifier}User] d

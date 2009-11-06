@@ -742,6 +742,7 @@
     <Resource tag="JOINED">Katıldı:</Resource>
     <Resource tag="LAST10">Son 10 e-posta</Resource>
     <Resource tag="LASTVISIT">Son Ziyaret:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Üyeler</Resource>
     <Resource tag="MINUTES">dakika</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

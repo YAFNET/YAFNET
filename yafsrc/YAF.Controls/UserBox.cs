@@ -509,6 +509,7 @@ namespace YAF.Controls
 
 				filler = String.Format(
 						PageContext.BoardSettings.UserBoxMedals,
+                        PageContext.Localization.GetText("MEDALS"),
 						ribbonBar.ToString(),
 						medals.ToString()
 						);

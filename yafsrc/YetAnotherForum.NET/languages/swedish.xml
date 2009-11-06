@@ -741,6 +741,7 @@
     <Resource tag="JOINED">Registrerade sig:</Resource>
     <Resource tag="LAST10">Senaste 10 meddelanden</Resource>
     <Resource tag="LASTVISIT">Senaste besök:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Medlemmar</Resource>
     <Resource tag="MINUTES">minuter</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

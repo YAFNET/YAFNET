@@ -728,6 +728,7 @@
     <Resource tag="JOINED">Registrado:</Resource>
     <Resource tag="LAST10">Ultimos 10 mensajes</Resource>
     <Resource tag="LASTVISIT">Ultima visita:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Miembros</Resource>
     <Resource tag="MINUTES">minutos</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

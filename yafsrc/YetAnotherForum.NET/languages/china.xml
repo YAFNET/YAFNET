@@ -742,6 +742,7 @@
     <Resource tag="JOINED">注册日期:</Resource>
     <Resource tag="LAST10">最新 10 个帖子</Resource>
     <Resource tag="LASTVISIT">最后登录:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">会员</Resource>
     <Resource tag="MINUTES">分钟</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

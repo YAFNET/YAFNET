@@ -747,6 +747,7 @@
     <Resource tag="JOINED">Lid sinds:</Resource>
     <Resource tag="LAST10">Laatste 10 berichten</Resource>
     <Resource tag="LASTVISIT">Laatste bezoek:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Leden</Resource>
     <Resource tag="MINUTES">minuten</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

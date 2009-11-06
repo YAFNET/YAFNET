@@ -743,6 +743,7 @@
     <Resource tag="JOINED">A intrat:</Resource>
     <Resource tag="LAST10">Ultimile 10 postari</Resource>
     <Resource tag="LASTVISIT">Ultima vizita:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Memberii</Resource>
     <Resource tag="MINUTES">minute</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

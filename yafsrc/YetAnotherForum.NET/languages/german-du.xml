@@ -709,6 +709,7 @@
     <Resource tag="JOINED">Mitglied seit:</Resource>
     <Resource tag="LAST10">Letzte 10 Beiträge</Resource>
     <Resource tag="LASTVISIT">Letzter Besuch:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Mitglieder</Resource>
     <Resource tag="MINUTES">Minuten</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

@@ -743,6 +743,7 @@
     <Resource tag="JOINED">Tilmeldt:</Resource>
     <Resource tag="LAST10">Sidste 10 Indlæg</Resource>
     <Resource tag="LASTVISIT">Sidste Besøg:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Medlemmer</Resource>
     <Resource tag="MINUTES">minutter</Resource>
     <Resource tag="MODERATION">Moderation</Resource>

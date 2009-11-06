@@ -762,6 +762,7 @@
     <Resource tag="JOINED">Členom od:</Resource>
     <Resource tag="LAST10">Posledných 10 správ</Resource>
     <Resource tag="LASTVISIT">Posledná návšteva:</Resource>
+    <Resource tag="MEDALS">Medals:</Resource>
     <Resource tag="MEMBERS">Členovia</Resource>
     <Resource tag="MINUTES">minút</Resource>
     <Resource tag="MODERATION">Moderation</Resource>
