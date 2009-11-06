@@ -1,7 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportedspam.ascx.cs"
 	Inherits="YAF.Pages.moderate.reportedspam" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
-<%@ Import Namespace="YAF.Controls"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="List" runat="server">
 	<HeaderTemplate>
@@ -53,7 +52,7 @@
 			<YAF:LocalizedLabel ID="ReportedByLabel" runat="server" LocalizedTag="REPORTEDBY" />			 
 		</td>
 		<td>
-			<asp:Label id="ReportersList"  runat="server" Text ='<%# Convert.ToString(Eval("Reporters")) %>'></asp:Label> 					
+			<YAF:ReportedPosts id="ReportersList"  runat="server" MessageID='<%# DataBinder.Eval(Container.DataItem, "[\"MessageID\"]") %>' />					
 		</td>
 		</tr>			
 		

@@ -52,7 +52,7 @@
 			<YAF:LocalizedLabel ID="ReportedByLabel" runat="server" LocalizedTag="REPORTEDBY" />			 
 		</td>
 		<td>
-			<asp:Label id="ReportersList"  runat="server" Text ='<%# Convert.ToString(Eval("Reporters")) %>'></asp:Label> 					
+			<YAF:ReportedPosts id="ReportersList"  runat="server" MessageID='<%# DataBinder.Eval(Container.DataItem, "[\"MessageID\"]") %>' />					
 		</td>
 		</tr>
 		<tr class="post">

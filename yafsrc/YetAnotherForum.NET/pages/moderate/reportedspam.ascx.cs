@@ -140,10 +140,9 @@ namespace YAF.Pages.moderate
 		/// Bind data for this control.
 		/// </summary>
 		private void BindData()
-		{
-            DataTable dt = YAF.Classes.Utils.ReportedMessageHelper.GetReportersList(8, PageContext.PageForumID);
+		{          
             // get reported posts for this forum
-            List.DataSource = dt;
+            List.DataSource =  YAF.Classes.Data.DB.message_listreported(8, PageContext.PageForumID);
 			// bind data to controls
 			DataBind();
 		}

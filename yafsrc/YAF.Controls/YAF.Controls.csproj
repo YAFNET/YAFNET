@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveUsers.cs" />
+    <Compile Include="ReportedPosts.cs" />
     <Compile Include="OnlineStatusImage.cs" />
     <Compile Include="YafAdminMenu\AdminMenu.cs" />
     <Compile Include="YafAdminMenu\YafMenu.cs">

@@ -71,7 +71,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\ReportedMessageHelper.cs" />
     <Compile Include="URLBuilder\DotNetNukeUrlBuilder.cs" />
     <Compile Include="YafBuildLink.cs" />
     <Compile Include="YafForumInfo.cs" />
