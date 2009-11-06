@@ -73,7 +73,7 @@ namespace YAF.Classes.Core
 			}
 			catch(Exception x)
 			{
-				DB.eventlog_create( null, TaskName, String.Format( "Error In Forum (ID: {0}) Delete Task: {1}", ForumId, x.Message ) );
+				DB.eventlog_create( null, TaskName, String.Format( "Error In Forum (ID: {0}) Delete Task: {1}", ForumId, x ) );
 			}
 		}
 	}

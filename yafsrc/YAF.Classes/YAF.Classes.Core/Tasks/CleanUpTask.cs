@@ -51,30 +51,23 @@ namespace YAF.Classes.Core
 
 		public override void RunOnce()
 		{
-			try
+			// look for tasks to clean up...
+			if ( Module != null )
 			{
-				// look for tasks to clean up...
-				if ( Module != null )
+				foreach ( string instanceName in Module.TaskManager.Keys )
 				{
-					foreach ( string instanceName in Module.TaskManager.Keys )
-					{
-						IBackgroundTask task = Module.TaskManager[instanceName];
+					IBackgroundTask task = Module.TaskManager[instanceName];
 
-						if ( task == null )
-						{
-							Module.TaskManager.Remove( instanceName );
-						}
-						else if ( task != null && !task.IsRunning )
-						{
-							Module.TaskManager.Remove( instanceName );
-							task.Dispose();
-						}
+					if ( task == null )
+					{
+						Module.TaskManager.Remove( instanceName );
+					}
+					else if ( task != null && !task.IsRunning )
+					{
+						Module.TaskManager.Remove( instanceName );
+						task.Dispose();
 					}
 				}
-			}
-			catch
-			{
-				// just swallow the exception...
 			}
 		}
 	}

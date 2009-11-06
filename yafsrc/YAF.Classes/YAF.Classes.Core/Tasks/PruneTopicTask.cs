@@ -92,7 +92,7 @@ namespace YAF.Classes.Core
 			}
 			catch(Exception x)
 			{
-				DB.eventlog_create( null, TaskName, String.Format( "Error In Prune Topic Task: {0}", x.Message ) );
+				DB.eventlog_create( null, TaskName, String.Format( "Error In Prune Topic Task: {0}", x ) );
 			}
 		}
 	}

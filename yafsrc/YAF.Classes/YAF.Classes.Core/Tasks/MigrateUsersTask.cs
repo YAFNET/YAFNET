@@ -64,7 +64,7 @@ namespace YAF.Classes.Core
 			}
 			catch(Exception x)
 			{
-				DB.eventlog_create( null, TaskName, String.Format( "Error In MigrateUsers Task: {0}", x.Message ) );
+				DB.eventlog_create( null, TaskName, String.Format( "Error In MigrateUsers Task: {0}", x ) );
 			}
 		}
 	}

@@ -129,7 +129,7 @@ namespace YAF.Classes.Core
 			}
 			catch ( Exception x )
 			{
-				DB.eventlog_create( null, TaskName, String.Format( "Exception In {1}: {0}", x.Message, TaskName ) );
+				DB.eventlog_create( null, TaskName, String.Format( "Exception In {1}: {0}", x, TaskName ) );
 			}
 		}
 	}
