@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.DataSetExtensions;
 using System.Threading;
 using System.Web;
 using System.Linq;
@@ -101,11 +102,14 @@ namespace YAF.Classes.Core
 				if ( !Thread.CurrentThread.IsAlive ) break;
 
 				// skip the guest user
-				if ( (int)row["IsGuest"] > 0 )
+				if ( row.Field<int>("IsGuest") > 0 )
 					continue;
 
-				string name = row["Name"].ToString().Trim();
-				string email = row["Email"].ToString().ToLower().Trim();
+				// validate that name and email are available...
+				if ( row["Name"].IsNullOrEmptyDBField() || row["Email"].IsNullOrEmptyDBField() ) continue;
+
+				string name = row.Field<string>("Name").Trim();
+				string email = row.Field<string>("Email").ToLower().Trim();
 
 				// clean up the name by removing commas...
 				name = name.Replace( ",", "" );
@@ -129,7 +133,8 @@ namespace YAF.Classes.Core
 							DB.user_migrate( row["UserID"], user.ProviderUserKey, isYafProvider );
 
 							user.Comment = "Migrated from YetAnotherForum.NET";
-							Membership.UpdateUser( user );
+
+							YafContext.Current.CurrentMembership.UpdateUser( user );
 
 							if ( !isYafProvider )
 							{
@@ -148,17 +153,17 @@ namespace YAF.Classes.Core
 						{
 							// copy profile data over...
 							YafUserProfile userProfile = YafUserProfile.GetProfile( name );
-							if ( dt.Columns.Contains( "AIM" ) && row["AIM"] != DBNull.Value ) userProfile.AIM = row["AIM"].ToString();
-							if ( dt.Columns.Contains( "YIM" ) && row["YIM"] != DBNull.Value ) userProfile.YIM = row["YIM"].ToString();
-							if ( dt.Columns.Contains( "MSN" ) && row["MSN"] != DBNull.Value ) userProfile.MSN = row["MSN"].ToString();
-							if ( dt.Columns.Contains( "ICQ" ) && row["ICQ"] != DBNull.Value ) userProfile.ICQ = row["ICQ"].ToString();
-							if ( dt.Columns.Contains( "RealName" ) && row["RealName"] != DBNull.Value ) userProfile.RealName = row["RealName"].ToString();
-							if ( dt.Columns.Contains( "Occupation" ) && row["Occupation"] != DBNull.Value ) userProfile.Occupation = row["Occupation"].ToString();
-							if ( dt.Columns.Contains( "Location" ) && row["Location"] != DBNull.Value ) userProfile.Location = row["Location"].ToString();
-							if ( dt.Columns.Contains( "Homepage" ) && row["Homepage"] != DBNull.Value ) userProfile.Homepage = row["Homepage"].ToString();
-							if ( dt.Columns.Contains( "Interests" ) && row["Interests"] != DBNull.Value ) userProfile.Interests = row["Interests"].ToString();
-							if ( dt.Columns.Contains( "Weblog" ) && row["Weblog"] != DBNull.Value ) userProfile.Blog = row["Weblog"].ToString();
-							if ( dt.Columns.Contains( "Gender" ) && row["Gender"] != DBNull.Value ) userProfile.Gender = Convert.ToInt32( row["Gender"] );
+							if ( dt.Columns.Contains( "AIM" ) && !row["AIM"].IsNullOrEmptyDBField() ) userProfile.AIM = row["AIM"].ToString();
+							if ( dt.Columns.Contains( "YIM" ) && !row["YIM"].IsNullOrEmptyDBField() ) userProfile.YIM = row["YIM"].ToString();
+							if ( dt.Columns.Contains( "MSN" ) && !row["MSN"].IsNullOrEmptyDBField() ) userProfile.MSN = row["MSN"].ToString();
+							if ( dt.Columns.Contains( "ICQ" ) && !row["ICQ"].IsNullOrEmptyDBField() ) userProfile.ICQ = row["ICQ"].ToString();
+							if ( dt.Columns.Contains( "RealName" ) && !row["RealName"].IsNullOrEmptyDBField() ) userProfile.RealName = row["RealName"].ToString();
+							if ( dt.Columns.Contains( "Occupation" ) && !row["Occupation"].IsNullOrEmptyDBField() ) userProfile.Occupation = row["Occupation"].ToString();
+							if ( dt.Columns.Contains( "Location" ) && !row["Location"].IsNullOrEmptyDBField() ) userProfile.Location = row["Location"].ToString();
+							if ( dt.Columns.Contains( "Homepage" ) && !row["Homepage"].IsNullOrEmptyDBField() ) userProfile.Homepage = row["Homepage"].ToString();
+							if ( dt.Columns.Contains( "Interests" ) && !row["Interests"].IsNullOrEmptyDBField() ) userProfile.Interests = row["Interests"].ToString();
+							if ( dt.Columns.Contains( "Weblog" ) && !row["Weblog"].IsNullOrEmptyDBField() ) userProfile.Blog = row["Weblog"].ToString();
+							if ( dt.Columns.Contains( "Gender" ) && !row["Gender"].IsNullOrEmptyDBField() ) userProfile.Gender = Convert.ToInt32( row["Gender"] );
 							userProfile.Save();
 						}
 					}
