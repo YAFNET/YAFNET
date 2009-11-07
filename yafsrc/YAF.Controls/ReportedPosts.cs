@@ -86,9 +86,10 @@ namespace YAF.Controls
                         else
                         { writer.Write(@"<p>{0}</p>", reportString[istr]); }
 
-                        writer.Write(@"<a id=""Link{1}{0}"" href=""{3}"" runat=""server"">{4} {2}</a>", i, Convert.ToInt32(reporter["UserID"]), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages.cp_message, "u={0}", PageContext.PageUserID), PageContext.Localization.GetText("REPLYTO"));
+                        writer.Write(@"<a id=""Link{1}{0}"" href=""{3}"" runat=""server"">{4} {2}</a>", i, Convert.ToInt32(reporter["UserID"]), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages.cp_pm), PageContext.Localization.GetText("REPLYTO"));
                     }
                     if (i < _reportersList.Rows.Count - 1) writer.Write("<br></br>");
+                    else writer.Write(@"<br></br><p>@@@</p>");
                     i++;
                 }
 
