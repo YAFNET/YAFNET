@@ -491,6 +491,7 @@
     <Resource tag="DELETED">Сообщение удалёно.</Resource>
     <Resource tag="MODIFIED">Сообщение было отредактировано!</Resource>
     <Resource tag="NUMBERREPORTED">Сообщённое число случаев :</Resource>
+    <Resource tag="REPLYTO">Послать личное сообщение пользователю </Resource>
     <Resource tag="REPORTEDBY">Пожаловались:</Resource>
     <Resource tag="RESOLVE">Урегулировать копии сообщение</Resource>
     <Resource tag="RESOLVED">Пометить как урегулированные</Resource>

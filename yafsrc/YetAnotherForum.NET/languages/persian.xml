@@ -491,6 +491,7 @@
     <Resource tag="DELETED">ارسال حذف شد.</Resource>
     <Resource tag="MODIFIED">ارسال تغییر پیدا کرد!</Resource>
     <Resource tag="NUMBERREPORTED">تعداد دفعات گزارش:</Resource>
+    <Resource tag="REPLYTO">Reply by private message to</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">بررسی کپی های ارسال</Resource>
     <Resource tag="RESOLVED">بررسی شد</Resource>

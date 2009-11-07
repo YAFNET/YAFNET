@@ -489,6 +489,7 @@
     <Resource tag="DELETED">Message effacé.</Resource>
     <Resource tag="MODIFIED">Message modifié!</Resource>
     <Resource tag="NUMBERREPORTED">Nompre de report:</Resource>
+    <Resource tag="REPLYTO">Reply by private message to</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Résoudre copie d'article</Resource>
     <Resource tag="RESOLVED">Marquer comme résolu</Resource>

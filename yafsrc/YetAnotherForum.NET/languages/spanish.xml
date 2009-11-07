@@ -510,6 +510,7 @@
     <Resource tag="DELETED">Mensaje eliminado.</Resource>
     <Resource tag="MODIFIED">Mensaje cambiado!</Resource>
     <Resource tag="NUMBERREPORTED">Numero de veces reportado :</Resource>
+    <Resource tag="REPLYTO">Reply by private message to</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Resolver copias de mensaje</Resource>
     <Resource tag="RESOLVED">Marcar como resuelto</Resource>

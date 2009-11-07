@@ -2202,8 +2202,7 @@ SELECT
 		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
 							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
 		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 256)=256) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and (([{databaseOwner}].[{objectQualifier}Topic].Flags & 8) = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID))
-		
-	FROM
+		FROM
 		[{databaseOwner}].[{objectQualifier}Category] a
 
 	JOIN [{databaseOwner}].[{objectQualifier}Forum] b ON b.CategoryID=a.CategoryID
@@ -2772,21 +2771,21 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreporters](@MessageID int) AS
 BEGIN
 	
-	SELECT b.UserID, UserName = a.Name, b.ReportedNumber 
-	FROM [{databaseOwner}].[{objectQualifier}User] a,
-	[{databaseOwner}].[{objectQualifier}MessageReportedAudit] b
-	WHERE a.UserID = b.UserID AND b.MessageID = @MessageID
+	SELECT b.UserID, UserName = a.Name, b.ReportedNumber, b.ReportText  
+	FROM [{databaseOwner}].[{objectQualifier}User] a,			
+	[{databaseOwner}].[{objectQualifier}MessageReportedAudit] b		
+	WHERE a.UserID = b.UserID  AND b.MessageID = @MessageID 
 	
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_report](@ReportFlag int, @MessageID int, @ReporterID int, @ReportedDate datetime ) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_report](@ReportFlag int, @MessageID int, @ReporterID int, @ReportedDate datetime, @ReportText nvarchar(4000)) AS
 BEGIN
 			
 	IF NOT exists(SELECT MessageID from [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID=@MessageID AND UserID=@ReporterID)
-		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReportedAudit](MessageID,UserID,Reported) VALUES (@MessageID,@ReporterID,@ReportedDate)
-    ELSE
-        UPDATE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] SET ReportedNumber = ( CASE WHEN ReportedNumber < 2147483647 THEN  ReportedNumber  + 1 ELSE ReportedNumber END ), Reported = @ReportedDate WHERE MessageID=@MessageID AND UserID=@ReporterID 
+		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReportedAudit](MessageID,UserID,Reported,ReportText) VALUES (@MessageID,@ReporterID,@ReportedDate, CONVERT(varchar(36),GETDATE())+ '??' + @ReportText)
+    ELSE 
+    UPDATE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] SET ReportedNumber = ( CASE WHEN ReportedNumber < 2147483647 THEN  ReportedNumber  + 1 ELSE ReportedNumber END ), Reported = @ReportedDate, ReportText = (CASE WHEN (LEN(ReportText) + LEN(@ReportText) +40 < 4000)  THEN  ReportText + '|' + CONVERT(varchar(36),GETDATE())+ '??' +  @ReportText ELSE ReportText END) WHERE MessageID=@MessageID AND UserID=@ReporterID 
 	IF NOT exists(SELECT MessageID FROM [{databaseOwner}].[{objectQualifier}MessageReported] WHERE MessageID=@MessageID)
 	BEGIN
 		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReported](MessageID, [Message])

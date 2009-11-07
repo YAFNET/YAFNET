@@ -643,9 +643,22 @@ namespace YAF.Controls
 					break;
 				case "ReportSpam":
 					ReportFlag = 8;
-					break;
+					break;               
 			}
-			YAF.Classes.Data.DB.message_report( ReportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today );
+            string reportMessage;
+            switch (ReportFlag)
+            {
+                case 7:
+                    reportMessage = PageContext.CurrentForumPage.GetText("REPORTED");
+                    break;
+                case 8:
+                    reportMessage = PageContext.CurrentForumPage.GetText("REPORTEDSPAM");
+                    break;
+                default:
+                    reportMessage = "Message reported!";
+                    break;
+            }
+            YAF.Classes.Data.DB.message_report(ReportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today, reportMessage);
 			PageContext.AddLoadMessage( PageContext.Localization.GetText( "REPORTEDFEEDBACK" ) );
 		}
 	}

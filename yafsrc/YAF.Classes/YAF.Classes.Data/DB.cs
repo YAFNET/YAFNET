@@ -2375,13 +2375,13 @@ namespace YAF.Classes.Data
             using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_listreporters" ) )
             {
                 cmd.CommandType = CommandType.StoredProcedure;              
-                cmd.Parameters.AddWithValue( "MessageID", messageID );
+                cmd.Parameters.AddWithValue( "MessageID", messageID );               
                 return YafDBAccess.Current.GetData( cmd );
             }
         }
 
 		// <summary> Save reported message back to the database. </summary>
-		static public void message_report( object reportFlag, object messageID, object userID, object reportedDateTime )
+		static public void message_report( object reportFlag, object messageID, object userID, object reportedDateTime, object reportText )
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_report" ) )
 			{
@@ -2390,6 +2390,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
 				cmd.Parameters.AddWithValue( "ReporterID", userID );
 				cmd.Parameters.AddWithValue( "ReportedDate", reportedDateTime );
+                cmd.Parameters.AddWithValue( "ReportText", reportText );                
 				YafDBAccess.Current.ExecuteNonQuery( cmd );
 			}
 		}
