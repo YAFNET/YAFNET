@@ -30,84 +30,110 @@ using YAF.Classes.Utils;
 namespace YAF.Controls
 {
 	/// <summary>
-	/// Summary description for Footer.
+	/// Control displaying list of letters and/or characters for filtering list of members.
 	/// </summary>
 	public class AlphaSort : BaseControl
 	{
-		public AlphaSort()
-		{
-			this.Load += new EventHandler( AlphaSort_Load );
-		}
+		/* Construction & Destruction */
+		#region Constructors
+		
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public AlphaSort() { }
+		
+		#endregion
 
-		void AlphaSort_Load( object sender, EventArgs e )
-		{
-			HtmlTable table = new HtmlTable();
 
-			table.Attributes.Add( "class", "content" );
-			table.Width = "100%";
+		/* Properties */
+		#region Page Arguments
 
-			this.Controls.Add( table );
-
-			// create row
-			HtmlTableRow tr = new HtmlTableRow();
-			table.Controls.Add( tr );
-
-			// get the localized character set
-			string charSet = PageContext.Localization.GetText( "LANGUAGE", "CHARSET" );
-			// get the current selected character (if there is one)
-			char selectedLetter = CurrentLetter;
-
-			foreach ( char letter in charSet )
-			{
-				HtmlTableCell cell = new HtmlTableCell();
-				cell.Align = "center";
-
-				if ( selectedLetter != char.MinValue && selectedLetter == letter )
-				{
-					cell.Attributes ["class"] = "postheader";
-				}
-				else
-				{
-					cell.Attributes ["class"] = "post";
-				}
-
-				// create a link to this letter
-				HyperLink link = new HyperLink();
-				link.Text = letter.ToString();
-				link.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( ForumPages.members, "letter={0}", letter == '#' ? '_' : letter );
-				// add it to this td
-				cell.Controls.Add( link );
-
-				// add this cell to the row
-				tr.Cells.Add( cell );
-			}
-		}
-
-		protected override void Render( System.Web.UI.HtmlTextWriter writer )
-		{
-			base.Render( writer );
-		}
-
+		/// <summary>
+		/// Gets actually selected letter.
+		/// </summary>
 		public char CurrentLetter
 		{
 			get
 			{
 				char currentLetter = char.MinValue;
 
-				if ( HttpContext.Current.Request.QueryString ["letter"] != null )
+				if (HttpContext.Current.Request.QueryString["letter"] != null)
 				{
-					try
-					{
-						currentLetter = char.Parse( HttpContext.Current.Request.QueryString ["letter"] );
-						if ( currentLetter == '_' ) currentLetter = '#';
-					}
-					catch
-					{
-
-					}
+					// try to convert to char
+					char.TryParse(HttpContext.Current.Request.QueryString["letter"], out currentLetter);
+					// since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
+					if (currentLetter == '_') currentLetter = '#';
 				}
+
 				return currentLetter;
 			}
 		}
+
+		#endregion
+
+
+		/* Control Processing Methods */
+		#region Control Load & Rendering
+
+		/// <summary>
+		/// Raises the Load event.
+		/// </summary>
+		protected override void OnLoad(EventArgs e)
+		{
+			// IMPORTANT: call base implementation - calls event handlers
+			base.OnLoad(e);
+
+			// it's gonna be a table containing those letters in cells
+			HtmlTable table = new HtmlTable();
+
+			// define table attributes
+			table.Attributes.Add("class", "content");
+			table.Width = "100%";
+
+			// add table to our control so it can be rendered
+			this.Controls.Add(table);
+
+			// create row for letters and attach it to the table
+			HtmlTableRow tr = new HtmlTableRow();
+			table.Controls.Add(tr);
+
+			// get the localized character set
+			string charSet = PageContext.Localization.GetText("LANGUAGE", "CHARSET");
+			// get the current selected character (if there is one)
+			char selectedLetter = CurrentLetter;
+
+			// go through all letters in a set
+			foreach (char letter in charSet)
+			{
+				// create cell for the letter and define its properties
+				HtmlTableCell cell = new HtmlTableCell();
+				cell.Align = "center";
+
+				// is letter selected?
+				if (selectedLetter != char.MinValue && selectedLetter == letter)
+				{
+					// current letter is selected, use specified style
+					cell.Attributes["class"] = "postheader";
+				}
+				else
+				{
+					// regular non-selected letter
+					cell.Attributes["class"] = "post";
+				}
+
+				// create a link to this letter
+				HyperLink link = new HyperLink();
+				link.Text = letter.ToString();
+				link.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.members, "letter={0}", letter == '#' ? '_' : letter);
+				
+				// add link to the cell
+				cell.Controls.Add(link);
+
+				// add this cell to the row
+				tr.Cells.Add(cell);
+			}
+		}
+
+		#endregion
 	}
 }

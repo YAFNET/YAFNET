@@ -55,7 +55,7 @@ namespace YAF.Controls.Statistics
 	
 		
 		/* Properties */
-		#region Display Properties
+		#region Control Properties
 
 		/// <summary>
 		/// Gets or sets number of active discussions to display in a control.
