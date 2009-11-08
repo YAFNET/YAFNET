@@ -513,7 +513,16 @@
             <param name="defaultValue">value to return if something is not available</param>
             <returns></returns>
         </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.ConvertDataTableFirstColumnToList``1(System.Data.DataTable)">
+        <member name="M:YAF.Classes.Utils.DBHelper.ToListObject``1(System.Data.DataTable,System.Func{System.Data.DataRow,``0})">
+            <summary>
+            Converts a DataTable to a List of type T using the convert function.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="dt"></param>
+            <param name="convertFunction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstColumnAsList``1(System.Data.DataTable)">
             <summary>
             Converts the first column of a DataTable to a generic List of type T.
             </summary>
@@ -521,13 +530,20 @@
             <param name="dataTable"></param>
             <returns></returns>
         </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.ConvertDataTableColumnToList``1(System.String,System.Data.DataTable)">
+        <member name="M:YAF.Classes.Utils.DBHelper.GetColumnAsList``1(System.Data.DataTable,System.String)">
             <summary>
             Converts columnName in a DataTable to a generic List of type T.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="columnName"></param>
             <param name="dataTable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRow(System.Data.DataTable)">
+            <summary>
+            Gets the first row (DataRow) of a DataTable.
+            </summary>
+            <param name="dt"></param>
             <returns></returns>
         </member>
         <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRowOrInvalid(System.Data.DataTable)">
@@ -567,6 +583,13 @@
             <param name="input">input string</param>
             <param name="limit">max size of string</param>
             <returns>truncated string</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.IsNullOrEmptyTrimmed(System.String)">
+            <summary>
+            When the string is trimmed, is it null or empty?
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleWhitespace(System.String)">
             <summary>

@@ -414,6 +414,11 @@
             Use for bit comparisons
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.DB">
+            <summary>
+            All the Database functions for YAF
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Data.DB.GetSearchResult(System.String,System.String,YAF.Classes.SearchWhatFlags,YAF.Classes.SearchWhatFlags,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
             <summary>
             Returns Search results
@@ -483,14 +488,14 @@
             <param name="Guests"></param>
             <returns>Returns a DataTable of active users</returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.active_listforum(System.Object)">
+        <member name="M:YAF.Classes.Data.DB.active_listforum(System.Object,System.Object)">
             <summary>
             Gets the list of active users within a certain forum
             </summary>
             <param name="forumID">forumID</param>
             <returns>DataTable of all ative users in a forum</returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.active_listtopic(System.Object)">
+        <member name="M:YAF.Classes.Data.DB.active_listtopic(System.Object,System.Object)">
             <summary>
             Gets the list of active users in a topic
             </summary>
@@ -815,6 +820,13 @@
             <param name="boardID">BoardID</param>
             <param name="forumID">If null, all forums in board are updated</param>
         </member>
+        <member name="M:YAF.Classes.Data.DB.message_listreporters(System.Int32)">
+            <summary>
+            Here we get reporters list for a reported message
+            </summary>       
+            <param name="MessageID">Should not be NULL</param>
+            <returns>Returns reporters DataTable for a reported message.</returns>
+        </member>
         <member name="M:YAF.Classes.Data.DB.message_simplelist(System.Int32,System.Int32)">
             <summary>
             Get message topic IDs (for URL rewriting)
@@ -1060,6 +1072,13 @@
             <param name="StartID"></param>
             <param name="Limit"></param>
             <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.group_rank_style(System.Object)">
+            <summary>
+            Returns info about all Groups and Rank styles. 
+            Used in GroupRankStyles cache.
+            Usage: LegendID = 1 - Select Groups, LegendID = 2 - select Ranks by Name 
+            </summary>
         </member>
         <member name="P:YAF.Classes.Data.DB.DBSize">
             <summary>

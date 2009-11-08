@@ -422,7 +422,7 @@
         </member>
         <member name="T:YAF.Controls.BaseControl">
             <summary>
-            Summary description for ForumUsers.
+            Summary description for BaseControl.
             </summary>
         </member>
         <member name="M:YAF.Controls.BaseControl.GetUniqueID(System.String)">
@@ -444,6 +444,12 @@
             This is a stop-gap class to help with syncing operations
             with users/membership.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.UserMembershipHelper.ClearCacheForUserId(System.Int64)">
+            <summary>
+            Verifies that the the user no longer has a cache...
+            </summary>
+            <param name="userId"></param>
         </member>
         <member name="M:YAF.Classes.Core.UserMembershipHelper.GetUserRowForID(System.Int64,System.Boolean)">
             <summary>
@@ -728,6 +734,48 @@
             Clear all cache entries from memory.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.YafCache.GetItem``1(System.String)">
+            <summary>
+            Gets the cached item as a specific type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafCache.GetItem``1(System.String,System.Double,System.Func{``0})">
+            <summary>
+            Gets the cached item as a specific type but if the item doesn't exist or 
+            is expired, will pull a new value from the function provided.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="expireMilliseconds"></param>
+            <param name="getValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafCache.GetItem``1(System.String,System.Int32,System.Func{``0})">
+            <summary>
+            Gets the cached item as a specific type but if the item doesn't exist or 
+            is expired, will pull a new value from the function provided.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="expireMinutes"></param>
+            <param name="getValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafCache.GetItem``1(System.String,System.Double,System.Web.Caching.CacheItemPriority,System.Func{``0})">
+            <summary>
+            Gets the cached item as a specific type but if the item doesn't exist or 
+            is expired, will pull a new value from the function provided.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="expireMilliseconds"></param>
+            <param name="priority"></param>
+            <param name="getValue"></param>
+            <returns></returns>
+        </member>
         <member name="P:YAF.Classes.Core.YafCache.Item(System.String)">
             <summary>
             Indexer for obtaining and setting cache keys
@@ -756,6 +804,25 @@
             </summary>
             <param name="userId"></param>
             <returns>language file name. If null -- use default language</returns>
+        </member>
+        <member name="T:YAF.Controls.BasePanel">
+            <summary>
+            Control derived from Panel that includes a reference to the YafContext.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BasePanel.GetUniqueID(System.String)">
+            <summary>
+            Creates a Unique ID
+            </summary>
+            <param name="prefix"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Controls.BasePanel.GetExtendedID(System.String)">
+            <summary>
+            Creates a ID Based on the Control Structure
+            </summary>
+            <param name="prefix"></param>
+            <returns></returns>
         </member>
         <member name="T:YAF.Classes.Core.YafSendMail">
             <summary>

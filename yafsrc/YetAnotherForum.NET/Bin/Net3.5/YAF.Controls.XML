@@ -523,6 +523,48 @@
             string.
             </summary>
         </member>
+        <member name="T:YAF.Controls.ThankYou">
+            <summary>
+            Class for Thank you button
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ThankYou.AddThanks(System.Object)">
+            <summary>
+            This method is called asynchronously when the user clicks "Thank" button.
+            </summary>
+            <param name="msgID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Controls.ThankYou.RemoveThanks(System.Object)">
+            <summary>
+            This method is called asynchronously when the user clicks on "Remove Thank Note" button.
+            </summary>
+            <param name="msgID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Controls.ThankYou.CreateThankYou(System.String,System.String,System.String)">
+            <summary>
+            Creates an instance of the thank you object from the current information.
+            </summary>
+            <param name="username"></param>
+            <param name="textTag"></param>
+            <param name="titleTag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Controls.ThankYou.GetThanks(System.Object)">
+            <summary>
+            This method returns a string containing the HTML code for
+            showing the the post footer. the HTML content is the name of users
+            who thanked the post and the date they thanked.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ThankYou.ThanksNumber(System.String)">
+            <summary>
+            This method returns a string which shows how many times users have
+            thanked the message with the provided messageID. Returns an empty string.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:YAF.Controls.ProfileMenu">
             <summary>
             Summary description for ForumUsers.
@@ -604,6 +646,31 @@
             If true, renders SLIDING doors technique additional DIV tags
             </summary>
         </member>
+        <member name="T:YAF.Controls.OnlineStatusImage">
+            <summary>
+            Provides an Online/Offline status for a YAF User
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ThemeImage">
+            <summary>
+            Provides a image with themed src
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeImage.ThemePage">
+            <summary>
+            Set/Get the ThemePage -- Defaults to "ICONS"
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeImage.ThemeTag">
+            <summary>
+            Set/Get the actual theme item
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.OnlineStatusImage.UserID">
+            <summary>
+            The userid of the user.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.UserLink">
             <summary>
             Provides a basic "profile link" for a YAF User
@@ -658,21 +725,6 @@
             </summary>
             
         </member>
-        <member name="T:YAF.Controls.ThemeImage">
-            <summary>
-            Provides a image with themed src
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeImage.ThemePage">
-            <summary>
-            Set/Get the ThemePage -- Defaults to "ICONS"
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeImage.ThemeTag">
-            <summary>
-            Set/Get the actual theme item
-            </summary>
-        </member>
         <member name="T:YAF.Controls.PopMenu">
             <summary>
             Summary description for ForumJump.
@@ -689,41 +741,15 @@
             </summary>
             <param name="writer">The HtmlTextWriter that we are using.</param>
         </member>
-        <member name="T:YafMenu">
-            <remarks/>
+        <member name="T:YAF.Controls.Statistics.ActiveDiscussions">
+            <summary>
+            Control to display last active topics.
+            </summary>
         </member>
-        <member name="P:YafMenu.Items">
-            <remarks/>
-        </member>
-        <member name="T:YafMenuYafMenuSection">
-            <remarks/>
-        </member>
-        <member name="P:YafMenuYafMenuSection.HostAdminOnly">
-            <remarks/>
-        </member>
-        <member name="P:YafMenuYafMenuSection.YafMenuItem">
-            <remarks/>
-        </member>
-        <member name="P:YafMenuYafMenuSection.Title">
-            <remarks/>
-        </member>
-        <member name="T:YafMenuYafMenuSectionYafMenuItem">
-            <remarks/>
-        </member>
-        <member name="P:YafMenuYafMenuSectionYafMenuItem.Title">
-            <remarks/>
-        </member>
-        <member name="P:YafMenuYafMenuSectionYafMenuItem.ForumPage">
-            <remarks/>
-        </member>
-        <member name="P:YafMenuYafMenuSectionYafMenuItem.Image">
-            <remarks/>
-        </member>
-        <member name="P:YafMenuYafMenuSectionYafMenuItem.Link">
-            <remarks/>
-        </member>
-        <member name="P:YafMenuYafMenuSectionYafMenuItem.Debug">
-            <remarks/>
+        <member name="F:YAF.Controls.Statistics.ActiveDiscussions._displayNumber">
+            <summary>
+            Number of active discussions to display in a control.
+            </summary>
         </member>
         <member name="M:YAF.Controls.Statistics.ActiveDiscussions.#ctor">
             <summary>
@@ -732,13 +758,23 @@
         </member>
         <member name="M:YAF.Controls.Statistics.ActiveDiscussions.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
-            Renders the ActiveDiscussions class.
+            Renders the ActiveDiscussions control.
             </summary>
             <param name="writer"></param>
+        </member>
+        <member name="P:YAF.Controls.Statistics.ActiveDiscussions.DisplayNumber">
+            <summary>
+            Gets or sets number of active discussions to display in a control.
+            </summary>
         </member>
         <member name="T:YAF.Controls.IconLegend">
             <summary>
             Summary description for ForumUsers.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ReportedPosts">
+            <summary>
+            Shows a Reporters for reported posts
             </summary>
         </member>
         <member name="M:YAF.Controls.ThemeButton.ThemeButton_Load(System.Object,System.EventArgs)">
@@ -798,9 +834,47 @@
             Summary description for ForumJump.
             </summary>
         </member>
+        <member name="T:YAF.Controls.AdminMenu">
+            <summary>
+            Summary description for AdminMenu.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(DNA.UI.JQuery.NavView,YafMenuYafMenuSectionYafMenuItem[])">
+            <summary>
+            Builds a Url List
+            </summary>
+            <param name="view"></param>
+            <param name="listItems"></param>
+            <returns></returns>
+        </member>
         <member name="T:YAF.Controls.ActiveUsers">
             <summary>
-            Summary description for ForumUsers.
+            Control displaying list of user currently active on a forum.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ActiveUsers.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ActiveUsers.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Implemets rendering of control to the client through use of HtmlTextWriter.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ActiveUsers.OnPreRender(System.EventArgs)">
+            <summary>
+            Raises PreRender event and prepares control for rendering by creating links to active users.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveUsers.ActiveUserTable">
+            <summary>
+            Gets or sets list of users to display in control.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveUsers.TreatGuestAsHidden">
+            <summary>
+            Gets or sets whether treat displaying of guest users same way as that of hidden users.
             </summary>
         </member>
         <member name="T:YAF.Controls.PageLinks">
@@ -815,7 +889,22 @@
         </member>
         <member name="T:YAF.Controls.AlphaSort">
             <summary>
-            Summary description for Footer.
+            Control displaying list of letters and/or characters for filtering list of members.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.AlphaSort.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.AlphaSort.OnLoad(System.EventArgs)">
+            <summary>
+            Raises the Load event.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.AlphaSort.CurrentLetter">
+            <summary>
+            Gets actually selected letter.
             </summary>
         </member>
         <member name="T:YAF.Controls.Pager">
@@ -833,18 +922,40 @@
             Shows a Message Post
             </summary>
         </member>
-        <member name="T:YAF.Controls.AdminMenu">
-            <summary>
-            Summary description for AdminMenu.
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu">
+             <summary>
+            Represents a strongly typed in-memory cache of data.
             </summary>
         </member>
-        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(DNA.UI.JQuery.NavView,YafMenuYafMenuSectionYafMenuItem[])">
-            <summary>
-            Builds a Url List
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuSectionDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
             </summary>
-            <param name="view"></param>
-            <param name="listItems"></param>
-            <returns></returns>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuItemDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuSectionRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuItemRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuSectionRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuItemRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
         </member>
         <member name="M:YAF.Controls.Statistics.MostActiveUsers.#ctor">
             <summary>
@@ -861,6 +972,42 @@
             <summary>
             Summary description for PageLinks.
             </summary>
+        </member>
+        <member name="T:YafMenu">
+            <remarks/>
+        </member>
+        <member name="P:YafMenu.Items">
+            <remarks/>
+        </member>
+        <member name="T:YafMenuYafMenuSection">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSection.HostAdminOnly">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSection.YafMenuItem">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSection.Title">
+            <remarks/>
+        </member>
+        <member name="T:YafMenuYafMenuSectionYafMenuItem">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Title">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.ForumPage">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Image">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Link">
+            <remarks/>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Debug">
+            <remarks/>
         </member>
         <member name="T:YAF.Controls.HelpMenu">
             <summary>
