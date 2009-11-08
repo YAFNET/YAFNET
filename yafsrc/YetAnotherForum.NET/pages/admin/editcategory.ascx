@@ -9,7 +9,7 @@
                 <asp:Label ID="CategoryNameTitle" runat="server"></asp:Label></td>
         </tr>
         <tr>
-            <td class="post">
+            <td class="postheader">
                 <b>Category Name:</b><br />
                 Name of this category.</td>
             <td class="post">
@@ -25,7 +25,7 @@
             </td>
         </tr>
         <tr>
-            <td class="post">
+            <td class="postheader">
                 <b>Sort Order:</b><br />
                 Order the display of this category. Number, lower first.</td>
             <td class="post">
