@@ -262,11 +262,11 @@
 					<tr>
 						<td class="postheader">
 							<b>Show User Online/Offline Status:</b><br />
-							If checked you everyone can see if user is online or offline in messages boxes.
+							If checked, current user status is displayed in the forum.
 							Hidden users are always displayed as offline.
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="ShowUserOnlineStatusInPosts" runat="server"></asp:CheckBox>
+							<asp:CheckBox ID="ShowUserOnlineStatus" runat="server"></asp:CheckBox>
 						</td>
 					</tr>
 					<tr>
@@ -1164,7 +1164,7 @@
 					<tr>
 						<td class="postheader">
 							<b>Online User Status Cache Timeout:</b><br />
-							You can fine-tune it depending on your site activity (in minutes)
+							You can fine-tune it depending on your site activity (in milliseconds)
 						</td>
 						<td class="post">
 							<asp:TextBox runat="server" ID="OnlineStatusCacheTimeout" />

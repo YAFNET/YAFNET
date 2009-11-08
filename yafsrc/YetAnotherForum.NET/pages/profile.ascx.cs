@@ -97,6 +97,7 @@ namespace YAF.Pages // YAF.Pages
 			ThanksToTimes.Text = ThanksToArray[0].ToString();
 			ThanksToPosts.Text = ThanksToArray[1].ToString();
 			OnlineStatusImage1.UserID = userID;
+			OnlineStatusImage1.Visible = PageContext.BoardSettings.ShowUserOnlineStatus;
 
 
 			lblaim.Text = HtmlEncode( YafServices.BadWordReplace.Replace( userData.Profile.AIM ) );

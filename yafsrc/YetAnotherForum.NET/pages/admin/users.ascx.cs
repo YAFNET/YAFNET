@@ -192,7 +192,7 @@ namespace YAF.Pages.Admin
 		protected void UpdateStatusTimer_Tick( object sender, EventArgs e )
 		{
 			// see if the migration is done....
-			if ( YafTaskModule.Current.TaskManager.ContainsKey( SyncMembershipUsersTask.TaskName ) && YafTaskModule.Current.TaskManager[SyncMembershipUsersTask.TaskName].IsRunning )
+			if ( YafTaskModule.Current.IsTaskRunning( SyncMembershipUsersTask.TaskName ) )
 			{
 				// continue...
 				return;

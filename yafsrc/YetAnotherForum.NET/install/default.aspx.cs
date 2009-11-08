@@ -583,7 +583,7 @@ namespace YAF.Install
 		protected void UpdateStatusTimer_Tick( object sender, EventArgs e )
 		{
 			// see if the migration is done....
-			if ( YafTaskModule.Current.TaskManager.ContainsKey( MigrateUsersTask.TaskName ) && YafTaskModule.Current.TaskManager[MigrateUsersTask.TaskName].IsRunning )
+			if ( YafTaskModule.Current.IsTaskRunning( MigrateUsersTask.TaskName ) )
 			{
 				// proceed...
 				return;

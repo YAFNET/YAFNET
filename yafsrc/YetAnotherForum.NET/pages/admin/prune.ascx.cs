@@ -54,7 +54,7 @@ namespace YAF.Pages.Admin
 
 			lblPruneInfo.Text = "";
 
-			if ( YafTaskModule.Current.TaskManager.ContainsKey(PruneTopicTask.TaskName))
+			if ( YafTaskModule.Current.IsTaskRunning(PruneTopicTask.TaskName) )
 			{
 				lblPruneInfo.Text = "NOTE: Prune Task is currently RUNNING. Cannot start a new prune task until it's finished.";
 				commit.Enabled = false;

@@ -158,7 +158,7 @@ namespace YAF.Controls
 			Quote.Visible = !PostDeleted && CanReply && !IsLocked;
 			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, MessageId );
 
-            Thank.Visible = CanThankPost && !PageContext.IsGuest;
+			Thank.Visible = CanThankPost && !PageContext.IsGuest;
 			if ( DB.message_isThankedByUser( PageContext.PageUserID, DataRow["MessageID"] ) )
 			{
 				Thank.NavigateUrl = "javascript:removeThanks(" + DataRow["MessageID"] + ");";
@@ -643,22 +643,22 @@ namespace YAF.Controls
 					break;
 				case "ReportSpam":
 					ReportFlag = 8;
-					break;               
+					break;
 			}
-            string reportMessage;
-            switch (ReportFlag)
-            {
-                case 7:
-                    reportMessage = PageContext.CurrentForumPage.GetText("REPORTED");
-                    break;
-                case 8:
-                    reportMessage = PageContext.CurrentForumPage.GetText("REPORTEDSPAM");
-                    break;
-                default:
-                    reportMessage = "Message reported!";
-                    break;
-            }
-            YAF.Classes.Data.DB.message_report(ReportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today, reportMessage);
+			string reportMessage;
+			switch ( ReportFlag )
+			{
+				case 7:
+					reportMessage = PageContext.CurrentForumPage.GetText( "REPORTED" );
+					break;
+				case 8:
+					reportMessage = PageContext.CurrentForumPage.GetText( "REPORTEDSPAM" );
+					break;
+				default:
+					reportMessage = "Message reported!";
+					break;
+			}
+			YAF.Classes.Data.DB.message_report( ReportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today, reportMessage );
 			PageContext.AddLoadMessage( PageContext.Localization.GetText( "REPORTEDFEEDBACK" ) );
 		}
 	}
