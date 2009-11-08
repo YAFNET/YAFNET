@@ -17,9 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 using System;
+using System.Collections;
+using System.ComponentModel;
 using System.Data;
+using System.Web;
+using System.Web.SessionState;
+using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 using YAF.Classes;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
@@ -28,16 +35,16 @@ using YAF.Controls;
 namespace YAF.Pages.moderate
 {
 	/// <summary>
-	/// Summary description for _default.
+	/// Control for handling moderation of reported abusive posts.
 	/// </summary>
-	public partial class reportedposts : YAF.Classes.Core.ForumPage
+	public partial class reportedabuse : YAF.Classes.Core.ForumPage
 	{
-		#region Constructors & Overriden Methods
+		#region Constructors & Overridden Methods
 
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-        public reportedposts() : base("MODERATE_FORUM") { }
+        public reportedabuse() : base( "MODERATE_FORUM" ) { }
 
 
 		/// <summary>
@@ -77,6 +84,7 @@ namespace YAF.Pages.moderate
 			}
 		}
 
+
 		/// <summary>
 		/// Handles load event for delete button, adds confirmation dialog.
 		/// </summary>
@@ -85,6 +93,7 @@ namespace YAF.Pages.moderate
 			ThemeButton button = sender as ThemeButton;
 			if ( button != null ) button.Attributes ["onclick"] = String.Format( "return confirm('{0}');", GetText( "ASK_DELETE" ) );
 		}
+
 
 		/// <summary>
 		/// Handles post moderation events/buttons.
@@ -114,7 +123,7 @@ namespace YAF.Pages.moderate
 					break;
 				case "resolved":
 					// mark message as resolved
-					DB.message_reportresolve( 9, e.CommandArgument, PageContext.PageUserID );
+					DB.message_reportresolve( 7, e.CommandArgument, PageContext.PageUserID );
 					// re-bind data
 					BindData();
 					// tell user message was flagged as resolved
@@ -123,14 +132,15 @@ namespace YAF.Pages.moderate
 			}
 
 			// see if there are any items left...
-			DataTable dt = DB.message_listreported( 9, PageContext.PageForumID );
+			DataTable dt = DB.message_listreported( 7, PageContext.PageForumID );
 
-			if ( dt.Rows.Count == 0 )
+			if (dt.Rows.Count == 0 )
 			{
 				// nope -- redirect back to the moderate main...
 				YafBuildLink.Redirect( ForumPages.moderate_index );
 			}
 		}
+
 		#endregion
 
 
@@ -140,9 +150,9 @@ namespace YAF.Pages.moderate
 		/// Bind data for this control.
 		/// </summary>
 		private void BindData()
-		{          
+		{
             // get reported posts for this forum
-            List.DataSource =  YAF.Classes.Data.DB.message_listreported(9, PageContext.PageForumID);
+            List.DataSource = YAF.Classes.Data.DB.message_listreported(7, PageContext.PageForumID);
 			// bind data to controls
 			DataBind();
 		}

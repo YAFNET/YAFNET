@@ -510,6 +510,7 @@
     <Resource tag="CATEGORY">Kategória</Resource>
     <Resource tag="FORUM">Fórum</Resource>
     <Resource tag="REPORTED">Reported as Abuse Posts</Resource>
+    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
     <Resource tag="REPORTEDSPAM">Reported as Spam Posts</Resource>
     <Resource tag="TITLE">Moderovanie</Resource>
     <Resource tag="UNAPPROVED">Neschválené správy</Resource>
@@ -651,6 +652,7 @@
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Chcete zmazať túto správu?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Chcete zmazať túto tému?</Resource>
+    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
     <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
@@ -698,6 +700,7 @@
     <Resource tag="QUICKREPLY_HIDE">Schovaj rýchlu reakciu</Resource>
     <Resource tag="QUICKREPLY_SHOW">Zobraz rýchlu reakciu</Resource>
     <Resource tag="RANK">Hodnosť</Resource>
+    <Resource tag="REPORTABUSE">Report Abusive</Resource>
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
     <Resource tag="REPORTPOST">Report Abusive</Resource>
     <Resource tag="REPORTSPAM">Report SPAM</Resource>

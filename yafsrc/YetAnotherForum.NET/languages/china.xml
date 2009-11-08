@@ -510,6 +510,7 @@
     <Resource tag="CATEGORY">分类</Resource>
     <Resource tag="FORUM">论坛</Resource>
     <Resource tag="REPORTED">Reported as Abuse Posts</Resource>
+    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
     <Resource tag="REPORTEDSPAM">Reported as Spam Posts</Resource>
     <Resource tag="TITLE">审核</Resource>
     <Resource tag="UNAPPROVED">未经审核的帖子</Resource>
@@ -631,6 +632,7 @@
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">删除这条信息?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">删除这条话题？</Resource>
+    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
     <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
@@ -678,6 +680,7 @@
     <Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
     <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
     <Resource tag="RANK">等级</Resource>
+    <Resource tag="REPORTABUSE">Report Abusive</Resource>
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
     <Resource tag="REPORTPOST">Report Abusive</Resource>
     <Resource tag="REPORTSPAM">Report SPAM</Resource>

@@ -497,6 +497,7 @@
     <Resource tag="CATEGORY">Categoría</Resource>
     <Resource tag="FORUM">Foro</Resource>
     <Resource tag="REPORTED">Reportados como mensajes abusivos</Resource>
+    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
     <Resource tag="REPORTEDSPAM">Reportados como mensajes Spam</Resource>
     <Resource tag="TITLE">Moderar</Resource>
     <Resource tag="UNAPPROVED">Mensajes sin aprobar</Resource>
@@ -617,6 +618,7 @@
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">¿Eliminar este mensaje?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">¿Eliminar este tema?</Resource>
+    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Seguro desea reportar este mensaje como abusivo?</Resource>
     <Resource tag="CONFIRM_REPORTSPAM">Seguro desea reportar este mensaje como SPAM?</Resource>
     <Resource tag="EDIT_REASON">Razon</Resource>
@@ -664,6 +666,7 @@
     <Resource tag="QUICKREPLY_HIDE">Ocultar Respuesta Rápida</Resource>
     <Resource tag="QUICKREPLY_SHOW">Mostrar Respuesta Rápida</Resource>
     <Resource tag="RANK">Posición</Resource>
+    <Resource tag="REPORTABUSE">Report Abusive</Resource>
     <Resource tag="REPORTEDFEEDBACK">Gracias por reportar este mensaje.</Resource>
     <Resource tag="REPORTPOST">Reportar Abuso</Resource>
     <Resource tag="REPORTSPAM">Reportar SPAM</Resource>

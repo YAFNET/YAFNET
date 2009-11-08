@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportedposts.ascx.cs"
-	Inherits="YAF.Pages.moderate.reportedposts" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportedabuse.ascx.cs"
+	Inherits="YAF.Pages.moderate.reportedabuse" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="List" runat="server">
@@ -9,7 +9,7 @@
 				<td colspan="2" class="header1" align="left">
 					<%# PageContext.PageForumName %>
 					-
-					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTEDSPAM" />
+					<YAF:LocalizedLabel runat="server" LocalizedTag="REPORTED" />
 				</td>
 			</tr>
 	</HeaderTemplate>
@@ -28,24 +28,24 @@
 		</tr>
 		<tr class="postheader">
 			<td>
-				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
+				<YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
 					UserName='<%# Convert.ToString(Eval("UserName")) %>' />
 			</td>
 			<td>
 				<b>
-					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
+					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
 				</b>
 				<%# YafServices.DateTime.FormatDateTime((System.DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
 				<b>
-					<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
+					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="NUMBERREPORTED" />
 				</b>
 				<%# DataBinder.Eval(Container.DataItem, "[\"NumberOfReports\"]") %>
 				<label id="Label1" runat="server" visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
 					<b>
-						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
+						<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="MODIFIED" />
 					</b>
-				</label>			
-			</td>
+				</label>
+			</td>			
 		</tr>
 		<tr  class="postheader">
 		<td>
@@ -54,8 +54,7 @@
 		<td>
 			<YAF:ReportedPosts id="ReportersList"  runat="server" MessageID='<%# DataBinder.Eval(Container.DataItem, "[\"MessageID\"]") %>' />					
 		</td>
-		</tr>			
-		
+		</tr>
 		<tr class="post">
 			<td valign="top" width="140">
 				&nbsp;</td>
@@ -66,7 +65,7 @@
 		<tr class="postfooter">
 			<td class="small">
 				<a href="javascript:scroll(0,0)">
-					<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TOP" />
+					<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TOP" />
 				</a>
 			</td>
 			<td class="postfooter" style="float:left">					
@@ -81,7 +80,7 @@
 					CommandName="Resolved" CommandArgument='<%# Eval("MessageID") %>' />
 					
 			    <YAF:ThemeButton ID="ViewBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="VIEW" 
-					CommandName="View" CommandArgument='<%# Eval("MessageID") %>' />		
+					CommandName="View" CommandArgument='<%# Eval("MessageID") %>' />					
 			</td>
 		</tr>
 	</ItemTemplate>

@@ -2192,7 +2192,7 @@ SELECT
 		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
 							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
 		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 16)=0) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and (([{databaseOwner}].[{objectQualifier}Topic].Flags & 8) = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID)),
-		ReportCount	= 
+		AbuseCount	= 
 		(SELECT     count([{databaseOwner}].[{objectQualifier}Message].MessageID)
 		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
 							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
@@ -2201,7 +2201,12 @@ SELECT
 		(SELECT     count([{databaseOwner}].[{objectQualifier}Message].MessageID)
 		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
 							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
-		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 256)=256) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and (([{databaseOwner}].[{objectQualifier}Topic].Flags & 8) = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID))
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 256)=256) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and (([{databaseOwner}].[{objectQualifier}Topic].Flags & 8) = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID)),
+		ReportedCount	= 
+		(SELECT     count([{databaseOwner}].[{objectQualifier}Message].MessageID)
+		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
+							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 512)=512) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and (([{databaseOwner}].[{objectQualifier}Topic].Flags & 8) = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID))
 		FROM
 		[{databaseOwner}].[{objectQualifier}Category] a
 
@@ -2783,7 +2788,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_report](@ReportFlag
 BEGIN
 			
 	IF NOT exists(SELECT MessageID from [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID=@MessageID AND UserID=@ReporterID)
-		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReportedAudit](MessageID,UserID,Reported,ReportText) VALUES (@MessageID,@ReporterID,@ReportedDate, CONVERT(varchar(36),GETDATE())+ '??' + @ReportText)
+		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReportedAudit](MessageID,UserID,Reported,ReportText) VALUES (@MessageID,@ReporterID,@ReportedDate, CONVERT(varchar,GETDATE())+ '??' + @ReportText)
     ELSE 
     UPDATE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] SET ReportedNumber = ( CASE WHEN ReportedNumber < 2147483647 THEN  ReportedNumber  + 1 ELSE ReportedNumber END ), Reported = @ReportedDate, ReportText = (CASE WHEN (LEN(ReportText) + LEN(@ReportText) +40 < 4000)  THEN  ReportText + '|' + CONVERT(varchar(36),GETDATE())+ '??' +  @ReportText ELSE ReportText END) WHERE MessageID=@MessageID AND UserID=@ReporterID 
 	IF NOT exists(SELECT MessageID FROM [{databaseOwner}].[{objectQualifier}MessageReported] WHERE MessageID=@MessageID)

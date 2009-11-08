@@ -478,6 +478,7 @@
     <Resource tag="CATEGORY">Kategorie</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="REPORTED">Beleidigende Beiträge</Resource>
+    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
     <Resource tag="REPORTEDSPAM">Gemeldete Spams</Resource>
     <Resource tag="TITLE">Moderieren</Resource>
     <Resource tag="UNAPPROVED">Nicht bestätigte Beiträge</Resource>
@@ -598,6 +599,7 @@
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Diese Nachricht wirklich löschen?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Dieses Thema wirklich löschen?</Resource>
+    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Bist Du sicher, dass du den Beitrag melden möchtest?</Resource>
     <Resource tag="CONFIRM_REPORTSPAM">Bist Du sicher, dass du den Beitrag als SPAM melden möchtest?</Resource>
     <Resource tag="EDIT_REASON">Grund</Resource>
@@ -645,6 +647,7 @@
     <Resource tag="QUICKREPLY_HIDE">Schnelles Antworten: Formular ausblenden</Resource>
     <Resource tag="QUICKREPLY_SHOW">Schnelles Antworten: Formular anzeigen</Resource>
     <Resource tag="RANK">Rang</Resource>
+    <Resource tag="REPORTABUSE">Report Abusive</Resource>
     <Resource tag="REPORTEDFEEDBACK">Danke, dass du den Beitrag gemeldet hast</Resource>
     <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource>
     <Resource tag="REPORTSPAM">Das ist Spam!</Resource>

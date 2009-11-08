@@ -80,13 +80,14 @@
                         TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
        </div>
        <div class="rightItem postInfoRight">
-            &nbsp;<asp:LinkButton ID="ReportButton" CommandName="ReportAbuse" CommandArgument='<%# DataRow["MessageID"] %>'
-                runat="server"></asp:LinkButton>
-            |
+            &nbsp;<asp:LinkButton ID="ReportAbuseLinkButton" CommandName="ReportAbuse" CommandArgument='<%# DataRow["MessageID"] %>'
+                runat="server"></asp:LinkButton>            |
             <asp:LinkButton ID="ReportSpamButton" CommandName="ReportSpam" CommandArgument='<%# DataRow["MessageID"] %>'
-                runat="server"></asp:LinkButton>
+                runat="server"></asp:LinkButton>            |
+             <asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>'
+                runat="server"></asp:LinkButton>              
             <span id="AdminInformation" runat="server" class="smallfont"></span>
-        </div>
+       </div>
     </td>
 </tr>
 <tr class="<%#GetPostClass()%>">

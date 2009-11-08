@@ -477,7 +477,8 @@
   <page name="MODERATE_DEFAULT">
     <Resource tag="CATEGORY">Категория</Resource>
     <Resource tag="FORUM">Форум</Resource>
-    <Resource tag="REPORTED">Сообщено как злоупотребление</Resource>
+    <Resource tag="REPORTED">Сообщено как нарушение</Resource>
+    <Resource tag="REPORTEDABUSE">Сообщено как злоупотребление</Resource>
     <Resource tag="REPORTEDSPAM">Сообщено как спам</Resource>
     <Resource tag="TITLE">Модерировать</Resource>
     <Resource tag="UNAPPROVED">Неодобренные сообщения</Resource>
@@ -595,7 +596,8 @@
     <Resource tag="CLOSE_TEXT">Закрыть</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Удалить это ообщение?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Удалить эту тему?</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">Вы уверены, что желаете сообщить, что этот пост является злоупотреблением?</Resource>
+    <Resource tag="CONFIRM_REPORTABUSE">Вы уверены, что желаете сообщить, что этот пост является злоупотреблением?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Вы уверены, что желаете сообщить, что этот пост нарушает правила форума?</Resource>
     <Resource tag="CONFIRM_REPORTSPAM">Вы уверены, что желаете сообщить, что это сообщение - спам?</Resource>
     <Resource tag="EDIT_REASON">Причина</Resource>
     <Resource tag="EDIT_REASON_NA">Не указана</Resource>
@@ -642,6 +644,7 @@
     <Resource tag="QUICKREPLY_HIDE">Скрыть форму быстрого ответа</Resource>
     <Resource tag="QUICKREPLY_SHOW">Показать форму быстрого ответа</Resource>
     <Resource tag="RANK">Ранг</Resource>
+    <Resource tag="REPORTABUSE">Это злоупотребление!</Resource>
     <Resource tag="REPORTEDFEEDBACK">Спасибо за информацию об этом сообщении.</Resource>
     <Resource tag="REPORTPOST">Жалоба!</Resource>
     <Resource tag="REPORTSPAM">Это спам!</Resource>

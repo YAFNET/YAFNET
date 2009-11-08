@@ -62,6 +62,7 @@ namespace YAF.Classes
 		moderate_index,
 		moderate_reportedposts,
 		moderate_unapprovedposts,
+        moderate_reportedabuse,
 		moderate_reportedspam,
 		error,
 		shoutbox,

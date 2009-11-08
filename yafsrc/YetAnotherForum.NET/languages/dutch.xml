@@ -514,6 +514,7 @@
     <Resource tag="CATEGORY">Categorie</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="REPORTED">Als kwetsend gerapporteerd</Resource>
+    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
     <Resource tag="REPORTEDSPAM">Als spam gerapporteerd</Resource>
     <Resource tag="TITLE">Moderatie</Resource>
     <Resource tag="UNAPPROVED">Niet-goedgekeurde berichten</Resource>
@@ -636,6 +637,7 @@
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Bericht verwijderen?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Onderwerp verwijderen?</Resource>
+    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
     <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
@@ -683,6 +685,7 @@
     <Resource tag="QUICKREPLY_HIDE">Verberg Snel antwoorden</Resource>
     <Resource tag="QUICKREPLY_SHOW">Toon Snel antwoorden</Resource>
     <Resource tag="RANK">Rang</Resource>
+    <Resource tag="REPORTABUSE">Report Abusive</Resource>
     <Resource tag="REPORTEDFEEDBACK">Dank je wel voor het rapport</Resource>
     <Resource tag="REPORTPOST">Rapporteer ongepast gedrag</Resource>
     <Resource tag="REPORTSPAM">Rapporteer als spam</Resource>

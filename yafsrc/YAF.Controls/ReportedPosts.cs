@@ -77,11 +77,9 @@ namespace YAF.Controls
                     {
                         string[] textString = reportString[istr].Split("??".ToCharArray());
                         if (textString.Length > 2)
-                        {
-                           
-                                writer.Write(@"<br></br><strong>{0}:</strong><br></br>", textString[0]);
-                                writer.Write(@"<p>{0}</p>", textString[2]);
-                            
+                        {                
+                                writer.Write(@"<br></br><strong>{0}:</strong><br></br>", Convert.ToDateTime(textString[0].TrimEnd(':')).AddMinutes((double)PageContext.CurrentUserData.TimeZone));
+                                writer.Write(@"<p>{0}</p>", textString[2]);                            
                         }
                         else
                         { writer.Write(@"<p>{0}</p>", reportString[istr]); }

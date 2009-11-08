@@ -478,6 +478,7 @@
     <Resource tag="CATEGORY">Nhóm</Resource>
     <Resource tag="FORUM">Diễn đàn</Resource>
     <Resource tag="REPORTED">Báo cáo nội dung vi phạm</Resource>
+    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
     <Resource tag="REPORTEDSPAM">Báo cáo bài viết Spam</Resource>
     <Resource tag="TITLE">Điều hành</Resource>
     <Resource tag="UNAPPROVED">Bài chưa duyệt</Resource>
@@ -598,6 +599,7 @@
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Xóa tin nhắn?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Xóa chủ đề?</Resource>
+    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Báo cáo bài viết có nội dung vi phạm?</Resource>
     <Resource tag="CONFIRM_REPORTSPAM">Báo cáo bài viết Spam?</Resource>
     <Resource tag="EDIT_REASON">Lý do</Resource>
@@ -645,6 +647,7 @@
     <Resource tag="QUICKREPLY_HIDE">Ẩn Trả Lời Nhanh</Resource>
     <Resource tag="QUICKREPLY_SHOW">Hiển thị Trả Lời Nhanh</Resource>
     <Resource tag="RANK">Danh hiệu</Resource>
+    <Resource tag="REPORTABUSE">Report Abusive</Resource>
     <Resource tag="REPORTEDFEEDBACK">Cảm ơn bạn đã gửi báo cáo về bài viết này.</Resource>
     <Resource tag="REPORTPOST">Báo cáo vi phạm</Resource>
     <Resource tag="REPORTSPAM">Báo cáo Spam</Resource>

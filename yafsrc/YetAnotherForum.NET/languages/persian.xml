@@ -478,6 +478,7 @@
     <Resource tag="CATEGORY">بخش</Resource>
     <Resource tag="FORUM">انجمن</Resource>
     <Resource tag="REPORTED">گزارش شده به عنوان ارسالهای توهین آمیز</Resource>
+    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
     <Resource tag="REPORTEDSPAM">گزارش شده به عنوان ارسالهای هرزنامه ای</Resource>
     <Resource tag="TITLE">مدیریت</Resource>
     <Resource tag="UNAPPROVED">ارسالهای تائید نشده</Resource>
@@ -593,6 +594,7 @@
     <Resource tag="CLOSE_TEXT">بستن</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">آیا این پیغام حذف شود?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">آیا این عنوان حذف شود?</Resource>
+    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">آیا از گزارش این ارسال به عنوان توهین مطمئن هستید؟</Resource>
     <Resource tag="CONFIRM_REPORTSPAM">آیا از گزارش این ارسال به عنوان هرزنامه (اسپم) مطمئن هستید؟</Resource>
     <Resource tag="EDIT_REASON">دلیل ویرایش</Resource>
@@ -640,6 +642,7 @@
     <Resource tag="QUICKREPLY_HIDE">عدم نمایش بخش پاسخ سریع</Resource>
     <Resource tag="QUICKREPLY_SHOW">نمایش بخش پاسخ سریع</Resource>
     <Resource tag="RANK">رتبه</Resource>
+    <Resource tag="REPORTABUSE">Report Abusive</Resource>
     <Resource tag="REPORTEDFEEDBACK">از گزارش شما متشکریم!</Resource>
     <Resource tag="REPORTPOST">گزارش توهین و سوء استفاده</Resource>
     <Resource tag="REPORTSPAM">گزارش به عنوان هرزنامه</Resource>

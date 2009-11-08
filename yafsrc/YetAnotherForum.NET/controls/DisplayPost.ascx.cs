@@ -186,10 +186,16 @@ namespace YAF.Controls
 				}
 			}
 
-			// report posts
-			ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
-			ReportButton.Text = PageContext.Localization.GetText( "REPORTPOST" ); // Mek Addition 08/18/2007
-			ReportButton.Attributes.Add( "onclick", String.Format( "return confirm('{0}');", PageContext.Localization.GetText( "CONFIRM_REPORTPOST" ) ) );
+            // report posts
+            ReportPostLinkButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // vzrus Addition 08/18/2007
+            ReportPostLinkButton.Text = PageContext.Localization.GetText("REPORTPOST"); // Mek Addition 08/18/2007
+            ReportPostLinkButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTPOST")));
+			
+            // report abuse posts
+
+            ReportAbuseLinkButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
+            ReportAbuseLinkButton.Text = PageContext.Localization.GetText("REPORTABUSE"); // Mek Addition 08/18/2007
+            ReportAbuseLinkButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTABUSE")));
 
 			// report spam
 			ReportSpamButton.Visible = PageContext.BoardSettings.AllowReportSpam && !IsGuest; // Mek Addition 08/18/2007
@@ -278,7 +284,8 @@ namespace YAF.Controls
 
 		override protected void OnInit( EventArgs e )
 		{
-			ReportButton.Command += new CommandEventHandler( Report_Command );
+            ReportPostLinkButton.Command += new CommandEventHandler(Report_Command);
+            ReportAbuseLinkButton.Command += new CommandEventHandler(Report_Command);
 			ReportSpamButton.Command += new CommandEventHandler( Report_Command );
 			this.PreRender += new EventHandler( DisplayPost_PreRender );
 			this.Init += new EventHandler( DisplayPost_Init );
@@ -644,6 +651,9 @@ namespace YAF.Controls
 				case "ReportSpam":
 					ReportFlag = 8;
 					break;
+                case "ReportPost":
+                    ReportFlag = 9;
+                    break;
 			}
 			string reportMessage;
 			switch ( ReportFlag )
@@ -655,9 +665,12 @@ namespace YAF.Controls
 					reportMessage = PageContext.CurrentForumPage.GetText( "REPORTEDSPAM" );
 					break;
 				default:
+                    // TODO: vzrus: required a window to enter custom report text with Report and Cancel buttons 
+                    // Not sure how to implement it YAF-like ;)                  
 					reportMessage = "Message reported!";
 					break;
 			}
+            
 			YAF.Classes.Data.DB.message_report( ReportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today, reportMessage );
 			PageContext.AddLoadMessage( PageContext.Localization.GetText( "REPORTEDFEEDBACK" ) );
 		}
