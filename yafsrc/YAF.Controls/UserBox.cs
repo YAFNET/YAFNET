@@ -311,8 +311,11 @@ namespace YAF.Controls
 
 		private string MatchUserBoxGroups( string userBox )
 		{
+			const string styledNick = @"<span class=""YafGroup_{0}"" style=""{1}"">{0}</span>";
+
 			string filler = "";
 			Regex rx;
+
 			rx = new Regex( Constants.UserBox.Groups );
 
 			if ( PageContext.BoardSettings.ShowGroups )
@@ -337,11 +340,10 @@ namespace YAF.Controls
 						}
 					}
 
-
 					if ( bFirst )
 					{
 						if ( YafContext.Current.BoardSettings.UseStyledNicks )
-							groupsText.AppendLine( string.Format( @"<span id=""{0}1"" runat=""server"" style =""{1}"">{0}</span>", role, roleStyle ) );
+							groupsText.AppendLine( string.Format( styledNick, role, roleStyle ) );
 						else
 							groupsText.AppendLine( role );
 						bFirst = false;
@@ -349,7 +351,7 @@ namespace YAF.Controls
 					else
 					{
 						if ( YafContext.Current.BoardSettings.UseStyledNicks )
-							groupsText.AppendLine( string.Format( @", <span id=""{0}1"" runat=""server"" style =""{1}"">{0}</span>", role, roleStyle ) );
+							groupsText.AppendLine( string.Format( @", " + styledNick, role, roleStyle ) );
 						else
 							groupsText.AppendFormat( ", {0}", role );
 					}
