@@ -54,17 +54,20 @@ namespace YAF.Classes.Core
 			// look for tasks to clean up...
 			if ( Module != null )
 			{
-				foreach ( string instanceName in Module.TaskManager.Keys )
+				// make collection local...
+				var taskListKeys = Module.TaskManagerInstances;
+
+				foreach ( string instanceName in taskListKeys )
 				{
-					IBackgroundTask task = Module.TaskManager[instanceName];
+					IBackgroundTask task = Module.TryGetTask( instanceName );
 
 					if ( task == null )
 					{
-						Module.TaskManager.Remove( instanceName );
+						Module.TryRemoveTask( instanceName );
 					}
-					else if ( task != null && !task.IsRunning )
+					else if ( !task.IsRunning )
 					{
-						Module.TaskManager.Remove( instanceName );
+						Module.TryRemoveTask( instanceName );
 						task.Dispose();
 					}
 				}

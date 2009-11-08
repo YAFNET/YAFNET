@@ -56,7 +56,7 @@ namespace YAF.Modules
 		void Current_AfterInit( object sender, EventArgs e )
 		{
 			// add the mailing task if it's not already added...
-			if ( YafTaskModule.Current != null && !YafTaskModule.Current.TaskManager.ContainsKey( UserCleanUpTask.TaskName ) )
+			if ( YafTaskModule.Current != null && !YafTaskModule.Current.TaskExists( UserCleanUpTask.TaskName ) )
 			{
 				// start it...
 				YafTaskModule.Current.StartTask( UserCleanUpTask.TaskName, new UserCleanUpTask() );

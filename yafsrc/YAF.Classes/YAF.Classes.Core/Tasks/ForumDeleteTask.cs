@@ -51,7 +51,7 @@ namespace YAF.Classes.Core
 		{
 			if ( YafTaskModule.Current == null ) return false;
 
-			if ( !YafTaskModule.Current.TaskManager.ContainsKey( TaskName ) )
+			if ( !YafTaskModule.Current.TaskExists( TaskName ) )
 			{
 				ForumDeleteTask task = new ForumDeleteTask
 				                      	{

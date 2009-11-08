@@ -635,10 +635,10 @@ namespace YAF.Classes
 			set { _reg.SetValue<bool>( "UseStyledNicks", value ); }
 		}
 
-		public bool ShowUserOnlineStatusInPosts
+		public bool ShowUserOnlineStatus
 		{
-			get { return _reg.GetValue<bool>( "ShowUserOnlineStatusInPosts", false ); }
-			set { _reg.SetValue<bool>( "ShowUserOnlineStatusInPosts", value ); }
+			get { return _reg.GetValue<bool>( "ShowUserOnlineStatus", false ); }
+			set { _reg.SetValue<bool>( "ShowUserOnlineStatus", value ); }
 		}
         public bool ShowThanksDate
         {

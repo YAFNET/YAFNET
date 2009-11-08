@@ -41,7 +41,7 @@ namespace YAF.Controls
 			if ( Visible )
 			{
 				string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.UsersOnlineStatus );
-				DataTable activeUsers = PageContext.Cache.GetItem<DataTable>( cacheKey, YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () =>
+				DataTable activeUsers = PageContext.Cache.GetItem<DataTable>( cacheKey, (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () =>
 																																		 DB.active_list(
 																																		 YafContext.Current.PageBoardID, false,
 																																		 YafContext.Current.BoardSettings.ActiveListTime, false ) );
