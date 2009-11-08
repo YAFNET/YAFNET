@@ -51,6 +51,29 @@ namespace YAF.Classes.Core
 			}
 		}
 
+		public int TaskCount
+		{
+			get
+			{
+				return _taskManager.Count;
+			}
+		}
+
+		public Dictionary<string, IBackgroundTask> TaskManagerSnapshot
+		{
+			get
+			{
+				var tasks = new Dictionary<string, IBackgroundTask>();
+
+				lock ( _lockTaskManagerObject )
+				{
+					_taskManager.ToList().ForEach( x => tasks.Add( x.Key, x.Value ) );
+				}
+
+				return tasks;
+			}
+		}
+
 		/// <summary>
 		/// Attempt to get the instance of the task.
 		/// </summary>
