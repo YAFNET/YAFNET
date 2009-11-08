@@ -417,7 +417,7 @@ namespace YAF.Controls
 			string filler = "";
 			Regex rx = new Regex( Constants.UserBox.RankImage );
 
-			if ( DataRow["RankImage"].ToString().Length > 0 )
+			if ( !DataRow["RankImage"].IsNullOrEmptyDBField() )
 			{
 				filler = String.Format( PageContext.BoardSettings.UserBoxRankImage,
 																String.Format( @"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />",
@@ -544,6 +544,7 @@ namespace YAF.Controls
 			userBox = rx.Replace( userBox, filler );
 			return userBox;
 		}
+
 		private string MatchUserBoxThanksFrom( string userBox )
 		{
 			string filler = "";
@@ -563,10 +564,10 @@ namespace YAF.Controls
 		{
 			string filler = "";
 			Regex rx = new Regex( Constants.UserBox.ThanksTo );
-			int[] ThanksToArray = DB.user_getthanks_to( DataRow["UserID"] );
+			int[] thanksToArray = DB.user_getthanks_to( DataRow["UserID"] );
 			filler = String.Format(
 									PageContext.BoardSettings.UserBoxThanksTo,
-									String.Format( PageContext.Localization.GetText( "thanksto" ), ThanksToArray[0], ThanksToArray[1] )
+									String.Format( PageContext.Localization.GetText( "thanksto" ), thanksToArray[0], thanksToArray[1] )
 									);
 
 			// replaces template placeholder with actual thanks from
