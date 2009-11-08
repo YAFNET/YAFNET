@@ -120,7 +120,7 @@ namespace YAF.Editors
 		{
 			ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "insertsmiley",
 				"function insertsmiley(code,img) {\n" +
-				"	tinyMCE.execCommand('mceInsertContent',false,'[img]' + img + '[/img]');\n" +
+				"	tinyMCE.execCommand('mceInsertContent',false,code);\n" +
 				"}\n", true);
 		}
 
