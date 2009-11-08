@@ -42,18 +42,10 @@ namespace YAF.Classes.UI
 			// cache is board-specific since boards may have different custom BB Code...
 			string key = YafCache.GetBoardCacheKey( String.Format(Constants.Cache.ReplaceRules, rulesFlags) );
 
-			// try to get rules from the cache
-			ReplaceRules rules = YafContext.Current.Cache[key] as ReplaceRules;
-
-			if (rules == null)
-			{
-				// doesn't exist, create a new instance class...
-				rules = new ReplaceRules();
-
-				// cache this value
-				YafContext.Current.Cache.Add(key, rules, null, DateTime.Now.AddMinutes(YafContext.Current.BoardSettings.ReplaceRulesCacheTimeout), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null);
-			}
-
+			ReplaceRules rules = YafContext.Current.Cache.GetItem<ReplaceRules>( key,
+			                                                                     YafContext.Current.BoardSettings.
+			                                                                     	ReplaceRulesCacheTimeout,
+			                                                                     () => new ReplaceRules() );
 			return rules;
 		}
 
@@ -66,13 +58,7 @@ namespace YAF.Classes.UI
 			string match = String.Format(Constants.Cache.ReplaceRules, "");
 
 			// remove it entries from cache
-			YafContext.Current.Cache.Remove
-				(
-					delegate(string key)
-					{
-						return key.StartsWith(match);
-					}
-				);
+			YafContext.Current.Cache.Remove( ( x ) => x.StartsWith( match ) );
 		}
 	}
 }

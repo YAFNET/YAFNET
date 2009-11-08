@@ -59,6 +59,8 @@ namespace YAF.Classes.UI
 
 		public void Process( ref string text )
 		{
+			if ( String.IsNullOrEmpty( text ) ) return;
+
 			// sort the rules according to rank...
 			if ( _needSort ) { _rulesList.Sort(); _needSort = false; }
 
