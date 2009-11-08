@@ -24,92 +24,86 @@ using System.Data;
 
 namespace YAF.Controls
 {
-    /// <summary>
-    /// Shows a Reporters for reported posts
-    /// </summary>
-    public class ReportedPosts : BaseControl
-    {
-        public ReportedPosts()
-            : base()
-        {
+	/// <summary>
+	/// Shows a Reporters for reported posts
+	/// </summary>
+	public class ReportedPosts : BaseControl
+	{
+		public ReportedPosts()
+			: base()
+		{
 
-        }
-        public int MessageID
-        {
-            get
-            {
-                if (ViewState["MessageID"] != null)
-                {
-                    return Convert.ToInt32(ViewState["MessageID"]);
-                }
+		}
+		public int MessageID
+		{
+			get
+			{
+				if ( ViewState["MessageID"] != null )
+				{
+					return Convert.ToInt32( ViewState["MessageID"] );
+				}
 
-                return 0;
-            }
-            set
-            {
-                ViewState["MessageID"] = value;
-            }
-        }     
+				return 0;
+			}
+			set
+			{
+				ViewState["MessageID"] = value;
+			}
+		}
 
+		protected override void Render( HtmlTextWriter writer )
+		{
+			// TODO: Needs better commentting.
 
+			writer.WriteLine( String.Format( @"<div id=""{0}"" class=""yafReportedPosts"">", this.ClientID ) );
 
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
-        }
+			DataTable reportersList = YAF.Classes.Data.DB.message_listreporters( MessageID );
+			if ( reportersList.Rows.Count > 0 )
+			{
+				int i = 0;
+				writer.BeginRender();
 
-        protected override void Render(HtmlTextWriter writer)
-        {
+				foreach ( DataRow reporter in reportersList.Rows )
+				{
+					string howMany = null;
+					if ( Convert.ToInt32( reporter["ReportedNumber"] ) > 1 )
+						howMany = "(" + reporter["ReportedNumber"].ToString() + ")";
 
-            DataTable _reportersList = YAF.Classes.Data.DB.message_listreporters(MessageID);
-            if (_reportersList.Rows.Count > 0)
-            {
-                int i = 0;
-                writer.BeginRender();
-                foreach (DataRow reporter in _reportersList.Rows)
-                {
-                    string howMany = null;
-                    if (Convert.ToInt32(reporter["ReportedNumber"]) > 1)
-                        howMany = "(" + reporter["ReportedNumber"].ToString() + ")";
-                    writer.Write(@"<a id=""Link{1}{0}"" href=""{3}"" runat=""server"">{5}{2}{4}</a>", i, Convert.ToInt32(reporter["UserID"]), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages.profile, "u={0}", Convert.ToInt32(reporter["UserID"])), howMany, PageContext.Localization.GetText("REPORTEDBY"));
-                    string[] reportString = reporter["ReportText"].ToString().Trim().Split('|');
-                    for (int istr = 0; istr < reportString.Length; istr++)
-                    {
-                        string[] textString = reportString[istr].Split("??".ToCharArray());
-                        if (textString.Length > 2)
-                        {                
-                                writer.Write(@"<br></br><strong>{0}:</strong><br></br>", Convert.ToDateTime(textString[0].TrimEnd(':')).AddMinutes((double)PageContext.CurrentUserData.TimeZone));
-                                writer.Write(@"<p>{0}</p>", textString[2]);                            
-                        }
-                        else
-                        { writer.Write(@"<p>{0}</p>", reportString[istr]); }
+					writer.Write( @"<a class=""YafReported_Link"" href=""{3}"">{5}{2}{4}</a>", i, Convert.ToInt32( reporter["UserID"] ), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.ForumPages.profile, "u={0}", Convert.ToInt32( reporter["UserID"] ) ), howMany, PageContext.Localization.GetText( "REPORTEDBY" ) );
+					
+					string[] reportString = reporter["ReportText"].ToString().Trim().Split( '|' );
 
-                        writer.Write(@"<a id=""Link{1}{0}"" href=""{3}"" runat=""server"">{4} {2}</a>", i, Convert.ToInt32(reporter["UserID"]), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages.cp_pm), PageContext.Localization.GetText("REPLYTO"));
-                    }
-                    if (i < _reportersList.Rows.Count - 1) writer.Write("<br></br>");
-                    else writer.Write(@"<br></br><p>@@@</p>");
-                    i++;
-                }
+					for ( int istr = 0; istr < reportString.Length; istr++ )
+					{
+						string[] textString = reportString[istr].Split( "??".ToCharArray() );
 
-                // render controls...
-                base.Render(writer);
-                writer.EndRender();
+						if ( textString.Length > 2 )
+						{
+							// TODO: Remove hard-coded formatting.
+							// TODO: Move DateTime Conversion to DateTime Services.
+							writer.Write( @"<br></br><strong>{0}:</strong><br></br>", Convert.ToDateTime( textString[0].TrimEnd( ':' ) ).AddMinutes( (double)PageContext.CurrentUserData.TimeZone ) );
+							writer.Write( @"<p>{0}</p>", textString[2] );
+						}
+						else
+						{
+							writer.Write( @"<p>{0}</p>", reportString[istr] );
+						}
 
-            }
+						writer.Write( @"<a class=""YafReported_Link"" href=""{3}"">{4} {2}</a>", i, Convert.ToInt32( reporter["UserID"] ), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.ForumPages.cp_pm ), PageContext.Localization.GetText( "REPLYTO" ) );
+					}
 
-        }
-    }
+					// TODO: Remove hard-coded formatting.
+					if ( i < reportersList.Rows.Count - 1 ) writer.Write( "<br></br>" );
+					else writer.Write( @"<br></br><p>@@@</p>" );
+					i++;
+				}
+
+				// render controls...
+				base.Render( writer );
+
+				writer.WriteLine( "</div>" );
+				writer.EndRender();
+			}
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
