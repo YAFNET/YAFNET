@@ -61,18 +61,7 @@ namespace YAF.Providers.Profile
 			get
 			{
 				string key = GenerateCacheKey( "UserProfileDictionary" );
-
-				// get the roles collection...
-				Dictionary<string, SettingsPropertyValueCollection> userProfileDic = System.Web.HttpContext.Current.Cache[key] as Dictionary<string, SettingsPropertyValueCollection>;
-
-				if ( userProfileDic == null )
-				{
-					// make sure it exists in the cache...
-					userProfileDic = new Dictionary<string, SettingsPropertyValueCollection>();
-					System.Web.HttpContext.Current.Cache[key] = userProfileDic;
-				}
-
-				return userProfileDic;
+				return YafContext.Current.Cache.GetItem( key, 999, () => new Dictionary<string, SettingsPropertyValueCollection>() );
 			}
 		}
 
@@ -86,8 +75,7 @@ namespace YAF.Providers.Profile
 
 		private void ClearUserProfileCache()
 		{
-			string key = GenerateCacheKey( "UserProfileDictionary" );
-			System.Web.HttpContext.Current.Cache[key] = null;
+			YafContext.Current.Cache.Remove( GenerateCacheKey( "UserProfileDictionary" ) );
 		}
 
 		private string GenerateCacheKey( string name )

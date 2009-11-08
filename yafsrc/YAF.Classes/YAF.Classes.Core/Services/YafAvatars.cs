@@ -40,7 +40,7 @@ namespace YAF.Classes.Core
 			}
 			else if ( !String.IsNullOrEmpty( userData.Avatar ) ) // Took out PageContext.BoardSettings.AvatarRemote
 			{
-				avatarUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
+				avatarUrl = String.Format( "{3}resource.ashx?url={0}&amp;width={1}&amp;height={2}",
 					HttpContext.Current.Server.UrlEncode( userData.Avatar ),
 					YafContext.Current.BoardSettings.AvatarWidth,
 					YafContext.Current.BoardSettings.AvatarHeight,
@@ -57,7 +57,7 @@ namespace YAF.Classes.Core
 				                                    
 																						
 
-				avatarUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
+				avatarUrl = String.Format( "{3}resource.ashx?url={0}&amp;width={1}&amp;height={2}",
 																	 HttpContext.Current.Server.UrlEncode( gravatarUrl ),
 																	 YafContext.Current.BoardSettings.AvatarWidth,
 																	 YafContext.Current.BoardSettings.AvatarHeight, YafForumInfo.ForumRoot );

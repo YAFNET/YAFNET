@@ -61,18 +61,7 @@ namespace YAF.Providers.Roles
 			get
 			{
 				string key = GenerateCacheKey( "UserRoleDictionary" );
-
-				// get the roles collection...
-				Dictionary<string, StringCollection> userRoleDic = YafContext.Current.Cache [key] as Dictionary<string, StringCollection>;
-
-				if ( userRoleDic == null )
-				{
-					// make sure it exists in the cache...
-					userRoleDic = new Dictionary<string, StringCollection>();
-					YafContext.Current.Cache [key] = userRoleDic;
-				}
-
-				return userRoleDic;
+				return YafContext.Current.Cache.GetItem( key, 999, () => new Dictionary<string, StringCollection>() );
 			}
 		}
 

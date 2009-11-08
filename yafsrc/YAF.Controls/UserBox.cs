@@ -189,11 +189,11 @@ namespace YAF.Controls
 			// Groups
 			userBox = MatchUserBoxGroups( userBox );
 
-            //ThanksFrom
-            userBox = MatchUserBoxThanksFrom(userBox);
+			//ThanksFrom
+			userBox = MatchUserBoxThanksFrom( userBox );
 
-            //ThanksTo
-            userBox = MatchUserBoxThanksTo(userBox);
+			//ThanksTo
+			userBox = MatchUserBoxThanksTo( userBox );
 
 			if ( !PostDeleted )
 			{
@@ -230,11 +230,11 @@ namespace YAF.Controls
 			userBox = rx.Replace( userBox, filler );
 			rx = new Regex( Constants.UserBox.Location );
 			userBox = rx.Replace( userBox, filler );
-            rx = new Regex(Constants.UserBox.ThanksFrom);
-            userBox = rx.Replace(userBox, filler);
-            rx = new Regex(Constants.UserBox.ThanksTo);
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
+			rx = new Regex( Constants.UserBox.ThanksFrom );
+			userBox = rx.Replace( userBox, filler );
+			rx = new Regex( Constants.UserBox.ThanksTo );
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
 		}
 
 		private string MatchUserBoxLocation( string userBox )
@@ -320,43 +320,43 @@ namespace YAF.Controls
 				System.Text.StringBuilder groupsText = new System.Text.StringBuilder( 500 );
 
 				bool bFirst = true;
-                string roleStyle = null;
+				string roleStyle = null;
 				foreach ( string role in RoleMembershipHelper.GetRolesForUser( DataRow["UserName"].ToString() ) )
 				{
-                    // Get styles 	
-	            
-			    DataTable roleStyleTable =  YafContext.Current.Cache.GetItem<DataTable>( YafCache.GetBoardCacheKey( Constants.Cache.GroupRankStyles ),
-                YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
-                () => YAF.Classes.Data.DB.group_rank_style(YafContext.Current.PageBoardID ) );
-			       foreach( DataRow drow in roleStyleTable.Rows )
-                   {
-                      if ( Convert.ToInt32( drow["LegendID"] ) == 1 && drow["Style"] != null && drow["Name"].ToString() == role ) 
-                      {
-                        roleStyle = YAF.Classes.UI.StyleHelper.DecodeStyleByString(drow["Style"].ToString(),true);
-                        break;
-                      }
-                   }
-                    
- 
+					// Get styles 	
+
+					DataTable roleStyleTable =  YafContext.Current.Cache.GetItem<DataTable>( YafCache.GetBoardCacheKey( Constants.Cache.GroupRankStyles ),
+								YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
+								() => YAF.Classes.Data.DB.group_rank_style( YafContext.Current.PageBoardID ) );
+					foreach ( DataRow drow in roleStyleTable.Rows )
+					{
+						if ( Convert.ToInt32( drow["LegendID"] ) == 1 && drow["Style"] != null && drow["Name"].ToString() == role )
+						{
+							roleStyle = YAF.Classes.UI.StyleHelper.DecodeStyleByString( drow["Style"].ToString(), true );
+							break;
+						}
+					}
+
+
 					if ( bFirst )
 					{
-                         if ( YafContext.Current.BoardSettings.UseStyledNicks )                         
-                        groupsText.AppendLine(string.Format(@"<span id=""{0}1"" runat=""server"" style =""{1}"">{0}</span>",role,roleStyle));
-                         else
-                        groupsText.AppendLine( role );
+						if ( YafContext.Current.BoardSettings.UseStyledNicks )
+							groupsText.AppendLine( string.Format( @"<span id=""{0}1"" runat=""server"" style =""{1}"">{0}</span>", role, roleStyle ) );
+						else
+							groupsText.AppendLine( role );
 						bFirst = false;
 					}
 					else
 					{
-                         if ( YafContext.Current.BoardSettings.UseStyledNicks )
-                        groupsText.AppendLine(string.Format(@", <span id=""{0}1"" runat=""server"" style =""{1}"">{0}</span>",role,roleStyle));
-                         else
-                        groupsText.AppendFormat( ", {0}", role );
+						if ( YafContext.Current.BoardSettings.UseStyledNicks )
+							groupsText.AppendLine( string.Format( @", <span id=""{0}1"" runat=""server"" style =""{1}"">{0}</span>", role, roleStyle ) );
+						else
+							groupsText.AppendFormat( ", {0}", role );
 					}
-                   
+
 				}
 
-                roleStyle = null;
+				roleStyle = null;
 
 				filler = String.Format(
 						PageContext.BoardSettings.UserBoxGroups,
@@ -376,34 +376,34 @@ namespace YAF.Controls
 
 		private string MatchUserBoxRank( string userBox )
 		{
-            // Get styles 	
-            string rankStyle = null;
-            DataTable roleStyleTable = YafContext.Current.Cache.GetItem<DataTable>(YafCache.GetBoardCacheKey(Constants.Cache.GroupRankStyles),
-            YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
-            () => YAF.Classes.Data.DB.group_rank_style(YafContext.Current.PageBoardID));
-            foreach (DataRow drow in roleStyleTable.Rows)
-            {
-                if (Convert.ToInt32(drow["LegendID"]) == 2 && drow["Style"] != null && drow["Name"].ToString() == DataRow["RankName"].ToString())
-                {
-                    rankStyle = YAF.Classes.UI.StyleHelper.DecodeStyleByString(drow["Style"].ToString(), true);
-                    break;
-                }
-            }
-             string filler =null;  
-           
-            Regex rx = new Regex( Constants.UserBox.Rank );
-            if ( YafContext.Current.BoardSettings.UseStyledNicks )
-            filler = String.Format(
-					PageContext.BoardSettings.UserBoxRank,
-					PageContext.Localization.GetText( "rank" ),
-					 string.Format(@"<span id=""{0}2"" runat=""server"" style =""{1}"">{0}</span>", DataRow["RankName"], rankStyle)
-					);              
-            else
-			 filler = String.Format(
-					PageContext.BoardSettings.UserBoxRank,
-					PageContext.Localization.GetText( "rank" ),
-					DataRow["RankName"]
-					);
+			// Get styles 	
+			string rankStyle = null;
+			DataTable roleStyleTable = YafContext.Current.Cache.GetItem<DataTable>( YafCache.GetBoardCacheKey( Constants.Cache.GroupRankStyles ),
+			YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
+			() => YAF.Classes.Data.DB.group_rank_style( YafContext.Current.PageBoardID ) );
+			foreach ( DataRow drow in roleStyleTable.Rows )
+			{
+				if ( Convert.ToInt32( drow["LegendID"] ) == 2 && drow["Style"] != null && drow["Name"].ToString() == DataRow["RankName"].ToString() )
+				{
+					rankStyle = YAF.Classes.UI.StyleHelper.DecodeStyleByString( drow["Style"].ToString(), true );
+					break;
+				}
+			}
+			string filler =null;
+
+			Regex rx = new Regex( Constants.UserBox.Rank );
+			if ( YafContext.Current.BoardSettings.UseStyledNicks )
+				filler = String.Format(
+			PageContext.BoardSettings.UserBoxRank,
+			PageContext.Localization.GetText( "rank" ),
+			 string.Format( @"<span class=""YafRank_{0}"" style=""{1}"">{0}</span>", DataRow["RankName"], rankStyle )
+			);
+			else
+				filler = String.Format(
+					 PageContext.BoardSettings.UserBoxRank,
+					 PageContext.Localization.GetText( "rank" ),
+					 DataRow["RankName"]
+					 );
 
 			// replaces template placeholder with actual rank
 			userBox = rx.Replace( userBox, filler );
@@ -419,7 +419,7 @@ namespace YAF.Controls
 			{
 				filler = String.Format( PageContext.BoardSettings.UserBoxRankImage,
 																String.Format( @"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />",
-                                                                                             YafForumInfo.ForumRoot, YafBoardFolders.Current.Ranks, DataRow["RankImage"]));
+																																														 YafForumInfo.ForumRoot, YafBoardFolders.Current.Ranks, DataRow["RankImage"] ) );
 			}
 
 			// replaces template placeholder with actual rank image
@@ -472,7 +472,7 @@ namespace YAF.Controls
 								r["SmallRibbonHeight"],
 								r["Name"],
 								f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : "",
-                                YafBoardFolders.Current.Medals
+																YafBoardFolders.Current.Medals
 								);
 
 						inRow++;
@@ -499,7 +499,7 @@ namespace YAF.Controls
 								r["SmallMedalHeight"],
 								r["Name"],
 								f.ShowMessage ? String.Format( ": {0}", r["Message"] ) : "",
-                                YafBoardFolders.Current.Medals
+																YafBoardFolders.Current.Medals
 								);
 					}
 
@@ -509,7 +509,7 @@ namespace YAF.Controls
 
 				filler = String.Format(
 						PageContext.BoardSettings.UserBoxMedals,
-                        PageContext.Localization.GetText("MEDALS"),
+												PageContext.Localization.GetText( "MEDALS" ),
 						ribbonBar.ToString(),
 						medals.ToString()
 						);
@@ -542,34 +542,34 @@ namespace YAF.Controls
 			userBox = rx.Replace( userBox, filler );
 			return userBox;
 		}
-        private string MatchUserBoxThanksFrom(string userBox)
-        {
-            string filler = "";
-            Regex rx = new Regex(Constants.UserBox.ThanksFrom);
-            filler = String.Format(
-                        PageContext.BoardSettings.UserBoxThanksFrom,
-                        String.Format(PageContext.Localization.GetText("thanksfrom"),
-                        DB.user_getthanks_from(DataRow["UserID"]))
-                        );
+		private string MatchUserBoxThanksFrom( string userBox )
+		{
+			string filler = "";
+			Regex rx = new Regex( Constants.UserBox.ThanksFrom );
+			filler = String.Format(
+									PageContext.BoardSettings.UserBoxThanksFrom,
+									String.Format( PageContext.Localization.GetText( "thanksfrom" ),
+									DB.user_getthanks_from( DataRow["UserID"] ) )
+									);
 
-            // replaces template placeholder with actual thanks from
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
+			// replaces template placeholder with actual thanks from
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
 
-        private string MatchUserBoxThanksTo(string userBox)
-        {
-            string filler = "";
-            Regex rx = new Regex(Constants.UserBox.ThanksTo);
-            int[] ThanksToArray = DB.user_getthanks_to(DataRow["UserID"]);
-            filler = String.Format(
-                        PageContext.BoardSettings.UserBoxThanksTo,
-                        String.Format(PageContext.Localization.GetText("thanksto"), ThanksToArray[0], ThanksToArray[1])
-                        );
+		private string MatchUserBoxThanksTo( string userBox )
+		{
+			string filler = "";
+			Regex rx = new Regex( Constants.UserBox.ThanksTo );
+			int[] ThanksToArray = DB.user_getthanks_to( DataRow["UserID"] );
+			filler = String.Format(
+									PageContext.BoardSettings.UserBoxThanksTo,
+									String.Format( PageContext.Localization.GetText( "thanksto" ), ThanksToArray[0], ThanksToArray[1] )
+									);
 
-            // replaces template placeholder with actual thanks from
-            userBox = rx.Replace(userBox, filler);
-            return userBox;
-        }
+			// replaces template placeholder with actual thanks from
+			userBox = rx.Replace( userBox, filler );
+			return userBox;
+		}
 	}
 }

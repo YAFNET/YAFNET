@@ -33,6 +33,7 @@ namespace YAF.Classes.UI
 	public class ReplaceRules : ICloneable
 	{
 		private List<BaseReplaceRule> _rulesList;
+		private object _rulesLock = new object();
 		private bool _needSort = false;
 
 		public ReplaceRules()
@@ -45,7 +46,13 @@ namespace YAF.Classes.UI
 		/// </summary>
 		public bool HasRules
 		{
-			get { return _rulesList.Count > 0; }
+			get
+			{
+				lock ( _rulesLock )
+				{
+					return _rulesList.Count > 0;
+				}
+			}
 		}
 
 		public void AddRule( BaseReplaceRule newRule )
@@ -53,8 +60,11 @@ namespace YAF.Classes.UI
 			if ( newRule == null )
 				throw new ArgumentNullException( "newRule" );
 
-			_rulesList.Add( newRule );
-			_needSort = true;
+			lock ( _rulesLock )
+			{
+				_rulesList.Add( newRule );
+				_needSort = true;
+			}
 		}
 
 		public void Process( ref string text )
@@ -62,13 +72,28 @@ namespace YAF.Classes.UI
 			if ( String.IsNullOrEmpty( text ) ) return;
 
 			// sort the rules according to rank...
-			if ( _needSort ) { _rulesList.Sort(); _needSort = false; }
+			if ( _needSort )
+			{
+				lock ( _rulesLock )
+				{
+					_rulesList.Sort();
+					_needSort = false;
+				}
+			}
 
 			// make the replacementCollection for this instance...
 			HtmlReplacementCollection mainCollection = new HtmlReplacementCollection();
 
+			// get as local list...
+			List<BaseReplaceRule> localRulesList = new List<BaseReplaceRule>();
+
+			lock ( _rulesLock )
+			{
+				localRulesList.AddRange( _rulesList );
+			}
+
 			// apply all rules...
-			foreach ( BaseReplaceRule rule in _rulesList )
+			foreach ( BaseReplaceRule rule in localRulesList )
 			{
 				rule.Replace( ref text, ref mainCollection );
 			}
