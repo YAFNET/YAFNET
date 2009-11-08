@@ -49,8 +49,8 @@ namespace YAF.Pages.Admin
 				PageLinks.AddLink( "Task Manager", "" );
 			}
 
-			lblTaskCount.Text = YafTaskModule.Current.TaskManager.Count.ToString();
-			taskRepeater.DataSource = YafTaskModule.Current.TaskManager;
+			lblTaskCount.Text = YafTaskModule.Current.TaskCount.ToString();
+			taskRepeater.DataSource = YafTaskModule.Current.TaskManagerSnapshot;
 			taskRepeater.DataBind();
 		}
 

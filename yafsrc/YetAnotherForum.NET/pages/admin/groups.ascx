@@ -5,12 +5,12 @@
 		<asp:Repeater ID="RoleListNet" runat="server" OnItemCommand="RoleListNet_ItemCommand">
 			<HeaderTemplate>
 				<tr>
-					<td class="header1" colspan="6">
+					<td class="header1" colspan="7">
 						Provider Roles
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6" class="post">
+					<td colspan="7" class="post">
 						Note: Deleting a role here removes it completely from the provider. "Add to YAF"
 						to make this role accessible in the forum.
 					</td>
