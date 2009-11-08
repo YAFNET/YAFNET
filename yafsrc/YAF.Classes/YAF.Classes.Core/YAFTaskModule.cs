@@ -43,7 +43,7 @@ namespace YAF.Classes.Core
 		/// <summary>
 		/// Current Page Instance of the Module Manager
 		/// </summary>
-		protected Dictionary<string,IBackgroundTask> TaskManager
+		public Dictionary<string,IBackgroundTask> TaskManager
 		{
 			get
 			{
