@@ -1,13 +1,14 @@
 <%@ Control Language="c#" CodeFile="attachments.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.attachments" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<div class="DivTopSeparator"></div>
+<div class="DivTopSeparator">
+</div>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header1" colspan="3">
 			<YAF:LocalizedLabel ID="Title" LocalizedTag="TITLE" runat="server" />
 		</td>
 	</tr>
-	<asp:Repeater runat="server" ID="List">
+	<asp:Repeater runat="server" ID="List" OnItemCommand="List_ItemCommand">
 		<HeaderTemplate>
 			<tr>
 				<td class="header2">
@@ -17,7 +18,8 @@
 					<YAF:LocalizedLabel ID="Size" LocalizedTag="SIZE" runat="server" />
 				</td>
 				<td class="header2">
-					&nbsp;</td>
+					&nbsp;
+				</td>
 			</tr>
 		</HeaderTemplate>
 		<ItemTemplate>
@@ -39,37 +41,45 @@
 			<YAF:LocalizedLabel ID="UploadTitle" LocalizedTag="UPLOAD_TITLE" runat="server" />
 		</td>
 		<td class="header2">
-			&nbsp;</td>
+			&nbsp;
+		</td>
 		<td class="header2">
-			&nbsp;</td>
+			&nbsp;
+		</td>
 	</tr>
 	<tr id="selectfiletr" runat="server">
 		<td class="postheader">
 			<YAF:LocalizedLabel ID="SelectFile" LocalizedTag="SELECT_FILE" runat="server" />
 		</td>
 		<td class="post">
-			<input type="file" id="File" class="pbutton" runat="server" /></td>
+			<input type="file" id="File" class="pbutton" runat="server" />
+		</td>
 		<td class="post">
-			<asp:Button runat="server" CssClass="pbutton" ID="Upload" /></td>
+			<asp:Button runat="server" CssClass="pbutton" ID="Upload" OnClick="Upload_Click" />
+		</td>
 	</tr>
 	<tr>
 		<td class="header2">
 			<YAF:LocalizedLabel ID="ExtensionTitle" LocalizedTag="ALLOWED_EXTENSIONS" runat="server" />
 		</td>
 		<td class="header2">
-			&nbsp;</td>
+			&nbsp;
+		</td>
 		<td class="header2">
-			&nbsp;</td>
+			&nbsp;
+		</td>
 	</tr>
 	<tr>
 		<td class="post" colspan="3">
-			<asp:Label ID="ExtensionsList" runat="server"></asp:Label></td>
+			<asp:Label ID="ExtensionsList" runat="server"></asp:Label>
+		</td>
 	</tr>
 	<tr class="footer1">
 		<td colspan="3" align="center">
-			<asp:Button runat="server" CssClass="pbutton" ID="Back" /></td>
+			<asp:Button runat="server" CssClass="pbutton" ID="Back" OnClick="Back_Click" />
+		</td>
 	</tr>
 </table>
 <div id="DivSmartScroller">
-    <YAF:SmartScroller id="SmartScroller1" runat="server" />
+	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
