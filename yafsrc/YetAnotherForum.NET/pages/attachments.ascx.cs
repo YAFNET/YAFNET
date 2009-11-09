@@ -126,7 +126,7 @@ namespace YAF.Pages // YAF.Pages
 			( (LinkButton)sender ).Attributes["onclick"] = String.Format( "return confirm('{0}')", GetText( "ASK_DELETE" ) );
 		}
 
-		private void Back_Click( object sender, System.EventArgs e )
+        protected void Back_Click(object sender, System.EventArgs e)
 		{
 			YafBuildLink.Redirect( ForumPages.posts, "m={0}#{0}", Request.QueryString["m"] );
 		}

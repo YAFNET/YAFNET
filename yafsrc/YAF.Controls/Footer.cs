@@ -127,9 +127,11 @@ namespace YAF.Controls
 
 #if DEBUG      
 			if ( PageContext.IsAdmin )
-			{
-				footer.AppendFormat( @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <b>DEBUG MODE</b></span>.<br/>Recompile in <b>RELEASE MODE</b> to remove this information:" );
-				footer.AppendFormat( @"<br/>{0} sql queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, ( 100 * QueryCounter.Duration ) / YafServices.StopWatch.Duration, QueryCounter.Commands );
+			{ 
+                footer.AppendFormat( @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <b>DEBUG MODE</b></span>.<br/>Recompile in <b>RELEASE MODE</b> to remove this information:" );
+                footer.Append( @"<br></br><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | " );
+                footer.Append( @"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br></br>" );
+                footer.AppendFormat( @"<br></br>{0} sql queries ({1:N3} seconds, {2:N2}%).<br></br>{3}", QueryCounter.Count, QueryCounter.Duration, ( 100 * QueryCounter.Duration) / YafServices.StopWatch.Duration, QueryCounter.Commands );
 				footer.Append( "</div>" );
 			}
 #endif
