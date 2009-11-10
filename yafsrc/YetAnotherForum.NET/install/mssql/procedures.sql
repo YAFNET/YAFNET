@@ -4001,6 +4001,7 @@ BEGIN
 	BEGIN
 		UPDATE  [{databaseOwner}].[{objectQualifier}topic] set Flags = Flags | 8 where TopicMovedID = @TopicID
 		UPDATE  [{databaseOwner}].[{objectQualifier}topic] set Flags = Flags | 8 where TopicID = @TopicID
+		UPDATE  [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags | 8 where TopicID = @TopicID
 	END
 	ELSE
 	BEGIN
