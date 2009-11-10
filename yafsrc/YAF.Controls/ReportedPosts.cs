@@ -68,37 +68,45 @@ namespace YAF.Controls
 					string howMany = null;
 					if ( Convert.ToInt32( reporter["ReportedNumber"] ) > 1 )
 						howMany = "(" + reporter["ReportedNumber"].ToString() + ")";
-
-					writer.Write( @"<a class=""YafReported_Link"" href=""{3}"">{5}{2}{4}</a>", i, Convert.ToInt32( reporter["UserID"] ), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.ForumPages.profile, "u={0}", Convert.ToInt32( reporter["UserID"] ) ), howMany, PageContext.Localization.GetText( "REPORTEDBY" ) );
-					
+                    writer.WriteLine( @"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafreportedtable{0}"">" , this.ClientID);
+                    writer.Write( @"<tr><td class=""post"">" );
+                    writer.Write(@"<tr><td class=""header2"">");
+                    writer.Write(@"<span class=""YafReported_Complainer"">{5}</span><a class=""YafReported_Link"" href=""{3}"">{2}{4}</a>", i, Convert.ToInt32(reporter["UserID"]), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages.profile, "u={0}", Convert.ToInt32(reporter["UserID"])), howMany, PageContext.Localization.GetText("REPORTEDBY"));
+                    writer.WriteLine(@"</td></tr>");
 					string[] reportString = reporter["ReportText"].ToString().Trim().Split( '|' );
-
+                    
 					for ( int istr = 0; istr < reportString.Length; istr++ )
 					{
 						string[] textString = reportString[istr].Split( "??".ToCharArray() );
-
-						if ( textString.Length > 2 )
-						{
-							// TODO: Remove hard-coded formatting.
-							// TODO: Move DateTime Conversion to DateTime Services.
-							writer.Write( @"<br></br><strong>{0}:</strong><br></br>", Convert.ToDateTime( textString[0].TrimEnd( ':' ) ).AddMinutes( (double)PageContext.CurrentUserData.TimeZone ) );
-							writer.Write( @"<p>{0}</p>", textString[2] );
+                        writer.Write(@"<tr><td class=""post"">");
+                        writer.Write(@"<span class=""YafReported_DateTime"">{0}:</span>", YAF.Classes.Core.YafServices.DateTime.FormatDateTimeTopic(textString[0]));// Convert.ToDateTime(textString[0].TrimEnd(':')).AddMinutes((double)PageContext.CurrentUserData.TimeZone ) );
+                        if ( textString.Length > 2 )
+						{          
+													
+                                                 
+                            writer.Write(@"<tr><td class=""post"">");
+                            writer.Write( textString[2] );
+                            writer.WriteLine(@"</td></tr>");
 						}
 						else
 						{
-							writer.Write( @"<p>{0}</p>", reportString[istr] );
-						}
-
+                            writer.WriteLine(@"<tr><td class=""post"">");
+							writer.Write(reportString[istr] );
+                            writer.WriteLine(@"</td></tr>");
+                        }
+                        writer.WriteLine(@"<tr><td class=""post"">");
 						writer.Write( @"<a class=""YafReported_Link"" href=""{3}"">{4} {2}</a>", i, Convert.ToInt32( reporter["UserID"] ), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.ForumPages.cp_pm ), PageContext.Localization.GetText( "REPLYTO" ) );
+                        writer.WriteLine(@"</td></tr>");
 					}
-
+                    
 					// TODO: Remove hard-coded formatting.
 					if ( i < reportersList.Rows.Count - 1 ) writer.Write( "<br></br>" );
-					else writer.Write( @"<br></br><p>@@@</p>" );
+					else writer.WriteLine(@"</td></tr>"); 
 					i++;
 				}
 
 				// render controls...
+                writer.Write( @"</table>" );
 				base.Render( writer );
 
 				writer.WriteLine( "</div>" );
