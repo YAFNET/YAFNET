@@ -25,6 +25,10 @@ using YAF.Classes.Utils;
 
 namespace YAF.Modules
 {
+	/// <summary>
+	/// Generic Module Management (Plugin) class.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public abstract class YafModuleManager<T>
 	{
 		protected string _cacheName = String.Empty;
@@ -32,10 +36,19 @@ namespace YAF.Modules
 		protected List<Type> _moduleClassTypes = null;
 		protected bool _loaded = false;
 
+		/// <summary>
+		/// Called when the modules are loaded.
+		/// </summary>
 		public event EventHandler<EventArgs> LoadModules;
+		/// <summary>
+		/// Called when the modules are unloaded.
+		/// </summary>
 		public event EventHandler<EventArgs> UnloadModules;
 
 		private string _moduleNamespace;
+		/// <summary>
+		/// Base Module Namespace for the Module Manager
+		/// </summary>
 		public String ModuleNamespace
 		{
 			get
@@ -49,6 +62,9 @@ namespace YAF.Modules
 		}
 
 		private string _moduleBaseType;
+		/// <summary>
+		/// Base type of this instance of the Module Manager
+		/// </summary>
 		public String ModuleBaseType
 		{
 			get
@@ -88,6 +104,9 @@ namespace YAF.Modules
 			}
 		}
 
+		/// <summary>
+		/// All the modules found by the Module Manager
+		/// </summary>
 		public List<T> Modules
 		{
 			get
@@ -96,6 +115,9 @@ namespace YAF.Modules
 			}
 		}
 
+		/// <summary>
+		/// Are modules loaded?
+		/// </summary>
 		public bool Loaded
 		{
 			get
@@ -157,6 +179,9 @@ namespace YAF.Modules
 			return moduleClassTypes;
 		}
 
+		/// <summary>
+		/// Loads (CreatesInstance) of all modules) -- should only be called once.
+		/// </summary>
 		public void Load()
 		{
 			if (!_loaded)
@@ -172,6 +197,9 @@ namespace YAF.Modules
 			}
 		}
 
+		/// <summary>
+		/// Unloads all the modules in the module manager.
+		/// </summary>
 		public void Unload()
 		{
 			if ( _loaded )
@@ -188,6 +216,12 @@ namespace YAF.Modules
 			return (T) Activator.CreateInstance( module );
 		}
 
+		/// <summary>
+		/// Helper function that filters modules based on NameSpace
+		/// </summary>
+		/// <param name="typeObj"></param>
+		/// <param name="criteriaObj"></param>
+		/// <returns></returns>
 		public static bool BaseModuleFilter(Type typeObj, Object criteriaObj)
 		{
 			if ( typeObj.Namespace == criteriaObj.ToString())
