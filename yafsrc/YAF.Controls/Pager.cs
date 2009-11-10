@@ -56,19 +56,16 @@ namespace YAF.Controls
 
 		public Pager()
 		{
-			this.Init += new EventHandler( Pager_Init );
 		}
 
-		void Pager_Init( object sender, EventArgs e )
+		protected override void OnInit( EventArgs e )
 		{
-			// init the necessary js...
-			PageContext.PageElements.RegisterJQuery();
-			PageContext.PageElements.RegisterJsResourceInclude( "yafjs", "js/yaf.js" );
+			base.OnInit( e );
 
-			if ( !_ignorePageIndex && System.Web.HttpContext.Current.Request.QueryString ["p"] != null )
+			if ( !_ignorePageIndex && System.Web.HttpContext.Current.Request.QueryString["p"] != null )
 			{
 				// set a new page...
-				CurrentPageIndex = ( int )Security.StringToLongOrRedirect( System.Web.HttpContext.Current.Request.QueryString ["p"] ) - 1;
+				CurrentPageIndex = (int)Security.StringToLongOrRedirect( System.Web.HttpContext.Current.Request.QueryString["p"] ) - 1;
 			}
 
 			_pageLabel.ID = GetExtendedID( "PageLabel" );
@@ -76,6 +73,18 @@ namespace YAF.Controls
 
 			this.Controls.Add( _pageLabel );
 			this.Controls.Add( _gotoPageForm );
+
+			// hook up events...
+			_gotoPageForm.GotoPageClick += new EventHandler<GotoPageForumEventArgs>( _gotoPageForm_GotoPageClick );
+		}
+
+		protected override void OnLoad( EventArgs e )
+		{
+			base.OnLoad( e );
+
+			// init the necessary js...
+			PageContext.PageElements.RegisterJQuery();
+			PageContext.PageElements.RegisterJsResourceInclude( "yafjs", "js/yaf.js" );
 
 			PageContext.PageElements.RegisterCssBlock( "PagerCss", "#simplemodal-overlay {background-color:#000;}" );
 			_pageLabel.Attributes.Add( "style", "cursor: pointer" );
@@ -95,6 +104,7 @@ var gotoForumSuppressClick = false;
 
 openGotoPageClick = function(e) {{
 	gotoForumSuppressClick = true;
+  return false;
 }};
 
 openGotoPageForm = function(id) {{
@@ -104,8 +114,8 @@ var gotoForm = jQuery('#{0}');
 
 gotoForm.css({{position:'absolute',zindex:999,top:labelBox.top+labelBox.height,left:labelBox.left}});
 gotoForm.fadeIn( 'slow', function() {{
-	jQuery('#{0}').bind('click', openGotoPageClick);
-	jQuery(document).bind('click', function() {{
+	jQuery('#{0}').bind('click', openGotoPageClick);  
+	jQuery(document).bind('click', function(e) {{
 		if ( !gotoForumSuppressClick )
 		{{
 			jQuery('#{0}').hide();
@@ -114,28 +124,19 @@ gotoForm.fadeIn( 'slow', function() {{
 			jQuery('#{0}').unbind('click', openGotoPageClick);
 		}}
 		gotoForumSuppressClick = false;
-	}});                      
+	}});
+  jQuery('#{1}').focus();
 }});
 }};
-
-", _gotoPageForm.ClientID, "forum1", _gotoPageForm.MainPanel.ClientID );
+", _gotoPageForm.ClientID, _gotoPageForm.GotoTextBoxClientID );
 
 			// register...
 			PageContext.PageElements.RegisterJsBlock( "OpenGotoPageFormJs", modalFunction );
+			PageContext.PageElements.RegisterJsBlockStartup( String.Format( @"LoadPagerForm_{0}", this.ClientID ),
+																											 String.Format(
+																												@"Sys.Application.add_load(function() {{ jQuery('#{0}').click(function() {{ openGotoPageForm('{0}'); }}); }});",
+																												_pageLabel.ClientID ) );
 
-
-			PageContext.PageElements.RegisterJsBlockStartup( "PagerForm" + this.ClientID,
-			                                          String.Format(
-			                                          	@"jQuery('#{0}').click(function() {{ openGotoPageForm('{0}'); }});",
-			                                          	_pageLabel.ClientID ) );
-
-
-			// change the cursor to hand when over link...
-			//_pageLabel.Attributes.Add( "onmouseover", @"yaf_mouseover()" );
-			//_popupControlExt.Animations = @"<OnHide><Sequence><FadeOut duration=""0.3"" fps=""30"" minimumOpacity=""0""></FadeOut><HideAction Visible=""false"" /></Sequence></OnHide><OnShow><Sequence><HideAction Visible=""true"" /><FadeIn duration=""0.3"" fps=""30""></FadeIn></Sequence></OnShow>";
-
-			// hook up events...
-			_gotoPageForm.GotoPageClick += new EventHandler<GotoPageForumEventArgs>( _gotoPageForm_GotoPageClick );
 		}
 
 		void _gotoPageForm_GotoPageClick( object sender, GotoPageForumEventArgs e )

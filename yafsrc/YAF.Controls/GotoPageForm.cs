@@ -51,12 +51,20 @@ namespace YAF.Controls
 		public GotoPageForm()
 			: base()
 		{
-			this.Init += new EventHandler( GotoPageForm_Init );
-			this.Load += new EventHandler( GotoPageForm_Load );
+
 		}
 
-		void GotoPageForm_Load( object sender, EventArgs e )
+		protected override void OnInit( EventArgs e )
 		{
+			base.OnInit( e );
+
+			BuildForm();
+		}
+
+		protected override void OnLoad( EventArgs e )
+		{
+			base.OnLoad( e );
+
 			// localization has to be done in here so as to not attempt
 			// to localize before the class has been created
 			if ( !String.IsNullOrEmpty( PageContext.Localization.TransPage ) )
@@ -70,11 +78,6 @@ namespace YAF.Controls
 				_headerText.Text = "Goto Page...";
 				_gotoButton.Text = "Go";
 			}
-		}
-
-		void GotoPageForm_Init( object sender, EventArgs e )
-		{
-			BuildForm();
 		}
 
 		protected void BuildForm()
@@ -104,7 +107,7 @@ namespace YAF.Controls
 			_gotoButton.Style.Add( HtmlTextWriterStyle.Width, "30px" );
 			_gotoButton.CausesValidation = false;
 			_gotoButton.UseSubmitBehavior = false;
-			_gotoButton.Click += new EventHandler( _gotoButton_Click );		
+			_gotoButton.Click += new EventHandler( GotoButtonClick );		
 
 			// text box...
 
@@ -114,10 +117,18 @@ namespace YAF.Controls
 			_divInner.Controls.Add( _gotoTextBox );
 			_divInner.Controls.Add( _gotoButton );
 
+			PageContext.PageElements.RegisterJsBlockStartup( String.Format( @"GotoPageFormKeyUp_{0}", this.ClientID ),
+																											 String.Format(
+																												@"Sys.Application.add_load(function() {{ jQuery('#{0}').bind('keydown', function(e) {{ if(e.keyCode == 13) {{ jQuery('#{1}').click(); return false; }} }}); }});",
+																												_gotoTextBox.ClientID, _gotoButton.ClientID ) );
+
 			// add enter key support...
-			_gotoTextBox.Attributes.Add( "onkeydown",
-																	 "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
-																	 _gotoButton.ClientID + "').click();return false;}} else {return true}; " );
+			//_gotoTextBox.Attributes.Add( "onkeydown",
+			//                             String.Format(
+			//                              @"if( ( event.which || event.keyCode ) && (event.which == 13 || event.keyCode == 13) ) {{ jQuery('#{0}').click(); return false; }} return true;",
+			//                              _gotoButton.ClientID ) );
+			//document.getElementById('" +
+			//                             _gotoButton.ClientID + "').click();return false;}} else {return true}; ") );
 		}
 
 		protected override void Render( HtmlTextWriter writer )
@@ -129,7 +140,7 @@ namespace YAF.Controls
 			writer.WriteLine( "</div>" );
 		}
 
-		void _gotoButton_Click( object sender, EventArgs e )
+		protected void GotoButtonClick( object sender, EventArgs e )
 		{
 			if ( GotoPageClick != null )
 			{
@@ -153,5 +164,16 @@ namespace YAF.Controls
 			get { return _gotoPageValue; }
 			set { _gotoPageValue = value; }
 		}
+
+		public string GotoTextBoxClientID
+		{
+			get { return _gotoTextBox.ClientID; }
+		}
+
+		public string GotoButtonClientID
+		{
+			get { return _gotoButton.ClientID; }
+		}
+
 	}
 }
