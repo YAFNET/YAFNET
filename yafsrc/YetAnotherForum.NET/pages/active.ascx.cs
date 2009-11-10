@@ -117,13 +117,13 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( PageContext.Settings.CategoryID != 0 ) categoryIDObject = PageContext.Settings.CategoryID;
 
-			DataView dv = YAF.Classes.Data.DB.topic_active( PageContext.PageBoardID, PageContext.PageUserID, sinceDate, categoryIDObject ).DefaultView;
+			DataView dv = DB.topic_active( PageContext.PageBoardID, PageContext.PageUserID, sinceDate, categoryIDObject ).DefaultView;
 			pds.DataSource = dv;
-			Pager.Count = dv.Count;
-			Pager.PageSize = 15;
-			pds.PageSize = Pager.PageSize;
+			PagerTop.Count = dv.Count;
+			PagerTop.PageSize = 15;
+			pds.PageSize = PagerTop.PageSize;
 
-			pds.CurrentPageIndex = Pager.CurrentPageIndex;
+			pds.CurrentPageIndex = PagerTop.CurrentPageIndex;
 			TopicList.DataSource = pds;
 
 			DataBind();
@@ -143,7 +143,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Since_SelectedIndexChanged( object sender, System.EventArgs e )
 		{
-			Pager.CurrentPageIndex = 0;
+			PagerTop.CurrentPageIndex = 0;
 			Mession.ActiveTopicSince = Convert.ToInt32( Since.SelectedValue );
 			BindData();
 		}
