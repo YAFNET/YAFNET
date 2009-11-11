@@ -63,7 +63,7 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddForumLinks( PageContext.PageForumID );
 				PageLinks.AddLink( PageContext.PageTopicName, YafBuildLink.GetLink( ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 
-				Posts.DataSource = YAF.Classes.Data.DB.post_list( PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false );
+				Posts.DataSource = YAF.Classes.Data.DB.post_list( PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false, false );
 				DataBind();
 			}
 		}

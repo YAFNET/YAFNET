@@ -552,7 +552,7 @@ namespace YAF.Controls
 			filler = String.Format(
 									PageContext.BoardSettings.UserBoxThanksFrom,
 									String.Format( PageContext.Localization.GetText( "thanksfrom" ),
-									DB.user_getthanks_from( DataRow["UserID"] ) )
+                                     DataRow["ThanksFromUserNumber"])
 									);
 
 			// replaces template placeholder with actual thanks from
@@ -564,11 +564,10 @@ namespace YAF.Controls
 		{
 			string filler = "";
 			Regex rx = new Regex( Constants.UserBox.ThanksTo );
-			int[] thanksToArray = DB.user_getthanks_to( DataRow["UserID"] );
 			filler = String.Format(
 									PageContext.BoardSettings.UserBoxThanksTo,
-									String.Format( PageContext.Localization.GetText( "thanksto" ), thanksToArray[0], thanksToArray[1] )
-									);
+									String.Format( PageContext.Localization.GetText( "thanksto" ),  
+                                    DataRow["ThanksToUserNumber"], DataRow["ThanksToUserPostsNumber"]) );
 
 			// replaces template placeholder with actual thanks from
 			userBox = rx.Replace( userBox, filler );

@@ -645,7 +645,12 @@ namespace YAF.Classes
             get { return _reg.GetValue<bool>("ShowThanksDate", true); }
             set { _reg.SetValue<bool>("ShowThanksDate", value); }
         }
-		#endregion
+        public bool EnableThanksMod
+        {
+            get { return _reg.GetValue<bool>("EnableThanksMod", true); }
+            set { _reg.SetValue<bool>("EnableThanksMod", value); }
+        }
+        #endregion
 
 		#region string settings
 

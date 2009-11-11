@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
+using System.Text;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -318,16 +319,73 @@ namespace YAF.Pages // YAF.Pages
 			pds.AllowPaging = true;
 			pds.PageSize = Pager.PageSize;
 
-            DataTable dt0 = YAF.Classes.Data.DB.post_list(PageContext.PageTopicID, IsPostBack ? 0 : 1, PageContext.BoardSettings.ShowDeletedMessages, YafContext.Current.BoardSettings.UseStyledNicks);			
+            DataTable dt0 = YAF.Classes.Data.DB.post_list(PageContext.PageTopicID, IsPostBack ? 0 : 1, PageContext.BoardSettings.ShowDeletedMessages, YafContext.Current.BoardSettings.UseStyledNicks, YafContext.Current.BoardSettings.ShowThanksDate);
 
-                if ( YafContext.Current.BoardSettings.UseStyledNicks )                               
+            StringBuilder messageIDs = new StringBuilder();
+
+            // Get All the MessageIDs in this topic.
+            foreach (DataRow dr in dt0.Rows)
+            {
+                if (messageIDs.Length > 0) messageIDs.Append(",");
+                messageIDs.AppendFormat("{0}", dr["MessageID"]);
+            }
+
+            // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
+            // calls to database.)
+            DataColumn dc = new DataColumn("IsThankedByUser", System.Type.GetType("System.Boolean"));
+            dt0.Columns.Add(dc);
+            // How many times has this message been thanked.
+            dc = new DataColumn("MessageThanksNumber", System.Type.GetType("System.Int32"));
+            dt0.Columns.Add(dc);
+            // How many times has the message poster thanked others?
+            dc = new DataColumn("ThanksFromUserNumber", System.Type.GetType("System.Int32"));
+            dt0.Columns.Add(dc);
+            // How many times has the message poster been thanked?
+            dc = new DataColumn("ThanksToUserNumber", System.Type.GetType("System.Int32"));
+            dt0.Columns.Add(dc);
+            // In how many posts has the message poster been thanked?
+            dc = new DataColumn("ThanksToUserPostsNumber", System.Type.GetType("System.Int32"));
+            dt0.Columns.Add(dc);
+
+            // Make the "MessageID" Column the primary key to the datatable.
+            dt0.PrimaryKey = new DataColumn[] { dt0.Columns["MessageID"] };
+
+            // Initialize the "IsthankedByUser" column.
+            foreach (DataRow dr in dt0.Rows)
+                dr["IsThankedByUser"] = "false";
+
+            // Iterate through all the thanks relating to this topic and make appropriate
+            // changes in columns.
+            using (DataTable dt0AllThanks = YAF.Classes.Data.DB.message_GetAllThanks(messageIDs.ToString()))
+            {
+                // get the default view...
+                DataView dtAllThanks = dt0AllThanks.DefaultView;
+
+                foreach (DataRow dr in dt0.Rows)
+                {
+                    dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dr["MessageID"]));
+                    dr["MessageThanksNumber"] = dtAllThanks.Count;
+                    dtAllThanks.RowFilter = String.Format("FromUserID = {0}", Convert.ToInt32(dr["UserID"]));
+                    dr["ThanksFromUserNumber"] = dtAllThanks.Count;
+                    dtAllThanks.RowFilter = String.Format("ToUserID = {0}", Convert.ToInt32(dr["UserID"]));
+                    dr["ThanksToUserNumber"] = dtAllThanks.Count;
+                    DataTable dtDistinctMessages = dtAllThanks.ToTable( true, "MessageID");
+                    dr["ThanksToUserPostsNumber"] = dtDistinctMessages.Rows.Count;
+                }
+
+                foreach (DataRow drThanks in dtAllThanks.Table.Rows)
+                    if (Convert.ToInt32(drThanks["FromUserID"]) == PageContext.PageUserID)
+                        dt0.Rows.Find(drThanks["MessageID"])["IsThankedByUser"] = "true";
+            }
+
+            if ( YafContext.Current.BoardSettings.UseStyledNicks )                               
                     YAF.Classes.UI.StyleHelper.DecodeStyleByTable( ref dt0, true );
                   
                     // get the default view...
                     DataView dt = dt0.DefaultView;
                
 
-				// see if the deleted messages need to be edited out...
+                // see if the deleted messages need to be edited out...
 				if ( PageContext.BoardSettings.ShowDeletedMessages &&
 						!PageContext.BoardSettings.ShowDeletedMessagesToAll &&
 						!PageContext.IsAdmin && !PageContext.IsForumModerator

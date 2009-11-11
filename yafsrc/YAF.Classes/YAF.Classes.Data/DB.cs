@@ -2223,7 +2223,7 @@ namespace YAF.Classes.Data
 
 		#region Message
 
-		static public DataTable post_list( object topicID, object updateViewCount, bool showDeleted, bool styledNicks )
+		static public DataTable post_list( object topicID, object updateViewCount, bool showDeleted, bool styledNicks , bool showThanksDate)
 		{
 			using ( SqlCommand cmd = YafDBAccess.GetCommand( "post_list" ) )
 			{
@@ -2231,7 +2231,8 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "TopicID", topicID );
 				cmd.Parameters.AddWithValue( "UpdateViewCount", updateViewCount );
 				cmd.Parameters.AddWithValue( "ShowDeleted", showDeleted );
-                cmd.Parameters.AddWithValue( "StyledNicks", styledNicks );                
+                cmd.Parameters.AddWithValue( "StyledNicks", styledNicks );
+                cmd.Parameters.AddWithValue("ShowThanksDate", showThanksDate);                
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
@@ -2657,24 +2658,6 @@ namespace YAF.Classes.Data
 		}
 		// functions for Thanks feature
 
-		// <summary> Checks if the message with the provided messageID is thanked 
-		//           by the user with the provided UserID. if so, returns true,
-		//           otherwise returns false. </summary>
-		static public bool message_isThankedByUser( object userID, object messageID )
-		{
-			using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_isthankedbyuser" ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				SqlParameter paramOutput = new SqlParameter();
-				paramOutput.Direction = ParameterDirection.ReturnValue;
-				cmd.Parameters.AddWithValue( "UserID", userID );
-				cmd.Parameters.AddWithValue( "MessageID", messageID );
-				cmd.Parameters.Add( paramOutput );
-				YafDBAccess.Current.ExecuteNonQuery( cmd );
-				return Convert.ToBoolean( paramOutput.Value );
-			}
-		}
-
 		// <summary> Return the number of times the message with the provided messageID
 		//           has been thanked. </summary>
 		static public int message_ThanksNumber( object messageID )
@@ -2702,6 +2685,18 @@ namespace YAF.Classes.Data
 				return YafDBAccess.Current.GetData( cmd );
 			}
 		}
+
+        // <summary> Retuns All the Thanks for the Message IDs which are in the 
+        //           delimited string variable MessageIDs </summary>
+        static public DataTable message_GetAllThanks(object MessageIDs)
+        {
+            using (SqlCommand cmd = YafDBAccess.GetCommand("message_getallthanks"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("MessageIDs", MessageIDs);
+                return YafDBAccess.Current.GetData(cmd);
+            }
+        }
 
 		static public string message_AddThanks( object FromUserID, object MessageID )
 		{

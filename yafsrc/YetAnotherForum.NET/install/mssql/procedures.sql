@@ -893,8 +893,8 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_getthanks]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_isthankedbyuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_isthankedbyuser]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_getallthanks]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_removethanks]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -948,17 +948,36 @@ BEGIN
 END
 Go
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_isthankedbyuser] 
-	@UserID int,
-	@MessageID int
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks] 
+	@MessageIDs nvarchar(100)
 AS
 BEGIN
-	IF NOT EXISTS (SELECT ThanksID FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE (ThanksFromUserID=@UserID AND MessageID=@MessageID))
-		RETURN 0
-	ELSE
-		RETURN 1
+DECLARE @ParsedMessageIDs TABLE
+	(
+		MessageID int
+	)
+    DECLARE @MessageID varchar(10), @Pos int
+	SET @MessageIDs = LTRIM(RTRIM(@MessageIDs))+ ','
+	SET @Pos = CHARINDEX(',', @MessageIDs, 1)
+	IF REPLACE(@MessageIDs, ',', '') <> ''
+	BEGIN
+		WHILE @Pos > 0
+		BEGIN
+			SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDs, @Pos - 1)))
+			IF @MessageID <> ''
+			BEGIN
+				INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
+			END
+			SET @MessageIDs = RIGHT(@MessageIDs, LEN(@MessageIDs) - @Pos)
+			SET @Pos = CHARINDEX(',', @MessageIDs, 1)
+		END
+	END	
+
+	SELECT a.ThanksFromUserID AS FromUserID, a.ThanksDate, b.MessageID, a.ThanksToUserID AS ToUserID
+	FROM [{databaseOwner}].[{objectQualifier}Thanks] a , @ParsedMessageIDs b
+    WHERE (a.MessageID=b.MessageID) 
 END
-Go
+GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_removethanks] 
 	@FromUserID int,
@@ -3575,7 +3594,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1, @StyledNicks bit = 0) as
+create procedure [{databaseOwner}].[{objectQualifier}post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1, @StyledNicks bit = 0, @ShowThanksDate bit = 1) as
 begin
 		set nocount on
 	if @UpdateViewCount>0
@@ -3607,6 +3626,7 @@ begin
 		d.ForumID,
 		RankName = c.Name,		
 		c.RankImage,	
+		ThanksInfo = ([{databaseOwner}].[{objectQualifier}message_getthanksinfo](a.MessageID, @ShowThanksDate)),
 		Style = case(@StyledNicks)
 	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
 		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), c.Style)  

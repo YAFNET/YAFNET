@@ -269,10 +269,20 @@
 							<asp:CheckBox ID="ShowUserOnlineStatus" runat="server"></asp:CheckBox>
 						</td>
 					</tr>
+                    <tr>
+						<td class="postheader">
+							<b>Allow Users to Thank Posts:</b><br />
+							If checked users can thank posts they consider useful.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="EnableThanksMod" runat="server"></asp:CheckBox>
+						</td>
+					</tr>					
 					<tr>
 						<td class="postheader">
 							<b>Show The Date on Which Users Have Thanked Posts:</b><br />
 							If checked users can see on which date posts have been thanked.
+							(Thanks Mod must be enabled first.)
 						</td>
 						<td class="post">
 							<asp:CheckBox ID="ShowThanksDate" runat="server"></asp:CheckBox>

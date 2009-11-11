@@ -49,6 +49,11 @@ DROP FUNCTION [{databaseOwner}].[{objectQualifier}get_userstyle]
 
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_getthanksinfo]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[{objectQualifier}message_getthanksinfo]
+
+GO
+
 create function [{databaseOwner}].[{objectQualifier}bitset](@Flags int,@Mask int) returns bit as
 
 begin
@@ -398,5 +403,24 @@ declare @style nvarchar(255)
                                   ON c.RankID = d.RankID WHERE d.UserID = @UserID ORDER BY c.RankID DESC)
                  end
       return @style
+END
+GO
+
+-- Gets the Thanks info which will be formatted and then placed in "dvThanksInfo" Div Tag in displaypost.ascx.
+create function [{databaseOwner}].[{objectQualifier}message_getthanksinfo]
+(
+@MessageID INT,
+@ShowThanksDate bit
+) returns VARCHAR(MAX)
+BEGIN
+	DECLARE @Output VARCHAR(MAX)
+		SELECT @Output = COALESCE(@Output+',', '') + CAST(i.ThanksFromUserID AS varchar) + 
+	CASE @ShowThanksDate WHEN 1 THEN ',' + CAST (i.ThanksDate AS varchar)  ELSE '' end
+			FROM	[dbo].[yaf_Thanks] i
+			WHERE	i.MessageID = @MessageID	ORDER BY i.ThanksDate
+	-- Add the last comma if @Output has data.
+	IF @Output <> ''
+		SELECT @Output = @Output + ','
+	RETURN @Output
 END
 GO

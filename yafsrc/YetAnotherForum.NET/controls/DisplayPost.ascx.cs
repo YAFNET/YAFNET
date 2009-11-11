@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using YAF.Classes.Data;
@@ -158,8 +159,8 @@ namespace YAF.Controls
 			Quote.Visible = !PostDeleted && CanReply && !IsLocked;
 			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, MessageId );
 
-			Thank.Visible = CanThankPost && !PageContext.IsGuest;
-			if ( DB.message_isThankedByUser( PageContext.PageUserID, DataRow["MessageID"] ) )
+            Thank.Visible = CanThankPost && !PageContext.IsGuest && YafContext.Current.BoardSettings.EnableThanksMod;
+            if (Convert.ToBoolean(DataRow["IsThankedByUser"]) == true)
 			{
 				Thank.NavigateUrl = "javascript:removeThanks(" + DataRow["MessageID"] + ");";
 				Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
@@ -172,10 +173,10 @@ namespace YAF.Controls
 				Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
 			}
 
-			int thanksNumber = DB.message_ThanksNumber( DataRow["MessageID"] );
+            int thanksNumber = Convert.ToInt32(DataRow["MessageThanksNumber"]);
 			if ( thanksNumber != 0 )
 			{
-				Literal2.Text = ThankYou.GetThanks( Convert.ToInt32( DataRow["MessageID"] ) );
+                Literal2.Text = FormatThanksInfo(DataRow["ThanksInfo"].ToString());
 				if ( thanksNumber == 1 )
 				{
 					Literal1.Text = String.Format( PageContext.Localization.GetText( "THANKSINFOSINGLE" ), UserProfile.UserName );
@@ -347,7 +348,50 @@ namespace YAF.Controls
 				}
 			}
 		}
+        /// <summary>
+        /// Formats the dvThanksInfo section.
+        /// </summary>
+        /// <param name="RawStr"></param>
+        /// <returns></returns>
+        protected string FormatThanksInfo(string rawStr)
+        {
+            StringBuilder filler = new StringBuilder();
+            string strID, strUserName;
+            string strDate = "";
+            // Extract all user IDs, usernames and (If enabled thanks dates) related to this message.
+            while (rawStr != "")
+            {
+                if (filler.Length > 0) filler.Append(",&nbsp;");
+                int i = rawStr.IndexOf(",");
+                // Extract UserID
+                strID = rawStr.Substring(0, i);
+                
+                // Get the username related to this User ID
+                strUserName = YAF.Classes.Core.UserMembershipHelper.GetUserNameFromID(Convert.ToInt32(strID));
+                rawStr = rawStr.Remove(0, i + 1);
+                
+                // If Thanks date is in the data, extract it.
+                if (YafContext.Current.BoardSettings.ShowThanksDate)
+                {
+                    i = rawStr.IndexOf(",");
+                    strDate = rawStr.Substring(0, i);
+                    rawStr = rawStr.Remove(0, i + 1);
+                }
 
+                filler.AppendFormat(@"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", strID,
+                                                                YafBuildLink.GetLink(ForumPages.profile, "u={0}", strID),
+                                                            strUserName);
+                // If showing thanks date is enabled, add it to the formatted string.
+                if (YafContext.Current.BoardSettings.ShowThanksDate)
+                {
+                    filler.AppendFormat(@" {0}", String.Format(YafContext.Current.Localization.GetText("DEFAULT", "ONDATE"),
+                                                YafServices.DateTime.FormatDateShort(Convert.ToDateTime(strDate))));
+                }
+            }
+            return filler.ToString();
+        }
+
+        /// <summary>
 		/// <summary>
 		/// Gets parent forum page (null if parent is not ForumPage).
 		/// </summary>
