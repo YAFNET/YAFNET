@@ -51,6 +51,7 @@ namespace YAF.Controls
 			PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
 			IsHostAdminRow.Visible = PageContext.IsHostAdmin;
+
 			if (!IsPostBack)
 			{
 				BindData();
@@ -67,7 +68,7 @@ namespace YAF.Controls
 			using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, CurrentUserID, null))
 			{
 				DataRow row = dt.Rows[0];
-				UserFlags userFlags = new UserFlags(row["Flags"]);
+				var userFlags = new UserFlags(row["Flags"]);
 
 				Name.Text = (string)row["Name"];
 				Email.Text = row["Email"].ToString();
@@ -89,27 +90,32 @@ namespace YAF.Controls
 
 		protected void Save_Click(object sender, System.EventArgs e)
 		{
-			// update the membership too...
+			// Update the Membership
 			if (!IsGuestX.Checked)
 			{
-				MembershipUser user = UserMembershipHelper.GetUser(Name.Text );
+				MembershipUser user = UserMembershipHelper.GetUser( Name.Text );
 
-				if (Email.Text.Trim() != user.Email)
+				if ( Email.Text.Trim() != user.Email )
 				{
-					user.IsApproved = IsApproved.Checked;
 					// update the e-mail here too...
 					user.Email = Email.Text.Trim();
-					PageContext.CurrentMembership.UpdateUser(user);
 				}
+
+				// Update IsApproved
+				user.IsApproved = IsApproved.Checked;
+				PageContext.CurrentMembership.UpdateUser( user );
 			}
 
-			UserFlags userFlags = new UserFlags();
-			userFlags.IsHostAdmin = IsHostAdminX.Checked;
-			userFlags.IsGuest = IsGuestX.Checked;
-			userFlags.IsCaptchaExcluded = IsCaptchaExcluded.Checked;
-			userFlags.IsActiveExcluded = IsExcludedFromActiveUsers.Checked;
-			userFlags.IsApproved = IsApproved.Checked;
-			YAF.Classes.Data.DB.user_adminsave(PageContext.PageBoardID, CurrentUserID, Name.Text, Email.Text, userFlags.BitValue, RankID.SelectedValue);
+			var userFlags = new UserFlags
+			                	{
+			                		IsHostAdmin = IsHostAdminX.Checked,
+			                		IsGuest = IsGuestX.Checked,
+			                		IsCaptchaExcluded = IsCaptchaExcluded.Checked,
+			                		IsActiveExcluded = IsExcludedFromActiveUsers.Checked,
+			                		IsApproved = IsApproved.Checked
+			                	};
+
+			DB.user_adminsave(PageContext.PageBoardID, CurrentUserID, Name.Text, Email.Text, userFlags.BitValue, RankID.SelectedValue);
 			BindData();
 		}
 	}
