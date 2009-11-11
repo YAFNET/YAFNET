@@ -430,6 +430,9 @@
     <Resource tag="SEND">Trimite mesaj</Resource>
     <Resource tag="TITLE">ICQ</Resource>
   </page>
+  <page name="IM_MSN">
+    <Resource tag="TITLE">MSN Messenger</Resource>
+  </page>
   <page name="IM_SKYPE">
     <Resource tag="TITLE">Skype(tm) Calling</Resource>
   </page>

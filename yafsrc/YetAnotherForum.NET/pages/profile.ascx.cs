@@ -139,7 +139,7 @@ namespace YAF.Pages // YAF.Pages
 			SetupThemeButtonWithLink( Blog, userData.Profile.Blog );
 
 			MSN.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.MSN ) );
-			MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", userData.UserID );
+			MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_msn, "u={0}", userData.UserID );
 
 			YIM.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.YIM ) );
 			YIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_yim, "u={0}", userData.UserID );

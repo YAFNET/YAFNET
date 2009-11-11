@@ -394,6 +394,9 @@
   <page name="IM_SKYPE">
     <Resource tag="TITLE">Skype(tm) Calling</Resource>
   </page>
+  <page name="IM_MSN">
+    <Resource tag="TITLE">MSN Messenger</Resource>
+  </page>
   <page name="IM_YIM">
     <Resource tag="TITLE">Yahoo! Messenger</Resource>
   </page>

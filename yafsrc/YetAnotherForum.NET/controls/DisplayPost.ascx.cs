@@ -220,7 +220,7 @@ namespace YAF.Controls
 
 			// MSN
 			Msn.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.MSN );
-			Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", UserId );
+			Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_msn, "u={0}", UserId );
 
 			// Yahoo IM
 			Yim.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.YIM );
