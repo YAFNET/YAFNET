@@ -103,7 +103,6 @@ namespace YAF.Controls
 var gotoForumSuppressClick = false;
 
 openGotoPageClick = function(e) {{
-	gotoForumSuppressClick = true;
   return false;
 }};
 
@@ -116,14 +115,10 @@ gotoForm.css({{position:'absolute',zindex:999,top:labelBox.top+labelBox.height,l
 gotoForm.fadeIn( 'slow', function() {{
 	jQuery('#{0}').bind('click', openGotoPageClick);  
 	jQuery(document).bind('click', function(e) {{
-		if ( !gotoForumSuppressClick )
-		{{
-			jQuery('#{0}').hide();
-			var fn = arguments.callee;
-			jQuery(document).unbind('click', fn);
-			jQuery('#{0}').unbind('click', openGotoPageClick);
-		}}
-		gotoForumSuppressClick = false;
+		jQuery('#{0}').hide();
+		var fn = arguments.callee;
+		jQuery(document).unbind('click', fn);
+		jQuery('#{0}').unbind('click', openGotoPageClick);
 	}});
   jQuery('#{1}').focus();
 }});
