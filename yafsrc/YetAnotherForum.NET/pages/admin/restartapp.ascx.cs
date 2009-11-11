@@ -45,13 +45,13 @@ namespace YAF.Pages.Admin
 
 		protected void RestartApp_Click( object sender, EventArgs e )
 		{
-			if ( General.GetCurrentTrustLevel() == AspNetHostingPermissionLevel.High )
+			if ( General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High )
 			{
 				System.Web.HttpRuntime.UnloadAppDomain();
 			}
 			else
 			{
-				PageContext.LoadMessage.Add( "Must have High Trust to Unload Application. Restart Failed." );
+				PageContext.LoadMessage.Add( "Must have High/Unrestricted Trust to Unload Application. Restart Failed." );
 			}
 		}
 	}
