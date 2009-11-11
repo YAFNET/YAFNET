@@ -44,7 +44,7 @@
     <Resource tag="DELETE">حذف</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">انواع فایلهای غیر مجاز</Resource>
     <Resource tag="ERROR_TOOBIG">شما مجاز به الصاق فایلی با این اندازه نمیباشید.</Resource>
-    <Resource tag="FILEERROR">'{0}' فایل معتبری برای ارسال نمی باشد.</Resource>
+    <Resource tag="FILEERROR">'{0}' فایل مجازی برای ارسال نمی باشد.</Resource>
     <Resource tag="FILENAME">نام فایل</Resource>
     <Resource tag="SELECT_FILE">فایلی را که مایل به ارسال آن هستید انتخاب کنید.</Resource>
     <Resource tag="SIZE">اندازه</Resource>
@@ -57,11 +57,11 @@
     <Resource tag="TITLE">نمایه ها</Resource>
   </page>
   <page name="BBCODEMODULE">
-    <Resource tag="SPOILERMOD_DESCRIPTION">قرار دادن متن مخرب در اينجا</Resource>
-    <Resource tag="SPOILERMOD_HIDE">مخفي كردن مخرب</Resource>
-    <Resource tag="SPOILERMOD_SHOW">نمايش مخرب</Resource>
-    <Resource tag="SPOILERMOD_TOOLTIP">براي نمايش و يا مخفي كردن متن پنهان اينجا را كليك كنيد (به اين متن اصطلاحاً مخرب هم گفته مي شود)</Resource>
-    <Resource tag="YOUTUBEMOD_DESCRIPTION">آدرس فيلم يوتيوب را اينجا قرار دهيد</Resource>
+    <Resource tag="SPOILERMOD_DESCRIPTION">قرار دادن بخش پنهان شونده در اينجا</Resource>
+    <Resource tag="SPOILERMOD_HIDE">مخفي كردن</Resource>
+    <Resource tag="SPOILERMOD_SHOW">نمايش</Resource>
+    <Resource tag="SPOILERMOD_TOOLTIP">براي نمايش و يا مخفي كردن بخش پنهان شونده اينجا را كليك كنيد.</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">آدرس فيلم يوتيوب را اينجا قرار دهيد.</Resource>
   </page>
   <page name="BUTTON">
     <Resource tag="BUTTON_ATTACH">الصاق</Resource>
@@ -330,7 +330,7 @@
     <Resource tag="MODERATORS">مدیران</Resource>
     <Resource tag="NO_FORUM_ACCESS">(بدون دسترسی)</Resource>
     <Resource tag="NO_POSTS">ارسالی وجود ندارد</Resource>
-    <Resource tag="ONDATE">on {0}</Resource>
+    <Resource tag="ONDATE">در تاریخ {0}</Resource>
     <Resource tag="POSTS">ارسالها</Resource>
     <Resource tag="STATS">آمار و ارقام</Resource>
     <Resource tag="STATS_LASTMEMBER">جدیدترین کاربر</Resource>
@@ -380,7 +380,7 @@
     <Resource tag="STICKY">مهم</Resource>
   </page>
   <page name="IM_AIM">
-    <Resource tag="TITLE">AOL Instant Messenger</Resource>
+    <Resource tag="TITLE">پیام رسان AOL</Resource>
   </page>
   <page name="IM_EMAIL">
     <Resource tag="BODY">پیغام خود را اینجا تایپ کنید:</Resource>
@@ -397,13 +397,13 @@
     <Resource tag="TITLE">ICQ</Resource>
   </page>
   <page name="IM_MSN">
-    <Resource tag="TITLE">MSN Messenger</Resource>
+    <Resource tag="TITLE">پیام رسان مایکروسافت</Resource>
   </page>
   <page name="IM_SKYPE">
     <Resource tag="TITLE">برقراری تماس با اسکایپ</Resource>
   </page>
   <page name="IM_YIM">
-    <Resource tag="TITLE">Yahoo! Messenger</Resource>
+    <Resource tag="TITLE">پیام رسان یاهو</Resource>
   </page>
   <page name="INFO">
     <Resource tag="ACCESSDENIED">شما مجاز به دسترسی به این بخش نمی باشید</Resource>
@@ -481,7 +481,7 @@
     <Resource tag="CATEGORY">بخش</Resource>
     <Resource tag="FORUM">انجمن</Resource>
     <Resource tag="REPORTED">گزارش شده به عنوان ارسالهای توهین آمیز</Resource>
-    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
+    <Resource tag="REPORTEDABUSE">گزارش شده به عنوان ارسال توهین آمیز</Resource>
     <Resource tag="REPORTEDSPAM">گزارش شده به عنوان ارسالهای هرزنامه ای</Resource>
     <Resource tag="TITLE">مدیریت</Resource>
     <Resource tag="UNAPPROVED">ارسالهای تائید نشده</Resource>
@@ -495,8 +495,8 @@
     <Resource tag="DELETED">ارسال حذف شد.</Resource>
     <Resource tag="MODIFIED">ارسال تغییر پیدا کرد!</Resource>
     <Resource tag="NUMBERREPORTED">تعداد دفعات گزارش:</Resource>
-    <Resource tag="REPLYTO">Reply by private message to</Resource>
-    <Resource tag="REPORTEDBY">Reported by:</Resource>
+    <Resource tag="REPLYTO">پاسخ از طریق پیام خصوصی به:</Resource>
+    <Resource tag="REPORTEDBY">گزارش شده توسط:</Resource>
     <Resource tag="RESOLVE">بررسی کپی های ارسال</Resource>
     <Resource tag="RESOLVED">بررسی شد</Resource>
     <Resource tag="RESOLVEDFEEDBACK">پیغام به عنوان بررسی شده ثبت گردید.</Resource>
@@ -513,7 +513,7 @@
     <Resource tag="SELECT_TOPIC_MOVETO">عنوانی که مایل به انتقال این ارسال به آن هستید را انتخاب کنید:</Resource>
   </page>
   <page name="MOVETOPIC">
-    <Resource tag="LEAVE_POINTER">ارسال اصلی درجای اولیه خود ، با اضافه شدن کلمه "انتقال داده شد" باقی بماند. </Resource>
+    <Resource tag="LEAVE_POINTER">ارسال اصلی درجای اولیه خود - با اضافه شدن کلمه "انتقال داده شد" - باقی بماند. </Resource>
     <Resource tag="MOVE">انتقال عنوان</Resource>
     <Resource tag="SELECT_FORUM">انجمنی را که مایل به انتقال پیغام به آن هستید را انتخاب کنید:</Resource>
     <Resource tag="TITLE">انتقال عنوان</Resource>
@@ -535,7 +535,7 @@
     <Resource tag="PMLIMIT_ALL">شما دارای {0} پیغام می باشید که شامل {1} پیغام ورودی , {2} پیغام خروجی و {3} پیغام در آرشیو از مجموع {4} پیغام مجاز می باشد.{5} درصد ظرفیت صندوق شما پر شده است.</Resource>
     <Resource tag="PREVIEWTITLE">پیش نمایش:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">صندوق پیامهای کاربری که مایل به ارسال پیام به او هستید پر شده است.کاربر فوق باید قبل از دریافت پیغام جدید صندوق خود را تخلیه کند.</Resource>
-    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
+    <Resource tag="REPORTED_SUBJECT">پاسخ درباره گزارش شما</Resource>
     <Resource tag="SAVE">ارسال</Resource>
     <Resource tag="SUBJECT">موضوع:</Resource>
     <Resource tag="TITLE">ارسال پیغام خصوصی</Resource>
@@ -544,16 +544,16 @@
   </page>
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">اطلاعیه</Resource>
-    <Resource tag="ASK_POLL_DELETE">آیا از حذف نظر سنجی مطمئن هستید؟</Resource>
-    <Resource tag="CHOICE1">انتخاب اول:</Resource>
-    <Resource tag="CHOICE2">انتخاب دوم:</Resource>
-    <Resource tag="CHOICE3">انتخاب سوم:</Resource>
-    <Resource tag="CHOICE4">انتخاب چهارم:</Resource>
-    <Resource tag="CHOICE5">انتخاب پنجم:</Resource>
-    <Resource tag="CHOICE6">انتخاب ششم:</Resource>
-    <Resource tag="CHOICE7">انتخاب هفتم:</Resource>
-    <Resource tag="CHOICE8">انتخاب هشتم:</Resource>
-    <Resource tag="CHOICE9">انتخاب نهم:</Resource>
+    <Resource tag="ASK_POLL_DELETE">آیااز حذف نظر سنجی مطمئن هستید؟</Resource>
+    <Resource tag="CHOICE1">گزینه اول:</Resource>
+    <Resource tag="CHOICE2">گزینه دوم:</Resource>
+    <Resource tag="CHOICE3">گزینه سوم:</Resource>
+    <Resource tag="CHOICE4">گزینه چهارم:</Resource>
+    <Resource tag="CHOICE5">گزینه پنجم:</Resource>
+    <Resource tag="CHOICE6">گزینه ششم:</Resource>
+    <Resource tag="CHOICE7">گزینه هفتم:</Resource>
+    <Resource tag="CHOICE8">گزینه هشتم:</Resource>
+    <Resource tag="CHOICE9">گزینه نهم:</Resource>
     <Resource tag="CREATEPOLL">ایجاد نظرسنجی</Resource>
     <Resource tag="EDIT">ویرایش ارسال</Resource>
     <Resource tag="EDITREASON">دلیل ویرایش:</Resource>
@@ -646,7 +646,7 @@
     <Resource tag="QUICKREPLY_HIDE">عدم نمایش بخش پاسخ سریع</Resource>
     <Resource tag="QUICKREPLY_SHOW">نمایش بخش پاسخ سریع</Resource>
     <Resource tag="RANK">رتبه</Resource>
-    <Resource tag="REPORTABUSE">Report Abusive</Resource>
+    <Resource tag="REPORTABUSE">گزارش اهانت</Resource>
     <Resource tag="REPORTEDFEEDBACK">از گزارش شما متشکریم!</Resource>
     <Resource tag="REPORTPOST">گزارش توهین و سوء استفاده</Resource>
     <Resource tag="REPORTSPAM">گزارش به عنوان هرزنامه</Resource>
@@ -671,8 +671,8 @@
     <Resource tag="TOPICBROWSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
     <Resource tag="TOTAL">مجموع</Resource>
     <Resource tag="UNWATCHTOPIC">عدم پیگیری وضعیت انجمن</Resource>
-    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
-    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
+    <Resource tag="USEROFFLINESTATUS">کاربر حضور ندارد</Resource>
+    <Resource tag="USERONLINESTATUS">کاربر حضور دارد</Resource>
     <Resource tag="USERPROFILE">پروفايل كاربر</Resource>
     <Resource tag="VIEW">مشاهده</Resource>
     <Resource tag="VOTES">آراء</Resource>
@@ -712,11 +712,11 @@
     <Resource tag="JOINED">عضو شده:</Resource>
     <Resource tag="LAST10">10 ارسال آخر</Resource>
     <Resource tag="LASTVISIT">آخرین ملاقات:</Resource>
-    <Resource tag="MEDALS">Medals:</Resource>
+    <Resource tag="MEDALS">مدالها:</Resource>
     <Resource tag="MEMBERS">اعضاء</Resource>
     <Resource tag="MINUTES">دقیقه</Resource>
     <Resource tag="MODERATION">مدیریت</Resource>
-    <Resource tag="MSN">MSN Messenger:</Resource>
+    <Resource tag="MSN">پیام رسان مایکروسافت:</Resource>
     <Resource tag="NUMALL">{0:N2}% از تمام ارسالها</Resource>
     <Resource tag="NUMDAY">{0:N2} ارسال در روز</Resource>
     <Resource tag="NUMPOSTS">تعداد ارسالها:</Resource>
@@ -739,7 +739,7 @@
     <Resource tag="USERNAME">نام کاربری:</Resource>
     <Resource tag="WEBLOG">وب لاگ:</Resource>
     <Resource tag="WEBSITE">صفحه خانگی:</Resource>
-    <Resource tag="YIM">Yahoo Messenger:</Resource>
+    <Resource tag="YIM">پیام رسان یاهو:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">
     <Resource tag="ACCOUNT_NOT_APPROVED">حساب کاربری شما هنوز توسط مدیر مورد تائید قرار نگرفته است.شما تا زمان مورد تائید قرار گرفتن نمی توانید رمز عبور خود را بازگردانی کنید.</Resource>
@@ -1035,8 +1035,8 @@ Visit {forumname} at {forumlink}
     <Resource tag="CREATED">ایجاد شده</Resource>
     <Resource tag="FORUMUSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
     <Resource tag="GOTO_POST_PAGER">[ برو به صفحه: {0} ]</Resource>
-    <Resource tag="INFO_UNWATCH_FORUM">از حالا به بعد درباره پستهای جدید این انجمن به شما اطلاع داده نمی شود.</Resource>
-    <Resource tag="INFO_WATCH_FORUM">از حالا به بعد درباره پستهای جدید این انجمن به شما اطلاع داده می شود.</Resource>
+    <Resource tag="INFO_UNWATCH_FORUM">از هم اکنون درباره پستهای جدید این انجمن به شما اطلاع داده نمی شود.</Resource>
+    <Resource tag="INFO_WATCH_FORUM">از هم اکنون درباره پستهای جدید این انجمن به شما اطلاع داده می شود.</Resource>
     <Resource tag="LAST_DAY">از آخرین روز</Resource>
     <Resource tag="LAST_MONTH">از آخرین ماه</Resource>
     <Resource tag="LAST_SIX_MONTHS">از شش ماه قبل</Resource>
