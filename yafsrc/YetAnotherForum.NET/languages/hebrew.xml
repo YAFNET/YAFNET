@@ -537,6 +537,7 @@
     </Resource>
     <Resource tag="PREVIEWTITLE">תצוגה מקדימה:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">למשתמש/ת {0} יש תיבת הודעות מלאה. מצטערים, אך הוא/היא לא יקבל/תקבל את ההודעה עד שהוא יפנה מקום.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">שלח</Resource>
     <Resource tag="SUBJECT">נושא:</Resource>
     <Resource tag="TITLE">כתוב הודעה פרטית</Resource>

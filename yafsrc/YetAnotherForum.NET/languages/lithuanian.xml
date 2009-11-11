@@ -672,6 +672,7 @@
     </Resource>
     <Resource tag="PREVIEWTITLE">Preview:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">Skelbti </Resource>
     <Resource tag="SUBJECT">Tema: </Resource>
     <Resource tag="TITLE">Rašyti privačią žinutę </Resource>

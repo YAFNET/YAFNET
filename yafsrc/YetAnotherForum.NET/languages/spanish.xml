@@ -556,6 +556,7 @@
     </Resource>
     <Resource tag="PREVIEWTITLE">Vista previa:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">El usuario {0} tiene su bandeja de entrada de mensajes privados llena. Lo sentimos, no recibira su mensaje privado hasta que libere espacio.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">Enviar</Resource>
     <Resource tag="SUBJECT">Asunto:</Resource>
     <Resource tag="TITLE">Enviar mensaje privado</Resource>

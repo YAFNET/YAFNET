@@ -590,6 +590,7 @@
     </Resource>
     <Resource tag="PREVIEWTITLE">Náhľad:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">Odoslať</Resource>
     <Resource tag="SUBJECT">Predmet:</Resource>
     <Resource tag="TITLE">Odoslať osobný odkaz</Resource>

@@ -2773,13 +2773,23 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreporters](@MessageID int) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreporters](@MessageID int, @UserID int = null) AS
 BEGIN
-	
+	IF ( @UserID > 0 )
+	BEGIN
 	SELECT b.UserID, UserName = a.Name, b.ReportedNumber, b.ReportText  
 	FROM [{databaseOwner}].[{objectQualifier}User] a,			
 	[{databaseOwner}].[{objectQualifier}MessageReportedAudit] b		
-	WHERE a.UserID = b.UserID  AND b.MessageID = @MessageID 
+	WHERE   a.UserID = b.UserID  AND b.MessageID = @MessageID AND b.UserID = @UserID 
+	END
+	ELSE
+	BEGIN
+	SELECT b.UserID, UserName = a.Name, b.ReportedNumber, b.ReportText  
+	FROM [{databaseOwner}].[{objectQualifier}User] a,			
+	[{databaseOwner}].[{objectQualifier}MessageReportedAudit] b		
+	WHERE   a.UserID = b.UserID  AND b.MessageID = @MessageID
+	END
+	
 	
 END
 GO

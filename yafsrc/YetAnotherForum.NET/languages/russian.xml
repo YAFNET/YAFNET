@@ -534,6 +534,7 @@
     </Resource>
     <Resource tag="PREVIEWTITLE">Предпросмотр:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">У пользователя/пользователей {0} переполнен ящик входящих сообщений. Извините, но они не получат ваше личное сообщение до тех пор пока не освободят место.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Ответ на Ваше сообщение о нарушении правил форума.</Resource>
     <Resource tag="SAVE">Отправить</Resource>
     <Resource tag="SUBJECT">Тема:</Resource>
     <Resource tag="TITLE">Отправить личное сообщение</Resource>

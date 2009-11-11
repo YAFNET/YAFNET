@@ -165,24 +165,76 @@ namespace YAF.Pages
 						}
 					}
 				}
-				else if ( !String.IsNullOrEmpty( Request.QueryString ["u"] ) )
+				else if ( !String.IsNullOrEmpty( Request.QueryString ["u"] ) && !String.IsNullOrEmpty( Request.QueryString ["r"] ) )
 				{
-					// PM is being sent to a predefined user
-					int toUserId;
+                    //We check here if the user have access to the option
+                    if (PageContext.IsModerator || PageContext.IsForumModerator)
+                    {
+                        // PM is being sent to a predefined user
 
-					if ( Int32.TryParse( Request.QueryString ["u"], out toUserId ) )
-					{
-						// get user's name
-						using ( DataTable dt = DB.user_list( YafContext.Current.PageBoardID, toUserId, true ) )
-						{
-							To.Text = dt.Rows [0] ["Name"] as string;
-							To.Enabled = false;
-							// hide find user/all users buttons
-							FindUsers.Enabled = false;
-							AllUsers.Enabled = false;
-						}
-					}
+                        int toUser;
+                        int reportMessage;
+
+                        if (Int32.TryParse(Request.QueryString["u"], out toUser))
+                        {
+                            if (Int32.TryParse(Request.QueryString["r"], out reportMessage))
+                            {
+                                // get quoted message
+                                DataTable reportedMessages = DB.message_listreporters(Convert.ToInt32(Security.StringToLongOrRedirect(Request.QueryString["r"])), Convert.ToInt32(Security.StringToLongOrRedirect(Request.QueryString["u"])));
+
+                                // there is such a message
+                                // message info should be always returned as 1 row 
+                                if (reportedMessages.Rows.Count > 0)
+                                {
+                                    // handle subject                                           
+
+                                    Subject.Text = GetText("REPORTED_SUBJECT");
+
+                                    // set "To" user and disable changing...
+                                    To.Text = reportedMessages.Rows[0]["UserName"].ToString();
+                                    To.Enabled = false;
+                                    FindUsers.Enabled = false;
+                                    AllUsers.Enabled = false;
+
+
+                                    //Parse content with delimiter '|'  
+                                    string[] quoteList = reportedMessages.Rows[0]["ReportText"].ToString().Split('|');
+                                    // Quoted replies should have bad words in them
+                                    // Reply to report PM is always a quoted reply
+                                    // Quote the original message in a cycle
+                                    for (int i = 0; i < quoteList.Length; i++)
+                                    {
+                                        // Add quote codes
+                                        quoteList[i] = String.Format("[QUOTE={0}]{1}[/QUOTE]", reportedMessages.Rows[0]["UserName"], quoteList[i]);
+                                        //Replace DateTime delimiter '??' by ': ' 
+                                        // we don't want any whitespaces at the beginning of message
+                                        _editor.Text = quoteList[i].Replace("??", ": ") + _editor.Text.TrimStart();
+                                    }
+                                }
+                            }
+                        }
+                    }
 				}
+                else if (!String.IsNullOrEmpty(Request.QueryString["u"]))
+                {
+                    //PM is being send as a reply to a reported post
+                    
+                    // find user
+                    int toUserId;
+
+                    if (Int32.TryParse(Request.QueryString["u"], out toUserId))
+                    {
+                        // get user's name
+                        using (DataTable dt = DB.user_list(YafContext.Current.PageBoardID, toUserId, true))
+                        {
+                            To.Text = dt.Rows[0]["Name"] as string;
+                            To.Enabled = false;
+                            // hide find user/all users buttons
+                            FindUsers.Enabled = false;
+                            AllUsers.Enabled = false;
+                        }
+                    }
+                }
 				else
 				{
 					// Blank PM

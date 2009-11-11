@@ -569,6 +569,7 @@
     </Resource>
     <Resource tag="PREVIEWTITLE">Förhandsgranska:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">Skicka</Resource>
     <Resource tag="SUBJECT">Ärende:</Resource>
     <Resource tag="TITLE">Skicka ett privat meddelande</Resource>

@@ -537,6 +537,7 @@
     </Resource>
     <Resource tag="PREVIEWTITLE">Vorschau:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">Du wolltest eine Nachricht an einen Benutzer mit einem vollen Posteingang schicken. Der Benutzer muss zuerst seinen Posteingang leeren, bevor wieder neue Nachrichten empfangen werden können.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">Absenden</Resource>
     <Resource tag="SUBJECT">Betreff:</Resource>
     <Resource tag="TITLE">Schreibe eine private Nachricht (PN)</Resource>

@@ -569,6 +569,7 @@
     </Resource>
     <Resource tag="PREVIEWTITLE">Esikatselu:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">Lähetä</Resource>
     <Resource tag="SUBJECT">Aihe:</Resource>
     <Resource tag="TITLE">Lähetä yksityisviesti</Resource>

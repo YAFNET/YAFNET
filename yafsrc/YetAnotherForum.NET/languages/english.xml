@@ -526,6 +526,7 @@
     <Resource tag="OWN_PMBOX_FULL">Your Private Message box is full. Maximum allowed is {0}. Please delete messages to free up space.</Resource>
     <Resource tag="PREVIEWTITLE">Preview:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">Post</Resource>
     <Resource tag="SUBJECT">Subject:</Resource>
     <Resource tag="TITLE">Post a Private Message</Resource>

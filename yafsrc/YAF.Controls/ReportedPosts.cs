@@ -93,12 +93,11 @@ namespace YAF.Controls
                             writer.WriteLine(@"<tr><td class=""post"">");
 							writer.Write(reportString[istr] );
                             writer.WriteLine(@"</td></tr>");
-                        }
-                        writer.WriteLine(@"<tr><td class=""post"">");
-						writer.Write( @"<a class=""YafReported_Link"" href=""{3}"">{4} {2}</a>", i, Convert.ToInt32( reporter["UserID"] ), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.ForumPages.cp_pm ), PageContext.Localization.GetText( "REPLYTO" ) );
-                        writer.WriteLine(@"</td></tr>");
+                        }                       
 					}
-                    
+                    writer.WriteLine(@"<tr><td class=""postfooter"">");
+                    writer.Write(@"<a class=""YafReported_Link"" href=""{3}"">{4} {2}</a>", i, Convert.ToInt32(reporter["UserID"]), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages.pmessage, "u={0}&r={1}", Convert.ToInt32(reporter["UserID"]), MessageID), PageContext.Localization.GetText("REPLYTO"));
+                    writer.WriteLine(@"</td></tr>");
 					// TODO: Remove hard-coded formatting.
 					if ( i < reportersList.Rows.Count - 1 ) writer.Write( "<br></br>" );
 					else writer.WriteLine(@"</td></tr>"); 

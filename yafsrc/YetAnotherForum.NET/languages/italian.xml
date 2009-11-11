@@ -537,6 +537,7 @@
     </Resource>
     <Resource tag="PREVIEWTITLE">Anteprima:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has full inbox. He needs to clean it first before you can send him a message.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">Invia</Resource>
     <Resource tag="SUBJECT">Soggetto:</Resource>
     <Resource tag="TITLE">Invia un Messaggio Privato</Resource>

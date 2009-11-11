@@ -571,6 +571,7 @@
     </Resource>
     <Resource tag="PREVIEWTITLE">Previzualizare:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">Postare</Resource>
     <Resource tag="SUBJECT">Subiect:</Resource>
     <Resource tag="TITLE">Scrie un mesaj privat</Resource>

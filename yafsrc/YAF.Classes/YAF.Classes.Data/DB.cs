@@ -2370,16 +2370,26 @@ namespace YAF.Classes.Data
         /// </summary>       
         /// <param name="MessageID">Should not be NULL</param>
         /// <returns>Returns reporters DataTable for a reported message.</returns>
-        static public DataTable message_listreporters( int messageID )
-        {
+        static public DataTable message_listreporters( int messageID  )
+        { 
             using ( SqlCommand cmd = YafDBAccess.GetCommand( "message_listreporters" ) )
             {
                 cmd.CommandType = CommandType.StoredProcedure;              
-                cmd.Parameters.AddWithValue( "MessageID", messageID );               
+                cmd.Parameters.AddWithValue( "MessageID", messageID );
+                cmd.Parameters.AddWithValue("UserID", 0);
                 return YafDBAccess.Current.GetData( cmd );
             }
         }
-
+        static public DataTable message_listreporters(int messageID, object userID)
+        {
+            using (SqlCommand cmd = YafDBAccess.GetCommand("message_listreporters"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("MessageID", messageID);
+                cmd.Parameters.AddWithValue("UserID", userID);
+                return YafDBAccess.Current.GetData(cmd);
+            }
+        }
 		// <summary> Save reported message back to the database. </summary>
 		static public void message_report( object reportFlag, object messageID, object userID, object reportedDateTime, object reportText )
 		{
