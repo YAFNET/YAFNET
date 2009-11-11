@@ -1,7 +1,7 @@
 <%@ Control Language="c#" CodeFile="search.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.search" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <%@ Register Namespace="nStuff.UpdateControls" assembly="nStuff.UpdateControls" TagPrefix="nStuff" %>
-<YAF:PageLinks runat="server" ID="PageLinks" />
+<YAF:PageLinks ID="PageLinks" runat="server" />
 <script type="text/javascript">
 function EndRequestHandler(sender, args) {
 	$('#<%=LoadingModal.ClientID%>').dialog('close');
@@ -11,44 +11,42 @@ function ShowLoadingDialog() {
 }
 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 </script>
-
-<nStuff:UpdateHistory runat="server" ID="UpdateHistory" OnNavigate="OnUpdateHistoryNavigate" />
-
-<table class="content" cellspacing="1" cellpadding="0" width="100%">
-    <tr>
-        <td class="header1" colspan="2">
-            <YAF:LocalizedLabel runat="server" LocalizedTag="title" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader" colspan="2" align="center">
-            <asp:DropDownList ID="listForum" runat="server" />
-            <asp:DropDownList ID="listResInPage" runat="server" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader" width="35%" align="right">
-            <YAF:LocalizedLabel runat="server" LocalizedTag="postedby" />
-        </td>
-        <td class="postheader" align="left">
-            <asp:TextBox ID="txtSearchStringFromWho" runat="server" Width="350px" />
-            <asp:DropDownList ID="listSearchFromWho" runat="server" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader" width="35%" align="right">
-            <YAF:LocalizedLabel runat="server" LocalizedTag="posts" />
-        </td>
-        <td class="postheader" align="left">
-            <asp:TextBox ID="txtSearchStringWhat" runat="server" Width="350px" />
-            <asp:DropDownList ID="listSearchWhat" runat="server" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader" colspan="2" align="center">
-            <asp:Button ID="btnSearch" CssClass="pbutton" runat="server" OnClick="btnSearch_Click" OnClientClick="ShowLoadingDialog(); return true;" />
-        </td>
-    </tr>
+<nStuff:UpdateHistory ID="UpdateHistory" runat="server" OnNavigate="OnUpdateHistoryNavigate" />
+<table cellpadding="0" cellspacing="1" class="content" width="100%">
+	<tr>
+		<td class="header1" colspan="2">
+		<YAF:LocalizedLabel runat="server" LocalizedTag="title" />
+		</td>
+	</tr>
+	<tr>
+		<td align="center" class="postheader" colspan="2">
+		<asp:DropDownList id="listForum" runat="server" />
+		<asp:DropDownList id="listResInPage" runat="server" />
+		</td>
+	</tr>
+	<tr>
+		<td align="right" class="postheader" width="35%">
+		<YAF:LocalizedLabel runat="server" LocalizedTag="postedby" />
+		</td>
+		<td align="left" class="postheader">
+		<asp:TextBox id="txtSearchStringFromWho" runat="server" width="350px" />
+		<asp:DropDownList id="listSearchFromWho" runat="server" />
+		</td>
+	</tr>
+	<tr>
+		<td align="right" class="postheader" width="35%">
+		<YAF:LocalizedLabel runat="server" LocalizedTag="posts" />
+		</td>
+		<td align="left" class="postheader">
+		<asp:TextBox id="txtSearchStringWhat" runat="server" width="350px" />
+		<asp:DropDownList id="listSearchWhat" runat="server" />
+		</td>
+	</tr>
+	<tr>
+		<td align="center" class="postheader" colspan="2">
+		<asp:Button id="btnSearch" runat="server" cssclass="pbutton" onclick="btnSearch_Click" onclientclick="ShowLoadingDialog(); return true;" />
+		</td>
+	</tr>
 </table>
 <br />
 <asp:UpdatePanel ID="SearchUpdatePanel" runat="server" UpdateMode="Conditional">
@@ -66,6 +64,7 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
                             <YAF:LocalizedLabel runat="server" LocalizedTag="RESULTS" />
                         </td>
                     </tr>
+                     </table>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <tr class="header2">
@@ -134,7 +133,7 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
                         <td class="footer1" colspan="2">
                             &nbsp;</td>
                     </tr>
-                    </table>
+                   
                 </FooterTemplate>
             </asp:Repeater>
             <asp:PlaceHolder ID="NoResults" runat="Server" Visible="false">
@@ -160,15 +159,22 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
         <YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" />
     </ContentTemplate>
 </asp:UpdatePanel>
-<DotNetAge:Dialog ID="LoadingModal" runat="server" ShowModal="true" DialogButtons="None">
+<DotNetAge:Dialog ID="LoadingModal" runat="server" DialogButtons="None" ShowModal="true">
+	
 	<BodyTemplate runat="server">
 		<span class="modalOuter"><span class="modalInner"><asp:Literal ID="LoadingModalText" runat="server" OnLoad="LoadingModalText_Load"></asp:Literal>
+		
+		
+	
 		</span></span>
 		<div align="center">
 			<asp:Image ID="LoadingImage" runat="server" alt="Searching..." OnLoad="LoadingImage_Load" />
+			
+			
+			
 		</div>		
 	</BodyTemplate>
 </DotNetAge:Dialog>
 <div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

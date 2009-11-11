@@ -1,10 +1,11 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportedspam.ascx.cs"
 	Inherits="YAF.Pages.moderate.reportedspam" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
-<YAF:PageLinks runat="server" ID="PageLinks" />
-<asp:Repeater ID="List" runat="server">
+<YAF:PageLinks ID="PageLinks" runat="server" />
+<table cellpadding="0" cellspacing="1" class="content" width="100%">
+	<asp:Repeater ID="List" runat="server">
 	<HeaderTemplate>
-		<table class="content" cellspacing="1" cellpadding="0" width="100%">
+		
 			<tr>
 				<td colspan="2" class="header1" align="left">
 					<%# PageContext.PageForumName %>
@@ -18,7 +19,7 @@
 			<td class="postfooter" colspan="2">
 				&nbsp;</td>
 		</tr>
-		</table>
+		
 	</FooterTemplate>
 	<ItemTemplate>
 		<tr class="header2">
@@ -91,5 +92,6 @@
 			</td>
 		</tr>
 	</SeparatorTemplate>
-</asp:Repeater>
+	</asp:Repeater>
+</table>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

@@ -1,6 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="showsmilies.ascx.cs" Inherits="YAF.Pages.showsmilies" %>
-
-<script type="text/javascript" language="javascript">
+<script language="javascript" type="text/javascript">
 <!--
 	// set close timer so this window doesn't stay open forever
 	var timeOutID = setTimeout(self.close, 20000);	
@@ -15,22 +14,23 @@
   }
 -->
 </script>
-
-<asp:Repeater runat="server" ID="List">
+<table cellpadding="0" cellspacing="1" class="content" width="100%">
+	<asp:Repeater ID="List" runat="server">
 	<HeaderTemplate>
-		<table width="100%" cellspacing="1" cellpadding="0" class="content">
+		
 			<tr>
 				<td class="header1" colspan="3" align="center">
 					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
-			</tr>
+			</td></tr>
 			<tr>
 				<td class="header2">
-					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER_CODE" />
+					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER_CODE" /></td>
 					<td class="header2" align="center">
-						<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER_SMILE" />
+						<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER_SMILE" /></td>
 						<td class="header2">
 							<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HEADER_MEANING" />
-			</tr>
+			</td></tr>
+			
 	</HeaderTemplate>
 	<ItemTemplate>
 		<tr>
@@ -56,3 +56,4 @@
 		</tr>
 	</FooterTemplate>
 </asp:Repeater>
+</table>
