@@ -26,7 +26,7 @@
                         <asp:Label runat="server" ID="MostUsersCount" />
                         <br />
                         <YAF:ActiveUsers ID="ActiveUsers1" runat="server">
-                        </YAF:ActiveUsers>
+						</YAF:ActiveUsers>
                     </td>
                 </tr>
                 <tr>

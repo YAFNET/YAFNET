@@ -3,9 +3,10 @@
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 <asp:UpdatePanel ID="UpdatePanelCategory" runat="server" UpdateMode="Conditional">
 	<ContentTemplate>
+	<table class="content" width="100%">
 		<asp:Repeater ID="CategoryList" runat="server">
 			<HeaderTemplate>
-				<table class="content" width="100%">
+				
 					<tr class="forumRowTitle">
 						<td colspan="2" align="left" class="header1">
 							<YAF:LocalizedLabel ID="ForumHeaderLabel" runat="server" LocalizedTag="FORUM" />
@@ -52,8 +53,9 @@
 					</asp:HyperLink>
 					</td>
 				</tr>
-				</table>
+				
 			</FooterTemplate>
 		</asp:Repeater>
+		</table>
 	</ContentTemplate>
 </asp:UpdatePanel>
