@@ -1,10 +1,19 @@
 <%@ Control Language="c#" CodeFile="admin.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.admin" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
-<YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server" ID="Adminmenu1">
-  <asp:Repeater ID="ActiveList" runat="server">
+<YAF:PageLinks ID="PageLinks" runat="server" />
+<YAF:AdminMenu ID="Adminmenu1" runat="server">
+
+	
+
+	
+
+	
+
+	<table width="100%" cellspacing="1" cellpadding="0" class="content">
+		
+		<asp:Repeater ID="ActiveList" runat="server">
     <HeaderTemplate>
-      <table width="100%" cellspacing="1" cellpadding="0" class="content">
+      
         <tr>
           <td class="header1" colspan="5">
             Who is Online</td>
@@ -21,7 +30,7 @@
           <td class="header2">
             Topic Location</td>
         </tr>
-    </HeaderTemplate>
+    		</HeaderTemplate>
     <ItemTemplate>
       <tr>
         <td class="post">
@@ -40,15 +49,17 @@
           <%# FormatTopicLink(Eval("TopicID"),Eval("TopicName")) %>
         </td>
       </tr>
-    </ItemTemplate>
+    		</ItemTemplate>
     <FooterTemplate>
-      </table>
-    </FooterTemplate>
-  </asp:Repeater>
-  <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
+      
+    		</FooterTemplate>
+    	</asp:Repeater>
+	</table>
+	<table width="100%" cellspacing="1" cellpadding="0" class="content">
+		<asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
     <HeaderTemplate>
       <br />
-      <table width="100%" cellspacing="1" cellpadding="0" class="content">
+      
         <tr>
           <td class="header1" colspan="5">
             Unverified Users</td>
@@ -65,7 +76,7 @@
           <td class="header2">
             &nbsp;</td>
         </tr>
-    </HeaderTemplate>
+    		</HeaderTemplate>
     <ItemTemplate>
       <tr>
         <td class="post">
@@ -88,71 +99,92 @@
             Text="Delete" />
         </td>
       </tr>
-    </ItemTemplate>
+    		</ItemTemplate>
     <FooterTemplate>
       <tr>
         <td class="footer1" colspan="5">
           <asp:Button OnLoad="ApproveAll_Load" CommandName="approveall" CssClass="pbutton" Text="Approve All" runat="server" />
           <asp:Button OnLoad="DeleteAll_Load" CommandName="deleteall" CssClass="pbutton" runat="server" Text="Delete All More Than 14 Days Old" /></td>
       </tr>
-      </table>
-    </FooterTemplate>
-  </asp:Repeater>
-  <br />
-  <table class="content" cellspacing="1" cellpadding="0" width="100%">
-    <tr>
-      <td class="header1" colspan="4">
-        Statistics<span runat="server" id="boardSelector" Visible='<%# this.PageContext.IsHostAdmin %>' > for <asp:DropDownList ID="BoardStatsSelect" runat="server" DataTextField="Name" DataValueField="BoardID" OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" /></span></td>
-    </tr>
-    <tr>
-      <td class="postheader" width="25%">
-        Number of posts:</td>
-      <td class="post" width="25%">
-        <asp:Label ID="NumPosts" runat="server"></asp:Label></td>
-      <td class="postheader" width="25%">
-        Posts per day:</td>
-      <td class="post" width="25%">
-        <asp:Label ID="DayPosts" runat="server"></asp:Label></td>
-    </tr>
-    <tr>
-      <td class="postheader">
-        Number of topics:</td>
-      <td class="post">
-        <asp:Label ID="NumTopics" runat="server"></asp:Label></td>
-      <td class="postheader">
-        Topics per day:</td>
-      <td class="post">
-        <asp:Label ID="DayTopics" runat="server"></asp:Label></td>
-    </tr>
-    <tr>
-      <td class="postheader">
-        Number of users:</td>
-      <td class="post">
-        <asp:Label ID="NumUsers" runat="server"></asp:Label></td>
-      <td class="postheader">
-        Users per day:</td>
-      <td class="post">
-        <asp:Label ID="DayUsers" runat="server"></asp:Label></td>
-    </tr>
-    <tr>
-      <td class="postheader">
-        Board started:</td>
-      <td class="post">
-        <asp:Label ID="BoardStart" runat="server"></asp:Label></td>
-      <td class="postheader">
-        Size of database:</td>
-      <td class="post">
-        <asp:Label ID="DBSize" runat="server"></asp:Label></td>
-    </tr>
-    <tr>
-      <td class="postfooter" colspan="4">
-        These statistics don't count deleted topics and posts.</td>
-    </tr>
-  </table>
-  <p id="UpgradeNotice" runat="server" visible="false">
-    The installed version of Yet Another Forum.net and the version of your database
+      
+    		</FooterTemplate>
+    	</asp:Repeater>
+	</table>
+	&nbsp;<br />
+	<table class="content" cellspacing="1" cellpadding="0" width="100%">
+		
+		<tr>
+			<td class="header1" colspan="4">
+			Statistics<span runat="server" id="boardSelector" Visible='<%# this.PageContext.IsHostAdmin %>' > for <asp:DropDownList ID="BoardStatsSelect" runat="server" DataTextField="Name" DataValueField="BoardID" OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" /></span></td>
+			
+			
+		</tr>
+		<tr>
+			<td class="postheader" width="25%">
+			
+			Number of posts:</td>
+			
+			<td class="post" width="25%">
+			<asp:Label ID="NumPosts" runat="server"></asp:Label></td>
+			
+			<td class="postheader" width="25%">
+			
+			Posts per day:</td>
+			<td class="post" width="25%">
+			<asp:Label ID="DayPosts" runat="server"></asp:Label></td>
+		</tr>
+		<tr>
+			<td class="postheader">
+			Number of topics:</td>
+			
+			<td class="post">
+			<asp:Label ID="NumTopics" runat="server"></asp:Label></td>
+			
+			<td class="postheader">
+			Topics per day:</td>
+			<td class="post">
+			<asp:Label ID="DayTopics" runat="server"></asp:Label></td>
+			
+		</tr>
+		<tr>
+			<td class="postheader">
+			Number of users:</td>
+			
+			<td class="post">
+			<asp:Label ID="NumUsers" runat="server"></asp:Label></td>
+			
+			<td class="postheader">
+			Users per day:</td>
+			<td class="post">
+			<asp:Label ID="DayUsers" runat="server"></asp:Label></td>
+		
+		</tr>
+		<tr>
+			<td class="postheader">
+			Board started:</td>
+			<td class="post">
+			<asp:Label ID="BoardStart" runat="server"></asp:Label></td>
+			
+			
+			<td class="postheader">
+			Size of database:</td>
+			
+			<td class="post">
+			<asp:Label ID="DBSize" runat="server"></asp:Label></td>
+
+		</tr>
+		<tr>
+			<td class="postfooter" colspan="4">
+			
+			These statistics don&apos;t count deleted topics and posts.</td>
+			
+			
+		</tr>
+	</table>
+	<p id="UpgradeNotice" runat="server" visible="false">
+	The installed version of Yet Another Forum.net and the version of your database
     does not match. You should go to <a href="install/" target='_"top"'>install</a>
-    and update your database.
-  </p>
+	and update your database.
+	</p>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

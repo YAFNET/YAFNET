@@ -5,9 +5,11 @@
 
 <YAF:PageLinks runat="server" id="PageLinks" />
 <YAF:adminmenu runat="server" id="Adminmenu1">
-	<asp:repeater id="list" runat="server">
+	
+	<table class="content" cellspacing="1" cellpadding="0" width="100%">
+		<asp:repeater id="list" runat="server">
 		<HeaderTemplate>
-			<table class="content" cellspacing="1" cellpadding="0" width="100%">
+			
 				<tr>
 					<td class="header1" colspan="3">Replace Words</td>
 				</tr>
@@ -16,7 +18,7 @@
 					<td class="header2">"Good" (Replace) Expression</td>
 					<td class="header2">&nbsp;</td>
 				</tr>
-		</HeaderTemplate>
+			</HeaderTemplate>
 		<ItemTemplate>
 			<tr>
 				<td class="post"><%# HtmlEncode(Eval("badword")) %></td>
@@ -29,7 +31,7 @@
 					</asp:linkbutton>
 				</td>
 			</tr>
-		</ItemTemplate>
+			</ItemTemplate>
 		<FooterTemplate>
 			<tr>
 				<td class="footer1" colspan="3">
@@ -40,8 +42,9 @@
                     <asp:LinkButton runat="server" Text="Export to XML" CommandName='export' ID="Linkbutton4"></asp:LinkButton>					
                     </td>
 			</tr>
-			</table>
-		</FooterTemplate>
-	</asp:repeater>
+			
+			</FooterTemplate>
+		</asp:repeater>
+	</table>
 </YAF:adminmenu>
 <YAF:SmartScroller id="SmartScroller1" runat="server" />

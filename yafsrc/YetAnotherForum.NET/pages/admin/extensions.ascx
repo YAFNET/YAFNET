@@ -1,9 +1,12 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="extensions.ascx.cs" Inherits="YAF.Pages.Admin.extensions" %>
-<YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server" ID="Adminmenu1">
-    <asp:Repeater ID="list" runat="server">
+<YAF:PageLinks ID="PageLinks" runat="server" />
+<YAF:AdminMenu ID="Adminmenu1" runat="server">
+	
+	<table class="content" cellspacing="1" cellpadding="0" width="100%">
+		&nbsp;
+		<asp:Repeater ID="list" runat="server">
         <HeaderTemplate>
-            <table class="content" cellspacing="1" cellpadding="0" width="100%">
+           
                 <tr>
                     <td class="header1" colspan="2">
                         <asp:Label ID="ExtensionTitle" runat="server" OnLoad="ExtensionTitle_Load">File Extensions</asp:Label></td>
@@ -14,7 +17,7 @@
                     <td class="header2">
                         &nbsp;</td>
                 </tr>
-        </HeaderTemplate>
+        	 </HeaderTemplate>
         <ItemTemplate>
             <tr>
                 <td class="post">
@@ -29,7 +32,7 @@
                     </asp:LinkButton>
                 </td>
             </tr>
-        </ItemTemplate>
+        	 </ItemTemplate>
         <FooterTemplate>
             <tr>
                 <td class="footer1" colspan="3">
@@ -40,8 +43,9 @@
                     <asp:LinkButton runat="server" Text="Export to XML" CommandName='export' ID="Linkbutton4"></asp:LinkButton>
                 </td>
             </tr>
-            </table>
-        </FooterTemplate>
-    </asp:Repeater>
+           
+        	 </FooterTemplate>
+    	 </asp:Repeater>
+	</table>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

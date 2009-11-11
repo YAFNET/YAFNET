@@ -1,9 +1,14 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="BBCode.ascx.cs" Inherits="YAF.Pages.Admin.bbcode" %>
-<YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server" ID="Adminmenu1">
-    <asp:Repeater ID="bbCodeList" runat="server" OnItemCommand="bbCodeList_ItemCommand">
+<YAF:PageLinks ID="PageLinks" runat="server" />
+<YAF:AdminMenu ID="Adminmenu1" runat="server">
+     
+	
+&nbsp;&nbsp;&nbsp;&nbsp; 
+	<table class="content" cellspacing="1" cellpadding="0" width="100%">
+		
+		<asp:Repeater ID="bbCodeList" runat="server" OnItemCommand="bbCodeList_ItemCommand">
         <HeaderTemplate>
-            <table class="content" cellspacing="1" cellpadding="0" width="100%">
+           
                 <tr>
                     <td class="header1" colspan="4">
                         <asp:Label ID="ExtensionTitle" runat="server">BBCode Extensions</asp:Label></td>
@@ -17,7 +22,7 @@
                     <td class="header2">
                         &nbsp;</td>
                 </tr>
-        </HeaderTemplate>
+        	 </HeaderTemplate>
         <ItemTemplate>
             <tr>
                 <td class="post">
@@ -38,7 +43,7 @@
                     </asp:LinkButton>
                 </td>
             </tr>
-        </ItemTemplate>
+        	 </ItemTemplate>
         <FooterTemplate>
             <tr>
                 <td class="footer1" colspan="4">
@@ -49,8 +54,9 @@
                     <asp:LinkButton runat="server" Text="Export Selected to XML" CommandName='export' ID="Linkbutton4"></asp:LinkButton>
                 </td>
             </tr>
-            </table>
-        </FooterTemplate>
-    </asp:Repeater>
+            
+        	 </FooterTemplate>
+    	 </asp:Repeater>
+		&nbsp;&nbsp;&nbsp; </table>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

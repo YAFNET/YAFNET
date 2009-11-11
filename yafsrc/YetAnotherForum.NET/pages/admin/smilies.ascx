@@ -1,12 +1,16 @@
 ﻿<%@ Control Language="c#" CodeFile="smilies.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies" %>
-<YAF:PageLinks runat="server" ID="PageLinks" />
+<YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu runat="server">
-    <asp:UpdatePanel ID="SmilesUpdatePanel" runat="server">
+	
+	
+	
+	<asp:UpdatePanel ID="SmilesUpdatePanel" runat="server">
         <ContentTemplate>
             <YAF:Pager ID="Pager" runat="server" />
+             <table width="100%" cellspacing="1" cellpadding="0" class="content">
             <asp:Repeater runat="server" ID="List">
                 <HeaderTemplate>
-                    <table width="100%" cellspacing="1" cellpadding="0" class="content">
+                   
                         <tr>
                             <td class="header1" colspan="5">
                                 Smilies</td>
@@ -59,9 +63,10 @@
                             <asp:LinkButton runat="server" CommandName="import">Import Smiley Pack</asp:LinkButton>
                         </td>
                     </tr>
-                    </table>
+                    
                 </FooterTemplate>
-            </asp:Repeater>
+            	 </asp:Repeater>
+            </table>
             <YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" />
         </ContentTemplate>
     </asp:UpdatePanel>
