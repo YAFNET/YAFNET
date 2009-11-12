@@ -17,64 +17,86 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	public partial class bbcode_import : YAF.Classes.Core.AdminPage
-	{
-		protected void Page_Load( object sender, EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Import Custom YafBBCode", "" );
-			}
-		}
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data.Import;
+  using YAF.Classes.Utils;
 
-		protected void Cancel_OnClick( object sender, System.EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_bbcode );
-		}
+  /// <summary>
+  /// The bbcode_import.
+  /// </summary>
+  public partial class bbcode_import : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Import Custom YafBBCode", string.Empty);
+      }
+    }
 
-		protected void Import_OnClick( object sender, System.EventArgs e )
-		{
-			// import selected file (if it's the proper format)...
-			if ( importFile.PostedFile.ContentType == "text/xml" )
-			{
-				try
-				{
-					int importedCount = YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport( PageContext.PageBoardID, importFile.PostedFile.InputStream );
+    /// <summary>
+    /// The cancel_ on click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_OnClick(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_bbcode);
+    }
 
-					if ( importedCount > 0 )
-					{
-						PageContext.LoadMessage.AddSession( String.Format( "{0} new custom bbcode(s) imported successfully.", importedCount ));
-					}
-					else
-					{
-						PageContext.LoadMessage.AddSession( String.Format( "Nothing imported: no new custom bbcode was found in the upload.", importedCount ) );
-					}
+    /// <summary>
+    /// The import_ on click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Import_OnClick(object sender, EventArgs e)
+    {
+      // import selected file (if it's the proper format)...
+      if (this.importFile.PostedFile.ContentType == "text/xml")
+      {
+        try
+        {
+          int importedCount = DataImport.BBCodeExtensionImport(PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
 
-					YafBuildLink.Redirect( ForumPages.admin_bbcode );
-				}
-				catch ( Exception x )
-				{
-					PageContext.AddLoadMessage( "Failed to import: " + x.Message );
-				}
-			}
-		}
-	}
+          if (importedCount > 0)
+          {
+            PageContext.LoadMessage.AddSession(String.Format("{0} new custom bbcode(s) imported successfully.", importedCount));
+          }
+          else
+          {
+            PageContext.LoadMessage.AddSession(String.Format("Nothing imported: no new custom bbcode was found in the upload.", importedCount));
+          }
+
+          YafBuildLink.Redirect(ForumPages.admin_bbcode);
+        }
+        catch (Exception x)
+        {
+          PageContext.AddLoadMessage("Failed to import: " + x.Message);
+        }
+      }
+    }
+  }
 }

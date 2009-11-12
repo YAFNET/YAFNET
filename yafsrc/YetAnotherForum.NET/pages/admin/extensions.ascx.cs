@@ -18,110 +18,148 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for bannedip.
-	/// </summary>
-	public partial class extensions : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "File Extensions", "" );
+  /// <summary>
+  /// Summary description for bannedip.
+  /// </summary>
+  public partial class extensions : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("File Extensions", string.Empty);
 
-				BindData();
-			}
-		}
+        BindData();
+      }
+    }
 
-		private void BindData()
-		{
-			list.DataSource = YAF.Classes.Data.DB.extension_list( PageContext.PageBoardID );
-			DataBind();
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.list.DataSource = DB.extension_list(PageContext.PageBoardID);
+      DataBind();
+    }
 
-		protected void ExtensionTitle_Load( object sender, System.EventArgs e )
-		{
-			( ( Label ) sender ).Text = ( PageContext.BoardSettings.FileExtensionAreAllowed ? "Allowed" : "Disallowed" ) + " File Extensions";
-		}
+    /// <summary>
+    /// The extension title_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ExtensionTitle_Load(object sender, EventArgs e)
+    {
+      ((Label) sender).Text = (PageContext.BoardSettings.FileExtensionAreAllowed ? "Allowed" : "Disallowed") + " File Extensions";
+    }
 
-		protected void Delete_Load( object sender, System.EventArgs e )
-		{
-			( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this Extension?')";
-		}
+    /// <summary>
+    /// The delete_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Delete_Load(object sender, EventArgs e)
+    {
+      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this Extension?')";
+    }
 
-		private void list_ItemCommand( object sender, RepeaterCommandEventArgs e )
-		{
-			if ( e.CommandName == "add" )
-			{
-				YafBuildLink.Redirect( ForumPages.admin_extensions_edit );
-			}
-			else if ( e.CommandName == "edit" )
-			{
-				YafBuildLink.Redirect( ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument );
-			}
-			else if ( e.CommandName == "delete" )
-			{
-				YAF.Classes.Data.DB.extension_delete( e.CommandArgument );
-				BindData();
-			}
-			else if ( e.CommandName == "export" )
-			{
-				// export this list as XML...
-				DataTable extensionList = YAF.Classes.Data.DB.extension_list( PageContext.PageBoardID );
-				extensionList.DataSet.DataSetName = "YafExtensionList";
-				extensionList.TableName = "YafExtension";
-				extensionList.Columns.Remove( "ExtensionID" );
-				extensionList.Columns.Remove( "BoardID" );
+    /// <summary>
+    /// The list_ item command.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void list_ItemCommand(object sender, RepeaterCommandEventArgs e)
+    {
+      if (e.CommandName == "add")
+      {
+        YafBuildLink.Redirect(ForumPages.admin_extensions_edit);
+      }
+      else if (e.CommandName == "edit")
+      {
+        YafBuildLink.Redirect(ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument);
+      }
+      else if (e.CommandName == "delete")
+      {
+        DB.extension_delete(e.CommandArgument);
+        BindData();
+      }
+      else if (e.CommandName == "export")
+      {
+        // export this list as XML...
+        DataTable extensionList = DB.extension_list(PageContext.PageBoardID);
+        extensionList.DataSet.DataSetName = "YafExtensionList";
+        extensionList.TableName = "YafExtension";
+        extensionList.Columns.Remove("ExtensionID");
+        extensionList.Columns.Remove("BoardID");
 
-				Response.ContentType = "text/xml";
-				Response.AppendHeader( "Content-Disposition", "attachment; filename=YafExtensionExport.xml" );
-				extensionList.DataSet.WriteXml( Response.OutputStream );
-				Response.End();
-			}
-			else if ( e.CommandName == "import" )
-			{
-				YafBuildLink.Redirect( ForumPages.admin_extensions_import );
-			}
-		}
+        Response.ContentType = "text/xml";
+        Response.AppendHeader("Content-Disposition", "attachment; filename=YafExtensionExport.xml");
+        extensionList.DataSet.WriteXml(Response.OutputStream);
+        Response.End();
+      }
+      else if (e.CommandName == "import")
+      {
+        YafBuildLink.Redirect(ForumPages.admin_extensions_import);
+      }
+    }
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			list.ItemCommand += new RepeaterCommandEventHandler( list_ItemCommand );
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
+    #region Web Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      list.ItemCommand += new RepeaterCommandEventHandler(list_ItemCommand);
 
-		}
-		#endregion
-	}
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

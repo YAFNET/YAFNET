@@ -17,66 +17,86 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	public partial class extensions_import : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data.Import;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Import Extensions", "" );
-			}
-		}
+  /// <summary>
+  /// The extensions_import.
+  /// </summary>
+  public partial class extensions_import : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Import Extensions", string.Empty);
+      }
+    }
 
-		protected void Cancel_OnClick( object sender, System.EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_extensions );
-		}
+    /// <summary>
+    /// The cancel_ on click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_OnClick(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_extensions);
+    }
 
-		protected void Import_OnClick( object sender, System.EventArgs e )
-		{
-			// import selected file (if it's the proper format)...
-			if ( importFile.PostedFile.ContentType == "text/xml" )
-			{
-				try
-				{
-					int importedCount = YAF.Classes.Data.Import.DataImport.FileExtensionImport( PageContext.PageBoardID, importFile.PostedFile.InputStream );
+    /// <summary>
+    /// The import_ on click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Import_OnClick(object sender, EventArgs e)
+    {
+      // import selected file (if it's the proper format)...
+      if (this.importFile.PostedFile.ContentType == "text/xml")
+      {
+        try
+        {
+          int importedCount = DataImport.FileExtensionImport(PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
 
-					if ( importedCount > 0 )
-					{
-						PageContext.LoadMessage.AddSession( String.Format( "{0} new extension(s) imported successfully.", importedCount ) );
+          if (importedCount > 0)
+          {
+            PageContext.LoadMessage.AddSession(String.Format("{0} new extension(s) imported successfully.", importedCount));
+          }
+          else
+          {
+            PageContext.LoadMessage.AddSession(String.Format("Nothing imported: no new extensions were found in the upload.", importedCount));
+          }
 
-					}
-					else
-					{
-						PageContext.LoadMessage.AddSession( String.Format( "Nothing imported: no new extensions were found in the upload.", importedCount ) );
-					}
-
-					YafBuildLink.Redirect( ForumPages.admin_extensions );
-				}
-				catch ( Exception x )
-				{
-					PageContext.AddLoadMessage( "Failed to import: " + x.Message );
-				}
-			}
-		}
-	}
+          YafBuildLink.Redirect(ForumPages.admin_extensions);
+        }
+        catch (Exception x)
+        {
+          PageContext.AddLoadMessage("Failed to import: " + x.Message);
+        }
+      }
+    }
+  }
 }

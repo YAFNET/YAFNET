@@ -18,190 +18,282 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for members.
-	/// </summary>
-	public partial class users : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+  using YAF.Utilities;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			PageContext.PageElements.RegisterJQuery();
-			PageContext.PageElements.RegisterJsResourceInclude( "blockUIJs", "js/jquery.blockUI.js" );
+  /// <summary>
+  /// Summary description for members.
+  /// </summary>
+  public partial class users : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      PageContext.PageElements.RegisterJQuery();
+      PageContext.PageElements.RegisterJsResourceInclude("blockUIJs", "js/jquery.blockUI.js");
 
-			if ( !IsPostBack )
-			{
-				LoadingImage.ImageUrl = YafForumInfo.GetURLToResource( "images/loading-white.gif" );
+      if (!IsPostBack)
+      {
+        this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loading-white.gif");
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Users", "" );
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Users", string.Empty);
 
-				using ( DataTable dt = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, null ) )
-				{
-					DataRow newRow = dt.NewRow();
-					newRow ["Name"] = string.Empty;
-					newRow ["GroupID"] = DBNull.Value;
-					dt.Rows.InsertAt( newRow, 0 );
+        using (DataTable dt = DB.group_list(PageContext.PageBoardID, null))
+        {
+          DataRow newRow = dt.NewRow();
+          newRow["Name"] = string.Empty;
+          newRow["GroupID"] = DBNull.Value;
+          dt.Rows.InsertAt(newRow, 0);
 
-					group.DataSource = dt;
-					group.DataTextField = "Name";
-					group.DataValueField = "GroupID";
-					group.DataBind();
-				}
+          this.group.DataSource = dt;
+          this.group.DataTextField = "Name";
+          this.group.DataValueField = "GroupID";
+          this.group.DataBind();
+        }
 
-				using ( DataTable dt = YAF.Classes.Data.DB.rank_list( PageContext.PageBoardID, null ) )
-				{
-					DataRow newRow = dt.NewRow();
-					newRow ["Name"] = string.Empty;
-					newRow ["RankID"] = DBNull.Value;
-					dt.Rows.InsertAt( newRow, 0 );
+        using (DataTable dt = DB.rank_list(PageContext.PageBoardID, null))
+        {
+          DataRow newRow = dt.NewRow();
+          newRow["Name"] = string.Empty;
+          newRow["RankID"] = DBNull.Value;
+          dt.Rows.InsertAt(newRow, 0);
 
-					rank.DataSource = dt;
-					rank.DataTextField = "Name";
-					rank.DataValueField = "RankID";
-					rank.DataBind();
-				}
+          this.rank.DataSource = dt;
+          this.rank.DataTextField = "Name";
+          this.rank.DataValueField = "RankID";
+          this.rank.DataBind();
+        }
 
-				PagerTop.PageSize = 25;
-			}
-		}
+        this.PagerTop.PageSize = 25;
+      }
+    }
 
-		private void BindData()
-		{
-			PagedDataSource pds = new PagedDataSource();
-			pds.AllowPaging = true;
-			pds.PageSize = PagerTop.PageSize;
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      var pds = new PagedDataSource();
+      pds.AllowPaging = true;
+      pds.PageSize = this.PagerTop.PageSize;
 
-			using ( DataTable dt =
-						YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, null, null,
-						group.SelectedIndex <= 0 ? null : group.SelectedValue,
-						rank.SelectedIndex <= 0 ? null : rank.SelectedValue
-						) )
-			{
-				using ( DataView dv = dt.DefaultView )
-				{
-					if ( name.Text.Trim().Length > 0 || ( Email.Text.Trim().Length > 0 ) )
-						dv.RowFilter = string.Format( "Name like '%{0}%' and Email like '%{1}%'", name.Text.Trim(), Email.Text.Trim() );
+      using (
+        DataTable dt = DB.user_list(
+          PageContext.PageBoardID, 
+          null, 
+          null, 
+          this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue, 
+          this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue))
+      {
+        using (DataView dv = dt.DefaultView)
+        {
+          if (this.name.Text.Trim().Length > 0 || (this.Email.Text.Trim().Length > 0))
+          {
+            dv.RowFilter = string.Format("Name like '%{0}%' and Email like '%{1}%'", this.name.Text.Trim(), this.Email.Text.Trim());
+          }
 
-					PagerTop.Count = dv.Count;
-					pds.DataSource = dv;
+          this.PagerTop.Count = dv.Count;
+          pds.DataSource = dv;
 
-					pds.CurrentPageIndex = PagerTop.CurrentPageIndex;
-					if ( pds.CurrentPageIndex >= pds.PageCount ) pds.CurrentPageIndex = pds.PageCount - 1;
+          pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
+          if (pds.CurrentPageIndex >= pds.PageCount)
+          {
+            pds.CurrentPageIndex = pds.PageCount - 1;
+          }
 
-					UserList.DataSource = pds;
-					UserList.DataBind();
-				}
-			}
-		}
+          this.UserList.DataSource = pds;
+          this.UserList.DataBind();
+        }
+      }
+    }
 
-		public void Delete_Load( object sender, System.EventArgs e )
-		{
-			( ( LinkButton )sender ).Attributes ["onclick"] = "return confirm('Delete this user?')";
-		}
+    /// <summary>
+    /// The delete_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    public void Delete_Load(object sender, EventArgs e)
+    {
+      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this user?')";
+    }
 
-		public void UserList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
-		{
-			switch ( e.CommandName )
-			{
-				case "edit":
-					YafBuildLink.Redirect( ForumPages.admin_edituser, "u={0}", e.CommandArgument );
-					break;
-				case "delete":
-					if ( PageContext.PageUserID == int.Parse( e.CommandArgument.ToString() ) )
-					{
-						PageContext.AddLoadMessage( "You can't delete yourself." );
-						return;
-					}
-					string userName = string.Empty;
-					using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, e.CommandArgument, DBNull.Value ) )
-					{
-						foreach ( DataRow row in dt.Rows )
-						{
-							userName = ( string )row ["Name"];
-							if ( SqlDataLayerConverter.VerifyInt32( row ["IsGuest"]) > 0 )
-							{
-								PageContext.AddLoadMessage( "You can't delete the Guest." );
-								return;
-							}
-                            if ((row["IsAdmin"] != DBNull.Value && SqlDataLayerConverter.VerifyInt32(row["IsAdmin"]) > 0) || (row["IsHostAdmin"] != DBNull.Value && Convert.ToInt32(row["IsHostAdmin"]) > 0))
-							{
-								PageContext.AddLoadMessage( "You can't delete the Admin." );
-								return;
-							}
-						}
-					}
-					UserMembershipHelper.DeleteUser( Convert.ToInt32( e.CommandArgument ) );
-					BindData();
-					break;
-			}
-		}
+    /// <summary>
+    /// The user list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    public void UserList_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "edit":
+          YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
+          break;
+        case "delete":
+          if (PageContext.PageUserID == int.Parse(e.CommandArgument.ToString()))
+          {
+            PageContext.AddLoadMessage("You can't delete yourself.");
+            return;
+          }
 
-		public void NewUser_Click( object sender, System.EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_reguser );
-		}
+          string userName = string.Empty;
+          using (DataTable dt = DB.user_list(PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
+          {
+            foreach (DataRow row in dt.Rows)
+            {
+              userName = (string) row["Name"];
+              if (SqlDataLayerConverter.VerifyInt32(row["IsGuest"]) > 0)
+              {
+                PageContext.AddLoadMessage("You can't delete the Guest.");
+                return;
+              }
+
+              if ((row["IsAdmin"] != DBNull.Value && SqlDataLayerConverter.VerifyInt32(row["IsAdmin"]) > 0) ||
+                  (row["IsHostAdmin"] != DBNull.Value && Convert.ToInt32(row["IsHostAdmin"]) > 0))
+              {
+                PageContext.AddLoadMessage("You can't delete the Admin.");
+                return;
+              }
+            }
+          }
+
+          UserMembershipHelper.DeleteUser(Convert.ToInt32(e.CommandArgument));
+          BindData();
+          break;
+      }
+    }
+
+    /// <summary>
+    /// The new user_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    public void NewUser_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_reguser);
+    }
 
 
-		public void search_Click( object sender, EventArgs e )
-		{
-			BindData();
-		}
+    /// <summary>
+    /// The search_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    public void search_Click(object sender, EventArgs e)
+    {
+      BindData();
+    }
 
-		protected bool BitSet( object _o, int bitmask )
-		{
-			int i = ( int )_o;
-			return ( i & bitmask ) != 0;
-		}
+    /// <summary>
+    /// The bit set.
+    /// </summary>
+    /// <param name="_o">
+    /// The _o.
+    /// </param>
+    /// <param name="bitmask">
+    /// The bitmask.
+    /// </param>
+    /// <returns>
+    /// The bit set.
+    /// </returns>
+    protected bool BitSet(object _o, int bitmask)
+    {
+      var i = (int) _o;
+      return (i & bitmask) != 0;
+    }
 
-		protected void PagerTop_PageChange( object sender, EventArgs e )
-		{
-			// rebind
-			BindData();
-		}
+    /// <summary>
+    /// The pager top_ page change.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PagerTop_PageChange(object sender, EventArgs e)
+    {
+      // rebind
+      BindData();
+    }
 
-		protected void SyncUsers_Click( object sender, EventArgs e )
-		{
-			// start...
-			SyncMembershipUsersTask.Start( PageContext.PageBoardID );
-			// enable timer...
-			UpdateStatusTimer.Enabled = true;
-			// show blocking ui...
-			PageContext.PageElements.RegisterJsBlockStartup( "BlockUIExecuteJs",
-																											 YAF.Utilities.JavaScriptBlocks.BlockUIExecuteJs(
-																												"SyncUsersMessage" ) );			
-		}
+    /// <summary>
+    /// The sync users_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void SyncUsers_Click(object sender, EventArgs e)
+    {
+      // start...
+      SyncMembershipUsersTask.Start(PageContext.PageBoardID);
 
-		protected void UpdateStatusTimer_Tick( object sender, EventArgs e )
-		{
-			// see if the migration is done....
-			if ( YafTaskModule.Current.IsTaskRunning( SyncMembershipUsersTask.TaskName ) )
-			{
-				// continue...
-				return;
-			}
+      // enable timer...
+      this.UpdateStatusTimer.Enabled = true;
 
-			UpdateStatusTimer.Enabled = false;
+      // show blocking ui...
+      PageContext.PageElements.RegisterJsBlockStartup("BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage"));
+    }
 
-			// done here...
-			YafBuildLink.Redirect( ForumPages.admin_users );
-		}
-	}
+    /// <summary>
+    /// The update status timer_ tick.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void UpdateStatusTimer_Tick(object sender, EventArgs e)
+    {
+      // see if the migration is done....
+      if (YafTaskModule.Current.IsTaskRunning(SyncMembershipUsersTask.TaskName))
+      {
+        // continue...
+        return;
+      }
+
+      this.UpdateStatusTimer.Enabled = false;
+
+      // done here...
+      YafBuildLink.Redirect(ForumPages.admin_users);
+    }
+  }
 }

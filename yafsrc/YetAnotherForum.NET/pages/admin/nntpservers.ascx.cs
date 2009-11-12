@@ -18,89 +18,125 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for ranks.
-	/// </summary>
-	public partial class nntpservers : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!IsPostBack) 
-			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
-				PageLinks.AddLink("NNTP Servers","");
-				
-				BindData();
-			}
-		}
+  /// <summary>
+  /// Summary description for ranks.
+  /// </summary>
+  public partial class nntpservers : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("NNTP Servers", string.Empty);
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.RankList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.RankList_ItemCommand);
+        BindData();
+      }
+    }
 
-		}
-		#endregion
+    /// <summary>
+    /// The delete_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Delete_Load(object sender, EventArgs e)
+    {
+      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this server?')";
+    }
 
-		protected void Delete_Load(object sender, System.EventArgs e) 
-		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this server?')";
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.RankList.DataSource = DB.nntpserver_list(PageContext.PageBoardID, null);
+      DataBind();
+    }
 
-		private void BindData() 
-		{
-			RankList.DataSource = YAF.Classes.Data.DB.nntpserver_list(PageContext.PageBoardID,null);
-			DataBind();
-		}
+    /// <summary>
+    /// The rank list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void RankList_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "edit":
+          YafBuildLink.Redirect(ForumPages.admin_editnntpserver, "s={0}", e.CommandArgument);
+          break;
+        case "delete":
+          DB.nntpserver_delete(e.CommandArgument);
+          BindData();
+          break;
+      }
+    }
 
-		private void RankList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
-		{
-			switch(e.CommandName) 
-			{
-				case "edit":
-					YafBuildLink.Redirect( ForumPages.admin_editnntpserver,"s={0}",e.CommandArgument);
-					break;
-				case "delete":
-					YAF.Classes.Data.DB.nntpserver_delete(e.CommandArgument);
-					BindData();
-					break;
-			}
-		}
+    /// <summary>
+    /// The new server_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void NewServer_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_editnntpserver);
+    }
 
-		protected void NewServer_Click(object sender, System.EventArgs e)
-		{
-			YafBuildLink.Redirect( ForumPages.admin_editnntpserver);
-		}
-	}
+    #region Web Form Designer generated code
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+      this.RankList.ItemCommand += new RepeaterCommandEventHandler(this.RankList_ItemCommand);
+    }
+
+    #endregion
+  }
 }

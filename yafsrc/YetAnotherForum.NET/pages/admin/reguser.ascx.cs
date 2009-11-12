@@ -20,106 +20,151 @@
 
 namespace YAF.Pages.Admin
 {
-	using System;
-	using System.Web.Security;
-	using YAF.Classes;
-	using YAF.Classes.Core;
-	using YAF.Classes.Utils;
+  using System;
+  using System.Net.Mail;
+  using System.Web.Security;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-	/// <summary>
-	///		Summary description for reguser.
-	/// </summary>
-	public partial class reguser : YAF.Classes.Core.AdminPage
-	{
+  /// <summary>
+  /// 		Summary description for reguser.
+  /// </summary>
+  public partial class reguser : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Users", string.Empty);
 
+        this.TimeZones.DataSource = StaticDataHelper.TimeZones();
+        DataBind();
+        this.TimeZones.Items.FindByValue("0").Selected = true;
+      }
+    }
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Users", "" );
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void cancel_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_users);
+    }
 
-				TimeZones.DataSource = StaticDataHelper.TimeZones();
-				DataBind();
-				TimeZones.Items.FindByValue( "0" ).Selected = true;
-			}
-		}
+    /// <summary>
+    /// The forum register_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ForumRegister_Click(object sender, EventArgs e)
+    {
+      if (Page.IsValid)
+      {
+        string newEmail = this.Email.Text.Trim();
+        string newUsername = this.UserName.Text.Trim();
 
-		protected void cancel_Click( object sender, EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_users );
-		}
+        if (!ValidationHelper.IsValidEmail(newEmail))
+        {
+          PageContext.AddLoadMessage("You have entered an illegal e-mail address.");
+          return;
+        }
 
-		protected void ForumRegister_Click( object sender, System.EventArgs e )
-		{
-			if ( Page.IsValid )
-			{
-				string newEmail = Email.Text.Trim();
-				string newUsername = UserName.Text.Trim();
+        if (UserMembershipHelper.UserExists(this.UserName.Text.Trim(), newEmail))
+        {
+          PageContext.AddLoadMessage("Username or email are already registered.");
+          return;
+        }
 
-				if ( !ValidationHelper.IsValidEmail( newEmail ) )
-				{
-					PageContext.AddLoadMessage( "You have entered an illegal e-mail address." );
-					return;
-				}
+        string hashinput = DateTime.Now + newEmail + Security.CreatePassword(20);
+        string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
-				if ( UserMembershipHelper.UserExists( UserName.Text.Trim(), newEmail ) )
-				{
-					PageContext.AddLoadMessage( "Username or email are already registered." );
-					return;
-				}
+        MembershipCreateStatus status;
+        MembershipUser user = PageContext.CurrentMembership.CreateUser(
+          newUsername, 
+          this.Password.Text.Trim(), 
+          newEmail, 
+          this.Question.Text.Trim(), 
+          this.Answer.Text.Trim(), 
+          !PageContext.BoardSettings.EmailVerification, 
+          null, 
+          out status);
 
-				string hashinput = DateTime.Now.ToString() + newEmail + Security.CreatePassword( 20 );
-				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
+        if (status != MembershipCreateStatus.Success)
+        {
+          // error of some kind
+          PageContext.AddLoadMessage("Membership Error Creating User: " + status);
+          return;
+        }
 
-				MembershipCreateStatus status;
-				MembershipUser user = PageContext.CurrentMembership.CreateUser( newUsername, Password.Text.Trim(), newEmail, Question.Text.Trim(), Answer.Text.Trim(), !PageContext.BoardSettings.EmailVerification, null, out status );
+        // setup inital roles (if any) for this user
+        RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, newUsername);
 
-				if ( status != MembershipCreateStatus.Success )
-				{
-					// error of some kind
-					PageContext.AddLoadMessage( "Membership Error Creating User: " + status.ToString() );
-					return;
-				}
+        // create the user in the YAF DB as well as sync roles...
+        int? userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
 
-				// setup inital roles (if any) for this user
-				RoleMembershipHelper.SetupUserRoles( YafContext.Current.PageBoardID, newUsername );
+        // create profile
+        YafUserProfile userProfile = YafUserProfile.GetProfile(newUsername);
 
-				// create the user in the YAF DB as well as sync roles...
-				int? userID = RoleMembershipHelper.CreateForumUser( user, YafContext.Current.PageBoardID );
+        // setup their inital profile information
+        userProfile.Location = this.Location.Text.Trim();
+        userProfile.Homepage = this.HomePage.Text.Trim();
+        userProfile.Save();
 
-				// create profile
-				YafUserProfile userProfile = YafUserProfile.GetProfile( newUsername );
-				// setup their inital profile information
-				userProfile.Location = Location.Text.Trim();
-				userProfile.Homepage = HomePage.Text.Trim();
-				userProfile.Save();
+        // save the time zone...
+        DB.user_save(
+          UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey), 
+          PageContext.PageBoardID, 
+          null, 
+          null, 
+          Convert.ToInt32(this.TimeZones.SelectedValue), 
+          null, 
+          null, 
+          null, 
+          null, 
+          null);
 
-				// save the time zone...
-				YAF.Classes.Data.DB.user_save( UserMembershipHelper.GetUserIDFromProviderUserKey( user.ProviderUserKey ), PageContext.PageBoardID, null, null, Convert.ToInt32( TimeZones.SelectedValue ), null, null, null, null, null );
+        if (PageContext.BoardSettings.EmailVerification)
+        {
+          // send template email
+          var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-				if ( PageContext.BoardSettings.EmailVerification )
-				{
-					// send template email
-					YafTemplateEmail verifyEmail = new YafTemplateEmail( "VERIFYEMAIL" );
+          verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLink(ForumPages.approve, true, "k={0}", hash);
+          verifyEmail.TemplateParams["{key}"] = hash;
+          verifyEmail.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
+          verifyEmail.TemplateParams["{forumlink}"] = String.Format("{0}", ForumURL);
 
-					verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLink( ForumPages.approve, true, "k={0}", hash );
-					verifyEmail.TemplateParams["{key}"] = hash;
-					verifyEmail.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
-					verifyEmail.TemplateParams["{forumlink}"] = String.Format( "{0}", ForumURL );
+          string subject = String.Format(PageContext.Localization.GetText("COMMON", "EMAILVERIFICATION_SUBJECT"), PageContext.BoardSettings.Name);
 
-					string subject = String.Format( PageContext.Localization.GetText( "COMMON", "EMAILVERIFICATION_SUBJECT" ), PageContext.BoardSettings.Name );
+          verifyEmail.SendEmail(new MailAddress(newEmail, newUsername), subject, true);
+        }
 
-					verifyEmail.SendEmail( new System.Net.Mail.MailAddress( newEmail, newUsername ), subject, true );
-				}
-
-				// success
-				PageContext.AddLoadMessage( string.Format( "User {0} Created Successfully.", UserName.Text.Trim() ) );
-				YafBuildLink.Redirect( ForumPages.admin_reguser );
-			}
-		}
-
-	}
+        // success
+        PageContext.AddLoadMessage(string.Format("User {0} Created Successfully.", this.UserName.Text.Trim()));
+        YafBuildLink.Redirect(ForumPages.admin_reguser);
+      }
+    }
+  }
 }

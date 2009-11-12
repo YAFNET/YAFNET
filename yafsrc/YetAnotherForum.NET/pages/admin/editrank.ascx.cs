@@ -18,161 +18,206 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for editgroup.
-	/// </summary>
-	public partial class editrank : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using System.IO;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Ranks", "" );
+  /// <summary>
+  /// Summary description for editgroup.
+  /// </summary>
+  public partial class editrank : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Ranks", string.Empty);
 
-				BindData();
-				if ( Request.QueryString ["r"] != null )
-				{
-					using ( DataTable dt = YAF.Classes.Data.DB.rank_list( PageContext.PageBoardID, Request.QueryString ["r"] ) )
-					{
-						DataRow row = dt.Rows [0];
-						RankFlags flags = new RankFlags( row ["Flags"] );
-						Name.Text = ( string ) row ["Name"];
-						IsStart.Checked = flags.IsStart;
-						IsLadder.Checked = flags.IsLadder;
-						MinPosts.Text = row ["MinPosts"].ToString();
-                        PMLimit.Text = row["PMLimit"].ToString();
-                        Style.Text = row["Style"].ToString();
-                        RankPriority.Text = row["SortOrder"].ToString();
-                       
-						ListItem item = RankImage.Items.FindByText( row ["RankImage"].ToString() );
-						if ( item != null )
-						{
-							item.Selected = true;
-							Preview.Src = String.Format( "{0}{1}/{2}", YafForumInfo.ForumRoot,YafBoardFolders.Current.Ranks, row ["RankImage"] ); //path corrected
-						}
-						else
-						{
-							Preview.Src = String.Format( "{0}images/spacer.gif", YafForumInfo.ForumRoot );
-						}
-					}
-				}
-				else
-				{
-					Preview.Src = String.Format( "{0}images/spacer.gif", YafForumInfo.ForumRoot );
-				}
-               
-			}
-			RankImage.Attributes ["onchange"] = String.Format(
-					"getElementById('{2}_ctl01_Preview').src='{0}{1}/' + this.value",
-					YafForumInfo.ForumRoot,
-                    YafBoardFolders.Current.Ranks,
-					this.Parent.ID
-					);
-		}
+        BindData();
+        if (Request.QueryString["r"] != null)
+        {
+          using (DataTable dt = DB.rank_list(PageContext.PageBoardID, Request.QueryString["r"]))
+          {
+            DataRow row = dt.Rows[0];
+            var flags = new RankFlags(row["Flags"]);
+            this.Name.Text = (string) row["Name"];
+            this.IsStart.Checked = flags.IsStart;
+            this.IsLadder.Checked = flags.IsLadder;
+            this.MinPosts.Text = row["MinPosts"].ToString();
+            this.PMLimit.Text = row["PMLimit"].ToString();
+            this.Style.Text = row["Style"].ToString();
+            this.RankPriority.Text = row["SortOrder"].ToString();
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-
-		}
-		#endregion
-
-		private void BindData()
-		{
-			using ( DataTable dt = new DataTable( "Files" ) )
-			{
-				dt.Columns.Add( "FileID", typeof( long ) );
-				dt.Columns.Add( "FileName", typeof( string ) );
-				dt.Columns.Add( "Description", typeof( string ) );
-				DataRow dr = dt.NewRow();
-				dr ["FileID"] = 0;
-				dr ["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
-				dr ["Description"] = "Select Rank Image";
-				dt.Rows.Add( dr );
-
-                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Ranks)));
-				System.IO.FileInfo [] files = dir.GetFiles( "*.*" );
-				long nFileID = 1;
-				foreach ( System.IO.FileInfo file in files )
-				{
-					string sExt = file.Extension.ToLower();
-					if ( sExt != ".png" && sExt != ".gif" && sExt != ".jpg" )
-						continue;
-
-					dr = dt.NewRow();
-					dr ["FileID"] = nFileID++;
-					dr ["FileName"] = file.Name;
-					dr ["Description"] = file.Name;
-					dt.Rows.Add( dr );
-				}
-
-				RankImage.DataSource = dt;
-				RankImage.DataValueField = "FileName";
-				RankImage.DataTextField = "Description";
-			}
-			DataBind();
-		}
-
-		protected void Cancel_Click( object sender, System.EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_ranks );
-		}
-
-		protected void Save_Click( object sender, System.EventArgs e )
-		{
-            if (!ValidationHelper.IsValidInt(PMLimit.Text.Trim()))
+            ListItem item = this.RankImage.Items.FindByText(row["RankImage"].ToString());
+            if (item != null)
             {
-                PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
-                return;
+              item.Selected = true;
+              this.Preview.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumRoot, YafBoardFolders.Current.Ranks, row["RankImage"]); // path corrected
             }
-            if (!ValidationHelper.IsValidInt(RankPriority.Text.Trim()))
+            else
             {
-                PageContext.AddLoadMessage("Rank Priority should be small integer.");
-                return;
+              this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
             }
+          }
+        }
+        else
+        {
+          this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
+        }
+      }
 
-			// Group
-			int RankID = 0;
-			if ( Request.QueryString ["r"] != null ) RankID = int.Parse( Request.QueryString ["r"] );
+      this.RankImage.Attributes["onchange"] = String.Format(
+        "getElementById('{2}_ctl01_Preview').src='{0}{1}/' + this.value", YafForumInfo.ForumRoot, YafBoardFolders.Current.Ranks, Parent.ID);
+    }
 
-			object rankImage = null;
-			if ( RankImage.SelectedIndex > 0 )
-				rankImage = RankImage.SelectedValue;
-            YAF.Classes.Data.DB.rank_save(RankID, PageContext.PageBoardID, Name.Text, IsStart.Checked, IsLadder.Checked, MinPosts.Text, rankImage, Convert.ToInt32(PMLimit.Text), Style.Text.Trim(), RankPriority.Text.Trim());
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      using (var dt = new DataTable("Files"))
+      {
+        dt.Columns.Add("FileID", typeof(long));
+        dt.Columns.Add("FileName", typeof(string));
+        dt.Columns.Add("Description", typeof(string));
+        DataRow dr = dt.NewRow();
+        dr["FileID"] = 0;
+        dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+        dr["Description"] = "Select Rank Image";
+        dt.Rows.Add(dr);
 
-			YafBuildLink.Redirect( ForumPages.admin_ranks );
-		}
-	}
+        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Ranks)));
+        FileInfo[] files = dir.GetFiles("*.*");
+        long nFileID = 1;
+        foreach (FileInfo file in files)
+        {
+          string sExt = file.Extension.ToLower();
+          if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg")
+          {
+            continue;
+          }
+
+          dr = dt.NewRow();
+          dr["FileID"] = nFileID++;
+          dr["FileName"] = file.Name;
+          dr["Description"] = file.Name;
+          dt.Rows.Add(dr);
+        }
+
+        this.RankImage.DataSource = dt;
+        this.RankImage.DataValueField = "FileName";
+        this.RankImage.DataTextField = "Description";
+      }
+
+      DataBind();
+    }
+
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_ranks);
+    }
+
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click(object sender, EventArgs e)
+    {
+      if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
+      {
+        PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
+        return;
+      }
+
+      if (!ValidationHelper.IsValidInt(this.RankPriority.Text.Trim()))
+      {
+        PageContext.AddLoadMessage("Rank Priority should be small integer.");
+        return;
+      }
+
+      // Group
+      int RankID = 0;
+      if (Request.QueryString["r"] != null)
+      {
+        RankID = int.Parse(Request.QueryString["r"]);
+      }
+
+      object rankImage = null;
+      if (this.RankImage.SelectedIndex > 0)
+      {
+        rankImage = this.RankImage.SelectedValue;
+      }
+
+      DB.rank_save(
+        RankID, 
+        PageContext.PageBoardID, 
+        this.Name.Text, 
+        this.IsStart.Checked, 
+        this.IsLadder.Checked, 
+        this.MinPosts.Text, 
+        rankImage, 
+        Convert.ToInt32(this.PMLimit.Text), 
+        this.Style.Text.Trim(), 
+        this.RankPriority.Text.Trim());
+
+      YafBuildLink.Redirect(ForumPages.admin_ranks);
+    }
+
+    #region Web Form Designer generated code
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

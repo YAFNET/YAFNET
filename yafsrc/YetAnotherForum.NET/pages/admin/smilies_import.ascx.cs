@@ -18,159 +18,195 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for smilies_import.
-	/// </summary>
-	public partial class smilies_import : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using System.IO;
+  using System.Text.RegularExpressions;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.UI;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Smilies Import", "" );
+  /// <summary>
+  /// Summary description for smilies_import.
+  /// </summary>
+  public partial class smilies_import : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Smilies Import", string.Empty);
 
-				BindData();
-			}
-		}
+        BindData();
+      }
+    }
 
-		private void BindData()
-		{
-			using ( DataTable dt = new DataTable( "Files" ) )
-			{
-				dt.Columns.Add( "FileID", typeof( long ) );
-				dt.Columns.Add( "FileName", typeof( string ) );
-				DataRow dr = dt.NewRow();
-				dr ["FileID"] = 0;
-				dr ["FileName"] = "Select File (*.pak)";
-				dt.Rows.Add( dr );
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      using (var dt = new DataTable("Files"))
+      {
+        dt.Columns.Add("FileID", typeof(long));
+        dt.Columns.Add("FileName", typeof(string));
+        DataRow dr = dt.NewRow();
+        dr["FileID"] = 0;
+        dr["FileName"] = "Select File (*.pak)";
+        dt.Rows.Add(dr);
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Emoticons ) ) );
-				System.IO.FileInfo [] files = dir.GetFiles( "*.pak" );
-				long nFileID = 1;
-				foreach ( System.IO.FileInfo file in files )
-				{
-					dr = dt.NewRow();
-					dr ["FileID"] = nFileID++;
-					dr ["FileName"] = file.Name;
-					dt.Rows.Add( dr );
-				}
+        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Emoticons)));
+        FileInfo[] files = dir.GetFiles("*.pak");
+        long nFileID = 1;
+        foreach (FileInfo file in files)
+        {
+          dr = dt.NewRow();
+          dr["FileID"] = nFileID++;
+          dr["FileName"] = file.Name;
+          dt.Rows.Add(dr);
+        }
 
-				File.DataSource = dt;
-				File.DataValueField = "FileID";
-				File.DataTextField = "FileName";
-			}
-			DataBind();
-		}
+        this.File.DataSource = dt;
+        this.File.DataValueField = "FileID";
+        this.File.DataTextField = "FileName";
+      }
 
-		private void import_Click( object sender, System.EventArgs e )
-		{
-			if ( long.Parse( File.SelectedValue ) < 1 )
-			{
-				PageContext.AddLoadMessage( "You must select a .pak file to import." );
-				return;
-			}
+      DataBind();
+    }
 
-			string fileName = Request.MapPath( String.Format( "{0}{1}/{2}", YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons, File.SelectedItem.Text ) );
-			string split = System.Text.RegularExpressions.Regex.Escape( "=+:" );
+    /// <summary>
+    /// The import_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void import_Click(object sender, EventArgs e)
+    {
+      if (long.Parse(this.File.SelectedValue) < 1)
+      {
+        PageContext.AddLoadMessage("You must select a .pak file to import.");
+        return;
+      }
 
-			using ( System.IO.StreamReader file = new System.IO.StreamReader( fileName ) )
-			{
-                int sortOrder = 1;
-                
-                // Delete existing smilies?
-                if (DeleteExisting.Checked)
+      string fileName = Request.MapPath(String.Format("{0}{1}/{2}", YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons, this.File.SelectedItem.Text));
+      string split = Regex.Escape("=+:");
+
+      using (var file = new StreamReader(fileName))
+      {
+        int sortOrder = 1;
+
+        // Delete existing smilies?
+        if (this.DeleteExisting.Checked)
+        {
+          DB.smiley_delete(null);
+        }
+        else
+        {
+          // Get max value of SortOrder
+          using (DataView dv = DB.smiley_listunique(PageContext.PageBoardID).DefaultView)
+          {
+            dv.Sort = "SortOrder desc";
+            if (dv.Count > 0)
+            {
+              DataRowView dr = dv[0];
+              if (dr != null)
+              {
+                object o = dr["SortOrder"];
+                if (int.TryParse(o.ToString(), out sortOrder))
                 {
-                    YAF.Classes.Data.DB.smiley_delete(null);
+                  sortOrder++;
                 }
-                else
-                {
-                    // Get max value of SortOrder
-                    using (DataView dv = YAF.Classes.Data.DB.smiley_listunique(PageContext.PageBoardID).DefaultView)
-                    {
-                        dv.Sort = "SortOrder desc";
-                        if (dv.Count > 0)
-                        {
-                            DataRowView dr = dv[0];
-                            if (dr != null)
-                            {
-                                object o = dr["SortOrder"];
-                                if (int.TryParse(o.ToString(), out sortOrder))
-                                    sortOrder++;
-                            }
-                        }
-                    }
-                }
-                                
-				do
-				{
-					string line = file.ReadLine();
-					if ( line == null )
-						break;
+              }
+            }
+          }
+        }
 
-					string [] lineSplit = System.Text.RegularExpressions.Regex.Split( line, split, System.Text.RegularExpressions.RegexOptions.None );
+        do
+        {
+          string line = file.ReadLine();
+          if (line == null)
+          {
+            break;
+          }
 
-                    if (lineSplit.Length == 3)
-                    {
-                        YAF.Classes.Data.DB.smiley_save(null, PageContext.PageBoardID, lineSplit[2], lineSplit[0], lineSplit[1], sortOrder, 0);
-                        sortOrder++;
-                    }
+          string[] lineSplit = Regex.Split(line, split, RegexOptions.None);
 
-				} while ( true );
+          if (lineSplit.Length == 3)
+          {
+            DB.smiley_save(null, PageContext.PageBoardID, lineSplit[2], lineSplit[0], lineSplit[1], sortOrder, 0);
+            sortOrder++;
+          }
+        }
+ while (true);
 
-				file.Close();
+        file.Close();
 
-				// invalidate the cache...
-				PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
-				YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
-			}
+        // invalidate the cache...
+        PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));
+        ReplaceRulesCreator.ClearCache();
+      }
 
-			YafBuildLink.Redirect( ForumPages.admin_smilies );
-		}
+      YafBuildLink.Redirect(ForumPages.admin_smilies);
+    }
 
-		private void cancel_Click( object sender, System.EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_smilies );
-		}
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void cancel_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_smilies);
+    }
 
+    #region Web Form Designer generated code
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			import.Click += new System.EventHandler( import_Click );
-			cancel.Click += new System.EventHandler( cancel_Click );
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      import.Click += new EventHandler(import_Click);
+      cancel.Click += new EventHandler(cancel_Click);
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-		}
-		#endregion
-	}
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

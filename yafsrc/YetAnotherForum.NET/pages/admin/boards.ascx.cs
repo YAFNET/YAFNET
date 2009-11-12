@@ -18,81 +18,123 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for members.
-	/// </summary>
-	public partial class boards : YAF.Classes.Core.AdminPage
-	{
-	
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!PageContext.IsHostAdmin)
-				YafBuildLink.AccessDenied();
+  using System;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-			if(!IsPostBack) 
-			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
-				PageLinks.AddLink("Boards","");
+  /// <summary>
+  /// Summary description for members.
+  /// </summary>
+  public partial class boards : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!PageContext.IsHostAdmin)
+      {
+        YafBuildLink.AccessDenied();
+      }
 
-				BindData();
-			}
-		}
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Boards", string.Empty);
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			this.List.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.List_ItemCommand);
-			this.New.Click += new EventHandler(New_Click);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			base.OnInit(e);
-		}
-		#endregion
-	
-		protected void Delete_Load(object sender, System.EventArgs e) 
-		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this board?')";
-		}
+        BindData();
+      }
+    }
 
-		private void BindData() 
-		{
-			List.DataSource = YAF.Classes.Data.DB.board_list(null);
-			DataBind();
-		}
+    /// <summary>
+    /// The delete_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Delete_Load(object sender, EventArgs e)
+    {
+      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this board?')";
+    }
 
-		private void New_Click(object sender,EventArgs e) 
-		{
-			YafBuildLink.Redirect( ForumPages.admin_editboard);
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.List.DataSource = DB.board_list(null);
+      DataBind();
+    }
 
-		private void List_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
-			switch(e.CommandName) {
-				case "edit":
-					YafBuildLink.Redirect( ForumPages.admin_editboard,"b={0}",e.CommandArgument);
-					break;
-				case "delete":
-					YAF.Classes.Data.DB.board_delete(e.CommandArgument);
-					BindData();
-					break;
-			}
-		}
-	}
+    /// <summary>
+    /// The new_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void New_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_editboard);
+    }
+
+    /// <summary>
+    /// The list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void List_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "edit":
+          YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", e.CommandArgument);
+          break;
+        case "delete":
+          DB.board_delete(e.CommandArgument);
+          BindData();
+          break;
+      }
+    }
+
+    #region Web Form Designer generated code
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      this.List.ItemCommand += new RepeaterCommandEventHandler(this.List_ItemCommand);
+      this.New.Click += new EventHandler(New_Click);
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      base.OnInit(e);
+    }
+
+    #endregion
+  }
 }

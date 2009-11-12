@@ -18,77 +18,95 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Data;
-using System.Web.Security;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for edituser.
-	/// </summary>
-	public partial class edituser : YAF.Classes.Core.AdminPage
-	{
-		/// <summary>
-		/// Gets user ID of edited user.
-		/// </summary>
-		protected int CurrentUserID
-		{
-			get
-			{
-				return (int)this.PageContext.QueryIDs["u"];
-			}
-		}
+  using System;
+  using System.Data;
+  using System.Web.Security;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			// we're in the admin section...
-			ProfileEditControl.InAdminPages = true;
-			SignatureEditControl.InAdminPages = true;
-			AvatarEditControl.InAdminPages = true;
+  /// <summary>
+  /// Summary description for edituser.
+  /// </summary>
+  public partial class edituser : AdminPage
+  {
+    /// <summary>
+    /// Gets user ID of edited user.
+    /// </summary>
+    protected int CurrentUserID
+    {
+      get
+      {
+        return (int) PageContext.QueryIDs["u"];
+      }
+    }
 
-			PageContext.QueryIDs = new QueryStringIDHelper( "u", true );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      // we're in the admin section...
+      ProfileEditControl.InAdminPages = true;
+      SignatureEditControl.InAdminPages = true;
+      AvatarEditControl.InAdminPages = true;
 
-			DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, null );
+      PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-			if ( dt.Rows.Count == 1 )
-			{
-				DataRow userRow = dt.Rows[0];
+      DataTable dt = DB.user_list(PageContext.PageBoardID, CurrentUserID, null);
 
-				// do admin permission check...
-				if ( !PageContext.IsHostAdmin && IsUserHostAdmin( userRow ) )
-				{
-					// user is not host admin and is attempted to edit host admin account...
-					YafBuildLink.AccessDenied();
-				}
+      if (dt.Rows.Count == 1)
+      {
+        DataRow userRow = dt.Rows[0];
 
-				if ( !IsPostBack )
-				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-					PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-					PageLinks.AddLink( "Users", YafBuildLink.GetLink( ForumPages.admin_users ) );
-					PageLinks.AddLink( String.Format( "Edit User \"{0}\"", userRow["Name"].ToString() ) );
+        // do admin permission check...
+        if (!PageContext.IsHostAdmin && IsUserHostAdmin(userRow))
+        {
+          // user is not host admin and is attempted to edit host admin account...
+          YafBuildLink.AccessDenied();
+        }
 
-					// do a quick user membership sync...
-					MembershipUser user = UserMembershipHelper.GetMembershipUserById( CurrentUserID );
+        if (!IsPostBack)
+        {
+          this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+          this.PageLinks.AddLink("Users", YafBuildLink.GetLink(ForumPages.admin_users));
+          this.PageLinks.AddLink(String.Format("Edit User \"{0}\"", userRow["Name"].ToString()));
 
-					// update if the user is not Guest
-					if ( !UserMembershipHelper.IsGuestUser( CurrentUserID ) )
-					{
-						RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
-					}
-				}
-			}
-		}
+          // do a quick user membership sync...
+          MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID);
 
-		protected bool IsUserHostAdmin( DataRow userRow )
-		{
-			UserFlags userFlags = new UserFlags( userRow["Flags"] );
-			return userFlags.IsHostAdmin;
-		}
-	}
+          // update if the user is not Guest
+          if (!UserMembershipHelper.IsGuestUser(CurrentUserID))
+          {
+            RoleMembershipHelper.UpdateForumUser(user, PageContext.PageBoardID);
+          }
+        }
+      }
+    }
+
+    /// <summary>
+    /// The is user host admin.
+    /// </summary>
+    /// <param name="userRow">
+    /// The user row.
+    /// </param>
+    /// <returns>
+    /// The is user host admin.
+    /// </returns>
+    protected bool IsUserHostAdmin(DataRow userRow)
+    {
+      var userFlags = new UserFlags(userRow["Flags"]);
+      return userFlags.IsHostAdmin;
+    }
+  }
 }

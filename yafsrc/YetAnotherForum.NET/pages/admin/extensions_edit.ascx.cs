@@ -18,113 +18,148 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for bannedip_edit.
-	/// </summary>
-	public partial class extensions_edit : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			string strAddEdit = ( Request.QueryString ["i"] == null ) ? "Add" : "Edit";
+  /// <summary>
+  /// Summary description for bannedip_edit.
+  /// </summary>
+  public partial class extensions_edit : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      string strAddEdit = (Request.QueryString["i"] == null) ? "Add" : "Edit";
 
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( strAddEdit + " File Extensions", "" );
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(strAddEdit + " File Extensions", string.Empty);
 
-				BindData();
-			}
+        BindData();
+      }
 
-			extension.Attributes.Add( "style", "width:250px" );
-		}
+      this.extension.Attributes.Add("style", "width:250px");
+    }
 
-		private void BindData()
-		{
-			if ( !String.IsNullOrEmpty( Request.QueryString ["i"] ) )
-			{
-				DataRow row = YAF.Classes.Data.DB.extension_edit( Security.StringToLongOrRedirect( Request.QueryString ["i"] ) ).Rows [0];
-				extension.Text = ( string ) row ["Extension"];
-			}
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      if (!String.IsNullOrEmpty(Request.QueryString["i"]))
+      {
+        DataRow row = DB.extension_edit(Security.StringToLongOrRedirect(Request.QueryString["i"])).Rows[0];
+        this.extension.Text = (string) row["Extension"];
+      }
+    }
 
-		private void Add_Click( object sender, EventArgs e )
-		{
-			string ext = extension.Text.Trim();
+    /// <summary>
+    /// The add_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Add_Click(object sender, EventArgs e)
+    {
+      string ext = this.extension.Text.Trim();
 
-			if ( !IsValidExtension( ext ) )
-			{
-				BindData();
-			}
-			else
-			{
-				YAF.Classes.Data.DB.extension_save( Request.QueryString ["i"], PageContext.PageBoardID, ext );
-				YafBuildLink.Redirect( ForumPages.admin_extensions );
-			}
-		}
+      if (!IsValidExtension(ext))
+      {
+        BindData();
+      }
+      else
+      {
+        DB.extension_save(Request.QueryString["i"], PageContext.PageBoardID, ext);
+        YafBuildLink.Redirect(ForumPages.admin_extensions);
+      }
+    }
 
-		protected bool IsValidExtension( string newExtension )
-		{
-			if ( String.IsNullOrEmpty( newExtension ) )
-			{
-				PageContext.AddLoadMessage( "You must enter something." );
-				return false;
-			}
+    /// <summary>
+    /// The is valid extension.
+    /// </summary>
+    /// <param name="newExtension">
+    /// The new extension.
+    /// </param>
+    /// <returns>
+    /// The is valid extension.
+    /// </returns>
+    protected bool IsValidExtension(string newExtension)
+    {
+      if (String.IsNullOrEmpty(newExtension))
+      {
+        PageContext.AddLoadMessage("You must enter something.");
+        return false;
+      }
 
-			if ( newExtension.IndexOf( '.' ) != -1 )
-			{
-				PageContext.AddLoadMessage( "Remove the period in the extension." );
-				return false;
-			}
+      if (newExtension.IndexOf('.') != -1)
+      {
+        PageContext.AddLoadMessage("Remove the period in the extension.");
+        return false;
+      }
 
-			// TODO: maybe check for duplicate?
+      // TODO: maybe check for duplicate?
+      return true;
+    }
 
-			return true;
-		}
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Cancel_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_extensions);
+    }
 
-		private void Cancel_Click( object sender, EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_extensions );
-		}
+    #region Web Form Designer generated code
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			save.Click += new EventHandler( Add_Click );
-			cancel.Click += new EventHandler( Cancel_Click );
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      save.Click += new EventHandler(Add_Click);
+      cancel.Click += new EventHandler(Cancel_Click);
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
 
-		}
-		#endregion
-	}
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }
-

@@ -18,204 +18,260 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for attachments.
-	/// </summary>
-	public partial class eventlog : YAF.Classes.Core.AdminPage
-	{
-		#region Event Handlers
+  using System;
+  using System.Data;
+  using System.Web.UI;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		/// <summary>
-		/// Page load event handler.
-		/// </summary>
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			// do it only once, not on postbacks
-			if (!IsPostBack)
-			{
-				// create page links
-				// board index first
-				PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-				// administration index second
-				PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-				// we are now in event log
-				PageLinks.AddLink("Event Log", "");
+  /// <summary>
+  /// Summary description for attachments.
+  /// </summary>
+  public partial class eventlog : AdminPage
+  {
+    #region Event Handlers
 
-				PagerTop.PageSize = 25;
+    /// <summary>
+    /// Page load event handler.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      // do it only once, not on postbacks
+      if (!IsPostBack)
+      {
+        // create page links
+        // board index first
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
-				// bind data to controls
-				BindData();
-			}
-		}
+        // administration index second
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
 
-		/// <summary>
-		/// Handles load event for log entry delete link button.
-		/// </summary>
-		/// <remarks>Adds confirmation popup to click event of this button.</remarks>
-		protected void Delete_Load(object sender, EventArgs e)
-		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this event log entry?')";
-		}
+        // we are now in event log
+        this.PageLinks.AddLink("Event Log", string.Empty);
 
+        this.PagerTop.PageSize = 25;
 
-		/// <summary>
-		/// Handles load event for delete all button.
-		/// </summary>
-		/// <remarks>Adds confirmation popup to click event of this button.</remarks>
-		protected void DeleteAll_Load(object sender, EventArgs e)
-		{
-			((Button)sender).Attributes["onclick"] = "return confirm('Delete all event log entries?')";
-		}
+        // bind data to controls
+        BindData();
+      }
+    }
 
-
-		/// <summary>
-		/// Handles delete all button on click event.
-		/// </summary>
-		protected void DeleteAll_Click(object sender, EventArgs e)
-		{
-			// delete all event log entries of this board
-			YAF.Classes.Data.DB.eventlog_delete(PageContext.PageBoardID);
-			// re-bind controls
-			BindData();
-		}
-
-		/// <summary>
-		/// Handles single record commands in a repeater.
-		/// </summary>
-		private void List_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
-		{
-			// what command are we serving?
-			switch (e.CommandName)
-			{
-				// delete log entry
-				case "delete":
-					// delete just this particular log entry
-					YAF.Classes.Data.DB.eventlog_delete(e.CommandArgument);
-					// re-bind controls
-					BindData();
-					break;
-
-				// show/hide log entry details
-				case "show":
-					// get details control
-					Control ctl = e.Item.FindControl("details");
-					// find link button control
-					LinkButton showbutton = e.Item.FindControl("showbutton") as LinkButton;
-					// invert visibility
-					ctl.Visible = !ctl.Visible;
-					// change visibility state of detail and label of linkbutton too
-					showbutton.Text = (ctl.Visible) ? "Hide" : "Show";
-
-					break;
-			}
-		}
-
-		protected void PagerTop_PageChange( object sender, EventArgs e )
-		{
-			// rebind
-			BindData();
-		}
-		
-		#endregion
+    /// <summary>
+    /// Handles load event for log entry delete link button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    /// <remarks>
+    /// Adds confirmation popup to click event of this button.
+    /// </remarks>
+    protected void Delete_Load(object sender, EventArgs e)
+    {
+      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this event log entry?')";
+    }
 
 
-		#region Private Methods
-
-		/// <summary>
-		/// Populates data source and binds data to controls.
-		/// </summary>
-		private void BindData()
-		{
-			PagedDataSource pds = new PagedDataSource();
-			pds.AllowPaging = true;
-			pds.PageSize = PagerTop.PageSize;		
-
-			// list event for this board
-			DataTable dt = YAF.Classes.Data.DB.eventlog_list(PageContext.PageBoardID);
-			DataView dv = dt.DefaultView;
-
-			PagerTop.Count = dv.Count;
-			pds.DataSource = dv;
-
-			pds.CurrentPageIndex = PagerTop.CurrentPageIndex;
-			if ( pds.CurrentPageIndex >= pds.PageCount ) pds.CurrentPageIndex = pds.PageCount - 1;
-
-			List.DataSource = pds;
-
-			// bind data to controls
-			DataBind();
-		}
+    /// <summary>
+    /// Handles load event for delete all button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    /// <remarks>
+    /// Adds confirmation popup to click event of this button.
+    /// </remarks>
+    protected void DeleteAll_Load(object sender, EventArgs e)
+    {
+      ((Button) sender).Attributes["onclick"] = "return confirm('Delete all event log entries?')";
+    }
 
 
-		/// <summary>
-		/// Gets HTML IMG code representing given log event icon.
-		/// </summary>
-		/// <param name="dataRow">Data row containing event log entry data.</param>
-		/// <returns>return HTML code of event log entry image</returns>
-		protected string EventImageCode(object dataRow)
-		{
-			// cast object to the DataRowView
-			DataRowView row = (DataRowView)dataRow;
+    /// <summary>
+    /// Handles delete all button on click event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void DeleteAll_Click(object sender, EventArgs e)
+    {
+      // delete all event log entries of this board
+      DB.eventlog_delete(PageContext.PageBoardID);
 
-			// set defaults
-			string imageType = "Error";
+      // re-bind controls
+      BindData();
+    }
 
-			// find out of what type event log entry is
-			switch ( (int) row["Type"] )
-			{
-				case 1:
-					imageType = "Warning";
-					break;
-				case 2:
-					imageType = "Information";
-					break;
-			}
+    /// <summary>
+    /// Handles single record commands in a repeater.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void List_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+      // what command are we serving?
+      switch (e.CommandName)
+      {
+          // delete log entry
+        case "delete":
 
-			// return HTML code of event log entry image
-			return String.Format(
-						@"<img src=""{0}"" alt=""{1}"" title=""{1}"" />",
-						YafForumInfo.GetURLToResource( String.Format("icons/{0}.png", imageType.ToLower()) ),
-						imageType
-						);
-		}
+          // delete just this particular log entry
+          DB.eventlog_delete(e.CommandArgument);
 
-		#endregion
+          // re-bind controls
+          BindData();
+          break;
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			List.ItemCommand += new RepeaterCommandEventHandler(List_ItemCommand);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-		}
-		#endregion
-	}
+          // show/hide log entry details
+        case "show":
+
+          // get details control
+          Control ctl = e.Item.FindControl("details");
+
+          // find link button control
+          var showbutton = e.Item.FindControl("showbutton") as LinkButton;
+
+          // invert visibility
+          ctl.Visible = !ctl.Visible;
+
+          // change visibility state of detail and label of linkbutton too
+          showbutton.Text = ctl.Visible ? "Hide" : "Show";
+
+          break;
+      }
+    }
+
+    /// <summary>
+    /// The pager top_ page change.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void PagerTop_PageChange(object sender, EventArgs e)
+    {
+      // rebind
+      BindData();
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    /// <summary>
+    /// Populates data source and binds data to controls.
+    /// </summary>
+    private void BindData()
+    {
+      var pds = new PagedDataSource();
+      pds.AllowPaging = true;
+      pds.PageSize = this.PagerTop.PageSize;
+
+      // list event for this board
+      DataTable dt = DB.eventlog_list(PageContext.PageBoardID);
+      DataView dv = dt.DefaultView;
+
+      this.PagerTop.Count = dv.Count;
+      pds.DataSource = dv;
+
+      pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
+      if (pds.CurrentPageIndex >= pds.PageCount)
+      {
+        pds.CurrentPageIndex = pds.PageCount - 1;
+      }
+
+      this.List.DataSource = pds;
+
+      // bind data to controls
+      DataBind();
+    }
+
+
+    /// <summary>
+    /// Gets HTML IMG code representing given log event icon.
+    /// </summary>
+    /// <param name="dataRow">
+    /// Data row containing event log entry data.
+    /// </param>
+    /// <returns>
+    /// return HTML code of event log entry image
+    /// </returns>
+    protected string EventImageCode(object dataRow)
+    {
+      // cast object to the DataRowView
+      var row = (DataRowView) dataRow;
+
+      // set defaults
+      string imageType = "Error";
+
+      // find out of what type event log entry is
+      switch ((int) row["Type"])
+      {
+        case 1:
+          imageType = "Warning";
+          break;
+        case 2:
+          imageType = "Information";
+          break;
+      }
+
+      // return HTML code of event log entry image
+      return String.Format(
+        @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />", YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", imageType.ToLower())), imageType);
+    }
+
+    #endregion
+
+    #region Web Form Designer generated code
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      List.ItemCommand += new RepeaterCommandEventHandler(List_ItemCommand);
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

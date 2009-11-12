@@ -18,171 +18,184 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for editcategory.
-	/// </summary>
-	public partial class editcategory : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using System.IO;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Forums", YafBuildLink.GetLink( ForumPages.admin_forums ) );
-				PageLinks.AddLink( "Category" );
+  /// <summary>
+  /// Summary description for editcategory.
+  /// </summary>
+  public partial class editcategory : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Forums", YafBuildLink.GetLink(ForumPages.admin_forums));
+        this.PageLinks.AddLink("Category");
 
-				// Populate Category Table
-				CreateImagesDataTable();
+        // Populate Category Table
+        CreateImagesDataTable();
 
-				CategoryImages.Attributes ["onchange"] = String.Format(
-					"getElementById('{1}').src='{0}{2}/' + this.value",
-					YafForumInfo.ForumRoot,
-                    Preview.ClientID, YafBoardFolders.Current.Categories
-					);
+        this.CategoryImages.Attributes["onchange"] = String.Format(
+          "getElementById('{1}').src='{0}{2}/' + this.value", YafForumInfo.ForumRoot, this.Preview.ClientID, YafBoardFolders.Current.Categories);
 
-				Name.Style.Add( "width", "100%" );
+        this.Name.Style.Add("width", "100%");
 
-				BindData();
-			}
-		}
+        BindData();
+      }
+    }
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_forums);
+    }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
 
-		}
-		#endregion
+      if (Request.QueryString["c"] != null)
+      {
+        using (DataTable dt = DB.category_list(PageContext.PageBoardID, Request.QueryString["c"]))
+        {
+          DataRow row = dt.Rows[0];
+          this.Name.Text = (string) row["Name"];
+          this.SortOrder.Text = row["SortOrder"].ToString();
+          this.CategoryNameTitle.Text = this.Name.Text;
 
-		protected void Cancel_Click( object sender, System.EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_forums );
-		}
+          ListItem item = this.CategoryImages.Items.FindByText(row["CategoryImage"].ToString());
+          if (item != null)
+          {
+            item.Selected = true;
+            this.Preview.Src = String.Format("{0}{2}/{1}", YafForumInfo.ForumRoot, row["CategoryImage"], YafBoardFolders.Current.Categories); // path corrected
+          }
+        }
+      }
+    }
 
-		private void BindData()
-		{
-			Preview.Src = String.Format( "{0}images/spacer.gif", YafForumInfo.ForumRoot );
+    /// <summary>
+    /// The create images data table.
+    /// </summary>
+    protected void CreateImagesDataTable()
+    {
+      using (var dt = new DataTable("Files"))
+      {
+        dt.Columns.Add("FileID", typeof(long));
+        dt.Columns.Add("FileName", typeof(string));
+        dt.Columns.Add("Description", typeof(string));
+        DataRow dr = dt.NewRow();
+        dr["FileID"] = 0;
+        dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+        dr["Description"] = "None";
+        dt.Rows.Add(dr);
 
-			if ( Request.QueryString ["c"] != null )
-			{
-				using ( DataTable dt = YAF.Classes.Data.DB.category_list( PageContext.PageBoardID, Request.QueryString ["c"] ) )
-				{
-					DataRow row = dt.Rows [0];
-					Name.Text = ( string ) row ["Name"];
-					SortOrder.Text = row ["SortOrder"].ToString();
-					CategoryNameTitle.Text = Name.Text;
+        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Categories)));
+        if (dir.Exists)
+        {
+          FileInfo[] files = dir.GetFiles("*.*");
+          long nFileID = 1;
+          foreach (FileInfo file in files)
+          {
+            string sExt = file.Extension.ToLower();
+            if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg")
+            {
+              continue;
+            }
 
-					ListItem item = CategoryImages.Items.FindByText( row ["CategoryImage"].ToString() );
-					if ( item != null )
-					{
-						item.Selected = true;
-                        Preview.Src = String.Format("{0}{2}/{1}", YafForumInfo.ForumRoot, row["CategoryImage"], YafBoardFolders.Current.Categories); //path corrected
-					}
-				}
-			}
-		}
+            dr = dt.NewRow();
+            dr["FileID"] = nFileID++;
+            dr["FileName"] = file.Name;
+            dr["Description"] = file.Name;
+            dt.Rows.Add(dr);
+          }
+        }
 
-		protected void CreateImagesDataTable()
-		{
-			using ( DataTable dt = new DataTable( "Files" ) )
-			{
-				dt.Columns.Add( "FileID", typeof( long ) );
-				dt.Columns.Add( "FileName", typeof( string ) );
-				dt.Columns.Add( "Description", typeof( string ) );
-				DataRow dr = dt.NewRow();
-				dr ["FileID"] = 0;
-				dr ["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
-				dr ["Description"] = "None";
-				dt.Rows.Add( dr );
+        this.CategoryImages.DataSource = dt;
+        this.CategoryImages.DataValueField = "FileName";
+        this.CategoryImages.DataTextField = "Description";
+        this.CategoryImages.DataBind();
+      }
+    }
 
-                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Categories)));
-				if ( dir.Exists )
-				{
-					System.IO.FileInfo [] files = dir.GetFiles( "*.*" );
-					long nFileID = 1;
-					foreach ( System.IO.FileInfo file in files )
-					{
-						string sExt = file.Extension.ToLower();
-						if ( sExt != ".png" && sExt != ".gif" && sExt != ".jpg" )
-							continue;
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click(object sender, EventArgs e)
+    {
+      int CategoryID = 0;
+      if (Request.QueryString["c"] != null)
+      {
+        CategoryID = int.Parse(Request.QueryString["c"]);
+      }
 
-						dr = dt.NewRow();
-						dr ["FileID"] = nFileID++;
-						dr ["FileName"] = file.Name;
-						dr ["Description"] = file.Name;
-						dt.Rows.Add( dr );
-					}
-				}
+      int sortOrder;
+      string name = this.Name.Text.Trim();
+      object categoryImage = null;
 
-				CategoryImages.DataSource = dt;
-				CategoryImages.DataValueField = "FileName";
-				CategoryImages.DataTextField = "Description";
-				CategoryImages.DataBind();
-			}
-		}
+      if (this.CategoryImages.SelectedIndex > 0)
+      {
+        categoryImage = this.CategoryImages.SelectedValue;
+      }
 
-		protected void Save_Click( object sender, System.EventArgs e )
-		{
-			int CategoryID = 0;
-			if ( Request.QueryString ["c"] != null ) CategoryID = int.Parse( Request.QueryString ["c"] );
+      if (!int.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+      {
+        // error...
+        PageContext.AddLoadMessage("Invalid value entered for sort order: must enter a number.");
+        return;
+      }
 
-			int sortOrder;
-			string name = Name.Text.Trim();
-			object categoryImage = null;
+      if (string.IsNullOrEmpty(name))
+      {
+        // error...
+        PageContext.AddLoadMessage("Must enter a value for the category name field.");
+        return;
+      }
 
-			if ( CategoryImages.SelectedIndex > 0 )
-			{
-				categoryImage = CategoryImages.SelectedValue;
-			}
-			if ( !int.TryParse( SortOrder.Text.Trim(), out sortOrder ) )
-			{
-				// error...
-				PageContext.AddLoadMessage( "Invalid value entered for sort order: must enter a number." );
-				return;
-			}
-			if ( string.IsNullOrEmpty( name ) )
-			{
-				// error...
-				PageContext.AddLoadMessage( "Must enter a value for the category name field." );
-				return;
-			}
+      // save category
+      DB.category_save(PageContext.PageBoardID, CategoryID, name, categoryImage, sortOrder);
 
-			// save category
-			DB.category_save( PageContext.PageBoardID, CategoryID, name, categoryImage, sortOrder );
-			// remove category cache...
-			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
-			// redirect
-			YafBuildLink.Redirect( ForumPages.admin_forums );
-		}
-	}
+      // remove category cache...
+      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
+
+      // redirect
+      YafBuildLink.Redirect(ForumPages.admin_forums);
+    }
+  }
 }

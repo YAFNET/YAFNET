@@ -18,59 +18,86 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core.Nntp;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for ranks.
-	/// </summary>
-	public partial class nntpretrieve : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Core.Nntp;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!IsPostBack) 
-			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
-				PageLinks.AddLink("NNTP Retrieve","");
+  /// <summary>
+  /// Summary description for ranks.
+  /// </summary>
+  public partial class nntpretrieve : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("NNTP Retrieve", string.Empty);
 
-				BindData();
-			}
-		}
+        BindData();
+      }
+    }
 
-		private void BindData()
-		{
-			List.DataSource = YAF.Classes.Data.DB.nntpforum_list(PageContext.PageBoardID,10,null,true);
-			DataBind();
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.List.DataSource = DB.nntpforum_list(PageContext.PageBoardID, 10, null, true);
+      DataBind();
+    }
 
-		protected void Retrieve_Click(object sender, System.EventArgs e)
-		{
-			int nSeconds = int.Parse(Seconds.Text);
-			if(nSeconds<1) nSeconds = 1;
-			int nArticleCount = YafNntp.ReadArticles(PageContext.PageBoardID,10,nSeconds,PageContext.BoardSettings.CreateNntpUsers);
-			PageContext.AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.",nArticleCount,(double)nArticleCount/nSeconds));
-			BindData();
-		}
+    /// <summary>
+    /// The retrieve_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Retrieve_Click(object sender, EventArgs e)
+    {
+      int nSeconds = int.Parse(this.Seconds.Text);
+      if (nSeconds < 1)
+      {
+        nSeconds = 1;
+      }
 
-		protected string LastMessageNo(object _o) 
-		{
-			DataRowView row = (DataRowView)_o;
-			return string.Format("{0:N0}",row["LastMessageNo"]);
-		}
-	}
+      int nArticleCount = YafNntp.ReadArticles(PageContext.PageBoardID, 10, nSeconds, PageContext.BoardSettings.CreateNntpUsers);
+      PageContext.AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.", nArticleCount, (double) nArticleCount / nSeconds));
+      BindData();
+    }
+
+    /// <summary>
+    /// The last message no.
+    /// </summary>
+    /// <param name="_o">
+    /// The _o.
+    /// </param>
+    /// <returns>
+    /// The last message no.
+    /// </returns>
+    protected string LastMessageNo(object _o)
+    {
+      var row = (DataRowView) _o;
+      return string.Format("{0:N0}", row["LastMessageNo"]);
+    }
+  }
 }

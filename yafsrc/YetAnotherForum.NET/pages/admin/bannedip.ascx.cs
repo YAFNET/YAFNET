@@ -18,61 +18,79 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for bannedip.
-	/// </summary>
-	public partial class bannedip : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Banned IP Addresses", "" );
+  /// <summary>
+  /// Summary description for bannedip.
+  /// </summary>
+  public partial class bannedip : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Banned IP Addresses", string.Empty);
 
-				BindData();
-			}
-		}
+        BindData();
+      }
+    }
 
-		private void BindData()
-		{
-			list.DataSource = YAF.Classes.Data.DB.bannedip_list( PageContext.PageBoardID, null );
-			DataBind();
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.list.DataSource = DB.bannedip_list(PageContext.PageBoardID, null);
+      DataBind();
+    }
 
-		protected void list_ItemCommand( object sender, RepeaterCommandEventArgs e )
-		{
-			if ( e.CommandName == "add" )
-				YafBuildLink.Redirect( ForumPages.admin_bannedip_edit );
-			else if ( e.CommandName == "edit" )
-				YafBuildLink.Redirect( ForumPages.admin_bannedip_edit, "i={0}", e.CommandArgument );
-			else if ( e.CommandName == "delete" )
-			{
-				YAF.Classes.Data.DB.bannedip_delete( e.CommandArgument );
+    /// <summary>
+    /// The list_ item command.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void list_ItemCommand(object sender, RepeaterCommandEventArgs e)
+    {
+      if (e.CommandName == "add")
+      {
+        YafBuildLink.Redirect(ForumPages.admin_bannedip_edit);
+      }
+      else if (e.CommandName == "edit")
+      {
+        YafBuildLink.Redirect(ForumPages.admin_bannedip_edit, "i={0}", e.CommandArgument);
+      }
+      else if (e.CommandName == "delete")
+      {
+        DB.bannedip_delete(e.CommandArgument);
 
-				// clear cache of banned IPs for this board
-				PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.BannedIP ) );
+        // clear cache of banned IPs for this board
+        PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
 
-				BindData();
-				PageContext.AddLoadMessage( "Removed IP address ban." );
-			}
-		}
-	}
+        BindData();
+        PageContext.AddLoadMessage("Removed IP address ban.");
+      }
+    }
+  }
 }

@@ -18,82 +18,117 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for editgroup.
-	/// </summary>
-	public partial class editnntpserver : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!IsPostBack) 
-			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
-				PageLinks.AddLink("NNTP Servers","");
+  /// <summary>
+  /// Summary description for editgroup.
+  /// </summary>
+  public partial class editnntpserver : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("NNTP Servers", string.Empty);
 
-				BindData();
-				if(Request.QueryString["s"] != null) 
-				{
-					using(DataTable dt = YAF.Classes.Data.DB.nntpserver_list(PageContext.PageBoardID,Request.QueryString["s"]))
-					{
-						DataRow row = dt.Rows[0];
-						Name.Text		= row["Name"].ToString();
-						Address.Text	= row["Address"].ToString();
-						Port.Text		= row["Port"].ToString();
-						UserName.Text	= row["UserName"].ToString();
-						UserPass.Text	= row["UserPass"].ToString();
-					}
-				}
-				else
-				{
-					Port.Text = "119";
-				}
-			}
-		}
+        BindData();
+        if (Request.QueryString["s"] != null)
+        {
+          using (DataTable dt = DB.nntpserver_list(PageContext.PageBoardID, Request.QueryString["s"]))
+          {
+            DataRow row = dt.Rows[0];
+            this.Name.Text = row["Name"].ToString();
+            this.Address.Text = row["Address"].ToString();
+            this.Port.Text = row["Port"].ToString();
+            this.UserName.Text = row["UserName"].ToString();
+            this.UserPass.Text = row["UserPass"].ToString();
+          }
+        }
+        else
+        {
+          this.Port.Text = "119";
+        }
+      }
+    }
 
-		private void BindData() {
-			DataBind();
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      DataBind();
+    }
 
-		protected void Cancel_Click(object sender, System.EventArgs e)
-		{
-			YafBuildLink.Redirect( ForumPages.admin_nntpservers);
-		}
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_nntpservers);
+    }
 
-		protected void Save_Click(object sender, System.EventArgs e)
-		{
-			if(Name.Text.Trim().Length==0) 
-			{
-				PageContext.AddLoadMessage("Missing server name.");
-				return;
-			}
-			if(Address.Text.Trim().Length==0) 
-			{
-				PageContext.AddLoadMessage("Missing server address.");
-				return;
-			}
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click(object sender, EventArgs e)
+    {
+      if (this.Name.Text.Trim().Length == 0)
+      {
+        PageContext.AddLoadMessage("Missing server name.");
+        return;
+      }
 
-			object nntpServerID = null;
-			if(Request.QueryString["s"]!=null) nntpServerID = Request.QueryString["s"];
-			YAF.Classes.Data.DB.nntpserver_save(nntpServerID,PageContext.PageBoardID,Name.Text,Address.Text,Port.Text.Length>0 ? Port.Text : null,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
-			YafBuildLink.Redirect( ForumPages.admin_nntpservers);
-		}
-	}
+      if (this.Address.Text.Trim().Length == 0)
+      {
+        PageContext.AddLoadMessage("Missing server address.");
+        return;
+      }
+
+      object nntpServerID = null;
+      if (Request.QueryString["s"] != null)
+      {
+        nntpServerID = Request.QueryString["s"];
+      }
+
+      DB.nntpserver_save(
+        nntpServerID, 
+        PageContext.PageBoardID, 
+        this.Name.Text, 
+        this.Address.Text, 
+        this.Port.Text.Length > 0 ? this.Port.Text : null, 
+        this.UserName.Text.Length > 0 ? this.UserName.Text : null, 
+        this.UserPass.Text.Length > 0 ? this.UserPass.Text : null);
+      YafBuildLink.Redirect(ForumPages.admin_nntpservers);
+    }
+  }
 }

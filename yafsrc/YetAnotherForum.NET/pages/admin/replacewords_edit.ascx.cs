@@ -18,88 +18,117 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for bannedip_edit.
-	/// </summary>
-	public partial class replacewords_edit : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			string strAddEdit = ( Request.QueryString ["i"] == null ) ? "Add" : "Edit";
+  /// <summary>
+  /// Summary description for bannedip_edit.
+  /// </summary>
+  public partial class replacewords_edit : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      string strAddEdit = (Request.QueryString["i"] == null) ? "Add" : "Edit";
 
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( strAddEdit + " Word Replace", "" );
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink(strAddEdit + " Word Replace", string.Empty);
 
-				BindData();
-			}
-			badword.Attributes.Add( "style", "width:250px" );
-			goodword.Attributes.Add( "style", "width:250px" );
-		}
+        BindData();
+      }
 
-		private void BindData()
-		{
-			int id;
+      this.badword.Attributes.Add("style", "width:250px");
+      this.goodword.Attributes.Add("style", "width:250px");
+    }
 
-			if ( Request.QueryString ["i"] != null && int.TryParse( Request.QueryString ["i"], out id ) )
-			{
-				DataRow row = YAF.Classes.Data.DB.replace_words_list( PageContext.PageBoardID, id ).Rows [0];
-				badword.Text = ( string )row ["badword"];
-				goodword.Text = ( string )row ["goodword"];
-			}
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      int id;
 
-		private void add_Click( object sender, EventArgs e )
-		{
-			YAF.Classes.Data.DB.replace_words_save( PageContext.PageBoardID, Request.QueryString ["i"], badword.Text, goodword.Text );
-			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ReplaceWords ) );
-			YafBuildLink.Redirect( ForumPages.admin_replacewords );
-		}
+      if (Request.QueryString["i"] != null && int.TryParse(Request.QueryString["i"], out id))
+      {
+        DataRow row = DB.replace_words_list(PageContext.PageBoardID, id).Rows[0];
+        this.badword.Text = (string) row["badword"];
+        this.goodword.Text = (string) row["goodword"];
+      }
+    }
 
-		private void cancel_Click( object sender, EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_replacewords );
-		}
+    /// <summary>
+    /// The add_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void add_Click(object sender, EventArgs e)
+    {
+      DB.replace_words_save(PageContext.PageBoardID, Request.QueryString["i"], this.badword.Text, this.goodword.Text);
+      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords));
+      YafBuildLink.Redirect(ForumPages.admin_replacewords);
+    }
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			save.Click += new EventHandler( add_Click );
-			cancel.Click += new EventHandler( cancel_Click );
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void cancel_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_replacewords);
+    }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+    #region Web Form Designer generated code
 
-		}
-		#endregion
-	}
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      save.Click += new EventHandler(add_Click);
+      cancel.Click += new EventHandler(cancel_Click);
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }
-

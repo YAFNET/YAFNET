@@ -17,62 +17,86 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	public partial class runsql : YAF.Classes.Core.AdminPage
-	{
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Run SQL Code", "" );
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-				BindData();
-			}
-		}
+  /// <summary>
+  /// The runsql.
+  /// </summary>
+  public partial class runsql : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Run SQL Code", string.Empty);
 
-		private void BindData()
-		{
-			DataBind();
-		}
+        BindData();
+      }
+    }
 
-		protected void btnRunQuery_Click( object sender, EventArgs e )
-		{
-			txtResult.Text = "";
-			ResultHolder.Visible = true;
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      DataBind();
+    }
 
-			using ( YafDBConnManager connMan = new YafDBConnManager() )
-			{
-				connMan.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
-				string sql = txtQuery.Text.Trim();
-				// connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
-				sql = sql.Replace( "{databaseOwner}", YafDBAccess.DatabaseOwner );
-				sql = sql.Replace( "{objectQualifier}", YafDBAccess.ObjectQualifier );
-				txtResult.Text = DB.db_runsql( sql, connMan );
-			}
-		}
+    /// <summary>
+    /// The btn run query_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void btnRunQuery_Click(object sender, EventArgs e)
+    {
+      this.txtResult.Text = string.Empty;
+      this.ResultHolder.Visible = true;
 
-		void connMan_InfoMessage( object sender, YafDBConnManager.YafDBConnInfoMessageEventArgs e )
-		{
-			txtResult.Text = "\r\n" + e.Message;
-		}
-	}
+      using (var connMan = new YafDBConnManager())
+      {
+        connMan.InfoMessage += connMan_InfoMessage;
+        string sql = this.txtQuery.Text.Trim();
+
+        // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
+        sql = sql.Replace("{databaseOwner}", YafDBAccess.DatabaseOwner);
+        sql = sql.Replace("{objectQualifier}", YafDBAccess.ObjectQualifier);
+        this.txtResult.Text = DB.db_runsql(sql, connMan);
+      }
+    }
+
+    /// <summary>
+    /// The conn man_ info message.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void connMan_InfoMessage(object sender, YafDBConnManager.YafDBConnInfoMessageEventArgs e)
+    {
+      this.txtResult.Text = "\r\n" + e.Message;
+    }
+  }
 }

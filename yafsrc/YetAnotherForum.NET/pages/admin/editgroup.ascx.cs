@@ -18,233 +18,301 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Data;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Interface for creating or editing user roles/groups.
-	/// </summary>
-	public partial class editgroup : YAF.Classes.Core.AdminPage
-	{
-		#region Construcotrs & Overridden Methods
+  using System;
+  using System.Data;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		/// <summary>
-		/// Creates page links for this page.
-		/// </summary>
-		protected override void CreatePageLinks()
-		{
-			// forum index
-			PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-			// admin index
-			PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-			// roles index
-			PageLinks.AddLink("Roles", YafBuildLink.GetLink(ForumPages.admin_groups));
-			// edit role
-			PageLinks.AddLink("Edit Role");
-		}
+  /// <summary>
+  /// Interface for creating or editing user roles/groups.
+  /// </summary>
+  public partial class editgroup : AdminPage
+  {
+    #region Construcotrs & Overridden Methods
 
-		#endregion
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+      // forum index
+      this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
+      // admin index
+      this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
 
-		#region Event Handlers
+      // roles index
+      this.PageLinks.AddLink("Roles", YafBuildLink.GetLink(ForumPages.admin_groups));
 
-		/// <summary>
-		/// Handles page load event.
-		/// </summary>
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			// this needs to be done just once, not during postbacks
-			if (!IsPostBack)
-			{
-				// create page links
-				CreatePageLinks();
+      // edit role
+      this.PageLinks.AddLink("Edit Role");
+    }
 
-				// bind data
-				BindData();
+    #endregion
 
-				// is this editing of existing role or creation of new one?
-				if (Request.QueryString["i"] != null)
-				{
-					// we are not creating new role
-					NewGroupRow.Visible = false;
+    #region Event Handlers
 
-					// get data about edited role
-					using (DataTable dt = DB.group_list(PageContext.PageBoardID, Request.QueryString["i"]))
-					{
-						// get it as row
-						DataRow row = dt.Rows[0];
-						// get role flags
-						GroupFlags flags = new GroupFlags(row["Flags"]);
+    /// <summary>
+    /// Handles page load event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      // this needs to be done just once, not during postbacks
+      if (!IsPostBack)
+      {
+        // create page links
+        CreatePageLinks();
 
-						// set controls to role values
-						Name.Text = (string)row["Name"];
-						IsGuestX.Checked = flags.IsGuest;
-						IsAdminX.Checked = flags.IsAdmin;
-						IsStartX.Checked = flags.IsStart;
-						IsModeratorX.Checked = flags.IsModerator;
-                        PMLimit.Text = row["PMLimit"].ToString();
-                        StyleTextBox.Text = row["Style"].ToString(); 
-                        Priority.Text = row["SortOrder"].ToString();
-						// IsGuest flag can be set for only one role. if it isn't for this, disable that row
-						if (flags.IsGuest) IsGuestTR.Visible = true;
-					}
-				}
-               
-			}
-		}
+        // bind data
+        BindData();
 
+        // is this editing of existing role or creation of new one?
+        if (Request.QueryString["i"] != null)
+        {
+          // we are not creating new role
+          this.NewGroupRow.Visible = false;
 
-		/// <summary>
-		/// Handles click on cancel button.
-		/// </summary>
-		protected void Cancel_Click(object sender, System.EventArgs e)
-		{
-			// go back to roles administration
-			YafBuildLink.Redirect(ForumPages.admin_groups);
-		}
+          // get data about edited role
+          using (DataTable dt = DB.group_list(PageContext.PageBoardID, Request.QueryString["i"]))
+          {
+            // get it as row
+            DataRow row = dt.Rows[0];
 
+            // get role flags
+            var flags = new GroupFlags(row["Flags"]);
 
-		/// <summary>
-		/// Handles click on save button.
-		/// </summary>
-		protected void Save_Click(object sender, System.EventArgs e)
-		{
-            if (!ValidationHelper.IsValidInt(PMLimit.Text.Trim()))
+            // set controls to role values
+            this.Name.Text = (string) row["Name"];
+            this.IsGuestX.Checked = flags.IsGuest;
+            this.IsAdminX.Checked = flags.IsAdmin;
+            this.IsStartX.Checked = flags.IsStart;
+            this.IsModeratorX.Checked = flags.IsModerator;
+            this.PMLimit.Text = row["PMLimit"].ToString();
+            this.StyleTextBox.Text = row["Style"].ToString();
+            this.Priority.Text = row["SortOrder"].ToString();
+
+            // IsGuest flag can be set for only one role. if it isn't for this, disable that row
+            if (flags.IsGuest)
             {
-                PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
-                return;
+              this.IsGuestTR.Visible = true;
             }
-            if (!ValidationHelper.IsValidInt(Priority.Text.Trim()))
+          }
+        }
+      }
+    }
+
+
+    /// <summary>
+    /// Handles click on cancel button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+      // go back to roles administration
+      YafBuildLink.Redirect(ForumPages.admin_groups);
+    }
+
+
+    /// <summary>
+    /// Handles click on save button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click(object sender, EventArgs e)
+    {
+      if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
+      {
+        PageContext.AddLoadMessage("You should enter integer value for pmessage number.");
+        return;
+      }
+
+      if (!ValidationHelper.IsValidInt(this.Priority.Text.Trim()))
+      {
+        PageContext.AddLoadMessage("You should enter integer value for priority.");
+        return;
+      }
+
+      // Role
+      long roleID = 0;
+
+      // get role ID from page's parameter
+      if (Request.QueryString["i"] != null)
+      {
+        roleID = long.Parse(Request.QueryString["i"]);
+      }
+
+      // get new and old name
+      string roleName = this.Name.Text.Trim();
+      string oldRoleName = string.Empty;
+
+      // if we are editing exising role, get it's original name
+      if (roleID != 0)
+      {
+        // get the current role name in the DB
+        using (DataTable dt = DB.group_list(YafContext.Current.PageBoardID, roleID))
+        {
+          foreach (DataRow row in dt.Rows)
+          {
+            oldRoleName = row["Name"].ToString();
+          }
+        }
+      }
+
+      // save role and get its ID if it's new (if it's old role, we get it anyway)
+      roleID = DB.group_save(
+        roleID, 
+        PageContext.PageBoardID, 
+        roleName, 
+        this.IsAdminX.Checked, 
+        this.IsGuestX.Checked, 
+        this.IsStartX.Checked, 
+        this.IsModeratorX.Checked, 
+        this.AccessMaskID.SelectedValue, 
+        this.PMLimit.Text.Trim(), 
+        this.StyleTextBox.Text.Trim(), 
+        this.Priority.Text.Trim());
+
+      // see if need to rename an existing role...
+      if (roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
+      {
+        // transfer users in addition to changing the name of the role...
+        string[] users = PageContext.CurrentRoles.GetUsersInRole(oldRoleName);
+
+        // delete the old role...
+        RoleMembershipHelper.DeleteRole(oldRoleName, false);
+
+        // create new role...
+        RoleMembershipHelper.CreateRole(roleName);
+
+        // put users into new role...
+        PageContext.CurrentRoles.AddUsersToRoles(
+          users, 
+          new[]
             {
-                PageContext.AddLoadMessage("You should enter integer value for priority.");
-                return;
-            }
-            // Role
-			long roleID = 0;
-			// get role ID from page's parameter
-			if (Request.QueryString["i"] != null) roleID = long.Parse(Request.QueryString["i"]);
+              roleName
+            });
+      }
+        
+        // if role doesn't exist in provider's data source, create it
+      else if (!RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
+      {
+        // simply create it
+        RoleMembershipHelper.CreateRole(roleName);
+      }
 
-			// get new and old name
-			string roleName = Name.Text.Trim();
-			string oldRoleName = string.Empty;
+      // Access masks for newly existing role
+      if (Request.QueryString["i"] != null)
+      {
+        // go trhough all forums
+        for (int i = 0; i < this.AccessList.Items.Count; i++)
+        {
+          // get current repeater item
+          RepeaterItem item = this.AccessList.Items[i];
 
-			// if we are editing exising role, get it's original name
-			if ( roleID != 0 )
-			{
-				// get the current role name in the DB
-				using ( DataTable dt = DB.group_list( YafContext.Current.PageBoardID, roleID ) )
-				{
-					foreach ( DataRow row in dt.Rows ) oldRoleName = row["Name"].ToString( );
-				}
-			}
+          // get forum ID
+          int forumID = int.Parse(((Label) item.FindControl("ForumID")).Text);
 
-			// save role and get its ID if it's new (if it's old role, we get it anyway)
-            roleID = DB.group_save(roleID, PageContext.PageBoardID, roleName, IsAdminX.Checked, IsGuestX.Checked, IsStartX.Checked, IsModeratorX.Checked, AccessMaskID.SelectedValue, PMLimit.Text.Trim(), StyleTextBox.Text.Trim(), Priority.Text.Trim());
-			
-			// see if need to rename an existing role...
-			if ( roleName != oldRoleName && RoleMembershipHelper.RoleExists( oldRoleName ) && !RoleMembershipHelper.RoleExists( roleName ) && !IsGuestX.Checked )
-			{
-				// transfer users in addition to changing the name of the role...
-				string[] users = PageContext.CurrentRoles.GetUsersInRole( oldRoleName );
+          // save forum access maks for this role
+          DB.forumaccess_save(forumID, roleID, ((DropDownList) item.FindControl("AccessmaskID")).SelectedValue);
+        }
 
-				// delete the old role...
-				RoleMembershipHelper.DeleteRole( oldRoleName, false );
+        YafBuildLink.Redirect(ForumPages.admin_groups);
+      }
 
-				// create new role...
-				RoleMembershipHelper.CreateRole( roleName );
+      // remove caching in case something got updated...
+      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 
-				// put users into new role...
-				PageContext.CurrentRoles.AddUsersToRoles( users, new string[] {roleName} );
-			}
-			// if role doesn't exist in provider's data source, create it
-			else if ( !RoleMembershipHelper.RoleExists( roleName ) && !IsGuestX.Checked )
-			{
-				// simply create it
-				RoleMembershipHelper.CreateRole( roleName );
-			}
-
-			// Access masks for newly existing role
-			if (Request.QueryString["i"] != null)
-			{
-				// go trhough all forums
-				for (int i = 0; i < AccessList.Items.Count; i++)
-				{
-					// get current repeater item
-					RepeaterItem item = AccessList.Items[i];
-
-					// get forum ID
-					int forumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
-
-					// save forum access maks for this role
-					DB.forumaccess_save(forumID, roleID, ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
-				}
-				YafBuildLink.Redirect(ForumPages.admin_groups);
-			}
-
-			// remove caching in case something got updated...
-			PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
-
-			// Done, redirect to role editing page
-			YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);
-		}
+      // Done, redirect to role editing page
+      YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);
+    }
 
 
-		/// <summary>
-		/// Handles pre-render event of each forum's access mask dropdown.
-		/// </summary>
-		protected void SetDropDownIndex(object sender, System.EventArgs e)
-		{
-			// get dropdown which raised this event
-			DropDownList list = (DropDownList)sender;
+    /// <summary>
+    /// Handles pre-render event of each forum's access mask dropdown.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void SetDropDownIndex(object sender, EventArgs e)
+    {
+      // get dropdown which raised this event
+      var list = (DropDownList) sender;
 
-			// select value from the list
-			ListItem item = list.Items.FindByValue(list.Attributes["value"]);
+      // select value from the list
+      ListItem item = list.Items.FindByValue(list.Attributes["value"]);
 
-			// verify something was found...
-			if ( item != null ) item.Selected = true;
-		}
-
-
-		/// <summary>
-		/// Handles databinding event of initial access maks dropdown control.
-		/// </summary>
-		protected void BindData_AccessMaskID(object sender, System.EventArgs e)
-		{
-			// get sender object as dropdown list
-			DropDownList c = (DropDownList)sender;
-
-			// list all access masks as data source
-			c.DataSource = DB.accessmask_list(PageContext.PageBoardID, null);
-			// set value and text field names
-			c.DataValueField = "AccessMaskID";
-			c.DataTextField = "Name";
-		}
-
-		#endregion
+      // verify something was found...
+      if (item != null)
+      {
+        item.Selected = true;
+      }
+    }
 
 
-		#region Data Binding & Formatting
+    /// <summary>
+    /// Handles databinding event of initial access maks dropdown control.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void BindData_AccessMaskID(object sender, EventArgs e)
+    {
+      // get sender object as dropdown list
+      var c = (DropDownList) sender;
 
-		/// <summary>
-		/// Bind data for this control.
-		/// </summary>
-		private void BindData()
-		{
-			// set datasource of access list (list of forums and role's access masks) if we are editing existing mask
-			if (Request.QueryString["i"] != null)
-				AccessList.DataSource = DB.forumaccess_group(Request.QueryString["i"]);
+      // list all access masks as data source
+      c.DataSource = DB.accessmask_list(PageContext.PageBoardID, null);
 
-			// bind data to controls
-			DataBind();
-		}
+      // set value and text field names
+      c.DataValueField = "AccessMaskID";
+      c.DataTextField = "Name";
+    }
 
-		#endregion
-	}
+    #endregion
+
+    #region Data Binding & Formatting
+
+    /// <summary>
+    /// Bind data for this control.
+    /// </summary>
+    private void BindData()
+    {
+      // set datasource of access list (list of forums and role's access masks) if we are editing existing mask
+      if (Request.QueryString["i"] != null)
+      {
+        this.AccessList.DataSource = DB.forumaccess_group(Request.QueryString["i"]);
+      }
+
+      // bind data to controls
+      DataBind();
+    }
+
+    #endregion
+  }
 }

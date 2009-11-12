@@ -18,62 +18,85 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for register.
-	/// </summary>
-	public partial class version : YAF.Classes.Core.AdminPage
-	{
-		private long _lastVersion;
-		private DateTime _lastVersionDate;
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
+  using YAF.RegisterForum;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Version Check", "" );
-			}
+  /// <summary>
+  /// Summary description for register.
+  /// </summary>
+  public partial class version : AdminPage
+  {
+    /// <summary>
+    /// The _last version.
+    /// </summary>
+    private long _lastVersion;
 
-			//try
-			{
-				using ( RegisterForum.Register reg = new RegisterForum.Register() )
-				{
-					_lastVersion = reg.LatestVersion();
-					_lastVersionDate = reg.LatestVersionDate();
-				}
-			}
-			//catch ( Exception )
-			{
-				//_lastVersion = 0;
-			}
+    /// <summary>
+    /// The _last version date.
+    /// </summary>
+    private DateTime _lastVersionDate;
 
-			Upgrade.Visible = _lastVersion > YafForumInfo.AppVersionCode;
+    /// <summary>
+    /// Gets LastVersion.
+    /// </summary>
+    protected string LastVersion
+    {
+      get
+      {
+        return YafForumInfo.AppVersionNameFromCode(this._lastVersion);
+      }
+    }
+
+    /// <summary>
+    /// Gets LastVersionDate.
+    /// </summary>
+    protected string LastVersionDate
+    {
+      get
+      {
+        return YafServices.DateTime.FormatDateShort(this._lastVersionDate);
+      }
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Version Check", string.Empty);
+      }
+      {
+        // try
+        using (var reg = new Register())
+        {
+          this._lastVersion = reg.LatestVersion();
+          this._lastVersionDate = reg.LatestVersionDate();
+        }
+      }
+      {
+        // catch ( Exception )
+        // _lastVersion = 0;
+      }
+
+      this.Upgrade.Visible = this._lastVersion > YafForumInfo.AppVersionCode;
 
 
-			DataBind();
-		}
-
-		protected string LastVersion
-		{
-			get
-			{
-				return YafForumInfo.AppVersionNameFromCode( _lastVersion );
-			}
-		}
-		protected string LastVersionDate
-		{
-			get
-			{
-				return YafServices.DateTime.FormatDateShort( _lastVersionDate );
-			}
-		}
-	}
+      DataBind();
+    }
+  }
 }

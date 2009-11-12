@@ -18,103 +18,134 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Data;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for settings.
-	/// </summary>
-	public partial class boardsettings : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Board Settings", "" );
+  /// <summary>
+  /// Summary description for settings.
+  /// </summary>
+  public partial class boardsettings : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Board Settings", string.Empty);
 
-				// create list boxes by populating datasources from Data class
-				Theme.DataSource = StaticDataHelper.Themes();
-				Theme.DataTextField = "Theme";
-				Theme.DataValueField = "FileName";
+        // create list boxes by populating datasources from Data class
+        this.Theme.DataSource = StaticDataHelper.Themes();
+        this.Theme.DataTextField = "Theme";
+        this.Theme.DataValueField = "FileName";
 
-				Language.DataSource = StaticDataHelper.Languages();
-				Language.DataTextField = "Language";
-				Language.DataValueField = "FileName";
+        this.Language.DataSource = StaticDataHelper.Languages();
+        this.Language.DataTextField = "Language";
+        this.Language.DataValueField = "FileName";
 
-				ShowTopic.DataSource = StaticDataHelper.TopicTimes();
-				ShowTopic.DataTextField = "TopicText";
-				ShowTopic.DataValueField = "TopicValue";
+        this.ShowTopic.DataSource = StaticDataHelper.TopicTimes();
+        this.ShowTopic.DataTextField = "TopicText";
+        this.ShowTopic.DataValueField = "TopicValue";
 
-				FileExtensionAllow.DataSource = StaticDataHelper.AllowDisallow();
-				FileExtensionAllow.DataTextField = "Text";
-				FileExtensionAllow.DataValueField = "Value";
+        this.FileExtensionAllow.DataSource = StaticDataHelper.AllowDisallow();
+        this.FileExtensionAllow.DataTextField = "Text";
+        this.FileExtensionAllow.DataValueField = "Value";
 
-				BindData();
+        BindData();
 
-				SetSelectedOnList( ref Theme, PageContext.BoardSettings.Theme );
-				SetSelectedOnList( ref Language, PageContext.BoardSettings.Language );
-				SetSelectedOnList( ref ShowTopic, PageContext.BoardSettings.ShowTopicsDefault.ToString() );
-				SetSelectedOnList( ref FileExtensionAllow, PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1" );
+        SetSelectedOnList(ref this.Theme, PageContext.BoardSettings.Theme);
+        SetSelectedOnList(ref this.Language, PageContext.BoardSettings.Language);
+        SetSelectedOnList(ref this.ShowTopic, PageContext.BoardSettings.ShowTopicsDefault.ToString());
+        SetSelectedOnList(ref this.FileExtensionAllow, PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1");
 
-				NotificationOnUserRegisterEmailList.Text = PageContext.BoardSettings.NotificationOnUserRegisterEmailList;
-				AllowThemedLogo.Checked = PageContext.BoardSettings.AllowThemedLogo;
-			}
-		}
+        this.NotificationOnUserRegisterEmailList.Text = PageContext.BoardSettings.NotificationOnUserRegisterEmailList;
+        this.AllowThemedLogo.Checked = PageContext.BoardSettings.AllowThemedLogo;
+      }
+    }
 
-		private void SetSelectedOnList( ref DropDownList list, string value )
-		{
-			ListItem selItem = list.Items.FindByValue( value );
+    /// <summary>
+    /// The set selected on list.
+    /// </summary>
+    /// <param name="list">
+    /// The list.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    private void SetSelectedOnList(ref DropDownList list, string value)
+    {
+      ListItem selItem = list.Items.FindByValue(value);
 
-			if ( selItem != null )
-			{
-				selItem.Selected = true;
-			}
-			else if ( list.Items.Count > 0 ) 
-			{
-				// select the first...
-				list.SelectedIndex = 0;
-			}
-		}
+      if (selItem != null)
+      {
+        selItem.Selected = true;
+      }
+      else if (list.Items.Count > 0)
+      {
+        // select the first...
+        list.SelectedIndex = 0;
+      }
+    }
 
-		private void BindData()
-		{
-			DataRow row;
-			using ( DataTable dt = YAF.Classes.Data.DB.board_list( PageContext.PageBoardID ) )
-				row = dt.Rows [0];
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      DataRow row;
+      using (DataTable dt = DB.board_list(PageContext.PageBoardID))
+      {
+        row = dt.Rows[0];
+      }
 
-			DataBind();
-			Name.Text = ( string ) row ["Name"];
-			AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row ["AllowThreaded"]);
-		}
+      DataBind();
+      this.Name.Text = (string) row["Name"];
+      this.AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row["AllowThreaded"]);
+    }
 
-		protected void Save_Click( object sender, System.EventArgs e )
-		{
-			YAF.Classes.Data.DB.board_save( PageContext.PageBoardID, Name.Text, AllowThreaded.Checked );
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click(object sender, EventArgs e)
+    {
+      DB.board_save(PageContext.PageBoardID, this.Name.Text, this.AllowThreaded.Checked);
 
-			PageContext.BoardSettings.Theme = Theme.SelectedValue;
-			PageContext.BoardSettings.Language = Language.SelectedValue;
-			PageContext.BoardSettings.ShowTopicsDefault = Convert.ToInt32( ShowTopic.SelectedValue );
-			PageContext.BoardSettings.AllowThemedLogo = AllowThemedLogo.Checked;
-			PageContext.BoardSettings.FileExtensionAreAllowed = ( Convert.ToInt32( FileExtensionAllow.SelectedValue ) == 0 ? true : false );
-			PageContext.BoardSettings.NotificationOnUserRegisterEmailList = NotificationOnUserRegisterEmailList.Text.Trim();
+      PageContext.BoardSettings.Theme = this.Theme.SelectedValue;
+      PageContext.BoardSettings.Language = this.Language.SelectedValue;
+      PageContext.BoardSettings.ShowTopicsDefault = Convert.ToInt32(this.ShowTopic.SelectedValue);
+      PageContext.BoardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
+      PageContext.BoardSettings.FileExtensionAreAllowed = Convert.ToInt32(this.FileExtensionAllow.SelectedValue) == 0 ? true : false;
+      PageContext.BoardSettings.NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim();
 
-			/// save the settings to the database
-			((YafLoadBoardSettings)PageContext.BoardSettings).SaveRegistry();
+      // save the settings to the database
+      ((YafLoadBoardSettings) PageContext.BoardSettings).SaveRegistry();
 
-			/// Reload forum settings
-			PageContext.BoardSettings = null;
+      // Reload forum settings
+      PageContext.BoardSettings = null;
 
-			YafBuildLink.Redirect( ForumPages.admin_admin );
-		}
-	}
+      YafBuildLink.Redirect(ForumPages.admin_admin);
+    }
+  }
 }

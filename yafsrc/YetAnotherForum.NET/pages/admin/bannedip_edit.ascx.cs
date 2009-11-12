@@ -17,109 +17,133 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for bannedip_edit.
-	/// </summary>
-	public partial class bannedip_edit : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Banned IP Addresses", YafBuildLink.GetLink( ForumPages.admin_bannedip ) );
+  /// <summary>
+  /// Summary description for bannedip_edit.
+  /// </summary>
+  public partial class bannedip_edit : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Banned IP Addresses", YafBuildLink.GetLink(ForumPages.admin_bannedip));
 
-				BindData();
-			}
-		}
+        BindData();
+      }
+    }
 
-		private void BindData()
-		{
-			if ( Request.QueryString ["i"] != null )
-			{
-				DataRow row = YAF.Classes.Data.DB.bannedip_list( PageContext.PageBoardID, Request.QueryString ["i"] ).Rows [0];
-				mask.Text = ( string ) row ["Mask"];
-			}
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      if (Request.QueryString["i"] != null)
+      {
+        DataRow row = DB.bannedip_list(PageContext.PageBoardID, Request.QueryString["i"]).Rows[0];
+        this.mask.Text = (string) row["Mask"];
+      }
+    }
 
-		protected void Save_Click( object sender, EventArgs e )
-		{
-			String [] ipParts = mask.Text.Trim().Split( '.' );
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click(object sender, EventArgs e)
+    {
+      string[] ipParts = this.mask.Text.Trim().Split('.');
 
-			// do some validation...
-			string ipError = "";
+      // do some validation...
+      string ipError = string.Empty;
 
-			if ( ipParts.Length != 4 )
-			{
-				ipError += "Invalid IP address.";
-			}
+      if (ipParts.Length != 4)
+      {
+        ipError += "Invalid IP address.";
+      }
 
-			// see if they are numbers...
-			ulong number;
+      // see if they are numbers...
+      ulong number;
 
-			foreach ( string ip in ipParts )
-			{
-				if ( !ulong.TryParse( ip, out number ) )
-				{
-					if ( ip.Trim() != "*" )
-					{
-						if ( ip.Trim().Length == 0 )
-						{
-							ipError += "\r\nOne of the IP section does not have a value. Valid values are 0-255 or \"*\" for a wildcard.";
-						}
-						else
-						{
-							ipError += String.Format( "\r\n\"{0}\" is not a valid IP section value.", ip );
-						}
-						break;
-					}
-				}
-				else
-				{
-					// try parse succeeded... verify number amount...
-					if ( number > 255 )
-					{
-						ipError += String.Format( "\r\n\"{0}\" is not a valid IP section value (must be less then 255).", ip );
-					}
-				}
-			}
+      foreach (string ip in ipParts)
+      {
+        if (!ulong.TryParse(ip, out number))
+        {
+          if (ip.Trim() != "*")
+          {
+            if (ip.Trim().Length == 0)
+            {
+              ipError += "\r\nOne of the IP section does not have a value. Valid values are 0-255 or \"*\" for a wildcard.";
+            }
+            else
+            {
+              ipError += String.Format("\r\n\"{0}\" is not a valid IP section value.", ip);
+            }
 
-			// show error(s) if not valid...
-			if ( !String.IsNullOrEmpty( ipError )  )
-			{
-				PageContext.AddLoadMessage( ipError );
-				return;
-			}
+            break;
+          }
+        }
+        else
+        {
+          // try parse succeeded... verify number amount...
+          if (number > 255)
+          {
+            ipError += String.Format("\r\n\"{0}\" is not a valid IP section value (must be less then 255).", ip);
+          }
+        }
+      }
 
-			YAF.Classes.Data.DB.bannedip_save( Request.QueryString ["i"], PageContext.PageBoardID, mask.Text.Trim() );
+      // show error(s) if not valid...
+      if (!String.IsNullOrEmpty(ipError))
+      {
+        PageContext.AddLoadMessage(ipError);
+        return;
+      }
 
-			// clear cache of banned IPs for this board
-			PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.BannedIP ) );
+      DB.bannedip_save(Request.QueryString["i"], PageContext.PageBoardID, this.mask.Text.Trim());
 
-			// go back to banned IP's administration page
-			YafBuildLink.Redirect( ForumPages.admin_bannedip );
-		}
+      // clear cache of banned IPs for this board
+      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
 
-		protected void Cancel_Click( object sender, EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_bannedip );
-		}
-	}
+      // go back to banned IP's administration page
+      YafBuildLink.Redirect(ForumPages.admin_bannedip);
+    }
+
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_bannedip);
+    }
+  }
 }

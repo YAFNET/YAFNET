@@ -17,91 +17,112 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	public partial class replacewords_import : YAF.Classes.Core.AdminPage
-	{
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Import Replace Words", "" );
-			}
-		}
+  using System;
+  using System.Data;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Cancel_OnClick( object sender, System.EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_replacewords );
-		}
+  /// <summary>
+  /// The replacewords_import.
+  /// </summary>
+  public partial class replacewords_import : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Import Replace Words", string.Empty);
+      }
+    }
 
-		protected void Import_OnClick( object sender, System.EventArgs e )
-		{
-			// import selected file (if it's the proper format)...
-			if ( importFile.PostedFile.ContentType == "text/xml" )
-			{
-				try
-				{
-					// import replace words...
-					DataSet dsReplaceWords = new DataSet();
-					dsReplaceWords.ReadXml( importFile.PostedFile.InputStream );
+    /// <summary>
+    /// The cancel_ on click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_OnClick(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_replacewords);
+    }
 
-					if (	dsReplaceWords.Tables ["YafReplaceWords"] != null &&
-								dsReplaceWords.Tables ["YafReplaceWords"].Columns["badword"] != null &&
-								dsReplaceWords.Tables ["YafReplaceWords"].Columns["goodword"] != null )
-					{
-						int importedCount = 0;
+    /// <summary>
+    /// The import_ on click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Import_OnClick(object sender, EventArgs e)
+    {
+      // import selected file (if it's the proper format)...
+      if (this.importFile.PostedFile.ContentType == "text/xml")
+      {
+        try
+        {
+          // import replace words...
+          var dsReplaceWords = new DataSet();
+          dsReplaceWords.ReadXml(this.importFile.PostedFile.InputStream);
 
-						DataTable replaceWordsList = DB.replace_words_list( PageContext.PageBoardID, null );
-						// import any extensions that don't exist...
-						foreach ( DataRow row in dsReplaceWords.Tables ["YafReplaceWords"].Rows )
-						{
-							if ( replaceWordsList.Select( String.Format( "badword = '{0}' AND goodword = '{1}'", row["badword"].ToString(), row["goodword"].ToString() ) ).Length == 0 )
-							{
-								// add this...
-								DB.replace_words_save( PageContext.PageBoardID, null, row["badword"], row["goodword"]);
-								importedCount++;
-							}
-						}
+          if (dsReplaceWords.Tables["YafReplaceWords"] != null && dsReplaceWords.Tables["YafReplaceWords"].Columns["badword"] != null &&
+              dsReplaceWords.Tables["YafReplaceWords"].Columns["goodword"] != null)
+          {
+            int importedCount = 0;
 
-						if ( importedCount > 0 )
-						{
-							PageContext.LoadMessage.AddSession( String.Format( "{0} new replacement word(s) were imported successfully.", importedCount ) );
+            DataTable replaceWordsList = DB.replace_words_list(PageContext.PageBoardID, null);
 
-						}
-						else
-						{
-							PageContext.LoadMessage.AddSession(
-								String.Format( "Nothing imported: no new replacement words were found in the upload.", importedCount ) );
-						}
+            // import any extensions that don't exist...
+            foreach (DataRow row in dsReplaceWords.Tables["YafReplaceWords"].Rows)
+            {
+              if (replaceWordsList.Select(String.Format("badword = '{0}' AND goodword = '{1}'", row["badword"], row["goodword"])).Length == 0)
+              {
+                // add this...
+                DB.replace_words_save(PageContext.PageBoardID, null, row["badword"], row["goodword"]);
+                importedCount++;
+              }
+            }
 
-						YafBuildLink.Redirect( ForumPages.admin_replacewords );
-					}
-					else
-					{
-						PageContext.AddLoadMessage( "Failed to import: Import file format is different than expected." );
-					}
-				}
-				catch (Exception x)
-				{
-					PageContext.AddLoadMessage( "Failed to import: " + x.Message );
-				}
-			}
-		}
-	}
+            if (importedCount > 0)
+            {
+              PageContext.LoadMessage.AddSession(String.Format("{0} new replacement word(s) were imported successfully.", importedCount));
+            }
+            else
+            {
+              PageContext.LoadMessage.AddSession(String.Format("Nothing imported: no new replacement words were found in the upload.", importedCount));
+            }
+
+            YafBuildLink.Redirect(ForumPages.admin_replacewords);
+          }
+          else
+          {
+            PageContext.AddLoadMessage("Failed to import: Import file format is different than expected.");
+          }
+        }
+        catch (Exception x)
+        {
+          PageContext.AddLoadMessage("Failed to import: " + x.Message);
+        }
+      }
+    }
+  }
 }

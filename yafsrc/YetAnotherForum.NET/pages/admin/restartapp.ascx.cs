@@ -1,5 +1,5 @@
-﻿/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bj�rnar Henden
  * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -18,42 +18,59 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Web;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for restartapp.
-	/// </summary>
-	public partial class restartapp : YAF.Classes.Core.AdminPage
-	{
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YafBuildLink.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Restart Application", "" );
-			}
+  using System;
+  using System.Web;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-			DataBind();
-		}
+  /// <summary>
+  /// Summary description for restartapp.
+  /// </summary>
+  public partial class restartapp : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Restart Application");
+      }
 
-		protected void RestartApp_Click( object sender, EventArgs e )
-		{
-			if ( General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High )
-			{
-				System.Web.HttpRuntime.UnloadAppDomain();
-			}
-			else
-			{
-				PageContext.LoadMessage.Add( "Must have High/Unrestricted Trust to Unload Application. Restart Failed." );
-			}
-		}
-	}
+      DataBind();
+    }
+
+    /// <summary>
+    /// The restart app_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void RestartApp_Click(object sender, EventArgs e)
+    {
+      if (General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High)
+      {
+        HttpRuntime.UnloadAppDomain();
+      }
+      else
+      {
+        PageContext.LoadMessage.Add("Must have High/Unrestricted Trust to Unload Application. Restart Failed.");
+      }
+    }
+  }
 }
-
