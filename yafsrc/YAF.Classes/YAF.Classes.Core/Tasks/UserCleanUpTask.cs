@@ -19,13 +19,7 @@
 namespace YAF.Modules
 {
   using System;
-  using System.Collections.Generic;
-  using System.Data;
-  using System.Linq;
-  using System.Threading;
   using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Utils;
 
   /// <summary>
   /// The user clean up task module.
@@ -97,6 +91,14 @@ namespace YAF.Modules
 
 namespace YAF.Classes.Core
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Data;
+  using System.Linq;
+  using System.Threading;
+  using Data;
+  using Utils;
+
   /// <summary>
   /// Does some user clean up tasks such as unsuspending users...
   /// </summary>
