@@ -17,95 +17,151 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
+using System.Collections.Specialized;
 using System.Data;
 using System.Web.UI;
 using YAF.Classes;
 using YAF.Classes.Core;
+using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Summary description for ForumJump.
-	/// </summary>
-	public class ForumJump : BaseControl, System.Web.UI.IPostBackDataHandler
-	{
-		private void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !Page.IsPostBack )
-				ForumID = PageContext.PageForumID;
-		}
+  /// <summary>
+  /// Summary description for ForumJump.
+  /// </summary>
+  public class ForumJump : BaseControl, IPostBackDataHandler
+  {
+    /// <summary>
+    /// Gets or sets ForumID.
+    /// </summary>
+    private int ForumID
+    {
+      get
+      {
+        return (int) ViewState["ForumID"];
+      }
 
-		override protected void OnInit( EventArgs e )
-		{
-			this.Load += new System.EventHandler( this.Page_Load );
-			base.OnInit( e );
-		}
+      set
+      {
+        ViewState["ForumID"] = value;
+      }
+    }
 
-		private int ForumID
-		{
-			get
-			{
-				return ( int ) ViewState ["ForumID"];
-			}
-			set
-			{
-				ViewState ["ForumID"] = value;
-			}
-		}
+    #region IPostBackDataHandler
 
-		#region IPostBackDataHandler
-		public virtual bool LoadPostData( string postDataKey, System.Collections.Specialized.NameValueCollection postCollection )
-		{
-			int forumID;
-			if ( int.TryParse( postCollection [postDataKey], out forumID ) &&
-				forumID != ForumID )
-			{
-				this.ForumID = forumID;
-				return true;
-			}
+    /// <summary>
+    /// The load post data.
+    /// </summary>
+    /// <param name="postDataKey">
+    /// The post data key.
+    /// </param>
+    /// <param name="postCollection">
+    /// The post collection.
+    /// </param>
+    /// <returns>
+    /// The load post data.
+    /// </returns>
+    public virtual bool LoadPostData(string postDataKey, NameValueCollection postCollection)
+    {
+      int forumID;
+      if (int.TryParse(postCollection[postDataKey], out forumID) && forumID != ForumID)
+      {
+        ForumID = forumID;
+        return true;
+      }
 
-			return false;
-		}
+      return false;
+    }
 
-		public virtual void RaisePostDataChangedEvent()
-		{
-			// Ederon : 9/4/2007
-			if ( ForumID > 0 )
-				YAF.Classes.Utils.YafBuildLink.Redirect( ForumPages.topics, "f={0}", ForumID );
-			else
-				YAF.Classes.Utils.YafBuildLink.Redirect( ForumPages.forum, "c={0}", -ForumID );
-		}
-		#endregion
+    /// <summary>
+    /// The raise post data changed event.
+    /// </summary>
+    public virtual void RaisePostDataChangedEvent()
+    {
+      // Ederon : 9/4/2007
+      if (ForumID > 0)
+      {
+        YafBuildLink.Redirect(ForumPages.topics, "f={0}", ForumID);
+      }
+      else
+      {
+        YafBuildLink.Redirect(ForumPages.forum, "c={0}", -ForumID);
+      }
+    }
 
-		protected override void Render( System.Web.UI.HtmlTextWriter writer )
-		{
-			string cacheKey =
-				YafCache.GetBoardCacheKey( String.Format( Constants.Cache.ForumJump,
-				                                          PageContext.User != null ? PageContext.PageUserID.ToString() : "Guest" ) );
-			DataTable dataTable;
-			if ( PageContext.Cache [cacheKey] != null )
-			{
-				dataTable = ( DataTable ) PageContext.Cache [cacheKey];
-			}
-			else
-			{
-				dataTable = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
-				PageContext.Cache.Insert( cacheKey, dataTable, null, DateTime.Now.AddMinutes( 5 ), TimeSpan.Zero );
-			}
+    #endregion
 
-			writer.WriteLine( String.Format( @"<select name=""{0}"" onchange=""{1}"" id=""{2}"">", this.UniqueID, Page.ClientScript.GetPostBackClientHyperlink( this, this.ID ), this.ClientID ) );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Page_Load(object sender, EventArgs e)
+    {
+      if (!Page.IsPostBack)
+      {
+        ForumID = PageContext.PageForumID;
+      }
+    }
 
-			int forumID = PageContext.PageForumID;
-			if ( forumID <= 0 )
-				writer.WriteLine( "<option/>" );
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      Load += new EventHandler(Page_Load);
+      base.OnInit(e);
+    }
 
-			foreach ( DataRow row in dataTable.Rows )
-			{
-				writer.WriteLine( string.Format( @"<option {2}value=""{0}"">{1}</option>", row ["ForumID"], HtmlEncode( row ["Title"] ), Convert.ToString( row ["ForumID"] ) == forumID.ToString() ? @"selected=""selected"" " : "" ) );
-			}
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      string cacheKey =
+        YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ForumJump, PageContext.User != null ? PageContext.PageUserID.ToString() : "Guest"));
+      DataTable dataTable;
+      if (PageContext.Cache[cacheKey] != null)
+      {
+        dataTable = (DataTable) PageContext.Cache[cacheKey];
+      }
+      else
+      {
+        dataTable = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
+        PageContext.Cache.Insert(cacheKey, dataTable, null, DateTime.Now.AddMinutes(5), TimeSpan.Zero);
+      }
 
-			writer.WriteLine( "</select>" );
-		}
-	}
+      writer.WriteLine(
+        String.Format(@"<select name=""{0}"" onchange=""{1}"" id=""{2}"">", UniqueID, Page.ClientScript.GetPostBackClientHyperlink(this, ID), ClientID));
+
+      int forumID = PageContext.PageForumID;
+      if (forumID <= 0)
+      {
+        writer.WriteLine("<option/>");
+      }
+
+      foreach (DataRow row in dataTable.Rows)
+      {
+        writer.WriteLine(
+          string.Format(
+            @"<option {2}value=""{0}"">{1}</option>", 
+            row["ForumID"], 
+            HtmlEncode(row["Title"]), 
+            Convert.ToString(row["ForumID"]) == forumID.ToString() ? @"selected=""selected"" " : string.Empty));
+      }
+
+      writer.WriteLine("</select>");
+    }
+  }
 }

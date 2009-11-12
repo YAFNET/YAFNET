@@ -23,146 +23,219 @@ using YAF.Classes.UI;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Shows a Message Post
-	/// </summary>
-	public class MessagePost : MessageBase
-	{
-		public MessagePost()
-			: base()
-		{
+  /// <summary>
+  /// Shows a Message Post
+  /// </summary>
+  public class MessagePost : MessageBase
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MessagePost"/> class.
+    /// </summary>
+    public MessagePost()
+      : base()
+    {
+    }
 
-		}
+    /// <summary>
+    /// Gets or sets DisplayUserID.
+    /// </summary>
+    public virtual int? DisplayUserID
+    {
+      get
+      {
+        if (ViewState["DisplayUserID"] != null)
+        {
+          return Convert.ToInt32(ViewState["DisplayUserID"]);
+        }
 
-		protected override void OnPreRender( EventArgs e )
-		{
-			if ( !String.IsNullOrEmpty( this.Signature ) )
-			{
-				MessageSignature sig = new MessageSignature();
-				sig.Signature = this.Signature;
-				sig.DisplayUserID = this.DisplayUserID;
-				this.Controls.Add( sig );
-			}
+        return null;
+      }
 
-			base.OnPreRender( e );
-		}
+      set
+      {
+        ViewState["DisplayUserID"] = value;
+      }
+    }
 
-		protected override void Render( HtmlTextWriter writer )
-		{
-			writer.BeginRender();
-			writer.WriteBeginTag( "div" );
-			writer.WriteAttribute( "id", this.ClientID );
-			writer.Write( HtmlTextWriter.TagRightChar );
+    /// <summary>
+    /// Gets or sets Signature.
+    /// </summary>
+    public virtual string Signature
+    {
+      get
+      {
+        if (ViewState["Signature"] != null)
+        {
+          return ViewState["Signature"].ToString();
+        }
 
-			RenderMessage( writer );
+        return null;
+      }
 
-			// render controls...
-			base.Render( writer );
+      set
+      {
+        ViewState["Signature"] = value;
+      }
+    }
 
-			writer.WriteEndTag( "div" );
-			writer.EndRender();
-		}
+    /// <summary>
+    /// Gets or sets Message.
+    /// </summary>
+    public virtual string Message
+    {
+      get
+      {
+        if (ViewState["Message"] != null)
+        {
+          return ViewState["Message"].ToString();
+        }
 
-		virtual protected void RenderMessage( HtmlTextWriter writer )
-		{
-			if ( this.MessageFlags.IsDeleted )
-			{
-				// deleted message text...
-				RenderDeletedMessage( writer );
-			}
-			else if ( this.MessageFlags.NotFormatted )
-			{
-				writer.Write( this.Message );
-			}
-			else
-			{
-				string formattedMessage = FormatMsg.FormatMessage( this.Message, this.MessageFlags );
+        return null;
+      }
 
-				if ( this.MessageFlags.IsBBCode )
-					RenderModulesInBBCode( writer, formattedMessage, this.MessageFlags, this.DisplayUserID );
-				else
-					writer.Write( formattedMessage );
-			}
-		}
+      set
+      {
+        ViewState["Message"] = value;
+      }
+    }
 
-		virtual protected void RenderDeletedMessage( HtmlTextWriter writer )
-		{
-			// if message was deleted then write that instead of real body
-			if ( MessageFlags.IsDeleted )
-			{
-				if ( IsModeratorChanged )
-				{
-					// deleted by mod
-					writer.Write( PageContext.Localization.GetText( "POSTS", "MESSAGEDELETED_MOD" ) );
-				}
-				else
-				{
-					// deleted by user
-					writer.Write( PageContext.Localization.GetText( "POSTS", "MESSAGEDELETED_USER" ) );
-				}
-			}
-		}
+    /// <summary>
+    /// Gets or sets a value indicating whether IsModeratorChanged.
+    /// </summary>
+    public virtual bool IsModeratorChanged
+    {
+      get
+      {
+        if (ViewState["IsModeratorChanged"] != null)
+        {
+          return Convert.ToBoolean(ViewState["IsModeratorChanged"]);
+        }
 
-		virtual public int? DisplayUserID
-		{
-			get
-			{
-				if ( ViewState ["DisplayUserID"] != null )
-					return Convert.ToInt32( ViewState ["DisplayUserID"] );
+        return false;
+      }
 
-				return null;
-			}
-			set { ViewState ["DisplayUserID"] = value; }
-		}
+      set
+      {
+        ViewState["IsModeratorChanged"] = value;
+      }
+    }
 
-		virtual public string Signature
-		{
-			get
-			{
-				if ( ViewState ["Signature"] != null )
-					return ViewState ["Signature"].ToString();
+    /// <summary>
+    /// Gets or sets MessageFlags.
+    /// </summary>
+    public virtual MessageFlags MessageFlags
+    {
+      get
+      {
+        if (ViewState["MessageFlags"] == null)
+        {
+          ViewState["MessageFlags"] = new MessageFlags(0);
+        }
 
-				return null;
-			}
-			set { ViewState ["Signature"] = value; }
-		}
+        return ViewState["MessageFlags"] as MessageFlags;
+      }
 
-		virtual public string Message
-		{
-			get
-			{
-				if ( ViewState ["Message"] != null )
-					return ViewState ["Message"].ToString();
+      set
+      {
+        ViewState["MessageFlags"] = value;
+      }
+    }
 
-				return null;
-			}
-			set { ViewState ["Message"] = value; }
-		}
+    /// <summary>
+    /// The on pre render.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+      if (!String.IsNullOrEmpty(Signature))
+      {
+        var sig = new MessageSignature();
+        sig.Signature = Signature;
+        sig.DisplayUserID = DisplayUserID;
+        Controls.Add(sig);
+      }
 
-		virtual public bool IsModeratorChanged
-		{
-			get
-			{
-				if ( ViewState ["IsModeratorChanged"] != null )
-					return Convert.ToBoolean(ViewState ["IsModeratorChanged"]);
+      base.OnPreRender(e);
+    }
 
-				return false;
-			}
-			set { ViewState ["IsModeratorChanged"] = value; }
-		}
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      writer.BeginRender();
+      writer.WriteBeginTag("div");
+      writer.WriteAttribute("id", ClientID);
+      writer.Write(HtmlTextWriter.TagRightChar);
 
-		virtual public MessageFlags MessageFlags
-		{
-			get
-			{
-				if ( ViewState ["MessageFlags"] == null )
-				{
-					ViewState ["MessageFlags"] = new MessageFlags( 0 );
-				}
-				
-				return ViewState ["MessageFlags"] as MessageFlags;
-			}
-			set { ViewState ["MessageFlags"] = value; }
-		}
-	}
+      RenderMessage(writer);
+
+      // render controls...
+      base.Render(writer);
+
+      writer.WriteEndTag("div");
+      writer.EndRender();
+    }
+
+    /// <summary>
+    /// The render message.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected virtual void RenderMessage(HtmlTextWriter writer)
+    {
+      if (MessageFlags.IsDeleted)
+      {
+        // deleted message text...
+        RenderDeletedMessage(writer);
+      }
+      else if (MessageFlags.NotFormatted)
+      {
+        writer.Write(Message);
+      }
+      else
+      {
+        string formattedMessage = FormatMsg.FormatMessage(Message, MessageFlags);
+
+        if (MessageFlags.IsBBCode)
+        {
+          RenderModulesInBBCode(writer, formattedMessage, MessageFlags, DisplayUserID);
+        }
+        else
+        {
+          writer.Write(formattedMessage);
+        }
+      }
+    }
+
+    /// <summary>
+    /// The render deleted message.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected virtual void RenderDeletedMessage(HtmlTextWriter writer)
+    {
+      // if message was deleted then write that instead of real body
+      if (MessageFlags.IsDeleted)
+      {
+        if (IsModeratorChanged)
+        {
+          // deleted by mod
+          writer.Write(PageContext.Localization.GetText("POSTS", "MESSAGEDELETED_MOD"));
+        }
+        else
+        {
+          // deleted by user
+          writer.Write(PageContext.Localization.GetText("POSTS", "MESSAGEDELETED_USER"));
+        }
+      }
+    }
+  }
 }

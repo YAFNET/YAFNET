@@ -19,128 +19,184 @@
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public class CollapsibleImage : ImageButton
-	{
-		public YafContext PageContext
-		{
-			get
-			{
-				if ( this.Site != null && this.Site.DesignMode == true )
-				{
-					// design-time, return null...
-					return null;
-				}
-				return YafContext.Current;
-			}
-		}
+  /// <summary>
+  /// The collapsible image.
+  /// </summary>
+  public class CollapsibleImage : ImageButton
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CollapsibleImage"/> class.
+    /// </summary>
+    public CollapsibleImage()
+    {
+    }
 
-		public CollapsibleImage()
-		{
+    /// <summary>
+    /// Gets PageContext.
+    /// </summary>
+    public YafContext PageContext
+    {
+      get
+      {
+        if (Site != null && Site.DesignMode == true)
+        {
+          // design-time, return null...
+          return null;
+        }
 
-		}
+        return YafContext.Current;
+      }
+    }
 
-		protected override void OnClick( ImageClickEventArgs e )
-		{
-			// toggle the status...
-			Mession.PanelState.TogglePanelState( PanelID, DefaultState );
-			UpdateAttachedVisibility();
+    /// <summary>
+    /// Gets or sets PanelID.
+    /// </summary>
+    public string PanelID
+    {
+      get
+      {
+        if (ViewState["PanelID"] != null)
+        {
+          return ViewState["PanelID"].ToString();
+        }
 
-			base.OnClick( e );
-		}
+        return null;
+      }
 
-		protected override void OnPreRender( EventArgs e )
-		{
-			// setup inital image state...
-			this.ImageUrl = PageContext.Theme.GetCollapsiblePanelImageURL( PanelID, DefaultState );
-			UpdateAttachedVisibility();
+      set
+      {
+        ViewState["PanelID"] = value;
+      }
+    }
 
-			base.OnPreRender( e );
-		}
+    /// <summary>
+    /// Gets or sets PanelState.
+    /// </summary>
+    public PanelSessionState.CollapsiblePanelState PanelState
+    {
+      get
+      {
+        return Mession.PanelState[PanelID];
+      }
 
-		protected void UpdateAttachedVisibility()
-		{
-			if ( GetAttachedControl() != null )
-			{
-				// modify the visability depending on the status...
-				GetAttachedControl().Visible = ( PanelState == PanelSessionState.CollapsiblePanelState.Expanded );
-			}			
-		}
+      set
+      {
+        Mession.PanelState[PanelID] = value;
+      }
+    }
 
-		protected Control GetAttachedControl()
-		{
-			Control control = null;
+    /// <summary>
+    /// Gets or sets DefaultState.
+    /// </summary>
+    public PanelSessionState.CollapsiblePanelState DefaultState
+    {
+      get
+      {
+        PanelSessionState.CollapsiblePanelState defaultState = PanelSessionState.CollapsiblePanelState.Expanded;
 
-			if ( !String.IsNullOrEmpty( AttachedControlID ))
-			{
-				// attempt to find this control...
-				control = Parent.FindControl( AttachedControlID ) as Control;
-			}
+        if (ViewState["DefaultState"] != null)
+        {
+          defaultState = (PanelSessionState.CollapsiblePanelState) ViewState["DefaultState"];
+        }
 
-			return control;
-		}
+        if (defaultState == PanelSessionState.CollapsiblePanelState.None)
+        {
+          defaultState = PanelSessionState.CollapsiblePanelState.Expanded;
+        }
 
-		public string PanelID
-		{
-			get
-			{
-				if ( ViewState ["PanelID"] != null )
-					return ViewState ["PanelID"].ToString();
+        return defaultState;
+      }
 
-				return null;
-			}
-			set { ViewState ["PanelID"] = value; }
-		}
+      set
+      {
+        ViewState["DefaultState"] = value;
+      }
+    }
 
-		public PanelSessionState.CollapsiblePanelState PanelState
-		{
-			get
-			{
-				return Mession.PanelState [PanelID];
-			}
-			set
-			{
-				Mession.PanelState [PanelID] = value;
-			}			
-		}
+    /// <summary>
+    /// Gets or sets AttachedControlID.
+    /// </summary>
+    public string AttachedControlID
+    {
+      get
+      {
+        if (ViewState["AttachedControlID"] != null)
+        {
+          return ViewState["AttachedControlID"].ToString();
+        }
 
-		public PanelSessionState.CollapsiblePanelState DefaultState
-		{
-			get
-			{
-				PanelSessionState.CollapsiblePanelState defaultState = PanelSessionState.CollapsiblePanelState.Expanded;
+        return null;
+      }
 
-				if ( ViewState ["DefaultState"] != null )
-					defaultState = ( PanelSessionState.CollapsiblePanelState ) ViewState["DefaultState"];
+      set
+      {
+        ViewState["AttachedControlID"] = value;
+      }
+    }
 
-				if ( defaultState == PanelSessionState.CollapsiblePanelState.None )
-				{
-					defaultState = PanelSessionState.CollapsiblePanelState.Expanded;
-				}
+    /// <summary>
+    /// The on click.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnClick(ImageClickEventArgs e)
+    {
+      // toggle the status...
+      Mession.PanelState.TogglePanelState(PanelID, DefaultState);
+      UpdateAttachedVisibility();
 
-				return defaultState;
-			}
-			set
-			{
-				ViewState ["DefaultState"] = value;
-			}			
-		}
+      base.OnClick(e);
+    }
 
-		public string AttachedControlID
-		{
-			get
-			{
-				if ( ViewState ["AttachedControlID"] != null )
-					return ViewState ["AttachedControlID"].ToString();
+    /// <summary>
+    /// The on pre render.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+      // setup inital image state...
+      ImageUrl = PageContext.Theme.GetCollapsiblePanelImageURL(PanelID, DefaultState);
+      UpdateAttachedVisibility();
 
-				return null;
-			}
-			set { ViewState ["AttachedControlID"] = value; }			
-		}
-	}
+      base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// The update attached visibility.
+    /// </summary>
+    protected void UpdateAttachedVisibility()
+    {
+      if (GetAttachedControl() != null)
+      {
+        // modify the visability depending on the status...
+        GetAttachedControl().Visible = PanelState == PanelSessionState.CollapsiblePanelState.Expanded;
+      }
+    }
+
+    /// <summary>
+    /// The get attached control.
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    protected Control GetAttachedControl()
+    {
+      Control control = null;
+
+      if (!String.IsNullOrEmpty(AttachedControlID))
+      {
+        // attempt to find this control...
+        control = Parent.FindControl(AttachedControlID) as Control;
+      }
+
+      return control;
+    }
+  }
 }

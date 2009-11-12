@@ -1,179 +1,288 @@
 using System;
-using System.Collections.Generic;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using System.Text;
+using System.Web.UI.WebControls;
 
 namespace YAF.Controls
 {
-	public class GotoPageForumEventArgs : EventArgs
-	{
-		public GotoPageForumEventArgs( int gotoPage )
-			: base()
-		{
-			this.GotoPage = gotoPage;
-		}
+  /// <summary>
+  /// The goto page forum event args.
+  /// </summary>
+  public class GotoPageForumEventArgs : EventArgs
+  {
+    /// <summary>
+    /// The _goto page.
+    /// </summary>
+    private int _gotoPage;
 
-		private int _gotoPage;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GotoPageForumEventArgs"/> class.
+    /// </summary>
+    /// <param name="gotoPage">
+    /// The goto page.
+    /// </param>
+    public GotoPageForumEventArgs(int gotoPage)
+      : base()
+    {
+      GotoPage = gotoPage;
+    }
 
-		public int GotoPage
-		{
-			get { return _gotoPage; }
-			set { _gotoPage = value; }
-		}
-	}
+    /// <summary>
+    /// Gets or sets GotoPage.
+    /// </summary>
+    public int GotoPage
+    {
+      get
+      {
+        return this._gotoPage;
+      }
 
-	public class GotoPageForm : BaseControl
-	{
-		private Panel _mainPanel = new Panel();
-		private TextBox _gotoTextBox = new TextBox();
-		private Button _gotoButton = new Button();
-		private Label _headerText = new Label();
-		private HtmlGenericControl _divInner = new HtmlGenericControl();
+      set
+      {
+        this._gotoPage = value;
+      }
+    }
+  }
 
-		public Panel MainPanel
-		{
-			get
-			{
-				return _mainPanel;
-			}
-		}
+  /// <summary>
+  /// The goto page form.
+  /// </summary>
+  public class GotoPageForm : BaseControl
+  {
+    /// <summary>
+    /// The _div inner.
+    /// </summary>
+    private HtmlGenericControl _divInner = new HtmlGenericControl();
 
-		public HtmlGenericControl InnerDiv
-		{
-			get
-			{
-				return _divInner;
-			}
-		}
+    /// <summary>
+    /// The _goto button.
+    /// </summary>
+    private Button _gotoButton = new Button();
 
-		public GotoPageForm()
-			: base()
-		{
+    /// <summary>
+    /// The _goto page value.
+    /// </summary>
+    private int _gotoPageValue;
 
-		}
+    /// <summary>
+    /// The _goto text box.
+    /// </summary>
+    private TextBox _gotoTextBox = new TextBox();
 
-		protected override void OnInit( EventArgs e )
-		{
-			base.OnInit( e );
+    /// <summary>
+    /// The _header text.
+    /// </summary>
+    private Label _headerText = new Label();
 
-			BuildForm();
-		}
+    /// <summary>
+    /// The _main panel.
+    /// </summary>
+    private Panel _mainPanel = new Panel();
 
-		protected override void OnLoad( EventArgs e )
-		{
-			base.OnLoad( e );
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GotoPageForm"/> class.
+    /// </summary>
+    public GotoPageForm()
+      : base()
+    {
+    }
 
-			// localization has to be done in here so as to not attempt
-			// to localize before the class has been created
-			if ( !String.IsNullOrEmpty( PageContext.Localization.TransPage ) )
-			{
-				_headerText.Text = PageContext.Localization.GetText( "COMMON", "GOTOPAGE_HEADER" );
-				_gotoButton.Text = PageContext.Localization.GetText( "COMMON", "GO" );
-			}
-			else
-			{
-				// non-localized for admin pages
-				_headerText.Text = "Goto Page...";
-				_gotoButton.Text = "Go";
-			}
-		}
+    /// <summary>
+    /// Gets MainPanel.
+    /// </summary>
+    public Panel MainPanel
+    {
+      get
+      {
+        return this._mainPanel;
+      }
+    }
 
-		protected void BuildForm()
-		{
-			this.Controls.Add( _mainPanel );
+    /// <summary>
+    /// Gets InnerDiv.
+    /// </summary>
+    public HtmlGenericControl InnerDiv
+    {
+      get
+      {
+        return this._divInner;
+      }
+    }
 
-			_mainPanel.CssClass = "gotoBase";
-			_mainPanel.ID = GetExtendedID( "gotoBase" );
+    /// <summary>
+    /// Gets or sets GotoPageValue.
+    /// </summary>
+    public int GotoPageValue
+    {
+      get
+      {
+        return this._gotoPageValue;
+      }
 
-			HtmlGenericControl divHeader = new HtmlGenericControl( "div" );
+      set
+      {
+        this._gotoPageValue = value;
+      }
+    }
 
-			divHeader.Attributes.Add( "class", "gotoHeader" );
-			divHeader.ID = GetExtendedID( "divHeader" );
+    /// <summary>
+    /// Gets GotoTextBoxClientID.
+    /// </summary>
+    public string GotoTextBoxClientID
+    {
+      get
+      {
+        return this._gotoTextBox.ClientID;
+      }
+    }
 
-			_mainPanel.Controls.Add( divHeader );
+    /// <summary>
+    /// Gets GotoButtonClientID.
+    /// </summary>
+    public string GotoButtonClientID
+    {
+      get
+      {
+        return this._gotoButton.ClientID;
+      }
+    }
 
-			_headerText.ID = GetExtendedID( "headerText" );
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      base.OnInit(e);
 
-			divHeader.Controls.Add( _headerText );
+      BuildForm();
+    }
 
-			_divInner.Attributes.Add( "class", "gotoInner" );
-			_divInner.ID = GetExtendedID( "gotoInner" );
+    /// <summary>
+    /// The on load.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnLoad(EventArgs e)
+    {
+      base.OnLoad(e);
 
-			_mainPanel.Controls.Add( _divInner );
+      // localization has to be done in here so as to not attempt
+      // to localize before the class has been created
+      if (!String.IsNullOrEmpty(PageContext.Localization.TransPage))
+      {
+        this._headerText.Text = PageContext.Localization.GetText("COMMON", "GOTOPAGE_HEADER");
+        this._gotoButton.Text = PageContext.Localization.GetText("COMMON", "GO");
+      }
+      else
+      {
+        // non-localized for admin pages
+        this._headerText.Text = "Goto Page...";
+        this._gotoButton.Text = "Go";
+      }
+    }
 
-			_gotoButton.ID = GetExtendedID( "GotoButton" );
-			_gotoButton.Style.Add( HtmlTextWriterStyle.Width, "30px" );
-			_gotoButton.CausesValidation = false;
-			_gotoButton.UseSubmitBehavior = false;
-			_gotoButton.Click += new EventHandler( GotoButtonClick );		
+    /// <summary>
+    /// The build form.
+    /// </summary>
+    protected void BuildForm()
+    {
+      Controls.Add(this._mainPanel);
 
-			// text box...
+      this._mainPanel.CssClass = "gotoBase";
+      this._mainPanel.ID = GetExtendedID("gotoBase");
 
-			_gotoTextBox.ID = GetExtendedID( "GotoTextBox" );
-			_gotoTextBox.Style.Add( HtmlTextWriterStyle.Width, "30px" );
+      var divHeader = new HtmlGenericControl("div");
 
-			_divInner.Controls.Add( _gotoTextBox );
-			_divInner.Controls.Add( _gotoButton );
+      divHeader.Attributes.Add("class", "gotoHeader");
+      divHeader.ID = GetExtendedID("divHeader");
 
-			PageContext.PageElements.RegisterJsBlockStartup( String.Format( @"GotoPageFormKeyUp_{0}", this.ClientID ),
-																											 String.Format(
-																												@"Sys.Application.add_load(function() {{ jQuery('#{0}').bind('keydown', function(e) {{ if(e.keyCode == 13) {{ jQuery('#{1}').click(); return false; }} }}); }});",
-																												_gotoTextBox.ClientID, _gotoButton.ClientID ) );
+      this._mainPanel.Controls.Add(divHeader);
 
-			// add enter key support...
-			//_gotoTextBox.Attributes.Add( "onkeydown",
-			//                             String.Format(
-			//                              @"if( ( event.which || event.keyCode ) && (event.which == 13 || event.keyCode == 13) ) {{ jQuery('#{0}').click(); return false; }} return true;",
-			//                              _gotoButton.ClientID ) );
-			//document.getElementById('" +
-			//                             _gotoButton.ClientID + "').click();return false;}} else {return true}; ") );
-		}
+      this._headerText.ID = GetExtendedID("headerText");
 
-		protected override void Render( HtmlTextWriter writer )
-		{
-			writer.WriteLine( String.Format( @"<div id=""{0}"" style=""display:none"" class=""gotoPageForm"">", this.ClientID ) );
+      divHeader.Controls.Add(this._headerText);
 
-			base.Render( writer );
+      this._divInner.Attributes.Add("class", "gotoInner");
+      this._divInner.ID = GetExtendedID("gotoInner");
 
-			writer.WriteLine( "</div>" );
-		}
+      this._mainPanel.Controls.Add(this._divInner);
 
-		protected void GotoButtonClick( object sender, EventArgs e )
-		{
-			if ( GotoPageClick != null )
-			{
-				// attempt to parse the page value...
-				if ( int.TryParse( _gotoTextBox.Text.Trim(), out _gotoPageValue ) )
-				{
-					// valid, fire the event...
-					GotoPageClick( this, new GotoPageForumEventArgs( GotoPageValue ) );
-				}
-			}
-			// clear the old value...
-			_gotoTextBox.Text = "";
-		}
+      this._gotoButton.ID = GetExtendedID("GotoButton");
+      this._gotoButton.Style.Add(HtmlTextWriterStyle.Width, "30px");
+      this._gotoButton.CausesValidation = false;
+      this._gotoButton.UseSubmitBehavior = false;
+      this._gotoButton.Click += new EventHandler(GotoButtonClick);
 
-		public event EventHandler<GotoPageForumEventArgs> GotoPageClick;
+      // text box...
+      this._gotoTextBox.ID = GetExtendedID("GotoTextBox");
+      this._gotoTextBox.Style.Add(HtmlTextWriterStyle.Width, "30px");
 
-		private int _gotoPageValue;
+      this._divInner.Controls.Add(this._gotoTextBox);
+      this._divInner.Controls.Add(this._gotoButton);
 
-		public int GotoPageValue
-		{
-			get { return _gotoPageValue; }
-			set { _gotoPageValue = value; }
-		}
+      PageContext.PageElements.RegisterJsBlockStartup(
+        String.Format(@"GotoPageFormKeyUp_{0}", ClientID), 
+        String.Format(
+          @"Sys.Application.add_load(function() {{ jQuery('#{0}').bind('keydown', function(e) {{ if(e.keyCode == 13) {{ jQuery('#{1}').click(); return false; }} }}); }});", 
+          this._gotoTextBox.ClientID, 
+          this._gotoButton.ClientID));
 
-		public string GotoTextBoxClientID
-		{
-			get { return _gotoTextBox.ClientID; }
-		}
+      // add enter key support...
+      // _gotoTextBox.Attributes.Add( "onkeydown",
+      // String.Format(
+      // @"if( ( event.which || event.keyCode ) && (event.which == 13 || event.keyCode == 13) ) {{ jQuery('#{0}').click(); return false; }} return true;",
+      // _gotoButton.ClientID ) );
+      // document.getElementById('" +
+      // _gotoButton.ClientID + "').click();return false;}} else {return true}; ") );
+    }
 
-		public string GotoButtonClientID
-		{
-			get { return _gotoButton.ClientID; }
-		}
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      writer.WriteLine(String.Format(@"<div id=""{0}"" style=""display:none"" class=""gotoPageForm"">", ClientID));
 
-	}
+      base.Render(writer);
+
+      writer.WriteLine("</div>");
+    }
+
+    /// <summary>
+    /// The goto button click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void GotoButtonClick(object sender, EventArgs e)
+    {
+      if (GotoPageClick != null)
+      {
+        // attempt to parse the page value...
+        if (int.TryParse(this._gotoTextBox.Text.Trim(), out this._gotoPageValue))
+        {
+          // valid, fire the event...
+          GotoPageClick(this, new GotoPageForumEventArgs(GotoPageValue));
+        }
+      }
+
+      // clear the old value...
+      this._gotoTextBox.Text = string.Empty;
+    }
+
+    /// <summary>
+    /// The goto page click.
+    /// </summary>
+    public event EventHandler<GotoPageForumEventArgs> GotoPageClick;
+  }
 }

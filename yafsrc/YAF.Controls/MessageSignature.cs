@@ -17,78 +17,157 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Text;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using YAF.Classes.Data;
-using YAF.Classes.Utils;
 using YAF.Classes.UI;
 
 namespace YAF.Controls
 {
-	public class MessageSignature : MessageBase
-	{
-		public MessageSignature()
-			: base()
-		{
+  /// <summary>
+  /// The message signature.
+  /// </summary>
+  public class MessageSignature : MessageBase
+  {
+    /// <summary>
+    /// The _display user id.
+    /// </summary>
+    private int? _displayUserID;
 
-		}
+    /// <summary>
+    /// The _html prefix.
+    /// </summary>
+    private string _htmlPrefix;
 
-		protected override void Render( HtmlTextWriter writer )
-		{
-			writer.BeginRender();
-			writer.WriteBeginTag( "div" );
-			writer.WriteAttribute( "id", this.ClientID );
-			writer.WriteAttribute( "class", "yafsignature" );
-			writer.Write( HtmlTextWriter.TagRightChar );
+    /// <summary>
+    /// The _html suffix.
+    /// </summary>
+    private string _htmlSuffix;
 
-			if ( !String.IsNullOrEmpty( HtmlPrefix ) ) writer.Write( HtmlPrefix );
-			if ( !String.IsNullOrEmpty( Signature ) ) RenderSignature( writer );			
-			if ( !String.IsNullOrEmpty( HtmlSuffix ) ) writer.Write( HtmlSuffix );
+    /// <summary>
+    /// The _signature.
+    /// </summary>
+    private string _signature;
 
-			base.Render( writer );
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MessageSignature"/> class.
+    /// </summary>
+    public MessageSignature()
+      : base()
+    {
+    }
 
-			writer.WriteEndTag( "div" );
-			writer.EndRender();
-		}
+    /// <summary>
+    /// Gets or sets Signature.
+    /// </summary>
+    public string Signature
+    {
+      get
+      {
+        return this._signature;
+      }
 
-		protected void RenderSignature( HtmlTextWriter writer )
-		{
-			// don't allow any HTML on signatures
-			MessageFlags tFlags = new MessageFlags();
-			tFlags.IsHtml = false;
+      set
+      {
+        this._signature = value;
+      }
+    }
 
-			RenderModulesInBBCode( writer, FormatMsg.FormatMessage( this.Signature, tFlags ), tFlags, DisplayUserID );
-		}
+    /// <summary>
+    /// Gets or sets DisplayUserID.
+    /// </summary>
+    public int? DisplayUserID
+    {
+      get
+      {
+        return this._displayUserID;
+      }
 
-		private string _signature;
-		public string Signature
-		{
-			get { return _signature; }
-			set { _signature = value; }
-		}
+      set
+      {
+        this._displayUserID = value;
+      }
+    }
 
-		private int? _displayUserID;
-		public int? DisplayUserID
-		{
-			get { return _displayUserID; }
-			set { _displayUserID = value; }
-		}
+    /// <summary>
+    /// Gets or sets HtmlPrefix.
+    /// </summary>
+    public string HtmlPrefix
+    {
+      get
+      {
+        return this._htmlPrefix;
+      }
 
-		private string _htmlPrefix;
-		public string HtmlPrefix
-		{
-			get { return _htmlPrefix; }
-			set { _htmlPrefix = value; }
-		}
+      set
+      {
+        this._htmlPrefix = value;
+      }
+    }
 
-		private string _htmlSuffix;
-		public string HtmlSuffix
-		{
-			get { return _htmlSuffix; }
-			set { _htmlSuffix = value; }
-		}
-	}
+    /// <summary>
+    /// Gets or sets HtmlSuffix.
+    /// </summary>
+    public string HtmlSuffix
+    {
+      get
+      {
+        return this._htmlSuffix;
+      }
+
+      set
+      {
+        this._htmlSuffix = value;
+      }
+    }
+
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      writer.BeginRender();
+      writer.WriteBeginTag("div");
+      writer.WriteAttribute("id", ClientID);
+      writer.WriteAttribute("class", "yafsignature");
+      writer.Write(HtmlTextWriter.TagRightChar);
+
+      if (!String.IsNullOrEmpty(HtmlPrefix))
+      {
+        writer.Write(HtmlPrefix);
+      }
+
+      if (!String.IsNullOrEmpty(Signature))
+      {
+        RenderSignature(writer);
+      }
+
+      if (!String.IsNullOrEmpty(HtmlSuffix))
+      {
+        writer.Write(HtmlSuffix);
+      }
+
+      base.Render(writer);
+
+      writer.WriteEndTag("div");
+      writer.EndRender();
+    }
+
+    /// <summary>
+    /// The render signature.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected void RenderSignature(HtmlTextWriter writer)
+    {
+      // don't allow any HTML on signatures
+      var tFlags = new MessageFlags();
+      tFlags.IsHtml = false;
+
+      RenderModulesInBBCode(writer, FormatMsg.FormatMessage(Signature, tFlags), tFlags, DisplayUserID);
+    }
+  }
 }

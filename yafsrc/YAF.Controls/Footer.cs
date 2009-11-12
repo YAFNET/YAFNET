@@ -18,126 +18,175 @@
  */
 using System;
 using System.Text;
+using System.Web.UI;
+using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Summary description for Footer.
-	/// </summary>
-	public class Footer : BaseControl, IYafFooter
-	{
-		private bool _simpleRender = false;
+  /// <summary>
+  /// Summary description for Footer.
+  /// </summary>
+  public class Footer : BaseControl, IYafFooter
+  {
+    /// <summary>
+    /// The _simple render.
+    /// </summary>
+    private bool _simpleRender = false;
 
-		public bool SimpleRender
-		{
-			get
-			{
-				return _simpleRender;
-			}
-			set
-			{
-				_simpleRender = value;
-			}
-		}
+    #region IYafFooter Members
 
-		public System.Web.UI.Control ThisControl
-		{
-			get
-			{
-				return this;
-			}
-		}
+    /// <summary>
+    /// Gets or sets a value indicating whether SimpleRender.
+    /// </summary>
+    public bool SimpleRender
+    {
+      get
+      {
+        return this._simpleRender;
+      }
 
-		protected override void Render( System.Web.UI.HtmlTextWriter writer )
-		{
-			if ( !SimpleRender ) RenderRegular( ref writer );
+      set
+      {
+        this._simpleRender = value;
+      }
+    }
 
-			base.Render( writer );			
-		}
+    /// <summary>
+    /// Gets ThisControl.
+    /// </summary>
+    public Control ThisControl
+    {
+      get
+      {
+        return this;
+      }
+    }
 
-		protected void RenderRegular( ref System.Web.UI.HtmlTextWriter writer )
-		{
-			// BEGIN FOOTER
-			StringBuilder footer = new StringBuilder();
+    #endregion
 
-			// get the theme credit info from the theme file
-			// it's not really an error if it doesn't exist
-			string themeCredit = PageContext.Theme.GetItem( "THEME", "CREDIT", null );
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      if (!SimpleRender)
+      {
+        RenderRegular(ref writer);
+      }
 
-			YafServices.StopWatch.Stop();
+      base.Render(writer);
+    }
 
-			footer.Append( @"<br/><div class=""content"" style=""text-align:right;font-size:7pt"">" );
+    /// <summary>
+    /// The render regular.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected void RenderRegular(ref HtmlTextWriter writer)
+    {
+      // BEGIN FOOTER
+      var footer = new StringBuilder();
 
-			bool br = false;
+      // get the theme credit info from the theme file
+      // it's not really an error if it doesn't exist
+      string themeCredit = PageContext.Theme.GetItem("THEME", "CREDIT", null);
 
-			// append theme Credit if it exists...
-			if ( !String.IsNullOrEmpty( themeCredit ) )
-			{
-				footer.AppendFormat( @"<span id=""themecredit"" style=""color:#999999"">{0}</span>", themeCredit );
-				br = true;
-			}
+      YafServices.StopWatch.Stop();
 
-			if ( PageContext.CurrentForumPage.IsAdminPage )
-			{
-				if ( br ) footer.Append( " | " );
-				// show admin icons license...
-				footer.Append( @"<span id=""themecredit"" style=""color:#999999""><a target=""_blank"" href=""http://www.pinvoke.com/"">Fugue Icons</a> &copy; 2009 Yusuke Kamiyamane</span>" );
-				br = true;
-			}
+      footer.Append(@"<br/><div class=""content"" style=""text-align:right;font-size:7pt"">");
 
-			if ( br ) footer.Append( "<br/>" );
+      bool br = false;
 
-			footer.Append( @"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">" );
-			footer.Append( PageContext.Localization.GetText( "COMMON", "POWERED_BY" ) );
-			footer.Append( @" YAF" );
+      // append theme Credit if it exists...
+      if (!String.IsNullOrEmpty(themeCredit))
+      {
+        footer.AppendFormat(@"<span id=""themecredit"" style=""color:#999999"">{0}</span>", themeCredit);
+        br = true;
+      }
 
-			if ( PageContext.BoardSettings.ShowYAFVersion )
-			{
-				footer.AppendFormat( " {0} ", YafForumInfo.AppVersionName );
-				if ( YAF.Classes.Config.IsDotNetNuke )
-				{
-					footer.Append( " Under DNN " );
-				}
-				else if ( YAF.Classes.Config.IsRainbow )
-				{
-					footer.Append( " Under Rainbow " );
-				}
-				else if (YAF.Classes.Config.IsMojoPortal)
-				{
-					footer.Append(" Under MojoPortal ");
-				}
-				else if ( YAF.Classes.Config.IsPortalomatic )
-				{
-					footer.Append( " Under Portalomatic " );
-				}
-			}
+      if (PageContext.CurrentForumPage.IsAdminPage)
+      {
+        if (br)
+        {
+          footer.Append(" | ");
+        }
 
-			footer.AppendFormat( @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2009, Yet Another Forum.NET</a>", "YetAnotherForum.NET", "http://www.yetanotherforum.net" );
+        // show admin icons license...
+        footer.Append(
+          @"<span id=""themecredit"" style=""color:#999999""><a target=""_blank"" href=""http://www.pinvoke.com/"">Fugue Icons</a> &copy; 2009 Yusuke Kamiyamane</span>");
+        br = true;
+      }
 
-			if ( PageContext.BoardSettings.ShowPageGenerationTime )
-			{
-				footer.Append( "<br/>" );
-				footer.AppendFormat(PageContext.Localization.GetText("COMMON", "GENERATED"), YafServices.StopWatch.Duration);
-			}
+      if (br)
+      {
+        footer.Append("<br/>");
+      }
 
-			footer.Append( @"</div>" );
+      footer.Append(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
+      footer.Append(PageContext.Localization.GetText("COMMON", "POWERED_BY"));
+      footer.Append(@" YAF");
 
-#if DEBUG      
-			if ( PageContext.IsAdmin )
-			{ 
-                footer.AppendFormat( @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <b>DEBUG MODE</b></span>.<br/>Recompile in <b>RELEASE MODE</b> to remove this information:" );
-                footer.Append( @"<br></br><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | " );
-                footer.Append( @"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br></br>" );
-                footer.AppendFormat( @"<br></br>{0} sql queries ({1:N3} seconds, {2:N2}%).<br></br>{3}", QueryCounter.Count, QueryCounter.Duration, ( 100 * QueryCounter.Duration) / YafServices.StopWatch.Duration, QueryCounter.Commands );
-				footer.Append( "</div>" );
-			}
+      if (PageContext.BoardSettings.ShowYAFVersion)
+      {
+        footer.AppendFormat(" {0} ", YafForumInfo.AppVersionName);
+        if (Config.IsDotNetNuke)
+        {
+          footer.Append(" Under DNN ");
+        }
+        else if (Config.IsRainbow)
+        {
+          footer.Append(" Under Rainbow ");
+        }
+        else if (Config.IsMojoPortal)
+        {
+          footer.Append(" Under MojoPortal ");
+        }
+        else if (Config.IsPortalomatic)
+        {
+          footer.Append(" Under Portalomatic ");
+        }
+      }
+
+      footer.AppendFormat(
+        @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2009, Yet Another Forum.NET</a>", 
+        "YetAnotherForum.NET", 
+        "http://www.yetanotherforum.net");
+
+      if (PageContext.BoardSettings.ShowPageGenerationTime)
+      {
+        footer.Append("<br/>");
+        footer.AppendFormat(PageContext.Localization.GetText("COMMON", "GENERATED"), YafServices.StopWatch.Duration);
+      }
+
+      footer.Append(@"</div>");
+
+#if DEBUG
+      if (PageContext.IsAdmin)
+      {
+        footer.AppendFormat(
+          @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <b>DEBUG MODE</b></span>.<br/>Recompile in <b>RELEASE MODE</b> to remove this information:");
+        footer.Append(@"<br></br><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
+        footer.Append(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br></br>");
+        footer.AppendFormat(
+          @"<br></br>{0} sql queries ({1:N3} seconds, {2:N2}%).<br></br>{3}", 
+          QueryCounter.Count, 
+          QueryCounter.Duration, 
+          (100*QueryCounter.Duration)/YafServices.StopWatch.Duration, 
+          QueryCounter.Commands);
+        footer.Append("</div>");
+      }
+
 #endif
 
-			// write CSS, Refresh, then header...
-			writer.Write( footer );			
-		}
-	}
+      // write CSS, Refresh, then header...
+      writer.Write(footer);
+    }
+  }
 }

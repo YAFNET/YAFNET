@@ -18,83 +18,126 @@
  */
 using System;
 using System.Data;
+using System.Web.UI;
+using YAF.Classes.Core;
+using YAF.Classes.Data;
 using YAF.Classes.UI;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Summary description for ForumUsers.
-	/// </summary>
-	public class ForumUsers : BaseControl
-	{
-		private ActiveUsers _activeUsers = new ActiveUsers();
+  /// <summary>
+  /// Summary description for ForumUsers.
+  /// </summary>
+  public class ForumUsers : BaseControl
+  {
+    /// <summary>
+    /// The _active users.
+    /// </summary>
+    private ActiveUsers _activeUsers = new ActiveUsers();
 
-		public bool TreatGuestAsHidden
-		{
-			get { return _activeUsers.TreatGuestAsHidden; }
-			set { _activeUsers.TreatGuestAsHidden = value; }
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumUsers"/> class.
+    /// </summary>
+    public ForumUsers()
+    {
+      this._activeUsers.ID = GetUniqueID("ActiveUsers");
+      Load += new EventHandler(ForumUsers_Load);
+    }
 
-		public ForumUsers()
-		{
-			_activeUsers.ID = this.GetUniqueID( "ActiveUsers" );
-			this.Load += new EventHandler( ForumUsers_Load );
-		}
+    /// <summary>
+    /// Gets or sets a value indicating whether TreatGuestAsHidden.
+    /// </summary>
+    public bool TreatGuestAsHidden
+    {
+      get
+      {
+        return this._activeUsers.TreatGuestAsHidden;
+      }
 
-		void ForumUsers_Load( object sender, EventArgs e )
-		{
-			bool bTopic = PageContext.PageTopicID > 0;
+      set
+      {
+        this._activeUsers.TreatGuestAsHidden = value;
+      }
+    }
 
-			if ( _activeUsers.ActiveUserTable == null )
-			{
-				if ( bTopic )
-				{
-                    DataTable dt = YAF.Classes.Data.DB.active_listtopic( PageContext.PageTopicID , PageContext.BoardSettings.UseStyledNicks);
-                    if (YAF.Classes.Core.YafContext.Current.BoardSettings.UseStyledNicks)
-                        YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dt);
-					_activeUsers.ActiveUserTable = dt;
-				}
-				else
-				{
-                    DataTable dt = YAF.Classes.Data.DB.active_listforum( PageContext.PageForumID , PageContext.BoardSettings.UseStyledNicks);
-                    if (YAF.Classes.Core.YafContext.Current.BoardSettings.UseStyledNicks)
-                        YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dt);
-                    _activeUsers.ActiveUserTable = dt;
-				}
-			}
+    /// <summary>
+    /// The forum users_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumUsers_Load(object sender, EventArgs e)
+    {
+      bool bTopic = PageContext.PageTopicID > 0;
 
-			// add it...
-			this.Controls.Add( _activeUsers );
-		}
+      if (this._activeUsers.ActiveUserTable == null)
+      {
+        if (bTopic)
+        {
+          DataTable dt = DB.active_listtopic(PageContext.PageTopicID, PageContext.BoardSettings.UseStyledNicks);
+          if (YafContext.Current.BoardSettings.UseStyledNicks)
+          {
+            StyleHelper.DecodeStyleByTable(ref dt);
+          }
 
-		protected override void Render( System.Web.UI.HtmlTextWriter writer )
-		{
-			// Ederon : 07/14/2007
-			if (!PageContext.BoardSettings.ShowBrowsingUsers) return;
+          this._activeUsers.ActiveUserTable = dt;
+        }
+        else
+        {
+          DataTable dt = DB.active_listforum(PageContext.PageForumID, PageContext.BoardSettings.UseStyledNicks);
+          if (YafContext.Current.BoardSettings.UseStyledNicks)
+          {
+            StyleHelper.DecodeStyleByTable(ref dt);
+          }
 
-			bool bTopic = PageContext.PageTopicID > 0;
+          this._activeUsers.ActiveUserTable = dt;
+        }
+      }
 
-			if ( bTopic )
-			{
-				writer.WriteLine( String.Format( @"<tr id=""{0}"" class=""header2"">", this.ClientID ) );
-				writer.WriteLine( String.Format( "<td colspan=\"3\">{0}</td>", PageContext.Localization.GetText( "TOPICBROWSERS" ) ) );
-				writer.WriteLine( "</tr>" );
-				writer.WriteLine( "<tr class=\"post\">" );
-				writer.WriteLine( "<td colspan=\"3\">" );
-			}
-			else
-			{
-				writer.WriteLine( String.Format( @"<tr id=""{0}"" class=""header2"">", this.ClientID ) );
-				writer.WriteLine( String.Format( "<td colspan=\"6\">{0}</td>", PageContext.Localization.GetText( "FORUMUSERS" ) ) );
-				writer.WriteLine( "</tr>" );
-				writer.WriteLine( "<tr class=\"post\">" );
-				writer.WriteLine( "<td colspan=\"6\">" );
-			}
+      // add it...
+      Controls.Add(this._activeUsers);
+    }
 
-			base.Render( writer );
-			
-			writer.WriteLine( "</td>" );
-			writer.WriteLine( "</tr>" );			
-		}
-	}
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      // Ederon : 07/14/2007
+      if (!PageContext.BoardSettings.ShowBrowsingUsers)
+      {
+        return;
+      }
+
+      bool bTopic = PageContext.PageTopicID > 0;
+
+      if (bTopic)
+      {
+        writer.WriteLine(String.Format(@"<tr id=""{0}"" class=""header2"">", ClientID));
+        writer.WriteLine(String.Format("<td colspan=\"3\">{0}</td>", PageContext.Localization.GetText("TOPICBROWSERS")));
+        writer.WriteLine("</tr>");
+        writer.WriteLine("<tr class=\"post\">");
+        writer.WriteLine("<td colspan=\"3\">");
+      }
+      else
+      {
+        writer.WriteLine(String.Format(@"<tr id=""{0}"" class=""header2"">", ClientID));
+        writer.WriteLine(String.Format("<td colspan=\"6\">{0}</td>", PageContext.Localization.GetText("FORUMUSERS")));
+        writer.WriteLine("</tr>");
+        writer.WriteLine("<tr class=\"post\">");
+        writer.WriteLine("<td colspan=\"6\">");
+      }
+
+      base.Render(writer);
+
+      writer.WriteLine("</td>");
+      writer.WriteLine("</tr>");
+    }
+  }
 }

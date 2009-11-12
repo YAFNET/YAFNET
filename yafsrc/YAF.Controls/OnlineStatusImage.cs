@@ -18,6 +18,7 @@
  */
 using System.Data;
 using System.Linq;
+using System.Web.UI;
 using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Data;
@@ -25,60 +26,62 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Provides an Online/Offline status for a YAF User
-	/// </summary>
-	public class OnlineStatusImage : ThemeImage
-	{
-		public OnlineStatusImage()
-		{
-		}
+  /// <summary>
+  /// Provides an Online/Offline status for a YAF User
+  /// </summary>
+  public class OnlineStatusImage : ThemeImage
+  {
+    /// <summary>
+    /// The userid of the user.
+    /// </summary>
+    public int UserID
+    {
+      get
+      {
+        return ViewState["UserID"].ToType<int>();
+      }
 
-		protected override void Render( System.Web.UI.HtmlTextWriter output )
-		{
-			LocalizedTitlePage = "POSTS";
+      set
+      {
+        ViewState["UserID"] = value;
+      }
+    }
 
-			if ( Visible )
-			{
-				string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.UsersOnlineStatus );
-				DataTable activeUsers = PageContext.Cache.GetItem<DataTable>( cacheKey, (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () =>
-																																		 DB.active_list(
-																																		 YafContext.Current.PageBoardID, false,
-																																		 YafContext.Current.BoardSettings.ActiveListTime, false ) );
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="output">
+    /// The output.
+    /// </param>
+    protected override void Render(HtmlTextWriter output)
+    {
+      LocalizedTitlePage = "POSTS";
 
-				if ( activeUsers.AsEnumerable().Any( x => x.Field<int>( "UserId" ) == UserID && !x.Field<bool>( "IsHidden" ) ) )
-				{
-					// online
-					LocalizedTitleTag = "USERONLINESTATUS";
-					ThemeTag = "USER_ONLINE";
-					Alt = "Online";
-				}
-				else
-				{
-					// offline
-					LocalizedTitleTag = "USEROFFLINESTATUS";
-					ThemeTag = "USER_OFFLINE";
-					Alt = "Offline";
-				}
-			}
-			
-			base.Render( output );
-		}
+      if (Visible)
+      {
+        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
+        DataTable activeUsers = PageContext.Cache.GetItem(
+          cacheKey, 
+          (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, 
+          () => DB.active_list(YafContext.Current.PageBoardID, false, YafContext.Current.BoardSettings.ActiveListTime, false));
 
-		/// <summary>
-		/// The userid of the user.
-		/// </summary>
-		public int UserID
-		{
-			get
-			{
-				return ViewState["UserID"].ToType<int>();
-			}
-			set
-			{
-				ViewState["UserID"] = value;
-			}
-		}
-	}
+        if (activeUsers.AsEnumerable().Any(x => x.Field<int>("UserId") == UserID && !x.Field<bool>("IsHidden")))
+        {
+          // online
+          LocalizedTitleTag = "USERONLINESTATUS";
+          ThemeTag = "USER_ONLINE";
+          Alt = "Online";
+        }
+        else
+        {
+          // offline
+          LocalizedTitleTag = "USEROFFLINESTATUS";
+          ThemeTag = "USER_OFFLINE";
+          Alt = "Offline";
+        }
+      }
+
+      base.Render(output);
+    }
+  }
 }
-

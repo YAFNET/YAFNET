@@ -17,100 +17,139 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  * Written by vzrus (c) 2009 for Yet Another Forum.NET  */
 using System;
-using System.Web.UI;
-using YAF.Classes.Data;
-using YAF.Classes.UI;
 using System.Data;
+using System.Web.UI;
+using YAF.Classes;
+using YAF.Classes.Core;
+using YAF.Classes.Data;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Shows a Reporters for reported posts
-	/// </summary>
-	public class ReportedPosts : BaseControl
-	{
-		public ReportedPosts()
-			: base()
-		{
+  /// <summary>
+  /// Shows a Reporters for reported posts
+  /// </summary>
+  public class ReportedPosts : BaseControl
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReportedPosts"/> class.
+    /// </summary>
+    public ReportedPosts()
+      : base()
+    {
+    }
 
-		}
-		public int MessageID
-		{
-			get
-			{
-				if ( ViewState["MessageID"] != null )
-				{
-					return Convert.ToInt32( ViewState["MessageID"] );
-				}
+    /// <summary>
+    /// Gets or sets MessageID.
+    /// </summary>
+    public int MessageID
+    {
+      get
+      {
+        if (ViewState["MessageID"] != null)
+        {
+          return Convert.ToInt32(ViewState["MessageID"]);
+        }
 
-				return 0;
-			}
-			set
-			{
-				ViewState["MessageID"] = value;
-			}
-		}
+        return 0;
+      }
 
-		protected override void Render( HtmlTextWriter writer )
-		{
-			// TODO: Needs better commentting.
+      set
+      {
+        ViewState["MessageID"] = value;
+      }
+    }
 
-			writer.WriteLine( String.Format( @"<div id=""{0}"" class=""yafReportedPosts"">", this.ClientID ) );
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      // TODO: Needs better commentting.
+      writer.WriteLine(String.Format(@"<div id=""{0}"" class=""yafReportedPosts"">", ClientID));
 
-			DataTable reportersList = YAF.Classes.Data.DB.message_listreporters( MessageID );
-			if ( reportersList.Rows.Count > 0 )
-			{
-				int i = 0;
-				writer.BeginRender();
+      DataTable reportersList = DB.message_listreporters(MessageID);
+      if (reportersList.Rows.Count > 0)
+      {
+        int i = 0;
+        writer.BeginRender();
 
-				foreach ( DataRow reporter in reportersList.Rows )
-				{
-					string howMany = null;
-					if ( Convert.ToInt32( reporter["ReportedNumber"] ) > 1 )
-						howMany = "(" + reporter["ReportedNumber"].ToString() + ")";
-                    writer.WriteLine( @"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafreportedtable{0}"">" , this.ClientID);
-                    writer.Write( @"<tr><td class=""post"">" );
-                    writer.Write(@"<tr><td class=""header2"">");
-                    writer.Write(@"<span class=""YafReported_Complainer"">{5}</span><a class=""YafReported_Link"" href=""{3}"">{2}{4}</a>", i, Convert.ToInt32(reporter["UserID"]), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages.profile, "u={0}", Convert.ToInt32(reporter["UserID"])), howMany, PageContext.Localization.GetText("REPORTEDBY"));
-                    writer.WriteLine(@"</td></tr>");
-					string[] reportString = reporter["ReportText"].ToString().Trim().Split( '|' );
-                    
-					for ( int istr = 0; istr < reportString.Length; istr++ )
-					{
-						string[] textString = reportString[istr].Split( "??".ToCharArray() );
-                        writer.Write(@"<tr><td class=""post"">");
-                        writer.Write(@"<span class=""YafReported_DateTime"">{0}:</span>", YAF.Classes.Core.YafServices.DateTime.FormatDateTimeTopic(textString[0]));// Convert.ToDateTime(textString[0].TrimEnd(':')).AddMinutes((double)PageContext.CurrentUserData.TimeZone ) );
-                        if ( textString.Length > 2 )
-						{          
-													
-                                                 
-                            writer.Write(@"<tr><td class=""post"">");
-                            writer.Write( textString[2] );
-                            writer.WriteLine(@"</td></tr>");
-						}
-						else
-						{
-                            writer.WriteLine(@"<tr><td class=""post"">");
-							writer.Write(reportString[istr] );
-                            writer.WriteLine(@"</td></tr>");
-                        }                       
-					}
-                    writer.WriteLine(@"<tr><td class=""postfooter"">");
-                    writer.Write(@"<a class=""YafReported_Link"" href=""{3}"">{4} {2}</a>", i, Convert.ToInt32(reporter["UserID"]), reporter["UserName"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages.pmessage, "u={0}&r={1}", Convert.ToInt32(reporter["UserID"]), MessageID), PageContext.Localization.GetText("REPLYTO"));
-                    writer.WriteLine(@"</td></tr>");
-					// TODO: Remove hard-coded formatting.
-					if ( i < reportersList.Rows.Count - 1 ) writer.Write( "<br></br>" );
-					else writer.WriteLine(@"</td></tr>"); 
-					i++;
-				}
+        foreach (DataRow reporter in reportersList.Rows)
+        {
+          string howMany = null;
+          if (Convert.ToInt32(reporter["ReportedNumber"]) > 1)
+          {
+            howMany = "(" + reporter["ReportedNumber"].ToString() + ")";
+          }
 
-				// render controls...
-                writer.Write( @"</table>" );
-				base.Render( writer );
+          writer.WriteLine(@"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafreportedtable{0}"">", ClientID);
+          writer.Write(@"<tr><td class=""post"">");
+          writer.Write(@"<tr><td class=""header2"">");
+          writer.Write(
+            @"<span class=""YafReported_Complainer"">{5}</span><a class=""YafReported_Link"" href=""{3}"">{2}{4}</a>", 
+            i, 
+            Convert.ToInt32(reporter["UserID"]), 
+            reporter["UserName"].ToString(), 
+            YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(reporter["UserID"])), 
+            howMany, 
+            PageContext.Localization.GetText("REPORTEDBY"));
+          writer.WriteLine(@"</td></tr>");
+          string[] reportString = reporter["ReportText"].ToString().Trim().Split('|');
 
-				writer.WriteLine( "</div>" );
-				writer.EndRender();
-			}
-		}
-	}
+          for (int istr = 0; istr < reportString.Length; istr++)
+          {
+            string[] textString = reportString[istr].Split("??".ToCharArray());
+            writer.Write(@"<tr><td class=""post"">");
+            writer.Write(@"<span class=""YafReported_DateTime"">{0}:</span>", YafServices.DateTime.FormatDateTimeTopic(textString[0]));
+              
+              // Convert.ToDateTime(textString[0].TrimEnd(':')).AddMinutes((double)PageContext.CurrentUserData.TimeZone ) );
+            if (textString.Length > 2)
+            {
+              writer.Write(@"<tr><td class=""post"">");
+              writer.Write(textString[2]);
+              writer.WriteLine(@"</td></tr>");
+            }
+            else
+            {
+              writer.WriteLine(@"<tr><td class=""post"">");
+              writer.Write(reportString[istr]);
+              writer.WriteLine(@"</td></tr>");
+            }
+          }
+
+          writer.WriteLine(@"<tr><td class=""postfooter"">");
+          writer.Write(
+            @"<a class=""YafReported_Link"" href=""{3}"">{4} {2}</a>", 
+            i, 
+            Convert.ToInt32(reporter["UserID"]), 
+            reporter["UserName"].ToString(), 
+            YafBuildLink.GetLink(ForumPages.pmessage, "u={0}&r={1}", Convert.ToInt32(reporter["UserID"]), MessageID), 
+            PageContext.Localization.GetText("REPLYTO"));
+          writer.WriteLine(@"</td></tr>");
+
+          // TODO: Remove hard-coded formatting.
+          if (i < reportersList.Rows.Count - 1)
+          {
+            writer.Write("<br></br>");
+          }
+          else
+          {
+            writer.WriteLine(@"</td></tr>");
+          }
+
+          i++;
+        }
+
+        // render controls...
+        writer.Write(@"</table>");
+        base.Render(writer);
+
+        writer.WriteLine("</div>");
+        writer.EndRender();
+      }
+    }
+  }
 }

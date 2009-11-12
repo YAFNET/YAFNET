@@ -16,22 +16,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Inherited from LinkButton. Shows only plain text when disabled
-	/// </summary>
-	public class MyLinkButton : System.Web.UI.WebControls.LinkButton
-	{
-		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
-		{
-			if(!this.Enabled)
-				writer.Write(this.Text);
-			else
-				base.Render(writer);
-		}
-	}
+  /// <summary>
+  /// Inherited from LinkButton. Shows only plain text when disabled
+  /// </summary>
+  public class MyLinkButton : LinkButton
+  {
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      if (!Enabled)
+      {
+        writer.Write(Text);
+      }
+      else
+      {
+        base.Render(writer);
+      }
+    }
+  }
 }

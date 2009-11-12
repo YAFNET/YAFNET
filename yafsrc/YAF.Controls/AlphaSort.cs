@@ -17,123 +17,131 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Text;
 using System.Web;
-using System.Web.UI;
-using System.Web.Security;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using YAF.Classes;
-using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Control displaying list of letters and/or characters for filtering list of members.
-	/// </summary>
-	public class AlphaSort : BaseControl
-	{
-		/* Construction & Destruction */
-		#region Constructors
-		
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public AlphaSort() { }
-		
-		#endregion
+  /// <summary>
+  /// Control displaying list of letters and/or characters for filtering list of members.
+  /// </summary>
+  public class AlphaSort : BaseControl
+  {
+    #region Constructors
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AlphaSort"/> class. 
+    /// Default constructor
+    /// </summary>
+    public AlphaSort()
+    {
+    }
 
-		/* Properties */
-		#region Page Arguments
+    #endregion
 
-		/// <summary>
-		/// Gets actually selected letter.
-		/// </summary>
-		public char CurrentLetter
-		{
-			get
-			{
-				char currentLetter = char.MinValue;
+    #region Page Arguments
 
-				if (HttpContext.Current.Request.QueryString["letter"] != null)
-				{
-					// try to convert to char
-					char.TryParse(HttpContext.Current.Request.QueryString["letter"], out currentLetter);
-					// since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
-					if (currentLetter == '_') currentLetter = '#';
-				}
+    /// <summary>
+    /// Gets actually selected letter.
+    /// </summary>
+    public char CurrentLetter
+    {
+      get
+      {
+        char currentLetter = char.MinValue;
 
-				return currentLetter;
-			}
-		}
+        if (HttpContext.Current.Request.QueryString["letter"] != null)
+        {
+          // try to convert to char
+          char.TryParse(HttpContext.Current.Request.QueryString["letter"], out currentLetter);
 
-		#endregion
+          // since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
+          if (currentLetter == '_')
+          {
+            currentLetter = '#';
+          }
+        }
 
+        return currentLetter;
+      }
+    }
 
-		/* Control Processing Methods */
-		#region Control Load & Rendering
+    #endregion
 
-		/// <summary>
-		/// Raises the Load event.
-		/// </summary>
-		protected override void OnLoad(EventArgs e)
-		{
-			// IMPORTANT: call base implementation - calls event handlers
-			base.OnLoad(e);
+    #region Control Load & Rendering
 
-			// it's gonna be a table containing those letters in cells
-			HtmlTable table = new HtmlTable();
+    /// <summary>
+    /// Raises the Load event.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnLoad(EventArgs e)
+    {
+      // IMPORTANT: call base implementation - calls event handlers
+      base.OnLoad(e);
 
-			// define table attributes
-			table.Attributes.Add("class", "content");
-			table.Width = "100%";
+      // it's gonna be a table containing those letters in cells
+      var table = new HtmlTable();
 
-			// add table to our control so it can be rendered
-			this.Controls.Add(table);
+      // define table attributes
+      table.Attributes.Add("class", "content");
+      table.Width = "100%";
 
-			// create row for letters and attach it to the table
-			HtmlTableRow tr = new HtmlTableRow();
-			table.Controls.Add(tr);
+      // add table to our control so it can be rendered
+      Controls.Add(table);
 
-			// get the localized character set
-			string charSet = PageContext.Localization.GetText("LANGUAGE", "CHARSET");
-			// get the current selected character (if there is one)
-			char selectedLetter = CurrentLetter;
+      // create row for letters and attach it to the table
+      var tr = new HtmlTableRow();
+      table.Controls.Add(tr);
 
-			// go through all letters in a set
-			foreach (char letter in charSet)
-			{
-				// create cell for the letter and define its properties
-				HtmlTableCell cell = new HtmlTableCell();
-				cell.Align = "center";
+      // get the localized character set
+      string charSet = PageContext.Localization.GetText("LANGUAGE", "CHARSET");
 
-				// is letter selected?
-				if (selectedLetter != char.MinValue && selectedLetter == letter)
-				{
-					// current letter is selected, use specified style
-					cell.Attributes["class"] = "postheader";
-				}
-				else
-				{
-					// regular non-selected letter
-					cell.Attributes["class"] = "post";
-				}
+      // get the current selected character (if there is one)
+      char selectedLetter = CurrentLetter;
 
-				// create a link to this letter
-				HyperLink link = new HyperLink();
-				link.Text = letter.ToString();
-				link.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.members, "letter={0}", letter == '#' ? '_' : letter);
-				
-				// add link to the cell
-				cell.Controls.Add(link);
+      // go through all letters in a set
+      foreach (char letter in charSet)
+      {
+        // create cell for the letter and define its properties
+        var cell = new HtmlTableCell();
+        cell.Align = "center";
 
-				// add this cell to the row
-				tr.Cells.Add(cell);
-			}
-		}
+        // is letter selected?
+        if (selectedLetter != char.MinValue && selectedLetter == letter)
+        {
+          // current letter is selected, use specified style
+          cell.Attributes["class"] = "postheader";
+        }
+        else
+        {
+          // regular non-selected letter
+          cell.Attributes["class"] = "post";
+        }
 
-		#endregion
-	}
+        // create a link to this letter
+        var link = new HyperLink();
+        link.Text = letter.ToString();
+        link.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.members, "letter={0}", letter == '#' ? '_' : letter);
+
+        // add link to the cell
+        cell.Controls.Add(link);
+
+        // add this cell to the row
+        tr.Cells.Add(cell);
+      }
+    }
+
+    #endregion
+
+    /* Construction & Destruction */
+
+    /* Properties */
+
+    /* Control Processing Methods */
+  }
 }

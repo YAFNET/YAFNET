@@ -16,55 +16,115 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
 using System.Collections.Generic;
-using System.Text;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using YAF.Classes.Data;
-using YAF.Classes.Utils;
 using YAF.Classes.UI;
 using YAF.Controls;
 
 namespace YAF.Modules
 {
-	public class YafBBCodeControl : BaseControl
-	{
-		protected Dictionary<string, string> _parameters = new Dictionary<string, string>();
-		public Dictionary<string, string> Parameters
-		{
-			get { return _parameters; }
-			set { _parameters = value; }
-		}
+  /// <summary>
+  /// The yaf bb code control.
+  /// </summary>
+  public class YafBBCodeControl : BaseControl
+  {
+    /// <summary>
+    /// The _current message flags.
+    /// </summary>
+    protected MessageFlags _currentMessageFlags = null;
 
-		protected MessageFlags _currentMessageFlags = null;
-		public MessageFlags CurrentMessageFlags
-		{
-			get { return _currentMessageFlags; }
-			set { _currentMessageFlags = value; }
-		}
+    /// <summary>
+    /// The _display user id.
+    /// </summary>
+    protected int? _displayUserId = null;
 
-		protected int? _displayUserId = null;
-		public int? DisplayUserID
-		{
-			get { return _displayUserId; }
-			set { _displayUserId = value; }
-		}
+    /// <summary>
+    /// The _parameters.
+    /// </summary>
+    protected Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
-		protected string ProcessBBCodeString( string bbCodeString )
-		{
-			return FormatMsg.FormatMessage( bbCodeString, CurrentMessageFlags );
-		}
+    /// <summary>
+    /// Gets or sets Parameters.
+    /// </summary>
+    public Dictionary<string, string> Parameters
+    {
+      get
+      {
+        return this._parameters;
+      }
 
-		protected string LocalizedString( string tag, string defaultStr )
-		{
-			if ( PageContext.Localization.GetTextExists( "BBCODEMODULE", tag ) )
-			{
-				return PageContext.Localization.GetText( "BBCODEMODULE", tag );
-			}
+      set
+      {
+        this._parameters = value;
+      }
+    }
 
-			return defaultStr;
-		}
-	}
+    /// <summary>
+    /// Gets or sets CurrentMessageFlags.
+    /// </summary>
+    public MessageFlags CurrentMessageFlags
+    {
+      get
+      {
+        return this._currentMessageFlags;
+      }
+
+      set
+      {
+        this._currentMessageFlags = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets DisplayUserID.
+    /// </summary>
+    public int? DisplayUserID
+    {
+      get
+      {
+        return this._displayUserId;
+      }
+
+      set
+      {
+        this._displayUserId = value;
+      }
+    }
+
+    /// <summary>
+    /// The process bb code string.
+    /// </summary>
+    /// <param name="bbCodeString">
+    /// The bb code string.
+    /// </param>
+    /// <returns>
+    /// The process bb code string.
+    /// </returns>
+    protected string ProcessBBCodeString(string bbCodeString)
+    {
+      return FormatMsg.FormatMessage(bbCodeString, CurrentMessageFlags);
+    }
+
+    /// <summary>
+    /// The localized string.
+    /// </summary>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <param name="defaultStr">
+    /// The default str.
+    /// </param>
+    /// <returns>
+    /// The localized string.
+    /// </returns>
+    protected string LocalizedString(string tag, string defaultStr)
+    {
+      if (PageContext.Localization.GetTextExists("BBCODEMODULE", tag))
+      {
+        return PageContext.Localization.GetText("BBCODEMODULE", tag);
+      }
+
+      return defaultStr;
+    }
+  }
 }

@@ -20,7 +20,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.UI;
 using System.Xml.Serialization;
 using DNA.UI.JQuery;
@@ -29,150 +28,183 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Summary description for AdminMenu.
-	/// </summary>
-	public class AdminMenu : BasePanel
-	{
-		private DNA.UI.JQuery.Accordion _accordian = new Accordion();
-		private YafMenu _menuDef = null;
+  /// <summary>
+  /// Summary description for AdminMenu.
+  /// </summary>
+  public class AdminMenu : BasePanel
+  {
+    /// <summary>
+    /// The _accordian.
+    /// </summary>
+    private Accordion _accordian = new Accordion();
 
-		public AdminMenu()
-		{
+    /// <summary>
+    /// The _menu def.
+    /// </summary>
+    private YafMenu _menuDef = null;
 
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AdminMenu"/> class.
+    /// </summary>
+    public AdminMenu()
+    {
+    }
 
-		protected override void OnLoad( EventArgs e )
-		{
-			const string defFile = "YAF.Controls.YafAdminMenu.AdminMenuDef.xml";
+    /// <summary>
+    /// The on load.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnLoad(EventArgs e)
+    {
+      const string defFile = "YAF.Controls.YafAdminMenu.AdminMenuDef.xml";
 
-			PageContext.PageElements.RegisterJQuery();
+      PageContext.PageElements.RegisterJQuery();
 
-			// load menu definition...
-      var deserializer = new XmlSerializer(typeof(YafMenu));
-			using(Stream resourceStream = Assembly.GetAssembly( this.GetType() ).GetManifestResourceStream( defFile ))
-			{
-				if ( resourceStream != null ) _menuDef = (YafMenu) deserializer.Deserialize( resourceStream );
-			}
+      // load menu definition...
+      var deserializer = new XmlSerializer(typeof (YafMenu));
+      using (Stream resourceStream = Assembly.GetAssembly(GetType()).GetManifestResourceStream(defFile))
+      {
+        if (resourceStream != null)
+        {
+          this._menuDef = (YafMenu) deserializer.Deserialize(resourceStream);
+        }
+      }
 
-			_accordian.ID = GetExtendedID( "DNA_Accordian" );
-			_accordian.CssClass = "adminMenuAccordian";
+      this._accordian.ID = GetExtendedID("DNA_Accordian");
+      this._accordian.CssClass = "adminMenuAccordian";
 
-			int viewIndex = 0;
+      int viewIndex = 0;
 
-			// build menu...
-			foreach ( var value in _menuDef.Items )
-			{
-				bool addView = true;
+      // build menu...
+      foreach (var value in this._menuDef.Items)
+      {
+        bool addView = true;
 
-				if ( Convert.ToBoolean( value.HostAdminOnly ) && !PageContext.IsHostAdmin )
-				{
-					addView = false;
-				}
+        if (Convert.ToBoolean(value.HostAdminOnly) && !PageContext.IsHostAdmin)
+        {
+          addView = false;
+        }
 
-				if ( addView )
-				{
-					var view = new NavView { Text = value.Title };
-					_accordian.Views.Add( view );
+        if (addView)
+        {
+          var view = new NavView
+            {
+              Text = value.Title
+            };
+          this._accordian.Views.Add(view);
 
-					// add items...
-					BuildUrlList( view, value.YafMenuItem );
+          // add items...
+          BuildUrlList(view, value.YafMenuItem);
 
-					//// select the view that has the current page...
-					string currentPage = PageContext.ForumPageType.ToString();
+          //// select the view that has the current page...
+          string currentPage = PageContext.ForumPageType.ToString();
 
-					if ( value.YafMenuItem.Any( x => x.ForumPage == currentPage ) )
-					{
-						// select this view...
-						_accordian.SelectedIndex = viewIndex;
-					}
+          if (value.YafMenuItem.Any(x => x.ForumPage == currentPage))
+          {
+            // select this view...
+            this._accordian.SelectedIndex = viewIndex;
+          }
 
-					viewIndex++;
-				}
-			}
+          viewIndex++;
+        }
+      }
 
-			this.Controls.Add( _accordian );
-		}
+      Controls.Add(this._accordian);
+    }
 
-		protected override void Render( HtmlTextWriter writer )
-		{
-			writer.BeginRender();
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      writer.BeginRender();
 
-			// render the contents of the admin menu....
-			writer.WriteLine( String.Format( @"<div id=""{0}"">", this.ClientID ) );
-			writer.WriteLine( @"<table class=""adminContainer""><tr>" );
-			writer.WriteLine( @"<td class=""adminMenu"" valign=""top"">" );
-			_accordian.RenderControl( writer );
-			_accordian.Visible = false;
-			writer.WriteLine( @"</td>" );
+      // render the contents of the admin menu....
+      writer.WriteLine(String.Format(@"<div id=""{0}"">", ClientID));
+      writer.WriteLine(@"<table class=""adminContainer""><tr>");
+      writer.WriteLine(@"<td class=""adminMenu"" valign=""top"">");
+      this._accordian.RenderControl(writer);
+      this._accordian.Visible = false;
+      writer.WriteLine(@"</td>");
 
-			// contents of the admin page...
-			writer.WriteLine( @"<td class=""adminContent"">" );
+      // contents of the admin page...
+      writer.WriteLine(@"<td class=""adminContent"">");
 
-			base.RenderChildren( writer );
+      this.RenderChildren(writer);
 
-			writer.WriteLine( @"</td></tr></table>" );
-			writer.WriteLine( "</div>" );
+      writer.WriteLine(@"</td></tr></table>");
+      writer.WriteLine("</div>");
 
-			_accordian.Visible = true;
+      this._accordian.Visible = true;
 
-			writer.EndRender();
-		}
+      writer.EndRender();
+    }
 
-		/// <summary>
-		/// Builds a Url List
-		/// </summary>
-		/// <param name="view"></param>
-		/// <param name="listItems"></param>
-		/// <returns></returns>
-		protected void BuildUrlList( NavView view, YafMenuYafMenuSectionYafMenuItem[] listItems )
-		{
-			if ( listItems.Length > 0 )
-			{
-				view.ItemCssClass = "YafMenuItem";
-				view.ItemIconClass = "YafMenuItemIcon";
+    /// <summary>
+    /// Builds a Url List
+    /// </summary>
+    /// <param name="view">
+    /// </param>
+    /// <param name="listItems">
+    /// </param>
+    protected void BuildUrlList(NavView view, YafMenuYafMenuSectionYafMenuItem[] listItems)
+    {
+      if (listItems.Length > 0)
+      {
+        view.ItemCssClass = "YafMenuItem";
+        view.ItemIconClass = "YafMenuItemIcon";
 
-				// add each YafMenuItem to the NavView...
-				foreach( var item in listItems )
-				{
-					bool isVisible = true;
+        // add each YafMenuItem to the NavView...
+        foreach (var item in listItems)
+        {
+          bool isVisible = true;
 
-					if ( !String.IsNullOrEmpty(item.Debug) && Convert.ToBoolean( item.Debug ) == true )
-					{
-						isVisible = false;
+          if (!String.IsNullOrEmpty(item.Debug) && Convert.ToBoolean(item.Debug) == true)
+          {
+            isVisible = false;
 #if DEBUG
-						// only visible with debug...
-						isVisible = true;
+
+            // only visible with debug...
+            isVisible = true;
 #endif
-					}
+          }
 
-					if ( !isVisible ) continue;
+          if (!isVisible)
+          {
+            continue;
+          }
 
-					string url = string.Empty;
+          string url = string.Empty;
 
-					if ( !String.IsNullOrEmpty(item.Link) )
-					{
-						// direct link...
-						url = item.Link.Replace( "~", YafForumInfo.ForumRoot );
-					}
-					else if ( !String.IsNullOrEmpty( item.ForumPage ) )
-					{
-						// internal "page" link...
-						url = YafBuildLink.GetLink( (ForumPages) Enum.Parse( typeof ( ForumPages ), item.ForumPage ) );
-					}
+          if (!String.IsNullOrEmpty(item.Link))
+          {
+            // direct link...
+            url = item.Link.Replace("~", YafForumInfo.ForumRoot);
+          }
+          else if (!String.IsNullOrEmpty(item.ForumPage))
+          {
+            // internal "page" link...
+            url = YafBuildLink.GetLink((ForumPages) Enum.Parse(typeof (ForumPages), item.ForumPage));
+          }
 
-					if ( !String.IsNullOrEmpty( item.Image ) )
-					{
-						// add icon...
-						view.AddItem( String.Format( @"<img alt="""" src=""{1}"" /> {0}", item.Title, YafForumInfo.GetURLToResource( String.Format( "icons/{0}.png", item.Image ) ) ), url );
-					}
-					else
-					{
-						// just add the item regular style..
-						view.AddItem( item.Title, url );	
-					}
-				}
-			}
-		}
-	}
+          if (!String.IsNullOrEmpty(item.Image))
+          {
+            // add icon...
+            view.AddItem(
+              String.Format(@"<img alt="""" src=""{1}"" /> {0}", item.Title, YafForumInfo.GetURLToResource(String.Format("icons/{0}.png", item.Image))), url);
+          }
+          else
+          {
+            // just add the item regular style..
+            view.AddItem(item.Title, url);
+          }
+        }
+      }
+    }
+  }
 }

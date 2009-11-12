@@ -17,179 +17,340 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Data;
-using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Collections.Generic;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Summary description for ForumJump.
-	/// </summary>
-	public class PopMenu : BaseControl, System.Web.UI.IPostBackEventHandler
-	{
-		private string _control = string.Empty;
-		private List<InternalPopMenuItem> _items = new List<InternalPopMenuItem>();
+  /// <summary>
+  /// Summary description for ForumJump.
+  /// </summary>
+  public class PopMenu : BaseControl, IPostBackEventHandler
+  {
+    /// <summary>
+    /// The _control.
+    /// </summary>
+    private string _control = string.Empty;
 
-		public PopMenu()
-			: base()
-		{
-			this.Init += new EventHandler( PopMenu_Init );
-		}
+    /// <summary>
+    /// The _items.
+    /// </summary>
+    private List<InternalPopMenuItem> _items = new List<InternalPopMenuItem>();
 
-		void PopMenu_Init( object sender, EventArgs e )
-		{
-			// init the necessary js...
-			PageContext.PageElements.RegisterJsResourceInclude( "yafjs", "js/yaf.js" );
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PopMenu"/> class.
+    /// </summary>
+    public PopMenu()
+      : base()
+    {
+      Init += new EventHandler(PopMenu_Init);
+    }
 
-		public string Control
-		{
-			set
-			{
-				_control = value;
-			}
-			get
-			{
-				return _control;
-			}
-		}
+    /// <summary>
+    /// Gets or sets Control.
+    /// </summary>
+    public string Control
+    {
+      get
+      {
+        return this._control;
+      }
 
-		public void AddPostBackItem( string argument, string description )
-		{
-			_items.Add( new InternalPopMenuItem( description, argument, null ) );
-		}
+      set
+      {
+        this._control = value;
+      }
+    }
 
-		public void AddClientScriptItem( string description, string clientScript )
-		{
-			_items.Add( new InternalPopMenuItem( description, null, clientScript ) );
-		}
+    /// <summary>
+    /// Gets ControlOnClick.
+    /// </summary>
+    public string ControlOnClick
+    {
+      get
+      {
+        return string.Format("yaf_popit('{0}')", ClientID);
+      }
+    }
 
-		public void Attach( System.Web.UI.WebControls.WebControl ctl )
-		{
-			ctl.Attributes ["onclick"] = ControlOnClick;
-			ctl.Attributes ["onmouseover"] = ControlOnMouseOver;
-		}
+    /// <summary>
+    /// Gets ControlOnMouseOver.
+    /// </summary>
+    public string ControlOnMouseOver
+    {
+      get
+      {
+        return string.Format("yaf_mouseover('{0}')", ClientID);
+      }
+    }
 
-		public void Attach( UserLink userLinkControl )
-		{
-			userLinkControl.OnClick = ControlOnClick;
-			userLinkControl.OnMouseOver = ControlOnMouseOver;
-		}
+    /// <summary>
+    /// The pop menu_ init.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void PopMenu_Init(object sender, EventArgs e)
+    {
+      // init the necessary js...
+      PageContext.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
+    }
 
-		public string ControlOnClick
-		{
-			get
-			{
-				return string.Format( "yaf_popit('{0}')", this.ClientID );
-			}
-		}
+    /// <summary>
+    /// The add post back item.
+    /// </summary>
+    /// <param name="argument">
+    /// The argument.
+    /// </param>
+    /// <param name="description">
+    /// The description.
+    /// </param>
+    public void AddPostBackItem(string argument, string description)
+    {
+      this._items.Add(new InternalPopMenuItem(description, argument, null));
+    }
 
-		public string ControlOnMouseOver
-		{
-			get
-			{
-				return string.Format( "yaf_mouseover('{0}')", this.ClientID );
-			}
-		}
+    /// <summary>
+    /// The add client script item.
+    /// </summary>
+    /// <param name="description">
+    /// The description.
+    /// </param>
+    /// <param name="clientScript">
+    /// The client script.
+    /// </param>
+    public void AddClientScriptItem(string description, string clientScript)
+    {
+      this._items.Add(new InternalPopMenuItem(description, null, clientScript));
+    }
 
-		protected override void Render( System.Web.UI.HtmlTextWriter writer )
-		{
-			if ( !this.Visible )
-				return;
+    /// <summary>
+    /// The attach.
+    /// </summary>
+    /// <param name="ctl">
+    /// The ctl.
+    /// </param>
+    public void Attach(WebControl ctl)
+    {
+      ctl.Attributes["onclick"] = ControlOnClick;
+      ctl.Attributes["onmouseover"] = ControlOnMouseOver;
+    }
 
-			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.AppendFormat( @"<div class=""yafpopupmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;visibility:hidden;"">", this.ClientID );
-			sb.Append( "<ul>" );
+    /// <summary>
+    /// The attach.
+    /// </summary>
+    /// <param name="userLinkControl">
+    /// The user link control.
+    /// </param>
+    public void Attach(UserLink userLinkControl)
+    {
+      userLinkControl.OnClick = ControlOnClick;
+      userLinkControl.OnMouseOver = ControlOnMouseOver;
+    }
 
-			// add the items
-			foreach ( InternalPopMenuItem thisItem in _items )
-			{
-				string onClick;
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      if (!Visible)
+      {
+        return;
+      }
 
-				if ( !String.IsNullOrEmpty( thisItem.ClientScript ) )
-				{
-					// postback style...
-					onClick = thisItem.ClientScript;
-				}
-				else
-				{
-					onClick = Page.ClientScript.GetPostBackClientHyperlink( this, thisItem.PostBackArgument );
-				}
+      var sb = new StringBuilder();
+      sb.AppendFormat(@"<div class=""yafpopupmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;visibility:hidden;"">", ClientID);
+      sb.Append("<ul>");
 
-				sb.AppendFormat( @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{1}"" style=""white-space:nowrap"">{0}</li>", thisItem.Description, onClick );
-			}
+      // add the items
+      foreach (InternalPopMenuItem thisItem in this._items)
+      {
+        string onClick;
 
-			sb.AppendFormat( "</ul></div>" );
+        if (!String.IsNullOrEmpty(thisItem.ClientScript))
+        {
+          // postback style...
+          onClick = thisItem.ClientScript;
+        }
+        else
+        {
+          onClick = Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument);
+        }
 
-			writer.WriteLine( sb.ToString() );
+        sb.AppendFormat(
+          @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{1}"" style=""white-space:nowrap"">{0}</li>", 
+          thisItem.Description, 
+          onClick);
+      }
 
-			base.Render( writer );
-		}
+      sb.AppendFormat("</ul></div>");
 
-		#region IPostBackEventHandler
-		public event PopEventHandler ItemClick;
+      writer.WriteLine(sb.ToString());
 
-		public void RaisePostBackEvent( string eventArgument )
-		{
-			if ( ItemClick != null )
-			{
-				ItemClick( this, new PopEventArgs( eventArgument ) );
-			}
-		}
-		#endregion
-	}
+      base.Render(writer);
+    }
 
-	public class PopEventArgs : EventArgs
-	{
-		private string _item;
+    #region IPostBackEventHandler
 
-		public PopEventArgs( string eventArgument )
-		{
-			_item = eventArgument;
-		}
+    /// <summary>
+    /// The raise post back event.
+    /// </summary>
+    /// <param name="eventArgument">
+    /// The event argument.
+    /// </param>
+    public void RaisePostBackEvent(string eventArgument)
+    {
+      if (ItemClick != null)
+      {
+        ItemClick(this, new PopEventArgs(eventArgument));
+      }
+    }
 
-		public string Item
-		{
-			get
-			{
-				return _item;
-			}
-		}
-	}
+    /// <summary>
+    /// The item click.
+    /// </summary>
+    public event PopEventHandler ItemClick;
 
-	public delegate void PopEventHandler( object sender, PopEventArgs e );
+    #endregion
+  }
 
-	public class InternalPopMenuItem
-	{
-		private string _description = null;
-		public string Description
-		{
-			get { return _description; }
-			set { _description = value; }
-		}
+  /// <summary>
+  /// The pop event args.
+  /// </summary>
+  public class PopEventArgs : EventArgs
+  {
+    /// <summary>
+    /// The _item.
+    /// </summary>
+    private string _item;
 
-		private string _postbackArgument = null;
-		public string PostBackArgument
-		{
-			get { return _postbackArgument; }
-			set { _postbackArgument = value; }
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PopEventArgs"/> class.
+    /// </summary>
+    /// <param name="eventArgument">
+    /// The event argument.
+    /// </param>
+    public PopEventArgs(string eventArgument)
+    {
+      this._item = eventArgument;
+    }
 
-		private string _clientScript = null;
-		public string ClientScript
-		{
-			get { return _clientScript; }
-			set { _clientScript = value; }
-		}
+    /// <summary>
+    /// Gets Item.
+    /// </summary>
+    public string Item
+    {
+      get
+      {
+        return this._item;
+      }
+    }
+  }
 
-		public InternalPopMenuItem( string description, string postbackArgument, string clientScript )
-		{
-			_description = description;
-			_postbackArgument = postbackArgument;
-			_clientScript = clientScript;
-		}
-	}
+  /// <summary>
+  /// The pop event handler.
+  /// </summary>
+  /// <param name="sender">
+  /// The sender.
+  /// </param>
+  /// <param name="e">
+  /// The e.
+  /// </param>
+  public delegate void PopEventHandler(object sender, PopEventArgs e);
+
+  /// <summary>
+  /// The internal pop menu item.
+  /// </summary>
+  public class InternalPopMenuItem
+  {
+    /// <summary>
+    /// The _client script.
+    /// </summary>
+    private string _clientScript = null;
+
+    /// <summary>
+    /// The _description.
+    /// </summary>
+    private string _description = null;
+
+    /// <summary>
+    /// The _postback argument.
+    /// </summary>
+    private string _postbackArgument = null;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InternalPopMenuItem"/> class.
+    /// </summary>
+    /// <param name="description">
+    /// The description.
+    /// </param>
+    /// <param name="postbackArgument">
+    /// The postback argument.
+    /// </param>
+    /// <param name="clientScript">
+    /// The client script.
+    /// </param>
+    public InternalPopMenuItem(string description, string postbackArgument, string clientScript)
+    {
+      this._description = description;
+      this._postbackArgument = postbackArgument;
+      this._clientScript = clientScript;
+    }
+
+    /// <summary>
+    /// Gets or sets Description.
+    /// </summary>
+    public string Description
+    {
+      get
+      {
+        return this._description;
+      }
+
+      set
+      {
+        this._description = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets PostBackArgument.
+    /// </summary>
+    public string PostBackArgument
+    {
+      get
+      {
+        return this._postbackArgument;
+      }
+
+      set
+      {
+        this._postbackArgument = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets ClientScript.
+    /// </summary>
+    public string ClientScript
+    {
+      get
+      {
+        return this._clientScript;
+      }
+
+      set
+      {
+        this._clientScript = value;
+      }
+    }
+  }
 }

@@ -18,99 +18,191 @@
  */
 using System;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using YAF.Classes.UI;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Makes a very simple localized label
-	/// </summary>
-	public class LocalizedLabel : BaseControl
-	{
-		protected string _localizedPage = string.Empty;
-		protected string _localizedTag = string.Empty;
-		protected string _param0 = string.Empty;
-		protected string _param1 = string.Empty;
-		protected string _param2 = string.Empty;
-		protected bool _enableBBCode = false;
+  /// <summary>
+  /// Makes a very simple localized label
+  /// </summary>
+  public class LocalizedLabel : BaseControl
+  {
+    /// <summary>
+    /// The _enable bb code.
+    /// </summary>
+    protected bool _enableBBCode = false;
 
-		public LocalizedLabel()
-			: base()
-		{
-		}
+    /// <summary>
+    /// The _localized page.
+    /// </summary>
+    protected string _localizedPage = string.Empty;
 
-		/// <summary>
-		/// Shows the localized text string (if available)
-		/// </summary>
-		/// <param name="output"></param>
-		protected override void Render( HtmlTextWriter output )
-		{
-			string localizedItem = GetCurrentItem();
+    /// <summary>
+    /// The _localized tag.
+    /// </summary>
+    protected string _localizedTag = string.Empty;
 
-			// convert from YafBBCode to HTML
-			if ( _enableBBCode )
-			{
-				localizedItem = YAF.Classes.UI.YafBBCode.MakeHtml( localizedItem, true, false );
-			}
+    /// <summary>
+    /// The _param 0.
+    /// </summary>
+    protected string _param0 = string.Empty;
 
-			output.BeginRender();
-			output.Write( String.Format( localizedItem, _param0, _param1, _param2) );
-			output.EndRender();
-		}
+    /// <summary>
+    /// The _param 1.
+    /// </summary>
+    protected string _param1 = string.Empty;
 
-		protected string GetCurrentItem()
-		{
-			if ( this.Site != null && this.Site.DesignMode == true )
-			{
-				return String.Format( "[PAGE:{0}|TAG:{1}]", LocalizedPage, LocalizedTag );
-			}
-			else if ( !String.IsNullOrEmpty( _localizedPage ) && !String.IsNullOrEmpty( _localizedTag ) )
-			{
-				return PageContext.Localization.GetText( LocalizedPage, LocalizedTag );
-			}
-			else if ( !String.IsNullOrEmpty( _localizedTag ) )
-			{
-				return PageContext.Localization.GetText( LocalizedTag );
-			}
+    /// <summary>
+    /// The _param 2.
+    /// </summary>
+    protected string _param2 = string.Empty;
 
-			return null;
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LocalizedLabel"/> class.
+    /// </summary>
+    public LocalizedLabel()
+      : base()
+    {
+    }
 
-		public string LocalizedPage
-		{
-			get { return _localizedPage; }
-			set { _localizedPage = value; }
-		}
+    /// <summary>
+    /// Gets or sets LocalizedPage.
+    /// </summary>
+    public string LocalizedPage
+    {
+      get
+      {
+        return this._localizedPage;
+      }
 
-		public string LocalizedTag
-		{
-			get { return _localizedTag; }
-			set { _localizedTag = value; }
-		}
+      set
+      {
+        this._localizedPage = value;
+      }
+    }
 
-		public string Param0
-		{
-			get { return _param0; }
-			set { _param0 = value; }
-		}
+    /// <summary>
+    /// Gets or sets LocalizedTag.
+    /// </summary>
+    public string LocalizedTag
+    {
+      get
+      {
+        return this._localizedTag;
+      }
 
-		public string Param1
-		{
-			get { return _param1; }
-			set { _param1 = value; }
-		}
+      set
+      {
+        this._localizedTag = value;
+      }
+    }
 
-		public string Param2
-		{
-			get { return _param2; }
-			set { _param2 = value; }
-		}
+    /// <summary>
+    /// Gets or sets Param0.
+    /// </summary>
+    public string Param0
+    {
+      get
+      {
+        return this._param0;
+      }
 
-		public bool EnableBBCode
-		{
-			get { return _enableBBCode; }
-			set { _enableBBCode = value; }
-		}
-	}
+      set
+      {
+        this._param0 = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Param1.
+    /// </summary>
+    public string Param1
+    {
+      get
+      {
+        return this._param1;
+      }
+
+      set
+      {
+        this._param1 = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Param2.
+    /// </summary>
+    public string Param2
+    {
+      get
+      {
+        return this._param2;
+      }
+
+      set
+      {
+        this._param2 = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether EnableBBCode.
+    /// </summary>
+    public bool EnableBBCode
+    {
+      get
+      {
+        return this._enableBBCode;
+      }
+
+      set
+      {
+        this._enableBBCode = value;
+      }
+    }
+
+    /// <summary>
+    /// Shows the localized text string (if available)
+    /// </summary>
+    /// <param name="output">
+    /// </param>
+    protected override void Render(HtmlTextWriter output)
+    {
+      string localizedItem = GetCurrentItem();
+
+      // convert from YafBBCode to HTML
+      if (this._enableBBCode)
+      {
+        localizedItem = YafBBCode.MakeHtml(localizedItem, true, false);
+      }
+
+      output.BeginRender();
+      output.Write(String.Format(localizedItem, this._param0, this._param1, this._param2));
+      output.EndRender();
+    }
+
+    /// <summary>
+    /// The get current item.
+    /// </summary>
+    /// <returns>
+    /// The get current item.
+    /// </returns>
+    protected string GetCurrentItem()
+    {
+      if (Site != null && Site.DesignMode == true)
+      {
+        return String.Format("[PAGE:{0}|TAG:{1}]", LocalizedPage, LocalizedTag);
+      }
+      else if (!String.IsNullOrEmpty(this._localizedPage) && !String.IsNullOrEmpty(this._localizedTag))
+      {
+        return PageContext.Localization.GetText(LocalizedPage, LocalizedTag);
+      }
+      else if (!String.IsNullOrEmpty(this._localizedTag))
+      {
+        return PageContext.Localization.GetText(LocalizedTag);
+      }
+
+      return null;
+    }
+  }
 }

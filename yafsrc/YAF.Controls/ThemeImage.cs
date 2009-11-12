@@ -17,132 +17,250 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Provides a image with themed src
-	/// </summary>
-	public class ThemeImage : BaseControl
-	{
-		protected string _alt = string.Empty;
-		protected string _themePage = "ICONS";
-		protected string _themeTag = string.Empty;
-		protected string _style = string.Empty;
-		protected string _localizedTitlePage = string.Empty;
-		protected string _localizedTitleTag = string.Empty;
-		protected bool _useTitleForEmptyAlt = true;
+  /// <summary>
+  /// Provides a image with themed src
+  /// </summary>
+  public class ThemeImage : BaseControl
+  {
+    /// <summary>
+    /// The _alt.
+    /// </summary>
+    protected string _alt = string.Empty;
 
-		public ThemeImage() : base()
-		{
+    /// <summary>
+    /// The _localized title page.
+    /// </summary>
+    protected string _localizedTitlePage = string.Empty;
 
-		}
+    /// <summary>
+    /// The _localized title tag.
+    /// </summary>
+    protected string _localizedTitleTag = string.Empty;
 
-		protected override void Render( HtmlTextWriter output )
-		{
-			string src = this.GetCurrentThemeItem();
-			string title = this.GetCurrentTitleItem();
+    /// <summary>
+    /// The _style.
+    /// </summary>
+    protected string _style = string.Empty;
 
-			// might not be needed...
-			if ( String.IsNullOrEmpty( src ) ) return;
+    /// <summary>
+    /// The _theme page.
+    /// </summary>
+    protected string _themePage = "ICONS";
 
-			if ( UseTitleForEmptyAlt && String.IsNullOrEmpty( Alt ) && !String.IsNullOrEmpty(title) )
-			{
-				Alt = title;
-			}
+    /// <summary>
+    /// The _theme tag.
+    /// </summary>
+    protected string _themeTag = string.Empty;
 
-			output.BeginRender();
-			output.WriteBeginTag( "img" );
-			output.WriteAttribute( "id", this.ClientID );
+    /// <summary>
+    /// The _use title for empty alt.
+    /// </summary>
+    protected bool _useTitleForEmptyAlt = true;
 
-			// this will output the src and alt attributes
-			output.WriteAttribute( "src", src );
-			output.WriteAttribute( "alt", Alt );
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ThemeImage"/> class.
+    /// </summary>
+    public ThemeImage()
+      : base()
+    {
+    }
 
-			if ( !String.IsNullOrEmpty( Style ) ) output.WriteAttribute( "style", Style );
-			if ( !String.IsNullOrEmpty( title ) ) output.WriteAttribute( "title", title );
+    /// <summary>
+    /// Set/Get the ThemePage -- Defaults to "ICONS"
+    /// </summary>
+    public string ThemePage
+    {
+      get
+      {
+        return this._themePage;
+      }
 
-			// self closing end tag "/>"
-			output.Write( HtmlTextWriter.SelfClosingTagEnd );
+      set
+      {
+        this._themePage = value;
+      }
+    }
 
-			output.EndRender();
-		}
+    /// <summary>
+    /// Set/Get the actual theme item
+    /// </summary>
+    public string ThemeTag
+    {
+      get
+      {
+        return this._themeTag;
+      }
 
-		protected string GetCurrentTitleItem()
-		{
-			if ( !String.IsNullOrEmpty( _localizedTitlePage ) && !String.IsNullOrEmpty( _localizedTitleTag ) )
-			{
-				return PageContext.Localization.GetText( _localizedTitlePage, _localizedTitleTag );
-			}
-			else if ( !String.IsNullOrEmpty( _localizedTitleTag ) )
-			{
-				return PageContext.Localization.GetText( _localizedTitleTag );
-			}
+      set
+      {
+        this._themeTag = value;
+      }
+    }
 
-			return null;
-		}
+    /// <summary>
+    /// Gets or sets Alt.
+    /// </summary>
+    public string Alt
+    {
+      get
+      {
+        return this._alt;
+      }
 
-		protected string GetCurrentThemeItem()
-		{
-			if ( !String.IsNullOrEmpty( _themePage ) && !String.IsNullOrEmpty( _themeTag ) )
-			{
-				return PageContext.Theme.GetItem( ThemePage, ThemeTag, null );
-			}
+      set
+      {
+        this._alt = value;
+      }
+    }
 
-			return null;
-		}
+    /// <summary>
+    /// Gets or sets a value indicating whether UseTitleForEmptyAlt.
+    /// </summary>
+    public bool UseTitleForEmptyAlt
+    {
+      get
+      {
+        return this._useTitleForEmptyAlt;
+      }
 
-		/// <summary>
-		/// Set/Get the ThemePage -- Defaults to "ICONS"
-		/// </summary>
-		public string ThemePage
-		{
-			get { return _themePage; }
-			set { _themePage = value; }
-		}
+      set
+      {
+        this._useTitleForEmptyAlt = value;
+      }
+    }
 
-		/// <summary>
-		/// Set/Get the actual theme item
-		/// </summary>
-		public string ThemeTag
-		{
-			get { return _themeTag; }
-			set { _themeTag = value; }
-		}
+    /// <summary>
+    /// Gets or sets LocalizedTitlePage.
+    /// </summary>
+    public string LocalizedTitlePage
+    {
+      get
+      {
+        return this._localizedTitlePage;
+      }
 
-		public string Alt
-		{
-			get { return _alt; }
-			set { _alt = value; }
-		}
+      set
+      {
+        this._localizedTitlePage = value;
+      }
+    }
 
-		public bool UseTitleForEmptyAlt
-		{
-			get { return _useTitleForEmptyAlt; }
-			set { _useTitleForEmptyAlt = value; }
-		}
+    /// <summary>
+    /// Gets or sets LocalizedTitleTag.
+    /// </summary>
+    public string LocalizedTitleTag
+    {
+      get
+      {
+        return this._localizedTitleTag;
+      }
 
-		public string LocalizedTitlePage
-		{
-			get { return _localizedTitlePage; }
-			set { _localizedTitlePage = value; }
-		}
+      set
+      {
+        this._localizedTitleTag = value;
+      }
+    }
 
-		public string LocalizedTitleTag
-		{
-			get { return _localizedTitleTag; }
-			set { _localizedTitleTag = value; }
-		}
+    /// <summary>
+    /// Gets or sets Style.
+    /// </summary>
+    public string Style
+    {
+      get
+      {
+        return this._style;
+      }
 
-		public string Style
-		{
-			get { return _style; }
-			set { _style = value; }
-		}
+      set
+      {
+        this._style = value;
+      }
+    }
 
-	}
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="output">
+    /// The output.
+    /// </param>
+    protected override void Render(HtmlTextWriter output)
+    {
+      string src = GetCurrentThemeItem();
+      string title = GetCurrentTitleItem();
+
+      // might not be needed...
+      if (String.IsNullOrEmpty(src))
+      {
+        return;
+      }
+
+      if (UseTitleForEmptyAlt && String.IsNullOrEmpty(Alt) && !String.IsNullOrEmpty(title))
+      {
+        Alt = title;
+      }
+
+      output.BeginRender();
+      output.WriteBeginTag("img");
+      output.WriteAttribute("id", ClientID);
+
+      // this will output the src and alt attributes
+      output.WriteAttribute("src", src);
+      output.WriteAttribute("alt", Alt);
+
+      if (!String.IsNullOrEmpty(Style))
+      {
+        output.WriteAttribute("style", Style);
+      }
+
+      if (!String.IsNullOrEmpty(title))
+      {
+        output.WriteAttribute("title", title);
+      }
+
+      // self closing end tag "/>"
+      output.Write(HtmlTextWriter.SelfClosingTagEnd);
+
+      output.EndRender();
+    }
+
+    /// <summary>
+    /// The get current title item.
+    /// </summary>
+    /// <returns>
+    /// The get current title item.
+    /// </returns>
+    protected string GetCurrentTitleItem()
+    {
+      if (!String.IsNullOrEmpty(this._localizedTitlePage) && !String.IsNullOrEmpty(this._localizedTitleTag))
+      {
+        return PageContext.Localization.GetText(this._localizedTitlePage, this._localizedTitleTag);
+      }
+      else if (!String.IsNullOrEmpty(this._localizedTitleTag))
+      {
+        return PageContext.Localization.GetText(this._localizedTitleTag);
+      }
+
+      return null;
+    }
+
+    /// <summary>
+    /// The get current theme item.
+    /// </summary>
+    /// <returns>
+    /// The get current theme item.
+    /// </returns>
+    protected string GetCurrentThemeItem()
+    {
+      if (!String.IsNullOrEmpty(this._themePage) && !String.IsNullOrEmpty(this._themeTag))
+      {
+        return PageContext.Theme.GetItem(ThemePage, ThemeTag, null);
+      }
+
+      return null;
+    }
+  }
 }

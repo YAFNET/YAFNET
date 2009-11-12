@@ -18,6 +18,7 @@
  */
 using System;
 using System.Data;
+using System.Text;
 using System.Web.UI;
 using YAF.Classes;
 using YAF.Classes.Core;
@@ -26,107 +27,121 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls.Statistics
 {
-	/// <summary>
-	/// Control to display last active topics.
-	/// </summary>
-	[ToolboxData( "<{0}:ActiveDiscussions runat=\"server\"></{0}:ActiveDiscussions>" )]
-	public class ActiveDiscussions : BaseControl
-	{
-		/* Data */
-		#region Data
-		
-		/// <summary>
-		/// Number of active discussions to display in a control.
-		/// </summary>
-		private int _displayNumber = 10;
+  /// <summary>
+  /// Control to display last active topics.
+  /// </summary>
+  [ToolboxData("<{0}:ActiveDiscussions runat=\"server\"></{0}:ActiveDiscussions>")]
+  public class ActiveDiscussions : BaseControl
+  {
+    #region Data
 
-		#endregion
-		
-		
-		/* Construction & Desctuction */
-		#region Constructors
+    /// <summary>
+    /// Number of active discussions to display in a control.
+    /// </summary>
+    private int _displayNumber = 10;
 
-		/// <summary>
-		/// The default constructor for ActiveDiscussions.
-		/// </summary>
-		public ActiveDiscussions() { }
-		
-		#endregion
-	
-		
-		/* Properties */
-		#region Control Properties
+    #endregion
 
-		/// <summary>
-		/// Gets or sets number of active discussions to display in a control.
-		/// </summary>
-		public int DisplayNumber
-		{
-			get { return _displayNumber; }
-			set { _displayNumber = value; }
-		}
-		
-		#endregion
+    #region Constructors
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActiveDiscussions"/> class. 
+    /// The default constructor for ActiveDiscussions.
+    /// </summary>
+    public ActiveDiscussions()
+    {
+    }
 
-		/* Control Processing Methods */
-		#region Control Rendering
+    #endregion
 
-		/// <summary>
-		/// Renders the ActiveDiscussions control.
-		/// </summary>
-		/// <param name="writer"></param>
-		protected override void Render(System.Web.UI.HtmlTextWriter writer)
-		{
-			// for HTML code string representing the control
-			System.Text.StringBuilder html = new System.Text.StringBuilder();
+    #region Control Properties
 
-			// try to get data from the cache first
-			string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ActiveDiscussions);
-			DataTable dt = PageContext.Cache[cacheKey] as DataTable;
+    /// <summary>
+    /// Gets or sets number of active discussions to display in a control.
+    /// </summary>
+    public int DisplayNumber
+    {
+      get
+      {
+        return this._displayNumber;
+      }
 
-			if (dt == null)
-			{
-				// nothing was cached, retrieve it from the database
-				dt = YAF.Classes.Data.DB.topic_latest(PageContext.PageBoardID, _displayNumber, PageContext.PageUserID);
-				// and cache it
-				PageContext.Cache.Insert(cacheKey, dt, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
-			}
+      set
+      {
+        this._displayNumber = value;
+      }
+    }
 
-			// render head of control
-			html.Append("<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">");
-			html.AppendFormat("<tr><td class=\"header1\">{0}</td></tr>", PageContext.Localization.GetText("LATEST_POSTS"));
+    #endregion
 
-			// now container for posts themselves
-			html.Append("<tr><td class=\"post\">");
+    #region Control Rendering
 
-			// order of post we are currently rendering
-			int currentPost = 1;
+    /// <summary>
+    /// Renders the ActiveDiscussions control.
+    /// </summary>
+    /// <param name="writer">
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      // for HTML code string representing the control
+      var html = new StringBuilder();
 
-			// go through all active topics returned
-			foreach (System.Data.DataRow r in dt.Rows)
-			{
-				// Output Topic Link
-				html.AppendFormat("{2}.&nbsp;<a href=\"{1}\">{0}</a> ({3})",
-					YafServices.BadWordReplace.Replace(Convert.ToString(r["Topic"])),
-					YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", r["LastMessageID"]),
-					currentPost,
-					r["NumPosts"]
-					);
-				// new line after topic link
-				html.Append("<br/>");
+      // try to get data from the cache first
+      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ActiveDiscussions);
+      var dt = PageContext.Cache[cacheKey] as DataTable;
 
-				// moving onto next position
-				currentPost++;
-			}
+      if (dt == null)
+      {
+        // nothing was cached, retrieve it from the database
+        dt = DB.topic_latest(PageContext.PageBoardID, this._displayNumber, PageContext.PageUserID);
 
-			// close posts container
-			html.Append("</td></tr></table>");
+        // and cache it
+        PageContext.Cache.Insert(cacheKey, dt, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
+      }
 
-			// render control to the output
-			writer.Write(html.ToString());
-		}
-		
-		#endregion
-	}
+      // render head of control
+      html.Append("<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">");
+      html.AppendFormat("<tr><td class=\"header1\">{0}</td></tr>", PageContext.Localization.GetText("LATEST_POSTS"));
+
+      // now container for posts themselves
+      html.Append("<tr><td class=\"post\">");
+
+      // order of post we are currently rendering
+      int currentPost = 1;
+
+      // go through all active topics returned
+      foreach (DataRow r in dt.Rows)
+      {
+        // Output Topic Link
+        html.AppendFormat(
+          "{2}.&nbsp;<a href=\"{1}\">{0}</a> ({3})", 
+          YafServices.BadWordReplace.Replace(Convert.ToString(r["Topic"])), 
+          YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", r["LastMessageID"]), 
+          currentPost, 
+          r["NumPosts"]);
+
+        // new line after topic link
+        html.Append("<br/>");
+
+        // moving onto next position
+        currentPost++;
+      }
+
+      // close posts container
+      html.Append("</td></tr></table>");
+
+      // render control to the output
+      writer.Write(html.ToString());
+    }
+
+    #endregion
+
+    /* Data */
+
+    /* Construction & Desctuction */
+
+    /* Properties */
+
+    /* Control Processing Methods */
+  }
 }
