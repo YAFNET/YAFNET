@@ -16,30 +16,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
 using System.Web;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Web.UI;
 
 namespace YAF.Classes.Core
 {
-	/// <summary>
-	/// Summary description for ForumUsers.
-	/// </summary>
-	public class BaseUserControl : System.Web.UI.UserControl
-	{
-		public YafContext PageContext
-		{
-			get
-			{
-				return YafContext.Current;
-			}
-		}				
+  /// <summary>
+  /// Summary description for ForumUsers.
+  /// </summary>
+  public class BaseUserControl : UserControl
+  {
+    /// <summary>
+    /// Gets PageContext.
+    /// </summary>
+    public YafContext PageContext
+    {
+      get
+      {
+        return YafContext.Current;
+      }
+    }
 
-		public string HtmlEncode( object data )
-		{
-			return HttpContext.Current.Server.HtmlEncode( data.ToString() );
-		}
-	}
+    /// <summary>
+    /// The html encode.
+    /// </summary>
+    /// <param name="data">
+    /// The data.
+    /// </param>
+    /// <returns>
+    /// The html encode.
+    /// </returns>
+    public string HtmlEncode(object data)
+    {
+      return HttpContext.Current.Server.HtmlEncode(data.ToString());
+    }
+  }
 }

@@ -118,7 +118,7 @@ namespace YAF.Classes.Core
 			}
 		}
 
-		static public DataTable AllowDisallow()
+		public static DataTable AllowDisallow()
 		{
 			using (DataTable dt = new DataTable("AllowDisallow"))
 			{
@@ -138,7 +138,7 @@ namespace YAF.Classes.Core
 			}
 		}
 
-		static public DataTable TopicTimes()
+		public static DataTable TopicTimes()
 		{
 			using (DataTable dt = new DataTable("TopicTimes"))
 			{

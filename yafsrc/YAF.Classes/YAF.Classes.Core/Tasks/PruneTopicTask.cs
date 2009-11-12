@@ -17,83 +17,156 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using YAF.Classes.Data;
 
 namespace YAF.Classes.Core
 {
-	/// <summary>
-	/// Run when we want to do migration of users in the background...
-	/// </summary>
-	public class PruneTopicTask : LongBackgroundTask
-	{
-		private const string _taskName = "PruneTopicTask";
-		public static string TaskName
-		{
-			get
-			{
-				return _taskName;
-			}
-		}
+  /// <summary>
+  /// Run when we want to do migration of users in the background...
+  /// </summary>
+  public class PruneTopicTask : LongBackgroundTask
+  {
+    /// <summary>
+    /// The _task name.
+    /// </summary>
+    private const string _taskName = "PruneTopicTask";
 
-		private int _forumId;
-		public int ForumId
-		{
-			get { return _forumId; }
-			set { _forumId = value; }
-		}
+    /// <summary>
+    /// The _days.
+    /// </summary>
+    private int _days;
 
-		private int _days;
-		public int Days
-		{
-			get { return _days; }
-			set { _days = value; }
-		}
+    /// <summary>
+    /// The _forum id.
+    /// </summary>
+    private int _forumId;
 
-		private bool _permDelete;
-		public bool PermDelete
-		{
-			get { return _permDelete; }
-			set { _permDelete = value; }
-		}
+    /// <summary>
+    /// The _perm delete.
+    /// </summary>
+    private bool _permDelete;
 
-		public PruneTopicTask()
-		{
-			
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PruneTopicTask"/> class.
+    /// </summary>
+    public PruneTopicTask()
+    {
+    }
 
-		static public bool Start(int boardId,int forumId,int days,bool permDelete)
-		{
-			if ( YafTaskModule.Current == null ) return false;
+    /// <summary>
+    /// Gets TaskName.
+    /// </summary>
+    public static string TaskName
+    {
+      get
+      {
+        return _taskName;
+      }
+    }
 
-			if ( !YafTaskModule.Current.TaskExists( TaskName ) )
-			{
-				PruneTopicTask task = new PruneTopicTask
-				                      	{
-				                      		BoardID = boardId,
-				                      		ForumId = forumId,
-				                      		Days = days,
-				                      		PermDelete = permDelete
-				                      	};
-				YafTaskModule.Current.StartTask( TaskName, task );
-			}
+    /// <summary>
+    /// Gets or sets ForumId.
+    /// </summary>
+    public int ForumId
+    {
+      get
+      {
+        return this._forumId;
+      }
 
-			return true;
-		}
+      set
+      {
+        this._forumId = value;
+      }
+    }
 
-		public override void RunOnce()
-		{
-			try
-			{
-				int count = DB.topic_prune(BoardID, ForumId, Days, PermDelete);
+    /// <summary>
+    /// Gets or sets Days.
+    /// </summary>
+    public int Days
+    {
+      get
+      {
+        return this._days;
+      }
 
-				DB.eventlog_create( null, TaskName, String.Format( "Prune Task Complete. Pruned {0} topics.", count ), 2 );
-			}
-			catch(Exception x)
-			{
-				DB.eventlog_create( null, TaskName, String.Format( "Error In Prune Topic Task: {0}", x ) );
-			}
-		}
-	}
+      set
+      {
+        this._days = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether PermDelete.
+    /// </summary>
+    public bool PermDelete
+    {
+      get
+      {
+        return this._permDelete;
+      }
+
+      set
+      {
+        this._permDelete = value;
+      }
+    }
+
+    /// <summary>
+    /// The start.
+    /// </summary>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <param name="days">
+    /// The days.
+    /// </param>
+    /// <param name="permDelete">
+    /// The perm delete.
+    /// </param>
+    /// <returns>
+    /// The start.
+    /// </returns>
+    public static bool Start(int boardId, int forumId, int days, bool permDelete)
+    {
+      if (YafTaskModule.Current == null)
+      {
+        return false;
+      }
+
+      if (!YafTaskModule.Current.TaskExists(TaskName))
+      {
+        var task = new PruneTopicTask
+          {
+            BoardID = boardId, 
+            ForumId = forumId, 
+            Days = days, 
+            PermDelete = permDelete
+          };
+        YafTaskModule.Current.StartTask(TaskName, task);
+      }
+
+      return true;
+    }
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
+    {
+      try
+      {
+        int count = DB.topic_prune(BoardID, ForumId, Days, PermDelete);
+
+        DB.eventlog_create(null, TaskName, String.Format("Prune Task Complete. Pruned {0} topics.", count), 2);
+      }
+      catch (Exception x)
+      {
+        DB.eventlog_create(null, TaskName, String.Format("Error In Prune Topic Task: {0}", x));
+      }
+    }
+  }
 }

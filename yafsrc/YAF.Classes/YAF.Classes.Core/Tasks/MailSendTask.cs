@@ -17,85 +17,124 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using YAF.Classes.Core;
 
 namespace YAF.Modules
 {
-	[YafModule("Mail Queue Starting Module","Tiny Gecko",1)]
-	public class MailSendingModule : IBaseModule
-	{
-		private const string _keyName = "MailSendTask";
+  /// <summary>
+  /// The mail sending module.
+  /// </summary>
+  [YafModule("Mail Queue Starting Module", "Tiny Gecko", 1)]
+  public class MailSendingModule : IBaseModule
+  {
+    /// <summary>
+    /// The _key name.
+    /// </summary>
+    private const string _keyName = "MailSendTask";
 
-		private object _forumControlObj;
-		public object ForumControlObj
-		{
-			get
-			{
-				return _forumControlObj;
-			}
-			set
-			{
-				_forumControlObj = value;
-			}
-		}
-		
-		public void Init()
-		{
-			// hook the page init for mail sending...
-			YafContext.Current.AfterInit += new EventHandler<EventArgs>( Current_AfterInit );
+    /// <summary>
+    /// The _forum control obj.
+    /// </summary>
+    private object _forumControlObj;
 
-		}
+    #region IBaseModule Members
 
-		void Current_AfterInit( object sender, EventArgs e )
-		{
-			// add the mailing task if it's not already added...
-			if ( YafTaskModule.Current != null && !YafTaskModule.Current.TaskExists( _keyName ) )
-			{
-				// start it...
-				YafTaskModule.Current.StartTask( _keyName, new MailSendTask() );
-			}
-		}
+    /// <summary>
+    /// Gets or sets ForumControlObj.
+    /// </summary>
+    public object ForumControlObj
+    {
+      get
+      {
+        return this._forumControlObj;
+      }
 
-		#region IDisposable Members
+      set
+      {
+        this._forumControlObj = value;
+      }
+    }
 
-		public void Dispose()
-		{
+    /// <summary>
+    /// The init.
+    /// </summary>
+    public void Init()
+    {
+      // hook the page init for mail sending...
+      YafContext.Current.AfterInit += new EventHandler<EventArgs>(Current_AfterInit);
+    }
 
-		}
+    /// <summary>
+    /// The dispose.
+    /// </summary>
+    public void Dispose()
+    {
+    }
 
-		#endregion
-	}
+    #endregion
+
+    /// <summary>
+    /// The current_ after init.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Current_AfterInit(object sender, EventArgs e)
+    {
+      // add the mailing task if it's not already added...
+      if (YafTaskModule.Current != null && !YafTaskModule.Current.TaskExists(_keyName))
+      {
+        // start it...
+        YafTaskModule.Current.StartTask(_keyName, new MailSendTask());
+      }
+    }
+  }
 }
 
 namespace YAF.Classes.Core
 {
-	/// <summary>
-	/// Sends Email in the background.
-	/// </summary>
-	public class MailSendTask : IntermittentBackgroundTask
-	{
-		protected int _uniqueId = 0;
-		protected YafSendMailThreaded _sendMailThreaded = new YafSendMailThreaded();
+  /// <summary>
+  /// Sends Email in the background.
+  /// </summary>
+  public class MailSendTask : IntermittentBackgroundTask
+  {
+    /// <summary>
+    /// The _send mail threaded.
+    /// </summary>
+    protected YafSendMailThreaded _sendMailThreaded = new YafSendMailThreaded();
 
-		public MailSendTask()
-		{
-			// set the unique value...
-			Random rand = new Random();
-			_uniqueId = rand.Next();
+    /// <summary>
+    /// The _unique id.
+    /// </summary>
+    protected int _uniqueId = 0;
 
-			// set interval values...
-			this.RunPeriodMs = ( rand.Next( 10 ) + 5 ) * 1000;
-			this.StartDelayMs = ( rand.Next( 10 ) + 5 ) * 1000;
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MailSendTask"/> class.
+    /// </summary>
+    public MailSendTask()
+    {
+      // set the unique value...
+      var rand = new Random();
+      this._uniqueId = rand.Next();
 
-		public override void RunOnce()
-		{
-			Debug.WriteLine( "Running Send Mail Thread..." );
-			// send thread handles it's own exception...
-			_sendMailThreaded.SendThreaded( _uniqueId );
-		}
-	}
+      // set interval values...
+      RunPeriodMs = (rand.Next(10) + 5)*1000;
+      StartDelayMs = (rand.Next(10) + 5)*1000;
+    }
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
+    {
+      Debug.WriteLine("Running Send Mail Thread...");
+
+      // send thread handles it's own exception...
+      this._sendMailThreaded.SendThreaded(this._uniqueId);
+    }
+  }
 }

@@ -22,53 +22,85 @@ using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	public class YafAvatars
-	{
-		public string GetAvatarUrlForUser( int userId )
-		{
-			CombinedUserDataHelper userData = new CombinedUserDataHelper( userId );
-			return GetAvatarUrlForUser( userData );
-		}
+  /// <summary>
+  /// The yaf avatars.
+  /// </summary>
+  public class YafAvatars
+  {
+    /// <summary>
+    /// The get avatar url for user.
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The get avatar url for user.
+    /// </returns>
+    public string GetAvatarUrlForUser(int userId)
+    {
+      var userData = new CombinedUserDataHelper(userId);
+      return GetAvatarUrlForUser(userData);
+    }
 
-		public string GetAvatarUrlForUser( CombinedUserDataHelper userData )
-		{
-			string avatarUrl = string.Empty;
+    /// <summary>
+    /// The get avatar url for user.
+    /// </summary>
+    /// <param name="userData">
+    /// The user data.
+    /// </param>
+    /// <returns>
+    /// The get avatar url for user.
+    /// </returns>
+    public string GetAvatarUrlForUser(CombinedUserDataHelper userData)
+    {
+      string avatarUrl = string.Empty;
 
-			if ( YafContext.Current.BoardSettings.AvatarUpload && userData.HasAvatarImage )
-			{
-				avatarUrl = String.Format( "{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, userData.UserID );
-			}
-			else if ( !String.IsNullOrEmpty( userData.Avatar ) ) // Took out PageContext.BoardSettings.AvatarRemote
-			{
-				avatarUrl = String.Format( "{3}resource.ashx?url={0}&amp;width={1}&amp;height={2}",
-					HttpContext.Current.Server.UrlEncode( userData.Avatar ),
-					YafContext.Current.BoardSettings.AvatarWidth,
-					YafContext.Current.BoardSettings.AvatarHeight,
-					YafForumInfo.ForumRoot );
-			}
-			//JoeOuts added 8/17/09 for Gravatar use
-			else if ( YafContext.Current.BoardSettings.AvatarGravatar && !String.IsNullOrEmpty( userData.Email ) )
-			{
-				//string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
+      if (YafContext.Current.BoardSettings.AvatarUpload && userData.HasAvatarImage)
+      {
+        avatarUrl = String.Format("{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, userData.UserID);
+      }
+      else if (!String.IsNullOrEmpty(userData.Avatar))
+      {
+        // Took out PageContext.BoardSettings.AvatarRemote
+        avatarUrl = String.Format(
+          "{3}resource.ashx?url={0}&amp;width={1}&amp;height={2}", 
+          HttpContext.Current.Server.UrlEncode(userData.Avatar), 
+          YafContext.Current.BoardSettings.AvatarWidth, 
+          YafContext.Current.BoardSettings.AvatarHeight, 
+          YafForumInfo.ForumRoot);
+      }
+        
+        // JoeOuts added 8/17/09 for Gravatar use
+      else if (YafContext.Current.BoardSettings.AvatarGravatar && !String.IsNullOrEmpty(userData.Email))
+      {
+        // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
+        string gravatarUrl = String.Format(
+          @"http://www.gravatar.com/avatar/{0}.jpg?r={1}", 
+          // &d={2} don't use a default...
+          StringHelper.StringToHexBytes(userData.Email), 
+          YafContext.Current.BoardSettings.GravatarRating);
 
-				string gravatarUrl = String.Format( @"http://www.gravatar.com/avatar/{0}.jpg?r={1}", //&d={2} don't use a default...
-				                                    StringHelper.StringToHexBytes( userData.Email ),
-				                                    YafContext.Current.BoardSettings.GravatarRating );
-				                                    
-																						
 
-				avatarUrl = String.Format( "{3}resource.ashx?url={0}&amp;width={1}&amp;height={2}",
-																	 HttpContext.Current.Server.UrlEncode( gravatarUrl ),
-																	 YafContext.Current.BoardSettings.AvatarWidth,
-																	 YafContext.Current.BoardSettings.AvatarHeight, YafForumInfo.ForumRoot );
-			}
+        avatarUrl = String.Format(
+          "{3}resource.ashx?url={0}&amp;width={1}&amp;height={2}", 
+          HttpContext.Current.Server.UrlEncode(gravatarUrl), 
+          YafContext.Current.BoardSettings.AvatarWidth, 
+          YafContext.Current.BoardSettings.AvatarHeight, 
+          YafForumInfo.ForumRoot);
+      }
 
-			return avatarUrl;			
-		}
+      return avatarUrl;
+    }
 
-		public string GetAvatarUrlForCurrentUser()
-		{
-			return GetAvatarUrlForUser( YafContext.Current.CurrentUserData );
-		}
-	}
+    /// <summary>
+    /// The get avatar url for current user.
+    /// </summary>
+    /// <returns>
+    /// The get avatar url for current user.
+    /// </returns>
+    public string GetAvatarUrlForCurrentUser()
+    {
+      return GetAvatarUrlForUser(YafContext.Current.CurrentUserData);
+    }
+  }
 }

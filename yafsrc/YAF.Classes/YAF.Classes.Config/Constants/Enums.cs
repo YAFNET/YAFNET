@@ -18,40 +18,88 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace YAF.Classes
 {
-	public enum SearchFieldFlags
-	{
-		Message = 0,
-		UserName = 1
-	}
+  /// <summary>
+  /// The search field flags.
+  /// </summary>
+  public enum SearchFieldFlags
+  {
+    /// <summary>
+    /// The message.
+    /// </summary>
+    Message = 0, 
 
-	public enum SearchWhatFlags
-	{
-		AllWords = 0,
-		AnyWords = 1,
-		ExactMatch = 2
-	}
+    /// <summary>
+    /// The user name.
+    /// </summary>
+    UserName = 1
+  }
 
-	public enum EventLogTypes : int
-	{
-		Error = 0,
-		Warning = 1,
-		Information = 2
-	}
+  /// <summary>
+  /// The search what flags.
+  /// </summary>
+  public enum SearchWhatFlags
+  {
+    /// <summary>
+    /// The all words.
+    /// </summary>
+    AllWords = 0, 
 
-	public enum ViewPermissions : int
-	{
-		Nobody = 0,
-		RegisteredUsers = 1,
-		Everyone = 2
-	}
+    /// <summary>
+    /// The any words.
+    /// </summary>
+    AnyWords = 1, 
 
-	/* Ederon
+    /// <summary>
+    /// The exact match.
+    /// </summary>
+    ExactMatch = 2
+  }
+
+  /// <summary>
+  /// The event log types.
+  /// </summary>
+  public enum EventLogTypes
+  {
+    /// <summary>
+    /// The error.
+    /// </summary>
+    Error = 0, 
+
+    /// <summary>
+    /// The warning.
+    /// </summary>
+    Warning = 1, 
+
+    /// <summary>
+    /// The information.
+    /// </summary>
+    Information = 2
+  }
+
+  /// <summary>
+  /// The view permissions.
+  /// </summary>
+  public enum ViewPermissions
+  {
+    /// <summary>
+    /// The nobody.
+    /// </summary>
+    Nobody = 0, 
+
+    /// <summary>
+    /// The registered users.
+    /// </summary>
+    RegisteredUsers = 1, 
+
+    /// <summary>
+    /// The everyone.
+    /// </summary>
+    Everyone = 2
+  }
+
+  /* Ederon
 	public enum ForumFlags : int
 	{
 		Locked = 1,						// users can't post/edit/delete topics in such forum

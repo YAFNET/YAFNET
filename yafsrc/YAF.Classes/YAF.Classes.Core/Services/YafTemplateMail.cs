@@ -17,160 +17,278 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text;
 using System.Net.Mail;
-using System.Web;
-using System.Data;
-using System.Web.Security;
 using YAF.Classes.Data;
-using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	public class YafTemplateEmail
-	{
-		#region Properties
+  /// <summary>
+  /// The yaf template email.
+  /// </summary>
+  public class YafTemplateEmail
+  {
+    #region Properties
 
-		private string _templateName;
+    /// <summary>
+    /// The _html enabled.
+    /// </summary>
+    private bool _htmlEnabled;
 
-		public string TemplateName
-		{
-			get { return _templateName; }
-			set { _templateName = value; }
-		}
+    /// <summary>
+    /// The _template language file.
+    /// </summary>
+    private string _templateLanguageFile;
 
-		private string _templateLanguageFile;
-		public string TemplateLanguageFile
-		{
-			get
-			{
-				return _templateLanguageFile;
-			}
-			set
-			{
-				_templateLanguageFile = value;
-			}
-		}
+    /// <summary>
+    /// The _template name.
+    /// </summary>
+    private string _templateName;
 
-		private bool _htmlEnabled;
+    /// <summary>
+    /// The _template params.
+    /// </summary>
+    private StringDictionary _templateParams = new StringDictionary();
 
-		public bool HtmlEnabled
-		{
-			get { return _htmlEnabled; }
-			set { _htmlEnabled = value; }
-		}
+    /// <summary>
+    /// Gets or sets TemplateName.
+    /// </summary>
+    public string TemplateName
+    {
+      get
+      {
+        return this._templateName;
+      }
 
-		private StringDictionary _templateParams = new StringDictionary();
-		public StringDictionary TemplateParams
-		{
-			get
-			{
-				return _templateParams;
-			}
-			set
-			{
-				_templateParams = value;
-			}
-		}
+      set
+      {
+        this._templateName = value;
+      }
+    }
 
-		#endregion
+    /// <summary>
+    /// Gets or sets TemplateLanguageFile.
+    /// </summary>
+    public string TemplateLanguageFile
+    {
+      get
+      {
+        return this._templateLanguageFile;
+      }
 
-		public YafTemplateEmail()
-			: this( null, true )
-		{
+      set
+      {
+        this._templateLanguageFile = value;
+      }
+    }
 
-		}
-		public YafTemplateEmail( string templateName )
-			: this( templateName, true )
-		{
+    /// <summary>
+    /// Gets or sets a value indicating whether HtmlEnabled.
+    /// </summary>
+    public bool HtmlEnabled
+    {
+      get
+      {
+        return this._htmlEnabled;
+      }
 
-		}
-		public YafTemplateEmail( string templateName, bool htmlEnabled )
-		{
-			_templateName = templateName;
-			_htmlEnabled = htmlEnabled;
-		}
+      set
+      {
+        this._htmlEnabled = value;
+      }
+    }
 
-		/// <summary>
-		/// Reads a template from the language file
-		/// </summary>
-		/// <returns>The template</returns>
-		private string ReadTemplate( string templateName, string templateLanguageFile )
-		{
-			if ( !String.IsNullOrEmpty( templateName ) )
-			{
-				if ( !String.IsNullOrEmpty( templateLanguageFile ) )
-				{
-					YafLocalization localization = new YafLocalization();
-					localization.LoadTranslation( templateLanguageFile );
-					return localization.GetText( "TEMPLATES", templateName );
-				}
+    /// <summary>
+    /// Gets or sets TemplateParams.
+    /// </summary>
+    public StringDictionary TemplateParams
+    {
+      get
+      {
+        return this._templateParams;
+      }
 
-				return YafContext.Current.Localization.GetText( "TEMPLATES", templateName );
-			}
+      set
+      {
+        this._templateParams = value;
+      }
+    }
 
-			return null;
-		}
+    #endregion
 
-		/// <summary>
-		/// Creates an email from a template
-		/// </summary>
-		/// <returns></returns>
-		public string ProcessTemplate( string templateName )
-		{
-			string email = ReadTemplate( templateName, TemplateLanguageFile );
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafTemplateEmail"/> class.
+    /// </summary>
+    public YafTemplateEmail()
+      : this(null, true)
+    {
+    }
 
-			if ( !String.IsNullOrEmpty( email ) )
-			{
-				foreach ( string key in _templateParams.Keys )
-				{
-					email = email.Replace( key, _templateParams[key] );
-				}
-			}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafTemplateEmail"/> class.
+    /// </summary>
+    /// <param name="templateName">
+    /// The template name.
+    /// </param>
+    public YafTemplateEmail(string templateName)
+      : this(templateName, true)
+    {
+    }
 
-			return email;
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafTemplateEmail"/> class.
+    /// </summary>
+    /// <param name="templateName">
+    /// The template name.
+    /// </param>
+    /// <param name="htmlEnabled">
+    /// The html enabled.
+    /// </param>
+    public YafTemplateEmail(string templateName, bool htmlEnabled)
+    {
+      this._templateName = templateName;
+      this._htmlEnabled = htmlEnabled;
+    }
 
-		public void SendEmail( MailAddress toAddress, string subject, bool useSendThread )
-		{
-			this.SendEmail( new MailAddress( YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name ), toAddress, subject, useSendThread );
-		}
+    /// <summary>
+    /// Reads a template from the language file
+    /// </summary>
+    /// <param name="templateName">
+    /// The template Name.
+    /// </param>
+    /// <param name="templateLanguageFile">
+    /// The template Language File.
+    /// </param>
+    /// <returns>
+    /// The template
+    /// </returns>
+    private string ReadTemplate(string templateName, string templateLanguageFile)
+    {
+      if (!String.IsNullOrEmpty(templateName))
+      {
+        if (!String.IsNullOrEmpty(templateLanguageFile))
+        {
+          var localization = new YafLocalization();
+          localization.LoadTranslation(templateLanguageFile);
+          return localization.GetText("TEMPLATES", templateName);
+        }
 
-		public void SendEmail( MailAddress fromAddress, MailAddress toAddress, string subject, bool useSendThread )
-		{
-			string textBody = null, htmlBody = null;
+        return YafContext.Current.Localization.GetText("TEMPLATES", templateName);
+      }
 
-			textBody = ProcessTemplate( TemplateName + "_TEXT" ).Trim();
-			htmlBody = ProcessTemplate( TemplateName + "_HTML" ).Trim();
+      return null;
+    }
 
-			// null out html if it's not desired
-			if ( !HtmlEnabled || String.IsNullOrEmpty( htmlBody ) ) htmlBody = null;
+    /// <summary>
+    /// Creates an email from a template
+    /// </summary>
+    /// <param name="templateName">
+    /// The template Name.
+    /// </param>
+    /// <returns>
+    /// The process template.
+    /// </returns>
+    public string ProcessTemplate(string templateName)
+    {
+      string email = ReadTemplate(templateName, TemplateLanguageFile);
 
-			if ( useSendThread )
-			{
-				// create this email in the send mail table...
-				Data.DB.mail_create( fromAddress.Address, fromAddress.DisplayName, toAddress.Address, toAddress.DisplayName, subject, textBody, htmlBody );
-			}
-			else
-			{
-				// just send directly
-				YafServices.SendMail.Send( fromAddress, toAddress, subject, textBody, htmlBody );
-			}
-		}
+      if (!String.IsNullOrEmpty(email))
+      {
+        foreach (string key in this._templateParams.Keys)
+        {
+          email = email.Replace(key, this._templateParams[key]);
+        }
+      }
 
-		public void CreateWatch( int topicID, int userId, MailAddress fromAddress, string subject )
-		{
-			string textBody = null, htmlBody = null;
+      return email;
+    }
 
-			textBody = ProcessTemplate( TemplateName + "_TEXT" ).Trim();
-			htmlBody = ProcessTemplate( TemplateName + "_HTML" ).Trim();
+    /// <summary>
+    /// The send email.
+    /// </summary>
+    /// <param name="toAddress">
+    /// The to address.
+    /// </param>
+    /// <param name="subject">
+    /// The subject.
+    /// </param>
+    /// <param name="useSendThread">
+    /// The use send thread.
+    /// </param>
+    public void SendEmail(MailAddress toAddress, string subject, bool useSendThread)
+    {
+      SendEmail(new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name), toAddress, subject, useSendThread);
+    }
 
-			// null out html if it's not desired
-			if ( !HtmlEnabled || String.IsNullOrEmpty( htmlBody ) ) htmlBody = null;
+    /// <summary>
+    /// The send email.
+    /// </summary>
+    /// <param name="fromAddress">
+    /// The from address.
+    /// </param>
+    /// <param name="toAddress">
+    /// The to address.
+    /// </param>
+    /// <param name="subject">
+    /// The subject.
+    /// </param>
+    /// <param name="useSendThread">
+    /// The use send thread.
+    /// </param>
+    public void SendEmail(MailAddress fromAddress, MailAddress toAddress, string subject, bool useSendThread)
+    {
+      string textBody = null, htmlBody = null;
 
-			DB.mail_createwatch( topicID, fromAddress.Address, fromAddress.DisplayName, subject, textBody, htmlBody, userId );
-		}
-	}
+      textBody = ProcessTemplate(TemplateName + "_TEXT").Trim();
+      htmlBody = ProcessTemplate(TemplateName + "_HTML").Trim();
+
+      // null out html if it's not desired
+      if (!HtmlEnabled || String.IsNullOrEmpty(htmlBody))
+      {
+        htmlBody = null;
+      }
+
+      if (useSendThread)
+      {
+        // create this email in the send mail table...
+        DB.mail_create(fromAddress.Address, fromAddress.DisplayName, toAddress.Address, toAddress.DisplayName, subject, textBody, htmlBody);
+      }
+      else
+      {
+        // just send directly
+        YafServices.SendMail.Send(fromAddress, toAddress, subject, textBody, htmlBody);
+      }
+    }
+
+    /// <summary>
+    /// The create watch.
+    /// </summary>
+    /// <param name="topicID">
+    /// The topic id.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="fromAddress">
+    /// The from address.
+    /// </param>
+    /// <param name="subject">
+    /// The subject.
+    /// </param>
+    public void CreateWatch(int topicID, int userId, MailAddress fromAddress, string subject)
+    {
+      string textBody = null, htmlBody = null;
+
+      textBody = ProcessTemplate(TemplateName + "_TEXT").Trim();
+      htmlBody = ProcessTemplate(TemplateName + "_HTML").Trim();
+
+      // null out html if it's not desired
+      if (!HtmlEnabled || String.IsNullOrEmpty(htmlBody))
+      {
+        htmlBody = null;
+      }
+
+      DB.mail_createwatch(topicID, fromAddress.Address, fromAddress.DisplayName, subject, textBody, htmlBody, userId);
+    }
+  }
 }

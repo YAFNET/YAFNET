@@ -16,50 +16,64 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using System.Web;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	public class YafCheckBannedIps : InitService
-	{
-		protected const string _initVarName = "YafCheckBannedIps_Init";
+  /// <summary>
+  /// The yaf check banned ips.
+  /// </summary>
+  public class YafCheckBannedIps : InitService
+  {
+    /// <summary>
+    /// The _init var name.
+    /// </summary>
+    protected const string _initVarName = "YafCheckBannedIps_Init";
 
-		protected override string InitVarName
-		{
-			get
-			{
-				return "YafCheckBannedIps_Init";
-			}
-		}
+    /// <summary>
+    /// Gets InitVarName.
+    /// </summary>
+    protected override string InitVarName
+    {
+      get
+      {
+        return "YafCheckBannedIps_Init";
+      }
+    }
 
-		protected override bool RunService()
-		{
-			string key = YafCache.GetBoardCacheKey(Constants.Cache.BannedIP);
+    /// <summary>
+    /// The run service.
+    /// </summary>
+    /// <returns>
+    /// The run service.
+    /// </returns>
+    protected override bool RunService()
+    {
+      string key = YafCache.GetBoardCacheKey(Constants.Cache.BannedIP);
 
-			// load the banned IP table...
-			DataTable bannedIPs = (DataTable)YafContext.Current.Cache[key];
+      // load the banned IP table...
+      var bannedIPs = (DataTable) YafContext.Current.Cache[key];
 
-			if (bannedIPs == null)
-			{
-				// load the table and cache it...
-				bannedIPs = DB.bannedip_list(YafContext.Current.PageBoardID, null);
-				YafContext.Current.Cache[key] = bannedIPs;
-			}
+      if (bannedIPs == null)
+      {
+        // load the table and cache it...
+        bannedIPs = DB.bannedip_list(YafContext.Current.PageBoardID, null);
+        YafContext.Current.Cache[key] = bannedIPs;
+      }
 
-			// check for this user in the list...
-			foreach (DataRow row in bannedIPs.Rows)
-			{
-				if (IPHelper.IsBanned((string)row["Mask"], HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]))
-					HttpContext.Current.Response.End();
-			}
+      // check for this user in the list...
+      foreach (DataRow row in bannedIPs.Rows)
+      {
+        if (IPHelper.IsBanned((string) row["Mask"], HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]))
+        {
+          HttpContext.Current.Response.End();
+        }
+      }
 
-			return true;
-		}
-	}
+      return true;
+    }
+  }
 }

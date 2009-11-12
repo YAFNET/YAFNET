@@ -17,48 +17,62 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
-using System.Web.UI;
 
 namespace YAF.Classes.Pattern
 {
-	// Singleton factory implementation
-	public static class PageSingleton<T> where T : class, new()
-	{
-		// static constructor, 
-		//runtime ensures thread safety
-		static PageSingleton()
-		{
-			// create the single instance 
-			//_instance = GetInstance();
-		}
+  // Singleton factory implementation
+  /// <summary>
+  /// The page singleton.
+  /// </summary>
+  /// <typeparam name="T">
+  /// </typeparam>
+  public static class PageSingleton<T> where T : class, new()
+  {
+    // static constructor, 
+    // runtime ensures thread safety
 
-		static private T GetInstance()
-		{
-			if ( HttpContext.Current == null )
-			{
-				if ( _instance == null )
-				{
-					_instance = (T)Activator.CreateInstance( typeof( T ), true );
-				}
-				return _instance;
-			}			
+    /// <summary>
+    /// The _instance.
+    /// </summary>
+    private static T _instance;
 
-			string typeStr = typeof( T ).ToString();
+    /// <summary>
+    /// Gets Instance.
+    /// </summary>
+    public static T Instance
+    {
+      get
+      {
+        return GetInstance();
+      }
 
-			return (T)( HttpContext.Current.Items[typeStr] ?? ( HttpContext.Current.Items[typeStr] = (T)Activator.CreateInstance( typeof( T ), true ) ) );
-		}
+      private set
+      {
+        _instance = value;
+      }
+    }
 
-		private static T _instance = null;
-		public static T Instance
-		{
-			private set { _instance = value; }
-			get
-			{
-				return GetInstance();
-			}
-		}
-	}
+    /// <summary>
+    /// The get instance.
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    private static T GetInstance()
+    {
+      if (HttpContext.Current == null)
+      {
+        if (_instance == null)
+        {
+          _instance = (T) Activator.CreateInstance(typeof (T), true);
+        }
+
+        return _instance;
+      }
+
+      string typeStr = typeof (T).ToString();
+
+      return (T) (HttpContext.Current.Items[typeStr] ?? (HttpContext.Current.Items[typeStr] = Activator.CreateInstance(typeof (T), true)));
+    }
+  }
 }

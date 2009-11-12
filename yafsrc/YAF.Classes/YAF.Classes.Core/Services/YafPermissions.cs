@@ -17,85 +17,120 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
 using System.Web.Hosting;
-using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	public class YafPermissions
-	{
-		public bool Check(int permission)
-		{
-			return Check((ViewPermissions)permission);
-		}
+  /// <summary>
+  /// The yaf permissions.
+  /// </summary>
+  public class YafPermissions
+  {
+    /// <summary>
+    /// The check.
+    /// </summary>
+    /// <param name="permission">
+    /// The permission.
+    /// </param>
+    /// <returns>
+    /// The check.
+    /// </returns>
+    public bool Check(int permission)
+    {
+      return Check((ViewPermissions) permission);
+    }
 
-		public bool Check(ViewPermissions permission)
-		{
-			if (permission == ViewPermissions.Everyone)
-			{
-				return true;
-			}
-			if (permission == ViewPermissions.RegisteredUsers)
-			{
-				return !YafContext.Current.IsGuest;
-			}
-			return YafContext.Current.IsAdmin;
-		}
+    /// <summary>
+    /// The check.
+    /// </summary>
+    /// <param name="permission">
+    /// The permission.
+    /// </param>
+    /// <returns>
+    /// The check.
+    /// </returns>
+    public bool Check(ViewPermissions permission)
+    {
+      if (permission == ViewPermissions.Everyone)
+      {
+        return true;
+      }
 
-		public void HandleRequest(int permission)
-		{
-			HandleRequest((ViewPermissions)permission);
-		}
+      if (permission == ViewPermissions.RegisteredUsers)
+      {
+        return !YafContext.Current.IsGuest;
+      }
 
-		public void HandleRequest(ViewPermissions permission)
-		{
-			bool noAccess = true;
+      return YafContext.Current.IsAdmin;
+    }
 
-			if (!Check(permission))
-			{
-				if (permission == ViewPermissions.RegisteredUsers)
-				{
-					if ( !Config.AllowLoginAndLogoff && !String.IsNullOrEmpty(YafContext.Current.BoardSettings.CustomLoginRedirectUrl))
-					{
-						string loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
+    /// <summary>
+    /// The handle request.
+    /// </summary>
+    /// <param name="permission">
+    /// The permission.
+    /// </param>
+    public void HandleRequest(int permission)
+    {
+      HandleRequest((ViewPermissions) permission);
+    }
 
-						if (loginRedirectUrl.Contains("{0}"))
-						{
-							// process for return url..
-							loginRedirectUrl = String.Format(loginRedirectUrl, HttpUtility.UrlEncode(General.GetSafeRawUrl(HttpContext.Current.Request.Url.ToString())));
-						}
-						// allow custom redirect...
-						HttpContext.Current.Response.Redirect(loginRedirectUrl);
-						noAccess = false;
-					}
-					else if ( !Config.AllowLoginAndLogoff && Config.IsDotNetNuke )
-					{
-						// automatic DNN redirect...
-						string appPath = HostingEnvironment.ApplicationVirtualPath;
-						if ( !appPath.EndsWith( "/" ) ) appPath += "/";
+    /// <summary>
+    /// The handle request.
+    /// </summary>
+    /// <param name="permission">
+    /// The permission.
+    /// </param>
+    public void HandleRequest(ViewPermissions permission)
+    {
+      bool noAccess = true;
 
-						// redirect to DNN login...
-						HttpContext.Current.Response.Redirect( appPath + "Login.aspx?ReturnUrl=" +
-						                                       HttpUtility.UrlEncode( General.GetSafeRawUrl() ) );
-						noAccess = false;
-					}
-					else if ( Config.AllowLoginAndLogoff )
-					{
-						YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", HttpUtility.UrlEncode( General.GetSafeRawUrl() ) );
-						noAccess = false;						
-					}
-				}
+      if (!Check(permission))
+      {
+        if (permission == ViewPermissions.RegisteredUsers)
+        {
+          if (!Config.AllowLoginAndLogoff && !String.IsNullOrEmpty(YafContext.Current.BoardSettings.CustomLoginRedirectUrl))
+          {
+            string loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
 
-				// fall-through with no access...
-				if (noAccess)
-				{
-					YafBuildLink.AccessDenied();
-				}
-			}
-		}
-	}
+            if (loginRedirectUrl.Contains("{0}"))
+            {
+              // process for return url..
+              loginRedirectUrl = String.Format(loginRedirectUrl, HttpUtility.UrlEncode(General.GetSafeRawUrl(HttpContext.Current.Request.Url.ToString())));
+            }
+
+            // allow custom redirect...
+            HttpContext.Current.Response.Redirect(loginRedirectUrl);
+            noAccess = false;
+          }
+          else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
+          {
+            // automatic DNN redirect...
+            string appPath = HostingEnvironment.ApplicationVirtualPath;
+            if (!appPath.EndsWith("/"))
+            {
+              appPath += "/";
+            }
+
+            // redirect to DNN login...
+            HttpContext.Current.Response.Redirect(appPath + "Login.aspx?ReturnUrl=" + HttpUtility.UrlEncode(General.GetSafeRawUrl()));
+            noAccess = false;
+          }
+          else if (Config.AllowLoginAndLogoff)
+          {
+            YafBuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", HttpUtility.UrlEncode(General.GetSafeRawUrl()));
+            noAccess = false;
+          }
+        }
+
+        // fall-through with no access...
+        if (noAccess)
+        {
+          YafBuildLink.AccessDenied();
+        }
+      }
+    }
+  }
 }

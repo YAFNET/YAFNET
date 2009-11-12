@@ -17,60 +17,77 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
 using YAF.Classes.Core;
-using YAF.Classes.Utils;
 
 namespace YAF.Modules
 {
-	[YafModule( "Provider Settings Module", "Tiny Gecko", 1 )]
-	public class ProviderSettingsModule : IBaseModule
-	{
-		private object _forumControlObj;
-		public object ForumControlObj
-		{
-			get
-			{
-				return _forumControlObj;
-			}
-			set
-			{
-				_forumControlObj = value;
-			}
-		}
+  /// <summary>
+  /// The provider settings module.
+  /// </summary>
+  [YafModule("Provider Settings Module", "Tiny Gecko", 1)]
+  public class ProviderSettingsModule : IBaseModule
+  {
+    /// <summary>
+    /// Gets PageContext.
+    /// </summary>
+    public YafContext PageContext
+    {
+      get
+      {
+        return YafContext.Current;
+      }
+    }
 
-		public YafContext PageContext
-		{
-			get
-			{
-				return YafContext.Current;
-			}
-		}
+    #region IBaseModule Members
 
-		public void Init()
-		{
-			YafContext.Current.PageInit += new EventHandler<EventArgs>( Current_PageInit );
-		}
+    /// <summary>
+    /// Gets or sets ForumControlObj.
+    /// </summary>
+    public object ForumControlObj
+    {
+      get;
 
-		void Current_PageInit( object sender, EventArgs e )
-		{
-			// initialize the providers...
-			if ( !PageContext.CurrentMembership.ApplicationName.Equals( PageContext.BoardSettings.MembershipAppName ) )
-				PageContext.CurrentMembership.ApplicationName = PageContext.BoardSettings.MembershipAppName;
+      set;
+    }
 
-			if ( !PageContext.CurrentRoles.ApplicationName.Equals( PageContext.BoardSettings.RolesAppName ) )
-				PageContext.CurrentRoles.ApplicationName = PageContext.BoardSettings.RolesAppName;
-		}
+    /// <summary>
+    /// The init.
+    /// </summary>
+    public void Init()
+    {
+      YafContext.Current.PageInit += Current_PageInit;
+    }
 
-		#region IDisposable Members
+    /// <summary>
+    /// The dispose.
+    /// </summary>
+    public void Dispose()
+    {
+    }
 
-		public void Dispose()
-		{
+    #endregion
 
-		}
+    /// <summary>
+    /// The current_ page init.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Current_PageInit(object sender, EventArgs e)
+    {
+      // initialize the providers...
+      if (!PageContext.CurrentMembership.ApplicationName.Equals(PageContext.BoardSettings.MembershipAppName))
+      {
+        PageContext.CurrentMembership.ApplicationName = PageContext.BoardSettings.MembershipAppName;
+      }
 
-		#endregion
-	}
+      if (!PageContext.CurrentRoles.ApplicationName.Equals(PageContext.BoardSettings.RolesAppName))
+      {
+        PageContext.CurrentRoles.ApplicationName = PageContext.BoardSettings.RolesAppName;
+      }
+    }
+  }
 }

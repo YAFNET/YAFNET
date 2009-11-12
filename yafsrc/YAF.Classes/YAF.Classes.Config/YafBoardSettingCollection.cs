@@ -18,64 +18,95 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Linq;
-using YAF.Classes.Pattern;
+using System.Reflection;
 
 namespace YAF.Classes
 {
-	/// <summary>
-	/// Gets the Board Settings as dictionary item for easy iteration.
-	/// </summary>
-	public class YafBoardSettingCollection
-	{
-		protected List<PropertyInfo> _settings = new List<PropertyInfo>();
+  /// <summary>
+  /// Gets the Board Settings as dictionary item for easy iteration.
+  /// </summary>
+  public class YafBoardSettingCollection
+  {
+    /// <summary>
+    /// The _settings.
+    /// </summary>
+    protected List<PropertyInfo> _settings = new List<PropertyInfo>();
 
-		public Dictionary<string, PropertyInfo> SettingsString
-		{
-			get
-			{
-				return _settings.Where( x => x.PropertyType == typeof ( string ) ).ToDictionary( x => x.Name, x => x );
-			}
-		}
-		public Dictionary<string, PropertyInfo> SettingsBool
-		{
-			get
-			{
-				return _settings.Where( x => x.PropertyType == typeof( bool ) ).ToDictionary( x => x.Name, x => x );
-			}
-		}
-		public Dictionary<string, PropertyInfo> SettingsInt
-		{
-			get
-			{
-				return _settings.Where( x => x.PropertyType == typeof( int ) ).ToDictionary( x => x.Name, x => x );
-			}
-		}
-		public Dictionary<string, PropertyInfo> SettingsDouble
-		{
-			get
-			{
-				return _settings.Where( x => x.PropertyType == typeof( double ) ).ToDictionary( x => x.Name, x => x );
-			}
-		}
-		public Dictionary<string, PropertyInfo> SettingsOther
-		{
-			get
-			{
-				var excludeTypes = new List<Type>() {typeof ( string ), typeof ( bool ), typeof ( int ), typeof ( double )};
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafBoardSettingCollection"/> class.
+    /// </summary>
+    /// <param name="boardSettings">
+    /// The board settings.
+    /// </param>
+    public YafBoardSettingCollection(YafBoardSettings boardSettings)
+    {
+      // load up the settings...
+      Type boardSettingsType = boardSettings.GetType();
+      this._settings = boardSettingsType.GetProperties().ToList();
+    }
 
-				return
-					_settings.Where(
-						x => !excludeTypes.Contains( x.PropertyType ) ).ToDictionary( x => x.Name, x => x );
-			}
-		}
+    /// <summary>
+    /// Gets SettingsString.
+    /// </summary>
+    public Dictionary<string, PropertyInfo> SettingsString
+    {
+      get
+      {
+        return this._settings.Where(x => x.PropertyType == typeof (string)).ToDictionary(x => x.Name, x => x);
+      }
+    }
 
-		public YafBoardSettingCollection( YafBoardSettings boardSettings )
-		{
-			// load up the settings...
-			Type boardSettingsType = boardSettings.GetType();
-			_settings = boardSettingsType.GetProperties().ToList();
-		}
-	}
+    /// <summary>
+    /// Gets SettingsBool.
+    /// </summary>
+    public Dictionary<string, PropertyInfo> SettingsBool
+    {
+      get
+      {
+        return this._settings.Where(x => x.PropertyType == typeof (bool)).ToDictionary(x => x.Name, x => x);
+      }
+    }
+
+    /// <summary>
+    /// Gets SettingsInt.
+    /// </summary>
+    public Dictionary<string, PropertyInfo> SettingsInt
+    {
+      get
+      {
+        return this._settings.Where(x => x.PropertyType == typeof (int)).ToDictionary(x => x.Name, x => x);
+      }
+    }
+
+    /// <summary>
+    /// Gets SettingsDouble.
+    /// </summary>
+    public Dictionary<string, PropertyInfo> SettingsDouble
+    {
+      get
+      {
+        return this._settings.Where(x => x.PropertyType == typeof (double)).ToDictionary(x => x.Name, x => x);
+      }
+    }
+
+    /// <summary>
+    /// Gets SettingsOther.
+    /// </summary>
+    public Dictionary<string, PropertyInfo> SettingsOther
+    {
+      get
+      {
+        var excludeTypes = new List<Type>()
+          {
+            typeof (string), 
+            typeof (bool), 
+            typeof (int), 
+            typeof (double)
+          };
+
+        return this._settings.Where(x => !excludeTypes.Contains(x.PropertyType)).ToDictionary(x => x.Name, x => x);
+      }
+    }
+  }
 }

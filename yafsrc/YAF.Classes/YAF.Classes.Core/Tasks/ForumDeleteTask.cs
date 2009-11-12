@@ -17,64 +17,105 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using YAF.Classes.Data;
 
 namespace YAF.Classes.Core
 {
-	public class ForumDeleteTask : LongBackgroundTask
-	{
-		private const string _taskName = "ForumDeleteTask";
-		public static string TaskName
-		{
-			get
-			{
-				return _taskName;
-			}
-		}
+  /// <summary>
+  /// The forum delete task.
+  /// </summary>
+  public class ForumDeleteTask : LongBackgroundTask
+  {
+    /// <summary>
+    /// The _task name.
+    /// </summary>
+    private const string _taskName = "ForumDeleteTask";
 
-		private int _forumId;
-		public int ForumId
-		{
-			get { return _forumId; }
-			set { _forumId = value; }
-		}
+    /// <summary>
+    /// The _forum id.
+    /// </summary>
+    private int _forumId;
 
-		public ForumDeleteTask()
-		{
-			
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumDeleteTask"/> class.
+    /// </summary>
+    public ForumDeleteTask()
+    {
+    }
 
-		static public bool Start(int boardId,int forumId)
-		{
-			if ( YafTaskModule.Current == null ) return false;
+    /// <summary>
+    /// Gets TaskName.
+    /// </summary>
+    public static string TaskName
+    {
+      get
+      {
+        return _taskName;
+      }
+    }
 
-			if ( !YafTaskModule.Current.TaskExists( TaskName ) )
-			{
-				ForumDeleteTask task = new ForumDeleteTask
-				                      	{
-				                      		BoardID = boardId,
-				                      		ForumId = forumId
-				                      	};
-				YafTaskModule.Current.StartTask( TaskName, task );
-			}
+    /// <summary>
+    /// Gets or sets ForumId.
+    /// </summary>
+    public int ForumId
+    {
+      get
+      {
+        return this._forumId;
+      }
 
-			return true;
-		}
+      set
+      {
+        this._forumId = value;
+      }
+    }
 
-		public override void RunOnce()
-		{
-			try
-			{
-				DB.forum_delete( ForumId );
-				DB.eventlog_create( null, TaskName, String.Format( "Forum (ID: {0}) Delete Task Complete.", ForumId ), 2 );
-			}
-			catch(Exception x)
-			{
-				DB.eventlog_create( null, TaskName, String.Format( "Error In Forum (ID: {0}) Delete Task: {1}", ForumId, x ) );
-			}
-		}
-	}
+    /// <summary>
+    /// The start.
+    /// </summary>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <returns>
+    /// The start.
+    /// </returns>
+    public static bool Start(int boardId, int forumId)
+    {
+      if (YafTaskModule.Current == null)
+      {
+        return false;
+      }
+
+      if (!YafTaskModule.Current.TaskExists(TaskName))
+      {
+        var task = new ForumDeleteTask
+          {
+            BoardID = boardId, 
+            ForumId = forumId
+          };
+        YafTaskModule.Current.StartTask(TaskName, task);
+      }
+
+      return true;
+    }
+
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
+    {
+      try
+      {
+        DB.forum_delete(ForumId);
+        DB.eventlog_create(null, TaskName, String.Format("Forum (ID: {0}) Delete Task Complete.", ForumId), 2);
+      }
+      catch (Exception x)
+      {
+        DB.eventlog_create(null, TaskName, String.Format("Error In Forum (ID: {0}) Delete Task: {1}", ForumId, x));
+      }
+    }
+  }
 }

@@ -17,52 +17,64 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
 using YAF.Classes.Core;
 using YAF.Classes.Utils;
 
 namespace YAF.Modules
 {
-	[YafModule( "Mobile Theme Module", "Tiny Gecko", 1 )]
-	public class MobileThemeModule : IBaseModule
-	{
-		private object _forumControlObj;
-		public object ForumControlObj
-		{
-			get
-			{
-				return _forumControlObj;
-			}
-			set
-			{
-				_forumControlObj = value;
-			}
-		}
+  /// <summary>
+  /// The mobile theme module.
+  /// </summary>
+  [YafModule("Mobile Theme Module", "Tiny Gecko", 1)]
+  public class MobileThemeModule : IBaseModule
+  {
+    #region IBaseModule Members
 
-		public void Init()
-		{
-			YafContext.Current.AfterInit += new EventHandler<EventArgs>( Current_AfterInit );
-		}
+    /// <summary>
+    /// Gets or sets ForumControlObj.
+    /// </summary>
+    public object ForumControlObj
+    {
+      get;
 
-		void Current_AfterInit( object sender, EventArgs e )
-		{
-			// see if this is a mobile device...
-			if ( HttpContext.Current != null && UserAgentHelper.IsMobileDevice( HttpContext.Current.Request.UserAgent ) )
-			{
-				// change the theme to mobile...
-				//TODO: Add Mobile Theme Code
-			}
-		}
+      set;
+    }
 
-		#region IDisposable Members
+    /// <summary>
+    /// The init.
+    /// </summary>
+    public void Init()
+    {
+      YafContext.Current.AfterInit += Current_AfterInit;
+    }
 
-		public void Dispose()
-		{
+    /// <summary>
+    /// The dispose.
+    /// </summary>
+    public void Dispose()
+    {
+    }
 
-		}
+    #endregion
 
-		#endregion
-	}
+    /// <summary>
+    /// The current_ after init.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Current_AfterInit(object sender, EventArgs e)
+    {
+      // see if this is a mobile device...
+      if (HttpContext.Current != null && UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent))
+      {
+        // change the theme to mobile...
+        // TODO: Add Mobile Theme Code
+      }
+    }
+  }
 }

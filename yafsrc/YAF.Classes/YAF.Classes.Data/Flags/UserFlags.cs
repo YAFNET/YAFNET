@@ -18,117 +18,234 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace YAF.Classes.Data
 {
-	/// <summary>
-	/// User flags manipulation class from the DB.
-	/// </summary>
-	[Serializable()]
-	public class UserFlags : FlagsBase
-	{
-		#region Constructors
+  /// <summary>
+  /// User flags manipulation class from the DB.
+  /// </summary>
+  [Serializable]
+  public class UserFlags : FlagsBase
+  {
+    #region Constructors
 
-		public UserFlags() : this(0) { }
-		public UserFlags(UserFlags.Flags flags) : this((int)flags) { }
-		public UserFlags(object bitValue) : this((int)bitValue) { }
-		public UserFlags(int bitValue) : base(bitValue) { }
-		public UserFlags(params bool[] bits) : base(bits) { }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserFlags"/> class.
+    /// </summary>
+    public UserFlags()
+      : this(0)
+    {
+    }
 
-		#endregion
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserFlags"/> class.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    public UserFlags(Flags flags)
+      : this((int) flags)
+    {
+    }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public UserFlags(object bitValue)
+      : this((int) bitValue)
+    {
+    }
 
-		#region Operators
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public UserFlags(int bitValue)
+      : base(bitValue)
+    {
+    }
 
-		public static implicit operator UserFlags(int newBitValue)
-		{
-			return new UserFlags(newBitValue);
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserFlags"/> class.
+    /// </summary>
+    /// <param name="bits">
+    /// The bits.
+    /// </param>
+    public UserFlags(params bool[] bits)
+      : base(bits)
+    {
+    }
 
-		public static implicit operator UserFlags(UserFlags.Flags flags)
-		{
-			return new UserFlags(flags);
-		}
+    #endregion
 
-		#endregion
+    #region Operators
 
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="newBitValue">
+    /// The new bit value.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator UserFlags(int newBitValue)
+    {
+      return new UserFlags(newBitValue);
+    }
 
-		#region Flags Enumeration
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator UserFlags(Flags flags)
+    {
+      return new UserFlags(flags);
+    }
 
-		/// <summary>
-		/// Use for bit comparisons
-		/// </summary>
-		public enum Flags : int
-		{
-			IsHostAdmin = 1,
-			IsApproved = 2,
-			IsGuest = 4,
-			IsCaptchaExcluded = 8,
-			IsActiveExcluded = 16,
-			/* for future use
+    #endregion
+
+    #region Flags Enumeration
+
+    /// <summary>
+    /// Use for bit comparisons
+    /// </summary>
+    public enum Flags
+    {
+      /// <summary>
+      /// The is host admin.
+      /// </summary>
+      IsHostAdmin = 1, 
+
+      /// <summary>
+      /// The is approved.
+      /// </summary>
+      IsApproved = 2, 
+
+      /// <summary>
+      /// The is guest.
+      /// </summary>
+      IsGuest = 4, 
+
+      /// <summary>
+      /// The is captcha excluded.
+      /// </summary>
+      IsCaptchaExcluded = 8, 
+
+      /// <summary>
+      /// The is active excluded.
+      /// </summary>
+      IsActiveExcluded = 16, 
+
+      /* for future use
 			xxxxx = 32,
 			xxxxx = 64,
 			xxxxx = 128,
 			xxxxx = 256,
 			xxxxx = 512
 			 */
-		}
+    }
 
-		#endregion
+    #endregion
 
+    #region Single Flags (can be 32 of them)
 
-		#region Single Flags (can be 32 of them)
+    /// <summary>
+    /// Gets or sets whether user is host administrator.
+    /// </summary>
+    public bool IsHostAdmin
+    {
+      // int value 1
+      get
+      {
+        return this[0];
+      }
 
-		/// <summary>
-		/// Gets or sets whether user is host administrator.
-		/// </summary>
-		public bool IsHostAdmin // int value 1
-		{
-			get { return this[0]; }
-			set { this[0] = value; }
-		}
-
-
-		/// <summary>
-		/// Gets or sets whether user is approved for posting.
-		/// </summary>
-		public bool IsApproved // int value 2
-		{
-			get { return this[1]; }
-			set { this[1] = value; }
-		}
+      set
+      {
+        this[0] = value;
+      }
+    }
 
 
-		/// <summary>
-		/// Gets or sets whether user is guest, i.e. not registered and logged in.
-		/// </summary>
-		public bool IsGuest // int value 4
-		{
-			get { return this[2]; }
-			set { this[2] = value; }
-		}
+    /// <summary>
+    /// Gets or sets whether user is approved for posting.
+    /// </summary>
+    public bool IsApproved
+    {
+      // int value 2
+      get
+      {
+        return this[1];
+      }
+
+      set
+      {
+        this[1] = value;
+      }
+    }
 
 
-		/// <summary>
-		/// Gets or sets whether user is guest, i.e. not registered and logged in.
-		/// </summary>
-		public bool IsCaptchaExcluded // int value 8
-		{
-			get { return this[3]; }
-			set { this[3] = value; }
-		}
+    /// <summary>
+    /// Gets or sets whether user is guest, i.e. not registered and logged in.
+    /// </summary>
+    public bool IsGuest
+    {
+      // int value 4
+      get
+      {
+        return this[2];
+      }
 
-		/// <summary>
-		/// Gets or sets whether user is excluded from the "Active Users" list on the forum pages.
-		/// </summary>
-		public bool IsActiveExcluded // int value 16
-		{
-			get { return this [4]; }
-			set { this [4] = value; }
-		}
+      set
+      {
+        this[2] = value;
+      }
+    }
 
-		#endregion
-	}
+
+    /// <summary>
+    /// Gets or sets whether user is guest, i.e. not registered and logged in.
+    /// </summary>
+    public bool IsCaptchaExcluded
+    {
+      // int value 8
+      get
+      {
+        return this[3];
+      }
+
+      set
+      {
+        this[3] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets whether user is excluded from the "Active Users" list on the forum pages.
+    /// </summary>
+    public bool IsActiveExcluded
+    {
+      // int value 16
+      get
+      {
+        return this[4];
+      }
+
+      set
+      {
+        this[4] = value;
+      }
+    }
+
+    #endregion
+  }
 }

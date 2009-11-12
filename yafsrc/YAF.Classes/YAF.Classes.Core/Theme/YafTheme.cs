@@ -100,7 +100,7 @@ namespace YAF.Classes.Core
 		/// </summary>
 		/// <param name="themeFile"></param>
 		/// <returns></returns>
-		static public bool IsValidTheme( string themeFile )
+		public static bool IsValidTheme( string themeFile )
 		{
 			if ( String.IsNullOrEmpty( themeFile ) ) return false;
 

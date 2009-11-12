@@ -17,164 +17,272 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Compilation;
-using YAF.Classes.Core;
 using YAF.Controls;
 using YAF.Modules;
 
 namespace YAF.Editors
 {
-	/// <summary>
-	/// IBaseEditorModule Interface for Editor classes.
-	/// </summary>
-	internal interface IBaseEditorModule
-	{
-		bool Active
-		{
-			get;
-		}
+  /// <summary>
+  /// IBaseEditorModule Interface for Editor classes.
+  /// </summary>
+  internal interface IBaseEditorModule
+  {
+    /// <summary>
+    /// Gets a value indicating whether Active.
+    /// </summary>
+    bool Active
+    {
+      get;
+    }
 
-		string Description
-		{
-			get;
-		}
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    string Description
+    {
+      get;
+    }
 
-		int ModuleId
-		{
-			get;
-		}	
-	}
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    int ModuleId
+    {
+      get;
+    }
+  }
 
-	/// <summary>
-	/// Summary description for BaseForumEditor.
-	/// </summary>
-	public abstract class BaseForumEditor : BaseControl, IBaseEditorModule
-	{
-		protected RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-		protected string _baseDir = string.Empty;
+  /// <summary>
+  /// Summary description for BaseForumEditor.
+  /// </summary>
+  public abstract class BaseForumEditor : BaseControl, IBaseEditorModule
+  {
+    /// <summary>
+    /// The _base dir.
+    /// </summary>
+    protected string _baseDir = string.Empty;
 
-		public new string ResolveUrl( string relativeUrl )
-		{
-			if ( _baseDir != string.Empty )
-				return _baseDir + relativeUrl;
+    /// <summary>
+    /// The _options.
+    /// </summary>
+    protected RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
-			return base.ResolveUrl( relativeUrl );
-		}
+    #region IBaseEditorModule Members
 
-		protected virtual string Replace( string txt, string match, string replacement )
-		{
-			while (Regex.IsMatch(txt, match, _options)) txt = Regex.Replace(txt, match, replacement, _options);
-			return txt;
-		}
+    /// <summary>
+    /// Gets a value indicating whether Active.
+    /// </summary>
+    public abstract bool Active
+    {
+      get;
+    }
 
-		#region Virtual Properties
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public abstract string Description
+    {
+      get;
+    }
 
-		public abstract string Text
-		{
-			get;
-			set;
-		}
-
-		public virtual string BaseDir
-		{
-			set
-			{
-				_baseDir = value;
-				if ( !_baseDir.EndsWith( "/" ) )
-					_baseDir += "/";
-			}
-		}
-		public virtual string StyleSheet
-		{
-			get { return string.Empty; }
-			set { ;	}
-		}
-
-		public virtual bool UsesHTML
-		{
-			get { return false; }
-		}
-
-		public virtual bool UsesBBCode
-		{
-			get { return false; }
-		}
-		#endregion
-
-		#region IBaseEditorModule Members
-
-		public abstract bool Active
-		{
-			get;
-		}
-
-		public abstract string Description
-		{
-			get;
-		}
-
-		public virtual int ModuleId
-		{
-			get
-			{
-				return this.Description.GetHashCode();
-			}
-		}
-
-		#endregion
-	}
-
-	public class YafEditorModuleManager : YafModuleManager<BaseForumEditor>
-	{
-		YafEditorModuleManager()
-			: base("YAF.Editors", "YAF.Editors.IBaseEditorModule")
-		{
-			if ( ModuleClassTypes == null )
-			{
-				// re-add these modules...
-				base.AddModules( BuildManager.CodeAssemblies );
-			}
-		}
-
-		public BaseForumEditor GetEditorInstance( int moduleId )
-		{
-			Load();
-
-			// find the module (LINQ would be nice here)...
-      foreach ( BaseForumEditor editor in Modules)
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public virtual int ModuleId
+    {
+      get
       {
-				if (editor.ModuleId == moduleId)
-      	{
-      		return editor;
-      	}
+        return Description.GetHashCode();
+      }
+    }
+
+    #endregion
+
+    /// <summary>
+    /// The resolve url.
+    /// </summary>
+    /// <param name="relativeUrl">
+    /// The relative url.
+    /// </param>
+    /// <returns>
+    /// The resolve url.
+    /// </returns>
+    public new string ResolveUrl(string relativeUrl)
+    {
+      if (this._baseDir != string.Empty)
+      {
+        return this._baseDir + relativeUrl;
       }
 
-			// not found
-			return null;
-		}
+      return base.ResolveUrl(relativeUrl);
+    }
 
-		public DataTable GetEditorsTable()
-		{
-			Load();
+    /// <summary>
+    /// The replace.
+    /// </summary>
+    /// <param name="txt">
+    /// The txt.
+    /// </param>
+    /// <param name="match">
+    /// The match.
+    /// </param>
+    /// <param name="replacement">
+    /// The replacement.
+    /// </param>
+    /// <returns>
+    /// The replace.
+    /// </returns>
+    protected virtual string Replace(string txt, string match, string replacement)
+    {
+      while (Regex.IsMatch(txt, match, this._options))
+      {
+        txt = Regex.Replace(txt, match, replacement, this._options);
+      }
 
-			using (DataTable dt = new DataTable("Editors"))
-			{
-				dt.Columns.Add("Value", Type.GetType("System.Int32"));
-				dt.Columns.Add("Name", Type.GetType("System.String"));
+      return txt;
+    }
 
-				foreach ( BaseForumEditor editor in Modules )
-				{
-					if ( editor.Active )
-					{
-						dt.Rows.Add(new object[] { editor.ModuleId, editor.Description });
-					}
-				}
-				return dt;
-			}
-		}
-	}
+    #region Virtual Properties
+
+    /// <summary>
+    /// Gets or sets Text.
+    /// </summary>
+    public abstract string Text
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// Sets BaseDir.
+    /// </summary>
+    public virtual string BaseDir
+    {
+      set
+      {
+        this._baseDir = value;
+        if (!this._baseDir.EndsWith("/"))
+        {
+          this._baseDir += "/";
+        }
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets StyleSheet.
+    /// </summary>
+    public virtual string StyleSheet
+    {
+      get
+      {
+        return string.Empty;
+      }
+
+      set
+      {
+        ;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesHTML.
+    /// </summary>
+    public virtual bool UsesHTML
+    {
+      get
+      {
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public virtual bool UsesBBCode
+    {
+      get
+      {
+        return false;
+      }
+    }
+
+    #endregion
+  }
+
+  /// <summary>
+  /// The yaf editor module manager.
+  /// </summary>
+  public class YafEditorModuleManager : YafModuleManager<BaseForumEditor>
+  {
+    /// <summary>
+    /// Prevents a default instance of the <see cref="YafEditorModuleManager"/> class from being created.
+    /// </summary>
+    private YafEditorModuleManager()
+      : base("YAF.Editors", "YAF.Editors.IBaseEditorModule")
+    {
+      if (ModuleClassTypes == null)
+      {
+        // re-add these modules...
+        AddModules(BuildManager.CodeAssemblies);
+      }
+    }
+
+    /// <summary>
+    /// The get editor instance.
+    /// </summary>
+    /// <param name="moduleId">
+    /// The module id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public BaseForumEditor GetEditorInstance(int moduleId)
+    {
+      Load();
+
+      // find the module (LINQ would be nice here)...
+      foreach (BaseForumEditor editor in Modules)
+      {
+        if (editor.ModuleId == moduleId)
+        {
+          return editor;
+        }
+      }
+
+      // not found
+      return null;
+    }
+
+    /// <summary>
+    /// The get editors table.
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    public DataTable GetEditorsTable()
+    {
+      Load();
+
+      using (var dt = new DataTable("Editors"))
+      {
+        dt.Columns.Add("Value", Type.GetType("System.Int32"));
+        dt.Columns.Add("Name", Type.GetType("System.String"));
+
+        foreach (BaseForumEditor editor in Modules)
+        {
+          if (editor.Active)
+          {
+            dt.Rows.Add(
+              new object[]
+                {
+                  editor.ModuleId, editor.Description
+                });
+          }
+        }
+
+        return dt;
+      }
+    }
+  }
 }

@@ -17,116 +17,516 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Text;
-
 namespace YAF.Classes
 {
-	/// <summary>
-	/// List of all pages available in the YAF forum
-	/// </summary>
-	public enum ForumPages
-	{
-		forum,
-		topics,
-		posts,
-		profile,
-		activeusers,
-		moderate,
-		postmessage,
-		deletemessage,
-		movemessage,
-		mod_forumuser,
-		attachments,
-		pmessage,
-		movetopic,
-		emailtopic,
-		printtopic,
-		members,
-		cp_pm,
-		cp_profile,
-		cp_editprofile,
-		cp_editavatar,
-		cp_signature,
-		cp_subscriptions,
-		cp_message,
-		cp_changepassword,
-		login,
-		approve,
-		info,
-		rules,
-		register,
-		search,
-		active,
-		logout,
-		moderate_index,
-		moderate_reportedposts,
-		moderate_unapprovedposts,
-        moderate_reportedabuse,
-		moderate_reportedspam,
-		error,
-		shoutbox,
-		avatar,
-		im_yim,
-		im_aim,
-		im_icq,
-		im_skype,
-		im_msn,
-		im_email,
-		rsstopic,
-		help_index,
-		help_recover,
-		lastposts,
-		recoverpassword,
-		showsmilies,
-		admin_admin,
-		admin_hostsettings,
-		admin_boards,
-		admin_boardsettings,
-		admin_forums,
-		admin_bannedip,
-		admin_smilies,
-		admin_accessmasks,
-		admin_groups,
-		admin_users,
-		admin_ranks,
-		admin_mail,
-		admin_medals,
-		admin_prune,
-		admin_pm,
-		admin_attachments,
-		admin_eventlog,
-		admin_nntpservers,
-		admin_nntpforums,
-		admin_nntpretrieve,
-		admin_version,
-		admin_bannedip_edit,
-		admin_editaccessmask,
-		admin_editboard,
-		admin_editcategory,
-		admin_editforum,
-		admin_editgroup,
-		admin_editmedal,
-		admin_editnntpforum,
-		admin_editnntpserver,
-		admin_editrank,
-		admin_edituser,
-		admin_reguser,
-		admin_smilies_edit,
-		admin_smilies_import,
-		admin_replacewords,
-		admin_replacewords_edit,
-		admin_replacewords_import,
-		admin_extensions,
-		admin_extensions_edit,
-		admin_extensions_import,
-		admin_bbcode,
-		admin_bbcode_edit,
-		admin_bbcode_import,
-		admin_reindex,
-		admin_runsql,
-		admin_taskmanager,
-		admin_test_data,
-		admin_restartapp
-	}
+  /// <summary>
+  /// List of all pages available in the YAF forum
+  /// </summary>
+  public enum ForumPages
+  {
+    /// <summary>
+    /// The forum.
+    /// </summary>
+    forum, 
+
+    /// <summary>
+    /// The topics.
+    /// </summary>
+    topics, 
+
+    /// <summary>
+    /// The posts.
+    /// </summary>
+    posts, 
+
+    /// <summary>
+    /// The profile.
+    /// </summary>
+    profile, 
+
+    /// <summary>
+    /// The activeusers.
+    /// </summary>
+    activeusers, 
+
+    /// <summary>
+    /// The moderate.
+    /// </summary>
+    moderate, 
+
+    /// <summary>
+    /// The postmessage.
+    /// </summary>
+    postmessage, 
+
+    /// <summary>
+    /// The deletemessage.
+    /// </summary>
+    deletemessage, 
+
+    /// <summary>
+    /// The movemessage.
+    /// </summary>
+    movemessage, 
+
+    /// <summary>
+    /// The mod_forumuser.
+    /// </summary>
+    mod_forumuser, 
+
+    /// <summary>
+    /// The attachments.
+    /// </summary>
+    attachments, 
+
+    /// <summary>
+    /// The pmessage.
+    /// </summary>
+    pmessage, 
+
+    /// <summary>
+    /// The movetopic.
+    /// </summary>
+    movetopic, 
+
+    /// <summary>
+    /// The emailtopic.
+    /// </summary>
+    emailtopic, 
+
+    /// <summary>
+    /// The printtopic.
+    /// </summary>
+    printtopic, 
+
+    /// <summary>
+    /// The members.
+    /// </summary>
+    members, 
+
+    /// <summary>
+    /// The cp_pm.
+    /// </summary>
+    cp_pm, 
+
+    /// <summary>
+    /// The cp_profile.
+    /// </summary>
+    cp_profile, 
+
+    /// <summary>
+    /// The cp_editprofile.
+    /// </summary>
+    cp_editprofile, 
+
+    /// <summary>
+    /// The cp_editavatar.
+    /// </summary>
+    cp_editavatar, 
+
+    /// <summary>
+    /// The cp_signature.
+    /// </summary>
+    cp_signature, 
+
+    /// <summary>
+    /// The cp_subscriptions.
+    /// </summary>
+    cp_subscriptions, 
+
+    /// <summary>
+    /// The cp_message.
+    /// </summary>
+    cp_message, 
+
+    /// <summary>
+    /// The cp_changepassword.
+    /// </summary>
+    cp_changepassword, 
+
+    /// <summary>
+    /// The login.
+    /// </summary>
+    login, 
+
+    /// <summary>
+    /// The approve.
+    /// </summary>
+    approve, 
+
+    /// <summary>
+    /// The info.
+    /// </summary>
+    info, 
+
+    /// <summary>
+    /// The rules.
+    /// </summary>
+    rules, 
+
+    /// <summary>
+    /// The register.
+    /// </summary>
+    register, 
+
+    /// <summary>
+    /// The search.
+    /// </summary>
+    search, 
+
+    /// <summary>
+    /// The active.
+    /// </summary>
+    active, 
+
+    /// <summary>
+    /// The logout.
+    /// </summary>
+    logout, 
+
+    /// <summary>
+    /// The moderate_index.
+    /// </summary>
+    moderate_index, 
+
+    /// <summary>
+    /// The moderate_reportedposts.
+    /// </summary>
+    moderate_reportedposts, 
+
+    /// <summary>
+    /// The moderate_unapprovedposts.
+    /// </summary>
+    moderate_unapprovedposts, 
+
+    /// <summary>
+    /// The moderate_reportedabuse.
+    /// </summary>
+    moderate_reportedabuse, 
+
+    /// <summary>
+    /// The moderate_reportedspam.
+    /// </summary>
+    moderate_reportedspam, 
+
+    /// <summary>
+    /// The error.
+    /// </summary>
+    error, 
+
+    /// <summary>
+    /// The shoutbox.
+    /// </summary>
+    shoutbox, 
+
+    /// <summary>
+    /// The avatar.
+    /// </summary>
+    avatar, 
+
+    /// <summary>
+    /// The im_yim.
+    /// </summary>
+    im_yim, 
+
+    /// <summary>
+    /// The im_aim.
+    /// </summary>
+    im_aim, 
+
+    /// <summary>
+    /// The im_icq.
+    /// </summary>
+    im_icq, 
+
+    /// <summary>
+    /// The im_skype.
+    /// </summary>
+    im_skype, 
+
+    /// <summary>
+    /// The im_msn.
+    /// </summary>
+    im_msn, 
+
+    /// <summary>
+    /// The im_email.
+    /// </summary>
+    im_email, 
+
+    /// <summary>
+    /// The rsstopic.
+    /// </summary>
+    rsstopic, 
+
+    /// <summary>
+    /// The help_index.
+    /// </summary>
+    help_index, 
+
+    /// <summary>
+    /// The help_recover.
+    /// </summary>
+    help_recover, 
+
+    /// <summary>
+    /// The lastposts.
+    /// </summary>
+    lastposts, 
+
+    /// <summary>
+    /// The recoverpassword.
+    /// </summary>
+    recoverpassword, 
+
+    /// <summary>
+    /// The showsmilies.
+    /// </summary>
+    showsmilies, 
+
+    /// <summary>
+    /// The admin_admin.
+    /// </summary>
+    admin_admin, 
+
+    /// <summary>
+    /// The admin_hostsettings.
+    /// </summary>
+    admin_hostsettings, 
+
+    /// <summary>
+    /// The admin_boards.
+    /// </summary>
+    admin_boards, 
+
+    /// <summary>
+    /// The admin_boardsettings.
+    /// </summary>
+    admin_boardsettings, 
+
+    /// <summary>
+    /// The admin_forums.
+    /// </summary>
+    admin_forums, 
+
+    /// <summary>
+    /// The admin_bannedip.
+    /// </summary>
+    admin_bannedip, 
+
+    /// <summary>
+    /// The admin_smilies.
+    /// </summary>
+    admin_smilies, 
+
+    /// <summary>
+    /// The admin_accessmasks.
+    /// </summary>
+    admin_accessmasks, 
+
+    /// <summary>
+    /// The admin_groups.
+    /// </summary>
+    admin_groups, 
+
+    /// <summary>
+    /// The admin_users.
+    /// </summary>
+    admin_users, 
+
+    /// <summary>
+    /// The admin_ranks.
+    /// </summary>
+    admin_ranks, 
+
+    /// <summary>
+    /// The admin_mail.
+    /// </summary>
+    admin_mail, 
+
+    /// <summary>
+    /// The admin_medals.
+    /// </summary>
+    admin_medals, 
+
+    /// <summary>
+    /// The admin_prune.
+    /// </summary>
+    admin_prune, 
+
+    /// <summary>
+    /// The admin_pm.
+    /// </summary>
+    admin_pm, 
+
+    /// <summary>
+    /// The admin_attachments.
+    /// </summary>
+    admin_attachments, 
+
+    /// <summary>
+    /// The admin_eventlog.
+    /// </summary>
+    admin_eventlog, 
+
+    /// <summary>
+    /// The admin_nntpservers.
+    /// </summary>
+    admin_nntpservers, 
+
+    /// <summary>
+    /// The admin_nntpforums.
+    /// </summary>
+    admin_nntpforums, 
+
+    /// <summary>
+    /// The admin_nntpretrieve.
+    /// </summary>
+    admin_nntpretrieve, 
+
+    /// <summary>
+    /// The admin_version.
+    /// </summary>
+    admin_version, 
+
+    /// <summary>
+    /// The admin_bannedip_edit.
+    /// </summary>
+    admin_bannedip_edit, 
+
+    /// <summary>
+    /// The admin_editaccessmask.
+    /// </summary>
+    admin_editaccessmask, 
+
+    /// <summary>
+    /// The admin_editboard.
+    /// </summary>
+    admin_editboard, 
+
+    /// <summary>
+    /// The admin_editcategory.
+    /// </summary>
+    admin_editcategory, 
+
+    /// <summary>
+    /// The admin_editforum.
+    /// </summary>
+    admin_editforum, 
+
+    /// <summary>
+    /// The admin_editgroup.
+    /// </summary>
+    admin_editgroup, 
+
+    /// <summary>
+    /// The admin_editmedal.
+    /// </summary>
+    admin_editmedal, 
+
+    /// <summary>
+    /// The admin_editnntpforum.
+    /// </summary>
+    admin_editnntpforum, 
+
+    /// <summary>
+    /// The admin_editnntpserver.
+    /// </summary>
+    admin_editnntpserver, 
+
+    /// <summary>
+    /// The admin_editrank.
+    /// </summary>
+    admin_editrank, 
+
+    /// <summary>
+    /// The admin_edituser.
+    /// </summary>
+    admin_edituser, 
+
+    /// <summary>
+    /// The admin_reguser.
+    /// </summary>
+    admin_reguser, 
+
+    /// <summary>
+    /// The admin_smilies_edit.
+    /// </summary>
+    admin_smilies_edit, 
+
+    /// <summary>
+    /// The admin_smilies_import.
+    /// </summary>
+    admin_smilies_import, 
+
+    /// <summary>
+    /// The admin_replacewords.
+    /// </summary>
+    admin_replacewords, 
+
+    /// <summary>
+    /// The admin_replacewords_edit.
+    /// </summary>
+    admin_replacewords_edit, 
+
+    /// <summary>
+    /// The admin_replacewords_import.
+    /// </summary>
+    admin_replacewords_import, 
+
+    /// <summary>
+    /// The admin_extensions.
+    /// </summary>
+    admin_extensions, 
+
+    /// <summary>
+    /// The admin_extensions_edit.
+    /// </summary>
+    admin_extensions_edit, 
+
+    /// <summary>
+    /// The admin_extensions_import.
+    /// </summary>
+    admin_extensions_import, 
+
+    /// <summary>
+    /// The admin_bbcode.
+    /// </summary>
+    admin_bbcode, 
+
+    /// <summary>
+    /// The admin_bbcode_edit.
+    /// </summary>
+    admin_bbcode_edit, 
+
+    /// <summary>
+    /// The admin_bbcode_import.
+    /// </summary>
+    admin_bbcode_import, 
+
+    /// <summary>
+    /// The admin_reindex.
+    /// </summary>
+    admin_reindex, 
+
+    /// <summary>
+    /// The admin_runsql.
+    /// </summary>
+    admin_runsql, 
+
+    /// <summary>
+    /// The admin_taskmanager.
+    /// </summary>
+    admin_taskmanager, 
+
+    /// <summary>
+    /// The admin_test_data.
+    /// </summary>
+    admin_test_data, 
+
+    /// <summary>
+    /// The admin_restartapp.
+    /// </summary>
+    admin_restartapp
+  }
 }

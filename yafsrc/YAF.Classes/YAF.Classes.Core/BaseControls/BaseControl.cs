@@ -18,189 +18,331 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using YAF.Classes;
 using YAF.Classes.Core;
 
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Control derived from Panel that includes a reference to the YafContext.
-	/// </summary>
-	public class BasePanel : Panel
-	{
-		public YafContext PageContext
-		{
-			get
-			{
-				if ( this.Site != null && this.Site.DesignMode == true )
-				{
-					// design-time, return null...
-					return null;
-				}
-				return YafContext.Current;
-			}
-		}
+  /// <summary>
+  /// Control derived from Panel that includes a reference to the YafContext.
+  /// </summary>
+  public class BasePanel : Panel
+  {
+    /// <summary>
+    /// Gets PageContext.
+    /// </summary>
+    public YafContext PageContext
+    {
+      get
+      {
+        if (Site != null && Site.DesignMode)
+        {
+          // design-time, return null...
+          return null;
+        }
 
-		/// <summary>
-		/// Creates a Unique ID
-		/// </summary>
-		/// <param name="prefix"></param>
-		/// <returns></returns>
-		public string GetUniqueID( string prefix )
-		{
-			if ( !String.IsNullOrEmpty( prefix ) )
-			{
-				return prefix + System.Guid.NewGuid().ToString().Substring( 0, 5 );
-			}
-			else
-			{
-				return System.Guid.NewGuid().ToString().Substring( 0, 10 );
-			}
-		}
+        return YafContext.Current;
+      }
+    }
 
-		/// <summary>
-		/// Creates a ID Based on the Control Structure
-		/// </summary>
-		/// <param name="prefix"></param>
-		/// <returns></returns>
-		public string GetExtendedID( string prefix )
-		{
-			string createdID = null;
+    /// <summary>
+    /// Creates a Unique ID
+    /// </summary>
+    /// <param name="prefix">
+    /// </param>
+    /// <returns>
+    /// The get unique id.
+    /// </returns>
+    public string GetUniqueID(string prefix)
+    {
+      if (!String.IsNullOrEmpty(prefix))
+      {
+        return prefix + Guid.NewGuid().ToString().Substring(0, 5);
+      }
+      else
+      {
+        return Guid.NewGuid().ToString().Substring(0, 10);
+      }
+    }
 
-			if ( !String.IsNullOrEmpty( this.ID ) )
-			{
-				createdID = this.ID + "_";
-			}
+    /// <summary>
+    /// Creates a ID Based on the Control Structure
+    /// </summary>
+    /// <param name="prefix">
+    /// </param>
+    /// <returns>
+    /// The get extended id.
+    /// </returns>
+    public string GetExtendedID(string prefix)
+    {
+      string createdID = null;
 
-			if ( !String.IsNullOrEmpty( prefix ) )
-			{
-				createdID += prefix;
-			}
-			else
-			{
-				createdID += System.Guid.NewGuid().ToString().Substring( 0,5 );
-			}
+      if (!String.IsNullOrEmpty(ID))
+      {
+        createdID = ID + "_";
+      }
 
-			return createdID;
-		} 
-	}
+      if (!String.IsNullOrEmpty(prefix))
+      {
+        createdID += prefix;
+      }
+      else
+      {
+        createdID += Guid.NewGuid().ToString().Substring(0, 5);
+      }
 
-	/// <summary>
-	/// Summary description for BaseControl.
-	/// </summary>
-	public class BaseControl : System.Web.UI.Control
-	{
-		public YafContext PageContext
-		{
-			get 
-			{
-				if ( this.Site != null && this.Site.DesignMode == true )
-				{
-					// design-time, return null...
-					return null;
-				}
-				return YafContext.Current;
-			}
-		}
+      return createdID;
+    }
+  }
 
-		public string HtmlEncode( object data )
-		{
-			return HttpContext.Current.Server.HtmlEncode( data.ToString() );
-		}
+  /// <summary>
+  /// Summary description for BaseControl.
+  /// </summary>
+  public class BaseControl : Control
+  {
+    /// <summary>
+    /// Gets PageContext.
+    /// </summary>
+    public YafContext PageContext
+    {
+      get
+      {
+        if (Site != null && Site.DesignMode)
+        {
+          // design-time, return null...
+          return null;
+        }
 
-		public void RenderAnchor( HtmlTextWriter writer, string href, string cssClass, string innerText )
-		{
-			writer.WriteBeginTag( "a" );
-			writer.WriteAttribute( "href", href );
-			if ( !String.IsNullOrEmpty( cssClass ) ) writer.WriteAttribute( "class", cssClass );
-			writer.Write( HtmlTextWriter.TagRightChar );
-			writer.Write( innerText );
-			writer.WriteEndTag( "a" );
-		}
+        return YafContext.Current;
+      }
+    }
 
-		/// <summary>
-		/// Creates a Unique ID
-		/// </summary>
-		/// <param name="prefix"></param>
-		/// <returns></returns>
-		public string GetUniqueID( string prefix )
-		{
-			if ( !String.IsNullOrEmpty( prefix ) )
-			{
-				return prefix + System.Guid.NewGuid().ToString().Substring( 0, 5 );
-			}
-			else
-			{
-				return System.Guid.NewGuid().ToString().Substring( 0, 10 );
-			}
-		}
+    /// <summary>
+    /// The html encode.
+    /// </summary>
+    /// <param name="data">
+    /// The data.
+    /// </param>
+    /// <returns>
+    /// The html encode.
+    /// </returns>
+    public string HtmlEncode(object data)
+    {
+      return HttpContext.Current.Server.HtmlEncode(data.ToString());
+    }
 
-		/// <summary>
-		/// Creates a ID Based on the Control Structure
-		/// </summary>
-		/// <param name="prefix"></param>
-		/// <returns></returns>
-		public string GetExtendedID( string prefix )
-		{
-			string createdID = null;
+    /// <summary>
+    /// The render anchor.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <param name="href">
+    /// The href.
+    /// </param>
+    /// <param name="cssClass">
+    /// The css class.
+    /// </param>
+    /// <param name="innerText">
+    /// The inner text.
+    /// </param>
+    public void RenderAnchor(HtmlTextWriter writer, string href, string cssClass, string innerText)
+    {
+      writer.WriteBeginTag("a");
+      writer.WriteAttribute("href", href);
+      if (!String.IsNullOrEmpty(cssClass))
+      {
+        writer.WriteAttribute("class", cssClass);
+      }
 
-			if ( !String.IsNullOrEmpty( this.ID ) )
-			{
-				createdID = this.ID + "_";
-			}
+      writer.Write(HtmlTextWriter.TagRightChar);
+      writer.Write(innerText);
+      writer.WriteEndTag("a");
+    }
 
-			if ( !String.IsNullOrEmpty( prefix ) )
-			{
-				createdID += prefix;
-			}
-			else
-			{
-				createdID += System.Guid.NewGuid().ToString().Substring( 0,5 );
-			}
+    /// <summary>
+    /// Creates a Unique ID
+    /// </summary>
+    /// <param name="prefix">
+    /// </param>
+    /// <returns>
+    /// The get unique id.
+    /// </returns>
+    public string GetUniqueID(string prefix)
+    {
+      if (!String.IsNullOrEmpty(prefix))
+      {
+        return prefix + Guid.NewGuid().ToString().Substring(0, 5);
+      }
+      else
+      {
+        return Guid.NewGuid().ToString().Substring(0, 10);
+      }
+    }
 
-			return createdID;
-		} 
+    /// <summary>
+    /// Creates a ID Based on the Control Structure
+    /// </summary>
+    /// <param name="prefix">
+    /// </param>
+    /// <returns>
+    /// The get extended id.
+    /// </returns>
+    public string GetExtendedID(string prefix)
+    {
+      string createdID = null;
 
-		#region Render Anchor Begin Functions
-		public void RenderAnchorBegin( HtmlTextWriter writer, string href )
-		{
-			this.RenderAnchorBegin( writer, href, null, null );
-		}
-		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass )
-		{
-			this.RenderAnchorBegin( writer, href, cssClass, null, null, null );
-		}
-		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass, string title )
-		{
-			this.RenderAnchorBegin( writer, href, cssClass, title, null, null );
-		}
-		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass, string title, string onclick, string id )
-		{
-			writer.WriteBeginTag( "a" );
-			writer.WriteAttribute( "href", href );
-			if ( !String.IsNullOrEmpty( cssClass ) ) writer.WriteAttribute( "class", cssClass );
-			if ( !String.IsNullOrEmpty( title ) ) writer.WriteAttribute( "title", HtmlEncode(title) );
-			if ( !String.IsNullOrEmpty( onclick ) ) writer.WriteAttribute( "onclick", onclick );
-			if ( !String.IsNullOrEmpty( id ) ) writer.WriteAttribute( "id", id );
-			writer.Write( HtmlTextWriter.TagRightChar );
-		}
-		#endregion
+      if (!String.IsNullOrEmpty(ID))
+      {
+        createdID = ID + "_";
+      }
 
-		public void RenderImgTag( HtmlTextWriter writer, string src, string alt, string title )
-		{
-			//this will output the start of the img element - <img
-			writer.WriteBeginTag( "img" );
+      if (!String.IsNullOrEmpty(prefix))
+      {
+        createdID += prefix;
+      }
+      else
+      {
+        createdID += Guid.NewGuid().ToString().Substring(0, 5);
+      }
 
-			writer.WriteAttribute( "src", src );
-			writer.WriteAttribute( "alt", alt );
+      return createdID;
+    }
 
-			if ( !String.IsNullOrEmpty( title ) ) writer.WriteAttribute( "title", title );
+    /// <summary>
+    /// The render img tag.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <param name="src">
+    /// The src.
+    /// </param>
+    /// <param name="alt">
+    /// The alt.
+    /// </param>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    public void RenderImgTag(HtmlTextWriter writer, string src, string alt, string title)
+    {
+      // this will output the start of the img element - <img
+      writer.WriteBeginTag("img");
 
-			writer.Write( HtmlTextWriter.SelfClosingTagEnd );
-		}
-	}
+      writer.WriteAttribute("src", src);
+      writer.WriteAttribute("alt", alt);
+
+      if (!String.IsNullOrEmpty(title))
+      {
+        writer.WriteAttribute("title", title);
+      }
+
+      writer.Write(HtmlTextWriter.SelfClosingTagEnd);
+    }
+
+    #region Render Anchor Begin Functions
+
+    /// <summary>
+    /// The render anchor begin.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <param name="href">
+    /// The href.
+    /// </param>
+    public void RenderAnchorBegin(HtmlTextWriter writer, string href)
+    {
+      RenderAnchorBegin(writer, href, null, null);
+    }
+
+    /// <summary>
+    /// The render anchor begin.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <param name="href">
+    /// The href.
+    /// </param>
+    /// <param name="cssClass">
+    /// The css class.
+    /// </param>
+    public void RenderAnchorBegin(HtmlTextWriter writer, string href, string cssClass)
+    {
+      RenderAnchorBegin(writer, href, cssClass, null, null, null);
+    }
+
+    /// <summary>
+    /// The render anchor begin.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <param name="href">
+    /// The href.
+    /// </param>
+    /// <param name="cssClass">
+    /// The css class.
+    /// </param>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    public void RenderAnchorBegin(HtmlTextWriter writer, string href, string cssClass, string title)
+    {
+      RenderAnchorBegin(writer, href, cssClass, title, null, null);
+    }
+
+    /// <summary>
+    /// The render anchor begin.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <param name="href">
+    /// The href.
+    /// </param>
+    /// <param name="cssClass">
+    /// The css class.
+    /// </param>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    /// <param name="onclick">
+    /// The onclick.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    public void RenderAnchorBegin(HtmlTextWriter writer, string href, string cssClass, string title, string onclick, string id)
+    {
+      writer.WriteBeginTag("a");
+      writer.WriteAttribute("href", href);
+      if (!String.IsNullOrEmpty(cssClass))
+      {
+        writer.WriteAttribute("class", cssClass);
+      }
+
+      if (!String.IsNullOrEmpty(title))
+      {
+        writer.WriteAttribute("title", HtmlEncode(title));
+      }
+
+      if (!String.IsNullOrEmpty(onclick))
+      {
+        writer.WriteAttribute("onclick", onclick);
+      }
+
+      if (!String.IsNullOrEmpty(id))
+      {
+        writer.WriteAttribute("id", id);
+      }
+
+      writer.Write(HtmlTextWriter.TagRightChar);
+    }
+
+    #endregion
+  }
 }

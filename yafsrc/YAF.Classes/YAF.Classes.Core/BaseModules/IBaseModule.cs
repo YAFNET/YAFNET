@@ -20,104 +20,166 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Compilation;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
 
 namespace YAF.Modules
 {
-	[AttributeUsage( AttributeTargets.Class )]
-	public class YafModule : System.Attribute
-	{
-		private string _moduleName;
-		public string ModuleName
-		{
-			get
-			{
-				return _moduleName;
-			}
-			set
-			{
-				_moduleName = value;
-			}
-		}
+  /// <summary>
+  /// The yaf module.
+  /// </summary>
+  [AttributeUsage(AttributeTargets.Class)]
+  public class YafModule : Attribute
+  {
+    /// <summary>
+    /// The _module author.
+    /// </summary>
+    private string _moduleAuthor;
 
-		private string _moduleAuthor;
-		public string ModuleAuthor
-		{
-			get
-			{
-				return _moduleAuthor;
-			}
-			set
-			{
-				_moduleAuthor = value;
-			}
-		}
+    /// <summary>
+    /// The _module name.
+    /// </summary>
+    private string _moduleName;
 
-		private int _moduleVersion;
-		public int ModuleVersion
-		{
-			get
-			{
-				return _moduleVersion;
-			}
-			set
-			{
-				_moduleVersion = value;
-			}
-		}
+    /// <summary>
+    /// The _module version.
+    /// </summary>
+    private int _moduleVersion;
 
-		public YafModule( string moduleName, string moduleAuthor, int moduleVersion )
-		{
-			_moduleName = moduleName;
-			_moduleAuthor = moduleAuthor;
-			_moduleVersion = moduleVersion;
-		}
-	}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafModule"/> class.
+    /// </summary>
+    /// <param name="moduleName">
+    /// The module name.
+    /// </param>
+    /// <param name="moduleAuthor">
+    /// The module author.
+    /// </param>
+    /// <param name="moduleVersion">
+    /// The module version.
+    /// </param>
+    public YafModule(string moduleName, string moduleAuthor, int moduleVersion)
+    {
+      this._moduleName = moduleName;
+      this._moduleAuthor = moduleAuthor;
+      this._moduleVersion = moduleVersion;
+    }
 
-	public interface IBaseModule : IDisposable
-	{
-		object ForumControlObj
-		{
-			get;
-			set;
-		}
+    /// <summary>
+    /// Gets or sets ModuleName.
+    /// </summary>
+    public string ModuleName
+    {
+      get
+      {
+        return this._moduleName;
+      }
 
-		void Init();
-	}
+      set
+      {
+        this._moduleName = value;
+      }
+    }
 
-	/// <summary>
-	/// Handles IBaseModule types.
-	/// </summary>
-	public class YafBaseModuleManager : YafModuleManager<IBaseModule>
-	{
-		protected bool _initCalled = false;
+    /// <summary>
+    /// Gets or sets ModuleAuthor.
+    /// </summary>
+    public string ModuleAuthor
+    {
+      get
+      {
+        return this._moduleAuthor;
+      }
 
-		YafBaseModuleManager()
-			: base( "YAF.Modules", "YAF.Modules.IBaseModule" )
-		{
-			if ( ModuleClassTypes == null )
-			{
-				// get the .Core module to add...
-				base.AddModules( new List<Assembly>() {Assembly.GetExecutingAssembly()} );
-				// re-add these modules...
-				base.AddModules( BuildManager.CodeAssemblies );
-			}
-		}
+      set
+      {
+        this._moduleAuthor = value;
+      }
+    }
 
-		public void CallInitModules( object forumControl )
-		{
-			if ( !_initCalled )
-			{
-				foreach ( IBaseModule currentModule in Modules )
-				{
-					currentModule.ForumControlObj = forumControl;
-					currentModule.Init();
-				}
+    /// <summary>
+    /// Gets or sets ModuleVersion.
+    /// </summary>
+    public int ModuleVersion
+    {
+      get
+      {
+        return this._moduleVersion;
+      }
 
-				_initCalled = true;
-			}
-		}
-	}
+      set
+      {
+        this._moduleVersion = value;
+      }
+    }
+  }
+
+  /// <summary>
+  /// The i base module.
+  /// </summary>
+  public interface IBaseModule : IDisposable
+  {
+    /// <summary>
+    /// Gets or sets ForumControlObj.
+    /// </summary>
+    object ForumControlObj
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// The init.
+    /// </summary>
+    void Init();
+  }
+
+  /// <summary>
+  /// Handles IBaseModule types.
+  /// </summary>
+  public class YafBaseModuleManager : YafModuleManager<IBaseModule>
+  {
+    /// <summary>
+    /// The _init called.
+    /// </summary>
+    protected bool _initCalled = false;
+
+    /// <summary>
+    /// Prevents a default instance of the <see cref="YafBaseModuleManager"/> class from being created.
+    /// </summary>
+    private YafBaseModuleManager()
+      : base("YAF.Modules", "YAF.Modules.IBaseModule")
+    {
+      if (ModuleClassTypes == null)
+      {
+        // get the .Core module to add...
+        AddModules(
+          new List<Assembly>()
+            {
+              Assembly.GetExecutingAssembly()
+            });
+
+        // re-add these modules...
+        AddModules(BuildManager.CodeAssemblies);
+      }
+    }
+
+    /// <summary>
+    /// The call init modules.
+    /// </summary>
+    /// <param name="forumControl">
+    /// The forum control.
+    /// </param>
+    public void CallInitModules(object forumControl)
+    {
+      if (!this._initCalled)
+      {
+        foreach (IBaseModule currentModule in Modules)
+        {
+          currentModule.ForumControlObj = forumControl;
+          currentModule.Init();
+        }
+
+        this._initCalled = true;
+      }
+    }
+  }
 }

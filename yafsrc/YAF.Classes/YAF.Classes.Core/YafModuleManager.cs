@@ -21,213 +21,323 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using YAF.Classes.Core;
-using YAF.Classes.Utils;
 
 namespace YAF.Modules
 {
-	/// <summary>
-	/// Generic Module Management (Plugin) class.
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	public abstract class YafModuleManager<T>
-	{
-		protected string _cacheName = String.Empty;
-		protected List<T> _modules = new List<T>();
-		protected List<Type> _moduleClassTypes = null;
-		protected bool _loaded = false;
+  /// <summary>
+  /// Generic Module Management (Plugin) class.
+  /// </summary>
+  /// <typeparam name="T">
+  /// </typeparam>
+  public abstract class YafModuleManager<T>
+  {
+    /// <summary>
+    /// The _cache name.
+    /// </summary>
+    protected string _cacheName = String.Empty;
 
-		/// <summary>
-		/// Called when the modules are loaded.
-		/// </summary>
-		public event EventHandler<EventArgs> LoadModules;
-		/// <summary>
-		/// Called when the modules are unloaded.
-		/// </summary>
-		public event EventHandler<EventArgs> UnloadModules;
+    /// <summary>
+    /// The _loaded.
+    /// </summary>
+    protected bool _loaded = false;
 
-		private string _moduleNamespace;
-		/// <summary>
-		/// Base Module Namespace for the Module Manager
-		/// </summary>
-		public String ModuleNamespace
-		{
-			get
-			{
-				return _moduleNamespace;
-			}
-			protected set
-			{
-				_moduleNamespace = value;
-			}
-		}
+    /// <summary>
+    /// The _module base type.
+    /// </summary>
+    private string _moduleBaseType;
 
-		private string _moduleBaseType;
-		/// <summary>
-		/// Base type of this instance of the Module Manager
-		/// </summary>
-		public String ModuleBaseType
-		{
-			get
-			{
-				return _moduleBaseType;
-			}
-			protected set
-			{
-				_moduleBaseType = value;
-			}
-		}
+    /// <summary>
+    /// The _module class types.
+    /// </summary>
+    protected List<Type> _moduleClassTypes = null;
 
-		protected String CacheName
-		{
-			get
-			{
-				return "YafModuleManager_" + ModuleBaseType;
-			}
-		}
+    /// <summary>
+    /// The _module namespace.
+    /// </summary>
+    private string _moduleNamespace;
 
-		protected List<Type> ModuleClassTypes
-		{
-			get
-			{
-				if ( _moduleClassTypes == null && YafContext.Current.Cache[CacheName] != null )
-				{
-					_moduleClassTypes = YafContext.Current.Cache[CacheName] as List<Type>;
-				}
+    /// <summary>
+    /// The _modules.
+    /// </summary>
+    protected List<T> _modules = new List<T>();
 
-				return _moduleClassTypes;
-			}
-			set
-			{
-				if ( value == null ) YafContext.Current.Cache.Remove( CacheName );
-				else YafContext.Current.Cache[CacheName] = value;
-				_moduleClassTypes = value;
-			}
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafModuleManager{T}"/> class.
+    /// </summary>
+    /// <param name="moduleNamespace">
+    /// The module namespace.
+    /// </param>
+    /// <param name="moduleBaseType">
+    /// The module base type.
+    /// </param>
+    protected YafModuleManager(string moduleNamespace, string moduleBaseType)
+    {
+      ModuleNamespace = moduleNamespace;
+      ModuleBaseType = moduleBaseType;
+    }
 
-		/// <summary>
-		/// All the modules found by the Module Manager
-		/// </summary>
-		public List<T> Modules
-		{
-			get
-			{
-				return _modules;
-			}
-		}
+    /// <summary>
+    /// Base Module Namespace for the Module Manager
+    /// </summary>
+    public string ModuleNamespace
+    {
+      get
+      {
+        return this._moduleNamespace;
+      }
 
-		/// <summary>
-		/// Are modules loaded?
-		/// </summary>
-		public bool Loaded
-		{
-			get
-			{
-				return _loaded;
-			}
-		}
+      protected set
+      {
+        this._moduleNamespace = value;
+      }
+    }
 
-		protected YafModuleManager( string moduleNamespace, string moduleBaseType )
-		{
-			ModuleNamespace = moduleNamespace;
-			ModuleBaseType = moduleBaseType;
-		}
+    /// <summary>
+    /// Base type of this instance of the Module Manager
+    /// </summary>
+    public string ModuleBaseType
+    {
+      get
+      {
+        return this._moduleBaseType;
+      }
 
-		protected void AddModules( IList assemblies )
-		{
-			if ( ModuleClassTypes == null )
-				ModuleClassTypes = FindModules( assemblies, ModuleNamespace, ModuleBaseType );
-			else
-				ModuleClassTypes.AddRange( FindModules( assemblies, ModuleNamespace, ModuleBaseType ) );
-		}
+      protected set
+      {
+        this._moduleBaseType = value;
+      }
+    }
 
-		protected void AddModules( List<Assembly> assemblies )
-		{
-			if ( ModuleClassTypes == null )
-				ModuleClassTypes = FindModules( assemblies, ModuleNamespace, ModuleBaseType );
-			else
-				ModuleClassTypes.AddRange( FindModules( assemblies, ModuleNamespace, ModuleBaseType ) );
-		}
+    /// <summary>
+    /// Gets CacheName.
+    /// </summary>
+    protected string CacheName
+    {
+      get
+      {
+        return "YafModuleManager_" + ModuleBaseType;
+      }
+    }
 
-		protected static List<Type> FindModules(IList assemblies, string moduleNamespace, string moduleBaseInterface )
-		{
-			List<Type> moduleClassTypes = new List<Type>();
+    /// <summary>
+    /// Gets or sets ModuleClassTypes.
+    /// </summary>
+    protected List<Type> ModuleClassTypes
+    {
+      get
+      {
+        if (this._moduleClassTypes == null && YafContext.Current.Cache[CacheName] != null)
+        {
+          this._moduleClassTypes = YafContext.Current.Cache[CacheName] as List<Type>;
+        }
 
-				// get classes...
-			foreach (Assembly assembly in assemblies)
-			{
-				TypeFilter filter = new TypeFilter( BaseModuleFilter );
+        return this._moduleClassTypes;
+      }
 
-				foreach ( Module module in assembly.GetModules() )
-				{
-					foreach ( Type modClass in module.FindTypes( filter, moduleNamespace ) )
-					{
-						// don't add any abstract classes...
-						if ( modClass.IsAbstract ) continue;
+      set
+      {
+        if (value == null)
+        {
+          YafContext.Current.Cache.Remove(CacheName);
+        }
+        else
+        {
+          YafContext.Current.Cache[CacheName] = value;
+        }
 
-						// YAF.Modules namespace, verify it implements the interface...
-						Type[] interfaces = modClass.GetInterfaces();
+        this._moduleClassTypes = value;
+      }
+    }
 
-						foreach ( Type inter in interfaces )
-						{
-							if (inter.ToString() == moduleBaseInterface)
-								moduleClassTypes.Add(modClass);
-						}
-					}
-				}
-			}
+    /// <summary>
+    /// All the modules found by the Module Manager
+    /// </summary>
+    public List<T> Modules
+    {
+      get
+      {
+        return this._modules;
+      }
+    }
 
-			return moduleClassTypes;
-		}
+    /// <summary>
+    /// Are modules loaded?
+    /// </summary>
+    public bool Loaded
+    {
+      get
+      {
+        return this._loaded;
+      }
+    }
 
-		/// <summary>
-		/// Loads (CreatesInstance) of all modules) -- should only be called once.
-		/// </summary>
-		public void Load()
-		{
-			if (!_loaded)
-			{
-				foreach ( Type module in ModuleClassTypes )
-				{
-					_modules.Add( GetInstance( module ) );
-				}
+    /// <summary>
+    /// Called when the modules are loaded.
+    /// </summary>
+    public event EventHandler<EventArgs> LoadModules;
 
-				_loaded = true;
+    /// <summary>
+    /// Called when the modules are unloaded.
+    /// </summary>
+    public event EventHandler<EventArgs> UnloadModules;
 
-				if ( LoadModules != null ) LoadModules( this, new EventArgs());
-			}
-		}
+    /// <summary>
+    /// The add modules.
+    /// </summary>
+    /// <param name="assemblies">
+    /// The assemblies.
+    /// </param>
+    protected void AddModules(IList assemblies)
+    {
+      if (ModuleClassTypes == null)
+      {
+        ModuleClassTypes = FindModules(assemblies, ModuleNamespace, ModuleBaseType);
+      }
+      else
+      {
+        ModuleClassTypes.AddRange(FindModules(assemblies, ModuleNamespace, ModuleBaseType));
+      }
+    }
 
-		/// <summary>
-		/// Unloads all the modules in the module manager.
-		/// </summary>
-		public void Unload()
-		{
-			if ( _loaded )
-			{
-				_modules.Clear();
-				_loaded = false;
+    /// <summary>
+    /// The add modules.
+    /// </summary>
+    /// <param name="assemblies">
+    /// The assemblies.
+    /// </param>
+    protected void AddModules(List<Assembly> assemblies)
+    {
+      if (ModuleClassTypes == null)
+      {
+        ModuleClassTypes = FindModules(assemblies, ModuleNamespace, ModuleBaseType);
+      }
+      else
+      {
+        ModuleClassTypes.AddRange(FindModules(assemblies, ModuleNamespace, ModuleBaseType));
+      }
+    }
 
-				if (UnloadModules != null) UnloadModules(this, new EventArgs());
-			}
-		}
+    /// <summary>
+    /// The find modules.
+    /// </summary>
+    /// <param name="assemblies">
+    /// The assemblies.
+    /// </param>
+    /// <param name="moduleNamespace">
+    /// The module namespace.
+    /// </param>
+    /// <param name="moduleBaseInterface">
+    /// The module base interface.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    protected static List<Type> FindModules(IList assemblies, string moduleNamespace, string moduleBaseInterface)
+    {
+      var moduleClassTypes = new List<Type>();
 
-		protected T GetInstance(Type module)
-		{
-			return (T) Activator.CreateInstance( module );
-		}
+      // get classes...
+      foreach (Assembly assembly in assemblies)
+      {
+        var filter = new TypeFilter(BaseModuleFilter);
 
-		/// <summary>
-		/// Helper function that filters modules based on NameSpace
-		/// </summary>
-		/// <param name="typeObj"></param>
-		/// <param name="criteriaObj"></param>
-		/// <returns></returns>
-		public static bool BaseModuleFilter(Type typeObj, Object criteriaObj)
-		{
-			if ( typeObj.Namespace == criteriaObj.ToString())
-				return true;
-			else
-				return false;
-		}
-	}
+        foreach (Module module in assembly.GetModules())
+        {
+          foreach (Type modClass in module.FindTypes(filter, moduleNamespace))
+          {
+            // don't add any abstract classes...
+            if (modClass.IsAbstract)
+            {
+              continue;
+            }
+
+            // YAF.Modules namespace, verify it implements the interface...
+            Type[] interfaces = modClass.GetInterfaces();
+
+            foreach (Type inter in interfaces)
+            {
+              if (inter.ToString() == moduleBaseInterface)
+              {
+                moduleClassTypes.Add(modClass);
+              }
+            }
+          }
+        }
+      }
+
+      return moduleClassTypes;
+    }
+
+    /// <summary>
+    /// Loads (CreatesInstance) of all modules) -- should only be called once.
+    /// </summary>
+    public void Load()
+    {
+      if (!this._loaded)
+      {
+        foreach (Type module in ModuleClassTypes)
+        {
+          this._modules.Add(GetInstance(module));
+        }
+
+        this._loaded = true;
+
+        if (LoadModules != null)
+        {
+          LoadModules(this, new EventArgs());
+        }
+      }
+    }
+
+    /// <summary>
+    /// Unloads all the modules in the module manager.
+    /// </summary>
+    public void Unload()
+    {
+      if (this._loaded)
+      {
+        this._modules.Clear();
+        this._loaded = false;
+
+        if (UnloadModules != null)
+        {
+          UnloadModules(this, new EventArgs());
+        }
+      }
+    }
+
+    /// <summary>
+    /// The get instance.
+    /// </summary>
+    /// <param name="module">
+    /// The module.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    protected T GetInstance(Type module)
+    {
+      return (T) Activator.CreateInstance(module);
+    }
+
+    /// <summary>
+    /// Helper function that filters modules based on NameSpace
+    /// </summary>
+    /// <param name="typeObj">
+    /// </param>
+    /// <param name="criteriaObj">
+    /// </param>
+    /// <returns>
+    /// The base module filter.
+    /// </returns>
+    public static bool BaseModuleFilter(Type typeObj, object criteriaObj)
+    {
+      if (typeObj.Namespace == criteriaObj.ToString())
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+  }
 }

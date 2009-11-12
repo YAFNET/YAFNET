@@ -17,38 +17,53 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-using System;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Classes.Core
 {
-	/// <summary>
-	/// Summary description for AdminPage.
-	/// </summary>
-	public class AdminPage : ForumPage
-	{
-		/// <summary>
-		/// Creates the Administration page.
-		/// </summary>
-		public AdminPage()
-			: this( null )
-		{
+  using System;
+  using YAF.Classes.Utils;
 
-		}
+  /// <summary>
+  /// Summary description for AdminPage.
+  /// </summary>
+  public class AdminPage : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AdminPage"/> class. 
+    /// Creates the Administration page.
+    /// </summary>
+    public AdminPage()
+      : this(null)
+    {
+    }
 
-		public AdminPage( string transPage )
-			: base( transPage )
-		{
-			this._isAdminPage = true;
-			this.Load += new EventHandler( AdminPage_Load );
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AdminPage"/> class.
+    /// </summary>
+    /// <param name="transPage">
+    /// The trans page.
+    /// </param>
+    public AdminPage(string transPage)
+      : base(transPage)
+    {
+      _isAdminPage = true;
+      Load += AdminPage_Load;
+    }
 
-		private void AdminPage_Load( object sender, EventArgs e )
-		{
-			if ( !PageContext.IsAdmin )
-				YafBuildLink.AccessDenied();
-		}
-	}
+    /// <summary>
+    /// The admin page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void AdminPage_Load(object sender, EventArgs e)
+    {
+      if (!PageContext.IsAdmin)
+      {
+        YafBuildLink.AccessDenied();
+      }
+    }
+  }
 }

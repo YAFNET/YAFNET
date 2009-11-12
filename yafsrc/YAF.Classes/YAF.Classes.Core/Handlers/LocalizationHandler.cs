@@ -16,90 +16,134 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 using System;
 using System.Globalization;
 using System.Threading;
+using YAF.Classes.Data;
 
 namespace YAF.Classes.Core
 {
-	public class LocalizationHandler
-	{
-		private YafLocalization _localization = null;
-		private bool _initCulture = false;
-		private bool _initLocalization = false;
+  /// <summary>
+  /// The localization handler.
+  /// </summary>
+  public class LocalizationHandler
+  {
+    /// <summary>
+    /// The _init culture.
+    /// </summary>
+    private bool _initCulture = false;
 
-		public YafLocalization Localization
-		{
-			get
-			{
-				if (!_initLocalization) InitLocalization();
-				if (!_initCulture) InitCulture();
-				return _localization;
-			}
-			set
-			{
-				_localization = value;
-				_initLocalization = (value != null);
-				_initCulture = (value != null);
-			}
-		}
+    /// <summary>
+    /// The _init localization.
+    /// </summary>
+    private bool _initLocalization = false;
 
-		private string _transPage = string.Empty;
-		/// <summary>
-		/// Current TransPage for Localization
-		/// </summary>
-		public string TranslationPage
-		{
-			get
-			{
-				return _transPage;
-			}
-			set
-			{
-				if (value != _transPage)
-				{
-					_transPage = value;
+    /// <summary>
+    /// The _localization.
+    /// </summary>
+    private YafLocalization _localization = null;
 
-					if (_initLocalization)
-					{
-						// re-init localization
-						this.Localization = null;
-					}
-				}
-			}
-		}
+    /// <summary>
+    /// The _trans page.
+    /// </summary>
+    private string _transPage = string.Empty;
 
-		public event EventHandler<EventArgs> BeforeInit;
-		public event EventHandler<EventArgs> AfterInit;
+    /// <summary>
+    /// Gets or sets Localization.
+    /// </summary>
+    public YafLocalization Localization
+    {
+      get
+      {
+        if (!this._initLocalization)
+        {
+          InitLocalization();
+        }
 
-		/// <summary>
-		/// Set up the localization
-		/// </summary>
-		protected void InitLocalization()
-		{
-			if (!_initLocalization)
-			{
-				if (BeforeInit != null) BeforeInit(this, new EventArgs());
+        if (!this._initCulture)
+        {
+          InitCulture();
+        }
 
-				this.Localization = new YafLocalization(this.TranslationPage);
+        return this._localization;
+      }
 
-				if (AfterInit != null) AfterInit(this, new EventArgs());
-			}
-		}
+      set
+      {
+        this._localization = value;
+        this._initLocalization = value != null;
+        this._initCulture = value != null;
+      }
+    }
 
-		/// <summary>
-		/// Set the culture and UI culture to the browser's accept language
-		/// </summary>
-		protected void InitCulture()
-		{
-			if (!_initCulture)
-			{
-				try
-				{
-					string cultureCode = "";
+    /// <summary>
+    /// Current TransPage for Localization
+    /// </summary>
+    public string TranslationPage
+    {
+      get
+      {
+        return this._transPage;
+      }
 
-					/*string [] tmp = HttpContext.Current.Request.UserLanguages;
+      set
+      {
+        if (value != this._transPage)
+        {
+          this._transPage = value;
+
+          if (this._initLocalization)
+          {
+            // re-init localization
+            Localization = null;
+          }
+        }
+      }
+    }
+
+    /// <summary>
+    /// The before init.
+    /// </summary>
+    public event EventHandler<EventArgs> BeforeInit;
+
+    /// <summary>
+    /// The after init.
+    /// </summary>
+    public event EventHandler<EventArgs> AfterInit;
+
+    /// <summary>
+    /// Set up the localization
+    /// </summary>
+    protected void InitLocalization()
+    {
+      if (!this._initLocalization)
+      {
+        if (BeforeInit != null)
+        {
+          BeforeInit(this, new EventArgs());
+        }
+
+        Localization = new YafLocalization(TranslationPage);
+
+        if (AfterInit != null)
+        {
+          AfterInit(this, new EventArgs());
+        }
+      }
+    }
+
+    /// <summary>
+    /// Set the culture and UI culture to the browser's accept language
+    /// </summary>
+    protected void InitCulture()
+    {
+      if (!this._initCulture)
+      {
+        try
+        {
+          string cultureCode = string.Empty;
+
+          /*string [] tmp = HttpContext.Current.Request.UserLanguages;
 					if ( tmp != null )
 					{
 						cultureCode = tmp [0];
@@ -112,18 +156,19 @@ namespace YAF.Classes.Core
 					{
 						cultureCode = "en-US";
 					}*/
+          cultureCode = this._localization.LanguageCode;
 
-					cultureCode = _localization.LanguageCode;
+          Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureCode);
+          Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureCode);
+        }
 
-					Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureCode);
-					Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureCode);
-				}
 #if DEBUG
-				catch (Exception ex)
-				{
-					Data.DB.eventlog_create(YafContext.Current.PageUserID, this, ex);
-					throw new ApplicationException("Error getting User Language." + Environment.NewLine + ex.ToString());
-				}
+        catch (Exception ex)
+        {
+          DB.eventlog_create(YafContext.Current.PageUserID, this, ex);
+          throw new ApplicationException("Error getting User Language." + Environment.NewLine + ex.ToString());
+        }
+
 #else
 				catch ( Exception )
 				{
@@ -132,9 +177,10 @@ namespace YAF.Classes.Core
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo( "en-US" );
 				}
 #endif
-				// mark as setup...
-				_initCulture = true;
-			}
-		}
-	}
+
+        // mark as setup...
+        this._initCulture = true;
+      }
+    }
+  }
 }

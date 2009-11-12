@@ -362,7 +362,7 @@ namespace YAF.Classes.Core
 		}
 		#endregion
 
-		static public object IsNull( string value )
+		public static object IsNull( string value )
 		{
 			if ( value == null || value.ToLower() == string.Empty )
 				return DBNull.Value;

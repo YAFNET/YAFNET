@@ -17,42 +17,60 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	public abstract class InitService
-	{
-		protected abstract string InitVarName
-		{
-			get;
-		}
+  /// <summary>
+  /// The init service.
+  /// </summary>
+  public abstract class InitService
+  {
+    /// <summary>
+    /// Gets InitVarName.
+    /// </summary>
+    protected abstract string InitVarName
+    {
+      get;
+    }
 
-		public bool Initialized
-		{
-			get
-			{
-				if ( YafContext.Current[InitVarName] == null ) return false;
-				return Convert.ToBoolean( YafContext.Current[InitVarName] );
-			}
-			private set
-			{
-				YafContext.Current[InitVarName] = value;
-			}
-		}
+    /// <summary>
+    /// Gets a value indicating whether Initialized.
+    /// </summary>
+    public bool Initialized
+    {
+      get
+      {
+        if (YafContext.Current[InitVarName] == null)
+        {
+          return false;
+        }
 
-		public void Run()
-		{
-			if ( !Initialized )
-			{
-				Initialized = RunService();
-			}
-		}
+        return Convert.ToBoolean(YafContext.Current[InitVarName]);
+      }
 
-		protected abstract bool RunService();
-	}
+      private set
+      {
+        YafContext.Current[InitVarName] = value;
+      }
+    }
+
+    /// <summary>
+    /// The run.
+    /// </summary>
+    public void Run()
+    {
+      if (!Initialized)
+      {
+        Initialized = RunService();
+      }
+    }
+
+    /// <summary>
+    /// The run service.
+    /// </summary>
+    /// <returns>
+    /// The run service.
+    /// </returns>
+    protected abstract bool RunService();
+  }
 }

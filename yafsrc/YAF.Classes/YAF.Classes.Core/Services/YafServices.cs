@@ -16,87 +16,110 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-using YAF.Modules;
-
 namespace YAF.Classes.Core
 {
-    public static partial class YafServices
+  /// <summary>
+  /// The yaf services.
+  /// </summary>
+  public static class YafServices
+  {
+    /// <summary>
+    /// Gets BadWordReplace.
+    /// </summary>
+    public static YafBadWordReplace BadWordReplace
     {
-        public static YafBadWordReplace BadWordReplace
-        {
-            get
-            {
-                return YafContext.Current.InstanceFactory.GetInstance<YafBadWordReplace>();
-            }
-        }
-
-        public static YafPermissions Permissions
-        {
-            get
-            {
-                return YafContext.Current.InstanceFactory.GetInstance<YafPermissions>();
-            }
-        }
-
-        public static YafSendMail SendMail
-        {
-            get
-            {
-                return YafContext.Current.InstanceFactory.GetInstance<YafSendMail>();
-            }
-        }
-
-        public static YafDBBroker DBBroker
-        {
-            get
-            {
-                return YafContext.Current.InstanceFactory.GetInstance<YafDBBroker>();
-            }
-        }
-
-        public static YafDateTime DateTime
-        {
-            get
-            {
-                return YafContext.Current.InstanceFactory.GetInstance<YafDateTime>();
-            }
-        }
-
-        public static YafStopWatch StopWatch
-        {
-            get
-            {
-                return YafContext.Current.InstanceFactory.GetInstance<YafStopWatch>();
-            }
-        }
-
-        public static YafInitializeDb InitializeDb
-        {
-            get
-            {
-                return YafContext.Current.InstanceFactory.GetInstance<YafInitializeDb>();
-            }
-        }
-
-        public static YafCheckBannedIps BannedIps
-        {
-            get
-            {
-                return YafContext.Current.InstanceFactory.GetInstance<YafCheckBannedIps>();
-            }
-        }
-
-        public static YafAvatars Avatar
-        {
-            get
-            {
-                return YafContext.Current.InstanceFactory.GetInstance<YafAvatars>();
-            }
-        }
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafBadWordReplace>();
+      }
     }
+
+    /// <summary>
+    /// Gets Permissions.
+    /// </summary>
+    public static YafPermissions Permissions
+    {
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafPermissions>();
+      }
+    }
+
+    /// <summary>
+    /// Gets SendMail.
+    /// </summary>
+    public static YafSendMail SendMail
+    {
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafSendMail>();
+      }
+    }
+
+    /// <summary>
+    /// Gets DBBroker.
+    /// </summary>
+    public static YafDBBroker DBBroker
+    {
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafDBBroker>();
+      }
+    }
+
+    /// <summary>
+    /// Gets DateTime.
+    /// </summary>
+    public static YafDateTime DateTime
+    {
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafDateTime>();
+      }
+    }
+
+    /// <summary>
+    /// Gets StopWatch.
+    /// </summary>
+    public static YafStopWatch StopWatch
+    {
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafStopWatch>();
+      }
+    }
+
+    /// <summary>
+    /// Gets InitializeDb.
+    /// </summary>
+    public static YafInitializeDb InitializeDb
+    {
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafInitializeDb>();
+      }
+    }
+
+    /// <summary>
+    /// Gets BannedIps.
+    /// </summary>
+    public static YafCheckBannedIps BannedIps
+    {
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafCheckBannedIps>();
+      }
+    }
+
+    /// <summary>
+    /// Gets Avatar.
+    /// </summary>
+    public static YafAvatars Avatar
+    {
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafAvatars>();
+      }
+    }
+  }
 }

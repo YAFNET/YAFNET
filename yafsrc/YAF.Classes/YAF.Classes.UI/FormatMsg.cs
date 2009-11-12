@@ -17,246 +17,343 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 using System;
 using System.Data;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Web;
-using YAF.Classes;
 using YAF.Classes.Core;
-using YAF.Classes.Utils;
 using YAF.Classes.Data;
+using YAF.Classes.Utils;
 
 namespace YAF.Classes.UI
 {
-	/// <summary>
-	/// Summary description for FormatMsg.
-	/// </summary>
-	public class FormatMsg
-	{
-		/* Ederon : 6/16/2007 - conventions */
+  /// <summary>
+  /// Summary description for FormatMsg.
+  /// </summary>
+  public class FormatMsg
+  {
+    /* Ederon : 6/16/2007 - conventions */
 
-		// format message regex
-		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+    // format message regex
+    /// <summary>
+    /// The _options.
+    /// </summary>
+    private static RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
-		/// <summary>
-		/// For backwards compatibility
-		/// </summary>
-		/// <param name="message"></param>
-		/// <returns></returns>
-		static public string AddSmiles( string message )
-		{
-			ReplaceRules layers = new ReplaceRules();
-			FormatMsg.AddSmiles( ref layers );
-			// apply...
-			layers.Process( ref message );
-			return message;
-		}
+    /// <summary>
+    /// For backwards compatibility
+    /// </summary>
+    /// <param name="message">
+    /// </param>
+    /// <returns>
+    /// The add smiles.
+    /// </returns>
+    public static string AddSmiles(string message)
+    {
+      var layers = new ReplaceRules();
+      AddSmiles(ref layers);
 
-		/// <summary>
-		/// Adds smiles replacement rules to the collection from the DB
-		/// </summary>
-		static public void AddSmiles( ref ReplaceRules rules )
-		{
-			DataTable dtSmileys = GetSmilies();
-			int codeOffset = 0;
+      // apply...
+      layers.Process(ref message);
+      return message;
+    }
 
-			foreach ( DataRow row in dtSmileys.Rows )
-			{
-				string code = row ["Code"].ToString();
-				code = code.Replace( "&", "&amp;" );
-				code = code.Replace( ">", "&gt;" );
-				code = code.Replace( "<", "&lt;" );				
-				code = code.Replace( "\"", "&quot;" );
+    /// <summary>
+    /// Adds smiles replacement rules to the collection from the DB
+    /// </summary>
+    /// <param name="rules">
+    /// The rules.
+    /// </param>
+    public static void AddSmiles(ref ReplaceRules rules)
+    {
+      DataTable dtSmileys = GetSmilies();
+      int codeOffset = 0;
 
-				// add new rules for smilies...
-				SimpleReplaceRule lowerRule = new SimpleReplaceRule( code.ToLower(),
-																							String.Format(
-																								"<img src=\"{0}\" alt=\"{1}\" />",
-																								YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ),
-																								HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() )
-																								) );
-				SimpleReplaceRule upperRule = new SimpleReplaceRule( code.ToUpper(),
-																							String.Format(
-																								"<img src=\"{0}\" alt=\"{1}\" />",
-																								YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ),
-																								HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() )
-																								) );
+      foreach (DataRow row in dtSmileys.Rows)
+      {
+        string code = row["Code"].ToString();
+        code = code.Replace("&", "&amp;");
+        code = code.Replace(">", "&gt;");
+        code = code.Replace("<", "&lt;");
+        code = code.Replace("\"", "&quot;");
 
-				// increase the rank as we go...
-				lowerRule.RuleRank = lowerRule.RuleRank + 100 + codeOffset;
-				upperRule.RuleRank = upperRule.RuleRank + 100 + codeOffset;
+        // add new rules for smilies...
+        var lowerRule = new SimpleReplaceRule(
+          code.ToLower(), 
+          String.Format(
+            "<img src=\"{0}\" alt=\"{1}\" />", 
+            YafBuildLink.Smiley(Convert.ToString(row["Icon"])), 
+            HttpContext.Current.Server.HtmlEncode(row["Emoticon"].ToString())));
+        var upperRule = new SimpleReplaceRule(
+          code.ToUpper(), 
+          String.Format(
+            "<img src=\"{0}\" alt=\"{1}\" />", 
+            YafBuildLink.Smiley(Convert.ToString(row["Icon"])), 
+            HttpContext.Current.Server.HtmlEncode(row["Emoticon"].ToString())));
 
-				rules.AddRule( lowerRule );
-				rules.AddRule( upperRule );
+        // increase the rank as we go...
+        lowerRule.RuleRank = lowerRule.RuleRank + 100 + codeOffset;
+        upperRule.RuleRank = upperRule.RuleRank + 100 + codeOffset;
 
-				// add a bit more rank
-				codeOffset++;
-			}
-		}
+        rules.AddRule(lowerRule);
+        rules.AddRule(upperRule);
 
-		static public DataTable GetSmilies()
-		{
-			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.Smilies );
-			DataTable smiliesTable = YafContext.Current.Cache [cacheKey] as DataTable;
+        // add a bit more rank
+        codeOffset++;
+      }
+    }
 
-			// check if there is value cached
-			if ( smiliesTable == null )
-			{
-				// get the smilies table from the db...
-				smiliesTable = YAF.Classes.Data.DB.smiley_list( YafContext.Current.PageBoardID, null );
-				// cache it for 60 minutes...
-				YafContext.Current.Cache.Insert( cacheKey, smiliesTable, null, DateTime.Now.AddMinutes( 60 ), TimeSpan.Zero );
-			}
+    /// <summary>
+    /// The get smilies.
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    public static DataTable GetSmilies()
+    {
+      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.Smilies);
+      var smiliesTable = YafContext.Current.Cache[cacheKey] as DataTable;
 
-			return smiliesTable;
-		}
+      // check if there is value cached
+      if (smiliesTable == null)
+      {
+        // get the smilies table from the db...
+        smiliesTable = DB.smiley_list(YafContext.Current.PageBoardID, null);
 
-		static public string FormatMessage( string message, MessageFlags messageFlags )
-		{
-			return FormatMessage( message, messageFlags, false );
-		}
-		static public string FormatMessage( string message, MessageFlags messageFlags, bool targetBlankOverride )
-		{
-			return FormatMessage( message, messageFlags, targetBlankOverride, DateTime.Now );
-		}		
-		static public string FormatMessage( string message, MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited )
-		{
-			bool useNoFollow = YafContext.Current.BoardSettings.UseNoFollowLinks;
+        // cache it for 60 minutes...
+        YafContext.Current.Cache.Insert(cacheKey, smiliesTable, null, DateTime.Now.AddMinutes(60), TimeSpan.Zero);
+      }
 
-			// check to see if no follow should be disabled since the message is properly aged
-			if ( useNoFollow && YafContext.Current.BoardSettings.DisableNoFollowLinksAfterDay > 0 )
-			{
-				TimeSpan messageAge = messageLastEdited - DateTime.Now;
-				if ( messageAge.Days > YafContext.Current.BoardSettings.DisableNoFollowLinksAfterDay )
-				{
-					// disable no follow
-					useNoFollow = false;
-				}				
-			}
+      return smiliesTable;
+    }
 
-			// do html damage control
-			message = RepairHtml( message, messageFlags.IsHtml );
+    /// <summary>
+    /// The format message.
+    /// </summary>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="messageFlags">
+    /// The message flags.
+    /// </param>
+    /// <returns>
+    /// The format message.
+    /// </returns>
+    public static string FormatMessage(string message, MessageFlags messageFlags)
+    {
+      return FormatMessage(message, messageFlags, false);
+    }
 
-			// get the rules engine from the creator...
-			ReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance( new bool [] { messageFlags.IsBBCode, targetBlankOverride, useNoFollow } );
+    /// <summary>
+    /// The format message.
+    /// </summary>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="messageFlags">
+    /// The message flags.
+    /// </param>
+    /// <param name="targetBlankOverride">
+    /// The target blank override.
+    /// </param>
+    /// <returns>
+    /// The format message.
+    /// </returns>
+    public static string FormatMessage(string message, MessageFlags messageFlags, bool targetBlankOverride)
+    {
+      return FormatMessage(message, messageFlags, targetBlankOverride, DateTime.Now);
+    }
 
-			// see if the rules are already populated...
-			if ( !ruleEngine.HasRules )
-			{
-				// populate
+    /// <summary>
+    /// The format message.
+    /// </summary>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="messageFlags">
+    /// The message flags.
+    /// </param>
+    /// <param name="targetBlankOverride">
+    /// The target blank override.
+    /// </param>
+    /// <param name="messageLastEdited">
+    /// The message last edited.
+    /// </param>
+    /// <returns>
+    /// The format message.
+    /// </returns>
+    public static string FormatMessage(string message, MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited)
+    {
+      bool useNoFollow = YafContext.Current.BoardSettings.UseNoFollowLinks;
 
-				// get rules for YafBBCode and Smilies
-				YafBBCode.CreateBBCodeRules( ref ruleEngine, messageFlags.IsBBCode, targetBlankOverride, useNoFollow );
+      // check to see if no follow should be disabled since the message is properly aged
+      if (useNoFollow && YafContext.Current.BoardSettings.DisableNoFollowLinksAfterDay > 0)
+      {
+        TimeSpan messageAge = messageLastEdited - DateTime.Now;
+        if (messageAge.Days > YafContext.Current.BoardSettings.DisableNoFollowLinksAfterDay)
+        {
+          // disable no follow
+          useNoFollow = false;
+        }
+      }
 
-				// add email rule
-				VariableRegexReplaceRule email =
-					new VariableRegexReplaceRule(
-						@"(?<before>^|[ ]|<br/>)(?<inner>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)",
-						"${before}<a href=\"mailto:${inner}\">${inner}</a>",
-						_options,
-						new string [] { "before" }
-					);
-				email.RuleRank = 10;
+      // do html damage control
+      message = RepairHtml(message, messageFlags.IsHtml);
 
-				ruleEngine.AddRule( email );
+      // get the rules engine from the creator...
+      ReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance(
+        new[]
+          {
+            messageFlags.IsBBCode, targetBlankOverride, useNoFollow
+          });
 
-				// URLs Rules
-				string target = ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride ) ? "target=\"_blank\"" : "";
-				string nofollow = ( useNoFollow ) ? "rel=\"nofollow\"" : "";
+      // see if the rules are already populated...
+      if (!ruleEngine.HasRules)
+      {
+        // populate
 
-				VariableRegexReplaceRule url =
-					new VariableRegexReplaceRule(
-						@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)",
-						"${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
-						_options,
-						new string [] { "before" },
-						new string [] { "" },
-						50
-					);
+        // get rules for YafBBCode and Smilies
+        YafBBCode.CreateBBCodeRules(ref ruleEngine, messageFlags.IsBBCode, targetBlankOverride, useNoFollow);
 
-				url.RuleRank = 10;
-				ruleEngine.AddRule( url );
+        // add email rule
+        var email = new VariableRegexReplaceRule(
+          @"(?<before>^|[ ]|<br/>)(?<inner>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", 
+          "${before}<a href=\"mailto:${inner}\">${inner}</a>", 
+          _options, 
+          new[]
+            {
+              "before"
+            });
+        email.RuleRank = 10;
 
-				url =
-					new VariableRegexReplaceRule(
-						@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)",
-						"${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
-						_options,
-						new string [] { "before" },
-						new string [] { "" },
-						50
-					);
-				url.RuleRank = 10;
-				ruleEngine.AddRule( url );
+        ruleEngine.AddRule(email);
 
-				url =
-					new VariableRegexReplaceRule(
-						@"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
-						"${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
-						_options,
-						new string [] { "before" },
-						new string [] { "" },
-						50
-					);
-				url.RuleRank = 10;
-				ruleEngine.AddRule( url );
-			}
+        // URLs Rules
+        string target = (YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride) ? "target=\"_blank\"" : string.Empty;
+        string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
-			// process...
-			ruleEngine.Process( ref message );
+        var url =
+          new VariableRegexReplaceRule(
+            @"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)", 
+            "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow), 
+            _options, 
+            new[]
+              {
+                "before"
+              }, 
+            new[]
+              {
+                string.Empty
+              }, 
+            50);
 
-			message = YafServices.BadWordReplace.Replace( message );
+        url.RuleRank = 10;
+        ruleEngine.AddRule(url);
 
-			return message;
-		}
+        url =
+          new VariableRegexReplaceRule(
+            @"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)", 
+            "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow), 
+            _options, 
+            new[]
+              {
+                "before"
+              }, 
+            new[]
+              {
+                string.Empty
+              }, 
+            50);
+        url.RuleRank = 10;
+        ruleEngine.AddRule(url);
 
-		/// <summary>
-		/// Removes nested YafBBCode quotes from the given message body.
-		/// </summary>
-		/// <param name="body">Message body test to remove nested quotes from</param>
-		/// <returns>A version of <paramref name="body"/> that contains no nested quotes.</returns>
-		static public string RemoveNestedQuotes(string body)
-		{
-			RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-			Regex quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", options);
+        url = new VariableRegexReplaceRule(
+          @"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)", 
+          "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow), 
+          _options, 
+          new[]
+            {
+              "before"
+            }, 
+          new[]
+            {
+              string.Empty
+            }, 
+          50);
+        url.RuleRank = 10;
+        ruleEngine.AddRule(url);
+      }
 
-			// remove quotes from old messages
-			return quote.Replace( body, "" ).TrimStart();
-		}
+      // process...
+      ruleEngine.Process(ref message);
 
-		static public string RepairHtml( string html, bool allowHtml )
-		{
-			if ( !allowHtml )
-			{
-				html = YafBBCode.EncodeHTML( html );
-			}
-			else
-			{
-				// get allowable html tags
-				string tStr = YafContext.Current.BoardSettings.AcceptedHTML;
-				string [] allowedTags = tStr.Split( ',' );
+      message = YafServices.BadWordReplace.Replace(message);
 
-				RegexOptions options = RegexOptions.IgnoreCase;
+      return message;
+    }
 
-				MatchCollection m = Regex.Matches( html, "<.*?>", options );
+    /// <summary>
+    /// Removes nested YafBBCode quotes from the given message body.
+    /// </summary>
+    /// <param name="body">
+    /// Message body test to remove nested quotes from
+    /// </param>
+    /// <returns>
+    /// A version of <paramref name="body"/> that contains no nested quotes.
+    /// </returns>
+    public static string RemoveNestedQuotes(string body)
+    {
+      RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+      var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", options);
 
-				for ( int i = m.Count - 1; i >= 0; i-- )
-				{
-					string tag = html.Substring( m [i].Index + 1, m [i].Length - 1 ).Trim().ToLower();
+      // remove quotes from old messages
+      return quote.Replace(body, string.Empty).TrimStart();
+    }
 
-					if ( !HtmlHelper.IsValidTag( tag, allowedTags ) )
-					{
-						html = html.Remove( m [i].Index, m [i].Length );
-						// just don't show this tag for now
+    /// <summary>
+    /// The repair html.
+    /// </summary>
+    /// <param name="html">
+    /// The html.
+    /// </param>
+    /// <param name="allowHtml">
+    /// The allow html.
+    /// </param>
+    /// <returns>
+    /// The repair html.
+    /// </returns>
+    public static string RepairHtml(string html, bool allowHtml)
+    {
+      if (!allowHtml)
+      {
+        html = YafBBCode.EncodeHTML(html);
+      }
+      else
+      {
+        // get allowable html tags
+        string tStr = YafContext.Current.BoardSettings.AcceptedHTML;
+        string[] allowedTags = tStr.Split(',');
 
-						//string tmp = System.Web.HttpContext.Current.Server.HtmlEncode(html.Substring(m[i].Index,m[i].Length));
-						//html = html.Insert(m[i].Index,tmp);
-					}
-				}
-			}
-			return html;
-		}
-	}
+        RegexOptions options = RegexOptions.IgnoreCase;
+
+        MatchCollection m = Regex.Matches(html, "<.*?>", options);
+
+        for (int i = m.Count - 1; i >= 0; i--)
+        {
+          string tag = html.Substring(m[i].Index + 1, m[i].Length - 1).Trim().ToLower();
+
+          if (!HtmlHelper.IsValidTag(tag, allowedTags))
+          {
+            html = html.Remove(m[i].Index, m[i].Length);
+
+            // just don't show this tag for now
+
+            // string tmp = System.Web.HttpContext.Current.Server.HtmlEncode(html.Substring(m[i].Index,m[i].Length));
+            // html = html.Insert(m[i].Index,tmp);
+          }
+        }
+      }
+
+      return html;
+    }
+  }
 }

@@ -16,121 +16,156 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
-using System.Threading;
-using System.Web;
-using System.Linq;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Modules
 {
-	[YafModule( "Clean Up User Task Starting Module", "Tiny Gecko", 1 )]
-	public class UserCleanUpTaskModule : IBaseModule
-	{
+  using System;
+  using System.Collections.Generic;
+  using System.Data;
+  using System.Linq;
+  using System.Threading;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		private object _forumControlObj;
-		public object ForumControlObj
-		{
-			get
-			{
-				return _forumControlObj;
-			}
-			set
-			{
-				_forumControlObj = value;
-			}
-		}
+  /// <summary>
+  /// The user clean up task module.
+  /// </summary>
+  [YafModule("Clean Up User Task Starting Module", "Tiny Gecko", 1)]
+  public class UserCleanUpTaskModule : IBaseModule
+  {
+    /// <summary>
+    /// The _forum control obj.
+    /// </summary>
+    private object _forumControlObj;
 
-		public void Init()
-		{
-			// hook the page init for mail sending...
-			YafContext.Current.AfterInit += new EventHandler<EventArgs>( Current_AfterInit );
+    #region IBaseModule Members
 
-		}
+    /// <summary>
+    /// Gets or sets ForumControlObj.
+    /// </summary>
+    public object ForumControlObj
+    {
+      get
+      {
+        return this._forumControlObj;
+      }
 
-		void Current_AfterInit( object sender, EventArgs e )
-		{
-			// add the mailing task if it's not already added...
-			if ( YafTaskModule.Current != null && !YafTaskModule.Current.TaskExists( UserCleanUpTask.TaskName ) )
-			{
-				// start it...
-				YafTaskModule.Current.StartTask( UserCleanUpTask.TaskName, new UserCleanUpTask() );
-			}
-		}
+      set
+      {
+        this._forumControlObj = value;
+      }
+    }
 
-		#region IDisposable Members
+    /// <summary>
+    /// The init.
+    /// </summary>
+    public void Init()
+    {
+      // hook the page init for mail sending...
+      YafContext.Current.AfterInit += new EventHandler<EventArgs>(Current_AfterInit);
+    }
 
-		public void Dispose()
-		{
+    /// <summary>
+    /// The dispose.
+    /// </summary>
+    public void Dispose()
+    {
+    }
 
-		}
+    #endregion
 
-		#endregion
-	}
+    /// <summary>
+    /// The current_ after init.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Current_AfterInit(object sender, EventArgs e)
+    {
+      // add the mailing task if it's not already added...
+      if (YafTaskModule.Current != null && !YafTaskModule.Current.TaskExists(UserCleanUpTask.TaskName))
+      {
+        // start it...
+        YafTaskModule.Current.StartTask(UserCleanUpTask.TaskName, new UserCleanUpTask());
+      }
+    }
+  }
 }
 
 namespace YAF.Classes.Core
 {
-	/// <summary>
-	/// Does some user clean up tasks such as unsuspending users...
-	/// </summary>
-	public class UserCleanUpTask : IntermittentBackgroundTask
-	{
-		private const string _taskName = "UserCleanUpTask";
-		public static string TaskName
-		{
-			get
-			{
-				return _taskName;
-			}
-		}
+  /// <summary>
+  /// Does some user clean up tasks such as unsuspending users...
+  /// </summary>
+  public class UserCleanUpTask : IntermittentBackgroundTask
+  {
+    /// <summary>
+    /// The _task name.
+    /// </summary>
+    private const string _taskName = "UserCleanUpTask";
 
-		public UserCleanUpTask()
-		{
-			// set interval values...
-			this.RunPeriodMs = 3600000;
-			this.StartDelayMs = 30000;
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserCleanUpTask"/> class.
+    /// </summary>
+    public UserCleanUpTask()
+    {
+      // set interval values...
+      RunPeriodMs = 3600000;
+      StartDelayMs = 30000;
+    }
 
-		public override void RunOnce()
-		{
-			try
-			{
-				// get all boards...
-				List<int> boardIds = DB.board_list( null ).GetColumnAsList<int>( "BoardID" );
+    /// <summary>
+    /// Gets TaskName.
+    /// </summary>
+    public static string TaskName
+    {
+      get
+      {
+        return _taskName;
+      }
+    }
 
-				// go through each board...
-				foreach ( int boardId in boardIds)
-				{
-					// get users for this board...
-					List<DataRow> users = DB.user_list( boardId, null, null ).Rows.Cast<DataRow>().ToList();
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
+    {
+      try
+      {
+        // get all boards...
+        List<int> boardIds = DB.board_list(null).GetColumnAsList<int>("BoardID");
 
-					// handle unsuspension...
-					var suspendedUsers = (from u in users
-					                      where (u["Suspended"] != DBNull.Value && (DateTime) u["Suspended"] < DateTime.Now)
-					                      select u);
+        // go through each board...
+        foreach (int boardId in boardIds)
+        {
+          // get users for this board...
+          List<DataRow> users = DB.user_list(boardId, null, null).Rows.Cast<DataRow>().ToList();
 
-					// unsuspend these users...
-					foreach ( var user in suspendedUsers )
-					{
-						DB.user_suspend( user["UserId"], null );
-						// sleep for a quarter of a second so we don't pound the server...
-						Thread.Sleep( 250 );
-					}
+          // handle unsuspension...
+          var suspendedUsers = from u in users
+                                where (u["Suspended"] != DBNull.Value && (DateTime) u["Suspended"] < DateTime.Now)
+                                select u;
 
-					// sleep for a second...
-					Thread.Sleep( 1000 );
-				}
-			}
-			catch ( Exception x )
-			{
-				DB.eventlog_create( null, TaskName, String.Format( "Exception In {1}: {0}", x, TaskName ) );
-			}
-		}
-	}
+          // unsuspend these users...
+          foreach (var user in suspendedUsers)
+          {
+            DB.user_suspend(user["UserId"], null);
+
+            // sleep for a quarter of a second so we don't pound the server...
+            Thread.Sleep(250);
+          }
+
+          // sleep for a second...
+          Thread.Sleep(1000);
+        }
+      }
+      catch (Exception x)
+      {
+        DB.eventlog_create(null, TaskName, String.Format("Exception In {1}: {0}", x, TaskName));
+      }
+    }
+  }
 }

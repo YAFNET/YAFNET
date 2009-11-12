@@ -16,51 +16,57 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using System.Web.Security;
-using YAF.Classes.Data;
 using YAF.Classes.Pattern;
-using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	/// <summary>
-	/// Place to put helper properties for context variables inside.
-	/// </summary>
-	public class ContextVariableRepository
-	{
-		private TypeDictionary _dic = null;
-		protected TypeDictionary Vars
-		{
-			get
-			{
-				return _dic;
-			}
-		}
+  /// <summary>
+  /// Place to put helper properties for context variables inside.
+  /// </summary>
+  public class ContextVariableRepository
+  {
+    /// <summary>
+    /// The _dic.
+    /// </summary>
+    private TypeDictionary _dic = null;
 
-		public ContextVariableRepository( TypeDictionary dictionary )
-		{
-			_dic = dictionary;
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContextVariableRepository"/> class.
+    /// </summary>
+    /// <param name="dictionary">
+    /// The dictionary.
+    /// </param>
+    public ContextVariableRepository(TypeDictionary dictionary)
+    {
+      this._dic = dictionary;
+    }
 
-		/// <summary>
-		/// Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
-		/// Setting to false effectively disables suspend checking.
-		/// </summary>
-		public bool IsSuspendCheckEnabled
-		{
-			set
-			{
-				Vars["IsSuspendCheckEnabled"] = value;
-			}
-			get
-			{
-				return Vars.AsBoolean( "IsSuspendCheckEnabled" ) ?? true;
-			}
-		}
-	}
+    /// <summary>
+    /// Gets Vars.
+    /// </summary>
+    protected TypeDictionary Vars
+    {
+      get
+      {
+        return this._dic;
+      }
+    }
+
+    /// <summary>
+    /// Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
+    /// Setting to false effectively disables suspend checking.
+    /// </summary>
+    public bool IsSuspendCheckEnabled
+    {
+      get
+      {
+        return Vars.AsBoolean("IsSuspendCheckEnabled") ?? true;
+      }
+
+      set
+      {
+        this.Vars["IsSuspendCheckEnabled"] = value;
+      }
+    }
+  }
 }

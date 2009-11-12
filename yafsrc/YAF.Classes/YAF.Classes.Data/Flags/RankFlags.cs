@@ -18,50 +18,119 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace YAF.Classes.Data
 {
-	[Serializable()]
-	public class RankFlags : FlagsBase
-	{
-		#region Constructors
+  /// <summary>
+  /// The rank flags.
+  /// </summary>
+  [Serializable]
+  public class RankFlags : FlagsBase
+  {
+    #region Constructors
 
-		public RankFlags() : this(0) { }
-		public RankFlags(RankFlags.Flags flags) : this((int)flags) { }
-		public RankFlags(object bitValue) : this((int)bitValue) { }
-		public RankFlags(int bitValue) : base(bitValue) { }
-		public RankFlags(params bool[] bits) : base(bits) { }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RankFlags"/> class.
+    /// </summary>
+    public RankFlags()
+      : this(0)
+    {
+    }
 
-		#endregion
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RankFlags"/> class.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    public RankFlags(Flags flags)
+      : this((int) flags)
+    {
+    }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RankFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public RankFlags(object bitValue)
+      : this((int) bitValue)
+    {
+    }
 
-		#region Operators
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RankFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public RankFlags(int bitValue)
+      : base(bitValue)
+    {
+    }
 
-		public static implicit operator RankFlags(int newBitValue)
-		{
-			return new RankFlags(newBitValue);
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RankFlags"/> class.
+    /// </summary>
+    /// <param name="bits">
+    /// The bits.
+    /// </param>
+    public RankFlags(params bool[] bits)
+      : base(bits)
+    {
+    }
 
-		public static implicit operator RankFlags(RankFlags.Flags flags)
-		{
-			return new RankFlags(flags);
-		}
+    #endregion
 
-		#endregion
+    #region Operators
 
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="newBitValue">
+    /// The new bit value.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator RankFlags(int newBitValue)
+    {
+      return new RankFlags(newBitValue);
+    }
 
-		#region Flags Enumeration
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator RankFlags(Flags flags)
+    {
+      return new RankFlags(flags);
+    }
 
-		/// <summary>
-		/// Use for bit comparisons
-		/// </summary>
-		public enum Flags : int
-		{
-			IsStart	=	1,
-			IsLadder	=	2
-			/* for future use
+    #endregion
+
+    #region Flags Enumeration
+
+    /// <summary>
+    /// Use for bit comparisons
+    /// </summary>
+    public enum Flags
+    {
+      /// <summary>
+      /// The is start.
+      /// </summary>
+      IsStart = 1, 
+
+      /// <summary>
+      /// The is ladder.
+      /// </summary>
+      IsLadder = 2
+
+      /* for future use
 			xxxxx = 4,
 			xxxxx = 8,
 			xxxxx = 16,
@@ -71,32 +140,47 @@ namespace YAF.Classes.Data
 			xxxxx = 256,
 			xxxxx = 512
 			 */
-		}
+    }
 
-		#endregion
+    #endregion
+
+    #region Single Flags (can be 32 of them)
+
+    /// <summary>
+    /// Gets or sets whether rank is default starting rank of new users.
+    /// </summary>
+    public bool IsStart
+    {
+      // int value 1
+      get
+      {
+        return this[0];
+      }
+
+      set
+      {
+        this[0] = value;
+      }
+    }
 
 
-		#region Single Flags (can be 32 of them)
+    /// <summary>
+    /// Gets or sets whether rank is ladder rank.
+    /// </summary>
+    public bool IsLadder
+    {
+      // int value 2
+      get
+      {
+        return this[1];
+      }
 
-		/// <summary>
-		/// Gets or sets whether rank is default starting rank of new users.
-		/// </summary>
-		public bool IsStart // int value 1
-		{
-			get { return this[0]; }
-			set { this[0] = value; }
-		}
+      set
+      {
+        this[1] = value;
+      }
+    }
 
-
-		/// <summary>
-		/// Gets or sets whether rank is ladder rank.
-		/// </summary>
-		public bool IsLadder // int value 2
-		{
-			get { return this[1]; }
-			set { this[1] = value; }
-		}
-
-		#endregion
-	}
+    #endregion
+  }
 }

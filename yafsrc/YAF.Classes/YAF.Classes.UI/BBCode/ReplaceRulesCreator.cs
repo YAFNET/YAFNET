@@ -17,48 +17,48 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Data;
 
 namespace YAF.Classes.UI
 {
-	/// <summary>
-	/// Gets an instance of replace rules and uses
-	/// caching if possible.
-	/// </summary>
-	public static class ReplaceRulesCreator
-	{
-		/// <summary>
-		/// Gets relace rules instance for given flags.
-		/// </summary>
-		/// <param name="uniqueFlags">Flags identifying replace rules.</param>
-		/// <returns>ReplaceRules for given unique flags.</returns>
-		public static ReplaceRules GetInstance(bool[] uniqueFlags)
-		{
-			// convert flags to integer
-			int rulesFlags = FlagsBase.GetIntFromBoolArray(uniqueFlags);
+  /// <summary>
+  /// Gets an instance of replace rules and uses
+  /// caching if possible.
+  /// </summary>
+  public static class ReplaceRulesCreator
+  {
+    /// <summary>
+    /// Gets relace rules instance for given flags.
+    /// </summary>
+    /// <param name="uniqueFlags">
+    /// Flags identifying replace rules.
+    /// </param>
+    /// <returns>
+    /// ReplaceRules for given unique flags.
+    /// </returns>
+    public static ReplaceRules GetInstance(bool[] uniqueFlags)
+    {
+      // convert flags to integer
+      int rulesFlags = FlagsBase.GetIntFromBoolArray(uniqueFlags);
 
-			// cache is board-specific since boards may have different custom BB Code...
-			string key = YafCache.GetBoardCacheKey( String.Format(Constants.Cache.ReplaceRules, rulesFlags) );
+      // cache is board-specific since boards may have different custom BB Code...
+      string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ReplaceRules, rulesFlags));
 
-			ReplaceRules rules = YafContext.Current.Cache.GetItem<ReplaceRules>( key,
-			                                                                     YafContext.Current.BoardSettings.
-			                                                                     	ReplaceRulesCacheTimeout,
-			                                                                     () => new ReplaceRules() );
-			return rules;
-		}
+      ReplaceRules rules = YafContext.Current.Cache.GetItem(key, YafContext.Current.BoardSettings.ReplaceRulesCacheTimeout, () => new ReplaceRules());
+      return rules;
+    }
 
-		/// <summary>
-		/// Clears all ReplaceRules from the cache.
-		/// </summary>
-		public static void ClearCache()
-		{
-			// match starting part of cache key
-			string match = String.Format(Constants.Cache.ReplaceRules, "");
+    /// <summary>
+    /// Clears all ReplaceRules from the cache.
+    /// </summary>
+    public static void ClearCache()
+    {
+      // match starting part of cache key
+      string match = String.Format(Constants.Cache.ReplaceRules, string.Empty);
 
-			// remove it entries from cache
-			YafContext.Current.Cache.Remove( ( x ) => x.StartsWith( match ) );
-		}
-	}
+      // remove it entries from cache
+      YafContext.Current.Cache.Remove((x) => x.StartsWith(match));
+    }
+  }
 }

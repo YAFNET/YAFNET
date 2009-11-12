@@ -18,52 +18,129 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace YAF.Classes.Data
 {
-	[Serializable()]
-	public class TopicFlags : FlagsBase
-	{
-		#region Constructors
+  /// <summary>
+  /// The topic flags.
+  /// </summary>
+  [Serializable]
+  public class TopicFlags : FlagsBase
+  {
+    #region Constructors
 
-		public TopicFlags() : this(0) { }
-		public TopicFlags(TopicFlags.Flags flags) : this((int)flags) { }
-		public TopicFlags(object bitValue) : this((int)bitValue) { }
-		public TopicFlags(int bitValue) : base(bitValue) { }
-		public TopicFlags(params bool[] bits) : base(bits) { }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TopicFlags"/> class.
+    /// </summary>
+    public TopicFlags()
+      : this(0)
+    {
+    }
 
-		#endregion
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TopicFlags"/> class.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    public TopicFlags(Flags flags)
+      : this((int) flags)
+    {
+    }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TopicFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public TopicFlags(object bitValue)
+      : this((int) bitValue)
+    {
+    }
 
-		#region Operators
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TopicFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public TopicFlags(int bitValue)
+      : base(bitValue)
+    {
+    }
 
-		public static implicit operator TopicFlags( int newBitValue )
-		{
-			return new TopicFlags(newBitValue);
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TopicFlags"/> class.
+    /// </summary>
+    /// <param name="bits">
+    /// The bits.
+    /// </param>
+    public TopicFlags(params bool[] bits)
+      : base(bits)
+    {
+    }
 
-		public static implicit operator TopicFlags(TopicFlags.Flags flags)
-		{
-			return new TopicFlags(flags);
-		}
+    #endregion
 
-		#endregion
+    #region Operators
 
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="newBitValue">
+    /// The new bit value.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator TopicFlags(int newBitValue)
+    {
+      return new TopicFlags(newBitValue);
+    }
 
-		#region Flags Enumeration
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator TopicFlags(Flags flags)
+    {
+      return new TopicFlags(flags);
+    }
 
-		/// <summary>
-		/// Use for bit comparisons
-		/// </summary>
-		public enum Flags : int
-		{
-			IsLocked = 1,
-			IsDeleted = 8,
-			IsPersistent = 512,
-			IsQuestion = 1024
-			/* for future use
+    #endregion
+
+    #region Flags Enumeration
+
+    /// <summary>
+    /// Use for bit comparisons
+    /// </summary>
+    public enum Flags
+    {
+      /// <summary>
+      /// The is locked.
+      /// </summary>
+      IsLocked = 1, 
+
+      /// <summary>
+      /// The is deleted.
+      /// </summary>
+      IsDeleted = 8, 
+
+      /// <summary>
+      /// The is persistent.
+      /// </summary>
+      IsPersistent = 512, 
+
+      /// <summary>
+      /// The is question.
+      /// </summary>
+      IsQuestion = 1024
+
+      /* for future use
 			xxxxxxxx = 2048,
 			xxxxxxxx = 4096,
 			xxxxxxxx = 8192,
@@ -71,49 +148,80 @@ namespace YAF.Classes.Data
 			xxxxxxxx = 32768,
 			xxxxxxxx = 65536
 			 */
-		}
+    }
 
-		#endregion
+    #endregion
 
+    #region Single Flags (can be 32 of them)
 
-		#region Single Flags (can be 32 of them)
+    /// <summary>
+    /// Gets or sets whether topic is locked. Locked topics cannot be modified/deleted/replied to.
+    /// </summary>
+    public virtual bool IsLocked
+    {
+      // int value 1
+      get
+      {
+        return this[0];
+      }
 
-		/// <summary>
-		/// Gets or sets whether topic is locked. Locked topics cannot be modified/deleted/replied to.
-		/// </summary>
-		public virtual bool IsLocked // int value 1
-		{
-			get { return this[0]; }
-			set { this[0] = value; }
-		}
+      set
+      {
+        this[0] = value;
+      }
+    }
 
-		/// <summary>
-		/// Gets or sets whether topic is deleted.
-		/// </summary>
-		public virtual bool IsDeleted // int value 8
-		{
-			get { return this[3]; }
-			set { this[3] = value; }
-		}
+    /// <summary>
+    /// Gets or sets whether topic is deleted.
+    /// </summary>
+    public virtual bool IsDeleted
+    {
+      // int value 8
+      get
+      {
+        return this[3];
+      }
 
-		/// <summary>
-		/// Gets or sets whether topic is persistent. Persistent topics cannot be purged.
-		/// </summary>
-		public virtual bool IsPersistent // int value 512
-		{
-			get { return this[9]; }
-			set { this[9] = value; }
-		}
+      set
+      {
+        this[3] = value;
+      }
+    }
 
-		/// <summary>
-		/// Gets or sets whether topic is a question.
-		/// </summary>
-		public virtual bool IsQuestion // int value 1024
-		{
-			get { return this[EnumToIndex(Flags.IsQuestion)]; }
-			set { this[EnumToIndex( Flags.IsQuestion )] = value; }
-		}
+    /// <summary>
+    /// Gets or sets whether topic is persistent. Persistent topics cannot be purged.
+    /// </summary>
+    public virtual bool IsPersistent
+    {
+      // int value 512
+      get
+      {
+        return this[9];
+      }
 
-		#endregion
-	}
+      set
+      {
+        this[9] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets whether topic is a question.
+    /// </summary>
+    public virtual bool IsQuestion
+    {
+      // int value 1024
+      get
+      {
+        return this[EnumToIndex(Flags.IsQuestion)];
+      }
+
+      set
+      {
+        this[EnumToIndex(Flags.IsQuestion)] = value;
+      }
+    }
+
+    #endregion
+  }
 }

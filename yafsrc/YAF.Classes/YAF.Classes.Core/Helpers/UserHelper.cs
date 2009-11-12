@@ -5,14 +5,14 @@ using System.Text;
 
 namespace YAF.Classes.Core
 {
-	static public class UserHelper
+	public static class UserHelper
 	{
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="userId"></param>
 		/// <returns>language file name. If null -- use default language</returns>
-		static public string GetUserLanguageFile( long userId )
+		public static string GetUserLanguageFile( long userId )
 		{
 			// get the user information...
 			DataRow row = UserMembershipHelper.GetUserRowForID( userId );

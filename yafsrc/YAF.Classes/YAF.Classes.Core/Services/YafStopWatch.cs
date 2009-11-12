@@ -16,46 +16,65 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 
 namespace YAF.Classes.Core
 {
-	public class YafStopWatch
-	{
-		private readonly System.Diagnostics.Stopwatch _stopWatch = new System.Diagnostics.Stopwatch();
+  /// <summary>
+  /// The yaf stop watch.
+  /// </summary>
+  public class YafStopWatch
+  {
+    /// <summary>
+    /// The _stop watch.
+    /// </summary>
+    private readonly Stopwatch _stopWatch = new Stopwatch();
 
-		public System.Diagnostics.Stopwatch Watch
-		{
-			get
-			{
-				return _stopWatch;
-			}
-		}
+    /// <summary>
+    /// Gets Watch.
+    /// </summary>
+    public Stopwatch Watch
+    {
+      get
+      {
+        return this._stopWatch;
+      }
+    }
 
-		public double Duration
-		{
-			get
-			{
-				double duration = (double) _stopWatch.ElapsedMilliseconds/1000.0;
-				return duration;
-			}
-		}
+    /// <summary>
+    /// Gets Duration.
+    /// </summary>
+    public double Duration
+    {
+      get
+      {
+        double duration = (double) this._stopWatch.ElapsedMilliseconds/1000.0;
+        return duration;
+      }
+    }
 
-		public void Start()
-		{
-			_stopWatch.Start();
-		}
+    /// <summary>
+    /// The start.
+    /// </summary>
+    public void Start()
+    {
+      this._stopWatch.Start();
+    }
 
-		public void Stop()
-		{
-			_stopWatch.Stop();
-		}
+    /// <summary>
+    /// The stop.
+    /// </summary>
+    public void Stop()
+    {
+      this._stopWatch.Stop();
+    }
 
-		public void Reset()
-		{
-			_stopWatch.Reset();
-		}
-	}
+    /// <summary>
+    /// The reset.
+    /// </summary>
+    public void Reset()
+    {
+      this._stopWatch.Reset();
+    }
+  }
 }

@@ -18,118 +18,181 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using System.Web;
 
 namespace YAF.Classes.Core
 {
-	public class LoadMessage
-	{
-		public LoadMessage()
-		{
-			YafContext.Current.Unload += new EventHandler<EventArgs>( Current_Unload );
-		}
+  /// <summary>
+  /// The load message.
+  /// </summary>
+  public class LoadMessage
+  {
+    /// <summary>
+    /// The _load string list.
+    /// </summary>
+    private List<string> _loadStringList = null;
 
-		void Current_Unload( object sender, EventArgs e )
-		{
-			// clear the load message...
-			Clear();
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LoadMessage"/> class.
+    /// </summary>
+    public LoadMessage()
+    {
+      YafContext.Current.Unload += new EventHandler<EventArgs>(Current_Unload);
+    }
 
-		private List<string> _loadStringList = null;
-		public List<string> LoadStringList
-		{
-			get
-			{
-				if ( _loadStringList == null && HttpContext.Current.Session["LoadStringList"] != null )
-				{
-					// get this as the current "loadstring"
-					_loadStringList = HttpContext.Current.Session["LoadStringList"] as List<string>;
-					// session load string no longer needed
-					HttpContext.Current.Session["LoadStringList"] = null;
-				}
-				else if ( _loadStringList == null )
-				{
-					_loadStringList = new List<string>();
-				}
+    /// <summary>
+    /// Gets LoadStringList.
+    /// </summary>
+    public List<string> LoadStringList
+    {
+      get
+      {
+        if (this._loadStringList == null && HttpContext.Current.Session["LoadStringList"] != null)
+        {
+          // get this as the current "loadstring"
+          this._loadStringList = HttpContext.Current.Session["LoadStringList"] as List<string>;
 
-				return _loadStringList;
-			}
-		}
+          // session load string no longer needed
+          HttpContext.Current.Session["LoadStringList"] = null;
+        }
+        else if (this._loadStringList == null)
+        {
+          this._loadStringList = new List<string>();
+        }
 
-		#region Load Message
-		public string LoadString
-		{
-			get
-			{
-				if ( LoadStringList.Count() == 0 ) return String.Empty;
-				return LoadStringDelimited( "\r\n" );
-			}
-		}
+        return this._loadStringList;
+      }
+    }
 
-		public string StringJavascript
-		{
-			get
-			{
-				return CleanJsString( LoadString );
-			}
-		}
+    #region Load Message
 
-		public static string CleanJsString( string jsString )
-		{
-			string message = jsString;
-			message = message.Replace( "\\", "\\\\" );
-			message = message.Replace( "'", "\\'" );
-			message = message.Replace( "\r\n", "\\r\\n" );
-			message = message.Replace( "\n", "\\n" );
-			message = message.Replace( "\"", "\\\"" );
-			return message;
-		}
+    /// <summary>
+    /// Gets LoadString.
+    /// </summary>
+    public string LoadString
+    {
+      get
+      {
+        if (LoadStringList.Count() == 0)
+        {
+          return String.Empty;
+        }
 
-		public string LoadStringDelimited( string delimiter )
-		{
-			if ( LoadStringList.Count() == 0 ) return String.Empty;
-			return LoadStringList.Aggregate( ( current, next ) => current + delimiter + next );
-		}
+        return LoadStringDelimited("\r\n");
+      }
+    }
 
-		/// <summary>
-		/// AddLoadMessage creates a message that will be returned on the next page load.
-		/// </summary>
-		/// <param name="message">The message you wish to display.</param>
-		public void Add( string message )
-		{
-			LoadStringList.Add( message );
-		}
+    /// <summary>
+    /// Gets StringJavascript.
+    /// </summary>
+    public string StringJavascript
+    {
+      get
+      {
+        return CleanJsString(LoadString);
+      }
+    }
 
-		/// <summary>
-		/// AddLoadMessageSession creates a message that will be returned on the next page.
-		/// </summary>
-		/// <param name="message">The message you wish to display.</param>
-		public void AddSession( string message )
-		{
-			List<string> list = null;
+    /// <summary>
+    /// The clean js string.
+    /// </summary>
+    /// <param name="jsString">
+    /// The js string.
+    /// </param>
+    /// <returns>
+    /// The clean js string.
+    /// </returns>
+    public static string CleanJsString(string jsString)
+    {
+      string message = jsString;
+      message = message.Replace("\\", "\\\\");
+      message = message.Replace("'", "\\'");
+      message = message.Replace("\r\n", "\\r\\n");
+      message = message.Replace("\n", "\\n");
+      message = message.Replace("\"", "\\\"");
+      return message;
+    }
 
-			if ( HttpContext.Current.Session["LoadStringList"] != null )
-			{
-				list = HttpContext.Current.Session["LoadStringList"] as List<string>;
-			}
-			else
-			{
-				list = new List<string>();
-			}
+    /// <summary>
+    /// The load string delimited.
+    /// </summary>
+    /// <param name="delimiter">
+    /// The delimiter.
+    /// </param>
+    /// <returns>
+    /// The load string delimited.
+    /// </returns>
+    public string LoadStringDelimited(string delimiter)
+    {
+      if (LoadStringList.Count() == 0)
+      {
+        return String.Empty;
+      }
 
-			// add it too the session list...
-			if ( list != null ) list.Add( message );
-		}
+      return LoadStringList.Aggregate((current, next) => current + delimiter + next);
+    }
 
-		/// <summary>
-		/// Clear the Load String (error) List
-		/// </summary>
-		public void Clear()
-		{
-			LoadStringList.Clear();
-		}
-		#endregion
-	}
+    /// <summary>
+    /// AddLoadMessage creates a message that will be returned on the next page load.
+    /// </summary>
+    /// <param name="message">
+    /// The message you wish to display.
+    /// </param>
+    public void Add(string message)
+    {
+      LoadStringList.Add(message);
+    }
+
+    /// <summary>
+    /// AddLoadMessageSession creates a message that will be returned on the next page.
+    /// </summary>
+    /// <param name="message">
+    /// The message you wish to display.
+    /// </param>
+    public void AddSession(string message)
+    {
+      List<string> list = null;
+
+      if (HttpContext.Current.Session["LoadStringList"] != null)
+      {
+        list = HttpContext.Current.Session["LoadStringList"] as List<string>;
+      }
+      else
+      {
+        list = new List<string>();
+      }
+
+      // add it too the session list...
+      if (list != null)
+      {
+        list.Add(message);
+      }
+    }
+
+    /// <summary>
+    /// Clear the Load String (error) List
+    /// </summary>
+    public void Clear()
+    {
+      LoadStringList.Clear();
+    }
+
+    #endregion
+
+    /// <summary>
+    /// The current_ unload.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Current_Unload(object sender, EventArgs e)
+    {
+      // clear the load message...
+      Clear();
+    }
+  }
 }

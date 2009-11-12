@@ -207,7 +207,7 @@ namespace YAF.Classes.Core
 		/// </summary>
 		/// <param name="pageBoardID">Current BoardID</param>
 		/// <param name="userName"></param>
-		static public void SetupUserRoles( int pageBoardID, string userName )
+		public static void SetupUserRoles( int pageBoardID, string userName )
 		{
 			using ( DataTable dt = YAF.Classes.Data.DB.group_list( pageBoardID, DBNull.Value ) )
 			{
@@ -231,7 +231,7 @@ namespace YAF.Classes.Core
 		/// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)
 		/// </summary>
 		/// <param name="pageBoardID"></param>
-		static public void SyncRoles( int pageBoardID )
+		public static void SyncRoles( int pageBoardID )
 		{
 			// get all the groups in YAF DB and create them if they do not exist as a role in membership
 			using ( DataTable dt = YAF.Classes.Data.DB.group_list( pageBoardID, DBNull.Value ) )

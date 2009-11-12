@@ -16,75 +16,105 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 using System;
 
 namespace YAF.Classes.Core
 {
-	public class ThemeHandler
-	{
-		private bool _initTheme = false;
-		private YafTheme _theme = null;
+  /// <summary>
+  /// The theme handler.
+  /// </summary>
+  public class ThemeHandler
+  {
+    /// <summary>
+    /// The _init theme.
+    /// </summary>
+    private bool _initTheme = false;
 
-		public YafTheme Theme
-		{
-			get
-			{
-				if ( !_initTheme ) InitTheme();
-				return _theme;
-			}
-			set
-			{
-				_theme = value;
-				_initTheme = ( value != null );
-			}
-		}
+    /// <summary>
+    /// The _theme.
+    /// </summary>
+    private YafTheme _theme = null;
 
-		public event EventHandler<EventArgs> BeforeInit;
-		public event EventHandler<EventArgs> AfterInit;
+    /// <summary>
+    /// Gets or sets Theme.
+    /// </summary>
+    public YafTheme Theme
+    {
+      get
+      {
+        if (!this._initTheme)
+        {
+          InitTheme();
+        }
 
-		/// <summary>
-		/// Sets the theme class up for usage
-		/// </summary>
-		private void InitTheme()
-		{
-			if ( !_initTheme )
-			{
-				if (BeforeInit != null) BeforeInit(this, new EventArgs());
+        return this._theme;
+      }
 
-				string themeFile = null;
+      set
+      {
+        this._theme = value;
+        this._initTheme = value != null;
+      }
+    }
 
-				if ( YafContext.Current.Page != null && YafContext.Current.Page["ThemeFile"] != DBNull.Value && YafContext.Current.BoardSettings.AllowUserTheme )
-				{
-					// use user-selected theme
-					themeFile = YafContext.Current.Page["ThemeFile"].ToString();
-				}
-				else if ( YafContext.Current.Page != null && YafContext.Current.Page["ForumTheme"] != DBNull.Value )
-				{
-					themeFile = YafContext.Current.Page["ForumTheme"].ToString();
-				}
-				else
-				{
-					themeFile = YafContext.Current.BoardSettings.Theme;
-				}
+    /// <summary>
+    /// The before init.
+    /// </summary>
+    public event EventHandler<EventArgs> BeforeInit;
 
-				if ( !YafTheme.IsValidTheme( themeFile ) )
-				{
-					themeFile = "yafpro.xml";
-				}
+    /// <summary>
+    /// The after init.
+    /// </summary>
+    public event EventHandler<EventArgs> AfterInit;
 
-				// create the theme class
-				this.Theme = new YafTheme( themeFile );
+    /// <summary>
+    /// Sets the theme class up for usage
+    /// </summary>
+    private void InitTheme()
+    {
+      if (!this._initTheme)
+      {
+        if (BeforeInit != null)
+        {
+          BeforeInit(this, new EventArgs());
+        }
 
-				// make sure it's valid again...
-				if ( !YafTheme.IsValidTheme( this.Theme.ThemeFile ) )
-				{
-					// can't load a theme... throw an exception.
-					throw new Exception( String.Format( "Unable to find a theme to load. Last attempted to load \"{0}\" but failed.", themeFile ) );
-				}
+        string themeFile = null;
 
-				if (AfterInit != null) AfterInit(this, new EventArgs());
-			}
-		}
-	}
+        if (YafContext.Current.Page != null && YafContext.Current.Page["ThemeFile"] != DBNull.Value && YafContext.Current.BoardSettings.AllowUserTheme)
+        {
+          // use user-selected theme
+          themeFile = YafContext.Current.Page["ThemeFile"].ToString();
+        }
+        else if (YafContext.Current.Page != null && YafContext.Current.Page["ForumTheme"] != DBNull.Value)
+        {
+          themeFile = YafContext.Current.Page["ForumTheme"].ToString();
+        }
+        else
+        {
+          themeFile = YafContext.Current.BoardSettings.Theme;
+        }
+
+        if (!YafTheme.IsValidTheme(themeFile))
+        {
+          themeFile = "yafpro.xml";
+        }
+
+        // create the theme class
+        Theme = new YafTheme(themeFile);
+
+        // make sure it's valid again...
+        if (!YafTheme.IsValidTheme(Theme.ThemeFile))
+        {
+          // can't load a theme... throw an exception.
+          throw new Exception(String.Format("Unable to find a theme to load. Last attempted to load \"{0}\" but failed.", themeFile));
+        }
+
+        if (AfterInit != null)
+        {
+          AfterInit(this, new EventArgs());
+        }
+      }
+    }
+  }
 }

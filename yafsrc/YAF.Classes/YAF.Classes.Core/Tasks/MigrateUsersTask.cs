@@ -17,55 +17,73 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using YAF.Classes.Data;
 
 namespace YAF.Classes.Core
 {
-	/// <summary>
-	/// Run when we want to do migration of users in the background...
-	/// </summary>
-	public class MigrateUsersTask : LongBackgroundTask
-	{
-		private const string _taskName = "MigrateUsersTask";
-		public static string TaskName
-		{
-			get
-			{
-				return _taskName;
-			}
-		}
+  /// <summary>
+  /// Run when we want to do migration of users in the background...
+  /// </summary>
+  public class MigrateUsersTask : LongBackgroundTask
+  {
+    /// <summary>
+    /// The _task name.
+    /// </summary>
+    private const string _taskName = "MigrateUsersTask";
 
-		public MigrateUsersTask()
-		{
-			
-		}
+    /// <summary>
+    /// Gets TaskName.
+    /// </summary>
+    public static string TaskName
+    {
+      get
+      {
+        return _taskName;
+      }
+    }
 
-		static public bool Start(int boardId)
-		{
-			if ( YafTaskModule.Current == null ) return false;
+    /// <summary>
+    /// The start.
+    /// </summary>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <returns>
+    /// The start.
+    /// </returns>
+    public static bool Start(int boardId)
+    {
+      if (YafTaskModule.Current == null)
+      {
+        return false;
+      }
 
-			if ( !YafTaskModule.Current.TaskExists( TaskName ) )
-			{
-				MigrateUsersTask task = new MigrateUsersTask {BoardID = boardId};
-				YafTaskModule.Current.StartTask( TaskName, task );
-			}
+      if (!YafTaskModule.Current.TaskExists(TaskName))
+      {
+        var task = new MigrateUsersTask
+          {
+            BoardID = boardId
+          };
+        YafTaskModule.Current.StartTask(TaskName, task);
+      }
 
-			return true;
-		}
+      return true;
+    }
 
-		public override void RunOnce()
-		{
-			try
-			{
-				// attempt to run the migration code...
-				RoleMembershipHelper.SyncUsers( BoardID );
-			}
-			catch(Exception x)
-			{
-				DB.eventlog_create( null, TaskName, String.Format( "Error In MigrateUsers Task: {0}", x ) );
-			}
-		}
-	}
+    /// <summary>
+    /// The run once.
+    /// </summary>
+    public override void RunOnce()
+    {
+      try
+      {
+        // attempt to run the migration code...
+        RoleMembershipHelper.SyncUsers(BoardID);
+      }
+      catch (Exception x)
+      {
+        DB.eventlog_create(null, TaskName, String.Format("Error In MigrateUsers Task: {0}", x));
+      }
+    }
+  }
 }

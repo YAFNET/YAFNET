@@ -19,121 +19,176 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using System.Text.RegularExpressions;
-using YAF.Classes;
+using System.Web.Caching;
 using YAF.Classes.Data;
-using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	public class BadWordReplaceItem
-	{
-		private readonly Object _activeLock = new Object();
+  /// <summary>
+  /// The bad word replace item.
+  /// </summary>
+  public class BadWordReplaceItem
+  {
+    /// <summary>
+    /// The _active lock.
+    /// </summary>
+    private readonly object _activeLock = new object();
 
-		private string _goodWord;
-		public string GoodWord
-		{
-			get
-			{
-				return _goodWord;
-			}
-		}
+    /// <summary>
+    /// The _active.
+    /// </summary>
+    private bool _active = true;
 
-		private string _badWord;
-		public string BadWord
-		{
-			get
-			{
-				return _badWord;
-			}
-		}
+    /// <summary>
+    /// The _bad word.
+    /// </summary>
+    private string _badWord;
 
-		private bool _active = true;
-		public bool Active
-		{
-			get
-			{
+    /// <summary>
+    /// The _good word.
+    /// </summary>
+    private string _goodWord;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BadWordReplaceItem"/> class.
+    /// </summary>
+    /// <param name="goodWord">
+    /// The good word.
+    /// </param>
+    /// <param name="badWord">
+    /// The bad word.
+    /// </param>
+    public BadWordReplaceItem(string goodWord, string badWord)
+    {
+      this._goodWord = goodWord;
+      this._badWord = badWord;
+    }
+
+    /// <summary>
+    /// Gets GoodWord.
+    /// </summary>
+    public string GoodWord
+    {
+      get
+      {
+        return this._goodWord;
+      }
+    }
+
+    /// <summary>
+    /// Gets BadWord.
+    /// </summary>
+    public string BadWord
+    {
+      get
+      {
+        return this._badWord;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether Active.
+    /// </summary>
+    public bool Active
+    {
+      get
+      {
         bool value;
 
-				lock (_activeLock)
+        lock (this._activeLock)
         {
-					value = _active;
+          value = this._active;
         }
 
         return value;
-			}
-			set
-			{
-				lock (_activeLock)
+      }
+
+      set
+      {
+        lock (this._activeLock)
         {
-					_active = value;
-        }  
-			}
-		}
+          this._active = value;
+        }
+      }
+    }
+  }
 
-		public BadWordReplaceItem( string goodWord, string badWord )
-		{
-			_goodWord = goodWord;
-			_badWord = badWord;
-		}
-	}
+  /// <summary>
+  /// The yaf bad word replace.
+  /// </summary>
+  public class YafBadWordReplace
+  {
+    /// <summary>
+    /// The _options.
+    /// </summary>
+    private const RegexOptions _options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
-	public class YafBadWordReplace
-	{
-		private const RegexOptions _options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
+    /// <summary>
+    /// Gets ReplaceItems.
+    /// </summary>
+    public List<BadWordReplaceItem> ReplaceItems
+    {
+      get
+      {
+        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords);
 
-		public List<BadWordReplaceItem> ReplaceItems
-		{
-			get
-			{
-				string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords);
+        var replaceItems = (List<BadWordReplaceItem>) YafContext.Current.Cache[cacheKey];
 
-				List<BadWordReplaceItem> replaceItems = (List<BadWordReplaceItem>)YafContext.Current.Cache[cacheKey];
+        if (replaceItems == null)
+        {
+          DataTable replaceWordsDataTable = DB.replace_words_list(YafContext.Current.PageBoardID, null);
 
-				if (replaceItems == null)
-				{
-					DataTable replaceWordsDataTable = DB.replace_words_list( YafContext.Current.PageBoardID, null );
+          replaceItems = new List<BadWordReplaceItem>();
 
-					replaceItems = new List<BadWordReplaceItem>();
+          // move to collection...
+          foreach (DataRow row in replaceWordsDataTable.Rows)
+          {
+            replaceItems.Add(new BadWordReplaceItem(row["goodword"].ToString(), row["badword"].ToString()));
+          }
 
-					// move to collection...
-					foreach ( DataRow row in replaceWordsDataTable.Rows )
-					{
-						replaceItems.Add( new BadWordReplaceItem( row["goodword"].ToString(), row["badword"].ToString() ) );
-					}
+          YafContext.Current.Cache.Add(cacheKey, replaceItems, null, DateTime.Now.AddMinutes(30), TimeSpan.Zero, CacheItemPriority.Low, null);
+        }
 
-					YafContext.Current.Cache.Add( cacheKey, replaceItems, null, DateTime.Now.AddMinutes( 30 ), TimeSpan.Zero,
-					                      System.Web.Caching.CacheItemPriority.Low, null );
-				}
+        return replaceItems;
+      }
+    }
 
-				return replaceItems;
-			}
-		}
+    /// <summary>
+    /// Searches through SearchText and replaces "bad words" with "good words"
+    /// as defined in the database.
+    /// </summary>
+    /// <param name="searchText">
+    /// The string to search through.
+    /// </param>
+    /// <returns>
+    /// The replace.
+    /// </returns>
+    public string Replace(string searchText)
+    {
+      if (String.IsNullOrEmpty(searchText))
+      {
+        return searchText;
+      }
 
-		/// <summary>
-		/// Searches through SearchText and replaces "bad words" with "good words"
-		/// as defined in the database.
-		/// </summary>
-		/// <param name="searchText">The string to search through.</param>
-		public string Replace(string searchText)
-		{
-			if (String.IsNullOrEmpty(searchText)) return searchText;
+      string strReturn = searchText;
 
-			string strReturn = searchText;
+      foreach (BadWordReplaceItem item in ReplaceItems)
+      {
+        try
+        {
+          if (item.Active)
+          {
+            strReturn = Regex.Replace(strReturn, item.BadWord, item.GoodWord, _options);
+          }
+        }
 
-			foreach (BadWordReplaceItem item in ReplaceItems)
-			{
-				try
-				{
-					if ( item.Active )
-						strReturn = Regex.Replace(strReturn, item.BadWord, item.GoodWord, _options);
-				}
 #if DEBUG
-				catch (Exception e)
-				{
-					throw new Exception("Bad Word Regular Expression Failed: " + e.Message, e);
-				}
+        catch (Exception e)
+        {
+          throw new Exception("Bad Word Regular Expression Failed: " + e.Message, e);
+        }
+
 #else
 				catch (Exception x)
 				{
@@ -142,9 +197,9 @@ namespace YAF.Classes.Core
           YAF.Classes.Data.DB.eventlog_create( null, "BadWordReplace", x, EventLogTypes.Warning );
 				}
 #endif
-			}
+      }
 
-			return strReturn;
-		}
-	}
+      return strReturn;
+    }
+  }
 }

@@ -16,256 +16,340 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Collections.Specialized;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	public class PageElementRegister
-	{
-		private readonly List<string> _registeredElements = new List<string>();
-		/// <summary>
-		/// Elements (using in the head or header) that are registered on the page.
-		/// Used mostly by RegisterPageElementHelper.
-		/// </summary>
-		public List<string> RegisteredElements
-		{
-			get
-			{
-				return _registeredElements;
-			}
-		}
+  /// <summary>
+  /// Helper Class providing functions to register page elements.
+  /// </summary>
+  public class PageElementRegister
+  {
+    /// <summary>
+    /// The _registered elements.
+    /// </summary>
+    private readonly List<string> _registeredElements = new List<string>();
 
-		public bool PageElementExists(string name)
-		{
-			return _registeredElements.Contains(name.ToLower());
-		}
+    /// <summary>
+    /// Gets elements (using in the head or header) that are registered on the page.
+    /// Used mostly by RegisterPageElementHelper.
+    /// </summary>
+    public List<string> RegisteredElements
+    {
+      get
+      {
+        return this._registeredElements;
+      }
+    }
 
-		public void AddPageElement( string name )
-		{
-			_registeredElements.Add( name.ToLower() );
-		}
+    /// <summary>
+    /// Validates if an page element exists.
+    /// </summary>
+    /// <param name="name">
+    /// Unique name of the page element to test for
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> if it exists
+    /// </returns>
+    public bool PageElementExists(string name)
+    {
+      return this._registeredElements.Contains(name.ToLower());
+    }
 
-		/// <summary>
-		/// Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
-		/// </summary>
-		/// <param name="element">Control to add element</param>
-		/// <param name="name">Name of this element so it is not added more then once (not case sensitive)</param>
-		/// <param name="cssContents">The contents of the text/css style block</param>
-		public void RegisterCssBlock(Control element, string name, string cssContents)
-		{
-			if (!PageElementExists( name ))
-			{
-				// Add to the end of the controls collection
-				element.Controls.Add(ControlHelper.MakeCssControl(cssContents));
-				AddPageElement( name );
-			}
-		}
+    /// <summary>
+    /// Adds a page element to the collection.
+    /// </summary>
+    /// <param name="name">
+    /// Unique name of the page element to register.
+    /// </param>
+    public void AddPageElement(string name)
+    {
+      this._registeredElements.Add(name.ToLower());
+    }
 
-		/// <summary>
-		/// Registers a Javascript block using the script manager. Adds script tags.
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="script"></param>
-		public void RegisterJsBlock(string name, string script )
-		{
-			RegisterJsBlock( YafContext.Current.CurrentForumPage, name, script );
-		}
+    /// <summary>
+    /// Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
+    /// </summary>
+    /// <param name="element">
+    /// Control to add element
+    /// </param>
+    /// <param name="name">
+    /// Name of this element so it is not added more then once (not case sensitive)
+    /// </param>
+    /// <param name="cssContents">
+    /// The contents of the text/css style block
+    /// </param>
+    public void RegisterCssBlock(Control element, string name, string cssContents)
+    {
+      if (!PageElementExists(name))
+      {
+        // Add to the end of the controls collection
+        element.Controls.Add(ControlHelper.MakeCssControl(cssContents));
+        AddPageElement(name);
+      }
+    }
 
-		/// <summary>
-		/// Registers a Javascript block using the script manager. Adds script tags.
-		/// </summary>
-		/// <param name="thisControl"></param>
-		/// <param name="name"></param>
-		/// <param name="script"></param>
-		public void RegisterJsBlock( Control thisControl, string name, string script )
-		{
-			if ( !PageElementExists( name ) )
-			{
-				ScriptManager.RegisterClientScriptBlock( thisControl, thisControl.GetType(), name,
-				                                         JsAndCssHelper.CompressJavaScript( script ), true );
-			}
-		}
+    /// <summary>
+    /// Registers a Javascript block using the script manager. Adds script tags.
+    /// </summary>
+    /// <param name="name">
+    /// Unique name of JS Block
+    /// </param>
+    /// <param name="script">
+    /// Script code to register
+    /// </param>
+    public void RegisterJsBlock(string name, string script)
+    {
+      RegisterJsBlock(YafContext.Current.CurrentForumPage, name, script);
+    }
 
-		/// <summary>
-		/// Registers a Javascript block using the script manager. Adds script tags.
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="script"></param>
-		public void RegisterJsBlockStartup( string name, string script )
-		{
-			RegisterJsBlockStartup( YafContext.Current.CurrentForumPage, name, script );
-		}
+    /// <summary>
+    /// Registers a Javascript block using the script manager. Adds script tags.
+    /// </summary>
+    /// <param name="thisControl">
+    /// </param>
+    /// <param name="name">
+    /// </param>
+    /// <param name="script">
+    /// </param>
+    public void RegisterJsBlock(Control thisControl, string name, string script)
+    {
+      if (!PageElementExists(name))
+      {
+        ScriptManager.RegisterClientScriptBlock(thisControl, thisControl.GetType(), name, JsAndCssHelper.CompressJavaScript(script), true);
+      }
+    }
 
-		/// <summary>
-		/// Registers a Javascript block using the script manager. Adds script tags.
-		/// </summary>
-		/// <param name="thisControl"></param>
-		/// <param name="name"></param>
-		/// <param name="script"></param>
-		public void RegisterJsBlockStartup( Control thisControl, string name, string script )
-		{
-			if ( !PageElementExists( name ) )
-			{
-				ScriptManager.RegisterStartupScript( thisControl, thisControl.GetType(), name,
-				                                     JsAndCssHelper.CompressJavaScript( script ), true );
-			}
-		}
+    /// <summary>
+    /// Registers a Javascript block using the script manager. Adds script tags.
+    /// </summary>
+    /// <param name="name">
+    /// </param>
+    /// <param name="script">
+    /// </param>
+    public void RegisterJsBlockStartup(string name, string script)
+    {
+      RegisterJsBlockStartup(YafContext.Current.CurrentForumPage, name, script);
+    }
 
-		/// <summary>
-		/// Registers a Javascript include using the script manager.
-		/// </summary>
-		/// <param name="thisControl"></param>
-		/// <param name="name"></param>
-		/// <param name="url"></param>
-		public void RegisterJsInclude( Control thisControl, string name, string url )
-		{
-			if ( !PageElementExists( name ) )
-			{
-				ScriptManager.RegisterClientScriptInclude( thisControl, thisControl.GetType(), name, url );
-				AddPageElement( name );
-			}
-		}
+    /// <summary>
+    /// Registers a Javascript block using the script manager. Adds script tags.
+    /// </summary>
+    /// <param name="thisControl">
+    /// </param>
+    /// <param name="name">
+    /// </param>
+    /// <param name="script">
+    /// </param>
+    public void RegisterJsBlockStartup(Control thisControl, string name, string script)
+    {
+      if (!PageElementExists(name))
+      {
+        ScriptManager.RegisterStartupScript(thisControl, thisControl.GetType(), name, JsAndCssHelper.CompressJavaScript(script), true);
+      }
+    }
 
-		/// <summary>
-		/// Registers a Javascript include using the script manager.
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="url"></param>
-		public void RegisterJsInclude( string name, string url )
-		{
-			RegisterJsInclude( YafContext.Current.CurrentForumPage, name, url );
-		}
+    /// <summary>
+    /// Registers a Javascript include using the script manager.
+    /// </summary>
+    /// <param name="thisControl">
+    /// </param>
+    /// <param name="name">
+    /// </param>
+    /// <param name="url">
+    /// </param>
+    public void RegisterJsInclude(Control thisControl, string name, string url)
+    {
+      if (!PageElementExists(name))
+      {
+        ScriptManager.RegisterClientScriptInclude(thisControl, thisControl.GetType(), name, url);
+        AddPageElement(name);
+      }
+    }
 
-		/// <summary>
-		/// Registers a Javascript resource include using the script manager.
-		/// </summary>
-		/// <param name="thisControl"></param>
-		/// <param name="name"></param>
-		/// <param name="relativeResourceUrl"></param>
-		public void RegisterJsResourceInclude( Control thisControl, string name, string relativeResourceUrl )
-		{
-			if ( !PageElementExists( name ) )
-			{
-				ScriptManager.RegisterClientScriptInclude( thisControl, thisControl.GetType(), name,
-				                                           YafForumInfo.GetURLToResource( relativeResourceUrl ) );
-				AddPageElement( name );
-			}
-		}
+    /// <summary>
+    /// Registers a Javascript include using the script manager.
+    /// </summary>
+    /// <param name="name">
+    /// </param>
+    /// <param name="url">
+    /// </param>
+    public void RegisterJsInclude(string name, string url)
+    {
+      RegisterJsInclude(YafContext.Current.CurrentForumPage, name, url);
+    }
 
-		/// <summary>
-		/// Registers a Javascript resource include using the script manager.
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="relativeResourceUrl"></param>
-		public void RegisterJsResourceInclude( string name, string relativeResourceUrl )
-		{
-			RegisterJsResourceInclude( YafContext.Current.CurrentForumPage, name, relativeResourceUrl );
-		}
+    /// <summary>
+    /// Registers a Javascript resource include using the script manager.
+    /// </summary>
+    /// <param name="thisControl">
+    /// </param>
+    /// <param name="name">
+    /// </param>
+    /// <param name="relativeResourceUrl">
+    /// </param>
+    public void RegisterJsResourceInclude(Control thisControl, string name, string relativeResourceUrl)
+    {
+      if (!PageElementExists(name))
+      {
+        ScriptManager.RegisterClientScriptInclude(thisControl, thisControl.GetType(), name, YafForumInfo.GetURLToResource(relativeResourceUrl));
+        AddPageElement(name);
+      }
+    }
 
-		public void RegisterCssBlock(string name, string cssContents)
-		{
-			RegisterCssBlock( YafContext.Current.CurrentForumPage.TopPageControl, name, JsAndCssHelper.CompressCss( cssContents ) );
-		}
+    /// <summary>
+    /// Registers a Javascript resource include using the script manager.
+    /// </summary>
+    /// <param name="name">
+    /// Unique name of the JS include
+    /// </param>
+    /// <param name="relativeResourceUrl">
+    /// URL to the JS resource
+    /// </param>
+    public void RegisterJsResourceInclude(string name, string relativeResourceUrl)
+    {
+      RegisterJsResourceInclude(YafContext.Current.CurrentForumPage, name, relativeResourceUrl);
+    }
 
-		/// <summary>
-		/// Add the given CSS to the page header within a style tag
-		/// </summary>
-		/// <param name="cssUrl">Url of the CSS file to add</param>
-		public void RegisterCssInclude(string cssUrl)
-		{
-			RegisterCssInclude(YafContext.Current.CurrentForumPage.TopPageControl, cssUrl);
-		}
+    /// <summary>
+    /// Register a CSS block in the page header.
+    /// </summary>
+    /// <param name="name">
+    /// Unique name of the CSS block
+    /// </param>
+    /// <param name="cssContents">
+    /// CSS contents
+    /// </param>
+    public void RegisterCssBlock(string name, string cssContents)
+    {
+      RegisterCssBlock(YafContext.Current.CurrentForumPage.TopPageControl, name, JsAndCssHelper.CompressCss(cssContents));
+    }
 
-		/// <summary>
-		/// Add the given CSS to the page header within a style tag
-		/// </summary>
-		/// <param name="cssUrlResource">Url of the CSS Resource file to add</param>
-		public void RegisterCssIncludeResource( string cssUrlResource )
-		{
-			RegisterCssInclude( YafContext.Current.CurrentForumPage.TopPageControl,
-			                    YafForumInfo.GetURLToResource( cssUrlResource ) );
-		}
+    /// <summary>
+    /// Add the given CSS to the page header within a style tag
+    /// </summary>
+    /// <param name="cssUrl">
+    /// Url of the CSS file to add
+    /// </param>
+    public void RegisterCssInclude(string cssUrl)
+    {
+      RegisterCssInclude(YafContext.Current.CurrentForumPage.TopPageControl, cssUrl);
+    }
 
-		/// <summary>
-		/// Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
-		/// </summary>
-		/// <param name="element">Control to add element</param>
-		/// <param name="cssUrl">Url of the CSS file to add</param>
-		public void RegisterCssInclude(Control element, string cssUrl)
-		{
-			if (!PageElementExists(cssUrl))
-			{
-				element.Controls.Add( ControlHelper.MakeCssIncludeControl( cssUrl.ToLower() ) );
-				AddPageElement(cssUrl);
-			}
-		}
+    /// <summary>
+    /// Add the given CSS to the page header within a style tag
+    /// </summary>
+    /// <param name="cssUrlResource">
+    /// Url of the CSS Resource file to add
+    /// </param>
+    public void RegisterCssIncludeResource(string cssUrlResource)
+    {
+      RegisterCssInclude(YafContext.Current.CurrentForumPage.TopPageControl, YafForumInfo.GetURLToResource(cssUrlResource));
+    }
 
-		public void RegisterJQuery()
-		{
-			RegisterJQuery( YafContext.Current.CurrentForumPage.TopPageControl );
-		}
+    /// <summary>
+    /// Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
+    /// </summary>
+    /// <param name="element">
+    /// Control to add element
+    /// </param>
+    /// <param name="cssUrl">
+    /// Url of the CSS file to add
+    /// </param>
+    public void RegisterCssInclude(Control element, string cssUrl)
+    {
+      if (!PageElementExists(cssUrl))
+      {
+        element.Controls.Add(ControlHelper.MakeCssIncludeControl(cssUrl.ToLower()));
+        AddPageElement(cssUrl);
+      }
+    }
 
-		public void RegisterJQueryUI()
-		{
-			RegisterJQueryUI( YafContext.Current.CurrentForumPage.TopPageControl );
-		}
+    /// <summary>
+    /// The register j query.
+    /// </summary>
+    public void RegisterJQuery()
+    {
+      RegisterJQuery(YafContext.Current.CurrentForumPage.TopPageControl);
+    }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public void RegisterJQuery( Control element )
-		{
-			if (!PageElementExists("jquery"))
-			{
-				bool registerJQuery = true;
+    /// <summary>
+    /// The register j query ui.
+    /// </summary>
+    public void RegisterJQueryUI()
+    {
+      RegisterJQueryUI(YafContext.Current.CurrentForumPage.TopPageControl);
+    }
 
-				string key = "JQuery-Javascripts";
-				// check to see if DotNetAge is around and has registered jQuery for us...
-				if ( HttpContext.Current.Items[key] != null )
-				{
-					var collection = (HttpContext.Current.Items[key] as System.Collections.Specialized.StringCollection);
+    /// <summary>
+    /// Register jQuery
+    /// </summary>
+    /// <param name="element">
+    /// The element.
+    /// </param>
+    public void RegisterJQuery(Control element)
+    {
+      if (PageElementExists("jquery"))
+      {
+        return;
+      }
 
-					if ( collection != null && collection.Contains( "jquery" ) )
-					{
-						registerJQuery = false;
-					}
-				}
-				else if ( Config.IsDotNetNuke )
-				{
-					// latest version of DNN (v5) should register jQuery for us...
-					registerJQuery = false;
-				}
+      bool registerJQuery = true;
 
-				// load jQuery from google...
-				//const string jQueryLoad = "<script type=\"text/javascript\" src=\"\"></script>";
-				if ( registerJQuery )
-				{
-					element.Controls.Add(
-						ControlHelper.MakeJsIncludeControl( "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" ) );
-				}
+      string key = "JQuery-Javascripts";
 
-				AddPageElement( "jquery" );
-			}
-		}
+      // check to see if DotNetAge is around and has registered jQuery for us...
+      if (HttpContext.Current.Items[key] != null)
+      {
+        var collection = HttpContext.Current.Items[key] as StringCollection;
 
-		public void RegisterJQueryUI( Control element )
-		{
-			if ( !PageElementExists( "jqueryui" ) )
-			{
-				// requires jQuery first...
-				if ( !PageElementExists( "jquery" ) ) RegisterJQuery( element );
+        if (collection != null && collection.Contains("jquery"))
+        {
+          registerJQuery = false;
+        }
+      }
+      else if (Config.IsDotNetNuke)
+      {
+        // latest version of DNN (v5) should register jQuery for us...
+        registerJQuery = false;
+      }
 
-				// load jQuery UI from google...
-				element.Controls.Add(
-					ControlHelper.MakeJsIncludeControl( "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" ) );
-				AddPageElement( "jqueryui" );
-			}
-		}
-	}
+      if (registerJQuery)
+      {
+        // load jQuery
+        element.Controls.Add(ControlHelper.MakeJsIncludeControl(YafForumInfo.GetURLToResource("js/jquery-1.3.2.min.js")));
+      }
+
+      AddPageElement("jquery");
+    }
+
+    /// <summary>
+    /// Register the JQuery UI library in the header.
+    /// </summary>
+    /// <param name="element">
+    /// Control element to put in
+    /// </param>
+    public void RegisterJQueryUI(Control element)
+    {
+      if (PageElementExists("jqueryui"))
+      {
+        return;
+      }
+
+      // requires jQuery first...
+      if (!PageElementExists("jquery"))
+      {
+        RegisterJQuery(element);
+      }
+
+      // load jQuery UI from google...
+      element.Controls.Add(ControlHelper.MakeJsIncludeControl("http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"));
+
+      AddPageElement("jqueryui");
+    }
+  }
 }

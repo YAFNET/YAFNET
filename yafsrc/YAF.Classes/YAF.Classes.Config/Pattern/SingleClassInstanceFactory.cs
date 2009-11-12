@@ -18,29 +18,50 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace YAF.Classes.Pattern
 {
-	public class SingleClassInstanceFactory
-	{
-		private readonly Dictionary<int, object> _contextClasses = new Dictionary<int, object>();
+  /// <summary>
+  /// The single class instance factory.
+  /// </summary>
+  public class SingleClassInstanceFactory
+  {
+    /// <summary>
+    /// The _context classes.
+    /// </summary>
+    private readonly Dictionary<int, object> _contextClasses = new Dictionary<int, object>();
 
-		public T GetInstance<T>() where T : class
-		{
-			int objNameHash = typeof( T ).ToString().GetHashCode();
+    /// <summary>
+    /// The get instance.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public T GetInstance<T>() where T : class
+    {
+      int objNameHash = typeof (T).ToString().GetHashCode();
 
-			if ( !_contextClasses.ContainsKey( objNameHash ) )
-			{
-				_contextClasses[objNameHash] = (T)Activator.CreateInstance( typeof( T ), true );
-			}
-			return (T)_contextClasses[objNameHash];
-		}
+      if (!this._contextClasses.ContainsKey(objNameHash))
+      {
+        this._contextClasses[objNameHash] = (T) Activator.CreateInstance(typeof (T), true);
+      }
 
-		public void SetInstance<T>( T instance ) where T : class
-		{
-			int objNameHash = typeof( T ).ToString().GetHashCode();
-			_contextClasses[objNameHash] = instance;
-		}
-	}
+      return (T) this._contextClasses[objNameHash];
+    }
+
+    /// <summary>
+    /// The set instance.
+    /// </summary>
+    /// <param name="instance">
+    /// The instance.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    public void SetInstance<T>(T instance) where T : class
+    {
+      int objNameHash = typeof (T).ToString().GetHashCode();
+      this._contextClasses[objNameHash] = instance;
+    }
+  }
 }

@@ -19,105 +19,157 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Web;
 using System.Globalization;
+using System.Web;
 using System.Xml;
+using YAF.Classes.Data;
 using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
-	public class YafLocalization
-	{
-		private CultureInfo _culture = null;
-		private Localizer _localizer = null;
-		private Localizer _defaultLocale = null;
-		private string _transPage = null;
+  /// <summary>
+  /// The yaf localization.
+  /// </summary>
+  public class YafLocalization
+  {
+    /// <summary>
+    /// The _culture.
+    /// </summary>
+    private CultureInfo _culture = null;
 
-		public bool TranslationLoaded
-		{
-			get
-			{
-				return ( _localizer != null );
-			}
-		}
+    /// <summary>
+    /// The _default locale.
+    /// </summary>
+    private Localizer _defaultLocale = null;
 
-		public YafLocalization()
-		{
+    /// <summary>
+    /// The _language file name.
+    /// </summary>
+    private string _languageFileName;
 
-		}
+    /// <summary>
+    /// The _localizer.
+    /// </summary>
+    private Localizer _localizer = null;
 
-		public YafLocalization( string transPage )
-			: this()
-		{
-			TransPage = transPage;
-		}
+    /// <summary>
+    /// The _trans page.
+    /// </summary>
+    private string _transPage = null;
 
-		/// <summary>
-		/// What section of the xml is used to translate this page
-		/// </summary>
-		public string TransPage
-		{
-			get
-			{
-				//if ( m_transPage != null )
-				return _transPage;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafLocalization"/> class.
+    /// </summary>
+    public YafLocalization()
+    {
+    }
 
-				//throw new ApplicationException( string.Format( "Missing TransPage property for {0}", GetType() ) );
-			}
-			set
-			{
-				_transPage = value;
-			}
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafLocalization"/> class.
+    /// </summary>
+    /// <param name="transPage">
+    /// The trans page.
+    /// </param>
+    public YafLocalization(string transPage)
+      : this()
+    {
+      TransPage = transPage;
+    }
 
-		public string LanguageCode
-		{
-			get
-			{
-				if (_localizer != null) return _localizer.LanguageCode;
+    /// <summary>
+    /// Gets a value indicating whether TranslationLoaded.
+    /// </summary>
+    public bool TranslationLoaded
+    {
+      get
+      {
+        return this._localizer != null;
+      }
+    }
 
-				return LoadTranslation();
-			}
-		}
+    /// <summary>
+    /// What section of the xml is used to translate this page
+    /// </summary>
+    public string TransPage
+    {
+      get
+      {
+        // if ( m_transPage != null )
+        return this._transPage;
 
-		public CultureInfo Culture
-		{
-			get
-			{
-				if (_culture != null)
-					return _culture;
-				else if (_localizer == null)
-				{
-					LoadTranslation();
-					return _culture;
-				}
+        // throw new ApplicationException( string.Format( "Missing TransPage property for {0}", GetType() ) );
+      }
 
-				// fall back to current culture if there is some error
-				return CultureInfo.CurrentCulture;
-			}
-		}
+      set
+      {
+        this._transPage = value;
+      }
+    }
 
-		private string _languageFileName;
-		public string LanguageFileName
-		{
-			get
-			{
-				return _languageFileName;
-			}
-		}
+    /// <summary>
+    /// Gets LanguageCode.
+    /// </summary>
+    public string LanguageCode
+    {
+      get
+      {
+        if (this._localizer != null)
+        {
+          return this._localizer.LanguageCode;
+        }
 
-		/// <summary>
-		/// Formats a localized string -- but verifies the parameter count matches
-		/// </summary>
-		/// <param name="text"></param>
-		/// <param name="args"></param>
-		/// <returns></returns>
-		public string GetTextFormatted( string text, params object [] args )
-		{
-			string localizedText = GetText( TransPage, text );
+        return LoadTranslation();
+      }
+    }
 
-			/* get the localization string parameter count...
+    /// <summary>
+    /// Gets Culture.
+    /// </summary>
+    public CultureInfo Culture
+    {
+      get
+      {
+        if (this._culture != null)
+        {
+          return this._culture;
+        }
+        else if (this._localizer == null)
+        {
+          LoadTranslation();
+          return this._culture;
+        }
+
+        // fall back to current culture if there is some error
+        return CultureInfo.CurrentCulture;
+      }
+    }
+
+    /// <summary>
+    /// Gets LanguageFileName.
+    /// </summary>
+    public string LanguageFileName
+    {
+      get
+      {
+        return this._languageFileName;
+      }
+    }
+
+    /// <summary>
+    /// Formats a localized string -- but verifies the parameter count matches
+    /// </summary>
+    /// <param name="text">
+    /// </param>
+    /// <param name="args">
+    /// </param>
+    /// <returns>
+    /// The get text formatted.
+    /// </returns>
+    public string GetTextFormatted(string text, params object[] args)
+    {
+      string localizedText = GetText(TransPage, text);
+
+      /* get the localization string parameter count...
 			int iParamCount = 0;
 			for (; iParamCount<10; iParamCount++)
 			{
@@ -132,136 +184,216 @@ namespace YAF.Classes.Core
 					// inform that the value is wrong to the admin and don't format the string...
 					Data.DB.eventlog_create(YafContext.Current.PageUserID, TransPage.ToLower() + ".ascx", String.Format("Not enough parameters for localization entry {1}.{0} -- Needs {2} parameters, has {3}.", text.ToUpper(), TransPage.ToUpper(), args.Length, i), Data.EventLogTypes.Warning);
 			*/
+      var values = new object[10];
 
-			object[] values = new object[10];
+      args.CopyTo(values, 0);
+      for (int i = args.Length; i < 10; i++)
+      {
+        values.SetValue(String.Format("[INVALID: {1}.{0} -- EMPTY PARAM #{2}]", text.ToUpper(), TransPage.ToUpper(), i), i);
+      }
 
-			args.CopyTo( values, 0 );
-			for (int i=args.Length;i<10; i++)
-			{
-				values.SetValue( String.Format( "[INVALID: {1}.{0} -- EMPTY PARAM #{2}]", text.ToUpper(), TransPage.ToUpper(), i ), i );
-			}
+      // run format command...
+      localizedText = String.Format(localizedText, values);
 
-			// run format command...
-			localizedText = String.Format( localizedText, values );
+      return localizedText;
+    }
 
-			return localizedText;
-		}
+    /// <summary>
+    /// The get text.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The get text.
+    /// </returns>
+    public string GetText(string text)
+    {
+      return GetText(TransPage, text);
+    }
 
-		public string GetText( string text )
-		{
-			return GetText( TransPage, text );
-		}
-
-		public string LoadTranslation( string fileName )
-		{
-			if ( _localizer != null )
-				return _localizer.LanguageCode;
+    /// <summary>
+    /// The load translation.
+    /// </summary>
+    /// <param name="fileName">
+    /// The file name.
+    /// </param>
+    /// <returns>
+    /// The load translation.
+    /// </returns>
+    public string LoadTranslation(string fileName)
+    {
+      if (this._localizer != null)
+      {
+        return this._localizer.LanguageCode;
+      }
 
 #if !DEBUG
 			if ( _localizer == null && HttpContext.Current.Cache ["Localizer." + fileName] != null )
 				_localizer = ( Localizer ) HttpContext.Current.Cache ["Localizer." + fileName];
 #endif
-			if ( _localizer == null )
-			{
-
-				_localizer = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/{1}", YafForumInfo.ForumFileRoot, fileName ) ) );
+      if (this._localizer == null)
+      {
+        this._localizer = new Localizer(HttpContext.Current.Server.MapPath(String.Format("{0}languages/{1}", YafForumInfo.ForumFileRoot, fileName)));
 #if !DEBUG
 				HttpContext.Current.Cache ["Localizer." + fileName] = _localizer;
 #endif
-			}
-			// If not using default language load that too
-			if ( fileName.ToLower() != "english.xml" )
-			{
+      }
+
+      // If not using default language load that too
+      if (fileName.ToLower() != "english.xml")
+      {
 #if !DEBUG
         if ( _defaultLocale == null && HttpContext.Current.Cache ["DefaultLocale"] != null )
           _defaultLocale = ( Localizer ) HttpContext.Current.Cache ["DefaultLocale"];
 #endif
 
-				if ( _defaultLocale == null )
-				{
-					_defaultLocale = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/english.xml", YafForumInfo.ForumFileRoot ) ) );
+        if (this._defaultLocale == null)
+        {
+          this._defaultLocale = new Localizer(HttpContext.Current.Server.MapPath(String.Format("{0}languages/english.xml", YafForumInfo.ForumFileRoot)));
 #if !DEBUG
           HttpContext.Current.Cache ["DefaultLocale"] = _defaultLocale;
 #endif
-				}
-			}
+        }
+      }
 
-			try
-			{
-				// try to load culture info defined in localization file
-				_culture = new CultureInfo( _localizer.LanguageCode );
-			}
-			catch
-			{
-				// if it's wrong, fall back to current culture
-				_culture = CultureInfo.CurrentCulture;
-			}
+      try
+      {
+        // try to load culture info defined in localization file
+        this._culture = new CultureInfo(this._localizer.LanguageCode);
+      }
+      catch
+      {
+        // if it's wrong, fall back to current culture
+        this._culture = CultureInfo.CurrentCulture;
+      }
 
-			_languageFileName = fileName.ToLower();
+      this._languageFileName = fileName.ToLower();
 
-			return _localizer.LanguageCode;			
-		}
+      return this._localizer.LanguageCode;
+    }
 
-		public string LoadTranslation()
-		{
-			if ( _localizer != null )
-				return _localizer.LanguageCode;
+    /// <summary>
+    /// The load translation.
+    /// </summary>
+    /// <returns>
+    /// The load translation.
+    /// </returns>
+    public string LoadTranslation()
+    {
+      if (this._localizer != null)
+      {
+        return this._localizer.LanguageCode;
+      }
 
-			string filename = null;
+      string filename = null;
 
-			if ( YafContext.Current.PageIsNull() || YafContext.Current.Page ["LanguageFile"] == DBNull.Value || !YafContext.Current.BoardSettings.AllowUserLanguage )
-			{
-				filename = YafContext.Current.BoardSettings.Language;
-			}
-			else
-			{
-				filename = YafContext.Current.LanguageFile;
-			}
+      if (YafContext.Current.PageIsNull() || YafContext.Current.Page["LanguageFile"] == DBNull.Value || !YafContext.Current.BoardSettings.AllowUserLanguage)
+      {
+        filename = YafContext.Current.BoardSettings.Language;
+      }
+      else
+      {
+        filename = YafContext.Current.LanguageFile;
+      }
 
-			if ( filename == null ) filename = "english.xml";
+      if (filename == null)
+      {
+        filename = "english.xml";
+      }
 
-			return LoadTranslation( filename );
-		}
+      return LoadTranslation(filename);
+    }
 
-		protected string GetLocalizedTextInternal( string page, string tag )
-		{
-			string localizedText;
+    /// <summary>
+    /// The get localized text internal.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <returns>
+    /// The get localized text internal.
+    /// </returns>
+    protected string GetLocalizedTextInternal(string page, string tag)
+    {
+      string localizedText;
 
-			LoadTranslation();     
+      LoadTranslation();
 
-			_localizer.SetPage( page );
-			_localizer.GetText( tag, out localizedText );
+      this._localizer.SetPage(page);
+      this._localizer.GetText(tag, out localizedText);
 
-			// If not default language, try to use that instead
-			if ( localizedText == null && _defaultLocale != null )
-			{
-				_defaultLocale.SetPage( page );
-				_defaultLocale.GetText( tag, out localizedText );
-				if ( localizedText != null ) localizedText = '[' + localizedText + ']';
-			}
+      // If not default language, try to use that instead
+      if (localizedText == null && this._defaultLocale != null)
+      {
+        this._defaultLocale.SetPage(page);
+        this._defaultLocale.GetText(tag, out localizedText);
+        if (localizedText != null)
+        {
+          localizedText = '[' + localizedText + ']';
+        }
+      }
 
-			return localizedText;
-		}
+      return localizedText;
+    }
 
-		public List<XmlNode> GetNodesUsingQuery( string page, string tagQuery )
-		{
-			LoadTranslation();
+    /// <summary>
+    /// The get nodes using query.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tagQuery">
+    /// The tag query.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public List<XmlNode> GetNodesUsingQuery(string page, string tagQuery)
+    {
+      LoadTranslation();
 
-			_localizer.SetPage( page );
-			return _localizer.GetNodesUsingQuery( tagQuery );
-		}
+      this._localizer.SetPage(page);
+      return this._localizer.GetNodesUsingQuery(tagQuery);
+    }
 
-		public bool GetTextExists( string page, string tag )
-		{
-			return !String.IsNullOrEmpty( GetLocalizedTextInternal( page, tag ) );
-		}
+    /// <summary>
+    /// The get text exists.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <returns>
+    /// The get text exists.
+    /// </returns>
+    public bool GetTextExists(string page, string tag)
+    {
+      return !String.IsNullOrEmpty(GetLocalizedTextInternal(page, tag));
+    }
 
-		public string GetText( string page, string tag )
-		{
-			string localizedText = GetLocalizedTextInternal( page, tag );
+    /// <summary>
+    /// The get text.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <returns>
+    /// The get text.
+    /// </returns>
+    public string GetText(string page, string tag)
+    {
+      string localizedText = GetLocalizedTextInternal(page, tag);
 
-			if ( localizedText == null )
-			{
+      if (localizedText == null)
+      {
 #if !DEBUG
         string filename = string.Empty;
 
@@ -280,43 +412,71 @@ namespace YAF.Classes.Core
 
         HttpContext.Current.Cache.Remove( "Localizer." + filename );
 #endif
-				YAF.Classes.Data.DB.eventlog_create( YafContext.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper() ), EventLogTypes.Error );
-				return String.Format( "[{1}.{0}]", tag.ToUpper(), page.ToUpper() );
-			}
+        DB.eventlog_create(
+          YafContext.Current.PageUserID, 
+          page.ToLower() + ".ascx", 
+          String.Format("Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper()), 
+          EventLogTypes.Error);
+        return String.Format("[{1}.{0}]", tag.ToUpper(), page.ToUpper());
+      }
 
-			localizedText = localizedText.Replace( "[b]", "<b>" );
-			localizedText = localizedText.Replace( "[/b]", "</b>" );
-			return localizedText;
-		}
+      localizedText = localizedText.Replace("[b]", "<b>");
+      localizedText = localizedText.Replace("[/b]", "</b>");
+      return localizedText;
+    }
 
-		/// <summary>
-		/// Formats string using current culture.
-		/// </summary>
-		/// <param name="format">Format string.</param>
-		/// <param name="args">Parameters used in format string.</param>
-		/// <returns>Formatted string.</returns>
-		/// <remarks>If current localization culture is neutral, it's not used in formatting.</remarks>
-		public string FormatString(string format, params object[] args)
-		{
-			if (Culture.IsNeutralCulture)
-				return String.Format(format, args);
-			else
-				return String.Format(Culture, format, args);
-		}
+    /// <summary>
+    /// Formats string using current culture.
+    /// </summary>
+    /// <param name="format">
+    /// Format string.
+    /// </param>
+    /// <param name="args">
+    /// Parameters used in format string.
+    /// </param>
+    /// <returns>
+    /// Formatted string.
+    /// </returns>
+    /// <remarks>
+    /// If current localization culture is neutral, it's not used in formatting.
+    /// </remarks>
+    public string FormatString(string format, params object[] args)
+    {
+      if (Culture.IsNeutralCulture)
+      {
+        return String.Format(format, args);
+      }
+      else
+      {
+        return String.Format(Culture, format, args);
+      }
+    }
 
-		/// <summary>
-		/// Formats date using given formatting string and current culture.
-		/// </summary>
-		/// <param name="format">Format string.</param>
-		/// <param name="date">Date to format.</param>
-		/// <returns>Formatted string.</returns>
-		/// <remarks>If current localization culture is neutral, it's not used in formatting.</remarks>
-		public string FormatDateTime(string format, DateTime date)
-		{
-			if (Culture.IsNeutralCulture)
-				return date.ToString(format);
-			else
-				return date.ToString(format, Culture);
-		}
-	}
+    /// <summary>
+    /// Formats date using given formatting string and current culture.
+    /// </summary>
+    /// <param name="format">
+    /// Format string.
+    /// </param>
+    /// <param name="date">
+    /// Date to format.
+    /// </param>
+    /// <returns>
+    /// Formatted string.
+    /// </returns>
+    /// <remarks>
+    /// If current localization culture is neutral, it's not used in formatting.
+    /// </remarks>
+    public string FormatDateTime(string format, DateTime date)
+    {
+      if (Culture.IsNeutralCulture)
+      {
+        return date.ToString(format);
+      }
+      else
+      {
+        return date.ToString(format, Culture);
+      }
+    }
+  }
 }

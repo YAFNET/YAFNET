@@ -17,62 +17,75 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
 using YAF.Classes.Core;
-using YAF.Classes.Utils;
 
 namespace YAF.Modules
 {
-	[YafModule( "Init Services Module", "Tiny Gecko", 1 )]
-	public class InitServicesModule : IBaseModule
-	{
-		private object _forumControlObj;
-		public object ForumControlObj
-		{
-			get
-			{
-				return _forumControlObj;
-			}
-			set
-			{
-				_forumControlObj = value;
-			}
-		}
+  /// <summary>
+  /// The init services module.
+  /// </summary>
+  [YafModule("Init Services Module", "Tiny Gecko", 1)]
+  public class InitServicesModule : IBaseModule
+  {
+    /// <summary>
+    /// Gets PageContext.
+    /// </summary>
+    public YafContext PageContext
+    {
+      get
+      {
+        return YafContext.Current;
+      }
+    }
 
-		public YafContext PageContext
-		{
-			get
-			{
-				return YafContext.Current;
-			}
-		}
+    #region IBaseModule Members
 
-		public void Init()
-		{
-			// initialize the base services before anyone notices...
-			YafServices.StopWatch.Start();
-			YafServices.InitializeDb.Run();
-			YafServices.BannedIps.Run();
+    /// <summary>
+    /// Gets or sets ForumControlObj.
+    /// </summary>
+    public object ForumControlObj
+    {
+      get;
 
-			// hook unload...
-			YafContext.Current.PageUnload += new EventHandler<EventArgs>( Current_PageUnload );
-		}
+      set;
+    }
 
-		void Current_PageUnload( object sender, EventArgs e )
-		{
-			// stop the stop watch in case the footer did not...
-			YafServices.StopWatch.Stop();
-		}
+    /// <summary>
+    /// The init.
+    /// </summary>
+    public void Init()
+    {
+      // initialize the base services before anyone notices...
+      YafServices.StopWatch.Start();
+      YafServices.InitializeDb.Run();
+      YafServices.BannedIps.Run();
 
-		#region IDisposable Members
+      // hook unload...
+      YafContext.Current.PageUnload += Current_PageUnload;
+    }
 
-		public void Dispose()
-		{
+    /// <summary>
+    /// The dispose.
+    /// </summary>
+    public void Dispose()
+    {
+    }
 
-		}
+    #endregion
 
-		#endregion
-	}
+    /// <summary>
+    /// The current_ page unload.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void Current_PageUnload(object sender, EventArgs e)
+    {
+      // stop the stop watch in case the footer did not...
+      YafServices.StopWatch.Stop();
+    }
+  }
 }

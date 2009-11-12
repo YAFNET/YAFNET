@@ -18,125 +18,230 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace YAF.Classes.Pattern
 {
-	/// <summary>
-	/// Provides a method for automatic overriding of a base hash...
-	/// </summary>
-	public class RegistryDictionaryOverride : RegistryDictionary
-	{
-		private bool _defaultGetOverride = true;
-		public bool DefaultGetOverride
-		{
-			get
-			{
-				return _defaultGetOverride;
-			}
-			set
-			{
-				_defaultGetOverride = value;
-			}
-		}
+  /// <summary>
+  /// Provides a method for automatic overriding of a base hash...
+  /// </summary>
+  public class RegistryDictionaryOverride : RegistryDictionary
+  {
+    /// <summary>
+    /// The _default get override.
+    /// </summary>
+    private bool _defaultGetOverride = true;
 
-		private bool _defaultSetOverride = false;
-		public bool DefaultSetOverride
-		{
-			get
-			{
-				return _defaultSetOverride;
-			}
-			set
-			{
-				_defaultSetOverride = value;
-			}
-		}
+    /// <summary>
+    /// The _default set override.
+    /// </summary>
+    private bool _defaultSetOverride = false;
 
-		public RegistryDictionary OverrideDictionary
-		{
-			get;
-			set;
-		}
+    /// <summary>
+    /// Gets or sets a value indicating whether DefaultGetOverride.
+    /// </summary>
+    public bool DefaultGetOverride
+    {
+      get
+      {
+        return this._defaultGetOverride;
+      }
 
-		public override T GetValue<T>( string name, T defaultValue )
-		{
-			return this.GetValue<T>( name, defaultValue, DefaultGetOverride );
-		}
+      set
+      {
+        this._defaultGetOverride = value;
+      }
+    }
 
-		public virtual T GetValue<T>( string name, T defaultValue, bool allowOverride )
-		{
-			if ( allowOverride && OverrideDictionary != null && OverrideDictionary.ContainsKey( name.ToLower() ) &&
-			     OverrideDictionary[name.ToLower()] != null )
-			{
-				return OverrideDictionary.GetValue<T>( name, defaultValue );
-			}
+    /// <summary>
+    /// Gets or sets a value indicating whether DefaultSetOverride.
+    /// </summary>
+    public bool DefaultSetOverride
+    {
+      get
+      {
+        return this._defaultSetOverride;
+      }
 
-			// just pull the value from this dictionary...
-			return base.GetValue<T>( name, defaultValue );
-		}
+      set
+      {
+        this._defaultSetOverride = value;
+      }
+    }
 
-		public override void SetValue<T>( string name, T value )
-		{
-			this.SetValue<T>( name, value, DefaultSetOverride );
-		}
+    /// <summary>
+    /// Gets or sets OverrideDictionary.
+    /// </summary>
+    public RegistryDictionary OverrideDictionary
+    {
+      get;
+      set;
+    }
 
-		public virtual void SetValue<T>( string name, T value, bool setOverrideOnly )
-		{
-			if ( OverrideDictionary != null )
-			{
-				if ( setOverrideOnly )
-				{
-					// just set the override dictionary...
-					OverrideDictionary.SetValue<T>( name, value );
-					return;
-				}
-				else if ( OverrideDictionary.ContainsKey( name.ToLower() ) &&
-			     OverrideDictionary[name.ToLower()] != null )
-				{
-					// set the overriden value to null/erase it...
-					OverrideDictionary.SetValue<T>( name, (T)Convert.ChangeType( null, typeof( T ) ) );
-				}
-			}
+    /// <summary>
+    /// The get value.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="defaultValue">
+    /// The default value.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public override T GetValue<T>(string name, T defaultValue)
+    {
+      return GetValue<T>(name, defaultValue, DefaultGetOverride);
+    }
 
-			// save new value in the base...
-			base.SetValue<T>( name, value );
-		}
-	}
+    /// <summary>
+    /// The get value.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="defaultValue">
+    /// The default value.
+    /// </param>
+    /// <param name="allowOverride">
+    /// The allow override.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public virtual T GetValue<T>(string name, T defaultValue, bool allowOverride)
+    {
+      if (allowOverride && OverrideDictionary != null && OverrideDictionary.ContainsKey(name.ToLower()) && OverrideDictionary[name.ToLower()] != null)
+      {
+        return OverrideDictionary.GetValue<T>(name, defaultValue);
+      }
 
-	public class RegistryDictionary : Dictionary<string, object>
-	{
-		/* Ederon : 6/16/2007 -- modified by Jaben 7/17/2009 */
-		public virtual T GetValue<T>( string name, T defaultValue )
-		{
-			if ( !ContainsKey( name.ToLower() ) ) return defaultValue;
+      // just pull the value from this dictionary...
+      return base.GetValue<T>(name, defaultValue);
+    }
 
-			object value = this[name.ToLower()];
+    /// <summary>
+    /// The set value.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    public override void SetValue<T>(string name, T value)
+    {
+      SetValue<T>(name, value, DefaultSetOverride);
+    }
 
-			if ( value == null ) return defaultValue;
+    /// <summary>
+    /// The set value.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <param name="setOverrideOnly">
+    /// The set override only.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    public virtual void SetValue<T>(string name, T value, bool setOverrideOnly)
+    {
+      if (OverrideDictionary != null)
+      {
+        if (setOverrideOnly)
+        {
+          // just set the override dictionary...
+          OverrideDictionary.SetValue<T>(name, value);
+          return;
+        }
+        else if (OverrideDictionary.ContainsKey(name.ToLower()) && OverrideDictionary[name.ToLower()] != null)
+        {
+          // set the overriden value to null/erase it...
+          OverrideDictionary.SetValue<T>(name, (T) Convert.ChangeType(null, typeof (T)));
+        }
+      }
 
-			// special handling for boolean...
-			if ( typeof( T ) == typeof( bool ) )
-			{
-				int i;
-				return int.TryParse( value.ToString(), out i )
-				       	? (T)Convert.ChangeType( Convert.ToBoolean( i ), typeof( T ) )
-				       	: (T)Convert.ChangeType( Convert.ToBoolean( value ), typeof( T ) );
-			}
-			// special handling for int values...
-			if ( typeof( T ) == typeof( int ) )
-			{
-				return (T)Convert.ChangeType( Convert.ToInt32( value ), typeof( T ) );
-			}
+      // save new value in the base...
+      base.SetValue<T>(name, value);
+    }
+  }
 
-			return (T)Convert.ChangeType( this[name.ToLower()], typeof( T ) );
-		}
+  /// <summary>
+  /// The registry dictionary.
+  /// </summary>
+  public class RegistryDictionary : Dictionary<string, object>
+  {
+    /* Ederon : 6/16/2007 -- modified by Jaben 7/17/2009 */
 
-		public virtual void SetValue<T>( string name, T value )
-		{
-			this[name.ToLower()] = typeof( T ).BaseType == typeof( bool ) ? Convert.ToString( Convert.ToInt32( value ) ) : Convert.ToString( value );
-		}
-		/* 6/16/2007 */
-	}
+    /// <summary>
+    /// The get value.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="defaultValue">
+    /// The default value.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public virtual T GetValue<T>(string name, T defaultValue)
+    {
+      if (!ContainsKey(name.ToLower()))
+      {
+        return defaultValue;
+      }
+
+      object value = this[name.ToLower()];
+
+      if (value == null)
+      {
+        return defaultValue;
+      }
+
+      // special handling for boolean...
+      if (typeof (T) == typeof (bool))
+      {
+        int i;
+        return int.TryParse(value.ToString(), out i)
+                 ? (T) Convert.ChangeType(Convert.ToBoolean(i), typeof (T))
+                 : (T) Convert.ChangeType(Convert.ToBoolean(value), typeof (T));
+      }
+
+      // special handling for int values...
+      if (typeof (T) == typeof (int))
+      {
+        return (T) Convert.ChangeType(Convert.ToInt32(value), typeof (T));
+      }
+
+      return (T) Convert.ChangeType(this[name.ToLower()], typeof (T));
+    }
+
+    /// <summary>
+    /// The set value.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    public virtual void SetValue<T>(string name, T value)
+    {
+      this[name.ToLower()] = typeof (T).BaseType == typeof (bool) ? Convert.ToString(Convert.ToInt32(value)) : Convert.ToString(value);
+    }
+
+    /* 6/16/2007 */
+  }
 }

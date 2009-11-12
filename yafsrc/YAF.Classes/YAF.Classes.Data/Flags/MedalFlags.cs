@@ -18,52 +18,129 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace YAF.Classes.Data
 {
-	[Serializable()]
-	public class MedalFlags : FlagsBase
-	{
-		#region Constructors
+  /// <summary>
+  /// The medal flags.
+  /// </summary>
+  [Serializable]
+  public class MedalFlags : FlagsBase
+  {
+    #region Constructors
 
-		public MedalFlags() : this(0) { }
-		public MedalFlags(MedalFlags.Flags flags) : this((int)flags) { }
-		public MedalFlags(object bitValue) : this((int)bitValue) { }
-		public MedalFlags(int bitValue) : base(bitValue) { }
-		public MedalFlags(params bool[] bits) : base(bits) { }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MedalFlags"/> class.
+    /// </summary>
+    public MedalFlags()
+      : this(0)
+    {
+    }
 
-		#endregion
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MedalFlags"/> class.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    public MedalFlags(Flags flags)
+      : this((int) flags)
+    {
+    }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MedalFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public MedalFlags(object bitValue)
+      : this((int) bitValue)
+    {
+    }
 
-		#region Operators
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MedalFlags"/> class.
+    /// </summary>
+    /// <param name="bitValue">
+    /// The bit value.
+    /// </param>
+    public MedalFlags(int bitValue)
+      : base(bitValue)
+    {
+    }
 
-		public static implicit operator MedalFlags(int newBitValue)
-		{
-			return new MedalFlags(newBitValue);
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MedalFlags"/> class.
+    /// </summary>
+    /// <param name="bits">
+    /// The bits.
+    /// </param>
+    public MedalFlags(params bool[] bits)
+      : base(bits)
+    {
+    }
 
-		public static implicit operator MedalFlags(MedalFlags.Flags flags)
-		{
-			return new MedalFlags(flags);
-		}
+    #endregion
 
-		#endregion
+    #region Operators
 
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="newBitValue">
+    /// The new bit value.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator MedalFlags(int newBitValue)
+    {
+      return new MedalFlags(newBitValue);
+    }
 
-		#region Flags Enumeration
+    /// <summary>
+    /// The op_ implicit.
+    /// </summary>
+    /// <param name="flags">
+    /// The flags.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static implicit operator MedalFlags(Flags flags)
+    {
+      return new MedalFlags(flags);
+    }
 
-		/// <summary>
-		/// Use for bit comparisons
-		/// </summary>
-		public enum Flags : int
-		{
-			ShowMessage = 1,
-			AllowRibbon = 2,
-			AllowHiding = 4,
-			AllowReOrdering = 8,
-			/* for future use
+    #endregion
+
+    #region Flags Enumeration
+
+    /// <summary>
+    /// Use for bit comparisons
+    /// </summary>
+    public enum Flags
+    {
+      /// <summary>
+      /// The show message.
+      /// </summary>
+      ShowMessage = 1, 
+
+      /// <summary>
+      /// The allow ribbon.
+      /// </summary>
+      AllowRibbon = 2, 
+
+      /// <summary>
+      /// The allow hiding.
+      /// </summary>
+      AllowHiding = 4, 
+
+      /// <summary>
+      /// The allow re ordering.
+      /// </summary>
+      AllowReOrdering = 8, 
+
+      /* for future use
 			xxxxxxxx = 16,
 			xxxxxxxx = 32,
 			xxxxxxxx = 64,
@@ -78,49 +155,80 @@ namespace YAF.Classes.Data
 			xxxxxxxx = 32768,
 			xxxxxxxx = 65536
 			 */
-		}
+    }
 
-		#endregion
+    #endregion
 
+    #region Single Flags (can be 32 of them)
 
-		#region Single Flags (can be 32 of them)
+    /// <summary>
+    /// Gets or sets whether medal message is shown.
+    /// </summary>
+    public virtual bool ShowMessage
+    {
+      // int value 1
+      get
+      {
+        return this[0];
+      }
 
-		/// <summary>
-		/// Gets or sets whether medal message is shown.
-		/// </summary>
-		public virtual bool ShowMessage // int value 1
-		{
-			get { return this[0]; }
-			set { this[0] = value; }
-		}
+      set
+      {
+        this[0] = value;
+      }
+    }
 
-		/// <summary>
-		/// Gets or sets whether medal can be displayed as ribbon bar.
-		/// </summary>
-		public virtual bool AllowRibbon // int value 2
-		{
-			get { return this[1]; }
-			set { this[1] = value; }
-		}
+    /// <summary>
+    /// Gets or sets whether medal can be displayed as ribbon bar.
+    /// </summary>
+    public virtual bool AllowRibbon
+    {
+      // int value 2
+      get
+      {
+        return this[1];
+      }
 
-		/// <summary>
-		/// Gets or sets whether medal can be hidden by user.
-		/// </summary>
-		public virtual bool AllowHiding // int value 4
-		{
-			get { return this[2]; }
-			set { this[2] = value; }
-		}
+      set
+      {
+        this[1] = value;
+      }
+    }
 
-		/// <summary>
-		/// Gets or sets whether medal can be re-ordered by user.
-		/// </summary>
-		public virtual bool AllowReOrdering // int value 8
-		{
-			get { return this[3]; }
-			set { this[3] = value; }
-		}
+    /// <summary>
+    /// Gets or sets whether medal can be hidden by user.
+    /// </summary>
+    public virtual bool AllowHiding
+    {
+      // int value 4
+      get
+      {
+        return this[2];
+      }
 
-		#endregion
-	}
+      set
+      {
+        this[2] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets whether medal can be re-ordered by user.
+    /// </summary>
+    public virtual bool AllowReOrdering
+    {
+      // int value 8
+      get
+      {
+        return this[3];
+      }
+
+      set
+      {
+        this[3] = value;
+      }
+    }
+
+    #endregion
+  }
 }

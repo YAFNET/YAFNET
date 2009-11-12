@@ -16,27 +16,33 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-
 namespace YAF.Classes
 {
-	/// <summary>
-	/// Defines interface for UrlBuilder class.
-	/// </summary>
-	public interface IUrlBuilder
-	{
-		/// <summary>
-		/// Builds path for calling page with URL argument as the parameter.
-		/// </summary>
-		/// <param name="url">URL to use as a parameter.</param>
-		/// <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
-		string BuildUrl(string url);
+  /// <summary>
+  /// Defines interface for UrlBuilder class.
+  /// </summary>
+  public interface IUrlBuilder
+  {
+    /// <summary>
+    /// Builds path for calling page with URL argument as the parameter.
+    /// </summary>
+    /// <param name="url">
+    /// URL to use as a parameter.
+    /// </param>
+    /// <returns>
+    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+    /// </returns>
+    string BuildUrl(string url);
 
-		/// <summary>
-		/// Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
-		/// </summary>
-		/// <param name="url">URL to use as a parameter.</param>
-		/// <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
-		string BuildUrlFull( string url );
-	}
+    /// <summary>
+    /// Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
+    /// </summary>
+    /// <param name="url">
+    /// URL to use as a parameter.
+    /// </param>
+    /// <returns>
+    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+    /// </returns>
+    string BuildUrlFull(string url);
+  }
 }

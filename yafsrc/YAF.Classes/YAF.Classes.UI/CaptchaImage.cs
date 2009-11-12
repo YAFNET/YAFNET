@@ -20,183 +20,282 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Drawing.Text;
-using System.Collections.Generic;
-using System.Text;
 
 namespace YAF.Classes.UI
 {
-	/// <summary>
-	/// CaptchaImage Class
-	/// Thanks to "prujohn" on the YAF Forum for his work.
-	/// </summary>
-	public class CaptchaImage : IDisposable
-	{
-		// Public properties (all read-only).
-		public string Text
-		{
-			get { return this.text; }
-		}
-		public Bitmap Image
-		{
-			get { return this.image; }
-		}
-		public int Width
-		{
-			get { return this.width; }
-		}
-		public int Height
-		{
-			get { return this.height; }
-		}
+  /// <summary>
+  /// CaptchaImage Class
+  /// Thanks to "prujohn" on the YAF Forum for his work.
+  /// </summary>
+  public class CaptchaImage : IDisposable
+  {
+    // Public properties (all read-only).
+    /// <summary>
+    /// The family name.
+    /// </summary>
+    private string familyName;
 
-		// Internal properties.
-		private string text;
-		private int width;
-		private int height;
-		private string familyName;
-		private Bitmap image;
+    /// <summary>
+    /// The height.
+    /// </summary>
+    private int height;
 
-		// For generating random numbers.
+    /// <summary>
+    /// The image.
+    /// </summary>
+    private Bitmap image;
 
-		// ====================================================================
-		// Initializes a new instance of the CaptchaImage class using the
-		// specified text, width and height.
-		// ====================================================================
-		public CaptchaImage( string s, int width, int height )
-		{
-			this.text = s;
-			this.SetDimensions( width, height );
-			this.GenerateImage();
-		}
+    /// <summary>
+    /// The text.
+    /// </summary>
+    private string text;
+
+    /// <summary>
+    /// The width.
+    /// </summary>
+    private int width;
+
+    // For generating random numbers.
+
+    // ====================================================================
+    // Initializes a new instance of the CaptchaImage class using the
+    // specified text, width and height.
+    // ====================================================================
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CaptchaImage"/> class.
+    /// </summary>
+    /// <param name="s">
+    /// The s.
+    /// </param>
+    /// <param name="width">
+    /// The width.
+    /// </param>
+    /// <param name="height">
+    /// The height.
+    /// </param>
+    public CaptchaImage(string s, int width, int height)
+    {
+      this.text = s;
+      SetDimensions(width, height);
+      GenerateImage();
+    }
 
 
-		// ====================================================================
-		// Initializes a new instance of the CaptchaImage class using the
-		// specified text, width, height and font family.
-		// ====================================================================
-		public CaptchaImage( string s, int width, int height, string familyName )
-		{
-			this.text = s;
-			this.SetDimensions( width, height );
-			this.SetFamilyName( familyName );
-			this.GenerateImage();
-		}
+    // ====================================================================
+    // Initializes a new instance of the CaptchaImage class using the
+    // specified text, width, height and font family.
+    // ====================================================================
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CaptchaImage"/> class.
+    /// </summary>
+    /// <param name="s">
+    /// The s.
+    /// </param>
+    /// <param name="width">
+    /// The width.
+    /// </param>
+    /// <param name="height">
+    /// The height.
+    /// </param>
+    /// <param name="familyName">
+    /// The family name.
+    /// </param>
+    public CaptchaImage(string s, int width, int height, string familyName)
+    {
+      this.text = s;
+      SetDimensions(width, height);
+      SetFamilyName(familyName);
+      GenerateImage();
+    }
 
-		// ====================================================================
-		// Sets the image width and height.
-		// ====================================================================
-		private void SetDimensions( int width, int height )
-		{
-			// Check the width and height.
-			if ( width <= 0 )
-				throw new ArgumentOutOfRangeException( "width", width, "Argument out of range, must be greater than zero." );
-			if ( height <= 0 )
-				throw new ArgumentOutOfRangeException( "height", height, "Argument out of range, must be greater than zero." );
-			this.width = width;
-			this.height = height;
-		}
+    /// <summary>
+    /// Gets Text.
+    /// </summary>
+    public string Text
+    {
+      get
+      {
+        return this.text;
+      }
+    }
 
-		// ====================================================================
-		// Sets the font used for the image text.
-		// ====================================================================
-		private void SetFamilyName( string familyName )
-		{
-			// If the named font is not installed, default to a system font.
-			try
-			{
-				Font font = new Font( this.familyName, 12F );
-				this.familyName = familyName;
-				font.Dispose();
-			}
-			catch
-			{
-				this.familyName = System.Drawing.FontFamily.GenericSerif.Name;
-			}
-		}
+    /// <summary>
+    /// Gets Image.
+    /// </summary>
+    public Bitmap Image
+    {
+      get
+      {
+        return this.image;
+      }
+    }
 
-		// ====================================================================
-		// Creates the bitmap image.
-		// ====================================================================
-		private void GenerateImage()
-		{
-			Random r = new Random();
-			// Create a new 32-bit bitmap image.
-			Bitmap bitmap = new Bitmap( this.width, this.height, PixelFormat.Format32bppArgb );
+    /// <summary>
+    /// Gets Width.
+    /// </summary>
+    public int Width
+    {
+      get
+      {
+        return this.width;
+      }
+    }
 
-			// Create a graphics object for drawing.
-			Graphics g = Graphics.FromImage( bitmap );
-			g.SmoothingMode = SmoothingMode.AntiAlias;
-			Rectangle rect = new Rectangle( 0, 0, this.width, this.height );
+    /// <summary>
+    /// Gets Height.
+    /// </summary>
+    public int Height
+    {
+      get
+      {
+        return this.height;
+      }
+    }
 
-			// Fill in the background.
-			HatchBrush hatchBrush = new HatchBrush( HatchStyle.SmallConfetti, Color.LightGray, Color.White );
-			g.FillRectangle( hatchBrush, rect );
+    #region IDisposable Members
 
-			// Set up the text font.
-			SizeF size;
-			float fontSize = rect.Height + 1;
-			Font font;
-			// Adjust the font size until the text fits within the image.
-			do
-			{
-				fontSize--;
-				font = new Font( this.familyName, fontSize, FontStyle.Bold );
-				size = g.MeasureString( this.text, font );
-			} while ( size.Width > rect.Width );
+    /// <summary>
+    /// The i disposable. dispose.
+    /// </summary>
+    void IDisposable.Dispose()
+    {
+      GC.SuppressFinalize(this);
+      this.image.Dispose();
+    }
 
-			// Set up the text format.
-			StringFormat format = new StringFormat();
-			format.Alignment = StringAlignment.Center;
-			format.LineAlignment = StringAlignment.Center;
+    #endregion
 
-			// Create a path using the text and warp it randomly.
-			GraphicsPath path = new GraphicsPath();
-			path.AddString( this.text, font.FontFamily, ( int ) font.Style, font.Size, rect, format );
-			float v = 4F;
-			PointF [] points =
-			{
-				new PointF(r.Next(rect.Width) / v, r.Next(rect.Height) / v),
-				new PointF(rect.Width - r.Next(rect.Width) / v, r.Next(rect.Height) / v),
-				new PointF(r.Next(rect.Width) / v, rect.Height - r.Next(rect.Height) / v),
-				new PointF(rect.Width - r.Next(rect.Width) / v, rect.Height - r.Next(rect.Height) / v)
-			};
-			Matrix matrix = new Matrix();
-			matrix.Translate( 0F, 0F );
-			path.Warp( points, rect, matrix, WarpMode.Perspective, 0F );
+    // ====================================================================
+    // Sets the image width and height.
+    // ====================================================================
+    /// <summary>
+    /// The set dimensions.
+    /// </summary>
+    /// <param name="width">
+    /// The width.
+    /// </param>
+    /// <param name="height">
+    /// The height.
+    /// </param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// </exception>
+    private void SetDimensions(int width, int height)
+    {
+      // Check the width and height.
+      if (width <= 0)
+      {
+        throw new ArgumentOutOfRangeException("width", width, "Argument out of range, must be greater than zero.");
+      }
 
-			// Draw the text.
-			hatchBrush = new HatchBrush( HatchStyle.LargeConfetti, Color.LightSkyBlue, Color.DarkGray );
-			g.FillPath( hatchBrush, path );
-			
-			// Add some random noise.
-			int m = Math.Max( rect.Width, rect.Height );
-			for ( int i = 0; i < ( int ) ( rect.Width * rect.Height / 30F ); i++ )
-			{
-				int x = r.Next( rect.Width );
-				int y = r.Next( rect.Height );
-				int w = r.Next( m / 50 );
-				int h = r.Next( m / 50 );
-				g.FillEllipse( hatchBrush, x, y, w, h );
-			}
+      if (height <= 0)
+      {
+        throw new ArgumentOutOfRangeException("height", height, "Argument out of range, must be greater than zero.");
+      }
 
-			// Clean up.
-			font.Dispose();
-			hatchBrush.Dispose();
-			g.Dispose();
+      this.width = width;
+      this.height = height;
+    }
 
-			// Set the image.
-			this.image = bitmap;
-		}
+    // ====================================================================
+    // Sets the font used for the image text.
+    // ====================================================================
+    /// <summary>
+    /// The set family name.
+    /// </summary>
+    /// <param name="familyName">
+    /// The family name.
+    /// </param>
+    private void SetFamilyName(string familyName)
+    {
+      // If the named font is not installed, default to a system font.
+      try
+      {
+        var font = new Font(this.familyName, 12F);
+        this.familyName = familyName;
+        font.Dispose();
+      }
+      catch
+      {
+        this.familyName = FontFamily.GenericSerif.Name;
+      }
+    }
 
-		#region IDisposable Members
+    // ====================================================================
+    // Creates the bitmap image.
+    // ====================================================================
+    /// <summary>
+    /// The generate image.
+    /// </summary>
+    private void GenerateImage()
+    {
+      var r = new Random();
 
-		void IDisposable.Dispose()
-		{
-			GC.SuppressFinalize( this );
-			this.image.Dispose();
-		}
+      // Create a new 32-bit bitmap image.
+      var bitmap = new Bitmap(this.width, this.height, PixelFormat.Format32bppArgb);
 
-		#endregion
-	}
+      // Create a graphics object for drawing.
+      Graphics g = Graphics.FromImage(bitmap);
+      g.SmoothingMode = SmoothingMode.AntiAlias;
+      var rect = new Rectangle(0, 0, this.width, this.height);
+
+      // Fill in the background.
+      var hatchBrush = new HatchBrush(HatchStyle.SmallConfetti, Color.LightGray, Color.White);
+      g.FillRectangle(hatchBrush, rect);
+
+      // Set up the text font.
+      SizeF size;
+      float fontSize = rect.Height + 1;
+      Font font;
+
+      // Adjust the font size until the text fits within the image.
+      do
+      {
+        fontSize--;
+        font = new Font(this.familyName, fontSize, FontStyle.Bold);
+        size = g.MeasureString(this.text, font);
+      }
+ while (size.Width > rect.Width);
+
+      // Set up the text format.
+      var format = new StringFormat();
+      format.Alignment = StringAlignment.Center;
+      format.LineAlignment = StringAlignment.Center;
+
+      // Create a path using the text and warp it randomly.
+      var path = new GraphicsPath();
+      path.AddString(this.text, font.FontFamily, (int) font.Style, font.Size, rect, format);
+      float v = 4F;
+      PointF[] points = {
+                          new PointF(r.Next(rect.Width)/v, r.Next(rect.Height)/v), new PointF(rect.Width - r.Next(rect.Width)/v, r.Next(rect.Height)/v), 
+                          new PointF(r.Next(rect.Width)/v, rect.Height - r.Next(rect.Height)/v), 
+                          new PointF(rect.Width - r.Next(rect.Width)/v, rect.Height - r.Next(rect.Height)/v)
+                        };
+      var matrix = new Matrix();
+      matrix.Translate(0F, 0F);
+      path.Warp(points, rect, matrix, WarpMode.Perspective, 0F);
+
+      // Draw the text.
+      hatchBrush = new HatchBrush(HatchStyle.LargeConfetti, Color.LightSkyBlue, Color.DarkGray);
+      g.FillPath(hatchBrush, path);
+
+      // Add some random noise.
+      int m = Math.Max(rect.Width, rect.Height);
+      for (int i = 0; i < (int) (rect.Width*rect.Height/30F); i++)
+      {
+        int x = r.Next(rect.Width);
+        int y = r.Next(rect.Height);
+        int w = r.Next(m/50);
+        int h = r.Next(m/50);
+        g.FillEllipse(hatchBrush, x, y, w, h);
+      }
+
+      // Clean up.
+      font.Dispose();
+      hatchBrush.Dispose();
+      g.Dispose();
+
+      // Set the image.
+      this.image = bitmap;
+    }
+  }
 }

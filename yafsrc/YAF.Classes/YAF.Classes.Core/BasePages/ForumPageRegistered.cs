@@ -17,29 +17,32 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Classes.Core
 {
-	/// <summary>
-	/// Summary description for AdminPage.
-	/// </summary>
-	public class ForumPageRegistered : ForumPage
-	{
-		/// <summary>
-		/// Creates the Administration page.
-		/// </summary>
-		public ForumPageRegistered()
-			: this(null)
-		{
-		}
+  /// <summary>
+  /// Summary description for AdminPage.
+  /// </summary>
+  public class ForumPageRegistered : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumPageRegistered"/> class. 
+    /// Creates the Administration page.
+    /// </summary>
+    public ForumPageRegistered()
+      : this(null)
+    {
+    }
 
-		public ForumPageRegistered(string transPage)
-			: base(transPage)
-		{
-			_isRegisteredPage = true;
-		}
-	}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumPageRegistered"/> class.
+    /// </summary>
+    /// <param name="transPage">
+    /// The trans page.
+    /// </param>
+    public ForumPageRegistered(string transPage)
+      : base(transPage)
+    {
+      _isRegisteredPage = true;
+    }
+  }
 }
