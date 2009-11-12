@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
 
@@ -24,19 +23,19 @@ using System.Security;
 [assembly: Guid("26f518ec-9424-4d31-90fa-d1e5700b3c95")]
 
 // Version information for an assembly consists of the following four values:
-//
 //      Major Version
 //      Minor Version 
 //      Build Number
 //      Revision
-//
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("1.9.4.0")]
 [assembly: AssemblyFileVersion("1.9.4.0")]
 
 #if (!COMPACT_FRAMEWORK)
+
 [assembly: AllowPartiallyTrustedCallers]
 #endif
-[assembly: AssemblyDelaySign( false )]
-[assembly: AssemblyKeyFile( "..\\YetAnotherForum.NET.snk" )]
+
+[assembly: AssemblyDelaySign(false)]
+[assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]

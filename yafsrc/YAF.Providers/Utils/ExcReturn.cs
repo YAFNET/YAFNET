@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace YAFProviders.Utils
 {
-    class ExcReturn
-    {
-    }
+  /// <summary>
+  /// The exc return.
+  /// </summary>
+  internal class ExcReturn
+  {
+  }
 }

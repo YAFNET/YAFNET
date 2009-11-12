@@ -16,18 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using System.Configuration.Provider;
-using System.Configuration;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Web.Security;
-using System.Text.RegularExpressions;
-using System.Security.Cryptography;
 using System.Data;
 using System.Data.SqlClient;
 using YAF.Classes;
@@ -37,188 +26,253 @@ using YAF.Classes.Pattern;
 
 namespace YAF.Providers.Roles
 {
-	public class YafRolesDBConnManager : YafDBConnManager
-	{
-		public override string ConnectionString
-		{
-			get
-			{
-				if ( YafContext.Application[YafRoleProvider.ConnStrAppKeyName] != null )
-				{
-					return YafContext.Application[YafRoleProvider.ConnStrAppKeyName] as string;
-				}
+  /// <summary>
+  /// The yaf roles db conn manager.
+  /// </summary>
+  public class YafRolesDBConnManager : YafDBConnManager
+  {
+    /// <summary>
+    /// Gets ConnectionString.
+    /// </summary>
+    public override string ConnectionString
+    {
+      get
+      {
+        if (YafContext.Application[YafRoleProvider.ConnStrAppKeyName] != null)
+        {
+          return YafContext.Application[YafRoleProvider.ConnStrAppKeyName] as string;
+        }
 
-				return Config.ConnectionString;
-			}
-		}
-	}
+        return Config.ConnectionString;
+      }
+    }
+  }
 
-	public class DB
-	{
-		private YafDBAccess _dbAccess = new YafDBAccess();
+  /// <summary>
+  /// The db.
+  /// </summary>
+  public class DB
+  {
+    /// <summary>
+    /// The _db access.
+    /// </summary>
+    private YafDBAccess _dbAccess = new YafDBAccess();
 
-		public static DB Current
-		{
-			get
-			{
-				return PageSingleton<DB>.Instance;
-			}
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DB"/> class.
+    /// </summary>
+    public DB()
+    {
+      this._dbAccess.SetConnectionManagerAdapter<YafRolesDBConnManager>();
+    }
 
-		public DB()
-		{
-			_dbAccess.SetConnectionManagerAdapter<YafRolesDBConnManager>();
-		}
+    /// <summary>
+    /// Gets Current.
+    /// </summary>
+    public static DB Current
+    {
+      get
+      {
+        return PageSingleton<DB>.Instance;
+      }
+    }
 
-		/// <summary>
-		/// Database Action - Add User to Role
-		/// </summary>
-		/// <param name="appName">Application Name</param>
-		/// <param name="userName">User Name</param>
-		/// <param name="roleName">Role Name</param>
-		/// <returns></returns>
-		public void AddUserToRole( object appName, object userName, object roleName )
-		{
-			using ( SqlCommand cmd = new SqlCommand( YafDBAccess.GetObjectName( "prov_role_addusertorole" ) ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ApplicationName", appName );
-				cmd.Parameters.AddWithValue( "Username", userName );
-				cmd.Parameters.AddWithValue( "RoleName", roleName );
-				_dbAccess.ExecuteNonQuery( cmd );
-			}
-		}
+    /// <summary>
+    /// Database Action - Add User to Role
+    /// </summary>
+    /// <param name="appName">
+    /// Application Name
+    /// </param>
+    /// <param name="userName">
+    /// User Name
+    /// </param>
+    /// <param name="roleName">
+    /// Role Name
+    /// </param>
+    public void AddUserToRole(object appName, object userName, object roleName)
+    {
+      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_role_addusertorole")))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("ApplicationName", appName);
+        cmd.Parameters.AddWithValue("Username", userName);
+        cmd.Parameters.AddWithValue("RoleName", roleName);
+        this._dbAccess.ExecuteNonQuery(cmd);
+      }
+    }
 
-		/// <summary>
-		/// Database Action - Create Role
-		/// </summary>
-		/// <param name="appName">Application Name</param>
-		/// <param name="roleName">Role Name</param>
-		/// <returns></returns>
-		public void CreateRole( object appName, object roleName )
-		{
-			using ( SqlCommand cmd = new SqlCommand( YafDBAccess.GetObjectName( "prov_role_createrole" ) ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ApplicationName", appName );
-				cmd.Parameters.AddWithValue( "RoleName", roleName );
-				_dbAccess.ExecuteNonQuery( cmd );
-			}
-		}
+    /// <summary>
+    /// Database Action - Create Role
+    /// </summary>
+    /// <param name="appName">
+    /// Application Name
+    /// </param>
+    /// <param name="roleName">
+    /// Role Name
+    /// </param>
+    public void CreateRole(object appName, object roleName)
+    {
+      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_role_createrole")))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("ApplicationName", appName);
+        cmd.Parameters.AddWithValue("RoleName", roleName);
+        this._dbAccess.ExecuteNonQuery(cmd);
+      }
+    }
 
-		/// <summary>
-		/// Database Action - Delete Role
-		/// </summary>
-		/// <param name="appName">Application Name</param>
-		/// <param name="roleName">Role Name</param>
-		/// <returns>Status as integer</returns>
-		public int DeleteRole( object appName, object roleName, object deleteOnlyIfRoleIsEmpty )
-		{
-			using ( SqlCommand cmd = new SqlCommand( YafDBAccess.GetObjectName( "prov_role_deleterole" ) ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ApplicationName", appName );
-				cmd.Parameters.AddWithValue( "RoleName", roleName );
-				cmd.Parameters.AddWithValue( "DeleteOnlyIfRoleIsEmpty", deleteOnlyIfRoleIsEmpty );
+    /// <summary>
+    /// Database Action - Delete Role
+    /// </summary>
+    /// <param name="appName">
+    /// Application Name
+    /// </param>
+    /// <param name="roleName">
+    /// Role Name
+    /// </param>
+    /// <param name="deleteOnlyIfRoleIsEmpty">
+    /// The delete Only If Role Is Empty.
+    /// </param>
+    /// <returns>
+    /// Status as integer
+    /// </returns>
+    public int DeleteRole(object appName, object roleName, object deleteOnlyIfRoleIsEmpty)
+    {
+      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_role_deleterole")))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("ApplicationName", appName);
+        cmd.Parameters.AddWithValue("RoleName", roleName);
+        cmd.Parameters.AddWithValue("DeleteOnlyIfRoleIsEmpty", deleteOnlyIfRoleIsEmpty);
 
-				SqlParameter p = new SqlParameter( "ReturnValue", SqlDbType.Int );
-				p.Direction = ParameterDirection.ReturnValue;
-				cmd.Parameters.Add( p );
+        var p = new SqlParameter("ReturnValue", SqlDbType.Int);
+        p.Direction = ParameterDirection.ReturnValue;
+        cmd.Parameters.Add(p);
 
-				_dbAccess.ExecuteNonQuery( cmd );
+        this._dbAccess.ExecuteNonQuery(cmd);
 
-				return Convert.ToInt32( cmd.Parameters["ReturnValue"].Value );
-			}
-		}
+        return Convert.ToInt32(cmd.Parameters["ReturnValue"].Value);
+      }
+    }
 
-		/// <summary>
-		/// Database Action - Find Users in Role
-		/// </summary>
-		/// <param name="appName">Application Name</param>
-		/// <param name="roleName">Role Name</param>
-		/// <returns>Datatable containing User Information</returns>
-		public DataTable FindUsersInRole( object appName, object roleName )
-		{
-			using ( SqlCommand cmd = new SqlCommand( YafDBAccess.GetObjectName( "prov_role_findusersinrole" ) ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ApplicationName", appName );
-				cmd.Parameters.AddWithValue( "RoleName", roleName );
-				return _dbAccess.GetData( cmd );
-			}
-		}
+    /// <summary>
+    /// Database Action - Find Users in Role
+    /// </summary>
+    /// <param name="appName">
+    /// Application Name
+    /// </param>
+    /// <param name="roleName">
+    /// Role Name
+    /// </param>
+    /// <returns>
+    /// Datatable containing User Information
+    /// </returns>
+    public DataTable FindUsersInRole(object appName, object roleName)
+    {
+      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_role_findusersinrole")))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("ApplicationName", appName);
+        cmd.Parameters.AddWithValue("RoleName", roleName);
+        return this._dbAccess.GetData(cmd);
+      }
+    }
 
-		/// <summary>
-		/// Database Action - Get Roles
-		/// </summary>
-		/// <param name="appName">Application Name</param>
-		/// <param name="roleNames">Role Name</param>
-		/// <returns>Database containing Role Information</returns>
-		public DataTable GetRoles( object appName, object username )
-		{
-			using ( SqlCommand cmd = new SqlCommand( YafDBAccess.GetObjectName( "prov_role_getroles" ) ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ApplicationName", appName );
-				cmd.Parameters.AddWithValue( "Username", username );
-				return _dbAccess.GetData( cmd );
-			}
-		}
+    /// <summary>
+    /// Database Action - Get Roles
+    /// </summary>
+    /// <param name="appName">
+    /// Application Name
+    /// </param>
+    /// <param name="username">
+    /// The username.
+    /// </param>
+    /// <returns>
+    /// Database containing Role Information
+    /// </returns>
+    public DataTable GetRoles(object appName, object username)
+    {
+      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_role_getroles")))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("ApplicationName", appName);
+        cmd.Parameters.AddWithValue("Username", username);
+        return this._dbAccess.GetData(cmd);
+      }
+    }
 
-		/// <summary>
-		/// Database Action - Get Role Exists
-		/// </summary>
-		/// <param name="appName">Application Name</param>
-		/// <param name="roleName">Role Name</param>
-		/// <returns>Database containing Role Information</returns>
-		public object GetRoleExists( object appName, object roleName )
-		{
-			using ( SqlCommand cmd = new SqlCommand( YafDBAccess.GetObjectName( "prov_role_exists" ) ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ApplicationName", appName );
-				cmd.Parameters.AddWithValue( "RoleName", roleName );
-				return _dbAccess.ExecuteScalar( cmd );
-			}
-		}
+    /// <summary>
+    /// Database Action - Get Role Exists
+    /// </summary>
+    /// <param name="appName">
+    /// Application Name
+    /// </param>
+    /// <param name="roleName">
+    /// Role Name
+    /// </param>
+    /// <returns>
+    /// Database containing Role Information
+    /// </returns>
+    public object GetRoleExists(object appName, object roleName)
+    {
+      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_role_exists")))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("ApplicationName", appName);
+        cmd.Parameters.AddWithValue("RoleName", roleName);
+        return this._dbAccess.ExecuteScalar(cmd);
+      }
+    }
 
-		/// <summary>
-		/// Database Action - Add User to Role
-		/// </summary>
-		/// <param name="appName">Application Name</param>
-		/// <param name="userName">User Name</param>
-		/// <param name="roleName">Role Name</param>
-		/// <returns>DataTable with user information</returns>
-		public DataTable IsUserInRole( object appName, object userName, object roleName )
-		{
-			using ( SqlCommand cmd = new SqlCommand( YafDBAccess.GetObjectName( "prov_role_isuserinrole" ) ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ApplicationName", appName );
-				cmd.Parameters.AddWithValue( "Username", userName );
-				cmd.Parameters.AddWithValue( "RoleName", roleName );
-				return _dbAccess.GetData( cmd );
-			}
-		}
+    /// <summary>
+    /// Database Action - Add User to Role
+    /// </summary>
+    /// <param name="appName">
+    /// Application Name
+    /// </param>
+    /// <param name="userName">
+    /// User Name
+    /// </param>
+    /// <param name="roleName">
+    /// Role Name
+    /// </param>
+    /// <returns>
+    /// DataTable with user information
+    /// </returns>
+    public DataTable IsUserInRole(object appName, object userName, object roleName)
+    {
+      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_role_isuserinrole")))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("ApplicationName", appName);
+        cmd.Parameters.AddWithValue("Username", userName);
+        cmd.Parameters.AddWithValue("RoleName", roleName);
+        return this._dbAccess.GetData(cmd);
+      }
+    }
 
-		/// <summary>
-		/// Database Action - Remove User From Role
-		/// </summary>
-		/// <param name="appName">Application Name</param>
-		/// <param name="userName">User Name</param>
-		/// <param name="roleName">Role Name</param>
-		/// <returns></returns>
-		public void RemoveUserFromRole( object appName, string userName, string roleName )
-		{
-			using ( SqlCommand cmd = new SqlCommand( YafDBAccess.GetObjectName( "prov_role_removeuserfromrole" ) ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ApplicationName", appName );
-				cmd.Parameters.AddWithValue( "Username", userName );
-				cmd.Parameters.AddWithValue( "RoleName", roleName );
-				_dbAccess.ExecuteNonQuery( cmd );
-			}
-
-		}
-	}
+    /// <summary>
+    /// Database Action - Remove User From Role
+    /// </summary>
+    /// <param name="appName">
+    /// Application Name
+    /// </param>
+    /// <param name="userName">
+    /// User Name
+    /// </param>
+    /// <param name="roleName">
+    /// Role Name
+    /// </param>
+    public void RemoveUserFromRole(object appName, string userName, string roleName)
+    {
+      using (var cmd = new SqlCommand(YafDBAccess.GetObjectName("prov_role_removeuserfromrole")))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("ApplicationName", appName);
+        cmd.Parameters.AddWithValue("Username", userName);
+        cmd.Parameters.AddWithValue("RoleName", roleName);
+        this._dbAccess.ExecuteNonQuery(cmd);
+      }
+    }
+  }
 }

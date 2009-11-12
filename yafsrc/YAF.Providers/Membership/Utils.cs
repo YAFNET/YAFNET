@@ -17,53 +17,116 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace YAF.Providers.Membership
 {
-	public static class CleanUtils
-	{
-		public static DateTime ToDate( object obj )
-		{
-			if ( obj != DBNull.Value )
-				return Convert.ToDateTime( obj.ToString() );
-			else
-				return DateTime.Now;
-		}
+  /// <summary>
+  /// The clean utils.
+  /// </summary>
+  public static class CleanUtils
+  {
+    /// <summary>
+    /// The to date.
+    /// </summary>
+    /// <param name="obj">
+    /// The obj.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DateTime ToDate(object obj)
+    {
+      if (obj != DBNull.Value)
+      {
+        return Convert.ToDateTime(obj.ToString());
+      }
+      else
+      {
+        return DateTime.Now;
+      }
+    }
 
-		public static string ToString( object obj )
-		{
-			if ( obj != DBNull.Value )
-				return obj.ToString();
-			else
-				return String.Empty;
-		}
+    /// <summary>
+    /// The to string.
+    /// </summary>
+    /// <param name="obj">
+    /// The obj.
+    /// </param>
+    /// <returns>
+    /// The to string.
+    /// </returns>
+    public static string ToString(object obj)
+    {
+      if (obj != DBNull.Value)
+      {
+        return obj.ToString();
+      }
+      else
+      {
+        return String.Empty;
+      }
+    }
 
-		public static bool ToBool( object obj )
-		{
-			if ( obj != DBNull.Value )
-				return Convert.ToBoolean( obj );
-			else
-				return false;
-		}
+    /// <summary>
+    /// The to bool.
+    /// </summary>
+    /// <param name="obj">
+    /// The obj.
+    /// </param>
+    /// <returns>
+    /// The to bool.
+    /// </returns>
+    public static bool ToBool(object obj)
+    {
+      if (obj != DBNull.Value)
+      {
+        return Convert.ToBoolean(obj);
+      }
+      else
+      {
+        return false;
+      }
+    }
 
-		public static int ToInt( object obj )
-		{
-			if ( obj != DBNull.Value )
-				return Convert.ToInt32( obj );
-			else
-				return 0;
-		}
+    /// <summary>
+    /// The to int.
+    /// </summary>
+    /// <param name="obj">
+    /// The obj.
+    /// </param>
+    /// <returns>
+    /// The to int.
+    /// </returns>
+    public static int ToInt(object obj)
+    {
+      if (obj != DBNull.Value)
+      {
+        return Convert.ToInt32(obj);
+      }
+      else
+      {
+        return 0;
+      }
+    }
 
-        public static string toHexString(byte[] hashedBytes)
-        {
-            StringBuilder hashedSB = new StringBuilder(hashedBytes.Length * 2 + 2);
-            foreach (byte b in hashedBytes)
-            {
-                hashedSB.AppendFormat("{0:X2}", b);
-            }
-            return hashedSB.ToString();
-        }
-	}
+    /// <summary>
+    /// The to hex string.
+    /// </summary>
+    /// <param name="hashedBytes">
+    /// The hashed bytes.
+    /// </param>
+    /// <returns>
+    /// The to hex string.
+    /// </returns>
+    public static string toHexString(byte[] hashedBytes)
+    {
+      var hashedSB = new StringBuilder(hashedBytes.Length*2 + 2);
+      foreach (byte b in hashedBytes)
+      {
+        hashedSB.AppendFormat("{0:X2}", b);
+      }
+
+      return hashedSB.ToString();
+    }
+  }
 }

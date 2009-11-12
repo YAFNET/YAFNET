@@ -17,169 +17,421 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
+using YAF.Providers.Utils;
 
 namespace YAF.Providers.Membership
 {
-	class UserPasswordInfo
-	{
-		// Instance Variables
-		string _password, _passwordSalt, _passwordQuestion, _passwordAnswer;
-		int _passwordFormat, _failedPasswordAttempts, _failedAnswerAttempts;
-		bool _isApproved, _useSalt, _hashHex, _msCompliant;
-		string _hashCase, _hashRemoveChars;
-		DateTime _lastLogin, _lastActivity;
+  /// <summary>
+  /// The user password info.
+  /// </summary>
+  internal class UserPasswordInfo
+  {
+    // Instance Variables
+    /// <summary>
+    /// The _failed answer attempts.
+    /// </summary>
+    private int _failedAnswerAttempts;
 
-		/// <summary>
-		/// Called to create a new UserPasswordInfo class instance.
-		/// </summary>
-		/// <param name="password"></param>
-		/// <param name="passwordSalt"></param>
-		/// <param name="passwordQuestion"></param>
-		/// <param name="passwordAnswer"></param>
-		/// <param name="passwordFormat"></param>
-		/// <param name="failedPasswordAttempts"></param>
-		/// <param name="failedAnswerAttempts"></param>
-		/// <param name="isApproved"></param>
-		/// <param name="useSalt"></param>
-		/// <param name="lastLogin"></param>
-		/// <param name="lastActivity"></param>
-		public UserPasswordInfo( string password, string passwordSalt, string passwordQuestion, string passwordAnswer,
-														int passwordFormat, int failedPasswordAttempts, int failedAnswerAttempts,
-																												bool isApproved, bool useSalt, DateTime lastLogin, DateTime lastActivity, bool hashHex, string hashCase, string hashRemoveChars, bool msCompliant )
-		{
-			// nothing to do except set the local variables...
-			_password = password;
-			_passwordSalt = passwordSalt;
-			_passwordQuestion = passwordQuestion;
-			_passwordAnswer = passwordAnswer;
-			_passwordFormat = passwordFormat;
-			_failedPasswordAttempts = failedPasswordAttempts;
-			_failedAnswerAttempts = failedAnswerAttempts;
-			_isApproved = isApproved;
-			_lastLogin = lastLogin;
-			_lastActivity = lastActivity;
-			_useSalt = useSalt;
-			_hashHex = hashHex;
-			_hashCase = hashCase;
-			_hashRemoveChars = hashRemoveChars;
-			_msCompliant = msCompliant;
-		}
+    /// <summary>
+    /// The _failed password attempts.
+    /// </summary>
+    private int _failedPasswordAttempts;
 
-		// used to create an instance of this class from the DB...
-		public static UserPasswordInfo CreateInstanceFromDB( string appName, string username, bool updateUser, bool useSalt, bool hashHex, string hashCase, string hashRemoveChars, bool msCompliant )
-		{
-			DataTable userData = DB.Current.GetUserPasswordInfo( appName, username, updateUser );
+    /// <summary>
+    /// The _hash case.
+    /// </summary>
+    private string _hashCase;
 
-			if ( userData.Rows.Count > 0 )
-			{
-				DataRow userInfo = userData.Rows[0];
-				// create a new instance of the UserPasswordInfo class
-				return new UserPasswordInfo( Utils.Transform.ToString( userInfo["Password"] ), Utils.Transform.ToString( userInfo["PasswordSalt"] ), Utils.Transform.ToString( userInfo["PasswordQuestion"] ), Utils.Transform.ToString( userInfo["PasswordAnswer"] ),
-																		Utils.Transform.ToInt( userInfo["PasswordFormat"] ), Utils.Transform.ToInt( userInfo["FailedPasswordAttempts"] ), Utils.Transform.ToInt( userInfo["FailedAnswerAttempts"] ),
-																		Utils.Transform.ToBool( userInfo["IsApproved"] ), useSalt, Utils.Transform.ToDateTime( userInfo["LastLogin"] ), Utils.Transform.ToDateTime( userInfo["LastActivity"] ), hashHex, hashCase, hashRemoveChars, msCompliant );
-			}
+    /// <summary>
+    /// The _hash hex.
+    /// </summary>
+    private bool _hashHex;
 
-			// nothing found, return null.
-			return null;
-		}
+    /// <summary>
+    /// The _hash remove chars.
+    /// </summary>
+    private string _hashRemoveChars;
 
-		/// <summary>
-		/// Checks the password against the one provided for validity
-		/// </summary>
-		/// <param name="passwordToCheck"></param>
-		/// <returns></returns>
-		public bool IsCorrectPassword( string passwordToCheck )
-		{
-			return this.Password.Equals( YafMembershipProvider.EncodeString( passwordToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.HashHex, this.hashCase, this.hashRemoveChars, this.msCompliant ) );
-		}
+    /// <summary>
+    /// The _is approved.
+    /// </summary>
+    private bool _isApproved;
 
-		/// <summary>
-		/// Checks the user answer against the one provided for validity
-		/// </summary>
-		/// <param name="answerToCheck"></param>
-		/// <returns></returns>
-		public bool IsCorrectAnswer( string answerToCheck )
-		{
-			return this.PasswordAnswer.Equals( ( YafMembershipProvider.EncodeString( answerToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.HashHex, this.hashCase, this.hashRemoveChars, this.msCompliant ) ) );
-		}
+    /// <summary>
+    /// The _last activity.
+    /// </summary>
+    private DateTime _lastActivity;
 
-		public string Password
-		{
-			get { return _password; }
-		}
+    /// <summary>
+    /// The _last login.
+    /// </summary>
+    private DateTime _lastLogin;
 
-		public string PasswordQuestion
-		{
-			get { return _passwordQuestion; }
-		}
+    /// <summary>
+    /// The _ms compliant.
+    /// </summary>
+    private bool _msCompliant;
 
-		public string PasswordAnswer
-		{
-			get { return _passwordAnswer; }
-		}
+    /// <summary>
+    /// The _password.
+    /// </summary>
+    private string _password;
 
-		public string PasswordSalt
-		{
-			get { return _passwordSalt; }
-		}
+    /// <summary>
+    /// The _password answer.
+    /// </summary>
+    private string _passwordAnswer;
 
-		public int PasswordFormat
-		{
-			get { return _passwordFormat; }
-		}
+    /// <summary>
+    /// The _password format.
+    /// </summary>
+    private int _passwordFormat;
 
-		public int FailedPasswordAttempts
-		{
-			get { return _failedPasswordAttempts; }
-		}
+    /// <summary>
+    /// The _password question.
+    /// </summary>
+    private string _passwordQuestion;
 
-		public int FailedAnswerAttempts
-		{
-			get { return _failedAnswerAttempts; }
-		}
+    /// <summary>
+    /// The _password salt.
+    /// </summary>
+    private string _passwordSalt;
 
-		public bool IsApproved
-		{
-			get { return _isApproved; }
-		}
+    /// <summary>
+    /// The _use salt.
+    /// </summary>
+    private bool _useSalt;
 
-		public DateTime LastLogin
-		{
-			get { return _lastLogin; }
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserPasswordInfo"/> class. 
+    /// Called to create a new UserPasswordInfo class instance.
+    /// </summary>
+    /// <param name="password">
+    /// </param>
+    /// <param name="passwordSalt">
+    /// </param>
+    /// <param name="passwordQuestion">
+    /// </param>
+    /// <param name="passwordAnswer">
+    /// </param>
+    /// <param name="passwordFormat">
+    /// </param>
+    /// <param name="failedPasswordAttempts">
+    /// </param>
+    /// <param name="failedAnswerAttempts">
+    /// </param>
+    /// <param name="isApproved">
+    /// </param>
+    /// <param name="useSalt">
+    /// </param>
+    /// <param name="lastLogin">
+    /// </param>
+    /// <param name="lastActivity">
+    /// </param>
+    /// <param name="hashHex">
+    /// The hash Hex.
+    /// </param>
+    /// <param name="hashCase">
+    /// The hash Case.
+    /// </param>
+    /// <param name="hashRemoveChars">
+    /// The hash Remove Chars.
+    /// </param>
+    /// <param name="msCompliant">
+    /// The ms Compliant.
+    /// </param>
+    public UserPasswordInfo(
+      string password, 
+      string passwordSalt, 
+      string passwordQuestion, 
+      string passwordAnswer, 
+      int passwordFormat, 
+      int failedPasswordAttempts, 
+      int failedAnswerAttempts, 
+      bool isApproved, 
+      bool useSalt, 
+      DateTime lastLogin, 
+      DateTime lastActivity, 
+      bool hashHex, 
+      string hashCase, 
+      string hashRemoveChars, 
+      bool msCompliant)
+    {
+      // nothing to do except set the local variables...
+      this._password = password;
+      this._passwordSalt = passwordSalt;
+      this._passwordQuestion = passwordQuestion;
+      this._passwordAnswer = passwordAnswer;
+      this._passwordFormat = passwordFormat;
+      this._failedPasswordAttempts = failedPasswordAttempts;
+      this._failedAnswerAttempts = failedAnswerAttempts;
+      this._isApproved = isApproved;
+      this._lastLogin = lastLogin;
+      this._lastActivity = lastActivity;
+      this._useSalt = useSalt;
+      this._hashHex = hashHex;
+      this._hashCase = hashCase;
+      this._hashRemoveChars = hashRemoveChars;
+      this._msCompliant = msCompliant;
+    }
 
-		public DateTime LastActivity
-		{
-			get { return _lastActivity; }
-		}
+    // used to create an instance of this class from the DB...
 
-		public Boolean UseSalt
-		{
-			get { return _useSalt; }
-		}
+    /// <summary>
+    /// Gets Password.
+    /// </summary>
+    public string Password
+    {
+      get
+      {
+        return this._password;
+      }
+    }
 
-		public Boolean HashHex
-		{
-			get { return _hashHex; }
-		}
+    /// <summary>
+    /// Gets PasswordQuestion.
+    /// </summary>
+    public string PasswordQuestion
+    {
+      get
+      {
+        return this._passwordQuestion;
+      }
+    }
 
-		public String hashCase
-		{
-			get { return _hashCase; }
-		}
+    /// <summary>
+    /// Gets PasswordAnswer.
+    /// </summary>
+    public string PasswordAnswer
+    {
+      get
+      {
+        return this._passwordAnswer;
+      }
+    }
 
-		public String hashRemoveChars
-		{
-			get { return _hashRemoveChars; }
-		}
+    /// <summary>
+    /// Gets PasswordSalt.
+    /// </summary>
+    public string PasswordSalt
+    {
+      get
+      {
+        return this._passwordSalt;
+      }
+    }
 
-		public bool msCompliant
-		{
-			get { return _msCompliant; }
-		}
+    /// <summary>
+    /// Gets PasswordFormat.
+    /// </summary>
+    public int PasswordFormat
+    {
+      get
+      {
+        return this._passwordFormat;
+      }
+    }
 
-	}
+    /// <summary>
+    /// Gets FailedPasswordAttempts.
+    /// </summary>
+    public int FailedPasswordAttempts
+    {
+      get
+      {
+        return this._failedPasswordAttempts;
+      }
+    }
+
+    /// <summary>
+    /// Gets FailedAnswerAttempts.
+    /// </summary>
+    public int FailedAnswerAttempts
+    {
+      get
+      {
+        return this._failedAnswerAttempts;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether IsApproved.
+    /// </summary>
+    public bool IsApproved
+    {
+      get
+      {
+        return this._isApproved;
+      }
+    }
+
+    /// <summary>
+    /// Gets LastLogin.
+    /// </summary>
+    public DateTime LastLogin
+    {
+      get
+      {
+        return this._lastLogin;
+      }
+    }
+
+    /// <summary>
+    /// Gets LastActivity.
+    /// </summary>
+    public DateTime LastActivity
+    {
+      get
+      {
+        return this._lastActivity;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UseSalt.
+    /// </summary>
+    public bool UseSalt
+    {
+      get
+      {
+        return this._useSalt;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether HashHex.
+    /// </summary>
+    public bool HashHex
+    {
+      get
+      {
+        return this._hashHex;
+      }
+    }
+
+    /// <summary>
+    /// Gets hashCase.
+    /// </summary>
+    public string hashCase
+    {
+      get
+      {
+        return this._hashCase;
+      }
+    }
+
+    /// <summary>
+    /// Gets hashRemoveChars.
+    /// </summary>
+    public string hashRemoveChars
+    {
+      get
+      {
+        return this._hashRemoveChars;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether msCompliant.
+    /// </summary>
+    public bool msCompliant
+    {
+      get
+      {
+        return this._msCompliant;
+      }
+    }
+
+    /// <summary>
+    /// The create instance from db.
+    /// </summary>
+    /// <param name="appName">
+    /// The app name.
+    /// </param>
+    /// <param name="username">
+    /// The username.
+    /// </param>
+    /// <param name="updateUser">
+    /// The update user.
+    /// </param>
+    /// <param name="useSalt">
+    /// The use salt.
+    /// </param>
+    /// <param name="hashHex">
+    /// The hash hex.
+    /// </param>
+    /// <param name="hashCase">
+    /// The hash case.
+    /// </param>
+    /// <param name="hashRemoveChars">
+    /// The hash remove chars.
+    /// </param>
+    /// <param name="msCompliant">
+    /// The ms compliant.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static UserPasswordInfo CreateInstanceFromDB(
+      string appName, string username, bool updateUser, bool useSalt, bool hashHex, string hashCase, string hashRemoveChars, bool msCompliant)
+    {
+      DataTable userData = DB.Current.GetUserPasswordInfo(appName, username, updateUser);
+
+      if (userData.Rows.Count > 0)
+      {
+        DataRow userInfo = userData.Rows[0];
+
+        // create a new instance of the UserPasswordInfo class
+        return new UserPasswordInfo(
+          Transform.ToString(userInfo["Password"]), 
+          Transform.ToString(userInfo["PasswordSalt"]), 
+          Transform.ToString(userInfo["PasswordQuestion"]), 
+          Transform.ToString(userInfo["PasswordAnswer"]), 
+          Transform.ToInt(userInfo["PasswordFormat"]), 
+          Transform.ToInt(userInfo["FailedPasswordAttempts"]), 
+          Transform.ToInt(userInfo["FailedAnswerAttempts"]), 
+          Transform.ToBool(userInfo["IsApproved"]), 
+          useSalt, 
+          Transform.ToDateTime(userInfo["LastLogin"]), 
+          Transform.ToDateTime(userInfo["LastActivity"]), 
+          hashHex, 
+          hashCase, 
+          hashRemoveChars, 
+          msCompliant);
+      }
+
+      // nothing found, return null.
+      return null;
+    }
+
+    /// <summary>
+    /// Checks the password against the one provided for validity
+    /// </summary>
+    /// <param name="passwordToCheck">
+    /// </param>
+    /// <returns>
+    /// The is correct password.
+    /// </returns>
+    public bool IsCorrectPassword(string passwordToCheck)
+    {
+      return
+        Password.Equals(
+          YafMembershipProvider.EncodeString(passwordToCheck, PasswordFormat, PasswordSalt, UseSalt, HashHex, hashCase, hashRemoveChars, msCompliant));
+    }
+
+    /// <summary>
+    /// Checks the user answer against the one provided for validity
+    /// </summary>
+    /// <param name="answerToCheck">
+    /// </param>
+    /// <returns>
+    /// The is correct answer.
+    /// </returns>
+    public bool IsCorrectAnswer(string answerToCheck)
+    {
+      return
+        PasswordAnswer.Equals(
+          YafMembershipProvider.EncodeString(answerToCheck, PasswordFormat, PasswordSalt, UseSalt, HashHex, hashCase, hashRemoveChars, msCompliant));
+    }
+  }
 }
