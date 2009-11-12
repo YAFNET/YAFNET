@@ -390,6 +390,9 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!PageContext.BoardSettings.AllowGuestToReportPost && PageContext.CurrentUserData.IsGuest)
+            ReportButtons.Visible = false;
+       
       Utility.RegisterTypeForAjax(typeof (ThankYou));
 
       string AddThankBoxHTML =
@@ -452,7 +455,7 @@ namespace YAF.Controls
         this.btnTogglePost.Visible = true;
         this.btnTogglePost.Attributes["onclick"] = string.Format("toggleMessage('{0}'); return false;", this.panMessage.ClientID);
         this.panMessage.Style["display"] = "none";
-      }
+      }     
     }
 
     /// <summary>

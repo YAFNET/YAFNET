@@ -79,14 +79,15 @@
                     <YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
                         TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
        </div>
-       <div class="rightItem postInfoRight" visible="<%#PageContext.BoardSettings.AllowGuestToReportPost%>">
+       <div class="rightItem postInfoRight" >
+         <span id="ReportButtons" runat="server">
             &nbsp;<asp:LinkButton ID="ReportAbuseLinkButton" CommandName="ReportAbuse" CommandArgument='<%# DataRow["MessageID"] %>'
                 runat="server"></asp:LinkButton>            |
             <asp:LinkButton ID="ReportSpamButton" CommandName="ReportSpam" CommandArgument='<%# DataRow["MessageID"] %>'
                 runat="server"></asp:LinkButton>            |
-             <asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>'
-                runat="server"></asp:LinkButton>              
-            <span id="AdminInformation" runat="server" class="smallfont"></span>
+            <asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>'
+                runat="server" visible="true" ></asp:LinkButton></span>             
+         <span id="AdminInformation" runat="server" class="smallfont"></span>
        </div>
     </td>
 </tr>
