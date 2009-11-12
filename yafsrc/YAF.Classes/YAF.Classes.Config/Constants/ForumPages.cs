@@ -102,7 +102,12 @@ namespace YAF.Classes
     /// <summary>
     /// The members.
     /// </summary>
-    members, 
+    members,
+
+    /// <summary>
+    /// The page to report posts message.
+    /// </summary>
+    reportpost,
 
     /// <summary>
     /// The cp_pm.

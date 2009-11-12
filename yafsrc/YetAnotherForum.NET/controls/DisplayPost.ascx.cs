@@ -969,13 +969,17 @@ namespace YAF.Controls
         default:
 
           // TODO: vzrus: required a window to enter custom report text with Report and Cancel buttons 
-          // Not sure how to implement it YAF-like ;)                  
+          // Not sure how to implement it YAF-like ;) 
+                 
           reportMessage = "Message reported!";
           break;
       }
-
-      DB.message_report(reportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today, reportMessage);
-
+      if (reportFlag < 9)
+          DB.message_report(reportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today, reportMessage);
+      else
+          Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.reportpost, "m={0}", e.CommandArgument.ToString()));
+     
+         // Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", DataRow["MessageID"]));
       PageContext.AddLoadMessage(PageContext.Localization.GetText("REPORTEDFEEDBACK"));
     }
   }
