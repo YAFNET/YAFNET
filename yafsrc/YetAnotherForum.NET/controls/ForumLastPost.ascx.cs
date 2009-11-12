@@ -16,76 +16,90 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
-	/// <summary>
-	/// Renders the "Last Post" part of the Forum Topics
-	/// </summary>
-	public partial class ForumLastPost : YAF.Classes.Core.BaseUserControl
-	{
-		public ForumLastPost()
-		{
-			this.PreRender += new EventHandler( ForumLastPost_PreRender );
-		}
+  using System;
+  using System.Data;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-		void ForumLastPost_PreRender( object sender, EventArgs e )
-		{
-			if ( DataRow != null )
-			{
-				if ( int.Parse( DataRow ["ReadAccess"].ToString() ) == 0 )
-				{
-					TopicInPlaceHolder.Visible = false;
-				}
+  /// <summary>
+  /// Renders the "Last Post" part of the Forum Topics
+  /// </summary>
+  public partial class ForumLastPost : BaseUserControl
+  {
+    /// <summary>
+    /// The _data row.
+    /// </summary>
+    private DataRow _dataRow = null;
 
-				if ( DataRow ["LastPosted"] != DBNull.Value )
-				{
-					LastPosted.Text = YafServices.DateTime.FormatDateTimeTopic( DataRow ["LastPosted"] );
-					topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "t={0}", DataRow ["LastTopicID"] );
-					topicLink.Text = StringHelper.Truncate( YafServices.BadWordReplace.Replace( DataRow ["LastTopicName"].ToString() ), 50 );
-					ProfileUserLink.UserID = Convert.ToInt32( DataRow ["LastUserID"] );
-					ProfileUserLink.UserName = DataRow ["LastUser"].ToString();
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumLastPost"/> class.
+    /// </summary>
+    public ForumLastPost()
+    {
+      PreRender += new EventHandler(ForumLastPost_PreRender);
+    }
 
-					LastTopicImgLink.ToolTip = PageContext.Localization.GetText( "GO_LAST_POST" );
-					LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "m={0}#post{0}", DataRow ["LastMessageID"] );
-					Icon.ThemeTag = ( DateTime.Parse( Convert.ToString( DataRow ["LastPosted"] ) ) > Mession.GetTopicRead( ( int ) DataRow ["LastTopicID"] ) ) ? "ICON_NEWEST" : "ICON_LATEST";
+    /// <summary>
+    /// Gets or sets DataRow.
+    /// </summary>
+    public DataRow DataRow
+    {
+      get
+      {
+        return this._dataRow;
+      }
 
-					LastPostedHolder.Visible = true;
-					NoPostsLabel.Visible = false;
-				}
-				else
-				{
-					// show "no posts"
-					LastPostedHolder.Visible = false;
-					NoPostsLabel.Visible = true;
-				}
-			}
-		}
+      set
+      {
+        this._dataRow = value;
+      }
+    }
 
-		private DataRow _dataRow = null;
-		public DataRow DataRow
-		{
-			get
-			{
-				return _dataRow;
-			}
-			set
-			{
-				_dataRow = value;
-			}
-		}
-	}
+    /// <summary>
+    /// The forum last post_ pre render.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumLastPost_PreRender(object sender, EventArgs e)
+    {
+      if (DataRow != null)
+      {
+        if (int.Parse(DataRow["ReadAccess"].ToString()) == 0)
+        {
+          this.TopicInPlaceHolder.Visible = false;
+        }
+
+        if (DataRow["LastPosted"] != DBNull.Value)
+        {
+          this.LastPosted.Text = YafServices.DateTime.FormatDateTimeTopic(DataRow["LastPosted"]);
+          this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", DataRow["LastTopicID"]);
+          this.topicLink.Text = StringHelper.Truncate(YafServices.BadWordReplace.Replace(DataRow["LastTopicName"].ToString()), 50);
+          this.ProfileUserLink.UserID = Convert.ToInt32(DataRow["LastUserID"]);
+          this.ProfileUserLink.UserName = DataRow["LastUser"].ToString();
+
+          this.LastTopicImgLink.ToolTip = PageContext.Localization.GetText("GO_LAST_POST");
+          this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", DataRow["LastMessageID"]);
+          this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(DataRow["LastPosted"])) > Mession.GetTopicRead((int) DataRow["LastTopicID"]))
+                                 ? "ICON_NEWEST"
+                                 : "ICON_LATEST";
+
+          this.LastPostedHolder.Visible = true;
+          this.NoPostsLabel.Visible = false;
+        }
+        else
+        {
+          // show "no posts"
+          this.LastPostedHolder.Visible = false;
+          this.NoPostsLabel.Visible = true;
+        }
+      }
+    }
+  }
 }

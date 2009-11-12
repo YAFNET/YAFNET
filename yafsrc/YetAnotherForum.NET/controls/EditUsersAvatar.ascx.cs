@@ -16,254 +16,338 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Web.Security;
-using System.Globalization;
-using System.Collections.Specialized;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
-	public partial class EditUsersAvatar : YAF.Classes.Core.BaseUserControl
-	{
-		private int CurrentUserID;
-		private bool AdminEditMode = false;
+  using System;
+  using System.Data;
+  using System.Drawing;
+  using System.Drawing.Imaging;
+  using System.IO;
+  using System.Security.Cryptography;
+  using System.Text;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, EventArgs e )
-		{
-			PageContext.QueryIDs = new QueryStringIDHelper( "u" );
+  /// <summary>
+  /// The edit users avatar.
+  /// </summary>
+  public partial class EditUsersAvatar : BaseUserControl
+  {
+    /// <summary>
+    /// The admin edit mode.
+    /// </summary>
+    private bool _adminEditMode = false;
 
-			if ( AdminEditMode && PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey( "u" ) )
-			{
-				CurrentUserID = (int)PageContext.QueryIDs["u"];
-			}
-			else
-			{
-				CurrentUserID = PageContext.PageUserID;
-			}
+    /// <summary>
+    /// The current user id.
+    /// </summary>
+    private int _currentUserID;
 
-			if ( !IsPostBack )
-			{
-				// check if it's a link from the avatar picker
-				if ( Request.QueryString["av"] != null )
-				{
-					// save the avatar right now...
-					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{0}{1}/{2}", YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, Request.QueryString["av"] ), null, null );
-					// clear the cache for this user...
-					UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
-				}
+    /// <summary>
+    /// Gets or sets a value indicating whether InAdminPages.
+    /// </summary>
+    public bool InAdminPages
+    {
+      get
+      {
+        return this._adminEditMode;
+      }
 
-				UpdateRemote.Text = PageContext.Localization.GetText( "COMMON", "UPDATE" );
-				UpdateUpload.Text = PageContext.Localization.GetText( "COMMON", "UPDATE" );
-				Back.Text = PageContext.Localization.GetText( "COMMON", "BACK" );
+      set
+      {
+        this._adminEditMode = value;
+      }
+    }
 
-				NoAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "NOAVATAR" );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      PageContext.QueryIDs = new QueryStringIDHelper("u");
 
-				DeleteAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "AVATARDELETE" );
-				DeleteAvatar.Attributes["onclick"] = string.Format( "return confirm('{0}?')", PageContext.Localization.GetText( "CP_EDITAVATAR", "AVATARDELETE" ) );
+      if (this._adminEditMode && PageContext.IsAdmin && PageContext.QueryIDs.ContainsKey("u"))
+      {
+        this._currentUserID = (int) PageContext.QueryIDs["u"];
+      }
+      else
+      {
+        this._currentUserID = PageContext.PageUserID;
+      }
 
-				string addAdminParam = "";
-				if ( AdminEditMode ) addAdminParam = "u=" + CurrentUserID.ToString();
+      if (!IsPostBack)
+      {
+        // check if it's a link from the avatar picker
+        if (Request.QueryString["av"] != null)
+        {
+          // save the avatar right now...
+          DB.user_saveavatar(
+            this._currentUserID, string.Format("{0}{1}/{2}", YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, Request.QueryString["av"]), null, null);
 
-				OurAvatar.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.avatar, addAdminParam );
-				OurAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "OURAVATAR_SELECT" );
-			}
+          // clear the cache for this user...
+          UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
+        }
 
-			BindData();
-		}
+        this.UpdateRemote.Text = PageContext.Localization.GetText("COMMON", "UPDATE");
+        this.UpdateUpload.Text = PageContext.Localization.GetText("COMMON", "UPDATE");
+        this.Back.Text = PageContext.Localization.GetText("COMMON", "BACK");
 
-		private void BindData()
-		{
-			DataRow row;
+        this.NoAvatar.Text = PageContext.Localization.GetText("CP_EDITAVATAR", "NOAVATAR");
 
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, null ) )
-			{
-				row = dt.Rows[0];
-			}
+        this.DeleteAvatar.Text = PageContext.Localization.GetText("CP_EDITAVATAR", "AVATARDELETE");
+        this.DeleteAvatar.Attributes["onclick"] = string.Format("return confirm('{0}?')", PageContext.Localization.GetText("CP_EDITAVATAR", "AVATARDELETE"));
 
-			AvatarImg.Visible = true;
-			Avatar.Text = "";
-			DeleteAvatar.Visible = false;
-			NoAvatar.Visible = false;
+        string addAdminParam = string.Empty;
+        if (this._adminEditMode)
+        {
+          addAdminParam = "u=" + this._currentUserID.ToString();
+        }
 
-			if ( PageContext.BoardSettings.AvatarUpload && row["HasAvatarImage"] != null && long.Parse( row["HasAvatarImage"].ToString() ) > 0 )
-			{
-				AvatarImg.ImageUrl = String.Format( "{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, CurrentUserID );
-				Avatar.Text = "";
-				DeleteAvatar.Visible = true;
-			}
-			else if ( row["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
-			{
-				AvatarImg.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
-					Server.UrlEncode( row["Avatar"].ToString() ),
-					PageContext.BoardSettings.AvatarWidth,
-					PageContext.BoardSettings.AvatarHeight,
-					YafForumInfo.ForumRoot );
+        this.OurAvatar.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.avatar, addAdminParam);
+        this.OurAvatar.Text = PageContext.Localization.GetText("CP_EDITAVATAR", "OURAVATAR_SELECT");
+      }
 
-				Avatar.Text = row["Avatar"].ToString();
-				DeleteAvatar.Visible = true;
-			}
-			else if ( PageContext.BoardSettings.AvatarGravatar )
-			{
-				System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
-				byte[] bs = System.Text.Encoding.UTF8.GetBytes( PageContext.User.Email );
-				bs = x.ComputeHash( bs );
-				System.Text.StringBuilder s = new System.Text.StringBuilder();
-				foreach ( byte b in bs )
-				{
-					s.Append( b.ToString( "x2" ).ToLower() );
-				}
-				string emailHash = s.ToString();
+      BindData();
+    }
 
-				string gravatarUrl = "http://www.gravatar.com/avatar/" + emailHash + ".jpg?r=" + PageContext.BoardSettings.GravatarRating;
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      DataRow row;
 
-				AvatarImg.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
-				Server.UrlEncode( gravatarUrl ),
-				PageContext.BoardSettings.AvatarWidth,
-				PageContext.BoardSettings.AvatarHeight,
-				YafForumInfo.ForumRoot );
+      using (DataTable dt = DB.user_list(PageContext.PageBoardID, this._currentUserID, null))
+      {
+        row = dt.Rows[0];
+      }
 
-				NoAvatar.Text = "Gravatar Image";
-				NoAvatar.Visible = true;
-			}
-			else
-			{
-				AvatarImg.ImageUrl = "../images/noavatar.gif";
-				NoAvatar.Visible = true;
-			}
+      this.AvatarImg.Visible = true;
+      this.Avatar.Text = string.Empty;
+      this.DeleteAvatar.Visible = false;
+      this.NoAvatar.Visible = false;
 
-			int rowSpan = 2;
+      if (PageContext.BoardSettings.AvatarUpload && row["HasAvatarImage"] != null && long.Parse(row["HasAvatarImage"].ToString()) > 0)
+      {
+        this.AvatarImg.ImageUrl = String.Format("{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, this._currentUserID);
+        this.Avatar.Text = string.Empty;
+        this.DeleteAvatar.Visible = true;
+      }
+      else if (row["Avatar"].ToString().Length > 0)
+      {
+        // Took out PageContext.BoardSettings.AvatarRemote
+        this.AvatarImg.ImageUrl = String.Format(
+          "{3}resource.ashx?url={0}&width={1}&height={2}", 
+          Server.UrlEncode(row["Avatar"].ToString()), 
+          PageContext.BoardSettings.AvatarWidth, 
+          PageContext.BoardSettings.AvatarHeight, 
+          YafForumInfo.ForumRoot);
 
-			AvatarUploadRow.Visible = ( AdminEditMode ? true : PageContext.BoardSettings.AvatarUpload );
-			AvatarRemoteRow.Visible = ( AdminEditMode ? true : PageContext.BoardSettings.AvatarRemote );
+        this.Avatar.Text = row["Avatar"].ToString();
+        this.DeleteAvatar.Visible = true;
+      }
+      else if (PageContext.BoardSettings.AvatarGravatar)
+      {
+        var x = new MD5CryptoServiceProvider();
+        byte[] bs = Encoding.UTF8.GetBytes(PageContext.User.Email);
+        bs = x.ComputeHash(bs);
+        var s = new StringBuilder();
+        foreach (byte b in bs)
+        {
+          s.Append(b.ToString("x2").ToLower());
+        }
 
-			if ( AdminEditMode || PageContext.BoardSettings.AvatarUpload ) rowSpan++;
-			if ( AdminEditMode || PageContext.BoardSettings.AvatarRemote ) rowSpan++;
+        string emailHash = s.ToString();
 
-			avatarImageTD.RowSpan = rowSpan;
-		}
+        string gravatarUrl = "http://www.gravatar.com/avatar/" + emailHash + ".jpg?r=" + PageContext.BoardSettings.GravatarRating;
 
-		protected void DeleteAvatar_Click( object sender, System.EventArgs e )
-		{
-			YAF.Classes.Data.DB.user_deleteavatar( CurrentUserID );
-			// clear the cache for this user...
-			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
-			BindData();
-		}
+        this.AvatarImg.ImageUrl = String.Format(
+          "{3}resource.ashx?url={0}&width={1}&height={2}", 
+          Server.UrlEncode(gravatarUrl), 
+          PageContext.BoardSettings.AvatarWidth, 
+          PageContext.BoardSettings.AvatarHeight, 
+          YafForumInfo.ForumRoot);
 
-		protected void Back_Click( object sender, System.EventArgs e )
-		{
-			if ( AdminEditMode )
-				YafBuildLink.Redirect( ForumPages.admin_users );
-			else
-				YafBuildLink.Redirect( ForumPages.cp_profile );
-		}
+        this.NoAvatar.Text = "Gravatar Image";
+        this.NoAvatar.Visible = true;
+      }
+      else
+      {
+        this.AvatarImg.ImageUrl = "../images/noavatar.gif";
+        this.NoAvatar.Visible = true;
+      }
 
-		protected void RemoteUpdate_Click( object sender, System.EventArgs e )
-		{
-			if ( Avatar.Text.Length > 0 && !Avatar.Text.StartsWith( "http://" ) )
-				Avatar.Text = "http://" + Avatar.Text;
+      int rowSpan = 2;
 
-			// update
-			YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, Avatar.Text.Trim(), null, null );
-			// clear the cache for this user...
-			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
+      this.AvatarUploadRow.Visible = this._adminEditMode ? true : PageContext.BoardSettings.AvatarUpload;
+      this.AvatarRemoteRow.Visible = this._adminEditMode ? true : PageContext.BoardSettings.AvatarRemote;
 
-			// clear the URL out...
-			Avatar.Text = "";
+      if (this._adminEditMode || PageContext.BoardSettings.AvatarUpload)
+      {
+        rowSpan++;
+      }
 
-			BindData();
-		}
+      if (this._adminEditMode || PageContext.BoardSettings.AvatarRemote)
+      {
+        rowSpan++;
+      }
 
-		protected void UploadUpdate_Click( object sender, System.EventArgs e )
-		{
-			if ( File.PostedFile != null && File.PostedFile.FileName.Trim().Length > 0 && File.PostedFile.ContentLength > 0 )
-			{
-				long x = PageContext.BoardSettings.AvatarWidth;
-				long y = PageContext.BoardSettings.AvatarHeight;
-				int nAvatarSize = PageContext.BoardSettings.AvatarSize;
+      this.avatarImageTD.RowSpan = rowSpan;
+    }
 
-				System.IO.Stream resized = null;
+    /// <summary>
+    /// The delete avatar_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void DeleteAvatar_Click(object sender, EventArgs e)
+    {
+      DB.user_deleteavatar(this._currentUserID);
 
-				try
-				{
-					using ( System.Drawing.Image img = System.Drawing.Image.FromStream( File.PostedFile.InputStream ) )
-					{
-						if ( img.Width > x || img.Height > y )
-						{
-							PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_TOOBIG" ), x, y ) );
-							PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_SIZE" ), img.Width, img.Height ) );
-							PageContext.AddLoadMessage( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_RESIZED" ) );
+      // clear the cache for this user...
+      UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
+      BindData();
+    }
 
-							double newWidth = img.Width;
-							double newHeight = img.Height;
-							if ( newWidth > x )
-							{
-								newHeight = newHeight * x / newWidth;
-								newWidth = x;
-							}
-							if ( newHeight > y )
-							{
-								newWidth = newWidth * y / newHeight;
-								newHeight = y;
-							}
+    /// <summary>
+    /// The back_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Back_Click(object sender, EventArgs e)
+    {
+      if (this._adminEditMode)
+      {
+        YafBuildLink.Redirect(ForumPages.admin_users);
+      }
+      else
+      {
+        YafBuildLink.Redirect(ForumPages.cp_profile);
+      }
+    }
 
-							using ( System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap( img, new System.Drawing.Size( (int)newWidth, (int)newHeight ) ) )
-							{
-								resized = new System.IO.MemoryStream();
-								bitmap.Save( resized, System.Drawing.Imaging.ImageFormat.Jpeg );
-							}
-						}
-						if ( nAvatarSize > 0 && File.PostedFile.ContentLength >= nAvatarSize && resized == null )
-						{
-							PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_BIGFILE" ), nAvatarSize ) );
-							PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_FILESIZE" ), File.PostedFile.ContentLength ) );
-							return;
-						}
+    /// <summary>
+    /// The remote update_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void RemoteUpdate_Click(object sender, EventArgs e)
+    {
+      if (this.Avatar.Text.Length > 0 && !this.Avatar.Text.StartsWith("http://"))
+      {
+        this.Avatar.Text = "http://" + this.Avatar.Text;
+      }
 
-						if ( resized == null )
-						{
-							YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, File.PostedFile.InputStream, File.PostedFile.ContentType );
-						}
-						else
-						{
-							YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, resized, "image/jpeg" );
-						}
+      // update
+      DB.user_saveavatar(this._currentUserID, this.Avatar.Text.Trim(), null, null);
 
-						// clear the cache for this user...
-						UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
-					}
-				}
-				catch
-				{
-					// image is probably invalid...
-					PageContext.AddLoadMessage( PageContext.Localization.GetText( "CP_EDITAVATAR", "INVALID_FILE" ) );
-				}
+      // clear the cache for this user...
+      UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
 
-				BindData();
-			}
-		}
+      // clear the URL out...
+      this.Avatar.Text = string.Empty;
 
-		public bool InAdminPages
-		{
-			get
-			{
-				return AdminEditMode;
-			}
-			set
-			{
-				AdminEditMode = value;
-			}
-		}
-	}
+      BindData();
+    }
+
+    /// <summary>
+    /// The upload update_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void UploadUpdate_Click(object sender, EventArgs e)
+    {
+      if (this.File.PostedFile != null && this.File.PostedFile.FileName.Trim().Length > 0 && this.File.PostedFile.ContentLength > 0)
+      {
+        long x = PageContext.BoardSettings.AvatarWidth;
+        long y = PageContext.BoardSettings.AvatarHeight;
+        int nAvatarSize = PageContext.BoardSettings.AvatarSize;
+
+        Stream resized = null;
+
+        try
+        {
+          using (Image img = Image.FromStream(this.File.PostedFile.InputStream))
+          {
+            if (img.Width > x || img.Height > y)
+            {
+              PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_TOOBIG"), x, y));
+              PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_SIZE"), img.Width, img.Height));
+              PageContext.AddLoadMessage(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_RESIZED"));
+
+              double newWidth = img.Width;
+              double newHeight = img.Height;
+              if (newWidth > x)
+              {
+                newHeight = newHeight * x / newWidth;
+                newWidth = x;
+              }
+
+              if (newHeight > y)
+              {
+                newWidth = newWidth * y / newHeight;
+                newHeight = y;
+              }
+
+              using (var bitmap = new Bitmap(img, new Size((int) newWidth, (int) newHeight)))
+              {
+                resized = new MemoryStream();
+                bitmap.Save(resized, ImageFormat.Jpeg);
+              }
+            }
+
+            if (nAvatarSize > 0 && this.File.PostedFile.ContentLength >= nAvatarSize && resized == null)
+            {
+              PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_BIGFILE"), nAvatarSize));
+              PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("CP_EDITAVATAR", "WARN_FILESIZE"), this.File.PostedFile.ContentLength));
+              return;
+            }
+
+            if (resized == null)
+            {
+              DB.user_saveavatar(this._currentUserID, null, this.File.PostedFile.InputStream, this.File.PostedFile.ContentType);
+            }
+            else
+            {
+              DB.user_saveavatar(this._currentUserID, null, resized, "image/jpeg");
+            }
+
+            // clear the cache for this user...
+            UserMembershipHelper.ClearCacheForUserId(this._currentUserID);
+          }
+        }
+        catch
+        {
+          // image is probably invalid...
+          PageContext.AddLoadMessage(PageContext.Localization.GetText("CP_EDITAVATAR", "INVALID_FILE"));
+        }
+
+        BindData();
+      }
+    }
+  }
 }

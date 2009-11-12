@@ -17,49 +17,54 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Drawing;
-using System.Collections;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-using YAF.Classes.UI;
-
 namespace YAF.Controls
 {
-	/// <summary>
-	///		Summary description for DisplayAd.
-	/// </summary>
-	public partial class DisplayAd : YAF.Classes.Core.BaseUserControl
-	{
-		private bool _isAlt = false;
+  using System;
+  using YAF.Classes.Core;
+
+  /// <summary>
+  /// Summary description for DisplayAd.
+  /// </summary>
+  public partial class DisplayAd : BaseUserControl
+  {
+    /// <summary>
+    /// Gets or sets a value indicating whether IsAlt.
+    /// </summary>
+    public bool IsAlt
+    {
+      get;
+
+      set;
+    }
 
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			AdMessage.Message = PageContext.BoardSettings.AdPost;
-			AdMessage.Signature = PageContext.Localization.GetText( "AD_SIGNATURE" );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      this.AdMessage.Message = PageContext.BoardSettings.AdPost;
+      this.AdMessage.Signature = PageContext.Localization.GetText("AD_SIGNATURE");
 
-			AdMessage.MessageFlags.IsLocked = true;
-			AdMessage.MessageFlags.NotFormatted = true;
-		}
+      this.AdMessage.MessageFlags.IsLocked = true;
+      this.AdMessage.MessageFlags.NotFormatted = true;
+    }
 
-		protected string GetPostClass()
-		{
-			if ( this.IsAlt )
-				return "post_alt";
-			else
-				return "post";
-		}
-
-		public bool IsAlt
-		{
-			get { return this._isAlt; }
-			set { this._isAlt = value; }
-		}
-	}
+    /// <summary>
+    /// The get post class.
+    /// </summary>
+    /// <returns>
+    /// The get post class.
+    /// </returns>
+    protected string GetPostClass()
+    {
+      return this.IsAlt ? "post_alt" : "post";
+    }
+  }
 }

@@ -17,115 +17,159 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Classes;
-
 namespace YAF.Controls
 {
-	using System;
-	using System.Data;
-	using System.Web;
-	using System.Web.UI.WebControls;
-	using System.Web.UI.HtmlControls;
-	using YAF.Classes.Utils;
+  using System;
+  using System.Data;
+  using System.Text;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-	/// <summary>
-	///		Summary description for smileys.
-	/// </summary>
-	public partial class smileys : YAF.Classes.Core.BaseUserControl
-	{
-		protected DataTable _dtSmileys;
-		private string _onclick;
+  /// <summary>
+  /// Summary description for smileys.
+  /// </summary>
+  public partial class smileys : BaseUserControl
+  {
+    /// <summary>
+    /// The _dt smileys.
+    /// </summary>
+    protected DataTable _dtSmileys;
 
-		//public int pagenum = 0;
-		private int _pagesize = 18;
-		private int _perrow = 6;
+    /// <summary>
+    /// The _onclick.
+    /// </summary>
+    private string _onclick;
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if (!IsPostBack)
-			{
-				MoreSmilies.Text = PageContext.Localization.GetText("SMILIES_MORE");
-				MoreSmilies.NavigateUrl = YafBuildLink.GetLink(ForumPages.showsmilies);
-				MoreSmilies.Target = "yafShowSmilies";
-				MoreSmilies.Attributes.Add("onclick",
-					String.Format( "var smiliesWin = window.open('{0}', '{1}', 'height={2},width={3},scrollbars=yes,resizable=yes');smiliesWin.focus();return false;",
-						MoreSmilies.NavigateUrl,
-						MoreSmilies.Target,
-						550,
-						300));
-			}
+    // public int pagenum = 0;
 
-			YafBoardSettings bs = PageContext.BoardSettings;
-			_pagesize = bs.SmiliesColumns * bs.SmiliesPerRow;
-			_perrow = bs.SmiliesPerRow;
+    /// <summary>
+    /// The _pagesize.
+    /// </summary>
+    private int _pagesize = 18;
 
-			// setup the header
-			AddSmiley.Attributes.Add("colspan", _perrow.ToString());
-			AddSmiley.InnerHtml = PageContext.Localization.GetText("SMILIES_HEADER");
-			// setup footer
-			MoreSmiliesCell.Attributes.Add("colspan", _perrow.ToString());
+    /// <summary>
+    /// The _perrow.
+    /// </summary>
+    private int _perrow = 6;
 
-			_dtSmileys = YAF.Classes.Data.DB.smiley_listunique(base.PageContext.PageBoardID);
+    /// <summary>
+    /// Sets OnClick.
+    /// </summary>
+    public string OnClick
+    {
+      set
+      {
+        this._onclick = value;
+      }
+    }
 
-			if (_dtSmileys.Rows.Count == 0)
-			{
-				SmiliesPlaceholder.Visible = false;
-			}
-			else
-			{
-				MoreSmiliesHolder.Visible = ( _dtSmileys.Rows.Count > _pagesize );
-				CreateSmileys();
-			}
-		}
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.MoreSmilies.Text = PageContext.Localization.GetText("SMILIES_MORE");
+        this.MoreSmilies.NavigateUrl = YafBuildLink.GetLink(ForumPages.showsmilies);
+        this.MoreSmilies.Target = "yafShowSmilies";
+        this.MoreSmilies.Attributes.Add(
+          "onclick", 
+          String.Format(
+            "var smiliesWin = window.open('{0}', '{1}', 'height={2},width={3},scrollbars=yes,resizable=yes');smiliesWin.focus();return false;", 
+            this.MoreSmilies.NavigateUrl, 
+            this.MoreSmilies.Target, 
+            550, 
+            300));
+      }
 
-		private void CreateSmileys()
-		{
-			System.Text.StringBuilder html = new System.Text.StringBuilder();
-			html.AppendFormat("<tr class='post'>");
-			int rowcells = 0;
+      YafBoardSettings bs = PageContext.BoardSettings;
+      this._pagesize = bs.SmiliesColumns * bs.SmiliesPerRow;
+      this._perrow = bs.SmiliesPerRow;
 
-			for (int i = 0; i < _pagesize; i++)
-			{
-				if (i < _dtSmileys.Rows.Count)
-				{
-					DataRow row = _dtSmileys.Rows[i];
-					if (i % _perrow == 0 && i > 0 && i < _dtSmileys.Rows.Count)
-					{
-						html.Append("</tr><tr class='post'>\n");
-						rowcells = 0;
-					}
-					string evt = "";
-					if (_onclick.Length > 0)
-					{
-						string strCode = Convert.ToString(row["Code"]).ToLower();
-						strCode = strCode.Replace("&", "&amp;");
-						strCode = strCode.Replace( ">", "&gt;" );
-						strCode = strCode.Replace( "<", "&lt;" );	
-						strCode = strCode.Replace( "\"", "&quot;" );
-						strCode = strCode.Replace( "\\", "\\\\" );
-						strCode = strCode.Replace( "'", "\\'" );
-                        evt = String.Format("javascript:{0}('{1} ','{3}{4}/{2}')", _onclick, strCode, row["Icon"], YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons);
-					}
-					else
-					{
-						evt = "javascript:void()";
-					}
-					html.AppendFormat( "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" alt=\"{1}\" title=\"{1}\" /></a></td>\n", YafBuildLink.Smiley( ( string )row ["Icon"] ), row ["Emoticon"], evt );
-					rowcells++;
-				}
-			}
-			while (rowcells++ < _perrow) html.AppendFormat("<td>&nbsp;</td>");
-			html.AppendFormat("</tr>");
+      // setup the header
+      this.AddSmiley.Attributes.Add("colspan", this._perrow.ToString());
+      this.AddSmiley.InnerHtml = PageContext.Localization.GetText("SMILIES_HEADER");
 
-			SmileyResults.Text = html.ToString();
-		}
+      // setup footer
+      this.MoreSmiliesCell.Attributes.Add("colspan", this._perrow.ToString());
 
-		public string OnClick
-		{
-			set
-			{
-				_onclick = value;
-			}
-		}
-	}
+      this._dtSmileys = DB.smiley_listunique(PageContext.PageBoardID);
+
+      if (this._dtSmileys.Rows.Count == 0)
+      {
+        this.SmiliesPlaceholder.Visible = false;
+      }
+      else
+      {
+        this.MoreSmiliesHolder.Visible = this._dtSmileys.Rows.Count > this._pagesize;
+        CreateSmileys();
+      }
+    }
+
+    /// <summary>
+    /// The create smileys.
+    /// </summary>
+    private void CreateSmileys()
+    {
+      var html = new StringBuilder();
+      html.AppendFormat("<tr class='post'>");
+      int rowcells = 0;
+
+      for (int i = 0; i < this._pagesize; i++)
+      {
+        if (i < this._dtSmileys.Rows.Count)
+        {
+          DataRow row = this._dtSmileys.Rows[i];
+          if (i % this._perrow == 0 && i > 0 && i < this._dtSmileys.Rows.Count)
+          {
+            html.Append("</tr><tr class='post'>\n");
+            rowcells = 0;
+          }
+
+          string evt = string.Empty;
+          if (this._onclick.Length > 0)
+          {
+            string strCode = Convert.ToString(row["Code"]).ToLower();
+            strCode = strCode.Replace("&", "&amp;");
+            strCode = strCode.Replace(">", "&gt;");
+            strCode = strCode.Replace("<", "&lt;");
+            strCode = strCode.Replace("\"", "&quot;");
+            strCode = strCode.Replace("\\", "\\\\");
+            strCode = strCode.Replace("'", "\\'");
+            evt = String.Format(
+              "javascript:{0}('{1} ','{3}{4}/{2}')", this._onclick, strCode, row["Icon"], YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons);
+          }
+          else
+          {
+            evt = "javascript:void()";
+          }
+
+          html.AppendFormat(
+            "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" alt=\"{1}\" title=\"{1}\" /></a></td>\n", 
+            YafBuildLink.Smiley((string) row["Icon"]), 
+            row["Emoticon"], 
+            evt);
+          rowcells++;
+        }
+      }
+
+      while (rowcells++ < this._perrow)
+      {
+        html.AppendFormat("<td>&nbsp;</td>");
+      }
+
+      html.AppendFormat("</tr>");
+
+      this.SmileyResults.Text = html.ToString();
+    }
+  }
 }

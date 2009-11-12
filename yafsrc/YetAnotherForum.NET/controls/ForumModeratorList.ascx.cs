@@ -16,42 +16,53 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-
 namespace YAF.Controls
 {
-	public partial class ForumModeratorList : YAF.Classes.Core.BaseUserControl
-	{
-		public ForumModeratorList()
-		{
-			this.PreRender += new EventHandler( ForumModeratorList_PreRender );
-		}
+  using System;
+  using System.Collections;
+  using System.Data;
+  using YAF.Classes.Core;
 
-		void ForumModeratorList_PreRender( object sender, EventArgs e )
-		{	
-			if ( ((DataRow[])ModeratorList.DataSource).Length > 0)
-			{
-				// no need for the "blank dash"...
-				BlankDash.Visible = false;
-			}
-		}
+  /// <summary>
+  /// The forum moderator list.
+  /// </summary>
+  public partial class ForumModeratorList : BaseUserControl
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumModeratorList"/> class.
+    /// </summary>
+    public ForumModeratorList()
+    {
+      PreRender += new EventHandler(ForumModeratorList_PreRender);
+    }
 
-		public System.Collections.IEnumerable DataSource
-		{
-			set
-			{
-				ModeratorList.DataSource = value;
-			}
-		}
+    /// <summary>
+    /// Sets DataSource.
+    /// </summary>
+    public IEnumerable DataSource
+    {
+      set
+      {
+        this.ModeratorList.DataSource = value;
+      }
+    }
 
-	}
+    /// <summary>
+    /// The forum moderator list_ pre render.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumModeratorList_PreRender(object sender, EventArgs e)
+    {
+      if (((DataRow[]) this.ModeratorList.DataSource).Length > 0)
+      {
+        // no need for the "blank dash"...
+        this.BlankDash.Visible = false;
+      }
+    }
+  }
 }

@@ -16,47 +16,61 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
-	public partial class ProfileYourAccount : YAF.Classes.Core.BaseUserControl
-	{
-		protected void Page_Load( object sender, EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				BindData();
-			}
-		}
+  using System;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
 
-		private void BindData()
-		{
-			Groups.DataSource = YAF.Classes.Data.DB.usergroup_list( PageContext.PageUserID );
+  /// <summary>
+  /// The profile your account.
+  /// </summary>
+  public partial class ProfileYourAccount : BaseUserControl
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        BindData();
+      }
+    }
 
-			// Bind			
-			DataBind();
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.Groups.DataSource = DB.usergroup_list(PageContext.PageUserID);
 
-			
+      // Bind			
+      DataBind();
 
-			//TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
-			AccountEmail.Text = PageContext.CurrentUserData.Membership.Email;
-			Name.Text = HtmlEncode( PageContext.CurrentUserData.Membership.UserName );
-			Joined.Text = YafServices.DateTime.FormatDateTime( PageContext.CurrentUserData.Joined );
-			NumPosts.Text = String.Format( "{0:N0}", PageContext.CurrentUserData.NumPosts );
 
-			string avatarImg = YafServices.Avatar.GetAvatarUrlForCurrentUser();
-      
-			if ( !String.IsNullOrEmpty(avatarImg))
-			{
-				AvatarImage.ImageUrl = avatarImg;
-			}
-			else
-			{
-				AvatarImage.Visible = false;
-			}
-		}
-	}
+      // TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
+      this.AccountEmail.Text = PageContext.CurrentUserData.Membership.Email;
+      this.Name.Text = HtmlEncode(PageContext.CurrentUserData.Membership.UserName);
+      this.Joined.Text = YafServices.DateTime.FormatDateTime(PageContext.CurrentUserData.Joined);
+      this.NumPosts.Text = String.Format("{0:N0}", PageContext.CurrentUserData.NumPosts);
+
+      string avatarImg = YafServices.Avatar.GetAvatarUrlForCurrentUser();
+
+      if (!String.IsNullOrEmpty(avatarImg))
+      {
+        this.AvatarImage.ImageUrl = avatarImg;
+      }
+      else
+      {
+        this.AvatarImage.Visible = false;
+      }
+    }
+  }
 }

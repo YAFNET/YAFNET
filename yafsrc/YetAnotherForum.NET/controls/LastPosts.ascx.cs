@@ -1,50 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-
 namespace YAF.Controls
 {
-	public partial class LastPosts : BaseUserControl
-	{
-		public long? TopicID
-		{
-			get
-			{
-				if ( ViewState["TopicID"] != null )
-					return Convert.ToInt32( ViewState["TopicID"] );
+  using System;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Utilities;
 
-				return null;
-			}
-			set
-			{
-				ViewState["TopicID"] = value;
-			}
-		}
+  /// <summary>
+  /// The last posts.
+  /// </summary>
+  public partial class LastPosts : BaseUserControl
+  {
+    /// <summary>
+    /// Gets or sets TopicID.
+    /// </summary>
+    public long? TopicID
+    {
+      get
+      {
+        if (ViewState["TopicID"] != null)
+        {
+          return Convert.ToInt32(ViewState["TopicID"]);
+        }
 
-		protected void Page_Load( object sender, EventArgs e )
-		{
-			YafContext.Current.PageElements.RegisterJsBlockStartup( LastPostUpdatePanel, "DisablePageManagerScrollJs", YAF.Utilities.JavaScriptBlocks.DisablePageManagerScrollJs );
+        return null;
+      }
 
-			BindData();
-		}
+      set
+      {
+        ViewState["TopicID"] = value;
+      }
+    }
 
-		private void BindData()
-		{
-			if ( TopicID.HasValue )
-				repLastPosts.DataSource = DB.post_list_reverse10( TopicID );
-			else
-				repLastPosts.DataSource = null;
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      YafContext.Current.PageElements.RegisterJsBlockStartup(
+        this.LastPostUpdatePanel, "DisablePageManagerScrollJs", JavaScriptBlocks.DisablePageManagerScrollJs);
 
-			DataBind();
-		}
+      BindData();
+    }
 
-		protected void LastPostUpdateTimer_Tick( object sender, EventArgs e )
-		{
-			BindData();
-		}
-	}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      if (TopicID.HasValue)
+      {
+        this.repLastPosts.DataSource = DB.post_list_reverse10(TopicID);
+      }
+      else
+      {
+        this.repLastPosts.DataSource = null;
+      }
+
+      DataBind();
+    }
+
+    /// <summary>
+    /// The last post update timer_ tick.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void LastPostUpdateTimer_Tick(object sender, EventArgs e)
+    {
+      BindData();
+    }
+  }
 }

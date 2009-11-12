@@ -16,32 +16,35 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
-	public partial class ForumIconLegend : YAF.Classes.Core.BaseUserControl
-	{
-		public ForumIconLegend()
-		{
-			this.PreRender += new EventHandler( ForumIconLegend_PreRender );
-		}
+  using System;
+  using YAF.Classes.Core;
 
-		void ForumIconLegend_PreRender( object sender, EventArgs e )
-		{
+  /// <summary>
+  /// The forum icon legend.
+  /// </summary>
+  public partial class ForumIconLegend : BaseUserControl
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumIconLegend"/> class.
+    /// </summary>
+    public ForumIconLegend()
+    {
+      PreRender += new EventHandler(ForumIconLegend_PreRender);
+    }
 
-		}
-	}
+    /// <summary>
+    /// The forum icon legend_ pre render.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumIconLegend_PreRender(object sender, EventArgs e)
+    {
+    }
+  }
 }

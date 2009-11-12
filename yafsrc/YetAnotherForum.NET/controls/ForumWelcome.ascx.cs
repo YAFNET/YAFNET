@@ -16,47 +16,53 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
-	public partial class ForumWelcome : YAF.Classes.Core.BaseUserControl
-	{
-		public ForumWelcome()
-		{
-			this.PreRender += new EventHandler( ForumWelcome_PreRender );
-		}
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-		void ForumWelcome_PreRender( object sender, EventArgs e )
-		{
-			TimeNow.Text = PageContext.Localization.GetTextFormatted( "Current_Time", YafServices.DateTime.FormatTime( DateTime.Now ) );
-			TimeLastVisit.Text = PageContext.Localization.GetTextFormatted( "last_visit", YafServices.DateTime.FormatDateTime( Mession.LastVisit ) );
+  /// <summary>
+  /// The forum welcome.
+  /// </summary>
+  public partial class ForumWelcome : BaseUserControl
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumWelcome"/> class.
+    /// </summary>
+    public ForumWelcome()
+    {
+      PreRender += new EventHandler(ForumWelcome_PreRender);
+    }
 
-			if ( PageContext.UnreadPrivate > 0 )
-			{
-				UnreadMsgs.Visible = true;
-				UnreadMsgs.NavigateUrl = YafBuildLink.GetLink( ForumPages.cp_pm );
-				if ( PageContext.UnreadPrivate == 1 )
-				{
-					UnreadMsgs.Text = PageContext.Localization.GetTextFormatted( "unread1", PageContext.UnreadPrivate );
-				}
-				else
-				{
-					UnreadMsgs.Text = PageContext.Localization.GetTextFormatted( "unread0", PageContext.UnreadPrivate );
-				}
-			}
-		}
-	}
+    /// <summary>
+    /// The forum welcome_ pre render.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumWelcome_PreRender(object sender, EventArgs e)
+    {
+      this.TimeNow.Text = PageContext.Localization.GetTextFormatted("Current_Time", YafServices.DateTime.FormatTime(DateTime.Now));
+      this.TimeLastVisit.Text = PageContext.Localization.GetTextFormatted("last_visit", YafServices.DateTime.FormatDateTime(Mession.LastVisit));
+
+      if (PageContext.UnreadPrivate > 0)
+      {
+        this.UnreadMsgs.Visible = true;
+        this.UnreadMsgs.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_pm);
+        if (PageContext.UnreadPrivate == 1)
+        {
+          this.UnreadMsgs.Text = PageContext.Localization.GetTextFormatted("unread1", PageContext.UnreadPrivate);
+        }
+        else
+        {
+          this.UnreadMsgs.Text = PageContext.Localization.GetTextFormatted("unread0", PageContext.UnreadPrivate);
+        }
+      }
+    }
+  }
 }

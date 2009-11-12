@@ -16,207 +16,307 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.UI;
-using YAF.Classes.Data;
-
 namespace YAF.Controls
 {
-	/// <summary>
-	///		Summary description for ForumList.
-	/// </summary>
-	public partial class ForumList : YAF.Classes.Core.BaseUserControl
-	{
+  using System;
+  using System.Collections;
+  using System.Data;
+  using System.Web.UI.HtmlControls;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-		}
+  /// <summary>
+  /// 		Summary description for ForumList.
+  /// </summary>
+  public partial class ForumList : BaseUserControl
+  {
+    /// <summary>
+    /// Sets DataSource.
+    /// </summary>
+    public IEnumerable DataSource
+    {
+      set
+      {
+        this.ForumList1.DataSource = value;
+      }
+    }
 
-		protected void ForumList1_ItemCreated( object sender, RepeaterItemEventArgs e )
-		{
-			if ( e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem )
-			{
-				DataRow row = ( DataRow )e.Item.DataItem;
-				ForumFlags flags = new ForumFlags(row["Flags"]);
-				DateTime lastRead = Mession.GetForumRead( ( int )row ["ForumID"] );
-				DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime )row ["LastPosted"] : lastRead;
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+    }
 
-				ThemeImage forumIcon = e.Item.FindControl( "ThemeForumIcon" ) as ThemeImage;
+    /// <summary>
+    /// The forum list 1_ item created.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ForumList1_ItemCreated(object sender, RepeaterItemEventArgs e)
+    {
+      if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+      {
+        var row = (DataRow) e.Item.DataItem;
+        var flags = new ForumFlags(row["Flags"]);
+        DateTime lastRead = Mession.GetForumRead((int) row["ForumID"]);
+        DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime) row["LastPosted"] : lastRead;
 
-				forumIcon.ThemeTag = "FORUM";
-				forumIcon.LocalizedTitlePage = "ICONLEGEND";
-				forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+        var forumIcon = e.Item.FindControl("ThemeForumIcon") as ThemeImage;
 
-				try
-				{
-					if ( flags.IsLocked )
-					{
-						forumIcon.ThemeTag = "FORUM_LOCKED";
-						forumIcon.LocalizedTitlePage = "ICONLEGEND";
-						forumIcon.LocalizedTitleTag = "FORUM_LOCKED";
-					}
-					else if ( lastPosted > lastRead )
-					{
-						forumIcon.ThemeTag = "FORUM_NEW";
-						forumIcon.LocalizedTitlePage = "ICONLEGEND";
-						forumIcon.LocalizedTitleTag = "NEW_POSTS";
-					}
-					else
-					{
-						forumIcon.ThemeTag = "FORUM";
-						forumIcon.LocalizedTitlePage = "ICONLEGEND";
-						forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
-					}
-				}
-				catch
-				{
+        forumIcon.ThemeTag = "FORUM";
+        forumIcon.LocalizedTitlePage = "ICONLEGEND";
+        forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
 
-				}
-				
-				if ( !PageContext.BoardSettings.ShowModeratorList )
-				{
-					// hide moderator list...
-					HtmlTableCell moderatorColumn = e.Item.FindControl( "ModeratorListTD" ) as HtmlTableCell;
-					ForumModeratorList modList = e.Item.FindControl( "ModeratorList" ) as ForumModeratorList;
+        try
+        {
+          if (flags.IsLocked)
+          {
+            forumIcon.ThemeTag = "FORUM_LOCKED";
+            forumIcon.LocalizedTitlePage = "ICONLEGEND";
+            forumIcon.LocalizedTitleTag = "FORUM_LOCKED";
+          }
+          else if (lastPosted > lastRead)
+          {
+            forumIcon.ThemeTag = "FORUM_NEW";
+            forumIcon.LocalizedTitlePage = "ICONLEGEND";
+            forumIcon.LocalizedTitleTag = "NEW_POSTS";
+          }
+          else
+          {
+            forumIcon.ThemeTag = "FORUM";
+            forumIcon.LocalizedTitlePage = "ICONLEGEND";
+            forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+          }
+        }
+        catch
+        {
+        }
 
-					// set them as invisible...
-					moderatorColumn.Visible = false;
-					modList.Visible = false;
-				}
-			}
-		}
+        if (!PageContext.BoardSettings.ShowModeratorList)
+        {
+          // hide moderator list...
+          var moderatorColumn = e.Item.FindControl("ModeratorListTD") as HtmlTableCell;
+          var modList = e.Item.FindControl("ModeratorList") as ForumModeratorList;
 
-		// Suppress rendering of footer if there is one or more 
-		protected string GetModeratorsFooter( Repeater sender )
-		{
-			if ( sender.DataSource != null && sender.DataSource is DataRow [] && ( ( DataRow [] ) sender.DataSource ).Length < 1 )
-			{
-				return "-";
-			}
-			else return "";
-		}
+          // set them as invisible...
+          moderatorColumn.Visible = false;
+          modList.Visible = false;
+        }
+      }
+    }
 
-		protected string GetModeratorLink( System.Data.DataRow row )
-		{
-			string output;
+    // Suppress rendering of footer if there is one or more 
+    /// <summary>
+    /// The get moderators footer.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <returns>
+    /// The get moderators footer.
+    /// </returns>
+    protected string GetModeratorsFooter(Repeater sender)
+    {
+      if (sender.DataSource != null && sender.DataSource is DataRow[] && ((DataRow[]) sender.DataSource).Length < 1)
+      {
+        return "-";
+      }
+      else
+      {
+        return string.Empty;
+      }
+    }
 
-			if ( ( int ) row ["IsGroup"] == 0 )
-			{
-				output = String.Format(
-						"<a href=\"{0}\">{1}</a>",
-						YafBuildLink.GetLink( ForumPages.profile, "u={0}", row ["ModeratorID"] ),
-						row ["ModeratorName"]
-						);
-			}
-			else
-			{
-				// TODO : group link should point to group info page (yet unavailable)
-				/*output = String.Format(
+    /// <summary>
+    /// The get moderator link.
+    /// </summary>
+    /// <param name="row">
+    /// The row.
+    /// </param>
+    /// <returns>
+    /// The get moderator link.
+    /// </returns>
+    protected string GetModeratorLink(DataRow row)
+    {
+      string output;
+
+      if ((int) row["IsGroup"] == 0)
+      {
+        output = String.Format("<a href=\"{0}\">{1}</a>", YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["ModeratorID"]), row["ModeratorName"]);
+      }
+      else
+      {
+        // TODO : group link should point to group info page (yet unavailable)
+        /*output = String.Format(
 						"<b><a href=\"{0}\">{1}</a></b>",
 						YafBuildLink.GetLink(ForumPages.forum, "g={0}", row["ModeratorID"]),
 						row["ModeratorName"]
 						);*/
-				output = String.Format(
-						"<b>{0}</b>",
-						row ["ModeratorName"]
-						);
-			}
+        output = String.Format("<b>{0}</b>", row["ModeratorName"]);
+      }
 
-			return output;
-		}
+      return output;
+    }
 
 
-		/// <summary>
-		/// Provides the "Forum Link Text" for the ForumList control.
-		/// Automatically disables the link if the current user doesn't
-		/// have proper permissions.
-		/// </summary>
-		/// <param name="row">Current data row</param>
-		/// <returns>Forum link text</returns>
-		public string GetForumLink( System.Data.DataRow row )
-		{
-			string output = "";
-			int forumID = Convert.ToInt32( row ["ForumID"] );
+    /// <summary>
+    /// Provides the "Forum Link Text" for the ForumList control.
+    /// Automatically disables the link if the current user doesn't
+    /// have proper permissions.
+    /// </summary>
+    /// <param name="row">
+    /// Current data row
+    /// </param>
+    /// <returns>
+    /// Forum link text
+    /// </returns>
+    public string GetForumLink(DataRow row)
+    {
+      string output = string.Empty;
+      int forumID = Convert.ToInt32(row["ForumID"]);
 
-			// get the Forum Description
-			output = Convert.ToString( row ["Forum"] );
+      // get the Forum Description
+      output = Convert.ToString(row["Forum"]);
 
-			if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
-			{
-				output = String.Format( "<a href=\"{0}\">{1}</a>",
-					YafBuildLink.GetLink( ForumPages.topics, "f={0}", forumID ),
-					output
-					);
-			}
-			else
-			{
-				// no access to this forum
-				output = String.Format( "{0} {1}", output, PageContext.Localization.GetText( "NO_FORUM_ACCESS" ) );
-			}
+      if (int.Parse(row["ReadAccess"].ToString()) > 0)
+      {
+        output = String.Format("<a href=\"{0}\">{1}</a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), output);
+      }
+      else
+      {
+        // no access to this forum
+        output = String.Format("{0} {1}", output, PageContext.Localization.GetText("NO_FORUM_ACCESS"));
+      }
 
-			return output;
-		}
+      return output;
+    }
 
-		protected string Topics( object _o )
-		{
-			DataRow row = ( DataRow ) _o;
-			if ( row ["RemoteURL"] == DBNull.Value )
-				return string.Format( "{0:N0}", row ["Topics"] );
-			else
-				return "-";
-		}
-		protected string Posts( object _o )
-		{
-			DataRow row = ( DataRow ) _o;
-			if ( row ["RemoteURL"] == DBNull.Value )
-				return string.Format( "{0:N0}", row ["Posts"] );
-			else
-				return "-";
-		}
-		protected string GetViewing( object o )
-		{
-			DataRow row = ( DataRow ) o;
-            int nViewing = SqlDataLayerConverter.VerifyInt32(row["Viewing"]);
-			if ( nViewing > 0 )
-				return "&nbsp;" + PageContext.Localization.GetTextFormatted( "VIEWING", nViewing );
-			else
-				return "";
-		}
+    /// <summary>
+    /// The topics.
+    /// </summary>
+    /// <param name="_o">
+    /// The _o.
+    /// </param>
+    /// <returns>
+    /// The topics.
+    /// </returns>
+    protected string Topics(object _o)
+    {
+      var row = (DataRow) _o;
+      if (row["RemoteURL"] == DBNull.Value)
+      {
+        return string.Format("{0:N0}", row["Topics"]);
+      }
+      else
+      {
+        return "-";
+      }
+    }
 
-		public System.Collections.IEnumerable DataSource
-		{
-			set
-			{
-				ForumList1.DataSource = value;
-			}
-		}
+    /// <summary>
+    /// The posts.
+    /// </summary>
+    /// <param name="_o">
+    /// The _o.
+    /// </param>
+    /// <returns>
+    /// The posts.
+    /// </returns>
+    protected string Posts(object _o)
+    {
+      var row = (DataRow) _o;
+      if (row["RemoteURL"] == DBNull.Value)
+      {
+        return string.Format("{0:N0}", row["Posts"]);
+      }
+      else
+      {
+        return "-";
+      }
+    }
 
-		protected bool GetModerated( object o )
-		{
-			return General.BinaryAnd( ( ( DataRow ) o ) ["Flags"], ForumFlags.Flags.IsModerated );
-		}
+    /// <summary>
+    /// The get viewing.
+    /// </summary>
+    /// <param name="o">
+    /// The o.
+    /// </param>
+    /// <returns>
+    /// The get viewing.
+    /// </returns>
+    protected string GetViewing(object o)
+    {
+      var row = (DataRow) o;
+      int nViewing = SqlDataLayerConverter.VerifyInt32(row["Viewing"]);
+      if (nViewing > 0)
+      {
+        return "&nbsp;" + PageContext.Localization.GetTextFormatted("VIEWING", nViewing);
+      }
+      else
+      {
+        return string.Empty;
+      }
+    }
 
-		// Ederon : 08/27/2007
-		protected bool HasSubforums( System.Data.DataRow row )
-		{
-			return ( ( int ) row ["Subforums"] > 0 );
-		}
+    /// <summary>
+    /// The get moderated.
+    /// </summary>
+    /// <param name="o">
+    /// The o.
+    /// </param>
+    /// <returns>
+    /// The get moderated.
+    /// </returns>
+    protected bool GetModerated(object o)
+    {
+      return General.BinaryAnd(((DataRow) o)["Flags"], ForumFlags.Flags.IsModerated);
+    }
 
-		protected System.Collections.IEnumerable GetSubforums( System.Data.DataRow row )
-		{
-			if ( HasSubforums( row ) )
-			{
-				return YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, row ["CategoryID"], row ["ForumID"] ).Rows;
-			}
-			return null;
-		}
-}
+    // Ederon : 08/27/2007
+    /// <summary>
+    /// The has subforums.
+    /// </summary>
+    /// <param name="row">
+    /// The row.
+    /// </param>
+    /// <returns>
+    /// The has subforums.
+    /// </returns>
+    protected bool HasSubforums(DataRow row)
+    {
+      return (int) row["Subforums"] > 0;
+    }
+
+    /// <summary>
+    /// The get subforums.
+    /// </summary>
+    /// <param name="row">
+    /// The row.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    protected IEnumerable GetSubforums(DataRow row)
+    {
+      if (HasSubforums(row))
+      {
+        return DB.forum_listread(PageContext.PageBoardID, PageContext.PageUserID, row["CategoryID"], row["ForumID"]).Rows;
+      }
+
+      return null;
+    }
+  }
 }

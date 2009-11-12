@@ -16,92 +16,111 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
-	public partial class ForumSubForumList : YAF.Classes.Core.BaseUserControl
-	{
-		public ForumSubForumList()
-			: base()
-		{
+  using System;
+  using System.Collections;
+  using System.Data;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-		}
+  /// <summary>
+  /// The forum sub forum list.
+  /// </summary>
+  public partial class ForumSubForumList : BaseUserControl
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumSubForumList"/> class.
+    /// </summary>
+    public ForumSubForumList()
+      : base()
+    {
+    }
 
-		public System.Collections.IEnumerable DataSource
-		{
-			set
-			{
-				SubforumList.DataSource = value;
-			}
-		}
+    /// <summary>
+    /// Sets DataSource.
+    /// </summary>
+    public IEnumerable DataSource
+    {
+      set
+      {
+        this.SubforumList.DataSource = value;
+      }
+    }
 
-		protected void SubforumList_ItemCreated( object sender, RepeaterItemEventArgs e )
-		{
-			if ( e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem )
-			{
-				DataRow row = ( DataRow )e.Item.DataItem;
-				DateTime lastRead = Mession.GetForumRead( ( int )row ["ForumID"] );
-				DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime )row ["LastPosted"] : lastRead;
+    /// <summary>
+    /// The subforum list_ item created.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void SubforumList_ItemCreated(object sender, RepeaterItemEventArgs e)
+    {
+      if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+      {
+        var row = (DataRow) e.Item.DataItem;
+        DateTime lastRead = Mession.GetForumRead((int) row["ForumID"]);
+        DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime) row["LastPosted"] : lastRead;
 
-				ThemeImage subForumIcon = e.Item.FindControl( "ThemeSubforumIcon" ) as ThemeImage;
+        var subForumIcon = e.Item.FindControl("ThemeSubforumIcon") as ThemeImage;
 
-				if ( subForumIcon != null )
-				{
-					subForumIcon.ThemeTag = "SUBFORUM";
-					subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-					subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+        if (subForumIcon != null)
+        {
+          subForumIcon.ThemeTag = "SUBFORUM";
+          subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+          subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
 
-					try
-					{
-						if ( lastPosted > lastRead )
-						{
-							subForumIcon.ThemeTag = "SUBFORUM_NEW";
-							subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-							subForumIcon.LocalizedTitleTag = "NEW_POSTS";
-						}
-					}
-					catch
-					{
+          try
+          {
+            if (lastPosted > lastRead)
+            {
+              subForumIcon.ThemeTag = "SUBFORUM_NEW";
+              subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+              subForumIcon.LocalizedTitleTag = "NEW_POSTS";
+            }
+          }
+          catch
+          {
+          }
+        }
+      }
+    }
 
-					}
-				}
-			}
-		}
+    /// <summary>
+    /// Provides the "Forum Link Text" for the ForumList control.
+    /// Automatically disables the link if the current user doesn't
+    /// have proper permissions.
+    /// </summary>
+    /// <param name="row">
+    /// Current data row
+    /// </param>
+    /// <returns>
+    /// Forum link text
+    /// </returns>
+    public string GetForumLink(DataRow row)
+    {
+      string output = string.Empty;
+      int forumID = Convert.ToInt32(row["ForumID"]);
 
-		/// <summary>
-		/// Provides the "Forum Link Text" for the ForumList control.
-		/// Automatically disables the link if the current user doesn't
-		/// have proper permissions.
-		/// </summary>
-		/// <param name="row">Current data row</param>
-		/// <returns>Forum link text</returns>
-		public string GetForumLink( System.Data.DataRow row )
-		{
-			string output = "";
-			int forumID = Convert.ToInt32( row ["ForumID"] );
+      // get the Forum Description
+      output = Convert.ToString(row["Forum"]);
 
-			// get the Forum Description
-			output = Convert.ToString( row ["Forum"] );
+      if (int.Parse(row["ReadAccess"].ToString()) > 0)
+      {
+        output = String.Format("<a href=\"{0}\">{1}</a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), output);
+      }
+      else
+      {
+        // no access to this forum
+        output = String.Format("{0} {1}", output, PageContext.Localization.GetText("NO_FORUM_ACCESS"));
+      }
 
-			if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
-			{
-				output = String.Format( "<a href=\"{0}\">{1}</a>",
-					YafBuildLink.GetLink( ForumPages.topics, "f={0}", forumID ),
-					output
-					);
-			}
-			else
-			{
-				// no access to this forum
-				output = String.Format( "{0} {1}", output, PageContext.Localization.GetText( "NO_FORUM_ACCESS" ) );
-			}
-
-			return output;
-		}
-	}
+      return output;
+    }
+  }
 }
