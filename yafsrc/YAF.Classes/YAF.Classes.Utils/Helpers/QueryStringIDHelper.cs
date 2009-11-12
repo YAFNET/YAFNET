@@ -18,118 +18,188 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Web;
-using System.Web.UI;
-using System.Web.Security;
-using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
 {
-	public class QueryStringIDHelper
-	{
-		private Dictionary<string, long> _idDictionary = null;
-		public Dictionary<string, long> Params
-		{
-			get
-			{
-				if ( _idDictionary == null )
-				{
-					_idDictionary = new Dictionary<string, long>();
-				}
+  /// <summary>
+  /// The query string id helper.
+  /// </summary>
+  public class QueryStringIDHelper
+  {
+    /// <summary>
+    /// The _id dictionary.
+    /// </summary>
+    private Dictionary<string, long> _idDictionary = null;
 
-				return _idDictionary;
-			}
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QueryStringIDHelper"/> class. 
+    /// False to ErrorOnInvalid
+    /// </summary>
+    /// <param name="idName">
+    /// </param>
+    public QueryStringIDHelper(string idName)
+      : this(idName, false)
+    {
+    }
 
-		public long? this [string idName]
-		{
-			get
-			{
-				if ( Params.ContainsKey( idName ) )
-				{
-					return Params[idName];
-				}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QueryStringIDHelper"/> class. 
+    /// False on ErrorOnInvalid
+    /// </summary>
+    /// <param name="idNames">
+    /// </param>
+    public QueryStringIDHelper(string[] idNames)
+      : this(idNames, false)
+    {
+    }
 
-				return null;
-			}
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QueryStringIDHelper"/> class.
+    /// </summary>
+    /// <param name="idName">
+    /// The id name.
+    /// </param>
+    /// <param name="errorOnInvalid">
+    /// The error on invalid.
+    /// </param>
+    public QueryStringIDHelper(string idName, bool errorOnInvalid)
+    {
+      InitIDs(
+        new[]
+          {
+            idName
+          }, 
+        new[]
+          {
+            errorOnInvalid
+          });
+    }
 
-		public bool ContainsKey( string idName )
-		{
-			return Params.ContainsKey( idName );
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QueryStringIDHelper"/> class.
+    /// </summary>
+    /// <param name="idNames">
+    /// The id names.
+    /// </param>
+    /// <param name="errorOnInvalid">
+    /// The error on invalid.
+    /// </param>
+    public QueryStringIDHelper(string[] idNames, bool errorOnInvalid)
+    {
+      var failInvalid = new bool[idNames.Length];
 
-		/// <summary>
-		/// False to ErrorOnInvalid
-		/// </summary>
-		/// <param name="idName"></param>
-		public QueryStringIDHelper( string idName )
-			: this( idName, false )
-		{
+      for (int i = 0; i < failInvalid.Length; i++)
+      {
+        failInvalid[i] = errorOnInvalid;
+      }
 
-		}
+      InitIDs(idNames, failInvalid);
+    }
 
-		/// <summary>
-		/// False on ErrorOnInvalid
-		/// </summary>
-		/// <param name="idNames"></param>
-		public QueryStringIDHelper( string [] idNames )
-			: this( idNames, false )
-		{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QueryStringIDHelper"/> class.
+    /// </summary>
+    /// <param name="idNames">
+    /// The id names.
+    /// </param>
+    /// <param name="errorOnInvalid">
+    /// The error on invalid.
+    /// </param>
+    public QueryStringIDHelper(string[] idNames, bool[] errorOnInvalid)
+    {
+      InitIDs(idNames, errorOnInvalid);
+    }
 
-		}
+    /// <summary>
+    /// Gets Params.
+    /// </summary>
+    public Dictionary<string, long> Params
+    {
+      get
+      {
+        if (this._idDictionary == null)
+        {
+          this._idDictionary = new Dictionary<string, long>();
+        }
 
-		public QueryStringIDHelper( string idName, bool errorOnInvalid )
-		{
-			this.InitIDs( new string [] { idName }, new bool [] { errorOnInvalid } );
-		}
+        return this._idDictionary;
+      }
+    }
 
-		public QueryStringIDHelper( string [] idNames, bool errorOnInvalid )
-		{
-			bool [] failInvalid = new bool [idNames.Length];
+    /// <summary>
+    /// The this.
+    /// </summary>
+    /// <param name="idName">
+    /// The id name.
+    /// </param>
+    public long? this[string idName]
+    {
+      get
+      {
+        if (Params.ContainsKey(idName))
+        {
+          return Params[idName];
+        }
 
-			for ( int i = 0; i < failInvalid.Length; i++ )
-			{
-				failInvalid [i] = errorOnInvalid;
-			}
+        return null;
+      }
+    }
 
-			this.InitIDs( idNames, failInvalid );
-		}
+    /// <summary>
+    /// The contains key.
+    /// </summary>
+    /// <param name="idName">
+    /// The id name.
+    /// </param>
+    /// <returns>
+    /// The contains key.
+    /// </returns>
+    public bool ContainsKey(string idName)
+    {
+      return Params.ContainsKey(idName);
+    }
 
-		public QueryStringIDHelper( string [] idNames, bool [] errorOnInvalid )
-		{
-			this.InitIDs( idNames, errorOnInvalid );
-		}
+    /// <summary>
+    /// The init i ds.
+    /// </summary>
+    /// <param name="idNames">
+    /// The id names.
+    /// </param>
+    /// <param name="errorOnInvalid">
+    /// The error on invalid.
+    /// </param>
+    /// <exception cref="Exception">
+    /// </exception>
+    private void InitIDs(string[] idNames, bool[] errorOnInvalid)
+    {
+      if (idNames.Length != errorOnInvalid.Length)
+      {
+        throw new Exception("idNames and errorOnInvalid variables must be the same array length.");
+      }
 
-		private void InitIDs( string [] idNames, bool [] errorOnInvalid )
-		{
-			if ( idNames.Length != errorOnInvalid.Length )
-			{
-				throw new Exception( "idNames and errorOnInvalid variables must be the same array length." );
-			}
+      for (int i = 0; i < idNames.Length; i++)
+      {
+        if (!Params.ContainsKey(idNames[i]))
+        {
+          long idConverted = -1;
 
-			for ( int i = 0; i < idNames.Length; i++ )
-			{
-				if ( !Params.ContainsKey( idNames [i] ) )
-				{
-					long idConverted = -1;
-
-					if ( !String.IsNullOrEmpty( HttpContext.Current.Request.QueryString [idNames [i]] ) && long.TryParse( HttpContext.Current.Request.QueryString [idNames [i]], out idConverted ) )
-					{
-						Params.Add( idNames [i], idConverted );
-					}
-					else
-					{
-						// fail, see if it should be valid...
-						if ( errorOnInvalid [i] )
-						{
-							// redirect to invalid id information...
-							YafBuildLink.Redirect( ForumPages.info, "i=6" );
-						}
-					}
-				}
-			}
-		}
-	}
+          if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString[idNames[i]]) &&
+              long.TryParse(HttpContext.Current.Request.QueryString[idNames[i]], out idConverted))
+          {
+            Params.Add(idNames[i], idConverted);
+          }
+          else
+          {
+            // fail, see if it should be valid...
+            if (errorOnInvalid[i])
+            {
+              // redirect to invalid id information...
+              YafBuildLink.Redirect(ForumPages.info, "i=6");
+            }
+          }
+        }
+      }
+    }
+  }
 }

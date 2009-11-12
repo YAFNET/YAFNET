@@ -18,318 +18,456 @@
  */
 using System;
 using System.Collections;
+using System.Data;
 using System.Web;
 
 namespace YAF.Classes.Utils
 {
-	/// <summary>
-	/// All references to session should go into this class
-	/// </summary>
-	public class Mession
-	{
+  /// <summary>
+  /// All references to session should go into this class
+  /// </summary>
+  public class Mession
+  {
+    /// <summary>
+    /// Gets PanelState.
+    /// </summary>
+    public static PanelSessionState PanelState
+    {
+      get
+      {
+        return new PanelSessionState();
+      }
+    }
 
-		/// <summary>
-		/// Gets the last time the forum was read.
-		/// </summary>
-		/// <param name="forumID">This is the ID of the forum you wish to get the last read date from.</param>
-		/// <returns>A DateTime object of when the forum was last read.</returns>
-		static public DateTime GetForumRead( int forumID )
-		{
-			System.Collections.Hashtable t = ForumRead;
-			if ( t == null || !t.ContainsKey( forumID ) )
-				return (DateTime)LastVisit;
-			else
-				return (DateTime)t[forumID];
-		}
+    /// <summary>
+    /// Gets or sets LastVisit.
+    /// </summary>
+    public static DateTime LastVisit
+    {
+      get
+      {
+        if (HttpContext.Current.Session["lastvisit"] != null)
+        {
+          return (DateTime) HttpContext.Current.Session["lastvisit"];
+        }
+        else
+        {
+          return DateTime.MinValue;
+        }
+      }
 
-		/// <summary>
-		/// Sets the time that the forum was read.
-		/// </summary>
-		/// <param name="forumID">The forum ID that was read.</param>
-		/// <param name="date">The DateTime you wish to set the read to.</param>
-		static public void SetForumRead( int forumID, DateTime date )
-		{
-			System.Collections.Hashtable t = ForumRead;
-			if ( t == null )
-			{
-				t = new System.Collections.Hashtable();
-			}
-			t[forumID] = date;
-			ForumRead = t;
-		}
+      set
+      {
+        HttpContext.Current.Session["lastvisit"] = value;
+      }
+    }
 
-		/// <summary>
-		/// Returns the last time that the topicID was read.
-		/// </summary>
-		/// <param name="topicID">The topicID you wish to find the DateTime object for.</param>
-		/// <returns>The DateTime object from the topicID.</returns>
-		static public DateTime GetTopicRead( int topicID )
-		{
-			System.Collections.Hashtable t = TopicRead;
-			if ( t == null || !t.ContainsKey( topicID ) )
-				return (DateTime)LastVisit;
-			else
-				return (DateTime)t[topicID];
-		}
+    /// <summary>
+    /// Gets or sets LastPm.
+    /// </summary>
+    public static DateTime LastPm
+    {
+      get
+      {
+        if (HttpContext.Current.Session["lastpm"] != null)
+        {
+          return (DateTime) HttpContext.Current.Session["lastpm"];
+        }
+        else
+        {
+          return DateTime.MinValue;
+        }
+      }
 
-		/// <summary>
-		/// Sets the time that the topicID was read.
-		/// </summary>
-		/// <param name="topicID">The topic ID that was read.</param>
-		/// <param name="date">The DateTime you wish to set the read to.</param>
-		static public void SetTopicRead( int topicID, DateTime date )
-		{
-			System.Collections.Hashtable t = TopicRead;
-			if ( t == null )
-			{
-				t = new System.Collections.Hashtable();
-			}
-			t[topicID] = date;
-			TopicRead = t;
-		}
+      set
+      {
+        HttpContext.Current.Session["lastpm"] = value;
+      }
+    }
 
-		static public PanelSessionState PanelState
-		{
-			get
-			{
-				return new PanelSessionState();
-			}
-		}
+    /// <summary>
+    /// Gets or sets a value indicating whether HasLastVisit.
+    /// </summary>
+    public static bool HasLastVisit
+    {
+      get
+      {
+        if (HttpContext.Current.Session["haslastvisit"] != null)
+        {
+          return (bool) HttpContext.Current.Session["haslastvisit"];
+        }
+        else
+        {
+          return false;
+        }
+      }
 
-		static public DateTime LastVisit
-		{
-			get
-			{
-				if ( HttpContext.Current.Session["lastvisit"] != null )
-					return (DateTime)HttpContext.Current.Session["lastvisit"];
-				else
-					return DateTime.MinValue;
-			}
-			set
-			{
-				HttpContext.Current.Session["lastvisit"] = value;
-			}
-		}
+      set
+      {
+        HttpContext.Current.Session["haslastvisit"] = value;
+      }
+    }
 
-		static public DateTime LastPm
-		{
-			get
-			{
-				if ( HttpContext.Current.Session["lastpm"] != null )
-					return (DateTime)HttpContext.Current.Session["lastpm"];
-				else
-					return DateTime.MinValue;
-			}
-			set
-			{
-				HttpContext.Current.Session["lastpm"] = value;
-			}
-		}
+    /// <summary>
+    /// Gets or sets LastPost.
+    /// </summary>
+    public static DateTime LastPost
+    {
+      get
+      {
+        if (HttpContext.Current.Session["lastpost"] != null)
+        {
+          return (DateTime) HttpContext.Current.Session["lastpost"];
+        }
+        else
+        {
+          return DateTime.MinValue;
+        }
+      }
 
-		static public bool HasLastVisit
-		{
-			get
-			{
-				if ( HttpContext.Current.Session["haslastvisit"] != null )
-					return (bool)HttpContext.Current.Session["haslastvisit"];
-				else
-					return false;
-			}
-			set
-			{
-				HttpContext.Current.Session["haslastvisit"] = value;
-			}
-		}
+      set
+      {
+        HttpContext.Current.Session["lastpost"] = value;
+      }
+    }
 
-		static public DateTime LastPost
-		{
-			get
-			{
-				if ( HttpContext.Current.Session["lastpost"] != null )
-					return (DateTime)HttpContext.Current.Session["lastpost"];
-				else
-					return DateTime.MinValue;
-			}
-			set
-			{
-				HttpContext.Current.Session["lastpost"] = value;
-			}
-		}
+    /// <summary>
+    /// Gets or sets TopicRead.
+    /// </summary>
+    public static Hashtable TopicRead
+    {
+      get
+      {
+        if (HttpContext.Current.Session["topicread"] != null)
+        {
+          return (Hashtable) HttpContext.Current.Session["topicread"];
+        }
+        else
+        {
+          return null;
+        }
+      }
 
-		static public Hashtable TopicRead
-		{
-			get
-			{
-				if ( HttpContext.Current.Session["topicread"] != null )
-					return (Hashtable)HttpContext.Current.Session["topicread"];
-				else
-					return null;
-			}
-			set
-			{
-				HttpContext.Current.Session["topicread"] = value;
-			}
-		}
+      set
+      {
+        HttpContext.Current.Session["topicread"] = value;
+      }
+    }
 
-		static public Hashtable ForumRead
-		{
-			get
-			{
-				if ( HttpContext.Current.Session["forumread"] != null )
-					return (Hashtable)HttpContext.Current.Session["forumread"];
-				else
-					return null;
-			}
-			set
-			{
-				HttpContext.Current.Session["forumread"] = value;
-			}
-		}
+    /// <summary>
+    /// Gets or sets ForumRead.
+    /// </summary>
+    public static Hashtable ForumRead
+    {
+      get
+      {
+        if (HttpContext.Current.Session["forumread"] != null)
+        {
+          return (Hashtable) HttpContext.Current.Session["forumread"];
+        }
+        else
+        {
+          return null;
+        }
+      }
 
-		static public int ShowList
-		{
-			get
-			{
-				if ( HttpContext.Current.Session["showlist"] != null )
-				{
-					return (int)HttpContext.Current.Session["showlist"];
-				}
-				else
-				{
-					// nothing in session
-					return -1;
-				}
-			}
-			set
-			{
-				HttpContext.Current.Session["showlist"] = value;
-			}
-		}
+      set
+      {
+        HttpContext.Current.Session["forumread"] = value;
+      }
+    }
 
-		static public int UnreadTopics
-		{
-			get
-			{
-				if ( HttpContext.Current.Session["unreadtopics"] != null )
-					return (int)HttpContext.Current.Session["unreadtopics"];
-				else
-					return 0;
-			}
-			set
-			{
-				HttpContext.Current.Session["unreadtopics"] = value;
-			}
-		}
+    /// <summary>
+    /// Gets or sets ShowList.
+    /// </summary>
+    public static int ShowList
+    {
+      get
+      {
+        if (HttpContext.Current.Session["showlist"] != null)
+        {
+          return (int) HttpContext.Current.Session["showlist"];
+        }
+        else
+        {
+          // nothing in session
+          return -1;
+        }
+      }
 
-		static public System.Data.DataTable SearchData
-		{
-			get
-			{
-				if ( HttpContext.Current.Session["SearchDataTable"] != null )
-				{
-					return (System.Data.DataTable)HttpContext.Current.Session["SearchDataTable"];
-				}
-				else
-					return null;
-			}
-			set
-			{
-				HttpContext.Current.Session["SearchDataTable"] = value;
-			}
-		}
+      set
+      {
+        HttpContext.Current.Session["showlist"] = value;
+      }
+    }
 
-		static public int? ActiveTopicSince
-		{
-			get
-			{
-				if ( HttpContext.Current.Session["ActiveTopicSince"] != null )
-				{
-					return (int)HttpContext.Current.Session["ActiveTopicSince"];
-				}
+    /// <summary>
+    /// Gets or sets UnreadTopics.
+    /// </summary>
+    public static int UnreadTopics
+    {
+      get
+      {
+        if (HttpContext.Current.Session["unreadtopics"] != null)
+        {
+          return (int) HttpContext.Current.Session["unreadtopics"];
+        }
+        else
+        {
+          return 0;
+        }
+      }
 
-				return null;
-			}
-			set
-			{
-				HttpContext.Current.Session["ActiveTopicSince"] = value;
-			}
-		}
-	}
+      set
+      {
+        HttpContext.Current.Session["unreadtopics"] = value;
+      }
+    }
 
-	public class PanelSessionState
-	{
-		public enum CollapsiblePanelState
-		{
-			None=-1,
-			Expanded=0,
-			Collapsed=1
-		}
+    /// <summary>
+    /// Gets or sets SearchData.
+    /// </summary>
+    public static DataTable SearchData
+    {
+      get
+      {
+        if (HttpContext.Current.Session["SearchDataTable"] != null)
+        {
+          return (DataTable) HttpContext.Current.Session["SearchDataTable"];
+        }
+        else
+        {
+          return null;
+        }
+      }
 
-		/// <summary>
-		/// Gets panel session state.
-		/// </summary>
-		/// <param name="panelID">panelID</param>
-		/// <returns></returns>
-		public CollapsiblePanelState this[string panelID]
-		{
-			// Ederon : 7/14/2007
-			get
-			{
-				string sessionPanelID = "panelstate_" + panelID;
+      set
+      {
+        HttpContext.Current.Session["SearchDataTable"] = value;
+      }
+    }
 
-				// try to get panel state from session state first
-				if ( HttpContext.Current.Session[sessionPanelID] != null )
-				{
-					return (CollapsiblePanelState)HttpContext.Current.Session[sessionPanelID];
-				}
-				// if no panel state info is in session state, try cookie
-				else if ( HttpContext.Current.Request.Cookies[sessionPanelID] != null )
-				{
-					try
-					{
-						// we must convert string to int, better get is safe
-						if ( HttpContext.Current.Request != null )
-							return (CollapsiblePanelState)int.Parse( HttpContext.Current.Request.Cookies[sessionPanelID].Value );
-					}
-					catch
-					{
-						// in case cookie has wrong value
-						if ( HttpContext.Current.Request != null )
-							HttpContext.Current.Request.Cookies.Remove( sessionPanelID );	// scrap wrong cookie
-						return CollapsiblePanelState.None;
-					}
-				}
+    /// <summary>
+    /// Gets or sets ActiveTopicSince.
+    /// </summary>
+    public static int? ActiveTopicSince
+    {
+      get
+      {
+        if (HttpContext.Current.Session["ActiveTopicSince"] != null)
+        {
+          return (int) HttpContext.Current.Session["ActiveTopicSince"];
+        }
 
-				return CollapsiblePanelState.None;
-			}
-			// Ederon : 7/14/2007
-			set
-			{
-				string sessionPanelID = "panelstate_" + panelID;
+        return null;
+      }
 
-				HttpContext.Current.Session[sessionPanelID] = value;
+      set
+      {
+        HttpContext.Current.Session["ActiveTopicSince"] = value;
+      }
+    }
 
-				// create persistent cookie with visibility setting for panel
-				HttpCookie c = new HttpCookie( sessionPanelID, ( (int)value ).ToString() );
-				c.Expires = DateTime.Now.AddYears( 1 );
-				HttpContext.Current.Response.SetCookie( c );
-			}
-		}
+    /// <summary>
+    /// Gets the last time the forum was read.
+    /// </summary>
+    /// <param name="forumID">
+    /// This is the ID of the forum you wish to get the last read date from.
+    /// </param>
+    /// <returns>
+    /// A DateTime object of when the forum was last read.
+    /// </returns>
+    public static DateTime GetForumRead(int forumID)
+    {
+      Hashtable t = ForumRead;
+      if (t == null || !t.ContainsKey(forumID))
+      {
+        return LastVisit;
+      }
+      else
+      {
+        return (DateTime) t[forumID];
+      }
+    }
 
-		public void TogglePanelState( string panelID, CollapsiblePanelState defaultState )
-		{
-			CollapsiblePanelState currentState = this[panelID];
+    /// <summary>
+    /// Sets the time that the forum was read.
+    /// </summary>
+    /// <param name="forumID">
+    /// The forum ID that was read.
+    /// </param>
+    /// <param name="date">
+    /// The DateTime you wish to set the read to.
+    /// </param>
+    public static void SetForumRead(int forumID, DateTime date)
+    {
+      Hashtable t = ForumRead;
+      if (t == null)
+      {
+        t = new Hashtable();
+      }
 
-			if ( currentState == CollapsiblePanelState.None ) currentState = defaultState;
+      t[forumID] = date;
+      ForumRead = t;
+    }
 
-			if ( currentState == CollapsiblePanelState.Collapsed )
-			{
-				this[panelID] = CollapsiblePanelState.Expanded;
-			}
-			else if ( currentState == CollapsiblePanelState.Expanded )
-			{
-				this[panelID] = CollapsiblePanelState.Collapsed;
-			}
-		}
-	}
+    /// <summary>
+    /// Returns the last time that the topicID was read.
+    /// </summary>
+    /// <param name="topicID">
+    /// The topicID you wish to find the DateTime object for.
+    /// </param>
+    /// <returns>
+    /// The DateTime object from the topicID.
+    /// </returns>
+    public static DateTime GetTopicRead(int topicID)
+    {
+      Hashtable t = TopicRead;
+      if (t == null || !t.ContainsKey(topicID))
+      {
+        return LastVisit;
+      }
+      else
+      {
+        return (DateTime) t[topicID];
+      }
+    }
+
+    /// <summary>
+    /// Sets the time that the topicID was read.
+    /// </summary>
+    /// <param name="topicID">
+    /// The topic ID that was read.
+    /// </param>
+    /// <param name="date">
+    /// The DateTime you wish to set the read to.
+    /// </param>
+    public static void SetTopicRead(int topicID, DateTime date)
+    {
+      Hashtable t = TopicRead;
+      if (t == null)
+      {
+        t = new Hashtable();
+      }
+
+      t[topicID] = date;
+      TopicRead = t;
+    }
+  }
+
+  /// <summary>
+  /// The panel session state.
+  /// </summary>
+  public class PanelSessionState
+  {
+    #region CollapsiblePanelState enum
+
+    /// <summary>
+    /// The collapsible panel state.
+    /// </summary>
+    public enum CollapsiblePanelState
+    {
+      /// <summary>
+      /// The none.
+      /// </summary>
+      None = -1, 
+
+      /// <summary>
+      /// The expanded.
+      /// </summary>
+      Expanded = 0, 
+
+      /// <summary>
+      /// The collapsed.
+      /// </summary>
+      Collapsed = 1
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Gets panel session state.
+    /// </summary>
+    /// <param name="panelID">panelID</param>
+    /// <returns></returns>
+    public CollapsiblePanelState this[string panelID]
+    {
+      // Ederon : 7/14/2007
+      get
+      {
+        string sessionPanelID = "panelstate_" + panelID;
+
+        // try to get panel state from session state first
+        if (HttpContext.Current.Session[sessionPanelID] != null)
+        {
+          return (CollapsiblePanelState) HttpContext.Current.Session[sessionPanelID];
+        }
+          
+          // if no panel state info is in session state, try cookie
+        else if (HttpContext.Current.Request.Cookies[sessionPanelID] != null)
+        {
+          try
+          {
+            // we must convert string to int, better get is safe
+            if (HttpContext.Current.Request != null)
+            {
+              return (CollapsiblePanelState) int.Parse(HttpContext.Current.Request.Cookies[sessionPanelID].Value);
+            }
+          }
+          catch
+          {
+            // in case cookie has wrong value
+            if (HttpContext.Current.Request != null)
+            {
+              HttpContext.Current.Request.Cookies.Remove(sessionPanelID); // scrap wrong cookie
+            }
+
+            return CollapsiblePanelState.None;
+          }
+        }
+
+        return CollapsiblePanelState.None;
+      }
+ // Ederon : 7/14/2007
+      set
+      {
+        string sessionPanelID = "panelstate_" + panelID;
+
+        HttpContext.Current.Session[sessionPanelID] = value;
+
+        // create persistent cookie with visibility setting for panel
+        var c = new HttpCookie(sessionPanelID, ((int) value).ToString());
+        c.Expires = DateTime.Now.AddYears(1);
+        HttpContext.Current.Response.SetCookie(c);
+      }
+    }
+
+    /// <summary>
+    /// The toggle panel state.
+    /// </summary>
+    /// <param name="panelID">
+    /// The panel id.
+    /// </param>
+    /// <param name="defaultState">
+    /// The default state.
+    /// </param>
+    public void TogglePanelState(string panelID, CollapsiblePanelState defaultState)
+    {
+      CollapsiblePanelState currentState = this[panelID];
+
+      if (currentState == CollapsiblePanelState.None)
+      {
+        currentState = defaultState;
+      }
+
+      if (currentState == CollapsiblePanelState.Collapsed)
+      {
+        this[panelID] = CollapsiblePanelState.Expanded;
+      }
+      else if (currentState == CollapsiblePanelState.Expanded)
+      {
+        this[panelID] = CollapsiblePanelState.Collapsed;
+      }
+    }
+  }
 }

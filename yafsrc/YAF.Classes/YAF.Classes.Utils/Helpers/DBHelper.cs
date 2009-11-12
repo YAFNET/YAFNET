@@ -17,123 +17,152 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.DataSetExtensions;
 using System.Linq;
-using System.Text;
 
 namespace YAF.Classes.Utils
 {
-	public static class DBHelper
-	{
-		/// <summary>
-		/// Gets the specified column of the first row as the type specified. If not available returns default value.
-		/// </summary>
-		/// <typeparam name="T">Type if column to return</typeparam>
-		/// <param name="dt">DataTable to pull from</param>
-		/// <param name="columnName">Name of column to convert</param>
-		/// <param name="defaultValue">value to return if something is not available</param>
-		/// <returns></returns>
-		static public T GetFirstRowColumnAsValue<T>( this DataTable dt, string columnName, T defaultValue )
-		{
-			if ( dt.Rows.Count > 0 && dt.Columns.Contains( columnName ) )
-			{
-				return dt.Rows[0][columnName].ToType<T>();
-			}
+  /// <summary>
+  /// The db helper.
+  /// </summary>
+  public static class DBHelper
+  {
+    /// <summary>
+    /// Gets the specified column of the first row as the type specified. If not available returns default value.
+    /// </summary>
+    /// <typeparam name="T">
+    /// Type if column to return
+    /// </typeparam>
+    /// <param name="dt">
+    /// DataTable to pull from
+    /// </param>
+    /// <param name="columnName">
+    /// Name of column to convert
+    /// </param>
+    /// <param name="defaultValue">
+    /// value to return if something is not available
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static T GetFirstRowColumnAsValue<T>(this DataTable dt, string columnName, T defaultValue)
+    {
+      if (dt.Rows.Count > 0 && dt.Columns.Contains(columnName))
+      {
+        return dt.Rows[0][columnName].ToType<T>();
+      }
 
-			return defaultValue;
-		}
+      return defaultValue;
+    }
 
-		/// <summary>
-		/// Converts a DataTable to a List of type T using the convert function.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="dt"></param>
-		/// <param name="convertFunction"></param>
-		/// <returns></returns>
-		static public List<T> ToListObject<T>( this DataTable dt, Func<DataRow,T> convertFunction )
-		{
-			return (from x in dt.AsEnumerable()
-			        select convertFunction( x )).ToList();
-		}
+    /// <summary>
+    /// Converts a DataTable to a List of type T using the convert function.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="dt">
+    /// </param>
+    /// <param name="convertFunction">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static List<T> ToListObject<T>(this DataTable dt, Func<DataRow, T> convertFunction)
+    {
+      return (from x in dt.AsEnumerable()
+              select convertFunction(x)).ToList();
+    }
 
-		/// <summary>
-		/// Converts the first column of a DataTable to a generic List of type T.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="dataTable"></param>
-		/// <returns></returns>
-		static public List<T> GetFirstColumnAsList<T>( this DataTable dataTable )
-		{
-			return (from x in dataTable.AsEnumerable()
-			        select x.Field<T>( 0 )).ToList();
-		}
+    /// <summary>
+    /// Converts the first column of a DataTable to a generic List of type T.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="dataTable">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static List<T> GetFirstColumnAsList<T>(this DataTable dataTable)
+    {
+      return (from x in dataTable.AsEnumerable()
+              select x.Field<T>(0)).ToList();
+    }
 
-		/// <summary>
-		/// Converts columnName in a DataTable to a generic List of type T.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="columnName"></param>
-		/// <param name="dataTable"></param>
-		/// <returns></returns>
-		static public List<T> GetColumnAsList<T>( this DataTable dataTable, string columnName )
-		{
-			return (from x in dataTable.AsEnumerable()
-			        select x.Field<T>( columnName )).ToList();
-		}
+    /// <summary>
+    /// Converts columnName in a DataTable to a generic List of type T.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="dataTable">
+    /// </param>
+    /// <param name="columnName">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static List<T> GetColumnAsList<T>(this DataTable dataTable, string columnName)
+    {
+      return (from x in dataTable.AsEnumerable()
+              select x.Field<T>(columnName)).ToList();
+    }
 
-		/// <summary>
-		/// Gets the first row (DataRow) of a DataTable.
-		/// </summary>
-		/// <param name="dt"></param>
-		/// <returns></returns>
-		static public DataRow GetFirstRow( this DataTable dt )
-		{
-			if ( dt.Rows.Count > 0 )
-			{
-				return dt.Rows[0];
-			}
+    /// <summary>
+    /// Gets the first row (DataRow) of a DataTable.
+    /// </summary>
+    /// <param name="dt">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataRow GetFirstRow(this DataTable dt)
+    {
+      if (dt.Rows.Count > 0)
+      {
+        return dt.Rows[0];
+      }
 
-			return null;
-		}
+      return null;
+    }
 
-		/// <summary>
-		/// Gets the first row of the data table or redirects to invalid request
-		/// </summary>
-		/// <param name="dt"></param>
-		/// <returns></returns>
-		static public DataRow GetFirstRowOrInvalid( DataTable dt )
-		{
-			DataRow row = dt.GetFirstRow();
+    /// <summary>
+    /// Gets the first row of the data table or redirects to invalid request
+    /// </summary>
+    /// <param name="dt">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataRow GetFirstRowOrInvalid(DataTable dt)
+    {
+      DataRow row = dt.GetFirstRow();
 
-			if ( row != null )
-				return row;
+      if (row != null)
+      {
+        return row;
+      }
 
-			// fail...
-			YafBuildLink.RedirectInfoPage( InfoMessage.Invalid );
+      // fail...
+      YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
 
-			return null;
-		}		
+      return null;
+    }
 
-		/// <summary>
-		/// Tests if an DB object (in DataRow) is DBNull.Value, null or empty.
-		/// </summary>
-		/// <param name="columnValue"></param>
-		/// <returns></returns>
-		static public bool IsNullOrEmptyDBField( this object columnValue )
-		{
-			if ( columnValue == DBNull.Value )
-			{
-				return true;
-			}
-			else if ( String.IsNullOrEmpty( columnValue.ToString().Trim() ) )
-			{
-				return true;
-			}
+    /// <summary>
+    /// Tests if an DB object (in DataRow) is DBNull.Value, null or empty.
+    /// </summary>
+    /// <param name="columnValue">
+    /// </param>
+    /// <returns>
+    /// The is null or empty db field.
+    /// </returns>
+    public static bool IsNullOrEmptyDBField(this object columnValue)
+    {
+      if (columnValue == DBNull.Value)
+      {
+        return true;
+      }
+      else if (String.IsNullOrEmpty(columnValue.ToString().Trim()))
+      {
+        return true;
+      }
 
-			return false;
-		}
-	}
+      return false;
+    }
+  }
 }

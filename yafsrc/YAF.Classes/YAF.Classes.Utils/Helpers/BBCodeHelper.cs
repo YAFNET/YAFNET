@@ -16,18 +16,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace YAF.Classes.Utils
 {
-	static public class BBCodeHelper
-	{
-		static public string StripBBCode( string text )
-		{
-			return Regex.Replace( text, @"\[(.|\n)*?\]", string.Empty );
-		}
-	}
+  /// <summary>
+  /// The bb code helper.
+  /// </summary>
+  public static class BBCodeHelper
+  {
+    /// <summary>
+    /// The strip bb code.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The strip bb code.
+    /// </returns>
+    public static string StripBBCode(string text)
+    {
+      return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty);
+    }
+  }
 }

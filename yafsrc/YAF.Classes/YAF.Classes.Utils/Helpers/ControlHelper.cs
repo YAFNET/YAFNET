@@ -19,208 +19,398 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace YAF.Classes.Utils
 {
-	static public class ControlHelper
-	{
-		static public List<Control> ControlListRecursive( Control sourceControl, Func<Control,bool> isControl )
-		{
-			List<Control> list = new List<Control>();
+  /// <summary>
+  /// Provides helper functions for using and accessing controls.
+  /// </summary>
+  public static class ControlHelper
+  {
+    /// <summary>
+    /// Finds a control recursively (forward only) using <paramref name="isControl"/> function.
+    /// </summary>
+    /// <param name="sourceControl">
+    /// Control to start search from.
+    /// </param>
+    /// <param name="isControl">
+    /// Function to test if we found the control.
+    /// </param>
+    /// <returns>
+    /// List of controls found
+    /// </returns>
+    public static List<Control> ControlListRecursive(Control sourceControl, Func<Control, bool> isControl)
+    {
+      var list = new List<Control>();
 
-			var withParents = (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
-												 where c.HasControls()
-			                   select c).ToList();
+      var withParents = (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
+                         where c.HasControls()
+                         select c).ToList();
 
-			// recusively call this function looking for controls...
-			withParents.ForEach( x => list.AddRange( ControlListRecursive( x, isControl ) ) );
+      // recusively call this function looking for controls...
+      withParents.ForEach(x => list.AddRange(ControlListRecursive(x, isControl)));
 
-			// add controls from this level...
-			list.AddRange( (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
-			                where !c.HasControls()
-			                select c).ToList().Where( isControl ) );
+      // add controls from this level...
+      list.AddRange(
+        (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
+         where !c.HasControls()
+         select c).ToList().Where(isControl));
 
 
-			// return the lot...
-			return list;
-		}
+      // return the lot...
+      return list;
+    }
 
-		static public Control FindControlRecursiveReverse(Control sourceControl, string id)
-		{
-			Control foundControl = sourceControl.FindControl(id);
+    /// <summary>
+    /// The find control recursive reverse.
+    /// </summary>
+    /// <param name="sourceControl">
+    /// The source control.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static Control FindControlRecursiveReverse(Control sourceControl, string id)
+    {
+      Control foundControl = sourceControl.FindControl(id);
 
-			if (foundControl != null)
-			{
-				return foundControl;
-			}
-			else if (sourceControl.Parent != null)
-			{
-				return FindControlRecursiveReverse( sourceControl.Parent, id );
-			}
-			return null;
-		}
+      if (foundControl != null)
+      {
+        return foundControl;
+      }
+      else if (sourceControl.Parent != null)
+      {
+        return FindControlRecursiveReverse(sourceControl.Parent, id);
+      }
 
-		static public Control FindControlRecursiveBoth( Control sourceControl, string id)
-		{
-			Control found = FindControlRecursiveReverse( sourceControl, id );
-			if ( found != null ) return found;
-			found = FindControlRecursive( sourceControl, id );
-			return found;
-		}
+      return null;
+    }
 
-		static public T FindControlAs<T>(Control sourceControl, string id) where T : class
-		{
-			Control foundControl = sourceControl.FindControl( id );
-			if ( foundControl != null && foundControl is T )
-			{
-				return foundControl.ToClass<T>();
-			}
+    /// <summary>
+    /// The find control recursive both.
+    /// </summary>
+    /// <param name="sourceControl">
+    /// The source control.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static Control FindControlRecursiveBoth(Control sourceControl, string id)
+    {
+      Control found = FindControlRecursiveReverse(sourceControl, id);
+      if (found != null)
+      {
+        return found;
+      }
 
-			return null;
-		}
+      found = FindControlRecursive(sourceControl, id);
+      return found;
+    }
 
-		static public T FindControlRecursiveAs<T>(Control sourceControl, string id) where T : class
-		{
-			Control foundControl = FindControlRecursive( sourceControl, id );
-			if ( foundControl != null && foundControl is T )
-			{
-				return foundControl.ToClass<T>();
-			}
+    /// <summary>
+    /// The find control as.
+    /// </summary>
+    /// <param name="sourceControl">
+    /// The source control.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public static T FindControlAs<T>(Control sourceControl, string id) where T : class
+    {
+      Control foundControl = sourceControl.FindControl(id);
+      if (foundControl != null && foundControl is T)
+      {
+        return foundControl.ToClass<T>();
+      }
 
-			return null;
-		}
+      return null;
+    }
 
-		static public T FindControlRecursiveReverseAs<T>(Control sourceControl, string id) where T : class
-		{
-			Control foundControl = FindControlRecursiveReverse(sourceControl, id);
-			if ( foundControl != null && foundControl is T )
-			{
-				return foundControl.ToClass<T>();
-			}
+    /// <summary>
+    /// The find control recursive as.
+    /// </summary>
+    /// <param name="sourceControl">
+    /// The source control.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public static T FindControlRecursiveAs<T>(Control sourceControl, string id) where T : class
+    {
+      Control foundControl = FindControlRecursive(sourceControl, id);
+      if (foundControl != null && foundControl is T)
+      {
+        return foundControl.ToClass<T>();
+      }
 
-			return null;
-		}
+      return null;
+    }
 
-		static public T FindControlRecursiveBothAs<T>(Control sourceControl, string id) where T : class
-		{
-			Control foundControl = FindControlRecursiveBoth(sourceControl, id);
+    /// <summary>
+    /// The find control recursive reverse as.
+    /// </summary>
+    /// <param name="sourceControl">
+    /// The source control.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public static T FindControlRecursiveReverseAs<T>(Control sourceControl, string id) where T : class
+    {
+      Control foundControl = FindControlRecursiveReverse(sourceControl, id);
+      if (foundControl != null && foundControl is T)
+      {
+        return foundControl.ToClass<T>();
+      }
 
-			if ( foundControl != null && foundControl is T )
-			{
-				return foundControl.ToClass<T>();
-			}
+      return null;
+    }
 
-			return null;
-		}
+    /// <summary>
+    /// The find control recursive both as.
+    /// </summary>
+    /// <param name="sourceControl">
+    /// The source control.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public static T FindControlRecursiveBothAs<T>(Control sourceControl, string id) where T : class
+    {
+      Control foundControl = FindControlRecursiveBoth(sourceControl, id);
 
-		/// <summary>
-		/// Find Wizard Control - Find a control in a wizard
-		/// </summary>
-		/// <param name="wizardControl">Wizard control</param>
-		/// <param name="id">ID of target control</param>
-		/// <returns>A control reference, if found, null, if not</returns>
-		static public Control FindWizardControlRecursive(Wizard wizardControl, string id)
-		{
-			Control foundControl = null;
+      if (foundControl != null && foundControl is T)
+      {
+        return foundControl.ToClass<T>();
+      }
 
-			for (int i = 0; i < wizardControl.WizardSteps.Count; i++)
-			{
-				for (int j = 0; j < wizardControl.WizardSteps[i].Controls.Count; j++)
-				{
-					foundControl = FindControlRecursive( (Control)wizardControl.WizardSteps[i].Controls[j], id );
-					if (foundControl != null) break;
-				}
-				if (foundControl != null) break;
-			}
+      return null;
+    }
 
-			return foundControl;
+    /// <summary>
+    /// Find Wizard Control - Find a control in a wizard
+    /// </summary>
+    /// <param name="wizardControl">
+    /// Wizard control
+    /// </param>
+    /// <param name="id">
+    /// ID of target control
+    /// </param>
+    /// <returns>
+    /// A control reference, if found, null, if not
+    /// </returns>
+    public static Control FindWizardControlRecursive(Wizard wizardControl, string id)
+    {
+      Control foundControl = null;
 
-		}
+      for (int i = 0; i < wizardControl.WizardSteps.Count; i++)
+      {
+        for (int j = 0; j < wizardControl.WizardSteps[i].Controls.Count; j++)
+        {
+          foundControl = FindControlRecursive(wizardControl.WizardSteps[i].Controls[j], id);
+          if (foundControl != null)
+          {
+            break;
+          }
+        }
 
-		/// <summary>
-		/// Find Wizard Control - Find a control in a wizard, is recursive
-		/// </summary>
-		/// <param name="sourceControl">Source/Root Control</param>
-		/// <param name="id">ID of target control</param>
-		/// <returns>A Control, if found; null, if not</returns>
-		static public Control FindControlRecursive(Control sourceControl, string id)
-		{
-			Control foundControl = sourceControl.FindControl( id );
+        if (foundControl != null)
+        {
+          break;
+        }
+      }
 
-			if (foundControl == null)
-			{
-				if (sourceControl.HasControls())
-				{
-					foreach ( Control tmpCtr in sourceControl.Controls )
-					{
-						// Check all child controls of sourceControl
-						foundControl = FindControlRecursive( tmpCtr, id );
-						if (foundControl != null) break;
-					} 
-				} 
-			} 
-			return foundControl;
-		} 
+      return foundControl;
+    }
 
-		static public HtmlLink MakeCssIncludeControl(string href)
-		{
-			HtmlLink stylesheet = new HtmlLink();
-			stylesheet.Href = href;
-			stylesheet.Attributes.Add("rel", "stylesheet");
-			stylesheet.Attributes.Add("type", "text/css");
+    /// <summary>
+    /// Find Wizard Control - Find a control in a wizard, is recursive
+    /// </summary>
+    /// <param name="sourceControl">
+    /// Source/Root Control
+    /// </param>
+    /// <param name="id">
+    /// ID of target control
+    /// </param>
+    /// <returns>
+    /// A Control, if found; null, if not
+    /// </returns>
+    public static Control FindControlRecursive(Control sourceControl, string id)
+    {
+      Control foundControl = sourceControl.FindControl(id);
 
-			return stylesheet;
-		}
+      if (foundControl == null)
+      {
+        if (sourceControl.HasControls())
+        {
+          foreach (Control tmpCtr in sourceControl.Controls)
+          {
+            // Check all child controls of sourceControl
+            foundControl = FindControlRecursive(tmpCtr, id);
+            if (foundControl != null)
+            {
+              break;
+            }
+          }
+        }
+      }
 
-		static public HtmlGenericControl MakeCssControl(string css)
-		{
-			HtmlGenericControl style = new HtmlGenericControl();
-			style.TagName = "style";
-			style.Attributes.Add("type", "text/css");
-			style.InnerText = css;
+      return foundControl;
+    }
 
-			return style;
-		}
+    /// <summary>
+    /// The make css include control.
+    /// </summary>
+    /// <param name="href">
+    /// The href.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static HtmlLink MakeCssIncludeControl(string href)
+    {
+      var stylesheet = new HtmlLink();
+      stylesheet.Href = href;
+      stylesheet.Attributes.Add("rel", "stylesheet");
+      stylesheet.Attributes.Add("type", "text/css");
 
-		static public HtmlGenericControl MakeJsIncludeControl(string href)
-		{
-			HtmlGenericControl js = new HtmlGenericControl();
-			js.TagName = "script";
-			js.Attributes.Add( "type", "text/javascript" );
-			js.Attributes.Add( "src", href );
+      return stylesheet;
+    }
 
-			return js;
-		}
+    /// <summary>
+    /// The make css control.
+    /// </summary>
+    /// <param name="css">
+    /// The css.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static HtmlGenericControl MakeCssControl(string css)
+    {
+      var style = new HtmlGenericControl();
+      style.TagName = "style";
+      style.Attributes.Add("type", "text/css");
+      style.InnerText = css;
 
-		/* Ederon - 7/1/2007 start */
-		static public void AddStyleAttributeSize(System.Web.UI.WebControls.WebControl control, string width, string height)
-		{
-			control.Attributes.Add("style", String.Format("width: {0}; height: {1};", width, height));
-		}
+      return style;
+    }
 
-		static public void AddStyleAttributeWidth(System.Web.UI.WebControls.WebControl control, string width)
-		{
-			control.Attributes.Add("style", String.Format("width: {0};", width));
-		}
+    /// <summary>
+    /// The make js include control.
+    /// </summary>
+    /// <param name="href">
+    /// The href.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static HtmlGenericControl MakeJsIncludeControl(string href)
+    {
+      var js = new HtmlGenericControl();
+      js.TagName = "script";
+      js.Attributes.Add("type", "text/javascript");
+      js.Attributes.Add("src", href);
 
-		static public void AddStyleAttributeHeight(System.Web.UI.WebControls.WebControl control, string height)
-		{
-			control.Attributes.Add("style", String.Format("height: {0};", height));
-		}
+      return js;
+    }
 
-		/* Ederon - 7/1/2007 end */
-		static public void AddOnClickConfirmDialog(object control, string message)
-		{
-			AddOnClickConfirmDialog((System.Web.UI.WebControls.WebControl)control, message);
-		}
-		static public void AddOnClickConfirmDialog(System.Web.UI.WebControls.WebControl control, string message)
-		{
-			control.Attributes["onclick"] = String.Format("return confirm('{0}');", message);
-		}
+    /* Ederon - 7/1/2007 start */
 
-	}
+    /// <summary>
+    /// The add style attribute size.
+    /// </summary>
+    /// <param name="control">
+    /// The control.
+    /// </param>
+    /// <param name="width">
+    /// The width.
+    /// </param>
+    /// <param name="height">
+    /// The height.
+    /// </param>
+    public static void AddStyleAttributeSize(WebControl control, string width, string height)
+    {
+      control.Attributes.Add("style", String.Format("width: {0}; height: {1};", width, height));
+    }
+
+    /// <summary>
+    /// The add style attribute width.
+    /// </summary>
+    /// <param name="control">
+    /// The control.
+    /// </param>
+    /// <param name="width">
+    /// The width.
+    /// </param>
+    public static void AddStyleAttributeWidth(WebControl control, string width)
+    {
+      control.Attributes.Add("style", String.Format("width: {0};", width));
+    }
+
+    /// <summary>
+    /// The add style attribute height.
+    /// </summary>
+    /// <param name="control">
+    /// The control.
+    /// </param>
+    /// <param name="height">
+    /// The height.
+    /// </param>
+    public static void AddStyleAttributeHeight(WebControl control, string height)
+    {
+      control.Attributes.Add("style", String.Format("height: {0};", height));
+    }
+
+    /* Ederon - 7/1/2007 end */
+
+    /// <summary>
+    /// The add on click confirm dialog.
+    /// </summary>
+    /// <param name="control">
+    /// The control.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    public static void AddOnClickConfirmDialog(object control, string message)
+    {
+      AddOnClickConfirmDialog((WebControl) control, message);
+    }
+
+    /// <summary>
+    /// The add on click confirm dialog.
+    /// </summary>
+    /// <param name="control">
+    /// The control.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    public static void AddOnClickConfirmDialog(WebControl control, string message)
+    {
+      control.Attributes["onclick"] = String.Format("return confirm('{0}');", message);
+    }
+  }
 }

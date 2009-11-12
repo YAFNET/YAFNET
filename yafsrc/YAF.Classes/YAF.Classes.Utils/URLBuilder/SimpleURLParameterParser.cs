@@ -16,137 +16,223 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text;
 
 namespace YAF.Classes.Utils
 {
-	/// <summary>
-	/// Helps parse URLs
-	/// </summary>
-	public class SimpleURLParameterParser
-	{
-		private string _urlParameters = "";
-		private string _urlAnchor = "";
-		private NameValueCollection _nameValues = new NameValueCollection();
+  /// <summary>
+  /// Helps parse URLs
+  /// </summary>
+  public class SimpleURLParameterParser
+  {
+    /// <summary>
+    /// The _name values.
+    /// </summary>
+    private NameValueCollection _nameValues = new NameValueCollection();
 
-		public SimpleURLParameterParser( string urlParameters )
-		{
-			_urlParameters = urlParameters;
-			ParseURLParameters();
-		}
+    /// <summary>
+    /// The _url anchor.
+    /// </summary>
+    private string _urlAnchor = string.Empty;
 
-		private void ParseURLParameters()
-		{
-			string urlTemp = _urlParameters;
-			int index;
+    /// <summary>
+    /// The _url parameters.
+    /// </summary>
+    private string _urlParameters = string.Empty;
 
-			// get the url end anchor (#blah) if there is one...
-			_urlAnchor = "";
-			index = urlTemp.LastIndexOf( '#' );
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleURLParameterParser"/> class.
+    /// </summary>
+    /// <param name="urlParameters">
+    /// The url parameters.
+    /// </param>
+    public SimpleURLParameterParser(string urlParameters)
+    {
+      this._urlParameters = urlParameters;
+      ParseURLParameters();
+    }
 
-			if ( index > 0 )
-			{
-				// there's an anchor
-				_urlAnchor = urlTemp.Substring( index + 1 );
-				// remove the anchor from the url...
-				urlTemp = urlTemp.Remove( index );
-			}
+    /// <summary>
+    /// Gets Anchor.
+    /// </summary>
+    public string Anchor
+    {
+      get
+      {
+        return this._urlAnchor;
+      }
+    }
 
-			_nameValues.Clear();
-			string [] arrayPairs = urlTemp.Split( new char [] { '&' } );
+    /// <summary>
+    /// Gets a value indicating whether HasAnchor.
+    /// </summary>
+    public bool HasAnchor
+    {
+      get
+      {
+        return this._urlAnchor != string.Empty;
+      }
+    }
 
-			foreach ( string tValue in arrayPairs )
-			{
-				if ( tValue.Trim().Length > 0 )
-				{
-					// parse...
-					string [] nvalue = tValue.Trim().Split( new char [] { '=' } );
-					if ( nvalue.Length == 1 )
-						_nameValues.Add( nvalue [0], string.Empty );
-					else if ( nvalue.Length > 1 )
-						_nameValues.Add( nvalue [0], nvalue [1] );
-				}
-			}
-		}
+    /// <summary>
+    /// Gets Parameters.
+    /// </summary>
+    public NameValueCollection Parameters
+    {
+      get
+      {
+        return this._nameValues;
+      }
+    }
 
-		public string CreateQueryString( string [] excludeValues )
-		{
-			string queryString = "";
-			bool bFirst = true;
+    /// <summary>
+    /// Gets Count.
+    /// </summary>
+    public int Count
+    {
+      get
+      {
+        return this._nameValues.Count;
+      }
+    }
 
-			for ( int i = 0; i < _nameValues.Count; i++ )
-			{
-				string key = _nameValues.Keys [i].ToLower();
-				string value = _nameValues [i];
-				if ( !KeyInsideArray( excludeValues, key ) )
-				{
-					if ( bFirst ) bFirst = false;
-					else queryString += "&";
-					queryString += key + "=" + value;
-				}
-			}
+    /// <summary>
+    /// The this.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    public string this[string name]
+    {
+      get
+      {
+        return this._nameValues[name];
+      }
+    }
 
-			return queryString;
-		}
+    /// <summary>
+    /// The this.
+    /// </summary>
+    /// <param name="index">
+    /// The index.
+    /// </param>
+    public string this[int index]
+    {
+      get
+      {
+        return this._nameValues[index];
+      }
+    }
 
-		private bool KeyInsideArray( string [] array, string key )
-		{
-			foreach ( string tmp in array )
-			{
-				if ( tmp.Equals( key ) ) return true;
-			}
-			return false;
-		}
+    /// <summary>
+    /// The parse url parameters.
+    /// </summary>
+    private void ParseURLParameters()
+    {
+      string urlTemp = this._urlParameters;
+      int index;
 
-		public string Anchor
-		{
-			get
-			{
-				return _urlAnchor;
-			}
-		}
+      // get the url end anchor (#blah) if there is one...
+      this._urlAnchor = string.Empty;
+      index = urlTemp.LastIndexOf('#');
 
-		public bool HasAnchor
-		{
-			get
-			{
-				return ( _urlAnchor != "" );
-			}
-		}
+      if (index > 0)
+      {
+        // there's an anchor
+        this._urlAnchor = urlTemp.Substring(index + 1);
 
-		public NameValueCollection Parameters
-		{
-			get
-			{
-				return _nameValues;
-			}
-		}
+        // remove the anchor from the url...
+        urlTemp = urlTemp.Remove(index);
+      }
 
-		public int Count
-		{
-			get
-			{
-				return _nameValues.Count;
-			}
-		}
+      this._nameValues.Clear();
+      string[] arrayPairs = urlTemp.Split(
+        new[]
+          {
+            '&'
+          });
 
-		public string this [string name]
-		{
-			get
-			{
-				return _nameValues [name];
-			}
-		}
+      foreach (string tValue in arrayPairs)
+      {
+        if (tValue.Trim().Length > 0)
+        {
+          // parse...
+          string[] nvalue = tValue.Trim().Split(
+            new[]
+              {
+                '='
+              });
+          if (nvalue.Length == 1)
+          {
+            this._nameValues.Add(nvalue[0], string.Empty);
+          }
+          else if (nvalue.Length > 1)
+          {
+            this._nameValues.Add(nvalue[0], nvalue[1]);
+          }
+        }
+      }
+    }
 
-		public string this [int index]
-		{
-			get
-			{
-				return _nameValues [index];
-			}
-		}
-	}
+    /// <summary>
+    /// The create query string.
+    /// </summary>
+    /// <param name="excludeValues">
+    /// The exclude values.
+    /// </param>
+    /// <returns>
+    /// The create query string.
+    /// </returns>
+    public string CreateQueryString(string[] excludeValues)
+    {
+      string queryString = string.Empty;
+      bool bFirst = true;
+
+      for (int i = 0; i < this._nameValues.Count; i++)
+      {
+        string key = this._nameValues.Keys[i].ToLower();
+        string value = this._nameValues[i];
+        if (!KeyInsideArray(excludeValues, key))
+        {
+          if (bFirst)
+          {
+            bFirst = false;
+          }
+          else
+          {
+            queryString += "&";
+          }
+
+          queryString += key + "=" + value;
+        }
+      }
+
+      return queryString;
+    }
+
+    /// <summary>
+    /// The key inside array.
+    /// </summary>
+    /// <param name="array">
+    /// The array.
+    /// </param>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <returns>
+    /// The key inside array.
+    /// </returns>
+    private bool KeyInsideArray(string[] array, string key)
+    {
+      foreach (string tmp in array)
+      {
+        if (tmp.Equals(key))
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
+  }
 }

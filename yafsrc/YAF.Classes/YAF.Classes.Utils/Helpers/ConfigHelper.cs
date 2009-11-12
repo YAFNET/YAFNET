@@ -17,167 +17,249 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Security.Permissions;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
 
 namespace YAF.Classes.Utils
 {
-	public class ConfigHelper
-	{
-		private AspNetHostingPermissionLevel? _trustLevel = null;
-		public AspNetHostingPermissionLevel TrustLevel
-		{
-			get
-			{
-				if ( !_trustLevel.HasValue )
-				{
-					_trustLevel = General.GetCurrentTrustLevel();
-				}
+  /// <summary>
+  /// The config helper.
+  /// </summary>
+  public class ConfigHelper
+  {
+    /// <summary>
+    /// The _app settings full.
+    /// </summary>
+    private AppSettingsSection _appSettingsFull = null;
 
-				return _trustLevel.Value;
-			}
-		}
+    /// <summary>
+    /// The _trust level.
+    /// </summary>
+    private AspNetHostingPermissionLevel? _trustLevel = null;
 
-		public T GetConfigSection<T>( string sectionName ) where T : class
-		{
-			T section = WebConfigurationManager.GetWebApplicationSection( sectionName ) as T;
-			return section;
-		}
+    /// <summary>
+    /// The _web config.
+    /// </summary>
+    private Configuration _webConfig = null;
 
-		public NameValueCollection AppSettings
-		{
-			get
-			{
-				return WebConfigurationManager.AppSettings;
-			}
-		}
+    /// <summary>
+    /// Gets TrustLevel.
+    /// </summary>
+    public AspNetHostingPermissionLevel TrustLevel
+    {
+      get
+      {
+        if (!this._trustLevel.HasValue)
+        {
+          this._trustLevel = General.GetCurrentTrustLevel();
+        }
 
-		public string GetConfigValueAsString( string keyName )
-		{
-			if ( this.TrustLevel == AspNetHostingPermissionLevel.High )
-			{
-				foreach ( string key in AppSettingsFull.Settings.AllKeys )
-				{
-					if ( key.Equals( keyName, StringComparison.CurrentCultureIgnoreCase ) )
-					{
-						return AppSettingsFull.Settings[key].Value;
-					}
-				}
-			}
-			else
-			{
-				foreach ( string key in AppSettings.AllKeys )
-				{
-					if ( key.Equals( keyName, StringComparison.CurrentCultureIgnoreCase ) )
-					{
-						return AppSettings[key];
-					}
-				}
-			}
+        return this._trustLevel.Value;
+      }
+    }
 
-			return null;
-		}
+    /// <summary>
+    /// Gets AppSettings.
+    /// </summary>
+    public NameValueCollection AppSettings
+    {
+      get
+      {
+        return WebConfigurationManager.AppSettings;
+      }
+    }
 
-		private Configuration _webConfig = null;
-		public Configuration WebConfigFull
-		{
-			get
-			{
-				if ( _webConfig == null )
-					_webConfig = WebConfigurationManager.OpenWebConfiguration( "~/" );
+    /// <summary>
+    /// Gets WebConfigFull.
+    /// </summary>
+    public Configuration WebConfigFull
+    {
+      get
+      {
+        if (this._webConfig == null)
+        {
+          this._webConfig = WebConfigurationManager.OpenWebConfiguration("~/");
+        }
 
-				return _webConfig;
-			}
-		}
+        return this._webConfig;
+      }
+    }
 
-		private AppSettingsSection _appSettingsFull = null;
-		public AppSettingsSection AppSettingsFull
-		{
-			get
-			{
-				if ( _appSettingsFull == null )
-				{
-					_appSettingsFull = GetConfigSectionFull<AppSettingsSection>( "appSettings" );
-				}
+    /// <summary>
+    /// Gets AppSettingsFull.
+    /// </summary>
+    public AppSettingsSection AppSettingsFull
+    {
+      get
+      {
+        if (this._appSettingsFull == null)
+        {
+          this._appSettingsFull = GetConfigSectionFull<AppSettingsSection>("appSettings");
+        }
 
-				return _appSettingsFull;
-			}
-		}
+        return this._appSettingsFull;
+      }
+    }
 
-		[AspNetHostingPermission( SecurityAction.Demand, Level=AspNetHostingPermissionLevel.High )]
-		public T GetConfigSectionFull<T>( string sectionName ) where T : class
-		{
-			ConfigurationSection section = WebConfigFull.GetSection( sectionName );
-			if ( section is T )
-			{
-				return section as T;
-			}
+    /// <summary>
+    /// The get config section.
+    /// </summary>
+    /// <param name="sectionName">
+    /// The section name.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public T GetConfigSection<T>(string sectionName) where T : class
+    {
+      var section = WebConfigurationManager.GetWebApplicationSection(sectionName) as T;
+      return section;
+    }
 
-			return null;
-		}
+    /// <summary>
+    /// The get config value as string.
+    /// </summary>
+    /// <param name="keyName">
+    /// The key name.
+    /// </param>
+    /// <returns>
+    /// The get config value as string.
+    /// </returns>
+    public string GetConfigValueAsString(string keyName)
+    {
+      if (TrustLevel == AspNetHostingPermissionLevel.High)
+      {
+        foreach (string key in AppSettingsFull.Settings.AllKeys)
+        {
+          if (key.Equals(keyName, StringComparison.CurrentCultureIgnoreCase))
+          {
+            return AppSettingsFull.Settings[key].Value;
+          }
+        }
+      }
+      else
+      {
+        foreach (string key in AppSettings.AllKeys)
+        {
+          if (key.Equals(keyName, StringComparison.CurrentCultureIgnoreCase))
+          {
+            return AppSettings[key];
+          }
+        }
+      }
 
-		[AspNetHostingPermission( SecurityAction.Demand, Level=AspNetHostingPermissionLevel.High )]
-		public bool WriteConnectionString( string keyName, string keyValue, string providerValue )
-		{
-			ConnectionStringsSection connStrings = GetConfigSectionFull<ConnectionStringsSection>( "connectionStrings" );
+      return null;
+    }
 
-			if ( connStrings == null )
-			{
-				return false;
-			}
+    /// <summary>
+    /// The get config section full.
+    /// </summary>
+    /// <param name="sectionName">
+    /// The section name.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.High)]
+    public T GetConfigSectionFull<T>(string sectionName) where T : class
+    {
+      ConfigurationSection section = WebConfigFull.GetSection(sectionName);
+      if (section is T)
+      {
+        return section as T;
+      }
 
-			bool writtenSuccessfully = false;
-			try
-			{
-				if ( connStrings.ConnectionStrings[keyName] != null )
-				{
-					connStrings.ConnectionStrings.Remove( keyName );
-				}
+      return null;
+    }
 
-				connStrings.ConnectionStrings.Add( new ConnectionStringSettings( keyName, keyValue, providerValue ) );
+    /// <summary>
+    /// The write connection string.
+    /// </summary>
+    /// <param name="keyName">
+    /// The key name.
+    /// </param>
+    /// <param name="keyValue">
+    /// The key value.
+    /// </param>
+    /// <param name="providerValue">
+    /// The provider value.
+    /// </param>
+    /// <returns>
+    /// The write connection string.
+    /// </returns>
+    [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.High)]
+    public bool WriteConnectionString(string keyName, string keyValue, string providerValue)
+    {
+      var connStrings = GetConfigSectionFull<ConnectionStringsSection>("connectionStrings");
 
-				WebConfigFull.Save( ConfigurationSaveMode.Modified );
+      if (connStrings == null)
+      {
+        return false;
+      }
 
-				writtenSuccessfully = true;
-			}
-			catch
-			{
-				writtenSuccessfully = false;
-			}
+      bool writtenSuccessfully = false;
+      try
+      {
+        if (connStrings.ConnectionStrings[keyName] != null)
+        {
+          connStrings.ConnectionStrings.Remove(keyName);
+        }
 
-			return writtenSuccessfully;
-		}
+        connStrings.ConnectionStrings.Add(new ConnectionStringSettings(keyName, keyValue, providerValue));
 
-		[AspNetHostingPermission( SecurityAction.Demand, Level=AspNetHostingPermissionLevel.High )]
-		public bool WriteAppSetting( string keyName, string keyValue )
-		{
-			bool writtenSuccessfully = false;
+        WebConfigFull.Save(ConfigurationSaveMode.Modified);
 
-			try
-			{
-				if ( AppSettingsFull.Settings[keyName] != null )
-				{
-					AppSettingsFull.Settings.Remove( keyName );
-				}
+        writtenSuccessfully = true;
+      }
+      catch
+      {
+        writtenSuccessfully = false;
+      }
 
-				AppSettingsFull.Settings.Add( keyName, keyValue );
+      return writtenSuccessfully;
+    }
 
-				WebConfigFull.Save( ConfigurationSaveMode.Modified );
+    /// <summary>
+    /// The write app setting.
+    /// </summary>
+    /// <param name="keyName">
+    /// The key name.
+    /// </param>
+    /// <param name="keyValue">
+    /// The key value.
+    /// </param>
+    /// <returns>
+    /// The write app setting.
+    /// </returns>
+    [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.High)]
+    public bool WriteAppSetting(string keyName, string keyValue)
+    {
+      bool writtenSuccessfully = false;
 
-				writtenSuccessfully = true;
-			}
-			catch
-			{
-				writtenSuccessfully = false;
-			}
+      try
+      {
+        if (AppSettingsFull.Settings[keyName] != null)
+        {
+          AppSettingsFull.Settings.Remove(keyName);
+        }
 
-			return writtenSuccessfully;
-		}
-	}
+        AppSettingsFull.Settings.Add(keyName, keyValue);
+
+        WebConfigFull.Save(ConfigurationSaveMode.Modified);
+
+        writtenSuccessfully = true;
+      }
+      catch
+      {
+        writtenSuccessfully = false;
+      }
+
+      return writtenSuccessfully;
+    }
+  }
 }

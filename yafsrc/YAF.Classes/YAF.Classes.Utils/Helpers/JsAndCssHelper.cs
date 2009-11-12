@@ -16,31 +16,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.IO;
-
 namespace YAF.Classes.Utils
 {
-	public static class JsAndCssHelper
-	{
-		/// <summary>
-		/// Currently doesn't do anything. Need to find a GPL Javascript Compressor
-		/// </summary>
-		/// <param name="javaScript"></param>
-		/// <returns></returns>
-		public static string CompressJavaScript( string javaScript )
-		{
-			return javaScript;
-		}
+  /// <summary>
+  /// The js and css helper.
+  /// </summary>
+  public static class JsAndCssHelper
+  {
+    /// <summary>
+    /// Currently doesn't do anything. Need to find a GPL Javascript Compressor
+    /// </summary>
+    /// <param name="javaScript">
+    /// </param>
+    /// <returns>
+    /// The compress java script.
+    /// </returns>
+    public static string CompressJavaScript(string javaScript)
+    {
+      return javaScript;
+    }
 
-		/// <summary>
-		/// Currently doesn't do anything. Need to find a GPL CSS Compressor
-		/// </summary>
-		/// <param name="css"></param>
-		/// <returns></returns>
-		public static string CompressCss( string css )
-		{
-			return css;
-		}
-	}
+    /// <summary>
+    /// Currently doesn't do anything. Need to find a GPL CSS Compressor
+    /// </summary>
+    /// <param name="css">
+    /// </param>
+    /// <returns>
+    /// The compress css.
+    /// </returns>
+    public static string CompressCss(string css)
+    {
+      return css;
+    }
+  }
 }

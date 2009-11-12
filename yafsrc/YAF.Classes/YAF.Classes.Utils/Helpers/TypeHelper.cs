@@ -19,168 +19,219 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace YAF.Classes.Utils
 {
-	public static class TypeHelper
-	{
-		/// <summary>
-		/// Converts an object to a type.
-		/// </summary>
-		/// <param name="value">Object to convert</param>
-		/// <param name="type">Type to convert to e.g. System.Guid</param>
-		/// <returns></returns>
-		static public object ConvertObjectToType(object value, string type)
-		{
-			Type convertType;
+  /// <summary>
+  /// The type helper.
+  /// </summary>
+  public static class TypeHelper
+  {
+    /// <summary>
+    /// Converts an object to a type.
+    /// </summary>
+    /// <param name="value">
+    /// Object to convert
+    /// </param>
+    /// <param name="type">
+    /// Type to convert to e.g. System.Guid
+    /// </param>
+    /// <returns>
+    /// The convert object to type.
+    /// </returns>
+    public static object ConvertObjectToType(object value, string type)
+    {
+      Type convertType;
 
-			try
-			{
-				convertType = Type.GetType(type, true, true);
-			}
-			catch
-			{
-				convertType = Type.GetType("System.Guid", false);
-			}
+      try
+      {
+        convertType = Type.GetType(type, true, true);
+      }
+      catch
+      {
+        convertType = Type.GetType("System.Guid", false);
+      }
 
-			if (value.GetType().ToString() == "System.String")
-			{
-				switch (convertType.ToString())
-				{
-					case "System.Guid":
-						// do a "manual conversion" from string to Guid
-						return new System.Guid(Convert.ToString(value));
-					case "System.Int32":
-						return Convert.ToInt32(value);
-					case "System.Int64":
-						return Convert.ToInt64(value);
-				}
-			}
+      if (value.GetType().ToString() == "System.String")
+      {
+        switch (convertType.ToString())
+        {
+          case "System.Guid":
 
-			return Convert.ChangeType(value, convertType);
-		}
+            // do a "manual conversion" from string to Guid
+            return new Guid(Convert.ToString(value));
+          case "System.Int32":
+            return Convert.ToInt32(value);
+          case "System.Int64":
+            return Convert.ToInt64(value);
+        }
+      }
 
-		/// <summary>
-		/// Gets an Int from an Object value
-		/// </summary>
-		/// <param name="expression"></param>
-		/// <returns></returns>
-		static public int ValidInt(object expression)
-		{
-			int value = 0;
+      return Convert.ChangeType(value, convertType);
+    }
 
-			if (expression != null)
-			{
-				try
-				{
-					int.TryParse(expression.ToString(), out value);
-				}
-				catch
-				{
+    /// <summary>
+    /// Gets an Int from an Object value
+    /// </summary>
+    /// <param name="expression">
+    /// </param>
+    /// <returns>
+    /// The valid int.
+    /// </returns>
+    public static int ValidInt(object expression)
+    {
+      int value = 0;
 
-				}
-			}
+      if (expression != null)
+      {
+        try
+        {
+          int.TryParse(expression.ToString(), out value);
+        }
+        catch
+        {
+        }
+      }
 
-			return value;
-		}
+      return value;
+    }
 
-		static public int VerifyInt32(object o)
-		{
-			return Convert.ToInt32(o);
-		}
+    /// <summary>
+    /// The verify int 32.
+    /// </summary>
+    /// <param name="o">
+    /// The o.
+    /// </param>
+    /// <returns>
+    /// The verify int 32.
+    /// </returns>
+    public static int VerifyInt32(object o)
+    {
+      return Convert.ToInt32(o);
+    }
 
-		static public bool VerifyBool(object o)
-		{
-			return Convert.ToBoolean(o);
-		}
+    /// <summary>
+    /// The verify bool.
+    /// </summary>
+    /// <param name="o">
+    /// The o.
+    /// </param>
+    /// <returns>
+    /// The verify bool.
+    /// </returns>
+    public static bool VerifyBool(object o)
+    {
+      return Convert.ToBoolean(o);
+    }
 
-		/// <summary>
-		/// Converts the object to the class (T) or returns null if it's not 
-		/// an instance of that class or instance is null.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="instance"></param>
-		/// <returns></returns>
-		static public T ToClass<T>(this object instance) where T : class
-		{
-			if ( instance != null && instance is T )
-			{
-				return instance as T;
-			}
+    /// <summary>
+    /// Converts the object to the class (T) or returns null if it's not 
+    /// an instance of that class or instance is null.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="instance">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static T ToClass<T>(this object instance) where T : class
+    {
+      if (instance != null && instance is T)
+      {
+        return instance as T;
+      }
 
-			return null;
-		}
+      return null;
+    }
 
-		/// <summary>
-		/// Converts an object to Type using the Convert.ChangeType() call.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="instance"></param>
-		/// <returns></returns>
-		static public T ToType<T>( this object instance )
-		{
-			return (T) Convert.ChangeType( instance, typeof ( T ) );
-		}
+    /// <summary>
+    /// Converts an object to Type using the Convert.ChangeType() call.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="instance">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static T ToType<T>(this object instance)
+    {
+      return (T) Convert.ChangeType(instance, typeof (T));
+    }
 
-		/// <summary>
-		/// Converts an IList to a generic typed List<T>.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="listObjects"></param>
-		/// <returns></returns>
-		static public List<T> ToGenericList<T>( this IList listObjects )
-		{
-			List<T> convertedList = new List<T>( listObjects.Count );
+    /// <summary>
+    /// The to generic list.
+    /// </summary>
+    /// <param name="listObjects">
+    /// The list objects.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    public static List<T> ToGenericList<T>(this IList listObjects)
+    {
+      var convertedList = new List<T>(listObjects.Count);
 
-			foreach ( object listObject in listObjects )
-			{
-				convertedList.Add( (T)listObject );
-			}
+      foreach (object listObject in listObjects)
+      {
+        convertedList.Add((T) listObject);
+      }
 
-			return convertedList;
-		}
+      return convertedList;
+    }
 
-		/// <summary>
-		/// Converts an object to a different object (class) by copying fields (if they exist).
-		/// Used to convert annonomous objects to strongly typed objects.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="obj"></param>
-		/// <returns></returns>
-		static public T ToDifferentClassType<T>( this object obj ) where T : class
-		{
-			//create instance of T type object:
-			var tmp = Activator.CreateInstance( typeof ( T ) );
+    /// <summary>
+    /// Converts an object to a different object (class) by copying fields (if they exist).
+    /// Used to convert annonomous objects to strongly typed objects.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="obj">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static T ToDifferentClassType<T>(this object obj) where T : class
+    {
+      // create instance of T type object:
+      var tmp = Activator.CreateInstance(typeof (T));
 
-			//loop through the fields of the object you want to covert:       
-			foreach ( System.Reflection.FieldInfo fi in obj.GetType().GetFields() )
-			{
-				try
-				{
-					tmp.GetType().GetField( fi.Name ).SetValue( tmp, fi.GetValue( obj ) );
-				}
-				catch
-				{
-				}
-			}
+      // loop through the fields of the object you want to covert:       
+      foreach (FieldInfo fi in obj.GetType().GetFields())
+      {
+        try
+        {
+          tmp.GetType().GetField(fi.Name).SetValue(tmp, fi.GetValue(obj));
+        }
+        catch
+        {
+        }
+      }
 
-			//return the T type object:         
-			return (T) tmp;
-		}
+      // return the T type object:         
+      return (T) tmp;
+    }
 
-		static public object[] GetCustomAttributes( Type objectType, Type attributeType )
-		{
-			object[] myAttrOnType = objectType.GetCustomAttributes( attributeType, false );
-			if ( myAttrOnType.Length > 0 )
-			{
-				return myAttrOnType;
-			}
+    /// <summary>
+    /// The get custom attributes.
+    /// </summary>
+    /// <param name="objectType">
+    /// The object type.
+    /// </param>
+    /// <param name="attributeType">
+    /// The attribute type.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static object[] GetCustomAttributes(Type objectType, Type attributeType)
+    {
+      object[] myAttrOnType = objectType.GetCustomAttributes(attributeType, false);
+      if (myAttrOnType.Length > 0)
+      {
+        return myAttrOnType;
+      }
 
-			return null;
-		}
-	}
+      return null;
+    }
+  }
 }
