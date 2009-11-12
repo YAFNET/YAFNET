@@ -16,63 +16,76 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	public partial class im_skype : YAF.Classes.Core.ForumPage
-	{
-		public int UserID
-		{
-			get
-			{
-				return ( int )Security.StringToLongOrRedirect( Request.QueryString ["u"] );
-			}
-		}
+  // YAF.Pages
+  using System;
+  using System.Web.Security;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-		public im_skype()
-			: base( "IM_SKYPE" )
-		{
-		}
+  /// <summary>
+  /// The im_skype.
+  /// </summary>
+  public partial class im_skype : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="im_skype"/> class.
+    /// </summary>
+    public im_skype()
+      : base("IM_SKYPE")
+    {
+    }
 
-		protected void Page_Load( object sender, EventArgs e )
-		{
-			if ( User == null )
-			{
-				YafBuildLink.AccessDenied();
-			}
+    /// <summary>
+    /// Gets UserID.
+    /// </summary>
+    public int UserID
+    {
+      get
+      {
+        return (int) Security.StringToLongOrRedirect(Request.QueryString["u"]);
+      }
+    }
 
-			if ( !IsPostBack )
-			{
-				// get user data...
-				MembershipUser user = UserMembershipHelper.GetMembershipUserById( UserID );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (User == null)
+      {
+        YafBuildLink.AccessDenied();
+      }
 
-				if ( user == null )
-				{
-					YafBuildLink.AccessDenied(/*No such user exists*/);
-				}
+      if (!IsPostBack)
+      {
+        // get user data...
+        MembershipUser user = UserMembershipHelper.GetMembershipUserById(UserID);
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( user.UserName, YafBuildLink.GetLink( ForumPages.profile, "u={0}", UserID ) );
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+        if (user == null)
+        {
+          YafBuildLink.AccessDenied( /*No such user exists*/);
+        }
 
-				// get full user data...
-				CombinedUserDataHelper userData = new CombinedUserDataHelper( user, UserID );
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(user.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", UserID));
+        this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
 
-				Msg.NavigateUrl = string.Format( "skype:{0}?call", userData.Profile.Skype );
-				Msg.Attributes.Add( "onclick", "return skypeCheck();" );
-				Img.Src = string.Format( "http://mystatus.skype.com/bigclassic/{0}", userData.Profile.Skype );
-			}
-		}
-	}
+        // get full user data...
+        var userData = new CombinedUserDataHelper(user, UserID);
+
+        this.Msg.NavigateUrl = string.Format("skype:{0}?call", userData.Profile.Skype);
+        this.Msg.Attributes.Add("onclick", "return skypeCheck();");
+        this.Img.Src = string.Format("http://mystatus.skype.com/bigclassic/{0}", userData.Profile.Skype);
+      }
+    }
+  }
 }

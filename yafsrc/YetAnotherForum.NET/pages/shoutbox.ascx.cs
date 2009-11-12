@@ -1,5 +1,5 @@
-﻿/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bj�rnar Henden
  * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -17,26 +17,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using YAF.Classes.Core;
-
 namespace YAF.Pages
 {
-	public partial class shoutbox : ForumPage
-	{
-		public shoutbox()
-			: base( "SHOUTBOX" )
-		{
-			AllowAsPopup = true;
-		}
+  using System;
+  using YAF.Classes.Core;
 
-		protected void Page_Load( object sender, EventArgs e )
-		{
-			ShoutBox1.Visible = PageContext.BoardSettings.ShowShoutbox;
-		}
-	}
+  /// <summary>
+  /// The shoutbox.
+  /// </summary>
+  public partial class shoutbox : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="shoutbox"/> class.
+    /// </summary>
+    public shoutbox()
+      : base("SHOUTBOX")
+    {
+      AllowAsPopup = true;
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      this.ShoutBox1.Visible = PageContext.BoardSettings.ShowShoutbox;
+    }
+  }
 }

@@ -18,57 +18,68 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Web.Security;
-using YAF.Classes;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for logout.
-	/// </summary>
-	public partial class logout : YAF.Classes.Core.ForumPage
-	{
-		public logout() : base("LOGOUT")
-		{
-			PageContext.Globals.IsSuspendCheckEnabled = false;
-		}
+  // YAF.Pages
+  using System;
+  using System.Web.Security;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			FormsAuthentication.SignOut();
-			Session.Abandon();
-			YafBuildLink.Redirect( ForumPages.forum );
-		}
+  /// <summary>
+  /// Summary description for logout.
+  /// </summary>
+  public partial class logout : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="logout"/> class.
+    /// </summary>
+    public logout()
+      : base("LOGOUT")
+    {
+      PageContext.Globals.IsSuspendCheckEnabled = false;
+    }
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-		}
-		#endregion
-	}
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      FormsAuthentication.SignOut();
+      Session.Abandon();
+      YafBuildLink.Redirect(ForumPages.forum);
+    }
+
+    #region Web Form Designer generated code
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

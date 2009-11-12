@@ -18,176 +18,222 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Data;
-using System.Text;
-using System.Web;
-using System.Xml;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.UI;
-using YAF.Classes.Utils;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for rss.
-	/// </summary>
-	public partial class rsstopic : ForumPage
-	{
-		public rsstopic()
-			: base("RSSTOPIC")
-		{
-		}
+  // YAF.Pages
+  using System;
+  using System.Data;
+  using System.Text;
+  using System.Web;
+  using System.Xml;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.UI;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			// Put user code to initialize the page here
-			RssFeed rf = new RssFeed();
+  /// <summary>
+  /// Summary description for rss.
+  /// </summary>
+  public partial class rsstopic : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="rsstopic"/> class.
+    /// </summary>
+    public rsstopic()
+      : base("RSSTOPIC")
+    {
+    }
 
-			XmlTextWriter writer = new XmlTextWriter(Response.OutputStream, Encoding.UTF8);
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      // Put user code to initialize the page here
+      var rf = new RssFeed();
 
-			writer.Formatting = Formatting.Indented;
-			rf.WriteRSSPrologue(writer);
+      var writer = new XmlTextWriter(Response.OutputStream, Encoding.UTF8);
 
-			// Usage rf.AddRSSItem(writer, "Item Title", "http://test.com", "This is a test item");
+      writer.Formatting = Formatting.Indented;
+      rf.WriteRSSPrologue(writer);
 
-			switch (Request.QueryString["pg"])
-			{
-				case "latestposts":
-					if (!PageContext.ForumReadAccess)
-						YafBuildLink.AccessDenied();
-					using (DataTable dt = DB.topic_latest(PageContext.PageBoardID, 7, PageContext.PageUserID))
-					{
-						foreach (DataRow row in dt.Rows)
-							rf.AddRSSItem(writer,
-							              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
-							              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]),
-							              YafServices.BadWordReplace.Replace(row["Message"].ToString()),
-							              Convert.ToDateTime(row["Posted"]).ToString("r"));
-					}
-					break;
-				case "latestannouncements":
-					if (!PageContext.ForumReadAccess)
-						YafBuildLink.AccessDenied();
-					using (DataTable dt = DB.topic_announcements(PageContext.PageBoardID, 7, PageContext.PageUserID))
-					{
-						foreach (DataRow row in dt.Rows)
-							rf.AddRSSItem(writer,
-							              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
-							              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]),
-							              YafServices.BadWordReplace.Replace(row["Message"].ToString()),
-							              Convert.ToDateTime(row["Posted"]).ToString("r"));
-					}
-					break;
-				case "posts":
-					if (!PageContext.ForumReadAccess)
-						YafBuildLink.AccessDenied();
+      // Usage rf.AddRSSItem(writer, "Item Title", "http://test.com", "This is a test item");
 
-					if (Request.QueryString["t"] != null)
-					{
-						using (
-							DataTable dt =
-								DB.post_list( PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, YafContext.Current.BoardSettings.UseStyledNicks, YafContext.Current.BoardSettings.ShowThanksDate ) )
-						{
-							foreach (DataRow row in dt.Rows)
-								rf.AddRSSItem(writer,
-								              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
-								              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]),
-								              FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])),
-								              Convert.ToDateTime(row["Posted"]).ToString("r"));
-						}
-					}
+      switch (Request.QueryString["pg"])
+      {
+        case "latestposts":
+          if (!PageContext.ForumReadAccess)
+          {
+            YafBuildLink.AccessDenied();
+          }
 
-					break;
-				case "forum":
-					using (
-						DataTable dt = DB.forum_listread(PageContext.PageBoardID, PageContext.PageUserID, null, null))
-					{
-						foreach (DataRow row in dt.Rows)
-						{
-							rf.AddRSSItem(writer,
-							              YafServices.BadWordReplace.Replace(row["Forum"].ToString()),
-							              YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
-							              YafServices.BadWordReplace.Replace(row["Description"].ToString()));
-						}
-					}
-					break;
-				case "topics":
-					if (!PageContext.ForumReadAccess)
-						YafBuildLink.AccessDenied();
+          using (DataTable dt = DB.topic_latest(PageContext.PageBoardID, 7, PageContext.PageUserID))
+          {
+            foreach (DataRow row in dt.Rows)
+            {
+              rf.AddRSSItem(
+                writer, 
+                YafServices.BadWordReplace.Replace(row["Subject"].ToString()), 
+                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]), 
+                YafServices.BadWordReplace.Replace(row["Message"].ToString()), 
+                Convert.ToDateTime(row["Posted"]).ToString("r"));
+            }
+          }
 
-					int forumId;
-					if (Request.QueryString["f"] != null &&
-					    int.TryParse(Request.QueryString["f"], out forumId))
-					{
-                        //vzrus changed to separate DLL specific code
-                        using (DataTable dt = DB.rsstopic_list(forumId))
-                        {
-                            foreach (DataRow row in dt.Rows)
-                            {
-                                rf.AddRSSItem(writer,
-                                              YafServices.BadWordReplace.Replace(row["Topic"].ToString()),
-                                              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]),
-                                              YafServices.BadWordReplace.Replace(row["Topic"].ToString()),
-                                              Convert.ToDateTime(row["Posted"]).ToString("r"));
-                            }
-                        }
-				
-					}
+          break;
+        case "latestannouncements":
+          if (!PageContext.ForumReadAccess)
+          {
+            YafBuildLink.AccessDenied();
+          }
 
-					break;
-				case "active":
-using (
-	DataTable dt =
-		DB.topic_active(PageContext.PageBoardID, PageContext.PageUserID,
-		DateTime.Now + TimeSpan.FromHours( -24 ), ( PageContext.Settings.CategoryID == 0 ) ? null : (object)PageContext.Settings.CategoryID ) )
-{
-	foreach (DataRow row in dt.Rows)
-	{
-		rf.AddRSSItem(writer,
-		              YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
-		              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
-		              YafServices.BadWordReplace.Replace(row["Subject"].ToString()));
-	}
-}
-break;
-				default:
-					break;
-			}
+          using (DataTable dt = DB.topic_announcements(PageContext.PageBoardID, 7, PageContext.PageUserID))
+          {
+            foreach (DataRow row in dt.Rows)
+            {
+              rf.AddRSSItem(
+                writer, 
+                YafServices.BadWordReplace.Replace(row["Subject"].ToString()), 
+                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]), 
+                YafServices.BadWordReplace.Replace(row["Message"].ToString()), 
+                Convert.ToDateTime(row["Posted"]).ToString("r"));
+            }
+          }
 
-			rf.WriteRSSClosing(writer);
-			writer.Flush();
+          break;
+        case "posts":
+          if (!PageContext.ForumReadAccess)
+          {
+            YafBuildLink.AccessDenied();
+          }
 
-			writer.Close();
+          if (Request.QueryString["t"] != null)
+          {
+            using (
+              DataTable dt = DB.post_list(
+                PageContext.PageTopicID, 
+                1, 
+                PageContext.BoardSettings.ShowDeletedMessages, 
+                YafContext.Current.BoardSettings.UseStyledNicks, 
+                YafContext.Current.BoardSettings.ShowThanksDate))
+            {
+              foreach (DataRow row in dt.Rows)
+              {
+                rf.AddRSSItem(
+                  writer, 
+                  YafServices.BadWordReplace.Replace(row["Subject"].ToString()), 
+                  YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]), 
+                  FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])), 
+                  Convert.ToDateTime(row["Posted"]).ToString("r"));
+              }
+            }
+          }
 
-			Response.ContentEncoding = Encoding.UTF8;
-			Response.ContentType = "text/xml";
-			Response.Cache.SetCacheability(HttpCacheability.Public);
+          break;
+        case "forum":
+          using (DataTable dt = DB.forum_listread(PageContext.PageBoardID, PageContext.PageUserID, null, null))
+          {
+            foreach (DataRow row in dt.Rows)
+            {
+              rf.AddRSSItem(
+                writer, 
+                YafServices.BadWordReplace.Replace(row["Forum"].ToString()), 
+                YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]), 
+                YafServices.BadWordReplace.Replace(row["Description"].ToString()));
+            }
+          }
 
-			Response.End();
-		}
+          break;
+        case "topics":
+          if (!PageContext.ForumReadAccess)
+          {
+            YafBuildLink.AccessDenied();
+          }
 
-		#region Web Form Designer generated code
+          int forumId;
+          if (Request.QueryString["f"] != null && int.TryParse(Request.QueryString["f"], out forumId))
+          {
+            // vzrus changed to separate DLL specific code
+            using (DataTable dt = DB.rsstopic_list(forumId))
+            {
+              foreach (DataRow row in dt.Rows)
+              {
+                rf.AddRSSItem(
+                  writer, 
+                  YafServices.BadWordReplace.Replace(row["Topic"].ToString()), 
+                  YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]), 
+                  YafServices.BadWordReplace.Replace(row["Topic"].ToString()), 
+                  Convert.ToDateTime(row["Posted"]).ToString("r"));
+              }
+            }
+          }
 
-		protected override void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
+          break;
+        case "active":
+          using (
+            DataTable dt = DB.topic_active(
+              PageContext.PageBoardID, 
+              PageContext.PageUserID, 
+              DateTime.Now + TimeSpan.FromHours(-24), 
+              (PageContext.Settings.CategoryID == 0) ? null : (object) PageContext.Settings.CategoryID))
+          {
+            foreach (DataRow row in dt.Rows)
+            {
+              rf.AddRSSItem(
+                writer, 
+                YafServices.BadWordReplace.Replace(row["Subject"].ToString()), 
+                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]), 
+                YafServices.BadWordReplace.Replace(row["Subject"].ToString()));
+            }
+          }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-		}
+          break;
+        default:
+          break;
+      }
 
-		#endregion
-	}
+      rf.WriteRSSClosing(writer);
+      writer.Flush();
+
+      writer.Close();
+
+      Response.ContentEncoding = Encoding.UTF8;
+      Response.ContentType = "text/xml";
+      Response.Cache.SetCacheability(HttpCacheability.Public);
+
+      Response.End();
+    }
+
+    #region Web Form Designer generated code
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

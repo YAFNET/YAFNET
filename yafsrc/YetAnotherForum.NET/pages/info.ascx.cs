@@ -17,163 +17,164 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Information control displaying feedback information to users.
-	/// </summary>
-	public partial class info : YAF.Classes.Core.ForumPage
-	{
-		#region Constructors & Overridden Methods
+  // YAF.Pages
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-		/// <summary>
-		/// Default constructor.
-		/// </summary>
-		public info()
-			: base("INFO")
-		{
-			PageContext.Globals.IsSuspendCheckEnabled = false;
-		}
+  /// <summary>
+  /// Information control displaying feedback information to users.
+  /// </summary>
+  public partial class info : ForumPage
+  {
+    #region Constructors & Overridden Methods
 
-		/// <summary>
-		/// Creates page links for this page.
-		/// </summary>
-		protected override void CreatePageLinks()
-		{
-			// forum index
-			PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-			// information title text
-			PageLinks.AddLink(Title.Text);
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="info"/> class. 
+    /// Default constructor.
+    /// </summary>
+    public info()
+      : base("INFO")
+    {
+      PageContext.Globals.IsSuspendCheckEnabled = false;
+    }
 
-		#endregion
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+      // forum index
+      this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
+      // information title text
+      this.PageLinks.AddLink(this.Title.Text);
+    }
 
-		#region Event Handlers
+    #endregion
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			// Put user code to initialize the page here
-			if (!IsPostBack)
-			{
-				// localize button label
-				Continue.Text = GetText("continue");
+    #region Event Handlers
 
-				// get redirect URL from parameter
-				if (Request.QueryString["url"] != null)
-				{
-					// unescape ampersands
-					RefreshURL = Request.QueryString["url"].Replace("&amp;", "&");
-				}
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// </param>
+    /// <param name="e">
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      // Put user code to initialize the page here
+      if (!IsPostBack)
+      {
+        // localize button label
+        this.Continue.Text = GetText("continue");
 
-				// try to get infomessage code from parameter
-				try
-				{
-					// compare it converted to enumeration
-					switch ((InfoMessage)int.Parse(Request.QueryString["i"]))
-					{
-						case InfoMessage.Moderated: /// Moderated
-							Title.Text = GetText("title_moderated");
-							Info.Text = GetText("moderated");
-							break;
-						case InfoMessage.Suspended: /// Suspended
-							Title.Text = GetText("title_suspended");
-							Info.Text = GetTextFormatted( "suspended", YafServices.DateTime.FormatDateTime(PageContext.SuspendedUntil));
-							break;
-						case InfoMessage.RegistrationEmail: /// Registration email
-							Title.Text = GetText("title_registration");
-							Info.Text = GetText("registration");
-							RefreshTime = 10;
-							RefreshURL = YafBuildLink.GetLink(ForumPages.login);
-							break;
-						case InfoMessage.AccessDenied: /// Access Denied
-							Title.Text = GetText("title_accessdenied");
-							Info.Text = GetText("accessdenied");
-							RefreshTime = 10;
-							RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-							break;
-						case InfoMessage.Disabled: /// Disabled feature
-							Title.Text = GetText("TITLE_ACCESSDENIED");
-							Info.Text = GetText("DISABLED");
-							RefreshTime = 10;
-							RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-							break;
-						case InfoMessage.Invalid: /// Invalid argument!
-							Title.Text = GetText("TITLE_INVALID");
-							Info.Text = GetText("INVALID");
-							RefreshTime = 10;
-							RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-							break;
-						case InfoMessage.Failure: // some sort of failure
-							Title.Text = GetText("TITLE_FAILURE");
-							Info.Text = GetText("FAILURE");
-							RefreshTime = 10;
-							RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-							break;
-					}
-				}
-				// exception was thrown
-				catch (Exception)
-				{
-					// get title for exception message
-					Title.Text = GetText("title_exception");
-					// exception message
-					Info.Text = string.Format("{1} <b>{0}</b>.", PageContext.PageUserName, GetText("exception"));
+        // get redirect URL from parameter
+        if (Request.QueryString["url"] != null)
+        {
+          // unescape ampersands
+          RefreshURL = Request.QueryString["url"].Replace("&amp;", "&");
+        }
 
-					// redirect to forum main after 2 seconds
-					RefreshTime = 2;
-					RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-				}
+        // try to get infomessage code from parameter
+        try
+        {
+          // compare it converted to enumeration
+          switch ((InfoMessage) int.Parse(Request.QueryString["i"]))
+          {
+            case InfoMessage.Moderated: // Moderated
+              this.Title.Text = GetText("title_moderated");
+              this.Info.Text = GetText("moderated");
+              break;
+            case InfoMessage.Suspended: // Suspended
+              this.Title.Text = GetText("title_suspended");
+              this.Info.Text = GetTextFormatted("suspended", YafServices.DateTime.FormatDateTime(PageContext.SuspendedUntil));
+              break;
+            case InfoMessage.RegistrationEmail: // Registration email
+              this.Title.Text = GetText("title_registration");
+              this.Info.Text = GetText("registration");
+              RefreshTime = 10;
+              RefreshURL = YafBuildLink.GetLink(ForumPages.login);
+              break;
+            case InfoMessage.AccessDenied: // Access Denied
+              this.Title.Text = GetText("title_accessdenied");
+              this.Info.Text = GetText("accessdenied");
+              RefreshTime = 10;
+              RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+              break;
+            case InfoMessage.Disabled: // Disabled feature
+              this.Title.Text = GetText("TITLE_ACCESSDENIED");
+              this.Info.Text = GetText("DISABLED");
+              RefreshTime = 10;
+              RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+              break;
+            case InfoMessage.Invalid: // Invalid argument!
+              this.Title.Text = GetText("TITLE_INVALID");
+              this.Info.Text = GetText("INVALID");
+              RefreshTime = 10;
+              RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+              break;
+            case InfoMessage.Failure: // some sort of failure
+              this.Title.Text = GetText("TITLE_FAILURE");
+              this.Info.Text = GetText("FAILURE");
+              RefreshTime = 10;
+              RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+              break;
+          }
+        }
+          
+          // exception was thrown
+        catch (Exception)
+        {
+          // get title for exception message
+          this.Title.Text = GetText("title_exception");
 
-				// set continue button URL and visibility
-				Continue.NavigateUrl = RefreshURL;
-				Continue.Visible = RefreshURL != null;
+          // exception message
+          this.Info.Text = string.Format("{1} <b>{0}</b>.", PageContext.PageUserName, GetText("exception"));
 
-				// create page links - must be placed after switch to display correct title (last breadcrumb trail)
-				CreatePageLinks();
-			}
-		}
-		
-		#endregion
+          // redirect to forum main after 2 seconds
+          RefreshTime = 2;
+          RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+        }
 
+        // set continue button URL and visibility
+        this.Continue.NavigateUrl = RefreshURL;
+        this.Continue.Visible = RefreshURL != null;
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
+        // create page links - must be placed after switch to display correct title (last breadcrumb trail)
+        CreatePageLinks();
+      }
+    }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-		}
-		#endregion
-	}
+    #endregion
+
+    #region Web Form Designer generated code
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

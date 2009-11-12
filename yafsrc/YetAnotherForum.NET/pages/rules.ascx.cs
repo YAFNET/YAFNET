@@ -18,46 +18,84 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Classes;
-using YAF.Classes.Utils;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for rules.
-	/// </summary>
-	public partial class rules : YAF.Classes.Core.ForumPage
-	{
+  // YAF.Pages
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-		public rules()
-			: base( "RULES" )
-		{
-		}
+  /// <summary>
+  /// Summary description for rules.
+  /// </summary>
+  public partial class rules : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="rules"/> class.
+    /// </summary>
+    public rules()
+      : base("RULES")
+    {
+    }
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+    /// <summary>
+    /// Gets a value indicating whether IsProtected.
+    /// </summary>
+    public override bool IsProtected
+    {
+      get
+      {
+        return false;
+      }
+    }
 
-				Accept.Text = GetText( "ACCEPT" );
-				Cancel.Text = GetText( "DECLINE" );
-			}
-		}
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
-		protected void Cancel_Click( object sender, System.EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.forum );
-		}
+        this.Accept.Text = GetText("ACCEPT");
+        this.Cancel.Text = GetText("DECLINE");
+      }
+    }
 
-		protected void Accept_Click( object sender, System.EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.register );
-		}
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.forum);
+    }
 
-		public override bool IsProtected
-		{
-			get { return false; }
-		}
-	}
+    /// <summary>
+    /// The accept_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Accept_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.register);
+    }
+  }
 }

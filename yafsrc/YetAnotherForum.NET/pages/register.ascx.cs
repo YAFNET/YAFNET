@@ -18,299 +18,380 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Web.Security;
-using System.Globalization;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-using YAF.Controls;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for register.
-	/// </summary>
-	public partial class register : YAF.Classes.Core.ForumPage
-	{
+  // YAF.Pages
+  using System;
+  using System.Net.Mail;
+  using System.Web.Security;
+  using System.Web.UI;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.UI;
+  using YAF.Classes.Utils;
+  using YAF.Controls;
 
-		public register()
-			: base("REGISTER")
-		{
-			
-		}
+  /// <summary>
+  /// Summary description for register.
+  /// </summary>
+  public partial class register : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="register"/> class.
+    /// </summary>
+    public register()
+      : base("REGISTER")
+    {
+    }
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if (!IsPostBack)
-			{
-				CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
+    /// <summary>
+    /// Gets a value indicating whether IsProtected.
+    /// </summary>
+    public override bool IsProtected
+    {
+      get
+      {
+        return false;
+      }
+    }
 
-				PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-				PageLinks.AddLink(GetText("TITLE"));
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
 
-				// handle the CreateUser Step localization
-				Control createUserTemplateRef = CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(GetText("TITLE"));
 
-				CompareValidator passwordNoMatch = (CompareValidator)createUserTemplateRef.FindControl("PasswordCompare");
-				RequiredFieldValidator usernameRequired = (RequiredFieldValidator)createUserTemplateRef.FindControl("UserNameRequired");
-				RequiredFieldValidator passwordRequired = (RequiredFieldValidator)createUserTemplateRef.FindControl("PasswordRequired");
-				RequiredFieldValidator confirmPasswordRequired = (RequiredFieldValidator)createUserTemplateRef.FindControl("ConfirmPasswordRequired");
-				RequiredFieldValidator emailRequired = (RequiredFieldValidator)createUserTemplateRef.FindControl("EmailRequired");
-				RequiredFieldValidator questionRequired = (RequiredFieldValidator)createUserTemplateRef.FindControl("QuestionRequired");
-				RequiredFieldValidator answerRequired = (RequiredFieldValidator)createUserTemplateRef.FindControl("AnswerRequired");
-				Button createUser = (Button)createUserTemplateRef.FindControl("StepNextButton");
+        // handle the CreateUser Step localization
+        Control createUserTemplateRef = this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
 
-				usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText("NEED_USERNAME");
-				passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText("NEED_PASSWORD");
-				confirmPasswordRequired.ToolTip = confirmPasswordRequired.ErrorMessage = GetText("RETYPE_PASSWORD");
-				passwordNoMatch.ToolTip = passwordNoMatch.ErrorMessage = GetText("NEED_MATCH");
-				emailRequired.ToolTip = emailRequired.ErrorMessage = GetText("NEED_EMAIL");
-				questionRequired.ToolTip = questionRequired.ErrorMessage = GetText("NEED_QUESTION");
-				answerRequired.ToolTip = answerRequired.ErrorMessage = GetText("NEED_ANSWER");
-				createUser.ToolTip = createUser.Text = GetText("CREATE_USER");
+        var passwordNoMatch = (CompareValidator) createUserTemplateRef.FindControl("PasswordCompare");
+        var usernameRequired = (RequiredFieldValidator) createUserTemplateRef.FindControl("UserNameRequired");
+        var passwordRequired = (RequiredFieldValidator) createUserTemplateRef.FindControl("PasswordRequired");
+        var confirmPasswordRequired = (RequiredFieldValidator) createUserTemplateRef.FindControl("ConfirmPasswordRequired");
+        var emailRequired = (RequiredFieldValidator) createUserTemplateRef.FindControl("EmailRequired");
+        var questionRequired = (RequiredFieldValidator) createUserTemplateRef.FindControl("QuestionRequired");
+        var answerRequired = (RequiredFieldValidator) createUserTemplateRef.FindControl("AnswerRequired");
+        var createUser = (Button) createUserTemplateRef.FindControl("StepNextButton");
 
-  			// password requirement parameters...
-				LocalizedLabel requirementText = (LocalizedLabel) createUserTemplateRef.FindControl( "LocalizedLabelRequirementsText" );
-				requirementText.Param0 = PageContext.CurrentMembership.MinRequiredPasswordLength.ToString();
-				requirementText.Param1 = PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters.ToString();
+        usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText("NEED_USERNAME");
+        passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText("NEED_PASSWORD");
+        confirmPasswordRequired.ToolTip = confirmPasswordRequired.ErrorMessage = GetText("RETYPE_PASSWORD");
+        passwordNoMatch.ToolTip = passwordNoMatch.ErrorMessage = GetText("NEED_MATCH");
+        emailRequired.ToolTip = emailRequired.ErrorMessage = GetText("NEED_EMAIL");
+        questionRequired.ToolTip = questionRequired.ErrorMessage = GetText("NEED_QUESTION");
+        answerRequired.ToolTip = answerRequired.ErrorMessage = GetText("NEED_ANSWER");
+        createUser.ToolTip = createUser.Text = GetText("CREATE_USER");
 
-				// handle other steps localization
-				((Button)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"ProfileNextButton")).Text = GetText("SAVE");
-				((Button)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"ContinueButton")).Text = GetText("CONTINUE");
+        // password requirement parameters...
+        var requirementText = (LocalizedLabel) createUserTemplateRef.FindControl("LocalizedLabelRequirementsText");
+        requirementText.Param0 = PageContext.CurrentMembership.MinRequiredPasswordLength.ToString();
+        requirementText.Param1 = PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters.ToString();
 
-				// get the time zone data source
-				DropDownList timeZones = ((DropDownList)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"TimeZones"));
-				timeZones.DataSource = StaticDataHelper.TimeZones();
+        // handle other steps localization
+        ((Button) ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "ProfileNextButton")).Text = GetText("SAVE");
+        ((Button) ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "ContinueButton")).Text = GetText("CONTINUE");
 
-				if (!PageContext.BoardSettings.EmailVerification)
-				{
-					// automatically log in created users
-					CreateUserWizard1.LoginCreatedUser = true;
-					CreateUserWizard1.DisableCreatedUser = false;
-					// success notification localization
-					((Literal)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"AccountCreated")).Text = YAF.Classes.UI.YafBBCode.MakeHtml(GetText("ACCOUNT_CREATED"), true, false);
-				}
-				else
-				{
-					CreateUserWizard1.LoginCreatedUser = false;
-					CreateUserWizard1.DisableCreatedUser = true;
-					// success notification localization
-					((Literal)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"AccountCreated")).Text = YAF.Classes.UI.YafBBCode.MakeHtml(GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
-				}
+        // get the time zone data source
+        var timeZones = (DropDownList) ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "TimeZones");
+        timeZones.DataSource = StaticDataHelper.TimeZones();
 
-				if (PageContext.BoardSettings.EnableCaptchaForRegister)
-				{
-					Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
-					Image imgCaptcha = (Image)createUserTemplateRef.FindControl("imgCaptcha");
-					PlaceHolder captchaPlaceHolder = ( PlaceHolder ) createUserTemplateRef.FindControl( "CaptchaPlaceHolder" );
-					
-					imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumRoot);
-					captchaPlaceHolder.Visible = true;
-				}
+        if (!PageContext.BoardSettings.EmailVerification)
+        {
+          // automatically log in created users
+          this.CreateUserWizard1.LoginCreatedUser = true;
+          this.CreateUserWizard1.DisableCreatedUser = false;
 
-				PlaceHolder questionAnswerPlaceHolder = ( PlaceHolder ) createUserTemplateRef.FindControl( "QuestionAnswerPlaceHolder" );
-				questionAnswerPlaceHolder.Visible = PageContext.CurrentMembership.RequiresQuestionAndAnswer;
+          // success notification localization
+          ((Literal) ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "AccountCreated")).Text = YafBBCode.MakeHtml(
+            GetText("ACCOUNT_CREATED"), true, false);
+        }
+        else
+        {
+          this.CreateUserWizard1.LoginCreatedUser = false;
+          this.CreateUserWizard1.DisableCreatedUser = true;
 
-				CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
+          // success notification localization
+          ((Literal) ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "AccountCreated")).Text =
+            YafBBCode.MakeHtml(GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
+        }
 
-				DataBind();
+        if (PageContext.BoardSettings.EnableCaptchaForRegister)
+        {
+          Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
+          var imgCaptcha = (Image) createUserTemplateRef.FindControl("imgCaptcha");
+          var captchaPlaceHolder = (PlaceHolder) createUserTemplateRef.FindControl("CaptchaPlaceHolder");
 
-				timeZones.Items.FindByValue("0").Selected = true;
-			}
-		}
+          imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumRoot);
+          captchaPlaceHolder.Visible = true;
+        }
 
-		protected void CreateUserWizard1_PreviousButtonClick(object sender, WizardNavigationEventArgs e)
-		{
+        var questionAnswerPlaceHolder = (PlaceHolder) createUserTemplateRef.FindControl("QuestionAnswerPlaceHolder");
+        questionAnswerPlaceHolder.Visible = PageContext.CurrentMembership.RequiresQuestionAndAnswer;
 
-		}
+        this.CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
 
-		protected void CreateUserWizard1_NextButtonClick(object sender, WizardNavigationEventArgs e)
-		{
-			if (CreateUserWizard1.WizardSteps[e.CurrentStepIndex].ID == "profile")
-			{
-				// this is the "Profile Information" step. Save the data to their profile (+ defaults).
-				DropDownList timeZones = ((DropDownList)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"TimeZones"));
-				TextBox locationTextBox = ((TextBox)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"Location"));
-				TextBox homepageTextBox = ((TextBox)ControlHelper.FindWizardControlRecursive(CreateUserWizard1,"Homepage"));
+        DataBind();
 
-				MembershipUser user = UserMembershipHelper.GetUser( CreateUserWizard1.UserName );
+        timeZones.Items.FindByValue("0").Selected = true;
+      }
+    }
 
-				// setup/save the profile
-				YafUserProfile userProfile = YafUserProfile.GetProfile(CreateUserWizard1.UserName);
+    /// <summary>
+    /// The create user wizard 1_ previous button click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void CreateUserWizard1_PreviousButtonClick(object sender, WizardNavigationEventArgs e)
+    {
+    }
 
-				userProfile.Location = locationTextBox.Text.Trim();
-				userProfile.Homepage = homepageTextBox.Text.Trim();
+    /// <summary>
+    /// The create user wizard 1_ next button click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void CreateUserWizard1_NextButtonClick(object sender, WizardNavigationEventArgs e)
+    {
+      if (this.CreateUserWizard1.WizardSteps[e.CurrentStepIndex].ID == "profile")
+      {
+        // this is the "Profile Information" step. Save the data to their profile (+ defaults).
+        var timeZones = (DropDownList) ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "TimeZones");
+        var locationTextBox = (TextBox) ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "Location");
+        var homepageTextBox = (TextBox) ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "Homepage");
 
-				userProfile.Save();
+        MembershipUser user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
 
-				// save the time zone...
-				YAF.Classes.Data.DB.user_save(UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey), PageContext.PageBoardID, null, null, Convert.ToInt32(timeZones.SelectedValue), null, null, null, null, null);
-			}
-		}
+        // setup/save the profile
+        YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
 
-		protected void CreateUserWizard1_ContinueButtonClick(object sender, EventArgs e)
-		{
-			// redirect to the main forum URL
-			YafBuildLink.Redirect(ForumPages.forum);
-		}
+        userProfile.Location = locationTextBox.Text.Trim();
+        userProfile.Homepage = homepageTextBox.Text.Trim();
 
-		protected void CreateUserWizard1_CreateUserError(object sender, CreateUserErrorEventArgs e)
-		{
-			string createUserError = "";
-			// find the type of error
-			switch (e.CreateUserError)
-			{
-				case MembershipCreateStatus.DuplicateEmail:
-					createUserError = GetText("ALREADY_REGISTERED");
-					break;
-				case MembershipCreateStatus.DuplicateUserName:
-					createUserError = GetText("ALREADY_REGISTERED");
-					break;
-				case MembershipCreateStatus.InvalidEmail:
-					createUserError = GetText("BAD_EMAIL");
-					break;
-				case MembershipCreateStatus.InvalidPassword:
-					createUserError = GetText("BAD_PASSWORD");
-					break;
-				case MembershipCreateStatus.InvalidQuestion:
-					createUserError = GetText("INVALID_QUESTION");
-					break;
-				case MembershipCreateStatus.InvalidUserName:
-					createUserError = GetText("INVALID_USERNAME");
-					break;
-				case MembershipCreateStatus.InvalidAnswer:
-					createUserError = GetText("INVALID_ANSWER");
-					break;
-				case MembershipCreateStatus.InvalidProviderUserKey:
-					createUserError = "Invalid provider user key.";
-					break;
-				case MembershipCreateStatus.DuplicateProviderUserKey:
-					createUserError = "Duplicate provider user key.";
-					break;
-				case MembershipCreateStatus.ProviderError:
-					createUserError = "Provider Error";
-					break;
-				case MembershipCreateStatus.UserRejected:
-					createUserError = "User creation failed: Reason is defined by the provider.";
-					break;
-			}
-			PageContext.AddLoadMessage( createUserError );
-			//Display the failure message in a client-side alert box
-			//Page.ClientScript.RegisterStartupScript(Page.GetType(), "CreateUserError", String.Format("alert('{0}');", createUserError.Replace("'", "\'")), true);
-		}
+        userProfile.Save();
 
-		protected void CreateUserWizard1_CreatedUser(object sender, EventArgs e)
-		{
-			MembershipUser user = UserMembershipHelper.GetUser( CreateUserWizard1.UserName );
+        // save the time zone...
+        DB.user_save(
+          UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey), 
+          PageContext.PageBoardID, 
+          null, 
+          null, 
+          Convert.ToInt32(timeZones.SelectedValue), 
+          null, 
+          null, 
+          null, 
+          null, 
+          null);
+      }
+    }
 
-			// setup inital roles (if any) for this user
-			RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, CreateUserWizard1.UserName);
+    /// <summary>
+    /// The create user wizard 1_ continue button click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void CreateUserWizard1_ContinueButtonClick(object sender, EventArgs e)
+    {
+      // redirect to the main forum URL
+      YafBuildLink.Redirect(ForumPages.forum);
+    }
 
-			// create the user in the YAF DB as well as sync roles...
-			int? userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+    /// <summary>
+    /// The create user wizard 1_ create user error.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void CreateUserWizard1_CreateUserError(object sender, CreateUserErrorEventArgs e)
+    {
+      string createUserError = string.Empty;
 
-			// create empty profile just so they have one
-			YafUserProfile userProfile = YafUserProfile.GetProfile(CreateUserWizard1.UserName);
+      // find the type of error
+      switch (e.CreateUserError)
+      {
+        case MembershipCreateStatus.DuplicateEmail:
+          createUserError = GetText("ALREADY_REGISTERED");
+          break;
+        case MembershipCreateStatus.DuplicateUserName:
+          createUserError = GetText("ALREADY_REGISTERED");
+          break;
+        case MembershipCreateStatus.InvalidEmail:
+          createUserError = GetText("BAD_EMAIL");
+          break;
+        case MembershipCreateStatus.InvalidPassword:
+          createUserError = GetText("BAD_PASSWORD");
+          break;
+        case MembershipCreateStatus.InvalidQuestion:
+          createUserError = GetText("INVALID_QUESTION");
+          break;
+        case MembershipCreateStatus.InvalidUserName:
+          createUserError = GetText("INVALID_USERNAME");
+          break;
+        case MembershipCreateStatus.InvalidAnswer:
+          createUserError = GetText("INVALID_ANSWER");
+          break;
+        case MembershipCreateStatus.InvalidProviderUserKey:
+          createUserError = "Invalid provider user key.";
+          break;
+        case MembershipCreateStatus.DuplicateProviderUserKey:
+          createUserError = "Duplicate provider user key.";
+          break;
+        case MembershipCreateStatus.ProviderError:
+          createUserError = "Provider Error";
+          break;
+        case MembershipCreateStatus.UserRejected:
+          createUserError = "User creation failed: Reason is defined by the provider.";
+          break;
+      }
 
-			// setup their inital profile information
-			userProfile.Save();
+      PageContext.AddLoadMessage(createUserError);
 
-			if (userID == null)
-			{
-				// something is seriously wrong here -- redirect to failure...
-				YafBuildLink.Redirect(ForumPages.info, "i=7");
-			}
+      // Display the failure message in a client-side alert box
+      // Page.ClientScript.RegisterStartupScript(Page.GetType(), "CreateUserError", String.Format("alert('{0}');", createUserError.Replace("'", "\'")), true);
+    }
 
-			// handle e-mail verification if needed
-			if (PageContext.BoardSettings.EmailVerification)
-			{
-				// get the user email
-				TextBox emailTextBox = (TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Email");
-				string email = emailTextBox.Text.Trim();
+    /// <summary>
+    /// The create user wizard 1_ created user.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void CreateUserWizard1_CreatedUser(object sender, EventArgs e)
+    {
+      MembershipUser user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
 
-				string hashinput = DateTime.Now.ToString() + email + Security.CreatePassword(20);
-				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
+      // setup inital roles (if any) for this user
+      RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, this.CreateUserWizard1.UserName);
 
-				// save verification record...
-				YAF.Classes.Data.DB.checkemail_save(userID, hash, user.Email);
+      // create the user in the YAF DB as well as sync roles...
+      int? userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
 
-				YafTemplateEmail verifyEmail = new YafTemplateEmail( "VERIFYEMAIL" );
+      // create empty profile just so they have one
+      YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
 
-				string subject = GetTextFormatted( "VERIFICATION_EMAIL_SUBJECT", PageContext.BoardSettings.Name);
+      // setup their inital profile information
+      userProfile.Save();
 
-				verifyEmail.TemplateParams ["{link}"] = YafBuildLink.GetLinkNotEscaped( ForumPages.approve, true, "k={0}", hash );
-				verifyEmail.TemplateParams ["{key}"] = hash;
-				verifyEmail.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
-				verifyEmail.TemplateParams ["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
+      if (userID == null)
+      {
+        // something is seriously wrong here -- redirect to failure...
+        YafBuildLink.Redirect(ForumPages.info, "i=7");
+      }
 
-				verifyEmail.SendEmail( new System.Net.Mail.MailAddress( email, user.UserName ), subject, true );
-			}
+      // handle e-mail verification if needed
+      if (PageContext.BoardSettings.EmailVerification)
+      {
+        // get the user email
+        var emailTextBox = (TextBox) this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Email");
+        string email = emailTextBox.Text.Trim();
 
-			if ( !String.IsNullOrEmpty(PageContext.BoardSettings.NotificationOnUserRegisterEmailList) )
-			{
-				// send user register notification to the following admin users...
-				string[] emails = PageContext.BoardSettings.NotificationOnUserRegisterEmailList.Split( ';' );
+        string hashinput = DateTime.Now.ToString() + email + Security.CreatePassword(20);
+        string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
-				YafTemplateEmail notifyAdmin = new YafTemplateEmail();
+        // save verification record...
+        DB.checkemail_save(userID, hash, user.Email);
 
-				string subject =
-					String.Format( PageContext.Localization.GetText( "COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT" ),
-					               PageContext.BoardSettings.Name );
+        var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-				notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped( ForumPages.admin_admin, true );
-				notifyAdmin.TemplateParams["{user}"] = user.UserName;
-				notifyAdmin.TemplateParams["{email}"] = user.Email;
-				notifyAdmin.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
+        string subject = GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", PageContext.BoardSettings.Name);
 
-				string emailBody = notifyAdmin.ProcessTemplate( "NOTIFICATION_ON_USER_REGISTER" );
+        verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash);
+        verifyEmail.TemplateParams["{key}"] = hash;
+        verifyEmail.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
+        verifyEmail.TemplateParams["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
 
-				foreach( string email in emails )
-				{
-					if ( !String.IsNullOrEmpty( email.Trim() ) )
-					{
-						YafServices.SendMail.Queue( PageContext.BoardSettings.ForumEmail, email.Trim(), subject, emailBody );
-					}
-				}
-			}
-		}
+        verifyEmail.SendEmail(new MailAddress(email, user.UserName), subject, true);
+      }
 
-		protected void CreateUserWizard1_CreatingUser(object sender, LoginCancelEventArgs e)
-		{
-			// trim username on postback
-			CreateUserWizard1.UserName = CreateUserWizard1.UserName.Trim();
+      if (!String.IsNullOrEmpty(PageContext.BoardSettings.NotificationOnUserRegisterEmailList))
+      {
+        // send user register notification to the following admin users...
+        string[] emails = PageContext.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
 
-			// username cannot contain semi-colon
-			if ( CreateUserWizard1.UserName.Contains( ";" ) || CreateUserWizard1.UserName.ToLower().Equals( UserMembershipHelper.GuestUserName.ToLower() ) )
-			{
-				PageContext.AddLoadMessage(GetText("BAD_USERNAME"));
-				e.Cancel = true;
-				return;
-			}
+        var notifyAdmin = new YafTemplateEmail();
 
-			Control createUserTemplateRef = CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
-			TextBox tbCaptcha = (TextBox)createUserTemplateRef.FindControl("tbCaptcha");
+        string subject = String.Format(
+          PageContext.Localization.GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT"), PageContext.BoardSettings.Name);
 
-			// verify captcha if enabled
-			if (PageContext.BoardSettings.EnableCaptchaForRegister && Session["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim())
-			{
-				PageContext.AddLoadMessage(GetText("BAD_CAPTCHA"));
-				e.Cancel = true;
-			}
-		}
+        notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);
+        notifyAdmin.TemplateParams["{user}"] = user.UserName;
+        notifyAdmin.TemplateParams["{email}"] = user.Email;
+        notifyAdmin.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
 
-		public override bool IsProtected
-		{
-			get { return false; }
-		}
-	}
+        string emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_USER_REGISTER");
+
+        foreach (string email in emails)
+        {
+          if (!String.IsNullOrEmpty(email.Trim()))
+          {
+            YafServices.SendMail.Queue(PageContext.BoardSettings.ForumEmail, email.Trim(), subject, emailBody);
+          }
+        }
+      }
+    }
+
+    /// <summary>
+    /// The create user wizard 1_ creating user.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void CreateUserWizard1_CreatingUser(object sender, LoginCancelEventArgs e)
+    {
+      // trim username on postback
+      this.CreateUserWizard1.UserName = this.CreateUserWizard1.UserName.Trim();
+
+      // username cannot contain semi-colon
+      if (this.CreateUserWizard1.UserName.Contains(";") || this.CreateUserWizard1.UserName.ToLower().Equals(UserMembershipHelper.GuestUserName.ToLower()))
+      {
+        PageContext.AddLoadMessage(GetText("BAD_USERNAME"));
+        e.Cancel = true;
+        return;
+      }
+
+      Control createUserTemplateRef = this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
+      var tbCaptcha = (TextBox) createUserTemplateRef.FindControl("tbCaptcha");
+
+      // verify captcha if enabled
+      if (PageContext.BoardSettings.EnableCaptchaForRegister && Session["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim())
+      {
+        PageContext.AddLoadMessage(GetText("BAD_CAPTCHA"));
+        e.Cancel = true;
+      }
+    }
+  }
 }

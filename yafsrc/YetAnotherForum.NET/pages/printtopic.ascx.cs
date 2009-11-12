@@ -18,90 +18,122 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-using YAF.Classes.UI;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for printtopic.
-	/// </summary>
-	public partial class printtopic : YAF.Classes.Core.ForumPage
-	{
+  // YAF.Pages
+  using System;
+  using System.Data;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.UI;
+  using YAF.Classes.Utils;
 
-		public printtopic()
-			: base( "PRINTTOPIC" )
-		{
-		}
+  /// <summary>
+  /// Summary description for printtopic.
+  /// </summary>
+  public partial class printtopic : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="printtopic"/> class.
+    /// </summary>
+    public printtopic()
+      : base("PRINTTOPIC")
+    {
+    }
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( Request.QueryString ["t"] == null || !PageContext.ForumReadAccess )
-				YafBuildLink.AccessDenied();
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (Request.QueryString["t"] == null || !PageContext.ForumReadAccess)
+      {
+        YafBuildLink.AccessDenied();
+      }
 
-			ShowToolBar = false;
+      ShowToolBar = false;
 
-			if ( !IsPostBack )
-			{
-				if ( PageContext.Settings.LockedForum == 0 )
-				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-					PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
-				}
-				PageLinks.AddForumLinks( PageContext.PageForumID );
-				PageLinks.AddLink( PageContext.PageTopicName, YafBuildLink.GetLink( ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
+      if (!IsPostBack)
+      {
+        if (PageContext.Settings.LockedForum == 0)
+        {
+          this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", PageContext.PageCategoryID));
+        }
 
-				Posts.DataSource = YAF.Classes.Data.DB.post_list( PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false, false );
-				DataBind();
-			}
-		}
+        this.PageLinks.AddForumLinks(PageContext.PageForumID);
+        this.PageLinks.AddLink(PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", PageContext.PageTopicID));
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
+        this.Posts.DataSource = DB.post_list(PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false, false);
+        DataBind();
+      }
+    }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-		}
-		#endregion
+    /// <summary>
+    /// The get print header.
+    /// </summary>
+    /// <param name="o">
+    /// The o.
+    /// </param>
+    /// <returns>
+    /// The get print header.
+    /// </returns>
+    protected string GetPrintHeader(object o)
+    {
+      var row = (DataRowView) o;
+      return String.Format("<b>{2}: {0}</b> - {1}", row["UserName"], YafServices.DateTime.FormatDateTime((DateTime) row["Posted"]), GetText("postedby"));
+    }
 
-		protected string GetPrintHeader( object o )
-		{
-			DataRowView row = ( DataRowView ) o;
-			return String.Format( "<b>{2}: {0}</b> - {1}", row ["UserName"], YafServices.DateTime.FormatDateTime( ( DateTime ) row ["Posted"] ), GetText( "postedby" ) );
-		}
+    /// <summary>
+    /// The get print body.
+    /// </summary>
+    /// <param name="o">
+    /// The o.
+    /// </param>
+    /// <returns>
+    /// The get print body.
+    /// </returns>
+    protected string GetPrintBody(object o)
+    {
+      var row = (DataRowView) o;
 
-		protected string GetPrintBody( object o )
-		{
-			DataRowView row = ( DataRowView ) o;
+      string message = row["Message"].ToString();
 
-			string message = row ["Message"].ToString();
+      message = FormatMsg.FormatMessage(message, new MessageFlags(Convert.ToInt32(row["Flags"])));
 
-			message = FormatMsg.FormatMessage( message, new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
+      return message;
+    }
 
-			return message;
-		}
-	}
+    #region Web Form Designer generated code
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

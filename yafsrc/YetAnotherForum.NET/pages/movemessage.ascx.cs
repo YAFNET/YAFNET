@@ -18,85 +18,142 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using YAF.Classes;
-using YAF.Classes.Utils;
-
-
 namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for movetopic.
-	/// </summary>
-	public partial class movemessage : YAF.Classes.Core.ForumPage
-	{
-		public movemessage()
-			: base( "MOVEMESSAGE" )
-		{
-		}
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( Request.QueryString ["m"] == null || !PageContext.ForumModeratorAccess )
-				YafBuildLink.AccessDenied();
+  /// <summary>
+  /// Summary description for movetopic.
+  /// </summary>
+  public partial class movemessage : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="movemessage"/> class.
+    /// </summary>
+    public movemessage()
+      : base("MOVEMESSAGE")
+    {
+    }
 
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
-				PageLinks.AddForumLinks( PageContext.PageForumID );
-				PageLinks.AddLink( PageContext.PageTopicName, YafBuildLink.GetLink( ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (Request.QueryString["m"] == null || !PageContext.ForumModeratorAccess)
+      {
+        YafBuildLink.AccessDenied();
+      }
 
-				Move.Text = GetText( "MOVE_MESSAGE" );
-				CreateAndMove.Text = GetText( "CREATE_TOPIC" );
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", PageContext.PageCategoryID));
+        this.PageLinks.AddForumLinks(PageContext.PageForumID);
+        this.PageLinks.AddLink(PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", PageContext.PageTopicID));
 
-				ForumList.DataSource = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
-				ForumList.DataTextField = "Title";
-				ForumList.DataValueField = "ForumID";
-				DataBind();
-				ForumList.Items.FindByValue( PageContext.PageForumID.ToString() ).Selected = true;
-				ForumList_SelectedIndexChanged( this.ForumList, e );
-			}
-		}
+        this.Move.Text = GetText("MOVE_MESSAGE");
+        this.CreateAndMove.Text = GetText("CREATE_TOPIC");
 
-		protected void Move_Click( object sender, System.EventArgs e )
-		{
-			if ( Convert.ToInt32( TopicsList.SelectedValue ) != PageContext.PageTopicID )
-			{
-				YAF.Classes.Data.DB.message_move( Request.QueryString ["m"], TopicsList.SelectedValue, true );
-			}
-			YafBuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
-		}
+        this.ForumList.DataSource = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
+        this.ForumList.DataTextField = "Title";
+        this.ForumList.DataValueField = "ForumID";
+        DataBind();
+        this.ForumList.Items.FindByValue(PageContext.PageForumID.ToString()).Selected = true;
+        ForumList_SelectedIndexChanged(this.ForumList, e);
+      }
+    }
 
-		protected void ForumList_SelectedIndexChanged( object sender, System.EventArgs e )
-		{
-			TopicsList.DataSource = YAF.Classes.Data.DB.topic_list( ForumList.SelectedValue, null, 0, null, 0, 32762 );
-			TopicsList.DataTextField = "Subject";
-			TopicsList.DataValueField = "TopicID";
-			TopicsList.DataBind();
-			TopicsList_SelectedIndexChanged( this.ForumList, e );
-			CreateAndMove.Enabled = Convert.ToInt32( ForumList.SelectedValue ) <= 0 ? false : true;
-		}
+    /// <summary>
+    /// The move_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Move_Click(object sender, EventArgs e)
+    {
+      if (Convert.ToInt32(this.TopicsList.SelectedValue) != PageContext.PageTopicID)
+      {
+        DB.message_move(Request.QueryString["m"], this.TopicsList.SelectedValue, true);
+      }
 
-		protected void TopicsList_SelectedIndexChanged( object sender, System.EventArgs e )
-		{
-			if ( TopicsList.SelectedValue == "" )
-				Move.Enabled = false;
-			else
-				Move.Enabled = true;
-		}
+      YafBuildLink.Redirect(ForumPages.topics, "f={0}", PageContext.PageForumID);
+    }
 
-		protected void CreateAndMove_Click( object sender, System.EventArgs e )
-		{
-			if ( TopicSubject.Text != "" )
-			{
-				long nTopicId =
-						YAF.Classes.Data.DB.topic_create_by_message( Request.QueryString ["m"], ForumList.SelectedValue, TopicSubject.Text );
-				YAF.Classes.Data.DB.message_move( Request.QueryString ["m"], nTopicId, true );
-				YafBuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
-			}
-			else
-				PageContext.AddLoadMessage( GetText( "EmptyTopic" ) );
-		}
-	}
+    /// <summary>
+    /// The forum list_ selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ForumList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      this.TopicsList.DataSource = DB.topic_list(this.ForumList.SelectedValue, null, 0, null, 0, 32762);
+      this.TopicsList.DataTextField = "Subject";
+      this.TopicsList.DataValueField = "TopicID";
+      this.TopicsList.DataBind();
+      TopicsList_SelectedIndexChanged(this.ForumList, e);
+      this.CreateAndMove.Enabled = Convert.ToInt32(this.ForumList.SelectedValue) <= 0 ? false : true;
+    }
+
+    /// <summary>
+    /// The topics list_ selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void TopicsList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      if (this.TopicsList.SelectedValue == string.Empty)
+      {
+        this.Move.Enabled = false;
+      }
+      else
+      {
+        this.Move.Enabled = true;
+      }
+    }
+
+    /// <summary>
+    /// The create and move_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void CreateAndMove_Click(object sender, EventArgs e)
+    {
+      if (this.TopicSubject.Text != string.Empty)
+      {
+        long nTopicId = DB.topic_create_by_message(Request.QueryString["m"], this.ForumList.SelectedValue, this.TopicSubject.Text);
+        DB.message_move(Request.QueryString["m"], nTopicId, true);
+        YafBuildLink.Redirect(ForumPages.topics, "f={0}", PageContext.PageForumID);
+      }
+      else
+      {
+        PageContext.AddLoadMessage(GetText("EmptyTopic"));
+      }
+    }
+  }
 }

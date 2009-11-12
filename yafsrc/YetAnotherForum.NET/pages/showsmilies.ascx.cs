@@ -17,48 +17,74 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Utils;
-
 namespace YAF.Pages
 {
-	public partial class showsmilies : YAF.Classes.Core.ForumPage
-	{
-		// constructor
-		public showsmilies() : base("SHOWSMILIES") { }
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			ShowToolBar = false;
-			ShowFooter = false;
+  /// <summary>
+  /// The showsmilies.
+  /// </summary>
+  public partial class showsmilies : ForumPage
+  {
+    // constructor
+    /// <summary>
+    /// Initializes a new instance of the <see cref="showsmilies"/> class.
+    /// </summary>
+    public showsmilies()
+      : base("SHOWSMILIES")
+    {
+    }
 
-			BindData();
-		}
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      ShowToolBar = false;
+      ShowFooter = false;
 
-		private void BindData()
-		{
-			List.DataSource = YAF.Classes.Data.DB.smiley_listunique(PageContext.PageBoardID);
-			DataBind();
-		}
+      BindData();
+    }
 
-		protected string GetSmileyScript(string code, string icon)
-		{
-			code = code.ToLower();
-			code = code.Replace("&", "&amp;");
-			code = code.Replace("\"", "&quot;");
-			code = code.Replace("'", "\\'");
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.List.DataSource = DB.smiley_listunique(PageContext.PageBoardID);
+      DataBind();
+    }
 
-            return String.Format("javascript:{0}('{1} ','{3}{4}/{2}');", "insertsmiley", code, icon, YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons);
-		}
-	}
+    /// <summary>
+    /// The get smiley script.
+    /// </summary>
+    /// <param name="code">
+    /// The code.
+    /// </param>
+    /// <param name="icon">
+    /// The icon.
+    /// </param>
+    /// <returns>
+    /// The get smiley script.
+    /// </returns>
+    protected string GetSmileyScript(string code, string icon)
+    {
+      code = code.ToLower();
+      code = code.Replace("&", "&amp;");
+      code = code.Replace("\"", "&quot;");
+      code = code.Replace("'", "\\'");
+
+      return String.Format("javascript:{0}('{1} ','{3}{4}/{2}');", "insertsmiley", code, icon, YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons);
+    }
+  }
 }

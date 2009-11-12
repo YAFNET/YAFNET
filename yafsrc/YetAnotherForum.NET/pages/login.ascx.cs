@@ -18,126 +18,176 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Web.Security;
-using YAF.Classes;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for login.
-	/// </summary>
-	public partial class login : YAF.Classes.Core.ForumPage
-	{
+  // YAF.Pages
+  using System;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-		public login()
-			: base( "LOGIN" )
-		{
-			
-		}
+  /// <summary>
+  /// Summary description for login.
+  /// </summary>
+  public partial class login : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="login"/> class.
+    /// </summary>
+    public login()
+      : base("LOGIN")
+    {
+    }
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				Login1.MembershipProvider = Config.MembershipProvider;
+    /// <summary>
+    /// Gets a value indicating whether IsProtected.
+    /// </summary>
+    public override bool IsProtected
+    {
+      get
+      {
+        return false;
+      }
+    }
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( GetText( "title" ) );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.Login1.MembershipProvider = Config.MembershipProvider;
 
-				//Login1.CreateUserText = "Sign up for a new account.";
-				//Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
-				Login1.PasswordRecoveryText = GetText( "lostpassword" );
-				Login1.PasswordRecoveryUrl = YafBuildLink.GetLink( ForumPages.recoverpassword );
-				Login1.FailureText = GetText( "password_error" );
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(GetText("title"));
 
-				if ( !String.IsNullOrEmpty( Request.QueryString ["ReturnUrl"] ) )
-				{
-					Login1.DestinationPageUrl = Server.UrlDecode( Request.QueryString ["ReturnUrl"] );
-				}
-				else
-				{
-					Login1.DestinationPageUrl = YafBuildLink.GetLink( ForumPages.forum );
-				}			
+        // Login1.CreateUserText = "Sign up for a new account.";
+        // Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
+        this.Login1.PasswordRecoveryText = GetText("lostpassword");
+        this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
+        this.Login1.FailureText = GetText("password_error");
 
-				// localize controls
-				CheckBox rememberMe = ControlHelper.FindControlAs<CheckBox>( Login1, "RememberMe" );
-				TextBox userName = ControlHelper.FindControlAs<TextBox>( Login1, "UserName" );
-				TextBox password = ControlHelper.FindControlAs<TextBox>( Login1, "Password" );
-				Button forumLogin = ControlHelper.FindControlAs<Button>( Login1, "LoginButton" );
-				Button passwordRecovery = ControlHelper.FindControlAs<Button>( Login1, "PasswordRecovery" );
+        if (!String.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
+        {
+          this.Login1.DestinationPageUrl = Server.UrlDecode(Request.QueryString["ReturnUrl"]);
+        }
+        else
+        {
+          this.Login1.DestinationPageUrl = YafBuildLink.GetLink(ForumPages.forum);
+        }
 
-				/*
-				RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
-				RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) Login1.FindControl( "PasswordRequired" );
+        // localize controls
+        var rememberMe = ControlHelper.FindControlAs<CheckBox>(this.Login1, "RememberMe");
+        var userName = ControlHelper.FindControlAs<TextBox>(this.Login1, "UserName");
+        var password = ControlHelper.FindControlAs<TextBox>(this.Login1, "Password");
+        var forumLogin = ControlHelper.FindControlAs<Button>(this.Login1, "LoginButton");
+        var passwordRecovery = ControlHelper.FindControlAs<Button>(this.Login1, "PasswordRecovery");
 
-				usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "REGISTER", "NEED_USERNAME" );
-				passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText( "REGISTER", "NEED_PASSWORD" );
-				*/
+        /*
+        RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
+        RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) Login1.FindControl( "PasswordRequired" );
 
-				if ( rememberMe != null ) rememberMe.Text = GetText( "auto" );
-				if ( forumLogin != null ) forumLogin.Text = GetText( "forum_login" );
-				if ( passwordRecovery != null )
-				{
-					passwordRecovery.Text = GetText( "lostpassword" );
-				}
+        usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "REGISTER", "NEED_USERNAME" );
+        passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText( "REGISTER", "NEED_PASSWORD" );
+        */
+        if (rememberMe != null)
+        {
+          rememberMe.Text = GetText("auto");
+        }
 
-				if ( password != null && forumLogin != null)
-				{
-					password.Attributes.Add( "onkeydown", "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" + forumLogin.ClientID + "').click();return false;}} else {return true}; " );
-				}
+        if (forumLogin != null)
+        {
+          forumLogin.Text = GetText("forum_login");
+        }
 
-				DataBind();
-			}
-		}
+        if (passwordRecovery != null)
+        {
+          passwordRecovery.Text = GetText("lostpassword");
+        }
 
-		protected void Login1_Authenticate( object sender, AuthenticateEventArgs e )
-		{
-			TextBox userName = ControlHelper.FindControlAs<TextBox>( Login1, "UserName" );
-			TextBox password = ControlHelper.FindControlAs<TextBox>( Login1, "Password" );
+        if (password != null && forumLogin != null)
+        {
+          password.Attributes.Add(
+            "onkeydown", 
+            "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" + forumLogin.ClientID +
+            "').click();return false;}} else {return true}; ");
+        }
 
-			e.Authenticated = PageContext.CurrentMembership.ValidateUser( userName.Text.Trim(), password.Text.Trim() );
-		}
+        DataBind();
+      }
+    }
 
-		protected void Login1_LoginError( object sender, EventArgs e )
-		{
-			bool emptyFields = false;
+    /// <summary>
+    /// The login 1_ authenticate.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
+    {
+      var userName = ControlHelper.FindControlAs<TextBox>(this.Login1, "UserName");
+      var password = ControlHelper.FindControlAs<TextBox>(this.Login1, "Password");
 
-			TextBox userName = ControlHelper.FindControlAs<TextBox>( Login1, "UserName" );
-			TextBox password = ControlHelper.FindControlAs<TextBox>( Login1, "Password" );
+      e.Authenticated = PageContext.CurrentMembership.ValidateUser(userName.Text.Trim(), password.Text.Trim());
+    }
 
-			if ( userName.Text.Trim().Length == 0 )
-			{
-				PageContext.AddLoadMessage( GetText( "REGISTER", "NEED_USERNAME" ) );
-				emptyFields = true;
-			}
-			if ( password.Text.Trim().Length == 0 )
-			{
-				PageContext.AddLoadMessage( GetText( "REGISTER", "NEED_PASSWORD" ) );
-				emptyFields = true;
-			}
+    /// <summary>
+    /// The login 1_ login error.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Login1_LoginError(object sender, EventArgs e)
+    {
+      bool emptyFields = false;
 
-			if (!emptyFields) PageContext.AddLoadMessage( Login1.FailureText );
-		}
+      var userName = ControlHelper.FindControlAs<TextBox>(this.Login1, "UserName");
+      var password = ControlHelper.FindControlAs<TextBox>(this.Login1, "Password");
 
-		public override bool IsProtected
-		{
-			get { return false; }
-		}
+      if (userName.Text.Trim().Length == 0)
+      {
+        PageContext.AddLoadMessage(GetText("REGISTER", "NEED_USERNAME"));
+        emptyFields = true;
+      }
 
-		protected void PasswordRecovery_Click( object sender, EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.recoverpassword );
-		}
-	}
+      if (password.Text.Trim().Length == 0)
+      {
+        PageContext.AddLoadMessage(GetText("REGISTER", "NEED_PASSWORD"));
+        emptyFields = true;
+      }
+
+      if (!emptyFields)
+      {
+        PageContext.AddLoadMessage(this.Login1.FailureText);
+      }
+    }
+
+    /// <summary>
+    /// Called when Password Recovery is Clicked
+    /// </summary>
+    /// <param name="sender">
+    /// standard event object sender
+    /// </param>
+    /// <param name="e">
+    /// event args
+    /// </param>
+    protected void PasswordRecovery_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.recoverpassword);
+    }
+  }
 }

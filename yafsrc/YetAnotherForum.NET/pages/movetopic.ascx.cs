@@ -18,93 +18,123 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for movetopic.
-	/// </summary>
-	public partial class movetopic : YAF.Classes.Core.ForumPage
-	{
-	
-		public movetopic() : base("MOVETOPIC")
-		{
-		}
+  // YAF.Pages
+  using System;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(Request.QueryString["t"] == null || !PageContext.ForumModeratorAccess)
-				YafBuildLink.AccessDenied();
+  /// <summary>
+  /// Summary description for movetopic.
+  /// </summary>
+  public partial class movetopic : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="movetopic"/> class.
+    /// </summary>
+    public movetopic()
+      : base("MOVETOPIC")
+    {
+    }
 
-			if(!IsPostBack)
-			{
-				if(PageContext.Settings.LockedForum==0)
-				{
-					PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
-					PageLinks.AddLink(PageContext.PageCategoryName,YafBuildLink.GetLink( ForumPages.forum,"c={0}",PageContext.PageCategoryID));
-				}
-				PageLinks.AddForumLinks(PageContext.PageForumID);
-				PageLinks.AddLink(PageContext.PageTopicName,YafBuildLink.GetLink( ForumPages.posts,"t={0}",PageContext.PageTopicID));
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (Request.QueryString["t"] == null || !PageContext.ForumModeratorAccess)
+      {
+        YafBuildLink.AccessDenied();
+      }
 
-				Move.Text = GetText("move");
-				// Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
-				LeavePointer.Checked = PageContext.BoardSettings.ShowMoved;
+      if (!IsPostBack)
+      {
+        if (PageContext.Settings.LockedForum == 0)
+        {
+          this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          this.PageLinks.AddLink(PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", PageContext.PageCategoryID));
+        }
 
-				ForumList.DataSource = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
-				
-				DataBind();
-				
-				System.Web.UI.WebControls.ListItem pageItem = ForumList.Items.FindByValue(PageContext.PageForumID.ToString());
-				if (pageItem != null) pageItem.Selected = true;
-			}
-		}
+        this.PageLinks.AddForumLinks(PageContext.PageForumID);
+        this.PageLinks.AddLink(PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", PageContext.PageTopicID));
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
+        this.Move.Text = GetText("move");
 
-		}
-		#endregion
+        // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
+        this.LeavePointer.Checked = PageContext.BoardSettings.ShowMoved;
 
-		protected void Move_Click(object sender, System.EventArgs e)
-		{
-            if (Convert.ToInt32(ForumList.SelectedValue) <= 0)
-            {
-                PageContext.AddLoadMessage(GetText("CANNOT_MOVE_TO_CATEGORY"));
-                return;
-            }
-            // only move if it's a destination is a different forum.
-            if (Convert.ToInt32(ForumList.SelectedValue) != PageContext.PageForumID)
-            {
-				// Ederon : 7/14/2007
-                YAF.Classes.Data.DB.topic_move(PageContext.PageTopicID, ForumList.SelectedValue, LeavePointer.Checked);
-            }
-			YafBuildLink.Redirect( ForumPages.topics,"f={0}",PageContext.PageForumID);
-		}
-	}
+        this.ForumList.DataSource = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
+
+        DataBind();
+
+        ListItem pageItem = this.ForumList.Items.FindByValue(PageContext.PageForumID.ToString());
+        if (pageItem != null)
+        {
+          pageItem.Selected = true;
+        }
+      }
+    }
+
+    /// <summary>
+    /// The move_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Move_Click(object sender, EventArgs e)
+    {
+      if (Convert.ToInt32(this.ForumList.SelectedValue) <= 0)
+      {
+        PageContext.AddLoadMessage(GetText("CANNOT_MOVE_TO_CATEGORY"));
+        return;
+      }
+
+      // only move if it's a destination is a different forum.
+      if (Convert.ToInt32(this.ForumList.SelectedValue) != PageContext.PageForumID)
+      {
+        // Ederon : 7/14/2007
+        DB.topic_move(PageContext.PageTopicID, this.ForumList.SelectedValue, this.LeavePointer.Checked);
+      }
+
+      YafBuildLink.Redirect(ForumPages.topics, "f={0}", PageContext.PageForumID);
+    }
+
+    #region Web Form Designer generated code
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

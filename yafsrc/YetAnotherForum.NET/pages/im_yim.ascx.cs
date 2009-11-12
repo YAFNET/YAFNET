@@ -18,66 +18,75 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for active.
-	/// </summary>
-	public partial class im_yim : YAF.Classes.Core.ForumPage
-	{
-		public int UserID
-		{
-			get
-			{
-				return ( int )Security.StringToLongOrRedirect( Request.QueryString ["u"] );
-			}
-		}
+  // YAF.Pages
+  using System;
+  using System.Web.Security;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-		public im_yim()
-			: base( "IM_YIM" )
-		{
-		}
+  /// <summary>
+  /// Summary description for active.
+  /// </summary>
+  public partial class im_yim : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="im_yim"/> class.
+    /// </summary>
+    public im_yim()
+      : base("IM_YIM")
+    {
+    }
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( User == null )
-				YafBuildLink.AccessDenied();
+    /// <summary>
+    /// Gets UserID.
+    /// </summary>
+    public int UserID
+    {
+      get
+      {
+        return (int) Security.StringToLongOrRedirect(Request.QueryString["u"]);
+      }
+    }
 
-			if ( !IsPostBack )
-			{
-				// get user data...
-				MembershipUser user = UserMembershipHelper.GetMembershipUserById( UserID );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (User == null)
+      {
+        YafBuildLink.AccessDenied();
+      }
 
-				if ( user == null )
-				{
-					YafBuildLink.AccessDenied(/*No such user exists*/);
-				}
+      if (!IsPostBack)
+      {
+        // get user data...
+        MembershipUser user = UserMembershipHelper.GetMembershipUserById(UserID);
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( user.UserName, YafBuildLink.GetLink( ForumPages.profile, "u={0}", UserID ) );
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+        if (user == null)
+        {
+          YafBuildLink.AccessDenied( /*No such user exists*/);
+        }
 
-				// get full user data...
-				CombinedUserDataHelper userData = new CombinedUserDataHelper( user, UserID );
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(user.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", UserID));
+        this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
 
-				Img.Src = string.Format( "http://opi.yahoo.com/online?u={0}&m=g&t=2", userData.Profile.YIM );
-				Msg.NavigateUrl = string.Format( "http://edit.yahoo.com/config/send_webmesg?.target={0}&.src=pg", userData.Profile.YIM );
-			}
-		}
-	}
+        // get full user data...
+        var userData = new CombinedUserDataHelper(user, UserID);
+
+        this.Img.Src = string.Format("http://opi.yahoo.com/online?u={0}&m=g&t=2", userData.Profile.YIM);
+        this.Msg.NavigateUrl = string.Format("http://edit.yahoo.com/config/send_webmesg?.target={0}&.src=pg", userData.Profile.YIM);
+      }
+    }
+  }
 }

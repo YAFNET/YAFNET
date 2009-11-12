@@ -18,177 +18,241 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Data;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Controls;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for members.
-	/// </summary>
-	public partial class members : YAF.Classes.Core.ForumPage
-	{
+  // YAF.Pages
+  using System;
+  using System.Data;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		public members()
-			: base("MEMBERS")
-		{
-		}
+  /// <summary>
+  /// Summary description for members.
+  /// </summary>
+  public partial class members : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="members"/> class.
+    /// </summary>
+    public members()
+      : base("MEMBERS")
+    {
+    }
 
-		/// <summary>
-		/// Called when the page loads
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if (!IsPostBack)
-			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-				PageLinks.AddLink(GetText("TITLE"), "");
+    /// <summary>
+    /// Called when the page loads
+    /// </summary>
+    /// <param name="sender">
+    /// </param>
+    /// <param name="e">
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
 
-				SetSort("Name", true);
+        SetSort("Name", true);
 
-				UserName.Text = GetText("username");
-				Rank.Text = GetText("rank");
-				Joined.Text = GetText("joined");
-				Posts.Text = GetText("posts");
-				Location.Text = GetText("location");
+        this.UserName.Text = GetText("username");
+        this.Rank.Text = GetText("rank");
+        this.Joined.Text = GetText("joined");
+        this.Posts.Text = GetText("posts");
+        this.Location.Text = GetText("location");
 
-				BindData();
-			}
-		}
+        BindData();
+      }
+    }
 
-		/// <summary>
-		/// protects from script in "location" field	    
-		/// </summary>
-		/// <param name="svalue"></param>
-		/// <returns></returns>
-		protected string GetStringSafely(object svalue)
-		{
-			return svalue == null ? string.Empty : HtmlEncode( svalue.ToString() );
-		}
+    /// <summary>
+    /// protects from script in "location" field	    
+    /// </summary>
+    /// <param name="svalue">
+    /// </param>
+    /// <returns>
+    /// The get string safely.
+    /// </returns>
+    protected string GetStringSafely(object svalue)
+    {
+      return svalue == null ? string.Empty : HtmlEncode(svalue.ToString());
+    }
 
-		/// <summary>
-		/// Helper function for setting up the current sort on the memberlist view
-		/// </summary>
-		/// <param name="field"></param>
-		/// <param name="asc"></param>
-		private void SetSort(string field, bool asc)
-		{
-			if (ViewState["SortField"] != null && (string)ViewState["SortField"] == field)
-			{
-				ViewState["SortAscending"] = !(bool)ViewState["SortAscending"];
-			}
-			else
-			{
-				ViewState["SortField"] = field;
-				ViewState["SortAscending"] = asc;
-			}
-		}
+    /// <summary>
+    /// Helper function for setting up the current sort on the memberlist view
+    /// </summary>
+    /// <param name="field">
+    /// </param>
+    /// <param name="asc">
+    /// </param>
+    private void SetSort(string field, bool asc)
+    {
+      if (ViewState["SortField"] != null && (string) ViewState["SortField"] == field)
+      {
+        ViewState["SortAscending"] = !(bool) ViewState["SortAscending"];
+      }
+      else
+      {
+        ViewState["SortField"] = field;
+        ViewState["SortAscending"] = asc;
+      }
+    }
 
-		protected void UserName_Click(object sender, System.EventArgs e)
-		{
-			SetSort("Name", true);
-			BindData();
-		}
+    /// <summary>
+    /// The user name_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void UserName_Click(object sender, EventArgs e)
+    {
+      SetSort("Name", true);
+      BindData();
+    }
 
-		protected void Joined_Click(object sender, System.EventArgs e)
-		{
-			SetSort("Joined", true);
-			BindData();
-		}
+    /// <summary>
+    /// The joined_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Joined_Click(object sender, EventArgs e)
+    {
+      SetSort("Joined", true);
+      BindData();
+    }
 
-		protected void Posts_Click(object sender, System.EventArgs e)
-		{
-			SetSort("NumPosts", false);
-			BindData();
-		}
+    /// <summary>
+    /// The posts_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Posts_Click(object sender, EventArgs e)
+    {
+      SetSort("NumPosts", false);
+      BindData();
+    }
 
-		protected void Rank_Click(object sender, System.EventArgs e)
-		{
-			SetSort("RankName", true);
-			BindData();
-		}
+    /// <summary>
+    /// The rank_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Rank_Click(object sender, EventArgs e)
+    {
+      SetSort("RankName", true);
+      BindData();
+    }
 
-		protected void Pager_PageChange(object sender, EventArgs e)
-		{
-			BindData();
-		}
+    /// <summary>
+    /// The pager_ page change.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Pager_PageChange(object sender, EventArgs e)
+    {
+      BindData();
+    }
 
-		private void BindData()
-		{
-			Pager.PageSize = 20;
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.Pager.PageSize = 20;
 
-			// get the user list
-			DataTable userListDataTable = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, null, true);
+      // get the user list
+      DataTable userListDataTable = DB.user_list(PageContext.PageBoardID, null, true);
 
-			// select only the guest user (if one exists)
-			DataRow[] guestRows = userListDataTable.Select("IsGuest > 0");
+      // select only the guest user (if one exists)
+      DataRow[] guestRows = userListDataTable.Select("IsGuest > 0");
 
-			if (guestRows.Length > 0)
-			{
-				foreach (DataRow row in guestRows)
-				{
-					row.Delete();
-				}
-				// commits the deletes to the table
-				userListDataTable.AcceptChanges();
-			}
+      if (guestRows.Length > 0)
+      {
+        foreach (DataRow row in guestRows)
+        {
+          row.Delete();
+        }
 
-			// get the view from the datatable
-			DataView userListDataView = userListDataTable.DefaultView;
+        // commits the deletes to the table
+        userListDataTable.AcceptChanges();
+      }
 
-			char selectedLetter = AlphaSort1.CurrentLetter;
+      // get the view from the datatable
+      DataView userListDataView = userListDataTable.DefaultView;
 
-			// handle dataview filtering
-			if (selectedLetter != char.MinValue)
-			{
-				if (selectedLetter == '#')
-				{
-					string filter = string.Empty;
-					foreach (char letter in GetText("LANGUAGE", "CHARSET"))
-					{
-						if (filter == string.Empty)
-							filter = string.Format("Name not like '{0}%'", letter);
-						else
-							filter += string.Format("and Name not like '{0}%'", letter);
-					}
-					userListDataView.RowFilter = filter;
-				}
-				else
-				{
-					userListDataView.RowFilter = string.Format("Name like '{0}%'", selectedLetter);
-				}
-			}
+      char selectedLetter = this.AlphaSort1.CurrentLetter;
 
-			Pager.Count = userListDataView.Count;
+      // handle dataview filtering
+      if (selectedLetter != char.MinValue)
+      {
+        if (selectedLetter == '#')
+        {
+          string filter = string.Empty;
+          foreach (char letter in GetText("LANGUAGE", "CHARSET"))
+          {
+            if (filter == string.Empty)
+            {
+              filter = string.Format("Name not like '{0}%'", letter);
+            }
+            else
+            {
+              filter += string.Format("and Name not like '{0}%'", letter);
+            }
+          }
 
-			// create paged data source for the memberlist
-			userListDataView.Sort = String.Format("{0} {1}", ViewState["SortField"], (bool)ViewState["SortAscending"] ? "asc" : "desc");
-			PagedDataSource pds = new PagedDataSource();
-			pds.DataSource = userListDataView;
-			pds.AllowPaging = true;
-			pds.CurrentPageIndex = Pager.CurrentPageIndex;
-			pds.PageSize = Pager.PageSize;
+          userListDataView.RowFilter = filter;
+        }
+        else
+        {
+          userListDataView.RowFilter = string.Format("Name like '{0}%'", selectedLetter);
+        }
+      }
 
-			MemberList.DataSource = pds;
-			DataBind();
+      this.Pager.Count = userListDataView.Count;
 
-			// handle the sort fields at the top
-			// TODO: make these "sorts" into controls
-			SortUserName.Visible = (string)ViewState["SortField"] == "Name";
-			SortUserName.Src = GetThemeContents("SORT", (bool)ViewState["SortAscending"] ? "ASCENDING" : "DESCENDING");
-			SortRank.Visible = (string)ViewState["SortField"] == "RankName";
-			SortRank.Src = SortUserName.Src;
-			SortJoined.Visible = (string)ViewState["SortField"] == "Joined";
-			SortJoined.Src = SortUserName.Src;
-			SortPosts.Visible = (string)ViewState["SortField"] == "NumPosts";
-			SortPosts.Src = SortUserName.Src;
-		}
-	}
+      // create paged data source for the memberlist
+      userListDataView.Sort = String.Format("{0} {1}", ViewState["SortField"], (bool) ViewState["SortAscending"] ? "asc" : "desc");
+      var pds = new PagedDataSource();
+      pds.DataSource = userListDataView;
+      pds.AllowPaging = true;
+      pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
+      pds.PageSize = this.Pager.PageSize;
+
+      this.MemberList.DataSource = pds;
+      DataBind();
+
+      // handle the sort fields at the top
+      // TODO: make these "sorts" into controls
+      this.SortUserName.Visible = (string) ViewState["SortField"] == "Name";
+      this.SortUserName.Src = GetThemeContents("SORT", (bool) ViewState["SortAscending"] ? "ASCENDING" : "DESCENDING");
+      this.SortRank.Visible = (string) ViewState["SortField"] == "RankName";
+      this.SortRank.Src = this.SortUserName.Src;
+      this.SortJoined.Visible = (string) ViewState["SortField"] == "Joined";
+      this.SortJoined.Src = this.SortUserName.Src;
+      this.SortPosts.Visible = (string) ViewState["SortField"] == "NumPosts";
+      this.SortPosts.Src = this.SortUserName.Src;
+    }
+  }
 }
