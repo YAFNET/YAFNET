@@ -16,51 +16,55 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Web;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Modules
 {
-	/// <summary>
-	/// Module that handles page permission feature
-	/// </summary>
-	[YafModule( "Page Permission Module", "Tiny Gecko", 1 )]
-	public class PagePermissionModule : SimpleBaseModule
-	{
-		public PagePermissionModule()
-		{
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
 
-		}
+  /// <summary>
+  /// Module that handles page permission feature
+  /// </summary>
+  [YafModule("Page Permission Module", "Tiny Gecko", 1)]
+  public class PagePermissionModule : SimpleBaseModule
+  {
+    /// <summary>
+    /// The init after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+      CurrentForumPage.Load += CurrentPage_Load;
+    }
 
-		override public void InitAfterPage()
-		{
-			CurrentForumPage.Load += new EventHandler(CurrentPage_Load);
-		}
-
-		void CurrentPage_Load(object sender, EventArgs e)
-		{
-			// check access permissions for specific pages...
-			switch (ForumPageType)
-			{
-				case ForumPages.activeusers:
-					YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ActiveUsersViewPermissions);
-					break;
-				case ForumPages.members:
-					YafServices.Permissions.HandleRequest(PageContext.BoardSettings.MembersListViewPermissions);
-					break;
-				case ForumPages.profile:
-					YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ProfileViewPermissions);
-					break;
-				case ForumPages.search:
-					YafServices.Permissions.HandleRequest(PageContext.BoardSettings.SearchPermissions);
-					break;
-				default:
-					break;
-			}
-		}
-	}
+    /// <summary>
+    /// The current page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void CurrentPage_Load(object sender, EventArgs e)
+    {
+      // check access permissions for specific pages...
+      switch (ForumPageType)
+      {
+        case ForumPages.activeusers:
+          YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ActiveUsersViewPermissions);
+          break;
+        case ForumPages.members:
+          YafServices.Permissions.HandleRequest(PageContext.BoardSettings.MembersListViewPermissions);
+          break;
+        case ForumPages.profile:
+          YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ProfileViewPermissions);
+          break;
+        case ForumPages.search:
+          YafServices.Permissions.HandleRequest(PageContext.BoardSettings.SearchPermissions);
+          break;
+        default:
+          break;
+      }
+    }
+  }
 }

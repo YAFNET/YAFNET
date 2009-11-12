@@ -16,24 +16,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Web;
-using YAF.Classes.Core;
-
 namespace YAF.Utilities
 {
-	/// <summary>
-	/// Summary description for JavaScriptBlocks
-	/// </summary>
-	public static class JavaScriptBlocks
-	{
-		public static string ToogleMessageJs
-		{
-			get
-			{
-				return
-					@"
+  using YAF.Classes.Core;
+
+  /// <summary>
+  /// Summary description for JavaScriptBlocks
+  /// </summary>
+  public static class JavaScriptBlocks
+  {
+    /// <summary>
+    /// Gets ToggleMessageJs.
+    /// </summary>
+    public static string ToggleMessageJs
+    {
+      get
+      {
+        return
+          @"
 function toggleMessage(divId)
 {
     if(divId != null)
@@ -46,16 +46,19 @@ function toggleMessage(divId)
         }
     }
 }
-";	
-			}
-		}
+";
+      }
+    }
 
-		public static string DisablePageManagerScrollJs
-		{
-			get
-			{
-				return
-					@"
+    /// <summary>
+    /// Gets DisablePageManagerScrollJs.
+    /// </summary>
+    public static string DisablePageManagerScrollJs
+    {
+      get
+      {
+        return
+          @"
 	var prm = Sys.WebForms.PageRequestManager.getInstance();
 
 	prm.add_beginRequest(beginRequest);
@@ -64,85 +67,101 @@ function toggleMessage(divId)
 		prm._scrollPosition = null;
 	}
 ";
-			}
-		}
+      }
+    }
 
-		public static string LightBoxLoadJs
-		{
-			get
-			{
-				return
-					@"jQuery(document).ready(function() { 
+    /// <summary>
+    /// Gets LightBoxLoadJs.
+    /// </summary>
+    public static string LightBoxLoadJs
+    {
+      get
+      {
+        return
+          @"jQuery(document).ready(function() { 
 					jQuery.Lightbox.construct({
 						show_linkback:	false,
 						show_helper_text: false,
 				text: {
 					image:		'" +
-					YafContext.Current.Localization.GetText( "IMAGE_TEXT" ) + @"',
-					close:    '" +
-					YafContext.Current.Localization.GetText( "CLOSE_TEXT" ) + @"',
-					download:    '" +
-					YafContext.Current.Localization.GetText( "IMAGE_DOWNLOAD" ) + @"'
+          YafContext.Current.Localization.GetText("IMAGE_TEXT") + @"',
+					close:    '" + YafContext.Current.Localization.GetText("CLOSE_TEXT") +
+          @"',
+					download:    '" + YafContext.Current.Localization.GetText("IMAGE_DOWNLOAD") + @"'
 					}
 				});
-			});";				
-			}
-		}
+			});";
+      }
+    }
 
-		/// <summary>
-		/// Requires {0} formatted elementId.
-		/// </summary>
-		public static string BlockUIExecuteJs(string elementId)
-		{
-			return
-				string.Format(
-					@"jQuery(document).ready(function() {{ 
+    /// <summary>
+    /// If asynchronous callback encounters any problem, this javascript function will be called.
+    /// </summary>
+    /// <returns></returns>
+    public static string asynchCallFailedJs
+    {
+      get
+      {
+        return "function CallFailed(res){{alert('Error Occurred');}}";
+      }
+    }
+
+    /// <summary>
+    /// Requires {0} formatted elementId.
+    /// </summary>
+    /// <param name="elementId">
+    /// The element Id.
+    /// </param>
+    /// <returns>
+    /// The block ui execute js.
+    /// </returns>
+    public static string BlockUIExecuteJs(string elementId)
+    {
+      return string.Format(@"jQuery(document).ready(function() {{ 
             jQuery.blockUI({{ message: jQuery('#{0}') }}); 
-        }});",
-					elementId );
-		}
+        }});", elementId);
+    }
 
-        /// <summary>
-        /// script for the addThanks button
-        /// </summary>
-        /// <param name="RemoveThankBoxHTML">HTML code for the "Remove Thank Note" button</param>
-        /// <returns></returns>
-        public static string addThanksJs(string RemoveThankBoxHTML)
-        {
-            return
-                string.Format("function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}" +
-            "function addThanksSuccess(res){{if (res.value != null) {{" +
-            "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
-            "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
-            "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}", RemoveThankBoxHTML);
-        }
+    /// <summary>
+    /// script for the addThanks button
+    /// </summary>
+    /// <param name="RemoveThankBoxHTML">
+    /// HTML code for the "Remove Thank Note" button
+    /// </param>
+    /// <returns>
+    /// The add thanks js.
+    /// </returns>
+    public static string addThanksJs(string RemoveThankBoxHTML)
+    {
+      return
+        string.Format(
+          "function addThanks(messageID){{YAF.Controls.ThankYou.AddThanks(messageID, addThanksSuccess, CallFailed);}}" +
+          "function addThanksSuccess(res){{if (res.value != null) {{" +
+          "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
+          "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
+          "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}", 
+          RemoveThankBoxHTML);
+    }
 
-        /// <summary>
-        /// script for the removeThanks button
-        /// </summary>
-        /// <param name="RemoveThankBoxHTML">HTML code for the "Thank" button</param>
-        /// <returns></returns>
-        public static string removeThanksJs(string AddThankBoxHTML)
-        {
-            return
-                string.Format("function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}" +
-            "function removeThanksSuccess(res){{if (res.value != null) {{" +
-            "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
-            "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
-            "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}", AddThankBoxHTML);
-        }
-
-        /// <summary>
-        /// If asynchronous callback encounters any problem, this javascript function will be called.
-        /// </summary>
-        /// <returns></returns>
-        public static string asynchCallFailedJs
-        {
-            get
-            {
-                return "function CallFailed(res){{alert('Error Occured');}}";
-            }
-        }
-
-	}
+    /// <summary>
+    /// script for the removeThanks button
+    /// </summary>
+    /// <param name="AddThankBoxHTML">
+    /// The Add Thank Box HTML.
+    /// </param>
+    /// <returns>
+    /// The remove thanks js.
+    /// </returns>
+    public static string removeThanksJs(string AddThankBoxHTML)
+    {
+      return
+        string.Format(
+          "function removeThanks(messageID){{YAF.Controls.ThankYou.RemoveThanks(messageID, removeThanksSuccess, CallFailed);}}" +
+          "function removeThanksSuccess(res){{if (res.value != null) {{" +
+          "var dvThanks=document.getElementById('dvThanks' + res.value.MessageID); dvThanks.innerHTML=res.value.Thanks;" +
+          "dvThanksInfo=document.getElementById('dvThanksInfo' + res.value.MessageID); dvThanksInfo.innerHTML=res.value.ThanksInfo;" +
+          "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}", 
+          AddThankBoxHTML);
+    }
+  }
 }

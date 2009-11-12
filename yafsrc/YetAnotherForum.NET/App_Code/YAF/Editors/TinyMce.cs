@@ -16,138 +16,214 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Reflection;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Editors;
-
 namespace YAF.Editors
 {
-	public abstract class TinyMceEditor : TextEditor
-	{
-		protected override void OnInit(EventArgs e)
-		{
-			Load += new EventHandler(Editor_Load);
-			base.OnInit(e);
+  using System;
+  using System.Web.UI;
+  using YAF.Classes.Core;
 
-			_textCtl.Attributes.CssStyle.Add( "width","100%" );
-			_textCtl.Attributes.CssStyle.Add( "height", "350px" );
-		}
+  /// <summary>
+  /// The tiny mce editor.
+  /// </summary>
+  public abstract class TinyMceEditor : TextEditor
+  {
+    /// <summary>
+    /// Gets or sets Text.
+    /// </summary>
+    public override string Text
+    {
+      get
+      {
+        return this._textCtl.InnerText;
+      }
 
-		protected override void Editor_Load(object sender, EventArgs e)
-		{
-			ScriptManager.RegisterClientScriptInclude(Page, Page.GetType(), "tinymce", ResolveUrl("tiny_mce/tiny_mce.js"));
-			RegisterTinyMceCustomJS();
-			RegisterSmilieyScript();
-		}
+      set
+      {
+        this._textCtl.InnerText = value;
+      }
+    }
 
-		protected abstract void RegisterTinyMceCustomJS();
+    /// <summary>
+    /// Gets SafeID.
+    /// </summary>
+    protected new string SafeID
+    {
+      get
+      {
+        return this._textCtl.ClientID.Replace("$", "_");
+      }
+    }
 
-		public override string Text
-		{
-			get
-			{
-				return _textCtl.InnerText;
-			}
-			set
-			{
-				_textCtl.InnerText = value;
-			}
-		}
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      Load += new EventHandler(Editor_Load);
+      base.OnInit(e);
 
-		new protected string SafeID
-		{
-			get { return _textCtl.ClientID.Replace("$", "_"); }
-		}
-	}
+      this._textCtl.Attributes.CssStyle.Add("width", "100%");
+      this._textCtl.Attributes.CssStyle.Add("height", "350px");
+    }
 
-	public class TinyMceHtmlEditor : TinyMceEditor
-	{
-		protected override void RegisterTinyMceCustomJS()
-		{
-			YafContext.Current.PageElements.RegisterJsInclude( "tinymceinit", ResolveUrl( "tiny_mce/tiny_mce_init.js" ) );
-		}
+    /// <summary>
+    /// The editor_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void Editor_Load(object sender, EventArgs e)
+    {
+      ScriptManager.RegisterClientScriptInclude(Page, Page.GetType(), "tinymce", ResolveUrl("tiny_mce/tiny_mce.js"));
+      RegisterTinyMceCustomJS();
+      RegisterSmilieyScript();
+    }
 
-		protected override void RegisterSmilieyScript()
-		{
-			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
-			                                                 "function insertsmiley(code,img) {\n" +
-			                                                 "	tinyMCE.execCommand('mceInsertContent',false,'<img src=\"' + img + '\" alt=\"\" />');\n" +
-			                                                 "}\n" );
-		}
+    /// <summary>
+    /// The register tiny mce custom js.
+    /// </summary>
+    protected abstract void RegisterTinyMceCustomJS();
+  }
 
-		public override string Description
-		{
-			get
-			{
-				return "TinyMCE (HTML)";
-			}
-		}
+  /// <summary>
+  /// The tiny mce html editor.
+  /// </summary>
+  public class TinyMceHtmlEditor : TinyMceEditor
+  {
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "TinyMCE (HTML)";
+      }
+    }
 
-		public override bool UsesHTML
-		{
-			get { return true; }
-		}
+    /// <summary>
+    /// Gets a value indicating whether UsesHTML.
+    /// </summary>
+    public override bool UsesHTML
+    {
+      get
+      {
+        return true;
+      }
+    }
 
-		public override bool UsesBBCode
-		{
-			get { return false; }
-		}
+    /// <summary>
+    /// Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode
+    {
+      get
+      {
+        return false;
+      }
+    }
 
-		public override int ModuleId
-		{
-			get
-			{
-				// backward compatibility...
-				return 7;
-			}
-		}
-	}
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 7;
+      }
+    }
 
-	public class TinyMceBBCodeEditor : TinyMceEditor
-	{
-		protected override void RegisterTinyMceCustomJS()
-		{
-			ScriptManager.RegisterClientScriptInclude(Page, Page.GetType(), "tinymceinit",
-																								 ResolveUrl("tiny_mce/tiny_mce_initbbcode.js"));
-		}
+    /// <summary>
+    /// The register tiny mce custom js.
+    /// </summary>
+    protected override void RegisterTinyMceCustomJS()
+    {
+      YafContext.Current.PageElements.RegisterJsInclude("tinymceinit", ResolveUrl("tiny_mce/tiny_mce_init.js"));
+    }
 
-		protected override void RegisterSmilieyScript()
-		{
-			ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "insertsmiley",
-				"function insertsmiley(code,img) {\n" +
-				"	tinyMCE.execCommand('mceInsertContent',false,code);\n" +
-				"}\n", true);
-		}
+    /// <summary>
+    /// The register smiliey script.
+    /// </summary>
+    protected override void RegisterSmilieyScript()
+    {
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "InsertSmileyJs", 
+        "function insertsmiley(code,img) {\n" + "	tinyMCE.execCommand('mceInsertContent',false,'<img src=\"' + img + '\" alt=\"\" />');\n" + "}\n");
+    }
+  }
 
-		public override string Description
-		{
-			get
-			{
-				return "TinyMCE (BBCode)";
-			}
-		}
+  /// <summary>
+  /// The tiny mce bb code editor.
+  /// </summary>
+  public class TinyMceBBCodeEditor : TinyMceEditor
+  {
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "TinyMCE (BBCode)";
+      }
+    }
 
-		public override bool UsesHTML
-		{
-			get { return false; }
-		}
+    /// <summary>
+    /// Gets a value indicating whether UsesHTML.
+    /// </summary>
+    public override bool UsesHTML
+    {
+      get
+      {
+        return false;
+      }
+    }
 
-		public override bool UsesBBCode
-		{
-			get { return true; }
-		}
+    /// <summary>
+    /// Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode
+    {
+      get
+      {
+        return true;
+      }
+    }
 
-		public override int ModuleId
-		{
-			get
-			{
-				return Description.GetHashCode();
-			}
-		}
-	}
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        return Description.GetHashCode();
+      }
+    }
+
+    /// <summary>
+    /// The register tiny mce custom js.
+    /// </summary>
+    protected override void RegisterTinyMceCustomJS()
+    {
+      ScriptManager.RegisterClientScriptInclude(Page, Page.GetType(), "tinymceinit", ResolveUrl("tiny_mce/tiny_mce_initbbcode.js"));
+    }
+
+    /// <summary>
+    /// The register smiliey script.
+    /// </summary>
+    protected override void RegisterSmilieyScript()
+    {
+      ScriptManager.RegisterClientScriptBlock(
+        Page, Page.GetType(), "insertsmiley", "function insertsmiley(code,img) {\n" + "	tinyMCE.execCommand('mceInsertContent',false,code);\n" + "}\n", true);
+    }
+  }
 }

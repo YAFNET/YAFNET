@@ -16,51 +16,78 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-
 namespace YAF.Editors
 {
-	/// <summary>
-	/// The same as the TextEditor except it adds YafBBCode support. Used for QuickReply
-	/// functionality.
-	/// </summary>
-	public class BasicBBCodeEditor : TextEditor
-	{
-		protected override void OnInit(EventArgs e)
-		{
-			base.OnInit(e);
-			_textCtl.Attributes.Add("class", "basicBBCodeEditor");
-		}
+  using System;
 
-		protected override void Editor_Load(object sender, EventArgs e)
-		{
-			base.Editor_Load(sender, e);
-		}
+  /// <summary>
+  /// The same as the TextEditor except it adds YafBBCode support. Used for QuickReply
+  /// functionality.
+  /// </summary>
+  public class BasicBBCodeEditor : TextEditor
+  {
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      base.OnInit(e);
+      this._textCtl.Attributes.Add("class", "basicBBCodeEditor");
+    }
 
-		#region Properties
+    /// <summary>
+    /// The editor_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void Editor_Load(object sender, EventArgs e)
+    {
+      base.Editor_Load(sender, e);
+    }
 
-		public override string Description
-		{
-			get
-			{
-				return "Basic YafBBCode Editor";
-			}
-		}
+    #region Properties
 
-		public override bool UsesBBCode
-		{
-			get { return true; }
-		}
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "Basic YafBBCode Editor";
+      }
+    }
 
-		public override int ModuleId
-		{
-			get
-			{
-				// backward compatibility...
-				return 5;
-			}
-		}
+    /// <summary>
+    /// Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode
+    {
+      get
+      {
+        return true;
+      }
+    }
 
-		#endregion
-	}
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 5;
+      }
+    }
+
+    #endregion
+  }
 }

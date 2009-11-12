@@ -16,60 +16,77 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Controls;
-
 namespace YAF.Modules
 {
-	/// <summary>
-	/// Summary description for PageTitleModule
-	/// </summary>
-	[YafModule( "Page Logo Handler Module", "Tiny Gecko", 1 )]
-	public class PageLogoHandlerModule : SimpleBaseModule
-	{
-		public PageLogoHandlerModule()
-		{
-		}
+  using System;
+  using System.Web.UI.HtmlControls;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Utils;
 
-		override public void InitAfterPage()
-		{
-			CurrentForumPage.PreRender += new EventHandler( ForumPage_PreRender );
-		}
+  /// <summary>
+  /// Summary description for PageTitleModule
+  /// </summary>
+  [YafModule("Page Logo Handler Module", "Tiny Gecko", 1)]
+  public class PageLogoHandlerModule : SimpleBaseModule
+  {
+    /// <summary>
+    /// The init after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+      CurrentForumPage.PreRender += ForumPage_PreRender;
+    }
 
-		override public void InitBeforePage()
-		{
+    /// <summary>
+    /// The init before page.
+    /// </summary>
+    public override void InitBeforePage()
+    {
+    }
 
-		}
+    /// <summary>
+    /// The forum page_ pre render.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumPage_PreRender(object sender, EventArgs e)
+    {
+      var htmlImgBanner = ControlHelper.FindControlRecursiveBothAs<HtmlImage>(CurrentForumPage, "imgBanner");
+      var imgBanner = ControlHelper.FindControlRecursiveBothAs<Image>(CurrentForumPage, "imgBanner");
 
-		void ForumPage_PreRender( object sender, EventArgs e )
-		{
-			HtmlImage htmlImgBanner = ControlHelper.FindControlRecursiveBothAs<HtmlImage>( CurrentForumPage, "imgBanner" );
-			Image imgBanner = ControlHelper.FindControlRecursiveBothAs<Image>( CurrentForumPage, "imgBanner" );
+      if (!CurrentForumPage.ShowToolBar)
+      {
+        if (htmlImgBanner != null)
+        {
+          htmlImgBanner.Visible = false;
+        }
+        else if (imgBanner != null)
+        {
+          imgBanner.Visible = false;
+        }
+      }
 
-			if ( !CurrentForumPage.ShowToolBar )
-			{
-				if ( htmlImgBanner != null ) htmlImgBanner.Visible = false;
-				else if ( imgBanner != null ) imgBanner.Visible = false;
-			}
+      if (PageContext.BoardSettings.AllowThemedLogo && !Config.IsAnyPortal)
+      {
+        string graphicSrc = PageContext.Theme.GetItem("FORUM", "BANNER", null);
 
-			if ( PageContext.BoardSettings.AllowThemedLogo && !Config.IsAnyPortal )
-			{
-				string graphicSrc = PageContext.Theme.GetItem( "FORUM", "BANNER", null );
-
-				if ( !String.IsNullOrEmpty( graphicSrc ) )
-				{
-					if ( htmlImgBanner != null ) htmlImgBanner.Src = graphicSrc;
-					else if ( imgBanner != null ) imgBanner.ImageUrl = graphicSrc;
-				}
-			}
-		}
-	}
+        if (!String.IsNullOrEmpty(graphicSrc))
+        {
+          if (htmlImgBanner != null)
+          {
+            htmlImgBanner.Src = graphicSrc;
+          }
+          else if (imgBanner != null)
+          {
+            imgBanner.ImageUrl = graphicSrc;
+          }
+        }
+      }
+    }
+  }
 }

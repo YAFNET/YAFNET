@@ -16,45 +16,45 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Web;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Modules
 {
-	/// <summary>
-	/// Summary description for Last Visit Module
-	/// </summary>
-	[YafModule( "Last Visit Module", "Tiny Gecko", 1 )]
-	public class LastVisitModule : SimpleBaseModule
-	{
-		public LastVisitModule()
-		{
+  using System;
+  using YAF.Classes.Utils;
 
-		}
+  /// <summary>
+  /// Summary description for Last Visit Module
+  /// </summary>
+  [YafModule("Last Visit Module", "Tiny Gecko", 1)]
+  public class LastVisitModule : SimpleBaseModule
+  {
+    /// <summary>
+    /// The init before page.
+    /// </summary>
+    public override void InitBeforePage()
+    {
+      PageContext.PagePreLoad += PageContext_PagePreLoad;
+    }
 
-		public override void InitBeforePage()
-		{
-			PageContext.PagePreLoad += new EventHandler<EventArgs>( PageContext_PagePreLoad );
-		}
-
-		void PageContext_PagePreLoad( object sender, EventArgs e )
-		{
-			if ( !PageContext.IsGuest && PageContext.Page["PreviousVisit"] != DBNull.Value && !Mession.HasLastVisit )
-			{
-				Mession.LastVisit = Convert.ToDateTime( PageContext.Page["PreviousVisit"] );
-				Mession.HasLastVisit = true;
-			}
-			else if ( Mession.LastVisit == DateTime.MinValue )
-			{
-				Mession.LastVisit = DateTime.Now;
-			}
-		}
-	}
+    /// <summary>
+    /// The page context_ page pre load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void PageContext_PagePreLoad(object sender, EventArgs e)
+    {
+      if (!PageContext.IsGuest && PageContext.Page["PreviousVisit"] != DBNull.Value && !Mession.HasLastVisit)
+      {
+        Mession.LastVisit = Convert.ToDateTime(PageContext.Page["PreviousVisit"]);
+        Mession.HasLastVisit = true;
+      }
+      else if (Mession.LastVisit == DateTime.MinValue)
+      {
+        Mession.LastVisit = DateTime.Now;
+      }
+    }
+  }
 }

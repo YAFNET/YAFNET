@@ -16,114 +16,151 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Reflection;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Editors;
-
 namespace YAF.Editors
 {
-	#region "Telerik RadEditor"
-	public class RadEditor : RichClassEditor
-	{
-		// base("Namespace,AssemblyName")
-		public RadEditor()
-			: base("Telerik.Web.UI.RadEditor,Telerik.Web.UI")
-		{
-			InitEditorObject();
-		}
+  using System;
+  using System.Reflection;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
 
-		protected override void OnInit(EventArgs e)
-		{
-			if (_init)
-			{
-				Load += new EventHandler(Editor_Load);
-				base.OnInit(e);
-			}
-		}
+  #region "Telerik RadEditor"
 
-		protected virtual void Editor_Load(object sender, EventArgs e)
-		{
-			if (_init && _editor.Visible)
-			{
-				PropertyInfo pInfo = _typEditor.GetProperty("ID");
-				pInfo.SetValue(_editor, "edit", null);
-				pInfo = _typEditor.GetProperty("Skin");
+  /// <summary>
+  /// The rad editor.
+  /// </summary>
+  public class RadEditor : RichClassEditor
+  {
+    // base("Namespace,AssemblyName")
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RadEditor"/> class.
+    /// </summary>
+    public RadEditor()
+      : base("Telerik.Web.UI.RadEditor,Telerik.Web.UI")
+    {
+      InitEditorObject();
+    }
 
-				pInfo.SetValue(_editor, Config.RadEditorSkin, null);
-				pInfo = _typEditor.GetProperty("Height");
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      if (this._init)
+      {
+        Load += new EventHandler(Editor_Load);
+        base.OnInit(e);
+      }
+    }
 
-				pInfo.SetValue(_editor, Unit.Pixel(400), null);
-				pInfo = _typEditor.GetProperty("Width");
+    /// <summary>
+    /// The editor_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void Editor_Load(object sender, EventArgs e)
+    {
+      if (this._init && this._editor.Visible)
+      {
+        PropertyInfo pInfo = this._typEditor.GetProperty("ID");
+        pInfo.SetValue(this._editor, "edit", null);
+        pInfo = this._typEditor.GetProperty("Skin");
 
-				pInfo.SetValue(_editor, Unit.Percentage(100), null);
+        pInfo.SetValue(this._editor, Config.RadEditorSkin, null);
+        pInfo = this._typEditor.GetProperty("Height");
 
-				if (Config.UseRadEditorToolsFile)
-				{
-					pInfo = _typEditor.GetProperty("ToolsFile");
-					pInfo.SetValue(_editor, Config.RadEditorToolsFile, null);
-				}
+        pInfo.SetValue(this._editor, Unit.Pixel(400), null);
+        pInfo = this._typEditor.GetProperty("Width");
 
-				//Add Editor
-				this.Controls.Add(_editor);
+        pInfo.SetValue(this._editor, Unit.Percentage(100), null);
 
-				//Register smiley JavaScript
-				RegisterSmilieyScript();
-			}
-		}
+        if (Config.UseRadEditorToolsFile)
+        {
+          pInfo = this._typEditor.GetProperty("ToolsFile");
+          pInfo.SetValue(this._editor, Config.RadEditorToolsFile, null);
+        }
 
-		protected virtual void RegisterSmilieyScript()
-		{
-			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
-			                                                 @"function insertsmiley(code,img){" + "\n" + "var editor = $find('" +
-			                                                 _editor.ClientID + "');" +
-			                                                 "editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n" +
-			                                                 "}\n" );
-		}
+        // Add Editor
+        Controls.Add(this._editor);
 
-		#region Properties
-		public override string Description
-		{
-			get
-			{
-				return "Telerik RAD Editor (HTML)";
-			}
-		}
+        // Register smiley JavaScript
+        RegisterSmilieyScript();
+      }
+    }
 
-		public override int ModuleId
-		{
-			get
-			{
-				// backward compatibility...
-				return 8;
-			}
-		}
+    /// <summary>
+    /// The register smiliey script.
+    /// </summary>
+    protected virtual void RegisterSmilieyScript()
+    {
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "InsertSmileyJs", 
+        @"function insertsmiley(code,img){" + "\n" + "var editor = $find('" + this._editor.ClientID + "');" +
+        "editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n" + "}\n");
+    }
 
-		public override string Text
-		{
-			get
-			{
-				if (_init)
-				{
-					PropertyInfo pInfo = _typEditor.GetProperty("Html");
-					return Convert.ToString(pInfo.GetValue(_editor, null));
-				}
-				else return string.Empty;
-			}
-			set
-			{
-				if (_init)
-				{
-					PropertyInfo pInfo = _typEditor.GetProperty("Html");
-					pInfo.SetValue(_editor, value, null);
-				}
-			}
-		}
-		#endregion
-	}
-	#endregion
+    #region Properties
+
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "Telerik RAD Editor (HTML)";
+      }
+    }
+
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 8;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Text.
+    /// </summary>
+    public override string Text
+    {
+      get
+      {
+        if (this._init)
+        {
+          PropertyInfo pInfo = this._typEditor.GetProperty("Html");
+          return Convert.ToString(pInfo.GetValue(this._editor, null));
+        }
+        else
+        {
+          return string.Empty;
+        }
+      }
+
+      set
+      {
+        if (this._init)
+        {
+          PropertyInfo pInfo = this._typEditor.GetProperty("Html");
+          pInfo.SetValue(this._editor, value, null);
+        }
+      }
+    }
+
+    #endregion
+  }
+
+  #endregion
 }

@@ -16,72 +16,82 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Web;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Modules
 {
-	/// <summary>
-	/// Module that handles individual page security features -- needs to be expanded.
-	/// </summary>
-	[YafModule( "Page Security Module", "Tiny Gecko", 1 )]
-	public class PageSecurityModule : SimpleBaseModule
-	{
-		public PageSecurityModule()
-		{
-			
-		}
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Utils;
 
-		public override void InitBeforePage()
-		{
-			PageContext.PagePreLoad += new EventHandler<EventArgs>( CurrentForumPage_PreLoad );
-		}
+  /// <summary>
+  /// Module that handles individual page security features -- needs to be expanded.
+  /// </summary>
+  [YafModule("Page Security Module", "Tiny Gecko", 1)]
+  public class PageSecurityModule : SimpleBaseModule
+  {
+    /// <summary>
+    /// The init before page.
+    /// </summary>
+    public override void InitBeforePage()
+    {
+      PageContext.PagePreLoad += CurrentForumPage_PreLoad;
+    }
 
-		void CurrentForumPage_PreLoad( object sender, EventArgs e )
-		{
-			// no security features for login/logout pages
-			if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.approve || ForumPageType == ForumPages.logout)
-				return;
+    /// <summary>
+    /// The current forum page_ pre load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void CurrentForumPage_PreLoad(object sender, EventArgs e)
+    {
+      // no security features for login/logout pages
+      if (ForumPageType == ForumPages.login || ForumPageType == ForumPages.approve || ForumPageType == ForumPages.logout)
+      {
+        return;
+      }
 
-			// check if login is required
-			if ( PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && CurrentForumPage.IsProtected )
-			{
-				// redirect to login page if login is required
-				CurrentForumPage.RedirectNoAccess();
-			}
+      // check if login is required
+      if (PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && CurrentForumPage.IsProtected)
+      {
+        // redirect to login page if login is required
+        CurrentForumPage.RedirectNoAccess();
+      }
 
-			// check if it's a "registered user only page" and check permissions.
-			if (CurrentForumPage.IsRegisteredPage && CurrentForumPage.User == null)
-			{
-				CurrentForumPage.RedirectNoAccess();
-			}
+      // check if it's a "registered user only page" and check permissions.
+      if (CurrentForumPage.IsRegisteredPage && CurrentForumPage.User == null)
+      {
+        CurrentForumPage.RedirectNoAccess();
+      }
 
-			// not totally necessary... but provides another layer of protection...
-			if (CurrentForumPage.IsAdminPage && !PageContext.IsAdmin)
-			{
-				YafBuildLink.AccessDenied();
-				return;
-			}
+      // not totally necessary... but provides another layer of protection...
+      if (CurrentForumPage.IsAdminPage && !PageContext.IsAdmin)
+      {
+        YafBuildLink.AccessDenied();
+        return;
+      }
 
-			// handle security features...
-			switch (ForumPageType)
-			{
-				case ForumPages.recoverpassword:
-					if ( PageContext.BoardSettings.DisableRegistrations )
-						YafBuildLink.AccessDenied();
-					break;
-				default:
-					if (PageContext.IsPrivate && CurrentForumPage.User == null)
-					{
-						// register users only...
-						CurrentForumPage.RedirectNoAccess();
-					}
-					break;
-			}
-		}
-	}
+      // handle security features...
+      switch (ForumPageType)
+      {
+        case ForumPages.recoverpassword:
+          if (PageContext.BoardSettings.DisableRegistrations)
+          {
+            YafBuildLink.AccessDenied();
+          }
+
+          break;
+        default:
+          if (PageContext.IsPrivate && CurrentForumPage.User == null)
+          {
+            // register users only...
+            CurrentForumPage.RedirectNoAccess();
+          }
+
+          break;
+      }
+    }
+  }
 }

@@ -16,29 +16,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Configuration;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-
 namespace YAF.Modules
 {
-	public class ExampleBBCodeModule : YafBBCodeControl
-	{
-		public ExampleBBCodeModule()
-			: base()
-		{
+  using System.Web.UI;
 
-		}
+  /// <summary>
+  /// The example bb code module.
+  /// </summary>
+  public class ExampleBBCodeModule : YafBBCodeControl
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExampleBBCodeModule"/> class.
+    /// </summary>
+    public ExampleBBCodeModule()
+      : base()
+    {
+    }
 
-		protected override void Render( HtmlTextWriter writer )
-		{
-			writer.Write( "Hello, you wrote this: " + this.Parameters["inner"] );			
-		}
-	}
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      writer.Write("Hello, you wrote this: " + Parameters["inner"]);
+    }
+  }
 }

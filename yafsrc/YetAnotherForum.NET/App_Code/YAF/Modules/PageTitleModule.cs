@@ -16,114 +16,146 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Controls;
-
 namespace YAF.Modules
 {
-	/// <summary>
-	/// Summary description for PageTitleModule
-	/// </summary>
-	[YafModule("Page Title Module", "Tiny Gecko",1)]
-	public class PageTitleModule : SimpleBaseModule
-	{
-		protected string _forumPageTitle = null;
+  using System;
+  using System.Text;
+  using System.Web.UI.HtmlControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
+  using YAF.Controls;
 
-		public PageTitleModule()
-		{
-		}
+  /// <summary>
+  /// Summary description for PageTitleModule
+  /// </summary>
+  [YafModule("Page Title Module", "Tiny Gecko", 1)]
+  public class PageTitleModule : SimpleBaseModule
+  {
+    /// <summary>
+    /// The _forum page title.
+    /// </summary>
+    protected string _forumPageTitle = null;
 
-		override public void InitAfterPage()
-		{
-			CurrentForumPage.PreRender += new EventHandler(ForumPage_PreRender);
-			CurrentForumPage.Load += new EventHandler(ForumPage_Load);
-		}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PageTitleModule"/> class.
+    /// </summary>
+    public PageTitleModule()
+    {
+    }
 
-		override public void InitBeforePage()
-		{
+    /// <summary>
+    /// The init after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+      CurrentForumPage.PreRender += new EventHandler(ForumPage_PreRender);
+      CurrentForumPage.Load += new EventHandler(ForumPage_Load);
+    }
 
-		}
+    /// <summary>
+    /// The init before page.
+    /// </summary>
+    public override void InitBeforePage()
+    {
+    }
 
-		void ForumPage_Load(object sender, EventArgs e)
-		{
-			GeneratePageTitle();
-		}
+    /// <summary>
+    /// The forum page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumPage_Load(object sender, EventArgs e)
+    {
+      GeneratePageTitle();
+    }
 
-		/// <summary>
-		/// Creates this pages title and fires a PageTitleSet event if one is set
-		/// </summary>
-		private void GeneratePageTitle()
-		{
-			// compute page title..
-			System.Text.StringBuilder title = new StringBuilder();
+    /// <summary>
+    /// Creates this pages title and fires a PageTitleSet event if one is set
+    /// </summary>
+    private void GeneratePageTitle()
+    {
+      // compute page title..
+      var title = new StringBuilder();
 
-			string pageStr = string.Empty;
+      string pageStr = string.Empty;
 
-			if (ForumPageType == ForumPages.posts || ForumPageType == ForumPages.topics)
-			{
-				// get current page...
-				Pager currentPager = (Pager)CurrentForumPage.FindControl("Pager");
+      if (ForumPageType == ForumPages.posts || ForumPageType == ForumPages.topics)
+      {
+        // get current page...
+        var currentPager = (Pager) CurrentForumPage.FindControl("Pager");
 
-				if (currentPager != null && currentPager.CurrentPageIndex != 0)
-				{
-					pageStr = String.Format("Page {0} - ", currentPager.CurrentPageIndex + 1);
-				}
-			}
+        if (currentPager != null && currentPager.CurrentPageIndex != 0)
+        {
+          pageStr = String.Format("Page {0} - ", currentPager.CurrentPageIndex + 1);
+        }
+      }
 
-			if (PageContext.PageTopicID != 0)
-				title.AppendFormat("{0} - ", YafServices.BadWordReplace.Replace(PageContext.PageTopicName)); // Tack on the topic we're viewing
+      if (PageContext.PageTopicID != 0)
+      {
+        title.AppendFormat("{0} - ", YafServices.BadWordReplace.Replace(PageContext.PageTopicName)); // Tack on the topic we're viewing
+      }
 
-			if ( ForumPageType == ForumPages.posts)
-			{
-				title.Append( pageStr );
-			}
+      if (ForumPageType == ForumPages.posts)
+      {
+        title.Append(pageStr);
+      }
 
-			if (PageContext.PageForumName != string.Empty)
-				title.AppendFormat("{0} - ", CurrentForumPage.HtmlEncode(PageContext.PageForumName)); // Tack on the forum we're viewing
+      if (PageContext.PageForumName != string.Empty)
+      {
+        title.AppendFormat("{0} - ", CurrentForumPage.HtmlEncode(PageContext.PageForumName)); // Tack on the forum we're viewing
+      }
 
-			if (ForumPageType == ForumPages.topics)
-			{
-				title.Append(pageStr);
-			}
+      if (ForumPageType == ForumPages.topics)
+      {
+        title.Append(pageStr);
+      }
 
-			title.Append(CurrentForumPage.HtmlEncode(PageContext.BoardSettings.Name)); // and lastly, tack on the board's name
-			_forumPageTitle = title.ToString();
+      title.Append(CurrentForumPage.HtmlEncode(PageContext.BoardSettings.Name)); // and lastly, tack on the board's name
+      this._forumPageTitle = title.ToString();
 
-			ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs( _forumPageTitle ));
-		}
+      ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(this._forumPageTitle));
+    }
 
-		void ForumPage_PreRender(object sender, EventArgs e)
-		{
-			HtmlHead head = ForumControl.Page.Header ??
-			                ControlHelper.FindControlRecursiveBothAs<HtmlHead>( CurrentForumPage, "YafHead" );
+    /// <summary>
+    /// The forum page_ pre render.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void ForumPage_PreRender(object sender, EventArgs e)
+    {
+      HtmlHead head = ForumControl.Page.Header ?? ControlHelper.FindControlRecursiveBothAs<HtmlHead>(CurrentForumPage, "YafHead");
 
-			if (head != null)
-			{
-				// setup the title...
-				string addition = string.Empty;
+      if (head != null)
+      {
+        // setup the title...
+        string addition = string.Empty;
 
-				if ( head.Title.Trim().Length > 0 )
-					addition = " - " + head.Title;
+        if (head.Title.Trim().Length > 0)
+        {
+          addition = " - " + head.Title;
+        }
 
-				head.Title = _forumPageTitle + addition;
-			}
-			else
-			{
-				// old style
-				HtmlTitle title = ControlHelper.FindControlRecursiveBothAs<HtmlTitle>( CurrentForumPage, "ForumTitle" );
+        head.Title = this._forumPageTitle + addition;
+      }
+      else
+      {
+        // old style
+        var title = ControlHelper.FindControlRecursiveBothAs<HtmlTitle>(CurrentForumPage, "ForumTitle");
 
-				if ( title != null )
-				{
-					title.Text = _forumPageTitle;
-				}
-			}
-		}
-	}
+        if (title != null)
+        {
+          title.Text = this._forumPageTitle;
+        }
+      }
+    }
+  }
 }

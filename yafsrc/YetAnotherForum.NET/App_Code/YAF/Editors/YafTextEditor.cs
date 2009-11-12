@@ -16,103 +16,154 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using YAF.Classes.Core;
-using YAF.Editors;
-
 namespace YAF.Editors
 {
-	public class TextEditor : BaseForumEditor
-	{
-		protected HtmlTextArea _textCtl;
+  using System;
+  using System.Web.UI.HtmlControls;
+  using YAF.Classes.Core;
 
-		protected override void OnInit(EventArgs e)
-		{
-			Load += new EventHandler(Editor_Load);
+  /// <summary>
+  /// The text editor.
+  /// </summary>
+  public class TextEditor : BaseForumEditor
+  {
+    /// <summary>
+    /// The _text ctl.
+    /// </summary>
+    protected HtmlTextArea _textCtl;
 
-			_textCtl = new HtmlTextArea();
-			_textCtl.ID = "YafTextEditor";
-			_textCtl.Rows = 15;
-			_textCtl.Cols = 100;
-			_textCtl.Attributes.Add( "class", "YafTextEditor" );
-			Controls.Add(_textCtl);
+    /// <summary>
+    /// Gets a value indicating whether Active.
+    /// </summary>
+    public override bool Active
+    {
+      get
+      {
+        return true;
+      }
+    }
 
-			base.OnInit(e);
-		}
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 0;
+      }
+    }
 
-		protected virtual void Editor_Load(object sender, EventArgs e)
-		{
-			// Ederon : 9/6/2007
-			/*if (this.Visible || this.)
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "Plain Text Editor";
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Text.
+    /// </summary>
+    public override string Text
+    {
+      get
+      {
+        return this._textCtl.InnerText;
+      }
+
+      set
+      {
+        this._textCtl.InnerText = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets SafeID.
+    /// </summary>
+    protected string SafeID
+    {
+      get
+      {
+        return this._textCtl.ClientID.Replace("$", "_");
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesHTML.
+    /// </summary>
+    public override bool UsesHTML
+    {
+      get
+      {
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode
+    {
+      get
+      {
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      Load += new EventHandler(Editor_Load);
+
+      this._textCtl = new HtmlTextArea();
+      this._textCtl.ID = "YafTextEditor";
+      this._textCtl.Rows = 15;
+      this._textCtl.Cols = 100;
+      this._textCtl.Attributes.Add("class", "YafTextEditor");
+      Controls.Add(this._textCtl);
+
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The editor_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void Editor_Load(object sender, EventArgs e)
+    {
+      // Ederon : 9/6/2007
+      /*if (this.Visible || this.)
 			{*/
-			YafContext.Current.PageElements.RegisterJsInclude( "YafEditorJs", ResolveUrl( "yafEditor/yafEditor.js" ) );
+      YafContext.Current.PageElements.RegisterJsInclude("YafEditorJs", ResolveUrl("yafEditor/yafEditor.js"));
 
-			YafContext.Current.PageElements.RegisterJsBlock( "CreateYafEditorJs",
-			                                                 "var " + SafeID + "=new yafEditor('" + SafeID + "');\n" +
-			                                                 "function setStyle(style,option) {\n" + "	" + SafeID +
-			                                                 ".FormatText(style,option);\n" + "}\n" );
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "CreateYafEditorJs", 
+        "var " + SafeID + "=new yafEditor('" + SafeID + "');\n" + "function setStyle(style,option) {\n" + "	" + SafeID + ".FormatText(style,option);\n" + "}\n");
 
-			RegisterSmilieyScript();
-		}
+      RegisterSmilieyScript();
+    }
 
-		protected virtual void RegisterSmilieyScript()
-		{
-			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
-			                                                 "function insertsmiley(code) {\n" + "	" + SafeID +
-			                                                 ".InsertSmiley(code);\n" + "}\n" );
-		}
-
-		public override bool Active
-		{
-			get
-			{
-				return true;
-			}
-		}
-
-		public override int ModuleId
-		{
-			get
-			{
-				// backward compatibility...
-				return 0;
-			}
-		}
-
-		public override string Description
-		{
-			get
-			{
-				return "Plain Text Editor";
-			}
-		}
-
-		public override string Text
-		{
-			get
-			{
-				return _textCtl.InnerText;
-			}
-			set
-			{
-				_textCtl.InnerText = value;
-			}
-		}
-
-		protected string SafeID
-		{
-			get { return _textCtl.ClientID.Replace("$", "_"); }
-		}
-
-		public override bool UsesHTML
-		{
-			get { return false; }
-		}
-		public override bool UsesBBCode
-		{
-			get { return false; }
-		}
-	}
+    /// <summary>
+    /// The register smiliey script.
+    /// </summary>
+    protected virtual void RegisterSmilieyScript()
+    {
+      YafContext.Current.PageElements.RegisterJsBlock("InsertSmileyJs", "function insertsmiley(code) {\n" + "	" + SafeID + ".InsertSmiley(code);\n" + "}\n");
+    }
+  }
 }

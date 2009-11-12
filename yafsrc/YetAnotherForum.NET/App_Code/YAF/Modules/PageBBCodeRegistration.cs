@@ -16,42 +16,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.UI;
-using YAF.Classes.Utils;
-using YAF.Controls;
-
 namespace YAF.Modules
 {
-	/// <summary>
-	/// Summary description for PageTitleModule
-	/// </summary>
-	[YafModule( "Page BBCode Registration Module", "Tiny Gecko", 1 )]
-	public class PageBBCodeRegistration : SimpleBaseModule
-	{
-		public PageBBCodeRegistration()
-		{
-		}
+  using YAF.Classes;
+  using YAF.Classes.UI;
 
-		override public void InitAfterPage()
-		{
-			switch ( PageContext.ForumPageType )
-			{
-				case ForumPages.cp_message:
-				case ForumPages.search:
-				case ForumPages.lastposts:
-				case ForumPages.posts:
-				case ForumPages.profile:
-					YAF.Classes.UI.YafBBCode.RegisterCustomBBCodePageElements(PageContext.CurrentForumPage.Page, PageContext.CurrentForumPage.GetType() );
-					break;
-			}
-		}
-	}
+  /// <summary>
+  /// Summary description for PageTitleModule
+  /// </summary>
+  [YafModule("Page BBCode Registration Module", "Tiny Gecko", 1)]
+  public class PageBBCodeRegistration : SimpleBaseModule
+  {
+    /// <summary>
+    /// The init after page.
+    /// </summary>
+    public override void InitAfterPage()
+    {
+      switch (PageContext.ForumPageType)
+      {
+        case ForumPages.cp_message:
+        case ForumPages.search:
+        case ForumPages.lastposts:
+        case ForumPages.posts:
+        case ForumPages.profile:
+          YafBBCode.RegisterCustomBBCodePageElements(PageContext.CurrentForumPage.Page, PageContext.CurrentForumPage.GetType());
+          break;
+      }
+    }
+  }
 }

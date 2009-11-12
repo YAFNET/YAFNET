@@ -16,136 +16,187 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Reflection;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Editors;
-
 namespace YAF.Editors
 {
-	public class FreeTextBoxEditor : RichClassEditor
-	{
-		public FreeTextBoxEditor()
-			: base("FreeTextBoxControls.FreeTextBox,FreeTextBox")
-		{
-			InitEditorObject();
-		}
+  using System;
+  using System.Reflection;
+  using System.Web.UI.WebControls;
+  using YAF.Classes.Core;
 
-		protected override void OnInit(EventArgs e)
-		{
-			if (_init)
-			{
-				Load += new EventHandler(Editor_Load);
-				PropertyInfo pInfo = _typEditor.GetProperty("ID");
-				pInfo.SetValue(_editor, "edit", null);
-				pInfo = _typEditor.GetProperty("AutoGenerateToolbarsFromString");
-				pInfo.SetValue(_editor, true, null);
-				pInfo = _typEditor.GetProperty("ToolbarLayout");
-				pInfo.SetValue(_editor, "FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent", null);
-				Controls.Add(_editor);
-			}
-			base.OnInit(e);
-		}
+  /// <summary>
+  /// The free text box editor.
+  /// </summary>
+  public class FreeTextBoxEditor : RichClassEditor
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FreeTextBoxEditor"/> class.
+    /// </summary>
+    public FreeTextBoxEditor()
+      : base("FreeTextBoxControls.FreeTextBox,FreeTextBox")
+    {
+      InitEditorObject();
+    }
 
-		protected virtual void Editor_Load(object sender, EventArgs e)
-		{
-			if (_init && _editor.Visible)
-			{
-				PropertyInfo pInfo;
-				pInfo = _typEditor.GetProperty("SupportFolder");
-				pInfo.SetValue(_editor, ResolveUrl("FreeTextBox/"), null);
-				pInfo = _typEditor.GetProperty("Width");
-				pInfo.SetValue(_editor, Unit.Percentage(100), null);
-				pInfo = _typEditor.GetProperty("DesignModeCss");
-				pInfo.SetValue(_editor, StyleSheet, null);
-				//pInfo = typEditor.GetProperty("EnableHtmlMode");
-				//pInfo.SetValue(objEditor,false,null);
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      if (this._init)
+      {
+        Load += new EventHandler(Editor_Load);
+        PropertyInfo pInfo = this._typEditor.GetProperty("ID");
+        pInfo.SetValue(this._editor, "edit", null);
+        pInfo = this._typEditor.GetProperty("AutoGenerateToolbarsFromString");
+        pInfo.SetValue(this._editor, true, null);
+        pInfo = this._typEditor.GetProperty("ToolbarLayout");
+        pInfo.SetValue(
+          this._editor, 
+          "FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent", 
+          null);
+        Controls.Add(this._editor);
+      }
 
-				RegisterSmilieyScript();
-			}
-		}
+      base.OnInit(e);
+    }
 
-		protected virtual void RegisterSmilieyScript()
-		{
-			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
-			                                                 "function insertsmiley(code){" + "FTB_InsertText('" + SafeID +
-			                                                 "',code);" + "}\n" );
-		}
+    /// <summary>
+    /// The editor_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void Editor_Load(object sender, EventArgs e)
+    {
+      if (this._init && this._editor.Visible)
+      {
+        PropertyInfo pInfo;
+        pInfo = this._typEditor.GetProperty("SupportFolder");
+        pInfo.SetValue(this._editor, ResolveUrl("FreeTextBox/"), null);
+        pInfo = this._typEditor.GetProperty("Width");
+        pInfo.SetValue(this._editor, Unit.Percentage(100), null);
+        pInfo = this._typEditor.GetProperty("DesignModeCss");
+        pInfo.SetValue(this._editor, StyleSheet, null);
 
-		#region Properties
-		public override string Description
-		{
-			get
-			{
-				return "Free Text Box v2 (HTML)";
-			}
-		}
+        // pInfo = typEditor.GetProperty("EnableHtmlMode");
+        // pInfo.SetValue(objEditor,false,null);
+        RegisterSmilieyScript();
+      }
+    }
 
-		public override int ModuleId
-		{
-			get
-			{
-				// backward compatibility...
-				return 3;
-			}
-		}
+    /// <summary>
+    /// The register smiliey script.
+    /// </summary>
+    protected virtual void RegisterSmilieyScript()
+    {
+      YafContext.Current.PageElements.RegisterJsBlock("InsertSmileyJs", "function insertsmiley(code){" + "FTB_InsertText('" + SafeID + "',code);" + "}\n");
+    }
 
-		public override string Text
-		{
-			get
-			{
-				if (_init)
-				{
-					PropertyInfo pInfo = _typEditor.GetProperty("Text");
-					return Convert.ToString(pInfo.GetValue(_editor, null));
-				}
-				else return string.Empty;
-			}
-			set
-			{
-				if (_init)
-				{
-					PropertyInfo pInfo = _typEditor.GetProperty("Text");
-					pInfo.SetValue(_editor, value, null);
-				}
-			}
-		}
-		#endregion
-	}
+    #region Properties
 
-	public class FreeTextBoxEditorv3 : FreeTextBoxEditor
-	{
-		public FreeTextBoxEditorv3()
-			: base()
-		{
-		}
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "Free Text Box v2 (HTML)";
+      }
+    }
 
-		protected override void RegisterSmilieyScript()
-		{
-			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
-			                                                 @"function insertsmiley(code,img){" + "FTB_API['" + SafeID +
-			                                                 "'].InsertHtml('<img src=\"' + img + '\" alt=\"\" />');" + "}\n" );
-		}
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 3;
+      }
+    }
 
-		public override int ModuleId
-		{
-			get
-			{
-				// backward compatibility...
-				return 6;
-			}
-		}
+    /// <summary>
+    /// Gets or sets Text.
+    /// </summary>
+    public override string Text
+    {
+      get
+      {
+        if (this._init)
+        {
+          PropertyInfo pInfo = this._typEditor.GetProperty("Text");
+          return Convert.ToString(pInfo.GetValue(this._editor, null));
+        }
+        else
+        {
+          return string.Empty;
+        }
+      }
 
-		public override string Description
-		{
-			get
-			{
-				return "Free Text Box v3 (HTML)";
-			}
-		}
-	}
+      set
+      {
+        if (this._init)
+        {
+          PropertyInfo pInfo = this._typEditor.GetProperty("Text");
+          pInfo.SetValue(this._editor, value, null);
+        }
+      }
+    }
+
+    #endregion
+  }
+
+  /// <summary>
+  /// The free text box editorv 3.
+  /// </summary>
+  public class FreeTextBoxEditorv3 : FreeTextBoxEditor
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FreeTextBoxEditorv3"/> class.
+    /// </summary>
+    public FreeTextBoxEditorv3()
+      : base()
+    {
+    }
+
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 6;
+      }
+    }
+
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "Free Text Box v3 (HTML)";
+      }
+    }
+
+    /// <summary>
+    /// The register smiliey script.
+    /// </summary>
+    protected override void RegisterSmilieyScript()
+    {
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "InsertSmileyJs", @"function insertsmiley(code,img){" + "FTB_API['" + SafeID + "'].InsertHtml('<img src=\"' + img + '\" alt=\"\" />');" + "}\n");
+    }
+  }
 }

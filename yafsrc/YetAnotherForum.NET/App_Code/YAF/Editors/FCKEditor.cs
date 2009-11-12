@@ -16,177 +16,248 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Reflection;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Editors;
-
 namespace YAF.Editors
 {
-	public class FCKEditorV2 : RichClassEditor
-	{
-		public FCKEditorV2()
-			: base("FredCK.FCKeditorV2.FCKeditor,FredCK.FCKeditorV2")
-		{
-			InitEditorObject();
-		}
+  using System;
+  using System.Reflection;
+  using System.Web.UI.WebControls;
+  using YAF.Classes.Core;
 
-		protected override void OnInit(EventArgs e)
-		{
-			if (_init)
-			{
-				Load += new EventHandler(Editor_Load);
-				PropertyInfo pInfo = _typEditor.GetProperty("ID");
-				pInfo.SetValue(_editor, "edit", null);
-				Controls.Add(_editor);
-			}
-			base.OnInit(e);
-		}
+  /// <summary>
+  /// The fck editor v 2.
+  /// </summary>
+  public class FCKEditorV2 : RichClassEditor
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FCKEditorV2"/> class.
+    /// </summary>
+    public FCKEditorV2()
+      : base("FredCK.FCKeditorV2.FCKeditor,FredCK.FCKeditorV2")
+    {
+      InitEditorObject();
+    }
 
-		protected virtual void Editor_Load(object sender, EventArgs e)
-		{
-			if (_init && _editor.Visible)
-			{
-				PropertyInfo pInfo;
-				pInfo = _typEditor.GetProperty("BasePath");
-				pInfo.SetValue(_editor, ResolveUrl("FCKEditorV2/"), null);
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      if (this._init)
+      {
+        Load += new EventHandler(Editor_Load);
+        PropertyInfo pInfo = this._typEditor.GetProperty("ID");
+        pInfo.SetValue(this._editor, "edit", null);
+        Controls.Add(this._editor);
+      }
 
-				pInfo = _typEditor.GetProperty("Height");
-				pInfo.SetValue(_editor, Unit.Pixel(300), null);
+      base.OnInit(e);
+    }
 
-				YafContext.Current.PageElements.RegisterJsInclude( "FckEditorJs", ResolveUrl( "FCKEditorV2/FCKEditor.js" ) );
+    /// <summary>
+    /// The editor_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void Editor_Load(object sender, EventArgs e)
+    {
+      if (this._init && this._editor.Visible)
+      {
+        PropertyInfo pInfo;
+        pInfo = this._typEditor.GetProperty("BasePath");
+        pInfo.SetValue(this._editor, ResolveUrl("FCKEditorV2/"), null);
 
-				RegisterSmilieyScript();
-			}
-		}
+        pInfo = this._typEditor.GetProperty("Height");
+        pInfo.SetValue(this._editor, Unit.Pixel(300), null);
 
-		protected virtual void RegisterSmilieyScript()
-		{
-			// insert smiliey code -- can't get this working with FireFox!
-			YafContext.Current.PageElements.RegisterJsBlock( "InsertSmileyJs",
-			                                                 "function insertsmiley(code,img) {\n" +
-			                                                 "var oEditor = FCKeditorAPI.GetInstance('" + SafeID + "');\n" +
-			                                                 "if ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {\n" +
-			                                                 "oEditor.InsertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }\n" +
-			                                                 "else alert( 'You must be on WYSIWYG mode!' );\n" + "}\n" );
-		}
+        YafContext.Current.PageElements.RegisterJsInclude("FckEditorJs", ResolveUrl("FCKEditorV2/FCKEditor.js"));
 
-		#region Properties
+        RegisterSmilieyScript();
+      }
+    }
 
-		public override string Description
-		{
-			get
-			{
-				return "FCK Editor v2 (HTML)";
-			}
-		}
+    /// <summary>
+    /// The register smiliey script.
+    /// </summary>
+    protected virtual void RegisterSmilieyScript()
+    {
+      // insert smiliey code -- can't get this working with FireFox!
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "InsertSmileyJs", 
+        "function insertsmiley(code,img) {\n" + "var oEditor = FCKeditorAPI.GetInstance('" + SafeID + "');\n" +
+        "if ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {\n" + "oEditor.InsertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }\n" +
+        "else alert( 'You must be on WYSIWYG mode!' );\n" + "}\n");
+    }
 
-		public override int ModuleId
-		{
-			get
-			{
-				// backward compatibility...
-				return 2;
-			}
-		}
+    #region Properties
 
-		public override string Text
-		{
-			get
-			{
-				if (_init)
-				{
-					PropertyInfo pInfo = _typEditor.GetProperty("Value");
-					return Convert.ToString(pInfo.GetValue(_editor, null));
-				}
-				else return string.Empty;
-			}
-			set
-			{
-				if (_init)
-				{
-					PropertyInfo pInfo = _typEditor.GetProperty("Value");
-					pInfo.SetValue(_editor, value, null);
-				}
-			}
-		}
-		#endregion
-	}
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "FCK Editor v2 (HTML)";
+      }
+    }
 
-	public class FCKEditorV1 : RichClassEditor
-	{
-		public FCKEditorV1()
-			: base("FredCK.FCKeditor,FredCK.FCKeditor")
-		{
-			InitEditorObject();
-		}
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 2;
+      }
+    }
 
-		protected override void OnInit(EventArgs e)
-		{
-			if (_init)
-			{
-				Load += new EventHandler(Editor_Load);
-				PropertyInfo pInfo = _typEditor.GetProperty("ID");
-				pInfo.SetValue(_editor, "edit", null);
-				Controls.Add(_editor);
-			}
-			base.OnInit(e);
-		}
+    /// <summary>
+    /// Gets or sets Text.
+    /// </summary>
+    public override string Text
+    {
+      get
+      {
+        if (this._init)
+        {
+          PropertyInfo pInfo = this._typEditor.GetProperty("Value");
+          return Convert.ToString(pInfo.GetValue(this._editor, null));
+        }
+        else
+        {
+          return string.Empty;
+        }
+      }
 
-		protected virtual void Editor_Load(object sender, EventArgs e)
-		{
-			if (_init && _editor.Visible)
-			{
-				PropertyInfo pInfo;
-				pInfo = _typEditor.GetProperty("BasePath");
-				pInfo.SetValue(_editor, ResolveUrl("FCKEditorV1/"), null);
+      set
+      {
+        if (this._init)
+        {
+          PropertyInfo pInfo = this._typEditor.GetProperty("Value");
+          pInfo.SetValue(this._editor, value, null);
+        }
+      }
+    }
 
-				YafContext.Current.PageElements.RegisterJsInclude( "FckEditorJs", ResolveUrl( "FCKEditorV1/FCKEditor.js" ) );
-			}
-		}
+    #endregion
+  }
 
-		#region Properties
-		public override string Description
-		{
-			get
-			{
-				return "FCK Editor v1.6 (HTML)";
-			}
-		}
+  /// <summary>
+  /// The fck editor v 1.
+  /// </summary>
+  public class FCKEditorV1 : RichClassEditor
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FCKEditorV1"/> class.
+    /// </summary>
+    public FCKEditorV1()
+      : base("FredCK.FCKeditor,FredCK.FCKeditor")
+    {
+      InitEditorObject();
+    }
 
-		public override int ModuleId
-		{
-			get
-			{
-				// backward compatibility...
-				return 4;
-			}
-		}
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      if (this._init)
+      {
+        Load += new EventHandler(Editor_Load);
+        PropertyInfo pInfo = this._typEditor.GetProperty("ID");
+        pInfo.SetValue(this._editor, "edit", null);
+        Controls.Add(this._editor);
+      }
 
-		public override string Text
-		{
-			get
-			{
-				if (_init)
-				{
-					PropertyInfo pInfo = _typEditor.GetProperty("Value");
-					return Convert.ToString(pInfo.GetValue(_editor, null));
-				}
-				else return string.Empty;
-			}
-			set
-			{
-				if (_init)
-				{
-					PropertyInfo pInfo = _typEditor.GetProperty("Value");
-					pInfo.SetValue(_editor, value, null);
-				}
-			}
-		}
-		#endregion
-	}
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The editor_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void Editor_Load(object sender, EventArgs e)
+    {
+      if (this._init && this._editor.Visible)
+      {
+        PropertyInfo pInfo;
+        pInfo = this._typEditor.GetProperty("BasePath");
+        pInfo.SetValue(this._editor, ResolveUrl("FCKEditorV1/"), null);
+
+        YafContext.Current.PageElements.RegisterJsInclude("FckEditorJs", ResolveUrl("FCKEditorV1/FCKEditor.js"));
+      }
+    }
+
+    #region Properties
+
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "FCK Editor v1.6 (HTML)";
+      }
+    }
+
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 4;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Text.
+    /// </summary>
+    public override string Text
+    {
+      get
+      {
+        if (this._init)
+        {
+          PropertyInfo pInfo = this._typEditor.GetProperty("Value");
+          return Convert.ToString(pInfo.GetValue(this._editor, null));
+        }
+        else
+        {
+          return string.Empty;
+        }
+      }
+
+      set
+      {
+        if (this._init)
+        {
+          PropertyInfo pInfo = this._typEditor.GetProperty("Value");
+          pInfo.SetValue(this._editor, value, null);
+        }
+      }
+    }
+
+    #endregion
+  }
 }

@@ -16,129 +16,206 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Reflection;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Editors;
-
 namespace YAF.Editors
 {
-	public abstract class RichClassEditor : BaseForumEditor
-	{
-		protected bool _init;
-		protected Type _typEditor;
-		protected Control _editor;
-		protected string _styleSheet;
+  using System;
+  using System.Reflection;
+  using System.Web.UI;
 
-		protected RichClassEditor()
-		{
-			_init = false;
-			_styleSheet = string.Empty;
-			_editor = null;
-			_typEditor = null;
-		}
+  /// <summary>
+  /// The rich class editor.
+  /// </summary>
+  public abstract class RichClassEditor : BaseForumEditor
+  {
+    /// <summary>
+    /// The _editor.
+    /// </summary>
+    protected Control _editor;
 
-		protected RichClassEditor(string classBinStr)
-		{
-			_init = false;
-			_styleSheet = string.Empty;
-			_editor = null;
+    /// <summary>
+    /// The _init.
+    /// </summary>
+    protected bool _init;
 
-			try
-			{
-				_typEditor = Type.GetType(classBinStr, true);
-			}
-			catch (Exception x)
-			{
-/*
+    /// <summary>
+    /// The _style sheet.
+    /// </summary>
+    protected string _styleSheet;
+
+    /// <summary>
+    /// The _typ editor.
+    /// </summary>
+    protected Type _typEditor;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RichClassEditor"/> class.
+    /// </summary>
+    protected RichClassEditor()
+    {
+      this._init = false;
+      this._styleSheet = string.Empty;
+      this._editor = null;
+      this._typEditor = null;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RichClassEditor"/> class.
+    /// </summary>
+    /// <param name="classBinStr">
+    /// The class bin str.
+    /// </param>
+    protected RichClassEditor(string classBinStr)
+    {
+      this._init = false;
+      this._styleSheet = string.Empty;
+      this._editor = null;
+
+      try
+      {
+        this._typEditor = Type.GetType(classBinStr, true);
+      }
+      catch (Exception x)
+      {
+        /*
 #if DEBUG
 				throw new Exception( "Unable to load editor class/dll: " + classBinStr + " Exception: " + x.Message );
 #else
 				YAF.Classes.Data.DB.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Error);
 #endif
-*/ 
-			}
-		}
+*/
+      }
+    }
 
-		protected bool InitEditorObject()
-		{
-			try
-			{
-				if (!_init && _typEditor != null)
-				{
-					// create instance of main class
-					_editor = (System.Web.UI.Control)Activator.CreateInstance(_typEditor);
-					_init = true;
-				}
-			}
-			catch (Exception)
-			{
-				// dll is not accessible
-				return false;
-			}
-			return true;
-		}
+    /// <summary>
+    /// The init editor object.
+    /// </summary>
+    /// <returns>
+    /// The init editor object.
+    /// </returns>
+    protected bool InitEditorObject()
+    {
+      try
+      {
+        if (!this._init && this._typEditor != null)
+        {
+          // create instance of main class
+          this._editor = (Control) Activator.CreateInstance(this._typEditor);
+          this._init = true;
+        }
+      }
+      catch (Exception)
+      {
+        // dll is not accessible
+        return false;
+      }
 
-		protected Type GetInterfaceInAssembly(Assembly cAssembly, string className)
-		{
-			Type[] types = cAssembly.GetTypes();
-			foreach (Type typ in types)
-			{
-				// dynamically create or activate(if exist) object
-				if (typ.FullName == className)
-				{
-					return typ;
-				}
-			}
-			return null;
-		}
+      return true;
+    }
 
-		#region Properties
+    /// <summary>
+    /// The get interface in assembly.
+    /// </summary>
+    /// <param name="cAssembly">
+    /// The c assembly.
+    /// </param>
+    /// <param name="className">
+    /// The class name.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    protected Type GetInterfaceInAssembly(Assembly cAssembly, string className)
+    {
+      Type[] types = cAssembly.GetTypes();
+      foreach (Type typ in types)
+      {
+        // dynamically create or activate(if exist) object
+        if (typ.FullName == className)
+        {
+          return typ;
+        }
+      }
 
-		public override bool Active
-		{
-			get
-			{
-				return _typEditor != null;
-			}
-		}
+      return null;
+    }
 
-		virtual protected string SafeID
-		{
-			get
-			{
-				if (_init)
-				{
-					return _editor.ClientID.Replace("$", "_");
-				}
-				return string.Empty;
-			}
-		}
+    #region Properties
 
-		public bool IsInitialized
-		{
-			get { return _init; }
-		}
+    /// <summary>
+    /// Gets a value indicating whether Active.
+    /// </summary>
+    public override bool Active
+    {
+      get
+      {
+        return this._typEditor != null;
+      }
+    }
 
-		public override string StyleSheet
-		{
-			get { return _styleSheet; }
-			set { _styleSheet = value; }
-		}
+    /// <summary>
+    /// Gets SafeID.
+    /// </summary>
+    protected virtual string SafeID
+    {
+      get
+      {
+        if (this._init)
+        {
+          return this._editor.ClientID.Replace("$", "_");
+        }
 
-		public override bool UsesHTML
-		{
-			get { return true; }
-		}
-		public override bool UsesBBCode
-		{
-			get { return false; }
-		}
-		#endregion
+        return string.Empty;
+      }
+    }
 
-	}
+    /// <summary>
+    /// Gets a value indicating whether IsInitialized.
+    /// </summary>
+    public bool IsInitialized
+    {
+      get
+      {
+        return this._init;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets StyleSheet.
+    /// </summary>
+    public override string StyleSheet
+    {
+      get
+      {
+        return this._styleSheet;
+      }
+
+      set
+      {
+        this._styleSheet = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesHTML.
+    /// </summary>
+    public override bool UsesHTML
+    {
+      get
+      {
+        return true;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode
+    {
+      get
+      {
+        return false;
+      }
+    }
+
+    #endregion
+  }
 }
