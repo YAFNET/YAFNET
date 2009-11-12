@@ -869,6 +869,15 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>Allow Guests To Report Post:</b><br />
+							Allow to report posts as violating forum rules.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="AllowGuestToReportPost" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
 							<b>Profile Viewing Permissions:</b><br />
 							Allow viewing of other users' profiles to:
 						</td>

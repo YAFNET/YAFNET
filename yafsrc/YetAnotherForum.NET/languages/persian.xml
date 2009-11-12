@@ -791,6 +791,12 @@
     <Resource tag="USERNAME">نام کاربری</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">بررسی ثبت نام برای انجمن {0}</Resource>
   </page>
+  <page name="REPORTPOST">
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
+    <Resource tag="HEADER">Report post</Resource>
+    <Resource tag="SEND">Report</Resource>
+  </page>
   <page name="RTE">
     <Resource tag="BOLD">ضخیم</Resource>
     <Resource tag="CENTER">وسط</Resource>

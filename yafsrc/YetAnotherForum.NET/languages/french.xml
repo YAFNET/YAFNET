@@ -830,6 +830,12 @@
     <Resource tag="USERNAME">Nom de l'utilisateur</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Vérification de l'enregistrement pour {0} Forum</Resource>
   </page>
+  <page name="REPORTPOST">
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
+    <Resource tag="HEADER">Report post</Resource>
+    <Resource tag="SEND">Report</Resource>
+  </page>
   <page name="RTE">
     <Resource tag="BOLD">Gras</Resource>
     <Resource tag="CENTER">Centrer</Resource>

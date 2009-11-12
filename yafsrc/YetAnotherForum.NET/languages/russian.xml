@@ -793,6 +793,12 @@
     <Resource tag="USERNAME">Имя пользователя</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Подтверждение регистрации для форума {0}</Resource>
   </page>
+  <page name="REPORTPOST">
+    <Resource tag="CANCEL">Отменить</Resource>
+    <Resource tag="ENTER_TEXT">Введите текст вашей жалобы:</Resource>
+    <Resource tag="HEADER">Сообщение о нарушении правил форума</Resource>
+    <Resource tag="SEND">Сообщить</Resource>
+  </page>
   <page name="RTE">
     <Resource tag="BOLD">Жирный</Resource>
     <Resource tag="CENTER">По центру</Resource>

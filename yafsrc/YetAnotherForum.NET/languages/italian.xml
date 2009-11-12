@@ -796,6 +796,12 @@
     <Resource tag="USERNAME">User Name</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
   </page>
+  <page name="REPORTPOST">
+    <Resource tag="CANCEL">Cancel</Resource>
+    <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
+    <Resource tag="HEADER">Report post</Resource>
+    <Resource tag="SEND">Report</Resource>
+  </page>
   <page name="RTE">
     <Resource tag="BOLD">Grassetto</Resource>
     <Resource tag="CENTER">Centra</Resource>

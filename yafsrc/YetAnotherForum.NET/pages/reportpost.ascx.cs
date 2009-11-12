@@ -30,12 +30,34 @@ namespace YAF.Pages
     /// </summary>
     public partial class reportpost : ForumPage
     {
+        // message body editor
+        /// <summary>
+        /// The _editor.
+        /// </summary>
+        protected YAF.Editors.BaseForumEditor _editor;
 
         protected int messageID = 0;
 
         public reportpost()
             : base("REPORTPOST")
         {
+        }
+        /// <summary>
+        /// Page initialization handler.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            // create editor based on administrator's settings
+            this._editor = YafContext.Current.EditorModuleManager.GetEditorInstance(YafContext.Current.BoardSettings.ForumEditor);
+
+            // add editor to the page
+            this.EditorLine.Controls.Add(this._editor);
         }
         /// <summary>
         /// The page_ load.
@@ -48,27 +70,33 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            // set attributes of editor
+            this._editor.BaseDir = YafForumInfo.ForumRoot + "editors";
+            this._editor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
 
             if (!IsPostBack)
             {
 
                 this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-               
-                if (!String.IsNullOrEmpty(Request.QueryString["m"]))
-        {
-          // We check here if the user have access to the option
-         // if (PageContext.CurrentUserData. || PageContext.IsForumModerator)
-        //  {          
 
-            if (!Int32.TryParse(Request.QueryString["m"], out messageID))
-            {
-                Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", messageID));
-            }
-            else
-            {
-                MessageIDH.Value = messageID.ToString();
-            }
-         }
+                if (!String.IsNullOrEmpty(Request.QueryString["m"]))
+                {
+                    // We check here if the user have access to the option
+                    if (!PageContext.BoardSettings.AllowGuestToReportPost && PageContext.IsGuest)
+                    {
+                        Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=1"));
+                    }
+
+                        if (!Int32.TryParse(Request.QueryString["m"], out messageID))
+                        {
+                            Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", messageID));
+                        }
+                        else
+                        {
+                            MessageIDH.Value = messageID.ToString();
+                        }
+                    
+                }
             }
         }
 
@@ -89,7 +117,7 @@ namespace YAF.Pages
         /// </param>
         protected void btnReport_Click( object sender, EventArgs e )
         {
-            DB.message_report( 9, Convert.ToInt32( MessageIDH.Value.Trim() ), PageContext.PageUserID, DateTime.Today, this.txtReport.Text );
+            DB.message_report( 9, Convert.ToInt32(MessageIDH.Value.Trim()), PageContext.PageUserID, DateTime.Now, this._editor.Text );
             //string link = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", messageID);
             Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", Convert.ToInt32( MessageIDH.Value.Trim() ) ) );
         }
@@ -103,8 +131,7 @@ namespace YAF.Pages
         /// The e.
         /// </param>
         protected void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.MessageIDH.Value = string.Empty;
+        {            
             Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "m={0}#post{0}", Convert.ToInt32( MessageIDH.Value.Trim() ) ) );
         }
     }

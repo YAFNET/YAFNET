@@ -1143,7 +1143,21 @@ namespace YAF.Classes
         this._reg.SetValue<bool>("AllowPasswordChange", value);
       }
     }
+    /// <summary>
+    /// Gets or sets a value indicating whether guest can report posts as violating forum rules.
+    /// </summary>
+    public bool AllowGuestToReportPost
+    {
+      get
+      {
+          return this._reg.GetValue<bool>( "AllowGuestToReportPost", true );
+      }
 
+      set
+      {
+          this._reg.SetValue<bool>( "AllowGuestToReportPost", value );
+      }
+    }
     /// <summary>
     /// Gets or sets a value indicating whether UseFileTable.
     /// </summary>
