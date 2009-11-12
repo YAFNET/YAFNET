@@ -18,105 +18,143 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for forums.
-	/// </summary>
-	public partial class accessmasks : YAF.Classes.Core.AdminPage
-	{
-	
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!IsPostBack) 
-			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
-				PageLinks.AddLink("Access Masks","");
-				BindData();
-			}
-		}
+  using System;
+  using System.Drawing;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Delete_Load(object sender, System.EventArgs e) 
-		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this access mask?')";
-		}
+  /// <summary>
+  /// Summary description for forums.
+  /// </summary>
+  public partial class accessmasks : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Access Masks", string.Empty);
+        BindData();
+      }
+    }
 
-		private void BindData() 
-		{
-			List.DataSource = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID,null);
-			DataBind();
-		}
+    /// <summary>
+    /// The delete_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Delete_Load(object sender, EventArgs e)
+    {
+      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this access mask?')";
+    }
 
-		protected System.Drawing.Color GetItemColor( bool enabled )
-		{
-			if ( enabled ) return System.Drawing.Color.Red;
-			return System.Drawing.Color.Black;
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.List.DataSource = DB.accessmask_list(PageContext.PageBoardID, null);
+      DataBind();
+    }
 
-		private void List_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
-		{
-			switch(e.CommandName) 
-			{
-				case "edit":
-					YafBuildLink.Redirect( ForumPages.admin_editaccessmask,"i={0}",e.CommandArgument);
-					break;
-				case "delete":
-					if ( YAF.Classes.Data.DB.accessmask_delete( e.CommandArgument ) )
-					{
-						PageContext.Cache.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
-						BindData();
-					}
-					else
-						PageContext.AddLoadMessage( "You cannot delete this access mask because it is in use." );
-					break;
-			}
-		}
+    /// <summary>
+    /// The get item color.
+    /// </summary>
+    /// <param name="enabled">
+    /// The enabled.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    protected Color GetItemColor(bool enabled)
+    {
+      if (enabled)
+      {
+        return Color.Red;
+      }
 
-		protected void New_Click(object sender, System.EventArgs e)
-		{
-			YafBuildLink.Redirect( ForumPages.admin_editaccessmask);
-		}
+      return Color.Black;
+    }
 
-		protected bool BitSet(object _o,int bitmask) 
-		{
-			int i = (int)_o;
-			return (i & bitmask)!=0;
-		}
+    /// <summary>
+    /// The list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void List_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "edit":
+          YafBuildLink.Redirect(ForumPages.admin_editaccessmask, "i={0}", e.CommandArgument);
+          break;
+        case "delete":
+          if (DB.accessmask_delete(e.CommandArgument))
+          {
+            PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+            BindData();
+          }
+          else
+          {
+            PageContext.AddLoadMessage("You cannot delete this access mask because it is in use.");
+          }
 
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
+          break;
+      }
+    }
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            this.List.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.List_ItemCommand);
+    /// <summary>
+    /// The new_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void New_Click(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_editaccessmask);
+    }
 
-        }
-        #endregion
-
-	}
+    /// <summary>
+    /// The bit set.
+    /// </summary>
+    /// <param name="_o">
+    /// The _o.
+    /// </param>
+    /// <param name="bitmask">
+    /// The bitmask.
+    /// </param>
+    /// <returns>
+    /// The bit set.
+    /// </returns>
+    protected bool BitSet(object _o, int bitmask)
+    {
+      var i = (int) _o;
+      return (i & bitmask) != 0;
+    }
+  }
 }

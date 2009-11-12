@@ -17,81 +17,109 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for attachments.
-	/// </summary>
-	public partial class attachments : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!IsPostBack) 
-			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",YafBuildLink.GetLink( ForumPages.admin_admin));
-				PageLinks.AddLink("Attachments","");
+  /// <summary>
+  /// Summary description for attachments.
+  /// </summary>
+  public partial class attachments : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+        this.PageLinks.AddLink("Attachments", string.Empty);
 
-				BindData();
-			}
-		}
+        BindData();
+      }
+    }
 
-		private void BindData() 
-		{
-			List.DataSource = YAF.Classes.Data.DB.attachment_list(null,null,PageContext.PageBoardID);
-			DataBind();
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.List.DataSource = DB.attachment_list(null, null, PageContext.PageBoardID);
+      DataBind();
+    }
 
-		protected void Delete_Load(object sender, System.EventArgs e) 
-		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this attachment?')";
-		}
+    /// <summary>
+    /// The delete_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Delete_Load(object sender, EventArgs e)
+    {
+      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this attachment?')";
+    }
 
-		private void List_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
-		{
-			switch(e.CommandName) 
-			{
-				case "delete":
-					YAF.Classes.Data.DB.attachment_delete(e.CommandArgument);
-					BindData();
-					break;
-			}
-		}
+    /// <summary>
+    /// The list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void List_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "delete":
+          DB.attachment_delete(e.CommandArgument);
+          BindData();
+          break;
+      }
+    }
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			List.ItemCommand += new RepeaterCommandEventHandler(List_ItemCommand);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-		}
-		#endregion
-	}
+    #region Web Form Designer generated code
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      List.ItemCommand += new RepeaterCommandEventHandler(List_ItemCommand);
+
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    #endregion
+  }
 }

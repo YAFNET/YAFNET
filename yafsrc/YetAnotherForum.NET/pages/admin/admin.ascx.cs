@@ -18,184 +18,288 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for main.
-	/// </summary>
-	public partial class admin : YAF.Classes.Core.AdminPage
-	{
+  using System;
+  using System.Data;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", "" );
+  /// <summary>
+  /// Summary description for main.
+  /// </summary>
+  public partial class admin : AdminPage
+  {
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Administration", string.Empty);
 
-				// bind data
-				BindBoardsList();
-				BindData();
-				//TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
-			}
-		}
+        // bind data
+        BindBoardsList();
+        BindData();
 
-		protected void Delete_Load( object sender, System.EventArgs e )
-		{
-			( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this User?')";
-		}
+        // TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
+      }
+    }
 
-		protected void Approve_Load( object sender, System.EventArgs e )
-		{
-			( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Approve this User?')";
-		}
+    /// <summary>
+    /// The delete_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Delete_Load(object sender, EventArgs e)
+    {
+      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Delete this User?')";
+    }
 
-		protected void DeleteAll_Load( object sender, System.EventArgs e )
-		{
-			( ( Button ) sender ).Attributes ["onclick"] = "return confirm('Delete all Unapproved Users more than 14 days old?')";
-		}
+    /// <summary>
+    /// The approve_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Approve_Load(object sender, EventArgs e)
+    {
+      ((LinkButton) sender).Attributes["onclick"] = "return confirm('Approve this User?')";
+    }
 
-		protected void ApproveAll_Load( object sender, System.EventArgs e )
-		{
-			( ( Button ) sender ).Attributes ["onclick"] = "return confirm('Approve all Users?')";
-		}
+    /// <summary>
+    /// The delete all_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void DeleteAll_Load(object sender, EventArgs e)
+    {
+      ((Button) sender).Attributes["onclick"] = "return confirm('Delete all Unapproved Users more than 14 days old?')";
+    }
 
-		/// <summary>
-		/// Bind list of boards to dropdown
-		/// </summary>
-		private void BindBoardsList()
-		{
-			// only if user is hostadmin, otherwise boards' list is hidden
-			if ( PageContext.IsHostAdmin )
-			{
-				DataTable dt = YAF.Classes.Data.DB.board_list( null );
+    /// <summary>
+    /// The approve all_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ApproveAll_Load(object sender, EventArgs e)
+    {
+      ((Button) sender).Attributes["onclick"] = "return confirm('Approve all Users?')";
+    }
 
-				// add row for "all boards" (null value)
-				DataRow r = dt.NewRow();
+    /// <summary>
+    /// Bind list of boards to dropdown
+    /// </summary>
+    private void BindBoardsList()
+    {
+      // only if user is hostadmin, otherwise boards' list is hidden
+      if (PageContext.IsHostAdmin)
+      {
+        DataTable dt = DB.board_list(null);
 
-				r ["BoardID"] = -1;
-				r ["Name"] = " - All Boards -";
+        // add row for "all boards" (null value)
+        DataRow r = dt.NewRow();
 
-				dt.Rows.InsertAt( r, 0 );
+        r["BoardID"] = -1;
+        r["Name"] = " - All Boards -";
 
-				// set datasource
-				BoardStatsSelect.DataSource = dt;
-				BoardStatsSelect.DataBind();
+        dt.Rows.InsertAt(r, 0);
 
-				// select current board as default
-				BoardStatsSelect.SelectedIndex =
-					BoardStatsSelect.Items.IndexOf( BoardStatsSelect.Items.FindByValue( PageContext.PageBoardID.ToString() ) );
-			}
-		}
+        // set datasource
+        this.BoardStatsSelect.DataSource = dt;
+        this.BoardStatsSelect.DataBind();
+
+        // select current board as default
+        this.BoardStatsSelect.SelectedIndex = this.BoardStatsSelect.Items.IndexOf(this.BoardStatsSelect.Items.FindByValue(PageContext.PageBoardID.ToString()));
+      }
+    }
 
 
-		/// <summary>
-		/// Gets board ID for which to show statistics.
-		/// </summary>
-		/// <returns>Returns ID of selected board (for host admin), ID of current board (for admin), null if all boards is selected.</returns>
-		private object GetSelectedBoardID()
-		{
-			// check dropdown only if user is hostadmin
-			if ( PageContext.IsHostAdmin )
-			{
-				// -1 means all boards are selected
-				if ( BoardStatsSelect.SelectedValue == "-1" )
-					return null;
-				else
-					return BoardStatsSelect.SelectedValue;
-			}
-			// for non host admin user, return board he's logged on
-			else return PageContext.PageBoardID;
-		}
+    /// <summary>
+    /// Gets board ID for which to show statistics.
+    /// </summary>
+    /// <returns>
+    /// Returns ID of selected board (for host admin), ID of current board (for admin), null if all boards is selected.
+    /// </returns>
+    private object GetSelectedBoardID()
+    {
+      // check dropdown only if user is hostadmin
+      if (PageContext.IsHostAdmin)
+      {
+        // -1 means all boards are selected
+        if (this.BoardStatsSelect.SelectedValue == "-1")
+        {
+          return null;
+        }
+        else
+        {
+          return this.BoardStatsSelect.SelectedValue;
+        }
+      }
+        
+        // for non host admin user, return board he's logged on
+      else
+      {
+        return PageContext.PageBoardID;
+      }
+    }
 
-		private void BindData()
-		{
-            ActiveList.DataSource = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, true, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-			UserList.DataSource = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, null, false );
-			DataBind();
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.ActiveList.DataSource = DB.active_list(
+        PageContext.PageBoardID, true, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
+      this.UserList.DataSource = DB.user_list(PageContext.PageBoardID, null, false);
+      DataBind();
 
-			// get stats for current board, selected board or all boards (see function)
-			DataRow row = YAF.Classes.Data.DB.board_stats( GetSelectedBoardID() );
+      // get stats for current board, selected board or all boards (see function)
+      DataRow row = DB.board_stats(GetSelectedBoardID());
 
-			NumPosts.Text = String.Format( "{0:N0}", row ["NumPosts"] );
-			NumTopics.Text = String.Format( "{0:N0}", row ["NumTopics"] );
-			NumUsers.Text = String.Format( "{0:N0}", row ["NumUsers"] );
+      this.NumPosts.Text = String.Format("{0:N0}", row["NumPosts"]);
+      this.NumTopics.Text = String.Format("{0:N0}", row["NumTopics"]);
+      this.NumUsers.Text = String.Format("{0:N0}", row["NumUsers"]);
 
-			TimeSpan span = DateTime.Now - ( DateTime ) row ["BoardStart"];
-			double days = span.Days;
+      TimeSpan span = DateTime.Now - (DateTime) row["BoardStart"];
+      double days = span.Days;
 
-			BoardStart.Text = String.Format( "{0:d} ({1:N0} days ago)", row ["BoardStart"], days );
+      this.BoardStart.Text = String.Format("{0:d} ({1:N0} days ago)", row["BoardStart"], days);
 
-			if ( days < 1 ) days = 1;
-            DayPosts.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumPosts"]) / days);
-            DayTopics.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumTopics"]) / days);
-            DayUsers.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumUsers"]) / days);
+      if (days < 1)
+      {
+        days = 1;
+      }
 
-			DBSize.Text = String.Format( "{0} MB", DB.DBSize );
-		}
+      this.DayPosts.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumPosts"]) / days);
+      this.DayTopics.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumTopics"]) / days);
+      this.DayUsers.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumUsers"]) / days);
 
-		public void UserList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
-		{
-			switch ( e.CommandName )
-			{
-				case "edit":
-					YafBuildLink.Redirect( ForumPages.admin_edituser, "u={0}", e.CommandArgument );
-					break;
-				case "delete":
-					UserMembershipHelper.DeleteUser( Convert.ToInt32( e.CommandArgument ) );
-					BindData();
-					break;
-				case "approve":
-					UserMembershipHelper.ApproveUser( Convert.ToInt32( e.CommandArgument ) );
-					BindData();
-					break;
-				case "deleteall":
-					UserMembershipHelper.DeleteAllUnapproved( DateTime.Now.AddDays( -14 ) );
-					//YAF.Classes.Data.DB.user_deleteold( PageContext.PageBoardID );
-					BindData();
-					break;
-				case "approveall":
-					UserMembershipHelper.ApproveAll();
-					//YAF.Classes.Data.DB.user_approveall( PageContext.PageBoardID );
-					BindData();
-					break;
-			}
-		}
+      this.DBSize.Text = String.Format("{0} MB", DB.DBSize);
+    }
 
-		public void BoardStatsSelect_Changed( object sender, System.EventArgs e )
-		{
-			// re-bind data
-			BindData();
-		}
+    /// <summary>
+    /// The user list_ item command.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    public void UserList_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+      switch (e.CommandName)
+      {
+        case "edit":
+          YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
+          break;
+        case "delete":
+          UserMembershipHelper.DeleteUser(Convert.ToInt32(e.CommandArgument));
+          BindData();
+          break;
+        case "approve":
+          UserMembershipHelper.ApproveUser(Convert.ToInt32(e.CommandArgument));
+          BindData();
+          break;
+        case "deleteall":
+          UserMembershipHelper.DeleteAllUnapproved(DateTime.Now.AddDays(-14));
 
-		protected string FormatForumLink( object ForumID, object ForumName )
-		{
-			if ( ForumID.ToString() == "" || ForumName.ToString() == "" )
-				return "";
+          // YAF.Classes.Data.DB.user_deleteold( PageContext.PageBoardID );
+          BindData();
+          break;
+        case "approveall":
+          UserMembershipHelper.ApproveAll();
 
-			return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YafBuildLink.GetLink( ForumPages.topics, "f={0}", ForumID ), ForumName );
-		}
+          // YAF.Classes.Data.DB.user_approveall( PageContext.PageBoardID );
+          BindData();
+          break;
+      }
+    }
 
-		protected string FormatTopicLink( object TopicID, object TopicName )
-		{
-			if ( TopicID.ToString() == "" || TopicName.ToString() == "" )
-				return "";
+    /// <summary>
+    /// The board stats select_ changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    public void BoardStatsSelect_Changed(object sender, EventArgs e)
+    {
+      // re-bind data
+      BindData();
+    }
 
-			return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YafBuildLink.GetLink( ForumPages.posts, "t={0}", TopicID ), TopicName );
-		}
-	}
+    /// <summary>
+    /// The format forum link.
+    /// </summary>
+    /// <param name="ForumID">
+    /// The forum id.
+    /// </param>
+    /// <param name="ForumName">
+    /// The forum name.
+    /// </param>
+    /// <returns>
+    /// The format forum link.
+    /// </returns>
+    protected string FormatForumLink(object ForumID, object ForumName)
+    {
+      if (ForumID.ToString() == string.Empty || ForumName.ToString() == string.Empty)
+      {
+        return string.Empty;
+      }
+
+      return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", ForumID), ForumName);
+    }
+
+    /// <summary>
+    /// The format topic link.
+    /// </summary>
+    /// <param name="TopicID">
+    /// The topic id.
+    /// </param>
+    /// <param name="TopicName">
+    /// The topic name.
+    /// </param>
+    /// <returns>
+    /// The format topic link.
+    /// </returns>
+    protected string FormatTopicLink(object TopicID, object TopicName)
+    {
+      if (TopicID.ToString() == string.Empty || TopicName.ToString() == string.Empty)
+      {
+        return string.Empty;
+      }
+
+      return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>", YafBuildLink.GetLink(ForumPages.posts, "t={0}", TopicID), TopicName);
+    }
+  }
 }
