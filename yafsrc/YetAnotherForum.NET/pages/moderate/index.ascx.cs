@@ -18,136 +18,134 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.moderate
 {
-	/// <summary>
-	/// Base root control for moderating, linking to other moderating controls/pages.
-	/// </summary>
-	public partial class index : YAF.Classes.Core.ForumPage
-	{
-		#region Construcotrs & Overridden Methods
+  using System;
+  using System.Data;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		/// <summary>
-		/// Default constructor.
-		/// </summary>
-		public index() : base("MODERATE_DEFAULT") { }
+  /// <summary>
+  /// Base root control for moderating, linking to other moderating controls/pages.
+  /// </summary>
+  public partial class index : ForumPage
+  {
+    #region Construcotrs & Overridden Methods
 
-
-		/// <summary>
-		/// Creates page links for this page.
-		/// </summary>
-		protected override void CreatePageLinks()
-		{
-			// forum index
-			PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-			// moderation index
-			PageLinks.AddLink(GetText("TITLE"));
-		}
-
-		#endregion
+    /// <summary>
+    /// Initializes a new instance of the <see cref="index"/> class. 
+    /// Default constructor.
+    /// </summary>
+    public index()
+      : base("MODERATE_DEFAULT")
+    {
+    }
 
 
-		#region Event Handlers
+    /// <summary>
+    /// Creates page links for this page.
+    /// </summary>
+    protected override void CreatePageLinks()
+    {
+      // forum index
+      this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
-		/// <summary>
-		/// Handles page load event.
-		/// </summary>
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			// Only moderators are allowed here
-			if (!PageContext.IsModerator) YafBuildLink.AccessDenied();
+      // moderation index
+      this.PageLinks.AddLink(GetText("TITLE"));
+    }
 
-			// this needs to be done just once, not during postbacks
-			if (!IsPostBack)
-			{
-				// create page links
-				CreatePageLinks();
+    #endregion
 
-				// bind data
-				BindData();
-			}
-		}
+    #region Event Handlers
 
-		
-		/// <summary>
-		/// Handles event of item commands for each forum.
-		/// </summary>
-		protected void ForumList_ItemCommand(object source, RepeaterCommandEventArgs e)
-		{
-			// which command are we handling
-			switch (e.CommandName.ToLower())
-			{
-				case "viewunapprovedposts":
-					// go to unapproved posts for selected forum
-					YafBuildLink.Redirect(ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
-					break;
-				case "viewreportedabuse":
-					// go to reported abuses for selected forum
-					YafBuildLink.Redirect(ForumPages.moderate_reportedabuse, "f={0}", e.CommandArgument);
-					break;
-				case "viewreportedspam":
-					// go to spam reports for selected forum
-					YafBuildLink.Redirect(ForumPages.moderate_reportedspam, "f={0}", e.CommandArgument);
-					break;
-                case "viewreportedposts":
-                    // go to spam reports for selected forum
-                    YafBuildLink.Redirect(ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
-                    break;
-			}
-		}
+    /// <summary>
+    /// Handles page load event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      // Only moderators are allowed here
+      if (!PageContext.IsModerator)
+      {
+        YafBuildLink.AccessDenied();
+      }
 
-		#endregion
+      // this needs to be done just once, not during postbacks
+      if (!IsPostBack)
+      {
+        // create page links
+        CreatePageLinks();
+
+        // bind data
+        BindData();
+      }
+    }
 
 
-		#region Data Binding & Formatting
+    /// <summary>
+    /// Handles event of item commands for each forum.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ForumList_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+      // which command are we handling
+      switch (e.CommandName.ToLower())
+      {
+        case "viewunapprovedposts":
 
-		/// <summary>
-		/// Bind data for this control.
-		/// </summary>
-		private void BindData()
-		{
-			// get list of forums and their moderating data
-			using (DataSet ds = DB.forum_moderatelist(PageContext.PageUserID, PageContext.PageBoardID))
-				CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
+          // go to unapproved posts for selected forum
+          YafBuildLink.Redirect(ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
+          break;
+        case "viewreportedabuse":
 
-			// bind data to controls
-			DataBind();
-		}
+          // go to reported abuses for selected forum
+          YafBuildLink.Redirect(ForumPages.moderate_reportedabuse, "f={0}", e.CommandArgument);
+          break;
+        case "viewreportedspam":
 
-		#endregion
+          // go to spam reports for selected forum
+          YafBuildLink.Redirect(ForumPages.moderate_reportedspam, "f={0}", e.CommandArgument);
+          break;
+        case "viewreportedposts":
 
+          // go to spam reports for selected forum
+          YafBuildLink.Redirect(ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
+          break;
+      }
+    }
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
+    #endregion
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-		}
-		#endregion
-	}
+    #region Data Binding & Formatting
+
+    /// <summary>
+    /// Bind data for this control.
+    /// </summary>
+    private void BindData()
+    {
+      // get list of forums and their moderating data
+      using (DataSet ds = DB.forum_moderatelist(PageContext.PageUserID, PageContext.PageBoardID))
+      {
+        this.CategoryList.DataSource = ds.Tables[YafDBAccess.GetObjectName("Category")];
+      }
+
+      // bind data to controls
+      DataBind();
+    }
+
+    #endregion
+  }
 }

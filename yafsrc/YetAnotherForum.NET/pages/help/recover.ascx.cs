@@ -18,50 +18,63 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages.help
 {
-	/// <summary>
-	/// Summary description for main.
-	/// </summary>
-	public partial class recover : YAF.Classes.Core.ForumPage
-	{
+  using System;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
-		public recover() : base(null)
-		{
-		}
+  /// <summary>
+  /// Summary description for main.
+  /// </summary>
+  public partial class recover : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="recover"/> class.
+    /// </summary>
+    public recover()
+      : base(null)
+    {
+    }
 
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!IsPostBack) 
-			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YafBuildLink.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Help",YafBuildLink.GetLink( ForumPages.help_index));
-				PageLinks.AddLink("Recover lost passwords",YafBuildLink.GetLink( ForumPages.help_recover));
-				BindData();
-			}
-		}
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink("Help", YafBuildLink.GetLink(ForumPages.help_index));
+        this.PageLinks.AddLink("Recover lost passwords", YafBuildLink.GetLink(ForumPages.help_recover));
+        BindData();
+      }
+    }
 
-		private void BindData() 
-		{
-			DataBind();
-		}
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      DataBind();
+    }
 
-		override protected void OnInit(EventArgs e)
-		{
-			base.OnInit(e);
-		}
-	}
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      base.OnInit(e);
+    }
+  }
 }
