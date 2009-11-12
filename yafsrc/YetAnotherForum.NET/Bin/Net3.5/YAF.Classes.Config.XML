@@ -4,9 +4,201 @@
         <name>YAF.Classes.Config</name>
     </assembly>
     <members>
+        <member name="T:YAF.Classes.SearchFieldFlags">
+            <summary>
+            The search field flags.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.SearchFieldFlags.Message">
+            <summary>
+            The message.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.SearchFieldFlags.UserName">
+            <summary>
+            The user name.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.SearchWhatFlags">
+            <summary>
+            The search what flags.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.SearchWhatFlags.AllWords">
+            <summary>
+            The all words.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.SearchWhatFlags.AnyWords">
+            <summary>
+            The any words.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.SearchWhatFlags.ExactMatch">
+            <summary>
+            The exact match.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.EventLogTypes">
+            <summary>
+            The event log types.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.EventLogTypes.Error">
+            <summary>
+            The error.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.EventLogTypes.Warning">
+            <summary>
+            The warning.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.EventLogTypes.Information">
+            <summary>
+            The information.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.ViewPermissions">
+            <summary>
+            The view permissions.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ViewPermissions.Nobody">
+            <summary>
+            The nobody.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ViewPermissions.RegisteredUsers">
+            <summary>
+            The registered users.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ViewPermissions.Everyone">
+            <summary>
+            The everyone.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.PageSingleton`1">
+            <summary>
+            The page singleton.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="F:YAF.Classes.Pattern.PageSingleton`1._instance">
+            <summary>
+            The _instance.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.PageSingleton`1.GetInstance">
+            <summary>
+            The get instance.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Pattern.PageSingleton`1.Instance">
+            <summary>
+            Gets Instance.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.YafBoardSettingCollection">
             <summary>
             Gets the Board Settings as dictionary item for easy iteration.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafBoardSettingCollection._settings">
+            <summary>
+            The _settings.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.YafBoardSettingCollection.#ctor(YAF.Classes.YafBoardSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.YafBoardSettingCollection"/> class.
+            </summary>
+            <param name="boardSettings">
+            The board settings.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsString">
+            <summary>
+            Gets SettingsString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsBool">
+            <summary>
+            Gets SettingsBool.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsInt">
+            <summary>
+            Gets SettingsInt.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsDouble">
+            <summary>
+            Gets SettingsDouble.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettingCollection.SettingsOther">
+            <summary>
+            Gets SettingsOther.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.YafBoardFolders">
+            <summary>
+            The yaf board folders.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Current">
+            <summary>
+            Gets Current.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.BoardFolder">
+            <summary>
+            Gets BoardFolder.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Uploads">
+            <summary>
+            Gets Uploads.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Themes">
+            <summary>
+            Gets Themes.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Images">
+            <summary>
+            Gets Images.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Avatars">
+            <summary>
+            Gets Avatars.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Categories">
+            <summary>
+            Gets Categories.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Emoticons">
+            <summary>
+            Gets Emoticons.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Medals">
+            <summary>
+            Gets Medals.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Ranks">
+            <summary>
+            Gets Ranks.
             </summary>
         </member>
         <member name="T:YAF.Classes.Pattern.RegistryDictionaryOverride">
@@ -14,14 +206,129 @@
             Provides a method for automatic overriding of a base hash...
             </summary>
         </member>
+        <member name="T:YAF.Classes.Pattern.RegistryDictionary">
+            <summary>
+            The registry dictionary.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionary.GetValue``1(System.String,``0)">
+            <summary>
+            The get value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionary.SetValue``1(System.String,``0)">
+            <summary>
+            The set value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="F:YAF.Classes.Pattern.RegistryDictionaryOverride._defaultGetOverride">
+            <summary>
+            The _default get override.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.RegistryDictionaryOverride._defaultSetOverride">
+            <summary>
+            The _default set override.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.GetValue``1(System.String,``0)">
+            <summary>
+            The get value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.GetValue``1(System.String,``0,System.Boolean)">
+            <summary>
+            The get value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <param name="allowOverride">
+            The allow override.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.SetValue``1(System.String,``0)">
+            <summary>
+            The set value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Classes.Pattern.RegistryDictionaryOverride.SetValue``1(System.String,``0,System.Boolean)">
+            <summary>
+            The set value.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+            <param name="setOverrideOnly">
+            The set override only.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.DefaultGetOverride">
+            <summary>
+            Gets or sets a value indicating whether DefaultGetOverride.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.DefaultSetOverride">
+            <summary>
+            Gets or sets a value indicating whether DefaultSetOverride.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.RegistryDictionaryOverride.OverrideDictionary">
+            <summary>
+            Gets or sets OverrideDictionary.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Constants">
             <summary>
             For globally or multiple times used constants
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Constants.UserBox">
-            <summary>
-            Constants for UserBox templating
             </summary>
         </member>
         <member name="T:YAF.Classes.Constants.Cache">
@@ -29,15 +336,268 @@
             Cache key constants
             </summary>
         </member>
+        <member name="F:YAF.Classes.Constants.Cache.ActiveDiscussions">
+            <summary>
+            The active discussions.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.BannedIP">
+            <summary>
+            The banned ip.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.BoardSettings">
+            <summary>
+            The board settings.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.BoardStats">
+            <summary>
+            The board stats.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.CustomBBCode">
+            <summary>
+            The custom bb code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.FirstPostCleaned">
+            <summary>
+            The first post cleaned.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.ForumActiveDiscussions">
+            <summary>
+            The forum active discussions.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.ForumCategory">
+            <summary>
+            The forum category.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.ForumJump">
+            <summary>
+            The forum jump.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.ForumModerators">
+            <summary>
+            The forum moderators.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.GroupRankStyles">
+            <summary>
+            The group rank styles.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.GuestUserID">
+            <summary>
+            The guest user id.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.MostActiveUsers">
+            <summary>
+            The most active users.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.ReplaceRules">
+            <summary>
+            The replace rules.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.ReplaceWords">
+            <summary>
+            The replace words.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.Shoutbox">
+            <summary>
+            The shoutbox.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.Smilies">
+            <summary>
+            The smilies.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.UserBoxes">
+            <summary>
+            The user boxes.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.UserIgnoreList">
+            <summary>
+            The user ignore list.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.UserMedals">
+            <summary>
+            The user medals.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.UsersOnlineStatus">
+            <summary>
+            The users online status.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Constants.UserBox">
+            <summary>
+            Constants for UserBox templating
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.Avatar">
+            <summary>
+            The avatar.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.DisplayTemplateDefault">
+            <summary>
+            The display template default.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.Groups">
+            <summary>
+            The groups.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.JoinDate">
+            <summary>
+            The join date.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.Location">
+            <summary>
+            The location.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.Medals">
+            <summary>
+            The medals.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.Points">
+            <summary>
+            The points.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.Posts">
+            <summary>
+            The posts.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.Rank">
+            <summary>
+            The rank.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.RankImage">
+            <summary>
+            The rank image.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.ThanksFrom">
+            <summary>
+            The thanks from.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.UserBox.ThanksTo">
+            <summary>
+            The thanks to.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Pattern.TypeDictionary">
             <summary>
             Allows basic type conversion of Dictionary objects.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsType``1(System.String,``0)">
+            <summary>
+            The as type.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsType``1(System.String)">
+            <summary>
+            The as type.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsBoolean(System.String)">
+            <summary>
+            The as boolean.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsInt(System.String)">
+            <summary>
+            The as int.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeDictionary.AsString(System.String)">
+            <summary>
+            The as string.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            The as string.
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Config">
             <summary>
             Static class that access the app settings in the web.config file
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Config.GetConfigValueAsString(System.String)">
+            <summary>
+            The get config value as string.
+            </summary>
+            <param name="configKey">
+            The config key.
+            </param>
+            <returns>
+            The get config value as string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Config.GetConfigValueAsBool(System.String,System.Boolean)">
+            <summary>
+            The get config value as bool.
+            </summary>
+            <param name="configKey">
+            The config key.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <returns>
+            The get config value as bool.
+            </returns>
         </member>
         <member name="P:YAF.Classes.Config.BoardID">
             <summary>
@@ -59,6 +619,21 @@
             Used for Url Rewriting -- default is "default.aspx"
             </summary>
         </member>
+        <member name="P:YAF.Classes.Config.FileRoot">
+            <summary>
+            Gets FileRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.AppRoot">
+            <summary>
+            Gets AppRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.BaseUrlMask">
+            <summary>
+            Gets BaseUrlMask.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Config.BoardRoot">
             <summary>
             Folder to use for board specific uploads, images, themes
@@ -69,6 +644,26 @@
             <summary>
             Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot
             Example : true /false
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ProviderKeyType">
+            <summary>
+            Gets ProviderKeyType.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.MembershipProvider">
+            <summary>
+            Gets MembershipProvider.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.RoleProvider">
+            <summary>
+            Gets RoleProvider.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.AllowLoginAndLogoff">
+            <summary>
+            Gets a value indicating whether AllowLoginAndLogoff.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.ShowToolBar">
@@ -86,9 +681,1359 @@
             Use an SSL connection for the SMTP server -- default is "false"
             </summary>
         </member>
+        <member name="P:YAF.Classes.Config.ConnectionString">
+            <summary>
+            Gets ConnectionString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.LogToMail">
+            <summary>
+            Gets LogToMail.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsDotNetNuke">
+            <summary>
+            Gets a value indicating whether IsDotNetNuke.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsMojoPortal">
+            <summary>
+            Gets a value indicating whether IsMojoPortal.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsRainbow">
+            <summary>
+            Gets a value indicating whether IsRainbow.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsPortal">
+            <summary>
+            Gets a value indicating whether IsPortal.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsPortalomatic">
+            <summary>
+            Gets a value indicating whether IsPortalomatic.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.IsAnyPortal">
+            <summary>
+            Gets a value indicating whether IsAnyPortal.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UrlBuilderKeyName">
+            <summary>
+            Gets UrlBuilderKeyName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UrlBuilder">
+            <summary>
+            Gets UrlBuilder.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.RadEditorSkin">
+            <summary>
+            Gets RadEditorSkin.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.RadEditorToolsFile">
+            <summary>
+            Gets RadEditorToolsFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.UseRadEditorToolsFile">
+            <summary>
+            Gets a value indicating whether UseRadEditorToolsFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ConnectionStringName">
+            <summary>
+            Gets ConnectionStringName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseOwner">
+            <summary>
+            Gets DatabaseOwner.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseObjectQualifier">
+            <summary>
+            Gets DatabaseObjectQualifier.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseEncoding">
+            <summary>
+            Gets DatabaseEncoding.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.DatabaseCollation">
+            <summary>
+            Gets DatabaseCollation.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.SchemaName">
+            <summary>
+            Gets SchemaName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.WithOIDs">
+            <summary>
+            Gets WithOIDs.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.ForumPages">
             <summary>
             List of all pages available in the YAF forum
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.forum">
+            <summary>
+            The forum.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.topics">
+            <summary>
+            The topics.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.posts">
+            <summary>
+            The posts.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.profile">
+            <summary>
+            The profile.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.activeusers">
+            <summary>
+            The activeusers.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.moderate">
+            <summary>
+            The moderate.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.postmessage">
+            <summary>
+            The postmessage.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.deletemessage">
+            <summary>
+            The deletemessage.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.movemessage">
+            <summary>
+            The movemessage.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.mod_forumuser">
+            <summary>
+            The mod_forumuser.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.attachments">
+            <summary>
+            The attachments.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.pmessage">
+            <summary>
+            The pmessage.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.movetopic">
+            <summary>
+            The movetopic.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.emailtopic">
+            <summary>
+            The emailtopic.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.printtopic">
+            <summary>
+            The printtopic.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.members">
+            <summary>
+            The members.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.cp_pm">
+            <summary>
+            The cp_pm.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.cp_profile">
+            <summary>
+            The cp_profile.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.cp_editprofile">
+            <summary>
+            The cp_editprofile.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.cp_editavatar">
+            <summary>
+            The cp_editavatar.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.cp_signature">
+            <summary>
+            The cp_signature.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.cp_subscriptions">
+            <summary>
+            The cp_subscriptions.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.cp_message">
+            <summary>
+            The cp_message.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.cp_changepassword">
+            <summary>
+            The cp_changepassword.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.login">
+            <summary>
+            The login.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.approve">
+            <summary>
+            The approve.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.info">
+            <summary>
+            The info.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.rules">
+            <summary>
+            The rules.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.register">
+            <summary>
+            The register.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.search">
+            <summary>
+            The search.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.active">
+            <summary>
+            The active.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.logout">
+            <summary>
+            The logout.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.moderate_index">
+            <summary>
+            The moderate_index.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.moderate_reportedposts">
+            <summary>
+            The moderate_reportedposts.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.moderate_unapprovedposts">
+            <summary>
+            The moderate_unapprovedposts.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.moderate_reportedabuse">
+            <summary>
+            The moderate_reportedabuse.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.moderate_reportedspam">
+            <summary>
+            The moderate_reportedspam.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.error">
+            <summary>
+            The error.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.shoutbox">
+            <summary>
+            The shoutbox.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.avatar">
+            <summary>
+            The avatar.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.im_yim">
+            <summary>
+            The im_yim.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.im_aim">
+            <summary>
+            The im_aim.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.im_icq">
+            <summary>
+            The im_icq.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.im_skype">
+            <summary>
+            The im_skype.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.im_msn">
+            <summary>
+            The im_msn.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.im_email">
+            <summary>
+            The im_email.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.rsstopic">
+            <summary>
+            The rsstopic.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.help_index">
+            <summary>
+            The help_index.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.help_recover">
+            <summary>
+            The help_recover.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.lastposts">
+            <summary>
+            The lastposts.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.recoverpassword">
+            <summary>
+            The recoverpassword.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.showsmilies">
+            <summary>
+            The showsmilies.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_admin">
+            <summary>
+            The admin_admin.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_hostsettings">
+            <summary>
+            The admin_hostsettings.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_boards">
+            <summary>
+            The admin_boards.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_boardsettings">
+            <summary>
+            The admin_boardsettings.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_forums">
+            <summary>
+            The admin_forums.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_bannedip">
+            <summary>
+            The admin_bannedip.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_smilies">
+            <summary>
+            The admin_smilies.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_accessmasks">
+            <summary>
+            The admin_accessmasks.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_groups">
+            <summary>
+            The admin_groups.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_users">
+            <summary>
+            The admin_users.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_ranks">
+            <summary>
+            The admin_ranks.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_mail">
+            <summary>
+            The admin_mail.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_medals">
+            <summary>
+            The admin_medals.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_prune">
+            <summary>
+            The admin_prune.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_pm">
+            <summary>
+            The admin_pm.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_attachments">
+            <summary>
+            The admin_attachments.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_eventlog">
+            <summary>
+            The admin_eventlog.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_nntpservers">
+            <summary>
+            The admin_nntpservers.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_nntpforums">
+            <summary>
+            The admin_nntpforums.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_nntpretrieve">
+            <summary>
+            The admin_nntpretrieve.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_version">
+            <summary>
+            The admin_version.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_bannedip_edit">
+            <summary>
+            The admin_bannedip_edit.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_editaccessmask">
+            <summary>
+            The admin_editaccessmask.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_editboard">
+            <summary>
+            The admin_editboard.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_editcategory">
+            <summary>
+            The admin_editcategory.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_editforum">
+            <summary>
+            The admin_editforum.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_editgroup">
+            <summary>
+            The admin_editgroup.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_editmedal">
+            <summary>
+            The admin_editmedal.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_editnntpforum">
+            <summary>
+            The admin_editnntpforum.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_editnntpserver">
+            <summary>
+            The admin_editnntpserver.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_editrank">
+            <summary>
+            The admin_editrank.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_edituser">
+            <summary>
+            The admin_edituser.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_reguser">
+            <summary>
+            The admin_reguser.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_smilies_edit">
+            <summary>
+            The admin_smilies_edit.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_smilies_import">
+            <summary>
+            The admin_smilies_import.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_replacewords">
+            <summary>
+            The admin_replacewords.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_replacewords_edit">
+            <summary>
+            The admin_replacewords_edit.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_replacewords_import">
+            <summary>
+            The admin_replacewords_import.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_extensions">
+            <summary>
+            The admin_extensions.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_extensions_edit">
+            <summary>
+            The admin_extensions_edit.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_extensions_import">
+            <summary>
+            The admin_extensions_import.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_bbcode">
+            <summary>
+            The admin_bbcode.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_bbcode_edit">
+            <summary>
+            The admin_bbcode_edit.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_bbcode_import">
+            <summary>
+            The admin_bbcode_import.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_reindex">
+            <summary>
+            The admin_reindex.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_runsql">
+            <summary>
+            The admin_runsql.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_taskmanager">
+            <summary>
+            The admin_taskmanager.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_test_data">
+            <summary>
+            The admin_test_data.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.admin_restartapp">
+            <summary>
+            The admin_restartapp.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.YafBoardSettings">
+            <summary>
+            The yaf board settings.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafBoardSettings._reg">
+            <summary>
+            The _reg.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafBoardSettings._regBoard">
+            <summary>
+            The _reg board.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafBoardSettings._boardID">
+            <summary>
+            The _board id.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafBoardSettings._legacyBoardSettings">
+            <summary>
+            The _legacy board settings.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafBoardSettings._membershipAppName">
+            <summary>
+            The _membership app name.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafBoardSettings._rolesAppName">
+            <summary>
+            The _roles app name.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.YafBoardSettings.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.YafBoardSettings"/> class.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.SetBoardRegistryOnly">
+            <summary>
+            Gets or sets a value indicating whether SetBoardRegistryOnly.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.GetBoardRegistryOverride">
+            <summary>
+            Gets or sets a value indicating whether GetBoardRegistryOverride.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MembershipAppName">
+            <summary>
+            Gets MembershipAppName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.RolesAppName">
+            <summary>
+            Gets RolesAppName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.Name">
+            <summary>
+            Gets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowThreaded">
+            <summary>
+            Gets a value indicating whether AllowThreaded.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowThemedLogo">
+            <summary>
+            Gets or sets a value indicating whether AllowThemedLogo.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MaxUsers">
+            <summary>
+            Gets MaxUsers.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MaxUsersWhen">
+            <summary>
+            Gets MaxUsersWhen.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.Theme">
+            <summary>
+            Gets or sets Theme.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.Language">
+            <summary>
+            Gets or sets Language.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowTopicsDefault">
+            <summary>
+            Gets or sets ShowTopicsDefault.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.FileExtensionAreAllowed">
+            <summary>
+            Gets or sets a value indicating whether FileExtensionAreAllowed.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.NotificationOnUserRegisterEmailList">
+            <summary>
+            Gets or sets NotificationOnUserRegisterEmailList.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.SQLVersion">
+            <summary>
+            Gets SQLVersion.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.TimeZone">
+            <summary>
+            Gets TimeZone.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.TimeZoneRaw">
+            <summary>
+            Gets or sets TimeZoneRaw.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AvatarWidth">
+            <summary>
+            Gets or sets AvatarWidth.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AvatarHeight">
+            <summary>
+            Gets or sets AvatarHeight.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AvatarSize">
+            <summary>
+            Gets or sets AvatarSize.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MaxFileSize">
+            <summary>
+            Gets or sets MaxFileSize.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.SmiliesColumns">
+            <summary>
+            Gets or sets SmiliesColumns.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.SmiliesPerRow">
+            <summary>
+            Gets or sets SmiliesPerRow.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.LockPosts">
+            <summary>
+            Gets or sets LockPosts.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PostsPerPage">
+            <summary>
+            Gets or sets PostsPerPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.TopicsPerPage">
+            <summary>
+            Gets or sets TopicsPerPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ForumEditor">
+            <summary>
+            Gets or sets ForumEditor.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PostFloodDelay">
+            <summary>
+            Gets or sets PostFloodDelay.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EditTimeOut">
+            <summary>
+            Gets or sets EditTimeOut.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.CaptchaSize">
+            <summary>
+            Gets or sets CaptchaSize.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ProfileViewPermissions">
+            <summary>
+            Gets or sets ProfileViewPermissions.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ReturnSearchMax">
+            <summary>
+            Gets or sets ReturnSearchMax.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ActiveUsersViewPermissions">
+            <summary>
+            Gets or sets ActiveUsersViewPermissions.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MembersListViewPermissions">
+            <summary>
+            Gets or sets MembersListViewPermissions.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ActiveDiscussionsCount">
+            <summary>
+            Gets or sets ActiveDiscussionsCount.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ActiveDiscussionsCacheTimeout">
+            <summary>
+            Gets or sets ActiveDiscussionsCacheTimeout.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.SearchStringMinLength">
+            <summary>
+            Gets or sets SearchStringMinLength.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.SearchStringMaxLength">
+            <summary>
+            Gets or sets SearchStringMaxLength.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.SearchPermissions">
+            <summary>
+            Gets or sets SearchPermissions.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ForumStatisticsCacheTimeout">
+            <summary>
+            Gets or sets ForumStatisticsCacheTimeout.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PrivateMessageMaxRecipients">
+            <summary>
+            Gets or sets PrivateMessageMaxRecipients.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.DisableNoFollowLinksAfterDay">
+            <summary>
+            Gets or sets DisableNoFollowLinksAfterDay.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.BoardForumListAllGuestCacheTimeout">
+            <summary>
+            Gets or sets BoardForumListAllGuestCacheTimeout.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.BoardModeratorsCacheTimeout">
+            <summary>
+            Gets or sets BoardModeratorsCacheTimeout.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.BoardCategoriesCacheTimeout">
+            <summary>
+            Gets or sets BoardCategoriesCacheTimeout.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ReplaceRulesCacheTimeout">
+            <summary>
+            Gets or sets ReplaceRulesCacheTimeout.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.FirstPostCacheTimeout">
+            <summary>
+            Gets or sets FirstPostCacheTimeout.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MaxPostSize">
+            <summary>
+            Gets or sets MaxPostSize.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MaxNumberOfAttachments">
+            <summary>
+            Gets or sets MaxNumberOfAttachments.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PictureAttachmentDisplayTreshold">
+            <summary>
+            Gets or sets PictureAttachmentDisplayTreshold.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ImageAttachmentResizeWidth">
+            <summary>
+            Gets or sets ImageAttachmentResizeWidth.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ImageAttachmentResizeHeight">
+            <summary>
+            Gets or sets ImageAttachmentResizeHeight.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShoutboxShowMessageCount">
+            <summary>
+            Gets or sets ShoutboxShowMessageCount.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ActiveListTime">
+            <summary>
+            Gets or sets ActiveListTime.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.OnlineStatusCacheTimeout">
+            <summary>
+            Gets or sets OnlineStatusCacheTimeout.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EmailVerification">
+            <summary>
+            Gets or sets a value indicating whether EmailVerification.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UseFullTextSearch">
+            <summary>
+            Gets or sets a value indicating whether UseFullTextSearch.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowMoved">
+            <summary>
+            Gets or sets a value indicating whether ShowMoved.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowGroups">
+            <summary>
+            Gets or sets a value indicating whether ShowGroups.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.BlankLinks">
+            <summary>
+            Gets or sets a value indicating whether BlankLinks.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowUserTheme">
+            <summary>
+            Gets or sets a value indicating whether AllowUserTheme.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowUserLanguage">
+            <summary>
+            Gets or sets a value indicating whether AllowUserLanguage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowPMEmailNotification">
+            <summary>
+            Gets or sets a value indicating whether AllowPMEmailNotification.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AvatarUpload">
+            <summary>
+            Gets or sets a value indicating whether AvatarUpload.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AvatarRemote">
+            <summary>
+            Gets or sets a value indicating whether AvatarRemote.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AvatarGravatar">
+            <summary>
+            Gets or sets a value indicating whether AvatarGravatar.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowEmailChange">
+            <summary>
+            Gets or sets a value indicating whether AllowEmailChange.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowPasswordChange">
+            <summary>
+            Gets or sets a value indicating whether AllowPasswordChange.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UseFileTable">
+            <summary>
+            Gets or sets a value indicating whether UseFileTable.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowRSSLink">
+            <summary>
+            Gets or sets a value indicating whether ShowRSSLink.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowPageGenerationTime">
+            <summary>
+            Gets or sets a value indicating whether ShowPageGenerationTime.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowYAFVersion">
+            <summary>
+            Gets or sets a value indicating whether ShowYAFVersion.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowForumJump">
+            <summary>
+            Gets or sets a value indicating whether ShowForumJump.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowPrivateMessages">
+            <summary>
+            Gets or sets a value indicating whether AllowPrivateMessages.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowEmailSending">
+            <summary>
+            Gets or sets a value indicating whether AllowEmailSending.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowSignatures">
+            <summary>
+            Gets or sets a value indicating whether AllowSignatures.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.RemoveNestedQuotes">
+            <summary>
+            Gets or sets a value indicating whether RemoveNestedQuotes.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.DateFormatFromLanguage">
+            <summary>
+            Gets or sets a value indicating whether DateFormatFromLanguage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.DisableRegistrations">
+            <summary>
+            Gets or sets a value indicating whether DisableRegistrations.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.CreateNntpUsers">
+            <summary>
+            Gets or sets a value indicating whether CreateNntpUsers.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowGroupsProfile">
+            <summary>
+            Gets or sets a value indicating whether ShowGroupsProfile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.PollVoteTiedToIP">
+            <summary>
+            Gets or sets a value indicating whether PollVoteTiedToIP.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowAdsToSignedInUsers">
+            <summary>
+            Gets or sets a value indicating whether ShowAdsToSignedInUsers.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.DisplayPoints">
+            <summary>
+            Gets or sets a value indicating whether DisplayPoints.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowQuickAnswer">
+            <summary>
+            Gets or sets a value indicating whether ShowQuickAnswer.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowDeletedMessages">
+            <summary>
+            Gets or sets a value indicating whether ShowDeletedMessages.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowDeletedMessagesToAll">
+            <summary>
+            Gets or sets a value indicating whether ShowDeletedMessagesToAll.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowModeratorList">
+            <summary>
+            Gets or sets a value indicating whether ShowModeratorList.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableCaptchaForPost">
+            <summary>
+            Gets or sets a value indicating whether EnableCaptchaForPost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableCaptchaForRegister">
+            <summary>
+            Gets or sets a value indicating whether EnableCaptchaForRegister.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableCaptchaForGuests">
+            <summary>
+            Gets or sets a value indicating whether EnableCaptchaForGuests.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UseNoFollowLinks">
+            <summary>
+            Gets or sets a value indicating whether UseNoFollowLinks.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.DoUrlReferrerSecurityCheck">
+            <summary>
+            Gets or sets a value indicating whether DoUrlReferrerSecurityCheck.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableImageAttachmentResize">
+            <summary>
+            Gets or sets a value indicating whether EnableImageAttachmentResize.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowShoutbox">
+            <summary>
+            Gets or sets a value indicating whether ShowShoutbox.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowUserInfoCaching">
+            <summary>
+            Gets or sets a value indicating whether AllowUserInfoCaching.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UseStyledNicks">
+            <summary>
+            Gets or sets a value indicating whether UseStyledNicks.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowUserOnlineStatus">
+            <summary>
+            Gets or sets a value indicating whether ShowUserOnlineStatus.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowThanksDate">
+            <summary>
+            Gets or sets a value indicating whether ShowThanksDate.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableThanksMod">
+            <summary>
+            Gets or sets a value indicating whether EnableThanksMod.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ForumEmail">
+            <summary>
+            Gets or sets ForumEmail.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.GravatarRating">
+            <summary>
+            Gets or sets GravatarRating.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AcceptedHTML">
+            <summary>
+            Gets or sets AcceptedHTML.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AdPost">
+            <summary>
+            Gets or sets AdPost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.CustomLoginRedirectUrl">
+            <summary>
+            Gets or sets CustomLoginRedirectUrl.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.WebServiceToken">
+            <summary>
+            Gets or sets WebServiceToken.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.SearchStringPattern">
+            <summary>
+            Gets or sets SearchStringPattern.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.DisplayJoinDate">
+            <summary>
+            Gets or sets a value indicating whether DisplayJoinDate.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowBrowsingUsers">
+            <summary>
+            Gets or sets a value indicating whether ShowBrowsingUsers.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowMedals">
+            <summary>
+            Gets or sets a value indicating whether ShowMedals.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowPostToBlog">
+            <summary>
+            Gets or sets a value indicating whether AllowPostToBlog.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowReportAbuse">
+            <summary>
+            Gets or sets a value indicating whether AllowReportAbuse.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowReportSpam">
+            <summary>
+            Gets or sets a value indicating whether AllowReportSpam.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowEmailTopic">
+            <summary>
+            Gets or sets a value indicating whether AllowEmailTopic.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.RequireLogin">
+            <summary>
+            Gets or sets a value indicating whether RequireLogin.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowActiveDiscussions">
+            <summary>
+            Gets or sets a value indicating whether ShowActiveDiscussions.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowForumStatistics">
+            <summary>
+            Gets or sets a value indicating whether ShowForumStatistics.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowRulesForRegistration">
+            <summary>
+            Gets or sets a value indicating whether ShowRulesForRegistration.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBox">
+            <summary>
+            Gets or sets UserBox.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxAvatar">
+            <summary>
+            Gets or sets UserBoxAvatar.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxMedals">
+            <summary>
+            Gets or sets UserBoxMedals.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxRankImage">
+            <summary>
+            Gets or sets UserBoxRankImage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxRank">
+            <summary>
+            Gets or sets UserBoxRank.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxGroups">
+            <summary>
+            Gets or sets UserBoxGroups.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxJoinDate">
+            <summary>
+            Gets or sets UserBoxJoinDate.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxPosts">
+            <summary>
+            Gets or sets UserBoxPosts.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxPoints">
+            <summary>
+            Gets or sets UserBoxPoints.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxLocation">
+            <summary>
+            Gets or sets UserBoxLocation.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxThanksFrom">
+            <summary>
+            Gets or sets UserBoxThanksFrom.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserBoxThanksTo">
+            <summary>
+            Gets or sets UserBoxThanksTo.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings">
+            <summary>
+            The yaf legacy board settings.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings.#ctor(System.String,System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings"/> class.
+            </summary>
+            <param name="boardName">
+            The board name.
+            </param>
+            <param name="sqlVersion">
+            The sql version.
+            </param>
+            <param name="allowThreaded">
+            The allow threaded.
+            </param>
+            <param name="membershipAppName">
+            The membership app name.
+            </param>
+            <param name="rolesAppName">
+            The roles app name.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings.BoardName">
+            <summary>
+            Gets or sets BoardName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings.SqlVersion">
+            <summary>
+            Gets or sets SqlVersion.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings.AllowThreaded">
+            <summary>
+            Gets or sets a value indicating whether AllowThreaded.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings.MembershipAppName">
+            <summary>
+            Gets or sets MembershipAppName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.YafLegacyBoardSettings.RolesAppName">
+            <summary>
+            Gets or sets RolesAppName.
             </summary>
         </member>
         <member name="T:YAF.Classes.UrlBuilder">
@@ -105,33 +2050,188 @@
             <summary>
             Builds path for calling page with URL argument as the parameter.
             </summary>
-            <param name="url">URL to use as a parameter.</param>
-            <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+            <param name="url">
+            URL to use as a parameter.
+            </param>
+            <returns>
+            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+            </returns>
         </member>
         <member name="M:YAF.Classes.IUrlBuilder.BuildUrlFull(System.String)">
             <summary>
             Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
             </summary>
-            <param name="url">URL to use as a parameter.</param>
-            <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+            <param name="url">
+            URL to use as a parameter.
+            </param>
+            <returns>
+            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+            </returns>
+        </member>
+        <member name="F:YAF.Classes.UrlBuilder._baseUrls">
+            <summary>
+            The _base urls.
+            </summary>
         </member>
         <member name="M:YAF.Classes.UrlBuilder.BuildUrl(System.String)">
             <summary>
             Builds path for calling page with parameter URL as page's escaped parameter.
             </summary>
-            <param name="url">URL to put into parameter.</param>
-            <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+            <param name="url">
+            URL to put into parameter.
+            </param>
+            <returns>
+            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+            </returns>
         </member>
         <member name="M:YAF.Classes.UrlBuilder.BuildUrlFull(System.String)">
             <summary>
             Builds Full URL for calling page with parameter URL as page's escaped parameter.
             </summary>
-            <param name="url">URL to put into parameter.</param>
-            <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+            <param name="url">
+            URL to put into parameter.
+            </param>
+            <returns>
+            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.UrlBuilder.GetBaseUrlFromVariables">
+            <summary>
+            The get base url from variables.
+            </summary>
+            <returns>
+            The get base url from variables.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.UrlBuilder.TreatBaseUrl(System.String)">
+            <summary>
+            The treat base url.
+            </summary>
+            <param name="baseUrl">
+            The base url.
+            </param>
+            <returns>
+            The treat base url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.UrlBuilder.TreatPathStr(System.String)">
+            <summary>
+            The treat path str.
+            </summary>
+            <param name="altRoot">
+            The alt root.
+            </param>
+            <returns>
+            The treat path str.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.UrlBuilder.ScriptName">
+            <summary>
+            Gets ScriptName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.UrlBuilder.ScriptNamePath">
+            <summary>
+            Gets ScriptNamePath.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.UrlBuilder.BaseUrl">
+            <summary>
+            Gets BaseUrl.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.UrlBuilder.FileRoot">
+            <summary>
+            Gets FileRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.UrlBuilder.Path">
+            <summary>
+            Gets Path.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.SingleClassInstanceFactory">
+            <summary>
+            The single class instance factory.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.SingleClassInstanceFactory._contextClasses">
+            <summary>
+            The _context classes.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.SingleClassInstanceFactory.GetInstance``1">
+            <summary>
+            The get instance.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.SingleClassInstanceFactory.SetInstance``1(``0)">
+            <summary>
+            The set instance.
+            </summary>
+            <param name="instance">
+            The instance.
+            </param>
+            <typeparam name="T">
+            </typeparam>
         </member>
         <member name="T:YAF.Classes.YafControlSettings">
             <summary>
             Class provides glue/settings transfer between YAF forum control and base classes
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafControlSettings._boardID">
+            <summary>
+            The _board id.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafControlSettings._categoryID">
+            <summary>
+            The _category id.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafControlSettings._lockedForum">
+            <summary>
+            The _locked forum.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafControlSettings._popup">
+            <summary>
+            The _popup.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.YafControlSettings.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.YafControlSettings"/> class.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafControlSettings.Current">
+            <summary>
+            Gets Current.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafControlSettings.BoardID">
+            <summary>
+            Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafControlSettings.CategoryID">
+            <summary>
+            Gets or sets CategoryID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafControlSettings.Popup">
+            <summary>
+            Gets or sets a value indicating whether Popup.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafControlSettings.LockedForum">
+            <summary>
+            Gets or sets LockedForum.
             </summary>
         </member>
     </members>

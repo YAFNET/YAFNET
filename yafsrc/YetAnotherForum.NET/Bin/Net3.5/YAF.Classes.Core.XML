@@ -4,47 +4,127 @@
         <name>YAF.Classes.Core</name>
     </assembly>
     <members>
+        <member name="T:YAF.Classes.Core.YafAvatars">
+            <summary>
+            The yaf avatars.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafAvatars.GetAvatarUrlForUser(System.Int32)">
+            <summary>
+            The get avatar url for user.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            The get avatar url for user.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafAvatars.GetAvatarUrlForUser(YAF.Classes.Core.CombinedUserDataHelper)">
+            <summary>
+            The get avatar url for user.
+            </summary>
+            <param name="userData">
+            The user data.
+            </param>
+            <returns>
+            The get avatar url for user.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafAvatars.GetAvatarUrlForCurrentUser">
+            <summary>
+            The get avatar url for current user.
+            </summary>
+            <returns>
+            The get avatar url for current user.
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Core.UserPageBase">
             <summary>
             User Page Class.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.UserPageBase._initUserPage">
+            <summary>
+            The _init user page.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.UserPageBase._page">
+            <summary>
+            The _page.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.UserPageBase._userFlags">
+            <summary>
+            The _user flags.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.UserPageBase.PageIsNull">
             <summary>
             Helper function to see if the Page variable is populated
             </summary>
+            <returns>
+            The page is null.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.UserPageBase.AccessNotNull(System.String)">
             <summary>
             Helper function used for redundant "access" fields internally
             </summary>
-            <param name="field"></param>
-            <returns></returns>
+            <param name="field">
+            </param>
+            <returns>
+            The access not null.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.UserPageBase.PageValueAsBool(System.String)">
             <summary>
             Internal helper function used for redundant page variable access (bool)
             </summary>
-            <param name="field"></param>
-            <returns></returns>
+            <param name="field">
+            </param>
+            <returns>
+            The page value as bool.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.UserPageBase.PageValueAsInt(System.String)">
             <summary>
             Internal helper function used for redundant page variable access (int)
             </summary>
-            <param name="field"></param>
-            <returns></returns>
+            <param name="field">
+            </param>
+            <returns>
+            The page value as int.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.UserPageBase.PageValueAsString(System.String)">
             <summary>
             Internal helper function used for redudant page variable access (string)
             </summary>
-            <param name="field"></param>
-            <returns></returns>
+            <param name="field">
+            </param>
+            <returns>
+            The page value as string.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.UserPageBase.InitUserAndPage">
             <summary>
             Initialize the user data and page data...
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.UserPageBase.Page">
+            <summary>
+            Gets or sets Page.
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.UserPageBase.BeforeInit">
+            <summary>
+            The before init.
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.UserPageBase.AfterInit">
+            <summary>
+            The after init.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.UserPageBase.ForumPostAccess">
@@ -102,9 +182,19 @@
             True if the current user can download attachments
             </summary>
         </member>
+        <member name="P:YAF.Classes.Core.UserPageBase.PageBoardID">
+            <summary>
+            Gets PageBoardID.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Core.UserPageBase.PageUserID">
             <summary>
             The UserID of the current user.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.UserPageBase.PageUserName">
+            <summary>
+            Gets PageUserName.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.UserPageBase.PageForumID">
@@ -182,6 +272,11 @@
             The number of private messages that are unread
             </summary>
         </member>
+        <member name="P:YAF.Classes.Core.UserPageBase.LastUnreadPm">
+            <summary>
+            Gets LastUnreadPm.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Core.UserPageBase.TimeZoneUser">
             <summary>
             The time zone offset for the user
@@ -202,107 +297,224 @@
             Place to put helper properties for context variables inside.
             </summary>
         </member>
+        <member name="F:YAF.Classes.Core.ContextVariableRepository._dic">
+            <summary>
+            The _dic.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ContextVariableRepository.#ctor(YAF.Classes.Pattern.TypeDictionary)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.ContextVariableRepository"/> class.
+            </summary>
+            <param name="dictionary">
+            The dictionary.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.ContextVariableRepository.Vars">
+            <summary>
+            Gets Vars.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Core.ContextVariableRepository.IsSuspendCheckEnabled">
             <summary>
             Flag set if the system should check if the user is suspended and redirect appropriately. Defaults to true.
             Setting to false effectively disables suspend checking.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.PageElementRegister">
+            <summary>
+            Helper Class providing functions to register page elements.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.PageElementRegister._registeredElements">
+            <summary>
+            The _registered elements.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.PageElementExists(System.String)">
+            <summary>
+            Validates if an page element exists.
+            </summary>
+            <param name="name">
+            Unique name of the page element to test for
+            </param>
+            <returns>
+            <see langword="true"/> if it exists
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.AddPageElement(System.String)">
+            <summary>
+            Adds a page element to the collection.
+            </summary>
+            <param name="name">
+            Unique name of the page element to register.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssBlock(System.Web.UI.Control,System.String,System.String)">
             <summary>
             Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
             </summary>
-            <param name="element">Control to add element</param>
-            <param name="name">Name of this element so it is not added more then once (not case sensitive)</param>
-            <param name="cssContents">The contents of the text/css style block</param>
+            <param name="element">
+            Control to add element
+            </param>
+            <param name="name">
+            Name of this element so it is not added more then once (not case sensitive)
+            </param>
+            <param name="cssContents">
+            The contents of the text/css style block
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJsBlock(System.String,System.String)">
             <summary>
             Registers a Javascript block using the script manager. Adds script tags.
             </summary>
-            <param name="name"></param>
-            <param name="script"></param>
+            <param name="name">
+            Unique name of JS Block
+            </param>
+            <param name="script">
+            Script code to register
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJsBlock(System.Web.UI.Control,System.String,System.String)">
             <summary>
             Registers a Javascript block using the script manager. Adds script tags.
             </summary>
-            <param name="thisControl"></param>
-            <param name="name"></param>
-            <param name="script"></param>
+            <param name="thisControl">
+            </param>
+            <param name="name">
+            </param>
+            <param name="script">
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJsBlockStartup(System.String,System.String)">
             <summary>
             Registers a Javascript block using the script manager. Adds script tags.
             </summary>
-            <param name="name"></param>
-            <param name="script"></param>
+            <param name="name">
+            </param>
+            <param name="script">
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJsBlockStartup(System.Web.UI.Control,System.String,System.String)">
             <summary>
             Registers a Javascript block using the script manager. Adds script tags.
             </summary>
-            <param name="thisControl"></param>
-            <param name="name"></param>
-            <param name="script"></param>
+            <param name="thisControl">
+            </param>
+            <param name="name">
+            </param>
+            <param name="script">
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJsInclude(System.Web.UI.Control,System.String,System.String)">
             <summary>
             Registers a Javascript include using the script manager.
             </summary>
-            <param name="thisControl"></param>
-            <param name="name"></param>
-            <param name="url"></param>
+            <param name="thisControl">
+            </param>
+            <param name="name">
+            </param>
+            <param name="url">
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJsInclude(System.String,System.String)">
             <summary>
             Registers a Javascript include using the script manager.
             </summary>
-            <param name="name"></param>
-            <param name="url"></param>
+            <param name="name">
+            </param>
+            <param name="url">
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJsResourceInclude(System.Web.UI.Control,System.String,System.String)">
             <summary>
             Registers a Javascript resource include using the script manager.
             </summary>
-            <param name="thisControl"></param>
-            <param name="name"></param>
-            <param name="relativeResourceUrl"></param>
+            <param name="thisControl">
+            </param>
+            <param name="name">
+            </param>
+            <param name="relativeResourceUrl">
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJsResourceInclude(System.String,System.String)">
             <summary>
             Registers a Javascript resource include using the script manager.
             </summary>
-            <param name="name"></param>
-            <param name="relativeResourceUrl"></param>
+            <param name="name">
+            Unique name of the JS include
+            </param>
+            <param name="relativeResourceUrl">
+            URL to the JS resource
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssBlock(System.String,System.String)">
+            <summary>
+            Register a CSS block in the page header.
+            </summary>
+            <param name="name">
+            Unique name of the CSS block
+            </param>
+            <param name="cssContents">
+            CSS contents
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssInclude(System.String)">
             <summary>
             Add the given CSS to the page header within a style tag
             </summary>
-            <param name="cssUrl">Url of the CSS file to add</param>
+            <param name="cssUrl">
+            Url of the CSS file to add
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssIncludeResource(System.String)">
             <summary>
             Add the given CSS to the page header within a style tag
             </summary>
-            <param name="cssUrlResource">Url of the CSS Resource file to add</param>
+            <param name="cssUrlResource">
+            Url of the CSS Resource file to add
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssInclude(System.Web.UI.Control,System.String)">
             <summary>
             Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
             </summary>
-            <param name="element">Control to add element</param>
-            <param name="cssUrl">Url of the CSS file to add</param>
+            <param name="element">
+            Control to add element
+            </param>
+            <param name="cssUrl">
+            Url of the CSS file to add
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQuery">
+            <summary>
+            The register j query.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQueryUI">
+            <summary>
+            The register j query ui.
+            </summary>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQuery(System.Web.UI.Control)">
             <summary>
-            
+            Register jQuery
             </summary>
+            <param name="element">
+            The element.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQueryUI(System.Web.UI.Control)">
+            <summary>
+            Register the JQuery UI library in the header.
+            </summary>
+            <param name="element">
+            Control element to put in
+            </param>
         </member>
         <member name="P:YAF.Classes.Core.PageElementRegister.RegisteredElements">
             <summary>
-            Elements (using in the head or header) that are registered on the page.
+            Gets elements (using in the head or header) that are registered on the page.
             Used mostly by RegisterPageElementHelper.
             </summary>
         </member>
@@ -407,12 +619,36 @@
         </member>
         <member name="M:YAF.Classes.Core.ForumPageRegistered.#ctor">
             <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.ForumPageRegistered"/> class. 
             Creates the Administration page.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPageRegistered.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.ForumPageRegistered"/> class.
+            </summary>
+            <param name="transPage">
+            The trans page.
+            </param>
         </member>
         <member name="T:YAF.Editors.IBaseEditorModule">
             <summary>
             IBaseEditorModule Interface for Editor classes.
+            </summary>
+        </member>
+        <member name="P:YAF.Editors.IBaseEditorModule.Active">
+            <summary>
+            Gets a value indicating whether Active.
+            </summary>
+        </member>
+        <member name="P:YAF.Editors.IBaseEditorModule.Description">
+            <summary>
+            Gets Description.
+            </summary>
+        </member>
+        <member name="P:YAF.Editors.IBaseEditorModule.ModuleId">
+            <summary>
+            Gets ModuleId.
             </summary>
         </member>
         <member name="T:YAF.Editors.BaseForumEditor">
@@ -425,19 +661,397 @@
             Summary description for BaseControl.
             </summary>
         </member>
+        <member name="M:YAF.Controls.BaseControl.HtmlEncode(System.Object)">
+            <summary>
+            The html encode.
+            </summary>
+            <param name="data">
+            The data.
+            </param>
+            <returns>
+            The html encode.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.BaseControl.RenderAnchor(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
+            <summary>
+            The render anchor.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="href">
+            The href.
+            </param>
+            <param name="cssClass">
+            The css class.
+            </param>
+            <param name="innerText">
+            The inner text.
+            </param>
+        </member>
         <member name="M:YAF.Controls.BaseControl.GetUniqueID(System.String)">
             <summary>
             Creates a Unique ID
             </summary>
-            <param name="prefix"></param>
-            <returns></returns>
+            <param name="prefix">
+            </param>
+            <returns>
+            The get unique id.
+            </returns>
         </member>
         <member name="M:YAF.Controls.BaseControl.GetExtendedID(System.String)">
             <summary>
             Creates a ID Based on the Control Structure
             </summary>
-            <param name="prefix"></param>
-            <returns></returns>
+            <param name="prefix">
+            </param>
+            <returns>
+            The get extended id.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.BaseControl.RenderImgTag(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
+            <summary>
+            The render img tag.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="src">
+            The src.
+            </param>
+            <param name="alt">
+            The alt.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.BaseControl.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String)">
+            <summary>
+            The render anchor begin.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="href">
+            The href.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.BaseControl.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String,System.String)">
+            <summary>
+            The render anchor begin.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="href">
+            The href.
+            </param>
+            <param name="cssClass">
+            The css class.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.BaseControl.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
+            <summary>
+            The render anchor begin.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="href">
+            The href.
+            </param>
+            <param name="cssClass">
+            The css class.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.BaseControl.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            The render anchor begin.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="href">
+            The href.
+            </param>
+            <param name="cssClass">
+            The css class.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+            <param name="onclick">
+            The onclick.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.BaseControl.PageContext">
+            <summary>
+            Gets PageContext.
+            </summary>
+        </member>
+        <member name="F:YAF.Editors.BaseForumEditor._baseDir">
+            <summary>
+            The _base dir.
+            </summary>
+        </member>
+        <member name="F:YAF.Editors.BaseForumEditor._options">
+            <summary>
+            The _options.
+            </summary>
+        </member>
+        <member name="M:YAF.Editors.BaseForumEditor.ResolveUrl(System.String)">
+            <summary>
+            The resolve url.
+            </summary>
+            <param name="relativeUrl">
+            The relative url.
+            </param>
+            <returns>
+            The resolve url.
+            </returns>
+        </member>
+        <member name="M:YAF.Editors.BaseForumEditor.Replace(System.String,System.String,System.String)">
+            <summary>
+            The replace.
+            </summary>
+            <param name="txt">
+            The txt.
+            </param>
+            <param name="match">
+            The match.
+            </param>
+            <param name="replacement">
+            The replacement.
+            </param>
+            <returns>
+            The replace.
+            </returns>
+        </member>
+        <member name="P:YAF.Editors.BaseForumEditor.Active">
+            <summary>
+            Gets a value indicating whether Active.
+            </summary>
+        </member>
+        <member name="P:YAF.Editors.BaseForumEditor.Description">
+            <summary>
+            Gets Description.
+            </summary>
+        </member>
+        <member name="P:YAF.Editors.BaseForumEditor.ModuleId">
+            <summary>
+            Gets ModuleId.
+            </summary>
+        </member>
+        <member name="P:YAF.Editors.BaseForumEditor.Text">
+            <summary>
+            Gets or sets Text.
+            </summary>
+        </member>
+        <member name="P:YAF.Editors.BaseForumEditor.BaseDir">
+            <summary>
+            Sets BaseDir.
+            </summary>
+        </member>
+        <member name="P:YAF.Editors.BaseForumEditor.StyleSheet">
+            <summary>
+            Gets or sets StyleSheet.
+            </summary>
+        </member>
+        <member name="P:YAF.Editors.BaseForumEditor.UsesHTML">
+            <summary>
+            Gets a value indicating whether UsesHTML.
+            </summary>
+        </member>
+        <member name="P:YAF.Editors.BaseForumEditor.UsesBBCode">
+            <summary>
+            Gets a value indicating whether UsesBBCode.
+            </summary>
+        </member>
+        <member name="T:YAF.Editors.YafEditorModuleManager">
+            <summary>
+            The yaf editor module manager.
+            </summary>
+        </member>
+        <member name="T:YAF.Modules.YafModuleManager`1">
+            <summary>
+            Generic Module Management (Plugin) class.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="F:YAF.Modules.YafModuleManager`1._cacheName">
+            <summary>
+            The _cache name.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModuleManager`1._loaded">
+            <summary>
+            The _loaded.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModuleManager`1._moduleBaseType">
+            <summary>
+            The _module base type.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModuleManager`1._moduleClassTypes">
+            <summary>
+            The _module class types.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModuleManager`1._moduleNamespace">
+            <summary>
+            The _module namespace.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModuleManager`1._modules">
+            <summary>
+            The _modules.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Modules.YafModuleManager`1"/> class.
+            </summary>
+            <param name="moduleNamespace">
+            The module namespace.
+            </param>
+            <param name="moduleBaseType">
+            The module base type.
+            </param>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.AddModules(System.Collections.IList)">
+            <summary>
+            The add modules.
+            </summary>
+            <param name="assemblies">
+            The assemblies.
+            </param>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.AddModules(System.Collections.Generic.List{System.Reflection.Assembly})">
+            <summary>
+            The add modules.
+            </summary>
+            <param name="assemblies">
+            The assemblies.
+            </param>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.FindModules(System.Collections.IList,System.String,System.String)">
+            <summary>
+            The find modules.
+            </summary>
+            <param name="assemblies">
+            The assemblies.
+            </param>
+            <param name="moduleNamespace">
+            The module namespace.
+            </param>
+            <param name="moduleBaseInterface">
+            The module base interface.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.Load">
+            <summary>
+            Loads (CreatesInstance) of all modules) -- should only be called once.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.Unload">
+            <summary>
+            Unloads all the modules in the module manager.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.GetInstance(System.Type)">
+            <summary>
+            The get instance.
+            </summary>
+            <param name="module">
+            The module.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.BaseModuleFilter(System.Type,System.Object)">
+            <summary>
+            Helper function that filters modules based on NameSpace
+            </summary>
+            <param name="typeObj">
+            </param>
+            <param name="criteriaObj">
+            </param>
+            <returns>
+            The base module filter.
+            </returns>
+        </member>
+        <member name="P:YAF.Modules.YafModuleManager`1.ModuleNamespace">
+            <summary>
+            Base Module Namespace for the Module Manager
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.YafModuleManager`1.ModuleBaseType">
+            <summary>
+            Base type of this instance of the Module Manager
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.YafModuleManager`1.CacheName">
+            <summary>
+            Gets CacheName.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.YafModuleManager`1.ModuleClassTypes">
+            <summary>
+            Gets or sets ModuleClassTypes.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.YafModuleManager`1.Modules">
+            <summary>
+            All the modules found by the Module Manager
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.YafModuleManager`1.Loaded">
+            <summary>
+            Are modules loaded?
+            </summary>
+        </member>
+        <member name="E:YAF.Modules.YafModuleManager`1.LoadModules">
+            <summary>
+            Called when the modules are loaded.
+            </summary>
+        </member>
+        <member name="E:YAF.Modules.YafModuleManager`1.UnloadModules">
+            <summary>
+            Called when the modules are unloaded.
+            </summary>
+        </member>
+        <member name="M:YAF.Editors.YafEditorModuleManager.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:YAF.Editors.YafEditorModuleManager"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:YAF.Editors.YafEditorModuleManager.GetEditorInstance(System.Int32)">
+            <summary>
+            The get editor instance.
+            </summary>
+            <param name="moduleId">
+            The module id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Editors.YafEditorModuleManager.GetEditorsTable">
+            <summary>
+            The get editors table.
+            </summary>
+            <returns>
+            </returns>
         </member>
         <member name="T:YAF.Classes.Core.UserMembershipHelper">
             <summary>
@@ -565,45 +1179,152 @@
         </member>
         <member name="M:YAF.Classes.Core.AdminPage.#ctor">
             <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.AdminPage"/> class. 
             Creates the Administration page.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.AdminPage.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.AdminPage"/> class.
+            </summary>
+            <param name="transPage">
+            The trans page.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.AdminPage.AdminPage_Load(System.Object,System.EventArgs)">
+            <summary>
+            The admin page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="T:YAF.Classes.Core.YafTaskModule">
             <summary>
             Runs Tasks in the background -- controlled by the context.
             </summary>
         </member>
+        <member name="F:YAF.Classes.Core.YafTaskModule._moduleAppName">
+            <summary>
+            The _module app name.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTaskModule._appInstance">
+            <summary>
+            The _app instance.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTaskModule._lockObject">
+            <summary>
+            The _lock object.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTaskModule._lockTaskManagerObject">
+            <summary>
+            The _lock task manager object.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTaskModule._moduleInitialized">
+            <summary>
+            The _module initialized.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTaskModule._taskManager">
+            <summary>
+            The _task manager.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.System#Web#IHttpModule#Dispose">
+            <summary>
+            The i http module. dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.System#Web#IHttpModule#Init(System.Web.HttpApplication)">
+            <summary>
+            The i http module. init.
+            </summary>
+            <param name="httpApplication">
+            The http application.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Core.YafTaskModule.TryGetTask(System.String)">
             <summary>
             Attempt to get the instance of the task.
             </summary>
-            <param name="instanceName"></param>
-            <returns></returns>
+            <param name="instanceName">
+            </param>
+            <returns>
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafTaskModule.TaskExists(System.String)">
             <summary>
             Check if a task exists in the task manager. May not be running.
             </summary>
-            <param name="instanceName"></param>
-            <returns></returns>
+            <param name="instanceName">
+            </param>
+            <returns>
+            The task exists.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafTaskModule.IsTaskRunning(System.String)">
             <summary>
             Check if a Task is Running.
             </summary>
-            <param name="instanceName"></param>
-            <returns></returns>
+            <param name="instanceName">
+            </param>
+            <returns>
+            The is task running.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.TryRemoveTask(System.String)">
+            <summary>
+            The try remove task.
+            </summary>
+            <param name="instanceName">
+            The instance name.
+            </param>
+            <returns>
+            The try remove task.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.AddTask(System.String,YAF.Classes.Core.IBackgroundTask)">
+            <summary>
+            The add task.
+            </summary>
+            <param name="instanceName">
+            The instance name.
+            </param>
+            <param name="newTask">
+            The new task.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.YafTaskModule.StartTask(System.String,YAF.Classes.Core.IBackgroundTask)">
             <summary>
             Start a non-running task -- will set the HttpApplication instance.
             </summary>
-            <param name="instanceName">Unique name of this task</param>
-            <param name="start">Task to run</param>
+            <param name="instanceName">
+            Unique name of this task
+            </param>
+            <param name="start">
+            Task to run
+            </param>
         </member>
         <member name="P:YAF.Classes.Core.YafTaskModule.TaskManager">
             <summary>
             Current Page Instance of the Module Manager
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafTaskModule.TaskCount">
+            <summary>
+            Gets TaskCount.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafTaskModule.TaskManagerSnapshot">
+            <summary>
+            Gets TaskManagerSnapshot.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafTaskModule.TaskManagerInstances">
@@ -611,9 +1332,187 @@
             All the names of tasks running.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Core.YafTaskModule.Current">
+            <summary>
+            Gets Current.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.CleanUpTask">
             <summary>
             Automatically cleans up the tasks if they are no longer running...
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.IntermittentBackgroundTask">
+            <summary>
+            The intermittent background task.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.BaseBackgroundTask">
+            <summary>
+            The base background task.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.IBackgroundTask">
+            <summary>
+            The i background task.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.IBackgroundTask.Run">
+            <summary>
+            The run.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IBackgroundTask.BoardID">
+            <summary>
+            Sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IBackgroundTask.Started">
+            <summary>
+            Gets Started.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IBackgroundTask.IsRunning">
+            <summary>
+            Gets a value indicating whether IsRunning.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IBackgroundTask.AppContext">
+            <summary>
+            Sets AppContext.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BaseBackgroundTask._appContext">
+            <summary>
+            The _app context.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BaseBackgroundTask._boardId">
+            <summary>
+            The _board id.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BaseBackgroundTask._isRunning">
+            <summary>
+            The _is running.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BaseBackgroundTask._lockObject">
+            <summary>
+            The _lock object.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BaseBackgroundTask._started">
+            <summary>
+            The _started.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BaseBackgroundTask.Run">
+            <summary>
+            The run.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BaseBackgroundTask.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BaseBackgroundTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.BaseBackgroundTask.BoardID">
+            <summary>
+            Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.BaseBackgroundTask.IsRunning">
+            <summary>
+            Gets or sets a value indicating whether IsRunning.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.BaseBackgroundTask.Started">
+            <summary>
+            Gets Started.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.BaseBackgroundTask.AppContext">
+            <summary>
+            Gets or sets AppContext.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IntermittentBackgroundTask._intermittentTimer">
+            <summary>
+            The _intermittent timer.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IntermittentBackgroundTask._intermittentTimerSemaphore">
+            <summary>
+            The _intermittent timer semaphore.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IntermittentBackgroundTask._runPeriodMs">
+            <summary>
+            The _run period ms.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.IntermittentBackgroundTask._startDelayMs">
+            <summary>
+            The _start delay ms.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.IntermittentBackgroundTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.IntermittentBackgroundTask.Run">
+            <summary>
+            The run.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.IntermittentBackgroundTask.TimerCallback(System.Object)">
+            <summary>
+            The timer callback.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.IntermittentBackgroundTask.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IntermittentBackgroundTask.StartDelayMs">
+            <summary>
+            Gets or sets StartDelayMs.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IntermittentBackgroundTask.RunPeriodMs">
+            <summary>
+            Gets or sets RunPeriodMs.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.CleanUpTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.CleanUpTask"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.CleanUpTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CleanUpTask.Module">
+            <summary>
+            Gets or sets Module.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.CreateMail">
+            <summary>
+            The create mail.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.CreateMail.CreateLogEmail(System.Exception)">
@@ -621,139 +1520,267 @@
             Send an error report by email. For this to work, 
             smtpserver and erroremail must be set in Web.config.
             </summary>
-            <param name="x">The Exception object to report.</param>
+            <param name="x">
+            The Exception object to report.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.CreateMail.Text2Html(System.String)">
+            <summary>
+            The text 2 html.
+            </summary>
+            <param name="html">
+            The html.
+            </param>
+            <returns>
+            The text 2 html.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.CreateMail.WatchEmail(System.Object)">
+            <summary>
+            The watch email.
+            </summary>
+            <param name="messageID">
+            The message id.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.CreateMail.PmNotification(System.Int32,System.String)">
             <summary>
             Sends notification about new PM in user's inbox.
             </summary>
-            <param name="toUserID">User supposed to receive notification about new PM.</param>
-            <param name="subject">Subject of PM user is notified about.</param>
+            <param name="toUserID">
+            User supposed to receive notification about new PM.
+            </param>
+            <param name="subject">
+            Subject of PM user is notified about.
+            </param>
         </member>
         <member name="T:YAF.Classes.Core.YafCache">
             <summary>
             Caching helper class
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.YafCache.GetBoardCacheKey(System.String)">
+        <member name="F:YAF.Classes.Core.YafCache._lockCacheItems">
             <summary>
-            Creates string to be used as key for caching, board-specific
+            The _lock cache items.
             </summary>
-            <param name="key">Key we need to make board-specific</param>
-            <returns>Board sepecific cache key based on key parameter</returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafCache.GetBoardCacheKey(System.String,YAF.Classes.Core.YafContext)">
+        <member name="F:YAF.Classes.Core.YafCache._cache">
             <summary>
-            Creates string to be used as key for caching, board-specific
+            The _cache.
             </summary>
-            <param name="key">Key we need to make board-specific</param>
-            <param name="context">Context from which to determine board ID</param>
-            <returns>Board sepecific cache key based on key parameter</returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafCache.GetBoardCacheKey(System.String,System.Int32)">
+        <member name="F:YAF.Classes.Core.YafCache._keyCreationMethod">
             <summary>
-            Creates string to be used as key for caching, board-specific
+            The _key creation method.
             </summary>
-            <param name="key">Key we need to make board-specific</param>
-            <param name="boardID">Board ID to use when creating cache key</param>
-            <returns>Board sepecific cache key based on key parameter</returns>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.#ctor">
             <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafCache"/> class. 
             Default constuctor uses HttpContext.Current as source for obtaining Cache object
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.#ctor(System.Web.Caching.Cache)">
             <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafCache"/> class. 
             Initializes class with specified Cache object
             </summary>
-            <param name="cache">Cache to work with</param>
+            <param name="cache">
+            Cache to work with
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafCache.GetBoardCacheKey(System.String)">
+            <summary>
+            Creates string to be used as key for caching, board-specific
+            </summary>
+            <param name="key">
+            Key we need to make board-specific
+            </param>
+            <returns>
+            Board sepecific cache key based on key parameter
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafCache.GetBoardCacheKey(System.String,YAF.Classes.Core.YafContext)">
+            <summary>
+            Creates string to be used as key for caching, board-specific
+            </summary>
+            <param name="key">
+            Key we need to make board-specific
+            </param>
+            <param name="context">
+            Context from which to determine board ID
+            </param>
+            <returns>
+            Board sepecific cache key based on key parameter
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafCache.GetBoardCacheKey(System.String,System.Int32)">
+            <summary>
+            Creates string to be used as key for caching, board-specific
+            </summary>
+            <param name="key">
+            Key we need to make board-specific
+            </param>
+            <param name="boardID">
+            Board ID to use when creating cache key
+            </param>
+            <returns>
+            Board sepecific cache key based on key parameter
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.CreateKey(System.String)">
             <summary>
             Creates key using default cache key creation method
             </summary>
-            <param name="key">Key to use for generating cache key</param>
-            <returns>Returns cache key</returns>
+            <param name="key">
+            Key to use for generating cache key
+            </param>
+            <returns>
+            Returns cache key
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.Add(System.String,System.Object,System.Web.Caching.CacheDependency,System.DateTime,System.TimeSpan,System.Web.Caching.CacheItemPriority,System.Web.Caching.CacheItemRemovedCallback)">
             <summary>
             Adds item to the cache.
             </summary>
-            <param name="key">Key identifying item in cache.</param>
-            <param name="value">Cached value.</param>
-            <param name="dependencies">Cache dependencies, invalidating cache.</param>
-            <param name="absoluteExpiration">Absolute expiration date. When used, sliding expiration has to be set to Cache.NoSlidingExpiration.</param>
-            <param name="slidingExpiration">Sliding expiration of cache item. When used, absolute expiration has to be set to Cache.NoAbsoluteExpiration.</param>
-            <param name="priority">Relative cost of object in cache. When system evicts objects from cache, objects with lower cost are removed first.</param>
-            <param name="onRemoveCallback">Delegate that is called upon cache item remova. Can be null.</param>
-            <returns>Cached item.</returns>
+            <param name="key">
+            Key identifying item in cache.
+            </param>
+            <param name="value">
+            Cached value.
+            </param>
+            <param name="dependencies">
+            Cache dependencies, invalidating cache.
+            </param>
+            <param name="absoluteExpiration">
+            Absolute expiration date. When used, sliding expiration has to be set to Cache.NoSlidingExpiration.
+            </param>
+            <param name="slidingExpiration">
+            Sliding expiration of cache item. When used, absolute expiration has to be set to Cache.NoAbsoluteExpiration.
+            </param>
+            <param name="priority">
+            Relative cost of object in cache. When system evicts objects from cache, objects with lower cost are removed first.
+            </param>
+            <param name="onRemoveCallback">
+            Delegate that is called upon cache item remova. Can be null.
+            </param>
+            <returns>
+            Cached item.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.Add(System.String,System.Object,System.DateTime)">
             <summary>
             Adds item to the cache.
             </summary>
-            <param name="key">Key identifying item in cache.</param>
-            <param name="value">Cached value.</param>
-            <param name="absoluteExpiration">Absolute expiration date.</param>
-            <returns></returns>
+            <param name="key">
+            Key identifying item in cache.
+            </param>
+            <param name="value">
+            Cached value.
+            </param>
+            <param name="absoluteExpiration">
+            Absolute expiration date.
+            </param>
+            <returns>
+            The add.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.Insert(System.String,System.Object)">
             <summary>
             Inserts item to the cache.
             </summary>
-            <param name="key">Key identifying item in cache.</param>
-            <param name="value">Cached value.</param>
+            <param name="key">
+            Key identifying item in cache.
+            </param>
+            <param name="value">
+            Cached value.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.Insert(System.String,System.Object,System.Web.Caching.CacheDependency)">
             <summary>
             Inserts item to the cache.
             </summary>
-            <param name="key">Key identifying item in cache.</param>
-            <param name="value">Cached value.</param>
-            <param name="dependencies">Cache dependencies, invalidating cache.</param>
+            <param name="key">
+            Key identifying item in cache.
+            </param>
+            <param name="value">
+            Cached value.
+            </param>
+            <param name="dependencies">
+            Cache dependencies, invalidating cache.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.Insert(System.String,System.Object,System.Web.Caching.CacheDependency,System.DateTime,System.TimeSpan)">
             <summary>
             Inserts item to the cache.
             </summary>
-            <param name="key">Key identifying item in cache.</param>
-            <param name="value">Cached value.</param>
-            <param name="dependencies">Cache dependencies, invalidating cache.</param>
-            <param name="absoluteExpiration">Absolute expiration date. When used, sliding expiration has to be set to Cache.NoSlidingExpiration.</param>
-            <param name="slidingExpiration">Sliding expiration of cache item. When used, absolute expiration has to be set to Cache.NoAbsoluteExpiration.</param>
+            <param name="key">
+            Key identifying item in cache.
+            </param>
+            <param name="value">
+            Cached value.
+            </param>
+            <param name="dependencies">
+            Cache dependencies, invalidating cache.
+            </param>
+            <param name="absoluteExpiration">
+            Absolute expiration date. When used, sliding expiration has to be set to Cache.NoSlidingExpiration.
+            </param>
+            <param name="slidingExpiration">
+            Sliding expiration of cache item. When used, absolute expiration has to be set to Cache.NoAbsoluteExpiration.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.Insert(System.String,System.Object,System.Web.Caching.CacheDependency,System.DateTime,System.TimeSpan,System.Web.Caching.CacheItemPriority,System.Web.Caching.CacheItemRemovedCallback)">
             <summary>
             Inserts item to the cache.
             </summary>
-            <param name="key">Key identifying item in cache.</param>
-            <param name="value">Cached value.</param>
-            <param name="dependencies">Cache dependencies, invalidating cache.</param>
-            <param name="absoluteExpiration">Absolute expiration date. When used, sliding expiration has to be set to Cache.NoSlidingExpiration.</param>
-            <param name="slidingExpiration">Sliding expiration of cache item. When used, absolute expiration has to be set to Cache.NoAbsoluteExpiration.</param>
-            <param name="priority">Relative cost of object in cache. When system evicts objects from cache, objects with lower cost are removed first.</param>
-            <param name="onRemoveCallback">Delegate that is called upon cache item remova. Can be null.</param>
-            <returns>Cached item.</returns>
+            <param name="key">
+            Key identifying item in cache.
+            </param>
+            <param name="value">
+            Cached value.
+            </param>
+            <param name="dependencies">
+            Cache dependencies, invalidating cache.
+            </param>
+            <param name="absoluteExpiration">
+            Absolute expiration date. When used, sliding expiration has to be set to Cache.NoSlidingExpiration.
+            </param>
+            <param name="slidingExpiration">
+            Sliding expiration of cache item. When used, absolute expiration has to be set to Cache.NoAbsoluteExpiration.
+            </param>
+            <param name="priority">
+            Relative cost of object in cache. When system evicts objects from cache, objects with lower cost are removed first.
+            </param>
+            <param name="onRemoveCallback">
+            Delegate that is called upon cache item remova. Can be null.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.Remove(System.String)">
             <summary>
             Removes specified key from cache
             </summary>
-            <param name="key">Key to remove</param>
-            <returns>Value removed from cache, null if no such key was cached</returns>
+            <param name="key">
+            Key to remove
+            </param>
+            <returns>
+            Value removed from cache, null if no such key was cached
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.Remove(System.Predicate{System.String})">
             <summary>
             Removes all keys for which given predicate returns true.
             </summary>
-            <param name="predicate">Predicate for matching cache keys.</param>
+            <param name="predicate">
+            Predicate for matching cache keys.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.RemoveAllStartsWith(System.String)">
             <summary>
             Removes all cache items that start with the string.
             </summary>
-            <param name="startsWith"></param>
+            <param name="startsWith">
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.Clear">
             <summary>
@@ -764,43 +1791,88 @@
             <summary>
             Gets the cached item as a specific type.
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <returns></returns>
+            <typeparam name="T">
+            </typeparam>
+            <param name="key">
+            </param>
+            <returns>
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.GetItem``1(System.String,System.Double,System.Func{``0})">
             <summary>
             Gets the cached item as a specific type but if the item doesn't exist or 
             is expired, will pull a new value from the function provided.
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="expireMilliseconds"></param>
-            <param name="getValue"></param>
-            <returns></returns>
+            <typeparam name="T">
+            </typeparam>
+            <param name="key">
+            </param>
+            <param name="expireMilliseconds">
+            </param>
+            <param name="getValue">
+            </param>
+            <returns>
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.GetItem``1(System.String,System.Int32,System.Func{``0})">
             <summary>
             Gets the cached item as a specific type but if the item doesn't exist or 
             is expired, will pull a new value from the function provided.
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="expireMinutes"></param>
-            <param name="getValue"></param>
-            <returns></returns>
+            <typeparam name="T">
+            </typeparam>
+            <param name="key">
+            </param>
+            <param name="expireMinutes">
+            </param>
+            <param name="getValue">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafCache.GetItem``1(System.String,System.Int32,System.Web.Caching.CacheItemPriority,System.Func{``0})">
+            <summary>
+            The get item.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="expireMinutes">
+            The expire minutes.
+            </param>
+            <param name="priority">
+            The priority.
+            </param>
+            <param name="getValue">
+            The get value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafCache.GetItem``1(System.String,System.Double,System.Web.Caching.CacheItemPriority,System.Func{``0})">
             <summary>
             Gets the cached item as a specific type but if the item doesn't exist or 
             is expired, will pull a new value from the function provided.
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="expireMilliseconds"></param>
-            <param name="priority"></param>
-            <param name="getValue"></param>
-            <returns></returns>
+            <typeparam name="T">
+            </typeparam>
+            <param name="key">
+            </param>
+            <param name="expireMilliseconds">
+            </param>
+            <param name="priority">
+            </param>
+            <param name="getValue">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.YafCache.Current">
+            <summary>
+            Gets Current.
+            </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafCache.Item(System.String)">
             <summary>
@@ -824,12 +1896,89 @@
             Enumeration of methods for generating cache keys
             </summary>
         </member>
+        <member name="F:YAF.Classes.Core.CacheKeyCreationMethod.Straight">
+            <summary>
+            The straight.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.CacheKeyCreationMethod.BoardSpecific">
+            <summary>
+            The board specific.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.UserHelper.GetUserLanguageFile(System.Int64)">
             <summary>
             
             </summary>
             <param name="userId"></param>
             <returns>language file name. If null -- use default language</returns>
+        </member>
+        <member name="T:YAF.Classes.Core.ForumDeleteTask">
+            <summary>
+            The forum delete task.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.LongBackgroundTask">
+            <summary>
+            The long background task.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.LongBackgroundTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.LongBackgroundTask"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.LongBackgroundTask.TimerCallback(System.Object)">
+            <summary>
+            The timer callback.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+        </member>
+        <member name="F:YAF.Classes.Core.ForumDeleteTask._taskName">
+            <summary>
+            The _task name.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.ForumDeleteTask._forumId">
+            <summary>
+            The _forum id.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumDeleteTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.ForumDeleteTask"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumDeleteTask.Start(System.Int32,System.Int32)">
+            <summary>
+            The start.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="forumId">
+            The forum id.
+            </param>
+            <returns>
+            The start.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumDeleteTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumDeleteTask.TaskName">
+            <summary>
+            Gets TaskName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumDeleteTask.ForumId">
+            <summary>
+            Gets or sets ForumId.
+            </summary>
         </member>
         <member name="T:YAF.Controls.BasePanel">
             <summary>
@@ -840,15 +1989,61 @@
             <summary>
             Creates a Unique ID
             </summary>
-            <param name="prefix"></param>
-            <returns></returns>
+            <param name="prefix">
+            </param>
+            <returns>
+            The get unique id.
+            </returns>
         </member>
         <member name="M:YAF.Controls.BasePanel.GetExtendedID(System.String)">
             <summary>
             Creates a ID Based on the Control Structure
             </summary>
-            <param name="prefix"></param>
-            <returns></returns>
+            <param name="prefix">
+            </param>
+            <returns>
+            The get extended id.
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.BasePanel.PageContext">
+            <summary>
+            Gets PageContext.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafStopWatch">
+            <summary>
+            The yaf stop watch.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafStopWatch._stopWatch">
+            <summary>
+            The _stop watch.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafStopWatch.Start">
+            <summary>
+            The start.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafStopWatch.Stop">
+            <summary>
+            The stop.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafStopWatch.Reset">
+            <summary>
+            The reset.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafStopWatch.Watch">
+            <summary>
+            Gets Watch.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafStopWatch.Duration">
+            <summary>
+            Gets Duration.
+            </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafSendMail">
             <summary>
@@ -859,10 +2054,91 @@
             <summary>
             Queues an e-mail messagage for asynchronous delivery
             </summary>
-            <param name="fromEmail"></param>
-            <param name="toEmail"></param>
-            <param name="subject"></param>
-            <param name="body"></param>
+            <param name="fromEmail">
+            </param>
+            <param name="toEmail">
+            </param>
+            <param name="subject">
+            </param>
+            <param name="body">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.String,System.String,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="fromEmail">
+            The from email.
+            </param>
+            <param name="toEmail">
+            The to email.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="body">
+            The body.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="fromEmail">
+            The from email.
+            </param>
+            <param name="fromName">
+            The from name.
+            </param>
+            <param name="toEmail">
+            The to email.
+            </param>
+            <param name="toName">
+            The to name.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="body">
+            The body.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="fromAddress">
+            The from address.
+            </param>
+            <param name="toAddress">
+            The to address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body text.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendMail.Send(System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.String,System.String)">
+            <summary>
+            The send.
+            </summary>
+            <param name="fromAddress">
+            The from address.
+            </param>
+            <param name="toAddress">
+            The to address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body text.
+            </param>
+            <param name="bodyHtml">
+            The body html.
+            </param>
         </member>
         <member name="T:YAF.Classes.Core.YafSendMailThreaded">
             <summary>
@@ -870,20 +2146,195 @@
             for any instance except the HttpModule instance.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.YafSendMailThreaded.SendThreaded(System.Int32)">
+            <summary>
+            The send threaded.
+            </summary>
+            <param name="uniqueId">
+            The unique id.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Core.CaptchaHelper.GetCaptchaString">
             <summary>
             Gets the CaptchaString using the BoardSettings
             </summary>
             <returns></returns>
         </member>
+        <member name="T:YAF.Modules.UserCleanUpTaskModule">
+            <summary>
+            The user clean up task module.
+            </summary>
+        </member>
+        <member name="T:YAF.Modules.IBaseModule">
+            <summary>
+            The i base module.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.IBaseModule.Init">
+            <summary>
+            The init.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.IBaseModule.ForumControlObj">
+            <summary>
+            Gets or sets ForumControlObj.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.UserCleanUpTaskModule._forumControlObj">
+            <summary>
+            The _forum control obj.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UserCleanUpTaskModule.Init">
+            <summary>
+            The init.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UserCleanUpTaskModule.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.UserCleanUpTaskModule.Current_AfterInit(System.Object,System.EventArgs)">
+            <summary>
+            The current_ after init.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Modules.UserCleanUpTaskModule.ForumControlObj">
+            <summary>
+            Gets or sets ForumControlObj.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.UserCleanUpTask">
             <summary>
             Does some user clean up tasks such as unsuspending users...
             </summary>
         </member>
+        <member name="F:YAF.Classes.Core.UserCleanUpTask._taskName">
+            <summary>
+            The _task name.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.UserCleanUpTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.UserCleanUpTask"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.UserCleanUpTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.UserCleanUpTask.TaskName">
+            <summary>
+            Gets TaskName.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafPermissions">
+            <summary>
+            The yaf permissions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafPermissions.Check(System.Int32)">
+            <summary>
+            The check.
+            </summary>
+            <param name="permission">
+            The permission.
+            </param>
+            <returns>
+            The check.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafPermissions.Check(YAF.Classes.ViewPermissions)">
+            <summary>
+            The check.
+            </summary>
+            <param name="permission">
+            The permission.
+            </param>
+            <returns>
+            The check.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafPermissions.HandleRequest(System.Int32)">
+            <summary>
+            The handle request.
+            </summary>
+            <param name="permission">
+            The permission.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafPermissions.HandleRequest(YAF.Classes.ViewPermissions)">
+            <summary>
+            The handle request.
+            </summary>
+            <param name="permission">
+            The permission.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Core.InitService">
+            <summary>
+            The init service.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.InitService.Run">
+            <summary>
+            The run.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.InitService.RunService">
+            <summary>
+            The run service.
+            </summary>
+            <returns>
+            The run service.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.InitService.InitVarName">
+            <summary>
+            Gets InitVarName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.InitService.Initialized">
+            <summary>
+            Gets a value indicating whether Initialized.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.CombinedUserDataHelper">
             <summary>
             Helps get a complete user profile from various locations
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.LocalizationHandler">
+            <summary>
+            The localization handler.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LocalizationHandler._initCulture">
+            <summary>
+            The _init culture.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LocalizationHandler._initLocalization">
+            <summary>
+            The _init localization.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LocalizationHandler._localization">
+            <summary>
+            The _localization.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LocalizationHandler._transPage">
+            <summary>
+            The _trans page.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.LocalizationHandler.InitLocalization">
@@ -896,9 +2347,24 @@
             Set the culture and UI culture to the browser's accept language
             </summary>
         </member>
+        <member name="P:YAF.Classes.Core.LocalizationHandler.Localization">
+            <summary>
+            Gets or sets Localization.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Core.LocalizationHandler.TranslationPage">
             <summary>
             Current TransPage for Localization
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.LocalizationHandler.BeforeInit">
+            <summary>
+            The before init.
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.LocalizationHandler.AfterInit">
+            <summary>
+            The after init.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.SyncMembershipUsersTask">
@@ -906,9 +2372,140 @@
             Run when we want to do migration of users in the background...
             </summary>
         </member>
+        <member name="F:YAF.Classes.Core.SyncMembershipUsersTask._taskName">
+            <summary>
+            The _task name.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.SyncMembershipUsersTask.Start(System.Int32)">
+            <summary>
+            The start.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <returns>
+            The start.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.SyncMembershipUsersTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.SyncMembershipUsersTask.TaskName">
+            <summary>
+            Gets TaskName.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.Localizer">
             <summary>
             Summary description for Localizer.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Localizer._code">
+            <summary>
+            The _code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Localizer._currentPage">
+            <summary>
+            The _current page.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Localizer._doc">
+            <summary>
+            The _doc.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Localizer._fileName">
+            <summary>
+            The _file name.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Localizer._pagePointer">
+            <summary>
+            The _page pointer.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Localizer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Localizer"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Localizer.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Localizer"/> class.
+            </summary>
+            <param name="fileName">
+            The file name.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Localizer.LoadFile">
+            <summary>
+            The load file.
+            </summary>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Localizer.LoadFile(System.String)">
+            <summary>
+            The load file.
+            </summary>
+            <param name="fileName">
+            The file name.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Localizer.SetPage(System.String)">
+            <summary>
+            The set page.
+            </summary>
+            <param name="Page">
+            The page.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Localizer.GetText(System.String,System.String@)">
+            <summary>
+            The get text.
+            </summary>
+            <param name="tag">
+            The tag.
+            </param>
+            <param name="localizedText">
+            The localized text.
+            </param>
+            <exception cref="T:System.Exception">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Localizer.GetText(System.String,System.String)">
+            <summary>
+            The get text.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tag">
+            The tag.
+            </param>
+            <returns>
+            The get text.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Localizer.GetNodesUsingQuery(System.String)">
+            <summary>
+            The get nodes using query.
+            </summary>
+            <param name="tagQuery">
+            The tag query.
+            </param>
+            <returns>
+            </returns>
+            <exception cref="T:System.Exception">
+            </exception>
+        </member>
+        <member name="P:YAF.Classes.Core.Localizer.LanguageCode">
+            <summary>
+            Gets LanguageCode.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.IYafHeader">
@@ -916,9 +2513,80 @@
             Yaf Header Interface
             </summary>
         </member>
+        <member name="P:YAF.Classes.Core.IYafHeader.SimpleRender">
+            <summary>
+            Gets or sets a value indicating whether SimpleRender.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IYafHeader.RefreshURL">
+            <summary>
+            Gets or sets RefreshURL.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IYafHeader.RefreshTime">
+            <summary>
+            Gets or sets RefreshTime.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IYafHeader.ThisControl">
+            <summary>
+            Gets ThisControl.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.IYafFooter">
             <summary>
             Yaf Footer Interface
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IYafFooter.SimpleRender">
+            <summary>
+            Gets or sets a value indicating whether SimpleRender.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.IYafFooter.ThisControl">
+            <summary>
+            Gets ThisControl.
+            </summary>
+        </member>
+        <member name="T:YAF.Modules.MailSendingModule">
+            <summary>
+            The mail sending module.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.MailSendingModule._keyName">
+            <summary>
+            The _key name.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.MailSendingModule._forumControlObj">
+            <summary>
+            The _forum control obj.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.MailSendingModule.Init">
+            <summary>
+            The init.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.MailSendingModule.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.MailSendingModule.Current_AfterInit(System.Object,System.EventArgs)">
+            <summary>
+            The current_ after init.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Modules.MailSendingModule.ForumControlObj">
+            <summary>
+            Gets or sets ForumControlObj.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.MailSendTask">
@@ -926,70 +2594,335 @@
             Sends Email in the background.
             </summary>
         </member>
+        <member name="F:YAF.Classes.Core.MailSendTask._sendMailThreaded">
+            <summary>
+            The _send mail threaded.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.MailSendTask._uniqueId">
+            <summary>
+            The _unique id.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.MailSendTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.MailSendTask"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.MailSendTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.PruneTopicTask">
             <summary>
             Run when we want to do migration of users in the background...
             </summary>
         </member>
+        <member name="F:YAF.Classes.Core.PruneTopicTask._taskName">
+            <summary>
+            The _task name.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.PruneTopicTask._days">
+            <summary>
+            The _days.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.PruneTopicTask._forumId">
+            <summary>
+            The _forum id.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.PruneTopicTask._permDelete">
+            <summary>
+            The _perm delete.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.PruneTopicTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.PruneTopicTask"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.PruneTopicTask.Start(System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            The start.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <param name="forumId">
+            The forum id.
+            </param>
+            <param name="days">
+            The days.
+            </param>
+            <param name="permDelete">
+            The perm delete.
+            </param>
+            <returns>
+            The start.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.PruneTopicTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PruneTopicTask.TaskName">
+            <summary>
+            Gets TaskName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PruneTopicTask.ForumId">
+            <summary>
+            Gets or sets ForumId.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PruneTopicTask.Days">
+            <summary>
+            Gets or sets Days.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PruneTopicTask.PermDelete">
+            <summary>
+            Gets or sets a value indicating whether PermDelete.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafTemplateEmail">
+            <summary>
+            The yaf template email.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTemplateEmail._htmlEnabled">
+            <summary>
+            The _html enabled.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTemplateEmail._templateLanguageFile">
+            <summary>
+            The _template language file.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTemplateEmail._templateName">
+            <summary>
+            The _template name.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafTemplateEmail._templateParams">
+            <summary>
+            The _template params.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTemplateEmail.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafTemplateEmail"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTemplateEmail.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafTemplateEmail"/> class.
+            </summary>
+            <param name="templateName">
+            The template name.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTemplateEmail.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafTemplateEmail"/> class.
+            </summary>
+            <param name="templateName">
+            The template name.
+            </param>
+            <param name="htmlEnabled">
+            The html enabled.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Core.YafTemplateEmail.ReadTemplate(System.String,System.String)">
             <summary>
             Reads a template from the language file
             </summary>
-            <returns>The template</returns>
+            <param name="templateName">
+            The template Name.
+            </param>
+            <param name="templateLanguageFile">
+            The template Language File.
+            </param>
+            <returns>
+            The template
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafTemplateEmail.ProcessTemplate(System.String)">
             <summary>
             Creates an email from a template
             </summary>
-            <returns></returns>
+            <param name="templateName">
+            The template Name.
+            </param>
+            <returns>
+            The process template.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTemplateEmail.SendEmail(System.Net.Mail.MailAddress,System.String,System.Boolean)">
+            <summary>
+            The send email.
+            </summary>
+            <param name="toAddress">
+            The to address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="useSendThread">
+            The use send thread.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTemplateEmail.SendEmail(System.Net.Mail.MailAddress,System.Net.Mail.MailAddress,System.String,System.Boolean)">
+            <summary>
+            The send email.
+            </summary>
+            <param name="fromAddress">
+            The from address.
+            </param>
+            <param name="toAddress">
+            The to address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="useSendThread">
+            The use send thread.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafTemplateEmail.CreateWatch(System.Int32,System.Int32,System.Net.Mail.MailAddress,System.String)">
+            <summary>
+            The create watch.
+            </summary>
+            <param name="topicID">
+            The topic id.
+            </param>
+            <param name="userId">
+            The user id.
+            </param>
+            <param name="fromAddress">
+            The from address.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.YafTemplateEmail.TemplateName">
+            <summary>
+            Gets or sets TemplateName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafTemplateEmail.TemplateLanguageFile">
+            <summary>
+            Gets or sets TemplateLanguageFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafTemplateEmail.HtmlEnabled">
+            <summary>
+            Gets or sets a value indicating whether HtmlEnabled.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafTemplateEmail.TemplateParams">
+            <summary>
+            Gets or sets TemplateParams.
+            </summary>
         </member>
         <member name="T:YAF.Classes.Core.BaseUserControl">
             <summary>
             Summary description for ForumUsers.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.BaseUserControl.HtmlEncode(System.Object)">
+            <summary>
+            The html encode.
+            </summary>
+            <param name="data">
+            The data.
+            </param>
+            <returns>
+            The html encode.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.BaseUserControl.PageContext">
+            <summary>
+            Gets PageContext.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafDateTime">
+            <summary>
+            The yaf date time.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.YafDateTime.FormatDateTime(System.Object)">
             <summary>
             Formats a datetime value into 07.03.2003 22:32:34
             </summary>
-            <param name="o">The date to be formatted</param>
-            <returns>Formatted string of the formatted DateTime Object.</returns>
+            <param name="o">
+            The date to be formatted
+            </param>
+            <returns>
+            Formatted string of the formatted DateTime Object.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDateTime.FormatDateTimeTopic(System.Object)">
             <summary>
             Formats a datatime value into 07.03.2003 00:00:00 except if 
             the date is yesterday or today -- in which case it says that.
             </summary>
-            <param name="o">The datetime to be formatted</param>
-            <returns>Formatted string of DateTime object</returns>
+            <param name="o">
+            The datetime to be formatted
+            </param>
+            <returns>
+            Formatted string of DateTime object
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDateTime.FormatDateTimeShort(System.Object)">
             <summary>
             This formats a DateTime into a short string
             </summary>
-            <param name="o">The DateTime like object you wish to make a formatted string.</param>
-            <returns>The formatted string created from the DateTime object.</returns>
+            <param name="o">
+            The DateTime like object you wish to make a formatted string.
+            </param>
+            <returns>
+            The formatted string created from the DateTime object.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDateTime.FormatDateLong(System.DateTime)">
             <summary>
             Formats a datetime value into 7. february 2003
             </summary>
-            <param name="dt">The date to be formatted</param>
-            <returns></returns>
+            <param name="dt">
+            The date to be formatted
+            </param>
+            <returns>
+            The format date long.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDateTime.FormatDateShort(System.Object)">
             <summary>
             Formats a datetime value into 07.03.2003
             </summary>
-            <param name="o">This formats the date.</param>
-            <returns>Short formatted date.</returns>
+            <param name="o">
+            This formats the date.
+            </param>
+            <returns>
+            Short formatted date.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDateTime.FormatTime(System.DateTime)">
             <summary>
             Formats a datetime value into 22:32:34
             </summary>
-            <param name="dt">The date to be formatted</param>
-            <returns></returns>
+            <param name="dt">
+            The date to be formatted
+            </param>
+            <returns>
+            The format time.
+            </returns>
         </member>
         <member name="P:YAF.Classes.Core.YafDateTime.TimeZoneOffsetUser">
             <summary>
@@ -1001,22 +2934,190 @@
             Returns the time zone offset for the current user compared to the forum time zone.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.BadWordReplaceItem">
+            <summary>
+            The bad word replace item.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BadWordReplaceItem._activeLock">
+            <summary>
+            The _active lock.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BadWordReplaceItem._active">
+            <summary>
+            The _active.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BadWordReplaceItem._badWord">
+            <summary>
+            The _bad word.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BadWordReplaceItem._goodWord">
+            <summary>
+            The _good word.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BadWordReplaceItem.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BadWordReplaceItem"/> class.
+            </summary>
+            <param name="goodWord">
+            The good word.
+            </param>
+            <param name="badWord">
+            The bad word.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.BadWordReplaceItem.GoodWord">
+            <summary>
+            Gets GoodWord.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.BadWordReplaceItem.BadWord">
+            <summary>
+            Gets BadWord.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.BadWordReplaceItem.Active">
+            <summary>
+            Gets or sets a value indicating whether Active.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafBadWordReplace">
+            <summary>
+            The yaf bad word replace.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafBadWordReplace._options">
+            <summary>
+            The _options.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.YafBadWordReplace.Replace(System.String)">
             <summary>
             Searches through SearchText and replaces "bad words" with "good words"
             as defined in the database.
             </summary>
-            <param name="searchText">The string to search through.</param>
+            <param name="searchText">
+            The string to search through.
+            </param>
+            <returns>
+            The replace.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.YafBadWordReplace.ReplaceItems">
+            <summary>
+            Gets ReplaceItems.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafLoadBoardSettings">
+            <summary>
+            The yaf load board settings.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLoadBoardSettings.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafLoadBoardSettings"/> class.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <exception cref="T:System.Exception">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLoadBoardSettings.SetupLegacyBoardSettings(System.Data.DataRow)">
+            <summary>
+            The setup legacy board settings.
+            </summary>
+            <param name="board">
+            The board.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLoadBoardSettings.LoadBoardSettingsFromDB">
+            <summary>
+            The load board settings from db.
+            </summary>
+            <exception cref="T:System.Exception">
+            </exception>
         </member>
         <member name="M:YAF.Classes.Core.YafLoadBoardSettings.SaveRegistry">
             <summary>
             Saves the whole setting registry to the database.
             </summary>
         </member>
+        <member name="T:YAF.Modules.YafModule">
+            <summary>
+            The yaf module.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModule._moduleAuthor">
+            <summary>
+            The _module author.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModule._moduleName">
+            <summary>
+            The _module name.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModule._moduleVersion">
+            <summary>
+            The _module version.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.YafModule.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Modules.YafModule"/> class.
+            </summary>
+            <param name="moduleName">
+            The module name.
+            </param>
+            <param name="moduleAuthor">
+            The module author.
+            </param>
+            <param name="moduleVersion">
+            The module version.
+            </param>
+        </member>
+        <member name="P:YAF.Modules.YafModule.ModuleName">
+            <summary>
+            Gets or sets ModuleName.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.YafModule.ModuleAuthor">
+            <summary>
+            Gets or sets ModuleAuthor.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.YafModule.ModuleVersion">
+            <summary>
+            Gets or sets ModuleVersion.
+            </summary>
+        </member>
         <member name="T:YAF.Modules.YafBaseModuleManager">
             <summary>
             Handles IBaseModule types.
             </summary>
+        </member>
+        <member name="F:YAF.Modules.YafBaseModuleManager._initCalled">
+            <summary>
+            The _init called.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.YafBaseModuleManager.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:YAF.Modules.YafBaseModuleManager"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.YafBaseModuleManager.CallInitModules(System.Object)">
+            <summary>
+            The call init modules.
+            </summary>
+            <param name="forumControl">
+            The forum control.
+            </param>
         </member>
         <member name="T:YAF.Classes.Core.ForumPageRenderedArgs">
             <summary>
@@ -1028,15 +3129,95 @@
             Class used for multi-step DB operations so they can be cached, etc.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.UserIgnoredList(System.Int32)">
+            <summary>
+            The user ignored list.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.UserMedals(System.Int32)">
+            <summary>
+            The user medals.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetModerators">
+            <summary>
+            The get moderators.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetAllModerators">
+            <summary>
+            The get all moderators.
+            </summary>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Returns the layout of the board
             </summary>
-            <param name="boardID">BoardID</param>
-            <param name="userID">UserID</param>
-            <param name="categoryID">CategoryID</param>
-            <param name="parentID">ParentID</param>
-            <returns>Returns board layout</returns>
+            <param name="boardID">
+            BoardID
+            </param>
+            <param name="userID">
+            UserID
+            </param>
+            <param name="categoryID">
+            CategoryID
+            </param>
+            <param name="parentID">
+            ParentID
+            </param>
+            <returns>
+            Returns board layout
+            </returns>
+        </member>
+        <member name="T:YAF.Modules.ProviderSettingsModule">
+            <summary>
+            The provider settings module.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.ProviderSettingsModule.Init">
+            <summary>
+            The init.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.ProviderSettingsModule.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.ProviderSettingsModule.Current_PageInit(System.Object,System.EventArgs)">
+            <summary>
+            The current_ page init.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Modules.ProviderSettingsModule.PageContext">
+            <summary>
+            Gets PageContext.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.ProviderSettingsModule.ForumControlObj">
+            <summary>
+            Gets or sets ForumControlObj.
+            </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafTheme.IsValidTheme(System.String)">
             <summary>
@@ -1066,9 +3247,93 @@
             Get or Set the current Theme File
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.YafCheckBannedIps">
+            <summary>
+            The yaf check banned ips.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafCheckBannedIps._initVarName">
+            <summary>
+            The _init var name.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafCheckBannedIps.RunService">
+            <summary>
+            The run service.
+            </summary>
+            <returns>
+            The run service.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.YafCheckBannedIps.InitVarName">
+            <summary>
+            Gets InitVarName.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.ThemeHandler">
+            <summary>
+            The theme handler.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.ThemeHandler._initTheme">
+            <summary>
+            The _init theme.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.ThemeHandler._theme">
+            <summary>
+            The _theme.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.ThemeHandler.InitTheme">
             <summary>
             Sets the theme class up for usage
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ThemeHandler.Theme">
+            <summary>
+            Gets or sets Theme.
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.ThemeHandler.BeforeInit">
+            <summary>
+            The before init.
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.ThemeHandler.AfterInit">
+            <summary>
+            The after init.
+            </summary>
+        </member>
+        <member name="T:YAF.Modules.MobileThemeModule">
+            <summary>
+            The mobile theme module.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.MobileThemeModule.Init">
+            <summary>
+            The init.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.MobileThemeModule.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.MobileThemeModule.Current_AfterInit(System.Object,System.EventArgs)">
+            <summary>
+            The current_ after init.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Modules.MobileThemeModule.ForumControlObj">
+            <summary>
+            Gets or sets ForumControlObj.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.MigrateUsersTask">
@@ -1076,21 +3341,132 @@
             Run when we want to do migration of users in the background...
             </summary>
         </member>
+        <member name="F:YAF.Classes.Core.MigrateUsersTask._taskName">
+            <summary>
+            The _task name.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.MigrateUsersTask.Start(System.Int32)">
+            <summary>
+            The start.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <returns>
+            The start.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.MigrateUsersTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.MigrateUsersTask.TaskName">
+            <summary>
+            Gets TaskName.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.LoadMessage">
+            <summary>
+            The load message.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.LoadMessage._loadStringList">
+            <summary>
+            The _load string list.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.LoadMessage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.LoadMessage"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.LoadMessage.CleanJsString(System.String)">
+            <summary>
+            The clean js string.
+            </summary>
+            <param name="jsString">
+            The js string.
+            </param>
+            <returns>
+            The clean js string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.LoadMessage.LoadStringDelimited(System.String)">
+            <summary>
+            The load string delimited.
+            </summary>
+            <param name="delimiter">
+            The delimiter.
+            </param>
+            <returns>
+            The load string delimited.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Core.LoadMessage.Add(System.String)">
             <summary>
             AddLoadMessage creates a message that will be returned on the next page load.
             </summary>
-            <param name="message">The message you wish to display.</param>
+            <param name="message">
+            The message you wish to display.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.LoadMessage.AddSession(System.String)">
             <summary>
             AddLoadMessageSession creates a message that will be returned on the next page.
             </summary>
-            <param name="message">The message you wish to display.</param>
+            <param name="message">
+            The message you wish to display.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.LoadMessage.Clear">
             <summary>
             Clear the Load String (error) List
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.LoadMessage.Current_Unload(System.Object,System.EventArgs)">
+            <summary>
+            The current_ unload.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.LoadMessage.LoadStringList">
+            <summary>
+            Gets LoadStringList.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.LoadMessage.LoadString">
+            <summary>
+            Gets LoadString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.LoadMessage.StringJavascript">
+            <summary>
+            Gets StringJavascript.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafInitializeDb">
+            <summary>
+            The yaf initialize db.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafInitializeDb.RunService">
+            <summary>
+            The run service.
+            </summary>
+            <returns>
+            The run service.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.YafInitializeDb.InitVarName">
+            <summary>
+            Gets InitVarName.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafContext">
@@ -1098,60 +3474,93 @@
             Context class that accessable with the same instance from all locations
             </summary>
         </member>
+        <member name="F:YAF.Classes.Core.YafContext._application">
+            <summary>
+            The _application.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafContext._currentForumPage">
+            <summary>
+            The _current forum page.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafContext._repository">
+            <summary>
+            The _repository.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafContext._singleInstanceFactory">
+            <summary>
+            The _single instance factory.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafContext._user">
+            <summary>
+            The _user.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafContext._variables">
+            <summary>
+            The _variables.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.YafContext.#ctor">
             <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafContext"/> class. 
             YafContext Constructor
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafContext.Dispose">
+            <summary>
+            The dispose.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafContext.ForumPageInit(System.Object,System.EventArgs)">
             <summary>
             Fired from ForumPage
             </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
+            <param name="sender">
+            </param>
+            <param name="e">
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.YafContext.ForumPagePreLoad(System.Object,System.EventArgs)">
             <summary>
             Fired from ForumPage
             </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
+            <param name="sender">
+            </param>
+            <param name="e">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafContext.ForumPageLoad(System.Object,System.EventArgs)">
+            <summary>
+            The forum page load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafContext.ForumPageUnload(System.Object,System.EventArgs)">
+            <summary>
+            The forum page unload.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.YafContext.AddLoadMessage(System.String)">
             <summary>
             Helper Function that adds a "load message" to the load message class.
             </summary>
-            <param name="loadMessage"></param>
-        </member>
-        <member name="E:YAF.Classes.Core.YafContext.Init">
-            <summary>
-            On YafContext Constructor Call
-            </summary>
-        </member>
-        <member name="E:YAF.Classes.Core.YafContext.PageInit">
-            <summary>
-            On ForumPage Init Call
-            </summary>
-        </member>
-        <member name="E:YAF.Classes.Core.YafContext.PageLoad">
-            <summary>
-            On ForumPage Load Call
-            </summary>
-        </member>
-        <member name="E:YAF.Classes.Core.YafContext.PagePreLoad">
-            <summary>
-            On ForumPage PreLoad (Before Load) Call
-            </summary>
-        </member>
-        <member name="E:YAF.Classes.Core.YafContext.PageUnload">
-            <summary>
-            On ForumPage Unload Call
-            </summary>
-        </member>
-        <member name="E:YAF.Classes.Core.YafContext.Unload">
-            <summary>
-            On YafContext Unload Call
-            </summary>
+            <param name="loadMessage">
+            </param>
         </member>
         <member name="P:YAF.Classes.Core.YafContext.Current">
             <summary>
@@ -1281,6 +3690,36 @@
             Current Board Settings
             </summary>
         </member>
+        <member name="E:YAF.Classes.Core.YafContext.Init">
+            <summary>
+            On YafContext Constructor Call
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.PageInit">
+            <summary>
+            On ForumPage Init Call
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.PageLoad">
+            <summary>
+            On ForumPage Load Call
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.PagePreLoad">
+            <summary>
+            On ForumPage PreLoad (Before Load) Call
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.PageUnload">
+            <summary>
+            On ForumPage Unload Call
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.YafContext.Unload">
+            <summary>
+            On YafContext Unload Call
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.RoleMembershipHelper.SyncUsers(System.Int32)">
             <summary>
             Takes all YAF users and creates them in the Membership Provider
@@ -1332,35 +3771,1300 @@
             <param name="user">Current Membership User</param>
             <param name="pageBoardID">Current BoardID</param>
         </member>
+        <member name="T:YAF.Modules.InitServicesModule">
+            <summary>
+            The init services module.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.InitServicesModule.Init">
+            <summary>
+            The init.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.InitServicesModule.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.InitServicesModule.Current_PageUnload(System.Object,System.EventArgs)">
+            <summary>
+            The current_ page unload.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Modules.InitServicesModule.PageContext">
+            <summary>
+            Gets PageContext.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.InitServicesModule.ForumControlObj">
+            <summary>
+            Gets or sets ForumControlObj.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafServices">
+            <summary>
+            The yaf services.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.BadWordReplace">
+            <summary>
+            Gets BadWordReplace.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.Permissions">
+            <summary>
+            Gets Permissions.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.SendMail">
+            <summary>
+            Gets SendMail.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.DBBroker">
+            <summary>
+            Gets DBBroker.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.DateTime">
+            <summary>
+            Gets DateTime.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.StopWatch">
+            <summary>
+            Gets StopWatch.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.InitializeDb">
+            <summary>
+            Gets InitializeDb.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.BannedIps">
+            <summary>
+            Gets BannedIps.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.Avatar">
+            <summary>
+            Gets Avatar.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.NntpException">
+            <summary>
+            The nntp exception.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpException._errorCode">
+            <summary>
+            The _error code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpException._message">
+            <summary>
+            The _message.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpException._request">
+            <summary>
+            The _request.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
+            </summary>
+            <param name="errorCode">
+            The error code.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
+            </summary>
+            <param name="errorCode">
+            The error code.
+            </param>
+            <param name="request">
+            The request.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
+            </summary>
+            <param name="response">
+            The response.
+            </param>
+            <param name="request">
+            The request.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.BuildNntpException(System.Int32,System.String)">
+            <summary>
+            The build nntp exception.
+            </summary>
+            <param name="errorCode">
+            The error code.
+            </param>
+            <param name="request">
+            The request.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.ToString">
+            <summary>
+            The to string.
+            </summary>
+            <returns>
+            The to string.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpException.ErrorCode">
+            <summary>
+            Gets ErrorCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpException.Request">
+            <summary>
+            Gets Request.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpException.Message">
+            <summary>
+            Gets Message.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.ArticleBody">
+            <summary>
+            The article body.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleBody._attachments">
+            <summary>
+            The _attachments.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleBody._isHtml">
+            <summary>
+            The _is html.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleBody._text">
+            <summary>
+            The _text.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleBody.IsHtml">
+            <summary>
+            Gets or sets a value indicating whether IsHtml.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleBody.Text">
+            <summary>
+            Gets or sets Text.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleBody.Attachments">
+            <summary>
+            Gets or sets Attachments.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.ArticleHeader">
+            <summary>
+            The article header.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._date">
+            <summary>
+            The _date.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._from">
+            <summary>
+            The _from.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._lineCount">
+            <summary>
+            The _line count.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._postingHost">
+            <summary>
+            The _posting host.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._referenceIds">
+            <summary>
+            The _reference ids.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._sender">
+            <summary>
+            The _sender.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._subject">
+            <summary>
+            The _subject.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.ReferenceIds">
+            <summary>
+            Gets or sets ReferenceIds.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.Subject">
+            <summary>
+            Gets or sets Subject.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.Date">
+            <summary>
+            Gets or sets Date.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.From">
+            <summary>
+            Gets or sets From.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.Sender">
+            <summary>
+            Gets or sets Sender.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.PostingHost">
+            <summary>
+            Gets or sets PostingHost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.LineCount">
+            <summary>
+            Gets or sets LineCount.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.Article">
+            <summary>
+            The article.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.articleId">
+            <summary>
+            The article id.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.body">
+            <summary>
+            The body.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.children">
+            <summary>
+            The children.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.header">
+            <summary>
+            The header.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.lastReply">
+            <summary>
+            The last reply.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.messageId">
+            <summary>
+            The message id.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.MessageId">
+            <summary>
+            Gets or sets MessageId.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.ArticleId">
+            <summary>
+            Gets or sets ArticleId.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.Header">
+            <summary>
+            Gets or sets Header.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.Body">
+            <summary>
+            Gets or sets Body.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.LastReply">
+            <summary>
+            Gets or sets LastReply.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.Children">
+            <summary>
+            Gets or sets Children.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.Attachment">
+            <summary>
+            The attachment.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Attachment.binaryData">
+            <summary>
+            The binary data.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Attachment.filename">
+            <summary>
+            The filename.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Attachment.id">
+            <summary>
+            The id.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Attachment.#ctor(System.String,System.String,System.Byte[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.Attachment"/> class.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <param name="filename">
+            The filename.
+            </param>
+            <param name="binaryData">
+            The binary data.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Attachment.SaveAs(System.String)">
+            <summary>
+            The save as.
+            </summary>
+            <param name="path">
+            The path.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Attachment.SaveAs(System.String,System.Boolean)">
+            <summary>
+            The save as.
+            </summary>
+            <param name="path">
+            The path.
+            </param>
+            <param name="isOverwrite">
+            The is overwrite.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Attachment.Id">
+            <summary>
+            Gets Id.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Attachment.Filename">
+            <summary>
+            Gets Filename.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Attachment.BinaryData">
+            <summary>
+            Gets BinaryData.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.MIMEPart">
+            <summary>
+            The mime part.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.binaryData">
+            <summary>
+            The binary data.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.boundary">
+            <summary>
+            The boundary.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.charset">
+            <summary>
+            The charset.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.contentTransferEncoding">
+            <summary>
+            The content transfer encoding.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.contentType">
+            <summary>
+            The content type.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.embeddedPartList">
+            <summary>
+            The embedded part list.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.filename">
+            <summary>
+            The filename.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.text">
+            <summary>
+            The text.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.BinaryData">
+            <summary>
+            Gets or sets BinaryData.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Boundary">
+            <summary>
+            Gets or sets Boundary.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.ContentType">
+            <summary>
+            Gets or sets ContentType.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.ContentTransferEncoding">
+            <summary>
+            Gets or sets ContentTransferEncoding.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Charset">
+            <summary>
+            Gets or sets Charset.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Filename">
+            <summary>
+            Gets or sets Filename.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Text">
+            <summary>
+            Gets or sets Text.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.EmbeddedPartList">
+            <summary>
+            Gets or sets EmbeddedPartList.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.Newsgroup">
+            <summary>
+            The newsgroup.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Newsgroup.group">
+            <summary>
+            The group.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Newsgroup.high">
+            <summary>
+            The high.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Newsgroup.low">
+            <summary>
+            The low.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Newsgroup.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.Newsgroup"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Newsgroup.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.Newsgroup"/> class.
+            </summary>
+            <param name="group">
+            The group.
+            </param>
+            <param name="low">
+            The low.
+            </param>
+            <param name="high">
+            The high.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Newsgroup.CompareTo(System.Object)">
+            <summary>
+            The compare to.
+            </summary>
+            <param name="r">
+            The r.
+            </param>
+            <returns>
+            The compare to.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Newsgroup.Group">
+            <summary>
+            Gets or sets Group.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Newsgroup.Low">
+            <summary>
+            Gets or sets Low.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Newsgroup.High">
+            <summary>
+            Gets or sets High.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.NntpUtil">
+            <summary>
+            The nntp util.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpUtil.base64PemCode">
+            <summary>
+            The base 64 pem code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpUtil.base64PemConvertCode">
+            <summary>
+            The base 64 pem convert code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpUtil.hexValue">
+            <summary>
+            The hex value.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:YAF.Classes.Core.Nntp.NntpUtil"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.UUDecode(System.String,System.IO.Stream)">
+            <summary>
+            The uu decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The uu decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.UUDecode(System.Char[],System.IO.Stream)">
+            <summary>
+            The uu decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The uu decode.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64Decode(System.String,System.IO.Stream)">
+            <summary>
+            The base 64 decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The base 64 decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64Decode(System.Char[],System.IO.Stream)">
+            <summary>
+            The base 64 decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The base 64 decode.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.QuotedPrintableDecode(System.String,System.IO.Stream)">
+            <summary>
+            The quoted printable decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The quoted printable decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.QuotedPrintableDecode(System.Char[],System.IO.Stream)">
+            <summary>
+            The quoted printable decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The quoted printable decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.DispatchMIMEContent(System.IO.StreamReader,YAF.Classes.Core.Nntp.MIMEPart,System.String)">
+            <summary>
+            The dispatch mime content.
+            </summary>
+            <param name="sr">
+            The sr.
+            </param>
+            <param name="part">
+            The part.
+            </param>
+            <param name="seperator">
+            The seperator.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64HeaderDecode(System.String)">
+            <summary>
+            The base 64 header decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <returns>
+            The base 64 header decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.ConvertListToTree(System.Collections.ArrayList)">
+            <summary>
+            The convert list to tree.
+            </summary>
+            <param name="list">
+            The list.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.OnRequestDelegate">
+            <summary>
+            The on request delegate.
+            </summary>
+            <param name="msg">
+            The msg.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.NntpConnection">
+            <summary>
+            The nntp connection.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.connectedGroup">
+            <summary>
+            The connected group.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.connectedServer">
+            <summary>
+            The connected server.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.password">
+            <summary>
+            The password.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.port">
+            <summary>
+            The port.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.sr">
+            <summary>
+            The sr.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.sw">
+            <summary>
+            The sw.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.tcpClient">
+            <summary>
+            The tcp client.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.timeout">
+            <summary>
+            The timeout.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.username">
+            <summary>
+            The username.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.Reset">
+            <summary>
+            The reset.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.MakeRequest(System.String)">
+            <summary>
+            The make request.
+            </summary>
+            <param name="request">
+            The request.
+            </param>
+            <returns>
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetHeader(System.String,YAF.Classes.Core.Nntp.MIMEPart@)">
+            <summary>
+            The get header.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <param name="part">
+            The part.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetNormalBody(System.String)">
+            <summary>
+            The get normal body.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetMIMEBody(System.String,YAF.Classes.Core.Nntp.MIMEPart)">
+            <summary>
+            The get mime body.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <param name="part">
+            The part.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ConvertMIMEContent(System.String,YAF.Classes.Core.Nntp.MIMEPart,System.Text.StringBuilder,System.Collections.ArrayList)">
+            <summary>
+            The convert mime content.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <param name="part">
+            The part.
+            </param>
+            <param name="sb">
+            The sb.
+            </param>
+            <param name="attachmentList">
+            The attachment list.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpConnection"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ConnectServer(System.String,System.Int32)">
+            <summary>
+            The connect server.
+            </summary>
+            <param name="server">
+            The server.
+            </param>
+            <param name="port">
+            The port.
+            </param>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ProvideIdentity(System.String,System.String)">
+            <summary>
+            The provide identity.
+            </summary>
+            <param name="username">
+            The username.
+            </param>
+            <param name="password">
+            The password.
+            </param>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.SendIdentity">
+            <summary>
+            The send identity.
+            </summary>
+            <returns>
+            The send identity.
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ConnectGroup(System.String)">
+            <summary>
+            The connect group.
+            </summary>
+            <param name="group">
+            The group.
+            </param>
+            <returns>
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetGroupList">
+            <summary>
+            The get group list.
+            </summary>
+            <returns>
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetMessageId(System.Int32)">
+            <summary>
+            The get message id.
+            </summary>
+            <param name="articleId">
+            The article id.
+            </param>
+            <returns>
+            The get message id.
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticleId(System.String)">
+            <summary>
+            The get article id.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <returns>
+            The get article id.
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticleList(System.Int32,System.Int32)">
+            <summary>
+            The get article list.
+            </summary>
+            <param name="low">
+            The low.
+            </param>
+            <param name="high">
+            The high.
+            </param>
+            <returns>
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+            <exception cref="T:System.Exception">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticle(System.Int32)">
+            <summary>
+            The get article.
+            </summary>
+            <param name="articleId">
+            The article id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticle(System.String)">
+            <summary>
+            The get article.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <returns>
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.PostArticle(YAF.Classes.Core.Nntp.Article)">
+            <summary>
+            The post article.
+            </summary>
+            <param name="article">
+            The article.
+            </param>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.Disconnect">
+            <summary>
+            The disconnect.
+            </summary>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="E:YAF.Classes.Core.Nntp.NntpConnection.onRequest">
+            <summary>
+            The on request.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Timeout">
+            <summary>
+            Gets or sets Timeout.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.ConnectedServer">
+            <summary>
+            Gets ConnectedServer.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.ConnectedGroup">
+            <summary>
+            Gets ConnectedGroup.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Port">
+            <summary>
+            Gets Port.
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.Nntp.NntpConnection.OnRequest">
+            <summary>
+            The on request.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.NntpConnection.Response">
+            <summary>
+            The response.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.Response.code">
+            <summary>
+            The code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.Response.message">
+            <summary>
+            The message.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.Response.request">
+            <summary>
+            The request.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.Response.#ctor(System.Int32,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpConnection.Response"/> class.
+            </summary>
+            <param name="code">
+            The code.
+            </param>
+            <param name="message">
+            The message.
+            </param>
+            <param name="request">
+            The request.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Response.Code">
+            <summary>
+            Gets or sets Code.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Response.Message">
+            <summary>
+            Gets or sets Message.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Response.Request">
+            <summary>
+            Gets or sets Request.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.YafNntp">
+            <summary>
+            The yaf nntp.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.YafNntp.ReadArticles(System.Object,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            The read articles.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="nLastUpdate">
+            The n last update.
+            </param>
+            <param name="nTimeToRun">
+            The n time to run.
+            </param>
+            <param name="bCreateUsers">
+            The b create users.
+            </param>
+            <returns>
+            The read articles.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.YafLocalization">
+            <summary>
+            The yaf localization.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafLocalization._culture">
+            <summary>
+            The _culture.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafLocalization._defaultLocale">
+            <summary>
+            The _default locale.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafLocalization._languageFileName">
+            <summary>
+            The _language file name.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafLocalization._localizer">
+            <summary>
+            The _localizer.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafLocalization._transPage">
+            <summary>
+            The _trans page.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafLocalization"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafLocalization"/> class.
+            </summary>
+            <param name="transPage">
+            The trans page.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Core.YafLocalization.GetTextFormatted(System.String,System.Object[])">
             <summary>
             Formats a localized string -- but verifies the parameter count matches
             </summary>
-            <param name="text"></param>
-            <param name="args"></param>
-            <returns></returns>
+            <param name="text">
+            </param>
+            <param name="args">
+            </param>
+            <returns>
+            The get text formatted.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.GetText(System.String)">
+            <summary>
+            The get text.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <returns>
+            The get text.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.LoadTranslation(System.String)">
+            <summary>
+            The load translation.
+            </summary>
+            <param name="fileName">
+            The file name.
+            </param>
+            <returns>
+            The load translation.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.LoadTranslation">
+            <summary>
+            The load translation.
+            </summary>
+            <returns>
+            The load translation.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.GetLocalizedTextInternal(System.String,System.String)">
+            <summary>
+            The get localized text internal.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tag">
+            The tag.
+            </param>
+            <returns>
+            The get localized text internal.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.GetNodesUsingQuery(System.String,System.String)">
+            <summary>
+            The get nodes using query.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tagQuery">
+            The tag query.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.GetTextExists(System.String,System.String)">
+            <summary>
+            The get text exists.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tag">
+            The tag.
+            </param>
+            <returns>
+            The get text exists.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafLocalization.GetText(System.String,System.String)">
+            <summary>
+            The get text.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tag">
+            The tag.
+            </param>
+            <returns>
+            The get text.
+            </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafLocalization.FormatString(System.String,System.Object[])">
             <summary>
             Formats string using current culture.
             </summary>
-            <param name="format">Format string.</param>
-            <param name="args">Parameters used in format string.</param>
-            <returns>Formatted string.</returns>
-            <remarks>If current localization culture is neutral, it's not used in formatting.</remarks>
+            <param name="format">
+            Format string.
+            </param>
+            <param name="args">
+            Parameters used in format string.
+            </param>
+            <returns>
+            Formatted string.
+            </returns>
+            <remarks>
+            If current localization culture is neutral, it's not used in formatting.
+            </remarks>
         </member>
         <member name="M:YAF.Classes.Core.YafLocalization.FormatDateTime(System.String,System.DateTime)">
             <summary>
             Formats date using given formatting string and current culture.
             </summary>
-            <param name="format">Format string.</param>
-            <param name="date">Date to format.</param>
-            <returns>Formatted string.</returns>
-            <remarks>If current localization culture is neutral, it's not used in formatting.</remarks>
+            <param name="format">
+            Format string.
+            </param>
+            <param name="date">
+            Date to format.
+            </param>
+            <returns>
+            Formatted string.
+            </returns>
+            <remarks>
+            If current localization culture is neutral, it's not used in formatting.
+            </remarks>
+        </member>
+        <member name="P:YAF.Classes.Core.YafLocalization.TranslationLoaded">
+            <summary>
+            Gets a value indicating whether TranslationLoaded.
+            </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafLocalization.TransPage">
             <summary>
             What section of the xml is used to translate this page
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafLocalization.LanguageCode">
+            <summary>
+            Gets LanguageCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafLocalization.Culture">
+            <summary>
+            Gets Culture.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafLocalization.LanguageFileName">
+            <summary>
+            Gets LanguageFileName.
             </summary>
         </member>
     </members>
