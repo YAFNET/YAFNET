@@ -4,9 +4,10 @@
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <a id="top" name="top"></a>
-<asp:Repeater ID="Poll" runat="server" Visible="false">
+<table cellpadding="0" cellspacing="1" class="content" width="100%">
+	<asp:Repeater ID="Poll" runat="server" Visible="false">
     <HeaderTemplate>
-        <table class="content" cellspacing="1" cellpadding="0" width="100%">
+        
             <tr>
                 <td class="header1" colspan="3">
                     <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="question" />
@@ -26,8 +27,9 @@
                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="statistics" />
                 </td>
             </tr>
-            </table>
+           
     </HeaderTemplate>
+    
     <ItemTemplate>
         <tr>
             <td class="post">
@@ -60,7 +62,8 @@
         </tr>
         <br />
     </FooterTemplate>
-</asp:Repeater>
+	</asp:Repeater>
+</table>
 <table class="command" width="100%">
 	<tr>
 		<td align="left">
@@ -86,7 +89,7 @@
 			<asp:HyperLink ID="OptionsLink" runat="server">
                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Options" />
                 </asp:HyperLink>
-			<asp:PlaceHolder ID="ViewOptions" runat="server">·
+			<asp:PlaceHolder ID="ViewOptions" runat="server">
                     <asp:HyperLink ID="ViewLink" runat="server">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="View" />
                     </asp:HyperLink>
@@ -99,7 +102,6 @@
 		<asp:LinkButton ID="PrevTopic" runat="server" CssClass="header2link" OnClick="PrevTopic_Click">
                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="prevtopic" />
             </asp:LinkButton>
-		·
 		<asp:LinkButton ID="NextTopic" runat="server" CssClass="header2link" OnClick="NextTopic_Click">
                 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="nexttopic" />
             </asp:LinkButton>
@@ -107,15 +109,12 @@
 			<asp:LinkButton ID="TrackTopic" runat="server" CssClass="header2link" OnClick="TrackTopic_Click">
                     <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="watchtopic" />
                 </asp:LinkButton>
-			·
 			<asp:LinkButton ID="EmailTopic" runat="server" CssClass="header2link" OnClick="EmailTopic_Click">
                     <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="emailtopic" />
                 </asp:LinkButton>
-			·
 			<asp:LinkButton ID="PrintTopic" runat="server" CssClass="header2link" OnClick="PrintTopic_Click">
                     <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="printtopic" />
                 </asp:LinkButton>
-			·
 			<asp:HyperLink ID="RssTopic" runat="server" CssClass="header2link">
                     <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="rsstopic" />
                 </asp:HyperLink>
@@ -147,61 +146,89 @@
         <td colspan="3" class="post" style="padding: 0px;">
             <YAF:DataPanel runat="server" ID="DataPanel1" AllowTitleExpandCollapse="true" TitleStyle-CssClass="header2"
                 TitleStyle-Font-Bold="true" Collapsed="true">
-<div class="post quickReplyLine" id="QuickReplyLine" runat="server">
+				<div class="post quickReplyLine" id="QuickReplyLine" runat="server">
 					
-</div>
+					
+					
+					
+					
+				</div>
 				
-<div id="CaptchaDiv" align="center" visible="false" runat="server">
+				<div id="CaptchaDiv" align="center" visible="false" runat="server">
 					
-<br />
 					
-<table class="content">
-						
-<tr>
-							
-<td class="header2">
-							
-<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="Captcha_Image" />
-							
-</td>
-							
-</tr>
-						
-<tr>
-							
-<td class="post" align="center">
-							
-<asp:Image ID="imgCaptcha" runat="server" AlternateText="Captcha" />
-							
-</td>
-							
-</tr>
-						
-<tr>
-							
-<td class="post">
-							
-<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="Captcha_Enter" />
-							
-<asp:TextBox ID="tbCaptcha" runat="server" />
-							
-</td>
-							
-</tr>
-						
-</table>
 					
-<br />
 					
-</div>
+					
+					<br />
+					
+					<table class="content">
+						
+						<tr>
+							
+							<td class="header2">
+							
+							<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="Captcha_Image" />
+							
+							
+							
+							
+							
+							</td>
+							
+						</tr>
+						
+						<tr>
+							
+							<td class="post" align="center">
+							
+							<asp:Image ID="imgCaptcha" runat="server" AlternateText="Captcha" />
+							
+							
+							
+							
+							
+							</td>
+							
+						</tr>
+						
+						<tr>
+							
+							<td class="post">
+							
+							<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="Captcha_Enter" />
+							
+							
+							
+							
+							
+							<asp:TextBox ID="tbCaptcha" runat="server" />
+							
+							
+							
+							
+							
+							</td>
+							
+						</tr>
+						
+					</table>
+					
+					<br />
+					
+				</div>
 				
- <div align="center" style="margin: 7px;">
+				&nbsp;<div align="center" style="margin: 7px;">
 					
-<asp:Button ID="QuickReply" CssClass="pbutton" runat="server" />
+					<asp:Button ID="QuickReply" CssClass="pbutton" runat="server" />
 					
- </div>
+					
+					
+					
+					
+					&nbsp;</div>
 				
-</YAF:DataPanel>
+			</YAF:DataPanel>
         </td>
     </tr>
     </table>
