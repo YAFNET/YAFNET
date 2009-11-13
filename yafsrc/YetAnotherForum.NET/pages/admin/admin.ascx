@@ -2,13 +2,9 @@
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">
-
 	
-
 	
-
 	
-
 	<table width="100%" cellspacing="1" cellpadding="0" class="content">
 		
 		<asp:Repeater ID="ActiveList" runat="server">
@@ -118,6 +114,9 @@
 			Statistics<span runat="server" id="boardSelector" Visible='<%# this.PageContext.IsHostAdmin %>' > for <asp:DropDownList ID="BoardStatsSelect" runat="server" DataTextField="Name" DataValueField="BoardID" OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" /></span></td>
 			
 			
+			
+			
+			
 		</tr>
 		<tr>
 			<td class="postheader" width="25%">
@@ -166,6 +165,9 @@
 			<asp:Label ID="BoardStart" runat="server"></asp:Label></td>
 			
 			
+			
+			
+			
 			<td class="postheader">
 			Size of database:</td>
 			
@@ -180,11 +182,12 @@
 			
 			
 		</tr>
-	</table>
-	<p id="UpgradeNotice" runat="server" visible="false">
-	The installed version of Yet Another Forum.net and the version of your database
+	
+		<p id="UpgradeNotice" runat="server" visible="false">
+		The installed version of Yet Another Forum.net and the version of your database
     does not match. You should go to <a href="install/" target='_"top"'>install</a>
-	and update your database.
-	</p>
+		and update your database.
+		</p>
+	</table>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
