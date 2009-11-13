@@ -218,7 +218,16 @@
 		</div>
 		<div id="content-wrap">
 			<div id="content">
-				<h3>STEP 1. BACKUP &amp; REMOVE</h3>
+			<h3>
+				STEP 1.Installation Requirments</h3>
+				<p>
+				Make sure your server / Host has the following requirments:</p>
+				<ol>
+					<li>Microsoft .NET Framework 3.5 SP1 (Version 1.9.3 and 
+					earlier works with .NET Framework 2.0 Also)</li>
+					<li>Microsoft SQL Server 2000 or 2005</li>
+				</ol>
+				<h3>STEP 2. BACKUP &amp; REMOVE</h3>
 				<ol>
 					<li>Backup all your existing installation YAF files remove the following directories
 						from your forum root directory: </li>
@@ -240,13 +249,13 @@
 					<li>Be careful not to delete the /images or /upload directory.</li>
 					<li>If upgrading: <span class="style1"> <strong>BACKUP YOUR DATABASE</strong></span></li>
 				</ol>
-				<h3>STEP 2. UNZIP</h3>
+				<h3>STEP 3. UNZIP</h3>
 				<ol>
 					<li>Unzip or unzip and FTP the the entire file structure YAF-BIN ZIP archive to the
 						folder you want to run YAF to run inside. App_Code and Bin directories MUST be in
 						your application root, but they can be merged.</li>
 				</ol>
-				<h3>STEP 3. COPY WEB.CONFIG FILE</h3>
+				<h3>STEP 4. COPY WEB.CONFIG FILE</h3>
 				<ol>
 					<li><b>If you are upgrading an existing YAF installation please follow these important
 						directions:
@@ -283,14 +292,14 @@
 							Warning: DO NOT edit the web.config unless you know what you're doing.</li>
 					</ol>
 				</ol>
-				<h3>STEP 4. SETUP DATABASE (IGNORE IF UPGRADE)</h3>
+				<h3>STEP 5. SETUP DATABASE (IGNORE IF UPGRADE)</h3>
 				<ol>
 					<li>A valid database needs to exist on your SQL Server with proper permissions set
 						so that YAF can access it. When you run YAF for the first time it will detect that
 						the database is empty (or needs upgrading) and will automatically run you through
 						the process required to create the SQL database structures needed. </li>
 				</ol>
-				<h3>STEP 5. (OPTIONAL) MODIFY &quot;app.config&quot; FILE:</h3>
+				<h3>STEP 6. (OPTIONAL) MODIFY &quot;app.config&quot; FILE:</h3>
 				<ol>
 					<li>By default YAF is designed to be installed at the root application on any IIS
 						web server. If you want YAF to be installed off of the main root, you need to modify
@@ -301,14 +310,14 @@
 						you will need to add key with name &quot;root&quot; and value &quot;/forum/yaf/&quot;
 						to app.config. </li>
 				</ol>
-				<h3>STEP 6. (OPTIONAL) MODIFY &quot;mail.config&quot; FILE:</h3>
+				<h3>STEP 7. (OPTIONAL) MODIFY &quot;mail.config&quot; FILE:</h3>
 				<ol>
 					<li>Modify the SMTP settings by entering your mail server information. If you SMTP
 						server requires SSL, you must add:
 						<br />
 						<strong>&lt;add key=&quot;YAF.UseSMTPSSL&quot; value=&quot;false&quot; /&gt;</strong> to your app.config or appSettings.</li>
 				</ol>
-				<h3>STEP 7a. NEW INSTALLATION:</h3>
+				<h3>STEP 8a. NEW INSTALLATION:</h3>
 				<p>
 					Open the file &lt;YAFroot&gt;install/default.aspx on your web site. If you are testing
 					on your local computer, under a directory called YetAnotherForum.Net, the address
@@ -318,7 +327,7 @@
 					the administration account you created during the setup. Give the ASPNET/Network
 					Service account write access to the Upload folder.
 				</p>
-				<h3>STEP 7b. UPGRADE:</h3>
+				<h3>STEP 8b. UPGRADE:</h3>
 				<p>
 					Open the file &lt;YAFroot&gt;install/default.aspx on your web site. If you are testing
 					on your local computer, under a directory called YetAnotherForum.Net, the address
