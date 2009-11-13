@@ -411,9 +411,9 @@ create function [{databaseOwner}].[{objectQualifier}message_getthanksinfo]
 (
 @MessageID INT,
 @ShowThanksDate bit
-) returns VARCHAR(MAX)
+) returns VARCHAR(8000)
 BEGIN
-	DECLARE @Output VARCHAR(MAX)
+	DECLARE @Output VARCHAR(8000)
 		SELECT @Output = COALESCE(@Output+',', '') + CAST(i.ThanksFromUserID AS varchar) + 
 	CASE @ShowThanksDate WHEN 1 THEN ',' + CAST (i.ThanksDate AS varchar)  ELSE '' end
 			FROM	[dbo].[yaf_Thanks] i
