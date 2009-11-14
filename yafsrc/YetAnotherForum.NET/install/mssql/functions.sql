@@ -416,7 +416,7 @@ BEGIN
 	DECLARE @Output VARCHAR(8000)
 		SELECT @Output = COALESCE(@Output+',', '') + CAST(i.ThanksFromUserID AS varchar) + 
 	CASE @ShowThanksDate WHEN 1 THEN ',' + CAST (i.ThanksDate AS varchar)  ELSE '' end
-			FROM	[dbo].[yaf_Thanks] i
+			FROM	[{databaseOwner}].[{objectQualifier}Thanks] i
 			WHERE	i.MessageID = @MessageID	ORDER BY i.ThanksDate
 	-- Add the last comma if @Output has data.
 	IF @Output <> ''
