@@ -30,13 +30,14 @@ namespace YAF.Pages
     /// </summary>
     public partial class reportpost : ForumPage
     {
+        protected int messageID = 0;
         // message body editor
         /// <summary>
         /// The _editor.
         /// </summary>
         protected YAF.Editors.BaseForumEditor _editor;
 
-        protected int messageID = 0;
+        
 
         public reportpost()
             : base("REPORTPOST")
@@ -74,11 +75,7 @@ namespace YAF.Pages
             this._editor.BaseDir = YafForumInfo.ForumRoot + "editors";
             this._editor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
 
-            if (!IsPostBack)
-            {
-
-                this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-
+          
                 if (!String.IsNullOrEmpty(Request.QueryString["m"]))
                 {
                     // We check here if the user have access to the option
@@ -87,17 +84,21 @@ namespace YAF.Pages
                         Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=1"));
                     }
 
-                        if (!Int32.TryParse(Request.QueryString["m"], out messageID))
+                        if ( !Int32.TryParse( Request.QueryString["m"], out messageID ) )
                         {
-                            Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", messageID));
-                        }
-                        else
-                        {
-                            MessageIDH.Value = messageID.ToString();
-                        }
+                            Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLink( ForumPages.error, "Incorrect message value: {0}", messageID ) );
+                        }                       
                     
                 }
-            }
+                if ( !IsPostBack )
+                {
+                    // Get reported message text for better quoting
+                    System.Data.DataTable messageRow = DB.message_list(messageID);
+                    if ( messageRow.Rows.Count > 0 ) 
+                    ReportedMessageText.Text = messageRow.Rows[0]["Message"].ToString();
+                    // Get Forum Link
+                    this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+                }
         }
 
        
@@ -117,9 +118,10 @@ namespace YAF.Pages
         /// </param>
         protected void btnReport_Click( object sender, EventArgs e )
         {
-            DB.message_report( 9, Convert.ToInt32(MessageIDH.Value.Trim()), PageContext.PageUserID, DateTime.Now, this._editor.Text );
-            //string link = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", messageID);
-            Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", Convert.ToInt32( MessageIDH.Value.Trim() ) ) );
+            // Save the reported message
+            DB.message_report( 9, messageID, PageContext.PageUserID, DateTime.Now, this._editor.Text );
+            // Redirect to reported post
+            RedirectToPost(); 
         }
         /// <summary>
         /// The btn cancel query_ click.
@@ -131,8 +133,17 @@ namespace YAF.Pages
         /// The e.
         /// </param>
         protected void btnCancel_Click(object sender, EventArgs e)
-        {            
-            Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "m={0}#post{0}", Convert.ToInt32( MessageIDH.Value.Trim() ) ) );
+        {
+            // Redirect to reported post
+            RedirectToPost();  
         }
+        /// <summary>
+        /// Redirects to reported post after Save or Cancel
+        /// </summary>
+        protected void RedirectToPost()
+        {
+            Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", messageID ) );
+        }
+
     }
 }

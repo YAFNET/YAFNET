@@ -3,9 +3,16 @@
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td class="header1" colspan="2">
-				<YAF:LocalizedLabel ID="ReportPostLabel" runat="server" LocalizedTag="HEADER" /><asp:HiddenField ID="MessageIDH" runat="server" />
+				<YAF:LocalizedLabel ID="ReportPostLabel" runat="server" LocalizedTag="HEADER" />
 			</td>			
-		</tr> 		  
+		</tr>
+		<tr>
+		        <td class="postheader" style="width: 100px" valign="top">				
+		        </td>
+			<td class="post"  runat="server">
+				<asp:Label ID="ReportedMessageText" runat="server" ></asp:Label> 			
+			</td>						
+		</tr>		  
 		<tr>
 			<td class="postheader" style="width: 100px" valign="top">
 				<YAF:LocalizedLabel ID="EnterReportTextLabel" runat="server" LocalizedTag="ENTER_TEXT" />
