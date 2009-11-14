@@ -51,20 +51,20 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 <br />
 <asp:UpdatePanel ID="SearchUpdatePanel" runat="server" UpdateMode="Conditional">
     <Triggers>
-        <asp:AsyncPostBackTrigger ControlID="btnSearch" />
-    </Triggers>
+		<asp:AsyncPostBackTrigger ControlID="btnSearch" />
+		</Triggers>
     <ContentTemplate>
         <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
-        
+                            <table class="content" cellspacing="1" cellpadding="0" width="100%">
+
             <asp:Repeater ID="SearchRes" runat="server" OnItemDataBound="SearchRes_ItemDataBound">
                 <HeaderTemplate>
-                    <table class="content" cellspacing="1" cellpadding="0" width="100%">
                     <tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="RESULTS" />
                         </td>
                     </tr>
-                     </table>
+                    
                 </HeaderTemplate>
                 <ItemTemplate>
                     <tr class="header2">
@@ -91,7 +91,7 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
                     </tr>
                     <tr class="post">
                         <td width="140px">
-                            &nbsp;</td>
+                            </td>
                         <td width="80%">
                             <YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false" ShowSignature="false" DataRow="<%# ( System.Data.DataRowView )Container.DataItem %>"></YAF:MessagePostData>
                         </td>
@@ -122,7 +122,7 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
                     </tr>
                     <tr class="post_alt">
                         <td width="140px">
-                            &nbsp;</td>
+                            </td>
                         <td width="80%">
                             <YAF:MessagePostData ID="MessagePostAlt" runat="server" ShowAttachments="false" ShowSignature="false" DataRow="<%# ( System.Data.DataRowView )Container.DataItem %>"></YAF:MessagePostData>
                         </td>
@@ -131,11 +131,12 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
                 <FooterTemplate>
                     <tr>
                         <td class="footer1" colspan="2">
-                            &nbsp;</td>
+                            </td>
                     </tr>
                    
                 </FooterTemplate>
             </asp:Repeater>
+             </table>
             <asp:PlaceHolder ID="NoResults" runat="Server" Visible="false">
                 <table class="content" cellspacing="1" cellpadding="0" width="100%">
                 <tr>
@@ -152,7 +153,7 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
                 </tr>
                 <tr>
                     <td class="footer1" colspan="2">
-                        &nbsp;</td>
+                       </td>
                 </tr>
                 </table>
             </asp:PlaceHolder>
@@ -163,14 +164,10 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 	
 	<BodyTemplate runat="server">
 		<span class="modalOuter"><span class="modalInner"><asp:Literal ID="LoadingModalText" runat="server" OnLoad="LoadingModalText_Load"></asp:Literal>
-		
-		
 	
 		</span></span>
 		<div align="center">
 			<asp:Image ID="LoadingImage" runat="server" alt="Searching..." OnLoad="LoadingImage_Load" />
-			
-			
 			
 		</div>		
 	</BodyTemplate>
