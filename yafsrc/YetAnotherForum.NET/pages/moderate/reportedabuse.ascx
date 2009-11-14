@@ -53,7 +53,7 @@
 			<YAF:LocalizedLabel ID="ReportedByLabel" runat="server" LocalizedTag="REPORTEDBY" />			 
 		</td>
 		<td>
-			<YAF:ReportedPosts id="ReportersList"  runat="server" MessageID='<%# DataBinder.Eval(Container.DataItem, "[\"MessageID\"]") %>' />					
+			<YAF:ReportedPosts id="ReportersList"  runat="server" MessageID='<%# DataBinder.Eval(Container.DataItem, "[\"MessageID\"]") %>' ResolvedBy='<%# DataBinder.Eval(Container.DataItem, "[\"ResolvedBy\"]") %>' Resolved='<%# DataBinder.Eval(Container.DataItem, "[\"Resolved\"]") %>' ResolvedDate='<%# DataBinder.Eval(Container.DataItem, "[\"ResolvedDate\"]") %>' />	
 		</td>
 		</tr>
 		<tr class="post">

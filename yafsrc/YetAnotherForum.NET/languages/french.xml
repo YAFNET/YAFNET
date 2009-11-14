@@ -497,6 +497,7 @@
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Résoudre copie d'article</Resource>
     <Resource tag="RESOLVED">Marquer comme résolu</Resource>
+    <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">L'article est marqué comme résolu.</Resource>
     <Resource tag="TOP">Revenir au début</Resource>
     <Resource tag="UNAPPROVED">Messages non	approuvés</Resource>

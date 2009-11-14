@@ -535,6 +535,7 @@
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Kopieën post oplossen</Resource>
     <Resource tag="RESOLVED">Markeer als opgeschoond</Resource>
+    <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Bericht is gemarkeerd als opgeschoond.</Resource>
     <Resource tag="TOP">Terug naar boven</Resource>
     <Resource tag="UNAPPROVED">Niet-goedgekeurde berichten</Resource>

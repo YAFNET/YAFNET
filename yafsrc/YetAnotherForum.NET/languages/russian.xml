@@ -499,6 +499,7 @@
     <Resource tag="REPORTEDBY">Пожаловались:</Resource>
     <Resource tag="RESOLVE">Урегулировать копии сообщение</Resource>
     <Resource tag="RESOLVED">Пометить как урегулированные</Resource>
+    <Resource tag="RESOLVEDBY">Урегулировал:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Сообщение было отмечено как урегулированное.</Resource>
     <Resource tag="TOP">Перейти вверх</Resource>
     <Resource tag="UNAPPROVED">Неодобренные сообщения</Resource>

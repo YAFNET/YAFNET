@@ -499,6 +499,7 @@
     <Resource tag="REPORTEDBY">گزارش شده توسط:</Resource>
     <Resource tag="RESOLVE">بررسی کپی های ارسال</Resource>
     <Resource tag="RESOLVED">بررسی شد</Resource>
+    <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">پیغام به عنوان بررسی شده ثبت گردید.</Resource>
     <Resource tag="TOP">برگشت به بالا</Resource>
     <Resource tag="UNAPPROVED">ارسالهای بررسی نشده</Resource>

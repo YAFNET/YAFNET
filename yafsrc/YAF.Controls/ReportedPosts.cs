@@ -48,7 +48,7 @@ namespace YAF.Controls
       {
         if (ViewState["MessageID"] != null)
         {
-          return Convert.ToInt32(ViewState["MessageID"]);
+          return Convert.ToInt32( ViewState["MessageID"] );
         }
 
         return 0;
@@ -59,6 +59,54 @@ namespace YAF.Controls
         ViewState["MessageID"] = value;
       }
     }
+    /// <summary>
+    /// Gets or sets ResolvedBy. It returns UserID as string value
+    /// </summary>
+    public string ResolvedBy
+    {
+        get
+        {      
+                return ViewState["ResolvedBy"].ToString();           
+        }
+
+        set
+        {
+            ViewState["ResolvedBy"] = value;
+        }
+    }
+    /// <summary>
+    /// Gets or sets Resolved.
+    /// </summary>
+    public string Resolved
+    {
+        get
+        {
+           
+                return ViewState["Resolved"].ToString();           
+        }
+
+        set
+        {
+            ViewState["Resolved"] = value;
+        }
+    }
+    /// <summary>
+    /// Gets or sets ResolvedDate.
+    /// </summary>
+    public string ResolvedDate
+    {
+        get
+        {        
+                return ViewState["ResolvedDate"].ToString() ;           
+        }
+
+        set
+        {
+            ViewState["ResolvedDate"] = value;
+        }
+    }
+
+
 
     /// <summary>
     /// The render.
@@ -84,12 +132,24 @@ namespace YAF.Controls
           {
             howMany = "(" + reporter["ReportedNumber"].ToString() + ")";
           }
-
+          
           writer.WriteLine(@"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafreportedtable{0}"">", ClientID);
+         // If the message was previously resolved we have not null string
+         // and can add an info about last user who resolved the message
+            if (  !string.IsNullOrEmpty( ResolvedDate ) )
+          {
+              writer.Write(@"<tr><td class=""header2"">");
+              writer.Write(
+             @"<span class=""YafReported_ResolvedBy"">{0}</span><a class=""YafReported_Link"" href=""{1}""> {2}</a><span class=""YafReported_ResolvedBy""> : {3}</span>",
+             PageContext.Localization.GetText( "RESOLVEDBY" ),
+             YafBuildLink.GetLink( ForumPages.profile, "u={0}", Convert.ToInt32( ResolvedBy ) ),
+             DB.user_list( PageContext.PageBoardID, Convert.ToInt32( ResolvedBy ), true ).Rows[0]["Name"],             
+             YafServices.DateTime.FormatDateTimeTopic( ResolvedDate ));
+             writer.WriteLine(@"</td></tr>");
+          }
           writer.Write(@"<tr><td class=""post"">");
           writer.Write(@"<tr><td class=""header2"">");
-          writer.Write(
-            @"<span class=""YafReported_Complainer"">{5}</span><a class=""YafReported_Link"" href=""{3}"">{2}{4}</a>", 
+          writer.Write(@"<span class=""YafReported_Complainer"">{5}</span><a class=""YafReported_Link"" href=""{3}""> {2}{4} </a>", 
             i, 
             Convert.ToInt32(reporter["UserID"]), 
             reporter["UserName"].ToString(), 

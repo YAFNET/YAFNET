@@ -499,6 +499,7 @@
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Mehrfache Meldungen löschen</Resource>
     <Resource tag="RESOLVED">Als "geklärt" markieren</Resource>
+    <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Der Beitrag wurde als "geklärt" markiert</Resource>
     <Resource tag="TOP">Zurück zum Anfang</Resource>
     <Resource tag="UNAPPROVED">Nicht bestätigte Beiträge</Resource>

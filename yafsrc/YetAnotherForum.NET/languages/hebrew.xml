@@ -499,6 +499,7 @@
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">תקן כפילות הודעה</Resource>
     <Resource tag="RESOLVED">סמן כטופל</Resource>
+    <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">ההודעה סומנה כטופלה.</Resource>
     <Resource tag="TOP">חזור למעלה</Resource>
     <Resource tag="UNAPPROVED">הודעות שלא אושרו</Resource>

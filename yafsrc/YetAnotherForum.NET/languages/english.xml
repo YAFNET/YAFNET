@@ -494,6 +494,7 @@
     <Resource tag="REPORTEDBY">Reported by:</Resource>    
     <Resource tag="RESOLVE">Resolve Post Copies</Resource>
     <Resource tag="RESOLVED">Mark as resolved</Resource>
+    <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
     <Resource tag="TOP">Back to top</Resource>
     <Resource tag="UNAPPROVED">Unapproved Posts</Resource>

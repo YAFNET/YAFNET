@@ -531,6 +531,7 @@
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Resolve Post Copies</Resource>
     <Resource tag="RESOLVED">Mark as resolved</Resource>
+    <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
     <Resource tag="TOP">回到顶部</Resource>
     <Resource tag="UNAPPROVED">未经审核的帖子</Resource>
