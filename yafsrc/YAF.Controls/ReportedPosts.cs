@@ -139,8 +139,7 @@ namespace YAF.Controls
             if (  !string.IsNullOrEmpty( ResolvedDate ) )
           {
               writer.Write(@"<tr><td class=""header2"">");
-              writer.Write(
-             @"<span class=""YafReported_ResolvedBy"">{0}</span><a class=""YafReported_Link"" href=""{1}""> {2}</a><span class=""YafReported_ResolvedBy""> : {3}</span>",
+              writer.Write(@"<span class=""postheader"">{0}</span><a class=""YafReported_Link"" href=""{1}""> {2}</a><span class=""YafReported_ResolvedBy""> : {3}</span>",
              PageContext.Localization.GetText( "RESOLVEDBY" ),
              YafBuildLink.GetLink( ForumPages.profile, "u={0}", Convert.ToInt32( ResolvedBy ) ),
              DB.user_list( PageContext.PageBoardID, Convert.ToInt32( ResolvedBy ), true ).Rows[0]["Name"],             
@@ -165,10 +164,21 @@ namespace YAF.Controls
             writer.Write(@"<tr><td class=""post"">");
             writer.Write(@"<span class=""YafReported_DateTime"">{0}:</span>", YafServices.DateTime.FormatDateTimeTopic(textString[0]));
               
-              // Convert.ToDateTime(textString[0].TrimEnd(':')).AddMinutes((double)PageContext.CurrentUserData.TimeZone ) );
-            if (textString.Length > 2)
-            {
-              writer.Write(@"<tr><td class=""post"">");
+              // Apply style if a post was previously resolved
+              string resStyle = "post_res";
+              try 
+              {
+              if ( Convert.ToDateTime( textString[0] ) < Convert.ToDateTime( ResolvedDate ) )
+              resStyle ="post" ;
+              }
+              catch (Exception)
+	          {
+                  resStyle = "post_res";		
+	          }
+
+              if (textString.Length > 2)
+            {              
+              writer.Write( @"<tr><td class=""{0}"">", resStyle );
               writer.Write(textString[2]);
               writer.WriteLine(@"</td></tr>");
             }

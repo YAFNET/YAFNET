@@ -112,6 +112,12 @@
 	background-color: #dfe9f7;
 	color:#404040;	
 }
+/* Unresolved post in Moderation Reports */
+.yafnet .post_res
+{
+    background-color: #f4e941;
+    color:#404040;
+}
 .yafnet .post_priority {
 	font-weight:bold;
 }

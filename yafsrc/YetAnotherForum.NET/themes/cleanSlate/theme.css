@@ -164,6 +164,14 @@
     background-color: #f5f5f5;
 }
 
+.yafnet .postContainer_Deleted .postPosted,
+.yafnet .postContainer_Deleted .message,
+.yafnet .postContainer_Deleted .postTop,
+.yafnet .postContainer_Deleted .postInfoBottom
+{
+    background-color: #eaed0d;
+}
+
 .yafnet .postNavigation
 {
     background-color: #f8f8f8;

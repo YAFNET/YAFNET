@@ -119,6 +119,12 @@
 .yafnet .post_alt {
 	background-color: #FaFaFa;
 }
+/* Unresolved post in Moderation Reports */
+.yafnet .post_res
+{
+    background-color: #f4e941;
+    color:#404040;
+}
 .yafnet tr.post:hover {
 	background-color: #FFFFFF;	
 }
