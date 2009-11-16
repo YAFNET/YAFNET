@@ -16,20 +16,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using YAF.Classes.Core;
-
 namespace YAF.Modules
 {
+  using System;
+  using System.Collections;
+  using System.Collections.Generic;
+  using System.Reflection;
+  using YAF.Classes.Core;
+
   /// <summary>
   /// Generic Module Management (Plugin) class.
   /// </summary>
-  /// <typeparam name="T">
+  /// <typeparam name="T">Type of Modules the Manager Manages
   /// </typeparam>
-  public abstract class YafModuleManager<T>
+  public abstract class YafModuleManager<T> where T : class
   {
     /// <summary>
     /// The _cache name.
@@ -49,7 +49,17 @@ namespace YAF.Modules
     /// <summary>
     /// The _module class types.
     /// </summary>
-    protected List<Type> _moduleClassTypes = null;
+    private List<Type> _moduleClassTypes = null;
+
+    /// <summary>
+    /// The _module class factories.
+    /// </summary>
+    protected Dictionary<Type, YafFactory> _moduleClassFactories = null;
+
+    /// <summary>
+    /// Generic Type for the Instance Factory.
+    /// </summary>
+    private static Type genericFactoryType = typeof(YafGenericFactory<>);
 
     /// <summary>
     /// The _module namespace.
@@ -59,7 +69,7 @@ namespace YAF.Modules
     /// <summary>
     /// The _modules.
     /// </summary>
-    protected List<T> _modules = new List<T>();
+    private List<T> _modules = new List<T>();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="YafModuleManager{T}"/> class.
@@ -150,6 +160,36 @@ namespace YAF.Modules
     }
 
     /// <summary>
+    /// Gets or sets ModuleClassFactories.
+    /// </summary>
+    protected Dictionary<Type, YafFactory> ModuleClassFactories
+    {
+      get
+      {
+        if (this._moduleClassFactories == null && YafContext.Current.Cache[CacheName + "_factory"] != null)
+        {
+          this._moduleClassFactories = YafContext.Current.Cache[CacheName + "_factory"] as Dictionary<Type, YafFactory>;
+        }
+
+        return this._moduleClassFactories;
+      }
+
+      set
+      {
+        if (value == null)
+        {
+          YafContext.Current.Cache.Remove(CacheName + "_factory");
+        }
+        else
+        {
+          YafContext.Current.Cache[CacheName + "_factory"] = value;
+        }
+
+        this._moduleClassFactories = value;
+      }
+    }
+
+    /// <summary>
     /// All the modules found by the Module Manager
     /// </summary>
     public List<T> Modules
@@ -218,6 +258,26 @@ namespace YAF.Modules
     }
 
     /// <summary>
+    /// Loads the types into the generic object factory for speed.
+    /// </summary>
+    protected void LoadFactories()
+    {
+      if (ModuleClassFactories == null)
+      {
+        ModuleClassFactories = new Dictionary<Type, YafFactory>();
+
+        foreach (Type module in ModuleClassTypes)
+        {
+          // create cached factories for the classes...
+          if (!ModuleClassFactories.ContainsKey(module))
+          {
+            ModuleClassFactories.Add(module, new YafFactory(module));
+          }
+        }
+      }
+    }
+
+    /// <summary>
     /// The find modules.
     /// </summary>
     /// <param name="assemblies">
@@ -274,9 +334,17 @@ namespace YAF.Modules
     {
       if (!this._loaded)
       {
-        foreach (Type module in ModuleClassTypes)
+        // are factories loaded?
+        if (ModuleClassFactories == null)
         {
-          this._modules.Add(GetInstance(module));
+          // load factories...
+          LoadFactories();
+        }
+
+        // create instances of the classes...
+        foreach (var factoryKey in ModuleClassFactories.Keys)
+        {
+          this._modules.Add((T) ModuleClassFactories[factoryKey].Create());
         }
 
         this._loaded = true;
@@ -306,19 +374,6 @@ namespace YAF.Modules
     }
 
     /// <summary>
-    /// The get instance.
-    /// </summary>
-    /// <param name="module">
-    /// The module.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    protected T GetInstance(Type module)
-    {
-      return (T) Activator.CreateInstance(module);
-    }
-
-    /// <summary>
     /// Helper function that filters modules based on NameSpace
     /// </summary>
     /// <param name="typeObj">
@@ -339,5 +394,103 @@ namespace YAF.Modules
         return false;
       }
     }
+
+    #region Embedded Classes
+
+    #region Nested type: YafFactory
+
+    /// <summary>
+    /// The factory.
+    /// </summary>
+    protected class YafFactory
+    {
+      /// <summary>
+      /// The generic factory.
+      /// </summary>
+      private YafGenericFactoryBase _yafGenericFactory;
+
+      /// <summary>
+      /// Initializes a new instance of the <see cref="YafFactory<FactoryType>"/> class.
+      /// </summary>
+      /// <param name="t">
+      /// The t.
+      /// </param>
+      public YafFactory(Type t)
+      {
+        Type initialisedFactoryType = genericFactoryType.MakeGenericType(
+          new Type[]
+            {
+              typeof(T),
+              t
+            });
+        this._yafGenericFactory = (YafGenericFactoryBase)Activator.CreateInstance(initialisedFactoryType);
+      }
+
+      /// <summary>
+      /// The create.
+      /// </summary>
+      /// <returns>
+      /// The create.
+      /// </returns>
+      public object Create()
+      {
+        return this._yafGenericFactory.CreateObject();
+      }
+    }
+
+    #endregion
+
+    #region Nested type: YafGenericFactory
+
+    /// <summary>
+    /// The generic factory.
+    /// </summary>
+    private class YafGenericFactory<T> : YafGenericFactoryBase where T : class, new()
+    {
+      /// <summary>
+      /// The create object.
+      /// </summary>
+      /// <returns>
+      /// The create object.
+      /// </returns>
+      public override object CreateObject()
+      {
+        return Create();
+      }
+
+      /// <summary>
+      /// The create.
+      /// </summary>
+      /// <returns>
+      /// </returns>
+      public T Create()
+      {
+        return new T();
+      }
+    }
+
+    #endregion
+
+    #region Nested type: YafGenericFactoryBase
+
+    /// <summary>
+    /// The generic factory base.
+    /// </summary>
+    private abstract class YafGenericFactoryBase
+    {
+      /// <summary>
+      /// The create object.
+      /// </summary>
+      /// <returns>
+      /// The create object.
+      /// </returns>
+      public abstract object CreateObject();
+    }
+
+    #endregion
+
+    #endregion
+
+
   }
 }
