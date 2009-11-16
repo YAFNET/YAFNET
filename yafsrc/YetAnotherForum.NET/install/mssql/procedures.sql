@@ -4176,7 +4176,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}topic_list]
 	@Announcement smallint,
 	@Date datetime=null,
 	@Offset int,
-	@Count int
+	@Count int,
+	@StyledNicks bit = 0
 )
 AS
 begin
@@ -4232,7 +4233,13 @@ begin
 			c.Priority,
 			c.PollID,
 			ForumFlags = d.Flags,
-			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0)
+			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+			StarterStyle = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
+	        else ''	 end,
+	        LastUserStyle = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+	        else ''	 end
 		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
 			ON b.UserID=c.UserID
 		JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
@@ -4264,7 +4271,13 @@ begin
 			c.Priority,
 			c.PollID,
 			ForumFlags = d.Flags,
-			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0)
+			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+			StarterStyle = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
+	        else ''	 end,
+	        LastUserStyle = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+	        else ''	 end
 		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
 			ON b.UserID=c.UserID
 		JOIN [{databaseOwner}].[{objectQualifier}Forum] d 

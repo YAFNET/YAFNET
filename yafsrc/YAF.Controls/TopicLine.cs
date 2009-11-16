@@ -209,6 +209,7 @@ namespace YAF.Controls
       topicStarterLink.ID = GetUniqueID("topicStarterLink");
       topicStarterLink.UserID = Convert.ToInt32(this._row["UserID"]);
       topicStarterLink.UserName = this._row["Starter"].ToString();
+      topicStarterLink.Style = this._row["StarterStyle"].ToString();
 
       // render the user link control
       WriteBeginTD(writer, "topicStarter");
@@ -508,7 +509,7 @@ namespace YAF.Controls
         var byLink = new UserLink();
         byLink.UserID = Convert.ToInt32(row["LastUserID"]);
         byLink.UserName = row["LastUserName"].ToString();
-
+        byLink.Style = row["LastUserStyle"].ToString();
         byLink.RenderControl(writer);
 
         writer.Write("&nbsp;");

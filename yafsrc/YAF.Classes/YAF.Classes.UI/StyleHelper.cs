@@ -19,7 +19,19 @@ namespace YAF.Classes.UI
     {
       DecodeStyleByTable(ref dt, false);
     }
-
+          /// <summary>
+    /// The decode style by table.
+    /// </summary>
+    /// <param name="dt">
+    /// The dt.
+    /// </param>
+    /// <param name="colorOnly">
+    /// The color only.
+    /// </param>  
+    public static void DecodeStyleByTable(ref DataTable dt, bool colorOnly)
+    {
+        DecodeStyleByTable(ref  dt, colorOnly, "Style");
+    }
     /// <summary>
     /// The decode style by table.
     /// </summary>
@@ -29,42 +41,48 @@ namespace YAF.Classes.UI
     /// <param name="colorOnly">
     /// The color only.
     /// </param>
-    public static void DecodeStyleByTable(ref DataTable dt, bool colorOnly)
+     /// <param name="colorOnly">
+    /// The styleColumns can contain param array to handle several style columns.
+    /// </param> 
+    public static void DecodeStyleByTable(ref DataTable dt, bool colorOnly, params string [] styleColumns )
     {
-      foreach (DataRow dr in dt.Rows)
-      {
-        string[] styleRow = dr["Style"].ToString().Trim().Split('/');
-        for (int i = 0; i < styleRow.GetLength(0); i++)
+        foreach (DataRow dr in dt.Rows)
         {
-          string[] pair = styleRow[i].Split('!');
-          if (pair[0].ToLowerInvariant().Trim() == "default")
-          {
-            if (colorOnly)
+            for (int k = 0; k < styleColumns.Length; k++)
             {
-              dr["Style"] = GetColorOnly(pair[1]);
-            }
-            else
-            {
-              dr["Style"] = pair[1];
-            }
-          }
+                string[] styleRow = dr[styleColumns[k]].ToString().Trim().Split('/');
+                for (int i = 0; i < styleRow.GetLength(0); i++)
+                {
+                    string[] pair = styleRow[i].Split('!');
+                    if (pair[0].ToLowerInvariant().Trim() == "default")
+                    {
+                        if (colorOnly)
+                        {
+                            dr[styleColumns[k]] = GetColorOnly(pair[1]);
+                        }
+                        else
+                        {
+                            dr[styleColumns[k]] = pair[1];
+                        }
+                    }
 
-          for (int j = 0; j < pair.Length; j++)
-          {
-            if ((pair[0] + ".xml").ToLower().Trim() == YafContext.Current.Theme.ThemeFile.ToLower().Trim())
-            {
-              if (colorOnly)
-              {
-                dr["Style"] = GetColorOnly(pair[1]);
-              }
-              else
-              {
-                dr["Style"] = pair[1];
-              }
+                    for (int j = 0; j < pair.Length; j++)
+                    {
+                        if ((pair[0] + ".xml").ToLower().Trim() == YafContext.Current.Theme.ThemeFile.ToLower().Trim())
+                        {
+                            if (colorOnly)
+                            {
+                                dr[styleColumns[k]] = GetColorOnly(pair[1]);
+                            }
+                            else
+                            {
+                                dr[styleColumns[k]] = pair[1];
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
 
     /// <summary>
@@ -193,5 +211,6 @@ namespace YAF.Classes.UI
 
       return null;
     }
+
   }
 }

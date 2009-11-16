@@ -6007,9 +6007,12 @@ namespace YAF.Classes.Data
     /// <param name="count">
     /// The count.
     /// </param>
+    /// <param name="useStyledNicks">
+    /// To return style for user nicks in topic_list.
+    /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable topic_list(object forumID, object userId, object announcement, object date, object offset, object count)
+    public static DataTable topic_list(object forumID, object userId, object announcement, object date, object offset, object count, object useStyledNicks)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("topic_list"))
       {
@@ -6020,6 +6023,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("Date", date);
         cmd.Parameters.AddWithValue("Offset", offset);
         cmd.Parameters.AddWithValue("Count", count);
+        cmd.Parameters.AddWithValue("@StyledNicks", useStyledNicks);
         return YafDBAccess.Current.GetData(cmd);
       }
     }

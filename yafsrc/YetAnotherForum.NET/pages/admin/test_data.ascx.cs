@@ -414,7 +414,11 @@ namespace YAF.Pages.Admin
       int _forumID = 0;
       if (int.TryParse(PostsForum.SelectedValue, out _forumID))
       {
-        DataTable topics = DB.topic_list(Convert.ToInt32(PostsForum.SelectedValue), PageContext.PageUserID, 0, null, 0, 100);
+        DataTable topics = DB.topic_list( Convert.ToInt32( PostsForum.SelectedValue ), PageContext.PageUserID, 0, null, 0, 100,PageContext.BoardSettings.UseStyledNicks );
+        // Set colorOnly parameter to true, as we get all but color from css in the place
+          if (PageContext.BoardSettings.UseStyledNicks)
+            YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref topics, true);
+          
         PostsTopic.DataSource = topics;
         PostsTopic.DataBind();
       }

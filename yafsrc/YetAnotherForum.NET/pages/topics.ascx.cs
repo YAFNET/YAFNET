@@ -272,8 +272,13 @@ namespace YAF.Pages
           userId = PageContext.PageUserID;
         }
       }
+      
+      DataTable dt = DB.topic_list( PageContext.PageForumID, userId, 1, null, 0, 10, PageContext.BoardSettings.UseStyledNicks);
+     
+      // Set colorOnly parameter to true, as we get all but color from css in the place
+      if ( PageContext.BoardSettings.UseStyledNicks )
+          YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dt, true,"StarterStyle","LastUserStyle");
 
-      DataTable dt = DB.topic_list(PageContext.PageForumID, userId, 1, null, 0, 10);
       int nPageSize = Math.Max(5, this.Pager.PageSize - dt.Rows.Count);
       this.Announcements.DataSource = dt;
 
@@ -292,7 +297,13 @@ namespace YAF.Pages
       DataTable dtTopics;
       if (this._showTopicListSelected == 0)
       {
-        dtTopics = DB.topic_list(PageContext.PageForumID, userId, 0, null, nCurrentPageIndex * nPageSize, nPageSize);
+         dtTopics = DB.topic_list( PageContext.PageForumID, userId, 0, null, nCurrentPageIndex * nPageSize, nPageSize,PageContext.BoardSettings.UseStyledNicks );
+
+          // Set colorOnly parameter to true, as we get all but color from css in the place
+          if (PageContext.BoardSettings.UseStyledNicks)
+              YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dtTopics, true, "StarterStyle", "LastUserStyle");
+
+       
       }
       else
       {
@@ -325,7 +336,11 @@ namespace YAF.Pages
             break;
         }
 
-        dtTopics = DB.topic_list(PageContext.PageForumID, userId, 0, date, nCurrentPageIndex * nPageSize, nPageSize);
+        dtTopics = DB.topic_list(PageContext.PageForumID, userId, 0, date, nCurrentPageIndex * nPageSize, nPageSize, PageContext.BoardSettings.UseStyledNicks);
+        // Set colorOnly parameter to true, as we get all but color from css in the place
+        if (PageContext.BoardSettings.UseStyledNicks)
+            YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dtTopics, true, "StarterStyle", "LastUserStyle");
+       
       }
 
       int nRowCount = 0;
