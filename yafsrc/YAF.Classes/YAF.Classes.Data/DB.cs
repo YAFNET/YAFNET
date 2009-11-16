@@ -2712,17 +2712,52 @@ namespace YAF.Classes.Data
               da.Fill(ds, YafDBAccess.GetObjectName("Category"));
               da.SelectCommand.CommandText = YafDBAccess.GetObjectName("forum_moderatelist");
               da.SelectCommand.Parameters.AddWithValue("UserID", userID);
-              da.Fill(ds, YafDBAccess.GetObjectName("ForumUnsorted"));
+              da.Fill(ds, YafDBAccess.GetObjectName("ForumUnsorted"));             
               DataTable dtForumListSorted = ds.Tables[YafDBAccess.GetObjectName("ForumUnsorted")].Clone();
               dtForumListSorted.TableName = YafDBAccess.GetObjectName("Forum");
               ds.Tables.Add(dtForumListSorted);
               dtForumListSorted.Dispose();
               forum_list_sort_basic(ds.Tables[YafDBAccess.GetObjectName("ForumUnsorted")], ds.Tables[YafDBAccess.GetObjectName("Forum")], 0, 0);
               ds.Tables.Remove(YafDBAccess.GetObjectName("ForumUnsorted"));
+              // vzrus: Remove here all forums with no reports. Would be better to do it in query...
+              // Array to write categories numbers
+              int[] categories = new int[ds.Tables[YafDBAccess.GetObjectName("Forum")].Rows.Count];
+              int cntr = 0;
+                //We should make it before too as the colection was changed
+              ds.Tables[YafDBAccess.GetObjectName("Forum")].AcceptChanges();
+              foreach (DataRow dr in ds.Tables[YafDBAccess.GetObjectName("Forum")].Rows)
+              {
+                  categories[cntr] = Convert.ToInt32(dr["CategoryID"]);
+                  if ( Convert.ToInt32( dr["ReportedCount"] ) == 0 && Convert.ToInt32( dr["AbuseCount"] ) == 0 && Convert.ToInt32( dr["SpamCount"] ) == 0 && Convert.ToInt32(dr["MessageCount"] ) == 0 )
+                  {
+                      dr.Delete();
+                      categories[cntr] = 0;
+                  }
+                  cntr++;
+              }
+              ds.Tables[YafDBAccess.GetObjectName("Forum")].AcceptChanges();
+
+             foreach (DataRow dr in ds.Tables[YafDBAccess.GetObjectName("Category")].Rows)
+               {
+                   bool deleteMe = true;
+                   for (int i = 0; i < categories.Length; i++)
+                   {   
+                       // We check here if the Category is missing in the array where 
+                       // we've written categories number for each forum
+                       if (categories[i] == Convert.ToInt32(dr["CategoryID"]))
+                       {
+                           deleteMe = false;
+                       }
+                   }
+                   if ( deleteMe ) dr.Delete(); 
+               }
+                   ds.Tables[YafDBAccess.GetObjectName("Category")].AcceptChanges(); 
+
               ds.Relations.Add(
                 "FK_Forum_Category", 
                 ds.Tables[YafDBAccess.GetObjectName("Category")].Columns["CategoryID"], 
                 ds.Tables[YafDBAccess.GetObjectName("Forum")].Columns["CategoryID"]);
+               
               trans.Commit();
             }
 
