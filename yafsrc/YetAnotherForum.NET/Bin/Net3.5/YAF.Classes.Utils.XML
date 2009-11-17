@@ -355,6 +355,21 @@
             A Control, if found; null, if not
             </returns>
         </member>
+        <member name="M:YAF.Classes.Utils.ControlHelper.FindControlType``1(System.Web.UI.Control)">
+            <summary>
+            Finds all controls in <paramref name="sourceControl"/> of type T.
+            </summary>
+            <param name="sourceControl">
+            Control to search within.
+            </param>
+            <typeparam name="T">Type to Find and Return
+            </typeparam>
+            <returns>
+            List of type T with controls.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
         <member name="M:YAF.Classes.Utils.ControlHelper.MakeCssIncludeControl(System.String)">
             <summary>
             The make css include control.
@@ -370,20 +385,34 @@
             The make css control.
             </summary>
             <param name="css">
-            The css.
+            The style information to add to the control.
             </param>
             <returns>
             </returns>
         </member>
         <member name="M:YAF.Classes.Utils.ControlHelper.MakeJsIncludeControl(System.String)">
             <summary>
-            The make js include control.
+            The make a javascript include control.
             </summary>
             <param name="href">
-            The href.
+            The href to the javascript script file.
             </param>
             <returns>
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ControlHelper.MakeMetaKeywordsControl(System.String)">
+            <summary>
+            Creates a <see cref="T:System.Web.UI.HtmlControls.HtmlMeta"/> control for keywords.
+            </summary>
+            <param name="keywords">keywords that go inside the meta</param>
+            <returns><see cref="T:System.Web.UI.HtmlControls.HtmlMeta"/> control</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ControlHelper.MakeMetaDiscriptionControl(System.String)">
+            <summary>
+            Creates a <see cref="T:System.Web.UI.HtmlControls.HtmlMeta"/> control for description.
+            </summary>
+            <param name="description">description that go inside the meta</param>
+            <returns><see cref="T:System.Web.UI.HtmlControls.HtmlMeta"/> control</returns>
         </member>
         <member name="M:YAF.Classes.Utils.ControlHelper.AddStyleAttributeSize(System.Web.UI.WebControls.WebControl,System.String,System.String)">
             <summary>
@@ -957,7 +986,7 @@
         </member>
         <member name="M:YAF.Classes.Utils.Mession.SetTopicRead(System.Int32,System.DateTime)">
             <summary>
-            Sets the time that the topicID was read.
+            Sets the time that the <paramref name="topicID"/> was read.
             </summary>
             <param name="topicID">
             The topic ID that was read.
@@ -1999,12 +2028,12 @@
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.IsNullOrEmptyTrimmed(System.String)">
             <summary>
-            When the string is trimmed, is it null or empty?
+            When the string is trimmed, is it <see langword="null"/> or empty?
             </summary>
             <param name="str">
             </param>
             <returns>
-            The is null or empty trimmed.
+            The is <see langword="null"/> or empty trimmed.
             </returns>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.ProcessText(System.String)">
@@ -2048,6 +2077,46 @@
             <returns>
             The process text.
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.StringToList(System.String,System.Char)">
+            <summary>
+            Converts a string to a list using delimiter.
+            </summary>
+            <param name="str">starting string</param>
+            <param name="delimiter">value that delineates the string</param>
+            <returns>list of strings</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.StringToList(System.String,System.Char,System.Collections.Generic.List{System.String})">
+            <summary>
+            Converts a string to a list using delimiter.
+            </summary>
+            <param name="str">starting string</param>
+            <param name="delimiter">value that delineates the string</param>
+            <param name="exclude">items to exclude from list</param>
+            <returns>list of strings</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ListToString(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Creates a string from a string list.
+            </summary>
+            <param name="strList"></param>
+            <param name="delimiter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.RemoveEmptyStrings(System.Collections.Generic.List{System.String})">
+            <summary>
+            Removes empty strings from the list
+            </summary>
+            <param name="inputList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.RemoveSmallStrings(System.Collections.Generic.List{System.String},System.Int32)">
+            <summary>
+            Removes strings that are smaller then <paramref name="minSize"/>
+            </summary>
+            <param name="inputList"></param>
+            <param name="minSize"></param>
+            <returns></returns>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleWhitespace(System.String)">
             <summary>

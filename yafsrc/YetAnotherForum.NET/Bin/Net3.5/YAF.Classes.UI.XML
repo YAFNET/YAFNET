@@ -57,12 +57,12 @@
         </member>
         <member name="T:YAF.Classes.UI.FormatMsg">
             <summary>
-            Summary description for FormatMsg.
+            FormatMsg provides functions related to formatting the post messages.
             </summary>
         </member>
         <member name="F:YAF.Classes.UI.FormatMsg._options">
             <summary>
-            The _options.
+            format message regex
             </summary>
         </member>
         <member name="M:YAF.Classes.UI.FormatMsg.AddSmiles(System.String)">
@@ -70,6 +70,7 @@
             For backwards compatibility
             </summary>
             <param name="message">
+            the message to add smiles to.
             </param>
             <returns>
             The add smiles.
@@ -139,6 +140,20 @@
             </param>
             <returns>
             The format message.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.GetCleanedTopicMessage(System.Object,System.Object)">
+            <summary>
+            The get cleaned topic message. Caches cleaned topic message by TopicID.
+            </summary>
+            <param name="topicMessage">
+            The message to clean.
+            </param>
+            <param name="topicId"> 
+            The topic id.
+            </param>
+            <returns>
+            The get cleaned topic message.
             </returns>
         </member>
         <member name="M:YAF.Classes.UI.FormatMsg.RemoveNestedQuotes(System.String)">

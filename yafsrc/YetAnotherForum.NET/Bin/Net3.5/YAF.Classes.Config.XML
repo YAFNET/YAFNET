@@ -1841,6 +1841,11 @@
             Gets or sets a value indicating whether EnableThanksMod.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AddDynamicPageMetaTags">
+            <summary>
+            Gets or sets a value indicating whether to AddDynamicPageMetaTags.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.ForumEmail">
             <summary>
             Gets or sets ForumEmail.

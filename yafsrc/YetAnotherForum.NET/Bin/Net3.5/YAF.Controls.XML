@@ -1555,20 +1555,6 @@
             The writer.
             </param>
         </member>
-        <member name="M:YAF.Controls.TopicLine.GetCleanedTopicMessage(System.Object,System.Object)">
-            <summary>
-            The get cleaned topic message.
-            </summary>
-            <param name="firstMessage">
-            The first message.
-            </param>
-            <param name="topicId">
-            The topic id.
-            </param>
-            <returns>
-            The get cleaned topic message.
-            </returns>
-        </member>
         <member name="M:YAF.Controls.TopicLine.FormatViews">
             <summary>
             The format views.
