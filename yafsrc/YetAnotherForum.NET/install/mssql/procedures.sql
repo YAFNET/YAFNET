@@ -3957,7 +3957,7 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topic_active](@BoardID int,@UserID int,@Since datetime,@CategoryID int=null) as
+create procedure [{databaseOwner}].[{objectQualifier}topic_active](@BoardID int,@UserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0) as
 begin
 		select
 		c.ForumID,
@@ -3981,7 +3981,13 @@ begin
 		ForumName = d.Name,
 		c.TopicMovedID,
 		ForumFlags = d.Flags,
-		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0)
+		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+		StarterStyle = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
+	        else ''	 end,
+	    LastUserStyle = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+	        else ''	 end
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
@@ -4133,12 +4139,13 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest]
 (
 	@BoardID int,
 	@NumPosts int,
-	@UserID int
+	@UserID int,
+	@StyledNicks bit = 0
 )
 AS
-BEGIN
-		SET ROWCOUNT @NumPosts
+BEGIN	
 	
+	SET ROWCOUNT @NumPosts
 	SELECT
 		t.LastPosted,
 		t.ForumID,
@@ -4148,7 +4155,10 @@ BEGIN
 		t.LastMessageID,
 		t.LastUserID,
 		t.NumPosts,
-		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID))
+		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+		LastUserStyle = case(@StyledNicks)
+	    when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](t.LastUserID)  
+	     else '' end	
 	FROM 
 		[{databaseOwner}].[{objectQualifier}Topic] t
 	INNER JOIN

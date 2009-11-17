@@ -93,8 +93,10 @@ namespace YAF.Controls.Statistics
       if (dt == null)
       {
         // nothing was cached, retrieve it from the database
-        dt = DB.topic_latest(PageContext.PageBoardID, this._displayNumber, PageContext.PageUserID);
-
+          dt = DB.topic_latest( PageContext.PageBoardID, this._displayNumber, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks );
+        // Set colorOnly parameter to true, as we get all but color from css in the place
+        if ( PageContext.BoardSettings.UseStyledNicks )
+            YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dt, true, "LastUserStyle");
         // and cache it
         PageContext.Cache.Insert(cacheKey, dt, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
       }

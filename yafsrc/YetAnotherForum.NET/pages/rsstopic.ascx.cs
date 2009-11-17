@@ -74,9 +74,12 @@ namespace YAF.Pages
             YafBuildLink.AccessDenied();
           }
 
-          using (DataTable dt = DB.topic_latest(PageContext.PageBoardID, 7, PageContext.PageUserID))
-          {
-            foreach (DataRow row in dt.Rows)
+          DataTable dtTopics = DB.topic_latest( PageContext.PageBoardID, 7, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks );
+          
+            // Set colorOnly parameter to true, as we get all but color from css in the place
+              if (PageContext.BoardSettings.UseStyledNicks)
+                  YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dtTopics, true);
+            foreach (DataRow row in dtTopics.Rows)
             {
               rf.AddRSSItem(
                 writer, 
@@ -85,7 +88,7 @@ namespace YAF.Pages
                 YafServices.BadWordReplace.Replace(row["Message"].ToString()), 
                 Convert.ToDateTime(row["Posted"]).ToString("r"));
             }
-          }
+            dtTopics = null;
 
           break;
         case "latestannouncements":
@@ -182,7 +185,7 @@ namespace YAF.Pages
               PageContext.PageBoardID, 
               PageContext.PageUserID, 
               DateTime.Now + TimeSpan.FromHours(-24), 
-              (PageContext.Settings.CategoryID == 0) ? null : (object) PageContext.Settings.CategoryID))
+              (PageContext.Settings.CategoryID == 0) ? null : (object) PageContext.Settings.CategoryID, false ))
           {
             foreach (DataRow row in dt.Rows)
             {

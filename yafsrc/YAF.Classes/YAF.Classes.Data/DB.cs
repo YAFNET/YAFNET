@@ -6144,9 +6144,12 @@ namespace YAF.Classes.Data
     /// <param name="userID">
     /// The user id.
     /// </param>
+    /// <param name="useStyledNicks">
+    /// If true returns string for userID style.
+    /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable topic_latest(object boardID, object numOfPostsToRetrieve, object userID)
+    public static DataTable topic_latest(object boardID, object numOfPostsToRetrieve, object userID, bool useStyledNicks)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("topic_latest"))
       {
@@ -6154,6 +6157,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("NumPosts", numOfPostsToRetrieve);
         cmd.Parameters.AddWithValue("UserID", userID);
+        cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
         return YafDBAccess.Current.GetData(cmd);
       }
     }
@@ -6173,9 +6177,12 @@ namespace YAF.Classes.Data
     /// <param name="categoryID">
     /// The category id.
     /// </param>
+    /// <param name="useStyledNicks">
+    /// Set to true to get color nicks for last user and topic starter.
+    /// </param>    
     /// <returns>
     /// </returns>
-    public static DataTable topic_active(object boardID, object userID, object since, object categoryID)
+    public static DataTable topic_active(object boardID, object userID, object since, object categoryID, object useStyledNicks)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("topic_active"))
       {
@@ -6184,6 +6191,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("UserID", userID);
         cmd.Parameters.AddWithValue("Since", since);
         cmd.Parameters.AddWithValue("CategoryID", categoryID);
+        cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
         return YafDBAccess.Current.GetData(cmd);
       }
     }

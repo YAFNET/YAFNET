@@ -63,8 +63,11 @@ namespace YAF.Controls
 
       if (activeTopics == null)
       {
-        activeTopics = DB.topic_latest(PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID);
-        if (PageContext.IsGuest)
+        activeTopics = DB.topic_latest( PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks );
+        // Set colorOnly parameter to true, as we get all but color from css in the place
+        if (PageContext.BoardSettings.UseStyledNicks)
+            YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref activeTopics, true, "LastUserStyle");
+          if (PageContext.IsGuest)
         {
           PageContext.Cache.Insert(
             cacheKey, activeTopics, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
@@ -113,6 +116,7 @@ namespace YAF.Controls
         {
           lastUserLink.UserID = Convert.ToInt32(currentRow["LastUserID"]);
           lastUserLink.UserName = currentRow["LastUserName"].ToString();
+          lastUserLink.Style = currentRow["LastUserStyle"].ToString();
         }
 
         if (currentRow["LastPosted"] != DBNull.Value)

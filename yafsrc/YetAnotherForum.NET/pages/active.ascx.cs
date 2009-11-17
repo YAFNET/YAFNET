@@ -116,8 +116,10 @@ namespace YAF.Pages // YAF.Pages
 			object categoryIDObject = null;
 
 			if ( PageContext.Settings.CategoryID != 0 ) categoryIDObject = PageContext.Settings.CategoryID;
-
-			DataView dv = DB.topic_active( PageContext.PageBoardID, PageContext.PageUserID, sinceDate, categoryIDObject ).DefaultView;
+            System.Data.DataTable topicActive = DB.topic_active( PageContext.PageBoardID, PageContext.PageUserID, sinceDate, categoryIDObject,PageContext.BoardSettings.UseStyledNicks );
+            if (PageContext.BoardSettings.UseStyledNicks)
+            YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref topicActive, true, "LastUserStyle","StarterStyle");
+            DataView dv = topicActive.DefaultView;           
 			pds.DataSource = dv;
 			PagerTop.Count = dv.Count;
 			PagerTop.PageSize = 15;

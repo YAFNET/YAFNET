@@ -168,10 +168,13 @@ namespace YAF.Controls
               string resStyle = "post_res";
               try 
               {
-              if ( Convert.ToDateTime( textString[0] ) < Convert.ToDateTime( ResolvedDate ) )
-              resStyle ="post" ;
+               if ( !( string.IsNullOrEmpty( textString[0].ToString() ) && string.IsNullOrEmpty( ResolvedDate ) ) ) 
+               {
+                  if ( Convert.ToDateTime( textString[0] ) < Convert.ToDateTime( ResolvedDate ) )
+                  { resStyle ="post" ; }
+               }
               }
-              catch (Exception)
+              catch ( Exception )
 	          {
                   resStyle = "post_res";		
 	          }
