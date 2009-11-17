@@ -887,7 +887,21 @@
             </param>
             <param name="colorOnly">
             The color only.
+            </param>  
+        </member>
+        <member name="M:YAF.Classes.UI.StyleHelper.DecodeStyleByTable(System.Data.DataTable@,System.Boolean,System.String[])">
+            <summary>
+            The decode style by table.
+            </summary>
+            <param name="dt">
+            The dt.
             </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+            <param name="colorOnly">
+            The styleColumns can contain param array to handle several style columns.
+            </param> 
         </member>
         <member name="M:YAF.Classes.UI.StyleHelper.DecodeStyleByRow(System.Data.DataRow@)">
             <summary>

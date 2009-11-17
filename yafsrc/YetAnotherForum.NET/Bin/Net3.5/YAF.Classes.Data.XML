@@ -3164,7 +3164,8 @@
         </member>
         <member name="M:YAF.Classes.Data.DB.message_GetAllThanks(System.Object)">
             <summary>
-            The message_ get all thanks.
+            Retuns All the Thanks for the Message IDs which are in the 
+            delimited string variable MessageIDs
             </summary>
             <param name="MessageIDs">
             The message i ds.
@@ -4099,7 +4100,7 @@
             The topic_prune.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.topic_list(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The topic_list.
             </summary>
@@ -4120,6 +4121,9 @@
             </param>
             <param name="count">
             The count.
+            </param>
+            <param name="useStyledNicks">
+            To return style for user nicks in topic_list.
             </param>
             <returns>
             </returns>

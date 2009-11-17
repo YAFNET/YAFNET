@@ -866,6 +866,11 @@
             The members.
             </summary>
         </member>
+        <member name="F:YAF.Classes.ForumPages.reportpost">
+            <summary>
+            The page to report posts message.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.ForumPages.cp_pm">
             <summary>
             The cp_pm.
@@ -1669,6 +1674,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.AllowPasswordChange">
             <summary>
             Gets or sets a value indicating whether AllowPasswordChange.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowGuestToReportPost">
+            <summary>
+            Gets or sets a value indicating whether guest can report posts as violating forum rules.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.UseFileTable">

@@ -1720,6 +1720,18 @@
             The client script.
             </param>
         </member>
+        <member name="M:YAF.Controls.PopMenu.AddClientScriptItemWithPostback(System.String,System.String,System.String)">
+            <summary>
+            Add a item with a client script and post back option. (Use {postbackcode} in the <paramref name="clientScript"/> code for the postback code.)
+            </summary>
+            <param name="description">
+            The description.
+            </param>
+            <param name="argument">post back argument</param>
+            <param name="clientScript">
+            The client script.
+            </param>
+        </member>
         <member name="M:YAF.Controls.PopMenu.Attach(System.Web.UI.WebControls.WebControl)">
             <summary>
             The attach.
@@ -2135,6 +2147,21 @@
         <member name="P:YAF.Controls.ReportedPosts.MessageID">
             <summary>
             Gets or sets MessageID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ReportedPosts.ResolvedBy">
+            <summary>
+            Gets or sets ResolvedBy. It returns UserID as string value
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ReportedPosts.Resolved">
+            <summary>
+            Gets or sets Resolved.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ReportedPosts.ResolvedDate">
+            <summary>
+            Gets or sets ResolvedDate.
             </summary>
         </member>
         <member name="T:YAF.Controls.ThemeButton">

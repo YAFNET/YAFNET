@@ -292,6 +292,120 @@
             True if board is private (20050909 CHP)
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.PostDataHelperWrapper">
+            <summary>
+            The post data helper wrapper.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.PostDataHelperWrapper._forumFlags">
+            <summary>
+            The _forum flags.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.PostDataHelperWrapper._messageFlags">
+            <summary>
+            The _message flags.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.PostDataHelperWrapper._row">
+            <summary>
+            The current data row for this post.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.PostDataHelperWrapper._topicFlags">
+            <summary>
+            The _topic flags.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.PostDataHelperWrapper._userProfile">
+            <summary>
+            The _user profile.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.PostDataHelperWrapper.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.PostDataHelperWrapper"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.PostDataHelperWrapper.#ctor(System.Data.DataRowView)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.PostDataHelperWrapper"/> class.
+            </summary>
+            <param name="dataRow">
+            The data row.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.DataRow">
+            <summary>
+            Gets or sets DataRow.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.UserProfile">
+            <summary>
+            Gets UserProfile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.UserId">
+            <summary>
+            Gets UserId.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.MessageId">
+            <summary>
+            Gets MessageId.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.IsLocked">
+            <summary>
+            IsLocked flag should only be used for "ghost" posts such as the
+            Sponser post that isn't really there.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.IsSponserMessage">
+            <summary>
+            Gets a value indicating whether IsSponserMessage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.CanThankPost">
+            <summary>
+            Gets a value indicating whether CanThankPost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.CanEditPost">
+            <summary>
+            Gets a value indicating whether CanEditPost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.PostLocked">
+            <summary>
+            Gets a value indicating whether PostLocked.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.PostDeleted">
+            <summary>
+            Gets a value indicating whether PostDeleted.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.CanAttach">
+            <summary>
+            Gets a value indicating whether CanAttach.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.CanDeletePost">
+            <summary>
+            Gets a value indicating whether CanDeletePost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.CanUnDeletePost">
+            <summary>
+            Gets a value indicating whether CanUnDeletePost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.PostDataHelperWrapper.CanReply">
+            <summary>
+            Gets a value indicating whether CanReply.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.ContextVariableRepository">
             <summary>
             Place to put helper properties for context variables inside.
@@ -883,7 +997,7 @@
             <summary>
             Generic Module Management (Plugin) class.
             </summary>
-            <typeparam name="T">
+            <typeparam name="T">Type of Modules the Manager Manages
             </typeparam>
         </member>
         <member name="F:YAF.Modules.YafModuleManager`1._cacheName">
@@ -904,6 +1018,16 @@
         <member name="F:YAF.Modules.YafModuleManager`1._moduleClassTypes">
             <summary>
             The _module class types.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModuleManager`1._moduleClassFactories">
+            <summary>
+            The _module class factories.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModuleManager`1.genericFactoryType">
+            <summary>
+            Generic Type for the Instance Factory.
             </summary>
         </member>
         <member name="F:YAF.Modules.YafModuleManager`1._moduleNamespace">
@@ -943,6 +1067,11 @@
             The assemblies.
             </param>
         </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.LoadFactories">
+            <summary>
+            Loads the types into the generic object factory for speed.
+            </summary>
+        </member>
         <member name="M:YAF.Modules.YafModuleManager`1.FindModules(System.Collections.IList,System.String,System.String)">
             <summary>
             The find modules.
@@ -968,16 +1097,6 @@
             <summary>
             Unloads all the modules in the module manager.
             </summary>
-        </member>
-        <member name="M:YAF.Modules.YafModuleManager`1.GetInstance(System.Type)">
-            <summary>
-            The get instance.
-            </summary>
-            <param name="module">
-            The module.
-            </param>
-            <returns>
-            </returns>
         </member>
         <member name="M:YAF.Modules.YafModuleManager`1.BaseModuleFilter(System.Type,System.Object)">
             <summary>
@@ -1011,6 +1130,11 @@
             Gets or sets ModuleClassTypes.
             </summary>
         </member>
+        <member name="P:YAF.Modules.YafModuleManager`1.ModuleClassFactories">
+            <summary>
+            Gets or sets ModuleClassFactories.
+            </summary>
+        </member>
         <member name="P:YAF.Modules.YafModuleManager`1.Modules">
             <summary>
             All the modules found by the Module Manager
@@ -1030,6 +1154,65 @@
             <summary>
             Called when the modules are unloaded.
             </summary>
+        </member>
+        <member name="T:YAF.Modules.YafModuleManager`1.YafFactory">
+            <summary>
+            The factory.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafModuleManager`1.YafFactory._yafGenericFactory">
+            <summary>
+            The generic factory.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.YafFactory.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Modules.YafModuleManager`1.YafFactory"/> class.
+            </summary>
+            <param name="t">
+            The t.
+            </param>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.YafFactory.Create">
+            <summary>
+            The create.
+            </summary>
+            <returns>
+            The create.
+            </returns>
+        </member>
+        <member name="T:YAF.Modules.YafModuleManager`1.YafGenericFactory`1">
+            <summary>
+            The generic factory.
+            </summary>
+        </member>
+        <member name="T:YAF.Modules.YafModuleManager`1.YafGenericFactoryBase">
+            <summary>
+            The generic factory base.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.YafGenericFactoryBase.CreateObject">
+            <summary>
+            The create object.
+            </summary>
+            <returns>
+            The create object.
+            </returns>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.YafGenericFactory`1.CreateObject">
+            <summary>
+            The create object.
+            </summary>
+            <returns>
+            The create object.
+            </returns>
+        </member>
+        <member name="M:YAF.Modules.YafModuleManager`1.YafGenericFactory`1.Create">
+            <summary>
+            The create.
+            </summary>
+            <returns>
+            </returns>
         </member>
         <member name="M:YAF.Editors.YafEditorModuleManager.#ctor">
             <summary>
@@ -3183,6 +3366,16 @@
             Returns board layout
             </returns>
         </member>
+        <member name="T:YAF.Classes.Core.YafDynamicDBConnManager">
+            <summary>
+            The yaf dynamic db conn manager.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafDynamicDBConnManager.ConnectionString">
+            <summary>
+            Gets ConnectionString.
+            </summary>
+        </member>
         <member name="T:YAF.Modules.ProviderSettingsModule">
             <summary>
             The provider settings module.
@@ -3855,6 +4048,11 @@
         <member name="P:YAF.Classes.Core.YafServices.Avatar">
             <summary>
             Gets Avatar.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.UserIgnored">
+            <summary>
+            Gets User Ignored.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.Nntp.NntpException">
@@ -5066,6 +5264,48 @@
             <summary>
             Gets LanguageFileName.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafUserIgnored">
+            <summary>
+            User Ignored Service for the current user.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafUserIgnored._userIgnoreList">
+            <summary>
+            The _user ignore list.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafUserIgnored.IsIgnored(System.Int32)">
+            <summary>
+            The is ignored.
+            </summary>
+            <param name="ignoredUserId">
+            The ignored user id.
+            </param>
+            <returns>
+            The is ignored.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafUserIgnored.ClearIgnoreCache">
+            <summary>
+            The clear ignore cache.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafUserIgnored.AddIgnored(System.Int32)">
+            <summary>
+            The add ignored.
+            </summary>
+            <param name="ignoredUserId">
+            The ignored user id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafUserIgnored.RemoveIgnored(System.Int32)">
+            <summary>
+            The remove ignored.
+            </summary>
+            <param name="ignoredUserId">
+            The ignored user id.
+            </param>
         </member>
     </members>
 </doc>
