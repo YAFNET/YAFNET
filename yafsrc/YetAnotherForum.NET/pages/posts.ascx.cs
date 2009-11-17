@@ -23,7 +23,9 @@ namespace YAF.Pages
   // YAF.Pages
   using System;
   using System.Data;
+  using System.Data.DataSetExtensions;
   using System.Text;
+  using System.Linq;
   using System.Text.RegularExpressions;
   using System.Web;
   using System.Web.UI.WebControls;
@@ -281,8 +283,6 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
-      
-
       if (!IsPostBack)
       {
         if (PageContext.Settings.LockedForum == 0)
@@ -358,8 +358,6 @@ namespace YAF.Pages
           this.UnlockTopic2.Visible = !this.LockTopic2.Visible;
         }
       }
-
-      
 
       // Mark topic read
       Mession.SetTopicRead(PageContext.PageTopicID, DateTime.Now);
@@ -437,11 +435,10 @@ namespace YAF.Pages
       Mession.LastPost = DateTime.Now;
 
       // post message...
-      long TopicID;
       long nMessageID = 0;
       object replyTo = -1;
       string msg = this._quickReplyEditor.Text;
-      TopicID = PageContext.PageTopicID;
+      long topicID = this.PageContext.PageTopicID;
 
       var tFlags = new MessageFlags();
 
@@ -451,9 +448,9 @@ namespace YAF.Pages
       // Bypass Approval if Admin or Moderator.
       tFlags.IsApproved = PageContext.IsAdmin || PageContext.IsModerator;
 
-      if (!DB.message_save(TopicID, PageContext.PageUserID, msg, null, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID))
+      if (!DB.message_save(topicID, PageContext.PageUserID, msg, null, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID))
       {
-        TopicID = 0;
+        topicID = 0;
       }
 
       bool bApproved = false;
@@ -511,7 +508,6 @@ namespace YAF.Pages
     private void BindData()
     {
       this._dataBound = true;
-
       this.Pager.PageSize = PageContext.BoardSettings.PostsPerPage;
 
       if (this._topic == null)
@@ -611,7 +607,6 @@ namespace YAF.Pages
 
       // get the default view...
       DataView dt = dt0.DefaultView;
-
 
       // see if the deleted messages need to be edited out...
       if (PageContext.BoardSettings.ShowDeletedMessages && !PageContext.BoardSettings.ShowDeletedMessagesToAll && !PageContext.IsAdmin &&
@@ -795,7 +790,7 @@ namespace YAF.Pages
           showAds = PageContext.BoardSettings.ShowAdsToSignedInUsers;
         }
 
-        if (PageContext.BoardSettings.AdPost != null && PageContext.BoardSettings.AdPost.Length > 0 && showAds)
+        if (!string.IsNullOrEmpty(PageContext.BoardSettings.AdPost) && showAds)
         {
           // first message... show the ad below this message
           var adControl = (DisplayAd) e.Item.FindControl("DisplayAd");
@@ -820,10 +815,10 @@ namespace YAF.Pages
     {
       if (!PageContext.ForumModeratorAccess)
       {
-        YafBuildLink.AccessDenied( /*"You don't have access to delete topics."*/);
+        YafBuildLink.AccessDenied(/*"You don't have access to delete topics."*/);
       }
 
-      // Take away 150 points once!
+      // Take away 10 points once!
       DB.user_removepointsByTopicID(PageContext.PageTopicID, 10);
       DB.topic_delete(PageContext.PageTopicID);
       YafBuildLink.Redirect(ForumPages.topics, "f={0}", PageContext.PageForumID);
@@ -905,20 +900,20 @@ namespace YAF.Pages
           return;
         }
 
-        object UserID = null;
-        object RemoteIP = null;
+        object userID = null;
+        object remoteIP = null;
 
         if (PageContext.BoardSettings.PollVoteTiedToIP)
         {
-          RemoteIP = IPHelper.IPStrToLong(Request.ServerVariables["REMOTE_ADDR"]).ToString();
+          remoteIP = IPHelper.IPStrToLong(Request.ServerVariables["REMOTE_ADDR"]).ToString();
         }
 
         if (!PageContext.IsGuest)
         {
-          UserID = PageContext.PageUserID;
+          userID = PageContext.PageUserID;
         }
 
-        DB.choice_vote(e.CommandArgument, UserID, RemoteIP);
+        DB.choice_vote(e.CommandArgument, userID, remoteIP);
 
         // save the voting cookie...
         var c = new HttpCookie(VotingCookieName, e.CommandArgument.ToString());
@@ -1077,7 +1072,7 @@ namespace YAF.Pages
     {
       if (!PageContext.ForumModeratorAccess)
       {
-        YafBuildLink.AccessDenied( /*"You are not a forum moderator."*/);
+        YafBuildLink.AccessDenied(/*"You are not a forum moderator."*/);
       }
 
       YafBuildLink.Redirect(ForumPages.movetopic, "t={0}", PageContext.PageTopicID);
