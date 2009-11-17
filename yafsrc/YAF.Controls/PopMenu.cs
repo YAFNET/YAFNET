@@ -130,6 +130,21 @@ namespace YAF.Controls
     }
 
     /// <summary>
+    /// Add a item with a client script and post back option. (Use {postbackcode} in the <paramref name="clientScript"/> code for the postback code.)
+    /// </summary>
+    /// <param name="description">
+    /// The description.
+    /// </param>
+    /// <param name="argument">post back argument</param>
+    /// <param name="clientScript">
+    /// The client script.
+    /// </param>
+    public void AddClientScriptItemWithPostback(string description, string argument, string clientScript)
+    {
+      this._items.Add(new InternalPopMenuItem(description, argument, clientScript));
+    }
+
+    /// <summary>
     /// The attach.
     /// </summary>
     /// <param name="ctl">
@@ -177,8 +192,8 @@ namespace YAF.Controls
 
         if (!String.IsNullOrEmpty(thisItem.ClientScript))
         {
-          // postback style...
-          onClick = thisItem.ClientScript;
+          // js style
+          onClick = thisItem.ClientScript.Replace("{postbackcode}", Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument));
         }
         else
         {
