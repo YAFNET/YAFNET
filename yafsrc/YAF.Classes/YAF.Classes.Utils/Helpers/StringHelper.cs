@@ -16,14 +16,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-
 namespace YAF.Classes.Utils
 {
+  using System;
+  using System.Collections.Generic;
+  using System.IO;
+  using System.Linq;
+  using System.Security.Cryptography;
+  using System.Text;
+  using System.Text.RegularExpressions;
+
   /// <summary>
   /// The string helper.
   /// </summary>
@@ -43,13 +45,18 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string GenerateRandomString(int length, string pickfrom)
     {
+      if (String.IsNullOrEmpty(pickfrom))
+      {
+        throw new ArgumentException("pickfrom is null or empty.", "pickfrom");
+      }
+
       var r = new Random();
       string result = string.Empty;
       int picklen = pickfrom.Length - 1;
-      int index = 0;
+
       for (int i = 0; i < length; i++)
       {
-        index = r.Next(picklen);
+        int index = r.Next(picklen);
         result = result + pickfrom.Substring(index, 1);
       }
 
@@ -89,12 +96,12 @@ namespace YAF.Classes.Utils
         // need to cut out the rest of it
         if (input.Substring(output.Length, 1) != " ")
         {
-          int LastSpace = output.LastIndexOf(" ");
+          int lastSpace = output.LastIndexOf(" ");
 
           // if we found a space then, cut back to that space
-          if (LastSpace != -1)
+          if (lastSpace != -1)
           {
-            output = output.Substring(0, LastSpace);
+            output = output.Substring(0, lastSpace);
           }
         }
 
@@ -119,6 +126,11 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string TruncateMiddle(string input, int limit)
     {
+      if (String.IsNullOrEmpty(input))
+      {
+        return null;
+      }
+
       string output = input;
       const string middle = "...";
 
@@ -127,8 +139,8 @@ namespace YAF.Classes.Utils
       if (output.Length > limit && limit > 0)
       {
         // figure out how much to make it fit...
-        int left = (limit/2) - (middle.Length/2);
-        int right = limit - left - (middle.Length/2);
+        int left = (limit / 2) - (middle.Length / 2);
+        int right = limit - left - (middle.Length / 2);
 
         if ((left + right + middle.Length) < limit)
         {
@@ -153,12 +165,12 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// When the string is trimmed, is it null or empty?
+    /// When the string is trimmed, is it <see langword="null"/> or empty?
     /// </summary>
     /// <param name="str">
     /// </param>
     /// <returns>
-    /// The is null or empty trimmed.
+    /// The is <see langword="null"/> or empty trimmed.
     /// </returns>
     public static bool IsNullOrEmptyTrimmed(this string str)
     {
@@ -215,17 +227,117 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string ProcessText(string text, bool nullify, bool trim)
     {
-      if (trim)
+      if (trim && !String.IsNullOrEmpty(text))
       {
         text = text.Trim();
       }
 
-      if (nullify && text.Trim().Length == 0)
+      if (nullify && text.IsNullOrEmptyTrimmed())
       {
         text = null;
       }
 
       return text;
+    }
+
+    /// <summary>
+    /// Converts a string to a list using delimiter.
+    /// </summary>
+    /// <param name="str">starting string</param>
+    /// <param name="delimiter">value that delineates the string</param>
+    /// <returns>list of strings</returns>
+    public static List<string> StringToList(this string str, char delimiter)
+    {
+      return str.StringToList(delimiter, new List<string>());
+    }
+
+    /// <summary>
+    /// Converts a string to a list using delimiter.
+    /// </summary>
+    /// <param name="str">starting string</param>
+    /// <param name="delimiter">value that delineates the string</param>
+    /// <param name="exclude">items to exclude from list</param>
+    /// <returns>list of strings</returns>
+    public static List<string> StringToList(this string str, char delimiter, List<string> exclude)
+    {
+      if (String.IsNullOrEmpty(str))
+      {
+        throw new ArgumentException("str is null or empty.", "str");
+      }
+
+      if (exclude == null)
+      {
+        throw new ArgumentNullException("exclude", "exclude is null.");
+      }
+
+      var list = str.Split(delimiter).ToList();
+
+      list.RemoveAll(exclude.Contains);
+      list.Remove(delimiter.ToString());
+
+      return list;
+    }
+
+    /// <summary>
+    /// Creates a string from a string list.
+    /// </summary>
+    /// <param name="strList"></param>
+    /// <param name="delimiter"></param>
+    /// <returns></returns>
+    public static string ListToString(this List<string> strList, string delimiter)
+    {
+      if (strList == null)
+      {
+        throw new ArgumentNullException("strList", "strList is null.");
+      }
+
+      StringBuilder sb = new StringBuilder();
+
+      strList.ForEach(
+        x =>
+        {
+          if (sb.Length > 0)
+          {
+            // append delimiter if this isn't the first string
+            sb.Append(delimiter);
+          }
+
+          // append string...
+          sb.Append(x);
+        });
+
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Removes empty strings from the list
+    /// </summary>
+    /// <param name="inputList"></param>
+    /// <returns></returns>
+    public static List<string> RemoveEmptyStrings(this List<string> inputList)
+    {
+      if (inputList == null)
+      {
+        throw new ArgumentNullException("inputList", "inputList is null.");
+      }
+
+      return inputList.Where(x => !x.IsNullOrEmptyTrimmed()).ToList();
+    }
+
+    /// <summary>
+    /// Removes strings that are smaller then <paramref name="minSize"/>
+    /// </summary>
+    /// <param name="inputList"></param>
+    /// <param name="minSize"></param>
+    /// <returns></returns>
+    public static List<string> RemoveSmallStrings(this List<string> inputList, int minSize)
+    {
+      if (inputList == null)
+      {
+        throw new ArgumentNullException("inputList", "inputList is null.");
+      }
+
+      return inputList.Where(x => x.Length >= minSize).ToList();
     }
 
     /// <summary>
@@ -238,6 +350,12 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string RemoveMultipleWhitespace(string text)
     {
+      string result = String.Empty;
+      if (String.IsNullOrEmpty(text))
+      {
+        return result;
+      }
+
       var r = new Regex(@"\s+");
       return r.Replace(text, @" ");
     }
@@ -252,6 +370,12 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string RemoveMultipleSingleQuotes(string text)
     {
+      string result = String.Empty;
+      if (String.IsNullOrEmpty(text))
+      {
+        return result;
+      }
+
       var r = new Regex(@"\'");
       return r.Replace(text, @"'");
     }
@@ -266,6 +390,12 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string StringToHexBytes(string strValue)
     {
+      string result = String.Empty;
+      if (String.IsNullOrEmpty(strValue))
+      {
+        return result;
+      }
+
       var md5CryptoServiceProvider = new MD5CryptoServiceProvider();
 
       byte[] emailBytes = Encoding.UTF8.GetBytes(strValue);

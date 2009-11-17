@@ -1670,6 +1670,22 @@ namespace YAF.Classes
       }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether to AddDynamicPageMetaTags.
+    /// </summary>
+    public bool AddDynamicPageMetaTags
+    {
+      get
+      {
+        return this._reg.GetValue<bool>("AddDynamicPageMetaTags", true);
+      }
+
+      set
+      {
+        this._reg.SetValue<bool>("AddDynamicPageMetaTags", value);
+      }
+    }
+
     #endregion
 
     #region string settings

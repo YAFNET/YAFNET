@@ -17,26 +17,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Text.RegularExpressions;
-using System.Web;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Classes.UI
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Data;
+  using System.Linq;
+  using System.Text.RegularExpressions;
+  using System.Web;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+
   /// <summary>
-  /// Summary description for FormatMsg.
+  /// FormatMsg provides functions related to formatting the post messages.
   /// </summary>
-  public class FormatMsg
+  public static class FormatMsg
   {
     /* Ederon : 6/16/2007 - conventions */
 
-    // format message regex
     /// <summary>
-    /// The _options.
+    /// format message regex
     /// </summary>
     private static RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
@@ -44,6 +45,7 @@ namespace YAF.Classes.UI
     /// For backwards compatibility
     /// </summary>
     /// <param name="message">
+    /// the message to add smiles to.
     /// </param>
     /// <returns>
     /// The add smiles.
@@ -267,17 +269,17 @@ namespace YAF.Classes.UI
         ruleEngine.AddRule(url);
 
         url = new VariableRegexReplaceRule(
-          @"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)", 
-          "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow), 
-          _options, 
+          @"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
+          "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
+          _options,
           new[]
             {
               "before"
-            }, 
+            },
           new[]
             {
               string.Empty
-            }, 
+            },
           50);
         url.RuleRank = 10;
         ruleEngine.AddRule(url);
@@ -287,6 +289,90 @@ namespace YAF.Classes.UI
       ruleEngine.Process(ref message);
 
       message = YafServices.BadWordReplace.Replace(message);
+
+      return message;
+    }
+
+    /// <summary>
+    /// The get cleaned topic message. Caches cleaned topic message by TopicID.
+    /// </summary>
+    /// <param name="topicMessage">
+    /// The message to clean.
+    /// </param>
+    /// <param name="topicId"> 
+    /// The topic id.
+    /// </param>
+    /// <returns>
+    /// The get cleaned topic message.
+    /// </returns>
+    public static MessageCleaned GetCleanedTopicMessage(object topicMessage, object topicId)
+    {
+      if (topicMessage == null)
+      {
+        throw new ArgumentNullException("topicMessage", "topicMessage is null.");
+      }
+
+      if (topicId == null)
+      {
+        throw new ArgumentNullException("topicId", "topicId is null.");
+      }
+
+      // get the common words for the language -- should be all lower case.
+      List<string> commonWords = YafContext.Current.Localization.GetText("COMMON", "COMMON_WORDS").StringToList(',');
+
+      string cacheKey = String.Format(Constants.Cache.FirstPostCleaned, YafContext.Current.PageBoardID, topicId);
+      MessageCleaned message = new MessageCleaned();
+
+      if (!topicMessage.IsNullOrEmptyDBField())
+      {
+        message = YafContext.Current.Cache.GetItem<MessageCleaned>(
+          cacheKey, 
+          YafContext.Current.BoardSettings.FirstPostCacheTimeout, 
+          () =>
+          {
+            string returnMsg = topicMessage.ToString();
+            var keywordList = new List<string>();
+
+            if (!String.IsNullOrEmpty(returnMsg))
+            {
+              var flags = new MessageFlags
+                {
+                  IsBBCode = true, 
+                  IsSmilies = true
+                };
+
+              // process message... clean html, strip html, remove bbcode, etc...
+              returnMsg = StringHelper.RemoveMultipleWhitespace(BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg))));
+
+              if (String.IsNullOrEmpty(returnMsg))
+              {
+                returnMsg = string.Empty;
+              }
+              else
+              {
+                // get string without punctuation
+                string keywordCleaned = new string(returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).ToLower();
+
+                // create keywords...
+                keywordList = keywordCleaned.StringToList(' ', commonWords);
+
+                // clean up the list a bit...
+                keywordList = keywordList.RemoveEmptyStrings().RemoveSmallStrings(5).Where(x => !Char.IsNumber(x[0])).Distinct().ToList();
+
+                // sort...
+                keywordList.Sort();
+
+                // get maximum of 50 keywords...
+                if (keywordList.Count > 50)
+                {
+                  keywordList = keywordList.GetRange(0, 50);
+                }
+              }
+            }
+
+            return new MessageCleaned(StringHelper.Truncate(returnMsg, 255), keywordList);
+          });
+      }
 
       return message;
     }
@@ -354,6 +440,32 @@ namespace YAF.Classes.UI
       }
 
       return html;
+    }
+
+    [Serializable]
+    public class MessageCleaned
+    {
+      public MessageCleaned()
+      {
+      }
+
+      public MessageCleaned(string messageTruncated, List<string> messageKeywords)
+      {
+        this.MessageTruncated = messageTruncated;
+        this.MessageKeywords = messageKeywords;
+      }
+
+      public string MessageTruncated
+      {
+        get;
+        set;
+      }
+
+      public List<string> MessageKeywords
+      {
+        get;
+        set;
+      }
     }
   }
 }

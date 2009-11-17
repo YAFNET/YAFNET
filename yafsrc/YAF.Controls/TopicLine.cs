@@ -27,6 +27,8 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
+  using Classes.UI;
+
   /// <summary>
   /// The topic line.
   /// </summary>
@@ -172,8 +174,8 @@ namespace YAF.Controls
       RenderAnchorBegin(
         writer, 
         YafBuildLink.GetLink(ForumPages.posts, linkParams, this._row["LinkTopicID"]), 
-        "post_link", 
-        GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]));
+        "post_link",
+        FormatMsg.GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]).MessageTruncated);
 
       writer.WriteLine(YafServices.BadWordReplace.Replace(Convert.ToString(this._row["Subject"])));
       writer.WriteEndTag("a");
@@ -244,56 +246,6 @@ namespace YAF.Controls
 
       writer.WriteEndTag("tr");
       writer.WriteLine();
-    }
-
-    /// <summary>
-    /// The get cleaned topic message.
-    /// </summary>
-    /// <param name="firstMessage">
-    /// The first message.
-    /// </param>
-    /// <param name="topicId">
-    /// The topic id.
-    /// </param>
-    /// <returns>
-    /// The get cleaned topic message.
-    /// </returns>
-    private string GetCleanedTopicMessage(object firstMessage, object topicId)
-    {
-      string cacheKey = String.Format(Constants.Cache.FirstPostCleaned, YafContext.Current.PageBoardID, topicId.ToString());
-      string message = String.Empty;
-
-      if (firstMessage != DBNull.Value)
-      {
-        message = YafContext.Current.Cache[cacheKey] as String;
-
-        if (String.IsNullOrEmpty(message))
-        {
-          message = firstMessage.ToString();
-
-          if (!String.IsNullOrEmpty(message))
-          {
-            var flags = new MessageFlags();
-
-            flags.IsBBCode = true;
-            flags.IsSmilies = true;
-
-            // process message... clean html, strip html, remove bbcode, etc...
-            message = StringHelper.RemoveMultipleWhitespace(BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message))));
-            message = StringHelper.Truncate(message, 255);
-
-            if (String.IsNullOrEmpty(message))
-            {
-              message = string.Empty;
-            }
-
-            YafContext.Current.Cache.Insert(
-              cacheKey, message, null, DateTime.Now.AddMinutes(YafContext.Current.BoardSettings.FirstPostCacheTimeout), TimeSpan.Zero);
-          }
-        }
-      }
-
-      return message;
     }
 
     /// <summary>

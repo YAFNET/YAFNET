@@ -16,13 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections;
-using System.Data;
-using System.Web;
-
 namespace YAF.Classes.Utils
 {
+  using System;
+  using System.Collections;
+  using System.Data;
+  using System.Web;
+
   /// <summary>
   /// All references to session should go into this class
   /// </summary>
@@ -301,11 +301,7 @@ namespace YAF.Classes.Utils
     /// </param>
     public static void SetForumRead(int forumID, DateTime date)
     {
-      Hashtable t = ForumRead;
-      if (t == null)
-      {
-        t = new Hashtable();
-      }
+      Hashtable t = ForumRead ?? new Hashtable();
 
       t[forumID] = date;
       ForumRead = t;
@@ -334,7 +330,7 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Sets the time that the topicID was read.
+    /// Sets the time that the <paramref name="topicID"/> was read.
     /// </summary>
     /// <param name="topicID">
     /// The topic ID that was read.

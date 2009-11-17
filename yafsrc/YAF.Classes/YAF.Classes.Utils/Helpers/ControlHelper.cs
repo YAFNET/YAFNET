@@ -16,15 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
 namespace YAF.Classes.Utils
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Web.UI;
+  using System.Web.UI.HtmlControls;
+  using System.Web.UI.WebControls;
+
   /// <summary>
   /// Provides helper functions for using and accessing controls.
   /// </summary>
@@ -44,6 +44,16 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static List<Control> ControlListRecursive(Control sourceControl, Func<Control, bool> isControl)
     {
+      if (sourceControl == null)
+      {
+        throw new ArgumentNullException("sourceControl", "sourceControl is null.");
+      }
+
+      if (isControl == null)
+      {
+        throw new ArgumentNullException("isControl", "isControl is null.");
+      }
+
       var list = new List<Control>();
 
       var withParents = (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
@@ -77,6 +87,16 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static Control FindControlRecursiveReverse(Control sourceControl, string id)
     {
+      if (sourceControl == null)
+      {
+        throw new ArgumentNullException("sourceControl", "sourceControl is null.");
+      }
+
+      if (String.IsNullOrEmpty(id))
+      {
+        throw new ArgumentException("id is null or empty.", "id");
+      }
+
       Control foundControl = sourceControl.FindControl(id);
 
       if (foundControl != null)
@@ -104,6 +124,16 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static Control FindControlRecursiveBoth(Control sourceControl, string id)
     {
+      if (sourceControl == null)
+      {
+        throw new ArgumentNullException("sourceControl", "sourceControl is null.");
+      }
+
+      if (String.IsNullOrEmpty(id))
+      {
+        throw new ArgumentException("id is null or empty.", "id");
+      }
+
       Control found = FindControlRecursiveReverse(sourceControl, id);
       if (found != null)
       {
@@ -129,6 +159,16 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static T FindControlAs<T>(Control sourceControl, string id) where T : class
     {
+      if (sourceControl == null)
+      {
+        throw new ArgumentNullException("sourceControl", "sourceControl is null.");
+      }
+
+      if (String.IsNullOrEmpty(id))
+      {
+        throw new ArgumentException("id is null or empty.", "id");
+      }
+
       Control foundControl = sourceControl.FindControl(id);
       if (foundControl != null && foundControl is T)
       {
@@ -153,6 +193,16 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static T FindControlRecursiveAs<T>(Control sourceControl, string id) where T : class
     {
+      if (sourceControl == null)
+      {
+        throw new ArgumentNullException("sourceControl", "sourceControl is null.");
+      }
+
+      if (String.IsNullOrEmpty(id))
+      {
+        throw new ArgumentException("id is null or empty.", "id");
+      }
+
       Control foundControl = FindControlRecursive(sourceControl, id);
       if (foundControl != null && foundControl is T)
       {
@@ -177,6 +227,16 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static T FindControlRecursiveReverseAs<T>(Control sourceControl, string id) where T : class
     {
+      if (sourceControl == null)
+      {
+        throw new ArgumentNullException("sourceControl", "sourceControl is null.");
+      }
+
+      if (String.IsNullOrEmpty(id))
+      {
+        throw new ArgumentException("id is null or empty.", "id");
+      }
+
       Control foundControl = FindControlRecursiveReverse(sourceControl, id);
       if (foundControl != null && foundControl is T)
       {
@@ -201,6 +261,16 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static T FindControlRecursiveBothAs<T>(Control sourceControl, string id) where T : class
     {
+      if (sourceControl == null)
+      {
+        throw new ArgumentNullException("sourceControl", "sourceControl is null.");
+      }
+
+      if (String.IsNullOrEmpty(id))
+      {
+        throw new ArgumentException("id is null or empty.", "id");
+      }
+
       Control foundControl = FindControlRecursiveBoth(sourceControl, id);
 
       if (foundControl != null && foundControl is T)
@@ -225,6 +295,16 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static Control FindWizardControlRecursive(Wizard wizardControl, string id)
     {
+      if (wizardControl == null)
+      {
+        throw new ArgumentNullException("wizardControl", "wizardControl is null.");
+      }
+
+      if (String.IsNullOrEmpty(id))
+      {
+        throw new ArgumentException("id is null or empty.", "id");
+      }
+
       Control foundControl = null;
 
       for (int i = 0; i < wizardControl.WizardSteps.Count; i++)
@@ -261,6 +341,16 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static Control FindControlRecursive(Control sourceControl, string id)
     {
+      if (sourceControl == null)
+      {
+        throw new ArgumentNullException("sourceControl", "sourceControl is null.");
+      }
+
+      if (String.IsNullOrEmpty(id))
+      {
+        throw new ArgumentException("id is null or empty.", "id");
+      }
+
       Control foundControl = sourceControl.FindControl(id);
 
       if (foundControl == null)
@@ -280,6 +370,36 @@ namespace YAF.Classes.Utils
       }
 
       return foundControl;
+    }
+
+    /// <summary>
+    /// Finds all controls in <paramref name="sourceControl"/> of type T.
+    /// </summary>
+    /// <param name="sourceControl">
+    /// Control to search within.
+    /// </param>
+    /// <typeparam name="T">Type to Find and Return
+    /// </typeparam>
+    /// <returns>
+    /// List of type T with controls.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// </exception>
+    public static List<T> FindControlType<T>(Control sourceControl)
+    {
+      if (sourceControl == null)
+      {
+        throw new ArgumentNullException("sourceControl", "sourceControl is null.");
+      }
+
+      if (sourceControl.HasControls())
+      {
+        // get all controls of type T as a list...
+        return sourceControl.Controls.Cast<Control>().Where(x => x.GetType() == typeof(T)).Cast<T>().ToList();
+      }
+
+      // return nothing found...
+      return new List<T>();
     }
 
     /// <summary>
@@ -304,7 +424,7 @@ namespace YAF.Classes.Utils
     /// The make css control.
     /// </summary>
     /// <param name="css">
-    /// The css.
+    /// The style information to add to the control.
     /// </param>
     /// <returns>
     /// </returns>
@@ -319,10 +439,10 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// The make js include control.
+    /// The make a javascript include control.
     /// </summary>
     /// <param name="href">
-    /// The href.
+    /// The href to the javascript script file.
     /// </param>
     /// <returns>
     /// </returns>
@@ -334,6 +454,38 @@ namespace YAF.Classes.Utils
       js.Attributes.Add("src", href);
 
       return js;
+    }
+
+    /// <summary>
+    /// Creates a <see cref="HtmlMeta"/> control for keywords.
+    /// </summary>
+    /// <param name="keywords">keywords that go inside the meta</param>
+    /// <returns><see cref="HtmlMeta"/> control</returns>
+    public static HtmlMeta MakeMetaKeywordsControl(string keywords)
+    {
+      HtmlMeta meta = new HtmlMeta
+        {
+          Name = "keywords",
+          Content = keywords
+        };
+
+      return meta;
+    }
+
+    /// <summary>
+    /// Creates a <see cref="HtmlMeta"/> control for description.
+    /// </summary>
+    /// <param name="description">description that go inside the meta</param>
+    /// <returns><see cref="HtmlMeta"/> control</returns>
+    public static HtmlMeta MakeMetaDiscriptionControl(string description)
+    {
+      HtmlMeta meta = new HtmlMeta
+      {
+        Name = "description",
+        Content = description
+      };
+
+      return meta;
     }
 
     /* Ederon - 7/1/2007 start */
@@ -352,6 +504,21 @@ namespace YAF.Classes.Utils
     /// </param>
     public static void AddStyleAttributeSize(WebControl control, string width, string height)
     {
+      if (control == null)
+      {
+        throw new ArgumentNullException("control", "control is null.");
+      }
+
+      if (String.IsNullOrEmpty(width))
+      {
+        throw new ArgumentException("width is null or empty.", "width");
+      }
+
+      if (String.IsNullOrEmpty(height))
+      {
+        throw new ArgumentException("height is null or empty.", "height");
+      }
+
       control.Attributes.Add("style", String.Format("width: {0}; height: {1};", width, height));
     }
 
@@ -366,6 +533,16 @@ namespace YAF.Classes.Utils
     /// </param>
     public static void AddStyleAttributeWidth(WebControl control, string width)
     {
+      if (control == null)
+      {
+        throw new ArgumentNullException("control", "control is null.");
+      }
+
+      if (String.IsNullOrEmpty(width))
+      {
+        throw new ArgumentException("width is null or empty.", "width");
+      }
+
       control.Attributes.Add("style", String.Format("width: {0};", width));
     }
 
@@ -380,6 +557,16 @@ namespace YAF.Classes.Utils
     /// </param>
     public static void AddStyleAttributeHeight(WebControl control, string height)
     {
+      if (control == null)
+      {
+        throw new ArgumentNullException("control", "control is null.");
+      }
+
+      if (String.IsNullOrEmpty(height))
+      {
+        throw new ArgumentException("height is null or empty.", "height");
+      }
+
       control.Attributes.Add("style", String.Format("height: {0};", height));
     }
 
@@ -396,6 +583,16 @@ namespace YAF.Classes.Utils
     /// </param>
     public static void AddOnClickConfirmDialog(object control, string message)
     {
+      if (control == null)
+      {
+        throw new ArgumentNullException("control", "control is null.");
+      }
+
+      if (String.IsNullOrEmpty(message))
+      {
+        throw new ArgumentException("message is null or empty.", "message");
+      }
+
       AddOnClickConfirmDialog((WebControl) control, message);
     }
 
@@ -410,6 +607,16 @@ namespace YAF.Classes.Utils
     /// </param>
     public static void AddOnClickConfirmDialog(WebControl control, string message)
     {
+      if (control == null)
+      {
+        throw new ArgumentNullException("control", "control is null.");
+      }
+
+      if (String.IsNullOrEmpty(message))
+      {
+        throw new ArgumentException("message is null or empty.", "message");
+      }
+
       control.Attributes["onclick"] = String.Format("return confirm('{0}');", message);
     }
   }
