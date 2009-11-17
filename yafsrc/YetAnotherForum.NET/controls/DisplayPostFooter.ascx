@@ -23,15 +23,12 @@
 		<YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 			TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
 	</div>
-	<div class="rightItem postInfoRight">
-		<span id="ReportButtons" runat="server">&nbsp;<asp:LinkButton ID="ReportAbuseLinkButton"
-			CommandName="ReportAbuse" CommandArgument='<%# DataRow["MessageID"] %>' runat="server"></asp:LinkButton>
-			|
-			<asp:LinkButton ID="ReportSpamButton" CommandName="ReportSpam" CommandArgument='<%# DataRow["MessageID"] %>'
-				runat="server"></asp:LinkButton>
-			|
-			<asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>'
-				runat="server" Visible="true"></asp:LinkButton></span> <span id="AdminInformation"
-					runat="server"></span>
+	<div class="rightItem postInfoRight">		
+		<span id="ReportButtons" runat="server">
+			<asp:LinkButton ID="ReportAbuseLinkButton" CommandName="ReportAbuse" CommandArgument='<%# DataRow["MessageID"] %>' runat="server"></asp:LinkButton>
+			<asp:LinkButton ID="ReportSpamButton" CommandName="ReportSpam" CommandArgument='<%# DataRow["MessageID"] %>' runat="server"></asp:LinkButton>
+			<asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>' runat="server" Visible="true"></asp:LinkButton>
+		</span>
+		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>
 	</div>
 </div>

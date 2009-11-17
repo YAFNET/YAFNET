@@ -2,6 +2,7 @@
 {
   using System;
   using System.Data;
+  using System.Text;
   using System.Web;
   using System.Web.UI.WebControls;
   using Classes.Core;
@@ -129,14 +130,14 @@
       this.ReportPostLinkButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTPOST")));
 
       // report abuse posts
-      this.ReportAbuseLinkButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
-      this.ReportAbuseLinkButton.Text = PageContext.Localization.GetText("REPORTABUSE"); // Mek Addition 08/18/2007
-      this.ReportAbuseLinkButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTABUSE")));
+      //this.ReportAbuseLinkButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
+      //this.ReportAbuseLinkButton.Text = PageContext.Localization.GetText("REPORTABUSE"); // Mek Addition 08/18/2007
+      //this.ReportAbuseLinkButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTABUSE")));
 
-      // report spam
-      this.ReportSpamButton.Visible = PageContext.BoardSettings.AllowReportSpam && !IsGuest; // Mek Addition 08/18/2007
-      this.ReportSpamButton.Text = PageContext.Localization.GetText("REPORTSPAM"); // Mek Addition 08/18/2007
-      this.ReportSpamButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTSPAM")));
+      //// report spam
+      //this.ReportSpamButton.Visible = PageContext.BoardSettings.AllowReportSpam && !IsGuest; // Mek Addition 08/18/2007
+      //this.ReportSpamButton.Text = PageContext.Localization.GetText("REPORTSPAM"); // Mek Addition 08/18/2007
+      //this.ReportSpamButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTSPAM")));
 
       // private messages
       this.Pm.Visible = !IsGuest && !PostData.PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !PostData.IsSponserMessage;
@@ -174,65 +175,70 @@
       this.Skype.Visible = !PostData.PostDeleted && PageContext.User != null && !String.IsNullOrEmpty(PostData.UserProfile.Skype);
       this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", PostData.UserId);
 
-      if (!PostData.PostDeleted)
+      CreateMessageDetails();
+    }
+
+    protected void CreateMessageDetails()
+    {
+      StringBuilder sb = new StringBuilder();
+
+      if (!this.PostData.PostDeleted)
       {
-        this.AdminInformation.InnerHtml = @"<span class=""MessageDetails"">";
-
-        if (Convert.ToDateTime(DataRow["Edited"]) > Convert.ToDateTime(DataRow["Posted"]).AddSeconds(PageContext.BoardSettings.EditTimeOut))
+        if (Convert.ToDateTime(this.DataRow["Edited"]) > Convert.ToDateTime(this.DataRow["Posted"]).AddSeconds(this.PageContext.BoardSettings.EditTimeOut))
         {
-          string editedText = YafServices.DateTime.FormatDateTimeShort(Convert.ToDateTime(DataRow["Edited"]));
+          string editedText = YafServices.DateTime.FormatDateTimeShort(Convert.ToDateTime(this.DataRow["Edited"]));
 
-          if (HttpContext.Current.Server.HtmlDecode(Convert.ToString(DataRow["EditReason"])) != string.Empty)
+          if (HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["EditReason"])) != string.Empty)
           {
             // reason was specified
             editedText += String.Format(
-              " | {0}: {1}", PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)DataRow["EditReason"], true));
+              " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)this.DataRow["EditReason"], true));
           }
           else
           {
             // reason was not specified
             editedText += String.Format(
-              " | {0}: {1}", PageContext.Localization.GetText("EDIT_REASON"), PageContext.Localization.GetText("EDIT_REASON_NA"));
+              " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA"));
           }
 
           // message has been edited
           // show, why the post was edited or deleted?
-          string whoChanged = Convert.ToBoolean(DataRow["IsModeratorChanged"])
-                                ? PageContext.Localization.GetText("EDITED_BY_MOD")
-                                : PageContext.Localization.GetText("EDITED_BY_USER");
-          this.AdminInformation.InnerHtml += String.Format(
-            @"| <span class=""editedinfo"" title=""{2}"">{0} {1}</span>",
-            PageContext.Localization.GetText("EDITED"),
-            whoChanged, editedText);
+          string whoChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"])
+                                ? this.PageContext.Localization.GetText("EDITED_BY_MOD")
+                                : this.PageContext.Localization.GetText("EDITED_BY_USER");
+
+          sb.AppendFormat(@"| <span class=""editedinfo"" title=""{2}"">{0} {1}</span>", this.PageContext.Localization.GetText("EDITED"), whoChanged, editedText);
         }
       }
       else
       {
-        this.AdminInformation.InnerHtml = @"<span class=""MessageDetails"">";
-
         string deleteText = string.Empty;
 
-        if (HttpContext.Current.Server.HtmlDecode(Convert.ToString(DataRow["DeleteReason"])) != String.Empty)
+        if (HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["DeleteReason"])) != String.Empty)
         {
           // reason was specified
-          deleteText = FormatMsg.RepairHtml((string) DataRow["DeleteReason"], true);
+          deleteText = FormatMsg.RepairHtml((string) this.DataRow["DeleteReason"], true);
         }
         else
         {
           // reason was not specified
-          deleteText = PageContext.Localization.GetText("EDIT_REASON_NA");
+          deleteText = this.PageContext.Localization.GetText("EDIT_REASON_NA");
         }
 
-        this.AdminInformation.InnerHtml += String.Format(@" | <span class=""editedinfo"" title=""{1}"">{0}</span>", PageContext.Localization.GetText("EDIT_REASON"), deleteText);
+        sb.AppendFormat(@" | <span class=""editedinfo"" title=""{1}"">{0}</span>", this.PageContext.Localization.GetText("EDIT_REASON"), deleteText);
       }
 
       // display admin only info
       if (PageContext.IsAdmin)
       {
-        this.AdminInformation.InnerHtml += String.Format(@" | <span class=""ipinfo"" title=""{1}"">{0}: {1}</span>", PageContext.Localization.GetText("IP"), DataRow["IP"].ToString());
+        sb.AppendFormat(@" | <span class=""ipinfo"" title=""{1}"">{0}: {1}</span>", PageContext.Localization.GetText("IP"), DataRow["IP"].ToString());
       }
 
-      this.AdminInformation.InnerHtml += "</span>";
+      if (sb.Length > 0)
+      {
+        this.MessageDetails.Visible = true;
+        this.MessageDetails.Text = @"<span class=""MessageDetails"">" + sb.ToString() + @"</span>";
+      }
     }
 
     /// <summary>
@@ -274,7 +280,7 @@
 
           // TODO: vzrus: required a window to enter custom report text with Report and Cancel buttons 
           // Not sure how to implement it YAF-like ;) 
-          reportMessage = "Message reported!";
+          reportMessage = "Message Reported!";
           break;
       }
 

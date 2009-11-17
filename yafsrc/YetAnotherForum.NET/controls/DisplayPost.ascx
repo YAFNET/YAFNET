@@ -20,6 +20,10 @@
             <%# YafServices.DateTime.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
             </div>
         <div class="rightItem postedRight">
+            <span id="<%# "dvThankBox" + DataRow["MessageID"] %>">
+                <YAF:ThemeButton ID="Thank" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_THANKS"
+                    TitleLocalizedTag="BUTTON_THANKS_TT" />
+            </span>        
             <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_ATTACH"
                 TitleLocalizedTag="BUTTON_ATTACH_TT" />
             <YAF:ThemeButton ID="Edit" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_EDIT"
@@ -32,10 +36,6 @@
                 TitleLocalizedTag="BUTTON_UNDELETE_TT" />
             <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_QUOTE"
                 TitleLocalizedTag="BUTTON_QUOTE_TT" />
-            <span id="<%# "dvThankBox" + DataRow["MessageID"] %>">
-                <YAF:ThemeButton ID="Thank" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_THANKS"
-                    TitleLocalizedTag="BUTTON_THANKS_TT" />
-            </span>
         </div>
                 
     </td>

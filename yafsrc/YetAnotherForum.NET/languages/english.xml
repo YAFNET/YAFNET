@@ -645,7 +645,7 @@
     <Resource tag="RANK">Rank</Resource>
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
     <Resource tag="REPORTABUSE">Report Abusive</Resource>
-    <Resource tag="REPORTPOST">Report the post</Resource>
+    <Resource tag="REPORTPOST">Report?</Resource>
     <Resource tag="REPORTSPAM">Report SPAM</Resource>
 	<Resource tag="IMAGE_TEXT">Image</Resource>
 	<Resource tag="CLOSE_TEXT">Close</Resource>
