@@ -121,5 +121,16 @@ namespace YAF.Classes.Core
         return YafContext.Current.InstanceFactory.GetInstance<YafAvatars>();
       }
     }
+
+    /// <summary>
+    /// Gets User Ignored.
+    /// </summary>
+    public static YafUserIgnored UserIgnored
+    {
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafUserIgnored>();
+      }
+    }    
   }
 }

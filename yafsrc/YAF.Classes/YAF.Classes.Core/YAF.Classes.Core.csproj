@@ -79,7 +79,9 @@
     <Compile Include="BaseModules\MobileThemeModule.cs" />
     <Compile Include="BaseModules\ServicesInitModule.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
+    <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\RoleMembershipHelper.cs" />
+    <Compile Include="Services\YafUserIgnored.cs" />
     <Compile Include="Services\YafTemplateMail.cs" />
     <Compile Include="Tasks\UserCleanUpTask.cs" />
     <Compile Include="Tasks\SyncMembershipUsersTask.cs" />

@@ -410,7 +410,7 @@ namespace YAF.Modules
       private YafGenericFactoryBase _yafGenericFactory;
 
       /// <summary>
-      /// Initializes a new instance of the <see cref="YafFactory<FactoryType>"/> class.
+      /// Initializes a new instance of the <see cref="YafFactory"/> class.
       /// </summary>
       /// <param name="t">
       /// The t.

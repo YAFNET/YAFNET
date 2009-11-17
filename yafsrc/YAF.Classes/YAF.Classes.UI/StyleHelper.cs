@@ -19,7 +19,8 @@ namespace YAF.Classes.UI
     {
       DecodeStyleByTable(ref dt, false);
     }
-          /// <summary>
+    
+    /// <summary>
     /// The decode style by table.
     /// </summary>
     /// <param name="dt">
@@ -32,6 +33,7 @@ namespace YAF.Classes.UI
     {
         DecodeStyleByTable(ref  dt, colorOnly, "Style");
     }
+
     /// <summary>
     /// The decode style by table.
     /// </summary>
