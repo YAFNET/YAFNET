@@ -212,16 +212,6 @@ namespace YAF.Controls
       }
 
       this.NameCell.ColSpan = int.Parse(GetIndentSpan());
-
-      if (PageContext.IsGuest)
-      {
-        this.PostFooter.TogglePost.Visible = false;
-      }
-      else if (YafServices.UserIgnored.IsIgnored(PostData.UserId))
-      {
-        this.PostFooter.TogglePost.Visible = true;
-        this.PostFooter.TogglePost.Attributes["onclick"] = string.Format("toggleMessage('{0}'); return false;", this.panMessage.ClientID);
-      }
     }
 
     /// <summary>
@@ -235,6 +225,16 @@ namespace YAF.Controls
     /// </param>
     private void DisplayPost_PreRender(object sender, EventArgs e)
     {
+      if (PageContext.IsGuest)
+      {
+        this.PostFooter.TogglePost.Visible = false;
+      }
+      else if (YafServices.UserIgnored.IsIgnored(PostData.UserId))
+      {
+        this.PostFooter.TogglePost.Visible = true;
+        this.PostFooter.TogglePost.Attributes["onclick"] = string.Format("toggleMessage('{0}'); return false;", this.panMessage.ClientID);
+      }
+
       this.Attach.Visible = !PostData.PostDeleted && PostData.CanAttach && !PostData.IsLocked;
       this.Attach.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.attachments, "m={0}", PostData.MessageId);
       this.Edit.Visible = !PostData.PostDeleted && PostData.CanEditPost && !PostData.IsLocked;
