@@ -129,7 +129,7 @@ namespace YAF.Classes.Data
         // create the connection
         this._connection = new SqlConnection();
         this._connection.InfoMessage += new SqlInfoMessageEventHandler(Connection_InfoMessage);
-        this._connection.ConnectionString = Config.ConnectionString;
+        this._connection.ConnectionString = this.ConnectionString;
       }
       else if (this._connection.State != ConnectionState.Open)
       {

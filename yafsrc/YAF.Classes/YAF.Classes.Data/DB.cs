@@ -4358,10 +4358,9 @@ namespace YAF.Classes.Data
       }
     }
 
-    // <summary> Retuns All the Thanks for the Message IDs which are in the 
-    // delimited string variable MessageIDs </summary>
     /// <summary>
-    /// The message_ get all thanks.
+    /// Retuns All the Thanks for the Message IDs which are in the 
+    /// delimited string variable MessageIDs
     /// </summary>
     /// <param name="MessageIDs">
     /// The message i ds.
