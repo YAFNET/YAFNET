@@ -28,6 +28,7 @@ namespace YAF.Pages
   using System.Linq;
   using System.Text.RegularExpressions;
   using System.Web;
+  using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -363,6 +364,64 @@ namespace YAF.Pages
       Mession.SetTopicRead(PageContext.PageTopicID, DateTime.Now);
 
       BindData();
+    }
+
+    /// <summary>
+    /// Adds meta data: description and keywords to the page header.
+    /// </summary>
+    /// <param name="firstMessage">first message in the topic</param>
+    private void AddMetaData(object firstMessage)
+    {
+      if (Page.Header != null && PageContext.BoardSettings.AddDynamicPageMetaTags)
+      {
+        FormatMsg.MessageCleaned message = FormatMsg.GetCleanedTopicMessage(firstMessage, PageContext.PageTopicID);
+        var meta = ControlHelper.FindControlType<HtmlMeta>(Page.Header);
+
+        if (!String.IsNullOrEmpty(message.MessageTruncated))
+        {
+          HtmlMeta descriptionMeta = null;
+
+          string content = String.Format("{0}: {1}", this._topic["Topic"], message.MessageTruncated);
+
+          if (meta.Exists(x => x.Name.Equals("description")))
+          {
+            // use existing...
+            descriptionMeta = meta.Where(x => x.Name.Equals("description")).FirstOrDefault();
+            if (descriptionMeta != null)
+            {
+              descriptionMeta.Content = content;
+            }
+          }
+          else
+          {
+            descriptionMeta = ControlHelper.MakeMetaDiscriptionControl(content);
+
+            // add to the header...
+            Page.Header.Controls.Add(descriptionMeta);
+          }
+        }
+
+        if (message.MessageKeywords.Count > 0)
+        {
+          HtmlMeta keywordMeta = null;
+
+          var keywordStr = message.MessageKeywords.Where(x => !String.IsNullOrEmpty(x)).ToList().ListToString(",");
+
+          if (meta.Exists(x => x.Name.Equals("keywords")))
+          {
+            // use existing...
+            keywordMeta = meta.Where(x => x.Name.Equals("keywords")).FirstOrDefault();
+            keywordMeta.Content = keywordStr;
+          }
+          else
+          {
+            keywordMeta = ControlHelper.MakeMetaKeywordsControl(keywordStr);
+
+            // add to the header...
+            Page.Header.Controls.Add(keywordMeta);
+          }
+        }
+      }
     }
 
     /// <summary>
@@ -711,6 +770,9 @@ namespace YAF.Pages
           break;
         }
       }
+
+      // handle add description/keywords for SEO
+      AddMetaData(dt0.Rows[0]["Message"]);
 
       dt0 = null;
       pds.CurrentPageIndex = this.Pager.CurrentPageIndex;

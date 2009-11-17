@@ -261,6 +261,15 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>Add Dynamic Page Meta Tags:</b><br />
+							If checked, discription and keywords meta tags will be created dynamically on the post pages. 
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="AddDynamicPageMetaTags" runat="server"></asp:CheckBox>
+						</td>
+					</tr>					
+					<tr>
+						<td class="postheader">
 							<b>Show User Online/Offline Status:</b><br />
 							If checked, current user status is displayed in the forum.
 							Hidden users are always displayed as offline.
