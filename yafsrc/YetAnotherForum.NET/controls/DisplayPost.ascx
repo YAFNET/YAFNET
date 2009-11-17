@@ -1,5 +1,7 @@
+<%@ Register TagPrefix="user" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
 <%@ Control Language="c#" AutoEventWireup="True" CodeFile="DisplayPost.ascx.cs" Inherits="YAF.Controls.DisplayPost"
-    EnableViewState="false" %>
+	EnableViewState="false" %>
+<%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <tr class="postheader">		
     <%#GetIndentCell()%>
@@ -40,7 +42,7 @@
 </tr>
 <tr class="<%#GetPostClass()%>">
     <td valign="top" height="<%# GetUserBoxHeight() %>" class="UserBox" colspan='<%#GetIndentSpan()%>'>
-        <YAF:UserBox id="UserBox1" runat="server" Visible="<%# !IsSponserMessage %>" PageCache="<%# ParentPage.PageCache %>" DataRow="<%# DataRow %>"></YAF:UserBox>
+        <YAF:UserBox id="UserBox1" runat="server" Visible="<%# !PostData.IsSponserMessage %>" PageCache="<%# PageContext.CurrentForumPage.PageCache %>" DataRow="<%# DataRow %>"></YAF:UserBox>
     </td>
     <td valign="top" class="message">
         <div class="postdiv">
@@ -56,40 +58,9 @@
             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TOP" />
         </a>
     </td>
-    <td class="postfooter postInfoBottom">
-        <div class="leftItem postInfoLeft">
-                    <YAF:ThemeButton ID="btnTogglePost" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="TOGGLEPOST" Visible="false" />                
-                    <YAF:ThemeButton ID="Pm" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="PM" ImageThemeTag="PM" />
-                    <YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL" />
-                    <YAF:ThemeButton ID="Home" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="HOME" ImageThemeTag="HOME" />
-                    <YAF:ThemeButton ID="Blog" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="BLOG" ImageThemeTag="BLOG" />
-                    <YAF:ThemeButton ID="Msn" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="MSN" ImageThemeTag="MSN" />
-                    <YAF:ThemeButton ID="Aim" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="AIM" ImageThemeTag="AIM" />
-                    <YAF:ThemeButton ID="Yim" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="YIM" ImageThemeTag="YIM" />
-                    <YAF:ThemeButton ID="Icq" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="ICQ" ImageThemeTag="ICQ" />
-                    <YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
-       </div>
-       <div class="rightItem postInfoRight" >
-         <span id="ReportButtons" runat="server">
-            &nbsp;<asp:LinkButton ID="ReportAbuseLinkButton" CommandName="ReportAbuse" CommandArgument='<%# DataRow["MessageID"] %>'
-                runat="server"></asp:LinkButton>            |
-            <asp:LinkButton ID="ReportSpamButton" CommandName="ReportSpam" CommandArgument='<%# DataRow["MessageID"] %>'
-                runat="server"></asp:LinkButton>            |
-            <asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>'
-                runat="server" visible="true" ></asp:LinkButton></span>             
-         <span id="AdminInformation" runat="server" class="smallfont"></span>
-       </div>
-    </td>
+		<td class="postfooter postInfoBottom">
+			<YAF:DisplayPostFooter id="PostFooter" runat="server" DataRow="<%# DataRow %>"></YAF:DisplayPostFooter>
+		</td>
 </tr>
 <tr class="<%#GetPostClass()%>">
     <td style="padding: 5px;" colspan="2" valign="top">
