@@ -14,14 +14,14 @@
   }
 -->
 </script>
-<table cellpadding="0" cellspacing="1" class="content" width="100%">
 	<asp:Repeater ID="List" runat="server">
 	<HeaderTemplate>
-		
+		<table cellpadding="0" cellspacing="1" class="content" width="100%">
+
 			<tr>
 				<td class="header1" colspan="3" align="center">
 					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
-			</td></tr>
+			</tr>
 			<tr>
 				<td class="header2">
 					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER_CODE" /></td>
@@ -29,7 +29,7 @@
 						<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER_SMILE" /></td>
 						<td class="header2">
 							<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HEADER_MEANING" />
-			</td></tr>
+			</tr>
 			
 	</HeaderTemplate>
 	<ItemTemplate>
@@ -56,4 +56,4 @@
 		</tr>
 	</FooterTemplate>
 </asp:Repeater>
-</table>
+

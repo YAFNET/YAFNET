@@ -3,10 +3,16 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	
-	<table class="content" cellspacing="1" cellpadding="0" width="100%">
+	
+	
+		
+	
+	
+	
 		<asp:Repeater ID="list" runat="server" OnItemCommand="list_ItemCommand">
 		<HeaderTemplate>
-			
+				<table class="content" cellspacing="1" cellpadding="0" width="100%">
+
 				<tr>
 					<td class="header1" colspan="3">
 						Banned IP Addresses</td>
@@ -40,9 +46,9 @@
 				<td class="footer1" colspan="3">
 					<asp:LinkButton runat="server" Text="Add" CommandName='add'></asp:LinkButton></td>
 			</tr>
-			
+			</table>
 			</FooterTemplate>
 		</asp:Repeater>
-	</table>
+	
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

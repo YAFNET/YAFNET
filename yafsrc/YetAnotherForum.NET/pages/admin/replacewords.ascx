@@ -6,10 +6,16 @@
 <YAF:PageLinks runat="server" id="PageLinks" />
 <YAF:adminmenu runat="server" id="Adminmenu1">
 	
-	<table class="content" cellspacing="1" cellpadding="0" width="100%">
+	
+	
+		
+	
+	
+	
 		<asp:repeater id="list" runat="server">
 		<HeaderTemplate>
-			
+				<table class="content" cellspacing="1" cellpadding="0" width="100%">
+
 				<tr>
 					<td class="header1" colspan="3">Replace Words</td>
 				</tr>
@@ -42,9 +48,9 @@
                     <asp:LinkButton runat="server" Text="Export to XML" CommandName='export' ID="Linkbutton4"></asp:LinkButton>					
                     </td>
 			</tr>
-			
+				</table>
 			</FooterTemplate>
 		</asp:repeater>
-	</table>
+
 </YAF:adminmenu>
 <YAF:SmartScroller id="SmartScroller1" runat="server" />

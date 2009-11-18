@@ -117,6 +117,9 @@
 			
 			
 			
+			
+			
+			
 		</tr>
 		<tr>
 			<td class="postheader" width="25%">
@@ -168,6 +171,9 @@
 			
 			
 			
+			
+			
+			
 			<td class="postheader">
 			Size of database:</td>
 			
@@ -181,13 +187,16 @@
 			These statistics don&apos;t count deleted topics and posts.</td>
 			
 			
+			
+			
+			
 		</tr>
-	
+	</table>
 		<p id="UpgradeNotice" runat="server" visible="false">
 		The installed version of Yet Another Forum.net and the version of your database
     does not match. You should go to <a href="install/" target='_"top"'>install</a>
 		and update your database.
 		</p>
-	</table>
+	
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

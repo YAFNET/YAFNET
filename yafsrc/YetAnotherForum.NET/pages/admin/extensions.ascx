@@ -2,11 +2,17 @@
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">
 	
-	<table class="content" cellspacing="1" cellpadding="0" width="100%">
+	
+	
+		
+	
+	
+	
 		&nbsp;
 		<asp:Repeater ID="list" runat="server">
         <HeaderTemplate>
-           
+      	<table class="content" cellspacing="1" cellpadding="0" width="100%">
+     
                 <tr>
                     <td class="header1" colspan="2">
                         <asp:Label ID="ExtensionTitle" runat="server" OnLoad="ExtensionTitle_Load">File Extensions</asp:Label></td>
@@ -43,9 +49,9 @@
                     <asp:LinkButton runat="server" Text="Export to XML" CommandName='export' ID="Linkbutton4"></asp:LinkButton>
                 </td>
             </tr>
-           
+           	</table>
         	 </FooterTemplate>
     	 </asp:Repeater>
-	</table>
+
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

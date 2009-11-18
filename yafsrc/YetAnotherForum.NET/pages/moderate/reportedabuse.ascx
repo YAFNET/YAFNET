@@ -2,10 +2,10 @@
 	Inherits="YAF.Pages.moderate.reportedabuse" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<table cellpadding="0" cellspacing="1" class="content" width="100%">
 	<asp:Repeater ID="List" runat="server">
 	<HeaderTemplate>
-		
+		<table cellpadding="0" cellspacing="1" class="content" width="100%">
+
 			<tr>
 				<td colspan="2" class="header1" align="left">
 					<%# PageContext.PageForumName %>
@@ -19,7 +19,7 @@
 			<td class="postfooter" colspan="2">
 				&nbsp;</td>
 		</tr>
-		
+		</table>
 	</FooterTemplate>
 	<ItemTemplate>
 		<tr class="header2">
@@ -92,5 +92,5 @@
 		</tr>
 	</SeparatorTemplate>
 	</asp:Repeater>
-</table>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

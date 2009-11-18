@@ -6,6 +6,7 @@
 </div>
 <br style="clear: both" />
 <DotNetAge:Tabs ID="PmTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false" AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false" EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd="" OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove="" OnClientTabSelected="" OnClientTabShow="" SelectedIndex="0" Sortable="false" Spinner="">
+	
 	<Animations>
 	</Animations>
 	<Views>

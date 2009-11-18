@@ -21,7 +21,7 @@
 				<asp:CheckBox ID="LeavePointer" runat="server" />
 			</td>
 		</tr>
-	
+	</tr>
 	<tr>
 		<td class="footer1" colspan="2" align="center">
 			<asp:Button ID="Move" CssClass="pbutton" runat="server" OnClick="Move_Click" />

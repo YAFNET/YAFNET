@@ -51,10 +51,10 @@
 			<td class="header2"  align="center" colSpan="1"><%# GetActionText() %></td>
 			
 		</tr>
-		</table>
+		
 </HeaderTemplate>
 <FooterTemplate>
-	
+	</table>
 </FooterTemplate>
 <ItemTemplate>
 		<tr class="postheader">

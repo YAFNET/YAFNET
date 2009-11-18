@@ -4,9 +4,10 @@
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <a id="top" name="top"></a>
-<table cellpadding="0" cellspacing="1" class="content" width="100%">
 	<asp:Repeater ID="Poll" runat="server" Visible="false">
 		<HeaderTemplate>
+		<table cellpadding="0" cellspacing="1" class="content" width="100%">
+
 			<tr>
 				<td class="header1" colspan="3">
 					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="question" />
@@ -26,6 +27,7 @@
 					<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="statistics" />
 				</td>
 			</tr>
+			</table>
 		</HeaderTemplate>
 		<ItemTemplate>
 			<tr>
@@ -60,7 +62,7 @@
 			<br />
 		</FooterTemplate>
 	</asp:Repeater>
-</table>
+
 <table class="command" width="100%">
 	<tr>
 		<td align="left">
@@ -151,24 +153,54 @@
 				<YAF:DataPanel runat="server" ID="DataPanel1" AllowTitleExpandCollapse="true" TitleStyle-CssClass="header2"
 					TitleStyle-Font-Bold="true" Collapsed="true">
 					<div class="post quickReplyLine" id="QuickReplyLine" runat="server">
+						
+						
+						
+						
+						
 					</div>
 					<div id="CaptchaDiv" align="center" visible="false" runat="server">
+						
+						
+						
+						
+						
 						<br />
 						<table class="content">
 							<tr>
 								<td class="header2">
 									<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="Captcha_Image" />
+								
+								
+								
+								
+								
 								</td>
 							</tr>
 							<tr>
 								<td class="post" align="center">
 									<asp:Image ID="imgCaptcha" runat="server" AlternateText="Captcha" />
+								
+								
+								
+								
+								
 								</td>
 							</tr>
 							<tr>
 								<td class="post">
 									<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="Captcha_Enter" />
+								
+								
+								
+								
+								
 									<asp:TextBox ID="tbCaptcha" runat="server" />
+								
+								
+								
+								
+								
 								</td>
 							</tr>
 						</table>
@@ -176,6 +208,11 @@
 					</div>
 					&nbsp;<div align="center" style="margin: 7px;">
 						<asp:Button ID="QuickReply" CssClass="pbutton" runat="server" />
+						
+						
+						
+						
+						
 						&nbsp;</div>
 				</YAF:DataPanel>
 			</td>
