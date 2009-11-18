@@ -973,9 +973,13 @@ DECLARE @ParsedMessageIDs TABLE
 		END
 	END	
 
-	SELECT a.ThanksFromUserID AS FromUserID, a.ThanksDate, b.MessageID, a.ThanksToUserID AS ToUserID
-	FROM [{databaseOwner}].[{objectQualifier}Thanks] a , @ParsedMessageIDs b
-    WHERE (a.MessageID=b.MessageID) 
+	SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
+	(SELECT COUNT(ThanksID) FROM [dbo].[yaf_Thanks] b WHERE b.ThanksFromUserID=d.UserID) AS ThanksFromUserNumber,
+	(SELECT COUNT(ThanksID) FROM [dbo].[yaf_Thanks] b WHERE b.ThanksToUserID=d.UserID) AS ThanksToUserNumber,
+	(SELECT COUNT(DISTINCT(MessageID)) FROM [dbo].[yaf_Thanks] b WHERE b.ThanksToUserID=d.userID) AS ThanksToUserPostsNumber
+	FROM @ParsedMessageIDs a
+	INNER JOIN [dbo].[yaf_Message] d ON (d.MessageID=a.MessageID)
+	LEFT JOIN [dbo].[yaf_thanks] b ON (b.MessageID = a.MessageID)
 END
 GO
 

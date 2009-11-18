@@ -638,24 +638,23 @@ namespace YAF.Pages
         // get the default view...
         DataView dtAllThanks = dt0AllThanks.DefaultView;
 
-        foreach (DataRow dr in dt0.Rows)
-        {
-          dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dr["MessageID"]));
-          dr["MessageThanksNumber"] = dtAllThanks.Count;
-          dtAllThanks.RowFilter = String.Format("FromUserID = {0}", Convert.ToInt32(dr["UserID"]));
-          dr["ThanksFromUserNumber"] = dtAllThanks.Count;
-          dtAllThanks.RowFilter = String.Format("ToUserID = {0}", Convert.ToInt32(dr["UserID"]));
-          dr["ThanksToUserNumber"] = dtAllThanks.Count;
-          DataTable dtDistinctMessages = dtAllThanks.ToTable(true, "MessageID");
-          dr["ThanksToUserPostsNumber"] = dtDistinctMessages.Rows.Count;
-        }
-
         foreach (DataRow drThanks in dtAllThanks.Table.Rows)
         {
-          if (Convert.ToInt32(drThanks["FromUserID"]) == PageContext.PageUserID)
+            if (drThanks["FromUserID"] != DBNull.Value)
+            if (Convert.ToInt32(drThanks["FromUserID"]) == PageContext.PageUserID)
           {
             dt0.Rows.Find(drThanks["MessageID"])["IsThankedByUser"] = "true";
           }
+        }
+        
+          foreach (DataRow dr in dt0.Rows)
+        {
+            dtAllThanks.RowFilter = String.Format("MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dr["MessageID"]));
+            dr["MessageThanksNumber"] = dtAllThanks.Count;
+            dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dr["MessageID"]));
+            dr["ThanksFromUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksFromUserNumber"] : 0;
+            dr["ThanksToUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserNumber"] :0;
+            dr["ThanksToUserPostsNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserPostsNumber"] : 0;
         }
       }
 
