@@ -1536,13 +1536,14 @@ BEGIN
 				LastPostInfoID	= 1,
 				LastPost	= a.Posted,
 				LastUserID	= a.UserID,
-				LastUser	= e.Name
+				LastUser	= e.Name,
+				LastUserStyle = [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)
 			FROM 
 				[{databaseOwner}].[{objectQualifier}Message] a 
 				join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID 
 				join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID 
 				join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID 
-				join [{databaseOwner}].[{objectQualifier}User] e on e.UserID=a.UserID
+				join [{databaseOwner}].[{objectQualifier}User] e on e.UserID=a.UserID				
 			WHERE 
 				(a.Flags & 24) = 16
 				AND (b.Flags & 8) <> 8 

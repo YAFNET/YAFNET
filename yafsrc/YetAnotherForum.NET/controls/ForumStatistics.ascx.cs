@@ -69,9 +69,15 @@ namespace YAF.Controls
       this.ActiveUserCount.Text = FormatActiveUsers(activeStats);
 
       // Forum Statistics
+        DataRow dr = DB.board_poststats(PageContext.PageBoardID);
+      // Set colorOnly parameter to false, as we get here color from data field in the place
+      if ( PageContext.BoardSettings.UseStyledNicks )
+          dr["LastUserStyle"] =  YAF.Classes.UI.StyleHelper.DecodeStyleByString(dr["LastUserStyle"].ToString(), false);
+      else
+          dr["LastUserStyle"] = null;
       string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardStats);
       var statisticsDataRow = PageContext.Cache.GetItem<DataRow>(
-        key, PageContext.BoardSettings.ForumStatisticsCacheTimeout, () => DB.board_poststats(PageContext.PageBoardID));
+        key, PageContext.BoardSettings.ForumStatisticsCacheTimeout, () => dr);
 
       // show max users...
       if (!statisticsDataRow.IsNull("MaxUsers"))
@@ -96,7 +102,7 @@ namespace YAF.Controls
 
         this.LastPostUserLink.UserID = Convert.ToInt32(statisticsDataRow["LastUserID"]);
         this.LastPostUserLink.UserName = statisticsDataRow["LastUser"].ToString();
-
+        this.LastPostUserLink.Style = statisticsDataRow["LastUserStyle"].ToString();
         this.StatsLastPost.Text = PageContext.Localization.GetTextFormatted(
           "stats_lastpost", YafServices.DateTime.FormatDateTimeTopic((DateTime) statisticsDataRow["LastPost"]));
       }
