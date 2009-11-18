@@ -16,18 +16,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Data;
-using System.Text;
-using System.Web.Profile;
-using YAF.Classes.Core;
-using YAF.Providers.Utils;
-
 namespace YAF.Providers.Profile
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Collections.Specialized;
+  using System.Configuration;
+  using System.Data;
+  using System.Text;
+  using System.Web.Profile;
+  using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
+  using YAF.Providers.Utils;
+
   /// <summary>
   /// YAF Custom Profile Provider
   /// </summary>
@@ -36,7 +37,7 @@ namespace YAF.Providers.Profile
     /// <summary>
     /// The conn str app key name.
     /// </summary>
-    public static string ConnStrAppKeyName = "YafProfileConnectionString";
+    private static string _connStrAppKeyName = "YafProfileConnectionString";
 
     /// <summary>
     /// The _app name.
@@ -66,6 +67,17 @@ namespace YAF.Providers.Profile
     #region Override Public Properties
 
     /// <summary>
+    /// Gets the Connection String App Key Name.
+    /// </summary>
+    public static string ConnStrAppKeyName
+    {
+      get
+      {
+        return _connStrAppKeyName;
+      }
+    }
+
+    /// <summary>
     /// Gets or sets ApplicationName.
     /// </summary>
     public override string ApplicationName
@@ -86,12 +98,12 @@ namespace YAF.Providers.Profile
     /// <summary>
     /// Gets UserProfileCache.
     /// </summary>
-    private Dictionary<string, SettingsPropertyValueCollection> UserProfileCache
+    private ThreadSafeDictionary<string, SettingsPropertyValueCollection> UserProfileCache
     {
       get
       {
         string key = GenerateCacheKey("UserProfileDictionary");
-        return YafContext.Current.Cache.GetItem(key, 999, () => new Dictionary<string, SettingsPropertyValueCollection>());
+        return YafContext.Current.Cache.GetItem(key, 999, () => new ThreadSafeDictionary<string, SettingsPropertyValueCollection>());
       }
     }
 
@@ -99,14 +111,11 @@ namespace YAF.Providers.Profile
     /// The delete from profile cache if exists.
     /// </summary>
     /// <param name="key">
-    /// The key.
+    /// The key to remove.
     /// </param>
     private void DeleteFromProfileCacheIfExists(string key)
     {
-      if (UserProfileCache.ContainsKey(key))
-      {
-        UserProfileCache.Remove(key);
-      }
+      UserProfileCache.RemoveSafe(key);
     }
 
     /// <summary>
@@ -649,7 +658,7 @@ namespace YAF.Providers.Profile
     {
       var settingPropertyCollection = new SettingsPropertyValueCollection();
 
-      if (collection == null || collection.Count < 1 || context == null)
+      if (collection.Count < 1)
       {
         return settingPropertyCollection;
       }
@@ -708,7 +717,7 @@ namespace YAF.Providers.Profile
         }
 
         // save this collection to the cache
-        UserProfileCache.Add(username.ToLower(), settingPropertyCollection);
+        UserProfileCache.MergeSafe(username.ToLower(), settingPropertyCollection);
       }
 
       return settingPropertyCollection;
@@ -727,7 +736,7 @@ namespace YAF.Providers.Profile
     {
       var username = (string) context["UserName"];
 
-      if (username == null || username.Length < 1 || collection.Count < 1)
+      if (string.IsNullOrEmpty(username) || collection.Count < 1)
       {
         return;
       }
