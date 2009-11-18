@@ -27,6 +27,8 @@ using YAF.Providers.Utils;
 
 namespace YAF.Providers.Roles
 {
+  using Classes.Pattern;
+
   /// <summary>
   /// The yaf role provider.
   /// </summary>
@@ -35,7 +37,7 @@ namespace YAF.Providers.Roles
     /// <summary>
     /// The conn str app key name.
     /// </summary>
-    public static string ConnStrAppKeyName = "YafRolesConnectionString";
+    private static string _connStrAppKeyName = "YafRolesConnectionString";
 
     /// <summary>
     /// The _app name.
@@ -53,6 +55,17 @@ namespace YAF.Providers.Roles
     private YafLocalization _providerLocalization;
 
     #region Override Public Properties
+
+    /// <summary>
+    /// Gets the Connection String App Key Name.
+    /// </summary>
+    public static string ConnStrAppKeyName
+    {
+      get
+      {
+        return _connStrAppKeyName;
+      }
+    }
 
     /// <summary>
     /// Gets or sets ApplicationName.
@@ -81,12 +94,12 @@ namespace YAF.Providers.Roles
     /// <summary>
     /// Gets UserRoleCache.
     /// </summary>
-    private Dictionary<string, StringCollection> UserRoleCache
+    private ThreadSafeDictionary<string, StringCollection> UserRoleCache
     {
       get
       {
         string key = GenerateCacheKey("UserRoleDictionary");
-        return YafContext.Current.Cache.GetItem(key, 999, () => new Dictionary<string, StringCollection>());
+        return YafContext.Current.Cache.GetItem(key, 999, () => new ThreadSafeDictionary<string, StringCollection>());
       }
     }
 
@@ -98,10 +111,7 @@ namespace YAF.Providers.Roles
     /// </param>
     private void DeleteFromRoleCacheIfExists(string key)
     {
-      if (UserRoleCache.ContainsKey(key))
-      {
-        UserRoleCache.Remove(key);
-      }
+      UserRoleCache.RemoveSafe(key);
     }
 
     /// <summary>
@@ -167,6 +177,7 @@ namespace YAF.Providers.Roles
 
       // application name
       this._appName = config["applicationName"];
+
       if (string.IsNullOrEmpty(this._appName))
       {
         this._appName = "YetAnotherForum";
@@ -320,7 +331,7 @@ namespace YAF.Providers.Roles
         }
 
         // add it to the dictionary cache...
-        UserRoleCache[username.ToLower()] = roleNames;
+        UserRoleCache.MergeSafe(username.ToLower(), roleNames);
       }
       else
       {
