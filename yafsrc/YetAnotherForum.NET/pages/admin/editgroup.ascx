@@ -107,11 +107,14 @@
 					<td class="postheader">
 						<asp:Label ID="ForumID" Visible="false" runat="server" Text='<%# Eval( "ForumID") %>'></asp:Label>
 						<b>
-							<%# Eval( "ForumName") %>
+						<%# Eval( "ForumName") %>
 						</b>
 						<br />
+						Board:
+						<%# Eval( "BoardName") %>
+						<br />
 						Category:
-						<%# Eval( "CategoryName") %>
+						<%# Eval( "CategoryName") %>						
 					</td>
 					<td class="post">
 						<asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID"

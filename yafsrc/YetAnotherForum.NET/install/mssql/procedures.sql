@@ -2371,14 +2371,17 @@ begin
 		ForumName = b.Name,
 		CategoryName = c.Name ,
 		CategoryID = b.CategoryID,
-		ParentID = b.ParentID 
+		ParentID = b.ParentID,
+		BoardName = brd.Name 
 	from 
 		[{databaseOwner}].[{objectQualifier}ForumAccess] a
 		inner join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ForumID
 		inner join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID=b.CategoryID
+		inner join [{databaseOwner}].[{objectQualifier}Board] brd on brd.BoardID=c.BoardID
 	where 
 		a.GroupID = @GroupID
-	order by 
+	order by
+	    brd.Name,
 		c.SortOrder,
 		b.SortOrder
 end

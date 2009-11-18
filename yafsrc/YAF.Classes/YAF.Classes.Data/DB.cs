@@ -7036,6 +7036,7 @@ namespace YAF.Classes.Data
       }
       else
       {
+        listDestination.Columns.Add("BoardName", typeof(String));
         listDestination.Columns.Add("CategoryName", typeof (String));
         listDestination.Columns.Add("AccessMaskId", typeof (Int32));
       }
@@ -7095,6 +7096,7 @@ namespace YAF.Classes.Data
           }
           else
           {
+            newRow["BoardName"] = row["BoardName"];
             newRow["CategoryName"] = row["CategoryName"];
             newRow["AccessMaskId"] = row["AccessMaskId"];
           }
