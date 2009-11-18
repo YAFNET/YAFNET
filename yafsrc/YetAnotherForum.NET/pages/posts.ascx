@@ -27,7 +27,7 @@
 					<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="statistics" />
 				</td>
 			</tr>
-			</table>
+			
 		</HeaderTemplate>
 		<ItemTemplate>
 			<tr>
@@ -59,7 +59,7 @@
 					100%
 				</td>
 			</tr>
-			<br />
+			</table><br />
 		</FooterTemplate>
 	</asp:Repeater>
 
@@ -158,8 +158,12 @@
 						
 						
 						
+						
+						
 					</div>
 					<div id="CaptchaDiv" align="center" visible="false" runat="server">
+						
+						
 						
 						
 						
@@ -175,11 +179,15 @@
 								
 								
 								
+								
+								
 								</td>
 							</tr>
 							<tr>
 								<td class="post" align="center">
 									<asp:Image ID="imgCaptcha" runat="server" AlternateText="Captcha" />
+								
+								
 								
 								
 								
@@ -195,7 +203,11 @@
 								
 								
 								
+								
+								
 									<asp:TextBox ID="tbCaptcha" runat="server" />
+								
+								
 								
 								
 								
@@ -208,6 +220,8 @@
 					</div>
 					&nbsp;<div align="center" style="margin: 7px;">
 						<asp:Button ID="QuickReply" CssClass="pbutton" runat="server" />
+						
+						
 						
 						
 						
