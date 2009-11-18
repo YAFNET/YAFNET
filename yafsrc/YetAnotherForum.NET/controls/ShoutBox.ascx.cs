@@ -184,8 +184,11 @@ namespace YAF.Controls
 
       if (shoutBoxMessages == null)
       {
-        shoutBoxMessages = DB.shoutbox_getmessages(PageContext.BoardSettings.ShoutboxShowMessageCount);
-        var flags = new MessageFlags();
+          shoutBoxMessages = DB.shoutbox_getmessages( PageContext.BoardSettings.ShoutboxShowMessageCount, PageContext.BoardSettings.UseStyledNicks );
+          // Set colorOnly parameter to false, as we get all color info from data base
+          if (PageContext.BoardSettings.UseStyledNicks)
+              YAF.Classes.UI.StyleHelper.DecodeStyleByTable( ref shoutBoxMessages, false );
+          var flags = new MessageFlags();
         flags.IsBBCode = true;
         flags.IsHtml = false;
 

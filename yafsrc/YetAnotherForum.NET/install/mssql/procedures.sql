@@ -6523,7 +6523,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_getmessages]
 (
-  @NumberOfMessages int
+  @NumberOfMessages int, @StyledNicks bit = 0
 )  
 AS
 BEGIN	
@@ -6533,7 +6533,10 @@ BEGIN
 		Username,
 		UserID,
 		Message,
-		[Date]
+		[Date],
+		Style = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](UserID)  
+	        else ''	 end		
 	FROM
 		[{databaseOwner}].[{objectQualifier}ShoutboxMessage]
 	ORDER BY Date DESC

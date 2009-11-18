@@ -8629,14 +8629,18 @@ namespace YAF.Classes.Data
     /// <param name="numberOfMessages">
     /// The number of messages.
     /// </param>
+    /// <param name="useStyledNicks">
+    /// Use style for user nicks in ShoutBox.
+    /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable shoutbox_getmessages(int numberOfMessages)
+    public static DataTable shoutbox_getmessages( int numberOfMessages, object useStyledNicks )
     {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("shoutbox_getmessages"))
+      using ( SqlCommand cmd = YafDBAccess.GetCommand( "shoutbox_getmessages" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("NumberOfMessages", numberOfMessages);
+        cmd.Parameters.AddWithValue( "NumberOfMessages", numberOfMessages );
+        cmd.Parameters.AddWithValue( "StyledNicks", useStyledNicks );
         return YafDBAccess.Current.GetData(cmd);
       }
     }
