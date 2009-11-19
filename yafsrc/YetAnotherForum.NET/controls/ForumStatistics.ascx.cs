@@ -37,7 +37,7 @@ namespace YAF.Controls
     /// </summary>
     public ForumStatistics()
     {
-      Load += new EventHandler(ForumStatistics_Load);
+      Load += ForumStatistics_Load;
     }
 
     /// <summary>
@@ -51,33 +51,42 @@ namespace YAF.Controls
     /// </param>
     private void ForumStatistics_Load(object sender, EventArgs e)
     {
-      // Active users
-      // Call this before forum_stats to clean up active users'
-      DataTable dt = DB.active_list(PageContext.PageBoardID, null, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-      if (YafContext.Current.BoardSettings.UseStyledNicks)
-      {
-        StyleHelper.DecodeStyleByTable(ref dt);
-      }
+      // Active users : Call this before forum_stats to clean up active users
+      string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
+      DataTable activeUsers = PageContext.Cache.GetItem(
+        key,
+        (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout,
+        () =>
+        {
+          DataTable au = DB.active_list(
+            YafContext.Current.PageBoardID, false, YafContext.Current.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
+          if (PageContext.BoardSettings.UseStyledNicks)
+          {
+            StyleHelper.DecodeStyleByTable(ref au);
+          }
+          return au;
+        });
 
-      this.ActiveUsers1.ActiveUserTable = dt;
-
-      var au = new ActiveUsers();
+      this.ActiveUsers1.ActiveUserTable = activeUsers;
 
       // "Active Users" Count and Most Users Count
       DataRow activeStats = DB.active_stats(PageContext.PageBoardID);
-
       this.ActiveUserCount.Text = FormatActiveUsers(activeStats);
 
       // Forum Statistics
-        DataRow dr = DB.board_poststats(PageContext.PageBoardID);
-      // Set colorOnly parameter to false, as we get here color from data field in the place
-      if ( PageContext.BoardSettings.UseStyledNicks )
-          dr["LastUserStyle"] =  YAF.Classes.UI.StyleHelper.DecodeStyleByString(dr["LastUserStyle"].ToString(), false);
-      else
-          dr["LastUserStyle"] = null;
-      string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardStats);
-      var statisticsDataRow = PageContext.Cache.GetItem<DataRow>(
-        key, PageContext.BoardSettings.ForumStatisticsCacheTimeout, () => dr);
+      key = YafCache.GetBoardCacheKey(Constants.Cache.BoardStats);
+      var statisticsDataRow = PageContext.Cache.GetItem(
+        key,
+        PageContext.BoardSettings.ForumStatisticsCacheTimeout,
+        () =>
+        {
+          // get the post stats
+          DataRow dr = DB.board_poststats(PageContext.PageBoardID);
+
+          // Set colorOnly parameter to false, as we get here color from data field in the place
+          dr["LastUserStyle"] = this.PageContext.BoardSettings.UseStyledNicks ? StyleHelper.DecodeStyleByString(dr["LastUserStyle"].ToString(), false) : null;
+          return dr;
+        });
 
       // show max users...
       if (!statisticsDataRow.IsNull("MaxUsers"))
