@@ -23,9 +23,8 @@ namespace YAF.Pages
   // YAF.Pages
   using System;
   using System.Data;
-  using System.Data.DataSetExtensions;
-  using System.Text;
   using System.Linq;
+  using System.Text;
   using System.Text.RegularExpressions;
   using System.Web;
   using System.Web.UI.HtmlControls;
@@ -369,7 +368,9 @@ namespace YAF.Pages
     /// <summary>
     /// Adds meta data: description and keywords to the page header.
     /// </summary>
-    /// <param name="firstMessage">first message in the topic</param>
+    /// <param name="firstMessage">
+    /// first message in the topic
+    /// </param>
     private void AddMetaData(object firstMessage)
     {
       if (Page.Header != null && PageContext.BoardSettings.AddDynamicPageMetaTags)
@@ -497,7 +498,7 @@ namespace YAF.Pages
       long nMessageID = 0;
       object replyTo = -1;
       string msg = this._quickReplyEditor.Text;
-      long topicID = this.PageContext.PageTopicID;
+      long topicID = PageContext.PageTopicID;
 
       var tFlags = new MessageFlags();
 
@@ -640,21 +641,23 @@ namespace YAF.Pages
 
         foreach (DataRow drThanks in dtAllThanks.Table.Rows)
         {
-            if (drThanks["FromUserID"] != DBNull.Value)
-            if (Convert.ToInt32(drThanks["FromUserID"]) == PageContext.PageUserID)
+          if (drThanks["FromUserID"] != DBNull.Value)
           {
-            dt0.Rows.Find(drThanks["MessageID"])["IsThankedByUser"] = "true";
+            if (Convert.ToInt32(drThanks["FromUserID"]) == PageContext.PageUserID)
+            {
+              dt0.Rows.Find(drThanks["MessageID"])["IsThankedByUser"] = "true";
+            }
           }
         }
-        
-          foreach (DataRow dr in dt0.Rows)
+
+        foreach (DataRow dr in dt0.Rows)
         {
-            dtAllThanks.RowFilter = String.Format("MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dr["MessageID"]));
-            dr["MessageThanksNumber"] = dtAllThanks.Count;
-            dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dr["MessageID"]));
-            dr["ThanksFromUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksFromUserNumber"] : 0;
-            dr["ThanksToUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserNumber"] :0;
-            dr["ThanksToUserPostsNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserPostsNumber"] : 0;
+          dtAllThanks.RowFilter = String.Format("MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dr["MessageID"]));
+          dr["MessageThanksNumber"] = dtAllThanks.Count;
+          dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dr["MessageID"]));
+          dr["ThanksFromUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksFromUserNumber"] : 0;
+          dr["ThanksToUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserNumber"] : 0;
+          dr["ThanksToUserPostsNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserPostsNumber"] : 0;
         }
       }
 
@@ -876,7 +879,7 @@ namespace YAF.Pages
     {
       if (!PageContext.ForumModeratorAccess)
       {
-        YafBuildLink.AccessDenied(/*"You don't have access to delete topics."*/);
+        YafBuildLink.AccessDenied( /*"You don't have access to delete topics."*/);
       }
 
       // Take away 10 points once!
@@ -1133,7 +1136,7 @@ namespace YAF.Pages
     {
       if (!PageContext.ForumModeratorAccess)
       {
-        YafBuildLink.AccessDenied(/*"You are not a forum moderator."*/);
+        YafBuildLink.AccessDenied( /*"You are not a forum moderator."*/);
       }
 
       YafBuildLink.Redirect(ForumPages.movetopic, "t={0}", PageContext.PageTopicID);
