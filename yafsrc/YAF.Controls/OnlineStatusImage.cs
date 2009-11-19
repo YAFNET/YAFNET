@@ -26,6 +26,8 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
+  using Classes.UI;
+
   /// <summary>
   /// Provides an Online/Offline status for a YAF User
   /// </summary>
@@ -59,11 +61,20 @@ namespace YAF.Controls
 
       if (Visible)
       {
-        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
+        string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
         DataTable activeUsers = PageContext.Cache.GetItem(
-          cacheKey, 
-          (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, 
-          () => DB.active_list(YafContext.Current.PageBoardID, false, YafContext.Current.BoardSettings.ActiveListTime, false));
+          key,
+          (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout,
+          () =>
+          {
+            DataTable au = DB.active_list(
+              YafContext.Current.PageBoardID, false, YafContext.Current.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
+            if (PageContext.BoardSettings.UseStyledNicks)
+            {
+              StyleHelper.DecodeStyleByTable(ref au);
+            }
+            return au;
+          });
 
         if (activeUsers.AsEnumerable().Any(x => x.Field<int>("UserId") == UserID && !x.Field<bool>("IsHidden")))
         {
