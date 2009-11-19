@@ -230,3 +230,4 @@ AS
 		INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) on b.GroupID=a.GroupID
 	GROUP BY
 		a.UserID,x.ForumID' 
+GO

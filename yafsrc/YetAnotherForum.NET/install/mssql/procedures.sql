@@ -6575,3 +6575,4 @@ BEGIN
 		DELETE FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] WHERE DATEDIFF(minute, Date, getdate()) > 1
 END
 GO
+
