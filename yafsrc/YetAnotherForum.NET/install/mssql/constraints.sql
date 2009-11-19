@@ -632,6 +632,10 @@ if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}]
 	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] with nocheck add constraint [PK_{objectQualifier}ShoutboxMessage] PRIMARY KEY CLUSTERED (ShoutBoxMessageID)
 go
 
+if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Thank]') and name='PK_{objectQualifier}ShoutboxMessage')
+	alter table [{databaseOwner}].[{objectQualifier}Thanks] with nocheck add constraint [PK_{objectQualifier}Thanks] PRIMARY KEY CLUSTERED (ThanksID)
+go
+
 /*
 ** Unique constraints
 */
