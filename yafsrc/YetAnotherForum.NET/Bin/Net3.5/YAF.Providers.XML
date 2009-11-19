@@ -9,7 +9,7 @@
             YAF Custom Profile Provider
             </summary>
         </member>
-        <member name="F:YAF.Providers.Profile.YafProfileProvider.ConnStrAppKeyName">
+        <member name="F:YAF.Providers.Profile.YafProfileProvider._connStrAppKeyName">
             <summary>
             The conn str app key name.
             </summary>
@@ -44,7 +44,7 @@
             The delete from profile cache if exists.
             </summary>
             <param name="key">
-            The key.
+            The key to remove.
             </param>
         </member>
         <member name="M:YAF.Providers.Profile.YafProfileProvider.ClearUserProfileCache">
@@ -293,6 +293,11 @@
             <param name="collection">
             The collection.
             </param>
+        </member>
+        <member name="P:YAF.Providers.Profile.YafProfileProvider.ConnStrAppKeyName">
+            <summary>
+            Gets the Connection String App Key Name.
+            </summary>
         </member>
         <member name="P:YAF.Providers.Profile.YafProfileProvider.ApplicationName">
             <summary>
@@ -1841,7 +1846,7 @@
             The yaf role provider.
             </summary>
         </member>
-        <member name="F:YAF.Providers.Roles.YafRoleProvider.ConnStrAppKeyName">
+        <member name="F:YAF.Providers.Roles.YafRoleProvider._connStrAppKeyName">
             <summary>
             The conn str app key name.
             </summary>
@@ -2001,6 +2006,11 @@
             <returns>
             True/False
             </returns>
+        </member>
+        <member name="P:YAF.Providers.Roles.YafRoleProvider.ConnStrAppKeyName">
+            <summary>
+            Gets the Connection String App Key Name.
+            </summary>
         </member>
         <member name="P:YAF.Providers.Roles.YafRoleProvider.ApplicationName">
             <summary>

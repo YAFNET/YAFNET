@@ -326,6 +326,366 @@
             Gets or sets OverrideDictionary.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Pattern.IThreadSafeDictionary`2">
+            <summary>
+            The thread safe dictionary.
+            </summary>
+            <typeparam name="TKey">
+            </typeparam>
+            <typeparam name="TValue">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Classes.Pattern.IThreadSafeDictionary`2.MergeSafe(`0,`1)">
+            <summary>
+            Merge is similar to the SQL merge or upsert statement.  
+            </summary>
+            <param name="key">
+            Key to lookup
+            </param>
+            <param name="newValue">
+            New Value
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.IThreadSafeDictionary`2.RemoveSafe(`0)">
+            <summary>
+            This is a blind remove. Prevents the need to check for existence first.
+            </summary>
+            <param name="key">
+            Key to Remove
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Pattern.ThreadSafeDictionary`2">
+            <summary>
+            The thread safe dictionary.
+            </summary>
+            <typeparam name="TKey">
+            </typeparam>
+            <typeparam name="TValue">
+            </typeparam>
+        </member>
+        <member name="F:YAF.Classes.Pattern.ThreadSafeDictionary`2.dict">
+            <summary>
+            This is the internal dictionary that we are wrapping
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.ThreadSafeDictionary`2.dictionaryLock">
+            <summary>
+            The dictionary lock.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.RemoveSafe(`0)">
+            <summary>
+            This is a blind remove. Prevents the need to check for existence first.
+            </summary>
+            <param name="key">
+            Key to remove
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.MergeSafe(`0,`1)">
+            <summary>
+            Merge does a blind remove, and then add.  Basically a blind Upsert.  
+            </summary>
+            <param name="key">
+            Key to lookup
+            </param>
+            <param name="newValue">
+            New Value
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.Remove(`0)">
+            <summary>
+            The remove.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            The remove.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.ContainsKey(`0)">
+            <summary>
+            The contains key.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            The contains key.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            The try get value.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+            <returns>
+            The try get value.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.Clear">
+            <summary>
+            The clear.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.Contains(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            The contains.
+            </summary>
+            <param name="item">
+            The item.
+            </param>
+            <returns>
+            The contains.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.Add(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            The add.
+            </summary>
+            <param name="item">
+            The item.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.Add(`0,`1)">
+            <summary>
+            The add.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+            <param name="value">
+            The value.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.Remove(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <summary>
+            The remove.
+            </summary>
+            <param name="item">
+            The item.
+            </param>
+            <returns>
+            The remove.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)">
+            <summary>
+            The copy to.
+            </summary>
+            <param name="array">
+            The array.
+            </param>
+            <param name="arrayIndex">
+            The array index.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.GetEnumerator">
+            <summary>
+            The get enumerator.
+            </summary>
+            <returns>
+            </returns>
+            <exception cref="T:System.NotSupportedException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ThreadSafeDictionary`2.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            The i enumerable. get enumerator.
+            </summary>
+            <returns>
+            </returns>
+            <exception cref="T:System.NotSupportedException">
+            </exception>
+        </member>
+        <member name="P:YAF.Classes.Pattern.ThreadSafeDictionary`2.Item(`0)">
+            <summary>
+            The this.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Pattern.ThreadSafeDictionary`2.Keys">
+            <summary>
+            Gets Keys.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.ThreadSafeDictionary`2.Values">
+            <summary>
+            Gets Values.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.ThreadSafeDictionary`2.Count">
+            <summary>
+            Gets Count.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.ThreadSafeDictionary`2.IsReadOnly">
+            <summary>
+            Gets a value indicating whether IsReadOnly.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.Locks">
+            <summary>
+            The locks.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.Locks.GetReadLock(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            The get read lock.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.Locks.GetReadOnlyLock(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            The get read only lock.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.Locks.GetWriteLock(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            The get write lock.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.Locks.ReleaseReadOnlyLock(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            The release read only lock.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.Locks.ReleaseReadLock(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            The release read lock.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.Locks.ReleaseWriteLock(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            The release write lock.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.Locks.ReleaseLock(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            The release lock.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.Locks.GetLockInstance">
+            <summary>
+            The get lock instance.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.Locks.GetLockInstance(System.Threading.LockRecursionPolicy)">
+            <summary>
+            The get lock instance.
+            </summary>
+            <param name="recursionPolicy">
+            The recursion policy.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Pattern.BaseLock">
+            <summary>
+            The base lock.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.BaseLock._Locks">
+            <summary>
+            The _ locks.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.BaseLock.#ctor(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.BaseLock"/> class.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.BaseLock.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.ReadLock">
+            <summary>
+            The read lock.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ReadLock.#ctor(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.ReadLock"/> class.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ReadLock.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.ReadOnlyLock">
+            <summary>
+            The read only lock.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ReadOnlyLock.#ctor(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.ReadOnlyLock"/> class.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ReadOnlyLock.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Pattern.WriteLock">
+            <summary>
+            The write lock.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.WriteLock.#ctor(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.WriteLock"/> class.
+            </summary>
+            <param name="locks">
+            The locks.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.WriteLock.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Constants">
             <summary>
             For globally or multiple times used constants
