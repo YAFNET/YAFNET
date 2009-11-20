@@ -373,6 +373,11 @@ namespace YAF.Pages
     /// </param>
     private void AddMetaData(object firstMessage)
     {
+      if (firstMessage.IsNullOrEmptyDBField())
+      {
+        return;
+      }
+
       if (Page.Header != null && PageContext.BoardSettings.AddDynamicPageMetaTags)
       {
         FormatMsg.MessageCleaned message = FormatMsg.GetCleanedTopicMessage(firstMessage, PageContext.PageTopicID);
