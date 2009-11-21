@@ -66,8 +66,8 @@
 				<asp:checkbox id="Locked" runat="server"></asp:checkbox></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>Is Test:</b><br />
-				If this is checked, posts in this forum will not count in the ladder system.</td>
+			<td class="postheader"><b>No posts count:</b><br />
+				If this is checked, posts in this forum will not count in the ladder system/forum statistics.</td>
 			<td class="post">
 				<asp:checkbox id="IsTest" runat="server"></asp:checkbox></td>
 		</tr>

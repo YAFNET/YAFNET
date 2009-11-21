@@ -1049,7 +1049,7 @@ begin
 			a.BoardID = @BoardID and
 			(a.Flags & @ExcludeFlags) = 0
 		order by 
-			a.Name
+			a.SortOrder
 	else
 		select 
 			a.* 
@@ -1059,7 +1059,7 @@ begin
 			a.BoardID = @BoardID and
 			a.AccessMaskID = @AccessMaskID
 		order by 
-			a.Name
+			a.SortOrder
 end
 GO
 
@@ -1077,7 +1077,8 @@ create procedure [{databaseOwner}].[{objectQualifier}accessmask_save](
 	@EditAccess			bit,
 	@DeleteAccess		bit,
 	@UploadAccess		bit,
-	@DownloadAccess		bit
+	@DownloadAccess		bit,
+	@SortOrder          smallint
 ) as
 begin
 		declare @Flags	int
@@ -1096,12 +1097,13 @@ begin
 	if @DownloadAccess<>0 set @Flags = @Flags | 1024
 
 	if @AccessMaskID is null
-		insert into [{databaseOwner}].[{objectQualifier}AccessMask](Name,BoardID,Flags)
-		values(@Name,@BoardID,@Flags)
+		insert into [{databaseOwner}].[{objectQualifier}AccessMask](Name,BoardID,Flags,SortOrder)
+		values(@Name,@BoardID,@Flags,@SortOrder)
 	else
 		update [{databaseOwner}].[{objectQualifier}AccessMask] set
 			Name			= @Name,
-			Flags			= @Flags
+			Flags			= @Flags,
+			SortOrder       = @SortOrder
 		where AccessMaskID=@AccessMaskID
 end
 GO
@@ -1407,20 +1409,20 @@ begin
 	SET @RankIDAdvanced = SCOPE_IDENTITY()
 
 	-- AccessMask
-	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	VALUES(@BoardID,'Admin Access',1023 + 1024)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags,SortOrder)
+	VALUES(@BoardID,'Admin Access',1023 + 1024,4)
 	SET @AccessMaskIDAdmin = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	VALUES(@BoardID,'Moderator Access',487 + 1024)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags,SortOrder)
+	VALUES(@BoardID,'Moderator Access',487 + 1024,3)
 	SET @AccessMaskIDModerator = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	VALUES(@BoardID,'Member Access',423 + 1024)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags,SortOrder)
+	VALUES(@BoardID,'Member Access',423 + 1024,2)
 	SET @AccessMaskIDMember = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	VALUES(@BoardID,'Read Only Access',1)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags,SortOrder)
+	VALUES(@BoardID,'Read Only Access',1,1)
 	SET @AccessMaskIDReadOnly = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	VALUES(@BoardID,'No Access',0)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags,SortOrder)
+	VALUES(@BoardID,'No Access',0,0)
 
 	-- Group
 	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,Style,SortOrder) values(@BoardID,'Administrators',1,2147483647,'default!font-size: 8pt; color: red/flatearth!font-size: 8pt; color:blue',0)

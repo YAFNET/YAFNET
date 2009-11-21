@@ -971,6 +971,12 @@ begin
 end
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='SortOrder')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}AccessMask] add SortOrder smallint not null default (0)
+end
+GO
+
 -- NntpForum Table
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}NntpForum]') and name='Active')

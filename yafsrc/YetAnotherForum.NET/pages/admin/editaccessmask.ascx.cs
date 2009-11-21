@@ -113,7 +113,8 @@ namespace YAF.Pages.Admin
         this.EditAccess.Checked, 
         this.DeleteAccess.Checked, 
         this.UploadAccess.Checked, 
-        this.DownloadAccess.Checked);
+        this.DownloadAccess.Checked,
+        this.SortOrder.Text);
 
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 

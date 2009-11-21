@@ -16,6 +16,14 @@
 					runat="server" Text="<br />Enter name please!" ControlToValidate="Name" Display="Dynamic" /></td>
 		</tr>
 		<tr>
+			<td class="postheader" width="50%">
+				<b>Order:</b><br />
+				Sort order for this access mask.</td>
+			<td class="post" width="50%">
+				<asp:TextBox runat="server" ID="SortOrder" CssClass="edit" /><asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+					runat="server" Text="<br />Enter sort order please!" ControlToValidate="SortOrder" Display="Dynamic" /></td>
+		</tr>
+		<tr>
 			<td class="postheader">
 				<b>Read Access:</b></td>
 			<td class="post">

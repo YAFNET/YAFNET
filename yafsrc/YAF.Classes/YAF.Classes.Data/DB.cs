@@ -1394,7 +1394,10 @@ namespace YAF.Classes.Data
     /// </param>
     /// <param name="downloadAccess">
     /// Download Access?
-    /// </param>
+    /// </param> 
+    /// <param name="sortOrder">
+    /// Sort Order?
+    /// </param> 
     public static void accessmask_save(
       object accessMaskID, 
       object boardID, 
@@ -1409,7 +1412,8 @@ namespace YAF.Classes.Data
       object editAccess, 
       object deleteAccess, 
       object uploadAccess, 
-      object downloadAccess)
+      object downloadAccess,
+      object sortOrder )
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("accessmask_save"))
       {
@@ -1428,6 +1432,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("DeleteAccess", deleteAccess);
         cmd.Parameters.AddWithValue("UploadAccess", uploadAccess);
         cmd.Parameters.AddWithValue("DownloadAccess", downloadAccess);
+        cmd.Parameters.AddWithValue("SortOrder", sortOrder);         
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }

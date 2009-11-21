@@ -48,7 +48,7 @@
 				&nbsp;
 			</td>
 		</tr>
-		<asp:Repeater ID="List" runat="server">
+		<asp:Repeater ID="List" runat="server" OnItemCommand="List_ItemCommand">
 			<ItemTemplate>
 				<tr class="post">
 					<td>

@@ -72,7 +72,7 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.List.DataSource = DB.accessmask_list(PageContext.PageBoardID, null);
+      this.List.DataSource = DB.accessmask_list(PageContext.PageBoardID, null);     
       DataBind();
     }
 
@@ -103,7 +103,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void List_ItemCommand(object source, RepeaterCommandEventArgs e)
+    protected void List_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
       switch (e.CommandName)
       {

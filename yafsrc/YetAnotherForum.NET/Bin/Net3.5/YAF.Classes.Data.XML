@@ -1654,6 +1654,9 @@
             <param name="downloadAccess">
             Download Access?
             </param>
+			<param name="sortOrder">
+			Sort Order?
+			</param>
         </member>
         <member name="M:YAF.Classes.Data.DB.active_list(System.Object,System.Object,System.Int32,System.Object)">
             <summary>

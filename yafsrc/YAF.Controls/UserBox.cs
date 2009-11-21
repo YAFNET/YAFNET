@@ -425,7 +425,8 @@ namespace YAF.Controls
 
         bool bFirst = true;
         string roleStyle = null;
-        // Get styles 	
+        // Get styles 
+	    // TODO: this anyway called twice for groups and for rank. Needs to be moved to place where it will be call once for each user/post.
         var roleStyleTable = YafContext.Current.Cache.GetItem<DataTable>(
           YafCache.GetBoardCacheKey(Constants.Cache.GroupRankStyles),
           YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
