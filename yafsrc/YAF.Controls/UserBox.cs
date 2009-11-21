@@ -425,13 +425,15 @@ namespace YAF.Controls
 
         bool bFirst = true;
         string roleStyle = null;
+        // Get styles 	
+        var roleStyleTable = YafContext.Current.Cache.GetItem<DataTable>(
+          YafCache.GetBoardCacheKey(Constants.Cache.GroupRankStyles),
+          YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
+          () => DB.group_rank_style(YafContext.Current.PageBoardID));
+
         foreach (string role in RoleMembershipHelper.GetRolesForUser(DataRow["UserName"].ToString()))
         {
-          // Get styles 	
-          var roleStyleTable = YafContext.Current.Cache.GetItem<DataTable>(
-            YafCache.GetBoardCacheKey(Constants.Cache.GroupRankStyles),
-            YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
-            () => DB.group_rank_style(YafContext.Current.PageBoardID));
+          
           foreach (DataRow drow in roleStyleTable.Rows)
           {
             if (Convert.ToInt32(drow["LegendID"]) == 1 && drow["Style"] != null && drow["Name"].ToString() == role)
@@ -465,9 +467,10 @@ namespace YAF.Controls
               groupsText.AppendFormat(", {0}", role);
             }
           }
+          roleStyle = null;
         }
 
-        roleStyle = null;
+       
 
         filler = String.Format(PageContext.BoardSettings.UserBoxGroups, PageContext.Localization.GetText("groups"), groupsText.ToString());
 
