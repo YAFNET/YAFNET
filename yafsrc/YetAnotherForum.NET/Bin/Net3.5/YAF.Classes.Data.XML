@@ -1608,7 +1608,7 @@
             The accessmask_delete.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.accessmask_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.accessmask_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Saves changes to a access mask 
             </summary>
@@ -1653,10 +1653,10 @@
             </param>
             <param name="downloadAccess">
             Download Access?
-            </param>
-			<param name="sortOrder">
-			Sort Order?
-			</param>
+            </param> 
+            <param name="sortOrder">
+            Sort Order?
+            </param> 
         </member>
         <member name="M:YAF.Classes.Data.DB.active_list(System.Object,System.Object,System.Int32,System.Object)">
             <summary>
@@ -2765,9 +2765,28 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.DB.post_alluser(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Gets all the post by a user.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="pageUserID">
+            The page user id.
+            </param>
+            <param name="topCount">
+            Top count to return. Null is all.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.DB.message_getRepliesList(System.Object)">
             <summary>
-            The message_get replies list.
+            gets list of replies to message
             </summary>
             <param name="messageID">
             The message id.
@@ -2861,7 +2880,7 @@
         </member>
         <member name="M:YAF.Classes.Data.DB.message_listreported(System.Object,System.Object)">
             <summary>
-            The message_listreported.
+            Retrieve all reported messages with the correct forumID argument.
             </summary>
             <param name="messageFlag">
             The message flag.
@@ -2940,7 +2959,7 @@
         </member>
         <member name="M:YAF.Classes.Data.DB.message_deleteRecursively(System.Object,System.Boolean,System.String,System.Int32,System.Boolean,System.Boolean)">
             <summary>
-            The message_delete recursively.
+            Delete message and all subsequent releated messages to that ID
             </summary>
             <param name="messageID">
             The message id.
@@ -2989,7 +3008,7 @@
         </member>
         <member name="M:YAF.Classes.Data.DB.message_approve(System.Object)">
             <summary>
-            The message_approve.
+            Set flag on message to approved and store in DB
             </summary>
             <param name="messageID">
             The message id.
@@ -3121,7 +3140,7 @@
         </member>
         <member name="M:YAF.Classes.Data.DB.message_move(System.Object,System.Object,System.Boolean)">
             <summary>
-            The message_move.
+            message movind function
             </summary>
             <param name="messageID">
             The message id.
@@ -3135,7 +3154,7 @@
         </member>
         <member name="M:YAF.Classes.Data.DB.message_moveRecursively(System.Object,System.Object)">
             <summary>
-            The message_move recursively.
+            moves answers of moved post
             </summary>
             <param name="messageID">
             The message id.
@@ -3157,7 +3176,8 @@
         </member>
         <member name="M:YAF.Classes.Data.DB.message_GetThanks(System.Object)">
             <summary>
-            The message_ get thanks.
+            Returns the UserIDs and UserNames who have thanked the message
+            with the provided messageID.
             </summary>
             <param name="MessageID">
             The message id.

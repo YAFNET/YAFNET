@@ -203,6 +203,57 @@
             Clears all ReplaceRules from the cache.
             </summary>
         </member>
+        <member name="T:YAF.Classes.UI.IReplaceRules">
+            <summary>
+            Replace Rules Interface
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.IReplaceRules.AddRule(YAF.Classes.UI.BaseReplaceRule)">
+            <summary>
+            The add rule.
+            </summary>
+            <param name="newRule">
+            The new rule.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.UI.IReplaceRules.Process(System.String@)">
+            <summary>
+            Process text using the rules.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.UI.IReplaceRules.HasRules">
+            <summary>
+            Gets a value indicating whether any rules have been added.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UI.IBaseReplaceRule">
+            <summary>
+            Base Replace Rules Interface
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.IBaseReplaceRule.Replace(System.String@,YAF.Classes.UI.HtmlReplacementCollection@)">
+            <summary>
+            The replace.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="replacement">
+            The replacement.
+            </param>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
+        <member name="P:YAF.Classes.UI.IBaseReplaceRule.RuleDescription">
+            <summary>
+            Gets RuleDescription.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.UI.ReplaceRules">
             <summary>
             Provides a way to handle layers of replacements rules
@@ -271,19 +322,6 @@
             The rule rank.
             </summary>
         </member>
-        <member name="M:YAF.Classes.UI.BaseReplaceRule.CompareTo(System.Object)">
-            <summary>
-            The compare to.
-            </summary>
-            <param name="obj">
-            The obj.
-            </param>
-            <returns>
-            The compare to.
-            </returns>
-            <exception cref="T:System.ArgumentException">
-            </exception>
-        </member>
         <member name="M:YAF.Classes.UI.BaseReplaceRule.Replace(System.String@,YAF.Classes.UI.HtmlReplacementCollection@)">
             <summary>
             The replace.
@@ -295,6 +333,19 @@
             The replacement.
             </param>
             <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.UI.BaseReplaceRule.CompareTo(System.Object)">
+            <summary>
+            The compare to.
+            </summary>
+            <param name="obj">
+            The obj.
+            </param>
+            <returns>
+            The compare to.
+            </returns>
+            <exception cref="T:System.ArgumentException">
             </exception>
         </member>
         <member name="P:YAF.Classes.UI.BaseReplaceRule.RuleDescription">
