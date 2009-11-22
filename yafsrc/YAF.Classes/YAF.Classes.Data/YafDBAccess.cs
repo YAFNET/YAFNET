@@ -17,202 +17,151 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Data.SqlClient;
-using YAF.Classes.Pattern;
-
 namespace YAF.Classes.Data
 {
+  using System;
+  using System.Data;
+  using System.Data.SqlClient;
+  using YAF.Classes.Pattern;
+
   /// <summary>
-  /// Provides open/close management for DB Connections
+  /// DBAccess Interface
   /// </summary>
-  public class YafDBConnManager : IDisposable
+  public interface IYafDBAccess
   {
-    #region Delegates
-
     /// <summary>
-    /// The yaf db conn info message event handler.
+    /// Gets a whole dataset out of the database
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
+    /// <param name="cmd">
+    /// The SQL Command
     /// </param>
-    /// <param name="e">
-    /// The e.
+    /// <returns>
+    /// Dataset with the results
+    /// </returns>
+    /// <remarks>
+    /// Without transaction.
+    /// </remarks>
+    DataSet GetDataset(SqlCommand cmd);
+
+    /// <summary>
+    /// The get dataset.
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
     /// </param>
-    public delegate void YafDBConnInfoMessageEventHandler(object sender, YafDBConnInfoMessageEventArgs e);
-
-    #endregion
-
-    /// <summary>
-    /// The _connection.
-    /// </summary>
-    protected SqlConnection _connection = null;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="YafDBConnManager"/> class.
-    /// </summary>
-    public YafDBConnManager()
-    {
-      // just initalize it (not open)
-      InitConnection();
-    }
-
-    /// <summary>
-    /// Gets ConnectionString.
-    /// </summary>
-    public virtual string ConnectionString
-    {
-      get
-      {
-        return Config.ConnectionString;
-      }
-    }
-
-    /// <summary>
-    /// Gets the current DB Connection in any state.
-    /// </summary>
-    public SqlConnection DBConnection
-    {
-      get
-      {
-        InitConnection();
-        return this._connection;
-      }
-    }
-
-    /// <summary>
-    /// Gets an open connection to the DB. Can be called any number of times.
-    /// </summary>
-    public SqlConnection OpenDBConnection
-    {
-      get
-      {
-        InitConnection();
-
-        if (this._connection.State != ConnectionState.Open)
-        {
-          // open it up...
-          this._connection.Open();
-        }
-
-        return this._connection;
-      }
-    }
-
-    #region IDisposable Members
-
-    /// <summary>
-    /// The dispose.
-    /// </summary>
-    public virtual void Dispose()
-    {
-      // close and delete connection
-      CloseConnection();
-      this._connection = null;
-    }
-
-    #endregion
-
-    /// <summary>
-    /// The info message.
-    /// </summary>
-    public event YafDBConnInfoMessageEventHandler InfoMessage;
-
-    /// <summary>
-    /// The init connection.
-    /// </summary>
-    public void InitConnection()
-    {
-      if (this._connection == null)
-      {
-        // create the connection
-        this._connection = new SqlConnection();
-        this._connection.InfoMessage += new SqlInfoMessageEventHandler(Connection_InfoMessage);
-        this._connection.ConnectionString = ConnectionString;
-      }
-      else if (this._connection.State != ConnectionState.Open)
-      {
-        // verify the connection string is in there...
-        this._connection.ConnectionString = ConnectionString;
-      }
-    }
-
-    /// <summary>
-    /// The close connection.
-    /// </summary>
-    public void CloseConnection()
-    {
-      if (this._connection != null && this._connection.State != ConnectionState.Closed)
-      {
-        this._connection.Close();
-      }
-    }
-
-    /// <summary>
-    /// The connection_ info message.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
+    /// <param name="transaction">
+    /// The transaction.
     /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Connection_InfoMessage(object sender, SqlInfoMessageEventArgs e)
-    {
-      if (InfoMessage != null)
-      {
-        InfoMessage(this, new YafDBConnInfoMessageEventArgs(e.Message));
-      }
-    }
-
-    #region Nested type: YafDBConnInfoMessageEventArgs
+    /// <returns>
+    /// </returns>
+    DataSet GetDataset(SqlCommand cmd, bool transaction);
 
     /// <summary>
-    /// The yaf db conn info message event args.
+    /// Gets data out of the database
     /// </summary>
-    public class YafDBConnInfoMessageEventArgs : EventArgs
-    {
-      /// <summary>
-      /// The _message.
-      /// </summary>
-      private string _message;
+    /// <param name="cmd">
+    /// The SQL Command
+    /// </param>
+    /// <returns>
+    /// DataTable with the results
+    /// </returns>
+    /// <remarks>
+    /// Without transaction.
+    /// </remarks>
+    DataTable GetData(SqlCommand cmd);
 
-      /// <summary>
-      /// Initializes a new instance of the <see cref="YafDBConnInfoMessageEventArgs"/> class.
-      /// </summary>
-      /// <param name="message">
-      /// The message.
-      /// </param>
-      public YafDBConnInfoMessageEventArgs(string message)
-      {
-        Message = message;
-      }
+    /// <summary>
+    /// The get data.
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <param name="transaction">
+    /// The transaction.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    DataTable GetData(SqlCommand cmd, bool transaction);
 
-      /// <summary>
-      /// Gets or sets Message.
-      /// </summary>
-      public string Message
-      {
-        get
-        {
-          return this._message;
-        }
+    /// <summary>
+    /// Gets data out of database using a plain text string command
+    /// </summary>
+    /// <param name="commandText">
+    /// command text to be executed
+    /// </param>
+    /// <returns>
+    /// DataTable with results
+    /// </returns>
+    /// <remarks>
+    /// Without transaction.
+    /// </remarks>
+    DataTable GetData(string commandText);
 
-        set
-        {
-          this._message = value;
-        }
-      }
-    }
+    /// <summary>
+    /// The get data.
+    /// </summary>
+    /// <param name="commandText">
+    /// The command text.
+    /// </param>
+    /// <param name="transaction">
+    /// The transaction.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    DataTable GetData(string commandText, bool transaction);
 
-    #endregion
+    /// <summary>
+    /// Executes a NonQuery
+    /// </summary>
+    /// <param name="cmd">
+    /// NonQuery to execute
+    /// </param>
+    /// <remarks>
+    /// Without transaction
+    /// </remarks>
+    void ExecuteNonQuery(SqlCommand cmd);
+
+    /// <summary>
+    /// The execute non query.
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <param name="transaction">
+    /// The transaction.
+    /// </param>
+    void ExecuteNonQuery(SqlCommand cmd, bool transaction);
+
+    /// <summary>
+    /// The execute scalar.
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <returns>
+    /// The execute scalar.
+    /// </returns>
+    object ExecuteScalar(SqlCommand cmd);
+
+    /// <summary>
+    /// The execute scalar.
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <param name="transaction">
+    /// The transaction.
+    /// </param>
+    /// <returns>
+    /// The execute scalar.
+    /// </returns>
+    object ExecuteScalar(SqlCommand cmd, bool transaction);
   }
 
   /// <summary>
-  /// The yaf db access.
+  /// The yaf db access for SQL Server.
   /// </summary>
-  public class YafDBAccess
+  public class YafDBAccess : IYafDBAccess
   {
     /* Ederon : 6/16/2007 - conventions */
 
@@ -234,7 +183,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// The _connection manager type.
     /// </summary>
-    private Type _connectionManagerType = typeof (YafDBConnManager);
+    private Type _connectionManagerType = typeof(YafDBConnManager);
 
     /// <summary>
     /// Gets Current.
@@ -307,9 +256,9 @@ namespace YAF.Classes.Data
     /// </typeparam>
     public void SetConnectionManagerAdapter<T>()
     {
-      Type newConnectionManager = typeof (T);
+      Type newConnectionManager = typeof(T);
 
-      if (newConnectionManager.BaseType == typeof (YafDBConnManager))
+      if (newConnectionManager.BaseType == typeof(YafDBConnManager))
       {
         this._connectionManagerType = newConnectionManager;
       }
@@ -401,10 +350,11 @@ namespace YAF.Classes.Data
       string userPassword)
     {
       // TODO: Parameters should be in a List<ConnectionParameters>
-      var connBuilder = new SqlConnectionStringBuilder();
-
-      connBuilder.DataSource = parm1;
-      connBuilder.InitialCatalog = parm2;
+      var connBuilder = new SqlConnectionStringBuilder
+        {
+          DataSource = parm1,
+          InitialCatalog = parm2
+        };
 
       if (parm11)
       {
@@ -594,7 +544,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public DataSet GetDatasetBasic(SqlCommand cmd, bool transaction)
+    private DataSet GetDatasetBasic(SqlCommand cmd, bool transaction)
     {
       using (YafDBConnManager connMan = GetConnectionManager())
       {
@@ -850,154 +800,6 @@ namespace YAF.Classes.Data
       {
         qc.Dispose();
       }
-    }
-  }
-
-  /// <summary>
-  /// Helper class to do basic data conversion for a DataRow.	
-  /// </summary>
-  public class DataRowConvert
-  {
-    /// <summary>
-    /// The _db row.
-    /// </summary>
-    private DataRow _dbRow;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DataRowConvert"/> class.
-    /// </summary>
-    /// <param name="dbRow">
-    /// The db row.
-    /// </param>
-    public DataRowConvert(DataRow dbRow)
-    {
-      this._dbRow = dbRow;
-    }
-
-    /// <summary>
-    /// The as string.
-    /// </summary>
-    /// <param name="columnName">
-    /// The column name.
-    /// </param>
-    /// <returns>
-    /// The as string.
-    /// </returns>
-    public string AsString(string columnName)
-    {
-      if (this._dbRow[columnName] == DBNull.Value)
-      {
-        return null;
-      }
-
-      return this._dbRow[columnName].ToString();
-    }
-
-    /// <summary>
-    /// The as bool.
-    /// </summary>
-    /// <param name="columnName">
-    /// The column name.
-    /// </param>
-    /// <returns>
-    /// The as bool.
-    /// </returns>
-    public bool AsBool(string columnName)
-    {
-      if (this._dbRow[columnName] == DBNull.Value)
-      {
-        return false;
-      }
-
-      return Convert.ToBoolean(this._dbRow[columnName]);
-    }
-
-    /// <summary>
-    /// The as date time.
-    /// </summary>
-    /// <param name="columnName">
-    /// The column name.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public DateTime? AsDateTime(string columnName)
-    {
-      if (this._dbRow[columnName] == DBNull.Value)
-      {
-        return null;
-      }
-
-      return Convert.ToDateTime(this._dbRow[columnName]);
-    }
-
-    /// <summary>
-    /// The as int 32.
-    /// </summary>
-    /// <param name="columnName">
-    /// The column name.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public int? AsInt32(string columnName)
-    {
-      if (this._dbRow[columnName] == DBNull.Value)
-      {
-        return null;
-      }
-
-      return Convert.ToInt32(this._dbRow[columnName]);
-    }
-
-    /// <summary>
-    /// The as int 64.
-    /// </summary>
-    /// <param name="columnName">
-    /// The column name.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public long? AsInt64(string columnName)
-    {
-      if (this._dbRow[columnName] == DBNull.Value)
-      {
-        return null;
-      }
-
-      return Convert.ToInt64(this._dbRow[columnName]);
-    }
-  }
-
-  /// <summary>
-  /// The sql data layer converter.
-  /// </summary>
-  public static class SqlDataLayerConverter
-  {
-    /// <summary>
-    /// The verify int 32.
-    /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
-    /// <returns>
-    /// The verify int 32.
-    /// </returns>
-    public static int VerifyInt32(object o)
-    {
-      return Convert.ToInt32(o);
-    }
-
-    /// <summary>
-    /// The verify bool.
-    /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
-    /// <returns>
-    /// The verify bool.
-    /// </returns>
-    public static bool VerifyBool(object o)
-    {
-      return Convert.ToBoolean(o);
     }
   }
 }
