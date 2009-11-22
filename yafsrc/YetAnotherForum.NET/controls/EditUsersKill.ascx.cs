@@ -72,8 +72,7 @@ namespace YAF.Controls
     {
       get
       {
-        return (from u in AllPostsByUser.AsEnumerable()
-                select u.Field<string>("IP")).OrderBy(x => x).Distinct().ToList();
+        return AllPostsByUser.GetColumnAsList<string>("IP").OrderBy(x => x).Distinct().ToList();
       }
     }
 
@@ -124,11 +123,10 @@ namespace YAF.Controls
     private void BanUserIps()
     {
       var ips = IPAddresses;
-      var allIps = (from b in DB.bannedip_list(PageContext.PageBoardID, null).AsEnumerable()
-                    select b.Field<string>("Mask")).ToList();
+      var allIps = DB.bannedip_list(PageContext.PageBoardID, null).GetColumnAsList<string>("Mask").ToList();
 
       // remove all IPs from ips if they already exist in allIps...
-      ips.RemoveAll(x => allIps.Contains(x));
+      ips.RemoveAll(allIps.Contains);
 
       // ban user ips...
       IPAddresses.ForEach(x => DB.bannedip_save(null, PageContext.PageBoardID, x));
