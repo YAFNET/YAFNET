@@ -169,6 +169,9 @@ namespace YAF.Controls
 
       MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID);
       PageContext.AddLoadMessage(String.Format("User {0} Killed!", user.UserName));
+
+      // update the displayed data...
+      BindData();
     }
   }
 }
