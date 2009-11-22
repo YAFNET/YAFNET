@@ -3566,21 +3566,45 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
+    [Obsolete("Use post_alluser() instead.")]
     public static DataTable post_last10user(object boardID, object userID, object pageUserID)
     {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("post_last10user"))
+      // use all posts procedure to return top ten
+      return post_alluser(boardID, userID, pageUserID, 10);
+    }
+
+    /// <summary>
+    /// Gets all the post by a user.
+    /// </summary>
+    /// <param name="boardID">
+    /// The board id.
+    /// </param>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="pageUserID">
+    /// The page user id.
+    /// </param>
+    /// <param name="topCount">
+    /// Top count to return. Null is all.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataTable post_alluser(object boardID, object userID, object pageUserID, object topCount)
+    {
+      using (SqlCommand cmd = YafDBAccess.GetCommand("post_alluser"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("UserID", userID);
         cmd.Parameters.AddWithValue("PageUserID", pageUserID);
+        cmd.Parameters.AddWithValue("topCount", topCount);
         return YafDBAccess.Current.GetData(cmd);
       }
     }
 
-    // gets list of replies to message
     /// <summary>
-    /// The message_get replies list.
+    /// gets list of replies to message
     /// </summary>
     /// <param name="messageID">
     /// The message id.
@@ -3759,9 +3783,8 @@ namespace YAF.Classes.Data
       message_deleteRecursively(messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false, eraseMessage);
     }
 
-    // <summary> Retrieve all reported messages with the correct forumID argument. </summary>
     /// <summary>
-    /// The message_listreported.
+    /// Retrieve all reported messages with the correct forumID argument.
     /// </summary>
     /// <param name="messageFlag">
     /// The message flag.
@@ -3899,10 +3922,8 @@ namespace YAF.Classes.Data
       }
     }
 
-    // BAI ADDED 30.01.2004
-    // <summary> Delete message and all subsequent releated messages to that ID </summary>
     /// <summary>
-    /// The message_delete recursively.
+    /// Delete message and all subsequent releated messages to that ID
     /// </summary>
     /// <param name="messageID">
     /// The message id.
@@ -4029,9 +4050,8 @@ namespace YAF.Classes.Data
       }
     }
 
-    // <summary> Set flag on message to approved and store in DB </summary>
     /// <summary>
-    /// The message_approve.
+    /// Set flag on message to approved and store in DB
     /// </summary>
     /// <param name="messageID">
     /// The message id.
@@ -4241,9 +4261,8 @@ namespace YAF.Classes.Data
       }
     }
 
-    // message movind function
     /// <summary>
-    /// The message_move.
+    /// message movind function
     /// </summary>
     /// <param name="messageID">
     /// The message id.
@@ -4281,9 +4300,8 @@ namespace YAF.Classes.Data
       }
     }
 
-    // moves answers of moved post
     /// <summary>
-    /// The message_move recursively.
+    /// moves answers of moved post
     /// </summary>
     /// <param name="messageID">
     /// The message id.
@@ -4343,10 +4361,9 @@ namespace YAF.Classes.Data
       }
     }
 
-    // <summary> Returns the UserIDs and UserNames who have thanked the message
-    // with the provided messageID. </summary>
     /// <summary>
-    /// The message_ get thanks.
+    /// Returns the UserIDs and UserNames who have thanked the message
+    /// with the provided messageID.
     /// </summary>
     /// <param name="MessageID">
     /// The message id.
