@@ -450,6 +450,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}post_last10user]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}post_alluser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}post_alluser]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}post_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}post_list]
 GO
@@ -3572,14 +3576,18 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollvote_check](@PollID int
 	END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}post_last10user](@BoardID int,@UserID int,@PageUserID int) as
+create procedure [{databaseOwner}].[{objectQualifier}post_alluser](@BoardID int,@UserID int,@PageUserID int,@topCount int = 0) as
 begin
-		set nocount on
+		IF (@topCount IS NULL) SET @topCount = 0;		
+		SET NOCOUNT ON
+		SET ROWCOUNT @topCount
 
-	select top 10
+	select
+		a.MessageID,
 		a.Posted,
 		Subject = c.Topic,
-		a.Message,
+		a.Message,		
+		a.IP,
 		a.UserID,
 		a.Flags,
 		UserName = IsNull(a.UserName,b.Name),
@@ -3601,6 +3609,8 @@ begin
 		(c.Flags & 8)=0
 	order by
 		a.Posted desc
+		
+	SET ROWCOUNT 0;
 end
 GO
 

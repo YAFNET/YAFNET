@@ -7,6 +7,7 @@
 <%@ Register TagPrefix="uc1" TagName="PointsEdit" Src="../../controls/EditUsersPoints.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="AvatarEdit" Src="../../controls/EditUsersAvatar.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="ResetPasswordEdit" Src="../../controls/EditUsersResetPass.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="KillEdit" Src="../../controls/EditUsersKill.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<DotNetAge:Tabs ID="EditUserTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
@@ -37,7 +38,7 @@
 				HeaderStyle="" Target="_blank">
 				<uc1:SignatureEdit ID="SignatureEditControl" runat="server" />
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View6" Text="User Password" NavigateUrl="" HeaderCssClass=""
+			<DotNetAge:View runat="server" ID="View6" Text="User Password" Visible="<%#!IsGuestUser%>" NavigateUrl="" HeaderCssClass=""
 				HeaderStyle="" Target="_blank">
 				<uc1:ResetPasswordEdit runat="server" ID="ResetPasswordControl" />
 			</DotNetAge:View>
@@ -45,10 +46,14 @@
 				HeaderStyle="" Target="_blank">
 				<uc1:PointsEdit runat="server" ID="UserPointsControl" />
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View8" Text="User Suspend" NavigateUrl="" HeaderCssClass=""
+			<DotNetAge:View runat="server" ID="View8" Text="User Suspend" Visible="<%#!IsGuestUser%>" NavigateUrl="" HeaderCssClass=""
 				HeaderStyle="" Target="_blank">
 				<uc1:SuspendEdit runat="server" ID="SuspendUserControl" />
 			</DotNetAge:View>
+			<DotNetAge:View runat="server" ID="View9" Text="User Kill Activity" Visible="<%#!IsGuestUser%>" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
+				<uc1:KillEdit runat="server" ID="KillEdit1" />
+			</DotNetAge:View>			
 		</Views>
 	</DotNetAge:Tabs>
 </YAF:AdminMenu>

@@ -74,7 +74,7 @@
 					</td>
 					<td class="header2">
 						&nbsp;
-					</td>				
+					</td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>

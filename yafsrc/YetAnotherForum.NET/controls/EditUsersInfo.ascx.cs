@@ -16,107 +16,124 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Controls
 {
-	public partial class EditUsersInfo : YAF.Classes.Core.BaseUserControl
-	{
-		/// <summary>
-		/// Gets user ID of edited user.
-		/// </summary>
-		protected int CurrentUserID
-		{
-			get
-			{
-				return (int)this.PageContext.QueryIDs["u"];
-			}
-		}
+  using System;
+  using System.Data;
+  using System.Web.Security;
+  using System.Web.UI.WebControls;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+  /// <summary>
+  /// The edit users info.
+  /// </summary>
+  public partial class EditUsersInfo : BaseUserControl
+  {
+    /// <summary>
+    /// Gets user ID of edited user.
+    /// </summary>
+    protected int CurrentUserID
+    {
+      get
+      {
+        return (int) PageContext.QueryIDs["u"];
+      }
+    }
 
-			IsHostAdminRow.Visible = PageContext.IsHostAdmin;
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-			if (!IsPostBack)
-			{
-				BindData();
-			}
-		}
+      this.IsHostAdminRow.Visible = PageContext.IsHostAdmin;
 
-		private void BindData()
-		{
-			RankID.DataSource = YAF.Classes.Data.DB.rank_list(PageContext.PageBoardID, null);
-			RankID.DataValueField = "RankID";
-			RankID.DataTextField = "Name";
-			RankID.DataBind();
+      if (!IsPostBack)
+      {
+        BindData();
+      }
+    }
 
-			using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, CurrentUserID, null))
-			{
-				DataRow row = dt.Rows[0];
-				var userFlags = new UserFlags(row["Flags"]);
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.RankID.DataSource = DB.rank_list(PageContext.PageBoardID, null);
+      this.RankID.DataValueField = "RankID";
+      this.RankID.DataTextField = "Name";
+      this.RankID.DataBind();
 
-				Name.Text = (string)row["Name"];
-				Email.Text = row["Email"].ToString();
-				IsHostAdminX.Checked = userFlags.IsHostAdmin;
-				IsApproved.Checked = userFlags.IsApproved;
-				IsGuestX.Checked = userFlags.IsGuest;
-				IsCaptchaExcluded.Checked = userFlags.IsCaptchaExcluded;
-				IsExcludedFromActiveUsers.Checked = userFlags.IsActiveExcluded;
-				Joined.Text = row["Joined"].ToString();
-				LastVisit.Text = row["LastVisit"].ToString();
-				ListItem item = RankID.Items.FindByValue(row["RankID"].ToString());
+      using (DataTable dt = DB.user_list(PageContext.PageBoardID, CurrentUserID, null))
+      {
+        DataRow row = dt.Rows[0];
+        var userFlags = new UserFlags(row["Flags"]);
 
-				if (item != null)
-				{
-					item.Selected = true;
-				}
-			}
-		}
+        this.Name.Text = (string) row["Name"];
+        this.Email.Text = row["Email"].ToString();
+        this.IsHostAdminX.Checked = userFlags.IsHostAdmin;
+        this.IsApproved.Checked = userFlags.IsApproved;
+        this.IsGuestX.Checked = userFlags.IsGuest;
+        this.IsCaptchaExcluded.Checked = userFlags.IsCaptchaExcluded;
+        this.IsExcludedFromActiveUsers.Checked = userFlags.IsActiveExcluded;
+        this.Joined.Text = row["Joined"].ToString();
+        this.LastVisit.Text = row["LastVisit"].ToString();
+        ListItem item = this.RankID.Items.FindByValue(row["RankID"].ToString());
 
-		protected void Save_Click(object sender, System.EventArgs e)
-		{
-			// Update the Membership
-			if (!IsGuestX.Checked)
-			{
-				MembershipUser user = UserMembershipHelper.GetUser( Name.Text );
+        if (item != null)
+        {
+          item.Selected = true;
+        }
+      }
+    }
 
-				if ( Email.Text.Trim() != user.Email )
-				{
-					// update the e-mail here too...
-					user.Email = Email.Text.Trim();
-				}
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click(object sender, EventArgs e)
+    {
+      // Update the Membership
+      if (!this.IsGuestX.Checked)
+      {
+        MembershipUser user = UserMembershipHelper.GetUser(this.Name.Text);
 
-				// Update IsApproved
-				user.IsApproved = IsApproved.Checked;
-				PageContext.CurrentMembership.UpdateUser( user );
-			}
+        if (this.Email.Text.Trim() != user.Email)
+        {
+          // update the e-mail here too...
+          user.Email = this.Email.Text.Trim();
+        }
 
-			var userFlags = new UserFlags
-			                	{
-			                		IsHostAdmin = IsHostAdminX.Checked,
-			                		IsGuest = IsGuestX.Checked,
-			                		IsCaptchaExcluded = IsCaptchaExcluded.Checked,
-			                		IsActiveExcluded = IsExcludedFromActiveUsers.Checked,
-			                		IsApproved = IsApproved.Checked
-			                	};
+        // Update IsApproved
+        user.IsApproved = this.IsApproved.Checked;
+        PageContext.CurrentMembership.UpdateUser(user);
+      }
 
-			DB.user_adminsave(PageContext.PageBoardID, CurrentUserID, Name.Text, Email.Text, userFlags.BitValue, RankID.SelectedValue);
-			BindData();
-		}
-	}
+      var userFlags = new UserFlags
+        {
+          IsHostAdmin = this.IsHostAdminX.Checked, 
+          IsGuest = this.IsGuestX.Checked, 
+          IsCaptchaExcluded = this.IsCaptchaExcluded.Checked, 
+          IsActiveExcluded = this.IsExcludedFromActiveUsers.Checked, 
+          IsApproved = this.IsApproved.Checked
+        };
+
+      DB.user_adminsave(PageContext.PageBoardID, CurrentUserID, this.Name.Text, this.Email.Text, userFlags.BitValue, this.RankID.SelectedValue);
+      BindData();
+    }
+  }
 }

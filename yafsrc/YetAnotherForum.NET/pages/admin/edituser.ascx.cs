@@ -44,6 +44,14 @@ namespace YAF.Pages.Admin
       }
     }
 
+    protected bool IsGuestUser
+    {
+      get
+      {
+        return UserMembershipHelper.IsGuestUser(CurrentUserID);
+      }
+    }
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -86,10 +94,12 @@ namespace YAF.Pages.Admin
           MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID);
 
           // update if the user is not Guest
-          if (!UserMembershipHelper.IsGuestUser(CurrentUserID))
+          if (!IsGuestUser)
           {
             RoleMembershipHelper.UpdateForumUser(user, PageContext.PageBoardID);
           }
+
+          EditUserTabs.DataBind();
         }
       }
     }
