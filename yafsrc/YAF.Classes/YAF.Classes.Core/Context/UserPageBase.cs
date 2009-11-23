@@ -621,7 +621,8 @@ namespace YAF.Classes.Core
           // verify db is initialized...
           if (!YafServices.InitializeDb.Initialized)
           {
-            throw new Exception("Database is not initialized.");
+            // just init the DB from here...
+            YafServices.InitializeDb.Run();
           }
 
           DataRow pageRow;
@@ -706,7 +707,7 @@ namespace YAF.Classes.Core
 
             // only continue if either the page has been loaded or the user has been found...
           }
- while (pageRow == null && user != null);
+          while (pageRow == null && user != null);
 
           // page still hasn't been loaded...
           if (pageRow == null)
