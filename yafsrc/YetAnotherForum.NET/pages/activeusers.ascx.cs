@@ -50,12 +50,23 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
-                DataTable dt = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID, true, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-                if (YafContext.Current.BoardSettings.UseStyledNicks)
-                    YAF.Classes.UI.StyleHelper.DecodeStyleByTable( ref dt );
-                         
+                string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
+                DataTable activeUsers = PageContext.Cache.GetItem(
+                  key,
+                  (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout,
+                  () =>
+                  {
+                      DataTable au = DB.active_list(
+                        YafContext.Current.PageBoardID, true, YafContext.Current.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
+                      if (PageContext.BoardSettings.UseStyledNicks)
+                      {
+                          YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref au);
+                      }
+                      return au;
+                  });
+        
 				// remove hidden users...
-				foreach ( DataRow row in dt.Rows )
+                foreach ( DataRow row in activeUsers.Rows )
 				{
 					if ( Convert.ToBoolean( row ["IsHidden"] ) && !PageContext.IsAdmin && !(PageContext.PageUserID == Convert.ToInt32( row ["UserID"] )) )
 					{
@@ -64,9 +75,9 @@ namespace YAF.Pages // YAF.Pages
 					}
 				}
 
-				dt.AcceptChanges();
+                activeUsers.AcceptChanges();
 
-				UserList.DataSource = dt;
+                UserList.DataSource = activeUsers;
 				DataBind();
 			}
 		}
