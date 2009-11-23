@@ -151,8 +151,6 @@ namespace YAF.Controls
         }
       }
     }
-
-
     /// <summary>
     /// Gets UserId.
     /// </summary>
@@ -227,12 +225,18 @@ namespace YAF.Controls
     /// The create user box.
     /// </summary>
     /// <returns>
-    /// The create user box.
+    /// User box control string to display on a page.
     /// </returns>
     protected string CreateUserBox()
     {
       string userBox = PageContext.BoardSettings.UserBox;
-
+      // Get styles table for user 
+      // this should be called once for groups and for rank for each user/post.
+        DataTable roleRankStyleTable = YafContext.Current.Cache.GetItem<DataTable>(
+        YafCache.GetBoardCacheKey(Constants.Cache.GroupRankStyles),
+        YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
+        () => DB.group_rank_style(YafContext.Current.PageBoardID));
+      
       // Avatar
       userBox = MatchUserBoxAvatar(userBox);
 
@@ -243,10 +247,10 @@ namespace YAF.Controls
       userBox = MatchUserBoxRankImages(userBox);
 
       // Rank
-      userBox = MatchUserBoxRank(userBox);
+      userBox = MatchUserBoxRank(userBox,  roleRankStyleTable);
 
       // Groups
-      userBox = MatchUserBoxGroups(userBox);
+      userBox = MatchUserBoxGroups(userBox, roleRankStyleTable);
 
       // ThanksFrom
       userBox = MatchUserBoxThanksFrom(userBox);
@@ -410,7 +414,7 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box groups.
     /// </returns>
-    private string MatchUserBoxGroups(string userBox)
+    private string MatchUserBoxGroups(string userBox, DataTable roleStyleTable)
     {
       const string styledNick = @"<span class=""YafGroup_{0}"" style=""{1}"">{0}</span>";
 
@@ -424,19 +428,14 @@ namespace YAF.Controls
         var groupsText = new StringBuilder(500);
 
         bool bFirst = true;
-        string roleStyle = null;
-        // Get styles 
-	    // TODO: this anyway called twice for groups and for rank. Needs to be moved to place where it will be call once for each user/post.
-        var roleStyleTable = YafContext.Current.Cache.GetItem<DataTable>(
-          YafCache.GetBoardCacheKey(Constants.Cache.GroupRankStyles),
-          YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
-          () => DB.group_rank_style(YafContext.Current.PageBoardID));
+        string roleStyle = null;     
 
         foreach (string role in RoleMembershipHelper.GetRolesForUser(DataRow["UserName"].ToString()))
         {
           
           foreach (DataRow drow in roleStyleTable.Rows)
           {
+              // Groups for a user have LegendID = 1
             if (Convert.ToInt32(drow["LegendID"]) == 1 && drow["Style"] != null && drow["Name"].ToString() == role)
             {
               roleStyle = StyleHelper.DecodeStyleByString(drow["Style"].ToString(), true);
@@ -469,9 +468,7 @@ namespace YAF.Controls
             }
           }
           roleStyle = null;
-        }
-
-       
+        }       
 
         filler = String.Format(PageContext.BoardSettings.UserBoxGroups, PageContext.Localization.GetText("groups"), groupsText.ToString());
 
@@ -494,16 +491,14 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box rank.
     /// </returns>
-    private string MatchUserBoxRank(string userBox)
+    private string MatchUserBoxRank( string userBox, DataTable roleStyleTable )
     {
-      // get styles 	
+     	
       string rankStyle = null;
-      var roleStyleTable = YafContext.Current.Cache.GetItem<DataTable>(
-        YafCache.GetBoardCacheKey(Constants.Cache.GroupRankStyles),
-        YafContext.Current.BoardSettings.ForumStatisticsCacheTimeout,
-        () => DB.group_rank_style(YafContext.Current.PageBoardID));
-      foreach (DataRow drow in roleStyleTable.Rows)
+      
+      foreach ( DataRow drow in roleStyleTable.Rows )
       {
+        // Rank for a user has LegendID = 2
         if (Convert.ToInt32(drow["LegendID"]) == 2 && drow["Style"] != null && drow["Name"].ToString() == DataRow["RankName"].ToString())
         {
           rankStyle = StyleHelper.DecodeStyleByString(drow["Style"].ToString(), true);
