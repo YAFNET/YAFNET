@@ -120,7 +120,7 @@ namespace YAF.Modules
       {
         if (ScriptManager.GetCurrent(ForumControl.Page) != null)
         {
-          string displayMessage = PageContext.LoadMessage.StringJavascript;
+          string displayMessage = PageContext.LoadMessage.LoadStringDelimited("<br />");
 
           PageContext.PageElements.RegisterJsBlockStartup(
             ForumControl.Page, 
@@ -208,7 +208,7 @@ namespace YAF.Modules
       // add js for client-side error settings...
       string jsFunction =
         String.Format(
-          "\n{4} = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && jQuery('#{1}') != null) {2}\njQuery('#{1}').text(newErrorStr);\njQuery('#{0}').dialog('open');\n{3}\n{3}\n", 
+          "\n{4} = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && jQuery('#{1}') != null) {2}\njQuery('#{1}').html(newErrorStr);\njQuery('#{0}').dialog('open');\n{3}\n{3}\n", 
           ClientID, 
           MainTextClientID, 
           '{', 
