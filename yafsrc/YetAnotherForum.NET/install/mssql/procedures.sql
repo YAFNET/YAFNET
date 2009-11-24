@@ -953,7 +953,7 @@ END
 Go
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks] 
-	@MessageIDs nvarchar(100)
+	@MessageIDs nvarchar(4000)
 AS
 BEGIN
 DECLARE @ParsedMessageIDs TABLE
