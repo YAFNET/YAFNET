@@ -313,104 +313,142 @@
             The download access.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.YafDBConnManager">
+        <member name="T:YAF.Classes.Data.IYafDBAccess">
             <summary>
-            Provides open/close management for DB Connections
+            DBAccess Interface
             </summary>
         </member>
-        <member name="F:YAF.Classes.Data.YafDBConnManager._connection">
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand)">
             <summary>
-            The _connection.
+            Gets a whole dataset out of the database
             </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnManager"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.Dispose">
-            <summary>
-            The dispose.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.InitConnection">
-            <summary>
-            The init connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.CloseConnection">
-            <summary>
-            The close connection.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.Connection_InfoMessage(System.Object,System.Data.SqlClient.SqlInfoMessageEventArgs)">
-            <summary>
-            The connection_ info message.
-            </summary>
-            <param name="sender">
-            The sender.
+            <param name="cmd">
+            The SQL Command
             </param>
-            <param name="e">
-            The e.
+            <returns>
+            Dataset with the results
+            </returns>
+            <remarks>
+            Without transaction.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The get dataset.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Gets data out of the database
+            </summary>
+            <param name="cmd">
+            The SQL Command
+            </param>
+            <returns>
+            DataTable with the results
+            </returns>
+            <remarks>
+            Without transaction.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The get data.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.String)">
+            <summary>
+            Gets data out of database using a plain text string command
+            </summary>
+            <param name="commandText">
+            command text to be executed
+            </param>
+            <returns>
+            DataTable with results
+            </returns>
+            <remarks>
+            Without transaction.
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.GetData(System.String,System.Boolean)">
+            <summary>
+            The get data.
+            </summary>
+            <param name="commandText">
+            The command text.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Executes a NonQuery
+            </summary>
+            <param name="cmd">
+            NonQuery to execute
+            </param>
+            <remarks>
+            Without transaction
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The execute non query.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
             </param>
         </member>
-        <member name="P:YAF.Classes.Data.YafDBConnManager.ConnectionString">
+        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand)">
             <summary>
-            Gets ConnectionString.
+            The execute scalar.
             </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnManager.DBConnection">
-            <summary>
-            Gets the current DB Connection in any state.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnManager.OpenDBConnection">
-            <summary>
-            Gets an open connection to the DB. Can be called any number of times.
-            </summary>
-        </member>
-        <member name="E:YAF.Classes.Data.YafDBConnManager.InfoMessage">
-            <summary>
-            The info message.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.YafDBConnManager.YafDBConnInfoMessageEventHandler">
-            <summary>
-            The yaf db conn info message event handler.
-            </summary>
-            <param name="sender">
-            The sender.
+            <param name="cmd">
+            The cmd.
             </param>
-            <param name="e">
-            The e.
+            <returns>
+            The execute scalar.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The execute scalar.
+            </summary>
+            <param name="cmd">
+            The cmd.
             </param>
-        </member>
-        <member name="T:YAF.Classes.Data.YafDBConnManager.YafDBConnInfoMessageEventArgs">
-            <summary>
-            The yaf db conn info message event args.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBConnManager.YafDBConnInfoMessageEventArgs._message">
-            <summary>
-            The _message.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.YafDBConnInfoMessageEventArgs.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnManager.YafDBConnInfoMessageEventArgs"/> class.
-            </summary>
-            <param name="message">
-            The message.
+            <param name="transaction">
+            The transaction.
             </param>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnManager.YafDBConnInfoMessageEventArgs.Message">
-            <summary>
-            Gets or sets Message.
-            </summary>
+            <returns>
+            The execute scalar.
+            </returns>
         </member>
         <member name="T:YAF.Classes.Data.YafDBAccess">
             <summary>
-            The yaf db access.
+            The yaf db access for SQL Server.
             </summary>
         </member>
         <member name="F:YAF.Classes.Data.YafDBAccess._dbOwner">
@@ -733,103 +771,6 @@
             <summary>
             Gets ObjectQualifier.
             </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.DataRowConvert">
-            <summary>
-            Helper class to do basic data conversion for a DataRow.	
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.DataRowConvert._dbRow">
-            <summary>
-            The _db row.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.DataRowConvert"/> class.
-            </summary>
-            <param name="dbRow">
-            The db row.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsString(System.String)">
-            <summary>
-            The as string.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            The as string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsBool(System.String)">
-            <summary>
-            The as bool.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            The as bool.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsDateTime(System.String)">
-            <summary>
-            The as date time.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt32(System.String)">
-            <summary>
-            The as int 32.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt64(System.String)">
-            <summary>
-            The as int 64.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Data.SqlDataLayerConverter">
-            <summary>
-            The sql data layer converter.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyInt32(System.Object)">
-            <summary>
-            The verify int 32.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify int 32.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyBool(System.Object)">
-            <summary>
-            The verify bool.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify bool.
-            </returns>
         </member>
         <member name="T:YAF.Classes.Data.UserFlags">
             <summary>
@@ -6054,6 +5995,228 @@
             <summary>
             The is moderator.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventHandler">
+            <summary>
+            The yaf db conn info message event handler.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventArgs">
+            <summary>
+            The yaf db conn info message event args.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.YafDBConnInfoMessageEventArgs._message">
+            <summary>
+            The _message.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnInfoMessageEventArgs.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnInfoMessageEventArgs"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnInfoMessageEventArgs.Message">
+            <summary>
+            Gets or sets Message.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBConnManager.InitConnection">
+            <summary>
+            The init connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.IYafDBConnManager.CloseConnection">
+            <summary>
+            The close connection.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.IYafDBConnManager.ConnectionString">
+            <summary>
+            Gets ConnectionString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.IYafDBConnManager.DBConnection">
+            <summary>
+            Gets the current DB Connection in any state.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.IYafDBConnManager.OpenDBConnection">
+            <summary>
+            Gets an open connection to the DB. Can be called any number of times.
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Data.IYafDBConnManager.InfoMessage">
+            <summary>
+            The info message.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.YafDBConnManager">
+            <summary>
+            Provides open/close management for DB Connections
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.YafDBConnManager._connection">
+            <summary>
+            The _connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnManager"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.InitConnection">
+            <summary>
+            The init connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.CloseConnection">
+            <summary>
+            The close connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.Connection_InfoMessage(System.Object,System.Data.SqlClient.SqlInfoMessageEventArgs)">
+            <summary>
+            The connection_ info message.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnManager.ConnectionString">
+            <summary>
+            Gets ConnectionString.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnManager.DBConnection">
+            <summary>
+            Gets the current DB Connection in any state.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnManager.OpenDBConnection">
+            <summary>
+            Gets an open connection to the DB. Can be called any number of times.
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Data.YafDBConnManager.InfoMessage">
+            <summary>
+            The info message.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.DataRowConvert">
+            <summary>
+            Helper class to do basic data conversion for a DataRow.	
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.DataRowConvert._dbRow">
+            <summary>
+            The _db row.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.DataRowConvert"/> class.
+            </summary>
+            <param name="dbRow">
+            The db row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsString(System.String)">
+            <summary>
+            The as string.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            The as string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsBool(System.String)">
+            <summary>
+            The as bool.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            The as bool.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsDateTime(System.String)">
+            <summary>
+            The as date time.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt32(System.String)">
+            <summary>
+            The as int 32.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt64(System.String)">
+            <summary>
+            The as int 64.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Data.SqlDataLayerConverter">
+            <summary>
+            The sql data layer converter.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyInt32(System.Object)">
+            <summary>
+            The verify int 32.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify int 32.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyBool(System.Object)">
+            <summary>
+            The verify bool.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify bool.
+            </returns>
         </member>
     </members>
 </doc>

@@ -1340,7 +1340,7 @@
             The create user box.
             </summary>
             <returns>
-            The create user box.
+            User box control string to display on a page.
             </returns>
         </member>
         <member name="M:YAF.Controls.UserBox.MatchUserBoxClearAll(System.String)">
@@ -1398,7 +1398,7 @@
             The match user box joined date.
             </returns>
         </member>
-        <member name="M:YAF.Controls.UserBox.MatchUserBoxGroups(System.String)">
+        <member name="M:YAF.Controls.UserBox.MatchUserBoxGroups(System.String,System.Data.DataTable)">
             <summary>
             The match user box groups.
             </summary>
@@ -1409,7 +1409,7 @@
             The match user box groups.
             </returns>
         </member>
-        <member name="M:YAF.Controls.UserBox.MatchUserBoxRank(System.String)">
+        <member name="M:YAF.Controls.UserBox.MatchUserBoxRank(System.String,System.Data.DataTable)">
             <summary>
             The match user box rank.
             </summary>
