@@ -1,4 +1,4 @@
-@import "jquery/jquery-ui.css";
+﻿@import "jquery/jquery-ui.css";
 
 .yafnet {
 	background: url('earthback.jpg');
@@ -256,6 +256,19 @@ Use this to setup overflow feature for your site.
 On IE that would mean specifying a width so that the overflow will work properly.
 This CSS already works on FireFox.
 */
+
+/*Controls the look of Userbox Sections*/
+.yafnet div.section
+{
+	padding: 5px;
+	background-color:#f2f2f2;
+	border: solid 1px #ddd;
+	color: #888;
+	font-size: 9pt;
+	text-align: center;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;	
+}
 .yafnet div.postdiv {
 	width: 100%;
 	min-height: 100px;
