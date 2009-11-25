@@ -953,31 +953,41 @@ END
 Go
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks] 
-	@MessageIDs nvarchar(4000)
+	@MessageIDs ntext
 AS
 BEGIN
 DECLARE @ParsedMessageIDs TABLE
-	(
-		MessageID int
-	)
-    DECLARE @MessageID varchar(10), @Pos int
-	SET @MessageIDs = LTRIM(RTRIM(@MessageIDs))+ ','
-	SET @Pos = CHARINDEX(',', @MessageIDs, 1)
-	IF REPLACE(@MessageIDs, ',', '') <> ''
-	BEGIN
-		WHILE @Pos > 0
-		BEGIN
-			SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDs, @Pos - 1)))
-			IF @MessageID <> ''
-			BEGIN
-				INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
-			END
-			SET @MessageIDs = RIGHT(@MessageIDs, LEN(@MessageIDs) - @Pos)
-			SET @Pos = CHARINDEX(',', @MessageIDs, 1)
-		END
-	END	
-
-	SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
+      (
+            MessageID int
+      )
+    DECLARE @MessageIDsChunk NVARCHAR(4000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
+    SET @Itr = 0
+    SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+    WHILE LEN(@MessageIDsChunk) > 0
+    BEGIN
+            SET @trimindex = CHARINDEX(',',REVERSE( @MessageIDsChunk ), 1 );
+            SET @MessageIDsChunk = SUBSTRING(@MessageIDsChunk,0, 4000-@trimindex)
+            SET @itr = @Itr - @trimindex
+            SET @MessageIDsChunk = LTRIM(RTRIM(@MessageIDsChunk))+ ','
+            SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
+            IF REPLACE(@MessageIDsChunk, ',', '') <> ''
+            BEGIN
+                  WHILE @Pos > 0
+                  BEGIN
+                        SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDsChunk, @Pos - 1)))
+                        IF @MessageID <> ''
+                        BEGIN
+                              INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
+                        END
+                        SET @MessageIDsChunk = RIGHT(@MessageIDsChunk, LEN(@MessageIDsChunk) - @Pos)
+                        SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
+                  END
+            END      
+            SET @Itr = @Itr + 4000;
+            SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+      END
+      
+    SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksFromUserID=d.UserID) AS ThanksFromUserNumber,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.UserID) AS ThanksToUserNumber,
 	(SELECT COUNT(DISTINCT(MessageID)) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.userID) AS ThanksToUserPostsNumber
