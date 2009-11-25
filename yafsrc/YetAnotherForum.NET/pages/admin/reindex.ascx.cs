@@ -200,7 +200,7 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void connMan_InfoMessage(object sender, YafDBConnManager.YafDBConnInfoMessageEventArgs e)
+    private void connMan_InfoMessage(object sender, YafDBConnInfoMessageEventArgs e)
     {
       this.txtIndexStatistics.Text = e.Message;
     }

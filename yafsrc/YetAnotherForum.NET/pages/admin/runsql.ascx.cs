@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
       {
         connMan.InfoMessage += connMan_InfoMessage;
         string sql = this.txtQuery.Text.Trim();
-
+        
         // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
         sql = sql.Replace("{databaseOwner}", YafDBAccess.DatabaseOwner);
         sql = sql.Replace("{objectQualifier}", YafDBAccess.ObjectQualifier);
@@ -94,8 +94,8 @@ namespace YAF.Pages.Admin
     /// <param name="e">
     /// The e.
     /// </param>
-    private void connMan_InfoMessage(object sender, YafDBConnManager.YafDBConnInfoMessageEventArgs e)
-    {
+    private void connMan_InfoMessage(object sender, YafDBConnInfoMessageEventArgs e)
+    {      
       this.txtResult.Text = "\r\n" + e.Message;
     }
   }
