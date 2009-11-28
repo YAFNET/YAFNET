@@ -74,21 +74,19 @@ namespace YAF.Pages
             YafBuildLink.AccessDenied();
           }
 
-          DataTable dtTopics = DB.topic_latest( PageContext.PageBoardID, 7, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks );
-          
-            // Set colorOnly parameter to true, as we get all but color from css in the place
-              if (PageContext.BoardSettings.UseStyledNicks)
-                  YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dtTopics, true);
-            foreach (DataRow row in dtTopics.Rows)
-            {
-              rf.AddRSSItem(
-                writer, 
-                YafServices.BadWordReplace.Replace(row["Subject"].ToString()), 
-                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]), 
-                YafServices.BadWordReplace.Replace(row["Message"].ToString()), 
-                Convert.ToDateTime(row["Posted"]).ToString("r"));
-            }
-            dtTopics = null;
+          DataTable dtTopics = YafServices.DBBroker.GetLatestTopics(7);
+
+          foreach (DataRow row in dtTopics.Rows)
+          {
+            rf.AddRSSItem(
+              writer, 
+              YafServices.BadWordReplace.Replace(row["Subject"].ToString()), 
+              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]), 
+              YafServices.BadWordReplace.Replace(row["Message"].ToString()), 
+              Convert.ToDateTime(row["Posted"]).ToString("r"));
+          }
+
+          dtTopics = null;
 
           break;
         case "latestannouncements":
@@ -185,7 +183,8 @@ namespace YAF.Pages
               PageContext.PageBoardID, 
               PageContext.PageUserID, 
               DateTime.Now + TimeSpan.FromHours(-24), 
-              (PageContext.Settings.CategoryID == 0) ? null : (object) PageContext.Settings.CategoryID, false ))
+              (PageContext.Settings.CategoryID == 0) ? null : (object) PageContext.Settings.CategoryID, 
+              false))
           {
             foreach (DataRow row in dt.Rows)
             {
@@ -233,7 +232,7 @@ namespace YAF.Pages
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent()
+    void InitializeComponent()
     {
     }
 

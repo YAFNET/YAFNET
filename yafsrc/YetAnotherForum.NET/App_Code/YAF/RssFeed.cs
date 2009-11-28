@@ -22,6 +22,7 @@ namespace YAF
   using System.Xml;
   using YAF.Classes.Core;
   using YAF.Classes.Utils;
+  using System.ServiceModel.Syndication;
 
   /// <summary>
   /// Summary description for RssFeed.
@@ -38,6 +39,7 @@ namespace YAF
     /// </summary>
     public RssFeed()
     {
+      SyndicationFeed feed = new SyndicationFeed();
     }
 
     /// <summary>

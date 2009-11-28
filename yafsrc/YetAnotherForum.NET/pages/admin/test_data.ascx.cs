@@ -18,72 +18,73 @@ namespace YAF.Pages.Admin
   using YAF.Editors;
 
   /// <summary>
-  /// 	The control generates test data for different data layers.
+  /// The control generates test data for different data layers.
   /// </summary>
   public partial class test_data : AdminPage
   {
     #region Fields
 
     // private string regBase = @"^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$";
+
     /// <summary>
     /// The board create limit.
     /// </summary>
-    private int boardCreateLimit = 100;
+    int boardCreateLimit = 100;
 
     /// <summary>
     /// The board object stats.
     /// </summary>
-    private DataRow boardObjectStats = DB.board_poststats(YafContext.Current.PageBoardID);
+    DataRow boardObjectStats = DB.board_poststats(YafContext.Current.PageBoardID);
 
     /// <summary>
     /// The board prefix.
     /// </summary>
-    private string boardPrefix = "board-";
+    string boardPrefix = "board-";
 
     /// <summary>
     /// The category create limit.
     /// </summary>
-    private int categoryCreateLimit = 100;
+    int categoryCreateLimit = 100;
 
     /// <summary>
     /// The category prefix.
     /// </summary>
-    private string categoryPrefix = "cat-";
+    string categoryPrefix = "cat-";
 
     /// <summary>
     /// The create common limit.
     /// </summary>
-    private int createCommonLimit = 9999;
+    int createCommonLimit = 9999;
 
     /// <summary>
     /// The forum prefix.
     /// </summary>
-    private string forumPrefix = "forum-";
+    string forumPrefix = "forum-";
 
     /// <summary>
     /// The message prefix.
     /// </summary>
-    private string messagePrefix = "msg-";
+    string messagePrefix = "msg-";
 
     /// <summary>
     /// The pmessage prefix.
     /// </summary>
-    private string pmessagePrefix = "pmsg-";
+    string pmessagePrefix = "pmsg-";
 
     /// <summary>
     /// The random guid.
     /// </summary>
-    private string randomGuid = Guid.NewGuid().ToString();
+    string randomGuid = Guid.NewGuid().ToString();
 
     /// <summary>
     /// The topic prefix.
     /// </summary>
-    private string topicPrefix = "topic-";
+    string topicPrefix = "topic-";
 
     /// <summary>
     /// The user prefix.
     /// </summary>
-    private string userPrefix = "usr-";
+    string userPrefix = "usr-";
 
     #endregion
 
@@ -146,8 +147,8 @@ namespace YAF.Pages.Admin
 
         TimeZones.Items.FindByValue("0").Selected = true;
 
-        From.Text = this.PageContext.User.UserName;
-        To.Text = this.PageContext.User.UserName;
+        From.Text = PageContext.User.UserName;
+        To.Text = PageContext.User.UserName;
 
         TopicsPriorityList.Items.Add(new ListItem("Normal", "0"));
         TopicsPriorityList.Items.Add(new ListItem("Sticky", "1"));
@@ -183,7 +184,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The populate_ controls.
     /// </summary>
-    private void Populate_Controls()
+    void Populate_Controls()
     {
     }
 
@@ -412,13 +413,18 @@ namespace YAF.Pages.Admin
     protected void PostsForum_OnSelectedIndexChanged(object sender, EventArgs e)
     {
       int _forumID = 0;
+
       if (int.TryParse(PostsForum.SelectedValue, out _forumID))
       {
-        DataTable topics = DB.topic_list( Convert.ToInt32( PostsForum.SelectedValue ), PageContext.PageUserID, 0, null, 0, 100,PageContext.BoardSettings.UseStyledNicks );
+        DataTable topics = DB.topic_list(
+          Convert.ToInt32(PostsForum.SelectedValue), PageContext.PageUserID, 0, null, 0, 100, PageContext.BoardSettings.UseStyledNicks);
+
         // Set colorOnly parameter to true, as we get all but color from css in the place
-          if (PageContext.BoardSettings.UseStyledNicks)
-            YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref topics, true);
-          
+        if (PageContext.BoardSettings.UseStyledNicks)
+        {
+          new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref topics, true);
+        }
+
         PostsTopic.DataSource = topics;
         PostsTopic.DataBind();
       }
@@ -497,7 +503,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create users.
     /// </returns>
-    private int CreateUsers()
+    int CreateUsers()
     {
       int _users_Number = 0;
 
@@ -614,7 +620,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create boards.
     /// </returns>
-    private int CreateBoards()
+    int CreateBoards()
     {
       int _boardNumber = 0;
       if (!int.TryParse(BoardNumber.Text.Trim(), out _boardNumber))
@@ -659,7 +665,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create categories.
     /// </returns>
-    private int CreateCategories(int boardID)
+    int CreateCategories(int boardID)
     {
       bool _excludeCurrentBoard = false;
       bool _useList = false;
@@ -722,7 +728,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create categories.
     /// </returns>
-    private int CreateCategories()
+    int CreateCategories()
     {
       int boardID = 0;
 
@@ -832,7 +838,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create categories base.
     /// </returns>
-    private int CreateCategoriesBase(
+    int CreateCategoriesBase(
       int boardID, int boardCount, int numForums, int numTopics, int numMessages, int numCategories, bool excludeCurrentBoard, bool useList)
     {
       int ib = 0;
@@ -878,7 +884,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create forums.
     /// </returns>
-    private int CreateForums()
+    int CreateForums()
     {
       object parentID = null;
       int parentIDInt = 0;
@@ -952,7 +958,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create forums.
     /// </returns>
-    private int CreateForums(int categoryID, object parentID, int numForums, int _topicsToCreate, int _messagesToCreate)
+    int CreateForums(int categoryID, object parentID, int numForums, int _topicsToCreate, int _messagesToCreate)
     {
       bool countMessagesInStatistics = false;
       if (String.IsNullOrEmpty(ForumsCountMessages.Text.Trim()))
@@ -1020,7 +1026,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The get message flags.
     /// </returns>
-    private int GetMessageFlags()
+    int GetMessageFlags()
     {
       BaseForumEditor _forumEditor = PageContext.EditorModuleManager.GetEditorInstance(PageContext.BoardSettings.ForumEditor);
       var tFlags = new MessageFlags();
@@ -1040,7 +1046,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create topics.
     /// </returns>
-    private int CreateTopics()
+    int CreateTopics()
     {
       return CreateTopics(0, 0, 0);
     }
@@ -1060,7 +1066,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create topics.
     /// </returns>
-    private int CreateTopics(int forumID, int numTopics, int _messagesToCreate)
+    int CreateTopics(int forumID, int numTopics, int _messagesToCreate)
     {
       object _priority = 0;
       if (forumID <= 0)
@@ -1152,7 +1158,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create posts.
     /// </returns>
-    private int CreatePosts()
+    int CreatePosts()
     {
       return CreatePosts(0, 0, 0);
     }
@@ -1172,7 +1178,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create posts.
     /// </returns>
-    private int CreatePosts(int forumID, int topicID, int numMessages)
+    int CreatePosts(int forumID, int topicID, int numMessages)
     {
       if (numMessages <= 0)
       {
@@ -1239,7 +1245,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The create p messages.
     /// </returns>
-    private int CreatePMessages()
+    int CreatePMessages()
     {
       int userID = PageContext.PageUserID;
       int numPMessages = 0;

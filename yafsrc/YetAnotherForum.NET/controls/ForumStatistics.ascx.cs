@@ -54,18 +54,7 @@ namespace YAF.Controls
       // Active users : Call this before forum_stats to clean up active users
       string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
       DataTable activeUsers = PageContext.Cache.GetItem(
-        key,
-        (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout,
-        () =>
-        {
-          DataTable au = DB.active_list(
-            YafContext.Current.PageBoardID, false, YafContext.Current.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-          if (PageContext.BoardSettings.UseStyledNicks)
-          {
-            StyleHelper.DecodeStyleByTable(ref au);
-          }
-          return au;
-        });
+        key, (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(false));
 
       this.ActiveUsers1.ActiveUserTable = activeUsers;
 
@@ -84,7 +73,9 @@ namespace YAF.Controls
           DataRow dr = DB.board_poststats(PageContext.PageBoardID);
 
           // Set colorOnly parameter to false, as we get here color from data field in the place
-          dr["LastUserStyle"] = this.PageContext.BoardSettings.UseStyledNicks ? StyleHelper.DecodeStyleByString(dr["LastUserStyle"].ToString(), false) : null;
+          dr["LastUserStyle"] = this.PageContext.BoardSettings.UseStyledNicks
+                                  ? new StyleTransform(PageContext.Theme).DecodeStyleByString(dr["LastUserStyle"].ToString(), false)
+                                  : null;
           return dr;
         });
 

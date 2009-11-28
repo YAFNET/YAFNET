@@ -16,70 +16,64 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for activeusers.
-	/// </summary>
-	public partial class activeusers : YAF.Classes.Core.ForumPage
-	{
+  // YAF.Pages
+  using System;
+  using System.Data;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		public activeusers()
-			: base( "ACTIVEUSERS" )
-		{
-		}
+  /// <summary>
+  /// Summary description for activeusers.
+  /// </summary>
+  public partial class activeusers : ForumPage
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="activeusers"/> class.
+    /// </summary>
+    public activeusers()
+      : base("ACTIVEUSERS")
+    {
+    }
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if (!IsPostBack)
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
 
-                string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
-                DataTable activeUsers = PageContext.Cache.GetItem(
-                  key,
-                  (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout,
-                  () =>
-                  {
-                      DataTable au = DB.active_list(
-                        YafContext.Current.PageBoardID, true, YafContext.Current.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-                      if (PageContext.BoardSettings.UseStyledNicks)
-                      {
-                          YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref au);
-                      }
-                      return au;
-                  });
-        
-				// remove hidden users...
-                foreach ( DataRow row in activeUsers.Rows )
-				{
-					if ( Convert.ToBoolean( row ["IsHidden"] ) && !PageContext.IsAdmin && !(PageContext.PageUserID == Convert.ToInt32( row ["UserID"] )) )
-					{
-						// remove this active user...
-						row.Delete();
-					}
-				}
+        string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
+        DataTable activeUsers = PageContext.Cache.GetItem(
+          key, (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(true));
 
-                activeUsers.AcceptChanges();
+        // remove hidden users...
+        foreach (DataRow row in activeUsers.Rows)
+        {
+          if (Convert.ToBoolean(row["IsHidden"]) && !PageContext.IsAdmin && !(PageContext.PageUserID == Convert.ToInt32(row["UserID"])))
+          {
+            // remove this active user...
+            row.Delete();
+          }
+        }
 
-                UserList.DataSource = activeUsers;
-				DataBind();
-			}
-		}
-	}
+        activeUsers.AcceptChanges();
+
+        this.UserList.DataSource = activeUsers;
+        DataBind();
+      }
+    }
+  }
 }

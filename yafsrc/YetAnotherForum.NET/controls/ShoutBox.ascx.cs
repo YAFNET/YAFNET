@@ -13,6 +13,7 @@ namespace YAF.Controls
   using System;
   using System.Data;
   using System.Web.UI;
+  using Classes.Utils;
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
@@ -28,9 +29,8 @@ namespace YAF.Controls
     /// Initializes a new instance of the <see cref="ShoutBox"/> class.
     /// </summary>
     public ShoutBox()
-      : base()
     {
-      PreRender += new EventHandler(ShoutBox_PreRender);
+      PreRender += ShoutBox_PreRender;
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ namespace YAF.Controls
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ShoutBox_PreRender(object sender, EventArgs e)
+    void ShoutBox_PreRender(object sender, EventArgs e)
     {
       // set timer status based on if the place holder is visible...
       this.shoutBoxRefreshTimer.Enabled = this.shoutBoxPlaceHolder.Visible;
@@ -173,7 +173,7 @@ namespace YAF.Controls
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData()
+    void BindData()
     {
       if (!this.shoutBoxPlaceHolder.Visible)
       {
@@ -184,13 +184,19 @@ namespace YAF.Controls
 
       if (shoutBoxMessages == null)
       {
-          shoutBoxMessages = DB.shoutbox_getmessages( PageContext.BoardSettings.ShoutboxShowMessageCount, PageContext.BoardSettings.UseStyledNicks );
-          // Set colorOnly parameter to false, as we get all color info from data base
-          if (PageContext.BoardSettings.UseStyledNicks)
-              YAF.Classes.UI.StyleHelper.DecodeStyleByTable( ref shoutBoxMessages, false );
-          var flags = new MessageFlags();
-        flags.IsBBCode = true;
-        flags.IsHtml = false;
+        shoutBoxMessages = DB.shoutbox_getmessages(PageContext.BoardSettings.ShoutboxShowMessageCount, PageContext.BoardSettings.UseStyledNicks);
+
+        // Set colorOnly parameter to false, as we get all color info from data base
+        if (PageContext.BoardSettings.UseStyledNicks)
+        {
+          new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref shoutBoxMessages, false);
+        }
+
+        var flags = new MessageFlags
+          {
+            IsBBCode = true,
+            IsHtml = false
+          };
 
         for (int i = 0; i < shoutBoxMessages.Rows.Count; i++)
         {
@@ -216,7 +222,7 @@ namespace YAF.Controls
     /// <returns>
     /// The format hyper link.
     /// </returns>
-    private static string FormatHyperLink(string message)
+    static string FormatHyperLink(string message)
     {
       if (message.Contains("<a"))
       {

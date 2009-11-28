@@ -16,138 +16,200 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for active.
-	/// </summary>
-	public partial class active : YAF.Classes.Core.ForumPage
-	{
-		protected string _lastForumName = string.Empty;
+  // YAF.Pages
+  using System;
+  using System.Data;
+  using System.Web.UI.WebControls;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		public active()
-			: base( "ACTIVE" )
-		{
-		}
+  /// <summary>
+  /// Summary description for active.
+  /// </summary>
+  public partial class active : ForumPage
+  {
+    /// <summary>
+    /// The _last forum name.
+    /// </summary>
+    protected string _lastForumName = string.Empty;
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( PageContext.BoardSettings.ShowRSSLink )
-			{
-				RssFeed.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.rsstopic, "pg=active" );
-				RssFeed.Text = GetText( "RSSFEED" );
-				RssFeed.Visible = true;
-			}
-			else
-			{
-				RssFeed.Visible = false;
-			}
+    /// <summary>
+    /// Initializes a new instance of the <see cref="active"/> class.
+    /// </summary>
+    public active()
+      : base("ACTIVE")
+    {
+    }
 
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (PageContext.BoardSettings.ShowRSSLink)
+      {
+        this.RssFeed.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, "pg=active");
+        this.RssFeed.Text = GetText("RSSFEED");
+        this.RssFeed.Visible = true;
+      }
+      else
+      {
+        this.RssFeed.Visible = false;
+      }
 
-				ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
+      if (!IsPostBack)
+      {
+        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
 
-				Since.Items.Add( new ListItem( GetTextFormatted( "last_visit", YafServices.DateTime.FormatDateTime( Mession.LastVisit ) ), "0" ) );
-				Since.Items.Add( new ListItem( GetText( "last_hour" ), "-1" ) );
-				Since.Items.Add( new ListItem( GetText( "last_two_hours" ), "-2" ) );
-				Since.Items.Add( new ListItem( GetText( "last_day" ), "1" ) );
-				Since.Items.Add( new ListItem( GetText( "last_two_days" ), "2" ) );
-				Since.Items.Add( new ListItem( GetText( "last_week" ), "7" ) );
-				Since.Items.Add( new ListItem( GetText( "last_two_weeks" ), "14" ) );
-				Since.Items.Add( new ListItem( GetText( "last_month" ), "31" ) );
+        this.ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
-				if ( Mession.ActiveTopicSince.HasValue )
-				{
-					ListItem activeTopicItem = Since.Items.FindByValue( Mession.ActiveTopicSince.Value.ToString() );
-					if ( activeTopicItem != null ) activeTopicItem.Selected = true;
-				}
-				else
-				{
-					Since.SelectedIndex = 0;
-				}
-			}
+        this.Since.Items.Add(new ListItem(GetTextFormatted("last_visit", YafServices.DateTime.FormatDateTime(Mession.LastVisit)), "0"));
+        this.Since.Items.Add(new ListItem(GetText("last_hour"), "-1"));
+        this.Since.Items.Add(new ListItem(GetText("last_two_hours"), "-2"));
+        this.Since.Items.Add(new ListItem(GetText("last_day"), "1"));
+        this.Since.Items.Add(new ListItem(GetText("last_two_days"), "2"));
+        this.Since.Items.Add(new ListItem(GetText("last_week"), "7"));
+        this.Since.Items.Add(new ListItem(GetText("last_two_weeks"), "14"));
+        this.Since.Items.Add(new ListItem(GetText("last_month"), "31"));
 
-			BindData();
-		}
+        if (Mession.ActiveTopicSince.HasValue)
+        {
+          ListItem activeTopicItem = this.Since.Items.FindByValue(Mession.ActiveTopicSince.Value.ToString());
+          if (activeTopicItem != null)
+          {
+            activeTopicItem.Selected = true;
+          }
+        }
+        else
+        {
+          this.Since.SelectedIndex = 0;
+        }
+      }
 
-		protected void Pager_PageChange( object sender, EventArgs e )
-		{
-			BindData();
-		}
+      BindData();
+    }
 
-		private void BindData()
-		{
-			DateTime sinceDate = DateTime.Now;
-			int sinceValue = 0;
+    /// <summary>
+    /// The pager_ page change.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Pager_PageChange(object sender, EventArgs e)
+    {
+      BindData();
+    }
 
-			if ( Since.SelectedItem != null )
-			{
-				sinceValue = int.Parse( Since.SelectedItem.Value );
-				sinceDate = DateTime.Now;
-				if ( sinceValue > 0 )
-					sinceDate = DateTime.Now - TimeSpan.FromDays( sinceValue );
-				else if ( sinceValue < 0 )
-					sinceDate = DateTime.Now + TimeSpan.FromHours( sinceValue );
-			}
-			if ( sinceValue == 0 )
-				sinceDate = Mession.LastVisit;
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    void BindData()
+    {
+      DateTime sinceDate = DateTime.Now;
+      int sinceValue = 0;
+
+      if (this.Since.SelectedItem != null)
+      {
+        sinceValue = int.Parse(this.Since.SelectedItem.Value);
+        sinceDate = DateTime.Now;
+        if (sinceValue > 0)
+        {
+          sinceDate = DateTime.Now - TimeSpan.FromDays(sinceValue);
+        }
+        else if (sinceValue < 0)
+        {
+          sinceDate = DateTime.Now + TimeSpan.FromHours(sinceValue);
+        }
+      }
+
+      if (sinceValue == 0)
+      {
+        sinceDate = Mession.LastVisit;
+      }
 
 
-			PagedDataSource pds = new PagedDataSource();
-			pds.AllowPaging = true;
+      var pds = new PagedDataSource();
+      pds.AllowPaging = true;
 
-			object categoryIDObject = null;
+      object categoryIDObject = null;
 
-			if ( PageContext.Settings.CategoryID != 0 ) categoryIDObject = PageContext.Settings.CategoryID;
-            System.Data.DataTable topicActive = DB.topic_active( PageContext.PageBoardID, PageContext.PageUserID, sinceDate, categoryIDObject,PageContext.BoardSettings.UseStyledNicks );
-            if (PageContext.BoardSettings.UseStyledNicks)
-            YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref topicActive, true, "LastUserStyle","StarterStyle");
-            DataView dv = topicActive.DefaultView;           
-			pds.DataSource = dv;
-			PagerTop.Count = dv.Count;
-			PagerTop.PageSize = 15;
-			pds.PageSize = PagerTop.PageSize;
+      if (PageContext.Settings.CategoryID != 0)
+      {
+        categoryIDObject = PageContext.Settings.CategoryID;
+      }
 
-			pds.CurrentPageIndex = PagerTop.CurrentPageIndex;
-			TopicList.DataSource = pds;
+      DataTable topicActive = DB.topic_active(PageContext.PageBoardID, PageContext.PageUserID, sinceDate, categoryIDObject, PageContext.BoardSettings.UseStyledNicks);
 
-			DataBind();
-		}
+      if (PageContext.BoardSettings.UseStyledNicks)
+      {
+        new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref topicActive, true, "LastUserStyle", "StarterStyle");
+      }
 
-		protected string PrintForumName( DataRowView row )
-		{
-			string forumName = (string)row["ForumName"];
-			string html = "";
-			if ( forumName != _lastForumName )
-			{
-				html = String.Format( @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"">{0}</a></td></tr>", forumName, YafBuildLink.GetLink( ForumPages.topics, "f={0}", row["ForumID"] ) );
-				_lastForumName = forumName;
-			}
-			return html;
-		}
+      DataView dv = topicActive.DefaultView;
+      pds.DataSource = dv;
+      this.PagerTop.Count = dv.Count;
+      this.PagerTop.PageSize = 15;
+      pds.PageSize = this.PagerTop.PageSize;
 
-		protected void Since_SelectedIndexChanged( object sender, System.EventArgs e )
-		{
-			PagerTop.CurrentPageIndex = 0;
-			Mession.ActiveTopicSince = Convert.ToInt32( Since.SelectedValue );
-			BindData();
-		}
-	}
+      pds.CurrentPageIndex = this.PagerTop.CurrentPageIndex;
+      this.TopicList.DataSource = pds;
+
+      DataBind();
+    }
+
+    /// <summary>
+    /// The print forum name.
+    /// </summary>
+    /// <param name="row">
+    /// The row.
+    /// </param>
+    /// <returns>
+    /// The print forum name.
+    /// </returns>
+    protected string PrintForumName(DataRowView row)
+    {
+      var forumName = (string) row["ForumName"];
+      string html = string.Empty;
+      if (forumName != this._lastForumName)
+      {
+        html = String.Format(
+          @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"">{0}</a></td></tr>", 
+          forumName, 
+          YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]));
+        this._lastForumName = forumName;
+      }
+
+      return html;
+    }
+
+    /// <summary>
+    /// The since_ selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Since_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      this.PagerTop.CurrentPageIndex = 0;
+      Mession.ActiveTopicSince = Convert.ToInt32(this.Since.SelectedValue);
+      BindData();
+    }
+  }
 }

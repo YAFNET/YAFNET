@@ -32,14 +32,6 @@ namespace YAF.Controls
   public partial class ForumActiveDiscussion : BaseUserControl
   {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ForumActiveDiscussion"/> class.
-    /// </summary>
-    public ForumActiveDiscussion()
-      : base()
-    {
-    }
-
-    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -57,17 +49,22 @@ namespace YAF.Controls
 
       if (PageContext.IsGuest)
       {
-        // allow caching since this is a guest...				
+        // allow caching since this is a guest...
         activeTopics = PageContext.Cache[cacheKey] as DataTable;
       }
 
       if (activeTopics == null)
       {
-        activeTopics = DB.topic_latest( PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks );
+        activeTopics = DB.topic_latest(
+          PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks);
+
         // Set colorOnly parameter to true, as we get all but color from css in the place
         if (PageContext.BoardSettings.UseStyledNicks)
-            YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref activeTopics, true, "LastUserStyle");
-          if (PageContext.IsGuest)
+        {
+          new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref activeTopics, true, "LastUserStyle");
+        }
+
+        if (PageContext.IsGuest)
         {
           PageContext.Cache.Insert(
             cacheKey, activeTopics, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);

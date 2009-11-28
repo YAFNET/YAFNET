@@ -668,7 +668,7 @@ namespace YAF.Pages
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-        StyleHelper.DecodeStyleByTable(ref dt0, true);
+        new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref dt0, true);
       }
 
       // get the default view...

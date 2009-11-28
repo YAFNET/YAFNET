@@ -36,12 +36,12 @@ namespace YAF.Pages
     /// <summary>
     /// The _forum.
     /// </summary>
-    private DataRow _forum;
+    DataRow _forum;
 
     /// <summary>
     /// The _forum flags.
     /// </summary>
-    private ForumFlags _forumFlags = null;
+    ForumFlags _forumFlags;
 
     /// <summary>
     /// The _show topic list selected.
@@ -66,7 +66,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    private void topics_Unload(object sender, EventArgs e)
+    void topics_Unload(object sender, EventArgs e)
     {
       if (Mession.UnreadTopics == 0)
       {
@@ -155,7 +155,7 @@ namespace YAF.Pages
     /// <summary>
     /// The handle watch forum.
     /// </summary>
-    private void HandleWatchForum()
+    void HandleWatchForum()
     {
       if (PageContext.IsGuest || !PageContext.ForumReadAccess)
       {
@@ -193,7 +193,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    private void MarkRead_Click(object sender, EventArgs e)
+    void MarkRead_Click(object sender, EventArgs e)
     {
       Mession.SetForumRead(PageContext.PageForumID, DateTime.Now);
       BindData();
@@ -208,7 +208,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Pager_PageChange(object sender, EventArgs e)
+    void Pager_PageChange(object sender, EventArgs e)
     {
       this.SmartScroller1.Reset();
       BindData();
@@ -240,7 +240,7 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ShowList_SelectedIndexChanged(object sender, EventArgs e)
+    void ShowList_SelectedIndexChanged(object sender, EventArgs e)
     {
       this._showTopicListSelected = this.ShowList.SelectedIndex;
       BindData();
@@ -249,7 +249,7 @@ namespace YAF.Pages
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData()
+    void BindData()
     {
       DataSet ds = YafServices.DBBroker.BoardLayout(PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, PageContext.PageForumID);
       if (ds.Tables[YafDBAccess.GetObjectName("Forum")].Rows.Count > 0)
@@ -272,12 +272,8 @@ namespace YAF.Pages
           userId = PageContext.PageUserID;
         }
       }
-      
-      DataTable dt = DB.topic_list( PageContext.PageForumID, userId, 1, null, 0, 10, PageContext.BoardSettings.UseStyledNicks);
-     
-      // Set colorOnly parameter to true, as we get all but color from css in the place
-      if ( PageContext.BoardSettings.UseStyledNicks )
-          YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dt, true,"StarterStyle","LastUserStyle");
+
+      DataTable dt = StyleTransformDataTable(DB.topic_list(PageContext.PageForumID, userId, 1, null, 0, 10, PageContext.BoardSettings.UseStyledNicks));
 
       int nPageSize = Math.Max(5, this.Pager.PageSize - dt.Rows.Count);
       this.Announcements.DataSource = dt;
@@ -297,13 +293,9 @@ namespace YAF.Pages
       DataTable dtTopics;
       if (this._showTopicListSelected == 0)
       {
-         dtTopics = DB.topic_list( PageContext.PageForumID, userId, 0, null, nCurrentPageIndex * nPageSize, nPageSize,PageContext.BoardSettings.UseStyledNicks );
-
-          // Set colorOnly parameter to true, as we get all but color from css in the place
-          if (PageContext.BoardSettings.UseStyledNicks)
-              YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dtTopics, true, "StarterStyle", "LastUserStyle");
-
-       
+        dtTopics =
+          StyleTransformDataTable(
+            DB.topic_list(PageContext.PageForumID, userId, 0, null, nCurrentPageIndex * nPageSize, nPageSize, PageContext.BoardSettings.UseStyledNicks));
       }
       else
       {
@@ -336,11 +328,9 @@ namespace YAF.Pages
             break;
         }
 
-        dtTopics = DB.topic_list(PageContext.PageForumID, userId, 0, date, nCurrentPageIndex * nPageSize, nPageSize, PageContext.BoardSettings.UseStyledNicks);
-        // Set colorOnly parameter to true, as we get all but color from css in the place
-        if (PageContext.BoardSettings.UseStyledNicks)
-            YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dtTopics, true, "StarterStyle", "LastUserStyle");
-       
+        dtTopics =
+          StyleTransformDataTable(
+            DB.topic_list(PageContext.PageForumID, userId, 0, date, nCurrentPageIndex * nPageSize, nPageSize, PageContext.BoardSettings.UseStyledNicks));
       }
 
       int nRowCount = 0;
@@ -360,6 +350,26 @@ namespace YAF.Pages
       Mession.ShowList = this._showTopicListSelected;
 
       this.Pager.Count = nRowCount;
+    }
+
+    /// <summary>
+    /// The style transform func wrap.
+    /// </summary>
+    /// <param name="dt">
+    /// The DateTable
+    /// </param>
+    /// <returns>
+    /// The style transform wrap.
+    /// </returns>
+    public DataTable StyleTransformDataTable(DataTable dt)
+    {
+      if (YafContext.Current.BoardSettings.UseStyledNicks)
+      {
+        var styleTransform = new StyleTransform(YafContext.Current.Theme);
+        styleTransform.DecodeStyleByTable(ref dt, true, "StarterStyle", "LastUserStyle");
+      }
+
+      return dt;
     }
 
     /// <summary>
