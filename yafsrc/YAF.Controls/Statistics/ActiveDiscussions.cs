@@ -27,6 +27,8 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls.Statistics
 {
+  using Classes.UI;
+
   /// <summary>
   /// Control to display last active topics.
   /// </summary>
@@ -93,10 +95,15 @@ namespace YAF.Controls.Statistics
       if (dt == null)
       {
         // nothing was cached, retrieve it from the database
-          dt = DB.topic_latest( PageContext.PageBoardID, this._displayNumber, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks );
+        dt = DB.topic_latest(PageContext.PageBoardID, this._displayNumber, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks);
+
         // Set colorOnly parameter to true, as we get all but color from css in the place
-        if ( PageContext.BoardSettings.UseStyledNicks )
-            YAF.Classes.UI.StyleHelper.DecodeStyleByTable(ref dt, true, "LastUserStyle");
+        if (PageContext.BoardSettings.UseStyledNicks)
+        {
+          var styleTransform = new StyleTransform(YafContext.Current.Theme);
+          styleTransform.DecodeStyleByTable(ref dt, true, "LastUserStyle");
+        }
+
         // and cache it
         PageContext.Cache.Insert(cacheKey, dt, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
       }
@@ -116,10 +123,10 @@ namespace YAF.Controls.Statistics
       {
         // Output Topic Link
         html.AppendFormat(
-          "{2}.&nbsp;<a href=\"{1}\">{0}</a> ({3})", 
-          YafServices.BadWordReplace.Replace(Convert.ToString(r["Topic"])), 
-          YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", r["LastMessageID"]), 
-          currentPost, 
+          "{2}.&nbsp;<a href=\"{1}\">{0}</a> ({3})",
+          YafServices.BadWordReplace.Replace(Convert.ToString(r["Topic"])),
+          YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", r["LastMessageID"]),
+          currentPost,
           r["NumPosts"]);
 
         // new line after topic link

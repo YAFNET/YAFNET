@@ -75,26 +75,11 @@ namespace YAF.Controls
 
       if (this._activeUsers.ActiveUserTable == null)
       {
-        if (bTopic)
-        {
-          DataTable dt = DB.active_listtopic(PageContext.PageTopicID, PageContext.BoardSettings.UseStyledNicks);
-          if (YafContext.Current.BoardSettings.UseStyledNicks)
-          {
-            StyleHelper.DecodeStyleByTable(ref dt);
-          }
-
-          this._activeUsers.ActiveUserTable = dt;
-        }
-        else
-        {
-          DataTable dt = DB.active_listforum(PageContext.PageForumID, PageContext.BoardSettings.UseStyledNicks);
-          if (YafContext.Current.BoardSettings.UseStyledNicks)
-          {
-            StyleHelper.DecodeStyleByTable(ref dt);
-          }
-
-          this._activeUsers.ActiveUserTable = dt;
-        }
+        this._activeUsers.ActiveUserTable =
+          YafServices.DBBroker.StyleTransformDataTable(
+            bTopic
+              ? DB.active_listtopic(PageContext.PageTopicID, PageContext.BoardSettings.UseStyledNicks)
+              : DB.active_listforum(PageContext.PageForumID, PageContext.BoardSettings.UseStyledNicks));
       }
 
       // add it...

@@ -63,18 +63,7 @@ namespace YAF.Controls
       {
         string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
         DataTable activeUsers = PageContext.Cache.GetItem(
-          key,
-          (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout,
-          () =>
-          {
-            DataTable au = DB.active_list(
-              YafContext.Current.PageBoardID, false, YafContext.Current.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-            if (PageContext.BoardSettings.UseStyledNicks)
-            {
-              StyleHelper.DecodeStyleByTable(ref au);
-            }
-            return au;
-          });
+          key, (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(false));
 
         if (activeUsers.AsEnumerable().Any(x => x.Field<int>("UserId") == UserID && !x.Field<bool>("IsHidden")))
         {

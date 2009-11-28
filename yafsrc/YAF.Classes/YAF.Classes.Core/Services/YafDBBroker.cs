@@ -16,20 +16,40 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Web;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Classes.Core
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Data;
+  using System.Web;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// Class used for multi-step DB operations so they can be cached, etc.
   /// </summary>
   public class YafDBBroker
   {
+    /// <summary>
+    /// The style transform func wrap.
+    /// </summary>
+    /// <param name="dt">
+    /// The DateTable
+    /// </param>
+    /// <returns>
+    /// The style transform wrap.
+    /// </returns>
+    public DataTable StyleTransformDataTable(DataTable dt)
+    {
+      if (YafContext.Current.BoardSettings.UseStyledNicks)
+      {
+        var styleTransform = new StyleTransform(YafContext.Current.Theme);
+        styleTransform.DecodeStyleByTable(ref dt, true);
+      }
+
+      return dt;
+    }
+
     /// <summary>
     /// The user ignored list.
     /// </summary>
@@ -112,6 +132,65 @@ namespace YAF.Classes.Core
             Convert.ToInt64(row["ModeratorID"]), 
             row["ModeratorName"].ToString(), 
             SqlDataLayerConverter.VerifyBool(row["IsGroup"])));
+    }
+
+    /// <summary>
+    /// The get latest topics.
+    /// </summary>
+    /// <param name="numberOfPosts">
+    /// The number of posts.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public DataTable GetLatestTopics(int numberOfPosts)
+    {
+      return GetLatestTopics(numberOfPosts, YafContext.Current.PageUserID);
+    }
+
+    /// <summary>
+    /// The get latest topics.
+    /// </summary>
+    /// <param name="numberOfPosts">
+    /// The number of posts.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public DataTable GetLatestTopics(int numberOfPosts, int userId)
+    {
+      return this.StyleTransformDataTable(
+        DB.topic_latest(YafContext.Current.PageBoardID, numberOfPosts, userId, YafContext.Current.BoardSettings.UseStyledNicks));
+    }
+
+    /// <summary>
+    /// The get active list.
+    /// </summary>
+    /// <param name="guests">
+    /// The guests.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public DataTable GetActiveList(bool guests)
+    {
+      return GetActiveList(YafContext.Current.BoardSettings.ActiveListTime, guests);
+    }
+
+    /// <summary>
+    /// The get active list.
+    /// </summary>
+    /// <param name="activeTime">
+    /// The active time.
+    /// </param>
+    /// <param name="guests">
+    /// The guests.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public DataTable GetActiveList(int activeTime, bool guests)
+    {
+      return this.StyleTransformDataTable(DB.active_list(YafContext.Current.PageBoardID, guests, activeTime, YafContext.Current.BoardSettings.UseStyledNicks));
     }
 
     /// <summary>
