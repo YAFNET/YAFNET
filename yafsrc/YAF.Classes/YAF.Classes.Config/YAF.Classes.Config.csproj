@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IStyleTransform.cs" />
+    <Compile Include="Interfaces\IYafTheme.cs" />
     <Compile Include="Pattern\ThreadSafeDictionary.cs" />
     <Compile Include="YafBoardFolders.cs" />
     <Compile Include="YafBoardSettings.cs" />
