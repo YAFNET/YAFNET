@@ -2,7 +2,7 @@
 	TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
-	<DotNetAge:Tabs ID="HostSettingsTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
+	<DotNetAge:Tabs ID="TestDataTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"
 		AutoPostBack="false" Collapsible="false" ContentCssClass="" ContentStyle="" Deselectable="false"
 		EnabledContentCache="false" HeaderCssClass="" HeaderStyle="" OnClientTabAdd=""
 		OnClientTabDisabled="" OnClientTabEnabled="" OnClientTabLoad="" OnClientTabRemove=""
@@ -61,7 +61,7 @@
 						</td>
 						<td class="post">
 							<asp:TextBox ID="Password2" runat="server">testuser?</asp:TextBox>
-							<asp:CompareValidator ID="PasswordConfirmComparevalidator" runat="server" NAME="Comparevalidator1"
+							<asp:CompareValidator ID="PasswordConfirmComparevalidator" runat="server" 
 								EnableClientScript="False" ControlToValidate="Password2" ErrorMessage="Passwords didn't match."
 								ControlToCompare="Password"></asp:CompareValidator>
 						</td>
@@ -152,6 +152,16 @@
 							<asp:TextBox ID="BoardRolesName" Enabled="false" runat="server"></asp:TextBox>
 						</td>
 					</tr>
+					<tr>
+						<td class="postheader" width="50%">
+							Number of Users in Each Board:
+						</td>
+						<td class="post">
+							<asp:TextBox ID="BoardsUsersNumber" runat="server" Text="0" Enabled ="true" ></asp:TextBox>
+							<asp:RequiredFieldValidator ID="Requiredfieldvalidator12" runat="server" EnableClientScript="False"
+								Text="0" ControlToValidate="BoardsUsersNumber" ErrorMessage="User's number is required."></asp:RequiredFieldValidator>
+						</td>
+					</tr>	
 					<tr>
 						<tr>
 							<td class="postheader">
