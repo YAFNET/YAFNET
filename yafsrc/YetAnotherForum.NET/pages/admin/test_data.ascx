@@ -161,14 +161,14 @@
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator12" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="BoardsUsersNumber" ErrorMessage="User's number is required."></asp:RequiredFieldValidator>
 						</td>
-					</tr>	
-					<tr>
+					    </tr>
+					
 						<tr>
 							<td class="postheader">
 								Number of Categories in Each Board:
 							</td>
 							<td class="post">
-								<asp:TextBox ID="BoardsCategoriesNumber" runat="server" Enabled="false" datavaluefield="TopicID"
+								<asp:TextBox ID="BoardsCategoriesNumber" runat="server" Enabled="false"  datavaluefield="TopicID"
 									datatextfield="Subject">0</asp:TextBox>
 							</td>
 						</tr>
@@ -246,8 +246,7 @@
 							Number of Forums in Each Category:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="CategoriesForumsNumber" runat="server" Enabled="true" datavaluefield="TopicID"
-								datatextfield="Subject">0</asp:TextBox>
+							<asp:TextBox ID="CategoriesForumsNumber" runat="server" Enabled="true">0</asp:TextBox>
 						</td>
 					</tr>
 					<tr>

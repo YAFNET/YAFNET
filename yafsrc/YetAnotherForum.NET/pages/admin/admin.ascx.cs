@@ -175,10 +175,17 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      this.ActiveList.DataSource = DB.active_list(
+      
+        DataTable activeList =  DB.active_list(
         PageContext.PageBoardID, true, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-      this.UserList.DataSource = DB.user_list(PageContext.PageBoardID, null, false);
-      DataBind();
+        // Set colorOnly parameter to false, as we get active users style from database        
+        if (PageContext.BoardSettings.UseStyledNicks)
+        {
+            new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref activeList,false);
+        }
+        this.ActiveList.DataSource = activeList;
+        this.UserList.DataSource = DB.user_list(PageContext.PageBoardID, null, false);
+        DataBind();
 
       // get stats for current board, selected board or all boards (see function)
       DataRow row = DB.board_stats(GetSelectedBoardID());

@@ -1,13 +1,11 @@
 <%@ Control Language="c#" CodeFile="admin.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.admin" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<YAF:AdminMenu ID="Adminmenu1" runat="server">
-	
-	
+<YAF:AdminMenu ID="Adminmenu1" runat="server">	
 	
 	<table width="100%" cellspacing="1" cellpadding="0" class="content">
 		
-		<asp:Repeater ID="ActiveList" runat="server">
+	<asp:Repeater ID="ActiveList" runat="server">
     <HeaderTemplate>
       
         <tr>
@@ -30,7 +28,7 @@
     <ItemTemplate>
       <tr>
         <td class="post">
-          <%# YafBBCode.EncodeHTML( Eval("UserName").ToString() ) %>
+         <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' UserName='<%# YafBBCode.EncodeHTML( Eval("UserName").ToString() ) %>' Style='<%# Eval("Style") %>'  runat="server"></YAF:UserLink>
         </td>
         <td class="post">
           <%# Eval("IP") %>
