@@ -28,7 +28,7 @@
     <ItemTemplate>
       <tr>
         <td class="post">
-         <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' UserName='<%# YafBBCode.EncodeHTML( Eval("UserName").ToString() ) %>' Style='<%# Eval("Style") %>'  runat="server"></YAF:UserLink>
+         <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' UserName='<%# YafBBCode.EncodeHTML( Eval("UserName").ToString() ) %>' Style='<%# Eval("Style") %>'  runat="server"/>
         </td>
         <td class="post">
           <%# Eval("IP") %>

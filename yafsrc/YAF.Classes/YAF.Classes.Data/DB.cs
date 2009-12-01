@@ -6604,7 +6604,24 @@ namespace YAF.Classes.Data
     #endregion
 
     #region User
-
+    /// <summary>
+    /// The user_list.
+    /// </summary>
+    /// <param name="boardID">
+    /// The board id.
+    /// </param>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="approved">
+    /// The approved.
+    /// </param>    
+    /// <returns>
+    /// </returns>
+    public static DataTable user_list(object boardID, object userID, object approved)
+    {
+        return user_list(boardID, userID, approved, null, null, false);
+    }
     /// <summary>
     /// The user_list.
     /// </summary>
@@ -6617,11 +6634,14 @@ namespace YAF.Classes.Data
     /// <param name="approved">
     /// The approved.
     /// </param>
+    /// <param name="useStyledNicks">
+    /// Return style info.
+    /// </param> 
     /// <returns>
     /// </returns>
-    public static DataTable user_list(object boardID, object userID, object approved)
+    public static DataTable user_list(object boardID, object userID, object approved, object useStyledNicks)
     {
-      return user_list(boardID, userID, approved, null, null);
+        return user_list(boardID, userID, approved, null, null, useStyledNicks);
     }
 
     /// <summary>
@@ -6646,6 +6666,33 @@ namespace YAF.Classes.Data
     /// </returns>
     public static DataTable user_list(object boardID, object userID, object approved, object groupID, object rankID)
     {
+      return user_list(boardID, userID, approved, null, null, false);      
+    }
+          /// <summary>
+    /// The user_list.
+    /// </summary>
+    /// <param name="boardID">
+    /// The board id.
+    /// </param>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="approved">
+    /// The approved.
+    /// </param>
+    /// <param name="groupID">
+    /// The group id.
+    /// </param>
+    /// <param name="rankID">
+    /// The rank id.
+    /// </param>
+    /// <param name="useStyledNicks">
+    /// Return style info.
+    /// </param> 
+    /// <returns>
+    /// </returns>
+    public static DataTable user_list(object boardID, object userID, object approved, object groupID, object rankID, object useStyledNicks)
+    {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
@@ -6654,9 +6701,12 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("Approved", approved);
         cmd.Parameters.AddWithValue("GroupID", groupID);
         cmd.Parameters.AddWithValue("RankID", rankID);
+        cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+          
         return YafDBAccess.Current.GetData(cmd);
       }
     }
+      
 
     /// <summary>
     /// For URL Rewriting

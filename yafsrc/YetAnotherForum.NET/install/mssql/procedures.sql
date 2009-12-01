@@ -5007,15 +5007,18 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_list](@BoardID int,@UserID int=null,@Approved bit=null,@GroupID int=null,@RankID int=null) as
-begin
-	
+create procedure [{databaseOwner}].[{objectQualifier}user_list](@BoardID int,@UserID int=null,@Approved bit=null,@GroupID int=null,@RankID int=null,@StyledNicks bit = null) as
+begin	
 	if @UserID is not null
 		select 
 			a.*,
 			a.NumPosts,
-			b.RankID,
+			b.RankID,						
 			RankName = b.Name,
+			Style = case(@StyledNicks)
+	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+	        else ''	 end, 
 			NumDays = datediff(d,a.Joined,getdate())+1,
 			NumPostsForum = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where (x.Flags & 24)=16),
 			HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=a.UserID and AvatarImage is not null),
@@ -5026,7 +5029,7 @@ begin
 			IsModerator		= IsNull(c.IsModerator,0)
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
-			join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID
+			join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID			
 			left join [{databaseOwner}].[{objectQualifier}vaccess] c on c.UserID=a.UserID
 		where 
 			a.UserID = @UserID and
@@ -5038,7 +5041,11 @@ begin
 	else if @GroupID is null and @RankID is null
 		select 
 			a.*,
-			a.NumPosts,
+			a.NumPosts,	
+			Style = case(@StyledNicks)
+	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+	        else ''	 end, 	
 			IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0),
 			IsGuest	= IsNull(a.Flags & 4,0),
 			IsHostAdmin	= IsNull(a.Flags & 1,0),
@@ -5046,7 +5053,7 @@ begin
 			RankName = b.Name
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
-			join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID
+			join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID			
 		where 
 			a.BoardID = @BoardID and
 			(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2))
@@ -5060,10 +5067,14 @@ begin
 			IsGuest	= IsNull(a.Flags & 4,0),
 			IsHostAdmin	= IsNull(a.Flags & 1,0),
 			b.RankID,
-			RankName = b.Name
+			RankName = b.Name,
+			Style = case(@StyledNicks)
+	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+	        else ''	 end 
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
-			join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID
+			join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID			
 		where 
 			a.BoardID = @BoardID and
 			(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2)) and

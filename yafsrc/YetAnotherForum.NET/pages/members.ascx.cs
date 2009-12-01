@@ -183,8 +183,11 @@ namespace YAF.Pages
       this.Pager.PageSize = 20;
 
       // get the user list
-      DataTable userListDataTable = DB.user_list(PageContext.PageBoardID, null, true);
-
+      DataTable userListDataTable = DB.user_list(PageContext.PageBoardID, null, true, YafContext.Current.BoardSettings.UseStyledNicks);
+      if (YafContext.Current.BoardSettings.UseStyledNicks)
+      {
+          new StyleTransform(YafContext.Current.Theme).DecodeStyleByTable(ref userListDataTable, false);
+      }
       // select only the guest user (if one exists)
       DataRow[] guestRows = userListDataTable.Select("IsGuest > 0");
 
