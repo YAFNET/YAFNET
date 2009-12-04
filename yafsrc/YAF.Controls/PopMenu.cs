@@ -116,6 +116,24 @@ namespace YAF.Controls
     }
 
     /// <summary>
+    /// The remove post back item.
+    /// </summary>
+    /// <param name="argument">
+    /// The argument.
+    /// </param>
+    public void RemovePostBackItem(string Argument)
+    {
+        foreach (InternalPopMenuItem item in this._items)
+        {
+            if (item.PostBackArgument == Argument)
+            {
+                this._items.Remove(item);
+                break;
+            }
+        }
+    }
+
+    /// <summary>
     /// The add client script item.
     /// </summary>
     /// <param name="description">

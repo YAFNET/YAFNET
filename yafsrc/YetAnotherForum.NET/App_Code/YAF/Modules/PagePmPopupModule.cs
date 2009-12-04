@@ -68,8 +68,25 @@ namespace YAF.Modules
         PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("COMMON", "UNREAD_MSG"), PageContext.UnreadPrivate));
         Mession.LastPm = PageContext.LastUnreadPm;
       }
+      if (DisplayPendingBuddies())
+      {
+          PageContext.AddLoadMessage(String.Format(PageContext.Localization.GetText("BUDDY", "PENDINGBUDDIES"), PageContext.PendingBuddies));
+          Mession.LastPendingBuddies = PageContext.LastPendingBuddies;
+      }
     }
 
+
+    /// <summary>
+    /// The last pending buddies.
+    /// </summary>
+    /// <returns>
+    /// whether we should display the pending buddies notification or not
+    /// </returns>
+    protected bool DisplayPendingBuddies()
+    {
+        return (PageContext.PendingBuddies > 0) && (PageContext.LastPendingBuddies > Mession.LastPendingBuddies);
+    }
+  
     /// <summary>
     /// The display pm popup.
     /// </summary>
@@ -78,7 +95,7 @@ namespace YAF.Modules
     /// </returns>
     protected bool DisplayPMPopup()
     {
-      return (PageContext.UnreadPrivate > 0) && (PageContext.LastUnreadPm > Mession.LastPm);
+        return (PageContext.UnreadPrivate > 0) && (PageContext.LastUnreadPm > Mession.LastPm);
     }
 
     /// <summary>

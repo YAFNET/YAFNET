@@ -54,6 +54,10 @@ namespace YAF.Controls
       html.AppendFormat(@"<tr class=""header2""><td>{0}</td></tr>", PageContext.Localization.GetText("PERSONAL_PROFILE"));
       html.AppendFormat(@"<tr><td class=""post""><ul id=""yafprofilepersonal"">");
       html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editprofile), PageContext.Localization.GetText("EDIT_PROFILE"));
+      if (PageContext.BoardSettings.EnableBuddyList)
+      {
+          html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editbuddies), PageContext.Localization.GetText("EDIT_BUDDIES"));
+      }
       html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editavatar), PageContext.Localization.GetText("EDIT_AVATAR"));
       if (PageContext.BoardSettings.AllowSignatures)
       {

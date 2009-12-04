@@ -1671,6 +1671,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether EnableBuddyList.
+    /// </summary>
+    public bool EnableBuddyList
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("EnableBuddyList", true);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("EnableBuddyList", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether to AddDynamicPageMetaTags.
     /// </summary>
     public bool AddDynamicPageMetaTags

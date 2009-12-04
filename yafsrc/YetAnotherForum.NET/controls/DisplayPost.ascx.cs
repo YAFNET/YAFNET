@@ -194,7 +194,23 @@ namespace YAF.Controls
             this.PopMenu1.AddPostBackItem("toggleuserposts_hide", PageContext.Localization.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
           }
         }
-
+        if (YafContext.Current.BoardSettings.EnableBuddyList)
+        {
+            // Should we add the "Add Buddy" item?
+            if (!YafBuddies.IsBuddy((int)(DataRow["UserID"]), false) && !PageContext.IsGuest)
+            {
+                this.PopMenu1.AddPostBackItem("addbuddy", PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
+            }
+            // Are the users approved buddies? Add the "Remove buddy" item.
+            else if (YafBuddies.IsBuddy((int)(DataRow["UserID"]), true) && !PageContext.IsGuest)
+            {
+                this.PopMenu1.AddClientScriptItemWithPostback(
+                                                PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"),
+                                                "removebuddy",
+                                                "if (confirm('Remove Buddy?')) {postbackcode}"
+                                                );
+            }
+        }
         this.PopMenu1.Attach(this.UserProfileLink);
       }
 
@@ -439,6 +455,32 @@ namespace YAF.Controls
         case "userprofile":
           YafBuildLink.Redirect(ForumPages.profile, "u={0}", PostData.UserId);
           break;
+        case "addbuddy":
+          string[] strBuddyRequest = new string[2];
+          this.PopMenu1.RemovePostBackItem("addbuddy");
+          strBuddyRequest = YafBuddies.AddBuddyRequest(PostData.UserId);
+          if (Convert.ToBoolean(strBuddyRequest[1]))
+          {
+              PageContext.AddLoadMessage(string.Format(PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), strBuddyRequest[0]));
+              this.PopMenu1.AddClientScriptItemWithPostback(
+                                              PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"),
+                                              "removebuddy",
+                                              "if (confirm('Remove Buddy?')) {postbackcode}"
+                                              );
+          }
+          else
+          {
+              PageContext.AddLoadMessage(PageContext.Localization.GetText("NOTIFICATION_BUDDYREQUEST"));
+          }
+          break;
+        case "removebuddy":
+            {
+              this.PopMenu1.RemovePostBackItem("removebuddy");
+              this.PopMenu1.AddPostBackItem("addbuddy", PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
+              PageContext.AddLoadMessage(string.Format(PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION"), YafBuddies.RemoveBuddy(PostData.UserId)));
+              break;
+          }
+
         case "edituser":
           YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", PostData.UserId);
           break;

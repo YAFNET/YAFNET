@@ -86,6 +86,29 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
+    /// Gets or sets LastPm.
+    /// </summary>
+    public static DateTime LastPendingBuddies
+    {
+        get
+        {
+            if (HttpContext.Current.Session["lastpendingbuddies"] != null)
+            {
+                return (DateTime)HttpContext.Current.Session["lastpendingbuddies"];
+            }
+            else
+            {
+                return DateTime.MinValue;
+            }
+        }
+
+        set
+        {
+            HttpContext.Current.Session["lastpendingbuddies"] = value;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether HasLastVisit.
     /// </summary>
     public static bool HasLastVisit

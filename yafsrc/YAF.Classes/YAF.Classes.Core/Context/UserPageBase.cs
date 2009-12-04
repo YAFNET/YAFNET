@@ -556,6 +556,34 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// The number of pending buddy requests
+    /// </summary>
+    public int PendingBuddies
+    {
+        get
+        {
+            return Convert.ToInt32(Page["PendingBuddies"]);
+        }
+    }
+
+    /// <summary>
+    /// The number of pending buddy requests
+    /// </summary>
+    public DateTime LastPendingBuddies
+    {
+        get
+        {
+            if (String.IsNullOrEmpty(Page["LastPendingBuddies"].ToString()))
+            {
+                return DateTime.MinValue;
+            }
+            else
+            {
+                return Convert.ToDateTime(Page["LastPendingBuddies"]);
+            }
+        }
+    }
+    /// <summary>
     /// The time zone offset for the user
     /// </summary>
     public int TimeZoneUser

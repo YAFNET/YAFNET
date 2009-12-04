@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="BuddyList" Src="../controls/BuddyList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
@@ -59,6 +60,10 @@
 								<td width="50%" class="post">
 									<asp:Label ID="Name" runat="server" />
 									<YAF:OnlineStatusImage id="OnlineStatusImage1" runat="server" Style="vertical-align: bottom" />
+                            <asp:LinkButton ID="lnkBuddy" runat="server" OnCommand="lnk_AddBuddy"/>
+                                <asp:literal ID="ltrApproval" runat="server" Text='<%# PageContext.Localization.GetText("BUDDY","AWAIT_BUDDY_APPROVAL") %>'
+                                Visible="false">
+                                </asp:literal>
 								</td>
 							</tr>
 							<tr runat="server" id="userGroupsRow">
@@ -251,6 +256,10 @@
 							</asp:Repeater>
 						</table>
 					</DotNetAge:View>
+					<DotNetAge:View runat="server" ID="BuddyListTab" Text="Buddy List" NavigateUrl=""
+                        HeaderCssClass="" HeaderStyle="" Target="_blank" Visible="<%# YafContext.Current.BoardSettings.EnableBuddyList %>">
+                        <YAF:BuddyList runat="server" ID="BuddyList" />
+                    </DotNetAge:View>
 					<DotNetAge:View runat="server" ID="ModerateTab" Text="Moderation" NavigateUrl=""
 						HeaderCssClass="" HeaderStyle="" Visible="false" Target="_blank">
 						<YAF:ForumAccess runat="server" ID="ForumAccessControl" />

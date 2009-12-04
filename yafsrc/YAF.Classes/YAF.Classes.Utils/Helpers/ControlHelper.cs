@@ -64,14 +64,39 @@ namespace YAF.Classes.Utils
       withParents.ForEach(x => list.AddRange(ControlListRecursive(x, isControl)));
 
       // add controls from this level...
-      list.AddRange(
-        (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
-         where !c.HasControls()
-         select c).ToList().Where(isControl));
-
+      list.AddRange(ControlListNoParents(sourceControl, isControl));
 
       // return the lot...
       return list;
+    }
+
+    /// <summary>
+    /// Finds a control recursively (forward only) using <paramref name="isControl"/> function.
+    /// </summary>
+    /// <param name="sourceControl">
+    /// Control to start search from.
+    /// </param>
+    /// <param name="isControl">
+    /// Function to test if we found the control.
+    /// </param>
+    /// <returns>
+    /// List of controls found
+    /// </returns>
+    private static List<Control> ControlListNoParents(Control sourceControl, Func<Control, bool> isControl)
+    {
+      if (sourceControl == null)
+      {
+        throw new ArgumentNullException("sourceControl", "sourceControl is null.");
+      }
+
+      if (isControl == null)
+      {
+        throw new ArgumentNullException("isControl", "isControl is null.");
+      }
+
+      return (from c in sourceControl.Controls.Cast<Control>().AsQueryable()
+              where !c.HasControls()
+              select c).Where(isControl).ToList();
     }
 
     /// <summary>

@@ -99,7 +99,44 @@ namespace YAF.Pages
 
       var userData = new CombinedUserDataHelper(user, userID);
 
-      // populate user information controls...
+          // populate user information controls...
+      
+      //Is BuddyList feature enabled?
+      if (YafContext.Current.BoardSettings.EnableBuddyList)
+      {
+          if (userID == PageContext.PageUserID)
+          {
+              lnkBuddy.Visible = false;
+          }
+          else if (YafBuddies.IsBuddy((int)(userData.DBRow["userID"]), true))
+          {
+              lnkBuddy.Visible = true;
+              lnkBuddy.Text = string.Format("({0})", PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"));
+              lnkBuddy.CommandArgument = "removebuddy";
+              lnkBuddy.Attributes["onclick"] = "return confirm('Remove Buddy?')";
+          }
+          else if (YafBuddies.IsBuddy((int)(userData.DBRow["userID"]), false))
+          {
+              lnkBuddy.Visible = false;
+              ltrApproval.Visible = true;
+          }
+          else
+          {
+              lnkBuddy.Visible = true;
+              lnkBuddy.Text = string.Format("({0})", PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
+              lnkBuddy.CommandArgument = "addbuddy";
+              lnkBuddy.Attributes["onclick"] = "";
+          }
+
+          BuddyList.CurrentUserID = userID;
+          BuddyList.Mode = 1;
+      }
+      else
+      {
+          //BuddyList feature is disabled. don't show any link.
+          lnkBuddy.Visible = false;
+          ltrApproval.Visible = false;
+      }
       this.UserName.Text = HtmlEncode(userData.Membership.UserName);
       Name.Text = HtmlEncode(userData.Membership.UserName);
       Joined.Text = String.Format("{0}", YafServices.DateTime.FormatDateLong(Convert.ToDateTime(userData.Joined)));
@@ -216,8 +253,43 @@ namespace YAF.Pages
         LastPosts.DataSource = DB.post_last10user(PageContext.PageBoardID, Request.QueryString["u"], PageContext.PageUserID);
         SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userData.Membership.UserName);
       }
-
+      
       DataBind();
+    }
+
+    protected void lnk_AddBuddy(object sender, CommandEventArgs e)
+    {
+        var userID = (int)Security.StringToLongOrRedirect(Request.QueryString["u"]);
+        if ((string)(e.CommandArgument) == "addbuddy")
+        {
+            string[] strBuddyRequest = new string[2];
+            strBuddyRequest = YafBuddies.AddBuddyRequest(userID);
+            LinkButton lnkBuddy = (LinkButton)(AboutTab.FindControl("lnkBuddy"));
+            lnkBuddy.Visible = false;
+            if (Convert.ToBoolean(strBuddyRequest[1]))
+            {
+                PageContext.AddLoadMessage(string.Format
+                                            (
+                                            PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
+                                            strBuddyRequest[0])
+                                            );
+            }
+            else
+            {
+                Literal ltrApproval = (Literal)(AboutTab.FindControl("ltrApproval"));
+                ltrApproval.Visible = true;
+                PageContext.AddLoadMessage(PageContext.Localization.GetText("NOTIFICATION_BUDDYREQUEST"));
+            }
+        }
+        else
+        {
+            PageContext.AddLoadMessage(string.Format
+                                        (
+                                        PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION"),
+                                        YafBuddies.RemoveBuddy(userID))
+                                        );
+        }
+        BindData();
     }
 
     /// <summary>

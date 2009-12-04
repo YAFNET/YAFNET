@@ -8849,5 +8849,142 @@ namespace YAF.Classes.Data
     }
 
     #endregion
+    #region Buddy
+    /// <summary>
+    /// Adds a buddy request. (Should be approved later by "ToUserID")
+    /// </summary>
+    /// <param name="FromUserID">
+    /// The from user id.
+    /// </param>
+    /// <param name="ToUserID">
+    /// The to user id.
+    /// </param>
+    /// <returns>
+    /// The name of the second user + Whether this request is approved or not.
+    /// </returns>
+    public static string[] buddy_addrequest(object FromUserID, object ToUserID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("buddy_addrequest"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+            var approved = new SqlParameter("approved", SqlDbType.Bit);
+            paramOutput.Direction = ParameterDirection.Output;
+            approved.Direction = ParameterDirection.Output;
+            cmd.Parameters.AddWithValue("FromUserID", FromUserID);
+            cmd.Parameters.AddWithValue("ToUserID", ToUserID);
+            cmd.Parameters.Add(paramOutput);
+            cmd.Parameters.Add(approved);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+            return new string[] { paramOutput.Value.ToString(), approved.Value.ToString() };
+        }
+    }
+
+    /// <summary>
+    /// Approves a buddy request.
+    /// </summary>
+    /// <param name="FromUserID">
+    /// The from user id.
+    /// </param>
+    /// <param name="ToUserID">
+    /// The to user id.
+    /// </param>
+    /// <param name="Mutual">
+    /// Should the requesting user (ToUserID) be added to FromUserID's buddy list too?
+    /// </param>
+    /// <returns>
+    /// the name of the second user.
+    /// </returns>
+    public static string buddy_approveRequest(object FromUserID, object ToUserID, object Mutual)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("buddy_approverequest"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+            paramOutput.Direction = ParameterDirection.Output;
+            cmd.Parameters.AddWithValue("FromUserID", FromUserID);
+            cmd.Parameters.AddWithValue("ToUserID", ToUserID);
+            cmd.Parameters.AddWithValue("mutual", Mutual);
+            cmd.Parameters.Add(paramOutput);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+            return paramOutput.Value.ToString();
+        }
+    }
+
+    /// <summary>
+    /// Denies a buddy request.
+    /// </summary>
+    /// <param name="FromUserID">
+    /// The from user id.
+    /// </param>
+    /// <param name="ToUserID">
+    /// The to user id.
+    /// </param>
+    /// <returns>
+    /// the name of the second user.
+    /// </returns>
+    public static string buddy_denyRequest(object FromUserID, object ToUserID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("buddy_denyrequest"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+            paramOutput.Direction = ParameterDirection.Output;
+            cmd.Parameters.AddWithValue("FromUserID", FromUserID);
+            cmd.Parameters.AddWithValue("ToUserID", ToUserID);
+            cmd.Parameters.Add(paramOutput);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+            return paramOutput.Value.ToString();
+        }
+    }
+
+    /// <summary>
+    /// Removes the "ToUserID" from "FromUserID"'s buddy list.
+    /// </summary>
+    /// <param name="FromUserID">
+    /// The from user id.
+    /// </param>
+    /// <param name="ToUserID">
+    /// The to user id.
+    /// </param>
+    /// <returns>
+    /// The name of the second user.
+    /// </returns>
+    public static string buddy_remove(object FromUserID, object ToUserID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("buddy_remove"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+            paramOutput.Direction = ParameterDirection.Output;
+            cmd.Parameters.AddWithValue("FromUserID", FromUserID);
+            cmd.Parameters.AddWithValue("ToUserID", ToUserID);
+            cmd.Parameters.Add(paramOutput);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+            return paramOutput.Value.ToString();
+        }
+    }
+    /// <summary>
+    /// Gets all the buddies of a certain user.
+    /// </summary>
+    /// <param name="FromUserID">
+    /// The from user id.
+    /// </param>
+    /// <param name="JustApproved">
+    /// Return only the approved users?
+    /// </param>
+    /// <returns>
+    /// a Datatable containing the buddy list.
+    /// </returns>
+    public static DataTable buddy_list(object FromUserID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("buddy_list"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("FromUserID", FromUserID);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+    #endregion
   }
 }

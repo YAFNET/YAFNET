@@ -127,6 +127,11 @@ namespace YAF.Classes
       public const string UserIgnoreList = "UserIgnoreList{0}";
 
       /// <summary>
+      /// The user buddies.
+      /// </summary>
+      public const string UserBuddies = "UserBuddies{0}";
+
+      /// <summary>
       /// The user medals.
       /// </summary>
       public const string UserMedals = "UserMedals{0}";

@@ -916,6 +916,29 @@ GO
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_getthanks_to]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_to]
 GO
+/* End of Thanks table stored procedures */
+ 
+/* Buddy feature stored procedures */
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}buddy_addrequest]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_addrequest]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}buddy_approverequest]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_approverequest]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}buddy_denyrequest]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_denyrequest]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}buddy_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_list]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}buddy_remove]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_remove]
+GO
+/* End of Buddy feature stored procedures */
 
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
@@ -3373,7 +3396,9 @@ begin
 		MailsPending		= (select count(1) from [{databaseOwner}].[{objectQualifier}Mail]),
 		Incoming			= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=a.UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0),
 		LastUnreadPm		= (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=a.UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC),
-		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)
+		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID),
+		PendingBuddies      = (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0),
+		LastPendingBuddies	= (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=a.UserID and Approved = 0)			
 	from
 		[{databaseOwner}].[{objectQualifier}User] a
 		left join [{databaseOwner}].[{objectQualifier}vaccess] x on x.UserID=a.UserID and x.ForumID=IsNull(@ForumID,0)
@@ -4870,6 +4895,9 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}Thanks] where ThanksFromUserID=@UserID
 	delete from [{databaseOwner}].[{objectQualifier}Thanks] where ThanksToUserID=@UserID	
 		
+	--Delete all the Buddy relations between this user and other users.
+	delete from [{databaseOwner}].[{objectQualifier}Buddy] where FromUserID=@UserID OR ToUserID=@UserID
+	
 	-- set messages as from guest so the User can be deleted
 	update [{databaseOwner}].[{objectQualifier}PMessage] SET FromUserID = @GuestUserID WHERE FromUserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}CheckEmail] where UserID = @UserID
@@ -6609,3 +6637,193 @@ BEGIN
 END
 GO
 
+/* Stored procedures for Buddy feature */
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_addrequest]
+    @FromUserID INT,
+    @ToUserID INT,
+    @approved BIT = NULL OUT,
+    @paramOutput NVARCHAR(50) = NULL OUT
+AS 
+    BEGIN
+        IF NOT EXISTS ( SELECT  ID
+                        FROM    [{databaseOwner}].[{objectQualifier}Buddy]
+                        WHERE   ( FromUserID = @FromUserID
+                                  AND ToUserID = @ToUserID
+                                ) ) 
+            BEGIN
+                IF ( NOT EXISTS ( SELECT    ID
+                                  FROM      [{databaseOwner}].[{objectQualifier}Buddy]
+                                  WHERE     ( FromUserID = @ToUserID
+                                              AND ToUserID = @FromUserID
+                                            ) )
+                   ) 
+                    BEGIN
+                        INSERT  INTO [{databaseOwner}].[{objectQualifier}Buddy]
+                                (
+                                  FromUserID,
+                                 ToUserID,
+                                  Approved,
+                                  Requested
+                                )
+                        VALUES  (
+                                  @FromUserID,
+                                  @ToUserID,
+                                  0,
+                                  GETDATE()
+                                )
+                        SET @paramOutput = ( SELECT [Name]
+                                             FROM   [{databaseOwner}].[{objectQualifier}User]
+                                             WHERE  ( UserID = @ToUserID )
+                                           )
+                        SET @approved = 0
+                    END
+                ELSE 
+                    BEGIN
+                        INSERT  INTO [{databaseOwner}].[{objectQualifier}Buddy]
+                                (
+                                  FromUserID,
+                                  ToUserID,
+                                  Approved,
+                                  Requested
+                                )
+                        VALUES  (
+                                  @FromUserID,
+                                  @ToUserID,
+                                  1,
+                                  GETDATE()
+                                )
+                        UPDATE  [{databaseOwner}].[{objectQualifier}Buddy]
+                        SET     Approved = 1
+                        WHERE   ( FromUserID = @ToUserID
+                                  AND ToUserID = @FromUserID
+                                )
+                        SET @paramOutput = ( SELECT [Name]
+                                             FROM   [{databaseOwner}].[{objectQualifier}User]
+                                             WHERE  ( UserID = @ToUserID )
+                                           )
+                        SET @approved = 1
+                    END
+            END	
+        ELSE 
+            BEGIN
+                SET @paramOutput = ''
+                SET @approved = 0
+            END
+    END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_approverequest]
+    @FromUserID INT,
+    @ToUserID INT,
+    @Mutual BIT,
+    @paramOutput NVARCHAR(50) = NULL OUT
+AS 
+    BEGIN
+        IF EXISTS ( SELECT  ID
+                    FROM    [{databaseOwner}].[{objectQualifier}Buddy]
+                    WHERE   ( FromUserID = @FromUserID
+                              AND ToUserID = @ToUserID
+                            ) ) 
+            BEGIN
+                UPDATE  [{databaseOwner}].[{objectQualifier}Buddy]
+                SET     Approved = 1
+                WHERE   ( FromUserID = @FromUserID
+                          AND ToUserID = @ToUserID
+                        )
+                SET @paramOutput = ( SELECT [Name]
+                                     FROM   [{databaseOwner}].[{objectQualifier}User]
+                                     WHERE  ( UserID = @FromUserID )
+                                   )
+                IF ( @Mutual = 1 )
+                    AND ( NOT EXISTS ( SELECT   ID
+                                       FROM     [{databaseOwner}].[{objectQualifier}Buddy]
+                                       WHERE    FromUserID = @ToUserID
+                                                AND ToUserID = @FromUserID )
+                        ) 
+                    INSERT  INTO [{databaseOwner}].[{objectQualifier}Buddy]
+                            (
+                              FromUserID,
+                              ToUserID,
+                              Approved,
+                              Requested
+                            )
+                    VALUES  (
+                              @ToUserID,
+                              @FromUserID,
+                              1,
+                              GETDATE()
+                            )
+            END
+	END
+GO
+
+    CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_list] @FromUserID INT
+AS 
+    BEGIN
+        SELECT  a.UserID,
+                a.BoardID,
+                a.[Name],
+                a.Joined,
+                a.NumPosts,
+                RankName = b.NAME,
+                c.Approved,
+                c.FromUserID,
+                c.Requested
+        FROM   [{databaseOwner}].[{objectQualifier}User] a
+                JOIN [{databaseOwner}].[{objectQualifier}Rank] b ON b.RankID = a.RankID
+                JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( c.ToUserID = a.UserID
+                                              AND c.FromUserID = @FromUserID
+                                            )
+        UNION
+        SELECT  @FromUserID AS UserID,
+                a.BoardID,
+                a.[Name],
+                a.Joined,
+                a.NumPosts,
+                RankName = b.NAME,
+                c.Approved,
+                c.FromUserID,
+                c.Requested
+        FROM    [{databaseOwner}].[{objectQualifier}User] a
+                JOIN [{databaseOwner}].[{objectQualifier}Rank] b ON b.RankID = a.RankID
+                JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( ( c.Approved = 0 )
+                                              AND ( c.ToUserID = @FromUserID )
+                                              AND ( a.UserID = c.FromUserID )
+                                            )
+        ORDER BY a.NAME
+    END
+    GO
+
+	CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_remove]
+    @FromUserID INT,
+    @ToUserID INT,
+    @paramOutput NVARCHAR(50) = NULL OUT
+AS 
+    BEGIN
+        DELETE  FROM [{databaseOwner}].[{objectQualifier}Buddy]
+        WHERE   ( FromUserID = @FromUserID
+                  AND ToUserID = @ToUserID
+                )
+        SET @paramOutput = ( SELECT [Name]
+                             FROM   [{databaseOwner}].[{objectQualifier}User]
+                             WHERE  ( UserID = @ToUserID )
+                           )
+    END
+    GO
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_denyrequest]
+    @FromUserID INT,
+    @ToUserID INT,
+    @paramOutput NVARCHAR(50) = NULL OUT
+AS 
+    BEGIN
+        DELETE  FROM [{databaseOwner}].[{objectQualifier}Buddy]
+        WHERE   FromUserID = @FromUserID
+                AND ToUserID = @ToUserID
+        SET @paramOutput = ( SELECT [Name]
+                             FROM   [{databaseOwner}].[{objectQualifier}User]
+                             WHERE  ( UserID = @FromUserID )
+                           )
+    END
+Go    
+/* End of stored procedures for Buddy feature */

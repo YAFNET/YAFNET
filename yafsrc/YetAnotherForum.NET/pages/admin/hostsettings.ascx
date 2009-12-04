@@ -262,7 +262,7 @@
 					<tr>
 						<td class="postheader">
 							<b>Add Dynamic Page Meta Tags:</b><br />
-							If checked, discription and keywords meta tags will be created dynamically on the post pages. 
+							If checked, description and keywords meta tags will be created dynamically on the post pages. 
 						</td>
 						<td class="post">
 							<asp:CheckBox ID="AddDynamicPageMetaTags" runat="server"></asp:CheckBox>
@@ -285,6 +285,15 @@
 						</td>
 						<td class="post">
 							<asp:CheckBox ID="EnableThanksMod" runat="server"></asp:CheckBox>
+						</td>
+					</tr>					
+                    <tr>
+						<td class="postheader">
+							<b>Enable Buddy List:</b><br />
+							If checked users can add each other as buddies.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="EnableBuddyList" runat="server"></asp:CheckBox>
 						</td>
 					</tr>					
 					<tr>

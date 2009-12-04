@@ -184,6 +184,26 @@ namespace YAF.Controls
           }
         }
 
+        if (!PageContext.IsGuest && YafContext.Current.BoardSettings.EnableBuddyList)
+        {
+            if (PageContext.PendingBuddies > 0)
+            {
+                string pendingBuddiesText = String.Format(PageContext.Localization.GetText("TOOLBAR", "BUDDYREQUEST"), PageContext.PendingBuddies);
+                buildHeader.AppendFormat(
+                  String.Format(
+                    "	<a target='_top' href=\"{0}\">{1}</a> <span class=\"unread\">{2}</span> | ",
+                    YafBuildLink.GetLink(ForumPages.cp_editbuddies),
+                    PageContext.Localization.GetText("TOOLBAR", "BUDDIES"),
+                    pendingBuddiesText));
+            }
+            else
+            {
+                buildHeader.AppendFormat(
+                  String.Format(
+                    "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.cp_editbuddies), PageContext.Localization.GetText("TOOLBAR", "BUDDIES")));
+            }
+        }
+
         /* TODO: help is currently useless...
 				if ( IsAdmin )
 					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.help_index ), GetText( "TOOLBAR", "HELP" ) ) );

@@ -117,7 +117,12 @@ namespace YAF.Classes
     /// <summary>
     /// The cp_profile.
     /// </summary>
-    cp_profile, 
+    cp_profile,
+
+    /// <summary>
+    /// The cp_editbuddies.
+    /// </summary>
+    cp_editbuddies, 
 
     /// <summary>
     /// The cp_editprofile.

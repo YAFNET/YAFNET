@@ -51,6 +51,18 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// The Buddy list for the user with the specified UserID.
+    /// </summary>
+    /// <param name="UserID"></param>
+    /// <returns></returns>
+    public DataTable UserBuddyList(int UserID)
+    {
+        string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserBuddies, UserID));
+        DataTable buddyList = YafContext.Current.Cache.GetItem(key, 10, () => DB.buddy_list(UserID));
+        return buddyList;
+    }
+
+    /// <summary>
     /// The user ignored list.
     /// </summary>
     /// <param name="userId">

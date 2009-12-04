@@ -16,20 +16,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text.RegularExpressions;
-using System.Web.Caching;
-using YAF.Classes.Data;
-
 namespace YAF.Classes.Core
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Data;
+  using System.Text.RegularExpressions;
+  using System.Web.Caching;
+
+  using YAF.Classes.Data;
+
   /// <summary>
   /// The bad word replace item.
   /// </summary>
   public class BadWordReplaceItem
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _active lock.
     /// </summary>
@@ -50,6 +53,10 @@ namespace YAF.Classes.Core
     /// </summary>
     private string _goodWord;
 
+    #endregion
+
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="BadWordReplaceItem"/> class.
     /// </summary>
@@ -65,27 +72,9 @@ namespace YAF.Classes.Core
       this._badWord = badWord;
     }
 
-    /// <summary>
-    /// Gets GoodWord.
-    /// </summary>
-    public string GoodWord
-    {
-      get
-      {
-        return this._goodWord;
-      }
-    }
+    #endregion
 
-    /// <summary>
-    /// Gets BadWord.
-    /// </summary>
-    public string BadWord
-    {
-      get
-      {
-        return this._badWord;
-      }
-    }
+    #region Properties
 
     /// <summary>
     /// Gets or sets a value indicating whether Active.
@@ -112,6 +101,30 @@ namespace YAF.Classes.Core
         }
       }
     }
+
+    /// <summary>
+    /// Gets BadWord.
+    /// </summary>
+    public string BadWord
+    {
+      get
+      {
+        return this._badWord;
+      }
+    }
+
+    /// <summary>
+    /// Gets GoodWord.
+    /// </summary>
+    public string GoodWord
+    {
+      get
+      {
+        return this._goodWord;
+      }
+    }
+
+    #endregion
   }
 
   /// <summary>
@@ -119,10 +132,16 @@ namespace YAF.Classes.Core
   /// </summary>
   public class YafBadWordReplace
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _options.
     /// </summary>
     private const RegexOptions _options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
+
+    #endregion
+
+    #region Properties
 
     /// <summary>
     /// Gets ReplaceItems.
@@ -133,7 +152,7 @@ namespace YAF.Classes.Core
       {
         string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords);
 
-        var replaceItems = (List<BadWordReplaceItem>) YafContext.Current.Cache[cacheKey];
+        var replaceItems = (List<BadWordReplaceItem>)YafContext.Current.Cache[cacheKey];
 
         if (replaceItems == null)
         {
@@ -147,12 +166,17 @@ namespace YAF.Classes.Core
             replaceItems.Add(new BadWordReplaceItem(row["goodword"].ToString(), row["badword"].ToString()));
           }
 
-          YafContext.Current.Cache.Add(cacheKey, replaceItems, null, DateTime.Now.AddMinutes(30), TimeSpan.Zero, CacheItemPriority.Low, null);
+          YafContext.Current.Cache.Add(
+            cacheKey, replaceItems, null, DateTime.Now.AddMinutes(30), TimeSpan.Zero, CacheItemPriority.Low, null);
         }
 
         return replaceItems;
       }
     }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// Searches through SearchText and replaces "bad words" with "good words"
@@ -173,7 +197,7 @@ namespace YAF.Classes.Core
 
       string strReturn = searchText;
 
-      foreach (BadWordReplaceItem item in ReplaceItems)
+      foreach (BadWordReplaceItem item in this.ReplaceItems)
       {
         try
         {
@@ -201,5 +225,7 @@ namespace YAF.Classes.Core
 
       return strReturn;
     }
+
+    #endregion
   }
 }

@@ -15,6 +15,18 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}Thanks](
 	)
 go
 
+/* YAF Buddy Table */
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Buddy]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+CREATE TABLE [{databaseOwner}].[{objectQualifier}Buddy](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[FromUserID] [int] NOT NULL,
+	[ToUserID] [int] NOT NULL,
+	[Approved] [bit] NOT NULL,
+	[Requested] [datetime] NOT NULL,
+	)
+go
+
+
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Active](
 		SessionID		nvarchar (24) NOT NULL ,
