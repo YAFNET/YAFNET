@@ -690,6 +690,33 @@
     <Resource tag="WATCHTOPIC">Отслеживать эту тему</Resource>
     <Resource tag="YIM">YAHOO</Resource>
   </page>
+  <page name="BUDDY">
+		<Resource tag="ADDBUDDY">Добавить к друзьям</Resource>
+		<Resource tag="AWAIT_BUDDY_APPROVAL">(Друг, ожидающий подтверждения)</Resource>
+		<Resource tag="REMOVEBUDDY">Удалить из друзей</Resource>
+		<Resource tag="NOTIFICATION_BUDDYREQUEST">Послан запрос на добавление к друзьям.</Resource>
+		<Resource tag="NOTIFICATION_BUDDYAPPROVED">{0} добавил Вас в список друзей.</Resource>
+		<Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">Вы и {0} теперь друзья!</Resource>
+		<Resource tag="NOTIFICATION_BUDDYDENIED">Ваш запрос на добавление к друзьям отклонён.</Resource>
+		<Resource tag="NOTIFICATION_ALL_APPROVED">Все запросы на добавление  к друзьям приняты.</Resource>
+		<Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">Все запросы на добавление к друзьям приняты и друзья добавлены в ваш список друзей.</Resource>
+		<Resource tag="NOTIFICATION_ALL_DENIED">Все запросы на добавление к друзьям со временем более чем 14 дней отклоняются.</Resource>
+		<Resource tag="PENDINGBUDDIES">У Вас {0} запроса(ов) на добавление в друзья</Resource>
+		<Resource tag="REMOVEBUDDY">Удалить {0} из Вашего списка друзей?</Resource>
+		<Resource tag="REMOVEBUDDY_NOTIFICATION">{0} был удалён из Вашего списка друзей.</Resource>
+	</page>
+	<page name="CP_EDITBUDDIES">
+		<Resource tag="BUDDYLIST_TT">Управление друзьями</Resource>
+		<Resource tag="EDIT_BUDDIES">Редактировать Друзей</Resource>
+		<Resource tag="BUDDYLIST">Список Ваших друзей</Resource>
+		<Resource tag="REQUEST_DATE">Дата запроса</Resource>
+		<Resource tag="APPROVE">Подружиться</Resource>
+		<Resource tag="DENY">Отклонить</Resource>
+		<Resource tag="APPROVE_ADD">Одобрить и добавить</Resource>
+		<Resource tag="APPROVE_ALL">Одобрить всех</Resource>
+		<Resource tag="DENY_ALL">Отклонить всех более кто запросил более 14 дней назад</Resource>
+		<Resource tag="APPROVE_ADD_ALL">Одобрить и добавить всех</Resource>
+	</page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Автор</Resource>
   </page>
@@ -1025,7 +1052,9 @@
     <Resource tag="UTC9.5">(UTC+9:30) Аделаида, Дарвин</Resource>
   </page>
   <page name="TOOLBAR">
-    <Resource tag="ACTIVETOPICS">Активные темы</Resource>
+	<Resource tag="BUDDIES">Друзья</Resource>
+	<Resource tag="BUDDYREQUEST">({0} неподтверждённых)</Resource>
+	<Resource tag="ACTIVETOPICS">Активные темы</Resource>
     <Resource tag="ADMIN">Админ</Resource>
     <Resource tag="HELP">Справка</Resource>
     <Resource tag="INBOX">Личные сообщения</Resource>
