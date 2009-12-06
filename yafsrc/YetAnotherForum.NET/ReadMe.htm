@@ -223,9 +223,10 @@
 				<p>
 				Make sure your server / Host has the following requirments:</p>
 				<ol>
-					<li>Microsoft .NET Framework 3.5 SP1 (Version 1.9.3 and 
-					earlier works with .NET Framework 2.0 Also)</li>
-					<li>Microsoft SQL Server 2000 or 2005</li>
+					<li>Microsoft .NET Framework 3.5 SP1 (Use version 1.9.3 or earlier for .NET 
+                        Framework 2.0)</li>
+					<li>Microsoft SQL Server 2005 or above. SQL Server 2000 works, but requires removal 
+                        of some SQL forum database optimizations.</li>
 				</ol>
 				<h3>STEP 2. BACKUP &amp; REMOVE</h3>
 				<ol>
@@ -305,9 +306,9 @@
 						web server. If you want YAF to be installed off of the main root, you need to modify
 						the root key. Make sure the files in the /bin directory of the YAF zip file are
 						copied to /bin directory on the root of your web server. Then open up &quot;app.config&quot;
-						and uncomment the &quot;root&quot; key. Enter the value as the&#160; directory to
+						and uncomment the &quot;<b>YAF.AppRoot</b>&quot; key. Enter the value as the&#160; directory to
 						your forum.&#160; Example: If you have install the forum in the directory &quot;/forum/yaf/&quot;
-						you will need to add key with name &quot;root&quot; and value &quot;/forum/yaf/&quot;
+						you will need to uncommend/add key with name &quot;<b>YAF.AppRoot</b>&quot; and value &quot;/forum/yaf/&quot;
 						to app.config. </li>
 				</ol>
 				<h3>STEP 7. (OPTIONAL) MODIFY &quot;mail.config&quot; FILE:</h3>
@@ -319,7 +320,7 @@
 				</ol>
 				<h3>STEP 8a. NEW INSTALLATION:</h3>
 				<p>
-					Open the file &lt;YAFroot&gt;install/default.aspx on your web site. If you are testing
+					Open the file &lt;YAF.AppRoot&gt;install/default.aspx on your web site. If you are testing
 					on your local computer, under a directory called YetAnotherForum.Net, the address
 					should be: <a href="http://localhost/yetanotherforum.net/install/">http://localhost/yetanotherforum.net/install/</a></p>
 				<p>
@@ -329,7 +330,7 @@
 				</p>
 				<h3>STEP 8b. UPGRADE:</h3>
 				<p>
-					Open the file &lt;YAFroot&gt;install/default.aspx on your web site. If you are testing
+					Open the file &lt;YAF.AppRoot&gt;install/default.aspx on your web site. If you are testing
 					on your local computer, under a directory called YetAnotherForum.Net, the address
 					should be: <a href="http://localhost/yetanotherforum.net/install/">http://localhost/yetanotherforum.net/install/</a></p>
 				<p>
