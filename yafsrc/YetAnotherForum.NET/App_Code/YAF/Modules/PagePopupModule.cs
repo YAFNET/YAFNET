@@ -121,7 +121,9 @@ namespace YAF.Modules
         if (ScriptManager.GetCurrent(ForumControl.Page) != null)
         {
           string displayMessage = PageContext.LoadMessage.LoadStringDelimited("<br />");
-
+          
+          //Get the clean JS string.
+          displayMessage = YAF.Classes.Core.LoadMessage.CleanJsString(displayMessage);
           PageContext.PageElements.RegisterJsBlockStartup(
             ForumControl.Page, 
             "modalNotification", 
