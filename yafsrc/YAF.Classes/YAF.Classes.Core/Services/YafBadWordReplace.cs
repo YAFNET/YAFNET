@@ -152,23 +152,23 @@ namespace YAF.Classes.Core
       {
         string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords);
 
-        var replaceItems = (List<BadWordReplaceItem>)YafContext.Current.Cache[cacheKey];
+        var replaceItems = YafContext.Current.Cache.GetItem<List<BadWordReplaceItem>>(
+          cacheKey,
+          30,
+          () =>
+            {
+              DataTable replaceWordsDataTable = DB.replace_words_list(YafContext.Current.PageBoardID, null);
 
-        if (replaceItems == null)
-        {
-          DataTable replaceWordsDataTable = DB.replace_words_list(YafContext.Current.PageBoardID, null);
+              var items = new List<BadWordReplaceItem>();
 
-          replaceItems = new List<BadWordReplaceItem>();
+              // move to collection...
+              foreach (DataRow row in replaceWordsDataTable.Rows)
+              {
+                items.Add(new BadWordReplaceItem(row["goodword"].ToString(), row["badword"].ToString()));
+              }
 
-          // move to collection...
-          foreach (DataRow row in replaceWordsDataTable.Rows)
-          {
-            replaceItems.Add(new BadWordReplaceItem(row["goodword"].ToString(), row["badword"].ToString()));
-          }
-
-          YafContext.Current.Cache.Add(
-            cacheKey, replaceItems, null, DateTime.Now.AddMinutes(30), TimeSpan.Zero, CacheItemPriority.Low, null);
-        }
+              return items;
+            });
 
         return replaceItems;
       }
