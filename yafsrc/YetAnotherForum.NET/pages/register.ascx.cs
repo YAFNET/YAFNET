@@ -375,8 +375,17 @@ namespace YAF.Pages
       // trim username on postback
       this.CreateUserWizard1.UserName = this.CreateUserWizard1.UserName.Trim();
 
-      // username cannot contain semi-colon
-      if (this.CreateUserWizard1.UserName.Contains(";") || this.CreateUserWizard1.UserName.ToLower().Equals(UserMembershipHelper.GuestUserName.ToLower()))
+      // username cannot contain semi-colon or to be a bad word
+      bool badWord = false;
+      foreach(System.Data.DataRow drow in DB.replace_words_list(PageContext.PageBoardID,null).Rows)
+      {
+          if (this.CreateUserWizard1.UserName == drow["BadWord"].ToString())
+          {             
+              badWord = true;
+              break;
+          }
+      }
+      if (this.CreateUserWizard1.UserName.Contains(";") || badWord || this.CreateUserWizard1.UserName.ToLower().Equals(UserMembershipHelper.GuestUserName.ToLower()))
       {
         PageContext.AddLoadMessage(GetText("BAD_USERNAME"));
         e.Cancel = true;

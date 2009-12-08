@@ -109,7 +109,7 @@
   <page name="COMMON">
     <Resource tag="BACK">Назад</Resource>
     <Resource tag="BAD_CAPTCHA">Введённый текст отличается от текста на изображении.</Resource>
-    <Resource tag="BAD_USERNAME">Имя пользователя не может содержать такие знаки препинания(;).</Resource>
+    <Resource tag="BAD_USERNAME">Имя пользователя не может содержать некоторые знаки препинания(;) или некоторые слова.</Resource>
     <Resource tag="BBCODE_CODE">Цитата:</Resource>
     <Resource tag="BBCODE_QUOTE">Цитата:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} написал:</Resource>
