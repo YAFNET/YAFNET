@@ -128,7 +128,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return 0x01090443;
+        return 0x01090403;
       }
     }
 
