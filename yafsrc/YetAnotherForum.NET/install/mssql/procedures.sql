@@ -940,6 +940,27 @@ DROP PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_remove]
 GO
 /* End of Buddy feature stored procedures */
 
+/****** Object:  StoredProcedure [{databaseOwner}].[{objectQualifier}topic_favorite_add]    Script Date: 12/08/2009 18:13:19 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_favorite_add]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_add]
+GO
+
+/****** Object:  StoredProcedure [{databaseOwner}].[{objectQualifier}topic_favorite_details]    Script Date: 12/08/2009 18:13:20 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_favorite_details]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_details]
+GO
+
+/****** Object:  StoredProcedure [{databaseOwner}].[{objectQualifier}topic_favorite_list]    Script Date: 12/08/2009 18:13:20 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_favorite_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_list]
+GO
+
+/****** Object:  StoredProcedure [{databaseOwner}].[{objectQualifier}topic_favorite_remove]    Script Date: 12/08/2009 18:13:20 ******/
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_favorite_remove]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_remove]
+GO
+
+
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
 
