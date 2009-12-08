@@ -22,10 +22,18 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}Buddy](
 	[FromUserID] [int] NOT NULL,
 	[ToUserID] [int] NOT NULL,
 	[Approved] [bit] NOT NULL,
-	[Requested] [datetime] NOT NULL,
+	[Requested] [datetime] NOT NULL
 	)
 go
 
+/* YAF FavoriteTopic Table */
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}FavoriteTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+CREATE TABLE [{databaseOwner}].[{objectQualifier}FavoriteTopic](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[TopicID] [int] NOT NULL
+	)
+GO
 
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Active](

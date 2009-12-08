@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="English" code="en">
-  <page name="ACTIVE">
+  <page name="MYTOPICS">
+    <Resource tag="ACTIVETOPICS">Active Topics</Resource>
+    <Resource tag="FAVORITETOPICS">Favorite Topics</Resource>
     <Resource tag="BY">by {0}</Resource>
     <Resource tag="LAST_24">( Last 24 Hours )</Resource>
     <Resource tag="LAST_DAY">last day</Resource>
@@ -11,12 +13,14 @@
     <Resource tag="LAST_TWO_WEEKS">last two weeks</Resource>
     <Resource tag="LAST_VISIT">last visit at {0}</Resource>
     <Resource tag="LAST_WEEK">last week</Resource>
+    <Resource tag="SHOW_ALL">Show All</Resource>
     <Resource tag="LASTPOST">Last Post</Resource>
     <Resource tag="NO_POSTS">No Posts</Resource>
     <Resource tag="REPLIES">Replies</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
     <Resource tag="SINCE">Since</Resource>
-    <Resource tag="TITLE">Active Topics</Resource>
+    <Resource tag="GUESTTITLE">Active Topics</Resource>
+    <Resource tag="MEMBERTITLE">My Topics</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
     <Resource tag="TOPICS">Topics</Resource>
     <Resource tag="VIEWS">Views</Resource>
@@ -92,6 +96,10 @@
     <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
     <Resource tag="BUTTON_POSTREPLY">Post Reply</Resource>
     <Resource tag="BUTTON_POSTREPLY_TT">Post a reply to this topic</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE">Tag as favorite</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE_TT">Tag this topic as a favorite.</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">Untag as favorite</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Remove this topic from your Favorites List.</Resource>
     <Resource tag="BUTTON_QUOTE">Quote</Resource>
     <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
     <Resource tag="BUTTON_REPLY">Reply</Resource>
@@ -1048,6 +1056,7 @@ Visit {forumname} at {forumlink}
   <page name="TOOLBAR">
     <Resource tag="BUDDIES">Buddies</Resource>
     <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
+    <Resource tag="MYTOPICS">My Topics</Resource>
     <Resource tag="ACTIVETOPICS">Active Topics</Resource>
     <Resource tag="ADMIN">Admin</Resource>
     <Resource tag="HELP">Help</Resource>

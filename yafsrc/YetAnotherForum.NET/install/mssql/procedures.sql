@@ -4113,6 +4113,7 @@ BEGIN
 		DELETE  [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
 		DELETE  [{databaseOwner}].[{objectQualifier}MessageReported] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID)
+		DELETE  [{databaseOwner}].[{objectQualifier}FavoriteTopic]  WHERE TopicID = @TopicID
 	END
 		
 	--commit
@@ -6827,3 +6828,83 @@ AS
     END
 Go    
 /* End of stored procedures for Buddy feature */
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_add] 
+	@UserID int,
+	@TopicID int
+AS
+BEGIN
+	IF NOT EXISTS (SELECT ID FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE (UserID = @UserID AND TopicID=@TopicID))
+	BEGIN
+		INSERT INTO [{databaseOwner}].[{objectQualifier}FavoriteTopic] (UserID, TopicID) Values 
+								(@UserID, @TopicID)
+	END
+END
+Go
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_remove] 
+	@UserID int,
+	@TopicID int
+AS
+BEGIN
+	DELETE FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE UserID=@UserID AND TopicID=@TopicID
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_list](@UserID int) as
+BEGIN
+SELECT TopicID FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE UserID=@UserID
+END
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}topic_favorite_details](@BoardID int,@UserID int,@Since datetime,@CategoryID int=null, @StyledNicks bit = 0) as
+begin
+		select
+		c.ForumID,
+		c.TopicID,
+		c.Posted,
+		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
+		Subject = c.Topic,
+		c.UserID,
+		Starter = IsNull(c.UserName,b.Name),
+		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
+		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
+		Views = c.Views,
+		LastPosted = c.LastPosted,
+		LastUserID = c.LastUserID,
+		LastUserName = IsNull(c.LastUserName,(select Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+		LastMessageID = c.LastMessageID,
+		LastTopicID = c.TopicID,
+		TopicFlags = c.Flags,
+		c.Priority,
+		c.PollID,
+		ForumName = d.Name,
+		c.TopicMovedID,
+		ForumFlags = d.Flags,
+		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
+		StarterStyle = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
+	        else ''	 end,
+	    LastUserStyle = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+	        else ''	 end
+	from
+		[{databaseOwner}].[{objectQualifier}Topic] c
+		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+		join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
+		join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID=d.ForumID
+		join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID=d.CategoryID
+		JOIN [{databaseOwner}].[{objectQualifier}FavoriteTopic] z ON z.TopicID=c.TopicID AND z.UserID=@UserID
+	where
+		@Since < c.LastPosted and
+		x.UserID = @UserID and
+		x.ReadAccess <> 0 and
+		e.BoardID = @BoardID and
+		(@CategoryID is null or e.CategoryID=@CategoryID) and
+		c.IsDeleted = 0
+	order by
+		d.Name asc,
+		Priority desc,
+		LastPosted desc
+end
+Go

@@ -491,7 +491,7 @@ namespace YAF
         return true;
       }
 
-      if (forumPage == ForumPages.forum || forumPage == ForumPages.active || forumPage == ForumPages.activeusers)
+      if (forumPage == ForumPages.forum || forumPage == ForumPages.mytopics || forumPage == ForumPages.activeusers)
       {
         return false;
       }

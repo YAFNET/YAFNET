@@ -163,5 +163,45 @@ function toggleMessage(divId)
           "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}", 
           AddThankBoxHTML);
     }
+    
+     /// <summary>
+    /// script for the add Favorite Topic button
+    /// </summary>
+    /// <param name="RemoveThankBoxHTML">
+    /// HTML code for the "Untag As Favorite" button
+    /// </param>
+    /// <returns>
+    /// The add Favorite Topic js.
+    /// </returns>
+    public static string addFavoriteTopicJs(string UntagButtonHTML)
+    {
+        return
+          string.Format(
+            "function addFavoriteTopic(topicID){{YAF.Classes.Core.YafFavoriteTopic.AddFavoriteTopic(topicID, addFavoriteTopicSuccess, CallFailed);}};" +
+            "function addFavoriteTopicSuccess(res){{" +
+            "var dvFavorite1=document.getElementById('dvFavorite1'); dvFavorite1.innerHTML={0};" +
+            "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}",
+            UntagButtonHTML);
+    }
+
+    /// <summary>
+    /// script for the remove Favorite Topic button
+    /// </summary>
+    /// <param name="AddThankBoxHTML">
+    /// HTML code for the "Tag As a Favorite" button
+    /// </param>
+    /// <returns>
+    /// The remove Favorite Topic js.
+    /// </returns>
+    public static string removeFavoriteTopicJs(string TagButtonHTML)
+    {
+        return
+          string.Format(
+            "function removeFavoriteTopic(topicID){{YAF.Classes.Core.YafFavoriteTopic.RemoveFavoriteTopic(topicID, removeFavoriteTopicSuccess, CallFailed);}};" +
+            "function removeFavoriteTopicSuccess(res){{" +
+            "var dvFavorite1=document.getElementById('dvFavorite1'); dvFavorite1.innerHTML={0};" +
+            "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}",
+            TagButtonHTML);
+    }
   }
 }

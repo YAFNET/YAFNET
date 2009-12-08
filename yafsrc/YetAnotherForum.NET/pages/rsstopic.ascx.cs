@@ -197,6 +197,26 @@ namespace YAF.Pages
           }
 
           break;
+        case "favorite":
+          using (
+            DataTable dt = DB.topic_favorite_details(
+              PageContext.PageBoardID,
+              PageContext.PageUserID,
+              DateTime.Now + TimeSpan.FromHours(-24),
+              (PageContext.Settings.CategoryID == 0) ? null : (object)PageContext.Settings.CategoryID,
+              false))
+          {
+              foreach (DataRow row in dt.Rows)
+              {
+                  rf.AddRSSItem(
+                    writer,
+                    YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
+                    YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
+                    YafServices.BadWordReplace.Replace(row["Subject"].ToString()));
+              }
+          }
+
+          break;
         default:
           break;
       }

@@ -377,14 +377,16 @@ namespace YAF.Pages
 
       // username cannot contain semi-colon or to be a bad word
       bool badWord = false;
-      foreach(System.Data.DataRow drow in DB.replace_words_list(PageContext.PageBoardID,null).Rows)
-      {
-          if (this.CreateUserWizard1.UserName == drow["BadWord"].ToString())
-          {             
+
+      YafServices.BadWordReplace.ReplaceItems.ForEach(
+        i =>
+          {
+            if (this.CreateUserWizard1.UserName.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase))
+            {
               badWord = true;
-              break;
-          }
-      }
+            }
+          });
+      
       if (this.CreateUserWizard1.UserName.Contains(";") || badWord || this.CreateUserWizard1.UserName.ToLower().Equals(UserMembershipHelper.GuestUserName.ToLower()))
       {
         PageContext.AddLoadMessage(GetText("BAD_USERNAME"));

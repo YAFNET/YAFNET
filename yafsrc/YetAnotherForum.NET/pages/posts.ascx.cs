@@ -21,6 +21,7 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  using AjaxPro;
   using System;
   using System.Data;
   using System.Linq;
@@ -36,6 +37,7 @@ namespace YAF.Pages
   using YAF.Classes.Utils;
   using YAF.Controls;
   using YAF.Editors;
+  using YAF.Utilities;
 
   /// <summary>
   /// Summary description for posts.
@@ -257,6 +259,41 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
+      //Register Ajax Pro.
+      Utility.RegisterTypeForAjax(typeof(YafFavoriteTopic));
+      
+      // The thtml code for "Favorite Topic" theme buttons.
+      string tagButtonHTML = string.Format(
+              "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.value + ');\" onclick=\"this.blur();\" title=\"{0}\"><span>{1}</span></a>'", PageContext.Localization.GetText("BUTTON_TAGFAVORITE_TT"), PageContext.Localization.GetText("BUTTON_TAGFAVORITE"));
+      string untagButtonHTML = string.Format(
+        "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:removeFavoriteTopic(' + res.value + ');\" onclick=\"this.blur();\" title=\"{0}\"><span>{1}</span></a>'", PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE_TT"), PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE"));
+
+      // Register the client side script for the "Favorite Topic".
+      YafContext.Current.PageElements.RegisterJsBlockStartup("addFavoriteTopicJs", JavaScriptBlocks.addFavoriteTopicJs(untagButtonHTML));
+      YafContext.Current.PageElements.RegisterJsBlockStartup("removeFavoriteTopicJs", JavaScriptBlocks.removeFavoriteTopicJs(tagButtonHTML));
+      YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
+
+      // Has the user already tagged this topic as favorite?
+      if (YafServices.FavoriteTopic.IsFavoriteTopic(PageContext.PageTopicID))
+      {
+         // Generate the "Untag" theme button with appropriate JS calls for onclick event.
+          TagFavorite1.NavigateUrl = "javascript:removeFavoriteTopic(" + PageContext.PageTopicID + ");";
+          TagFavorite2.NavigateUrl = "javascript:removeFavoriteTopic(" + PageContext.PageTopicID + ");";
+          TagFavorite1.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
+          TagFavorite1.TitleLocalizedTag = "BUTTON_UNTAGFAVORITE_TT";
+          TagFavorite2.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
+          TagFavorite2.TitleLocalizedTag = "BUTTON_UNTAGFAVORITE_TT";
+      }
+      else
+      {
+          // Generate the "Tag" theme button with appropriate JS calls for onclick event.
+          TagFavorite1.NavigateUrl = "javascript:addFavoriteTopic(" + PageContext.PageTopicID + ");";
+          TagFavorite2.NavigateUrl = "javascript:addFavoriteTopic(" + PageContext.PageTopicID + ");";
+          TagFavorite1.TextLocalizedTag = "BUTTON_TAGFAVORITE";
+          TagFavorite1.TitleLocalizedTag = "BUTTON_TAGFAVORITE_TT";
+          TagFavorite2.TextLocalizedTag = "BUTTON_TAGFAVORITE";
+          TagFavorite2.TitleLocalizedTag = "BUTTON_TAGFAVORITE_TT";
+      }
       this._quickReplyEditor.BaseDir = YafForumInfo.ForumRoot + "editors";
       this._quickReplyEditor.StyleSheet = PageContext.Theme.BuildThemePath("theme.css");
 
