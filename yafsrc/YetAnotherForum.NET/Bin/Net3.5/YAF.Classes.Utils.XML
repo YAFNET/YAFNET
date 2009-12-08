@@ -241,6 +241,20 @@
             List of controls found
             </returns>
         </member>
+        <member name="M:YAF.Classes.Utils.ControlHelper.ControlListNoParents(System.Web.UI.Control,System.Func{System.Web.UI.Control,System.Boolean})">
+            <summary>
+            Finds a control recursively (forward only) using <paramref name="isControl"/> function.
+            </summary>
+            <param name="sourceControl">
+            Control to start search from.
+            </param>
+            <param name="isControl">
+            Function to test if we found the control.
+            </param>
+            <returns>
+            List of controls found
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Utils.ControlHelper.FindControlRecursiveReverse(System.Web.UI.Control,System.String)">
             <summary>
             The find control recursive reverse.
@@ -1010,6 +1024,11 @@
             Gets or sets LastPm.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Utils.Mession.LastPendingBuddies">
+            <summary>
+            Gets or sets LastPm.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Utils.Mession.HasLastVisit">
             <summary>
             Gets or sets a value indicating whether HasLastVisit.
@@ -1048,6 +1067,11 @@
         <member name="P:YAF.Classes.Utils.Mession.ActiveTopicSince">
             <summary>
             Gets or sets ActiveTopicSince.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.Mession.FavoriteTopicSince">
+            <summary>
+            Gets or sets FavoriteTopicSince.
             </summary>
         </member>
         <member name="T:YAF.Classes.Utils.PanelSessionState">
@@ -1198,6 +1222,103 @@
             <summary>
             Gets AppSettingsFull.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.StyleTransform">
+            <summary>
+            Transforms the style.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByTable(System.Data.DataTable@)">
+            <summary>
+            The decode style by table.
+            </summary>
+            <param name="dt">
+            The dt.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByTable(System.Data.DataTable@,System.Boolean)">
+            <summary>
+            The decode style by table.
+            </summary>
+            <param name="dt">
+            The dt.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByTable(System.Data.DataTable@,System.Boolean,System.String[])">
+            <summary>
+            The decode style by table.
+            </summary>
+            <param name="dt">
+            The dt.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+            <param name="styleColumns">
+            The style Columns.
+            </param>
+            <param name="colorOnly">
+            The styleColumns can contain param array to handle several style columns.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.Boolean)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.String,System.Boolean)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+            <param name="columnName">the style column name</param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByString(System.String,System.Boolean)">
+            <summary>
+            The decode style by string.
+            </summary>
+            <param name="styleStr">
+            The style str.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+            <returns>
+            The decode style by string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.GetColorOnly(System.String)">
+            <summary>
+            The get color only.
+            </summary>
+            <param name="styleString">
+            The style string.
+            </param>
+            <returns>
+            The get color only.
+            </returns>
         </member>
         <member name="T:YAF.Classes.Utils.IPHelper">
             <summary>

@@ -1307,11 +1307,6 @@
             The _message flags.
             </summary>
         </member>
-        <member name="F:YAF.Controls.UserBox._pageCache">
-            <summary>
-            The _page cache.
-            </summary>
-        </member>
         <member name="F:YAF.Controls.UserBox._row">
             <summary>
             The current data row.
@@ -1322,9 +1317,9 @@
             The _user profile.
             </summary>
         </member>
-        <member name="M:YAF.Controls.UserBox.#ctor">
+        <member name="F:YAF.Controls.UserBox._styleTransforum">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.UserBox"/> class.
+            Instance of the style transformation class
             </summary>
         </member>
         <member name="M:YAF.Controls.UserBox.Render(System.Web.UI.HtmlTextWriter)">
@@ -1405,6 +1400,9 @@
             <param name="userBox">
             The user box.
             </param>
+            <param name="roleStyleTable">
+            The role Style Table.
+            </param>
             <returns>
             The match user box groups.
             </returns>
@@ -1415,6 +1413,9 @@
             </summary>
             <param name="userBox">
             The user box.
+            </param>
+            <param name="roleStyleTable">
+            The role Style Table.
             </param>
             <returns>
             The match user box rank.
@@ -1693,6 +1694,14 @@
             </param>
             <param name="description">
             The description.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PopMenu.RemovePostBackItem(System.String)">
+            <summary>
+            The remove post back item.
+            </summary>
+            <param name="argument">
+            The argument.
             </param>
         </member>
         <member name="M:YAF.Controls.PopMenu.AddClientScriptItem(System.String,System.String)">

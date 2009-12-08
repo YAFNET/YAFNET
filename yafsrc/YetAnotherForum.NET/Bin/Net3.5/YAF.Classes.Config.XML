@@ -791,6 +791,16 @@
             The user ignore list.
             </summary>
         </member>
+        <member name="F:YAF.Classes.Constants.Cache.UserBuddies">
+            <summary>
+            The user buddies.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.FavoriteTopicList">
+            <summary>
+            The favorite topic list.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.Constants.Cache.UserMedals">
             <summary>
             The user medals.
@@ -972,6 +982,11 @@
         <member name="P:YAF.Classes.Config.EnableURLRewriting">
             <summary>
             Is Url Rewriting enabled? -- default is false.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ForceScriptName">
+            <summary>
+            Used for Url Rewriting -- default is null.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.BaseScriptFile">
@@ -1241,6 +1256,11 @@
             The cp_profile.
             </summary>
         </member>
+        <member name="F:YAF.Classes.ForumPages.cp_editbuddies">
+            <summary>
+            The cp_editbuddies.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.ForumPages.cp_editprofile">
             <summary>
             The cp_editprofile.
@@ -1301,9 +1321,9 @@
             The search.
             </summary>
         </member>
-        <member name="F:YAF.Classes.ForumPages.active">
+        <member name="F:YAF.Classes.ForumPages.mytopics">
             <summary>
-            The active.
+            The mytopics
             </summary>
         </member>
         <member name="F:YAF.Classes.ForumPages.logout">
@@ -2201,6 +2221,11 @@
             Gets or sets a value indicating whether EnableThanksMod.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableBuddyList">
+            <summary>
+            Gets or sets a value indicating whether EnableBuddyList.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.AddDynamicPageMetaTags">
             <summary>
             Gets or sets a value indicating whether to AddDynamicPageMetaTags.
@@ -2607,6 +2632,142 @@
         <member name="P:YAF.Classes.YafControlSettings.LockedForum">
             <summary>
             Gets or sets LockedForum.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Interfaces.IStyleTransform">
+            <summary>
+            The i style transform.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IStyleTransform.DecodeStyleByTable(System.Data.DataTable@)">
+            <summary>
+            The decode style by table.
+            </summary>
+            <param name="dt">
+            The dt.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IStyleTransform.DecodeStyleByTable(System.Data.DataTable@,System.Boolean)">
+            <summary>
+            The decode style by table.
+            </summary>
+            <param name="dt">
+            The dt.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IStyleTransform.DecodeStyleByTable(System.Data.DataTable@,System.Boolean,System.String[])">
+            <summary>
+            The decode style by table.
+            </summary>
+            <param name="dt">
+            The dt.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+            <param name="styleColumns">
+            The style Columns.
+            </param>
+            <param name="colorOnly">
+            The styleColumns can contain param array to handle several style columns.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IStyleTransform.DecodeStyleByRow(System.Data.DataRow@)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IStyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.Boolean)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IStyleTransform.DecodeStyleByString(System.String,System.Boolean)">
+            <summary>
+            The decode style by string.
+            </summary>
+            <param name="styleStr">
+            The style str.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+            <returns>
+            The decode style by string.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Interfaces.IYafTheme">
+            <summary>
+            The i yaf theme.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IYafTheme.GetItem(System.String,System.String)">
+            <summary>
+            The get item.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tag">
+            The tag.
+            </param>
+            <returns>
+            The get item.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IYafTheme.GetItem(System.String,System.String,System.String)">
+            <summary>
+            The get item.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="tag">
+            The tag.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <returns>
+            The get item.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IYafTheme.BuildThemePath(System.String)">
+            <summary>
+            Gets full path to the given theme file.
+            </summary>
+            <param name="filename">
+            Short name of theme file.
+            </param>
+            <returns>
+            The build theme path.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Interfaces.IYafTheme.ThemeFile">
+            <summary>
+            Get or Set the current Theme File
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Interfaces.IYafTheme.LogMissingThemeItem">
+            <summary>
+            Gets or sets a value indicating whether LogMissingThemeItem.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Interfaces.IYafTheme.ThemeDir">
+            <summary>
+            Gets ThemeDir.
             </summary>
         </member>
     </members>

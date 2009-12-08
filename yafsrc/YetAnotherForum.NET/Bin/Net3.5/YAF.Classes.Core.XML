@@ -277,6 +277,16 @@
             Gets LastUnreadPm.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Core.UserPageBase.PendingBuddies">
+            <summary>
+            The number of pending buddy requests
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.UserPageBase.LastPendingBuddies">
+            <summary>
+            The number of pending buddy requests
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Core.UserPageBase.TimeZoneUser">
             <summary>
             The time zone offset for the user
@@ -291,6 +301,64 @@
             <summary>
             True if board is private (20050909 CHP)
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafFavoriteTopic">
+            <summary>
+            Favorite Topic Service for the current user.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafFavoriteTopic._favoriteTopicList">
+            <summary>
+            The _favorite Topic list.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.InitializeFavoriteTopicList">
+            <summary>
+            The initialize favorite topic list.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.ClearFavoriteTopicCache">
+            <summary>
+            The clear favorite topic cache.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.IsFavoriteTopic(System.Int32)">
+            <summary>
+            The is favorite topic.
+            </summary>
+            <param name="topicID">
+            The topic id.
+            </param>
+            <returns>
+            The is favorite topic.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.AddFavoriteTopic(System.Int32)">
+            <summary>
+            The add favorite topic.
+            </summary>
+            <param name="ignoredUserId">
+            The favorite topic id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.RemoveFavoriteTopic(System.Int32)">
+            <summary>
+            The remove favorite topic.
+            </summary>
+            <param name="topicID">
+            The favorite topic id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFavoriteTopic.FavoriteTopicDetails(System.DateTime)">
+            <summary>
+            the favorite topic details.
+            </summary>
+            <param name="sinceDate">
+            the since date.
+            </param>
+            <returns>
+            a Data table containing all the current user's favorite topics in details.
+            </returns>
         </member>
         <member name="T:YAF.Classes.Core.PostDataHelperWrapper">
             <summary>
@@ -3153,9 +3221,9 @@
             The bad word.
             </param>
         </member>
-        <member name="P:YAF.Classes.Core.BadWordReplaceItem.GoodWord">
+        <member name="P:YAF.Classes.Core.BadWordReplaceItem.Active">
             <summary>
-            Gets GoodWord.
+            Gets or sets a value indicating whether Active.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.BadWordReplaceItem.BadWord">
@@ -3163,9 +3231,9 @@
             Gets BadWord.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.BadWordReplaceItem.Active">
+        <member name="P:YAF.Classes.Core.BadWordReplaceItem.GoodWord">
             <summary>
-            Gets or sets a value indicating whether Active.
+            Gets GoodWord.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafBadWordReplace">
@@ -3312,6 +3380,34 @@
             Class used for multi-step DB operations so they can be cached, etc.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.StyleTransformDataTable(System.Data.DataTable)">
+            <summary>
+            The style transform func wrap.
+            </summary>
+            <param name="dt">
+            The DateTable
+            </param>
+            <returns>
+            The style transform wrap.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.UserBuddyList(System.Int32)">
+            <summary>
+            The Buddy list for the user with the specified UserID.
+            </summary>
+            <param name="UserID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.FavoriteTopicList(System.Int32)">
+            <summary>
+            The favorite topic list.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Core.YafDBBroker.UserIgnoredList(System.Int32)">
             <summary>
             The user ignored list.
@@ -3346,6 +3442,52 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetLatestTopics(System.Int32)">
+            <summary>
+            The get latest topics.
+            </summary>
+            <param name="numberOfPosts">
+            The number of posts.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetLatestTopics(System.Int32,System.Int32)">
+            <summary>
+            The get latest topics.
+            </summary>
+            <param name="numberOfPosts">
+            The number of posts.
+            </param>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetActiveList(System.Boolean)">
+            <summary>
+            The get active list.
+            </summary>
+            <param name="guests">
+            The guests.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetActiveList(System.Int32,System.Boolean)">
+            <summary>
+            The get active list.
+            </summary>
+            <param name="activeTime">
+            The active time.
+            </param>
+            <param name="guests">
+            The guests.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Object,System.Object,System.Object,System.Object)">
             <summary>
             Returns the layout of the board
@@ -3375,6 +3517,114 @@
             <summary>
             Gets ConnectionString.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafBuddies">
+            <summary>
+            Yaf buddies service
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafBuddies.AddBuddyRequest(System.Int32)">
+            <summary>
+            Adds a buddy request.
+            </summary>
+            <param name="ToUserID">
+            the to user id.
+            </param>
+            <returns>
+            The name of the second user + whether this request is approved or not. (This request
+            is approved without the target user's approval if the target user has sent a buddy request
+            to current user too or if the current user is already in the target user's buddy list.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafBuddies.ApproveAllBuddyRequests(System.Boolean)">
+            <summary>
+            Approves all buddy requests for the current user.
+            </summary>
+            <param name="Mutual">
+            should the users be added to current user's buddy list too?
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafBuddies.ApproveBuddyRequest(System.Int32,System.Boolean)">
+            <summary>
+            Approves a buddy request.
+            </summary>
+            <param name="ToUserID">
+            the to user id.
+            </param>
+            <param name="Mutual">
+            should the second user be added to current user's buddy list too?
+            </param>
+            <returns>
+            The name of the second user.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafBuddies.BuddyList">
+            <summary>
+            Gets all the buddies of the current user.
+            </summary>
+            <returns>
+            A <see cref="T:System.Data.DataTable"/> of all buddies.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafBuddies.ClearBuddyCache(System.Int32)">
+            <summary>
+            Clears the buddies cache for the current user.
+            </summary>
+            <param name="UserID">
+            The User ID.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafBuddies.DenyAllBuddyRequests">
+            <summary>
+            Denies all buddy requests for the current user.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafBuddies.DenyBuddyRequest(System.Int32)">
+            <summary>
+            Denies a buddy request.
+            </summary>
+            <param name="ToUserID">
+            The to user id.
+            </param>
+            <returns>
+            the name of the second user.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafBuddies.GetBuddiesForUser(System.Int32)">
+            <summary>
+            Gets all the buddies for the specified user.
+            </summary>
+            <param name="UserID">
+            The user id.
+            </param>
+            <returns>
+            a <see cref="T:System.Data.DataTable"/> of all buddies.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafBuddies.IsBuddy(System.Int32,System.Boolean)">
+            <summary>
+            determines if the "<paramref name="BuddyUserID"/>" and current user are buddies.
+            </summary>
+            <param name="BuddyUserID">
+            The Buddy User ID.
+            </param>
+            <param name="Approved">
+            Just look into approved buddies?
+            </param>
+            <returns>
+            true if they are buddies, <see langword="false"/> if not.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafBuddies.RemoveBuddy(System.Int32)">
+            <summary>
+            Removes the "<paramref name="ToUserID"/>" from current user's buddy list.
+            </summary>
+            <param name="ToUserID">
+            The to user id.
+            </param>
+            <returns>
+            The name of the second user.
+            </returns>
         </member>
         <member name="T:YAF.Modules.ProviderSettingsModule">
             <summary>
@@ -3428,8 +3678,7 @@
         </member>
         <member name="M:YAF.Classes.Core.YafTheme.GetCollapsiblePanelImageURL(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
             <summary>
-            Gets the collapsible panel image url (expanded or collapsed). 
-            
+            Gets the collapsible panel image url (expanded or collapsed).
             <param name="panelID">ID of collapsible panel</param>
             <param name="defaultState">Default Panel State</param>
             </summary>
@@ -4053,6 +4302,11 @@
         <member name="P:YAF.Classes.Core.YafServices.UserIgnored">
             <summary>
             Gets User Ignored.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.FavoriteTopic">
+            <summary>
+            Gets Favorite Topic.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.Nntp.NntpException">
