@@ -185,9 +185,9 @@ namespace YAF.Classes
     search, 
 
     /// <summary>
-    /// The active.
+    /// The mytopics
     /// </summary>
-    active, 
+    mytopics,
 
     /// <summary>
     /// The logout.

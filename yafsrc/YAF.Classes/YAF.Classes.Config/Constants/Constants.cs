@@ -132,6 +132,11 @@ namespace YAF.Classes
       public const string UserBuddies = "UserBuddies{0}";
 
       /// <summary>
+      /// The favorite topic list.
+      /// </summary>
+      public const string FavoriteTopicList = "FavoriteTopicList{0}";
+
+      /// <summary>
       /// The user medals.
       /// </summary>
       public const string UserMedals = "UserMedals{0}";

@@ -63,6 +63,17 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Used for Url Rewriting -- default is null.
+    /// </summary>
+    public static string ForceScriptName
+    {
+      get
+      {
+        return GetConfigValueAsString("YAF.ForceScriptName");
+      }
+    }
+
+    /// <summary>
     /// Used for Url Rewriting -- default is "default.aspx"
     /// </summary>
     public static string BaseScriptFile

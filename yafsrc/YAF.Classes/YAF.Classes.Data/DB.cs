@@ -6438,6 +6438,99 @@ namespace YAF.Classes.Data
       }
     }
 
+    /// <summary>
+    /// The topic_ favorite_ details.
+    /// </summary>
+    /// <param name="boardID">
+    /// The board id.
+    /// </param>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="since">
+    /// The since.
+    /// </param>
+    /// <param name="categoryID">
+    /// The category id.
+    /// </param>
+    /// <param name="useStyledNicks">
+    /// Set to true to get color nicks for last user and topic starter.
+    /// </param>    
+    /// <returns>
+    /// a Data Table containing the current user's favorite topics with details.
+    /// </returns>
+    public static DataTable topic_favorite_details(object boardID, object userID, object since, object categoryID, object useStyledNicks)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("topic_favorite_details"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BoardID", boardID);
+            cmd.Parameters.AddWithValue("UserID", userID);
+            cmd.Parameters.AddWithValue("Since", since);
+            cmd.Parameters.AddWithValue("CategoryID", categoryID);
+            cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
+    /// <summary>
+    /// The topic_favorite_list.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataTable topic_favorite_list(object userID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("topic_favorite_list"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+             cmd.Parameters.AddWithValue("UserID", userID);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
+    /// <summary>
+    /// The topic_favorite_remove.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="topicID">
+    /// The topic id.
+    /// </param>
+    public static void topic_favorite_remove(object userID, object topicID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("topic_favorite_remove"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("UserID", userID);
+            cmd.Parameters.AddWithValue("TopicID", topicID);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+        }
+    }
+
+    /// <summary>
+    /// The topic_favorite_add.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="topicID">
+    /// The topic id.
+    /// </param>
+    public static void topic_favorite_add(object userID, object topicID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("topic_favorite_add"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("UserID", userID);
+            cmd.Parameters.AddWithValue("TopicID", topicID);
+           YafDBAccess.Current.ExecuteNonQuery(cmd);
+        }
+    }
+
     #endregion
 
     #region ReplaceWords

@@ -131,6 +131,17 @@ namespace YAF.Classes.Core
       {
         return YafContext.Current.InstanceFactory.GetInstance<YafUserIgnored>();
       }
-    }    
+    }
+
+    /// <summary>
+    /// Gets Favorite Topic.
+    /// </summary>
+    public static YafFavoriteTopic FavoriteTopic
+    {
+        get
+        {
+            return YafContext.Current.InstanceFactory.GetInstance<YafFavoriteTopic>();
+        }
+    }
   }
 }

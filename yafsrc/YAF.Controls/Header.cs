@@ -228,12 +228,17 @@ namespace YAF.Controls
               "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.moderate_index), PageContext.Localization.GetText("TOOLBAR", "MODERATE")));
         }
 
-        buildHeader.AppendFormat(
-          String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.active), PageContext.Localization.GetText("TOOLBAR", "ACTIVETOPICS")));
         if (!PageContext.IsGuest)
         {
-          buildHeader.AppendFormat(
-            String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.cp_profile), PageContext.Localization.GetText("TOOLBAR", "MYPROFILE")));
+            buildHeader.AppendFormat(
+                String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.mytopics), PageContext.Localization.GetText("TOOLBAR", "MYTOPICS")));
+            buildHeader.AppendFormat(
+              String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.cp_profile), PageContext.Localization.GetText("TOOLBAR", "MYPROFILE")));
+        }
+        else
+        {
+            buildHeader.AppendFormat(
+              String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.mytopics), PageContext.Localization.GetText("TOOLBAR", "ACTIVETOPICS")));
         }
 
         if (YafServices.Permissions.Check(PageContext.BoardSettings.MembersListViewPermissions))
@@ -266,7 +271,7 @@ namespace YAF.Controls
         }
 
         buildHeader.AppendFormat(
-          String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.active), PageContext.Localization.GetText("TOOLBAR", "ACTIVETOPICS")));
+          String.Format("	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.mytopics), PageContext.Localization.GetText("TOOLBAR", "ACTIVETOPICS")));
         if (YafServices.Permissions.Check(PageContext.BoardSettings.MembersListViewPermissions))
         {
           buildHeader.AppendFormat(

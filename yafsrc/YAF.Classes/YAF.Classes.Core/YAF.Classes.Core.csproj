@@ -56,6 +56,7 @@
     <DocumentationFile>..\..\YetAnotherForum.NET\Bin\YAF.Classes.Core.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -82,6 +83,7 @@
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\RoleMembershipHelper.cs" />
     <Compile Include="Services\YafBuddies.cs" />
+    <Compile Include="Services\YafFavoriteTopic.cs" />
     <Compile Include="Services\YafUserIgnored.cs" />
     <Compile Include="Services\YafTemplateMail.cs" />
     <Compile Include="Tasks\UserCleanUpTask.cs" />

@@ -292,6 +292,27 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
+    /// Gets or sets FavoriteTopicSince.
+    /// </summary>
+    public static int? FavoriteTopicSince
+    {
+        get
+        {
+            if (HttpContext.Current.Session["FavoriteTopicSince"] != null)
+            {
+                return (int)HttpContext.Current.Session["FavoriteTopicSince"];
+            }
+
+            return null;
+        }
+
+        set
+        {
+            HttpContext.Current.Session["FavoriteTopicSince"] = value;
+        }
+    }
+
+    /// <summary>
     /// Gets the last time the forum was read.
     /// </summary>
     /// <param name="forumID">

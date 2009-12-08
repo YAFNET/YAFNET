@@ -63,6 +63,37 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// The favorite topic list.
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public List<int> FavoriteTopicList(int userID)
+    {
+        string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.FavoriteTopicList, userID));
+
+        // stored in the user session...
+        var favoriteTopicList = HttpContext.Current.Session[key] as List<int>;
+
+        // was it in the cache?
+        if (favoriteTopicList == null)
+        {
+            // get fresh values
+            DataTable favoriteTopicListDt = DB.topic_favorite_list(userID);
+
+            // convert to list...
+            favoriteTopicList = favoriteTopicListDt.GetColumnAsList<int>("TopicID");
+
+            // store it in the user session...
+            HttpContext.Current.Session.Add(key, favoriteTopicList);
+        }
+
+        return favoriteTopicList;
+    }
+
+    /// <summary>
     /// The user ignored list.
     /// </summary>
     /// <param name="userId">
