@@ -63,6 +63,21 @@
     <Resource tag="SPOILERMOD_TOOLTIP">براي نمايش و يا مخفي كردن بخش پنهان شونده اينجا را كليك كنيد.</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">آدرس فيلم يوتيوب را اينجا قرار دهيد.</Resource>
   </page>
+  <page name="BUDDY">
+    <Resource tag="ADDBUDDY">اضافه کردن به عنوان دوست</Resource>
+    <Resource tag="AWAIT_BUDDY_APPROVAL">(منتظر تائید از طرف دوست شما)</Resource>
+    <Resource tag="NOTIFICATION_ALL_APPROVED">تمام درخواستهای دوستان تائید شد.</Resource>
+    <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">تمام در خواستهای دوستان تائید و به لیست دوستان شما اضافه شدند.</Resource>
+    <Resource tag="NOTIFICATION_ALL_DENIED">تماممی درخواستهای قدیمی تر از 14 روز دوستان رد شدند.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYAPPROVED">شما به لیست دوستان {0} اضافه شدید</Resource>
+    <Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">شما و {0} از هم اکنون دوست هستید.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYDENIED">درخواست دوستی رد شد.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYREQUEST">درخواست دوستی ارسال شد.</Resource>
+    <Resource tag="PENDINGBUDDIES">{0} نفر از کاربران مایل به اضافه کردن شما به لیست دوستانشان هستند.</Resource>
+    <Resource tag="REMOVEBUDDY">حذف دوست</Resource>
+    <Resource tag="REMOVEBUDDY">آیا از حذف {0} از لیست دوستان خود مطمئن هستید؟</Resource>
+    <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} از لیست دوستان شما حذف شد.</Resource>
+  </page>
   <page name="BUTTON">
     <Resource tag="BUTTON_ATTACH">الصاق</Resource>
     <Resource tag="BUTTON_ATTACH_TT">الصاق فایل به این عنوان</Resource>
@@ -92,6 +107,8 @@
     <Resource tag="BUTTON_QUOTE_TT">پاسخ با ایجاد نقل قول</Resource>
     <Resource tag="BUTTON_REPLY">پاسخ</Resource>
     <Resource tag="BUTTON_REPLY_TT">پاسخ به پیغام</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE">عنوان مورد علاقه من</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE_TT">این عنوان را به لیست عناوین مورد علاقه من اضافه کن.</Resource>
     <Resource tag="BUTTON_THANKS">تشکر</Resource>
     <Resource tag="BUTTON_THANKS_TT">از فرستنده این ارسال تشکر کنید.</Resource>
     <Resource tag="BUTTON_THANKSDELETE">حذف تشکر</Resource>
@@ -100,6 +117,8 @@
     <Resource tag="BUTTON_UNDELETE_TT">یازیابی این ارسال</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">باز کردن قفل عنوان</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">بازکردن قفل این عنوان</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">حذف علاقه من به عنوان</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">این عنوان را از لیست عناوین مورد علاقه من حذف کن.</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">محتوای ارسال نمی تواند خالی باشد.هدف شما از ارسال متن خالی چیست ؟</Resource>
@@ -204,6 +223,18 @@
     <Resource tag="WARN_RESIZED">عکس به طور خودکار تغییر اندازه داده شد.</Resource>
     <Resource tag="WARN_SIZE">اندازه عکس انتخابی {0}x{1} پیکسل می باشد.</Resource>
     <Resource tag="WARN_TOOBIG">اندازه عکس نمی تواند بزرگتر از {0}x{1} پیکسل باشد.</Resource>
+  </page>
+  <page name="CP_EDITBUDDIES">
+    <Resource tag="APPROVE">تائید</Resource>
+    <Resource tag="APPROVE_ADD">تائید و اضافه</Resource>
+    <Resource tag="APPROVE_ADD_ALL">تائید و اضافه همه</Resource>
+    <Resource tag="APPROVE_ALL">تائید همه</Resource>
+    <Resource tag="BUDDYLIST">لیست دوستان شما</Resource>
+    <Resource tag="BUDDYLIST_TT">پانل کنترل دوستان</Resource>
+    <Resource tag="DENY">رد</Resource>
+    <Resource tag="DENY_ALL">درخواستهای قدیمی تر از 14 روز رد شوند.</Resource>
+    <Resource tag="EDIT_BUDDIES">ویرایش لیست دوستان</Resource>
+    <Resource tag="REQUEST_DATE">تاریخ درخواست</Resource>
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">درباره شما</Resource>
@@ -500,7 +531,7 @@
     <Resource tag="REPORTEDBY">گزارش شده توسط:</Resource>
     <Resource tag="RESOLVE">بررسی کپی های ارسال</Resource>
     <Resource tag="RESOLVED">بررسی شد</Resource>
-    <Resource tag="RESOLVEDBY">Resolved by:</Resource>
+    <Resource tag="RESOLVEDBY">بررسی شده توسط::</Resource>
     <Resource tag="RESOLVEDFEEDBACK">پیغام به عنوان بررسی شده ثبت گردید.</Resource>
     <Resource tag="TOP">برگشت به بالا</Resource>
     <Resource tag="UNAPPROVED">ارسالهای بررسی نشده</Resource>
@@ -519,6 +550,31 @@
     <Resource tag="MOVE">انتقال عنوان</Resource>
     <Resource tag="SELECT_FORUM">انجمنی را که مایل به انتقال پیغام به آن هستید را انتخاب کنید:</Resource>
     <Resource tag="TITLE">انتقال عنوان</Resource>
+  </page>
+  <page name="MYTOPICS">
+    <Resource tag="ACTIVETOPICS">عناوین فعال</Resource>
+    <Resource tag="BY">بوسیله {0}</Resource>
+    <Resource tag="FAVORITETOPICS">عناوین مورد علاقه</Resource>
+    <Resource tag="GUESTTITLE">عناوین فعال</Resource>
+    <Resource tag="LAST_24">(24 ساعت گذشته)</Resource>
+    <Resource tag="LAST_DAY">دیروز</Resource>
+    <Resource tag="LAST_HOUR">ساعت قبل</Resource>
+    <Resource tag="LAST_MONTH">ماه قبل</Resource>
+    <Resource tag="LAST_TWO_DAYS">دو روز قبل</Resource>
+    <Resource tag="LAST_TWO_HOURS">دو ساعت قبل</Resource>
+    <Resource tag="LAST_TWO_WEEKS">lدو هفته قبل</Resource>
+    <Resource tag="LAST_VISIT">آخرین ملاقات در {0}</Resource>
+    <Resource tag="LAST_WEEK">هفته قبل</Resource>
+    <Resource tag="LASTPOST">آخرین ارسال</Resource>
+    <Resource tag="MEMBERTITLE">عناوین من</Resource>
+    <Resource tag="NO_POSTS">بدون ارسال</Resource>
+    <Resource tag="REPLIES">پاسخها</Resource>
+    <Resource tag="RSSFEED">فید Rss</Resource>
+    <Resource tag="SHOW_ALL">همه را نشان بده</Resource>
+    <Resource tag="SINCE">از</Resource>
+    <Resource tag="TOPIC_STARTER">شروع کننده مبحث</Resource>
+    <Resource tag="TOPICS">عناوین</Resource>
+    <Resource tag="VIEWS">مشاهدات</Resource>
   </page>
   <page name="PMESSAGE">
     <Resource tag="ALLUSERS">تمام کاربران</Resource>
@@ -591,7 +647,7 @@
   </page>
   <page name="POSTS">
     <Resource tag="AD_SIGNATURE">توضیحات</Resource>
-    <Resource tag="AD_USERNAME">حامی مالی</Resource>
+    <Resource tag="AD_USERNAME">تبلیغات</Resource>
     <Resource tag="AIM">AIM</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) تعداد دانلود [b]{1:N0}[/b] بار.</Resource>
     <Resource tag="ATTACHMENTS">فایلهای الصاق شده :</Resource>
@@ -600,7 +656,7 @@
     <Resource tag="CLOSE_TEXT">بستن</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">آیا این پیغام حذف شود?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">آیا این عنوان حذف شود?</Resource>
-    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
+    <Resource tag="CONFIRM_REPORTABUSE">آیای از گزارش این ÷پست به عنوان توهین و یا سوء استفاده مطمئن هستید؟</Resource>
     <Resource tag="CONFIRM_REPORTPOST">آیا از گزارش این ارسال به عنوان توهین مطمئن هستید؟</Resource>
     <Resource tag="CONFIRM_REPORTSPAM">آیا از گزارش این ارسال به عنوان هرزنامه (اسپم) مطمئن هستید؟</Resource>
     <Resource tag="EDIT_REASON">دلیل ویرایش</Resource>
@@ -794,10 +850,10 @@
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">بررسی ثبت نام برای انجمن {0}</Resource>
   </page>
   <page name="REPORTPOST">
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
-    <Resource tag="HEADER">Report post</Resource>
-    <Resource tag="SEND">Report</Resource>
+    <Resource tag="CANCEL">لغو</Resource>
+    <Resource tag="ENTER_TEXT">متن مورد نظر برای گزارش را اینجا وارد کنید</Resource>
+    <Resource tag="HEADER">گزارش ارسال</Resource>
+    <Resource tag="SEND">گزارش</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">ضخیم</Resource>
@@ -1024,6 +1080,8 @@ Visit {forumname} at {forumlink}
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">عناوین فعال</Resource>
     <Resource tag="ADMIN">مدیر</Resource>
+    <Resource tag="BUDDIES">دوستان</Resource>
+    <Resource tag="BUDDYREQUEST">({0} در انتظار تائید)</Resource>
     <Resource tag="HELP">کمک</Resource>
     <Resource tag="LOGGED_IN_AS">وارد شده به عنوان: {0}</Resource>
     <Resource tag="LOGIN">ورود</Resource>
@@ -1032,6 +1090,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MEMBERS">اعضاء</Resource>
     <Resource tag="MODERATE">مدیریت</Resource>
     <Resource tag="MYPROFILE">تنظیمان من</Resource>
+    <Resource tag="MYTOPICS">عناوین فعال | عناوین مورد علاقه</Resource>
     <Resource tag="NEWPM">({0} پیغام خوانده نشده)</Resource>
     <Resource tag="REGISTER">ثبت نام</Resource>
     <Resource tag="SEARCH">جستجو</Resource>
