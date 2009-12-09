@@ -219,6 +219,7 @@ namespace YAF.Pages
       this.ProfileTabs.Views["StatisticsTab"].Text = GetText("STATISTICS");
       this.ProfileTabs.Views["AvatarTab"].Text = GetText("AVATAR");
       this.ProfileTabs.Views["Last10PostsTab"].Text = GetText("LAST10");
+      this.ProfileTabs.Views["BuddyListTab"].Text = GetText("BUDDIES");
 
 
       if (PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage)
