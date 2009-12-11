@@ -344,35 +344,6 @@ namespace YAF.Controls
                         break;
                 }
 
-
-                char selectedLetter = this.AlphaSort1.CurrentLetter;
-
-                // handle dataview filtering
-                if (selectedLetter != char.MinValue)
-                {
-                    if (selectedLetter == '#')
-                    {
-                        string filter = string.Empty;
-                        foreach (char letter in PageContext.Localization.GetText("LANGUAGE", "CHARSET"))
-                        {
-                            if (filter == string.Empty)
-                            {
-                                filter = string.Format("Name not like '{0}%'", letter);
-                            }
-                            else
-                            {
-                                filter += string.Format("and Name not like '{0}%'", letter);
-                            }
-                        }
-
-                        buddyListDataView.RowFilter = filter;
-                    }
-                    else
-                    {
-                        buddyListDataView.RowFilter = string.Format("Name like '{0}%'", selectedLetter);
-                    }
-                }
-
                 this.Pager.Count = buddyListDataView.Count;
 
                 // create paged data source for the buddylist

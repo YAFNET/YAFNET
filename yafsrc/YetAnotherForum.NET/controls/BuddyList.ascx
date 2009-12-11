@@ -1,7 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="BuddyList.ascx.cs" Inherits="YAF.Controls.BuddyList" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AlphaSort ID="AlphaSort1" runat="server" />
 <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
