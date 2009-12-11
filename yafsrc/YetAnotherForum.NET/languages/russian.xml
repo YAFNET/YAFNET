@@ -1,26 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Russian" code="ru">
-  <page name="ACTIVE">
-    <Resource tag="BY">автор {0}</Resource>
-    <Resource tag="LAST_24">( Последние 24 часа )</Resource>
-    <Resource tag="LAST_DAY">последний день</Resource>
-    <Resource tag="LAST_HOUR">последний час</Resource>
-    <Resource tag="LAST_MONTH">последний месяц</Resource>
-    <Resource tag="LAST_TWO_DAYS">последние два дня</Resource>
-    <Resource tag="LAST_TWO_HOURS">последние два часа</Resource>
-    <Resource tag="LAST_TWO_WEEKS">последние две недели</Resource>
-    <Resource tag="LAST_VISIT">последнее посещение  {0}</Resource>
-    <Resource tag="LAST_WEEK">последняя неделя</Resource>
-    <Resource tag="LASTPOST">Последнее сообщение</Resource>
-    <Resource tag="NO_POSTS">Нет сообщений</Resource>
-    <Resource tag="REPLIES">Ответы</Resource>
-    <Resource tag="RSSFEED">Лента RSS</Resource>
-    <Resource tag="SINCE">С</Resource>
-    <Resource tag="TITLE">Активные темы</Resource>
-    <Resource tag="TOPIC_STARTER">Автор темы</Resource>
-    <Resource tag="TOPICS">Темы</Resource>
-    <Resource tag="VIEWS">Просмотры</Resource>
-  </page>
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">Активен</Resource>
     <Resource tag="BROWSER">Браузер</Resource>
@@ -63,6 +42,21 @@
     <Resource tag="SPOILERMOD_TOOLTIP">Нажмите здесь, чтобы просмотреть/скрыть текст (применить спойлер)</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Введите сюда адрес ссылки (URL) YouTube </Resource>
   </page>
+  <page name="BUDDY">
+    <Resource tag="ADDBUDDY">Добавить к друзьям</Resource>
+    <Resource tag="AWAIT_BUDDY_APPROVAL">(Друг, ожидающий подтверждения)</Resource>
+    <Resource tag="NOTIFICATION_ALL_APPROVED">Все запросы на добавление  к друзьям приняты.</Resource>
+    <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">Все запросы на добавление к друзьям приняты и друзья добавлены в ваш список друзей.</Resource>
+    <Resource tag="NOTIFICATION_ALL_DENIED">Все запросы на добавление к друзьям со временем более чем 14 дней отклоняются.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYAPPROVED">{0} добавил Вас в список друзей.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">Вы и {0} теперь друзья!</Resource>
+    <Resource tag="NOTIFICATION_BUDDYDENIED">Ваш запрос на добавление к друзьям отклонён.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYREQUEST">Послан запрос на добавление к друзьям.</Resource>
+    <Resource tag="PENDINGBUDDIES">У Вас {0} запроса(ов) на добавление в друзья</Resource>
+    <Resource tag="REMOVEBUDDY">Удалить из друзей</Resource>
+    <Resource tag="REMOVEBUDDY">Удалить {0} из Вашего списка друзей?</Resource>
+    <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} был удалён из Вашего списка друзей.</Resource>
+  </page>
   <page name="BUTTON">
     <Resource tag="BUTTON_ATTACH">Прикрепить</Resource>
     <Resource tag="BUTTON_ATTACH_TT">Прикрепить файлы к этому сообщение</Resource>
@@ -88,10 +82,16 @@
     <Resource tag="BUTTON_NEWTOPIC_TT">Создать новую тему на этом форуме</Resource>
     <Resource tag="BUTTON_POSTREPLY">Ответить</Resource>
     <Resource tag="BUTTON_POSTREPLY_TT">Ответить на сообщение в этой теме</Resource>
-    <Resource tag="BUTTON_QUOTE">Цитировать</Resource>
+	<Resource tag="BUTTON_TAGFAVORITE">Добавить в избранные</Resource>
+	<Resource tag="BUTTON_TAGFAVORITE_TT">Добавить эту темы в избранные темы.</Resource>
+	<Resource tag="BUTTON_UNTAGFAVORITE">Удалить из избранных</Resource>
+	<Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных тем.</Resource>
+	<Resource tag="BUTTON_QUOTE">Цитировать</Resource>
     <Resource tag="BUTTON_QUOTE_TT">Ответить с цитатой</Resource>
     <Resource tag="BUTTON_REPLY">Ответить</Resource>
     <Resource tag="BUTTON_REPLY_TT">Ответить на сообщение</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE">Tag as favorite</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE_TT">Tag this topic as a favorite.</Resource>
     <Resource tag="BUTTON_THANKS">Спасибо</Resource>
     <Resource tag="BUTTON_THANKS_TT">Поблагодарить автора сообщения</Resource>
     <Resource tag="BUTTON_THANKSDELETE">Удалить Спасибо</Resource>
@@ -100,6 +100,8 @@
     <Resource tag="BUTTON_UNDELETE_TT">Восстановить это сообщение</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Открыть</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Открыть эту тему</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">Untag as favorite</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Remove this topic from your Favorites List.</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">Сообщение не может быть пустым.</Resource>
@@ -204,6 +206,18 @@
     <Resource tag="WARN_RESIZED">Размер был изменён, чтобы соответствовать разрешённому.</Resource>
     <Resource tag="WARN_SIZE">Размер вашего изображения был {0}x{1} пикселей.</Resource>
     <Resource tag="WARN_TOOBIG">Размер изображения не должен быть больше чем {0}x{1} пикселей.</Resource>
+  </page>
+  <page name="CP_EDITBUDDIES">
+    <Resource tag="APPROVE">Подружиться</Resource>
+    <Resource tag="APPROVE_ADD">Одобрить и добавить</Resource>
+    <Resource tag="APPROVE_ADD_ALL">Одобрить и добавить всех</Resource>
+    <Resource tag="APPROVE_ALL">Одобрить всех</Resource>
+    <Resource tag="BUDDYLIST">Список Ваших друзей</Resource>
+    <Resource tag="BUDDYLIST_TT">Управление друзьями</Resource>
+    <Resource tag="DENY">Отклонить</Resource>
+    <Resource tag="DENY_ALL">Отклонить всех более кто запросил более 14 дней назад</Resource>
+    <Resource tag="EDIT_BUDDIES">Редактировать Друзей</Resource>
+    <Resource tag="REQUEST_DATE">Дата запроса</Resource>
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">О Вас</Resource>
@@ -520,6 +534,31 @@
     <Resource tag="SELECT_FORUM">Выберите форум, куда Вы хотите переместить эту тему:</Resource>
     <Resource tag="TITLE">Переместить тему</Resource>
   </page>
+  <page name="MYTOPICS">
+    <Resource tag="ACTIVETOPICS">Активные темы</Resource>
+    <Resource tag="BY">{0}</Resource>
+    <Resource tag="FAVORITETOPICS">Избранные темы</Resource>
+    <Resource tag="GUESTTITLE">Активные темы</Resource>
+    <Resource tag="LAST_24">( Последние 24 часа )</Resource>
+    <Resource tag="LAST_DAY">последний день</Resource>
+    <Resource tag="LAST_HOUR">последний час</Resource>
+    <Resource tag="LAST_MONTH">последний месяц</Resource>
+    <Resource tag="LAST_TWO_DAYS">последние 2 дня</Resource>
+    <Resource tag="LAST_TWO_HOURS">последние 2 часа</Resource>
+    <Resource tag="LAST_TWO_WEEKS">последние 2 недели</Resource>
+    <Resource tag="LAST_VISIT">последнее посещение {0}</Resource>
+    <Resource tag="LAST_WEEK">последняя неделя</Resource>
+    <Resource tag="LASTPOST">Последнее сообщение</Resource>
+    <Resource tag="MEMBERTITLE">Мои темы</Resource>
+    <Resource tag="NO_POSTS">Нет сообщений</Resource>
+    <Resource tag="REPLIES">Ответы</Resource>
+    <Resource tag="RSSFEED">Лента RSS</Resource>
+    <Resource tag="SHOW_ALL">Показать всё</Resource>
+    <Resource tag="SINCE">Начиная с</Resource>
+    <Resource tag="TOPIC_STARTER">Автор темы</Resource>
+    <Resource tag="TOPICS">Темы</Resource>
+    <Resource tag="VIEWS">Просмотры</Resource>
+  </page>
   <page name="PMESSAGE">
     <Resource tag="ALLUSERS">Все пользователи</Resource>
     <Resource tag="CLEAR">Очистить</Resource>
@@ -690,33 +729,6 @@
     <Resource tag="WATCHTOPIC">Отслеживать эту тему</Resource>
     <Resource tag="YIM">YAHOO</Resource>
   </page>
-  <page name="BUDDY">
-		<Resource tag="ADDBUDDY">Добавить к друзьям</Resource>
-		<Resource tag="AWAIT_BUDDY_APPROVAL">(Друг, ожидающий подтверждения)</Resource>
-		<Resource tag="REMOVEBUDDY">Удалить из друзей</Resource>
-		<Resource tag="NOTIFICATION_BUDDYREQUEST">Послан запрос на добавление к друзьям.</Resource>
-		<Resource tag="NOTIFICATION_BUDDYAPPROVED">{0} добавил Вас в список друзей.</Resource>
-		<Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">Вы и {0} теперь друзья!</Resource>
-		<Resource tag="NOTIFICATION_BUDDYDENIED">Ваш запрос на добавление к друзьям отклонён.</Resource>
-		<Resource tag="NOTIFICATION_ALL_APPROVED">Все запросы на добавление  к друзьям приняты.</Resource>
-		<Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">Все запросы на добавление к друзьям приняты и друзья добавлены в ваш список друзей.</Resource>
-		<Resource tag="NOTIFICATION_ALL_DENIED">Все запросы на добавление к друзьям со временем более чем 14 дней отклоняются.</Resource>
-		<Resource tag="PENDINGBUDDIES">У Вас {0} запроса(ов) на добавление в друзья</Resource>
-		<Resource tag="REMOVEBUDDY">Удалить {0} из Вашего списка друзей?</Resource>
-		<Resource tag="REMOVEBUDDY_NOTIFICATION">{0} был удалён из Вашего списка друзей.</Resource>
-	</page>
-	<page name="CP_EDITBUDDIES">
-		<Resource tag="BUDDYLIST_TT">Управление друзьями</Resource>
-		<Resource tag="EDIT_BUDDIES">Редактировать Друзей</Resource>
-		<Resource tag="BUDDYLIST">Список Ваших друзей</Resource>
-		<Resource tag="REQUEST_DATE">Дата запроса</Resource>
-		<Resource tag="APPROVE">Подружиться</Resource>
-		<Resource tag="DENY">Отклонить</Resource>
-		<Resource tag="APPROVE_ADD">Одобрить и добавить</Resource>
-		<Resource tag="APPROVE_ALL">Одобрить всех</Resource>
-		<Resource tag="DENY_ALL">Отклонить всех более кто запросил более 14 дней назад</Resource>
-		<Resource tag="APPROVE_ADD_ALL">Одобрить и добавить всех</Resource>
-	</page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Автор</Resource>
   </page>
@@ -1052,11 +1064,11 @@
     <Resource tag="UTC9.5">(UTC+9:30) Аделаида, Дарвин</Resource>
   </page>
   <page name="TOOLBAR">
-	<Resource tag="BUDDIES">Друзья</Resource>
-	<Resource tag="BUDDYREQUEST">({0} неподтверждённых)</Resource>
-	<Resource tag="ACTIVETOPICS">Активные темы</Resource>
+    <Resource tag="ACTIVETOPICS">Активные темы</Resource>
     <Resource tag="ADMIN">Админ</Resource>
-    <Resource tag="HELP">Справка</Resource>
+    <Resource tag="BUDDIES">Друзья</Resource>
+    <Resource tag="BUDDYREQUEST">({0} неподтверждённых)</Resource>	
+	<Resource tag="HELP">Справка</Resource>
     <Resource tag="INBOX">Личные сообщения</Resource>
     <Resource tag="LOGGED_IN_AS">Вы вошли как: {0}</Resource>
     <Resource tag="LOGIN">Вход</Resource>
@@ -1065,6 +1077,7 @@
     <Resource tag="MEMBERS">Участники</Resource>
     <Resource tag="MODERATE">Модерировать</Resource>
     <Resource tag="MYPROFILE">Мой профиль</Resource>
+    <Resource tag="MYTOPICS">Мои темы</Resource>
     <Resource tag="NEWPM">({0} непрочитанных)</Resource>
     <Resource tag="REGISTER">Регистрация</Resource>
     <Resource tag="SEARCH">Поиск</Resource>
