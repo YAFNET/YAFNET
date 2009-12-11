@@ -229,7 +229,10 @@
     <Resource tag="APPROVE_ADD">تائید و اضافه</Resource>
     <Resource tag="APPROVE_ADD_ALL">تائید و اضافه همه</Resource>
     <Resource tag="APPROVE_ALL">تائید همه</Resource>
-    <Resource tag="BUDDYLIST">لیست دوستان شما</Resource>
+    <Resource tag="BUDDYLIST">لیست دوستان</Resource>
+    <Resource tag="YOUR_BUDDYLIST">لیست دوستان شما</Resource>
+    <Resource tag="PENDING_REQUESTS">درخواست دوستی از شما</Resource>
+    <Resource tag="YOUR_REQUESTS">درخواستهای دوستی شما</Resource>
     <Resource tag="BUDDYLIST_TT">پانل کنترل دوستان</Resource>
     <Resource tag="DENY">رد</Resource>
     <Resource tag="DENY_ALL">درخواستهای قدیمی تر از 14 روز رد شوند.</Resource>
