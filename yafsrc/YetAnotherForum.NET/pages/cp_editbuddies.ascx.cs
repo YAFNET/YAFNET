@@ -50,9 +50,12 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
+            this.BuddiesTabs.Views["BuddyListTab"].Text = GetText("CP_EDITBUDDIES","BUDDYLIST");
+            this.BuddiesTabs.Views["PendingRequestsTab"].Text = GetText("CP_EDITBUDDIES", "PENDING_REQUESTS");
+            this.BuddiesTabs.Views["YourRequestsTab"].Text = GetText("CP_EDITBUDDIES", "YOUR_REQUESTS");
             InitializeBuddyList(BuddyList1, 2);
-            InitializeBuddyList(PendingBuddyList, 3);
-            InitializeBuddyList(BuddyRequested, 4);
+            InitializeBuddyList(PendingBuddyList,3);
+            InitializeBuddyList(BuddyRequested,4);
         }
 
         /// <summary>

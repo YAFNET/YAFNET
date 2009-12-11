@@ -6,7 +6,7 @@
 <table width="100%" cellspacing="1" cellpadding="0" class="content">
     <tr>
         <td colspan="2" class="header1">
-            <YAF:LocalizedLabel ID="BuddyList" runat="server" LocalizedTag="BUDDYLIST" />
+            <YAF:LocalizedLabel ID="BuddyList" runat="server" LocalizedTag="YOUR_BUDDYLIST" />
         </td>
     </tr>
     <tr>
@@ -21,15 +21,15 @@
                     <DotNetAge:AnimationAttribute Name="HeightTransition" AnimationType="height" Value="toggle" />
                 </Animations>
                 <Views>
-                    <DotNetAge:View runat="server" ID="BuddyListTab" Text="Buddy List" NavigateUrl=""
+                    <DotNetAge:View runat="server" ID="BuddyListTab" NavigateUrl=""
                         HeaderCssClass="" HeaderStyle="" Target="_blank">
                         <YAF:BuddyList runat="server" ID="BuddyList1" />
                     </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="PendingRequestsTab" Text="Pending Requests" NavigateUrl=""
+                    <DotNetAge:View runat="server" ID="PendingRequestsTab" NavigateUrl=""
                         HeaderCssClass="" HeaderStyle="" Target="_blank">
                         <YAF:BuddyList runat="server" ID="PendingBuddyList" />
                     </DotNetAge:View>
-                    <DotNetAge:View runat="server" ID="YourRequestsTab" Text="Your Requests" NavigateUrl=""
+                    <DotNetAge:View runat="server" ID="YourRequestsTab" NavigateUrl=""
                         HeaderCssClass="" HeaderStyle="" Target="_blank">
                         <YAF:BuddyList runat="server" ID="BuddyRequested" />
                     </DotNetAge:View>

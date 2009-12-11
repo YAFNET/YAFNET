@@ -711,7 +711,10 @@
   <page name="CP_EDITBUDDIES">
     <Resource tag="BUDDYLIST_TT">Buddies Control Panel</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
-    <Resource tag="BUDDYLIST">Your Buddy List</Resource>
+    <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
+    <Resource tag="BUDDYLIST">Buddy List</Resource>
+    <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="APPROVE">Approve</Resource>
     <Resource tag="DENY">Deny</Resource>

@@ -194,7 +194,7 @@ namespace YAF.Controls
             this.PopMenu1.AddPostBackItem("toggleuserposts_hide", PageContext.Localization.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
           }
         }
-        if (YafContext.Current.BoardSettings.EnableBuddyList)
+        if (YafContext.Current.BoardSettings.EnableBuddyList && PageContext.PageUserID != (int)DataRow["UserID"])
         {
             // Should we add the "Add Buddy" item?
             if (!YafBuddies.IsBuddy((int)(DataRow["UserID"]), false) && !PageContext.IsGuest)
