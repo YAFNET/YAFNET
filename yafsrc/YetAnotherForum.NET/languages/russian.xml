@@ -211,7 +211,8 @@
     <Resource tag="APPROVE">Подружиться</Resource>
     <Resource tag="APPROVE_ADD">Одобрить и добавить</Resource>
     <Resource tag="APPROVE_ADD_ALL">Одобрить и добавить всех</Resource>
-    <Resource tag="APPROVE_ALL">Одобрить всех</Resource>   
+    <Resource tag="APPROVE_ALL">Одобрить всех</Resource>
+	<Resource tag="BUDDYLIST">Список Друзей</Resource>  
     <Resource tag="BUDDYLIST_TT">Управление друзьями</Resource>
     <Resource tag="DENY">Отклонить</Resource>
     <Resource tag="DENY_ALL">Отклонить всех более кто запросил более 14 дней назад</Resource>
