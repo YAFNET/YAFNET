@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Việt Nam" code="vi-VN">
-  <page name="ACTIVE">
+  <page name="MYTOPICS">
+    <Resource tag="ACTIVETOPICS">Chủ đề có bài mới</Resource>
+    <Resource tag="FAVORITETOPICS">Chủ đề ưa thích</Resource>
     <Resource tag="BY">bởi {0}</Resource>
     <Resource tag="LAST_24">(Trong vòng 24 tiếng)</Resource>
     <Resource tag="LAST_DAY">1 ngày trước đây</Resource>
@@ -20,6 +22,8 @@
     <Resource tag="TOPIC_STARTER">Tác giá</Resource>
     <Resource tag="TOPICS">Chủ đề</Resource>
     <Resource tag="VIEWS">Xem</Resource>
+    <Resource tag="GUESTTITLE">Chủ đề có bài mới</Resource>
+    <Resource tag="MEMBERTITLE">Chủ đề của tôi</Resource>
   </page>
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">Đã hoạt động</Resource>
@@ -64,6 +68,10 @@
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
   </page>
   <page name="BUTTON">
+    <Resource tag="BUTTON_TAGFAVORITE">Tag ưa thích</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE_TT">Chủ đề có Tag ưa thích.</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">Bỏ chọn Tag</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Xóa chủ đề ra khỏi danh sách ưa thích.</Resource>
     <Resource tag="BUTTON_ATTACH">Đính kèm</Resource>
     <Resource tag="BUTTON_ATTACH_TT">Gửi tập tin đính kèm bài viết này</Resource>
     <Resource tag="BUTTON_DELETE">Xoá</Resource>
@@ -92,20 +100,16 @@
     <Resource tag="BUTTON_QUOTE_TT">Trả lời với trích dẫn</Resource>
     <Resource tag="BUTTON_REPLY">Trả lời</Resource>
     <Resource tag="BUTTON_REPLY_TT">Trả lời tin nhắn này</Resource>
-    <Resource tag="BUTTON_THANKS">Thank</Resource>
-    <Resource tag="BUTTON_THANKS_TT">Thank the post sender</Resource>
-    <Resource tag="BUTTON_THANKSDELETE">Remove Thank</Resource>
-    <Resource tag="BUTTON_THANKSDELETE_TT">Remove your thank note from the post sender</Resource>
+    <Resource tag="BUTTON_THANKS">Cảm ơn</Resource>
+    <Resource tag="BUTTON_THANKS_TT">Cảm ơn người gửi</Resource>
+    <Resource tag="BUTTON_THANKSDELETE">Xóa lời cảm ơn</Resource>
+    <Resource tag="BUTTON_THANKSDELETE_TT">Xóa cảm ơn trong bài viết</Resource>
     <Resource tag="BUTTON_UNDELETE">Khôi phục</Resource>
     <Resource tag="BUTTON_UNDELETE_TT">Khôi phục bài viết này</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Mở khoá</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Mở khoá chủ đề này</Resource>
   </page>
-  <page name="CHARACTER_CHECKER">
-    <Resource tag="ISEMPTY">Message body can not be empty.Why do you want to post an empty message?</Resource>
-    <Resource tag="ISEXCEEDED">You have exceeded the maximum number of characters in each post.Make it shorter and try again.</Resource>
-    <Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
-  </page>
+  
   <page name="COMMON">
     <Resource tag="BACK">Quay lại</Resource>
     <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
@@ -137,7 +141,7 @@
     <Resource tag="FORMAT_DATE_LONG">dd-MM-yyyy</Resource>
     <Resource tag="FORMAT_DATE_SHORT">dd-MM-yyyy</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">dd/MM/yyyy lúc hh:mm:ss</Resource>
-    <Resource tag="FORMAT_DATE_TIME_SHORT">dd-MM-yyyy@hh:mm:ss</Resource>
+    <Resource tag="FORMAT_DATE_TIME_SHORT">dd-MM-yyyy lúc hh:mm:ss</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Chuyển nhanh đến</Resource>
     <Resource tag="GENERATED">Thời gian xử lý trang này hết {0:N3} giây.</Resource>
@@ -151,7 +155,7 @@
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Trang</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Tin nhắn mới từ {0} vào lúc {1}</Resource>
-    <Resource tag="POWERED_BY">Bản quyền bởi </Resource>
+    <Resource tag="POWERED_BY">Powered by </Resource>
     <Resource tag="REGMAIL_SENT">Một email đã được gửi! Hãy kiểm tra hộp thư của bạn và click vào đường dẫn đã gửi trong email.</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Một email đã được gửi! Hãy kiểm tra hộp thư của bạn và click vào đường dẫn đã gửi trong email để kích hoạt tài khoản của bạn.</Resource>
     <Resource tag="SAVE">Lưu</Resource>
@@ -331,7 +335,7 @@
     <Resource tag="MODERATORS">Điều hành</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Không truy cập)</Resource>
     <Resource tag="NO_POSTS">Không có bài viết</Resource>
-    <Resource tag="ONDATE">on {0}</Resource>
+    <Resource tag="ONDATE">trên {0} ngày</Resource>
     <Resource tag="POSTS">Bài viết</Resource>
     <Resource tag="STATS">Thống kê</Resource>
     <Resource tag="STATS_LASTMEMBER">Chào mừng thành viên mới nhất: </Resource>
@@ -411,7 +415,7 @@
     <Resource tag="CONTINUE">Tiếp tục...</Resource>
     <Resource tag="DISABLED">Quản trị viên của diễn đàn đã vô hiệu hoá chức năng này.</Resource>
     <Resource tag="EXCEPTION">Bạn đã đăng nhập với tên</Resource>
-    <Resource tag="FAILURE">There's been a system error processing your request. Please contact the forum admin explaining what you were doing when it happened.</Resource>
+    <Resource tag="FAILURE">Có lỗi khi hệ thống xử lý yêu cầu của bạn.Vui lòng liên hệ với quản trị để biết thêm thông tin.</Resource>
     <Resource tag="INVALID">Trang truy cập không tồn tại hoặc bạn không có quyền truy cập vào trang này.</Resource>
     <Resource tag="MODERATED">Bài viết của bạn đã được gửi thành công.Bài viết phải được duyệt qua trước khi hiển thị.</Resource>
     <Resource tag="REGISTRATION">Một email được gửi.\n\nBạn cần phải xác nhận địa chỉ mail bằng cách click vào đường dẫn đã gửi đến cho bạn..</Resource>
@@ -535,10 +539,10 @@
     <Resource tag="NOT_GUEST">Bạn không thể gửi tin nhắn cho khách.</Resource>
     <Resource tag="OWN_PMBOX_FULL">Hộp tin nhắn của bạn đã bị đầy. Số lượng tin nhắn cho phép {0}. Xin xoá bớt tin nhắn để tăng thêm vùng trống cho hộp tin nhắn.</Resource>
     <Resource tag="PMLIMIT">
-        You have {0} private messages: {1} in Inbox and {2} in Outbox from total {3} allowed. Your mail is box filled on {4}%.
+        Bạn có {0} tin nhắn: {1} ở Inbox và {2} ở Outbox trong tổng số {3} cho phép. Your mail is box filled on {4}%.
     </Resource>
     <Resource tag="PMLIMIT_ALL">
-        You have {0} private messages: {1} in Inbox and {2} in Outbox, {3} In Archive from total {4} allowed. Your mail is box filled on {5}%.
+        Bạn có {0} tin nhắn: {1} ở Inbox và {2} ở Outbox, {3} trong tổng số {4} cho phép. Your mail is box filled on {5}%.
     </Resource>
     <Resource tag="PREVIEWTITLE">Xem trước:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">Hộp tin nhắn của {0} đã bị đầy . Họ không thể nhận được tin nhắn cho tới khi hộp tin nhắn được tăng thêm vùng trống.</Resource>
@@ -579,7 +583,7 @@
     <Resource tag="POLL_EXPIRE_EXPLAIN">[b]ngày[/b] [ để trống không hết hạn ]</Resource>
     <Resource tag="POLLQUESTION">Câu hỏi:</Resource>
     <Resource tag="POSTED">Đã gửi:</Resource>
-    <Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
+    <Resource tag="POSTTOBLOG_FAILED">Đã xảy ra lỗi gửi bài đến blog của bạn. Việc xác thực có thể đã không thành công.</Resource>
     <Resource tag="PREVIEW">Xem trước</Resource>
     <Resource tag="PREVIEWTITLE">Xem trước:</Resource>
     <Resource tag="PRIORITY">Dạng:</Resource>
@@ -660,10 +664,10 @@
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Thống kê</Resource>
-    <Resource tag="THANKSFROM">Thanks: {0} times</Resource>
-    <Resource tag="THANKSINFO">{0} users thanked {1} for this useful post.</Resource>
-    <Resource tag="THANKSINFOSINGLE">1 user thanked {0} for this useful post.</Resource>
-    <Resource tag="THANKSTO">Was thanked: {0} time(s) in {1} post(s)</Resource>
+    <Resource tag="THANKSFROM">Cảm ơn: {0} lần</Resource>
+    <Resource tag="THANKSINFO">{0} người cảm ơn {1} cho bài viết.</Resource>
+    <Resource tag="THANKSINFOSINGLE">1 người cảm ơn {0} cho bài viết.</Resource>
+    <Resource tag="THANKSTO">Được cảm ơn: {0} lần trong {1} bài viết</Resource>
     <Resource tag="THREADED">Threaded</Resource>
     <Resource tag="TIP_DELETE_TOPIC">Xóa chủ đề</Resource>
     <Resource tag="TIP_LOCK_TOPIC">Khóa chủ đề</Resource>
@@ -676,10 +680,10 @@
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Hiện bài viết này</Resource>
     <Resource tag="TOP">Chuyển lên trên</Resource>
     <Resource tag="TOPICBROWSERS">Ai đang xem chủ đề này?</Resource>
-    <Resource tag="TOTAL">Total</Resource>
+    <Resource tag="TOTAL">Tổng</Resource>
     <Resource tag="UNWATCHTOPIC">chưa xem chủ đề này</Resource>
-    <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
-    <Resource tag="USERONLINESTATUS">User Is Online</Resource>
+    <Resource tag="USEROFFLINESTATUS">Thành viên ngoại tuyến</Resource>
+    <Resource tag="USERONLINESTATUS">Thành viên trực tuyến</Resource>
     <Resource tag="USERPROFILE">Hồ sơ người dùng</Resource>
     <Resource tag="VIEW">Xem</Resource>
     <Resource tag="VOTES">Bỏ phiếu</Resource>
@@ -693,10 +697,40 @@
     <Resource tag="WATCHTOPIC">Xem chủ đề này</Resource>
     <Resource tag="YIM">YAHOO</Resource>
   </page>
+  <page name="BUDDY">
+    <Resource tag="ADDBUDDY">Thêm bạn</Resource>
+    <Resource tag="AWAIT_BUDDY_APPROVAL">(Bạn đang chờ duyệt)</Resource>
+    <Resource tag="REMOVEBUDDY">Xóa bạn</Resource>
+    <Resource tag="NOTIFICATION_BUDDYREQUEST">Gửi đề nghị kết bạn.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYAPPROVED">Bạn đã thêm {0}'s vào danh sách bạn bè.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">Bạn và {0} đã là bạn bè.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYDENIED">Từ chối đề nghị kết bạn.</Resource>
+    <Resource tag="NOTIFICATION_ALL_APPROVED">Đồng ý mọi đề nghị kết bạn.</Resource>
+    <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">Đồng ý mọi đề nghị kết bạn và thêm vào danh sách bạn bè.</Resource>
+    <Resource tag="NOTIFICATION_ALL_DENIED">Mọi yêu cầu kết bạn bị hủy sau 14 ngày.</Resource>
+    <Resource tag="PENDINGBUDDIES">Bạn có {0} lời đề nghị kết bạn chưa đồng ý(s)</Resource>
+    <Resource tag="REMOVEBUDDY">Xóa {0} khỏi danh sách bạn bè?</Resource>
+    <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} đã được xóa khỏi danh sách bạn bè.</Resource>
+  </page>
+  <page name="CP_EDITBUDDIES">
+    <Resource tag="BUDDYLIST_TT">Quản lý danh sách bạn bè</Resource>
+    <Resource tag="EDIT_BUDDIES">Sửa danh sách bạn bè</Resource>
+    <Resource tag="BUDDYLIST">Danh sách bạn bè</Resource>
+    <Resource tag="REQUEST_DATE">Ngày đề nghị</Resource>
+    <Resource tag="APPROVE">Đồng ý</Resource>
+    <Resource tag="DENY">Không đồng ý</Resource>
+    <Resource tag="APPROVE_ADD">Đồng ý và thêm vào danh sách</Resource>
+    <Resource tag="APPROVE_ALL">Đồng ý tất cả</Resource>
+    <Resource tag="DENY_ALL">Không đồng ý tất cả sau 14 ngày</Resource>
+    <Resource tag="APPROVE_ADD_ALL">Đồng ý và thêm vào danh sách tất cả</Resource>
+  </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Viết bởi</Resource>
   </page>
   <page name="PROFILE">
+    <Resource tag="THANKSFROM">Số lần cảm ơn</Resource>
+    <Resource tag="THANKSTOPOSTS">Số bài viết được cảm ơn</Resource>
+    <Resource tag="THANKSTOTIMES">Số lần được cảm ơn</Resource>
     <Resource tag="ABOUT">Thông tin chung</Resource>
     <Resource tag="ADMIN_USER">Admin User</Resource>
     <Resource tag="AIM">AIM-Name:</Resource>
@@ -734,15 +768,12 @@
     <Resource tag="PROFILE">Lý lịch:</Resource>
     <Resource tag="RANK">Danh hiệu:</Resource>
     <Resource tag="REALNAME">Tên thật:</Resource>
-    <Resource tag="REMOVESUSPENSION">Remove Suspension</Resource>
+    <Resource tag="REMOVESUSPENSION">Ngưng tạm khóa</Resource>
     <Resource tag="SEARCHUSER">Xem tất cả các bài của thành viên này</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
     <Resource tag="STATISTICS">Thống kê</Resource>
-    <Resource tag="SUSPEND">Suspend</Resource>
-    <Resource tag="SUSPEND_USER">Suspend User:</Resource>
-    <Resource tag="THANKSFROM">Number of thanks</Resource>
-    <Resource tag="THANKSTOPOSTS">Number of posts for which this user was thanked</Resource>
-    <Resource tag="THANKSTOTIMES">Number of times this user was thanked</Resource>
+    <Resource tag="SUSPEND">Tạm khóa</Resource>
+    <Resource tag="SUSPEND_USER">Thành viên tạm khóa:</Resource>    
     <Resource tag="TOPIC">Chủ đề:</Resource>
     <Resource tag="USERNAME">Tên sử dụng:</Resource>
     <Resource tag="WEBLOG">Blog:</Resource>
@@ -750,33 +781,33 @@
     <Resource tag="YIM">Yahoo Messenger:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">
-    <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
-    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
-    <Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED">Tài khoản của bạn chưa được chấp nhận bởi điều hành.Bạn không thể thay đổi mật khẩu.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Tài khoản của bạn chưa được chấp nhận bởi bạn chưa xác minh Email.Một Email đã được gửi tới {0}. Vui lòng xác minh để có thể đăng nhập.</Resource>
+    <Resource tag="GENERAL_FAILURE">Lấy lại mật khẩu không thành công.</Resource>
     <Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
-    <Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name to retrieve your password:</Resource>
-    <Resource tag="PAGE2_INSTRUCTIONS">Answer the following question to receive your password:</Resource>
-    <Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
+    <Resource tag="PAGE1_INSTRUCTIONS">Nhập tên người dùng lấy lại mật khẩu:</Resource>
+    <Resource tag="PAGE2_INSTRUCTIONS">Trả lời câu hỏi quên mật khẩu:</Resource>
+    <Resource tag="PASSWORD_SENT">Mật khẩu đã được gửi vào email của bạn.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
-    <Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
+    <Resource tag="QUESTION_FAILURE">Bạn trả câu hỏi quên mật khẩu không đúng.Xin thử lại.</Resource>
     <Resource tag="TITLE">Quên mật khẩu</Resource>
-    <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
+    <Resource tag="USERNAME_FAILURE">Không xác minh được người dùng.</Resource>
   </page>
   <page name="REGISTER">
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Bạn đã đăng ký thành công.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Tên sử dụng hoặc email đã được dùng để đăng ký.</Resource>
     <Resource tag="BAD_EMAIL">Địa chỉ email bạn cung cấp không hợp lệ.</Resource>
-    <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
+    <Resource tag="BAD_PASSWORD">Xin chọn một mật khẩu an toàn hơn,bao gồm cả các ký tự (!?) hoặc số.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Xác nhận lại mật khẩu</Resource>
     <Resource tag="CONTINUE">Tiếp tục</Resource>
     <Resource tag="CREATE_USER">Đăng ký</Resource>
     <Resource tag="DETAILS">Thông tin đăng ký</Resource>
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="HOMEPAGE">Trang web</Resource>
-    <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
-    <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
-    <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
+    <Resource tag="INVALID_ANSWER">Vui lòng chọn một câu trả lời khác.</Resource>
+    <Resource tag="INVALID_QUESTION">Vui lòng chọn một câu hỏi khác.</Resource>
+    <Resource tag="INVALID_USERNAME">Vui lòng chọn một Username khác.</Resource>
     <Resource tag="LOCATION">Đến từ</Resource>
     <Resource tag="NEED_ANSWER">Bạn chưa trả lời Câu hỏi bảo mật.</Resource>
     <Resource tag="NEED_EMAIL">Bạn chưa nhập Email</Resource>
@@ -785,8 +816,8 @@
     <Resource tag="NEED_QUESTION">Bạn chưa nhập Câu hỏi bảo mật.</Resource>
     <Resource tag="NEED_USERNAME">Bạn chưa nhập Tên đăng nhập.</Resource>
     <Resource tag="PASSWORD">Mật khẩu</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">Mẩu khẩu có độ dài {1} đến {0} ký tự ,không có số và các ký tự ($#@!).</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Yêu cầu mật khẩu :</Resource>
     <Resource tag="PREFERENCES">Tuỳ chọn</Resource>
     <Resource tag="PROFILE">Thông tin cá nhân</Resource>
     <Resource tag="REGISTER">Đăng ký</Resource>
@@ -800,10 +831,10 @@
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
   </page>
   <page name="REPORTPOST">
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
-    <Resource tag="HEADER">Report post</Resource>
-    <Resource tag="SEND">Report</Resource>
+    <Resource tag="CANCEL">Hủy</Resource>
+    <Resource tag="ENTER_TEXT">Nhập văn bản báo cáo.</Resource>
+    <Resource tag="HEADER">Gửi báo cáo</Resource>
+    <Resource tag="SEND">Báo cáo</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Đậm</Resource>
@@ -828,15 +859,28 @@
     <Resource tag="DECLINE">Không đồng ý</Resource>
     <Resource tag="RULES_TEXT" editType="bbcode">
       [size=5]
-      It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
-
-      You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.
-
-      You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot	be held responsible for any hacking attempt that may lead to the data being compromised.
-
-      This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information	you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your	registration details and password (and for sending new passwords should you forget your current one).
-
-      You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.[/size]
+      Việc đăng ký thành viên để tham gia vào diễn đàn báo giá là hoàn toàn miễn phí. Khi đăng ký tham gia làm thành viên, đồng nghĩa với việc bạn chấp nhận những điều sau đây:
+      [b]1.Về việc đăng ký thành viên:[/b]
+      - Tên đăng nhập không được trùng với ban quản trị hoặc gây hiểu nhầm là ban quản trị.
+      - Tên đăng nhập không được mang ý nghĩa thô tục, hoặc xuyên tạc, lấy tên của các vị lãnh tụ của đất nước
+      - Bổ sung thông tin cá nhân đầy đủ, chính xác. Các thông tin này sẽ được giữ kín trong mọi trường hợp, trừ khi có ý kiến của bên có thẩm quyền.
+      [b]2. Về việc đăng bài lên diễn đàn:[/b]
+      - Tiêu đề ngắn gọn, dễ hiểu
+      - Thông tin đầy đủ, chính xác
+      - Viết bài đúng chuyên mục.
+      - Chịu trách nhiệm về nguồn gốc hàng hóa và thông tin mình đưa lên, tuyệt đối không được rao bán hàng quốc cấm, văn hóa phẩm đồi trụy, không rõ nguồn gốc.
+      - Thảo luận với thái độ lịch sự, khách quan, hòa nhã. Không được chửi bới, khích bác
+      - Không spam.
+      - Tuyệt đối không lừa đảo, hack tài khoản người khác. Nếu bị hack xin hãy vào box "Hỏi đáp - thắc mắc khiếu nại" để xin được giúp đỡ.
+      - Nếu phát hiện thành viên vi phạm, xin hãy bấm vào "Báo cáo vi phạm" hoặc "Báo cáo spam" dưới mỗi bài viết.
+      [b]3. Về việc sử dụng tài nguyên của diễn đàn:[/b]
+      - Khi viết bài có trích dẫn từ nguồn khác xin hãy ghi rõ nguồn gốc trích dẫn.
+      - Khi sử dụng bài viết của diễn đàn để trích dẫn ở nơi khác xin ghi rõ nguồn gốc : http://baogia.info
+      [b]4. Về diễn đàn baogia.info[/b]
+      - Diễn đàn được xây dựng trên nền .net, mã nguồn mở YAF
+      - Nội dung được phát triển bởi HALFLIFE
+      - Các thành viên vi phạm các điều trên sẽ bị xử lý tùy theo mức độ vi phạm, gồm di chuyển/xóa bài viết, block tài khoản 12 tiếng đến 1 tháng, hoặc xóa tài khoản, nặng hơn có thể bị cấm vĩnh viễn IP      
+      [/size]
 
       [center][size=6]Bằng việc Click vào [b]Tôi đồng ý với các quy định này  .[/b]có nghĩa là bạn đã chấp nhận các điều khoản bên trên khi tham gia diễn đàn[/size][/center]
     </Resource>
@@ -845,7 +889,7 @@
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">Tất cả diễn đàn</Resource>
     <Resource tag="BTNSEARCH">Tìm kiếm</Resource>
-    <Resource tag="BY">bởi</Resource>
+    <Resource tag="BY">Bởi</Resource>
     <Resource tag="LOADING_SEARCH">Đang tải kết quả tìm kiếm...</Resource>
     <Resource tag="MATCH_ALL">Chính xác</Resource>
     <Resource tag="MATCH_ANY">Gần đúng</Resource>
@@ -866,11 +910,11 @@
     <Resource tag="TOPIC">Chủ đề:</Resource>
   </page>
   <page name="SHOUTBOX">
-    <Resource tag="CLEAR">Clear</Resource>
-    <Resource tag="FLYOUT">Fly Out</Resource>
+    <Resource tag="CLEAR">Xóa</Resource>
+    <Resource tag="FLYOUT">Thoát</Resource>
     <Resource tag="HEADING">Chat with other members</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
-    <Resource tag="TITLE">ShoutBox</Resource>
+    <Resource tag="TITLE">Chat box</Resource>
   </page>
   <page name="SHOWSMILIES">
     <Resource tag="CLOSE_WINDOW">Đóng cửa sổ</Resource>
@@ -1060,10 +1104,13 @@
     <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
   </page>
   <page name="TOOLBAR">
+    <Resource tag="BUDDIES">Bạn bè</Resource>
+    <Resource tag="BUDDYREQUEST">({0} Chờ đồng ý)</Resource>
+    <Resource tag="MYTOPICS">Chủ đề của tôi</Resource>
     <Resource tag="ACTIVETOPICS">Chủ đề có bài mới</Resource>
-    <Resource tag="ADMIN">Quản trị</Resource>
+    <Resource tag="ADMIN">Admin</Resource>
     <Resource tag="HELP">Trợ giúp</Resource>
-    <Resource tag="LOGGED_IN_AS">Đăng nhập với tên: {0}</Resource>
+    <Resource tag="LOGGED_IN_AS">Đăng nhập dưới tên: {0}</Resource>
     <Resource tag="LOGIN">Đăng nhập</Resource>
     <Resource tag="LOGOUT">Thoát</Resource>
     <Resource tag="LOGOUT_QUESTION">Bạn muốn đăng xuất?</Resource>
@@ -1071,7 +1118,7 @@
     <Resource tag="MODERATE">Điều hành</Resource>
     <Resource tag="MYPROFILE">Trang cá nhân</Resource>
     <Resource tag="NEWPM">({0} Chưa đọc)</Resource>
-    <Resource tag="REGISTER">Đăng Ký</Resource>
+    <Resource tag="REGISTER">Đăng ký</Resource>
     <Resource tag="SEARCH">Tìm kiếm</Resource>
     <Resource tag="WELCOME_GUEST">Chào mừng khách</Resource>
   </page>
@@ -1107,5 +1154,10 @@
     <Resource tag="WARN_LOGIN_FORUMWATCH">Bạn cần đăng nhập để xem diễn đàn.</Resource>
     <Resource tag="WATCHFORUM">Theo dõi diễn đàn này</Resource>
     <Resource tag="YESTERDAYAT">[b]Hôm qua[/b] vào lúc {0:T}</Resource>
+  </page>
+  <page name="CHARACTER_CHECKER">
+    <Resource tag="ISEMPTY">Nội dung tin nhắn không được để trống</Resource>
+    <Resource tag="ISEXCEEDED">Bạn đã dùng vượt quá số ký tự tối đa cho một bài viết.Xin hãy sửa và thử lại.</Resource>
+    <Resource tag="MAXNUMBEROF">Số ký tự tối đa cho một bài viết là: {0}</Resource>
   </page>
 </Resources>
