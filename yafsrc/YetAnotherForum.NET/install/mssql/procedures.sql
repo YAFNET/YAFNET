@@ -2516,7 +2516,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}group_save](
 	@IsGuest		bit,
 	@AccessMaskID	int=null,
 	@PMLimit int=null,
-	@Style nvarchar(255),
+	@Style nvarchar(255)=null,
 	@SortOrder smallint
 ) as
 begin
