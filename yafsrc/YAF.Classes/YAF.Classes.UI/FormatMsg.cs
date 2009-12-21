@@ -217,14 +217,17 @@ namespace YAF.Classes.UI
         YafBBCode.CreateBBCodeRules(ref ruleEngine, messageFlags.IsBBCode, targetBlankOverride, useNoFollow);
 
         // add email rule
+        // vzrus: it's freezing  when post body contains full email adress.
+        // the fix provided by community 
         var email = new VariableRegexReplaceRule(
-          @"(?<before>^|[ ]|<br/>)(?<inner>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", 
-          "${before}<a href=\"mailto:${inner}\">${inner}</a>", 
-          _options, 
+          @"(?<before>^|[ ]|<br/>)(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
+          "${before}<a href=\"mailto:${inner}\">${inner}</a>",
+          _options,
           new[]
-            {
-              "before"
-            });
+            { 
+              "before" 
+            });   
+  
         email.RuleRank = 10;
 
         ruleEngine.AddRule(email);
