@@ -572,6 +572,11 @@ begin
 end
 GO
 
+-- Active Table
+if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='Location' and prec < 128)
+ 	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [Location] nvarchar(128) NOT NULL
+GO
+
 -- Board Table
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin
