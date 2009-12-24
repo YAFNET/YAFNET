@@ -82,6 +82,7 @@
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\RoleMembershipHelper.cs" />
+    <Compile Include="Services\YafAlbum.cs" />
     <Compile Include="Services\YafBuddies.cs" />
     <Compile Include="Services\YafFavoriteTopic.cs" />
     <Compile Include="Services\YafUserIgnored.cs" />

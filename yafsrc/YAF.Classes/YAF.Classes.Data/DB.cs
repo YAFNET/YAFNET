@@ -9079,5 +9079,229 @@ namespace YAF.Classes.Data
         }
     }
     #endregion
+    
+    #region Album
+
+    /// <summary>
+    /// Inserts/Saves a user album.
+    /// </summary>
+    /// <param name="albumID">
+    /// AlbumID of an existing Album.
+    /// </param>
+    /// <param name="userID">
+    /// UserID of the user who wants to create a new album.
+    /// </param>
+    /// <param name="title">
+    /// New Album title.
+    /// </param>
+    /// <param name="coverImageID">
+    /// New Cover image id.
+    /// </param>
+    public static int album_save(object albumID, object userID, object title, object coverImageID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("album_save"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            var paramOutput = new SqlParameter();
+            paramOutput.Direction = ParameterDirection.ReturnValue;
+            cmd.Parameters.AddWithValue("AlbumID", albumID);
+            cmd.Parameters.AddWithValue("UserID", userID);
+            cmd.Parameters.AddWithValue("Title", title);
+            cmd.Parameters.AddWithValue("CoverImageID", coverImageID);
+            cmd.Parameters.Add(paramOutput);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+            return Convert.ToInt32(paramOutput.Value);            
+        }
+    }
+
+    /// <summary>
+    /// Lists all the albums associated with the UserID or gets all the
+    /// specifications for the specified album id.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="albumID">
+    /// the album id.
+    /// </param>
+    /// <returns>
+    /// a Datatable containing the albums.
+    /// </returns>
+    public static DataTable album_list(object userID, object albumID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("album_list"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("UserID", userID);
+            cmd.Parameters.AddWithValue("AlbumID", albumID);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
+    /// <summary>
+    /// Deletes an album and all Images in that album.
+    /// </summary>
+    /// <param name="albumID">
+    /// the album id.
+    /// </param>
+    public static void album_delete(object albumID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("album_delete"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("AlbumID", albumID);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+        }
+    }
+
+    /// <summary>
+    /// Deletes an album and all Images in that album.
+    /// </summary>
+    /// <param name="albumID">
+    /// the album id.
+    /// </param>
+    public static string album_gettitle(object albumID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("album_gettitle"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
+            paramOutput.Direction = ParameterDirection.Output;
+            cmd.Parameters.AddWithValue("AlbumID", albumID);
+            cmd.Parameters.Add(paramOutput);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+            return paramOutput.Value.ToString();
+        }
+    }
+
+    /// <summary>
+    /// The album_ get stats method.
+    /// </summary>
+    /// <param name="userID">
+    /// the User ID.
+    /// </param>
+    /// <param name="albumID">
+    /// the album id.
+    /// </param>
+    /// <returns>
+    /// The number of albums + number of current uploaded files by the user if UserID is not null,
+    /// Otherwise, it gets the number of images in the album with AlbumID.
+    /// </returns>
+    public static int[] album_getstats(object userID, object albumID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("album_getstats"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            var paramAlbumNumber = new SqlParameter("AlbumNumber", 0);
+            paramAlbumNumber.Direction = ParameterDirection.Output;
+            var paramImageNumber = new SqlParameter("ImageNumber", 0);
+            paramImageNumber.Direction = ParameterDirection.Output;
+            cmd.Parameters.AddWithValue("UserID", userID);
+            cmd.Parameters.AddWithValue("AlbumID", albumID);
+
+            cmd.Parameters.Add(paramAlbumNumber);
+            cmd.Parameters.Add(paramImageNumber);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+
+            int albumNumber = paramAlbumNumber.Value == DBNull.Value ? 
+                0 : Convert.ToInt32(paramAlbumNumber.Value);
+            int imageNumber = paramImageNumber.Value == DBNull.Value ? 
+                0 : Convert.ToInt32(paramImageNumber.Value);
+            return new[] { albumNumber, imageNumber };
+        }
+    }
+
+    /// <summary>
+    /// Inserts/Saves a user image.
+    /// </summary>
+    /// <param name="imageID">
+    /// the image id of an existing image.
+    /// </param>
+    /// <param name="albumID">
+    /// the album id for adding a new image.
+    /// </param>
+    /// <param name="caption">
+    /// the caption of the existing/new image.
+    /// </param>
+    /// <param name="fileName">
+    /// the file name of the new image.
+    /// </param>
+    /// <param name="bytes">
+    /// the size of the new image.
+    /// </param>
+    /// <param name="contentType">
+    /// the content type.
+    /// </param>
+    public static void album_image_save(object imageID,object albumID, object caption, object fileName, object bytes,object contentType)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("album_image_save"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ImageID", imageID);            
+            cmd.Parameters.AddWithValue("AlbumID", albumID);
+            cmd.Parameters.AddWithValue("Caption", caption);
+            cmd.Parameters.AddWithValue("FileName", fileName);
+            cmd.Parameters.AddWithValue("Bytes", bytes);
+            cmd.Parameters.AddWithValue("ContentType", contentType);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+        }
+    }
+
+    /// <summary>
+    /// Lists all the images associated with the AlbumID or
+    /// the image with the ImageID.
+    /// </summary>
+    /// <param name="albumID">
+    /// the Album id.
+    /// </param>
+    /// <param name="imageID">
+    /// The image id.
+    /// </param>
+    /// <returns>
+    /// a Datatable containing the image(s).
+    /// </returns>
+    public static DataTable album_image_list(object albumID, object imageID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("album_image_list"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("AlbumID", albumID);
+            cmd.Parameters.AddWithValue("ImageID", imageID);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
+    /// <summary>
+    /// Deletes the image which has the specified image id.
+    /// </summary>
+    /// <param name="imageID">
+    /// the image id.
+    /// </param>
+    public static void album_image_delete(object imageID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("album_image_delete"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ImageID", imageID);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+        }
+    }
+
+    /// <summary>
+    /// Increments the image's download times.
+    /// </summary>
+    /// <param name="imageID">
+    /// the image id.
+    /// </param>
+    public static void album_image_download(object imageID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("album_image_download"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ImageID", imageID);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+        }
+    }
+     #endregion
   }
 }

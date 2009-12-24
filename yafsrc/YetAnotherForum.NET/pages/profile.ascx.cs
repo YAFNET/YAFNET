@@ -137,6 +137,16 @@ namespace YAF.Pages
           lnkBuddy.Visible = false;
           ltrApproval.Visible = false;
       }
+      
+      // Is album feature enabled?
+      if (YafContext.Current.BoardSettings.EnableAlbum)
+      {
+          AlbumList1.UserID = Convert.ToInt32(Request.QueryString.Get("u"));
+      }
+      else
+      {
+          AlbumList1.Dispose();
+      }
       this.UserName.Text = HtmlEncode(userData.Membership.UserName);
       Name.Text = HtmlEncode(userData.Membership.UserName);
       Joined.Text = String.Format("{0}", YafServices.DateTime.FormatDateLong(Convert.ToDateTime(userData.Joined)));
@@ -153,7 +163,7 @@ namespace YAF.Pages
       ThanksToPosts.Text = ThanksToArray[1].ToString();
       OnlineStatusImage1.UserID = userID;
       OnlineStatusImage1.Visible = PageContext.BoardSettings.ShowUserOnlineStatus;
-
+        
 
       lblaim.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.AIM));
       lblicq.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.ICQ));
@@ -220,7 +230,7 @@ namespace YAF.Pages
       this.ProfileTabs.Views["AvatarTab"].Text = GetText("AVATAR");
       this.ProfileTabs.Views["Last10PostsTab"].Text = GetText("LAST10");
       this.ProfileTabs.Views["BuddyListTab"].Text = GetText("BUDDIES");
-
+      this.ProfileTabs.Views["AlbumListTab"].Text = GetText("ALBUMS");
 
       if (PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage)
       {

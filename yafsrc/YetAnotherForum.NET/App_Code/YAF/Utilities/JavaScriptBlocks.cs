@@ -187,7 +187,7 @@ function toggleMessage(divId)
     /// <summary>
     /// script for the remove Favorite Topic button
     /// </summary>
-    /// <param name="AddThankBoxHTML">
+    /// <param name="TagButtonHTML">
     /// HTML code for the "Tag As a Favorite" button
     /// </param>
     /// <returns>
@@ -203,5 +203,90 @@ function toggleMessage(divId)
             "var dvFavorite2=document.getElementById('dvFavorite2'); dvFavorite2.innerHTML={0};}}",
             TagButtonHTML);
     }
+
+      /// <summary>
+      /// Javascript events for Album pages.
+      /// </summary>
+    public static string AlbumEventsJs(string AlbumEmptyTitle, string ImageEmptyCaption)
+      {
+              return string.Format(
+                  "function showTexBox(spnTitleId){{" + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));" +
+                     "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));" +
+                     "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);" +
+                     "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}" +
+                     "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}" + 
+                     
+                     "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);" +
+                     "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';" +
+                     "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}" +
+
+                     "function checkKey(event, handler, id, isAlbum){{" + 
+                        "if ((event.keyCode == 13) || (event.which == 13)){{" +
+                            "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; " +
+                            "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{" +
+                                "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}" +
+                            "else resetBox(handler.id, isAlbum);}}" +
+                        "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}" +
+                     
+                     "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);" +
+                        "if (spnTitleVar.firstChild != null){{" + 
+                            "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{" +
+                                "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}" +
+                            "else resetBox(txtTitleId, isAlbum);}}" + 
+                        "else resetBox(txtTitleId, isAlbum);}}",
+                     AlbumEmptyTitle,
+                     ImageEmptyCaption);
+      }
+
+      /// <summary>
+      /// script for changing the album title.
+      /// </summary>
+      /// <returns>
+      /// the change album title js.
+      /// </returns>
+      public static string ChangeAlbumTitleJs
+      {
+          get
+          {
+          return
+              "function changeAlbumTitle(albumId, txtTitleId){{" +
+              "YAF.Classes.Core.YafAlbum.ChangeAlbumTitle(albumId, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
+          }
+      }
+
+      /// <summary>
+      /// script for changing the image caption.
+      /// </summary>
+      /// <returns></returns>
+      public static string ChangeImageCaptionJs
+      {
+          get
+          {
+              return
+              "function changeImageCaption(imageID, txtTitleId){{" +
+              "YAF.Classes.Core.YafAlbum.ChangeImageCaption(imageID, document.getElementById(txtTitleId).value, changeTitleSuccess, CallFailed);}}";
+          }
+      }
+
+      /// <summary>
+      /// script for album/image title/image callback.
+      /// </summary>
+      /// <returns>
+      /// the callback success js.
+      /// </returns>
+      public static string AlbumCallbackSuccessJS
+      {
+          get
+          {
+              return
+                  "function changeTitleSuccess(res){{" +
+                  "spnTitleVar = document.getElementById('spnTitle' + res.value.Id);" +
+                  "txtTitleVar = document.getElementById('txtTitle' + res.value.Id);" +
+                  "spnTitleVar.firstChild.nodeValue = res.value.NewTitle;" +
+                  "txtTitleVar.disabled = false;" +
+                  "spnTitleVar.style.display = 'inline';" +
+                  "txtTitleVar.style.display='none';}}";
+          }
+      }
   }
 }

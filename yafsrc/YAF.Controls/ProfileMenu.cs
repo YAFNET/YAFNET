@@ -58,6 +58,12 @@ namespace YAF.Controls
       {
           html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editbuddies), PageContext.Localization.GetText("EDIT_BUDDIES"));
       }
+
+      if (PageContext.BoardSettings.EnableAlbum)
+      {
+          html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.albums, "u={0}", PageContext.PageUserID), PageContext.Localization.GetText("EDIT_ALBUMS"));
+      }
+
       html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editavatar), PageContext.Localization.GetText("EDIT_AVATAR"));
       if (PageContext.BoardSettings.AllowSignatures)
       {

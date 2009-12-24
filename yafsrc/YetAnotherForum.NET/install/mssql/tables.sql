@@ -35,6 +35,31 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}FavoriteTopic](
 	)
 GO
 
+/* YAF Album Tables*/
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserAlbum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+CREATE TABLE [{databaseOwner}].[{objectQualifier}UserAlbum](
+	[AlbumID] [INT] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[Title] [NVARCHAR](255),
+	[CoverImageID] [INT],
+	[Updated] [DATETIME] NOT NULL
+	constraint [PK_{objectQualifier}User_Album] primary key(AlbumID)
+	)
+GO
+
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserAlbumImage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+CREATE TABLE [{databaseOwner}].[{objectQualifier}UserAlbumImage](
+	[ImageID] [INT] IDENTITY(1,1) NOT NULL,
+	[AlbumID] [int] NOT NULL,
+	[Caption] [NVARCHAR](255),
+	[FileName] [NVARCHAR](255) NOT NULL,
+	[Bytes] [INT] NOT NULL,
+	[ContentType] [NVARCHAR](50),
+	[Uploaded] [DATETIME] NOT NULL,
+	[Downloads] [INT] NOT NULL
+	constraint [PK_{objectQualifier}User_AlbumImage] primary key(ImageID)
+	)
+GO
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Active](
 		SessionID		nvarchar (24) NOT NULL ,

@@ -122,7 +122,22 @@ namespace YAF.Classes
     /// <summary>
     /// The cp_editbuddies.
     /// </summary>
-    cp_editbuddies, 
+    cp_editbuddies,
+
+    /// <summary>
+    /// The album.
+    /// </summary>
+    album,
+
+    /// <summary>
+    /// The cp_editalbum.
+    /// </summary>
+    albums,
+
+    /// <summary>
+    /// The cp_editalbumimages.
+    /// </summary>
+    cp_editalbumimages, 
 
     /// <summary>
     /// The cp_editprofile.

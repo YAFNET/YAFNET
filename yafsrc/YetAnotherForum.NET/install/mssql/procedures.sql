@@ -960,7 +960,41 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_remove]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_save]
+GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_list]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_delete]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_gettitle]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_gettitle]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_getstats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_getstats]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_image_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_save]
+Go
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_image_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_list]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_image_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_delete]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_image_download]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_download]
+Go
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
 
@@ -6929,3 +6963,206 @@ begin
 		LastPosted desc
 end
 Go
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}album_save]
+    (
+      @AlbumID INT = NULL,
+      @UserID INT = null,
+      @Title NVARCHAR(255) = NULL,
+      @CoverImageID INT = NULL
+    )
+as 
+    BEGIN
+        -- Update Cover?
+        IF ( @CoverImageID IS NOT NULL
+             AND @CoverImageID <> 0
+           ) 
+            UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
+            SET     CoverImageID = @CoverImageID
+            WHERE   AlbumID = @AlbumID
+        ELSE 
+            --Remove Cover?
+            IF ( @CoverImageID = 0 ) 
+                UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
+                SET     CoverImageID = NULL
+                WHERE   AlbumID = @AlbumID            
+            ELSE 
+            -- Update Title?
+                IF @AlbumID is not null 
+                    UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
+                    SET     Title = @Title
+                    WHERE   AlbumID = @AlbumID
+                ELSE 
+                    BEGIN
+                    -- New album. insert into table.
+                        INSERT  INTO [{databaseOwner}].[{objectQualifier}UserAlbum]
+                                (
+                                  UserID,
+                                  Title,
+                                  CoverImageID,
+                                  Updated
+                                )
+                        VALUES  (
+                                  @UserID,
+                                  @Title,
+                                  @CoverImageID,
+                                  GETDATE()
+                                )
+                        RETURN SCOPE_IDENTITY()
+                    END
+    END
+    GO
+    
+CREATE procedure [{databaseOwner}].[{objectQualifier}album_list]
+    (
+      @UserID INT = NULL,
+      @AlbumID INT = NULL
+    )
+as 
+    BEGIN
+        IF @UserID IS NOT null 
+            select  *
+            FROM    [{databaseOwner}].[{objectQualifier}UserAlbum]
+            WHERE   UserID = @UserID
+            ORDER BY Updated DESC
+        ELSE 
+            SELECT  *
+            FROM    [{databaseOwner}].[{objectQualifier}UserAlbum]
+            WHERE   AlbumID = @AlbumID
+    END
+    GO
+    
+CREATE procedure [{databaseOwner}].[{objectQualifier}album_delete] ( @AlbumID int )
+as 
+    BEGIN
+        DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbum]
+        WHERE   AlbumID = @AlbumID
+        DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+        WHERE   AlbumID = @AlbumID
+    END
+    GO
+    
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_gettitle]
+    (
+      @AlbumID INT,
+      @paramOutput NVARCHAR(255) = NULL OUT
+    )
+as 
+    BEGIN
+        SET @paramOutput = ( SELECT [Title]
+                             FROM   [{databaseOwner}].[{objectQualifier}UserAlbum]
+                             WHERE  ( AlbumID = @AlbumID )
+                           )
+    END
+    GO
+    
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_getstats]
+    @UserID INT = NULL,
+    @AlbumID INT = NULL,
+    @AlbumNumber INT = NULL OUTPUT,
+    @ImageNumber BIGINT = NULL OUTPUT
+as 
+    BEGIN
+        IF @AlbumID IS NOT NULL 
+            SET @ImageNumber = ( SELECT COUNT(ImageID)
+                                 FROM   [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+                                 WHERE  AlbumID = @AlbumID
+                               )
+        ELSE 
+            BEGIN
+                SET @AlbumNumber = ( SELECT COUNT(AlbumID)
+                                     FROM   [{databaseOwner}].[{objectQualifier}UserAlbum]
+                                     WHERE  UserID = @UserID
+                                   )
+                SET @ImageNumber = ( SELECT COUNT(ImageID)
+                                     FROM   [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+                                     WHERE  AlbumID in (
+                                            SELECT  AlbumID
+                                            FROM    [{databaseOwner}].[{objectQualifier}UserAlbum]
+                                            WHERE   UserID = @UserID )
+                                   )
+            END
+    END
+    GO
+    
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_save]
+    (
+      @ImageID INT = NULL,
+      @AlbumID INT = null,
+      @Caption NVARCHAR(255) = null,
+      @FileName NVARCHAR(255) = null,
+      @Bytes INT = null,
+      @ContentType NVARCHAR(50) = null
+    )
+as 
+    BEGIN
+        IF @ImageID is not null 
+            UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+            SET     Caption = @Caption
+            WHERE   ImageID = @ImageID
+        ELSE
+            INSERT  INTO [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+                    (
+                      AlbumID,
+                      Caption,
+                      FileName,
+                      Bytes,
+                      ContentType,
+                      Uploaded,
+                      Downloads
+                    )
+            VALUES  (
+                      @AlbumID,
+                      @Caption,
+                      @FileName,
+                      @Bytes,
+                      @ContentType,
+                      GETDATE(),
+                      0
+                    )
+    END        
+    GO
+    
+CREATE procedure [{databaseOwner}].[{objectQualifier}album_image_list]
+    (
+      @AlbumID INT = NULL,
+      @ImageID INT = null
+    )
+as 
+    BEGIN
+        IF @AlbumID IS NOT null 
+            SELECT  *
+            FROM    [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+            WHERE   AlbumID = @AlbumID
+            ORDER BY Uploaded DESC
+        ELSE 
+            SELECT  a.*,
+                    b.UserID
+            FROM    [{databaseOwner}].[{objectQualifier}UserAlbumImage] a
+                    INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] b ON b.AlbumID = a.AlbumID
+            WHERE   ImageID = @ImageID
+    END
+	GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_delete] ( @ImageID INT )
+as 
+    BEGIN
+        DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+        WHERE   ImageID = @ImageID
+        UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
+        SET     CoverImageID = NULL
+        WHERE   CoverImageID = @ImageID
+        UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
+        SET     CoverImageID = NULL
+        WHERE   CoverImageID = @ImageID
+    END
+    GO
+    
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_download] ( @ImageID INT )
+as 
+    BEGIN
+        UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+        SET     Downloads = Downloads + 1
+        WHERE   ImageID = @ImageID
+    END
+    GO

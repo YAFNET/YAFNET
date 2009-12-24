@@ -520,6 +520,63 @@
 							<asp:TextBox ID="PrivateMessageMaxRecipients" runat="server"></asp:TextBox>
 						</td>
 					</tr>
+					<tr>
+						<td class="header1" colspan="2">
+							Album Settings
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Enable Album Feature:</b><br />
+							If checked, album feature is enabled.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="EnableAlbum" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+						<td class="postheader">
+							<b>Maximum Albums Number:</b><br />
+							Maximum number of albums a user can create.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="AlbumsMax" runat="server"></asp:TextBox>
+						</td>				
+					</tr>								
+						<td class="postheader">
+							<b>Maximum Images Number:</b><br />
+							Maximum number of images a user can upload.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="AlbumImagesNumberMax" runat="server"></asp:TextBox>
+						</td>				
+					</tr>
+					<tr>
+					<td class="postheader">
+							<b>Maximum Image Size:</b><br />
+							Maximum size of image in bytes a user can upload.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="AlbumImagesSizeMax" runat="server"></asp:TextBox>
+						</td>					
+                    </tr>
+                    <tr>	
+					<td class="postheader">
+							<b>Albums Per Page:</b><br />
+							Number of albums to show per page.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="AlbumsPerPage" runat="server"></asp:TextBox>
+						</td>					
+                    </tr>                    										
+                    <tr>	
+					<td class="postheader">
+							<b>Images Per Page:</b><br />
+							Number of images to show per page.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="AlbumImagesPerPage" runat="server"></asp:TextBox>
+						</td>					
+                    </tr>                    
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View3" Text="Display" NavigateUrl="" HeaderCssClass=""

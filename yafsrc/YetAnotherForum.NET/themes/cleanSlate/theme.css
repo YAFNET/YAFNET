@@ -597,3 +597,16 @@
 {
 	margin: 2px;
 }
+/* Album */
+.yafnet .albumtitle:hover
+{
+	background-color: yellow;
+}
+.yafnet .content .albumtable td.albumimagebox
+{
+		padding-bottom:0;
+}
+.yafnet .content .albumtable td.albumtitlebox
+{
+		padding-top:0;
+}

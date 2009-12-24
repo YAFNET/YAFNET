@@ -256,9 +256,17 @@ namespace YAF.Classes.Core
 
 			if ( userName != string.Empty )
 			{
-				DB.user_delete( userID );
+                // Delete the images/albums both from database and physically.
+                string sUpDir = HttpContext.Current.Server.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+                using (DataTable dt = DB.album_list(userID, null))
+                {
+                    foreach(DataRow dr in dt.Rows)
+                    {
+                        YafAlbum.Album_Image_Delete(sUpDir,dr["AlbumID"],userID,null);
+                    }
+                }
 				YafContext.Current.CurrentMembership.DeleteUser( userName, true );
-
+                DB.user_delete(userID);
 				return true;
 			}
 

@@ -204,6 +204,13 @@ namespace YAF.Controls
             }
         }
 
+        if (!PageContext.IsGuest && YafContext.Current.BoardSettings.EnableAlbum)
+        {
+            buildHeader.AppendFormat(
+                  String.Format(
+                    "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.albums, "u={0}", PageContext.PageUserID ), PageContext.Localization.GetText("TOOLBAR", "MyAlbums")));
+        }
+
         /* TODO: help is currently useless...
 				if ( IsAdmin )
 					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.help_index ), GetText( "TOOLBAR", "HELP" ) ) );

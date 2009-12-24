@@ -4,6 +4,7 @@
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="BuddyList" Src="../controls/BuddyList.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="AlbumList" Src="../controls/AlbumList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
@@ -260,6 +261,10 @@
                         HeaderCssClass="" HeaderStyle="" Target="_blank" Visible="<%# YafContext.Current.BoardSettings.EnableBuddyList %>">
                         <YAF:BuddyList runat="server" ID="BuddyList" />
                     </DotNetAge:View>
+                    <DotNetAge:View runat="server" ID="AlbumListTab" NavigateUrl=""
+                        HeaderCssClass="" HeaderStyle="" Target="_blank" Visible='<%# YafContext.Current.BoardSettings.EnableAlbum %>'>
+                        <YAF:AlbumList runat="server" ID="AlbumList1" Mode="1"/>
+                    </DotNetAge:View>                    
 					<DotNetAge:View runat="server" ID="ModerateTab" Text="Moderation" NavigateUrl=""
 						HeaderCssClass="" HeaderStyle="" Visible="false" Target="_blank">
 						<YAF:ForumAccess runat="server" ID="ForumAccessControl" />

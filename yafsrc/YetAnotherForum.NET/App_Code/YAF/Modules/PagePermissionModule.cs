@@ -48,23 +48,25 @@ namespace YAF.Modules
     private void CurrentPage_Load(object sender, EventArgs e)
     {
       // check access permissions for specific pages...
-      switch (ForumPageType)
-      {
-        case ForumPages.activeusers:
-          YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ActiveUsersViewPermissions);
-          break;
-        case ForumPages.members:
-          YafServices.Permissions.HandleRequest(PageContext.BoardSettings.MembersListViewPermissions);
-          break;
-        case ForumPages.profile:
-          YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ProfileViewPermissions);
-          break;
-        case ForumPages.search:
-          YafServices.Permissions.HandleRequest(PageContext.BoardSettings.SearchPermissions);
-          break;
-        default:
-          break;
-      }
+        switch (ForumPageType)
+        {
+            case ForumPages.activeusers:
+                YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ActiveUsersViewPermissions);
+                break;
+            case ForumPages.members:
+                YafServices.Permissions.HandleRequest(PageContext.BoardSettings.MembersListViewPermissions);
+                break;
+            case ForumPages.profile:
+            case ForumPages.albums:
+            case ForumPages.album:
+                YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ProfileViewPermissions);
+                break;
+            case ForumPages.search:
+                YafServices.Permissions.HandleRequest(PageContext.BoardSettings.SearchPermissions);
+                break;
+            default:
+                break;
+        }
     }
   }
 }
