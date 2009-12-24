@@ -42,6 +42,16 @@
     <Resource tag="SMPTTAB">SMTP</Resource>
     <Resource tag="TEMPLATETAB">Templates</Resource>
   </page>
+  <page name="ALBUM">
+    <Resource tag="ALBUM_CHANGE_TITLE">Add Title</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Add Caption</Resource>
+    <Resource tag="ALBUM_IMAGES_NUMBER">{0} Image(s)</Resource>
+    <Resource tag="ALBUM_VIEW">Click to View Album</Resource>
+    <Resource tag="ALBUMS">Albums</Resource>
+    <Resource tag="ALBUMS_HEADER_TEXT">{0}'s albums</Resource>
+    <Resource tag="ALBUMS_TITLE">{0} Album: {1}</Resource>
+    <Resource tag="TITLE">Album Images</Resource>
+  </page>
   <page name="APPROVE">
     <Resource tag="EMAIL_VERIFIED">Je e-mail adres is gevalideerd.</Resource>
     <Resource tag="EMAIL_VERIFY_FAILED">E-mail adres kon niet worden gevalideerd.</Resource>
@@ -75,15 +85,33 @@
     <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
   </page>
+  <page name="BUDDY">
+    <Resource tag="ADDBUDDY">Add as buddy</Resource>
+    <Resource tag="AWAIT_BUDDY_APPROVAL">(Awaiting Buddy Approval)</Resource>
+    <Resource tag="NOTIFICATION_ALL_APPROVED">All buddy requests approved.</Resource>
+    <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">All buddy requests approved and added to your buddy list.</Resource>
+    <Resource tag="NOTIFICATION_ALL_DENIED">All buddy requests more than 14 days old denied.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYAPPROVED">You have been added to {0}'s buddy list.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">You and {0} are now buddies.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYDENIED">Buddy request denied.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYREQUEST">Buddy request sent.</Resource>
+    <Resource tag="PENDINGBUDDIES">You have {0} pending buddy request(s)</Resource>
+    <Resource tag="REMOVEBUDDY">Remove Buddy</Resource>
+    <Resource tag="REMOVEBUDDY">Remove {0} from your buddy list?</Resource>
+    <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} has been removed from your Buddy list.</Resource>
+  </page>
   <page name="BUTTON">
+    <Resource tag="BUTTON_ADDALBUM">Add New Album</Resource>
     <Resource tag="BUTTON_ATTACH">Attach</Resource>
     <Resource tag="BUTTON_ATTACH_TT">Attach files to this post</Resource>
     <Resource tag="BUTTON_DELETE">Delete</Resource>
     <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
+    <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
     <Resource tag="BUTTON_EDIT">Edit</Resource>
     <Resource tag="BUTTON_EDIT_TT">Edit this Post</Resource>
+    <Resource tag="BUTTON_EDITALBUMIMAGES">Upload/Delete Images</Resource>
     <Resource tag="BUTTON_LOCKTOPIC">Lock Topic</Resource>
     <Resource tag="BUTTON_LOCKTOPIC_TT">Lock this topic</Resource>
     <Resource tag="BUTTON_MODERATE">Moderate</Resource>
@@ -95,8 +123,6 @@
     <Resource tag="BUTTON_NEWPM">New PM</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Create a new private message</Resource>
     <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
-    <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
-    <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
     <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
     <Resource tag="BUTTON_POSTREPLY">Post Reply</Resource>
     <Resource tag="BUTTON_POSTREPLY_TT">Post a reply to this topic</Resource>
@@ -104,6 +130,10 @@
     <Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
     <Resource tag="BUTTON_REPLY">Reply</Resource>
     <Resource tag="BUTTON_REPLY_TT">Reply to Message</Resource>
+    <Resource tag="BUTTON_RESETCOVER">Remove Cover</Resource>
+    <Resource tag="BUTTON_SETCOVER">Set as Cover</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE">Tag as favorite</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE_TT">Tag this topic as a favorite.</Resource>
     <Resource tag="BUTTON_THANKS">Thank</Resource>
     <Resource tag="BUTTON_THANKS_TT">Thank the post sender</Resource>
     <Resource tag="BUTTON_THANKSDELETE">Remove Thank</Resource>
@@ -112,6 +142,8 @@
     <Resource tag="BUTTON_UNDELETE_TT">Undelete this Post</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Unlock Topic</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">Untag as favorite</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Remove this topic from your Favorites List.</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">Message body can not be empty.Why do you want to post an empty message?</Resource>
@@ -199,6 +231,14 @@
     <Resource tag="PASSWORD_NOT_COMPLEX">Wachtwoord moet minimaal {1} niet-alfanumerieke tekens bevatten.</Resource>
     <Resource tag="TITLE">Wijzig wachtwoord</Resource>
   </page>
+  <page name="CP_EDITALBUMIMAGES">
+    <Resource tag="ALBUM_TITLE">Title</Resource>
+    <Resource tag="ASK_DELETEALBUM">Delete this album?</Resource>
+    <Resource tag="ASK_DELETEIMAGE">Delete this image?</Resource>
+    <Resource tag="ERROR_MAXALBUMS">You can not add any more albums to this account.</Resource>
+    <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
+    <Resource tag="TITLE">Add/Edit Album</Resource>
+  </page>
   <page name="CP_EDITAVATAR">
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="AVATARCURRENT">Huidige avatar</Resource>
@@ -219,6 +259,21 @@
     <Resource tag="WARN_SIZE">De afmetingen van je afbeelding zijn {0}x{1} pixels.</Resource>
     <Resource tag="WARN_TOOBIG">De afmeting van je afbeelding mag niet meer dan {0}x{1} pixels bedragen.</Resource>
   </page>
+  <page name="CP_EDITBUDDIES">
+    <Resource tag="APPROVE">Approve</Resource>
+    <Resource tag="APPROVE_ADD">Approve and Add</Resource>
+    <Resource tag="APPROVE_ADD_ALL">Approve and Add All</Resource>
+    <Resource tag="APPROVE_ALL">Approve All</Resource>
+    <Resource tag="BUDDYLIST">Buddy List</Resource>
+    <Resource tag="BUDDYLIST_TT">Buddies Control Panel</Resource>
+    <Resource tag="DENY">Deny</Resource>
+    <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
+    <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
+    <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="REQUEST_DATE">Request Date</Resource>
+    <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
+    <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
+  </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Over jezelf</Resource>
     <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres ingevoerd.</Resource>
@@ -229,6 +284,7 @@
     <Resource tag="CHANGE_EMAIL">E-mail adres wijzigen</Resource>
     <Resource tag="CHANGE_PASSWORD">Wachtwoord wijzigen</Resource>
     <Resource tag="CONFIRMPASSWORD">Wachtwoord opnieuw invoeren:</Resource>
+    <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
     <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
     <Resource tag="HOMEPAGE">Homepage</Resource>
@@ -556,6 +612,31 @@
     <Resource tag="SELECT_FORUM">Selecteer het forum waar je dit onderwerp naartoe wilt verplaatsen:</Resource>
     <Resource tag="TITLE">Onderwerp verplaatsen</Resource>
   </page>
+  <page name="MYTOPICS">
+    <Resource tag="ACTIVETOPICS">Active Topics</Resource>
+    <Resource tag="BY">by {0}</Resource>
+    <Resource tag="FAVORITETOPICS">Favorite Topics</Resource>
+    <Resource tag="GUESTTITLE">Active Topics</Resource>
+    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
+    <Resource tag="LAST_DAY">last day</Resource>
+    <Resource tag="LAST_HOUR">last hour</Resource>
+    <Resource tag="LAST_MONTH">last month</Resource>
+    <Resource tag="LAST_TWO_DAYS">last two days</Resource>
+    <Resource tag="LAST_TWO_HOURS">last two hours</Resource>
+    <Resource tag="LAST_TWO_WEEKS">last two weeks</Resource>
+    <Resource tag="LAST_VISIT">last visit at {0}</Resource>
+    <Resource tag="LAST_WEEK">last week</Resource>
+    <Resource tag="LASTPOST">Last Post</Resource>
+    <Resource tag="MEMBERTITLE">My Topics</Resource>
+    <Resource tag="NO_POSTS">No Posts</Resource>
+    <Resource tag="REPLIES">Replies</Resource>
+    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SHOW_ALL">Show All</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPICS">Topics</Resource>
+    <Resource tag="VIEWS">Views</Resource>
+  </page>
   <page name="PMESSAGE">
     <Resource tag="ALLUSERS">Alle gebruikers</Resource>
     <Resource tag="CLEAR">Wissen</Resource>
@@ -738,6 +819,7 @@
     <Resource tag="ABOUT">Informatie</Resource>
     <Resource tag="ADMIN_USER">Admin User</Resource>
     <Resource tag="AIM">AIM-naam:</Resource>
+    <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="CONTACT">Contactinformatie</Resource>
     <Resource tag="DAYS">dagen</Resource>
@@ -1113,6 +1195,8 @@ Visit {forumname} at {forumlink}
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">Actieve onderwerpen</Resource>
     <Resource tag="ADMIN">Beheer</Resource>
+    <Resource tag="BUDDIES">Buddies</Resource>
+    <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
     <Resource tag="HELP">Help</Resource>
     <Resource tag="LOGGED_IN_AS">Aangemeld als: {0}</Resource>
     <Resource tag="LOGIN">Aanmelden</Resource>
@@ -1120,7 +1204,9 @@ Visit {forumname} at {forumlink}
     <Resource tag="LOGOUT_QUESTION">Weet je zeker dat je wilt uitloggen?</Resource>
     <Resource tag="MEMBERS">Leden</Resource>
     <Resource tag="MODERATE">Moderatie</Resource>
+    <Resource tag="MYALBUMS">My Albums</Resource>
     <Resource tag="MYPROFILE">Mijn profiel</Resource>
+    <Resource tag="MYTOPICS">My Topics</Resource>
     <Resource tag="NEWPM">({0} Unread)</Resource>
     <Resource tag="REGISTER">Registreren</Resource>
     <Resource tag="SEARCH">Zoeken</Resource>

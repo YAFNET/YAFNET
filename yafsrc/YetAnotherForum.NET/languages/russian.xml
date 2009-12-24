@@ -90,8 +90,6 @@
     <Resource tag="BUTTON_NEWPM">Новое ЛС</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Отправить новое личное сообщение</Resource>
     <Resource tag="BUTTON_NEWTOPIC">Новая тема</Resource>
-    <Resource tag="BUTTON_NEWTOPIC">Новая тема</Resource>
-    <Resource tag="BUTTON_NEWTOPIC_TT">Создать новую тему на этом форуме</Resource>
     <Resource tag="BUTTON_NEWTOPIC_TT">Создать новую тему на этом форуме</Resource>
     <Resource tag="BUTTON_POSTREPLY">Ответить</Resource>
     <Resource tag="BUTTON_POSTREPLY_TT">Ответить на сообщение в этой теме</Resource>

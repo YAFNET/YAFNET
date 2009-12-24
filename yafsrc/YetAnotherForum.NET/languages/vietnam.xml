@@ -1,30 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Việt Nam" code="vi-VN">
-  <page name="MYTOPICS">
-    <Resource tag="ACTIVETOPICS">Chủ đề có bài mới</Resource>
-    <Resource tag="FAVORITETOPICS">Chủ đề ưa thích</Resource>
-    <Resource tag="BY">bởi {0}</Resource>
-    <Resource tag="LAST_24">(Trong vòng 24 tiếng)</Resource>
-    <Resource tag="LAST_DAY">1 ngày trước đây</Resource>
-    <Resource tag="LAST_HOUR">1 giờ trước đây</Resource>
-    <Resource tag="LAST_MONTH">1 tháng trước đây</Resource>
-    <Resource tag="LAST_TWO_DAYS">2 ngày trước đây</Resource>
-    <Resource tag="LAST_TWO_HOURS">2 giờ trước đây</Resource>
-    <Resource tag="LAST_TWO_WEEKS">2 tuần trước đây</Resource>
-    <Resource tag="LAST_VISIT">lần cuối vào diễn đàn {0}</Resource>
-    <Resource tag="LAST_WEEK">1 tuần trước đây</Resource>
-    <Resource tag="LASTPOST">Bài cuối</Resource>
-    <Resource tag="NO_POSTS">Không có bài viết</Resource>
-    <Resource tag="REPLIES">Trả lời</Resource>
-    <Resource tag="RSSFEED">Rss Feed</Resource>
-    <Resource tag="SINCE">Kể từ</Resource>
-    <Resource tag="TITLE">Chủ đề có bài mới</Resource>
-    <Resource tag="TOPIC_STARTER">Tác giá</Resource>
-    <Resource tag="TOPICS">Chủ đề</Resource>
-    <Resource tag="VIEWS">Xem</Resource>
-    <Resource tag="GUESTTITLE">Chủ đề có bài mới</Resource>
-    <Resource tag="MEMBERTITLE">Chủ đề của tôi</Resource>
-  </page>
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">Đã hoạt động</Resource>
     <Resource tag="BROWSER">Trình duyệt</Resource>
@@ -34,6 +9,16 @@
     <Resource tag="PLATFORM">Hệ điều hành</Resource>
     <Resource tag="TITLE">Thành viên trực tuyến</Resource>
     <Resource tag="USERNAME">Tên người dùng</Resource>
+  </page>
+  <page name="ALBUM">
+    <Resource tag="ALBUM_CHANGE_TITLE">Add Title</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Add Caption</Resource>
+    <Resource tag="ALBUM_IMAGES_NUMBER">{0} Image(s)</Resource>
+    <Resource tag="ALBUM_VIEW">Click to View Album</Resource>
+    <Resource tag="ALBUMS">Albums</Resource>
+    <Resource tag="ALBUMS_HEADER_TEXT">{0}'s albums</Resource>
+    <Resource tag="ALBUMS_TITLE">{0} Album: {1}</Resource>
+    <Resource tag="TITLE">Album Images</Resource>
   </page>
   <page name="APPROVE">
     <Resource tag="EMAIL_VERIFIED">Email đã được xác nhận.</Resource>
@@ -67,19 +52,33 @@
     <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
   </page>
+  <page name="BUDDY">
+    <Resource tag="ADDBUDDY">Thêm bạn</Resource>
+    <Resource tag="AWAIT_BUDDY_APPROVAL">(Bạn đang chờ duyệt)</Resource>
+    <Resource tag="NOTIFICATION_ALL_APPROVED">Đồng ý mọi đề nghị kết bạn.</Resource>
+    <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">Đồng ý mọi đề nghị kết bạn và thêm vào danh sách bạn bè.</Resource>
+    <Resource tag="NOTIFICATION_ALL_DENIED">Mọi yêu cầu kết bạn bị hủy sau 14 ngày.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYAPPROVED">Bạn đã thêm {0}'s vào danh sách bạn bè.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">Bạn và {0} đã là bạn bè.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYDENIED">Từ chối đề nghị kết bạn.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYREQUEST">Gửi đề nghị kết bạn.</Resource>
+    <Resource tag="PENDINGBUDDIES">Bạn có {0} lời đề nghị kết bạn chưa đồng ý(s)</Resource>
+    <Resource tag="REMOVEBUDDY">Xóa bạn</Resource>
+    <Resource tag="REMOVEBUDDY">Xóa {0} khỏi danh sách bạn bè?</Resource>
+    <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} đã được xóa khỏi danh sách bạn bè.</Resource>
+  </page>
   <page name="BUTTON">
-    <Resource tag="BUTTON_TAGFAVORITE">Tag ưa thích</Resource>
-    <Resource tag="BUTTON_TAGFAVORITE_TT">Chủ đề có Tag ưa thích.</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE">Bỏ chọn Tag</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Xóa chủ đề ra khỏi danh sách ưa thích.</Resource>
+    <Resource tag="BUTTON_ADDALBUM">Add New Album</Resource>
     <Resource tag="BUTTON_ATTACH">Đính kèm</Resource>
     <Resource tag="BUTTON_ATTACH_TT">Gửi tập tin đính kèm bài viết này</Resource>
     <Resource tag="BUTTON_DELETE">Xoá</Resource>
     <Resource tag="BUTTON_DELETE_TT">Xoá bài viết này</Resource>
+    <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Xoá</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Xoá chủ đề này</Resource>
     <Resource tag="BUTTON_EDIT">Sửa</Resource>
     <Resource tag="BUTTON_EDIT_TT">Sửa bài viết này</Resource>
+    <Resource tag="BUTTON_EDITALBUMIMAGES">Upload/Delete Images</Resource>
     <Resource tag="BUTTON_LOCKTOPIC">Khoá</Resource>
     <Resource tag="BUTTON_LOCKTOPIC_TT">Khoá chủ đề này</Resource>
     <Resource tag="BUTTON_MODERATE">Kiểm duyệt</Resource>
@@ -90,9 +89,7 @@
     <Resource tag="BUTTON_MOVETOPIC_TT">Di chuyển chủ đề này</Resource>
     <Resource tag="BUTTON_NEWPM">Gửi tin nhắn</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Tạo mới tin nhắn riêng</Resource>
-    <Resource tag="BUTTON_NEWTOPIC">Chủ đề mới</Resource>
     <Resource tag="BUTTON_NEWTOPIC">Gửi chủ đề</Resource>
-    <Resource tag="BUTTON_NEWTOPIC_TT">Gửi chủ đề mới lên diễn đàn</Resource>
     <Resource tag="BUTTON_NEWTOPIC_TT">Gửi một chủ đề mới lên diễn đàn này</Resource>
     <Resource tag="BUTTON_POSTREPLY">Trả lời</Resource>
     <Resource tag="BUTTON_POSTREPLY_TT">Gửi bài trả lời cho chủ đề này</Resource>
@@ -100,6 +97,10 @@
     <Resource tag="BUTTON_QUOTE_TT">Trả lời với trích dẫn</Resource>
     <Resource tag="BUTTON_REPLY">Trả lời</Resource>
     <Resource tag="BUTTON_REPLY_TT">Trả lời tin nhắn này</Resource>
+    <Resource tag="BUTTON_RESETCOVER">Remove Cover</Resource>
+    <Resource tag="BUTTON_SETCOVER">Set as Cover</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE">Tag ưa thích</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE_TT">Chủ đề có Tag ưa thích.</Resource>
     <Resource tag="BUTTON_THANKS">Cảm ơn</Resource>
     <Resource tag="BUTTON_THANKS_TT">Cảm ơn người gửi</Resource>
     <Resource tag="BUTTON_THANKSDELETE">Xóa lời cảm ơn</Resource>
@@ -108,8 +109,14 @@
     <Resource tag="BUTTON_UNDELETE_TT">Khôi phục bài viết này</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Mở khoá</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Mở khoá chủ đề này</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">Bỏ chọn Tag</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Xóa chủ đề ra khỏi danh sách ưa thích.</Resource>
   </page>
-  
+  <page name="CHARACTER_CHECKER">
+    <Resource tag="ISEMPTY">Nội dung tin nhắn không được để trống</Resource>
+    <Resource tag="ISEXCEEDED">Bạn đã dùng vượt quá số ký tự tối đa cho một bài viết.Xin hãy sửa và thử lại.</Resource>
+    <Resource tag="MAXNUMBEROF">Số ký tự tối đa cho một bài viết là: {0}</Resource>
+  </page>
   <page name="COMMON">
     <Resource tag="BACK">Quay lại</Resource>
     <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
@@ -190,6 +197,14 @@
     <Resource tag="PASSWORD_NOT_COMPLEX">Mật khẩu phải chứa ký tự đặc biệt: {1}.</Resource>
     <Resource tag="TITLE">Đổi mật khẩu</Resource>
   </page>
+  <page name="CP_EDITALBUMIMAGES">
+    <Resource tag="ALBUM_TITLE">Title</Resource>
+    <Resource tag="ASK_DELETEALBUM">Delete this album?</Resource>
+    <Resource tag="ASK_DELETEIMAGE">Delete this image?</Resource>
+    <Resource tag="ERROR_MAXALBUMS">You can not add any more albums to this account.</Resource>
+    <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
+    <Resource tag="TITLE">Add/Edit Album</Resource>
+  </page>
   <page name="CP_EDITAVATAR">
     <Resource tag="AVATAR">Hình đại diện</Resource>
     <Resource tag="AVATARCURRENT">Hình hiện tại</Resource>
@@ -209,6 +224,21 @@
     <Resource tag="WARN_SIZE">Hình của bạn có kích thước {0}x{1} px.</Resource>
     <Resource tag="WARN_TOOBIG">Hình không thể lớn hơn {0}x{1} px.</Resource>
   </page>
+  <page name="CP_EDITBUDDIES">
+    <Resource tag="APPROVE">Đồng ý</Resource>
+    <Resource tag="APPROVE_ADD">Đồng ý và thêm vào danh sách</Resource>
+    <Resource tag="APPROVE_ADD_ALL">Đồng ý và thêm vào danh sách tất cả</Resource>
+    <Resource tag="APPROVE_ALL">Đồng ý tất cả</Resource>
+    <Resource tag="BUDDYLIST">Danh sách bạn bè</Resource>
+    <Resource tag="BUDDYLIST_TT">Quản lý danh sách bạn bè</Resource>
+    <Resource tag="DENY">Không đồng ý</Resource>
+    <Resource tag="DENY_ALL">Không đồng ý tất cả sau 14 ngày</Resource>
+    <Resource tag="EDIT_BUDDIES">Sửa danh sách bạn bè</Resource>
+    <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="REQUEST_DATE">Ngày đề nghị</Resource>
+    <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
+    <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
+  </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Thông tin của bạn</Resource>
     <Resource tag="BAD_EMAIL">Bạn đã nhập địa chỉ email không hợp lệ.</Resource>
@@ -217,6 +247,7 @@
     <Resource tag="BAD_MSN">Bạn đã nhập địa chỉ email không hợp lệ cho tài khoản MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Bạn đã nhập địa chỉ không hợp lệ cho weblog.</Resource>
     <Resource tag="CHANGE_EMAIL">Đổi email</Resource>
+    <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Bạn phải nhập địa chỉ email chính xác.</Resource>
     <Resource tag="FORUM_SETTINGS">Thiết lập diễn đàn</Resource>
     <Resource tag="HOMEPAGE">Trang chủ</Resource>
@@ -524,6 +555,32 @@
     <Resource tag="SELECT_FORUM">Chọn diễn đàn muốn di chuyển bài viết:</Resource>
     <Resource tag="TITLE">Di chuyển chủ đề</Resource>
   </page>
+  <page name="MYTOPICS">
+    <Resource tag="ACTIVETOPICS">Chủ đề có bài mới</Resource>
+    <Resource tag="BY">bởi {0}</Resource>
+    <Resource tag="FAVORITETOPICS">Chủ đề ưa thích</Resource>
+    <Resource tag="GUESTTITLE">Chủ đề có bài mới</Resource>
+    <Resource tag="LAST_24">(Trong vòng 24 tiếng)</Resource>
+    <Resource tag="LAST_DAY">1 ngày trước đây</Resource>
+    <Resource tag="LAST_HOUR">1 giờ trước đây</Resource>
+    <Resource tag="LAST_MONTH">1 tháng trước đây</Resource>
+    <Resource tag="LAST_TWO_DAYS">2 ngày trước đây</Resource>
+    <Resource tag="LAST_TWO_HOURS">2 giờ trước đây</Resource>
+    <Resource tag="LAST_TWO_WEEKS">2 tuần trước đây</Resource>
+    <Resource tag="LAST_VISIT">lần cuối vào diễn đàn {0}</Resource>
+    <Resource tag="LAST_WEEK">1 tuần trước đây</Resource>
+    <Resource tag="LASTPOST">Bài cuối</Resource>
+    <Resource tag="MEMBERTITLE">Chủ đề của tôi</Resource>
+    <Resource tag="NO_POSTS">Không có bài viết</Resource>
+    <Resource tag="REPLIES">Trả lời</Resource>
+    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SHOW_ALL">Show All</Resource>
+    <Resource tag="SINCE">Kể từ</Resource>
+    <Resource tag="TITLE">Chủ đề có bài mới</Resource>
+    <Resource tag="TOPIC_STARTER">Tác giá</Resource>
+    <Resource tag="TOPICS">Chủ đề</Resource>
+    <Resource tag="VIEWS">Xem</Resource>
+  </page>
   <page name="PMESSAGE">
     <Resource tag="ALLUSERS">Tất cả thành viên</Resource>
     <Resource tag="CLEAR">Xoá sạch</Resource>
@@ -697,43 +754,14 @@
     <Resource tag="WATCHTOPIC">Xem chủ đề này</Resource>
     <Resource tag="YIM">YAHOO</Resource>
   </page>
-  <page name="BUDDY">
-    <Resource tag="ADDBUDDY">Thêm bạn</Resource>
-    <Resource tag="AWAIT_BUDDY_APPROVAL">(Bạn đang chờ duyệt)</Resource>
-    <Resource tag="REMOVEBUDDY">Xóa bạn</Resource>
-    <Resource tag="NOTIFICATION_BUDDYREQUEST">Gửi đề nghị kết bạn.</Resource>
-    <Resource tag="NOTIFICATION_BUDDYAPPROVED">Bạn đã thêm {0}'s vào danh sách bạn bè.</Resource>
-    <Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">Bạn và {0} đã là bạn bè.</Resource>
-    <Resource tag="NOTIFICATION_BUDDYDENIED">Từ chối đề nghị kết bạn.</Resource>
-    <Resource tag="NOTIFICATION_ALL_APPROVED">Đồng ý mọi đề nghị kết bạn.</Resource>
-    <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">Đồng ý mọi đề nghị kết bạn và thêm vào danh sách bạn bè.</Resource>
-    <Resource tag="NOTIFICATION_ALL_DENIED">Mọi yêu cầu kết bạn bị hủy sau 14 ngày.</Resource>
-    <Resource tag="PENDINGBUDDIES">Bạn có {0} lời đề nghị kết bạn chưa đồng ý(s)</Resource>
-    <Resource tag="REMOVEBUDDY">Xóa {0} khỏi danh sách bạn bè?</Resource>
-    <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} đã được xóa khỏi danh sách bạn bè.</Resource>
-  </page>
-  <page name="CP_EDITBUDDIES">
-    <Resource tag="BUDDYLIST_TT">Quản lý danh sách bạn bè</Resource>
-    <Resource tag="EDIT_BUDDIES">Sửa danh sách bạn bè</Resource>
-    <Resource tag="BUDDYLIST">Danh sách bạn bè</Resource>
-    <Resource tag="REQUEST_DATE">Ngày đề nghị</Resource>
-    <Resource tag="APPROVE">Đồng ý</Resource>
-    <Resource tag="DENY">Không đồng ý</Resource>
-    <Resource tag="APPROVE_ADD">Đồng ý và thêm vào danh sách</Resource>
-    <Resource tag="APPROVE_ALL">Đồng ý tất cả</Resource>
-    <Resource tag="DENY_ALL">Không đồng ý tất cả sau 14 ngày</Resource>
-    <Resource tag="APPROVE_ADD_ALL">Đồng ý và thêm vào danh sách tất cả</Resource>
-  </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Viết bởi</Resource>
   </page>
   <page name="PROFILE">
-    <Resource tag="THANKSFROM">Số lần cảm ơn</Resource>
-    <Resource tag="THANKSTOPOSTS">Số bài viết được cảm ơn</Resource>
-    <Resource tag="THANKSTOTIMES">Số lần được cảm ơn</Resource>
     <Resource tag="ABOUT">Thông tin chung</Resource>
     <Resource tag="ADMIN_USER">Admin User</Resource>
     <Resource tag="AIM">AIM-Name:</Resource>
+    <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Hình đại diện</Resource>
     <Resource tag="CONTACT">Liên hệ</Resource>
     <Resource tag="DAYS">ngày</Resource>
@@ -773,7 +801,10 @@
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
     <Resource tag="STATISTICS">Thống kê</Resource>
     <Resource tag="SUSPEND">Tạm khóa</Resource>
-    <Resource tag="SUSPEND_USER">Thành viên tạm khóa:</Resource>    
+    <Resource tag="SUSPEND_USER">Thành viên tạm khóa:</Resource>
+    <Resource tag="THANKSFROM">Số lần cảm ơn</Resource>
+    <Resource tag="THANKSTOPOSTS">Số bài viết được cảm ơn</Resource>
+    <Resource tag="THANKSTOTIMES">Số lần được cảm ơn</Resource>
     <Resource tag="TOPIC">Chủ đề:</Resource>
     <Resource tag="USERNAME">Tên sử dụng:</Resource>
     <Resource tag="WEBLOG">Blog:</Resource>
@@ -1104,11 +1135,10 @@
     <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
   </page>
   <page name="TOOLBAR">
-    <Resource tag="BUDDIES">Bạn bè</Resource>
-    <Resource tag="BUDDYREQUEST">({0} Chờ đồng ý)</Resource>
-    <Resource tag="MYTOPICS">Chủ đề của tôi</Resource>
     <Resource tag="ACTIVETOPICS">Chủ đề có bài mới</Resource>
     <Resource tag="ADMIN">Admin</Resource>
+    <Resource tag="BUDDIES">Bạn bè</Resource>
+    <Resource tag="BUDDYREQUEST">({0} Chờ đồng ý)</Resource>
     <Resource tag="HELP">Trợ giúp</Resource>
     <Resource tag="LOGGED_IN_AS">Đăng nhập dưới tên: {0}</Resource>
     <Resource tag="LOGIN">Đăng nhập</Resource>
@@ -1116,7 +1146,9 @@
     <Resource tag="LOGOUT_QUESTION">Bạn muốn đăng xuất?</Resource>
     <Resource tag="MEMBERS">Thành viên</Resource>
     <Resource tag="MODERATE">Điều hành</Resource>
+    <Resource tag="MYALBUMS">My Albums</Resource>
     <Resource tag="MYPROFILE">Trang cá nhân</Resource>
+    <Resource tag="MYTOPICS">Chủ đề của tôi</Resource>
     <Resource tag="NEWPM">({0} Chưa đọc)</Resource>
     <Resource tag="REGISTER">Đăng ký</Resource>
     <Resource tag="SEARCH">Tìm kiếm</Resource>
@@ -1154,10 +1186,5 @@
     <Resource tag="WARN_LOGIN_FORUMWATCH">Bạn cần đăng nhập để xem diễn đàn.</Resource>
     <Resource tag="WATCHFORUM">Theo dõi diễn đàn này</Resource>
     <Resource tag="YESTERDAYAT">[b]Hôm qua[/b] vào lúc {0:T}</Resource>
-  </page>
-  <page name="CHARACTER_CHECKER">
-    <Resource tag="ISEMPTY">Nội dung tin nhắn không được để trống</Resource>
-    <Resource tag="ISEXCEEDED">Bạn đã dùng vượt quá số ký tự tối đa cho một bài viết.Xin hãy sửa và thử lại.</Resource>
-    <Resource tag="MAXNUMBEROF">Số ký tự tối đa cho một bài viết là: {0}</Resource>
   </page>
 </Resources>

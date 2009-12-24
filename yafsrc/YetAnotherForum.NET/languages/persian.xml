@@ -31,6 +31,16 @@
     <Resource tag="TITLE">کاربران فعال</Resource>
     <Resource tag="USERNAME">نام کاربری</Resource>
   </page>
+  <page name="ALBUM">
+    <Resource tag="ALBUM_CHANGE_TITLE">عنوان جدید</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">توضیحات جدید</Resource>
+    <Resource tag="ALBUM_IMAGES_NUMBER">{0} عکس</Resource>
+    <Resource tag="ALBUM_VIEW">برای مشاهده آلبوم کلیک کنید</Resource>
+    <Resource tag="ALBUMS">آلبوم</Resource>
+    <Resource tag="ALBUMS_HEADER_TEXT">{0}آلبوم</Resource>
+    <Resource tag="ALBUMS_TITLE">{0} آلبوم: {1}</Resource>
+    <Resource tag="TITLE">تصاویر آلبوم</Resource>
+  </page>
   <page name="APPROVE">
     <Resource tag="EMAIL_VERIFIED">آدرس پست الکترونیک شما مورد ارزیابی واقع شد.</Resource>
     <Resource tag="EMAIL_VERIFY_FAILED">ارزیابی آدرس پست الکترونیک با مشکل مواجه شد.</Resource>
@@ -79,14 +89,17 @@
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} از لیست دوستان شما حذف شد.</Resource>
   </page>
   <page name="BUTTON">
+    <Resource tag="BUTTON_ADDALBUM">Add New Album</Resource>
     <Resource tag="BUTTON_ATTACH">الصاق</Resource>
     <Resource tag="BUTTON_ATTACH_TT">الصاق فایل به این عنوان</Resource>
     <Resource tag="BUTTON_DELETE">حذف</Resource>
     <Resource tag="BUTTON_DELETE_TT">حذف این ارسال</Resource>
+    <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
     <Resource tag="BUTTON_DELETETOPIC">حذف عنوان</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">حذف این عنوان</Resource>
     <Resource tag="BUTTON_EDIT">ویرایش</Resource>
     <Resource tag="BUTTON_EDIT_TT">ویرایش این ارسال</Resource>
+    <Resource tag="BUTTON_EDITALBUMIMAGES">Upload/Delete Images</Resource>
     <Resource tag="BUTTON_LOCKTOPIC">قفل عنوان</Resource>
     <Resource tag="BUTTON_LOCKTOPIC_TT">قفل این عنوان</Resource>
     <Resource tag="BUTTON_MODERATE">مدیریت</Resource>
@@ -98,8 +111,6 @@
     <Resource tag="BUTTON_NEWPM">پیغام شخصی جدید</Resource>
     <Resource tag="BUTTON_NEWPM_TT">ایجاد پیغام شخصی جدید</Resource>
     <Resource tag="BUTTON_NEWTOPIC">عنوان جدید</Resource>
-    <Resource tag="BUTTON_NEWTOPIC">عنوان جدید</Resource>
-    <Resource tag="BUTTON_NEWTOPIC_TT">ارسال عنوان جدید در این انجمن</Resource>
     <Resource tag="BUTTON_NEWTOPIC_TT">ارسال عنوان جدید در این انجمن</Resource>
     <Resource tag="BUTTON_POSTREPLY">ارسال پاسخ</Resource>
     <Resource tag="BUTTON_POSTREPLY_TT">ارسال پاسخ به این عنوان</Resource>
@@ -107,6 +118,8 @@
     <Resource tag="BUTTON_QUOTE_TT">پاسخ با ایجاد نقل قول</Resource>
     <Resource tag="BUTTON_REPLY">پاسخ</Resource>
     <Resource tag="BUTTON_REPLY_TT">پاسخ به پیغام</Resource>
+    <Resource tag="BUTTON_RESETCOVER">Remove Cover</Resource>
+    <Resource tag="BUTTON_SETCOVER">Set as Cover</Resource>
     <Resource tag="BUTTON_TAGFAVORITE">عنوان مورد علاقه من</Resource>
     <Resource tag="BUTTON_TAGFAVORITE_TT">این عنوان را به لیست عناوین مورد علاقه من اضافه کن.</Resource>
     <Resource tag="BUTTON_THANKS">تشکر</Resource>
@@ -205,6 +218,14 @@
     <Resource tag="PASSWORD_NOT_COMPLEX">کاراکترهایی غیر از حرف/عدد نیاز است: {1}.</Resource>
     <Resource tag="TITLE">تغییر رمز</Resource>
   </page>
+  <page name="CP_EDITALBUMIMAGES">
+    <Resource tag="ALBUM_TITLE">Title</Resource>
+    <Resource tag="ASK_DELETEALBUM">Delete this album?</Resource>
+    <Resource tag="ASK_DELETEIMAGE">Delete this image?</Resource>
+    <Resource tag="ERROR_MAXALBUMS">You can not add any more albums to this account.</Resource>
+    <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
+    <Resource tag="TITLE">Add/Edit Album</Resource>
+  </page>
   <page name="CP_EDITAVATAR">
     <Resource tag="AVATAR">عکس</Resource>
     <Resource tag="AVATARCURRENT">عکس فعلی</Resource>
@@ -230,14 +251,14 @@
     <Resource tag="APPROVE_ADD_ALL">تائید و اضافه همه</Resource>
     <Resource tag="APPROVE_ALL">تائید همه</Resource>
     <Resource tag="BUDDYLIST">لیست دوستان</Resource>
-    <Resource tag="YOUR_BUDDYLIST">لیست دوستان شما</Resource>
-    <Resource tag="PENDING_REQUESTS">درخواست دوستی از شما</Resource>
-    <Resource tag="YOUR_REQUESTS">درخواستهای دوستی شما</Resource>
     <Resource tag="BUDDYLIST_TT">پانل کنترل دوستان</Resource>
     <Resource tag="DENY">رد</Resource>
     <Resource tag="DENY_ALL">درخواستهای قدیمی تر از 14 روز رد شوند.</Resource>
     <Resource tag="EDIT_BUDDIES">ویرایش لیست دوستان</Resource>
+    <Resource tag="PENDING_REQUESTS">درخواست دوستی از شما</Resource>
     <Resource tag="REQUEST_DATE">تاریخ درخواست</Resource>
+    <Resource tag="YOUR_BUDDYLIST">لیست دوستان شما</Resource>
+    <Resource tag="YOUR_REQUESTS">درخواستهای دوستی شما</Resource>
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">درباره شما</Resource>
@@ -247,6 +268,7 @@
     <Resource tag="BAD_MSN">آدرس ایمیلی که برای سرویس MSN وارد کرده اید اشتباه میباشد.</Resource>
     <Resource tag="BAD_WEBLOG">آدرسی که به عنوان وبلاگ خود وارد کرده اید اشتباه میباشد.</Resource>
     <Resource tag="CHANGE_EMAIL">تغییر آدرس پست الکترونیکی</Resource>
+    <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">شما باید یک آدرس ایمیل معتبر داشته باشید.</Resource>
     <Resource tag="FORUM_SETTINGS">تنظیمات انجمن</Resource>
     <Resource tag="HOMEPAGE">صفحه اینترنتی خانگی</Resource>
@@ -754,6 +776,7 @@
     <Resource tag="ABOUT">درباره</Resource>
     <Resource tag="ADMIN_USER">كاربر مدير</Resource>
     <Resource tag="AIM">AIM-نام:</Resource>
+    <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">آواتار</Resource>
     <Resource tag="CONTACT">تماس</Resource>
     <Resource tag="DAYS">روز</Resource>
@@ -1092,6 +1115,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LOGOUT_QUESTION">آیا از خروج خود مطمئن هستید؟</Resource>
     <Resource tag="MEMBERS">اعضاء</Resource>
     <Resource tag="MODERATE">مدیریت</Resource>
+    <Resource tag="MYALBUMS">My Albums</Resource>
     <Resource tag="MYPROFILE">تنظیمان من</Resource>
     <Resource tag="MYTOPICS">عناوین فعال | عناوین مورد علاقه</Resource>
     <Resource tag="NEWPM">({0} پیغام خوانده نشده)</Resource>
