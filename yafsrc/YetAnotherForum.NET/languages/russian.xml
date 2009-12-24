@@ -10,6 +10,16 @@
     <Resource tag="TITLE">Активные пользователи</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
   </page>
+  <page name="ALBUM">
+    <Resource tag="ALBUM_CHANGE_TITLE">( Нажмите здесь для редактирования )</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">( Нажмите здесь для редактирования )</Resource>
+    <Resource tag="ALBUM_IMAGES_NUMBER">{0} изображение(ий/ия)</Resource>
+    <Resource tag="ALBUM_VIEW">Нажмите здесь чтобы посмотреть альбомы</Resource>
+    <Resource tag="ALBUMS">Альбомы</Resource>
+    <Resource tag="ALBUMS_HEADER_TEXT">Альбомы {0}</Resource>
+    <Resource tag="ALBUMS_TITLE"> Альбом пользователя {0}: {1}</Resource>
+    <Resource tag="TITLE">Изображения из альбома</Resource>
+  </page>
   <page name="APPROVE">
     <Resource tag="EMAIL_VERIFIED">Ваш адрес электронной почты не был проверен.</Resource>
     <Resource tag="EMAIL_VERIFY_FAILED">Невозможно проверить адрес электронной почты.</Resource>
@@ -58,14 +68,17 @@
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} был удалён из Вашего списка друзей.</Resource>
   </page>
   <page name="BUTTON">
+    <Resource tag="BUTTON_ADDALBUM">Добавить альбом</Resource>
     <Resource tag="BUTTON_ATTACH">Прикрепить</Resource>
     <Resource tag="BUTTON_ATTACH_TT">Прикрепить файлы к этому сообщение</Resource>
     <Resource tag="BUTTON_DELETE">Удалить</Resource>
     <Resource tag="BUTTON_DELETE_TT">Удалить это сообщение</Resource>
+    <Resource tag="BUTTON_DELETEALBUM">Удалить альбом</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Удалить тему</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Удалить эту тему</Resource>
     <Resource tag="BUTTON_EDIT">Изменить</Resource>
     <Resource tag="BUTTON_EDIT_TT">Изменить это сообщение</Resource>
+    <Resource tag="BUTTON_EDITALBUMIMAGES">Загрузить/Удалить изображения</Resource>
     <Resource tag="BUTTON_LOCKTOPIC">Закрыть</Resource>
     <Resource tag="BUTTON_LOCKTOPIC_TT">Закрыть эту тему</Resource>
     <Resource tag="BUTTON_MODERATE">Модерировать</Resource>
@@ -82,16 +95,16 @@
     <Resource tag="BUTTON_NEWTOPIC_TT">Создать новую тему на этом форуме</Resource>
     <Resource tag="BUTTON_POSTREPLY">Ответить</Resource>
     <Resource tag="BUTTON_POSTREPLY_TT">Ответить на сообщение в этой теме</Resource>
-	<Resource tag="BUTTON_TAGFAVORITE">Добавить в избранные</Resource>
-	<Resource tag="BUTTON_TAGFAVORITE_TT">Добавить эту темы в избранные темы.</Resource>
-	<Resource tag="BUTTON_UNTAGFAVORITE">Удалить из избранных</Resource>
-	<Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных тем.</Resource>
-	<Resource tag="BUTTON_QUOTE">Цитировать</Resource>
+    <Resource tag="BUTTON_QUOTE">Цитировать</Resource>
     <Resource tag="BUTTON_QUOTE_TT">Ответить с цитатой</Resource>
     <Resource tag="BUTTON_REPLY">Ответить</Resource>
     <Resource tag="BUTTON_REPLY_TT">Ответить на сообщение</Resource>
-    <Resource tag="BUTTON_TAGFAVORITE">Tag as favorite</Resource>
-    <Resource tag="BUTTON_TAGFAVORITE_TT">Tag this topic as a favorite.</Resource>
+    <Resource tag="BUTTON_RESETCOVER">Удалить обложку</Resource>
+    <Resource tag="BUTTON_SETCOVER">Использовать как обложку</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE">Добавить в избранные</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE">Добавить в избранные</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE_TT">Добавить эту темы в избранные темы.</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE_TT">Добавить эту тему в избранные темы.</Resource>
     <Resource tag="BUTTON_THANKS">Спасибо</Resource>
     <Resource tag="BUTTON_THANKS_TT">Поблагодарить автора сообщения</Resource>
     <Resource tag="BUTTON_THANKSDELETE">Удалить Спасибо</Resource>
@@ -100,8 +113,10 @@
     <Resource tag="BUTTON_UNDELETE_TT">Восстановить это сообщение</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Открыть</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Открыть эту тему</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE">Untag as favorite</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Remove this topic from your Favorites List.</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">Удалить из избранных</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">Удалить из избранных</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных тем.</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных.</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">Сообщение не может быть пустым.</Resource>
@@ -188,6 +203,14 @@
     <Resource tag="PASSWORD_NOT_COMPLEX">Необходимое количество спецсимволов в пароле: {1}.</Resource>
     <Resource tag="TITLE">Изменить пароль</Resource>
   </page>
+  <page name="CP_EDITALBUMIMAGES">
+    <Resource tag="ALBUM_TITLE">Название</Resource>
+    <Resource tag="ASK_DELETEALBUM">Удалить этот альбом?</Resource>
+    <Resource tag="ASK_DELETEIMAGE">Удалить это изображение?</Resource>
+    <Resource tag="ERROR_MAXALBUMS">Вы больше не можете добавлять альбомы для вашей учётной записи.</Resource>
+    <Resource tag="ERROR_TOOBIG">Размер изображение слишком большой.</Resource>
+    <Resource tag="TITLE">Добавить/изменить альбом</Resource>
+  </page>
   <page name="CP_EDITAVATAR">
     <Resource tag="AVATAR">Аватар</Resource>
     <Resource tag="AVATARCURRENT">Текущий аватар</Resource>
@@ -212,15 +235,15 @@
     <Resource tag="APPROVE_ADD">Одобрить и добавить</Resource>
     <Resource tag="APPROVE_ADD_ALL">Одобрить и добавить всех</Resource>
     <Resource tag="APPROVE_ALL">Одобрить всех</Resource>
-	<Resource tag="BUDDYLIST">Список Друзей</Resource>  
+    <Resource tag="BUDDYLIST">Список Друзей</Resource>
     <Resource tag="BUDDYLIST_TT">Управление друзьями</Resource>
     <Resource tag="DENY">Отклонить</Resource>
     <Resource tag="DENY_ALL">Отклонить всех более кто запросил более 14 дней назад</Resource>
     <Resource tag="EDIT_BUDDIES">Редактировать Друзей</Resource>
-    <Resource tag="REQUEST_DATE">Дата запроса</Resource>
-    <Resource tag="YOUR_BUDDYLIST">Список Друзей</Resource>   
     <Resource tag="PENDING_REQUESTS">Желающие подружиться</Resource>
-    <Resource tag="YOUR_REQUESTS">Ваши предложения</Resource>    
+    <Resource tag="REQUEST_DATE">Дата запроса</Resource>
+    <Resource tag="YOUR_BUDDYLIST">Список Друзей</Resource>
+    <Resource tag="YOUR_REQUESTS">Ваши предложения</Resource>
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">О Вас</Resource>
@@ -230,6 +253,7 @@
     <Resource tag="BAD_MSN">Вы ввели недействительный адрес электронной почты для учётной записи MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Вы ввели неработающий адрес для вашего блога.</Resource>
     <Resource tag="CHANGE_EMAIL">Изменить адрес электронной почты</Resource>
+    <Resource tag="EDIT_ALBUMS">Редактировать альбомы</Resource>
     <Resource tag="EMAIL">Ваш адрес электронной почты должен быть всегда действительным.</Resource>
     <Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
@@ -739,6 +763,7 @@
     <Resource tag="ABOUT">О пользователе</Resource>
     <Resource tag="ADMIN_USER">Редактировать пользователя</Resource>
     <Resource tag="AIM">Имя AIM:</Resource>
+    <Resource tag="ALBUMS">Альбомы</Resource>
     <Resource tag="AVATAR">Аватар</Resource>
     <Resource tag="CONTACT">Контакты</Resource>
     <Resource tag="DAYS">дней</Resource>
@@ -965,7 +990,7 @@
       {link}
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
-		Пивет!
+		Привет!
 
 		На форуме {forumname} зарегистрирован новый пользователь:
 		
@@ -1070,8 +1095,8 @@
     <Resource tag="ACTIVETOPICS">Активные темы</Resource>
     <Resource tag="ADMIN">Админ</Resource>
     <Resource tag="BUDDIES">Друзья</Resource>
-    <Resource tag="BUDDYREQUEST">({0} неподтверждённых)</Resource>	
-	<Resource tag="HELP">Справка</Resource>
+    <Resource tag="BUDDYREQUEST">({0} неподтверждённых)</Resource>
+    <Resource tag="HELP">Справка</Resource>
     <Resource tag="INBOX">Личные сообщения</Resource>
     <Resource tag="LOGGED_IN_AS">Вы вошли как: {0}</Resource>
     <Resource tag="LOGIN">Вход</Resource>
@@ -1079,6 +1104,7 @@
     <Resource tag="LOGOUT_QUESTION">Вы уверены, что действительно желаете выйти?</Resource>
     <Resource tag="MEMBERS">Участники</Resource>
     <Resource tag="MODERATE">Модерировать</Resource>
+    <Resource tag="MYALBUMS">Мои альбомы </Resource>
     <Resource tag="MYPROFILE">Мой профиль</Resource>
     <Resource tag="MYTOPICS">Мои темы</Resource>
     <Resource tag="NEWPM">({0} непрочитанных)</Resource>
