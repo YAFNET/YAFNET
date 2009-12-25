@@ -178,7 +178,14 @@ namespace YAF.Pages
           this.TopicAttachLabel.Visible = true;
         }
 
-        if ((PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests) ||
+        // If Autowatch Topics is enabled for this user, check the watch topics checkbox.
+        if (isNewTopic && !PageContext.IsGuest)
+        {
+            var userData = new CombinedUserDataHelper(PageContext.PageUserID);
+            TopicWatch.Checked = userData.AutoWatchTopics;
+        }
+
+          if ((PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests) ||
             (PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded))
         {
           Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
@@ -591,37 +598,51 @@ namespace YAF.Pages
     /// </returns>
     protected long PostReplyHandleReplyToTopic()
     {
-      long nMessageID = 0;
+        long nMessageID = 0;
 
-      if (!PageContext.ForumReplyAccess)
-      {
-        YafBuildLink.AccessDenied();
-      }
+        if (!PageContext.ForumReplyAccess)
+        {
+            YafBuildLink.AccessDenied();
+        }
 
-      object replyTo = (QuotedTopicID != null) ? QuotedTopicID.Value : -1;
+        object replyTo = (QuotedTopicID != null) ? QuotedTopicID.Value : -1;
 
-      // make message flags
-      var tFlags = new MessageFlags();
+        // make message flags
+        var tFlags = new MessageFlags();
 
-      tFlags.IsHtml = this._forumEditor.UsesHTML;
-      tFlags.IsBBCode = this._forumEditor.UsesBBCode;
-      tFlags.IsPersistent = this.Persistency.Checked;
+        tFlags.IsHtml = this._forumEditor.UsesHTML;
+        tFlags.IsBBCode = this._forumEditor.UsesBBCode;
+        tFlags.IsPersistent = this.Persistency.Checked;
 
-      // Bypass Approval if Admin or Moderator.
-      tFlags.IsApproved = PageContext.IsAdmin || PageContext.IsModerator;
+        // Bypass Approval if Admin or Moderator.
+        tFlags.IsApproved = PageContext.IsAdmin || PageContext.IsModerator;
 
-      DB.message_save(
-        TopicID.Value, 
-        PageContext.PageUserID, 
-        this._forumEditor.Text, 
-        User != null ? null : this.From.Text, 
-        Request.UserHostAddress, 
-        null, 
-        replyTo, 
-        tFlags.BitValue, 
-        ref nMessageID);
+        DB.message_save(
+            TopicID.Value,
+            PageContext.PageUserID,
+            this._forumEditor.Text,
+            User != null ? null : this.From.Text,
+            Request.UserHostAddress,
+            null,
+            replyTo,
+            tFlags.BitValue,
+            ref nMessageID);
 
-      return nMessageID;
+        // Check to see if the user has enabled "auto watch topic" option in his/her profile.
+        var userData = new CombinedUserDataHelper(PageContext.PageUserID);
+        if (userData.AutoWatchTopics)
+        {
+            using (DataTable dt = DB.watchtopic_check(PageContext.PageUserID, PageContext.PageTopicID))
+            {
+                if (dt.Rows.Count == 0)
+                {
+                    // subscribe to this forum
+                    DB.watchtopic_add(PageContext.PageUserID, PageContext.PageTopicID);
+                }
+            }
+        }
+
+        return nMessageID;
     }
 
     /// <summary>

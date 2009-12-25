@@ -144,6 +144,7 @@ namespace YAF.Pages.Admin
           null, 
           null, 
           null, 
+          null,
           null);
 
         if (PageContext.BoardSettings.EmailVerification)

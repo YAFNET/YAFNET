@@ -418,7 +418,7 @@ namespace YAF.Pages.Admin
                                 // save the time zone...
                                 if (!(Convert.ToInt32(UsersBoardsList.Items[iboards].Value) == YafContext.Current.PageBoardID && _excludeCurrentBoard))
                                 {
-                                    YAF.Classes.Data.DB.user_save(YAF.Classes.Data.DB.user_get(boardID, user.ProviderUserKey), boardID, null, null, Convert.ToInt32(TimeZones.SelectedValue), null, null, null, null, null);
+                                    YAF.Classes.Data.DB.user_save(YAF.Classes.Data.DB.user_get(boardID, user.ProviderUserKey), boardID, null, null, Convert.ToInt32(TimeZones.SelectedValue), null, null, null, null, null, null);
                                 _outCounter++;
                                 }
                             }

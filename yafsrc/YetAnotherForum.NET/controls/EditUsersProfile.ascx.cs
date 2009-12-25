@@ -106,6 +106,7 @@ namespace YAF.Controls
 			ICQ.Text = userData.Profile.ICQ;
 			Skype.Text = userData.Profile.Skype;
 			PMNotificationEnabled.Checked = userData.PMNotification;
+            AutoWatchTopicsEnabled.Checked = userData.AutoWatchTopics;
 			Gender.SelectedIndex = userData.Profile.Gender;
 
 			ListItem timeZoneItem = TimeZones.Items.FindByValue( userData.TimeZone.ToString() );
@@ -227,7 +228,7 @@ namespace YAF.Controls
 
 			// save remaining settings to the DB
 			YAF.Classes.Data.DB.user_save( CurrentUserID, PageContext.PageBoardID, null, null,
-				Convert.ToInt32( TimeZones.SelectedValue ), Language.SelectedValue, Theme.SelectedValue, OverrideDefaultThemes.Checked, null, PMNotificationEnabled.Checked );
+                Convert.ToInt32(TimeZones.SelectedValue), Language.SelectedValue, Theme.SelectedValue, OverrideDefaultThemes.Checked, null, PMNotificationEnabled.Checked, AutoWatchTopicsEnabled.Checked);
 
 			// clear the cache for this user...
 			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );

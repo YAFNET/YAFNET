@@ -7067,7 +7067,8 @@ namespace YAF.Classes.Data
       object themeFile, 
       object overrideDefaultThemes, 
       object approved, 
-      object pmNotification)
+      object pmNotification,
+      object autoWatchTopics)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_save"))
       {
@@ -7082,6 +7083,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("OverrideDefaultTheme", overrideDefaultThemes);
         cmd.Parameters.AddWithValue("Approved", approved);
         cmd.Parameters.AddWithValue("PMNotification", pmNotification);
+        cmd.Parameters.AddWithValue("AutoWatchTopics", autoWatchTopics);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }
@@ -7573,6 +7575,7 @@ namespace YAF.Classes.Data
               cmd.Parameters.AddWithValue("TimeZone", timeZone);
               cmd.Parameters.AddWithValue("Approved", approved);
               cmd.Parameters.AddWithValue("PMNotification", 1);
+              cmd.Parameters.AddWithValue("AutoWatchTopics", 0);
               cmd.ExecuteNonQuery();
             }
 

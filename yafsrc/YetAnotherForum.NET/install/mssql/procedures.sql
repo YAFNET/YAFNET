@@ -5273,6 +5273,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@OverrideDefaultTheme	bit = null,
 	@Approved			bit = null,
 	@PMNotification		bit = null,
+	@AutoWatchTopics    bit = null,
 	@ProviderUserKey	nvarchar(64) = null)
 AS
 begin
@@ -5284,6 +5285,7 @@ begin
 	if @Approved<>0 set @Flags = @Flags | 2
 	
 	if @PMNotification is null SET @PMNotification = 1
+	if @AutoWatchTopics is null SET @AutoWatchTopics = 0
 	if @OverrideDefaultTheme is null SET @OverrideDefaultTheme=0
 
 	if @UserID is null or @UserID<1 begin
@@ -5291,8 +5293,8 @@ begin
 		
 		select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
 
-		insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,ProviderUserKey) 
-		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,@TimeZone,@Flags,@PMNotification,@ProviderUserKey)		
+		insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,AutoWatchTopics,ProviderUserKey) 
+		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,@TimeZone,@Flags,@PMNotification,@AutoWatchTopics,@ProviderUserKey)		
 	
 		set @UserID = SCOPE_IDENTITY()
 
@@ -5304,7 +5306,8 @@ begin
 			LanguageFile = @LanguageFile,
 			ThemeFile = @ThemeFile,
 			OverrideDefaultThemes = @OverrideDefaultTheme,
-			PMNotification = @PMNotification
+			PMNotification = @PMNotification,
+			AutoWatchTopics = @AutoWatchTopics
 		where UserID = @UserID
 		
 		if @Email is not null

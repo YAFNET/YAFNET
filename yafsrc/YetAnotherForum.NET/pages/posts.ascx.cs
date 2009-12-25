@@ -573,6 +573,20 @@ namespace YAF.Pages
         topicID = 0;
       }
 
+      // Check to see if the user has enabled "auto watch topic" option in his/her profile.
+      var userData = new CombinedUserDataHelper(PageContext.PageUserID);
+      if (userData.AutoWatchTopics)
+      {
+          using (DataTable dt = DB.watchtopic_check(PageContext.PageUserID, PageContext.PageTopicID))
+          {
+              if (dt.Rows.Count == 0)
+              {
+                  // subscribe to this forum
+                  DB.watchtopic_add(PageContext.PageUserID, PageContext.PageTopicID);
+              }
+          }
+      }
+
       bool bApproved = false;
 
       using (DataTable dt = DB.message_list(nMessageID))

@@ -233,6 +233,7 @@
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="REALNAME2">What's your real name?</Resource>
     <Resource tag="SELECT_LANGUAGE">What language do you want to use:</Resource>
     <Resource tag="SELECT_THEME">Select your preferred theme:</Resource>
