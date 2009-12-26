@@ -754,6 +754,13 @@ if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Choic
 	alter table [{databaseOwner}].[{objectQualifier}Choice] add constraint [FK_{objectQualifier}Choice_{objectQualifier}Poll] foreign key (PollID) references [{databaseOwner}].[{objectQualifier}Poll] (PollID)
 go
 
+if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}FavoriteTopic_{objectQualifier}Topic' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}FavoriteTopic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}FavoriteTopic] add constraint [FK_{objectQualifier}FavoriteTopic_{objectQualifier}Topic] foreign key (TopicID) references [{databaseOwner}].[{objectQualifier}Topic] (TopicID)
+go
+
+if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}FavoriteTopic_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}FavoriteTopic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}FavoriteTopic] add constraint [FK_{objectQualifier}FavoriteTopic_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
+go
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Forum_{objectQualifier}Category' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add constraint [FK_{objectQualifier}Forum_{objectQualifier}Category] foreign key (CategoryID) references [{databaseOwner}].[{objectQualifier}Category] (CategoryID)

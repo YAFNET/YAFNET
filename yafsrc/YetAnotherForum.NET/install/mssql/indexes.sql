@@ -110,3 +110,15 @@ if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Cate
  CREATE  INDEX [IX_{objectQualifier}Category_Name] ON [{databaseOwner}].[{objectQualifier}Category]([Name])
 go
 
+-- {objectQualifier}FavoriteTopic
+
+if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}FavoriteTopic_TopicID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}FavoriteTopic]'))
+ CREATE  INDEX [IX_{objectQualifier}FavoriteTopic_TopicID] ON [{databaseOwner}].[{objectQualifier}FavoriteTopic]([TopicID])
+go
+
+if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}FavoriteTopic_UserID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}FavoriteTopic]'))
+ CREATE  INDEX [IX_{objectQualifier}FavoriteTopic_UserID] ON [{databaseOwner}].[{objectQualifier}FavoriteTopic]([UserID])
+go
+
+
+
