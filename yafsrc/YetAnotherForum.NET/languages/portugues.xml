@@ -262,6 +262,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Sobre você</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Você digitou um endereço de email inválido.</Resource>
     <Resource tag="BAD_HOME">Você digitou um endereço inválido para a sua Home Page.</Resource>
     <Resource tag="BAD_ICQ">Você digitou um valor inválido para o seu número no ICQ.</Resource>

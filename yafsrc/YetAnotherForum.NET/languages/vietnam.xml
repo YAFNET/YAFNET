@@ -241,6 +241,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Thông tin của bạn</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Bạn đã nhập địa chỉ email không hợp lệ.</Resource>
     <Resource tag="BAD_HOME">Bạn đã nhập địa chỉ không hợp lệ cho trang chủ của bạn.</Resource>
     <Resource tag="BAD_ICQ">Bạn đã nhập không hợp lệ cho số ICQ.</Resource>

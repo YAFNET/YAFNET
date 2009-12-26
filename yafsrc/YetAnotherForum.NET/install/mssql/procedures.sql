@@ -2789,9 +2789,10 @@ begin
 		delete [{databaseOwner}].[{objectQualifier}Attachment] where MessageID = @MessageID
 		delete [{databaseOwner}].[{objectQualifier}MessageReported] where MessageID = @MessageID
 		delete [{databaseOwner}].[{objectQualifier}MessageReportedAudit] where MessageID = @MessageID
-		delete [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID
 		--delete thanks related to this message
 		delete [{databaseOwner}].[{objectQualifier}Thanks] where MessageID = @MessageID
+		delete [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID
+		
 	end
 	else begin
 		-- "Delete" it only by setting deleted flag message
@@ -4165,10 +4166,11 @@ BEGIN
 		DELETE  [{databaseOwner}].[{objectQualifier}Attachment] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
 		DELETE  [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}WatchTopic] WHERE TopicID = @TopicID
+		DELETE  [{databaseOwner}].[{objectQualifier}FavoriteTopic]  WHERE TopicID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID
 		DELETE  [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
 		DELETE  [{databaseOwner}].[{objectQualifier}MessageReported] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID)
-		DELETE  [{databaseOwner}].[{objectQualifier}FavoriteTopic]  WHERE TopicID = @TopicID
+		
 	END
 		
 	--commit
@@ -4948,20 +4950,19 @@ begin
 	delete from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID
 	delete from [{databaseOwner}].[{objectQualifier}PMessage] where FromUserID=@UserID AND PMessageID NOT IN (select PMessageID FROM [{databaseOwner}].[{objectQualifier}PMessage])
 	-- Delete all the thanks entries associated with this UserID.
-	delete from [{databaseOwner}].[{objectQualifier}Thanks] where ThanksFromUserID=@UserID
-	delete from [{databaseOwner}].[{objectQualifier}Thanks] where ThanksToUserID=@UserID	
-		
-	--Delete all the Buddy relations between this user and other users.
-	delete from [{databaseOwner}].[{objectQualifier}Buddy] where FromUserID=@UserID OR ToUserID=@UserID
-	
+	delete from [{databaseOwner}].[{objectQualifier}Thanks] where ThanksFromUserID=@UserID OR ThanksToUserID=@UserID
+	-- Delete all the FavoriteTopic entries associated with this UserID.
+	delete from [{databaseOwner}].[{objectQualifier}FavoriteTopic] where UserID=@UserID
+	-- Delete all the Buddy relations between this user and other users.
+	delete from [{databaseOwner}].[{objectQualifier}Buddy] where FromUserID=@UserID OR ToUserID=@UserID	
 	-- set messages as from guest so the User can be deleted
 	update [{databaseOwner}].[{objectQualifier}PMessage] SET FromUserID = @GuestUserID WHERE FromUserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}CheckEmail] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}WatchTopic] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}WatchForum] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID = @UserID
-	--ABOT CHANGED
-	--Delete UserForums entries Too 
+	-- ABOT CHANGED
+	-- Delete UserForums entries Too 
 	delete from [{databaseOwner}].[{objectQualifier}UserForum] where UserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}IgnoreUser] where UserID = @UserID OR IgnoredUserID = @UserID
 	--END ABOT CHANGED 09.04.2004
@@ -7038,10 +7039,10 @@ as
 CREATE procedure [{databaseOwner}].[{objectQualifier}album_delete] ( @AlbumID int )
 as 
     BEGIN
-        DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbum]
-        WHERE   AlbumID = @AlbumID
         DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbumImage]
         WHERE   AlbumID = @AlbumID
+        DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbum]
+        WHERE   AlbumID = @AlbumID       
     END
     GO
     

@@ -262,6 +262,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Über dich</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">E-Mail-Adresse nicht zulässig.</Resource>
     <Resource tag="BAD_HOME">Keine zulässige Adresse für Deine Homepage.</Resource>
     <Resource tag="BAD_ICQ">Unzulässige ICQ-Daten.</Resource>

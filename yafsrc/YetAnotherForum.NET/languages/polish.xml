@@ -263,6 +263,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">O Tobie</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="AVATARDELETE">Usuń wgrany avatar.</Resource>
     <Resource tag="AVATARREMOTE">Wpisz adres url do Twojego avataru. Avantar będzie wyświetlany obok Twoich postów.</Resource>

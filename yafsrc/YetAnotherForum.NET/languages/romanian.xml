@@ -263,6 +263,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Despre tine</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="AVATAR">Imaginea ta</Resource>
     <Resource tag="AVATARDELETE">Sterge imaginea.</Resource>
     <Resource tag="AVATARREMOTE">Introduceti adresa unde se afla imagine care va fi afisata la postarile tale.</Resource>

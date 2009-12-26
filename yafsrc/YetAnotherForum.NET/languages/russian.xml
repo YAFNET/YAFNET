@@ -245,6 +245,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">О Вас</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз когда кто-либо оставляет сообщение в [b]всех[/b] тех темах где вы оставляете свои посты?</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недействительный адрес электронной почты.</Resource>
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
     <Resource tag="BAD_ICQ">Вы ввели недопустимой знаечние для вашего номера ICQ.</Resource>

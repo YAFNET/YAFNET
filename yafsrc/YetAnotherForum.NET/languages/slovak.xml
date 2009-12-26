@@ -263,6 +263,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">O vás</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="AVATAR">Personifikácia</Resource>
     <Resource tag="AVATARDELETE">Zmazať nahraný obrázok.</Resource>
     <Resource tag="AVATARREMOTE">Zadajte webovú adresu (URL) obrázku, ktorý sa bude objavovať vedľa vašich správ.</Resource>

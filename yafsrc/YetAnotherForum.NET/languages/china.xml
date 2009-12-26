@@ -263,6 +263,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">关于您</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="AVATAR">头像</Resource>
     <Resource tag="AVATARDELETE">删除上传的头像.</Resource>
     <Resource tag="AVATARREMOTE">请输入您的头像的 URL 路径，它将在您下次发贴时显示.</Resource>
