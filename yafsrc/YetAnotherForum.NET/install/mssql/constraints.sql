@@ -488,6 +488,9 @@ if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}]
 	alter table [{databaseOwner}].[{objectQualifier}BannedIP] with nocheck add constraint [PK_{objectQualifier}BannedIP] primary key clustered(ID)
 go
 
+if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Buddy]') and name='PK_{objectQualifier}Buddy')
+	alter table [{databaseOwner}].[{objectQualifier}Buddy] with nocheck add constraint [PK_{objectQualifier}Buddy] primary key clustered(ID)   
+go
 
 if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and name='PK_{objectQualifier}Category')
 	alter table [{databaseOwner}].[{objectQualifier}Category] with nocheck add constraint [PK_{objectQualifier}Category] primary key clustered(CategoryID)   
@@ -548,6 +551,9 @@ if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}]
 	alter table [{databaseOwner}].[{objectQualifier}Topic] with nocheck add constraint [PK_{objectQualifier}Topic] primary key clustered(TopicID)   
 go
 
+if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}FavoriteTopic]') and name='PK_{objectQualifier}FavoriteTopic')
+	alter table [{databaseOwner}].[{objectQualifier}FavoriteTopic] with nocheck add constraint [PK_{objectQualifier}FavoriteTopic] primary key clustered(ID)   
+go
 
 if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and ( name='PK_{objectQualifier}User' OR name='PK_{objectQualifier}{objectQualifier}User' ) )
 	alter table [{databaseOwner}].[{objectQualifier}User] with nocheck add constraint [PK_{objectQualifier}User] primary key clustered(UserID)   
@@ -727,6 +733,10 @@ go
 
 if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Buddy]') and name='IX_{objectQualifier}Buddy')
 	alter table [{databaseOwner}].[{objectQualifier}Buddy] add constraint IX_{objectQualifier}Buddy unique nonclustered([FromUserID],[ToUserID])
+go
+
+if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Thanks]') and name='IX_{objectQualifier}Thanks')
+	alter table [{databaseOwner}].[{objectQualifier}Thanks] add constraint IX_{objectQualifier}Thanks unique nonclustered([ThanksFromUserID],[ThanksToUserID])
 go
 
 /*
@@ -1014,6 +1024,10 @@ GO
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Buddy_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Buddy]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}Buddy] add constraint [FK_{objectQualifier}Buddy_{objectQualifier}User] foreign key(FromUserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
+go
+
+if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Thanks_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Thanks]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}Thanks] add constraint [FK_{objectQualifier}Thanks_{objectQualifier}User] foreign key (ThanksFromUserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
 go
 
 /* Default Constraints */

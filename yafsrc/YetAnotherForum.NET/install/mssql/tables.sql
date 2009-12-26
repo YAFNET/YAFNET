@@ -12,6 +12,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}Thanks](
 	[ThanksToUserID] [int] NOT NULL,
 	[MessageID] [int] NOT NULL,
 	[ThanksDate] [smalldatetime] NOT NULL
+	constraint [PK_{objectQualifier}Thanks] primary key(ThanksID)
 	)
 go
 
@@ -23,6 +24,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}Buddy](
 	[ToUserID] [int] NOT NULL,
 	[Approved] [bit] NOT NULL,
 	[Requested] [datetime] NOT NULL
+	constraint [PK_{objectQualifier}Buddy] primary key(ID)
 	)
 go
 
@@ -32,6 +34,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}FavoriteTopic](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NOT NULL,
 	[TopicID] [int] NOT NULL
+	constraint [PK_{objectQualifier}FavoriteTopic] primary key(ID)
 	)
 GO
 

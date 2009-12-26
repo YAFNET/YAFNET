@@ -130,6 +130,12 @@ if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}User
  CREATE  INDEX [IX_{objectQualifier}UserAlbumImage_AlbumID] ON [{databaseOwner}].[{objectQualifier}UserAlbumImage]([AlbumID])
 go
 
+-- {objectQualifier}Thanks
+
+if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Thanks_UserID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Thanks]'))
+	CREATE  INDEX [IX_{objectQualifier}Thanks_UserID] ON [{databaseOwner}].[{objectQualifier}Thanks]([ThanksFromUserID],[ThanksToUserID])
+go
+
 
 
 
