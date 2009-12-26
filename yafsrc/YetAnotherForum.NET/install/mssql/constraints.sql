@@ -725,6 +725,10 @@ if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}]
 	alter table [{databaseOwner}].[{objectQualifier}User] add constraint IX_{objectQualifier}User unique nonclustered(BoardID,Name)
 go
 
+if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Buddy]') and name='IX_{objectQualifier}Buddy')
+	alter table [{databaseOwner}].[{objectQualifier}Buddy] add constraint IX_{objectQualifier}Buddy unique nonclustered([FromUserID],[ToUserID])
+go
+
 /*
 ** Foreign keys
 */
@@ -901,6 +905,9 @@ if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Forum
 	alter table [{databaseOwner}].[{objectQualifier}ForumAccess] add constraint [FK_{objectQualifier}ForumAccess_{objectQualifier}AccessMask] foreign key (AccessMaskID) references [{databaseOwner}].[{objectQualifier}AccessMask] (AccessMaskID)
 go
 
+if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserAlbumImage_{objectQualifier}UserAlbum' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserAlbumImage]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}UserAlbumImage] add constraint [FK_{objectQualifier}UserAlbumImage_{objectQualifier}UserAlbum] foreign key (AlbumID) references [{databaseOwner}].[{objectQualifier}UserAlbum] (AlbumID)
+go
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserForum_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserForum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}UserForum] add constraint [FK_{objectQualifier}UserForum_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
@@ -1004,6 +1011,10 @@ go
 if not exists(select 1 from dbo.sysobjects where name=N'FK_{objectQualifier}BBCode_Board' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
     ALTER TABLE [{databaseOwner}].[{objectQualifier}BBCode] ADD CONSTRAINT [FK_{objectQualifier}BBCode_Board] FOREIGN KEY([BoardID]) REFERENCES [{databaseOwner}].[{objectQualifier}Board] ([BoardID]) ON DELETE NO ACTION
 GO
+
+if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Buddy_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Buddy]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}Buddy] add constraint [FK_{objectQualifier}Buddy_{objectQualifier}User] foreign key(FromUserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
+go
 
 /* Default Constraints */
 if exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}Message_Flags' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}Message]'))

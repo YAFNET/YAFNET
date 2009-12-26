@@ -1,6 +1,10 @@
 /*
 ** Indexes
 */
+-- {objectQualifier}Buddy
+if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Buddy_UserID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Buddy]'))
+	CREATE  INDEX [IX_{objectQualifier}Buddy_UserID] ON [{databaseOwner}].[{objectQualifier}Buddy]([FromUserID],[ToUserID])
+go
 
 -- {objectQualifier}Registry
 
@@ -119,6 +123,14 @@ go
 if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}FavoriteTopic_UserID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}FavoriteTopic]'))
  CREATE  INDEX [IX_{objectQualifier}FavoriteTopic_UserID] ON [{databaseOwner}].[{objectQualifier}FavoriteTopic]([UserID])
 go
+
+-- {objectQualifier}UserAlbum
+
+if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}UserAlbumImage_AlbumID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}UserAlbumImage]'))
+ CREATE  INDEX [IX_{objectQualifier}UserAlbumImage_AlbumID] ON [{databaseOwner}].[{objectQualifier}UserAlbumImage]([AlbumID])
+go
+
+
 
 
 

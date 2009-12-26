@@ -4954,7 +4954,8 @@ begin
 	-- Delete all the FavoriteTopic entries associated with this UserID.
 	delete from [{databaseOwner}].[{objectQualifier}FavoriteTopic] where UserID=@UserID
 	-- Delete all the Buddy relations between this user and other users.
-	delete from [{databaseOwner}].[{objectQualifier}Buddy] where FromUserID=@UserID OR ToUserID=@UserID	
+	delete from [{databaseOwner}].[{objectQualifier}Buddy] where FromUserID=@UserID   
+	delete from [{databaseOwner}].[{objectQualifier}Buddy] where ToUserID=@UserID	 
 	-- set messages as from guest so the User can be deleted
 	update [{databaseOwner}].[{objectQualifier}PMessage] SET FromUserID = @GuestUserID WHERE FromUserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}CheckEmail] where UserID = @UserID
