@@ -477,6 +477,17 @@ if exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{o
 	alter table [{databaseOwner}].[{objectQualifier}User] drop constraint IX_User
 go
 
+
+if exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Thanks]') and name='IX_{objectQualifier}Thanks')
+	alter table [{databaseOwner}].[{objectQualifier}Thanks] drop constraint [IX_{objectQualifier}Thanks]
+go
+
+/* Wrong index */
+
+if exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Thanks]') and name='IX_{objectQualifier}Thanks_UserID')
+	drop index [IX_{objectQualifier}Thanks_UserID] on [{databaseOwner}].[{objectQualifier}Thanks]
+go
+
 /* Build new constraints */
 
 /*
@@ -735,9 +746,6 @@ if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}]
 	alter table [{databaseOwner}].[{objectQualifier}Buddy] add constraint IX_{objectQualifier}Buddy unique nonclustered([FromUserID],[ToUserID])
 go
 
-if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Thanks]') and name='IX_{objectQualifier}Thanks')
-	alter table [{databaseOwner}].[{objectQualifier}Thanks] add constraint IX_{objectQualifier}Thanks unique nonclustered([ThanksFromUserID],[ThanksToUserID])
-go
 
 /*
 ** Foreign keys

@@ -1045,7 +1045,7 @@ DECLARE @ParsedMessageIDs TABLE
     BEGIN
             SET @trimindex = CHARINDEX(',',REVERSE( @MessageIDsChunk ), 1 );
             SET @MessageIDsChunk = SUBSTRING(@MessageIDsChunk,0, 4000-@trimindex)
-            SET @itr = @Itr - @trimindex
+            SET @Itr = @Itr - @trimindex
             SET @MessageIDsChunk = LTRIM(RTRIM(@MessageIDsChunk))+ ','
             SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
             IF REPLACE(@MessageIDsChunk, ',', '') <> ''
