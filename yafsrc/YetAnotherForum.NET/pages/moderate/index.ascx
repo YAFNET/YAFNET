@@ -2,7 +2,7 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
 	<tr>
-		<td class="header1" colspan="5">
+		<td class="header1" colspan="3">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="FORUMS" />
 		</td>
 	</tr>
@@ -14,13 +14,7 @@
 				</td>
 				<td class="header2" width="15%" align="center">
 					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="UNAPPROVED" />
-				</td>
-				<td class="header2" width="15%" align="center">
-					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="REPORTEDABUSE" />
-				</td>
-				<td class="header2" width="15%" align="center">
-				<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="REPORTEDSPAM" />
-				</td>
+				</td>			
 				<td class="header2" width="15%" align="center">
 				<YAF:LocalizedLabel ID="ReportedCountLabel" runat="server" LocalizedTag="REPORTED" />
 				</td>
@@ -40,17 +34,7 @@
 							<asp:LinkButton ID="ViewUnapprovedPostsBtn" runat='server' CommandName='viewunapprovedposts'
 								CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"MessageCount\"]") %>'
 								Font-Bold='<%# ((Convert.ToInt32(Eval( "[\"MessageCount\"]")) > 0) ? true : false) %>'></asp:LinkButton>
-						</td>
-						<td align="center">
-							<asp:LinkButton ID="ViewReportedAbuseBtn" runat='server' CommandName='viewreportedabuse'
-								CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"AbuseCount\"]") %>'
-								Font-Bold='<%# ((Convert.ToInt32(Eval( "[\"AbuseCount\"]")) > 0) ? true : false) %>'></asp:LinkButton>
-						</td>
-						<td align="center">
-							<asp:LinkButton ID="ViewReportedSpamBtn" runat='server' CommandName='viewreportedspam'
-								CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"SpamCount\"]") %>'
-								Font-Bold='<%# ((Convert.ToInt32(Eval( "[\"SpamCount\"]")) > 0) ? true : false) %>'></asp:LinkButton>
-						</td>
+						</td>				
 						<td align="center">
 							<asp:LinkButton ID="ViewReportedBtn" runat='server' CommandName='viewreportedposts'
 								CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"ReportedCount\"]") %>'

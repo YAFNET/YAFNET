@@ -125,20 +125,10 @@
     private void DisplayPostFooter_PreRender(object sender, EventArgs e)
     {
       // report posts
-      this.ReportPostLinkButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // vzrus Addition 08/18/2007
+      this.ReportPostLinkButton.Visible = PageContext.BoardSettings.AllowReportPosts && !IsGuest; // vzrus Addition 08/18/2007
       this.ReportPostLinkButton.Text = PageContext.Localization.GetText("REPORTPOST"); // Mek Addition 08/18/2007
       this.ReportPostLinkButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTPOST")));
-
-      // report abuse posts
-      //this.ReportAbuseLinkButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
-      //this.ReportAbuseLinkButton.Text = PageContext.Localization.GetText("REPORTABUSE"); // Mek Addition 08/18/2007
-      //this.ReportAbuseLinkButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTABUSE")));
-
-      //// report spam
-      //this.ReportSpamButton.Visible = PageContext.BoardSettings.AllowReportSpam && !IsGuest; // Mek Addition 08/18/2007
-      //this.ReportSpamButton.Text = PageContext.Localization.GetText("REPORTSPAM"); // Mek Addition 08/18/2007
-      //this.ReportSpamButton.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTSPAM")));
-
+      
       // private messages
       this.Pm.Visible = !IsGuest && !PostData.PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !PostData.IsSponserMessage;
       this.Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", PostData.UserId);

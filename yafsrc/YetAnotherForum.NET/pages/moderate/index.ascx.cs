@@ -108,17 +108,7 @@ namespace YAF.Pages.moderate
 
           // go to unapproved posts for selected forum
           YafBuildLink.Redirect(ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
-          break;
-        case "viewreportedabuse":
-
-          // go to reported abuses for selected forum
-          YafBuildLink.Redirect(ForumPages.moderate_reportedabuse, "f={0}", e.CommandArgument);
-          break;
-        case "viewreportedspam":
-
-          // go to spam reports for selected forum
-          YafBuildLink.Redirect(ForumPages.moderate_reportedspam, "f={0}", e.CommandArgument);
-          break;
+          break;        
         case "viewreportedposts":
 
           // go to spam reports for selected forum

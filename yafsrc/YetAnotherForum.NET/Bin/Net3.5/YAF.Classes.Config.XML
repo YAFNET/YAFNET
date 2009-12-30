@@ -2286,14 +2286,9 @@
             Gets or sets a value indicating whether AllowPostToBlog.
             </summary>
         </member>
-        <member name="P:YAF.Classes.YafBoardSettings.AllowReportAbuse">
+        <member name="P:YAF.Classes.YafBoardSettings.AllowReportPosts">
             <summary>
-            Gets or sets a value indicating whether AllowReportAbuse.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettings.AllowReportSpam">
-            <summary>
-            Gets or sets a value indicating whether AllowReportSpam.
+            Gets or sets a value indicating whether AllowReportPosts.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AllowEmailTopic">

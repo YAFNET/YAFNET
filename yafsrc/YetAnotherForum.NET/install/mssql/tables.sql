@@ -1130,7 +1130,19 @@ GO
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='DeleteReason')
 	alter table [{databaseOwner}].[{objectQualifier}Message] add DeleteReason            nvarchar (100)  NULL
 GO
-
+    
+-- attempt migrate legacy report abuse and report spam features flags		
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='Flags')
+begin
+	grant update on [{databaseOwner}].[{objectQualifier}Message] to public
+	exec('update [{databaseOwner}].[{objectQualifier}Message] SET [{databaseOwner}].[{objectQualifier}Message].Flags =  ([{databaseOwner}].[{objectQualifier}Message].Flags & POWER(2, 7)) | POWER(2, 9)
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 128)=128)')
+	exec('update [{databaseOwner}].[{objectQualifier}Message] SET [{databaseOwner}].[{objectQualifier}Message].Flags =  ([{databaseOwner}].[{objectQualifier}Message].Flags & POWER(2, 8)) | POWER(2, 9)
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 256)=256)')	
+	revoke update on [{databaseOwner}].[{objectQualifier}Message] from public	
+end
+GO
+		
 -- Topic Table
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsLocked')
 begin
@@ -1252,4 +1264,5 @@ BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] ADD [ReportText] nvarchar(4000)  NULL 
 END
 GO
-
+		
+		

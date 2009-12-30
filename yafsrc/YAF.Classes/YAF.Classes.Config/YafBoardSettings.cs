@@ -1981,40 +1981,21 @@ namespace YAF.Classes
       }
     }
 
-    /* Mek : 8/18/2007 */
-
     /// <summary>
-    /// Gets or sets a value indicating whether AllowReportAbuse.
+    /// Gets or sets a value indicating whether AllowReportPosts.
     /// </summary>
-    public bool AllowReportAbuse
+    public bool AllowReportPosts
     {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowReportAbuse", true);
-      }
+        get
+        {
+            return this._reg.GetValue<bool>("AllowReportPosts", true);
+        }
 
-      set
-      {
-        this._reg.SetValue<bool>("AllowReportAbuse", value);
-      }
+        set
+        {
+            this._reg.SetValue<bool>("AllowReportPosts", value);
+        }
     }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether AllowReportSpam.
-    /// </summary>
-    public bool AllowReportSpam
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("AllowReportSpam", true);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("AllowReportSpam", value);
-      }
-    }
-
     /* Ederon : 8/29/2007 */
 
     /// <summary>

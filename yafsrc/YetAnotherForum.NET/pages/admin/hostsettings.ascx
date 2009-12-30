@@ -365,20 +365,11 @@
 					</tr>
 					<tr>
 						<td class="postheader">
-							<b>Allow "Report Abuse" post:</b><br />
+							<b>Allow "Report Post" :</b><br />
 							If checked, report feature is enabled.
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="AllowReportAbuse" runat="server"></asp:CheckBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Allow "Report Spam" post:</b><br />
-							If checked, report feature is enabled.
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="AllowReportSpam" runat="server"></asp:CheckBox>
+							<asp:CheckBox ID="AllowReportPosts" runat="server"></asp:CheckBox>
 						</td>
 					</tr>
 					<tr>
