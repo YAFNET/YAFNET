@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportpost.ascx.cs" Inherits="YAF.Pages.reportpost" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportpost.ascx.cs" Inherits="YAF.Pages.ReportPost" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
@@ -24,9 +24,9 @@
 		<tr class="footer1">
 			<td colspan="2" align="center">
 			<YAF:ThemeButton ID="btnReport" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="SEND"
-				OnClick="btnReport_Click" />
+				OnClick="BtnReport_Click" />
 			<YAF:ThemeButton ID="btnCancel" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="CANCEL"
-				OnClick="btnCancel_Click" />				
+				OnClick="BtnCancel_Click" />				
 			</td>			
 		</tr>	
 	</table>

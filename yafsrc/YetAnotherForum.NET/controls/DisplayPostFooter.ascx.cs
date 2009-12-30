@@ -106,9 +106,7 @@
     /// </param>
     protected override void OnInit(EventArgs e)
     {
-      this.ReportPostLinkButton.Command += new CommandEventHandler(Report_Command);
-      this.ReportAbuseLinkButton.Command += new CommandEventHandler(Report_Command);
-      this.ReportSpamButton.Command += new CommandEventHandler(Report_Command);
+      this.ReportPostLinkButton.Command += new CommandEventHandler(Report_Command);      
       PreRender += new EventHandler(DisplayPostFooter_PreRender);
       base.OnInit(e);
     }
@@ -241,50 +239,16 @@
     /// The e.
     /// </param>
     protected void Report_Command(object sender, CommandEventArgs e)
-    {
-      int reportFlag = 0;
+    {     
 
-      switch (e.CommandName)
-      {
-        case "ReportAbuse":
-          reportFlag = 7;
-          break;
-        case "ReportSpam":
-          reportFlag = 8;
-          break;
-        case "ReportPost":
-          reportFlag = 9;
-          break;
-      }
-
-      string reportMessage;
-      switch (reportFlag)
-      {
-        case 7:
-          reportMessage = PageContext.CurrentForumPage.GetText("REPORTED");
-          break;
-        case 8:
-          reportMessage = PageContext.CurrentForumPage.GetText("REPORTEDSPAM");
-          break;
-        default:
-
-          // TODO: vzrus: required a window to enter custom report text with Report and Cancel buttons 
-          // Not sure how to implement it YAF-like ;) 
-          reportMessage = "Message Reported!";
-          break;
-      }
-
-      if (reportFlag < 9)
-      {
-        DB.message_report(reportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today, reportMessage);
-      }
-      else
-      {
-        HttpContext.Current.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.reportpost, "m={0}", e.CommandArgument.ToString()));
-      }
+    if  ( e.CommandName == "ReportPost" ) 
+      { 
+   
+      HttpContext.Current.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.reportpost, "m={0}", e.CommandArgument.ToString()));
 
       // Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", DataRow["MessageID"]));
-      PageContext.AddLoadMessage(PageContext.Localization.GetText("REPORTEDFEEDBACK"));
+      // PageContext.AddLoadMessage(PageContext.Localization.GetText("REPORTEDFEEDBACK"));
+      }
     }
 
     /// <summary>

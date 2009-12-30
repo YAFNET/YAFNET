@@ -24,9 +24,7 @@
 			TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
 	</div>
 	<div class="rightItem postInfoRight">		
-		<span id="ReportButtons" runat="server">
-			<asp:LinkButton ID="ReportAbuseLinkButton" CommandName="ReportAbuse" CommandArgument='<%# DataRow["MessageID"] %>' runat="server"></asp:LinkButton>
-			<asp:LinkButton ID="ReportSpamButton" CommandName="ReportSpam" CommandArgument='<%# DataRow["MessageID"] %>' runat="server"></asp:LinkButton>
+		<span id="ReportButtons" runat="server">	
 			<asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>' runat="server" Visible="true"></asp:LinkButton>
 		</span>
 		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>

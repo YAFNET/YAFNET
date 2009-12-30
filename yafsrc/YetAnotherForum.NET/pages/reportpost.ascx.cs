@@ -28,21 +28,32 @@ namespace YAF.Pages
     /// <summary>
     /// The form for reported post complaint text.
     /// </summary>
-    public partial class reportpost : ForumPage
+    public partial class ReportPost : ForumPage
     {
-        protected int messageID = 0;
+        // messageid
+
+        /// <summary>
+        /// To save messageid value.
+        /// </summary>
+        private int messageID = 0;
+       
         // message body editor
+
         /// <summary>
         /// The _editor.
         /// </summary>
-        protected YAF.Editors.BaseForumEditor _editor;
-
-        
-
-        public reportpost()
+        private YAF.Editors.BaseForumEditor reportEditor;
+        //// Class constructor
+         
+        /// <summary>
+        /// Initializes a new instance of the ReportPost class.
+        /// </summary>
+        public ReportPost()
             : base("REPORTPOST")
         {
         }
+        //// public YAF.Editors.BaseForumEditor Editor { get {return _editor}; set; }
+        
         /// <summary>
         /// Page initialization handler.
         /// </summary>
@@ -55,11 +66,12 @@ namespace YAF.Pages
         protected void Page_Init(object sender, EventArgs e)
         {
             // create editor based on administrator's settings
-            this._editor = YafContext.Current.EditorModuleManager.GetEditorInstance(YafContext.Current.BoardSettings.ForumEditor);
+            this.reportEditor = YafContext.Current.EditorModuleManager.GetEditorInstance(YafContext.Current.BoardSettings.ForumEditor);
 
             // add editor to the page
-            this.EditorLine.Controls.Add(this._editor);
+            this.EditorLine.Controls.Add(this.reportEditor);
         }
+
         /// <summary>
         /// The page_ load.
         /// </summary>
@@ -72,9 +84,8 @@ namespace YAF.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             // set attributes of editor
-            this._editor.BaseDir = YafForumInfo.ForumRoot + "editors";
-            this._editor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
-
+            this.reportEditor.BaseDir = YafForumInfo.ForumRoot + "editors";
+            this.reportEditor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
           
                 if (!String.IsNullOrEmpty(Request.QueryString["m"]))
                 {
@@ -84,28 +95,25 @@ namespace YAF.Pages
                         Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=1"));
                     }
 
-                        if ( !Int32.TryParse( Request.QueryString["m"], out messageID ) )
-                        {
-                            Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLink( ForumPages.error, "Incorrect message value: {0}", messageID ) );
-                        }                       
-                    
+                    if (!Int32.TryParse(Request.QueryString["m"], out this.messageID))
+                    {
+                        Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", this.messageID));
+                    }            
                 }
-                if ( !IsPostBack )
-                {
+
+                if (!IsPostBack)
+                {                   
                     // Get reported message text for better quoting
-                    System.Data.DataTable messageRow = DB.message_list(messageID);
-                    if ( messageRow.Rows.Count > 0 ) 
-                    ReportedMessageText.Text = messageRow.Rows[0]["Message"].ToString();
+                    System.Data.DataTable messageRow = DB.message_list(this.messageID);
+                    if (messageRow.Rows.Count > 0)
+                    {
+                        ReportedMessageText.Text = messageRow.Rows[0]["Message"].ToString();
+                    }
+                   
                     // Get Forum Link
                     this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
                 }
-        }
-
-       
-        private void BindData()
-        {
-            DataBind();
-        }
+        } 
 
         /// <summary>
         /// The btn run query_ click.
@@ -116,13 +124,14 @@ namespace YAF.Pages
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void btnReport_Click( object sender, EventArgs e )
+        protected void BtnReport_Click(object sender, EventArgs e)
         {
             // Save the reported message
-            DB.message_report( 9, messageID, PageContext.PageUserID, DateTime.Now, this._editor.Text );
-            // Redirect to reported post
-            RedirectToPost(); 
+            DB.message_report(9, this.messageID, PageContext.PageUserID, DateTime.Now, this.reportEditor.Text);
+            //// Redirect to reported post
+            this.RedirectToPost(); 
         }
+
         /// <summary>
         /// The btn cancel query_ click.
         /// </summary>
@@ -132,18 +141,27 @@ namespace YAF.Pages
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void btnCancel_Click(object sender, EventArgs e)
+        protected void BtnCancel_Click(object sender, EventArgs e)
         {
             // Redirect to reported post
-            RedirectToPost();  
+            this.RedirectToPost();  
         }
+
         /// <summary>
         /// Redirects to reported post after Save or Cancel
         /// </summary>
         protected void RedirectToPost()
         {
-            Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", messageID ) );
+            // Redirect to reported post
+            Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", this.messageID));            
         }
-
+        
+        /// <summary>
+        /// Binds data to data source
+        /// </summary>
+        private void BindData()
+        {
+            DataBind();
+        }
     }
 }
