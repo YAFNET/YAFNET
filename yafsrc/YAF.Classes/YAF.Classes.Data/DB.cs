@@ -2733,7 +2733,7 @@ namespace YAF.Classes.Data
               foreach (DataRow dr in ds.Tables[YafDBAccess.GetObjectName("Forum")].Rows)
               {
                   categories[cntr] = Convert.ToInt32(dr["CategoryID"]);
-                  if ( Convert.ToInt32( dr["ReportedCount"] ) == 0 && Convert.ToInt32( dr["AbuseCount"] ) == 0 && Convert.ToInt32( dr["SpamCount"] ) == 0 && Convert.ToInt32(dr["MessageCount"] ) == 0 )
+                  if ( Convert.ToInt32( dr["ReportedCount"] ) == 0 && Convert.ToInt32(dr["MessageCount"] ) == 0 )
                   {
                       dr.Delete();
                       categories[cntr] = 0;

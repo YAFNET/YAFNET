@@ -225,16 +225,6 @@ namespace YAF.Classes
     moderate_unapprovedposts, 
 
     /// <summary>
-    /// The moderate_reportedabuse.
-    /// </summary>
-    moderate_reportedabuse, 
-
-    /// <summary>
-    /// The moderate_reportedspam.
-    /// </summary>
-    moderate_reportedspam, 
-
-    /// <summary>
     /// The error.
     /// </summary>
     error, 
