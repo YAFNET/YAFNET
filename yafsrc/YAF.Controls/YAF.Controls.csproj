@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveLocation.cs" />
     <Compile Include="ActiveUsers.cs" />
     <Compile Include="ReportedPosts.cs" />
     <Compile Include="OnlineStatusImage.cs" />

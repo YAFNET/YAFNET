@@ -708,12 +708,27 @@ namespace YAF.Classes.Core
 
           do
           {
+              string forumPage = HttpContext.Current.Request.QueryString.ToString();
+              if (string.IsNullOrEmpty(forumPage))
+              {
+                  forumPage = "MAINPAGE";
+              }
+              else
+              {
+                  forumPage = forumPage.TrimStart("g=".ToCharArray());
+                  if (forumPage.Contains("&"))
+                  {
+                  forumPage = forumPage.Substring(0, forumPage.IndexOf("&"));
+                  }                
+              } 
+             
             pageRow = DB.pageload(
               HttpContext.Current.Session.SessionID, 
               PageBoardID, 
               userKey, 
               HttpContext.Current.Request.UserHostAddress, 
-              HttpContext.Current.Request.FilePath, 
+              HttpContext.Current.Request.FilePath,
+              forumPage,
               browser, 
               platform, 
               categoryID, 

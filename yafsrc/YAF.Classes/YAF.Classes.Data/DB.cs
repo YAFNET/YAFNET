@@ -887,6 +887,10 @@ namespace YAF.Classes.Data
     /// <param name="location">
     /// The location.
     /// </param>
+    /// <param name="forumPage">
+    /// The forum page name.
+    /// </param> 
+    /// </param>
     /// <param name="browser">
     /// The browser.
     /// </param>
@@ -917,7 +921,8 @@ namespace YAF.Classes.Data
       object boardID, 
       object userKey, 
       object ip, 
-      object location, 
+      object location,
+      object forumPage,
       object browser, 
       object platform, 
       object categoryID, 
@@ -939,6 +944,7 @@ namespace YAF.Classes.Data
             cmd.Parameters.AddWithValue("UserKey", userKey);
             cmd.Parameters.AddWithValue("IP", ip);
             cmd.Parameters.AddWithValue("Location", location);
+            cmd.Parameters.AddWithValue("ForumPage", forumPage);
             cmd.Parameters.AddWithValue("Browser", browser);
             cmd.Parameters.AddWithValue("Platform", platform);
             cmd.Parameters.AddWithValue("CategoryID", categoryID);

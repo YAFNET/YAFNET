@@ -1,5 +1,6 @@
 <%@ Control Language="c#" CodeFile="admin.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.admin" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
+<%@ Import Namespace="YAF.Controls"%>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">	
 	
@@ -9,7 +10,7 @@
     <HeaderTemplate>
       
         <tr>
-          <td class="header1" colspan="5">
+          <td class="header1" colspan="6">
             Who is Online</td>
         </tr>
         <tr>
@@ -19,6 +20,8 @@
             IP Address</td>
           <td class="header2">
             Location</td>
+          <td class="header2">
+            Board Location</td>  
           <td class="header2">
             Forum Location</td>
           <td class="header2">
@@ -36,7 +39,10 @@
         <td class="post">
           <%# YafBBCode.EncodeHTML( YafUserProfile.GetProfile( Eval("UserName").ToString() ).Location ) %>
         </td>
-        <td class="post">
+         <td class="post">
+         <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((Eval("UserID") == DBNull.Value)? 0 : Eval("UserID")) %>' UserName='<%# Eval("UserName") %>' ForumPage='<%# Eval("ForumPage") %>' ForumID='<%# Convert.ToInt32((Eval("ForumID") == DBNull.Value)? 0 : Eval("ForumID")) %>' ForumName='<%# Eval("ForumName") %>' TopicID='<%# Convert.ToInt32((Eval("TopicID") == DBNull.Value)? 0 : Eval("TopicID")) %>' TopicName='<%# Eval("TopicName") %>' LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
+        </td>
+        <td class="post">         
           <%# FormatForumLink(Eval("ForumID"),Eval("ForumName")) %>
         </td>
         <td class="post">

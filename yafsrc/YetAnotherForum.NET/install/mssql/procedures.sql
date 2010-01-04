@@ -1226,7 +1226,8 @@ begin
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
 			c.Browser,
-			c.Platform
+			c.Platform,
+			c.ForumPage
 		from
 			[{databaseOwner}].[{objectQualifier}User] a
 			inner join [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID
@@ -3298,7 +3299,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@BoardID	int,
 	@UserKey	nvarchar(64),
 	@IP			nvarchar(15),
-	@Location	nvarchar(50),
+	@Location	nvarchar(128),
+	@ForumPage nvarchar(50) = null,
 	@Browser	nvarchar(50),
 	@Platform	nvarchar(50),
 	@CategoryID	int = null,
@@ -3408,7 +3410,8 @@ begin
 				ForumID = @ForumID,
 				TopicID = @TopicID,
 				Browser = @Browser,
-				Platform = @Platform
+				Platform = @Platform,
+				ForumPage = @ForumPage
 			where SessionID = @SessionID
 		end
 		else begin

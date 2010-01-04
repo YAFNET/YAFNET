@@ -606,6 +606,12 @@ if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{o
  	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [Location] nvarchar(128) NOT NULL
 GO
 
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Active] add [ForumPage] nvarchar(50)
+end
+GO
+
 -- Board Table
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin
