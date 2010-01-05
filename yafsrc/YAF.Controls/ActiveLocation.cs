@@ -16,14 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
+    using System;
+    using System.Web.UI;
+    using YAF.Classes;
+    using YAF.Classes.Core;
+    using YAF.Classes.Utils;
+
     /// <summary>
     /// Provides Active Users location info
     /// </summary>
@@ -37,7 +38,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The localization tag for the current location.
+        /// Gets or sets the localization tag for the current location.
         /// It should be  equal to page name
         /// </summary>
         public string ForumPage
@@ -46,7 +47,7 @@ namespace YAF.Controls
             {
                 if (ViewState["ForumPage"] != null || ViewState["ForumPage"] != DBNull.Value)
                 {
-                  //  string localizedPage = ViewState["ForumPage"].ToString().Substring(ViewState["ForumPage"].ToString().IndexOf("default.aspx?") - 14, ViewState["ForumPage"].ToString().IndexOf("&"));
+                  // string localizedPage = ViewState["ForumPage"].ToString().Substring(ViewState["ForumPage"].ToString().IndexOf("default.aspx?") - 14, ViewState["ForumPage"].ToString().IndexOf("&"));
                     return ViewState["ForumPage"].ToString();
                 }
 
@@ -58,8 +59,9 @@ namespace YAF.Controls
                 ViewState["ForumPage"] = value;
             }
         }
+
         /// <summary>
-        /// The forumname of the current location
+        /// Gets or sets the forumname of the current location
         /// </summary>
         public string ForumName
         {
@@ -78,8 +80,9 @@ namespace YAF.Controls
                 ViewState["ForumName"] = value;
             }
         }
+
         /// <summary>
-        /// The topicname of the current location
+        /// Gets or sets the topicname of the current location
         /// </summary>
         public string TopicName
         {
@@ -98,8 +101,9 @@ namespace YAF.Controls
                 ViewState["TopicName"] = value;
             }
         }
+
         /// <summary>
-        /// The forumid of the current location
+        /// Gets or sets the forumid of the current location
         /// </summary>
         public int ForumID
         {
@@ -118,8 +122,9 @@ namespace YAF.Controls
                 ViewState["ForumID"] = value;
             }
         }
+
         /// <summary>
-        /// The topicid of the current location 
+        /// Gets or sets the topicid of the current location 
         /// </summary>
         public int TopicID
         {
@@ -140,7 +145,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The userid of the current user
+        /// Gets or sets the userid of the current user
         /// </summary>
         public int UserID
         {
@@ -159,8 +164,9 @@ namespace YAF.Controls
                 ViewState["UserID"] = value;
             }
         }
+
         /// <summary>
-        /// The UserName of the current user
+        /// Gets or sets the UserName of the current user
         /// </summary>
         public string UserName
         {
@@ -179,8 +185,9 @@ namespace YAF.Controls
                 ViewState["UserName"] = value;
             }
         }
+
         /// <summary>
-        /// Make the link target "blank" to open in a new window.
+        /// Gets or sets a value indicating whether to show only topic link.
         /// </summary>
         public bool LastLinkOnly
         {
@@ -200,7 +207,6 @@ namespace YAF.Controls
             }
         }
 
-
         /// <summary>
         /// The render.
         /// </summary>
@@ -209,48 +215,49 @@ namespace YAF.Controls
         /// </param>
         protected override void Render(HtmlTextWriter output)
         {
-            if (string.IsNullOrEmpty(this.ForumPage)) this.ForumPage = YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA");
+            if (string.IsNullOrEmpty(this.ForumPage))
+            {
+                this.ForumPage = YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA");
+            }
+
                      output.BeginRender();              
                 
-                     if (TopicID > 0 && ForumID > 0 )
+                     if (this.TopicID > 0 && this.ForumID > 0)
                      {
                          output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS"));
-                         output.Write(@"<a href=""{0}"" id=""topicid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "t={0}", TopicID), UserID, TopicName);
-                         if (!LastLinkOnly)
+                         output.Write(@"<a href=""{0}"" id=""topicid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "t={0}", this.TopicID), this.UserID, this.TopicName);
+                         if (!this.LastLinkOnly)
                          {
                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICINFORUM"));
-                             output.Write(@"<a href=""{0}"" id=""forumidtopic_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.forum, "f={0}", ForumID), UserID, ForumName);
+                             output.Write(@"<a href=""{0}"" id=""forumidtopic_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.forum, "f={0}", this.ForumID), this.UserID, this.ForumName);
                          }
                      }
-                     else if (ForumID > 0 && TopicID <=0)
+                     else if (this.ForumID > 0 && this.TopicID <= 0)
                      {
-                         output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUM"));
-                        output.Write(@"<a href=""{0}"" id=""forumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.forum, "f={0}", ForumID), UserID, ForumName);
-                     }                    
-                       
+                        output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUM"));
+                        output.Write(@"<a href=""{0}"" id=""forumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.forum, "f={0}", this.ForumID), this.UserID, this.ForumName);
+                     }                  
                      else
-                      {
-                          if (this.ForumPage == "forum" && TopicID <= 0 && ForumID <= 0)
+                      {                         
+                          if (this.ForumPage == "forum" && this.TopicID <= 0 && this.ForumID <= 0)
                           {
-                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUMFROMCATEGORY"));
+                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "MAINPAGE"));
                           }                         
-                          else if (!YafContext.Current.IsHostAdmin && ForumPage.Contains("MODERATE_"))
+                          else if (!YafContext.Current.IsHostAdmin && this.ForumPage.Contains("MODERATE_"))
                           {
                               output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "MODERATE"));
                           }
-                          else if (!YafContext.Current.IsHostAdmin &&  ForumPage.Contains("ADMIN_"))
+                          else if (!YafContext.Current.IsHostAdmin && this.ForumPage.Contains("ADMIN_"))
                           {
                               output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ADMINTASK"));
                           }
                           else
                           {
-                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", ForumPage));
+                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", this.ForumPage));
                           }
-                      }           
-              
+                      } 
 
-                   output.EndRender();           
-               
+            output.EndRender();           
         }
     }
 }
