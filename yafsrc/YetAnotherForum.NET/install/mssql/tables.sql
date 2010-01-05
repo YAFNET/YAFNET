@@ -612,6 +612,10 @@ begin
 end
 GO
 
+if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage' and prec < 128)
+ 	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [ForumPage] nvarchar(128) 
+GO
+
 -- Board Table
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin

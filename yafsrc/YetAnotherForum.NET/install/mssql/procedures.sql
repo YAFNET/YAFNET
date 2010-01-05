@@ -3300,7 +3300,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@UserKey	nvarchar(64),
 	@IP			nvarchar(15),
 	@Location	nvarchar(128),
-	@ForumPage nvarchar(50) = null,
+	@ForumPage nvarchar(128) = null,
 	@Browser	nvarchar(50),
 	@Platform	nvarchar(50),
 	@CategoryID	int = null,

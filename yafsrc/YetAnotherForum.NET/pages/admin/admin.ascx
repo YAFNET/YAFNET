@@ -10,7 +10,7 @@
     <HeaderTemplate>
       
         <tr>
-          <td class="header1" colspan="6">
+          <td class="header1" colspan="4">
             Who is Online</td>
         </tr>
         <tr>
@@ -21,11 +21,7 @@
           <td class="header2">
             Location</td>
           <td class="header2">
-            Board Location</td>  
-          <td class="header2">
-            Forum Location</td>
-          <td class="header2">
-            Topic Location</td>
+            Board Location</td>   
         </tr>
     		</HeaderTemplate>
     <ItemTemplate>
@@ -41,13 +37,7 @@
         </td>
          <td class="post">
          <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((Eval("UserID") == DBNull.Value)? 0 : Eval("UserID")) %>' UserName='<%# Eval("UserName") %>' ForumPage='<%# Eval("ForumPage") %>' ForumID='<%# Convert.ToInt32((Eval("ForumID") == DBNull.Value)? 0 : Eval("ForumID")) %>' ForumName='<%# Eval("ForumName") %>' TopicID='<%# Convert.ToInt32((Eval("TopicID") == DBNull.Value)? 0 : Eval("TopicID")) %>' TopicName='<%# Eval("TopicName") %>' LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
-        </td>
-        <td class="post">         
-          <%# FormatForumLink(Eval("ForumID"),Eval("ForumName")) %>
-        </td>
-        <td class="post">
-          <%# FormatTopicLink(Eval("TopicID"),Eval("TopicName")) %>
-        </td>
+        </td>      
       </tr>
     		</ItemTemplate>
     <FooterTemplate>

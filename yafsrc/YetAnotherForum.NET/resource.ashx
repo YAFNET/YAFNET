@@ -992,20 +992,7 @@ namespace YAF
 			if (user != null)
 			{
 				userKey = user.ProviderUserKey;
-			}
-            string forumPage = HttpContext.Current.Request.QueryString.ToString();
-            if (string.IsNullOrEmpty(forumPage))
-            {
-                forumPage = "MAINPAGE";
-            }
-            else
-            {
-                forumPage = forumPage.TrimStart("g=".ToCharArray());
-                if (forumPage.Contains("&"))
-                {
-                    forumPage = forumPage.Substring(0, forumPage.IndexOf("&"));
-                }
-            } 
+			}     
              
 			DataRow pageRow = YAF.Classes.Data.DB.pageload(
 					HttpContext.Current.Session.SessionID,
@@ -1013,7 +1000,7 @@ namespace YAF
 					userKey,
 					HttpContext.Current.Request.UserHostAddress,
 					HttpContext.Current.Request.FilePath,
-                    forumPage, 
+                    HttpContext.Current.Request.QueryString.ToString(), 
 					browser,
 					platform,
 					null,

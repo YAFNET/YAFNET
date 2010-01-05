@@ -215,9 +215,23 @@ namespace YAF.Controls
         /// </param>
         protected override void Render(HtmlTextWriter output)
         {
-            if (string.IsNullOrEmpty(this.ForumPage))
+            string forumPageName = this.ForumPage;
+            if (string.IsNullOrEmpty(forumPageName))
             {
-                this.ForumPage = YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA");
+                forumPageName = "MAINPAGE";
+            }
+            else
+            {
+                forumPageName = forumPageName.TrimStart("g=".ToCharArray());
+                if (forumPageName.Contains("&"))
+                {
+                    forumPageName = forumPageName.Substring(0, forumPageName.IndexOf("&"));
+                }
+            }
+
+            if (string.IsNullOrEmpty(forumPageName))
+            {
+                forumPageName = YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA");
             }
 
                      output.BeginRender();              
@@ -238,22 +252,29 @@ namespace YAF.Controls
                         output.Write(@"<a href=""{0}"" id=""forumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.forum, "f={0}", this.ForumID), this.UserID, this.ForumName);
                      }                  
                      else
-                      {                         
-                          if (this.ForumPage == "forum" && this.TopicID <= 0 && this.ForumID <= 0)
+                      {
+                          if (forumPageName == "forum" && this.TopicID <= 0 && this.ForumID <= 0)
                           {
-                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "MAINPAGE"));
-                          }                         
-                          else if (!YafContext.Current.IsHostAdmin && this.ForumPage.Contains("MODERATE_"))
+                              if (this.ForumPage.Contains("c="))
+                              {
+                                  output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUMFROMCATEGORY"));
+                              }
+                              else
+                              {
+                                  output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "MAINPAGE"));
+                              }
+                          }
+                          else if (!YafContext.Current.IsHostAdmin && forumPageName.Contains("MODERATE_"))
                           {
                               output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "MODERATE"));
                           }
-                          else if (!YafContext.Current.IsHostAdmin && this.ForumPage.Contains("ADMIN_"))
+                          else if (!YafContext.Current.IsHostAdmin && forumPageName.Contains("ADMIN_"))
                           {
                               output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ADMINTASK"));
                           }
                           else
                           {
-                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", this.ForumPage));
+                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", forumPageName));
                           }
                       } 
 
