@@ -135,6 +135,7 @@
     <Resource tag="ACTIVE">فعال</Resource>
     <Resource tag="BROWSER">مرورگر </Resource>
     <Resource tag="LAST_ACTIVE">آخرین زمان فعالیت</Resource>
+    <Resource tag="LATEST_ACTION">Latest Action</Resource>
     <Resource tag="LOGGED_IN">وارد شده</Resource>
     <Resource tag="MINUTES">{0:N0} دقیقه</Resource>
     <Resource tag="PLATFORM">سیستم عامل</Resource>

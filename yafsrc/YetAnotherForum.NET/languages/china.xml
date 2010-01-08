@@ -135,6 +135,7 @@
     <Resource tag="ACTIVE">活动</Resource>
     <Resource tag="BROWSER">浏览器</Resource>
     <Resource tag="LAST_ACTIVE">上次登录时间</Resource>
+    <Resource tag="LATEST_ACTION">Latest Action</Resource>
     <Resource tag="LOGGED_IN">已登录</Resource>
     <Resource tag="MINUTES">在线 {0:N0} 分钟</Resource>
     <Resource tag="PLATFORM">平台</Resource>

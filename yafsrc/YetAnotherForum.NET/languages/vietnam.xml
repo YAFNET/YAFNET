@@ -114,6 +114,7 @@
     <Resource tag="ACTIVE">Đã hoạt động</Resource>
     <Resource tag="BROWSER">Trình duyệt</Resource>
     <Resource tag="LAST_ACTIVE">Lần cuối truy cập</Resource>
+    <Resource tag="LATEST_ACTION">Latest Action</Resource>
     <Resource tag="LOGGED_IN">Đăng nhập lúc</Resource>
     <Resource tag="MINUTES">{0:N0} phút</Resource>
     <Resource tag="PLATFORM">Hệ điều hành</Resource>

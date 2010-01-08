@@ -1256,7 +1256,8 @@ begin
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
 			c.Browser,
-			c.Platform
+			c.Platform,
+			c.ForumPage
 		from
 			[{databaseOwner}].[{objectQualifier}User] a		
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID	
@@ -2392,8 +2393,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}forum_save](
 	@AccessMaskID	int = null
 ) as
 begin
-		declare @BoardID	int
-	declare @Flags		int
+	declare @BoardID	int
+	declare @Flags		int	
 	
 	set @Flags = 0
 	if @Locked<>0 set @Flags = @Flags | 1
@@ -2401,7 +2402,7 @@ begin
 	if @IsTest<>0 set @Flags = @Flags | 4
 	if @Moderated<>0 set @Flags = @Flags | 8
 
-	if @ForumID>0 begin
+	if @ForumID>0 begin	
 		update [{databaseOwner}].[{objectQualifier}Forum] set 
 			ParentID=@ParentID,
 			Name=@Name,

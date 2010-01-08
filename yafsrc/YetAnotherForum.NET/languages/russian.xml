@@ -113,7 +113,8 @@
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">Активен</Resource>
     <Resource tag="BROWSER">Браузер</Resource>
-    <Resource tag="LAST_ACTIVE">Последний раз был активен</Resource>
+    <Resource tag="LAST_ACTIVE">Последняя активность</Resource>
+    <Resource tag="LATEST_ACTION">Последнее действие</Resource>
     <Resource tag="LOGGED_IN">На форуме</Resource>
     <Resource tag="MINUTES">{0:N0} минут</Resource>
     <Resource tag="PLATFORM">Платформа</Resource>

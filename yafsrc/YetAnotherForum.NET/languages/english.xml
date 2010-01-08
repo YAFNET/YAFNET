@@ -28,6 +28,7 @@
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">Active</Resource>
     <Resource tag="BROWSER">Browser</Resource>
+	<Resource tag="LATEST_ACTION">Latest Action</Resource>  
     <Resource tag="LAST_ACTIVE">Last Active</Resource>
     <Resource tag="LOGGED_IN">Logged In</Resource>
     <Resource tag="MINUTES">{0:N0} minutes</Resource>

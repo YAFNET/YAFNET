@@ -135,6 +135,7 @@
     <Resource tag="ACTIVE">Activ</Resource>
     <Resource tag="BROWSER">Browser</Resource>
     <Resource tag="LAST_ACTIVE">Ultimul Activ</Resource>
+    <Resource tag="LATEST_ACTION">Latest Action</Resource>
     <Resource tag="LOGGED_IN">Intrat</Resource>
     <Resource tag="MINUTES">{0:N0} minute</Resource>
     <Resource tag="PLATFORM">Platforma</Resource>

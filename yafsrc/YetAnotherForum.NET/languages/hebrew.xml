@@ -135,6 +135,7 @@
     <Resource tag="ACTIVE">פעיל/ה</Resource>
     <Resource tag="BROWSER">דפדפן</Resource>
     <Resource tag="LAST_ACTIVE">פעיל/ה לאחרונה</Resource>
+    <Resource tag="LATEST_ACTION">Latest Action</Resource>
     <Resource tag="LOGGED_IN">מחוברים</Resource>
     <Resource tag="MINUTES">{0:N0} דקות</Resource>
     <Resource tag="PLATFORM">מערכת הפעלה</Resource>

@@ -4,13 +4,16 @@
 <div class="DivTopSeparator"></div>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
-		<td class="header1" colspan="6">
+		<td class="header1" colspan="7">
 			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
 		</td>
 	</tr>
 	<tr>
 		<td class="header2">
 			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="username" />
+		</td>
+		<td class="header2">
+			<YAF:LocalizedLabel ID="LocalizedLabelLatestActions" runat="server" LocalizedTag="latest_action" />
 		</td>
 		<td class="header2">
 			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="logged_in" />
@@ -38,9 +41,12 @@
 				    (<YAF:LocalizedLabel ID="Hidden" LocalizedTag="HIDDEN" runat="server" />)
 				    </asp:PlaceHolder>				    
 				</td>
+				<td class="post">				
+					<YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((Eval("UserID") == DBNull.Value)? 0 : Eval("UserID")) %>' UserName='<%# Eval("UserName") %>' ForumPage='<%# Eval("ForumPage") %>' ForumID='<%# Convert.ToInt32((Eval("ForumID") == DBNull.Value)? 0 : Eval("ForumID")) %>' ForumName='<%# Eval("ForumName") %>' TopicID='<%# Convert.ToInt32((Eval("TopicID") == DBNull.Value)? 0 : Eval("TopicID")) %>' TopicName='<%# Eval("TopicName") %>' LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
+				</td>
 				<td class="post">
 					<%# YafServices.DateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %>
-				</td>
+				</td>				
 				<td class="post">
 					<%# YafServices.DateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %>
 				</td>

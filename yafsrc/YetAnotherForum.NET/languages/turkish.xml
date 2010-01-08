@@ -135,6 +135,7 @@
     <Resource tag="ACTIVE">Aktif</Resource>
     <Resource tag="BROWSER">Tarayıcı</Resource>
     <Resource tag="LAST_ACTIVE">En Son Aktif Olan</Resource>
+    <Resource tag="LATEST_ACTION">Latest Action</Resource>
     <Resource tag="LOGGED_IN">İçeri Girdiniz</Resource>
     <Resource tag="MINUTES">{0:N0} Dakika</Resource>
     <Resource tag="PLATFORM">Platform</Resource>

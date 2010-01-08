@@ -135,6 +135,7 @@
     <Resource tag="ACTIVE">Aktivní</Resource>
     <Resource tag="BROWSER">Prohlížeč</Resource>
     <Resource tag="LAST_ACTIVE">Naposledy aktivní</Resource>
+    <Resource tag="LATEST_ACTION">Latest Action</Resource>
     <Resource tag="LOGGED_IN">Přihlášen</Resource>
     <Resource tag="MINUTES">{0:N0} minut</Resource>
     <Resource tag="PLATFORM">Platforma</Resource>

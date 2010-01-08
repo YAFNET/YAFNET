@@ -718,7 +718,7 @@ namespace YAF.Classes.Data
     /// </summary>
     private static readonly string[] _scriptList = {
                                                      "mssql/tables.sql", "mssql/indexes.sql", "mssql/views.sql", "mssql/constraints.sql", "mssql/triggers.sql", 
-                                                     "mssql/procedures.sql", "mssql/functions.sql", "mssql/providers/procedures.sql", 
+                                                     "mssql/functions.sql", "mssql/procedures.sql",  "mssql/providers/procedures.sql", 
                                                      "mssql/providers/tables.sql", "mssql/providers/indexes.sql"
                                                    };
 

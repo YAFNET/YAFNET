@@ -135,6 +135,7 @@
     <Resource tag="ACTIVE">Aktívny</Resource>
     <Resource tag="BROWSER">Prehliadač</Resource>
     <Resource tag="LAST_ACTIVE">Naposledy aktívny</Resource>
+    <Resource tag="LATEST_ACTION">Latest Action</Resource>
     <Resource tag="LOGGED_IN">Prihlásenie</Resource>
     <Resource tag="MINUTES">{0:N0} minút(u/y)</Resource>
     <Resource tag="PLATFORM">Platforma</Resource>

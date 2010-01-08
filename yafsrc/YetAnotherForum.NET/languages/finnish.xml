@@ -135,6 +135,7 @@
     <Resource tag="ACTIVE">Vierailuaika</Resource>
     <Resource tag="BROWSER">Selain</Resource>
     <Resource tag="LAST_ACTIVE">Viimeksi aktiivinen</Resource>
+    <Resource tag="LATEST_ACTION">Latest Action</Resource>
     <Resource tag="LOGGED_IN">Kirjautui sisään</Resource>
     <Resource tag="MINUTES">{0:N0} minuuttia</Resource>
     <Resource tag="PLATFORM">Käyttöjärjestelmä</Resource>
