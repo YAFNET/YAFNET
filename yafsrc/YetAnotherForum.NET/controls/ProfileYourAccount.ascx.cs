@@ -49,8 +49,13 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      this.Groups.DataSource = DB.usergroup_list(PageContext.PageUserID);
+      System.Data.DataTable dt = DB.usergroup_list(PageContext.PageUserID);
 
+      if (YafContext.Current.BoardSettings.UseStyledNicks)
+      {
+          new YAF.Classes.Utils.StyleTransform(YafContext.Current.Theme).DecodeStyleByTable(ref dt, false);
+      }
+       this.Groups.DataSource = dt;
       // Bind			
       DataBind();
 

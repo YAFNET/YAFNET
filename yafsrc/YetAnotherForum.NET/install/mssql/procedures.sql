@@ -5496,7 +5496,8 @@ create procedure [{databaseOwner}].[{objectQualifier}usergroup_list](@UserID int
 	
 	select 
 		b.GroupID,
-		b.Name
+		b.Name,
+		b.Style
 	from
 		[{databaseOwner}].[{objectQualifier}UserGroup] a
 		join [{databaseOwner}].[{objectQualifier}Group] b on b.GroupID=a.GroupID
