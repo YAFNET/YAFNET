@@ -558,6 +558,7 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="SIGNATURE">Parašas: </Resource>
+    <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
     <Resource tag="TITLE">Redaguoti Parašas </Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">

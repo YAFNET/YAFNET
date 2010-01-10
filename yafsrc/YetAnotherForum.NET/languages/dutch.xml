@@ -492,6 +492,7 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="SIGNATURE">Handtekening:</Resource>
+    <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
     <Resource tag="TITLE">Handtekening bewerken</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">

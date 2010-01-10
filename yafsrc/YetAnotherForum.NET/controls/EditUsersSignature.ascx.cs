@@ -32,7 +32,7 @@ namespace YAF.Controls
 		{
 			get
 			{
-				if ( ViewState ["ShowHeader"] != null )
+				if ( ViewState["ShowHeader"] != null )
 				{
 					return Convert.ToBoolean( ViewState ["ShowHeader"] );
 				}
@@ -41,7 +41,7 @@ namespace YAF.Controls
 			}
 			set
 			{
-				ViewState ["ShowHeader"] = value;
+				ViewState["ShowHeader"] = value;
 			}
 		}
 
@@ -78,7 +78,15 @@ namespace YAF.Controls
 
 			if ( _sig.Text.Length > 0 )
 			{
-				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, body );
+                if (body.Length < PageContext.BoardSettings.UserSignatureMaxLength)
+                {
+                    YAF.Classes.Data.DB.user_savesignature(CurrentUserID, body);
+                }
+                else
+                {
+                    PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("SIGNATURE_MAX", PageContext.BoardSettings.UserSignatureMaxLength));
+                    return;
+                }
 			}
 			else
 			{

@@ -478,6 +478,7 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="SIGNATURE">Assinatura:</Resource>
+    <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
     <Resource tag="TITLE">Editar Assinatura</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">

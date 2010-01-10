@@ -240,6 +240,20 @@
 							<asp:TextBox ID="ImageAttachmentResizeHeight" runat="server"></asp:TextBox>
 						</td>
 					</tr>
+					<tr>
+						<td class="header1" colspan="2">
+							User Signature 
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Maximum number of characters:</b><br />
+							Maximum number of characters in user signature, including tags and BBCodes.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="UserSignatureMaxLength" runat="server"></asp:TextBox>
+						</td>
+					</tr>
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View2" Text="Features" NavigateUrl="" HeaderCssClass=""
@@ -841,7 +855,7 @@
 						<td class="post">
 							<asp:TextBox ID="AcceptedHTML" runat="server"></asp:TextBox>
 						</td>
-					</tr>
+					</tr>				
 					<tr>
 						<td class="postheader">
 							<b>Use styled nicks:</b><br />

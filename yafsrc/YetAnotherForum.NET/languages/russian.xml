@@ -442,6 +442,7 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="SIGNATURE">Подпись:</Resource>
+    <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>
     <Resource tag="TITLE">Редактировать подпись</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">

@@ -410,7 +410,8 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="SIGNATURE">Signature:</Resource>
-    <Resource tag="TITLE">Edit Signature</Resource>
+    <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
+	<Resource tag="TITLE">Edit Signature</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">
     <Resource tag="FORUM">Forum</Resource>
