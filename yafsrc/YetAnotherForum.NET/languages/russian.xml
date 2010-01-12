@@ -26,7 +26,7 @@
     <Resource tag="ADMIN_EXTESIONS">Просматривает расширения</Resource>
     <Resource tag="ADMIN_FORUMS">Просматривает настройки форумов</Resource>
     <Resource tag="ADMIN_GROUPS">Просматривает группы</Resource>
-    <Resource tag="ADMIN_HOSTSETTING">Просматривает настрйоки хоста</Resource>
+    <Resource tag="ADMIN_HOSTSETTING">Просматривает настройки хоста</Resource>
     <Resource tag="ADMIN_MAIL">Находится в отправке почты</Resource>
     <Resource tag="ADMIN_MEDALS">Просматривает медали</Resource>
     <Resource tag="ADMIN_NNTPFORUMS">Находится в настройках NNTP-форумов</Resource>
@@ -122,10 +122,10 @@
     <Resource tag="USERNAME">Имя пользователя</Resource>
   </page>
   <page name="ALBUM">
-    <Resource tag="ALBUM_CHANGE_TITLE">( Нажмите здесь для редактирования )</Resource>
-    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">( Нажмите здесь для редактирования )</Resource>
+    <Resource tag="ALBUM_CHANGE_TITLE">( Изменить )</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">( Изменить )</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">{0} изображение(ий/ия)</Resource>
-    <Resource tag="ALBUM_VIEW">Нажмите здесь чтобы посмотреть альбомы</Resource>
+    <Resource tag="ALBUM_VIEW">Просмотр</Resource>
     <Resource tag="ALBUMS">Альбомы</Resource>
     <Resource tag="ALBUMS_HEADER_TEXT">Альбомы {0}</Resource>
     <Resource tag="ALBUMS_TITLE"> Альбом пользователя {0}: {1}</Resource>
@@ -181,7 +181,7 @@
   <page name="BUTTON">
     <Resource tag="BUTTON_ADDALBUM">Добавить альбом</Resource>
     <Resource tag="BUTTON_ATTACH">Прикрепить</Resource>
-    <Resource tag="BUTTON_ATTACH_TT">Прикрепить файлы к этому сообщение</Resource>
+    <Resource tag="BUTTON_ATTACH_TT">Прикрепить файлы к этому сообщению.</Resource>
     <Resource tag="BUTTON_DELETE">Удалить</Resource>
     <Resource tag="BUTTON_DELETE_TT">Удалить это сообщение</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Удалить альбом</Resource>
@@ -348,7 +348,7 @@
     <Resource tag="BUDDYLIST_TT">Управление друзьями</Resource>
     <Resource tag="DENY">Отклонить</Resource>
     <Resource tag="DENY_ALL">Отклонить всех более кто запросил более 14 дней назад</Resource>
-    <Resource tag="EDIT_BUDDIES">Редактировать Друзей</Resource>
+    <Resource tag="EDIT_BUDDIES">Друзья</Resource>
     <Resource tag="PENDING_REQUESTS">Желающие подружиться</Resource>
     <Resource tag="REQUEST_DATE">Дата запроса</Resource>
     <Resource tag="YOUR_BUDDYLIST">Список Друзей</Resource>
@@ -359,11 +359,11 @@
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз когда кто-либо оставляет сообщение в [b]всех[/b] тех темах где вы оставляете свои посты?</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недействительный адрес электронной почты.</Resource>
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
-    <Resource tag="BAD_ICQ">Вы ввели недопустимой знаечние для вашего номера ICQ.</Resource>
+    <Resource tag="BAD_ICQ">Вы ввели недопустимой значение для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели недействительный адрес электронной почты для учётной записи MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Вы ввели неработающий адрес для вашего блога.</Resource>
     <Resource tag="CHANGE_EMAIL">Изменить адрес электронной почты</Resource>
-    <Resource tag="EDIT_ALBUMS">Редактировать альбомы</Resource>
+    <Resource tag="EDIT_ALBUMS">Альбомы</Resource>
     <Resource tag="EMAIL">Ваш адрес электронной почты должен быть всегда действительным.</Resource>
     <Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
@@ -429,10 +429,10 @@
     <Resource tag="GROUPS">Вы входите в группу/группы:</Resource>
     <Resource tag="INBOX">Входящие</Resource>
     <Resource tag="JOINED">Дата регистрации:</Resource>
-    <Resource tag="MESSENGER">Пейджер:</Resource>
+    <Resource tag="MESSENGER">Личные сообщения:</Resource>
     <Resource tag="NEW_MESSAGE">Новое сообщение</Resource>
     <Resource tag="NUMPOSTS">Число сообщений:</Resource>
-    <Resource tag="PERSONAL_PROFILE">Личный профиль:</Resource>
+    <Resource tag="PERSONAL_PROFILE">Настройки профиля:</Resource>
     <Resource tag="SENTITEMS">Отправленные</Resource>
     <Resource tag="SIGNATURE">Подпись</Resource>
     <Resource tag="SUBSCRIPTIONS">Подписки</Resource>
@@ -777,7 +777,7 @@
     <Resource tag="BLOG">БЛОГ</Resource>
     <Resource tag="CHOICE">Вариант</Resource>
     <Resource tag="CLOSE_TEXT">Закрыть</Resource>
-    <Resource tag="CONFIRM_DELETEMESSAGE">Удалить это ообщение?</Resource>
+    <Resource tag="CONFIRM_DELETEMESSAGE">Удалить это сообщение?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Удалить эту тему?</Resource>
     <Resource tag="CONFIRM_REPORTABUSE">Вы уверены, что желаете сообщить, что этот пост является злоупотреблением?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Вы уверены, что желаете сообщить, что этот пост нарушает правила форума?</Resource>
@@ -789,15 +789,15 @@
     <Resource tag="EDITED_BY_USER">пользователем</Resource>
     <Resource tag="EMAIL">EMail</Resource>
     <Resource tag="EMAILTOPIC">Отправить тему по почте</Resource>
-    <Resource tag="EMPTY_MESSAGE">Сообщение далжно содержать текст.</Resource>
+    <Resource tag="EMPTY_MESSAGE">Сообщение должно содержать текст.</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
     <Resource tag="GROUPS">Группы</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">Пользователь {0} прикрепил следующие файлы:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Загрузить изображение</Resource>
-    <Resource tag="IMAGE_RESIZE_ENLARGE">Нажмите, чтобы увеличить</Resource>
-    <Resource tag="IMAGE_RESIZE_VIEWS">{0} Просмотр(ов)</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Увеличить</Resource>
+    <Resource tag="IMAGE_RESIZE_VIEWS">Просмотров:{0}</Resource>
     <Resource tag="IMAGE_TEXT">Изображение</Resource>
     <Resource tag="INFO_NOMORETOPICS">На этом форуме больше нет тем.</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Тема закрыта.</Resource>

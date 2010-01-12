@@ -29,7 +29,7 @@ namespace YAF.Pages
     /// The form for reported post complaint text.
     /// </summary>
     public partial class ReportPost : ForumPage
-    {
+    {        
         // messageid
 
         /// <summary>
@@ -107,7 +107,11 @@ namespace YAF.Pages
                     System.Data.DataTable messageRow = DB.message_list(this.messageID);
                     if (messageRow.Rows.Count > 0)
                     {
-                        ReportedMessageText.Text = messageRow.Rows[0]["Message"].ToString();
+                        // populate the message preview with the message datarow...
+                        MessagePreview.Message = messageRow.Rows[0]["message"].ToString();
+                        MessagePreview.MessageFlags.BitValue = Convert.ToInt32(messageRow.Rows[0]["Flags"]);
+                        UserProfileLink.UserID = Convert.ToInt32(messageRow.Rows[0]["UserID"]);
+                        UserProfileLink.UserName = messageRow.Rows[0]["UserName"].ToString();                        
                     }
                    
                     // Get Forum Link

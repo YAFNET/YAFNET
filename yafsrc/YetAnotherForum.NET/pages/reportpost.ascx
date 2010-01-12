@@ -1,16 +1,18 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportpost.ascx.cs" Inherits="YAF.Pages.ReportPost" %>
+<%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td class="header1" colspan="2">
 				<YAF:LocalizedLabel ID="ReportPostLabel" runat="server" LocalizedTag="HEADER" />
 			</td>			
-		</tr>
-		<tr>
-		        <td class="postheader" style="width: 100px" valign="top">				
-		        </td>
+		</tr>	
+		<tr>		
+		    <td class="postheader" style="width: 100px" valign="top">		    
+		        <YAF:UserLink ID="UserProfileLink" runat="server"  />	
+ 	        </td>
 			<td class="post"  runat="server">
-				<asp:Label ID="ReportedMessageText" runat="server" ></asp:Label> 			
+				<YAF:MessagePost ID="MessagePreview" runat="server"></YAF:MessagePost>			
 			</td>						
 		</tr>		  
 		<tr>
