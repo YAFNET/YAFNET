@@ -227,6 +227,18 @@ namespace YAF.Pages.Admin
         return;
       }
 
+      // The picked forum cannot be child forum as it's a parent
+      // If we update a forum ForumID > 0 
+      if (ForumID > 0 && parentID != null)
+      {
+          int dependency = DB.forum_save_parentschecker(ForumID, parentID);
+          if (dependency > 0)
+          {
+              PageContext.AddLoadMessage("The choosen forum cannot be child forum as it's a parent.");
+              return;
+          }
+      }
+
       object themeURL = null;
       if (this.ThemeList.SelectedValue.Length > 0)
       {

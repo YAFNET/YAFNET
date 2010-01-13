@@ -54,6 +54,13 @@ DROP FUNCTION [{databaseOwner}].[{objectQualifier}message_getthanksinfo]
 
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_save_parentschecker]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[{objectQualifier}forum_save_parentschecker]
+
+GO
+
+
+
 create function [{databaseOwner}].[{objectQualifier}bitset](@Flags int,@Mask int) returns bit as
 
 begin
@@ -423,5 +430,51 @@ BEGIN
 		SELECT @Output = @Output + ','
 	RETURN @Output
 END
+GO
+
+create function [{databaseOwner}].[{objectQualifier}forum_save_parentschecker](@ForumID int, @ParentID int) returns int as
+
+begin
+-- Checks if the forum is already referenced as a parent 
+    declare @dependency int = 0
+    declare @haschildren int = 0
+    declare @frmtmp int
+    declare @prntmp int
+    select @dependency=ForumID from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID AND ForumID = @ParentID;
+    if @dependency > 0
+    begin
+    return @ParentID
+    end
+
+    if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID)
+        begin        
+        declare c cursor for
+        select ForumID,ParentID from [{databaseOwner}].[{objectQualifier}Forum]
+        where ParentID = @ForumID
+        
+        open c
+        
+        fetch next from c into @frmtmp,@prntmp
+        while @@FETCH_STATUS = 0
+        begin
+        if @frmtmp > 0 AND @frmtmp IS NOT NULL
+         begin        
+            set @haschildren= [{databaseOwner}].[{objectQualifier}forum_save_parentschecker](@frmtmp,@ParentID)            
+            if  @prntmp = @ParentID
+            begin
+            set @dependency= @ParentID
+            end    
+            else if @haschildren > 0
+            begin
+            set @dependency= @haschildren
+            end        
+        end
+        fetch next from c into @frmtmp,@prntmp
+        end
+        close c
+        deallocate c    
+    end
+    return @dependency
+end
 GO
 
