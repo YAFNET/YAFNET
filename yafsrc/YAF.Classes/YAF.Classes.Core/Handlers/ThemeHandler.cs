@@ -97,7 +97,7 @@ namespace YAF.Classes.Core
 
         if (!YafTheme.IsValidTheme(themeFile))
         {
-          themeFile = "yafpro.xml";
+            themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();           
         }
 
         // create the theme class

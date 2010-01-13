@@ -33,32 +33,57 @@ namespace YAF.Classes.Core
 	/// </summary>
 	public static partial class UserMembershipHelper
 	{
-
+        /// <summary>
+        /// Method returns MembershipUser 
+        /// </summary>      
+        /// <returns>Returns MembershipUser </returns>
 		public static MembershipUser GetUser()
 		{
 			return GetUser( false );
 		}
-
+        /// <summary>
+        /// Method returns MembershipUser
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>Returns MembershipUser</returns>
 		public static MembershipUser GetUser( string username )
 		{
 			return GetUser( username, false );
 		}
-
+        /// <summary>
+        /// Method returns MembershipUser
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="updateOnlineStatus"></param>
+        /// <returns>Returns MembershipUser</returns>
 		public static MembershipUser GetUser( string username, bool updateOnlineStatus )
 		{
 			return YafContext.Current.CurrentMembership.GetUser( username, updateOnlineStatus );
 		}
-
+        /// <summary>
+        /// Method returns MembershipUser
+        /// </summary>
+        /// <param name="providerKey"></param>
+        /// <returns>Returns MembershipUser</returns>
 		public static MembershipUser GetUser( object providerKey )
 		{
 			return YafContext.Current.CurrentMembership.GetUser( providerKey, false );
 		}
-
+        /// <summary>
+        /// Method returns MembershipUser 
+        /// </summary>
+        /// <param name="providerKey"></param>
+        /// <param name="updateOnlineStatus"></param>
+        /// <returns>Returns MembershipUser</returns>
 		public static MembershipUser GetUser( object providerKey, bool updateOnlineStatus )
 		{
 			return YafContext.Current.CurrentMembership.GetUser( providerKey, updateOnlineStatus );
 		}
-
+        /// <summary>
+        /// Method which returns MembershipUser
+        /// </summary>
+        /// <param name="updateOnlineStatus"></param>
+        /// <returns>Returns MembershipUser</returns>
 		public static MembershipUser GetUser( bool updateOnlineStatus )
 		{
 			if ( HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated )
@@ -69,10 +94,18 @@ namespace YAF.Classes.Core
 			return null;
 		}
 
+        public static MembershipUserCollection GetAllUsers(int pageCount, out int exitCount, int userNumber)
+        {
+            int totalRecords;
+            MembershipUserCollection muc = YafContext.Current.CurrentMembership.GetAllUsers(pageCount, 1000, out totalRecords);
+            exitCount = totalRecords;
+            return muc;
+        }
+
 		public static MembershipUserCollection GetAllUsers()
 		{
-			int totalRecords;
-			return YafContext.Current.CurrentMembership.GetAllUsers( 1, 999999, out totalRecords );
+			int userCount;
+            return GetAllUsers(0,out userCount,9999);
 		}
 
 		public static MembershipUserCollection FindUsersByName( string username )
@@ -292,8 +325,14 @@ namespace YAF.Classes.Core
 
 		public static void DeleteAllUnapproved( DateTime createdCutoff )
 		{
+			int exitCount = 1;
+            int pageCount = 0;
 			// get all users...
-			MembershipUserCollection allUsers = GetAllUsers();
+            //vzrus: we should do it by portions for large forums
+            while (exitCount > 0)
+            {
+                MembershipUserCollection allUsers = GetAllUsers(pageCount, out exitCount, 1000);
+
 
 			// iterate through each one...
 			foreach ( MembershipUser user in allUsers )
@@ -305,6 +344,8 @@ namespace YAF.Classes.Core
 					YafContext.Current.CurrentMembership.DeleteUser( user.UserName, true );
 				}
 			}
+            pageCount++;
+            }
 		}
 
 		/// <summary>
@@ -313,22 +354,29 @@ namespace YAF.Classes.Core
 		/// </summary>
 		public static void ApproveAll()
 		{
+            int exitCount = 1;
+            int pageCount = 0;
 			// get all users...
-			MembershipUserCollection allUsers = GetAllUsers();
+            //vzrus: we should do it by portions for large forums
+            while (exitCount > 0)
+            {
+                MembershipUserCollection allUsers = GetAllUsers(pageCount, out exitCount, 1000);
 
-			// iterate through each one...
-			foreach ( MembershipUser user in allUsers )
-			{
-				if ( !user.IsApproved )
-				{
-					// approve this user...
-					user.IsApproved = true;
-					YafContext.Current.CurrentMembership.UpdateUser( user );
-					int id = GetUserIDFromProviderUserKey( user.ProviderUserKey );
-					if ( id > 0 )
-						DB.user_approve( id );
-				}
-			}
+                // iterate through each one...
+                foreach (MembershipUser user in allUsers)
+                {
+                    if (!user.IsApproved)
+                    {
+                        // approve this user...
+                        user.IsApproved = true;
+                        YafContext.Current.CurrentMembership.UpdateUser(user);
+                        int id = GetUserIDFromProviderUserKey(user.ProviderUserKey);
+                        if (id > 0)
+                            DB.user_approve(id);
+                    }
+                }
+                pageCount++;
+            }
 		}
 
 		/// <summary>

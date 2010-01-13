@@ -78,12 +78,18 @@ namespace YAF.Controls
 		private void BindData()
 		{
 			TimeZones.DataSource = StaticDataHelper.TimeZones();
-			Theme.DataSource = StaticDataHelper.Themes();
-			Theme.DataTextField = "Theme";
-			Theme.DataValueField = "FileName";
-			Language.DataSource = StaticDataHelper.Languages();
-			Language.DataTextField = "Language";
-			Language.DataValueField = "FileName";
+            if (PageContext.BoardSettings.AllowUserTheme)
+            {
+                Theme.DataSource = StaticDataHelper.Themes();
+                Theme.DataTextField = "Theme";
+                Theme.DataValueField = "FileName";
+            }
+            if (PageContext.BoardSettings.AllowUserLanguage)
+            {
+                Language.DataSource = StaticDataHelper.Languages();
+                Language.DataTextField = "Language";
+                Language.DataValueField = "FileName";
+            }
 
 			DataBind();
 
@@ -114,12 +120,12 @@ namespace YAF.Controls
 
 			OverrideForumThemeRow.Visible = PageContext.BoardSettings.AllowUserTheme;
 
-			if ( PageContext.BoardSettings.AllowUserTheme )
+            if (PageContext.BoardSettings.AllowUserTheme && Theme.Items.Count > 0)
 			{
 				// Allows to use different per-forum themes,
 				// While "Allow User Change Theme" option in hostsettings is true
 				string themeFile = PageContext.BoardSettings.Theme;
-				if ( userData.ThemeFile != null ) themeFile = userData.ThemeFile;
+				if (!string.IsNullOrEmpty(userData.ThemeFile)) themeFile = userData.ThemeFile;
 				
 				ListItem themeItem = Theme.Items.FindByValue( themeFile );
 				if (themeItem != null) themeItem.Selected = true;
@@ -127,14 +133,14 @@ namespace YAF.Controls
 				OverrideDefaultThemes.Checked = userData.OverrideDefaultThemes;
 			}
 
-			if ( PageContext.BoardSettings.AllowUserLanguage )
-			{
-				string languageFile = PageContext.BoardSettings.Language;
-				if ( userData.LanguageFile != string.Empty ) languageFile = userData.LanguageFile;
+            if (PageContext.BoardSettings.AllowUserLanguage && Language.Items.Count > 0)
+            {
+                string languageFile = PageContext.BoardSettings.Language;
+                if (!string.IsNullOrEmpty(userData.LanguageFile)) languageFile = userData.LanguageFile;
 
-				ListItem foundItem = Language.Items.FindByValue( languageFile );
-				if ( foundItem != null ) foundItem.Selected = true;
-			}
+                ListItem foundItem = Language.Items.FindByValue(languageFile);
+                if (foundItem != null) foundItem.Selected = true;
+            }           
 		}
 
 		protected void UpdateProfile_Click( object sender, System.EventArgs e )
@@ -226,9 +232,22 @@ namespace YAF.Controls
 
 			userProfile.Save();
 
+            // vzrus: We should do it as we need to write null value to db, else it will be empty. 
+            // Localizer currently treats only nulls. 
+            object language = Language.SelectedValue;
+            object theme = Theme.SelectedValue;
+            if (string.IsNullOrEmpty(Language.SelectedValue))
+            {
+                language = null;
+            }
+            if (string.IsNullOrEmpty(Theme.SelectedValue))
+            {
+                theme = null;
+            }
+
 			// save remaining settings to the DB
 			YAF.Classes.Data.DB.user_save( CurrentUserID, PageContext.PageBoardID, null, null,
-                Convert.ToInt32(TimeZones.SelectedValue), Language.SelectedValue, Theme.SelectedValue, OverrideDefaultThemes.Checked, null, PMNotificationEnabled.Checked, AutoWatchTopicsEnabled.Checked);
+                Convert.ToInt32(TimeZones.SelectedValue), language, theme, OverrideDefaultThemes.Checked, null, PMNotificationEnabled.Checked, AutoWatchTopicsEnabled.Checked);
 
 			// clear the cache for this user...
 			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
