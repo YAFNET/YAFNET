@@ -2908,6 +2908,26 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
+    /// The method returns an integer value for a  found parent forum 
+    /// if a forum is a parent of an existing child to avoid circular dependency
+    /// while creating a new forum
+    /// </summary>
+    /// <param name="forumID"></param>
+    /// <param name="parentID"></param>
+    /// <returns>Integer value for a found dependency</returns>
+    public static int forum_save_parentschecker(object forumID, object parentID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("SELECT " + YafDBAccess.GetObjectName("forum_save_parentschecker") + "(@ForumID,@ParentID)", true))    
+      { 
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.AddWithValue("@ForumID", forumID);
+        cmd.Parameters.AddWithValue("@ParentID", parentID);     
+        return Convert.ToInt32(YafDBAccess.Current.ExecuteScalar(cmd));
+      }
+        
+    }
+
+    /// <summary>
     /// The forum_sort_list.
     /// </summary>
     /// <param name="listSource">
