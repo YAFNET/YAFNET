@@ -26,7 +26,7 @@ namespace YAF.Classes.Core
   /// <summary>
   /// The yaf initialize db.
   /// </summary>
-  public class YafInitializeDb : RootYafService
+  public class YafInitializeDb : BaseYafService
   {
     /// <summary>
     /// Gets InitVarName.

@@ -26,7 +26,7 @@ namespace YAF.Classes.Core
   /// <summary>
   /// The yaf check banned ips.
   /// </summary>
-  public class YafCheckBannedIps : RootYafService
+  public class YafCheckBannedIps : BaseYafService
   {
     /// <summary>
     /// The _init var name.

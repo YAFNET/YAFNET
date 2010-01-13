@@ -17,472 +17,489 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-using System;
-using System.Collections;
-using System.Data;
-using System.Web.UI.HtmlControls;
-using System.Web;
-using System.Web.UI;
-using System.Web.Security;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Classes.Core
 {
-	/// <summary>
-	/// EventArgs class for the PageTitleSet event
-	/// </summary>
-	public class ForumPageRenderedArgs : EventArgs
-	{
-		private HtmlTextWriter _writer;
+  using System;
+  using System.Collections;
+  using System.Data;
+  using System.Web;
+  using System.Web.Security;
+  using System.Web.UI;
+  using System.Web.UI.HtmlControls;
 
-		public ForumPageRenderedArgs(System.Web.UI.HtmlTextWriter writer)
-		{
-			_writer = writer;
-		}
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		public HtmlTextWriter Writer
-		{
-			get { return _writer; }
-		}
-	}
+  /// <summary>
+  /// The class that all Yaf forum pages are based on.
+  /// </summary>
+  public class ForumPage : UserControl
+  {
+    #region Variables
 
-	/// <summary>
-	/// Summary description for BasePage.
-	/// </summary>
-	public class ForumPage : System.Web.UI.UserControl
-	{
-		/* Ederon : 6/16/2007 - conventions */
+    // cache for this page
+    private readonly Hashtable _pageCache;
 
-		#region Variables
+    private bool _noDataBase;
 
-		// cache for this page
-		private Hashtable _pageCache;
+    private bool _showToolBar = Config.ShowToolBar;
 
-		private bool _noDataBase = false;
-		private bool _showToolBar = Config.ShowToolBar;
-		private bool _showFooter = Config.ShowFooter;
-		private string _transPage = string.Empty;
+    private bool _showFooter = Config.ShowFooter;
 
-		public event EventHandler<ForumPageRenderedArgs> ForumPageRendered;
+    private readonly string _transPage = string.Empty;
 
-		protected bool _isAdminPage = false;
-		public bool IsAdminPage
-		{
-			get { return _isAdminPage; }
-		}
+    public event EventHandler<ForumPageRenderedArgs> ForumPageRendered;
 
-		protected bool _isRegisteredPage = false;
-		public bool IsRegisteredPage
-		{
-			get
-			{
-				return _isRegisteredPage;
-			}
-		}
+    protected bool _isAdminPage;
 
-		private bool _allowAsPopup = false;
-		public bool AllowAsPopup
-		{
-			get
-			{
-				return _allowAsPopup;
-			}
-			protected set
-			{
-				_allowAsPopup = value;
-			}
-		}
+    public bool IsAdminPage
+    {
+      get
+      {
+        return this._isAdminPage;
+      }
+    }
 
-		private IYafHeader _header = null;
-		public IYafHeader ForumHeader
-		{
-			get
-			{
-				return _header;
-			}
-			set
-			{
-				_header = value;
-			}
-		}
+    protected bool _isRegisteredPage = false;
 
-		private IYafFooter _footer = null;
-		public IYafFooter ForumFooter
-		{
-			get
-			{
-				return _footer;
-			}
-			set
-			{
-				_footer = value;
-			}
-		}
+    public bool IsRegisteredPage
+    {
+      get
+      {
+        return this._isRegisteredPage;
+      }
+    }
 
-		#endregion
+    private bool _allowAsPopup = false;
 
-		#region Constructor and events
+    public bool AllowAsPopup
+    {
+      get
+      {
+        return this._allowAsPopup;
+      }
+      protected set
+      {
+        this._allowAsPopup = value;
+      }
+    }
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		public ForumPage() : this( "" ) { }
-		public ForumPage( string transPage )
-		{
-			// create empty hashtable for cache entries
-			_pageCache = new Hashtable();
+    private IYafHeader _header = null;
 
-			_transPage = transPage;
-			this.Init += new EventHandler( ForumPage_Init );
-			this.Load += new System.EventHandler( this.ForumPage_Load );
-			this.Unload += new System.EventHandler( this.ForumPage_Unload );
-			this.Error += new System.EventHandler( this.ForumPage_Error );
-			this.PreRender += new EventHandler( ForumPage_PreRender );
-		}
+    public IYafHeader ForumHeader
+    {
+      get
+      {
+        return this._header;
+      }
+      set
+      {
+        this._header = value;
+      }
+    }
 
-		private void ForumPage_Error( object sender, System.EventArgs e )
-		{
-			// This doesn't seem to work...
-			Exception x = Server.GetLastError();
-			YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
-			if ( !YafForumInfo.IsLocal )
-				CreateMail.CreateLogEmail( Server.GetLastError() );
-		}
+    private IYafFooter _footer = null;
 
-		/// <summary>
-		/// Called first to initialize the context
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		void ForumPage_Init( object sender, EventArgs e )
-		{
-			// fire init event...
-			YafContext.Current.ForumPageInit( this, new EventArgs() );
+    public IYafFooter ForumFooter
+    {
+      get
+      {
+        return this._footer;
+      }
+      set
+      {
+        this._footer = value;
+      }
+    }
 
-			if ( _noDataBase )
-				return;
+    #endregion
+
+    #region Constructor and events
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public ForumPage()
+      : this("")
+    {
+    }
+
+    public ForumPage(string transPage)
+    {
+      // create empty hashtable for cache entries
+      this._pageCache = new Hashtable();
+
+      this._transPage = transPage;
+      this.Init += new EventHandler(this.ForumPage_Init);
+      this.Load += new EventHandler(this.ForumPage_Load);
+      this.Unload += new EventHandler(this.ForumPage_Unload);
+      this.Error += new EventHandler(this.ForumPage_Error);
+      this.PreRender += new EventHandler(this.ForumPage_PreRender);
+    }
+
+    private void ForumPage_Error(object sender, EventArgs e)
+    {
+      // This doesn't seem to work...
+      Exception x = this.Server.GetLastError();
+      DB.eventlog_create(this.PageContext.PageUserID, this, x);
+      if (!YafForumInfo.IsLocal)
+      {
+        CreateMail.CreateLogEmail(this.Server.GetLastError());
+      }
+    }
+
+    /// <summary>
+    /// Called first to initialize the context
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ForumPage_Init(object sender, EventArgs e)
+    {
+      // fire init event...
+      YafContext.Current.ForumPageInit(this, new EventArgs());
+
+      if (this._noDataBase)
+      {
+        return;
+      }
 
 #if DEBUG
-			QueryCounter.Reset();
+      QueryCounter.Reset();
 #endif
 
-			// set the current translation page...
-			YafContext.Current.InstanceFactory.GetInstance<LocalizationHandler>().TranslationPage = _transPage;
+      // set the current translation page...
+      YafContext.Current.InstanceFactory.GetInstance<LocalizationHandler>().TranslationPage = this._transPage;
 
-			// fire preload event...
-			YafContext.Current.ForumPagePreLoad( this, new EventArgs() );
-		}
+      // fire preload event...
+      YafContext.Current.ForumPagePreLoad(this, new EventArgs());
+    }
 
-		/// <summary>
-		/// Called when page is loaded
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void ForumPage_Load( object sender, System.EventArgs e )
-		{
-			if ( PageContext.BoardSettings.DoUrlReferrerSecurityCheck ) Security.CheckRequestValidity( Request );
-		}
+    /// <summary>
+    /// Called when page is loaded
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ForumPage_Load(object sender, EventArgs e)
+    {
+      if (this.PageContext.BoardSettings.DoUrlReferrerSecurityCheck)
+      {
+        Security.CheckRequestValidity(this.Request);
+      }
+    }
 
-		/// <summary>
-		/// Called when the page is unloaded
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void ForumPage_Unload( object sender, System.EventArgs e )
-		{
-			// release cache
-			if (_pageCache != null) _pageCache.Clear();
-		}
-		#endregion
+    /// <summary>
+    /// Called when the page is unloaded
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ForumPage_Unload(object sender, EventArgs e)
+    {
+      // release cache
+      if (this._pageCache != null)
+      {
+        this._pageCache.Clear();
+      }
+    }
 
-		#region Render Functions
+    #endregion
 
-		protected void InsertCssRefresh( System.Web.UI.Control addTo )
-		{
-			// make the style sheet link controls.
-			addTo.Controls.Add( ControlHelper.MakeCssIncludeControl( YafForumInfo.GetURLToResource( "css/forum.css" ) ) );
-			addTo.Controls.Add( ControlHelper.MakeCssIncludeControl( YafContext.Current.Theme.BuildThemePath( "theme.css" )) );
+    #region Render Functions
 
-			if ( ForumHeader.RefreshURL != null && ForumHeader.RefreshTime >= 0 )
-			{
-				HtmlMeta refresh = new HtmlMeta();
-				refresh.HttpEquiv = "Refresh";
-				refresh.Content = String.Format( "{1};url={0}", ForumHeader.RefreshURL, ForumHeader.RefreshTime );
+    protected void InsertCssRefresh(Control addTo)
+    {
+      // make the style sheet link controls.
+      addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToResource("css/forum.css")));
+      addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafContext.Current.Theme.BuildThemePath("theme.css")));
 
-				addTo.Controls.Add( refresh );
-			}
-		}
+      if (this.ForumHeader.RefreshURL != null && this.ForumHeader.RefreshTime >= 0)
+      {
+        var refresh = new HtmlMeta();
+        refresh.HttpEquiv = "Refresh";
+        refresh.Content = String.Format("{1};url={0}", this.ForumHeader.RefreshURL, this.ForumHeader.RefreshTime);
 
-		protected Control _topPageControl = null;
-		public Control TopPageControl
-		{
-			get
-			{
-				if ( _topPageControl == null )
-				{
-					if ( Page != null && Page.Header != null )
-					{
-						_topPageControl = Page.Header;
-					}
-					else
-					{
-						_topPageControl = ControlHelper.FindControlRecursiveBoth( this, "YafHead" ) ?? ForumHeader.ThisControl;
-					}
-				}
+        addTo.Controls.Add(refresh);
+      }
+    }
 
-				return _topPageControl; 
-			}
-		}
+    protected Control _topPageControl = null;
 
-		protected void SetupHeaderElements()
-		{
-			InsertCssRefresh(TopPageControl);
-		}
+    public Control TopPageControl
+    {
+      get
+      {
+        if (this._topPageControl == null)
+        {
+          if (this.Page != null && this.Page.Header != null)
+          {
+            this._topPageControl = this.Page.Header;
+          }
+          else
+          {
+            this._topPageControl = ControlHelper.FindControlRecursiveBoth(this, "YafHead") ??
+                                   this.ForumHeader.ThisControl;
+          }
+        }
 
-		private void ForumPage_PreRender( object sender, EventArgs e )
-		{
-			// sets up the head elements in addition to the Css and image elements
-			SetupHeaderElements();
-			// setup the forum control header & footer properties
-			ForumHeader.SimpleRender = !ShowToolBar;
-			ForumFooter.SimpleRender = !ShowFooter;
-		}
+        return this._topPageControl;
+      }
+    }
 
-		/// <summary>
-		/// Writes the document
-		/// </summary>
-		/// <param name="writer"></param>
-		protected override void Render( System.Web.UI.HtmlTextWriter writer )
-		{
-			base.Render( writer );
-			// handle additional rendering if desired...
-			if (ForumPageRendered != null) ForumPageRendered( this, new ForumPageRenderedArgs( writer ) );
-		}
+    protected void SetupHeaderElements()
+    {
+      this.InsertCssRefresh(this.TopPageControl);
+    }
 
-		#endregion
+    private void ForumPage_PreRender(object sender, EventArgs e)
+    {
+      // sets up the head elements in addition to the Css and image elements
+      this.SetupHeaderElements();
+      // setup the forum control header & footer properties
+      this.ForumHeader.SimpleRender = !this.ShowToolBar;
+      this.ForumFooter.SimpleRender = !this.ShowFooter;
+    }
 
-		#region Page/User properties
-		/// <summary>
-		/// Set to true if this is the start page. Should only be set by the page that initialized the database.
-		/// </summary>
-		protected bool NoDataBase
-		{
-			set
-			{
-				_noDataBase = value;
-			}
-		}
+    /// <summary>
+    /// Writes the document
+    /// </summary>
+    /// <param name="writer"></param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      base.Render(writer);
+      // handle additional rendering if desired...
+      if (this.ForumPageRendered != null)
+      {
+        this.ForumPageRendered(this, new ForumPageRenderedArgs(writer));
+      }
+    }
 
-		public void RedirectNoAccess()
-		{
-			YafServices.Permissions.HandleRequest( ViewPermissions.RegisteredUsers );
-		}
-		#endregion
+    #endregion
 
-		#region Page Cache
-		
-		/// <summary>
-		/// Gets cache associated with this page.
-		/// </summary>
-		public Hashtable PageCache
-		{
-			get { return _pageCache; }
-		}
+    #region Page/User properties
+    /// <summary>
+    /// Set to true if this is the start page. Should only be set by the page that initialized the database.
+    /// </summary>
+    protected bool NoDataBase
+    {
+      set
+      {
+        _noDataBase = value;
+      }
+    }
 
-		#endregion
+    public void RedirectNoAccess()
+    {
+      YafServices.Permissions.HandleRequest(ViewPermissions.RegisteredUsers);
+    }
+    #endregion
 
-		#region Other
-		/// <summary>
-		/// Adds a message that is displayed to the user when the page is loaded.
-		/// </summary>
-		/// <param name="msg">The message to display</param>
-		public string RefreshURL
-		{
-			set
-			{
-				if ( ForumHeader != null ) ForumHeader.RefreshURL = value;
-			}
-			get
-			{
-				if ( ForumHeader != null ) return ForumHeader.RefreshURL;
-				return null;
-			}
-		}
-		public int RefreshTime
-		{
-			set
-			{
-				if ( ForumHeader != null ) ForumHeader.RefreshTime = value;
-			}
-			get
-			{
-				if ( ForumHeader != null ) return ForumHeader.RefreshTime;
-				return 0;
-			}
-		}
+    #region Page Cache
 
-		/// <summary>
-		/// Gets info whether page should be hidden to guest users when forum admin requires login.
-		/// </summary>
-		public virtual bool IsProtected
-		{
-			get { return true; }
-		}
+    /// <summary>
+    /// Gets cache associated with this page.
+    /// </summary>
+    public Hashtable PageCache
+    {
+      get { return _pageCache; }
+    }
 
-		#endregion
+    #endregion
 
-		#region Layout functions
-		/// <summary>
-		/// Set to false if you don't want the menus at top and bottom. Only admin pages will set this to false
-		/// </summary>
-		public bool ShowToolBar
-		{
-			get
-			{
-				return _showToolBar;
-			}
-			protected set
-			{
-				_showToolBar = value;
-			}
-		}
+    #region Other
+    /// <summary>
+    /// Adds a message that is displayed to the user when the page is loaded.
+    /// </summary>
+    /// <param name="msg">The message to display</param>
+    public string RefreshURL
+    {
+      get
+      {
+        if (ForumHeader != null) return ForumHeader.RefreshURL;
+        return null;
+      }
 
-		public bool ShowFooter
-		{
-			get
-			{
-				return _showFooter;
-			}
-			protected set
-			{
-				_showFooter = value;
-			}
-		}
-		#endregion
+      set
+      {
+        if (this.ForumHeader != null) this.ForumHeader.RefreshURL = value;
+      }
+    }
 
-		public static object IsNull( string value )
-		{
-			if ( value == null || value.ToLower() == string.Empty )
-				return DBNull.Value;
-			else
-				return value;
-		}
+    public int RefreshTime
+    {
+      get
+      {
+        if (ForumHeader != null) return ForumHeader.RefreshTime;
+        return 0;
+      }
 
-		#region PageInfo class
+      set
+      {
+        if (this.ForumHeader != null) this.ForumHeader.RefreshTime = value;
+      }
+    }
 
-		[Obsolete( "Useless property that always returns true. Do not use anymore." )]
-		public bool CanLogin
-		{
-			get
-			{
-				return true;
-			}
-		}
+    /// <summary>
+    /// Gets info whether page should be hidden to guest users when forum admin requires login.
+    /// </summary>
+    public virtual bool IsProtected
+    {
+      get { return true; }
+    }
 
-		public MembershipUser User
-		{
-			get
-			{
-				return PageContext.User;
-			}
-		}
+    #endregion
 
-		public string LoadMessage
-		{
-			get
-			{
-				return PageContext.LoadMessage.LoadString;
-			}
-		}
+    #region Layout functions
+    /// <summary>
+    /// Set to false if you don't want the menus at top and bottom. Only admin pages will set this to false
+    /// </summary>
+    public bool ShowToolBar
+    {
+      get
+      {
+        return _showToolBar;
+      }
 
-		#region Theme Helper Functions
-		/// <summary>
-		/// Get a value from the currently configured forum theme.
-		/// </summary>
-		/// <param name="page">Page to look under</param>
-		/// <param name="tag">Theme item</param>
-		/// <returns>Converted Theme information</returns>
-		public string GetThemeContents( string page, string tag )
-		{
-			return PageContext.Theme.GetItem( page, tag );
-		}
+      protected set
+      {
+        _showToolBar = value;
+      }
+    }
 
-		/// <summary>
-		/// Get a value from the currently configured forum theme.
-		/// </summary>
-		/// <param name="page">Page to look under</param>
-		/// <param name="tag">Theme item</param>
-		/// <param name="defaultValue">Value to return if the theme item doesn't exist</param>
-		/// <returns>Converted Theme information or Default Value if it doesn't exist</returns>
-		public string GetThemeContents( string page, string tag, string defaultValue )
-		{
-			return PageContext.Theme.GetItem( page, tag, defaultValue );
-		}
+    public bool ShowFooter
+    {
+      get
+      {
+        return _showFooter;
+      }
 
-		/// <summary>
-		/// Gets the collapsible panel image url (expanded or collapsed). 
-		/// 
-		/// <param name="panelID">ID of collapsible panel</param>
-		/// <param name="defaultState">Default Panel State</param>
-		/// </summary>
-		/// <returns>Image URL</returns>
-		public string GetCollapsiblePanelImageURL( string panelID, PanelSessionState.CollapsiblePanelState defaultState )
-		{
-			return PageContext.Theme.GetCollapsiblePanelImageURL( panelID, defaultState );
-		}
-		#endregion
+      protected set
+      {
+        _showFooter = value;
+      }
+    }
+    #endregion
 
-		#region Localization Helper Functions
+    public static object IsNull(string value)
+    {
+      if (value == null || value.ToLower() == string.Empty)
+        return DBNull.Value;
+      else
+        return value;
+    }
 
-		public string GetTextFormatted(string text, params object [] args)
-		{
-			return PageContext.Localization.GetTextFormatted( text, args );
-		}
+    #region PageInfo class
 
-		public string GetText( string text )
-		{
-			return PageContext.Localization.GetText( text );
-		}
+    [Obsolete("Useless property that always returns true. Do not use anymore.")]
+    public bool CanLogin
+    {
+      get
+      {
+        return true;
+      }
+    }
 
-		public string GetText( string page, string text )
-		{
-			return PageContext.Localization.GetText( page, text );
-		}
+    public MembershipUser User
+    {
+      get
+      {
+        return PageContext.User;
+      }
+    }
 
-		#endregion
+    public string LoadMessage
+    {
+      get
+      {
+        return PageContext.LoadMessage.LoadString;
+      }
+    }
 
-		/// <summary>
-		/// Gets the current forum Context (helper reference)
-		/// </summary>
-		public YafContext PageContext
-		{
-			get
-			{
-				return YafContext.Current;
-			}
-		}
+    #region Theme Helper Functions
+    /// <summary>
+    /// Get a value from the currently configured forum theme.
+    /// </summary>
+    /// <param name="page">Page to look under</param>
+    /// <param name="tag">Theme item</param>
+    /// <returns>Converted Theme information</returns>
+    public string GetThemeContents(string page, string tag)
+    {
+      return PageContext.Theme.GetItem(page, tag);
+    }
 
-		public string ForumURL
-		{
-			get
-			{
-				return YafBuildLink.GetLink( ForumPages.forum, true );
-			}
-		}
+    /// <summary>
+    /// Get a value from the currently configured forum theme.
+    /// </summary>
+    /// <param name="page">Page to look under</param>
+    /// <param name="tag">Theme item</param>
+    /// <param name="defaultValue">Value to return if the theme item doesn't exist</param>
+    /// <returns>Converted Theme information or Default Value if it doesn't exist</returns>
+    public string GetThemeContents(string page, string tag, string defaultValue)
+    {
+      return PageContext.Theme.GetItem(page, tag, defaultValue);
+    }
 
-		#endregion
+    /// <summary>
+    /// Gets the collapsible panel image url (expanded or collapsed). 
+    /// 
+    /// <param name="panelID">ID of collapsible panel</param>
+    /// <param name="defaultState">Default Panel State</param>
+    /// </summary>
+    /// <returns>Image URL</returns>
+    public string GetCollapsiblePanelImageURL(string panelID, PanelSessionState.CollapsiblePanelState defaultState)
+    {
+      return PageContext.Theme.GetCollapsiblePanelImageURL(panelID, defaultState);
+    }
 
-		public string HtmlEncode( object data )
-		{
-			if ( data == null || !(data is string)) return null;
-			return Server.HtmlEncode( data.ToString() );
-		}
+    #endregion
 
-		protected virtual void CreatePageLinks()
-		{
-			// Page link creation goes to this method (overloads in descendant classes)
-		}
-	}
+    #region Localization Helper Functions
+
+    public string GetTextFormatted(string text, params object[] args)
+    {
+      return PageContext.Localization.GetTextFormatted(text, args);
+    }
+
+    public string GetText(string text)
+    {
+      return PageContext.Localization.GetText(text);
+    }
+
+    public string GetText(string page, string text)
+    {
+      return PageContext.Localization.GetText(page, text);
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Gets the current forum Context (helper reference)
+    /// </summary>
+    public YafContext PageContext
+    {
+      get
+      {
+        return YafContext.Current;
+      }
+    }
+
+    public string ForumURL
+    {
+      get
+      {
+        return YafBuildLink.GetLink(ForumPages.forum, true);
+      }
+    }
+
+    #endregion
+
+    public string HtmlEncode(object data)
+    {
+      if (data == null || !(data is string)) return null;
+      return Server.HtmlEncode(data.ToString());
+    }
+
+    protected virtual void CreatePageLinks()
+    {
+      // Page link creation goes to this method (overloads in descendant classes)
+    }
+  }
 }
