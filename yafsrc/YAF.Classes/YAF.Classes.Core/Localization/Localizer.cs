@@ -25,6 +25,8 @@ using System.Xml;
 
 namespace YAF.Classes.Core
 {
+  using System.Diagnostics;
+
   /// <summary>
   /// Summary description for Localizer.
   /// </summary>
@@ -184,9 +186,8 @@ namespace YAF.Classes.Core
 #if DEBUG
       if (this._pagePointer == null)
       {
-        throw new Exception("Invalid Page Pointer: " + this._currentPage);
+        Debug.WriteLine("Invalid Page Pointer: " + this._currentPage);
       }
-
 #endif
 
       if (this._pagePointer != null)
