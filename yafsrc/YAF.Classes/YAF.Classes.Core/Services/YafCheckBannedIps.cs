@@ -1,4 +1,4 @@
-﻿/* YetAnotherForum.NET
+/* YetAnotherForum.NET
  * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -26,7 +26,7 @@ namespace YAF.Classes.Core
   /// <summary>
   /// The yaf check banned ips.
   /// </summary>
-  public class YafCheckBannedIps : InitService
+  public class YafCheckBannedIps : RootYafService
   {
     /// <summary>
     /// The _init var name.

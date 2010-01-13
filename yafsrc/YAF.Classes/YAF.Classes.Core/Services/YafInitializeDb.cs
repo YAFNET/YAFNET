@@ -1,4 +1,4 @@
-﻿/* YetAnotherForum.NET
+/* YetAnotherForum.NET
  * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -26,7 +26,7 @@ namespace YAF.Classes.Core
   /// <summary>
   /// The yaf initialize db.
   /// </summary>
-  public class YafInitializeDb : InitService
+  public class YafInitializeDb : RootYafService
   {
     /// <summary>
     /// Gets InitVarName.

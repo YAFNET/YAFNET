@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug NET v2.0</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -76,12 +76,17 @@
   <ItemGroup>
     <Compile Include="BaseControls\BaseControl.cs" />
     <Compile Include="BaseControls\IYafHeaderFooter.cs" />
+    <Compile Include="BaseModules\IBaseEditorModule.cs" />
     <Compile Include="BaseModules\ProviderSettingsModule.cs" />
     <Compile Include="BaseModules\MobileThemeModule.cs" />
-    <Compile Include="BaseModules\ServicesInitModule.cs" />
+    <Compile Include="BaseModules\InitServicesModule.cs" />
+    <Compile Include="BaseModules\YafBaseModuleManager.cs" />
+    <Compile Include="BaseModules\YafEditorModuleManager.cs" />
+    <Compile Include="BaseModules\YafModule.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\RoleMembershipHelper.cs" />
+    <Compile Include="Services\IYafService.cs" />
     <Compile Include="Services\YafAlbum.cs" />
     <Compile Include="Services\YafBuddies.cs" />
     <Compile Include="Services\YafFavoriteTopic.cs" />
@@ -112,14 +117,14 @@
     <Compile Include="Services\YafAvatars.cs" />
     <Compile Include="Services\YafCheckBannedIps.cs" />
     <Compile Include="Services\YafInitializeDb.cs" />
-    <Compile Include="Services\InitService.cs" />
+    <Compile Include="Services\RootYafService.cs" />
     <Compile Include="Services\YafPermissions.cs" />
     <Compile Include="Services\YafBadWordReplace.cs" />
     <Compile Include="Services\YafCache.cs" />
     <Compile Include="Services\CreateMail.cs" />
     <Compile Include="Services\YafDateTime.cs" />
     <Compile Include="Services\YafDBBroker.cs" />
-    <Compile Include="BaseModules\BaseForumEditorModule.cs" />
+    <Compile Include="BaseModules\BaseForumEditor.cs" />
     <Compile Include="BaseControls\BaseUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

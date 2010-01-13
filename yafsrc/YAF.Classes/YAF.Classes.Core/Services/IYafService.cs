@@ -1,4 +1,4 @@
-﻿/* YetAnotherForum.NET
+/* YetAnotherForum.NET
  * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,61 +16,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-
 namespace YAF.Classes.Core
 {
   /// <summary>
-  /// The init service.
+  /// Interface for Yaf Service
   /// </summary>
-  public abstract class InitService
+  public interface IYafService
   {
-    /// <summary>
-    /// Gets InitVarName.
-    /// </summary>
-    protected abstract string InitVarName
-    {
-      get;
-    }
-
     /// <summary>
     /// Gets a value indicating whether Initialized.
     /// </summary>
-    public bool Initialized
-    {
-      get
-      {
-        if (YafContext.Current[InitVarName] == null)
-        {
-          return false;
-        }
-
-        return Convert.ToBoolean(YafContext.Current[InitVarName]);
-      }
-
-      private set
-      {
-        YafContext.Current[InitVarName] = value;
-      }
-    }
+    bool Initialized { get; }
 
     /// <summary>
-    /// The run.
+    /// Called to run the service.
     /// </summary>
-    public void Run()
-    {
-      if (!Initialized)
-      {
-        Initialized = RunService();
-      }
-    }
-
-    /// <summary>
-    /// The run service.
-    /// </summary>
-    /// <returns>
-    /// The run service.
-    /// </returns>
-    protected abstract bool RunService();
+    void Run();
   }
 }

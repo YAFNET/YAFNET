@@ -16,45 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
 using System.Text.RegularExpressions;
-using System.Web.Compilation;
 using YAF.Controls;
-using YAF.Modules;
 
 namespace YAF.Editors
 {
-  /// <summary>
-  /// IBaseEditorModule Interface for Editor classes.
-  /// </summary>
-  internal interface IBaseEditorModule
-  {
-    /// <summary>
-    /// Gets a value indicating whether Active.
-    /// </summary>
-    bool Active
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Gets Description.
-    /// </summary>
-    string Description
-    {
-      get;
-    }
-
-    /// <summary>
-    /// Gets ModuleId.
-    /// </summary>
-    int ModuleId
-    {
-      get;
-    }
-  }
-
   /// <summary>
   /// Summary description for BaseForumEditor.
   /// </summary>
@@ -210,79 +176,5 @@ namespace YAF.Editors
     }
 
     #endregion
-  }
-
-  /// <summary>
-  /// The yaf editor module manager.
-  /// </summary>
-  public class YafEditorModuleManager : YafModuleManager<BaseForumEditor>
-  {
-    /// <summary>
-    /// Prevents a default instance of the <see cref="YafEditorModuleManager"/> class from being created.
-    /// </summary>
-    private YafEditorModuleManager()
-      : base("YAF.Editors", "YAF.Editors.IBaseEditorModule")
-    {
-      if (ModuleClassTypes == null)
-      {
-        // re-add these modules...
-        AddModules(BuildManager.CodeAssemblies);
-      }
-    }
-
-    /// <summary>
-    /// The get editor instance.
-    /// </summary>
-    /// <param name="moduleId">
-    /// The module id.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public BaseForumEditor GetEditorInstance(int moduleId)
-    {
-      Load();
-
-      // find the module (LINQ would be nice here)...
-      foreach (BaseForumEditor editor in Modules)
-      {
-        if (editor.ModuleId == moduleId)
-        {
-          return editor;
-        }
-      }
-
-      // not found
-      return null;
-    }
-
-    /// <summary>
-    /// The get editors table.
-    /// </summary>
-    /// <returns>
-    /// </returns>
-    public DataTable GetEditorsTable()
-    {
-      Load();
-
-      using (var dt = new DataTable("Editors"))
-      {
-        dt.Columns.Add("Value", Type.GetType("System.Int32"));
-        dt.Columns.Add("Name", Type.GetType("System.String"));
-
-        foreach (BaseForumEditor editor in Modules)
-        {
-          if (editor.Active)
-          {
-            dt.Rows.Add(
-              new object[]
-                {
-                  editor.ModuleId, editor.Description
-                });
-          }
-        }
-
-        return dt;
-      }
-    }
   }
 }

@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+﻿/* YetAnotherForum.NET
  * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,27 +16,61 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Modules
-{
-  using System;
+using System;
 
+namespace YAF.Classes.Core
+{
   /// <summary>
-  /// The base module interface.
+  /// The root service.
   /// </summary>
-  public interface IBaseModule : IDisposable
+  public abstract class RootYafService : IYafService
   {
     /// <summary>
-    /// Gets or sets ForumControlObj.
+    /// Gets InitVarName.
     /// </summary>
-    object ForumControlObj
+    protected abstract string InitVarName
     {
       get;
-      set;
     }
 
     /// <summary>
-    /// The initialization function.
+    /// Gets a value indicating whether Initialized.
     /// </summary>
-    void Init();
+    public bool Initialized
+    {
+      get
+      {
+        if (YafContext.Current[InitVarName] == null)
+        {
+          return false;
+        }
+
+        return Convert.ToBoolean(YafContext.Current[InitVarName]);
+      }
+
+      private set
+      {
+        YafContext.Current[InitVarName] = value;
+      }
+    }
+
+    /// <summary>
+    /// The run.
+    /// </summary>
+    public void Run()
+    {
+      if (!Initialized)
+      {
+        Initialized = RunService();
+      }
+    }
+
+    /// <summary>
+    /// The run service.
+    /// </summary>
+    /// <returns>
+    /// The run service.
+    /// </returns>
+    protected abstract bool RunService();
   }
 }
