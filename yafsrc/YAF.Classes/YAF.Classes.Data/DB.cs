@@ -1616,7 +1616,6 @@ namespace YAF.Classes.Data
       }
     }
 
-    // ABOT CHANGE 16.04.04
     /// <summary>
     /// Delete attachment
     /// </summary>
@@ -1642,7 +1641,7 @@ namespace YAF.Classes.Data
           {
             try
             {
-              string fileName = String.Format("{0}/{1}.{2}", uploadDir, row["MessageID"], row["FileName"]);
+              string fileName = String.Format("{0}/{1}.{2}.yafupload", uploadDir, row["MessageID"], row["FileName"]);
               if (File.Exists(fileName))
               {
                 File.Delete(fileName);
