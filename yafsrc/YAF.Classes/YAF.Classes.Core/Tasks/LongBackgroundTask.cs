@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.net
+/* Yet Another Forum.net
  * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,49 +16,43 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Diagnostics;
-
 namespace YAF.Classes.Core
 {
+  using System.Threading;
+
   /// <summary>
-  /// Sends Email in the background.
+  /// The long background task.
   /// </summary>
-  public class MailSendTask : IntermittentBackgroundTask
+  public class LongBackgroundTask : IntermittentBackgroundTask
   {
     /// <summary>
-    /// The _send mail threaded.
+    /// Initializes a new instance of the <see cref="LongBackgroundTask"/> class.
     /// </summary>
-    protected YafSendMailThreaded _sendMailThreaded = new YafSendMailThreaded();
-
-    /// <summary>
-    /// The _unique id.
-    /// </summary>
-    protected int _uniqueId = 0;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MailSendTask"/> class.
-    /// </summary>
-    public MailSendTask()
+    public LongBackgroundTask()
     {
-      // set the unique value...
-      var rand = new Random();
-      this._uniqueId = rand.Next();
-
-      // set interval values...
-      RunPeriodMs = (rand.Next(10) + 5)*1000;
-      StartDelayMs = (rand.Next(10) + 5)*1000;
+      this.StartDelayMs = 50;
+      this.RunPeriodMs = Timeout.Infinite;
     }
 
     /// <summary>
-    /// The run once.
+    /// The timer callback.
     /// </summary>
-    public override void RunOnce()
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    protected override void TimerCallback(object sender)
     {
-      Debug.WriteLine("Running Send Mail Thread...");
+      lock (this._intermittentTimerSemaphore)
+      {
+        // we're done with this timer...
+        this._intermittentTimer.Dispose();
 
-      // send thread handles it's own exception...
-      this._sendMailThreaded.SendThreaded(this._uniqueId);
+        // run this item once...
+        this.RunOnce();
+
+        // no longer running when we get here...
+        this.IsRunning = false;
+      }
     }
   }
 }

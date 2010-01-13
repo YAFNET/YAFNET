@@ -16,16 +16,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using YAF.Classes.Data;
-
 namespace YAF.Classes.Core
 {
+  using System;
+
+  using YAF.Classes.Data;
+
   /// <summary>
   /// The forum delete task.
   /// </summary>
   public class ForumDeleteTask : LongBackgroundTask
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _task name.
     /// </summary>
@@ -36,12 +39,20 @@ namespace YAF.Classes.Core
     /// </summary>
     private int _forumId;
 
+    #endregion
+
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumDeleteTask"/> class.
     /// </summary>
     public ForumDeleteTask()
     {
     }
+
+    #endregion
+
+    #region Properties
 
     /// <summary>
     /// Gets TaskName.
@@ -70,6 +81,10 @@ namespace YAF.Classes.Core
       }
     }
 
+    #endregion
+
+    #region Public Methods
+
     /// <summary>
     /// The start.
     /// </summary>
@@ -91,11 +106,7 @@ namespace YAF.Classes.Core
 
       if (!YafTaskModule.Current.TaskExists(TaskName))
       {
-        var task = new ForumDeleteTask
-          {
-            BoardID = boardId, 
-            ForumId = forumId
-          };
+        var task = new ForumDeleteTask { BoardID = boardId, ForumId = forumId };
         YafTaskModule.Current.StartTask(TaskName, task);
       }
 
@@ -109,13 +120,15 @@ namespace YAF.Classes.Core
     {
       try
       {
-        DB.forum_delete(ForumId);
-        DB.eventlog_create(null, TaskName, String.Format("Forum (ID: {0}) Delete Task Complete.", ForumId), 2);
+        DB.forum_delete(this.ForumId);
+        DB.eventlog_create(null, TaskName, String.Format("Forum (ID: {0}) Delete Task Complete.", this.ForumId), 2);
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, TaskName, String.Format("Error In Forum (ID: {0}) Delete Task: {1}", ForumId, x));
+        DB.eventlog_create(null, TaskName, String.Format("Error In Forum (ID: {0}) Delete Task: {1}", this.ForumId, x));
       }
     }
+
+    #endregion
   }
 }

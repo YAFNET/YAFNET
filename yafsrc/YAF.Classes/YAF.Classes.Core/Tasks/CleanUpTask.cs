@@ -23,24 +23,30 @@ namespace YAF.Classes.Core
   /// </summary>
   public class CleanUpTask : IntermittentBackgroundTask
   {
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="CleanUpTask"/> class.
     /// </summary>
     public CleanUpTask()
     {
       // set interval values...
-      RunPeriodMs = 500;
-      StartDelayMs = 500;
+      this.RunPeriodMs = 500;
+      this.StartDelayMs = 500;
     }
+
+    #endregion
+
+    #region Properties
 
     /// <summary>
     /// Gets or sets Module.
     /// </summary>
-    public YafTaskModule Module
-    {
-      get;
-      set;
-    }
+    public YafTaskModule Module { get; set; }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// The run once.
@@ -48,26 +54,28 @@ namespace YAF.Classes.Core
     public override void RunOnce()
     {
       // look for tasks to clean up...
-      if (Module != null)
+      if (this.Module != null)
       {
         // make collection local...
-        var taskListKeys = Module.TaskManagerInstances;
+        var taskListKeys = this.Module.TaskManagerInstances;
 
         foreach (string instanceName in taskListKeys)
         {
-          IBackgroundTask task = Module.TryGetTask(instanceName);
+          IBackgroundTask task = this.Module.TryGetTask(instanceName);
 
           if (task == null)
           {
-            Module.TryRemoveTask(instanceName);
+            this.Module.TryRemoveTask(instanceName);
           }
           else if (!task.IsRunning)
           {
-            Module.TryRemoveTask(instanceName);
+            this.Module.TryRemoveTask(instanceName);
             task.Dispose();
           }
         }
       }
     }
+
+    #endregion
   }
 }
