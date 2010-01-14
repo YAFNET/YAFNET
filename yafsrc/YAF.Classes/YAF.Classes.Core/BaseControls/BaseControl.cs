@@ -17,16 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using YAF.Classes.Core;
-
 namespace YAF.Controls
 {
+  using System;
+  using System.Web;
+  using System.Web.UI;
+  using System.Web.UI.WebControls;
+  using YAF.Classes.Core;
+
   /// <summary>
-  /// Control derived from Panel that includes a reference to the YafContext.
+  /// Control derived from Panel that includes a reference to the <see cref="YafContext"/>.
   /// </summary>
   public class BasePanel : Panel
   {

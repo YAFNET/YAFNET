@@ -75,7 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseControls\BaseControl.cs" />
-    <Compile Include="BaseControls\IYafHeaderFooter.cs" />
+    <Compile Include="BaseControls\IYafHeader.cs" />
+    <Compile Include="BaseControls\IYafFooter.cs" />
     <Compile Include="BaseModules\IBaseEditorModule.cs" />
     <Compile Include="BaseModules\ProviderSettingsModule.cs" />
     <Compile Include="BaseModules\MobileThemeModule.cs" />

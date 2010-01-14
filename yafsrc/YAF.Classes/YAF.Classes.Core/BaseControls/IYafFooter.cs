@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.net
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -18,27 +18,28 @@
  */
 namespace YAF.Classes.Core
 {
-  using YAF.Classes.Utils;
+  using System.Web.UI;
 
   /// <summary>
-  /// The captcha helper.
+  /// Yaf Footer Interface
   /// </summary>
-  public static class CaptchaHelper
+  public interface IYafFooter
   {
-    #region Public Methods
-
     /// <summary>
-    /// Gets the CaptchaString using the BoardSettings
+    /// Gets or sets a value indicating whether SimpleRender.
     /// </summary>
-    /// <returns>
-    /// The get captcha string.
-    /// </returns>
-    public static string GetCaptchaString()
+    bool SimpleRender
     {
-      return StringHelper.GenerateRandomString(
-        YafContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
+      get;
+      set;
     }
 
-    #endregion
+    /// <summary>
+    /// Gets ThisControl.
+    /// </summary>
+    Control ThisControl
+    {
+      get;
+    }
   }
 }

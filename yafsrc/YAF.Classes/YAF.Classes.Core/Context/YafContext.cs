@@ -27,7 +27,7 @@ namespace YAF.Classes.Core
   using YAF.Modules;
 
   /// <summary>
-  /// Context class that accessable with the same instance from all locations
+  /// Context class that accessible with the same instance from all locations
   /// </summary>
   public partial class YafContext : UserPageBase, IDisposable
   {
