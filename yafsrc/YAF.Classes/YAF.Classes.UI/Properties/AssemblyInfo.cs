@@ -10,7 +10,7 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
 [assembly: AssemblyProduct("YAF.Classes.UI")]
-[assembly: AssemblyCopyright("Copyright © 2006-2009 Yet Another Forum.NET")]
+[assembly: AssemblyCopyright("Copyright © 2006-2010 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

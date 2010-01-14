@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Yet Another Forum.NET" )]
 [assembly: AssemblyProduct( "YAF.Classes.UnitTests" )]
-[assembly: AssemblyCopyright( "Copyright © 2006-2009 Yet Another Forum.NET" )]
+[assembly: AssemblyCopyright( "Copyright © 2006-2010 Yet Another Forum.NET" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
