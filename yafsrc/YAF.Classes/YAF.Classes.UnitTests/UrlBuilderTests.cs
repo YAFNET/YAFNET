@@ -1,33 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using NUnit.Framework;
-using Rhino.Mocks;
-using Subtext.TestLibrary;
-using TeamAgile.ApplicationBlocks.Interception.UnitTestExtensions;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UrlBuilderTests.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The url builder tests.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace YAF.Classes.UnitTests
 {
-	[TestFixture]
-	public class UrlBuilderTests : UrlBuilder
-	{
-		[Test]
-		public void TreatBaseUrlTest()
-		{
-			Assert.AreEqual( UrlBuilder.TreatBaseUrl( "http://donkey.com/" ), "http://donkey.com" );
-		}
+  using NUnit.Framework;
 
-		[Test]
-		public void TreatPathStrTest()
-		{
-			using ( HttpSimulator simulator = new HttpSimulator( "/", @"c:\inetpub\wwwroot" ).SimulateRequest() )
-			{
-				Assert.AreEqual( UrlBuilder.TreatPathStr( null ), @"/" );
-				Assert.AreEqual( UrlBuilder.TreatPathStr( "~/forum" ), @"/forum/" );
-			}
-		}
-	}
+  using Subtext.TestLibrary;
+
+  /// <summary>
+  /// The url builder tests.
+  /// </summary>
+  [TestFixture]
+  public class UrlBuilderTests : UrlBuilder
+  {
+    #region Public Methods
+
+    /// <summary>
+    /// The treat base url test.
+    /// </summary>
+    [Test]
+    public void TreatBaseUrlTest()
+    {
+      Assert.AreEqual(TreatBaseUrl("http://donkey.com/"), "http://donkey.com");
+    }
+
+    /// <summary>
+    /// The treat path str test.
+    /// </summary>
+    [Test]
+    public void TreatPathStrTest()
+    {
+      using (HttpSimulator simulator = new HttpSimulator("/", @"c:\inetpub\wwwroot").SimulateRequest())
+      {
+        Assert.AreEqual(TreatPathStr(null), @"/");
+        Assert.AreEqual(TreatPathStr("~/forum"), @"/forum/");
+      }
+    }
+
+    #endregion
+  }
 }
