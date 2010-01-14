@@ -356,19 +356,24 @@ namespace YAF.Classes.UI
                 // get string without punctuation
                 string keywordCleaned = new string(returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).ToLower();
 
-                // create keywords...
-                keywordList = keywordCleaned.StringToList(' ', commonWords);
-
-                // clean up the list a bit...
-                keywordList = keywordList.RemoveEmptyStrings().RemoveSmallStrings(5).Where(x => !Char.IsNumber(x[0])).Distinct().ToList();
-
-                // sort...
-                keywordList.Sort();
-
-                // get maximum of 50 keywords...
-                if (keywordList.Count > 50)
+                if (keywordCleaned.Length > 5)
                 {
-                  keywordList = keywordList.GetRange(0, 50);
+                  // create keywords...
+                  keywordList = keywordCleaned.StringToList(' ', commonWords);
+
+                  // clean up the list a bit...
+                  keywordList =
+                    keywordList.RemoveEmptyStrings().RemoveSmallStrings(5).Where(x => !Char.IsNumber(x[0])).Distinct().
+                      ToList();
+
+                  // sort...
+                  keywordList.Sort();
+
+                  // get maximum of 50 keywords...
+                  if (keywordList.Count > 50)
+                  {
+                    keywordList = keywordList.GetRange(0, 50);
+                  }
                 }
               }
             }
