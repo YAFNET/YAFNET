@@ -748,127 +748,6 @@
             The _use salt.
             </summary>
         </member>
-        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GenerateSalt">
-            <summary>
-            Creates a random string used as Salt for hashing
-            </summary>
-            <returns>
-            Random string
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GeneratePassword(System.Int32,System.Int32)">
-            <summary>
-            Creates a random password based on a miniumum length and a minimum number of non-alphanumeric characters
-            </summary>
-            <param name="minPassLength">
-            Minimum characters in the password
-            </param>
-            <param name="minNonAlphas">
-            Minimum non-alphanumeric characters
-            </param>
-            <returns>
-            Random string
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.YafMembershipProvider.HashType">
-            <summary>
-            The hash type.
-            </summary>
-            <returns>
-            The hash type.
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.YafMembershipProvider.EncodeString(System.String,System.Int32,System.String,System.Boolean,System.Boolean,System.String,System.String,System.Boolean)">
-            <summary>
-            Encrypt string to hash method.
-            </summary>
-            <param name="clearString">
-            UnEncrypted Clear String
-            </param>
-            <param name="encFormat">
-            The enc Format.
-            </param>
-            <param name="salt">
-            Salt to be used in Hash method
-            </param>
-            <param name="useSalt">
-            Salt to be used in Hash method
-            </param>
-            <param name="hashHex">
-            The hash Hex.
-            </param>
-            <param name="hashCase">
-            The hash Case.
-            </param>
-            <param name="hashRemoveChars">
-            The hash Remove Chars.
-            </param>
-            <param name="msCompliant">
-            The ms Compliant.
-            </param>
-            <returns>
-            Encrypted string
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.YafMembershipProvider.DecodeString(System.String,System.Int32)">
-            <summary>
-            Decrypt string using passwordFormat.
-            </summary>
-            <param name="pass">
-            Password to be decrypted
-            </param>
-            <param name="passwordFormat">
-            Method of encryption
-            </param>
-            <returns>
-            Unencrypted string
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.YafMembershipProvider.IsPasswordCompliant(System.String,System.Int32,System.Int32,System.String)">
-            <summary>
-            Check to see if password(string) matches required criteria.
-            </summary>
-            <param name="password">
-            Password to be checked
-            </param>
-            <param name="minLength">
-            Minimum length required
-            </param>
-            <param name="minNonAlphaNumerics">
-            Minimum number of Non-alpha numerics in password
-            </param>
-            <param name="strengthRegEx">
-            Regular Expression Strength
-            </param>
-            <returns>
-            True/False 
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.YafMembershipProvider.IsPasswordCompliant(System.String)">
-            <summary>
-            Check to see if password(string) matches required criteria.
-            </summary>
-            <param name="passsword">
-            The passsword.
-            </param>
-            <returns>
-            True/False 
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.YafMembershipProvider.Hash(System.Byte[],System.String)">
-            <summary>
-            Hashes clear bytes to given hashtype
-            </summary>
-            <param name="clearBytes">
-            Clear bytes to hash
-            </param>
-            <param name="hashType">
-            hash Algorithm to be used
-            </param>
-            <returns>
-            Hashed bytes 
-            </returns>
-        </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.GeneratePasswordBuffer(System.String,System.String,System.Boolean)">
             <summary>
             Creates a password buffer from salt and password ready for hashing/encrypting
@@ -917,34 +796,6 @@
             <returns>
             Hashed String as Hex or Base64 
             </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.YafMembershipProvider.Encrypt(System.String,System.String,System.Boolean)">
-            <summary>
-            The encrypt.
-            </summary>
-            <param name="clearString">
-            The clear string.
-            </param>
-            <param name="saltString">
-            The salt string.
-            </param>
-            <param name="standardComp">
-            The standard comp.
-            </param>
-            <returns>
-            The encrypt.
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.YafMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Initialie Membership Provider
-            </summary>
-            <param name="name">
-            Membership Provider Name
-            </param>
-            <param name="config">
-            NameValueCollection of configuration items
-            </param>
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.ChangePassword(System.String,System.String,System.String)">
             <summary>
@@ -1098,7 +949,7 @@
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetPassword(System.String,System.String)">
             <summary>
-            Retrieves the Users password (if EnablePasswordRetrieval is true)
+            Retrieves the Users password (if <see cref="P:YAF.Providers.Membership.YafMembershipProvider.EnablePasswordRetrieval"/> is <see langword="true"/>)
             </summary>
             <param name="username">
             Username to retrieve password for
@@ -1112,7 +963,7 @@
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetUser(System.String,System.Boolean)">
             <summary>
-            Retrieves a MembershipUser object from the criteria given
+            Retrieves a <see cref="T:System.Web.Security.MembershipUser"/> object from the criteria given
             </summary>
             <param name="username">
             Username to be foundr
@@ -1126,7 +977,7 @@
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetUser(System.Object,System.Boolean)">
             <summary>
-            Retrieves a MembershipUser object from the criteria given
+            Retrieves a <see cref="T:System.Web.Security.MembershipUser"/> object from the criteria given
             </summary>
             <param name="providerUserKey">
             User to be found based on UserKey
@@ -1140,7 +991,7 @@
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetUserNameByEmail(System.String)">
             <summary>
-            Retrieves a MembershipUser object from the criteria given
+            Retrieves a <see cref="T:System.Web.Security.MembershipUser"/> object from the criteria given
             </summary>
             <param name="email">
             The email.
@@ -1148,6 +999,17 @@
             <returns>
             Username as string
             </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initialie Membership Provider
+            </summary>
+            <param name="name">
+            Membership Provider Name
+            </param>
+            <param name="config">
+            NameValueCollection of configuration items
+            </param>
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.ResetPassword(System.String,System.String)">
             <summary>
@@ -1157,7 +1019,7 @@
             User to be found based by Name
             </param>
             <param name="answer">
-            Verifcation that it is them
+            Verification that it is them
             </param>
             <returns>
             Username as string
@@ -1197,6 +1059,144 @@
             True/False whether username/password match what is on database.
             </returns>
         </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.EncodeString(System.String,System.Int32,System.String,System.Boolean,System.Boolean,System.String,System.String,System.Boolean)">
+            <summary>
+            Encrypt string to hash method.
+            </summary>
+            <param name="clearString">
+            UnEncrypted Clear String
+            </param>
+            <param name="encFormat">
+            The enc Format.
+            </param>
+            <param name="salt">
+            Salt to be used in Hash method
+            </param>
+            <param name="useSalt">
+            Salt to be used in Hash method
+            </param>
+            <param name="hashHex">
+            The hash Hex.
+            </param>
+            <param name="hashCase">
+            The hash Case.
+            </param>
+            <param name="hashRemoveChars">
+            The hash Remove Chars.
+            </param>
+            <param name="msCompliant">
+            The ms Compliant.
+            </param>
+            <returns>
+            Encrypted string
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.DecodeString(System.String,System.Int32)">
+            <summary>
+            Decrypt string using passwordFormat.
+            </summary>
+            <param name="pass">
+            Password to be decrypted
+            </param>
+            <param name="passwordFormat">
+            Method of encryption
+            </param>
+            <returns>
+            Unencrypted string
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.Encrypt(System.String,System.String,System.Boolean)">
+            <summary>
+            The encrypt.
+            </summary>
+            <param name="clearString">
+            The clear string.
+            </param>
+            <param name="saltString">
+            The salt string.
+            </param>
+            <param name="standardComp">
+            The standard comp.
+            </param>
+            <returns>
+            The encrypt.
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GeneratePassword(System.Int32,System.Int32)">
+            <summary>
+            Creates a random password based on a miniumum length and a minimum number of non-alphanumeric characters
+            </summary>
+            <param name="minPassLength">
+            Minimum characters in the password
+            </param>
+            <param name="minNonAlphas">
+            Minimum non-alphanumeric characters
+            </param>
+            <returns>
+            Random string
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.GenerateSalt">
+            <summary>
+            Creates a random string used as Salt for hashing
+            </summary>
+            <returns>
+            Random string
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.Hash(System.Byte[],System.String)">
+            <summary>
+            Hashes clear bytes to given hashtype
+            </summary>
+            <param name="clearBytes">
+            Clear bytes to hash
+            </param>
+            <param name="hashType">
+            hash Algorithm to be used
+            </param>
+            <returns>
+            Hashed bytes 
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.HashType">
+            <summary>
+            The hash type.
+            </summary>
+            <returns>
+            The hash type.
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.IsPasswordCompliant(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Check to see if password(string) matches required criteria.
+            </summary>
+            <param name="password">
+            Password to be checked
+            </param>
+            <param name="minLength">
+            Minimum length required
+            </param>
+            <param name="minNonAlphaNumerics">
+            Minimum number of Non-alpha numerics in password
+            </param>
+            <param name="strengthRegEx">
+            Regular Expression Strength
+            </param>
+            <returns>
+            True/False 
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.IsPasswordCompliant(System.String)">
+            <summary>
+            Check to see if password(string) matches required criteria.
+            </summary>
+            <param name="passsword">
+            The passsword.
+            </param>
+            <returns>
+            True/False 
+            </returns>
+        </member>
         <member name="P:YAF.Providers.Membership.YafMembershipProvider.ApplicationName">
             <summary>
             Gets or sets ApplicationName.
@@ -1232,14 +1232,14 @@
             Gets PasswordAttemptWindow.
             </summary>
         </member>
-        <member name="P:YAF.Providers.Membership.YafMembershipProvider.PasswordStrengthRegularExpression">
-            <summary>
-            Gets PasswordStrengthRegularExpression.
-            </summary>
-        </member>
         <member name="P:YAF.Providers.Membership.YafMembershipProvider.PasswordFormat">
             <summary>
             Gets PasswordFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Membership.YafMembershipProvider.PasswordStrengthRegularExpression">
+            <summary>
+            Gets PasswordStrengthRegularExpression.
             </summary>
         </member>
         <member name="P:YAF.Providers.Membership.YafMembershipProvider.RequiresQuestionAndAnswer">
@@ -1252,9 +1252,9 @@
             Gets a value indicating whether RequiresUniqueEmail.
             </summary>
         </member>
-        <member name="P:YAF.Providers.Membership.YafMembershipProvider.UseSalt">
+        <member name="P:YAF.Providers.Membership.YafMembershipProvider.HashCase">
             <summary>
-            Gets a value indicating whether UseSalt.
+            Gets HashCase.
             </summary>
         </member>
         <member name="P:YAF.Providers.Membership.YafMembershipProvider.HashHex">
@@ -1262,79 +1262,20 @@
             Gets a value indicating whether HashHex.
             </summary>
         </member>
-        <member name="P:YAF.Providers.Membership.YafMembershipProvider.MSCompliant">
-            <summary>
-            Gets a value indicating whether MSCompliant.
-            </summary>
-        </member>
-        <member name="P:YAF.Providers.Membership.YafMembershipProvider.HashCase">
-            <summary>
-            Gets HashCase.
-            </summary>
-        </member>
         <member name="P:YAF.Providers.Membership.YafMembershipProvider.HashRemoveChars">
             <summary>
             Gets HashRemoveChars.
             </summary>
         </member>
-        <member name="T:YAF.Providers.Membership.CleanUtils">
+        <member name="P:YAF.Providers.Membership.YafMembershipProvider.MSCompliant">
             <summary>
-            The clean utils.
+            Gets a value indicating whether MSCompliant.
             </summary>
         </member>
-        <member name="M:YAF.Providers.Membership.CleanUtils.ToDate(System.Object)">
+        <member name="P:YAF.Providers.Membership.YafMembershipProvider.UseSalt">
             <summary>
-            The to date.
+            Gets a value indicating whether UseSalt.
             </summary>
-            <param name="obj">
-            The obj.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.CleanUtils.ToString(System.Object)">
-            <summary>
-            The to string.
-            </summary>
-            <param name="obj">
-            The obj.
-            </param>
-            <returns>
-            The to string.
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.CleanUtils.ToBool(System.Object)">
-            <summary>
-            The to bool.
-            </summary>
-            <param name="obj">
-            The obj.
-            </param>
-            <returns>
-            The to bool.
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.CleanUtils.ToInt(System.Object)">
-            <summary>
-            The to int.
-            </summary>
-            <param name="obj">
-            The obj.
-            </param>
-            <returns>
-            The to int.
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Membership.CleanUtils.toHexString(System.Byte[])">
-            <summary>
-            The to hex string.
-            </summary>
-            <param name="hashedBytes">
-            The hashed bytes.
-            </param>
-            <returns>
-            The to hex string.
-            </returns>
         </member>
         <member name="T:YAFProviders.Utils.ExcReturn">
             <summary>
@@ -1839,6 +1780,17 @@
             </param>
             <returns>
             The to int.
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Utils.Transform.ToHexString(System.Byte[])">
+            <summary>
+            The to hex string.
+            </summary>
+            <param name="hashedBytes">
+            The hashed bytes.
+            </param>
+            <returns>
+            The to hex string.
             </returns>
         </member>
         <member name="T:YAF.Providers.Roles.YafRoleProvider">

@@ -1261,6 +1261,21 @@
             The cp_editbuddies.
             </summary>
         </member>
+        <member name="F:YAF.Classes.ForumPages.album">
+            <summary>
+            The album.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.albums">
+            <summary>
+            The cp_editalbum.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.cp_editalbumimages">
+            <summary>
+            The cp_editalbumimages.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.ForumPages.cp_editprofile">
             <summary>
             The cp_editprofile.
@@ -1344,16 +1359,6 @@
         <member name="F:YAF.Classes.ForumPages.moderate_unapprovedposts">
             <summary>
             The moderate_unapprovedposts.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.ForumPages.moderate_reportedabuse">
-            <summary>
-            The moderate_reportedabuse.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.ForumPages.moderate_reportedspam">
-            <summary>
-            The moderate_reportedspam.
             </summary>
         </member>
         <member name="F:YAF.Classes.ForumPages.error">
@@ -1821,6 +1826,14 @@
             Gets or sets MaxFileSize.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserSignatureMaxLength">
+            <summary>
+            Gets or sets SignatureMaxLength parameter 
+            which limits max number of symbols in user signature 
+            including tags.
+            </summary>
+            
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.SmiliesColumns">
             <summary>
             Gets or sets SmiliesColumns.
@@ -2224,6 +2237,36 @@
         <member name="P:YAF.Classes.YafBoardSettings.EnableBuddyList">
             <summary>
             Gets or sets a value indicating whether EnableBuddyList.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableAlbum">
+            <summary>
+            Gets or sets a value indicating whether EnableAlbum.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AlbumsMax">
+            <summary>
+            Gets or sets AlbumsMax.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AlbumImagesNumberMax">
+            <summary>
+            Gets or sets AlbumImagesNumberMax.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AlbumImagesSizeMax">
+            <summary>
+            Gets or sets AlbumImagesSizeMax.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AlbumsPerPage">
+            <summary>
+            Gets or sets AlbumsPerPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AlbumImagesPerPage">
+            <summary>
+            Gets or sets AlbumImagesPerPage.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AddDynamicPageMetaTags">

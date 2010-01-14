@@ -2159,6 +2159,65 @@
             Gets or sets ResolvedDate.
             </summary>
         </member>
+        <member name="T:YAF.Controls.ActiveLocation">
+            <summary>
+            Provides Active Users location info
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ActiveLocation.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.ActiveLocation"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ActiveLocation.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="output">
+            The output.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.ForumPage">
+            <summary>
+            Gets or sets the localization tag for the current location.
+            It should be  equal to page name
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.ForumName">
+            <summary>
+            Gets or sets the forumname of the current location
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.TopicName">
+            <summary>
+            Gets or sets the topicname of the current location
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.ForumID">
+            <summary>
+            Gets or sets the forumid of the current location
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.TopicID">
+            <summary>
+            Gets or sets the topicid of the current location 
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.UserID">
+            <summary>
+            Gets or sets the userid of the current user
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.UserName">
+            <summary>
+            Gets or sets the UserName of the current user
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.LastLinkOnly">
+            <summary>
+            Gets or sets a value indicating whether to show only topic link.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.ThemeButton">
             <summary>
             The theme button.

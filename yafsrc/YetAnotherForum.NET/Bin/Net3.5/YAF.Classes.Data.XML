@@ -1543,51 +1543,7 @@
             The get boolean registry value.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
-            <summary>
-            The pageload.
-            </summary>
-            <param name="sessionID">
-            The session id.
-            </param>
-            <param name="boardID">
-            The board id.
-            </param>
-            <param name="userKey">
-            The user key.
-            </param>
-            <param name="ip">
-            The ip.
-            </param>
-            <param name="location">
-            The location.
-            </param>
-            <param name="browser">
-            The browser.
-            </param>
-            <param name="platform">
-            The platform.
-            </param>
-            <param name="categoryID">
-            The category id.
-            </param>
-            <param name="forumID">
-            The forum id.
-            </param>
-            <param name="topicID">
-            The topic id.
-            </param>
-            <param name="messageID">
-            The message id.
-            </param>
-            <param name="donttrack">
-            The donttrack.
-            </param>
-            <returns>
-            </returns>
-            <exception cref="T:System.ApplicationException">
-            </exception>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)" -->
         <member name="M:YAF.Classes.Data.DB.GetSearchResult(System.String,System.String,YAF.Classes.SearchWhatFlags,YAF.Classes.SearchWhatFlags,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
             <summary>
             Returns Search results
@@ -2468,6 +2424,16 @@
             <returns>
             The forum_save.
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.forum_save_parentschecker(System.Object,System.Object)">
+            <summary>
+            The method returns an integer value for a  found parent forum 
+            if a forum is a parent of an existing child to avoid circular dependency
+            while creating a new forum
+            </summary>
+            <param name="forumID"></param>
+            <param name="parentID"></param>
+            <returns>Integer value for a found dependency</returns>
         </member>
         <member name="M:YAF.Classes.Data.DB.forum_sort_list(System.Data.DataTable,System.Int32,System.Int32,System.Int32,System.Int32[])">
             <summary>
@@ -4753,7 +4719,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_save.
             </summary>
@@ -5652,6 +5618,123 @@
             <returns>
             a Datatable containing the buddy list.
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.album_save(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Inserts/Saves a user album.
+            </summary>
+            <param name="albumID">
+            AlbumID of an existing Album.
+            </param>
+            <param name="userID">
+            UserID of the user who wants to create a new album.
+            </param>
+            <param name="title">
+            New Album title.
+            </param>
+            <param name="coverImageID">
+            New Cover image id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.album_list(System.Object,System.Object)">
+            <summary>
+            Lists all the albums associated with the UserID or gets all the
+            specifications for the specified album id.
+            </summary>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="albumID">
+            the album id.
+            </param>
+            <returns>
+            a Datatable containing the albums.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.album_delete(System.Object)">
+            <summary>
+            Deletes an album and all Images in that album.
+            </summary>
+            <param name="albumID">
+            the album id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.album_gettitle(System.Object)">
+            <summary>
+            Deletes an album and all Images in that album.
+            </summary>
+            <param name="albumID">
+            the album id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.album_getstats(System.Object,System.Object)">
+            <summary>
+            The album_ get stats method.
+            </summary>
+            <param name="userID">
+            the User ID.
+            </param>
+            <param name="albumID">
+            the album id.
+            </param>
+            <returns>
+            The number of albums + number of current uploaded files by the user if UserID is not null,
+            Otherwise, it gets the number of images in the album with AlbumID.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.album_image_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Inserts/Saves a user image.
+            </summary>
+            <param name="imageID">
+            the image id of an existing image.
+            </param>
+            <param name="albumID">
+            the album id for adding a new image.
+            </param>
+            <param name="caption">
+            the caption of the existing/new image.
+            </param>
+            <param name="fileName">
+            the file name of the new image.
+            </param>
+            <param name="bytes">
+            the size of the new image.
+            </param>
+            <param name="contentType">
+            the content type.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.album_image_list(System.Object,System.Object)">
+            <summary>
+            Lists all the images associated with the AlbumID or
+            the image with the ImageID.
+            </summary>
+            <param name="albumID">
+            the Album id.
+            </param>
+            <param name="imageID">
+            The image id.
+            </param>
+            <returns>
+            a Datatable containing the image(s).
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.album_image_delete(System.Object)">
+            <summary>
+            Deletes the image which has the specified image id.
+            </summary>
+            <param name="imageID">
+            the image id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.album_image_download(System.Object)">
+            <summary>
+            Increments the image's download times.
+            </summary>
+            <param name="imageID">
+            the image id.
+            </param>
         </member>
         <member name="P:YAF.Classes.Data.DB.ProviderAssemblyName">
             <summary>
