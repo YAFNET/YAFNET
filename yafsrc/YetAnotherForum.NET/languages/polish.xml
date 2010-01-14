@@ -117,6 +117,7 @@
     <Resource tag="NODATA">No data available</Resource>
     <Resource tag="PMESSAGE">Writes a PM</Resource>
     <Resource tag="POSTMESSAGE">Posts a message</Resource>
+    <Resource tag="POSTMESSAGE_FULL">Posts a message in topic </Resource>
     <Resource tag="POSTS">Views messages in topic </Resource>
     <Resource tag="PRINTTOPIC">Prints topic</Resource>
     <Resource tag="PROFILE">Views a user profile</Resource>

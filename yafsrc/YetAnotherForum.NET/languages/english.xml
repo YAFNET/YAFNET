@@ -45,8 +45,8 @@
 	<Resource tag="POSTS">Views messages in topic </Resource>
 	<Resource tag="PROFILE">Views a user profile</Resource>
 	<Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
-	<Resource tag="MODERATE">Moderates</Resource>
-	<Resource tag="POSTMESSAGE">Posts a message</Resource>
+	<Resource tag="MODERATE">Moderates</Resource>	
+	<Resource tag="POSTMESSAGE_FULL">Posts a message in topic </Resource>  
 	<Resource tag="DELETEMESSAGE">Deletes a message</Resource>
 	<Resource tag="MOVEMESSAGE">Moves a message</Resource>
 	<Resource tag="MOD_FORUMUSER">Moderates a forum user</Resource>

@@ -96,6 +96,7 @@
     <Resource tag="NODATA">Данные отсутствуют</Resource>
     <Resource tag="PMESSAGE">Отправляет PM</Resource>
     <Resource tag="POSTMESSAGE">Пишет пост</Resource>
+    <Resource tag="POSTMESSAGE_FULL">Пишет пост в теме </Resource>
     <Resource tag="POSTS">Просматривает сообщения в теме </Resource>
     <Resource tag="PRINTTOPIC">Находится на странице печати</Resource>
     <Resource tag="PROFILE">Просматривает профиль пользователя</Resource>
@@ -124,10 +125,10 @@
   <page name="ALBUM">
     <Resource tag="ALBUM_CHANGE_TITLE">( Изменить )</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">( Изменить )</Resource>
-    <Resource tag="ALBUM_IMAGES_NUMBER">{0} изображение(ий/ия)</Resource>
-    <Resource tag="ALBUM_VIEW">Просмотр</Resource>
+    <Resource tag="ALBUM_IMAGES_NUMBER">Изображений:{0}</Resource>
+    <Resource tag="ALBUM_VIEW">\u2315; Просмотр</Resource>
     <Resource tag="ALBUMS">Альбомы</Resource>
-    <Resource tag="ALBUMS_HEADER_TEXT">Альбомы {0}</Resource>
+    <Resource tag="ALBUMS_HEADER_TEXT">Альбомы пользователя {0}</Resource>
     <Resource tag="ALBUMS_TITLE"> Альбом пользователя {0}: {1}</Resource>
     <Resource tag="TITLE">Изображения из альбома</Resource>
   </page>
@@ -796,7 +797,7 @@
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">Пользователь {0} прикрепил следующие файлы:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Загрузить изображение</Resource>
-    <Resource tag="IMAGE_RESIZE_ENLARGE">Увеличить</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">\u2315; Увеличить</Resource>
     <Resource tag="IMAGE_RESIZE_VIEWS">Просмотров:{0}</Resource>
     <Resource tag="IMAGE_TEXT">Изображение</Resource>
     <Resource tag="INFO_NOMORETOPICS">На этом форуме больше нет тем.</Resource>
@@ -804,7 +805,7 @@
     <Resource tag="INFO_TOPIC_UNLOCKED">Тема открыта.</Resource>
     <Resource tag="INFO_UNWATCH_TOPIC">Вы больше не будете получать уведомления в случае появления новых сообщений в этой теме.</Resource>
     <Resource tag="INFO_VOTED">Спасибо за Ваше мнение!</Resource>
-    <Resource tag="INFO_WATCH_TOPIC">Вы получите уведомления в случае появления новых сообщений в этой теме.</Resource>
+    <Resource tag="INFO_WATCH_TOPIC">Вы будете получать уведомления в случае появления новых сообщений в этой теме.</Resource>
     <Resource tag="IP">IP</Resource>
     <Resource tag="JOINED">Зарегистрирован</Resource>
     <Resource tag="LOCATION">Откуда</Resource>
@@ -827,10 +828,10 @@
     <Resource tag="QUICKREPLY_HIDE">Скрыть форму быстрого ответа</Resource>
     <Resource tag="QUICKREPLY_SHOW">Показать форму быстрого ответа</Resource>
     <Resource tag="RANK">Ранг</Resource>
-    <Resource tag="REPORTABUSE">Это злоупотребление!</Resource>
+    <Resource tag="REPORTABUSE">Report Abusive</Resource>
     <Resource tag="REPORTEDFEEDBACK">Спасибо за информацию об этом сообщении.</Resource>
     <Resource tag="REPORTPOST">Жалоба!</Resource>
-    <Resource tag="REPORTSPAM">Это спам!</Resource>
+    <Resource tag="REPORTSPAM">Report SPAM</Resource>
     <Resource tag="RSSTOPIC">Лента RSS темы</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
@@ -924,7 +925,7 @@
     <Resource tag="YIM">Yahoo Messenger:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">
-    <Resource tag="ACCOUNT_NOT_APPROVED">Ваша учётная запись пока не была проверена администратором. ВЫ не можете сбросить пароль пока это не случилось.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED">Ваша учётная запись пока не была проверена администратором. Вы не можете сбросить пароль пока это не случилось.</Resource>
     <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Ваша учётная запись пока не проверена так как вы не проверили адрес электронной почты. Новый запрос на валидацию отправлен на адрес {0}. Пожалуйста проверьте и вы сможете войти на форум в качестве пользователя.</Resource>
     <Resource tag="GENERAL_FAILURE">Попытка восстановить ваш пароль оказалась неудачной.</Resource>
     <Resource tag="IDENTITY_CONFIRMATION_TITLE">Подтверждение идентичности при восстановлении пароля</Resource>
@@ -991,7 +992,7 @@
     <Resource tag="LINK">Вставить ссылку</Resource>
     <Resource tag="NORMAL">Нормально</Resource>
     <Resource tag="ORDERED">Сортированный список</Resource>
-    <Resource tag="OUTDENT">Выступ</Resource>
+    <Resource tag="OUTDENT">Отступ</Resource>
     <Resource tag="RIGHT">Выровнять справа</Resource>
     <Resource tag="SPELL">Проверить правописание</Resource>
     <Resource tag="UNDERLINE">Подчеркнуть</Resource>
@@ -1067,7 +1068,7 @@
       &lt;/head&gt;&lt;body&gt;
       &lt;p class="style1"&gt; Добро пожаловать, &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
       &lt;p class="style1"&gt; Ваш запрос на изменение адреса электронной почты &lt;strong&gt;{newemail}&lt;/strong&gt; почти исполнен!&lt;/p&gt;
-      &lt;p class="style1"&gt; Просто подтвердите изменение перейдя по этой ссылке:&lt;/p&gt;
+      &lt;p class="style1"&gt; Просто подтвердите изменение, перейдя по этой ссылке:&lt;/p&gt;
       &lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
       &lt;p class="style1"&gt; и введите ключ подтверждения:&lt;/p&gt;
       &lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
@@ -1230,7 +1231,7 @@
     <Resource tag="FORUMUSERS">Пользователи просматривающие форум</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Перейти на страницу: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Вы больше не будете уведомлены о новых постах на этом форуме.</Resource>
-    <Resource tag="INFO_WATCH_FORUM">Вы будете уведомлены при создании новых постов на этом форуме.</Resource>
+    <Resource tag="INFO_WATCH_FORUM">Вы будете уведомлены о появлении новых постов на этом форуме.</Resource>
     <Resource tag="LAST_DAY">за последние сутки</Resource>
     <Resource tag="LAST_MONTH">за последний месяц</Resource>
     <Resource tag="LAST_SIX_MONTHS">за последние 6 месяцев</Resource>

@@ -235,10 +235,17 @@ namespace YAF.Controls
             }
 
                      output.BeginRender();              
-                
+                     // We are in messages
                      if (this.TopicID > 0 && this.ForumID > 0)
                      {
-                         output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS"));
+                         if (forumPageName == "topics")
+                         {
+                             output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS"));                            
+                         }
+                         if (forumPageName == "postmessage")
+                         {
+                             output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTMESSAGE_FULL"));                            
+                         }
                          output.Write(@"<a href=""{0}"" id=""topicid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "t={0}", this.TopicID), this.UserID, this.TopicName);
                          if (!this.LastLinkOnly)
                          {
@@ -246,6 +253,7 @@ namespace YAF.Controls
                              output.Write(@"<a href=""{0}"" id=""forumidtopic_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.forum, "f={0}", this.ForumID), this.UserID, this.ForumName);
                          }
                      }
+                     // User views forum
                      else if (this.ForumID > 0 && this.TopicID <= 0)
                      {
                         output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUM"));
@@ -264,14 +272,17 @@ namespace YAF.Controls
                                   output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "MAINPAGE"));
                               }
                           }
-                          else if (!YafContext.Current.IsHostAdmin && forumPageName.Contains("MODERATE_"))
+                          // We shouldn't show moderators activity to all users but admins
+                          else if (!YafContext.Current.IsAdmin && forumPageName.Contains("MODERATE_"))
                           {
                               output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "MODERATE"));
                           }
+                          // We shouldn't show admin activity to all users 
                           else if (!YafContext.Current.IsHostAdmin && forumPageName.Contains("ADMIN_"))
                           {
                               output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ADMINTASK"));
                           }
+                          // Generic action name based on page name
                           else
                           {
                               output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", forumPageName));

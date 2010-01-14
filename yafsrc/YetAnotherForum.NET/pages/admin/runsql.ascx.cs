@@ -79,8 +79,8 @@ namespace YAF.Pages.Admin
         string sql = this.txtQuery.Text.Trim();
         
         // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
-        sql = sql.Replace("{databaseOwner}", YafDBAccess.DatabaseOwner);
-        sql = sql.Replace("{objectQualifier}", YafDBAccess.ObjectQualifier);
+        sql = sql.Replace("{databaseOwner}", Config.DatabaseOwner);
+        sql = sql.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
         this.txtResult.Text = DB.db_runsql(sql, connMan);
       }
     }

@@ -38,36 +38,23 @@ namespace YAF.Controls
     /// <summary>
     /// The _message flags.
     /// </summary>
-    MessageFlags _messageFlags;
+    private MessageFlags messageFlags;
 
     /// <summary>
     /// The current data row.
     /// </summary>
-    DataRowView _row;
+    private DataRowView _row;
 
     /// <summary>
     /// The _user profile.
     /// </summary>
-    YafUserProfile _userProfile;
+    private YafUserProfile _userProfile;
 
     /// <summary>
     /// Instance of the style transformation class
     /// </summary>
-    StyleTransform _styleTransforum;
-
-    private StyleTransform TransformStyle
-    {
-      get
-      {
-        if (_styleTransforum == null)
-        {
-          _styleTransforum = new StyleTransform(YafContext.Current.Theme);
-        }
-
-        return _styleTransforum;
-      }
-    }
-
+    private StyleTransform _styleTransforum;
+    
     /// <summary>
     /// Gets or sets DataRow.
     /// </summary>
@@ -81,7 +68,7 @@ namespace YAF.Controls
       set
       {
         this._row = value;
-        this._messageFlags = (this._row != null) ? new MessageFlags(this._row["Flags"]) : new MessageFlags(0);
+        this.messageFlags = (this._row != null) ? new MessageFlags(this._row["Flags"]) : new MessageFlags(0);
       }
     }
 
@@ -102,10 +89,10 @@ namespace YAF.Controls
     {
       get
       {
-        if (PageCache != null && DataRow != null)
+        if (this.PageCache != null && this.DataRow != null)
         {
           // get cache for user boxes
-          object cache = PageCache[Constants.Cache.UserBoxes];
+          object cache = this.PageCache[Constants.Cache.UserBoxes];
 
           // is it hashtable?
           if (cache != null && cache is Hashtable)
@@ -126,10 +113,10 @@ namespace YAF.Controls
 
       set
       {
-        if (PageCache != null && DataRow != null)
+        if (this.PageCache != null && this.DataRow != null)
         {
           // get cache for user boxes
-          object cache = PageCache[Constants.Cache.UserBoxes];
+          object cache = this.PageCache[Constants.Cache.UserBoxes];
 
           // is it hashtable?
           if (cache != null && cache is Hashtable)
@@ -146,7 +133,7 @@ namespace YAF.Controls
             ((Hashtable)cache)[UserId] = value;
 
             // save cache
-            PageCache[Constants.Cache.UserBoxes] = cache;
+            this.PageCache[Constants.Cache.UserBoxes] = cache;
           }
         }
       }
@@ -159,9 +146,9 @@ namespace YAF.Controls
     {
       get
       {
-        if (DataRow != null)
+          if (this.DataRow != null)
         {
-          return Convert.ToInt32(DataRow["UserID"]);
+            return Convert.ToInt32(this.DataRow["UserID"]);
         }
 
         return 0;
@@ -188,12 +175,27 @@ namespace YAF.Controls
     /// <summary>
     /// Gets a value indicating whether PostDeleted.
     /// </summary>
-    bool PostDeleted
+    private bool PostDeleted
     {
       get
       {
-        return this._messageFlags.IsDeleted;
+        return this.messageFlags.IsDeleted;
       }
+    }
+   /// <summary>
+   /// Refines style string from other skins info
+   /// </summary>
+    private StyleTransform TransformStyle
+    {
+        get
+        {
+            if (this._styleTransforum == null)
+            {
+                this._styleTransforum = new StyleTransform(YafContext.Current.Theme);
+            }
+
+            return this._styleTransforum;
+        }
     }
 
     /// <summary>
@@ -206,14 +208,14 @@ namespace YAF.Controls
     {
       output.WriteLine(String.Format(@"<div class=""yafUserBox"" id=""{0}"">", ClientID));
 
-      string userBox = CachedUserBox;
+      string userBox = this.CachedUserBox;
 
       if (string.IsNullOrEmpty(userBox))
       {
-        userBox = CreateUserBox();
+          userBox = this.CreateUserBox();
 
         // cache...
-        CachedUserBox = userBox;
+        this.CachedUserBox = userBox;
       }
 
       // output the user box info...
@@ -240,44 +242,44 @@ namespace YAF.Controls
         () => DB.group_rank_style(YafContext.Current.PageBoardID));
 
       // Avatar
-      userBox = MatchUserBoxAvatar(userBox);
-
-      // User Medals
-      userBox = MatchUserBoxMedals(userBox);
+      userBox = this.MatchUserBoxAvatar(userBox);
+    
+      // User Medals     
+      userBox = this.MatchUserBoxMedals(userBox);
 
       // Rank Image
-      userBox = MatchUserBoxRankImages(userBox);
+      userBox = this.MatchUserBoxRankImages(userBox);
 
       // Rank
-      userBox = MatchUserBoxRank(userBox, roleRankStyleTable);
+      userBox = this.MatchUserBoxRank(userBox, roleRankStyleTable);
 
       // Groups
-      userBox = MatchUserBoxGroups(userBox, roleRankStyleTable);
+      userBox = this.MatchUserBoxGroups(userBox, roleRankStyleTable);
 
       // ThanksFrom
-      userBox = MatchUserBoxThanksFrom(userBox);
+      userBox = this.MatchUserBoxThanksFrom(userBox);
 
       // ThanksTo
-      userBox = MatchUserBoxThanksTo(userBox);
+      userBox = this.MatchUserBoxThanksTo(userBox);
 
       if (!PostDeleted)
       {
         // Ederon : 02/24/2007
         // Joined Date
-        userBox = MatchUserBoxJoinedDate(userBox);
+          userBox = this.MatchUserBoxJoinedDate(userBox);
 
         // Posts
-        userBox = MatchUserBoxPostCount(userBox);
+          userBox = this.MatchUserBoxPostCount(userBox);
 
         // Points
-        userBox = MatchUserBoxPoints(userBox);
+          userBox = this.MatchUserBoxPoints(userBox);
 
         // Location
-        userBox = MatchUserBoxLocation(userBox);
+          userBox = this.MatchUserBoxLocation(userBox);
       }
       else
       {
-        userBox = MatchUserBoxClearAll(userBox);
+          userBox = this.MatchUserBoxClearAll(userBox);
       }
 
       return userBox;
@@ -292,7 +294,7 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box clear all.
     /// </returns>
-    string MatchUserBoxClearAll(string userBox)
+    private string MatchUserBoxClearAll(string userBox)
     {
       string filler = string.Empty;
 
@@ -320,15 +322,15 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box location.
     /// </returns>
-    string MatchUserBoxLocation(string userBox)
+    private string MatchUserBoxLocation(string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.Location);
 
-      if (UserProfile.Location != string.Empty)
+      if (this.UserProfile.Location != string.Empty)
       {
         filler = String.Format(
-          PageContext.BoardSettings.UserBoxLocation, PageContext.Localization.GetText("location"), FormatMsg.RepairHtml(UserProfile.Location, false));
+          PageContext.BoardSettings.UserBoxLocation, PageContext.Localization.GetText("location"), FormatMsg.RepairHtml(this.UserProfile.Location, false));
       }
 
       // replaces template placeholder with actual location
@@ -345,14 +347,14 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box points.
     /// </returns>
-    string MatchUserBoxPoints(string userBox)
+    private string MatchUserBoxPoints(string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.Points);
 
       if (PageContext.BoardSettings.DisplayPoints)
       {
-        filler = String.Format(PageContext.BoardSettings.UserBoxPoints, PageContext.Localization.GetText("points"), DataRow["Points"]);
+          filler = String.Format(PageContext.BoardSettings.UserBoxPoints, PageContext.Localization.GetText("points"), this.DataRow["Points"]);
       }
 
       // replaces template placeholder with actual points
@@ -369,11 +371,11 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box post count.
     /// </returns>
-    string MatchUserBoxPostCount(string userBox)
+    private string MatchUserBoxPostCount(string userBox)
     {
       var rx = new Regex(Constants.UserBox.Posts);
 
-      string filler = String.Format(PageContext.BoardSettings.UserBoxPosts, PageContext.Localization.GetText("posts"), DataRow["Posts"]);
+      string filler = String.Format(PageContext.BoardSettings.UserBoxPosts, PageContext.Localization.GetText("posts"), this.DataRow["Posts"]);
 
       // replaces template placeholder with actual post count
       userBox = rx.Replace(userBox, filler);
@@ -389,7 +391,7 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box joined date.
     /// </returns>
-    string MatchUserBoxJoinedDate(string userBox)
+    private string MatchUserBoxJoinedDate(string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.JoinDate);
@@ -399,7 +401,7 @@ namespace YAF.Controls
         filler = String.Format(
           PageContext.BoardSettings.UserBoxJoinDate,
           PageContext.Localization.GetText("joined"),
-          YafServices.DateTime.FormatDateShort((DateTime)DataRow["Joined"]));
+          YafServices.DateTime.FormatDateShort((DateTime)this.DataRow["Joined"]));
       }
 
       // replaces template placeholder with actual join date
@@ -419,9 +421,9 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box groups.
     /// </returns>
-    string MatchUserBoxGroups(string userBox, DataTable roleStyleTable)
+    private string MatchUserBoxGroups(string userBox, DataTable roleStyleTable)
     {
-      const string styledNick = @"<span class=""YafGroup_{0}"" style=""{1}"">{0}</span>";
+      const string StyledNick = @"<span class=""YafGroup_{0}"" style=""{1}"">{0}</span>";
 
       string filler = string.Empty;
       Regex rx;
@@ -435,7 +437,7 @@ namespace YAF.Controls
         bool bFirst = true;
         string roleStyle = null;
 
-        foreach (string role in RoleMembershipHelper.GetRolesForUser(DataRow["UserName"].ToString()))
+        foreach (string role in RoleMembershipHelper.GetRolesForUser(this.DataRow["UserName"].ToString()))
         {
           foreach (DataRow drow in roleStyleTable.Rows)
           {
@@ -451,7 +453,7 @@ namespace YAF.Controls
           {
             if (YafContext.Current.BoardSettings.UseStyledNicks)
             {
-              groupsText.AppendLine(string.Format(styledNick, role, roleStyle));
+              groupsText.AppendLine(string.Format(StyledNick, role, roleStyle));
             }
             else
             {
@@ -464,7 +466,7 @@ namespace YAF.Controls
           {
             if (YafContext.Current.BoardSettings.UseStyledNicks)
             {
-              groupsText.AppendLine(string.Format(@", " + styledNick, role, roleStyle));
+              groupsText.AppendLine(string.Format(@", " + StyledNick, role, roleStyle));
             }
             else
             {
@@ -499,16 +501,16 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box rank.
     /// </returns>
-    string MatchUserBoxRank(string userBox, DataTable roleStyleTable)
+    private string MatchUserBoxRank(string userBox, DataTable roleStyleTable)
     {
       string rankStyle = null;
 
       foreach (DataRow drow in roleStyleTable.Rows)
       {
         // Rank for a user has LegendID = 2
-        if (Convert.ToInt32(drow["LegendID"]) == 2 && drow["Style"] != null && drow["Name"].ToString() == DataRow["RankName"].ToString())
+          if (Convert.ToInt32(drow["LegendID"]) == 2 && drow["Style"] != null && drow["Name"].ToString() == this.DataRow["RankName"].ToString())
         {
-          rankStyle = TransformStyle.DecodeStyleByString(drow["Style"].ToString(), true);
+            rankStyle = this.TransformStyle.DecodeStyleByString(drow["Style"].ToString(), true);
           break;
         }
       }
@@ -520,12 +522,12 @@ namespace YAF.Controls
       {
         filler = String.Format(
           PageContext.BoardSettings.UserBoxRank, 
-          PageContext.Localization.GetText("rank"), 
-          string.Format(@"<span class=""YafRank_{0}"" style=""{1}"">{0}</span>", DataRow["RankName"], rankStyle));
+          PageContext.Localization.GetText("rank"),
+          string.Format(@"<span class=""YafRank_{0}"" style=""{1}"">{0}</span>", this.DataRow["RankName"], rankStyle));
       }
       else
       {
-        filler = String.Format(PageContext.BoardSettings.UserBoxRank, PageContext.Localization.GetText("rank"), DataRow["RankName"]);
+          filler = String.Format(PageContext.BoardSettings.UserBoxRank, PageContext.Localization.GetText("rank"), this.DataRow["RankName"]);
       }
 
       // replaces template placeholder with actual rank
@@ -542,16 +544,16 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box rank images.
     /// </returns>
-    string MatchUserBoxRankImages(string userBox)
+    private string MatchUserBoxRankImages(string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.RankImage);
 
-      if (!DataRow["RankImage"].IsNullOrEmptyDBField())
+      if (!this.DataRow["RankImage"].IsNullOrEmptyDBField())
       {
         filler = String.Format(
-          PageContext.BoardSettings.UserBoxRankImage, 
-          String.Format(@"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />", YafForumInfo.ForumRoot, YafBoardFolders.Current.Ranks, DataRow["RankImage"]));
+          PageContext.BoardSettings.UserBoxRankImage,
+          String.Format(@"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />", YafForumInfo.ForumRoot, YafBoardFolders.Current.Ranks, this.DataRow["RankImage"]));
       }
 
       // replaces template placeholder with actual rank image
@@ -568,14 +570,20 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box medals.
     /// </returns>
-    string MatchUserBoxMedals(string userBox)
+    private string MatchUserBoxMedals(string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.Medals);
 
       if (PageContext.BoardSettings.ShowMedals)
       {
-        DataTable dt = YafServices.DBBroker.UserMedals(UserId);
+          DataTable dt = YafServices.DBBroker.UserMedals(this.UserId);
+        
+          // vzrus: If user doesn't have we shouldn't render this waisting resources
+        if (dt.Rows.Count <= 0)
+        {
+            return userBox;
+        }
 
         var ribbonBar = new StringBuilder(500);
         var medals = new StringBuilder(500);
@@ -667,14 +675,14 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box avatar.
     /// </returns>
-    string MatchUserBoxAvatar(string userBox)
+    private string MatchUserBoxAvatar(string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.Avatar);
 
-      if (!PostDeleted)
+      if (!this.PostDeleted)
       {
-        string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser(UserId);
+          string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser(this.UserId);
 
         if (!String.IsNullOrEmpty(avatarUrl))
         {
@@ -696,12 +704,12 @@ namespace YAF.Controls
     /// <returns>
     /// The match user box thanks from.
     /// </returns>
-    string MatchUserBoxThanksFrom(string userBox)
+    private string MatchUserBoxThanksFrom(string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.ThanksFrom);
       filler = String.Format(
-        PageContext.BoardSettings.UserBoxThanksFrom, String.Format(PageContext.Localization.GetText("thanksfrom"), DataRow["ThanksFromUserNumber"]));
+        PageContext.BoardSettings.UserBoxThanksFrom, String.Format(PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));
 
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);
@@ -715,15 +723,15 @@ namespace YAF.Controls
     /// The user box.
     /// </param>
     /// <returns>
-    /// The match user box thanks to.
+    /// String with Thanks string added to UserBox .
     /// </returns>
-    string MatchUserBoxThanksTo(string userBox)
+    private string MatchUserBoxThanksTo(string userBox)
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.ThanksTo);
       filler = String.Format(
-        PageContext.BoardSettings.UserBoxThanksTo, 
-        String.Format(PageContext.Localization.GetText("thanksto"), DataRow["ThanksToUserNumber"], DataRow["ThanksToUserPostsNumber"]));
+        PageContext.BoardSettings.UserBoxThanksTo,
+        String.Format(PageContext.Localization.GetText("thanksto"), this.DataRow["ThanksToUserNumber"], this.DataRow["ThanksToUserPostsNumber"]));
 
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);
