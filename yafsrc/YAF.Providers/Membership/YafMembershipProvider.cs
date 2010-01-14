@@ -17,34 +17,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Data;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web.Security;
-using YAF.Classes.Core;
-using YAF.Providers.Utils;
-
 namespace YAF.Providers.Membership
 {
-  // YafMembershipProvider
+  using System;
+  using System.Collections.Specialized;
+  using System.Configuration;
+  using System.Data;
+  using System.Security.Cryptography;
+  using System.Text;
+  using System.Text.RegularExpressions;
+  using System.Web.Security;
+
+  using YAF.Classes.Core;
+  using YAF.Providers.Utils;
+
   /// <summary>
   /// The yaf membership provider.
   /// </summary>
   public class YafMembershipProvider : MembershipProvider
   {
-    /// <summary>
-    /// The _passwordsize.
-    /// </summary>
-    private const int _passwordsize = 14;
+    #region Constants and Fields
 
     /// <summary>
     /// The conn str app key name.
     /// </summary>
     public static string ConnStrAppKeyName = "YafMembershipConnectionString";
+
+    /// <summary>
+    /// The _passwordsize.
+    /// </summary>
+    private const int _passwordsize = 14;
 
     // Instance Variables
     /// <summary>
@@ -132,406 +134,9 @@ namespace YAF.Providers.Membership
     /// </summary>
     private bool _useSalt;
 
-    #region Internal Static Methods
-
-    /// <summary>
-    /// Creates a random string used as Salt for hashing
-    /// </summary>
-    /// <returns>
-    /// Random string
-    /// </returns>
-    private static string GenerateSalt()
-    {
-      var buf = new byte[16];
-      var rngCryptoSp = new RNGCryptoServiceProvider();
-      rngCryptoSp.GetBytes(buf);
-      return Convert.ToBase64String(buf);
-    }
-
-    /// <summary>
-    /// Creates a random password based on a miniumum length and a minimum number of non-alphanumeric characters
-    /// </summary>
-    /// <param name="minPassLength">
-    /// Minimum characters in the password
-    /// </param>
-    /// <param name="minNonAlphas">
-    /// Minimum non-alphanumeric characters
-    /// </param>
-    /// <returns>
-    /// Random string
-    /// </returns>
-    private static string GeneratePassword(int minPassLength, int minNonAlphas)
-    {
-      return System.Web.Security.Membership.GeneratePassword(minPassLength < _passwordsize ? _passwordsize : minPassLength, minNonAlphas);
-    }
-
-    /// <summary>
-    /// The hash type.
-    /// </summary>
-    /// <returns>
-    /// The hash type.
-    /// </returns>
-    private static string HashType()
-    {
-      if (String.IsNullOrEmpty(System.Web.Security.Membership.HashAlgorithmType))
-      {
-        return "MD5"; // Default Hash Algorithm Type
-      }
-      else
-      {
-        return System.Web.Security.Membership.HashAlgorithmType;
-      }
-    }
-
-    /// <summary>
-    /// Encrypt string to hash method.
-    /// </summary>
-    /// <param name="clearString">
-    /// UnEncrypted Clear String
-    /// </param>
-    /// <param name="encFormat">
-    /// The enc Format.
-    /// </param>
-    /// <param name="salt">
-    /// Salt to be used in Hash method
-    /// </param>
-    /// <param name="useSalt">
-    /// Salt to be used in Hash method
-    /// </param>
-    /// <param name="hashHex">
-    /// The hash Hex.
-    /// </param>
-    /// <param name="hashCase">
-    /// The hash Case.
-    /// </param>
-    /// <param name="hashRemoveChars">
-    /// The hash Remove Chars.
-    /// </param>
-    /// <param name="msCompliant">
-    /// The ms Compliant.
-    /// </param>
-    /// <returns>
-    /// Encrypted string
-    /// </returns>
-    internal static string EncodeString(
-      string clearString, int encFormat, string salt, bool useSalt, bool hashHex, string hashCase, string hashRemoveChars, bool msCompliant)
-    {
-      string encodedPass = string.Empty;
-
-      var passwordFormat = (MembershipPasswordFormat) Enum.ToObject(typeof (MembershipPasswordFormat), encFormat);
-
-      // Multiple Checks to ensure UseSalt is valid.
-
-      if (String.IsNullOrEmpty(clearString))
-      {
-        // Check to ensure string is not null or empty.
-        return String.Empty;
-      }
-
-      if (useSalt && String.IsNullOrEmpty(salt))
-      {
-        // If Salt value is null disable Salt procedure
-        useSalt = false;
-      }
-
-      if (useSalt && passwordFormat == MembershipPasswordFormat.Encrypted)
-      {
-        useSalt = false; // Cannot use Salt with encryption
-      }
-
-
-      // Check Encoding format / method
-      switch (passwordFormat)
-      {
-        case MembershipPasswordFormat.Clear:
-
-          // plain text
-          encodedPass = clearString;
-          break;
-        case MembershipPasswordFormat.Hashed:
-          encodedPass = Hash(clearString, HashType(), salt, useSalt, hashHex, hashCase, hashRemoveChars, msCompliant);
-          break;
-        case MembershipPasswordFormat.Encrypted:
-          encodedPass = Encrypt(clearString, salt, msCompliant);
-          break;
-        default:
-          encodedPass = Hash(clearString, HashType(), salt, useSalt, hashHex, hashCase, hashRemoveChars, msCompliant);
-          break;
-      }
-
-      return encodedPass;
-    }
-
-    /// <summary>
-    /// Decrypt string using passwordFormat.
-    /// </summary>
-    /// <param name="pass">
-    /// Password to be decrypted
-    /// </param>
-    /// <param name="passwordFormat">
-    /// Method of encryption
-    /// </param>
-    /// <returns>
-    /// Unencrypted string
-    /// </returns>
-    private static string DecodeString(string pass, int passwordFormat)
-    {
-      switch ((MembershipPasswordFormat) Enum.ToObject(typeof (MembershipPasswordFormat), passwordFormat))
-      {
-        case MembershipPasswordFormat.Clear: // MembershipPasswordFormat.Clear:
-          return pass;
-        case MembershipPasswordFormat.Hashed: // MembershipPasswordFormat.Hashed:
-          ExceptionReporter.Throw("MEMBERSHIP", "DECODEHASH");
-          break;
-        case MembershipPasswordFormat.Encrypted:
-          byte[] bIn = Convert.FromBase64String(pass);
-          byte[] bRet = (new YafMembershipProvider()).DecryptPassword(bIn);
-          if (bRet == null)
-          {
-            return null;
-          }
-
-          return Encoding.Unicode.GetString(bRet, 16, bRet.Length - 16);
-        default:
-          ExceptionReporter.Throw("MEMBERSHIP", "DECODEHASH");
-          break;
-      }
-
-      return String.Empty; // Removes "Not all paths return a value" warning.
-    }
-
-    /// <summary>
-    /// Check to see if password(string) matches required criteria.
-    /// </summary>
-    /// <param name="password">
-    /// Password to be checked
-    /// </param>
-    /// <param name="minLength">
-    /// Minimum length required
-    /// </param>
-    /// <param name="minNonAlphaNumerics">
-    /// Minimum number of Non-alpha numerics in password
-    /// </param>
-    /// <param name="strengthRegEx">
-    /// Regular Expression Strength
-    /// </param>
-    /// <returns>
-    /// True/False 
-    /// </returns>
-    private static bool IsPasswordCompliant(string password, int minLength, int minNonAlphaNumerics, string strengthRegEx)
-    {
-      // Check password meets minimum length criteria.
-      if (!(password.Length >= minLength))
-      {
-        return false;
-      }
-
-      // Count Non alphanumerics
-      int symbolCount = 0;
-      foreach (char checkChar in password.ToCharArray())
-      {
-        if (!char.IsLetterOrDigit(checkChar))
-        {
-          symbolCount++;
-        }
-      }
-
-      // Check password meets minimum alphanumeric criteria
-      if (!(symbolCount >= minNonAlphaNumerics))
-      {
-        return false;
-      }
-
-      // Check Reg Expression is present
-      if (strengthRegEx.Length > 0)
-      {
-        // Check password strength meets Password Strength Regex Requirements
-        if (!Regex.IsMatch(password, strengthRegEx))
-        {
-          return false;
-        }
-      }
-
-      // Check string meets requirements as set in config
-      return true;
-    }
-
-    /// <summary>
-    /// Check to see if password(string) matches required criteria.
-    /// </summary>
-    /// <param name="passsword">
-    /// The passsword.
-    /// </param>
-    /// <returns>
-    /// True/False 
-    /// </returns>
-    private bool IsPasswordCompliant(string passsword)
-    {
-      return IsPasswordCompliant(passsword, MinRequiredPasswordLength, MinRequiredNonAlphanumericCharacters, PasswordStrengthRegularExpression);
-    }
-
-    #region Encryption Utilities
-
-    /// <summary>
-    /// Hashes clear bytes to given hashtype
-    /// </summary>
-    /// <param name="clearBytes">
-    /// Clear bytes to hash
-    /// </param>
-    /// <param name="hashType">
-    /// hash Algorithm to be used
-    /// </param>
-    /// <returns>
-    /// Hashed bytes 
-    /// </returns>
-    private static byte[] Hash(byte[] clearBytes, string hashType)
-    {
-      // MD5, SHA1, SHA256, SHA384, SHA512
-      byte[] hash = HashAlgorithm.Create(hashType).ComputeHash(clearBytes);
-      return hash;
-    }
-
-    /// <summary>
-    /// Creates a password buffer from salt and password ready for hashing/encrypting
-    /// </summary>
-    /// <param name="salt">
-    /// Salt to be applied to hashing algorithm
-    /// </param>
-    /// <param name="clearString">
-    /// Clear string to hash
-    /// </param>
-    /// <param name="standardComp">
-    /// Use Standard asp.net membership method of creating the buffer
-    /// </param>
-    /// <returns>
-    /// Salted Password as Byte Array 
-    /// </returns>
-    public static byte[] GeneratePasswordBuffer(string salt, string clearString, bool standardComp)
-    {
-      byte[] unencodedBytes = Encoding.Unicode.GetBytes(clearString);
-      byte[] saltBytes = Convert.FromBase64String(salt);
-      var buffer = new byte[unencodedBytes.Length + saltBytes.Length];
-
-      if (standardComp)
-      {
-        // Compliant with ASP.NET Membership method of hash/salt
-        Buffer.BlockCopy(saltBytes, 0, buffer, 0, saltBytes.Length);
-        Buffer.BlockCopy(unencodedBytes, 0, buffer, saltBytes.Length, unencodedBytes.Length);
-      }
-      else
-      {
-        Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
-        Buffer.BlockCopy(saltBytes, 0, buffer, unencodedBytes.Length - 1, saltBytes.Length);
-      }
-
-      return buffer;
-    }
-
-    /// <summary>
-    /// Hashes a clear string to the given hashtype
-    /// </summary>
-    /// <param name="clearString">
-    /// Clear string to hash
-    /// </param>
-    /// <param name="hashType">
-    /// hash Algorithm to be used
-    /// </param>
-    /// <param name="salt">
-    /// Salt to be applied to hashing algorithm
-    /// </param>
-    /// <param name="useSalt">
-    /// Should salt be applied to hashing algorithm
-    /// </param>
-    /// <param name="hashHex">
-    /// The hash Hex.
-    /// </param>
-    /// <param name="hashCase">
-    /// The hash Case.
-    /// </param>
-    /// <param name="hashRemoveChars">
-    /// The hash Remove Chars.
-    /// </param>
-    /// <param name="standardComp">
-    /// The standard Comp.
-    /// </param>
-    /// <returns>
-    /// Hashed String as Hex or Base64 
-    /// </returns>
-    public static string Hash(string clearString, string hashType, string salt, bool useSalt, bool hashHex, string hashCase, string hashRemoveChars, bool standardComp)
-    {
-      byte[] buffer;
-      if (useSalt)
-      {
-        buffer = GeneratePasswordBuffer(salt, clearString, standardComp);
-      }
-      else
-      {
-        byte[] unencodedBytes = Encoding.UTF8.GetBytes(clearString); // UTF8 used to maintain compatibility
-        buffer = new byte[unencodedBytes.Length];
-        Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
-      }
-
-      byte[] hashedBytes = Hash(buffer, hashType); // Hash
-
-      string hashedString;
-
-      if (hashHex)
-      {
-        hashedString = hashedBytes.ToHexString();
-      }
-      else
-      {
-        hashedString = Convert.ToBase64String(hashedBytes);
-      }
-
-      // Adjust the case of the hash output
-      switch (hashCase.ToLower())
-      {
-        case "upper":
-          hashedString = hashedString.ToUpper();
-          break;
-        case "lower":
-          hashedString = hashedString.ToLower();
-          break;
-      }
-
-      if (!String.IsNullOrEmpty(hashRemoveChars))
-      {
-        foreach (char removeChar in hashRemoveChars)
-        {
-          hashedString = hashedString.Replace(removeChar.ToString(), string.Empty);
-        }
-      }
-
-      return hashedString;
-    }
-
-    /// <summary>
-    /// The encrypt.
-    /// </summary>
-    /// <param name="clearString">
-    /// The clear string.
-    /// </param>
-    /// <param name="saltString">
-    /// The salt string.
-    /// </param>
-    /// <param name="standardComp">
-    /// The standard comp.
-    /// </param>
-    /// <returns>
-    /// The encrypt.
-    /// </returns>
-    private static string Encrypt(string clearString, string saltString, bool standardComp)
-    {
-      byte[] buffer = GeneratePasswordBuffer(saltString, clearString, standardComp);
-      return Convert.ToBase64String((new YafMembershipProvider()).EncryptPassword(buffer));
-    }
-
     #endregion
 
-    #endregion
-
-    #region Override Public Properties
+    #region Properties
 
     /// <summary>
     /// Gets or sets ApplicationName.
@@ -619,17 +224,6 @@ namespace YAF.Providers.Membership
     }
 
     /// <summary>
-    /// Gets PasswordStrengthRegularExpression.
-    /// </summary>
-    public override string PasswordStrengthRegularExpression
-    {
-      get
-      {
-        return this._passwordStrengthRegularExpression;
-      }
-    }
-
-    /// <summary>
     /// Gets PasswordFormat.
     /// </summary>
     public override MembershipPasswordFormat PasswordFormat
@@ -637,6 +231,17 @@ namespace YAF.Providers.Membership
       get
       {
         return this._passwordFormat;
+      }
+    }
+
+    /// <summary>
+    /// Gets PasswordStrengthRegularExpression.
+    /// </summary>
+    public override string PasswordStrengthRegularExpression
+    {
+      get
+      {
+        return this._passwordStrengthRegularExpression;
       }
     }
 
@@ -663,13 +268,13 @@ namespace YAF.Providers.Membership
     }
 
     /// <summary>
-    /// Gets a value indicating whether UseSalt.
+    /// Gets HashCase.
     /// </summary>
-    internal bool UseSalt
+    internal string HashCase
     {
       get
       {
-        return this._useSalt;
+        return this._hashCase;
       }
     }
 
@@ -685,6 +290,17 @@ namespace YAF.Providers.Membership
     }
 
     /// <summary>
+    /// Gets HashRemoveChars.
+    /// </summary>
+    internal string HashRemoveChars
+    {
+      get
+      {
+        return this._hashRemoveChars;
+      }
+    }
+
+    /// <summary>
     /// Gets a value indicating whether MSCompliant.
     /// </summary>
     internal bool MSCompliant
@@ -696,30 +312,815 @@ namespace YAF.Providers.Membership
     }
 
     /// <summary>
-    /// Gets HashCase.
+    /// Gets a value indicating whether UseSalt.
     /// </summary>
-    internal string HashCase
+    internal bool UseSalt
     {
       get
       {
-        return this._hashCase;
-      }
-    }
-
-    /// <summary>
-    /// Gets HashRemoveChars.
-    /// </summary>
-    internal string HashRemoveChars
-    {
-      get
-      {
-        return this._hashRemoveChars;
+        return this._useSalt;
       }
     }
 
     #endregion
 
-    #region Overriden Public Methods
+    #region Public Methods
+
+    /// <summary>
+    /// Creates a password buffer from salt and password ready for hashing/encrypting
+    /// </summary>
+    /// <param name="salt">
+    /// Salt to be applied to hashing algorithm
+    /// </param>
+    /// <param name="clearString">
+    /// Clear string to hash
+    /// </param>
+    /// <param name="standardComp">
+    /// Use Standard asp.net membership method of creating the buffer
+    /// </param>
+    /// <returns>
+    /// Salted Password as Byte Array 
+    /// </returns>
+    public static byte[] GeneratePasswordBuffer(string salt, string clearString, bool standardComp)
+    {
+      byte[] unencodedBytes = Encoding.Unicode.GetBytes(clearString);
+      byte[] saltBytes = Convert.FromBase64String(salt);
+      var buffer = new byte[unencodedBytes.Length + saltBytes.Length];
+
+      if (standardComp)
+      {
+        // Compliant with ASP.NET Membership method of hash/salt
+        Buffer.BlockCopy(saltBytes, 0, buffer, 0, saltBytes.Length);
+        Buffer.BlockCopy(unencodedBytes, 0, buffer, saltBytes.Length, unencodedBytes.Length);
+      }
+      else
+      {
+        Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
+        Buffer.BlockCopy(saltBytes, 0, buffer, unencodedBytes.Length - 1, saltBytes.Length);
+      }
+
+      return buffer;
+    }
+
+    /// <summary>
+    /// Hashes a clear string to the given hashtype
+    /// </summary>
+    /// <param name="clearString">
+    /// Clear string to hash
+    /// </param>
+    /// <param name="hashType">
+    /// hash Algorithm to be used
+    /// </param>
+    /// <param name="salt">
+    /// Salt to be applied to hashing algorithm
+    /// </param>
+    /// <param name="useSalt">
+    /// Should salt be applied to hashing algorithm
+    /// </param>
+    /// <param name="hashHex">
+    /// The hash Hex.
+    /// </param>
+    /// <param name="hashCase">
+    /// The hash Case.
+    /// </param>
+    /// <param name="hashRemoveChars">
+    /// The hash Remove Chars.
+    /// </param>
+    /// <param name="standardComp">
+    /// The standard Comp.
+    /// </param>
+    /// <returns>
+    /// Hashed String as Hex or Base64 
+    /// </returns>
+    public static string Hash(
+      string clearString, 
+      string hashType, 
+      string salt, 
+      bool useSalt, 
+      bool hashHex, 
+      string hashCase, 
+      string hashRemoveChars, 
+      bool standardComp)
+    {
+      byte[] buffer;
+      if (useSalt)
+      {
+        buffer = GeneratePasswordBuffer(salt, clearString, standardComp);
+      }
+      else
+      {
+        byte[] unencodedBytes = Encoding.UTF8.GetBytes(clearString); // UTF8 used to maintain compatibility
+        buffer = new byte[unencodedBytes.Length];
+        Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
+      }
+
+      byte[] hashedBytes = Hash(buffer, hashType); // Hash
+
+      string hashedString;
+
+      if (hashHex)
+      {
+        hashedString = hashedBytes.ToHexString();
+      }
+      else
+      {
+        hashedString = Convert.ToBase64String(hashedBytes);
+      }
+
+      // Adjust the case of the hash output
+      switch (hashCase.ToLower())
+      {
+        case "upper":
+          hashedString = hashedString.ToUpper();
+          break;
+        case "lower":
+          hashedString = hashedString.ToLower();
+          break;
+      }
+
+      if (!String.IsNullOrEmpty(hashRemoveChars))
+      {
+        foreach (char removeChar in hashRemoveChars)
+        {
+          hashedString = hashedString.Replace(removeChar.ToString(), string.Empty);
+        }
+      }
+
+      return hashedString;
+    }
+
+    /// <summary>
+    /// Change Users password
+    /// </summary>
+    /// <param name="username">
+    /// Username to change password for
+    /// </param>
+    /// <param name="oldPassword">
+    /// The old Password.
+    /// </param>
+    /// <param name="newPassword">
+    /// New question
+    /// </param>
+    /// <returns>
+    /// Boolean depending on whether the change was successful
+    /// </returns>
+    public override bool ChangePassword(string username, string oldPassword, string newPassword)
+    {
+      string passwordSalt = string.Empty;
+      string newEncPassword = string.Empty;
+
+      // Clean input
+
+      // Check password meets requirements as set by Configuration settings
+      if (!this.IsPasswordCompliant(newPassword))
+      {
+        return false;
+      }
+
+      UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
+        this.ApplicationName, 
+        username, 
+        false, 
+        this.UseSalt, 
+        this.HashHex, 
+        this.HashCase, 
+        this.HashRemoveChars, 
+        this.MSCompliant);
+
+      // validate the correct user information was found...
+      if (currentPasswordInfo == null)
+      {
+        return false;
+      }
+
+      // validate the correct user password was entered...
+      if (!currentPasswordInfo.IsCorrectPassword(oldPassword))
+      {
+        return false;
+      }
+
+      if (this.UseSalt)
+      {
+        // generate a salt if one doesn't exist...
+        passwordSalt = String.IsNullOrEmpty(currentPasswordInfo.PasswordSalt)
+                         ? GenerateSalt()
+                         : currentPasswordInfo.PasswordSalt;
+      }
+
+      // encode new password
+      newEncPassword = EncodeString(
+        newPassword, 
+        (int)this.PasswordFormat, 
+        passwordSalt, 
+        this.UseSalt, 
+        this.HashHex, 
+        this.HashCase, 
+        this.HashRemoveChars, 
+        this.MSCompliant);
+
+      // Call SQL Password to Change
+      DB.Current.ChangePassword(
+        this.ApplicationName, 
+        username, 
+        newEncPassword, 
+        passwordSalt, 
+        (int)this.PasswordFormat, 
+        currentPasswordInfo.PasswordAnswer);
+
+      // Return True
+      return true;
+    }
+
+    /// <summary>
+    /// The change password question and answer.
+    /// </summary>
+    /// <param name="username">
+    /// The username.
+    /// </param>
+    /// <param name="password">
+    /// The password.
+    /// </param>
+    /// <param name="newPasswordQuestion">
+    /// The new password question.
+    /// </param>
+    /// <param name="newPasswordAnswer">
+    /// The new password answer.
+    /// </param>
+    /// <returns>
+    /// The change password question and answer.
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// </exception>
+    public override bool ChangePasswordQuestionAndAnswer(
+      string username, string password, string newPasswordQuestion, string newPasswordAnswer)
+    {
+      // Check arguments for null values
+      if ((username == null) || (password == null) || (newPasswordQuestion == null) || (newPasswordAnswer == null))
+      {
+        throw new ArgumentException("Username, Password, Password Question or Password Answer cannot be null");
+      }
+
+      UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
+        this.ApplicationName, 
+        username, 
+        false, 
+        this.UseSalt, 
+        this.HashHex, 
+        this.HashCase, 
+        this.HashRemoveChars, 
+        this.MSCompliant);
+      newPasswordAnswer = EncodeString(
+        newPasswordAnswer, 
+        currentPasswordInfo.PasswordFormat, 
+        currentPasswordInfo.PasswordSalt, 
+        this.UseSalt, 
+        this.HashHex, 
+        this.HashCase, 
+        this.HashRemoveChars, 
+        this.MSCompliant);
+
+      if (currentPasswordInfo.IsCorrectPassword(password))
+      {
+        try
+        {
+          DB.Current.ChangePasswordQuestionAndAnswer(
+            this.ApplicationName, username, newPasswordQuestion, newPasswordAnswer);
+          return true;
+        }
+        catch
+        {
+          // will return false...
+        }
+      }
+
+      return false; // Invalid password return false
+    }
+
+    /// <summary>
+    /// Create user and add to provider
+    /// </summary>
+    /// <param name="username">
+    /// Username
+    /// </param>
+    /// <param name="password">
+    /// Password
+    /// </param>
+    /// <param name="email">
+    /// Email Address
+    /// </param>
+    /// <param name="passwordQuestion">
+    /// Password Question
+    /// </param>
+    /// <param name="passwordAnswer">
+    /// Password Answer - used for password retrievals.
+    /// </param>
+    /// <param name="isApproved">
+    /// Is the User approved?
+    /// </param>
+    /// <param name="providerUserKey">
+    /// Provider User Key to identify the User
+    /// </param>
+    /// <param name="status">
+    /// Out - MembershipCreateStatus object containing status of the Create User process
+    /// </param>
+    /// <returns>
+    /// Boolean depending on whether the deletion was successful
+    /// </returns>
+    public override MembershipUser CreateUser(
+      string username, 
+      string password, 
+      string email, 
+      string passwordQuestion, 
+      string passwordAnswer, 
+      bool isApproved, 
+      object providerUserKey, 
+      out MembershipCreateStatus status)
+    {
+      // ValidatePasswordEventArgs e = new ValidatePasswordEventArgs( username, password, true );
+      // OnValidatingPassword( e );
+      // if ( e.Cancel )
+      // {
+      // 	status = MembershipCreateStatus.InvalidPassword;
+      // 	return null;
+      // }
+      string salt = string.Empty, pass = string.Empty;
+
+      // Check password meets requirements as set out in the web.config
+      if (!this.IsPasswordCompliant(password))
+      {
+        status = MembershipCreateStatus.InvalidPassword;
+        return null;
+      }
+
+      // Check password Question and Answer requirements.
+      if (this.RequiresQuestionAndAnswer)
+      {
+        if (String.IsNullOrEmpty(passwordQuestion))
+        {
+          status = MembershipCreateStatus.InvalidQuestion;
+          return null;
+        }
+
+        if (String.IsNullOrEmpty(passwordAnswer))
+        {
+          status = MembershipCreateStatus.InvalidAnswer;
+          return null;
+        }
+      }
+
+      // Check provider User Key
+      if (!(providerUserKey == null))
+      {
+        // IS not a duplicate key
+        if (!(GetUser(providerUserKey, false) == null))
+        {
+          status = MembershipCreateStatus.DuplicateProviderUserKey;
+          return null;
+        }
+      }
+
+      // Check for unique email
+      if (this.RequiresUniqueEmail)
+      {
+        if (!String.IsNullOrEmpty(this.GetUserNameByEmail(email)))
+        {
+          status = MembershipCreateStatus.DuplicateEmail; // Email exists
+          return null;
+        }
+      }
+
+      // Check for unique user name
+      if (!(this.GetUser(username, false) == null))
+      {
+        status = MembershipCreateStatus.DuplicateUserName; // Username exists
+        return null;
+      }
+
+      if (this.UseSalt)
+      {
+        salt = GenerateSalt();
+      }
+
+      pass = EncodeString(
+        password, 
+        (int)this.PasswordFormat, 
+        salt, 
+        this.UseSalt, 
+        this.HashHex, 
+        this.HashCase, 
+        this.HashRemoveChars, 
+        this.MSCompliant);
+
+      // Encode Password Answer
+      string encodedPasswordAnswer = EncodeString(
+        passwordAnswer, 
+        (int)this.PasswordFormat, 
+        salt, 
+        this.UseSalt, 
+        this.HashHex, 
+        this.HashCase, 
+        this.HashRemoveChars, 
+        this.MSCompliant);
+
+      // Process database user creation request
+      DB.Current.CreateUser(
+        this.ApplicationName, 
+        username, 
+        pass, 
+        salt, 
+        (int)this.PasswordFormat, 
+        email, 
+        passwordQuestion, 
+        encodedPasswordAnswer, 
+        isApproved, 
+        providerUserKey);
+
+      status = MembershipCreateStatus.Success;
+
+      return this.GetUser(username, false);
+    }
+
+    /// <summary>
+    /// Delete User and User's information from provider
+    /// </summary>
+    /// <param name="username">
+    /// Username to delete
+    /// </param>
+    /// <param name="deleteAllRelatedData">
+    /// Delete all related daata
+    /// </param>
+    /// <returns>
+    /// Boolean depending on whether the deletion was successful
+    /// </returns>
+    public override bool DeleteUser(string username, bool deleteAllRelatedData)
+    {
+      // Check username argument is not null
+      if (username == null)
+      {
+        ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "USERNAMENULL");
+      }
+
+      // Process database user deletion request
+      try
+      {
+        DB.Current.DeleteUser(this.ApplicationName, username, deleteAllRelatedData);
+        return true;
+      }
+      catch
+      {
+        // will return false...  
+      }
+
+      return false;
+    }
+
+    /// <summary>
+    /// Retrieves all users into a MembershupUserCollection where Email Matches
+    /// </summary>
+    /// <param name="emailToMatch">
+    /// Email use as filter criteria
+    /// </param>
+    /// <param name="pageIndex">
+    /// Page Index
+    /// </param>
+    /// <param name="pageSize">
+    /// The page Size.
+    /// </param>
+    /// <param name="totalRecords">
+    /// Out - Number of records held
+    /// </param>
+    /// <returns>
+    /// MembershipUser Collection
+    /// </returns>
+    public override MembershipUserCollection FindUsersByEmail(
+      string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
+    {
+      var users = new MembershipUserCollection();
+
+      if (pageIndex < 0)
+      {
+        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGEINDEX");
+      }
+
+      if (pageSize < 1)
+      {
+        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGESIZE");
+      }
+
+      // Loop through all users
+      foreach (DataRow dr in DB.Current.FindUsersByEmail(this.ApplicationName, emailToMatch, pageIndex, pageSize).Rows)
+      {
+        // Add new user to collection
+        users.Add(
+          new MembershipUser(
+            Transform.ToString(this.Name), 
+            Transform.ToString(dr["Username"]), 
+            Transform.ToString(dr["UserID"]), 
+            Transform.ToString(dr["Email"]), 
+            Transform.ToString(dr["PasswordQuestion"]), 
+            Transform.ToString(dr["Comment"]), 
+            Transform.ToBool(dr["IsApproved"]), 
+            Transform.ToBool(dr["IsLockedOut"]), 
+            Transform.ToDateTime(dr["Joined"]), 
+            Transform.ToDateTime(dr["LastLogin"]), 
+            Transform.ToDateTime(dr["LastActivity"]), 
+            Transform.ToDateTime(dr["LastPasswordChange"]), 
+            Transform.ToDateTime(dr["LastLockout"])));
+      }
+
+      totalRecords = users.Count;
+      return users;
+    }
+
+    /// <summary>
+    /// Retrieves all users into a MembershupUserCollection where Username matches
+    /// </summary>
+    /// <param name="usernameToMatch">
+    /// Username use as filter criteria
+    /// </param>
+    /// <param name="pageIndex">
+    /// Page Index
+    /// </param>
+    /// <param name="pageSize">
+    /// The page Size.
+    /// </param>
+    /// <param name="totalRecords">
+    /// Out - Number of records held
+    /// </param>
+    /// <returns>
+    /// MembershipUser Collection
+    /// </returns>
+    public override MembershipUserCollection FindUsersByName(
+      string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
+    {
+      var users = new MembershipUserCollection();
+
+      if (pageIndex < 0)
+      {
+        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGEINDEX");
+      }
+
+      if (pageSize < 1)
+      {
+        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGESIZE");
+      }
+
+      // Loop through all users
+      foreach (DataRow dr in DB.Current.FindUsersByName(this.ApplicationName, usernameToMatch, pageIndex, pageSize).Rows
+        )
+      {
+        // Add new user to collection
+        users.Add(
+          new MembershipUser(
+            Transform.ToString(this.Name), 
+            Transform.ToString(dr["Username"]), 
+            Transform.ToString(dr["UserID"]), 
+            Transform.ToString(dr["Email"]), 
+            Transform.ToString(dr["PasswordQuestion"]), 
+            Transform.ToString(dr["Comment"]), 
+            Transform.ToBool(dr["IsApproved"]), 
+            Transform.ToBool(dr["IsLockedOut"]), 
+            Transform.ToDateTime(dr["Joined"]), 
+            Transform.ToDateTime(dr["LastLogin"]), 
+            Transform.ToDateTime(dr["LastActivity"]), 
+            Transform.ToDateTime(dr["LastPasswordChange"]), 
+            Transform.ToDateTime(dr["LastLockout"])));
+      }
+
+      totalRecords = users.Count;
+      return users;
+    }
+
+    /// <summary>
+    /// Retrieves all users into a MembershupUserCollection
+    /// </summary>
+    /// <param name="pageIndex">
+    /// Page Index
+    /// </param>
+    /// <param name="pageSize">
+    /// The page Size.
+    /// </param>
+    /// <param name="totalRecords">
+    /// Out - Number of records held
+    /// </param>
+    /// <returns>
+    /// MembershipUser Collection
+    /// </returns>
+    public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
+    {
+      var users = new MembershipUserCollection();
+
+      if (pageIndex < 0)
+      {
+        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGEINDEX");
+      }
+
+      if (pageSize < 1)
+      {
+        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGESIZE");
+      }
+
+      // Loop through all users
+      foreach (DataRow dr in DB.Current.GetAllUsers(this.ApplicationName, pageIndex, pageSize).Rows)
+      {
+        // Add new user to collection
+        users.Add(
+          new MembershipUser(
+            Transform.ToString(this.Name), 
+            Transform.ToString(dr["Username"]), 
+            Transform.ToString(dr["UserID"]), 
+            Transform.ToString(dr["Email"]), 
+            Transform.ToString(dr["PasswordQuestion"]), 
+            Transform.ToString(dr["Comment"]), 
+            Transform.ToBool(dr["IsApproved"]), 
+            Transform.ToBool(dr["IsLockedOut"]), 
+            Transform.ToDateTime(dr["Joined"]), 
+            Transform.ToDateTime(dr["LastLogin"]), 
+            Transform.ToDateTime(dr["LastActivity"]), 
+            Transform.ToDateTime(dr["LastPasswordChange"]), 
+            Transform.ToDateTime(dr["LastLockout"])));
+      }
+
+      totalRecords = users.Count;
+      return users;
+    }
+
+    /// <summary>
+    /// Retrieves the number of users currently online for this application
+    /// </summary>
+    /// <returns>
+    /// Number of users online
+    /// </returns>
+    public override int GetNumberOfUsersOnline()
+    {
+      return DB.Current.GetNumberOfUsersOnline(this.ApplicationName, Membership.UserIsOnlineTimeWindow);
+    }
+
+    /// <summary>
+    /// Retrieves the Users password (if <see cref="EnablePasswordRetrieval"/> is <see langword="true"/>)
+    /// </summary>
+    /// <param name="username">
+    /// Username to retrieve password for
+    /// </param>
+    /// <param name="answer">
+    /// Answer to the Users Membership Question
+    /// </param>
+    /// <returns>
+    /// Password unencrypted
+    /// </returns>
+    public override string GetPassword(string username, string answer)
+    {
+      if (!this.EnablePasswordRetrieval)
+      {
+        ExceptionReporter.ThrowNotSupported("MEMBERSHIP", "PASSWORDRETRIEVALNOTSUPPORTED");
+      }
+
+      // Check for null arguments
+      if ((username == null) || (answer == null))
+      {
+        ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMEPASSWORDNULL");
+      }
+
+      UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
+        this.ApplicationName, 
+        username, 
+        false, 
+        this.UseSalt, 
+        this.HashHex, 
+        this.HashCase, 
+        this.HashRemoveChars, 
+        this.MSCompliant);
+
+      if (currentPasswordInfo != null && currentPasswordInfo.IsCorrectAnswer(answer))
+      {
+        return DecodeString(currentPasswordInfo.Password, currentPasswordInfo.PasswordFormat);
+      }
+
+      return null;
+    }
+
+    /// <summary>
+    /// Retrieves a <see cref="MembershipUser"/> object from the criteria given
+    /// </summary>
+    /// <param name="username">
+    /// Username to be foundr
+    /// </param>
+    /// <param name="userIsOnline">
+    /// Is the User currently online
+    /// </param>
+    /// <returns>
+    /// MembershipUser object
+    /// </returns>
+    public override MembershipUser GetUser(string username, bool userIsOnline)
+    {
+      if (username == null)
+      {
+        ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMENULL");
+      }
+
+      // if it's empty don't bother calling the DB.
+      if (String.IsNullOrEmpty(username))
+      {
+        return null;
+      }
+
+      DataRow dr = DB.Current.GetUser(this.ApplicationName, null, username, userIsOnline);
+
+      if (dr != null)
+      {
+        return new MembershipUser(
+          Transform.ToString(this.Name), 
+          Transform.ToString(dr["Username"]), 
+          Transform.ToString(dr["UserID"]), 
+          Transform.ToString(dr["Email"]), 
+          Transform.ToString(dr["PasswordQuestion"]), 
+          Transform.ToString(dr["Comment"]), 
+          Transform.ToBool(dr["IsApproved"]), 
+          Transform.ToBool(dr["IsLockedOut"]), 
+          Transform.ToDateTime(dr["Joined"]), 
+          Transform.ToDateTime(dr["LastLogin"]), 
+          Transform.ToDateTime(dr["LastActivity"]), 
+          Transform.ToDateTime(dr["LastPasswordChange"]), 
+          Transform.ToDateTime(dr["LastLockout"]));
+      }
+
+      return null;
+    }
+
+    /// <summary>
+    /// Retrieves a <see cref="MembershipUser"/> object from the criteria given
+    /// </summary>
+    /// <param name="providerUserKey">
+    /// User to be found based on UserKey
+    /// </param>
+    /// <param name="userIsOnline">
+    /// Is the User currently online
+    /// </param>
+    /// <returns>
+    /// MembershipUser object
+    /// </returns>
+    public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
+    {
+      if (providerUserKey == null)
+      {
+        ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "USERKEYNULL");
+      }
+
+      DataRow dr = DB.Current.GetUser(this.ApplicationName, providerUserKey, null, userIsOnline);
+      if (dr != null)
+      {
+        return new MembershipUser(
+          Transform.ToString(this.Name), 
+          Transform.ToString(dr["Username"]), 
+          Transform.ToString(dr["UserID"]), 
+          Transform.ToString(dr["Email"]), 
+          Transform.ToString(dr["PasswordQuestion"]), 
+          Transform.ToString(dr["Comment"]), 
+          Transform.ToBool(dr["IsApproved"]), 
+          Transform.ToBool(dr["IsLockedOut"]), 
+          Transform.ToDateTime(dr["Joined"]), 
+          Transform.ToDateTime(dr["LastLogin"]), 
+          Transform.ToDateTime(dr["LastActivity"]), 
+          Transform.ToDateTime(dr["LastPasswordChange"]), 
+          Transform.ToDateTime(dr["LastLockout"]));
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+    /// <summary>
+    /// Retrieves a <see cref="MembershipUser"/> object from the criteria given
+    /// </summary>
+    /// <param name="email">
+    /// The email.
+    /// </param>
+    /// <returns>
+    /// Username as string
+    /// </returns>
+    public override string GetUserNameByEmail(string email)
+    {
+      if (email == null)
+      {
+        ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "EMAILNULL");
+      }
+
+      DataTable Users = DB.Current.GetUserNameByEmail(this.ApplicationName, email);
+      if (this.RequiresUniqueEmail && Users.Rows.Count > 1)
+      {
+        ExceptionReporter.ThrowProvider("MEMBERSHIP", "TOOMANYUSERNAMERETURNS");
+      }
+
+      if (Users.Rows.Count == 0)
+      {
+        return null;
+      }
+      else
+      {
+        return Users.Rows[0]["Username"].ToString();
+      }
+    }
 
     /// <summary>
     /// Initialie Membership Provider
@@ -820,610 +1221,6 @@ namespace YAF.Providers.Membership
       base.Initialize(name, config);
     }
 
-
-    /// <summary>
-    /// Change Users password
-    /// </summary>
-    /// <param name="username">
-    /// Username to change password for
-    /// </param>
-    /// <param name="oldPassword">
-    /// The old Password.
-    /// </param>
-    /// <param name="newPassword">
-    /// New question
-    /// </param>
-    /// <returns>
-    /// Boolean depending on whether the change was successful
-    /// </returns>
-    public override bool ChangePassword(string username, string oldPassword, string newPassword)
-    {
-      string passwordSalt = string.Empty;
-      string newEncPassword = string.Empty;
-
-      // Clean input
-
-      // Check password meets requirements as set by Configuration settings
-      if (!IsPasswordCompliant(newPassword))
-      {
-        return false;
-      }
-
-      UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
-        ApplicationName, username, false, UseSalt, HashHex, HashCase, HashRemoveChars, MSCompliant);
-
-      // validate the correct user information was found...
-      if (currentPasswordInfo == null)
-      {
-        return false;
-      }
-
-      // validate the correct user password was entered...
-      if (!currentPasswordInfo.IsCorrectPassword(oldPassword))
-      {
-        return false;
-      }
-
-
-      if (UseSalt)
-      {
-        // generate a salt if one doesn't exist...
-        passwordSalt = String.IsNullOrEmpty(currentPasswordInfo.PasswordSalt) ? GenerateSalt() : currentPasswordInfo.PasswordSalt;
-      }
-
-      // encode new password
-      newEncPassword = EncodeString(newPassword, (int) PasswordFormat, passwordSalt, UseSalt, HashHex, HashCase, HashRemoveChars, MSCompliant);
-
-      // Call SQL Password to Change
-      DB.Current.ChangePassword(ApplicationName, username, newEncPassword, passwordSalt, (int) PasswordFormat, currentPasswordInfo.PasswordAnswer);
-
-      // Return True
-      return true;
-    }
-
-
-    /// <summary>
-    /// The change password question and answer.
-    /// </summary>
-    /// <param name="username">
-    /// The username.
-    /// </param>
-    /// <param name="password">
-    /// The password.
-    /// </param>
-    /// <param name="newPasswordQuestion">
-    /// The new password question.
-    /// </param>
-    /// <param name="newPasswordAnswer">
-    /// The new password answer.
-    /// </param>
-    /// <returns>
-    /// The change password question and answer.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    /// </exception>
-    public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)
-    {
-      // Check arguments for null values
-      if ((username == null) || (password == null) || (newPasswordQuestion == null) || (newPasswordAnswer == null))
-      {
-        throw new ArgumentException("Username, Password, Password Question or Password Answer cannot be null");
-      }
-
-      UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
-        ApplicationName, username, false, UseSalt, HashHex, HashCase, HashRemoveChars, MSCompliant);
-      newPasswordAnswer = EncodeString(
-        newPasswordAnswer, currentPasswordInfo.PasswordFormat, currentPasswordInfo.PasswordSalt, UseSalt, HashHex, HashCase, HashRemoveChars, MSCompliant);
-
-      if (currentPasswordInfo.IsCorrectPassword(password))
-      {
-        try
-        {
-          DB.Current.ChangePasswordQuestionAndAnswer(ApplicationName, username, newPasswordQuestion, newPasswordAnswer);
-          return true;
-        }
-        catch
-        {
-          // will return false...
-        }
-      }
-
-      return false; // Invalid password return false
-    }
-
-    /// <summary>
-    /// Create user and add to provider
-    /// </summary>
-    /// <param name="username">
-    /// Username
-    /// </param>
-    /// <param name="password">
-    /// Password
-    /// </param>
-    /// <param name="email">
-    /// Email Address
-    /// </param>
-    /// <param name="passwordQuestion">
-    /// Password Question
-    /// </param>
-    /// <param name="passwordAnswer">
-    /// Password Answer - used for password retrievals.
-    /// </param>
-    /// <param name="isApproved">
-    /// Is the User approved?
-    /// </param>
-    /// <param name="providerUserKey">
-    /// Provider User Key to identify the User
-    /// </param>
-    /// <param name="status">
-    /// Out - MembershipCreateStatus object containing status of the Create User process
-    /// </param>
-    /// <returns>
-    /// Boolean depending on whether the deletion was successful
-    /// </returns>
-    public override MembershipUser CreateUser(
-      string username, 
-      string password, 
-      string email, 
-      string passwordQuestion, 
-      string passwordAnswer, 
-      bool isApproved, 
-      object providerUserKey, 
-      out MembershipCreateStatus status)
-    {
-      // ValidatePasswordEventArgs e = new ValidatePasswordEventArgs( username, password, true );
-      // OnValidatingPassword( e );
-      // if ( e.Cancel )
-      // {
-      // 	status = MembershipCreateStatus.InvalidPassword;
-      // 	return null;
-      // }
-      string salt = string.Empty, pass = string.Empty;
-
-      // Check password meets requirements as set out in the web.config
-      if (!IsPasswordCompliant(password))
-      {
-        status = MembershipCreateStatus.InvalidPassword;
-        return null;
-      }
-
-      // Check password Question and Answer requirements.
-      if (RequiresQuestionAndAnswer)
-      {
-        if (String.IsNullOrEmpty(passwordQuestion))
-        {
-          status = MembershipCreateStatus.InvalidQuestion;
-          return null;
-        }
-
-        if (String.IsNullOrEmpty(passwordAnswer))
-        {
-          status = MembershipCreateStatus.InvalidAnswer;
-          return null;
-        }
-      }
-
-      // Check provider User Key
-      if (!(providerUserKey == null))
-      {
-        // IS not a duplicate key
-        if (!(GetUser(providerUserKey, false) == null))
-        {
-          status = MembershipCreateStatus.DuplicateProviderUserKey;
-          return null;
-        }
-      }
-
-      // Check for unique email
-      if (RequiresUniqueEmail)
-      {
-        if (!String.IsNullOrEmpty(GetUserNameByEmail(email)))
-        {
-          status = MembershipCreateStatus.DuplicateEmail; // Email exists
-          return null;
-        }
-      }
-
-      // Check for unique user name
-      if (!(GetUser(username, false) == null))
-      {
-        status = MembershipCreateStatus.DuplicateUserName; // Username exists
-        return null;
-      }
-
-      if (UseSalt)
-      {
-        salt = GenerateSalt();
-      }
-
-      pass = EncodeString(password, (int) PasswordFormat, salt, UseSalt, HashHex, HashCase, HashRemoveChars, MSCompliant);
-
-      // Encode Password Answer
-      string encodedPasswordAnswer = EncodeString(passwordAnswer, (int) PasswordFormat, salt, UseSalt, HashHex, HashCase, HashRemoveChars, MSCompliant);
-
-      // Process database user creation request
-      DB.Current.CreateUser(
-        ApplicationName, username, pass, salt, (int) PasswordFormat, email, passwordQuestion, encodedPasswordAnswer, isApproved, providerUserKey);
-
-      status = MembershipCreateStatus.Success;
-
-      return GetUser(username, false);
-    }
-
-    /// <summary>
-    /// Delete User and User's information from provider
-    /// </summary>
-    /// <param name="username">
-    /// Username to delete
-    /// </param>
-    /// <param name="deleteAllRelatedData">
-    /// Delete all related daata
-    /// </param>
-    /// <returns>
-    /// Boolean depending on whether the deletion was successful
-    /// </returns>
-    public override bool DeleteUser(string username, bool deleteAllRelatedData)
-    {
-      // Check username argument is not null
-      if (username == null)
-      {
-        ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "USERNAMENULL");
-      }
-
-      // Process database user deletion request
-      try
-      {
-        DB.Current.DeleteUser(ApplicationName, username, deleteAllRelatedData);
-        return true;
-      }
-      catch
-      {
-        // will return false...  
-      }
-
-      return false;
-    }
-
-    /// <summary>
-    /// Retrieves all users into a MembershupUserCollection where Email Matches
-    /// </summary>
-    /// <param name="emailToMatch">
-    /// Email use as filter criteria
-    /// </param>
-    /// <param name="pageIndex">
-    /// Page Index
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="totalRecords">
-    /// Out - Number of records held
-    /// </param>
-    /// <returns>
-    /// MembershipUser Collection
-    /// </returns>
-    public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
-    {
-      var users = new MembershipUserCollection();
-
-      if (pageIndex < 0)
-      {
-        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGEINDEX");
-      }
-
-      if (pageSize < 1)
-      {
-        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGESIZE");
-      }
-
-      // Loop through all users
-      foreach (DataRow dr in DB.Current.FindUsersByEmail(ApplicationName, emailToMatch, pageIndex, pageSize).Rows)
-      {
-        // Add new user to collection
-        users.Add(
-          new MembershipUser(
-            Transform.ToString(Name), 
-            Transform.ToString(dr["Username"]), 
-            Transform.ToString(dr["UserID"]), 
-            Transform.ToString(dr["Email"]), 
-            Transform.ToString(dr["PasswordQuestion"]), 
-            Transform.ToString(dr["Comment"]), 
-            Transform.ToBool(dr["IsApproved"]), 
-            Transform.ToBool(dr["IsLockedOut"]), 
-            Transform.ToDateTime(dr["Joined"]), 
-            Transform.ToDateTime(dr["LastLogin"]), 
-            Transform.ToDateTime(dr["LastActivity"]), 
-            Transform.ToDateTime(dr["LastPasswordChange"]), 
-            Transform.ToDateTime(dr["LastLockout"])));
-      }
-
-      totalRecords = users.Count;
-      return users;
-    }
-
-    /// <summary>
-    /// Retrieves all users into a MembershupUserCollection where Username matches
-    /// </summary>
-    /// <param name="usernameToMatch">
-    /// Username use as filter criteria
-    /// </param>
-    /// <param name="pageIndex">
-    /// Page Index
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="totalRecords">
-    /// Out - Number of records held
-    /// </param>
-    /// <returns>
-    /// MembershipUser Collection
-    /// </returns>
-    public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
-    {
-      var users = new MembershipUserCollection();
-
-      if (pageIndex < 0)
-      {
-        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGEINDEX");
-      }
-
-      if (pageSize < 1)
-      {
-        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGESIZE");
-      }
-
-      // Loop through all users
-      foreach (DataRow dr in DB.Current.FindUsersByName(ApplicationName, usernameToMatch, pageIndex, pageSize).Rows)
-      {
-        // Add new user to collection
-        users.Add(
-          new MembershipUser(
-            Transform.ToString(Name), 
-            Transform.ToString(dr["Username"]), 
-            Transform.ToString(dr["UserID"]), 
-            Transform.ToString(dr["Email"]), 
-            Transform.ToString(dr["PasswordQuestion"]), 
-            Transform.ToString(dr["Comment"]), 
-            Transform.ToBool(dr["IsApproved"]), 
-            Transform.ToBool(dr["IsLockedOut"]), 
-            Transform.ToDateTime(dr["Joined"]), 
-            Transform.ToDateTime(dr["LastLogin"]), 
-            Transform.ToDateTime(dr["LastActivity"]), 
-            Transform.ToDateTime(dr["LastPasswordChange"]), 
-            Transform.ToDateTime(dr["LastLockout"])));
-      }
-
-      totalRecords = users.Count;
-      return users;
-    }
-
-    /// <summary>
-    /// Retrieves all users into a MembershupUserCollection
-    /// </summary>
-    /// <param name="pageIndex">
-    /// Page Index
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="totalRecords">
-    /// Out - Number of records held
-    /// </param>
-    /// <returns>
-    /// MembershipUser Collection
-    /// </returns>
-    public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
-    {
-      var users = new MembershipUserCollection();
-
-      if (pageIndex < 0)
-      {
-        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGEINDEX");
-      }
-
-      if (pageSize < 1)
-      {
-        ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGESIZE");
-      }
-
-      // Loop through all users
-      foreach (DataRow dr in DB.Current.GetAllUsers(ApplicationName, pageIndex, pageSize).Rows)
-      {
-        // Add new user to collection
-        users.Add(
-          new MembershipUser(
-            Transform.ToString(Name), 
-            Transform.ToString(dr["Username"]), 
-            Transform.ToString(dr["UserID"]), 
-            Transform.ToString(dr["Email"]), 
-            Transform.ToString(dr["PasswordQuestion"]), 
-            Transform.ToString(dr["Comment"]), 
-            Transform.ToBool(dr["IsApproved"]), 
-            Transform.ToBool(dr["IsLockedOut"]), 
-            Transform.ToDateTime(dr["Joined"]), 
-            Transform.ToDateTime(dr["LastLogin"]), 
-            Transform.ToDateTime(dr["LastActivity"]), 
-            Transform.ToDateTime(dr["LastPasswordChange"]), 
-            Transform.ToDateTime(dr["LastLockout"])));
-      }
-
-      totalRecords = users.Count;
-      return users;
-    }
-
-    /// <summary>
-    /// Retrieves the number of users currently online for this application
-    /// </summary>
-    /// <returns>
-    /// Number of users online
-    /// </returns>
-    public override int GetNumberOfUsersOnline()
-    {
-      return DB.Current.GetNumberOfUsersOnline(ApplicationName, System.Web.Security.Membership.UserIsOnlineTimeWindow);
-    }
-
-
-    /// <summary>
-    /// Retrieves the Users password (if EnablePasswordRetrieval is true)
-    /// </summary>
-    /// <param name="username">
-    /// Username to retrieve password for
-    /// </param>
-    /// <param name="answer">
-    /// Answer to the Users Membership Question
-    /// </param>
-    /// <returns>
-    /// Password unencrypted
-    /// </returns>
-    public override string GetPassword(string username, string answer)
-    {
-      if (!EnablePasswordRetrieval)
-      {
-        ExceptionReporter.ThrowNotSupported("MEMBERSHIP", "PASSWORDRETRIEVALNOTSUPPORTED");
-      }
-
-      // Check for null arguments
-      if ((username == null) || (answer == null))
-      {
-        ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMEPASSWORDNULL");
-      }
-
-      UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
-        ApplicationName, username, false, UseSalt, HashHex, HashCase, HashRemoveChars, MSCompliant);
-
-      if (currentPasswordInfo != null && currentPasswordInfo.IsCorrectAnswer(answer))
-      {
-        return DecodeString(currentPasswordInfo.Password, currentPasswordInfo.PasswordFormat);
-      }
-
-      return null;
-    }
-
-    /// <summary>
-    /// Retrieves a MembershipUser object from the criteria given
-    /// </summary>
-    /// <param name="username">
-    /// Username to be foundr
-    /// </param>
-    /// <param name="userIsOnline">
-    /// Is the User currently online
-    /// </param>
-    /// <returns>
-    /// MembershipUser object
-    /// </returns>
-    public override MembershipUser GetUser(string username, bool userIsOnline)
-    {
-      if (username == null)
-      {
-        ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMENULL");
-      }
-
-      // if it's empty don't bother calling the DB.
-      if (String.IsNullOrEmpty(username))
-      {
-        return null;
-      }
-
-      DataRow dr = DB.Current.GetUser(ApplicationName, null, username, userIsOnline);
-
-      if (dr != null)
-      {
-        return new MembershipUser(
-          Transform.ToString(Name), 
-          Transform.ToString(dr["Username"]), 
-          Transform.ToString(dr["UserID"]), 
-          Transform.ToString(dr["Email"]), 
-          Transform.ToString(dr["PasswordQuestion"]), 
-          Transform.ToString(dr["Comment"]), 
-          Transform.ToBool(dr["IsApproved"]), 
-          Transform.ToBool(dr["IsLockedOut"]), 
-          Transform.ToDateTime(dr["Joined"]), 
-          Transform.ToDateTime(dr["LastLogin"]), 
-          Transform.ToDateTime(dr["LastActivity"]), 
-          Transform.ToDateTime(dr["LastPasswordChange"]), 
-          Transform.ToDateTime(dr["LastLockout"]));
-      }
-
-      return null;
-    }
-
-    /// <summary>
-    /// Retrieves a MembershipUser object from the criteria given
-    /// </summary>
-    /// <param name="providerUserKey">
-    /// User to be found based on UserKey
-    /// </param>
-    /// <param name="userIsOnline">
-    /// Is the User currently online
-    /// </param>
-    /// <returns>
-    /// MembershipUser object
-    /// </returns>
-    public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
-    {
-      if (providerUserKey == null)
-      {
-        ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "USERKEYNULL");
-      }
-
-      DataRow dr = DB.Current.GetUser(ApplicationName, providerUserKey, null, userIsOnline);
-      if (dr != null)
-      {
-        return new MembershipUser(
-          Transform.ToString(Name), 
-          Transform.ToString(dr["Username"]), 
-          Transform.ToString(dr["UserID"]), 
-          Transform.ToString(dr["Email"]), 
-          Transform.ToString(dr["PasswordQuestion"]), 
-          Transform.ToString(dr["Comment"]), 
-          Transform.ToBool(dr["IsApproved"]), 
-          Transform.ToBool(dr["IsLockedOut"]), 
-          Transform.ToDateTime(dr["Joined"]), 
-          Transform.ToDateTime(dr["LastLogin"]), 
-          Transform.ToDateTime(dr["LastActivity"]), 
-          Transform.ToDateTime(dr["LastPasswordChange"]), 
-          Transform.ToDateTime(dr["LastLockout"]));
-      }
-      else
-      {
-        return null;
-      }
-    }
-
-
-    /// <summary>
-    /// Retrieves a MembershipUser object from the criteria given
-    /// </summary>
-    /// <param name="email">
-    /// The email.
-    /// </param>
-    /// <returns>
-    /// Username as string
-    /// </returns>
-    public override string GetUserNameByEmail(string email)
-    {
-      if (email == null)
-      {
-        ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "EMAILNULL");
-      }
-
-      DataTable Users = DB.Current.GetUserNameByEmail(ApplicationName, email);
-      if (RequiresUniqueEmail && Users.Rows.Count > 1)
-      {
-        ExceptionReporter.ThrowProvider("MEMBERSHIP", "TOOMANYUSERNAMERETURNS");
-      }
-
-      if (Users.Rows.Count == 0)
-      {
-        return null;
-      }
-      else
-      {
-        return Users.Rows[0]["Username"].ToString();
-      }
-    }
-
     /// <summary>
     /// Reset a users password - *
     /// </summary>
@@ -1431,17 +1228,20 @@ namespace YAF.Providers.Membership
     /// User to be found based by Name
     /// </param>
     /// <param name="answer">
-    /// Verifcation that it is them
+    /// Verification that it is them
     /// </param>
     /// <returns>
     /// Username as string
     /// </returns>
     public override string ResetPassword(string username, string answer)
     {
-      string newPassword = string.Empty, newPasswordEnc = string.Empty, newPasswordSalt = string.Empty, newPasswordAnswer = string.Empty;
+      string newPassword = string.Empty, 
+             newPasswordEnc = string.Empty, 
+             newPasswordSalt = string.Empty, 
+             newPasswordAnswer = string.Empty;
 
       // Check Password reset is enabled
-      if (!EnablePasswordReset)
+      if (!this.EnablePasswordReset)
       {
         ExceptionReporter.ThrowNotSupported("MEMBERSHIP", "RESETNOTSUPPORTED");
       }
@@ -1454,11 +1254,18 @@ namespace YAF.Providers.Membership
 
       // get an instance of the current password information class
       UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
-        ApplicationName, username, false, UseSalt, HashHex, HashCase, HashRemoveChars, MSCompliant);
+        this.ApplicationName, 
+        username, 
+        false, 
+        this.UseSalt, 
+        this.HashHex, 
+        this.HashCase, 
+        this.HashRemoveChars, 
+        this.MSCompliant);
 
       if (currentPasswordInfo != null)
       {
-        if (UseSalt && String.IsNullOrEmpty(currentPasswordInfo.PasswordSalt))
+        if (this.UseSalt && String.IsNullOrEmpty(currentPasswordInfo.PasswordSalt))
         {
           // get a new password salt...
           newPasswordSalt = GenerateSalt();
@@ -1479,14 +1286,28 @@ namespace YAF.Providers.Membership
         }
 
         // create a new password
-        newPassword = GeneratePassword(MinRequiredPasswordLength, MinRequiredNonAlphanumericCharacters);
+        newPassword = GeneratePassword(this.MinRequiredPasswordLength, this.MinRequiredNonAlphanumericCharacters);
 
         // encode it...
-        newPasswordEnc = EncodeString(newPassword, (int) PasswordFormat, newPasswordSalt, UseSalt, HashHex, HashCase, HashRemoveChars, MSCompliant);
+        newPasswordEnc = EncodeString(
+          newPassword, 
+          (int)this.PasswordFormat, 
+          newPasswordSalt, 
+          this.UseSalt, 
+          this.HashHex, 
+          this.HashCase, 
+          this.HashRemoveChars, 
+          this.MSCompliant);
 
         // save to the database
         DB.Current.ResetPassword(
-          ApplicationName, username, newPasswordEnc, newPasswordSalt, (int) PasswordFormat, MaxInvalidPasswordAttempts, PasswordAttemptWindow);
+          this.ApplicationName, 
+          username, 
+          newPasswordEnc, 
+          newPasswordSalt, 
+          (int)this.PasswordFormat, 
+          this.MaxInvalidPasswordAttempts, 
+          this.PasswordAttemptWindow);
 
         // Return unencrypted password
         return newPassword;
@@ -1514,7 +1335,7 @@ namespace YAF.Providers.Membership
 
       try
       {
-        DB.Current.UnlockUser(ApplicationName, userName);
+        DB.Current.UnlockUser(this.ApplicationName, userName);
         return true;
       }
       catch
@@ -1524,7 +1345,6 @@ namespace YAF.Providers.Membership
 
       return false;
     }
-
 
     /// <summary>
     /// Updates a providers user information
@@ -1541,7 +1361,7 @@ namespace YAF.Providers.Membership
       }
 
       // Update User
-      int updateStatus = DB.Current.UpdateUser(ApplicationName, user, RequiresUniqueEmail);
+      int updateStatus = DB.Current.UpdateUser(this.ApplicationName, user, this.RequiresUniqueEmail);
 
       // Check update was not successful
       if (updateStatus != 0)
@@ -1575,7 +1395,14 @@ namespace YAF.Providers.Membership
     public override bool ValidateUser(string username, string password)
     {
       UserPasswordInfo currentUser = UserPasswordInfo.CreateInstanceFromDB(
-        ApplicationName, username, false, UseSalt, HashHex, HashCase, HashRemoveChars, MSCompliant);
+        this.ApplicationName, 
+        username, 
+        false, 
+        this.UseSalt, 
+        this.HashHex, 
+        this.HashCase, 
+        this.HashRemoveChars, 
+        this.MSCompliant);
 
       if (currentUser != null && currentUser.IsApproved)
       {
@@ -1583,6 +1410,296 @@ namespace YAF.Providers.Membership
       }
 
       return false;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Encrypt string to hash method.
+    /// </summary>
+    /// <param name="clearString">
+    /// UnEncrypted Clear String
+    /// </param>
+    /// <param name="encFormat">
+    /// The enc Format.
+    /// </param>
+    /// <param name="salt">
+    /// Salt to be used in Hash method
+    /// </param>
+    /// <param name="useSalt">
+    /// Salt to be used in Hash method
+    /// </param>
+    /// <param name="hashHex">
+    /// The hash Hex.
+    /// </param>
+    /// <param name="hashCase">
+    /// The hash Case.
+    /// </param>
+    /// <param name="hashRemoveChars">
+    /// The hash Remove Chars.
+    /// </param>
+    /// <param name="msCompliant">
+    /// The ms Compliant.
+    /// </param>
+    /// <returns>
+    /// Encrypted string
+    /// </returns>
+    internal static string EncodeString(
+      string clearString, 
+      int encFormat, 
+      string salt, 
+      bool useSalt, 
+      bool hashHex, 
+      string hashCase, 
+      string hashRemoveChars, 
+      bool msCompliant)
+    {
+      string encodedPass = string.Empty;
+
+      var passwordFormat = (MembershipPasswordFormat)Enum.ToObject(typeof(MembershipPasswordFormat), encFormat);
+
+      // Multiple Checks to ensure UseSalt is valid.
+      if (String.IsNullOrEmpty(clearString))
+      {
+        // Check to ensure string is not null or empty.
+        return String.Empty;
+      }
+
+      if (useSalt && String.IsNullOrEmpty(salt))
+      {
+        // If Salt value is null disable Salt procedure
+        useSalt = false;
+      }
+
+      if (useSalt && passwordFormat == MembershipPasswordFormat.Encrypted)
+      {
+        useSalt = false; // Cannot use Salt with encryption
+      }
+
+      // Check Encoding format / method
+      switch (passwordFormat)
+      {
+        case MembershipPasswordFormat.Clear:
+
+          // plain text
+          encodedPass = clearString;
+          break;
+        case MembershipPasswordFormat.Hashed:
+          encodedPass = Hash(clearString, HashType(), salt, useSalt, hashHex, hashCase, hashRemoveChars, msCompliant);
+          break;
+        case MembershipPasswordFormat.Encrypted:
+          encodedPass = Encrypt(clearString, salt, msCompliant);
+          break;
+        default:
+          encodedPass = Hash(clearString, HashType(), salt, useSalt, hashHex, hashCase, hashRemoveChars, msCompliant);
+          break;
+      }
+
+      return encodedPass;
+    }
+
+    /// <summary>
+    /// Decrypt string using passwordFormat.
+    /// </summary>
+    /// <param name="pass">
+    /// Password to be decrypted
+    /// </param>
+    /// <param name="passwordFormat">
+    /// Method of encryption
+    /// </param>
+    /// <returns>
+    /// Unencrypted string
+    /// </returns>
+    private static string DecodeString(string pass, int passwordFormat)
+    {
+      switch ((MembershipPasswordFormat)Enum.ToObject(typeof(MembershipPasswordFormat), passwordFormat))
+      {
+        case MembershipPasswordFormat.Clear: // MembershipPasswordFormat.Clear:
+          return pass;
+        case MembershipPasswordFormat.Hashed: // MembershipPasswordFormat.Hashed:
+          ExceptionReporter.Throw("MEMBERSHIP", "DECODEHASH");
+          break;
+        case MembershipPasswordFormat.Encrypted:
+          byte[] bIn = Convert.FromBase64String(pass);
+          byte[] bRet = (new YafMembershipProvider()).DecryptPassword(bIn);
+          if (bRet == null)
+          {
+            return null;
+          }
+
+          return Encoding.Unicode.GetString(bRet, 16, bRet.Length - 16);
+        default:
+          ExceptionReporter.Throw("MEMBERSHIP", "DECODEHASH");
+          break;
+      }
+
+      return String.Empty; // Removes "Not all paths return a value" warning.
+    }
+
+    /// <summary>
+    /// The encrypt.
+    /// </summary>
+    /// <param name="clearString">
+    /// The clear string.
+    /// </param>
+    /// <param name="saltString">
+    /// The salt string.
+    /// </param>
+    /// <param name="standardComp">
+    /// The standard comp.
+    /// </param>
+    /// <returns>
+    /// The encrypt.
+    /// </returns>
+    private static string Encrypt(string clearString, string saltString, bool standardComp)
+    {
+      byte[] buffer = GeneratePasswordBuffer(saltString, clearString, standardComp);
+      return Convert.ToBase64String((new YafMembershipProvider()).EncryptPassword(buffer));
+    }
+
+    /// <summary>
+    /// Creates a random password based on a miniumum length and a minimum number of non-alphanumeric characters
+    /// </summary>
+    /// <param name="minPassLength">
+    /// Minimum characters in the password
+    /// </param>
+    /// <param name="minNonAlphas">
+    /// Minimum non-alphanumeric characters
+    /// </param>
+    /// <returns>
+    /// Random string
+    /// </returns>
+    private static string GeneratePassword(int minPassLength, int minNonAlphas)
+    {
+      return Membership.GeneratePassword(minPassLength < _passwordsize ? _passwordsize : minPassLength, minNonAlphas);
+    }
+
+    /// <summary>
+    /// Creates a random string used as Salt for hashing
+    /// </summary>
+    /// <returns>
+    /// Random string
+    /// </returns>
+    private static string GenerateSalt()
+    {
+      var buf = new byte[16];
+      var rngCryptoSp = new RNGCryptoServiceProvider();
+      rngCryptoSp.GetBytes(buf);
+      return Convert.ToBase64String(buf);
+    }
+
+    /// <summary>
+    /// Hashes clear bytes to given hashtype
+    /// </summary>
+    /// <param name="clearBytes">
+    /// Clear bytes to hash
+    /// </param>
+    /// <param name="hashType">
+    /// hash Algorithm to be used
+    /// </param>
+    /// <returns>
+    /// Hashed bytes 
+    /// </returns>
+    private static byte[] Hash(byte[] clearBytes, string hashType)
+    {
+      // MD5, SHA1, SHA256, SHA384, SHA512
+      byte[] hash = HashAlgorithm.Create(hashType).ComputeHash(clearBytes);
+      return hash;
+    }
+
+    /// <summary>
+    /// The hash type.
+    /// </summary>
+    /// <returns>
+    /// The hash type.
+    /// </returns>
+    private static string HashType()
+    {
+      if (String.IsNullOrEmpty(Membership.HashAlgorithmType))
+      {
+        return "MD5"; // Default Hash Algorithm Type
+      }
+      else
+      {
+        return Membership.HashAlgorithmType;
+      }
+    }
+
+    /// <summary>
+    /// Check to see if password(string) matches required criteria.
+    /// </summary>
+    /// <param name="password">
+    /// Password to be checked
+    /// </param>
+    /// <param name="minLength">
+    /// Minimum length required
+    /// </param>
+    /// <param name="minNonAlphaNumerics">
+    /// Minimum number of Non-alpha numerics in password
+    /// </param>
+    /// <param name="strengthRegEx">
+    /// Regular Expression Strength
+    /// </param>
+    /// <returns>
+    /// True/False 
+    /// </returns>
+    private static bool IsPasswordCompliant(
+      string password, int minLength, int minNonAlphaNumerics, string strengthRegEx)
+    {
+      // Check password meets minimum length criteria.
+      if (!(password.Length >= minLength))
+      {
+        return false;
+      }
+
+      // Count Non alphanumerics
+      int symbolCount = 0;
+      foreach (char checkChar in password.ToCharArray())
+      {
+        if (!char.IsLetterOrDigit(checkChar))
+        {
+          symbolCount++;
+        }
+      }
+
+      // Check password meets minimum alphanumeric criteria
+      if (!(symbolCount >= minNonAlphaNumerics))
+      {
+        return false;
+      }
+
+      // Check Reg Expression is present
+      if (strengthRegEx.Length > 0)
+      {
+        // Check password strength meets Password Strength Regex Requirements
+        if (!Regex.IsMatch(password, strengthRegEx))
+        {
+          return false;
+        }
+      }
+
+      // Check string meets requirements as set in config
+      return true;
+    }
+
+    /// <summary>
+    /// Check to see if password(string) matches required criteria.
+    /// </summary>
+    /// <param name="passsword">
+    /// The passsword.
+    /// </param>
+    /// <returns>
+    /// True/False 
+    /// </returns>
+    private bool IsPasswordCompliant(string passsword)
+    {
+      return IsPasswordCompliant(
+        passsword, 
+        this.MinRequiredPasswordLength, 
+        this.MinRequiredNonAlphanumericCharacters, 
+        this.PasswordStrengthRegularExpression);
     }
 
     #endregion
