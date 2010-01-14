@@ -22,103 +22,22 @@ namespace YAF.Classes.Data
   using System;
   using System.Data;
   using System.Data.SqlClient;
-  using YAF.Classes.Pattern;
-
-  #region Events
-
-  /// <summary>
-  /// The yaf db conn info message event handler.
-  /// </summary>
-  /// <param name="sender">
-  /// The sender.
-  /// </param>
-  /// <param name="e">
-  /// The e.
-  /// </param>
-  public delegate void YafDBConnInfoMessageEventHandler(object sender, YafDBConnInfoMessageEventArgs e);
-
-  /// <summary>
-  /// The yaf db conn info message event args.
-  /// </summary>
-  public class YafDBConnInfoMessageEventArgs : EventArgs
-  {
-    /// <summary>
-    /// The _message.
-    /// </summary>
-    private string _message;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="YafDBConnInfoMessageEventArgs"/> class.
-    /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    public YafDBConnInfoMessageEventArgs(string message)
-    {
-      Message = message;
-    }
-
-    /// <summary>
-    /// Gets or sets Message.
-    /// </summary>
-    public string Message
-    {
-      get
-      {
-        return this._message;
-      }
-
-      set
-      {
-        this._message = value;
-      }
-    }
-  }
-
-  #endregion
-
-  public interface IYafDBConnManager
-  {
-    /// <summary>
-    /// Gets ConnectionString.
-    /// </summary>
-    string ConnectionString { get; }
-
-    /// <summary>
-    /// Gets the current DB Connection in any state.
-    /// </summary>
-    SqlConnection DBConnection { get; }
-
-    /// <summary>
-    /// Gets an open connection to the DB. Can be called any number of times.
-    /// </summary>
-    SqlConnection OpenDBConnection { get; }
-
-    /// <summary>
-    /// The info message.
-    /// </summary>
-    event YafDBConnInfoMessageEventHandler InfoMessage;
-
-    /// <summary>
-    /// The init connection.
-    /// </summary>
-    void InitConnection();
-
-    /// <summary>
-    /// The close connection.
-    /// </summary>
-    void CloseConnection();
-  }
 
   /// <summary>
   /// Provides open/close management for DB Connections
   /// </summary>
   public class YafDBConnManager : IDisposable, IYafDBConnManager
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _connection.
     /// </summary>
     protected SqlConnection _connection = null;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="YafDBConnManager"/> class.
@@ -126,8 +45,21 @@ namespace YAF.Classes.Data
     public YafDBConnManager()
     {
       // just initalize it (not open)
-      InitConnection();
+      this.InitConnection();
     }
+
+    #endregion
+
+    #region Events
+
+    /// <summary>
+    /// The info message.
+    /// </summary>
+    public event YafDBConnInfoMessageEventHandler InfoMessage;
+
+    #endregion
+
+    #region Properties
 
     /// <summary>
     /// Gets ConnectionString.
@@ -147,7 +79,7 @@ namespace YAF.Classes.Data
     {
       get
       {
-        InitConnection();
+        this.InitConnection();
         return this._connection;
       }
     }
@@ -159,7 +91,7 @@ namespace YAF.Classes.Data
     {
       get
       {
-        InitConnection();
+        this.InitConnection();
 
         if (this._connection.State != ConnectionState.Open)
         {
@@ -171,7 +103,11 @@ namespace YAF.Classes.Data
       }
     }
 
-    #region IDisposable Members
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IDisposable
 
     /// <summary>
     /// The dispose.
@@ -179,35 +115,13 @@ namespace YAF.Classes.Data
     public virtual void Dispose()
     {
       // close and delete connection
-      CloseConnection();
+      this.CloseConnection();
       this._connection = null;
     }
 
     #endregion
 
-    /// <summary>
-    /// The info message.
-    /// </summary>
-    public event YafDBConnInfoMessageEventHandler InfoMessage;
-
-    /// <summary>
-    /// The init connection.
-    /// </summary>
-    public void InitConnection()
-    {
-      if (this._connection == null)
-      {
-        // create the connection
-        this._connection = new SqlConnection();
-        this._connection.InfoMessage += new SqlInfoMessageEventHandler(Connection_InfoMessage);
-        this._connection.ConnectionString = ConnectionString;
-      }
-      else if (this._connection.State != ConnectionState.Open)
-      {
-        // verify the connection string is in there...
-        this._connection.ConnectionString = ConnectionString;
-      }
-    }
+    #region IYafDBConnManager
 
     /// <summary>
     /// The close connection.
@@ -221,6 +135,31 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
+    /// The init connection.
+    /// </summary>
+    public void InitConnection()
+    {
+      if (this._connection == null)
+      {
+        // create the connection
+        this._connection = new SqlConnection();
+        this._connection.InfoMessage += new SqlInfoMessageEventHandler(this.Connection_InfoMessage);
+        this._connection.ConnectionString = this.ConnectionString;
+      }
+      else if (this._connection.State != ConnectionState.Open)
+      {
+        // verify the connection string is in there...
+        this._connection.ConnectionString = this.ConnectionString;
+      }
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
     /// The connection_ info message.
     /// </summary>
     /// <param name="sender">
@@ -231,10 +170,12 @@ namespace YAF.Classes.Data
     /// </param>
     protected void Connection_InfoMessage(object sender, SqlInfoMessageEventArgs e)
     {
-      if (InfoMessage != null)
+      if (this.InfoMessage != null)
       {
-        InfoMessage(this, new YafDBConnInfoMessageEventArgs(e.Message));
+        this.InfoMessage(this, new YafDBConnInfoMessageEventArgs(e.Message));
       }
     }
+
+    #endregion
   }
 }

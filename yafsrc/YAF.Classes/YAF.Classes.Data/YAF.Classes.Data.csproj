@@ -83,6 +83,8 @@
     <Compile Include="Flags\MedalFlags.cs" />
     <Compile Include="Flags\TopicFlags.cs" />
     <Compile Include="DB.cs" />
+    <Compile Include="IYafDBAccess.cs" />
+    <Compile Include="IYafDBConnManager.cs" />
     <Compile Include="Moderator.cs" />
     <Compile Include="YafDBAccess.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
@@ -94,6 +96,8 @@
     <Compile Include="Flags\UserFlags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryCounter.cs" />
+    <Compile Include="YafDBConnInfoMessageEventArgs.cs" />
+    <Compile Include="YafDBConnInfoMessageEventHandler.cs" />
     <Compile Include="YafDBConnManager.cs" />
   </ItemGroup>
   <ItemGroup>

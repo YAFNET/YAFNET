@@ -522,7 +522,7 @@ namespace YAF.Classes
       {
         if (key.Equals(configKey, StringComparison.CurrentCultureIgnoreCase))
         {
-          return ConfigurationManager.AppSettings[key];
+          return WebConfigurationManager.AppSettings[key];
         }
       }
 

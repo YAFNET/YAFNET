@@ -22,141 +22,9 @@ namespace YAF.Classes.Data
   using System;
   using System.Data;
   using System.Data.SqlClient;
+  using System.Diagnostics.CodeAnalysis;
+
   using YAF.Classes.Pattern;
-
-  /// <summary>
-  /// DBAccess Interface
-  /// </summary>
-  public interface IYafDBAccess
-  {
-    /// <summary>
-    /// Gets a whole dataset out of the database
-    /// </summary>
-    /// <param name="cmd">
-    /// The SQL Command
-    /// </param>
-    /// <returns>
-    /// Dataset with the results
-    /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    DataSet GetDataset(SqlCommand cmd);
-
-    /// <summary>
-    /// The get dataset.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <param name="transaction">
-    /// The transaction.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataSet GetDataset(SqlCommand cmd, bool transaction);
-
-    /// <summary>
-    /// Gets data out of the database
-    /// </summary>
-    /// <param name="cmd">
-    /// The SQL Command
-    /// </param>
-    /// <returns>
-    /// DataTable with the results
-    /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    DataTable GetData(SqlCommand cmd);
-
-    /// <summary>
-    /// The get data.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <param name="transaction">
-    /// The transaction.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataTable GetData(SqlCommand cmd, bool transaction);
-
-    /// <summary>
-    /// Gets data out of database using a plain text string command
-    /// </summary>
-    /// <param name="commandText">
-    /// command text to be executed
-    /// </param>
-    /// <returns>
-    /// DataTable with results
-    /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    DataTable GetData(string commandText);
-
-    /// <summary>
-    /// The get data.
-    /// </summary>
-    /// <param name="commandText">
-    /// The command text.
-    /// </param>
-    /// <param name="transaction">
-    /// The transaction.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    DataTable GetData(string commandText, bool transaction);
-
-    /// <summary>
-    /// Executes a NonQuery
-    /// </summary>
-    /// <param name="cmd">
-    /// NonQuery to execute
-    /// </param>
-    /// <remarks>
-    /// Without transaction
-    /// </remarks>
-    void ExecuteNonQuery(SqlCommand cmd);
-
-    /// <summary>
-    /// The execute non query.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <param name="transaction">
-    /// The transaction.
-    /// </param>
-    void ExecuteNonQuery(SqlCommand cmd, bool transaction);
-
-    /// <summary>
-    /// The execute scalar.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <returns>
-    /// The execute scalar.
-    /// </returns>
-    object ExecuteScalar(SqlCommand cmd);
-
-    /// <summary>
-    /// The execute scalar.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <param name="transaction">
-    /// The transaction.
-    /// </param>
-    /// <returns>
-    /// The execute scalar.
-    /// </returns>
-    object ExecuteScalar(SqlCommand cmd, bool transaction);
-  }
 
   /// <summary>
   /// The yaf db access for SQL Server.
@@ -166,19 +34,9 @@ namespace YAF.Classes.Data
     /* Ederon : 6/16/2007 - conventions */
 
     /// <summary>
-    /// The _db owner.
-    /// </summary>
-    private static string _dbOwner;
-
-    /// <summary>
     /// The _isolation level.
     /// </summary>
     private static IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
-
-    /// <summary>
-    /// The _object qualifier.
-    /// </summary>
-    private static string _objectQualifier;
 
     /// <summary>
     /// The _connection manager type.
@@ -208,45 +66,13 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// Gets DatabaseOwner.
-    /// </summary>
-    public static string DatabaseOwner
-    {
-      get
-      {
-        if (_dbOwner == null)
-        {
-          _dbOwner = Config.DatabaseOwner;
-        }
-
-        return _dbOwner;
-      }
-    }
-
-    /// <summary>
-    /// Gets ObjectQualifier.
-    /// </summary>
-    public static string ObjectQualifier
-    {
-      get
-      {
-        if (_objectQualifier == null)
-        {
-          _objectQualifier = Config.DatabaseObjectQualifier;
-        }
-
-        return _objectQualifier;
-      }
-    }
-
-    /// <summary>
     /// The get connection manager.
     /// </summary>
     /// <returns>
     /// </returns>
     public YafDBConnManager GetConnectionManager()
     {
-      return (YafDBConnManager) Activator.CreateInstance(this._connectionManagerType);
+      return (YafDBConnManager)Activator.CreateInstance(this._connectionManagerType);
     }
 
     /// <summary>
@@ -275,7 +101,7 @@ namespace YAF.Classes.Data
     /// </returns>
     public static string GetObjectName(string name)
     {
-      return String.Format("[{0}].[{1}{2}]", DatabaseOwner, ObjectQualifier, name);
+      return String.Format("[{0}].[{1}{2}]", Config.DatabaseOwner, Config.DatabaseObjectQualifier, name);
     }
 
     /// <summary>
@@ -327,34 +153,30 @@ namespace YAF.Classes.Data
     /// The get connection string.
     /// </returns>
     public static string GetConnectionString(
-      string parm1, 
-      string parm2, 
-      string parm3, 
-      string parm4, 
-      string parm5, 
-      string parm6, 
-      string parm7, 
-      string parm8, 
-      string parm9, 
-      string parm10, 
-      bool parm11, 
-      bool parm12, 
-      bool parm13, 
-      bool parm14, 
-      bool parm15, 
-      bool parm16, 
-      bool parm17, 
-      bool parm18, 
-      bool parm19, 
-      string userID, 
+      string parm1,
+      string parm2,
+      string parm3,
+      string parm4,
+      string parm5,
+      string parm6,
+      string parm7,
+      string parm8,
+      string parm9,
+      string parm10,
+      bool parm11,
+      bool parm12,
+      bool parm13,
+      bool parm14,
+      bool parm15,
+      bool parm16,
+      bool parm17,
+      bool parm18,
+      bool parm19,
+      string userID,
       string userPassword)
     {
       // TODO: Parameters should be in a List<ConnectionParameters>
-      var connBuilder = new SqlConnectionStringBuilder
-        {
-          DataSource = parm1,
-          InitialCatalog = parm2
-        };
+      var connBuilder = new SqlConnectionStringBuilder { DataSource = parm1, InitialCatalog = parm2 };
 
       if (parm11)
       {
@@ -437,23 +259,27 @@ namespace YAF.Classes.Data
     /// </returns>
     public static SqlCommand GetCommand(string commandText, bool isText, SqlConnection connection)
     {
-      if (isText)
-      {
-        commandText = commandText.Replace("{databaseOwner}", DatabaseOwner);
-        commandText = commandText.Replace("{objectQualifier}", ObjectQualifier);
+      return isText
+               ? new SqlCommand
+                 {
+                   CommandType = CommandType.Text,
+                   CommandText = GetCommandTextReplaced(commandText),
+                   Connection = connection
+                 }
+               : GetCommand(commandText);
+    }
 
-        var cmd = new SqlCommand();
+    /// <summary>
+    /// Gets command text replaced with {databaseOwner} and {objectQualifier}.
+    /// </summary>
+    /// <param name="commandText">Test to transform.</param>
+    /// <returns></returns>
+    public static string GetCommandTextReplaced(string commandText)
+    {
+      commandText = commandText.Replace("{databaseOwner}", Config.DatabaseOwner);
+      commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
 
-        cmd.CommandType = CommandType.Text;
-        cmd.CommandText = commandText;
-        cmd.Connection = connection;
-
-        return cmd;
-      }
-      else
-      {
-        return GetCommand(commandText);
-      }
+      return commandText;
     }
 
     /// <summary>
@@ -739,7 +565,6 @@ namespace YAF.Classes.Data
         qc.Dispose();
       }
     }
-
 
     /// <summary>
     /// The execute scalar.

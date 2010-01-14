@@ -8321,8 +8321,7 @@ namespace YAF.Classes.Data
 
       sb.AppendLine("DECLARE @TableName sysname");
       sb.AppendLine("DECLARE cur_showfragmentation CURSOR FOR");
-      sb.AppendFormat(
-        "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", YafDBAccess.ObjectQualifier);
+      sb.AppendFormat("SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", Config.DatabaseObjectQualifier);
       sb.AppendLine("OPEN cur_showfragmentation");
       sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
       sb.AppendLine("WHILE @@FETCH_STATUS = 0");
@@ -8374,7 +8373,7 @@ namespace YAF.Classes.Data
       sb.AppendLine("DECLARE myCursor");
       sb.AppendLine("CURSOR FOR");
       sb.AppendFormat(
-        "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", YafDBAccess.ObjectQualifier);
+        "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", Config.DatabaseObjectQualifier);
       sb.AppendLine("OPEN myCursor");
       sb.AppendLine("FETCH NEXT");
       sb.AppendLine("FROM myCursor INTO @MyTable");
@@ -8562,11 +8561,7 @@ namespace YAF.Classes.Data
     /// </exception>
     public static void system_initialize_executescripts(string script, string scriptFile, bool useTransactions)
     {
-      // apply database owner
-      script = script.Replace("{databaseOwner}", YafDBAccess.DatabaseOwner);
-
-      // apply object qualifier
-      script = script.Replace("{objectQualifier}", YafDBAccess.ObjectQualifier);
+      script = YafDBAccess.GetCommandTextReplaced(script);
 
       List<string> statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase).ToList();
 
