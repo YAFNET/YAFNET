@@ -126,7 +126,7 @@
     <Resource tag="ALBUM_CHANGE_TITLE">( Изменить )</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">( Изменить )</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">Изображений:{0}</Resource>
-    <Resource tag="ALBUM_VIEW">\u2315; Просмотр</Resource>
+    <Resource tag="ALBUM_VIEW">Просмотр</Resource>
     <Resource tag="ALBUMS">Альбомы</Resource>
     <Resource tag="ALBUMS_HEADER_TEXT">Альбомы пользователя {0}</Resource>
     <Resource tag="ALBUMS_TITLE"> Альбом пользователя {0}: {1}</Resource>
@@ -797,7 +797,7 @@
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">Пользователь {0} прикрепил следующие файлы:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Загрузить изображение</Resource>
-    <Resource tag="IMAGE_RESIZE_ENLARGE">\u2315; Увеличить</Resource>
+    <Resource tag="IMAGE_RESIZE_ENLARGE">Ω Увеличить</Resource>
     <Resource tag="IMAGE_RESIZE_VIEWS">Просмотров:{0}</Resource>
     <Resource tag="IMAGE_TEXT">Изображение</Resource>
     <Resource tag="INFO_NOMORETOPICS">На этом форуме больше нет тем.</Resource>
@@ -1210,7 +1210,7 @@
     <Resource tag="BUDDYREQUEST">({0} неподтверждённых)</Resource>
     <Resource tag="HELP">Справка</Resource>
     <Resource tag="INBOX">Личные сообщения</Resource>
-    <Resource tag="LOGGED_IN_AS">Вы вошли как: {0}</Resource>
+    <Resource tag="LOGGED_IN_AS">Добро пожаловать, {0}</Resource>
     <Resource tag="LOGIN">Вход</Resource>
     <Resource tag="LOGOUT">Выход</Resource>
     <Resource tag="LOGOUT_QUESTION">Вы уверены, что действительно желаете выйти?</Resource>

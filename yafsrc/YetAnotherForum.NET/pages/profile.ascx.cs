@@ -94,14 +94,13 @@ namespace YAF.Pages
 
       if (user == null)
       {
-        YafBuildLink.AccessDenied( /*No such user exists*/);
+        YafBuildLink.AccessDenied(/*No such user exists*/);
       }
 
       var userData = new CombinedUserDataHelper(user, userID);
 
-          // populate user information controls...
-      
-      //Is BuddyList feature enabled?
+          // populate user information controls...      
+          // Is BuddyList feature enabled?
       if (YafContext.Current.BoardSettings.EnableBuddyList)
       {
           if (userID == PageContext.PageUserID)
@@ -133,7 +132,7 @@ namespace YAF.Pages
       }
       else
       {
-          //BuddyList feature is disabled. don't show any link.
+          //  BuddyList feature is disabled. don't show any link.
           lnkBuddy.Visible = false;
           ltrApproval.Visible = false;
       }
@@ -150,7 +149,16 @@ namespace YAF.Pages
       this.UserName.Text = HtmlEncode(userData.Membership.UserName);
       Name.Text = HtmlEncode(userData.Membership.UserName);
       Joined.Text = String.Format("{0}", YafServices.DateTime.FormatDateLong(Convert.ToDateTime(userData.Joined)));
+      // vzrus: Show last visit only to admins if user is hidden
+      if (!PageContext.IsAdmin && Convert.ToBoolean(userData.DBRow["IsActiveExcluded"]))
+      {
+         LastVisit.Text = GetText("COMMON", "HIDDEN");
+      }
+      else
+      {
       LastVisit.Text = YafServices.DateTime.FormatDateTime(userData.LastVisit);
+      }
+
       Rank.Text = userData.RankName;
       Location.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Location));
       RealName.InnerHtml = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.RealName));
@@ -279,11 +287,7 @@ namespace YAF.Pages
             lnkBuddy.Visible = false;
             if (Convert.ToBoolean(strBuddyRequest[1]))
             {
-                PageContext.AddLoadMessage(string.Format
-                                            (
-                                            PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
-                                            strBuddyRequest[0])
-                                            );
+                PageContext.AddLoadMessage(string.Format(PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), strBuddyRequest[0]));
             }
             else
             {
@@ -300,7 +304,7 @@ namespace YAF.Pages
                                         YafBuddies.RemoveBuddy(userID))
                                         );
         }
-        BindData();
+        this.BindData();
     }
 
     /// <summary>
@@ -346,7 +350,7 @@ namespace YAF.Pages
     /// </param>
     protected void CollapsibleImage_OnClick(object sender, ImageClickEventArgs e)
     {
-      BindData();
+      this.BindData();
     }
   }
 }
