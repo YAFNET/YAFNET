@@ -1,6 +1,6 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
- * Copyright (C) 2006-2009 Jaben Cargman
+ * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -457,8 +457,7 @@ namespace YAF.Providers.Membership
     /// <returns>
     /// Hashed String as Hex or Base64 
     /// </returns>
-    public static string Hash(
-      string clearString, string hashType, string salt, bool useSalt, bool hashHex, string hashCase, string hashRemoveChars, bool standardComp)
+    public static string Hash(string clearString, string hashType, string salt, bool useSalt, bool hashHex, string hashCase, string hashRemoveChars, bool standardComp)
     {
       byte[] buffer;
       if (useSalt)
@@ -478,7 +477,7 @@ namespace YAF.Providers.Membership
 
       if (hashHex)
       {
-        hashedString = CleanUtils.toHexString(hashedBytes);
+        hashedString = hashedBytes.ToHexString();
       }
       else
       {

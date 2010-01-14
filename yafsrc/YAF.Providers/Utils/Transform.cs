@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2009 Jaben Cargman
+ * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -20,6 +20,7 @@ namespace YAF.Providers.Utils
 {
   using System;
   using System.Collections.Specialized;
+  using System.Text;
 
   /// <summary>
   /// The transform.
@@ -34,16 +35,9 @@ namespace YAF.Providers.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static DateTime ToDateTime(object obj)
+    public static DateTime ToDateTime(this object obj)
     {
-      if ((obj != DBNull.Value) && (obj != null))
-      {
-        return Convert.ToDateTime(obj.ToString());
-      }
-      else
-      {
-        return DateTime.Now; // Yeah I admit it, what the hell should this return?
-      }
+      return (obj != DBNull.Value) && (obj != null) ? Convert.ToDateTime(obj.ToString()) : DateTime.MinValue;
     }
 
     /// <summary>
@@ -55,7 +49,7 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The to string.
     /// </returns>
-    public static string ToString(object obj)
+    public static string ToString(this object obj)
     {
       if ((obj != DBNull.Value) && (obj != null))
       {
@@ -79,7 +73,7 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The to string.
     /// </returns>
-    public static string ToString(object obj, string defValue)
+    public static string ToString(this object obj, string defValue)
     {
       if ((obj != DBNull.Value) && (obj != null))
       {
@@ -99,7 +93,7 @@ namespace YAF.Providers.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static string[] ToStringArray(StringCollection coll)
+    public static string[] ToStringArray(this StringCollection coll)
     {
       var strReturn = new string[coll.Count];
       coll.CopyTo(strReturn, 0);
@@ -115,7 +109,7 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The to bool.
     /// </returns>
-    public static bool ToBool(object obj)
+    public static bool ToBool(this object obj)
     {
       if ((obj != DBNull.Value) && (obj != null))
       {
@@ -136,7 +130,7 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The to int.
     /// </returns>
-    public static int ToInt(object obj)
+    public static int ToInt(this object obj)
     {
       if ((obj != DBNull.Value) && (obj != null))
       {
@@ -146,6 +140,26 @@ namespace YAF.Providers.Utils
       {
         return 0;
       }
+    }
+
+    /// <summary>
+    /// The to hex string.
+    /// </summary>
+    /// <param name="hashedBytes">
+    /// The hashed bytes.
+    /// </param>
+    /// <returns>
+    /// The to hex string.
+    /// </returns>
+    public static string ToHexString(this byte[] hashedBytes)
+    {
+      var hashedSB = new StringBuilder(hashedBytes.Length * 2 + 2);
+      foreach (byte b in hashedBytes)
+      {
+        hashedSB.AppendFormat("{0:X2}", b);
+      }
+
+      return hashedSB.ToString();
     }
   }
 }

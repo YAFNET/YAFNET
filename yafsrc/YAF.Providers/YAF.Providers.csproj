@@ -70,7 +70,6 @@
   <ItemGroup>
     <Compile Include="Utils\ExceptionReporter.cs" />
     <Compile Include="Membership\UserPasswordInfo.cs" />
-    <Compile Include="Membership\Utils.cs" />
     <Compile Include="Membership\YafMembershipProvider.cs" />
     <Compile Include="Membership\DB.cs" />
     <Compile Include="Passthru\YAFMembershipPassThru.cs" />
