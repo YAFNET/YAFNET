@@ -28,16 +28,22 @@ namespace YAF.Providers.Utils
   public static class Transform
   {
     /// <summary>
-    /// The to date time.
+    /// Convert Object to <see cref="DateTime"/>.
     /// </summary>
     /// <param name="obj">
-    /// The obj.
+    /// The <see cref="DateTime"/> object.
     /// </param>
+    /// <param name="defaultDateTime">Default <see cref="DateTime"/> returned if obj is <see langword="null"/>.</param>
     /// <returns>
     /// </returns>
-    public static DateTime ToDateTime(this object obj)
+    public static DateTime ToDateTime(this object obj, DateTime defaultDateTime)
     {
-      return (obj != DBNull.Value) && (obj != null) ? Convert.ToDateTime(obj.ToString()) : DateTime.MinValue;
+      if (obj != null && obj != DBNull.Value)
+      {
+        return Convert.ToDateTime(obj.ToString());
+      }
+
+      return defaultDateTime;
     }
 
     /// <summary>
@@ -47,18 +53,11 @@ namespace YAF.Providers.Utils
     /// The obj.
     /// </param>
     /// <returns>
-    /// The to string.
+    /// The string.
     /// </returns>
-    public static string ToString(this object obj)
+    public static string ToStringDBNull(this object obj)
     {
-      if ((obj != DBNull.Value) && (obj != null))
-      {
-        return obj.ToString();
-      }
-      else
-      {
-        return String.Empty;
-      }
+      return ToStringDBNull(obj, String.Empty);
     }
 
     /// <summary>
@@ -73,16 +72,9 @@ namespace YAF.Providers.Utils
     /// <returns>
     /// The to string.
     /// </returns>
-    public static string ToString(this object obj, string defValue)
+    public static string ToStringDBNull(this object obj, string defValue)
     {
-      if ((obj != DBNull.Value) && (obj != null))
-      {
-        return obj.ToString();
-      }
-      else
-      {
-        return defValue;
-      }
+      return obj != DBNull.Value && obj != null ? obj.ToString() : defValue;
     }
 
     /// <summary>
@@ -101,24 +93,38 @@ namespace YAF.Providers.Utils
     }
 
     /// <summary>
-    /// The to bool.
+    /// Convert object to a boolean.
     /// </summary>
     /// <param name="obj">
     /// The obj.
     /// </param>
     /// <returns>
-    /// The to bool.
+    /// The boolean.
     /// </returns>
     public static bool ToBool(this object obj)
     {
-      if ((obj != DBNull.Value) && (obj != null))
+      return ToBool(obj, false);
+    }
+
+    /// <summary>
+    /// Convert object to a boolean.
+    /// </summary>
+    /// <param name="obj">
+    /// The obj.
+    /// </param>
+    /// <returns>
+    /// The boolean.
+    /// </returns>
+    public static bool ToBool(this object obj, bool defaultValue)
+    {
+      bool value;
+
+      if (obj != DBNull.Value && obj != null && bool.TryParse(obj.ToString(), out value))
       {
-        return Convert.ToBoolean(obj);
+        return value;  
       }
-      else
-      {
-        return false;
-      }
+
+      return defaultValue;
     }
 
     /// <summary>
@@ -132,14 +138,7 @@ namespace YAF.Providers.Utils
     /// </returns>
     public static int ToInt(this object obj)
     {
-      if ((obj != DBNull.Value) && (obj != null))
-      {
-        return Convert.ToInt32(obj);
-      }
-      else
-      {
-        return 0;
-      }
+      return obj != DBNull.Value && obj != null ? Convert.ToInt32(obj) : 0;
     }
 
     /// <summary>
@@ -153,7 +152,13 @@ namespace YAF.Providers.Utils
     /// </returns>
     public static string ToHexString(this byte[] hashedBytes)
     {
-      var hashedSB = new StringBuilder(hashedBytes.Length * 2 + 2);
+      if (hashedBytes == null || hashedBytes.Length == 0)
+      {
+        throw new ArgumentException("hashedBytes is null or empty.", "hashedBytes");
+      }
+
+      var hashedSB = new StringBuilder((hashedBytes.Length * 2) + 2);
+
       foreach (byte b in hashedBytes)
       {
         hashedSB.AppendFormat("{0:X2}", b);

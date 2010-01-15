@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Profile\SettingsPropertyColumn.cs" />
     <Compile Include="Utils\ExceptionReporter.cs" />
     <Compile Include="Membership\UserPasswordInfo.cs" />
     <Compile Include="Membership\YafMembershipProvider.cs" />

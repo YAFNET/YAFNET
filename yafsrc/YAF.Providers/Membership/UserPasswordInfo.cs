@@ -16,18 +16,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using YAF.Providers.Utils;
-
 namespace YAF.Providers.Membership
 {
+  #region Using
+
+  using System;
+  using System.Data;
+
+  using YAF.Providers.Utils;
+
+  #endregion
+
   /// <summary>
   /// The user password info.
   /// </summary>
   internal class UserPasswordInfo
   {
-    // Instance Variables
+    #region Constants and Fields
+
     /// <summary>
     /// The _failed answer attempts.
     /// </summary>
@@ -103,6 +109,10 @@ namespace YAF.Providers.Membership
     /// </summary>
     private bool _useSalt;
 
+    #endregion
+
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="UserPasswordInfo"/> class. 
     /// Called to create a new UserPasswordInfo class instance.
@@ -176,60 +186,19 @@ namespace YAF.Providers.Membership
       this._msCompliant = msCompliant;
     }
 
+    #endregion
+
     // used to create an instance of this class from the DB...
+    #region Properties
 
     /// <summary>
-    /// Gets Password.
+    /// Gets FailedAnswerAttempts.
     /// </summary>
-    public string Password
+    public int FailedAnswerAttempts
     {
       get
       {
-        return this._password;
-      }
-    }
-
-    /// <summary>
-    /// Gets PasswordQuestion.
-    /// </summary>
-    public string PasswordQuestion
-    {
-      get
-      {
-        return this._passwordQuestion;
-      }
-    }
-
-    /// <summary>
-    /// Gets PasswordAnswer.
-    /// </summary>
-    public string PasswordAnswer
-    {
-      get
-      {
-        return this._passwordAnswer;
-      }
-    }
-
-    /// <summary>
-    /// Gets PasswordSalt.
-    /// </summary>
-    public string PasswordSalt
-    {
-      get
-      {
-        return this._passwordSalt;
-      }
-    }
-
-    /// <summary>
-    /// Gets PasswordFormat.
-    /// </summary>
-    public int PasswordFormat
-    {
-      get
-      {
-        return this._passwordFormat;
+        return this._failedAnswerAttempts;
       }
     }
 
@@ -245,57 +214,13 @@ namespace YAF.Providers.Membership
     }
 
     /// <summary>
-    /// Gets FailedAnswerAttempts.
+    /// Gets hashCase.
     /// </summary>
-    public int FailedAnswerAttempts
+    public string hashCase
     {
       get
       {
-        return this._failedAnswerAttempts;
-      }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether IsApproved.
-    /// </summary>
-    public bool IsApproved
-    {
-      get
-      {
-        return this._isApproved;
-      }
-    }
-
-    /// <summary>
-    /// Gets LastLogin.
-    /// </summary>
-    public DateTime LastLogin
-    {
-      get
-      {
-        return this._lastLogin;
-      }
-    }
-
-    /// <summary>
-    /// Gets LastActivity.
-    /// </summary>
-    public DateTime LastActivity
-    {
-      get
-      {
-        return this._lastActivity;
-      }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether UseSalt.
-    /// </summary>
-    public bool UseSalt
-    {
-      get
-      {
-        return this._useSalt;
+        return this._hashCase;
       }
     }
 
@@ -311,17 +236,6 @@ namespace YAF.Providers.Membership
     }
 
     /// <summary>
-    /// Gets hashCase.
-    /// </summary>
-    public string hashCase
-    {
-      get
-      {
-        return this._hashCase;
-      }
-    }
-
-    /// <summary>
     /// Gets hashRemoveChars.
     /// </summary>
     public string hashRemoveChars
@@ -329,6 +243,39 @@ namespace YAF.Providers.Membership
       get
       {
         return this._hashRemoveChars;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether IsApproved.
+    /// </summary>
+    public bool IsApproved
+    {
+      get
+      {
+        return this._isApproved;
+      }
+    }
+
+    /// <summary>
+    /// Gets LastActivity.
+    /// </summary>
+    public DateTime LastActivity
+    {
+      get
+      {
+        return this._lastActivity;
+      }
+    }
+
+    /// <summary>
+    /// Gets LastLogin.
+    /// </summary>
+    public DateTime LastLogin
+    {
+      get
+      {
+        return this._lastLogin;
       }
     }
 
@@ -342,6 +289,76 @@ namespace YAF.Providers.Membership
         return this._msCompliant;
       }
     }
+
+    /// <summary>
+    /// Gets Password.
+    /// </summary>
+    public string Password
+    {
+      get
+      {
+        return this._password;
+      }
+    }
+
+    /// <summary>
+    /// Gets PasswordAnswer.
+    /// </summary>
+    public string PasswordAnswer
+    {
+      get
+      {
+        return this._passwordAnswer;
+      }
+    }
+
+    /// <summary>
+    /// Gets PasswordFormat.
+    /// </summary>
+    public int PasswordFormat
+    {
+      get
+      {
+        return this._passwordFormat;
+      }
+    }
+
+    /// <summary>
+    /// Gets PasswordQuestion.
+    /// </summary>
+    public string PasswordQuestion
+    {
+      get
+      {
+        return this._passwordQuestion;
+      }
+    }
+
+    /// <summary>
+    /// Gets PasswordSalt.
+    /// </summary>
+    public string PasswordSalt
+    {
+      get
+      {
+        return this._passwordSalt;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UseSalt.
+    /// </summary>
+    public bool UseSalt
+    {
+      get
+      {
+        return this._useSalt;
+      }
+    }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// The create instance from db.
@@ -373,7 +390,14 @@ namespace YAF.Providers.Membership
     /// <returns>
     /// </returns>
     public static UserPasswordInfo CreateInstanceFromDB(
-      string appName, string username, bool updateUser, bool useSalt, bool hashHex, string hashCase, string hashRemoveChars, bool msCompliant)
+      string appName, 
+      string username, 
+      bool updateUser, 
+      bool useSalt, 
+      bool hashHex, 
+      string hashCase, 
+      string hashRemoveChars, 
+      bool msCompliant)
     {
       DataTable userData = DB.Current.GetUserPasswordInfo(appName, username, updateUser);
 
@@ -383,17 +407,17 @@ namespace YAF.Providers.Membership
 
         // create a new instance of the UserPasswordInfo class
         return new UserPasswordInfo(
-          Transform.ToString(userInfo["Password"]), 
-          Transform.ToString(userInfo["PasswordSalt"]), 
-          Transform.ToString(userInfo["PasswordQuestion"]), 
-          Transform.ToString(userInfo["PasswordAnswer"]), 
-          Transform.ToInt(userInfo["PasswordFormat"]), 
-          Transform.ToInt(userInfo["FailedPasswordAttempts"]), 
-          Transform.ToInt(userInfo["FailedAnswerAttempts"]), 
-          Transform.ToBool(userInfo["IsApproved"]), 
+          userInfo["Password"].ToStringDBNull(), 
+          userInfo["PasswordSalt"].ToStringDBNull(), 
+          userInfo["PasswordQuestion"].ToStringDBNull(), 
+          userInfo["PasswordAnswer"].ToStringDBNull(), 
+          userInfo["PasswordFormat"].ToInt(), 
+          userInfo["FailedPasswordAttempts"].ToInt(), 
+          userInfo["FailedAnswerAttempts"].ToInt(), 
+          userInfo["IsApproved"].ToBool(), 
           useSalt, 
-          Transform.ToDateTime(userInfo["LastLogin"]), 
-          Transform.ToDateTime(userInfo["LastActivity"]), 
+          userInfo["LastLogin"].ToDateTime(DateTime.Now),
+          userInfo["LastActivity"].ToDateTime(DateTime.Now), 
           hashHex, 
           hashCase, 
           hashRemoveChars, 
@@ -402,21 +426,6 @@ namespace YAF.Providers.Membership
 
       // nothing found, return null.
       return null;
-    }
-
-    /// <summary>
-    /// Checks the password against the one provided for validity
-    /// </summary>
-    /// <param name="passwordToCheck">
-    /// </param>
-    /// <returns>
-    /// The is correct password.
-    /// </returns>
-    public bool IsCorrectPassword(string passwordToCheck)
-    {
-      return
-        Password.Equals(
-          YafMembershipProvider.EncodeString(passwordToCheck, PasswordFormat, PasswordSalt, UseSalt, HashHex, hashCase, hashRemoveChars, msCompliant));
     }
 
     /// <summary>
@@ -430,8 +439,41 @@ namespace YAF.Providers.Membership
     public bool IsCorrectAnswer(string answerToCheck)
     {
       return
-        PasswordAnswer.Equals(
-          YafMembershipProvider.EncodeString(answerToCheck, PasswordFormat, PasswordSalt, UseSalt, HashHex, hashCase, hashRemoveChars, msCompliant));
+        this.PasswordAnswer.Equals(
+          YafMembershipProvider.EncodeString(
+            answerToCheck, 
+            this.PasswordFormat, 
+            this.PasswordSalt, 
+            this.UseSalt, 
+            this.HashHex, 
+            this.hashCase, 
+            this.hashRemoveChars, 
+            this.msCompliant));
     }
+
+    /// <summary>
+    /// Checks the password against the one provided for validity
+    /// </summary>
+    /// <param name="passwordToCheck">
+    /// </param>
+    /// <returns>
+    /// The is correct password.
+    /// </returns>
+    public bool IsCorrectPassword(string passwordToCheck)
+    {
+      return
+        this.Password.Equals(
+          YafMembershipProvider.EncodeString(
+            passwordToCheck, 
+            this.PasswordFormat, 
+            this.PasswordSalt, 
+            this.UseSalt, 
+            this.HashHex, 
+            this.hashCase, 
+            this.hashRemoveChars, 
+            this.msCompliant));
+    }
+
+    #endregion
   }
 }

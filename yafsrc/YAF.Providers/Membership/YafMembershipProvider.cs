@@ -790,7 +790,7 @@ namespace YAF.Providers.Membership
     /// Out - Number of records held
     /// </param>
     /// <returns>
-    /// MembershipUser Collection
+    /// <see cref="MembershipUser"/> Collection
     /// </returns>
     public override MembershipUserCollection FindUsersByEmail(
       string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
@@ -811,21 +811,7 @@ namespace YAF.Providers.Membership
       foreach (DataRow dr in DB.Current.FindUsersByEmail(this.ApplicationName, emailToMatch, pageIndex, pageSize).Rows)
       {
         // Add new user to collection
-        users.Add(
-          new MembershipUser(
-            Transform.ToString(this.Name), 
-            Transform.ToString(dr["Username"]), 
-            Transform.ToString(dr["UserID"]), 
-            Transform.ToString(dr["Email"]), 
-            Transform.ToString(dr["PasswordQuestion"]), 
-            Transform.ToString(dr["Comment"]), 
-            Transform.ToBool(dr["IsApproved"]), 
-            Transform.ToBool(dr["IsLockedOut"]), 
-            Transform.ToDateTime(dr["Joined"]), 
-            Transform.ToDateTime(dr["LastLogin"]), 
-            Transform.ToDateTime(dr["LastActivity"]), 
-            Transform.ToDateTime(dr["LastPasswordChange"]), 
-            Transform.ToDateTime(dr["LastLockout"])));
+        users.Add(this.UserFromDataRow(dr));
       }
 
       totalRecords = users.Count;
@@ -833,7 +819,30 @@ namespace YAF.Providers.Membership
     }
 
     /// <summary>
-    /// Retrieves all users into a MembershupUserCollection where Username matches
+    /// Creates a new <see cref="MembershipUser"/> from a <see cref="DataRow"/> with proper fields.
+    /// </summary>
+    /// <param name="dr"></param>
+    /// <returns></returns>
+    private MembershipUser UserFromDataRow(DataRow dr)
+    {
+      return new MembershipUser(
+        this.Name.ToStringDBNull(), 
+        dr["Username"].ToStringDBNull(), 
+        dr["UserID"].ToStringDBNull(), 
+        dr["Email"].ToStringDBNull(), 
+        dr["PasswordQuestion"].ToStringDBNull(), 
+        dr["Comment"].ToStringDBNull(), 
+        dr["IsApproved"].ToBool(), 
+        dr["IsLockedOut"].ToBool(), 
+        dr["Joined"].ToDateTime(DateTime.Now), 
+        dr["LastLogin"].ToDateTime(DateTime.Now), 
+        dr["LastActivity"].ToDateTime(DateTime.Now), 
+        dr["LastPasswordChange"].ToDateTime(DateTime.Now), 
+        dr["LastLockout"].ToDateTime(DateTime.Now));
+    }
+
+    /// <summary>
+    /// Retrieves all users into a <see cref="MembershipUserCollection"/> where Username matches
     /// </summary>
     /// <param name="usernameToMatch">
     /// Username use as filter criteria
@@ -848,7 +857,7 @@ namespace YAF.Providers.Membership
     /// Out - Number of records held
     /// </param>
     /// <returns>
-    /// MembershipUser Collection
+    /// <see cref="MembershipUser"/> Collection
     /// </returns>
     public override MembershipUserCollection FindUsersByName(
       string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
@@ -866,25 +875,10 @@ namespace YAF.Providers.Membership
       }
 
       // Loop through all users
-      foreach (DataRow dr in DB.Current.FindUsersByName(this.ApplicationName, usernameToMatch, pageIndex, pageSize).Rows
-        )
+      foreach (DataRow dr in DB.Current.FindUsersByName(this.ApplicationName, usernameToMatch, pageIndex, pageSize).Rows)
       {
         // Add new user to collection
-        users.Add(
-          new MembershipUser(
-            Transform.ToString(this.Name), 
-            Transform.ToString(dr["Username"]), 
-            Transform.ToString(dr["UserID"]), 
-            Transform.ToString(dr["Email"]), 
-            Transform.ToString(dr["PasswordQuestion"]), 
-            Transform.ToString(dr["Comment"]), 
-            Transform.ToBool(dr["IsApproved"]), 
-            Transform.ToBool(dr["IsLockedOut"]), 
-            Transform.ToDateTime(dr["Joined"]), 
-            Transform.ToDateTime(dr["LastLogin"]), 
-            Transform.ToDateTime(dr["LastActivity"]), 
-            Transform.ToDateTime(dr["LastPasswordChange"]), 
-            Transform.ToDateTime(dr["LastLockout"])));
+        users.Add(this.UserFromDataRow(dr));
       }
 
       totalRecords = users.Count;
@@ -892,7 +886,7 @@ namespace YAF.Providers.Membership
     }
 
     /// <summary>
-    /// Retrieves all users into a MembershupUserCollection
+    /// Retrieves all users into a <see cref="MembershipUserCollection"/>
     /// </summary>
     /// <param name="pageIndex">
     /// Page Index
@@ -904,7 +898,7 @@ namespace YAF.Providers.Membership
     /// Out - Number of records held
     /// </param>
     /// <returns>
-    /// MembershipUser Collection
+    /// <see cref="MembershipUser"/> Collection
     /// </returns>
     public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
     {
@@ -924,21 +918,7 @@ namespace YAF.Providers.Membership
       foreach (DataRow dr in DB.Current.GetAllUsers(this.ApplicationName, pageIndex, pageSize).Rows)
       {
         // Add new user to collection
-        users.Add(
-          new MembershipUser(
-            Transform.ToString(this.Name), 
-            Transform.ToString(dr["Username"]), 
-            Transform.ToString(dr["UserID"]), 
-            Transform.ToString(dr["Email"]), 
-            Transform.ToString(dr["PasswordQuestion"]), 
-            Transform.ToString(dr["Comment"]), 
-            Transform.ToBool(dr["IsApproved"]), 
-            Transform.ToBool(dr["IsLockedOut"]), 
-            Transform.ToDateTime(dr["Joined"]), 
-            Transform.ToDateTime(dr["LastLogin"]), 
-            Transform.ToDateTime(dr["LastActivity"]), 
-            Transform.ToDateTime(dr["LastPasswordChange"]), 
-            Transform.ToDateTime(dr["LastLockout"])));
+        users.Add(this.UserFromDataRow(dr));
       }
 
       totalRecords = users.Count;
@@ -1026,25 +1006,7 @@ namespace YAF.Providers.Membership
 
       DataRow dr = DB.Current.GetUser(this.ApplicationName, null, username, userIsOnline);
 
-      if (dr != null)
-      {
-        return new MembershipUser(
-          Transform.ToString(this.Name), 
-          Transform.ToString(dr["Username"]), 
-          Transform.ToString(dr["UserID"]), 
-          Transform.ToString(dr["Email"]), 
-          Transform.ToString(dr["PasswordQuestion"]), 
-          Transform.ToString(dr["Comment"]), 
-          Transform.ToBool(dr["IsApproved"]), 
-          Transform.ToBool(dr["IsLockedOut"]), 
-          Transform.ToDateTime(dr["Joined"]), 
-          Transform.ToDateTime(dr["LastLogin"]), 
-          Transform.ToDateTime(dr["LastActivity"]), 
-          Transform.ToDateTime(dr["LastPasswordChange"]), 
-          Transform.ToDateTime(dr["LastLockout"]));
-      }
-
-      return null;
+      return dr != null ? this.UserFromDataRow(dr) : null;
     }
 
     /// <summary>
@@ -1067,27 +1029,8 @@ namespace YAF.Providers.Membership
       }
 
       DataRow dr = DB.Current.GetUser(this.ApplicationName, providerUserKey, null, userIsOnline);
-      if (dr != null)
-      {
-        return new MembershipUser(
-          Transform.ToString(this.Name), 
-          Transform.ToString(dr["Username"]), 
-          Transform.ToString(dr["UserID"]), 
-          Transform.ToString(dr["Email"]), 
-          Transform.ToString(dr["PasswordQuestion"]), 
-          Transform.ToString(dr["Comment"]), 
-          Transform.ToBool(dr["IsApproved"]), 
-          Transform.ToBool(dr["IsLockedOut"]), 
-          Transform.ToDateTime(dr["Joined"]), 
-          Transform.ToDateTime(dr["LastLogin"]), 
-          Transform.ToDateTime(dr["LastActivity"]), 
-          Transform.ToDateTime(dr["LastPasswordChange"]), 
-          Transform.ToDateTime(dr["LastLockout"]));
-      }
-      else
-      {
-        return null;
-      }
+
+      return dr != null ? this.UserFromDataRow(dr) : null;
     }
 
     /// <summary>
@@ -1106,30 +1049,24 @@ namespace YAF.Providers.Membership
         ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "EMAILNULL");
       }
 
-      DataTable Users = DB.Current.GetUserNameByEmail(this.ApplicationName, email);
-      if (this.RequiresUniqueEmail && Users.Rows.Count > 1)
+      DataTable users = DB.Current.GetUserNameByEmail(this.ApplicationName, email);
+
+      if (this.RequiresUniqueEmail && users.Rows.Count > 1)
       {
         ExceptionReporter.ThrowProvider("MEMBERSHIP", "TOOMANYUSERNAMERETURNS");
       }
 
-      if (Users.Rows.Count == 0)
-      {
-        return null;
-      }
-      else
-      {
-        return Users.Rows[0]["Username"].ToString();
-      }
+      return users.Rows.Count == 0 ? null : users.Rows[0]["Username"].ToString();
     }
 
     /// <summary>
-    /// Initialie Membership Provider
+    /// Initialize Membership Provider
     /// </summary>
     /// <param name="name">
     /// Membership Provider Name
     /// </param>
     /// <param name="config">
-    /// NameValueCollection of configuration items
+    /// <see cref="NameValueCollection"/> of configuration items
     /// </param>
     public override void Initialize(string name, NameValueCollection config)
     {
@@ -1155,36 +1092,36 @@ namespace YAF.Providers.Membership
       this._passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"] ?? "10");
 
       // Check whething Hashing methods should use Salt
-      this._useSalt = Transform.ToBool(config["useSalt"] ?? "false");
+      this._useSalt = (config["useSalt"] ?? "false").ToBool();
 
       // Check whether password hashing should output as Hex instead of Base64
-      this._hashHex = Transform.ToBool(config["hashHex"] ?? "false");
+      this._hashHex = (config["hashHex"] ?? "false").ToBool();
 
       // Check to see if password hex case should be altered
-      this._hashCase = Transform.ToString(config["hashCase"], "None");
+      this._hashCase = config["hashCase"].ToStringDBNull("None");
 
       // Check to see if password should have characters removed
-      this._hashRemoveChars = Transform.ToString(config["hashRemoveChars"] ?? String.Empty);
+      this._hashRemoveChars = config["hashRemoveChars"].ToStringDBNull();
 
       // Check to see if password/salt combination needs to asp.net standard membership compliant
-      this._msCompliant = Transform.ToBool(config["msCompliant"] ?? "false");
+      this._msCompliant = (config["msCompliant"] ?? "false").ToBool();
 
       // Application Name
-      this._appName = Transform.ToString(config["applicationName"], "YetAnotherForum");
+      this._appName = config["applicationName"].ToStringDBNull("YetAnotherForum");
 
       // Connection String Name
-      this._connStrName = Transform.ToString(config["connectionStringName"] ?? String.Empty);
+      this._connStrName = config["connectionStringName"].ToStringDBNull();
 
-      this._passwordStrengthRegularExpression = Transform.ToString(config["passwordStrengthRegularExpression"]);
+      this._passwordStrengthRegularExpression = config["passwordStrengthRegularExpression"].ToStringDBNull();
 
       // Password reset enabled from Provider Configuration
-      this._enablePasswordReset = Transform.ToBool(config["enablePasswordReset"] ?? "true");
-      this._enablePasswordRetrieval = Transform.ToBool(config["enablePasswordRetrieval"] ?? "false");
-      this._requiresQuestionAndAnswer = Transform.ToBool(config["requiresQuestionAndAnswer"] ?? "true");
+      this._enablePasswordReset = (config["enablePasswordReset"] ?? "true").ToBool();
+      this._enablePasswordRetrieval = (config["enablePasswordRetrieval"] ?? "false").ToBool();
+      this._requiresQuestionAndAnswer = (config["requiresQuestionAndAnswer"] ?? "true").ToBool();
 
-      this._requiresUniqueEmail = Transform.ToBool(config["requiresUniqueEmail"] ?? "true");
+      this._requiresUniqueEmail = (config["requiresUniqueEmail"] ?? "true").ToBool();
 
-      string strPasswordFormat = Transform.ToString(config["passwordFormat"], "Hashed");
+      string strPasswordFormat = config["passwordFormat"].ToStringDBNull("Hashed");
 
       switch (strPasswordFormat)
       {
@@ -1350,7 +1287,7 @@ namespace YAF.Providers.Membership
     /// Updates a providers user information
     /// </summary>
     /// <param name="user">
-    /// MembershipUser object
+    /// <see cref="MembershipUser"/> object
     /// </param>
     public override void UpdateUser(MembershipUser user)
     {

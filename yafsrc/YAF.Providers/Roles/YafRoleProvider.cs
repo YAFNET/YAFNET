@@ -1,39 +1,32 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2006-2010 Jaben Cargman
- * http://www.yetanotherforum.net/
- * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Data;
-using System.Web.Security;
-using YAF.Classes.Core;
-using YAF.Providers.Utils;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="" file="YafRoleProvider.cs">
+//   
+// </copyright>
+// <summary>
+//   The yaf role provider.
+// </summary>
+// 
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace YAF.Providers.Roles
 {
-  using Classes.Pattern;
+  using System;
+  using System.Collections.Specialized;
+  using System.Configuration;
+  using System.Data;
+  using System.Web.Security;
+
+  using YAF.Classes.Core;
+  using YAF.Classes.Pattern;
+  using YAF.Providers.Utils;
 
   /// <summary>
   /// The yaf role provider.
   /// </summary>
   public class YafRoleProvider : RoleProvider
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The conn str app key name.
     /// </summary>
@@ -54,7 +47,9 @@ namespace YAF.Providers.Roles
     /// </summary>
     private YafLocalization _providerLocalization;
 
-    #region Override Public Properties
+    #endregion
+
+    #region Properties
 
     /// <summary>
     /// Gets the Connection String App Key Name.
@@ -84,12 +79,10 @@ namespace YAF.Providers.Roles
           this._appName = value;
 
           // clear the cache for obvious reasons...
-          ClearUserRoleCache();
+          this.ClearUserRoleCache();
         }
       }
     }
-
-    #endregion
 
     /// <summary>
     /// Gets UserRoleCache.
@@ -98,93 +91,14 @@ namespace YAF.Providers.Roles
     {
       get
       {
-        string key = GenerateCacheKey("UserRoleDictionary");
+        string key = this.GenerateCacheKey("UserRoleDictionary");
         return YafContext.Current.Cache.GetItem(key, 999, () => new ThreadSafeDictionary<string, StringCollection>());
       }
     }
 
-    /// <summary>
-    /// The delete from role cache if exists.
-    /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    private void DeleteFromRoleCacheIfExists(string key)
-    {
-      UserRoleCache.RemoveSafe(key);
-    }
+    #endregion
 
-    /// <summary>
-    /// The clear user role cache.
-    /// </summary>
-    private void ClearUserRoleCache()
-    {
-      string key = GenerateCacheKey("UserRoleDictionary");
-      YafContext.Current.Cache.Remove(key);
-    }
-
-    /// <summary>
-    /// The generate cache key.
-    /// </summary>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <returns>
-    /// The generate cache key.
-    /// </returns>
-    private string GenerateCacheKey(string name)
-    {
-      return String.Format("YafRoleProvider-{0}-{1}", name, ApplicationName);
-    }
-
-    #region Overriden Public Methods
-
-    /// <summary>
-    /// Sets up the profile providers
-    /// </summary>
-    /// <param name="name">
-    /// </param>
-    /// <param name="config">
-    /// </param>
-    public override void Initialize(string name, NameValueCollection config)
-    {
-      // verify that the configuration section was properly passed
-      if (config == null)
-      {
-        ExceptionReporter.ThrowArgument("ROLES", "CONFIGNOTFOUND");
-      }
-
-      // Connection String Name
-      this._connStrName = Transform.ToString(config["connectionStringName"] ?? String.Empty);
-
-      // is the connection string set?
-      if (!String.IsNullOrEmpty(this._connStrName))
-      {
-        string connStr = ConfigurationManager.ConnectionStrings[this._connStrName].ConnectionString;
-
-        // set the app variable...
-        if (YafContext.Application[ConnStrAppKeyName] == null)
-        {
-          YafContext.Application.Add(ConnStrAppKeyName, connStr);
-        }
-        else
-        {
-          YafContext.Application[ConnStrAppKeyName] = connStr;
-        }
-      }
-
-      base.Initialize(name, config);
-
-      // application name
-      this._appName = config["applicationName"];
-
-      if (string.IsNullOrEmpty(this._appName))
-      {
-        this._appName = "YetAnotherForum";
-      }
-
-      this._providerLocalization = new YafLocalization();
-    }
+    #region Public Methods
 
     /// <summary>
     /// Adds a list of users to a list of groups
@@ -203,11 +117,11 @@ namespace YAF.Providers.Roles
         // Loop through roles
         foreach (string roleName in roleNames)
         {
-          DB.Current.AddUserToRole(ApplicationName, username, roleName);
+          DB.Current.AddUserToRole(this.ApplicationName, username, roleName);
         }
 
         // invalidate the cache for this user...
-        DeleteFromRoleCacheIfExists(username.ToLower());
+        this.DeleteFromRoleCacheIfExists(username.ToLower());
       }
     }
 
@@ -223,7 +137,7 @@ namespace YAF.Providers.Roles
         ExceptionReporter.ThrowArgument("ROLES", "ROLENAMEBLANK");
       }
 
-      DB.Current.CreateRole(ApplicationName, roleName);
+      DB.Current.CreateRole(this.ApplicationName, roleName);
     }
 
     /// <summary>
@@ -238,9 +152,9 @@ namespace YAF.Providers.Roles
     /// </returns>
     public override bool DeleteRole(string roleName, bool throwOnPopulatedRole)
     {
-      int returnValue = DB.Current.DeleteRole(ApplicationName, roleName, throwOnPopulatedRole);
+      int returnValue = DB.Current.DeleteRole(this.ApplicationName, roleName, throwOnPopulatedRole);
 
-      ClearUserRoleCache();
+      this.ClearUserRoleCache();
 
       // zero means there were no complications...
       if (returnValue == 0)
@@ -272,11 +186,11 @@ namespace YAF.Providers.Roles
       }
 
       // Roles
-      DataTable users = DB.Current.FindUsersInRole(ApplicationName, roleName);
+      DataTable users = DB.Current.FindUsersInRole(this.ApplicationName, roleName);
       var usernames = new StringCollection();
       foreach (DataRow user in users.Rows)
       {
-        usernames.Add(Transform.ToString(user["Username"]));
+        usernames.Add(user["Username"].ToStringDBNull());
       }
 
       return Transform.ToStringArray(usernames);
@@ -290,17 +204,17 @@ namespace YAF.Providers.Roles
     public override string[] GetAllRoles()
     {
       // get all roles...
-      DataTable roles = DB.Current.GetRoles(ApplicationName, null);
+      DataTable roles = DB.Current.GetRoles(this.ApplicationName, null);
 
       // make a string collection to store the role list...
       var roleNames = new StringCollection();
 
       foreach (DataRow row in roles.Rows)
       {
-        roleNames.Add(Transform.ToString(row["RoleName"]));
+        roleNames.Add(row["RoleName"].ToStringDBNull());
       }
 
-      return Transform.ToStringArray(roleNames); // return as a string array
+      return roleNames.ToStringArray(); // return as a string array
     }
 
     /// <summary>
@@ -321,21 +235,23 @@ namespace YAF.Providers.Roles
       StringCollection roleNames = null;
 
       // get the users's collection from the dictionary
-      if (!UserRoleCache.ContainsKey(username.ToLower()))
+      if (!this.UserRoleCache.ContainsKey(username.ToLower()))
       {
         roleNames = new StringCollection();
-        DataTable roles = DB.Current.GetRoles(ApplicationName, username);
+
+        DataTable roles = DB.Current.GetRoles(this.ApplicationName, username);
+
         foreach (DataRow dr in roles.Rows)
         {
-          roleNames.Add(Transform.ToString(dr["Rolename"])); // add rolename to collection
+          roleNames.Add(dr["Rolename"].ToStringDBNull()); // add rolename to collection
         }
 
         // add it to the dictionary cache...
-        UserRoleCache.MergeSafe(username.ToLower(), roleNames);
+        this.UserRoleCache.MergeSafe(username.ToLower(), roleNames);
       }
       else
       {
-        roleNames = UserRoleCache[username.ToLower()];
+        roleNames = this.UserRoleCache[username.ToLower()];
       }
 
       return Transform.ToStringArray(roleNames); // return as a string array
@@ -357,15 +273,63 @@ namespace YAF.Providers.Roles
         ExceptionReporter.ThrowArgument("ROLES", "ROLENAMEBLANK");
       }
 
-      DataTable users = DB.Current.FindUsersInRole(ApplicationName, roleName);
+      DataTable users = DB.Current.FindUsersInRole(this.ApplicationName, roleName);
+
       var userNames = new StringCollection();
-      
+
       foreach (DataRow dr in users.Rows)
       {
-        userNames.Add(Transform.ToString(dr["Username"]));
+        userNames.Add(dr["Username"].ToStringDBNull());
       }
 
       return Transform.ToStringArray(userNames);
+    }
+
+    /// <summary>
+    /// Sets up the profile providers
+    /// </summary>
+    /// <param name="name">
+    /// </param>
+    /// <param name="config">
+    /// </param>
+    public override void Initialize(string name, NameValueCollection config)
+    {
+      // verify that the configuration section was properly passed
+      if (config == null)
+      {
+        ExceptionReporter.ThrowArgument("ROLES", "CONFIGNOTFOUND");
+      }
+
+      // Connection String Name
+      this._connStrName = config["connectionStringName"].ToStringDBNull();
+
+      // is the connection string set?
+      if (!String.IsNullOrEmpty(this._connStrName))
+      {
+        string connStr = ConfigurationManager.ConnectionStrings[this._connStrName].ConnectionString;
+
+        // set the app variable...
+        if (YafContext.Application[ConnStrAppKeyName] == null)
+        {
+          YafContext.Application.Add(ConnStrAppKeyName, connStr);
+        }
+        else
+        {
+          YafContext.Application[ConnStrAppKeyName] = connStr;
+        }
+      }
+
+      base.Initialize(name, config);
+
+      // application name
+      this._appName = config["applicationName"];
+
+      if (string.IsNullOrEmpty(this._appName))
+      {
+        this._appName = "YetAnotherForum";
+      }
+
+      this._providerLocalization = new YafLocalization();
     }
 
     /// <summary>
@@ -382,7 +346,7 @@ namespace YAF.Providers.Roles
     /// </returns>
     public override bool IsUserInRole(string username, string roleName)
     {
-      DataTable roles = DB.Current.IsUserInRole(ApplicationName, username, roleName);
+      DataTable roles = DB.Current.IsUserInRole(this.ApplicationName, username, roleName);
 
       if (roles.Rows.Count > 0)
       {
@@ -411,10 +375,10 @@ namespace YAF.Providers.Roles
         // Loop through roles
         foreach (string roleName in roleNames)
         {
-          DB.Current.RemoveUserFromRole(ApplicationName, username, roleName); // Remove role
+          DB.Current.RemoveUserFromRole(this.ApplicationName, username, roleName); // Remove role
 
           // invalidate cache for this user...
-          DeleteFromRoleCacheIfExists(username.ToLower());
+          this.DeleteFromRoleCacheIfExists(username.ToLower());
         }
       }
     }
@@ -431,7 +395,7 @@ namespace YAF.Providers.Roles
     public override bool RoleExists(string roleName)
     {
       // get this role...
-      object exists = DB.Current.GetRoleExists(ApplicationName, roleName);
+      object exists = DB.Current.GetRoleExists(this.ApplicationName, roleName);
 
       // if there are any rows then this role exists...
       if (Convert.ToInt32(exists) > 0)
@@ -441,6 +405,44 @@ namespace YAF.Providers.Roles
 
       // doesn't exist
       return false;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The clear user role cache.
+    /// </summary>
+    private void ClearUserRoleCache()
+    {
+      string key = this.GenerateCacheKey("UserRoleDictionary");
+      YafContext.Current.Cache.Remove(key);
+    }
+
+    /// <summary>
+    /// The delete from role cache if exists.
+    /// </summary>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    private void DeleteFromRoleCacheIfExists(string key)
+    {
+      this.UserRoleCache.RemoveSafe(key);
+    }
+
+    /// <summary>
+    /// The generate cache key.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <returns>
+    /// The generate cache key.
+    /// </returns>
+    private string GenerateCacheKey(string name)
+    {
+      return String.Format("YafRoleProvider-{0}-{1}", name, this.ApplicationName);
     }
 
     #endregion
