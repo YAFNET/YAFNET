@@ -22,6 +22,28 @@
         <td class="post">
             <asp:TextBox ID="Realname" runat="server" CssClass="edit" /></td>
     </tr>
+        <tr>
+        <td colspan="2" class="header2">
+            <b>
+                <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server" LocalizedPage="CP_EDITPROFILE"
+                    LocalizedTag="homepage" />
+            </b>
+        </td>
+    </tr>
+    <tr>
+        <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="BIRTHDAY" />
+        </td>
+    <td class="post"> 
+     <DotNetAge:DatePicker ID="datePicker" runat="server" 
+        AllowChangeYear="true"    
+        AllowChangeMonth="true"  AnotherFormatString="dd.MM.yy" 
+        DateFormatString="dd/MM/yyyy" MaxDateFormat="+0d" >
+         <AnotherField Selector=""></AnotherField>
+    </DotNetAge:DatePicker>
+        </td>
+    </tr>
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="CP_EDITPROFILE"

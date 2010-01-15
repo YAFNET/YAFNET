@@ -261,6 +261,8 @@
     <Resource tag="BBCODE_CODE">Kodas: </Resource>
     <Resource tag="BBCODE_QUOTE">Citata: </Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} rašė: </Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">
       Jūs [b] gali [/b] ištrinti savo pranešimų šiame
 
@@ -446,6 +448,7 @@
     <Resource tag="BAD_ICQ">Jūs įvedėte nelegalios vertę savo ICQ numerį. </Resource>
     <Resource tag="BAD_MSN">Jūs įvedėte neteisingą e-pašto adresas MSN sąskaitos. </Resource>
     <Resource tag="BAD_WEBLOG">Jūs įvedėte neteisingą adresą savo dienoraštyje. </Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Pakeisti elektroninio pašto adresas </Resource>
     <Resource tag="CHANGE_PASSWORD">Keisti slaptažodį </Resource>
     <Resource tag="CONFIRMPASSWORD">Pakartotinai įveskite naują slaptažodį: </Resource>
@@ -1071,6 +1074,7 @@
     <Resource tag="AIM">AIM vardas: </Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Avataras </Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">Kontaktas </Resource>
     <Resource tag="DAYS">dienų </Resource>
     <Resource tag="EMAIL">E-mail: </Resource>

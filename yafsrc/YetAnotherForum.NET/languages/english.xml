@@ -246,6 +246,8 @@
     <Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
     <Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
     <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
+	<Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
+	<Resource tag="CAL_JQ_CULTURE">en</Resource>
 	<Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
@@ -329,7 +331,8 @@
     <Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
     <Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
     <Resource tag="BAD_WEBLOG">You have entered a invalid address for your weblog.</Resource>
-    <Resource tag="CHANGE_EMAIL">Change Email Address</Resource>
+	<Resource tag="BIRTHDAY">Birthday</Resource>
+	<Resource tag="CHANGE_EMAIL">Change Email Address</Resource>
     <Resource tag="EMAIL">You must always have a valid email address.</Resource>
     <Resource tag="FORUM_SETTINGS">Forum Settings</Resource>
     <Resource tag="HOMEPAGE">Home Page</Resource>
@@ -876,7 +879,8 @@
     <Resource tag="ADMIN_USER">Admin User</Resource>
     <Resource tag="AIM">AIM-Name:</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
-    <Resource tag="CONTACT">Contact</Resource>
+	<Resource tag="BIRTHDAY">Birthday</Resource>
+	<Resource tag="CONTACT">Contact</Resource>
     <Resource tag="DAYS">days</Resource>
     <Resource tag="EMAIL">E-mail:</Resource>
     <Resource tag="ENDS">User Suspension Ends:</Resource>

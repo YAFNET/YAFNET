@@ -258,6 +258,8 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">[b]Voit[/b] poistaa omia viestejä tällä alueella.</Resource>
     <Resource tag="CAN_EDIT">[b]Voit[/b] muokata omia viestejäsi tällä alueella.</Resource>
     <Resource tag="CAN_POLL">[b]Voit[/b] aloittaa äänestyksen tällä alueella.</Resource>
@@ -385,6 +387,7 @@
     <Resource tag="BAD_ICQ">Annoit virheellisen ICQ -numeron.</Resource>
     <Resource tag="BAD_MSN">Annoit virheellisen sähköpostiosoitteen MSN -tiliin.</Resource>
     <Resource tag="BAD_WEBLOG">Annoit virheellisen osoitteen blogillesi.</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Vaihda sähköpostiosoite</Resource>
     <Resource tag="CHANGE_PASSWORD">Vaihda salasana</Resource>
     <Resource tag="CONFIRMPASSWORD">Varmista uusi salasana:</Resource>
@@ -936,6 +939,7 @@
     <Resource tag="AIM">AIM-nimi:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">Ota yhteyttä</Resource>
     <Resource tag="DAYS">päivää</Resource>
     <Resource tag="EMAIL">Sähköposti:</Resource>

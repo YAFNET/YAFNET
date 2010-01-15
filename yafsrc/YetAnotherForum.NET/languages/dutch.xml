@@ -269,6 +269,8 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Aanhalen:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} schreef:</Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">Je [b]kunt[/b] hier je eigen berichten verwijderen.</Resource>
     <Resource tag="CAN_EDIT">Je [b]kunt[/b] hier je eigen berichten bewerken.</Resource>
     <Resource tag="CAN_POLL">Je [b]kunt[/b] hier enquêtes creëren.</Resource>
@@ -394,6 +396,7 @@
     <Resource tag="BAD_ICQ">Je hebt een ongeldig ICQ-nummer ingevoerd.</Resource>
     <Resource tag="BAD_MSN">Je hebt een ongeldig e-mail adres ingevoerd voor je MSN-account.</Resource>
     <Resource tag="BAD_WEBLOG">Je hebt een ongeldig adres ingevoerd voor je weblog.</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">E-mail adres wijzigen</Resource>
     <Resource tag="CHANGE_PASSWORD">Wachtwoord wijzigen</Resource>
     <Resource tag="CONFIRMPASSWORD">Wachtwoord opnieuw invoeren:</Resource>
@@ -942,6 +945,7 @@
     <Resource tag="AIM">AIM-naam:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">Contactinformatie</Resource>
     <Resource tag="DAYS">dagen</Resource>
     <Resource tag="EMAIL">E-mail:</Resource>

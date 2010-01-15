@@ -258,6 +258,8 @@
     <Resource tag="BBCODE_CODE">Kód:</Resource>
     <Resource tag="BBCODE_QUOTE">Citácia:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} napísal:</Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">V tomto fóre [b]môžete[/b] svoje správy mazať.</Resource>
     <Resource tag="CAN_EDIT">V tomto fóre [b]môžete[/b] svoje správy editovať.</Resource>
     <Resource tag="CAN_POLL">V tomto fóre [b]môžete[/b] iniciovať prieskumy mienky.</Resource>
@@ -385,6 +387,7 @@
     <Resource tag="BAD_ICQ">Zadal ste neplatnú hodnotu svojho čísla ICQ.</Resource>
     <Resource tag="BAD_MSN">Zadal ste neplatnú e-mailovú adresu pri vašom účte MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Zadal ste neplatnú adresu svojho weblogu.</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Zmeniť e-mailovú adresu</Resource>
     <Resource tag="CHANGE_PASSWORD">Zmeniť heslo</Resource>
     <Resource tag="CONFIRMPASSWORD">Zadajte nové heslo ešte raz:</Resource>
@@ -957,6 +960,7 @@
     <Resource tag="AIM">Jméno AIM:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Personifikácia</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">Kontakt</Resource>
     <Resource tag="DAYS">dní</Resource>
     <Resource tag="EMAIL">E-mail:</Resource>

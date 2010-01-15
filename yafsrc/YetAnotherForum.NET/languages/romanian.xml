@@ -258,6 +258,8 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">[b] Poti [/b] sterge postari la acest forum.</Resource>
     <Resource tag="CAN_EDIT">[b] Poti [/b] edita postari la acest forum.</Resource>
     <Resource tag="CAN_POLL">[b] Poti [/b] crea sondaje in acest forum.</Resource>
@@ -385,6 +387,7 @@
     <Resource tag="BAD_ICQ">Ai introdus un numar ICQ gresit. </Resource>
     <Resource tag="BAD_MSN">Ai introdus o adresa e-mail gresita pentru contul  MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Ai introdus o adresa  gresita pentru weblogul tau</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Schimba adresa de email.</Resource>
     <Resource tag="CHANGE_PASSWORD">Schimba parola</Resource>
     <Resource tag="CONFIRMPASSWORD">Re-scrieti noua parola:</Resource>
@@ -938,6 +941,7 @@
     <Resource tag="AIM">AIM-Name:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Imagine</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">Contact</Resource>
     <Resource tag="DAYS">zile</Resource>
     <Resource tag="EMAIL">E-mail:</Resource>

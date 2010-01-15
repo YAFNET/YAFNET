@@ -159,7 +159,7 @@ namespace YAF.Pages
       LastVisit.Text = YafServices.DateTime.FormatDateTime(userData.LastVisit);
       }
 
-      Rank.Text = userData.RankName;
+      Rank.Text = userData.RankName;      
       Location.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Location));
       RealName.InnerHtml = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.RealName));
       Interests.InnerHtml = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Interests));
@@ -234,8 +234,10 @@ namespace YAF.Pages
 
       this.Skype.Visible = User != null && !String.IsNullOrEmpty(userData.Profile.Skype);
       this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
-
-      // localize tab titles...
+      
+      this.Birthday.Visible = User != null && (userData.Profile.Birthday > DateTime.MinValue);
+      this.Birthday.Text = YafServices.DateTime.FormatDateLong(userData.Profile.Birthday.Date);
+        // localize tab titles...
       this.ProfileTabs.Views["AboutTab"].Text = GetText("ABOUT");
       this.ProfileTabs.Views["StatisticsTab"].Text = GetText("STATISTICS");
       this.ProfileTabs.Views["AvatarTab"].Text = GetText("AVATAR");

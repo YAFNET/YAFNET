@@ -70,7 +70,7 @@ namespace YAF.Controls
 				UserLanguageRow.Visible = PageContext.BoardSettings.AllowUserLanguage;
 				PMNotificationRow.Visible = PageContext.BoardSettings.AllowPMEmailNotification;
 				MetaWeblogAPI.Visible = PageContext.BoardSettings.AllowPostToBlog;
-                LoginInfo.Visible = PageContext.BoardSettings.AllowEmailChange;
+                LoginInfo.Visible = PageContext.BoardSettings.AllowEmailChange;         
 
 				BindData();
 			}
@@ -90,12 +90,31 @@ namespace YAF.Controls
                 Language.DataTextField = "Language";
                 Language.DataValueField = "FileName";
             }
-
-			DataBind();
-
-			// get an instance of the combined user data class.
-			CombinedUserDataHelper userData = new CombinedUserDataHelper( CurrentUserID );
-
+            DataBind();
+            
+            // get an instance of the combined user data class.
+            CombinedUserDataHelper userData = new CombinedUserDataHelper(CurrentUserID);
+            
+            // vzrus: Throws an exception if a code missing. Cant handlr four letter codes 
+            //string twoLetterCode = PageContext.Localization.Culture.TwoLetterISOLanguageName;
+            string twoLetterCode = PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE");
+            if (!string.IsNullOrEmpty(twoLetterCode))
+            {               
+                    datePicker.LocID = twoLetterCode;              
+            }
+          
+            if (userData.Profile.Birthday > DateTime.MinValue )
+            {
+                datePicker.Value = userData.Profile.Birthday.Date;               
+            }
+            else
+            {
+                datePicker.Value = DateTime.MinValue;
+            }
+   
+            datePicker.ToolTip = PageContext.Localization.GetText("COMMON", "CAL_JQ_TT");            
+            datePicker.DefaultDateString = string.Empty;
+           
 			Location.Text = userData.Profile.Location;
 			HomePage.Text = userData.Profile.Homepage;
 			Email.Text = userData.Email;
@@ -153,7 +172,7 @@ namespace YAF.Controls
 			{
 				PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_MSN" ) );
 				return;
-			}
+			}           
 			if ( HomePage.Text.Length > 0 && !ValidationHelper.IsValidURL( HomePage.Text ) )
 			{
 				PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_HOME" ) );
@@ -227,7 +246,8 @@ namespace YAF.Controls
 			userProfile.Occupation = Occupation.Text.Trim();
 			userProfile.Interests = Interests.Text.Trim();
 			userProfile.Gender = Gender.SelectedIndex;
-			userProfile.Blog = Weblog.Text.Trim();
+			userProfile.Blog = Weblog.Text.Trim();          
+            userProfile.Birthday = datePicker.Value;            
 			userProfile.BlogServiceUrl = WeblogUrl.Text.Trim();
 			userProfile.BlogServiceUsername = WeblogUsername.Text.Trim();
 			userProfile.BlogServicePassword = WeblogID.Text.Trim();

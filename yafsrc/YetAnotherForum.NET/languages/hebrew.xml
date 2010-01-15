@@ -257,6 +257,8 @@
     <Resource tag="BBCODE_CODE">קוד:</Resource>
     <Resource tag="BBCODE_QUOTE">ציטוט:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} כתב/ה:</Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">את/ה [b]יכול/ה[/b] למחוק את הודעותיך בפורום זה.</Resource>
     <Resource tag="CAN_EDIT">את/ה [b]יכול/ה[/b] לערוך את הודעותיך.</Resource>
     <Resource tag="CAN_POLL">את/ה [b]יכול/ה[/b] ליצור סקרים בפורום זה.</Resource>
@@ -380,6 +382,7 @@
     <Resource tag="BAD_ICQ">הזנת ערך לא תקין למספר הICQ.</Resource>
     <Resource tag="BAD_MSN">הזנת כתובת דוא"ל לא תקינה לחשבון הMSN.</Resource>
     <Resource tag="BAD_WEBLOG">הזנת כתובת לא תקינה לבלוג שלך.</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">החלף/ת כתובת דוא"ל</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">כתובת דוא"ל תקינה הינה חובה.</Resource>
@@ -904,6 +907,7 @@
     <Resource tag="AIM">שם AIM:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">דמות</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">צור קשר</Resource>
     <Resource tag="DAYS">ימים</Resource>
     <Resource tag="EMAIL">דוא"ל:</Resource>

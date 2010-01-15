@@ -236,6 +236,8 @@
     <Resource tag="BBCODE_CODE">Mã:</Resource>
     <Resource tag="BBCODE_QUOTE">Trích dẫn:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} đã viết:</Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">Bạn [b]có thể[/b] xóa bài của bạn trong diễn đàn này.</Resource>
     <Resource tag="CAN_EDIT">Bạn [b]có thể[/b] sửa bài của bạn trong diễn đàn này.</Resource>
     <Resource tag="CAN_POLL">Bạn [b]có thể[/b] tạo bình chọn trong diễn đàn này.</Resource>
@@ -359,6 +361,7 @@
     <Resource tag="BAD_ICQ">Bạn đã nhập không hợp lệ cho số ICQ.</Resource>
     <Resource tag="BAD_MSN">Bạn đã nhập địa chỉ email không hợp lệ cho tài khoản MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Bạn đã nhập địa chỉ không hợp lệ cho weblog.</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Đổi email</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Bạn phải nhập địa chỉ email chính xác.</Resource>
@@ -884,6 +887,7 @@
     <Resource tag="AIM">AIM-Name:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Hình đại diện</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">Liên hệ</Resource>
     <Resource tag="DAYS">ngày</Resource>
     <Resource tag="EMAIL">E-mail:</Resource>

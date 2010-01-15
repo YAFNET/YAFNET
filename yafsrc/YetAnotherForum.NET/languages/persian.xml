@@ -257,6 +257,8 @@
     <Resource tag="BBCODE_CODE">کد:</Resource>
     <Resource tag="BBCODE_QUOTE">نقل قول:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} نوشته است:</Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">شما مجاز به حذف مطلب ارسالی خود در این انجمن می باشید.</Resource>
     <Resource tag="CAN_EDIT">شما مجاز به ویرایش مطلب ارسالی خود در این انجمن می باشید.</Resource>
     <Resource tag="CAN_POLL">شما مجاز به ایجاد نظر سنجی در این انجمن می باشید.</Resource>
@@ -380,6 +382,7 @@
     <Resource tag="BAD_ICQ">آدرس ایمیلی که برای سرویس ICQ وارد کرده اید اشتباه میباشد.</Resource>
     <Resource tag="BAD_MSN">آدرس ایمیلی که برای سرویس MSN وارد کرده اید اشتباه میباشد.</Resource>
     <Resource tag="BAD_WEBLOG">آدرسی که به عنوان وبلاگ خود وارد کرده اید اشتباه میباشد.</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">تغییر آدرس پست الکترونیکی</Resource>
     <Resource tag="EDIT_ALBUMS">ویرایش آلبومها</Resource>
     <Resource tag="EMAIL">شما باید یک آدرس ایمیل معتبر داشته باشید.</Resource>
@@ -899,6 +902,7 @@
     <Resource tag="AIM">AIM-نام:</Resource>
     <Resource tag="ALBUMS">آلبومها</Resource>
     <Resource tag="AVATAR">آواتار</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">تماس</Resource>
     <Resource tag="DAYS">روز</Resource>
     <Resource tag="EMAIL">پست الکترونیک:</Resource>

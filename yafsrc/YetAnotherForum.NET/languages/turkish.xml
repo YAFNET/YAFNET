@@ -258,6 +258,8 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">Bu forumdaki postalarınızı [b]silebilirsiniz[/b].</Resource>
     <Resource tag="CAN_EDIT">Bu forumdaki postalarınızı [b]düzenleyebilirsiniz[/b].</Resource>
     <Resource tag="CAN_POLL">Bu forumda [b]anketler[/b] yaratabilirsiniz.</Resource>
@@ -385,6 +387,7 @@
     <Resource tag="BAD_ICQ">Geçersiz bir ICQ numaransı girdiniz.</Resource>
     <Resource tag="BAD_MSN">MSN hesabınız için geçersiz bir e-posta adresi girdiniz.</Resource>
     <Resource tag="BAD_WEBLOG">Weblog'unuz için geçersiz bir bağlantı adresi girdiniz.</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">E-posta Adresi Değiştir</Resource>
     <Resource tag="CHANGE_PASSWORD">Şifre Değiştir</Resource>
     <Resource tag="CONFIRMPASSWORD">Tekrar Yeni Şifre:</Resource>
@@ -937,6 +940,7 @@
     <Resource tag="AIM">AIM-İsmi:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">Kontak</Resource>
     <Resource tag="DAYS">gün</Resource>
     <Resource tag="EMAIL">E-posta:</Resource>

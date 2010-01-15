@@ -258,6 +258,8 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">Du [b]kan[/b] slette dine innlegg i dette forumet.</Resource>
     <Resource tag="CAN_EDIT">Du [b]kan[/b] endre dine innlegg i dette forumet.</Resource>
     <Resource tag="CAN_POLL">Du [b]kan[/b] lage avstemminger i dette forumet.</Resource>
@@ -386,6 +388,7 @@
     <Resource tag="BAD_ICQ">Du har skrevet inn en ugyldig verdi for din ICQ-konto.</Resource>
     <Resource tag="BAD_MSN">Du har skrevet inn en ugyldig e-postadresse for MSN-kontoen din.</Resource>
     <Resource tag="BAD_WEBLOG">Du har skrevet inn en ugyldig adresse for bloggen din.</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Endre e-post	adresse</Resource>
     <Resource tag="CHANGE_PASSWORD">Endre passord</Resource>
     <Resource tag="CONFIRMPASSWORD">Skriv nytt passord igjen:</Resource>
@@ -937,6 +940,7 @@
     <Resource tag="AIM">AIM-Navn:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Bilde (avatar)</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">Kontakt</Resource>
     <Resource tag="DAYS">dager</Resource>
     <Resource tag="EMAIL">E-post:</Resource>

@@ -258,6 +258,8 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">[b]Możesz[/b] usuwać swoje posty w tym forum.</Resource>
     <Resource tag="CAN_EDIT">[b]Możesz[/b] edytować swoje posty w tym forum.</Resource>
     <Resource tag="CAN_POLL">[b]Możesz[/b] tworzyć ankietę w tym forum.</Resource>
@@ -385,6 +387,7 @@
     <Resource tag="BAD_ICQ">Wpisałeś nieprawidłową wartość dla Twojego numeru ICQ.</Resource>
     <Resource tag="BAD_MSN">Wpisałeś nieprawidłowy adres email dla Twojego konta MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Wpisałeś nieprawidłowy adres Twojego weblog-u.</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Zmień adres email</Resource>
     <Resource tag="CHANGE_PASSWORD">Zmień hasło</Resource>
     <Resource tag="CONFIRMPASSWORD">Powtórz nowe hasło:</Resource>
@@ -937,6 +940,7 @@
     <Resource tag="AIM">AIM-Nazwa:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CONTACT">Kontakt</Resource>
     <Resource tag="DAYS">dni</Resource>
     <Resource tag="EMAIL">E-mail:</Resource>

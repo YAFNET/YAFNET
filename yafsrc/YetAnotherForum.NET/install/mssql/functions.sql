@@ -436,10 +436,14 @@ create function [{databaseOwner}].[{objectQualifier}forum_save_parentschecker](@
 
 begin
 -- Checks if the forum is already referenced as a parent 
-    declare @dependency int = 0
-    declare @haschildren int = 0
+    declare @dependency int
+    declare @haschildren int
     declare @frmtmp int
     declare @prntmp int
+    
+    set @dependency = 0
+    set @haschildren = 0
+    
     select @dependency=ForumID from [{databaseOwner}].[{objectQualifier}Forum] where ParentID=@ForumID AND ForumID = @ParentID;
     if @dependency > 0
     begin
