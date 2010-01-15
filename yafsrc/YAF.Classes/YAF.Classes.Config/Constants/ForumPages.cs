@@ -255,8 +255,14 @@ namespace YAF.Classes
     im_icq, 
 
     /// <summary>
+    /// The im_xmpp.
+    /// </summary>
+    im_xmpp,
+
+    /// <summary>
     /// The im_skype.
     /// </summary>
+     
     im_skype, 
 
     /// <summary>

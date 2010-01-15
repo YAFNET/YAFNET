@@ -229,6 +229,9 @@ namespace YAF.Pages
       this.ICQ.Visible = User != null && !String.IsNullOrEmpty(userData.Profile.ICQ);
       this.ICQ.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", userData.UserID);
 
+      this.XMPP.Visible = User != null && !String.IsNullOrEmpty(userData.Profile.XMPP);
+      this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
+
       this.Skype.Visible = User != null && !String.IsNullOrEmpty(userData.Profile.Skype);
       this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
 

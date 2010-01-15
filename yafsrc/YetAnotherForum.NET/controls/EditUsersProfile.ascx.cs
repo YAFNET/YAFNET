@@ -110,6 +110,7 @@ namespace YAF.Controls
 			YIM.Text = userData.Profile.YIM;
 			AIM.Text = userData.Profile.AIM;
 			ICQ.Text = userData.Profile.ICQ;
+            Xmpp.Text = userData.Profile.XMPP;
 			Skype.Text = userData.Profile.Skype;
 			PMNotificationEnabled.Checked = userData.PMNotification;
             AutoWatchTopicsEnabled.Checked = userData.AutoWatchTopics;
@@ -220,6 +221,7 @@ namespace YAF.Controls
 			userProfile.YIM = YIM.Text.Trim();
 			userProfile.AIM = AIM.Text.Trim();
 			userProfile.ICQ = ICQ.Text.Trim();
+            userProfile.XMPP = Xmpp.Text.Trim();
 			userProfile.Skype = Skype.Text.Trim();
 			userProfile.RealName = Realname.Text.Trim();
 			userProfile.Occupation = Occupation.Text.Trim();

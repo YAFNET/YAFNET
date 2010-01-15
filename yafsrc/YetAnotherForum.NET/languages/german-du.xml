@@ -573,6 +573,12 @@
   <page name="IM_SKYPE">
     <Resource tag="TITLE">Skype(tm) Anruf</Resource>
   </page>
+  <page name="IM_XMPP">
+    <Resource tag="SERVEROTHER">The user uses the servers {0}. To communicate to him you should register there, as you don't have an account.</Resource>
+    <Resource tag="SERVERSAME">The user uses the same XMPP server - you can connect to him using a client like Pidgin. His account is {0}</Resource>
+    <Resource tag="SERVERYOU">Are you sure you want speak to youself?</Resource>
+    <Resource tag="TITLE">XMPP Messenger</Resource>
+  </page>
   <page name="IM_YIM">
     <Resource tag="TITLE">Yahoo!-Messenger</Resource>
   </page>
@@ -886,6 +892,7 @@
     <Resource tag="WARN_TOPIC_LOCKED">Dieses Thema wurde geschlossen!</Resource>
     <Resource tag="WARN_WATCHLOGIN">Du musst registriert sein, um dieses Thema zu lesen.</Resource>
     <Resource tag="WATCHTOPIC">Dieses Thema abonnieren</Resource>
+    <Resource tag="XMPP">XMPP</Resource>
     <Resource tag="YIM">YAHOO</Resource>
   </page>
   <page name="PRINTTOPIC">
@@ -942,6 +949,7 @@
     <Resource tag="USERNAME">Benutzername:</Resource>
     <Resource tag="WEBLOG">Weblog:</Resource>
     <Resource tag="WEBSITE">Webseite:</Resource>
+    <Resource tag="XMPP">XMPP Name:</Resource>
     <Resource tag="YIM">Yahoo!-Messenger:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">

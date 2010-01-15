@@ -20,6 +20,8 @@
 			TextLocalizedTag="YIM" ImageThemeTag="YIM" />
 		<YAF:ThemeButton ID="Icq" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 			TextLocalizedTag="ICQ" ImageThemeTag="ICQ" />
+		<YAF:ThemeButton ID="Xmpp" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
+			TextLocalizedTag="Xmpp" ImageThemeTag="XMPP" />	
 		<YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 			TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
 	</div>

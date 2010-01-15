@@ -31,6 +31,8 @@
 				TextLocalizedTag="YIM" ImageThemeTag="YIM" />
 			<YAF:ThemeButton ID="ICQ" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 				TextLocalizedTag="ICQ" ImageThemeTag="ICQ" />
+			<YAF:ThemeButton ID="XMPP" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
+				TextLocalizedTag="XMPP" ImageThemeTag="XMPP" />	
 			<YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 				TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
 			<YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible="false"
@@ -152,6 +154,14 @@
 								</td>
 								<td class="post">
 									<asp:Label ID="lblicq" runat="server" />
+								</td>
+							</tr>
+								<tr>
+								<td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" LocalizedTag="XMPP" />
+								</td>
+								<td class="post">
+									<asp:Label ID="lblxmpp" runat="server" />
 								</td>
 							</tr>
 							<tr>

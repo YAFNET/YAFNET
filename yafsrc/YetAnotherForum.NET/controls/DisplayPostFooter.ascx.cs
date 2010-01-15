@@ -158,6 +158,10 @@
       // ICQ
       this.Icq.Visible = !PostData.PostDeleted && PageContext.User != null && !String.IsNullOrEmpty(PostData.UserProfile.ICQ);
       this.Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", PostData.UserId);
+      
+      // XMPP
+      this.Xmpp.Visible = !PostData.PostDeleted && PageContext.User != null && !String.IsNullOrEmpty(PostData.UserProfile.XMPP);
+      this.Xmpp.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", PostData.UserId);
 
       // Skype
       this.Skype.Visible = !PostData.PostDeleted && PageContext.User != null && !String.IsNullOrEmpty(PostData.UserProfile.Skype);

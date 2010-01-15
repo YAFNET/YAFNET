@@ -153,6 +153,24 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
+    /// Gets or sets XMPP.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("XMPP;nvarchar;255")]
+    public string XMPP
+    {
+        get
+        {
+            return base["XMPP"] as string;
+        }
+
+        set
+        {
+            base["XMPP"] = value;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets Skype.
     /// </summary>
     [SettingsAllowAnonymous(false)]

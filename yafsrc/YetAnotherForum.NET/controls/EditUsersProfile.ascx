@@ -163,6 +163,14 @@
         <td class="post">
             <asp:TextBox runat="server" ID="ICQ" CssClass="edit" /></td>
     </tr>
+       <tr>
+        <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="xmpp" />
+        </td>
+        <td class="post">
+            <asp:TextBox runat="server" ID="Xmpp" CssClass="edit" /></td>
+    </tr>
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" LocalizedPage="CP_EDITPROFILE"

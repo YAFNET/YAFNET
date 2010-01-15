@@ -552,6 +552,12 @@
   <page name="IM_SKYPE">
     <Resource tag="TITLE">Skype(tm) Calling</Resource>
   </page>
+  <page name="IM_XMPP">
+    <Resource tag="SERVEROTHER">The user uses the servers {0}. To communicate to him you should register there, as you don't have an account.</Resource>
+    <Resource tag="SERVERSAME">The user uses the same XMPP server - you can connect to him using a client like Pidgin. His account is {0}</Resource>
+    <Resource tag="SERVERYOU">Are you sure you want speak to youself?</Resource>
+    <Resource tag="TITLE">XMPP Messenger</Resource>
+  </page>
   <page name="IM_YIM">
     <Resource tag="TITLE">Yahoo! Messenger</Resource>
   </page>
@@ -866,6 +872,7 @@
     <Resource tag="WARN_TOPIC_LOCKED">Chủ đề đã được đóng.</Resource>
     <Resource tag="WARN_WATCHLOGIN">Bạn cần đăng nhập để tiếp tục.</Resource>
     <Resource tag="WATCHTOPIC">Xem chủ đề này</Resource>
+    <Resource tag="XMPP">XMPP</Resource>
     <Resource tag="YIM">YAHOO</Resource>
   </page>
   <page name="PRINTTOPIC">
@@ -923,6 +930,7 @@
     <Resource tag="USERNAME">Tên sử dụng:</Resource>
     <Resource tag="WEBLOG">Blog:</Resource>
     <Resource tag="WEBSITE">Trang chủ:</Resource>
+    <Resource tag="XMPP">XMPP Name:</Resource>
     <Resource tag="YIM">Yahoo Messenger:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">
