@@ -236,7 +236,7 @@
     <Resource tag="BBCODE_CODE">Mã:</Resource>
     <Resource tag="BBCODE_QUOTE">Trích dẫn:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} đã viết:</Resource>
-    <Resource tag="CAL_JQ_CULTURE">uk</Resource>
+    <Resource tag="CAL_JQ_CULTURE"></Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">Bạn [b]có thể[/b] xóa bài của bạn trong diễn đàn này.</Resource>
     <Resource tag="CAN_EDIT">Bạn [b]có thể[/b] sửa bài của bạn trong diễn đàn này.</Resource>

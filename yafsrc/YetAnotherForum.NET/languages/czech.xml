@@ -258,7 +258,7 @@
     <Resource tag="BBCODE_CODE">Kód:</Resource>
     <Resource tag="BBCODE_QUOTE">Citace:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} napsal:</Resource>
-    <Resource tag="CAL_JQ_CULTURE">uk</Resource>
+    <Resource tag="CAL_JQ_CULTURE"></Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">V tomto fóru [b]můžete[/b] své zprávy mazat.</Resource>
     <Resource tag="CAN_EDIT">V tomto fóru [b]můžete[/b] své zprávy editovat.</Resource>
