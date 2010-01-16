@@ -261,7 +261,7 @@
     <Resource tag="BBCODE_CODE">Kodas: </Resource>
     <Resource tag="BBCODE_QUOTE">Citata: </Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} rašė: </Resource>
-    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_CULTURE">lt</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">
       Jūs [b] gali [/b] ištrinti savo pranešimų šiame

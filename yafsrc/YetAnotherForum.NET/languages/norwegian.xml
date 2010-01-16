@@ -258,7 +258,7 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
-    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_CULTURE">no</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">Du [b]kan[/b] slette dine innlegg i dette forumet.</Resource>
     <Resource tag="CAN_EDIT">Du [b]kan[/b] endre dine innlegg i dette forumet.</Resource>

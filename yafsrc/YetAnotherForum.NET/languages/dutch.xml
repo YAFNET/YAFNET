@@ -269,7 +269,7 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Aanhalen:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} schreef:</Resource>
-    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_CULTURE">nl</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">Je [b]kunt[/b] hier je eigen berichten verwijderen.</Resource>
     <Resource tag="CAN_EDIT">Je [b]kunt[/b] hier je eigen berichten bewerken.</Resource>

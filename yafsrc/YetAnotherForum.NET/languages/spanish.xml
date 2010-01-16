@@ -257,7 +257,7 @@
     <Resource tag="BBCODE_CODE">Código:</Resource>
     <Resource tag="BBCODE_QUOTE">Citar:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} escribió:</Resource>
-    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_CULTURE">es</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">[b]Puedes[/b] eliminar sus temas en este foro.</Resource>
     <Resource tag="CAN_EDIT">[b]Puedes[/b] editar sus temas en este foro.</Resource>

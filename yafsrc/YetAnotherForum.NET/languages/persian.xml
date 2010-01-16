@@ -257,7 +257,7 @@
     <Resource tag="BBCODE_CODE">کد:</Resource>
     <Resource tag="BBCODE_QUOTE">نقل قول:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} نوشته است:</Resource>
-    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_CULTURE">fa</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">شما مجاز به حذف مطلب ارسالی خود در این انجمن می باشید.</Resource>
     <Resource tag="CAN_EDIT">شما مجاز به ویرایش مطلب ارسالی خود در این انجمن می باشید.</Resource>

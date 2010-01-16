@@ -258,7 +258,7 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
-    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_CULTURE">zh-CN</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">您 [b]可以[/b] 删除自己的发言.</Resource>
     <Resource tag="CAN_EDIT">您 [b]可以[/b] 编辑自己的发言.</Resource>

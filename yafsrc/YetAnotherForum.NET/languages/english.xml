@@ -247,7 +247,7 @@
     <Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
     <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
 	<Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
-	<Resource tag="CAL_JQ_CULTURE">en</Resource>
+	<Resource tag="CAL_JQ_CULTURE">uk</Resource>
 	<Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>

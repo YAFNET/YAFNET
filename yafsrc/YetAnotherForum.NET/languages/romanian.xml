@@ -258,7 +258,7 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
-    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_CULTURE">ro</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">[b] Poti [/b] sterge postari la acest forum.</Resource>
     <Resource tag="CAN_EDIT">[b] Poti [/b] edita postari la acest forum.</Resource>

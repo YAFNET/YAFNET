@@ -257,7 +257,7 @@
     <Resource tag="BBCODE_CODE">קוד:</Resource>
     <Resource tag="BBCODE_QUOTE">ציטוט:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} כתב/ה:</Resource>
-    <Resource tag="CAL_JQ_CULTURE">en</Resource>
+    <Resource tag="CAL_JQ_CULTURE">he</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">את/ה [b]יכול/ה[/b] למחוק את הודעותיך בפורום זה.</Resource>
     <Resource tag="CAN_EDIT">את/ה [b]יכול/ה[/b] לערוך את הודעותיך.</Resource>
