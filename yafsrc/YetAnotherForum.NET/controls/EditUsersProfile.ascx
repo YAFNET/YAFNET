@@ -39,7 +39,7 @@
      <DotNetAge:DatePicker ID="datePicker" runat="server" 
         AllowChangeYear="true"    
         AllowChangeMonth="true"  AnotherFormatString="dd.MM.yy" 
-        DateFormatString="dd/MM/yyyy" MaxDateFormat="+0d" >
+        DateFormatString="dd/MM/yyyy" MaxDateFormat="+0d" Enabled="true" >
          <AnotherField Selector=""></AnotherField>
     </DotNetAge:DatePicker>
         </td>

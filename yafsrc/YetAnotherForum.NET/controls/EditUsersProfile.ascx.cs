@@ -38,6 +38,7 @@ namespace YAF.Controls
 	{
 		private int CurrentUserID;
 		private bool AdminEditMode = false;
+        private string currentCulture = "en-US";
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
@@ -70,7 +71,8 @@ namespace YAF.Controls
 				UserLanguageRow.Visible = PageContext.BoardSettings.AllowUserLanguage;
 				PMNotificationRow.Visible = PageContext.BoardSettings.AllowPMEmailNotification;
 				MetaWeblogAPI.Visible = PageContext.BoardSettings.AllowPostToBlog;
-                LoginInfo.Visible = PageContext.BoardSettings.AllowEmailChange;         
+                LoginInfo.Visible = PageContext.BoardSettings.AllowEmailChange;
+                currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag;
 
 				BindData();
 			}
@@ -93,16 +95,13 @@ namespace YAF.Controls
             DataBind();
             
             // get an instance of the combined user data class.
-            CombinedUserDataHelper userData = new CombinedUserDataHelper(CurrentUserID);
-            
-            // vzrus: Throws an exception if a code missing. Cant handlr four letter codes 
-            //string twoLetterCode = PageContext.Localization.Culture.TwoLetterISOLanguageName;
-            string twoLetterCode = PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE");
-            if (!string.IsNullOrEmpty(twoLetterCode))
-            {               
-                    datePicker.LocID = twoLetterCode;              
-            }
-          
+            CombinedUserDataHelper userData = new CombinedUserDataHelper(CurrentUserID);    
+                     
+         
+            CultureInfo ci = new CultureInfo(currentCulture);
+            datePicker.LocID = ci.TwoLetterISOLanguageName;
+            datePicker.AnotherFormatString = ci.DateTimeFormat.ShortDatePattern;
+            datePicker.DateFormatString = ci.DateTimeFormat.ShortDatePattern;
             if (userData.Profile.Birthday > DateTime.MinValue )
             {
                 datePicker.Value = userData.Profile.Birthday.Date;               
