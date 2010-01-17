@@ -483,9 +483,10 @@ if exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{o
 go
 
 /* Wrong index */
+/* Modified by Herman_Herman for SQL2K Compatibility */
 
 if exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Thanks]') and name='IX_{objectQualifier}Thanks_UserID')
-	drop index [IX_{objectQualifier}Thanks_UserID] on [{databaseOwner}].[{objectQualifier}Thanks]
+    alter table [{databaseOwner}].[{objectQualifier}Thanks] drop constraint [IX_{objectQualifier}Thanks_UserID]
 go
 
 /* Build new constraints */
