@@ -95,13 +95,16 @@ namespace YAF.Controls
             DataBind();
             
             // get an instance of the combined user data class.
-            CombinedUserDataHelper userData = new CombinedUserDataHelper(CurrentUserID);    
-                     
+            CombinedUserDataHelper userData = new CombinedUserDataHelper(CurrentUserID);               
          
             CultureInfo ci = new CultureInfo(currentCulture);
-            datePicker.LocID = ci.TwoLetterISOLanguageName;
-            datePicker.AnotherFormatString = ci.DateTimeFormat.ShortDatePattern;
-            datePicker.DateFormatString = ci.DateTimeFormat.ShortDatePattern;
+            
+            if (ci.TwoLetterISOLanguageName != "en")
+            {
+                datePicker.AnotherFormatString = ci.DateTimeFormat.ShortDatePattern;
+                datePicker.DateFormatString = ci.DateTimeFormat.ShortDatePattern;
+                datePicker.LocID = ci.TwoLetterISOLanguageName;
+            }
             if (userData.Profile.Birthday > DateTime.MinValue )
             {
                 datePicker.Value = userData.Profile.Birthday.Date;               

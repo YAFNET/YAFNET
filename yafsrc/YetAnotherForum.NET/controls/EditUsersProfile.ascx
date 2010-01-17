@@ -38,8 +38,8 @@
     <td class="post"> 
      <DotNetAge:DatePicker ID="datePicker" runat="server" 
         AllowChangeYear="true"    
-        AllowChangeMonth="true"  AnotherFormatString="dd.MM.yy" 
-        DateFormatString="dd/MM/yyyy" MaxDateFormat="+0d" Enabled="true" >
+        AllowChangeMonth="true"  AnotherFormatString="MM/dd/yyyy" 
+        DateFormatString="MM/dd/yyyy" MaxDateFormat="+0d" Enabled="true" >
          <AnotherField Selector=""></AnotherField>
     </DotNetAge:DatePicker>
         </td>
