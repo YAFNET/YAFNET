@@ -403,6 +403,98 @@ namespace YAF.Classes.UI
       return quote.Replace(body, string.Empty).TrimStart();
     }
 
+      /// <summary>
+      /// Class to detect a forbidden BBCode tag from delimited by 'delim' list 
+      /// 'stringToMatch'
+      /// </summary>
+      /// <param name="stringToClear">Input string</param>
+      /// <param name="stringToMatch">String with delimiter</param>
+      /// <param name="delim"></param>
+      /// <returns></returns>
+    public static string BBCodeForbiddenDetector(string stringToClear, string stringToMatch, char delim )
+    {      
+        bool checker = false;
+        if (string.IsNullOrEmpty(stringToMatch))
+      {
+          checker = true;
+      }
+        string tagForbidden = null;
+        bool detectedTag = false;        
+        string[] codes = stringToMatch.Split(delim);
+        char[] charray = stringToClear.ToCharArray();
+        int openPosition = 0;       
+        int currentPosition = 0;
+
+            // Loop through char array i will be current poision
+        for (int i = 0; i < charray.Length; i++)
+        {
+            if (i >= currentPosition)
+            {
+                // bbcode token is detected
+                if (charray[i] == '[')
+                {
+
+                    openPosition = i;
+                    // we loop to find closing bracket, beginnin with i position
+                    for (int j = i; j < charray.Length-1; j++)
+                    {
+                        // closing bracket found
+                        if (charray[j] == ']')
+                        {
+                           
+                            // we should reset the value in each cycle 
+                            // if an opening bracket was found
+                            detectedTag = false;
+                            string res = null;                            
+
+                            // now we loop through out allowed bbcode list
+                            for (int k = 0; k < codes.Length; k++)
+                            {
+
+                                // closing bracket is in position 'j' opening is in pos 'i'
+                                // we should not take into account closing bracket
+                                // as we have tags like '[URL='
+                                for (int l = openPosition; l < j; l++)
+                                {
+                                    res = res + charray[l].ToString().ToUpper();
+                                }
+                                if (checker)
+                                {                                   
+                                    return "ALL";
+                                }
+                                // detect if the tag from list was found
+                                detectedTag = res.Contains("[" + codes[k].ToUpper().Trim()) || res.Contains("[/" + codes[k].ToUpper().Trim());
+                                res = string.Empty;
+                                // if so we go out from k-loop after we should go out from j-loop too
+                                if (detectedTag)
+                                {
+                                    currentPosition = j + 1;
+                                    break;
+                                }
+                            }
+                            currentPosition = j + 1;
+                            // we didn't found the allowed tag in k-loop through allowed list,
+                            // so the tag is forbidden one and we should exit
+                            if (!detectedTag)
+                            {
+                                tagForbidden = stringToClear.Substring(i, j-i+1).ToUpper();
+                                return tagForbidden;
+                            }
+                            
+                            if (detectedTag)
+                            {
+                                break;
+                            }
+                        }                        
+                        // continue to loop                        
+                       
+                    }
+                }
+
+            }
+        }
+        return null;
+    }
     /// <summary>
     /// The repair html.
     /// </summary>

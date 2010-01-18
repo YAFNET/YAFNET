@@ -152,9 +152,9 @@ namespace YAF.Pages.Admin
         case "add":
 
           // save role and get its ID
-          int _initialPMessages = 0;
+          int _initialPMessages = 0;          
           long groupID = DB.group_save(
-            DBNull.Value, PageContext.PageBoardID, e.CommandArgument.ToString(), false, false, false, false, 1, _initialPMessages, null, 100);
+            DBNull.Value, PageContext.PageBoardID, e.CommandArgument.ToString(), false, false, false, false, 1, _initialPMessages, null, 100,null,0,null,null,0,0);
 
           // redirect to newly created role
           YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", groupID);

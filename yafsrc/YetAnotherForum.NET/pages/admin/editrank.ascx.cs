@@ -65,6 +65,12 @@ namespace YAF.Pages.Admin
             this.PMLimit.Text = row["PMLimit"].ToString();
             this.Style.Text = row["Style"].ToString();
             this.RankPriority.Text = row["SortOrder"].ToString();
+            this.UsrAlbums.Text = row["UsrAlbums"].ToString();
+            this.UsrAlbumImages.Text = row["UsrAlbumImages"].ToString();
+            this.UsrSigChars.Text = row["UsrSigChars"].ToString();
+            this.UsrSigBBCodes.Text = row["UsrSigBBCodes"].ToString();
+            this.UsrSigHTMLTags.Text = row["UsrSigHTMLTags"].ToString();
+            this.Description.Text = row["Description"].ToString();
 
             ListItem item = this.RankImage.Items.FindByText(row["RankImage"].ToString());
             if (item != null)
@@ -166,6 +172,21 @@ namespace YAF.Pages.Admin
         PageContext.AddLoadMessage("Rank Priority should be small integer.");
         return;
       }
+      if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
+      {
+          PageContext.AddLoadMessage("You should enter integer value for the number of user albums.");
+          return;
+      }
+      if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
+      {
+          PageContext.AddLoadMessage("You should enter integer value for the number of chars in user signature.");
+          return;
+      }
+      if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
+      {
+          PageContext.AddLoadMessage("You should enter integer value for the total number of images in all albums.");
+          return;
+      }
 
       // Group
       int RankID = 0;
@@ -188,9 +209,15 @@ namespace YAF.Pages.Admin
         this.IsLadder.Checked, 
         this.MinPosts.Text, 
         rankImage, 
-        Convert.ToInt32(this.PMLimit.Text), 
+        Convert.ToInt32(this.PMLimit.Text.Trim()), 
         this.Style.Text.Trim(), 
-        this.RankPriority.Text.Trim());
+        this.RankPriority.Text.Trim(),
+        this.Description.Text,
+        Convert.ToInt32(this.UsrSigChars.Text.Trim()),
+        this.UsrSigBBCodes.Text.Trim(),
+        this.UsrSigHTMLTags.Text.Trim(),
+        Convert.ToInt32(this.UsrAlbums.Text.Trim()),
+        Convert.ToInt32(this.UsrAlbumImages.Text.Trim()));
 
       YafBuildLink.Redirect(ForumPages.admin_ranks);
     }

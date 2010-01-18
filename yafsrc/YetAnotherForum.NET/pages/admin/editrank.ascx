@@ -43,6 +43,51 @@
 			<td class="post" colspan="6">
 				<asp:TextBox ID="PMLimit" Text="0" runat="server" /></td>
 		</tr>
+			<tr>
+			<td class="postheader" colspan="4">
+				<b>Description:</b><br />
+				Enter here a role description.</td>
+			<td class="post" colspan="6">
+				<asp:TextBox Style="width: 300px" ID="Description" runat="server" /></td>
+		</tr>
+		<tr>
+			<td class="postheader" colspan="4">
+				<b>Max number of chars in a user signature:</b><br />
+				Max number of chars in a user signature in the role.</td>
+			<td class="post" colspan="6">
+				<asp:TextBox Style="width: 300px" ID="UsrSigChars" runat="server" /></td>
+		</tr>
+			<tr>
+			<td class="postheader" colspan="4">
+				<b>User signature BBCodes:</b><br />
+				Comma separated  BBCodes allowed in a user signature in the group.</td>
+			<td class="post" colspan="6">
+				<asp:TextBox Style="width: 300px" ID="UsrSigBBCodes" runat="server" /></td>
+		
+		</tr>
+			<tr>
+			<td class="postheader" colspan="4">
+				<b>User signature HTML tags:</b><br />
+				Comma separated HTML tags allowed in a user signature in the group.</td>
+			<td class="post" colspan="6">
+				<asp:TextBox Style="width: 300px" ID="UsrSigHTMLTags" runat="server" /></td>
+		</tr>				
+			<tr>
+			<td class="postheader" colspan="4">
+				<b>User Albums Number:</b><br />
+				Integer value for a user allowed albums number.</td>
+			<td class="post" colspan="6">
+				<asp:TextBox Style="width: 300px" ID="UsrAlbums" runat="server" /></td>
+		</tr>
+			</tr>
+				</tr>
+			<tr>
+			<td class="postheader" colspan="4">
+				<b>Total Album Images Number:</b><br />
+				Integer value for a user allowed images number in ALL albums.</td>
+			<td class="post" colspan="6">
+				<asp:TextBox Style="width: 300px" ID="UsrAlbumImages" runat="server" /></td>
+		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
 				<b>Priority:</b><br />

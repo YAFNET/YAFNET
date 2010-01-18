@@ -3383,7 +3383,13 @@ namespace YAF.Classes.Data
       object accessMaskID, 
       object pmLimit, 
       object style, 
-      object sortOrder)
+      object sortOrder,
+      object description,
+      object usrSigChars,
+      object usrSigBBCodes,
+      object usrSigHTMLTags,
+      object usrAlbums,
+      object usrAlbumImages)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("group_save"))
       {
@@ -3399,6 +3405,13 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("PMLimit", pmLimit);
         cmd.Parameters.AddWithValue("Style", style);
         cmd.Parameters.AddWithValue("SortOrder", sortOrder);
+        cmd.Parameters.AddWithValue("Description", description);
+        cmd.Parameters.AddWithValue("UsrSigChars", usrSigChars);
+        cmd.Parameters.AddWithValue("UsrSigBBCodes", usrSigBBCodes);
+        cmd.Parameters.AddWithValue("UsrSigHTMLTags", usrSigHTMLTags);
+        cmd.Parameters.AddWithValue("UsrAlbums", usrAlbums);
+        cmd.Parameters.AddWithValue("UsrAlbumImages", usrAlbumImages);
+
         return long.Parse(YafDBAccess.Current.ExecuteScalar(cmd).ToString());
       }
     }
@@ -5607,8 +5620,14 @@ namespace YAF.Classes.Data
       object minPosts, 
       object rankImage, 
       object pmLimit, 
-      object style, 
-      object sortOrder)
+      object style,
+      object sortOrder,
+      object description,
+      object usrSigChars,
+      object usrSigBBCodes,
+      object usrSigHTMLTags,
+      object usrAlbums,
+      object usrAlbumImages)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("rank_save"))
       {
@@ -5623,6 +5642,12 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("PMLimit", pmLimit);
         cmd.Parameters.AddWithValue("Style", style);
         cmd.Parameters.AddWithValue("SortOrder", sortOrder);
+        cmd.Parameters.AddWithValue("Description", description);
+        cmd.Parameters.AddWithValue("UsrSigChars", usrSigChars);
+        cmd.Parameters.AddWithValue("UsrSigBBCodes", usrSigBBCodes);
+        cmd.Parameters.AddWithValue("UsrSigHTMLTags", usrSigHTMLTags);
+        cmd.Parameters.AddWithValue("UsrAlbums", usrAlbums);
+        cmd.Parameters.AddWithValue("UsrAlbumImages", usrAlbumImages);
 
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
@@ -7002,6 +7027,39 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("Suspend", suspend);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
+    }
+
+    /// <summary>
+    /// Returns data about allowed signature tags and character limits
+    /// </summary>
+    /// <param name="userID">The userID</param>
+    /// <param name="boardID">The boardID</param>
+    /// <returns>Data Table</returns>
+    public static DataTable user_getsignaturedata(object userID, object boardID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("user_getsignaturedata"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BoardID", boardID);
+            cmd.Parameters.AddWithValue("UserID", userID);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
+    /// <summary>
+    /// Returns data about albums: allowed number of images and albums
+    /// </summary>
+    /// <param name="userID">The userID</param>
+    /// <param name="boardID">The boardID</param>  
+    public static DataTable user_getalbumsdata(object userID, object boardID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("user_getalbumsdata"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BoardID", boardID);
+            cmd.Parameters.AddWithValue("UserID", userID);
+            return YafDBAccess.Current.GetData(cmd);
+        }
     }
 
     /// <summary>

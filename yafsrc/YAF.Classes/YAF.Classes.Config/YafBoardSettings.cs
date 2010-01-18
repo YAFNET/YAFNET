@@ -379,25 +379,6 @@ namespace YAF.Classes
       }
     }
     /// <summary>
-    /// Gets or sets SignatureMaxLength parameter 
-    /// which limits max number of symbols in user signature 
-    /// including tags.
-    /// </summary>
-    /// 
-    public int UserSignatureMaxLength
-    {
-        get
-        {
-            return this._regBoard.GetValue<int>("UserSignatureMaxLength", 128);
-        }
-
-        set
-        {
-            this._regBoard.SetValue<int>("UserSignatureMaxLength", value);
-        }
-    }
-
-    /// <summary>
     /// Gets or sets SmiliesColumns.
     /// </summary>
     public int SmiliesColumns
@@ -2296,7 +2277,6 @@ namespace YAF.Classes
         this._reg.SetValue<string>("UserBoxThanksTo", value);
       }
     }
-
     #endregion
 
     #region Nested type: YafLegacyBoardSettings

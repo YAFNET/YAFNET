@@ -313,10 +313,12 @@
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Titre</Resource>
+    <Resource tag="ALBUMS_COUNT_LIMIT">You  can't create more then {0} albums.</Resource>
     <Resource tag="ASK_DELETEALBUM">Effacer cet album ?</Resource>
     <Resource tag="ASK_DELETEIMAGE">Effacer cette image ?</Resource>
     <Resource tag="ERROR_MAXALBUMS">Vous ne pouvez pas ajouter d'album supplémentaire sur ce compte.</Resource>
     <Resource tag="ERROR_TOOBIG">Vous ne pouvez pas envoyer d'image d'un tel poids.</Resource>
+    <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images.</Resource>
     <Resource tag="TITLE">Ajouter/modifier album</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -441,7 +443,9 @@
     <Resource tag="YOUR_USERNAME">Votre Nom&amp;nbsp;:</Resource>
   </page>
   <page name="CP_SIGNATURE">
+    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
     <Resource tag="SIGNATURE">Signature&amp;nbsp;:</Resource>
+    <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
     <Resource tag="TITLE">Editer votre Signature</Resource>
   </page>

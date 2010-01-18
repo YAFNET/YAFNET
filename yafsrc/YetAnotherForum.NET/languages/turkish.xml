@@ -335,10 +335,12 @@
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Title</Resource>
+    <Resource tag="ALBUMS_COUNT_LIMIT">You  can't create more then {0} albums.</Resource>
     <Resource tag="ASK_DELETEALBUM">Delete this album?</Resource>
     <Resource tag="ASK_DELETEIMAGE">Delete this image?</Resource>
     <Resource tag="ERROR_MAXALBUMS">You can not add any more albums to this account.</Resource>
     <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
+    <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images.</Resource>
     <Resource tag="TITLE">Add/Edit Album</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -494,7 +496,9 @@
     <Resource tag="YOUR_USERNAME">Kullanıcı adınız:</Resource>
   </page>
   <page name="CP_SIGNATURE">
+    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
     <Resource tag="SIGNATURE">İmza:</Resource>
+    <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
     <Resource tag="TITLE">İmzayı Düzenle</Resource>
   </page>

@@ -178,7 +178,7 @@
 		<tr>
 			<td class="postfooter" colspan="4">
 			
-			These statistics don&apos;t count deleted topics and posts.</td>
+			These statistics don&#39;t count deleted topics and posts.</td>
 			
 			
 			

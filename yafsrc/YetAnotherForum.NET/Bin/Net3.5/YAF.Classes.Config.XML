@@ -1825,15 +1825,7 @@
             <summary>
             Gets or sets MaxFileSize.
             </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettings.UserSignatureMaxLength">
-            <summary>
-            Gets or sets SignatureMaxLength parameter 
-            which limits max number of symbols in user signature 
-            including tags.
-            </summary>
-            
-        </member>
+        </member>        
         <member name="P:YAF.Classes.YafBoardSettings.SmiliesColumns">
             <summary>
             Gets or sets SmiliesColumns.

@@ -963,6 +963,50 @@ begin
 end
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Description')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] add Description nvarchar(128) null
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigChars')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrSigChars int not null default (0)
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigChars')
+begin
+grant update on [{databaseOwner}].[{objectQualifier}Group] to public
+		exec('update [{databaseOwner}].[{objectQualifier}Group] set UsrSigChars = 128 WHERE UsrSigChars = 0 AND Name != ''Guest'' ')
+		revoke update on [{databaseOwner}].[{objectQualifier}Rank] from public	
+end
+GO
+
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigBBCodes')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrSigBBCodes nvarchar(255) null
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigHTMLTags')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrSigHTMLTags nvarchar(255) null
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrAlbums')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrAlbums int not null default (0)
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrAlbumImages')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrAlbumImages int not null default (0)
+end
+GO
 
 -- AccessMask Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='Flags')
@@ -1202,6 +1246,49 @@ begin
 end
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Description')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add Description nvarchar(128) null
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigChars')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrSigChars int not null default (0)
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigChars')
+begin
+grant update on [{databaseOwner}].[{objectQualifier}Rank] to public
+		exec('update [{databaseOwner}].[{objectQualifier}Rank] set UsrSigChars = 128 WHERE UsrSigChars = 0 AND Name != ''Guest'' ')
+		revoke update on [{databaseOwner}].[{objectQualifier}Rank] from public	
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigBBCodes')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrSigBBCodes nvarchar(255) null
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigHTMLTags')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrSigHTMLTags nvarchar(255) null
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrAlbums')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrAlbums int not null default (0)
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrAlbumImages')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrAlbumImages int not null default (0)
+end
+GO
 
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='IsStart')
 begin
@@ -1211,8 +1298,6 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] drop column IsStart
 end
 GO
-
-
 
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='IsLadder')
 begin

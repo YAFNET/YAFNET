@@ -317,10 +317,12 @@
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Название</Resource>
+    <Resource tag="ALBUMS_COUNT_LIMIT">Вам не разрешено создавать более {0} альбомов.</Resource>
     <Resource tag="ASK_DELETEALBUM">Удалить этот альбом?</Resource>
     <Resource tag="ASK_DELETEIMAGE">Удалить это изображение?</Resource>
     <Resource tag="ERROR_MAXALBUMS">Вы больше не можете добавлять альбомы для вашей учётной записи.</Resource>
     <Resource tag="ERROR_TOOBIG">Размер изображение слишком большой.</Resource>
+    <Resource tag="IMAGES_COUNT_LIMIT">Предельное количество разрешённых изображений достигнуто. Вы можете добавить не более чем {0} изображений в каждый альбом.</Resource>
     <Resource tag="TITLE">Добавить/изменить альбом</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -445,7 +447,9 @@
     <Resource tag="YOUR_USERNAME">Ваше имя пользователя:</Resource>
   </page>
   <page name="CP_SIGNATURE">
+    <Resource tag="BBCODE_FORBIDDEN">Вам не разрешены BBCodes в подписи.</Resource>
     <Resource tag="SIGNATURE">Подпись:</Resource>
+    <Resource tag="SIGNATURE_BBCODE_WRONG">В вашей подписи содержится запрещённый администрацией BBCode {0}.</Resource>
     <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>
     <Resource tag="TITLE">Редактировать подпись</Resource>
   </page>

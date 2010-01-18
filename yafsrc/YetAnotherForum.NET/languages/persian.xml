@@ -334,10 +334,12 @@
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">عنوان</Resource>
+    <Resource tag="ALBUMS_COUNT_LIMIT">You  can't create more then {0} albums.</Resource>
     <Resource tag="ASK_DELETEALBUM">آلبوم حذف شود؟</Resource>
     <Resource tag="ASK_DELETEIMAGE">عکس حذف شود؟</Resource>
     <Resource tag="ERROR_MAXALBUMS">شما مجاز به ایجاد آلبوم بیشتر به این حساب نمی باشید.</Resource>
     <Resource tag="ERROR_TOOBIG">شما مجاز به ارسال تصویری با این حجم نمی باشید.</Resource>
+    <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images.</Resource>
     <Resource tag="TITLE">ایجاد/ویرایش آلبوم</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -462,7 +464,9 @@
     <Resource tag="YOUR_USERNAME">نام کاربری شما:</Resource>
   </page>
   <page name="CP_SIGNATURE">
+    <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
     <Resource tag="SIGNATURE">امضاء:</Resource>
+    <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
     <Resource tag="TITLE">ویرایش امضاء</Resource>
   </page>

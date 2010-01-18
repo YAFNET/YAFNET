@@ -113,11 +113,23 @@ namespace YAF.Controls
                 }
 
                 this.BindData();
-                this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] <
-                                            this.PageContext.BoardSettings.AlbumsMax &&
-                                            this.UserID == this.PageContext.PageUserID)
-                                               ? true
-                                               : false;
+                // vzrus: replaced registry check for db data
+                System.Data.DataTable sigData = YAF.Classes.Data.DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+                if (sigData.Rows.Count > 0)
+                {   
+                        this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] <
+                                          Convert.ToInt32(sigData.Rows[0]["UsrAlbums"]) &&
+                                          this.UserID == this.PageContext.PageUserID)
+                                             ? true
+                                             : false;
+                        /* this.AddAlbum.Visible = (DB.album_getstats(this.PageContext.PageUserID, null)[0] <
+                                     this.PageContext.BoardSettings.AlbumsMax &&
+                                     this.UserID == this.PageContext.PageUserID)
+                                        ? true
+                                        : false; */
+                }
+               
+              
                 if (this.AddAlbum.Visible)
                 {
                     this.AddAlbum.Text = this.PageContext.Localization.GetText("BUTTON", "BUTTON_ADDALBUM");

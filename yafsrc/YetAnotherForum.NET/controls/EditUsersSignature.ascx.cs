@@ -16,181 +16,201 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Editors;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersSignature : BaseUserControl
-	{
-		protected BaseForumEditor _sig;
+    using System;
+    using YAF.Classes;
+    using YAF.Classes.Core;
+    using YAF.Classes.Utils;
+    using YAF.Editors;
 
-		public bool ShowHeader
-		{
-			get
-			{
-				if ( ViewState["ShowHeader"] != null )
-				{
-					return Convert.ToBoolean( ViewState ["ShowHeader"] );
-				}
+    public partial class EditUsersSignature : BaseUserControl
+    {
+        protected BaseForumEditor _sig;
 
-				return true;
-			}
-			set
-			{
-				ViewState["ShowHeader"] = value;
-			}
-		}
-
-		protected void Page_Load( object sender, EventArgs e )
-		{
-			PageContext.QueryIDs = new QueryStringIDHelper( "u" );
-
-			_sig.BaseDir = YafForumInfo.ForumRoot + "editors";
-			_sig.StyleSheet = YafContext.Current.Theme.BuildThemePath( "theme.css" );
-
-			if ( !IsPostBack )
-			{
-				save.Text = PageContext.Localization.GetText( "COMMON", "Save" );
-				cancel.Text = PageContext.Localization.GetText( "COMMON", "Cancel" );
-
-				BindData();
-			}
-		}
-
-		protected void Page_PreRender( object sender, EventArgs e )
-		{
-			trHeader.Visible = ShowHeader;
-		}
-
-		protected void BindData()
-		{
-			_sig.Text = YAF.Classes.Data.DB.user_getsignature( CurrentUserID );
-		}
-
-		private void save_Click( object sender, EventArgs e )
-		{
-			string body = _sig.Text;
-			//body = FormatMsg.RepairHtml(this,body,false);
-
-			if ( _sig.Text.Length > 0 )
-			{
-                if (body.Length < PageContext.BoardSettings.UserSignatureMaxLength)
+        public bool ShowHeader
+        {
+            get
+            {
+                if (ViewState["ShowHeader"] != null)
                 {
-                    YAF.Classes.Data.DB.user_savesignature(CurrentUserID, body);
+                    return Convert.ToBoolean(ViewState["ShowHeader"]);
+                }
+
+                return true;
+            }
+            set
+            {
+                ViewState["ShowHeader"] = value;
+            }
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            PageContext.QueryIDs = new QueryStringIDHelper("u");
+
+            this._sig.BaseDir = YafForumInfo.ForumRoot + "editors";
+            this._sig.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
+
+            if (!IsPostBack)
+            {
+                save.Text = PageContext.Localization.GetText("COMMON", "Save");
+                cancel.Text = PageContext.Localization.GetText("COMMON", "Cancel");
+
+                BindData();
+            }
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            trHeader.Visible = this.ShowHeader;
+        }
+
+        protected void BindData()
+        {
+            this._sig.Text = YAF.Classes.Data.DB.user_getsignature(CurrentUserID);
+        }
+
+        private void save_Click(object sender, EventArgs e)
+        {
+
+            string detected = null;
+            System.Data.DataTable sigData = YAF.Classes.Data.DB.user_getsignaturedata(CurrentUserID, YafContext.Current.PageBoardID);
+            if (sigData.Rows.Count > 0)
+            {              
+                   
+                    detected = YAF.Classes.UI.FormatMsg.BBCodeForbiddenDetector(this._sig.Text, sigData.Rows[0]["UsrSigBBCodes"].ToString().Trim().Trim(',').Trim(), ',');
+                    if (!string.IsNullOrEmpty(detected) && detected != "ALL")
+                    {
+                        PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detected));
+                        return;
+                    }
+                    else if (detected == "ALL")
+                    {
+                        PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("BBCODE_FORBIDDEN"));
+                        return;
+                    }                
+            }
+         
+            string body = this._sig.Text;
+            // body = FormatMsg.RepairHtml(this,body,false);
+
+            if (_sig.Text.Length > 0)
+            {
+                if (_sig.Text.Length <= Convert.ToInt32(sigData.Rows[0]["UsrSigChars"]))
+                {
+                    YAF.Classes.Data.DB.user_savesignature(this.CurrentUserID, body);
                 }
                 else
                 {
-                    PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("SIGNATURE_MAX", PageContext.BoardSettings.UserSignatureMaxLength));
+                    PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("SIGNATURE_MAX", sigData.Rows[0]["UsrSigChars"]));
                     return;
                 }
-			}
-			else
-			{
-				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, DBNull.Value );
-			}
+            }
+            else
+            {
+                YAF.Classes.Data.DB.user_savesignature(this.CurrentUserID, DBNull.Value);
+            }
 
-			// clear the cache for this user...
-			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
+            // clear the cache for this user...
+            UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
 
-			if ( InAdminPages )
-			{
-				BindData();
-			}
-			else
-			{
-				DoRedirect();
-			}
-		}
+            if (this.InAdminPages)
+            {
+                BindData();
+            }
+            else
+            {
+                this.DoRedirect();
+            }
+        }
 
-		private void cancel_Click( object sender, EventArgs e )
-		{
-			DoRedirect();
-		}
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            this.DoRedirect();
+        }
 
-		private void DoRedirect()
-		{
-			if ( InModeratorMode )
-			{
-				YafBuildLink.Redirect( ForumPages.profile, "u={0}", CurrentUserID );
-			}
-			else
-			{
-				YafBuildLink.Redirect( ForumPages.cp_profile );
-			}
-		}
+        private void DoRedirect()
+        {
+            if (this.InModeratorMode)
+            {
+                YafBuildLink.Redirect(ForumPages.profile, "u={0}", this.CurrentUserID);
+            }
+            else
+            {
+                YafBuildLink.Redirect(ForumPages.cp_profile);
+            }
+        }
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			// since signatures are so small only allow YafBBCode in them...
-			_sig = new BBCodeEditor();
-			EditorLine.Controls.Add( _sig );
+        #region Web Form Designer generated code
+        override protected void OnInit(EventArgs e)
+        {
+            // since signatures are so small only allow YafBBCode in them...
+            _sig = new BBCodeEditor();
+            EditorLine.Controls.Add(_sig);
 
-			save.Click += new EventHandler( save_Click );
-			cancel.Click += new EventHandler( cancel_Click );
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
+            save.Click += new EventHandler(save_Click);
+            cancel.Click += new EventHandler(cancel_Click);
+            //
+            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+            //
+            InitializeComponent();
+            base.OnInit(e);
+        }
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-		}
-		#endregion
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+        }
+        #endregion
 
-		private int CurrentUserID
-		{
-			get
-			{
-				if ( InAdminPages && PageContext.IsAdmin && PageContext.QueryIDs.ContainsKey( "u" ) )
-				{
-					return (int)PageContext.QueryIDs ["u"];
-				}
-				else if ( InModeratorMode && ( PageContext.IsAdmin || PageContext.IsModerator ) && PageContext.QueryIDs.ContainsKey( "u" ) )
-				{
-					return (int)PageContext.QueryIDs ["u"];
-				}
-				else
-				{
-					return PageContext.PageUserID;
-				}
-			}
-		}
+        private int CurrentUserID
+        {
+            get
+            {
+                if (this.InAdminPages && PageContext.IsAdmin && PageContext.QueryIDs.ContainsKey("u"))
+                {
+                    return (int)PageContext.QueryIDs["u"];
+                }
+                else if (this.InModeratorMode && (PageContext.IsAdmin || PageContext.IsModerator) && PageContext.QueryIDs.ContainsKey("u"))
+                {
+                    return (int)PageContext.QueryIDs["u"];
+                }
+                else
+                {
+                    return PageContext.PageUserID;
+                }
+            }
+        }
 
-		protected bool _adminEditMode = false;
-		public bool InAdminPages
-		{
-			get
-			{
-				return _adminEditMode;
-			}
-			set
-			{
-				_adminEditMode = value;
-			}
-		}
+        protected bool _adminEditMode = false;
+        public bool InAdminPages
+        {
+            get
+            {
+                return this._adminEditMode;
+            }
+            set
+            {
+                this._adminEditMode = value;
+            }
+        }
 
-		protected bool _moderatorEditMode = false;
-		public bool InModeratorMode
-		{
-			get
-			{
-				return _moderatorEditMode;
-			}
-			set
-			{
-				_moderatorEditMode = value;
-			}
-		}
-	}
+        protected bool _moderatorEditMode = false;
+        public bool InModeratorMode
+        {
+            get
+            {
+                return this._moderatorEditMode;
+            }
+            set
+            {
+                this._moderatorEditMode = value;
+            }
+        }
+    }
 }

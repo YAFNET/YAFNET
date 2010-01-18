@@ -101,6 +101,12 @@ namespace YAF.Pages.Admin
             this.PMLimit.Text = row["PMLimit"].ToString();
             this.StyleTextBox.Text = row["Style"].ToString();
             this.Priority.Text = row["SortOrder"].ToString();
+            this.UsrAlbums.Text = row["UsrAlbums"].ToString();
+            this.UsrAlbumImages.Text = row["UsrAlbumImages"].ToString();
+            this.UsrSigChars.Text = row["UsrSigChars"].ToString();
+            this.UsrSigBBCodes.Text = row["UsrSigBBCodes"].ToString();
+            this.UsrSigHTMLTags.Text = row["UsrSigHTMLTags"].ToString();
+            this.Description.Text = row["Description"].ToString();
 
             // IsGuest flag can be set for only one role. if it isn't for this, disable that row
             if (flags.IsGuest)
@@ -151,6 +157,21 @@ namespace YAF.Pages.Admin
         PageContext.AddLoadMessage("You should enter integer value for priority.");
         return;
       }
+      if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
+      {
+          PageContext.AddLoadMessage("You should enter integer value for the number of user albums.");
+          return;
+      }
+      if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
+      {
+          PageContext.AddLoadMessage("You should enter integer value for the number of chars in user signature.");
+          return;
+      }
+      if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
+      {
+          PageContext.AddLoadMessage("You should enter integer value for the total number of images in all albums.");
+          return;
+      }
 
       // Role
       long roleID = 0;
@@ -190,7 +211,14 @@ namespace YAF.Pages.Admin
         this.AccessMaskID.SelectedValue, 
         this.PMLimit.Text.Trim(), 
         this.StyleTextBox.Text.Trim(), 
-        this.Priority.Text.Trim());
+        this.Priority.Text.Trim(),
+        this.Description.Text,
+        this.UsrSigChars.Text,
+        this.UsrSigBBCodes.Text,
+        this.UsrSigHTMLTags.Text,
+        this.UsrAlbums.Text.Trim(),
+        this.UsrAlbumImages.Text.Trim()
+        );
 
       // see if need to rename an existing role...
       if (roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)

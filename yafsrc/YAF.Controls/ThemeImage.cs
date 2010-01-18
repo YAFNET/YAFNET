@@ -57,6 +57,11 @@ namespace YAF.Controls
     protected string _themeTag = string.Empty;
 
     /// <summary>
+    /// The _enabled tag.
+    /// </summary>
+    protected bool _enabled = true;
+
+    /// <summary>
     /// The _use title for empty alt.
     /// </summary>
     protected bool _useTitleForEmptyAlt = true;
@@ -182,6 +187,22 @@ namespace YAF.Controls
     }
 
     /// <summary>
+    /// Gets or sets whether the control is Active .
+    /// </summary>
+    public bool Enabled
+    {
+        get
+        {
+            return this._enabled;
+        }
+
+        set
+        {
+            this._enabled = value;
+        }
+    }
+
+    /// <summary>
     /// The render.
     /// </summary>
     /// <param name="output">
@@ -189,6 +210,8 @@ namespace YAF.Controls
     /// </param>
     protected override void Render(HtmlTextWriter output)
     {
+      // vzrus: Don't render control if not enabled
+      if (!Enabled) return; 
       string src = GetCurrentThemeItem();
       string title = GetCurrentTitleItem();
 

@@ -994,7 +994,15 @@ GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_image_download]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_download]
-Go
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_getsignaturedata]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_getsignaturedata]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_getalbumsdata]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_getalbumsdata]
+GO
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
 
@@ -1519,11 +1527,11 @@ begin
 	VALUES(@BoardID,'No Access',0,0)
 
 	-- Group
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,Style,SortOrder) values(@BoardID,'Administrators',1,2147483647,'default!font-size: 8pt; color: red/flatearth!font-size: 8pt; color:blue',0)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,Style,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID,'Administrators',1,2147483647,'default!font-size: 8pt; color: red/flatearth!font-size: 8pt; color:blue',0,256,'URL,IMG,SPOILER,QUOTE',10,120)
 	set @GroupIDAdmin = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder) values(@BoardID,'Guests',2,0,1)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID,'Guests',2,0,1,0,null,0,0)
 	SET @GroupIDGuest = SCOPE_IDENTITY()
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder) values(@BoardID,'Registered',4,100,1)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags,PMLimit,SortOrder,UsrSigChars,UsrSigBBCodes,UsrAlbums,UsrAlbumImages) values(@BoardID,'Registered',4,100,1,128,'URL,IMG,SPOILER,QUOTE',5,30)
 	SET @GroupIDMember = SCOPE_IDENTITY()	
 	
 	-- User (GUEST)
@@ -2503,7 +2511,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}group_delete](@GroupID int) as
 begin
-		delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where GroupID = @GroupID
+	delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where GroupID = @GroupID
 	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where GroupID = @GroupID
 	delete from [{databaseOwner}].[{objectQualifier}Group] where GroupID = @GroupID
 end
@@ -2544,7 +2552,13 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}group_save](
 	@AccessMaskID	int=null,
 	@PMLimit int=null,
 	@Style nvarchar(255)=null,
-	@SortOrder smallint
+	@SortOrder smallint,
+	@Description nvarchar(128)=null,
+	@UsrSigChars int=null,
+	@UsrSigBBCodes	nvarchar(255)=null,
+	@UsrSigHTMLTags nvarchar(255)=null,
+	@UsrAlbums int=null,
+	@UsrAlbumImages int=null
 ) as
 begin
 		declare @Flags	int
@@ -2561,12 +2575,18 @@ begin
 			Flags = @Flags,
 			PMLimit = @PMLimit,
 			Style = @Style,
-			SortOrder = @SortOrder
+			SortOrder = @SortOrder,
+			Description = @Description,
+			UsrSigChars = @UsrSigChars,
+			UsrSigBBCodes = @UsrSigBBCodes,
+			UsrSigHTMLTags = @UsrSigHTMLTags,
+			UsrAlbums = @UsrAlbums,
+			UsrAlbumImages = @UsrAlbumImages 
 		where GroupID = @GroupID
 	end
 	else begin
-		insert into [{databaseOwner}].[{objectQualifier}Group](Name,BoardID,Flags,PMLimit,Style, SortOrder)
-		values(@Name,@BoardID,@Flags,@PMLimit,@Style,@SortOrder);
+		insert into [{databaseOwner}].[{objectQualifier}Group](Name,BoardID,Flags,PMLimit,Style, SortOrder,Description,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages)
+		values(@Name,@BoardID,@Flags,@PMLimit,@Style,@SortOrder,@Description,@UsrSigChars,@UsrSigBBCodes,@UsrSigHTMLTags,@UsrAlbums,@UsrAlbumImages);
 		set @GroupID = SCOPE_IDENTITY()
 		insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID)
 		select @GroupID,a.ForumID,@AccessMaskID from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID
@@ -2577,11 +2597,12 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}group_rank_style]( @BoardID int) as
 begin
-SELECT 1 AS LegendID,[Name],Style FROM [{databaseOwner}].[{objectQualifier}Group]
-WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style
+-- added fields to get overall info about groups and ranks
+SELECT 1 AS LegendID,[Name],Style, PMLimit,Description,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages FROM [{databaseOwner}].[{objectQualifier}Group]
+WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,Description,PMLimit,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages
 UNION
-SELECT 2  AS LegendID,[Name],Style FROM [{databaseOwner}].[{objectQualifier}Rank]
-WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style
+SELECT 2  AS LegendID,[Name],Style,PMLimit, Description,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages FROM [{databaseOwner}].[{objectQualifier}Rank]
+WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,Description,PMLimit,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages
 end
 GO
 
@@ -3816,7 +3837,13 @@ create procedure [{databaseOwner}].[{objectQualifier}rank_save](
 	@RankImage	nvarchar(50)=null,
 	@PMLimit    int,
 	@Style      nvarchar(255),
-	@SortOrder  smallint  
+	@SortOrder  smallint,
+	@Description nvarchar(128)=null,
+	@UsrSigChars int=null,
+	@UsrSigBBCodes	nvarchar(255)=null,
+	@UsrSigHTMLTags nvarchar(255)=null,
+	@UsrAlbums int=null,
+	@UsrAlbumImages int=null  
 ) as
 begin
 		declare @Flags int
@@ -3836,12 +3863,18 @@ begin
 			RankImage = @RankImage,
 			PMLimit = @PMLimit,
 			Style = @Style,
-			SortOrder = @SortOrder
+			SortOrder = @SortOrder,
+			Description = @Description,
+			UsrSigChars = @UsrSigChars,
+			UsrSigBBCodes = @UsrSigBBCodes,
+			UsrSigHTMLTags = @UsrSigHTMLTags,
+			UsrAlbums = @UsrAlbums,
+			UsrAlbumImages = @UsrAlbumImages
 		where RankID = @RankID
 	end
 	else begin
-		insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,RankImage, PMLimit,Style,SortOrder)
-		values(@BoardID,@Name,@Flags,@MinPosts,@RankImage,@PMLimit,@Style,@SortOrder);
+		insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,RankImage, PMLimit,Style,SortOrder,Description,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages)
+		values(@BoardID,@Name,@Flags,@MinPosts,@RankImage,@PMLimit,@Style,@SortOrder,@Description,@UsrSigChars,@UsrSigBBCodes,@UsrSigHTMLTags,@UsrAlbums,@UsrAlbumImages);
 	end
 end
 GO
@@ -7167,3 +7200,125 @@ as
         WHERE   ImageID = @ImageID
     END
     GO
+    
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getsignaturedata] (@BoardID INT, @UserID INT)
+as 
+    BEGIN
+    -- Ugly but bullet proof - it used very rarely
+    DECLARE 
+    @R_UsrSigChars int,
+    @R_UsrSigBBCodes nvarchar(255),
+    @R_UsrSigHTMLTags nvarchar(255),
+    @G_UsrSigChars int,
+    @G_UsrSigBBCodes nvarchar(255),
+    @G_UsrSigHTMLTags nvarchar(255)
+ DECLARE   @RankData TABLE
+(
+    R_UsrSigChars int,
+    R_UsrSigBBCodes nvarchar(255),
+    R_UsrSigHTMLTags nvarchar(255)
+)
+DECLARE
+   @GroupData TABLE
+(
+    G_UsrSigChars int,
+    G_UsrSigBBCodes nvarchar(255),
+    G_UsrSigHTMLTags nvarchar(255)
+)
+  
+    INSERT INTO @GroupData(G_UsrSigChars,G_UsrSigBBCodes,G_UsrSigHTMLTags) 
+    SELECT TOP 1 c.UsrSigChars, c.UsrSigBBCodes, c.UsrSigHTMLTags
+    FROM [{databaseOwner}].[{objectQualifier}User] a 
+                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+                          ON a.UserID = b.UserID
+                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+                              ON b.GroupID = c.GroupID 
+                              WHERE a.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.SortOrder ASC
+    INSERT INTO @RankData(R_UsrSigChars,R_UsrSigBBCodes,R_UsrSigHTMLTags)
+    SELECT TOP 1 c.UsrSigChars, c.UsrSigBBCodes, c.UsrSigHTMLTags     
+    FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+                                JOIN [{databaseOwner}].[{objectQualifier}User] d
+                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.RankID DESC
+                                  
+       if ( (SELECT TOP 1 R_UsrSigChars FROM @RankData)  < (SELECT TOP 1 G_UsrSigChars FROM @GroupData))
+       begin
+        SELECT TOP 1
+        UsrSigChars = G_UsrSigChars, 
+        UsrSigBBCodes = G_UsrSigBBCodes + ',' + R_UsrSigBBCodes, 
+        UsrSigHTMLTags = G_UsrSigHTMLTags + ',' + R_UsrSigHTMLTags
+        FROM @GroupData, @RankData                  
+       end
+       else
+       begin
+       SELECT TOP 1
+        UsrSigChars = R_UsrSigChars, 
+        UsrSigBBCodes = R_UsrSigBBCodes + ',' + G_UsrSigBBCodes,
+        UsrSigHTMLTags = R_UsrSigHTMLTags  + ',' + G_UsrSigHTMLTags
+        FROM  @GroupData, @RankData
+       end 
+
+    END
+    GO  
+ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getalbumsdata] (@BoardID INT, @UserID INT )
+as 
+    BEGIN
+    DECLARE  
+    @OR_UsrAlbums int,     
+    @OG_UsrAlbums int,
+    @OR_UsrAlbumImages int,     
+    @OG_UsrAlbumImages int
+     -- Ugly but bullet proof - it used very rarely   
+    DECLARE  @GroupData TABLE
+(
+    G_UsrAlbums int,
+    G_UsrAlbumImages int
+)
+    DECLARE
+   @RankData TABLE
+(
+    R_UsrAlbums int,
+    R_UsrAlbumImages int
+)
+
+    INSERT INTO @GroupData(G_UsrAlbums,
+    G_UsrAlbumImages)
+    SELECT TOP 1 c.UsrAlbums, c.UsrAlbumImages   
+    FROM [{databaseOwner}].[{objectQualifier}User] a 
+                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+                          ON a.UserID = b.UserID
+                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+                              ON b.GroupID = c.GroupID 
+                              WHERE a.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.SortOrder ASC
+     INSERT INTO @RankData(R_UsrAlbums, R_UsrAlbumImages)
+     SELECT TOP 1 c.UsrAlbums, c.UsrAlbumImages    
+     FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+                                JOIN [{databaseOwner}].[{objectQualifier}User] d
+                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.RankID DESC
+       
+       SET @OR_UsrAlbums = (SELECT TOP 1 R_UsrAlbums FROM @RankData)
+       SET @OG_UsrAlbums = (SELECT TOP 1 G_UsrAlbums FROM @GroupData)
+       SET @OR_UsrAlbumImages = (SELECT TOP 1 R_UsrAlbumImages FROM @RankData)
+       SET @OG_UsrAlbumImages = (SELECT TOP 1 G_UsrAlbumImages FROM @GroupData) 
+       
+       if (@OG_UsrAlbums > @OR_UsrAlbums)
+       begin
+       SET @OR_UsrAlbums = @OG_UsrAlbums
+       end 
+       if (@OG_UsrAlbumImages > @OR_UsrAlbumImages)
+       begin
+       SET @OR_UsrAlbumImages = @OG_UsrAlbumImages
+       end                  
+      
+      SELECT
+       NumAlbums  = (SELECT COUNT(ua.AlbumID) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
+       WHERE ua.UserID = @UserID),
+       NumImages = (SELECT COUNT(uai.ImageID) FROM  [{databaseOwner}].[{objectQualifier}UserAlbumImage] uai
+       INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] ua
+       ON ua.AlbumID = uai.AlbumID
+       WHERE ua.UserID = @UserID), 
+       UsrAlbums = @OR_UsrAlbums, 
+       UsrAlbumImages = @OR_UsrAlbumImages            
+    
+    END
+    GO  
+   

@@ -239,21 +239,7 @@
 						<td class="post">
 							<asp:TextBox ID="ImageAttachmentResizeHeight" runat="server"></asp:TextBox>
 						</td>
-					</tr>
-					<tr>
-						<td class="header1" colspan="2">
-							User Signature 
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Maximum number of characters:</b><br />
-							Maximum number of characters in user signature, including tags and BBCodes.
-						</td>
-						<td class="post">
-							<asp:TextBox ID="UserSignatureMaxLength" runat="server"></asp:TextBox>
-						</td>
-					</tr>
+					</tr>				
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View2" Text="Features" NavigateUrl="" HeaderCssClass=""
@@ -538,23 +524,7 @@
 						<td class="post">
 							<asp:CheckBox ID="EnableAlbum" runat="server"></asp:CheckBox>
 						</td>
-					</tr>
-						<td class="postheader">
-							<b>Maximum Albums Number:</b><br />
-							Maximum number of albums a user can create.
-						</td>
-						<td class="post">
-							<asp:TextBox ID="AlbumsMax" runat="server"></asp:TextBox>
-						</td>				
-					</tr>								
-						<td class="postheader">
-							<b>Maximum Images Number:</b><br />
-							Maximum number of images a user can upload.
-						</td>
-						<td class="post">
-							<asp:TextBox ID="AlbumImagesNumberMax" runat="server"></asp:TextBox>
-						</td>				
-					</tr>
+					</tr>						
 					<tr>
 					<td class="postheader">
 							<b>Maximum Image Size:</b><br />
@@ -895,6 +865,15 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>Allow Signatures:</b><br />
+							Allow users to create signatures.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="AllowSignatures" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
 							<b>Allow Private Messages:</b><br />
 							Allow users to access and send private messages.
 						</td>
@@ -937,16 +916,7 @@
 						<td class="post">
 							<asp:CheckBox ID="AllowPasswordChange" runat="server"></asp:CheckBox>
 						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Allow Signatures:</b><br />
-							Allow users to create signatures.
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="AllowSignatures" runat="server"></asp:CheckBox>
-						</td>
-					</tr>
+					</tr>					
 					<tr>
 						<td class="postheader">
 							<b>Allow Guests To Report Post:</b><br />
