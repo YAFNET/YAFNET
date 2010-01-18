@@ -7206,12 +7206,12 @@ as
     BEGIN
     -- Ugly but bullet proof - it used very rarely
     DECLARE 
-    @R_UsrSigChars int,
-    @R_UsrSigBBCodes nvarchar(255),
-    @R_UsrSigHTMLTags nvarchar(255),
-    @G_UsrSigChars int,
-    @G_UsrSigBBCodes nvarchar(255),
-    @G_UsrSigHTMLTags nvarchar(255)
+    @OR_UsrSigChars int,
+    @OR_UsrSigBBCodes nvarchar(255),
+    @OR_UsrSigHTMLTags nvarchar(255),
+    @OG_UsrSigChars int,
+    @OG_UsrSigBBCodes nvarchar(255),
+    @OG_UsrSigHTMLTags nvarchar(255)
  DECLARE   @RankData TABLE
 (
     R_UsrSigChars int,
@@ -7239,25 +7239,20 @@ DECLARE
     FROM [{databaseOwner}].[{objectQualifier}Rank] c 
                                 JOIN [{databaseOwner}].[{objectQualifier}User] d
                                   ON c.RankID = d.RankID WHERE d.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.RankID DESC
-                                  
-       if ( (SELECT TOP 1 R_UsrSigChars FROM @RankData)  < (SELECT TOP 1 G_UsrSigChars FROM @GroupData))
-       begin
+        
+       SET  @OR_UsrSigChars =  (SELECT TOP 1 R_UsrSigChars FROM @RankData); 
+       SET  @OG_UsrSigChars =  (SELECT TOP 1 G_UsrSigChars FROM @GroupData);
+       IF (COALESCE(@OR_UsrSigChars,0) < COALESCE(@OG_UsrSigChars,0)) 
+       BEGIN
+       SET @OR_UsrSigChars = @OG_UsrSigChars
+       END                      
+       
         SELECT TOP 1
-        UsrSigChars = G_UsrSigChars, 
-        UsrSigBBCodes = G_UsrSigBBCodes + ',' + R_UsrSigBBCodes, 
-        UsrSigHTMLTags = G_UsrSigHTMLTags + ',' + R_UsrSigHTMLTags
-        FROM @GroupData, @RankData                  
-       end
-       else
-       begin
-       SELECT TOP 1
-        UsrSigChars = R_UsrSigChars, 
-        UsrSigBBCodes = R_UsrSigBBCodes + ',' + G_UsrSigBBCodes,
-        UsrSigHTMLTags = R_UsrSigHTMLTags  + ',' + G_UsrSigHTMLTags
-        FROM  @GroupData, @RankData
-       end 
-
-    END
+        UsrSigChars = @OR_UsrSigChars, 
+        UsrSigBBCodes = (COALESCE(G_UsrSigBBCodes,'') + ',' + COALESCE(R_UsrSigBBCodes,'')), 
+        UsrSigHTMLTags = (COALESCE(G_UsrSigHTMLTags,'') + ',' + COALESCE(R_UsrSigHTMLTags,''))
+        FROM @GroupData, @RankData 
+   END
     GO  
  CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getalbumsdata] (@BoardID INT, @UserID INT )
 as 
