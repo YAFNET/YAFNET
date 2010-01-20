@@ -126,7 +126,7 @@
     <Resource tag="ALBUM_CHANGE_TITLE">( Изменить )</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">( Изменить )</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">Изображений:{0}</Resource>
-    <Resource tag="ALBUM_VIEW">Просмотр</Resource>
+    <Resource tag="ALBUM_VIEW">Просмотр⌕</Resource>
     <Resource tag="ALBUMS">Альбомы</Resource>
     <Resource tag="ALBUMS_HEADER_TEXT">Альбомы пользователя {0}</Resource>
     <Resource tag="ALBUMS_TITLE"> Альбом пользователя {0}: {1}</Resource>
@@ -449,7 +449,8 @@
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_FORBIDDEN">Вам не разрешены BBCodes в подписи.</Resource>
     <Resource tag="SIGNATURE">Подпись:</Resource>
-    <Resource tag="SIGNATURE_BBCODE_WRONG">В вашей подписи содержится запрещённый администрацией BBCode {0}.</Resource>
+    <Resource tag="SIGNATURE_BBCODE_WRONG">В Вашей подписи содержится запрещённый администрацией BBCode: {0}.</Resource>
+    <Resource tag="SIGNATURE_HTMLTAG_WRONG">В Вашей подписи содержится запрещённый администрацией тэг HTML: {0}.</Resource>
     <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>
     <Resource tag="TITLE">Редактировать подпись</Resource>
   </page>
@@ -866,6 +867,7 @@
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
     <Resource tag="TOTAL">Всего</Resource>
     <Resource tag="UNWATCHTOPIC">Не отслеживать эту тему</Resource>
+    <Resource tag="USERIGNORED">Вы выбрали игнорирование сообщений этого пользователя.</Resource>
     <Resource tag="USEROFFLINESTATUS">Пользователя нет на форуме</Resource>
     <Resource tag="USERONLINESTATUS">Пользователь находится на форуме</Resource>
     <Resource tag="USERPROFILE">Профиль пользователя</Resource>

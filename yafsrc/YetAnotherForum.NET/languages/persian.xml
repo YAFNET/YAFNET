@@ -467,6 +467,7 @@
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
     <Resource tag="SIGNATURE">امضاء:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
+    <Resource tag="SIGNATURE_HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
     <Resource tag="TITLE">ویرایش امضاء</Resource>
   </page>
@@ -881,6 +882,7 @@
     <Resource tag="TOPICBROWSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
     <Resource tag="TOTAL">مجموع</Resource>
     <Resource tag="UNWATCHTOPIC">عدم پیگیری وضعیت انجمن</Resource>
+    <Resource tag="USERIGNORED">You chose to ignore the user messages.</Resource>
     <Resource tag="USEROFFLINESTATUS">کاربر حضور ندارد</Resource>
     <Resource tag="USERONLINESTATUS">کاربر حضور دارد</Resource>
     <Resource tag="USERPROFILE">پروفايل كاربر</Resource>

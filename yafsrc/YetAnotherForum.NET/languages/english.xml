@@ -415,6 +415,7 @@
     <Resource tag="SIGNATURE">Signature:</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
 	<Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
+	<Resource tag="SIGNATURE_HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
 	<Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
 	<Resource tag="TITLE">Edit Signature</Resource>
   </page>
@@ -829,6 +830,7 @@
     <Resource tag="USERPROFILE">User Profile</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
+	<Resource tag="USERIGNORED">You chose to ignore the user messages.</Resource>
     <Resource tag="VIEW">View</Resource>
     <Resource tag="VOTES">Votes</Resource>
 	<Resource tag="XMPP">XMPP</Resource>  

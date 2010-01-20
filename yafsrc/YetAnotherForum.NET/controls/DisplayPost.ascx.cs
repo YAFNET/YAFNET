@@ -247,6 +247,8 @@ namespace YAF.Controls
       }
       else if (YafServices.UserIgnored.IsIgnored(PostData.UserId))
       {
+        this.panMessage.Visible = false;
+        this.panIgnoreControls.Visible = true;        
         this.PostFooter.TogglePost.Visible = true;
         this.PostFooter.TogglePost.Attributes["onclick"] = string.Format("toggleMessage('{0}'); return false;", this.panMessage.ClientID);
       }
