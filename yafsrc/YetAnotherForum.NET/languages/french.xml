@@ -446,7 +446,6 @@
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
     <Resource tag="SIGNATURE">Signature&amp;nbsp;:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
-    <Resource tag="SIGNATURE_HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
     <Resource tag="TITLE">Editer votre Signature</Resource>
   </page>
@@ -863,7 +862,6 @@
     <Resource tag="TOPICBROWSERS">Utilisateurs actuellement sur ce sujet</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Ne plus surveiller ce sujet</Resource>
-    <Resource tag="USERIGNORED">You chose to ignore the user messages.</Resource>
     <Resource tag="USEROFFLINESTATUS">Utilisateur déconnecté</Resource>
     <Resource tag="USERONLINESTATUS">Utilisateur en ligne</Resource>
     <Resource tag="USERPROFILE">Profil utilisateur</Resource>

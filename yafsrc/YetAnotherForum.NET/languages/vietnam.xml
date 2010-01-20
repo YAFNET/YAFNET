@@ -446,7 +446,6 @@
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
     <Resource tag="SIGNATURE">Chữ ký:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
-    <Resource tag="SIGNATURE_HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
     <Resource tag="TITLE">Sửa chữ ký</Resource>
   </page>
@@ -867,7 +866,6 @@
     <Resource tag="TOPICBROWSERS">Ai đang xem chủ đề này?</Resource>
     <Resource tag="TOTAL">Tổng</Resource>
     <Resource tag="UNWATCHTOPIC">chưa xem chủ đề này</Resource>
-    <Resource tag="USERIGNORED">You chose to ignore the user messages.</Resource>
     <Resource tag="USEROFFLINESTATUS">Thành viên ngoại tuyến</Resource>
     <Resource tag="USERONLINESTATUS">Thành viên trực tuyến</Resource>
     <Resource tag="USERPROFILE">Hồ sơ người dùng</Resource>

@@ -159,7 +159,7 @@ namespace YAF.Controls
     /// The e.
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
-    {
+    {     
       Utility.RegisterTypeForAjax(typeof(ThankYou));
 
       string AddThankBoxHTML =
@@ -247,10 +247,12 @@ namespace YAF.Controls
       }
       else if (YafServices.UserIgnored.IsIgnored(PostData.UserId))
       {
-        this.panMessage.Visible = false;
-        this.panIgnoreControls.Visible = true;        
         this.PostFooter.TogglePost.Visible = true;
-        this.PostFooter.TogglePost.Attributes["onclick"] = string.Format("toggleMessage('{0}'); return false;", this.panMessage.ClientID);
+        this.PostFooter.TogglePost.Attributes["onclick"] = string.Format("toggleMessage('{0}'); return false;", this.panMessage.ClientID);       
+      }
+      else if (!YafServices.UserIgnored.IsIgnored(PostData.UserId))
+      {
+          this.panMessage.Visible = true;
       }
 
       this.Attach.Visible = !PostData.PostDeleted && PostData.CanAttach && !PostData.IsLocked;

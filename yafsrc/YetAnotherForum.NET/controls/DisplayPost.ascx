@@ -49,10 +49,6 @@
             <asp:panel id="panMessage" runat="server">      
                 <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>"></YAF:MessagePostData>
             </asp:panel>
-            <asp:panel id="panIgnoreControls" Visible="false" runat="server">
-            <YAF:LocalizedLabel ID="IgnoreWarning" LocalizedTag="USERIGNORED" runat="server"></YAF:LocalizedLabel>          
-           
-            </asp:panel>
         </div>
     </td>
 </tr>
