@@ -250,17 +250,20 @@ namespace YAF.Controls
       // Rank Image
       userBox = this.MatchUserBoxRankImages(userBox);
 
-      // Rank
+      // Rank     
       userBox = this.MatchUserBoxRank(userBox, roleRankStyleTable);
-
       // Groups
       userBox = this.MatchUserBoxGroups(userBox, roleRankStyleTable);
+      
+      //vzrus: We shoud not render Thanks statistics if the mode is disabled
+      if (PageContext.BoardSettings.EnableThanksMod)
+      {
+          // ThanksFrom
+          userBox = this.MatchUserBoxThanksFrom(userBox);
 
-      // ThanksFrom
-      userBox = this.MatchUserBoxThanksFrom(userBox);
-
-      // ThanksTo
-      userBox = this.MatchUserBoxThanksTo(userBox);
+          // ThanksTo
+          userBox = this.MatchUserBoxThanksTo(userBox);
+     }
 
       if (!PostDeleted)
       {
@@ -351,7 +354,6 @@ namespace YAF.Controls
     {
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.Points);
-
       if (PageContext.BoardSettings.DisplayPoints)
       {
           filler = String.Format(PageContext.BoardSettings.UserBoxPoints, PageContext.Localization.GetText("points"), this.DataRow["Points"]);
@@ -706,13 +708,15 @@ namespace YAF.Controls
     /// </returns>
     private string MatchUserBoxThanksFrom(string userBox)
     {
-      string filler = string.Empty;
-      var rx = new Regex(Constants.UserBox.ThanksFrom);
-      filler = String.Format(
-        PageContext.BoardSettings.UserBoxThanksFrom, String.Format(PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));
+            string filler = string.Empty;
+            var rx = new Regex(Constants.UserBox.ThanksFrom);
 
-      // replaces template placeholder with actual thanks from
-      userBox = rx.Replace(userBox, filler);
+            filler = String.Format(
+            PageContext.BoardSettings.UserBoxThanksFrom, String.Format(PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));
+
+            // replaces template placeholder with actual thanks from
+            userBox = rx.Replace(userBox, filler);
+       
       return userBox;
     }
 
@@ -726,15 +730,17 @@ namespace YAF.Controls
     /// String with Thanks string added to UserBox .
     /// </returns>
     private string MatchUserBoxThanksTo(string userBox)
-    {
+    {     
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.ThanksTo);
-      filler = String.Format(
-        PageContext.BoardSettings.UserBoxThanksTo,
-        String.Format(PageContext.Localization.GetText("thanksto"), this.DataRow["ThanksToUserNumber"], this.DataRow["ThanksToUserPostsNumber"]));
-
+     
+          filler = String.Format(
+            PageContext.BoardSettings.UserBoxThanksTo,
+            String.Format(PageContext.Localization.GetText("thanksto"), this.DataRow["ThanksToUserNumber"], this.DataRow["ThanksToUserPostsNumber"]));
+      
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);
+        
       return userBox;
     }
   }

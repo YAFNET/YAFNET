@@ -2932,7 +2932,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_report](@ReportFlag int, @MessageID int, @ReporterID int, @ReportedDate datetime, @ReportText nvarchar(4000)) AS
 BEGIN
-			
+	IF @ReportText IS NULL SET @ReportText = '';		
 	IF NOT exists(SELECT MessageID from [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID=@MessageID AND UserID=@ReporterID)
 		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReportedAudit](MessageID,UserID,Reported,ReportText) VALUES (@MessageID,@ReporterID,@ReportedDate, CONVERT(varchar,GETDATE())+ '??' + @ReportText)
     ELSE 
@@ -3329,7 +3329,10 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@ForumID	int = null,
 	@TopicID	int = null,
 	@MessageID	int = null,
-	@DontTrack	bit = 0
+	@DontTrack	bit = 0, 
+	@ShowPendingBuddies bit = 0,
+	@ShowUnreadPMs bit = 0,	
+	@ShowUserStyle bit = 0
 ) as
 begin
 		declare @UserID			int
@@ -3466,11 +3469,12 @@ begin
 		TopicID				= @TopicID,
 		TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
 		MailsPending		= (select count(1) from [{databaseOwner}].[{objectQualifier}Mail]),
-		Incoming			= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=a.UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0),
-		LastUnreadPm		= (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=a.UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC),
+		Incoming			= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=a.UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
+		LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=a.UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,
 		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID),
-		PendingBuddies      = (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0),
-		LastPendingBuddies	= (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=a.UserID and Approved = 0)			
+		PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,
+		LastPendingBuddies	= CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=a.UserID and Approved = 0) ELSE NULL END,
+		Style 		        = CASE WHEN @ShowUserStyle > 0 THEN  [{databaseOwner}].[{objectQualifier}get_userstyle](@UserID) ELSE NULL END
 	from
 		[{databaseOwner}].[{objectQualifier}User] a
 		left join [{databaseOwner}].[{objectQualifier}vaccess] x on x.UserID=a.UserID and x.ForumID=IsNull(@ForumID,0)
@@ -7240,17 +7244,13 @@ DECLARE
                                 JOIN [{databaseOwner}].[{objectQualifier}User] d
                                   ON c.RankID = d.RankID WHERE d.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.RankID DESC
         
-       SET  @OR_UsrSigChars =  (SELECT TOP 1 R_UsrSigChars FROM @RankData); 
-       SET  @OG_UsrSigChars =  (SELECT TOP 1 G_UsrSigChars FROM @GroupData);
-       IF (COALESCE(@OR_UsrSigChars,0) < COALESCE(@OG_UsrSigChars,0)) 
-       BEGIN
-       SET @OR_UsrSigChars = @OG_UsrSigChars
-       END                      
+       SET  @OR_UsrSigChars =  (SELECT TOP 1 R_UsrSigChars FROM @RankData) 
+       SET  @OG_UsrSigChars =  (SELECT TOP 1 G_UsrSigChars FROM @GroupData)                
        
         SELECT TOP 1
-        UsrSigChars = @OR_UsrSigChars, 
-        UsrSigBBCodes = (COALESCE(G_UsrSigBBCodes,'') + ',' + COALESCE(R_UsrSigBBCodes,'')), 
-        UsrSigHTMLTags = (COALESCE(G_UsrSigHTMLTags,'') + ',' + COALESCE(R_UsrSigHTMLTags,''))
+        UsrSigChars = CASE WHEN @OR_UsrSigChars < @OG_UsrSigChars THEN @OG_UsrSigChars ELSE @OR_UsrSigChars END, 
+        UsrSigBBCodes = COALESCE(R_UsrSigBBCodes,'') + CASE WHEN G_UsrSigBBCodes IS NULL THEN COALESCE(G_UsrSigBBCodes,'') ELSE ',' + G_UsrSigBBCodes END, 
+        UsrSigHTMLTags = COALESCE(R_UsrSigHTMLTags,'') + CASE WHEN G_UsrSigHTMLTags IS NULL THEN COALESCE(G_UsrSigHTMLTags,'') ELSE ',' + G_UsrSigHTMLTags END
         FROM @GroupData, @RankData 
    END
     GO  
@@ -7295,25 +7295,16 @@ as
        SET @OR_UsrAlbumImages = (SELECT TOP 1 R_UsrAlbumImages FROM @RankData)
        SET @OG_UsrAlbumImages = (SELECT TOP 1 G_UsrAlbumImages FROM @GroupData) 
        
-       if (@OG_UsrAlbums > @OR_UsrAlbums)
-       begin
-       SET @OR_UsrAlbums = @OG_UsrAlbums
-       end 
-       if (@OG_UsrAlbumImages > @OR_UsrAlbumImages)
-       begin
-       SET @OR_UsrAlbumImages = @OG_UsrAlbumImages
-       end                  
-      
-      SELECT
+       SELECT
        NumAlbums  = (SELECT COUNT(ua.AlbumID) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
        WHERE ua.UserID = @UserID),
        NumImages = (SELECT COUNT(uai.ImageID) FROM  [{databaseOwner}].[{objectQualifier}UserAlbumImage] uai
        INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] ua
        ON ua.AlbumID = uai.AlbumID
        WHERE ua.UserID = @UserID), 
-       UsrAlbums = @OR_UsrAlbums, 
-       UsrAlbumImages = @OR_UsrAlbumImages            
-    
+       UsrAlbums = CASE WHEN @OG_UsrAlbums > @OR_UsrAlbums THEN @OG_UsrAlbums ELSE @OR_UsrAlbums END, 
+       UsrAlbumImages = CASE WHEN @OG_UsrAlbumImages > @OR_UsrAlbumImages THEN @OG_UsrAlbumImages ELSE @OR_UsrAlbumImages END           
+     
     END
-    GO  
+    GO    
    

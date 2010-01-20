@@ -1008,7 +1008,10 @@ namespace YAF
 					null,
 					messageID,
 				// don't track if this is a search engine
-					isSearchEngine);
+                    isSearchEngine, 
+                    YafContext.Current.BoardSettings.EnableBuddyList, 
+                    YafContext.Current.BoardSettings.AllowPrivateMessages, 
+                    YafContext.Current.BoardSettings.UseStyledNicks);
 
 			return General.BinaryAnd(pageRow["DownloadAccess"], YAF.Classes.Data.AccessFlags.Flags.DownloadAccess) ||
                 General.BinaryAnd(pageRow["ModeratorAccess"], YAF.Classes.Data.AccessFlags.Flags.ModeratorAccess);

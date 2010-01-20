@@ -888,8 +888,7 @@ namespace YAF.Classes.Data
     /// The location.
     /// </param>
     /// <param name="forumPage">
-    /// The forum page name.
-    /// </param> 
+    /// The forum page name.   
     /// </param>
     /// <param name="browser">
     /// The browser.
@@ -911,8 +910,18 @@ namespace YAF.Classes.Data
     /// </param>
     /// <param name="donttrack">
     /// The donttrack.
+    /// </param> 
+    /// <param name="showPendingBuddies">
+    /// The showPendingBuddies.
     /// </param>
+    /// <param name="showUnreadPMs">
+    /// The showUnreadPMs.
+    /// </param>
+    /// <param name="showUserStyle">
+    /// The showUserStyle.
+    /// </param> 
     /// <returns>
+    /// Common User Info DataRow
     /// </returns>
     /// <exception cref="ApplicationException">
     /// </exception>
@@ -929,7 +938,10 @@ namespace YAF.Classes.Data
       object forumID, 
       object topicID, 
       object messageID, 
-      object donttrack)
+      object donttrack,     
+      object showPendingBuddies,
+      object showUnreadPMs,
+      object showUserStyle )
     {
       int nTries = 0;
       while (true)
@@ -951,7 +963,13 @@ namespace YAF.Classes.Data
             cmd.Parameters.AddWithValue("ForumID", forumID);
             cmd.Parameters.AddWithValue("TopicID", topicID);
             cmd.Parameters.AddWithValue("MessageID", messageID);
-            cmd.Parameters.AddWithValue("DontTrack", donttrack);
+            cmd.Parameters.AddWithValue("DontTrack", donttrack);            
+            cmd.Parameters.AddWithValue("ShowPendingBuddies", showPendingBuddies);
+            cmd.Parameters.AddWithValue("ShowUnreadPMs", showUnreadPMs);           
+            /// TODO: vzrus: Disabled as  it need testing for locks.
+            // It could be well to replace by it all other user style calls       
+            cmd.Parameters.AddWithValue("ShowUserStyle", 0);
+   
             using (DataTable dt = YafDBAccess.Current.GetData(cmd))
             {
               if (dt.Rows.Count > 0)
@@ -3369,6 +3387,20 @@ namespace YAF.Classes.Data
     /// <param name="sortOrder">
     /// The sort order.
     /// </param>
+    /// <param name="usrSigChars">
+    /// The usrSigChars defines number of allowed characters in user signature.
+    /// </param>    
+    /// <param name="usrSigBBCodes">
+    /// The UsrSigBBCodes.defines comma separated bbcodes allowed for a rank, i.e in a user signature 
+    /// </param>
+    /// <param name="usrSigHTMLTags">
+    /// The UsrSigHTMLTags defines comma separated tags allowed for a rank, i.e in a user signature 
+    /// </param>
+    /// <param name="usrAlbums">
+    /// The UsrAlbums defines allowed number of albums.
+    /// </param>
+    /// <param name="usrAlbumImages">
+    /// The UsrAlbumImages defines number of images allowed for an album.
     /// <returns>
     /// The group_save.
     /// </returns>
@@ -5611,6 +5643,24 @@ namespace YAF.Classes.Data
     /// <param name="sortOrder">
     /// The sort order.
     /// </param>
+    /// <param name="usrSigChars">
+    /// The usrSigChars defines number of allowed characters in user signature.
+    /// </param>    
+    /// <param name="usrSigBBCodes">
+    /// The UsrSigBBCodes.defines comma separated bbcodes allowed for a rank, i.e in a user signature 
+    /// </param>
+    /// <param name="usrSigHTMLTags">
+    /// The UsrSigHTMLTags defines comma separated tags allowed for a rank, i.e in a user signature 
+    /// </param>
+    /// <param name="usrAlbums">
+    /// The UsrAlbums defines allowed number of albums.
+    /// </param>
+    /// <param name="usrAlbumImages">
+    /// The UsrAlbumImages defines number of images allowed for an album.
+    /// </param>
+    /// <returns>
+    /// The group_save.
+    /// </returns>   
     public static void rank_save(
       object rankID, 
       object boardID, 

@@ -722,7 +722,10 @@ namespace YAF.Classes.Core
               topicID, 
               messageID, 
               // don't track if this is a search engine
-              isSearchEngine);
+              isSearchEngine,
+              YafContext.Current.BoardSettings.EnableBuddyList,
+              YafContext.Current.BoardSettings.AllowPrivateMessages,
+              YafContext.Current.BoardSettings.UseStyledNicks);
 
             // if the user doesn't exist...
             if (user != null && pageRow == null)
