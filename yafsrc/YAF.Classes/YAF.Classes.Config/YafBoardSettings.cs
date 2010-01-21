@@ -1684,7 +1684,23 @@ namespace YAF.Classes
             this._reg.SetValue<bool>("EnableBuddyList", value);
         }
     }
+    /// <summary>
+    /// Gets or sets a value indicating whether EnableDNACalendar.
+    /// This is temporary feature to disable calendar 
+    /// if it causes troubles with different cultures
+    /// </summary>
+    public bool EnableDNACalendar
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("EnableDNACalendar", true);
+        }
 
+        set
+        {
+            this._reg.SetValue<bool>("EnableDNACalendar", value);
+        }
+    }
     /// <summary>
     /// Gets or sets a value indicating whether EnableAlbum.
     /// </summary>

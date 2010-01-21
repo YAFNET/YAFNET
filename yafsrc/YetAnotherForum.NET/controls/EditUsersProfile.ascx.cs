@@ -33,7 +33,7 @@ using YAF.Classes;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
-{
+{  
 	public partial class EditUsersProfile : YAF.Classes.Core.BaseUserControl
 	{
 		private int CurrentUserID;
@@ -46,96 +46,99 @@ namespace YAF.Controls
 
 			if ( AdminEditMode && PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey( "u" ) )
 			{
-				CurrentUserID = ( int )this.PageContext.QueryIDs ["u"];
+                this.CurrentUserID = (int)this.PageContext.QueryIDs["u"];
 			}
 			else
 			{
-				CurrentUserID = PageContext.PageUserID;
+                this.CurrentUserID = PageContext.PageUserID;
 			}
 
 			if ( !IsPostBack )
 			{
-				LoginInfo.Visible = true;
+                this.LoginInfo.Visible = true;
 
 				// Begin Modifications for enhanced profile
-				Gender.Items.Add( PageContext.Localization.GetText( "PROFILE", "gender0" ) );
-				Gender.Items.Add( PageContext.Localization.GetText( "PROFILE", "gender1" ) );
-				Gender.Items.Add( PageContext.Localization.GetText( "PROFILE", "gender2" ) );
+                this.Gender.Items.Add(PageContext.Localization.GetText("PROFILE", "gender0"));
+                this.Gender.Items.Add(PageContext.Localization.GetText("PROFILE", "gender1"));
+                this.Gender.Items.Add(PageContext.Localization.GetText("PROFILE", "gender2"));
 				// End Modifications for enhanced profile				
 
-				UpdateProfile.Text = PageContext.Localization.GetText( "COMMON", "SAVE" );
-				Cancel.Text = PageContext.Localization.GetText( "COMMON", "CANCEL" );
+                this.UpdateProfile.Text = PageContext.Localization.GetText("COMMON", "SAVE");
+                this.Cancel.Text = PageContext.Localization.GetText("COMMON", "CANCEL");
 
-				ForumSettingsRows.Visible = PageContext.BoardSettings.AllowUserTheme || PageContext.BoardSettings.AllowUserLanguage || PageContext.BoardSettings.AllowPMEmailNotification;
-				UserThemeRow.Visible = PageContext.BoardSettings.AllowUserTheme;
-				UserLanguageRow.Visible = PageContext.BoardSettings.AllowUserLanguage;
-				PMNotificationRow.Visible = PageContext.BoardSettings.AllowPMEmailNotification;
-				MetaWeblogAPI.Visible = PageContext.BoardSettings.AllowPostToBlog;
-                LoginInfo.Visible = PageContext.BoardSettings.AllowEmailChange;
-                currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag;
-
-				BindData();
+                this.ForumSettingsRows.Visible = PageContext.BoardSettings.AllowUserTheme || PageContext.BoardSettings.AllowUserLanguage || PageContext.BoardSettings.AllowPMEmailNotification;
+                this.UserThemeRow.Visible = PageContext.BoardSettings.AllowUserTheme;
+                this.UserLanguageRow.Visible = PageContext.BoardSettings.AllowUserLanguage;
+                this.PMNotificationRow.Visible = PageContext.BoardSettings.AllowPMEmailNotification;
+                this.MetaWeblogAPI.Visible = PageContext.BoardSettings.AllowPostToBlog;
+                this.LoginInfo.Visible = PageContext.BoardSettings.AllowEmailChange;
+                this.currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag;
+                this.BindData();
 			}
 		}
 		private void BindData()
 		{
-			TimeZones.DataSource = StaticDataHelper.TimeZones();
+            this.TimeZones.DataSource = StaticDataHelper.TimeZones();
             if (PageContext.BoardSettings.AllowUserTheme)
             {
-                Theme.DataSource = StaticDataHelper.Themes();
-                Theme.DataTextField = "Theme";
-                Theme.DataValueField = "FileName";
+                this.Theme.DataSource = StaticDataHelper.Themes();
+                this.Theme.DataTextField = "Theme";
+                this.Theme.DataValueField = "FileName";
             }
             if (PageContext.BoardSettings.AllowUserLanguage)
             {
-                Language.DataSource = StaticDataHelper.Languages();
-                Language.DataTextField = "Language";
-                Language.DataValueField = "FileName";
+                this.Language.DataSource = StaticDataHelper.Languages();
+                this.Language.DataTextField = "Language";
+                this.Language.DataValueField = "FileName";
             }
-            DataBind();
+            this.DataBind();
             
             // get an instance of the combined user data class.
-            CombinedUserDataHelper userData = new CombinedUserDataHelper(CurrentUserID);               
-         
-            CultureInfo ci = new CultureInfo(currentCulture);
-            
-            if (ci.TwoLetterISOLanguageName != "en")
+            CombinedUserDataHelper userData = new CombinedUserDataHelper(CurrentUserID);
+
+            if (PageContext.BoardSettings.EnableDNACalendar)
             {
-                datePicker.AnotherFormatString = ci.DateTimeFormat.ShortDatePattern;
-                datePicker.DateFormatString = ci.DateTimeFormat.ShortDatePattern;
-                datePicker.LocID = ci.TwoLetterISOLanguageName;
-            }
-            if (userData.Profile.Birthday > DateTime.MinValue )
-            {
-                datePicker.Value = userData.Profile.Birthday.Date;               
+                this.datePicker.LocID = PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE");
+                this.datePicker.AnotherFormatString = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
+                this.datePicker.DateFormatString = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
+
+                if (userData.Profile.Birthday > DateTime.MinValue)
+                {
+                    this.datePicker.Value = userData.Profile.Birthday.Date;
+                }
+                else
+                {
+                    this.datePicker.Value = DateTime.MinValue.Date;
+                }
+
+                this.datePicker.ToolTip = PageContext.Localization.GetText("COMMON", "CAL_JQ_TT");
+                this.datePicker.DefaultDateString = string.Empty;
             }
             else
             {
-                datePicker.Value = DateTime.MinValue;
+                this.datePicker.Enabled = false;
+                this.datePicker.Visible = false;
+                this.BirthdayLabel.Visible = false;
             }
-   
-            datePicker.ToolTip = PageContext.Localization.GetText("COMMON", "CAL_JQ_TT");            
-            datePicker.DefaultDateString = string.Empty;
-           
-			Location.Text = userData.Profile.Location;
-			HomePage.Text = userData.Profile.Homepage;
-			Email.Text = userData.Email;
-			Realname.Text = userData.Profile.RealName;
-			Occupation.Text = userData.Profile.Occupation;
-			Interests.Text = userData.Profile.Interests;
-			Weblog.Text = userData.Profile.Blog;
-			WeblogUrl.Text = userData.Profile.BlogServiceUrl;
-			WeblogID.Text = userData.Profile.BlogServicePassword;
-			WeblogUsername.Text = userData.Profile.BlogServiceUsername;
-			MSN.Text = userData.Profile.MSN;
-			YIM.Text = userData.Profile.YIM;
-			AIM.Text = userData.Profile.AIM;
-			ICQ.Text = userData.Profile.ICQ;
-            Xmpp.Text = userData.Profile.XMPP;
-			Skype.Text = userData.Profile.Skype;
-			PMNotificationEnabled.Checked = userData.PMNotification;
-            AutoWatchTopicsEnabled.Checked = userData.AutoWatchTopics;
-			Gender.SelectedIndex = userData.Profile.Gender;
+			this.Location.Text = userData.Profile.Location;
+            this.HomePage.Text = userData.Profile.Homepage;
+            this.Email.Text = userData.Email;
+            this.Realname.Text = userData.Profile.RealName;
+            this.Occupation.Text = userData.Profile.Occupation;
+            this.Interests.Text = userData.Profile.Interests;
+            this.Weblog.Text = userData.Profile.Blog;
+            this.WeblogUrl.Text = userData.Profile.BlogServiceUrl;
+            this.WeblogID.Text = userData.Profile.BlogServicePassword;
+            this.WeblogUsername.Text = userData.Profile.BlogServiceUsername;
+            this.MSN.Text = userData.Profile.MSN;
+            this.YIM.Text = userData.Profile.YIM;
+            this.AIM.Text = userData.Profile.AIM;
+            this.ICQ.Text = userData.Profile.ICQ;
+            this.Xmpp.Text = userData.Profile.XMPP;
+            this.Skype.Text = userData.Profile.Skype;
+            this.PMNotificationEnabled.Checked = userData.PMNotification;
+            this.AutoWatchTopicsEnabled.Checked = userData.AutoWatchTopics;
+            this.Gender.SelectedIndex = userData.Profile.Gender;
 
 			ListItem timeZoneItem = TimeZones.Items.FindByValue( userData.TimeZone.ToString() );
 			if ( timeZoneItem != null ) timeZoneItem.Selected = true;
@@ -248,8 +251,11 @@ namespace YAF.Controls
 			userProfile.Occupation = Occupation.Text.Trim();
 			userProfile.Interests = Interests.Text.Trim();
 			userProfile.Gender = Gender.SelectedIndex;
-			userProfile.Blog = Weblog.Text.Trim();          
-            userProfile.Birthday = datePicker.Value;            
+			userProfile.Blog = Weblog.Text.Trim();
+            if (PageContext.BoardSettings.EnableDNACalendar)
+            {
+                userProfile.Birthday = new DateTime(datePicker.Value.Date.Year, datePicker.Value.Date.Month, datePicker.Value.Date.Day);
+            }
 			userProfile.BlogServiceUrl = WeblogUrl.Text.Trim();
 			userProfile.BlogServiceUsername = WeblogUsername.Text.Trim();
 			userProfile.BlogServicePassword = WeblogID.Text.Trim();

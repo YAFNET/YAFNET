@@ -391,6 +391,16 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="postheader">
+							<b>Enable calendar:</b><br />
+							Enables/disables calendar in profile, 
+							if it causes troubles on servers/for users with different cultures.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="EnableDNACalendar" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
 						<td class="header1" colspan="2">
 							Search Settings
 						</td>
@@ -1160,7 +1170,7 @@
 						<td class="post">
 							<asp:TextBox ID="AvatarSize" runat="server"></asp:TextBox>
 						</td>
-					</tr>
+					</tr>									
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View9" Text="Cache" NavigateUrl="" HeaderCssClass=""

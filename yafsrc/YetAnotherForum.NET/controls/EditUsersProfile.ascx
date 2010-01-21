@@ -32,14 +32,14 @@
     </tr>
     <tr>
         <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" LocalizedPage="CP_EDITPROFILE"
+            <YAF:LocalizedLabel ID="BirthdayLabel" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="BIRTHDAY" />
         </td>
     <td class="post"> 
      <DotNetAge:DatePicker ID="datePicker" runat="server" 
         AllowChangeYear="true"    
-        AllowChangeMonth="true"  AnotherFormatString="MM/dd/yyyy" 
-        DateFormatString="MM/dd/yyyy" MaxDateFormat="+0d" Enabled="true" >
+        AllowChangeMonth="true"  
+        MaxDateFormat="+0d" Enabled="true" >
          <AnotherField Selector=""></AnotherField>
     </DotNetAge:DatePicker>
         </td>
