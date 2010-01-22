@@ -281,7 +281,7 @@
                         <YAF:BuddyList runat="server" ID="BuddyList" />
                     </DotNetAge:View>
                     <DotNetAge:View runat="server" ID="AlbumListTab" NavigateUrl=""
-                        HeaderCssClass="" HeaderStyle="" Target="_blank" Visible='<%# YafContext.Current.BoardSettings.EnableAlbum %>'>
+                        HeaderCssClass="" HeaderStyle="" Target="_blank" >
                         <YAF:AlbumList runat="server" ID="AlbumList1" Mode="1"/>
                     </DotNetAge:View>                    
 					<DotNetAge:View runat="server" ID="ModerateTab" Text="Moderation" NavigateUrl=""

@@ -72,8 +72,10 @@ namespace YAF.Pages
         SignatureEditControl.InModeratorMode = true;
       }
 
+      this.AlbumListTab.Visible = AlbumsTabIsVisible();
+
       if (!IsPostBack)
-      {
+      {          
         userGroupsRow.Visible = PageContext.BoardSettings.ShowGroupsProfile || PageContext.IsAdmin;
         BindData();
       }
@@ -356,6 +358,40 @@ namespace YAF.Pages
     protected void CollapsibleImage_OnClick(object sender, ImageClickEventArgs e)
     {
       this.BindData();
+    }
+    protected bool AlbumsTabIsVisible()
+    {
+       
+        int albumUser = this.PageContext.PageUserID;
+        PageContext.QueryIDs = new QueryStringIDHelper("u");
+        if (PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
+        {
+            albumUser = (int)this.PageContext.QueryIDs["u"];
+        }
+      
+        // Add check if Albums Tab is visible 
+        if (!PageContext.IsGuest && YafContext.Current.BoardSettings.EnableAlbum)
+        {
+            int albumCount = YAF.Classes.Data.DB.album_getstats(albumUser, null)[0];
+            // Check if the user already has albums.
+            if (albumCount > 0)
+            {
+                return true;
+            }
+            else
+            {
+                // Check if a user have permissions to have albums, even if he has no albums at all.
+                System.Data.DataTable albData = YAF.Classes.Data.DB.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID);
+                if (albData.Rows.Count > 0)
+                {
+                    if (Convert.ToInt32(albData.Rows[0]["UsrAlbums"]) > 0)
+                    {
+                        return  true;
+                    }
+                }
+            }
+        }
+        return false; 
     }
   }
 }
