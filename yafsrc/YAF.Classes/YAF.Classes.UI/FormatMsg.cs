@@ -109,6 +109,7 @@ namespace YAF.Classes.UI
     /// The get smilies.
     /// </summary>
     /// <returns>
+    /// Table with list of smiles
     /// </returns>
     public static DataTable GetSmilies()
     {
@@ -138,7 +139,7 @@ namespace YAF.Classes.UI
     /// The message flags.
     /// </param>
     /// <returns>
-    /// The format message.
+    /// The formatted message.
     /// </returns>
     public static string FormatMessage(string message, MessageFlags messageFlags)
     {
@@ -158,7 +159,7 @@ namespace YAF.Classes.UI
     /// The target blank override.
     /// </param>
     /// <returns>
-    /// The format message.
+    /// The formated message.
     /// </returns>
     public static string FormatMessage(string message, MessageFlags messageFlags, bool targetBlankOverride)
     {
@@ -181,7 +182,7 @@ namespace YAF.Classes.UI
     /// The message last edited.
     /// </param>
     /// <returns>
-    /// The format message.
+    /// The formatted message.
     /// </returns>
     public static string FormatMessage(string message, MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited)
     {
@@ -404,14 +405,14 @@ namespace YAF.Classes.UI
     }
 
       /// <summary>
-      /// Class to detect a forbidden BBCode tag from delimited by 'delim' list 
+      ///  The method to detect a forbidden BBCode tag from delimited by 'delim' list 
       /// 'stringToMatch'
       /// </summary>
       /// <param name="stringToClear">Input string</param>
       /// <param name="stringToMatch">String with delimiter</param>
       /// <param name="delim"></param>
-      /// <returns></returns>
-    public static string BBCodeForbiddenDetector(string stringToClear, string stringToMatch, char delim )
+      /// <returns>Returns a string containing a forbidden BBCode or a null string</returns>
+    public static string BBCodeForbiddenDetector(string stringToClear, string stringToMatch, char delim)
     {      
         bool checker = false;
         if (string.IsNullOrEmpty(stringToMatch))
@@ -436,7 +437,7 @@ namespace YAF.Classes.UI
 
                     openPosition = i;
                     // we loop to find closing bracket, beginnin with i position
-                    for (int j = i; j < charray.Length-1; j++)
+                    for (int j = i; j < charray.Length - 1; j++)
                     {
                         // closing bracket found
                         if (charray[j] == ']')
@@ -462,22 +463,26 @@ namespace YAF.Classes.UI
                                 {                                   
                                     return "ALL";
                                 }
+                                
                                 // detect if the tag from list was found
                                 detectedTag = res.Contains("[" + codes[k].ToUpper().Trim()) || res.Contains("[/" + codes[k].ToUpper().Trim());
                                 res = string.Empty;
+                                
                                 // if so we go out from k-loop after we should go out from j-loop too
                                 if (detectedTag)
                                 {
                                     currentPosition = j + 1;
                                     break;
+
                                 }
                             }
                             currentPosition = j + 1;
+                            
                             // we didn't found the allowed tag in k-loop through allowed list,
                             // so the tag is forbidden one and we should exit
                             if (!detectedTag)
                             {
-                                tagForbidden = stringToClear.Substring(i, j-i+1).ToUpper();
+                                tagForbidden = stringToClear.Substring(i, j - i + 1).ToUpper();
                                 return tagForbidden;
                             }
                             
@@ -485,15 +490,57 @@ namespace YAF.Classes.UI
                             {
                                 break;
                             }
-                        }                        
-                        // continue to loop                        
-                       
+                        }
+                        
+                        // continue to loop
                     }
                 }
 
             }
         }
         return null;
+    }
+      /// <summary>
+      /// The method to detect a forbidden HTML code from delimited by 'delim' list
+      /// </summary>
+      /// <param name="stringToClear"></param>
+      /// <param name="stringToMatch"></param>
+      /// <param name="delim"></param>
+      /// <returns>Returns a forbidden HTML tag or a null string</returns>
+    public static string HTMLTagForbiddenDetector(string stringToClear, string stringToMatch, char delim)
+    {   
+      
+         bool checker = false;
+         if (string.IsNullOrEmpty(stringToMatch))
+         {
+             checker = true;
+         }
+      
+                char[] charray = stringToClear.ToCharArray();
+                for (int i = 0; i < charray.Length; i++)
+                {
+                    if (charray[i] == '<')
+                    {
+                        string[] allowedHTMLTags = stringToMatch.Split(delim);
+                        for (int j = 0; j < allowedHTMLTags.Length; j++)
+                        {                            
+                            if (checker)
+                            {
+                                return "ALL";
+                            }
+                            string toFind = null;
+                                for (int k = 0; k < allowedHTMLTags[j].Length; k++)
+                                {                                    
+                                      toFind = toFind + charray[i+k+1].ToString();
+                                }
+                            if (toFind == allowedHTMLTags[j])
+                            { 
+                                return toFind;
+                            }
+                        }                        
+                }              
+            }
+                return null;
     }
     /// <summary>
     /// The repair html.
@@ -505,7 +552,7 @@ namespace YAF.Classes.UI
     /// The allow html.
     /// </param>
     /// <returns>
-    /// The repair html.
+    /// The repaired html.
     /// </returns>
     public static string RepairHtml(string html, bool allowHtml)
     {
@@ -515,9 +562,8 @@ namespace YAF.Classes.UI
       }
       else
       {
-        // get allowable html tags
-        string tStr = YafContext.Current.BoardSettings.AcceptedHTML;
-        string[] allowedTags = tStr.Split(',');
+        // get allowable html tags       
+        string[] allowedTags = YafContext.Current.BoardSettings.AcceptedHTML.Split(',');
 
         RegexOptions options = RegexOptions.IgnoreCase;
 
@@ -541,7 +587,7 @@ namespace YAF.Classes.UI
 
       return html;
     }
-
+    
     [Serializable]
     public class MessageCleaned
     {

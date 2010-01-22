@@ -237,6 +237,7 @@
     <Resource tag="BBCODE_QUOTE">Trích dẫn:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} đã viết:</Resource>
     <Resource tag="CAL_JQ_CULTURE" />
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">Bạn [b]có thể[/b] xóa bài của bạn trong diễn đàn này.</Resource>
     <Resource tag="CAN_EDIT">Bạn [b]có thể[/b] sửa bài của bạn trong diễn đàn này.</Resource>
@@ -444,6 +445,8 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
     <Resource tag="SIGNATURE">Chữ ký:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>

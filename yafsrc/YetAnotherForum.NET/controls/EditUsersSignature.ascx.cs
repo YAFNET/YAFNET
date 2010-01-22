@@ -72,28 +72,38 @@ namespace YAF.Controls
             this._sig.Text = YAF.Classes.Data.DB.user_getsignature(CurrentUserID);
         }
 
-        private void save_Click(object sender, EventArgs e)
+        private void Save_Click(object sender, EventArgs e)
         {
-
-            string detected = null;
+            string body = this._sig.Text;
             System.Data.DataTable sigData = YAF.Classes.Data.DB.user_getsignaturedata(CurrentUserID, YafContext.Current.PageBoardID);
             if (sigData.Rows.Count > 0)
-            {              
-                   
-                    detected = YAF.Classes.UI.FormatMsg.BBCodeForbiddenDetector(this._sig.Text, sigData.Rows[0]["UsrSigBBCodes"].ToString().Trim().Trim(',').Trim(), ',');
-                    if (!string.IsNullOrEmpty(detected) && detected != "ALL")
-                    {
-                        PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detected));
-                        return;
-                    }
-                    else if (detected == "ALL")
-                    {
-                        PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("BBCODE_FORBIDDEN"));
-                        return;
-                    }                
+            {
+                // find forbidden BBcodes in signature
+                string detectedBBCode = YAF.Classes.UI.FormatMsg.BBCodeForbiddenDetector(body, sigData.Rows[0]["UsrSigBBCodes"].ToString().Trim().Trim(',').Trim(), ',');
+                if (!string.IsNullOrEmpty(detectedBBCode) && detectedBBCode != "ALL")
+                {
+                    PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBBCode));
+                    return;
+                }
+                else if (detectedBBCode == "ALL")
+                {
+                    PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("BBCODE_FORBIDDEN"));
+                    return;
+                }
+                // find forbidden HTMLTags in signature
+                string detectedHTMLTag = YAF.Classes.UI.FormatMsg.HTMLTagForbiddenDetector(body, sigData.Rows[0]["UsrSigHTMLTags"].ToString().Trim().Trim(',').Trim(), ',');
+                if (!string.IsNullOrEmpty(detectedHTMLTag) && detectedHTMLTag != "ALL")
+                {
+                    PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("HTMLTAG_WRONG", detectedBBCode));
+                    return;
+                }
+                else if (detectedHTMLTag == "ALL")
+                {
+                    PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("HTMLTAG_FORBIDDEN"));
+                    return;
+                }
             }
-         
-            string body = this._sig.Text;
+            
             // body = FormatMsg.RepairHtml(this,body,false);
 
             if (_sig.Text.Length > 0)
@@ -150,7 +160,7 @@ namespace YAF.Controls
             _sig = new BBCodeEditor();
             EditorLine.Controls.Add(_sig);
 
-            save.Click += new EventHandler(save_Click);
+            save.Click += new EventHandler(Save_Click);
             cancel.Click += new EventHandler(cancel_Click);
             //
             // CODEGEN: This call is required by the ASP.NET Web Form Designer.

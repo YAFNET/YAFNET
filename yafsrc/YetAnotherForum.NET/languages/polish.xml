@@ -259,6 +259,7 @@
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
     <Resource tag="CAL_JQ_CULTURE">pl</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">[b]Możesz[/b] usuwać swoje posty w tym forum.</Resource>
     <Resource tag="CAN_EDIT">[b]Możesz[/b] edytować swoje posty w tym forum.</Resource>
@@ -497,6 +498,8 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
     <Resource tag="SIGNATURE">Podpis:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>

@@ -241,6 +241,7 @@
     <Resource tag="BBCODE_QUOTE">Цитата:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} написал:</Resource>
     <Resource tag="CAL_JQ_CULTURE">ru</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd.MM.YY</Resource>
     <Resource tag="CAL_JQ_TT">Нажмите, чтобы выбрать дату </Resource>
     <Resource tag="CAN_DELETE">Вы [b]можете[/b] удалять Ваши сообщения в этом форуме.</Resource>
     <Resource tag="CAN_EDIT">Вы [b]можете[/b] редактировать Ваши сообщения в этом форуме.</Resource>
@@ -448,6 +449,8 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_FORBIDDEN">Вам не разрешены BBCodes в подписи.</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Вам не разрешены  HTML тэги в подписи.</Resource>
+    <Resource tag="HTMLTAG_WRONG">В вашей подписи содержится запрещённый администрацией HTML тэг: </Resource>
     <Resource tag="SIGNATURE">Подпись:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">В вашей подписи содержится запрещённый администрацией BBCode {0}.</Resource>
     <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>

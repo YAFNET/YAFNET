@@ -259,6 +259,7 @@
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
     <Resource tag="CAL_JQ_CULTURE">zh-CN</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">您 [b]可以[/b] 删除自己的发言.</Resource>
     <Resource tag="CAN_EDIT">您 [b]可以[/b] 编辑自己的发言.</Resource>
@@ -497,9 +498,10 @@
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
+    <Resource tag="HTMLTAG_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
+    <Resource tag="HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
     <Resource tag="SIGNATURE">签名:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">Your signature contains forbidden {0} BBCode.</Resource>
-    <Resource tag="SIGNATURE_HTMLTAG_WRONG">Your signature contains forbidden {0} HTML tag.</Resource>
     <Resource tag="SIGNATURE_MAX">Your signature is too long. It can have no more then {0} characters.</Resource>
     <Resource tag="TITLE">编辑签名</Resource>
   </page>
@@ -920,7 +922,6 @@
     <Resource tag="TOPICBROWSERS">浏览本话题的用户</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">取消订阅</Resource>
-    <Resource tag="USERIGNORED">You chose to ignore the user messages.</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>

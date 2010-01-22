@@ -203,12 +203,27 @@ namespace YAF.Controls
                     "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.cp_editbuddies), PageContext.Localization.GetText("TOOLBAR", "BUDDIES")));
             }
         }
-
+        
         if (!PageContext.IsGuest && YafContext.Current.BoardSettings.EnableAlbum)
-        {
-            buildHeader.AppendFormat(
-                  String.Format(
-                    "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.albums, "u={0}", PageContext.PageUserID ), PageContext.Localization.GetText("TOOLBAR", "MyAlbums")));
+        {    
+             int albumCount  = YAF.Classes.Data.DB.album_getstats(this.PageContext.PageUserID, null)[0];
+             // Check if the user already has albums.
+             if (albumCount > 0)
+             {                 
+                 buildHeader.Append(AlbumLink());
+             }
+             else
+             {
+                 // Check if a user have permissions to have albums, even if he has no albums at all.
+                 System.Data.DataTable albData = YAF.Classes.Data.DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+                 if (albData.Rows.Count > 0)
+                 {
+                     if (Convert.ToInt32(albData.Rows[0]["UsrAlbums"]) > 0 || albumCount > 0)
+                     {
+                         buildHeader.Append(AlbumLink());
+                     }
+                 }
+             } 
         }
 
         /* TODO: help is currently useless...
@@ -338,5 +353,10 @@ namespace YAF.Controls
 
       return returnUrl;
     }
+    private string AlbumLink()
+    {
+        return string.Format("	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink(ForumPages.albums, "u={0}", PageContext.PageUserID), PageContext.Localization.GetText("TOOLBAR", "MYALBUMS"));
+    }
+      
   }
 }

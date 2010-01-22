@@ -97,9 +97,9 @@ namespace YAF.Controls
             CombinedUserDataHelper userData = new CombinedUserDataHelper(CurrentUserID);
 
             if (PageContext.BoardSettings.EnableDNACalendar)
-            {
+            {              
                 this.datePicker.LocID = PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE");
-                this.datePicker.AnotherFormatString = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
+                this.datePicker.AnotherFormatString = PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT");
                 this.datePicker.DateFormatString = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
 
                 if (userData.Profile.Birthday > DateTime.MinValue)
