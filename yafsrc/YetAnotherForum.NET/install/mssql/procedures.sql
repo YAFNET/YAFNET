@@ -7253,8 +7253,9 @@ DECLARE
         UsrSigHTMLTags = COALESCE(R_UsrSigHTMLTags,'') + CASE WHEN G_UsrSigHTMLTags IS NULL THEN COALESCE(G_UsrSigHTMLTags,'') ELSE ',' + G_UsrSigHTMLTags END
         FROM @GroupData, @RankData 
    END
-    GO  
- CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getalbumsdata] (@BoardID INT, @UserID INT )
+    GO      
+    
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getalbumsdata] (@BoardID INT, @UserID INT )
 as 
     BEGIN
     DECLARE  
@@ -7305,6 +7306,6 @@ as
        UsrAlbums = CASE WHEN @OG_UsrAlbums > @OR_UsrAlbums THEN @OG_UsrAlbums ELSE @OR_UsrAlbums END, 
        UsrAlbumImages = CASE WHEN @OG_UsrAlbumImages > @OR_UsrAlbumImages THEN @OG_UsrAlbumImages ELSE @OR_UsrAlbumImages END           
      
-    END
-    GO    
+END
+GO    
    
