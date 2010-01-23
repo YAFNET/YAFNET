@@ -280,7 +280,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Start a non-running task -- will set the HttpApplication instance.
+    /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
     /// </summary>
     /// <param name="instanceName">
     /// Unique name of this task

@@ -78,11 +78,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDataTableResultFilter.cs" />
     <Compile Include="DataHelpers.cs" />
     <Compile Include="Import\DataImport.cs" />
     <Compile Include="Flags\MedalFlags.cs" />
     <Compile Include="Flags\TopicFlags.cs" />
     <Compile Include="DB.cs" />
+    <Compile Include="IDataTableResultFilter.cs" />
     <Compile Include="IYafDBAccess.cs" />
     <Compile Include="IYafDBConnManager.cs" />
     <Compile Include="Moderator.cs" />

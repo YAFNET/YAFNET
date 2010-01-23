@@ -490,7 +490,5 @@ namespace YAF.Modules
     #endregion
 
     #endregion
-
-
   }
 }

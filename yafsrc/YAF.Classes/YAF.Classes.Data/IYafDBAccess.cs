@@ -18,6 +18,7 @@
  */
 namespace YAF.Classes.Data
 {
+  using System.Collections.Generic;
   using System.Data;
   using System.Data.SqlClient;
 
@@ -26,6 +27,11 @@ namespace YAF.Classes.Data
   /// </summary>
   public interface IYafDBAccess
   {
+    /// <summary>
+    /// Filter list of result filters.
+    /// </summary>
+    IList<IDataTableResultFilter> ResultFilterList { get; }
+
     /// <summary>
     /// Gets a whole dataset out of the database
     /// </summary>

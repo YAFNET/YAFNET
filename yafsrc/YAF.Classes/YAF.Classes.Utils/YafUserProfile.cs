@@ -18,85 +18,19 @@
  */
 namespace YAF.Classes.Utils
 {
+  #region Using
+
   using System;
   using System.Web.Profile;
+
+  #endregion
 
   /// <summary>
   /// The yaf user profile.
   /// </summary>
-  public class YafUserProfile : ProfileBase
+  public class YafUserProfile : ProfileBase, IYafUserProfile
   {
-    /// <summary>
-    /// Gets or sets Location.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("Location;nvarchar;255")]
-    public string Location
-    {
-      get
-      {
-        return base["Location"] as string;
-      }
-
-      set
-      {
-        base["Location"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Homepage.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("Homepage;nvarchar;255")]
-    public string Homepage
-    {
-      get
-      {
-        return base["Homepage"] as string;
-      }
-
-      set
-      {
-        base["Homepage"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets MSN.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("MSN;nvarchar;255")]
-    public string MSN
-    {
-      get
-      {
-        return base["MSN"] as string;
-      }
-
-      set
-      {
-        base["MSN"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets YIM.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("YIM;nvarchar;255")]
-    public string YIM
-    {
-      get
-      {
-        return base["YIM"] as string;
-      }
-
-      set
-      {
-        base["YIM"] = value;
-      }
-    }
+    #region Properties
 
     /// <summary>
     /// Gets or sets AIM.
@@ -117,74 +51,20 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Gets or sets ICQ.
+    /// Gets or sets Birthday.
     /// </summary>
     [SettingsAllowAnonymous(false)]
-    [CustomProviderData("ICQ;nvarchar;255")]
-    public string ICQ
+    [CustomProviderData("Birthday;DateTime")]
+    public DateTime Birthday
     {
       get
       {
-        return base["ICQ"] as string;
+        return (DateTime)base["Birthday"];
       }
 
       set
       {
-        base["ICQ"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets GoogleTalk.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("GoogleTalk;nvarchar;255")]
-    public string GoogleTalk
-    {
-      get
-      {
-        return base["GoogleTalk"] as string;
-      }
-
-      set
-      {
-        base["GoogleTalk"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets XMPP.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("XMPP;nvarchar;255")]
-    public string XMPP
-    {
-        get
-        {
-            return base["XMPP"] as string;
-        }
-
-        set
-        {
-            base["XMPP"] = value;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets Skype.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("Skype;nvarchar;255")]
-    public string Skype
-    {
-      get
-      {
-        return base["Skype"] as string;
-      }
-
-      set
-      {
-        base["Skype"] = value;
+        base["Birthday"] = value;
       }
     }
 
@@ -203,6 +83,24 @@ namespace YAF.Classes.Utils
       set
       {
         base["Blog"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets BlogServicePassword.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("BlogServicePassword;nvarchar;255")]
+    public string BlogServicePassword
+    {
+      get
+      {
+        return base["BlogServicePassword"] as string;
+      }
+
+      set
+      {
+        base["BlogServicePassword"] = value;
       }
     }
 
@@ -243,56 +141,74 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Gets or sets BlogServicePassword.
+    /// Gets or sets Gender.
     /// </summary>
     [SettingsAllowAnonymous(false)]
-    [CustomProviderData("BlogServicePassword;nvarchar;255")]
-    public string BlogServicePassword
+    [CustomProviderData("Gender;int")]
+    public int Gender
     {
       get
       {
-        return base["BlogServicePassword"] as string;
+        return (int)base["Gender"];
       }
 
       set
       {
-        base["BlogServicePassword"] = value;
+        base["Gender"] = value;
       }
     }
 
     /// <summary>
-    /// Gets or sets RealName.
+    /// Gets or sets GoogleTalk.
     /// </summary>
     [SettingsAllowAnonymous(false)]
-    [CustomProviderData("RealName;nvarchar;255")]
-    public string RealName
+    [CustomProviderData("GoogleTalk;nvarchar;255")]
+    public string GoogleTalk
     {
       get
       {
-        return base["RealName"] as string;
+        return base["GoogleTalk"] as string;
       }
 
       set
       {
-        base["RealName"] = value;
+        base["GoogleTalk"] = value;
       }
     }
 
     /// <summary>
-    /// Gets or sets Occupation.
+    /// Gets or sets Homepage.
     /// </summary>
     [SettingsAllowAnonymous(false)]
-    [CustomProviderData("Occupation;nvarchar;400")]
-    public string Occupation
+    [CustomProviderData("Homepage;nvarchar;255")]
+    public string Homepage
     {
       get
       {
-        return base["Occupation"] as string;
+        return base["Homepage"] as string;
       }
 
       set
       {
-        base["Occupation"] = value;
+        base["Homepage"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets ICQ.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("ICQ;nvarchar;255")]
+    public string ICQ
+    {
+      get
+      {
+        return base["ICQ"] as string;
+      }
+
+      set
+      {
+        base["ICQ"] = value;
       }
     }
 
@@ -315,40 +231,134 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Gets or sets Gender.
+    /// Gets or sets Location.
     /// </summary>
     [SettingsAllowAnonymous(false)]
-    [CustomProviderData("Gender;int")]
-    public int Gender
+    [CustomProviderData("Location;nvarchar;255")]
+    public string Location
     {
       get
       {
-        return (int) base["Gender"];
+        return base["Location"] as string;
       }
 
       set
       {
-        base["Gender"] = value;
+        base["Location"] = value;
       }
     }
 
     /// <summary>
-    /// Gets or sets Birthday.
+    /// Gets or sets MSN.
     /// </summary>
     [SettingsAllowAnonymous(false)]
-    [CustomProviderData("Birthday;DateTime")]
-    public DateTime Birthday
+    [CustomProviderData("MSN;nvarchar;255")]
+    public string MSN
     {
       get
       {
-        return (DateTime) base["Birthday"];
+        return base["MSN"] as string;
       }
 
       set
       {
-        base["Birthday"] = value;
+        base["MSN"] = value;
       }
     }
+
+    /// <summary>
+    /// Gets or sets Occupation.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("Occupation;nvarchar;400")]
+    public string Occupation
+    {
+      get
+      {
+        return base["Occupation"] as string;
+      }
+
+      set
+      {
+        base["Occupation"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets RealName.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("RealName;nvarchar;255")]
+    public string RealName
+    {
+      get
+      {
+        return base["RealName"] as string;
+      }
+
+      set
+      {
+        base["RealName"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Skype.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("Skype;nvarchar;255")]
+    public string Skype
+    {
+      get
+      {
+        return base["Skype"] as string;
+      }
+
+      set
+      {
+        base["Skype"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets XMPP.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("XMPP;nvarchar;255")]
+    public string XMPP
+    {
+      get
+      {
+        return base["XMPP"] as string;
+      }
+
+      set
+      {
+        base["XMPP"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets YIM.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("YIM;nvarchar;255")]
+    public string YIM
+    {
+      get
+      {
+        return base["YIM"] as string;
+      }
+
+      set
+      {
+        base["YIM"] = value;
+      }
+    }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// Helper function to get a profile from the system
@@ -361,5 +371,7 @@ namespace YAF.Classes.Utils
     {
       return Create(userName) as YafUserProfile;
     }
+
+    #endregion
   }
 }

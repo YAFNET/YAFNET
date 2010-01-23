@@ -18,12 +18,16 @@
  */
 namespace YAF.Classes.Core
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.Security;
 
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Helps get a complete user profile from various locations

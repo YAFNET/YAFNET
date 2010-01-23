@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IYafUserProfile.cs" />
     <Compile Include="StyleTransform.cs" />
     <Compile Include="URLBuilder\DotNetNukeUrlBuilder.cs" />
     <Compile Include="YafBuildLink.cs" />

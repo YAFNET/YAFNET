@@ -19,19 +19,24 @@
  */
 namespace YAF.Classes.Data
 {
+  #region Using
+
   using System;
+  using System.Collections.Generic;
   using System.Data;
+  using System.Linq;
   using System.Data.SqlClient;
-  using System.Diagnostics.CodeAnalysis;
 
   using YAF.Classes.Pattern;
+
+  #endregion
 
   /// <summary>
   /// The yaf db access for SQL Server.
   /// </summary>
   public class YafDBAccess : IYafDBAccess
   {
-    /* Ederon : 6/16/2007 - conventions */
+    #region Constants and Fields
 
     /// <summary>
     /// The _isolation level.
@@ -42,6 +47,15 @@ namespace YAF.Classes.Data
     /// The _connection manager type.
     /// </summary>
     private Type _connectionManagerType = typeof(YafDBConnManager);
+
+    /// <summary>
+    /// Result filter list
+    /// </summary>
+    private IList<IDataTableResultFilter> _resultFilterList = new List<IDataTableResultFilter>();
+
+    #endregion
+
+    #region Properties
 
     /// <summary>
     /// Gets Current.
@@ -66,42 +80,118 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// The get connection manager.
+    /// Gets the Result Filter List.
     /// </summary>
-    /// <returns>
-    /// </returns>
-    public YafDBConnManager GetConnectionManager()
+    /// <exception cref="NotImplementedException">
+    /// </exception>
+    public IList<IDataTableResultFilter> ResultFilterList
     {
-      return (YafDBConnManager)Activator.CreateInstance(this._connectionManagerType);
-    }
-
-    /// <summary>
-    /// Change the Connection Manager used in all DB operations.
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public void SetConnectionManagerAdapter<T>()
-    {
-      Type newConnectionManager = typeof(T);
-
-      if (newConnectionManager.BaseType == typeof(YafDBConnManager))
+      get
       {
-        this._connectionManagerType = newConnectionManager;
+        return this._resultFilterList;
       }
     }
 
+    #endregion
+
+    #region Public Methods
+
     /// <summary>
-    /// Gets qualified object name
+    /// Creates new SqlCommand based on command text applying all qualifiers to the name.
     /// </summary>
-    /// <param name="name">
-    /// Base name of an object
+    /// <param name="commandText">
+    /// Command text to qualify.
+    /// </param>
+    /// <param name="isText">
+    /// Determines whether command text is text or stored procedure.
     /// </param>
     /// <returns>
-    /// Returns qualified object name of format {databaseOwner}.{objectQualifier}name
+    /// New SqlCommand
     /// </returns>
-    public static string GetObjectName(string name)
+    public static SqlCommand GetCommand(string commandText, bool isText)
     {
-      return String.Format("[{0}].[{1}{2}]", Config.DatabaseOwner, Config.DatabaseObjectQualifier, name);
+      return GetCommand(commandText, isText, null);
+    }
+
+    /// <summary>
+    /// Creates new SqlCommand based on command text applying all qualifiers to the name.
+    /// </summary>
+    /// <param name="commandText">
+    /// Command text to qualify.
+    /// </param>
+    /// <param name="isText">
+    /// Determines whether command text is text or stored procedure.
+    /// </param>
+    /// <param name="connection">
+    /// Connection to use with command.
+    /// </param>
+    /// <returns>
+    /// New SqlCommand
+    /// </returns>
+    public static SqlCommand GetCommand(string commandText, bool isText, SqlConnection connection)
+    {
+      return isText
+               ? new SqlCommand
+                 {
+                   CommandType = CommandType.Text, 
+                   CommandText = GetCommandTextReplaced(commandText), 
+                   Connection = connection
+                 }
+               : GetCommand(commandText);
+    }
+
+    /// <summary>
+    /// Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+    /// </summary>
+    /// <param name="storedProcedure">
+    /// Base of stored procedure name.
+    /// </param>
+    /// <returns>
+    /// New SqlCommand
+    /// </returns>
+    public static SqlCommand GetCommand(string storedProcedure)
+    {
+      return GetCommand(storedProcedure, null);
+    }
+
+    /// <summary>
+    /// Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+    /// </summary>
+    /// <param name="storedProcedure">
+    /// Base of stored procedure name.
+    /// </param>
+    /// <param name="connection">
+    /// Connection to use with command.
+    /// </param>
+    /// <returns>
+    /// New SqlCommand
+    /// </returns>
+    public static SqlCommand GetCommand(string storedProcedure, SqlConnection connection)
+    {
+      var cmd = new SqlCommand();
+
+      cmd.CommandType = CommandType.StoredProcedure;
+      cmd.CommandText = GetObjectName(storedProcedure);
+      cmd.Connection = connection;
+
+      return cmd;
+    }
+
+    /// <summary>
+    /// Gets command text replaced with {databaseOwner} and {objectQualifier}.
+    /// </summary>
+    /// <param name="commandText">
+    /// Test to transform.
+    /// </param>
+    /// <returns>
+    /// The get command text replaced.
+    /// </returns>
+    public static string GetCommandTextReplaced(string commandText)
+    {
+      commandText = commandText.Replace("{databaseOwner}", Config.DatabaseOwner);
+      commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
+
+      return commandText;
     }
 
     /// <summary>
@@ -153,26 +243,26 @@ namespace YAF.Classes.Data
     /// The get connection string.
     /// </returns>
     public static string GetConnectionString(
-      string parm1,
-      string parm2,
-      string parm3,
-      string parm4,
-      string parm5,
-      string parm6,
-      string parm7,
-      string parm8,
-      string parm9,
-      string parm10,
-      bool parm11,
-      bool parm12,
-      bool parm13,
-      bool parm14,
-      bool parm15,
-      bool parm16,
-      bool parm17,
-      bool parm18,
-      bool parm19,
-      string userID,
+      string parm1, 
+      string parm2, 
+      string parm3, 
+      string parm4, 
+      string parm5, 
+      string parm6, 
+      string parm7, 
+      string parm8, 
+      string parm9, 
+      string parm10, 
+      bool parm11, 
+      bool parm12, 
+      bool parm13, 
+      bool parm14, 
+      bool parm15, 
+      bool parm16, 
+      bool parm17, 
+      bool parm18, 
+      bool parm19, 
+      string userID, 
       string userPassword)
     {
       // TODO: Parameters should be in a List<ConnectionParameters>
@@ -189,6 +279,20 @@ namespace YAF.Classes.Data
       }
 
       return connBuilder.ConnectionString;
+    }
+
+    /// <summary>
+    /// Gets qualified object name
+    /// </summary>
+    /// <param name="name">
+    /// Base name of an object
+    /// </param>
+    /// <returns>
+    /// Returns qualified object name of format {databaseOwner}.{objectQualifier}name
+    /// </returns>
+    public static string GetObjectName(string name)
+    {
+      return String.Format("[{0}].[{1}{2}]", Config.DatabaseOwner, Config.DatabaseObjectQualifier, name);
     }
 
     /// <summary>
@@ -226,97 +330,240 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// Creates new SqlCommand based on command text applying all qualifiers to the name.
+    /// The get connection manager.
+    /// </summary>
+    /// <returns>
+    /// </returns>
+    public YafDBConnManager GetConnectionManager()
+    {
+      return (YafDBConnManager)Activator.CreateInstance(this._connectionManagerType);
+    }
+
+    /// <summary>
+    /// Change the Connection Manager used in all DB operations.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    public void SetConnectionManagerAdapter<T>()
+    {
+      Type newConnectionManager = typeof(T);
+
+      if (typeof(IYafDBConnManager).IsAssignableFrom(newConnectionManager))
+      {
+        this._connectionManagerType = newConnectionManager;
+      }
+    }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IYafDBAccess
+
+    /// <summary>
+    /// Executes a NonQuery
+    /// </summary>
+    /// <param name="cmd">
+    /// NonQuery to execute
+    /// </param>
+    /// <remarks>
+    /// Without transaction
+    /// </remarks>
+    public void ExecuteNonQuery(SqlCommand cmd)
+    {
+      // defaults to using a transaction for non-queries
+      this.ExecuteNonQuery(cmd, true);
+    }
+
+    /// <summary>
+    /// The execute non query.
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <param name="transaction">
+    /// The transaction.
+    /// </param>
+    public void ExecuteNonQuery(SqlCommand cmd, bool transaction)
+    {
+      var qc = new QueryCounter(cmd.CommandText);
+      try
+      {
+        using (YafDBConnManager connMan = this.GetConnectionManager())
+        {
+          // get an open connection
+          cmd.Connection = connMan.OpenDBConnection;
+
+          if (transaction)
+          {
+            // execute using a transaction
+            using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+            {
+              cmd.Transaction = trans;
+              cmd.ExecuteNonQuery();
+              trans.Commit();
+            }
+          }
+          else
+          {
+            // don't use a transaction
+            cmd.ExecuteNonQuery();
+          }
+        }
+      }
+      finally
+      {
+        qc.Dispose();
+      }
+    }
+
+    /// <summary>
+    /// The execute scalar.
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <returns>
+    /// The execute scalar.
+    /// </returns>
+    public object ExecuteScalar(SqlCommand cmd)
+    {
+      // default to using a transaction for scaler commands
+      return this.ExecuteScalar(cmd, true);
+    }
+
+    /// <summary>
+    /// The execute scalar.
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <param name="transaction">
+    /// The transaction.
+    /// </param>
+    /// <returns>
+    /// The execute scalar.
+    /// </returns>
+    public object ExecuteScalar(SqlCommand cmd, bool transaction)
+    {
+      var qc = new QueryCounter(cmd.CommandText);
+      try
+      {
+        using (YafDBConnManager connMan = this.GetConnectionManager())
+        {
+          // get an open connection
+          cmd.Connection = connMan.OpenDBConnection;
+
+          if (transaction)
+          {
+            // get scalar using a transaction
+            using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+            {
+              cmd.Transaction = trans;
+              object results = cmd.ExecuteScalar();
+              trans.Commit();
+              return results;
+            }
+          }
+          else
+          {
+            // get scalar regular
+            return cmd.ExecuteScalar();
+          }
+        }
+      }
+      finally
+      {
+        qc.Dispose();
+      }
+    }
+
+    /// <summary>
+    /// Gets data out of the database
+    /// </summary>
+    /// <param name="cmd">
+    /// The SQL Command
+    /// </param>
+    /// <returns>
+    /// DataTable with the results
+    /// </returns>
+    /// <remarks>
+    /// Without transaction.
+    /// </remarks>
+    public DataTable GetData(SqlCommand cmd)
+    {
+      return GetData(cmd, false);
+    }
+
+    /// <summary>
+    /// The get data.
+    /// </summary>
+    /// <param name="cmd">
+    /// The cmd.
+    /// </param>
+    /// <param name="transaction">
+    /// The transaction.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public DataTable GetData(SqlCommand cmd, bool transaction)
+    {
+      var qc = new QueryCounter(cmd.CommandText);
+
+      try
+      {
+        return this.ProcessUsingResultFilters(this.GetDatasetBasic(cmd, transaction).Tables[0], cmd.CommandText);
+      }
+      finally
+      {
+        qc.Dispose();
+      }
+    }
+
+    /// <summary>
+    /// Gets data out of database using a plain text string command
     /// </summary>
     /// <param name="commandText">
-    /// Command text to qualify.
-    /// </param>
-    /// <param name="isText">
-    /// Determines whether command text is text or stored procedure.
+    /// command text to be executed
     /// </param>
     /// <returns>
-    /// New SqlCommand
+    /// DataTable with results
     /// </returns>
-    public static SqlCommand GetCommand(string commandText, bool isText)
+    /// <remarks>
+    /// Without transaction.
+    /// </remarks>
+    public DataTable GetData(string commandText)
     {
-      return GetCommand(commandText, isText, null);
+      return GetData(commandText, false);
     }
 
     /// <summary>
-    /// Creates new SqlCommand based on command text applying all qualifiers to the name.
+    /// The get data.
     /// </summary>
     /// <param name="commandText">
-    /// Command text to qualify.
+    /// The command text.
     /// </param>
-    /// <param name="isText">
-    /// Determines whether command text is text or stored procedure.
-    /// </param>
-    /// <param name="connection">
-    /// Connection to use with command.
+    /// <param name="transaction">
+    /// The transaction.
     /// </param>
     /// <returns>
-    /// New SqlCommand
     /// </returns>
-    public static SqlCommand GetCommand(string commandText, bool isText, SqlConnection connection)
+    public DataTable GetData(string commandText, bool transaction)
     {
-      return isText
-               ? new SqlCommand
-                 {
-                   CommandType = CommandType.Text,
-                   CommandText = GetCommandTextReplaced(commandText),
-                   Connection = connection
-                 }
-               : GetCommand(commandText);
-    }
-
-    /// <summary>
-    /// Gets command text replaced with {databaseOwner} and {objectQualifier}.
-    /// </summary>
-    /// <param name="commandText">Test to transform.</param>
-    /// <returns></returns>
-    public static string GetCommandTextReplaced(string commandText)
-    {
-      commandText = commandText.Replace("{databaseOwner}", Config.DatabaseOwner);
-      commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
-
-      return commandText;
-    }
-
-    /// <summary>
-    /// Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
-    /// </summary>
-    /// <param name="storedProcedure">
-    /// Base of stored procedure name.
-    /// </param>
-    /// <returns>
-    /// New SqlCommand
-    /// </returns>
-    public static SqlCommand GetCommand(string storedProcedure)
-    {
-      return GetCommand(storedProcedure, null);
-    }
-
-    /// <summary>
-    /// Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
-    /// </summary>
-    /// <param name="storedProcedure">
-    /// Base of stored procedure name.
-    /// </param>
-    /// <param name="connection">
-    /// Connection to use with command.
-    /// </param>
-    /// <returns>
-    /// New SqlCommand
-    /// </returns>
-    public static SqlCommand GetCommand(string storedProcedure, SqlConnection connection)
-    {
-      var cmd = new SqlCommand();
-
-      cmd.CommandType = CommandType.StoredProcedure;
-      cmd.CommandText = GetObjectName(storedProcedure);
-      cmd.Connection = connection;
-
-      return cmd;
+      var qc = new QueryCounter(commandText);
+      try
+      {
+        using (var cmd = new SqlCommand())
+        {
+          cmd.CommandType = CommandType.Text;
+          cmd.CommandText = commandText;
+          return this.ProcessUsingResultFilters(this.GetDatasetBasic(cmd, transaction).Tables[0], commandText);
+        }
+      }
+      finally
+      {
+        qc.Dispose();
+      }
     }
 
     /// <summary>
@@ -333,7 +580,7 @@ namespace YAF.Classes.Data
     /// </remarks>
     public DataSet GetDataset(SqlCommand cmd)
     {
-      return GetDataset(cmd, false);
+      return this.GetDataset(cmd, false);
     }
 
     /// <summary>
@@ -353,12 +600,42 @@ namespace YAF.Classes.Data
 
       try
       {
-        return GetDatasetBasic(cmd, transaction);
+        return this.GetDatasetBasic(cmd, transaction);
       }
       finally
       {
         qc.Dispose();
       }
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Process a <see cref="DataTable"/> using Result Filters.
+    /// </summary>
+    /// <param name="dataTable">data table to process</param>
+    /// <param name="sqlCommand"></param>
+    /// <returns></returns>
+    private DataTable ProcessUsingResultFilters(DataTable dataTable, string sqlCommand)
+    {
+      string commandCleaned =
+        sqlCommand.Replace(String.Format("[{0}].[{1}", Config.DatabaseOwner, Config.DatabaseObjectQualifier), String.Empty);
+
+      if (commandCleaned.EndsWith("]"))
+      {
+        // remove last character
+        commandCleaned = commandCleaned.Substring(0, commandCleaned.Length - 1);
+      }
+
+      // sort filters and process each one...
+      this.ResultFilterList.OrderBy(x => x.Rank).ToList().ForEach(i => i.Process(ref dataTable, commandCleaned));
+
+      // return possibility modified dataTable
+      return dataTable;
     }
 
     /// <summary>
@@ -372,7 +649,7 @@ namespace YAF.Classes.Data
     /// </returns>
     private DataSet GetDatasetBasic(SqlCommand cmd, bool transaction)
     {
-      using (YafDBConnManager connMan = GetConnectionManager())
+      using (YafDBConnManager connMan = this.GetConnectionManager())
       {
         // see if an existing connection is present
         if (cmd.Connection == null)
@@ -421,210 +698,6 @@ namespace YAF.Classes.Data
       }
     }
 
-    /// <summary>
-    /// Gets data out of the database
-    /// </summary>
-    /// <param name="cmd">
-    /// The SQL Command
-    /// </param>
-    /// <returns>
-    /// DataTable with the results
-    /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    public DataTable GetData(SqlCommand cmd)
-    {
-      return GetData(cmd, false);
-    }
-
-    /// <summary>
-    /// The get data.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <param name="transaction">
-    /// The transaction.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public DataTable GetData(SqlCommand cmd, bool transaction)
-    {
-      var qc = new QueryCounter(cmd.CommandText);
-
-      try
-      {
-        return GetDatasetBasic(cmd, transaction).Tables[0];
-      }
-      finally
-      {
-        qc.Dispose();
-      }
-    }
-
-    /// <summary>
-    /// Gets data out of database using a plain text string command
-    /// </summary>
-    /// <param name="commandText">
-    /// command text to be executed
-    /// </param>
-    /// <returns>
-    /// DataTable with results
-    /// </returns>
-    /// <remarks>
-    /// Without transaction.
-    /// </remarks>
-    public DataTable GetData(string commandText)
-    {
-      return GetData(commandText, false);
-    }
-
-    /// <summary>
-    /// The get data.
-    /// </summary>
-    /// <param name="commandText">
-    /// The command text.
-    /// </param>
-    /// <param name="transaction">
-    /// The transaction.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public DataTable GetData(string commandText, bool transaction)
-    {
-      var qc = new QueryCounter(commandText);
-      try
-      {
-        using (var cmd = new SqlCommand())
-        {
-          cmd.CommandType = CommandType.Text;
-          cmd.CommandText = commandText;
-          return GetDatasetBasic(cmd, transaction).Tables[0];
-        }
-      }
-      finally
-      {
-        qc.Dispose();
-      }
-    }
-
-    /// <summary>
-    /// Executes a NonQuery
-    /// </summary>
-    /// <param name="cmd">
-    /// NonQuery to execute
-    /// </param>
-    /// <remarks>
-    /// Without transaction
-    /// </remarks>
-    public void ExecuteNonQuery(SqlCommand cmd)
-    {
-      // defaults to using a transaction for non-queries
-      ExecuteNonQuery(cmd, true);
-    }
-
-    /// <summary>
-    /// The execute non query.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <param name="transaction">
-    /// The transaction.
-    /// </param>
-    public void ExecuteNonQuery(SqlCommand cmd, bool transaction)
-    {
-      var qc = new QueryCounter(cmd.CommandText);
-      try
-      {
-        using (YafDBConnManager connMan = GetConnectionManager())
-        {
-          // get an open connection
-          cmd.Connection = connMan.OpenDBConnection;
-
-          if (transaction)
-          {
-            // execute using a transaction
-            using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
-            {
-              cmd.Transaction = trans;
-              cmd.ExecuteNonQuery();
-              trans.Commit();
-            }
-          }
-          else
-          {
-            // don't use a transaction
-            cmd.ExecuteNonQuery();
-          }
-        }
-      }
-      finally
-      {
-        qc.Dispose();
-      }
-    }
-
-    /// <summary>
-    /// The execute scalar.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <returns>
-    /// The execute scalar.
-    /// </returns>
-    public object ExecuteScalar(SqlCommand cmd)
-    {
-      // default to using a transaction for scaler commands
-      return ExecuteScalar(cmd, true);
-    }
-
-    /// <summary>
-    /// The execute scalar.
-    /// </summary>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <param name="transaction">
-    /// The transaction.
-    /// </param>
-    /// <returns>
-    /// The execute scalar.
-    /// </returns>
-    public object ExecuteScalar(SqlCommand cmd, bool transaction)
-    {
-      var qc = new QueryCounter(cmd.CommandText);
-      try
-      {
-        using (YafDBConnManager connMan = GetConnectionManager())
-        {
-          // get an open connection
-          cmd.Connection = connMan.OpenDBConnection;
-
-          if (transaction)
-          {
-            // get scalar using a transaction
-            using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
-            {
-              cmd.Transaction = trans;
-              object results = cmd.ExecuteScalar();
-              trans.Commit();
-              return results;
-            }
-          }
-          else
-          {
-            // get scalar regular
-            return cmd.ExecuteScalar();
-          }
-        }
-      }
-      finally
-      {
-        qc.Dispose();
-      }
-    }
+    #endregion
   }
 }
