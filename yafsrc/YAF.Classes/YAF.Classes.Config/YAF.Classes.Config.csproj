@@ -68,9 +68,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseUrlBuilder.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Interfaces\IYafTheme.cs" />
     <Compile Include="Pattern\ThreadSafeDictionary.cs" />
+    <Compile Include="Pattern\TypeFactoryInstanceApplicationScope.cs" />
+    <Compile Include="Pattern\TypeFactoryInstanceApplicationBoardScope.cs" />
+    <Compile Include="Pattern\TypeFactoryInstance.cs" />
     <Compile Include="YafBoardFolders.cs" />
     <Compile Include="YafBoardSettings.cs" />
     <Compile Include="Constants\Constants.cs" />
@@ -79,13 +83,14 @@
     <Compile Include="Pattern\RegistryDictionary.cs" />
     <Compile Include="Pattern\SingleClassInstanceFactory.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="IUrlBuilder.cs" />
+    <Compile Include="Interfaces\IUrlBuilder.cs" />
     <Compile Include="Pattern\PageSingleton.cs" />
     <Compile Include="Pattern\TypeDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UrlBuilder.cs" />
+    <Compile Include="DefaultUrlBuilder.cs" />
     <Compile Include="YafBoardSettingCollection.cs" />
     <Compile Include="YafControlSettings.cs" />
+    <Compile Include="YafProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

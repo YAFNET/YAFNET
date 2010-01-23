@@ -1653,7 +1653,7 @@ namespace YAF.Classes.Data
           cmd.Parameters.AddWithValue("AttachmentID", attachmentID);
           DataTable tbAttachments = YafDBAccess.Current.GetData(cmd);
 
-          string uploadDir = HostingEnvironment.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+          string uploadDir = HostingEnvironment.MapPath(String.Concat(BaseUrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
 
           foreach (DataRow row in tbAttachments.Rows)
           {
@@ -4073,13 +4073,13 @@ namespace YAF.Classes.Data
           cmd.Parameters.AddWithValue("MessageID", messageID);
           DataTable tbAttachments = YafDBAccess.Current.GetData(cmd);
 
-          string uploadDir = HostingEnvironment.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+          string uploadDir = HostingEnvironment.MapPath(String.Concat(BaseUrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
 
           foreach (DataRow row in tbAttachments.Rows)
           {
             try
             {
-              string fileName = String.Format("{0}/{1}.{2}", uploadDir, messageID, row["FileName"]);
+              string fileName = String.Format("{0}/{1}.{2}.yafupload", uploadDir, messageID, row["FileName"]);
               if (File.Exists(fileName))
               {
                 File.Delete(fileName);

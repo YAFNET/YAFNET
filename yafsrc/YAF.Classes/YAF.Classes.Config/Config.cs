@@ -24,6 +24,8 @@ using System.Web.Configuration;
 
 namespace YAF.Classes
 {
+  using Pattern;
+
   /// <summary>
   /// Static class that access the app settings in the web.config file
   /// </summary>
@@ -82,6 +84,17 @@ namespace YAF.Classes
       {
         return GetConfigValueAsString("YAF.BaseScriptFile") ?? "default.aspx";
       }
+    }
+
+    /// <summary>
+    /// Gets a Provider type string from the config.
+    /// </summary>
+    /// <param name="providerName"></param>
+    /// <returns>Provider type string or <see langword="null"/> if none exist.</returns>
+    public static string GetProvider(string providerName)
+    {
+      string key = string.Format("YAF.Provider.", providerName);
+      return GetConfigValueAsString(key);
     }
 
     /// <summary>
@@ -308,64 +321,6 @@ namespace YAF.Classes
       get
       {
         return IsDotNetNuke || IsRainbow || IsMojoPortal || IsPortal || IsPortalomatic;
-      }
-    }
-
-    /// <summary>
-    /// Gets UrlBuilderKeyName.
-    /// </summary>
-    private static string UrlBuilderKeyName
-    {
-      get
-      {
-        return "yaf_UrlBuilder-Board" + YafControlSettings.Current.BoardID;
-      }
-    }
-
-    /// <summary>
-    /// Gets UrlBuilder.
-    /// </summary>
-    public static IUrlBuilder UrlBuilder
-    {
-      get
-      {
-        if (HttpContext.Current.Application[UrlBuilderKeyName] == null)
-        {
-          string urlAssembly;
-
-          if (IsRainbow)
-          {
-            urlAssembly = "yaf_rainbow.RainbowUrlBuilder,yaf_rainbow";
-          }
-          else if (IsDotNetNuke)
-          {
-            urlAssembly = "YAF.Classes.DotNetNukeUrlBuilder,YAF.Classes.Utils";
-          }
-          else if (IsMojoPortal)
-          {
-            urlAssembly = "yaf_mojo.MojoPortalUrlBuilder,yaf_mojo";
-          }
-          else if (IsPortal)
-          {
-            urlAssembly = "Portal.UrlBuilder,Portal";
-          }
-          else if (IsPortalomatic)
-          {
-            urlAssembly = "Portalomatic.NET.Utils.URLBuilder,Portalomatic.NET.Utils";
-          }
-          else if (EnableURLRewriting)
-          {
-            urlAssembly = "YAF.Classes.RewriteUrlBuilder,YAF.Classes.Utils";
-          }
-          else
-          {
-            urlAssembly = "YAF.Classes.UrlBuilder";
-          }
-
-          HttpContext.Current.Application[UrlBuilderKeyName] = Activator.CreateInstance(Type.GetType(urlAssembly));
-        }
-
-        return (IUrlBuilder) HttpContext.Current.Application[UrlBuilderKeyName];
       }
     }
 

@@ -16,44 +16,54 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web;
-
 namespace YAF.Classes.Utils
 {
+  #region Using
+
+  using System;
+  using System.Web;
+
+  #endregion
+
   /// <summary>
   /// Enumerates forum info messages.
   /// </summary>
   public enum InfoMessage
   {
     /// <summary>
-    /// The moderated.
+    /// after posting to moderated forum
     /// </summary>
-    Moderated = 1, // after posting to moderated forum
+    Moderated = 1,
+ 
     /// <summary>
-    /// The suspended.
+    /// informs user he's suspended
     /// </summary>
-    Suspended = 2, // informs user he's suspended
+    Suspended = 2, 
+
     /// <summary>
-    /// The registration email.
+    /// informs user about registration email being sent
     /// </summary>
-    RegistrationEmail = 3, // informs user about registration email being sent
+    RegistrationEmail = 3,
+
     /// <summary>
-    /// The access denied.
+    /// access was denied
     /// </summary>
-    AccessDenied = 4, // access was denied
+    AccessDenied = 4,
+
     /// <summary>
-    /// The disabled.
+    /// informs user about feature being disabled by admin 
     /// </summary>
-    Disabled = 5, // informs user about feature being disabled by admin 
+    Disabled = 5, 
+
     /// <summary>
-    /// The invalid.
+    /// informs user about invalid input/request
     /// </summary>
-    Invalid = 6, // informs user about invalid input/request
+    Invalid = 6, 
+
     /// <summary>
-    /// The failure.
+    /// system error
     /// </summary>
-    Failure = 7 // system error
+    Failure = 7 
   }
 
   /// <summary>
@@ -61,6 +71,16 @@ namespace YAF.Classes.Utils
   /// </summary>
   public static class YafBuildLink
   {
+    #region Public Methods
+
+    /// <summary>
+    /// Redirects response to the access denied page.
+    /// </summary>
+    public static void AccessDenied()
+    {
+      Redirect(ForumPages.info, "i=4");
+    }
+
     /// <summary>
     /// Gets link to the page.
     /// </summary>
@@ -74,7 +94,9 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string GetLink(ForumPages page, bool fullUrl)
     {
-      return fullUrl ? Config.UrlBuilder.BuildUrlFull(string.Format("g={0}", page)) : Config.UrlBuilder.BuildUrl(string.Format("g={0}", page));
+      return fullUrl
+               ? YafProvider.UrlBuilder.BuildUrlFull(string.Format("g={0}", page))
+               : YafProvider.UrlBuilder.BuildUrl(string.Format("g={0}", page));
     }
 
     /// <summary>
@@ -111,8 +133,8 @@ namespace YAF.Classes.Utils
     public static string GetLink(ForumPages page, bool fullUrl, string format, params object[] args)
     {
       return fullUrl
-               ? Config.UrlBuilder.BuildUrlFull(string.Format("g={0}&{1}", page, string.Format(format, args)))
-               : Config.UrlBuilder.BuildUrl(string.Format("g={0}&{1}", page, string.Format(format, args)));
+               ? YafProvider.UrlBuilder.BuildUrlFull(string.Format("g={0}&{1}", page, string.Format(format, args)))
+               : YafProvider.UrlBuilder.BuildUrl(string.Format("g={0}&{1}", page, string.Format(format, args)));
     }
 
     /// <summary>
@@ -243,16 +265,7 @@ namespace YAF.Classes.Utils
     /// </param>
     public static void RedirectInfoPage(InfoMessage infoMessage)
     {
-      Redirect(ForumPages.info, String.Format("i={0}", (int) infoMessage));
-    }
-
-
-    /// <summary>
-    /// Redirects response to the access denied page.
-    /// </summary>
-    public static void AccessDenied()
-    {
-      Redirect(ForumPages.info, "i=4");
+      Redirect(ForumPages.info, String.Format("i={0}", (int)infoMessage));
     }
 
     /// <summary>
@@ -268,5 +281,7 @@ namespace YAF.Classes.Utils
     {
       return String.Format("{0}{1}/{2}", YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons, icon);
     }
+
+    #endregion
   }
 }

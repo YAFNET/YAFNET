@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* YetAnotherForum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,33 +16,33 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Classes
+namespace YAF.Classes.Pattern
 {
   /// <summary>
-  /// Defines interface for UrlBuilder class.
+  /// The type factory instance interface
   /// </summary>
-  public interface IUrlBuilder
+  /// <typeparam name="T">
+  /// </typeparam>
+  public interface ITypeFactoryInstance<T>
   {
-    /// <summary>
-    /// Builds path for calling page with URL argument as the parameter.
-    /// </summary>
-    /// <param name="url">
-    /// URL to use as a parameter.
-    /// </param>
-    /// <returns>
-    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-    /// </returns>
-    string BuildUrl(string url);
+    #region Properties
 
     /// <summary>
-    /// Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
+    /// Gets TypeName.
     /// </summary>
-    /// <param name="url">
-    /// URL to use as a parameter.
-    /// </param>
+    string TypeName { get; }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Get an instance of the type.
+    /// </summary>
     /// <returns>
-    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
     /// </returns>
-    string BuildUrlFull(string url);
+    T Get();
+
+    #endregion
   }
 }

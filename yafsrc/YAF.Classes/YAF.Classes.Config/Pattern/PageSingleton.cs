@@ -21,9 +21,8 @@ using System.Web;
 
 namespace YAF.Classes.Pattern
 {
-  // Singleton factory implementation
   /// <summary>
-  /// The page singleton.
+  /// Singleton factory implementation
   /// </summary>
   /// <typeparam name="T">
   /// </typeparam>
@@ -64,15 +63,18 @@ namespace YAF.Classes.Pattern
       {
         if (_instance == null)
         {
-          _instance = (T) Activator.CreateInstance(typeof (T), true);
+          _instance = (T)Activator.CreateInstance(typeof(T), true);
         }
 
         return _instance;
       }
 
-      string typeStr = typeof (T).ToString();
+      string typeStr = typeof(T).ToString();
 
-      return (T) (HttpContext.Current.Items[typeStr] ?? (HttpContext.Current.Items[typeStr] = Activator.CreateInstance(typeof (T), true)));
+      return
+        (T)
+        (HttpContext.Current.Items[typeStr] ??
+         (HttpContext.Current.Items[typeStr] = Activator.CreateInstance(typeof(T), true)));
     }
   }
 }

@@ -34,7 +34,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return UrlBuilder.Path;
+        return BaseUrlBuilder.Path;
       }
     }
 
@@ -46,7 +46,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return UrlBuilder.FileRoot;
+        return BaseUrlBuilder.FileRoot;
       }
     }
 
@@ -57,7 +57,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return UrlBuilder.BaseUrl + UrlBuilder.Path;
+        return BaseUrlBuilder.BaseUrl + BaseUrlBuilder.Path;
       }
     }
 

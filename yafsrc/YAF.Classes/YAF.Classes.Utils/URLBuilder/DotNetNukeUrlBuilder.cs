@@ -16,17 +16,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web;
-
 namespace YAF.Classes
 {
+  #region Using
+
+  using System;
+  using System.Web;
+
+  using YAF.Classes.Interfaces;
+
+  #endregion
+
   /// <summary>
   /// The dot net nuke url builder.
   /// </summary>
-  public class DotNetNukeUrlBuilder : IUrlBuilder
+  public class DotNetNukeUrlBuilder : BaseUrlBuilder
   {
-    #region IUrlBuilder Members
+    #region Implemented Interfaces
+
+    #region IUrlBuilder
 
     /// <summary>
     /// The build url.
@@ -37,7 +45,7 @@ namespace YAF.Classes
     /// <returns>
     /// The build url.
     /// </returns>
-    public string BuildUrl(string url)
+    public override string BuildUrl(string url)
     {
       // escape & to &amp;
       url = url.Replace("&", "&amp;");
@@ -45,24 +53,14 @@ namespace YAF.Classes
       string scriptname = HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"];
       string tabid = HttpContext.Current.Request.QueryString["tabid"];
 
-      string builturl = tabid != null ? string.Format("{0}?tabid={1}&{2}", scriptname, tabid, url) : string.Format("{0}?{1}", scriptname, url);
+      string builturl = tabid != null
+                          ? string.Format("{0}?tabid={1}&{2}", scriptname, tabid, url)
+                          : string.Format("{0}?{1}", scriptname, url);
 
       return builturl;
     }
 
-    /// <summary>
-    /// The build url full.
-    /// </summary>
-    /// <param name="url">
-    /// The url.
-    /// </param>
-    /// <returns>
-    /// The build url full.
-    /// </returns>
-    public string BuildUrlFull(string url)
-    {
-      return String.Format("{0}{1}", UrlBuilder.BaseUrl, BuildUrl(url));
-    }
+    #endregion
 
     #endregion
   }

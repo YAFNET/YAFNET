@@ -16,26 +16,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Globalization;
-using System.Text;
-using System.Web;
-using System.Web.Caching;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Classes
 {
+  #region Using
+
+  using System;
+  using System.Data;
+  using System.Globalization;
+  using System.Text;
+  using System.Web;
+  using System.Web.Caching;
+
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// The rewrite url builder.
   /// </summary>
-  public class RewriteUrlBuilder : IUrlBuilder
+  public class RewriteUrlBuilder : BaseUrlBuilder
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The cache size.
     /// </summary>
     private int cacheSize = 500;
+
+    #endregion
+
+    #region Properties
 
     /// <summary>
     /// Gets or sets CacheSize.
@@ -44,7 +55,7 @@ namespace YAF.Classes
     {
       get
       {
-        return (int) this.cacheSize;
+        return (int)this.cacheSize;
       }
 
       set
@@ -56,22 +67,9 @@ namespace YAF.Classes
       }
     }
 
-    #region IUrlBuilder Members
+    #endregion
 
-    /// <summary>
-    /// The build url full.
-    /// </summary>
-    /// <param name="url">
-    /// The url.
-    /// </param>
-    /// <returns>
-    /// The build url full.
-    /// </returns>
-    public string BuildUrlFull(string url)
-    {
-      // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
-      return String.Format("{0}{1}", UrlBuilder.BaseUrl, BuildUrl(url));
-    }
+    #region Public Methods
 
     /// <summary>
     /// The build url.
@@ -82,12 +80,12 @@ namespace YAF.Classes
     /// <returns>
     /// The build url.
     /// </returns>
-    public string BuildUrl(string url)
+    public override string BuildUrl(string url)
     {
-      string newURL = string.Format("{0}{1}?{2}", UrlBuilder.Path, UrlBuilder.ScriptName, url);
+      string newURL = string.Format("{0}{1}?{2}", Path, ScriptName, url);
 
       // create scriptName
-      string scriptName = string.Format("{0}{1}", UrlBuilder.Path, Config.ForceScriptName ?? UrlBuilder.ScriptName);
+      string scriptName = string.Format("{0}{1}", Path, Config.ForceScriptName ?? ScriptName);
 
       // get the base script file from the config -- defaults to, well, default.aspx :)
       string scriptFile = Config.BaseScriptFile;
@@ -111,7 +109,7 @@ namespace YAF.Classes
         {
           case "topics":
             useKey = "f";
-            description = GetForumName(Convert.ToInt32(parser[useKey]));
+            description = this.GetForumName(Convert.ToInt32(parser[useKey]));
             handlePage = true;
             break;
           case "posts":
@@ -119,13 +117,13 @@ namespace YAF.Classes
             {
               useKey = "t";
               pageName += "t";
-              description = GetTopicName(Convert.ToInt32(parser[useKey]));
+              description = this.GetTopicName(Convert.ToInt32(parser[useKey]));
             }
             else if (!String.IsNullOrEmpty(parser["m"]))
             {
               useKey = "m";
               pageName += "m";
-              description = GetTopicNameFromMessage(Convert.ToInt32(parser[useKey]));
+              description = this.GetTopicNameFromMessage(Convert.ToInt32(parser[useKey]));
             }
 
             handlePage = true;
@@ -139,7 +137,7 @@ namespace YAF.Classes
             if (!String.IsNullOrEmpty(parser["c"]))
             {
               useKey = "c";
-              description = GetCategoryName(Convert.ToInt32(parser[useKey]));
+              description = this.GetCategoryName(Convert.ToInt32(parser[useKey]));
             }
 
             break;
@@ -177,11 +175,7 @@ namespace YAF.Classes
 
         newURL += ".aspx";
 
-        string restURL = parser.CreateQueryString(
-          new[]
-            {
-              "g", useKey
-            });
+        string restURL = parser.CreateQueryString(new[] { "g", useKey });
 
         // append to the url if there are additional (unsupported) parameters
         if (restURL.Length > 0)
@@ -211,6 +205,8 @@ namespace YAF.Classes
 
     #endregion
 
+    #region Methods
+
     /// <summary>
     /// The high range.
     /// </summary>
@@ -222,7 +218,7 @@ namespace YAF.Classes
     /// </returns>
     protected int HighRange(int id)
     {
-      return (int) (Math.Ceiling((double) (id/this.cacheSize))*this.cacheSize);
+      return (int)(Math.Ceiling((double)(id / this.cacheSize)) * this.cacheSize);
     }
 
     /// <summary>
@@ -236,24 +232,7 @@ namespace YAF.Classes
     /// </returns>
     protected int LowRange(int id)
     {
-      return (int) (Math.Floor((double) (id/this.cacheSize))*this.cacheSize);
-    }
-
-    /// <summary>
-    /// The get cache name.
-    /// </summary>
-    /// <param name="type">
-    /// The type.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <returns>
-    /// The get cache name.
-    /// </returns>
-    private string GetCacheName(string type, int id)
-    {
-      return String.Format(@"urlRewritingDT-{0}-Range-{1}-to-{2}", type, HighRange(id), LowRange(id));
+      return (int)(Math.Floor((double)(id / this.cacheSize)) * this.cacheSize);
     }
 
     /// <summary>
@@ -286,14 +265,65 @@ namespace YAF.Classes
         {
           sb.Append('-');
         }
-        else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(currentChar) && !char.IsSymbol(currentChar) &&
-                 currentChar < 128)
+        else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark && !char.IsPunctuation(currentChar) &&
+                 !char.IsSymbol(currentChar) && currentChar < 128)
         {
           sb.Append(currentChar);
         }
       }
 
       return sb.ToString();
+    }
+
+    /// <summary>
+    /// The get cache name.
+    /// </summary>
+    /// <param name="type">
+    /// The type.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <returns>
+    /// The get cache name.
+    /// </returns>
+    private string GetCacheName(string type, int id)
+    {
+      return String.Format(@"urlRewritingDT-{0}-Range-{1}-to-{2}", type, this.HighRange(id), this.LowRange(id));
+    }
+
+    /// <summary>
+    /// The get category name.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <returns>
+    /// The get category name.
+    /// </returns>
+    private string GetCategoryName(int id)
+    {
+      string type = "Category";
+      string primaryKey = "CategoryID";
+      string nameField = "Name";
+
+      DataRow row = this.GetDataRowFromCache(type, id);
+
+      if (row == null)
+      {
+        // get the section desired...
+        DataTable list = DB.category_simplelist(this.LowRange(id), this.CacheSize);
+
+        // set it up in the cache
+        row = this.SetupDataToCache(ref list, type, id, primaryKey);
+
+        if (row == null)
+        {
+          return string.Empty;
+        }
+      }
+
+      return CleanStringForURL(row[nameField].ToString());
     }
 
     /// <summary>
@@ -310,7 +340,7 @@ namespace YAF.Classes
     private DataRow GetDataRowFromCache(string type, int id)
     {
       // get the datatable and find the value
-      var list = HttpContext.Current.Cache[GetCacheName(type, id)] as DataTable;
+      var list = HttpContext.Current.Cache[this.GetCacheName(type, id)] as DataTable;
 
       if (list != null)
       {
@@ -324,11 +354,146 @@ namespace YAF.Classes
         else
         {
           // invalidate this cache section
-          HttpContext.Current.Cache.Remove(GetCacheName(type, id));
+          HttpContext.Current.Cache.Remove(this.GetCacheName(type, id));
         }
       }
 
       return null;
+    }
+
+    /// <summary>
+    /// The get forum name.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <returns>
+    /// The get forum name.
+    /// </returns>
+    private string GetForumName(int id)
+    {
+      string type = "Forum";
+      string primaryKey = "ForumID";
+      string nameField = "Name";
+
+      DataRow row = this.GetDataRowFromCache(type, id);
+
+      if (row == null)
+      {
+        // get the section desired...
+        DataTable list = DB.forum_simplelist(this.LowRange(id), this.CacheSize);
+
+        // set it up in the cache
+        row = this.SetupDataToCache(ref list, type, id, primaryKey);
+
+        if (row == null)
+        {
+          return string.Empty;
+        }
+      }
+
+      return CleanStringForURL(row[nameField].ToString());
+    }
+
+    /// <summary>
+    /// The get profile name.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <returns>
+    /// The get profile name.
+    /// </returns>
+    private string GetProfileName(int id)
+    {
+      string type = "Profile";
+      string primaryKey = "UserID";
+      string nameField = "Name";
+
+      DataRow row = this.GetDataRowFromCache(type, id);
+
+      if (row == null)
+      {
+        // get the section desired...
+        DataTable list = DB.user_simplelist(this.LowRange(id), this.CacheSize);
+
+        // set it up in the cache
+        row = this.SetupDataToCache(ref list, type, id, primaryKey);
+
+        if (row == null)
+        {
+          return string.Empty;
+        }
+      }
+
+      return CleanStringForURL(row[nameField].ToString());
+    }
+
+    /// <summary>
+    /// The get topic name.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <returns>
+    /// The get topic name.
+    /// </returns>
+    private string GetTopicName(int id)
+    {
+      string type = "Topic";
+      string primaryKey = "TopicID";
+      string nameField = "Topic";
+
+      DataRow row = this.GetDataRowFromCache(type, id);
+
+      if (row == null)
+      {
+        // get the section desired...
+        DataTable list = DB.topic_simplelist(this.LowRange(id), this.CacheSize);
+
+        // set it up in the cache
+        row = this.SetupDataToCache(ref list, type, id, primaryKey);
+
+        if (row == null)
+        {
+          return string.Empty;
+        }
+      }
+
+      return CleanStringForURL(row[nameField].ToString());
+    }
+
+    /// <summary>
+    /// The get topic name from message.
+    /// </summary>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <returns>
+    /// The get topic name from message.
+    /// </returns>
+    private string GetTopicNameFromMessage(int id)
+    {
+      string type = "Message";
+      string primaryKey = "MessageID";
+
+      DataRow row = this.GetDataRowFromCache(type, id);
+
+      if (row == null)
+      {
+        // get the section desired...
+        DataTable list = DB.message_simplelist(this.LowRange(id), this.CacheSize);
+
+        // set it up in the cache
+        row = this.SetupDataToCache(ref list, type, id, primaryKey);
+
+        if (row == null)
+        {
+          return string.Empty;
+        }
+      }
+
+      return this.GetTopicName(Convert.ToInt32(row["TopicID"]));
     }
 
     /// <summary>
@@ -355,15 +520,18 @@ namespace YAF.Classes
       if (list != null)
       {
         list.Columns[primaryKey].Unique = true;
-        list.PrimaryKey = new[]
-          {
-            list.Columns[primaryKey]
-          };
+        list.PrimaryKey = new[] { list.Columns[primaryKey] };
 
         // store it for the future
         var randomValue = new Random();
         HttpContext.Current.Cache.Insert(
-          GetCacheName(type, id), list, null, DateTime.Now.AddMinutes(randomValue.Next(5, 15)), Cache.NoSlidingExpiration, CacheItemPriority.Low, null);
+          this.GetCacheName(type, id), 
+          list, 
+          null, 
+          DateTime.Now.AddMinutes(randomValue.Next(5, 15)), 
+          Cache.NoSlidingExpiration, 
+          CacheItemPriority.Low, 
+          null);
 
         // find and return profile..
         row = list.Rows.Find(id);
@@ -371,180 +539,13 @@ namespace YAF.Classes
         if (row == null)
         {
           // invalidate this cache section
-          HttpContext.Current.Cache.Remove(GetCacheName(type, id));
+          HttpContext.Current.Cache.Remove(this.GetCacheName(type, id));
         }
       }
 
       return row;
     }
 
-    /// <summary>
-    /// The get profile name.
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <returns>
-    /// The get profile name.
-    /// </returns>
-    private string GetProfileName(int id)
-    {
-      string type = "Profile";
-      string primaryKey = "UserID";
-      string nameField = "Name";
-
-      DataRow row = GetDataRowFromCache(type, id);
-
-      if (row == null)
-      {
-        // get the section desired...
-        DataTable list = DB.user_simplelist(LowRange(id), CacheSize);
-
-        // set it up in the cache
-        row = SetupDataToCache(ref list, type, id, primaryKey);
-
-        if (row == null)
-        {
-          return string.Empty;
-        }
-      }
-
-      return CleanStringForURL(row[nameField].ToString());
-    }
-
-    /// <summary>
-    /// The get forum name.
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <returns>
-    /// The get forum name.
-    /// </returns>
-    private string GetForumName(int id)
-    {
-      string type = "Forum";
-      string primaryKey = "ForumID";
-      string nameField = "Name";
-
-      DataRow row = GetDataRowFromCache(type, id);
-
-      if (row == null)
-      {
-        // get the section desired...
-        DataTable list = DB.forum_simplelist(LowRange(id), CacheSize);
-
-        // set it up in the cache
-        row = SetupDataToCache(ref list, type, id, primaryKey);
-
-        if (row == null)
-        {
-          return string.Empty;
-        }
-      }
-
-      return CleanStringForURL(row[nameField].ToString());
-    }
-
-    /// <summary>
-    /// The get category name.
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <returns>
-    /// The get category name.
-    /// </returns>
-    private string GetCategoryName(int id)
-    {
-      string type = "Category";
-      string primaryKey = "CategoryID";
-      string nameField = "Name";
-
-      DataRow row = GetDataRowFromCache(type, id);
-
-      if (row == null)
-      {
-        // get the section desired...
-        DataTable list = DB.category_simplelist(LowRange(id), CacheSize);
-
-        // set it up in the cache
-        row = SetupDataToCache(ref list, type, id, primaryKey);
-
-        if (row == null)
-        {
-          return string.Empty;
-        }
-      }
-
-      return CleanStringForURL(row[nameField].ToString());
-    }
-
-    /// <summary>
-    /// The get topic name.
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <returns>
-    /// The get topic name.
-    /// </returns>
-    private string GetTopicName(int id)
-    {
-      string type = "Topic";
-      string primaryKey = "TopicID";
-      string nameField = "Topic";
-
-      DataRow row = GetDataRowFromCache(type, id);
-
-      if (row == null)
-      {
-        // get the section desired...
-        DataTable list = DB.topic_simplelist(LowRange(id), CacheSize);
-
-        // set it up in the cache
-        row = SetupDataToCache(ref list, type, id, primaryKey);
-
-        if (row == null)
-        {
-          return string.Empty;
-        }
-      }
-
-      return CleanStringForURL(row[nameField].ToString());
-    }
-
-    /// <summary>
-    /// The get topic name from message.
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <returns>
-    /// The get topic name from message.
-    /// </returns>
-    private string GetTopicNameFromMessage(int id)
-    {
-      string type = "Message";
-      string primaryKey = "MessageID";
-
-      DataRow row = GetDataRowFromCache(type, id);
-
-      if (row == null)
-      {
-        // get the section desired...
-        DataTable list = DB.message_simplelist(LowRange(id), CacheSize);
-
-        // set it up in the cache
-        row = SetupDataToCache(ref list, type, id, primaryKey);
-
-        if (row == null)
-        {
-          return string.Empty;
-        }
-      }
-
-      return GetTopicName(Convert.ToInt32(row["TopicID"]));
-    }
+    #endregion
   }
 }

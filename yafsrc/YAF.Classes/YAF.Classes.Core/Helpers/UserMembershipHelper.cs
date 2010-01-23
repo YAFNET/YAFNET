@@ -207,7 +207,7 @@ namespace YAF.Classes.Core
       {
         // Delete the images/albums both from database and physically.
         string sUpDir =
-          HttpContext.Current.Server.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+          HttpContext.Current.Server.MapPath(String.Concat(BaseUrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
         using (DataTable dt = DB.album_list(userID, null))
         {
           foreach (DataRow dr in dt.Rows)

@@ -17,47 +17,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Specialized;
-using System.Text;
-using System.Web;
-using System.Web.Hosting;
-
 namespace YAF.Classes
 {
-  /// <summary>
-  /// Implements URL Builder.
-  /// </summary>
-  public class UrlBuilder : IUrlBuilder
+  using System;
+  using System.Collections.Specialized;
+  using System.Text;
+  using System.Web;
+  using System.Web.Hosting;
+
+  using Interfaces;
+
+  public abstract class BaseUrlBuilder : IUrlBuilder
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _base urls.
     /// </summary>
     private static readonly StringDictionary _baseUrls = new StringDictionary();
 
-    /// <summary>
-    /// Gets ScriptName.
-    /// </summary>
-    public static string ScriptName
-    {
-      get
-      {
-        string scriptName = HttpContext.Current.Request.FilePath.ToLower();
-        return scriptName.Substring(scriptName.LastIndexOf('/') + 1);
-      }
-    }
+    #endregion
 
-    /// <summary>
-    /// Gets ScriptNamePath.
-    /// </summary>
-    public static string ScriptNamePath
-    {
-      get
-      {
-        string scriptName = HttpContext.Current.Request.FilePath.ToLower();
-        return scriptName.Substring(0, scriptName.LastIndexOf('/'));
-      }
-    }
+    #region Properties
 
     /// <summary>
     /// Gets BaseUrl.
@@ -117,7 +98,6 @@ namespace YAF.Classes
       }
     }
 
-
     /// <summary>
     /// Gets Path.
     /// </summary>
@@ -129,42 +109,33 @@ namespace YAF.Classes
       }
     }
 
-    #region IUrlBuilder Members
-
     /// <summary>
-    /// Builds path for calling page with parameter URL as page's escaped parameter.
+    /// Gets ScriptName.
     /// </summary>
-    /// <param name="url">
-    /// URL to put into parameter.
-    /// </param>
-    /// <returns>
-    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-    /// </returns>
-    public string BuildUrl(string url)
+    public static string ScriptName
     {
-      // escape & to &amp;
-      url = url.Replace("&", "&amp;");
-
-      // return URL to current script with URL from parameter as script's parameter
-      return String.Format("{0}{1}?{2}", Path, ScriptName, url);
+      get
+      {
+        string scriptName = HttpContext.Current.Request.FilePath.ToLower();
+        return scriptName.Substring(scriptName.LastIndexOf('/') + 1);
+      }
     }
 
     /// <summary>
-    /// Builds Full URL for calling page with parameter URL as page's escaped parameter.
+    /// Gets ScriptNamePath.
     /// </summary>
-    /// <param name="url">
-    /// URL to put into parameter.
-    /// </param>
-    /// <returns>
-    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-    /// </returns>
-    public string BuildUrlFull(string url)
+    public static string ScriptNamePath
     {
-      // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
-      return String.Format("{0}{1}", BaseUrl, BuildUrl(url));
+      get
+      {
+        string scriptName = HttpContext.Current.Request.FilePath.ToLower();
+        return scriptName.Substring(0, scriptName.LastIndexOf('/'));
+      }
     }
 
     #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// The get base url from variables.
@@ -195,6 +166,22 @@ namespace YAF.Classes
 
       return url.ToString();
     }
+
+    #endregion
+
+    #region IUrlBuilder Members
+
+    public abstract string BuildUrl(string url);
+
+    public virtual string BuildUrlFull(string url)
+    {
+      // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
+      return String.Format("{0}{1}", BaseUrl, this.BuildUrl(url));      
+    }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The treat base url.
@@ -285,5 +272,7 @@ namespace YAF.Classes
 
       return _path;
     }
+
+    #endregion
   }
 }
