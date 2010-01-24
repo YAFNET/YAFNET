@@ -171,6 +171,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether to enable Display Name.
+    /// </summary>
+    public bool EnableDisplayName
+    {
+      get
+      {
+        return this._reg.GetValue<bool>("EnableDisplayName", false);
+      }
+
+      set
+      {
+        this._reg.SetValue<bool>("EnableDisplayName", value);
+      }
+    }
+
+    /// <summary>
     /// Gets MaxUsers.
     /// </summary>
     public int MaxUsers

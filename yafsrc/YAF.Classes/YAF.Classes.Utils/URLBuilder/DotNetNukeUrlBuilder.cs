@@ -20,10 +20,7 @@ namespace YAF.Classes
 {
   #region Using
 
-  using System;
   using System.Web;
-
-  using YAF.Classes.Interfaces;
 
   #endregion
 

@@ -42,7 +42,7 @@ namespace YAF.Classes
     /// <summary>
     /// The cache size.
     /// </summary>
-    private int cacheSize = 500;
+    private int _cacheSize = 500;
 
     #endregion
 
@@ -55,14 +55,14 @@ namespace YAF.Classes
     {
       get
       {
-        return (int)this.cacheSize;
+        return this._cacheSize;
       }
 
       set
       {
-        if (this.cacheSize > 0)
+        if (this._cacheSize > 0)
         {
-          this.cacheSize = value;
+          this._cacheSize = value;
         }
       }
     }
@@ -218,7 +218,7 @@ namespace YAF.Classes
     /// </returns>
     protected int HighRange(int id)
     {
-      return (int)(Math.Ceiling((double)(id / this.cacheSize)) * this.cacheSize);
+      return (int)(Math.Ceiling((double)(id / this._cacheSize)) * this._cacheSize);
     }
 
     /// <summary>
@@ -232,7 +232,7 @@ namespace YAF.Classes
     /// </returns>
     protected int LowRange(int id)
     {
-      return (int)(Math.Floor((double)(id / this.cacheSize)) * this.cacheSize);
+      return (int)(Math.Floor((double)(id / this._cacheSize)) * this._cacheSize);
     }
 
     /// <summary>

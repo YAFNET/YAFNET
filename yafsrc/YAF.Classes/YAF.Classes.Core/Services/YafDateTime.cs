@@ -58,15 +58,20 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Formats a datetime value into 07.03.2003 22:32:34
     /// </summary>
-    /// <param name="o">
+    /// <param name="objectDateTIme">
     /// The date to be formatted
     /// </param>
     /// <returns>
-    /// Formatted string of the formatted DateTime Object.
+    /// Formatted string of the formatted <see cref="DateTime"/> Object.
     /// </returns>
-    public string FormatDateTime(object o)
+    public string FormatDateTime(object objectDateTime)
     {
-      DateTime dt = (DateTime) o + TimeOffset;
+      if (objectDateTime == null)
+      {
+        throw new ArgumentNullException("objectDateTime", "objectDateTime is null.");
+      }
+
+      DateTime dt = (DateTime)objectDateTime + TimeOffset;
 
       string strDateFormat = String.Format("{0:F}", dt);
 
@@ -88,22 +93,26 @@ namespace YAF.Classes.Core
     /// Formats a datatime value into 07.03.2003 00:00:00 except if 
     /// the date is yesterday or today -- in which case it says that.
     /// </summary>
-    /// <param name="o">
+    /// <param name="objectDateTime">
     /// The datetime to be formatted
     /// </param>
     /// <returns>
     /// Formatted string of DateTime object
     /// </returns>
-    public string FormatDateTimeTopic(object o)
+    public string FormatDateTimeTopic(object objectDateTime)
     {
+      if (objectDateTime == null)
+      {
+        throw new ArgumentNullException("objectDateTime", "objectDateTime is null.");
+      }
+
       string strDateFormat;
       DateTime dt;
       DateTime nt;
 
-
       try
       {
-        dt = Convert.ToDateTime(o) + TimeOffset;
+        dt = Convert.ToDateTime(objectDateTime) + TimeOffset;
       }
       catch
       {
@@ -155,15 +164,21 @@ namespace YAF.Classes.Core
     /// <summary>
     /// This formats a DateTime into a short string
     /// </summary>
-    /// <param name="o">
+    /// <param name="objectDateTime">
     /// The DateTime like object you wish to make a formatted string.
     /// </param>
     /// <returns>
     /// The formatted string created from the DateTime object.
     /// </returns>
-    public string FormatDateTimeShort(object o)
+    public string FormatDateTimeShort(object objectDateTime)
     {
-      DateTime dt = (DateTime) o + TimeOffset;
+      if (objectDateTime == null)
+      {
+        throw new ArgumentNullException("objectDateTime", "objectDateTime is null.");
+      }
+
+      DateTime dt = (DateTime) objectDateTime + TimeOffset;
+
       try
       {
         if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
@@ -192,7 +207,8 @@ namespace YAF.Classes.Core
     /// </returns>
     public string FormatDateLong(DateTime dt)
     {
-      dt += TimeOffset;
+      dt += this.TimeOffset;
+
       try
       {
         if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
@@ -213,15 +229,16 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Formats a datetime value into 07.03.2003
     /// </summary>
-    /// <param name="o">
+    /// <param name="objectDateTime">
     /// This formats the date.
     /// </param>
     /// <returns>
     /// Short formatted date.
     /// </returns>
-    public string FormatDateShort(object o)
+    public string FormatDateShort(object objectDateTime)
     {
-      DateTime dt = (DateTime) o + TimeOffset;
+      DateTime dt = (DateTime)objectDateTime + this.TimeOffset;
+
       try
       {
         if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
@@ -250,7 +267,8 @@ namespace YAF.Classes.Core
     /// </returns>
     public string FormatTime(DateTime dt)
     {
-      dt += TimeOffset;
+      dt += this.TimeOffset;
+
       try
       {
         if (YafContext.Current.BoardSettings.DateFormatFromLanguage)

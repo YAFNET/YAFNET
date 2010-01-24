@@ -137,7 +137,6 @@ namespace YAF.Controls.Statistics
         var userLink = new UserLink()
           {
             UserID = row.Field<int>("ID"), 
-            UserName = row.Field<string>("Name")
           };
         userLink.RenderControl(writer);
 

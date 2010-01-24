@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.net
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -19,30 +19,15 @@
 namespace YAF.Classes.Interfaces
 {
   /// <summary>
-  /// Defines interface for <see cref="IUrlBuilder"/> class.
+  /// User Display Name interface.
   /// </summary>
-  public interface IUrlBuilder
+  public interface IUserDisplayName
   {
     /// <summary>
-    /// Builds path for calling page with URL argument as the parameter.
+    /// Get the Display Name from a <paramref name="userId"/>
     /// </summary>
-    /// <param name="url">
-    /// URL to use as a parameter.
-    /// </param>
-    /// <returns>
-    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-    /// </returns>
-    string BuildUrl(string url);
-
-    /// <summary>
-    /// Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
-    /// </summary>
-    /// <param name="url">
-    /// URL to use as a parameter.
-    /// </param>
-    /// <returns>
-    /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-    /// </returns>
-    string BuildUrlFull(string url);
+    /// <param name="userId"></param>
+    /// <returns></returns>
+    string Get(int userId);
   }
 }

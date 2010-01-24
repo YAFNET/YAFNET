@@ -183,7 +183,6 @@ namespace YAF.Controls
           var userLink = new UserLink();
           userLink.UserID = Convert.ToInt32(row["UserID"]);
           userLink.Style = row["Style"].ToString();
-          userLink.UserName = row["UserName"].ToString();
           userLink.ID = "UserLink" + userLink.UserID.ToString();
 
           // how many users of this type is present (valid for guests, others have it 1)

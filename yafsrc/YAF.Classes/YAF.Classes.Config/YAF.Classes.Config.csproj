@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="BaseUrlBuilder.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
+    <Compile Include="Interfaces\IUserDisplayName.cs" />
     <Compile Include="Interfaces\IYafTheme.cs" />
     <Compile Include="Pattern\ThreadSafeDictionary.cs" />
     <Compile Include="Pattern\TypeFactoryInstanceApplicationScope.cs" />

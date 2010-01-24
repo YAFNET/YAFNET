@@ -16,18 +16,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Text;
-using System.Web.UI;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
 namespace YAF.Controls
 {
-  using Classes.UI;
+  #region Using
+
+  using System;
+  using System.Data;
+  using System.Text;
+  using System.Web.UI;
+
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.UI;
+  using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// The topic line.
@@ -35,6 +39,8 @@ namespace YAF.Controls
   [ParseChildren(false)]
   public class TopicLine : BaseControl
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _is alt.
     /// </summary>
@@ -44,6 +50,37 @@ namespace YAF.Controls
     /// The _row.
     /// </summary>
     private DataRowView _row = null;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Sets DataRow.
+    /// </summary>
+    public object DataRow
+    {
+      set
+      {
+        this._row = (DataRowView)value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether FindUnread.
+    /// </summary>
+    public bool FindUnread
+    {
+      get
+      {
+        return (this.ViewState["FindUnread"] != null) ? Convert.ToBoolean(this.ViewState["FindUnread"]) : false;
+      }
+
+      set
+      {
+        this.ViewState["FindUnread"] = value;
+      }
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether IsAlt.
@@ -61,31 +98,424 @@ namespace YAF.Controls
       }
     }
 
+    #endregion
+
+    #region Methods
+
     /// <summary>
-    /// Sets DataRow.
+    /// Create pager for post.
     /// </summary>
-    public object DataRow
+    /// <param name="count">
+    /// The count.
+    /// </param>
+    /// <param name="pageSize">
+    /// The page Size.
+    /// </param>
+    /// <param name="topicID">
+    /// The topic ID.
+    /// </param>
+    /// <returns>
+    /// The create post pager.
+    /// </returns>
+    protected string CreatePostPager(int count, int pageSize, int topicID)
     {
-      set
+      string strReturn = string.Empty;
+
+      int NumToDisplay = 4;
+      var PageCount = (int)Math.Ceiling((double)count / pageSize);
+
+      if (PageCount > 1)
       {
-        this._row = (DataRowView) value;
+        if (PageCount > NumToDisplay)
+        {
+          strReturn += this.MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID));
+          strReturn += " ... ";
+          bool bFirst = true;
+
+          // show links from the end
+          for (int i = PageCount - (NumToDisplay - 1); i < PageCount; i++)
+          {
+            int iPost = i + 1;
+
+            if (bFirst)
+            {
+              bFirst = false;
+            }
+            else
+            {
+              strReturn += ", ";
+            }
+
+            strReturn += this.MakeLink(
+              iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost));
+          }
+        }
+        else
+        {
+          bool bFirst = true;
+          for (int i = 0; i < PageCount; i++)
+          {
+            int iPost = i + 1;
+
+            if (bFirst)
+            {
+              bFirst = false;
+            }
+            else
+            {
+              strReturn += ", ";
+            }
+
+            strReturn += this.MakeLink(
+              iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost));
+          }
+        }
+      }
+
+      return strReturn;
+    }
+
+    /// <summary>
+    /// The format replies.
+    /// </summary>
+    /// <returns>
+    /// The format replies.
+    /// </returns>
+    protected string FormatReplies()
+    {
+      string repStr = "&nbsp;";
+
+      int nReplies = Convert.ToInt32(this._row["Replies"]);
+      int numDeleted = Convert.ToInt32(this._row["NumPostsDeleted"]);
+
+      if (nReplies >= 0)
+      {
+        if (this.PageContext.BoardSettings.ShowDeletedMessages && numDeleted > 0)
+        {
+          repStr = String.Format("{0:N0}", nReplies + numDeleted);
+        }
+        else
+        {
+          repStr = String.Format("{0:N0}", nReplies);
+        }
+      }
+
+      return repStr;
+    }
+
+    /// <summary>
+    /// Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
+    /// </summary>
+    /// <param name="row">
+    /// Current Topic Data Row
+    /// </param>
+    /// <returns>
+    /// Topic status text
+    /// </returns>
+    protected string GetPriorityMessage(DataRowView row)
+    {
+      string strReturn = string.Empty;
+
+      if (row["TopicMovedID"].ToString().Length > 0)
+      {
+        strReturn = this.PageContext.Localization.GetText("MOVED");
+      }
+      else if (row["PollID"].ToString() != string.Empty)
+      {
+        strReturn = this.PageContext.Localization.GetText("POLL");
+      }
+      else
+      {
+        switch (int.Parse(row["Priority"].ToString()))
+        {
+          case 1:
+            strReturn = this.PageContext.Localization.GetText("STICKY");
+            break;
+          case 2:
+            strReturn = this.PageContext.Localization.GetText("ANNOUNCEMENT");
+            break;
+        }
+      }
+
+      if (strReturn.Length > 0)
+      {
+        strReturn = String.Format("[ {0} ] ", strReturn);
+      }
+
+      return strReturn;
+    }
+
+    /// <summary>
+    /// The get topic image.
+    /// </summary>
+    /// <param name="o">
+    /// The o.
+    /// </param>
+    /// <param name="imgTitle">
+    /// The img title.
+    /// </param>
+    /// <returns>
+    /// The get topic image.
+    /// </returns>
+    protected string GetTopicImage(object o, ref string imgTitle)
+    {
+      var row = (DataRowView)o;
+      DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime)row["LastPosted"] : new DateTime(2000, 1, 1);
+      var topicFlags = new TopicFlags(row["TopicFlags"]);
+      var forumFlags = new ForumFlags(row["ForumFlags"]);
+
+      // Obsolette : Ederon
+      // bool isLocked = General.BinaryAnd(row["TopicFlags"], TopicFlags.Locked);
+      imgTitle = "???";
+
+      try
+      {
+        // Obsolette : Ederon
+        // bool bIsLocked = isLocked || General.BinaryAnd( row ["ForumFlags"], ForumFlags.Locked );
+        if (row["TopicMovedID"].ToString().Length > 0)
+        {
+          imgTitle = this.PageContext.Localization.GetText("MOVED");
+          return this.PageContext.Theme.GetItem("ICONS", "TOPIC_MOVED");
+        }
+
+        DateTime lastRead = Mession.GetTopicRead((int)row["TopicID"]);
+        DateTime lastReadForum = Mession.GetForumRead((int)row["ForumID"]);
+        if (lastReadForum > lastRead)
+        {
+          lastRead = lastReadForum;
+        }
+
+        if (lastPosted > lastRead)
+        {
+          Mession.UnreadTopics++;
+
+          if (row["PollID"] != DBNull.Value)
+          {
+            imgTitle = this.PageContext.Localization.GetText("POLL_NEW");
+            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_POLL_NEW");
+          }
+          else if (row["Priority"].ToString() == "1")
+          {
+            imgTitle = this.PageContext.Localization.GetText("STICKY");
+            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_STICKY");
+          }
+          else if (row["Priority"].ToString() == "2")
+          {
+            imgTitle = this.PageContext.Localization.GetText("ANNOUNCEMENT");
+            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
+          }
+          else if (topicFlags.IsLocked || forumFlags.IsLocked)
+          {
+            imgTitle = this.PageContext.Localization.GetText("NEW_POSTS_LOCKED");
+            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_NEW_LOCKED");
+          }
+          else
+          {
+            imgTitle = this.PageContext.Localization.GetText("NEW_POSTS");
+            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_NEW");
+          }
+        }
+        else
+        {
+          if (row["PollID"] != DBNull.Value)
+          {
+            imgTitle = this.PageContext.Localization.GetText("POLL");
+            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_POLL");
+          }
+          else if (row["Priority"].ToString() == "1")
+          {
+            imgTitle = this.PageContext.Localization.GetText("STICKY");
+            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_STICKY");
+          }
+          else if (row["Priority"].ToString() == "2")
+          {
+            imgTitle = this.PageContext.Localization.GetText("ANNOUNCEMENT");
+            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
+          }
+          else if (topicFlags.IsLocked || forumFlags.IsLocked)
+          {
+            imgTitle = this.PageContext.Localization.GetText("NO_NEW_POSTS_LOCKED");
+            return this.PageContext.Theme.GetItem("ICONS", "TOPIC_LOCKED");
+          }
+          else
+          {
+            imgTitle = this.PageContext.Localization.GetText("NO_NEW_POSTS");
+            return this.PageContext.Theme.GetItem("ICONS", "TOPIC");
+          }
+        }
+      }
+      catch (Exception)
+      {
+        return this.PageContext.Theme.GetItem("ICONS", "TOPIC");
       }
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether FindUnread.
+    /// The render.
     /// </summary>
-    public bool FindUnread
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
     {
-      get
+      var html = new StringBuilder(2000);
+
+      writer.WriteBeginTag("tr");
+      writer.WriteAttribute("class", this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post");
+      writer.Write(HtmlTextWriter.TagRightChar);
+
+      // Icon
+      string imgTitle = string.Empty;
+      string imgSrc = this.GetTopicImage(this._row, ref imgTitle);
+
+      this.WriteBeginTD(writer);
+      this.RenderImgTag(writer, imgSrc, imgTitle, imgTitle);
+      this.WriteEndTD(writer);
+
+      // Topic
+      this.WriteBeginTD(writer, "topicMain");
+
+      string priorityMessage = this.GetPriorityMessage(this._row);
+      if (!String.IsNullOrEmpty(priorityMessage))
       {
-        return (ViewState["FindUnread"] != null) ? Convert.ToBoolean(ViewState["FindUnread"]) : false;
+        writer.WriteBeginTag("span");
+        writer.WriteAttribute("class", "post_priority");
+        writer.Write(HtmlTextWriter.TagRightChar);
+        writer.Write(priorityMessage);
+        writer.WriteEndTag("span");
       }
 
-      set
+      string linkParams = "t={0}";
+      if (this.FindUnread)
       {
-        ViewState["FindUnread"] = value;
+        linkParams += "&find=unread";
       }
+
+      this.RenderAnchorBegin(
+        writer, 
+        YafBuildLink.GetLink(ForumPages.posts, linkParams, this._row["LinkTopicID"]), 
+        "post_link", 
+        FormatMsg.GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]).MessageTruncated);
+
+      writer.WriteLine(YafServices.BadWordReplace.Replace(Convert.ToString(this._row["Subject"])));
+      writer.WriteEndTag("a");
+
+      int actualPostCount = Convert.ToInt32(this._row["Replies"]) + 1;
+
+      if (this.PageContext.BoardSettings.ShowDeletedMessages)
+      {
+        // add deleted posts not included in replies...
+        actualPostCount += Convert.ToInt32(this._row["NumPostsDeleted"]);
+      }
+
+      string tPager = this.CreatePostPager(
+        actualPostCount, this.PageContext.BoardSettings.PostsPerPage, Convert.ToInt32(this._row["LinkTopicID"]));
+
+      if (tPager != String.Empty)
+      {
+        writer.WriteLine();
+        writer.WriteBreak();
+        writer.WriteBeginTag("span");
+        writer.WriteAttribute("class", "topicPager smallfont");
+        writer.Write(HtmlTextWriter.TagRightChar);
+
+        // more then one page to show
+        writer.Write(String.Format(this.PageContext.Localization.GetText("GOTO_POST_PAGER"), tPager));
+        writer.WriteEndTag("span");
+        writer.WriteLine();
+      }
+
+      this.WriteEndTD(writer);
+
+      // Topic Starter
+      var topicStarterLink = new UserLink();
+      topicStarterLink.ID = this.GetUniqueID("topicStarterLink");
+      topicStarterLink.UserID = Convert.ToInt32(this._row["UserID"]);
+      topicStarterLink.Style = this._row["StarterStyle"].ToString();
+
+      // render the user link control
+      this.WriteBeginTD(writer, "topicStarter");
+      topicStarterLink.RenderControl(writer);
+      this.WriteEndTD(writer);
+
+      // Replies
+      writer.WriteBeginTag("td");
+      writer.WriteAttribute("class", "topicReplies");
+      writer.WriteAttribute("style", "text-align: center");
+      writer.Write(HtmlTextWriter.TagRightChar);
+      writer.Write(this.FormatReplies());
+      writer.WriteEndTag("td");
+
+      // Views
+      writer.WriteBeginTag("td");
+      writer.WriteAttribute("class", "topicViews");
+      writer.WriteAttribute("style", "text-align: center");
+      writer.Write(HtmlTextWriter.TagRightChar);
+      writer.Write(this.FormatViews());
+      writer.WriteEndTag("td");
+
+      // Last Post
+      writer.WriteBeginTag("td");
+      writer.WriteAttribute("class", "topicLastPost smallfont");
+      writer.WriteAttribute("style", "text-align: center");
+      writer.Write(HtmlTextWriter.TagRightChar);
+      this.RenderLastPost(writer);
+      writer.WriteEndTag("td");
+
+      this.RenderChildren(writer);
+
+      writer.WriteEndTag("tr");
+      writer.WriteLine();
+    }
+
+    /// <summary>
+    /// Formats the Last Post for the Topic Line
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <returns>
+    /// The render last post.
+    /// </returns>
+    protected string RenderLastPost(HtmlTextWriter writer)
+    {
+      string strReturn = this.PageContext.Localization.GetText("no_posts");
+      DataRowView row = this._row;
+
+      if (row["LastMessageID"].ToString().Length > 0)
+      {
+        string strMiniPost = this.PageContext.Theme.GetItem(
+          "ICONS", 
+          (DateTime.Parse(row["LastPosted"].ToString()) > Mession.GetTopicRead((int)this._row["TopicID"]))
+            ? "ICON_NEWEST"
+            : "ICON_LATEST");
+
+        writer.Write(YafServices.DateTime.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])));
+        writer.WriteBreak();
+        writer.Write(String.Format(this.PageContext.Localization.GetText("by"), string.Empty));
+
+        var byLink = new UserLink();
+        byLink.UserID = Convert.ToInt32(row["LastUserID"]);
+        byLink.Style = row["LastUserStyle"].ToString();
+        byLink.RenderControl(writer);
+
+        writer.Write("&nbsp;");
+
+        writer.WriteBeginTag("a");
+        writer.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]));
+        writer.WriteAttribute("title", this.PageContext.Localization.GetText("GO_LAST_POST"));
+        writer.Write(HtmlTextWriter.TagRightChar);
+
+        this.RenderImgTag(
+          writer, 
+          strMiniPost, 
+          this.PageContext.Localization.GetText("GO_LAST_POST"), 
+          this.PageContext.Localization.GetText("GO_LAST_POST"));
+
+        writer.WriteEndTag("a");
+      }
+
+      return strReturn;
     }
 
     /// <summary>
@@ -116,7 +546,7 @@ namespace YAF.Controls
     /// </param>
     protected void WriteBeginTD(HtmlTextWriter writer)
     {
-      WriteBeginTD(writer, null);
+      this.WriteBeginTD(writer, null);
     }
 
     /// <summary>
@@ -131,124 +561,6 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render(HtmlTextWriter writer)
-    {
-      var html = new StringBuilder(2000);
-
-      writer.WriteBeginTag("tr");
-      writer.WriteAttribute("class", IsAlt ? "topicRow_Alt post_alt" : "topicRow post");
-      writer.Write(HtmlTextWriter.TagRightChar);
-
-      // Icon
-      string imgTitle = string.Empty;
-      string imgSrc = GetTopicImage(this._row, ref imgTitle);
-
-      WriteBeginTD(writer);
-      RenderImgTag(writer, imgSrc, imgTitle, imgTitle);
-      WriteEndTD(writer);
-
-      // Topic
-      WriteBeginTD(writer, "topicMain");
-
-      string priorityMessage = GetPriorityMessage(this._row);
-      if (!String.IsNullOrEmpty(priorityMessage))
-      {
-        writer.WriteBeginTag("span");
-        writer.WriteAttribute("class", "post_priority");
-        writer.Write(HtmlTextWriter.TagRightChar);
-        writer.Write(priorityMessage);
-        writer.WriteEndTag("span");
-      }
-
-      string linkParams = "t={0}";
-      if (FindUnread)
-      {
-        linkParams += "&find=unread";
-      }
-
-      RenderAnchorBegin(
-        writer, 
-        YafBuildLink.GetLink(ForumPages.posts, linkParams, this._row["LinkTopicID"]), 
-        "post_link",
-        FormatMsg.GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]).MessageTruncated);
-
-      writer.WriteLine(YafServices.BadWordReplace.Replace(Convert.ToString(this._row["Subject"])));
-      writer.WriteEndTag("a");
-
-      int actualPostCount = Convert.ToInt32(this._row["Replies"]) + 1;
-
-      if (PageContext.BoardSettings.ShowDeletedMessages)
-      {
-        // add deleted posts not included in replies...
-        actualPostCount += Convert.ToInt32(this._row["NumPostsDeleted"]);
-      }
-
-      string tPager = CreatePostPager(actualPostCount, PageContext.BoardSettings.PostsPerPage, Convert.ToInt32(this._row["LinkTopicID"]));
-
-      if (tPager != String.Empty)
-      {
-        writer.WriteLine();
-        writer.WriteBreak();
-        writer.WriteBeginTag("span");
-        writer.WriteAttribute("class", "topicPager smallfont");
-        writer.Write(HtmlTextWriter.TagRightChar);
-
-        // more then one page to show
-        writer.Write(String.Format(PageContext.Localization.GetText("GOTO_POST_PAGER"), tPager));
-        writer.WriteEndTag("span");
-        writer.WriteLine();
-      }
-
-      WriteEndTD(writer);
-
-      // Topic Starter
-      var topicStarterLink = new UserLink();
-      topicStarterLink.ID = GetUniqueID("topicStarterLink");
-      topicStarterLink.UserID = Convert.ToInt32(this._row["UserID"]);
-      topicStarterLink.UserName = this._row["Starter"].ToString();
-      topicStarterLink.Style = this._row["StarterStyle"].ToString();
-
-      // render the user link control
-      WriteBeginTD(writer, "topicStarter");
-      topicStarterLink.RenderControl(writer);
-      WriteEndTD(writer);
-
-      // Replies
-      writer.WriteBeginTag("td");
-      writer.WriteAttribute("class", "topicReplies");
-      writer.WriteAttribute("style", "text-align: center");
-      writer.Write(HtmlTextWriter.TagRightChar);
-      writer.Write(FormatReplies());
-      writer.WriteEndTag("td");
-
-      // Views
-      writer.WriteBeginTag("td");
-      writer.WriteAttribute("class", "topicViews");
-      writer.WriteAttribute("style", "text-align: center");
-      writer.Write(HtmlTextWriter.TagRightChar);
-      writer.Write(FormatViews());
-      writer.WriteEndTag("td");
-
-      // Last Post
-      writer.WriteBeginTag("td");
-      writer.WriteAttribute("class", "topicLastPost smallfont");
-      writer.WriteAttribute("style", "text-align: center");
-      writer.Write(HtmlTextWriter.TagRightChar);
-      RenderLastPost(writer);
-      writer.WriteEndTag("td");
-
-      this.RenderChildren(writer);
-
-      writer.WriteEndTag("tr");
-      writer.WriteLine();
-    }
-
-    /// <summary>
     /// The format views.
     /// </summary>
     /// <returns>
@@ -258,296 +570,6 @@ namespace YAF.Controls
     {
       int nViews = Convert.ToInt32(this._row["Views"]);
       return (this._row["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : String.Format("{0:N0}", nViews);
-    }
-
-    /// <summary>
-    /// The get topic image.
-    /// </summary>
-    /// <param name="o">
-    /// The o.
-    /// </param>
-    /// <param name="imgTitle">
-    /// The img title.
-    /// </param>
-    /// <returns>
-    /// The get topic image.
-    /// </returns>
-    protected string GetTopicImage(object o, ref string imgTitle)
-    {
-      var row = (DataRowView) o;
-      DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime) row["LastPosted"] : new DateTime(2000, 1, 1);
-      var topicFlags = new TopicFlags(row["TopicFlags"]);
-      var forumFlags = new ForumFlags(row["ForumFlags"]);
-
-      // Obsolette : Ederon
-      // bool isLocked = General.BinaryAnd(row["TopicFlags"], TopicFlags.Locked);
-      imgTitle = "???";
-
-      try
-      {
-        // Obsolette : Ederon
-        // bool bIsLocked = isLocked || General.BinaryAnd( row ["ForumFlags"], ForumFlags.Locked );
-        if (row["TopicMovedID"].ToString().Length > 0)
-        {
-          imgTitle = PageContext.Localization.GetText("MOVED");
-          return PageContext.Theme.GetItem("ICONS", "TOPIC_MOVED");
-        }
-
-        DateTime lastRead = Mession.GetTopicRead((int) row["TopicID"]);
-        DateTime lastReadForum = Mession.GetForumRead((int) row["ForumID"]);
-        if (lastReadForum > lastRead)
-        {
-          lastRead = lastReadForum;
-        }
-
-        if (lastPosted > lastRead)
-        {
-          Mession.UnreadTopics++;
-
-          if (row["PollID"] != DBNull.Value)
-          {
-            imgTitle = PageContext.Localization.GetText("POLL_NEW");
-            return PageContext.Theme.GetItem("ICONS", "TOPIC_POLL_NEW");
-          }
-          else if (row["Priority"].ToString() == "1")
-          {
-            imgTitle = PageContext.Localization.GetText("STICKY");
-            return PageContext.Theme.GetItem("ICONS", "TOPIC_STICKY");
-          }
-          else if (row["Priority"].ToString() == "2")
-          {
-            imgTitle = PageContext.Localization.GetText("ANNOUNCEMENT");
-            return PageContext.Theme.GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
-          }
-          else if (topicFlags.IsLocked || forumFlags.IsLocked)
-          {
-            imgTitle = PageContext.Localization.GetText("NEW_POSTS_LOCKED");
-            return PageContext.Theme.GetItem("ICONS", "TOPIC_NEW_LOCKED");
-          }
-          else
-          {
-            imgTitle = PageContext.Localization.GetText("NEW_POSTS");
-            return PageContext.Theme.GetItem("ICONS", "TOPIC_NEW");
-          }
-        }
-        else
-        {
-          if (row["PollID"] != DBNull.Value)
-          {
-            imgTitle = PageContext.Localization.GetText("POLL");
-            return PageContext.Theme.GetItem("ICONS", "TOPIC_POLL");
-          }
-          else if (row["Priority"].ToString() == "1")
-          {
-            imgTitle = PageContext.Localization.GetText("STICKY");
-            return PageContext.Theme.GetItem("ICONS", "TOPIC_STICKY");
-          }
-          else if (row["Priority"].ToString() == "2")
-          {
-            imgTitle = PageContext.Localization.GetText("ANNOUNCEMENT");
-            return PageContext.Theme.GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
-          }
-          else if (topicFlags.IsLocked || forumFlags.IsLocked)
-          {
-            imgTitle = PageContext.Localization.GetText("NO_NEW_POSTS_LOCKED");
-            return PageContext.Theme.GetItem("ICONS", "TOPIC_LOCKED");
-          }
-          else
-          {
-            imgTitle = PageContext.Localization.GetText("NO_NEW_POSTS");
-            return PageContext.Theme.GetItem("ICONS", "TOPIC");
-          }
-        }
-      }
-      catch (Exception)
-      {
-        return PageContext.Theme.GetItem("ICONS", "TOPIC");
-      }
-    }
-
-    /// <summary>
-    /// Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
-    /// </summary>
-    /// <param name="row">
-    /// Current Topic Data Row
-    /// </param>
-    /// <returns>
-    /// Topic status text
-    /// </returns>
-    protected string GetPriorityMessage(DataRowView row)
-    {
-      string strReturn = string.Empty;
-
-      if (row["TopicMovedID"].ToString().Length > 0)
-      {
-        strReturn = PageContext.Localization.GetText("MOVED");
-      }
-      else if (row["PollID"].ToString() != string.Empty)
-      {
-        strReturn = PageContext.Localization.GetText("POLL");
-      }
-      else
-      {
-        switch (int.Parse(row["Priority"].ToString()))
-        {
-          case 1:
-            strReturn = PageContext.Localization.GetText("STICKY");
-            break;
-          case 2:
-            strReturn = PageContext.Localization.GetText("ANNOUNCEMENT");
-            break;
-        }
-      }
-
-      if (strReturn.Length > 0)
-      {
-        strReturn = String.Format("[ {0} ] ", strReturn);
-      }
-
-      return strReturn;
-    }
-
-    /// <summary>
-    /// The format replies.
-    /// </summary>
-    /// <returns>
-    /// The format replies.
-    /// </returns>
-    protected string FormatReplies()
-    {
-      string repStr = "&nbsp;";
-
-      int nReplies = Convert.ToInt32(this._row["Replies"]);
-      int numDeleted = Convert.ToInt32(this._row["NumPostsDeleted"]);
-
-      if (nReplies >= 0)
-      {
-        if (PageContext.BoardSettings.ShowDeletedMessages && numDeleted > 0)
-        {
-          repStr = String.Format("{0:N0}", nReplies + numDeleted);
-        }
-        else
-        {
-          repStr = String.Format("{0:N0}", nReplies);
-        }
-      }
-
-      return repStr;
-    }
-
-    /// <summary>
-    /// Formats the Last Post for the Topic Line
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <returns>
-    /// The render last post.
-    /// </returns>
-    protected string RenderLastPost(HtmlTextWriter writer)
-    {
-      string strReturn = PageContext.Localization.GetText("no_posts");
-      DataRowView row = this._row;
-
-      if (row["LastMessageID"].ToString().Length > 0)
-      {
-        string strMiniPost = PageContext.Theme.GetItem(
-          "ICONS", (DateTime.Parse(row["LastPosted"].ToString()) > Mession.GetTopicRead((int) this._row["TopicID"])) ? "ICON_NEWEST" : "ICON_LATEST");
-
-        writer.Write(YafServices.DateTime.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])));
-        writer.WriteBreak();
-        writer.Write(String.Format(PageContext.Localization.GetText("by"), string.Empty));
-
-        var byLink = new UserLink();
-        byLink.UserID = Convert.ToInt32(row["LastUserID"]);
-        byLink.UserName = row["LastUserName"].ToString();
-        byLink.Style = row["LastUserStyle"].ToString();
-        byLink.RenderControl(writer);
-
-        writer.Write("&nbsp;");
-
-        writer.WriteBeginTag("a");
-        writer.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]));
-        writer.WriteAttribute("title", PageContext.Localization.GetText("GO_LAST_POST"));
-        writer.Write(HtmlTextWriter.TagRightChar);
-
-        RenderImgTag(writer, strMiniPost, PageContext.Localization.GetText("GO_LAST_POST"), PageContext.Localization.GetText("GO_LAST_POST"));
-
-        writer.WriteEndTag("a");
-      }
-
-      return strReturn;
-    }
-
-    /// <summary>
-    /// Create pager for post.
-    /// </summary>
-    /// <param name="count">
-    /// The count.
-    /// </param>
-    /// <param name="pageSize">
-    /// The page Size.
-    /// </param>
-    /// <param name="topicID">
-    /// The topic ID.
-    /// </param>
-    /// <returns>
-    /// The create post pager.
-    /// </returns>
-    protected string CreatePostPager(int count, int pageSize, int topicID)
-    {
-      string strReturn = string.Empty;
-
-      int NumToDisplay = 4;
-      var PageCount = (int) Math.Ceiling((double) count/pageSize);
-
-      if (PageCount > 1)
-      {
-        if (PageCount > NumToDisplay)
-        {
-          strReturn += MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID));
-          strReturn += " ... ";
-          bool bFirst = true;
-
-          // show links from the end
-          for (int i = PageCount - (NumToDisplay - 1); i < PageCount; i++)
-          {
-            int iPost = i + 1;
-
-            if (bFirst)
-            {
-              bFirst = false;
-            }
-            else
-            {
-              strReturn += ", ";
-            }
-
-            strReturn += MakeLink(iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost));
-          }
-        }
-        else
-        {
-          bool bFirst = true;
-          for (int i = 0; i < PageCount; i++)
-          {
-            int iPost = i + 1;
-
-            if (bFirst)
-            {
-              bFirst = false;
-            }
-            else
-            {
-              strReturn += ", ";
-            }
-
-            strReturn += MakeLink(iPost.ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost));
-          }
-        }
-      }
-
-      return strReturn;
     }
 
     /// <summary>
@@ -566,5 +588,7 @@ namespace YAF.Controls
     {
       return String.Format("<a href=\"{0}\">{1}</a>", link, text);
     }
+
+    #endregion
   }
 }

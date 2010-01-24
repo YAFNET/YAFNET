@@ -19,14 +19,21 @@
  */
 namespace YAF.Classes
 {
+  #region Using
+
   using System;
   using System.Collections.Specialized;
   using System.Text;
   using System.Web;
   using System.Web.Hosting;
 
-  using Interfaces;
+  using YAF.Classes.Interfaces;
 
+  #endregion
+
+  /// <summary>
+  /// The base url builder.
+  /// </summary>
   public abstract class BaseUrlBuilder : IUrlBuilder
   {
     #region Constants and Fields
@@ -169,15 +176,37 @@ namespace YAF.Classes
 
     #endregion
 
-    #region IUrlBuilder Members
+    #region Implemented Interfaces
 
+    #region IUrlBuilder
+
+    /// <summary>
+    /// The build url.
+    /// </summary>
+    /// <param name="url">
+    /// The url.
+    /// </param>
+    /// <returns>
+    /// The build url.
+    /// </returns>
     public abstract string BuildUrl(string url);
 
+    /// <summary>
+    /// The build url full.
+    /// </summary>
+    /// <param name="url">
+    /// The url.
+    /// </param>
+    /// <returns>
+    /// The build url full.
+    /// </returns>
     public virtual string BuildUrlFull(string url)
     {
       // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
-      return String.Format("{0}{1}", BaseUrl, this.BuildUrl(url));      
+      return String.Format("{0}{1}", BaseUrl, this.BuildUrl(url));
     }
+
+    #endregion
 
     #endregion
 

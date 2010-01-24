@@ -1043,8 +1043,10 @@ namespace YAF.Classes.Data
       int maxResults, 
       bool useFullText)
     {
-      // TODO: Break up this function to be more managable.
+      // TODO: Refactor into it's own class!!
+
       bool bFirst = true;
+
       var forumIds = new StringBuilder();
 
       if (toSearchWhat == "*")
@@ -1091,6 +1093,8 @@ namespace YAF.Classes.Data
         searchSql += "AND (";
         bFirst = true;
 
+        int userId;
+
         // generate user search sql...
         switch (searchFromWhoMethod)
         {
@@ -1107,7 +1111,16 @@ namespace YAF.Classes.Data
                 bFirst = false;
               }
 
-              searchSql += string.Format(" ((c.Username IS NULL AND b.Name LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
+              if (int.TryParse(word, out userId))
+              {
+                searchSql +=
+                  string.Format(" (c.UserID IN ({0}))", userId);
+              }
+              else
+              {
+                searchSql +=
+                  string.Format(" ((c.Username IS NULL AND b.Name LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
+              }
             }
 
             break;
@@ -1124,12 +1137,30 @@ namespace YAF.Classes.Data
                 bFirst = false;
               }
 
-              searchSql += string.Format(" ((c.Username IS NULL AND b.Name LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
+              if (int.TryParse(word, out userId))
+              {
+                searchSql +=
+                  string.Format(" (c.UserID IN ({0}))", userId);
+              }
+              else
+              {
+                searchSql +=
+                  string.Format(" ((c.Username IS NULL AND b.Name LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
+              }
             }
 
             break;
           case SearchWhatFlags.ExactMatch:
-            searchSql += string.Format(" ((c.Username IS NULL AND b.Name = N'{0}') OR (c.Username = N'{0}'))", toSearchFromWho);
+            if (int.TryParse(toSearchFromWho, out userId))
+            {
+              searchSql +=
+                string.Format(" (c.UserID IN ({0}))", userId);
+            }
+            else
+            {
+              searchSql += string.Format(
+                " ((c.Username IS NULL AND b.Name = N'{0}') OR (c.Username = N'{0}'))", toSearchFromWho);
+            }
             break;
         }
 

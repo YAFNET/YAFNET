@@ -87,7 +87,8 @@
     <Compile Include="BasePages\ForumPageRenderedArgs.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
-    <Compile Include="Helpers\RoleMembershipHelper.cs" />
+    <Compile Include="UsersRoles\DefaultUserDisplayName.cs" />
+    <Compile Include="UsersRoles\RoleMembershipHelper.cs" />
     <Compile Include="Services\IYafService.cs" />
     <Compile Include="Services\YafAlbum.cs" />
     <Compile Include="Services\YafBuddies.cs" />
@@ -113,10 +114,10 @@
     <Compile Include="Handlers\ThemeHandler.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\DynamicConnectionManager.cs" />
-    <Compile Include="Helpers\UserMembershipHelper.cs" />
+    <Compile Include="UsersRoles\UserMembershipHelper.cs" />
     <Compile Include="Helpers\StaticDataHelper.cs" />
-    <Compile Include="Helpers\UserDataHelper.cs" />
-    <Compile Include="Helpers\UserHelper.cs" />
+    <Compile Include="UsersRoles\CombinedUserDataHelper.cs" />
+    <Compile Include="UsersRoles\UserHelper.cs" />
     <Compile Include="Localization\YafLocalization.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Nntp\Nntp.cs" />
@@ -195,9 +196,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

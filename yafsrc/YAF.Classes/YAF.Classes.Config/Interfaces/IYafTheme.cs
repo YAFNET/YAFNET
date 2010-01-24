@@ -20,12 +20,12 @@
 namespace YAF.Classes.Interfaces
 {
   /// <summary>
-  /// The i yaf theme.
+  /// The yaf theme interface
   /// </summary>
   public interface IYafTheme
   {
     /// <summary>
-    /// Get or Set the current Theme File
+    /// Gets or sets the current Theme File
     /// </summary>
     string ThemeFile
     {

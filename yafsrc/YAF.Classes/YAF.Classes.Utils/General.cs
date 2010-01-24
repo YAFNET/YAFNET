@@ -207,11 +207,11 @@ namespace YAF.Classes.Utils
     /// New message text.
     /// </param>
     /// <returns>
-    /// True if messages differ, false if they are identical.
+    /// True if messages differ, <see langword="false"/> if they are identical.
     /// </returns>
     public static bool CompareMessage(object originalMessage, object newMessage)
     {
-      return (String) originalMessage != (String) newMessage;
+      return originalMessage.ToString() != newMessage.ToString();
     }
   }
 }

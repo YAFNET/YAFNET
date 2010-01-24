@@ -1,13 +1,67 @@
 namespace YAF.Classes
 {
+  #region Using
+
   using System;
 
-  using Interfaces;
+  using YAF.Classes.Interfaces;
+  using YAF.Classes.Pattern;
 
-  using Pattern;
+  #endregion
 
+  /// <summary>
+  /// The yaf provider.
+  /// </summary>
   public static class YafProvider
   {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The _builder factory.
+    /// </summary>
+    private static ITypeFactoryInstance<IUrlBuilder> _builderFactory = null;
+
+    /// <summary>
+    /// The _user display name factory.
+    /// </summary>
+    private static ITypeFactoryInstance<IUserDisplayName> _userDisplayNameFactory = null;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets UrlBuilder.
+    /// </summary>
+    public static IUrlBuilder UrlBuilder
+    {
+      get
+      {
+        if (_builderFactory == null)
+        {
+          _builderFactory = new TypeFactoryInstanceApplicationBoardScope<IUrlBuilder>(UrlBuilderType);
+        }
+
+        return _builderFactory.Get();
+      }
+    }
+
+    /// <summary>
+    /// Gets current <see cref="IUserDisplayName"/>.
+    /// </summary>
+    public static IUserDisplayName UserDisplayName
+    {
+      get
+      {
+        if (_userDisplayNameFactory == null)
+        {
+          _userDisplayNameFactory = new TypeFactoryInstanceApplicationBoardScope<IUserDisplayName>(UserDisplayNameType);
+        }
+
+        return _userDisplayNameFactory.Get();
+      }
+    }
+
     /// <summary>
     /// Gets UrlBuilderType.
     /// </summary>
@@ -54,22 +108,28 @@ namespace YAF.Classes
       }
     }
 
-    private static ITypeFactoryInstance<IUrlBuilder> _builderFactory = null;
-
     /// <summary>
-    /// Gets UrlBuilder.
+    /// Gets UserDisplayNameType.
     /// </summary>
-    public static IUrlBuilder UrlBuilder
+    private static string UserDisplayNameType
     {
       get
       {
-        if (_builderFactory == null)
+        string urlAssembly;
+
+        if (!String.IsNullOrEmpty(Config.GetProvider("UserDisplayName")))
         {
-          _builderFactory = new TypeFactoryInstanceApplicationBoardScope<IUrlBuilder>(UrlBuilderType);
+          urlAssembly = Config.GetProvider("UserDisplayName");
+        }
+        else
+        {
+          urlAssembly = "YAF.Classes.Core.DefaultUserDisplayName,YAF.Classes.Core";
         }
 
-        return _builderFactory.Get();
+        return urlAssembly;
       }
-    }    
+    }
+
+    #endregion
   }
 }

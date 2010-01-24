@@ -285,6 +285,24 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
+    /// Gets or sets DisplayName.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("DisplayName;nvarchar;255")]
+    public string DisplayName
+    {
+      get
+      {
+        return base["DisplayName"] as string;
+      }
+
+      set
+      {
+        base["DisplayName"] = value;
+      }
+    }
+
+    /// <summary>
     /// Gets or sets RealName.
     /// </summary>
     [SettingsAllowAnonymous(false)]
