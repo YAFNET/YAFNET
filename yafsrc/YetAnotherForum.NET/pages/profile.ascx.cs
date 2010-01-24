@@ -70,7 +70,7 @@ namespace YAF.Pages
     /// The albums tab is visible.
     /// </summary>
     /// <returns>
-    /// The albums tab is visible.
+    /// The true if albums tab should be visible.
     /// </returns>
     protected bool AlbumsTabIsVisible()
     {
@@ -490,33 +490,96 @@ namespace YAF.Pages
         LastVisit.Text = YafServices.DateTime.FormatDateTime(userData.LastVisit);
       }
 
-      Rank.Text = userData.RankName;
-      Location.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Location));
-      RealName.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.RealName));
-      Interests.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Interests));
-      Occupation.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Occupation));
-      Gender.InnerText = this.GetText("GENDER" + userData.Profile.Gender);
-      ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"]).ToString();
-      int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"]);
-      ThanksToTimes.Text = ThanksToArray[0].ToString();
-      ThanksToPosts.Text = ThanksToArray[1].ToString();
-      OnlineStatusImage1.UserID = userID;
-      OnlineStatusImage1.Visible = this.PageContext.BoardSettings.ShowUserOnlineStatus;
+      if (this.User != null && !string.IsNullOrEmpty(userData.RankName))
+      {
+          this.RankTR.Visible = true;
+          this.Rank.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.RankName));
+      }
 
-      lblaim.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.AIM));
-      lblicq.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.ICQ));
-      lblmsn.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.MSN));
-      lblskype.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Skype));
-      lblyim.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.YIM));
+      if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Location))
+      {
+          this.LocationTR.Visible = true;
+          this.Location.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Location));
+      }
+
+      if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Location))
+      {
+          this.LocationTR.Visible = true;
+          this.Location.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Location));
+      }
+
+      if (this.User != null && !string.IsNullOrEmpty(userData.Profile.RealName))
+      {
+          this.RealNameTR.Visible = true;
+          this.RealName.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.RealName));
+      }
+
+      if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Interests))
+      {
+          this.InterestsTR.Visible = true;
+          this.Interests.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Interests));
+      }
+
+      if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Occupation))
+      {
+          this.OccupationTR.Visible = true;
+          this.Occupation.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Occupation));
+      }
+
+          // Handled in localization. 
+          this.Gender.InnerText = this.GetText("GENDER" + userData.Profile.Gender);     
+      
+      this.ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"]).ToString();
+      int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"]);
+      this.ThanksToTimes.Text = ThanksToArray[0].ToString();
+      this.ThanksToPosts.Text = ThanksToArray[1].ToString();
+      this.OnlineStatusImage1.UserID = userID;
+      this.OnlineStatusImage1.Visible = this.PageContext.BoardSettings.ShowUserOnlineStatus;
+
+         if (this.User != null && !string.IsNullOrEmpty(userData.Profile.XMPP))
+        {
+          this.XmppTR.Visible = true;
+          this.lblxmpp.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.XMPP));
+        }
+
+        if (this.User != null && !string.IsNullOrEmpty(userData.Profile.AIM))
+        {
+          this.AimTR.Visible = true;
+          this.lblaim.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.AIM));
+        }
+
+        if (this.User != null && !string.IsNullOrEmpty(userData.Profile.ICQ))
+        {
+          this.IcqTR.Visible = true;
+          this.lblicq.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.ICQ));
+        }
+
+        if (this.User != null && !string.IsNullOrEmpty(userData.Profile.MSN))
+      {
+          this.MsnTR.Visible = true;
+          this.lblmsn.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.MSN));          
+      }
+
+        if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Skype))
+      {
+          this.SkypeTR.Visible = true;
+          this.lblskype.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Skype));
+      }
+
+        if (this.User != null && !string.IsNullOrEmpty(userData.Profile.YIM))
+      {
+          this.YimTR.Visible = true;
+          this.lblyim.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.YIM));
+      }
 
       if (this.User != null && userData.Profile.Birthday != DateTime.MinValue)
       {
-        this.BirthdayTR.Visible = true;
-        this.Birthday.Text = YafServices.DateTime.FormatDateLong(userData.Profile.Birthday.Date);
+          this.BirthdayTR.Visible = true;
+          this.Birthday.Text = YafServices.DateTime.FormatDateLong(userData.Profile.Birthday.Date);
       }
       else
       {
-        this.BirthdayTR.Visible = false;
+          this.BirthdayTR.Visible = false;
       }
     }
 

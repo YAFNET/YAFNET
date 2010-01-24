@@ -69,7 +69,7 @@
                                 </asp:literal>
 								</td>
 							</tr>
-							<tr runat="server" id="userGroupsRow">
+							<tr runat="server" id="userGroupsRow" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="groups" />
 								</td>
@@ -84,7 +84,7 @@
 									</asp:Repeater>
 								</td>
 							</tr>
-							<tr>
+							<tr runat="server" id="RankTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="rank" />
 								</td>
@@ -92,13 +92,13 @@
 									<asp:Label ID="Rank" runat="server" />
 								</td>
 							</tr>
-							<tr>
+							<tr runat="server" id="RealNameTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="realname" />
 								</td>
 								<td class="post" runat="server" id="RealName" />
 							</tr>
-							<tr>
+							<tr runat="server" id="LocationTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="location" />
 								</td>
@@ -106,7 +106,7 @@
 									<asp:Label ID="Location" runat="server" />
 								</td>
 							</tr>
-							<tr runat="server" id="BirthdayTR" visible='false'>
+							<tr runat="server" id="BirthdayTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="BIRTHDAY" />
 								</td>
@@ -114,25 +114,25 @@
 									<asp:Label ID="Birthday" runat="server" />
 								</td>
 							</tr>
-							<tr>
+							<tr  runat="server" id="OccupationTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="occupation" />
 								</td>
 								<td class="post" runat="server" id="Occupation" />
 							</tr>
-							<tr>
+							<tr  runat="server" id="InterestsTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="interests" />
 								</td>
 								<td class="post" runat="server" id="Interests" />
 							</tr>
-							<tr>
+							<tr runat="server" id="GenderTR">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="gender" />
 								</td>
 								<td class="post" runat="server" id="Gender" />
 							</tr>
-							<tr>
+							<tr runat="server" id="MsnTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="MSN" />
 								</td>
@@ -140,7 +140,7 @@
 									<asp:Label ID="lblmsn" runat="server" />
 								</td>
 							</tr>
-							<tr>
+							<tr runat="server" id="AimTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="AIM" />
 								</td>
@@ -148,7 +148,7 @@
 									<asp:Label ID="lblaim" runat="server" />
 								</td>
 							</tr>
-							<tr>
+							<tr runat="server" id="YimTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="YIM" />
 								</td>
@@ -156,7 +156,7 @@
 									<asp:Label ID="lblyim" runat="server" />
 								</td>
 							</tr>
-							<tr>
+							<tr  runat="server" id="IcqTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="ICQ" />
 								</td>
@@ -164,7 +164,7 @@
 									<asp:Label ID="lblicq" runat="server" />
 								</td>
 							</tr>
-								<tr>
+							<tr  runat="server" id="XmppTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" LocalizedTag="XMPP" />
 								</td>
@@ -172,7 +172,7 @@
 									<asp:Label ID="lblxmpp" runat="server" />
 								</td>
 							</tr>
-							<tr>
+							<tr runat="server" id="SkypeTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="SKYPE" />
 								</td>
