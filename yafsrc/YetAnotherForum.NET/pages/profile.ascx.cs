@@ -511,12 +511,12 @@ namespace YAF.Pages
 
       if (this.User != null && userData.Profile.Birthday != DateTime.MinValue)
       {
-        this.Birthday.Visible = true;
+        this.BirthdayTR.Visible = true;
         this.Birthday.Text = YafServices.DateTime.FormatDateLong(userData.Profile.Birthday.Date);
       }
       else
       {
-        this.Birthday.Visible = false;
+        this.BirthdayTR.Visible = false;
       }
     }
 

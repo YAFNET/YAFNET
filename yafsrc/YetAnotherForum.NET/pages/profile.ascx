@@ -106,7 +106,7 @@
 									<asp:Label ID="Location" runat="server" />
 								</td>
 							</tr>
-							<tr>
+							<tr runat="server" id="BirthdayTR" visible='false'>
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="BIRTHDAY" />
 								</td>
