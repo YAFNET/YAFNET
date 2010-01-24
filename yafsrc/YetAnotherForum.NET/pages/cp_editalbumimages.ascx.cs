@@ -181,7 +181,7 @@ namespace YAF.Pages
         /// </param>
         protected void DeleteAlbum_Click(object sender, EventArgs e)
         {
-            string sUpDir = this.Request.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+            string sUpDir = this.Request.MapPath(String.Concat(BaseUrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
             YafAlbum.Album_Image_Delete(sUpDir, this.Request.QueryString["a"], this.PageContext.PageUserID, null);
             YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
         }
@@ -255,7 +255,7 @@ namespace YAF.Pages
             {
                 case "delete":
                     string sUpDir =
-                        this.Request.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+                        this.Request.MapPath(String.Concat(BaseUrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
                     YafAlbum.Album_Image_Delete(
                         sUpDir, null, this.PageContext.PageUserID, Convert.ToInt32(e.CommandArgument));
                     this.BindData();
@@ -365,7 +365,7 @@ namespace YAF.Pages
                 return;
             }
 
-            string sUpDir = this.Request.MapPath(String.Concat(UrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+            string sUpDir = this.Request.MapPath(String.Concat(BaseUrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
             string filename = file.PostedFile.FileName;
 
             int pos = filename.LastIndexOfAny(new[] { '/', '\\' });

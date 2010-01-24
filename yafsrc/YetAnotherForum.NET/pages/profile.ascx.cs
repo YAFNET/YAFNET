@@ -21,25 +21,37 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
+  using System.Data;
   using System.Web.Security;
   using System.Web.UI;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
   using YAF.Controls;
 
+  #endregion
+
   /// <summary>
   /// Summary description for profile.
   /// </summary>
   public partial class profile : ForumPage
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The forum access.
     /// </summary>
     protected Repeater ForumAccess;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="profile"/> class.
@@ -47,7 +59,108 @@ namespace YAF.Pages
     public profile()
       : base("PROFILE")
     {
-      AllowAsPopup = true;
+      this.AllowAsPopup = true;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The albums tab is visible.
+    /// </summary>
+    /// <returns>
+    /// The albums tab is visible.
+    /// </returns>
+    protected bool AlbumsTabIsVisible()
+    {
+      int albumUser = this.PageContext.PageUserID;
+      this.PageContext.QueryIDs = new QueryStringIDHelper("u");
+      if (this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
+      {
+        albumUser = (int)this.PageContext.QueryIDs["u"];
+      }
+
+      // Add check if Albums Tab is visible 
+      if (!this.PageContext.IsGuest && YafContext.Current.BoardSettings.EnableAlbum)
+      {
+        int albumCount = DB.album_getstats(albumUser, null)[0];
+
+        // Check if the user already has albums.
+        if (albumCount > 0)
+        {
+          return true;
+        }
+        else
+        {
+          // Check if a user have permissions to have albums, even if he has no albums at all.
+          DataTable albData = DB.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID);
+          if (albData.Rows.Count > 0)
+          {
+            if (Convert.ToInt32(albData.Rows[0]["UsrAlbums"]) > 0)
+            {
+              return true;
+            }
+          }
+        }
+      }
+
+      return false;
+    }
+
+    /// <summary>
+    /// The collapsible image_ on click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void CollapsibleImage_OnClick(object sender, ImageClickEventArgs e)
+    {
+      this.BindData();
+    }
+
+    /// <summary>
+    /// The lnk_ add buddy.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void lnk_AddBuddy(object sender, CommandEventArgs e)
+    {
+      var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+      if ((string)e.CommandArgument == "addbuddy")
+      {
+        var strBuddyRequest = new string[2];
+        strBuddyRequest = YafBuddies.AddBuddyRequest(userID);
+        var lnkBuddy = (LinkButton)AboutTab.FindControl("lnkBuddy");
+        lnkBuddy.Visible = false;
+        if (Convert.ToBoolean(strBuddyRequest[1]))
+        {
+          this.PageContext.AddLoadMessage(
+            string.Format(
+              this.PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), strBuddyRequest[0]));
+        }
+        else
+        {
+          var ltrApproval = (Literal)AboutTab.FindControl("ltrApproval");
+          ltrApproval.Visible = true;
+          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("NOTIFICATION_BUDDYREQUEST"));
+        }
+      }
+      else
+      {
+        this.PageContext.AddLoadMessage(
+          string.Format(
+            this.PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION"), YafBuddies.RemoveBuddy(userID)));
+      }
+
+      this.BindData();
     }
 
     /// <summary>
@@ -61,257 +174,28 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (Request.QueryString["u"] == null)
+      if (this.Request.QueryString["u"] == null)
       {
         YafBuildLink.AccessDenied();
       }
 
       // admin or moderator, set edit control to moderator mode...
-      if (PageContext.IsAdmin || PageContext.IsForumModerator)
+      if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
       {
         SignatureEditControl.InModeratorMode = true;
       }
 
-      this.AlbumListTab.Visible = AlbumsTabIsVisible();
+      this.AlbumListTab.Visible = this.AlbumsTabIsVisible();
 
-      if (!IsPostBack)
-      {          
-        userGroupsRow.Visible = PageContext.BoardSettings.ShowGroupsProfile || PageContext.IsAdmin;
-        BindData();
-      }
-      else
+      if (!this.IsPostBack)
       {
-        BindData();
-      }
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      var userID = (int) Security.StringToLongOrRedirect(Request.QueryString["u"]);
-
-      MembershipUser user = UserMembershipHelper.GetMembershipUserById(userID);
-
-      if (user == null)
-      {
-        YafBuildLink.AccessDenied(/*No such user exists*/);
-      }
-
-      var userData = new CombinedUserDataHelper(user, userID);
-
-          // populate user information controls...      
-          // Is BuddyList feature enabled?
-      if (YafContext.Current.BoardSettings.EnableBuddyList)
-      {
-          if (userID == PageContext.PageUserID)
-          {
-              lnkBuddy.Visible = false;
-          }
-          else if (YafBuddies.IsBuddy((int)(userData.DBRow["userID"]), true))
-          {
-              lnkBuddy.Visible = true;
-              lnkBuddy.Text = string.Format("({0})", PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"));
-              lnkBuddy.CommandArgument = "removebuddy";
-              lnkBuddy.Attributes["onclick"] = "return confirm('Remove Buddy?')";
-          }
-          else if (YafBuddies.IsBuddy((int)(userData.DBRow["userID"]), false))
-          {
-              lnkBuddy.Visible = false;
-              ltrApproval.Visible = true;
-          }
-          else
-          {
-              lnkBuddy.Visible = true;
-              lnkBuddy.Text = string.Format("({0})", PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
-              lnkBuddy.CommandArgument = "addbuddy";
-              lnkBuddy.Attributes["onclick"] = "";
-          }
-
-          BuddyList.CurrentUserID = userID;
-          BuddyList.Mode = 1;
-      }
-      else
-      {
-          //  BuddyList feature is disabled. don't show any link.
-          lnkBuddy.Visible = false;
-          ltrApproval.Visible = false;
-      }
-      
-      // Is album feature enabled?
-      if (YafContext.Current.BoardSettings.EnableAlbum)
-      {
-          AlbumList1.UserID = Convert.ToInt32(Request.QueryString.Get("u"));
-      }
-      else
-      {
-          AlbumList1.Dispose();
-      }
-      this.UserName.Text = HtmlEncode(userData.Membership.UserName);
-      Name.Text = HtmlEncode(userData.Membership.UserName);
-      Joined.Text = String.Format("{0}", YafServices.DateTime.FormatDateLong(Convert.ToDateTime(userData.Joined)));
-      // vzrus: Show last visit only to admins if user is hidden
-      if (!PageContext.IsAdmin && Convert.ToBoolean(userData.DBRow["IsActiveExcluded"]))
-      {
-         LastVisit.Text = GetText("COMMON", "HIDDEN");
-      }
-      else
-      {
-      LastVisit.Text = YafServices.DateTime.FormatDateTime(userData.LastVisit);
-      }
-
-      Rank.Text = userData.RankName;      
-      Location.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Location));
-      RealName.InnerHtml = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.RealName));
-      Interests.InnerHtml = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Interests));
-      Occupation.InnerHtml = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Occupation));
-      Gender.InnerText = GetText("GENDER" + userData.Profile.Gender);
-      ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"]).ToString();
-      int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"]);
-      ThanksToTimes.Text = ThanksToArray[0].ToString();
-      ThanksToPosts.Text = ThanksToArray[1].ToString();
-      OnlineStatusImage1.UserID = userID;
-      OnlineStatusImage1.Visible = PageContext.BoardSettings.ShowUserOnlineStatus;
-        
-
-      lblaim.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.AIM));
-      lblicq.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.ICQ));
-      lblmsn.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.MSN));
-      lblskype.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Skype));
-      lblyim.Text = HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.YIM));
-
-      this.PageLinks.Clear();
-      this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-      this.PageLinks.AddLink(GetText("MEMBERS"), YafBuildLink.GetLink(ForumPages.members));
-      this.PageLinks.AddLink(userData.Membership.UserName, string.Empty);
-
-      double dAllPosts = 0.0;
-      if (SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]) > 0)
-      {
-        dAllPosts = 100.0 * SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) / SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]);
-      }
-
-      Stats.InnerHtml = String.Format(
-        "{0:N0}<br/>[{1} / {2}]", 
-        userData.DBRow["NumPosts"], 
-        GetTextFormatted("NUMALL", dAllPosts), 
-        GetTextFormatted(
-          "NUMDAY", (double) SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) / SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumDays"])));
-
-      // private messages
-      this.PM.Visible = !userData.IsGuest && User != null && PageContext.BoardSettings.AllowPrivateMessages;
-      this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
-
-      // email link
-      this.Email.Visible = !userData.IsGuest && User != null && PageContext.BoardSettings.AllowEmailSending;
-      this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
-      if (PageContext.IsAdmin)
-      {
-        this.Email.TitleNonLocalized = userData.Membership.Email;
-      }
-
-      // homepage link
-      this.Home.Visible = !String.IsNullOrEmpty(userData.Profile.Homepage);
-      SetupThemeButtonWithLink(this.Home, userData.Profile.Homepage);
-
-      // blog link
-      this.Blog.Visible = !String.IsNullOrEmpty(userData.Profile.Blog);
-      SetupThemeButtonWithLink(this.Blog, userData.Profile.Blog);
-
-      this.MSN.Visible = User != null && !String.IsNullOrEmpty(userData.Profile.MSN);
-      this.MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", userData.UserID);
-
-      this.YIM.Visible = User != null && !String.IsNullOrEmpty(userData.Profile.YIM);
-      this.YIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", userData.UserID);
-
-      this.AIM.Visible = User != null && !String.IsNullOrEmpty(userData.Profile.AIM);
-      this.AIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", userData.UserID);
-
-      this.ICQ.Visible = User != null && !String.IsNullOrEmpty(userData.Profile.ICQ);
-      this.ICQ.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", userData.UserID);
-
-      this.XMPP.Visible = User != null && !String.IsNullOrEmpty(userData.Profile.XMPP);
-      this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
-
-      this.Skype.Visible = User != null && !String.IsNullOrEmpty(userData.Profile.Skype);
-      this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
-      
-      this.Birthday.Visible = User != null && (userData.Profile.Birthday > DateTime.MinValue);
-      this.Birthday.Text = YafServices.DateTime.FormatDateLong(userData.Profile.Birthday.Date);
-        // localize tab titles...
-      this.ProfileTabs.Views["AboutTab"].Text = GetText("ABOUT");
-      this.ProfileTabs.Views["StatisticsTab"].Text = GetText("STATISTICS");
-      this.ProfileTabs.Views["AvatarTab"].Text = GetText("AVATAR");
-      this.ProfileTabs.Views["Last10PostsTab"].Text = GetText("LAST10");
-      this.ProfileTabs.Views["BuddyListTab"].Text = GetText("BUDDIES");
-      this.ProfileTabs.Views["AlbumListTab"].Text = GetText("ALBUMS");
-
-      if (PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage)
-      {
-        Avatar.ImageUrl = YafForumInfo.ForumRoot + "resource.ashx?u=" + userID;
-      }
-      else if (!String.IsNullOrEmpty(userData.Avatar))
-      {
-        // Took out PageContext.BoardSettings.AvatarRemote
-        Avatar.ImageUrl = String.Format(
-          "{3}resource.ashx?url={0}&width={1}&height={2}", 
-          Server.UrlEncode(userData.Avatar), 
-          PageContext.BoardSettings.AvatarWidth, 
-          PageContext.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumRoot);
-      }
-      else
-      {
-        Avatar.Visible = false;
-        AvatarTab.Visible = false;
-      }
-
-      Groups.DataSource = RoleMembershipHelper.GetRolesForUser(UserMembershipHelper.GetUserNameFromID(userID));
-
-      // EmailRow.Visible = PageContext.IsAdmin;
-      this.ProfileTabs.Views["ModerateTab"].Visible = PageContext.IsAdmin || PageContext.IsForumModerator;
-      this.ProfileTabs.Views["ModerateTab"].Text = GetText("MODERATION");
-      this.AdminUserButton.Visible = PageContext.IsAdmin;
-
-      if (LastPosts.Visible)
-      {
-        LastPosts.DataSource = DB.post_last10user(PageContext.PageBoardID, Request.QueryString["u"], PageContext.PageUserID);
-        SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userData.Membership.UserName);
-      }
-      
-      DataBind();
-    }
-
-    protected void lnk_AddBuddy(object sender, CommandEventArgs e)
-    {
-        var userID = (int)Security.StringToLongOrRedirect(Request.QueryString["u"]);
-        if ((string)(e.CommandArgument) == "addbuddy")
-        {
-            string[] strBuddyRequest = new string[2];
-            strBuddyRequest = YafBuddies.AddBuddyRequest(userID);
-            LinkButton lnkBuddy = (LinkButton)(AboutTab.FindControl("lnkBuddy"));
-            lnkBuddy.Visible = false;
-            if (Convert.ToBoolean(strBuddyRequest[1]))
-            {
-                PageContext.AddLoadMessage(string.Format(PageContext.Localization.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), strBuddyRequest[0]));
-            }
-            else
-            {
-                Literal ltrApproval = (Literal)(AboutTab.FindControl("ltrApproval"));
-                ltrApproval.Visible = true;
-                PageContext.AddLoadMessage(PageContext.Localization.GetText("NOTIFICATION_BUDDYREQUEST"));
-            }
-        }
-        else
-        {
-            PageContext.AddLoadMessage(string.Format
-                                        (
-                                        PageContext.Localization.GetText("REMOVEBUDDY_NOTIFICATION"),
-                                        YafBuddies.RemoveBuddy(userID))
-                                        );
-        }
+        userGroupsRow.Visible = this.PageContext.BoardSettings.ShowGroupsProfile || this.PageContext.IsAdmin;
         this.BindData();
+      }
+      else
+      {
+        this.BindData();
+      }
     }
 
     /// <summary>
@@ -335,7 +219,7 @@ namespace YAF.Pages
 
         thisButton.NavigateUrl = link;
         thisButton.Attributes.Add("target", "_blank");
-        if (PageContext.BoardSettings.UseNoFollowLinks)
+        if (this.PageContext.BoardSettings.UseNoFollowLinks)
         {
           thisButton.Attributes.Add("rel", "nofollow");
         }
@@ -347,51 +231,321 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// The collapsible image_ on click.
+    /// The add page links.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
+    /// <param name="userDisplayName">
+    /// The user display name.
     /// </param>
-    /// <param name="e">
-    /// The e.
+    private void AddPageLinks(string userDisplayName)
+    {
+      this.PageLinks.Clear();
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(
+        this.GetText("MEMBERS"), 
+        YafServices.Permissions.Check(this.PageContext.BoardSettings.MembersListViewPermissions)
+          ? YafBuildLink.GetLink(ForumPages.members)
+          : null);
+      this.PageLinks.AddLink(userDisplayName, string.Empty);
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+
+      MembershipUser user = UserMembershipHelper.GetMembershipUserById(userID);
+
+      if (user == null)
+      {
+        YafBuildLink.AccessDenied( /*No such user exists*/);
+      }
+
+      var userData = new CombinedUserDataHelper(user, userID);
+
+      // populate user information controls...      
+      // Is BuddyList feature enabled?
+      if (YafContext.Current.BoardSettings.EnableBuddyList)
+      {
+        this.SetupBuddyList(userID, userData);
+      }
+      else
+      {
+        // BuddyList feature is disabled. don't show any link.
+        lnkBuddy.Visible = false;
+        ltrApproval.Visible = false;
+      }
+
+      // Is album feature enabled?
+      if (YafContext.Current.BoardSettings.EnableAlbum)
+      {
+        AlbumList1.UserID = userID;
+      }
+      else
+      {
+        AlbumList1.Dispose();
+      }
+
+      string userDisplayName = YafProvider.UserDisplayName.Get(userID);
+
+      this.SetupUserProfileInfo(userID, user, userData, userDisplayName);
+
+      this.AddPageLinks(userDisplayName);
+
+      this.SetupUserStatistics(userData);
+
+      // private messages
+      this.SetupUserLinks(userData);
+
+      // localize tab titles...
+      this.LocalizeTabTitles();
+
+      this.SetupAvatar(userID, userData);
+
+      Groups.DataSource = RoleMembershipHelper.GetRolesForUser(UserMembershipHelper.GetUserNameFromID(userID));
+
+      // EmailRow.Visible = PageContext.IsAdmin;
+      this.ProfileTabs.Views["ModerateTab"].Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
+      this.ProfileTabs.Views["ModerateTab"].Text = this.GetText("MODERATION");
+      this.AdminUserButton.Visible = this.PageContext.IsAdmin;
+
+      if (LastPosts.Visible)
+      {
+        LastPosts.DataSource = DB.post_last10user(this.PageContext.PageBoardID, userID, this.PageContext.PageUserID);
+        SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userID);
+      }
+
+      this.DataBind();
+    }
+
+    /// <summary>
+    /// The localize tab titles.
+    /// </summary>
+    private void LocalizeTabTitles()
+    {
+      this.ProfileTabs.Views["AboutTab"].Text = this.GetText("ABOUT");
+      this.ProfileTabs.Views["StatisticsTab"].Text = this.GetText("STATISTICS");
+      this.ProfileTabs.Views["AvatarTab"].Text = this.GetText("AVATAR");
+      this.ProfileTabs.Views["Last10PostsTab"].Text = this.GetText("LAST10");
+      this.ProfileTabs.Views["BuddyListTab"].Text = this.GetText("BUDDIES");
+      this.ProfileTabs.Views["AlbumListTab"].Text = this.GetText("ALBUMS");
+    }
+
+    /// <summary>
+    /// The setup avatar.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
     /// </param>
-    protected void CollapsibleImage_OnClick(object sender, ImageClickEventArgs e)
+    /// <param name="userData">
+    /// The user data.
+    /// </param>
+    private void SetupAvatar(int userID, CombinedUserDataHelper userData)
     {
-      this.BindData();
+      if (this.PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage)
+      {
+        Avatar.ImageUrl = YafForumInfo.ForumRoot + "resource.ashx?u=" + userID;
+      }
+      else if (!String.IsNullOrEmpty(userData.Avatar))
+      {
+        // Took out PageContext.BoardSettings.AvatarRemote
+        Avatar.ImageUrl = String.Format(
+          "{3}resource.ashx?url={0}&width={1}&height={2}", 
+          this.Server.UrlEncode(userData.Avatar), 
+          this.PageContext.BoardSettings.AvatarWidth, 
+          this.PageContext.BoardSettings.AvatarHeight, 
+          YafForumInfo.ForumRoot);
+      }
+      else
+      {
+        Avatar.Visible = false;
+        AvatarTab.Visible = false;
+      }
     }
-    protected bool AlbumsTabIsVisible()
+
+    /// <summary>
+    /// The setup buddy list.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="userData">
+    /// The user data.
+    /// </param>
+    private void SetupBuddyList(int userID, CombinedUserDataHelper userData)
     {
-       
-        int albumUser = this.PageContext.PageUserID;
-        PageContext.QueryIDs = new QueryStringIDHelper("u");
-        if (PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
-        {
-            albumUser = (int)this.PageContext.QueryIDs["u"];
-        }
-      
-        // Add check if Albums Tab is visible 
-        if (!PageContext.IsGuest && YafContext.Current.BoardSettings.EnableAlbum)
-        {
-            int albumCount = YAF.Classes.Data.DB.album_getstats(albumUser, null)[0];
-            // Check if the user already has albums.
-            if (albumCount > 0)
-            {
-                return true;
-            }
-            else
-            {
-                // Check if a user have permissions to have albums, even if he has no albums at all.
-                System.Data.DataTable albData = YAF.Classes.Data.DB.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID);
-                if (albData.Rows.Count > 0)
-                {
-                    if (Convert.ToInt32(albData.Rows[0]["UsrAlbums"]) > 0)
-                    {
-                        return  true;
-                    }
-                }
-            }
-        }
-        return false; 
+      if (userID == this.PageContext.PageUserID)
+      {
+        lnkBuddy.Visible = false;
+      }
+      else if (YafBuddies.IsBuddy((int)userData.DBRow["userID"], true))
+      {
+        lnkBuddy.Visible = true;
+        lnkBuddy.Text = string.Format("({0})", this.PageContext.Localization.GetText("BUDDY", "REMOVEBUDDY"));
+        lnkBuddy.CommandArgument = "removebuddy";
+        lnkBuddy.Attributes["onclick"] = "return confirm('Remove Buddy?')";
+      }
+      else if (YafBuddies.IsBuddy((int)userData.DBRow["userID"], false))
+      {
+        lnkBuddy.Visible = false;
+        ltrApproval.Visible = true;
+      }
+      else
+      {
+        lnkBuddy.Visible = true;
+        lnkBuddy.Text = string.Format("({0})", this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
+        lnkBuddy.CommandArgument = "addbuddy";
+        lnkBuddy.Attributes["onclick"] = string.Empty;
+      }
+
+      BuddyList.CurrentUserID = userID;
+      BuddyList.Mode = 1;
     }
+
+    /// <summary>
+    /// The setup user links.
+    /// </summary>
+    /// <param name="userData">
+    /// The user data.
+    /// </param>
+    private void SetupUserLinks(CombinedUserDataHelper userData)
+    {
+      this.PM.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowPrivateMessages;
+      this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
+
+      // email link
+      this.Email.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowEmailSending;
+      this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
+      if (this.PageContext.IsAdmin)
+      {
+        this.Email.TitleNonLocalized = userData.Membership.Email;
+      }
+
+      // homepage link
+      this.Home.Visible = !String.IsNullOrEmpty(userData.Profile.Homepage);
+      this.SetupThemeButtonWithLink(this.Home, userData.Profile.Homepage);
+
+      // blog link
+      this.Blog.Visible = !String.IsNullOrEmpty(userData.Profile.Blog);
+      this.SetupThemeButtonWithLink(this.Blog, userData.Profile.Blog);
+
+      this.MSN.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.MSN);
+      this.MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", userData.UserID);
+
+      this.YIM.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.YIM);
+      this.YIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", userData.UserID);
+
+      this.AIM.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.AIM);
+      this.AIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", userData.UserID);
+
+      this.ICQ.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.ICQ);
+      this.ICQ.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", userData.UserID);
+
+      this.XMPP.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.XMPP);
+      this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
+
+      this.Skype.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.Skype);
+      this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
+    }
+
+    /// <summary>
+    /// The setup user profile info.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="user">
+    /// The user.
+    /// </param>
+    /// <param name="userData">
+    /// The user data.
+    /// </param>
+    /// <param name="userDisplayName">
+    /// The user display name.
+    /// </param>
+    private void SetupUserProfileInfo(
+      int userID, MembershipUser user, CombinedUserDataHelper userData, string userDisplayName)
+    {
+      this.UserName.Text = this.HtmlEncode(userDisplayName);
+
+      if (this.PageContext.IsAdmin && userDisplayName != user.UserName)
+      {
+        Name.Text = this.HtmlEncode(String.Format("{0} ({1})", userDisplayName, user.UserName));
+      }
+      else
+      {
+        Name.Text = this.HtmlEncode(userDisplayName);
+      }
+
+      Joined.Text = String.Format("{0}", YafServices.DateTime.FormatDateLong(Convert.ToDateTime(userData.Joined)));
+
+      // vzrus: Show last visit only to admins if user is hidden
+      if (!this.PageContext.IsAdmin && Convert.ToBoolean(userData.DBRow["IsActiveExcluded"]))
+      {
+        LastVisit.Text = this.GetText("COMMON", "HIDDEN");
+      }
+      else
+      {
+        LastVisit.Text = YafServices.DateTime.FormatDateTime(userData.LastVisit);
+      }
+
+      Rank.Text = userData.RankName;
+      Location.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Location));
+      RealName.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.RealName));
+      Interests.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Interests));
+      Occupation.InnerHtml = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Occupation));
+      Gender.InnerText = this.GetText("GENDER" + userData.Profile.Gender);
+      ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"]).ToString();
+      int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"]);
+      ThanksToTimes.Text = ThanksToArray[0].ToString();
+      ThanksToPosts.Text = ThanksToArray[1].ToString();
+      OnlineStatusImage1.UserID = userID;
+      OnlineStatusImage1.Visible = this.PageContext.BoardSettings.ShowUserOnlineStatus;
+
+      lblaim.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.AIM));
+      lblicq.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.ICQ));
+      lblmsn.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.MSN));
+      lblskype.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.Skype));
+      lblyim.Text = this.HtmlEncode(YafServices.BadWordReplace.Replace(userData.Profile.YIM));
+
+      if (this.User != null && userData.Profile.Birthday != DateTime.MinValue)
+      {
+        this.Birthday.Visible = true;
+        this.Birthday.Text = YafServices.DateTime.FormatDateLong(userData.Profile.Birthday.Date);
+      }
+      else
+      {
+        this.Birthday.Visible = false;
+      }
+    }
+
+    /// <summary>
+    /// The setup user statistics.
+    /// </summary>
+    /// <param name="userData">
+    /// The user data.
+    /// </param>
+    private void SetupUserStatistics(CombinedUserDataHelper userData)
+    {
+      double dAllPosts = 0.0;
+
+      if (SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]) > 0)
+      {
+        dAllPosts = 100.0 * SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) /
+                    SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]);
+      }
+
+      Stats.InnerHtml = String.Format(
+        "{0:N0}<br/>[{1} / {2}]", 
+        userData.DBRow["NumPosts"], 
+        this.GetTextFormatted("NUMALL", dAllPosts), 
+        this.GetTextFormatted(
+          "NUMDAY", 
+          (double)SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) /
+          SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumDays"])));
+    }
+
+    #endregion
   }
 }

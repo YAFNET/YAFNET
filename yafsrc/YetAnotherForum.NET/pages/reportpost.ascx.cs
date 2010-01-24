@@ -111,7 +111,6 @@ namespace YAF.Pages
                         MessagePreview.Message = messageRow.Rows[0]["message"].ToString();
                         MessagePreview.MessageFlags.BitValue = Convert.ToInt32(messageRow.Rows[0]["Flags"]);
                         UserProfileLink.UserID = Convert.ToInt32(messageRow.Rows[0]["UserID"]);
-                        UserProfileLink.UserName = messageRow.Rows[0]["UserName"].ToString();                        
                     }
                    
                     // Get Forum Link

@@ -29,7 +29,7 @@
 								<td width="20%">
 									<b>
 										<YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval( "UserID" )) %>'
-											UserName='<%# Eval( "UserName" ).ToString() %>' BlankTarget="true" />
+											BlankTarget="true" />
 									</b>
 								</td>
 								<td width="80%" class="small" align="left">
@@ -54,8 +54,7 @@
 							<tr class="postheader">
 								<td width="20%">
 									<b>
-										<YAF:UserLink ID="ProfileLinkAlt" runat="server" UserID='<%# Convert.ToInt32(Eval( "UserID" )) %>'
-											UserName='<%# Eval( "UserName" ).ToString() %>' BlankTarget="true" />
+										<YAF:UserLink ID="ProfileLinkAlt" runat="server" UserID='<%# Convert.ToInt32(Eval( "UserID" )) %>' BlankTarget="true" />
 									</b>
 								</td>
 								<td width="80%" class="small" align="left">

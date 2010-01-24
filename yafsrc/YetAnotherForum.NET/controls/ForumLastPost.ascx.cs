@@ -82,7 +82,6 @@ namespace YAF.Controls
           this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", DataRow["LastTopicID"]);
           this.topicLink.Text = StringHelper.Truncate(YafServices.BadWordReplace.Replace(DataRow["LastTopicName"].ToString()), 50);
           this.ProfileUserLink.UserID = Convert.ToInt32(DataRow["LastUserID"]);
-          this.ProfileUserLink.UserName = DataRow["LastUser"].ToString();
 
           this.LastTopicImgLink.ToolTip = PageContext.Localization.GetText("GO_LAST_POST");
           this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", DataRow["LastMessageID"]);

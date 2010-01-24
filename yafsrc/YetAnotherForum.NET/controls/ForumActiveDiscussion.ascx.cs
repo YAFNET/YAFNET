@@ -112,7 +112,6 @@ namespace YAF.Controls
         if (currentRow["LastUserID"] != DBNull.Value)
         {
           lastUserLink.UserID = Convert.ToInt32(currentRow["LastUserID"]);
-          lastUserLink.UserName = currentRow["LastUserName"].ToString();
           lastUserLink.Style = currentRow["LastUserStyle"].ToString();
         }
 

@@ -16,146 +16,168 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Controls
 {
-	public partial class EditUsersGroups : YAF.Classes.Core.BaseUserControl
-	{
-		#region Properties
+  #region Using
 
-		/// <summary>
-		/// Gets user ID of edited user.
-		/// </summary>
-		protected int CurrentUserID
-		{
-			get
-			{
-				return ( int )this.PageContext.QueryIDs ["u"];
-			}
-		}
-		
-		#endregion
+  using System;
+  using System.Data;
+  using System.Web.UI.WebControls;
 
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		#region Event Handlers
+  #endregion
 
-		/// <summary>
-		/// Handles page load event.
-		/// </summary>
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			PageContext.QueryIDs = new QueryStringIDHelper( "u", true );
+  /// <summary>
+  /// The edit users groups.
+  /// </summary>
+  public partial class EditUsersGroups : BaseUserControl
+  {
+    #region Properties
 
-			// this needs to be done just once, not during postbacks
-			if (!IsPostBack)
-			{
-				// bind data
-				BindData();
-			}
-		}
+    /// <summary>
+    /// Gets user ID of edited user.
+    /// </summary>
+    protected int CurrentUserID
+    {
+      get
+      {
+        return (int)this.PageContext.QueryIDs["u"];
+      }
+    }
 
+    #endregion
 
-		/// <summary>
-		/// Handles click on cancel button.
-		/// </summary>
-		protected void Cancel_Click(object sender, System.EventArgs e)
-		{
-			// redurect to user admin page.
-			YafBuildLink.Redirect(ForumPages.admin_users);
-		}
+    #region Methods
 
+    /// <summary>
+    /// Handles click on cancel button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+      // redurect to user admin page.
+      YafBuildLink.Redirect(ForumPages.admin_users);
+    }
 
-		/// <summary>
-		/// Handles click on save button.
-		/// </summary>
-		protected void Save_Click(object sender, System.EventArgs e)
-		{
-			// go through all roles displayed on page
-			for (int i = 0; i < UserGroups.Items.Count; i++)
-			{
-				// get current item
-				RepeaterItem item = UserGroups.Items[i];
-				// get role ID from it
-				int roleID = int.Parse(((Label)item.FindControl("GroupID")).Text);
+    /// <summary>
+    /// Checks if user is memeber of role or not depending on value of parameter.
+    /// </summary>
+    /// <param name="o">
+    /// Parameter if 0, user is not member of a role.
+    /// </param>
+    /// <returns>
+    /// True if user is member of role (o &gt; 0), false otherwise.
+    /// </returns>
+    protected bool IsMember(object o)
+    {
+      return long.Parse(o.ToString()) > 0;
+    }
 
-				// get role name
-				string roleName = string.Empty;
-				using (DataTable dt = DB.group_list(PageContext.PageBoardID, roleID))
-				{
-					foreach (DataRow row in dt.Rows) roleName = (string)row["Name"];
-				}
+    /// <summary>
+    /// Handles page load event.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-				// is user supposed to be in that role?
-				bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
+      // this needs to be done just once, not during postbacks
+      if (!this.IsPostBack)
+      {
+        // bind data
+        this.BindData();
+      }
+    }
 
-				// save user in role
-				DB.usergroup_save(CurrentUserID, roleID, isChecked);
+    /// <summary>
+    /// Handles click on save button.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click(object sender, EventArgs e)
+    {
+      // go through all roles displayed on page
+      for (int i = 0; i < this.UserGroups.Items.Count; i++)
+      {
+        // get current item
+        RepeaterItem item = this.UserGroups.Items[i];
 
-				// update roles if this user isn't the guest
-				if (!UserMembershipHelper.IsGuestUser(CurrentUserID))
-				{
-					// get user's name
-					string userName = UserMembershipHelper.GetUserNameFromID(CurrentUserID);
+        // get role ID from it
+        int roleID = int.Parse(((Label)item.FindControl("GroupID")).Text);
 
-					// add/remove user from roles in membership provider
-					if (isChecked && !RoleMembershipHelper.IsUserInRole(userName, roleName))
-						RoleMembershipHelper.AddUserToRole( userName, roleName );
-					else if ( !isChecked && RoleMembershipHelper.IsUserInRole( userName, roleName ) )
-						RoleMembershipHelper.RemoveUserFromRole( userName, roleName );
-				}
-			}
+        // get role name
+        string roleName = string.Empty;
+        using (DataTable dt = DB.group_list(this.PageContext.PageBoardID, roleID))
+        {
+          foreach (DataRow row in dt.Rows)
+          {
+            roleName = (string)row["Name"];
+          }
+        }
 
-			// update forum moderators cache just in case something was changed...
-			PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+        // is user supposed to be in that role?
+        bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
 
-			// clear the cache for this user...
-			UserMembershipHelper.ClearCacheForUserId( CurrentUserID );
+        // save user in role
+        DB.usergroup_save(this.CurrentUserID, roleID, isChecked);
 
-			BindData();
-		}
+        // update roles if this user isn't the guest
+        if (!UserMembershipHelper.IsGuestUser(this.CurrentUserID))
+        {
+          // get user's name
+          string userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
 
-		#endregion
+          // add/remove user from roles in membership provider
+          if (isChecked && !RoleMembershipHelper.IsUserInRole(userName, roleName))
+          {
+            RoleMembershipHelper.AddUserToRole(userName, roleName);
+          }
+          else if (!isChecked && RoleMembershipHelper.IsUserInRole(userName, roleName))
+          {
+            RoleMembershipHelper.RemoveUserFromRole(userName, roleName);
+          }
+        }
+      }
 
+      // update forum moderators cache just in case something was changed...
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 
-		#region Data Binding & Formatting
+      // clear the cache for this user...
+      UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
 
-		/// <summary>
-		/// Bind data for this control.
-		/// </summary>
-		private void BindData()
-		{
-			// get user roles
-			UserGroups.DataSource = DB.group_member(PageContext.PageBoardID, CurrentUserID);
+      this.BindData();
+    }
 
-			// bind data to controls
-			DataBind();
-		}
+    /// <summary>
+    /// Bind data for this control.
+    /// </summary>
+    private void BindData()
+    {
+      // get user roles
+      this.UserGroups.DataSource = DB.group_member(this.PageContext.PageBoardID, this.CurrentUserID);
 
+      // bind data to controls
+      this.DataBind();
+    }
 
-		/// <summary>
-		/// Checks if user is memeber of role or not depending on value of parameter.
-		/// </summary>
-		/// <param name="o">Parameter if 0, user is not member of a role.</param>
-		/// <returns>True if user is member of role (o > 0), false otherwise.</returns>
-		protected bool IsMember(object o)
-		{
-			return long.Parse(o.ToString()) > 0;
-		}
-
-		#endregion
-	}
+    #endregion
+  }
 }

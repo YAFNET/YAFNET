@@ -81,7 +81,7 @@
 					<td width="140px" id="NameCell" valign="top">
 						<a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" />
 						<b>
-						<YAF:UserLink ID="UserLink1" runat="server" UserID=<%# DataBinder.Eval(Container.DataItem, "UserID") %> UserName=<%# DataBinder.Eval(Container.DataItem, "Name") %> />
+						<YAF:UserLink ID="UserLink1" runat="server" UserID=<%# DataBinder.Eval(Container.DataItem, "UserID") %> />
 						</b>
 						<YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataBinder.Eval(Container.DataItem, "UserID") )%>' Style="vertical-align: bottom" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'  />
 					</td>
@@ -113,7 +113,7 @@
 				<tr class="postheader">
 					<td width="140px" id="NameCell" valign="top">
 						<a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><b>
-						<YAF:UserLink ID="UserLink1" runat="server" UserID=<%# DataBinder.Eval(Container.DataItem, "UserID") %> UserName=<%# DataBinder.Eval(Container.DataItem, "Name") %> /></b>
+						<YAF:UserLink ID="UserLink1" runat="server" UserID=<%# DataBinder.Eval(Container.DataItem, "UserID") %> /></b>
 						<YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataBinder.Eval(Container.DataItem, "UserID") )%>' Style="vertical-align: bottom" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'  />
 					</td>
 					<td width="80%" class="postheader">

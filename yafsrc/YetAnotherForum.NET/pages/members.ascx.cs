@@ -23,6 +23,7 @@ namespace YAF.Pages
   // YAF.Pages
   using System;
   using System.Data;
+  using System.Data.DataSetExtensions;
   using System.Web.UI.WebControls;
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -176,18 +177,17 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// The bind data.
+    /// Get all users from user_list for this board.
     /// </summary>
-    private void BindData()
+    /// <returns></returns>
+    protected DataTable GetUserList()
     {
-      this.Pager.PageSize = 20;
-
-      // get the user list
       DataTable userListDataTable = DB.user_list(PageContext.PageBoardID, null, true, YafContext.Current.BoardSettings.UseStyledNicks);
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-          new StyleTransform(YafContext.Current.Theme).DecodeStyleByTable(ref userListDataTable, false);
+        new StyleTransform(YafContext.Current.Theme).DecodeStyleByTable(ref userListDataTable, false);
       }
+
       // select only the guest user (if one exists)
       DataRow[] guestRows = userListDataTable.Select("IsGuest > 0");
 
@@ -201,6 +201,35 @@ namespace YAF.Pages
         // commits the deletes to the table
         userListDataTable.AcceptChanges();
       }
+
+      //// handle changes for display name...
+      //foreach (DataRow row in userListDataTable.Rows)
+      //{
+      //  string displayName = YafProvider.UserDisplayName.Get(row.Field<int>("UserID"));
+
+      //  if (!displayName.Equals(row.Field<string>("Name")))
+      //  {
+      //    // update...
+      //    row.BeginEdit();
+      //    row.SetField<string>("Name", displayName);
+      //    row.EndEdit();
+      //  }
+      //}
+
+      //userListDataTable.AcceptChanges();
+
+      return userListDataTable;
+    }
+
+    /// <summary>
+    /// The bind data.
+    /// </summary>
+    private void BindData()
+    {
+      this.Pager.PageSize = 20;
+
+      // get the user list...
+      DataTable userListDataTable = this.GetUserList();
 
       // get the view from the datatable
       DataView userListDataView = userListDataTable.DefaultView;

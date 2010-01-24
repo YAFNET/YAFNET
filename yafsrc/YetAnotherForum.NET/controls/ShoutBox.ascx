@@ -56,7 +56,7 @@
 											<ItemTemplate>
 												<div style="padding: 0; margin: 0">
 													<i><asp:Label ID="dateLabel" runat="server" Text='<%# YafServices.DateTime.FormatDateTimeTopic( ((System.Data.DataRowView)Container.DataItem)["Date"] ) %>' /></i>
-													<b><YAF:UserLink ID="UserLink1" runat="server" BlankTarget="true" UserName='<%# Convert.ToString(((System.Data.DataRowView)Container.DataItem)["UserName"]) %>' UserID='<%# Convert.ToInt32(((System.Data.DataRowView)Container.DataItem)["UserID"]) %>' Style='<%# ((System.Data.DataRowView)Container.DataItem)["Style"] %>' ></YAF:UserLink></b>: 
+													<b><YAF:UserLink ID="UserLink1" runat="server" BlankTarget="true" UserID='<%# Convert.ToInt32(((System.Data.DataRowView)Container.DataItem)["UserID"]) %>' Style='<%# ((System.Data.DataRowView)Container.DataItem)["Style"] %>' ></YAF:UserLink></b>: 
 													<asp:Label ID="messageLabel" runat="server" Text='<%# ((System.Data.DataRowView)Container.DataItem)["Message"] %>' />
 												</div>
 											</ItemTemplate>

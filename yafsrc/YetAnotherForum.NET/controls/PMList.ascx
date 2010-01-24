@@ -48,8 +48,7 @@
 				<asp:LinkButton runat="server" ID="FromLink" OnClick="FromLink_Click" Text='<%#GetMessageUserHeader() %>' />
 			</HeaderTemplate>
 			<ItemTemplate>
-				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Convert.ToInt32(( View == PMView.Outbox ) ? Eval("ToUserID") : Eval("FromUserID" )) %>'
-					UserName='<%# Convert.ToString(( View == PMView.Outbox ) ? Eval( "ToUser" ) : Eval( "FromUser" ))%>' />
+				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Convert.ToInt32(( View == PMView.Outbox ) ? Eval("ToUserID") : Eval("FromUserID" )) %>' />
 			</ItemTemplate>
 		</asp:TemplateField>
 		<asp:TemplateField>

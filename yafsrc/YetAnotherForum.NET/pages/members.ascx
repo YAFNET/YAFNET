@@ -29,8 +29,7 @@
 		<ItemTemplate>
 			<tr>
 				<td class="post">
-					<YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
-						UserName='<%# Eval("Name") %>' Style = '<%# Eval("Style") %>' />
+					<YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' Style = '<%# Eval("Style") %>' />
 				</td>
 				<td class="post">
 					<%# Eval("RankName") %>

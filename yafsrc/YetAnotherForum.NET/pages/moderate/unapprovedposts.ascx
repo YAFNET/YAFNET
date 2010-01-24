@@ -27,8 +27,7 @@
 		</tr>
 		<tr class="postheader">
 			<td>
-				<YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
-					UserName='<%# Convert.ToString(Eval("UserName")) %>' />
+				<YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' />
 			</td>
 			<td>
 				<b>Posted:</b>

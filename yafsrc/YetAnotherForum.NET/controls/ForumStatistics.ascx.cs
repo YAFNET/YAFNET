@@ -60,7 +60,7 @@ namespace YAF.Controls
 
       // "Active Users" Count and Most Users Count
       DataRow activeStats = DB.active_stats(PageContext.PageBoardID);
-      this.ActiveUserCount.Text = FormatActiveUsers(activeStats);
+      this.ActiveUserCount.Text = this.FormatActiveUsers(activeStats);
 
       // Forum Statistics
       key = YafCache.GetBoardCacheKey(Constants.Cache.BoardStats);
@@ -101,7 +101,6 @@ namespace YAF.Controls
         this.StatsLastPostHolder.Visible = true;
 
         this.LastPostUserLink.UserID = Convert.ToInt32(statisticsDataRow["LastUserID"]);
-        this.LastPostUserLink.UserName = statisticsDataRow["LastUser"].ToString();
         this.LastPostUserLink.Style = statisticsDataRow["LastUserStyle"].ToString();
         this.StatsLastPost.Text = PageContext.Localization.GetTextFormatted(
           "stats_lastpost", YafServices.DateTime.FormatDateTimeTopic((DateTime) statisticsDataRow["LastPost"]));
@@ -117,7 +116,6 @@ namespace YAF.Controls
       // Newest Member
       this.StatsNewestMember.Text = PageContext.Localization.GetText("stats_lastmember");
       this.NewestMemberUserLink.UserID = Convert.ToInt32(statisticsDataRow["LastMemberID"]);
-      this.NewestMemberUserLink.UserName = statisticsDataRow["LastMember"].ToString();
     }
 
     /// <summary>

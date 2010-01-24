@@ -2,13 +2,11 @@
 <%@ Import Namespace="YAF.Classes.Core" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
-	<table class="content" cellspacing="0" cellpadding="0" width="100%">
-		<tr>
-			<td class="post" valign="top">
-				<table cellspacing="0" cellpadding="0" width="100%">
+
+				<table cellspacing="0" cellpadding="0" class="content" width="100%">
 					<tr>
-						<td class="header2" colspan="5">
-							<b>Filter</b>
+						<td class="header1" colspan="4">
+							<b>Search Users</b>
 						</td>
 					</tr>
 					<tr class="post">
@@ -19,13 +17,10 @@
 							Rank:
 						</td>
 						<td>
-							Name Contains:
+							User Name Contains:
 						</td>
 						<td>
 							Email Contains:
-						</td>
-						<td width="99%">
-							&nbsp;
 						</td>
 					</tr>
 					<tr class="post">
@@ -38,19 +33,19 @@
 							</asp:DropDownList>
 						</td>
 						<td>
-							<asp:TextBox ID="name" runat="server"></asp:TextBox>
+							<asp:TextBox ID="name" runat="server" Width="100%"></asp:TextBox>
 						</td>
 						<td>
-							<asp:TextBox ID="Email" runat="server"></asp:TextBox>
+							<asp:TextBox ID="Email" runat="server" Width="100%"></asp:TextBox>
 						</td>
-						<td align="right">
+					</tr>
+					<tr>					    
+						<td class="footer1" colspan="4" align="right">
 							<asp:Button ID="search" runat="server" OnClick="search_Click" Text="Search"></asp:Button>
 						</td>
 					</tr>
 				</table>
-			</td>
-		</tr>
-	</table>
+
 	<br />
 	<YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" UsePostBack="True" />
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -61,7 +56,7 @@
 		</tr>
 		<tr>
 			<td class="header2">
-				Name
+				User Name
 			</td>
 			<td class="header2">
 				Email

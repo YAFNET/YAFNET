@@ -270,6 +270,15 @@
 					</tr>					
 					<tr>
 						<td class="postheader">
+							<b>Enable Display Name:</b><br />
+							If checked, YAF uses an alternative "Display Name" instead of the UserName.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="EnableDisplayName" runat="server"></asp:CheckBox>
+						</td>
+					</tr>					
+					<tr>
+						<td class="postheader">
 							<b>Show User Online/Offline Status:</b><br />
 							If checked, current user status is displayed in the forum.
 							Hidden users are always displayed as offline.
@@ -277,7 +286,7 @@
 						<td class="post">
 							<asp:CheckBox ID="ShowUserOnlineStatus" runat="server"></asp:CheckBox>
 						</td>
-					</tr>
+					</tr>					
                     <tr>
 						<td class="postheader">
 							<b>Allow Users to Thank Posts:</b><br />
