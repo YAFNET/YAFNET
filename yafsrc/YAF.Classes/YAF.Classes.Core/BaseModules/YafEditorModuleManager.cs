@@ -19,7 +19,10 @@
 namespace YAF.Editors
 {
   using System;
+  using System.Linq;
+  using System.Collections.Generic;
   using System.Data;
+  using System.Diagnostics;
   using System.Web.Compilation;
 
   using Modules;
@@ -37,6 +40,11 @@ namespace YAF.Editors
     {
       if (this.ModuleClassTypes == null)
       {
+        // add all YAF modules...
+        this.AddModules(
+          AppDomain.CurrentDomain.GetAssemblies().Where(
+            a => a.FullName != null && a.FullName.ToLower().StartsWith("yaf")).ToList());
+
         // re-add these modules...
         this.AddModules(BuildManager.CodeAssemblies);
       }
@@ -53,18 +61,7 @@ namespace YAF.Editors
     public BaseForumEditor GetEditorInstance(int moduleId)
     {
       this.Load();
-
-      // find the module (LINQ would be nice here)...
-      foreach (BaseForumEditor editor in this.Modules)
-      {
-        if (editor.ModuleId == moduleId)
-        {
-          return editor;
-        }
-      }
-
-      // not found
-      return null;
+      return this.Modules.Where(e => e.ModuleId.Equals(moduleId)).SingleOrDefault();
     }
 
     /// <summary>

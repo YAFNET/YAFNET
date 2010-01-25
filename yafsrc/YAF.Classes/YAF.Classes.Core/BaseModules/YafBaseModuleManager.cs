@@ -18,7 +18,9 @@
  */
 namespace YAF.Modules
 {
+  using System;
   using System.Collections.Generic;
+  using System.Linq;
   using System.Reflection;
   using System.Web.Compilation;
 
@@ -40,12 +42,10 @@ namespace YAF.Modules
     {
       if (this.ModuleClassTypes == null)
       {
-        // get the .Core module to add...
+        // add all YAF modules...
         this.AddModules(
-          new List<Assembly>()
-            {
-              Assembly.GetExecutingAssembly()
-            });
+          AppDomain.CurrentDomain.GetAssemblies().Where(
+            a => a.FullName != null && a.FullName.ToLower().StartsWith("yaf")).ToList());
 
         // re-add these modules...
         this.AddModules(BuildManager.CodeAssemblies);

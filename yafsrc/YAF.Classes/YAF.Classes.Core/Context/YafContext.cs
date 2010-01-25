@@ -20,6 +20,7 @@ namespace YAF.Classes.Core
 {
   using System;
   using System.Web;
+  using System.Web.Profile;
   using System.Web.Security;
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
@@ -312,6 +313,23 @@ namespace YAF.Classes.Core
       get
       {
         return YafControlSettings.Current;
+      }
+    }
+
+    /// <summary>
+    /// Current Profile Provider used by YAF
+    /// </summary>
+    public ProfileProvider CurrentProfile
+    {
+      get
+      {
+        if (!String.IsNullOrEmpty(Config.ProviderProvider) && System.Web.Profile.ProfileManager.Providers[Config.ProviderProvider] != null)
+        {
+          return System.Web.Profile.ProfileManager.Providers[Config.ProviderProvider];
+        }
+
+        // return default membership provider
+        return System.Web.Profile.ProfileManager.Provider;
       }
     }
 
