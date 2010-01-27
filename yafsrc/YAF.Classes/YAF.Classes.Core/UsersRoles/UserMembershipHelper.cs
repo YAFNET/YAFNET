@@ -154,7 +154,7 @@ namespace YAF.Classes.Core
     /// </param>
     public static void ClearCacheForUserId(long userId)
     {
-      YafProvider.UserDisplayName.Clear((int)userId);
+      YafContext.Current.UserDisplayName.Clear((int)userId);
       YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(string.Format("UserListForID{0}", userId)));
     }
 

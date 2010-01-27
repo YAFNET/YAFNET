@@ -72,6 +72,7 @@
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Interfaces\IUserDisplayName.cs" />
     <Compile Include="Interfaces\IYafTheme.cs" />
+    <Compile Include="Pattern\IInstanceFactory.cs" />
     <Compile Include="Pattern\ThreadSafeDictionary.cs" />
     <Compile Include="Pattern\TypeFactoryInstanceApplicationScope.cs" />
     <Compile Include="Pattern\TypeFactoryInstanceApplicationBoardScope.cs" />
@@ -91,7 +92,7 @@
     <Compile Include="DefaultUrlBuilder.cs" />
     <Compile Include="YafBoardSettingCollection.cs" />
     <Compile Include="YafControlSettings.cs" />
-    <Compile Include="YafProvider.cs" />
+    <Compile Include="YafFactoryProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

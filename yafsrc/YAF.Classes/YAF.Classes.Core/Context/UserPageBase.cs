@@ -583,6 +583,7 @@ namespace YAF.Classes.Core
             }
         }
     }
+
     /// <summary>
     /// The time zone offset for the user
     /// </summary>

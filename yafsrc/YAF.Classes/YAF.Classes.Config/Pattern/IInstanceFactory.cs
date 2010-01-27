@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -18,30 +18,12 @@
  */
 namespace YAF.Classes.Pattern
 {
-  #region Using
-
-  using System;
-  using System.Collections.Generic;
-
-  #endregion
-
   /// <summary>
-  /// The single class instance factory.
+  /// The instance factory interface
   /// </summary>
-  public class SingleClassInstanceFactory : IInstanceFactory
+  public interface IInstanceFactory
   {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The _context classes.
-    /// </summary>
-    private readonly Dictionary<int, object> _contextClasses = new Dictionary<int, object>();
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IInstanceFactory
+    #region Public Methods
 
     /// <summary>
     /// The get instance.
@@ -50,17 +32,7 @@ namespace YAF.Classes.Pattern
     /// </typeparam>
     /// <returns>
     /// </returns>
-    public T GetInstance<T>() where T : class
-    {
-      int objNameHash = typeof(T).ToString().GetHashCode();
-
-      if (!this._contextClasses.ContainsKey(objNameHash))
-      {
-        this._contextClasses[objNameHash] = (T)Activator.CreateInstance(typeof(T), true);
-      }
-
-      return (T)this._contextClasses[objNameHash];
-    }
+    T GetInstance<T>() where T : class;
 
     /// <summary>
     /// The set instance.
@@ -70,13 +42,7 @@ namespace YAF.Classes.Pattern
     /// </param>
     /// <typeparam name="T">
     /// </typeparam>
-    public void SetInstance<T>(T instance) where T : class
-    {
-      int objNameHash = typeof(T).ToString().GetHashCode();
-      this._contextClasses[objNameHash] = instance;
-    }
-
-    #endregion
+    void SetInstance<T>(T instance) where T : class;
 
     #endregion
   }

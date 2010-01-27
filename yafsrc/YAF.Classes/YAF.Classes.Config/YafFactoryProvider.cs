@@ -12,7 +12,7 @@ namespace YAF.Classes
   /// <summary>
   /// The yaf provider.
   /// </summary>
-  public static class YafProvider
+  public static class YafFactoryProvider
   {
     #region Constants and Fields
 

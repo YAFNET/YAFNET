@@ -95,8 +95,8 @@ namespace YAF.Classes.Utils
     public static string GetLink(ForumPages page, bool fullUrl)
     {
       return fullUrl
-               ? YafProvider.UrlBuilder.BuildUrlFull(string.Format("g={0}", page))
-               : YafProvider.UrlBuilder.BuildUrl(string.Format("g={0}", page));
+               ? YafFactoryProvider.UrlBuilder.BuildUrlFull(string.Format("g={0}", page))
+               : YafFactoryProvider.UrlBuilder.BuildUrl(string.Format("g={0}", page));
     }
 
     /// <summary>
@@ -133,8 +133,8 @@ namespace YAF.Classes.Utils
     public static string GetLink(ForumPages page, bool fullUrl, string format, params object[] args)
     {
       return fullUrl
-               ? YafProvider.UrlBuilder.BuildUrlFull(string.Format("g={0}&{1}", page, string.Format(format, args)))
-               : YafProvider.UrlBuilder.BuildUrl(string.Format("g={0}&{1}", page, string.Format(format, args)));
+               ? YafFactoryProvider.UrlBuilder.BuildUrlFull(string.Format("g={0}&{1}", page, string.Format(format, args)))
+               : YafFactoryProvider.UrlBuilder.BuildUrl(string.Format("g={0}&{1}", page, string.Format(format, args)));
     }
 
     /// <summary>

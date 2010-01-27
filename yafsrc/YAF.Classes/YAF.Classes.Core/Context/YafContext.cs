@@ -22,6 +22,9 @@ namespace YAF.Classes.Core
   using System.Web;
   using System.Web.Profile;
   using System.Web.Security;
+
+  using Interfaces;
+
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
   using YAF.Editors;
@@ -364,6 +367,28 @@ namespace YAF.Classes.Core
 
         // return default role provider
         return Roles.Provider;
+      }
+    }
+
+    /// <summary>
+    /// Gets the UrlBuilder
+    /// </summary>
+    public IUrlBuilder UrlBuilder
+    {
+      get
+      {
+        return YafFactoryProvider.UrlBuilder;
+      }
+    }
+
+    /// <summary>
+    /// Gets the Display Name.
+    /// </summary>
+    public IUserDisplayName UserDisplayName
+    {
+      get
+      {
+        return YafFactoryProvider.UserDisplayName;
       }
     }
 
