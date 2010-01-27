@@ -236,6 +236,8 @@ namespace YAF.Pages
 
       char selectedLetter = this.AlphaSort1.CurrentLetter;
 
+      string nameField = PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name";
+
       // handle dataview filtering
       if (selectedLetter != char.MinValue)
       {
@@ -246,11 +248,11 @@ namespace YAF.Pages
           {
             if (filter == string.Empty)
             {
-              filter = string.Format("Name not like '{0}%'", letter);
+              filter = string.Format("{0} not like '{1}%'", nameField, letter);
             }
             else
             {
-              filter += string.Format("and Name not like '{0}%'", letter);
+              filter += string.Format("and {0} not like '{1}%'", nameField, letter);
             }
           }
 
@@ -258,7 +260,7 @@ namespace YAF.Pages
         }
         else
         {
-          userListDataView.RowFilter = string.Format("Name like '{0}%'", selectedLetter);
+          userListDataView.RowFilter = string.Format("{0} like '{1}%'", nameField, selectedLetter);
         }
       }
 
@@ -277,7 +279,7 @@ namespace YAF.Pages
 
       // handle the sort fields at the top
       // TODO: make these "sorts" into controls
-      this.SortUserName.Visible = (string) ViewState["SortField"] == "Name";
+      this.SortUserName.Visible = (string)ViewState["SortField"] == nameField;
       this.SortUserName.Src = GetThemeContents("SORT", (bool) ViewState["SortAscending"] ? "ASCENDING" : "DESCENDING");
       this.SortRank.Visible = (string) ViewState["SortField"] == "RankName";
       this.SortRank.Src = this.SortUserName.Src;
