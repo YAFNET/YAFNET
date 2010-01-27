@@ -98,11 +98,6 @@ namespace YAF.Classes.Utils
     string Occupation { get; set; }
 
     /// <summary>
-    /// Gets or sets DisplayName.
-    /// </summary>
-    string DisplayName { get; set; }
-
-    /// <summary>
     /// Gets or sets RealName.
     /// </summary>
     string RealName { get; set; }

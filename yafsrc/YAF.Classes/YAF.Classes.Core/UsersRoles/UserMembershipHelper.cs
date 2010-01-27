@@ -154,8 +154,8 @@ namespace YAF.Classes.Core
     /// </param>
     public static void ClearCacheForUserId(long userId)
     {
-      string cacheKey = string.Format("UserListForID{0}", userId);
-      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(cacheKey));
+      YafProvider.UserDisplayName.Clear((int)userId);
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(string.Format("UserListForID{0}", userId)));
     }
 
     /// <summary>
@@ -481,16 +481,40 @@ namespace YAF.Classes.Core
     {
       string userName = string.Empty;
 
-      DataRow row = GetUserRowForID(userID);
+      DataRow row = GetUserRowForID(userID, true);
       if (row != null)
       {
-        if (row["Name"] != DBNull.Value)
+        if (!row["Name"].IsNullOrEmptyDBField())
         {
           userName = row["Name"].ToString();
         }
       }
 
       return userName;
+    }
+
+    /// <summary>
+    /// Gets the user name from the UesrID
+    /// </summary>
+    /// <param name="userID">
+    /// </param>
+    /// <returns>
+    /// The get user name from id.
+    /// </returns>
+    public static string GetDisplayNameFromID(long userID)
+    {
+      string displayName = string.Empty;
+
+      DataRow row = GetUserRowForID(userID, true);
+      if (row != null)
+      {
+        if (!row["DisplayName"].IsNullOrEmptyDBField())
+        {
+          displayName = row["DisplayName"].ToString();
+        }
+      }
+
+      return displayName;
     }
 
     /// <summary>
@@ -615,9 +639,13 @@ namespace YAF.Classes.Core
       if (providerUserKey != null)
       {
         MembershipUser user = GetUser(TypeHelper.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+
         user.Email = newEmail;
+
         YafContext.Current.CurrentMembership.UpdateUser(user);
-        DB.user_aspnet(YafContext.Current.PageBoardID, user.UserName, newEmail, user.ProviderUserKey, user.IsApproved);
+
+        DB.user_aspnet(YafContext.Current.PageBoardID, user.UserName, null, newEmail, user.ProviderUserKey, user.IsApproved);
+
         return true;
       }
 

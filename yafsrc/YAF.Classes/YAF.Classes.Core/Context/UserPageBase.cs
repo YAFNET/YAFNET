@@ -660,7 +660,7 @@ namespace YAF.Classes.Core
 
           if (user != null && HttpContext.Current.Session["UserUpdated"] == null)
           {
-            RoleMembershipHelper.UpdateForumUser(user, PageBoardID);
+            RoleMembershipHelper.UpdateForumUser(user, this.PageBoardID);
             HttpContext.Current.Session["UserUpdated"] = true;
           }
 

@@ -80,6 +80,10 @@
   <ItemGroup>
     <Compile Include="ActiveLocation.cs" />
     <Compile Include="ActiveUsers.cs" />
+    <Compile Include="Localized\ILocalizationSupport.cs" />
+    <Compile Include="Localized\LocalizationSupportExtensions.cs" />
+    <Compile Include="Localized\LocalizedCustomValidator.cs" />
+    <Compile Include="Localized\LocalizedRequiredFieldValidator.cs" />
     <Compile Include="ReportedPosts.cs" />
     <Compile Include="OnlineStatusImage.cs" />
     <Compile Include="YafAdminMenu\AdminMenu.cs" />
@@ -102,7 +106,7 @@
     <Compile Include="Header.cs" />
     <Compile Include="HelpMenu.cs" />
     <Compile Include="IconLegend.cs" />
-    <Compile Include="LocalizedLabel.cs" />
+    <Compile Include="Localized\LocalizedLabel.cs" />
     <Compile Include="MessageAttached.cs" />
     <Compile Include="MessageBase.cs" />
     <Compile Include="MessagePost.cs" />

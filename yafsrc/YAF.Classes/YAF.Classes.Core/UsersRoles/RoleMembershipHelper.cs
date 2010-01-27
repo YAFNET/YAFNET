@@ -65,11 +65,29 @@ namespace YAF.Classes.Core
     /// </returns>
     public static int? CreateForumUser(MembershipUser user, int pageBoardID)
     {
+      return CreateForumUser(user, user.UserName, pageBoardID);
+    }
+
+    /// <summary>
+    /// Creates the user in the YAF DB from the ASP.NET Membership user information.
+    /// Also copies the Roles as groups into YAF DB for the current user
+    /// </summary>
+    /// <param name="user">
+    /// Current Membership User
+    /// </param>
+    /// <param name="pageBoardID">
+    /// Current BoardID
+    /// </param>
+    /// <returns>
+    /// Returns the UserID of the user if everything was successful. Otherwise, null.
+    /// </returns>
+    public static int? CreateForumUser(MembershipUser user, string displayName, int pageBoardID)
+    {
       int? userID = null;
 
       try
       {
-        userID = DB.user_aspnet(pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved);
+        userID = DB.user_aspnet(pageBoardID, user.UserName, displayName, user.Email, user.ProviderUserKey, user.IsApproved);
 
         foreach (string role in GetRolesForUser(user.UserName))
         {
@@ -381,7 +399,7 @@ namespace YAF.Classes.Core
         return;
       }
 
-      int nUserID = DB.user_aspnet(pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved);
+      int nUserID = DB.user_aspnet(pageBoardID, user.UserName, null, user.Email, user.ProviderUserKey, user.IsApproved);
 
       // get user groups...
       DataTable groupTable = DB.group_member(pageBoardID, nUserID);

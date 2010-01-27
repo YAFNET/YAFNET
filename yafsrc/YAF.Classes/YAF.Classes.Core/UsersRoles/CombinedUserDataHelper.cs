@@ -393,6 +393,22 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// Gets DisplayName.
+    /// </summary>
+    public string DisplayName
+    {
+      get
+      {
+        if (this._userID.HasValue)
+        {
+          return this.RowConvert.AsString("DisplayName");
+        }
+
+        return this.UserName;
+      }
+    }
+
+    /// <summary>
     /// Gets RowConvert.
     /// </summary>
     protected DataRowConvert RowConvert

@@ -7191,6 +7191,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// The user_save.
     /// </summary>
+    /// <param name="displayName"></param>
     /// <param name="userID">
     /// The user id.
     /// </param>
@@ -7225,6 +7226,7 @@ namespace YAF.Classes.Data
       object userID, 
       object boardID, 
       object userName, 
+      object displayName,
       object email, 
       object timeZone, 
       object languageFile, 
@@ -7240,6 +7242,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("UserID", userID);
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("UserName", userName);
+        cmd.Parameters.AddWithValue("DisplayName", displayName);
         cmd.Parameters.AddWithValue("Email", email);
         cmd.Parameters.AddWithValue("TimeZone", timeZone);
         cmd.Parameters.AddWithValue("LanguageFile", languageFile);
@@ -7561,6 +7564,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// The user_find.
     /// </summary>
+    /// <param name="displayName"></param>
     /// <param name="boardID">
     /// The board id.
     /// </param>
@@ -7575,7 +7579,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable user_find(object boardID, bool filter, object userName, object email)
+    public static DataTable user_find(object boardID, bool filter, object userName, object email, object displayName)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_find"))
       {
@@ -7583,6 +7587,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("Filter", filter);
         cmd.Parameters.AddWithValue("UserName", userName);
+        cmd.Parameters.AddWithValue("DisplayName", displayName);
         cmd.Parameters.AddWithValue("Email", email);
         return YafDBAccess.Current.GetData(cmd);
       }
@@ -7778,7 +7783,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The user_aspnet.
     /// </returns>
-    public static int user_aspnet(int boardID, string userName, string email, object providerUserKey, object isApproved)
+    public static int user_aspnet(int boardID, string userName, string displayName, string email, object providerUserKey, object isApproved)
     {
       try
       {
@@ -7788,6 +7793,7 @@ namespace YAF.Classes.Data
 
           cmd.Parameters.AddWithValue("BoardID", boardID);
           cmd.Parameters.AddWithValue("UserName", userName);
+          cmd.Parameters.AddWithValue("DisplayName", displayName);
           cmd.Parameters.AddWithValue("Email", email);
           cmd.Parameters.AddWithValue("ProviderUserKey", providerUserKey);
           cmd.Parameters.AddWithValue("IsApproved", isApproved);

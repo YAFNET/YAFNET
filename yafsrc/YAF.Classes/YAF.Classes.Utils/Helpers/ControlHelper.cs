@@ -42,7 +42,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// List of controls found
     /// </returns>
-    public static List<Control> ControlListRecursive(Control sourceControl, Func<Control, bool> isControl)
+    public static List<Control> ControlListRecursive(this Control sourceControl, Func<Control, bool> isControl)
     {
       if (sourceControl == null)
       {
@@ -82,7 +82,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// List of controls found
     /// </returns>
-    private static List<Control> ControlListNoParents(Control sourceControl, Func<Control, bool> isControl)
+    private static List<Control> ControlListNoParents(this Control sourceControl, Func<Control, bool> isControl)
     {
       if (sourceControl == null)
       {
@@ -110,7 +110,7 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static Control FindControlRecursiveReverse(Control sourceControl, string id)
+    public static Control FindControlRecursiveReverse(this Control sourceControl, string id)
     {
       if (sourceControl == null)
       {
@@ -147,7 +147,7 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static Control FindControlRecursiveBoth(Control sourceControl, string id)
+    public static Control FindControlRecursiveBoth(this Control sourceControl, string id)
     {
       if (sourceControl == null)
       {
@@ -170,7 +170,7 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// The find control as.
+    /// Makes Find Control strongly typed.
     /// </summary>
     /// <param name="sourceControl">
     /// The source control.
@@ -182,7 +182,7 @@ namespace YAF.Classes.Utils
     /// </typeparam>
     /// <returns>
     /// </returns>
-    public static T FindControlAs<T>(Control sourceControl, string id) where T : class
+    public static T FindControlAs<T>(this Control sourceControl, string id) where T : class
     {
       if (sourceControl == null)
       {
@@ -216,7 +216,7 @@ namespace YAF.Classes.Utils
     /// </typeparam>
     /// <returns>
     /// </returns>
-    public static T FindControlRecursiveAs<T>(Control sourceControl, string id) where T : class
+    public static T FindControlRecursiveAs<T>(this Control sourceControl, string id) where T : class
     {
       if (sourceControl == null)
       {
@@ -250,7 +250,7 @@ namespace YAF.Classes.Utils
     /// </typeparam>
     /// <returns>
     /// </returns>
-    public static T FindControlRecursiveReverseAs<T>(Control sourceControl, string id) where T : class
+    public static T FindControlRecursiveReverseAs<T>(this Control sourceControl, string id) where T : class
     {
       if (sourceControl == null)
       {
@@ -284,7 +284,7 @@ namespace YAF.Classes.Utils
     /// </typeparam>
     /// <returns>
     /// </returns>
-    public static T FindControlRecursiveBothAs<T>(Control sourceControl, string id) where T : class
+    public static T FindControlRecursiveBothAs<T>(this Control sourceControl, string id) where T : class
     {
       if (sourceControl == null)
       {
@@ -318,7 +318,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// A control reference, if found, null, if not
     /// </returns>
-    public static Control FindWizardControlRecursive(Wizard wizardControl, string id)
+    public static Control FindWizardControlRecursive(this Wizard wizardControl, string id)
     {
       if (wizardControl == null)
       {
@@ -364,7 +364,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// A Control, if found; null, if not
     /// </returns>
-    public static Control FindControlRecursive(Control sourceControl, string id)
+    public static Control FindControlRecursive(this Control sourceControl, string id)
     {
       if (sourceControl == null)
       {
@@ -410,7 +410,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// </exception>
-    public static List<T> FindControlType<T>(Control sourceControl)
+    public static List<T> FindControlType<T>(this Control sourceControl)
     {
       if (sourceControl == null)
       {
@@ -527,7 +527,7 @@ namespace YAF.Classes.Utils
     /// <param name="height">
     /// The height.
     /// </param>
-    public static void AddStyleAttributeSize(WebControl control, string width, string height)
+    public static void AddStyleAttributeSize(this WebControl control, string width, string height)
     {
       if (control == null)
       {
@@ -556,7 +556,7 @@ namespace YAF.Classes.Utils
     /// <param name="width">
     /// The width.
     /// </param>
-    public static void AddStyleAttributeWidth(WebControl control, string width)
+    public static void AddStyleAttributeWidth(this WebControl control, string width)
     {
       if (control == null)
       {
@@ -580,7 +580,7 @@ namespace YAF.Classes.Utils
     /// <param name="height">
     /// The height.
     /// </param>
-    public static void AddStyleAttributeHeight(WebControl control, string height)
+    public static void AddStyleAttributeHeight(this WebControl control, string height)
     {
       if (control == null)
       {

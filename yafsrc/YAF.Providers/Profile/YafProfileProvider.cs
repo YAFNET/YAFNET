@@ -790,13 +790,9 @@ namespace YAF.Providers.Profile
 
       foreach (DataRow profileRow in allProfilesDT.Rows)
       {
-        string username;
-        DateTime lastActivity;
-        DateTime lastUpdated = DateTime.UtcNow;
-
-        username = profileRow["Username"].ToString();
-        lastActivity = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastActivity"]), DateTimeKind.Utc);
-        lastUpdated = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastUpdated"]), DateTimeKind.Utc);
+        string username = profileRow["Username"].ToString();
+        DateTime lastActivity = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastActivity"]), DateTimeKind.Utc);
+        DateTime lastUpdated = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastUpdated"]), DateTimeKind.Utc);
 
         profiles.Add(new ProfileInfo(username, false, lastActivity, lastUpdated, 0));
       }

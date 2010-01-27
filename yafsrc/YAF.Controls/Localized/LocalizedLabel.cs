@@ -16,17 +16,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web.UI;
-using YAF.Classes.UI;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System.Web.UI;
+
+  #endregion
+
   /// <summary>
   /// Makes a very simple localized label
   /// </summary>
-  public class LocalizedLabel : BaseControl
+  public class LocalizedLabel : BaseControl, ILocalizationSupport
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _enable bb code.
     /// </summary>
@@ -57,12 +61,36 @@ namespace YAF.Controls
     /// </summary>
     protected string _param2 = string.Empty;
 
+    #endregion
+
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="LocalizedLabel"/> class.
     /// </summary>
     public LocalizedLabel()
       : base()
     {
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets a value indicating whether EnableBBCode.
+    /// </summary>
+    public bool EnableBBCode
+    {
+      get
+      {
+        return this._enableBBCode;
+      }
+
+      set
+      {
+        this._enableBBCode = value;
+      }
     }
 
     /// <summary>
@@ -145,21 +173,9 @@ namespace YAF.Controls
       }
     }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableBBCode.
-    /// </summary>
-    public bool EnableBBCode
-    {
-      get
-      {
-        return this._enableBBCode;
-      }
+    #endregion
 
-      set
-      {
-        this._enableBBCode = value;
-      }
-    }
+    #region Methods
 
     /// <summary>
     /// Shows the localized text string (if available)
@@ -168,41 +184,11 @@ namespace YAF.Controls
     /// </param>
     protected override void Render(HtmlTextWriter output)
     {
-      string localizedItem = GetCurrentItem();
-
-      // convert from YafBBCode to HTML
-      if (this._enableBBCode)
-      {
-        localizedItem = YafBBCode.MakeHtml(localizedItem, true, false);
-      }
-
       output.BeginRender();
-      output.Write(String.Format(localizedItem, this._param0, this._param1, this._param2));
+      output.Write(this.LocalizeAndRender(this));
       output.EndRender();
     }
 
-    /// <summary>
-    /// The get current item.
-    /// </summary>
-    /// <returns>
-    /// The get current item.
-    /// </returns>
-    protected string GetCurrentItem()
-    {
-      if (Site != null && Site.DesignMode == true)
-      {
-        return String.Format("[PAGE:{0}|TAG:{1}]", LocalizedPage, LocalizedTag);
-      }
-      else if (!String.IsNullOrEmpty(this._localizedPage) && !String.IsNullOrEmpty(this._localizedTag))
-      {
-        return PageContext.Localization.GetText(LocalizedPage, LocalizedTag);
-      }
-      else if (!String.IsNullOrEmpty(this._localizedTag))
-      {
-        return PageContext.Localization.GetText(LocalizedTag);
-      }
-
-      return null;
-    }
+    #endregion
   }
 }
