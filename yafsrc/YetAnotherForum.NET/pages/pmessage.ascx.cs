@@ -37,9 +37,8 @@ namespace YAF.Pages
   /// </summary>
   public partial class pmessage : ForumPage
   {
-    // message body editor
     /// <summary>
-    /// The _editor.
+    /// message body editor
     /// </summary>
     protected BaseForumEditor _editor;
 
@@ -121,7 +120,7 @@ namespace YAF.Pages
       if (!IsPostBack)
       {
         // create page links
-        CreatePageLinks();
+        this.CreatePageLinks();
 
         // localize button labels
         this.FindUsers.Text = GetText("FINDUSERS");
@@ -138,14 +137,11 @@ namespace YAF.Pages
           bool isQuoting = Request.QueryString["q"] == "1";
 
           // get quoted message
-          DataTable dt = DB.pmessage_list(Security.StringToLongOrRedirect(Request.QueryString["p"]));
+          DataRow row = DB.pmessage_list(Security.StringToLongOrRedirect(Request.QueryString["p"])).GetFirstRow();
 
           // there is such a message
-          if (dt.Rows.Count > 0)
+          if (row != null)
           {
-            // message info is in first row
-            DataRow row = dt.Rows[0];
-
             // get message sender/recipient
             var toUserId = (int) row["ToUserID"];
             var fromUserId = (int) row["FromUserID"];
@@ -165,8 +161,10 @@ namespace YAF.Pages
 
             this.Subject.Text = subject;
 
+            string displayName = PageContext.UserDisplayName.GetName(fromUserId);
+
             // set "To" user and disable changing...
-            this.To.Text = row["FromUser"].ToString();
+            this.To.Text = displayName;
             this.To.Enabled = false;
             this.FindUsers.Enabled = false;
             this.AllUsers.Enabled = false;
@@ -185,7 +183,7 @@ namespace YAF.Pages
               body = YafServices.BadWordReplace.Replace(body);
 
               // Quote the original message
-              body = String.Format("[QUOTE={0}]{1}[/QUOTE]", row["FromUser"], body);
+              body = String.Format("[QUOTE={0}]{1}[/QUOTE]", displayName, body);
 
               // we don't want any whitespaces at the beginning of message
               this._editor.Text = body.TrimStart();
@@ -201,44 +199,45 @@ namespace YAF.Pages
             int toUser;
             int reportMessage;
 
-            if (Int32.TryParse(Request.QueryString["u"], out toUser))
+            if (Int32.TryParse(this.Request.QueryString["u"], out toUser) &&
+                Int32.TryParse(this.Request.QueryString["r"], out reportMessage))
             {
-              if (Int32.TryParse(Request.QueryString["r"], out reportMessage))
+              // get quoted message
+              DataRow messagesRow =
+                DB.message_listreporters(
+                  Convert.ToInt32(Security.StringToLongOrRedirect(this.Request.QueryString["r"])),
+                  Convert.ToInt32(Security.StringToLongOrRedirect(this.Request.QueryString["u"]))).GetFirstRow();
+
+              // there is such a message
+              // message info should be always returned as 1 row 
+              if (messagesRow != null)
               {
-                // get quoted message
-                DataTable reportedMessages = DB.message_listreporters(
-                  Convert.ToInt32(Security.StringToLongOrRedirect(Request.QueryString["r"])), 
-                  Convert.ToInt32(Security.StringToLongOrRedirect(Request.QueryString["u"])));
+                // handle subject                                           
+                this.Subject.Text = this.GetText("REPORTED_SUBJECT");
 
-                // there is such a message
-                // message info should be always returned as 1 row 
-                if (reportedMessages.Rows.Count > 0)
+                string displayName = PageContext.UserDisplayName.GetName(messagesRow.Field<int>("UserID"));
+
+                // set "To" user and disable changing...
+                this.To.Text = displayName;
+                this.To.Enabled = false;
+                this.FindUsers.Enabled = false;
+                this.AllUsers.Enabled = false;
+
+                // Parse content with delimiter '|'  
+                string[] quoteList = messagesRow.Field<string>("ReportText").Split('|');
+
+                // Quoted replies should have bad words in them
+                // Reply to report PM is always a quoted reply
+                // Quote the original message in a cycle
+                for (int i = 0; i < quoteList.Length; i++)
                 {
-                  // handle subject                                           
-                  this.Subject.Text = GetText("REPORTED_SUBJECT");
+                  // Add quote codes
+                  quoteList[i] = String.Format(
+                    "[QUOTE={0}]{1}[/QUOTE]", displayName, quoteList[i]);
 
-                  // set "To" user and disable changing...
-                  this.To.Text = reportedMessages.Rows[0]["UserName"].ToString();
-                  this.To.Enabled = false;
-                  this.FindUsers.Enabled = false;
-                  this.AllUsers.Enabled = false;
-
-
-                  // Parse content with delimiter '|'  
-                  string[] quoteList = reportedMessages.Rows[0]["ReportText"].ToString().Split('|');
-
-                  // Quoted replies should have bad words in them
-                  // Reply to report PM is always a quoted reply
-                  // Quote the original message in a cycle
-                  for (int i = 0; i < quoteList.Length; i++)
-                  {
-                    // Add quote codes
-                    quoteList[i] = String.Format("[QUOTE={0}]{1}[/QUOTE]", reportedMessages.Rows[0]["UserName"], quoteList[i]);
-
-                    // Replace DateTime delimiter '??' by ': ' 
-                    // we don't want any whitespaces at the beginning of message
-                    this._editor.Text = quoteList[i].Replace("??", ": ") + this._editor.Text.TrimStart();
-                  }
+                  // Replace DateTime delimiter '??' by ': ' 
+                  // we don't want any whitespaces at the beginning of message
+                  this._editor.Text = quoteList[i].Replace("??", ": ") + this._editor.Text.TrimStart();
                 }
               }
             }
@@ -253,10 +252,11 @@ namespace YAF.Pages
 
           if (Int32.TryParse(Request.QueryString["u"], out toUserId))
           {
-            // get user's name
-            using (DataTable dt = DB.user_list(YafContext.Current.PageBoardID, toUserId, true))
+            DataRow currentRow = DB.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
+
+            if (currentRow != null)
             {
-              this.To.Text = dt.Rows[0]["Name"] as string;
+              this.To.Text = PageContext.UserDisplayName.GetName(currentRow.Field<int>("UserID"));
               this.To.Enabled = false;
 
               // hide find user/all users buttons
@@ -386,7 +386,7 @@ namespace YAF.Pages
         // get recipients' IDs
         foreach (string recipient in recipients)
         {
-          int? userId = YafProvider.UserDisplayName.GetId(recipient);
+          int? userId = PageContext.UserDisplayName.GetId(recipient);
 
           if (!userId.HasValue)
           {
@@ -511,7 +511,7 @@ namespace YAF.Pages
       }
 
       // try to find users by user name
-      var usersFound = YafProvider.UserDisplayName.Find(this.To.Text.Trim());
+      var usersFound = PageContext.UserDisplayName.Find(this.To.Text.Trim());
 
       if (usersFound.Count > 0)
       {

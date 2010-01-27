@@ -287,7 +287,7 @@ namespace YAF.Pages
         AlbumList1.Dispose();
       }
 
-      string userDisplayName = YafProvider.UserDisplayName.GetName(userID);
+      string userDisplayName = PageContext.UserDisplayName.GetName(userID);
 
       this.SetupUserProfileInfo(userID, user, userData, userDisplayName);
 

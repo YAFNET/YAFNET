@@ -205,7 +205,7 @@ namespace YAF.Pages
       //// handle changes for display name...
       //foreach (DataRow row in userListDataTable.Rows)
       //{
-      //  string displayName = YafProvider.UserDisplayName.Get(row.Field<int>("UserID"));
+      //  string displayName = PageContext.UserDisplayName.Get(row.Field<int>("UserID"));
 
       //  if (!displayName.Equals(row.Field<string>("Name")))
       //  {

@@ -249,7 +249,7 @@ namespace YAF.Pages
       {
         var displayName = this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName");
 
-        if (YafProvider.UserDisplayName.GetId(displayName.Text.Trim()).HasValue)
+        if (PageContext.UserDisplayName.GetId(displayName.Text.Trim()).HasValue)
         {
           this.PageContext.AddLoadMessage(this.GetText("ALREADY_REGISTERED_DISPLAYNAME"));
           e.Cancel = true;
