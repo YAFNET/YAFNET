@@ -969,7 +969,7 @@ GO
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='SortOrder')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Group] add SortOrder smallint not null default (0)
+	alter table [{databaseOwner}].[{objectQualifier}Group] add SortOrder smallint not null constraint [DF_{objectQualifier}Group_SortOrder] default (0)
 end
 GO
 
@@ -981,7 +981,7 @@ GO
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrSigChars')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrSigChars int not null default (0)
+	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrSigChars int not null constraint [DF_{objectQualifier}Group_UsrSigChars] default (0)
 end
 GO
 
@@ -989,7 +989,7 @@ if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objec
 begin
 grant update on [{databaseOwner}].[{objectQualifier}Group] to public
 		exec('update [{databaseOwner}].[{objectQualifier}Group] set UsrSigChars = 128 WHERE UsrSigChars = 0 AND Name != ''Guest'' ')
-		revoke update on [{databaseOwner}].[{objectQualifier}Rank] from public	
+		revoke update on [{databaseOwner}].[{objectQualifier}Group] from public	
 end
 GO
 
@@ -1008,13 +1008,13 @@ GO
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrAlbums')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrAlbums int not null default (0)
+	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrAlbums int not null constraint [DF_{objectQualifier}Group_UsrAlbums] default (0)
 end
 GO
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='UsrAlbumImages')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrAlbumImages int not null default (0)
+	alter table [{databaseOwner}].[{objectQualifier}Group] add UsrAlbumImages int not null constraint [DF_{objectQualifier}Group_UsrAlbumImages] default (0)
 end
 GO
 
@@ -1252,7 +1252,7 @@ GO
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='SortOrder')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Rank] add SortOrder smallint not null default (0)
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add SortOrder smallint not null constraint [DF_{objectQualifier}Rank_SortOrder] default (0)
 end
 GO
 
@@ -1264,7 +1264,7 @@ GO
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrSigChars')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrSigChars int not null default (0)
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrSigChars int not null constraint [DF_{objectQualifier}Rank_UsrSigChars] default (0)
 end
 GO
 
@@ -1290,13 +1290,13 @@ GO
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrAlbums')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrAlbums int not null default (0)
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrAlbums int not null constraint [DF_{objectQualifier}Rank_UsrAlbums] default (0)
 end
 GO
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='UsrAlbumImages')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrAlbumImages int not null default (0)
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add UsrAlbumImages int not null constraint [DF_{objectQualifier}Rank_UsrAlbumImages] default (0)
 end
 GO
 
