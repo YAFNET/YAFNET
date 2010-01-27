@@ -1535,16 +1535,16 @@ begin
 	SET @GroupIDMember = SCOPE_IDENTITY()	
 	
 	-- User (GUEST)
-	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
-	VALUES(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,6)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
+	VALUES(@BoardID,@RankIDGuest,'Guest','Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,6)
 	SET @UserIDGuest = SCOPE_IDENTITY()	
 	
 	SET @UserFlags = 2
 	if @IsHostAdmin<>0 SET @UserFlags = 3
 	
 	-- User (ADMIN)
-	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,Password,ProviderUserKey, Joined,LastVisit,NumPosts,TimeZone,Flags)
-	VALUES(@BoardID,@RankIDAdmin,@UserName,'na',@UserKey,getdate(),getdate(),0,@TimeZone,@UserFlags)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,ProviderUserKey, Joined,LastVisit,NumPosts,TimeZone,Flags)
+	VALUES(@BoardID,@RankIDAdmin,@UserName,@UserName,'na',@UserKey,getdate(),getdate(),0,@TimeZone,@UserFlags)
 	SET @UserIDAdmin = SCOPE_IDENTITY()
 
 	-- UserGroup
