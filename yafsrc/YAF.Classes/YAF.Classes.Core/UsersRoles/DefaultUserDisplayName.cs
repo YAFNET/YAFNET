@@ -214,6 +214,15 @@ namespace YAF.Classes.Core
       }      
     }
 
+    /// <summary>
+    /// Remove all the items from the collection
+    /// </summary>
+    public void Clear()
+    {
+      // update collection...
+      this.UserDisplayNameCollection.Clear();
+    }
+
     #endregion
 
     #endregion

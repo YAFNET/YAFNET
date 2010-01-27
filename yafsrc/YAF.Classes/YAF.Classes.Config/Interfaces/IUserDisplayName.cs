@@ -54,9 +54,14 @@ namespace YAF.Classes.Interfaces
     IDictionary<int, string> Find(string contains);
 
     /// <summary>
-    /// Clears a user value (if there is one) for userId
+    /// Clears a user value (if there is one) for <paramref name="userId"/> from the cache
     /// </summary>
     /// <param name="userId"></param>
     void Clear(int userId);
+
+    /// <summary>
+    /// Clears the display name cache (if there is one)
+    /// </summary>
+    void Clear();
   }
 }
