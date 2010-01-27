@@ -18,6 +18,9 @@
  */
 namespace YAF.Classes.Interfaces
 {
+  using System;
+  using System.Collections.Generic;
+
   /// <summary>
   /// User Display Name interface.
   /// </summary>
@@ -28,6 +31,32 @@ namespace YAF.Classes.Interfaces
     /// </summary>
     /// <param name="userId"></param>
     /// <returns></returns>
-    string Get(int userId);
+    string GetName(int userId);
+
+    /// <summary>
+    /// Get the <paramref name="userId"/> from the user name.
+    /// </summary>
+    /// <param name="name">
+    /// The name.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    int? GetId(string name);
+
+    /// <summary>
+    /// Find a displayName value.
+    /// </summary>
+    /// <param name="contains">
+    /// The contains.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    IDictionary<int, string> Find(string contains);
+
+    /// <summary>
+    /// Clears a user value (if there is one) for userId
+    /// </summary>
+    /// <param name="userId"></param>
+    void Clear(int userId);
   }
 }

@@ -167,6 +167,17 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets ProfileProvider.
+    /// </summary>
+    public static string ProviderProvider
+    {
+      get
+      {
+        return GetConfigValueAsString("YAF.ProfileProvider") ?? string.Empty;
+      }
+    }
+
+    /// <summary>
     /// Gets MembershipProvider.
     /// </summary>
     public static string MembershipProvider
