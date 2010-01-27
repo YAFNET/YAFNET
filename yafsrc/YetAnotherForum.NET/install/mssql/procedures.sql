@@ -4774,7 +4774,7 @@ begin
 end
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_aspnet](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@ProviderUserKey nvarchar(64),@IsApproved bit) as
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_aspnet](@BoardID int,@UserName nvarchar(255),@DisplayName nvarchar(255) = null,@Email nvarchar(255),@ProviderUserKey nvarchar(64),@IsApproved bit) as
 BEGIN
 		SET NOCOUNT ON
 
@@ -4786,9 +4786,15 @@ BEGIN
 	IF EXISTS(SELECT 1 FROM [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and ([ProviderUserKey]=@ProviderUserKey OR [Name] = @UserName))
 	BEGIN
 		SELECT TOP 1 @UserID = UserID FROM [{databaseOwner}].[{objectQualifier}User] WHERE [BoardID]=@BoardID and ([ProviderUserKey]=@ProviderUserKey OR [Name] = @UserName)
+		
+		IF (@DisplayName IS NULL) 
+		BEGIN
+			SELECT TOP 1 @DisplayName = DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserId = @UserID
+		END
 
 		UPDATE [{databaseOwner}].[{objectQualifier}User] SET 
 			[Name] = @UserName,
+			DisplayName = @DisplayName,
 			Email = @Email,
 			[ProviderUserKey] = @ProviderUserKey,
 			Flags = Flags | @approvedFlag
@@ -4797,12 +4803,16 @@ BEGIN
 	END ELSE
 	BEGIN
 		SELECT @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
+		
+		IF (@DisplayName IS NULL) 
+		BEGIN
+			SET @DisplayName = @UserName
+		END		
 
-		INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
-		VALUES(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,0,@approvedFlag,@ProviderUserKey)
+		INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
+		VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,getdate(),getdate(),0,0,@approvedFlag,@ProviderUserKey)
 	
-		set @UserID = SCOPE_IDENTITY()
-	
+		SET @UserID = SCOPE_IDENTITY()	
 	END
 	
 	SELECT UserID=@UserID
@@ -5059,35 +5069,39 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_find](@BoardID int,@Filter bit,@UserName nvarchar(50)=null,@Email nvarchar(50)=null) as
+create procedure [{databaseOwner}].[{objectQualifier}user_find](@BoardID int,@Filter bit,@UserName nvarchar(255)=null,@Email nvarchar(255)=null,@DisplayName nvarchar(255)=null) as
 begin
 	
 	if @Filter<>0
 	begin
 		if @UserName is not null
 			set @UserName = '%' + @UserName + '%'
+			
+		if @DisplayName is not null
+			set @DisplayName = '%' + @DisplayName + '%'			
 
 		select 
 			a.*,
-			IsGuest = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on x.GroupID=y.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0)		    
+			IsGuest = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on x.GroupID=y.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0)
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
 		where 
 			a.BoardID=@BoardID and
-			(@UserName is not null and a.Name like @UserName) or (@Email is not null and Email like @Email)
+			((@UserName is not null and a.Name like @UserName) or (@Email is not null and Email like @Email) or (@DisplayName is not null and a.DisplayName like @DisplayName))
 		order by
 			a.Name
 	end else
 	begin
 		select 
-			a.UserID,
+			a.*,
 			IsGuest = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on x.GroupID=y.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
 		    IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0)
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
 		where 
 			a.BoardID=@BoardID and
-			((@UserName is not null and a.Name=@UserName) or (@Email is not null and Email=@Email))
+			((@UserName is not null and a.Name=@UserName) or (@Email is not null and Email=@Email) or (@DisplayName is not null and a.DisplayName=@DisplayName))
 	end
 end
 GO
@@ -5249,7 +5263,7 @@ begin
 
 	if @@ROWCOUNT<1
 	begin
-		exec [{databaseOwner}].[{objectQualifier}user_save] 0,@BoardID,@UserName,@Email,null,'Usenet',0,null,null,null,0,1,null,null,null,null,null,null,null,0,null,null,null,null,null
+		exec [{databaseOwner}].[{objectQualifier}user_save] 0,@BoardID,@UserName,@UserName,@Email,null,'Usenet',0,null,null,null,0,1,null,null,null,null,null,null,null,0,null,null,null,null,null
 		-- The next one is not safe, but this procedure is only used for testing
 		select @UserID=max(UserID) from [{databaseOwner}].[{objectQualifier}User]
 	end
@@ -5299,8 +5313,9 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@UserID				int,
 	@BoardID			int,
-	@UserName			nvarchar(50) = null,
-	@Email				nvarchar(50) = null,
+	@UserName			nvarchar(255) = null,
+	@DisplayName		nvarchar(255) = null,
+	@Email				nvarchar(255) = null,
 	@TimeZone			int,
 	@LanguageFile		nvarchar(50) = null,
 	@ThemeFile			nvarchar(50) = null,
@@ -5327,8 +5342,8 @@ begin
 		
 		select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
 
-		insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,AutoWatchTopics,ProviderUserKey) 
-		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,@TimeZone,@Flags,@PMNotification,@AutoWatchTopics,@ProviderUserKey)		
+		insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,AutoWatchTopics,ProviderUserKey) 
+		values(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,getdate(),getdate(),0,@TimeZone,@Flags,@PMNotification,@AutoWatchTopics,@ProviderUserKey)		
 	
 		set @UserID = SCOPE_IDENTITY()
 
@@ -5346,6 +5361,9 @@ begin
 		
 		if @Email is not null
 			update [{databaseOwner}].[{objectQualifier}User] set Email = @Email where UserID = @UserID
+			
+		if @DisplayName is not null
+			update [{databaseOwner}].[{objectQualifier}User] set DisplayName = @DisplayName where UserID = @UserID			
 	end
 end
 GO

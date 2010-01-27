@@ -282,14 +282,15 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		UserID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL,
 		ProviderUserKey	nvarchar(64),
-		Name			nvarchar (50) NOT NULL ,
-		Password		nvarchar (32) NOT NULL ,
-		Email			nvarchar (50) NULL ,
-		Joined			datetime NOT NULL ,
-		LastVisit		datetime NOT NULL ,
-		IP				nvarchar (15) NULL ,
-		NumPosts		int NOT NULL ,
-		TimeZone		int NOT NULL ,
+		[Name]			nvarchar (255) NOT NULL,
+		[DisplayName]	nvarchar (255) NOT NULL,
+		Password		nvarchar (32) NOT NULL,
+		Email			nvarchar (50) NULL,
+		Joined			datetime NOT NULL,
+		LastVisit		datetime NOT NULL,
+		IP				nvarchar (15) NULL,
+		NumPosts		int NOT NULL,
+		TimeZone		int NOT NULL,
 		Avatar			nvarchar (255) NULL,
 		Signature		ntext NULL,
 		AvatarImage		image NULL,
@@ -709,7 +710,6 @@ begin
 end
 GO
 
-
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='AnswerMessageId')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add AnswerMessageId INT NULL
@@ -737,6 +737,16 @@ GO
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ProviderUserKey')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add ProviderUserKey nvarchar(64)
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='DisplayName')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] ADD [DisplayName] nvarchar(255) 
+	grant update on [{databaseOwner}].[{objectQualifier}User] to public
+	exec('update [{databaseOwner}].[{objectQualifier}User] SET DisplayName = [Name]')
+	revoke update on [{databaseOwner}].[{objectQualifier}User] from public	
+	ALTER TABLE [{databaseOwner}].[{objectQualifier}User] ALTER COLUMN [DisplayName] nvarchar(255) NOT NULL
 end
 GO
 

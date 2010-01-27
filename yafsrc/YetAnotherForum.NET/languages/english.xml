@@ -349,6 +349,7 @@
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="REALNAME2">What's your real name?</Resource>
     <Resource tag="SELECT_LANGUAGE">What language do you want to use:</Resource>
     <Resource tag="SELECT_THEME">Select your preferred theme:</Resource>
@@ -411,6 +412,7 @@
     <Resource tag="YOUR_ACCOUNT">Your Account</Resource>
     <Resource tag="YOUR_EMAIL">Your email address:</Resource>
     <Resource tag="YOUR_USERNAME">Your user name:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
   </page>
   <page name="CP_SIGNATURE">
     <Resource tag="SIGNATURE">Signature:</Resource>
@@ -950,6 +952,7 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Your username or email is already registered.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
     <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
@@ -961,6 +964,7 @@
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
     <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
     <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="LOCATION">Location</Resource>
     <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
@@ -968,6 +972,7 @@
     <Resource tag="NEED_PASSWORD">Password is required.</Resource>
     <Resource tag="NEED_QUESTION">Security question is required.</Resource>
     <Resource tag="NEED_USERNAME">User Name is required.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="PASSWORD">Password</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
@@ -981,6 +986,7 @@
     <Resource tag="TIMEZONE">Time Zone</Resource>
     <Resource tag="TITLE">Register New User</Resource>
     <Resource tag="USERNAME">User Name</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
   </page>
   <page name="REPORTPOST">

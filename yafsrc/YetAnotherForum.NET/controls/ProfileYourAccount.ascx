@@ -16,6 +16,15 @@
         <td rowspan="5" align="center" class="post"><asp:Image runat="server" ID="AvatarImage" CssClass="avatarimage" AlternateText="avatar" />
         </td>
     </tr>
+    <asp:Placeholder ID="DisplayNameHolder" runat="server">
+    <tr>
+        <td width="33%" class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="YOUR_USERDISPLAYNAME" />
+        </td>
+        <td class="post">            
+            <asp:Label ID="DisplayName" runat="server" /></td>
+    </tr>    
+    </asp:Placeholder>
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="YourEmailLocalized" runat="server" LocalizedTag="YOUR_EMAIL" />

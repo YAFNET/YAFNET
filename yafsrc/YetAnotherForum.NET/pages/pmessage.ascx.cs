@@ -358,10 +358,7 @@ namespace YAF.Pages
         this.To.Text = rx.Replace(this.To.Text, ";");
 
         // list of recipients
-        var recipients = new List<string>(this.To.Text.Split(';'));
-
-        // list of recipient's ids
-        var recipientID = new int[recipients.Count, 2];
+        var recipients = new List<string>(this.To.Text.Trim().Split(';'));
 
         if (recipients.Count > YafContext.Current.BoardSettings.PrivateMessageMaxRecipients && !YafContext.Current.IsAdmin &&
             YafContext.Current.BoardSettings.PrivateMessageMaxRecipients != 0)
@@ -375,6 +372,7 @@ namespace YAF.Pages
         // test sending user's PM count
         // get user's name
         DataRow drPMInfo = DB.user_pmcount(YafContext.Current.PageUserID).Rows[0];
+
         if ((Convert.ToInt32(drPMInfo["NumberTotal"]) > Convert.ToInt32(drPMInfo["NumberAllowed"]) + recipients.Count) && !YafContext.Current.IsAdmin)
         {
           // user has full PM box
@@ -382,39 +380,44 @@ namespace YAF.Pages
           return;
         }
 
+        // list of recipient's ids
+        var recipientIds = new List<int>();
+
         // get recipients' IDs
-        for (int i = 0; i < recipients.Count; i++)
+        foreach (string recipient in recipients)
         {
-          using (DataTable dt = DB.user_find(YafContext.Current.PageBoardID, false, recipients[i], null))
+          int? userId = YafProvider.UserDisplayName.GetId(recipient);
+
+          if (!userId.HasValue)
           {
-            if (dt.Rows.Count != 1)
-            {
-              YafContext.Current.AddLoadMessage(GetTextFormatted("NO_SUCH_USER", recipients[i]));
-              return;
-            }
-            else if (SqlDataLayerConverter.VerifyInt32(dt.Rows[0]["IsGuest"]) > 0)
-            {
-              YafContext.Current.AddLoadMessage(GetText("NOT_GUEST"));
-              return;
-            }
+            YafContext.Current.AddLoadMessage(GetTextFormatted("NO_SUCH_USER", recipient));
+            return;
+          }
+          else if (UserMembershipHelper.IsGuestUser(userId.Value))
+          {
+            YafContext.Current.AddLoadMessage(GetText("NOT_GUEST"));
+            return;
+          }
 
-            // get recipient's ID from the database
-            recipientID[i, 0] = Convert.ToInt32(dt.Rows[i]["UserID"]);
-            recipientID[i, 1] = Convert.ToInt32(dt.Rows[i]["IsAdmin"]);
+          // get recipient's ID from the database
+          if (!recipientIds.Contains(userId.Value))
+          {
+            recipientIds.Add(userId.Value);
+          }
 
-            // test receiving user's PM count
-            if ((Convert.ToInt32(DB.user_pmcount(recipientID[i, 0]).Rows[0]["NumberTotal"]) >=
-                 Convert.ToInt32(DB.user_pmcount(recipientID[i, 0]).Rows[0]["NumberAllowed"])) && !YafContext.Current.IsAdmin && recipientID[i, 1] == 0)
-            {
-              // recipient has full PM box
-              YafContext.Current.AddLoadMessage(GetTextFormatted("RECIPIENTS_PMBOX_FULL", recipients[i]));
-              return;
-            }
+          // test receiving user's PM count
+          if ((Convert.ToInt32(DB.user_pmcount(userId.Value).Rows[0]["NumberTotal"]) >=
+               Convert.ToInt32(DB.user_pmcount(userId.Value).Rows[0]["NumberAllowed"])) &&
+              !YafContext.Current.IsAdmin && !UserMembershipHelper.GetUserRowForID(userId.Value, true).Field<bool>("IsAdmin"))
+          {
+            // recipient has full PM box
+            YafContext.Current.AddLoadMessage(GetTextFormatted("RECIPIENTS_PMBOX_FULL", recipient));
+            return;
           }
         }
 
         // send PM to all recipients
-        for (int i = 0; i < recipients.Count; i++)
+        foreach (var userId in recipientIds)
         {
           string body = this._editor.Text;
 
@@ -423,11 +426,11 @@ namespace YAF.Pages
           messageFlags.IsHtml = this._editor.UsesHTML;
           messageFlags.IsBBCode = this._editor.UsesBBCode;
 
-          DB.pmessage_save(YafContext.Current.PageUserID, recipientID[i, 0], this.Subject.Text, body, messageFlags.BitValue);
+          DB.pmessage_save(YafContext.Current.PageUserID, userId, this.Subject.Text, body, messageFlags.BitValue);
 
           if (YafContext.Current.BoardSettings.AllowPMEmailNotification)
           {
-            CreateMail.PmNotification(recipientID[i, 0], this.Subject.Text);
+            CreateMail.PmNotification(userId, this.Subject.Text);
           }
         }
 
@@ -508,31 +511,30 @@ namespace YAF.Pages
       }
 
       // try to find users by user name
-      using (DataTable dt = DB.user_find(YafContext.Current.PageBoardID, true, this.To.Text, null))
+      var usersFound = YafProvider.UserDisplayName.Find(this.To.Text.Trim());
+
+      if (usersFound.Count > 0)
       {
-        if (dt.Rows.Count > 0)
-        {
-          // we found a user(s)
-          this.ToList.DataSource = dt;
-          this.ToList.DataValueField = "UserID";
-          this.ToList.DataTextField = "Name";
-          this.ToList.DataBind();
+        // we found a user(s)
+        this.ToList.DataSource = usersFound;
+        this.ToList.DataValueField = "Key";
+        this.ToList.DataTextField = "Value";
+        this.ToList.DataBind();
 
-          // ToList.SelectedIndex = 0;
-          // hide To text box and show To drop down
-          this.ToList.Visible = true;
-          this.To.Visible = false;
+        // ToList.SelectedIndex = 0;
+        // hide To text box and show To drop down
+        this.ToList.Visible = true;
+        this.To.Visible = false;
 
-          // find is no more needed
-          this.FindUsers.Visible = false;
+        // find is no more needed
+        this.FindUsers.Visible = false;
 
-          // we need clear button displayed now
-          this.Clear.Visible = true;
-        }
-
-        // re-bind data to the controls
-        DataBind();
+        // we need clear button displayed now
+        this.Clear.Visible = true;
       }
+
+      // re-bind data to the controls
+      DataBind();
     }
 
 

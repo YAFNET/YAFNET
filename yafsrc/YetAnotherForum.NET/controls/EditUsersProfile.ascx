@@ -14,15 +14,27 @@
             </b>
         </td>
     </tr>
+    <asp:PlaceHolder ID="DisplayNamePlaceholder" runat="server" Visible="false">
+        <tr>
+            <td class="postheader">
+                <YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" LocalizedPage="CP_EDITPROFILE"
+                    LocalizedTag="DISPLAYNAME" />
+            </td>
+            <td class="post">
+                <asp:TextBox ID="DisplayName" runat="server" CssClass="edit" />
+            </td>
+        </tr>
+    </asp:PlaceHolder>
     <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="realname2" />
         </td>
         <td class="post">
-            <asp:TextBox ID="Realname" runat="server" CssClass="edit" /></td>
+            <asp:TextBox ID="Realname" runat="server" CssClass="edit" />
+        </td>
     </tr>
-        <tr>
+    <tr>
         <td colspan="2" class="header2">
             <b>
                 <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server" LocalizedPage="CP_EDITPROFILE"
@@ -35,13 +47,11 @@
             <YAF:LocalizedLabel ID="BirthdayLabel" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="BIRTHDAY" />
         </td>
-    <td class="post"> 
-     <DotNetAge:DatePicker ID="datePicker" runat="server" 
-        AllowChangeYear="true"    
-        AllowChangeMonth="true"  
-        MaxDateFormat="+0d" Enabled="true" >
-         <AnotherField Selector=""></AnotherField>
-    </DotNetAge:DatePicker>
+        <td class="post">
+            <DotNetAge:DatePicker ID="datePicker" runat="server" AllowChangeYear="true" AllowChangeMonth="true"
+                MaxDateFormat="+0d" Enabled="true">
+                <AnotherField Selector=""></AnotherField>
+            </DotNetAge:DatePicker>
         </td>
     </tr>
     <tr>
@@ -50,7 +60,8 @@
                 LocalizedTag="occupation" />
         </td>
         <td class="post">
-            <asp:TextBox ID="Occupation" runat="server" CssClass="edit" /></td>
+            <asp:TextBox ID="Occupation" runat="server" CssClass="edit" />
+        </td>
     </tr>
     <tr>
         <td class="postheader">
@@ -58,7 +69,8 @@
                 LocalizedTag="interests" />
         </td>
         <td class="post">
-            <asp:TextBox ID="Interests" runat="server" CssClass="edit" /></td>
+            <asp:TextBox ID="Interests" runat="server" CssClass="edit" />
+        </td>
     </tr>
     <tr>
         <td class="postheader">
@@ -66,7 +78,8 @@
                 LocalizedTag="gender" />
         </td>
         <td class="post">
-            <asp:DropDownList ID="Gender" runat="server" CssClass="edit" /></td>
+            <asp:DropDownList ID="Gender" runat="server" CssClass="edit" />
+        </td>
     </tr>
     <tr>
         <td colspan="2" class="header2">
@@ -82,7 +95,8 @@
                 LocalizedTag="where" />
         </td>
         <td class="post">
-            <asp:TextBox ID="Location" runat="server" CssClass="edit" /></td>
+            <asp:TextBox ID="Location" runat="server" CssClass="edit" />
+        </td>
     </tr>
     <tr>
         <td colspan="2" class="header2">
@@ -98,7 +112,8 @@
                 LocalizedTag="homepage2" />
         </td>
         <td class="post">
-            <asp:TextBox runat="server" ID="HomePage" CssClass="edit" /></td>
+            <asp:TextBox runat="server" ID="HomePage" CssClass="edit" />
+        </td>
     </tr>
     <tr>
         <td class="postheader">
@@ -106,7 +121,8 @@
                 LocalizedTag="weblog2" />
         </td>
         <td class="post">
-            <asp:TextBox runat="server" ID="Weblog" CssClass="edit" /></td>
+            <asp:TextBox runat="server" ID="Weblog" CssClass="edit" />
+        </td>
     </tr>
     <asp:PlaceHolder runat="server" ID="MetaWeblogAPI" Visible="true">
         <tr>
@@ -123,7 +139,8 @@
                     LocalizedTag="METAWEBLOG_API_URL" />
             </td>
             <td class="post">
-                <asp:TextBox runat="server" ID="WeblogUrl" CssClass="edit" /></td>
+                <asp:TextBox runat="server" ID="WeblogUrl" CssClass="edit" />
+            </td>
         </tr>
         <tr>
             <td class="postheader">
@@ -134,7 +151,8 @@
                     LocalizedTag="METAWEBLOG_API_ID_INSTRUCTIONS" />
             </td>
             <td class="post">
-                <asp:TextBox runat="server" ID="WeblogID" CssClass="edit" /></td>
+                <asp:TextBox runat="server" ID="WeblogID" CssClass="edit" />
+            </td>
         </tr>
         <tr>
             <td class="postheader">
@@ -142,7 +160,8 @@
                     LocalizedTag="METAWEBLOG_API_USERNAME" />
             </td>
             <td class="post">
-                <asp:TextBox runat="server" ID="WeblogUsername" CssClass="edit" /></td>
+                <asp:TextBox runat="server" ID="WeblogUsername" CssClass="edit" />
+            </td>
         </tr>
     </asp:PlaceHolder>
     <tr>
@@ -159,7 +178,8 @@
                 LocalizedTag="msn" />
         </td>
         <td class="post">
-            <asp:TextBox runat="server" ID="MSN" CssClass="edit" /></td>
+            <asp:TextBox runat="server" ID="MSN" CssClass="edit" />
+        </td>
     </tr>
     <tr>
         <td class="postheader">
@@ -167,7 +187,8 @@
                 LocalizedTag="yim" />
         </td>
         <td class="post">
-            <asp:TextBox runat="server" ID="YIM" CssClass="edit" /></td>
+            <asp:TextBox runat="server" ID="YIM" CssClass="edit" />
+        </td>
     </tr>
     <tr>
         <td class="postheader">
@@ -175,7 +196,8 @@
                 LocalizedTag="aim" />
         </td>
         <td class="post">
-            <asp:TextBox runat="server" ID="AIM" CssClass="edit" /></td>
+            <asp:TextBox runat="server" ID="AIM" CssClass="edit" />
+        </td>
     </tr>
     <tr>
         <td class="postheader">
@@ -183,15 +205,17 @@
                 LocalizedTag="icq" />
         </td>
         <td class="post">
-            <asp:TextBox runat="server" ID="ICQ" CssClass="edit" /></td>
+            <asp:TextBox runat="server" ID="ICQ" CssClass="edit" />
+        </td>
     </tr>
-       <tr>
+    <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="xmpp" />
         </td>
         <td class="post">
-            <asp:TextBox runat="server" ID="Xmpp" CssClass="edit" /></td>
+            <asp:TextBox runat="server" ID="Xmpp" CssClass="edit" />
+        </td>
     </tr>
     <tr>
         <td class="postheader">
@@ -199,8 +223,9 @@
                 LocalizedTag="SKYPE" />
         </td>
         <td class="post">
-            <asp:TextBox runat="server" ID="Skype" CssClass="edit" /></td>
-    </tr>    
+            <asp:TextBox runat="server" ID="Skype" CssClass="edit" />
+        </td>
+    </tr>
     <tr>
         <td colspan="2" class="header2">
             <b>
@@ -215,7 +240,8 @@
                 LocalizedTag="timezone2" />
         </td>
         <td class="post">
-            <asp:DropDownList runat="server" ID="TimeZones" DataTextField="Name" DataValueField="Value" /></td>
+            <asp:DropDownList runat="server" ID="TimeZones" DataTextField="Name" DataValueField="Value" />
+        </td>
     </tr>
     <tr runat="server" id="ForumSettingsRows">
         <td colspan="2" class="header2">
@@ -231,7 +257,8 @@
                 LocalizedTag="SELECT_THEME" />
         </td>
         <td class="post">
-            <asp:DropDownList runat="server" ID="Theme" /></td>
+            <asp:DropDownList runat="server" ID="Theme" />
+        </td>
     </tr>
     <tr runat="server" id="OverrideForumThemeRow">
         <td class="postheader">
@@ -248,7 +275,8 @@
                 LocalizedTag="SELECT_LANGUAGE" />
         </td>
         <td class="post">
-            <asp:DropDownList runat="server" ID="Language" /></td>
+            <asp:DropDownList runat="server" ID="Language" />
+        </td>
     </tr>
     <tr runat="server" id="PMNotificationRow">
         <td class="postheader">
@@ -256,7 +284,8 @@
                 LocalizedTag="PM_EMAIL_NOTIFICATION" />
         </td>
         <td class="post">
-            <asp:CheckBox ID="PMNotificationEnabled" runat="server" /></td>
+            <asp:CheckBox ID="PMNotificationEnabled" runat="server" />
+        </td>
     </tr>
     <tr runat="server" id="WatchTopicsRow">
         <td class="postheader">
@@ -264,8 +293,9 @@
                 LocalizedTag="AUTOWATCH_TOPICS_NOTIFICATION" />
         </td>
         <td class="post">
-            <asp:CheckBox ID="AutoWatchTopicsEnabled" runat="server" /></td>
-    </tr>        
+            <asp:CheckBox ID="AutoWatchTopicsEnabled" runat="server" />
+        </td>
+    </tr>
     <asp:PlaceHolder runat="server" ID="LoginInfo" Visible="false">
         <tr>
             <td colspan="2" class="header2">
@@ -279,7 +309,8 @@
                     LocalizedTag="email" />
             </td>
             <td class="post">
-                <asp:TextBox ID="Email" CssClass="edit" runat="server" OnTextChanged="Email_TextChanged" /></td>
+                <asp:TextBox ID="Email" CssClass="edit" runat="server" OnTextChanged="Email_TextChanged" />
+            </td>
         </tr>
     </asp:PlaceHolder>
     <tr>

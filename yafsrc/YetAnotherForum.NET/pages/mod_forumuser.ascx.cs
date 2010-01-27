@@ -148,25 +148,24 @@ namespace YAF.Pages
       }
 
       // get found users
-      using (DataTable dt = DB.user_find(PageContext.PageBoardID, true, this.UserName.Text, null))
+      var foundUsers = YafProvider.UserDisplayName.Find(this.UserName.Text.Trim());
+
+      // have we found anyone?
+      if (foundUsers.Count > 0)
       {
-        // have we found anyone?
-        if (dt.Rows.Count > 0)
-        {
-          // set and enable user dropdown, disable text box
-          this.ToList.DataSource = dt;
-          this.ToList.DataValueField = "UserID";
-          this.ToList.DataTextField = "Name";
+        // set and enable user dropdown, disable text box
+        this.ToList.DataSource = foundUsers;
+        this.ToList.DataValueField = "Key";
+        this.ToList.DataTextField = "Value";
 
-          // ToList.SelectedIndex = 0;
-          this.ToList.Visible = true;
-          this.UserName.Visible = false;
-          this.FindUsers.Visible = false;
-        }
-
-        // bind data (is this necessary?)
-        base.DataBind();
+        // ToList.SelectedIndex = 0;
+        this.ToList.Visible = true;
+        this.UserName.Visible = false;
+        this.FindUsers.Visible = false;
       }
+
+      // bind data (is this necessary?)
+      base.DataBind();
     }
 
     /// <summary>
@@ -194,31 +193,28 @@ namespace YAF.Pages
       }
 
       // we need to verify user exists
-      using (DataTable dt = DB.user_find(PageContext.PageBoardID, false, this.UserName.Text, null))
+      var userId = YafProvider.UserDisplayName.GetId(this.UserName.Text.Trim());
+
+      // there is no such user or reference is ambiugous
+      if (!userId.HasValue)
       {
-        // there is no such user or reference is ambiugous
-        if (dt.Rows.Count != 1)
-        {
-          PageContext.AddLoadMessage(GetText("NO_SUCH_USER"));
-          return;
-        }
-          
-          // we cannot use guest user here
-        else if (SqlDataLayerConverter.VerifyInt32(dt.Rows[0]["IsGuest"]) > 0)
-        {
-          PageContext.AddLoadMessage(GetText("NOT_GUEST"));
-          return;
-        }
-
-        // save permission
-        DB.userforum_save(dt.Rows[0]["UserID"], PageContext.PageForumID, this.AccessMaskID.SelectedValue);
-
-        // redirect to forum moderation page
-        YafBuildLink.Redirect(ForumPages.moderate, "f={0}", PageContext.PageForumID);
-
-        // clear moderatorss cache
-        PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+        PageContext.AddLoadMessage(GetText("NO_SUCH_USER"));
+        return;
       }
+      else if (UserMembershipHelper.IsGuestUser(userId.HasValue))
+      {
+        PageContext.AddLoadMessage(GetText("NOT_GUEST"));
+        return;
+      }
+
+      // save permission
+      DB.userforum_save(userId.Value, PageContext.PageForumID, this.AccessMaskID.SelectedValue);
+
+      // redirect to forum moderation page
+      YafBuildLink.Redirect(ForumPages.moderate, "f={0}", PageContext.PageForumID);
+
+      // clear moderatorss cache
+      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
     }
 
     /// <summary>

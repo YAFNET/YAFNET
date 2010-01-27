@@ -35,6 +35,17 @@
 									ErrorMessage="User Name is required." ToolTip="User Name is required." ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
 							</td>
 						</tr>
+						<asp:PlaceHolder runat="server" ID="DisplayNamePlaceHolder" Visible="false"><tr>
+							<td align="right" class="postheader">
+								<asp:Label ID="DisplayNameLabel" runat="server" AssociatedControlID="DisplayName">
+									<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="DISPLAYNAME" />
+									:</asp:Label></td>
+							<td class="post">
+								<asp:TextBox ID="DisplayName" runat="server"></asp:TextBox>
+								<YAF:LocalizedRequiredFieldValidator ID="DisplayNameRequired" runat="server" Enabled="false" ControlToValidate="DisplayName" LocalizedTag="NEED_DISPLAYNAME" ValidationGroup="CreateUserWizard1">*</YAF:LocalizedRequiredFieldValidator>
+							</td>
+						</tr>
+						</asp:PlaceHolder>
 						<tr>
 							<td align="right" class="postheader">
 								<asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">

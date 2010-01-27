@@ -50,6 +50,8 @@ namespace YAF.Controls
     /// </summary>
     private string currentCulture = "en-US";
 
+    private CombinedUserDataHelper _userData = null;
+
     /// <summary>
     /// The current user id.
     /// </summary>
@@ -58,6 +60,19 @@ namespace YAF.Controls
     #endregion
 
     #region Properties
+
+    private CombinedUserDataHelper UserData
+    {
+      get
+      {
+        if (_userData == null)
+        {
+          _userData = new CombinedUserDataHelper(this.CurrentUserID);
+        }
+
+        return _userData;
+      }
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether InAdminPages.
@@ -168,12 +183,15 @@ namespace YAF.Controls
         this.ForumSettingsRows.Visible = this.PageContext.BoardSettings.AllowUserTheme ||
                                          this.PageContext.BoardSettings.AllowUserLanguage ||
                                          this.PageContext.BoardSettings.AllowPMEmailNotification;
+
         this.UserThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
         this.UserLanguageRow.Visible = this.PageContext.BoardSettings.AllowUserLanguage;
         this.PMNotificationRow.Visible = this.PageContext.BoardSettings.AllowPMEmailNotification;
         this.MetaWeblogAPI.Visible = this.PageContext.BoardSettings.AllowPostToBlog;
         this.LoginInfo.Visible = this.PageContext.BoardSettings.AllowEmailChange;
         this.currentCulture = Thread.CurrentThread.CurrentCulture.IetfLanguageTag;
+        this.DisplayNamePlaceholder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
+
         this.BindData();
       }
     }
@@ -216,6 +234,30 @@ namespace YAF.Controls
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_ICQ"));
         return;
+      }
+
+      string displayName = null;
+
+      if (this.PageContext.BoardSettings.EnableDisplayName)
+      {
+        if (this.DisplayName.Text.Trim().Length < 2)
+        {
+          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "INVALID_DISPLAYNAME"));
+          return;
+        }
+
+        if (this.DisplayName.Text.Trim() != this.UserData.DisplayName)
+        {
+          if (YafProvider.UserDisplayName.GetId(DisplayName.Text.Trim()).HasValue)
+          {
+            this.PageContext.AddLoadMessage(
+              this.PageContext.Localization.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"));
+
+            return;
+          }
+
+          displayName = DisplayName.Text.Trim();
+        }
       }
 
       if (this.UpdateEmailFlag)
@@ -262,7 +304,8 @@ namespace YAF.Controls
         this.CurrentUserID, 
         this.PageContext.PageBoardID, 
         null, 
-        null, 
+        displayName,
+        null,
         Convert.ToInt32(this.TimeZones.SelectedValue), 
         language, 
         theme, 
@@ -306,18 +349,15 @@ namespace YAF.Controls
 
       this.DataBind();
 
-      // get an instance of the combined user data class.
-      var userData = new CombinedUserDataHelper(this.CurrentUserID);
-
       if (this.PageContext.BoardSettings.EnableDNACalendar)
       {
         this.datePicker.LocID = this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE");
         this.datePicker.AnotherFormatString = this.PageContext.Localization.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT");
         this.datePicker.DateFormatString = Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
 
-        if (userData.Profile.Birthday > DateTime.MinValue)
+        if (UserData.Profile.Birthday > DateTime.MinValue)
         {
-          this.datePicker.Value = userData.Profile.Birthday.Date;
+          this.datePicker.Value = UserData.Profile.Birthday.Date;
         }
         else
         {
@@ -334,27 +374,28 @@ namespace YAF.Controls
         this.BirthdayLabel.Visible = false;
       }
 
-      this.Location.Text = userData.Profile.Location;
-      this.HomePage.Text = userData.Profile.Homepage;
-      this.Email.Text = userData.Email;
-      this.Realname.Text = userData.Profile.RealName;
-      this.Occupation.Text = userData.Profile.Occupation;
-      this.Interests.Text = userData.Profile.Interests;
-      this.Weblog.Text = userData.Profile.Blog;
-      this.WeblogUrl.Text = userData.Profile.BlogServiceUrl;
-      this.WeblogID.Text = userData.Profile.BlogServicePassword;
-      this.WeblogUsername.Text = userData.Profile.BlogServiceUsername;
-      this.MSN.Text = userData.Profile.MSN;
-      this.YIM.Text = userData.Profile.YIM;
-      this.AIM.Text = userData.Profile.AIM;
-      this.ICQ.Text = userData.Profile.ICQ;
-      this.Xmpp.Text = userData.Profile.XMPP;
-      this.Skype.Text = userData.Profile.Skype;
-      this.PMNotificationEnabled.Checked = userData.PMNotification;
-      this.AutoWatchTopicsEnabled.Checked = userData.AutoWatchTopics;
-      this.Gender.SelectedIndex = userData.Profile.Gender;
+      this.DisplayName.Text = UserData.DisplayName;
+      this.Location.Text = UserData.Profile.Location;
+      this.HomePage.Text = UserData.Profile.Homepage;
+      this.Email.Text = UserData.Email;
+      this.Realname.Text = UserData.Profile.RealName;
+      this.Occupation.Text = UserData.Profile.Occupation;
+      this.Interests.Text = UserData.Profile.Interests;
+      this.Weblog.Text = UserData.Profile.Blog;
+      this.WeblogUrl.Text = UserData.Profile.BlogServiceUrl;
+      this.WeblogID.Text = UserData.Profile.BlogServicePassword;
+      this.WeblogUsername.Text = UserData.Profile.BlogServiceUsername;
+      this.MSN.Text = UserData.Profile.MSN;
+      this.YIM.Text = UserData.Profile.YIM;
+      this.AIM.Text = UserData.Profile.AIM;
+      this.ICQ.Text = UserData.Profile.ICQ;
+      this.Xmpp.Text = UserData.Profile.XMPP;
+      this.Skype.Text = UserData.Profile.Skype;
+      this.PMNotificationEnabled.Checked = UserData.PMNotification;
+      this.AutoWatchTopicsEnabled.Checked = UserData.AutoWatchTopics;
+      this.Gender.SelectedIndex = UserData.Profile.Gender;
 
-      ListItem timeZoneItem = this.TimeZones.Items.FindByValue(userData.TimeZone.ToString());
+      ListItem timeZoneItem = this.TimeZones.Items.FindByValue(UserData.TimeZone.ToString());
       if (timeZoneItem != null)
       {
         timeZoneItem.Selected = true;
@@ -367,9 +408,9 @@ namespace YAF.Controls
         // Allows to use different per-forum themes,
         // While "Allow User Change Theme" option in hostsettings is true
         string themeFile = this.PageContext.BoardSettings.Theme;
-        if (!string.IsNullOrEmpty(userData.ThemeFile))
+        if (!string.IsNullOrEmpty(UserData.ThemeFile))
         {
-          themeFile = userData.ThemeFile;
+          themeFile = UserData.ThemeFile;
         }
 
         ListItem themeItem = this.Theme.Items.FindByValue(themeFile);
@@ -378,15 +419,15 @@ namespace YAF.Controls
           themeItem.Selected = true;
         }
 
-        this.OverrideDefaultThemes.Checked = userData.OverrideDefaultThemes;
+        this.OverrideDefaultThemes.Checked = UserData.OverrideDefaultThemes;
       }
 
       if (this.PageContext.BoardSettings.AllowUserLanguage && this.Language.Items.Count > 0)
       {
         string languageFile = this.PageContext.BoardSettings.Language;
-        if (!string.IsNullOrEmpty(userData.LanguageFile))
+        if (!string.IsNullOrEmpty(UserData.LanguageFile))
         {
-          languageFile = userData.LanguageFile;
+          languageFile = UserData.LanguageFile;
         }
 
         ListItem foundItem = this.Language.Items.FindByValue(languageFile);

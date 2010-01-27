@@ -248,7 +248,7 @@ namespace YAF.Pages.Admin
     protected void FindUsers_Click(object sender, EventArgs e)
     {
       // try to find users by user name
-      using (DataTable dt = DB.user_find(PageContext.PageBoardID, true, this.UserName.Text, null))
+      using (DataTable dt = DB.user_find(PageContext.PageBoardID, true, this.UserName.Text, null, null))
       {
         if (dt.Rows.Count > 0)
         {
@@ -452,7 +452,7 @@ namespace YAF.Pages.Admin
       else if (String.IsNullOrEmpty(this.UserNameList.SelectedValue) && String.IsNullOrEmpty(this.UserID.Text))
       {
         // only username is specified, we must find id for it
-        using (DataTable dt = DB.user_find(PageContext.PageBoardID, true, this.UserName.Text, null))
+        using (DataTable dt = DB.user_find(PageContext.PageBoardID, true, this.UserName.Text, null, null))
         {
           if (dt.Rows.Count > 1)
           {

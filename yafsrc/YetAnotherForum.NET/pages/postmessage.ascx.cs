@@ -1099,7 +1099,7 @@ namespace YAF.Pages
       message = YafServices.BadWordReplace.Replace(message);
 
       // Quote the original message
-      this._forumEditor.Text = String.Format("[quote={0}]{1}[/quote]\n", YafProvider.UserDisplayName.Get(currentRow.Field<int>("UserID")), message).TrimStart();
+      this._forumEditor.Text = String.Format("[quote={0}]{1}[/quote]\n", YafProvider.UserDisplayName.GetName(currentRow.Field<int>("UserID")), message).TrimStart();
     }
 
     /// <summary>

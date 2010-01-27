@@ -18,15 +18,26 @@
  */
 namespace YAF.Controls
 {
+  #region Using
+
   using System;
+  using System.Data;
+
+  using Classes;
+
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// The profile your account.
   /// </summary>
   public partial class ProfileYourAccount : BaseUserControl
   {
+    #region Methods
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -38,9 +49,9 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        BindData();
+        this.BindData();
       }
     }
 
@@ -49,22 +60,30 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      System.Data.DataTable dt = DB.usergroup_list(PageContext.PageUserID);
+      DataTable dt = DB.usergroup_list(this.PageContext.PageUserID);
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-          new YAF.Classes.Utils.StyleTransform(YafContext.Current.Theme).DecodeStyleByTable(ref dt, false);
+        new StyleTransform(YafContext.Current.Theme).DecodeStyleByTable(ref dt, false);
       }
-       this.Groups.DataSource = dt;
-      // Bind			
-      DataBind();
 
+      this.Groups.DataSource = dt;
+
+      // Bind			
+      this.DataBind();
 
       // TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
-      this.AccountEmail.Text = PageContext.CurrentUserData.Membership.Email;
-      this.Name.Text = HtmlEncode(PageContext.CurrentUserData.Membership.UserName);
-      this.Joined.Text = YafServices.DateTime.FormatDateTime(PageContext.CurrentUserData.Joined);
-      this.NumPosts.Text = String.Format("{0:N0}", PageContext.CurrentUserData.NumPosts);
+      this.AccountEmail.Text = this.PageContext.CurrentUserData.Membership.Email;
+      this.Name.Text = this.HtmlEncode(this.PageContext.CurrentUserData.Membership.UserName);
+      this.Joined.Text = YafServices.DateTime.FormatDateTime(this.PageContext.CurrentUserData.Joined);
+      this.NumPosts.Text = String.Format("{0:N0}", this.PageContext.CurrentUserData.NumPosts);
+
+      this.DisplayNameHolder.Visible = PageContext.BoardSettings.EnableDisplayName;
+
+      if (PageContext.BoardSettings.EnableDisplayName)
+      {
+        this.DisplayName.Text = YafProvider.UserDisplayName.GetName(this.PageContext.PageUserID);
+      }
 
       string avatarImg = YafServices.Avatar.GetAvatarUrlForCurrentUser();
 
@@ -77,5 +96,7 @@ namespace YAF.Controls
         this.AvatarImage.Visible = false;
       }
     }
+
+    #endregion
   }
 }
