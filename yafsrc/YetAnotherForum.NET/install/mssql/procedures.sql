@@ -5026,17 +5026,17 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_deleteavatar](@UserID 
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_deleteold](@BoardID int) as
+create procedure [{databaseOwner}].[{objectQualifier}user_deleteold](@BoardID int, @Days int) as
 begin
 	
 	declare @Since datetime
 
 	set @Since = getdate()
 
-	delete from [{databaseOwner}].[{objectQualifier}EventLog]  where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>2)
-	delete from [{databaseOwner}].[{objectQualifier}CheckEmail] where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>2)
-	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>2)
-	delete from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>2
+	delete from [{databaseOwner}].[{objectQualifier}EventLog]  where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>@Days)
+	delete from [{databaseOwner}].[{objectQualifier}CheckEmail] where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>@Days)
+	delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>@Days)
+	delete from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>@Days
 end
 GO
 

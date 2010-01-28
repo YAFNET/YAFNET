@@ -236,19 +236,23 @@ namespace YAF.Pages.Admin
           BindData();
           break;
         case "deleteall":
-          UserMembershipHelper.DeleteAllUnapproved(DateTime.Now.AddDays(-14));
+          // vzrus: Should not delete the whole providers portal data? Under investigation.
+          if (!Config.IsAnyPortal)
+          {
+              UserMembershipHelper.DeleteAllUnapproved(DateTime.Now.AddDays(-14));
+          }
 
-          // YAF.Classes.Data.DB.user_deleteold( PageContext.PageBoardID );
+          YAF.Classes.Data.DB.user_deleteold( PageContext.PageBoardID, 14);
           BindData();
           break;
         case "approveall":
           UserMembershipHelper.ApproveAll();
-
-          // YAF.Classes.Data.DB.user_approveall( PageContext.PageBoardID );
+          // vzrus: Should delete users from send email list
+          YAF.Classes.Data.DB.user_approveall( PageContext.PageBoardID );
           BindData();
           break;
       }
-    }
+    }    
 
     /// <summary>
     /// The board stats select_ changed.

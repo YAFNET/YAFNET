@@ -7048,12 +7048,13 @@ namespace YAF.Classes.Data
     /// <param name="boardID">
     /// The board id.
     /// </param>
-    public static void user_deleteold(object boardID)
+    public static void user_deleteold(object boardID, object days)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_deleteold"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
+        cmd.Parameters.AddWithValue("Days", days);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }
