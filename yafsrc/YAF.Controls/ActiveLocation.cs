@@ -218,11 +218,21 @@ namespace YAF.Controls
             string forumPageName = this.ForumPage;
             if (string.IsNullOrEmpty(forumPageName))
             {
-                forumPageName = "MAINPAGE";
+                if (this.UserID != PageContext.PageUserID)
+                {
+                    forumPageName = "MAINPAGE";
+                }
+                else
+                {
+                    forumPageName = "ACTIVEUSERS";
+                }
             }
             else
             {
-                forumPageName = forumPageName.TrimStart("g=".ToCharArray());
+                // We find here a page name start position
+                forumPageName = forumPageName.Substring(forumPageName.IndexOf("g=")+2);
+
+                // We find here a page name end position
                 if (forumPageName.Contains("&"))
                 {
                     forumPageName = forumPageName.Substring(0, forumPageName.IndexOf("&"));
@@ -241,6 +251,10 @@ namespace YAF.Controls
                          if (forumPageName == "topics")
                          {
                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS"));                            
+                         }
+                         if (forumPageName == "posts")
+                         {
+                             output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTS"));
                          }
                          if (forumPageName == "postmessage")
                          {
