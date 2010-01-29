@@ -7266,7 +7266,7 @@ DECLARE
        SET  @OG_UsrSigChars =  (SELECT TOP 1 G_UsrSigChars FROM @GroupData)                
        
         SELECT TOP 1
-        UsrSigChars = CASE WHEN @OR_UsrSigChars < @OG_UsrSigChars THEN @OG_UsrSigChars ELSE @OR_UsrSigChars END, 
+        UsrSigChars = CASE WHEN COALESCE(@OR_UsrSigChars,0) < COALESCE(@OG_UsrSigChars,0) THEN COALESCE(@OG_UsrSigChars,0) ELSE COALESCE(@OR_UsrSigChars,0) END, 
         UsrSigBBCodes = COALESCE(R_UsrSigBBCodes,'') + CASE WHEN G_UsrSigBBCodes IS NULL THEN COALESCE(G_UsrSigBBCodes,'') ELSE ',' + G_UsrSigBBCodes END, 
         UsrSigHTMLTags = COALESCE(R_UsrSigHTMLTags,'') + CASE WHEN G_UsrSigHTMLTags IS NULL THEN COALESCE(G_UsrSigHTMLTags,'') ELSE ',' + G_UsrSigHTMLTags END
         FROM @GroupData, @RankData 
@@ -7321,8 +7321,8 @@ as
        INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] ua
        ON ua.AlbumID = uai.AlbumID
        WHERE ua.UserID = @UserID), 
-       UsrAlbums = CASE WHEN @OG_UsrAlbums > @OR_UsrAlbums THEN @OG_UsrAlbums ELSE @OR_UsrAlbums END, 
-       UsrAlbumImages = CASE WHEN @OG_UsrAlbumImages > @OR_UsrAlbumImages THEN @OG_UsrAlbumImages ELSE @OR_UsrAlbumImages END           
+       UsrAlbums = CASE WHEN COALESCE(@OG_UsrAlbums,0) > COALESCE(@OR_UsrAlbums,0) THEN COALESCE(@OG_UsrAlbums,0) ELSE COALESCE(@OR_UsrAlbums,0) END, 
+       UsrAlbumImages = CASE WHEN COALESCE(@OG_UsrAlbumImages,0) > COALESCE(@OR_UsrAlbumImages,0) THEN COALESCE(@OG_UsrAlbumImages,0) ELSE COALESCE(@OR_UsrAlbumImages,0) END           
      
 END
 GO    
