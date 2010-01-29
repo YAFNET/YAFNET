@@ -366,6 +366,7 @@
     <Resource tag="BAD_WEBLOG">Bạn đã nhập địa chỉ không hợp lệ cho weblog.</Resource>
     <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Đổi email</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Bạn phải nhập địa chỉ email chính xác.</Resource>
     <Resource tag="FORUM_SETTINGS">Thiết lập diễn đàn</Resource>
@@ -441,6 +442,7 @@
     <Resource tag="SUBSCRIPTIONS">Chủ đề theo dõi</Resource>
     <Resource tag="YOUR_ACCOUNT">Tài khoản của bạn</Resource>
     <Resource tag="YOUR_EMAIL">Email:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Tên đăng nhập:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -961,19 +963,23 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Bạn đã đăng ký thành công.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Tên sử dụng hoặc email đã được dùng để đăng ký.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Địa chỉ email bạn cung cấp không hợp lệ.</Resource>
     <Resource tag="BAD_PASSWORD">Xin chọn một mật khẩu an toàn hơn,bao gồm cả các ký tự (!?) hoặc số.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Xác nhận lại mật khẩu</Resource>
     <Resource tag="CONTINUE">Tiếp tục</Resource>
     <Resource tag="CREATE_USER">Đăng ký</Resource>
     <Resource tag="DETAILS">Thông tin đăng ký</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="HOMEPAGE">Trang web</Resource>
     <Resource tag="INVALID_ANSWER">Vui lòng chọn một câu trả lời khác.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">Vui lòng chọn một câu hỏi khác.</Resource>
     <Resource tag="INVALID_USERNAME">Vui lòng chọn một Username khác.</Resource>
     <Resource tag="LOCATION">Đến từ</Resource>
     <Resource tag="NEED_ANSWER">Bạn chưa trả lời Câu hỏi bảo mật.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">Bạn chưa nhập Email</Resource>
     <Resource tag="NEED_MATCH">Mật khẩu không giống nhau.</Resource>
     <Resource tag="NEED_PASSWORD">Bạn chưa nhập Mật khẩu.</Resource>

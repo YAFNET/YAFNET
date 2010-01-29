@@ -387,6 +387,7 @@
     <Resource tag="BAD_WEBLOG">הזנת כתובת לא תקינה לבלוג שלך.</Resource>
     <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">החלף/ת כתובת דוא"ל</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">כתובת דוא"ל תקינה הינה חובה.</Resource>
     <Resource tag="FORUM_SETTINGS">הגדרות פורום</Resource>
@@ -462,6 +463,7 @@
     <Resource tag="SUBSCRIPTIONS">מנויים</Resource>
     <Resource tag="YOUR_ACCOUNT">החשבון שלך</Resource>
     <Resource tag="YOUR_EMAIL">כתובת הדוא"ל שלך:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">שם המשתמש שלך:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -980,19 +982,23 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]חשבונך נוצר בהצלחה.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]חשבונך נוצר בהצלחה. עלייך עדיין לאשר את כתובת הדוא"ל על מנת להתחבר. בדוק/י את חשבון הדוא"ל להוראות אימות. [/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">שם המשתמש או כתובת הדוא"ל שלך כבר נמצאים בשימוש.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">הזנת כתובת דוא"ל לא תקינה.</Resource>
     <Resource tag="BAD_PASSWORD">יש לבחור סיסמא מורכבת יותר שתכלול סימני (!?) או מספרים.</Resource>
     <Resource tag="CONFIRM_PASSWORD">אשר סיסמא</Resource>
     <Resource tag="CONTINUE">המשך</Resource>
     <Resource tag="CREATE_USER">צור משתמש</Resource>
     <Resource tag="DETAILS">פרטי רישום</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">כתובת הדוא"ל</Resource>
     <Resource tag="HOMEPAGE">דף הבית</Resource>
     <Resource tag="INVALID_ANSWER">נא לבחור תשובה אחרת.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">נא לבחור שאלה אחרת.</Resource>
     <Resource tag="INVALID_USERNAME">נא לבחור שם משתמש שונה.</Resource>
     <Resource tag="LOCATION">מיקום</Resource>
     <Resource tag="NEED_ANSWER">חובה להזין אבטחה.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">חובה להזין כתובת דוא"ל.</Resource>
     <Resource tag="NEED_MATCH">הסיסמאות אינן תואמות.</Resource>
     <Resource tag="NEED_PASSWORD">חובה להזין סיסמא.</Resource>

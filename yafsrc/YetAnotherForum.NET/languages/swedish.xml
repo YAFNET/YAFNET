@@ -395,6 +395,7 @@
     <Resource tag="CHANGE_PASSWORD">Ändra lösenord</Resource>
     <Resource tag="CONFIRMPASSWORD">Upprepa nytt lösenord:</Resource>
     <Resource tag="DELETE_AVATAR">Radera avatar</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Du måste alltid ha en giltig e-postadress.</Resource>
     <Resource tag="FORUM_SETTINGS">Foruminställningar</Resource>
@@ -494,6 +495,7 @@
     <Resource tag="SUBSCRIPTIONS">Prenumerationer</Resource>
     <Resource tag="YOUR_ACCOUNT">Ditt konto</Resource>
     <Resource tag="YOUR_EMAIL">Din e-postadress:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Ditt användarnamn:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -1012,19 +1014,23 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Ditt användarnamn eller din e-postadress är redan registrerad.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Du har angett en ogiltig e-postadress.</Resource>
     <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
     <Resource tag="CREATE_USER">Create User</Resource>
     <Resource tag="DETAILS">Registreringsdetaljer</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">E-postadress</Resource>
     <Resource tag="HOMEPAGE">Hemsida</Resource>
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
     <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
     <Resource tag="LOCATION">Område</Resource>
     <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
     <Resource tag="NEED_MATCH">Lösenorden matchade inte.</Resource>
     <Resource tag="NEED_PASSWORD">Lösenord är obligatoriskt.</Resource>

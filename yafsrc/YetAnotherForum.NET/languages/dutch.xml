@@ -403,6 +403,7 @@
     <Resource tag="CHANGE_EMAIL">E-mail adres wijzigen</Resource>
     <Resource tag="CHANGE_PASSWORD">Wachtwoord wijzigen</Resource>
     <Resource tag="CONFIRMPASSWORD">Wachtwoord opnieuw invoeren:</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
     <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
@@ -495,6 +496,7 @@
     <Resource tag="SUBSCRIPTIONS">Gevolgde discussies</Resource>
     <Resource tag="YOUR_ACCOUNT">Accountgegevens</Resource>
     <Resource tag="YOUR_EMAIL">Je e-mail adres:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Je gebruikersnaam:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -1018,19 +1020,23 @@
     <Resource tag="ACCOUNT_CREATED">[center]Je account is aangemaakt.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION">[center]Je account is aangemaakt. Je dient nu het account te verifiëren voordat je kunt inloggen. Kijk in de e-mail die je ontvangt voor verdere instructies..[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Je gebruikersnaam of e-mail adres is reeds geregistreerd.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres opgegeven.</Resource>
     <Resource tag="BAD_PASSWORD">Kies a.u.b. een complexer wachtwoord dat ook leestekens of cijfers bevat.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Bevestig wachtwoord</Resource>
     <Resource tag="CONTINUE">Verder</Resource>
     <Resource tag="CREATE_USER">Maak gebruiker aan</Resource>
     <Resource tag="DETAILS">Registratiegegevens</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">E-mail Adres</Resource>
     <Resource tag="HOMEPAGE">Homepage</Resource>
     <Resource tag="INVALID_ANSWER">Kies a.u.b. een ander antwoord.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">Kies a.u.b. een andere vraag.</Resource>
     <Resource tag="INVALID_USERNAME">Kies a.u.b. een andere gebruikersnaam.</Resource>
     <Resource tag="LOCATION">Locatie</Resource>
     <Resource tag="NEED_ANSWER">Beveiligings-antwoord is verplicht.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is verplicht.</Resource>
     <Resource tag="NEED_MATCH">Wachtwoorden komen niet overeen.</Resource>
     <Resource tag="NEED_PASSWORD">Wachtwoord is verplicht</Resource>

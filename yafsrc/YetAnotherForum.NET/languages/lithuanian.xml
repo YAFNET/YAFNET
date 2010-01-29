@@ -455,6 +455,7 @@
     <Resource tag="CHANGE_EMAIL">Pakeisti elektroninio pašto adresas </Resource>
     <Resource tag="CHANGE_PASSWORD">Keisti slaptažodį </Resource>
     <Resource tag="CONFIRMPASSWORD">Pakartotinai įveskite naują slaptažodį: </Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Jūs turite turėti galiojantį elektroninio pašto adresą. </Resource>
     <Resource tag="FORUM_SETTINGS">Forumas Parametrai </Resource>
@@ -561,6 +562,7 @@
     <Resource tag="SUBSCRIPTIONS">Prenumerata </Resource>
     <Resource tag="YOUR_ACCOUNT">Jūsų sąskaita </Resource>
     <Resource tag="YOUR_EMAIL">Jūsų el.pašto adresas: </Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Jūsų vartotojo vardas: </Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -1155,19 +1157,23 @@
 
       užregistruotas. 
     </Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Jūs įvedėte nelegalios el. </Resource>
     <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
     <Resource tag="CREATE_USER">Create User</Resource>
     <Resource tag="DETAILS">Registracijos duomenys </Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">Elektroninio pašto adresas </Resource>
     <Resource tag="HOMEPAGE">Pradžia </Resource>
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
     <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
     <Resource tag="LOCATION">Vieta </Resource>
     <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
     <Resource tag="NEED_MATCH">Slaptažodžiai nesutapo. </Resource>
     <Resource tag="NEED_PASSWORD">Slaptažodis būtinas. </Resource>

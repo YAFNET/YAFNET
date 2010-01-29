@@ -396,6 +396,7 @@
     <Resource tag="CHANGE_PASSWORD">Endre passord</Resource>
     <Resource tag="CONFIRMPASSWORD">Skriv nytt passord igjen:</Resource>
     <Resource tag="DELETE_AVATAR">Slett avatar</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Du må alltid ha en gyldig e-postadresse.</Resource>
     <Resource tag="FORUM_SETTINGS">Forum innstillinger</Resource>
@@ -495,6 +496,7 @@
     <Resource tag="SUBSCRIPTIONS">Abonnement</Resource>
     <Resource tag="YOUR_ACCOUNT">Din konto</Resource>
     <Resource tag="YOUR_EMAIL">Din e-postadresse:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Ditt brukernavn:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -1013,19 +1015,23 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Ditt brukernavn eller e-postadresse er allerede registrert.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Du har skrevet inn en ugyldig e-postadresse.</Resource>
     <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
     <Resource tag="CREATE_USER">Create User</Resource>
     <Resource tag="DETAILS">Registrerings detaljer</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">E-postadresse</Resource>
     <Resource tag="HOMEPAGE">Hjemmeside</Resource>
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
     <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
     <Resource tag="LOCATION">Sted</Resource>
     <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
     <Resource tag="NEED_MATCH">Passordene var ikke like.</Resource>
     <Resource tag="NEED_PASSWORD">Passord er obligatorisk.</Resource>

@@ -387,6 +387,7 @@
     <Resource tag="BAD_WEBLOG">Hai inserito un indirizzo non valido per il tuo weblog.</Resource>
     <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Cambia indirizzo e-mail</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Devi sempre avere un indizzo e-mail valido.</Resource>
     <Resource tag="FORUM_SETTINGS">Impostazioni del Forum</Resource>
@@ -462,6 +463,7 @@
     <Resource tag="SUBSCRIPTIONS">Sottoscrizioni</Resource>
     <Resource tag="YOUR_ACCOUNT">Il tuo Account</Resource>
     <Resource tag="YOUR_EMAIL">Il tuo indirizzo e-mail:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Il tuo Nome Utente:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -980,19 +982,23 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Your username or email is already registered.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
     <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
     <Resource tag="CREATE_USER">Create User</Resource>
     <Resource tag="DETAILS">Registration Details</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">Email Address</Resource>
     <Resource tag="HOMEPAGE">Home Page</Resource>
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
     <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
     <Resource tag="LOCATION">Location</Resource>
     <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
     <Resource tag="NEED_MATCH">Passwords didn't match.</Resource>
     <Resource tag="NEED_PASSWORD">Password is required.</Resource>

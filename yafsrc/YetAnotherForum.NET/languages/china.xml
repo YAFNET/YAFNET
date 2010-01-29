@@ -395,6 +395,7 @@
     <Resource tag="CHANGE_PASSWORD">修改密码</Resource>
     <Resource tag="CONFIRMPASSWORD">再次输入新密码:</Resource>
     <Resource tag="DELETE_AVATAR">删除头像</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">您必须拥有一个有效的电子邮件地址.</Resource>
     <Resource tag="FORUM_SETTINGS">论坛设定</Resource>
@@ -494,6 +495,7 @@
     <Resource tag="SUBSCRIPTIONS">订阅</Resource>
     <Resource tag="YOUR_ACCOUNT">您的帐号</Resource>
     <Resource tag="YOUR_EMAIL">电子邮件地址:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">用户名</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -1013,19 +1015,23 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">您输入的用户名或电子邮件地址已经被注册，请更换一个.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">您输入了一个无效的电子邮件地址.</Resource>
     <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
     <Resource tag="CREATE_USER">Create User</Resource>
     <Resource tag="DETAILS">详细情况</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">电子邮件地址</Resource>
     <Resource tag="HOMEPAGE">个人主页</Resource>
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
     <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
     <Resource tag="LOCATION">位置</Resource>
     <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
     <Resource tag="NEED_MATCH">两次输入的密码不一致.</Resource>
     <Resource tag="NEED_PASSWORD">密码必须输入.</Resource>

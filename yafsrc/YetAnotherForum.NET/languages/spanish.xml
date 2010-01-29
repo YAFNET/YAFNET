@@ -389,6 +389,7 @@
     <Resource tag="CHANGE_EMAIL">Cambiar correo electrónico</Resource>
     <Resource tag="CHANGE_PASSWORD">Cambiar contraseña</Resource>
     <Resource tag="CONFIRMPASSWORD">Confirmar contraseña nueva:</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Siempre debes tener un correo electrónico válido.</Resource>
     <Resource tag="FORUM_SETTINGS">Configuración del foro</Resource>
@@ -481,6 +482,7 @@
     <Resource tag="SUBSCRIPTIONS">Subscripciones</Resource>
     <Resource tag="YOUR_ACCOUNT">Tu cuenta</Resource>
     <Resource tag="YOUR_EMAIL">Tu correo electrónico:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Tu nombre de usuario:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -999,19 +1001,23 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Su cuenta ha sido creada.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Su cuenta ha sido creada, sin embargo, aun necesita confirmar su cuenta de correo antes de iniciar sesion. Por favor revise sus correos para leer las instrucciones de verificacion.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">El nombre de usuario o la cuenta de correo ya esta registrada.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">La cuenta de correo es incorrecta.</Resource>
     <Resource tag="BAD_PASSWORD">Por favor elija una calve más compleja que incluya caracteres de puntuacion (!?) o numeros.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirmar clave</Resource>
     <Resource tag="CONTINUE">Continuar</Resource>
     <Resource tag="CREATE_USER">Crear usuario</Resource>
     <Resource tag="DETAILS">Detalles de registro</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">Direccion de correo (Email)</Resource>
     <Resource tag="HOMEPAGE">Pagina de inicio (web)</Resource>
     <Resource tag="INVALID_ANSWER">Por favor elija una respuesta diferente.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">Por favor elija una pregunta diferente.</Resource>
     <Resource tag="INVALID_USERNAME">Por favor escoja un nombre de usuario diferente.</Resource>
     <Resource tag="LOCATION">Ubicacion</Resource>
     <Resource tag="NEED_ANSWER">Respuesta de seguridad requerida.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail requerido.</Resource>
     <Resource tag="NEED_MATCH">Claves no concuerdan.</Resource>
     <Resource tag="NEED_PASSWORD">Clave requerida.</Resource>

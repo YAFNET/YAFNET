@@ -387,6 +387,7 @@
     <Resource tag="BAD_WEBLOG">آدرسی که به عنوان وبلاگ خود وارد کرده اید اشتباه میباشد.</Resource>
     <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">تغییر آدرس پست الکترونیکی</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">ویرایش آلبومها</Resource>
     <Resource tag="EMAIL">شما باید یک آدرس ایمیل معتبر داشته باشید.</Resource>
     <Resource tag="FORUM_SETTINGS">تنظیمات انجمن</Resource>
@@ -462,6 +463,7 @@
     <Resource tag="SUBSCRIPTIONS">اشتراک ها</Resource>
     <Resource tag="YOUR_ACCOUNT">حساب شما:</Resource>
     <Resource tag="YOUR_EMAIL">آدرس ایمیل شما:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">نام کاربری شما:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -975,19 +977,23 @@
     <Resource tag="ACCOUNT_CREATED">[center]حساب کاربری شما با موفقیت ایجاد شد.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION">[center]حساب کاربری شما با موفقیت ایجاد شد با این وجود قبل از اینکه بتوانید وارد انجمن شوید باید حساب کاربری خود را توسط ایمیلی که برای شما ارسال شد تائید کنید.صندوق پست الکترونیک خود را برای دستورالعمل چگونگی تائید بررسی کنید.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">نام کاربری و یا پست الکترونیک شما قبلاً ثبت شده است.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">آدر پست الکترونیک غیر معتبری را وارد کرده اید.</Resource>
     <Resource tag="BAD_PASSWORD">لطفاً رمز عبور پیچیده تری را شامل اعداد و یا علائم انتخاب کنبد.</Resource>
     <Resource tag="CONFIRM_PASSWORD">تایپ مجدد رمز عبور</Resource>
     <Resource tag="CONTINUE">ادامه</Resource>
     <Resource tag="CREATE_USER">ایجاد کاربر</Resource>
     <Resource tag="DETAILS">جزئیات ثبت نام</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">آدرس پست الکترونیک</Resource>
     <Resource tag="HOMEPAGE">صفحه خانگی</Resource>
     <Resource tag="INVALID_ANSWER">لطفاً پاسخ امنیتی دیگری را انتخاب کنید.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">لطفاً سوال امنیتی دیگری را انتخاب کنید.</Resource>
     <Resource tag="INVALID_USERNAME">لطفاً نام کاربری دیگری را انتخاب کنید.</Resource>
     <Resource tag="LOCATION">مکان</Resource>
     <Resource tag="NEED_ANSWER">پاسخ امنیتی ضروری است.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">پست الکترونیک ضروری است.</Resource>
     <Resource tag="NEED_MATCH">رمز ها با هم همخوانی ندارند.</Resource>
     <Resource tag="NEED_PASSWORD">رمز عبور ضروری است.</Resource>

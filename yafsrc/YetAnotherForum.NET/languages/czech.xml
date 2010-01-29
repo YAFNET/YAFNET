@@ -395,6 +395,7 @@
     <Resource tag="CHANGE_PASSWORD">Změnit heslo</Resource>
     <Resource tag="CONFIRMPASSWORD">Zadejte nové heslo ještě jednou:</Resource>
     <Resource tag="DELETE_AVATAR">Smazat personifikaci</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Platná e-mailová adresa je nutná.</Resource>
     <Resource tag="FORUM_SETTINGS">Nastavení fóra</Resource>
@@ -494,6 +495,7 @@
     <Resource tag="SUBSCRIPTIONS">Přihlásit</Resource>
     <Resource tag="YOUR_ACCOUNT">Váš účet</Resource>
     <Resource tag="YOUR_EMAIL">Vaše e-mailová adresa:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Vaše uživatelské jméno:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -1012,19 +1014,23 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Vaše uživatelské jméno nebo e-mailová adresa již byla použita.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Vaše e-mailová adresa je neplatná.</Resource>
     <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
     <Resource tag="CREATE_USER">Create User</Resource>
     <Resource tag="DETAILS">Podrobnosti registrace</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">E-mailová adresa</Resource>
     <Resource tag="HOMEPAGE">Domovská stránka</Resource>
     <Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
     <Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
     <Resource tag="LOCATION">Bydliště</Resource>
     <Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is required.</Resource>
     <Resource tag="NEED_MATCH">Hesla nesouhlasí.</Resource>
     <Resource tag="NEED_PASSWORD">Heslo je nezbytné.</Resource>

@@ -366,6 +366,7 @@
     <Resource tag="BAD_WEBLOG">Adresse de votre blog invalide.</Resource>
     <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Changer votre adresse courriel</Resource>
+    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
     <Resource tag="EDIT_ALBUMS">Modifier albums</Resource>
     <Resource tag="EMAIL">Vous devez toujours avoir une adresse courriel valide.</Resource>
     <Resource tag="FORUM_SETTINGS">Propriétés du forum</Resource>
@@ -441,6 +442,7 @@
     <Resource tag="SUBSCRIPTIONS">Souscriptions</Resource>
     <Resource tag="YOUR_ACCOUNT">Votre Compte&amp;nbsp;:</Resource>
     <Resource tag="YOUR_EMAIL">Votre adresse courriel&amp;nbsp;:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Votre Nom&amp;nbsp;:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -956,19 +958,23 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Votre compte a été crée correctement.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Votre compte a été crée correctement. Vous devez confirmer votre adresse e-mail avant de vous connecter. Vérifiez votre boîte aux lettres e-mail pour les instructions.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Votre nom d'utilisateur ou votre adresse courriel est déjà enregistré.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Vous avez entré une adresse e-mail invalide.</Resource>
     <Resource tag="BAD_PASSWORD">Choisir un mot de passe plus complexe avec de la ponctuation (!?) ou des chiffres.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirmation du mot de passe</Resource>
     <Resource tag="CONTINUE">Continuer</Resource>
     <Resource tag="CREATE_USER">Création de l'utilisateur</Resource>
     <Resource tag="DETAILS">Détails de l'enregistrement</Resource>
+    <Resource tag="DISPLAYNAME">Display Name</Resource>
     <Resource tag="EMAIL">Adresse courriel</Resource>
     <Resource tag="HOMEPAGE">Page d'accueil</Resource>
     <Resource tag="INVALID_ANSWER">Choisissez une réponse différente.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
     <Resource tag="INVALID_QUESTION">Choisissez une question différente.</Resource>
     <Resource tag="INVALID_USERNAME">Choisissez un autre nom d'utilisateur.</Resource>
     <Resource tag="LOCATION">Localisation</Resource>
     <Resource tag="NEED_ANSWER">Réponse à la question de sécurité requise.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail requis.</Resource>
     <Resource tag="NEED_MATCH">Les mots de passe ne sont pas identiques.</Resource>
     <Resource tag="NEED_PASSWORD">Mot de passe requis.</Resource>
