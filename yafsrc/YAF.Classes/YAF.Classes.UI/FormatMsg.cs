@@ -239,7 +239,7 @@ namespace YAF.Classes.UI
 
         var url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)", 
+            @"(?<before>^|[ ]|<br/>|]|>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,[]*)?)", 
             "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow), 
             _options, 
             new[]
@@ -257,7 +257,7 @@ namespace YAF.Classes.UI
 
         url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)", 
+            @"(?<before>^|[ ]|<br/>|]|>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<[])?)", 
             "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow), 
             _options, 
             new[]
@@ -273,7 +273,7 @@ namespace YAF.Classes.UI
         ruleEngine.AddRule(url);
 
         url = new VariableRegexReplaceRule(
-          @"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
+          @"(?<before>^|[ ]|<br/>|])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:[\w-./?%+#&=;,]*)?)",
           "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
           _options,
           new[]
@@ -291,7 +291,10 @@ namespace YAF.Classes.UI
 
       // process...
       ruleEngine.Process(ref message);
-
+      /* Regex t = new Regex(@"\[{2}", RegexOptions.None);
+          message = t.Replace(message, "[");
+          Regex t1 = new Regex(@"\]{2}", RegexOptions.None);
+           message = t.Replace(message,"]");*/
       message = YafServices.BadWordReplace.Replace(message);
 
       return message;

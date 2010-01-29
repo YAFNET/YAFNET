@@ -370,7 +370,7 @@
     <Resource tag="BAD_WEBLOG">Вы ввели неработающий адрес для вашего блога.</Resource>
     <Resource tag="BIRTHDAY">Дата рождения</Resource>
     <Resource tag="CHANGE_EMAIL">Изменить адрес электронной почты</Resource>
-    <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
+    <Resource tag="DISPLAYNAME">Выберите отображаемый ник</Resource>
     <Resource tag="EDIT_ALBUMS">Альбомы</Resource>
     <Resource tag="EMAIL">Ваш адрес электронной почты должен быть всегда действительным.</Resource>
     <Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
@@ -446,7 +446,7 @@
     <Resource tag="SUBSCRIPTIONS">Подписки</Resource>
     <Resource tag="YOUR_ACCOUNT">Ваша учётная запись</Resource>
     <Resource tag="YOUR_EMAIL">Ваш адрес электронной почты:</Resource>
-    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Отображаемый ник:</Resource>
     <Resource tag="YOUR_USERNAME">Ваше имя пользователя:</Resource>
   </page>
   <page name="CP_SIGNATURE">
@@ -962,23 +962,23 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Ваша учётная запись успешно создана.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Ваша учётная запись успешно создана. Однако вы должны подтвердить существование адреса электронной почты перед тем как сможете войти на форум. Пожалуйста, проверьте ваш почтовый ящик для дальнейших инструкций.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Ваше имя пользователя или пароль уже зарегистрированы на форуме.</Resource>
-    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Такое отображаемое имя пользователя уже зарегистрировано на форуме.</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недопустимый адрес электронной почты.</Resource>
     <Resource tag="BAD_PASSWORD">Пожалуйста, выберите более сложный пароль, содержащий знаки пунктуации (!?) или цифры.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Подтвердите пароль</Resource>
     <Resource tag="CONTINUE">Продолжить</Resource>
     <Resource tag="CREATE_USER">Создать пользователя</Resource>
     <Resource tag="DETAILS">Подробности при регистрации</Resource>
-    <Resource tag="DISPLAYNAME">Display Name</Resource>
+    <Resource tag="DISPLAYNAME">Отображаемое имя</Resource>
     <Resource tag="EMAIL">Адрес Email</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
     <Resource tag="INVALID_ANSWER">Пожалуйста, выберите другой ответ.</Resource>
-    <Resource tag="INVALID_DISPLAYNAME">Please pick a different display name.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Пожалуйста, выберите другое отображаемое имя.</Resource>
     <Resource tag="INVALID_QUESTION">Пожалуйста, выберите другой вопрос.</Resource>
     <Resource tag="INVALID_USERNAME">Пожалуйста, выберите другое имя пользователя.</Resource>
     <Resource tag="LOCATION">Место нахождения</Resource>
     <Resource tag="NEED_ANSWER">Ответ на контрольный вопрос обязателен.</Resource>
-    <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Отображаемое имя обязательно.</Resource>
     <Resource tag="NEED_EMAIL">E-mail обязателен.</Resource>
     <Resource tag="NEED_MATCH">Пароли не совпадают.</Resource>
     <Resource tag="NEED_PASSWORD">Пароль обязателен.</Resource>
