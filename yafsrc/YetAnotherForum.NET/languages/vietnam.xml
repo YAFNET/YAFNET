@@ -478,6 +478,7 @@
     <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} Ẩn truy cập</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} thành viên</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} thành viên</Resource>
+    <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
     <Resource tag="BY">bởi {0}</Resource>
     <Resource tag="CURRENT_TIME">Giờ hiện tại: {0}.</Resource>
     <Resource tag="FORUM">Diễn đàn</Resource>

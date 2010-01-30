@@ -3840,7 +3840,7 @@ create procedure [{databaseOwner}].[{objectQualifier}rank_save](
 	@MinPosts	int,
 	@RankImage	nvarchar(50)=null,
 	@PMLimit    int,
-	@Style      nvarchar(255),
+	@Style      nvarchar(255)=null,
 	@SortOrder  smallint,
 	@Description nvarchar(128)=null,
 	@UsrSigChars int=null,

@@ -532,6 +532,7 @@
     <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} medlem</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} medlemmer</Resource>
+    <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
     <Resource tag="BY">af {0}</Resource>
     <Resource tag="CURRENT_TIME">Klokken er nu: {0}.</Resource>
     <Resource tag="ERROR_NOFORUMACCESS">Du har ikke adgang til det valgte forum.</Resource>

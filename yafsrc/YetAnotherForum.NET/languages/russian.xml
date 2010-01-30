@@ -482,6 +482,7 @@
     <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} скрытых</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} участник</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} участников</Resource>
+    <Resource tag="ACTIVE_USERS_TIME">за последние {0:N0} минут</Resource>
     <Resource tag="BY"> {0}</Resource>
     <Resource tag="CURRENT_TIME">Текущее время: {0}.</Resource>
     <Resource tag="FORUM">Форум</Resource>

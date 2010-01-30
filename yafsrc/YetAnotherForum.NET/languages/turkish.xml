@@ -531,6 +531,7 @@
     <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} Üye</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} Üyeler</Resource>
+    <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
     <Resource tag="BY">Tarafından {0}</Resource>
     <Resource tag="CURRENT_TIME">Saat: {0}.</Resource>
     <Resource tag="ERROR_NOFORUMACCESS">Bu Foruma Girmeye Yetkiniz Yok.</Resource>

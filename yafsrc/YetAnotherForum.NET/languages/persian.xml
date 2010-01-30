@@ -499,6 +499,7 @@
     <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} مخفی</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} عضو</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} عضو</Resource>
+    <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
     <Resource tag="BY">بوسیله {0}</Resource>
     <Resource tag="CURRENT_TIME">زمان فعلی: {0}.</Resource>
     <Resource tag="FORUM">انجمن</Resource>

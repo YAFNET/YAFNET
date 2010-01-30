@@ -478,6 +478,7 @@
     <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} invisibles</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} membre</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} membres</Resource>
+    <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
     <Resource tag="BY">par {0}</Resource>
     <Resource tag="CURRENT_TIME">Heure actuelle&amp;nbsp;: {0}.</Resource>
     <Resource tag="FORUM">Forum</Resource>

@@ -532,6 +532,7 @@
     <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} membru</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} membrii</Resource>
+    <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
     <Resource tag="BY">de {0}</Resource>
     <Resource tag="CURRENT_TIME">Timpul curent: {0}.</Resource>
     <Resource tag="ERROR_NOFORUMACCESS">Nu ai acces la forumul ales.</Resource>

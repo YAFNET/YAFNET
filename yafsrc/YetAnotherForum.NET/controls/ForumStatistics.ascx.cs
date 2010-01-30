@@ -134,12 +134,12 @@ namespace YAF.Controls
       int activeUsers = Convert.ToInt32(activeStats["ActiveUsers"]);
       int activeHidden = Convert.ToInt32(activeStats["ActiveHidden"]);
       int activeMembers = Convert.ToInt32(activeStats["ActiveMembers"]);
-      int activeGuests = Convert.ToInt32(activeStats["ActiveGuests"]);
+      int activeGuests = Convert.ToInt32(activeStats["ActiveGuests"]);    
 
       // show hidden count to admin...
       if (PageContext.IsAdmin)
       {
-        activeUsers += activeHidden;
+        activeUsers += activeHidden;      
       }
 
       if (YafServices.Permissions.Check(PageContext.BoardSettings.ActiveUsersViewPermissions))
@@ -174,7 +174,7 @@ namespace YAF.Controls
       {
         sb.Append(String.Format(", {0}", PageContext.Localization.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden)));
       }
-
+      sb.Append(String.Format(" {0}", PageContext.Localization.GetTextFormatted("ACTIVE_USERS_TIME", PageContext.BoardSettings.ActiveListTime)));
       return sb.ToString();
     }
   }
