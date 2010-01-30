@@ -24,7 +24,7 @@
 	<ItemTemplate>
 		<tr class="header2">
 			<td colspan="2">
-				<%# Eval("Topic") %>
+				<YAF:LocalizedLabel ID="TopicLabel" runat="server" LocalizedTag="TOPIC" /><%# Eval("Topic") %>
 			</td>
 		</tr>
 		<tr class="postheader">
@@ -35,7 +35,7 @@
 				<b>
 					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
 				</b>
-				<%# YafServices.DateTime.FormatDateTime((System.DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
+				<%# YafServices.DateTime.FormatDateShort((System.DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
 				<b>
 					<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
 				</b>
@@ -58,8 +58,8 @@
 		
 		<tr class="post">
 			<td valign="top" width="140">
-				&nbsp;</td>
-			<td valign="top" class="message">
+				<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ORIGINALMESSAGE" />&nbsp;</td>
+			<td valign="top" class="message">			
 			    <%# FormatMessage((System.Data.DataRowView)Container.DataItem)%>
 			</td>
 		</tr>

@@ -369,8 +369,8 @@
   <page name="CP_PM">
     <Resource tag="ARCHIVE">Archive</Resource>
     <Resource tag="ARCHIVESELECTED">Archive Selected</Resource>    
-		<Resource tag="ARCHIVEALL">Archive All</Resource>
-		<Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
+	<Resource tag="ARCHIVEALL">Archive All</Resource>
+	<Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
     <Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
     <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">Date</Resource>
@@ -619,8 +619,6 @@
     <Resource tag="CATEGORY">Category</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="REPORTED">Reported Posts</Resource>
-    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
-    <Resource tag="REPORTEDSPAM">Reported as Spam Posts</Resource>
     <Resource tag="TITLE">Moderate</Resource>
     <Resource tag="UNAPPROVED">Unapproved Posts</Resource>
   </page>
@@ -634,12 +632,14 @@
     <Resource tag="MODIFIED">Post has been changed!</Resource>
     <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
     <Resource tag="REPLYTO">Reply by private message to</Resource>
-    <Resource tag="REPORTEDBY">Reported by:</Resource>    
+    <Resource tag="REPORTEDBY">Reported by:</Resource>
+	<Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="RESOLVE">Resolve Post Copies</Resource>
     <Resource tag="RESOLVED">Mark as resolved</Resource>
     <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
     <Resource tag="TOP">Back to top</Resource>
+	<Resource tag="TOPIC">Topic:</Resource> 
     <Resource tag="UNAPPROVED">Unapproved Posts</Resource>
   </page>
   <page name="MOVEMESSAGE">
@@ -994,7 +994,8 @@
         <Resource tag="SEND">Report</Resource>
         <Resource tag="CANCEL">Cancel</Resource>
         <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
-        <Resource tag="HEADER">Report post</Resource>        
+        <Resource tag="HEADER">Report post</Resource>
+	    <Resource tag="POSTEDBY">Posted by:</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Bold</Resource>

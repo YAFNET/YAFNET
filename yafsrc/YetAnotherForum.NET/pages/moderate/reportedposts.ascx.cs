@@ -183,7 +183,7 @@ namespace YAF.Pages.moderate
     {
       // get reported posts for this forum
       this.List.DataSource = DB.message_listreported(9, PageContext.PageForumID);
-
+        
       // bind data to controls
       DataBind();
     }

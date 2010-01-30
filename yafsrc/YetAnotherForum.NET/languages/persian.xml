@@ -685,6 +685,7 @@
     <Resource tag="DELETED">ارسال حذف شد.</Resource>
     <Resource tag="MODIFIED">ارسال تغییر پیدا کرد!</Resource>
     <Resource tag="NUMBERREPORTED">تعداد دفعات گزارش:</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">پاسخ از طریق پیام خصوصی به:</Resource>
     <Resource tag="REPORTEDBY">گزارش شده توسط:</Resource>
     <Resource tag="RESOLVE">بررسی کپی های ارسال</Resource>
@@ -692,6 +693,7 @@
     <Resource tag="RESOLVEDBY">بررسی شده توسط::</Resource>
     <Resource tag="RESOLVEDFEEDBACK">پیغام به عنوان بررسی شده ثبت گردید.</Resource>
     <Resource tag="TOP">برگشت به بالا</Resource>
+    <Resource tag="TOPIC">Topic:</Resource>
     <Resource tag="UNAPPROVED">ارسالهای بررسی نشده</Resource>
   </page>
   <page name="MOVEMESSAGE">
@@ -1019,6 +1021,7 @@
     <Resource tag="CANCEL">لغو</Resource>
     <Resource tag="ENTER_TEXT">متن مورد نظر برای گزارش را اینجا وارد کنید</Resource>
     <Resource tag="HEADER">گزارش ارسال</Resource>
+    <Resource tag="POSTEDBY">Posted by:</Resource>
     <Resource tag="SEND">گزارش</Resource>
   </page>
   <page name="RTE">

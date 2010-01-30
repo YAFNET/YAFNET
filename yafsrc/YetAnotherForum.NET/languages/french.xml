@@ -664,6 +664,7 @@
     <Resource tag="DELETED">Message effacé.</Resource>
     <Resource tag="MODIFIED">Message modifié !</Resource>
     <Resource tag="NUMBERREPORTED">Nombre de raports :</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">Répondre par message privé à</Resource>
     <Resource tag="REPORTEDBY">Rapporté par :</Resource>
     <Resource tag="RESOLVE">Résoudre copie de message</Resource>
@@ -671,6 +672,7 @@
     <Resource tag="RESOLVEDBY">Résolu par :</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Le message est marqué comme résolu.</Resource>
     <Resource tag="TOP">Revenir au début</Resource>
+    <Resource tag="TOPIC">Topic:</Resource>
     <Resource tag="UNAPPROVED">Messages non	approuvés</Resource>
   </page>
   <page name="MOVEMESSAGE">
@@ -1000,6 +1002,7 @@
     <Resource tag="CANCEL">Annuler</Resource>
     <Resource tag="ENTER_TEXT">Entrez le texte du rapport ici.</Resource>
     <Resource tag="HEADER">Rapporter un message</Resource>
+    <Resource tag="POSTEDBY">Posted by:</Resource>
     <Resource tag="SEND">Rapporter</Resource>
   </page>
   <page name="RTE">

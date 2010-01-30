@@ -704,6 +704,7 @@
     <Resource tag="DELETED">Participação Excluída.</Resource>
     <Resource tag="MODIFIED">Post has been changed!</Resource>
     <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">Reply by private message to</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Resolve Post Copies</Resource>
@@ -711,6 +712,7 @@
     <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
     <Resource tag="TOP">Voltar ao Topo</Resource>
+    <Resource tag="TOPIC">Topic:</Resource>
     <Resource tag="UNAPPROVED">Não Aprovadas</Resource>
   </page>
   <page name="MOVEMESSAGE">
@@ -1043,6 +1045,7 @@
     <Resource tag="CANCEL">Cancel</Resource>
     <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
     <Resource tag="HEADER">Report post</Resource>
+    <Resource tag="POSTEDBY">Posted by:</Resource>
     <Resource tag="SEND">Report</Resource>
   </page>
   <page name="RTE">

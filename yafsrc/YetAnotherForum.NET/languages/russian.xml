@@ -668,6 +668,7 @@
     <Resource tag="DELETED">Сообщение удалёно.</Resource>
     <Resource tag="MODIFIED">Сообщение было отредактировано!</Resource>
     <Resource tag="NUMBERREPORTED">Сообщённое число случаев :</Resource>
+    <Resource tag="ORIGINALMESSAGE">Текст сообщения:</Resource>
     <Resource tag="REPLYTO">Послать личное сообщение пользователю </Resource>
     <Resource tag="REPORTEDBY">Пожаловались:</Resource>
     <Resource tag="RESOLVE">Урегулировать копии сообщение</Resource>
@@ -675,6 +676,7 @@
     <Resource tag="RESOLVEDBY">Урегулировал:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Сообщение было отмечено как урегулированное.</Resource>
     <Resource tag="TOP">Перейти вверх</Resource>
+    <Resource tag="TOPIC">Тема:</Resource>
     <Resource tag="UNAPPROVED">Неодобренные сообщения</Resource>
   </page>
   <page name="MOVEMESSAGE">
@@ -1004,6 +1006,7 @@
     <Resource tag="CANCEL">Отменить</Resource>
     <Resource tag="ENTER_TEXT">Введите текст вашей жалобы:</Resource>
     <Resource tag="HEADER">Сообщение о нарушении правил форума</Resource>
+    <Resource tag="POSTEDBY">Автор:</Resource>
     <Resource tag="SEND">Сообщить</Resource>
   </page>
   <page name="RTE">

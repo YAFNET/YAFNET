@@ -704,6 +704,7 @@
     <Resource tag="DELETED">Mensaje eliminado.</Resource>
     <Resource tag="MODIFIED">Mensaje cambiado!</Resource>
     <Resource tag="NUMBERREPORTED">Numero de veces reportado :</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">Reply by private message to</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Resolver copias de mensaje</Resource>
@@ -711,6 +712,7 @@
     <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Mensaje marcado como resuelto.</Resource>
     <Resource tag="TOP">Volver arriba</Resource>
+    <Resource tag="TOPIC">Topic:</Resource>
     <Resource tag="UNAPPROVED">Mensajes sin aprobar</Resource>
   </page>
   <page name="MOVEMESSAGE">
@@ -1062,6 +1064,7 @@
     <Resource tag="CANCEL">Cancel</Resource>
     <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
     <Resource tag="HEADER">Report post</Resource>
+    <Resource tag="POSTEDBY">Posted by:</Resource>
     <Resource tag="SEND">Report</Resource>
   </page>
   <page name="RTE">

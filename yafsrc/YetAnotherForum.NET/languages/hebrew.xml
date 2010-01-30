@@ -685,6 +685,7 @@
     <Resource tag="DELETED">ההודעה נמחקה.</Resource>
     <Resource tag="MODIFIED">ההודעה עודכנה!</Resource>
     <Resource tag="NUMBERREPORTED">מס' דיווחים על ההודעה :</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">Reply by private message to</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">תקן כפילות הודעה</Resource>
@@ -692,6 +693,7 @@
     <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">ההודעה סומנה כטופלה.</Resource>
     <Resource tag="TOP">חזור למעלה</Resource>
+    <Resource tag="TOPIC">Topic:</Resource>
     <Resource tag="UNAPPROVED">הודעות שלא אושרו</Resource>
   </page>
   <page name="MOVEMESSAGE">
@@ -1024,6 +1026,7 @@
     <Resource tag="CANCEL">Cancel</Resource>
     <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
     <Resource tag="HEADER">Report post</Resource>
+    <Resource tag="POSTEDBY">Posted by:</Resource>
     <Resource tag="SEND">Report</Resource>
   </page>
   <page name="RTE">

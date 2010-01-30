@@ -721,6 +721,7 @@
     <Resource tag="DELETED">Bericht verwijderd.</Resource>
     <Resource tag="MODIFIED">Bericht is gewijzigd!</Resource>
     <Resource tag="NUMBERREPORTED">Aantal keer gerapporteerd:</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">Reply by private message to</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Kopieën post oplossen</Resource>
@@ -728,6 +729,7 @@
     <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Bericht is gemarkeerd als opgeschoond.</Resource>
     <Resource tag="TOP">Terug naar boven</Resource>
+    <Resource tag="TOPIC">Topic:</Resource>
     <Resource tag="UNAPPROVED">Niet-goedgekeurde berichten</Resource>
   </page>
   <page name="MOVEMESSAGE">
@@ -1077,6 +1079,7 @@
     <Resource tag="CANCEL">Cancel</Resource>
     <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
     <Resource tag="HEADER">Report post</Resource>
+    <Resource tag="POSTEDBY">Posted by:</Resource>
     <Resource tag="SEND">Report</Resource>
   </page>
   <page name="RTE">

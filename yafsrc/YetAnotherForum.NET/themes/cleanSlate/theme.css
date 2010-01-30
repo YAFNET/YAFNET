@@ -103,6 +103,12 @@
     color: #333333;
 }
 
+/* Unresolved post in Moderation Reports */
+.yafnet .post_res
+{
+    background-color: #f4e941;   
+}
+
 .yafnet tr.topicRow .topicMain,
 .yafnet tr.topicRow_Alt .topicMain
 {

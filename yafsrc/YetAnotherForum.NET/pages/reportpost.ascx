@@ -2,14 +2,14 @@
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
-		<tr>
+		<tr>	   
 			<td class="header1" colspan="2">
 				<YAF:LocalizedLabel ID="ReportPostLabel" runat="server" LocalizedTag="HEADER" />
 			</td>			
 		</tr>	
-		<tr>		
+		<tr>	
 		    <td class="postheader" style="width: 100px" valign="top">		    
-		        <YAF:UserLink ID="UserProfileLink" runat="server"  />	
+		        <YAF:LocalizedLabel ID="PostedByLabel" runat="server" LocalizedTag="POSTEDBY" />&nbsp<YAF:UserLink ID="UserProfileLink" runat="server"  />	
  	        </td>
 			<td class="post"  runat="server">
 				<YAF:MessagePost ID="MessagePreview" runat="server"></YAF:MessagePost>			
@@ -19,9 +19,9 @@
 			<td class="postheader" style="width: 100px" valign="top">
 				<YAF:LocalizedLabel ID="EnterReportTextLabel" runat="server" LocalizedTag="ENTER_TEXT" />
 			</td>
-				<td id="EditorLine" class="post" runat="server">
+			    <td id="EditorLine" class="post" runat="server">
 			<!-- editor goes here -->
-		         </td>				
+		    </td>				
 		</tr>
 		<tr class="footer1">
 			<td colspan="2" align="center">
