@@ -2325,7 +2325,7 @@ SELECT
 		(SELECT     count([{databaseOwner}].[{objectQualifier}Message].MessageID)
 		FROM         [{databaseOwner}].[{objectQualifier}Message] INNER JOIN
 							  [{databaseOwner}].[{objectQualifier}Topic] ON [{databaseOwner}].[{objectQualifier}Message].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
-		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 512)=512) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and (([{databaseOwner}].[{objectQualifier}Topic].Flags & 8) = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID))
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 128)=128) and (([{databaseOwner}].[{objectQualifier}Message].Flags & 8)=0) and (([{databaseOwner}].[{objectQualifier}Topic].Flags & 8) = 0) AND ([{databaseOwner}].[{objectQualifier}Topic].ForumID=b.ForumID))
 		FROM
 		[{databaseOwner}].[{objectQualifier}Category] a
 

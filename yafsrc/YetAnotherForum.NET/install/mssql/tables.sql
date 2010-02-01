@@ -1198,10 +1198,8 @@ GO
 -- attempt migrate legacy report abuse and report spam features flags		
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='Flags')
 begin
-	grant update on [{databaseOwner}].[{objectQualifier}Message] to public
-	exec('update [{databaseOwner}].[{objectQualifier}Message] SET [{databaseOwner}].[{objectQualifier}Message].Flags =  ([{databaseOwner}].[{objectQualifier}Message].Flags & POWER(2, 7)) | POWER(2, 9)
-		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 128)=128)')
-	exec('update [{databaseOwner}].[{objectQualifier}Message] SET [{databaseOwner}].[{objectQualifier}Message].Flags =  ([{databaseOwner}].[{objectQualifier}Message].Flags & POWER(2, 8)) | POWER(2, 9)
+	grant update on [{databaseOwner}].[{objectQualifier}Message] to public	
+	exec('update [{databaseOwner}].[{objectQualifier}Message] SET [{databaseOwner}].[{objectQualifier}Message].Flags =  ([{databaseOwner}].[{objectQualifier}Message].Flags & POWER(2, 8)) | POWER(2, 7)
 		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 256)=256)')	
 	revoke update on [{databaseOwner}].[{objectQualifier}Message] from public	
 end

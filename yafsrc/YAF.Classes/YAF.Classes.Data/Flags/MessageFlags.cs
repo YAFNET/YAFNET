@@ -156,13 +156,14 @@ namespace YAF.Classes.Data
       NotFormatted = 64, 
 
       /// <summary>
-      /// The is reported abuse.
+      /// The is reported .
       /// </summary>
-      IsReportedAbuse = 128, 
+      IsReported = 128, 
 
       /// <summary>
-      /// The is reported spam.
+      /// Legacy flag not in use.
       /// </summary>
+      [Obsolete("Legacy MessageFlag. Not in use.")]
       IsReportedSpam = 256, 
 
       /// <summary>
@@ -301,7 +302,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// Gets or sets whether message is reported as abusive.
     /// </summary>
-    public bool IsReportedAbuse
+    public bool IsReported
     {
       // int value 128
       get
@@ -318,6 +319,7 @@ namespace YAF.Classes.Data
     /// <summary>
     ///Gets or sets whether message is reported as spam.
     /// </summary>
+    [Obsolete("Legacy flag. Not in use.")] 
     public bool IsReportedSpam
     {
       // int value 256
