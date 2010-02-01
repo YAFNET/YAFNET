@@ -216,6 +216,7 @@ namespace YAF.Controls
         protected override void Render(HtmlTextWriter output)
         {
             string forumPageName = this.ForumPage;
+            string forumPageAttributes = null;
             
             // Find a user page name. If it's missing we are very probably on the start page 
             if (string.IsNullOrEmpty(forumPageName))
@@ -230,12 +231,14 @@ namespace YAF.Controls
                 // We find here a page name end position
                 if (forumPageName.Contains("&"))
                 {
-                    forumPageName = forumPageName.Substring(0, forumPageName.IndexOf("&"));
+                    forumPageAttributes = forumPageName.Substring(forumPageName.IndexOf("&") + 1);
+                    forumPageName = forumPageName.Substring(0, forumPageName.IndexOf("&"));                    
                 }
-            }  
+            } 
                 
-                     output.BeginRender();
+                     output.BeginRender();              
                      
+                     // All pages should be processed in call frequency order 
                      // We are in messages
                      if (this.TopicID > 0 && this.ForumID > 0)
                      {
@@ -263,13 +266,136 @@ namespace YAF.Controls
                      }                    
                      else if (this.ForumID > 0 && this.TopicID <= 0)
                      {
-                         // User views forum
-                        output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUM"));
-                        output.Write(@"<a href=""{0}"" id=""forumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.forum, "f={0}", this.ForumID), this.UserID, this.ForumName);
+                         // User views a forum
+                        if (forumPageName == "topics")
+                        {                
+                            output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUM"));                       
+                            output.Write(@"<a href=""{0}"" id=""forumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.ForumName);
+                        }
                      }                  
                      else
-                      {
-                          if (forumPageName == "forum" && this.TopicID <= 0 && this.ForumID <= 0)
+                      { 
+                          // First specially treated pages where we can render
+                          // an info about user name, etc. 
+                          if (forumPageName == "profile")
+                          {                              
+
+                              string userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=") + 2);
+
+                              if (userID.Contains("&"))
+                              {
+                                  userID = userID.Substring(0, userID.IndexOf("&")).Trim();
+                              }
+                              else
+                              {
+                                  userID = userID.Substring(0).Trim();
+                              }
+                              if (ValidationHelper.IsValidInt(userID.Trim()))
+                              {
+                                  if (Convert.ToInt32(userID) != UserID)
+                                  {
+                                      output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
+                                      output.Write(@"<a href=""{0}"" id=""profileuserid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID + PageContext.PageUserID.ToString(), YAF.Classes.Core.UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID)));
+                                  }
+                                  else
+                                  {
+                                      output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "PROFILE_OWN"));
+                                  }
+                                  
+        
+                              }
+                              else
+                              {
+                                  output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "PROFILE"));
+                              }
+                          }
+                          else if (forumPageName == "albums")
+                          {
+                              // On albums first page
+                              string userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=") + 2).Substring(0).Trim();
+
+                              if (ValidationHelper.IsValidInt(userID))
+                              {
+                                  if (Convert.ToInt32(userID) == UserID)
+                                  {
+                                      output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUMS_OWN"));
+                                  }
+                                  else
+                                  {
+                                      output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
+                                      output.Write(@"<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID + PageContext.PageUserID.ToString(), YAF.Classes.Core.UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID)));
+                                  }
+                              }
+                              else
+                              {
+                                  output.Write(YafContext.Current.Localization.GetTextFormatted("ACTIVELOCATION", "ALBUMS"));
+                              }
+                             
+           
+                          }
+                          else if (forumPageName == "album")
+                          {
+                              // Views an album
+                              string userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=") + 2).Trim();
+
+                              if (userID.Contains("&"))
+                              {
+                                  userID = userID.Substring(0, userID.IndexOf("&")).Trim();
+                              }
+
+                              string albumID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("a=") + 2);
+
+                              if (albumID.Contains("&"))
+                              {
+                                  albumID = albumID.Substring(0, albumID.IndexOf("&")).Trim();
+                              }
+                              else
+                              {
+                                  albumID = albumID.Substring(0).Trim();
+                              }
+
+                              if (ValidationHelper.IsValidInt(userID) && ValidationHelper.IsValidInt(albumID))
+                              {
+                                  string albumName;
+
+                                  // The DataRow should not be missing in the case
+                                  System.Data.DataRow dr = YAF.Classes.Data.DB.album_list(null, Convert.ToInt32(albumID.Trim())).Rows[0];
+                                  
+                                  // If album doesn't have a Title, use his ID.
+                                  if (!string.IsNullOrEmpty(dr["Title"].ToString()))
+                                  {
+                                      albumName = dr["Title"].ToString();
+                                  }
+                                  else
+                                  {
+                                      albumName = dr["AlbumID"].ToString();
+                                  }
+
+                                  // Render
+                                  if (Convert.ToInt32(userID) != UserID)
+                                  {
+                                      output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM"));
+                                      output.Write("&nbsp;");
+                                      output.Write(@"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.album, "a={0}", albumID), userID + PageContext.PageUserID.ToString(), albumName);
+                                      output.Write("&nbsp;");
+                                      output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
+                                      output.Write("&nbsp;");
+                                      output.Write(@"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID, YAF.Classes.Core.UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID)));
+                                  }
+                                  else
+                                  {
+                                      output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM_OWN"));
+                                      output.Write(@"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.album, "a={0}", albumID), userID + PageContext.PageUserID.ToString(), albumName);
+                                  }
+
+                              }
+                              else
+                              {
+                                  output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM"));
+                              }
+                              
+                          }
+                          else if (forumPageName == "forum" && this.TopicID <= 0 && this.ForumID <= 0)
                           {
                               if (this.ForumPage.Contains("c="))
                               {
@@ -282,11 +408,13 @@ namespace YAF.Controls
                           }                    
                           else if (!YafContext.Current.IsAdmin && forumPageName.ToUpper().Contains("MODERATE_"))
                           {
+
                               // We shouldn't show moderators activity to all users but admins
                               output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "MODERATE"));
                           }                          
                           else if (!YafContext.Current.IsHostAdmin && forumPageName.ToUpper().Contains("ADMIN_"))
                           {
+
                               // We shouldn't show admin activity to all users 
                               output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ADMINTASK"));
                           }                          
@@ -298,6 +426,6 @@ namespace YAF.Controls
                       } 
 
             output.EndRender();           
-        }       
+        }        
     }
 }

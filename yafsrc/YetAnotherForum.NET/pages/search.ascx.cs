@@ -291,6 +291,47 @@ namespace YAF.Pages
             PageContext.PageBoardID, 
             PageContext.BoardSettings.ReturnSearchMax, 
             PageContext.BoardSettings.UseFullTextSearch);
+
+            //  vzrus: the code hilights searchs results. 
+            // Disabled as there are problems with diffrenent (HTML/BBCode) editors 
+            // This code works with BBCode editor
+            // Insert style attributes to message to highlight search results
+           /* if (searchDataTable.Rows.Count > 0)
+            {
+                string startTag = @"[b][color=red][size=6]"; //"[b]";
+                string endTag = @"[/size][/color][/b]"; //"[/b]";
+
+              foreach (DataRow drow in searchDataTable.Rows)
+                 {
+                  string dr = drow["Message"].ToString();
+                
+                  if (sw == SearchWhatFlags.ExactMatch)
+                  {
+                      dr = dr.Insert(dr.IndexOf(SearchWhatCleaned), startTag);
+                      dr = dr.Insert(dr.IndexOf(SearchWhatCleaned) + SearchWhatCleaned.Length, endTag);
+                  }              
+                  else if (sw == SearchWhatFlags.AnyWords || sw == SearchWhatFlags.AllWords)
+                  {
+                      string[] array1 = SearchWhatCleaned.Split(' ');
+                      for (int i = 0; i < array1.Length; i++)
+                      {
+                          if (!string.IsNullOrEmpty(array1[i].Trim()))
+                          {
+                             int indexS = dr.IndexOf(array1[i]);
+                              if (indexS >=0)
+                              {
+                                 dr = dr.Insert(indexS, startTag);
+                                 dr = dr.Insert(indexS + array1[i].Length + startTag.Length, endTag);
+                              }
+                              
+                          }
+                      }
+                  }
+
+                  drow["Message"] = dr;
+                 }
+            } */
+            // eof vzrus
           this.Pager.CurrentPageIndex = 0;
           this.Pager.PageSize = int.Parse(this.listResInPage.SelectedValue);
           this.Pager.Count = searchDataTable.DefaultView.Count;
@@ -394,7 +435,7 @@ namespace YAF.Pages
       if (whoValid && !whatValid)
       {
         // make sure no value is used...
-        SearchWhatCleaned = String.Empty;
+        this.SearchWhatCleaned = String.Empty;
 
         // valid search...
         return true;
@@ -403,19 +444,19 @@ namespace YAF.Pages
       bool searchTooSmall = false;
       bool searchTooLarge = false;
 
-      if (String.IsNullOrEmpty(SearchWhoCleaned) && IsSearchTextTooSmall(SearchWhatCleaned))
+      if (String.IsNullOrEmpty(SearchWhoCleaned) && this.IsSearchTextTooSmall(this.SearchWhatCleaned))
       {
         searchTooSmall = true;
       }
-      else if (String.IsNullOrEmpty(SearchWhatCleaned) && IsSearchTextTooSmall(SearchWhoCleaned))
+      else if (String.IsNullOrEmpty(SearchWhatCleaned) && IsSearchTextTooSmall(this.SearchWhoCleaned))
       {
         searchTooSmall = true;
       }
-      else if (String.IsNullOrEmpty(SearchWhoCleaned) && IsSearchTextTooLarge(SearchWhatCleaned))
+      else if (String.IsNullOrEmpty(SearchWhoCleaned) && IsSearchTextTooLarge(this.SearchWhatCleaned))
       {
         searchTooLarge = true;
       }
-      else if (String.IsNullOrEmpty(SearchWhatCleaned) && IsSearchTextTooLarge(SearchWhoCleaned))
+      else if (String.IsNullOrEmpty(SearchWhatCleaned) && IsSearchTextTooLarge(this.SearchWhoCleaned))
       {
         searchTooLarge = true;
       }
@@ -444,7 +485,7 @@ namespace YAF.Pages
     /// </returns>
     protected bool IsValidSearchText(string searchText)
     {
-      return !String.IsNullOrEmpty(searchText) && !IsSearchTextTooSmall(searchText) && !IsSearchTextTooLarge(searchText) &&
+      return !String.IsNullOrEmpty(searchText) && !IsSearchTextTooSmall(searchText) && !this.IsSearchTextTooLarge(searchText) &&
              Regex.IsMatch(searchText, PageContext.BoardSettings.SearchStringPattern);
     }
 
@@ -513,7 +554,7 @@ namespace YAF.Pages
         this.Pager.Count = Mession.SearchData.DefaultView.Count;
 
         // bind existing search
-        SearchBindData(false);
+        this.SearchBindData(false);
 
         // use existing search data...
         this.SearchUpdatePanel.Update();

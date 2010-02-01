@@ -43,7 +43,9 @@
 	<Resource tag="TOPICS">Views topic </Resource>
 	<Resource tag="TOPICINFORUM"> in forum </Resource>
 	<Resource tag="POSTS">Views messages in topic </Resource>
-	<Resource tag="PROFILE">Views a user profile</Resource>
+	<Resource tag="PROFILE">Views profile of a user</Resource>
+	<Resource tag="PROFILE_OFUSER">Views profile of user</Resource>
+	<Resource tag="PROFILE_OWN">Views his profile</Resource>
 	<Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
 	<Resource tag="MODERATE">Moderates</Resource>	
 	<Resource tag="POSTMESSAGE_FULL">Posts a message in topic </Resource>  
@@ -58,10 +60,15 @@
 	<Resource tag="MEMBERS">Views members list</Resource>
 	<Resource tag="REPORTPOST">Reports a post</Resource>
 	<Resource tag="CP_PM">Views pmessages</Resource>
-	<Resource tag="CP_PROFILE">Views a user profile</Resource>
+	<Resource tag="CP_PROFILE">Views profile settings</Resource>
+	<Resource tag="CP_PROFILE_OFUSER">Views profile of user</Resource>
 	<Resource tag="CP_EDITBUDDIES">Edits buddies</Resource>
 	<Resource tag="ALBUM">Views Album</Resource>
+	<Resource tag="ALBUM_OFUSER">of user</Resource>
+	<Resource tag="ALBUM_OWN">Views/Edits his Album</Resource>
 	<Resource tag="ALBUMS">Views Albums</Resource>
+	<Resource tag="ALBUMS_OFUSER">Views Albums of user</Resource> 
+	<Resource tag="ALBUMS_OWN">Views/Edits his Albums</Resource>  
 	<Resource tag="CP_EDITALBUMIMAGES">Edits album images</Resource>
 	<Resource tag="CP_EDITPROFILE">Edits his profile</Resource>
 	<Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
@@ -141,10 +148,10 @@
 	<Resource tag="ADMIN_BBCODE_IMPORT">Imports BBCodes</Resource>
 	<Resource tag="ADMIN_BBCODE_EDIT">Edits BBcodes</Resource>
 	<Resource tag="ADMIN_REINDEX">Maintaines DB</Resource>
-	<Resource tag="ADMIN_RUNSQL">Admin tasks</Resource>
-	<Resource tag="ADMIN_TASKMANAGER">Admin tasks</Resource>
-	<Resource tag="ADMIN_TEST_DATA">Admin tasks</Resource>
-	<Resource tag="ADMIN_RESTARTAPP">Admin tasks</Resource>
+	<Resource tag="ADMIN_RUNSQL">Runs SQL query</Resource>
+	<Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
+	<Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
+	<Resource tag="ADMIN_RESTARTAPP">Restarts application</Resource>
   </page>
   <page name="APPROVE">
     <Resource tag="EMAIL_VERIFIED">Your email address has been verified.</Resource>

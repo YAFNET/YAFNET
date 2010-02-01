@@ -72,7 +72,11 @@
     <Resource tag="ADMIN_VERSION">Admin tasks</Resource>
     <Resource tag="ADMINTASK">Admin tasks</Resource>
     <Resource tag="ALBUM">Views Album</Resource>
+    <Resource tag="ALBUM_OFUSER">of user</Resource>
+    <Resource tag="ALBUM_OWN">Views/Edits his Album</Resource>
     <Resource tag="ALBUMS">Views Albums</Resource>
+    <Resource tag="ALBUMS_OFUSER">Views Album of user</Resource>
+    <Resource tag="ALBUMS_OWN">Views/Edits his Albums</Resource>
     <Resource tag="APPROVE">Approves</Resource>
     <Resource tag="ATTACHMENTS">Handles attachments</Resource>
     <Resource tag="AVATAR">Views avatar</Resource>
@@ -84,6 +88,7 @@
     <Resource tag="CP_MESSAGE">Views pmessages</Resource>
     <Resource tag="CP_PM">Views pmessages</Resource>
     <Resource tag="CP_PROFILE">Views a user profile</Resource>
+    <Resource tag="CP_PROFILE_OFUSER">Views profile of</Resource>
     <Resource tag="CP_SIGNATURE">Edits his signature</Resource>
     <Resource tag="CP_SUBSCRIPTIONS">Vies subscriptions</Resource>
     <Resource tag="DELETEMESSAGE">Deletes a message</Resource>
@@ -121,6 +126,8 @@
     <Resource tag="POSTS">Views messages in topic </Resource>
     <Resource tag="PRINTTOPIC">Prints topic</Resource>
     <Resource tag="PROFILE">Views a user profile</Resource>
+    <Resource tag="PROFILE_OFUSER">Views profile of user</Resource>
+    <Resource tag="PROFILE_OWN">Views his profile</Resource>
     <Resource tag="RECOVERPASSWORD">No data</Resource>
     <Resource tag="REGISTER">Registers</Resource>
     <Resource tag="REPORTPOST">Reports a post</Resource>

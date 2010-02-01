@@ -51,7 +51,11 @@
     <Resource tag="ADMIN_VERSION">Администрирует форум</Resource>
     <Resource tag="ADMINTASK">Администрирует форум</Resource>
     <Resource tag="ALBUM">Просматривает альбом</Resource>
+    <Resource tag="ALBUM_OFUSER">of user</Resource>
+    <Resource tag="ALBUM_OWN">Просматривает/редактирует свой альбом</Resource>
     <Resource tag="ALBUMS">Просматривает альбомы</Resource>
+    <Resource tag="ALBUMS_OFUSER">Просматривает альбомы пользователя</Resource>
+    <Resource tag="ALBUMS_OWN">Просматривает/редактирует свои альбомы</Resource>
     <Resource tag="APPROVE">Подтверждает регистрацию</Resource>
     <Resource tag="ATTACHMENTS">Просматривает прикреплённые файлы</Resource>
     <Resource tag="AVATAR">Просматривает аватар</Resource>
@@ -62,7 +66,8 @@
     <Resource tag="CP_EDITPROFILE">Редактирует свой профиль</Resource>
     <Resource tag="CP_MESSAGE">Отправляет личное сообщение</Resource>
     <Resource tag="CP_PM">Просматривает личные сообщения</Resource>
-    <Resource tag="CP_PROFILE">Просматривает профиль пользователя</Resource>
+    <Resource tag="CP_PROFILE">Просматривает настройки профиля</Resource>
+    <Resource tag="CP_PROFILE_OFUSER">Просматривает настройки профиля пользователя</Resource>
     <Resource tag="CP_SIGNATURE">Редактирует подпись</Resource>
     <Resource tag="CP_SUBSCRIPTIONS">Редактирует подписки</Resource>
     <Resource tag="DELETEMESSAGE">Удаляет сообщение</Resource>
@@ -85,7 +90,7 @@
     <Resource tag="LOGOUT">Выходит с форума</Resource>
     <Resource tag="MAINPAGE">Просматривает главную страницу форума</Resource>
     <Resource tag="MEMBERS">Просматривает список пользователей</Resource>
-    <Resource tag="MOD_FORUMUSER">Moderates a forum user</Resource>
+    <Resource tag="MOD_FORUMUSER">Модерирует пользователя форума</Resource>
     <Resource tag="MODERATE">Модерирует</Resource>
     <Resource tag="MODERATE_INDEX">Просматривает страницу модерирования</Resource>
     <Resource tag="MODERATE_REPORTEDPOSTS">Просматривает посты с жалобами</Resource>
@@ -100,9 +105,11 @@
     <Resource tag="POSTS">Просматривает сообщения в теме </Resource>
     <Resource tag="PRINTTOPIC">Находится на странице печати</Resource>
     <Resource tag="PROFILE">Просматривает профиль пользователя</Resource>
+    <Resource tag="PROFILE_OFUSER">Просматривает профиль пользователя</Resource>
+    <Resource tag="PROFILE_OWN">Просматривает свой профиль</Resource>
     <Resource tag="RECOVERPASSWORD">Восстанавливает пароль</Resource>
     <Resource tag="REGISTER">Находится на странице регистрации</Resource>
-    <Resource tag="REPORTPOST">Сообщает о нарушении</Resource>
+    <Resource tag="REPORTPOST">Сообщает о нарушении правил</Resource>
     <Resource tag="RSSTOPIC">Просматривает ленту RSS</Resource>
     <Resource tag="RULES">Просматривает правила форума</Resource>
     <Resource tag="SEARCH">Использует поиск</Resource>
