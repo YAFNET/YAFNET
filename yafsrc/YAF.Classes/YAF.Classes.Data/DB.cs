@@ -4554,6 +4554,28 @@ namespace YAF.Classes.Data
       }
     }
 
+    /// <summary>
+    /// Returns message data based on user access rights
+    /// </summary>
+    /// <param name="MessageID">The Message Id.</param>
+    /// <param name="UserID">The UserId.</param>
+     /// <returns></returns>
+    public static DataTable message_secdata(int MessageID, object UserID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("message_secdata"))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+     
+        cmd.Parameters.AddWithValue("UserID", UserID);
+        cmd.Parameters.AddWithValue("MessageID", MessageID);
+      
+        return YafDBAccess.Current.GetData(cmd);
+       
+      }
+    }
+
+      
+
     #endregion
 
     #region Medal

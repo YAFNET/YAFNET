@@ -642,6 +642,7 @@
     <Resource tag="REPORTEDBY">Reported by:</Resource>
 	<Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="RESOLVE">Resolve Post Copies</Resource>
+	<Resource tag="REPORTED">Reported posts</Resource>
     <Resource tag="RESOLVED">Mark as resolved</Resource>
     <Resource tag="RESOLVEDBY">Resolved by:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>

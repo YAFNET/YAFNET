@@ -35,7 +35,7 @@ namespace YAF.Pages
         /// <summary>
         /// To save messageid value.
         /// </summary>
-        private int messageID = 0;
+        private int messageID = 0;       
        
         // message body editor
 
@@ -102,15 +102,21 @@ namespace YAF.Pages
                 }
 
                 if (!IsPostBack)
-                {                   
+                {    
+               
                     // Get reported message text for better quoting
-                    System.Data.DataTable messageRow = DB.message_list(this.messageID);
+                    
+                    System.Data.DataTable messageRow = DB.message_secdata(this.messageID,PageContext.PageUserID);
                     if (messageRow.Rows.Count > 0)
                     {
                         // populate the message preview with the message datarow...
                         MessagePreview.Message = messageRow.Rows[0]["message"].ToString();
                         MessagePreview.MessageFlags.BitValue = Convert.ToInt32(messageRow.Rows[0]["Flags"]);
                         UserProfileLink.UserID = Convert.ToInt32(messageRow.Rows[0]["UserID"]);
+                    }
+                    else
+                    {
+                        Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=1"));
                     }
                    
                     // Get Forum Link
