@@ -31,7 +31,7 @@
         <ItemTemplate>
             <tr>
                 <td class="post">
-                    <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' />
+                    <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%# CurrentUserID == Convert.ToInt32(Eval("UserID")) ? Eval("FromUserID") : Eval("UserID") %>' />
                     <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Eval("UserID") )%>'
                         Style="vertical-align: bottom" UserID='<%# Eval("UserID") %>' />
                 </td>
