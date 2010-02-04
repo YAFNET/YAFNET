@@ -110,7 +110,7 @@ namespace YAF.Controls
             {
                 if (_sig.Text.Length <= Convert.ToInt32(sigData.Rows[0]["UsrSigChars"]))
                 {
-                    YAF.Classes.Data.DB.user_savesignature(this.CurrentUserID, body);
+                    YAF.Classes.Data.DB.user_savesignature(this.CurrentUserID, YafServices.BadWordReplace.Replace(body));
                 }
                 else
                 {

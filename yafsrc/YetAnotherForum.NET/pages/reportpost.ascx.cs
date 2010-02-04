@@ -104,15 +104,15 @@ namespace YAF.Pages
                 if (!IsPostBack)
                 {    
                
-                    // Get reported message text for better quoting
-                    
+                    // Get reported message text for better quoting                    
                     System.Data.DataTable messageRow = DB.message_secdata(this.messageID,PageContext.PageUserID);
+                   
+                    // Checking if the user has a right to view the message and getting data  
                     if (messageRow.Rows.Count > 0)
                     {
-                        // populate the message preview with the message datarow...
-                        MessagePreview.Message = messageRow.Rows[0]["message"].ToString();
-                        MessagePreview.MessageFlags.BitValue = Convert.ToInt32(messageRow.Rows[0]["Flags"]);
-                        UserProfileLink.UserID = Convert.ToInt32(messageRow.Rows[0]["UserID"]);
+                        // populate the repeater with the message datarow...
+                        this.MessageList.DataSource = DB.message_secdata(this.messageID, PageContext.PageUserID);         
+                        this.MessageList.DataBind();
                     }
                     else
                     {
@@ -137,7 +137,8 @@ namespace YAF.Pages
         {
             // Save the reported message
             DB.message_report(7, this.messageID, PageContext.PageUserID, DateTime.Now, this.reportEditor.Text);
-            //// Redirect to reported post
+            
+            // Redirect to reported post
             this.RedirectToPost(); 
         }
 

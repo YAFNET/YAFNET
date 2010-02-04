@@ -2886,35 +2886,34 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_secdata](@MessageID int, @UserID int) AS
 BEGIN
-		SELECT
-		a.MessageID,
-		a.UserID,
-		UserName = b.Name,
-		a.Message,
-		c.TopicID,
-		c.ForumID,
-		c.Topic,
-		c.Priority,
-		a.Flags,
-		c.UserID AS TopicOwnerID,
-		Edited = IsNull(a.Edited,a.Posted),
-		TopicFlags = c.Flags,
-		ForumFlags = d.Flags,
-		a.EditReason,
-		a.Position,
-		a.IsModeratorChanged,
-		a.DeleteReason,
-		a.BlogPostID,
-		c.PollID,
-        a.IP
-	FROM
-		[{databaseOwner}].[{objectQualifier}Message] a
-		inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.UserID
-		inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = a.TopicID
-		inner join [{databaseOwner}].[{objectQualifier}Forum] d on c.ForumID = d.ForumID
-		left join [{databaseOwner}].[{objectQualifier}vaccess] x on x.UserID=a.UserID and x.ForumID=IsNull(c.ForumID,0)
+SELECT
+		m.MessageID,
+		m.UserID,
+		IsNull(t.UserName, u.Name) as Name,
+		m.Message,
+		m.Posted,
+		t.TopicID,
+		t.ForumID,
+		t.Topic,
+		t.Priority,
+		m.Flags,
+		t.UserID,
+		Edited = IsNull(m.Edited,m.Posted),
+		TopicFlags = t.Flags,		
+		m.EditReason,
+		m.Position,
+		m.IsModeratorChanged,
+		m.DeleteReason,
+		m.BlogPostID,
+		t.PollID,
+        m.IP
+	FROM		
+		[{databaseOwner}].[{objectQualifier}Message] m
+        left join  [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
+        left join  [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
+		left join [{databaseOwner}].[{objectQualifier}vaccess] x on x.UserID=u.UserID and x.ForumID=IsNull(t.ForumID,0)
 	WHERE
-		a.MessageID = @MessageID AND b.UserID = @UserID AND x.ReadAccess <> 0
+		m.MessageID = @MessageID AND u.UserID = @UserID AND x.ReadAccess <> 0
 END
 GO
 
