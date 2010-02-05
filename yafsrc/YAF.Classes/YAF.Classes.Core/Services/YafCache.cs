@@ -28,9 +28,8 @@ namespace YAF.Classes.Core
   /// </summary>
   public class YafCache
   {
-    // cache object to work with
     /// <summary>
-    /// The _lock cache items.
+    /// cache object to work with
     /// </summary>
     private static readonly object[] _lockCacheItems = new object[101];
 
@@ -39,9 +38,8 @@ namespace YAF.Classes.Core
     /// </summary>
     private Cache _cache;
 
-    // default method for creating cache keys
     /// <summary>
-    /// The _key creation method.
+    /// default method for creating cache keys
     /// </summary>
     private CacheKeyCreationMethod _keyCreationMethod;
 

@@ -249,7 +249,7 @@ namespace YAF.Modules
     #region Public Methods
 
     /// <summary>
-    /// Loads (CreatesInstance) of all modules) -- should only be called once.
+    /// Loads CreatesInstance of all modules -- should only be called once.
     /// </summary>
     public void Load()
     {
@@ -263,10 +263,7 @@ namespace YAF.Modules
         }
 
         // create instances of the classes...
-        foreach (var factoryKey in this.ModuleClassFactories.Keys)
-        {
-          this._modules.Add((T)this.ModuleClassFactories[factoryKey].Create());
-        }
+        this.CreateModuleClasses();
 
         this._loaded = true;
 
@@ -299,7 +296,7 @@ namespace YAF.Modules
     #region Methods
 
     /// <summary>
-    /// The find modules.
+    /// Finds modules (classes) in the supplied assemblies.
     /// </summary>
     /// <param name="assemblies">
     /// The assemblies.
@@ -332,7 +329,7 @@ namespace YAF.Modules
               continue;
             }
 
-            // YAF.Modules namespace, verify it implements the interface...
+            // verify it implements the interface...
             if (modClass.GetInterfaces().Any(i => i.Equals(baseInterface)))
             {
               // it does, add this class
@@ -346,7 +343,7 @@ namespace YAF.Modules
     }
 
     /// <summary>
-    /// The add modules.
+    /// Add modules to the module manager.
     /// </summary>
     /// <param name="assemblies">
     /// The assemblies.
@@ -364,7 +361,7 @@ namespace YAF.Modules
     }
 
     /// <summary>
-    /// The add modules.
+    /// Add modules to the module manager.
     /// </summary>
     /// <param name="assemblies">
     /// The assemblies.
@@ -378,6 +375,17 @@ namespace YAF.Modules
       else
       {
         this.ModuleClassTypes.AddRange(FindModules(assemblies, this.ModuleNamespace, this.ModuleBaseType));
+      }
+    }
+
+    /// <summary>
+    /// Creates all the classes in <see cref="ModuleClassFactories"/>.
+    /// </summary>
+    protected void CreateModuleClasses()
+    {
+      foreach (var factoryKey in this.ModuleClassFactories.Keys)
+      {
+        this._modules.Add((T)this.ModuleClassFactories[factoryKey].Create());
       }
     }
 
