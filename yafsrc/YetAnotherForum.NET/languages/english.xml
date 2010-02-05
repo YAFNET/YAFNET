@@ -649,6 +649,7 @@
     <Resource tag="TOP">Back to top</Resource>
 	<Resource tag="TOPIC">Topic:</Resource> 
     <Resource tag="UNAPPROVED">Unapproved Posts</Resource>
+	<Resource tag="HISTORY">History</Resource> 
   </page>
   <page name="MOVEMESSAGE">
     <Resource tag="CREATE_TOPIC">Create Topic From Message</Resource>
@@ -1284,5 +1285,17 @@ Visit {forumname} at {forumlink}
     <Resource tag="ISEMPTY">Message body can not be empty.Why do you want to post an empty message?</Resource>
     <Resource tag="ISEXCEEDED">You have exceeded the maximum number of characters in each post.Make it shorter and try again.</Resource>
     <Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
+  </page>
+  <page name="MESSAGEHISTORY">
+	<Resource tag="TITLE">Message History</Resource>
+	<Resource tag="POSTED">Posted:</Resource>
+	<Resource tag="EDITED">Edited:</Resource>
+	<Resource tag="EDITEDBY">Edited by:</Resource>
+	<Resource tag="EDITEREASON">Edit reason:</Resource>
+	<Resource tag="GOMODERATE">Continue moderate</Resource>
+	<Resource tag="TOMESSAGE">Go to message</Resource>
+	<Resource tag="CURRENTMESSAGE">Current edition</Resource>
+	<Resource tag="ORIGINALMESSAGE">Original edition</Resource>
+	<Resource tag="HISTORYSTART">History editions</Resource> 
   </page>
 </Resources>

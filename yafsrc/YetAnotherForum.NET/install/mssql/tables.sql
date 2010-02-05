@@ -203,6 +203,20 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[{objectQualifier}MessageHistory](
+		MessageHistoryID uniqueidentifier NOT NULL CONSTRAINT [DF_{objectQualifier}MessageHistory_MessageHistoryID] DEFAULT (newid()),
+		MessageID		int NOT NULL ,
+		Message			ntext NOT NULL ,
+		IP				nvarchar (15) NOT NULL ,
+		Edited			datetime NULL,
+		EditedBy		int NULL,	
+		EditReason      nvarchar (100) NULL ,
+		IsModeratorChanged      bit NOT NULL CONSTRAINT [DF_{objectQualifier}MessageHistory_IsModeratorChanged] DEFAULT (0),
+		Flags int NOT NULL constraint [DF_{objectQualifier}MessageHistory_Flags] default (23)	  
+	)
+GO
+
 IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageReported]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}MessageReported](
 		[MessageID] [int] NOT NULL,
@@ -1195,7 +1209,7 @@ if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{o
 	alter table [{databaseOwner}].[{objectQualifier}Message] add DeleteReason            nvarchar (100)  NULL
 GO
     
--- attempt migrate legacy report abuse and report spam features flags		
+-- an attempt to migrate the legacy report abuse and report spam features flags		
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='Flags')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Message] to public	
@@ -1203,6 +1217,10 @@ begin
 		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 256)=256)')	
 	revoke update on [{databaseOwner}].[{objectQualifier}Message] from public	
 end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='EditedBy')
+	alter table [{databaseOwner}].[{objectQualifier}Message] add EditedBy   int  NULL
 GO
 		
 -- Topic Table

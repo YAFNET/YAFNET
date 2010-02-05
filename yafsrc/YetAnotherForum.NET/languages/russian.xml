@@ -630,6 +630,18 @@
     <Resource tag="TITLE">Пользователи</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
   </page>
+  <page name="MESSAGEHISTORY">
+    <Resource tag="CURRENTMESSAGE">Текущая редакция</Resource>
+    <Resource tag="EDITED">Дата изменения:</Resource>
+    <Resource tag="EDITEDBY">Изменил:</Resource>
+    <Resource tag="EDITEREASON">Причина изменения:</Resource>
+    <Resource tag="GOMODERATE">Продолжить модерировать</Resource>
+    <Resource tag="HISTORYSTART">Текущие редакции</Resource>
+    <Resource tag="ORIGINALMESSAGE">Первоначальная редакция</Resource>
+    <Resource tag="POSTED">Оставлено:</Resource>
+    <Resource tag="TITLE">История изменений</Resource>
+    <Resource tag="TOMESSAGE">Вернуться к сообщению</Resource>
+  </page>
   <page name="MOD_FORUMUSER">
     <Resource tag="ACCESSMASK">Права доступа:</Resource>
     <Resource tag="CANCEL">Отмена</Resource>
@@ -673,10 +685,12 @@
     <Resource tag="COPYOVER">Обновить текст сообщения</Resource>
     <Resource tag="DELETE">Удалить сообщение</Resource>
     <Resource tag="DELETED">Сообщение удалёно.</Resource>
+    <Resource tag="HISTORY">История</Resource>
     <Resource tag="MODIFIED">Сообщение было отредактировано!</Resource>
     <Resource tag="NUMBERREPORTED">Сообщённое число случаев :</Resource>
     <Resource tag="ORIGINALMESSAGE">Текст сообщения:</Resource>
     <Resource tag="REPLYTO">Послать личное сообщение пользователю </Resource>
+    <Resource tag="REPORTED">Reported posts</Resource>
     <Resource tag="REPORTEDBY">Пожаловались:</Resource>
     <Resource tag="RESOLVE">Урегулировать копии сообщение</Resource>
     <Resource tag="RESOLVED">Пометить как урегулированные</Resource>

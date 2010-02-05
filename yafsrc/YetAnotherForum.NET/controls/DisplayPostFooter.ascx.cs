@@ -94,8 +94,9 @@
     {
       if (!PageContext.BoardSettings.AllowGuestToReportPost && PageContext.CurrentUserData.IsGuest)
       {
-        this.ReportButtons.Visible = false;
+        this.ReportButtons.Visible = false;      
       }
+ 
     }
 
     /// <summary>
@@ -106,7 +107,8 @@
     /// </param>
     protected override void OnInit(EventArgs e)
     {
-      this.ReportPostLinkButton.Command += new CommandEventHandler(Report_Command);      
+      this.ReportPostLinkButton.Command += new CommandEventHandler(Report_Command);
+      this.MessageHistoryLBtn.Command += new CommandEventHandler(History_Command); 
       PreRender += new EventHandler(DisplayPostFooter_PreRender);
       base.OnInit(e);
     }
@@ -179,18 +181,24 @@
         if (Convert.ToDateTime(this.DataRow["Edited"]) > Convert.ToDateTime(this.DataRow["Posted"]).AddSeconds(this.PageContext.BoardSettings.EditTimeOut))
         {
           string editedText = YafServices.DateTime.FormatDateTimeShort(Convert.ToDateTime(this.DataRow["Edited"]));
-
+          // vzrus: Guests doesn't have right to view change history
+        
+              MessageHistoryLBtn.Visible = true;
+         
           if (HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["EditReason"])) != string.Empty)
           {
             // reason was specified
-            editedText += String.Format(
-              " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)this.DataRow["EditReason"], true));
+            /*
+              " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)this.DataRow["EditReason"], true)); */
+            MessageHistoryLBtn.ToolTip = String.Format(
+                "{0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)this.DataRow["EditReason"], true));
           }
           else
           {
             // reason was not specified
-            editedText += String.Format(
-              " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA"));
+           /* editedText += String.Format(
+              " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA")); */
+          MessageHistoryLBtn.ToolTip = String.Format("{0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA"));
           }
 
           // message has been edited
@@ -199,7 +207,8 @@
                                 ? this.PageContext.Localization.GetText("EDITED_BY_MOD")
                                 : this.PageContext.Localization.GetText("EDITED_BY_USER");
 
-          sb.AppendFormat(@"| <span class=""editedinfo"" title=""{2}"">{0} {1}</span>", this.PageContext.Localization.GetText("EDITED"), whoChanged, editedText);
+         /* sb.AppendFormat(@"| <span class=""editedinfo"" title=""{2}"">{0} {1}</span>", this.PageContext.Localization.GetText("EDITED"), whoChanged, editedText); */
+          this.MessageHistoryLBtn.Text = string.Format(@"| <span class=""editedinfo"" title=""{2}"">{0} {1}</span>", this.PageContext.Localization.GetText("EDITED"), whoChanged, editedText);
         }
       }
       else
@@ -255,6 +264,19 @@
       }
     }
 
+    protected void History_Command(object sender, CommandEventArgs e)
+    {
+
+        if (e.CommandName == "ShowHistory")
+        {
+
+            HttpContext.Current.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "m={0}", e.CommandArgument.ToString()));
+                 
+            // PageContext.AddLoadMessage(PageContext.Localization.GetText("REPORTEDFEEDBACK"));
+        }
+    }
+
+
     /// <summary>
     /// The setup theme button with link.
     /// </summary>
@@ -285,6 +307,6 @@
       {
         thisButton.NavigateUrl = string.Empty;
       }
-    }
+    }  
   }
 }

@@ -683,6 +683,18 @@
     <Resource tag="TITLE">Leden</Resource>
     <Resource tag="USERNAME">Gebruikersnaam</Resource>
   </page>
+  <page name="MESSAGEHISTORY">
+    <Resource tag="CURRENTMESSAGE">Current edition</Resource>
+    <Resource tag="EDITED">Edited:</Resource>
+    <Resource tag="EDITEDBY">Edited by:</Resource>
+    <Resource tag="EDITEREASON">Edit reason:</Resource>
+    <Resource tag="GOMODERATE">Continue moderate</Resource>
+    <Resource tag="HISTORYSTART">History editions</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original edition</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="TITLE">Message History</Resource>
+    <Resource tag="TOMESSAGE">Go to message</Resource>
+  </page>
   <page name="MOD_FORUMUSER">
     <Resource tag="ACCESSMASK">Toegangsmasker:</Resource>
     <Resource tag="CANCEL">Annuleren</Resource>
@@ -714,8 +726,6 @@
     <Resource tag="CATEGORY">Categorie</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="REPORTED">Als kwetsend gerapporteerd</Resource>
-    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
-    <Resource tag="REPORTEDSPAM">Als spam gerapporteerd</Resource>
     <Resource tag="TITLE">Moderatie</Resource>
     <Resource tag="UNAPPROVED">Niet-goedgekeurde berichten</Resource>
   </page>
@@ -726,10 +736,12 @@
     <Resource tag="COPYOVER">Berichttekst bijwerken</Resource>
     <Resource tag="DELETE">Bericht verwijderen</Resource>
     <Resource tag="DELETED">Bericht verwijderd.</Resource>
+    <Resource tag="HISTORY">History</Resource>
     <Resource tag="MODIFIED">Bericht is gewijzigd!</Resource>
     <Resource tag="NUMBERREPORTED">Aantal keer gerapporteerd:</Resource>
     <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">Reply by private message to</Resource>
+    <Resource tag="REPORTED">Reported posts</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Kopieën post oplossen</Resource>
     <Resource tag="RESOLVED">Markeer als opgeschoond</Resource>

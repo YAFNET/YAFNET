@@ -48,7 +48,7 @@ namespace YAF.Pages
     /// <summary>
     /// The _forum editor.
     /// </summary>
-    protected BaseForumEditor _forumEditor;
+    protected BaseForumEditor _forumEditor;    
 
     /// <summary>
     /// The _owner user id.
@@ -59,6 +59,11 @@ namespace YAF.Pages
     /// The _ux no edit subject.
     /// </summary>
     protected Label _uxNoEditSubject;
+
+    /// <summary>
+    /// The original message.
+    /// </summary>
+    protected string _originalMessage;
 
     #endregion
 
@@ -85,7 +90,8 @@ namespace YAF.Pages
       {
         return this.PageContext.QueryIDs["m"];
       }
-    }
+    }    
+
 
     /// <summary>
     /// Gets QuotedTopicID.
@@ -109,6 +115,20 @@ namespace YAF.Pages
       }
     }
 
+    /// <summary>
+    /// Gets or sets OriginalMessage.
+    /// </summary>
+    protected string OriginalMessage
+    {
+        get
+        {
+            return _originalMessage;
+        }
+        set
+        {
+            _originalMessage = value;
+        }
+    }
     #endregion
 
     #region Methods
@@ -345,7 +365,7 @@ namespace YAF.Pages
       if (this.QuotedTopicID != null)
       {
         currentRow = DBHelper.GetFirstRowOrInvalid(DB.message_list(this.QuotedTopicID));
-
+        this.OriginalMessage = currentRow["Message"].ToString();
         if (Convert.ToInt32(currentRow["TopicID"]) != this.PageContext.PageTopicID)
         {
           YafBuildLink.AccessDenied();
@@ -359,7 +379,7 @@ namespace YAF.Pages
       else if (this.EditTopicID != null)
       {
         currentRow = DBHelper.GetFirstRowOrInvalid(DB.message_list(this.EditTopicID));
-
+        this.OriginalMessage = currentRow["Message"].ToString();
         this._ownerUserId = Convert.ToInt32(currentRow["UserId"]);
 
         if (!this.CanEditPostCheck(currentRow))
@@ -391,7 +411,9 @@ namespace YAF.Pages
       this.PollExpire.Attributes.Add("style", "width:50px");
       this.LocalizedLblMaxNumberOfPost.Param0 = YafContext.Current.BoardSettings.MaxPostSize.ToString();
 
-      if (!this.IsPostBack)
+      
+      
+        if (!this.IsPostBack)
       {
         // helper bool -- true if this is a completely new topic...
         bool isNewTopic = (this.TopicID == null) && (this.QuotedTopicID == null) && (this.EditTopicID == null);
@@ -463,6 +485,7 @@ namespace YAF.Pages
         {
           var messageFlags = new MessageFlags(currentRow["Flags"]);
           string message = currentRow["Message"].ToString();
+          this.OriginalMessage = currentRow["Message"].ToString();
 
           if (this.QuotedTopicID != null)
           {
@@ -487,7 +510,7 @@ namespace YAF.Pages
         if (this.User != null)
         {
           this.FromRow.Visible = false;
-        }
+        }          
       }
     }
 
@@ -614,8 +637,8 @@ namespace YAF.Pages
         subjectSave, 
         messageFlags.BitValue, 
         this.HtmlEncode(this.ReasonEditor.Text), 
-        isModeratorChanged, 
-        this.PageContext.IsAdmin || this.PageContext.IsModerator);
+        isModeratorChanged,
+        this.PageContext.IsAdmin || this.PageContext.IsModerator, this.OriginalMessage, PageContext.PageUserID);
 
       // update poll
       if (!string.IsNullOrEmpty(this.RemovePoll.CommandArgument) || this.PollRow1.Visible)

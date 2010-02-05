@@ -681,6 +681,18 @@
     <Resource tag="TITLE">Medlemmer</Resource>
     <Resource tag="USERNAME">Brugernavn</Resource>
   </page>
+  <page name="MESSAGEHISTORY">
+    <Resource tag="CURRENTMESSAGE">Current edition</Resource>
+    <Resource tag="EDITED">Edited:</Resource>
+    <Resource tag="EDITEDBY">Edited by:</Resource>
+    <Resource tag="EDITEREASON">Edit reason:</Resource>
+    <Resource tag="GOMODERATE">Continue moderate</Resource>
+    <Resource tag="HISTORYSTART">History editions</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original edition</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="TITLE">Message History</Resource>
+    <Resource tag="TOMESSAGE">Go to message</Resource>
+  </page>
   <page name="MOD_FORUMUSER">
     <Resource tag="ACCESSMASK">Adgangsmaske:</Resource>
     <Resource tag="CANCEL">Annuller</Resource>
@@ -712,8 +724,6 @@
     <Resource tag="CATEGORY">Kategori</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="REPORTED">Reported as Abuse Posts</Resource>
-    <Resource tag="REPORTEDABUSE">Reported as Abuse Posts</Resource>
-    <Resource tag="REPORTEDSPAM">Reported as Spam Posts</Resource>
     <Resource tag="TITLE">Moderer</Resource>
     <Resource tag="UNAPPROVED">Ikke godkendte indlæg</Resource>
   </page>
@@ -724,10 +734,12 @@
     <Resource tag="COPYOVER">Update message text</Resource>
     <Resource tag="DELETE">Slet Indlæg</Resource>
     <Resource tag="DELETED">Indlæg slettet.</Resource>
+    <Resource tag="HISTORY">History</Resource>
     <Resource tag="MODIFIED">Post has been changed!</Resource>
     <Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
     <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">Reply by private message to</Resource>
+    <Resource tag="REPORTED">Reported posts</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Resolve Post Copies</Resource>
     <Resource tag="RESOLVED">Mark as resolved</Resource>

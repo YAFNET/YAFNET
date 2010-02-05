@@ -67,7 +67,12 @@ namespace YAF.Classes
     /// <summary>
     /// The movemessage.
     /// </summary>
-    movemessage, 
+    movemessage,
+
+    /// <summary>
+    /// The messagehistory page displays a user message changes.
+    /// </summary>
+    messagehistory, 
 
     /// <summary>
     /// The mod_forumuser.

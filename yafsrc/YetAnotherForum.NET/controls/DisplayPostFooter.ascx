@@ -27,8 +27,10 @@
 	</div>
 	<div class="rightItem postInfoRight">		
 		<span id="ReportButtons" runat="server">	
-			<asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>' runat="server" Visible="true"></asp:LinkButton>
-		</span>
-		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>
+			<asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>' Text="Report" runat="server" Visible="true"></asp:LinkButton>			
+		</span>					
+		<asp:LinkButton ID="MessageHistoryLBtn" CommandName="ShowHistory" CommandArgument='<%# DataRow["MessageID"] %>' Text="Message History" Visible="false" runat="server"></asp:LinkButton>	
+		
+		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>		
 	</div>
 </div>

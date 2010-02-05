@@ -647,6 +647,18 @@
     <Resource tag="TITLE">اعضاء</Resource>
     <Resource tag="USERNAME">نام کاربری</Resource>
   </page>
+  <page name="MESSAGEHISTORY">
+    <Resource tag="CURRENTMESSAGE">Current edition</Resource>
+    <Resource tag="EDITED">Edited:</Resource>
+    <Resource tag="EDITEDBY">Edited by:</Resource>
+    <Resource tag="EDITEREASON">Edit reason:</Resource>
+    <Resource tag="GOMODERATE">Continue moderate</Resource>
+    <Resource tag="HISTORYSTART">History editions</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original edition</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="TITLE">Message History</Resource>
+    <Resource tag="TOMESSAGE">Go to message</Resource>
+  </page>
   <page name="MOD_FORUMUSER">
     <Resource tag="ACCESSMASK">وضعیت دسترسی:</Resource>
     <Resource tag="CANCEL">انصراف</Resource>
@@ -690,10 +702,12 @@
     <Resource tag="COPYOVER">بروزرسانی متن پیغام</Resource>
     <Resource tag="DELETE">حذف ارسال</Resource>
     <Resource tag="DELETED">ارسال حذف شد.</Resource>
+    <Resource tag="HISTORY">History</Resource>
     <Resource tag="MODIFIED">ارسال تغییر پیدا کرد!</Resource>
     <Resource tag="NUMBERREPORTED">تعداد دفعات گزارش:</Resource>
     <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">پاسخ از طریق پیام خصوصی به:</Resource>
+    <Resource tag="REPORTED">Reported posts</Resource>
     <Resource tag="REPORTEDBY">گزارش شده توسط:</Resource>
     <Resource tag="RESOLVE">بررسی کپی های ارسال</Resource>
     <Resource tag="RESOLVED">بررسی شد</Resource>

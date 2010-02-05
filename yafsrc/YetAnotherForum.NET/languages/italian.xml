@@ -647,6 +647,18 @@
     <Resource tag="TITLE">Membri</Resource>
     <Resource tag="USERNAME">Nome Utente</Resource>
   </page>
+  <page name="MESSAGEHISTORY">
+    <Resource tag="CURRENTMESSAGE">Current edition</Resource>
+    <Resource tag="EDITED">Edited:</Resource>
+    <Resource tag="EDITEDBY">Edited by:</Resource>
+    <Resource tag="EDITEREASON">Edit reason:</Resource>
+    <Resource tag="GOMODERATE">Continue moderate</Resource>
+    <Resource tag="HISTORYSTART">History editions</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original edition</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="TITLE">Message History</Resource>
+    <Resource tag="TOMESSAGE">Go to message</Resource>
+  </page>
   <page name="MOD_FORUMUSER">
     <Resource tag="ACCESSMASK">Maschera Accesso:</Resource>
     <Resource tag="CANCEL">Annulla</Resource>
@@ -690,10 +702,12 @@
     <Resource tag="COPYOVER">Aggiorna il testo del messaggiot</Resource>
     <Resource tag="DELETE">Cancella Messaggio</Resource>
     <Resource tag="DELETED">Messaggio Cancellato.</Resource>
+    <Resource tag="HISTORY">History</Resource>
     <Resource tag="MODIFIED">Il Post e` stato cambiato!</Resource>
     <Resource tag="NUMBERREPORTED">Numero di volte riportato:</Resource>
     <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">Reply by private message to</Resource>
+    <Resource tag="REPORTED">Reported posts</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Resolvi Post Copies</Resource>
     <Resource tag="RESOLVED">Contrassegna come risolto</Resource>

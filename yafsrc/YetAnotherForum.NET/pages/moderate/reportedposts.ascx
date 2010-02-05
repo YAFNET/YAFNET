@@ -81,7 +81,10 @@
 					CommandName="Resolved" CommandArgument='<%# Eval("MessageID") %>' />
 					
 			    <YAF:ThemeButton ID="ViewBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="VIEW" 
-					CommandName="View" CommandArgument='<%# Eval("MessageID") %>' />		
+					CommandName="View" CommandArgument='<%# Eval("MessageID") %>' />
+					
+				<YAF:ThemeButton ID="ViewHistoryBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="HISTORY" 
+					CommandName="ViewHistory" CommandArgument='<%# PageContext.PageForumID + "," + Eval("MessageID") %>' />		
 			</td>
 		</tr>
 	</ItemTemplate>

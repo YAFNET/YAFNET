@@ -4212,10 +4212,13 @@ namespace YAF.Classes.Data
     /// <param name="isModeratorChanged">
     /// The is moderator changed.
     /// </param>
+    /// <param name="editedBy">
+    /// UserId of who edited the message.
+    /// </param>
     public static void message_update(
-      object messageID, object priority, object message, object subject, object flags, object reasonOfEdit, object isModeratorChanged)
+      object messageID, object priority, object message, object subject, object flags, object reasonOfEdit, object isModeratorChanged, object origMessage, object editedBy)
     {
-      message_update(messageID, priority, message, subject, flags, reasonOfEdit, isModeratorChanged, null);
+        message_update(messageID, priority, message, subject, flags, reasonOfEdit, isModeratorChanged, null, origMessage, editedBy);
     }
 
     /// <summary>
@@ -4245,8 +4248,20 @@ namespace YAF.Classes.Data
     /// <param name="overrideApproval">
     /// The override approval.
     /// </param>
+    /// <param name="originalMessage">
+    /// The original Message.
+    /// </param> 
+    /// <param name="editedBy">
+    /// UserId of who edited the message.
+    /// </param>
     public static void message_update(
-      object messageID, object priority, object message, object subject, object flags, object reasonOfEdit, object isModeratorChanged, object overrideApproval)
+      object messageID, object priority, 
+        object message, object subject, 
+        object flags, object reasonOfEdit, 
+        object isModeratorChanged, 
+        object overrideApproval, 
+        object originalMessage,
+        object editedBy)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("message_update"))
       {
@@ -4257,8 +4272,10 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("Subject", subject);
         cmd.Parameters.AddWithValue("Flags", flags);
         cmd.Parameters.AddWithValue("Reason", reasonOfEdit);
+        cmd.Parameters.AddWithValue("EditedBy", editedBy);          
         cmd.Parameters.AddWithValue("IsModeratorChanged", isModeratorChanged);
         cmd.Parameters.AddWithValue("OverrideApproval", overrideApproval);
+        cmd.Parameters.AddWithValue("OriginalMessage", originalMessage);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }
@@ -4553,6 +4570,34 @@ namespace YAF.Classes.Data
         return paramOutput.Value.ToString();
       }
     }
+
+    /// <summary>
+    /// The messagehistory_list.
+    /// </summary>
+    /// <param name="messageID">
+    /// The Message ID.
+    /// </param>
+    /// <param name="daysToClean">
+    /// Days to clean.
+    /// </param>
+    /// <param name="showAll">
+    /// The Show All.
+    /// </param>
+    /// <returns>
+    /// List of all message changes. 
+    /// </returns>
+    public static DataTable messagehistory_list(int messageID, int daysToClean, object showAll)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("messagehistory_list"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("MessageID", messageID);
+            cmd.Parameters.AddWithValue("DaysToClean", daysToClean);
+            cmd.Parameters.AddWithValue("ShowAll", showAll);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
 
     /// <summary>
     /// Returns message data based on user access rights

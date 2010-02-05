@@ -666,6 +666,18 @@
     <Resource tag="TITLE">Miembros</Resource>
     <Resource tag="USERNAME">Usuario</Resource>
   </page>
+  <page name="MESSAGEHISTORY">
+    <Resource tag="CURRENTMESSAGE">Current edition</Resource>
+    <Resource tag="EDITED">Edited:</Resource>
+    <Resource tag="EDITEDBY">Edited by:</Resource>
+    <Resource tag="EDITEREASON">Edit reason:</Resource>
+    <Resource tag="GOMODERATE">Continue moderate</Resource>
+    <Resource tag="HISTORYSTART">History editions</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original edition</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="TITLE">Message History</Resource>
+    <Resource tag="TOMESSAGE">Go to message</Resource>
+  </page>
   <page name="MOD_FORUMUSER">
     <Resource tag="ACCESSMASK">mascara de acceso:</Resource>
     <Resource tag="CANCEL">Cancelar</Resource>
@@ -709,10 +721,12 @@
     <Resource tag="COPYOVER">Actualizar texto del mensaje</Resource>
     <Resource tag="DELETE">Eliminar mensaje</Resource>
     <Resource tag="DELETED">Mensaje eliminado.</Resource>
+    <Resource tag="HISTORY">History</Resource>
     <Resource tag="MODIFIED">Mensaje cambiado!</Resource>
     <Resource tag="NUMBERREPORTED">Numero de veces reportado :</Resource>
     <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">Reply by private message to</Resource>
+    <Resource tag="REPORTED">Reported posts</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Resolver copias de mensaje</Resource>
     <Resource tag="RESOLVED">Marcar como resuelto</Resource>

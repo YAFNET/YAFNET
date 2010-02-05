@@ -1009,6 +1009,11 @@ GO
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_getalbumsdata]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_getalbumsdata]
 GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}messagehistory_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}messagehistory_list]
+GO
+
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
 
@@ -2811,6 +2816,7 @@ begin
 		delete [{databaseOwner}].[{objectQualifier}MessageReportedAudit] where MessageID = @MessageID
 		--delete thanks related to this message
 		delete [{databaseOwner}].[{objectQualifier}Thanks] where MessageID = @MessageID
+		delete [{databaseOwner}].[{objectQualifier}MessageHistory] where MessageID = @MessageID
 		delete [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID
 		
 	end
@@ -2884,8 +2890,11 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_secdata](@MessageID int, @UserID int) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_secdata](@MessageID int, @UserID int ) AS
 BEGIN
+-- BoardID=@BoardID and
+if (@UserID is null)
+select top 1 @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where  (Flags & 4)<>0 ORDER BY Joined DESC
 SELECT
 		m.MessageID,
 		m.UserID,
@@ -2908,12 +2917,12 @@ SELECT
 		t.PollID,
         m.IP
 	FROM		
-		[{databaseOwner}].[{objectQualifier}Message] m
-        left join  [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
-        left join  [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
-		left join [{databaseOwner}].[{objectQualifier}vaccess] x on x.UserID=u.UserID and x.ForumID=IsNull(t.ForumID,0)
+		[{databaseOwner}].[{objectQualifier}Topic] t 
+        join  [{databaseOwner}].[{objectQualifier}Message] m ON m.TopicID = t.TopicID
+        join  [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
+		left join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID=IsNull(t.ForumID,0)
 	WHERE
-		m.MessageID = @MessageID AND u.UserID = @UserID AND x.ReadAccess <> 0
+		m.MessageID = @MessageID AND x.UserID=@UserID  AND x.ReadAccess > 0
 END
 GO
 
@@ -3021,13 +3030,13 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_save](
 	@TopicID		int,
 	@UserID			int,
-	@Message		ntext,
+	@Message		ntext,	
 	@UserName		nvarchar(50)=null,
 	@IP				nvarchar(15),
 	@Posted			datetime=null,
 	@ReplyTo		int,
 	@BlogPostID		nvarchar(50) = null,
-	@Flags			int,
+	@Flags			int,	
 	@MessageID		int output
 )
 AS
@@ -3122,7 +3131,17 @@ end
 
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext, @Reason as nvarchar(100), @IsModeratorChanged bit, @OverrideApproval bit = null) as
+CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](
+@MessageID int,
+@Priority int,
+@Subject nvarchar(100),
+@Flags int, 
+@Message ntext, 
+@Reason nvarchar(100), 
+@EditedBy int,
+@IsModeratorChanged bit, 
+@OverrideApproval bit = null,
+@OriginalMessage ntext) as
 begin
 		declare @TopicID	int
 	declare	@ForumFlags	int
@@ -3140,10 +3159,27 @@ begin
 		a.MessageID = @MessageID
 
 	if (@OverrideApproval = 1 OR (@ForumFlags & 8)=0) set @Flags = @Flags | 16
-
+    
+	
+	-- insert current message variant - use OriginalMessage in future 	
+	insert into [{databaseOwner}].[{objectQualifier}MessageHistory]
+	(MessageID,		
+		Message,
+		IP,
+		Edited,
+		EditedBy,		
+		EditReason,
+		IsModeratorChanged,
+		Flags)
+	select 
+	MessageID, OriginalMessage=@OriginalMessage, IP , IsNull(Edited,Posted), IsNull(EditedBy,UserID), EditReason, IsModeratorChanged, Flags
+	from [{databaseOwner}].[{objectQualifier}Message] where
+		MessageID = @MessageID
+	
 	update [{databaseOwner}].[{objectQualifier}Message] set
 		Message = @Message,
 		Edited = getdate(),
+		EditedBy = @EditedBy,
 		Flags = @Flags,
 		IsModeratorChanged  = @IsModeratorChanged,
                 EditReason = @Reason
@@ -7366,3 +7402,33 @@ as
 END
 GO    
    
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}messagehistory_list] (@MessageID INT, @DaysToClean INT, @ShowAll BIT = null )
+
+as 
+    BEGIN    
+    -- delete all message variants older then DaysToClean days Flags reserved for possible pms
+   
+    delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
+     where DATEDIFF(day,Edited,getdate()) > @DaysToClean
+    
+    -- we don't return Message text and ip if it's simply a user
+       
+     IF @ShowAll > 0               
+     SELECT mh.*, m.UserID, m.UserName, t.ForumID, t.TopicID, t.Topic, IsNull(t.UserName, u.Name) as Name, m.Posted
+     FROM [{databaseOwner}].[{objectQualifier}MessageHistory] mh
+     LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
+     LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
+     LEFT JOIN [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
+     WHERE mh.MessageID = @MessageID     
+     ELSE 
+     SELECT   
+     MessageID,	
+	 Edited,			
+	 EditReason,
+	 EditedBy,
+	 IsModeratorChanged,
+	 Flags
+	 FROM [{databaseOwner}].[{objectQualifier}MessageHistory]
+     WHERE MessageID = @MessageID    
+    END
+GO

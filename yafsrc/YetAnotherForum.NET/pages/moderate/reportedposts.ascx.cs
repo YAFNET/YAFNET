@@ -149,11 +149,17 @@ namespace YAF.Pages.moderate
           // update message text
           DB.message_reportcopyover(e.CommandArgument);
           break;
+        case "viewhistory":
+
+              // go to history page
+          string[] ff = e.CommandArgument.ToString().Split(',');
+          YafContext.HttpContext.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "f={0}&m={1}", ff[0], ff[1]));
+          break;
         case "resolved":
 
           // mark message as resolved
-          DB.message_reportresolve(7, e.CommandArgument, PageContext.PageUserID);
-
+          DB.message_reportresolve(7, e.CommandArgument, PageContext.PageUserID);          
+       
           // re-bind data
           BindData();
 

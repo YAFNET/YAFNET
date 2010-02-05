@@ -1039,6 +1039,10 @@ if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Thank
 	alter table [{databaseOwner}].[{objectQualifier}Thanks] add constraint [FK_{objectQualifier}Thanks_{objectQualifier}User] foreign key (ThanksFromUserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
 go
 
+if not exists(select 1 from dbo.sysobjects where name=N'FK_{objectQualifier}MesageHistory_MessageID' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+    ALTER TABLE [{databaseOwner}].[{objectQualifier}MessageHistory] ADD CONSTRAINT [FK_{objectQualifier}MesageHistory_MessageID] FOREIGN KEY([MessageID]) REFERENCES [{databaseOwner}].[{objectQualifier}Message] ([MessageID]) on delete cascade
+GO
+
 /* Default Constraints */
 if exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}Message_Flags' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}Message]'))
 	alter table [{databaseOwner}].[{objectQualifier}Message] drop constraint [DF_{objectQualifier}Message_Flags]
@@ -1128,4 +1132,6 @@ CREATE UNIQUE CLUSTERED INDEX [{objectQualifier}vaccess_group_UserForum_PK] ON [
 	[GroupID] ASC
 ) WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
+
+
 
