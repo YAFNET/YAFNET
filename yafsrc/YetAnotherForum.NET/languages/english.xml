@@ -715,7 +715,7 @@
     <Resource tag="NEWPOSTOPTIONS">Options:</Resource>
     <Resource tag="NEWTOPIC">Post New Topic</Resource>
     <Resource tag="NORMAL">Normal</Resource>
-    <Resource tag="PERSISTENCY">Persistent:</Resource>
+    <Resource tag="PERSISTENCY">Persistent</Resource>
     <Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
     <Resource tag="POLL_EXPIRE">Run Poll For:</Resource>
     <Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank to never expire ]</Resource>

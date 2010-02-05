@@ -403,7 +403,6 @@ namespace YAF.Pages
 
         this.EditReasonRow.Visible = false;
 
-        this.PersistencyRow.Visible = this.PageContext.ForumPriorityAccess;
         this.PriorityRow.Visible = this.PageContext.ForumPriorityAccess;
         this.CreatePollRow.Visible = !this.HasPoll(currentRow) && this.CanHavePoll(currentRow) &&
                                      this.PageContext.ForumPollAccess;
@@ -418,19 +417,20 @@ namespace YAF.Pages
         // Show post to blog option only to a new post
         this.BlogRow.Visible = this.PageContext.BoardSettings.AllowPostToBlog && isNewTopic && !this.PageContext.IsGuest;
 
-        // handle new topic options...
-        this.NewTopicOptionsRow.Visible = isNewTopic && !this.PageContext.IsGuest;
-        if (isNewTopic && this.PageContext.ForumUploadAccess)
-        {
-          this.TopicAttach.Visible = true;
-          this.TopicAttachLabel.Visible = true;
-        }
+        // update options...
+        this.PostOptions1.Visible = !this.PageContext.IsGuest;
+        this.PostOptions1.PersistantOptionVisible = this.PageContext.ForumPriorityAccess;
+        this.PostOptions1.AttachOptionVisible = this.PageContext.ForumUploadAccess;
+        this.PostOptions1.WatchOptionVisible = !this.PageContext.IsGuest;
 
-        // If Autowatch Topics is enabled for this user, check the watch topics checkbox.
-        if (isNewTopic && !this.PageContext.IsGuest)
+        if (!this.PageContext.IsGuest && this.PageContext.PageTopicID == 0)
         {
-          var userData = new CombinedUserDataHelper(this.PageContext.PageUserID);
-          this.TopicWatch.Checked = userData.AutoWatchTopics;
+          this.PostOptions1.WatchChecked = new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
+        }
+        else if (!this.PageContext.IsGuest && this.PageContext.PageTopicID > 0)
+        {
+          this.PostOptions1.WatchChecked = this.IsTopicWatched(
+            this.PageContext.PageUserID, this.PageContext.PageTopicID);
         }
 
         if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
@@ -546,7 +546,7 @@ namespace YAF.Pages
       {
         CreateMail.WatchEmail(nMessageID);
 
-        if (this.PageContext.ForumUploadAccess && this.TopicAttach.Checked)
+        if (this.PageContext.ForumUploadAccess && this.PostOptions1.AttachChecked)
         {
           // redirect to the attachment page...
           YafBuildLink.Redirect(ForumPages.attachments, "m={0}", nMessageID);
@@ -603,7 +603,7 @@ namespace YAF.Pages
         {
           IsHtml = this._forumEditor.UsesHTML,
           IsBBCode = this._forumEditor.UsesBBCode,
-          IsPersistent = this.Persistency.Checked
+          IsPersistent = this.PostOptions1.PersistantChecked
         };
 
       bool isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
@@ -650,14 +650,14 @@ namespace YAF.Pages
       }
 
       // make message flags
-      var tFlags = new MessageFlags();
-
-      tFlags.IsHtml = this._forumEditor.UsesHTML;
-      tFlags.IsBBCode = this._forumEditor.UsesBBCode;
-      tFlags.IsPersistent = this.Persistency.Checked;
-
-      // Bypass Approval if Admin or Moderator.
-      tFlags.IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator;
+      var tFlags = new MessageFlags
+        {
+          IsHtml = this._forumEditor.UsesHTML,
+          IsBBCode = this._forumEditor.UsesBBCode,
+          IsPersistent = this.PostOptions1.PersistantChecked,
+          /* Bypass Approval if Admin or Moderator.*/
+          IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator
+        };
 
       string blogPostID = this.HandlePostToBlog(this._forumEditor.Text, this.Subject.Text);
 
@@ -676,11 +676,7 @@ namespace YAF.Pages
         tFlags.BitValue, 
         ref nMessageID);
 
-      if (this.TopicWatch.Checked)
-      {
-        // subscribe to this topic...
-        DB.watchtopic_add(this.PageContext.PageUserID, topicID);
-      }
+      this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
       return nMessageID;
     }
@@ -703,14 +699,14 @@ namespace YAF.Pages
       object replyTo = (this.QuotedTopicID != null) ? this.QuotedTopicID.Value : -1;
 
       // make message flags
-      var tFlags = new MessageFlags();
-
-      tFlags.IsHtml = this._forumEditor.UsesHTML;
-      tFlags.IsBBCode = this._forumEditor.UsesBBCode;
-      tFlags.IsPersistent = this.Persistency.Checked;
-
-      // Bypass Approval if Admin or Moderator.
-      tFlags.IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator;
+      var tFlags = new MessageFlags
+        {
+          IsHtml = this._forumEditor.UsesHTML,
+          IsBBCode = this._forumEditor.UsesBBCode,
+          IsPersistent = this.PostOptions1.PersistantChecked,
+          /* Bypass Approval if Admin or Moderator.*/
+          IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator
+        };
 
       DB.message_save(
         this.TopicID.Value, 
@@ -723,21 +719,61 @@ namespace YAF.Pages
         tFlags.BitValue, 
         ref nMessageID);
 
-      // Check to see if the user has enabled "auto watch topic" option in his/her profile.
-      var userData = new CombinedUserDataHelper(this.PageContext.PageUserID);
-      if (userData.AutoWatchTopics)
+      this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+
+      return nMessageID;
+    }
+
+    /// <summary>
+    /// Updates Watch Topic based on controls/settings for user...
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="topicId"></param>
+    private void UpdateWatchTopic(int userId, int topicId)
+    {
+      bool topicWatched = this.IsTopicWatched(userId, topicId);
+
+      if (topicWatched && !this.PostOptions1.WatchChecked)
       {
-        using (DataTable dt = DB.watchtopic_check(this.PageContext.PageUserID, this.PageContext.PageTopicID))
+        // unsubscribe...
+        DB.watchtopic_delete(DB.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int>("WatchTopicID", 0));
+      }
+      else if (!topicWatched && this.PostOptions1.WatchChecked)
+      {
+        // subscribe to this topic...
+        this.WatchTopic(userId, topicId);
+      }
+    }
+
+    /// <summary>
+    /// Checks if this topic is watched, if not, adds it.
+    /// </summary>
+    /// <param name="userId"></param>
+    private void WatchTopic(int userId, int topicId)
+    {
+      if (!this.IsTopicWatched(userId, topicId))
+      {
+          // subscribe to this forum
+        DB.watchtopic_add(userId, topicId);
+      }
+    }
+
+    /// <summary>
+    /// Returns true if the topic is set to watch for userId
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <returns></returns>
+    private bool IsTopicWatched(int userId, int topicId)
+    {
+      using (DataTable dt = DB.watchtopic_check(userId, topicId))
+      {
+        if (dt.Rows.Count > 0)
         {
-          if (dt.Rows.Count == 0)
-          {
-            // subscribe to this forum
-            DB.watchtopic_add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
-          }
+          return true;
         }
       }
 
-      return nMessageID;
+      return false;
     }
 
     /// <summary>
@@ -1028,7 +1064,7 @@ namespace YAF.Pages
       this.Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
       this.EditReasonRow.Visible = true;
       this.ReasonEditor.Text = this.Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
-      this.Persistency.Checked = messageFlags.IsPersistent;
+      this.PostOptions1.PersistantChecked = messageFlags.IsPersistent;
     }
 
     /// <summary>
@@ -1129,12 +1165,8 @@ namespace YAF.Pages
       // show attach file option if its a reply...
       if (this.PageContext.ForumUploadAccess)
       {
-        this.NewTopicOptionsRow.Visible = true;
-        this.TopicAttach.Visible = true;
-        this.TopicAttachLabel.Visible = true;
-        this.TopicWatch.Visible = false;
-        this.TopicWatchLabel.Visible = false;
-        this.TopicAttachBr.Visible = false;
+        this.PostOptions1.Visible = true;
+        this.PostOptions1.AttachOptionVisible = true;
       }
 
       // show the last posts AJAX frame...

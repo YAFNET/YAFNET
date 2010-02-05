@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Classes.Core" %>
 <%@ Register TagPrefix="YAF" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <table align="center" cellpadding="4" cellspacing="1" class="content" width="100%">
 	<tr>
@@ -50,16 +51,6 @@
 		</td>
 		<td class="post" width="80%">
 			<asp:DropDownList ID="Priority" runat="server" />
-		</td>
-	</tr>
-	<tr id="PersistencyRow" runat="server">
-		<td class="postformheader" width="20%">
-			<YAF:LocalizedLabel runat="server" LocalizedTag="PERSISTENCY" />
-		</td>
-		<td class="post" width="80%">
-			<asp:CheckBox ID="Persistency" runat="server" />
-			(<YAF:LocalizedLabel runat="server" LocalizedTag="PERSISTENCY_INFO" />
-			)
 		</td>
 	</tr>
 	<tr id="CreatePollRow" runat="server">
@@ -212,19 +203,10 @@
 			<!-- editor goes here -->
 		</td>
 	</tr>
-	<tr id="NewTopicOptionsRow" runat="server" visible="false">
-		<td class="postformheader" valign="top">
-			<YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" />
-		</td>
-		<td class="post">
-			<asp:CheckBox ID="TopicWatch" runat="server" />
-			<YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" LocalizedTag="TOPICWATCH" />
-			<br id="TopicAttachBr" runat="server" />
-			<asp:CheckBox ID="TopicAttach" runat="server" Visible="false" />
-			<YAF:LocalizedLabel ID="TopicAttachLabel" runat="server" LocalizedTag="TOPICATTACH"
-				Visible="false" />
-		</td>
-	</tr>
+	
+    <YAF:PostOptions id="PostOptions1" runat="server">
+    </YAF:PostOptions>
+
 	<tr id="tr_captcha1" runat="server" visible="false">
 		<td class="postformheader" valign="top">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="Captcha_Image" />
