@@ -150,8 +150,8 @@ namespace YAF.Controls
           writer.Write(@"<tr><td class=""header2"">");
           writer.Write(@"<span class=""YafReported_Complainer"">{5}</span><a class=""YafReported_Link"" href=""{3}""> {2}{4} </a>", 
             i, 
-            Convert.ToInt32(reporter["UserID"]), 
-            reporter["UserName"].ToString(), 
+            Convert.ToInt32(reporter["UserID"]),
+            string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(reporter["UserID"]))) ? reporter["UserName"].ToString() : UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(reporter["UserID"])), 
             YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(reporter["UserID"])), 
             howMany, 
             PageContext.Localization.GetText("REPORTEDBY"));
