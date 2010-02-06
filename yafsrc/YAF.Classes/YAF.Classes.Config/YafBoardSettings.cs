@@ -1015,22 +1015,6 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether to show guests in Active List.
-    /// </summary>
-    public bool ShowGuestsInActiveList
-    {
-        get
-        {
-            return this._reg.GetValue<bool>("ShowGuestsInActiveList", false);
-        }
-
-        set
-        {
-            this._reg.SetValue<bool>("ShowGuestsInActiveList", value);
-        }
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether BlankLinks.
     /// </summary>
     public bool BlankLinks

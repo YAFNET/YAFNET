@@ -975,7 +975,7 @@
 								<asp:ListItem Value="2" Text="All Users" />
 							</asp:DropDownList>
 						</td>
-					</tr>					
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Members List Viewing Permissions:</b><br />
@@ -1002,15 +1002,6 @@
 							</asp:DropDownList>
 						</td>
 					</tr>
-						<tr>
-						<td class="postheader">
-							<b>Show Guests In Active List:</b><br />
-							This is settings for all users but administrators. Administrators can see a full active list in any case.
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="ShowGuestsInActiveList" runat="server"></asp:CheckBox>
-						</td>
-					</tr>					
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View7" Text="Templates" NavigateUrl="" HeaderCssClass=""

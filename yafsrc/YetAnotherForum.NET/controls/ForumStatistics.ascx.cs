@@ -54,7 +54,7 @@ namespace YAF.Controls
       // Active users : Call this before forum_stats to clean up active users
       string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
       DataTable activeUsers = PageContext.Cache.GetItem(
-        key, (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(PageContext.BoardSettings.ShowGuestsInActiveList));
+        key, (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(false));
 
       this.ActiveUsers1.ActiveUserTable = activeUsers;
 
