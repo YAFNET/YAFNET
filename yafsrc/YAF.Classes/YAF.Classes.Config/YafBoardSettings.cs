@@ -1063,6 +1063,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether AllowModeratorsViewIPs.
+    /// </summary>
+    public bool AllowModeratorsViewIPs
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("AllowModeratorsViewIPs", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("AllowModeratorsViewIPs", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether AllowPMEmailNotification.
     /// </summary>
     public bool AllowPMEmailNotification

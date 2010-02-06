@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AlbumList.ascx.cs" Inherits="YAF.Controls.AlbumList" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <div class="imgtitle">
-    <%# String.Format(PageContext.Localization.GetText("ALBUMS_HEADER_TEXT"),UserMembershipHelper.GetUserNameFromID(UserID)) %>
+    <%# String.Format(PageContext.Localization.GetText("ALBUMS_HEADER_TEXT"), string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(UserID)) ? UserMembershipHelper.GetUserNameFromID(UserID) : UserMembershipHelper.GetDisplayNameFromID(UserID))%>
 </div>
 <asp:Button ID="AddAlbum" CssClass="pbutton" runat="server" OnClick="AddAlbum_Click" />
 <table class="command" cellspacing="0" cellpadding="0" width="100%">

@@ -14,19 +14,19 @@
 						<b>
 							<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITED" />
 						</b>
-						<%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Edited" ) ) %>
+						<%# YafServices.DateTime.FormatDateTimeTopic( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Edited" ) ) %>
 						<br />
 						<b>
 						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITEDBY" />
 						</b>
-						<YAF:UserLink ID="UserLink2" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
+						<YAF:UserLink ID="UserLink2" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "EditedBy") %>' />
 						<br />
 						<b>
 						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITREASON" />
 						</b>
 						<%# Eval("EditReason")%>
 						<br />	
-					  <%# PageContext.IsAdmin ? "IP:" + Eval("IP"):"" %>
+					  <%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator) ? "IP:" + Eval("IP") : ""%>
 					</td>		
 		    </tr>
 			<tr runat="server" id="original_tr" visible='<%# (DataBinder.Eval( Container.DataItem, "Edited").ToString() == DataBinder.Eval( Container.DataItem, "Posted").ToString()) %>' class="postheader" >
@@ -42,8 +42,11 @@
 						<b>
 							<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
 						</b>
-						<%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
-						
+						<%# YafServices.DateTime.FormatDateTimeTopic( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
+						&nbsp;
+						<b>
+						<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator) ? "IP:" + Eval("IP") : ""%>
+						</b>						
 					</td>								
 			</tr>									
 			<tr>					
@@ -70,19 +73,22 @@
 						<b>
 							<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITED" />
 						</b>
-						<%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Edited" ) ) %>
+						<%# YafServices.DateTime.FormatDateTimeTopic( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Edited" ) ) %>
 						<br />
 						<b>
 						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITEDBY" />
 						</b>
-						<YAF:UserLink ID="UserLink2" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
+						<YAF:UserLink ID="UserLink2" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "EditedBy") %>' />
 						<br />
 						<b>
 						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITREASON" />
-						</b>
+						</b>				
 						<%# Eval("EditReason")%>
 						<br />	
-					  <%# PageContext.IsAdmin ? "IP:" + Eval("IP"):"" %>
+					 	<b>
+						<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator) ? "IP:" + Eval("IP") : ""%>
+						</b>
+						<br />
 					</td>					
 			</tr>			
 			<tr>					

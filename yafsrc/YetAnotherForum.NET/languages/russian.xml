@@ -285,7 +285,7 @@
     <Resource tag="MAX_ONLINE">Больше всего пользователей ({0}) было {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Уведомление</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
-    <Resource tag="OK">Принять</Resource>
+    <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Страницы</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Новое личное сообщение от {0} на {1}</Resource>
     <Resource tag="POWERED_BY">Форум </Resource>
@@ -310,7 +310,7 @@
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Отправить</Resource>
-    <Resource tag="CHANGE_SUCCESS">Пароль был успешно изменён.</Resource>
+    <Resource tag="CHANGE_SUCCESS">Ваш пароль был успешно изменён.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Подтвердить новый пароль:</Resource>
     <Resource tag="NEED_NEW_CONFIRM_PASSWORD">Необходимо подтверждение нового пароля.</Resource>
     <Resource tag="NEED_NEW_PASSWORD">Необходим новый пароль.</Resource>

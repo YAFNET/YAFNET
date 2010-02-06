@@ -2908,6 +2908,7 @@ SELECT
 		m.Flags,
 		t.UserID,
 		Edited = IsNull(m.Edited,m.Posted),
+		EditedBy = IsNull(m.EditedBy,m.UserID), 
 		TopicFlags = t.Flags,		
 		m.EditReason,
 		m.Position,
@@ -7324,7 +7325,7 @@ DECLARE
 )
   
     INSERT INTO @GroupData(G_UsrSigChars,G_UsrSigBBCodes,G_UsrSigHTMLTags) 
-    SELECT TOP 1 c.UsrSigChars, c.UsrSigBBCodes, c.UsrSigHTMLTags
+    SELECT TOP 1 ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')
     FROM [{databaseOwner}].[{objectQualifier}User] a 
                         JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
                           ON a.UserID = b.UserID
@@ -7332,7 +7333,7 @@ DECLARE
                               ON b.GroupID = c.GroupID 
                               WHERE a.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.SortOrder ASC
     INSERT INTO @RankData(R_UsrSigChars,R_UsrSigBBCodes,R_UsrSigHTMLTags)
-    SELECT TOP 1 c.UsrSigChars, c.UsrSigBBCodes, c.UsrSigHTMLTags     
+    SELECT TOP 1 ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')     
     FROM [{databaseOwner}].[{objectQualifier}Rank] c 
                                 JOIN [{databaseOwner}].[{objectQualifier}User] d
                                   ON c.RankID = d.RankID WHERE d.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.RankID DESC
@@ -7341,9 +7342,9 @@ DECLARE
        SET  @OG_UsrSigChars =  (SELECT TOP 1 G_UsrSigChars FROM @GroupData)                
        
         SELECT TOP 1
-        UsrSigChars = CASE WHEN COALESCE(@OR_UsrSigChars,0) < COALESCE(@OG_UsrSigChars,0) THEN COALESCE(@OG_UsrSigChars,0) ELSE COALESCE(@OR_UsrSigChars,0) END, 
-        UsrSigBBCodes = COALESCE(R_UsrSigBBCodes,'') + CASE WHEN G_UsrSigBBCodes IS NULL THEN COALESCE(G_UsrSigBBCodes,'') ELSE ',' + G_UsrSigBBCodes END, 
-        UsrSigHTMLTags = COALESCE(R_UsrSigHTMLTags,'') + CASE WHEN G_UsrSigHTMLTags IS NULL THEN COALESCE(G_UsrSigHTMLTags,'') ELSE ',' + G_UsrSigHTMLTags END
+        UsrSigChars = CASE WHEN @OR_UsrSigChars < @OG_UsrSigChars THEN @OG_UsrSigChars ELSE @OR_UsrSigChars END, 
+        UsrSigBBCodes = R_UsrSigBBCodes + CASE WHEN G_UsrSigBBCodes = '' THEN G_UsrSigBBCodes ELSE ',' + G_UsrSigBBCodes END, 
+        UsrSigHTMLTags = R_UsrSigHTMLTags + CASE WHEN G_UsrSigHTMLTags = '' THEN G_UsrSigHTMLTags ELSE ',' + G_UsrSigHTMLTags END
         FROM @GroupData, @RankData 
    END
     GO      
@@ -7371,7 +7372,7 @@ as
 
     INSERT INTO @GroupData(G_UsrAlbums,
     G_UsrAlbumImages)
-    SELECT TOP 1 c.UsrAlbums, c.UsrAlbumImages   
+    SELECT TOP 1 ISNULL(c.UsrAlbums,0), ISNULL(c.UsrAlbumImages,0)   
     FROM [{databaseOwner}].[{objectQualifier}User] a 
                         JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
                           ON a.UserID = b.UserID
@@ -7379,7 +7380,7 @@ as
                               ON b.GroupID = c.GroupID 
                               WHERE a.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.SortOrder ASC
      INSERT INTO @RankData(R_UsrAlbums, R_UsrAlbumImages)
-     SELECT TOP 1 c.UsrAlbums, c.UsrAlbumImages    
+     SELECT TOP 1 ISNULL(c.UsrAlbums,0), ISNULL(c.UsrAlbumImages,0)    
      FROM [{databaseOwner}].[{objectQualifier}Rank] c 
                                 JOIN [{databaseOwner}].[{objectQualifier}User] d
                                   ON c.RankID = d.RankID WHERE d.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.RankID DESC
@@ -7396,8 +7397,8 @@ as
        INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] ua
        ON ua.AlbumID = uai.AlbumID
        WHERE ua.UserID = @UserID), 
-       UsrAlbums = CASE WHEN COALESCE(@OG_UsrAlbums,0) > COALESCE(@OR_UsrAlbums,0) THEN COALESCE(@OG_UsrAlbums,0) ELSE COALESCE(@OR_UsrAlbums,0) END, 
-       UsrAlbumImages = CASE WHEN COALESCE(@OG_UsrAlbumImages,0) > COALESCE(@OR_UsrAlbumImages,0) THEN COALESCE(@OG_UsrAlbumImages,0) ELSE COALESCE(@OR_UsrAlbumImages,0) END           
+       UsrAlbums = CASE WHEN @OG_UsrAlbums > @OR_UsrAlbums THEN @OG_UsrAlbums ELSE @OR_UsrAlbums END, 
+       UsrAlbumImages = CASE WHEN @OG_UsrAlbumImages > @OR_UsrAlbumImages THEN @OG_UsrAlbumImages ELSE @OR_UsrAlbumImages END           
      
 END
 GO    

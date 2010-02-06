@@ -190,7 +190,7 @@
             // reason was specified
             /*
               " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)this.DataRow["EditReason"], true)); */
-            MessageHistoryLBtn.ToolTip = String.Format(
+            MessageHistoryLBtn.ToolTip += String.Format(
                 "{0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)this.DataRow["EditReason"], true));
           }
           else
@@ -198,7 +198,7 @@
             // reason was not specified
            /* editedText += String.Format(
               " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA")); */
-          MessageHistoryLBtn.ToolTip = String.Format("{0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA"));
+          MessageHistoryLBtn.ToolTip += String.Format("{0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA"));
           }
 
           // message has been edited
@@ -230,7 +230,7 @@
       }
 
       // display admin only info
-      if (PageContext.IsAdmin)
+      if (PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator))
       {
         sb.AppendFormat(@" | <span class=""ipinfo"" title=""{1}"">{0}: {1}</span>", PageContext.Localization.GetText("IP"), DataRow["IP"].ToString());
       }
@@ -258,9 +258,7 @@
       { 
    
       HttpContext.Current.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.reportpost, "m={0}", e.CommandArgument.ToString()));
-
-      // Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", DataRow["MessageID"]));
-      // PageContext.AddLoadMessage(PageContext.Localization.GetText("REPORTEDFEEDBACK"));
+     
       }
     }
 
@@ -270,9 +268,8 @@
         if (e.CommandName == "ShowHistory")
         {
 
-            HttpContext.Current.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "m={0}", e.CommandArgument.ToString()));
-                 
-            // PageContext.AddLoadMessage(PageContext.Localization.GetText("REPORTEDFEEDBACK"));
+            HttpContext.Current.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "m={0}", e.CommandArgument.ToString()));                 
+           
         }
     }
 

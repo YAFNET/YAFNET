@@ -954,6 +954,15 @@
 							<asp:CheckBox ID="AllowGuestToReportPost" runat="server"></asp:CheckBox>
 						</td>
 					</tr>
+							<tr>
+						<td class="postheader">
+							<b>Allow  Moderators View IPs:</b><br />
+							Allow to view IPs to  moderators.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="AllowModeratorsViewIPs" runat="server"></asp:CheckBox>
+						</td>
+					</tr>					
 					<tr>
 						<td class="postheader">
 							<b>Profile Viewing Permissions:</b><br />
