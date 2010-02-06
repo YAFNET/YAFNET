@@ -66,6 +66,10 @@
             <YAF:Pager ID="Pager" runat="server" UsePostBack="False" />
         </td>
         <td>
+            <span id="dvFavorite1">
+                <YAF:ThemeButton ID="TagFavorite1" runat="server" CssClass="yafcssbigbutton rightItem"
+                    TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
+            </span>        
             <YAF:ThemeButton ID="MoveTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
                 OnClick="MoveTopic_Click" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" />
             <YAF:ThemeButton ID="UnlockTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
@@ -79,10 +83,6 @@
                 OnClick="NewTopic_Click" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" />
             <YAF:ThemeButton ID="PostReplyLink1" runat="server" CssClass="yafcssbigbutton rightItem"
                 OnClick="PostReplyLink_Click" TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT" />
-            <span id="dvFavorite1">
-                <YAF:ThemeButton ID="TagFavorite1" runat="server" CssClass="yafcssbigbutton rightItem"
-                    TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
-            </span>
         </td>
     </tr>
 </table>
