@@ -190,7 +190,7 @@ namespace YAF.Controls
         this.MetaWeblogAPI.Visible = this.PageContext.BoardSettings.AllowPostToBlog;
         this.LoginInfo.Visible = this.PageContext.BoardSettings.AllowEmailChange;
         this.currentCulture = Thread.CurrentThread.CurrentCulture.IetfLanguageTag;
-        this.DisplayNamePlaceholder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
+        this.DisplayNamePlaceholder.Visible = this.PageContext.BoardSettings.EnableDisplayName && this.PageContext.BoardSettings.AllowDisplayNameModification;
 
         this.BindData();
       }
@@ -238,7 +238,7 @@ namespace YAF.Controls
 
       string displayName = null;
 
-      if (this.PageContext.BoardSettings.EnableDisplayName)
+      if (this.PageContext.BoardSettings.EnableDisplayName && this.PageContext.BoardSettings.AllowDisplayNameModification)
       {
         if (this.DisplayName.Text.Trim().Length < 2)
         {

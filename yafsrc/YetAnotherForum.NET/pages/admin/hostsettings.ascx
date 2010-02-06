@@ -276,7 +276,16 @@
 						<td class="post">
 							<asp:CheckBox ID="EnableDisplayName" runat="server"></asp:CheckBox>
 						</td>
-					</tr>					
+					</tr>		
+					<tr>
+						<td class="postheader">
+							<b>Allow Display Name Modification:</b><br />
+							If checked, and "Enable Display Name" checked, allow modification of Display Name in Edit Profile.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="AllowDisplayNameModification" runat="server"></asp:CheckBox>
+						</td>
+					</tr>								
 					<tr>
 						<td class="postheader">
 							<b>Show User Online/Offline Status:</b><br />

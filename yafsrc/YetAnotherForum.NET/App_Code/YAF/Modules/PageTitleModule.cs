@@ -95,24 +95,29 @@ namespace YAF.Modules
         }
       }
 
-      if (PageContext.PageTopicID != 0)
+      if (!PageContext.IsAdmin)
       {
-        title.AppendFormat("{0} - ", YafServices.BadWordReplace.Replace(PageContext.PageTopicName)); // Tack on the topic we're viewing
-      }
+        if (PageContext.PageTopicID != 0)
+        {
+          // Tack on the topic we're viewing
+          title.AppendFormat("{0} - ", YafServices.BadWordReplace.Replace(PageContext.PageTopicName));
+        }
 
-      if (ForumPageType == ForumPages.posts)
-      {
-        title.Append(pageStr);
-      }
+        if (ForumPageType == ForumPages.posts)
+        {
+          title.Append(pageStr);
+        }
 
-      if (PageContext.PageForumName != string.Empty)
-      {
-        title.AppendFormat("{0} - ", CurrentForumPage.HtmlEncode(PageContext.PageForumName)); // Tack on the forum we're viewing
-      }
+        if (PageContext.PageForumName != string.Empty)
+        {
+          // Tack on the forum we're viewing
+          title.AppendFormat("{0} - ", CurrentForumPage.HtmlEncode(PageContext.PageForumName));
+        }
 
-      if (ForumPageType == ForumPages.topics)
-      {
-        title.Append(pageStr);
+        if (ForumPageType == ForumPages.topics)
+        {
+          title.Append(pageStr);
+        }
       }
 
       title.Append(CurrentForumPage.HtmlEncode(PageContext.BoardSettings.Name)); // and lastly, tack on the board's name
