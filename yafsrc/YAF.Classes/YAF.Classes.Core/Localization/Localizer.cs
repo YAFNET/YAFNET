@@ -138,12 +138,12 @@ namespace YAF.Classes.Core
     /// <summary>
     /// The set page.
     /// </summary>
-    /// <param name="Page">
+    /// <param name="page">
     /// The page.
     /// </param>
-    public void SetPage(string Page)
+    public void SetPage(string page)
     {
-      if (this._currentPage == Page)
+      if (this._currentPage == page)
       {
         return;
       }
@@ -151,10 +151,15 @@ namespace YAF.Classes.Core
       this._pagePointer = null;
       this._currentPage = string.Empty;
 
+      if (String.IsNullOrEmpty(page))
+      {
+        page = "DEFAULT";
+      }
+
       if (this._doc != null)
       {
-        this._pagePointer = this._doc.SelectSingleNode(string.Format("//page[@name='{0}']", Page.ToUpper()));
-        this._currentPage = Page;
+        this._pagePointer = this._doc.SelectSingleNode(string.Format("//page[@name='{0}']", page.ToUpper()));
+        this._currentPage = page;
       }
     }
 

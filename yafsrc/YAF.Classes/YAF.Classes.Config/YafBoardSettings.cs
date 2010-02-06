@@ -1829,6 +1829,19 @@ namespace YAF.Classes
       }
     }
 
+    public bool AllowDisplayNameModification
+    {
+      get
+      {
+        return this._reg.GetValue<bool>("AllowDisplayNameModification", true);
+      }
+
+      set
+      {
+        this._reg.SetValue<bool>("AllowDisplayNameModification", value);
+      }
+    }
+
     #endregion
 
     #region string settings
