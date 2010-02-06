@@ -39,74 +39,6 @@
             The _settings columns list.
             </summary>
         </member>
-        <member name="M:YAF.Providers.Profile.YafProfileProvider.DeleteFromProfileCacheIfExists(System.String)">
-            <summary>
-            The delete from profile cache if exists.
-            </summary>
-            <param name="key">
-            The key to remove.
-            </param>
-        </member>
-        <member name="M:YAF.Providers.Profile.YafProfileProvider.ClearUserProfileCache">
-            <summary>
-            The clear user profile cache.
-            </summary>
-        </member>
-        <member name="M:YAF.Providers.Profile.YafProfileProvider.GenerateCacheKey(System.String)">
-            <summary>
-            The generate cache key.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <returns>
-            The generate cache key.
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Profile.YafProfileProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Sets up the profile providers
-            </summary>
-            <param name="name">
-            </param>
-            <param name="config">
-            </param>
-        </member>
-        <member name="M:YAF.Providers.Profile.YafProfileProvider.LoadFromPropertyCollection(System.Configuration.SettingsPropertyCollection)">
-            <summary>
-            The load from property collection.
-            </summary>
-            <param name="collection">
-            The collection.
-            </param>
-        </member>
-        <member name="M:YAF.Providers.Profile.YafProfileProvider.LoadFromPropertyValueCollection(System.Configuration.SettingsPropertyValueCollection)">
-            <summary>
-            The load from property value collection.
-            </summary>
-            <param name="collection">
-            The collection.
-            </param>
-        </member>
-        <member name="M:YAF.Providers.Profile.YafProfileProvider.GetDbTypeAndSizeFromString(System.String,System.Data.SqlDbType@,System.Int32@)">
-            <summary>
-            The get db type and size from string.
-            </summary>
-            <param name="providerData">
-            The provider data.
-            </param>
-            <param name="dbType">
-            The db type.
-            </param>
-            <param name="size">
-            The size.
-            </param>
-            <returns>
-            The get db type and size from string.
-            </returns>
-            <exception cref="T:System.ArgumentException">
-            </exception>
-        </member>
         <member name="M:YAF.Providers.Profile.YafProfileProvider.DeleteInactiveProfiles(System.Web.Profile.ProfileAuthenticationOption,System.DateTime)">
             <summary>
             The delete inactive profiles.
@@ -245,6 +177,98 @@
             The get number of inactive profiles.
             </returns>
         </member>
+        <member name="M:YAF.Providers.Profile.YafProfileProvider.GetPropertyValues(System.Configuration.SettingsContext,System.Configuration.SettingsPropertyCollection)">
+            <summary>
+            The get property values.
+            </summary>
+            <param name="context">
+            The context.
+            </param>
+            <param name="collection">
+            The collection.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Profile.YafProfileProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Sets up the profile providers
+            </summary>
+            <param name="name">
+            </param>
+            <param name="config">
+            </param>
+        </member>
+        <member name="M:YAF.Providers.Profile.YafProfileProvider.SetPropertyValues(System.Configuration.SettingsContext,System.Configuration.SettingsPropertyValueCollection)">
+            <summary>
+            The set property values.
+            </summary>
+            <param name="context">
+            The context.
+            </param>
+            <param name="collection">
+            The collection.
+            </param>
+        </member>
+        <member name="M:YAF.Providers.Profile.YafProfileProvider.LoadFromPropertyCollection(System.Configuration.SettingsPropertyCollection)">
+            <summary>
+            The load from property collection.
+            </summary>
+            <param name="collection">
+            The collection.
+            </param>
+        </member>
+        <member name="M:YAF.Providers.Profile.YafProfileProvider.LoadFromPropertyValueCollection(System.Configuration.SettingsPropertyValueCollection)">
+            <summary>
+            The load from property value collection.
+            </summary>
+            <param name="collection">
+            The collection.
+            </param>
+        </member>
+        <member name="M:YAF.Providers.Profile.YafProfileProvider.ClearUserProfileCache">
+            <summary>
+            The clear user profile cache.
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Profile.YafProfileProvider.DeleteFromProfileCacheIfExists(System.String)">
+            <summary>
+            The delete from profile cache if exists.
+            </summary>
+            <param name="key">
+            The key to remove.
+            </param>
+        </member>
+        <member name="M:YAF.Providers.Profile.YafProfileProvider.GenerateCacheKey(System.String)">
+            <summary>
+            The generate cache key.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <returns>
+            The generate cache key.
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Profile.YafProfileProvider.GetDbTypeAndSizeFromString(System.String,System.Data.SqlDbType@,System.Int32@)">
+            <summary>
+            The get db type and size from string.
+            </summary>
+            <param name="providerData">
+            The provider data.
+            </param>
+            <param name="dbType">
+            The db type.
+            </param>
+            <param name="size">
+            The size.
+            </param>
+            <returns>
+            The get db type and size from string.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            </exception>
+        </member>
         <member name="M:YAF.Providers.Profile.YafProfileProvider.GetProfileAsCollection(System.Web.Profile.ProfileAuthenticationOption,System.Int32,System.Int32,System.Object,System.Object,System.Int32@)">
             <summary>
             The get profile as collection.
@@ -270,30 +294,6 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Providers.Profile.YafProfileProvider.GetPropertyValues(System.Configuration.SettingsContext,System.Configuration.SettingsPropertyCollection)">
-            <summary>
-            The get property values.
-            </summary>
-            <param name="context">
-            The context.
-            </param>
-            <param name="collection">
-            The collection.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Profile.YafProfileProvider.SetPropertyValues(System.Configuration.SettingsContext,System.Configuration.SettingsPropertyValueCollection)">
-            <summary>
-            The set property values.
-            </summary>
-            <param name="context">
-            The context.
-            </param>
-            <param name="collection">
-            The collection.
-            </param>
-        </member>
         <member name="P:YAF.Providers.Profile.YafProfileProvider.ConnStrAppKeyName">
             <summary>
             Gets the Connection String App Key Name.
@@ -308,45 +308,6 @@
             <summary>
             Gets UserProfileCache.
             </summary>
-        </member>
-        <member name="T:YAF.Providers.Profile.SettingsPropertyColumn">
-            <summary>
-            The settings property column.
-            </summary>
-        </member>
-        <member name="F:YAF.Providers.Profile.SettingsPropertyColumn.DataType">
-            <summary>
-            The data type.
-            </summary>
-        </member>
-        <member name="F:YAF.Providers.Profile.SettingsPropertyColumn.Settings">
-            <summary>
-            The settings.
-            </summary>
-        </member>
-        <member name="F:YAF.Providers.Profile.SettingsPropertyColumn.Size">
-            <summary>
-            The size.
-            </summary>
-        </member>
-        <member name="M:YAF.Providers.Profile.SettingsPropertyColumn.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Providers.Profile.SettingsPropertyColumn"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Providers.Profile.SettingsPropertyColumn.#ctor(System.Configuration.SettingsProperty,System.Data.SqlDbType,System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Providers.Profile.SettingsPropertyColumn"/> class.
-            </summary>
-            <param name="settings">
-            The settings.
-            </param>
-            <param name="dataType">
-            The data type.
-            </param>
-            <param name="size">
-            The size.
-            </param>
         </member>
         <member name="T:YAF.Providers.Membership.YafMembershipDBConnManager">
             <summary>
@@ -899,12 +860,19 @@
             Out - Number of records held
             </param>
             <returns>
-            MembershipUser Collection
+            <see cref="T:System.Web.Security.MembershipUser"/> Collection
             </returns>
+        </member>
+        <member name="M:YAF.Providers.Membership.YafMembershipProvider.UserFromDataRow(System.Data.DataRow)">
+            <summary>
+            Creates a new <see cref="T:System.Web.Security.MembershipUser"/> from a <see cref="T:System.Data.DataRow"/> with proper fields.
+            </summary>
+            <param name="dr"></param>
+            <returns></returns>
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.FindUsersByName(System.String,System.Int32,System.Int32,System.Int32@)">
             <summary>
-            Retrieves all users into a MembershupUserCollection where Username matches
+            Retrieves all users into a <see cref="T:System.Web.Security.MembershipUserCollection"/> where Username matches
             </summary>
             <param name="usernameToMatch">
             Username use as filter criteria
@@ -919,12 +887,12 @@
             Out - Number of records held
             </param>
             <returns>
-            MembershipUser Collection
+            <see cref="T:System.Web.Security.MembershipUser"/> Collection
             </returns>
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetAllUsers(System.Int32,System.Int32,System.Int32@)">
             <summary>
-            Retrieves all users into a MembershupUserCollection
+            Retrieves all users into a <see cref="T:System.Web.Security.MembershipUserCollection"/>
             </summary>
             <param name="pageIndex">
             Page Index
@@ -936,7 +904,7 @@
             Out - Number of records held
             </param>
             <returns>
-            MembershipUser Collection
+            <see cref="T:System.Web.Security.MembershipUser"/> Collection
             </returns>
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.GetNumberOfUsersOnline">
@@ -1002,13 +970,13 @@
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
             <summary>
-            Initialie Membership Provider
+            Initialize Membership Provider
             </summary>
             <param name="name">
             Membership Provider Name
             </param>
             <param name="config">
-            NameValueCollection of configuration items
+            <see cref="T:System.Collections.Specialized.NameValueCollection"/> of configuration items
             </param>
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.ResetPassword(System.String,System.String)">
@@ -1041,7 +1009,7 @@
             Updates a providers user information
             </summary>
             <param name="user">
-            MembershipUser object
+            <see cref="T:System.Web.Security.MembershipUser"/> object
             </param>
         </member>
         <member name="M:YAF.Providers.Membership.YafMembershipProvider.ValidateUser(System.String,System.String)">
@@ -1715,17 +1683,18 @@
             The transform.
             </summary>
         </member>
-        <member name="M:YAF.Providers.Utils.Transform.ToDateTime(System.Object)">
+        <member name="M:YAF.Providers.Utils.Transform.ToDateTime(System.Object,System.DateTime)">
             <summary>
-            The to date time.
+            Convert Object to <see cref="T:System.DateTime"/>.
             </summary>
             <param name="obj">
-            The obj.
+            The <see cref="T:System.DateTime"/> object.
             </param>
+            <param name="defaultDateTime">Default <see cref="T:System.DateTime"/> returned if obj is <see langword="null"/>.</param>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Providers.Utils.Transform.ToString(System.Object)">
+        <member name="M:YAF.Providers.Utils.Transform.ToStringDBNull(System.Object)">
             <summary>
             The to string.
             </summary>
@@ -1733,10 +1702,10 @@
             The obj.
             </param>
             <returns>
-            The to string.
+            The string.
             </returns>
         </member>
-        <member name="M:YAF.Providers.Utils.Transform.ToString(System.Object,System.String)">
+        <member name="M:YAF.Providers.Utils.Transform.ToStringDBNull(System.Object,System.String)">
             <summary>
             The to string.
             </summary>
@@ -1762,13 +1731,24 @@
         </member>
         <member name="M:YAF.Providers.Utils.Transform.ToBool(System.Object)">
             <summary>
-            The to bool.
+            Convert object to a boolean.
             </summary>
             <param name="obj">
             The obj.
             </param>
             <returns>
-            The to bool.
+            The boolean.
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Utils.Transform.ToBool(System.Object,System.Boolean)">
+            <summary>
+            Convert object to a boolean.
+            </summary>
+            <param name="obj">
+            The obj.
+            </param>
+            <returns>
+            The boolean.
             </returns>
         </member>
         <member name="M:YAF.Providers.Utils.Transform.ToInt(System.Object)">
@@ -1792,6 +1772,45 @@
             <returns>
             The to hex string.
             </returns>
+        </member>
+        <member name="T:YAF.Providers.Profile.SettingsPropertyColumn">
+            <summary>
+            The settings property column.
+            </summary>
+        </member>
+        <member name="F:YAF.Providers.Profile.SettingsPropertyColumn.DataType">
+            <summary>
+            The data type.
+            </summary>
+        </member>
+        <member name="F:YAF.Providers.Profile.SettingsPropertyColumn.Settings">
+            <summary>
+            The settings.
+            </summary>
+        </member>
+        <member name="F:YAF.Providers.Profile.SettingsPropertyColumn.Size">
+            <summary>
+            The size.
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Profile.SettingsPropertyColumn.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Providers.Profile.SettingsPropertyColumn"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Profile.SettingsPropertyColumn.#ctor(System.Configuration.SettingsProperty,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Providers.Profile.SettingsPropertyColumn"/> class.
+            </summary>
+            <param name="settings">
+            The settings.
+            </param>
+            <param name="dataType">
+            The data type.
+            </param>
+            <param name="size">
+            The size.
+            </param>
         </member>
         <member name="T:YAF.Providers.Roles.YafRoleProvider">
             <summary>
@@ -1817,39 +1836,6 @@
             <summary>
             The _provider localization.
             </summary>
-        </member>
-        <member name="M:YAF.Providers.Roles.YafRoleProvider.DeleteFromRoleCacheIfExists(System.String)">
-            <summary>
-            The delete from role cache if exists.
-            </summary>
-            <param name="key">
-            The key.
-            </param>
-        </member>
-        <member name="M:YAF.Providers.Roles.YafRoleProvider.ClearUserRoleCache">
-            <summary>
-            The clear user role cache.
-            </summary>
-        </member>
-        <member name="M:YAF.Providers.Roles.YafRoleProvider.GenerateCacheKey(System.String)">
-            <summary>
-            The generate cache key.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-            <returns>
-            The generate cache key.
-            </returns>
-        </member>
-        <member name="M:YAF.Providers.Roles.YafRoleProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Sets up the profile providers
-            </summary>
-            <param name="name">
-            </param>
-            <param name="config">
-            </param>
         </member>
         <member name="M:YAF.Providers.Roles.YafRoleProvider.AddUsersToRoles(System.String[],System.String[])">
             <summary>
@@ -1923,6 +1909,15 @@
             List of Usernames
             </returns>
         </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Sets up the profile providers
+            </summary>
+            <param name="name">
+            </param>
+            <param name="config">
+            </param>
+        </member>
         <member name="M:YAF.Providers.Roles.YafRoleProvider.IsUserInRole(System.String,System.String)">
             <summary>
             Check to see if user belongs to a role
@@ -1957,6 +1952,30 @@
             </param>
             <returns>
             True/False
+            </returns>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.ClearUserRoleCache">
+            <summary>
+            The clear user role cache.
+            </summary>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.DeleteFromRoleCacheIfExists(System.String)">
+            <summary>
+            The delete from role cache if exists.
+            </summary>
+            <param name="key">
+            The key.
+            </param>
+        </member>
+        <member name="M:YAF.Providers.Roles.YafRoleProvider.GenerateCacheKey(System.String)">
+            <summary>
+            The generate cache key.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <returns>
+            The generate cache key.
             </returns>
         </member>
         <member name="P:YAF.Providers.Roles.YafRoleProvider.ConnStrAppKeyName">
@@ -2544,16 +2563,6 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Providers.Membership.UserPasswordInfo.IsCorrectPassword(System.String)">
-            <summary>
-            Checks the password against the one provided for validity
-            </summary>
-            <param name="passwordToCheck">
-            </param>
-            <returns>
-            The is correct password.
-            </returns>
-        </member>
         <member name="M:YAF.Providers.Membership.UserPasswordInfo.IsCorrectAnswer(System.String)">
             <summary>
             Checks the user answer against the one provided for validity
@@ -2564,29 +2573,19 @@
             The is correct answer.
             </returns>
         </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.Password">
+        <member name="M:YAF.Providers.Membership.UserPasswordInfo.IsCorrectPassword(System.String)">
             <summary>
-            Gets Password.
+            Checks the password against the one provided for validity
             </summary>
+            <param name="passwordToCheck">
+            </param>
+            <returns>
+            The is correct password.
+            </returns>
         </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.PasswordQuestion">
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.FailedAnswerAttempts">
             <summary>
-            Gets PasswordQuestion.
-            </summary>
-        </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.PasswordAnswer">
-            <summary>
-            Gets PasswordAnswer.
-            </summary>
-        </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.PasswordSalt">
-            <summary>
-            Gets PasswordSalt.
-            </summary>
-        </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.PasswordFormat">
-            <summary>
-            Gets PasswordFormat.
+            Gets FailedAnswerAttempts.
             </summary>
         </member>
         <member name="P:YAF.Providers.Membership.UserPasswordInfo.FailedPasswordAttempts">
@@ -2594,29 +2593,9 @@
             Gets FailedPasswordAttempts.
             </summary>
         </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.FailedAnswerAttempts">
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.hashCase">
             <summary>
-            Gets FailedAnswerAttempts.
-            </summary>
-        </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.IsApproved">
-            <summary>
-            Gets a value indicating whether IsApproved.
-            </summary>
-        </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.LastLogin">
-            <summary>
-            Gets LastLogin.
-            </summary>
-        </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.LastActivity">
-            <summary>
-            Gets LastActivity.
-            </summary>
-        </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.UseSalt">
-            <summary>
-            Gets a value indicating whether UseSalt.
+            Gets hashCase.
             </summary>
         </member>
         <member name="P:YAF.Providers.Membership.UserPasswordInfo.HashHex">
@@ -2624,19 +2603,59 @@
             Gets a value indicating whether HashHex.
             </summary>
         </member>
-        <member name="P:YAF.Providers.Membership.UserPasswordInfo.hashCase">
-            <summary>
-            Gets hashCase.
-            </summary>
-        </member>
         <member name="P:YAF.Providers.Membership.UserPasswordInfo.hashRemoveChars">
             <summary>
             Gets hashRemoveChars.
             </summary>
         </member>
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.IsApproved">
+            <summary>
+            Gets a value indicating whether IsApproved.
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.LastActivity">
+            <summary>
+            Gets LastActivity.
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.LastLogin">
+            <summary>
+            Gets LastLogin.
+            </summary>
+        </member>
         <member name="P:YAF.Providers.Membership.UserPasswordInfo.msCompliant">
             <summary>
             Gets a value indicating whether msCompliant.
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.Password">
+            <summary>
+            Gets Password.
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.PasswordAnswer">
+            <summary>
+            Gets PasswordAnswer.
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.PasswordFormat">
+            <summary>
+            Gets PasswordFormat.
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.PasswordQuestion">
+            <summary>
+            Gets PasswordQuestion.
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.PasswordSalt">
+            <summary>
+            Gets PasswordSalt.
+            </summary>
+        </member>
+        <member name="P:YAF.Providers.Membership.UserPasswordInfo.UseSalt">
+            <summary>
+            Gets a value indicating whether UseSalt.
             </summary>
         </member>
     </members>

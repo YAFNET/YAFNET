@@ -89,6 +89,7 @@
             The get smilies.
             </summary>
             <returns>
+            Table with list of smiles
             </returns>
         </member>
         <member name="M:YAF.Classes.UI.FormatMsg.FormatMessage(System.String,YAF.Classes.Data.MessageFlags)">
@@ -102,7 +103,7 @@
             The message flags.
             </param>
             <returns>
-            The format message.
+            The formatted message.
             </returns>
         </member>
         <member name="M:YAF.Classes.UI.FormatMsg.FormatMessage(System.String,YAF.Classes.Data.MessageFlags,System.Boolean)">
@@ -119,7 +120,7 @@
             The target blank override.
             </param>
             <returns>
-            The format message.
+            The formated message.
             </returns>
         </member>
         <member name="M:YAF.Classes.UI.FormatMsg.FormatMessage(System.String,YAF.Classes.Data.MessageFlags,System.Boolean,System.DateTime)">
@@ -139,7 +140,7 @@
             The message last edited.
             </param>
             <returns>
-            The format message.
+            The formatted message.
             </returns>
         </member>
         <member name="M:YAF.Classes.UI.FormatMsg.GetCleanedTopicMessage(System.Object,System.Object)">
@@ -167,6 +168,25 @@
             A version of <paramref name="body"/> that contains no nested quotes.
             </returns>
         </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.BBCodeForbiddenDetector(System.String,System.String,System.Char)">
+            <summary>
+             The method to detect a forbidden BBCode tag from delimited by 'delim' list 
+            'stringToMatch'
+            </summary>
+            <param name="stringToClear">Input string</param>
+            <param name="stringToMatch">String with delimiter</param>
+            <param name="delim"></param>
+            <returns>Returns a string containing a forbidden BBCode or a null string</returns>
+        </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.HTMLTagForbiddenDetector(System.String,System.String,System.Char)">
+            <summary>
+            The method to detect a forbidden HTML code from delimited by 'delim' list
+            </summary>
+            <param name="stringToClear"></param>
+            <param name="stringToMatch"></param>
+            <param name="delim"></param>
+            <returns>Returns a forbidden HTML tag or a null string</returns>
+        </member>
         <member name="M:YAF.Classes.UI.FormatMsg.RepairHtml(System.String,System.Boolean)">
             <summary>
             The repair html.
@@ -178,7 +198,7 @@
             The allow html.
             </param>
             <returns>
-            The repair html.
+            The repaired html.
             </returns>
         </member>
         <member name="T:YAF.Classes.UI.ReplaceRulesCreator">

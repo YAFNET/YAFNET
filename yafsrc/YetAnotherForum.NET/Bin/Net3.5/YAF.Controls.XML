@@ -4,91 +4,6 @@
         <name>YAF.Controls</name>
     </assembly>
     <members>
-        <member name="T:YAF.Controls.LocalizedLabel">
-            <summary>
-            Makes a very simple localized label
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._enableBBCode">
-            <summary>
-            The _enable bb code.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._localizedPage">
-            <summary>
-            The _localized page.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._localizedTag">
-            <summary>
-            The _localized tag.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._param0">
-            <summary>
-            The _param 0.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._param1">
-            <summary>
-            The _param 1.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._param2">
-            <summary>
-            The _param 2.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.LocalizedLabel.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.LocalizedLabel"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.LocalizedLabel.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Shows the localized text string (if available)
-            </summary>
-            <param name="output">
-            </param>
-        </member>
-        <member name="M:YAF.Controls.LocalizedLabel.GetCurrentItem">
-            <summary>
-            The get current item.
-            </summary>
-            <returns>
-            The get current item.
-            </returns>
-        </member>
-        <member name="P:YAF.Controls.LocalizedLabel.LocalizedPage">
-            <summary>
-            Gets or sets LocalizedPage.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedLabel.LocalizedTag">
-            <summary>
-            Gets or sets LocalizedTag.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedLabel.Param0">
-            <summary>
-            Gets or sets Param0.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedLabel.Param1">
-            <summary>
-            Gets or sets Param1.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedLabel.Param2">
-            <summary>
-            Gets or sets Param2.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedLabel.EnableBBCode">
-            <summary>
-            Gets or sets a value indicating whether EnableBBCode.
-            </summary>
-        </member>
         <member name="T:YAF.Controls.DataPanel">
             <summary>
             Web control which provides a panel control as a 
@@ -1157,6 +1072,11 @@
             The _theme tag.
             </summary>
         </member>
+        <member name="F:YAF.Controls.ThemeImage._enabled">
+            <summary>
+            The _enabled tag.
+            </summary>
+        </member>
         <member name="F:YAF.Controls.ThemeImage._useTitleForEmptyAlt">
             <summary>
             The _use title for empty alt.
@@ -1226,6 +1146,11 @@
             Gets or sets Style.
             </summary>
         </member>
+        <member name="P:YAF.Controls.ThemeImage.Enabled">
+            <summary>
+            Gets or sets whether the control is Active .
+            </summary>
+        </member>
         <member name="M:YAF.Controls.OnlineStatusImage.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             The render.
@@ -1237,6 +1162,119 @@
         <member name="P:YAF.Controls.OnlineStatusImage.UserID">
             <summary>
             The userid of the user.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.LocalizedRequiredFieldValidator">
+            <summary>
+            The localized required field validator.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ILocalizationSupport">
+            <summary>
+            The localization support interface
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ILocalizationSupport.EnableBBCode">
+            <summary>
+            Gets or sets a value indicating whether EnableBBCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ILocalizationSupport.LocalizedPage">
+            <summary>
+            Gets or sets LocalizedPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ILocalizationSupport.LocalizedTag">
+            <summary>
+            Gets or sets LocalizedTag.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ILocalizationSupport.Param0">
+            <summary>
+            Gets or sets Param0.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ILocalizationSupport.Param1">
+            <summary>
+            Gets or sets Param1.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ILocalizationSupport.Param2">
+            <summary>
+            Gets or sets Param2.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedRequiredFieldValidator._enableBbCode">
+            <summary>
+            The _enable bb code.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedRequiredFieldValidator._localizedPage">
+            <summary>
+            The _localized page.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedRequiredFieldValidator._localizedTag">
+            <summary>
+            The _localized tag.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedRequiredFieldValidator._param0">
+            <summary>
+            The _param 0.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedRequiredFieldValidator._param1">
+            <summary>
+            The _param 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedRequiredFieldValidator._param2">
+            <summary>
+            The _param 2.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.LocalizedRequiredFieldValidator.OnLoad(System.EventArgs)">
+            <summary>
+            The on load.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.LocalizedRequiredFieldValidator.EnableBBCode">
+            <summary>
+            Gets or sets a value indicating whether EnableBBCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedRequiredFieldValidator.LocalizedPage">
+            <summary>
+            Gets or sets LocalizedPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedRequiredFieldValidator.LocalizedTag">
+            <summary>
+            Gets or sets LocalizedTag.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedRequiredFieldValidator.PageContext">
+            <summary>
+            Gets PageContext.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedRequiredFieldValidator.Param0">
+            <summary>
+            Gets or sets Param0.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedRequiredFieldValidator.Param1">
+            <summary>
+            Gets or sets Param1.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedRequiredFieldValidator.Param2">
+            <summary>
+            Gets or sets Param2.
             </summary>
         </member>
         <member name="T:YAF.Controls.UserLink">
@@ -1257,6 +1295,11 @@
             The output.
             </param>
         </member>
+        <member name="P:YAF.Controls.UserLink.BlankTarget">
+            <summary>
+            Make the link target "blank" to open in a new window.
+            </summary>
+        </member>
         <member name="P:YAF.Controls.UserLink.CssClass">
             <summary>
             Gets or sets CssClass.
@@ -1272,24 +1315,9 @@
             The onmouseover value for the profile link
             </summary>
         </member>
-        <member name="P:YAF.Controls.UserLink.UserName">
-            <summary>
-            The name of the user for this profile link
-            </summary>
-        </member>
         <member name="P:YAF.Controls.UserLink.PostfixText">
             <summary>
             The name of the user for this profile link
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLink.UserID">
-            <summary>
-            The userid of this user for the link
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLink.BlankTarget">
-            <summary>
-            Make the link target "blank" to open in a new window.
             </summary>
         </member>
         <member name="P:YAF.Controls.UserLink.Style">
@@ -1297,12 +1325,17 @@
             Gets or sets Style.
             </summary>
         </member>
+        <member name="P:YAF.Controls.UserLink.UserID">
+            <summary>
+            The userid of this user for the link
+            </summary>
+        </member>
         <member name="T:YAF.Controls.UserBox">
             <summary>
             The user box.
             </summary>
         </member>
-        <member name="F:YAF.Controls.UserBox._messageFlags">
+        <member name="F:YAF.Controls.UserBox.messageFlags">
             <summary>
             The _message flags.
             </summary>
@@ -1473,7 +1506,7 @@
             The user box.
             </param>
             <returns>
-            The match user box thanks to.
+            String with Thanks string added to UserBox .
             </returns>
         </member>
         <member name="P:YAF.Controls.UserBox.DataRow">
@@ -1506,6 +1539,11 @@
             Gets a value indicating whether PostDeleted.
             </summary>
         </member>
+        <member name="P:YAF.Controls.UserBox.TransformStyle">
+            <summary>
+            Refines style string from other skins info
+            </summary>
+        </member>
         <member name="T:YAF.Controls.TopicLine">
             <summary>
             The topic line.
@@ -1520,6 +1558,75 @@
             <summary>
             The _row.
             </summary>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.CreatePostPager(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create pager for post.
+            </summary>
+            <param name="count">
+            The count.
+            </param>
+            <param name="pageSize">
+            The page Size.
+            </param>
+            <param name="topicID">
+            The topic ID.
+            </param>
+            <returns>
+            The create post pager.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.FormatReplies">
+            <summary>
+            The format replies.
+            </summary>
+            <returns>
+            The format replies.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.GetPriorityMessage(System.Data.DataRowView)">
+            <summary>
+            Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
+            </summary>
+            <param name="row">
+            Current Topic Data Row
+            </param>
+            <returns>
+            Topic status text
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.GetTopicImage(System.Object,System.String@)">
+            <summary>
+            The get topic image.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <param name="imgTitle">
+            The img title.
+            </param>
+            <returns>
+            The get topic image.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.RenderLastPost(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Formats the Last Post for the Topic Line
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <returns>
+            The render last post.
+            </returns>
         </member>
         <member name="M:YAF.Controls.TopicLine.WriteBeginTD(System.Web.UI.HtmlTextWriter,System.String)">
             <summary>
@@ -1548,81 +1655,12 @@
             The writer.
             </param>
         </member>
-        <member name="M:YAF.Controls.TopicLine.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
         <member name="M:YAF.Controls.TopicLine.FormatViews">
             <summary>
             The format views.
             </summary>
             <returns>
             The format views.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.GetTopicImage(System.Object,System.String@)">
-            <summary>
-            The get topic image.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <param name="imgTitle">
-            The img title.
-            </param>
-            <returns>
-            The get topic image.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.GetPriorityMessage(System.Data.DataRowView)">
-            <summary>
-            Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
-            </summary>
-            <param name="row">
-            Current Topic Data Row
-            </param>
-            <returns>
-            Topic status text
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.FormatReplies">
-            <summary>
-            The format replies.
-            </summary>
-            <returns>
-            The format replies.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.RenderLastPost(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Formats the Last Post for the Topic Line
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <returns>
-            The render last post.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.CreatePostPager(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Create pager for post.
-            </summary>
-            <param name="count">
-            The count.
-            </param>
-            <param name="pageSize">
-            The page Size.
-            </param>
-            <param name="topicID">
-            The topic ID.
-            </param>
-            <returns>
-            The create post pager.
             </returns>
         </member>
         <member name="M:YAF.Controls.TopicLine.MakeLink(System.String,System.String)">
@@ -1639,11 +1677,6 @@
             The make link.
             </returns>
         </member>
-        <member name="P:YAF.Controls.TopicLine.IsAlt">
-            <summary>
-            Gets or sets a value indicating whether IsAlt.
-            </summary>
-        </member>
         <member name="P:YAF.Controls.TopicLine.DataRow">
             <summary>
             Sets DataRow.
@@ -1652,6 +1685,11 @@
         <member name="P:YAF.Controls.TopicLine.FindUnread">
             <summary>
             Gets or sets a value indicating whether FindUnread.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.IsAlt">
+            <summary>
+            Gets or sets a value indicating whether IsAlt.
             </summary>
         </member>
         <member name="T:YAF.Controls.PopMenu">
@@ -3204,6 +3242,83 @@
             <remarks>
             </remarks>
         </member>
+        <member name="T:YAF.Controls.LocalizedLabel">
+            <summary>
+            Makes a very simple localized label
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._enableBBCode">
+            <summary>
+            The _enable bb code.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._localizedPage">
+            <summary>
+            The _localized page.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._localizedTag">
+            <summary>
+            The _localized tag.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._param0">
+            <summary>
+            The _param 0.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._param1">
+            <summary>
+            The _param 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._param2">
+            <summary>
+            The _param 2.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.LocalizedLabel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.LocalizedLabel"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.LocalizedLabel.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Shows the localized text string (if available)
+            </summary>
+            <param name="output">
+            </param>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.EnableBBCode">
+            <summary>
+            Gets or sets a value indicating whether EnableBBCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.LocalizedPage">
+            <summary>
+            Gets or sets LocalizedPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.LocalizedTag">
+            <summary>
+            Gets or sets LocalizedTag.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.Param0">
+            <summary>
+            Gets or sets Param0.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.Param1">
+            <summary>
+            Gets or sets Param1.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.Param2">
+            <summary>
+            Gets or sets Param2.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.HelpMenu">
             <summary>
             Summary description for AdminMenu.
@@ -3252,6 +3367,117 @@
             <summary>
             Gets ThisControl.
             </summary>
+        </member>
+        <member name="T:YAF.Controls.LocalizedCustomValidator">
+            <summary>
+            The localized custom validator.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._enableBbCode">
+            <summary>
+            The _enable bb code.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._localizedPage">
+            <summary>
+            The _localized page.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._localizedTag">
+            <summary>
+            The _localized tag.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._param0">
+            <summary>
+            The _param 0.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._param1">
+            <summary>
+            The _param 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._param2">
+            <summary>
+            The _param 2.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.LocalizedCustomValidator.OnLoad(System.EventArgs)">
+            <summary>
+            The on load.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.EnableBBCode">
+            <summary>
+            Gets or sets a value indicating whether EnableBBCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.LocalizedPage">
+            <summary>
+            Gets or sets LocalizedPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.LocalizedTag">
+            <summary>
+            Gets or sets LocalizedTag.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.PageContext">
+            <summary>
+            Gets PageContext.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.Param0">
+            <summary>
+            Gets or sets Param0.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.Param1">
+            <summary>
+            Gets or sets Param1.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.Param2">
+            <summary>
+            Gets or sets Param2.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.LocalizationSupportExtensions">
+            <summary>
+            The localization support extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.LocalizationSupportExtensions.Localize(YAF.Controls.ILocalizationSupport,System.Web.UI.Control)">
+            <summary>
+            The get current item.
+            </summary>
+            <param name="supportItem">
+            The support Item.
+            </param>
+            <param name="currentControl">
+            The current Control.
+            </param>
+            <returns>
+            The get current item.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.LocalizationSupportExtensions.LocalizeAndRender(YAF.Controls.ILocalizationSupport,System.Web.UI.Control)">
+            <summary>
+            The localize and render.
+            </summary>
+            <param name="supportedItem">
+            The supported item.
+            </param>
+            <param name="currentControl">
+            The current control.
+            </param>
+            <returns>
+            The localize and render.
+            </returns>
         </member>
     </members>
 </doc>

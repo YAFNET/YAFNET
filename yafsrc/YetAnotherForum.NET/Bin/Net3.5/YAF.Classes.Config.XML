@@ -79,9 +79,203 @@
             The everyone.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1">
+            <summary>
+            The type application factory instance.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="T:YAF.Classes.Pattern.ITypeFactoryInstance`1">
+            <summary>
+            The type factory instance interface
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Classes.Pattern.ITypeFactoryInstance`1.Get">
+            <summary>
+            Get an instance of the type.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Pattern.ITypeFactoryInstance`1.TypeName">
+            <summary>
+            Gets TypeName.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1._typeInstanceKey">
+            <summary>
+            The _type instance key.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1._typeName">
+            <summary>
+            The _type name.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1"/> class.
+            </summary>
+            <param name="typeName">
+            The type name.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1"/> class. 
+            For derived classes
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1.Get">
+            <summary>
+            The create.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1.CreateTypeInstance">
+            <summary>
+            The create type instance.
+            </summary>
+            <returns>
+            Created type instance.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1.TypeInstanceKey">
+            <summary>
+            Gets or sets TypeInstanceKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1.TypeName">
+            <summary>
+            Gets or sets the TypeName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1.ApplicationInstance">
+            <summary>
+            Gets or sets ApplicationInstance.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.BaseUrlBuilder">
+            <summary>
+            The base url builder.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Interfaces.IUrlBuilder">
+            <summary>
+            Defines interface for <see cref="T:YAF.Classes.Interfaces.IUrlBuilder"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IUrlBuilder.BuildUrl(System.String)">
+            <summary>
+            Builds path for calling page with URL argument as the parameter.
+            </summary>
+            <param name="url">
+            URL to use as a parameter.
+            </param>
+            <returns>
+            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IUrlBuilder.BuildUrlFull(System.String)">
+            <summary>
+            Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
+            </summary>
+            <param name="url">
+            URL to use as a parameter.
+            </param>
+            <returns>
+            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+            </returns>
+        </member>
+        <member name="F:YAF.Classes.BaseUrlBuilder._baseUrls">
+            <summary>
+            The _base urls.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.BaseUrlBuilder.GetBaseUrlFromVariables">
+            <summary>
+            The get base url from variables.
+            </summary>
+            <returns>
+            The get base url from variables.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.BaseUrlBuilder.BuildUrl(System.String)">
+            <summary>
+            The build url.
+            </summary>
+            <param name="url">
+            The url.
+            </param>
+            <returns>
+            The build url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.BaseUrlBuilder.BuildUrlFull(System.String)">
+            <summary>
+            The build url full.
+            </summary>
+            <param name="url">
+            The url.
+            </param>
+            <returns>
+            The build url full.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.BaseUrlBuilder.TreatBaseUrl(System.String)">
+            <summary>
+            The treat base url.
+            </summary>
+            <param name="baseUrl">
+            The base url.
+            </param>
+            <returns>
+            The treat base url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.BaseUrlBuilder.TreatPathStr(System.String)">
+            <summary>
+            The treat path str.
+            </summary>
+            <param name="altRoot">
+            The alt root.
+            </param>
+            <returns>
+            The treat path str.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.BaseUrl">
+            <summary>
+            Gets BaseUrl.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.FileRoot">
+            <summary>
+            Gets FileRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.Path">
+            <summary>
+            Gets Path.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.ScriptName">
+            <summary>
+            Gets ScriptName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.ScriptNamePath">
+            <summary>
+            Gets ScriptNamePath.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Pattern.PageSingleton`1">
             <summary>
-            The page singleton.
+            Singleton factory implementation
             </summary>
             <typeparam name="T">
             </typeparam>
@@ -686,6 +880,73 @@
             The dispose.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Pattern.IInstanceFactory">
+            <summary>
+            The instance factory interface
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Pattern.IInstanceFactory.GetInstance``1">
+            <summary>
+            The get instance.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Pattern.IInstanceFactory.SetInstance``1(``0)">
+            <summary>
+            The set instance.
+            </summary>
+            <param name="instance">
+            The instance.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="T:YAF.Classes.Interfaces.IUserDisplayName">
+            <summary>
+            User Display Name interface.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IUserDisplayName.GetName(System.Int32)">
+            <summary>
+            Get the Display Name from a <paramref name="userId"/>
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IUserDisplayName.GetId(System.String)">
+            <summary>
+            Get the <paramref name="userId"/> from the user name.
+            </summary>
+            <param name="name">
+            The name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IUserDisplayName.Find(System.String)">
+            <summary>
+            Find a displayName value.
+            </summary>
+            <param name="contains">
+            The contains.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IUserDisplayName.Clear(System.Int32)">
+            <summary>
+            Clears a user value (if there is one) for <paramref name="userId"/> from the cache
+            </summary>
+            <param name="userId"></param>
+        </member>
+        <member name="M:YAF.Classes.Interfaces.IUserDisplayName.Clear">
+            <summary>
+            Clears the display name cache (if there is one)
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Constants">
             <summary>
             For globally or multiple times used constants
@@ -809,6 +1070,11 @@
         <member name="F:YAF.Classes.Constants.Cache.UsersOnlineStatus">
             <summary>
             The users online status.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Constants.Cache.UsersDisplayNameCollection">
+            <summary>
+            The users display name collection.
             </summary>
         </member>
         <member name="T:YAF.Classes.Constants.UserBox">
@@ -944,6 +1210,13 @@
             Static class that access the app settings in the web.config file
             </summary>
         </member>
+        <member name="M:YAF.Classes.Config.GetProvider(System.String)">
+            <summary>
+            Gets a Provider type string from the config.
+            </summary>
+            <param name="providerName"></param>
+            <returns>Provider type string or <see langword="null"/> if none exist.</returns>
+        </member>
         <member name="M:YAF.Classes.Config.GetConfigValueAsString(System.String)">
             <summary>
             The get config value as string.
@@ -1026,6 +1299,11 @@
             Gets ProviderKeyType.
             </summary>
         </member>
+        <member name="P:YAF.Classes.Config.ProviderProvider">
+            <summary>
+            Gets ProfileProvider.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.Config.MembershipProvider">
             <summary>
             Gets MembershipProvider.
@@ -1094,16 +1372,6 @@
         <member name="P:YAF.Classes.Config.IsAnyPortal">
             <summary>
             Gets a value indicating whether IsAnyPortal.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.UrlBuilderKeyName">
-            <summary>
-            Gets UrlBuilderKeyName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Config.UrlBuilder">
-            <summary>
-            Gets UrlBuilder.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.RadEditorSkin">
@@ -1389,6 +1657,11 @@
         <member name="F:YAF.Classes.ForumPages.im_icq">
             <summary>
             The im_icq.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.ForumPages.im_xmpp">
+            <summary>
+            The im_xmpp.
             </summary>
         </member>
         <member name="F:YAF.Classes.ForumPages.im_skype">
@@ -1756,6 +2029,11 @@
             Gets or sets a value indicating whether AllowThemedLogo.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableDisplayName">
+            <summary>
+            Gets or sets a value indicating whether to enable Display Name.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.MaxUsers">
             <summary>
             Gets MaxUsers.
@@ -1825,7 +2103,7 @@
             <summary>
             Gets or sets MaxFileSize.
             </summary>
-        </member>        
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.SmiliesColumns">
             <summary>
             Gets or sets SmiliesColumns.
@@ -2231,6 +2509,13 @@
             Gets or sets a value indicating whether EnableBuddyList.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.EnableDNACalendar">
+            <summary>
+            Gets or sets a value indicating whether EnableDNACalendar.
+            This is temporary feature to disable calendar 
+            if it causes troubles with different cultures
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.EnableAlbum">
             <summary>
             Gets or sets a value indicating whether EnableAlbum.
@@ -2466,120 +2751,6 @@
             Gets or sets RolesAppName.
             </summary>
         </member>
-        <member name="T:YAF.Classes.UrlBuilder">
-            <summary>
-            Implements URL Builder.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.IUrlBuilder">
-            <summary>
-            Defines interface for UrlBuilder class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.IUrlBuilder.BuildUrl(System.String)">
-            <summary>
-            Builds path for calling page with URL argument as the parameter.
-            </summary>
-            <param name="url">
-            URL to use as a parameter.
-            </param>
-            <returns>
-            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.IUrlBuilder.BuildUrlFull(System.String)">
-            <summary>
-            Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
-            </summary>
-            <param name="url">
-            URL to use as a parameter.
-            </param>
-            <returns>
-            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-            </returns>
-        </member>
-        <member name="F:YAF.Classes.UrlBuilder._baseUrls">
-            <summary>
-            The _base urls.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.UrlBuilder.BuildUrl(System.String)">
-            <summary>
-            Builds path for calling page with parameter URL as page's escaped parameter.
-            </summary>
-            <param name="url">
-            URL to put into parameter.
-            </param>
-            <returns>
-            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.UrlBuilder.BuildUrlFull(System.String)">
-            <summary>
-            Builds Full URL for calling page with parameter URL as page's escaped parameter.
-            </summary>
-            <param name="url">
-            URL to put into parameter.
-            </param>
-            <returns>
-            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.UrlBuilder.GetBaseUrlFromVariables">
-            <summary>
-            The get base url from variables.
-            </summary>
-            <returns>
-            The get base url from variables.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.UrlBuilder.TreatBaseUrl(System.String)">
-            <summary>
-            The treat base url.
-            </summary>
-            <param name="baseUrl">
-            The base url.
-            </param>
-            <returns>
-            The treat base url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.UrlBuilder.TreatPathStr(System.String)">
-            <summary>
-            The treat path str.
-            </summary>
-            <param name="altRoot">
-            The alt root.
-            </param>
-            <returns>
-            The treat path str.
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.UrlBuilder.ScriptName">
-            <summary>
-            Gets ScriptName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.UrlBuilder.ScriptNamePath">
-            <summary>
-            Gets ScriptNamePath.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.UrlBuilder.BaseUrl">
-            <summary>
-            Gets BaseUrl.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.UrlBuilder.FileRoot">
-            <summary>
-            Gets FileRoot.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.UrlBuilder.Path">
-            <summary>
-            Gets Path.
-            </summary>
-        </member>
         <member name="T:YAF.Classes.Pattern.SingleClassInstanceFactory">
             <summary>
             The single class instance factory.
@@ -2664,6 +2835,21 @@
             Gets or sets LockedForum.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1">
+            <summary>
+            The type board application factory instance.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationBoardScope`1"/> class.
+            </summary>
+            <param name="typeName">
+            The type name.
+            </param>
+        </member>
         <member name="T:YAF.Classes.Interfaces.IStyleTransform">
             <summary>
             The i style transform.
@@ -2738,9 +2924,71 @@
             The decode style by string.
             </returns>
         </member>
+        <member name="T:YAF.Classes.YafFactoryProvider">
+            <summary>
+            The yaf provider.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafFactoryProvider._builderFactory">
+            <summary>
+            The _builder factory.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.YafFactoryProvider._userDisplayNameFactory">
+            <summary>
+            The _user display name factory.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafFactoryProvider.UrlBuilder">
+            <summary>
+            Gets UrlBuilder.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafFactoryProvider.UserDisplayName">
+            <summary>
+            Gets current <see cref="T:YAF.Classes.Interfaces.IUserDisplayName"/>.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafFactoryProvider.UrlBuilderType">
+            <summary>
+            Gets UrlBuilderType.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafFactoryProvider.UserDisplayNameType">
+            <summary>
+            Gets UserDisplayNameType.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.DefaultUrlBuilder">
+            <summary>
+            Implements URL Builder.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.DefaultUrlBuilder.BuildUrl(System.String)">
+            <summary>
+            Builds path for calling page with parameter URL as page's escaped parameter.
+            </summary>
+            <param name="url">
+            URL to put into parameter.
+            </param>
+            <returns>
+            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.DefaultUrlBuilder.BuildUrlFull(System.String)">
+            <summary>
+            Builds Full URL for calling page with parameter URL as page's escaped parameter.
+            </summary>
+            <param name="url">
+            URL to put into parameter.
+            </param>
+            <returns>
+            URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Interfaces.IYafTheme">
             <summary>
-            The i yaf theme.
+            The yaf theme interface
             </summary>
         </member>
         <member name="M:YAF.Classes.Interfaces.IYafTheme.GetItem(System.String,System.String)">
@@ -2787,7 +3035,7 @@
         </member>
         <member name="P:YAF.Classes.Interfaces.IYafTheme.ThemeFile">
             <summary>
-            Get or Set the current Theme File
+            Gets or sets the current Theme File
             </summary>
         </member>
         <member name="P:YAF.Classes.Interfaces.IYafTheme.LogMissingThemeItem">

@@ -9,6 +9,101 @@
             The yaf user profile.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Utils.IYafUserProfile">
+            <summary>
+            The yaf user profile interface.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.AIM">
+            <summary>
+            Gets or sets AIM.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Birthday">
+            <summary>
+            Gets or sets Birthday.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Blog">
+            <summary>
+            Gets or sets Blog.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.BlogServicePassword">
+            <summary>
+            Gets or sets BlogServicePassword.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.BlogServiceUrl">
+            <summary>
+            Gets or sets BlogServiceUrl.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.BlogServiceUsername">
+            <summary>
+            Gets or sets BlogServiceUsername.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Gender">
+            <summary>
+            Gets or sets Gender.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.GoogleTalk">
+            <summary>
+            Gets or sets GoogleTalk.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Homepage">
+            <summary>
+            Gets or sets Homepage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.ICQ">
+            <summary>
+            Gets or sets ICQ.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Interests">
+            <summary>
+            Gets or sets Interests.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Location">
+            <summary>
+            Gets or sets Location.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.MSN">
+            <summary>
+            Gets or sets MSN.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Occupation">
+            <summary>
+            Gets or sets Occupation.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.RealName">
+            <summary>
+            Gets or sets RealName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.Skype">
+            <summary>
+            Gets or sets Skype.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.XMPP">
+            <summary>
+            Gets or sets XMPP.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.IYafUserProfile.YIM">
+            <summary>
+            Gets or sets YIM.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Utils.YafUserProfile.GetProfile(System.String)">
             <summary>
             Helper function to get a profile from the system
@@ -18,49 +113,24 @@
             <returns>
             </returns>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Location">
-            <summary>
-            Gets or sets Location.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Homepage">
-            <summary>
-            Gets or sets Homepage.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.MSN">
-            <summary>
-            Gets or sets MSN.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.YIM">
-            <summary>
-            Gets or sets YIM.
-            </summary>
-        </member>
         <member name="P:YAF.Classes.Utils.YafUserProfile.AIM">
             <summary>
             Gets or sets AIM.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.ICQ">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Birthday">
             <summary>
-            Gets or sets ICQ.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.GoogleTalk">
-            <summary>
-            Gets or sets GoogleTalk.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Skype">
-            <summary>
-            Gets or sets Skype.
+            Gets or sets Birthday.
             </summary>
         </member>
         <member name="P:YAF.Classes.Utils.YafUserProfile.Blog">
             <summary>
             Gets or sets Blog.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafUserProfile.BlogServicePassword">
+            <summary>
+            Gets or sets BlogServicePassword.
             </summary>
         </member>
         <member name="P:YAF.Classes.Utils.YafUserProfile.BlogServiceUrl">
@@ -73,19 +143,24 @@
             Gets or sets BlogServiceUsername.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.BlogServicePassword">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Gender">
             <summary>
-            Gets or sets BlogServicePassword.
+            Gets or sets Gender.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.RealName">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.GoogleTalk">
             <summary>
-            Gets or sets RealName.
+            Gets or sets GoogleTalk.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Occupation">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Homepage">
             <summary>
-            Gets or sets Occupation.
+            Gets or sets Homepage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafUserProfile.ICQ">
+            <summary>
+            Gets or sets ICQ.
             </summary>
         </member>
         <member name="P:YAF.Classes.Utils.YafUserProfile.Interests">
@@ -93,14 +168,39 @@
             Gets or sets Interests.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Gender">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Location">
             <summary>
-            Gets or sets Gender.
+            Gets or sets Location.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.YafUserProfile.Birthday">
+        <member name="P:YAF.Classes.Utils.YafUserProfile.MSN">
             <summary>
-            Gets or sets Birthday.
+            Gets or sets MSN.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Occupation">
+            <summary>
+            Gets or sets Occupation.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafUserProfile.RealName">
+            <summary>
+            Gets or sets RealName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafUserProfile.Skype">
+            <summary>
+            Gets or sets Skype.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafUserProfile.XMPP">
+            <summary>
+            Gets or sets XMPP.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.YafUserProfile.YIM">
+            <summary>
+            Gets or sets YIM.
             </summary>
         </member>
         <member name="T:YAF.Classes.Utils.SimpleURLParameterParser">
@@ -283,7 +383,7 @@
         </member>
         <member name="M:YAF.Classes.Utils.ControlHelper.FindControlAs``1(System.Web.UI.Control,System.String)">
             <summary>
-            The find control as.
+            Makes Find Control strongly typed.
             </summary>
             <param name="sourceControl">
             The source control.
@@ -729,42 +829,47 @@
         </member>
         <member name="F:YAF.Classes.Utils.InfoMessage.Moderated">
             <summary>
-            The moderated.
+            after posting to moderated forum
             </summary>
         </member>
         <member name="F:YAF.Classes.Utils.InfoMessage.Suspended">
             <summary>
-            The suspended.
+            informs user he's suspended
             </summary>
         </member>
         <member name="F:YAF.Classes.Utils.InfoMessage.RegistrationEmail">
             <summary>
-            The registration email.
+            informs user about registration email being sent
             </summary>
         </member>
         <member name="F:YAF.Classes.Utils.InfoMessage.AccessDenied">
             <summary>
-            The access denied.
+            access was denied
             </summary>
         </member>
         <member name="F:YAF.Classes.Utils.InfoMessage.Disabled">
             <summary>
-            The disabled.
+            informs user about feature being disabled by admin 
             </summary>
         </member>
         <member name="F:YAF.Classes.Utils.InfoMessage.Invalid">
             <summary>
-            The invalid.
+            informs user about invalid input/request
             </summary>
         </member>
         <member name="F:YAF.Classes.Utils.InfoMessage.Failure">
             <summary>
-            The failure.
+            system error
             </summary>
         </member>
         <member name="T:YAF.Classes.Utils.YafBuildLink">
             <summary>
             Static class with link building functions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.YafBuildLink.AccessDenied">
+            <summary>
+            Redirects response to the access denied page.
             </summary>
         </member>
         <member name="M:YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.ForumPages,System.Boolean)">
@@ -917,11 +1022,6 @@
             The info Message.
             </param>
         </member>
-        <member name="M:YAF.Classes.Utils.YafBuildLink.AccessDenied">
-            <summary>
-            Redirects response to the access denied page.
-            </summary>
-        </member>
         <member name="M:YAF.Classes.Utils.YafBuildLink.Smiley(System.String)">
             <summary>
             Gets URL of given smilie.
@@ -947,17 +1047,6 @@
             </param>
             <returns>
             The build url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.BuildUrlFull(System.String)">
-            <summary>
-            The build url full.
-            </summary>
-            <param name="url">
-            The url.
-            </param>
-            <returns>
-            The build url full.
             </returns>
         </member>
         <member name="T:YAF.Classes.Utils.Mession">
@@ -1366,21 +1455,10 @@
             The rewrite url builder.
             </summary>
         </member>
-        <member name="F:YAF.Classes.RewriteUrlBuilder.cacheSize">
+        <member name="F:YAF.Classes.RewriteUrlBuilder._cacheSize">
             <summary>
             The cache size.
             </summary>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.BuildUrlFull(System.String)">
-            <summary>
-            The build url full.
-            </summary>
-            <param name="url">
-            The url.
-            </param>
-            <returns>
-            The build url full.
-            </returns>
         </member>
         <member name="M:YAF.Classes.RewriteUrlBuilder.BuildUrl(System.String)">
             <summary>
@@ -1415,6 +1493,17 @@
             The low range.
             </returns>
         </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.CleanStringForURL(System.String)">
+            <summary>
+            The clean string for url.
+            </summary>
+            <param name="str">
+            The str.
+            </param>
+            <returns>
+            The clean string for url.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.RewriteUrlBuilder.GetCacheName(System.String,System.Int32)">
             <summary>
             The get cache name.
@@ -1429,15 +1518,15 @@
             The get cache name.
             </returns>
         </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.CleanStringForURL(System.String)">
+        <member name="M:YAF.Classes.RewriteUrlBuilder.GetCategoryName(System.Int32)">
             <summary>
-            The clean string for url.
+            The get category name.
             </summary>
-            <param name="str">
-            The str.
+            <param name="id">
+            The id.
             </param>
             <returns>
-            The clean string for url.
+            The get category name.
             </returns>
         </member>
         <member name="M:YAF.Classes.RewriteUrlBuilder.GetDataRowFromCache(System.String,System.Int32)">
@@ -1453,36 +1542,6 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.SetupDataToCache(System.Data.DataTable@,System.String,System.Int32,System.String)">
-            <summary>
-            The setup data to cache.
-            </summary>
-            <param name="list">
-            The list.
-            </param>
-            <param name="type">
-            The type.
-            </param>
-            <param name="id">
-            The id.
-            </param>
-            <param name="primaryKey">
-            The primary key.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.GetProfileName(System.Int32)">
-            <summary>
-            The get profile name.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get profile name.
-            </returns>
-        </member>
         <member name="M:YAF.Classes.RewriteUrlBuilder.GetForumName(System.Int32)">
             <summary>
             The get forum name.
@@ -1494,15 +1553,15 @@
             The get forum name.
             </returns>
         </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.GetCategoryName(System.Int32)">
+        <member name="M:YAF.Classes.RewriteUrlBuilder.GetProfileName(System.Int32)">
             <summary>
-            The get category name.
+            The get profile name.
             </summary>
             <param name="id">
             The id.
             </param>
             <returns>
-            The get category name.
+            The get profile name.
             </returns>
         </member>
         <member name="M:YAF.Classes.RewriteUrlBuilder.GetTopicName(System.Int32)">
@@ -1525,6 +1584,25 @@
             </param>
             <returns>
             The get topic name from message.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.SetupDataToCache(System.Data.DataTable@,System.String,System.Int32,System.String)">
+            <summary>
+            The setup data to cache.
+            </summary>
+            <param name="list">
+            The list.
+            </param>
+            <param name="type">
+            The type.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+            <param name="primaryKey">
+            The primary key.
+            </param>
+            <returns>
             </returns>
         </member>
         <member name="P:YAF.Classes.RewriteUrlBuilder.CacheSize">
@@ -2008,7 +2086,7 @@
             New message text.
             </param>
             <returns>
-            True if messages differ, false if they are identical.
+            True if messages differ, <see langword="false"/> if they are identical.
             </returns>
         </member>
         <member name="T:YAF.Classes.Utils.DBHelper">

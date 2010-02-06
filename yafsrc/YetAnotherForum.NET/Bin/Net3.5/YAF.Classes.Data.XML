@@ -313,6 +313,11 @@
             The download access.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.YafDBAccess">
+            <summary>
+            The yaf db access for SQL Server.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.IYafDBAccess">
             <summary>
             DBAccess Interface
@@ -446,14 +451,9 @@
             The execute scalar.
             </returns>
         </member>
-        <member name="T:YAF.Classes.Data.YafDBAccess">
+        <member name="P:YAF.Classes.Data.IYafDBAccess.ResultFilterList">
             <summary>
-            The yaf db access for SQL Server.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBAccess._dbOwner">
-            <summary>
-            The _db owner.
+            Filter list of result filters.
             </summary>
         </member>
         <member name="F:YAF.Classes.Data.YafDBAccess._isolationLevel">
@@ -461,101 +461,15 @@
             The _isolation level.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Data.YafDBAccess._objectQualifier">
-            <summary>
-            The _object qualifier.
-            </summary>
-        </member>
         <member name="F:YAF.Classes.Data.YafDBAccess._connectionManagerType">
             <summary>
             The _connection manager type.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionManager">
+        <member name="F:YAF.Classes.Data.YafDBAccess._resultFilterList">
             <summary>
-            The get connection manager.
+            Result filter list
             </summary>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.SetConnectionManagerAdapter``1">
-            <summary>
-            Change the Connection Manager used in all DB operations.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetObjectName(System.String)">
-            <summary>
-            Gets qualified object name
-            </summary>
-            <param name="name">
-            Base name of an object
-            </param>
-            <returns>
-            Returns qualified object name of format {databaseOwner}.{objectQualifier}name
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionString(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.String)">
-            <summary>
-            Creates a Connection String from the parameters. 
-            </summary>
-            <param name="parm1">
-            </param>
-            <param name="parm2">
-            </param>
-            <param name="parm3">
-            </param>
-            <param name="parm4">
-            </param>
-            <param name="parm5">
-            </param>
-            <param name="parm6">
-            </param>
-            <param name="parm7">
-            </param>
-            <param name="parm8">
-            </param>
-            <param name="parm9">
-            </param>
-            <param name="parm10">
-            </param>
-            <param name="parm11">
-            </param>
-            <param name="parm12">
-            </param>
-            <param name="parm13">
-            </param>
-            <param name="parm14">
-            </param>
-            <param name="parm15">
-            </param>
-            <param name="parm16">
-            </param>
-            <param name="parm17">
-            </param>
-            <param name="parm18">
-            </param>
-            <param name="parm19">
-            </param>
-            <param name="userID">
-            </param>
-            <param name="userPassword">
-            </param>
-            <returns>
-            The get connection string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.TestConnection(System.String@)">
-            <summary>
-            Test the DB Connection.
-            </summary>
-            <param name="exceptionMessage">
-            outbound ExceptionMessage
-            </param>
-            <returns>
-            true if successfully connected
-            </returns>
         </member>
         <member name="M:YAF.Classes.Data.YafDBAccess.GetCommand(System.String,System.Boolean)">
             <summary>
@@ -613,23 +527,139 @@
             New SqlCommand
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand)">
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetCommandTextReplaced(System.String)">
             <summary>
-            Gets a whole dataset out of the database
+            Gets command text replaced with {databaseOwner} and {objectQualifier}.
             </summary>
-            <param name="cmd">
-            The SQL Command
+            <param name="commandText">
+            Test to transform.
             </param>
             <returns>
-            Dataset with the results
+            The get command text replaced.
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionString(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.String)">
+            <summary>
+            Creates a Connection String from the parameters. 
+            </summary>
+            <param name="parm1">
+            </param>
+            <param name="parm2">
+            </param>
+            <param name="parm3">
+            </param>
+            <param name="parm4">
+            </param>
+            <param name="parm5">
+            </param>
+            <param name="parm6">
+            </param>
+            <param name="parm7">
+            </param>
+            <param name="parm8">
+            </param>
+            <param name="parm9">
+            </param>
+            <param name="parm10">
+            </param>
+            <param name="parm11">
+            </param>
+            <param name="parm12">
+            </param>
+            <param name="parm13">
+            </param>
+            <param name="parm14">
+            </param>
+            <param name="parm15">
+            </param>
+            <param name="parm16">
+            </param>
+            <param name="parm17">
+            </param>
+            <param name="parm18">
+            </param>
+            <param name="parm19">
+            </param>
+            <param name="userID">
+            </param>
+            <param name="userPassword">
+            </param>
+            <returns>
+            The get connection string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetObjectName(System.String)">
+            <summary>
+            Gets qualified object name
+            </summary>
+            <param name="name">
+            Base name of an object
+            </param>
+            <returns>
+            Returns qualified object name of format {databaseOwner}.{objectQualifier}name
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.TestConnection(System.String@)">
+            <summary>
+            Test the DB Connection.
+            </summary>
+            <param name="exceptionMessage">
+            outbound ExceptionMessage
+            </param>
+            <returns>
+            true if successfully connected
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetConnectionManager">
+            <summary>
+            The get connection manager.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.SetConnectionManagerAdapter``1">
+            <summary>
+            Change the Connection Manager used in all DB operations.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            Executes a NonQuery
+            </summary>
+            <param name="cmd">
+            NonQuery to execute
+            </param>
             <remarks>
-            Without transaction.
+            Without transaction
             </remarks>
         </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand,System.Boolean)">
+        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand,System.Boolean)">
             <summary>
-            The get dataset.
+            The execute non query.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <param name="transaction">
+            The transaction.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            The execute scalar.
+            </summary>
+            <param name="cmd">
+            The cmd.
+            </param>
+            <returns>
+            The execute scalar.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            The execute scalar.
             </summary>
             <param name="cmd">
             The cmd.
@@ -638,17 +668,7 @@
             The transaction.
             </param>
             <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.GetDatasetBasic(System.Data.SqlClient.SqlCommand,System.Boolean)">
-            <summary>
-            Used internally to get data for all the other functions
-            </summary>
-            <param name="cmd">
-            </param>
-            <param name="transaction">
-            </param>
-            <returns>
+            The execute scalar.
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.YafDBAccess.GetData(System.Data.SqlClient.SqlCommand)">
@@ -705,20 +725,23 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand)">
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand)">
             <summary>
-            Executes a NonQuery
+            Gets a whole dataset out of the database
             </summary>
             <param name="cmd">
-            NonQuery to execute
+            The SQL Command
             </param>
+            <returns>
+            Dataset with the results
+            </returns>
             <remarks>
-            Without transaction
+            Without transaction.
             </remarks>
         </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteNonQuery(System.Data.SqlClient.SqlCommand,System.Boolean)">
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetDataset(System.Data.SqlClient.SqlCommand,System.Boolean)">
             <summary>
-            The execute non query.
+            The get dataset.
             </summary>
             <param name="cmd">
             The cmd.
@@ -726,30 +749,26 @@
             <param name="transaction">
             The transaction.
             </param>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand)">
-            <summary>
-            The execute scalar.
-            </summary>
-            <param name="cmd">
-            The cmd.
-            </param>
             <returns>
-            The execute scalar.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.YafDBAccess.ExecuteScalar(System.Data.SqlClient.SqlCommand,System.Boolean)">
+        <member name="M:YAF.Classes.Data.YafDBAccess.ProcessUsingResultFilters(System.Data.DataTable,System.String)">
             <summary>
-            The execute scalar.
+            Process a <see cref="T:System.Data.DataTable"/> using Result Filters.
+            </summary>
+            <param name="dataTable">data table to process</param>
+            <param name="sqlCommand"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBAccess.GetDatasetBasic(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            Used internally to get data for all the other functions
             </summary>
             <param name="cmd">
-            The cmd.
             </param>
             <param name="transaction">
-            The transaction.
             </param>
             <returns>
-            The execute scalar.
             </returns>
         </member>
         <member name="P:YAF.Classes.Data.YafDBAccess.Current">
@@ -762,14 +781,34 @@
             Gets IsolationLevel.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.YafDBAccess.DatabaseOwner">
+        <member name="P:YAF.Classes.Data.YafDBAccess.ResultFilterList">
             <summary>
-            Gets DatabaseOwner.
+            Gets the Result Filter List.
+            </summary>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
+        <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventArgs">
+            <summary>
+            The yaf db conn info message event args.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.YafDBAccess.ObjectQualifier">
+        <member name="F:YAF.Classes.Data.YafDBConnInfoMessageEventArgs._message">
             <summary>
-            Gets ObjectQualifier.
+            The _message.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnInfoMessageEventArgs.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnInfoMessageEventArgs"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.YafDBConnInfoMessageEventArgs.Message">
+            <summary>
+            Gets or sets Message.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.UserFlags">
@@ -976,6 +1015,69 @@
             The is ladder.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.BaseDataTableResultFilter">
+            <summary>
+            The abstract base data table result filter.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.IDataTableResultFilter">
+            <summary>
+            The data table result filter interface
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.IDataTableResultFilter.Process(System.Data.DataTable@,System.String)">
+            <summary>
+            The process.
+            </summary>
+            <param name="dataTable">
+            The data table.
+            </param>
+            <param name="sqlCommand">
+            The sql command.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.IDataTableResultFilter.Rank">
+            <summary>
+            Gets Rank.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.BaseDataTableResultFilter._sqlCommandStartsWith">
+            <summary>
+            The filter that sql commands starts with -- if none added all commands are processed.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.Process(System.Data.DataTable@,System.String)">
+            <summary>
+            The process.
+            </summary>
+            <param name="dataTable">
+            The data table.
+            </param>
+            <param name="sqlCommand">
+            The sql command.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.BaseDataTableResultFilter.FilteredProcess(System.Data.DataTable@,System.String)">
+            <summary>
+            The filtered process.
+            </summary>
+            <param name="dataTable">
+            The data table.
+            </param>
+            <param name="sqlCommand">
+            The sql command.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.Rank">
+            <summary>
+            Gets Rank.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.SqlCommandStartsWith">
+            <summary>
+            Gets or sets SqlCommandStartsWith.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.TopicFlags">
             <summary>
             The topic flags.
@@ -1083,38 +1185,9 @@
             The is question.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventHandler">
+        <member name="T:YAF.Classes.Data.YafDBConnManager">
             <summary>
-            The yaf db conn info message event handler.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventArgs">
-            <summary>
-            The yaf db conn info message event args.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.YafDBConnInfoMessageEventArgs._message">
-            <summary>
-            The _message.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.YafDBConnInfoMessageEventArgs.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.YafDBConnInfoMessageEventArgs"/> class.
-            </summary>
-            <param name="message">
-            The message.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.YafDBConnInfoMessageEventArgs.Message">
-            <summary>
-            Gets or sets Message.
+            Provides open/close management for DB Connections
             </summary>
         </member>
         <member name="M:YAF.Classes.Data.IYafDBConnManager.InitConnection">
@@ -1147,11 +1220,6 @@
             The info message.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.YafDBConnManager">
-            <summary>
-            Provides open/close management for DB Connections
-            </summary>
-        </member>
         <member name="F:YAF.Classes.Data.YafDBConnManager._connection">
             <summary>
             The _connection.
@@ -1167,14 +1235,14 @@
             The dispose.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Data.YafDBConnManager.InitConnection">
-            <summary>
-            The init connection.
-            </summary>
-        </member>
         <member name="M:YAF.Classes.Data.YafDBConnManager.CloseConnection">
             <summary>
             The close connection.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.YafDBConnManager.InitConnection">
+            <summary>
+            The init connection.
             </summary>
         </member>
         <member name="M:YAF.Classes.Data.YafDBConnManager.Connection_InfoMessage(System.Object,System.Data.SqlClient.SqlInfoMessageEventArgs)">
@@ -1187,6 +1255,11 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="E:YAF.Classes.Data.YafDBConnManager.InfoMessage">
+            <summary>
+            The info message.
+            </summary>
         </member>
         <member name="P:YAF.Classes.Data.YafDBConnManager.ConnectionString">
             <summary>
@@ -1201,11 +1274,6 @@
         <member name="P:YAF.Classes.Data.YafDBConnManager.OpenDBConnection">
             <summary>
             Gets an open connection to the DB. Can be called any number of times.
-            </summary>
-        </member>
-        <member name="E:YAF.Classes.Data.YafDBConnManager.InfoMessage">
-            <summary>
-            The info message.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.MessageFlags">
@@ -1303,7 +1371,7 @@
             Gets or sets whether message is not formatted.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.MessageFlags.IsReportedAbuse">
+        <member name="P:YAF.Classes.Data.MessageFlags.IsReported">
             <summary>
             Gets or sets whether message is reported as abusive.
             </summary>
@@ -1353,14 +1421,14 @@
             The not formatted.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsReportedAbuse">
+        <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsReported">
             <summary>
-            The is reported abuse.
+            The is reported .
             </summary>
         </member>
         <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsReportedSpam">
             <summary>
-            The is reported spam.
+            Legacy flag not in use.
             </summary>
         </member>
         <member name="F:YAF.Classes.Data.MessageFlags.Flags.IsPersistent">
@@ -1543,7 +1611,64 @@
             The get boolean registry value.
             </returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)" -->
+        <member name="M:YAF.Classes.Data.DB.pageload(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            The pageload.
+            </summary>
+            <param name="sessionID">
+            The session id.
+            </param>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="userKey">
+            The user key.
+            </param>
+            <param name="ip">
+            The ip.
+            </param>
+            <param name="location">
+            The location.
+            </param>
+            <param name="forumPage">
+            The forum page name.   
+            </param>
+            <param name="browser">
+            The browser.
+            </param>
+            <param name="platform">
+            The platform.
+            </param>
+            <param name="categoryID">
+            The category id.
+            </param>
+            <param name="forumID">
+            The forum id.
+            </param>
+            <param name="topicID">
+            The topic id.
+            </param>
+            <param name="messageID">
+            The message id.
+            </param>
+            <param name="donttrack">
+            The donttrack.
+            </param> 
+            <param name="showPendingBuddies">
+            The showPendingBuddies.
+            </param>
+            <param name="showUnreadPMs">
+            The showUnreadPMs.
+            </param>
+            <param name="showUserStyle">
+            The showUserStyle.
+            </param> 
+            <returns>
+            Common User Info DataRow
+            </returns>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
         <member name="M:YAF.Classes.Data.DB.GetSearchResult(System.String,System.String,YAF.Classes.SearchWhatFlags,YAF.Classes.SearchWhatFlags,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
             <summary>
             Returns Search results
@@ -2638,47 +2763,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.group_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
-            <summary>
-            The group_save.
-            </summary>
-            <param name="groupID">
-            The group id.
-            </param>
-            <param name="boardID">
-            The board id.
-            </param>
-            <param name="name">
-            The name.
-            </param>
-            <param name="isAdmin">
-            The is admin.
-            </param>
-            <param name="isGuest">
-            The is guest.
-            </param>
-            <param name="isStart">
-            The is start.
-            </param>
-            <param name="isModerator">
-            The is moderator.
-            </param>
-            <param name="accessMaskID">
-            The access mask id.
-            </param>
-            <param name="pmLimit">
-            The pm limit.
-            </param>
-            <param name="style">
-            The style.
-            </param>
-            <param name="sortOrder">
-            The sort order.
-            </param>
-            <returns>
-            The group_save.
-            </returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:YAF.Classes.Data.DB.group_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)" -->
         <member name="M:YAF.Classes.Data.DB.mail_delete(System.Object)">
             <summary>
             The mail_delete.
@@ -3255,6 +3340,14 @@
             <returns>
             The message_ remove thanks.
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.message_secdata(System.Int32,System.Object)">
+            <summary>
+            Returns message data based on user access rights
+            </summary>
+            <param name="MessageID">The Message Id.</param>
+            <param name="UserID">The UserId.</param>
+            <returns></returns>
         </member>
         <member name="M:YAF.Classes.Data.DB.medal_list(System.Object)">
             <summary>
@@ -3874,7 +3967,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.rank_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.rank_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The rank_save.
             </summary>
@@ -3908,6 +4001,24 @@
             <param name="sortOrder">
             The sort order.
             </param>
+            <param name="usrSigChars">
+            The usrSigChars defines number of allowed characters in user signature.
+            </param>    
+            <param name="usrSigBBCodes">
+            The UsrSigBBCodes.defines comma separated bbcodes allowed for a rank, i.e in a user signature 
+            </param>
+            <param name="usrSigHTMLTags">
+            The UsrSigHTMLTags defines comma separated tags allowed for a rank, i.e in a user signature 
+            </param>
+            <param name="usrAlbums">
+            The UsrAlbums defines allowed number of albums.
+            </param>
+            <param name="usrAlbumImages">
+            The UsrAlbumImages defines number of images allowed for an album.
+            </param>
+            <returns>
+            The group_save.
+            </returns>   
         </member>
         <member name="M:YAF.Classes.Data.DB.rank_delete(System.Object)">
             <summary>
@@ -4657,7 +4768,7 @@
             The update provider.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_deleteold(System.Object)">
+        <member name="M:YAF.Classes.Data.DB.user_deleteold(System.Object,System.Object)">
             <summary>
             The user_deleteold.
             </summary>
@@ -4692,6 +4803,21 @@
             The suspend.
             </param>
         </member>
+        <member name="M:YAF.Classes.Data.DB.user_getsignaturedata(System.Object,System.Object)">
+            <summary>
+            Returns data about allowed signature tags and character limits
+            </summary>
+            <param name="userID">The userID</param>
+            <param name="boardID">The boardID</param>
+            <returns>Data Table</returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.user_getalbumsdata(System.Object,System.Object)">
+            <summary>
+            Returns data about albums: allowed number of images and albums
+            </summary>
+            <param name="userID">The userID</param>
+            <param name="boardID">The boardID</param>  
+        </member>
         <member name="M:YAF.Classes.Data.DB.user_changepassword(System.Object,System.Object,System.Object)">
             <summary>
             The user_changepassword.
@@ -4719,10 +4845,11 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_save.
             </summary>
+            <param name="displayName"></param>
             <param name="userID">
             The user id.
             </param>
@@ -4911,10 +5038,11 @@
             The user_get.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_find(System.Object,System.Boolean,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.user_find(System.Object,System.Boolean,System.Object,System.Object,System.Object)">
             <summary>
             The user_find.
             </summary>
+            <param name="displayName"></param>
             <param name="boardID">
             The board id.
             </param>
@@ -5012,7 +5140,7 @@
             The user_register.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_aspnet(System.Int32,System.String,System.String,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.user_aspnet(System.Int32,System.String,System.String,System.String,System.Object,System.Object)">
             <summary>
             The user_aspnet.
             </summary>
@@ -6240,6 +6368,17 @@
             <summary>
             Gets or sets a value indicating whether IsGroup.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventHandler">
+            <summary>
+            The yaf db conn info message event handler.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="T:YAF.Classes.Data.MedalFlags">
             <summary>
