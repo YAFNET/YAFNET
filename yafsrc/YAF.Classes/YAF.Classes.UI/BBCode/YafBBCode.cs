@@ -106,7 +106,7 @@ namespace YAF.Classes.UI
     /// The _rgx img.
     /// </summary>
     private static readonly Regex _rgxImg = new Regex(
-      @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?\.((jpg)|(png)|(gif)|(tif)))\[/img\]", _options | RegexOptions.Compiled);
+      @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?\.((jpg)|(png)|(gif)|(tif))))\[/img\]", _options | RegexOptions.Compiled);
 
     /// <summary>
     /// The _rgx italic.
