@@ -57,7 +57,7 @@ namespace YAF.Pages
 
         string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
         DataTable activeUsers = PageContext.Cache.GetItem(
-          key, (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(true));
+          key, (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(PageContext.BoardSettings.ShowGuestsInActiveList));
 
         // remove hidden users...
         foreach (DataRow row in activeUsers.Rows)
