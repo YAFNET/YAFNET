@@ -90,6 +90,7 @@
     <Resource tag="LOGOUT">Выходит с форума</Resource>
     <Resource tag="MAINPAGE">Просматривает главную страницу форума</Resource>
     <Resource tag="MEMBERS">Просматривает список пользователей</Resource>
+    <Resource tag="MESSAGEHISTORY">Просматривает историю сообщения</Resource>
     <Resource tag="MOD_FORUMUSER">Модерирует пользователя форума</Resource>
     <Resource tag="MODERATE">Модерирует</Resource>
     <Resource tag="MODERATE_INDEX">Просматривает страницу модерирования</Resource>

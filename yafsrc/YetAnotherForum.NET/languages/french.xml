@@ -90,6 +90,7 @@
     <Resource tag="LOGOUT">Logs out</Resource>
     <Resource tag="MAINPAGE">Views main forum page</Resource>
     <Resource tag="MEMBERS">Views members list</Resource>
+    <Resource tag="MESSAGEHISTORY">Views a message history</Resource>
     <Resource tag="MOD_FORUMUSER">Moderates a forum user</Resource>
     <Resource tag="MODERATE">Moderates</Resource>
     <Resource tag="MODERATE_INDEX">Views moderate index</Resource>

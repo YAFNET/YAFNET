@@ -85,6 +85,7 @@
 	<Resource tag="SEARCH">Uses search</Resource>
 	<Resource tag="MYTOPICS">Views his favorite and active topics</Resource>
 	<Resource tag="LOGOUT">Logs out</Resource>
+	<Resource tag="MESSAGEHISTORY">Views a message history</Resource>
 	<Resource tag="MODERATE_INDEX">Views moderate index</Resource>
 	<Resource tag="MODERATE_REPORTEDPOSTS">Views reported posts</Resource>
 	<Resource tag="MODERATE_UNAPPROVEDPOSTS">Views unapproved posts</Resource>
