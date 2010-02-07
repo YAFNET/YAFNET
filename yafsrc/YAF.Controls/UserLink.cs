@@ -32,7 +32,7 @@ namespace YAF.Controls
   /// <summary>
   /// Provides a basic "profile link" for a YAF User
   /// </summary>
-  public class UserLink : BaseControl
+  public class UserLink : UserLabel
   {
     #region Constructors and Destructors
 
@@ -68,132 +68,6 @@ namespace YAF.Controls
       }
     }
 
-    /// <summary>
-    /// Gets or sets CssClass.
-    /// </summary>
-    public string CssClass
-    {
-      get
-      {
-        if (this.ViewState["CssClass"] != null)
-        {
-          return this.ViewState["CssClass"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["CssClass"] = value;
-      }
-    }
-
-    /// <summary>
-    /// The onclick value for the profile link
-    /// </summary>
-    public string OnClick
-    {
-      get
-      {
-        if (this.ViewState["OnClick"] != null)
-        {
-          return this.ViewState["OnClick"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["OnClick"] = value;
-      }
-    }
-
-    /// <summary>
-    /// The onmouseover value for the profile link
-    /// </summary>
-    public string OnMouseOver
-    {
-      get
-      {
-        if (this.ViewState["OnMouseOver"] != null)
-        {
-          return this.ViewState["OnMouseOver"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["OnMouseOver"] = value;
-      }
-    }
-
-    /// <summary>
-    /// The name of the user for this profile link
-    /// </summary>
-    public string PostfixText
-    {
-      get
-      {
-        if (this.ViewState["PostfixText"] != null)
-        {
-          return this.ViewState["PostfixText"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["PostfixText"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Style.
-    /// </summary>
-    public string Style
-    {
-      get
-      {
-        if (this.ViewState["Style"] != null)
-        {
-          return this.ViewState["Style"].ToString();
-        }
-
-        return string.Empty;
-      }
-
-      set
-      {
-        this.ViewState["Style"] = value;
-      }
-    }
-
-    /// <summary>
-    /// The userid of this user for the link
-    /// </summary>
-    public int UserID
-    {
-      get
-      {
-        if (this.ViewState["UserID"] != null)
-        {
-          return Convert.ToInt32(this.ViewState["UserID"]);
-        }
-
-        return -1;
-      }
-
-      set
-      {
-        this.ViewState["UserID"] = value;
-      }
-    }
-
     #endregion
 
     #region Methods
@@ -218,43 +92,34 @@ namespace YAF.Controls
         if (!isGuest)
         {
           output.WriteBeginTag("a");
-          if (!String.IsNullOrEmpty(this.ClientID))
-          {
-            output.WriteAttribute("id", this.ClientID);
-          }
 
           output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+
           output.WriteAttribute("title", this.HtmlEncode(displayName));
-          output.WriteAttribute("style", this.HtmlEncode(this.Style));
+
           if (this.BlankTarget)
           {
             output.WriteAttribute("target", "_blank");
           }
-
-          if (!String.IsNullOrEmpty(this.OnClick))
-          {
-            output.WriteAttribute("onclick", this.OnClick);
-          }
-
-          if (!String.IsNullOrEmpty(this.OnMouseOver))
-          {
-            output.WriteAttribute("onmouseover", this.OnMouseOver);
-          }
-
-          if (!String.IsNullOrEmpty(this.CssClass))
-          {
-            output.WriteAttribute("class", this.CssClass);
-          }
-
-          // if (!String.IsNullOrEmpty( Style )) output.WriteAttribute("style", Style);
-          output.Write(HtmlTextWriter.TagRightChar);
+        }
+        else
+        {
+          output.WriteBeginTag("span");
         }
 
+        RenderMainTagAttributes(output);
+
+        output.Write(HtmlTextWriter.TagRightChar);
+        
         output.WriteEncodedText(displayName);
 
         if (!isGuest)
         {
           output.WriteEndTag("a");
+        }
+        else
+        {
+          output.WriteEndTag("span");
         }
 
         if (!String.IsNullOrEmpty(this.PostfixText))

@@ -49,7 +49,10 @@ namespace YAF.Classes.Utils
     {
       if (dt.Rows.Count > 0 && dt.Columns.Contains(columnName))
       {
-        return dt.Rows[0][columnName].ToType<T>();
+        if (dt.Rows[0][columnName] != DBNull.Value)
+        {
+          return dt.Rows[0][columnName].ToType<T>();
+        }
       }
 
       return defaultValue;

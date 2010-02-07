@@ -86,6 +86,7 @@
     <Compile Include="Localized\LocalizedRequiredFieldValidator.cs" />
     <Compile Include="ReportedPosts.cs" />
     <Compile Include="OnlineStatusImage.cs" />
+    <Compile Include="UserLabel.cs" />
     <Compile Include="YafAdminMenu\AdminMenu.cs" />
     <Compile Include="YafAdminMenu\YafMenu.cs">
       <DependentUpon>YafMenu.xsd</DependentUpon>
