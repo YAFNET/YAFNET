@@ -120,7 +120,7 @@ namespace YAF.Controls
 
         // show admin icons license...
         footer.Append(
-          @"<span id=""themecredit"" style=""color:#999999""><a target=""_blank"" href=""http://www.pinvoke.com/"">Fugue Icons</a> &copy; 2009 Yusuke Kamiyamane</span>");
+          @"<span style=""color:#999999""><a target=""_blank"" href=""http://www.pinvoke.com/"">Fugue Icons</a> &copy; 2009 Yusuke Kamiyamane</span>");
         br = true;
       }
 
@@ -155,7 +155,7 @@ namespace YAF.Controls
       }
 
       footer.AppendFormat(
-        @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2009, Yet Another Forum.NET</a>", 
+        @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2010, Yet Another Forum.NET</a>", 
         "YetAnotherForum.NET", 
         "http://www.yetanotherforum.net");
 
