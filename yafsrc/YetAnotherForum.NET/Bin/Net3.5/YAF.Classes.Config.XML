@@ -1474,6 +1474,11 @@
             The movemessage.
             </summary>
         </member>
+        <member name="F:YAF.Classes.ForumPages.messagehistory">
+            <summary>
+            The messagehistory page displays a user message changes.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.ForumPages.mod_forumuser">
             <summary>
             The mod_forumuser.
@@ -2307,6 +2312,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.AllowUserLanguage">
             <summary>
             Gets or sets a value indicating whether AllowUserLanguage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowModeratorsViewIPs">
+            <summary>
+            Gets or sets a value indicating whether AllowModeratorsViewIPs.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AllowPMEmailNotification">

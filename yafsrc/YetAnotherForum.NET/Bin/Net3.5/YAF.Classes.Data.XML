@@ -3142,7 +3142,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The message_update.
             </summary>
@@ -3167,8 +3167,11 @@
             <param name="isModeratorChanged">
             The is moderator changed.
             </param>
+            <param name="editedBy">
+            UserId of who edited the message.
+            </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.message_update(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The message_update.
             </summary>
@@ -3195,6 +3198,12 @@
             </param>
             <param name="overrideApproval">
             The override approval.
+            </param>
+            <param name="originalMessage">
+            The original Message.
+            </param> 
+            <param name="editedBy">
+            UserId of who edited the message.
             </param>
         </member>
         <member name="M:YAF.Classes.Data.DB.message_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Int64@)">
@@ -3339,6 +3348,23 @@
             </param>
             <returns>
             The message_ remove thanks.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.messagehistory_list(System.Int32,System.Int32,System.Object)">
+            <summary>
+            The messagehistory_list.
+            </summary>
+            <param name="messageID">
+            The Message ID.
+            </param>
+            <param name="daysToClean">
+            Days to clean.
+            </param>
+            <param name="showAll">
+            The Show All.
+            </param>
+            <returns>
+            List of all message changes. 
             </returns>
         </member>
         <member name="M:YAF.Classes.Data.DB.message_secdata(System.Int32,System.Object)">

@@ -2215,6 +2215,20 @@
             The output.
             </param>
         </member>
+        <member name="M:YAF.Controls.ActiveLocation.Album(System.String)">
+            <summary>
+            A method to get album path string.
+            </summary>
+            <param name="forumPageAttributes">A page query string cleared from page name.</param>
+            <returns>The string</returns> 
+        </member>
+        <member name="M:YAF.Controls.ActiveLocation.Albums(System.String)">
+            <summary>
+            A method to get albums path string.
+            </summary>
+            <param name="forumPageAttributes">A page query string cleared from page name.</param>
+            <returns>The string</returns> 
+        </member>
         <member name="P:YAF.Controls.ActiveLocation.ForumPage">
             <summary>
             Gets or sets the localization tag for the current location.
