@@ -116,5 +116,6 @@ namespace YAF.Pages
             Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_reportedposts, "f={0}", this.forumID));
 
         }
+     
     }
 }

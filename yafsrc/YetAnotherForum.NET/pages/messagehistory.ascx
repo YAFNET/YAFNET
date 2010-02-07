@@ -10,10 +10,13 @@
 	<asp:Repeater ID="RevisionsList" runat="server">
 		<ItemTemplate>
 		    <tr runat="server" id="history_tr" visible='<%# DataBinder.Eval( Container.DataItem, "Edited").ToString() !=  DataBinder.Eval( Container.DataItem, "Posted").ToString() %>' class="postheader"  >		           
-					<td   colspan="1" class="postheader">
+					<td   colspan="1" class="header2">
+					&nbsp					
+					</td>
+					<td id="history_column"  colspan="1" class='<%# Convert.ToInt32(Eval("IsModeratorChanged")) == 0 ? "postheader" :"post_res" %>' runat="server" >	
 						<b>
 							<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITED" />
-						</b>
+						</b>:
 						<%# YafServices.DateTime.FormatDateTimeTopic( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Edited" ) ) %>
 						<br />
 						<b>
@@ -24,7 +27,7 @@
 						<b>
 						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITREASON" />
 						</b>
-						<%# Eval("EditReason")%>
+						<%# string.IsNullOrEmpty(Eval("EditReason").ToString())? this.PageContext.Localization.GetText("EDIT_REASON_NA"):Eval("EditReason") %>
 						<br />	
 					  <%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator) ? "IP:" + Eval("IP") : ""%>
 					</td>		
@@ -33,7 +36,7 @@
 					<td class="header2" colspan="1">					
 				       <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="MESSAGEHISTORY" LocalizedTag="ORIGINALMESSAGE" ></YAF:LocalizedLabel>					
 					</td>					
-					<td class="postheader" colspan="1">						
+					<td id="original_column"  colspan="1" class='<%#  Convert.ToInt32(Eval("IsModeratorChanged")) == 0 ?  "postheader" :"post_res" %>' runat="server" >					
 						<b>
 						<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
 						</b>
@@ -69,7 +72,7 @@
 					<td class="header2" colspan="1" valign="top">
 				       <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="MESSAGEHISTORY" LocalizedTag="CURRENTMESSAGE" />
 					</td>
-					<td  colspan="1" class="postheader">
+					<td  colspan="1" class='<%#  Convert.ToInt32(Eval("IsModeratorChanged")) == 0 ?  "postheader" :"post_res" %>' runat="server" >
 						<b>
 							<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITED" />
 						</b>
@@ -83,7 +86,7 @@
 						<b>
 						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITREASON" />
 						</b>				
-						<%# Eval("EditReason")%>
+						<%# string.IsNullOrEmpty(Eval("EditReason").ToString())? this.PageContext.Localization.GetText("EDIT_REASON_NA"):Eval("EditReason") %>
 						<br />	
 					 	<b>
 						<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator) ? "IP:" + Eval("IP") : ""%>
