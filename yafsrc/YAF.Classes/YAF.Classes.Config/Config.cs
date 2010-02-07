@@ -93,7 +93,7 @@ namespace YAF.Classes
     /// <returns>Provider type string or <see langword="null"/> if none exist.</returns>
     public static string GetProvider(string providerName)
     {
-      string key = string.Format("YAF.Provider.", providerName);
+      string key = string.Format("YAF.Provider.{0}", providerName);
       return GetConfigValueAsString(key);
     }
 
