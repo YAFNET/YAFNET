@@ -2890,7 +2890,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_secdata](@MessageID int, @UserID int ) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_secdata]( @UserID int, @MessageID int ) AS
 BEGIN
 -- BoardID=@BoardID and
 if (@UserID is null)
