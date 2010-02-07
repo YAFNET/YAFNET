@@ -94,13 +94,13 @@ namespace YAF.Pages
         else
         {
           // Check if a user have permissions to have albums, even if he has no albums at all.
-          DataTable albData = DB.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID);
-          if (albData.Rows.Count > 0)
+          int? usrAlbums =
+            DB.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+              "UsrAlbums", null);
+
+          if (usrAlbums.HasValue)
           {
-            if (Convert.ToInt32(albData.Rows[0]["UsrAlbums"]) > 0)
-            {
               return true;
-            }
           }
         }
       }
@@ -467,7 +467,7 @@ namespace YAF.Pages
     private void SetupUserProfileInfo(
       int userID, MembershipUser user, CombinedUserDataHelper userData, string userDisplayName)
     {
-      this.UserName.Text = this.HtmlEncode(userDisplayName);
+      this.UserLabel1.UserID = userData.UserID;
 
       if (this.PageContext.IsAdmin && userDisplayName != user.UserName)
       {

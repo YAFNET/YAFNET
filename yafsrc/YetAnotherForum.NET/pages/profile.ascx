@@ -10,7 +10,7 @@
 	<tr>
 		<td class="header1" colspan="2">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
-			<asp:Label ID="UserName" runat="server" />
+			<YAF:UserLabel ID="UserLabel1" runat="server" />
 		</td>
 	</tr>
 	<tr class="post">
