@@ -1282,6 +1282,55 @@
             Provides a basic "profile link" for a YAF User
             </summary>
         </member>
+        <member name="M:YAF.Controls.UserLabel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.UserLink"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.UserLabel.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="output">
+            The output.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.UserLabel.RenderMainTagAttributes(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders "id", "style", "onclick", "onmouseover" and "class"
+            </summary>
+            <param name="output"></param>
+        </member>
+        <member name="P:YAF.Controls.UserLabel.CssClass">
+            <summary>
+            Gets or sets CssClass.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLabel.OnClick">
+            <summary>
+            The onclick value for the profile link
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLabel.OnMouseOver">
+            <summary>
+            The onmouseover value for the profile link
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLabel.PostfixText">
+            <summary>
+            The name of the user for this profile link
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLabel.Style">
+            <summary>
+            Gets or sets Style.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.UserLabel.UserID">
+            <summary>
+            The userid of this user for the link
+            </summary>
+        </member>
         <member name="M:YAF.Controls.UserLink.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Controls.UserLink"/> class.
@@ -1298,36 +1347,6 @@
         <member name="P:YAF.Controls.UserLink.BlankTarget">
             <summary>
             Make the link target "blank" to open in a new window.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLink.CssClass">
-            <summary>
-            Gets or sets CssClass.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLink.OnClick">
-            <summary>
-            The onclick value for the profile link
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLink.OnMouseOver">
-            <summary>
-            The onmouseover value for the profile link
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLink.PostfixText">
-            <summary>
-            The name of the user for this profile link
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLink.Style">
-            <summary>
-            Gets or sets Style.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLink.UserID">
-            <summary>
-            The userid of this user for the link
             </summary>
         </member>
         <member name="T:YAF.Controls.UserBox">
