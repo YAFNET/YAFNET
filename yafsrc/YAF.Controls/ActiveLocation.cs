@@ -208,6 +208,27 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to show only topic link.
+        /// </summary>
+        public bool HasForumAccess
+        {
+            get
+            {
+                if (ViewState["HasForumAccess"] != null)
+                {
+                    return Convert.ToBoolean(ViewState["HasForumAccess"]);
+                }
+
+                return true;
+            }
+
+            set
+            {
+                ViewState["HasForumAccess"] = value;
+            }
+        }
+
+        /// <summary>
         /// The render.
         /// </summary>
         /// <param name="output">
@@ -240,6 +261,7 @@ namespace YAF.Controls
                      
                      // All pages should be processed in call frequency order 
                      // We are in messages
+                     
                      if (this.TopicID > 0 && this.ForumID > 0)
                      {
                          if (forumPageName == "topics")
@@ -258,21 +280,26 @@ namespace YAF.Controls
                          {
                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTS"));
                          }
-
-                         output.Write(@"<a href=""{0}"" id=""topicid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID), this.UserID, this.TopicName);
+                         if (HasForumAccess)
+                         {                   
+                             output.Write(@"<a href=""{0}"" id=""topicid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID), this.UserID, this.TopicName);
                          if (!this.LastLinkOnly)
                          {
                              output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICINFORUM"));
                              output.Write(@"<a href=""{0}"" id=""forumidtopic_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.ForumName);
                          }
-                     }                    
+                         }
+                     }
                      else if (this.ForumID > 0 && this.TopicID <= 0)
                      {
                          // User views a forum
                         if (forumPageName == "topics")
                         {                
-                            output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUM"));                       
-                            output.Write(@"<a href=""{0}"" id=""forumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.ForumName);
+                            output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUM"));
+                            if (HasForumAccess)
+                            {
+                                output.Write(@"<a href=""{0}"" id=""forumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.ForumName);
+                            }
                         }
                      }                  
                      else
