@@ -55,9 +55,14 @@ namespace YAF.Pages
         this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
 
-        string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
-        DataTable activeUsers = PageContext.Cache.GetItem(
-          key, (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(true));
+        // vzrus: Here should not be common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
+        DataTable activeUsers = DB.active_list_user(PageContext.PageBoardID, PageContext.PageUserID, PageContext.BoardSettings.ShowGuestsInDetailedActiveList, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
+       
+          // Set colorOnly parameter to false, as we get active users style from database        
+        if (PageContext.BoardSettings.UseStyledNicks)
+        {
+            new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref activeUsers, false);
+        } 
 
         // remove hidden users...
         foreach (DataRow row in activeUsers.Rows)

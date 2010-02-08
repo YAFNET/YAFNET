@@ -922,6 +922,11 @@ GO
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_getthanks_to]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_to]
 GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}active_list_user]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}active_list_user]
+GO
+
 /* End of Thanks table stored procedures */
  
 /* Buddy feature stored procedures */
@@ -1222,6 +1227,81 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ActiveTime int,@StyledNicks bit=0) as
 begin
 	-- delete non-active
+	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,getdate())>@ActiveTime
+	-- select active
+	if @Guests<>0
+		select
+			a.UserID,
+			UserName = a.Name,
+			c.IP,
+			c.SessionID,
+			c.ForumID,
+			c.TopicID,
+			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
+			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
+			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			IsHidden = ( a.IsActiveExcluded ),
+			Style = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+	        else ''	 end,			
+			UserCount = 1,
+			c.Login,
+			c.LastActive,
+			c.Location,
+			Active = DATEDIFF(minute,c.Login,c.LastActive),
+			c.Browser,
+			c.Platform,
+			c.ForumPage
+		from
+			[{databaseOwner}].[{objectQualifier}User] a
+			inner join [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID
+		where
+			c.BoardID = @BoardID
+		order by
+			c.LastActive desc
+	else
+		select
+			a.UserID,
+			UserName = a.Name,
+			c.IP,
+			c.SessionID,
+			c.ForumID,
+			c.TopicID,
+			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
+			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
+			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			IsHidden = ( a.IsActiveExcluded ),
+				Style = case(@StyledNicks)
+	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+	        else ''	 end,				
+			UserCount = 1,
+			c.Login,
+			c.LastActive,
+			c.Location,
+			Active = DATEDIFF(minute,c.Login,c.LastActive),
+			c.Browser,
+			c.Platform,
+			c.ForumPage
+		from
+			[{databaseOwner}].[{objectQualifier}User] a		
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID	
+			      
+		where
+			c.BoardID = @BoardID and
+			not exists(
+				select 1 
+					from [{databaseOwner}].[{objectQualifier}UserGroup] x
+						inner join [{databaseOwner}].[{objectQualifier}Group] y ON y.GroupID=x.GroupID 
+					where x.UserID=a.UserID and (y.Flags & 2)<>0
+				)
+		order by
+			c.LastActive desc
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}active_list_user](@BoardID int, @UserID int, @Guests bit=0,@ActiveTime int,@StyledNicks bit=0) as
+begin
+		-- delete non-active
 	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,getdate())>@ActiveTime
 	-- select active
 	if @Guests<>0

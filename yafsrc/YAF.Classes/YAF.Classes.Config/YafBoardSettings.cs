@@ -999,6 +999,23 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether Show Guests In Detailed Active List.
+    /// </summary>
+    public bool ShowGuestsInDetailedActiveList
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("ShowGuestsInDetailedActiveList", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("ShowGuestsInDetailedActiveList", value);
+        }
+    }
+
+
+    /// <summary>
     /// Gets or sets a value indicating whether ShowGroups.
     /// </summary>
     public bool ShowGroups

@@ -1527,6 +1527,40 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
+    /// Gets list of active users for a specific user with access fixes to not display him forbidden locations. 
+    /// </summary>
+    /// <param name="boardID">
+    /// BoardID
+    /// </param>
+    /// <param name="userID">
+    /// the UserID
+    /// </param>
+    /// <param name="Guests">
+    /// </param>
+    /// <param name="activeTime">
+    /// The active Time.
+    /// </param>
+    /// <param name="styledNicks">
+    /// The styled Nicks.
+    /// </param>
+    /// <returns>
+    /// Returns a DataTable of active users
+    /// </returns>
+    public static DataTable active_list_user(object boardID, object userID, object Guests, int activeTime, object styledNicks)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("active_list_user"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BoardID", boardID);
+            cmd.Parameters.AddWithValue("UserID", userID);
+            cmd.Parameters.AddWithValue("Guests", Guests);
+            cmd.Parameters.AddWithValue("ActiveTime", activeTime);
+            cmd.Parameters.AddWithValue("StyledNicks", styledNicks);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
+    /// <summary>
     /// Gets the list of active users within a certain forum
     /// </summary>
     /// <param name="forumID">

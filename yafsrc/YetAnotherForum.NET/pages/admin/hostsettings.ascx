@@ -259,6 +259,15 @@
 							<asp:TextBox ID="ActiveListTime" runat="server" />
 						</td>
 					</tr>
+						<tr>
+						<td class="postheader">
+							<b>Show Guests In Detailed Active List:</b><br />
+							If checked, Guests will be displayed In Detailed Active List. 
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ShowGuestsInDetailedActiveList" runat="server"></asp:CheckBox>
+						</td>
+					</tr>					
 					<tr>
 						<td class="postheader">
 							<b>Add Dynamic Page Meta Tags:</b><br />
