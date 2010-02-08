@@ -575,7 +575,7 @@ namespace YAF.Pages
       if (this.User != null && userData.Profile.Birthday != DateTime.MinValue)
       {
           this.BirthdayTR.Visible = true;
-          this.Birthday.Text = YafServices.DateTime.FormatDateLong(userData.Profile.Birthday.Date);
+          this.Birthday.Text = YafServices.DateTime.FormatDateLong(userData.Profile.Birthday.Date.Add(-YafServices.DateTime.TimeOffset));
       }
       else
       {
