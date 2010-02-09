@@ -496,9 +496,9 @@ namespace YAF.Controls
       userProfile.Gender = this.Gender.SelectedIndex;
       userProfile.Blog = this.Weblog.Text.Trim();
 
-      if (this.PageContext.BoardSettings.EnableDNACalendar)
+      if (this.PageContext.BoardSettings.EnableDNACalendar && this.datePicker.Value > DateTime.MinValue.Date )
       {
-        userProfile.Birthday = this.datePicker.Value;
+          userProfile.Birthday = this.datePicker.Value;
       }
 
       userProfile.BlogServiceUrl = this.WeblogUrl.Text.Trim();
