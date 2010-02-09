@@ -2297,6 +2297,11 @@
             Gets or sets a value indicating whether to show only topic link.
             </summary>
         </member>
+        <member name="P:YAF.Controls.ActiveLocation.HasForumAccess">
+            <summary>
+            Gets or sets a value indicating whether to show only topic link.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.ThemeButton">
             <summary>
             The theme button.

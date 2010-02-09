@@ -1824,6 +1824,28 @@
             Returns a DataTable of active users
             </returns>
         </member>
+        <member name="M:YAF.Classes.Data.DB.active_list_user(System.Object,System.Object,System.Object,System.Int32,System.Object)">
+            <summary>
+            Gets list of active users for a specific user with access fixes to not display him forbidden locations. 
+            </summary>
+            <param name="boardID">
+            BoardID
+            </param>
+            <param name="userID">
+            the UserID
+            </param>
+            <param name="Guests">
+            </param>
+            <param name="activeTime">
+            The active Time.
+            </param>
+            <param name="styledNicks">
+            The styled Nicks.
+            </param>
+            <returns>
+            Returns a DataTable of active users
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Data.DB.active_listforum(System.Object,System.Object)">
             <summary>
             Gets the list of active users within a certain forum

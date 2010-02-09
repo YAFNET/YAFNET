@@ -2294,6 +2294,11 @@
             Gets or sets a value indicating whether ShowMoved.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowGuestsInDetailedActiveList">
+            <summary>
+            Gets or sets a value indicating whether Show Guests In Detailed Active List.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.ShowGroups">
             <summary>
             Gets or sets a value indicating whether ShowGroups.
