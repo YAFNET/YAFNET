@@ -1944,6 +1944,14 @@
             The reset.
             </summary>
         </member>
+        <member name="M:YAF.Controls.Header.GetReturnUrl">
+            <summary>
+            The get return url.
+            </summary>
+            <returns>
+            The get return url.
+            </returns>
+        </member>
         <member name="M:YAF.Controls.Header.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             Renders the header.
@@ -1960,17 +1968,17 @@
             The writer.
             </param>
         </member>
-        <member name="M:YAF.Controls.Header.GetReturnUrl">
+        <member name="M:YAF.Controls.Header.AlbumLink">
             <summary>
-            The get return url.
+            The album link.
             </summary>
             <returns>
-            The get return url.
+            The album link.
             </returns>
         </member>
-        <member name="P:YAF.Controls.Header.SimpleRender">
+        <member name="P:YAF.Controls.Header.RefreshTime">
             <summary>
-            Gets or sets a value indicating whether SimpleRender.
+            Gets or sets RefreshTime.
             </summary>
         </member>
         <member name="P:YAF.Controls.Header.RefreshURL">
@@ -1978,9 +1986,9 @@
             Gets or sets RefreshURL.
             </summary>
         </member>
-        <member name="P:YAF.Controls.Header.RefreshTime">
+        <member name="P:YAF.Controls.Header.SimpleRender">
             <summary>
-            Gets or sets RefreshTime.
+            Gets or sets a value indicating whether SimpleRender.
             </summary>
         </member>
         <member name="P:YAF.Controls.Header.ThisControl">
