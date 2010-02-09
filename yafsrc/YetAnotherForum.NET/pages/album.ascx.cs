@@ -20,87 +20,92 @@
 
 namespace YAF.Pages
 {
-    using System;
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Data;
-    using YAF.Classes.Utils;
-    using YAF.Utilities;
+  #region Using
+
+  using System;
+
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+  using YAF.Utilities;
+
+  #endregion
+
+  /// <summary>
+  /// the album page.
+  /// </summary>
+  public partial class Album : ForumPage
+  {
+    #region Constructors and Destructors
 
     /// <summary>
-    /// the album page.
+    /// Initializes a new instance of the Album class.
     /// </summary>
-    public partial class Album : ForumPage
+    public Album()
+      : base("ALBUM")
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the Album class.
-        /// </summary>
-        public Album()
-            : base("ALBUM")
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The page load event.
-        /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!this.PageContext.BoardSettings.EnableAlbum)
-            {
-                YafBuildLink.AccessDenied();
-            }
-
-            if (this.Request.QueryString["u"] == null || this.Request.QueryString["a"] == null)
-            {
-                YafBuildLink.AccessDenied();
-            }
-
-            // setup jQuery, LightBox and YAF JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
-            YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
-
-            // lightbox only need if the browser is not IE6...
-            if (!UserAgentHelper.IsBrowserIE6())
-            {
-                YafContext.Current.PageElements.RegisterJsResourceInclude("lightboxjs", "js/jquery.lightbox.min.js");
-                YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.lightbox.css");
-                YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
-            }
-
-            // Generate the page links.
-            this.PageLinks.Clear();
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                UserMembershipHelper.GetUserNameFromID(Security.StringToLongOrRedirect(this.Request.QueryString["u"])), 
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.Request.QueryString["u"]));
-            this.PageLinks.AddLink(
-                this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", this.Request.QueryString["u"]));
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-            // Set the title text.
-            this.LocalizedLabel1.Param0 =
-                UserMembershipHelper.GetUserNameFromID(Security.StringToLongOrRedirect(this.Request.QueryString["u"]));
-            this.LocalizedLabel1.Param1 =
-                DB.album_gettitle(Security.StringToLongOrRedirect(this.Request.QueryString["a"]));
-            
-            // Initialize the Album Image List control.
-            this.AlbumImageList1.UserID = Convert.ToInt32(this.Request.QueryString["u"]);
-            this.AlbumImageList1.AlbumID = Convert.ToInt32(this.Request.QueryString["a"]);
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The page load event.
+    /// </summary>
+    /// <param name="sender">
+    /// the sender.
+    /// </param>
+    /// <param name="e">
+    /// the e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!this.PageContext.BoardSettings.EnableAlbum)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      if (this.Request.QueryString["u"] == null || this.Request.QueryString["a"] == null)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      var userId = Security.StringToLongOrRedirect(this.Request.QueryString["u"]).ToType<int>();
+      var albumId = Security.StringToLongOrRedirect(this.Request.QueryString["a"]).ToType<int>();
+
+      // setup jQuery, LightBox and YAF JS...
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
+      YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
+
+      // lightbox only need if the browser is not IE6...
+      if (!UserAgentHelper.IsBrowserIE6())
+      {
+        YafContext.Current.PageElements.RegisterJsResourceInclude("lightboxjs", "js/jquery.lightbox.min.js");
+        YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.lightbox.css");
+        YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
+      }
+
+      string displayName = this.PageContext.UserDisplayName.GetName(userId);
+
+      // Generate the page links.
+      this.PageLinks.Clear();
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(displayName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId));
+      this.PageLinks.AddLink(this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", userId));
+      this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+      // Set the title text.
+      this.LocalizedLabel1.Param0 = displayName;
+      this.LocalizedLabel1.Param1 = DB.album_gettitle(albumId);
+
+      // Initialize the Album Image List control.
+      this.AlbumImageList1.UserID = userId;
+      this.AlbumImageList1.AlbumID = albumId;
+    }
+
+    #endregion
+  }
 }
