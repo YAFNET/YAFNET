@@ -538,6 +538,7 @@ namespace YAF.Classes.Core
 
       var userRow = YafContext.Current.Cache.GetItem<DataRow>(
         cacheKey, 5, () => DB.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value).GetFirstRow());
+
       return userRow;
     }
 

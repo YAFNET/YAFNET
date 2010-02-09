@@ -174,27 +174,30 @@ namespace YAF.Classes.Core
     /// </returns>
     public string GetName(int userId)
     {
-      string displayName;
+      string displayName = string.Empty;
 
       if (!this.UserDisplayNameCollection.TryGetValue(userId, out displayName))
       {
         var row = UserMembershipHelper.GetUserRowForID(userId, true);
 
-        if (YafContext.Current.BoardSettings.EnableDisplayName)
+        if (row != null)
         {
-          displayName = row.Field<string>("DisplayName");
-        }
+          if (YafContext.Current.BoardSettings.EnableDisplayName)
+          {
+            displayName = row.Field<string>("DisplayName");
+          }
 
-        if (displayName.IsNullOrEmptyTrimmed())
-        {
-          // revert to their user name...
-          displayName = row.Field<string>("Name");
-        }
+          if (displayName.IsNullOrEmptyTrimmed())
+          {
+            // revert to their user name...
+            displayName = row.Field<string>("Name");
+          }
 
-        // update collection...
-        if (!this.UserDisplayNameCollection.ContainsKey(userId))
-        {
-          this.UserDisplayNameCollection.Add(userId, displayName);
+          // update collection...
+          if (!this.UserDisplayNameCollection.ContainsKey(userId))
+          {
+            this.UserDisplayNameCollection.Add(userId, displayName);
+          }
         }
       }
 
