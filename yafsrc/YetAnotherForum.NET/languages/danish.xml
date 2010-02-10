@@ -383,6 +383,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1360,6 +1361,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ALL">Alle</Resource>
     <Resource tag="BY">af {0}</Resource>
     <Resource tag="CREATED">Lavet</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Brugere som besøger dette forum nu:</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Goto Page: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">You will no longer be notified when new posts are made in this forum.</Resource>
@@ -1375,6 +1377,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Sidste indlæg</Resource>
     <Resource tag="MARKREAD">Marker dette forum som læst</Resource>
     <Resource tag="NO_POSTS">Ingen indlæg</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
     <Resource tag="SHOWTOPICS">Vis Emner</Resource>

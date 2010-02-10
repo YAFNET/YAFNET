@@ -443,6 +443,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1473,6 +1474,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ALL">Visi </Resource>
     <Resource tag="BY">iš {0} </Resource>
     <Resource tag="CREATED">Sukurta </Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Vartotojai Peržiūri šį forumą </Resource>
     <Resource tag="GOTO_POST_PAGER">[Goto Page: {0}] </Resource>
     <Resource tag="INFO_UNWATCH_FORUM">
@@ -1496,6 +1498,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Last Post </Resource>
     <Resource tag="MARKREAD">Pažymėti šį forumą kaip perskaitytą </Resource>
     <Resource tag="NO_POSTS">Komentarų nėra </Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Atsakymai </Resource>
     <Resource tag="RSSFEED">Rss feed </Resource>
     <Resource tag="SHOWTOPICS">Rodyti Temos </Resource>

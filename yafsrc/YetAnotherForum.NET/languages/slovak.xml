@@ -382,6 +382,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1381,6 +1382,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ALL">Všetko</Resource>
     <Resource tag="BY">od {0}</Resource>
     <Resource tag="CREATED">Vytvorené</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Používatelia, ktorí prezerajú toto fórum</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Choď na stránku: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Naďalej už nebudete dostávať informácie o nových správách, ktoré sa v tomto fóre objavia.</Resource>
@@ -1396,6 +1398,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Posledná správa</Resource>
     <Resource tag="MARKREAD">Označiť toto fórum ako prečítané</Resource>
     <Resource tag="NO_POSTS">Žiadne správy</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Reakcie</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
     <Resource tag="SHOWTOPICS">Ukázať témy</Resource>

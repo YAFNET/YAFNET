@@ -360,6 +360,7 @@
     <Resource tag="DENY_ALL">Không đồng ý tất cả sau 14 ngày</Resource>
     <Resource tag="EDIT_BUDDIES">Sửa danh sách bạn bè</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Ngày đề nghị</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1323,6 +1324,7 @@
     <Resource tag="ALL">Tất cả</Resource>
     <Resource tag="BY">bởi {0}</Resource>
     <Resource tag="CREATED">Tạo</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Ai đang xem trang này?</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Chuyến đến trang: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Bạn sẽ không được thông báo khi có bài viết mới trong diễn đàn này.</Resource>
@@ -1338,6 +1340,7 @@
     <Resource tag="LASTPOST">Bài cuối</Resource>
     <Resource tag="MARKREAD">Đánh dấu diễn đàn đã đọc</Resource>
     <Resource tag="NO_POSTS">Không có bài viết</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Trả Lời</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
     <Resource tag="SHOWTOPICS">Xem chủ đề</Resource>

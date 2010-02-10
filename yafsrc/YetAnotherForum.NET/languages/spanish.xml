@@ -381,6 +381,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1336,6 +1337,7 @@
     <Resource tag="ALL">Todo</Resource>
     <Resource tag="BY">por {0}</Resource>
     <Resource tag="CREATED">Creado</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Usuarios navegando este foro</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Ir a la página: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Ya no se te notificará cuando haya nuevos mensajes en este foro.</Resource>
@@ -1351,6 +1353,7 @@
     <Resource tag="LASTPOST">Ultimo mensaje</Resource>
     <Resource tag="MARKREAD">Marcar foro como leído</Resource>
     <Resource tag="NO_POSTS">No hay mensajes</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Respuestas</Resource>
     <Resource tag="RSSFEED">Rss</Resource>
     <Resource tag="SHOWTOPICS">Mostrar temas</Resource>

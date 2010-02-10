@@ -381,6 +381,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1298,6 +1299,7 @@ Der Bestätigungscode lautet
     <Resource tag="ALL">Alle</Resource>
     <Resource tag="BY">von {0}</Resource>
     <Resource tag="CREATED">erstellt</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Benutzer, die gerade in diesem Forum lesen</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Zu Seite {0} wechseln]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Du wirst über neue Beiträge nun nicht mehr informiert.</Resource>
@@ -1313,6 +1315,7 @@ Der Bestätigungscode lautet
     <Resource tag="LASTPOST">Letzter Beitrag</Resource>
     <Resource tag="MARKREAD">Dieses Forum als gelesen markieren</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Antworten</Resource>
     <Resource tag="RSSFEED">RSS-Feed</Resource>
     <Resource tag="SHOWTOPICS">Zeige Themen</Resource>

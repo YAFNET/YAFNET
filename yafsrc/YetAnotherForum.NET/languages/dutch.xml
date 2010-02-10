@@ -395,6 +395,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1379,6 +1380,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ALL">Alle</Resource>
     <Resource tag="BY">door {0}</Resource>
     <Resource tag="CREATED">Gemaakt</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Gebruikers aanwezig in dit forum</Resource>
     <Resource tag="GOTO_POST_PAGER">(Ga naar pagina: {0})</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Je krijgt nu geen bericht meer als er in dit forum nieuwe berichten worden geplaatst.</Resource>
@@ -1394,6 +1396,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Laatste bericht</Resource>
     <Resource tag="MARKREAD">Markeer dit forum als gelezen</Resource>
     <Resource tag="NO_POSTS">Geen onderwerpen</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Reacties</Resource>
     <Resource tag="RSSFEED">RSS Feed</Resource>
     <Resource tag="SHOWTOPICS">Toon onderwerpen</Resource>

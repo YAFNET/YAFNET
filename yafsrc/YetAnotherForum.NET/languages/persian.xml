@@ -381,6 +381,7 @@
     <Resource tag="DENY_ALL">درخواستهای قدیمی تر از 14 روز رد شوند.</Resource>
     <Resource tag="EDIT_BUDDIES">ویرایش لیست دوستان</Resource>
     <Resource tag="PENDING_REQUESTS">درخواست دوستی از شما</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">تاریخ درخواست</Resource>
     <Resource tag="YOUR_BUDDYLIST">لیست دوستان شما</Resource>
     <Resource tag="YOUR_REQUESTS">درخواستهای دوستی شما</Resource>
@@ -1292,6 +1293,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ALL">همه</Resource>
     <Resource tag="BY">بوسیله {0}</Resource>
     <Resource tag="CREATED">ایجاد شده</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
     <Resource tag="GOTO_POST_PAGER">[ برو به صفحه: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">از هم اکنون درباره پستهای جدید این انجمن به شما اطلاع داده نمی شود.</Resource>
@@ -1307,6 +1309,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">آخرین ارسال</Resource>
     <Resource tag="MARKREAD">این انجمن بصورت خوانده شده درآید</Resource>
     <Resource tag="NO_POSTS">هیچ ارسالی وجود ندارد</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">پاسخها</Resource>
     <Resource tag="RSSFEED">اشتراک خبر</Resource>
     <Resource tag="SHOWTOPICS">نمایش عناوین</Resource>

@@ -364,6 +364,7 @@
     <Resource tag="DENY_ALL">Отклонить всех более кто запросил более 14 дней назад</Resource>
     <Resource tag="EDIT_BUDDIES">Друзья</Resource>
     <Resource tag="PENDING_REQUESTS">Желающие подружиться</Resource>
+    <Resource tag="POSTS">Сообщения</Resource>
     <Resource tag="REQUEST_DATE">Дата запроса</Resource>
     <Resource tag="YOUR_BUDDYLIST">Список Друзей</Resource>
     <Resource tag="YOUR_REQUESTS">Ваши предложения</Resource>
@@ -1279,6 +1280,7 @@
     <Resource tag="ALL">Всё</Resource>
     <Resource tag="BY"> {0}</Resource>
     <Resource tag="CREATED">Создано</Resource>
+    <Resource tag="FORUM">Форум</Resource>
     <Resource tag="FORUMUSERS">Пользователи просматривающие форум</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Перейти на страницу: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Вы больше не будете уведомлены о новых постах на этом форуме.</Resource>
@@ -1294,6 +1296,7 @@
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="MARKREAD">Отметить форум как прочитанный</Resource>
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
+    <Resource tag="POSTS">Сообщения</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="RSSFEED">Лента RSS</Resource>
     <Resource tag="SHOWTOPICS">Показать темы</Resource>

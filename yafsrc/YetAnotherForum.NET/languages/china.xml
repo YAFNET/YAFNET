@@ -382,6 +382,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1359,6 +1360,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ALL">全部</Resource>
     <Resource tag="BY">由 {0}</Resource>
     <Resource tag="CREATED">创建</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">用户浏览此论坛</Resource>
     <Resource tag="GOTO_POST_PAGER">[ 前往页面: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">论坛里有新帖子时将不再提醒您.</Resource>
@@ -1374,6 +1376,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">最后发表</Resource>
     <Resource tag="MARKREAD">标注本论坛为已读</Resource>
     <Resource tag="NO_POSTS">没有新贴</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">回复</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
     <Resource tag="SHOWTOPICS">显示话题</Resource>

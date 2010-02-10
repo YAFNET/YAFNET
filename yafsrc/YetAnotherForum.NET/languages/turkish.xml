@@ -382,6 +382,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1361,6 +1362,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ALL">Tümü</Resource>
     <Resource tag="BY">by {0}</Resource>
     <Resource tag="CREATED">Yaratılma Tarihi</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Bu Foruma Giren Kullanıcılar</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Goto Page: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">You will no longer be notified when new posts are made in this forum.</Resource>
@@ -1376,6 +1378,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">En Son Mesaj</Resource>
     <Resource tag="MARKREAD">Bu Forumu Okundu Olarak İşaretle.</Resource>
     <Resource tag="NO_POSTS">Mesaj Yok.</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Yanıtlar</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
     <Resource tag="SHOWTOPICS">Konuları Göster</Resource>

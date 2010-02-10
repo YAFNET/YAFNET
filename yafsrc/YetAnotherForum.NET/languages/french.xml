@@ -360,6 +360,7 @@
     <Resource tag="DENY_ALL">Refuser toutes celles datant de plus de 14 jours</Resource>
     <Resource tag="EDIT_BUDDIES">Modifier les amis</Resource>
     <Resource tag="PENDING_REQUESTS">Demandes en attente</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Date de demande</Resource>
     <Resource tag="YOUR_BUDDYLIST">Votre liste d'amis</Resource>
     <Resource tag="YOUR_REQUESTS">Vos demandes</Resource>
@@ -1304,6 +1305,7 @@ Visitez {forumname} à l'adresse {forumlink}
     <Resource tag="ALL">Tous</Resource>
     <Resource tag="BY">par {0}</Resource>
     <Resource tag="CREATED">Créé le</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Utilisateurs actuellement sur ce forum</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Aller page&amp;nbsp;: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Vous ne serez plus averti(e) lorsque de nouveaux messages arriveront dans ce forum.</Resource>
@@ -1319,6 +1321,7 @@ Visitez {forumname} à l'adresse {forumlink}
     <Resource tag="LASTPOST">Dernier Message</Resource>
     <Resource tag="MARKREAD">Marquer ce forum comme lu</Resource>
     <Resource tag="NO_POSTS">Aucun Messages</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Réponses</Resource>
     <Resource tag="RSSFEED">Flux RSS</Resource>
     <Resource tag="SHOWTOPICS">Montrer les sujets</Resource>

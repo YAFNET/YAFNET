@@ -382,6 +382,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1362,6 +1363,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ALL">Toate</Resource>
     <Resource tag="BY">de {0}</Resource>
     <Resource tag="CREATED">Creat</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Utilizatori de sunt pe forum</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Goto Page: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">You will no longer be notified when new posts are made in this forum.</Resource>
@@ -1377,6 +1379,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Ultimul post</Resource>
     <Resource tag="MARKREAD">Marcheaza forumul ca fiind  citit</Resource>
     <Resource tag="NO_POSTS">Nu sunt postari</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Raspunsuri</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
     <Resource tag="SHOWTOPICS">Arata teme</Resource>

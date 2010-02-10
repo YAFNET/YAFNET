@@ -382,6 +382,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1360,6 +1361,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ALL">Alla</Resource>
     <Resource tag="BY">av {0}</Resource>
     <Resource tag="CREATED">Skapad</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">Användare som läser i detta forum</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Gå till sida: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Du kommer inte längre att bli notifierad när nya meddelanden postas i detta forum.</Resource>
@@ -1375,6 +1377,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Senaste meddelande</Resource>
     <Resource tag="MARKREAD">Markera detta forum som läst</Resource>
     <Resource tag="NO_POSTS">Inga meddelanden</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="RSSFEED">Rsskanal</Resource>
     <Resource tag="SHOWTOPICS">Visa konversationer</Resource>

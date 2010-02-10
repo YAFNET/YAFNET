@@ -381,6 +381,7 @@
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
@@ -1378,6 +1379,7 @@
     <Resource tag="ALL">הכל</Resource>
     <Resource tag="BY">ע"י {0}</Resource>
     <Resource tag="CREATED">נוצר</Resource>
+    <Resource tag="FORUM">Forum</Resource>
     <Resource tag="FORUMUSERS">משתמשים הצופים בפורום זה</Resource>
     <Resource tag="GOTO_POST_PAGER">[ עבור לעמוד: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">לא תקבל יותר עדכונים על הודעות בפורום זה.</Resource>
@@ -1393,6 +1395,7 @@
     <Resource tag="LASTPOST">הודעה אחרונה</Resource>
     <Resource tag="MARKREAD">סמן פורום זה כ'נקרא'</Resource>
     <Resource tag="NO_POSTS">אין הודעות</Resource>
+    <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">תגובות</Resource>
     <Resource tag="RSSFEED">הזנת RSS</Resource>
     <Resource tag="SHOWTOPICS">הצג דיונים</Resource>
