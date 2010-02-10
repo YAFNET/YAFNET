@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.net
+/* Yet Another Forum.net
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -57,7 +57,7 @@ namespace YAF.Classes.Core
 
       if (YafContext.Current.BoardSettings.AvatarUpload && userData.HasAvatarImage)
       {
-        avatarUrl = String.Format("{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, userData.UserID);
+        avatarUrl = String.Format("{0}resource.ashx?u={1}", YafForumInfo.ForumClientFileRoot, userData.UserID);
       }
       else if (!String.IsNullOrEmpty(userData.Avatar))
       {
@@ -67,7 +67,7 @@ namespace YAF.Classes.Core
           HttpContext.Current.Server.UrlEncode(userData.Avatar), 
           YafContext.Current.BoardSettings.AvatarWidth, 
           YafContext.Current.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumRoot);
+          YafForumInfo.ForumClientFileRoot);
       }
         
         // JoeOuts added 8/17/09 for Gravatar use
@@ -86,7 +86,7 @@ namespace YAF.Classes.Core
           HttpContext.Current.Server.UrlEncode(gravatarUrl), 
           YafContext.Current.BoardSettings.AvatarWidth, 
           YafContext.Current.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumRoot);
+          YafForumInfo.ForumClientFileRoot);
       }
 
       return avatarUrl;

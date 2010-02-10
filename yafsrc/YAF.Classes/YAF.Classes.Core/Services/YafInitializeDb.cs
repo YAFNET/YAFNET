@@ -60,14 +60,14 @@ namespace YAF.Classes.Core
       {
         // unable to connect to the DB...
         HttpContext.Current.Session["StartupException"] = errorStr;
-        HttpContext.Current.Response.Redirect(YafForumInfo.ForumRoot + "error.aspx");
+        HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
       }
 
       // step 2: validate the database version...
       string redirectStr = DB.forumpage_validateversion(YafForumInfo.AppVersion);
       if (!String.IsNullOrEmpty(redirectStr))
       {
-        HttpContext.Current.Response.Redirect(YafForumInfo.ForumRoot + redirectStr);
+        HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + redirectStr);
       }
 
       return true;

@@ -53,7 +53,7 @@ namespace YAF.Providers.Utils
       }
 
       var exceptionXmlDoc = new XmlDocument();
-      exceptionXmlDoc.Load(HttpContext.Current.Server.MapPath(String.Format("{0}resources/{1}", YafForumInfo.ForumFileRoot, ProviderExceptionFile)));
+      exceptionXmlDoc.Load(HttpContext.Current.Server.MapPath(String.Format("{0}resources/{1}", YafForumInfo.ForumServerFileRoot, ProviderExceptionFile)));
 
       return exceptionXmlDoc;
     }

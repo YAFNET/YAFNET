@@ -98,13 +98,24 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// Gets FileRoot.
+    /// Gets ServerFileRoot.
     /// </summary>
-    public static string FileRoot
+    public static string ServerFileRoot
     {
       get
       {
-        return GetConfigValueAsString("YAF.FileRoot") ?? String.Empty;
+        return GetConfigValueAsString("YAF.FileRoot") ?? GetConfigValueAsString("YAF.ServerFileRoot") ?? String.Empty;
+      }
+    }
+
+    /// <summary>
+    /// Gets ClientFileRoot.
+    /// </summary>
+    public static string ClientFileRoot
+    {
+      get
+      {
+        return GetConfigValueAsString("YAF.ClientFileRoot") ?? String.Empty;
       }
     }
 
@@ -355,7 +366,7 @@ namespace YAF.Classes
     {
       get
       {
-        return GetConfigValueAsString("YAF.RadEditorToolsFile") ?? String.Format("{0}/editors/RadEditor/ToolsFile.xml", FileRoot);
+        return GetConfigValueAsString("YAF.RadEditorToolsFile") ?? String.Format("{0}/editors/RadEditor/ToolsFile.xml", ServerFileRoot);
       }
     }
 

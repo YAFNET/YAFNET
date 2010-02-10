@@ -17,7 +17,7 @@ namespace YAF.Classes.UnitTests
   /// The url builder tests.
   /// </summary>
   [TestFixture]
-  public class UrlBuilderTests : UrlBuilder
+  public class UrlBuilderTests : BaseUrlBuilder
   {
     #region Public Methods
 

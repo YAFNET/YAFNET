@@ -30,11 +30,11 @@ namespace YAF.Classes.Utils
     /// Gets the forum path (client-side).
     /// May not be the actual URL of the forum.
     /// </summary>
-    public static string ForumRoot
+    public static string ForumClientFileRoot
     {
       get
       {
-        return BaseUrlBuilder.Path;
+        return BaseUrlBuilder.ClientFileRoot;
       }
     }
 
@@ -42,22 +42,22 @@ namespace YAF.Classes.Utils
     /// Gets the forum path (server-side).
     /// May not be the actual URL of the forum.
     /// </summary>
-    public static string ForumFileRoot
+    public static string ForumServerFileRoot
     {
       get
       {
-        return BaseUrlBuilder.FileRoot;
+        return BaseUrlBuilder.ServerFileRoot;
       }
     }
 
     /// <summary>
-    /// Gets complete external (client-side) URL of the forum. (e.g. http://myforum.com/forum/
+    /// Gets complete application external (client-side) URL of the forum. (e.g. http://myforum.com/forum
     /// </summary>
     public static string ForumBaseUrl
     {
       get
       {
-        return BaseUrlBuilder.BaseUrl + BaseUrlBuilder.Path;
+        return BaseUrlBuilder.BaseUrl + BaseUrlBuilder.AppPath;
       }
     }
 
@@ -94,7 +94,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string GetURLToResource(string resourceName)
     {
-      return string.Format("{1}resources/{0}", resourceName, ForumRoot);
+      return string.Format("{1}resources/{0}", resourceName, ForumClientFileRoot);
     }
 
     #region Version Information

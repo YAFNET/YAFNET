@@ -87,13 +87,13 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// Gets FileRoot.
+    /// Gets ClientFileRoot.
     /// </summary>
-    public static string FileRoot
+    public static string ClientFileRoot
     {
       get
       {
-        string altRoot = Config.FileRoot;
+        string altRoot = Config.ClientFileRoot;
 
         if (String.IsNullOrEmpty(altRoot) && !String.IsNullOrEmpty(Config.AppRoot))
         {
@@ -106,9 +106,28 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// Gets Path.
+    /// Gets ServerFileRoot.
     /// </summary>
-    public static string Path
+    public static string ServerFileRoot
+    {
+      get
+      {
+        string altRoot = Config.ServerFileRoot;
+
+        if (String.IsNullOrEmpty(altRoot) && !String.IsNullOrEmpty(Config.AppRoot))
+        {
+          // default to "AppRoot" if no file root specified and AppRoot specified...
+          altRoot = Config.AppRoot;
+        }
+
+        return TreatPathStr(altRoot);
+      }
+    }
+
+    /// <summary>
+    /// Gets App Path.
+    /// </summary>
+    public static string AppPath
     {
       get
       {

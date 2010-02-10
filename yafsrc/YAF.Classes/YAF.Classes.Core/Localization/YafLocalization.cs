@@ -234,7 +234,7 @@ namespace YAF.Classes.Core
 #endif
       if (this._localizer == null)
       {
-        this._localizer = new Localizer(HttpContext.Current.Server.MapPath(String.Format("{0}languages/{1}", YafForumInfo.ForumFileRoot, fileName)));
+        this._localizer = new Localizer(HttpContext.Current.Server.MapPath(String.Format("{0}languages/{1}", YafForumInfo.ForumServerFileRoot, fileName)));
 #if !DEBUG
 				HttpContext.Current.Cache ["Localizer." + fileName] = _localizer;
 #endif
@@ -250,7 +250,7 @@ namespace YAF.Classes.Core
 
         if (this._defaultLocale == null)
         {
-          this._defaultLocale = new Localizer(HttpContext.Current.Server.MapPath(String.Format("{0}languages/english.xml", YafForumInfo.ForumFileRoot)));
+          this._defaultLocale = new Localizer(HttpContext.Current.Server.MapPath(String.Format("{0}languages/english.xml", YafForumInfo.ForumServerFileRoot)));
 #if !DEBUG
           HttpContext.Current.Cache ["DefaultLocale"] = _defaultLocale;
 #endif

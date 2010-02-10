@@ -555,7 +555,7 @@ namespace YAF.Controls
       {
         filler = String.Format(
           PageContext.BoardSettings.UserBoxRankImage,
-          String.Format(@"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />", YafForumInfo.ForumRoot, YafBoardFolders.Current.Ranks, this.DataRow["RankImage"]));
+          String.Format(@"<img class=""rankimage"" src=""{0}{1}/{2}"" alt="""" />", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, this.DataRow["RankImage"]));
       }
 
       // replaces template placeholder with actual rank image
@@ -620,7 +620,7 @@ namespace YAF.Controls
 
             ribbonBar.AppendFormat(
               "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />", 
-              YafForumInfo.ForumRoot, 
+              YafForumInfo.ForumClientFileRoot, 
               r["SmallRibbonURL"], 
               r["SmallRibbonWidth"], 
               r["SmallRibbonHeight"], 
@@ -646,7 +646,7 @@ namespace YAF.Controls
           {
             medals.AppendFormat(
               "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" />", 
-              YafForumInfo.ForumRoot, 
+              YafForumInfo.ForumClientFileRoot, 
               r["SmallMedalURL"], 
               r["SmallMedalWidth"], 
               r["SmallMedalHeight"], 

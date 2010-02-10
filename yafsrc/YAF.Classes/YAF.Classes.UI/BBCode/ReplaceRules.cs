@@ -1068,7 +1068,7 @@ namespace YAF.Classes.UI
       while (m.Success)
       {
         string inner = this._syntaxHighlighter.ColorText(
-          GetInnerValue(m.Groups["inner"].Value), HttpContext.Current.Server.MapPath(YafForumInfo.ForumFileRoot + "defs/"), m.Groups["language"].Value);
+          GetInnerValue(m.Groups["inner"].Value), HttpContext.Current.Server.MapPath(YafForumInfo.ForumServerFileRoot + "defs/"), m.Groups["language"].Value);
         string tStr = this._regExReplace.Replace("${inner}", inner);
 
         // pulls the htmls into the replacement collection before it's inserted back into the main text

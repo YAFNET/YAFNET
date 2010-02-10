@@ -82,10 +82,10 @@ namespace YAF.Classes
     /// </returns>
     public override string BuildUrl(string url)
     {
-      string newURL = string.Format("{0}{1}?{2}", Path, ScriptName, url);
+      string newURL = string.Format("{0}{1}?{2}", AppPath, ScriptName, url);
 
       // create scriptName
-      string scriptName = string.Format("{0}{1}", Path, Config.ForceScriptName ?? ScriptName);
+      string scriptName = string.Format("{0}{1}", AppPath, Config.ForceScriptName ?? ScriptName);
 
       // get the base script file from the config -- defaults to, well, default.aspx :)
       string scriptFile = Config.BaseScriptFile;

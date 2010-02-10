@@ -184,7 +184,7 @@ namespace YAF.Controls
           if (!String.IsNullOrEmpty(item.Link))
           {
             // direct link...
-            url = item.Link.Replace("~", YafForumInfo.ForumRoot);
+            url = item.Link.Replace("~", YafForumInfo.ForumClientFileRoot);
           }
           else if (!String.IsNullOrEmpty(item.ForumPage))
           {

@@ -1718,7 +1718,7 @@ namespace YAF.Classes.Data
           cmd.Parameters.AddWithValue("AttachmentID", attachmentID);
           DataTable tbAttachments = YafDBAccess.Current.GetData(cmd);
 
-          string uploadDir = HostingEnvironment.MapPath(String.Concat(BaseUrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+          string uploadDir = HostingEnvironment.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
           foreach (DataRow row in tbAttachments.Rows)
           {
@@ -4138,7 +4138,7 @@ namespace YAF.Classes.Data
           cmd.Parameters.AddWithValue("MessageID", messageID);
           DataTable tbAttachments = YafDBAccess.Current.GetData(cmd);
 
-          string uploadDir = HostingEnvironment.MapPath(String.Concat(BaseUrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+          string uploadDir = HostingEnvironment.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
           foreach (DataRow row in tbAttachments.Rows)
           {

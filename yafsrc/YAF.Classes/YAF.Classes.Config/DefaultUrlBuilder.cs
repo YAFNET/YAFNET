@@ -49,7 +49,7 @@ namespace YAF.Classes
       url = url.Replace("&", "&amp;");
 
       // return URL to current script with URL from parameter as script's parameter
-      return String.Format("{0}{1}?{2}", Path, ScriptName, url);
+      return String.Format("{0}{1}?{2}", AppPath, ScriptName, url);
     }
 
     /// <summary>

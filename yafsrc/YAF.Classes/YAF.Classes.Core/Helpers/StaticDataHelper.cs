@@ -75,7 +75,7 @@ namespace YAF.Classes.Core
 
         var dir =
           new DirectoryInfo(
-            HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumFileRoot)));
+            HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
         FileInfo[] files = dir.GetFiles("*.xml");
         foreach (FileInfo file in files)
         {
@@ -112,7 +112,7 @@ namespace YAF.Classes.Core
         var dir =
           new DirectoryInfo(
             HttpContext.Current.Request.MapPath(
-              String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Themes)));
+              String.Format("{0}{1}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes)));
         FileInfo[] files = dir.GetFiles("*.xml");
         foreach (FileInfo file in files)
         {

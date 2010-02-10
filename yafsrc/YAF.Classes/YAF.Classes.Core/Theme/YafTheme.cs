@@ -89,7 +89,7 @@ namespace YAF.Classes.Core
         {
           _themeXmlDoc = new XmlDocument();
           _themeXmlDoc.Load(
-                      System.Web.HttpContext.Current.Server.MapPath(String.Concat(YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Themes, "/", ThemeFile)));
+                      System.Web.HttpContext.Current.Server.MapPath(String.Concat(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, "/", ThemeFile)));
           #if !DEBUG
           System.Web.HttpContext.Current.Cache[ThemeFile] = _themeXmlDoc;
           #endif
@@ -112,7 +112,7 @@ namespace YAF.Classes.Core
 
       if (!themeFile.EndsWith(".xml")) return false;
 
-      return System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath(String.Concat(YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Themes, "/", themeFile.Trim())));
+      return System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath(String.Concat(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, "/", themeFile.Trim())));
     }
 
     public string GetItem(string page, string tag)
@@ -145,7 +145,7 @@ namespace YAF.Classes.Core
           return defaultValue;
         }
 
-        item = node.InnerText.Replace("~", String.Format("{0}{1}/{2}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Themes, themeDir));
+        item = node.InnerText.Replace("~", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, themeDir));
       }
 
       return item;
@@ -156,7 +156,7 @@ namespace YAF.Classes.Core
       get
       {
         LoadThemeFile();
-        return String.Format("{0}{1}/{2}/", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Themes, _themeXmlDoc.DocumentElement.Attributes["dir"].Value);
+        return String.Format("{0}{1}/{2}/", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Themes, _themeXmlDoc.DocumentElement.Attributes["dir"].Value);
       }
     }
 

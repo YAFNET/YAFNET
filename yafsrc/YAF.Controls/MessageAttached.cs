@@ -175,7 +175,7 @@ namespace YAF.Controls
                   writer.Write(
                     String.Format(
                       @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /></div>", 
-                      YafForumInfo.ForumRoot, 
+                      YafForumInfo.ForumClientFileRoot, 
                       dr["AttachmentID"], 
                       HtmlEncode(dr["FileName"])));
                 }
@@ -185,7 +185,7 @@ namespace YAF.Controls
                   writer.Write(
                     String.Format(
                       @"<div class=""attachedimg"" style=""display: inline;""><a rel=""lightbox-group{3}"" href=""{0}resource.ashx?i={1}"" target=""_blank"" title=""{2}""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" /></a></div>", 
-                      YafForumInfo.ForumRoot, 
+                      YafForumInfo.ForumClientFileRoot, 
                       dr["AttachmentID"], 
                       HtmlEncode(dr["FileName"]), 
                       attachGroupId));
@@ -228,7 +228,7 @@ namespace YAF.Controls
                   String.Format(
                     @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink"" href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", 
                     strFileIcon, 
-                    YafForumInfo.ForumRoot, 
+                    YafForumInfo.ForumClientFileRoot, 
                     dr["AttachmentID"], 
                     dr["FileName"], 
                     String.Format(stats, kb, dr["Downloads"])));

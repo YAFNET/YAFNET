@@ -279,7 +279,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string Smiley(string icon)
     {
-      return String.Format("{0}{1}/{2}", YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons, icon);
+      return String.Format("{0}{1}/{2}", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, icon);
     }
 
     #endregion
