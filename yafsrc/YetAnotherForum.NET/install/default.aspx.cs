@@ -345,7 +345,7 @@ namespace YAF.Install
       if (Config.IsDotNetNuke)
       {
         // Redirect back to the portal main page.
-        string rPath = YafForumInfo.ForumRoot;
+        string rPath = YafForumInfo.ForumClientFileRoot;
         int pos = rPath.IndexOf("/", 2);
         rPath = rPath.Substring(0, pos);
         Response.Redirect(rPath);

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AlbumImageList.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AlbumImageList.ascx.cs"
     Inherits="YAF.Controls.AlbumImageList" %>
 <asp:Literal ID="ltrTitleOnly" runat="server"></asp:Literal>
 <span runat="server" id="spnAlbumOwner" visible='<%# UserID == PageContext.PageUserID %>'>
@@ -23,9 +23,9 @@
                 <table class="albumtable" style="display: inline" width='<%# YafContext.Current.BoardSettings.ImageAttachmentResizeWidth %>'>
                     <tr>
                         <td class="albumimagebox">
-                            <a rel='<%# String.Format("lightbox-group{0}", this._attachGroupID) %>' href='<%# String.Format("{0}resource.ashx?image={1}",YafForumInfo.ForumRoot,Eval("ImageID")) %>'
+                            <a rel='<%# String.Format("lightbox-group{0}", this._attachGroupID) %>' href='<%# String.Format("{0}resource.ashx?image={1}",YafForumInfo.ForumClientFileRoot,Eval("ImageID")) %>'
                                 target="_blank" title='<%# Eval("FileName") %>'>
-                                <img src='<%# String.Format("{0}resource.ashx?imgprv={1}",YafForumInfo.ForumRoot,Eval("ImageID")) %>'
+                                <img src='<%# String.Format("{0}resource.ashx?imgprv={1}",YafForumInfo.ForumClientFileRoot,Eval("ImageID")) %>'
                                     alt='<%# HtmlEncode(Eval("FileName")) %>' />
                             </a>
                         </td>

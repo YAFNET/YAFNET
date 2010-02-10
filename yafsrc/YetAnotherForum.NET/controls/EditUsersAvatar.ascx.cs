@@ -137,7 +137,7 @@ namespace YAF.Controls
 
       if (PageContext.BoardSettings.AvatarUpload && row["HasAvatarImage"] != null && long.Parse(row["HasAvatarImage"].ToString()) > 0)
       {
-        this.AvatarImg.ImageUrl = String.Format("{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, this._currentUserID);
+        this.AvatarImg.ImageUrl = String.Format("{0}resource.ashx?u={1}", YafForumInfo.ForumClientFileRoot, this._currentUserID);
         this.Avatar.Text = string.Empty;
         this.DeleteAvatar.Visible = true;
       }
@@ -149,7 +149,7 @@ namespace YAF.Controls
           Server.UrlEncode(row["Avatar"].ToString()), 
           PageContext.BoardSettings.AvatarWidth, 
           PageContext.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumRoot);
+          YafForumInfo.ForumClientFileRoot);
 
         this.Avatar.Text = row["Avatar"].ToString();
         this.DeleteAvatar.Visible = true;
@@ -174,7 +174,7 @@ namespace YAF.Controls
           Server.UrlEncode(gravatarUrl), 
           PageContext.BoardSettings.AvatarWidth, 
           PageContext.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumRoot);
+          YafForumInfo.ForumClientFileRoot);
 
         this.NoAvatar.Text = "Gravatar Image";
         this.NoAvatar.Visible = true;

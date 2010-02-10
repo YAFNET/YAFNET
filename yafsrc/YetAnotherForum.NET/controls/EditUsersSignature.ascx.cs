@@ -50,7 +50,7 @@ namespace YAF.Controls
         {
             PageContext.QueryIDs = new QueryStringIDHelper("u");
 
-            this._sig.BaseDir = YafForumInfo.ForumRoot + "editors";
+            this._sig.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
             this._sig.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
 
             if (!IsPostBack)

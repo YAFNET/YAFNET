@@ -84,7 +84,7 @@ namespace YAF.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             // set attributes of editor
-            this.reportEditor.BaseDir = YafForumInfo.ForumRoot + "editors";
+            this.reportEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
             this.reportEditor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
           
                 if (!String.IsNullOrEmpty(Request.QueryString["m"]))

@@ -29,7 +29,10 @@
 		<span id="ReportButtons" runat="server">	
 			<asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>' Text="Report" runat="server" Visible="true"></asp:LinkButton>			
 		</span>					
-		<asp:LinkButton ID="MessageHistoryLBtn" CommandName="ShowHistory" CommandArgument='<%# DataRow["MessageID"] %>' Text="Message History" Visible="false" runat="server"></asp:LinkButton>	
+		
+		<asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
+		| <asp:LinkButton ID="MessageHistoryLBtn" CommandName="ShowHistory" CommandArgument='<%# DataRow["MessageID"] %>' Text="Message History" runat="server"></asp:LinkButton>	
+		</asp:PlaceHolder>
 		
 		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>		
 	</div>

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AlbumList.ascx.cs" Inherits="YAF.Controls.AlbumList" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AlbumList.ascx.cs" Inherits="YAF.Controls.AlbumList" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <div class="imgtitle">
     <YAF:UserLabel ID="UserLabel1" runat="server" UserID="<%# UserID %>" /><YAF:LocalizedLabel ID="AlbumHeaderLabel" runat="server" LocalizedTag="ALBUMS_HEADER_TEXT" Param0="" />
@@ -22,7 +22,7 @@
                         <td class="albumimagebox">
                             <a href='<%# YafBuildLink.GetLink(ForumPages.album, "u={0}&a={1}", Eval("UserID"), Eval("AlbumID")) %>'
                                 target="_parent" title='<%# Eval("Title") %>'>
-                                <img src='<%# String.Format("{0}resource.ashx?album={1}&cover={2}",YafForumInfo.ForumRoot, Eval("AlbumID"), (Eval("CoverImageID").ToString() == string.Empty ? "0" : Eval("CoverImageID")) ) %>'
+                                <img src='<%# String.Format("{0}resource.ashx?album={1}&cover={2}",YafForumInfo.ForumClientFileRoot, Eval("AlbumID"), (Eval("CoverImageID").ToString() == string.Empty ? "0" : Eval("CoverImageID")) ) %>'
                                     alt='<%# Eval("Title") %>' />
                             </a>
                         </td>

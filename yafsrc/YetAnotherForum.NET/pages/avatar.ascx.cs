@@ -89,7 +89,7 @@ namespace YAF.Pages // YAF.Pages
 
         private void BindData()
         {
-            string strDirectory = String.Concat(YafForumInfo.ForumRoot, YafBoardFolders.Current.Avatars, "/", CurrentDirectory);
+            string strDirectory = String.Concat(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars, "/", CurrentDirectory);
 
             DirectoryInfo baseDirectory = new DirectoryInfo(Server.MapPath(strDirectory));
 
@@ -158,7 +158,7 @@ namespace YAF.Pages // YAF.Pages
 
         public void Files_Bind(object sender, DataListItemEventArgs e)
         {
-            string strDirectory = String.Concat(YafForumInfo.ForumRoot, YafBoardFolders.Current.Avatars, "/", CurrentDirectory);
+            string strDirectory = String.Concat(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars, "/", CurrentDirectory);
 
             Literal fname = (Literal)e.Item.FindControl("fname");
 
@@ -200,7 +200,7 @@ namespace YAF.Pages // YAF.Pages
 
                 LinkButton up = e.Item.FindControl("up") as LinkButton;
                 up.CommandArgument = previousDirectory;
-                up.Text = String.Format(@"<p align=""center""><img src=""{0}"" alt=""Up"" /><br />UP</p>", YafForumInfo.ForumRoot + "images/folder.gif");
+                up.Text = String.Format(@"<p align=""center""><img src=""{0}"" alt=""Up"" /><br />UP</p>", YafForumInfo.ForumClientFileRoot + "images/folder.gif");
             }
         }
 
@@ -211,13 +211,13 @@ namespace YAF.Pages // YAF.Pages
 
         public void Directories_Bind(object sender, DataListItemEventArgs e)
         {
-            string strDirectory = String.Concat(YafForumInfo.ForumRoot, YafBoardFolders.Current.Avatars, "/");
+            string strDirectory = String.Concat(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars, "/");
 
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 LinkButton dirName = e.Item.FindControl("dirName") as LinkButton;
                 dirName.CommandArgument = filepath + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"));
-                dirName.Text = String.Format(@"<p align=""center""><img src=""{0}"" alt=""{1}"" /><br />{1}</p>", YafForumInfo.ForumRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+                dirName.Text = String.Format(@"<p align=""center""><img src=""{0}"" alt=""{1}"" /><br />{1}</p>", YafForumInfo.ForumClientFileRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
             }
         }
 

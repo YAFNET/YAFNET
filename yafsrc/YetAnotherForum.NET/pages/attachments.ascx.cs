@@ -330,7 +330,7 @@ namespace YAF.Pages
         return;
       }
 
-      string previousDirectory = this.Request.MapPath(String.Concat(BaseUrlBuilder.FileRoot, YafBoardFolders.Current.Uploads));
+      string previousDirectory = this.Request.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
       string filename = file.PostedFile.FileName;
 
       int pos = filename.LastIndexOfAny(new[] { '/', '\\' });

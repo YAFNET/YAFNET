@@ -72,8 +72,8 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
-      var userId = Security.StringToLongOrRedirect(this.Request.QueryString["u"]).ToType<int>();
-      var albumId = Security.StringToLongOrRedirect(this.Request.QueryString["a"]).ToType<int>();
+      var userId = Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+      var albumId = Security.StringToLongOrRedirect(this.Request.QueryString["a"]);
 
       // setup jQuery, LightBox and YAF JS...
       YafContext.Current.PageElements.RegisterJQuery();
@@ -88,7 +88,7 @@ namespace YAF.Pages
         YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
       }
 
-      string displayName = this.PageContext.UserDisplayName.GetName(userId);
+      string displayName = this.PageContext.UserDisplayName.GetName((int)userId);
 
       // Generate the page links.
       this.PageLinks.Clear();
@@ -102,8 +102,8 @@ namespace YAF.Pages
       this.LocalizedLabel1.Param1 = DB.album_gettitle(albumId);
 
       // Initialize the Album Image List control.
-      this.AlbumImageList1.UserID = userId;
-      this.AlbumImageList1.AlbumID = albumId;
+      this.AlbumImageList1.UserID = (int)userId;
+      this.AlbumImageList1.AlbumID = (int)albumId;
     }
 
     #endregion

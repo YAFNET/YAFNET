@@ -391,7 +391,7 @@ namespace YAF
     /// </returns>
     private string GetPageSource()
     {
-      string m_baseDir = YafForumInfo.ForumFileRoot;
+      string m_baseDir = YafForumInfo.ForumServerFileRoot;
 
       if (Request.QueryString["g"] != null)
       {

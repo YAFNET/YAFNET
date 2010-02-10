@@ -39,7 +39,7 @@
 			</td>
 			<td class="post" align="center">
 				<asp:HyperLink ID="ClickSmiley" NavigateUrl='<%# GetSmileyScript( DataBinder.Eval(Container.DataItem,"Code","{0}"), DataBinder.Eval(Container.DataItem,"Icon","{0}")) %>'
-					ToolTip='<%# DataBinder.Eval(Container.DataItem,"Emoticon") %>' runat="server"><img alt="" src='<%# YafForumInfo.ForumRoot + YafBoardFolders.Current.Emoticons %>/<%# DataBinder.Eval(Container.DataItem,"Icon") %>'/></asp:HyperLink>
+					ToolTip='<%# DataBinder.Eval(Container.DataItem,"Emoticon") %>' runat="server"><img alt="" src='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons %>/<%# DataBinder.Eval(Container.DataItem,"Icon") %>'/></asp:HyperLink>
 			</td>
 			<td class="post">
 				<%# DataBinder.Eval(Container.DataItem,"Emoticon") %>

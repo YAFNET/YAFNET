@@ -171,7 +171,7 @@ namespace YAF.Pages.Admin
       // image of medal
       output.AppendFormat(
         "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />", 
-        YafForumInfo.ForumRoot, 
+        YafForumInfo.ForumClientFileRoot, 
         dr["SmallMedalURL"], 
         dr["SmallMedalWidth"], 
         dr["SmallMedalHeight"], 
@@ -183,7 +183,7 @@ namespace YAF.Pages.Admin
       {
         output.AppendFormat(
           " &nbsp; <img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />", 
-          YafForumInfo.ForumRoot, 
+          YafForumInfo.ForumClientFileRoot, 
           dr["SmallRibbonURL"], 
           dr["SmallRibbonWidth"], 
           dr["SmallRibbonHeight"], 

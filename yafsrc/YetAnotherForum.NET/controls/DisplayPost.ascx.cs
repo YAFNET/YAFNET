@@ -242,7 +242,7 @@ namespace YAF.Controls
           string.Format(
             @"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>", 
             iIndent * 32, 
-            YafForumInfo.ForumRoot);
+            YafForumInfo.ForumClientFileRoot);
       }
       else
       {

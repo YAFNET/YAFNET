@@ -475,7 +475,7 @@ namespace YAF.Pages
         this.Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
         var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
-        imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumRoot);
+        imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumClientFileRoot);
         captchaPlaceHolder.Visible = true;
       }
       else

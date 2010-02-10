@@ -405,7 +405,7 @@ namespace YAF.Pages
 
       // Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
       this._forumEditor.StyleSheet = this.PageContext.Theme.BuildThemePath("theme.css");
-      this._forumEditor.BaseDir = YafForumInfo.ForumRoot + "editors";
+      this._forumEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
 
       this.Title.Text = this.GetText("NEWTOPIC");
       this.PollExpire.Attributes.Add("style", "width:50px");
@@ -459,7 +459,7 @@ namespace YAF.Pages
             (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
         {
           this.Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
-          this.imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumRoot);
+          this.imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumClientFileRoot);
           this.tr_captcha1.Visible = true;
           this.tr_captcha2.Visible = true;
         }

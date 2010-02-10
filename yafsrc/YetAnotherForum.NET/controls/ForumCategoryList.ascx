@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ForumCategoryList.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ForumCategoryList.ascx.cs"
 	Inherits="YAF.Controls.ForumCategoryList" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 <asp:UpdatePanel ID="UpdatePanelCategory" runat="server" UpdateMode="Conditional">
@@ -33,7 +33,7 @@
 							AttachedControlID="forumList" />
 						&nbsp;&nbsp; <a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
 							
-							<asp:Image ID="uxCategoryImage" CssClass="category_image" AlternateText=" " ImageUrl='<%# YafForumInfo.ForumRoot + YafBoardFolders.Current.Categories + "/" + DataBinder.Eval(Container.DataItem, "CategoryImage") %>' Visible='<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "CategoryImage" ).ToString()) %>' runat="server" />
+							<asp:Image ID="uxCategoryImage" CssClass="category_image" AlternateText=" " ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Categories + "/" + DataBinder.Eval(Container.DataItem, "CategoryImage") %>' Visible='<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem, "CategoryImage" ).ToString()) %>' runat="server" />
 							
 							<%# DataBinder.Eval(Container.DataItem, "Name") %>
 						</a>

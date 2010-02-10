@@ -649,7 +649,7 @@ namespace YAF.Pages.Admin
         dt.Rows.Add(dr);
 
         // add files from medals folder
-        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Medals)));
+        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals)));
         FileInfo[] files = dir.GetFiles("*.*");
 
         long nFileID = 1;
@@ -748,10 +748,10 @@ namespace YAF.Pages.Admin
       else
       {
         // set all previews on blank image
-        this.MedalPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
-        this.RibbonPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
-        this.SmallMedalPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
-        this.SmallRibbonPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
+        this.MedalPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
+        this.RibbonPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
+        this.SmallMedalPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
+        this.SmallRibbonPreview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
       }
     }
 
@@ -830,12 +830,12 @@ namespace YAF.Pages.Admin
         item.Selected = true;
 
         // set preview image
-        preview.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumRoot, YafBoardFolders.Current.Medals, imageURL);
+        preview.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imageURL);
       }
       else
       {
         // if we found nothing, set blank image as preview
-        preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
+        preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
       }
     }
 
@@ -853,7 +853,7 @@ namespace YAF.Pages.Admin
     {
       // create javascript
       imageSelector.Attributes["onchange"] = String.Format(
-        "getElementById('{2}').src='{0}{1}/' + this.value", YafForumInfo.ForumRoot, YafBoardFolders.Current.Medals, imagePreview.ClientID);
+        "getElementById('{2}').src='{0}{1}/' + this.value", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imagePreview.ClientID);
     }
 
 
@@ -868,7 +868,7 @@ namespace YAF.Pages.Admin
     /// </returns>
     private Size GetImageSize(string filename)
     {
-      using (Image img = Image.FromFile(Server.MapPath(String.Format("{0}{1}/{2}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Medals, filename))))
+      using (Image img = Image.FromFile(Server.MapPath(String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals, filename))))
       {
         return img.Size;
       }

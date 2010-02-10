@@ -71,7 +71,7 @@ namespace YAF.Pages.Admin
         dr["Description"] = "Select Smiley Image";
         dt.Rows.Add(dr);
 
-        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Emoticons)));
+        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Emoticons)));
         FileInfo[] files = dir.GetFiles("*.*");
         long nFileID = 1;
         foreach (FileInfo file in files)
@@ -109,18 +109,18 @@ namespace YAF.Pages.Admin
               this.Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
             }
 
-            this.Preview.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons, dt.Rows[0]["Icon"]);
+            this.Preview.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, dt.Rows[0]["Icon"]);
             this.SortOrder.Text = dt.Rows[0]["SortOrder"].ToString(); // Ederon : 9/4/2007
           }
         }
       }
       else
       {
-        this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
+        this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
       }
 
       this.Icon.Attributes["onchange"] = String.Format(
-        "getElementById('{2}').src='{0}{1}/' + this.value", YafForumInfo.ForumRoot, YafBoardFolders.Current.Emoticons, this.Preview.ClientID);
+        "getElementById('{2}').src='{0}{1}/' + this.value", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, this.Preview.ClientID);
     }
 
     /// <summary>

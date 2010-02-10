@@ -63,7 +63,7 @@ namespace YAF
 				writer.WriteElementString("copyright", "Copyright 2002-2004 Bjørnar Henden");
 			*/
       writer.WriteRaw("<?xml version=\"1.0\" encoding=\"utf-8\" ?>" + this.en);
-      writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumRoot + "rss.xsl\" media=\"screen\"?>");
+      writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
       writer.WriteRaw("<rss version=\"2.0\">" + this.en);
       writer.WriteRaw("\t<channel>" + this.en);
       writer.WriteRaw("\t\t<title>RSS Feed for " + YafContext.Current.BoardSettings.Name + "</title>" + this.en);

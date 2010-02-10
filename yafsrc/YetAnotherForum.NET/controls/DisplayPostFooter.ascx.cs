@@ -182,8 +182,8 @@
         {
           string editedText = YafServices.DateTime.FormatDateTimeShort(Convert.ToDateTime(this.DataRow["Edited"]));
           // vzrus: Guests doesn't have right to view change history
-        
-              MessageHistoryLBtn.Visible = true;
+
+          MessageHistoryHolder.Visible = true;
          
           if (HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["EditReason"])) != string.Empty)
           {
@@ -198,7 +198,7 @@
             // reason was not specified
            /* editedText += String.Format(
               " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA")); */
-          MessageHistoryLBtn.ToolTip += String.Format("{0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA"));
+            MessageHistoryLBtn.ToolTip += String.Format("{0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA"));
           }
 
           // message has been edited
@@ -208,7 +208,7 @@
                                 : this.PageContext.Localization.GetText("EDITED_BY_USER");
 
          /* sb.AppendFormat(@"| <span class=""editedinfo"" title=""{2}"">{0} {1}</span>", this.PageContext.Localization.GetText("EDITED"), whoChanged, editedText); */
-          this.MessageHistoryLBtn.Text = string.Format(@"| <span class=""editedinfo"" title=""{2}"">{0} {1}</span>", this.PageContext.Localization.GetText("EDITED"), whoChanged, editedText);
+          this.MessageHistoryLBtn.Text = string.Format(@"<span class=""editedinfo"" title=""{2}"">{0} {1}</span>", this.PageContext.Localization.GetText("EDITED"), whoChanged, editedText);
         }
       }
       else
@@ -232,7 +232,7 @@
       // display admin only info
       if (PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator))
       {
-        sb.AppendFormat(@" | <span class=""ipinfo"" title=""{1}"">{0}: {1}</span>", PageContext.Localization.GetText("IP"), DataRow["IP"].ToString());
+        sb.AppendFormat(@" | <span class=""ipinfo"" title=""{1}"">{0}: {1}", this.PageContext.Localization.GetText("IP"), this.DataRow["IP"]);
       }
 
       if (sb.Length > 0)

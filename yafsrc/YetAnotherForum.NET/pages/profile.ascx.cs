@@ -345,7 +345,7 @@ namespace YAF.Pages
     {
       if (this.PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage)
       {
-        Avatar.ImageUrl = YafForumInfo.ForumRoot + "resource.ashx?u=" + userID;
+        Avatar.ImageUrl = YafForumInfo.ForumClientFileRoot + "resource.ashx?u=" + userID;
       }
       else if (!String.IsNullOrEmpty(userData.Avatar))
       {
@@ -355,7 +355,7 @@ namespace YAF.Pages
           this.Server.UrlEncode(userData.Avatar), 
           this.PageContext.BoardSettings.AvatarWidth, 
           this.PageContext.BoardSettings.AvatarHeight, 
-          YafForumInfo.ForumRoot);
+          YafForumInfo.ForumClientFileRoot);
       }
       else
       {

@@ -113,7 +113,7 @@ namespace YAF.Pages
       }
 
       // set attributes of editor
-      this._editor.BaseDir = YafForumInfo.ForumRoot + "editors";
+      this._editor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
       this._editor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
 
       // this needs to be done just once, not during postbacks

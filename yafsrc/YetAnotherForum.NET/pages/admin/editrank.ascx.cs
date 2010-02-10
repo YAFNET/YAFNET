@@ -76,22 +76,22 @@ namespace YAF.Pages.Admin
             if (item != null)
             {
               item.Selected = true;
-              this.Preview.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumRoot, YafBoardFolders.Current.Ranks, row["RankImage"]); // path corrected
+              this.Preview.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, row["RankImage"]); // path corrected
             }
             else
             {
-              this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
+              this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
             }
           }
         }
         else
         {
-          this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
+          this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
         }
       }
 
       this.RankImage.Attributes["onchange"] = String.Format(
-        "getElementById('{2}_ctl01_Preview').src='{0}{1}/' + this.value", YafForumInfo.ForumRoot, YafBoardFolders.Current.Ranks, Parent.ID);
+        "getElementById('{2}_ctl01_Preview').src='{0}{1}/' + this.value", YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, Parent.ID);
     }
 
     /// <summary>
@@ -110,7 +110,7 @@ namespace YAF.Pages.Admin
         dr["Description"] = "Select Rank Image";
         dt.Rows.Add(dr);
 
-        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumFileRoot, YafBoardFolders.Current.Ranks)));
+        var dir = new DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Ranks)));
         FileInfo[] files = dir.GetFiles("*.*");
         long nFileID = 1;
         foreach (FileInfo file in files)
