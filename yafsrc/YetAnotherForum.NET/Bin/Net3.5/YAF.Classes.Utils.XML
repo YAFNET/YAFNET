@@ -775,13 +775,13 @@
             Application Version String
             </returns>
         </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumRoot">
+        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumClientFileRoot">
             <summary>
             Gets the forum path (client-side).
             May not be the actual URL of the forum.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumFileRoot">
+        <member name="P:YAF.Classes.Utils.YafForumInfo.ForumServerFileRoot">
             <summary>
             Gets the forum path (server-side).
             May not be the actual URL of the forum.
@@ -789,7 +789,7 @@
         </member>
         <member name="P:YAF.Classes.Utils.YafForumInfo.ForumBaseUrl">
             <summary>
-            Gets complete external (client-side) URL of the forum. (e.g. http://myforum.com/forum/
+            Gets complete application external (client-side) URL of the forum. (e.g. http://myforum.com/forum
             </summary>
         </member>
         <member name="P:YAF.Classes.Utils.YafForumInfo.ForumURL">

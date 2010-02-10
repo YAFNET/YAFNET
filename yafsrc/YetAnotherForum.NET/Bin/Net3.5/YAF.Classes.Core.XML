@@ -834,7 +834,6 @@
         <member name="M:YAF.Classes.Core.ForumPage.GetCollapsiblePanelImageURL(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
             <summary>
             Gets the collapsible panel image url (expanded or collapsed). 
-            
             <param name="panelID">ID of collapsible panel</param>
             <param name="defaultState">Default Panel State</param>
             </summary>
@@ -4013,7 +4012,7 @@
             <summary>
             The generic factory.
             </summary>
-            <typeparam name="T">
+            <typeparam name="TUnknownType">
             </typeparam>
         </member>
         <member name="T:YAF.Modules.YafModuleManager`1.YafGenericFactoryBase">
@@ -6393,6 +6392,45 @@
         <member name="P:YAF.Classes.Core.IYafFooter.ThisControl">
             <summary>
             Gets ThisControl.
+            </summary>
+        </member>
+        <member name="T:YAF.SyndicationItemExtensions">
+            <summary>
+            The syndication item extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.DateTime)">
+            <summary>
+            The add syndication item.
+            </summary>
+            <param name="currentList">
+            The current list.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+            <param name="content">
+            The content.
+            </param>
+            <param name="link">
+            The link.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+            <param name="posted">
+            The posted.
+            </param>
+        </member>
+        <member name="T:YAF.YafSyndicationFeed">
+            <summary>
+            Summary description for YafSyndicationFeed.
+            </summary>
+        </member>
+        <member name="M:YAF.YafSyndicationFeed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.YafSyndicationFeed"/> class. 
+            Initializes a new instance of the <see cref="!:RssFeed"/> class.
             </summary>
         </member>
     </members>

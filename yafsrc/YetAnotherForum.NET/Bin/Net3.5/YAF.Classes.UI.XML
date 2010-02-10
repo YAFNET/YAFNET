@@ -19,11 +19,6 @@
             The _hid scroll top.
             </summary>
         </member>
-        <member name="F:YAF.Classes.UI.SmartScroller._theForm">
-            <summary>
-            The _the form.
-            </summary>
-        </member>
         <member name="M:YAF.Classes.UI.SmartScroller.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Classes.UI.SmartScroller"/> class.

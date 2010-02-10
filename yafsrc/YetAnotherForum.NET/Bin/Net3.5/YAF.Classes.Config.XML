@@ -253,14 +253,19 @@
             Gets BaseUrl.
             </summary>
         </member>
-        <member name="P:YAF.Classes.BaseUrlBuilder.FileRoot">
+        <member name="P:YAF.Classes.BaseUrlBuilder.ClientFileRoot">
             <summary>
-            Gets FileRoot.
+            Gets ClientFileRoot.
             </summary>
         </member>
-        <member name="P:YAF.Classes.BaseUrlBuilder.Path">
+        <member name="P:YAF.Classes.BaseUrlBuilder.ServerFileRoot">
             <summary>
-            Gets Path.
+            Gets ServerFileRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.BaseUrlBuilder.AppPath">
+            <summary>
+            Gets App Path.
             </summary>
         </member>
         <member name="P:YAF.Classes.BaseUrlBuilder.ScriptName">
@@ -1267,9 +1272,14 @@
             Used for Url Rewriting -- default is "default.aspx"
             </summary>
         </member>
-        <member name="P:YAF.Classes.Config.FileRoot">
+        <member name="P:YAF.Classes.Config.ServerFileRoot">
             <summary>
-            Gets FileRoot.
+            Gets ServerFileRoot.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Config.ClientFileRoot">
+            <summary>
+            Gets ClientFileRoot.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.AppRoot">
