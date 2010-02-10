@@ -95,7 +95,7 @@ namespace YAF.Modules
         }
       }
 
-      if (!PageContext.IsAdmin)
+      if (!PageContext.CurrentForumPage.IsAdminPage)
       {
         if (PageContext.PageTopicID != 0)
         {
