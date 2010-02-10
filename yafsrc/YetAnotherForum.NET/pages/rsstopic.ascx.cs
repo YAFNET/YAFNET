@@ -21,22 +21,31 @@
 namespace YAF.Pages
 {
   // YAF.Pages
+  #region Using
+
   using System;
+  using System.Collections.Generic;
   using System.Data;
+  using System.ServiceModel.Syndication;
   using System.Text;
   using System.Web;
   using System.Xml;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.UI;
   using YAF.Classes.Utils;
 
+  #endregion
+
   /// <summary>
   /// Summary description for rss.
   /// </summary>
   public partial class rsstopic : ForumPage
   {
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="rsstopic"/> class.
     /// </summary>
@@ -44,6 +53,10 @@ namespace YAF.Pages
       : base("RSSTOPIC")
     {
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The page_ load.
@@ -57,121 +70,113 @@ namespace YAF.Pages
     protected void Page_Load(object sender, EventArgs e)
     {
       // Put user code to initialize the page here
-      var rf = new RssFeed();
+      var feed = new YafSyndicationFeed();
+      var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
+      var syndicationItems = new List<SyndicationItem>();
 
-      var writer = new XmlTextWriter(Response.OutputStream, Encoding.UTF8);
-
-      writer.Formatting = Formatting.Indented;
-      rf.WriteRSSPrologue(writer);
-
-      // Usage rf.AddRSSItem(writer, "Item Title", "http://test.com", "This is a test item");
-
-      switch (Request.QueryString["pg"])
+      switch (this.Request.QueryString["pg"])
       {
         case "latestposts":
-          if (!PageContext.ForumReadAccess)
+          if (!this.PageContext.ForumReadAccess)
           {
             YafBuildLink.AccessDenied();
           }
 
-          DataTable dtTopics = YafServices.DBBroker.GetLatestTopics(7);
-
-          foreach (DataRow row in dtTopics.Rows)
+          using (DataTable dtTopics = YafServices.DBBroker.GetLatestTopics(10))
           {
-            rf.AddRSSItem(
-              writer, 
-              YafServices.BadWordReplace.Replace(row["Subject"].ToString()), 
-              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]), 
-              YafServices.BadWordReplace.Replace(row["Message"].ToString()), 
-              Convert.ToDateTime(row["Posted"]).ToString("r"));
+            foreach (DataRow row in dtTopics.Rows)
+            {
+              syndicationItems.AddSyndicationItem(
+                row["Subject"].ToString(), 
+                row["Message"].ToString(), 
+                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]), 
+                String.Format("TopicID{0}", this.Request.QueryString["t"]), 
+                Convert.ToDateTime(row["Posted"]));
+            }
           }
-
-          dtTopics = null;
 
           break;
         case "latestannouncements":
-          if (!PageContext.ForumReadAccess)
+          if (!this.PageContext.ForumReadAccess)
           {
             YafBuildLink.AccessDenied();
           }
 
-          using (DataTable dt = DB.topic_announcements(PageContext.PageBoardID, 7, PageContext.PageUserID))
+          using (DataTable dt = DB.topic_announcements(this.PageContext.PageBoardID, 10, this.PageContext.PageUserID))
           {
             foreach (DataRow row in dt.Rows)
             {
-              rf.AddRSSItem(
-                writer, 
-                YafServices.BadWordReplace.Replace(row["Subject"].ToString()), 
-                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]), 
-                YafServices.BadWordReplace.Replace(row["Message"].ToString()), 
-                Convert.ToDateTime(row["Posted"]).ToString("r"));
+              syndicationItems.AddSyndicationItem(
+                row["Subject"].ToString(), 
+                row["Message"].ToString(), 
+                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]), 
+                String.Format("TopicID{0}", this.Request.QueryString["t"]), 
+                Convert.ToDateTime(row["Posted"]));
             }
           }
 
           break;
         case "posts":
-          if (!PageContext.ForumReadAccess)
+          if (!this.PageContext.ForumReadAccess)
           {
             YafBuildLink.AccessDenied();
           }
 
-          if (Request.QueryString["t"] != null)
+          if (this.Request.QueryString["t"] != null)
           {
             using (
               DataTable dt = DB.post_list(
-                PageContext.PageTopicID, 
-                1, 
-                PageContext.BoardSettings.ShowDeletedMessages, 
-                YafContext.Current.BoardSettings.UseStyledNicks, 
-                YafContext.Current.BoardSettings.ShowThanksDate))
+                this.PageContext.PageTopicID, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false, false))
             {
               foreach (DataRow row in dt.Rows)
               {
-                rf.AddRSSItem(
-                  writer, 
-                  YafServices.BadWordReplace.Replace(row["Subject"].ToString()), 
-                  YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Request.QueryString["t"]), 
+                syndicationItems.AddSyndicationItem(
+                  row["Subject"].ToString(), 
                   FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])), 
-                  Convert.ToDateTime(row["Posted"]).ToString("r"));
+                  YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]), 
+                  String.Format("TopicID{0}", this.Request.QueryString["t"]), 
+                  Convert.ToDateTime(row["Posted"]));
               }
             }
           }
 
           break;
         case "forum":
-          using (DataTable dt = DB.forum_listread(PageContext.PageBoardID, PageContext.PageUserID, null, null))
+          using (DataTable dt = DB.forum_listread(this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null)
+            )
           {
             foreach (DataRow row in dt.Rows)
             {
-              rf.AddRSSItem(
-                writer, 
-                YafServices.BadWordReplace.Replace(row["Forum"].ToString()), 
+              syndicationItems.AddSyndicationItem(
+                row["Forum"].ToString(), 
+                row["Description"].ToString(), 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]), 
-                YafServices.BadWordReplace.Replace(row["Description"].ToString()));
+                String.Format("ForumID{0}", row["ForumID"]), 
+                DateTime.Now);
             }
           }
 
           break;
         case "topics":
-          if (!PageContext.ForumReadAccess)
+          if (!this.PageContext.ForumReadAccess)
           {
             YafBuildLink.AccessDenied();
           }
 
           int forumId;
-          if (Request.QueryString["f"] != null && int.TryParse(Request.QueryString["f"], out forumId))
+          if (this.Request.QueryString["f"] != null && int.TryParse(this.Request.QueryString["f"], out forumId))
           {
             // vzrus changed to separate DLL specific code
             using (DataTable dt = DB.rsstopic_list(forumId))
             {
               foreach (DataRow row in dt.Rows)
               {
-                rf.AddRSSItem(
-                  writer, 
-                  YafServices.BadWordReplace.Replace(row["Topic"].ToString()), 
+                syndicationItems.AddSyndicationItem(
+                  row["Topic"].ToString(), 
+                  row["Topic"].ToString(), 
                   YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]), 
-                  YafServices.BadWordReplace.Replace(row["Topic"].ToString()), 
-                  Convert.ToDateTime(row["Posted"]).ToString("r"));
+                  String.Format("TopicID{0}", row["Topic"].ToString()), 
+                  Convert.ToDateTime(row["Posted"]));
               }
             }
           }
@@ -180,19 +185,20 @@ namespace YAF.Pages
         case "active":
           using (
             DataTable dt = DB.topic_active(
-              PageContext.PageBoardID, 
-              PageContext.PageUserID, 
+              this.PageContext.PageBoardID, 
+              this.PageContext.PageUserID, 
               DateTime.Now + TimeSpan.FromHours(-24), 
-              (PageContext.Settings.CategoryID == 0) ? null : (object) PageContext.Settings.CategoryID, 
+              (this.PageContext.Settings.CategoryID == 0) ? null : (object)this.PageContext.Settings.CategoryID, 
               false))
           {
             foreach (DataRow row in dt.Rows)
             {
-              rf.AddRSSItem(
-                writer, 
-                YafServices.BadWordReplace.Replace(row["Subject"].ToString()), 
+              syndicationItems.AddSyndicationItem(
+                row["Subject"].ToString(), 
+                row["Subject"].ToString(), 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]), 
-                YafServices.BadWordReplace.Replace(row["Subject"].ToString()));
+                String.Format("TopicID{0}", row["LinkTopicID"].ToString()), 
+                DateTime.Now);
             }
           }
 
@@ -200,20 +206,21 @@ namespace YAF.Pages
         case "favorite":
           using (
             DataTable dt = DB.topic_favorite_details(
-              PageContext.PageBoardID,
-              PageContext.PageUserID,
-              DateTime.Now + TimeSpan.FromHours(-24),
-              (PageContext.Settings.CategoryID == 0) ? null : (object)PageContext.Settings.CategoryID,
+              this.PageContext.PageBoardID, 
+              this.PageContext.PageUserID, 
+              DateTime.Now + TimeSpan.FromHours(-24), 
+              (this.PageContext.Settings.CategoryID == 0) ? null : (object)this.PageContext.Settings.CategoryID, 
               false))
           {
-              foreach (DataRow row in dt.Rows)
-              {
-                  rf.AddRSSItem(
-                    writer,
-                    YafServices.BadWordReplace.Replace(row["Subject"].ToString()),
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
-                    YafServices.BadWordReplace.Replace(row["Subject"].ToString()));
-              }
+            foreach (DataRow row in dt.Rows)
+            {
+              syndicationItems.AddSyndicationItem(
+                row["Subject"].ToString(), 
+                row["Subject"].ToString(), 
+                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]), 
+                String.Format("TopicID{0}", row["LinkTopicID"].ToString()), 
+                DateTime.Now);
+            }
           }
 
           break;
@@ -221,39 +228,19 @@ namespace YAF.Pages
           break;
       }
 
-      rf.WriteRSSClosing(writer);
-      writer.Flush();
+      // update the feed with the item list...
+      feed.Items = syndicationItems;
 
+      // write the feed to the response writer
+      var rssFormatter = new Rss20FeedFormatter(feed);
+      rssFormatter.WriteTo(writer);
       writer.Close();
 
-      Response.ContentEncoding = Encoding.UTF8;
-      Response.ContentType = "text/xml";
-      Response.Cache.SetCacheability(HttpCacheability.Public);
+      this.Response.ContentEncoding = Encoding.UTF8;
+      this.Response.ContentType = "text/xml";
+      this.Response.Cache.SetCacheability(HttpCacheability.Public);
 
-      Response.End();
-    }
-
-    #region Web Form Designer generated code
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    void InitializeComponent()
-    {
+      this.Response.End();
     }
 
     #endregion

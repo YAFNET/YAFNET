@@ -357,7 +357,6 @@ namespace YAF.Pages
       catch (Exception x)
       {
         DB.eventlog_create(PageContext.PageUserID, this, x);
-        CreateMail.CreateLogEmail(x);
 
         if (PageContext.IsAdmin)
         {

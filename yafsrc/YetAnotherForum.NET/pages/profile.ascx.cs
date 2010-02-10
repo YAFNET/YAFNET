@@ -312,7 +312,7 @@ namespace YAF.Pages
 
       if (LastPosts.Visible)
       {
-        LastPosts.DataSource = DB.post_last10user(this.PageContext.PageBoardID, userID, this.PageContext.PageUserID);
+        LastPosts.DataSource = DB.post_alluser(this.PageContext.PageBoardID, userID, this.PageContext.PageUserID, 10);
         SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userID);
       }
 

@@ -654,10 +654,10 @@ namespace YAF.Pages
       pds.PageSize = this.Pager.PageSize;
 
       DataTable dt0 = DB.post_list(
-        PageContext.PageTopicID, 
-        IsPostBack ? 0 : 1, 
-        PageContext.BoardSettings.ShowDeletedMessages, 
-        YafContext.Current.BoardSettings.UseStyledNicks, 
+        PageContext.PageTopicID,
+        IsPostBack ? 0 : 1,
+        PageContext.BoardSettings.ShowDeletedMessages,
+        YafContext.Current.BoardSettings.UseStyledNicks,
         YafContext.Current.BoardSettings.ShowThanksDate);
 
       var messageIDs = new StringBuilder();
@@ -695,10 +695,7 @@ namespace YAF.Pages
       dt0.Columns.Add(dc);
 
       // Make the "MessageID" Column the primary key to the datatable.
-      dt0.PrimaryKey = new[]
-        {
-          dt0.Columns["MessageID"]
-        };
+      dt0.PrimaryKey = new[] { dt0.Columns["MessageID"] };
 
       // Initialize the "IsthankedByUser" column.
       foreach (DataRow dr in dt0.Rows)
@@ -726,7 +723,8 @@ namespace YAF.Pages
 
         foreach (DataRow dr in dt0.Rows)
         {
-          dtAllThanks.RowFilter = String.Format("MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dr["MessageID"]));
+          dtAllThanks.RowFilter = String.Format(
+            "MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dr["MessageID"]));
           dr["MessageThanksNumber"] = dtAllThanks.Count;
           dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dr["MessageID"]));
           dr["ThanksFromUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksFromUserNumber"] : 0;
@@ -744,8 +742,8 @@ namespace YAF.Pages
       DataView dt = dt0.DefaultView;
 
       // see if the deleted messages need to be edited out...
-      if (PageContext.BoardSettings.ShowDeletedMessages && !PageContext.BoardSettings.ShowDeletedMessagesToAll && !PageContext.IsAdmin &&
-          !PageContext.IsForumModerator)
+      if (PageContext.BoardSettings.ShowDeletedMessages && !PageContext.BoardSettings.ShowDeletedMessagesToAll &&
+          !PageContext.IsAdmin && !PageContext.IsForumModerator)
       {
         // remove posts that are deleted and do not belong to this user...
         dt.RowFilter = "IsDeleted = 1 AND UserID <> " + PageContext.PageUserID.ToString();
@@ -812,7 +810,7 @@ namespace YAF.Pages
           {
             foreach (DataRow row in dtUnread.Rows)
             {
-              nFindMessage = (int) row["MessageID"];
+              nFindMessage = (int)row["MessageID"];
               break;
             }
           }
@@ -830,7 +828,7 @@ namespace YAF.Pages
         // Find correct page for message
         for (int foundRow = 0; foundRow < dt.Count; foundRow++)
         {
-          if ((int) dt[foundRow]["MessageID"] == nFindMessage)
+          if ((int)dt[foundRow]["MessageID"] == nFindMessage)
           {
             pds.CurrentPageIndex = foundRow / pds.PageSize;
             this.Pager.CurrentPageIndex = pds.CurrentPageIndex;
@@ -842,13 +840,16 @@ namespace YAF.Pages
       {
         foreach (DataRowView row in dt)
         {
-          CurrentMessage = (int) row["MessageID"];
+          CurrentMessage = (int)row["MessageID"];
           break;
         }
       }
 
-      // handle add description/keywords for SEO
-      AddMetaData(dt0.Rows[0]["Message"]);
+      if (dt0.Rows.Count > 0)
+      {
+        // handle add description/keywords for SEO
+        this.AddMetaData(dt0.Rows[0]["Message"]);
+      }
 
       dt0 = null;
       pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
