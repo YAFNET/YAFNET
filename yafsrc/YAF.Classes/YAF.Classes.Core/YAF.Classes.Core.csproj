@@ -66,6 +66,9 @@
     <Reference Include="System.Data.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core">
@@ -87,6 +90,7 @@
     <Compile Include="BasePages\ForumPageRenderedArgs.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
+    <Compile Include="Syndication\YafSyndicationFeed.cs" />
     <Compile Include="UsersRoles\DefaultUserDisplayName.cs" />
     <Compile Include="UsersRoles\RoleMembershipHelper.cs" />
     <Compile Include="Services\IYafService.cs" />

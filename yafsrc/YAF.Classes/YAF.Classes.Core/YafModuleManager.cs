@@ -460,10 +460,10 @@ namespace YAF.Modules
     /// <summary>
     /// The generic factory.
     /// </summary>
-    /// <typeparam name="T">
+    /// <typeparam name="TUnknownType">
     /// </typeparam>
-    private class YafGenericFactory<T> : YafGenericFactoryBase
-      where T : class, new()
+    private class YafGenericFactory<TUnknownType> : YafGenericFactoryBase
+      where TUnknownType : class, new()
     {
       #region Public Methods
 
@@ -472,9 +472,9 @@ namespace YAF.Modules
       /// </summary>
       /// <returns>
       /// </returns>
-      public T Create()
+      public TUnknownType Create()
       {
-        return new T();
+        return new TUnknownType();
       }
 
       /// <summary>

@@ -142,10 +142,11 @@ namespace YAF.Classes.Core
       // This doesn't seem to work...
       Exception x = this.Server.GetLastError();
       DB.eventlog_create(this.PageContext.PageUserID, this, x);
-      if (!YafForumInfo.IsLocal)
-      {
-        CreateMail.CreateLogEmail(this.Server.GetLastError());
-      }
+
+      //if (!YafForumInfo.IsLocal)
+      //{
+      //  CreateMail.CreateLogEmail(this.Server.GetLastError());
+      //}
     }
 
     /// <summary>
@@ -348,6 +349,7 @@ namespace YAF.Classes.Core
     #endregion
 
     #region Layout functions
+
     /// <summary>
     /// Set to false if you don't want the menus at top and bottom. Only admin pages will set this to false
     /// </summary>
@@ -355,12 +357,12 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return _showToolBar;
+        return this._showToolBar;
       }
 
       protected set
       {
-        _showToolBar = value;
+        this._showToolBar = value;
       }
     }
 
@@ -368,22 +370,27 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return _showFooter;
+        return this._showFooter;
       }
 
       protected set
       {
-        _showFooter = value;
+        this._showFooter = value;
       }
     }
+
     #endregion
 
     public static object IsNull(string value)
     {
       if (value == null || value.ToLower() == string.Empty)
+      {
         return DBNull.Value;
+      }
       else
+      {
         return value;
+      }
     }
 
     #region PageInfo class
@@ -401,7 +408,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return PageContext.User;
+        return this.PageContext.User;
       }
     }
 
@@ -409,11 +416,12 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return PageContext.LoadMessage.LoadString;
+        return this.PageContext.LoadMessage.LoadString;
       }
     }
 
     #region Theme Helper Functions
+
     /// <summary>
     /// Get a value from the currently configured forum theme.
     /// </summary>
@@ -422,7 +430,7 @@ namespace YAF.Classes.Core
     /// <returns>Converted Theme information</returns>
     public string GetThemeContents(string page, string tag)
     {
-      return PageContext.Theme.GetItem(page, tag);
+      return this.PageContext.Theme.GetItem(page, tag);
     }
 
     /// <summary>
@@ -434,19 +442,18 @@ namespace YAF.Classes.Core
     /// <returns>Converted Theme information or Default Value if it doesn't exist</returns>
     public string GetThemeContents(string page, string tag, string defaultValue)
     {
-      return PageContext.Theme.GetItem(page, tag, defaultValue);
+      return this.PageContext.Theme.GetItem(page, tag, defaultValue);
     }
 
     /// <summary>
     /// Gets the collapsible panel image url (expanded or collapsed). 
-    /// 
     /// <param name="panelID">ID of collapsible panel</param>
     /// <param name="defaultState">Default Panel State</param>
     /// </summary>
     /// <returns>Image URL</returns>
     public string GetCollapsiblePanelImageURL(string panelID, PanelSessionState.CollapsiblePanelState defaultState)
     {
-      return PageContext.Theme.GetCollapsiblePanelImageURL(panelID, defaultState);
+      return this.PageContext.Theme.GetCollapsiblePanelImageURL(panelID, defaultState);
     }
 
     #endregion
@@ -455,17 +462,17 @@ namespace YAF.Classes.Core
 
     public string GetTextFormatted(string text, params object[] args)
     {
-      return PageContext.Localization.GetTextFormatted(text, args);
+      return this.PageContext.Localization.GetTextFormatted(text, args);
     }
 
     public string GetText(string text)
     {
-      return PageContext.Localization.GetText(text);
+      return this.PageContext.Localization.GetText(text);
     }
 
     public string GetText(string page, string text)
     {
-      return PageContext.Localization.GetText(page, text);
+      return this.PageContext.Localization.GetText(page, text);
     }
 
     #endregion
@@ -493,8 +500,11 @@ namespace YAF.Classes.Core
 
     public string HtmlEncode(object data)
     {
-      if (data == null || !(data is string)) return null;
-      return Server.HtmlEncode(data.ToString());
+      if (data == null || !(data is string))
+      {
+        return null;
+      }
+      return this.Server.HtmlEncode(data.ToString());
     }
 
     protected virtual void CreatePageLinks()

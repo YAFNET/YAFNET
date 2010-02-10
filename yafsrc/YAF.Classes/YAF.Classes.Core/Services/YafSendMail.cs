@@ -260,7 +260,7 @@ namespace YAF.Classes.Core
           }
         }
       }
-      catch (Exception x)
+      catch (Exception)
       {
         // log the error...
         // YAF.Classes.Data.DB.eventlog_create(1, "SendMailThread", x);

@@ -42,11 +42,6 @@ namespace YAF.Classes.UI
     private HtmlInputHidden _hidScrollTop = new HtmlInputHidden();
 
     /// <summary>
-    /// The _the form.
-    /// </summary>
-    private HtmlForm _theForm = null;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="SmartScroller"/> class.
     /// </summary>
     public SmartScroller()

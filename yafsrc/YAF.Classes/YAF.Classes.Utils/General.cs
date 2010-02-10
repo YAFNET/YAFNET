@@ -76,7 +76,7 @@ namespace YAF.Classes.Utils
       {
         hours = Convert.ToDecimal(node.Attributes["tag"].Value.Replace("UTC", string.Empty).Replace("GMT", string.Empty));
       }
-      catch (FormatException ex)
+      catch (FormatException)
       {
         hours = Convert.ToDecimal(node.Attributes["tag"].Value.Replace(".", ",").Replace("UTC", string.Empty).Replace("GMT", string.Empty));
       }

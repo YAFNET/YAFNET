@@ -8531,12 +8531,20 @@ namespace YAF.Classes.Data
     {
       // TODO: vzrus: possible move to an sp and registry settings for rsstopiclimit
       int topicLimit = 1000;
-      string tSQL = "select top " + topicLimit +
-                    " Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID=" +
-                    forumId + " and b.ForumID = a.ForumID and a.IsDeleted = 0;";
-      using (SqlCommand cmd = YafDBAccess.GetCommand(tSQL, true))
+
+      StringBuilder sb = new StringBuilder();
+
+      sb.AppendFormat("select top {0} Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted ", topicLimit);
+
+      //sb.Append(", message = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(a.TopicMovedID,a.TopicID) AND mes2.IsApproved = 1 AND mes2.IsDeleted = 0 ORDER BY mes2.Posted DESC) ");
+
+      sb.Append(
+        "from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID = @ForumID and b.ForumID = a.ForumID and a.IsDeleted = 0;");
+
+      using (SqlCommand cmd = YafDBAccess.GetCommand(sb.ToString(), true))
       {
         cmd.CommandType = CommandType.Text;
+        cmd.Parameters.AddWithValue("ForumID", forumId);
         return YafDBAccess.Current.GetData(cmd);
       }
     }
