@@ -300,7 +300,7 @@ namespace YAF
           var data = new MemoryStream();
           if (context.Request.QueryString["cover"] == "0")
           {
-            fileName = context.Server.MapPath(String.Format("{0}/images/{1}", YafForumInfo.ForumRoot, "noCover.png"));
+            fileName = context.Server.MapPath(String.Format("{0}/images/{1}", YafForumInfo.ForumClientFileRoot, "noCover.png"));
           }
           else
           {
