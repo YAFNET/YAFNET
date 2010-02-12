@@ -3025,6 +3025,7 @@ BEGIN
 		UserName	= IsNull(b.UserName,d.Name),
 		UserID = b.UserID,
 		Posted		= b.Posted,
+		TopicID = b.TopicID,
 		Topic		= c.Topic,
 		NumberOfReports = (SELECT count(LogID) FROM [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE [{databaseOwner}].[{objectQualifier}MessageReportedAudit].MessageID = a.MessageID)
 	FROM

@@ -31,7 +31,7 @@
 		</span>					
 		
 		<asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
-		| <asp:LinkButton ID="MessageHistoryLBtn" CommandName="ShowHistory" CommandArgument='<%# DataRow["MessageID"] %>' Text="Message History" runat="server"></asp:LinkButton>	
+		|&nbsp;<asp:LinkButton ID="MessageHistoryLBtn" CommandName="ShowHistory" CommandArgument='<%# DataRow["MessageID"] %>' Text="Message History" runat="server"></asp:LinkButton>	
 		</asp:PlaceHolder>
 		
 		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>		

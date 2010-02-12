@@ -28,8 +28,10 @@
 						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITREASON" />
 						</b>
 						<%# string.IsNullOrEmpty(Eval("EditReason").ToString())? this.PageContext.Localization.GetText("EDIT_REASON_NA"):Eval("EditReason") %>
-						<br />	
+						<br />
+						<b>	
 					  <%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator) ? "IP:" + Eval("IP") : ""%>
+					   </b>
 					</td>		
 		    </tr>
 			<tr runat="server" id="original_tr" visible='<%# (DataBinder.Eval( Container.DataItem, "Edited").ToString() == DataBinder.Eval( Container.DataItem, "Posted").ToString()) %>' class="postheader" >

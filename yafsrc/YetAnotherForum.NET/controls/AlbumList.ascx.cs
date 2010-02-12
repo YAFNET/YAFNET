@@ -109,9 +109,13 @@ namespace YAF.Controls
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
                         "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
-                        "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
+                        "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);                    
+                    
                 }
 
+                string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+                this.AlbumHeaderLabel.Param0 = !string.IsNullOrEmpty(umhdn) ? umhdn : UserMembershipHelper.GetUserNameFromID(this.UserID);
+                
                 this.BindData();
                 // vzrus: replaced registry check for db data
                 System.Data.DataTable sigData = YAF.Classes.Data.DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);

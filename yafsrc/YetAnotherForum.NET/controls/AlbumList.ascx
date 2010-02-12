@@ -1,7 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="AlbumList.ascx.cs" Inherits="YAF.Controls.AlbumList" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <div class="imgtitle">
-    <YAF:UserLabel ID="UserLabel1" runat="server" UserID="<%# UserID %>" /><YAF:LocalizedLabel ID="AlbumHeaderLabel" runat="server" LocalizedTag="ALBUMS_HEADER_TEXT" Param0="" />
+   <YAF:LocalizedLabel ID="AlbumHeaderLabel" runat="server" LocalizedTag="ALBUMS_HEADER_TEXT" Param0="" />
 </div>
 <br />
 <asp:Button ID="AddAlbum" CssClass="pbutton" runat="server" OnClick="AddAlbum_Click" />

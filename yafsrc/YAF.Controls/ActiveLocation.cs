@@ -403,12 +403,9 @@ namespace YAF.Controls
                 // Render
                 if (Convert.ToInt32(userID) != UserID)
                 {
-                    outstring += string.Format(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM"));
-                    outstring += "&nbsp;";
+                    outstring += string.Format(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM"));                    
                     outstring += string.Format(@"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.album, "a={0}", albumID), userID + PageContext.PageUserID.ToString(), albumName);
-                    outstring += "&nbsp;";
                     outstring += string.Format(YafContext.Current.Localization.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
-                    outstring += string.Format("&nbsp;");
                     outstring += string.Format(@"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID), userID, YAF.Classes.Core.UserMembershipHelper.GetUserNameFromID(Convert.ToInt64(userID)));
                 }
                 else
