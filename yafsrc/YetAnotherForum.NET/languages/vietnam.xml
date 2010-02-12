@@ -304,6 +304,7 @@
     <Resource tag="TT_UNDERLINE">Gạch chân</Resource>
     <Resource tag="UNREAD_MSG">Bạn có {0} tin nhắn chưa đọc</Resource>
     <Resource tag="UPDATE">Cập nhật</Resource>
+    <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Gửi</Resource>
@@ -1014,6 +1015,7 @@
     <Resource tag="PASSWORD">Mật khẩu</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TEXT">Mẩu khẩu có độ dài {1} đến {0} ký tự ,không có số và các ký tự ($#@!).</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Yêu cầu mật khẩu :</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">Tuỳ chọn</Resource>
     <Resource tag="PROFILE">Thông tin cá nhân</Resource>
     <Resource tag="REGISTER">Đăng ký</Resource>

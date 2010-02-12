@@ -234,6 +234,13 @@ namespace YAF.Pages
         e.Cancel = true;
         return;
       }
+      if (userName.Length > PageContext.BoardSettings.UserNameMaxLength)
+      {
+        this.PageContext.AddLoadMessage(this.GetText("USERNAME_TOOLONG"));
+        e.Cancel = true;
+        return;
+      }
+        
 
       var tbCaptcha = this.CreateUserStepContainer.FindControlAs<TextBox>("tbCaptcha");
 
@@ -249,6 +256,12 @@ namespace YAF.Pages
       {
         var displayName = this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName");
 
+        if (displayName.Text.Length > PageContext.BoardSettings.UserNameMaxLength)
+        {
+            this.PageContext.AddLoadMessage(this.GetText("USERNAME_TOOLONG"));
+            e.Cancel = true;
+            return;
+        }
         if (PageContext.UserDisplayName.GetId(displayName.Text.Trim()).HasValue)
         {
           this.PageContext.AddLoadMessage(this.GetText("ALREADY_REGISTERED_DISPLAYNAME"));
@@ -466,7 +479,8 @@ namespace YAF.Pages
       // password requirement parameters...
       var requirementText = (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelRequirementsText");
       requirementText.Param0 = this.PageContext.CurrentMembership.MinRequiredPasswordLength.ToString();
-      requirementText.Param1 = this.PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters.ToString();
+      requirementText.Param1 = this.PageContext.BoardSettings.UserNameMaxLength.ToString();
+      requirementText.Param2 = this.PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters.ToString();
 
       var captchaPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("CaptchaPlaceHolder");
 

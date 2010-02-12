@@ -326,6 +326,7 @@
     <Resource tag="TT_UNDERLINE">Underline</Resource>
     <Resource tag="UNREAD_MSG">Sinulla on {0} lukematonta yksityisviestiä.</Resource>
     <Resource tag="UPDATE">Update</Resource>
+    <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Submit</Resource>
@@ -1065,6 +1066,7 @@
     <Resource tag="PASSWORD">Salasana</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">Forumin asetukset</Resource>
     <Resource tag="PROFILE">Profiilin tiedot</Resource>
     <Resource tag="REGISTER">Rekisteröidy</Resource>

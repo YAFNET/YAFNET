@@ -115,6 +115,15 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>User Name Max Length:</b><br />
+							Max Allowed User Name or User Display Name Max Length.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="UserNameMaxLength" runat="server" />
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
 							<b>Max Post Size:</b><br />
 							Maximum size of a post in bytes. Set to 0 for unlimited (not recommended).
 						</td>

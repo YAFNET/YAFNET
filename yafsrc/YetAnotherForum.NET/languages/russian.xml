@@ -308,6 +308,7 @@
     <Resource tag="TT_UNDERLINE">Подчеркнуть</Resource>
     <Resource tag="UNREAD_MSG">У Вас {0} непрочитанных личных сообщений</Resource>
     <Resource tag="UPDATE">Обновить</Resource>
+    <Resource tag="USERNAME_TOOLONG">Имя пользователя и отображаемое имя пользователя не могут превышать {0} символов.</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Отправить</Resource>
@@ -1010,9 +1011,9 @@
     <Resource tag="NEED_PASSWORD">Пароль обязателен.</Resource>
     <Resource tag="NEED_QUESTION">Контрольный вопрос обязателен.</Resource>
     <Resource tag="NEED_USERNAME">Имя пользователя обязательно.</Resource>
-    <Resource tag="PASSWORD">Пароль</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">минимальная длина - {0}. Количество спецсимволов($#@!) - {1}.</Resource>
+    <Resource tag="PASSWORD">Пароль</Resource>    
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Требования к паролю</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_WARN">мин. длина - {0}, макс. - {1}. Количество спецсимволов($#@!) - {2}.</Resource>
     <Resource tag="PREFERENCES">Ваши предпочтения</Resource>
     <Resource tag="PROFILE">Информация в профиле</Resource>
     <Resource tag="REGISTER">Регистрация</Resource>

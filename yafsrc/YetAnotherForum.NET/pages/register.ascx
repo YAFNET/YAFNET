@@ -21,7 +21,7 @@
 									ControlToValidate="ConfirmPassword" Display="Dynamic" ErrorMessage="The Password and Confirmation Password must match."
 									ValidationGroup="CreateUserWizard1"></asp:CompareValidator>
 									<YAF:LocalizedLabel ID="LocalizedLabelRequirementsTitle" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_TITLE"></YAF:LocalizedLabel>:
-									<YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_TEXT"></YAF:LocalizedLabel>
+									<YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_WARN"></YAF:LocalizedLabel>
 							</td>
 						</tr>
 						<tr>

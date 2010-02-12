@@ -325,6 +325,7 @@
     <Resource tag="TT_UNDERLINE">Sottolineato</Resource>
     <Resource tag="UNREAD_MSG">Tu hai {0} messaggi/o non letti nella tua Inbox</Resource>
     <Resource tag="UPDATE">Aggiorna</Resource>
+    <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Submit</Resource>
@@ -1033,6 +1034,7 @@
     <Resource tag="PASSWORD">Password</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">Forum Preferences</Resource>
     <Resource tag="PROFILE">Profile Information</Resource>
     <Resource tag="REGISTER">Register</Resource>

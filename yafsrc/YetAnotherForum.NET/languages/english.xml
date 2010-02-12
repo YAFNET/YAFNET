@@ -235,6 +235,7 @@
     <Resource tag="BACK">Back</Resource>
     <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
     <Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;) or some special words.</Resource>
+	<Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>  
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
@@ -985,8 +986,8 @@
     <Resource tag="NEED_QUESTION">Security question is required.</Resource>
     <Resource tag="NEED_USERNAME">User Name is required.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
-    <Resource tag="PASSWORD">Password</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_TEXT">{0} minimum length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
+    <Resource tag="PASSWORD">Password</Resource>    
+	<Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource> 
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
     <Resource tag="PREFERENCES">Forum Preferences</Resource>
     <Resource tag="PROFILE">Profile Information</Resource>

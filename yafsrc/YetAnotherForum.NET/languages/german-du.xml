@@ -325,6 +325,7 @@
     <Resource tag="TT_UNDERLINE">Unterstrichen</Resource>
     <Resource tag="UNREAD_MSG">Du hast {0} ungelesene Nachricht(en) in Deinem Posteingang</Resource>
     <Resource tag="UPDATE">Aktualisieren</Resource>
+    <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Ändern</Resource>
@@ -1033,6 +1034,7 @@
     <Resource tag="PASSWORD">Passwort</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TEXT"> Mindestens {0} Zeichen benötigt, davon müssen mindestens {1} Zeichen ein Sonderzeichen (z.B: $#@!) sein.</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Anforderungen an das Passwort</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">Einstellungen</Resource>
     <Resource tag="PROFILE">Profil Informationen</Resource>
     <Resource tag="REGISTER">Registrieren</Resource>

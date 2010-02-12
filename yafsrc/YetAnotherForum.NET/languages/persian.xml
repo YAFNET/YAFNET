@@ -325,6 +325,7 @@
     <Resource tag="TT_UNDERLINE">خط دار</Resource>
     <Resource tag="UNREAD_MSG">شما {0} پیغام خوانده نشده دارید</Resource>
     <Resource tag="UPDATE">بروزرسانی</Resource>
+    <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">تائید</Resource>
@@ -1028,6 +1029,7 @@
     <Resource tag="PASSWORD">رمز عبور</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TEXT">($#@!)حداقل کاراکتر مورد نیاز {0}. حداقل کاراکترهای غیر عددی/حرفی مورد نیاز {1}.</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">نیازمندیهای رمزعبور</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">تنظیمات انجمن</Resource>
     <Resource tag="PROFILE">اطلاعات پروفایل</Resource>
     <Resource tag="REGISTER">ثبت نام</Resource>

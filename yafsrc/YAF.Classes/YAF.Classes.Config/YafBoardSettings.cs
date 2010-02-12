@@ -945,6 +945,22 @@ namespace YAF.Classes
         this._reg.SetValue<int>("OnlineStatusCacheTimeout", value);
       }
     }
+    /// <summary>
+    /// Gets or sets User Name Max Length.
+    /// </summary>
+    public int UserNameMaxLength
+    {
+        get
+        {
+            return this._reg.GetValue<int>("UserNameMaxLength", 50);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("UserNameMaxLength", value);
+        }
+    }
+
 
     #endregion
 
