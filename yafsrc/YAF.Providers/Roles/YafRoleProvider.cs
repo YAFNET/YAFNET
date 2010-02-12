@@ -14,7 +14,10 @@ namespace YAF.Providers.Roles
   using System.Collections.Specialized;
   using System.Configuration;
   using System.Data;
+  using System.Linq;
   using System.Web.Security;
+
+  using Classes.Utils;
 
   using YAF.Classes.Core;
   using YAF.Classes.Pattern;
@@ -111,13 +114,29 @@ namespace YAF.Providers.Roles
     /// </param>
     public override void AddUsersToRoles(string[] usernames, string[] roleNames)
     {
+      if (usernames == null || usernames.Length == 0)
+      {
+        throw new ArgumentException("usernames is null or empty.", "usernames");
+      }
+
+      if (roleNames == null || roleNames.Length == 0)
+      {
+        throw new ArgumentException("roleNames is null or empty.", "roleNames");
+      }
+
       // Loop through username
       foreach (string username in usernames)
       {
+        var allRoles = this.GetAllRoles().ToList();
+
         // Loop through roles
         foreach (string roleName in roleNames)
         {
-          DB.Current.AddUserToRole(this.ApplicationName, username, roleName);
+          // only add user if this role actually exists...
+          if (!roleName.IsNullOrEmptyTrimmed() && allRoles.Contains(roleName))
+          {
+            DB.Current.AddUserToRole(this.ApplicationName, username, roleName);
+          }
         }
 
         // invalidate the cache for this user...
