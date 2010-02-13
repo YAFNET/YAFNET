@@ -64,6 +64,30 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
+    /// Cleans a string into a proper RegEx statement. 
+    /// E.g. "[b]Whatever[/b]" will be converted to:
+    /// "\[b\]Whatever\[\/b\]"
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public static string ToRegExString(this string input)
+    {
+      var sb = new StringBuilder();
+
+      foreach (var c in input)
+      {
+        if (!Char.IsWhiteSpace(c) && !Char.IsLetterOrDigit(c))
+        {
+          sb.Append("\\");
+        }
+
+        sb.Append(c);        
+      }
+
+      return sb.ToString();
+    }
+
+    /// <summary>
     /// Truncates a string with the specified limits and adds (...) to the end if truncated
     /// </summary>
     /// <param name="input">

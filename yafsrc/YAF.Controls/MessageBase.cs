@@ -76,7 +76,7 @@ namespace YAF.Controls
         var paramDic = new Dictionary<string, string>();
 
         // pull the parameters...
-        GetModuleParameters(ref paramDic, m.Groups["inner"].Value);
+        this.GetModuleParameters(ref paramDic, m.Groups["inner"].Value);
 
         // render what is before the control...
         writer.Write(message.Substring(0, m.Groups[0].Index));

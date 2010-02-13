@@ -16,20 +16,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Web.UI;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.UI;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System;
+  using System.Data;
+  using System.Web.UI;
+
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.UI;
+
+  #endregion
+
   /// <summary>
   /// Shows a Message Post
   /// </summary>
   public class MessagePostData : MessagePost
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _row.
     /// </summary>
@@ -45,6 +52,10 @@ namespace YAF.Controls
     /// </summary>
     private bool _showSignature = true;
 
+    #endregion
+
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MessagePostData"/> class.
     /// </summary>
@@ -52,6 +63,10 @@ namespace YAF.Controls
       : base()
     {
     }
+
+    #endregion
+
+    #region Properties
 
     /// <summary>
     /// Gets or sets DataRow.
@@ -68,24 +83,8 @@ namespace YAF.Controls
         this._row = value;
         if (this._row != null)
         {
-          MessageFlags = new MessageFlags(this._row["Flags"]);
+          this.MessageFlags = new MessageFlags(this._row["Flags"]);
         }
-      }
-    }
-
-    /// <summary>
-    /// Gets Posted.
-    /// </summary>
-    public DateTime Posted
-    {
-      get
-      {
-        if (DataRow != null)
-        {
-          return Convert.ToDateTime(DataRow["Posted"]);
-        }
-
-        return DateTime.Now;
       }
     }
 
@@ -96,29 +95,12 @@ namespace YAF.Controls
     {
       get
       {
-        if (DataRow != null)
+        if (this.DataRow != null)
         {
-          return Convert.ToDateTime(DataRow["Edited"]);
+          return Convert.ToDateTime(this.DataRow["Edited"]);
         }
 
         return DateTime.Now;
-      }
-    }
-
-    /// <summary>
-    /// Gets Signature.
-    /// </summary>
-    public override string Signature
-    {
-      get
-      {
-        if (DataRow != null && ShowSignature && PageContext.BoardSettings.AllowSignatures && DataRow["Signature"] != DBNull.Value &&
-            DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow["Signature"].ToString().Trim().Length > 0)
-        {
-          return DataRow["Signature"].ToString();
-        }
-
-        return null;
       }
     }
 
@@ -129,14 +111,30 @@ namespace YAF.Controls
     {
       get
       {
-        if (DataRow != null)
+        if (this.DataRow != null)
         {
-          string message = DataRow["Message"].ToString();
+          string message = this.DataRow["Message"].ToString();
 
           return TruncateMessage(message);
         }
 
         return string.Empty;
+      }
+    }
+
+    /// <summary>
+    /// Gets Posted.
+    /// </summary>
+    public DateTime Posted
+    {
+      get
+      {
+        if (this.DataRow != null)
+        {
+          return Convert.ToDateTime(this.DataRow["Posted"]);
+        }
+
+        return DateTime.Now;
       }
     }
 
@@ -173,92 +171,27 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The on pre render.
+    /// Gets Signature.
     /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnPreRender(EventArgs e)
+    public override string Signature
     {
-      if (DataRow != null && !MessageFlags.IsDeleted)
+      get
       {
-        // populate DisplayUserID
-        if (!UserMembershipHelper.IsGuestUser(DataRow["UserID"]))
+        if (this.DataRow != null && this.ShowSignature && this.PageContext.BoardSettings.AllowSignatures &&
+            this.DataRow["Signature"] != DBNull.Value &&
+            this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" &&
+            this.DataRow["Signature"].ToString().Trim().Length > 0)
         {
-          DisplayUserID = Convert.ToInt32(DataRow["UserID"]);
+          return this.DataRow["Signature"].ToString();
         }
 
-        if (ShowAttachments && long.Parse(DataRow["HasAttachments"].ToString()) > 0)
-        {
-          // add attached files control...
-          var attached = new MessageAttached();
-          attached.MessageID = Convert.ToInt32(DataRow["MessageID"]);
-          attached.UserName = DataRow["UserName"].ToString();
-          Controls.Add(attached);
-        }
-      }
-
-      base.OnPreRender(e);
-    }
-
-    /// <summary>
-    /// The render message.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void RenderMessage(HtmlTextWriter writer)
-    {
-      if (DataRow != null)
-      {
-        if (MessageFlags.IsDeleted)
-        {
-          if (DataRow.Row.Table.Columns.Contains("IsModeratorChanged"))
-          {
-            IsModeratorChanged = Convert.ToBoolean(DataRow["IsModeratorChanged"]);
-          }
-
-          // deleted message text...
-          RenderDeletedMessage(writer);
-        }
-        else if (MessageFlags.NotFormatted)
-        {
-          // just write out the message with no formatting...
-          writer.Write(Message);
-        }
-        else if (DataRow.Row.Table.Columns.Contains("Edited"))
-        {
-          // handle a message that's been edited...
-          DateTime editedMessage = Posted;
-
-          if (Edited > Posted)
-          {
-            editedMessage = Edited;
-          }
-
-          if (MessageFlags.IsBBCode)
-          {
-            RenderModulesInBBCode(writer, FormatMsg.FormatMessage(Message, MessageFlags, false, editedMessage), MessageFlags, DisplayUserID);
-          }
-          else
-          {
-            writer.Write(FormatMsg.FormatMessage(Message, MessageFlags, false, editedMessage));
-          }
-        }
-        else
-        {
-          // render standard using bbcode or html...
-          if (MessageFlags.IsBBCode)
-          {
-            RenderModulesInBBCode(writer, FormatMsg.FormatMessage(Message, MessageFlags), MessageFlags, DisplayUserID);
-          }
-          else
-          {
-            writer.Write(FormatMsg.FormatMessage(Message, MessageFlags));
-          }
-        }
+        return null;
       }
     }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// The truncate message.
@@ -292,5 +225,104 @@ namespace YAF.Controls
 
       return message.Substring(0, message.Length - 3) + "...";
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The on pre render.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnPreRender(EventArgs e)
+    {
+      if (this.DataRow != null && !this.MessageFlags.IsDeleted)
+      {
+        // populate DisplayUserID
+        if (!UserMembershipHelper.IsGuestUser(this.DataRow["UserID"]))
+        {
+          this.DisplayUserID = Convert.ToInt32(this.DataRow["UserID"]);
+        }
+
+        if (this.ShowAttachments && long.Parse(this.DataRow["HasAttachments"].ToString()) > 0)
+        {
+          // add attached files control...
+          var attached = new MessageAttached();
+          attached.MessageID = Convert.ToInt32(this.DataRow["MessageID"]);
+          attached.UserName = this.DataRow["UserName"].ToString();
+          this.Controls.Add(attached);
+        }
+      }
+
+      base.OnPreRender(e);
+    }
+
+    /// <summary>
+    /// The render message.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void RenderMessage(HtmlTextWriter writer)
+    {
+      if (this.DataRow != null)
+      {
+        if (this.MessageFlags.IsDeleted)
+        {
+          if (this.DataRow.Row.Table.Columns.Contains("IsModeratorChanged"))
+          {
+            this.IsModeratorChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"]);
+          }
+
+          // deleted message text...
+          this.RenderDeletedMessage(writer);
+        }
+        else if (this.MessageFlags.NotFormatted)
+        {
+          // just write out the message with no formatting...
+          writer.Write(this.Message);
+        }
+        else if (this.DataRow.Row.Table.Columns.Contains("Edited"))
+        {
+          // handle a message that's been edited...
+          DateTime editedMessage = this.Posted;
+
+          if (this.Edited > this.Posted)
+          {
+            editedMessage = this.Edited;
+          }
+
+          if (this.MessageFlags.IsBBCode)
+          {
+            this.RenderModulesInBBCode(
+              writer, 
+              this.HighlightMessage(FormatMsg.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
+              this.MessageFlags, 
+              this.DisplayUserID);
+          }
+          else
+          {
+            writer.Write(HighlightMessage(FormatMsg.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
+          }
+        }
+        else
+        {
+          // render standard using bbcode or html...
+          if (this.MessageFlags.IsBBCode)
+          {
+            this.RenderModulesInBBCode(
+              writer, this.HighlightMessage(FormatMsg.FormatMessage(this.Message, this.MessageFlags)), this.MessageFlags, this.DisplayUserID);
+          }
+          else
+          {
+            writer.Write(this.HighlightMessage(FormatMsg.FormatMessage(this.Message, this.MessageFlags)));
+          }
+        }
+      }
+    }
+
+    #endregion
   }
 }

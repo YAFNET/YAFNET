@@ -111,6 +111,11 @@ namespace YAF.Classes.UI
     /// <summary>
     /// The _rgx italic.
     /// </summary>
+    private static readonly string _rgxHighlighted = @"\[h\](?<inner>(.*?))\[/h\]";
+
+    /// <summary>
+    /// The _rgx italic.
+    /// </summary>
     private static readonly string _rgxItalic = @"\[I\](?<inner>(.*?))\[/I\]";
 
     /// <summary>
@@ -333,6 +338,7 @@ namespace YAF.Classes.UI
         ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxStrike, "<s>${inner}</s>", _options));
         ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxItalic, "<i>${inner}</i>", _options));
         ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxUnderline, "<u>${inner}</u>", _options));
+        ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxHighlighted, @"<span class=""highlight"">${inner}</span>", _options));
 
         // e-mails
         ruleEngine.AddRule(

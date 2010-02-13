@@ -16,18 +16,26 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web.UI;
-using YAF.Classes.Data;
-using YAF.Classes.UI;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System;
+  using System.Collections.Generic;
+  using System.Web.UI;
+
+  using YAF.Classes.Data;
+  using YAF.Classes.UI;
+
+  #endregion
+
   /// <summary>
   /// Shows a Message Post
   /// </summary>
   public class MessagePost : MessageBase
   {
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MessagePost"/> class.
     /// </summary>
@@ -36,6 +44,10 @@ namespace YAF.Controls
     {
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
     /// Gets or sets DisplayUserID.
     /// </summary>
@@ -43,9 +55,9 @@ namespace YAF.Controls
     {
       get
       {
-        if (ViewState["DisplayUserID"] != null)
+        if (this.ViewState["DisplayUserID"] != null)
         {
-          return Convert.ToInt32(ViewState["DisplayUserID"]);
+          return Convert.ToInt32(this.ViewState["DisplayUserID"]);
         }
 
         return null;
@@ -53,49 +65,28 @@ namespace YAF.Controls
 
       set
       {
-        ViewState["DisplayUserID"] = value;
+        this.ViewState["DisplayUserID"] = value;
       }
     }
 
     /// <summary>
-    /// Gets or sets Signature.
+    /// Words to highlight in this message
     /// </summary>
-    public virtual string Signature
+    public virtual IList<string> HighlightWords
     {
       get
       {
-        if (ViewState["Signature"] != null)
+        if (this.ViewState["HighlightWords"] == null)
         {
-          return ViewState["Signature"].ToString();
+          this.ViewState["HighlightWords"] = new List<string>();
         }
 
-        return null;
+        return this.ViewState["HighlightWords"] as IList<string>;
       }
 
       set
       {
-        ViewState["Signature"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Message.
-    /// </summary>
-    public virtual string Message
-    {
-      get
-      {
-        if (ViewState["Message"] != null)
-        {
-          return ViewState["Message"].ToString();
-        }
-
-        return null;
-      }
-
-      set
-      {
-        ViewState["Message"] = value;
+        this.ViewState["HighlightWords"] = value;
       }
     }
 
@@ -106,9 +97,9 @@ namespace YAF.Controls
     {
       get
       {
-        if (ViewState["IsModeratorChanged"] != null)
+        if (this.ViewState["IsModeratorChanged"] != null)
         {
-          return Convert.ToBoolean(ViewState["IsModeratorChanged"]);
+          return Convert.ToBoolean(this.ViewState["IsModeratorChanged"]);
         }
 
         return false;
@@ -116,7 +107,28 @@ namespace YAF.Controls
 
       set
       {
-        ViewState["IsModeratorChanged"] = value;
+        this.ViewState["IsModeratorChanged"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Message.
+    /// </summary>
+    public virtual string Message
+    {
+      get
+      {
+        if (this.ViewState["Message"] != null)
+        {
+          return this.ViewState["Message"].ToString();
+        }
+
+        return null;
+      }
+
+      set
+      {
+        this.ViewState["Message"] = value;
       }
     }
 
@@ -127,19 +139,44 @@ namespace YAF.Controls
     {
       get
       {
-        if (ViewState["MessageFlags"] == null)
+        if (this.ViewState["MessageFlags"] == null)
         {
-          ViewState["MessageFlags"] = new MessageFlags(0);
+          this.ViewState["MessageFlags"] = new MessageFlags(0);
         }
 
-        return ViewState["MessageFlags"] as MessageFlags;
+        return this.ViewState["MessageFlags"] as MessageFlags;
       }
 
       set
       {
-        ViewState["MessageFlags"] = value;
+        this.ViewState["MessageFlags"] = value;
       }
     }
+
+    /// <summary>
+    /// Gets or sets Signature.
+    /// </summary>
+    public virtual string Signature
+    {
+      get
+      {
+        if (this.ViewState["Signature"] != null)
+        {
+          return this.ViewState["Signature"].ToString();
+        }
+
+        return null;
+      }
+
+      set
+      {
+        this.ViewState["Signature"] = value;
+      }
+    }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The on pre render.
@@ -149,12 +186,10 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender(EventArgs e)
     {
-      if (!String.IsNullOrEmpty(Signature))
+      if (!String.IsNullOrEmpty(this.Signature))
       {
-        var sig = new MessageSignature();
-        sig.Signature = Signature;
-        sig.DisplayUserID = DisplayUserID;
-        Controls.Add(sig);
+        var sig = new MessageSignature { Signature = this.Signature, DisplayUserID = this.DisplayUserID };
+        this.Controls.Add(sig);
       }
 
       base.OnPreRender(e);
@@ -170,48 +205,16 @@ namespace YAF.Controls
     {
       writer.BeginRender();
       writer.WriteBeginTag("div");
-      writer.WriteAttribute("id", ClientID);
+      writer.WriteAttribute("id", this.ClientID);
       writer.Write(HtmlTextWriter.TagRightChar);
 
-      RenderMessage(writer);
+      this.RenderMessage(writer);
 
       // render controls...
       base.Render(writer);
 
       writer.WriteEndTag("div");
       writer.EndRender();
-    }
-
-    /// <summary>
-    /// The render message.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected virtual void RenderMessage(HtmlTextWriter writer)
-    {
-      if (MessageFlags.IsDeleted)
-      {
-        // deleted message text...
-        RenderDeletedMessage(writer);
-      }
-      else if (MessageFlags.NotFormatted)
-      {
-        writer.Write(Message);
-      }
-      else
-      {
-        string formattedMessage = FormatMsg.FormatMessage(Message, MessageFlags);
-
-        if (MessageFlags.IsBBCode)
-        {
-          RenderModulesInBBCode(writer, formattedMessage, MessageFlags, DisplayUserID);
-        }
-        else
-        {
-          writer.Write(formattedMessage);
-        }
-      }
     }
 
     /// <summary>
@@ -223,19 +226,65 @@ namespace YAF.Controls
     protected virtual void RenderDeletedMessage(HtmlTextWriter writer)
     {
       // if message was deleted then write that instead of real body
-      if (MessageFlags.IsDeleted)
+      if (this.MessageFlags.IsDeleted)
       {
-        if (IsModeratorChanged)
+        if (this.IsModeratorChanged)
         {
           // deleted by mod
-          writer.Write(PageContext.Localization.GetText("POSTS", "MESSAGEDELETED_MOD"));
+          writer.Write(this.PageContext.Localization.GetText("POSTS", "MESSAGEDELETED_MOD"));
         }
         else
         {
           // deleted by user
-          writer.Write(PageContext.Localization.GetText("POSTS", "MESSAGEDELETED_USER"));
+          writer.Write(this.PageContext.Localization.GetText("POSTS", "MESSAGEDELETED_USER"));
         }
       }
     }
+
+    protected virtual string HighlightMessage(string message)
+    {
+      if (this.HighlightWords.Count > 0)
+      {
+        // highlight word list
+        message = FormatMsg.SurroundWordList(
+          message, this.HighlightWords, @"<span class=""highlight"">", @"</span>");
+      }
+
+      return message;
+    }
+
+    /// <summary>
+    /// The render message.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected virtual void RenderMessage(HtmlTextWriter writer)
+    {
+      if (this.MessageFlags.IsDeleted)
+      {
+        // deleted message text...
+        this.RenderDeletedMessage(writer);
+      }
+      else if (this.MessageFlags.NotFormatted)
+      {
+        writer.Write(this.Message);
+      }
+      else
+      {
+        string formattedMessage = HighlightMessage(FormatMsg.FormatMessage(this.Message, this.MessageFlags));
+
+        if (this.MessageFlags.IsBBCode)
+        {
+          this.RenderModulesInBBCode(writer, formattedMessage, this.MessageFlags, this.DisplayUserID);
+        }
+        else
+        {
+          writer.Write(formattedMessage);
+        }
+      }
+    }
+
+    #endregion
   }
 }
