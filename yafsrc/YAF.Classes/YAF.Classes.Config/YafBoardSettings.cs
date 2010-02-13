@@ -273,6 +273,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether Recapture can have Multiple Instances.
+    /// </summary>
+    public bool RecaptureMultipleInstances
+    {
+        get
+        {
+            return this._regBoard.GetValue<bool>("RecaptureMultipleInstances", true);
+        }
+
+        set
+        {
+            this._regBoard.SetValue<bool>("RecaptureMultipleInstances", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets NotificationOnUserRegisterEmailList.
     /// </summary>
     public string NotificationOnUserRegisterEmailList
@@ -504,6 +520,22 @@ namespace YAF.Classes
       {
         this._reg.SetValue<int>("PostFloodDelay", value);
       }
+    }
+
+    /// <summary>
+    /// Gets or sets CaptchaTypeRegister.
+    /// </summary>
+    public int CaptchaTypeRegister
+    {
+        get
+        {
+            return this._reg.GetValue<int>("CaptchaTypeRegister", 1);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("CaptchaTypeRegister", value);
+        }
     }
 
     /// <summary>
@@ -1909,6 +1941,38 @@ namespace YAF.Classes
       {
         this._reg.SetValue<string>("ForumEmail", value);
       }
+    }
+
+    /// <summary>
+    /// Gets or sets RecaptchaPublicKey .
+    /// </summary>
+    public string RecaptchaPublicKey
+    {
+        get
+        {
+            return this._reg.GetValue<string>("RecaptchaPublicKey",  string.Empty);
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("RecaptchaPublicKey", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets RecaptchaPrivateKey.
+    /// </summary>
+    public string RecaptchaPrivateKey
+    {
+        get
+        {
+            return this._reg.GetValue<string>("RecaptchaPrivateKey", string.Empty);
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("RecaptchaPrivateKey", value);
+        }
     }
 
     // JoeOuts: added 8/17/09

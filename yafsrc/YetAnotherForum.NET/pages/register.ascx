@@ -122,6 +122,15 @@
 								<asp:TextBox ID="tbCaptcha" runat="server" />
 							</td>
 						</tr></asp:PlaceHolder>
+							<asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false"><tr>
+							<td align="right" class="postheader" valign="top">
+								<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="Captcha_Image" />
+							</td>
+							<td class="post">
+							<YAF:RecaptchaControl ID="Recaptcha1" runat="server" />  
+							</td>
+						</tr>
+					    </asp:PlaceHolder>
 						<tr align="right">
 							<td align="center" colspan="2" class="postfooter">
 								<asp:Button ID="StepNextButton" runat="server" CssClass="pbutton" CommandName="MoveNext" Text="Create User"

@@ -236,7 +236,7 @@ namespace YAF.Pages
       }
       if (userName.Length > PageContext.BoardSettings.UserNameMaxLength)
       {
-        this.PageContext.AddLoadMessage(this.GetText("USERNAME_TOOLONG"));
+        this.PageContext.AddLoadMessage(this.GetTextFormatted("USERNAME_TOOLONG",PageContext.BoardSettings.UserNameMaxLength));
         e.Cancel = true;
         return;
       }
@@ -245,7 +245,7 @@ namespace YAF.Pages
       var tbCaptcha = this.CreateUserStepContainer.FindControlAs<TextBox>("tbCaptcha");
 
       // verify captcha if enabled
-      if (this.PageContext.BoardSettings.EnableCaptchaForRegister &&
+      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1 &&
           this.Session["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim())
       {
         this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
@@ -258,7 +258,7 @@ namespace YAF.Pages
 
         if (displayName.Text.Length > PageContext.BoardSettings.UserNameMaxLength)
         {
-            this.PageContext.AddLoadMessage(this.GetText("USERNAME_TOOLONG"));
+            this.PageContext.AddLoadMessage(this.GetTextFormatted("USERNAME_TOOLONG",PageContext.BoardSettings.UserNameMaxLength));
             e.Cancel = true;
             return;
         }
@@ -385,6 +385,13 @@ namespace YAF.Pages
 
         timeZones.Items.FindByValue("0").Selected = true;
       }
+
+      // password requirement parameters...
+      var requirementText = (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelRequirementsText");
+      requirementText.Param0 = this.PageContext.CurrentMembership.MinRequiredPasswordLength.ToString();
+      requirementText.Param1 = this.PageContext.BoardSettings.UserNameMaxLength.ToString();
+      requirementText.Param2 = this.PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters.ToString();
+
     }
 
     /// <summary>
@@ -476,25 +483,30 @@ namespace YAF.Pages
       answerRequired.ToolTip = answerRequired.ErrorMessage = this.GetText("NEED_ANSWER");
       createUser.ToolTip = createUser.Text = this.GetText("CREATE_USER");
 
-      // password requirement parameters...
-      var requirementText = (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelRequirementsText");
-      requirementText.Param0 = this.PageContext.CurrentMembership.MinRequiredPasswordLength.ToString();
-      requirementText.Param1 = this.PageContext.BoardSettings.UserNameMaxLength.ToString();
-      requirementText.Param2 = this.PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters.ToString();
-
+     
       var captchaPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("CaptchaPlaceHolder");
+      var recaptchaPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("RecaptchaPlaceHolder");
 
-      if (this.PageContext.BoardSettings.EnableCaptchaForRegister)
+      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1)
       {
         this.Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
         var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
         imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumClientFileRoot);
+        
         captchaPlaceHolder.Visible = true;
       }
       else
       {
-        captchaPlaceHolder.Visible = false;
+        captchaPlaceHolder.Visible = false;        
+      }
+           if (this.PageContext.BoardSettings.CaptchaTypeRegister == 2)
+      {
+          recaptchaPlaceHolder.Visible = true;
+      }
+      else
+      {
+          recaptchaPlaceHolder.Visible = false;
       }
 
       this.SetupDisplayNameUI(this.CreateUserStepContainer, this.PageContext.BoardSettings.EnableDisplayName);

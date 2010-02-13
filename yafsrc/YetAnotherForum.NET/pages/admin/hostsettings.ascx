@@ -516,6 +516,33 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>reCAPTCHA Public Key:</b><br />
+							Enter reCAPTCHA Public Key
+						</td>
+						<td class="post">
+							<asp:TextBox ID="RecaptchaPublicKey" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+						<tr>
+						<td class="postheader">
+							<b>reCAPTCHA Private Key:</b><br />
+							Enter reCAPTCHA Private Key
+						</td>
+						<td class="post">
+							<asp:TextBox ID="RecaptchaPrivateKey" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+						<tr>
+						<td class="postheader">
+							<b>Enable reCAPTCHA Recapture Multiple Instances:</b><br />
+							Enable reCAPTCHA Recapture Multiple Instances(shared keys).
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="RecaptureMultipleInstances" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
 							<b>Enable CAPTCHA for Guest Posting:</b><br />
 							Require guest users to enter the CAPTCHA when they post or reply to a forum message
 							(including Quick Reply).
@@ -539,8 +566,13 @@
 							<b>Enable CAPTCHA for Register:</b><br />
 							Require users to enter the CAPTCHA when they register for the forum.
 						</td>
-						<td class="post">
-							<asp:CheckBox ID="EnableCaptchaForRegister" runat="server"></asp:CheckBox>
+						<td class="post">				
+							<asp:DropDownList ID="CaptchaTypeRegister" runat="server">
+								<asp:ListItem Value="0" Text="Disables" />
+								<asp:ListItem Value="1" Text="Captcha" />
+								<asp:ListItem Value="2" Text="ReCaptcha" />
+							</asp:DropDownList>
+
 						</td>
 					</tr>
 					<tr>

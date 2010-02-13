@@ -84,6 +84,9 @@
     <Compile Include="Localized\LocalizationSupportExtensions.cs" />
     <Compile Include="Localized\LocalizedCustomValidator.cs" />
     <Compile Include="Localized\LocalizedRequiredFieldValidator.cs" />
+    <Compile Include="Recaptcha.cs" />
+    <Compile Include="RecaptchaResponse.cs" />
+    <Compile Include="RecaptchaValidator.cs" />
     <Compile Include="ReportedPosts.cs" />
     <Compile Include="OnlineStatusImage.cs" />
     <Compile Include="UserLabel.cs" />
