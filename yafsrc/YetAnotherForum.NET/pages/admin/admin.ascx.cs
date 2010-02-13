@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void DeleteAll_Load(object sender, EventArgs e)
     {
-      ((Button) sender).Attributes["onclick"] = "return confirm('Delete all Unapproved Users more than 14 days old?')";
+      ((Button) sender).Attributes["onclick"] = "return confirm('Delete all Unapproved Users more than the specified number of days old?')";
     }
 
     /// <summary>
@@ -228,7 +228,18 @@ namespace YAF.Pages.Admin
           YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
           break;
         case "delete":
-          UserMembershipHelper.DeleteUser(Convert.ToInt32(e.CommandArgument));
+          string daysValue = ControlHelper.FindControlRecursiveAs<TextBox>(PageContext.CurrentForumPage, "DaysOld").Text.Trim();
+          if (!ValidationHelper.IsValidInt(daysValue))
+          {
+              this.PageContext.AddLoadMessage("You should enter a valid integer value for days.");
+              return;
+          }
+          if (!Config.IsAnyPortal)
+          {
+              UserMembershipHelper.DeleteUser(Convert.ToInt32(e.CommandArgument));
+          }
+
+          YAF.Classes.Data.DB.user_delete(e.CommandArgument);
           BindData();
           break;
         case "approve":
@@ -237,12 +248,18 @@ namespace YAF.Pages.Admin
           break;
         case "deleteall":
           // vzrus: Should not delete the whole providers portal data? Under investigation.
+          string daysValueAll = ControlHelper.FindControlRecursiveAs<TextBox>(PageContext.CurrentForumPage, "DaysOld").Text.Trim();
+          if (!ValidationHelper.IsValidInt(daysValueAll))
+          {
+              this.PageContext.AddLoadMessage("You should enter a valid integer value for days.");
+              return;
+          }
           if (!Config.IsAnyPortal)
           {
-              UserMembershipHelper.DeleteAllUnapproved(DateTime.Now.AddDays(-14));
+              UserMembershipHelper.DeleteAllUnapproved(DateTime.Now.AddDays(-Convert.ToInt32(daysValueAll)));
           }
 
-          YAF.Classes.Data.DB.user_deleteold( PageContext.PageBoardID, 14);
+          YAF.Classes.Data.DB.user_deleteold(PageContext.PageBoardID, Convert.ToInt32(daysValueAll));
           BindData();
           break;
         case "approveall":

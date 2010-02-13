@@ -34,14 +34,14 @@
 				<b>Minimum Posts:</b><br />
 				Minimum number of posts before users are advanced to this rank.</td>
 			<td class="post" colspan="7">
-				<asp:TextBox ID="MinPosts" runat="server" /></td>
+				<asp:TextBox ID="MinPosts" Style="width: 80px" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
 				<b>Private Messages:</b><br />
 				Max Private Messages allowed to Rank members.</td>
 			<td class="post" colspan="6">
-				<asp:TextBox ID="PMLimit" Text="0" runat="server" /></td>
+				<asp:TextBox ID="PMLimit" Style="width: 80px" Text="0" runat="server" /></td>
 		</tr>
 			<tr>
 			<td class="postheader" colspan="4">
@@ -55,7 +55,7 @@
 				<b>Max number of chars in a user signature:</b><br />
 				Max number of chars in a user signature in the role.</td>
 			<td class="post" colspan="6">
-				<asp:TextBox Style="width: 300px" ID="UsrSigChars" runat="server" /></td>
+				<asp:TextBox Style="width: 80px" ID="UsrSigChars" runat="server" /></td>
 		</tr>
 			<tr>
 			<td class="postheader" colspan="4">
@@ -77,7 +77,7 @@
 				<b>User Albums Number:</b><br />
 				Integer value for a user allowed albums number.</td>
 			<td class="post" colspan="6">
-				<asp:TextBox Style="width: 300px" ID="UsrAlbums" runat="server" /></td>
+				<asp:TextBox Style="width: 80px" ID="UsrAlbums" runat="server" /></td>
 		</tr>
 			</tr>
 				</tr>
@@ -86,21 +86,21 @@
 				<b>Total Album Images Number:</b><br />
 				Integer value for a user allowed images number in ALL albums.</td>
 			<td class="post" colspan="6">
-				<asp:TextBox Style="width: 300px" ID="UsrAlbumImages" runat="server" /></td>
+				<asp:TextBox Style="width: 80px" ID="UsrAlbumImages" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
 				<b>Priority:</b><br />
 				Priority of rank is various things.</td>
 			<td class="post" colspan="6">
-				<asp:TextBox ID="RankPriority" Text="0" runat="server" /></td>
+				<asp:TextBox ID="RankPriority" Style="width: 80px" Text="0" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
 				<b>Style:</b><br />
 				Style of users links in active users, colore, font size...</td>
 			<td class="post" colspan="6">
-				<asp:TextBox ID="Style" Text="" runat="server" /></td>
+				<asp:TextBox ID="Style" Text="" Style="width: 100%" TextMode="MultiLine" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">

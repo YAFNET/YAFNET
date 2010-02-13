@@ -96,20 +96,20 @@
 				Integer value for a user allowed images number in ALL albums.</td>
 			<td class="post" width="50%">
 				<asp:TextBox Style="width: 80px" ID="UsrAlbumImages" runat="server" /></td>
-		</tr>
-		<tr>
-			<td class="postheader" width="50%">
-				<b>Style:</b><br />
-				Enter here combined style string for coloured nicks.</td>
-			<td class="post" width="50%">
-				<asp:TextBox Style="width: 300px" ID="StyleTextBox" runat="server" /></td>
-		</tr>
+		</tr>	
 		<tr>
 			<td class="postheader" width="50%">
 				<b>Priority:</b><br />
 				Enter here priority for different tasks.</td>
 			<td class="post" width="50%">
-				<asp:TextBox Style="width: 300px" ID="Priority" Text="0" runat="server" /></td>
+				<asp:TextBox Style="width: 80px" ID="Priority" Text="0" runat="server" /></td>
+		</tr>
+			<tr>
+			<td class="postheader" width="50%">
+				<b>Style:</b><br />
+				Enter here a combined style string for coloured nicks.</td>
+			<td class="post" width="50%">
+				<asp:TextBox Style="width: 100%" ID="StyleTextBox" TextMode="MultiLine" runat="server" /></td>
 		</tr>
 		<tr runat="server" visible="false" id="IsGuestTR">
 			<td class="postheader">
