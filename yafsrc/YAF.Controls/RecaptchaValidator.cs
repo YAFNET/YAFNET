@@ -7,6 +7,9 @@
     using System.Net.Sockets;
     using System.Text;
     using System.Web;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using YAF.Classes.Core;
 
     public class RecaptchaValidator
     {
@@ -41,7 +44,7 @@
             request.Method = "POST";
             request.UserAgent = "reCAPTCHA/ASP.NET";
             request.ContentType = "application/x-www-form-urlencoded";
-            string s = string.Format("privatekey={0}&remoteip={1}&challenge={2}&response={3}", new object[] { HttpUtility.UrlEncode(this.PrivateKey), HttpUtility.UrlEncode(this.RemoteIP), HttpUtility.UrlEncode(this.Challenge), HttpUtility.UrlEncode(this.Response) });
+            string s = string.Format("privatekey={0}&remoteip={1}&challenge={2}&response={3}", new object[] { HttpUtility.UrlEncode(this.PrivateKey), HttpUtility.UrlEncode(this.RemoteIP), HttpUtility.UrlEncode(this.Challenge), HttpUtility.UrlEncode(this.Response)});
             byte[] bytes = Encoding.ASCII.GetBytes(s);
             using (Stream stream = request.GetRequestStream())
             {
@@ -59,7 +62,7 @@
             }
             catch (WebException exception)
             {
-                EventLog.WriteEntry("Application", exception.Message, EventLogEntryType.Error);
+                YAF.Classes.Data.DB.eventlog_create(YafContext.Current.PageUserID, this, exception.Message, EventLogEntryType.Error);
                 return RecaptchaResponse.RecaptchaNotReachable;
             }
             switch (strArray[0])
@@ -107,7 +110,7 @@
             {
                 IPAddress address = IPAddress.Parse(value);
                 if ((address == null) || ((address.AddressFamily != AddressFamily.InterNetwork) && (address.AddressFamily != AddressFamily.InterNetworkV6)))
-                {
+                {                   
                     throw new ArgumentException("Expecting an IP address, got " + address);
                 }
                 this.remoteIp = address.ToString();

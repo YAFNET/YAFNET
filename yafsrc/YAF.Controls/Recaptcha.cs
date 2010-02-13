@@ -40,7 +40,7 @@
         }
 
         private bool CheckIfRecaptchaExists()
-        {
+        { 
             foreach (object obj2 in this.Page.Validators)
             {
                 if (obj2 is RecaptchaControl)

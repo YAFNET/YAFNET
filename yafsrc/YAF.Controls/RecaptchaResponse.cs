@@ -1,6 +1,7 @@
 ﻿namespace YAF.Controls
 {
     using System;
+    using YAF.Classes.Core;
 
     public class RecaptchaResponse
     {
@@ -9,6 +10,8 @@
         private bool isValid;
         public static readonly RecaptchaResponse RecaptchaNotReachable = new RecaptchaResponse(false, "recaptcha-not-reachable");
         public static readonly RecaptchaResponse Valid = new RecaptchaResponse(true, string.Empty);
+        
+
 
         internal RecaptchaResponse(bool isValid, string errorCode)
         {
