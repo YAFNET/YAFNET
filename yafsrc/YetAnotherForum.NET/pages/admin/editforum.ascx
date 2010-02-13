@@ -77,6 +77,18 @@
 			<td class="post">
 				<asp:checkbox id="Moderated" runat="server"></asp:checkbox></td>
 		</tr>
+			<tr>
+			<td class="postheader"><b>Image URL:</b><br />
+				Image URL, if empty default image for the forum is used.</td>
+			<td class="post">
+				<asp:textbox id="ImageURL" runat="server"></asp:textbox></td>
+		</tr>			
+		<tr visible="false" runat="server">
+			<td class="postheader"><b>Styles:</b><br />
+				Styles string to customize Forum Name. Leave it empty.</td>
+			<td class="post">
+				<asp:textbox id="Styles" runat="server"></asp:textbox></td>
+		</tr>		
 		<tr id="NewGroupRow" runat="server">
 			<td class="postheader"><b>Initial Access Mask:</b><br />
 				The initial access mask for all forums.</td>

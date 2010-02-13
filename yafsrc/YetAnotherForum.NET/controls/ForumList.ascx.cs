@@ -74,12 +74,15 @@ namespace YAF.Controls
         var flags = new ForumFlags(row["Flags"]);
         DateTime lastRead = Mession.GetForumRead((int) row["ForumID"]);
         DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime) row["LastPosted"] : lastRead;
-
-        var forumIcon = e.Item.FindControl("ThemeForumIcon") as ThemeImage;
-
-        forumIcon.ThemeTag = "FORUM";
-        forumIcon.LocalizedTitlePage = "ICONLEGEND";
-        forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+        
+          if (string.IsNullOrEmpty(row["ImageUrl"].ToString()))
+        {
+            var forumIcon = e.Item.FindControl("ThemeForumIcon") as ThemeImage;            
+            forumIcon.ThemeTag = "FORUM";
+            forumIcon.LocalizedTitlePage = "ICONLEGEND";
+            forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+            forumIcon.Visible = true;
+        
 
         try
         {
@@ -105,7 +108,13 @@ namespace YAF.Controls
         catch
         {
         }
-
+        }
+          else
+          {
+              var forumImage = e.Item.FindControl("ForumImage1") as Image;
+              forumImage.ImageUrl = String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString());
+              forumImage.Visible = true;
+          }
         if (!PageContext.BoardSettings.ShowModeratorList)
         {
           // hide moderator list...

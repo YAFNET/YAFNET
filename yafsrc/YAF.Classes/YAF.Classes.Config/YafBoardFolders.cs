@@ -111,6 +111,17 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets Categories.
+    /// </summary>
+    public string Forums
+    {
+        get
+        {
+            return String.Concat(BoardFolder, "Images/Forums");
+        }
+    }
+
+    /// <summary>
     /// Gets Emoticons.
     /// </summary>
     public string Emoticons

@@ -57,7 +57,7 @@ namespace YAF.Pages.Admin
           {
             DataRow row = dt.Rows[0];
             var flags = new ForumFlags(row["Flags"]);
-            this.Name.Text = (string) row["Name"];
+            this.Name.Text = (string) row["Name"];            
             this.Description.Text = (string) row["Description"];
             this.SortOrder.Text = row["SortOrder"].ToString();
             this.HideNoAccess.Checked = flags.IsHidden;
@@ -65,6 +65,8 @@ namespace YAF.Pages.Admin
             this.IsTest.Checked = flags.IsTest;
             this.ForumNameTitle.Text = this.Name.Text;
             this.Moderated.Checked = flags.IsModerated;
+            this.ImageURL.Text = row["ImageURL"].ToString();
+            this.Styles.Text = row["Styles"].ToString();
 
             this.CategoryList.SelectedValue = row["CategoryID"].ToString();
 
@@ -203,6 +205,12 @@ namespace YAF.Pages.Admin
         return;
       }
 
+      // Check if the image file exists
+     /* if (!System.IO.File.Exists(String.Format("{0}{1}\\{2}", System.Web.Hosting.HostingEnvironment.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Forums, this.ImageURL.Text.Trim())))))
+      {
+          PageContext.AddLoadMessage("You must enter an existing file name.");
+          return;
+      }  */    
       // Forum
       long ForumID = 0;
       if (Request.QueryString["f"] != null)
@@ -237,8 +245,8 @@ namespace YAF.Pages.Admin
               PageContext.AddLoadMessage("The choosen forum cannot be child forum as it's a parent.");
               return;
           }
-      }
-
+      }      
+        
       object themeURL = null;
       if (this.ThemeList.SelectedValue.Length > 0)
       {
@@ -247,7 +255,7 @@ namespace YAF.Pages.Admin
 
       ForumID = DB.forum_save(
         ForumID, 
-        this.CategoryList.SelectedValue, 
+        this.CategoryList.SelectedValue,
         parentID, 
         this.Name.Text, 
         this.Description.Text, 
@@ -259,6 +267,8 @@ namespace YAF.Pages.Admin
         this.AccessMaskID.SelectedValue, 
         IsNull(this.remoteurl.Text), 
         themeURL, 
+        this.ImageURL.Text.Trim(),
+        this.Styles.Text,
         false);
 
       // Access

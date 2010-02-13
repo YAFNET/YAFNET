@@ -922,6 +922,14 @@ begin
 end
 GO
 
+if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='ImageURL')
+	alter table [{databaseOwner}].[{objectQualifier}Forum] add ImageURL nvarchar(128) NULL
+GO
+
+if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Styles')
+	alter table [{databaseOwner}].[{objectQualifier}Forum] add Styles nvarchar(255) NULL
+GO
+
 -- Group Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Flags')
 begin

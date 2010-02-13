@@ -2365,7 +2365,9 @@ begin
 		Category		= a.Name, 
 		ForumID			= b.ForumID,
 		Forum			= b.Name, 
-		Description,
+		b.Description,
+		b.ImageUrl,
+		b.Styles,
 		Topics			= [{databaseOwner}].[{objectQualifier}forum_topics](b.ForumID),
 		Posts			= [{databaseOwner}].[{objectQualifier}forum_posts](b.ForumID),
 		Subforums		= [{databaseOwner}].[{objectQualifier}forum_subforums](b.ForumID, @UserID),
@@ -2497,6 +2499,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}forum_save](
 	@Moderated		bit,
 	@RemoteURL		nvarchar(100)=null,
 	@ThemeURL		nvarchar(100)=null,
+	@ImageURL       nvarchar(128)=null,
+	@Styles         nvarchar(255)=null,
 	@AccessMaskID	int = null
 ) as
 begin
@@ -2518,14 +2522,16 @@ begin
 			CategoryID=@CategoryID,
 			RemoteURL = @RemoteURL,
 			ThemeURL = @ThemeURL,
+			ImageURL = @ImageURL,
+			Styles = @Styles,
 			Flags = @Flags
 		where ForumID=@ForumID
 	end
 	else begin
 		select @BoardID=BoardID from [{databaseOwner}].[{objectQualifier}Category] where CategoryID=@CategoryID
 	
-		insert into [{databaseOwner}].[{objectQualifier}Forum](ParentID,Name,Description,SortOrder,CategoryID,NumTopics,NumPosts,RemoteURL,ThemeURL,Flags)
-		values(@ParentID,@Name,@Description,@SortOrder,@CategoryID,0,0,@RemoteURL,@ThemeURL,@Flags)
+		insert into [{databaseOwner}].[{objectQualifier}Forum](ParentID,Name,Description,SortOrder,CategoryID,NumTopics,NumPosts,RemoteURL,ThemeURL,Flags,ImageURL,Styles)
+		values(@ParentID,@Name,@Description,@SortOrder,@CategoryID,0,0,@RemoteURL,@ThemeURL,@Flags,@ImageURL,@Styles)
 		select @ForumID = SCOPE_IDENTITY()
 
 		insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) 
@@ -3026,7 +3032,7 @@ BEGIN
 		UserID = b.UserID,
 		Posted		= b.Posted,
 		TopicID = b.TopicID,
-		Topic		= c.Topic,
+		Topic		= c.Topic,		
 		NumberOfReports = (SELECT count(LogID) FROM [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE [{databaseOwner}].[{objectQualifier}MessageReportedAudit].MessageID = a.MessageID)
 	FROM
 		[{databaseOwner}].[{objectQualifier}MessageReported] a

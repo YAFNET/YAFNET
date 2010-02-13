@@ -774,7 +774,9 @@ namespace YAF.Pages.Admin
           false, 
           ForumsStartMask.SelectedValue, 
           null, 
-          null, 
+          null,
+          null,
+          null,
           false);
         if (_forumID > 0)
         {

@@ -2947,6 +2947,12 @@ namespace YAF.Classes.Data
     /// <param name="themeURL">
     /// The theme url.
     /// </param>
+    /// <param name="imageURL">
+    /// The imageURL.
+    /// </param>
+    /// <param name="styles">
+    /// The styles.
+    /// </param>
     /// <param name="dummy">
     /// The dummy.
     /// </param>
@@ -2966,8 +2972,10 @@ namespace YAF.Classes.Data
       object moderated, 
       object accessMaskID, 
       object remoteURL, 
-      object themeURL, 
-      bool dummy)
+      object themeURL,
+      object imageURL,
+      object styles,
+       bool dummy)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("forum_save"))
       {
@@ -2984,6 +2992,8 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("Moderated", moderated);
         cmd.Parameters.AddWithValue("RemoteURL", remoteURL);
         cmd.Parameters.AddWithValue("ThemeURL", themeURL);
+        cmd.Parameters.AddWithValue("ImageURL", imageURL);
+        cmd.Parameters.AddWithValue("Styles", styles);
         cmd.Parameters.AddWithValue("AccessMaskID", accessMaskID);
         return long.Parse(YafDBAccess.Current.ExecuteScalar(cmd).ToString());
       }

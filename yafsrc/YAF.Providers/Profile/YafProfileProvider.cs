@@ -792,7 +792,7 @@ namespace YAF.Providers.Profile
       {
         string username = profileRow["Username"].ToString();
         DateTime lastActivity = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastActivity"]), DateTimeKind.Utc);
-        DateTime lastUpdated = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastUpdated"]), DateTimeKind.Utc);
+        DateTime lastUpdated = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastUpdatedDate"]), DateTimeKind.Utc);
 
         profiles.Add(new ProfileInfo(username, false, lastActivity, lastUpdated, 0));
       }
