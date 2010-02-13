@@ -95,7 +95,7 @@
 				<tr class="post">
 					<td colspan="2">
 						<YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false"
-							ShowSignature="false" DataRow="<%# ( System.Data.DataRowView )Container.DataItem %>">
+							ShowSignature="false" HighlightWords="<%# this.HighlightSearchWords %>" DataRow="<%# ( System.Data.DataRowView )Container.DataItem %>">
 						</YAF:MessagePostData>
 					</td>
 				</tr>
@@ -126,6 +126,7 @@
 				<tr class="post_alt">
 					<td colspan="2">
 						<YAF:MessagePostData ID="MessagePostAlt" runat="server" ShowAttachments="false" ShowSignature="false"
+						    HighlightWords="<%# this.HighlightSearchWords %>"
 							DataRow="<%# ( System.Data.DataRowView )Container.DataItem %>">
 						</YAF:MessagePostData>
 					</td>

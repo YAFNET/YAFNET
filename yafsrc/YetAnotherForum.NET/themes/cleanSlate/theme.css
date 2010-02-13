@@ -290,6 +290,10 @@
 	padding-left: 16px;	
 	margin: 5px;
 }
+.yafnet span.highlight {
+	background-color: Yellow;
+	color: Black;
+}
 .yafnet .innercode {
 	padding: 4px;
 	background-color: #efefef;
