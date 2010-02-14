@@ -87,7 +87,9 @@
     <Compile Include="Recaptcha.cs" />
     <Compile Include="RecaptchaResponse.cs" />
     <Compile Include="RecaptchaValidator.cs" />
-    <Compile Include="ReportedPosts.cs" />
+    <Compile Include="BaseReportedPosts.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="OnlineStatusImage.cs" />
     <Compile Include="UserLabel.cs" />
     <Compile Include="YafAdminMenu\AdminMenu.cs" />

@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\DataContainerExtensions.cs" />
     <Compile Include="IYafUserProfile.cs" />
     <Compile Include="StyleTransform.cs" />
     <Compile Include="URLBuilder\DotNetNukeUrlBuilder.cs" />
@@ -91,7 +92,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="General.cs" />
-    <Compile Include="Helpers\TypeHelper.cs" />
+    <Compile Include="Helpers\ObjectExtensions.cs" />
     <Compile Include="URLBuilder\RewriteUrlBuilder.cs" />
     <Compile Include="URLBuilder\SimpleURLParameterParser.cs" />
     <Compile Include="YafUserProfile.cs" />

@@ -18,6 +18,8 @@
  */
 namespace YAF.Classes.Utils
 {
+  #region Using
+
   using System;
   using System.Collections.Generic;
   using System.IO;
@@ -26,11 +28,15 @@ namespace YAF.Classes.Utils
   using System.Text;
   using System.Text.RegularExpressions;
 
+  #endregion
+
   /// <summary>
   /// The string helper.
   /// </summary>
   public static class StringHelper
   {
+    #region Public Methods
+
     /// <summary>
     /// Returns a "random" alpha-numeric string of specified length and characters.
     /// </summary>
@@ -64,27 +70,342 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
+    /// When the string is trimmed, is it <see langword="null"/> or empty?
+    /// </summary>
+    /// <param name="str">
+    /// </param>
+    /// <returns>
+    /// The is <see langword="null"/> or empty trimmed.
+    /// </returns>
+    public static bool IsNullOrEmptyTrimmed(this string str)
+    {
+      return str == null || String.IsNullOrEmpty(str.Trim());
+    }
+
+    /// <summary>
+    /// Creates a string from a string list.
+    /// </summary>
+    /// <param name="strList">
+    /// </param>
+    /// <param name="delimiter">
+    /// </param>
+    /// <returns>
+    /// The list to string.
+    /// </returns>
+    public static string ListToString(this List<string> strList, string delimiter)
+    {
+      if (strList == null)
+      {
+        throw new ArgumentNullException("strList", "strList is null.");
+      }
+
+      var sb = new StringBuilder();
+
+      strList.ForEach(
+        x =>
+          {
+            if (sb.Length > 0)
+            {
+              // append delimiter if this isn't the first string
+              sb.Append(delimiter);
+            }
+
+            // append string...
+            sb.Append(x);
+          });
+
+      return sb.ToString();
+    }
+
+    /* Ederon - 9/9/2007 */
+
+    /// <summary>
+    /// The process text.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The process text.
+    /// </returns>
+    public static string ProcessText(string text)
+    {
+      return ProcessText(text, true);
+    }
+
+    /// <summary>
+    /// The process text.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="nullify">
+    /// The nullify.
+    /// </param>
+    /// <returns>
+    /// The process text.
+    /// </returns>
+    public static string ProcessText(string text, bool nullify)
+    {
+      return ProcessText(text, nullify, true);
+    }
+
+    /// <summary>
+    /// The process text.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="nullify">
+    /// The nullify.
+    /// </param>
+    /// <param name="trim">
+    /// The trim.
+    /// </param>
+    /// <returns>
+    /// The process text.
+    /// </returns>
+    public static string ProcessText(string text, bool nullify, bool trim)
+    {
+      if (trim && !String.IsNullOrEmpty(text))
+      {
+        text = text.Trim();
+      }
+
+      if (nullify && text.IsNullOrEmptyTrimmed())
+      {
+        text = null;
+      }
+
+      return text;
+    }
+
+    /// <summary>
+    /// Removes empty strings from the list
+    /// </summary>
+    /// <param name="inputList">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static List<string> RemoveEmptyStrings(this List<string> inputList)
+    {
+      if (inputList == null)
+      {
+        throw new ArgumentNullException("inputList", "inputList is null.");
+      }
+
+      return inputList.Where(x => !x.IsNullOrEmptyTrimmed()).ToList();
+    }
+
+    /// <summary>
+    /// Removes multiple single quote ' characters from a string.
+    /// </summary>
+    /// <param name="text">
+    /// </param>
+    /// <returns>
+    /// The remove multiple single quotes.
+    /// </returns>
+    public static string RemoveMultipleSingleQuotes(string text)
+    {
+      string result = String.Empty;
+      if (String.IsNullOrEmpty(text))
+      {
+        return result;
+      }
+
+      var r = new Regex(@"\'");
+      return r.Replace(text, @"'");
+    }
+
+    /// <summary>
+    /// Removes multiple whitespace characters from a string.
+    /// </summary>
+    /// <param name="text">
+    /// </param>
+    /// <returns>
+    /// The remove multiple whitespace.
+    /// </returns>
+    public static string RemoveMultipleWhitespace(string text)
+    {
+      string result = String.Empty;
+      if (String.IsNullOrEmpty(text))
+      {
+        return result;
+      }
+
+      var r = new Regex(@"\s+");
+      return r.Replace(text, @" ");
+    }
+
+    /// <summary>
+    /// Removes strings that are smaller then <paramref name="minSize"/>
+    /// </summary>
+    /// <param name="inputList">
+    /// </param>
+    /// <param name="minSize">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static List<string> RemoveSmallStrings(this List<string> inputList, int minSize)
+    {
+      if (inputList == null)
+      {
+        throw new ArgumentNullException("inputList", "inputList is null.");
+      }
+
+      return inputList.Where(x => x.Length >= minSize).ToList();
+    }
+
+    /// <summary>
+    /// Converts a Stream to a String.
+    /// </summary>
+    /// <param name="theStream">
+    /// </param>
+    /// <returns>
+    /// The stream to string.
+    /// </returns>
+    public static string StreamToString(Stream theStream)
+    {
+      var reader = new StreamReader(theStream);
+      return reader.ReadToEnd();
+    }
+
+    /// <summary>
+    /// Converts a string into it's hexadecimal representation.
+    /// </summary>
+    /// <param name="strValue">
+    /// </param>
+    /// <returns>
+    /// The string to hex bytes.
+    /// </returns>
+    public static string StringToHexBytes(string strValue)
+    {
+      string result = String.Empty;
+      if (String.IsNullOrEmpty(strValue))
+      {
+        return result;
+      }
+
+      var cryptoServiceProvider = new MD5CryptoServiceProvider();
+
+      byte[] emailBytes = Encoding.UTF8.GetBytes(strValue);
+      emailBytes = cryptoServiceProvider.ComputeHash(emailBytes);
+
+      var s = new StringBuilder();
+
+      foreach (byte b in emailBytes)
+      {
+        s.Append(b.ToString("x2").ToLower());
+      }
+
+      return s.ToString();
+    }
+
+    /// <summary>
+    /// Converts a string to a list using delimiter.
+    /// </summary>
+    /// <param name="str">
+    /// starting string
+    /// </param>
+    /// <param name="delimiter">
+    /// value that delineates the string
+    /// </param>
+    /// <returns>
+    /// list of strings
+    /// </returns>
+    public static List<string> StringToList(this string str, char delimiter)
+    {
+      return str.StringToList(delimiter, new List<string>());
+    }
+
+    /// <summary>
+    /// Converts a string to a list using delimiter.
+    /// </summary>
+    /// <param name="str">
+    /// starting string
+    /// </param>
+    /// <param name="delimiter">
+    /// value that delineates the string
+    /// </param>
+    /// <param name="exclude">
+    /// items to exclude from list
+    /// </param>
+    /// <returns>
+    /// list of strings
+    /// </returns>
+    public static List<string> StringToList(this string str, char delimiter, List<string> exclude)
+    {
+      if (String.IsNullOrEmpty(str))
+      {
+        throw new ArgumentException("str is null or empty.", "str");
+      }
+
+      if (exclude == null)
+      {
+        throw new ArgumentNullException("exclude", "exclude is null.");
+      }
+
+      var list = str.Split(delimiter).ToList();
+
+      list.RemoveAll(exclude.Contains);
+      list.Remove(delimiter.ToString());
+
+      return list;
+    }
+
+    /// <summary>
+    /// Converts a String to a MemoryStream.
+    /// </summary>
+    /// <param name="str">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static MemoryStream StringToStream(string str)
+    {
+      byte[] byteArray = Encoding.ASCII.GetBytes(str);
+      return new MemoryStream(byteArray);
+    }
+
+    /// <summary>
     /// Cleans a string into a proper RegEx statement. 
     /// E.g. "[b]Whatever[/b]" will be converted to:
     /// "\[b\]Whatever\[\/b\]"
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <param name="input">
+    /// </param>
+    /// <returns>
+    /// The to reg ex string.
+    /// </returns>
     public static string ToRegExString(this string input)
     {
       var sb = new StringBuilder();
 
-      foreach (var c in input)
-      {
-        if (!Char.IsWhiteSpace(c) && !Char.IsLetterOrDigit(c))
-        {
-          sb.Append("\\");
-        }
+      input.ForEachChar(
+        c =>
+          {
+            if (!Char.IsWhiteSpace(c) && !Char.IsLetterOrDigit(c))
+            {
+              sb.Append("\\");
+            }
 
-        sb.Append(c);        
-      }
+            sb.Append(c);
+          });
 
       return sb.ToString();
+    }
+
+    /// <summary>
+    /// Does an action for each character in the input string. Kind of useless, but in a
+    /// useful way. ;)
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="forEachAction"></param>
+    public static void ForEachChar(this string input, Action<char> forEachAction)
+    {
+      foreach (char c in input)
+      {
+        forEachAction(c);
+      }
     }
 
     /// <summary>
@@ -188,278 +509,6 @@ namespace YAF.Classes.Utils
       return output;
     }
 
-    /// <summary>
-    /// When the string is trimmed, is it <see langword="null"/> or empty?
-    /// </summary>
-    /// <param name="str">
-    /// </param>
-    /// <returns>
-    /// The is <see langword="null"/> or empty trimmed.
-    /// </returns>
-    public static bool IsNullOrEmptyTrimmed(this string str)
-    {
-      return str == null || String.IsNullOrEmpty(str.Trim());
-    }
-
-    /* Ederon - 9/9/2007 */
-
-    /// <summary>
-    /// The process text.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <returns>
-    /// The process text.
-    /// </returns>
-    public static string ProcessText(string text)
-    {
-      return ProcessText(text, true);
-    }
-
-    /// <summary>
-    /// The process text.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="nullify">
-    /// The nullify.
-    /// </param>
-    /// <returns>
-    /// The process text.
-    /// </returns>
-    public static string ProcessText(string text, bool nullify)
-    {
-      return ProcessText(text, nullify, true);
-    }
-
-    /// <summary>
-    /// The process text.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="nullify">
-    /// The nullify.
-    /// </param>
-    /// <param name="trim">
-    /// The trim.
-    /// </param>
-    /// <returns>
-    /// The process text.
-    /// </returns>
-    public static string ProcessText(string text, bool nullify, bool trim)
-    {
-      if (trim && !String.IsNullOrEmpty(text))
-      {
-        text = text.Trim();
-      }
-
-      if (nullify && text.IsNullOrEmptyTrimmed())
-      {
-        text = null;
-      }
-
-      return text;
-    }
-
-    /// <summary>
-    /// Converts a string to a list using delimiter.
-    /// </summary>
-    /// <param name="str">starting string</param>
-    /// <param name="delimiter">value that delineates the string</param>
-    /// <returns>list of strings</returns>
-    public static List<string> StringToList(this string str, char delimiter)
-    {
-      return str.StringToList(delimiter, new List<string>());
-    }
-
-    /// <summary>
-    /// Converts a string to a list using delimiter.
-    /// </summary>
-    /// <param name="str">starting string</param>
-    /// <param name="delimiter">value that delineates the string</param>
-    /// <param name="exclude">items to exclude from list</param>
-    /// <returns>list of strings</returns>
-    public static List<string> StringToList(this string str, char delimiter, List<string> exclude)
-    {
-      if (String.IsNullOrEmpty(str))
-      {
-        throw new ArgumentException("str is null or empty.", "str");
-      }
-
-      if (exclude == null)
-      {
-        throw new ArgumentNullException("exclude", "exclude is null.");
-      }
-
-      var list = str.Split(delimiter).ToList();
-
-      list.RemoveAll(exclude.Contains);
-      list.Remove(delimiter.ToString());
-
-      return list;
-    }
-
-    /// <summary>
-    /// Creates a string from a string list.
-    /// </summary>
-    /// <param name="strList"></param>
-    /// <param name="delimiter"></param>
-    /// <returns></returns>
-    public static string ListToString(this List<string> strList, string delimiter)
-    {
-      if (strList == null)
-      {
-        throw new ArgumentNullException("strList", "strList is null.");
-      }
-
-      StringBuilder sb = new StringBuilder();
-
-      strList.ForEach(
-        x =>
-        {
-          if (sb.Length > 0)
-          {
-            // append delimiter if this isn't the first string
-            sb.Append(delimiter);
-          }
-
-          // append string...
-          sb.Append(x);
-        });
-
-      return sb.ToString();
-    }
-
-    /// <summary>
-    /// Removes empty strings from the list
-    /// </summary>
-    /// <param name="inputList"></param>
-    /// <returns></returns>
-    public static List<string> RemoveEmptyStrings(this List<string> inputList)
-    {
-      if (inputList == null)
-      {
-        throw new ArgumentNullException("inputList", "inputList is null.");
-      }
-
-      return inputList.Where(x => !x.IsNullOrEmptyTrimmed()).ToList();
-    }
-
-    /// <summary>
-    /// Removes strings that are smaller then <paramref name="minSize"/>
-    /// </summary>
-    /// <param name="inputList"></param>
-    /// <param name="minSize"></param>
-    /// <returns></returns>
-    public static List<string> RemoveSmallStrings(this List<string> inputList, int minSize)
-    {
-      if (inputList == null)
-      {
-        throw new ArgumentNullException("inputList", "inputList is null.");
-      }
-
-      return inputList.Where(x => x.Length >= minSize).ToList();
-    }
-
-    /// <summary>
-    /// Removes multiple whitespace characters from a string.
-    /// </summary>
-    /// <param name="text">
-    /// </param>
-    /// <returns>
-    /// The remove multiple whitespace.
-    /// </returns>
-    public static string RemoveMultipleWhitespace(string text)
-    {
-      string result = String.Empty;
-      if (String.IsNullOrEmpty(text))
-      {
-        return result;
-      }
-
-      var r = new Regex(@"\s+");
-      return r.Replace(text, @" ");
-    }
-
-    /// <summary>
-    /// Removes multiple single quote ' characters from a string.
-    /// </summary>
-    /// <param name="text">
-    /// </param>
-    /// <returns>
-    /// The remove multiple single quotes.
-    /// </returns>
-    public static string RemoveMultipleSingleQuotes(string text)
-    {
-      string result = String.Empty;
-      if (String.IsNullOrEmpty(text))
-      {
-        return result;
-      }
-
-      var r = new Regex(@"\'");
-      return r.Replace(text, @"'");
-    }
-
-    /// <summary>
-    /// Converts a string into it's hexadecimal representation.
-    /// </summary>
-    /// <param name="strValue">
-    /// </param>
-    /// <returns>
-    /// The string to hex bytes.
-    /// </returns>
-    public static string StringToHexBytes(string strValue)
-    {
-      string result = String.Empty;
-      if (String.IsNullOrEmpty(strValue))
-      {
-        return result;
-      }
-
-      var md5CryptoServiceProvider = new MD5CryptoServiceProvider();
-
-      byte[] emailBytes = Encoding.UTF8.GetBytes(strValue);
-      emailBytes = md5CryptoServiceProvider.ComputeHash(emailBytes);
-
-      var s = new StringBuilder();
-
-      foreach (byte b in emailBytes)
-      {
-        s.Append(b.ToString("x2").ToLower());
-      }
-
-      return s.ToString();
-    }
-
-    /// <summary>
-    /// Converts a String to a MemoryStream.
-    /// </summary>
-    /// <param name="str">
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static MemoryStream StringToStream(string str)
-    {
-      byte[] byteArray = Encoding.ASCII.GetBytes(str);
-      return new MemoryStream(byteArray);
-    }
-
-    /// <summary>
-    /// Converts a Stream to a String.
-    /// </summary>
-    /// <param name="theStream">
-    /// </param>
-    /// <returns>
-    /// The stream to string.
-    /// </returns>
-    public static string StreamToString(Stream theStream)
-    {
-      var reader = new StreamReader(theStream);
-      return reader.ReadToEnd();
-    }
+    #endregion
   }
 }

@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -690,10 +690,10 @@ namespace YAF.Classes.Core
             }
           }
 
-          int? categoryID = TypeHelper.ValidInt(HttpContext.Current.Request.QueryString["c"]);
-          int? forumID = TypeHelper.ValidInt(HttpContext.Current.Request.QueryString["f"]);
-          int? topicID = TypeHelper.ValidInt(HttpContext.Current.Request.QueryString["t"]);
-          int? messageID = TypeHelper.ValidInt(HttpContext.Current.Request.QueryString["m"]);
+          int? categoryID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["c"]);
+          int? forumID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["f"]);
+          int? topicID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["t"]);
+          int? messageID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["m"]);
 
           if (YafContext.Current.Settings.CategoryID != 0)
           {

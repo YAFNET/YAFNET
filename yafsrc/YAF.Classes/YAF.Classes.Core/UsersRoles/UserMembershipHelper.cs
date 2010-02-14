@@ -132,7 +132,7 @@ namespace YAF.Classes.Core
 
       if (providerUserKey != null)
       {
-        MembershipUser user = GetUser(TypeHelper.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+        MembershipUser user = GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
         if (!user.IsApproved)
         {
           user.IsApproved = true;
@@ -331,7 +331,7 @@ namespace YAF.Classes.Core
     public static MembershipUser GetMembershipUserByKey(object providerUserKey)
     {
       // convert to provider type...
-      return GetUser(TypeHelper.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+      return GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
     }
 
     /// <summary>
@@ -639,7 +639,7 @@ namespace YAF.Classes.Core
 
       if (providerUserKey != null)
       {
-        MembershipUser user = GetUser(TypeHelper.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+        MembershipUser user = GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
 
         user.Email = newEmail;
 
