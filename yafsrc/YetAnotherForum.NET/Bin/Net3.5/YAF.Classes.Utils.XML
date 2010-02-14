@@ -602,117 +602,6 @@
             The strip bb code.
             </returns>
         </member>
-        <member name="T:YAF.Classes.Utils.TypeHelper">
-            <summary>
-            The type helper.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.TypeHelper.ConvertObjectToType(System.Object,System.String)">
-            <summary>
-            Converts an object to a type.
-            </summary>
-            <param name="value">
-            Object to convert
-            </param>
-            <param name="type">
-            Type to convert to e.g. System.Guid
-            </param>
-            <returns>
-            The convert object to type.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.TypeHelper.ValidInt(System.Object)">
-            <summary>
-            Gets an Int from an Object value
-            </summary>
-            <param name="expression">
-            </param>
-            <returns>
-            The valid int.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.TypeHelper.VerifyInt32(System.Object)">
-            <summary>
-            The verify int 32.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify int 32.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.TypeHelper.VerifyBool(System.Object)">
-            <summary>
-            The verify bool.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify bool.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.TypeHelper.ToClass``1(System.Object)">
-            <summary>
-            Converts the object to the class (T) or returns null if it's not 
-            an instance of that class or instance is null.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="instance">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.TypeHelper.ToType``1(System.Object)">
-            <summary>
-            Converts an object to Type using the Convert.ChangeType() call.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="instance">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.TypeHelper.ToGenericList``1(System.Collections.IList)">
-            <summary>
-            The to generic list.
-            </summary>
-            <param name="listObjects">
-            The list objects.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.TypeHelper.ToDifferentClassType``1(System.Object)">
-            <summary>
-            Converts an object to a different object (class) by copying fields (if they exist).
-            Used to convert annonomous objects to strongly typed objects.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="obj">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.TypeHelper.GetCustomAttributes(System.Type,System.Type)">
-            <summary>
-            The get custom attributes.
-            </summary>
-            <param name="objectType">
-            The object type.
-            </param>
-            <param name="attributeType">
-            The attribute type.
-            </param>
-            <returns>
-            </returns>
-        </member>
         <member name="T:YAF.Classes.Utils.Security">
             <summary>
             The security.
@@ -2094,6 +1983,39 @@
             The db helper.
             </summary>
         </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetColumnAsList``1(System.Data.DataTable,System.String)">
+            <summary>
+            Converts <paramref name="columnName"/> in a <see cref="T:System.Data.DataTable"/> to a generic List of type T.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="dataTable">
+            </param>
+            <param name="columnName">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstColumnAsList``1(System.Data.DataTable)">
+            <summary>
+            Converts the first column of a <see cref="T:System.Data.DataTable"/> to a generic List of type T.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="dataTable">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRow(System.Data.DataTable)">
+            <summary>
+            Gets the first row (<see cref="T:System.Data.DataRow"/>) of a <see cref="T:System.Data.DataTable"/>.
+            </summary>
+            <param name="dt">
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRowColumnAsValue``1(System.Data.DataTable,System.String,``0)">
             <summary>
             Gets the specified column of the first row as the type specified. If not available returns default value.
@@ -2102,59 +2024,13 @@
             Type if column to return
             </typeparam>
             <param name="dt">
-            DataTable to pull from
+            <see cref="T:System.Data.DataTable"/> to pull from
             </param>
             <param name="columnName">
             Name of column to convert
             </param>
             <param name="defaultValue">
             value to return if something is not available
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.ToListObject``1(System.Data.DataTable,System.Func{System.Data.DataRow,``0})">
-            <summary>
-            Converts a DataTable to a List of type T using the convert function.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="dt">
-            </param>
-            <param name="convertFunction">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstColumnAsList``1(System.Data.DataTable)">
-            <summary>
-            Converts the first column of a DataTable to a generic List of type T.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="dataTable">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.GetColumnAsList``1(System.Data.DataTable,System.String)">
-            <summary>
-            Converts columnName in a DataTable to a generic List of type T.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="dataTable">
-            </param>
-            <param name="columnName">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DBHelper.GetFirstRow(System.Data.DataTable)">
-            <summary>
-            Gets the first row (DataRow) of a DataTable.
-            </summary>
-            <param name="dt">
             </param>
             <returns>
             </returns>
@@ -2170,12 +2046,25 @@
         </member>
         <member name="M:YAF.Classes.Utils.DBHelper.IsNullOrEmptyDBField(System.Object)">
             <summary>
-            Tests if an DB object (in DataRow) is DBNull.Value, null or empty.
+            Tests if an DB object (in <see cref="T:System.Data.DataRow"/>) is <see cref="T:System.DBNull"/>.Value, <see langword="null"/> or empty.
             </summary>
             <param name="columnValue">
             </param>
             <returns>
-            The is null or empty db field.
+            The is <see langword="null"/> or empty db field.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DBHelper.ToListObject``1(System.Data.DataTable,System.Func{System.Data.DataRow,``0})">
+            <summary>
+            Converts a <see cref="T:System.Data.DataTable"/> to a List of type T using the convert function.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="dt">
+            </param>
+            <param name="convertFunction">
+            </param>
+            <returns>
             </returns>
         </member>
         <member name="T:YAF.Classes.Utils.StringHelper">
@@ -2197,43 +2086,6 @@
             The generate random string.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ToRegExString(System.String)">
-            <summary>
-            Cleans a string into a proper RegEx statement. 
-            E.g. "[b]Whatever[/b]" will be converted to:
-            "\[b\]Whatever\[\/b\]"
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.Truncate(System.String,System.Int32)">
-            <summary>
-            Truncates a string with the specified limits and adds (...) to the end if truncated
-            </summary>
-            <param name="input">
-            input string
-            </param>
-            <param name="limit">
-            max size of string
-            </param>
-            <returns>
-            truncated string
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.TruncateMiddle(System.String,System.Int32)">
-            <summary>
-            Truncates a string with the specified limits by adding (...) to the middle
-            </summary>
-            <param name="input">
-            input string
-            </param>
-            <param name="limit">
-            max size of string
-            </param>
-            <returns>
-            truncated string
-            </returns>
-        </member>
         <member name="M:YAF.Classes.Utils.StringHelper.IsNullOrEmptyTrimmed(System.String)">
             <summary>
             When the string is trimmed, is it <see langword="null"/> or empty?
@@ -2242,6 +2094,18 @@
             </param>
             <returns>
             The is <see langword="null"/> or empty trimmed.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ListToString(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Creates a string from a string list.
+            </summary>
+            <param name="strList">
+            </param>
+            <param name="delimiter">
+            </param>
+            <returns>
+            The list to string.
             </returns>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.ProcessText(System.String)">
@@ -2286,54 +2150,13 @@
             The process text.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.StringToList(System.String,System.Char)">
-            <summary>
-            Converts a string to a list using delimiter.
-            </summary>
-            <param name="str">starting string</param>
-            <param name="delimiter">value that delineates the string</param>
-            <returns>list of strings</returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.StringToList(System.String,System.Char,System.Collections.Generic.List{System.String})">
-            <summary>
-            Converts a string to a list using delimiter.
-            </summary>
-            <param name="str">starting string</param>
-            <param name="delimiter">value that delineates the string</param>
-            <param name="exclude">items to exclude from list</param>
-            <returns>list of strings</returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ListToString(System.Collections.Generic.List{System.String},System.String)">
-            <summary>
-            Creates a string from a string list.
-            </summary>
-            <param name="strList"></param>
-            <param name="delimiter"></param>
-            <returns></returns>
-        </member>
         <member name="M:YAF.Classes.Utils.StringHelper.RemoveEmptyStrings(System.Collections.Generic.List{System.String})">
             <summary>
             Removes empty strings from the list
             </summary>
-            <param name="inputList"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.RemoveSmallStrings(System.Collections.Generic.List{System.String},System.Int32)">
-            <summary>
-            Removes strings that are smaller then <paramref name="minSize"/>
-            </summary>
-            <param name="inputList"></param>
-            <param name="minSize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleWhitespace(System.String)">
-            <summary>
-            Removes multiple whitespace characters from a string.
-            </summary>
-            <param name="text">
+            <param name="inputList">
             </param>
             <returns>
-            The remove multiple whitespace.
             </returns>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleSingleQuotes(System.String)">
@@ -2346,21 +2169,23 @@
             The remove multiple single quotes.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.StringToHexBytes(System.String)">
+        <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleWhitespace(System.String)">
             <summary>
-            Converts a string into it's hexadecimal representation.
+            Removes multiple whitespace characters from a string.
             </summary>
-            <param name="strValue">
+            <param name="text">
             </param>
             <returns>
-            The string to hex bytes.
+            The remove multiple whitespace.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.StringToStream(System.String)">
+        <member name="M:YAF.Classes.Utils.StringHelper.RemoveSmallStrings(System.Collections.Generic.List{System.String},System.Int32)">
             <summary>
-            Converts a String to a MemoryStream.
+            Removes strings that are smaller then <paramref name="minSize"/>
             </summary>
-            <param name="str">
+            <param name="inputList">
+            </param>
+            <param name="minSize">
             </param>
             <returns>
             </returns>
@@ -2373,6 +2198,293 @@
             </param>
             <returns>
             The stream to string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.StringToHexBytes(System.String)">
+            <summary>
+            Converts a string into it's hexadecimal representation.
+            </summary>
+            <param name="strValue">
+            </param>
+            <returns>
+            The string to hex bytes.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.StringToList(System.String,System.Char)">
+            <summary>
+            Converts a string to a list using delimiter.
+            </summary>
+            <param name="str">
+            starting string
+            </param>
+            <param name="delimiter">
+            value that delineates the string
+            </param>
+            <returns>
+            list of strings
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.StringToList(System.String,System.Char,System.Collections.Generic.List{System.String})">
+            <summary>
+            Converts a string to a list using delimiter.
+            </summary>
+            <param name="str">
+            starting string
+            </param>
+            <param name="delimiter">
+            value that delineates the string
+            </param>
+            <param name="exclude">
+            items to exclude from list
+            </param>
+            <returns>
+            list of strings
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.StringToStream(System.String)">
+            <summary>
+            Converts a String to a MemoryStream.
+            </summary>
+            <param name="str">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ToRegExString(System.String)">
+            <summary>
+            Cleans a string into a proper RegEx statement. 
+            E.g. "[b]Whatever[/b]" will be converted to:
+            "\[b\]Whatever\[\/b\]"
+            </summary>
+            <param name="input">
+            </param>
+            <returns>
+            The to reg ex string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ForEachChar(System.String,System.Action{System.Char})">
+            <summary>
+            Does an action for each character in the input string. Kind of useless, but in a
+            useful way. ;)
+            </summary>
+            <param name="input"></param>
+            <param name="forEachAction"></param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.Truncate(System.String,System.Int32)">
+            <summary>
+            Truncates a string with the specified limits and adds (...) to the end if truncated
+            </summary>
+            <param name="input">
+            input string
+            </param>
+            <param name="limit">
+            max size of string
+            </param>
+            <returns>
+            truncated string
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.TruncateMiddle(System.String,System.Int32)">
+            <summary>
+            Truncates a string with the specified limits by adding (...) to the middle
+            </summary>
+            <param name="input">
+            input string
+            </param>
+            <param name="limit">
+            max size of string
+            </param>
+            <returns>
+            truncated string
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.DataContainerExtensions">
+            <summary>
+            The data container extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.DataItemToField``1(System.Web.UI.IDataItemContainer,System.String)">
+            <summary>
+            The data item to field.
+            </summary>
+            <param name="container">
+            The container.
+            </param>
+            <param name="fieldName">
+            The field name.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemType``1(System.Web.UI.IDataItemContainer)">
+            <summary>
+            The to data item type.
+            </summary>
+            <param name="container">
+            The container.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.ObjectExtensions">
+            <summary>
+            The object extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ConvertObjectToType(System.Object,System.String)">
+            <summary>
+            Converts an object to a type.
+            </summary>
+            <param name="value">
+            Object to convert
+            </param>
+            <param name="type">
+            Type to convert to e.g. System.Guid
+            </param>
+            <returns>
+            The convert object to type.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.GetCustomAttributes(System.Type,System.Type)">
+            <summary>
+            The get custom attributes.
+            </summary>
+            <param name="objectType">
+            The object type.
+            </param>
+            <param name="attributeType">
+            The attribute type.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToClass``1(System.Object)">
+            <summary>
+            Converts the object to the class (T) or returns null if it's not 
+            an instance of that class or instance is null.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="instance">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToDifferentClassType``1(System.Object)">
+            <summary>
+            Converts an object to a different object (class) by copying fields (if they exist).
+            Used to convert annonomous objects to strongly typed objects.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="obj">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToGenericList``1(System.Collections.IList)">
+            <summary>
+            The to generic list.
+            </summary>
+            <param name="listObjects">
+            The list objects.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String)">
+            <summary>
+            Enables you to get a string representation of the object using string 
+            formatting with property names, rather than index based values.
+            </summary>
+            <param name="anObject">
+            The object being extended.
+            </param>
+            <param name="aFormat">
+            The formatting string, like "Hi, my name 
+            is {FirstName} {LastName}".
+            </param>
+            <returns>
+            A formatted string with the values from the object replaced 
+            in the format string.
+            </returns>
+            <remarks>
+            To embed a pair of {} on the string, simply double them: 
+            "I am a {{Literal}}".
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String,System.IFormatProvider)">
+            <summary>
+            Enables you to get a string representation of the object using string 
+            formatting with property names, rather than index based values.
+            </summary>
+            <param name="anObject">
+            The object being extended.
+            </param>
+            <param name="aFormat">
+            The formatting string, like "Hi, my name is 
+            {FirstName} {LastName}".
+            </param>
+            <param name="formatProvider">
+            An System.<see cref="T:System.IFormatProvider"/> that 
+            provides culture-specific formatting information.
+            </param>
+            <returns>
+            A formatted string with the values from the object replaced in 
+            the format string.
+            </returns>
+            <remarks>
+            To embed a pair of {} on the string, simply double them: 
+            "I am a {{Literal}}".
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToType``1(System.Object)">
+            <summary>
+            Converts an object to Type using the Convert.ChangeType() call.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="instance">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ValidInt(System.Object)">
+            <summary>
+            Gets an Int from an Object value
+            </summary>
+            <param name="expression">
+            </param>
+            <returns>
+            The valid int.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyBool(System.Object)">
+            <summary>
+            The verify bool.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify bool.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyInt32(System.Object)">
+            <summary>
+            The verify int 32.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify int 32.
             </returns>
         </member>
     </members>

@@ -2191,44 +2191,6 @@
             The goto page click.
             </summary>
         </member>
-        <member name="T:YAF.Controls.ReportedPosts">
-            <summary>
-            Shows a Reporters for reported posts
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ReportedPosts.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.ReportedPosts"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ReportedPosts.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.ReportedPosts.MessageID">
-            <summary>
-            Gets or sets MessageID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ReportedPosts.ResolvedBy">
-            <summary>
-            Gets or sets ResolvedBy. It returns UserID as string value
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ReportedPosts.Resolved">
-            <summary>
-            Gets or sets Resolved.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ReportedPosts.ResolvedDate">
-            <summary>
-            Gets or sets ResolvedDate.
-            </summary>
-        </member>
         <member name="T:YAF.Controls.ActiveLocation">
             <summary>
             Provides Active Users location info
@@ -3529,6 +3491,44 @@
             <returns>
             The localize and render.
             </returns>
+        </member>
+        <member name="T:YAF.Controls.BaseReportedPosts">
+            <summary>
+            Shows a Reporters for reported posts
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BaseReportedPosts.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="!:ReportedPosts"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BaseReportedPosts.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.MessageID">
+            <summary>
+            Gets or sets MessageID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.Resolved">
+            <summary>
+            Gets or sets Resolved.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.ResolvedBy">
+            <summary>
+            Gets or sets ResolvedBy. It returns UserID as string value
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.ResolvedDate">
+            <summary>
+            Gets or sets ResolvedDate.
+            </summary>
         </member>
     </members>
 </doc>
