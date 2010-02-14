@@ -22,6 +22,8 @@
 									ValidationGroup="CreateUserWizard1"></asp:CompareValidator>
 									<YAF:LocalizedLabel ID="LocalizedLabelRequirementsTitle" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_TITLE"></YAF:LocalizedLabel>:
 									<YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_WARN"></YAF:LocalizedLabel>
+							</br>
+							<YAF:LocalizedLabel ID="LocalizedLabelLohgUserNameWarnText" runat="server" LocalizedTag="USERNAME_LENGTH_WARN"></YAF:LocalizedLabel>
 							</td>
 						</tr>
 						<tr>
@@ -121,16 +123,16 @@
 							<td class="post">
 								<asp:TextBox ID="tbCaptcha" runat="server" />
 							</td>
-						</tr></asp:PlaceHolder>
-							<asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false"><tr>
+						</tr>
+						</asp:PlaceHolder>
+						<tr id="tr_recaptcha" runat="server" visible="true" >
 							<td align="right" class="postheader" valign="top">
-								<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="Captcha_Image" />
+							<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="Captcha_Image" />
 							</td>
 							<td class="post">
-							<YAF:RecaptchaControl ID="Recaptcha1" runat="server" />  
-							</td>
-						</tr>
-					    </asp:PlaceHolder>
+						<asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false"/>  
+					    </td>
+					    </tr>
 						<tr align="right">
 							<td align="center" colspan="2" class="postfooter">
 								<asp:Button ID="StepNextButton" runat="server" CssClass="pbutton" CommandName="MoveNext" Text="Create User"

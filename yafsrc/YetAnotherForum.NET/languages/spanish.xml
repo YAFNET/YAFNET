@@ -1057,6 +1057,8 @@
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">Preferencias del foro</Resource>
     <Resource tag="PROFILE">Informacion del perfil</Resource>
+    <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
+    <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
     <Resource tag="REGISTER">Registro</Resource>
     <Resource tag="RETYPE_PASSWORD">Confirmacion de clave requerida.</Resource>
     <Resource tag="SECURITY_ANSWER">Respuesta de seguridad</Resource>
@@ -1065,6 +1067,7 @@
     <Resource tag="TIMEZONE">Zona horaria</Resource>
     <Resource tag="TITLE">Registro de usuario nuevo</Resource>
     <Resource tag="USERNAME">Nombre de usuario (nick)</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Verificacion de registro para el foro {0} </Resource>
   </page>
   <page name="REGISTER">

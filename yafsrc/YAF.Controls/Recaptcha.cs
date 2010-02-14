@@ -13,13 +13,16 @@
    
     public class RecaptchaControl : WebControl, IValidator
     {
-        private bool allowMultipleInstances = YafContext.Current.BoardSettings.RecaptureMultipleInstances;
+        private bool allowMultipleInstances;
+        // = YafContext.Current.BoardSettings.RecaptureMultipleInstances;
         private string customThemeWidget;
         private string errorMessage;
         private bool overrideSecureMode;
-        private string privateKey = YafContext.Current.BoardSettings.RecaptchaPrivateKey; 
+        private string privateKey;
+            // = YafContext.Current.BoardSettings.RecaptchaPrivateKey; 
             // ConfigurationManager.AppSettings["RecaptchaPrivateKey"];
-        private string publicKey = YafContext.Current.BoardSettings.RecaptchaPublicKey;
+        private string publicKey;
+            // = YafContext.Current.BoardSettings.RecaptchaPublicKey;
             // ConfigurationManager.AppSettings["RecaptchaPublicKey"];
         private const string RECAPTCHA_CHALLENGE_FIELD = "recaptcha_challenge_field";
         private const string RECAPTCHA_HOST = "http://api.recaptcha.net";
@@ -28,6 +31,7 @@
         private RecaptchaResponse recaptchaResponse;
         private bool skipRecaptcha;
         private string theme;
+        private string language;
 
         public RecaptchaControl()
         {
@@ -67,6 +71,7 @@
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
+
             if (string.IsNullOrEmpty(this.PublicKey) || string.IsNullOrEmpty(this.PrivateKey))
             {
                 throw new ApplicationException("reCAPTCHA needs to be configured with a public & private key.");

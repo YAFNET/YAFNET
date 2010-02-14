@@ -1019,6 +1019,8 @@
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">Tuỳ chọn</Resource>
     <Resource tag="PROFILE">Thông tin cá nhân</Resource>
+    <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
+    <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
     <Resource tag="REGISTER">Đăng ký</Resource>
     <Resource tag="RETYPE_PASSWORD">Bạn chưa nhập Mật khẩu xác nhận.</Resource>
     <Resource tag="SECURITY_ANSWER">Trả lời</Resource>
@@ -1027,6 +1029,7 @@
     <Resource tag="TIMEZONE">Múi giờ</Resource>
     <Resource tag="TITLE">Đăng ký thành viên</Resource>
     <Resource tag="USERNAME">Tên đăng nhập</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
   </page>
   <page name="REPORTPOST">

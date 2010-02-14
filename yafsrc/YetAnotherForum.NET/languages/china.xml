@@ -1069,6 +1069,8 @@
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">社区信息</Resource>
     <Resource tag="PROFILE">个人信息</Resource>
+    <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
+    <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
     <Resource tag="REGISTER">注册</Resource>
     <Resource tag="RETYPE_PASSWORD">再次输入密码</Resource>
     <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
@@ -1077,6 +1079,7 @@
     <Resource tag="TIMEZONE">时区(GMT+8:00 表示中国)</Resource>
     <Resource tag="TITLE">注册新用户</Resource>
     <Resource tag="USERNAME">用户名</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
   </page>
   <page name="REPORTPOST">

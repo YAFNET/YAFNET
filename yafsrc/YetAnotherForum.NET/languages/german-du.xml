@@ -1038,6 +1038,8 @@
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">Einstellungen</Resource>
     <Resource tag="PROFILE">Profil Informationen</Resource>
+    <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
+    <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
     <Resource tag="REGISTER">Registrieren</Resource>
     <Resource tag="RETYPE_PASSWORD">Passwort Wiederholung</Resource>
     <Resource tag="SECURITY_ANSWER">Antwort auf diese Frage</Resource>
@@ -1046,6 +1048,7 @@
     <Resource tag="TIMEZONE">Zeitzone</Resource>
     <Resource tag="TITLE">Neuen Benutzer registrieren</Resource>
     <Resource tag="USERNAME">Benutzername</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Bestätigung der Anmeldedaten für {0}</Resource>
   </page>
   <page name="REPORTPOST">

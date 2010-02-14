@@ -1014,9 +1014,11 @@
     <Resource tag="NEED_USERNAME">Имя пользователя обязательно.</Resource>
     <Resource tag="PASSWORD">Пароль</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Требования к паролю</Resource>
-    <Resource tag="PASSWORD_REQUIREMENTS_WARN">мин. длина - {0}, макс. - {1}. Количество спецсимволов($#@!) - {2}.</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_WARN">мин. длина - {0}. Количество спецсимволов($#@!) - {1}.</Resource>
     <Resource tag="PREFERENCES">Ваши предпочтения</Resource>
     <Resource tag="PROFILE">Информация в профиле</Resource>
+    <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
+    <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
     <Resource tag="REGISTER">Регистрация</Resource>
     <Resource tag="RETYPE_PASSWORD">Подтверждение пароля обязательно.</Resource>
     <Resource tag="SECURITY_ANSWER">Контрольный ответ</Resource>
@@ -1025,6 +1027,7 @@
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
     <Resource tag="TITLE">Регистрация нового пользователя</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Подтверждение регистрации для форума {0}</Resource>
   </page>
   <page name="REPORTPOST">

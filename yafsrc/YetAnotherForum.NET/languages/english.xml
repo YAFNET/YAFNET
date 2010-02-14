@@ -988,11 +988,14 @@
     <Resource tag="NEED_USERNAME">User Name is required.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="PASSWORD">Password</Resource>    
-	<Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource> 
+	<Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length. {1} minimum non-alphanumeric characters ($#@!).</Resource> 
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
+	<Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>  
     <Resource tag="PREFERENCES">Forum Preferences</Resource>
-    <Resource tag="PROFILE">Profile Information</Resource>
+    <Resource tag="PROFILE">Profile Information</Resource>	  
     <Resource tag="REGISTER">Register</Resource>
+	<Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
+	<Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource> 
     <Resource tag="RETYPE_PASSWORD">Confirmed password is required.</Resource>
     <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
     <Resource tag="SECURITY_QUESTION">Security Question</Resource>

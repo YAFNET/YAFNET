@@ -1033,6 +1033,8 @@
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">تنظیمات انجمن</Resource>
     <Resource tag="PROFILE">اطلاعات پروفایل</Resource>
+    <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
+    <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
     <Resource tag="REGISTER">ثبت نام</Resource>
     <Resource tag="RETYPE_PASSWORD">تایپ مجدد رمز عبور ضروری است.</Resource>
     <Resource tag="SECURITY_ANSWER">پاسخ امنیتی</Resource>
@@ -1041,6 +1043,7 @@
     <Resource tag="TIMEZONE">منطقه ساعتی</Resource>
     <Resource tag="TITLE">ثبت کاربر جدید</Resource>
     <Resource tag="USERNAME">نام کاربری</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">بررسی ثبت نام برای انجمن {0}</Resource>
   </page>
   <page name="REPORTPOST">

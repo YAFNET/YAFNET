@@ -1038,6 +1038,8 @@
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length, {1} max length. {2} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">הגדרות פורום</Resource>
     <Resource tag="PROFILE">פרטי פרופיל</Resource>
+    <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
+    <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
     <Resource tag="REGISTER">הירשם</Resource>
     <Resource tag="RETYPE_PASSWORD">הקלד שוב את הסיסמא</Resource>
     <Resource tag="SECURITY_ANSWER">תשובת אבטחה</Resource>
@@ -1046,6 +1048,7 @@
     <Resource tag="TIMEZONE">איזור זמן</Resource>
     <Resource tag="TITLE">רישום חבר חדש</Resource>
     <Resource tag="USERNAME">שם המשתמש</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">אישור הרשמה לפורום {0}</Resource>
   </page>
   <page name="REPORTPOST">
