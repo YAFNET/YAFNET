@@ -2522,7 +2522,7 @@
             If null, all forums in board are updated
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.forum_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
+        <member name="M:YAF.Classes.Data.DB.forum_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Boolean)">
             <summary>
             The forum_save.
             </summary>
@@ -2564,6 +2564,12 @@
             </param>
             <param name="themeURL">
             The theme url.
+            </param>
+            <param name="imageURL">
+            The imageURL.
+            </param>
+            <param name="styles">
+            The styles.
             </param>
             <param name="dummy">
             The dummy.

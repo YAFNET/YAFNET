@@ -385,6 +385,11 @@
             Gets Categories.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardFolders.Forums">
+            <summary>
+            Gets Categories.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardFolders.Emoticons">
             <summary>
             Gets Emoticons.
@@ -2079,6 +2084,11 @@
             Gets or sets a value indicating whether FileExtensionAreAllowed.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.RecaptureMultipleInstances">
+            <summary>
+            Gets or sets a value indicating whether Recapture can have Multiple Instances.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.NotificationOnUserRegisterEmailList">
             <summary>
             Gets or sets NotificationOnUserRegisterEmailList.
@@ -2152,6 +2162,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.PostFloodDelay">
             <summary>
             Gets or sets PostFloodDelay.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.CaptchaTypeRegister">
+            <summary>
+            Gets or sets CaptchaTypeRegister.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.EditTimeOut">
@@ -2584,6 +2599,16 @@
         <member name="P:YAF.Classes.YafBoardSettings.ForumEmail">
             <summary>
             Gets or sets ForumEmail.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.RecaptchaPublicKey">
+            <summary>
+            Gets or sets RecaptchaPublicKey .
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.RecaptchaPrivateKey">
+            <summary>
+            Gets or sets RecaptchaPrivateKey.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.GravatarRating">
