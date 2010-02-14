@@ -277,12 +277,15 @@ namespace YAF.Pages
       var tbCaptcha = this.CreateUserStepContainer.FindControlAs<TextBox>("tbCaptcha");
      
       // vzrus: Here recaptcha should be always valid. This piece of code for testing only.
-      var reCaptcha = ((RecaptchaControl)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "Recaptcha1"));
-      if ((!reCaptcha.IsValid) && this.PageContext.BoardSettings.CaptchaTypeRegister == 2)
-       {
-           this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
-           e.Cancel = true;
-       }
+      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 2)
+      {
+          var reCaptcha = ((RecaptchaControl)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "Recaptcha1"));
+          if ((!reCaptcha.IsValid))
+          {
+              this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
+              e.Cancel = true;
+          }
+      }
       // verify captcha if enabled
       if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1 &&
           this.Session["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim())
@@ -420,34 +423,37 @@ namespace YAF.Pages
       usernamelehgthText.Param0 = this.PageContext.BoardSettings.UserNameMaxLength.ToString();
        
         if (Page.IsPostBack && (PageContext.BoardSettings.CaptchaTypeRegister == 2))
-      {     
+      {          
           ((PlaceHolder)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "RecaptchaPlaceHolder")).Visible = true;
       }
-      if (PageContext.BoardSettings.CaptchaTypeRegister == 2)
-      {
+        if (PageContext.BoardSettings.CaptchaTypeRegister == 2)
+        {
+            ((Panel)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "ReCaptchaRow")).Visible = true;
+            if (string.IsNullOrEmpty(PageContext.BoardSettings.RecaptchaPrivateKey) || string.IsNullOrEmpty(PageContext.BoardSettings.RecaptchaPrivateKey))
+            {
+                // this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));              
+                YAF.Classes.Data.DB.eventlog_create(this.PageContext.PageUserID, this, "Private or public key for Recapture required!");
+                YafBuildLink.Redirect(ForumPages.info, "i=4");
+            }
+           
+            this.Recupt = new RecaptchaControl();
+            this.Recupt.ID = "Recaptcha1";
+            this.Recupt.PrivateKey = PageContext.BoardSettings.RecaptchaPrivateKey;
+            this.Recupt.PublicKey = PageContext.BoardSettings.RecaptchaPublicKey;
+            this.Recupt.AllowMultipleInstances = PageContext.BoardSettings.RecaptureMultipleInstances;
+            this.Recupt.Enabled = true;
+            this.Recupt.EnableTheming = true;
+            // 'red' , 'white', 'blackglass' , 'clean' , 'custom'	
+            this.Recupt.Theme = "blackglass";
+            this.Recupt.OverrideSecureMode = false;
 
-          this.Recupt = new RecaptchaControl();
-          this.Recupt.ID = "Recaptcha1";
-          if (string.IsNullOrEmpty(PageContext.BoardSettings.RecaptchaPrivateKey) || string.IsNullOrEmpty(PageContext.BoardSettings.RecaptchaPrivateKey))
-          {
-                   // this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));              
-                   YAF.Classes.Data.DB.eventlog_create(this.PageContext.PageUserID, this, "Bad private or public key for Recapture.");
-                   YafBuildLink.Redirect(ForumPages.info, "i=4");
-          }
-          this.Recupt.PrivateKey = PageContext.BoardSettings.RecaptchaPrivateKey;
-          this.Recupt.PublicKey = PageContext.BoardSettings.RecaptchaPublicKey;
-          this.Recupt.AllowMultipleInstances = PageContext.BoardSettings.RecaptureMultipleInstances;
-          this.Recupt.Enabled = true;
-          this.Recupt.EnableTheming = true;
-         // 'red' , 'white', 'blackglass' , 'clean' , 'custom'	
-          this.Recupt.Theme = "blackglass";       
-          this.Recupt.OverrideSecureMode = false;
+            recPH = ((PlaceHolder)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "RecaptchaPlaceHolder"));
+            recPH.Visible = true;
+            recPH.Controls.Add(Recupt);
+            
 
-          recPH = ((PlaceHolder)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "RecaptchaPlaceHolder"));
-          recPH.Controls.Add(Recupt);
-          recPH.Visible = true;
-
-      }
+        }
+     
     }
 
     /// <summary>

@@ -108,7 +108,7 @@
 									ErrorMessage="Security answer is required." ToolTip="Security answer is required."
 									ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
 							</td>
-						</tr></asp:PlaceHolder>
+						</tr></asp:PlaceHolder>						
 						<asp:PlaceHolder runat="server" ID="CaptchaPlaceHolder" Visible="false"><tr>
 							<td align="right" class="postheader" valign="top">
 								<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="Captcha_Image" />
@@ -125,14 +125,16 @@
 							</td>
 						</tr>
 						</asp:PlaceHolder>
-						<tr id="tr_recaptcha" runat="server" visible="true" >
+						<asp:Panel runat="server" ID="ReCaptchaRow" Visible="false">  
+						<tr>
 							<td align="right" class="postheader" valign="top">
-							<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="Captcha_Image" />
+							    <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="Captcha_Image" />
 							</td>
 							<td class="post">
-						<asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false"/>  
-					    </td>
+						        <asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false"/>  
+					        </td>
 					    </tr>
+					    </asp:Panel>
 						<tr align="right">
 							<td align="center" colspan="2" class="postfooter">
 								<asp:Button ID="StepNextButton" runat="server" CssClass="pbutton" CommandName="MoveNext" Text="Create User"
