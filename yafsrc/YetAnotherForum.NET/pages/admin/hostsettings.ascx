@@ -569,7 +569,7 @@
 						<td class="post">				
 							<asp:DropDownList ID="CaptchaTypeRegister" runat="server">
 								<asp:ListItem Value="0" Text="Disables" />
-								<asp:ListItem Value="1" Text="Captcha" />
+								<asp:ListItem Value="1" Text="YafCaptcha" />
 								<asp:ListItem Value="2" Text="ReCaptcha" />
 							</asp:DropDownList>
 

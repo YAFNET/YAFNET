@@ -108,8 +108,8 @@
 									ErrorMessage="Security answer is required." ToolTip="Security answer is required."
 									ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
 							</td>
-						</tr></asp:PlaceHolder>						
-						<asp:PlaceHolder runat="server" ID="CaptchaPlaceHolder" Visible="false"><tr>
+						</tr></asp:PlaceHolder>
+						<asp:PlaceHolder runat="server" ID="YafCaptchaHolder" Visible="false"><tr>
 							<td align="right" class="postheader" valign="top">
 								<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="Captcha_Image" />
 							</td>
@@ -125,16 +125,16 @@
 							</td>
 						</tr>
 						</asp:PlaceHolder>
-						<asp:Panel runat="server" ID="ReCaptchaRow" Visible="false">  
+						<asp:PlaceHolder runat="server" ID="RecaptchaHolder" Visible="false">
 						<tr>
 							<td align="right" class="postheader" valign="top">
-							    <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="Captcha_Image" />
+							<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="Captcha_Image" />
 							</td>
 							<td class="post">
-						        <asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false"/>  
-					        </td>
+						    <asp:PlaceHolder runat="server" ID="RecaptchaControl" Visible="false"/>
+					    </td>
 					    </tr>
-					    </asp:Panel>
+					    </asp:PlaceHolder>
 						<tr align="right">
 							<td align="center" colspan="2" class="postfooter">
 								<asp:Button ID="StepNextButton" runat="server" CssClass="pbutton" CommandName="MoveNext" Text="Create User"
