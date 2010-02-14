@@ -410,10 +410,8 @@ namespace YAF.Pages
       this.Title.Text = this.GetText("NEWTOPIC");
       this.PollExpire.Attributes.Add("style", "width:50px");
       this.LocalizedLblMaxNumberOfPost.Param0 = YafContext.Current.BoardSettings.MaxPostSize.ToString();
-
       
-      
-        if (!this.IsPostBack)
+      if (!this.IsPostBack)
       {
         // helper bool -- true if this is a completely new topic...
         bool isNewTopic = (this.TopicID == null) && (this.QuotedTopicID == null) && (this.EditTopicID == null);
@@ -451,8 +449,8 @@ namespace YAF.Pages
         }
         else if (!this.PageContext.IsGuest && this.PageContext.PageTopicID > 0)
         {
-          this.PostOptions1.WatchChecked = this.IsTopicWatched(
-            this.PageContext.PageUserID, this.PageContext.PageTopicID);
+          this.PostOptions1.WatchChecked =
+            this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue;
         }
 
         if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
@@ -536,48 +534,48 @@ namespace YAF.Pages
       // update the last post time...
       Mession.LastPost = DateTime.Now.AddSeconds(30);
 
-      long nMessageID = 0;
+      long messageId = 0;
 
       if (this.TopicID != null)
       {
         // Reply to topic
-        nMessageID = this.PostReplyHandleReplyToTopic();
+        messageId = this.PostReplyHandleReplyToTopic();
       }
       else if (this.EditTopicID != null)
       {
         // Edit existing post
-        nMessageID = this.PostReplyHandleEditPost();
+        messageId = this.PostReplyHandleEditPost();
       }
       else
       {
         // New post
-        nMessageID = this.PostReplyHandleNewPost();
+        messageId = this.PostReplyHandleNewPost();
       }
 
       // Check if message is approved
-      bool bApproved = false;
-      using (DataTable dt = DB.message_list(nMessageID))
+      bool isApproved = false;
+      using (DataTable dt = DB.message_list(messageId))
       {
         foreach (DataRow row in dt.Rows)
         {
-          bApproved = General.BinaryAnd(row["Flags"], MessageFlags.Flags.IsApproved);
+          isApproved = General.BinaryAnd(row["Flags"], MessageFlags.Flags.IsApproved);
         }
       }
 
       // Create notification emails
-      if (bApproved)
+      if (isApproved)
       {
-        CreateMail.WatchEmail(nMessageID);
+        CreateMail.WatchEmail(messageId);
 
         if (this.PageContext.ForumUploadAccess && this.PostOptions1.AttachChecked)
         {
           // redirect to the attachment page...
-          YafBuildLink.Redirect(ForumPages.attachments, "m={0}", nMessageID);
+          YafBuildLink.Redirect(ForumPages.attachments, "m={0}", messageId);
         }
         else
         {
           // regular redirect...
-          YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", nMessageID);
+          YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
         }
       }
       else
@@ -605,7 +603,7 @@ namespace YAF.Pages
     /// </returns>
     protected long PostReplyHandleEditPost()
     {
-      long nMessageID = 0;
+      long messageId = 0;
 
       if (!this.PageContext.ForumEditAccess)
       {
@@ -646,7 +644,7 @@ namespace YAF.Pages
         DB.topic_poll_update(null, this.Request.QueryString["m"], this.GetPollID());
       }
 
-      nMessageID = this.EditTopicID.Value;
+      messageId = this.EditTopicID.Value;
 
       this.HandlePostToBlog(this._forumEditor.Text, this.Subject.Text);
 
@@ -654,7 +652,7 @@ namespace YAF.Pages
       this.PageContext.Cache.Remove(
         string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID, this.TopicID));
 
-      return nMessageID;
+      return messageId;
     }
 
     /// <summary>
@@ -665,7 +663,7 @@ namespace YAF.Pages
     /// </returns>
     protected long PostReplyHandleNewPost()
     {
-      long nMessageID = 0;
+      long messageId = 0;
 
       if (!this.PageContext.ForumPostAccess)
       {
@@ -673,7 +671,7 @@ namespace YAF.Pages
       }
 
       // make message flags
-      var tFlags = new MessageFlags
+      var messageFlags = new MessageFlags
         {
           IsHtml = this._forumEditor.UsesHTML,
           IsBBCode = this._forumEditor.UsesBBCode,
@@ -696,12 +694,12 @@ namespace YAF.Pages
         this.Request.UserHostAddress, 
         null, 
         blogPostID, 
-        tFlags.BitValue, 
-        ref nMessageID);
+        messageFlags.BitValue, 
+        ref messageId);
 
-      this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+      this.UpdateWatchTopic(this.PageContext.PageUserID, (int)topicID);
 
-      return nMessageID;
+      return messageId;
     }
 
     /// <summary>
@@ -712,7 +710,7 @@ namespace YAF.Pages
     /// </returns>
     protected long PostReplyHandleReplyToTopic()
     {
-      long nMessageID = 0;
+      long messageId = 0;
 
       if (!this.PageContext.ForumReplyAccess)
       {
@@ -722,7 +720,7 @@ namespace YAF.Pages
       object replyTo = (this.QuotedTopicID != null) ? this.QuotedTopicID.Value : -1;
 
       // make message flags
-      var tFlags = new MessageFlags
+      var messageFlags = new MessageFlags
         {
           IsHtml = this._forumEditor.UsesHTML,
           IsBBCode = this._forumEditor.UsesBBCode,
@@ -739,12 +737,12 @@ namespace YAF.Pages
         this.Request.UserHostAddress, 
         null, 
         replyTo, 
-        tFlags.BitValue, 
-        ref nMessageID);
+        messageFlags.BitValue, 
+        ref messageId);
 
       this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
-      return nMessageID;
+      return messageId;
     }
 
     /// <summary>
@@ -754,14 +752,14 @@ namespace YAF.Pages
     /// <param name="topicId"></param>
     private void UpdateWatchTopic(int userId, int topicId)
     {
-      bool topicWatched = this.IsTopicWatched(userId, topicId);
+      var topicWatchedID = this.TopicWatchedId(userId, topicId);
 
-      if (topicWatched && !this.PostOptions1.WatchChecked)
+      if (topicWatchedID.HasValue && !this.PostOptions1.WatchChecked)
       {
         // unsubscribe...
-        DB.watchtopic_delete(DB.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int>("WatchTopicID", 0));
+        DB.watchtopic_delete(topicWatchedID.Value);
       }
-      else if (!topicWatched && this.PostOptions1.WatchChecked)
+      else if (!topicWatchedID.HasValue && this.PostOptions1.WatchChecked)
       {
         // subscribe to this topic...
         this.WatchTopic(userId, topicId);
@@ -774,7 +772,7 @@ namespace YAF.Pages
     /// <param name="userId"></param>
     private void WatchTopic(int userId, int topicId)
     {
-      if (!this.IsTopicWatched(userId, topicId))
+      if (!this.TopicWatchedId(userId, topicId).HasValue)
       {
           // subscribe to this forum
         DB.watchtopic_add(userId, topicId);
@@ -786,17 +784,9 @@ namespace YAF.Pages
     /// </summary>
     /// <param name="userId"></param>
     /// <returns></returns>
-    private bool IsTopicWatched(int userId, int topicId)
+    private int? TopicWatchedId(int userId, int topicId)
     {
-      using (DataTable dt = DB.watchtopic_check(userId, topicId))
-      {
-        if (dt.Rows.Count > 0)
-        {
-          return true;
-        }
-      }
-
-      return false;
+      return DB.watchtopic_check(userId, topicId).GetFirstRowColumnAsValue<int?>("WatchTopicID", null);
     }
 
     /// <summary>
