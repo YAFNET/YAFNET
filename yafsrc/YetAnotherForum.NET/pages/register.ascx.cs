@@ -430,9 +430,9 @@ namespace YAF.Pages
           this.Recupt.ID = "Recaptcha1";
           if (string.IsNullOrEmpty(PageContext.BoardSettings.RecaptchaPrivateKey) || string.IsNullOrEmpty(PageContext.BoardSettings.RecaptchaPrivateKey))
           {
-              this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));
+                   // this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));              
                    YAF.Classes.Data.DB.eventlog_create(this.PageContext.PageUserID, this, "Bad private or public key for Recapture.");
-                   return;
+                   YafBuildLink.Redirect(ForumPages.info, "i=4");
           }
           this.Recupt.PrivateKey = PageContext.BoardSettings.RecaptchaPrivateKey;
           this.Recupt.PublicKey = PageContext.BoardSettings.RecaptchaPublicKey;
