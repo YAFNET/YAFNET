@@ -603,7 +603,7 @@ namespace YAF.Pages
         }
         else
         {
-          this.PageContext.AddLoadMessage("An error occured while searching.");
+          this.PageContext.AddLoadMessage("An error occurred while searching.");
         }
       }
     }
@@ -616,17 +616,16 @@ namespace YAF.Pages
     /// </param>
     private void SetupHighlightWords(SearchWhatFlags searchFlags)
     {
-      if (this.HighlightSearchWords.Count == 0)
+      this.HighlightSearchWords.Clear();
+      
+      if (searchFlags == SearchWhatFlags.ExactMatch)
       {
-        if (searchFlags == SearchWhatFlags.ExactMatch)
-        {
-          this.HighlightSearchWords.Add(this.SearchWhatCleaned);
-        }
-        else if (searchFlags == SearchWhatFlags.AnyWords || searchFlags == SearchWhatFlags.AllWords)
-        {
-          this.HighlightSearchWords.AddRange(
-            this.SearchWhatCleaned.Split(' ').ToList().Where(x => !x.IsNullOrEmptyTrimmed()));
-        }
+        this.HighlightSearchWords.Add(this.SearchWhatCleaned);
+      }
+      else if (searchFlags == SearchWhatFlags.AnyWords || searchFlags == SearchWhatFlags.AllWords)
+      {
+        this.HighlightSearchWords.AddRange(
+          this.SearchWhatCleaned.Split(' ').ToList().Where(x => !x.IsNullOrEmptyTrimmed()));
       }
     }
 

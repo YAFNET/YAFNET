@@ -19,23 +19,34 @@
 
 namespace YAF
 {
+  #region Using
+
   using System;
   using System.IO;
   using System.Web.UI;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Utils;
   using YAF.Controls;
+
+  #endregion
 
   /// <summary>
   /// EventArgs class for the PageTitleSet event
   /// </summary>
   public class ForumPageTitleArgs : EventArgs
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _title.
     /// </summary>
     private string _title;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumPageTitleArgs"/> class.
@@ -48,6 +59,10 @@ namespace YAF
       this._title = title;
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
     /// Gets Title.
     /// </summary>
@@ -58,6 +73,8 @@ namespace YAF
         return this._title;
       }
     }
+
+    #endregion
   }
 
   /// <summary>
@@ -65,12 +82,16 @@ namespace YAF
   /// </summary>
   public class YafBeforeForumPageLoad : EventArgs
   {
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="YafBeforeForumPageLoad"/> class.
     /// </summary>
     public YafBeforeForumPageLoad()
     {
     }
+
+    #endregion
   }
 
   /// <summary>
@@ -78,12 +99,16 @@ namespace YAF
   /// </summary>
   public class YafAfterForumPageLoad : EventArgs
   {
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="YafAfterForumPageLoad"/> class.
     /// </summary>
     public YafAfterForumPageLoad()
     {
     }
+
+    #endregion
   }
 
   /// <summary>
@@ -92,6 +117,8 @@ namespace YAF
   [ToolboxData("<{0}:Forum runat=\"server\"></{0}:Forum>")]
   public class Forum : UserControl
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _current forum page.
     /// </summary>
@@ -122,14 +149,18 @@ namespace YAF
     /// </summary>
     private ForumPages _page;
 
+    #endregion
+
+    #region Constructors and Destructors
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Forum"/> class.
     /// </summary>
     public Forum()
     {
-      Load += new EventHandler(Forum_Load);
-      Init += new EventHandler(Forum_Init);
-      Unload += new EventHandler(Forum_Unload);
+      this.Load += new EventHandler(this.Forum_Load);
+      this.Init += new EventHandler(this.Forum_Init);
+      this.Unload += new EventHandler(this.Forum_Unload);
 
       // setup header/footer
       this._header = new Header();
@@ -142,80 +173,28 @@ namespace YAF
       YafContext.Current.BaseModuleManager.CallInitModules(this);
     }
 
-    /// <summary>
-    /// The forum header control
-    /// </summary>
-    public Header Header
-    {
-      get
-      {
-        return this._header;
-      }
+    #endregion
 
-      set
-      {
-        this._header = value;
-      }
-    }
+    #region Events
 
     /// <summary>
-    /// The forum footer control
+    /// The after forum page load.
     /// </summary>
-    public Footer Footer
-    {
-      get
-      {
-        return this._footer;
-      }
-
-      set
-      {
-        this._footer = value;
-      }
-    }
+    public event EventHandler<YafAfterForumPageLoad> AfterForumPageLoad;
 
     /// <summary>
-    /// UserID for the current User (Read Only)
+    /// The before forum page load.
     /// </summary>
-    public int PageUserID
-    {
-      get
-      {
-        return YafContext.Current.PageUserID;
-      }
-    }
+    public event EventHandler<YafBeforeForumPageLoad> BeforeForumPageLoad;
 
     /// <summary>
-    /// Gets or sets a value indicating whether Popup.
+    /// The page title set.
     /// </summary>
-    public bool Popup
-    {
-      get
-      {
-        return YafControlSettings.Current.Popup;
-      }
+    public event EventHandler<ForumPageTitleArgs> PageTitleSet;
 
-      set
-      {
-        YafControlSettings.Current.Popup = value;
-      }
-    }
+    #endregion
 
-    /// <summary>
-    /// UserName for the current User (Read Only)
-    /// </summary>
-    public string PageUserName
-    {
-      get
-      {
-        if (YafContext.Current.User == null)
-        {
-          return "Guest";
-        }
-
-        return YafContext.Current.User.UserName;
-      }
-    }
+    #region Properties
 
     /// <summary>
     /// Get or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
@@ -250,6 +229,38 @@ namespace YAF
     }
 
     /// <summary>
+    /// The forum footer control
+    /// </summary>
+    public Footer Footer
+    {
+      get
+      {
+        return this._footer;
+      }
+
+      set
+      {
+        this._footer = value;
+      }
+    }
+
+    /// <summary>
+    /// The forum header control
+    /// </summary>
+    public Header Header
+    {
+      get
+      {
+        return this._header;
+      }
+
+      set
+      {
+        this._header = value;
+      }
+    }
+
+    /// <summary>
     /// Gets or sets LockedForum.
     /// </summary>
     public int LockedForum
@@ -266,19 +277,89 @@ namespace YAF
     }
 
     /// <summary>
-    /// The page title set.
+    /// UserID for the current User (Read Only)
     /// </summary>
-    public event EventHandler<ForumPageTitleArgs> PageTitleSet;
+    public int PageUserID
+    {
+      get
+      {
+        return YafContext.Current.PageUserID;
+      }
+    }
 
     /// <summary>
-    /// The before forum page load.
+    /// UserName for the current User (Read Only)
     /// </summary>
-    public event EventHandler<YafBeforeForumPageLoad> BeforeForumPageLoad;
+    public string PageUserName
+    {
+      get
+      {
+        if (YafContext.Current.User == null)
+        {
+          return "Guest";
+        }
+
+        return YafContext.Current.User.UserName;
+      }
+    }
 
     /// <summary>
-    /// The after forum page load.
+    /// Gets or sets a value indicating whether Popup.
     /// </summary>
-    public event EventHandler<YafAfterForumPageLoad> AfterForumPageLoad;
+    public bool Popup
+    {
+      get
+      {
+        return YafControlSettings.Current.Popup;
+      }
+
+      set
+      {
+        YafControlSettings.Current.Popup = value;
+      }
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Called when the forum control sets it's Page Title
+    /// </summary>
+    /// <param name="sender">
+    /// </param>
+    /// <param name="e">
+    /// </param>
+    public void FirePageTitleSet(object sender, ForumPageTitleArgs e)
+    {
+      if (this.PageTitleSet != null)
+      {
+        this.PageTitleSet(this, e);
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      // wrap the forum in one main div and then a page div for better CSS selection
+      writer.WriteLine();
+      writer.Write(String.Format(@"<div class=""yafnet"" id=""{0}"">", this.ClientID));
+      writer.Write(String.Format(@"<div id=""yafpage_{0}"">", this._page.ToString()));
+
+      // render the forum
+      base.Render(writer);
+
+      writer.WriteLine("</div></div>");
+    }
 
     /// <summary>
     /// The forum_ init.
@@ -292,13 +373,80 @@ namespace YAF
     private void Forum_Init(object sender, EventArgs e)
     {
       // handle script manager first...
-      if (ScriptManager.GetCurrent(Page) == null)
+      if (ScriptManager.GetCurrent(this.Page) == null)
       {
         // add a script manager since one doesn't exist...
-        var yafScriptManager = new ScriptManager();
-        yafScriptManager.ID = "YafScriptManager";
-        yafScriptManager.EnablePartialRendering = true;
-        Controls.Add(yafScriptManager);
+        var yafScriptManager = new ScriptManager { ID = "YafScriptManager", EnablePartialRendering = true };
+        this.Controls.Add(yafScriptManager);
+      }
+    }
+
+    /// <summary>
+    /// The forum_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    /// <exception cref="ApplicationException">
+    /// </exception>
+    private void Forum_Load(object sender, EventArgs e)
+    {
+      // context is ready to be loaded, call the before page load event...
+      if (this.BeforeForumPageLoad != null)
+      {
+        this.BeforeForumPageLoad(this, new YafBeforeForumPageLoad());
+      }
+
+      // "forum load" should be done by now, load the user and page...
+      int userId = YafContext.Current.PageUserID;
+
+      // get the current page...
+      string src = this.GetPageSource();
+
+      try
+      {
+        this._currentForumPage = (ForumPage)this.LoadControl(src);
+      }
+      catch (FileNotFoundException)
+      {
+        throw new ApplicationException("Failed to load " + src + ".");
+      }
+
+      this._currentForumPage.ForumFooter = this._footer;
+      this._currentForumPage.ForumHeader = this._header;
+
+      // don't allow as a popup if it's not allowed by the page...
+      if (!this._currentForumPage.AllowAsPopup && this.Popup)
+      {
+        this.Popup = false;
+      }
+
+      // set the YafContext ForumPage...
+      YafContext.Current.CurrentForumPage = this._currentForumPage;
+
+      // add the header control before the page rendering...
+      if (!this.Popup && YafContext.Current.Settings.LockedForum == 0 &&
+          this._origHeaderClientID == this._header.ClientID)
+      {
+        this.Controls.AddAt(0, this._header);
+      }
+
+      this.Controls.Add(this._currentForumPage);
+
+      // add the footer control after the page...
+      if (!this.Popup && YafContext.Current.Settings.LockedForum == 0 &&
+          this._origFooterClientID == this._footer.ClientID)
+      {
+        this.Controls.Add(this._footer);
+      }
+
+      // load plugins/functionality modules
+      if (this.AfterForumPageLoad != null)
+      {
+        this.AfterForumPageLoad(this, new YafAfterForumPageLoad());
       }
     }
 
@@ -318,72 +466,6 @@ namespace YAF
     }
 
     /// <summary>
-    /// The forum_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    /// <exception cref="ApplicationException">
-    /// </exception>
-    private void Forum_Load(object sender, EventArgs e)
-    {
-      // context is ready to be loaded, call the before page load event...
-      if (BeforeForumPageLoad != null)
-      {
-        BeforeForumPageLoad(this, new YafBeforeForumPageLoad());
-      }
-
-      // "forum load" should be done by now, load the user and page...
-      int userId = YafContext.Current.PageUserID;
-
-      // get the current page...
-      string src = GetPageSource();
-
-      try
-      {
-        this._currentForumPage = (ForumPage) LoadControl(src);
-        this._currentForumPage.ForumFooter = this._footer;
-        this._currentForumPage.ForumHeader = this._header;
-
-        // don't allow as a popup if it's not allowed by the page...
-        if (!this._currentForumPage.AllowAsPopup && Popup)
-        {
-          Popup = false;
-        }
-
-        // set the YafContext ForumPage...
-        YafContext.Current.CurrentForumPage = this._currentForumPage;
-
-        // add the header control before the page rendering...
-        if (!Popup && YafContext.Current.Settings.LockedForum == 0 && this._origHeaderClientID == this._header.ClientID)
-        {
-          Controls.AddAt(0, this._header);
-        }
-
-        Controls.Add(this._currentForumPage);
-
-        // add the footer control after the page...
-        if (!Popup && YafContext.Current.Settings.LockedForum == 0 && this._origFooterClientID == this._footer.ClientID)
-        {
-          Controls.Add(this._footer);
-        }
-
-        // load plugins/functionality modules
-        if (AfterForumPageLoad != null)
-        {
-          AfterForumPageLoad(this, new YafAfterForumPageLoad());
-        }
-      }
-      catch (FileNotFoundException)
-      {
-        throw new ApplicationException("Failed to load " + src + ".");
-      }
-    }
-
-    /// <summary>
     /// The get page source.
     /// </summary>
     /// <returns>
@@ -393,11 +475,11 @@ namespace YAF
     {
       string m_baseDir = YafForumInfo.ForumServerFileRoot;
 
-      if (Request.QueryString["g"] != null)
+      if (this.Request.QueryString["g"] != null)
       {
         try
         {
-          this._page = (ForumPages) Enum.Parse(typeof (ForumPages), Request.QueryString["g"], true);
+          this._page = (ForumPages)Enum.Parse(typeof(ForumPages), this.Request.QueryString["g"], true);
         }
         catch (Exception)
         {
@@ -409,9 +491,9 @@ namespace YAF
         this._page = ForumPages.forum;
       }
 
-      if (!ValidPage(this._page))
+      if (!this.ValidPage(this._page))
       {
-        YafBuildLink.Redirect(ForumPages.topics, "f={0}", LockedForum);
+        YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.LockedForum);
       }
 
       string src = string.Format("{0}pages/{1}.ascx", m_baseDir, this._page);
@@ -442,40 +524,6 @@ namespace YAF
     }
 
     /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render(HtmlTextWriter writer)
-    {
-      // wrap the forum in one main div and then a page div for better CSS selection
-      writer.WriteLine();
-      writer.Write(String.Format(@"<div class=""yafnet"" id=""{0}"">", ClientID));
-      writer.Write(String.Format(@"<div id=""yafpage_{0}"">", this._page.ToString()));
-
-      // render the forum
-      base.Render(writer);
-
-      writer.WriteLine("</div></div>");
-    }
-
-    /// <summary>
-    /// Called when the forum control sets it's Page Title
-    /// </summary>
-    /// <param name="sender">
-    /// </param>
-    /// <param name="e">
-    /// </param>
-    public void FirePageTitleSet(object sender, ForumPageTitleArgs e)
-    {
-      if (PageTitleSet != null)
-      {
-        PageTitleSet(this, e);
-      }
-    }
-
-    /// <summary>
     /// The valid page.
     /// </summary>
     /// <param name="forumPage">
@@ -486,7 +534,7 @@ namespace YAF
     /// </returns>
     private bool ValidPage(ForumPages forumPage)
     {
-      if (LockedForum == 0)
+      if (this.LockedForum == 0)
       {
         return true;
       }
@@ -496,8 +544,9 @@ namespace YAF
         return false;
       }
 
-      if (forumPage == ForumPages.cp_editprofile || forumPage == ForumPages.cp_pm || forumPage == ForumPages.cp_message || forumPage == ForumPages.cp_profile ||
-          forumPage == ForumPages.cp_signature || forumPage == ForumPages.cp_subscriptions)
+      if (forumPage == ForumPages.cp_editprofile || forumPage == ForumPages.cp_pm || forumPage == ForumPages.cp_message ||
+          forumPage == ForumPages.cp_profile || forumPage == ForumPages.cp_signature ||
+          forumPage == ForumPages.cp_subscriptions)
       {
         return false;
       }
@@ -509,5 +558,7 @@ namespace YAF
 
       return true;
     }
+
+    #endregion
   }
 }

@@ -302,6 +302,7 @@
     <Resource tag="TT_CODE">Код</Resource>
     <Resource tag="TT_CREATELINK">Создать ссылку</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Больше кодов BBCode</Resource>
+    <Resource tag="TT_HIGHLIGHT">Highlight</Resource>
     <Resource tag="TT_IMAGE">Вставить изображение</Resource>
     <Resource tag="TT_ITALIC">Курсив</Resource>
     <Resource tag="TT_QUOTE">Цитата</Resource>
@@ -1011,7 +1012,7 @@
     <Resource tag="NEED_PASSWORD">Пароль обязателен.</Resource>
     <Resource tag="NEED_QUESTION">Контрольный вопрос обязателен.</Resource>
     <Resource tag="NEED_USERNAME">Имя пользователя обязательно.</Resource>
-    <Resource tag="PASSWORD">Пароль</Resource>    
+    <Resource tag="PASSWORD">Пароль</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Требования к паролю</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">мин. длина - {0}, макс. - {1}. Количество спецсимволов($#@!) - {2}.</Resource>
     <Resource tag="PREFERENCES">Ваши предпочтения</Resource>

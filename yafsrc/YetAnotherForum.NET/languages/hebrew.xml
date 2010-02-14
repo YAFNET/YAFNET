@@ -319,6 +319,7 @@
     <Resource tag="TT_CODE">קוד</Resource>
     <Resource tag="TT_CREATELINK">יצירת קישור</Resource>
     <Resource tag="TT_CUSTOMBBCODE">עוד תוויות BBCode</Resource>
+    <Resource tag="TT_HIGHLIGHT">Highlight</Resource>
     <Resource tag="TT_IMAGE">הוספת תמונה</Resource>
     <Resource tag="TT_ITALIC">נטוי</Resource>
     <Resource tag="TT_QUOTE">ציטוט</Resource>

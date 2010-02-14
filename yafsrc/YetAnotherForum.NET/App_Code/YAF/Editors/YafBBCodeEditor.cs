@@ -18,51 +18,106 @@
  */
 namespace YAF.Editors
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Web.UI;
+
   using YAF.Classes.Core;
   using YAF.Classes.UI;
   using YAF.Controls;
+
+  #endregion
 
   /// <summary>
   /// The bb code editor.
   /// </summary>
   public class BBCodeEditor : TextEditor
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _pop menu.
     /// </summary>
     private PopMenu _popMenu = null;
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// The render button.
+    /// Gets Description.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <param name="cmd">
-    /// The cmd.
-    /// </param>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    /// <param name="image">
-    /// The image.
-    /// </param>
-    private void RenderButton(HtmlTextWriter writer, string id, string cmd, string title, string image)
+    public override string Description
     {
-      // writer.WriteLine("		<td><img id='{1}_{4}' onload='Button_Load(this)' src='{0}' width='21' height='20' alt='{2}' title='{2}' onclick=\"{1}.{3}\"></td><td>&nbsp;</td>",ResolveUrl(image),SafeID,title,cmd,id);
-      writer.WriteLine(
-        @"<img id=""{1}_{4}"" onload=""Button_Load(this)"" src=""{0}"" width=""21"" height=""20"" alt=""{2}"" title=""{2}"" onclick=""setStyle('{4}','')"" />", 
-        ResolveUrl(image), 
-        SafeID, 
-        title, 
-        cmd, 
-        id);
+      get
+      {
+        return "YAF Standard YafBBCode Editor";
+      }
+    }
+
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 1;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode
+    {
+      get
+      {
+        return true;
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The editor_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void Editor_Load(object sender, EventArgs e)
+    {
+      base.Editor_Load(sender, e);
+
+      // register custom YafBBCode javascript (if there is any)
+      // this call is supposed to be after editor load since it may use
+      // JS variables created in editor_load...
+      YafBBCode.RegisterCustomBBCodePageElements(this.Page, this.GetType(), this.SafeID);
+      YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
+    }
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      base.OnInit(e);
+      this._textCtl.Attributes.Add("class", "BBCodeEditor");
+
+      // add popmenu to this mix...
+      this._popMenu = new PopMenu();
+      this.Controls.Add(this._popMenu);
     }
 
     /// <summary>
@@ -73,44 +128,86 @@ namespace YAF.Editors
     /// </param>
     protected override void Render(HtmlTextWriter writer)
     {
-      writer.WriteLine("<table border='0' cellpadding='0' cellspacing='2' width='100%'>");
-      writer.WriteLine("<tr><td valign='top'>");
-      writer.WriteLine("	<table border='0' cellpadding='1' cellspacing='2' id='bbcodeFeatures'>");
-      writer.WriteLine("	<tr><td valign='middle'>");
+      writer.WriteLine(@"<table border=""0"" id=""bbcodeFeatures"">");
+      writer.WriteLine("<tr><td>");
 
-      RenderButton(writer, "bold", "FormatText('bold','')", YafContext.Current.Localization.GetText("COMMON", "TT_BOLD"), "yafEditor/bold.gif");
-      RenderButton(writer, "italic", "FormatText('italic','')", YafContext.Current.Localization.GetText("COMMON", "TT_ITALIC"), "yafEditor/italic.gif");
-      RenderButton(
-        writer, "underline", "FormatText('underline','')", YafContext.Current.Localization.GetText("COMMON", "TT_UNDERLINE"), "yafEditor/underline.gif");
+      this.RenderButton(
+        writer, 
+        "bold", 
+        "FormatText('bold','')", 
+        YafContext.Current.Localization.GetText("COMMON", "TT_BOLD"), 
+        "yafEditor/bold.gif");
+      this.RenderButton(
+        writer, 
+        "italic", 
+        "FormatText('italic','')", 
+        YafContext.Current.Localization.GetText("COMMON", "TT_ITALIC"), 
+        "yafEditor/italic.gif");
+      this.RenderButton(
+        writer, 
+        "underline", 
+        "FormatText('underline','')", 
+        YafContext.Current.Localization.GetText("COMMON", "TT_UNDERLINE"), 
+        "yafEditor/underline.gif");
 
       writer.WriteLine("&nbsp;");
 
-      RenderButton(writer, "quote", "FormatText('quote','')", YafContext.Current.Localization.GetText("COMMON", "TT_QUOTE"), "yafEditor/quote.gif");
-      RenderButton(writer, "code", "FormatText('code','')", YafContext.Current.Localization.GetText("COMMON", "TT_CODE"), "yafEditor/code.gif");
-      RenderButton(writer, "img", "FormatText('img','')", YafContext.Current.Localization.GetText("COMMON", "TT_IMAGE"), "yafEditor/image.gif");
-      RenderButton(
-        writer, "createlink", "FormatText('createlink','')", YafContext.Current.Localization.GetText("COMMON", "TT_CREATELINK"), "yafEditor/link.gif");
+      this.RenderButton(
+        writer,
+        "highlight",
+        "FormatText('highlight','')",
+        YafContext.Current.Localization.GetText("COMMON", "TT_HIGHLIGHT"),
+        "yafEditor/highlight.gif");
+
+      this.RenderButton(
+        writer, 
+        "quote", 
+        "FormatText('quote','')", 
+        YafContext.Current.Localization.GetText("COMMON", "TT_QUOTE"), 
+        "yafEditor/quote.gif");
+      this.RenderButton(
+        writer, 
+        "code", 
+        "FormatText('code','')", 
+        YafContext.Current.Localization.GetText("COMMON", "TT_CODE"), 
+        "yafEditor/code.gif");
+      this.RenderButton(
+        writer, 
+        "img", 
+        "FormatText('img','')", 
+        YafContext.Current.Localization.GetText("COMMON", "TT_IMAGE"), 
+        "yafEditor/image.gif");
+      this.RenderButton(
+        writer, 
+        "createlink", 
+        "FormatText('createlink','')", 
+        YafContext.Current.Localization.GetText("COMMON", "TT_CREATELINK"), 
+        "yafEditor/link.gif");
 
       writer.WriteLine("&nbsp;");
 
-      RenderButton(
-        writer, "justifyleft", "FormatText('justifyleft','')", YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNLEFT"), "yafEditor/justifyleft.gif");
-      RenderButton(
+      this.RenderButton(
+        writer, 
+        "justifyleft", 
+        "FormatText('justifyleft','')", 
+        YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNLEFT"), 
+        "yafEditor/justifyleft.gif");
+      this.RenderButton(
         writer, 
         "justifycenter", 
         "FormatText('justifycenter','')", 
         YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNCENTER"), 
         "yafEditor/justifycenter.gif");
-      RenderButton(
+      this.RenderButton(
         writer, 
         "justifyright", 
         "FormatText('justifyright','')", 
         YafContext.Current.Localization.GetText("COMMON", "TT_ALIGNRIGHT"), 
         "yafEditor/justifyright.gif");
 
-      DataTable bbCodeTable = YafBBCode.GetCustomBBCode();
+      DataTable customBbCode = YafBBCode.GetCustomBBCode();
 
-      if (bbCodeTable.Rows.Count > 0)
+      if (customBbCode.Rows.Count > 0)
       {
         writer.WriteLine("&nbsp;");
 
@@ -121,11 +218,11 @@ namespace YAF.Editors
             this._popMenu.ControlOnClick, 
             this._popMenu.ControlOnMouseOver, 
             YafContext.Current.Localization.GetText("COMMON", "CUSTOM_BBCODE"), 
-            ClientID + "_bbcode_popMenu", 
+            this.ClientID + "_bbcode_popMenu", 
             YafContext.Current.Localization.GetText("COMMON", "TT_CUSTOMBBCODE"), 
-            ResolveUrl("yafEditor/bbcode.gif")));
+            this.ResolveUrl("yafEditor/bbcode.gif")));
 
-        foreach (DataRow row in bbCodeTable.Rows)
+        foreach (DataRow row in customBbCode.Rows)
         {
           string name = row["Name"].ToString();
 
@@ -152,15 +249,17 @@ namespace YAF.Editors
       }
 
       writer.WriteLine("	</td></tr>");
-      writer.WriteLine("	<tr><td valign='middle'>");
+      writer.WriteLine("	<tr><td>");
 
       // TODO: Convert to a control...
       writer.WriteLine(YafContext.Current.Localization.GetText("COMMON", "FONT_COLOR"));
-      writer.WriteLine("<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", SafeID);
+      writer.WriteLine(
+        "<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", this.SafeID);
       writer.WriteLine("<option value=\"\">Default</option>");
 
       string[] Colors = {
-                          "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", "Indigo", "Violet", "White", "Black"
+                          "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", 
+                          "Indigo", "Violet", "White", "Black"
                         };
       foreach (string color in Colors)
       {
@@ -172,7 +271,8 @@ namespace YAF.Editors
 
       // TODO: Just convert to a drop down control...
       writer.WriteLine(YafContext.Current.Localization.GetText("COMMON", "FONT_SIZE"));
-      writer.WriteLine("<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", SafeID);
+      writer.WriteLine(
+        "<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", this.SafeID);
       writer.WriteLine("<option value=\"1\">1</option>");
       writer.WriteLine("<option value=\"2\">2</option>");
       writer.WriteLine("<option value=\"3\">3</option>");
@@ -184,87 +284,42 @@ namespace YAF.Editors
       writer.WriteLine("<option value=\"9\">9</option>");
       writer.WriteLine("</select>");
 
-      writer.WriteLine("	</td></tr>");
-      writer.WriteLine("	</table>");
-      writer.WriteLine(@"</td></tr><tr><td height=""99%"">");
+      writer.WriteLine("</td></tr>");
+      writer.WriteLine("</table>");
 
       this._textCtl.RenderControl(writer);
-
-      writer.WriteLine("</td></tr></table>");
 
       this._popMenu.RenderControl(writer);
     }
 
     /// <summary>
-    /// The on init.
+    /// The render button.
     /// </summary>
-    /// <param name="e">
-    /// The e.
+    /// <param name="writer">
+    /// The writer.
     /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      base.OnInit(e);
-      this._textCtl.Attributes.Add("class", "BBCodeEditor");
-
-      // add popmenu to this mix...
-      this._popMenu = new PopMenu();
-      Controls.Add(this._popMenu);
-    }
-
-    /// <summary>
-    /// The editor_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
+    /// <param name="id">
+    /// The id.
     /// </param>
-    /// <param name="e">
-    /// The e.
+    /// <param name="cmd">
+    /// The cmd.
     /// </param>
-    protected override void Editor_Load(object sender, EventArgs e)
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    /// <param name="image">
+    /// The image.
+    /// </param>
+    private void RenderButton(HtmlTextWriter writer, string id, string cmd, string title, string image)
     {
-      base.Editor_Load(sender, e);
-
-      // register custom YafBBCode javascript (if there is any)
-      // this call is supposed to be after editor load since it may use
-      // JS variables created in editor_load...
-      YafBBCode.RegisterCustomBBCodePageElements(Page, GetType(), SafeID);
-      YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
-    }
-
-    #region Properties
-
-    /// <summary>
-    /// Gets a value indicating whether UsesBBCode.
-    /// </summary>
-    public override bool UsesBBCode
-    {
-      get
-      {
-        return true;
-      }
-    }
-
-    /// <summary>
-    /// Gets Description.
-    /// </summary>
-    public override string Description
-    {
-      get
-      {
-        return "YAF Standard YafBBCode Editor";
-      }
-    }
-
-    /// <summary>
-    /// Gets ModuleId.
-    /// </summary>
-    public override int ModuleId
-    {
-      get
-      {
-        // backward compatibility...
-        return 1;
-      }
+      // writer.WriteLine("		<td><img id='{1}_{4}' onload='Button_Load(this)' src='{0}' width='21' height='20' alt='{2}' title='{2}' onclick=\"{1}.{3}\"></td><td>&nbsp;</td>",ResolveUrl(image),SafeID,title,cmd,id);
+      writer.WriteLine(
+        @"<img id=""{1}_{4}"" onload=""Button_Load(this)"" src=""{0}"" width=""21"" height=""20"" alt=""{2}"" title=""{2}"" onclick=""setStyle('{4}','')"" />", 
+        this.ResolveUrl(image), 
+        this.SafeID, 
+        title, 
+        cmd, 
+        id);
     }
 
     #endregion

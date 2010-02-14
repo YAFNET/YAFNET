@@ -298,6 +298,7 @@
     <Resource tag="TT_CODE">Code</Resource>
     <Resource tag="TT_CREATELINK">Crée un lien</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Plus de tags BBCode</Resource>
+    <Resource tag="TT_HIGHLIGHT">Highlight</Resource>
     <Resource tag="TT_IMAGE">Insertion d'image</Resource>
     <Resource tag="TT_ITALIC">Italique</Resource>
     <Resource tag="TT_QUOTE">Citer</Resource>

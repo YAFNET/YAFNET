@@ -319,6 +319,7 @@
     <Resource tag="TT_CODE">کد</Resource>
     <Resource tag="TT_CREATELINK">ایجاد لینک</Resource>
     <Resource tag="TT_CUSTOMBBCODE">تگهای BBCode بیشتر</Resource>
+    <Resource tag="TT_HIGHLIGHT">Highlight</Resource>
     <Resource tag="TT_IMAGE">وارد کردن عکس</Resource>
     <Resource tag="TT_ITALIC">کج</Resource>
     <Resource tag="TT_QUOTE">نقل قول</Resource>
