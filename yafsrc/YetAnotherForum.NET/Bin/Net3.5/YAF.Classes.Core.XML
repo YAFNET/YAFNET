@@ -4574,6 +4574,45 @@
             The dataTable.
             </param>
         </member>
+        <member name="T:YAF.SyndicationItemExtensions">
+            <summary>
+            The syndication item extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.DateTime)">
+            <summary>
+            The add syndication item.
+            </summary>
+            <param name="currentList">
+            The current list.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+            <param name="content">
+            The content.
+            </param>
+            <param name="link">
+            The link.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+            <param name="posted">
+            The posted.
+            </param>
+        </member>
+        <member name="T:YAF.YafSyndicationFeed">
+            <summary>
+            Summary description for YafSyndicationFeed.
+            </summary>
+        </member>
+        <member name="M:YAF.YafSyndicationFeed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.YafSyndicationFeed"/> class. 
+            Initializes a new instance of the <see cref="!:RssFeed"/> class.
+            </summary>
+        </member>
         <member name="T:YAF.Editors.YafEditorModuleManager">
             <summary>
             The yaf editor module manager.
@@ -6392,45 +6431,6 @@
         <member name="P:YAF.Classes.Core.IYafFooter.ThisControl">
             <summary>
             Gets ThisControl.
-            </summary>
-        </member>
-        <member name="T:YAF.SyndicationItemExtensions">
-            <summary>
-            The syndication item extensions.
-            </summary>
-        </member>
-        <member name="M:YAF.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.DateTime)">
-            <summary>
-            The add syndication item.
-            </summary>
-            <param name="currentList">
-            The current list.
-            </param>
-            <param name="title">
-            The title.
-            </param>
-            <param name="content">
-            The content.
-            </param>
-            <param name="link">
-            The link.
-            </param>
-            <param name="id">
-            The id.
-            </param>
-            <param name="posted">
-            The posted.
-            </param>
-        </member>
-        <member name="T:YAF.YafSyndicationFeed">
-            <summary>
-            Summary description for YafSyndicationFeed.
-            </summary>
-        </member>
-        <member name="M:YAF.YafSyndicationFeed.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.YafSyndicationFeed"/> class. 
-            Initializes a new instance of the <see cref="!:RssFeed"/> class.
             </summary>
         </member>
     </members>

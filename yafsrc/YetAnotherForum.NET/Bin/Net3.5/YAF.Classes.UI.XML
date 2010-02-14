@@ -79,12 +79,21 @@
             The rules.
             </param>
         </member>
-        <member name="M:YAF.Classes.UI.FormatMsg.GetSmilies">
+        <member name="M:YAF.Classes.UI.FormatMsg.BBCodeForbiddenDetector(System.String,System.String,System.Char)">
             <summary>
-            The get smilies.
+            The method to detect a forbidden BBCode tag from delimited by 'delim' list 
+            'stringToMatch'
             </summary>
+            <param name="stringToClear">
+            Input string
+            </param>
+            <param name="stringToMatch">
+            String with delimiter
+            </param>
+            <param name="delim">
+            </param>
             <returns>
-            Table with list of smiles
+            Returns a string containing a forbidden BBCode or a null string
             </returns>
         </member>
         <member name="M:YAF.Classes.UI.FormatMsg.FormatMessage(System.String,YAF.Classes.Data.MessageFlags)">
@@ -145,11 +154,34 @@
             <param name="topicMessage">
             The message to clean.
             </param>
-            <param name="topicId"> 
+            <param name="topicId">
+            
             The topic id.
             </param>
             <returns>
             The get cleaned topic message.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.GetSmilies">
+            <summary>
+            The get smilies.
+            </summary>
+            <returns>
+            Table with list of smiles
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.HTMLTagForbiddenDetector(System.String,System.String,System.Char)">
+            <summary>
+            The method to detect a forbidden HTML code from delimited by 'delim' list
+            </summary>
+            <param name="stringToClear">
+            </param>
+            <param name="stringToMatch">
+            </param>
+            <param name="delim">
+            </param>
+            <returns>
+            Returns a forbidden HTML tag or a null string
             </returns>
         </member>
         <member name="M:YAF.Classes.UI.FormatMsg.RemoveNestedQuotes(System.String)">
@@ -162,25 +194,6 @@
             <returns>
             A version of <paramref name="body"/> that contains no nested quotes.
             </returns>
-        </member>
-        <member name="M:YAF.Classes.UI.FormatMsg.BBCodeForbiddenDetector(System.String,System.String,System.Char)">
-            <summary>
-             The method to detect a forbidden BBCode tag from delimited by 'delim' list 
-            'stringToMatch'
-            </summary>
-            <param name="stringToClear">Input string</param>
-            <param name="stringToMatch">String with delimiter</param>
-            <param name="delim"></param>
-            <returns>Returns a string containing a forbidden BBCode or a null string</returns>
-        </member>
-        <member name="M:YAF.Classes.UI.FormatMsg.HTMLTagForbiddenDetector(System.String,System.String,System.Char)">
-            <summary>
-            The method to detect a forbidden HTML code from delimited by 'delim' list
-            </summary>
-            <param name="stringToClear"></param>
-            <param name="stringToMatch"></param>
-            <param name="delim"></param>
-            <returns>Returns a forbidden HTML tag or a null string</returns>
         </member>
         <member name="M:YAF.Classes.UI.FormatMsg.RepairHtml(System.String,System.Boolean)">
             <summary>
@@ -195,6 +208,53 @@
             <returns>
             The repaired html.
             </returns>
+        </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.SurroundWordList(System.String,System.Collections.Generic.IList{System.String},System.String,System.String)">
+            <summary>
+            Surrounds a word list with prefix/postfix. Case insensitive.
+            </summary>
+            <param name="message">
+            </param>
+            <param name="wordList">
+            </param>
+            <param name="prefix">
+            </param>
+            <param name="postfix">
+            </param>
+            <returns>
+            The surround word list.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.UI.FormatMsg.MessageCleaned">
+            <summary>
+            The message cleaned class (internal)
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.MessageCleaned.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.UI.FormatMsg.MessageCleaned"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.MessageCleaned.#ctor(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.UI.FormatMsg.MessageCleaned"/> class.
+            </summary>
+            <param name="messageTruncated">
+            The message truncated.
+            </param>
+            <param name="messageKeywords">
+            The message keywords.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.UI.FormatMsg.MessageCleaned.MessageKeywords">
+            <summary>
+            Gets or sets MessageKeywords.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.UI.FormatMsg.MessageCleaned.MessageTruncated">
+            <summary>
+            Gets or sets MessageTruncated.
+            </summary>
         </member>
         <member name="T:YAF.Classes.UI.ReplaceRulesCreator">
             <summary>
@@ -1171,6 +1231,11 @@
         <member name="F:YAF.Classes.UI.YafBBCode._rgxImg">
             <summary>
             The _rgx img.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.UI.YafBBCode._rgxHighlighted">
+            <summary>
+            The _rgx italic.
             </summary>
         </member>
         <member name="F:YAF.Classes.UI.YafBBCode._rgxItalic">

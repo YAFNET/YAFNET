@@ -2289,6 +2289,11 @@
             Gets or sets OnlineStatusCacheTimeout.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.UserNameMaxLength">
+            <summary>
+            Gets or sets User Name Max Length.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.EmailVerification">
             <summary>
             Gets or sets a value indicating whether EmailVerification.

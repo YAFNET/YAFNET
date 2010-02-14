@@ -2197,6 +2197,15 @@
             The generate random string.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ToRegExString(System.String)">
+            <summary>
+            Cleans a string into a proper RegEx statement. 
+            E.g. "[b]Whatever[/b]" will be converted to:
+            "\[b\]Whatever\[\/b\]"
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:YAF.Classes.Utils.StringHelper.Truncate(System.String,System.Int32)">
             <summary>
             Truncates a string with the specified limits and adds (...) to the end if truncated

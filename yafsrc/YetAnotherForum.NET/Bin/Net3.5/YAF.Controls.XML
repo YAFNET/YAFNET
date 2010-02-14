@@ -826,17 +826,17 @@
             The writer.
             </param>
         </member>
-        <member name="M:YAF.Controls.MessagePost.RenderMessage(System.Web.UI.HtmlTextWriter)">
+        <member name="M:YAF.Controls.MessagePost.RenderDeletedMessage(System.Web.UI.HtmlTextWriter)">
             <summary>
-            The render message.
+            The render deleted message.
             </summary>
             <param name="writer">
             The writer.
             </param>
         </member>
-        <member name="M:YAF.Controls.MessagePost.RenderDeletedMessage(System.Web.UI.HtmlTextWriter)">
+        <member name="M:YAF.Controls.MessagePost.RenderMessage(System.Web.UI.HtmlTextWriter)">
             <summary>
-            The render deleted message.
+            The render message.
             </summary>
             <param name="writer">
             The writer.
@@ -847,14 +847,9 @@
             Gets or sets DisplayUserID.
             </summary>
         </member>
-        <member name="P:YAF.Controls.MessagePost.Signature">
+        <member name="P:YAF.Controls.MessagePost.HighlightWords">
             <summary>
-            Gets or sets Signature.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePost.Message">
-            <summary>
-            Gets or sets Message.
+            Words to highlight in this message
             </summary>
         </member>
         <member name="P:YAF.Controls.MessagePost.IsModeratorChanged">
@@ -862,9 +857,19 @@
             Gets or sets a value indicating whether IsModeratorChanged.
             </summary>
         </member>
+        <member name="P:YAF.Controls.MessagePost.Message">
+            <summary>
+            Gets or sets Message.
+            </summary>
+        </member>
         <member name="P:YAF.Controls.MessagePost.MessageFlags">
             <summary>
             Gets or sets MessageFlags.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePost.Signature">
+            <summary>
+            Gets or sets Signature.
             </summary>
         </member>
         <member name="T:YAF.Controls.ForumUsers">
@@ -2992,6 +2997,17 @@
             Initializes a new instance of the <see cref="T:YAF.Controls.MessagePostData"/> class.
             </summary>
         </member>
+        <member name="M:YAF.Controls.MessagePostData.TruncateMessage(System.String)">
+            <summary>
+            The truncate message.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <returns>
+            The truncate message.
+            </returns>
+        </member>
         <member name="M:YAF.Controls.MessagePostData.OnPreRender(System.EventArgs)">
             <summary>
             The on pre render.
@@ -3008,25 +3024,9 @@
             The writer.
             </param>
         </member>
-        <member name="M:YAF.Controls.MessagePostData.TruncateMessage(System.String)">
-            <summary>
-            The truncate message.
-            </summary>
-            <param name="message">
-            The message.
-            </param>
-            <returns>
-            The truncate message.
-            </returns>
-        </member>
         <member name="P:YAF.Controls.MessagePostData.DataRow">
             <summary>
             Gets or sets DataRow.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePostData.Posted">
-            <summary>
-            Gets Posted.
             </summary>
         </member>
         <member name="P:YAF.Controls.MessagePostData.Edited">
@@ -3034,14 +3034,14 @@
             Gets Edited.
             </summary>
         </member>
-        <member name="P:YAF.Controls.MessagePostData.Signature">
-            <summary>
-            Gets Signature.
-            </summary>
-        </member>
         <member name="P:YAF.Controls.MessagePostData.Message">
             <summary>
             Gets Message.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.Posted">
+            <summary>
+            Gets Posted.
             </summary>
         </member>
         <member name="P:YAF.Controls.MessagePostData.ShowAttachments">
@@ -3052,6 +3052,11 @@
         <member name="P:YAF.Controls.MessagePostData.ShowSignature">
             <summary>
             Gets or sets a value indicating whether ShowSignature.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.Signature">
+            <summary>
+            Gets Signature.
             </summary>
         </member>
         <member name="T:YAF.Controls.YafAdminMenu.YafMenu">
