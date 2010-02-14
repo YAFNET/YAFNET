@@ -19,159 +19,179 @@
 
 namespace YAF.Pages
 {
-    using System;
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Data;
-    using YAF.Classes.Utils;
+  #region Using
+
+  using System;
+  using System.Data;
+
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+  using YAF.Editors;
+
+  #endregion
+
+  /// <summary>
+  /// The form for reported post complaint text.
+  /// </summary>
+  public partial class ReportPost : ForumPage
+  {
+    // messageid
+    #region Constants and Fields
 
     /// <summary>
-    /// The form for reported post complaint text.
+    /// To save messageid value.
     /// </summary>
-    public partial class ReportPost : ForumPage
-    {        
-        // messageid
+    private int messageID = 0;
 
-        /// <summary>
-        /// To save messageid value.
-        /// </summary>
-        private int messageID = 0;       
-       
-        // message body editor
+    // message body editor
 
-        /// <summary>
-        /// The _editor.
-        /// </summary>
-        private YAF.Editors.BaseForumEditor reportEditor;
-        //// Class constructor
-         
-        /// <summary>
-        /// Initializes a new instance of the ReportPost class.
-        /// </summary>
-        public ReportPost()
-            : base("REPORTPOST")
-        {
-        }
-        //// public YAF.Editors.BaseForumEditor Editor { get {return _editor}; set; }
-        
-        /// <summary>
-        /// Page initialization handler.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Init(object sender, EventArgs e)
-        {
-            // create editor based on administrator's settings
-            this.reportEditor = YafContext.Current.EditorModuleManager.GetEditorInstance(YafContext.Current.BoardSettings.ForumEditor);
+    /// <summary>
+    /// The _editor.
+    /// </summary>
+    private BaseForumEditor reportEditor;
 
-            // add editor to the page
-            this.EditorLine.Controls.Add(this.reportEditor);
-        }
+    #endregion
 
-        /// <summary>
-        /// The page_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            // set attributes of editor
-            this.reportEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
-            this.reportEditor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
-          
-                if (!String.IsNullOrEmpty(Request.QueryString["m"]))
-                {
-                    // We check here if the user have access to the option
-                    if (!PageContext.BoardSettings.AllowGuestToReportPost && PageContext.IsGuest)
-                    {
-                        Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=1"));
-                    }
+    //// Class constructor
+    #region Constructors and Destructors
 
-                    if (!Int32.TryParse(Request.QueryString["m"], out this.messageID))
-                    {
-                        Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", this.messageID));
-                    }            
-                }
-
-                if (!IsPostBack)
-                {    
-               
-                    // Get reported message text for better quoting                    
-                    System.Data.DataTable messageRow = DB.message_secdata(this.messageID,PageContext.PageUserID);
-                   
-                    // Checking if the user has a right to view the message and getting data  
-                    if (messageRow.Rows.Count > 0)
-                    {
-                        // populate the repeater with the message datarow...
-                        this.MessageList.DataSource = DB.message_secdata(this.messageID, PageContext.PageUserID);         
-                        this.MessageList.DataBind();
-                    }
-                    else
-                    {
-                        Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=1"));
-                    }
-                   
-                    // Get Forum Link
-                    this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                }
-        } 
-
-        /// <summary>
-        /// The btn run query_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void BtnReport_Click(object sender, EventArgs e)
-        {
-            // Save the reported message
-            DB.message_report(7, this.messageID, PageContext.PageUserID, DateTime.Now, this.reportEditor.Text);
-            
-            // Redirect to reported post
-            this.RedirectToPost(); 
-        }
-
-        /// <summary>
-        /// The btn cancel query_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void BtnCancel_Click(object sender, EventArgs e)
-        {
-            // Redirect to reported post
-            this.RedirectToPost();  
-        }
-
-        /// <summary>
-        /// Redirects to reported post after Save or Cancel
-        /// </summary>
-        protected void RedirectToPost()
-        {
-            // Redirect to reported post
-            Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", this.messageID));            
-        }
-        
-        /// <summary>
-        /// Binds data to data source
-        /// </summary>
-        private void BindData()
-        {
-            DataBind();
-        }
+    /// <summary>
+    /// Initializes a new instance of the ReportPost class.
+    /// </summary>
+    public ReportPost()
+      : base("REPORTPOST")
+    {
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The btn cancel query_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void BtnCancel_Click(object sender, EventArgs e)
+    {
+      // Redirect to reported post
+      this.RedirectToPost();
+    }
+
+    /// <summary>
+    /// The btn run query_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void BtnReport_Click(object sender, EventArgs e)
+    {
+      // Save the reported message
+      DB.message_report(7, this.messageID, this.PageContext.PageUserID, DateTime.Now, this.reportEditor.Text);
+
+      // Redirect to reported post
+      this.RedirectToPost();
+    }
+
+    //// public YAF.Editors.BaseForumEditor Editor { get {return _editor}; set; }
+
+    /// <summary>
+    /// Page initialization handler.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Init(object sender, EventArgs e)
+    {
+      // create editor based on administrator's settings
+      this.reportEditor =
+        YafContext.Current.EditorModuleManager.GetEditorInstance(YafContext.Current.BoardSettings.ForumEditor);
+
+      // add editor to the page
+      this.EditorLine.Controls.Add(this.reportEditor);
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      // set attributes of editor
+      this.reportEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
+      this.reportEditor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
+
+      if (!String.IsNullOrEmpty(this.Request.QueryString["m"]))
+      {
+        // We check here if the user have access to the option
+        if (!this.PageContext.BoardSettings.AllowGuestToReportPost && this.PageContext.IsGuest)
+        {
+          YafBuildLink.Redirect(ForumPages.info, "i=1");
+        }
+
+        if (!Int32.TryParse(this.Request.QueryString["m"], out this.messageID))
+        {
+          YafBuildLink.Redirect(ForumPages.error, "Incorrect message value: {0}", this.messageID);
+        }
+      }
+
+      if (!this.IsPostBack)
+      {
+        // Get reported message text for better quoting                    
+        DataTable messageRow = DB.message_secdata(this.messageID, this.PageContext.PageUserID);
+
+        // Checking if the user has a right to view the message and getting data  
+        if (messageRow.Rows.Count > 0)
+        {
+          // populate the repeater with the message datarow...
+          this.MessageList.DataSource = DB.message_secdata(this.messageID, this.PageContext.PageUserID);
+          this.MessageList.DataBind();
+        }
+        else
+        {
+          YafBuildLink.Redirect(ForumPages.info, "i=1");
+        }
+
+        // Get Forum Link
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.btnReport.Attributes.Add("onclick", String.Format("return confirm('{0}');", PageContext.Localization.GetText("CONFIRM_REPORTPOST")));
+      }
+    }
+
+    /// <summary>
+    /// Redirects to reported post after Save or Cancel
+    /// </summary>
+    protected void RedirectToPost()
+    {
+      // Redirect to reported post
+      YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", this.messageID);
+    }
+
+    /// <summary>
+    /// Binds data to data source
+    /// </summary>
+    private void BindData()
+    {
+      this.DataBind();
+    }
+
+    #endregion
+  }
 }
