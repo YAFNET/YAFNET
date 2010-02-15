@@ -13,17 +13,17 @@
 		<YAF:ThemeButton ID="Blog" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 			TextLocalizedTag="BLOG" ImageThemeTag="BLOG" />
 		<YAF:ThemeButton ID="Msn" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-			TextLocalizedTag="MSN" ImageThemeTag="MSN" />
+			TextLocalizedTag="MSN" ImageThemeTag="MSN" Visible="false" />
 		<YAF:ThemeButton ID="Aim" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-			TextLocalizedTag="AIM" ImageThemeTag="AIM" />
+			TextLocalizedTag="AIM" ImageThemeTag="AIM" Visible="false" />
 		<YAF:ThemeButton ID="Yim" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-			TextLocalizedTag="YIM" ImageThemeTag="YIM" />
+			TextLocalizedTag="YIM" ImageThemeTag="YIM" Visible="false" />
 		<YAF:ThemeButton ID="Icq" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-			TextLocalizedTag="ICQ" ImageThemeTag="ICQ" />
+			TextLocalizedTag="ICQ" ImageThemeTag="ICQ" Visible="false" />
 		<YAF:ThemeButton ID="Xmpp" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-			TextLocalizedTag="Xmpp" ImageThemeTag="XMPP" />	
+			TextLocalizedTag="Xmpp" ImageThemeTag="XMPP" Visible="false" />	
 		<YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-			TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
+			TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" Visible="false" />
 	</div>
 	<div class="rightItem postInfoRight">		
 		<span id="ReportButtons" runat="server">	
