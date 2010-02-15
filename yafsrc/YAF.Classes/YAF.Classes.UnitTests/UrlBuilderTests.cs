@@ -44,5 +44,10 @@ namespace YAF.Classes.UnitTests
     }
 
     #endregion
+
+    public override string BuildUrl(string url)
+    {
+      throw new System.NotImplementedException();
+    }
   }
 }
