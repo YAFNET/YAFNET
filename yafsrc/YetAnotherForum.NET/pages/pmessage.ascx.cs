@@ -408,7 +408,7 @@ namespace YAF.Pages
           // test receiving user's PM count
           if ((Convert.ToInt32(DB.user_pmcount(userId.Value).Rows[0]["NumberTotal"]) >=
                Convert.ToInt32(DB.user_pmcount(userId.Value).Rows[0]["NumberAllowed"])) &&
-              !YafContext.Current.IsAdmin && !UserMembershipHelper.GetUserRowForID(userId.Value, true).Field<bool>("IsAdmin"))
+              !YafContext.Current.IsAdmin && !(bool)Convert.ChangeType(UserMembershipHelper.GetUserRowForID(userId.Value, true)["IsAdmin"], typeof(bool)))
           {
             // recipient has full PM box
             YafContext.Current.AddLoadMessage(GetTextFormatted("RECIPIENTS_PMBOX_FULL", recipient));
