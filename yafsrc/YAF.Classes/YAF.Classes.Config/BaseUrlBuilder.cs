@@ -174,7 +174,7 @@ namespace YAF.Classes
       var url = new StringBuilder();
 
       long serverPort = long.Parse(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]);
-      bool isSecure = HttpContext.Current.Request.ServerVariables["HTTPS"] == "ON" || serverPort == 443;
+      bool isSecure = HttpContext.Current.Request.ServerVariables["HTTPS"].ToUpper() == "ON" || serverPort == 443;
 
       url.Append("http");
 
