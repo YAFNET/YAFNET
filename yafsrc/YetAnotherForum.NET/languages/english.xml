@@ -554,7 +554,7 @@
     <Resource tag="TITLE">Yahoo! Messenger</Resource>
   </page>
   <page name="INFO">
-    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+    <Resource tag="ACCESSDENIED">You tried to enter an area where you didn't have access.</Resource>
     <Resource tag="CONTINUE">Continue...</Resource>
     <Resource tag="DISABLED">The administrator of this forum has disabled this feature.</Resource>
     <Resource tag="EXCEPTION">You are logged in as</Resource>
