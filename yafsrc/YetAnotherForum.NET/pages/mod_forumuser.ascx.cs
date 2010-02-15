@@ -201,7 +201,7 @@ namespace YAF.Pages
         PageContext.AddLoadMessage(GetText("NO_SUCH_USER"));
         return;
       }
-      else if (UserMembershipHelper.IsGuestUser(userId.HasValue))
+      else if (UserMembershipHelper.IsGuestUser(userId))
       {
         PageContext.AddLoadMessage(GetText("NOT_GUEST"));
         return;
