@@ -5646,16 +5646,20 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}user_upgrade](@UserID int) as
 begin
 	
-	declare @RankID		int
-	declare @Flags		int
-	declare @MinPosts	int
-	declare @NumPosts	int
+	declare @RankID			int
+	declare @Flags			int
+	declare @MinPosts		int
+	declare @NumPosts		int
+    declare @BoardId		int
+    declare @RankBoardID	int
+
 	-- Get user and rank information
 	select
 		@RankID = b.RankID,
 		@Flags = b.Flags,
 		@MinPosts = b.MinPosts,
-		@NumPosts = a.NumPosts
+		@NumPosts = a.NumPosts,
+        @BoardId = a.BoardId		
 	from
 		[{databaseOwner}].[{objectQualifier}User] a
 		inner join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID = a.RankID
@@ -5664,18 +5668,39 @@ begin
 	
 	-- If user isn't member of a ladder rank, exit
 	if (@Flags & 2) = 0 return
-	
-	-- See if user got enough posts for next ladder group
-	select top 1
-		@RankID = RankID
-	from
-		[{databaseOwner}].[{objectQualifier}Rank]
-	where
-		(Flags & 2) = 2 and
-		MinPosts <= @NumPosts and
-		MinPosts > @MinPosts
-	order by
-		MinPosts
+
+	-- retrieve board current user's rank beling to	
+    select @RankBoardId = BoardID
+    from   [{databaseOwner}].[{objectQualifier}Rank]
+    where  RankID = @RankID
+
+	-- does user have rank from his board?
+    IF @RankBoardId <> @BoardId begin
+		-- get highest rank user can get
+		select top 1
+               @RankID = RankID
+        from   [dbo].[yaf_Rank]
+        where  BoardId = @BoardId
+               and (Flags & 2) = 2
+               and MinPosts <= @NumPosts
+        order by
+               MinPosts desc
+	end
+    else begin
+		-- See if user got enough posts for next ladder group
+		select top 1
+			@RankID = RankID
+		from
+			[{databaseOwner}].[{objectQualifier}Rank]
+		where
+			BoardId = @BoardId and
+			(Flags & 2) = 2 and
+			MinPosts <= @NumPosts and
+			MinPosts > @MinPosts
+		order by
+			MinPosts
+	end
+
 	if @@ROWCOUNT=1
 		update [{databaseOwner}].[{objectQualifier}User] set RankID = @RankID where UserID = @UserID
 end
