@@ -20,119 +20,164 @@
 
 namespace YAF.Pages.Admin
 {
-  using System;
-  using System.Data;
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Utils;
+	using System;
+	using System.Data;
+	using YAF.Classes;
+	using YAF.Classes.Core;
+	using YAF.Classes.Data;
+	using YAF.Classes.Utils;
 
-  /// <summary>
-  /// Summary description for WebForm1.
-  /// </summary>
-  public partial class editaccessmask : AdminPage
-  {
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-      if (!IsPostBack)
-      {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink("Access Masks", string.Empty);
+	/// <summary>
+	/// Summary description for WebForm1.
+	/// </summary>
+	public partial class editaccessmask : AdminPage
+	{
+		/* Construction */
+		#region Overridden Methods
 
-        BindData();
-        if (Request.QueryString["i"] != null)
-        {
-          using (DataTable dt = DB.accessmask_list(PageContext.PageBoardID, Request.QueryString["i"]))
-          {
-            DataRow row = dt.Rows[0];
-            var flags = new AccessFlags(row["Flags"]);
-            this.Name.Text = (string) row["Name"];
-            this.ReadAccess.Checked = flags.ReadAccess;
-            this.PostAccess.Checked = flags.PostAccess;
-            this.ReplyAccess.Checked = flags.ReplyAccess;
-            this.PriorityAccess.Checked = flags.PriorityAccess;
-            this.PollAccess.Checked = flags.PollAccess;
-            this.VoteAccess.Checked = flags.VoteAccess;
-            this.ModeratorAccess.Checked = flags.ModeratorAccess;
-            this.EditAccess.Checked = flags.EditAccess;
-            this.DeleteAccess.Checked = flags.DeleteAccess;
-            this.UploadAccess.Checked = flags.UploadAccess;
-            this.DownloadAccess.Checked = flags.DownloadAccess;
-          }
-        }
-      }
-    }
+		/// <summary>
+		/// Creates navigation page links on top of forum (breadcrumbs).
+		/// </summary>
+		protected override void CreatePageLinks()
+		{
+			// beard index
+			this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+			// administration index
+			this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+			// current page label (no link)
+			this.PageLinks.AddLink("Access Masks", string.Empty);
+		}
 
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      DataBind();
-    }
+		#endregion
 
-    /// <summary>
-    /// The save_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Save_Click(object sender, EventArgs e)
-    {
-      // Forum
-      object accessMaskID = null;
-      if (Request.QueryString["i"] != null)
-      {
-        accessMaskID = Request.QueryString["i"];
-      }
+		
+		/* Event Handlers */
 
-      DB.accessmask_save(
-        accessMaskID, 
-        PageContext.PageBoardID, 
-        this.Name.Text, 
-        this.ReadAccess.Checked, 
-        this.PostAccess.Checked, 
-        this.ReplyAccess.Checked, 
-        this.PriorityAccess.Checked, 
-        this.PollAccess.Checked, 
-        this.VoteAccess.Checked, 
-        this.ModeratorAccess.Checked, 
-        this.EditAccess.Checked, 
-        this.DeleteAccess.Checked, 
-        this.UploadAccess.Checked, 
-        this.DownloadAccess.Checked,
-        this.SortOrder.Text);
+		#region Page Events
 
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+		/// <summary>
+		/// The page_ load.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Page_Load(object sender, EventArgs e)
+		{
+			if (!IsPostBack)
+			{
+				// create page links
+				CreatePageLinks();
 
-      YafBuildLink.Redirect(ForumPages.admin_accessmasks);
-    }
+				// bind data
+				BindData();
+			}
+		}
 
-    /// <summary>
-    /// The cancel_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Cancel_Click(object sender, EventArgs e)
-    {
-      YafBuildLink.Redirect(ForumPages.admin_accessmasks);
-    }
-  }
+		#endregion
+
+		#region Control Events
+
+		/// <summary>
+		/// The save_ click.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Save_Click(object sender, EventArgs e)
+		{
+			// retrieve access mask ID from parameter (if applicable)
+			object accessMaskID = null;
+			if (Request.QueryString["i"] != null) accessMaskID = Request.QueryString["i"];
+
+			// save it
+			DB.accessmask_save(
+			  accessMaskID,
+			  PageContext.PageBoardID,
+			  this.Name.Text,
+			  this.ReadAccess.Checked,
+			  this.PostAccess.Checked,
+			  this.ReplyAccess.Checked,
+			  this.PriorityAccess.Checked,
+			  this.PollAccess.Checked,
+			  this.VoteAccess.Checked,
+			  this.ModeratorAccess.Checked,
+			  this.EditAccess.Checked,
+			  this.DeleteAccess.Checked,
+			  this.UploadAccess.Checked,
+			  this.DownloadAccess.Checked,
+			  this.SortOrder.Text);
+
+			// clear cache
+			PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+
+			// get back to access masks administration
+			YafBuildLink.Redirect(ForumPages.admin_accessmasks);
+		}
+
+
+		/// <summary>
+		/// The cancel_ click.
+		/// </summary>
+		/// <param name="sender">
+		/// The sender.
+		/// </param>
+		/// <param name="e">
+		/// The e.
+		/// </param>
+		protected void Cancel_Click(object sender, EventArgs e)
+		{
+			// get back to access masks administration
+			YafBuildLink.Redirect(ForumPages.admin_accessmasks);
+		}
+
+		#endregion
+
+
+		/* Methods */
+		#region Data Binding
+
+		/// <summary>
+		/// The bind data.
+		/// </summary>
+		private void BindData()
+		{
+			if (Request.QueryString["i"] != null)
+			{
+				// load access mask
+				using (DataTable dt = DB.accessmask_list(PageContext.PageBoardID, Request.QueryString["i"]))
+				{
+					// we need just one
+					DataRow row = dt.Rows[0];
+
+					// get access mask properties
+					this.Name.Text = (string)row["Name"];
+					this.SortOrder.Text = row["SortOrder"].ToString();
+
+					// get flags
+					var flags = new AccessFlags(row["Flags"]);
+					this.ReadAccess.Checked = flags.ReadAccess;
+					this.PostAccess.Checked = flags.PostAccess;
+					this.ReplyAccess.Checked = flags.ReplyAccess;
+					this.PriorityAccess.Checked = flags.PriorityAccess;
+					this.PollAccess.Checked = flags.PollAccess;
+					this.VoteAccess.Checked = flags.VoteAccess;
+					this.ModeratorAccess.Checked = flags.ModeratorAccess;
+					this.EditAccess.Checked = flags.EditAccess;
+					this.DeleteAccess.Checked = flags.DeleteAccess;
+					this.UploadAccess.Checked = flags.UploadAccess;
+					this.DownloadAccess.Checked = flags.DownloadAccess;
+				}
+			}
+
+			DataBind();
+		}
+		
+		#endregion
+	}
 }

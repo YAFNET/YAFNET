@@ -9,7 +9,7 @@
 							<b>Search Users</b>
 						</td>
 					</tr>
-					<tr class="post">
+					<tr class="header2">
 						<td>
 							Role:
 						</td>
@@ -39,7 +39,13 @@
 							<asp:TextBox ID="Email" runat="server" Width="100%"></asp:TextBox>
 						</td>
 					</tr>
-					<tr>					    
+					<tr>
+						<td class="post" colspan="4" align="right">
+							Filter by join date since 
+							<asp:DropDownList ID="Since" runat="server" AutoPostBack="True" OnSelectedIndexChanged="Since_SelectedIndexChanged" />
+						</td>
+					</tr>
+					<tr>					   
 						<td class="footer1" colspan="4" align="right">
 							<asp:Button ID="search" runat="server" OnClick="search_Click" Text="Search"></asp:Button>
 						</td>
