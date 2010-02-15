@@ -87,7 +87,7 @@ namespace YAF.Controls
                 }
                 else if (detectedBBCode == "ALL")
                 {
-                    PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("BBCODE_FORBIDDEN"));
+                    PageContext.AddLoadMessage(PageContext.Localization.GetText("BBCODE_FORBIDDEN"));
                     return;
                 }
                 // find forbidden HTMLTags in signature
@@ -99,7 +99,7 @@ namespace YAF.Controls
                 }
                 else if (detectedHTMLTag == "ALL")
                 {
-                    PageContext.AddLoadMessage(PageContext.Localization.GetTextFormatted("HTMLTAG_FORBIDDEN"));
+                    PageContext.AddLoadMessage(PageContext.Localization.GetText("HTMLTAG_FORBIDDEN"));
                     return;
                 }
             }
