@@ -125,7 +125,8 @@
 							</td>
 						</tr>
 						</asp:PlaceHolder>
-						<asp:PlaceHolder runat="server" ID="RecaptchaHolder" Visible="false">
+						<asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false">  
+
 						<tr>
 							<td align="right" class="postheader" valign="top">
 							<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="Captcha_Image" />

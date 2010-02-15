@@ -24,7 +24,7 @@ namespace YAF.Pages
   #region Using
 
   using System;
-  using System.Net.Mail;
+  using System.Net.Mail; 
   using System.Web.Security;
   using System.Web.UI;
   using System.Web.UI.WebControls;
@@ -49,6 +49,11 @@ namespace YAF.Pages
     /// The recupt.
     /// </summary>
     private RecaptchaControl recupt;
+    
+    /// <summary>
+    /// The recPH.
+    /// </summary>
+    private PlaceHolder recPH;
 
     #endregion
 
@@ -65,7 +70,23 @@ namespace YAF.Pages
     #endregion
 
     #region Properties
+   
+    /// <summary>
+    /// Gets a value indicating whether RecaptchaControl.
+    /// </summary>
+    private RecaptchaControl Recupt
+    {
+        get
+        {
+            return recupt;
+        }
+        set
+        {
+            recupt = value;
+        }
 
+    }
+    
     /// <summary>
     /// Gets a value indicating whether IsProtected.
     /// </summary>
@@ -85,22 +106,6 @@ namespace YAF.Pages
       get
       {
         return this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
-      }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether RecaptchaControl.
-    /// </summary>
-    private RecaptchaControl Recupt
-    {
-      get
-      {
-        return this.recupt;
-      }
-
-      set
-      {
-        this.recupt = value;
       }
     }
 
@@ -258,52 +263,49 @@ namespace YAF.Pages
         return;
       }
 
-      if (userName.Length > this.PageContext.BoardSettings.UserNameMaxLength)
+      if (userName.Length > PageContext.BoardSettings.UserNameMaxLength)
       {
-        this.PageContext.AddLoadMessage(
-          this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength));
+        this.PageContext.AddLoadMessage(this.GetTextFormatted("USERNAME_TOOLONG",PageContext.BoardSettings.UserNameMaxLength));
         e.Cancel = true;
         return;
       }
 
       if (this.PageContext.BoardSettings.EnableDisplayName)
       {
-        var displayName = this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName");
+          var displayName = this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName");
 
-        if (displayName.Text.Length > this.PageContext.BoardSettings.UserNameMaxLength)
-        {
-          this.PageContext.AddLoadMessage(
-            this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength));
-          e.Cancel = true;
-          return;
-        }
-
-        if (this.PageContext.UserDisplayName.GetId(displayName.Text.Trim()).HasValue)
-        {
-          this.PageContext.AddLoadMessage(this.GetText("ALREADY_REGISTERED_DISPLAYNAME"));
-          e.Cancel = true;
-        }
+          if (displayName.Text.Length > this.PageContext.BoardSettings.UserNameMaxLength)
+          {
+              this.PageContext.AddLoadMessage(this.GetTextFormatted("USERNAME_TOOLONG", PageContext.BoardSettings.UserNameMaxLength));
+              e.Cancel = true;
+              return;
+          }
+          if (PageContext.UserDisplayName.GetId(displayName.Text.Trim()).HasValue)
+          {
+              this.PageContext.AddLoadMessage(this.GetText("ALREADY_REGISTERED_DISPLAYNAME"));
+              e.Cancel = true;
+          }
       }
 
       var yafCaptchaText = this.CreateUserStepContainer.FindControlAs<TextBox>("tbCaptcha");
-
+     
       // vzrus: Here recaptcha should be always valid. This piece of code for testing only.
-      var recaptchaControl = this.CreateUserWizard1.FindControlAs<RecaptchaControl>("Recaptcha1");
-
-      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 2 && recaptchaControl != null &&
-          !recaptchaControl.IsValid)
+      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 2)
       {
-        this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
-        e.Cancel = true;
+          var reCaptcha = ((RecaptchaControl)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "Recaptcha1"));
+          if ((!reCaptcha.IsValid))
+          {
+              this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
+              e.Cancel = true;
+          }
       }
-
       // verify captcha if enabled
       if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1 &&
           this.Session["CaptchaImageText"].ToString() != yafCaptchaText.Text.Trim())
       {
         this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
         e.Cancel = true;
-      }
+      }     
     }
 
     /// <summary>
@@ -339,8 +341,8 @@ namespace YAF.Pages
           UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey), 
           this.PageContext.PageBoardID, 
           null, 
-          null, 
-          null, 
+          null,
+          null,
           Convert.ToInt32(timeZones.SelectedValue), 
           null, 
           null, 
@@ -413,8 +415,8 @@ namespace YAF.Pages
           // success notification localization
           ((Literal)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "AccountCreated")).Text =
             YafBBCode.MakeHtml(this.GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
-        }
-
+        }        
+        
         this.CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
 
         this.DataBind();
@@ -428,20 +430,15 @@ namespace YAF.Pages
       requirementText.Param1 = this.PageContext.CurrentMembership.MinRequiredNonAlphanumericCharacters.ToString();
 
       // max user name length
-      var usernamelehgthText =
-        (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelLohgUserNameWarnText");
+      var usernamelehgthText = (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelLohgUserNameWarnText");
       usernamelehgthText.Param0 = this.PageContext.BoardSettings.UserNameMaxLength.ToString();
-
-      if (this.Page.IsPostBack && (this.PageContext.BoardSettings.CaptchaTypeRegister == 2))
-      {
-        ((PlaceHolder)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "RecaptchaHolder")).Visible =
-          true;
-      }
-
-      if (this.PageContext.BoardSettings.CaptchaTypeRegister == 2)
-      {
-        this.SetupRecaptchaControl();
-      }
+       
+       
+        if (PageContext.BoardSettings.CaptchaTypeRegister == 2)
+        {
+           SetupRecaptchaControl();;
+        }    
+     
     }
 
     /// <summary>
@@ -534,7 +531,7 @@ namespace YAF.Pages
       createUser.ToolTip = createUser.Text = this.GetText("CREATE_USER");
 
       var captchaPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("YafCaptchaHolder");
-      var recaptchaPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("RecaptchaHolder");
+      var recaptchaPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("RecaptchaPlaceHolder");
 
       if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1)
       {
@@ -542,17 +539,17 @@ namespace YAF.Pages
         var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
         imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumClientFileRoot);
-
+        
         captchaPlaceHolder.Visible = true;
       }
       else
       {
-        captchaPlaceHolder.Visible = false;
+        captchaPlaceHolder.Visible = false;        
       }
 
-      recaptchaPlaceHolder.Visible = this.PageContext.BoardSettings.CaptchaTypeRegister == 2;
+        recaptchaPlaceHolder.Visible = this.PageContext.BoardSettings.CaptchaTypeRegister == 2;
 
-      this.SetupDisplayNameUI(this.CreateUserStepContainer, this.PageContext.BoardSettings.EnableDisplayName);
+        this.SetupDisplayNameUI(this.CreateUserStepContainer, this.PageContext.BoardSettings.EnableDisplayName);
 
       var questionAnswerPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("QuestionAnswerPlaceHolder");
       questionAnswerPlaceHolder.Visible = this.PageContext.CurrentMembership.RequiresQuestionAndAnswer;
@@ -577,33 +574,31 @@ namespace YAF.Pages
     /// The setup recaptcha control.
     /// </summary>
     private void SetupRecaptchaControl()
-    {
-      if (string.IsNullOrEmpty(this.PageContext.BoardSettings.RecaptchaPrivateKey) ||
-          string.IsNullOrEmpty(this.PageContext.BoardSettings.RecaptchaPrivateKey))
-      {
-        // this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));              
-        DB.eventlog_create(
-          this.PageContext.PageUserID, this, "Please set public and private key for the ReCaptcha control.");
-        YafBuildLink.Redirect(ForumPages.info, "i=4");
-      }
+     {
+         ((PlaceHolder)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "RecaptchaPlaceHolder")).Visible = true;
+            if (string.IsNullOrEmpty(PageContext.BoardSettings.RecaptchaPrivateKey) || string.IsNullOrEmpty(PageContext.BoardSettings.RecaptchaPrivateKey))
+            {
+                // this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));              
+                YAF.Classes.Data.DB.eventlog_create(this.PageContext.PageUserID, this, "Private or public key for Recapture required!");
+                YafBuildLink.Redirect(ForumPages.info, "i=4");
+            }
 
-      this.Recupt = new RecaptchaControl
-        {
-          ID = "Recaptcha1", 
-          PrivateKey = this.PageContext.BoardSettings.RecaptchaPrivateKey, 
-          PublicKey = this.PageContext.BoardSettings.RecaptchaPublicKey, 
-          AllowMultipleInstances = this.PageContext.BoardSettings.RecaptureMultipleInstances, 
-          Enabled = true, 
-          EnableTheming = true, 
-          // 'red' , 'white', 'blackglass' , 'clean' , 'custom'	
-          Theme = "blackglass", 
-          OverrideSecureMode = false
-        };
+            this.Recupt = new RecaptchaControl
+           {
+               ID = "Recaptcha1",
+               PrivateKey = PageContext.BoardSettings.RecaptchaPrivateKey,
+               PublicKey = PageContext.BoardSettings.RecaptchaPublicKey,
+               AllowMultipleInstances = PageContext.BoardSettings.RecaptureMultipleInstances,
+               Enabled = true,
+               EnableTheming = true,
+               // 'red' , 'white', 'blackglass' , 'clean' , 'custom'	
+               Theme = "blackglass",
+               OverrideSecureMode = false
+           };
+            recPH = ((PlaceHolder)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "RecaptchaControl"));            
+            recPH.Controls.Add(Recupt);
+            recPH.Visible = true;
 
-      var recaptchaHolder = (PlaceHolder)this.CreateUserWizard1.FindWizardControlRecursive("RecaptchaHolder");
-      var recaptchaControlHolder = (PlaceHolder)this.CreateUserWizard1.FindWizardControlRecursive("RecaptchaControl");
-      recaptchaControlHolder.Controls.Add(this.Recupt);
-      recaptchaHolder.Visible = true;
     }
 
     #endregion
