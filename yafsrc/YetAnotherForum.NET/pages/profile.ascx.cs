@@ -313,7 +313,7 @@ namespace YAF.Pages
       if (LastPosts.Visible)
       {
         LastPosts.DataSource = DB.post_alluser(this.PageContext.PageBoardID, userID, this.PageContext.PageUserID, 10);
-        SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userID);
+		  SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userDisplayName);
       }
 
       this.DataBind();
