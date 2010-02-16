@@ -302,7 +302,7 @@
     <Resource tag="TT_CODE">Код</Resource>
     <Resource tag="TT_CREATELINK">Создать ссылку</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Больше кодов BBCode</Resource>
-    <Resource tag="TT_HIGHLIGHT">Highlight</Resource>
+    <Resource tag="TT_HIGHLIGHT">Подсветка</Resource>
     <Resource tag="TT_IMAGE">Вставить изображение</Resource>
     <Resource tag="TT_ITALIC">Курсив</Resource>
     <Resource tag="TT_QUOTE">Цитата</Resource>
@@ -1017,8 +1017,8 @@
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">мин. длина - {0}. Количество спецсимволов($#@!) - {1}.</Resource>
     <Resource tag="PREFERENCES">Ваши предпочтения</Resource>
     <Resource tag="PROFILE">Информация в профиле</Resource>
-    <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
-    <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
+    <Resource tag="RECAPTCHA_BADSETTING">Настройки Recapture неверны. RСообщите это администрации.</Resource>
+    <Resource tag="RECATCHA_BADWORDS">Неверный ответ! Попробуйте снова.</Resource>
     <Resource tag="REGISTER">Регистрация</Resource>
     <Resource tag="RETYPE_PASSWORD">Подтверждение пароля обязательно.</Resource>
     <Resource tag="SECURITY_ANSWER">Контрольный ответ</Resource>
@@ -1027,7 +1027,7 @@
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
     <Resource tag="TITLE">Регистрация нового пользователя</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
-    <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">В имене пользователя не должно быть более {0} символов.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Подтверждение регистрации для форума {0}</Resource>
   </page>
   <page name="REPORTPOST">

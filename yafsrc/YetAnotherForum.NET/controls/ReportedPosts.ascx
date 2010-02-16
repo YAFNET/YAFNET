@@ -13,8 +13,9 @@
                     </YAF:LocalizedLabel>
                     <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>'>
                     </YAF:UserLink>
-		            <YAF:ThemeButton ID="PM" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="POSTS"
-				            TextLocalizedTag="PM" ImageThemeTag="PM" />
+		            <YAF:ThemeButton ID="PM" runat="server" CssClass="yaflittlebutton"            
+				    TextLocalizedTag="PM"  ImageThemeTag="PM" 
+				    NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", Container.DataItemToField<int>("UserID"))%>' />
                 </span>
             </td>
         </tr>
