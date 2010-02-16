@@ -5679,7 +5679,7 @@ begin
 		-- get highest rank user can get
 		select top 1
                @RankID = RankID
-        from   [dbo].[yaf_Rank]
+        from   [{databaseOwner}].[{objectQualifier}Rank]
         where  BoardId = @BoardId
                and (Flags & 2) = 2
                and MinPosts <= @NumPosts
