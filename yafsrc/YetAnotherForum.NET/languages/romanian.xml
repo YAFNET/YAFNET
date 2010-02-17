@@ -561,6 +561,9 @@
     <Resource tag="NO_POSTS">Nici un post</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Postari</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statistici</Resource>
     <Resource tag="STATS_LASTMEMBER">Cel mai nou membru este {0}.</Resource>
     <Resource tag="STATS_LASTPOST">Ultima postare {0} de {1}.</Resource>

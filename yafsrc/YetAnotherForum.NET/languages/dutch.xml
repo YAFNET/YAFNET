@@ -561,6 +561,9 @@
     <Resource tag="NO_POSTS">Geen berichten</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Berichten</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statistieken</Resource>
     <Resource tag="STATS_LASTMEMBER">Het nieuwste lid is {0}.</Resource>
     <Resource tag="STATS_LASTPOST">Laatste bericht geplaatst op {0} door {1}.</Resource>

@@ -559,6 +559,9 @@
     <Resource tag="NO_POSTS">Žiadne správy</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Správy</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Štatistika</Resource>
     <Resource tag="STATS_LASTMEMBER">Najnovším členom je {0}.</Resource>
     <Resource tag="STATS_LASTPOST">Poslednú správu {0} poslal {1}.</Resource>

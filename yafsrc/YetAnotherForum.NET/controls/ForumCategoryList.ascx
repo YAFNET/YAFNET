@@ -51,6 +51,7 @@
 							Visible='<%# PageContext.BoardSettings.ShowRSSLink %>'>
 							<YAF:LocalizedLabel ID="RSSFeedLabel" runat="server" LocalizedTag="RSSFEED" />							
 					</asp:HyperLink>
+					<asp:HyperLink ID="RssIcon" runat="server" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.rsstopic, "pg=forum" ) %>' Visible='<%# PageContext.BoardSettings.ShowRSSLink %>' ImageUrl="~/images/feed.png" ToolTip='<%# PageContext.Localization.GetText("RSSICONTOOLTIPFORUM") %>'></asp:HyperLink>
 					</td>
 				</tr>
 			</table>	

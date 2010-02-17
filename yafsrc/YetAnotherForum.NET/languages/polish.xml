@@ -560,6 +560,9 @@
     <Resource tag="NO_POSTS">Nie ma Postów</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Posty</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statystyki</Resource>
     <Resource tag="STATS_LASTMEMBER">Najnowszy użytkownik to {0}.</Resource>
     <Resource tag="STATS_LASTPOST">Ostatnie post o {0} przez {1}.</Resource>

@@ -634,6 +634,9 @@
     <Resource tag="NO_POSTS">Komentarų nėra </Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Žinutės </Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statistika </Resource>
     <Resource tag="STATS_LASTMEMBER">Naujausias narys yra {0}. </Resource>
     <Resource tag="STATS_LASTPOST">Paskutiniai komentarai {0} iš {1}. </Resource>

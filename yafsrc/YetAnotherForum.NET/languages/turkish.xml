@@ -560,6 +560,9 @@
     <Resource tag="NO_POSTS">Mesaj Yok.</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Mesajlar</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">İstatistikler</Resource>
     <Resource tag="STATS_LASTMEMBER">En Yeni Üyemiz {0}.</Resource>
     <Resource tag="STATS_LASTPOST">En Son Mesaj {0} Tarafından {1} Eklenmiştir.</Resource>

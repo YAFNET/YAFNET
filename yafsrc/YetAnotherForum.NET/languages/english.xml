@@ -474,6 +474,9 @@
     <Resource tag="NO_FORUM_ACCESS">(No Access)</Resource>
     <Resource tag="NO_POSTS">No Posts</Resource>
     <Resource tag="POSTS">Posts</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
     <Resource tag="STATS">Statistics</Resource>
     <Resource tag="STATS_LASTMEMBER">The newest member is</Resource>
     <Resource tag="STATS_LASTPOST">Last post {0} by</Resource>

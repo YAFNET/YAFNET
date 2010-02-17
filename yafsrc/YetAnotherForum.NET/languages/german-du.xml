@@ -527,6 +527,9 @@
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Beiträge</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statistik</Resource>
     <Resource tag="STATS_LASTMEMBER">Unser neustes Mitglied ist</Resource>
     <Resource tag="STATS_LASTPOST">Letzter Beitrag {0} von</Resource>

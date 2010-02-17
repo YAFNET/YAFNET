@@ -561,6 +561,9 @@
     <Resource tag="NO_POSTS">Ingen indlæg</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Indlæg</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statistik</Resource>
     <Resource tag="STATS_LASTMEMBER">Nyeste medlem er {0}.</Resource>
     <Resource tag="STATS_LASTPOST">Sidste indlæg var den {0} af {1}.</Resource>

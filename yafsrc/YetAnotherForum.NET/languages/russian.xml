@@ -510,6 +510,9 @@
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
     <Resource tag="ONDATE">оставлено {0}</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Статистика</Resource>
     <Resource tag="STATS_LASTMEMBER">Последний зарегистрированный пользователь</Resource>
     <Resource tag="STATS_LASTPOST">Последнее сообщение {0} отправил</Resource>

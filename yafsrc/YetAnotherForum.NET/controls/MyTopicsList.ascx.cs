@@ -92,19 +92,26 @@ namespace YAF.Controls
 				{
 					// for active topics list
 					this.RssFeed.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, "pg=active");
-				}
+                    this.RssIcon.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, "pg=active");
+                    this.RssIcon.ToolTip = PageContext.Localization.GetText("RSSICONTOOLTIPACTIVE");
+                }
 				else
 				{
 					// for favorites list
 					this.RssFeed.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, "pg=favorite");
-				}
+                    this.RssIcon.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, "pg=favorite");
+                    this.RssIcon.ToolTip = PageContext.Localization.GetText("RSSICONTOOLTIPFAVORITE");
+
+                }
 				this.RssFeed.Text = PageContext.Localization.GetText("RSSFEED");
 				this.RssFeed.Visible = true;
+                this.RssIcon.Visible = true;
 			}
 			else
 			{
 				// hide RSS link if board has them turned off
 				this.RssFeed.Visible = false;
+                this.RssIcon.Visible = false;
 			}
 
 			if (!IsPostBack)

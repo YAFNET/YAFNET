@@ -527,6 +527,9 @@
     <Resource tag="NO_POSTS">ارسالی وجود ندارد</Resource>
     <Resource tag="ONDATE">در تاریخ {0}</Resource>
     <Resource tag="POSTS">ارسالها</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">اشتراک عناوین فعال از طریق آر اس اس</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">اشتراک عناوین مورد علاقه تان از طریق آر اس اس</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">اشتراک عناوین انجمن از طریق آر اس اس</Resource>
     <Resource tag="STATS">آمار و ارقام</Resource>
     <Resource tag="STATS_LASTMEMBER">جدیدترین کاربر</Resource>
     <Resource tag="STATS_LASTPOST">آخرین ارسال {0} بوسیله</Resource>
@@ -1035,7 +1038,7 @@
     <Resource tag="PREFERENCES">تنظیمات انجمن</Resource>
     <Resource tag="PROFILE">اطلاعات پروفایل</Resource>
     <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to adminstration.</Resource>
-    <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
+    <Resource tag="RECATCHA_BADWORDS">اشتباه است! دوباره تلاش کنید.</Resource>
     <Resource tag="REGISTER">ثبت نام</Resource>
     <Resource tag="RETYPE_PASSWORD">تایپ مجدد رمز عبور ضروری است.</Resource>
     <Resource tag="SECURITY_ANSWER">پاسخ امنیتی</Resource>
@@ -1044,14 +1047,14 @@
     <Resource tag="TIMEZONE">منطقه ساعتی</Resource>
     <Resource tag="TITLE">ثبت کاربر جدید</Resource>
     <Resource tag="USERNAME">نام کاربری</Resource>
-    <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more then {0} characters.</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">نام کاربری نباید از {0} کاراکتر بیشتر باشد</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">بررسی ثبت نام برای انجمن {0}</Resource>
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">لغو</Resource>
     <Resource tag="ENTER_TEXT">متن مورد نظر برای گزارش را اینجا وارد کنید</Resource>
     <Resource tag="HEADER">گزارش ارسال</Resource>
-    <Resource tag="POSTEDBY">Posted by:</Resource>
+    <Resource tag="POSTEDBY">ارسال شده توسط:</Resource>
     <Resource tag="SEND">گزارش</Resource>
   </page>
   <page name="RTE">
@@ -1290,7 +1293,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MODERATE">مدیریت</Resource>
     <Resource tag="MYALBUMS">آلبومهای من</Resource>
     <Resource tag="MYPROFILE">تنظیمان من</Resource>
-    <Resource tag="MYTOPICS">عناوین فعال | عناوین مورد علاقه</Resource>
+    <Resource tag="MYTOPICS">عناوین من</Resource>
     <Resource tag="NEWPM">({0} پیغام خوانده نشده)</Resource>
     <Resource tag="REGISTER">ثبت نام</Resource>
     <Resource tag="SEARCH">جستجو</Resource>

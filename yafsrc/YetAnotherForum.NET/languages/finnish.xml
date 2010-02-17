@@ -559,6 +559,9 @@
     <Resource tag="NO_POSTS">Ei viestejä</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">Viestejä</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Tilastotietoa</Resource>
     <Resource tag="STATS_LASTMEMBER">Uusin jäsen on {0}.</Resource>
     <Resource tag="STATS_LASTPOST">Viimeisin viesti on kirjoitettu {0}, lähettäjänä {1}.</Resource>

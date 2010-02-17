@@ -44,6 +44,18 @@ namespace YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
+            // show RSS icon if it is enabled
+            if (PageContext.BoardSettings.ShowRSSLink)
+            {
+                this.RssIcon.Visible = true;
+                this.RssIcon.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, "pg=forum");
+                this.RssIcon.ToolTip = PageContext.Localization.GetText("RSSICONTOOLTIPFORUM");
+            }
+            else
+            {
+                // hide RSS icon if it is disabled
+                this.RssIcon.Visible = false;
+            }
 			if ( !IsPostBack )
 			{
 				ShoutBox1.Visible = PageContext.BoardSettings.ShowShoutbox;

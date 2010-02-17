@@ -506,6 +506,9 @@
     <Resource tag="NO_POSTS">Không có bài viết</Resource>
     <Resource tag="ONDATE">trên {0} ngày</Resource>
     <Resource tag="POSTS">Bài viết</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Thống kê</Resource>
     <Resource tag="STATS_LASTMEMBER">Chào mừng thành viên mới nhất: </Resource>
     <Resource tag="STATS_LASTPOST">Bài viết cuối {0} bởi.</Resource>

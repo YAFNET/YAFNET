@@ -19,3 +19,9 @@
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
+<div align="center" id="RssIconDiv">
+<asp:HyperLink ID="RssIcon" runat="server" ImageUrl="~/images/feed.png">Rss</asp:HyperLink>
+
+</div>
+
+

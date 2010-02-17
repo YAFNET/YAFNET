@@ -559,6 +559,9 @@
     <Resource tag="NO_POSTS">无新贴</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
     <Resource tag="POSTS">贴子数量</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">统计</Resource>
     <Resource tag="STATS_LASTMEMBER">最新会员: {0}.</Resource>
     <Resource tag="STATS_LASTPOST">最后由 {1} 发表于 {0}.</Resource>
