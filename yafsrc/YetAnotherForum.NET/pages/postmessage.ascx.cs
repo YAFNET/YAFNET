@@ -531,11 +531,19 @@ namespace YAF.Pages
         return;
       }
 
+      // Check if the topic name is not too long
+      if (!FormatMsg.WordLengthChecker(this.Subject.Text))
+      {
+          this.PageContext.AddLoadMessage(this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
+          return;
+      } 
+   
+         
       // update the last post time...
       Mession.LastPost = DateTime.Now.AddSeconds(30);
 
       long messageId = 0;
-
+     
       if (this.TopicID != null)
       {
         // Reply to topic
@@ -987,7 +995,27 @@ namespace YAF.Pages
       else if (this.PollRow1.Visible)
       {
         // User wishes to create a poll
-        return DB.poll_save(
+      
+        // vzrus: Code for a future   
+         /* int questionsTotal = 1;
+
+         System.Collections.Generic.List<PollSaveList> pollList =
+             new System.Collections.Generic.List<PollSaveList>(questionsTotal);
+
+          pollList.Add(new PollSaveList(this.Question.Text, 
+          new string[]{this.PollChoice1.Text, 
+          this.PollChoice2.Text, 
+          this.PollChoice3.Text, 
+          this.PollChoice4.Text, 
+          this.PollChoice5.Text, 
+          this.PollChoice6.Text, 
+          this.PollChoice7.Text, 
+          this.PollChoice8.Text, 
+          this.PollChoice9.Text},
+          datePollExpire)); 
+          return DB.poll_save(pollList); */
+
+          return DB.poll_save(
           this.Question.Text, 
           this.PollChoice1.Text, 
           this.PollChoice2.Text, 

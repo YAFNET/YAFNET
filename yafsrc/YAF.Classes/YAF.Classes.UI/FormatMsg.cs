@@ -598,6 +598,41 @@ namespace YAF.Classes.UI
 
       return html;
     }
+/// <summary>
+/// Function to check a max word length, used i.e. in topic names.
+/// </summary>
+/// <param name="message">The raw string to format</param>
+/// <returns>The formatted string</returns>
+    public static bool WordLengthChecker(string message)
+    {
+        // Set it to limit length
+        int maxWordLength = YafContext.Current.BoardSettings.MaxWordLength;        
+
+        if (message.Length > 0)
+        {
+            string[] messageArray = message.Split(' ');
+            for (uint i = 0; i < messageArray.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(messageArray[i].Trim()))
+                {
+
+                    if (messageArray[i].Length > maxWordLength)
+                    {
+                        return false;
+
+                    }                   
+
+                }                
+            }
+            return true;
+        }
+        else
+        {
+            return true;
+        }
+   
+        
+    }
 
     /// <summary>
     /// Surrounds a word list with prefix/postfix. Case insensitive.

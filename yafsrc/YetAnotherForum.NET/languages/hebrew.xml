@@ -832,6 +832,7 @@
     <Resource tag="STICKY">דביק</Resource>
     <Resource tag="SUBJECT">נושא:</Resource>
     <Resource tag="TOPICATTACH">האם ברצונך לצרף קבצים לדיון זה?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">האם ברצונך לקבל עדכונים במייל על פעילות בדיון זה?</Resource>
     <Resource tag="WAIT">אינך יכול לכתוב במהלך ה {0:N0} השניות הבאות.</Resource>
   </page>

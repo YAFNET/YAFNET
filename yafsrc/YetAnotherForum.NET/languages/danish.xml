@@ -864,6 +864,7 @@
     <Resource tag="STICKY">Sticky</Resource>
     <Resource tag="SUBJECT">Emne:</Resource>
     <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
     <Resource tag="WAIT">Du kan ikke skrive i de næste {0:N0} sekunder.</Resource>
   </page>

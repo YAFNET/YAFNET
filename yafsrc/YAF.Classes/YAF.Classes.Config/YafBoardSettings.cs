@@ -396,6 +396,21 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets MaxWordLength. Used in topic names etc. to avoid layout distortions.
+    /// </summary>
+    public int MaxWordLength
+    {
+        get
+        {
+            return this._reg.GetValue<int>("MaxWordLength", 40);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("MaxWordLength", value);
+        }
+    }
+    /// <summary>
     /// Gets or sets MaxFileSize.
     /// </summary>
     public int MaxFileSize

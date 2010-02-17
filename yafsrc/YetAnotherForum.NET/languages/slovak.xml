@@ -885,6 +885,7 @@
     <Resource tag="STICKY">Prišpendliť</Resource>
     <Resource tag="SUBJECT">Predmet:</Resource>
     <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
     <Resource tag="WAIT">Nasledujúcich {0:N0} sekúnd nebudete môcť odoslať ďalšiu správu.</Resource>
   </page>

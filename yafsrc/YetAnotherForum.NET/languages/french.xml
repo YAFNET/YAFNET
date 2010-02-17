@@ -808,6 +808,7 @@
     <Resource tag="STICKY">Collant</Resource>
     <Resource tag="SUBJECT">Sujet&amp;nbsp;:</Resource>
     <Resource tag="TOPICATTACH">Ajouter des fichiers à ce message?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Surveiller ce sujet et recevoir des notifications via e-mail?</Resource>
     <Resource tag="WAIT">Vous ne pouvez pas envoyer de message dans les {0:N0} secondes qui vont suivre.</Resource>
   </page>

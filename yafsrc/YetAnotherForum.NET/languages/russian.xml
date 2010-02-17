@@ -812,6 +812,7 @@
     <Resource tag="STICKY">Прикреплённое</Resource>
     <Resource tag="SUBJECT">Тема:</Resource>
     <Resource tag="TOPICATTACH">Прикрепить файлы к этому сообщению?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Максимальная длина слова в названии темы не должна быть более {0} символов. Используйте сокращения или исправьте ошибку в слове.</Resource>
     <Resource tag="TOPICWATCH">Следить за этой темой и получать уведомления о новых сообщениях по электронной почте?</Resource>
     <Resource tag="WAIT">Вы не можете оставить следующее сообщение в течение последующих  {0:N0} секунд.</Resource>
   </page>

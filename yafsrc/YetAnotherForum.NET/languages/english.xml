@@ -738,6 +738,7 @@
     <Resource tag="SUBJECT">Subject:</Resource>
     <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
     <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
+	<Resource tag="TOPICNAME_TOOLONG">Maximal topic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">

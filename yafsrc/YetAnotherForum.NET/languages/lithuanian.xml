@@ -971,6 +971,7 @@
     <Resource tag="STICKY">Sticky </Resource>
     <Resource tag="SUBJECT">Tema: </Resource>
     <Resource tag="TOPICATTACH">Pridėti failus į šį postą? </Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">
       Stebėti šią temą ir gauti pranešimus apie veiklą, per e-
 

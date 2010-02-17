@@ -832,6 +832,7 @@
     <Resource tag="STICKY">Wichtig</Resource>
     <Resource tag="SUBJECT">Betreff:</Resource>
     <Resource tag="TOPICATTACH">Bilder oder Dateien an diesen Beitrag anhängen?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Möchtest Du per E-Mail informiert werden, wenn es Antworten auf das Thema gibt?</Resource>
     <Resource tag="WAIT">Du kannst in den nächsten {0:N0} Sekunden nicht posten.</Resource>
   </page>

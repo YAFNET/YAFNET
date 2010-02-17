@@ -827,6 +827,7 @@
     <Resource tag="STICKY">مهم</Resource>
     <Resource tag="SUBJECT">موضوع:</Resource>
     <Resource tag="TOPICATTACH">فایلی به این ارسال الصاق شود؟</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">آیااین موضوع با ارسال ایمیل به من تحت نظر قرار داده شود؟</Resource>
     <Resource tag="WAIT">تا {0:N0} ثانیه دیگر مجاز به ارسال مجدد نمی باشید</Resource>
   </page>

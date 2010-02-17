@@ -851,6 +851,7 @@
     <Resource tag="STICKY">Pegajoso</Resource>
     <Resource tag="SUBJECT">Asunto:</Resource>
     <Resource tag="TOPICATTACH">¿Añadir archivos a este mensaje?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">¿Vigilar este tema y recibir notificaciones de actividad vía e-mail?</Resource>
     <Resource tag="WAIT">No puedes ingresar mensajes en los próximos {0:N0} segundos.</Resource>
   </page>

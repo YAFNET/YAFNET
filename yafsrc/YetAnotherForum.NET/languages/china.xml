@@ -863,6 +863,7 @@
     <Resource tag="STICKY">置顶</Resource>
     <Resource tag="SUBJECT">标题:</Resource>
     <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
     <Resource tag="WAIT">您输入的太快，{0:N0} 秒内将不能提交.</Resource>
   </page>

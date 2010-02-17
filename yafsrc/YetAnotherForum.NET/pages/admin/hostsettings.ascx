@@ -517,7 +517,7 @@
 					<tr>
 						<td class="postheader">
 							<b>reCAPTCHA Public Key:</b><br />
-							Enter reCAPTCHA Public Key
+							Enter a reCAPTCHA Public Key
 						</td>
 						<td class="post">
 							<asp:TextBox ID="RecaptchaPublicKey" runat="server"></asp:TextBox>
@@ -526,7 +526,7 @@
 						<tr>
 						<td class="postheader">
 							<b>reCAPTCHA Private Key:</b><br />
-							Enter reCAPTCHA Private Key
+							Enter a reCAPTCHA Private Key
 						</td>
 						<td class="post">
 							<asp:TextBox ID="RecaptchaPrivateKey" runat="server"></asp:TextBox>
@@ -534,7 +534,7 @@
 					</tr>
 						<tr>
 						<td class="postheader">
-							<b>Enable reCAPTCHA Recapture Multiple Instances:</b><br />
+							<b>Enable reCAPTCHA Multiple Instances:</b><br />
 							Enable reCAPTCHA Recapture Multiple Instances(shared keys).
 						</td>
 						<td class="post">
@@ -563,12 +563,12 @@
 					</tr>
 					<tr>
 						<td class="postheader">
-							<b>Enable CAPTCHA for Register:</b><br />
+							<b>Enable CAPTCHA/reCAPTCHA for Register:</b><br />
 							Require users to enter the CAPTCHA when they register for the forum.
 						</td>
 						<td class="post">				
 							<asp:DropDownList ID="CaptchaTypeRegister" runat="server">
-								<asp:ListItem Value="0" Text="Disables" />
+								<asp:ListItem Value="0" Text="Disabled" />
 								<asp:ListItem Value="1" Text="YafCaptcha" />
 								<asp:ListItem Value="2" Text="ReCaptcha" />
 							</asp:DropDownList>
@@ -1051,7 +1051,17 @@
 								<asp:ListItem Value="2" Text="All Users" />
 							</asp:DropDownList>
 						</td>
+					</tr>							
+					<tr>
+						<td class="postheader">
+							<b>Max Word Length:</b><br />
+							Use it to limit number of a word characters in topic names and some other places.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="MaxWordLength" runat="server"></asp:CheckBox>
+						</td>
 					</tr>
+					
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View7" Text="Templates" NavigateUrl="" HeaderCssClass=""

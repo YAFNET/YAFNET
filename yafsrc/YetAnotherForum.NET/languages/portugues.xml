@@ -851,6 +851,7 @@
     <Resource tag="STICKY">Destacado</Resource>
     <Resource tag="SUBJECT">Assunto:</Resource>
     <Resource tag="TOPICATTACH">Attach files to this post?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
     <Resource tag="WAIT">Você não pode enviar nada nos próximos {0:N0} segundos.</Resource>
   </page>

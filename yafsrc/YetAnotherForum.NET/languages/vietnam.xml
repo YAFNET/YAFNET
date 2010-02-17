@@ -812,6 +812,7 @@
     <Resource tag="STICKY">Chú ý</Resource>
     <Resource tag="SUBJECT">Chủ đề:</Resource>
     <Resource tag="TOPICATTACH">Đính kèm tập tin?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
     <Resource tag="TOPICWATCH">Nhận thông báo của chủ đề qua email?</Resource>
     <Resource tag="WAIT">Bạn không gửi bài trong {0:N0} giây.</Resource>
   </page>
