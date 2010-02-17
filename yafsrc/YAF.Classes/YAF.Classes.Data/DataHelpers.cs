@@ -20,6 +20,7 @@
 namespace YAF.Classes.Data
 {
   using System;
+  using System.Collections.Generic;
   using System.Data;
   using System.Data.SqlClient;
   using YAF.Classes.Pattern;
@@ -170,5 +171,89 @@ namespace YAF.Classes.Data
     {
       return Convert.ToBoolean(o);
     }
+  }
+
+  /// <summary>
+  /// Class to hold polls and questions data to save
+  /// </summary>
+  public class PollSaveList
+  {
+      public PollSaveList()
+      {
+
+      }
+      public PollSaveList(string pollQuestion, string[] pollChoices, object pollCloses)
+      {
+
+          question = pollQuestion;
+          choice = pollChoices;
+          pollCloses = closes;
+      }
+
+      #region Constants and Fields
+
+      /// <summary>
+      /// The poll question.
+      /// </summary>
+      private string question;
+      /// <summary>
+      /// The Reply options.
+      /// </summary>
+      private string[] choice;
+      /// <summary>
+      /// TData whem poll will be closed.
+      /// </summary>
+      private DateTime closes;
+
+      #endregion
+
+      #region Properties
+
+      /// <summary>
+      /// Gets or Sets value for Question text
+      /// </summary>
+      public string Question
+      {
+          get
+          {
+              return question;
+          }
+          set
+          {
+              question = value;
+          }
+      }
+
+      /// <summary>
+      /// Gets or Sets value for Question text
+      /// </summary>
+      public string[] Choice
+      {
+          get
+          {
+              return choice;
+          }
+          set
+          {
+              choice = value;
+          }
+      }
+
+      /// <summary>
+      /// Gets or Sets value indicatiing when a poll (question) closes
+      /// </summary>
+      public DateTime Closes
+      {
+          get
+          {
+              return closes;
+          }
+          set
+          {
+              closes = value;
+          }
+      }
+
+      #endregion
   }
 }

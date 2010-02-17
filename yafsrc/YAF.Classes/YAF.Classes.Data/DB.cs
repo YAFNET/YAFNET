@@ -5596,6 +5596,82 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
+    /// The method saves many questions and answers to them in a single transaction 
+    /// </summary>
+    /// <param name="pollList">List to hold all polls data</param>
+    /// <returns>Last saved poll id.</returns>
+   public static int? poll_save(List<PollSaveList> pollList)
+    {
+     
+     foreach (PollSaveList question in pollList)
+      {
+          
+          StringBuilder sb = new StringBuilder("INSERT INTO ");
+          sb.Append(YafDBAccess.GetObjectName("Poll"));
+
+          if (question.Closes > DateTime.MinValue)
+          {
+              sb.Append("(Question,Closes) ");
+          }
+          else
+          {
+              sb.Append("(Question) ");
+          }
+
+          sb.Append(" VALUES(");
+          sb.Append("@Question");
+
+          if (question.Closes > DateTime.MinValue)
+          {
+              sb.Append(",@Closes");
+          }
+          sb.Append("); ");
+          sb.Append("SET @PollID = SCOPE_IDENTITY(); ");
+
+          // The cycle through question reply choices            
+          for (uint choiceCount = 0; choiceCount < question.Choice.Length; choiceCount++)
+          {
+              if (question.Choice[choiceCount].Trim().Length > 0)
+              {
+                  sb.Append("INSERT INTO ");
+                  sb.Append(YafDBAccess.GetObjectName("Choice"));
+                  sb.AppendFormat("(PollID,Choice,Votes) VALUES(@PollID,@Choice{0},@Votes{0}); ", choiceCount);
+
+              }
+          }
+              using (SqlCommand cmd = YafDBAccess.GetCommand(sb.ToString(), true))
+              {
+                  SqlParameter ret = new SqlParameter();
+                  ret.ParameterName = "@PollID";
+                  ret.SqlDbType = SqlDbType.Int;
+                  ret.Direction = ParameterDirection.Output;
+                  cmd.Parameters.Add(ret);
+                  cmd.Parameters.AddWithValue("@Question", question.Question);
+
+                  if (question.Closes > DateTime.MinValue)
+                  {
+                      cmd.Parameters.AddWithValue("@Closes", question.Closes);
+                  }
+                  for (uint choiceCount1 = 0; choiceCount1 < question.Choice.Length; choiceCount1++)
+                  {
+                     if (question.Choice[choiceCount1].Trim().Length > 0)
+                     {                                    
+                      cmd.Parameters.AddWithValue(String.Format("@Choice{0}", choiceCount1), question.Choice[choiceCount1]);
+                      cmd.Parameters.AddWithValue(String.Format("@Votes{0}", choiceCount1), 0);
+                      }
+                  }
+                  YafDBAccess.Current.ExecuteNonQuery(cmd,true);
+                  if (ret.Value != DBNull.Value)
+                  {
+                      return (int?)ret.Value;
+                  }                 
+              }
+          }
+      return null;
+      } 
+    
+
+    /// <summary>
     /// The poll_save.
     /// </summary>
     /// <param name="question">
