@@ -21,6 +21,8 @@ namespace YAF.Modules
   #region Using
 
   using System;
+  using System.Linq;
+  using System.Collections.Generic;
   using System.Web;
   using System.Web.Security;
 
@@ -131,13 +133,15 @@ namespace YAF.Modules
 
                 if (spUser != null)
                 {
+                  var webGroups = spWeb.Groups.Cast<SPGroup>().ToList();
+                  var userGroups = spUser.OwnedGroups.Cast<SPGroup>().ToList();
+
                   // sync to SharePoint
                   foreach (var groupName in groups)
                   {
-                    SPGroup spGroup = spWeb.Groups[groupName];
-                    if (spGroup != null && spUser.OwnedGroups[groupName] == null)
+                    if (webGroups.Exists(g => g.Name.Equals(groupName)) && !userGroups.Any(g => g.Name.Equals(groupName)))
                     {
-                      spGroup.AddUser(spUser);
+                      webGroups.Where(g => g.Name.Equals(groupName)).SingleOrDefault().AddUser(spUser);
                     }
                   }
                 }
@@ -145,7 +149,7 @@ namespace YAF.Modules
               catch (Exception ex)
               {
                 // Error handling logic should go here
-                DB.eventlog_create(null, this.ToString(), ex.ToString());
+                DB.eventlog_create(null, this.GetType().ToString(), ex.ToString());
               }
               finally
               {
