@@ -561,7 +561,8 @@ namespace YAF.Pages
             this.PageContext.PageUserID, 
             this.PageContext.PageBoardID, 
             this.PageContext.BoardSettings.ReturnSearchMax, 
-            this.PageContext.BoardSettings.UseFullTextSearch);
+            this.PageContext.BoardSettings.UseFullTextSearch,
+				this.PageContext.BoardSettings.EnableDisplayName);
           
           if (newSearch)
           {

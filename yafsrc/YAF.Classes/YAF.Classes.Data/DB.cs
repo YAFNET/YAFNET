@@ -1041,7 +1041,8 @@ namespace YAF.Classes.Data
       int userID, 
       int boardId, 
       int maxResults, 
-      bool useFullText)
+      bool useFullText,
+		 bool searchDisplayName)
     {
       // TODO: Refactor into it's own class!!
 
@@ -1118,8 +1119,16 @@ namespace YAF.Classes.Data
               }
               else
               {
-                searchSql +=
-                  string.Format(" ((c.Username IS NULL AND b.Name LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
+					  if (searchDisplayName)
+					  {
+						  searchSql +=
+							 string.Format(" ((c.Username IS NULL AND b.DisplayName LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
+					  }
+					  else
+					  {
+						  searchSql +=
+							 string.Format(" ((c.Username IS NULL AND b.Name LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
+					  }
               }
             }
 
@@ -1144,8 +1153,16 @@ namespace YAF.Classes.Data
               }
               else
               {
-                searchSql +=
-                  string.Format(" ((c.Username IS NULL AND b.Name LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
+					  if (searchDisplayName)
+					  {
+						  searchSql +=
+							 string.Format(" ((c.Username IS NULL AND b.DisplayName LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
+					  }
+					  else
+					  {
+						  searchSql +=
+							 string.Format(" ((c.Username IS NULL AND b.Name LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%'))", word);
+					  }
               }
             }
 
@@ -1158,8 +1175,16 @@ namespace YAF.Classes.Data
             }
             else
             {
-              searchSql += string.Format(
-                " ((c.Username IS NULL AND b.Name = N'{0}') OR (c.Username = N'{0}'))", toSearchFromWho);
+					if (searchDisplayName)
+					{
+						searchSql += string.Format(
+						  " ((c.Username IS NULL AND b.DisplayName = N'{0}') OR (c.Username = N'{0}'))", toSearchFromWho);
+					}
+					else
+					{
+						searchSql += string.Format(
+						  " ((c.Username IS NULL AND b.Name = N'{0}') OR (c.Username = N'{0}'))", toSearchFromWho);
+					}
             }
             break;
         }
