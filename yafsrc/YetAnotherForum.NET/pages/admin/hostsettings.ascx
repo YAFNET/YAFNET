@@ -1061,8 +1061,16 @@
 							<asp:CheckBox ID="MaxWordLength" runat="server"></asp:CheckBox>
 						</td>
 					</tr>
-					
-				</table>
+						<tr>
+						<td class="postheader">
+							<b>Allowed Poll Choice Number:</b><br />
+							Number of a question choices, max value no more then 99. 
+						</td>
+						<td class="post" >
+							<asp:TextBox ID="AllowedPollChoiceNumber" MaxLength="2" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View7" Text="Templates" NavigateUrl="" HeaderCssClass=""
 				HeaderStyle="" Target="_blank">

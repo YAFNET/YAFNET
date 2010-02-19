@@ -538,6 +538,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets AllowedPollChoiceNumber.
+    /// </summary>
+    public int AllowedPollChoiceNumber
+    {
+        get
+        {
+            return this._reg.GetValue<int>("AllowedPollChoiceNumber", 10);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("AllowedPollChoiceNumber", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets CaptchaTypeRegister.
     /// </summary>
     public int CaptchaTypeRegister

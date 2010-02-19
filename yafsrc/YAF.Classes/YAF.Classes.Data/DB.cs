@@ -5631,12 +5631,12 @@ namespace YAF.Classes.Data
           // The cycle through question reply choices            
           for (uint choiceCount = 0; choiceCount < question.Choice.Length; choiceCount++)
           {
-              if (question.Choice[choiceCount].Trim().Length > 0)
+              if (!string.IsNullOrEmpty(question.Choice[choiceCount]))
               {
-                  sb.Append("INSERT INTO ");
-                  sb.Append(YafDBAccess.GetObjectName("Choice"));
-                  sb.AppendFormat("(PollID,Choice,Votes) VALUES(@PollID,@Choice{0},@Votes{0}); ", choiceCount);
-
+                 
+                      sb.Append("INSERT INTO ");
+                      sb.Append(YafDBAccess.GetObjectName("Choice"));
+                      sb.AppendFormat("(PollID,Choice,Votes) VALUES(@PollID,@Choice{0},@Votes{0}); ", choiceCount);                 
               }
           }
               using (SqlCommand cmd = YafDBAccess.GetCommand(sb.ToString(), true))
@@ -5654,8 +5654,8 @@ namespace YAF.Classes.Data
                   }
                   for (uint choiceCount1 = 0; choiceCount1 < question.Choice.Length; choiceCount1++)
                   {
-                     if (question.Choice[choiceCount1].Trim().Length > 0)
-                     {                                    
+                      if (!string.IsNullOrEmpty(question.Choice[choiceCount1]))
+                      {                                   
                       cmd.Parameters.AddWithValue(String.Format("@Choice{0}", choiceCount1), question.Choice[choiceCount1]);
                       cmd.Parameters.AddWithValue(String.Format("@Votes{0}", choiceCount1), 0);
                       }

@@ -827,6 +827,7 @@
     <Resource tag="ANNOUNCEMENT">公告</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
     <Resource tag="ATTACH">附件:</Resource>
+    <Resource tag="CHOICE">Choice {0}:</Resource>
     <Resource tag="CHOICE1">选择 1:</Resource>
     <Resource tag="CHOICE2">选择 2:</Resource>
     <Resource tag="CHOICE3">选择 3:</Resource>

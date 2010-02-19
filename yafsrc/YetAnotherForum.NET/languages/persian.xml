@@ -791,6 +791,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">اطلاعیه</Resource>
     <Resource tag="ASK_POLL_DELETE">آیااز حذف نظر سنجی مطمئن هستید؟</Resource>
+    <Resource tag="CHOICE">Choice {0}:</Resource>
     <Resource tag="CHOICE1">گزینه اول:</Resource>
     <Resource tag="CHOICE2">گزینه دوم:</Resource>
     <Resource tag="CHOICE3">گزینه سوم:</Resource>

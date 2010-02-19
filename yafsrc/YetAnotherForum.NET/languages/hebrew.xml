@@ -796,6 +796,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">הכרזה</Resource>
     <Resource tag="ASK_POLL_DELETE">האם את/ה באמת רוצה להסיר סקר זה?</Resource>
+    <Resource tag="CHOICE">Choice {0}:</Resource>
     <Resource tag="CHOICE1">בחירה 1:</Resource>
     <Resource tag="CHOICE2">בחירה 2:</Resource>
     <Resource tag="CHOICE3">בחירה 3:</Resource>

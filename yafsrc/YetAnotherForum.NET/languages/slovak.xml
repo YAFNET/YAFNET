@@ -849,6 +849,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Oznámenie</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="CHOICE">Choice {0}:</Resource>
     <Resource tag="CHOICE1">Voľba 1:</Resource>
     <Resource tag="CHOICE2">Voľba 2:</Resource>
     <Resource tag="CHOICE3">Voľba 3:</Resource>

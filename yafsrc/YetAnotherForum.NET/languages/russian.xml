@@ -776,15 +776,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Объявление</Resource>
     <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить опрос из этой темы?</Resource>
-    <Resource tag="CHOICE1">Вариант ответа 1:</Resource>
-    <Resource tag="CHOICE2">Вариант ответа 2:</Resource>
-    <Resource tag="CHOICE3">Вариант ответа 3:</Resource>
-    <Resource tag="CHOICE4">Вариант ответа 4:</Resource>
-    <Resource tag="CHOICE5">Вариант ответа 5:</Resource>
-    <Resource tag="CHOICE6">Вариант ответа 6:</Resource>
-    <Resource tag="CHOICE7">Вариант ответа 7:</Resource>
-    <Resource tag="CHOICE8">Вариант ответа 8:</Resource>
-    <Resource tag="CHOICE9">Вариант ответа 9:</Resource>
+    <Resource tag="CHOICE">Вариант ответа {0}:</Resource>    
     <Resource tag="CREATEPOLL">Создать опрос</Resource>
     <Resource tag="EDIT">Редактировать сообщение</Resource>
     <Resource tag="EDITREASON">Причина редактирования:</Resource>

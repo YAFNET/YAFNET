@@ -796,6 +796,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Ankündigung</Resource>
     <Resource tag="ASK_POLL_DELETE">Wirklich die Umfrage löschen?</Resource>
+    <Resource tag="CHOICE">Choice {0}:</Resource>
     <Resource tag="CHOICE1">Antwort 1:</Resource>
     <Resource tag="CHOICE2">Antwort 2:</Resource>
     <Resource tag="CHOICE3">Antwort 3:</Resource>

@@ -831,6 +831,7 @@
     <Resource tag="ANNOUNCEMENT">Mededeling</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
     <Resource tag="ATTACH">Bijlage toevoegen:</Resource>
+    <Resource tag="CHOICE">Choice {0}:</Resource>
     <Resource tag="CHOICE1">Keuze 1:</Resource>
     <Resource tag="CHOICE2">Keuze 2:</Resource>
     <Resource tag="CHOICE3">Keuze 3:</Resource>

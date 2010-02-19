@@ -701,15 +701,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Announcement</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
-    <Resource tag="CHOICE1">Choice 1:</Resource>
-    <Resource tag="CHOICE2">Choice 2:</Resource>
-    <Resource tag="CHOICE3">Choice 3:</Resource>
-    <Resource tag="CHOICE4">Choice 4:</Resource>
-    <Resource tag="CHOICE5">Choice 5:</Resource>
-    <Resource tag="CHOICE6">Choice 6:</Resource>
-    <Resource tag="CHOICE7">Choice 7:</Resource>
-    <Resource tag="CHOICE8">Choice 8:</Resource>
-    <Resource tag="CHOICE9">Choice 9:</Resource>
+	<Resource tag="CHOICE">Choice {0}:</Resource>   
     <Resource tag="CREATEPOLL">Create Poll</Resource>
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>

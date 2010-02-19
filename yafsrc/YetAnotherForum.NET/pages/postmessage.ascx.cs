@@ -65,6 +65,11 @@ namespace YAF.Pages
     /// </summary>
     protected string _originalMessage;
 
+    /// <summary>
+    /// Table with choices
+    /// </summary>
+     protected DataTable choices;
+
     #endregion
 
     #region Constructors and Destructors
@@ -167,16 +172,16 @@ namespace YAF.Pages
       this.CreatePollRow.Visible = !newStatus;
       this.RemovePollRow.Visible = newStatus;
       this.PollRowExpire.Visible = newStatus;
+      this.ChoiceRepeater.Visible = newStatus;
 
-      for (int i = 1; i < 10; i++)
-      {
-        var pollRow = (HtmlTableRow)this.FindControl(String.Format("PollRow{0}", i));
+    
+        var pollRow = (HtmlTableRow)this.FindControl(String.Format("PollRow{0}", 1));
 
         if (pollRow != null)
         {
           pollRow.Visible = newStatus;
         }
-      }
+      
     }
 
     /// <summary>
@@ -196,15 +201,19 @@ namespace YAF.Pages
       this.PollExpire.Text = string.Empty;
       this.Question.Text = string.Empty;
 
-      for (int i = 1; i < 10; i++)
+      // Add dummy table
+      choices = new DataTable();
+      choices.Columns.Add("ChoiceID", typeof(int));
+      choices.Columns.Add("Choice", typeof(string));
+      choices.Columns.Add("ChoiceOrderID", typeof(int));
+      for (int i = 1; i <= PageContext.BoardSettings.AllowedPollChoiceNumber; i++)
       {
-        var choiceField = (TextBox)this.FindControl(String.Format("PollChoice{0}", i));
-
-        if (choiceField != null)
-        {
-          choiceField.Text = string.Empty;
-        }
+          DataRow newChoiceRow = choices.NewRow();
+          newChoiceRow["ChoiceOrderID"] = i;
+          choices.Rows.Add(newChoiceRow);
       }
+      this.ChoiceRepeater.DataSource = choices;
+      this.ChoiceRepeater.DataBind();
     }
 
     /// <summary>
@@ -310,10 +319,16 @@ namespace YAF.Pages
           this.PageContext.AddLoadMessage(this.GetText("NEED_QUESTION"));
           return false;
         }
-
-        string p1 = this.PollChoice1.Text.Trim();
-        string p2 = this.PollChoice2.Text.Trim();
-        if (p1.Length == 0 || p2.Length == 0)
+        int notNullcount = 0;  
+        foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
+        {
+           if (!string.IsNullOrEmpty(((TextBox)ri.FindControl("PollChoice")).Text.Trim()))
+           {
+               notNullcount++;
+           }
+        }
+       
+        if (notNullcount < 2)
         {
           this.PageContext.AddLoadMessage(this.GetText("NEED_CHOICES"));
           return false;
@@ -842,7 +857,7 @@ namespace YAF.Pages
       if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
       {
         DB.poll_remove(e.CommandArgument);
-        ((LinkButton)sender).CommandArgument = null;
+        ((ThemeButton)sender).CommandArgument = null;
       }
     }
 
@@ -968,25 +983,26 @@ namespace YAF.Pages
         int pollID = Convert.ToInt32(this.RemovePoll.CommandArgument);
         DB.poll_update(pollID, this.Question.Text, datePollExpire);
 
-        for (int i = 1; i < 10; i++)
-        {
-          var idField = (HiddenField)this.FindControl(String.Format("PollChoice{0}ID", i));
-          var choiceField = (TextBox)this.FindControl(String.Format("PollChoice{0}", i));
+            int j = 0;
+            foreach (RepeaterItem ri in ChoiceRepeater.Items)
+            {
+                string choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
+                string chid = ((HiddenField)ri.FindControl("PollChoiceID")).Value;
 
-          if (string.IsNullOrEmpty(idField.Value) && !string.IsNullOrEmpty(choiceField.Text))
+                if (string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
           {
             // add choice
-            DB.choice_add(pollID, choiceField.Text);
+              DB.choice_add(pollID, choice);
           }
-          else if (!string.IsNullOrEmpty(idField.Value) && !string.IsNullOrEmpty(choiceField.Text))
+                else if (!string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
           {
             // update choice
-            DB.choice_update(idField.Value, choiceField.Text);
+              DB.choice_update(chid, choice);
           }
-          else if (!string.IsNullOrEmpty(idField.Value) && string.IsNullOrEmpty(choiceField.Text))
+                else if (!string.IsNullOrEmpty(chid) && string.IsNullOrEmpty(choice))
           {
             // remove choice
-            DB.choice_delete(idField.Value);
+              DB.choice_delete(chid);
           }
         }
 
@@ -1001,17 +1017,16 @@ namespace YAF.Pages
 
          System.Collections.Generic.List<PollSaveList> pollList =
              new System.Collections.Generic.List<PollSaveList>(questionsTotal);
+          string[] rawChoices = new string[ChoiceRepeater.Items.Count];
+          int j = 0;
+          foreach(RepeaterItem ri in ChoiceRepeater.Items)
+         {
+             rawChoices[j] = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
+               j++; 
+         }          
          
-          pollList.Add(new PollSaveList(this.Question.Text, 
-          new string[]{this.PollChoice1.Text, 
-          this.PollChoice2.Text, 
-          this.PollChoice3.Text, 
-          this.PollChoice4.Text, 
-          this.PollChoice5.Text, 
-          this.PollChoice6.Text, 
-          this.PollChoice7.Text, 
-          this.PollChoice8.Text, 
-          this.PollChoice9.Text},
+          pollList.Add(new PollSaveList(this.Question.Text,
+          rawChoices,
           datePollExpire)); 
           return DB.poll_save(pollList); 
 
@@ -1120,7 +1135,8 @@ namespace YAF.Pages
 
       if (currentRow["PollID"] != DBNull.Value)
       {
-        DataTable choices = DB.poll_stats(currentRow["PollID"]);
+        choices = DB.poll_stats(currentRow["PollID"]);
+        choices.Columns.Add("ChoiceOrderID", typeof(int));
 
         this.Question.Text = choices.Rows[0]["Question"].ToString();
         if (choices.Rows[0]["Closes"] != DBNull.Value)
@@ -1134,15 +1150,23 @@ namespace YAF.Pages
           this.PollExpire.Text = null;
         }
 
-        for (int i = 0; i < choices.Rows.Count; i++)
+        // First existing values
+        int existingRowsCount = 1;
+        int allExistingRowsCount = choices.Rows.Count;
+        foreach (DataRow choiceRow in choices.Rows)
         {
-          var idField = (HiddenField)this.FindControl(String.Format("PollChoice{0}ID", i + 1));
-          var choiceField = (TextBox)this.FindControl(String.Format("PollChoice{0}", i + 1));
-
-          idField.Value = choices.Rows[i]["ChoiceID"].ToString();
-          choiceField.Text = choices.Rows[i]["Choice"].ToString();
+            choiceRow["ChoiceOrderID"] = existingRowsCount;
+            existingRowsCount++;
         }
-
+        int dummyRowsCount = PageContext.BoardSettings.AllowedPollChoiceNumber - allExistingRowsCount -1;
+        for (int i = 0; i <= dummyRowsCount; i++)
+        {
+          DataRow drow = choices.NewRow();
+          drow["ChoiceOrderID"] = existingRowsCount + i;
+          choices.Rows.Add(drow);          
+        }
+        this.ChoiceRepeater.DataSource = choices;
+        this.ChoiceRepeater.DataBind();
         this.ChangePollShowStatus(true);
       }
     }

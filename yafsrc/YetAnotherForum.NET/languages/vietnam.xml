@@ -776,6 +776,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Thông báo</Resource>
     <Resource tag="ASK_POLL_DELETE">Bạn thật sự muốn xoá bình chọn của chủ đề này?</Resource>
+    <Resource tag="CHOICE">Choice {0}:</Resource>
     <Resource tag="CHOICE1">Trả lời 1:</Resource>
     <Resource tag="CHOICE2">Trả lời 2:</Resource>
     <Resource tag="CHOICE3">Trả lời 3:</Resource>

@@ -815,6 +815,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Anuncio</Resource>
     <Resource tag="ASK_POLL_DELETE">De verdad desea remover la encuesta de este tema?</Resource>
+    <Resource tag="CHOICE">Choice {0}:</Resource>
     <Resource tag="CHOICE1">Opción 1:</Resource>
     <Resource tag="CHOICE2">Opción 2:</Resource>
     <Resource tag="CHOICE3">Opción 3:</Resource>

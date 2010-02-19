@@ -81,105 +81,25 @@
 			<asp:TextBox ID="Question" runat="server" CssClass="edit" MaxLength="50" Width="400" />
 		</td>
 	</tr>
-	<tr id="PollRow2" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="choice1" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice1ID" runat="server" />
-			<asp:TextBox ID="PollChoice1" runat="server" CssClass="edit" MaxLength="50" Width="400" />
-		</td>
-	</tr>
-	<tr id="PollRow3" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="choice2" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice2ID" runat="server" />
-			<asp:TextBox ID="PollChoice2" runat="server" CssClass="edit" MaxLength="50" Width="400" />
-		</td>
-	</tr>
-	<tr id="PollRow4" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="choice3" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice3ID" runat="server" />
-			<asp:TextBox ID="PollChoice3" runat="server" CssClass="edit" MaxLength="50" Width="400" />
-		</td>
-	</tr>
-	<tr id="PollRow5" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="choice4" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice4ID" runat="server" />
-			<asp:TextBox ID="PollChoice4" runat="server" CssClass="edit" MaxLength="50" Width="400" />
-		</td>
-	</tr>
-	<tr id="PollRow6" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="choice5" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice5ID" runat="server" />
-			<asp:TextBox ID="PollChoice5" runat="server" CssClass="edit" MaxLength="50" Width="400" />
-		</td>
-	</tr>
-	<tr id="PollRow7" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="choice6" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice6ID" runat="server" />
-			<asp:TextBox ID="PollChoice6" runat="server" CssClass="edit" MaxLength="50" Width="400" />
-		</td>
-	</tr>
-	<tr id="PollRow8" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="choice7" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice7ID" runat="server" />
-			<asp:TextBox ID="PollChoice7" runat="server" CssClass="edit" MaxLength="50" Width="400" />
-		</td>
-	</tr>
-	<tr id="PollRow9" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="choice8" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice8ID" runat="server" />
-			<asp:TextBox ID="PollChoice8" runat="server" CssClass="edit" MaxLength="50" Width="400" />
-		</td>
-	</tr>
-	<tr id="PollRow10" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="choice9" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:HiddenField ID="PollChoice9ID" runat="server" />
-			<asp:TextBox ID="PollChoice9" runat="server" CssClass="edit" MaxLength="50" Width="400" />
-		</td>
-	</tr>
+	<asp:Repeater ID="ChoiceRepeater" runat="server" Visible="false" >
+    <HeaderTemplate>
+      </HeaderTemplate>
+    <ItemTemplate>
+        <tr>
+    <td class="postformheader" width="20%">
+           <em>
+<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="choice" Param0='<%# DataBinder.Eval(Container.DataItem, "ChoiceOrderID") %>' />
+</em>
+</td>
+<td class="post" width="80%">
+<asp:HiddenField ID="PollChoiceID"  Value='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' runat="server" />
+<asp:TextBox ID="PollChoice" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Choice") %>' CssClass="edit" MaxLength="50" Width="400" />
+</td>
+</tr>
+</ItemTemplate>
+<FooterTemplate>
+     </FooterTemplate>
+</asp:Repeater>
 	<tr id="PollRowExpire" runat="server" visible="false">
 		<td class="postformheader" width="20%">
 			<em>
