@@ -182,12 +182,12 @@ namespace YAF.Classes.Data
       {
 
       }
-      public PollSaveList(string pollQuestion, string[] pollChoices, object pollCloses)
+      public PollSaveList(string pollQuestion, string[] pollChoices, DateTime? pollCloses)
       {
 
           question = pollQuestion;
           choice = pollChoices;
-          pollCloses = closes;
+          closes = pollCloses;
       }
 
       #region Constants and Fields
@@ -203,7 +203,7 @@ namespace YAF.Classes.Data
       /// <summary>
       /// TData whem poll will be closed.
       /// </summary>
-      private DateTime closes;
+      private DateTime? closes;
 
       #endregion
 
@@ -242,7 +242,7 @@ namespace YAF.Classes.Data
       /// <summary>
       /// Gets or Sets value indicatiing when a poll (question) closes
       /// </summary>
-      public DateTime Closes
+      public DateTime? Closes
       {
           get
           {

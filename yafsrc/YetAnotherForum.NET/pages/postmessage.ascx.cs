@@ -95,8 +95,7 @@ namespace YAF.Pages
       {
         return this.PageContext.QueryIDs["m"];
       }
-    }    
-
+    }
 
     /// <summary>
     /// Gets QuotedTopicID.
@@ -129,11 +128,13 @@ namespace YAF.Pages
         {
             return _originalMessage;
         }
+
         set
         {
             _originalMessage = value;
         }
     }
+
     #endregion
 
     #region Methods
@@ -173,15 +174,13 @@ namespace YAF.Pages
       this.RemovePollRow.Visible = newStatus;
       this.PollRowExpire.Visible = newStatus;
       this.ChoiceRepeater.Visible = newStatus;
-
     
         var pollRow = (HtmlTableRow)this.FindControl(String.Format("PollRow{0}", 1));
 
         if (pollRow != null)
         {
           pollRow.Visible = newStatus;
-        }
-      
+        }      
     }
 
     /// <summary>
@@ -214,6 +213,7 @@ namespace YAF.Pages
       }
       this.ChoiceRepeater.DataSource = choices;
       this.ChoiceRepeater.DataBind();
+
     }
 
     /// <summary>
@@ -319,6 +319,7 @@ namespace YAF.Pages
           this.PageContext.AddLoadMessage(this.GetText("NEED_QUESTION"));
           return false;
         }
+
         int notNullcount = 0;  
         foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
         {
@@ -551,8 +552,7 @@ namespace YAF.Pages
       {
           this.PageContext.AddLoadMessage(this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
           return;
-      } 
-   
+      }    
          
       // update the last post time...
       Mession.LastPost = DateTime.Now.AddSeconds(30);
@@ -982,8 +982,7 @@ namespace YAF.Pages
       {
         int pollID = Convert.ToInt32(this.RemovePoll.CommandArgument);
         DB.poll_update(pollID, this.Question.Text, datePollExpire);
-
-            int j = 0;
+           
             foreach (RepeaterItem ri in ChoiceRepeater.Items)
             {
                 string choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
@@ -1023,11 +1022,11 @@ namespace YAF.Pages
          {
              rawChoices[j] = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
                j++; 
-         }          
-         
+         }
+          
           pollList.Add(new PollSaveList(this.Question.Text,
           rawChoices,
-          datePollExpire)); 
+          (DateTime?)datePollExpire)); 
           return DB.poll_save(pollList); 
 
           /* return DB.poll_save(
@@ -1158,7 +1157,7 @@ namespace YAF.Pages
             choiceRow["ChoiceOrderID"] = existingRowsCount;
             existingRowsCount++;
         }
-        int dummyRowsCount = PageContext.BoardSettings.AllowedPollChoiceNumber - allExistingRowsCount -1;
+        int dummyRowsCount = PageContext.BoardSettings.AllowedPollChoiceNumber - allExistingRowsCount - 1;
         for (int i = 0; i <= dummyRowsCount; i++)
         {
           DataRow drow = choices.NewRow();
