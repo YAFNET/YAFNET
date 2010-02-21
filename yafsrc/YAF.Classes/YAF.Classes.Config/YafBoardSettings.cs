@@ -1959,6 +1959,22 @@ namespace YAF.Classes
     #region string settings
 
     /// <summary>
+    /// Gets or sets IPInfo page Url.
+    /// </summary>
+    public string IPInfoPageURL
+    {
+        get
+        {
+            return this._reg.GetValue<string>("IPInfoPageURL", "http://www.dnsstuff.com/tools/whois.ch?ip={0}");
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("IPInfoPageURL", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets ForumEmail.
     /// </summary>
     public string ForumEmail

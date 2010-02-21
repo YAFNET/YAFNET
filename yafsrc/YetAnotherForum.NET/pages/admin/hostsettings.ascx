@@ -392,6 +392,15 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>IP Info Page URL:</b><br />
+							Set it to get details about IPs whereabouts.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="IPInfoPageURL" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
 							<b>Allow Post to Blog:</b><br />
 							If checked, post to blog feature is enabled.
 						</td>
