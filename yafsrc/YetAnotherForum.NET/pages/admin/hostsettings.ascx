@@ -1067,7 +1067,7 @@
 							Use it to limit number of a word characters in topic names and some other places.
 						</td>
 						<td class="post">
-							<asp:CheckBox ID="MaxWordLength" runat="server"></asp:CheckBox>
+							<asp:TextBox ID="MaxWordLength" MaxLength="2" runat="server"></asp:TextBox>
 						</td>
 					</tr>
 						<tr>
