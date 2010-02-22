@@ -108,7 +108,7 @@ namespace YAF.Controls
       else
       {
         this.StatsLastPostHolder.Visible = false;
-      }
+      } 
 
       // Member Count
       this.StatsMembersCount.Text = PageContext.Localization.GetTextFormatted("stats_members", statisticsDataRow["members"]);
