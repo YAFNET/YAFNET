@@ -90,6 +90,15 @@
     <Compile Include="BasePages\ForumPageRenderedArgs.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
+    <Compile Include="Nntp\Article.cs" />
+    <Compile Include="Nntp\ArticleBody.cs" />
+    <Compile Include="Nntp\ArticleHeader.cs" />
+    <Compile Include="Nntp\Attachment.cs" />
+    <Compile Include="Nntp\MIMEPart.cs" />
+    <Compile Include="Nntp\Newsgroup.cs" />
+    <Compile Include="Nntp\NntpConnection.cs" />
+    <Compile Include="Nntp\NntpException.cs" />
+    <Compile Include="Nntp\NntpUtil.cs" />
     <Compile Include="Syndication\YafSyndicationFeed.cs" />
     <Compile Include="UsersRoles\DefaultUserDisplayName.cs" />
     <Compile Include="UsersRoles\RoleMembershipHelper.cs" />
@@ -124,7 +133,7 @@
     <Compile Include="UsersRoles\UserHelper.cs" />
     <Compile Include="Localization\YafLocalization.cs" />
     <Compile Include="Localization\Localizer.cs" />
-    <Compile Include="Nntp\Nntp.cs" />
+    <Compile Include="Nntp\YafNntp.cs" />
     <Compile Include="Services\YafAvatars.cs" />
     <Compile Include="Services\YafCheckBannedIps.cs" />
     <Compile Include="Services\YafInitializeDb.cs" />
