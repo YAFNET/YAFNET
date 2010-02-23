@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\DataContainerExtensions.cs" />
+    <Compile Include="Helpers\ViewStateExtensions.cs" />
     <Compile Include="IYafUserProfile.cs" />
     <Compile Include="StyleTransform.cs" />
     <Compile Include="URLBuilder\DotNetNukeUrlBuilder.cs" />

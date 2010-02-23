@@ -23,11 +23,11 @@
             <Views>
                 <DotNetAge:View runat="server" ID="ActiveTopicsTab" NavigateUrl="" HeaderCssClass=""
                     HeaderStyle="" Target="_blank">
-                    <YAF:MyTopicsList runat="server" ID="ActiveTopics" Mode="1"/>
+                    <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active"/>
                 </DotNetAge:View>
                 <DotNetAge:View runat="server" ID="FavoriteTopicsTab" NavigateUrl="" HeaderCssClass=""
                     HeaderStyle="" Target="_blank">
-                    <YAF:MyTopicsList runat="server" ID="FavoriteTopics" Mode="2" />
+                    <YAF:MyTopicsList runat="server" ID="FavoriteTopics" CurrentMode="Favorite" />
                 </DotNetAge:View>
             </Views>
         </DotNetAge:Tabs>

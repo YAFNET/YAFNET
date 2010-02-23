@@ -45,13 +45,7 @@
 				<tr class="forumRowFoot footer1">
 					<td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>" align="right">
 						<asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# PageContext.Localization.GetText("MARKALL") %>' />
-						<span id="RSSLinkSpacer" runat="server" visible='<%# PageContext.BoardSettings.ShowRSSLink %>'>
-							|</span>
-						<asp:HyperLink ID="RssFeed" runat="server" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.rsstopic, "pg=forum" ) %>'
-							Visible='<%# PageContext.BoardSettings.ShowRSSLink %>'>
-							<YAF:LocalizedLabel ID="RSSFeedLabel" runat="server" LocalizedTag="RSSFEED" />							
-					</asp:HyperLink>
-					<asp:HyperLink ID="RssIcon" runat="server" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.rsstopic, "pg=forum" ) %>' Visible='<%# PageContext.BoardSettings.ShowRSSLink %>' ImageUrl="~/images/feed.png" ToolTip='<%# PageContext.Localization.GetText("RSSICONTOOLTIPFORUM") %>'></asp:HyperLink>
+						<YAF:RssFeedLink ID="RssFeed1" runat="server" FeedType="Forum" ShowSpacerBefore="true" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" TitleLocalizedTag="RSSICONTOOLTIPFORUM" />
 					</td>
 				</tr>
 			</table>	

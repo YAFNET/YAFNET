@@ -191,7 +191,7 @@ namespace YAF.Controls
         strID = rawStr.Substring(0, i);
 
         // Get the username related to this User ID
-        strUserName = UserMembershipHelper.GetUserNameFromID(Convert.ToInt32(strID));
+        strUserName = PageContext.UserDisplayName.GetName(Convert.ToInt32(strID));
         rawStr = rawStr.Remove(0, i + 1);
 
         // If Thanks date is in the data, extract it.
@@ -421,12 +421,14 @@ namespace YAF.Controls
       }
       else if (YafServices.UserIgnored.IsIgnored(this.PostData.UserId))
       {
+        this.panMessage.Attributes["style"] = "display:none";
         this.PostFooter.TogglePost.Visible = true;
         this.PostFooter.TogglePost.Attributes["onclick"] = string.Format(
           "toggleMessage('{0}'); return false;", this.panMessage.ClientID);
       }
       else if (!YafServices.UserIgnored.IsIgnored(this.PostData.UserId))
       {
+        this.panMessage.Attributes["style"] = "display:block";
         this.panMessage.Visible = true;
       }
 

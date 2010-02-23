@@ -74,9 +74,20 @@ namespace YAF.Pages
       var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
       var syndicationItems = new List<SyndicationItem>();
 
-      switch (this.Request.QueryString["pg"])
+      YafRssFeeds feedType = YafRssFeeds.Forum;
+
+      try
       {
-        case "latestposts":
+        feedType = this.Request.QueryString["pg"].ToEnum<YafRssFeeds>(true);
+      }
+      catch
+      {
+        // default to Forum Feed.
+      }
+
+      switch (feedType)
+      {
+        case YafRssFeeds.LatestPosts:
           if (!this.PageContext.ForumReadAccess)
           {
             YafBuildLink.AccessDenied();
@@ -96,7 +107,7 @@ namespace YAF.Pages
           }
 
           break;
-        case "latestannouncements":
+        case YafRssFeeds.LatestAnnouncements:
           if (!this.PageContext.ForumReadAccess)
           {
             YafBuildLink.AccessDenied();
@@ -116,7 +127,7 @@ namespace YAF.Pages
           }
 
           break;
-        case "posts":
+        case YafRssFeeds.Posts:
           if (!this.PageContext.ForumReadAccess)
           {
             YafBuildLink.AccessDenied();
@@ -141,7 +152,7 @@ namespace YAF.Pages
           }
 
           break;
-        case "forum":
+        case YafRssFeeds.Forum:
           using (DataTable dt = DB.forum_listread(this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null)
             )
           {
@@ -157,7 +168,7 @@ namespace YAF.Pages
           }
 
           break;
-        case "topics":
+        case YafRssFeeds.Topics:
           if (!this.PageContext.ForumReadAccess)
           {
             YafBuildLink.AccessDenied();
@@ -182,7 +193,7 @@ namespace YAF.Pages
           }
 
           break;
-        case "active":
+        case YafRssFeeds.Active:
           using (
             DataTable dt = DB.topic_active(
               this.PageContext.PageBoardID, 
@@ -203,7 +214,7 @@ namespace YAF.Pages
           }
 
           break;
-        case "favorite":
+        case YafRssFeeds.Favorite:
           using (
             DataTable dt = DB.topic_favorite_details(
               this.PageContext.PageBoardID, 

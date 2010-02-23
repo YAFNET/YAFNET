@@ -91,6 +91,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineStatusImage.cs" />
+    <Compile Include="RssFeedLink.cs" />
     <Compile Include="UserLabel.cs" />
     <Compile Include="YafAdminMenu\AdminMenu.cs" />
     <Compile Include="YafAdminMenu\YafMenu.cs">

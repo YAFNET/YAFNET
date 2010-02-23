@@ -82,6 +82,10 @@
 {
 
 }
+.yafnet .RssFeedIcon
+{
+	margin-left: 5px;
+}
 .yafnet #yafprofilemenu
 {
 	width: 19%; float: left; clear: left;

@@ -16,20 +16,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web.UI;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System;
+  using System.Web.UI;
+
+  #endregion
+
   /// <summary>
   /// Provides a image with themed src
   /// </summary>
   public class ThemeImage : BaseControl
   {
+    #region Constants and Fields
+
     /// <summary>
     /// The _alt.
     /// </summary>
     protected string _alt = string.Empty;
+
+    /// <summary>
+    /// The css Class.
+    /// </summary>
+    protected string _cssClass = string.Empty;
+
+    /// <summary>
+    /// The _enabled tag.
+    /// </summary>
+    protected bool _enabled = true;
 
     /// <summary>
     /// The _localized title page.
@@ -57,14 +73,13 @@ namespace YAF.Controls
     protected string _themeTag = string.Empty;
 
     /// <summary>
-    /// The _enabled tag.
-    /// </summary>
-    protected bool _enabled = true;
-
-    /// <summary>
     /// The _use title for empty alt.
     /// </summary>
     protected bool _useTitleForEmptyAlt = true;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ThemeImage"/> class.
@@ -74,37 +89,9 @@ namespace YAF.Controls
     {
     }
 
-    /// <summary>
-    /// Set/Get the ThemePage -- Defaults to "ICONS"
-    /// </summary>
-    public string ThemePage
-    {
-      get
-      {
-        return this._themePage;
-      }
+    #endregion
 
-      set
-      {
-        this._themePage = value;
-      }
-    }
-
-    /// <summary>
-    /// Set/Get the actual theme item
-    /// </summary>
-    public string ThemeTag
-    {
-      get
-      {
-        return this._themeTag;
-      }
-
-      set
-      {
-        this._themeTag = value;
-      }
-    }
+    #region Properties
 
     /// <summary>
     /// Gets or sets Alt.
@@ -123,18 +110,34 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether UseTitleForEmptyAlt.
+    /// Gets or sets Style.
     /// </summary>
-    public bool UseTitleForEmptyAlt
+    public string CssClass
     {
       get
       {
-        return this._useTitleForEmptyAlt;
+        return this._cssClass;
       }
 
       set
       {
-        this._useTitleForEmptyAlt = value;
+        this._cssClass = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets whether the control is Active .
+    /// </summary>
+    public bool Enabled
+    {
+      get
+      {
+        return this._enabled;
+      }
+
+      set
+      {
+        this._enabled = value;
       }
     }
 
@@ -187,19 +190,91 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets whether the control is Active .
+    /// Set/Get the ThemePage -- Defaults to "ICONS"
     /// </summary>
-    public bool Enabled
+    public string ThemePage
     {
-        get
-        {
-            return this._enabled;
-        }
+      get
+      {
+        return this._themePage;
+      }
 
-        set
-        {
-            this._enabled = value;
-        }
+      set
+      {
+        this._themePage = value;
+      }
+    }
+
+    /// <summary>
+    /// Set/Get the actual theme item
+    /// </summary>
+    public string ThemeTag
+    {
+      get
+      {
+        return this._themeTag;
+      }
+
+      set
+      {
+        this._themeTag = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether UseTitleForEmptyAlt.
+    /// </summary>
+    public bool UseTitleForEmptyAlt
+    {
+      get
+      {
+        return this._useTitleForEmptyAlt;
+      }
+
+      set
+      {
+        this._useTitleForEmptyAlt = value;
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The get current theme item.
+    /// </summary>
+    /// <returns>
+    /// The get current theme item.
+    /// </returns>
+    protected string GetCurrentThemeItem()
+    {
+      if (!String.IsNullOrEmpty(this._themePage) && !String.IsNullOrEmpty(this._themeTag))
+      {
+        return this.PageContext.Theme.GetItem(this.ThemePage, this.ThemeTag, null);
+      }
+
+      return null;
+    }
+
+    /// <summary>
+    /// The get current title item.
+    /// </summary>
+    /// <returns>
+    /// The get current title item.
+    /// </returns>
+    protected string GetCurrentTitleItem()
+    {
+      if (!String.IsNullOrEmpty(this._localizedTitlePage) && !String.IsNullOrEmpty(this._localizedTitleTag))
+      {
+        return this.PageContext.Localization.GetText(this._localizedTitlePage, this._localizedTitleTag);
+      }
+      else if (!String.IsNullOrEmpty(this._localizedTitleTag))
+      {
+        return this.PageContext.Localization.GetText(this._localizedTitleTag);
+      }
+
+      return null;
     }
 
     /// <summary>
@@ -211,9 +286,13 @@ namespace YAF.Controls
     protected override void Render(HtmlTextWriter output)
     {
       // vzrus: Don't render control if not enabled
-      if (!Enabled) return; 
-      string src = GetCurrentThemeItem();
-      string title = GetCurrentTitleItem();
+      if (!this.Enabled)
+      {
+        return;
+      }
+
+      string src = this.GetCurrentThemeItem();
+      string title = this.GetCurrentTitleItem();
 
       // might not be needed...
       if (String.IsNullOrEmpty(src))
@@ -221,22 +300,27 @@ namespace YAF.Controls
         return;
       }
 
-      if (UseTitleForEmptyAlt && String.IsNullOrEmpty(Alt) && !String.IsNullOrEmpty(title))
+      if (this.UseTitleForEmptyAlt && String.IsNullOrEmpty(this.Alt) && !String.IsNullOrEmpty(title))
       {
-        Alt = title;
+        this.Alt = title;
       }
 
       output.BeginRender();
       output.WriteBeginTag("img");
-      output.WriteAttribute("id", ClientID);
+      output.WriteAttribute("id", this.ClientID);
 
       // this will output the src and alt attributes
       output.WriteAttribute("src", src);
-      output.WriteAttribute("alt", Alt);
+      output.WriteAttribute("alt", this.Alt);
 
-      if (!String.IsNullOrEmpty(Style))
+      if (!String.IsNullOrEmpty(this.Style))
       {
-        output.WriteAttribute("style", Style);
+        output.WriteAttribute("style", this.Style);
+      }
+
+      if (!String.IsNullOrEmpty(this.CssClass))
+      {
+        output.WriteAttribute("class", this.CssClass);
       }
 
       if (!String.IsNullOrEmpty(title))
@@ -250,40 +334,6 @@ namespace YAF.Controls
       output.EndRender();
     }
 
-    /// <summary>
-    /// The get current title item.
-    /// </summary>
-    /// <returns>
-    /// The get current title item.
-    /// </returns>
-    protected string GetCurrentTitleItem()
-    {
-      if (!String.IsNullOrEmpty(this._localizedTitlePage) && !String.IsNullOrEmpty(this._localizedTitleTag))
-      {
-        return PageContext.Localization.GetText(this._localizedTitlePage, this._localizedTitleTag);
-      }
-      else if (!String.IsNullOrEmpty(this._localizedTitleTag))
-      {
-        return PageContext.Localization.GetText(this._localizedTitleTag);
-      }
-
-      return null;
-    }
-
-    /// <summary>
-    /// The get current theme item.
-    /// </summary>
-    /// <returns>
-    /// The get current theme item.
-    /// </returns>
-    protected string GetCurrentThemeItem()
-    {
-      if (!String.IsNullOrEmpty(this._themePage) && !String.IsNullOrEmpty(this._themeTag))
-      {
-        return PageContext.Theme.GetItem(ThemePage, ThemeTag, null);
-      }
-
-      return null;
-    }
+    #endregion
   }
 }

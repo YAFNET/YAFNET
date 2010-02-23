@@ -86,11 +86,9 @@ namespace YAF.Pages
     protected void Page_Load(object sender, EventArgs e)
     {
       Mession.UnreadTopics = 0;
-      this.RssFeed.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, "pg=topics&f={0}", Request.QueryString["f"]);
-      this.RssFeed.Text = GetText("RSSFEED");
-      this.RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink;
+
+      this.RssFeed.AdditionalParameters = String.Format("f={0}", Request.QueryString["f"]);
       this.MarkRead.Text = GetText("MARKREAD");
-      this.RSSLinkSpacer.Visible = PageContext.BoardSettings.ShowRSSLink;
       this.ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
       if (!IsPostBack)

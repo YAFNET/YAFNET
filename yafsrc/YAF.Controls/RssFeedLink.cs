@@ -1,0 +1,378 @@
+﻿namespace YAF.Controls
+{
+  #region Using
+
+  using System;
+  using System.Web.UI;
+
+  using Classes;
+  using Classes.Utils;
+
+  #endregion
+
+  /// <summary>
+  /// The RSS feed link (with optional icon)
+  /// </summary>
+  public class RssFeedLink : BaseControl
+  {
+    #region Constants and Fields
+
+    /// <summary>
+    /// The _attribute collection.
+    /// </summary>
+    protected AttributeCollection _attributeCollection;
+
+    /// <summary>
+    /// The _localized label.
+    /// </summary>
+    protected LocalizedLabel _localizedLabel = new LocalizedLabel();
+
+    /// <summary>
+    /// The _theme image.
+    /// </summary>
+    protected ThemeImage _themeImage = new ThemeImage();
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RssIconLink"/> class.
+    /// </summary>
+    public RssFeedLink()
+      : base()
+    {
+      this.Load += new EventHandler(this.RssFeedLink_Load);
+      this._attributeCollection = new AttributeCollection(this.ViewState);
+      this._localizedLabel.LocalizedTag = "RSSFEED";
+      this.ImageThemeTag = "RSSFEED";
+      this._themeImage.CssClass = "RssFeedIcon";
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets Attributes.
+    /// </summary>
+    public AttributeCollection Attributes
+    {
+      get
+      {
+        return this._attributeCollection;
+      }
+    }
+
+    /// <summary>
+    /// Defaults to "rssfeedlink"
+    /// </summary>
+    public string CssClass
+    {
+      get
+      {
+        return (this.ViewState["CssClass"] != null) ? this.ViewState["CssClass"] as string : "rssfeedlink";
+      }
+
+      set
+      {
+        this.ViewState["CssClass"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or Sets if a spacer should be inserted before the link. (Default <see langword="false"/>)
+    /// </summary>
+    public bool ShowSpacerBefore
+    {
+      get
+      {
+        return this.ViewState.ToTypeOrDefault<bool>("ShowSpacerBefore", false);
+      }
+
+      set
+      {
+        this.ViewState["ShowSpacerBefore"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or Sets if a spacer should be inserted after the link. (Default <see langword="false"/>)
+    /// </summary>
+    public bool ShowSpacerAfter
+    {
+      get
+      {
+        return this.ViewState.ToTypeOrDefault<bool>("ShowSpacerAfter", false);
+      }
+
+      set
+      {
+        this.ViewState["ShowSpacerAfter"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or Sets additional rss feed url parameters.
+    /// </summary>
+    public string AdditionalParameters
+    {
+      get
+      {
+        return this.ViewState.ToTypeOrDefault<string>("AdditionalParameters", string.Empty);
+      }
+
+      set
+      {
+        this.ViewState["AdditionalParameters"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Defaults to "Forum"
+    /// </summary>
+    public YafRssFeeds FeedType
+    {
+      get
+      {
+        return (this.ViewState["FeedType"] != null) ? this.ViewState["FeedType"].ToEnum<YafRssFeeds>() : YafRssFeeds.Forum;
+      }
+
+      set
+      {
+        this.ViewState["FeedType"] = value;
+      }
+    }
+
+    /// <summary>
+    /// ThemePage for the optional button image
+    /// </summary>
+    public string ImageThemePage
+    {
+      get
+      {
+        return this._themeImage.ThemePage;
+      }
+
+      set
+      {
+        this._themeImage.ThemePage = value;
+      }
+    }
+
+    /// <summary>
+    /// ThemeTag for the optional button image
+    /// </summary>
+    public string ImageThemeTag
+    {
+      get
+      {
+        return this._themeImage.ThemeTag;
+      }
+
+      set
+      {
+        this._themeImage.ThemeTag = value;
+      }
+    }
+
+    /// <summary>
+    /// Localized Page for the optional button text
+    /// </summary>
+    public string TextLocalizedPage
+    {
+      get
+      {
+        return this._localizedLabel.LocalizedPage;
+      }
+
+      set
+      {
+        this._localizedLabel.LocalizedPage = value;
+      }
+    }
+
+    /// <summary>
+    /// Localized Tag for the optional button text
+    /// </summary>
+    public string TextLocalizedTag
+    {
+      get
+      {
+        return this._localizedLabel.LocalizedTag;
+      }
+
+      set
+      {
+        this._localizedLabel.LocalizedTag = value;
+      }
+    }
+
+    /// <summary>
+    /// Localized Page for the optional link description (title)
+    /// </summary>
+    public string TitleLocalizedPage
+    {
+      get
+      {
+        return (this.ViewState["TitleLocalizedPage"] != null)
+                 ? this.ViewState["TitleLocalizedPage"] as string
+                 : String.Empty;
+      }
+
+      set
+      {
+        this.ViewState["TitleLocalizedPage"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Localized Tag for the optional link description (title)
+    /// </summary>
+    public string TitleLocalizedTag
+    {
+      get
+      {
+        return (this.ViewState["TitleLocalizedTag"] != null)
+                 ? this.ViewState["TitleLocalizedTag"] as string
+                 : string.Empty;
+      }
+
+      set
+      {
+        this.ViewState["TitleLocalizedTag"] = value;
+      }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The get localized title.
+    /// </summary>
+    /// <returns>
+    /// The get localized title.
+    /// </returns>
+    protected string GetLocalizedTitle()
+    {
+      if (this.Site != null && this.Site.DesignMode == true && !String.IsNullOrEmpty(this.TitleLocalizedTag))
+      {
+        return String.Format("[TITLE:{0}]", this.TitleLocalizedTag);
+      }
+      else if (!String.IsNullOrEmpty(this.TitleLocalizedPage) && !String.IsNullOrEmpty(this.TitleLocalizedTag))
+      {
+        return this.PageContext.Localization.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag);
+      }
+      else if (!String.IsNullOrEmpty(this.TitleLocalizedTag))
+      {
+        return this.PageContext.Localization.GetText(this.TitleLocalizedTag);
+      }
+
+      return null;
+    }
+
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="output">
+    /// The output.
+    /// </param>
+    protected override void Render(HtmlTextWriter output)
+    {
+      if (this.Visible)
+      {
+        // get the title...
+        string title = this.GetLocalizedTitle();
+
+        output.BeginRender();
+
+        if (this.ShowSpacerBefore)
+        {
+          output.Write(String.Format(" |&nbsp;"));
+        }
+
+        output.WriteBeginTag("a");
+        output.WriteAttribute("id", this.ClientID);
+
+        if (!String.IsNullOrEmpty(this.CssClass))
+        {
+          output.WriteAttribute("class", this.CssClass);
+        }
+
+        if (!String.IsNullOrEmpty(title))
+        {
+          output.WriteAttribute("title", title);
+        }
+
+        output.WriteAttribute(
+          "href",
+          YafBuildLink.GetLink(
+            ForumPages.rsstopic,
+            "pg={0}{1}",
+            this.FeedType.GetStringValue(),
+            this.AdditionalParameters.IsNullOrEmptyTrimmed()
+              ? string.Empty
+              : String.Format("&{0}", this.AdditionalParameters)));
+
+        // handle additional attributes (if any)
+        if (this._attributeCollection.Count > 0)
+        {
+          // add attributes...
+          foreach (string key in this._attributeCollection.Keys)
+          {
+            if (key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
+            {
+              // only write javascript attributes -- and a few other attributes...
+              output.WriteAttribute(key, this._attributeCollection[key]);
+            }
+          }
+        }
+
+        output.Write(HtmlTextWriter.TagRightChar);
+
+        output.WriteBeginTag("span");
+        output.Write(HtmlTextWriter.TagRightChar);
+
+        // render the optional controls (if any)
+        base.Render(output);
+        output.WriteEndTag("span");
+
+        output.WriteEndTag("a");
+
+        if (this.ShowSpacerAfter)
+        {
+          output.Write(String.Format("&nbsp;| "));
+        }
+
+        output.EndRender();
+      }
+    }
+
+    /// <summary>
+    /// The rss icon link_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void RssFeedLink_Load(object sender, EventArgs e)
+    {
+      // render the text if available
+      if (!String.IsNullOrEmpty(this._localizedLabel.LocalizedTag))
+      {
+        this.Controls.Add(this._localizedLabel);
+      }
+
+      if (!String.IsNullOrEmpty(this._themeImage.ThemeTag))
+      {
+        // add the theme image...
+        this.Controls.Add(this._themeImage);
+      }
+    }
+
+    #endregion
+  }
+}

@@ -16,62 +16,68 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.Data;
-
 namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for _default.
-	/// </summary>
-	public partial class forum : YAF.Classes.Core.ForumPage
-	{
-		public forum()
-			: base( "DEFAULT" )
-		{
-		}
+  #region Using
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-            // show RSS icon if it is enabled
-            if (PageContext.BoardSettings.ShowRSSLink)
-            {
-                this.RssIcon.Visible = true;
-                this.RssIcon.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, "pg=forum");
-                this.RssIcon.ToolTip = PageContext.Localization.GetText("RSSICONTOOLTIPFORUM");
-            }
-            else
-            {
-                // hide RSS icon if it is disabled
-                this.RssIcon.Visible = false;
-            }
-			if ( !IsPostBack )
-			{
-				ShoutBox1.Visible = PageContext.BoardSettings.ShowShoutbox;
-				ForumStats.Visible = PageContext.BoardSettings.ShowForumStatistics;
-				ActiveDiscussions.Visible = PageContext.BoardSettings.ShowActiveDiscussions;
+  using System;
 
-				if ( PageContext.Settings.LockedForum == 0 )
-				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-					if ( PageContext.PageCategoryID != 0 )
-					{
-						PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
-						Welcome.Visible = false;
-					}
-				}
-			}
-		}
-	}
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
+
+  #endregion
+
+  /// <summary>
+  /// Summary description for _default.
+  /// </summary>
+  public partial class forum : ForumPage
+  {
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="forum"/> class.
+    /// </summary>
+    public forum()
+      : base("DEFAULT")
+    {
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!this.IsPostBack)
+      {
+        this.ShoutBox1.Visible = this.PageContext.BoardSettings.ShowShoutbox;
+        this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
+        this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
+
+        if (this.PageContext.Settings.LockedForum == 0)
+        {
+          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          if (this.PageContext.PageCategoryID != 0)
+          {
+            this.PageLinks.AddLink(
+              this.PageContext.PageCategoryName, 
+              YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            this.Welcome.Visible = false;
+          }
+        }
+      }
+    }
+
+    #endregion
+  }
 }
