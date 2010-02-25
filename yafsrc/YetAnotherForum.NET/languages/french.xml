@@ -817,10 +817,8 @@
     <Resource tag="CHOICE">Choix</Resource>
     <Resource tag="CLOSE_TEXT">Fermer</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Effacer ce message ?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Effacer ce sujet ?</Resource>
-    <Resource tag="CONFIRM_REPORTABUSE">Etes-vous sur de vouloir rapporter ce message ?</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">Effacer ce sujet ?</Resource>   
     <Resource tag="CONFIRM_REPORTPOST">Etes-vous sur de vuoloir rapporter ce message comme abusif ?</Resource>
-    <Resource tag="CONFIRM_REPORTSPAM">Etes-vous sur de vouloir rapporter ce message comme SPAM ?</Resource>
     <Resource tag="EDIT_REASON">Raison</Resource>
     <Resource tag="EDIT_REASON_NA">Non indiquée</Resource>
     <Resource tag="EDITED">Modifié</Resource>
@@ -866,10 +864,8 @@
     <Resource tag="QUICKREPLY_HIDE">Cacher réponse rapide</Resource>
     <Resource tag="QUICKREPLY_SHOW">Voir réponse rapide</Resource>
     <Resource tag="RANK">Rang</Resource>
-    <Resource tag="REPORTABUSE">Rapporter abus</Resource>
     <Resource tag="REPORTEDFEEDBACK">Merci pour avoir rapporté ce message.</Resource>
     <Resource tag="REPORTPOST">Rapporter ?</Resource>
-    <Resource tag="REPORTSPAM">Rapporter spam</Resource>
     <Resource tag="RSSTOPIC">Flux RSS</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Statistiques</Resource>

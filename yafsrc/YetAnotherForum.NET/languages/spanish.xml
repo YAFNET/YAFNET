@@ -860,10 +860,8 @@
     <Resource tag="CHOICE">Opción</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">¿Eliminar este mensaje?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">¿Eliminar este tema?</Resource>
-    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">Seguro desea reportar este mensaje como abusivo?</Resource>
-    <Resource tag="CONFIRM_REPORTSPAM">Seguro desea reportar este mensaje como SPAM?</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">¿Eliminar este tema?</Resource> 
+    <Resource tag="CONFIRM_REPORTPOST">Seguro desea reportar este mensaje como abusivo?</Resource> 
     <Resource tag="EDIT_REASON">Razon</Resource>
     <Resource tag="EDIT_REASON_NA">No especificada</Resource>
     <Resource tag="EDITED">Editar</Resource>
@@ -908,11 +906,9 @@
     <Resource tag="QUICKREPLY">Respuesta Rápida</Resource>
     <Resource tag="QUICKREPLY_HIDE">Ocultar Respuesta Rápida</Resource>
     <Resource tag="QUICKREPLY_SHOW">Mostrar Respuesta Rápida</Resource>
-    <Resource tag="RANK">Posición</Resource>
-    <Resource tag="REPORTABUSE">Report Abusive</Resource>
+    <Resource tag="RANK">Posición</Resource>  
     <Resource tag="REPORTEDFEEDBACK">Gracias por reportar este mensaje.</Resource>
-    <Resource tag="REPORTPOST">Reportar Abuso</Resource>
-    <Resource tag="REPORTSPAM">Reportar SPAM</Resource>
+    <Resource tag="REPORTPOST">Reportar Abuso</Resource>   
     <Resource tag="RSSTOPIC">RSS</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Estadísticas</Resource>

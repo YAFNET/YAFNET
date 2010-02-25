@@ -841,10 +841,8 @@
     <Resource tag="CHOICE">Antwort</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Diese Nachricht wirklich löschen?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Dieses Thema wirklich löschen?</Resource>
-    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">Bist Du sicher, dass du den Beitrag melden möchtest?</Resource>
-    <Resource tag="CONFIRM_REPORTSPAM">Bist Du sicher, dass du den Beitrag als SPAM melden möchtest?</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">Dieses Thema wirklich löschen?</Resource>   
+    <Resource tag="CONFIRM_REPORTPOST">Bist Du sicher, dass du den Beitrag melden möchtest?</Resource>   
     <Resource tag="EDIT_REASON">Grund</Resource>
     <Resource tag="EDIT_REASON_NA">Nicht angegeben</Resource>
     <Resource tag="EDITED">Bearbeitet</Resource>
@@ -889,11 +887,9 @@
     <Resource tag="QUICKREPLY">Schnelles Antworten</Resource>
     <Resource tag="QUICKREPLY_HIDE">Schnelles Antworten: Formular ausblenden</Resource>
     <Resource tag="QUICKREPLY_SHOW">Schnelles Antworten: Formular anzeigen</Resource>
-    <Resource tag="RANK">Rang</Resource>
-    <Resource tag="REPORTABUSE">Report Abusive</Resource>
+    <Resource tag="RANK">Rang</Resource>  
     <Resource tag="REPORTEDFEEDBACK">Danke, dass du den Beitrag gemeldet hast</Resource>
-    <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource>
-    <Resource tag="REPORTSPAM">Das ist Spam!</Resource>
+    <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource> 
     <Resource tag="RSSTOPIC">RSS-Feed</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>

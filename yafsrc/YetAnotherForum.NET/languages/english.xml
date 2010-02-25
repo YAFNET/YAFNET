@@ -1,41 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="English" code="en">
-  <page name="MYTOPICS">
-    <Resource tag="ACTIVETOPICS">Active Topics</Resource>
-    <Resource tag="FAVORITETOPICS">Favorite Topics</Resource>
-    <Resource tag="BY">by {0}</Resource>
-    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
-    <Resource tag="LAST_DAY">last day</Resource>
-    <Resource tag="LAST_HOUR">last hour</Resource>
-    <Resource tag="LAST_MONTH">last month</Resource>
-    <Resource tag="LAST_TWO_DAYS">last two days</Resource>
-    <Resource tag="LAST_TWO_HOURS">last two hours</Resource>
-    <Resource tag="LAST_TWO_WEEKS">last two weeks</Resource>
-    <Resource tag="LAST_VISIT">last visit at {0}</Resource>
-    <Resource tag="LAST_WEEK">last week</Resource>
-    <Resource tag="SHOW_ALL">Show All</Resource>
-    <Resource tag="LASTPOST">Last Post</Resource>
-    <Resource tag="NO_POSTS">No Posts</Resource>
-    <Resource tag="REPLIES">Replies</Resource>
-    <Resource tag="RSSFEED">Rss Feed</Resource>
-    <Resource tag="SINCE">Since</Resource>
-    <Resource tag="GUESTTITLE">Active Topics</Resource>
-    <Resource tag="MEMBERTITLE">My Topics</Resource>
-    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
-    <Resource tag="TOPICS">Topics</Resource>
-    <Resource tag="VIEWS">Views</Resource>
-  </page>
-  <page name="ACTIVEUSERS">
-    <Resource tag="ACTIVE">Active</Resource>
-    <Resource tag="BROWSER">Browser</Resource>
-	<Resource tag="LATEST_ACTION">Latest Action</Resource>  
-    <Resource tag="LAST_ACTIVE">Last Active</Resource>
-    <Resource tag="LOGGED_IN">Logged In</Resource>
-    <Resource tag="MINUTES">{0:N0} minutes</Resource>
-    <Resource tag="PLATFORM">Platform</Resource>
-    <Resource tag="TITLE">Active Users</Resource>
-    <Resource tag="USERNAME">Display Name</Resource>
-  </page>
   <page name="ACTIVELOCATION">
 	<Resource tag="MAINPAGE">Views main forum page</Resource>
 	<Resource tag="FORUM">Views forum </Resource>
@@ -153,6 +117,17 @@
 	<Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
 	<Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
 	<Resource tag="ADMIN_RESTARTAPP">Restarts application</Resource>
+  </page>
+  <page name="ACTIVEUSERS">
+	<Resource tag="ACTIVE">Active</Resource>
+	<Resource tag="BROWSER">Browser</Resource>
+	<Resource tag="LATEST_ACTION">Latest Action</Resource>
+	<Resource tag="LAST_ACTIVE">Last Active</Resource>
+	<Resource tag="LOGGED_IN">Logged In</Resource>
+	<Resource tag="MINUTES">{0:N0} minutes</Resource>
+	<Resource tag="PLATFORM">Platform</Resource>
+	<Resource tag="TITLE">Active Users</Resource>
+	<Resource tag="USERNAME">Display Name</Resource>
   </page>
   <page name="APPROVE">
     <Resource tag="EMAIL_VERIFIED">Your email address has been verified.</Resource>
@@ -672,6 +647,31 @@
     <Resource tag="SELECT_FORUM">Select the forum you want to move the post to:</Resource>
     <Resource tag="TITLE">Move Topic</Resource>
   </page>
+  <page name="MYTOPICS">
+	<Resource tag="ACTIVETOPICS">Active Topics</Resource>
+	<Resource tag="FAVORITETOPICS">Favorite Topics</Resource>
+	<Resource tag="BY">by {0}</Resource>
+	<Resource tag="LAST_24">( Last 24 Hours )</Resource>
+	<Resource tag="LAST_DAY">last day</Resource>
+	<Resource tag="LAST_HOUR">last hour</Resource>
+	<Resource tag="LAST_MONTH">last month</Resource>
+	<Resource tag="LAST_TWO_DAYS">last two days</Resource>
+	<Resource tag="LAST_TWO_HOURS">last two hours</Resource>
+	<Resource tag="LAST_TWO_WEEKS">last two weeks</Resource>
+	<Resource tag="LAST_VISIT">last visit at {0}</Resource>
+	<Resource tag="LAST_WEEK">last week</Resource>
+	<Resource tag="SHOW_ALL">Show All</Resource>
+	<Resource tag="LASTPOST">Last Post</Resource>
+	<Resource tag="NO_POSTS">No Posts</Resource>
+	<Resource tag="REPLIES">Replies</Resource>
+	<Resource tag="RSSFEED">Rss Feed</Resource>
+	<Resource tag="SINCE">Since</Resource>
+	<Resource tag="GUESTTITLE">Active Topics</Resource>
+	<Resource tag="MEMBERTITLE">My Topics</Resource>
+	<Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+	<Resource tag="TOPICS">Topics</Resource>
+	<Resource tag="VIEWS">Views</Resource>
+  </page>
   <page name="PMESSAGE">
     <Resource tag="ALLUSERS">All Users</Resource>
     <Resource tag="CLEAR">Clear</Resource>
@@ -770,9 +770,7 @@
     <Resource tag="CHOICE">Choice</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Delete this message?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Delete this topic?</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post?</Resource>
-    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
-    <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post?</Resource> 
     <Resource tag="EDIT_REASON">Reason</Resource>
     <Resource tag="EDIT_REASON_NA">Not specified</Resource>
     <Resource tag="EDITED">Edit</Resource>
@@ -815,9 +813,7 @@
     <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
     <Resource tag="RANK">Rank</Resource>
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
-    <Resource tag="REPORTABUSE">Report Abusive</Resource>
     <Resource tag="REPORTPOST">Report?</Resource>
-    <Resource tag="REPORTSPAM">Report SPAM</Resource>
 	<Resource tag="IMAGE_TEXT">Image</Resource>
 	<Resource tag="CLOSE_TEXT">Close</Resource>
 	<Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>

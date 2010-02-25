@@ -875,10 +875,8 @@
     <Resource tag="CHOICE">Alegere</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Stergi acest mesaj?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Stergeti aceasta tema?</Resource>
-    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
-    <Resource tag="CONFIRM_REPORTSPAM">Are you sure you want to report this post as SPAM?</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">Stergeti aceasta tema?</Resource> 
+    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>  
     <Resource tag="EDIT_REASON">Reason</Resource>
     <Resource tag="EDIT_REASON_NA">Not specified</Resource>
     <Resource tag="EDITED">Edit</Resource>
@@ -923,11 +921,9 @@
     <Resource tag="QUICKREPLY">Quick Reply</Resource>
     <Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
     <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
-    <Resource tag="RANK">Nivel</Resource>
-    <Resource tag="REPORTABUSE">Report Abusive</Resource>
+    <Resource tag="RANK">Nivel</Resource>  
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
-    <Resource tag="REPORTPOST">Report Abusive</Resource>
-    <Resource tag="REPORTSPAM">Report SPAM</Resource>
+    <Resource tag="REPORTPOST">Report Abusive</Resource>   
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Statistici</Resource>

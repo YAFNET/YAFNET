@@ -836,10 +836,8 @@
     <Resource tag="CHOICE">انتخاب</Resource>
     <Resource tag="CLOSE_TEXT">بستن</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">آیا این پیغام حذف شود?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">آیا این عنوان حذف شود?</Resource>
-    <Resource tag="CONFIRM_REPORTABUSE">آیای از گزارش این ÷پست به عنوان توهین و یا سوء استفاده مطمئن هستید؟</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">آیا از گزارش این ارسال به عنوان توهین مطمئن هستید؟</Resource>
-    <Resource tag="CONFIRM_REPORTSPAM">آیا از گزارش این ارسال به عنوان هرزنامه (اسپم) مطمئن هستید؟</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">آیا این عنوان حذف شود?</Resource> 
+    <Resource tag="CONFIRM_REPORTPOST">آیا از گزارش این ارسال به عنوان توهین مطمئن هستید؟</Resource>  
     <Resource tag="EDIT_REASON">دلیل ویرایش</Resource>
     <Resource tag="EDIT_REASON_NA">مشخص نشده است</Resource>
     <Resource tag="EDITED">ویرایش</Resource>
@@ -884,11 +882,9 @@
     <Resource tag="QUICKREPLY">پاسخ سریع</Resource>
     <Resource tag="QUICKREPLY_HIDE">عدم نمایش بخش پاسخ سریع</Resource>
     <Resource tag="QUICKREPLY_SHOW">نمایش بخش پاسخ سریع</Resource>
-    <Resource tag="RANK">رتبه</Resource>
-    <Resource tag="REPORTABUSE">گزارش اهانت</Resource>
+    <Resource tag="RANK">رتبه</Resource> 
     <Resource tag="REPORTEDFEEDBACK">از گزارش شما متشکریم!</Resource>
     <Resource tag="REPORTPOST">گزارش توهین و سوء استفاده</Resource>
-    <Resource tag="REPORTSPAM">گزارش به عنوان هرزنامه</Resource>
     <Resource tag="RSSTOPIC">اشتراک عنوان</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">آمار</Resource>

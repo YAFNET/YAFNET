@@ -842,9 +842,7 @@
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">האם ברצונך למחוק הודעה זו?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">האם ברצונך למחוק דיון זו?</Resource>
-    <Resource tag="CONFIRM_REPORTABUSE">Are you sure you want to report this post as abusive one?</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">האם את/ה בטוח/ה שברצונך לדווח על התוכן כפוגעני?</Resource>
-    <Resource tag="CONFIRM_REPORTSPAM">האם את/ה בטוח/ה שברצונך לדווח על התוכן כזבל?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">האם את/ה בטוח/ה שברצונך לדווח על התוכן כפוגעני?</Resource>  
     <Resource tag="EDIT_REASON">סיבה</Resource>
     <Resource tag="EDIT_REASON_NA">לא צויינה</Resource>
     <Resource tag="EDITED">נערך</Resource>
@@ -889,11 +887,9 @@
     <Resource tag="QUICKREPLY">תגובה מהירה</Resource>
     <Resource tag="QUICKREPLY_HIDE">הסתר תגובה מהירה</Resource>
     <Resource tag="QUICKREPLY_SHOW">הצג תגובה מהירה</Resource>
-    <Resource tag="RANK">דירוג</Resource>
-    <Resource tag="REPORTABUSE">Report Abusive</Resource>
+    <Resource tag="RANK">דירוג</Resource>    
     <Resource tag="REPORTEDFEEDBACK">תודה על הדיווח.</Resource>
-    <Resource tag="REPORTPOST">דווח/י על תוכן פוגעני</Resource>
-    <Resource tag="REPORTSPAM">דווח/י על תוכן זבל</Resource>
+    <Resource tag="REPORTPOST">דווח/י על תוכן פוגעני</Resource>  
     <Resource tag="RSSTOPIC">הזנת RSS</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">סטטיסטיקות</Resource>
