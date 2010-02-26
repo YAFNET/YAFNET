@@ -1900,7 +1900,7 @@ BEGIN
 		IF @Email IS NULL
 		SELECT * FROM [{databaseOwner}].[{objectQualifier}CheckEmail]
 	ELSE
-		SELECT * FROM [{databaseOwner}].[{objectQualifier}CheckEmail] WHERE Email = LOWER(@EMail)
+		SELECT * FROM [{databaseOwner}].[{objectQualifier}CheckEmail] WHERE Email = LOWER(@Email)
 END
 GO
 
@@ -2865,7 +2865,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 	where TopicID = @TopicID
 	
 	-- update forum stats
-	exec [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
+	exec [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID	
 end
 GO
 
