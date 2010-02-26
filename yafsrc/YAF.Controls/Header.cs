@@ -414,7 +414,7 @@ namespace YAF.Controls
           }
         }
       }
-
+      buildHeader.ToString().TrimEnd(' ', '|');
       buildHeader.AppendFormat("</td></tr></table>");
       buildHeader.AppendFormat("<br />");
 

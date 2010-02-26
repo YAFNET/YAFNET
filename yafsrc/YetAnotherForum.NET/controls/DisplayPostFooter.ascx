@@ -27,13 +27,14 @@
 	</div>
 	<div class="rightItem postInfoRight">		
 		<span id="ReportButtons" runat="server">	
-			<asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>' Text="Report" runat="server" Visible="true"></asp:LinkButton>			
+			<asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>' Text="Report" runat="server" Visible="true"></asp:LinkButton>					
 		</span>					
 		
 		<asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
-		|&nbsp;<asp:LinkButton ID="MessageHistoryLBtn" CommandName="ShowHistory" CommandArgument='<%# DataRow["MessageID"] %>' Text="Message History" runat="server"></asp:LinkButton>	
+		&nbsp;|&nbsp;
+		<asp:LinkButton ID="MessageHistoryLBtn" CommandName="ShowHistory" CommandArgument='<%# DataRow["MessageID"] %>' Text="Message History" runat="server"></asp:LinkButton>	
 		</asp:PlaceHolder>
-		
+		<span id="DetailsDelimiter1" runat="server" visible="<%# this.MessageDetails.Text.Length > 0 %>">&nbsp;|&nbsp;</span>
 		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>		
 	</div>
 </div>

@@ -96,7 +96,7 @@
                     </td>
                     <td align="right">
                         <asp:LinkButton ID="WatchForum" runat="server" /><span id="WatchForumID" runat="server"
-                            visible="false" /> |
+                            visible="false" /><span id="delimiter1" runat="server" visible="<%# this.WatchForum.Text.Length > 0 %>"> | </span>
                         <asp:LinkButton runat="server" ID="MarkRead" />
                         <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="Topics" ShowSpacerBefore="true"
                             Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" TitleLocalizedTag="RSSICONTOOLTIPFORUM" />                        
