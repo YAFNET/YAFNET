@@ -828,7 +828,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Nyhed</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
-    <Resource tag="CHOICE">Valg {0}:</Resource>    
+    <Resource tag="CHOICE">Valg {0}:</Resource>
     <Resource tag="CREATEPOLL">Lav Afstemning</Resource>
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
@@ -874,7 +874,7 @@
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Slet denne besked?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Slet dette emne??</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource> 
+    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
     <Resource tag="EDIT_REASON_NA">Not specified</Resource>
     <Resource tag="EDITED">Edit</Resource>
@@ -943,6 +943,8 @@
     <Resource tag="TOPICBROWSERS">Brugere som besøger dette emne nu:</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Unwatch this topic</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
@@ -1056,7 +1058,7 @@
     <Resource tag="NEED_PASSWORD">Kodeord kræves.</Resource>
     <Resource tag="NEED_QUESTION">Security question is required.</Resource>
     <Resource tag="NEED_USERNAME">Brugernavn er påkrævet.</Resource>
-    <Resource tag="PASSWORD">Kodeord</Resource>    
+    <Resource tag="PASSWORD">Kodeord</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">Forum Opsætning</Resource>

@@ -829,7 +829,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Annonsert</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
-    <Resource tag="CHOICE">Valg {0}:</Resource>    
+    <Resource tag="CHOICE">Valg {0}:</Resource>
     <Resource tag="CREATEPOLL">Opprett spørring</Resource>
     <Resource tag="EDIT">Rediger innlegg</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
@@ -874,8 +874,8 @@
     <Resource tag="CHOICE">Valg</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Slett meldinger?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Slett emnet?</Resource> 
-    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>  
+    <Resource tag="CONFIRM_DELETETOPIC">Slett emnet?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
     <Resource tag="EDIT_REASON_NA">Not specified</Resource>
     <Resource tag="EDITED">Edit</Resource>
@@ -920,7 +920,7 @@
     <Resource tag="QUICKREPLY">Quick Reply</Resource>
     <Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
     <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
-    <Resource tag="RANK">Grad</Resource>  
+    <Resource tag="RANK">Grad</Resource>
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
     <Resource tag="REPORTPOST">Report Abusive</Resource>
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
@@ -944,6 +944,8 @@
     <Resource tag="TOPICBROWSERS">Brukere av dette temaet</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Ikke overvåk dette emnet</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>

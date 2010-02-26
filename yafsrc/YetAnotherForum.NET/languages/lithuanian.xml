@@ -931,7 +931,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Reklama </Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
-    <Resource tag="CHOICE">Pasirinkimas {0}:</Resource>   
+    <Resource tag="CHOICE">Pasirinkimas {0}:</Resource>
     <Resource tag="CREATEPOLL">Sukurti Apklausa </Resource>
     <Resource tag="EDIT">Redaguoti pranešimą </Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
@@ -988,7 +988,7 @@
     <Resource tag="CHOICE">Pasirinkta </Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Ištrinti šį pranešimą? </Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Ištrinti šią temą? </Resource> 
+    <Resource tag="CONFIRM_DELETETOPIC">Ištrinti šią temą? </Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
     <Resource tag="EDIT_REASON_NA">Not specified</Resource>
@@ -1042,9 +1042,9 @@
     <Resource tag="QUICKREPLY">Greitas atsakymas </Resource>
     <Resource tag="QUICKREPLY_HIDE">Slėpti Greitas atsakymas </Resource>
     <Resource tag="QUICKREPLY_SHOW">Rodyti Greitas atsakymas </Resource>
-    <Resource tag="RANK">Rangas </Resource>   
+    <Resource tag="RANK">Rangas </Resource>
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
-    <Resource tag="REPORTPOST">Report Abusive</Resource>   
+    <Resource tag="REPORTPOST">Report Abusive</Resource>
     <Resource tag="RSSTOPIC">RSS </Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Statistika </Resource>
@@ -1066,6 +1066,8 @@
     <Resource tag="TOPICBROWSERS">Vartotojai peržiūrėti šią temą </Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Nebestebėti šią temą </Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>

@@ -796,7 +796,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Ankündigung</Resource>
     <Resource tag="ASK_POLL_DELETE">Wirklich die Umfrage löschen?</Resource>
-    <Resource tag="CHOICE">Antwort {0}:</Resource>   
+    <Resource tag="CHOICE">Antwort {0}:</Resource>
     <Resource tag="CREATEPOLL">Umfrage erstellen</Resource>
     <Resource tag="EDIT">Beitrag bearbeiten</Resource>
     <Resource tag="EDITREASON">Grund der Änderung</Resource>
@@ -841,8 +841,8 @@
     <Resource tag="CHOICE">Antwort</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Diese Nachricht wirklich löschen?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Dieses Thema wirklich löschen?</Resource>   
-    <Resource tag="CONFIRM_REPORTPOST">Bist Du sicher, dass du den Beitrag melden möchtest?</Resource>   
+    <Resource tag="CONFIRM_DELETETOPIC">Dieses Thema wirklich löschen?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Bist Du sicher, dass du den Beitrag melden möchtest?</Resource>
     <Resource tag="EDIT_REASON">Grund</Resource>
     <Resource tag="EDIT_REASON_NA">Nicht angegeben</Resource>
     <Resource tag="EDITED">Bearbeitet</Resource>
@@ -887,9 +887,9 @@
     <Resource tag="QUICKREPLY">Schnelles Antworten</Resource>
     <Resource tag="QUICKREPLY_HIDE">Schnelles Antworten: Formular ausblenden</Resource>
     <Resource tag="QUICKREPLY_SHOW">Schnelles Antworten: Formular anzeigen</Resource>
-    <Resource tag="RANK">Rang</Resource>  
+    <Resource tag="RANK">Rang</Resource>
     <Resource tag="REPORTEDFEEDBACK">Danke, dass du den Beitrag gemeldet hast</Resource>
-    <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource> 
+    <Resource tag="REPORTPOST">Diesen Beitrag melden</Resource>
     <Resource tag="RSSTOPIC">RSS-Feed</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
@@ -911,6 +911,8 @@
     <Resource tag="TOPICBROWSERS">Benutzer, die gerade dieses Thema lesen</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Dieses Thema nicht mehr abonnieren</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>

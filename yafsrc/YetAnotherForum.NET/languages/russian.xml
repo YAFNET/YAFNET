@@ -776,7 +776,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Объявление</Resource>
     <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить опрос из этой темы?</Resource>
-    <Resource tag="CHOICE">Вариант ответа {0}:</Resource>    
+    <Resource tag="CHOICE">Вариант ответа {0}:</Resource>
     <Resource tag="CREATEPOLL">Создать опрос</Resource>
     <Resource tag="EDIT">Редактировать сообщение</Resource>
     <Resource tag="EDITREASON">Причина редактирования:</Resource>
@@ -821,8 +821,8 @@
     <Resource tag="CHOICE">Вариант</Resource>
     <Resource tag="CLOSE_TEXT">Закрыть</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Удалить это сообщение?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Удалить эту тему?</Resource>  
-    <Resource tag="CONFIRM_REPORTPOST">Вы уверены, что желаете сообщить, что этот пост нарушает правила форума?</Resource>   
+    <Resource tag="CONFIRM_DELETETOPIC">Удалить эту тему?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Вы уверены, что желаете сообщить, что этот пост нарушает правила форума?</Resource>
     <Resource tag="EDIT_REASON">Причина</Resource>
     <Resource tag="EDIT_REASON_NA">Не указана</Resource>
     <Resource tag="EDITED">Отредактировано</Resource>
@@ -867,9 +867,9 @@
     <Resource tag="QUICKREPLY">Быстрый ответ</Resource>
     <Resource tag="QUICKREPLY_HIDE">Скрыть форму быстрого ответа</Resource>
     <Resource tag="QUICKREPLY_SHOW">Показать форму быстрого ответа</Resource>
-    <Resource tag="RANK">Ранг</Resource>  
+    <Resource tag="RANK">Ранг</Resource>
     <Resource tag="REPORTEDFEEDBACK">Спасибо за информацию об этом сообщении.</Resource>
-    <Resource tag="REPORTPOST">Жалоба!</Resource>    
+    <Resource tag="REPORTPOST">Жалоба!</Resource>
     <Resource tag="RSSTOPIC">Лента RSS темы</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
@@ -891,6 +891,8 @@
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
     <Resource tag="TOTAL">Всего</Resource>
     <Resource tag="UNWATCHTOPIC">Не отслеживать эту тему</Resource>
+    <Resource tag="USERGENDER_FEM">Женщина</Resource>
+    <Resource tag="USERGENDER_MAS">Мужчина</Resource>
     <Resource tag="USEROFFLINESTATUS">Пользователя нет на форуме</Resource>
     <Resource tag="USERONLINESTATUS">Пользователь находится на форуме</Resource>
     <Resource tag="USERPROFILE">Профиль пользователя</Resource>

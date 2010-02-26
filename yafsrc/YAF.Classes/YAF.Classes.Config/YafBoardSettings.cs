@@ -171,6 +171,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether User genger icons in user box are enabled.
+    /// </summary>
+    public bool AllowGenderInUserBox
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("AllowGenderInUserBox", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("AllowGenderInUserBox", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether to enable Display Name.
     /// </summary>
     public bool EnableDisplayName
@@ -2400,6 +2416,19 @@ namespace YAF.Classes
         this._reg.SetValue<string>("UserBoxJoinDate", value);
       }
     }
+    public string UserBoxGender
+    {
+        get
+        {
+            return this._reg.GetValue<string>("UserBoxGender", "{0}<br />");
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("UserBoxGender", value);
+        }
+    }
+
 
     /// <summary>
     /// Gets or sets UserBoxPosts.

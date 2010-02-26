@@ -815,7 +815,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Anuncio</Resource>
     <Resource tag="ASK_POLL_DELETE">De verdad desea remover la encuesta de este tema?</Resource>
-    <Resource tag="CHOICE">Opción {0}:</Resource>    
+    <Resource tag="CHOICE">Opción {0}:</Resource>
     <Resource tag="CREATEPOLL">Crear encuesta</Resource>
     <Resource tag="EDIT">Editar mensaje</Resource>
     <Resource tag="EDITREASON">Razon para editar:</Resource>
@@ -860,8 +860,8 @@
     <Resource tag="CHOICE">Opción</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">¿Eliminar este mensaje?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">¿Eliminar este tema?</Resource> 
-    <Resource tag="CONFIRM_REPORTPOST">Seguro desea reportar este mensaje como abusivo?</Resource> 
+    <Resource tag="CONFIRM_DELETETOPIC">¿Eliminar este tema?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Seguro desea reportar este mensaje como abusivo?</Resource>
     <Resource tag="EDIT_REASON">Razon</Resource>
     <Resource tag="EDIT_REASON_NA">No especificada</Resource>
     <Resource tag="EDITED">Editar</Resource>
@@ -906,9 +906,9 @@
     <Resource tag="QUICKREPLY">Respuesta Rápida</Resource>
     <Resource tag="QUICKREPLY_HIDE">Ocultar Respuesta Rápida</Resource>
     <Resource tag="QUICKREPLY_SHOW">Mostrar Respuesta Rápida</Resource>
-    <Resource tag="RANK">Posición</Resource>  
+    <Resource tag="RANK">Posición</Resource>
     <Resource tag="REPORTEDFEEDBACK">Gracias por reportar este mensaje.</Resource>
-    <Resource tag="REPORTPOST">Reportar Abuso</Resource>   
+    <Resource tag="REPORTPOST">Reportar Abuso</Resource>
     <Resource tag="RSSTOPIC">RSS</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Estadísticas</Resource>
@@ -930,6 +930,8 @@
     <Resource tag="TOPICBROWSERS">Usuarios navegando este tema</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Dejar de vigilar este tema</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">Perfil de usuario</Resource>

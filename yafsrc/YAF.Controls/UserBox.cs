@@ -262,8 +262,14 @@ namespace YAF.Controls
         userBox = this.MatchUserBoxPostCount(userBox);
 
         // Points
-        userBox = this.MatchUserBoxPoints(userBox);
+        userBox = this.MatchUserBoxPoints(userBox);        
+        
+        if (PageContext.BoardSettings.AllowGenderInUserBox)
+        {
 
+            // Gender
+            userBox = this.MatchUserBoxGender(userBox);
+        }
         // Location
         userBox = this.MatchUserBoxLocation(userBox);
       }
@@ -437,6 +443,40 @@ namespace YAF.Controls
       }
 
       // replaces template placeholder with actual groups
+      userBox = rx.Replace(userBox, filler);
+      return userBox;
+    }
+
+     private string MatchUserBoxGender(string userBox)
+    {
+      string filler = string.Empty;
+      var rx = new Regex(Constants.UserBox.Gender);
+      int userGender = UserProfile.Gender;
+      string imagePath = string.Empty;
+      string imageAlt = string.Empty;
+      if (userGender > 0)
+      {
+
+          if (userGender == 1)
+          {
+              imagePath = this.PageContext.Theme.GetItem("ICONS", "GENDER_MALE", null);
+              imageAlt = this.PageContext.Localization.GetText("USERGENDER_MAS");
+          }
+          else if (userGender == 2)
+          {
+              imagePath = this.PageContext.Theme.GetItem("ICONS", "GENDER_FEMALE", null);
+              imageAlt = this.PageContext.Localization.GetText("USERGENDER_FEM");
+          }
+
+          filler = String.Format(
+            this.PageContext.BoardSettings.UserBoxGender,
+            String.Format(
+              @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>",
+              imagePath, imageAlt));
+
+      }
+
+      // replaces template placeholder with actual image
       userBox = rx.Replace(userBox, filler);
       return userBox;
     }

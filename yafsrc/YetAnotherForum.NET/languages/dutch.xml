@@ -831,7 +831,7 @@
     <Resource tag="ANNOUNCEMENT">Mededeling</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
     <Resource tag="ATTACH">Bijlage toevoegen:</Resource>
-    <Resource tag="CHOICE">Keuze {0}:</Resource>    
+    <Resource tag="CHOICE">Keuze {0}:</Resource>
     <Resource tag="CREATEPOLL">Maak enquête</Resource>
     <Resource tag="EDIT">Bericht wijzigen</Resource>
     <Resource tag="EDITREASON">Reden voor wijzigen:</Resource>
@@ -877,7 +877,7 @@
     <Resource tag="CHOICE">Keuze</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Bericht verwijderen?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Onderwerp verwijderen?</Resource>   
+    <Resource tag="CONFIRM_DELETETOPIC">Onderwerp verwijderen?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
     <Resource tag="EDIT_REASON_NA">Not specified</Resource>
@@ -947,6 +947,8 @@
     <Resource tag="TOPICBROWSERS">Gebruikers die dit onderwerp bekijken</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Onderwerp niet meer volgen</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
@@ -1060,7 +1062,7 @@
     <Resource tag="NEED_PASSWORD">Wachtwoord is verplicht</Resource>
     <Resource tag="NEED_QUESTION">Beveiligings-vraag is verplicht.</Resource>
     <Resource tag="NEED_USERNAME">Gebruikersnaam is verplicht.</Resource>
-    <Resource tag="PASSWORD">Wachtwoord</Resource>   
+    <Resource tag="PASSWORD">Wachtwoord</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">Forum voorkeuren</Resource>

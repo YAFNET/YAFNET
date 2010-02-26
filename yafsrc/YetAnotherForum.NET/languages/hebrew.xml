@@ -796,7 +796,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">הכרזה</Resource>
     <Resource tag="ASK_POLL_DELETE">האם את/ה באמת רוצה להסיר סקר זה?</Resource>
-    <Resource tag="CHOICE">{0} בחירה:</Resource>   
+    <Resource tag="CHOICE">{0} בחירה:</Resource>
     <Resource tag="CREATEPOLL">צור סקר</Resource>
     <Resource tag="EDIT">ערוך הודעה</Resource>
     <Resource tag="EDITREASON">סיבת עריכה:</Resource>
@@ -842,7 +842,7 @@
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">האם ברצונך למחוק הודעה זו?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">האם ברצונך למחוק דיון זו?</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">האם את/ה בטוח/ה שברצונך לדווח על התוכן כפוגעני?</Resource>  
+    <Resource tag="CONFIRM_REPORTPOST">האם את/ה בטוח/ה שברצונך לדווח על התוכן כפוגעני?</Resource>
     <Resource tag="EDIT_REASON">סיבה</Resource>
     <Resource tag="EDIT_REASON_NA">לא צויינה</Resource>
     <Resource tag="EDITED">נערך</Resource>
@@ -887,9 +887,9 @@
     <Resource tag="QUICKREPLY">תגובה מהירה</Resource>
     <Resource tag="QUICKREPLY_HIDE">הסתר תגובה מהירה</Resource>
     <Resource tag="QUICKREPLY_SHOW">הצג תגובה מהירה</Resource>
-    <Resource tag="RANK">דירוג</Resource>    
+    <Resource tag="RANK">דירוג</Resource>
     <Resource tag="REPORTEDFEEDBACK">תודה על הדיווח.</Resource>
-    <Resource tag="REPORTPOST">דווח/י על תוכן פוגעני</Resource>  
+    <Resource tag="REPORTPOST">דווח/י על תוכן פוגעני</Resource>
     <Resource tag="RSSTOPIC">הזנת RSS</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">סטטיסטיקות</Resource>
@@ -911,6 +911,8 @@
     <Resource tag="TOPICBROWSERS">משתמשים הצופים בדיון זה</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">בטל מעקב אחר דיון זה</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>

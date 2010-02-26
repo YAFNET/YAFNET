@@ -776,7 +776,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Thông báo</Resource>
     <Resource tag="ASK_POLL_DELETE">Bạn thật sự muốn xoá bình chọn của chủ đề này?</Resource>
-    <Resource tag="CHOICE">Trả lời {0}:</Resource>    
+    <Resource tag="CHOICE">Trả lời {0}:</Resource>
     <Resource tag="CREATEPOLL">Tạo bình chọn</Resource>
     <Resource tag="EDIT">Sửa bài</Resource>
     <Resource tag="EDITREASON">Lý do chỉnh sửa:</Resource>
@@ -821,8 +821,8 @@
     <Resource tag="CHOICE">Chọn</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Xóa tin nhắn?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Xóa chủ đề?</Resource> 
-    <Resource tag="CONFIRM_REPORTPOST">Báo cáo bài viết có nội dung vi phạm?</Resource> 
+    <Resource tag="CONFIRM_DELETETOPIC">Xóa chủ đề?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Báo cáo bài viết có nội dung vi phạm?</Resource>
     <Resource tag="EDIT_REASON">Lý do</Resource>
     <Resource tag="EDIT_REASON_NA">Chưa rõ</Resource>
     <Resource tag="EDITED">Sửa</Resource>
@@ -867,9 +867,9 @@
     <Resource tag="QUICKREPLY">Trả lời nhanh</Resource>
     <Resource tag="QUICKREPLY_HIDE">Ẩn Trả Lời Nhanh</Resource>
     <Resource tag="QUICKREPLY_SHOW">Hiển thị Trả Lời Nhanh</Resource>
-    <Resource tag="RANK">Danh hiệu</Resource>   
+    <Resource tag="RANK">Danh hiệu</Resource>
     <Resource tag="REPORTEDFEEDBACK">Cảm ơn bạn đã gửi báo cáo về bài viết này.</Resource>
-    <Resource tag="REPORTPOST">Báo cáo vi phạm</Resource>   
+    <Resource tag="REPORTPOST">Báo cáo vi phạm</Resource>
     <Resource tag="RSSTOPIC">RSS</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Thống kê</Resource>
@@ -891,6 +891,8 @@
     <Resource tag="TOPICBROWSERS">Ai đang xem chủ đề này?</Resource>
     <Resource tag="TOTAL">Tổng</Resource>
     <Resource tag="UNWATCHTOPIC">chưa xem chủ đề này</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">Thành viên ngoại tuyến</Resource>
     <Resource tag="USERONLINESTATUS">Thành viên trực tuyến</Resource>
     <Resource tag="USERPROFILE">Hồ sơ người dùng</Resource>

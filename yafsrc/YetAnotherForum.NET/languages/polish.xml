@@ -829,7 +829,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Zawiadomienie</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
-    <Resource tag="CHOICE">Wybór {0}:</Resource>   
+    <Resource tag="CHOICE">Wybór {0}:</Resource>
     <Resource tag="CREATEPOLL">Stwórz Ankietę</Resource>
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
@@ -874,7 +874,7 @@
     <Resource tag="CHOICE">Wybór</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Usunąć tę wiadomość?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Usunąć ten temat?</Resource>   
+    <Resource tag="CONFIRM_DELETETOPIC">Usunąć ten temat?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as abusive?</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
     <Resource tag="EDIT_REASON_NA">Not specified</Resource>
@@ -922,7 +922,7 @@
     <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
     <Resource tag="RANK">Ranga</Resource>
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
-    <Resource tag="REPORTPOST">Report Abusive</Resource>    
+    <Resource tag="REPORTPOST">Report Abusive</Resource>
     <Resource tag="RSSTOPIC">Źródło RSS</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">Statystyki</Resource>
@@ -944,6 +944,8 @@
     <Resource tag="TOPICBROWSERS">Użytkownicy przeglądający ten temat</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Unwatch this topic</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>

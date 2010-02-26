@@ -772,7 +772,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Annonce</Resource>
     <Resource tag="ASK_POLL_DELETE">Etes-vous sur de vouloir supprimer le sondage de ce sujet ?</Resource>
-    <Resource tag="CHOICE">Choix {0}:</Resource>   
+    <Resource tag="CHOICE">Choix {0}:</Resource>
     <Resource tag="CREATEPOLL">Créer un sondage</Resource>
     <Resource tag="EDIT">Éditer le message</Resource>
     <Resource tag="EDITREASON">Raison pour édition:</Resource>
@@ -817,7 +817,7 @@
     <Resource tag="CHOICE">Choix</Resource>
     <Resource tag="CLOSE_TEXT">Fermer</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Effacer ce message ?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Effacer ce sujet ?</Resource>   
+    <Resource tag="CONFIRM_DELETETOPIC">Effacer ce sujet ?</Resource>
     <Resource tag="CONFIRM_REPORTPOST">Etes-vous sur de vuoloir rapporter ce message comme abusif ?</Resource>
     <Resource tag="EDIT_REASON">Raison</Resource>
     <Resource tag="EDIT_REASON_NA">Non indiquée</Resource>
@@ -887,6 +887,8 @@
     <Resource tag="TOPICBROWSERS">Utilisateurs actuellement sur ce sujet</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Ne plus surveiller ce sujet</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">Utilisateur déconnecté</Resource>
     <Resource tag="USERONLINESTATUS">Utilisateur en ligne</Resource>
     <Resource tag="USERPROFILE">Profil utilisateur</Resource>

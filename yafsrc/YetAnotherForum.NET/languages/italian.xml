@@ -796,7 +796,7 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Annunci</Resource>
     <Resource tag="ASK_POLL_DELETE">Vuoi veramente rimuovere il sondaggio da questo topic?</Resource>
-    <Resource tag="CHOICE">Scelta {0}:</Resource>    
+    <Resource tag="CHOICE">Scelta {0}:</Resource>
     <Resource tag="CREATEPOLL">Crea Sondaggio</Resource>
     <Resource tag="EDIT">Modifica messaggio</Resource>
     <Resource tag="EDITREASON">Motivo della modifica:</Resource>
@@ -841,8 +841,8 @@
     <Resource tag="CHOICE">Scelta</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Cancello questo messaggio?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Cancello questo topic?</Resource>   
-    <Resource tag="CONFIRM_REPORTPOST">Sei sicuro di voler segnalare questo post come offensivo?</Resource>  
+    <Resource tag="CONFIRM_DELETETOPIC">Cancello questo topic?</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">Sei sicuro di voler segnalare questo post come offensivo?</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
     <Resource tag="EDIT_REASON_NA">Not specified</Resource>
     <Resource tag="EDITED">Edit</Resource>
@@ -887,7 +887,7 @@
     <Resource tag="QUICKREPLY">Risposta veloce</Resource>
     <Resource tag="QUICKREPLY_HIDE">Nascondi Risposta Veloce</Resource>
     <Resource tag="QUICKREPLY_SHOW">Mostra Risposta Veloce</Resource>
-    <Resource tag="RANK">Rank</Resource>   
+    <Resource tag="RANK">Rank</Resource>
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
     <Resource tag="REPORTPOST">Segnalato come post offensivo</Resource>
     <Resource tag="RSSTOPIC">Feed RSS</Resource>
@@ -911,6 +911,8 @@
     <Resource tag="TOPICBROWSERS">Utenti che sfogliano il topic</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">Non guardare questo topic</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>

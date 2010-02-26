@@ -827,7 +827,7 @@
     <Resource tag="ANNOUNCEMENT">公告</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
     <Resource tag="ATTACH">附件:</Resource>
-    <Resource tag="CHOICE">选择 {0}:</Resource>   
+    <Resource tag="CHOICE">选择 {0}:</Resource>
     <Resource tag="CREATEPOLL">发起投票</Resource>
     <Resource tag="EDIT">Edit post</Resource>
     <Resource tag="EDITREASON">Reason for edit:</Resource>
@@ -873,7 +873,7 @@
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">删除这条信息?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">删除这条话题？</Resource>
-    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as an abusive one?</Resource>   
+    <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post as an abusive one?</Resource>
     <Resource tag="EDIT_REASON">Reason</Resource>
     <Resource tag="EDIT_REASON_NA">Not specified</Resource>
     <Resource tag="EDITED">Edit</Resource>
@@ -918,9 +918,9 @@
     <Resource tag="QUICKREPLY">Quick Reply</Resource>
     <Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
     <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
-    <Resource tag="RANK">等级</Resource> 
+    <Resource tag="RANK">等级</Resource>
     <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
-    <Resource tag="REPORTPOST">Report</Resource>    >
+    <Resource tag="REPORTPOST">Report</Resource>
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="STATISTICS">统计</Resource>
@@ -942,6 +942,8 @@
     <Resource tag="TOPICBROWSERS">浏览本话题的用户</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="UNWATCHTOPIC">取消订阅</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
     <Resource tag="USEROFFLINESTATUS">User Is Offline</Resource>
     <Resource tag="USERONLINESTATUS">User Is Online</Resource>
     <Resource tag="USERPROFILE">User Profile</Resource>
@@ -1055,7 +1057,7 @@
     <Resource tag="NEED_PASSWORD">密码必须输入.</Resource>
     <Resource tag="NEED_QUESTION">Security question is required.</Resource>
     <Resource tag="NEED_USERNAME">用户名必须输入.</Resource>
-    <Resource tag="PASSWORD">密码</Resource>    
+    <Resource tag="PASSWORD">密码</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
     <Resource tag="PREFERENCES">社区信息</Resource>

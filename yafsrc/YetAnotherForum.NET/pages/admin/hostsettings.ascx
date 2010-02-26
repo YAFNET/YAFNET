@@ -294,7 +294,16 @@
 						<td class="post">
 							<asp:CheckBox ID="EnableDisplayName" runat="server"></asp:CheckBox>
 						</td>
-					</tr>		
+					</tr>
+							<tr>
+						<td class="postheader">
+							<b>Allow Display Gender:</b><br />
+							If checked, the user gender is displayed in the user data in messages list.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="AllowGenderInUserBox" runat="server"></asp:CheckBox>
+						</td>
+					</tr>							
 					<tr>
 						<td class="postheader">
 							<b>Allow Display Name Modification:</b><br />
@@ -1179,6 +1188,15 @@
 							<asp:TextBox ID="UserBoxLocation" runat="server"></asp:TextBox>
 						</td>
 					</tr>
+						<tr>
+						<td class="postheader">
+							<b>Gender:</b><br />
+							Template for rendering user's gender.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="UserBoxGender" runat="server"></asp:TextBox>
+						</td>
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Thanks From template:</b><br>
@@ -1192,11 +1210,11 @@
 						<td class="postheader">
 							<b>Thanks To template:</b><br>
 							Template for rendering user's thanks to.
-						</td>
+				aLLOW		</td>
 						<td class="post">
 							<asp:TextBox ID="UserBoxThanksTo" runat="server"></asp:TextBox>
 						</td>
-					</tr>
+					</tr>					
 				</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View8" Text="Avatars" NavigateUrl="" HeaderCssClass=""
