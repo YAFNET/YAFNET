@@ -230,6 +230,11 @@ BEGIN
 				SET @LastTopicID = @TopicID
 				SET @LastPosted = @Posted
 			end
+			-- workaround to avoid logical expressions with NULL possible differences through SQL server versions. 
+			if (@TopicID is not null and @Posted is not null and @LastPosted is null) begin
+				SET @LastTopicID = @TopicID
+				SET @LastPosted = @Posted
+			end	
 
 			fetch next from c into @SubforumID, @TopicID, @Posted
 		end
