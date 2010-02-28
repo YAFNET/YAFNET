@@ -5631,7 +5631,11 @@ begin
 		begin
 			select @GroupID = GroupID from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID and Name=@Role
 		end
+		-- user already can be in the group even if Role isn't null, an extra check is required 
+		if not exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID=@UserID and GroupID=@GroupID)
+		begin
 		insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) values(@UserID,@GroupID)
+		end
 	end
 end
 GO

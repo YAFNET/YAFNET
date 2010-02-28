@@ -113,8 +113,35 @@ namespace YAF.Controls
           {
               var forumImage = e.Item.FindControl("ForumImage1") as Image;
               forumImage.ImageUrl = String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString());
+              
+              // TODO: vzrus: needs to be moved to css and converted to a more light control in the future.
+              // Highlight custom icon images and add tool tips to them. 
+              try
+              {
+                  if (flags.IsLocked)
+                  {
+                      forumImage.BorderWidth = 2;
+                      forumImage.BorderColor = System.Drawing.Color.Purple;
+                      forumImage.ToolTip = PageContext.Localization.GetText("ICONLEGEND", "FORUM_LOCKED");
+                  }
+                  else if (lastPosted > lastRead)
+                  {
+                      forumImage.BorderWidth = 2;
+                      forumImage.BorderColor = System.Drawing.Color.Red;
+                      forumImage.ToolTip = PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS");
+                  }
+                  else
+                  {
+                      forumImage.ToolTip = PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS");
+                  }
+              }
+              catch
+              {
+              }      
+
               forumImage.Visible = true;
           }
+
         if (!PageContext.BoardSettings.ShowModeratorList)
         {
           // hide moderator list...
