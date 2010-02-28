@@ -29,7 +29,7 @@
          <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' Style='<%# Eval("Style") %>'  runat="server"/>
         </td>
         <td class="post">
-        <a href='<%# string.Format(PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' runat="server"><%# Eval("IP") %></a>          
+        <a href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"><%# Eval("IP") %></a>          
         </td>
         <td class="post">
           <%# YafBBCode.EncodeHTML( YafUserProfile.GetProfile( Eval("UserName").ToString() ).Location ) %>

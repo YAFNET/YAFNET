@@ -6423,7 +6423,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("Offset", offset);
         cmd.Parameters.AddWithValue("Count", count);
         cmd.Parameters.AddWithValue("@StyledNicks", useStyledNicks);
-        return YafDBAccess.Current.GetData(cmd);
+        return YafDBAccess.Current.GetData(cmd, true);
       }
     }
 

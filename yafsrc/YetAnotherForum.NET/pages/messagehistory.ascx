@@ -29,9 +29,10 @@
 						</b>
 						<%# string.IsNullOrEmpty(Eval("EditReason").ToString())? this.PageContext.Localization.GetText("EDIT_REASON_NA"):Eval("EditReason") %>
 						<br />
+						<span id="IPSpan1" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>  
 						<b>	
-					  <%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator) ? "IP:" + Eval("IP") : ""%>
-					   </b>
+						<%# this.PageContext.Localization.GetText("IP") %>:</b><a id="IPLink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"><%# Eval("IP") %></a>			   
+					   </span> 
 					</td>		
 		    </tr>
 			<tr runat="server" id="original_tr" visible='<%# (DataBinder.Eval( Container.DataItem, "Edited").ToString() == DataBinder.Eval( Container.DataItem, "Posted").ToString()) %>' class="postheader" >
@@ -49,9 +50,10 @@
 						</b>
 						<%# YafServices.DateTime.FormatDateTimeTopic( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
 						&nbsp;
-						<b>
-						<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator) ? "IP:" + Eval("IP") : ""%>
-						</b>						
+						<span id="IPSpan2" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>  
+						<b>	
+						<%# this.PageContext.Localization.GetText("IP") %>:</b><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"><%# Eval("IP") %></a>			   
+					   </span> 					
 					</td>								
 			</tr>									
 			<tr>					
@@ -89,10 +91,11 @@
 						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="EDITREASON" />
 						</b>				
 						<%# string.IsNullOrEmpty(Eval("EditReason").ToString())? this.PageContext.Localization.GetText("EDIT_REASON_NA"):Eval("EditReason") %>
-						<br />	
-					 	<b>
-						<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator) ? "IP:" + Eval("IP") : ""%>
-						</b>
+						<br />					 
+						<span id="IPSpan3" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>  
+						<b>	
+						<%# this.PageContext.Localization.GetText("IP") %>:</b><a id="IPLink3" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"><%# Eval("IP") %></a>			   
+					   </span> 	
 						<br />
 					</td>					
 			</tr>			

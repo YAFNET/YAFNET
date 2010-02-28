@@ -28,13 +28,16 @@
 	<div class="rightItem postInfoRight">		
 		<span id="ReportButtons" runat="server">	
 			<asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>' Text="Report" runat="server" Visible="true"></asp:LinkButton>					
-		</span>					
-		
+		</span>			
 		<asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
 		&nbsp;|&nbsp;
 		<asp:LinkButton ID="MessageHistoryLBtn" CommandName="ShowHistory" CommandArgument='<%# DataRow["MessageID"] %>' Text="Message History" runat="server"></asp:LinkButton>	
 		</asp:PlaceHolder>
-		<span id="DetailsDelimiter1" runat="server" visible="<%# this.MessageDetails.Text.Length > 0 %>">&nbsp;|&nbsp;</span>
-		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>		
+		<span id="DetailsDelimiter1" runat="server" visible="<%# this.MessageDetails.Text.Length > 0 %>">&nbsp;|</span>
+		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>
+		<span id="IPSpan1" runat="server" visible="false"> 
+		&nbsp;|&nbsp;
+		<b><%# this.PageContext.Localization.GetText("IP") %>:</b><a id="IPLink1" target="_blank" runat="server"/>			   
+		</span> 		
 	</div>
 </div>

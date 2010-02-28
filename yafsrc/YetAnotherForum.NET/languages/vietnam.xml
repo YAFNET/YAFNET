@@ -300,6 +300,7 @@
     <Resource tag="TT_CUSTOMBBCODE">Thêm BBCode Tags</Resource>
     <Resource tag="TT_HIGHLIGHT">Highlight</Resource>
     <Resource tag="TT_IMAGE">Chèn ảnh</Resource>
+    <Resource tag="TT_IPDETAILS">Show IP details</Resource>
     <Resource tag="TT_ITALIC">Nghiêng</Resource>
     <Resource tag="TT_QUOTE">Trích dẫn</Resource>
     <Resource tag="TT_UNDERLINE">Gạch chân</Resource>

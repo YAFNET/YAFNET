@@ -321,6 +321,7 @@
     <Resource tag="TT_CUSTOMBBCODE">تگهای BBCode بیشتر</Resource>
     <Resource tag="TT_HIGHLIGHT">Highlight</Resource>
     <Resource tag="TT_IMAGE">وارد کردن عکس</Resource>
+    <Resource tag="TT_IPDETAILS">Show IP details</Resource>
     <Resource tag="TT_ITALIC">کج</Resource>
     <Resource tag="TT_QUOTE">نقل قول</Resource>
     <Resource tag="TT_UNDERLINE">خط دار</Resource>

@@ -300,6 +300,7 @@
     <Resource tag="TT_CUSTOMBBCODE">Plus de tags BBCode</Resource>
     <Resource tag="TT_HIGHLIGHT">Highlight</Resource>
     <Resource tag="TT_IMAGE">Insertion d'image</Resource>
+    <Resource tag="TT_IPDETAILS">Show IP details</Resource>
     <Resource tag="TT_ITALIC">Italique</Resource>
     <Resource tag="TT_QUOTE">Citer</Resource>
     <Resource tag="TT_UNDERLINE">Souligné</Resource>

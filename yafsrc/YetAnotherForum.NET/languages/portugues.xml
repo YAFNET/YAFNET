@@ -321,6 +321,7 @@
     <Resource tag="TT_CUSTOMBBCODE">More BBCode Tags</Resource>
     <Resource tag="TT_HIGHLIGHT">Highlight</Resource>
     <Resource tag="TT_IMAGE">Insert Image</Resource>
+    <Resource tag="TT_IPDETAILS">Show IP details</Resource>
     <Resource tag="TT_ITALIC">Italic</Resource>
     <Resource tag="TT_QUOTE">Quote</Resource>
     <Resource tag="TT_UNDERLINE">Underline</Resource>

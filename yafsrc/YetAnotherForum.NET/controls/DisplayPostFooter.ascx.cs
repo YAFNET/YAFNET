@@ -173,11 +173,16 @@
       if (this.PageContext.IsAdmin ||
           (this.PageContext.BoardSettings.AllowModeratorsViewIPs && this.PageContext.IsModerator))
       {
-        sb.AppendFormat(
-          @" | <span class=""ipinfo"" title=""{1}"">{0}: {1}", 
-          this.PageContext.Localization.GetText("IP"), 
-          this.DataRow["IP"]);
-      }
+         
+          // We should show IP
+          this.IPSpan1.Visible = true;
+          this.IPLink1.HRef = string.Format(this.PageContext.BoardSettings.IPInfoPageURL, this.DataRow["IP"].ToString());
+          this.IPLink1.Title= this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS");
+          this.IPLink1.InnerText = HttpContext.Current.Server.HtmlEncode(this.DataRow["IP"].ToString());
+
+          sb.Append(' ');
+        
+      } 
 
       if (sb.Length > 0)
       {
