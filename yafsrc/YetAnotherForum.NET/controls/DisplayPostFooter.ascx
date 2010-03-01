@@ -25,13 +25,11 @@
 		<YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 			TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" Visible="false" />
 	</div>
-	<div class="rightItem postInfoRight">		
-		<span id="ReportButtons" runat="server">	
-			<asp:LinkButton ID="ReportPostLinkButton" CommandName="ReportPost" CommandArgument='<%# DataRow["MessageID"] %>' Text="Report" runat="server" Visible="true"></asp:LinkButton>					
-		</span>			
+	<div class="rightItem postInfoRight">			
+		<a id="reportPostLink" runat="server" visible="false" />				
 		<asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
 		&nbsp;|&nbsp;
-		<asp:LinkButton ID="MessageHistoryLBtn" CommandName="ShowHistory" CommandArgument='<%# DataRow["MessageID"] %>' Text="Message History" runat="server"></asp:LinkButton>	
+		<a id="messageHistoryLink" runat="server" /> 
 		</asp:PlaceHolder>
 		<span id="DetailsDelimiter1" runat="server" visible="<%# this.MessageDetails.Text.Length > 0 %>">&nbsp;|</span>
 		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>

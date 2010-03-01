@@ -116,22 +116,18 @@
           if (HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["EditReason"])) != string.Empty)
           {
             // reason was specified
-            /*
-              " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)this.DataRow["EditReason"], true)); */
-            this.MessageHistoryLBtn.ToolTip += String.Format(
-              "{0}: {1}", 
-              this.PageContext.Localization.GetText("EDIT_REASON"), 
-              FormatMsg.RepairHtml((string)this.DataRow["EditReason"], true));
+           
+              this.messageHistoryLink.Title += String.Format(
+                 " | {0}: {1}",
+                 this.PageContext.Localization.GetText("EDIT_REASON"),
+                 FormatMsg.RepairHtml((string)this.DataRow["EditReason"], true));
           }
           else
           {
-            // reason was not specified
-            /* editedText += String.Format(
-              " | {0}: {1}", this.PageContext.Localization.GetText("EDIT_REASON"), this.PageContext.Localization.GetText("EDIT_REASON_NA")); */
-            this.MessageHistoryLBtn.ToolTip += String.Format(
-              "{0}: {1}", 
-              this.PageContext.Localization.GetText("EDIT_REASON"), 
-              this.PageContext.Localization.GetText("EDIT_REASON_NA"));
+              this.messageHistoryLink.Title += String.Format(
+               " {0}: {1}",
+               this.PageContext.Localization.GetText("EDIT_REASON"),
+               this.PageContext.Localization.GetText("EDIT_REASON_NA"));
           }
 
           // message has been edited
@@ -140,12 +136,13 @@
                                 ? this.PageContext.Localization.GetText("EDITED_BY_MOD")
                                 : this.PageContext.Localization.GetText("EDITED_BY_USER");
 
-          /* sb.AppendFormat(@"| <span class=""editedinfo"" title=""{2}"">{0} {1}</span>", this.PageContext.Localization.GetText("EDITED"), whoChanged, editedText); */
-          this.MessageHistoryLBtn.Text = string.Format(
-            @"<span class=""editedinfo"" title=""{2}"">{0} {1}</span>", 
-            this.PageContext.Localization.GetText("EDITED"), 
-            whoChanged, 
-            editedText);
+          this.messageHistoryLink.InnerHtml = string.Format(
+             @"<span class=""editedinfo"" title=""{2}"">{0} {1}</span>",
+             this.PageContext.Localization.GetText("EDITED"),
+             whoChanged,
+             editedText + this.messageHistoryLink.Title);
+          this.messageHistoryLink.HRef = YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "m={0}", DataRow["MessageID"]);
+
         }
       }
       else
@@ -189,25 +186,8 @@
         this.MessageDetails.Visible = true;
         this.MessageDetails.Text = @"<span class=""MessageDetails"">" + sb.ToString() + @"</span>";
       }
-    }
-
-    /// <summary>
-    /// The history_ command.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void History_Command(object sender, CommandEventArgs e)
-    {
-      if (e.CommandName == "ShowHistory")
-      {
-        HttpContext.Current.Response.Redirect(
-          YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "m={0}", e.CommandArgument.ToString()));
-      }
-    }
+    } 
+  
 
     /// <summary>
     /// The on init.
@@ -216,9 +196,7 @@
     /// The e.
     /// </param>
     protected override void OnInit(EventArgs e)
-    {
-      this.ReportPostLinkButton.Command += new CommandEventHandler(this.Report_Command);
-      this.MessageHistoryLBtn.Command += new CommandEventHandler(this.History_Command);
+    {     
       this.PreRender += new EventHandler(this.DisplayPostFooter_PreRender);
       base.OnInit(e);
     }
@@ -234,29 +212,11 @@
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (!this.PageContext.BoardSettings.AllowGuestToReportPost && this.PageContext.CurrentUserData.IsGuest)
-      {
-        this.ReportButtons.Visible = false;
-      }
-    }
-
-    /// <summary>
-    /// Command Button - Report post as Abusive/Spam
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Report_Command(object sender, CommandEventArgs e)
-    {
-      if (e.CommandName == "ReportPost")
-      {
-        HttpContext.Current.Response.Redirect(
-          YafBuildLink.GetLinkNotEscaped(ForumPages.reportpost, "m={0}", e.CommandArgument.ToString()));
-      }
-    }
+        if (this.PageContext.BoardSettings.AllowReportPosts && !this.IsGuest)
+        {
+            this.reportPostLink.Visible = true;
+        }    
+    }  
 
     /// <summary>
     /// The setup theme button with link.
@@ -302,11 +262,16 @@
     private void DisplayPostFooter_PreRender(object sender, EventArgs e)
     {
       // report posts
-      this.ReportPostLinkButton.Visible = this.PageContext.BoardSettings.AllowReportPosts && !this.IsGuest;
+        if (!this.PageContext.BoardSettings.AllowGuestToReportPost && this.PageContext.CurrentUserData.IsGuest)
+        {
+            this.reportPostLink.Visible = true;
+        }           
         
-        // vzrus Addition 08/18/2007
-      this.ReportPostLinkButton.Text = this.PageContext.Localization.GetText("REPORTPOST"); // Mek Addition 08/18/2007
+      // vzrus Addition 
+      this.reportPostLink.InnerText = this.reportPostLink.Title = this.PageContext.Localization.GetText("REPORTPOST"); 
 
+      this.reportPostLink.HRef = YafBuildLink.GetLinkNotEscaped(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
+      
       // private messages
       this.Pm.Visible = !this.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null &&
                         this.PageContext.BoardSettings.AllowPrivateMessages && !this.PostData.IsSponserMessage;
