@@ -33,6 +33,16 @@
 	font-weight: bold;
 	font-size: 10.5pt;	
 }
+/* custom forum images special styles */
+.yafnet .forum_customimage_locked
+{
+    border: solid 2px #c93a4a;    
+}
+
+.yafnet .forum_customimage_newposts
+{
+    border: solid 2px #fe0300;
+}
 
 .yafnet tr.forumRowFoot,
 .yafnet td.footer1,

@@ -81,6 +81,17 @@
 	padding: 10px;
 	border: 1px solid #F2F2F2;
 }
+/* custom forum images special styles */
+.yafnet .forum_customimage_locked
+{
+    border: solid 2px #c93a4a;    
+}
+
+.yafnet .forum_customimage_newposts
+{
+    border: solid 2px #fe0300;
+}
+
 /* all links */
 .yafnet .content a			{ color: #001090; text-decoration: none; }
 .yafnet .content a:hover	{ color: #001090; text-decoration: underline; }

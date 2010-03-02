@@ -89,6 +89,16 @@
 .yafnet .post_alt {
 	background-color: #FAFAF5;
 }
+/* custom forum images special styles */
+.yafnet .forum_customimage_locked
+{
+    border: solid 2px #c93a4a;    
+}
+
+.yafnet .forum_customimage_newposts
+{
+    border: solid 2px #fe0300;
+}
 /* Unresolved post in Moderation Reports */
 .yafnet .post_res
 {

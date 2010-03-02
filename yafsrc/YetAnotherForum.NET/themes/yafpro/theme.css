@@ -43,6 +43,17 @@
 .yafnet li {
 	margin-left: 15px;
 }
+/* custom forum images special styles */
+.yafnet .forum_customimage_locked
+{
+    border: solid 2px #c93a4a;    
+}
+
+.yafnet .forum_customimage_newposts
+{
+    border: solid 2px #fe0300;
+}
+
 .yafnet tr.header1 {	
 	background-image: url('titleBack.gif');
 	color: #ffffff;

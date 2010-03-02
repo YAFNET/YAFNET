@@ -7,8 +7,8 @@
 	<ItemTemplate>
 		<tr class="forumRow post">
 			<td class="forumIconCol">
-				<YAF:ThemeImage  ID="ThemeForumIcon" Visible="false" runat="server" />
-				<asp:Image ID="ForumImage1" runat="server"  Visible="false"  /> 
+				<YAF:ThemeImage  ID="ThemeForumIcon" Visible="false" runat="server" />	
+				<img id="ForumImage1" class="" src="" alt="" visible="false" runat="server" style="border-width:0px;" />	
 			</td>
 			<td class="forumLinkCol">
 				<div class="forumheading">
@@ -42,7 +42,7 @@
 		<tr class="forumRow_Alt post_alt">
 			<td>
 				<YAF:ThemeImage ID="ThemeForumIcon" runat="server" />
-				<asp:Image ID="ForumImage1" runat="server"  Visible="false"  /> 
+				<img id="ForumImage1" src="" alt="" visible="false" runat="server" style="border-width:0px;" />	
 			</td>
 			<td class="forumLinkCol">
 				<div class="forumheading">

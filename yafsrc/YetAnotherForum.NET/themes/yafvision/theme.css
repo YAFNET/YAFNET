@@ -43,6 +43,16 @@
 /* hyperlinks */
 .yafnet a		{ text-decoration: none; color: #303030; }
 .yafnet a:hover		{ text-decoration: underline; color: #efefb4; }
+/* custom forum images special styles */
+.yafnet .forum_customimage_locked
+{
+    border: solid 2px #c93a4a;    
+}
+
+.yafnet .forum_customimage_newposts
+{
+    border: solid 2px #fe0300;
+}
 /* Header 1 - Main header */
 .yafnet .header1 {
 	background-image: url('bg_header1.png');

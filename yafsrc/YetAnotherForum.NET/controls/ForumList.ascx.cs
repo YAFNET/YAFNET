@@ -111,29 +111,41 @@ namespace YAF.Controls
         }
           else
           {
-              var forumImage = e.Item.FindControl("ForumImage1") as Image;
-              forumImage.ImageUrl = String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString());
+              System.Web.UI.HtmlControls.HtmlImage forumImage = e.Item.FindControl("ForumImage1") as System.Web.UI.HtmlControls.HtmlImage;
+              forumImage.Src = String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString());
               
               // TODO: vzrus: needs to be moved to css and converted to a more light control in the future.
               // Highlight custom icon images and add tool tips to them. 
               try
               {
+                  forumImage.Attributes.Clear();                 
+                  forumImage.Attributes.Add("id", "ForumImage" + row["ForumID"].ToString());
+
                   if (flags.IsLocked)
-                  {
-                      forumImage.BorderWidth = 2;
-                      forumImage.BorderColor = System.Drawing.Color.Purple;
-                      forumImage.ToolTip = PageContext.Localization.GetText("ICONLEGEND", "FORUM_LOCKED");
+                  {                      
+                      forumImage.Attributes.Add("class", "forum_customimage_locked");                      
+                      forumImage.Attributes.Add("alt", PageContext.Localization.GetText("ICONLEGEND", "FORUM_LOCKED"));
+                      forumImage.Attributes.Add("title", PageContext.Localization.GetText("ICONLEGEND", "FORUM_LOCKED"));
+                      forumImage.Attributes.Add("src", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
+                    
                   }
                   else if (lastPosted > lastRead)
-                  {
-                      forumImage.BorderWidth = 2;
-                      forumImage.BorderColor = System.Drawing.Color.Red;
-                      forumImage.ToolTip = PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS");
+                  {                      
+                      forumImage.Attributes.Add("class", "forum_customimage_newposts");                    
+                      forumImage.Attributes.Add("alt", PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS"));
+                      forumImage.Attributes.Add("title", PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS"));
+                      forumImage.Attributes.Add("src", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));                    
+                    
                   }
                   else
-                  {
-                      forumImage.ToolTip = PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS");
+                  {                     
+                      forumImage.Attributes.Add("src", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));                    
+                      forumImage.Attributes.Add("alt", PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS"));
+                      forumImage.Attributes.Add("title", PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS"));
                   }
+
+                  forumImage.Attributes.Add("runat", "server");
+                  forumImage.Attributes.Add("visible", "true");
               }
               catch
               {

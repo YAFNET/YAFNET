@@ -67,6 +67,17 @@
 	line-height: 18px;
 	font-size:12px;	
 }
+/* custom forum images special styles */
+.yafnet .forum_customimage_locked
+{
+    border: solid 2px #c93a4a;    
+}
+
+.yafnet .forum_customimage_newposts
+{
+    border: solid 2px #fe0300;
+}
+
 /* Header 2 - Sub header */
 .yafnet .header2 {
 	background-color: #DDDDDD;
