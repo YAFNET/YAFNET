@@ -225,6 +225,17 @@
             The surround word list.
             </returns>
         </member>
+        <member name="M:YAF.Classes.UI.FormatMsg.WordLengthChecker(System.String)">
+            <summary>
+            Function to check a max word length, used i.e. in topic names.
+            </summary>
+            <param name="message">
+            The raw string to format
+            </param>
+            <returns>
+            The formatted string
+            </returns>
+        </member>
         <member name="T:YAF.Classes.UI.FormatMsg.MessageCleaned">
             <summary>
             The message cleaned class (internal)

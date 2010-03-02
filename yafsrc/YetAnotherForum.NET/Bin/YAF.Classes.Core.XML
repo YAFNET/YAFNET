@@ -2826,6 +2826,349 @@
             Gets UserDisplayNameCollection.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.Nntp.NntpConnection">
+            <summary>
+            The nntp connection.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.connectedGroup">
+            <summary>
+            The connected group.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.connectedServer">
+            <summary>
+            The connected server.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.password">
+            <summary>
+            The password.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.port">
+            <summary>
+            The port.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.sr">
+            <summary>
+            The sr.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.sw">
+            <summary>
+            The sw.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.tcpClient">
+            <summary>
+            The tcp client.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.timeout">
+            <summary>
+            The timeout.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.username">
+            <summary>
+            The username.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.Reset">
+            <summary>
+            The reset.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.MakeRequest(System.String)">
+            <summary>
+            The make request.
+            </summary>
+            <param name="request">
+            The request.
+            </param>
+            <returns>
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetHeader(System.String,YAF.Classes.Core.Nntp.MIMEPart@)">
+            <summary>
+            The get header.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <param name="part">
+            The part.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetNormalBody(System.String)">
+            <summary>
+            The get normal body.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetMIMEBody(System.String,YAF.Classes.Core.Nntp.MIMEPart)">
+            <summary>
+            The get mime body.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <param name="part">
+            The part.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ConvertMIMEContent(System.String,YAF.Classes.Core.Nntp.MIMEPart,System.Text.StringBuilder,System.Collections.ArrayList)">
+            <summary>
+            The convert mime content.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <param name="part">
+            The part.
+            </param>
+            <param name="sb">
+            The sb.
+            </param>
+            <param name="attachmentList">
+            The attachment list.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpConnection"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ConnectServer(System.String,System.Int32)">
+            <summary>
+            The connect server.
+            </summary>
+            <param name="server">
+            The server.
+            </param>
+            <param name="port">
+            The port.
+            </param>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ProvideIdentity(System.String,System.String)">
+            <summary>
+            The provide identity.
+            </summary>
+            <param name="username">
+            The username.
+            </param>
+            <param name="password">
+            The password.
+            </param>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.SendIdentity">
+            <summary>
+            The send identity.
+            </summary>
+            <returns>
+            The send identity.
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ConnectGroup(System.String)">
+            <summary>
+            The connect group.
+            </summary>
+            <param name="group">
+            The group.
+            </param>
+            <returns>
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetGroupList">
+            <summary>
+            The get group list.
+            </summary>
+            <returns>
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetMessageId(System.Int32)">
+            <summary>
+            The get message id.
+            </summary>
+            <param name="articleId">
+            The article id.
+            </param>
+            <returns>
+            The get message id.
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticleId(System.String)">
+            <summary>
+            The get article id.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <returns>
+            The get article id.
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticleList(System.Int32,System.Int32)">
+            <summary>
+            The get article list.
+            </summary>
+            <param name="low">
+            The low.
+            </param>
+            <param name="high">
+            The high.
+            </param>
+            <returns>
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+            <exception cref="T:System.Exception">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticle(System.Int32)">
+            <summary>
+            The get article.
+            </summary>
+            <param name="articleId">
+            The article id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticle(System.String)">
+            <summary>
+            The get article.
+            </summary>
+            <param name="messageId">
+            The message id.
+            </param>
+            <returns>
+            </returns>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.PostArticle(YAF.Classes.Core.Nntp.Article)">
+            <summary>
+            The post article.
+            </summary>
+            <param name="article">
+            The article.
+            </param>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.Disconnect">
+            <summary>
+            The disconnect.
+            </summary>
+            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
+            </exception>
+        </member>
+        <member name="E:YAF.Classes.Core.Nntp.NntpConnection.onRequest">
+            <summary>
+            The on request.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Timeout">
+            <summary>
+            Gets or sets Timeout.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.ConnectedServer">
+            <summary>
+            Gets ConnectedServer.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.ConnectedGroup">
+            <summary>
+            Gets ConnectedGroup.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Port">
+            <summary>
+            Gets Port.
+            </summary>
+        </member>
+        <member name="E:YAF.Classes.Core.Nntp.NntpConnection.OnRequest">
+            <summary>
+            The on request.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.NntpConnection.Response">
+            <summary>
+            The response.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.Response.code">
+            <summary>
+            The code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.Response.message">
+            <summary>
+            The message.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.Response.request">
+            <summary>
+            The request.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.Response.#ctor(System.Int32,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpConnection.Response"/> class.
+            </summary>
+            <param name="code">
+            The code.
+            </param>
+            <param name="message">
+            The message.
+            </param>
+            <param name="request">
+            The request.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Response.Code">
+            <summary>
+            Gets or sets Code.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Response.Message">
+            <summary>
+            Gets or sets Message.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Response.Request">
+            <summary>
+            Gets or sets Request.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.IYafHeader">
             <summary>
             Yaf Header Interface
@@ -3092,6 +3435,39 @@
             <summary>
             The run once.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.OnRequestDelegate">
+            <summary>
+            The on request delegate.
+            </summary>
+            <param name="msg">
+            The msg.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.YafNntp">
+            <summary>
+            The yaf nntp.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.YafNntp.ReadArticles(System.Object,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            The read articles.
+            </summary>
+            <param name="boardID">
+            The board id.
+            </param>
+            <param name="lastUpdate">
+            The n last update.
+            </param>
+            <param name="timeToRun">
+            The n time to run.
+            </param>
+            <param name="createUsers">
+            The b create users.
+            </param>
+            <returns>
+            The read articles.
+            </returns>
         </member>
         <member name="T:YAF.Modules.YafModule">
             <summary>
@@ -3462,6 +3838,231 @@
             Gets or sets TemplateParams.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.Nntp.NntpUtil">
+            <summary>
+            The nntp util.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpUtil.base64PemCode">
+            <summary>
+            The base 64 pem code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpUtil.base64PemConvertCode">
+            <summary>
+            The base 64 pem convert code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpUtil.hexValue">
+            <summary>
+            The hex value.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:YAF.Classes.Core.Nntp.NntpUtil"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.UUDecode(System.String,System.IO.Stream)">
+            <summary>
+            The uu decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The uu decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.UUDecode(System.Char[],System.IO.Stream)">
+            <summary>
+            The uu decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The uu decode.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64Decode(System.String,System.IO.Stream)">
+            <summary>
+            The base 64 decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The base 64 decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64Decode(System.Char[],System.IO.Stream)">
+            <summary>
+            The base 64 decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The base 64 decode.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.QuotedPrintableDecode(System.String,System.IO.Stream)">
+            <summary>
+            The quoted printable decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The quoted printable decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.QuotedPrintableDecode(System.Char[],System.IO.Stream)">
+            <summary>
+            The quoted printable decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <param name="outputStream">
+            The output stream.
+            </param>
+            <returns>
+            The quoted printable decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.DispatchMIMEContent(System.IO.StreamReader,YAF.Classes.Core.Nntp.MIMEPart,System.String)">
+            <summary>
+            The dispatch mime content.
+            </summary>
+            <param name="sr">
+            The sr.
+            </param>
+            <param name="part">
+            The part.
+            </param>
+            <param name="seperator">
+            The seperator.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64HeaderDecode(System.String)">
+            <summary>
+            The base 64 header decode.
+            </summary>
+            <param name="line">
+            The line.
+            </param>
+            <returns>
+            The base 64 header decode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.ConvertListToTree(System.Collections.ArrayList)">
+            <summary>
+            The convert list to tree.
+            </summary>
+            <param name="list">
+            The list.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.ArticleHeader">
+            <summary>
+            The article header.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._date">
+            <summary>
+            The _date.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._from">
+            <summary>
+            The _from.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._lineCount">
+            <summary>
+            The _line count.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._postingHost">
+            <summary>
+            The _posting host.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._referenceIds">
+            <summary>
+            The _reference ids.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._sender">
+            <summary>
+            The _sender.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._subject">
+            <summary>
+            The _subject.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.ReferenceIds">
+            <summary>
+            Gets or sets ReferenceIds.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.Subject">
+            <summary>
+            Gets or sets Subject.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.Date">
+            <summary>
+            Gets or sets Date.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.From">
+            <summary>
+            Gets or sets From.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.Sender">
+            <summary>
+            Gets or sets Sender.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.PostingHost">
+            <summary>
+            Gets or sets PostingHost.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.LineCount">
+            <summary>
+            Gets or sets LineCount.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.BaseUserControl">
             <summary>
             Summary description for ForumUsers.
@@ -3819,6 +4420,71 @@
         <member name="P:YAF.Classes.Core.YafDynamicDBConnManager.ConnectionString">
             <summary>
             Gets ConnectionString.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.Article">
+            <summary>
+            The article.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.articleId">
+            <summary>
+            The article id.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.body">
+            <summary>
+            The body.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.children">
+            <summary>
+            The children.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.header">
+            <summary>
+            The header.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.lastReply">
+            <summary>
+            The last reply.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Article.messageId">
+            <summary>
+            The message id.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.MessageId">
+            <summary>
+            Gets or sets MessageId.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.ArticleId">
+            <summary>
+            Gets or sets ArticleId.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.Header">
+            <summary>
+            Gets or sets Header.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.Body">
+            <summary>
+            Gets or sets Body.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.LastReply">
+            <summary>
+            Gets or sets LastReply.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Article.Children">
+            <summary>
+            Gets or sets Children.
             </summary>
         </member>
         <member name="T:YAF.Modules.YafBaseModuleManager">
@@ -4574,12 +5240,52 @@
             The dataTable.
             </param>
         </member>
-        <member name="T:YAF.SyndicationItemExtensions">
+        <member name="T:YAF.Classes.Core.YafRssFeeds">
+            <summary>
+            The yaf rss feeds.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafRssFeeds.LatestPosts">
+            <summary>
+            The latest posts.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafRssFeeds.LatestAnnouncements">
+            <summary>
+            The latest announcements.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafRssFeeds.Posts">
+            <summary>
+            The posts.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafRssFeeds.Forum">
+            <summary>
+            The forum.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafRssFeeds.Topics">
+            <summary>
+            The topics.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafRssFeeds.Active">
+            <summary>
+            The active.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafRssFeeds.Favorite">
+            <summary>
+            The favorite.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.SyndicationItemExtensions">
             <summary>
             The syndication item extensions.
             </summary>
         </member>
-        <member name="M:YAF.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.DateTime)">
+        <member name="M:YAF.Classes.Core.SyndicationItemExtensions.AddSyndicationItem(System.Collections.Generic.List{System.ServiceModel.Syndication.SyndicationItem},System.String,System.String,System.String,System.String,System.DateTime)">
             <summary>
             The add syndication item.
             </summary>
@@ -4602,15 +5308,260 @@
             The posted.
             </param>
         </member>
-        <member name="T:YAF.YafSyndicationFeed">
+        <member name="T:YAF.Classes.Core.YafSyndicationFeed">
             <summary>
             Summary description for YafSyndicationFeed.
             </summary>
         </member>
-        <member name="M:YAF.YafSyndicationFeed.#ctor">
+        <member name="M:YAF.Classes.Core.YafSyndicationFeed.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.YafSyndicationFeed"/> class. 
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafSyndicationFeed"/> class. 
             Initializes a new instance of the <see cref="!:RssFeed"/> class.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.NntpException">
+            <summary>
+            The nntp exception.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpException._errorCode">
+            <summary>
+            The _error code.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpException._message">
+            <summary>
+            The _message.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.NntpException._request">
+            <summary>
+            The _request.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
+            </summary>
+            <param name="errorCode">
+            The error code.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
+            </summary>
+            <param name="errorCode">
+            The error code.
+            </param>
+            <param name="request">
+            The request.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
+            </summary>
+            <param name="response">
+            The response.
+            </param>
+            <param name="request">
+            The request.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.BuildNntpException(System.Int32,System.String)">
+            <summary>
+            The build nntp exception.
+            </summary>
+            <param name="errorCode">
+            The error code.
+            </param>
+            <param name="request">
+            The request.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.NntpException.ToString">
+            <summary>
+            The to string.
+            </summary>
+            <returns>
+            The to string.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpException.ErrorCode">
+            <summary>
+            Gets ErrorCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpException.Request">
+            <summary>
+            Gets Request.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.NntpException.Message">
+            <summary>
+            Gets Message.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.MIMEPart">
+            <summary>
+            The mime part.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.binaryData">
+            <summary>
+            The binary data.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.boundary">
+            <summary>
+            The boundary.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.charset">
+            <summary>
+            The charset.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.contentTransferEncoding">
+            <summary>
+            The content transfer encoding.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.contentType">
+            <summary>
+            The content type.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.embeddedPartList">
+            <summary>
+            The embedded part list.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.filename">
+            <summary>
+            The filename.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.text">
+            <summary>
+            The text.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.BinaryData">
+            <summary>
+            Gets or sets BinaryData.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Boundary">
+            <summary>
+            Gets or sets Boundary.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.ContentType">
+            <summary>
+            Gets or sets ContentType.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.ContentTransferEncoding">
+            <summary>
+            Gets or sets ContentTransferEncoding.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Charset">
+            <summary>
+            Gets or sets Charset.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Filename">
+            <summary>
+            Gets or sets Filename.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Text">
+            <summary>
+            Gets or sets Text.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.EmbeddedPartList">
+            <summary>
+            Gets or sets EmbeddedPartList.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.Attachment">
+            <summary>
+            The attachment.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Attachment.binaryData">
+            <summary>
+            The binary data.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Attachment.filename">
+            <summary>
+            The filename.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Attachment.id">
+            <summary>
+            The id.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Attachment.#ctor(System.String,System.String,System.Byte[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.Attachment"/> class.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <param name="filename">
+            The filename.
+            </param>
+            <param name="binaryData">
+            The binary data.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Attachment.SaveAs(System.String)">
+            <summary>
+            The save as.
+            </summary>
+            <param name="path">
+            The path.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Attachment.SaveAs(System.String,System.Boolean)">
+            <summary>
+            The save as.
+            </summary>
+            <param name="path">
+            The path.
+            </param>
+            <param name="isOverwrite">
+            The is overwrite.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Attachment.Id">
+            <summary>
+            Gets Id.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Attachment.Filename">
+            <summary>
+            Gets Filename.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Attachment.BinaryData">
+            <summary>
+            Gets BinaryData.
             </summary>
         </member>
         <member name="T:YAF.Editors.YafEditorModuleManager">
@@ -5106,6 +6057,41 @@
             On YafContext Unload Call
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.Nntp.ArticleBody">
+            <summary>
+            The article body.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleBody._attachments">
+            <summary>
+            The _attachments.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleBody._isHtml">
+            <summary>
+            The _is html.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.ArticleBody._text">
+            <summary>
+            The _text.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleBody.IsHtml">
+            <summary>
+            Gets or sets a value indicating whether IsHtml.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleBody.Text">
+            <summary>
+            Gets or sets Text.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.ArticleBody.Attachments">
+            <summary>
+            Gets or sets Attachments.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.YafServices">
             <summary>
             The yaf services.
@@ -5165,1017 +6151,6 @@
             <summary>
             Gets Favorite Topic.
             </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.NntpException">
-            <summary>
-            The nntp exception.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpException._errorCode">
-            <summary>
-            The _error code.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpException._message">
-            <summary>
-            The _message.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpException._request">
-            <summary>
-            The _request.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
-            </summary>
-            <param name="message">
-            The message.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
-            </summary>
-            <param name="errorCode">
-            The error code.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.Int32,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
-            </summary>
-            <param name="errorCode">
-            The error code.
-            </param>
-            <param name="request">
-            The request.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpException.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpException"/> class.
-            </summary>
-            <param name="response">
-            The response.
-            </param>
-            <param name="request">
-            The request.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpException.BuildNntpException(System.Int32,System.String)">
-            <summary>
-            The build nntp exception.
-            </summary>
-            <param name="errorCode">
-            The error code.
-            </param>
-            <param name="request">
-            The request.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpException.ToString">
-            <summary>
-            The to string.
-            </summary>
-            <returns>
-            The to string.
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.NntpException.ErrorCode">
-            <summary>
-            Gets ErrorCode.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.NntpException.Request">
-            <summary>
-            Gets Request.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.NntpException.Message">
-            <summary>
-            Gets Message.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.ArticleBody">
-            <summary>
-            The article body.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.ArticleBody._attachments">
-            <summary>
-            The _attachments.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.ArticleBody._isHtml">
-            <summary>
-            The _is html.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.ArticleBody._text">
-            <summary>
-            The _text.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.ArticleBody.IsHtml">
-            <summary>
-            Gets or sets a value indicating whether IsHtml.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.ArticleBody.Text">
-            <summary>
-            Gets or sets Text.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.ArticleBody.Attachments">
-            <summary>
-            Gets or sets Attachments.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.ArticleHeader">
-            <summary>
-            The article header.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._date">
-            <summary>
-            The _date.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._from">
-            <summary>
-            The _from.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._lineCount">
-            <summary>
-            The _line count.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._postingHost">
-            <summary>
-            The _posting host.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._referenceIds">
-            <summary>
-            The _reference ids.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._sender">
-            <summary>
-            The _sender.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.ArticleHeader._subject">
-            <summary>
-            The _subject.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.ReferenceIds">
-            <summary>
-            Gets or sets ReferenceIds.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.Subject">
-            <summary>
-            Gets or sets Subject.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.Date">
-            <summary>
-            Gets or sets Date.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.From">
-            <summary>
-            Gets or sets From.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.Sender">
-            <summary>
-            Gets or sets Sender.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.PostingHost">
-            <summary>
-            Gets or sets PostingHost.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.ArticleHeader.LineCount">
-            <summary>
-            Gets or sets LineCount.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.Article">
-            <summary>
-            The article.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Article.articleId">
-            <summary>
-            The article id.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Article.body">
-            <summary>
-            The body.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Article.children">
-            <summary>
-            The children.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Article.header">
-            <summary>
-            The header.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Article.lastReply">
-            <summary>
-            The last reply.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Article.messageId">
-            <summary>
-            The message id.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Article.MessageId">
-            <summary>
-            Gets or sets MessageId.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Article.ArticleId">
-            <summary>
-            Gets or sets ArticleId.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Article.Header">
-            <summary>
-            Gets or sets Header.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Article.Body">
-            <summary>
-            Gets or sets Body.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Article.LastReply">
-            <summary>
-            Gets or sets LastReply.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Article.Children">
-            <summary>
-            Gets or sets Children.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.Attachment">
-            <summary>
-            The attachment.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Attachment.binaryData">
-            <summary>
-            The binary data.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Attachment.filename">
-            <summary>
-            The filename.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Attachment.id">
-            <summary>
-            The id.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.Attachment.#ctor(System.String,System.String,System.Byte[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.Attachment"/> class.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <param name="filename">
-            The filename.
-            </param>
-            <param name="binaryData">
-            The binary data.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.Attachment.SaveAs(System.String)">
-            <summary>
-            The save as.
-            </summary>
-            <param name="path">
-            The path.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.Attachment.SaveAs(System.String,System.Boolean)">
-            <summary>
-            The save as.
-            </summary>
-            <param name="path">
-            The path.
-            </param>
-            <param name="isOverwrite">
-            The is overwrite.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Attachment.Id">
-            <summary>
-            Gets Id.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Attachment.Filename">
-            <summary>
-            Gets Filename.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Attachment.BinaryData">
-            <summary>
-            Gets BinaryData.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.MIMEPart">
-            <summary>
-            The mime part.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.binaryData">
-            <summary>
-            The binary data.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.boundary">
-            <summary>
-            The boundary.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.charset">
-            <summary>
-            The charset.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.contentTransferEncoding">
-            <summary>
-            The content transfer encoding.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.contentType">
-            <summary>
-            The content type.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.embeddedPartList">
-            <summary>
-            The embedded part list.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.filename">
-            <summary>
-            The filename.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.MIMEPart.text">
-            <summary>
-            The text.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.BinaryData">
-            <summary>
-            Gets or sets BinaryData.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Boundary">
-            <summary>
-            Gets or sets Boundary.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.ContentType">
-            <summary>
-            Gets or sets ContentType.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.ContentTransferEncoding">
-            <summary>
-            Gets or sets ContentTransferEncoding.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Charset">
-            <summary>
-            Gets or sets Charset.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Filename">
-            <summary>
-            Gets or sets Filename.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.Text">
-            <summary>
-            Gets or sets Text.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.MIMEPart.EmbeddedPartList">
-            <summary>
-            Gets or sets EmbeddedPartList.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.Newsgroup">
-            <summary>
-            The newsgroup.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Newsgroup.group">
-            <summary>
-            The group.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Newsgroup.high">
-            <summary>
-            The high.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.Newsgroup.low">
-            <summary>
-            The low.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.Newsgroup.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.Newsgroup"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.Newsgroup.#ctor(System.String,System.Int32,System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.Newsgroup"/> class.
-            </summary>
-            <param name="group">
-            The group.
-            </param>
-            <param name="low">
-            The low.
-            </param>
-            <param name="high">
-            The high.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.Newsgroup.CompareTo(System.Object)">
-            <summary>
-            The compare to.
-            </summary>
-            <param name="r">
-            The r.
-            </param>
-            <returns>
-            The compare to.
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Newsgroup.Group">
-            <summary>
-            Gets or sets Group.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Newsgroup.Low">
-            <summary>
-            Gets or sets Low.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.Newsgroup.High">
-            <summary>
-            Gets or sets High.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.NntpUtil">
-            <summary>
-            The nntp util.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpUtil.base64PemCode">
-            <summary>
-            The base 64 pem code.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpUtil.base64PemConvertCode">
-            <summary>
-            The base 64 pem convert code.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpUtil.hexValue">
-            <summary>
-            The hex value.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.#cctor">
-            <summary>
-            Initializes static members of the <see cref="T:YAF.Classes.Core.Nntp.NntpUtil"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.UUDecode(System.String,System.IO.Stream)">
-            <summary>
-            The uu decode.
-            </summary>
-            <param name="line">
-            The line.
-            </param>
-            <param name="outputStream">
-            The output stream.
-            </param>
-            <returns>
-            The uu decode.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.UUDecode(System.Char[],System.IO.Stream)">
-            <summary>
-            The uu decode.
-            </summary>
-            <param name="line">
-            The line.
-            </param>
-            <param name="outputStream">
-            The output stream.
-            </param>
-            <returns>
-            The uu decode.
-            </returns>
-            <exception cref="T:System.InvalidOperationException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64Decode(System.String,System.IO.Stream)">
-            <summary>
-            The base 64 decode.
-            </summary>
-            <param name="line">
-            The line.
-            </param>
-            <param name="outputStream">
-            The output stream.
-            </param>
-            <returns>
-            The base 64 decode.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64Decode(System.Char[],System.IO.Stream)">
-            <summary>
-            The base 64 decode.
-            </summary>
-            <param name="line">
-            The line.
-            </param>
-            <param name="outputStream">
-            The output stream.
-            </param>
-            <returns>
-            The base 64 decode.
-            </returns>
-            <exception cref="T:System.InvalidOperationException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.QuotedPrintableDecode(System.String,System.IO.Stream)">
-            <summary>
-            The quoted printable decode.
-            </summary>
-            <param name="line">
-            The line.
-            </param>
-            <param name="outputStream">
-            The output stream.
-            </param>
-            <returns>
-            The quoted printable decode.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.QuotedPrintableDecode(System.Char[],System.IO.Stream)">
-            <summary>
-            The quoted printable decode.
-            </summary>
-            <param name="line">
-            The line.
-            </param>
-            <param name="outputStream">
-            The output stream.
-            </param>
-            <returns>
-            The quoted printable decode.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.DispatchMIMEContent(System.IO.StreamReader,YAF.Classes.Core.Nntp.MIMEPart,System.String)">
-            <summary>
-            The dispatch mime content.
-            </summary>
-            <param name="sr">
-            The sr.
-            </param>
-            <param name="part">
-            The part.
-            </param>
-            <param name="seperator">
-            The seperator.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.Base64HeaderDecode(System.String)">
-            <summary>
-            The base 64 header decode.
-            </summary>
-            <param name="line">
-            The line.
-            </param>
-            <returns>
-            The base 64 header decode.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpUtil.ConvertListToTree(System.Collections.ArrayList)">
-            <summary>
-            The convert list to tree.
-            </summary>
-            <param name="list">
-            The list.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.OnRequestDelegate">
-            <summary>
-            The on request delegate.
-            </summary>
-            <param name="msg">
-            The msg.
-            </param>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.NntpConnection">
-            <summary>
-            The nntp connection.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.connectedGroup">
-            <summary>
-            The connected group.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.connectedServer">
-            <summary>
-            The connected server.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.password">
-            <summary>
-            The password.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.port">
-            <summary>
-            The port.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.sr">
-            <summary>
-            The sr.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.sw">
-            <summary>
-            The sw.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.tcpClient">
-            <summary>
-            The tcp client.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.timeout">
-            <summary>
-            The timeout.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.username">
-            <summary>
-            The username.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.Reset">
-            <summary>
-            The reset.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.MakeRequest(System.String)">
-            <summary>
-            The make request.
-            </summary>
-            <param name="request">
-            The request.
-            </param>
-            <returns>
-            </returns>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetHeader(System.String,YAF.Classes.Core.Nntp.MIMEPart@)">
-            <summary>
-            The get header.
-            </summary>
-            <param name="messageId">
-            The message id.
-            </param>
-            <param name="part">
-            The part.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetNormalBody(System.String)">
-            <summary>
-            The get normal body.
-            </summary>
-            <param name="messageId">
-            The message id.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetMIMEBody(System.String,YAF.Classes.Core.Nntp.MIMEPart)">
-            <summary>
-            The get mime body.
-            </summary>
-            <param name="messageId">
-            The message id.
-            </param>
-            <param name="part">
-            The part.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ConvertMIMEContent(System.String,YAF.Classes.Core.Nntp.MIMEPart,System.Text.StringBuilder,System.Collections.ArrayList)">
-            <summary>
-            The convert mime content.
-            </summary>
-            <param name="messageId">
-            The message id.
-            </param>
-            <param name="part">
-            The part.
-            </param>
-            <param name="sb">
-            The sb.
-            </param>
-            <param name="attachmentList">
-            The attachment list.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpConnection"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ConnectServer(System.String,System.Int32)">
-            <summary>
-            The connect server.
-            </summary>
-            <param name="server">
-            The server.
-            </param>
-            <param name="port">
-            The port.
-            </param>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ProvideIdentity(System.String,System.String)">
-            <summary>
-            The provide identity.
-            </summary>
-            <param name="username">
-            The username.
-            </param>
-            <param name="password">
-            The password.
-            </param>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.SendIdentity">
-            <summary>
-            The send identity.
-            </summary>
-            <returns>
-            The send identity.
-            </returns>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.ConnectGroup(System.String)">
-            <summary>
-            The connect group.
-            </summary>
-            <param name="group">
-            The group.
-            </param>
-            <returns>
-            </returns>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetGroupList">
-            <summary>
-            The get group list.
-            </summary>
-            <returns>
-            </returns>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetMessageId(System.Int32)">
-            <summary>
-            The get message id.
-            </summary>
-            <param name="articleId">
-            The article id.
-            </param>
-            <returns>
-            The get message id.
-            </returns>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticleId(System.String)">
-            <summary>
-            The get article id.
-            </summary>
-            <param name="messageId">
-            The message id.
-            </param>
-            <returns>
-            The get article id.
-            </returns>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticleList(System.Int32,System.Int32)">
-            <summary>
-            The get article list.
-            </summary>
-            <param name="low">
-            The low.
-            </param>
-            <param name="high">
-            The high.
-            </param>
-            <returns>
-            </returns>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-            <exception cref="T:System.Exception">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticle(System.Int32)">
-            <summary>
-            The get article.
-            </summary>
-            <param name="articleId">
-            The article id.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.GetArticle(System.String)">
-            <summary>
-            The get article.
-            </summary>
-            <param name="messageId">
-            The message id.
-            </param>
-            <returns>
-            </returns>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.PostArticle(YAF.Classes.Core.Nntp.Article)">
-            <summary>
-            The post article.
-            </summary>
-            <param name="article">
-            The article.
-            </param>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.Disconnect">
-            <summary>
-            The disconnect.
-            </summary>
-            <exception cref="T:YAF.Classes.Core.Nntp.NntpException">
-            </exception>
-        </member>
-        <member name="E:YAF.Classes.Core.Nntp.NntpConnection.onRequest">
-            <summary>
-            The on request.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Timeout">
-            <summary>
-            Gets or sets Timeout.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.ConnectedServer">
-            <summary>
-            Gets ConnectedServer.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.ConnectedGroup">
-            <summary>
-            Gets ConnectedGroup.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Port">
-            <summary>
-            Gets Port.
-            </summary>
-        </member>
-        <member name="E:YAF.Classes.Core.Nntp.NntpConnection.OnRequest">
-            <summary>
-            The on request.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.NntpConnection.Response">
-            <summary>
-            The response.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.Response.code">
-            <summary>
-            The code.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.Response.message">
-            <summary>
-            The message.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.Nntp.NntpConnection.Response.request">
-            <summary>
-            The request.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.NntpConnection.Response.#ctor(System.Int32,System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.NntpConnection.Response"/> class.
-            </summary>
-            <param name="code">
-            The code.
-            </param>
-            <param name="message">
-            The message.
-            </param>
-            <param name="request">
-            The request.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Response.Code">
-            <summary>
-            Gets or sets Code.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Response.Message">
-            <summary>
-            Gets or sets Message.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.Nntp.NntpConnection.Response.Request">
-            <summary>
-            Gets or sets Request.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.Nntp.YafNntp">
-            <summary>
-            The yaf nntp.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.Nntp.YafNntp.ReadArticles(System.Object,System.Int32,System.Int32,System.Boolean)">
-            <summary>
-            The read articles.
-            </summary>
-            <param name="boardID">
-            The board id.
-            </param>
-            <param name="nLastUpdate">
-            The n last update.
-            </param>
-            <param name="nTimeToRun">
-            The n time to run.
-            </param>
-            <param name="bCreateUsers">
-            The b create users.
-            </param>
-            <returns>
-            The read articles.
-            </returns>
         </member>
         <member name="T:YAF.Classes.Core.YafLocalization">
             <summary>
@@ -6417,6 +6392,71 @@
             <param name="ignoredUserId">
             The ignored user id.
             </param>
+        </member>
+        <member name="T:YAF.Classes.Core.Nntp.Newsgroup">
+            <summary>
+            The newsgroup.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Newsgroup.group">
+            <summary>
+            The group.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Newsgroup.high">
+            <summary>
+            The high.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.Nntp.Newsgroup.low">
+            <summary>
+            The low.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Newsgroup.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.Newsgroup"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Newsgroup.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.Nntp.Newsgroup"/> class.
+            </summary>
+            <param name="group">
+            The group.
+            </param>
+            <param name="low">
+            The low.
+            </param>
+            <param name="high">
+            The high.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.Nntp.Newsgroup.CompareTo(System.Object)">
+            <summary>
+            The compare to.
+            </summary>
+            <param name="r">
+            The r.
+            </param>
+            <returns>
+            The compare to.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Newsgroup.Group">
+            <summary>
+            Gets or sets Group.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Newsgroup.Low">
+            <summary>
+            Gets or sets Low.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.Nntp.Newsgroup.High">
+            <summary>
+            Gets or sets High.
+            </summary>
         </member>
         <member name="T:YAF.Classes.Core.IYafFooter">
             <summary>

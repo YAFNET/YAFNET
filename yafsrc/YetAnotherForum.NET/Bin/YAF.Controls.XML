@@ -587,6 +587,76 @@
             Gets or sets AttachedControlID.
             </summary>
         </member>
+        <member name="T:YAF.Controls.RecaptchaResponse">
+            <summary>
+            The recaptcha response.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaResponse.InvalidSolution">
+            <summary>
+            The invalid solution.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaResponse.RecaptchaNotReachable">
+            <summary>
+            The recaptcha not reachable.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaResponse.Valid">
+            <summary>
+            The valid.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaResponse.errorCode">
+            <summary>
+            The error code.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaResponse.isValid">
+            <summary>
+            The is valid.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaResponse.#ctor(System.Boolean,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.RecaptchaResponse"/> class.
+            </summary>
+            <param name="isValid">
+            The is valid.
+            </param>
+            <param name="errorCode">
+            The error code.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaResponse.Equals(System.Object)">
+            <summary>
+            The equals.
+            </summary>
+            <param name="obj">
+            The obj.
+            </param>
+            <returns>
+            The equals.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaResponse.GetHashCode">
+            <summary>
+            The get hash code.
+            </summary>
+            <returns>
+            The get hash code.
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaResponse.ErrorCode">
+            <summary>
+            Gets ErrorCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaResponse.IsValid">
+            <summary>
+            Gets a value indicating whether IsValid.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.ThankYou">
             <summary>
             Class for Thank you button
@@ -1052,6 +1122,16 @@
             The _alt.
             </summary>
         </member>
+        <member name="F:YAF.Controls.ThemeImage._cssClass">
+            <summary>
+            The css Class.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThemeImage._enabled">
+            <summary>
+            The _enabled tag.
+            </summary>
+        </member>
         <member name="F:YAF.Controls.ThemeImage._localizedTitlePage">
             <summary>
             The _localized title page.
@@ -1077,11 +1157,6 @@
             The _theme tag.
             </summary>
         </member>
-        <member name="F:YAF.Controls.ThemeImage._enabled">
-            <summary>
-            The _enabled tag.
-            </summary>
-        </member>
         <member name="F:YAF.Controls.ThemeImage._useTitleForEmptyAlt">
             <summary>
             The _use title for empty alt.
@@ -1092,13 +1167,13 @@
             Initializes a new instance of the <see cref="T:YAF.Controls.ThemeImage"/> class.
             </summary>
         </member>
-        <member name="M:YAF.Controls.ThemeImage.Render(System.Web.UI.HtmlTextWriter)">
+        <member name="M:YAF.Controls.ThemeImage.GetCurrentThemeItem">
             <summary>
-            The render.
+            The get current theme item.
             </summary>
-            <param name="output">
-            The output.
-            </param>
+            <returns>
+            The get current theme item.
+            </returns>
         </member>
         <member name="M:YAF.Controls.ThemeImage.GetCurrentTitleItem">
             <summary>
@@ -1108,32 +1183,27 @@
             The get current title item.
             </returns>
         </member>
-        <member name="M:YAF.Controls.ThemeImage.GetCurrentThemeItem">
+        <member name="M:YAF.Controls.ThemeImage.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
-            The get current theme item.
+            The render.
             </summary>
-            <returns>
-            The get current theme item.
-            </returns>
-        </member>
-        <member name="P:YAF.Controls.ThemeImage.ThemePage">
-            <summary>
-            Set/Get the ThemePage -- Defaults to "ICONS"
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeImage.ThemeTag">
-            <summary>
-            Set/Get the actual theme item
-            </summary>
+            <param name="output">
+            The output.
+            </param>
         </member>
         <member name="P:YAF.Controls.ThemeImage.Alt">
             <summary>
             Gets or sets Alt.
             </summary>
         </member>
-        <member name="P:YAF.Controls.ThemeImage.UseTitleForEmptyAlt">
+        <member name="P:YAF.Controls.ThemeImage.CssClass">
             <summary>
-            Gets or sets a value indicating whether UseTitleForEmptyAlt.
+            Gets or sets Style.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeImage.Enabled">
+            <summary>
+            Gets or sets whether the control is Active .
             </summary>
         </member>
         <member name="P:YAF.Controls.ThemeImage.LocalizedTitlePage">
@@ -1151,9 +1221,19 @@
             Gets or sets Style.
             </summary>
         </member>
-        <member name="P:YAF.Controls.ThemeImage.Enabled">
+        <member name="P:YAF.Controls.ThemeImage.ThemePage">
             <summary>
-            Gets or sets whether the control is Active .
+            Set/Get the ThemePage -- Defaults to "ICONS"
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeImage.ThemeTag">
+            <summary>
+            Set/Get the actual theme item
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeImage.UseTitleForEmptyAlt">
+            <summary>
+            Gets or sets a value indicating whether UseTitleForEmptyAlt.
             </summary>
         </member>
         <member name="M:YAF.Controls.OnlineStatusImage.Render(System.Web.UI.HtmlTextWriter)">
@@ -1359,14 +1439,14 @@
             The user box.
             </summary>
         </member>
-        <member name="F:YAF.Controls.UserBox.messageFlags">
-            <summary>
-            The _message flags.
-            </summary>
-        </member>
         <member name="F:YAF.Controls.UserBox._row">
             <summary>
             The current data row.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.UserBox._styleTransforum">
+            <summary>
+            Instance of the style transformation class
             </summary>
         </member>
         <member name="F:YAF.Controls.UserBox._userProfile">
@@ -1374,10 +1454,18 @@
             The _user profile.
             </summary>
         </member>
-        <member name="F:YAF.Controls.UserBox._styleTransforum">
+        <member name="F:YAF.Controls.UserBox.messageFlags">
             <summary>
-            Instance of the style transformation class
+            The _message flags.
             </summary>
+        </member>
+        <member name="M:YAF.Controls.UserBox.CreateUserBox">
+            <summary>
+            The create user box.
+            </summary>
+            <returns>
+            User box control string to display on a page.
+            </returns>
         </member>
         <member name="M:YAF.Controls.UserBox.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
@@ -1387,12 +1475,15 @@
             The output.
             </param>
         </member>
-        <member name="M:YAF.Controls.UserBox.CreateUserBox">
+        <member name="M:YAF.Controls.UserBox.MatchUserBoxAvatar(System.String)">
             <summary>
-            The create user box.
+            The match user box avatar.
             </summary>
+            <param name="userBox">
+            The user box.
+            </param>
             <returns>
-            User box control string to display on a page.
+            The match user box avatar.
             </returns>
         </member>
         <member name="M:YAF.Controls.UserBox.MatchUserBoxClearAll(System.String)">
@@ -1406,6 +1497,31 @@
             The match user box clear all.
             </returns>
         </member>
+        <member name="M:YAF.Controls.UserBox.MatchUserBoxGroups(System.String,System.Data.DataTable)">
+            <summary>
+            The match user box groups.
+            </summary>
+            <param name="userBox">
+            The user box.
+            </param>
+            <param name="roleStyleTable">
+            The role Style Table.
+            </param>
+            <returns>
+            The match user box groups.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.UserBox.MatchUserBoxJoinedDate(System.String)">
+            <summary>
+            The match user box joined date.
+            </summary>
+            <param name="userBox">
+            The user box.
+            </param>
+            <returns>
+            The match user box joined date.
+            </returns>
+        </member>
         <member name="M:YAF.Controls.UserBox.MatchUserBoxLocation(System.String)">
             <summary>
             The match user box location.
@@ -1415,6 +1531,17 @@
             </param>
             <returns>
             The match user box location.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.UserBox.MatchUserBoxMedals(System.String)">
+            <summary>
+            The match user box medals.
+            </summary>
+            <param name="userBox">
+            The user box.
+            </param>
+            <returns>
+            The match user box medals.
             </returns>
         </member>
         <member name="M:YAF.Controls.UserBox.MatchUserBoxPoints(System.String)">
@@ -1437,31 +1564,6 @@
             </param>
             <returns>
             The match user box post count.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.UserBox.MatchUserBoxJoinedDate(System.String)">
-            <summary>
-            The match user box joined date.
-            </summary>
-            <param name="userBox">
-            The user box.
-            </param>
-            <returns>
-            The match user box joined date.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.UserBox.MatchUserBoxGroups(System.String,System.Data.DataTable)">
-            <summary>
-            The match user box groups.
-            </summary>
-            <param name="userBox">
-            The user box.
-            </param>
-            <param name="roleStyleTable">
-            The role Style Table.
-            </param>
-            <returns>
-            The match user box groups.
             </returns>
         </member>
         <member name="M:YAF.Controls.UserBox.MatchUserBoxRank(System.String,System.Data.DataTable)">
@@ -1487,28 +1589,6 @@
             </param>
             <returns>
             The match user box rank images.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.UserBox.MatchUserBoxMedals(System.String)">
-            <summary>
-            The match user box medals.
-            </summary>
-            <param name="userBox">
-            The user box.
-            </param>
-            <returns>
-            The match user box medals.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.UserBox.MatchUserBoxAvatar(System.String)">
-            <summary>
-            The match user box avatar.
-            </summary>
-            <param name="userBox">
-            The user box.
-            </param>
-            <returns>
-            The match user box avatar.
             </returns>
         </member>
         <member name="M:YAF.Controls.UserBox.MatchUserBoxThanksFrom(System.String)">
@@ -2191,6 +2271,80 @@
             The goto page click.
             </summary>
         </member>
+        <member name="T:YAF.Controls.RecaptchaValidator">
+            <summary>
+            The recaptcha validator.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaValidator.VerifyUrl">
+            <summary>
+            The verify url.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaValidator.challenge">
+            <summary>
+            The challenge.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaValidator.privateKey">
+            <summary>
+            The private key.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaValidator.remoteIp">
+            <summary>
+            The remote ip.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaValidator.response">
+            <summary>
+            The response.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaValidator.Validate">
+            <summary>
+            The validate.
+            </summary>
+            <returns>
+            </returns>
+            <exception cref="T:System.InvalidProgramException">
+            </exception>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaValidator.CheckNotNull(System.Object,System.String)">
+            <summary>
+            The check not null.
+            </summary>
+            <param name="obj">
+            The obj.
+            </param>
+            <param name="name">
+            The name.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaValidator.Challenge">
+            <summary>
+            Gets or sets Challenge.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaValidator.PrivateKey">
+            <summary>
+            Gets or sets PrivateKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaValidator.RemoteIP">
+            <summary>
+            Gets or sets RemoteIP.
+            </summary>
+            <exception cref="T:System.ArgumentException">
+            </exception>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaValidator.Response">
+            <summary>
+            Gets or sets Response.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.ActiveLocation">
             <summary>
             Provides Active Users location info
@@ -2523,6 +2677,44 @@
             </param>
             <param name="listItems">
             </param>
+        </member>
+        <member name="T:YAF.Controls.BaseReportedPosts">
+            <summary>
+            Shows a Reporters for reported posts
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BaseReportedPosts.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="!:ReportedPosts"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BaseReportedPosts.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.MessageID">
+            <summary>
+            Gets or sets MessageID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.Resolved">
+            <summary>
+            Gets or sets Resolved.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.ResolvedBy">
+            <summary>
+            Gets or sets ResolvedBy. It returns UserID as string value
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.ResolvedDate">
+            <summary>
+            Gets or sets ResolvedDate.
+            </summary>
         </member>
         <member name="T:YAF.Controls.ActiveUsers">
             <summary>
@@ -3459,6 +3651,295 @@
             Gets or sets Param2.
             </summary>
         </member>
+        <member name="T:YAF.Controls.RssFeedLink">
+            <summary>
+            The RSS feed link (with optional icon)
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RssFeedLink._attributeCollection">
+            <summary>
+            The _attribute collection.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RssFeedLink._localizedLabel">
+            <summary>
+            The _localized label.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RssFeedLink._themeImage">
+            <summary>
+            The _theme image.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RssFeedLink.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="!:RssIconLink"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RssFeedLink.GetLocalizedTitle">
+            <summary>
+            The get localized title.
+            </summary>
+            <returns>
+            The get localized title.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.RssFeedLink.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="output">
+            The output.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.RssFeedLink.RssFeedLink_Load(System.Object,System.EventArgs)">
+            <summary>
+            The rss icon link_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.Attributes">
+            <summary>
+            Gets Attributes.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.CssClass">
+            <summary>
+            Defaults to "rssfeedlink"
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.ShowSpacerBefore">
+            <summary>
+            Gets or Sets if a spacer should be inserted before the link. (Default <see langword="false"/>)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.ShowSpacerAfter">
+            <summary>
+            Gets or Sets if a spacer should be inserted after the link. (Default <see langword="false"/>)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.AdditionalParameters">
+            <summary>
+            Gets or Sets additional rss feed url parameters.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.FeedType">
+            <summary>
+            Defaults to "Forum"
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.ImageThemePage">
+            <summary>
+            ThemePage for the optional button image
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.ImageThemeTag">
+            <summary>
+            ThemeTag for the optional button image
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.TextLocalizedPage">
+            <summary>
+            Localized Page for the optional button text
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.TextLocalizedTag">
+            <summary>
+            Localized Tag for the optional button text
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.TitleLocalizedPage">
+            <summary>
+            Localized Page for the optional link description (title)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.TitleLocalizedTag">
+            <summary>
+            Localized Tag for the optional link description (title)
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.RecaptchaControl">
+            <summary>
+            The recaptcha control.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_CHALLENGE_FIELD">
+            <summary>
+            The recaptch a_ challeng e_ field.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_HOST">
+            <summary>
+            The recaptch a_ host.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_RESPONSE_FIELD">
+            <summary>
+            The recaptch a_ respons e_ field.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_SECURE_HOST">
+            <summary>
+            The recaptch a_ secur e_ host.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.allowMultipleInstances">
+            <summary>
+            The allow multiple instances.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.customThemeWidget">
+            <summary>
+            The custom theme widget.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.errorMessage">
+            <summary>
+            The error message.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.language">
+            <summary>
+            The language.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.overrideSecureMode">
+            <summary>
+            The override secure mode.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.privateKey">
+            <summary>
+            The private key.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.publicKey">
+            <summary>
+            The public key.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.recaptchaResponse">
+            <summary>
+            The recaptcha response.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.skipRecaptcha">
+            <summary>
+            The skip recaptcha.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.theme">
+            <summary>
+            The theme.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.RecaptchaControl"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.Validate">
+            <summary>
+            The validate.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.RenderContents(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render contents.
+            </summary>
+            <param name="output">
+            The output.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.CheckIfRecaptchaExists">
+            <summary>
+            The check if recaptcha exists.
+            </summary>
+            <returns>
+            The check if recaptcha exists.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.GenerateChallengeUrl(System.Boolean)">
+            <summary>
+            The generate challenge url.
+            </summary>
+            <param name="noScript">
+            The no script.
+            </param>
+            <returns>
+            The generate challenge url.
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.AllowMultipleInstances">
+            <summary>
+            Gets or sets a value indicating whether AllowMultipleInstances.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.CustomThemeWidget">
+            <summary>
+            Gets or sets CustomThemeWidget.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.ErrorMessage">
+            <summary>
+            Gets or sets ErrorMessage.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.IsValid">
+            <summary>
+            Gets or sets a value indicating whether IsValid.
+            </summary>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.OverrideSecureMode">
+            <summary>
+            Gets or sets a value indicating whether OverrideSecureMode.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.PrivateKey">
+            <summary>
+            Gets or sets PrivateKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.PublicKey">
+            <summary>
+            Gets or sets PublicKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.SkipRecaptcha">
+            <summary>
+            Gets or sets a value indicating whether SkipRecaptcha.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.Theme">
+            <summary>
+            Gets or sets Theme.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.LocalizationSupportExtensions">
             <summary>
             The localization support extensions.
@@ -3491,44 +3972,6 @@
             <returns>
             The localize and render.
             </returns>
-        </member>
-        <member name="T:YAF.Controls.BaseReportedPosts">
-            <summary>
-            Shows a Reporters for reported posts
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.BaseReportedPosts.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="!:ReportedPosts"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.BaseReportedPosts.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.BaseReportedPosts.MessageID">
-            <summary>
-            Gets or sets MessageID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.BaseReportedPosts.Resolved">
-            <summary>
-            Gets or sets Resolved.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.BaseReportedPosts.ResolvedBy">
-            <summary>
-            Gets or sets ResolvedBy. It returns UserID as string value
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.BaseReportedPosts.ResolvedDate">
-            <summary>
-            Gets or sets ResolvedDate.
-            </summary>
         </member>
     </members>
 </doc>

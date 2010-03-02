@@ -1298,6 +1298,163 @@
             The get color only.
             </returns>
         </member>
+        <member name="T:YAF.Classes.Utils.ObjectExtensions">
+            <summary>
+            The object extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ConvertObjectToType(System.Object,System.String)">
+            <summary>
+            Converts an object to a type.
+            </summary>
+            <param name="value">
+            Object to convert
+            </param>
+            <param name="type">
+            Type to convert to e.g. System.Guid
+            </param>
+            <returns>
+            The convert object to type.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.GetCustomAttributes(System.Type,System.Type)">
+            <summary>
+            The get custom attributes.
+            </summary>
+            <param name="objectType">
+            The object type.
+            </param>
+            <param name="attributeType">
+            The attribute type.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToClass``1(System.Object)">
+            <summary>
+            Converts the object to the class (T) or returns null if it's not 
+            an instance of that class or instance is null.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="instance">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToDifferentClassType``1(System.Object)">
+            <summary>
+            Converts an object to a different object (class) by copying fields (if they exist).
+            Used to convert annonomous objects to strongly typed objects.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="obj">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToGenericList``1(System.Collections.IList)">
+            <summary>
+            The to generic list.
+            </summary>
+            <param name="listObjects">
+            The list objects.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String)">
+            <summary>
+            Enables you to get a string representation of the object using string 
+            formatting with property names, rather than index based values.
+            </summary>
+            <param name="anObject">
+            The object being extended.
+            </param>
+            <param name="aFormat">
+            The formatting string, like "Hi, my name 
+            is {FirstName} {LastName}".
+            </param>
+            <returns>
+            A formatted string with the values from the object replaced 
+            in the format string.
+            </returns>
+            <remarks>
+            To embed a pair of {} on the string, simply double them: 
+            "I am a {{Literal}}".
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String,System.IFormatProvider)">
+            <summary>
+            Enables you to get a string representation of the object using string 
+            formatting with property names, rather than index based values.
+            </summary>
+            <param name="anObject">
+            The object being extended.
+            </param>
+            <param name="aFormat">
+            The formatting string, like "Hi, my name is 
+            {FirstName} {LastName}".
+            </param>
+            <param name="formatProvider">
+            An System.<see cref="T:System.IFormatProvider"/> that 
+            provides culture-specific formatting information.
+            </param>
+            <returns>
+            A formatted string with the values from the object replaced in 
+            the format string.
+            </returns>
+            <remarks>
+            To embed a pair of {} on the string, simply double them: 
+            "I am a {{Literal}}".
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToType``1(System.Object)">
+            <summary>
+            Converts an object to Type using the Convert.ChangeType() call.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="instance">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ValidInt(System.Object)">
+            <summary>
+            Gets an Int from an Object value
+            </summary>
+            <param name="expression">
+            </param>
+            <returns>
+            The valid int.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyBool(System.Object)">
+            <summary>
+            The verify bool.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify bool.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyInt32(System.Object)">
+            <summary>
+            The verify int 32.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify int 32.
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Utils.IPHelper">
             <summary>
             The ip helper.
@@ -1337,6 +1494,49 @@
             </param>
             <returns>
             true if it's banned
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.ViewStateExtensions">
+            <summary>
+            The view state extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.ViewStateExtensions.ToTypeOrDefault``1(System.Web.UI.StateBag,System.String,``0)">
+            <summary>
+            Returns the converted type (T) if ViewState[key] != <see langword="null"/> or
+            <paramref name="defaultValue"/> if it's <see langword="null"/>.
+            </summary>
+            <param name="viewState">
+            The view state.
+            </param>
+            <param name="key">
+            The key.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ViewStateExtensions.ToTypeOrFunc``1(System.Web.UI.StateBag,System.String,System.Func{``0})">
+            <summary>
+            Returns the converted type (T) if ViewState[key] != <see langword="null"/> or
+            <paramref name="defaultFunc"/> if it's <see langword="null"/>.
+            </summary>
+            <param name="viewState">
+            The view state.
+            </param>
+            <param name="key">
+            The key.
+            </param>
+            <param name="defaultFunc">
+            The default func.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
             </returns>
         </member>
         <member name="T:YAF.Classes.RewriteUrlBuilder">
@@ -1749,6 +1949,20 @@
             <exception cref="T:System.ApplicationException">
             </exception>
         </member>
+        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.String,System.Boolean)">
+            <summary>
+            The to enum.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
         <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.Object)">
             <summary>
             The to enum.
@@ -1776,6 +1990,38 @@
             <summary>
             Converts an Enum to a Dictionary
             </summary>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.DataContainerExtensions">
+            <summary>
+            The data container extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.DataItemToField``1(System.Web.UI.IDataItemContainer,System.String)">
+            <summary>
+            The data item to field.
+            </summary>
+            <param name="container">
+            The container.
+            </param>
+            <param name="fieldName">
+            The field name.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemType``1(System.Web.UI.IDataItemContainer)">
+            <summary>
+            The to data item type.
+            </summary>
+            <param name="container">
+            The container.
+            </param>
             <typeparam name="T">
             </typeparam>
             <returns>
@@ -2296,195 +2542,6 @@
             </param>
             <returns>
             truncated string
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.DataContainerExtensions">
-            <summary>
-            The data container extensions.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.DataContainerExtensions.DataItemToField``1(System.Web.UI.IDataItemContainer,System.String)">
-            <summary>
-            The data item to field.
-            </summary>
-            <param name="container">
-            The container.
-            </param>
-            <param name="fieldName">
-            The field name.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemType``1(System.Web.UI.IDataItemContainer)">
-            <summary>
-            The to data item type.
-            </summary>
-            <param name="container">
-            The container.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.ObjectExtensions">
-            <summary>
-            The object extensions.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ConvertObjectToType(System.Object,System.String)">
-            <summary>
-            Converts an object to a type.
-            </summary>
-            <param name="value">
-            Object to convert
-            </param>
-            <param name="type">
-            Type to convert to e.g. System.Guid
-            </param>
-            <returns>
-            The convert object to type.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.GetCustomAttributes(System.Type,System.Type)">
-            <summary>
-            The get custom attributes.
-            </summary>
-            <param name="objectType">
-            The object type.
-            </param>
-            <param name="attributeType">
-            The attribute type.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToClass``1(System.Object)">
-            <summary>
-            Converts the object to the class (T) or returns null if it's not 
-            an instance of that class or instance is null.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="instance">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToDifferentClassType``1(System.Object)">
-            <summary>
-            Converts an object to a different object (class) by copying fields (if they exist).
-            Used to convert annonomous objects to strongly typed objects.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="obj">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToGenericList``1(System.Collections.IList)">
-            <summary>
-            The to generic list.
-            </summary>
-            <param name="listObjects">
-            The list objects.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String)">
-            <summary>
-            Enables you to get a string representation of the object using string 
-            formatting with property names, rather than index based values.
-            </summary>
-            <param name="anObject">
-            The object being extended.
-            </param>
-            <param name="aFormat">
-            The formatting string, like "Hi, my name 
-            is {FirstName} {LastName}".
-            </param>
-            <returns>
-            A formatted string with the values from the object replaced 
-            in the format string.
-            </returns>
-            <remarks>
-            To embed a pair of {} on the string, simply double them: 
-            "I am a {{Literal}}".
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String,System.IFormatProvider)">
-            <summary>
-            Enables you to get a string representation of the object using string 
-            formatting with property names, rather than index based values.
-            </summary>
-            <param name="anObject">
-            The object being extended.
-            </param>
-            <param name="aFormat">
-            The formatting string, like "Hi, my name is 
-            {FirstName} {LastName}".
-            </param>
-            <param name="formatProvider">
-            An System.<see cref="T:System.IFormatProvider"/> that 
-            provides culture-specific formatting information.
-            </param>
-            <returns>
-            A formatted string with the values from the object replaced in 
-            the format string.
-            </returns>
-            <remarks>
-            To embed a pair of {} on the string, simply double them: 
-            "I am a {{Literal}}".
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToType``1(System.Object)">
-            <summary>
-            Converts an object to Type using the Convert.ChangeType() call.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="instance">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ValidInt(System.Object)">
-            <summary>
-            Gets an Int from an Object value
-            </summary>
-            <param name="expression">
-            </param>
-            <returns>
-            The valid int.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyBool(System.Object)">
-            <summary>
-            The verify bool.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify bool.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyInt32(System.Object)">
-            <summary>
-            The verify int 32.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify int 32.
             </returns>
         </member>
     </members>

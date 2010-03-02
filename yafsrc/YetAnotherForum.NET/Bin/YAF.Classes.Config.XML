@@ -1117,6 +1117,11 @@
             The location.
             </summary>
         </member>
+        <member name="F:YAF.Classes.Constants.UserBox.Gender">
+            <summary>
+            The gender.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.Constants.UserBox.Medals">
             <summary>
             The medals.
@@ -2049,6 +2054,11 @@
             Gets or sets a value indicating whether AllowThemedLogo.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowGenderInUserBox">
+            <summary>
+            Gets or sets a value indicating whether User genger icons in user box are enabled.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.EnableDisplayName">
             <summary>
             Gets or sets a value indicating whether to enable Display Name.
@@ -2124,6 +2134,11 @@
             Gets or sets AvatarSize.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MaxWordLength">
+            <summary>
+            Gets or sets MaxWordLength. Used in topic names etc. to avoid layout distortions.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.MaxFileSize">
             <summary>
             Gets or sets MaxFileSize.
@@ -2162,6 +2177,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.PostFloodDelay">
             <summary>
             Gets or sets PostFloodDelay.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowedPollChoiceNumber">
+            <summary>
+            Gets or sets AllowedPollChoiceNumber.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.CaptchaTypeRegister">
@@ -2594,6 +2614,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.AddDynamicPageMetaTags">
             <summary>
             Gets or sets a value indicating whether to AddDynamicPageMetaTags.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.IPInfoPageURL">
+            <summary>
+            Gets or sets IPInfo page Url.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.ForumEmail">

@@ -1669,7 +1669,7 @@
             <exception cref="T:System.ApplicationException">
             </exception>
         </member>
-        <member name="M:YAF.Classes.Data.DB.GetSearchResult(System.String,System.String,YAF.Classes.SearchWhatFlags,YAF.Classes.SearchWhatFlags,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
+        <member name="M:YAF.Classes.Data.DB.GetSearchResult(System.String,System.String,YAF.Classes.SearchWhatFlags,YAF.Classes.SearchWhatFlags,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Returns Search results
             </summary>
@@ -3914,6 +3914,13 @@
             </param>
             <returns>
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.poll_save(System.Collections.Generic.List{YAF.Classes.Data.PollSaveList})">
+            <summary>
+            The method saves many questions and answers to them in a single transaction 
+            </summary>
+            <param name="pollList">List to hold all polls data</param>
+            <returns>Last saved poll id.</returns>
         </member>
         <member name="M:YAF.Classes.Data.DB.poll_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
@@ -6380,6 +6387,41 @@
             <returns>
             The verify bool.
             </returns>
+        </member>
+        <member name="T:YAF.Classes.Data.PollSaveList">
+            <summary>
+            Class to hold polls and questions data to save
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.PollSaveList.question">
+            <summary>
+            The poll question.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.PollSaveList.choice">
+            <summary>
+            The Reply options.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.PollSaveList.closes">
+            <summary>
+            TData whem poll will be closed.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.Question">
+            <summary>
+            Gets or Sets value for Question text
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.Choice">
+            <summary>
+            Gets or Sets value for Question text
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.Closes">
+            <summary>
+            Gets or Sets value indicatiing when a poll (question) closes
+            </summary>
         </member>
         <member name="T:YAF.Classes.Data.Moderator">
             <summary>
