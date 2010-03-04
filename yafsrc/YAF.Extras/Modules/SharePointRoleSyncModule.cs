@@ -35,7 +35,7 @@ namespace YAF.Modules
   #endregion
 
   /// <summary>
-  /// Summary description for MOSSRoleSyncModule
+  /// Summary description for SharePoineRoleSyncModule
   /// </summary>
   [YafModule("Microsoft Sharepoint Role Synchronization Module", "Tiny Gecko", 1)]
   public class SharepointRoleSyncModule : SimpleBaseModule
@@ -96,9 +96,9 @@ namespace YAF.Modules
         this.SyncUserToGroups(user.UserName, YafContext.Current.CurrentRoles.GetRolesForUser(user.UserName));
 
         // don't need to do this again for the remainder of the session...
-        HttpContext.Current.Session["UserSharePointSynced"] = true;
+        HttpContext.Current.Session["UserSharePointSynced"] = user.UserName;
       }
-      else if (HttpContext.Current.Session["UserSharePointSynced"] != null)
+      else if (user == null && HttpContext.Current.Session["UserSharePointSynced"] != null)
       {
         HttpContext.Current.Session.Remove("UserSharePointSynced");
       }
@@ -134,13 +134,14 @@ namespace YAF.Modules
                 if (spUser != null)
                 {
                   var webGroups = spWeb.Groups.Cast<SPGroup>().ToList();
-                  var userGroups = spUser.OwnedGroups.Cast<SPGroup>().ToList();
+                  var userGroups = spUser.Groups.Cast<SPGroup>().ToList();
 
                   // sync to SharePoint
                   foreach (var groupName in groups)
                   {
                     if (webGroups.Exists(g => g.Name.Equals(groupName)) && !userGroups.Any(g => g.Name.Equals(groupName)))
                     {
+                      System.Diagnostics.Trace.WriteLine("Adding to SharePoint Group: " + groupName);
                       webGroups.Where(g => g.Name.Equals(groupName)).SingleOrDefault().AddUser(spUser);
                     }
                   }
