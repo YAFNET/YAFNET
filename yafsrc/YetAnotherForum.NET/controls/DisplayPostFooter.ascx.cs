@@ -211,11 +211,7 @@
     /// The e.
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
-    {
-        if (this.PageContext.BoardSettings.AllowReportPosts && !this.IsGuest)
-        {
-            this.reportPostLink.Visible = true;
-        }    
+    {      
     }  
 
     /// <summary>
@@ -262,16 +258,16 @@
     private void DisplayPostFooter_PreRender(object sender, EventArgs e)
     {
       // report posts
-        if (!this.PageContext.BoardSettings.AllowGuestToReportPost && this.PageContext.CurrentUserData.IsGuest)
+        if ((this.PageContext.BoardSettings.AllowGuestToReportPost && this.PageContext.IsGuest) ||
+            (!this.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null))
         {
-            this.reportPostLink.Visible = true;
-        }           
+           this.reportPostLink.Visible = true;                 
         
-      // vzrus Addition 
-      this.reportPostLink.InnerText = this.reportPostLink.Title = this.PageContext.Localization.GetText("REPORTPOST"); 
+           // vzrus Addition 
+           this.reportPostLink.InnerText = this.reportPostLink.Title = this.PageContext.Localization.GetText("REPORTPOST"); 
 
-      this.reportPostLink.HRef = YafBuildLink.GetLinkNotEscaped(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
-      
+           this.reportPostLink.HRef = YafBuildLink.GetLinkNotEscaped(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
+        } 
       // private messages
       this.Pm.Visible = !this.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null &&
                         this.PageContext.BoardSettings.AllowPrivateMessages && !this.PostData.IsSponserMessage;
