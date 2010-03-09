@@ -258,8 +258,8 @@
     private void DisplayPostFooter_PreRender(object sender, EventArgs e)
     {
       // report posts
-        if ((this.PageContext.BoardSettings.AllowGuestToReportPost && this.PageContext.IsGuest) ||
-            (!this.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null))
+        if ((this.PageContext.BoardSettings.AllowGuestToReportPost && !this.PostData.PostDeleted && this.PageContext.IsGuest) ||
+            (!this.PageContext.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null))
         {
            this.reportPostLink.Visible = true;                 
         
