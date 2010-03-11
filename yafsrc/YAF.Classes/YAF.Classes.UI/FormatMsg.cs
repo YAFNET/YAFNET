@@ -430,7 +430,7 @@ namespace YAF.Classes.UI
                 {
                   // get string without punctuation
                   string keywordCleaned =
-                    new string(returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).ToLower();
+                    new string(returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).Trim().ToLower();
 
                   if (keywordCleaned.Length > 5)
                   {
