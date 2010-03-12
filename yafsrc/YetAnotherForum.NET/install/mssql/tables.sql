@@ -1222,7 +1222,9 @@ if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objec
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Message] to public	
 	exec('update [{databaseOwner}].[{objectQualifier}Message] SET [{databaseOwner}].[{objectQualifier}Message].Flags =  ([{databaseOwner}].[{objectQualifier}Message].Flags & POWER(2, 8)) | POWER(2, 7)
-		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 256)=256)')	
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 256)=256)')
+	exec('update [{databaseOwner}].[{objectQualifier}Message] SET [{databaseOwner}].[{objectQualifier}Message].Flags =  ([{databaseOwner}].[{objectQualifier}Message].Flags & POWER(2, 9)) | POWER(2, 7)
+		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 512)=512)')			
 	revoke update on [{databaseOwner}].[{objectQualifier}Message] from public	
 end
 GO
