@@ -1218,7 +1218,7 @@ if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{o
 GO
     
 -- an attempt to migrate the legacy report abuse and report spam features flags		
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='Flags')
+/* if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='Flags')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Message] to public	
 	exec('update [{databaseOwner}].[{objectQualifier}Message] SET [{databaseOwner}].[{objectQualifier}Message].Flags =  ([{databaseOwner}].[{objectQualifier}Message].Flags & POWER(2, 8)) | POWER(2, 7)
@@ -1227,7 +1227,7 @@ begin
 		WHERE (([{databaseOwner}].[{objectQualifier}Message].Flags & 512)=512)')			
 	revoke update on [{databaseOwner}].[{objectQualifier}Message] from public	
 end
-GO
+*/
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='EditedBy')
 	alter table [{databaseOwner}].[{objectQualifier}Message] add EditedBy   int  NULL
