@@ -156,12 +156,16 @@ namespace YAF.Controls
           // and can add an info about last user who resolved the message
           if (!string.IsNullOrEmpty(this.ResolvedDate))
           {
-            writer.Write(@"<tr><td class=""header2"">");
-            writer.Write(
+              string resolvedByName = DB.user_list(this.PageContext.PageBoardID, Convert.ToInt32(this.ResolvedBy), true).Rows[0]["Name"].ToString();
+           
+              writer.Write(@"<tr><td class=""header2"">");
+              writer.Write(
               @"<span class=""postheader"">{0}</span><a class=""YafReported_Link"" href=""{1}""> {2}</a><span class=""YafReported_ResolvedBy""> : {3}</span>", 
               this.PageContext.Localization.GetText("RESOLVEDBY"), 
-              YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(this.ResolvedBy)), 
-              DB.user_list(this.PageContext.PageBoardID, Convert.ToInt32(this.ResolvedBy), true).Rows[0]["Name"], 
+              YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(this.ResolvedBy)),
+              string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(this.ResolvedBy)))
+              ? resolvedByName
+              : PageContext.UserDisplayName.GetName(Convert.ToInt32(this.ResolvedBy)),             
               YafServices.DateTime.FormatDateTimeTopic(this.ResolvedDate));
             writer.WriteLine(@"</td></tr>");
           }
