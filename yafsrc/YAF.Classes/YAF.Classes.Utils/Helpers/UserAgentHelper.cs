@@ -38,18 +38,19 @@ namespace YAF.Classes.Utils
     public static bool IsSearchEngineSpider(string userAgent)
     {
       string[] spiderContains = {
-                                  "Googlebot", "Slurp", "abachoBOT", "abcdatos_botlink", "AESOP_com_SpiderMan", "ah-ha.com crawler", "ia_archiver", "Scooter", 
-                                  "Mercator", "AltaVista-Intranet", "FAST-WebCrawler", "Acoon Robot", "antibot", "Atomz", "AxmoRobot", "Buscaplus Robi", 
-                                  "CanSeek", "ChristCRAWLER", "Clushbot", "Crawler", "RaBot", "DeepIndex", "DittoSpyder", "Jack", "EARTHCOM.info", 
-                                  "Speedy Spider", "ArchitextSpider", "EuripBot", "Arachnoidea", "EZResult", "FyberSearch", "geckobot", "GenCrawler", "GeonaBot"
-                                  , "getRAX", "moget", "Aranha", "Toutatis", "Hubater", "IlTrovatore-Setaccio", "IncyWincy", "UltraSeek", "InfoSeek Sidewinder", 
-                                  "Mole2", "MP3Bot", "Knowledge.com", "kuloko-bot", "LNSpiderguy", "Linknzbot", "lookbot", "MantraAgent", "NetResearchServer", 
-                                  "Lycos", "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", "mozDex", "MSNBOT", "Navadoo Crawler", "Gulliver", "ObjectsSearch", 
-                                  "OnetSzukaj", "PicoSearch", "PJspider", "DIIbot", "nttdirectory_robot", "maxbot.com", "Openfind", "psbot", "CrawlerBoy", 
-                                  "QweeryBot", "AlkalineBOT", "StackRambler", "SeznamBot", "Search-10", "Fluffy", "Scrubby", "asterias", 
+                                  "abachoBOT", "abcdatos_botlink", "ah-ha.com crawler", "antibot", "appie", "AltaVista-Intranet", "Acoon Robot", "Atomz", 
+                                  "Arachnoidea","AESOP_com_SpiderMan","AxmoRobot","ArchitextSpider","AlkalineBOT","Aranha", "asterias", "Buscaplus Robi",
+                                  "CanSeek", "ChristCRAWLER", "Clushbot", "Crawler", "CrawlerBoy", "DeepIndex","DefaultCrawler", "DittoSpyder", "DIIbot", 
+                                  "EZResult", "EARTHCOM.info", "EuripBot","ESISmartSpider", "FAST-WebCrawler", "FyberSearch", "Findexa Crawler", 
+                                  "Fluffy", "Googlebot", "geckobot", "GenCrawler","GeonaBot", "getRAX", "Gulliver", "Hubater", "ia_archiver",
+                                  "Slurp", "Scooter", "Mercator", "RaBot",  "Jack", "Speedy Spider", "moget", "Toutatis", "IlTrovatore-Setaccio", 
+                                  "IncyWincy", "UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot", "Knowledge.com", "kuloko-bot", "LNSpiderguy", 
+                                  "Linknzbot", "lookbot", "MantraAgent", "NetResearchServer", "Lycos", "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", 
+                                  "mozDex", "MSNBOT", "Navadoo Crawler", "ObjectsSearch", "OnetSzukaj", "PicoSearch", "PJspider", 
+                                  "nttdirectory_robot", "maxbot.com", "Openfind", "psbot", "QweeryBot", "StackRambler", "SeznamBot", "Search-10",  "Scrubby",  
                                   "speedfind ramBot xtreme", "Kototoi", "SearchByUsa", "Searchspider", "SightQuestBot", "Spider_Monkey", "Surfnomore", "teoma", 
-                                  "ESISmartSpider", "UK Searcher Spider", "appie", "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot", "Yandex", 
-                                  "Yellopet-Spider", "Findexa Crawler", "YBSbot"
+                                  "UK Searcher Spider", "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot", "Yandex", 
+                                  "Yellopet-Spider", "YBSbot", "OceanSpiders", "MozSpider" 
                                 };
 
       if (!String.IsNullOrEmpty(userAgent))
