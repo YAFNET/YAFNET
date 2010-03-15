@@ -118,8 +118,11 @@ namespace YAF.Pages
               // we don't need to find users now
               this.FindUsers.Visible = false;
 
-              // get access mask for this user
-              this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()).Selected = true;
+              // get access mask for this user                
+              if (this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()) != null)
+              {
+                  this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()).Selected = true;
+              }
             }
           }
         }
