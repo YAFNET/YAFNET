@@ -38,8 +38,9 @@ namespace YAF.Pages
         {
             if (!IsPostBack)
             {
+                string displayName = this.PageContext.CurrentUserData.DisplayName;
                 PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                PageLinks.AddLink(HtmlEncode(PageContext.PageUserName), YafBuildLink.GetLink(ForumPages.cp_profile));
+                PageLinks.AddLink(HtmlEncode(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName), YafBuildLink.GetLink(ForumPages.cp_profile));
                 PageLinks.AddLink(PageContext.Localization.GetText("BUDDYLIST_TT"),"");
             }
             BindData();

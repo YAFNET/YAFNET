@@ -264,9 +264,9 @@
     <Resource tag="CANNOT_POST">Вы [b]не можете[/b] создавать новые темы в этом форуме.</Resource>
     <Resource tag="CANNOT_REPLY">Вы [b]не можете[/b] отвечать в этом форуме.</Resource>
     <Resource tag="CANNOT_VOTE">Вы [b]не можете[/b] голосовать в этом форуме.</Resource>
-    <Resource tag="CAPTCHA_ENTER">Введите буквы на этом изображении:</Resource>
+    <Resource tag="CAPTCHA_ENTER">Введите символы на этом изображении:</Resource>
     <Resource tag="CAPTCHA_IMAGE">Изображение для проверки:</Resource>
-    <Resource tag="CHANGEEMAIL_SUBJECT">Email изменён</Resource>
+    <Resource tag="CHANGEEMAIL_SUBJECT">E-mail изменён</Resource>
     <Resource tag="COMMON_WORDS">out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your</Resource>
     <Resource tag="CUSTOM_BBCODE">Больше BBCode</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">Проверка Email {0}  </Resource>
@@ -290,8 +290,8 @@
     <Resource tag="PAGES">Страницы</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">Новое личное сообщение от {0} на {1}</Resource>
     <Resource tag="POWERED_BY">Форум </Resource>
-    <Resource tag="REGMAIL_SENT">Сообщение по электронной почте отправлено. Проверьте свою почту и перейдите по ссылке в сообщении.</Resource>
-    <Resource tag="REGMAIL_WILL_BE_SEND">Сообщение по электронной почте будет отправлено Вам после регистрации. Для входа на сайт вы должны проверить ваш почтовый ящик и перейти по ссылке в сообщении.</Resource>
+    <Resource tag="REGMAIL_SENT">Сообщение по электронной почте отправлено. Проверьте свою почту и перейдите по ссылке в полученном сообщении.</Resource>
+    <Resource tag="REGMAIL_WILL_BE_SEND">Сообщение по электронной почте будет отправлено Вам после регистрации. Для входа на сайт Вы должны проверить Ваш почтовый ящик и перейти по ссылке в сообщении.</Resource>
     <Resource tag="SAVE">Сохранить</Resource>
     <Resource tag="SUBMIT">Отправить</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Уведомление о новом сообщении в теме по подписке(От {0})</Resource>
@@ -333,7 +333,7 @@
     <Resource tag="ASK_DELETEALBUM">Удалить этот альбом?</Resource>
     <Resource tag="ASK_DELETEIMAGE">Удалить это изображение?</Resource>
     <Resource tag="ERROR_MAXALBUMS">Вы больше не можете добавлять альбомы для вашей учётной записи.</Resource>
-    <Resource tag="ERROR_TOOBIG">Размер изображение слишком большой.</Resource>
+    <Resource tag="ERROR_TOOBIG">Размер изображения слишком большой.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Предельное количество разрешённых изображений достигнуто. Вы можете добавить не более чем {0} изображений в каждый альбом.</Resource>
     <Resource tag="TITLE">Добавить/изменить альбом</Resource>
   </page>
@@ -362,9 +362,9 @@
     <Resource tag="APPROVE_ADD_ALL">Одобрить и добавить всех</Resource>
     <Resource tag="APPROVE_ALL">Одобрить всех</Resource>
     <Resource tag="BUDDYLIST">Список Друзей</Resource>
-    <Resource tag="BUDDYLIST_TT">Управление друзьями</Resource>
+    <Resource tag="BUDDYLIST_TT">Управление Друзьями</Resource>
     <Resource tag="DENY">Отклонить</Resource>
-    <Resource tag="DENY_ALL">Отклонить всех более кто запросил более 14 дней назад</Resource>
+    <Resource tag="DENY_ALL">Отклонить всех, кто запросил более 14 дней назад</Resource>
     <Resource tag="EDIT_BUDDIES">Друзья</Resource>
     <Resource tag="PENDING_REQUESTS">Желающие подружиться</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
@@ -374,10 +374,10 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">О Вас</Resource>
-    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз когда кто-либо оставляет сообщение в [b]всех[/b] тех темах где вы оставляете свои посты?</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз, когда кто-либо оставляет сообщение во [b]всех[/b] тех темах, где Вы оставляете свои посты?</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недействительный адрес электронной почты.</Resource>
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
-    <Resource tag="BAD_ICQ">Вы ввели недопустимой значение для вашего номера ICQ.</Resource>
+    <Resource tag="BAD_ICQ">Вы ввели недопустимое значение для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели недействительный адрес электронной почты для учётной записи MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Вы ввели неработающий адрес для вашего блога.</Resource>
     <Resource tag="BIRTHDAY">Дата рождения</Resource>
@@ -445,7 +445,7 @@
     <Resource tag="CONTROL_PANEL">Панель управления</Resource>
     <Resource tag="EDIT_AVATAR">Изменить аватар</Resource>
     <Resource tag="EDIT_PROFILE">Изменить профиль</Resource>
-    <Resource tag="EDIT_SIGNATURE">Редактировать подпист</Resource>
+    <Resource tag="EDIT_SIGNATURE">Редактировать подпись</Resource>
     <Resource tag="GROUPS">Вы входите в группу/группы:</Resource>
     <Resource tag="INBOX">Входящие</Resource>
     <Resource tag="JOINED">Дата регистрации:</Resource>
@@ -464,7 +464,7 @@
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_FORBIDDEN">Вам не разрешены BBCodes в подписи.</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Вам не разрешены  HTML тэги в подписи.</Resource>
-    <Resource tag="HTMLTAG_WRONG">В вашей подписи содержится запрещённый администрацией HTML тэг: </Resource>
+    <Resource tag="HTMLTAG_WRONG">В Вашей подписи содержится запрещённый администрацией HTML тэг: </Resource>
     <Resource tag="SIGNATURE">Подпись:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">В вашей подписи содержится запрещённый администрацией BBCode {0}.</Resource>
     <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>
@@ -511,9 +511,9 @@
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
     <Resource tag="ONDATE">оставлено {0}</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
-    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
-    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
-    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Подпишистись на активные темы используя ленту RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Подпишитесь на Ваши любимые темы используя ленту RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Подпишитесь на ленту RSS этого форума.</Resource>
     <Resource tag="STATS">Статистика</Resource>
     <Resource tag="STATS_LASTMEMBER">Последний зарегистрированный пользователь</Resource>
     <Resource tag="STATS_LASTPOST">Последнее сообщение {0} отправил</Resource>
@@ -586,7 +586,7 @@
   </page>
   <page name="IM_XMPP">
     <Resource tag="SERVEROTHER">Пользователь использует XMPP серверы: {0}. Чтобы общаться ним, Вы должны сначала там зарегистрироваться.</Resource>
-    <Resource tag="SERVERSAME">Пользователь зарегистрирован на том же XMPP сервере, что и вы. Вы можете соединиться с инм используя любой клиент поддерживающий XMPP. Его эккаунт: </Resource>
+    <Resource tag="SERVERSAME">Пользователь зарегистрирован на том же XMPP сервере, что и Вы. Вы можете соединиться с ним, используя любой клиент поддерживающий XMPP. Его эккаунт: </Resource>
     <Resource tag="SERVERYOU">Не стоит говорить с самим собой!</Resource>
     <Resource tag="TITLE">XMPP</Resource>
   </page>
@@ -698,7 +698,7 @@
     <Resource tag="NUMBERREPORTED">Сообщённое число случаев :</Resource>
     <Resource tag="ORIGINALMESSAGE">Текст сообщения:</Resource>
     <Resource tag="REPLYTO">Послать личное сообщение пользователю </Resource>
-    <Resource tag="REPORTED">Reported posts</Resource>
+    <Resource tag="REPORTED">Жалобы на сообщения в этом подфоруме</Resource>
     <Resource tag="REPORTEDBY">Пожаловались:</Resource>
     <Resource tag="RESOLVE">Урегулировать копии сообщение</Resource>
     <Resource tag="RESOLVED">Пометить как урегулированные</Resource>
@@ -810,7 +810,7 @@
     <Resource tag="TOPICATTACH">Прикрепить файлы к этому сообщению?</Resource>
     <Resource tag="TOPICNAME_TOOLONG">Максимальная длина слова в названии темы не должна быть более {0} символов. Используйте сокращения или исправьте ошибку в слове.</Resource>
     <Resource tag="TOPICWATCH">Следить за этой темой и получать уведомления о новых сообщениях по электронной почте?</Resource>
-    <Resource tag="WAIT">Вы не можете оставить следующее сообщение в течение последующих  {0:N0} секунд.</Resource>
+    <Resource tag="WAIT">Вы не можете оставить следующее сообщение в течение последующих {0:N0} секунд.</Resource>
   </page>
   <page name="POSTS">
     <Resource tag="AD_SIGNATURE" />
@@ -958,9 +958,9 @@
     <Resource tag="STATISTICS">Статистика</Resource>
     <Resource tag="SUSPEND">Поставить бан</Resource>
     <Resource tag="SUSPEND_USER">Забанить пользователя:</Resource>
-    <Resource tag="THANKSFROM">Количество  Спасибо</Resource>
-    <Resource tag="THANKSTOPOSTS">Количество сказанных Спасибо пользователя</Resource>
-    <Resource tag="THANKSTOTIMES">Сколько раз пользователю сказали Спасибо</Resource>
+    <Resource tag="THANKSFROM">Количество «Спасибо»</Resource>
+    <Resource tag="THANKSTOPOSTS">Количество сказанных «Спасибо» пользователя</Resource>
+    <Resource tag="THANKSTOTIMES">Сколько раз пользователю сказали «Спасибо»</Resource>
     <Resource tag="TOPIC">Тема:</Resource>
     <Resource tag="USERNAME">Имя пользователя:</Resource>
     <Resource tag="WEBLOG">Блог:</Resource>
@@ -970,7 +970,7 @@
   </page>
   <page name="RECOVER_PASSWORD">
     <Resource tag="ACCOUNT_NOT_APPROVED">Ваша учётная запись пока не была проверена администратором. Вы не можете сбросить пароль пока это не случилось.</Resource>
-    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Ваша учётная запись пока не проверена так как вы не проверили адрес электронной почты. Новый запрос на валидацию отправлен на адрес {0}. Пожалуйста проверьте и вы сможете войти на форум в качестве пользователя.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Ваша учётная запись не не активирована, пока вы не проверили вашу электронную почту. Новый запрос на валидацию отправлен на адрес {0}. Пожалуйста, проверьте новые сообщения и вы сможете войти на форум в качестве пользователя.</Resource>
     <Resource tag="GENERAL_FAILURE">Попытка восстановить ваш пароль оказалась неудачной.</Resource>
     <Resource tag="IDENTITY_CONFIRMATION_TITLE">Подтверждение идентичности при восстановлении пароля</Resource>
     <Resource tag="PAGE1_INSTRUCTIONS">Введите Ваше имя пользователя для восстановления пароля:</Resource>
@@ -984,7 +984,7 @@
   <page name="REGISTER">
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Ваша учётная запись успешно создана.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Ваша учётная запись успешно создана. Однако вы должны подтвердить существование адреса электронной почты перед тем как сможете войти на форум. Пожалуйста, проверьте ваш почтовый ящик для дальнейших инструкций.[/center]</Resource>
-    <Resource tag="ALREADY_REGISTERED">Ваше имя пользователя или пароль уже зарегистрированы на форуме.</Resource>
+    <Resource tag="ALREADY_REGISTERED">Такое имя пользователя или пароль уже зарегистрированы на форуме.</Resource>
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Такое отображаемое имя пользователя уже зарегистрировано на форуме.</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недопустимый адрес электронной почты.</Resource>
     <Resource tag="BAD_PASSWORD">Пожалуйста, выберите более сложный пароль, содержащий знаки пунктуации (!?) или цифры.</Resource>
@@ -1012,7 +1012,7 @@
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">мин. длина - {0}. Количество спецсимволов($#@!) - {1}.</Resource>
     <Resource tag="PREFERENCES">Ваши предпочтения</Resource>
     <Resource tag="PROFILE">Информация в профиле</Resource>
-    <Resource tag="RECAPTCHA_BADSETTING">Настройки Recapture неверны. RСообщите это администрации.</Resource>
+    <Resource tag="RECAPTCHA_BADSETTING">Настройки ReCAPTURE неверны. Сообщите это администрации форума.</Resource>
     <Resource tag="RECATCHA_BADWORDS">Неверный ответ! Попробуйте снова.</Resource>
     <Resource tag="REGISTER">Регистрация</Resource>
     <Resource tag="RETYPE_PASSWORD">Подтверждение пароля обязательно.</Resource>
@@ -1022,8 +1022,8 @@
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
     <Resource tag="TITLE">Регистрация нового пользователя</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
-    <Resource tag="USERNAME_LENGTH_WARN">В имене пользователя не должно быть более {0} символов.</Resource>
-    <Resource tag="VERIFICATION_EMAIL_SUBJECT">Подтверждение регистрации для форума {0}</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">В имени пользователя не должно быть более {0} символов.</Resource>
+    <Resource tag="VERIFICATION_EMAIL_SUBJECT">Подтверждение регистрации на форуме {0}</Resource>
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">Отменить</Resource>
@@ -1054,18 +1054,18 @@
     <Resource tag="ACCEPT">Я согласен с этими правилами</Resource>
     <Resource tag="DECLINE">Я не согласен с этими правилами</Resource>
     <Resource tag="RULES_TEXT" editType="bbcode">
-      [size=5]Для владельцев и администрации этого форума невозможно проверить и подтвердить действительность и правильность всех сообщений на форуме. Сообщения отражают точку зрения и мнения авторов, но не обязательно владельцев форума и администрации форума. Если Вы считаете, что какое-то сообщение вызывает вопросы по поводу уместности на этом форуме, то сообщите об этом немедленно администрации форума.
+		[size=5]Для владельцев и администрации этого форума невозможно проверить и подтвердить достоверность и правильность всех сообщений на форуме. Сообщения отражают точку зрения и мнения авторов, но не обязательно владельцев и/или администрации форума. Если Вы считаете, что какое-то сообщение вызывает вопросы по поводу уместности на этом форуме, то сообщите об этом немедленно администрации форума.
 
-      Вы соглашаетесь не размещать любую неподобающую, вульгарную, непристойную информацию, угрозы, порнографию, клевету и другие материалы, которые могут нарушать законодательство и общепринятые нормы поведения. Нарушение этих обязательств может повлечь пожизненный запрет на посещение форума. Все IP адреса заносятся в журнал и могут помочь в выполнении данных условий.
+		Вы соглашаетесь не размещать любую неподобающую, вульгарную, непристойную информацию, угрозы, порнографию, клевету и другие материалы, которые могут нарушать законодательство и общепринятые нормы поведения. Нарушение этих обязательств может повлечь пожизненный запрет на посещение форума. Все IP адреса заносятся в журнал и могут помочь в выполнении данных условий.
 
-      Вы соглашаетесь с тем, что владельцы и операторы данного ресурса имеют право удалять, редактировать, перемещать или закрывать любую тему в любое время, когда сочтут нужным . Как пользователь Вы согласны с тем, что любая введённая Вами информация о Вас будет храниться в базе данных. Эта информация будет недоступна третьим лицам без вашего согласия, но невозможно полностью гарантировать её утечку в случае враждебных хакерских действий и администрация и операторы не несут ответственности за это.
+		Вы соглашаетесь с тем, что владельцы и операторы данного ресурса имеют право удалять, редактировать, перемещать или закрывать любую тему в любое время, когда сочтут нужным. Как пользователь Вы согласны с тем, что любая введённая Вами информация о Вас будет храниться в базе данных. Эта информация будет недоступна третьим лицам без вашего согласия, но невозможно полностью гарантировать её утечку в случае враждебных хакерских действий и администрация и операторы не несут ответственности за это.
 
-      Форум использует куки для хранения информации на вашем компьютере. Эти куки не содержать никакой введённой Вами личной информации и служат только для вашего удобства при просмотре ресурса. Адрес электронной почты - e-mail служит только для подтверждения вашей регистрации и для рассылки нового пароля, если вы забыли старый.
+		Форум использует куки для хранения информации на вашем компьютере. Эти куки не содержат никакой введённой Вами личной информации и служат только для вашего удобства при просмотре ресурса. Адрес электронной почты - e-mail служит только для подтверждения вашей регистрации и для рассылки нового пароля, если вы забыли старый.
 
-      Вы соглашаетесь не использовать никаких программ для автоматической регистрации и/или размещения информации на этом форуме. Нарушение этого правила может повлечь аналогичные по воздействию действия в отношении вашего сервера.[/size]
+		Вы соглашаетесь не использовать никаких программ для автоматической регистрации и/или размещения информации на этом форуме. Нарушение этого правила может повлечь аналогичные по степени возмещения причинённого ущерба действия в отношении вашего сервера.[/size]
 
-      [center][size=6][b]Нажав кнопку "Согласен" внизу вы соглашаетесь соблюдать условия и правила использования форума.[/b][/size][/center]
-    </Resource>
+		[center][size=6][b]Нажав кнопку «Согласен» внизу этой страницы вы соглашаетесь соблюдать условия и правила использования форума.[/b][/size][/center]
+	</Resource>
     <Resource tag="TITLE">Правила форума</Resource>
   </page>
   <page name="SEARCH">
@@ -1094,7 +1094,7 @@
   <page name="SHOUTBOX">
     <Resource tag="CLEAR">Очистить</Resource>
     <Resource tag="FLYOUT">Открепить</Resource>
-    <Resource tag="HEADING">Поговорите с другими пользователями</Resource>
+    <Resource tag="HEADING">Поговорите с другими пользователями!</Resource>
     <Resource tag="SUBMIT">Отправить</Resource>
     <Resource tag="TITLE">Чат</Resource>
   </page>
@@ -1147,12 +1147,12 @@
       {forumname} по адресу {forumlink}
     </Resource>
     <Resource tag="EMAILTOPIC">
-      Здравствуйте!
+		Здравствуйте!
 
-      {user} считает, что вам может быть интересно прочитать это:
+		{user} считает, что Вам может быть интересно это прочитать:
 
-      {link}
-    </Resource>
+		{link}
+	</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Привет!
 
@@ -1186,7 +1186,7 @@
     <Resource tag="PASSWORDRETRIEVAL_TEXT">
       Новый пароль был создан для Вас на ресурсе {forumname} по адресу {forumlink}.
 
-      Пожалуйста, зайдите на сайт используя следующие логин и пароль:
+      Пожалуйста, зайдите на сайт, используя следующие логин и пароль:
 
       Имя пользователя: {username}
       Пароль: {password}
@@ -1209,18 +1209,18 @@
     </Resource>
     <Resource tag="VERIFYEMAIL_HTML" editType="html" />
     <Resource tag="VERIFYEMAIL_TEXT">
-      Вы решили присоединиться к форуму {forumname}, но перед этим Ваш адрес электронной почты должен быть проверен.
+		Вы решили присоединиться к форуму {forumname}, но преварительно адрес Вашей электронной почты должен быть проверен.
 
-      Для проверки Вашего адреса электронной почты перейдите по этой ссылке в веб-браузере:
+		Для проверки Вашего адреса электронной почты перейдите по этой ссылке в веб-браузере:
 
-      {link}
+		{link}
 
-      Ваш ключ подтверждения:
+		Ваш ключ подтверждения:
 
-      {key}
+		{key}
 
-      Посетите {forumname} по адресу {forumlink}
-    </Resource>
+		Посетите {forumname} по адресу {forumlink}
+	</Resource>
   </page>
   <page name="TIMEZONES">
     <Resource tag="UTC0">(UTC) Касабланка, Дублин, Эдинбург, Лондон, Лиссабон, Монровия</Resource>
@@ -1251,7 +1251,7 @@
     <Resource tag="UTC-7">(UTC-7:00) Горное время (США &amp; Канада)</Resource>
     <Resource tag="UTC8">(UTC+8:00) Бейджинг, Гонконг, Перт, Сингапур, Тайпей</Resource>
     <Resource tag="UTC-8">(UTC-8:00) Атлантическое время (США &amp; Канада)</Resource>
-    <Resource tag="UTC9">(UTC+9:00) Якутск, Осака, Саппоро, Сеул, Токио </Resource>
+    <Resource tag="UTC9">(UTC+9:00) Якутск, Осака, Саппоро, Сеул, Токио</Resource>
     <Resource tag="UTC-9">(UTC-9:00) Аляска</Resource>
     <Resource tag="UTC9.5">(UTC+9:30) Аделаида, Дарвин</Resource>
   </page>

@@ -204,11 +204,12 @@ namespace YAF.Controls
 
       if (user != null)
       {
+        string displayName = this.PageContext.CurrentUserData.DisplayName;
         buildHeader.AppendFormat(
           @"<td style=""padding:5px"" class=""post"" align=""left""><b>{0}</b></td>", 
           String.Format(
-            this.PageContext.Localization.GetText("TOOLBAR", "LOGGED_IN_AS") + " ", 
-            HttpContext.Current.Server.HtmlEncode(this.PageContext.PageUserName)));
+            this.PageContext.Localization.GetText("TOOLBAR", "LOGGED_IN_AS") + " ",
+            HttpContext.Current.Server.HtmlEncode(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName)));
         buildHeader.AppendFormat(@"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">");
 
         if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.AllowPrivateMessages)

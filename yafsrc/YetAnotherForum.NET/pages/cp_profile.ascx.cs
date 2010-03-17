@@ -51,8 +51,9 @@ namespace YAF.Pages
 		{
 			if ( !IsPostBack )
 			{
+                string displayName = this.PageContext.CurrentUserData.DisplayName;
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( PageContext.PageUserName, "" );
+                PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName, "");
 			}
 		}
 
