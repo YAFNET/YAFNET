@@ -346,6 +346,7 @@
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">عنوان</Resource>
+    <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="ALBUMS_COUNT_LIMIT">You  can't create more then {0} albums.</Resource>
     <Resource tag="ASK_DELETEALBUM">آلبوم حذف شود؟</Resource>
     <Resource tag="ASK_DELETEIMAGE">عکس حذف شود؟</Resource>

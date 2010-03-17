@@ -74,11 +74,13 @@ namespace YAF.Pages
                 YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
             }
 
+            string displayName =  UserMembershipHelper.GetDisplayNameFromID(Security.StringToLongOrRedirect(Request.QueryString["u"]));
             // Generate the Page Links.
+
             this.PageLinks.Clear();
             this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
-                UserMembershipHelper.GetUserNameFromID(Security.StringToLongOrRedirect(Request.QueryString["u"])), 
+                !string.IsNullOrEmpty(displayName)? displayName : UserMembershipHelper.GetUserNameFromID(Security.StringToLongOrRedirect(Request.QueryString["u"])), 
                 YafBuildLink.GetLink(ForumPages.profile, "u={0}", Request.QueryString["u"]));
             this.PageLinks.AddLink(GetText("ALBUMS"), string.Empty);
 

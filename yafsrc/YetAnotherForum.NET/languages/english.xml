@@ -740,6 +740,7 @@
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="TITLE">Add/Edit Album</Resource>
     <Resource tag="ALBUM_TITLE">Title</Resource>
+	<Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="ERROR_MAXALBUMS">You can not add any more albums to this account.</Resource>
     <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
     <Resource tag="ASK_DELETEALBUM">Delete this album?</Resource>
