@@ -192,10 +192,14 @@ namespace YAF
         {
           platform = "Vista";
         }
+        else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 6.1") >= 0)
+        {
+            platform = "Win7";
+        }   
         else
         {
           // check if it's a search engine spider...
-          isSearchEngine = UserAgentHelper.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent);
+            isSearchEngine = !HttpContext.Current.Request.Browser.Crawler ? UserAgentHelper.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent) : true;
         }
       }
 

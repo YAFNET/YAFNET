@@ -686,7 +686,7 @@ namespace YAF.Classes.Core
             else
             {
               // check if it's a search engine spider...
-              isSearchEngine = UserAgentHelper.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent);
+                isSearchEngine = !HttpContext.Current.Request.Browser.Crawler ? UserAgentHelper.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent) : true;
             }
           }
 
