@@ -246,14 +246,17 @@ namespace YAF.Pages
           string filter = string.Empty;
           foreach (char letter in GetText("LANGUAGE", "CHARSET"))
           {
-            if (filter == string.Empty)
-            {
-              filter = string.Format("{0} not like '{1}%'", nameField, letter);
-            }
-            else
-            {
-              filter += string.Format("and {0} not like '{1}%'", nameField, letter);
-            }
+              if (letter != '/')
+              {
+                  if (filter == string.Empty)
+                  {
+                      filter = string.Format("{0} not like '{1}%'", nameField, letter);
+                  }
+                  else
+                  {
+                      filter += string.Format("and {0} not like '{1}%'", nameField, letter);
+                  }
+              }
           }
 
           userListDataView.RowFilter = filter;

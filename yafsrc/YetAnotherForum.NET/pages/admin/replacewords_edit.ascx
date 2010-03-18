@@ -14,8 +14,8 @@
 		<tr>
 			<td class="postheader" width="50%">
 			
-			<b>&quot;Bad&quot; Expression:</b>
-			<br />Regular expression statement. Escape puncutation with a preceeding slash (e.g. &apos;\.&apos;).</td>
+			<b>"Bad" Expression:</b>
+			<br />Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).</td>
 			
 			
 			
@@ -30,8 +30,8 @@
 		<tr>
 			<td class="postheader" width="50%">
 			
-			<b>&quot;Good&quot; Expression:</b>
-			<br />Regular expression statement. Escape puncutation with a preceeding slash (e.g. &apos;\.&apos;).</td>
+			<b>"Good" Expression:</b>
+			<br />Regular expression statement. Escape puncutation with a preceeding slash (e.g. &#39;\.&#39;).</td>
 			
 			
 			
