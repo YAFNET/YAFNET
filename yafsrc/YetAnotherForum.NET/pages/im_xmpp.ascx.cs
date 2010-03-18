@@ -72,8 +72,10 @@ namespace YAF.Pages
                 // get user data...
                 MembershipUser userHe = UserMembershipHelper.GetMembershipUserById(this.UserID);
                
+                string displayNameHe = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+
                 this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                this.PageLinks.AddLink(userHe.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+                this.PageLinks.AddLink(!string.IsNullOrEmpty(displayNameHe) ? displayNameHe : userHe.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
                 this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
                 
                 if (this.UserID == PageContext.PageUserID)

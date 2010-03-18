@@ -59,9 +59,11 @@ namespace YAF.Pages // YAF.Pages
 				{
 					YafBuildLink.AccessDenied(/*No such user exists*/);
 				}
+                string displayName = UserMembershipHelper.GetDisplayNameFromID(UserID);
 
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( user.UserName, YafBuildLink.GetLink( ForumPages.profile, "u={0}", UserID ) );
+                PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : user.UserName,
+                YafBuildLink.GetLink(ForumPages.profile, "u={0}", UserID));
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				Send.Text = GetText( "SEND" );

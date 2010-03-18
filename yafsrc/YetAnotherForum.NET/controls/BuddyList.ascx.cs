@@ -110,8 +110,8 @@ namespace YAF.Controls
                 this.UserName.Text = PageContext.Localization.GetText("username");
                 this.Rank.Text = PageContext.Localization.GetText("rank");
                 this.Joined.Text = PageContext.Localization.GetText("members", "joined");
-                this.Posts.Text = PageContext.Localization.GetText("posts");
-                this.Location.Text = PageContext.Localization.GetText("location");
+                this.Posts.Text = PageContext.Localization.GetText("CP_EDITBUDDIES", "POSTS");
+                this.Location.Text = PageContext.Localization.GetText("POSTS","LOCATION");
                 if (Mode == 4)
                 {
                     this.LastColumn.Text = PageContext.Localization.GetText("REQUEST_DATE");

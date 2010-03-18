@@ -63,7 +63,8 @@ namespace YAF.Pages
       this.PageLinks.AddLink(YafContext.Current.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
       // users control panel
-      this.PageLinks.AddLink(YafContext.Current.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
+      string displayName = UserMembershipHelper.GetDisplayNameFromID(this.PageContext.PageUserID);
+      this.PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
 
       // private messages
       this.PageLinks.AddLink(YafContext.Current.Localization.GetText(ForumPages.cp_pm.ToString(), "TITLE"), YafBuildLink.GetLink(ForumPages.cp_pm));

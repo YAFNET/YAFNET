@@ -54,8 +54,13 @@ namespace YAF.Controls
 
     /// <summary>
     /// The _localized title tag.
-    /// </summary>
+    /// </summary>   
     protected string _localizedTitleTag = string.Empty;
+   
+      /// <summary>
+    /// The _localized title ready.
+    /// </summary>
+    protected string _localizedTitle = string.Empty;
 
     /// <summary>
     /// The _style.
@@ -126,7 +131,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets or sets whether the control is Active .
+    /// Gets or sets a value indicating whether the control is Active .
     /// </summary>
     public bool Enabled
     {
@@ -174,6 +179,22 @@ namespace YAF.Controls
     }
 
     /// <summary>
+    /// Gets or sets LocalizedTitle.
+    /// </summary>
+    public string LocalizedTitle
+    {
+        get
+        {
+            return this._localizedTitle;
+        }
+
+        set
+        {
+            this._localizedTitle = value;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets Style.
     /// </summary>
     public string Style
@@ -190,7 +211,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Set/Get the ThemePage -- Defaults to "ICONS"
+    /// Gets or sets the ThemePage -- Defaults to "ICONS"
     /// </summary>
     public string ThemePage
     {
@@ -206,7 +227,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Set/Get the actual theme item
+    /// Gets or sets the actual theme item
     /// </summary>
     public string ThemeTag
     {
@@ -244,9 +265,7 @@ namespace YAF.Controls
     /// <summary>
     /// The get current theme item.
     /// </summary>
-    /// <returns>
-    /// The get current theme item.
-    /// </returns>
+    /// <returns>Current image alt value</returns>
     protected string GetCurrentThemeItem()
     {
       if (!String.IsNullOrEmpty(this._themePage) && !String.IsNullOrEmpty(this._themeTag))
@@ -261,7 +280,7 @@ namespace YAF.Controls
     /// The get current title item.
     /// </summary>
     /// <returns>
-    /// The get current title item.
+    /// The current title item string.
     /// </returns>
     protected string GetCurrentTitleItem()
     {
@@ -292,7 +311,15 @@ namespace YAF.Controls
       }
 
       string src = this.GetCurrentThemeItem();
-      string title = this.GetCurrentTitleItem();
+      string title;
+      if (string.IsNullOrEmpty(this.LocalizedTitle.Trim()))
+      {
+         title = this.GetCurrentTitleItem();
+      }
+      else
+      {
+          title = this.LocalizedTitle;
+      }
 
       // might not be needed...
       if (String.IsNullOrEmpty(src))

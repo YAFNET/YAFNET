@@ -74,9 +74,10 @@ namespace YAF.Pages
         {
           YafBuildLink.AccessDenied( /*No such user exists*/);
         }
+        string displayName = UserMembershipHelper.GetDisplayNameFromID(UserID);
 
         this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(user.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", UserID));
+        this.PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : user.UserName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", UserID));
         this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
 
         // get full user data...
