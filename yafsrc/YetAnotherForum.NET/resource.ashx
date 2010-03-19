@@ -181,26 +181,41 @@ namespace YAF
         "{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
       string platform = HttpContext.Current.Request.Browser.Platform;
       bool isSearchEngine = false;
+      string userAgent = HttpContext.Current.Request.UserAgent;
 
-      if (HttpContext.Current.Request.UserAgent != null)
+      if (!string.IsNullOrEmpty(userAgent))
       {
-        if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 5.2") >= 0)
+          if (userAgent.IndexOf("Windows NT 5.2") >= 0)
         {
           platform = "Win2003";
         }
-        else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 6.0") >= 0)
+          else if (userAgent.IndexOf("Windows NT 6.0") >= 0)
         {
           platform = "Vista";
         }
-        else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 6.1") >= 0)
+          else if (userAgent.IndexOf("Windows NT 6.1") >= 0)
         {
             platform = "Win7";
-        }   
+        }
+          else if (userAgent.IndexOf("Linux") >= 0)
+        {
+            platform = "Linux";
+        }
+          else if (userAgent.IndexOf("FreeBSD") >= 0)
+        {
+            platform = "FreeBSD";
+        }
         else
         {
-          // check if it's a search engine spider...
-            isSearchEngine = !HttpContext.Current.Request.Browser.Crawler ? UserAgentHelper.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent) : true;
+            // check if it's a search engine spider...
+            isSearchEngine = !HttpContext.Current.Request.Browser.Crawler ? UserAgentHelper.IsSearchEngineSpider(userAgent) : true;
         }
+      }
+      else
+      {
+          
+          // It'll show that no UserAgent string was received. 
+          platform = "?";
       }
 
       YafServices.InitializeDb.Run();

@@ -16,15 +16,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Web;
-using System.Web.Security;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
 
 namespace YAF.Classes.Core
 {
+    using System;
+    using System.Data;
+    using System.Web;
+    using System.Web.Security;
+    using YAF.Classes.Data;
+    using YAF.Classes.Utils;
+
   /// <summary>
   /// User Page Class.
   /// </summary>
@@ -173,7 +174,7 @@ namespace YAF.Classes.Core
     #region Forum and Page Helper Properties
 
     /// <summary>
-    /// True if current user has post access in the current forum
+    /// Gets a value indicating whether the current user has post access in the current forum (True).
     /// </summary>
     public bool ForumPostAccess
     {
@@ -184,7 +185,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user has reply access in the current forum
+    /// Gets a value indicating whether the current user has reply access in the current forum (True)
     /// </summary>
     public bool ForumReplyAccess
     {
@@ -195,7 +196,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user has read access in the current forum
+    /// Gets a value indicating whether the current user has read access in the current forum (True)
     /// </summary>
     public bool ForumReadAccess
     {
@@ -206,7 +207,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user has access to create priority topics in the current forum
+    ///  Gets a value indicating whether the current user has access to create priority topics in the current forum (True).
     /// </summary>
     public bool ForumPriorityAccess
     {
@@ -217,7 +218,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user has access to create polls in the current forum.
+    ///  Gets a value indicating whether the current user has access to create polls in the current forum (True).
     /// </summary>
     public bool ForumPollAccess
     {
@@ -228,7 +229,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user has access to vote on polls in the current forum
+    ///  Gets a value indicating whether the current user has access to vote on polls in the current forum (True).
     /// </summary>
     public bool ForumVoteAccess
     {
@@ -239,7 +240,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user is a moderator of the current forum
+    ///  Gets a value indicating whether the current user is a moderator of the current forum (True).
     /// </summary>
     public bool ForumModeratorAccess
     {
@@ -250,7 +251,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user can delete own messages in the current forum
+    ///  Gets a value indicating whether the current user can delete own messages in the current forum (True).
     /// </summary>
     public bool ForumDeleteAccess
     {
@@ -261,7 +262,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user can edit own messages in the current forum
+    ///  Gets a value indicating whether the current user can edit own messages in the current forum (True).
     /// </summary>
     public bool ForumEditAccess
     {
@@ -272,7 +273,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user can upload attachments
+    ///  Gets a value indicating whether the current user can upload attachments (True).
     /// </summary>
     public bool ForumUploadAccess
     {
@@ -283,7 +284,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user can download attachments
+    ///  Gets a value indicating whether the current user can download attachments (True).
     /// </summary>
     public bool ForumDownloadAccess
     {
@@ -305,7 +306,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// The UserID of the current user.
+    /// Gets the UserID of the current user.
     /// </summary>
     public int PageUserID
     {
@@ -327,16 +328,16 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// ForumID for the current page, or 0 if not in any forum
+    /// Gets the ForumID for the current page, or 0 if not in any forum
     /// </summary>
     public int PageForumID
     {
       get
       {
-        int nLockedForum = YafContext.Current.Settings.LockedForum;
-        if (nLockedForum != 0)
+        int isLockedForum = YafContext.Current.Settings.LockedForum;
+        if (isLockedForum != 0)
         {
-          return nLockedForum;
+          return isLockedForum;
         }
 
         return PageValueAsInt("ForumID");
@@ -344,7 +345,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Name of forum for the current page, or an empty string if not in any forum
+    /// Gets the Name of forum for the current page, or an empty string if not in any forum
     /// </summary>
     public string PageForumName
     {
@@ -355,7 +356,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// CategoryID for the current page, or 0 if not in any category
+    /// Gets the CategoryID for the current page, or 0 if not in any category
     /// </summary>
     public int PageCategoryID
     {
@@ -371,7 +372,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Name of category for the current page, or an empty string if not in any category
+    /// Gets the Name of category for the current page, or an empty string if not in any category
     /// </summary>
     public string PageCategoryName
     {
@@ -382,7 +383,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// The TopicID of the current page, or 0 if not in any topic
+    /// Gets the  TopicID of the current page, or 0 if not in any topic
     /// </summary>
     public int PageTopicID
     {
@@ -393,7 +394,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Name of topic for the current page, or an empty string if not in any topic
+    /// Gets the Name of topic for the current page, or an empty string if not in any topic
     /// </summary>
     public string PageTopicName
     {
@@ -404,7 +405,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Is the current user host admin?
+    ///   Gets a value indicating whether the current user host admin (True).
     /// </summary>
     public bool IsHostAdmin
     {
@@ -415,10 +416,10 @@ namespace YAF.Classes.Core
         if (this._userFlags != null)
         {
           isHostAdmin = this._userFlags.IsHostAdmin;
-
-          // Obsolette : Ederon
-          // if (General.BinaryAnd(Page["UserFlags"], UserFlags.IsHostAdmin))
-          // 	isHostAdmin = true;
+            
+            // Obsolete : Ederon
+            // if (General.BinaryAnd(Page["UserFlags"], UserFlags.IsHostAdmin))
+            // isHostAdmin = true;
         }
 
         return isHostAdmin;
@@ -426,7 +427,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if user is excluded from CAPTCHA check.
+    /// Gets a value indicating whether the user is excluded from CAPTCHA check (True).
     /// </summary>
     public bool IsCaptchaExcluded
     {
@@ -444,7 +445,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if current user is an administrator
+    /// Gets a value indicating whether the  current user is an administrator (True).
     /// </summary>
     public bool IsAdmin
     {
@@ -460,7 +461,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user is a guest
+    /// Gets a value indicating whether the current user is a guest (True).
     /// </summary>
     public bool IsGuest
     {
@@ -471,7 +472,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user is a forum moderator (mini-admin)
+    /// Gets a value indicating whether the current user is a forum moderator (mini-admin) (True).
     /// </summary>
     public bool IsForumModerator
     {
@@ -482,7 +483,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if current user is a modeator for at least one forum
+    /// Gets a value indicating whether the current user is a modeator for at least one forum (True);
     /// </summary>
     public bool IsModerator
     {
@@ -493,7 +494,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if the current user is suspended
+    /// Gets a value indicating whether the current user is suspended (True).
     /// </summary>
     public bool IsSuspended
     {
@@ -509,7 +510,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// When the user is suspended until
+    /// Gets the DateTime the user is suspended until
     /// </summary>
     public DateTime SuspendedUntil
     {
@@ -527,7 +528,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// The number of private messages that are unread
+    /// Gets the number of private messages that are unread
     /// </summary>
     public int UnreadPrivate
     {
@@ -556,7 +557,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// The number of pending buddy requests
+    /// Gets the number of pending buddy requests
     /// </summary>
     public int PendingBuddies
     {
@@ -567,7 +568,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// The number of pending buddy requests
+    /// Gets the number of pending buddy requests.
     /// </summary>
     public DateTime LastPendingBuddies
     {
@@ -585,7 +586,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// The time zone offset for the user
+    /// Gets the time zone offset for the user
     /// </summary>
     public int TimeZoneUser
     {
@@ -596,7 +597,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// The language file for the user
+    /// Gets the language file name for the user
     /// </summary>
     public string LanguageFile
     {
@@ -607,7 +608,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// True if board is private (20050909 CHP)
+    /// Gets a value indicating whether the board is private (20050909 CHP) (True)
     /// </summary>
     public bool IsPrivate
     {
@@ -668,26 +669,40 @@ namespace YAF.Classes.Core
           string browser = String.Format("{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
           string platform = HttpContext.Current.Request.Browser.Platform;
           bool isSearchEngine = false;
+          string userAgent = HttpContext.Current.Request.UserAgent;
 
-          if (HttpContext.Current.Request.UserAgent != null)
+          if (!string.IsNullOrEmpty(userAgent))
           {
-            if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 5.2") >= 0)
-            {
-              platform = "Win2003";
-            }
-            else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 6.0") >= 0)
-            {
-              platform = "Vista";
-            }
-            else if (HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 6.1") >= 0)
-            {
-              platform = "Win7";
-            }
-            else
-            {
-              // check if it's a search engine spider...
-                isSearchEngine = !HttpContext.Current.Request.Browser.Crawler ? UserAgentHelper.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent) : true;
-            }
+              if (userAgent.IndexOf("Windows NT 5.2") >= 0)
+              {
+                  platform = "Win2003";
+              }
+              else if (userAgent.IndexOf("Windows NT 6.0") >= 0)
+              {
+                  platform = "Vista";
+              }
+              else if (userAgent.IndexOf("Windows NT 6.1") >= 0)
+              {
+                  platform = "Win7";
+              }
+              else if (userAgent.IndexOf("Linux") >= 0)
+              {
+                  platform = "Linux";
+              }
+              else if (userAgent.IndexOf("FreeBSD") >= 0)
+              {
+                  platform = "FreeBSD";
+              }
+              else
+              {
+                  // check if it's a search engine spider...
+                  isSearchEngine = !HttpContext.Current.Request.Browser.Crawler ? UserAgentHelper.IsSearchEngineSpider(userAgent) : true;
+              }
+          }
+          else
+          {
+              // It'll show that no UserAgent string was received. 
+              platform = "?";
           }
 
           int? categoryID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["c"]);
@@ -722,7 +737,7 @@ namespace YAF.Classes.Core
               forumID, 
               topicID, 
               messageID, 
-              // don't track if this is a search engine
+              //// don't track if this is a search engine
               isSearchEngine,
               YafContext.Current.BoardSettings.EnableBuddyList,
               YafContext.Current.BoardSettings.AllowPrivateMessages,
