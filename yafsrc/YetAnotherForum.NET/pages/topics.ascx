@@ -30,7 +30,7 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="lastpost" />
             </td>
         </tr>
-        <YAF:ForumList runat="server" ID="ForumList" />
+        <YAF:ForumList AltLastPost="<%# this.lastPostImageTT %>" runat="server" ID="ForumList" />
     </table>
 </asp:PlaceHolder>
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
@@ -74,15 +74,15 @@
     </tr>
     <asp:Repeater ID="Announcements" runat="server">
         <ItemTemplate>
-            <YAF:TopicLine runat="server" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine runat="server" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
     </asp:Repeater>
     <asp:Repeater ID="TopicList" runat="server">
         <ItemTemplate>
-            <YAF:TopicLine runat="server" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine runat="server" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
         <AlternatingItemTemplate>
-            <YAF:TopicLine runat="server" IsAlt="True" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine runat="server" IsAlt="True" AltLastPost="<%# this.lastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
         </AlternatingItemTemplate>
     </asp:Repeater>
     <YAF:ForumUsers runat="server" />

@@ -47,6 +47,11 @@ namespace YAF.Controls
     private bool _isAlt;
 
     /// <summary>
+    /// The last post tooltip string. 
+    /// </summary>
+    private string _altLastPost; 
+
+    /// <summary>
     /// The _row.
     /// </summary>
     private DataRowView _row = null;
@@ -64,6 +69,26 @@ namespace YAF.Controls
       {
         this._row = (DataRowView)value;
       }
+    }
+
+    /// <summary>
+    /// Gets or sets Alt.
+    /// </summary>
+    public string AltLastPost
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(this._altLastPost))
+            {
+                return string.Empty;
+            }
+            return this._altLastPost;
+        }
+
+        set
+        {
+            this._altLastPost = value;
+        }
     }
 
     /// <summary>
@@ -502,15 +527,19 @@ namespace YAF.Controls
         writer.Write("&nbsp;");
 
         writer.WriteBeginTag("a");
+        if (string.IsNullOrEmpty(this.AltLastPost))
+        {
+            this.AltLastPost = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+        }
         writer.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]));
-        writer.WriteAttribute("title", this.PageContext.Localization.GetText("GO_LAST_POST"));
+        writer.WriteAttribute("title", this.AltLastPost);
         writer.Write(HtmlTextWriter.TagRightChar);
 
         this.RenderImgTag(
           writer, 
           strMiniPost, 
-          this.PageContext.Localization.GetText("GO_LAST_POST"), 
-          this.PageContext.Localization.GetText("GO_LAST_POST"));
+          this.AltLastPost, 
+          this.AltLastPost);
 
         writer.WriteEndTag("a");
       }

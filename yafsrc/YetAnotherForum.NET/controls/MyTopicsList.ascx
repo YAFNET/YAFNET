@@ -39,7 +39,7 @@
     <asp:Repeater ID="TopicList" runat="server">
         <ItemTemplate>
             <%# PrintForumName((System.Data.DataRowView)Container.DataItem) %>
-            <YAF:TopicLine ID="TopicLine1" runat="server" FindUnread="true" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine ID="TopicLine1" runat="server" AltLastPost="<%# this.lastPostImageTT %>" FindUnread="true" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
     </asp:Repeater>
     <tr>

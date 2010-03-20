@@ -35,6 +35,11 @@ namespace YAF.Controls
     private DataRow _dataRow = null;
 
     /// <summary>
+    /// The Go to last post Image ToolTip.
+    /// </summary>
+    private string _alt = null;   
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ForumLastPost"/> class.
     /// </summary>
     public ForumLastPost()
@@ -56,6 +61,26 @@ namespace YAF.Controls
       {
         this._dataRow = value;
       }
+    }
+
+    /// <summary>
+    /// Gets or sets Alt.
+    /// </summary>
+    public string Alt
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(this._alt))
+            {
+                return string.Empty;
+            }            
+            return this._alt;
+        }
+
+        set
+        {
+            this._alt = value;
+        }
     }
 
     /// <summary>
@@ -82,8 +107,11 @@ namespace YAF.Controls
           this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", DataRow["LastTopicID"]);
           this.topicLink.Text = StringHelper.Truncate(YafServices.BadWordReplace.Replace(DataRow["LastTopicName"].ToString()), 50);
           this.ProfileUserLink.UserID = Convert.ToInt32(DataRow["LastUserID"]);
-
-          this.LastTopicImgLink.ToolTip = PageContext.Localization.GetText("GO_LAST_POST");
+          if (string.IsNullOrEmpty(this.Alt)) 
+          {
+              this.Alt = PageContext.Localization.GetText("GO_LAST_POST");
+          }
+          this.LastTopicImgLink.ToolTip = this.Alt;
           this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", DataRow["LastMessageID"]);
           this.Icon.ThemeTag = (DateTime.Parse(Convert.ToString(DataRow["LastPosted"])) > Mession.GetTopicRead((int) DataRow["LastTopicID"]))
                                  ? "ICON_NEWEST"

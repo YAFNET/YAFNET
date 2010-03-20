@@ -58,6 +58,11 @@ namespace YAF.Controls
     /// </summary>
     private string _lastForumName = string.Empty;
 
+    /// <summary>
+    /// The last post image tooltip.
+    /// </summary>
+    protected string lastPostImageTT = string.Empty;
+
     #endregion
 
     /* Properties */
@@ -242,7 +247,7 @@ namespace YAF.Controls
         this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
         this.RssFeed.FeedType = YafRssFeeds.Favorite;
       }
-
+      lastPostImageTT = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
       if (!this.IsPostBack)
       {
         this.InitSinceDropdown();

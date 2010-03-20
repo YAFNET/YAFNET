@@ -33,6 +33,32 @@ namespace YAF.Controls
   /// </summary>
   public partial class ForumList : BaseUserControl
   {
+
+    /// <summary>
+    /// The Go to last post Image ToolTip.
+    /// </summary>
+    private string _altLastPost = null;
+
+    /// <summary>
+    /// Gets or sets Alt.
+    /// </summary>
+    public string AltLastPost
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(this._altLastPost))
+            {
+                return string.Empty;
+            }
+            return this._altLastPost;
+        }
+
+        set
+        {
+            this._altLastPost = value;
+        }
+    }
+
     /// <summary>
     /// Sets DataSource.
     /// </summary>
@@ -55,6 +81,7 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.AltLastPost = PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
     }
 
     /// <summary>
@@ -72,6 +99,7 @@ namespace YAF.Controls
       {
         var row = (DataRow) e.Item.DataItem;
         var flags = new ForumFlags(row["Flags"]);
+        var imageLastPostTT = this.AltLastPost;
         DateTime lastRead = Mession.GetForumRead((int) row["ForumID"]);
         DateTime lastPosted = row["LastPosted"] != DBNull.Value ? (DateTime) row["LastPosted"] : lastRead;
         

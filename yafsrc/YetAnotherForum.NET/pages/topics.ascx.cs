@@ -49,6 +49,11 @@ namespace YAF.Pages
     protected int _showTopicListSelected;
 
     /// <summary>
+    /// The last post image tooltip.
+    /// </summary>
+    protected string lastPostImageTT = string.Empty;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="topics"/> class. 
     /// Overloads the topics page.
     /// </summary>
@@ -90,7 +95,7 @@ namespace YAF.Pages
       this.RssFeed.AdditionalParameters = String.Format("f={0}", Request.QueryString["f"]);
       this.MarkRead.Text = GetText("MARKREAD");
       this.ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
-
+      lastPostImageTT = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
       if (!IsPostBack)
       {
         // PageLinks.Clear();
