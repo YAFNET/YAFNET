@@ -228,8 +228,8 @@ namespace YAF.Pages
     /// </returns>
     protected bool IsValidSearchRequest()
     {
-      bool whatValid = this.IsValidSearchText(this.SearchWhatCleaned);
-      bool whoValid = this.IsValidSearchText(this.SearchWhoCleaned);
+      bool whatValid = this.IsValidSearchText(this.SearchWhatCleaned.Trim());
+      bool whoValid = !string.IsNullOrEmpty(this.SearchWhoCleaned.Trim());
 
       // they are both valid...
       if (whoValid && whatValid)
@@ -259,19 +259,19 @@ namespace YAF.Pages
       bool searchTooSmall = false;
       bool searchTooLarge = false;
 
-      if (String.IsNullOrEmpty(this.SearchWhoCleaned) && this.IsSearchTextTooSmall(this.SearchWhatCleaned))
+      if (String.IsNullOrEmpty(this.SearchWhoCleaned.Trim()) && this.IsSearchTextTooSmall(this.SearchWhatCleaned))
       {
         searchTooSmall = true;
       }
-      else if (String.IsNullOrEmpty(this.SearchWhatCleaned) && this.IsSearchTextTooSmall(this.SearchWhoCleaned))
+      else if (String.IsNullOrEmpty(this.SearchWhatCleaned.Trim()) && String.IsNullOrEmpty(this.SearchWhoCleaned.Trim()))
       {
         searchTooSmall = true;
       }
-      else if (String.IsNullOrEmpty(this.SearchWhoCleaned) && this.IsSearchTextTooLarge(this.SearchWhatCleaned))
+      else if (String.IsNullOrEmpty(this.SearchWhoCleaned.Trim()) && this.IsSearchTextTooLarge(this.SearchWhatCleaned.Trim()))
       {
         searchTooLarge = true;
       }
-      else if (String.IsNullOrEmpty(this.SearchWhatCleaned) && this.IsSearchTextTooLarge(this.SearchWhoCleaned))
+      else if (String.IsNullOrEmpty(this.SearchWhatCleaned.Trim()) && this.IsSearchTextTooLarge(this.SearchWhoCleaned.Trim()))
       {
         searchTooLarge = true;
       }
@@ -398,9 +398,9 @@ namespace YAF.Pages
         // listSearchWhere.Items.Add( new ListItem( GetText( "postedby" ), "1" ) );
 
         // Load listSearchFromWho dropdown
-        this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_all"), "0"));
-        this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_any"), "1"));
         this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_exact"), "2"));
+        this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_any"), "1"));
+        this.listSearchFromWho.Items.Add(new ListItem(this.GetText("match_all"), "0"));        
 
         // Load listSearchWhat dropdown
         this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_all"), "0"));
