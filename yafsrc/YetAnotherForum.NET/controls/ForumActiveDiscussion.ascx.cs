@@ -31,101 +31,117 @@ namespace YAF.Controls
   /// </summary>
   public partial class ForumActiveDiscussion : BaseUserControl
   {
+
+    #region Fields
+
+      /// <summary>
+      /// The last post tooltip string. 
+      /// </summary>
+      private string lastPostToolTip; 
+      
+    #endregion
+
+    #region Events
     /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+      /// The page_ load.
+      /// </summary>
+      /// <param name="sender">
+      /// The sender.
+      /// </param>
+      /// <param name="e">
+      /// The e.
+      /// </param>
     protected void Page_Load(object sender, EventArgs e)
-    {
-      // Latest forum posts
-      // Shows the latest n number of posts on the main forum list page
-      string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ForumActiveDiscussions);
-      DataTable activeTopics = null;
-
-      if (PageContext.IsGuest)
       {
-        // allow caching since this is a guest...
-        activeTopics = PageContext.Cache[cacheKey] as DataTable;
+          // Latest forum posts
+          // Shows the latest n number of posts on the main forum list page
+          string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ForumActiveDiscussions);
+          DataTable activeTopics = null;
+
+          if (PageContext.IsGuest)
+          {
+              // allow caching since this is a guest...
+              activeTopics = PageContext.Cache[cacheKey] as DataTable;
+          }
+
+          if (activeTopics == null)
+          {
+              activeTopics = DB.topic_latest(
+                PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks);
+
+              // Set colorOnly parameter to true, as we get all but color from css in the place
+              if (PageContext.BoardSettings.UseStyledNicks)
+              {
+                  new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref activeTopics, true, "LastUserStyle");
+              }
+
+              if (PageContext.IsGuest)
+              {
+                  PageContext.Cache.Insert(
+                    cacheKey, activeTopics, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
+              }
+          }
+          
+          this.lastPostToolTip = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+          this.LatestPosts.DataSource = activeTopics;
+          this.LatestPosts.DataBind();
+         
       }
-
-      if (activeTopics == null)
-      {
-        activeTopics = DB.topic_latest(
-          PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID, PageContext.BoardSettings.UseStyledNicks);
-
-        // Set colorOnly parameter to true, as we get all but color from css in the place
-        if (PageContext.BoardSettings.UseStyledNicks)
-        {
-          new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref activeTopics, true, "LastUserStyle");
-        }
-
-        if (PageContext.IsGuest)
-        {
-          PageContext.Cache.Insert(
-            cacheKey, activeTopics, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
-        }
-      }
-
-      this.LatestPosts.DataSource = activeTopics;
-      this.LatestPosts.DataBind();
-    }
 
 
     /// <summary>
-    /// The latest posts_ item data bound.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+      /// The latest posts_ item data bound.
+      /// </summary>
+      /// <param name="sender">
+      /// The sender.
+      /// </param>
+      /// <param name="e">
+      /// The e.
+      /// </param>
     protected void LatestPosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    {
-      // populate the controls here...
-      if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
       {
-        var currentRow = (DataRowView) e.Item.DataItem;
+          // populate the controls here...
+          if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+          {
+              var currentRow = (DataRowView)e.Item.DataItem;
 
-        // make message url...
-        string messageUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", currentRow["LastMessageID"]);
+              // make message url...
+              string messageUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", currentRow["LastMessageID"]);
 
-        // get the controls
-        var textMessageLink = (HyperLink) e.Item.FindControl("TextMessageLink");
-        var imageMessageLink = (HyperLink) e.Item.FindControl("ImageMessageLink");
-        var lastPostedImage = (ThemeImage) e.Item.FindControl("LastPostedImage");
-        var lastUserLink = (UserLink) e.Item.FindControl("LastUserLink");
-        var lastPostedDateLabel = (Label) e.Item.FindControl("LastPostedDateLabel");
-        var forumLink = (HyperLink) e.Item.FindControl("ForumLink");
+              // get the controls
+              var textMessageLink = (HyperLink)e.Item.FindControl("TextMessageLink");
+              var imageMessageLink = (HyperLink)e.Item.FindControl("ImageMessageLink");
+              var lastPostedImage = (ThemeImage)e.Item.FindControl("LastPostedImage");
+              var lastUserLink = (UserLink)e.Item.FindControl("LastUserLink");
+              var lastPostedDateLabel = (Label)e.Item.FindControl("LastPostedDateLabel");
+              var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
 
-        // populate them...
-        textMessageLink.Text = YafServices.BadWordReplace.Replace(currentRow["Topic"].ToString());
-        textMessageLink.NavigateUrl = messageUrl;
-        imageMessageLink.NavigateUrl = messageUrl;
+              // populate them...
+              textMessageLink.Text = YafServices.BadWordReplace.Replace(currentRow["Topic"].ToString());
+              textMessageLink.NavigateUrl = messageUrl;
+              imageMessageLink.NavigateUrl = messageUrl;
+              lastPostedImage.LocalizedTitle = lastPostToolTip;
 
-        // Just in case...
-        if (currentRow["LastUserID"] != DBNull.Value)
-        {
-          lastUserLink.UserID = Convert.ToInt32(currentRow["LastUserID"]);
-          lastUserLink.Style = currentRow["LastUserStyle"].ToString();
-        }
+              // Just in case...
+              if (currentRow["LastUserID"] != DBNull.Value)
+              {
+                  lastUserLink.UserID = Convert.ToInt32(currentRow["LastUserID"]);
+                  lastUserLink.Style = currentRow["LastUserStyle"].ToString();
+              }
 
-        if (currentRow["LastPosted"] != DBNull.Value)
-        {
-          lastPostedDateLabel.Text = YafServices.DateTime.FormatDateTimeTopic(currentRow["LastPosted"]);
-          lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > Mession.GetTopicRead(Convert.ToInt32(currentRow["TopicID"])))
-                                       ? "ICON_NEWEST"
-                                       : "ICON_LATEST";
-        }
+              if (currentRow["LastPosted"] != DBNull.Value)
+              {
+                  lastPostedDateLabel.Text = YafServices.DateTime.FormatDateTimeTopic(currentRow["LastPosted"]);
+                  lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > Mession.GetTopicRead(Convert.ToInt32(currentRow["TopicID"])))
+                                               ? "ICON_NEWEST"
+                                               : "ICON_LATEST";
+              }
 
-        forumLink.Text = currentRow["Forum"].ToString();
-        forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", currentRow["ForumID"]);
-      }
-    }
+              forumLink.Text = currentRow["Forum"].ToString();
+              forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", currentRow["ForumID"]);
+          }
+      } 
+      #endregion
+  
   }
 }

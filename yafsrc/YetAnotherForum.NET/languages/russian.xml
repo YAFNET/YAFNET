@@ -613,7 +613,7 @@
     <Resource tag="TITLE_SUSPENDED">Временно отключено</Resource>
   </page>
   <page name="LANGUAGE">
-    <Resource tag="CHARSET">#АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ/ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ/АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ</Resource>
   </page>
   <page name="LOGIN">
     <Resource tag="AUTO">Запомните меня</Resource>

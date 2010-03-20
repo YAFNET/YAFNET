@@ -422,6 +422,8 @@ namespace YAF.Pages
         this.DataBind();
 
         timeZones.Items.FindByValue("0").Selected = true;
+        ((TextBox)ControlHelper.FindWizardControlRecursive(this.CreateUserWizard1, "UserName")).Focus();
+
       }
 
       // password requirement parameters...

@@ -24,7 +24,7 @@ namespace YAF.Pages.Admin
   #endregion
 
   /// <summary>
-  /// 	The control generates test data for different data layers.
+  /// The control generates test data for different data layers.
   /// </summary>
   public partial class test_data : AdminPage
   {
@@ -377,7 +377,7 @@ namespace YAF.Pages.Admin
     /// The create boards.
     /// </summary>
     /// <returns>
-    /// The create boards.
+    /// The number of created boards.
     /// </returns>
     private string CreateBoards()
     {
@@ -430,6 +430,7 @@ namespace YAF.Pages.Admin
     /// Create categories from boards
     /// </summary>
     /// <param name="boardID">
+    /// The boardID 
     /// </param>
     /// <returns>
     /// The create categories.
@@ -437,22 +438,22 @@ namespace YAF.Pages.Admin
     private string CreateCategories(int boardID)
     {
       string noCategories = "0 categories";
-      bool _excludeCurrentBoard = false;
-      bool _useList = false;
-      int _numCategories = 0;
-      if (!int.TryParse(BoardsCategoriesNumber.Text.Trim(), out _numCategories))
+      bool excludeCurrentBoardB = false;
+      bool useListB = false;
+      int numCategoriesInt = 0;
+      if (!int.TryParse(BoardsCategoriesNumber.Text.Trim(), out numCategoriesInt))
       {
         return noCategories;
       }
 
-      if (_numCategories < 0)
+      if (numCategoriesInt < 0)
       {
         return noCategories;
       }
 
-      if (_numCategories > this.categoryCreateLimit)
+      if (numCategoriesInt > this.categoryCreateLimit)
       {
-        _numCategories = this.categoryCreateLimit;
+        numCategoriesInt = this.categoryCreateLimit;
       }
 
       int _numForums = 0;
@@ -489,7 +490,7 @@ namespace YAF.Pages.Admin
       }
 
       return this.CreateCategoriesBase(
-        boardID, 1, _numForums, _numTopics, _numMessages, _numCategories, _excludeCurrentBoard, _useList);
+        boardID, 1, _numForums, _numTopics, _numMessages, numCategoriesInt, excludeCurrentBoardB, useListB);
     }
 
     /// <summary>
@@ -731,8 +732,10 @@ namespace YAF.Pages.Admin
     /// The num Forums.
     /// </param>
     /// <param name="_topicsToCreate">
+    /// Number of topics to create.
     /// </param>
     /// <param name="_messagesToCreate">
+    /// Number of messages to create.
     /// </param>
     /// <returns>
     /// The create forums.
@@ -745,13 +748,13 @@ namespace YAF.Pages.Admin
         countMessagesInStatistics = true;
       }
 
-      bool IsHiddenIfNoAccess = false;
+      bool isHiddenIfNoAccess = false;
       if (String.IsNullOrEmpty(ForumsHideNoAccess.Text.Trim()))
       {
-        IsHiddenIfNoAccess = true;
+        isHiddenIfNoAccess = true;
       }
 
-      IsHiddenIfNoAccess = true;
+      isHiddenIfNoAccess = true;
 
       // ForumsCategory.Items.FindByValue("0").Selected = true; 
       long uniqueForum = 0;
@@ -769,7 +772,7 @@ namespace YAF.Pages.Admin
           "Description of " + this.forumPrefix + this.randomGuid, 
           100, 
           false, 
-          IsHiddenIfNoAccess, 
+          isHiddenIfNoAccess, 
           countMessagesInStatistics, 
           false, 
           ForumsStartMask.SelectedValue, 
@@ -806,7 +809,7 @@ namespace YAF.Pages.Admin
     /// The create p messages.
     /// </summary>
     /// <returns>
-    /// The create p messages.
+    /// The number of created p messages.
     /// </returns>
     private int CreatePMessages()
     {
@@ -839,19 +842,14 @@ namespace YAF.Pages.Admin
           this.topicPrefix + this.randomGuid, 
           this.pmessagePrefix + this.randomGuid + "   " + PMessageText.Text.Trim(), 
           6);
-
-        // User != null ? null : From.Text                
+                       
       }
 
       if (MarkRead.Checked)
       {
-        foreach (
-          DataRow dr in
-            DB.pmessage_list(
-              null, DB.user_get(YafContext.Current.PageBoardID, Membership.GetUser(_toUser).ProviderUserKey), null).Rows
-          )
+        foreach (DataRow dr in DB.pmessage_list(null, DB.user_get(YafContext.Current.PageBoardID, Membership.GetUser(_toUser).ProviderUserKey), null).Rows)
         {
-          DB.pmessage_markread(dr["PMessageID"]);
+            DB.pmessage_markread(dr["PMessageID"]);
         }
       }
 
@@ -862,7 +860,7 @@ namespace YAF.Pages.Admin
     /// The create posts.
     /// </summary>
     /// <returns>
-    /// The create posts.
+    /// The number of created posts.
     /// </returns>
     private int CreatePosts()
     {
@@ -882,7 +880,7 @@ namespace YAF.Pages.Admin
     /// The num messages.
     /// </param>
     /// <returns>
-    /// The create posts.
+    /// The number of created posts.
     /// </returns>
     private int CreatePosts(int forumID, int topicID, int numMessages)
     {
@@ -949,7 +947,7 @@ namespace YAF.Pages.Admin
     /// The create topics.
     /// </summary>
     /// <returns>
-    /// The create topics.
+    /// The number of created topics.
     /// </returns>
     private int CreateTopics()
     {
@@ -969,7 +967,7 @@ namespace YAF.Pages.Admin
     /// The _messages to create.
     /// </param>
     /// <returns>
-    /// The create topics.
+    /// Number of created topics.
     /// </returns>
     private int CreateTopics(int forumID, int numTopics, int _messagesToCreate)
     {
@@ -1029,22 +1027,26 @@ namespace YAF.Pages.Admin
         object pollID = null;
         if (PollCreate.Checked)
         {
-          pollID = DB.poll_save(
-            "quest-" + this.randomGuid, 
-            "ans1-" + this.randomGuid, 
-            "ans2-" + this.randomGuid, 
-            null, 
-            null, 
-            null, 
-            null, 
-            null, 
-            null, 
-            null, 
-            null);
+            // vzrus: always one in current code - a number of  questions
+            int questionsTotal = 1;
+
+            System.Collections.Generic.List<PollSaveList> pollList =
+                new System.Collections.Generic.List<PollSaveList>(questionsTotal);
+                
+                string[] rawChoices = new string[2];           
+           
+                rawChoices[0] = "ans1-" + this.randomGuid;
+                rawChoices[1] = "ans2-" + this.randomGuid;
+                object datePollExpire = null;
+                pollList.Add(new PollSaveList(
+                                 "quest-" + this.randomGuid,
+                                 rawChoices,
+                                 (DateTime?)datePollExpire));
+                pollID = DB.poll_save(pollList);          
         }
 
         long topicID = DB.topic_save(
-          forumID, 
+            forumID, 
           this.topicPrefix + this.randomGuid, 
           this.messagePrefix + this.randomGuid, 
           this.PageContext.PageUserID, 
@@ -1119,7 +1121,7 @@ namespace YAF.Pages.Admin
     /// <param name="_users_Number">
     /// </param>
     /// <returns>
-    /// The create users.
+    /// The string with number of created users.
     /// </returns>
     private string CreateUsers(int boardID, int _users_Number)
     {
@@ -1145,11 +1147,11 @@ namespace YAF.Pages.Admin
     /// <param name="_countLimit">
     /// The _count limit.
     /// </param>
-    /// <param name="_excludeCurrentBoard">
+    /// <param name="excludeCurrentBoardB">
     /// The _exclude current board.
     /// </param>
     /// <returns>
-    /// The create users.
+    /// The string with number of created users.
     /// </returns>
     private string CreateUsers(
       int boardID, int _users_Number, int _outCounter, int _countLimit, bool _excludeCurrentBoard)
@@ -1231,21 +1233,21 @@ namespace YAF.Pages.Admin
     /// The get message flags.
     /// </summary>
     /// <returns>
-    /// The get message flags.
+    /// The method returns message flags.
     /// </returns>
     private int GetMessageFlags()
     {
       BaseForumEditor _forumEditor =
         this.PageContext.EditorModuleManager.GetEditorInstance(this.PageContext.BoardSettings.ForumEditor);
-      var tFlags = new MessageFlags();
+      var topicFlags = new MessageFlags();
 
-      tFlags.IsHtml = _forumEditor.UsesHTML;
-      tFlags.IsBBCode = _forumEditor.UsesBBCode;
-      tFlags.IsPersistent = false;
+      topicFlags.IsHtml = _forumEditor.UsesHTML;
+      topicFlags.IsBBCode = _forumEditor.UsesBBCode;
+      topicFlags.IsPersistent = false;
 
       // Bypass Approval if Admin or Moderator.
-      tFlags.IsApproved = this.PageContext.IsAdmin;
-      return tFlags.BitValue;
+      topicFlags.IsApproved = this.PageContext.IsAdmin;
+      return topicFlags.BitValue;
     }
 
     /// <summary>
@@ -1259,7 +1261,7 @@ namespace YAF.Pages.Admin
     /// The validate controls values.
     /// </summary>
     /// <returns>
-    /// The validate controls values.
+    /// The method returns true if all controls values are valid.
     /// </returns>
     private bool ValidateControlsValues()
     {
