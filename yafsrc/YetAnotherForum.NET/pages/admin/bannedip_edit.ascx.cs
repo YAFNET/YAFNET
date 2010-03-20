@@ -123,7 +123,7 @@ namespace YAF.Pages.Admin
         return;
       }
 
-      DB.bannedip_save(Request.QueryString["i"], PageContext.PageBoardID, this.mask.Text.Trim());
+      DB.bannedip_save(Request.QueryString["i"], PageContext.PageBoardID, this.mask.Text.Trim(), this.BanReason.Text.Trim(), this.PageContext.PageUserID);
 
       // clear cache of banned IPs for this board
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));

@@ -1549,13 +1549,13 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}bannedip_save](@ID int=null,@BoardID int,@Mask nvarchar(15)) as
+create procedure [{databaseOwner}].[{objectQualifier}bannedip_save](@ID int=null,@BoardID int,@Mask nvarchar(15), @Reason nvarchar(128), @UserID int) as
 begin
 		if @ID is null or @ID = 0 begin
-		insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since) values(@BoardID,@Mask,getdate())
+		insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since,Reason,UserID) values(@BoardID,@Mask,getdate(),@Reason,@UserID)
 	end
 	else begin
-		update [{databaseOwner}].[{objectQualifier}BannedIP] set Mask = @Mask where ID = @ID
+		update [{databaseOwner}].[{objectQualifier}BannedIP] set Mask = @Mask,Reason = @Reason, UserID = @UserID where ID = @ID
 	end
 end
 GO

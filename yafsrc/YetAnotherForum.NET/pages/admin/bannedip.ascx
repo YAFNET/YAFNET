@@ -2,19 +2,12 @@
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-	
-	
-	
-		
-	
-	
-	
 		<asp:Repeater ID="list" runat="server" OnItemCommand="list_ItemCommand">
 		<HeaderTemplate>
 				<table class="content" cellspacing="1" cellpadding="0" width="100%">
 
 				<tr>
-					<td class="header1" colspan="3">
+					<td class="header1" colspan="5">
 						Banned IP Addresses</td>
 				</tr>
 				<tr>
@@ -22,6 +15,10 @@
 						Mask</td>
 					<td class="header2">
 						Since</td>
+					<td class="header2">
+						Reason</td>	
+					<td class="header2">
+						Banned By</td>		
 					<td class="header2">
 						&nbsp;</td>
 				</tr>
@@ -33,6 +30,12 @@
 				</td>
 				<td class="post">
 					<%# YafServices.DateTime.FormatDateTime(Eval("Since")) %>
+				</td>
+				<td class="post">
+					<%# Eval("Reason") %>
+				</td>
+				<td class="post">
+				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# string.IsNullOrEmpty(Eval("UserID").ToString())? -1 :Eval("UserID") %>' />
 				</td>
 				<td class="post">
 					<asp:LinkButton runat="server" Text="Edit" CommandName='edit' CommandArgument='<%# Eval("ID") %>'></asp:LinkButton>

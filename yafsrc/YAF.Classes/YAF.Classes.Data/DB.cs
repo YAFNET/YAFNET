@@ -1828,7 +1828,7 @@ namespace YAF.Classes.Data
     /// <param name="Mask">
     /// Mask
     /// </param>
-    public static void bannedip_save(object ID, object boardID, object Mask)
+    public static void bannedip_save(object ID, object boardID, object Mask, string reason, int userID)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("bannedip_save"))
       {
@@ -1836,6 +1836,8 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("ID", ID);
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("Mask", Mask);
+        cmd.Parameters.AddWithValue("Reason", reason);
+        cmd.Parameters.AddWithValue("UserID", userID);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }

@@ -83,8 +83,10 @@ namespace YAF.Pages.Admin
       }
       else if (e.CommandName == "delete")
       {
+        // vzrus: Logging is disabled here as the log entries are not protected anyway from simply admins in the standard YAF edition  
+        // string maskStr = DB.bannedip_list(this.PageContext.PageBoardID, e.CommandArgument).Rows[0]["Mask"].ToString();
         DB.bannedip_delete(e.CommandArgument);
-
+        // DB.eventlog_create(this.PageContext.PageUserID, this, string.Format("Banned IP entry '{0}' was deleted.", maskStr), EventLogTypes.Information);
         // clear cache of banned IPs for this board
         PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
 

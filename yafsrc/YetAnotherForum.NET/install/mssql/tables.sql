@@ -84,7 +84,9 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		ID				int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
 		Mask			nvarchar (15) NOT NULL ,
-		Since			datetime NOT NULL 
+		Since			datetime NOT NULL,
+		Reason          nvarchar (128) NULL,
+		UserID			int null
 	)
 go
 
@@ -1395,5 +1397,21 @@ BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] ADD [ReportText] nvarchar(4000)  NULL 
 END
 GO
-		
+
+-- BannedIP Table
+
+IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') AND name = N'Reason')
+BEGIN
+    ALTER TABLE [{databaseOwner}].[{objectQualifier}BannedIP] ADD [Reason] nvarchar(128)  NULL 
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') AND name = N'UserID')
+BEGIN
+    ALTER TABLE [{databaseOwner}].[{objectQualifier}BannedIP] ADD [UserID] int  null 
+END
+GO
+
+
+
 		
