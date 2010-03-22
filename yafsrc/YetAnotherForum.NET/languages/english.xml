@@ -1005,7 +1005,7 @@
   <page name="REPORTPOST">
         <Resource tag="SEND">Report</Resource>
         <Resource tag="CANCEL">Cancel</Resource>
-        <Resource tag="ENTER_TEXT">Please enter the reason you're repoorting this post:</Resource>
+        <Resource tag="ENTER_TEXT">Please enter the reason you're reporting this post:</Resource>
         <Resource tag="HEADER">Report Post</Resource>
 	    <Resource tag="POSTEDBY">Posted by:</Resource>
   </page>

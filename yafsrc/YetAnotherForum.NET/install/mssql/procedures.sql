@@ -1317,7 +1317,7 @@ begin
 			c.TopicID,
 			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
-			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			IsGuest = ISNULL((select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),0),
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
 	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
@@ -5314,7 +5314,7 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}user_list](@BoardID int,@UserID int=null,@Approved bit=null,@GroupID int=null,@RankID int=null,@StyledNicks bit = null) as
 begin	
 	if @UserID is not null
-		select 
+		 select 
 			a.*,
 			a.NumPosts,
 			b.RankID,						
@@ -5341,7 +5341,7 @@ begin
 			IsNull(c.ForumID,0) = 0 and
 			(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2))
 		order by 
-			a.Name
+			a.Name 
 	else if @GroupID is null and @RankID is null
 		select 
 			a.*,

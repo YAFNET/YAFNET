@@ -369,7 +369,8 @@ namespace YAF.Pages.Admin
 				 null,
 				 null,
 				 this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue,
-				 this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue))
+                 this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue, 
+                 false))
 			{
 				using (DataView dv = dt.DefaultView)
 				{
