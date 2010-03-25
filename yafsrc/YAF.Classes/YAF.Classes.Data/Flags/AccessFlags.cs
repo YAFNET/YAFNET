@@ -19,6 +19,8 @@
  */
 namespace YAF.Classes.Data
 {
+  using System;
+
   /// <summary>
   /// The access flags.
   /// </summary>
@@ -116,8 +118,11 @@ namespace YAF.Classes.Data
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
-    public enum Flags
+    [Flags]
+    public enum Flags : ulong
     {
+      None = 0,
+
       /// <summary>
       /// The read access.
       /// </summary>

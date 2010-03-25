@@ -118,8 +118,11 @@ namespace YAF.Classes.Data
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
+    [Flags]
     public enum Flags
     {
+      None = 0,
+
       /// <summary>
       /// The is host admin.
       /// </summary>

@@ -118,8 +118,11 @@ namespace YAF.Classes.Data
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
-    public enum Flags
+    [Flags]
+    public enum Flags : ulong
     {
+      None = 0,
+
       /// <summary>
       /// The show message.
       /// </summary>

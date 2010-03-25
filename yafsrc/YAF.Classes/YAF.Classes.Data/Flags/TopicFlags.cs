@@ -21,8 +21,6 @@ using System;
 
 namespace YAF.Classes.Data
 {
-  using System.Text.RegularExpressions;
-
   /// <summary>
   /// The topic flags.
   /// </summary>

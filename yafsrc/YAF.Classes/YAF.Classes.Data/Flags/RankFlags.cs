@@ -120,6 +120,8 @@ namespace YAF.Classes.Data
     /// </summary>
     public enum Flags
     {
+      None = 0,
+
       /// <summary>
       /// The is start.
       /// </summary>
