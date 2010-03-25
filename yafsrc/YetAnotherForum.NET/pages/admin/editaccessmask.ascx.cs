@@ -22,6 +22,7 @@ namespace YAF.Pages.Admin
 {
 	using System;
 	using System.Data;
+
 	using YAF.Classes;
 	using YAF.Classes.Core;
 	using YAF.Classes.Data;

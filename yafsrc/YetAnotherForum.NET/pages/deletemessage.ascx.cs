@@ -17,277 +17,406 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Text.RegularExpressions;
-using YAF.Classes.Data;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
-using YAF.Classes.UI;
-
 namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for postmessage.
-	/// </summary>
-	public partial class deletemessage : YAF.Classes.Core.ForumPage
-	{
-		protected int _ownerUserId;
-		protected DataRow _messageRow;
-		protected bool _isModeratorChanged;
-		protected ForumFlags _forumFlags = null;
-		protected TopicFlags _topicFlags = null;
+  #region Using
 
-		public deletemessage()
-			: base( "DELETEMESSAGE" )
-		{
+  using System;
+  using System.Data;
+  using System.Web.UI.WebControls;
 
-		}
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		private void LinkedPosts_ItemDataBound( object sender, RepeaterItemEventArgs e )
-		{
-			if ( e.Item.ItemType == ListItemType.Header )
-			{
-				CheckBox deleteAllPosts = ( CheckBox )e.Item.FindControl( "DeleteAllPosts" );
-				deleteAllPosts.Checked = deleteAllPosts.Enabled = PageContext.ForumModeratorAccess || PageContext.IsAdmin;
-				ViewState ["delAll"] = deleteAllPosts.Checked;
-			}
-		}
+  #endregion
 
+  /// <summary>
+  /// Summary description for postmessage.
+  /// </summary>
+  public partial class deletemessage : ForumPage
+  {
+    #region Constants and Fields
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			_messageRow = null;
+    /// <summary>
+    /// The _forum flags.
+    /// </summary>
+    protected ForumFlags _forumFlags = null;
 
-			if ( Request.QueryString ["m"] != null )
-			{
+    /// <summary>
+    /// The _is moderator changed.
+    /// </summary>
+    protected bool _isModeratorChanged;
 
-				_messageRow =
-					DBHelper.GetFirstRowOrInvalid( DB.message_list( Security.StringToLongOrRedirect( Request.QueryString["m"] ) ) );
+    /// <summary>
+    /// The _message row.
+    /// </summary>
+    protected DataRow _messageRow;
 
-				if ( !PageContext.ForumModeratorAccess && PageContext.PageUserID != ( int )_messageRow ["UserID"] )
-				{
-					YafBuildLink.AccessDenied();
-				}
-			}
+    /// <summary>
+    /// The _owner user id.
+    /// </summary>
+    protected int _ownerUserId;
 
-			_forumFlags = new ForumFlags( _messageRow ["ForumFlags"] );
-			_topicFlags = new TopicFlags( _messageRow ["TopicFlags"] );
-			_ownerUserId = ( int )_messageRow ["UserID"];
-			_isModeratorChanged = ( PageContext.PageUserID != _ownerUserId );
+    /// <summary>
+    /// The _topic flags.
+    /// </summary>
+    protected TopicFlags _topicFlags = null;
 
-			if ( PageContext.PageForumID == 0 )
-				YafBuildLink.AccessDenied();
-			if ( Request ["t"] == null && !PageContext.ForumPostAccess )
-				YafBuildLink.AccessDenied();
-			if ( Request ["t"] != null && !PageContext.ForumReplyAccess )
-				YafBuildLink.AccessDenied();
+    #endregion
 
-			if ( !IsPostBack )
-			{
-				// setup page links
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
-				PageLinks.AddForumLinks( PageContext.PageForumID );
+    #region Constructors and Destructors
 
-				EraseMessage.Checked = false;
-				ViewState ["delAll"] = false;
-				EraseRow.Visible = false;
-				DeleteReasonRow.Visible = false;
-				LinkedPosts.Visible = false;
-				ReasonEditor.Attributes.Add( "style", "width:100%" );
-				Cancel.Text = GetText( "Cancel" );
+    /// <summary>
+    /// Initializes a new instance of the <see cref="deletemessage"/> class.
+    /// </summary>
+    public deletemessage()
+      : base("DELETEMESSAGE")
+    {
+    }
 
-				if ( Request.QueryString ["m"] != null )
-				{
-					// delete message...
-					PreviewRow.Visible = true;
+    #endregion
 
-					DataTable tempdb = DB.message_getRepliesList( Request.QueryString ["m"] );
+    #region Properties
 
-					if ( tempdb.Rows.Count != 0 && (PageContext.ForumModeratorAccess || PageContext.IsAdmin) )
-					{
-						LinkedPosts.Visible = true;
-						LinkedPosts.DataSource = tempdb;
-						LinkedPosts.DataBind();
-					}
+    /// <summary>
+    /// Gets a value indicating whether CanDeletePost.
+    /// </summary>
+    public bool CanDeletePost
+    {
+      get
+      {
+        // Ederon : 9/9/2007 - moderators can delete in locked topics
+        return ((!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked &&
+                 (int)this._messageRow["UserID"] == this.PageContext.PageUserID) ||
+                this.PageContext.ForumModeratorAccess) && this.PageContext.ForumDeleteAccess;
+      }
+    }
 
-					if ( Request.QueryString ["action"].ToLower() == "delete" )
-					{
-						Title.Text = GetText( "EDIT" ); //GetText("EDIT");
-						Delete.Text = GetText( "DELETE" ); // "GetText("Save");
+    /// <summary>
+    /// Gets a value indicating whether CanUnDeletePost.
+    /// </summary>
+    public bool CanUnDeletePost
+    {
+      get
+      {
+        return this.PostDeleted && this.CanDeletePost;
+      }
+    }
 
-						if ( PageContext.IsAdmin )
-						{
-							EraseRow.Visible = true;
-						}
-					}
-					else
-					{
-						Title.Text = GetText( "EDIT" );
-						Delete.Text = GetText( "UNDELETE" ); // "GetText("Save");
-					}
+    /// <summary>
+    /// Gets a value indicating whether PostDeleted.
+    /// </summary>
+    private bool PostDeleted
+    {
+      get
+      {
+        int deleted = (int)this._messageRow["Flags"] & 8;
+        if (deleted == 8)
+        {
+          return true;
+        }
 
-					Subject.Text = Convert.ToString( _messageRow ["Topic"] );
-					DeleteReasonRow.Visible = true;
-					ReasonEditor.Text = Convert.ToString( _messageRow ["DeleteReason"] );
+        return false;
+      }
+    }
 
-					// populate the message preview with the message datarow...
-					MessagePreview.Message = _messageRow["message"].ToString();
-					MessagePreview.MessageFlags.BitValue = Convert.ToInt32( _messageRow ["Flags"] );
-				}
-			}
-		}
+    /// <summary>
+    /// Gets a value indicating whether PostLocked.
+    /// </summary>
+    private bool PostLocked
+    {
+      get
+      {
+        if (!this.PageContext.IsAdmin && this.PageContext.BoardSettings.LockPosts > 0)
+        {
+          var edited = (DateTime)this._messageRow["Edited"];
+          if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.Now)
+          {
+            return true;
+          }
+        }
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			// get the forum editor based on the settings
-			//Message = yaf.editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
-			//	EditorLine.Controls.Add(Message);
-			this.LinkedPosts.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler( this.LinkedPosts_ItemDataBound );
+        return false;
+      }
+    }
 
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
+    #endregion
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+    #region Public Methods
 
-		}
-		#endregion
+    /// <summary>
+    /// The delete all posts_ checked changed 1.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    public void DeleteAllPosts_CheckedChanged1(object sender, EventArgs e)
+    {
+      this.ViewState["delAll"] = ((CheckBox)sender).Checked;
+    }
 
-		private bool PostLocked
-		{
-			get
-			{
-				if ( !PageContext.IsAdmin && PageContext.BoardSettings.LockPosts > 0 )
-				{
-					DateTime edited = ( DateTime )_messageRow ["Edited"];
-					if ( edited.AddDays( PageContext.BoardSettings.LockPosts ) < DateTime.Now )
-						return true;
-				}
-				return false;
-			}
-		}
+    #endregion
 
-		private bool PostDeleted
-		{
-			get
-			{
+    #region Methods
 
-				int deleted = ( int )_messageRow ["Flags"] & 8;
-				if ( deleted == 8 )
-					return true;
-				return false;
-			}
-		}
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Cancel_Click(object sender, EventArgs e)
+    {
+      if (this.Request.QueryString["t"] != null || this.Request.QueryString["m"] != null)
+      {
+        // reply to existing topic or editing of existing topic
+        YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+      }
+      else
+      {
+        // new topic -- cancel back to forum
+        YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+      }
+    }
 
-		public bool CanDeletePost
-		{
-			get
-			{
-				// Ederon : 9/9/2007 - moderators can delete in locked topics
-				return ( ( !PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
-						( int )_messageRow ["UserID"] == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
-						PageContext.ForumDeleteAccess;
-			}
-		}
+    /// <summary>
+    /// The get action text.
+    /// </summary>
+    /// <returns>
+    /// The get action text.
+    /// </returns>
+    protected string GetActionText()
+    {
+      if (this.Request.QueryString["action"].ToLower() == "delete")
+      {
+        return this.GetText("DELETE");
+      }
+      else
+      {
+        return this.GetText("UNDELETE");
+      }
+    }
 
-		public bool CanUnDeletePost
-		{
-			get
-			{
-				return PostDeleted && CanDeletePost;
-			}
-		}
+    /// <summary>
+    /// The get reason text.
+    /// </summary>
+    /// <returns>
+    /// The get reason text.
+    /// </returns>
+    protected string GetReasonText()
+    {
+      if (this.Request.QueryString["action"].ToLower() == "delete")
+      {
+        return this.GetText("DELETE_REASON");
+      }
+      else
+      {
+        return this.GetText("UNDELETE_REASON");
+      }
+    }
 
-		protected void ToogleDeleteStatus_Click( object sender, EventArgs e )
-		{
-			if ( !CanDeletePost )
-				return;
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      // get the forum editor based on the settings
+      // Message = yaf.editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
+      // 	EditorLine.Controls.Add(Message);
+      this.LinkedPosts.ItemDataBound += new RepeaterItemEventHandler(this.LinkedPosts_ItemDataBound);
 
-			//Create objects for easy access
-			object tmpMessageID = _messageRow ["MessageID"];
-			object tmpForumID = _messageRow ["ForumID"];
-			object tmpTopicID = _messageRow ["TopicID"];
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      InitializeComponent();
+      base.OnInit(e);
+    }
 
-			// Toogle delete message -- if the message is currently deleted it will be undeleted.
-			// If it's not deleted it will be marked deleted.
-			// If it is the last message of the topic, the topic is also deleted
-			DB.message_delete( tmpMessageID, _isModeratorChanged, ReasonEditor.Text, PostDeleted ? 0 : 1, ( bool )ViewState ["delAll"], EraseMessage.Checked );
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      this._messageRow = null;
 
-			// retrieve topic information.
-			DataRow topic = DB.topic_info( tmpTopicID );
+      if (this.Request.QueryString["m"] != null)
+      {
+        this._messageRow =
+          DBHelper.GetFirstRowOrInvalid(DB.message_list(Security.StringToLongOrRedirect(this.Request.QueryString["m"])));
 
-			//If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
-			if ( topic == null )
-			{
-				YafBuildLink.Redirect( ForumPages.topics, "f={0}", tmpForumID );
-			}
-			else
-			{
-				YafBuildLink.Redirect( ForumPages.posts, "t={0}", tmpTopicID );
-			}
-		}
+        if (!this.PageContext.ForumModeratorAccess && this.PageContext.PageUserID != (int)this._messageRow["UserID"])
+        {
+          YafBuildLink.AccessDenied();
+        }
+      }
 
-		protected void Cancel_Click( object sender, System.EventArgs e )
-		{
-			if ( Request.QueryString ["t"] != null || Request.QueryString ["m"] != null )
-			{
-				// reply to existing topic or editing of existing topic
-				YafBuildLink.Redirect( ForumPages.posts, "t={0}", PageContext.PageTopicID );
-			}
-			else
-			{
-				// new topic -- cancel back to forum
-				YafBuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
-			}
-		}
+      this._forumFlags = new ForumFlags(this._messageRow["ForumFlags"]);
+      this._topicFlags = new TopicFlags(this._messageRow["TopicFlags"]);
+      this._ownerUserId = (int)this._messageRow["UserID"];
+      this._isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
 
-		protected string GetActionText()
-		{
-			if ( Request.QueryString ["action"].ToLower() == "delete" )
-			{
-				return GetText( "DELETE" );
-			}
-			else
-			{
-				return GetText( "UNDELETE" );
-			}
-		}
+      if (this.PageContext.PageForumID == 0)
+      {
+        YafBuildLink.AccessDenied();
+      }
 
-		protected string GetReasonText()
-		{
-			if ( Request.QueryString ["action"].ToLower() == "delete" )
-			{
-				return GetText( "DELETE_REASON" );
-			}
-			else
-			{
-				return GetText( "UNDELETE_REASON" );
-			}
-		}
+      if (this.Request["t"] == null && !this.PageContext.ForumPostAccess)
+      {
+        YafBuildLink.AccessDenied();
+      }
 
-		public void DeleteAllPosts_CheckedChanged1( object sender, EventArgs e )
-		{
-			ViewState ["delAll"] = ( ( CheckBox )sender ).Checked;
-		}
-	}
+      if (this.Request["t"] != null && !this.PageContext.ForumReplyAccess)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      if (!this.IsPostBack)
+      {
+        // setup page links
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(
+          this.PageContext.PageCategoryName, 
+          YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+        this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+
+        this.EraseMessage.Checked = false;
+        this.ViewState["delAll"] = false;
+        this.EraseRow.Visible = false;
+        this.DeleteReasonRow.Visible = false;
+        this.LinkedPosts.Visible = false;
+        this.ReasonEditor.Attributes.Add("style", "width:100%");
+        this.Cancel.Text = this.GetText("Cancel");
+
+        if (this.Request.QueryString["m"] != null)
+        {
+          // delete message...
+          this.PreviewRow.Visible = true;
+
+          DataTable tempdb = DB.message_getRepliesList(this.Request.QueryString["m"]);
+
+          if (tempdb.Rows.Count != 0 && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+          {
+            this.LinkedPosts.Visible = true;
+            this.LinkedPosts.DataSource = tempdb;
+            this.LinkedPosts.DataBind();
+          }
+
+          if (this.Request.QueryString["action"].ToLower() == "delete")
+          {
+            this.Title.Text = this.GetText("EDIT"); // GetText("EDIT");
+            this.Delete.Text = this.GetText("DELETE"); // "GetText("Save");
+
+            if (this.PageContext.IsAdmin)
+            {
+              this.EraseRow.Visible = true;
+            }
+          }
+          else
+          {
+            this.Title.Text = this.GetText("EDIT");
+            this.Delete.Text = this.GetText("UNDELETE"); // "GetText("Save");
+          }
+
+          this.Subject.Text = Convert.ToString(this._messageRow["Topic"]);
+          this.DeleteReasonRow.Visible = true;
+          this.ReasonEditor.Text = Convert.ToString(this._messageRow["DeleteReason"]);
+
+          // populate the message preview with the message datarow...
+          this.MessagePreview.Message = this._messageRow["message"].ToString();
+          this.MessagePreview.MessageFlags = new MessageFlags(this._messageRow["Flags"]);
+        }
+      }
+    }
+
+    /// <summary>
+    /// The toogle delete status_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void ToogleDeleteStatus_Click(object sender, EventArgs e)
+    {
+      if (!this.CanDeletePost)
+      {
+        return;
+      }
+
+      // Create objects for easy access
+      object tmpMessageID = this._messageRow["MessageID"];
+      object tmpForumID = this._messageRow["ForumID"];
+      object tmpTopicID = this._messageRow["TopicID"];
+
+      // Toogle delete message -- if the message is currently deleted it will be undeleted.
+      // If it's not deleted it will be marked deleted.
+      // If it is the last message of the topic, the topic is also deleted
+      DB.message_delete(
+        tmpMessageID, 
+        this._isModeratorChanged, 
+        this.ReasonEditor.Text, 
+        this.PostDeleted ? 0 : 1, 
+        (bool)this.ViewState["delAll"], 
+        this.EraseMessage.Checked);
+
+      // retrieve topic information.
+      DataRow topic = DB.topic_info(tmpTopicID);
+
+      // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
+      if (topic == null)
+      {
+        YafBuildLink.Redirect(ForumPages.topics, "f={0}", tmpForumID);
+      }
+      else
+      {
+        YafBuildLink.Redirect(ForumPages.posts, "t={0}", tmpTopicID);
+      }
+    }
+
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+    }
+
+    /// <summary>
+    /// The linked posts_ item data bound.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void LinkedPosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+      if (e.Item.ItemType == ListItemType.Header)
+      {
+        var deleteAllPosts = (CheckBox)e.Item.FindControl("DeleteAllPosts");
+        deleteAllPosts.Checked =
+          deleteAllPosts.Enabled = this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin;
+        this.ViewState["delAll"] = deleteAllPosts.Checked;
+      }
+    }
+
+    #endregion
+  }
 }

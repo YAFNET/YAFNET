@@ -55,37 +55,37 @@
 						<%# Eval( "Name") %>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label1" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.ReadAccess)) %>'><%# BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.ReadAccess) %></asp:Label>
+						<asp:Label ID="Label1" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReadAccess)) %>'><%# BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReadAccess) %></asp:Label>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label2" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.PostAccess)) %>'><%# BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.PostAccess) %></asp:Label>
+						<asp:Label ID="Label2" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PostAccess)) %>'><%# BitSet(Eval("Flags"),(int)AccessFlags.Flags.PostAccess) %></asp:Label>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label3" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.ReplyAccess)) %>'><%# BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.ReplyAccess) %></asp:Label>
+						<asp:Label ID="Label3" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReplyAccess)) %>'><%# BitSet(Eval("Flags"),(int)AccessFlags.Flags.ReplyAccess) %></asp:Label>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label4" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.PriorityAccess)) %>'><%# BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.PriorityAccess) %></asp:Label>
+						<asp:Label ID="Label4" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PriorityAccess)) %>'><%# BitSet(Eval("Flags"),(int)AccessFlags.Flags.PriorityAccess) %></asp:Label>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label5" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.PollAccess)) %>'><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.PollAccess) %></asp:Label>
+						<asp:Label ID="Label5" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.PollAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.PollAccess) %></asp:Label>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label6" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.VoteAccess)) %>'><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.VoteAccess) %></asp:Label>
+						<asp:Label ID="Label6" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.VoteAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.VoteAccess) %></asp:Label>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label7" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.ModeratorAccess)) %>'><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.ModeratorAccess) %></asp:Label>
+						<asp:Label ID="Label7" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.ModeratorAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.ModeratorAccess) %></asp:Label>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label8" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.EditAccess)) %>'><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.EditAccess) %></asp:Label>
+						<asp:Label ID="Label8" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.EditAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.EditAccess) %></asp:Label>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label9" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.DeleteAccess)) %>'><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.DeleteAccess) %></asp:Label>
+						<asp:Label ID="Label9" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.DeleteAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.DeleteAccess) %></asp:Label>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label10" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.UploadAccess)) %>'><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.UploadAccess) %></asp:Label>
+						<asp:Label ID="Label10" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.UploadAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.UploadAccess) %></asp:Label>
 					</td>
 					<td align="center">
-						<asp:Label ID="Label11" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.DownloadAccess)) %>'><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.DownloadAccess) %></asp:Label>
+						<asp:Label ID="Label11" runat="server" ForeColor='<%# GetItemColor(BitSet(Eval("Flags"),(int)AccessFlags.Flags.DownloadAccess)) %>'><%# BitSet(Eval( "Flags"),(int)AccessFlags.Flags.DownloadAccess) %></asp:Label>
 					</td>
 					<td width="15%" style="font-weight: normal">
 						<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "AccessMaskID") %>'>Edit</asp:LinkButton>

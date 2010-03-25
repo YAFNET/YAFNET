@@ -1235,7 +1235,7 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The method returns message flags.
     /// </returns>
-    private int GetMessageFlags()
+    private ulong GetMessageFlags()
     {
       BaseForumEditor _forumEditor =
         this.PageContext.EditorModuleManager.GetEditorInstance(this.PageContext.BoardSettings.ForumEditor);

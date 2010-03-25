@@ -743,14 +743,12 @@ namespace YAF.Pages
       object replyTo = (this.QuotedTopicID != null) ? this.QuotedTopicID.Value : -1;
 
       // make message flags
-      var messageFlags = new MessageFlags
-        {
-          IsHtml = this._forumEditor.UsesHTML,
-          IsBBCode = this._forumEditor.UsesBBCode,
-          IsPersistent = this.PostOptions1.PersistantChecked,
-          /* Bypass Approval if Admin or Moderator.*/
-          IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator
-        };
+      var messageFlags = new MessageFlags();
+
+      messageFlags.IsHtml = this._forumEditor.UsesHTML;
+      messageFlags.IsBBCode = this._forumEditor.UsesBBCode;
+      messageFlags.IsPersistent = this.PostOptions1.PersistantChecked;
+      messageFlags.IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator;
 
       DB.message_save(
         this.TopicID.Value, 

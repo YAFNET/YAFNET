@@ -17,32 +17,56 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-using YAF.Classes.Core;
-using YAF.Classes;
-using YAF.Classes.Utils;
-
 namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for cp_editprofile.
-	/// </summary>
-	public partial class cp_editprofile : ForumPageRegistered
-	{
+  #region Using
 
-		public cp_editprofile()
-			: base( "CP_EDITPROFILE" )
-		{
-		}
+  using System;
 
-    protected void Page_Load( object sender, System.EventArgs e )
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
+
+  #endregion
+
+  /// <summary>
+  /// Summary description for cp_editprofile.
+  /// </summary>
+  public partial class cp_editprofile : ForumPageRegistered
+  {
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="cp_editprofile"/> class.
+    /// </summary>
+    public cp_editprofile()
+      : base("CP_EDITPROFILE")
     {
-      if ( !IsPostBack )
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!this.IsPostBack)
       {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-        PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
-        PageLinks.AddLink( GetText( "TITLE" ), "" );
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
+        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
       }
     }
-	}
+
+    #endregion
+  }
 }
