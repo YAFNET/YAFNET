@@ -103,34 +103,6 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Creates an <see cref="Enum"/> with the provided bit values
-    /// </summary>
-    public static T Set<T>(this Enum value, ulong setBitValue)
-    {
-      Type type = value.GetType();
-
-      // determine the values
-      object result = new _Value(setBitValue, type);
-
-      // return the final value
-      return (T)Enum.Parse(type, result.ToString());
-    }
-
-    /// <summary>
-    /// Creates an <see cref="Enum"/> with the provided bit values
-    /// </summary>
-    public static T Set<T>(this Enum value, int setBitValue)
-    {
-      Type type = value.GetType();
-
-      // determine the values
-      object result = new _Value(setBitValue, type);
-
-      // return the final value
-      return (T)Enum.Parse(type, result.ToString());
-    }
-
-    /// <summary>
     /// Checks if an enumerated type contains a value
     /// </summary>
     public static bool Has<T>(this Enum value, T check)
