@@ -28,11 +28,10 @@ namespace YAF.Classes.Data
   [Serializable()]
   public abstract class FlagsBase : ISerializationSurrogate
   {
-    // integer value stores up to 32 flags/bits
     /// <summary>
-    /// The _bit value.
+    /// integer value stores up to 64 flags/bits
     /// </summary>
-    protected int _bitValue;
+    protected ulong _bitValue;
 
     #region Constructors
 
@@ -50,9 +49,22 @@ namespace YAF.Classes.Data
     /// Creates new instance and initialize it with value of bitValue parameter.
     /// </summary>
     /// <param name="bitValue">
-    /// Inicialization integer value.
+    /// Initialize integer value.
     /// </param>
     public FlagsBase(int bitValue)
+      : this((ulong)bitValue)
+    {
+
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
+    /// Creates new instance and initialize it with value of bitValue parameter.
+    /// </summary>
+    /// <param name="bitValue">
+    /// Initialize integer value.
+    /// </param>
+    public FlagsBase(ulong bitValue)
     {
       this._bitValue = bitValue;
     }
@@ -95,11 +107,10 @@ namespace YAF.Classes.Data
       }
     }
 
-
     /// <summary>
     /// Gets or sets integer value of flags.
     /// </summary>
-    public int BitValue
+    public ulong BitValue
     {
       get
       {
@@ -129,7 +140,10 @@ namespace YAF.Classes.Data
     public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
     {
       var flags = obj as FlagsBase;
-      info.AddValue("BitValue", flags.BitValue);
+      if (flags != null)
+      {
+        info.AddValue("BitValue", flags.BitValue);
+      }
     }
 
     /// <summary>
@@ -153,7 +167,10 @@ namespace YAF.Classes.Data
     public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
     {
       var flags = obj as FlagsBase;
-      flags.BitValue = info.GetInt32("BitValue");
+      if (flags != null)
+      {
+        flags.BitValue = info.GetUInt64("BitValue");
+      }
 
       return null;
     }
@@ -172,11 +189,11 @@ namespace YAF.Classes.Data
     /// <returns>
     /// Returns boolean indicating whether bit at bitShift position is set or not.
     /// </returns>
-    public static bool GetBitAsBool(int bitValue, int bitShift)
+    public static bool GetBitAsBool(ulong bitValue, int bitShift)
     {
-      if (bitShift > 31)
+      if (bitShift > 63)
       {
-        bitShift %= 31;
+        bitShift %= 63;
       }
 
       if (((bitValue >> bitShift) & 0x00000001) == 1)
@@ -202,17 +219,17 @@ namespace YAF.Classes.Data
     /// <returns>
     /// Returns new integer value with bit at position specified by bitShift parameter set to value.
     /// </returns>
-    public static int SetBitFromBool(int bitValue, int bitShift, bool value)
+    public static ulong SetBitFromBool(ulong bitValue, int bitShift, bool value)
     {
-      if (bitShift > 31)
+      if (bitShift > 63)
       {
-        bitShift %= 31;
+        bitShift %= 63;
       }
 
       if (GetBitAsBool(bitValue, bitShift) != value)
       {
         // toggle that value using XOR
-        int tV = 0x00000001 << bitShift;
+        ulong tV = (ulong)0x00000001 << bitShift;
         bitValue ^= tV;
       }
 
@@ -228,9 +245,9 @@ namespace YAF.Classes.Data
     /// <returns>
     /// bit field of the array
     /// </returns>
-    public static int GetIntFromBoolArray(bool[] arrayBool)
+    public static ulong GetIntFromBoolArray(bool[] arrayBool)
     {
-      int finalValue = 0;
+      ulong finalValue = 0;
 
       for (int i = 0; i < arrayBool.Length; i++)
       {
@@ -239,18 +256,6 @@ namespace YAF.Classes.Data
 
       return finalValue;
     }
-
-    /*
-		#region Operators
-
-		public static implicit operator FlagsBase(int newBitValue)
-		{
-			FlagsBase flags = new FlagsBase(newBitValue);
-			return flags;
-		}
-
-		#endregion
-		*/
 
     /// <summary>
     /// Converts a Flag Enum to the associated index value.

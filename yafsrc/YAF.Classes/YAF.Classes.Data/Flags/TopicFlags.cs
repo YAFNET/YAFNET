@@ -21,6 +21,8 @@ using System;
 
 namespace YAF.Classes.Data
 {
+  using System.Text.RegularExpressions;
+
   /// <summary>
   /// The topic flags.
   /// </summary>
@@ -44,7 +46,7 @@ namespace YAF.Classes.Data
     /// The flags.
     /// </param>
     public TopicFlags(Flags flags)
-      : this((int) flags)
+      : this((ulong) flags)
     {
     }
 
@@ -55,7 +57,7 @@ namespace YAF.Classes.Data
     /// The bit value.
     /// </param>
     public TopicFlags(object bitValue)
-      : this((int) bitValue)
+      : base((ulong) bitValue)
     {
     }
 
@@ -83,43 +85,16 @@ namespace YAF.Classes.Data
 
     #endregion
 
-    #region Operators
-
-    /// <summary>
-    /// The op_ implicit.
-    /// </summary>
-    /// <param name="newBitValue">
-    /// The new bit value.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static implicit operator TopicFlags(int newBitValue)
-    {
-      return new TopicFlags(newBitValue);
-    }
-
-    /// <summary>
-    /// The op_ implicit.
-    /// </summary>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static implicit operator TopicFlags(Flags flags)
-    {
-      return new TopicFlags(flags);
-    }
-
-    #endregion
-
     #region Flags Enumeration
 
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
-    public enum Flags
+    [Flags]
+    public enum Flags : ulong
     {
+      None = 0,
+
       /// <summary>
       /// The is locked.
       /// </summary>

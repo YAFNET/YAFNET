@@ -25,7 +25,8 @@ namespace YAF.Classes.Data
   /// The message flags.
   /// </summary>
   [Serializable]
-  public class MessageFlags : TopicFlags
+  [Obsolete("Please use the Enum Extensions on MessageFlags.Flags instead of Using this Class.")]
+  public class MessageFlags : FlagsBase
   {
     #region Constructors
 
@@ -83,42 +84,43 @@ namespace YAF.Classes.Data
 
     #endregion
 
-    #region Operators
+    //#region Operators
 
-    /// <summary>
-    /// The op_ implicit.
-    /// </summary>
-    /// <param name="newBitValue">
-    /// The new bit value.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static implicit operator MessageFlags(int newBitValue)
-    {
-      return new MessageFlags(newBitValue);
-    }
+    ///// <summary>
+    ///// The op_ implicit.
+    ///// </summary>
+    ///// <param name="newBitValue">
+    ///// The new bit value.
+    ///// </param>
+    ///// <returns>
+    ///// </returns>
+    //public static implicit operator MessageFlags(int newBitValue)
+    //{
+    //  return new MessageFlags(newBitValue);
+    //}
 
-    /// <summary>
-    /// The op_ implicit.
-    /// </summary>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static implicit operator MessageFlags(Flags flags)
-    {
-      return new MessageFlags(flags);
-    }
+    ///// <summary>
+    ///// The op_ implicit.
+    ///// </summary>
+    ///// <param name="flags">
+    ///// The flags.
+    ///// </param>
+    ///// <returns>
+    ///// </returns>
+    //public static implicit operator MessageFlags(Flags flags)
+    //{
+    //  return new MessageFlags(flags);
+    //}
 
-    #endregion
+    //#endregion
 
     #region Flags Enumeration
 
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
-    public new enum Flags
+    [Flags]
+    public enum Flags
     {
       /// <summary>
       /// The is html.
@@ -164,12 +166,12 @@ namespace YAF.Classes.Data
       /// Legacy flag not in use.
       /// </summary>
       [Obsolete("Legacy MessageFlag. Not in use.")]
-      IsReportedSpam = 256, 
+      IsReportedSpam = 256,
 
       /// <summary>
-      /// The is persistent.
+      /// Is Message Persistant
       /// </summary>
-      IsPersistent = 512
+      IsPersistant = 512,
 
       /* for future use
 			xxxxxxxx = 1024,
@@ -239,6 +241,22 @@ namespace YAF.Classes.Data
       }
     }
 
+    /// <summary>
+    /// Gets or sets whether message is deleted.
+    /// </summary>
+    public virtual bool IsDeleted
+    {
+      // int value 8
+      get
+      {
+        return this[3];
+      }
+
+      set
+      {
+        this[3] = value;
+      }
+    }
 
     /// <summary>
     /// Gets or sets whether message is deleted.
@@ -268,7 +286,7 @@ namespace YAF.Classes.Data
     /// <remarks>
     /// Used for "ghost" posts that don't really exist, such as advertisement posts.
     /// </remarks>
-    public override bool IsLocked
+    public bool IsLocked
     {
       // int value 32
       get
@@ -334,11 +352,23 @@ namespace YAF.Classes.Data
       }
     }
 
-    // <summary>
+    /// <summary>
     /// Gets or sets whether message is persistent. Persistent messages cannot be purged.
     /// </summary>
-    // inheritted
-    // public bool IsPersistent { get; set; } // int value 512
+    public bool IsPersistent
+    {
+      // int value 512
+      get
+      {
+        return this[9];
+      }
+
+      set
+      {
+        this[9] = value;
+      }
+    }
+
     #endregion
   }
 }
