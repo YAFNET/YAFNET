@@ -25,7 +25,6 @@ namespace YAF.Classes.Data
   /// The message flags.
   /// </summary>
   [Serializable]
-  [Obsolete("Please use the Enum Extensions on MessageFlags.Flags instead of Using this Class.")]
   public class MessageFlags : FlagsBase
   {
     #region Constructors
