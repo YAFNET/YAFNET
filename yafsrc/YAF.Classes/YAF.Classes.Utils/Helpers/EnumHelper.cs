@@ -81,7 +81,8 @@ namespace YAF.Classes.Utils
       FieldInfo fieldInfo = type.GetField(value.ToString());
 
       // Get the stringvalue attributes
-      var altAttribs = fieldInfo.GetCustomAttributes(typeof (AltStringValueAttribute), false) as AltStringValueAttribute[];
+      var altAttribs =
+        fieldInfo.GetCustomAttributes(typeof(AltStringValueAttribute), false) as AltStringValueAttribute[];
 
       if (altAttribs != null && altAttribs.Length > 0)
       {
@@ -90,7 +91,7 @@ namespace YAF.Classes.Utils
       else
       {
         // Get the stringvalue attributes
-        var attribs = fieldInfo.GetCustomAttributes(typeof (StringValueAttribute), false) as StringValueAttribute[];
+        var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 
         if (attribs != null && attribs.Length > 0)
         {
@@ -99,6 +100,135 @@ namespace YAF.Classes.Utils
       }
 
       return String.IsNullOrEmpty(strValue) ? Enum.GetName(type, value) : strValue;
+    }
+
+    /// <summary>
+    /// Creates an <see cref="Enum"/> with the provided bit values
+    /// </summary>
+    public static T Set<T>(this Enum value, ulong setBitValue)
+    {
+      Type type = value.GetType();
+
+      // determine the values
+      object result = new _Value(setBitValue, type);
+
+      // return the final value
+      return (T)Enum.Parse(type, result.ToString());
+    }
+
+    /// <summary>
+    /// Creates an <see cref="Enum"/> with the provided bit values
+    /// </summary>
+    public static T Set<T>(this Enum value, int setBitValue)
+    {
+      Type type = value.GetType();
+
+      // determine the values
+      object result = new _Value(setBitValue, type);
+
+      // return the final value
+      return (T)Enum.Parse(type, result.ToString());
+    }
+
+    /// <summary>
+    /// Checks if an enumerated type contains a value
+    /// </summary>
+    public static bool Has<T>(this Enum value, T check)
+    {
+      Type type = value.GetType();
+
+      // determine the values
+      object result = value;
+      var parsed = new _Value(check, type);
+      if (parsed.Signed is long)
+      {
+        return (Convert.ToInt64(value) & (long)parsed.Signed) == (long)parsed.Signed;
+      }
+      else if (parsed.Unsigned is ulong)
+      {
+        return (Convert.ToUInt64(value) & (ulong)parsed.Unsigned) == (ulong)parsed.Unsigned;
+      }
+      else
+      {
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// Includes an enumerated type and returns the new value
+    /// </summary>
+    public static T Include<T>(this Enum value, T append)
+    {
+      Type type = value.GetType();
+
+      // determine the values
+      object result = value;
+      var parsed = new _Value(append, type);
+      if (parsed.Signed is long)
+      {
+        result = Convert.ToInt64(value) | (long)parsed.Signed;
+      }
+      else if (parsed.Unsigned is ulong)
+      {
+        result = Convert.ToUInt64(value) | (ulong)parsed.Unsigned;
+      }
+
+      // return the final value
+      return (T)Enum.Parse(type, result.ToString());
+    }
+
+    /// <summary>
+    /// Includes an enumerated type and returns the new value
+    /// </summary>
+    public static T Include<T>(this Enum value, ulong bitValues)
+    {
+      Type type = value.GetType();
+
+      // determine the values
+      object result = value;
+      var parsed = new _Value(bitValues, type);
+      if (parsed.Signed is long)
+      {
+        result = Convert.ToInt64(value) | (long)parsed.Signed;
+      }
+      else if (parsed.Unsigned is ulong)
+      {
+        result = Convert.ToUInt64(value) | (ulong)parsed.Unsigned;
+      }
+
+      // return the final value
+      return (T)Enum.Parse(type, result.ToString());
+    }
+
+    /// <summary>
+    /// Checks if an enumerated type is missing a value
+    /// </summary>
+    public static bool Missing<T>(this Enum obj, T value)
+    {
+      return !EnumExtensions.Has<T>(obj, value);
+    }
+
+    /// <summary>
+    /// Removes an enumerated type and returns the new value
+    /// </summary>
+    public static T Remove<T>(this Enum value, T remove)
+    {
+      Type type = value.GetType();
+
+      // determine the values
+      object result = value;
+      var parsed = new _Value(remove, type);
+      if (parsed.Signed is long)
+      {
+        result = Convert.ToInt64(value) & (long)parsed.Signed;
+      }
+      else if (parsed.Unsigned is ulong)
+      {
+        result = Convert.ToUInt64(value) & (ulong)parsed.Unsigned;
+      }
+
+      // return the final value
+      return (T)Enum.Parse(type, result.ToString());
     }
 
     /// <summary>
@@ -138,6 +268,52 @@ namespace YAF.Classes.Utils
     public static char ToChar(this Enum value)
     {
       return Convert.ToChar(value);
+    }
+
+    private class _Value
+    {
+      // cached comparisons for tye to use
+      #region Constants and Fields
+
+      public long? Signed;
+
+      public ulong? Unsigned;
+
+      private static Type _UInt32 = typeof(long);
+
+      private static Type _UInt64 = typeof(ulong);
+
+      #endregion
+
+      #region Constructors and Destructors
+
+      public _Value(object value, Type type)
+      {
+        // make sure it is even an enum to work with
+        if (!type.IsEnum)
+        {
+          throw new ArgumentException("Value provided is not an enumerated type!");
+        }
+
+        // then check for the enumerated value
+        Type compare = Enum.GetUnderlyingType(type);
+
+        // if this is an unsigned long then the only
+        // value that can hold it would be a ulong
+        if (compare.Equals(_UInt32) || compare.Equals(_UInt64))
+        {
+          this.Unsigned = Convert.ToUInt64(value);
+        }
+
+
+          // otherwise, a long should cover anything else
+        else
+        {
+          this.Signed = Convert.ToInt64(value);
+        }
+      }
+
+      #endregion
     }
   }
 
