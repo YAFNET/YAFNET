@@ -54,31 +54,134 @@ namespace YAF.Pages
       {
         this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
-
-        // vzrus: Here should not be common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
-        DataTable activeUsers = DB.active_list_user(PageContext.PageBoardID, PageContext.PageUserID, PageContext.BoardSettings.ShowGuestsInDetailedActiveList, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
-       
-          // Set colorOnly parameter to false, as we get active users style from database        
-        if (PageContext.BoardSettings.UseStyledNicks)
+        DataTable activeUsers; 
+        int mode;
+        if (!String.IsNullOrEmpty(Request.QueryString["v"]) && YafServices.Permissions.Check(PageContext.BoardSettings.ActiveUsersViewPermissions))
         {
-            new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref activeUsers, false);
-        } 
+            if (Int32.TryParse(this.Request.QueryString["v"], out mode))
+            {
+                
+                switch (mode)
+                {
+                    case 0:
+                        // Show all users
+                        activeUsers = GetActiveUsersData(this.PageContext.BoardSettings.ShowGuestsInDetailedActiveList);
+                        RemoveHiddenUsers(ref activeUsers);
+                        this.UserList.DataSource = activeUsers;
+                        DataBind();
+                        break;
+                    case 1:
+                        // Show members
+                        activeUsers = GetActiveUsersData(false);
+                        RemoveHiddenUsers(ref activeUsers);
+                        this.UserList.DataSource = activeUsers;
+                        DataBind();
+                        break;
+                    case 2:
+                        // Show guests
+                        activeUsers = GetActiveUsersData(true);                      
+                        RemoveAllButGusts(ref activeUsers);
+                        this.UserList.DataSource = activeUsers;
+                        DataBind();
+                        break;
+                    case 3:
+                        // Show hidden                         
+                        if (this.PageContext.IsAdmin)                        {
+                            activeUsers = GetActiveUsersData(false);
+                            RemoveAllButHiddenUsers(ref activeUsers);
+                            this.UserList.DataSource = activeUsers;
+                            DataBind();
+                        }
+                        else
+                        {
+                            YafBuildLink.AccessDenied();
+                        }
+                        break;
+                    default:
+                        YafBuildLink.AccessDenied();
+                        break;
+                }
 
+            }
+
+        }
+        else
+        {
+            YafBuildLink.AccessDenied();
+        }
+        
+      }
+    }
+
+    private void RemoveAllButGusts(ref DataTable activeUsers)
+    {
+        if (activeUsers.Rows.Count <= 0)
+        {
+            return;
+        }
+        // remove non-guest users...
+        foreach (DataRow row in activeUsers.Rows)
+        {
+            if (!Convert.ToBoolean(row["IsGuest"]))
+            {
+                // remove this active user...
+                row.Delete();
+            }            
+        }
+        activeUsers.AcceptChanges();
+    }
+
+    private void RemoveHiddenUsers(ref DataTable activeUsers)
+    {
+        if (activeUsers.Rows.Count <= 0)
+        {
+            return;
+        }
         // remove hidden users...
         foreach (DataRow row in activeUsers.Rows)
         {
-          if (Convert.ToBoolean(row["IsHidden"]) && !PageContext.IsAdmin && !(PageContext.PageUserID == Convert.ToInt32(row["UserID"])))
-          {
-            // remove this active user...
-            row.Delete();
-          }
+            if (Convert.ToBoolean(row["IsHidden"]) && !PageContext.IsAdmin && !(PageContext.PageUserID == Convert.ToInt32(row["UserID"])))
+            {
+                // remove this active user...
+                row.Delete();
+            }            
         }
-
         activeUsers.AcceptChanges();
+    }
+ 
 
-        this.UserList.DataSource = activeUsers;
-        DataBind();
-      }
+    private void RemoveAllButHiddenUsers(ref DataTable activeUsers)
+    {
+        if (activeUsers.Rows.Count <= 0)
+        {
+            return;
+        }
+        // remove hidden users...
+        foreach (DataRow row in activeUsers.Rows)
+        {
+            if (!Convert.ToBoolean(row["IsHidden"]) && !(PageContext.PageUserID == Convert.ToInt32(row["UserID"])))
+            {
+                // remove this active user...
+                row.Delete();
+            }           
+        }
+        activeUsers.AcceptChanges();
+    }
+
+    private DataTable GetActiveUsersData(bool showGuests)
+    {
+        // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
+        DataTable activeUsers = DB.active_list_user(this.PageContext.PageBoardID, this.PageContext.PageUserID, showGuests, this.PageContext.BoardSettings.ActiveListTime, this.PageContext.BoardSettings.UseStyledNicks);
+        // Set colorOnly parameter to false, as we get active users style from database        
+        if (PageContext.BoardSettings.UseStyledNicks)
+        {
+            new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref activeUsers, false);
+        }
+        return activeUsers;
+    }
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        YafBuildLink.Redirect(ForumPages.forum);
     }
   }
 }

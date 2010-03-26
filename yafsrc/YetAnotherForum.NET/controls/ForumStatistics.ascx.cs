@@ -37,7 +37,7 @@ namespace YAF.Controls
     /// </summary>
     public ForumStatistics()
     {
-      Load += ForumStatistics_Load;
+      Load += this.ForumStatistics_Load;
     }
 
     /// <summary>
@@ -142,14 +142,18 @@ namespace YAF.Controls
         activeUsers += activeHidden;      
       }
 
-      if (YafServices.Permissions.Check(PageContext.BoardSettings.ActiveUsersViewPermissions))
+      bool canViewActive = YafServices.Permissions.Check(PageContext.BoardSettings.ActiveUsersViewPermissions);
+      bool showGuestTotal = (activeGuests > 0) && PageContext.BoardSettings.ShowGuestsInDetailedActiveList;
+      bool showActiveHidden = (activeHidden > 0) && PageContext.IsAdmin;
+      if (canViewActive && ((showGuestTotal) || (activeMembers > 0 && (showGuestTotal || activeGuests <= 0)) || (showActiveHidden && activeMembers > 0 && showGuestTotal)))
       {
-        // always show active users...
+
+        // always show active users...       
         sb.Append(
           String.Format(
             "<a href=\"{1}\">{0}</a>", 
-            PageContext.Localization.GetTextFormatted(activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers), 
-            YafBuildLink.GetLink(ForumPages.activeusers)));
+            PageContext.Localization.GetTextFormatted(activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers),
+            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0)));         
       }
       else
       {
@@ -159,22 +163,58 @@ namespace YAF.Controls
 
       if (activeMembers > 0)
       {
-        sb.Append(
-          String.Format(
-            ", {0}", PageContext.Localization.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)));
+          if (canViewActive)
+          {
+            sb.Append(
+            String.Format(
+            ", <a href=\"{1}\">{0}</a>",
+            PageContext.Localization.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers),
+            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 1)));              
+          }
+          else
+          {
+              sb.Append(
+                String.Format(
+                  ", {0}", PageContext.Localization.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)));
+          }
       }
 
       if (activeGuests > 0)
       {
-        sb.Append(
-          String.Format(", {0}", PageContext.Localization.GetTextFormatted(activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests)));
+          if (canViewActive && PageContext.BoardSettings.ShowGuestsInDetailedActiveList)
+          {
+            sb.Append(
+            String.Format(
+            ", <a href=\"{1}\">{0}</a>",
+            PageContext.Localization.GetTextFormatted(activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests),
+            YafBuildLink.GetLink(ForumPages.activeusers,"v={0}",2)));              
+          }
+          else
+          {
+              sb.Append(
+                String.Format(", {0}", PageContext.Localization.GetTextFormatted(activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests)));
+          }         
       }
 
       if (activeHidden > 0 && PageContext.IsAdmin)
       {
-        sb.Append(String.Format(", {0}", PageContext.Localization.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden)));
+          // vzrus: was temporary left as is, only admins can view hidden users online, why not everyone?
+          if (activeHidden > 0 && PageContext.IsAdmin)
+          {
+              sb.Append(
+                          String.Format(
+                          ", <a href=\"{1}\">{0}</a>",
+                          PageContext.Localization.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden),
+                          YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 3)));
+          }
+          else
+          {
+              sb.Append(String.Format(", {0}", PageContext.Localization.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden)));
+          }
       }
+
       sb.Append(String.Format(" {0}", PageContext.Localization.GetTextFormatted("ACTIVE_USERS_TIME", PageContext.BoardSettings.ActiveListTime)));
+     
       return sb.ToString();
     }
   }

@@ -59,8 +59,16 @@
 				<td class="post">
 					<%# Eval("Platform") %>
 				</td>
-			</tr>
+			</tr>	
 		</ItemTemplate>
+		<FooterTemplate>
+			<tr class="footer1">
+		    <td colspan="7" align="center">            
+            <YAF:ThemeButton ID="btnReturn" runat="server" CssClass="yafcssbigbutton rightItem"
+                TextLocalizedPage="COMMON" TextLocalizedTag="OK" TitleLocalizedPage="COMMON" TitleLocalizedTag="OK" OnClick="btnReturn_Click" />                
+            </td>
+           </tr>
+		</FooterTemplate>
 	</asp:Repeater>
 </table>
 <div id="DivSmartScroller">
