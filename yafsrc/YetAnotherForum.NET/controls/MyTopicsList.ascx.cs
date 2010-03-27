@@ -59,9 +59,20 @@ namespace YAF.Controls
     private string _lastForumName = string.Empty;
 
     /// <summary>
+    /// default since date is now
+    /// </summary>
+    private DateTime sinceDate = DateTime.Now;
+
+    /// <summary>
+    /// default since option is "since last visit"
+    /// </summary>
+    int sinceValue = 0;
+   
+
+    /// <summary>
     /// The last post image tooltip.
     /// </summary>
-    protected string lastPostImageTT = string.Empty;
+    protected string lastPostImageTT = string.Empty; 
 
     #endregion
 
@@ -97,10 +108,10 @@ namespace YAF.Controls
     public void BindData()
     {
       // default since date is now
-      DateTime sinceDate = DateTime.Now;
+      sinceDate = DateTime.Now;
 
       // default since option is "since last visit"
-      int sinceValue = 0;
+      sinceValue = 0;
 
       // is any "since"option selected
       if (this.Since.SelectedItem != null)
@@ -191,7 +202,9 @@ namespace YAF.Controls
 
         // set datasource of repeater
         this.TopicList.DataSource = pds;
-
+        
+        // Get new Feeds links
+        BindFeeds();
         // data bind controls
         this.DataBind();
       }
@@ -236,17 +249,7 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      // RSS link setup
-      if (this.CurrentMode == TopicListMode.Active)
-      {
-        this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
-        this.RssFeed.FeedType = YafRssFeeds.Active;
-      }
-      else if (this.CurrentMode == TopicListMode.Favorite)
-      {
-        this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
-        this.RssFeed.FeedType = YafRssFeeds.Favorite;
-      }
+      
       lastPostImageTT = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
       if (!this.IsPostBack)
       {
@@ -289,6 +292,8 @@ namespace YAF.Controls
       }
 
       this.BindData();
+
+      
     }
 
     /// <summary>
@@ -359,6 +364,22 @@ namespace YAF.Controls
       // re-bind data
       this.BindData();
     }
+  private void BindFeeds()
+  {
+      // RSS link setup 
+      if (this.CurrentMode == TopicListMode.Active)
+      {
+          this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
+          this.RssFeed.FeedType = YafRssFeeds.Active;
+          this.RssFeed.AdditionalParameters = String.Format("txt={0}&d={1}", Server.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text), Server.HtmlEncode(this.sinceDate.ToString()));
+      }
+      else if (this.CurrentMode == TopicListMode.Favorite)
+      {
+          this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
+          this.RssFeed.FeedType = YafRssFeeds.Favorite;
+          this.RssFeed.AdditionalParameters = String.Format("txt={0}&d={1}", Server.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text), Server.HtmlEncode(this.sinceDate.ToString()));
+      }
+  }
 
     #endregion
   }

@@ -44,8 +44,7 @@
     </asp:Repeater>
     <tr>
         <td class="footer1" align="right" width="100%" colspan="6">
-            <YAF:RssFeedLink ID="RssFeed" runat="server" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" />
-            <YAF:LocalizedLabel ID="Last24Label" runat="server" LocalizedTag="LAST_24" />
+            <YAF:RssFeedLink ID="RssFeed" runat="server" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" />            
         </td>
     </tr>
 </table>
