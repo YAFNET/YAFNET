@@ -82,7 +82,7 @@ namespace YAF.Modules
 
         rssLink.Attributes.Add("rel", "alternate");
         rssLink.Attributes.Add("type", "application/rss+xml");
-        rssLink.Attributes.Add("title", String.Format("RSS Feed For {0}", YafContext.Current.BoardSettings.Name));
+        rssLink.Attributes.Add("title", String.Format( "{0} - {1}", PageContext.Localization.GetText("RSSFEED"),YafContext.Current.BoardSettings.Name));
 
         head.Controls.Add(rssLink);
       }

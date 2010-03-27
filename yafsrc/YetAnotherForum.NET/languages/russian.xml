@@ -512,7 +512,7 @@
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
     <Resource tag="ONDATE">оставлено {0}</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
-    <Resource tag="RSSICONTOOLTIPACTIVE">Подпишистись на активные темы используя ленту RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Подпишитесь на активные темы используя ленту RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Подпишитесь на Ваши любимые темы используя ленту RSS.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">Подпишитесь на ленту RSS этого форума.</Resource>
     <Resource tag="STATS">Статистика</Resource>

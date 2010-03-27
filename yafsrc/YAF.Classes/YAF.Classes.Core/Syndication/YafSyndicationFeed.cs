@@ -124,8 +124,8 @@ namespace YAF.Classes.Core
     public YafSyndicationFeed()
     {
       this.Copyright = new TextSyndicationContent("Copyright 2006 - 2010 Jaben Cargman");
-      this.Description = new TextSyndicationContent("YetAnotherForum.NET RSS Feed");
-      this.Title = new TextSyndicationContent(String.Format("RSS Feed For {0}", YafContext.Current.BoardSettings.Name));
+      this.Description = new TextSyndicationContent(String.Format("YetAnotherForum.NET - {0}", YafContext.Current.Localization.GetText("RSSFEED")));
+      this.Title = new TextSyndicationContent(String.Format("{0} - {1}", YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name));
       this.Id = YafContext.Current.BoardSettings.Name;
       this.LastUpdatedTime = DateTime.Now;
       this.Language = YafContext.Current.Localization.LanguageCode;
@@ -133,6 +133,21 @@ namespace YAF.Classes.Core
       // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="YafSyndicationFeed"/> class. 
+    /// </summary>
+    /// <param name="subTitle"></param>
+    public YafSyndicationFeed(string subTitle)
+    {
+        this.Copyright = new TextSyndicationContent("Copyright 2006 - 2010 Jaben Cargman");
+        this.Description = new TextSyndicationContent(String.Format("YetAnotherForum.NET - {0}", YafContext.Current.Localization.GetText("RSSFEED")));
+        this.Title = new TextSyndicationContent(String.Format("{0} - {1} - {2}", YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle));
+        this.Id = YafContext.Current.BoardSettings.Name;
+        this.LastUpdatedTime = DateTime.Now;
+        this.Language = YafContext.Current.Localization.LanguageCode;
+
+        // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
+    }
     #endregion
 
     ///// <summary>

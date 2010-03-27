@@ -14,7 +14,7 @@
                 <tr>
                     <td class="header2" colspan="2">
                         <YAF:LocalizedLabel ID="LatestPostsHeader" runat="server" LocalizedTag="LATEST_POSTS" />
-                    </td>
+                    </td>             
                 </tr>
                 <asp:Repeater runat="server" ID="LatestPosts" OnItemDataBound="LatestPosts_ItemDataBound">
                     <ItemTemplate>
@@ -34,6 +34,10 @@
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
+                <td class="footer2" align="right" colspan="2">
+                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" 
+                            Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" TitleLocalizedTag="RSSICONTOOLTIPACTIVE" />                        
+                </td>
             </asp:PlaceHolder>
         </table>
     </ContentTemplate>

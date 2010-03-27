@@ -69,9 +69,8 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      // Put user code to initialize the page here
+      // Put user code to initialize the page here  
       var feed = new YafSyndicationFeed();
-      var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
       var syndicationItems = new List<SyndicationItem>();
 
       YafRssFeeds feedType = YafRssFeeds.Forum;
@@ -88,22 +87,28 @@ namespace YAF.Pages
       switch (feedType)
       {
         case YafRssFeeds.LatestPosts:
-          if (!this.PageContext.ForumReadAccess)
+         /* if (!this.PageContext.ForumReadAccess)
           {
             YafBuildLink.AccessDenied();
+          } */
+          if (!this.PageContext.BoardSettings.ShowActiveDiscussions)
+          {
+              YafBuildLink.AccessDenied();
           }
 
-          using (DataTable dtTopics = YafServices.DBBroker.GetLatestTopics(10))
+          using (DataTable dtTopics = YafServices.DBBroker.GetLatestTopics(10, PageContext.PageUserID, "LastUserStyle"))
           {
+            
             foreach (DataRow row in dtTopics.Rows)
             {
               syndicationItems.AddSyndicationItem(
-                row["Subject"].ToString(), 
-                row["Message"].ToString(), 
+                row["Topic"].ToString(),
+                row["Topic"].ToString(), 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]), 
                 String.Format("TopicID{0}", this.Request.QueryString["t"]), 
-                Convert.ToDateTime(row["Posted"]));
+                Convert.ToDateTime(row["LastPosted"]));                
             }
+            feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"));
           }
 
           break;
@@ -122,8 +127,9 @@ namespace YAF.Pages
                 row["Message"].ToString(), 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]), 
                 String.Format("TopicID{0}", this.Request.QueryString["t"]), 
-                Convert.ToDateTime(row["Posted"]));
+                Convert.ToDateTime(row["Posted"]));                
             }
+            feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("POSTMESSAGE", "ANNOUNCEMENT"));
           }
 
           break;
@@ -146,8 +152,9 @@ namespace YAF.Pages
                   FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])), 
                   YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]), 
                   String.Format("TopicID{0}", this.Request.QueryString["t"]), 
-                  Convert.ToDateTime(row["Posted"]));
+                  Convert.ToDateTime(row["Posted"]));                  
               }
+              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("PROFILE","TOPIC") + this.PageContext.PageTopicName);
             }
           }
 
@@ -155,7 +162,7 @@ namespace YAF.Pages
         case YafRssFeeds.Forum:
           using (DataTable dt = DB.forum_listread(this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null)
             )
-          {
+          {            
             foreach (DataRow row in dt.Rows)
             {
               syndicationItems.AddSyndicationItem(
@@ -165,8 +172,8 @@ namespace YAF.Pages
                 String.Format("ForumID{0}", row["ForumID"]), 
                 DateTime.Now);
             }
-          }
-
+            feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM"));
+          } 
           break;
         case YafRssFeeds.Topics:
           if (!this.PageContext.ForumReadAccess)
@@ -189,6 +196,7 @@ namespace YAF.Pages
                   String.Format("TopicID{0}", row["Topic"].ToString()), 
                   Convert.ToDateTime(row["Posted"]));
               }
+              feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM") + ":" + this.PageContext.PageForumName);
             }
           }
 
@@ -211,6 +219,7 @@ namespace YAF.Pages
                 String.Format("TopicID{0}", row["LinkTopicID"].ToString()), 
                 DateTime.Now);
             }
+            feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "ACTIVETOPICS"));
           }
 
           break;
@@ -232,16 +241,20 @@ namespace YAF.Pages
                 String.Format("TopicID{0}", row["LinkTopicID"].ToString()), 
                 DateTime.Now);
             }
+            feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "FAVORITETOPICS"));
           }
 
           break;
-        default:
+        default:          
           break;
-      }
+      }     
+     
 
       // update the feed with the item list...
+      
       feed.Items = syndicationItems;
 
+      var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
       // write the feed to the response writer
       var rssFormatter = new Rss20FeedFormatter(feed);
       rssFormatter.WriteTo(writer);

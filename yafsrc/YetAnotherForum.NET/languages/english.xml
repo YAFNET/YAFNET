@@ -238,6 +238,7 @@
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
     <Resource tag="FONT_COLOR">Font Color:</Resource>
     <Resource tag="FONT_SIZE">Font Size:</Resource>
+	<Resource tag="FOR">For</Resource> 
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>

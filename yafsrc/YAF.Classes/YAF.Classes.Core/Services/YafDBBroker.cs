@@ -51,6 +51,29 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// The style transform func wrap.
+    /// </summary>
+    /// <param name="dt">
+    /// The DateTable
+    /// </param>
+    /// <param name="styleColumns">
+    /// Style columns names
+    /// </param>
+    /// <returns>
+    /// The style transform wrap.
+    /// </returns>
+    public DataTable StyleTransformDataTable(DataTable dt, params string [] styleColumns)
+    {
+        if (YafContext.Current.BoardSettings.UseStyledNicks)
+        {
+            var styleTransform = new StyleTransform(YafContext.Current.Theme);
+            styleTransform.DecodeStyleByTable(ref dt, true, styleColumns);
+        }
+
+        return dt;
+    }
+
+    /// <summary>
     /// The Buddy list for the user with the specified UserID.
     /// </summary>
     /// <param name="UserID"></param>
@@ -203,8 +226,27 @@ namespace YAF.Classes.Core
     /// </returns>
     public DataTable GetLatestTopics(int numberOfPosts, int userId)
     {
-      return this.StyleTransformDataTable(
-        DB.topic_latest(YafContext.Current.PageBoardID, numberOfPosts, userId, YafContext.Current.BoardSettings.UseStyledNicks));
+      return GetLatestTopics(numberOfPosts, userId , "Style");
+    }
+
+    /// <summary>
+    /// The get latest topics.
+    /// </summary>
+    /// <param name="numberOfPosts">
+    /// The number of posts.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="styleColumnNames">
+    /// The style Column Names.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public DataTable GetLatestTopics(int numberOfPosts, int userId, params string [] styleColumnNames)
+    {
+        return this.StyleTransformDataTable(
+          DB.topic_latest(YafContext.Current.PageBoardID, numberOfPosts, userId, YafContext.Current.BoardSettings.UseStyledNicks), styleColumnNames);
     }
 
     /// <summary>
