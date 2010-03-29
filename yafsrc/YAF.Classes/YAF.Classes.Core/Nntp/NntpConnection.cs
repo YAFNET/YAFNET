@@ -309,8 +309,19 @@ namespace YAF.Classes.Core.Nntp
             header.Subject += NntpUtil.Base64HeaderDecode(value);
             break;
           case "DATE":
-            i = value.IndexOf(',');
-            header.Date = DateTime.Parse(value.Substring(i + 1, value.Length - 7 - i));
+            i = value.IndexOf(',');            
+            // vzrus: it gives an error in some cases. Hotfix. 
+            // En error string example Thu, 4 Mar 2010 15:30 +0000 (GMT Standard Time)     
+           DateTime dtc;
+            if (DateTime.TryParse(value.Substring(i + 1, value.Length - 7 - i), out dtc))
+            {
+                header.Date = dtc;
+            }
+            else
+            {
+                header.Date = DateTime.UtcNow - TimeSpan.FromDays(36500);
+                YAF.Classes.Data.DB.eventlog_create(this, "NNTP Feature", String.Format("Unhandled NNTP DateTime value '{0}'", value));
+            }
             break;
           case "FROM":
             header.From += NntpUtil.Base64HeaderDecode(value);

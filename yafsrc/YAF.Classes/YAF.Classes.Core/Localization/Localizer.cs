@@ -82,8 +82,8 @@ namespace YAF.Classes.Core
     public string LanguageCode
     {
       get
-      {
-        return this._code;
+      {         
+          return this._code;
       }
     }
 
@@ -110,7 +110,33 @@ namespace YAF.Classes.Core
 
         if (this._doc.DocumentElement != null)
         {
-          this._code = this._doc.DocumentElement.Attributes["code"] != null ? this._doc.DocumentElement.Attributes["code"].Value : "en";
+          this._code = this._doc.DocumentElement.Attributes["code"] != null ? this._doc.DocumentElement.Attributes["code"].Value : "en-US";
+
+          //  vzrus: If the class is not already initialized it'll through an error. Only when a fresh intall happens. 
+          try
+          {
+             
+          // vzrus: Culture code is missing for a user until he has saved his profile.
+         
+             
+          if (this._code.Substring(0, 2) == YafContext.Current.BoardSettings.Culture.Substring(0, 2))
+          {
+              this._code = YafContext.Current.BoardSettings.Culture;
+          }
+          string cultureUser = YafContext.Current.CultureUser;
+          if (!string.IsNullOrEmpty(cultureUser))
+          {
+              if (cultureUser.Substring(0, 2).Contains(this._code.Substring(0, 2)))
+              {
+                  this._code = cultureUser;
+              }
+          }
+            
+          }
+          catch (Exception)
+          {
+          }
+
         }
         else
         {

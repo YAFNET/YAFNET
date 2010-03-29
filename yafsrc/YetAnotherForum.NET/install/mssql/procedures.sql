@@ -3630,6 +3630,7 @@ begin
 		ThemeFile			= a.ThemeFile,
 		LanguageFile		= a.LanguageFile,
 		TimeZoneUser		= a.TimeZone,
+		CultureUser		    = a.Culture,
 		PreviousVisit		= @PreviousVisit,
 		IsGuest				= a.Flags & 4,
 		x.*,
@@ -5317,6 +5318,7 @@ begin
 		 select 
 			a.*,
 			a.NumPosts,
+			CultureUser = a.Culture,			
 			b.RankID,						
 			RankName = b.Name,
 			Style = case(@StyledNicks)
@@ -5345,7 +5347,8 @@ begin
 	else if @GroupID is null and @RankID is null
 		select 
 			a.*,
-			a.NumPosts,	
+			a.NumPosts,
+			CultureUser = a.Culture,	
 			Style = case(@StyledNicks)
 	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
 		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
@@ -5367,6 +5370,7 @@ begin
 		select 
 			a.*,
 			a.NumPosts,
+			CultureUser = a.Culture,
 			IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0),
 			IsGuest	= IsNull(a.Flags & 4,0),
 			IsHostAdmin	= IsNull(a.Flags & 1,0),
@@ -5435,7 +5439,7 @@ begin
 
 	if @@ROWCOUNT<1
 	begin
-		exec [{databaseOwner}].[{objectQualifier}user_save] 0,@BoardID,@UserName,@UserName,@Email,null,'Usenet',0,null,null,null,0,1,null,null,null,null,null,null,null,0,null,null,null,null,null
+		exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,0,null,null,null,null, 1, null, null, null
 		-- The next one is not safe, but this procedure is only used for testing
 		select @UserID=max(UserID) from [{databaseOwner}].[{objectQualifier}User]
 	end
@@ -5490,6 +5494,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@Email				nvarchar(255) = null,
 	@TimeZone			int,
 	@LanguageFile		nvarchar(50) = null,
+	@Culture		    char(5) = null,
 	@ThemeFile			nvarchar(50) = null,
 	@OverrideDefaultTheme	bit = null,
 	@Approved			bit = null,
@@ -5526,6 +5531,7 @@ begin
 			TimeZone = @TimeZone,
 			LanguageFile = @LanguageFile,
 			ThemeFile = @ThemeFile,
+			Culture = @Culture,
 			OverrideDefaultThemes = @OverrideDefaultTheme,
 			PMNotification = @PMNotification,
 			AutoWatchTopics = @AutoWatchTopics

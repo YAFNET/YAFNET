@@ -300,18 +300,31 @@ namespace YAF.Controls
 
       // vzrus: We should do it as we need to write null value to db, else it will be empty. 
       // Localizer currently treats only nulls. 
-      object language = this.Language.SelectedValue;
-      object theme = this.Theme.SelectedValue;
-      if (string.IsNullOrEmpty(this.Language.SelectedValue))
-      {
-        language = null;
-      }
+      object language = null;
+      object culture = this.Culture.SelectedValue;
+      object theme = this.Theme.SelectedValue;     
 
       if (string.IsNullOrEmpty(this.Theme.SelectedValue))
       {
         theme = null;
       }
 
+      if (string.IsNullOrEmpty(this.Culture.SelectedValue))
+      {
+          culture = null;
+      }
+      else
+      {
+          foreach (System.Data.DataRow row in StaticDataHelper.Cultures().Rows)
+          {
+              if (culture.ToString() == row["CultureTag"].ToString())
+              {
+                  language = row["CultureFile"].ToString();
+              }
+          }
+      }  
+
+        
       // save remaining settings to the DB
       DB.user_save(
         this.CurrentUserID, 
@@ -321,6 +334,7 @@ namespace YAF.Controls
         null, 
         Convert.ToInt32(this.TimeZones.SelectedValue), 
         language, 
+        culture,
         theme, 
         this.OverrideDefaultThemes.Checked, 
         null, 
@@ -355,9 +369,11 @@ namespace YAF.Controls
 
       if (this.PageContext.BoardSettings.AllowUserLanguage)
       {
-        this.Language.DataSource = StaticDataHelper.Languages();
-        this.Language.DataTextField = "Language";
-        this.Language.DataValueField = "FileName";
+
+        this.Culture.DataSource = StaticDataHelper.Cultures();
+        this.Culture.DataValueField = "CultureTag";
+        this.Culture.DataTextField = "CultureNativeName";
+       
       }
 
       this.DataBind();
@@ -435,19 +451,31 @@ namespace YAF.Controls
         this.OverrideDefaultThemes.Checked = this.UserData.OverrideDefaultThemes;
       }
 
-      if (this.PageContext.BoardSettings.AllowUserLanguage && this.Language.Items.Count > 0)
+      if (this.PageContext.BoardSettings.AllowUserLanguage && this.Culture.Items.Count > 0)
       {
         string languageFile = this.PageContext.BoardSettings.Language;
+        string culture4tag = this.PageContext.BoardSettings.Culture;
+
         if (!string.IsNullOrEmpty(this.UserData.LanguageFile))
         {
-          languageFile = this.UserData.LanguageFile;
+            languageFile = this.UserData.LanguageFile;
         }
 
-        ListItem foundItem = this.Language.Items.FindByValue(languageFile);
-        if (foundItem != null)
+        if (!string.IsNullOrEmpty(this.UserData.CultureUser))
         {
-          foundItem.Selected = true;
+            culture4tag = this.UserData.CultureUser;
+        }      
+
+        // Get first default full culture from a language file tag.
+        string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
+
+        // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
+        ListItem foundCultItem = this.Culture.Items.FindByValue((langFileCulture.Substring(0, 2) == culture4tag ? culture4tag : langFileCulture));
+        if (foundCultItem != null)
+        {
+            foundCultItem.Selected = true;           
         }
+         
       }
     }
 

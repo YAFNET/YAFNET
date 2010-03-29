@@ -230,6 +230,17 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// Gets Culture.
+    /// </summary>
+    public string CultureUser
+    {
+        get
+        {
+            return this.RowConvert.AsString("CultureUser");
+        }
+    }
+
+    /// <summary>
     /// Gets LastVisit.
     /// </summary>
     public DateTime? LastVisit
