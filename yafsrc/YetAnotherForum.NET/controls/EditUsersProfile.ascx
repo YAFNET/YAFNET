@@ -275,7 +275,7 @@
                 LocalizedTag="SELECT_LANGUAGE" />
         </td>
         <td class="post">
-             <asp:DropDownList runat="server" ID="Culture" />
+            <asp:DropDownList runat="server" ID="Language" />
         </td>
     </tr>
     <tr runat="server" id="PMNotificationRow">

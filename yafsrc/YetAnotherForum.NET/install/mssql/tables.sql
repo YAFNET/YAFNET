@@ -816,13 +816,6 @@ begin
 end
 GO
 
--- Add 4-letter Language Code column
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Culture')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] add Culture CHAR(5) NULL
-end
-GO
-
 -- Only remove User table columns if version is 30+
 IF EXISTS (SELECT ver FROM (SELECT CAST(CAST(value as nvarchar(255)) as int) as ver FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE name = 'version') reg WHERE ver > 30)
 BEGIN

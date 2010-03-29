@@ -7444,8 +7444,7 @@ namespace YAF.Classes.Data
       object displayName,
       object email, 
       object timeZone, 
-      object languageFile,
-      object culture, 
+      object languageFile, 
       object themeFile, 
       object overrideDefaultThemes, 
       object approved, 
@@ -7462,7 +7461,6 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("Email", email);
         cmd.Parameters.AddWithValue("TimeZone", timeZone);
         cmd.Parameters.AddWithValue("LanguageFile", languageFile);
-        cmd.Parameters.AddWithValue("Culture", culture);
         cmd.Parameters.AddWithValue("ThemeFile", themeFile);
         cmd.Parameters.AddWithValue("OverrideDefaultTheme", overrideDefaultThemes);
         cmd.Parameters.AddWithValue("Approved", approved);

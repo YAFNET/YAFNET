@@ -74,7 +74,7 @@ namespace YAF.Classes.Core
       : this()
     {
       TransPage = transPage;
-    }
+    } 
 
     /// <summary>
     /// Gets a value indicating whether TranslationLoaded.
@@ -114,7 +114,7 @@ namespace YAF.Classes.Core
       get
       {
         if (this._localizer != null)
-        {
+        {        
           return this._localizer.LanguageCode;
         }
 
@@ -224,8 +224,8 @@ namespace YAF.Classes.Core
     public string LoadTranslation(string fileName)
     {
       if (this._localizer != null)
-      {
-        return this._localizer.LanguageCode;
+      {         
+          return this._localizer.LanguageCode;
       }
 
 #if !DEBUG
@@ -234,7 +234,8 @@ namespace YAF.Classes.Core
 #endif
       if (this._localizer == null)
       {
-        this._localizer = new Localizer(HttpContext.Current.Server.MapPath(String.Format("{0}languages/{1}", YafForumInfo.ForumServerFileRoot, fileName)));
+        this._localizer = new Localizer(HttpContext.Current.Server.MapPath(String.Format("{0}languages/{1}", YafForumInfo.ForumServerFileRoot, fileName)));         
+
 #if !DEBUG
 				HttpContext.Current.Cache ["Localizer." + fileName] = _localizer;
 #endif

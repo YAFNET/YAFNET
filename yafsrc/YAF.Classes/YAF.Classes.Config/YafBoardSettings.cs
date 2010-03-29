@@ -257,22 +257,6 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// Gets or sets Culture.
-    /// </summary>
-    public string Culture
-    {
-        get
-        {
-            return this._regBoard.GetValue<string>("Culture", "en-US");
-        }
-
-        set
-        {
-            this._regBoard.SetValue<string>("Culture", value);
-        }
-    }
-
-    /// <summary>
     /// Gets or sets ShowTopicsDefault.
     /// </summary>
     public int ShowTopicsDefault
