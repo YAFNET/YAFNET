@@ -513,7 +513,7 @@
     <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
     <Resource tag="STATS">Statistiques</Resource>
     <Resource tag="STATS_LASTMEMBER">Le plus récent membre est {0}.</Resource>
-    <Resource tag="STATS_LASTPOST">Dernier message le {0} par {1}.</Resource>
+    <Resource tag="STATS_LASTPOST">Dernier message le {0} par</Resource>
     <Resource tag="STATS_MEMBERS">Il y a {0:N0} membres inscrits.</Resource>
     <Resource tag="STATS_POSTS">Il y a {0:N0} message(s) dans {1:N0} sujet(s) de {2:N0} forum(s).</Resource>
     <Resource tag="TOPICS">Sujets</Resource>

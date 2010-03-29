@@ -310,7 +310,16 @@ namespace YAF.Classes.Core.Nntp
             break;
           case "DATE":
             i = value.IndexOf(',');
-            header.Date = DateTime.Parse(value.Substring(i + 1, value.Length - 7 - i));
+            // vzrus: it gives an error in some cases. Hotfix.  
+            DateTime dtc;
+            if (DateTime.TryParse(value.Substring(i + 1, value.Length - 7 - i), out dtc))
+            {
+                header.Date = dtc;
+            }
+            else
+            {
+                header.Date = DateTime.UtcNow - TimeSpan.FromDays(36500);
+            }
             break;
           case "FROM":
             header.From += NntpUtil.Base64HeaderDecode(value);

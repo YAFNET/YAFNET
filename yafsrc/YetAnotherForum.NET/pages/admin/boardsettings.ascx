@@ -47,7 +47,7 @@
 			<td class="post">
 				<asp:DropDownList ID="Language" runat="server">
 				</asp:DropDownList></td>
-		</tr>
+		</tr>		
 		<tr>
 			<td class="postheader">
 				<b>Show Topic Default:</b><br />

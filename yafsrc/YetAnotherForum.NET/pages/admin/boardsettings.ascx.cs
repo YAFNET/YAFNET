@@ -55,9 +55,9 @@ namespace YAF.Pages.Admin
         this.Theme.DataTextField = "Theme";
         this.Theme.DataValueField = "FileName";
 
-        this.Language.DataSource = StaticDataHelper.Languages();
-        this.Language.DataTextField = "Language";
-        this.Language.DataValueField = "FileName";
+        this.Language.DataSource = StaticDataHelper.Cultures();
+        this.Language.DataTextField = "CultureNativeName";
+        this.Language.DataValueField = "CultureTag";       
 
         this.ShowTopic.DataSource = StaticDataHelper.TopicTimes();
         this.ShowTopic.DataTextField = "TopicText";
@@ -69,8 +69,13 @@ namespace YAF.Pages.Admin
 
         BindData();
 
+        // Get first default full culture from a language file tag.
+        string langFileCulture = StaticDataHelper.CultureDefaultFromFile(PageContext.BoardSettings.Language);
+        
         SetSelectedOnList(ref this.Theme, PageContext.BoardSettings.Theme);
-        SetSelectedOnList(ref this.Language, PageContext.BoardSettings.Language);
+
+        // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
+        SetSelectedOnList(ref this.Language, (langFileCulture.Substring(0,2) == PageContext.BoardSettings.Culture ? PageContext.BoardSettings.Culture :langFileCulture));      
         SetSelectedOnList(ref this.ShowTopic, PageContext.BoardSettings.ShowTopicsDefault.ToString());
         SetSelectedOnList(ref this.FileExtensionAllow, PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1");
 
@@ -131,9 +136,17 @@ namespace YAF.Pages.Admin
     protected void Save_Click(object sender, EventArgs e)
     {
       DB.board_save(PageContext.PageBoardID, this.Name.Text, this.AllowThreaded.Checked);
+     
+      foreach (System.Data.DataRow row in StaticDataHelper.Cultures().Rows)
+      {
+          if (row["CultureTag"].ToString() == this.Language.SelectedValue)
+          {
+              PageContext.BoardSettings.Language = row["CultureFile"].ToString();
+              PageContext.BoardSettings.Culture = row["CultureTag"].ToString();
+          }
+      }
 
-      PageContext.BoardSettings.Theme = this.Theme.SelectedValue;
-      PageContext.BoardSettings.Language = this.Language.SelectedValue;
+      PageContext.BoardSettings.Theme = this.Theme.SelectedValue;      
       PageContext.BoardSettings.ShowTopicsDefault = Convert.ToInt32(this.ShowTopic.SelectedValue);
       PageContext.BoardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
       PageContext.BoardSettings.FileExtensionAreAllowed = Convert.ToInt32(this.FileExtensionAllow.SelectedValue) == 0 ? true : false;

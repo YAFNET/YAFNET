@@ -608,6 +608,17 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// Gets the culture code for the user
+    /// </summary>
+    public string CultureUser
+    {
+        get
+        {
+            return PageValueAsString("CultureUser");
+        }
+    }
+
+    /// <summary>
     /// Gets a value indicating whether the board is private (20050909 CHP) (True)
     /// </summary>
     public bool IsPrivate
