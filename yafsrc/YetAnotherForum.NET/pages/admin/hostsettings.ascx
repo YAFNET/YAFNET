@@ -30,12 +30,12 @@
 					</tr>
 					<tr>
 						<td class="postheader">
-							<b>Time Zone:</b><br />
-							The time zone of the web server.
+							<b>Server Time Zone Correction:</b><br />
+							Enter positive or negative value in minutes.
 						</td>
 						<td class="post">
-							<asp:DropDownList ID="TimeZoneRaw" runat="server" DataValueField="Value" DataTextField="Name">
-							</asp:DropDownList>
+						<b>Server UTC time:</b> <%# DateTime.UtcNow %> <br />
+							<asp:TextBox ID="ServerTimeCorrection" runat="server"></asp:TextBox>
 						</td>
 					</tr>
 					<tr>
