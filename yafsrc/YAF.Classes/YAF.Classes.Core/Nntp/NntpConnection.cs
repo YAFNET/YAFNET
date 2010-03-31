@@ -309,18 +309,47 @@ namespace YAF.Classes.Core.Nntp
             header.Subject += NntpUtil.Base64HeaderDecode(value);
             break;
           case "DATE":
-            i = value.IndexOf(',');            
-            // vzrus: it gives an error in some cases. Hotfix. 
-            // En error string example Thu, 4 Mar 2010 15:30 +0000 (GMT Standard Time)     
-           DateTime dtc;
-            if (DateTime.TryParse(value.Substring(i + 1, value.Length - 7 - i), out dtc))
+            // vzrus: 31.03.10 dateTime and tz conversion
+            value = value.Substring(value.IndexOf(',')+1);
+            if (value.IndexOf("(") > 0)
             {
-                header.Date = dtc;
-               // YAF.Classes.Data.DB.eventlog_create(this, "NNTP Feature", String.Format("Good NNTP DateTime value '{0}'", value));
+                value = value.Substring(0,value.IndexOf('(')-1).Trim();
+            }
+            int ipos = value.IndexOf('+');
+            int ineg = value.IndexOf('-');
+            string tz = string.Empty; 
+                if (ipos > 0)
+                {
+                    tz = value.Substring(ipos + 1).Trim();
+                    value = value.Substring(0, ipos-1).Trim();
+                }
+                if (ineg > 0)
+                {
+                    tz = value.Substring(ineg + 1).Trim();
+                    value = value.Substring(0, ineg - 1).Trim();
+                }    
+          
+            DateTime dtc;
+            if (DateTime.TryParse(value, out dtc))
+            {            
+
+                if (ipos > 0)
+                {
+                    header.Date = dtc + (TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) + TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2))));
+                }
+                else if (ineg > 0)
+                {
+                    header.Date = dtc - (TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) + TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2))));
+                }
+                else
+                {
+                    header.Date = dtc;
+                }
+               // eof vzrus
             }
             else
             {
-                header.Date = DateTime.UtcNow - TimeSpan.FromDays(36500);
+               
                 YAF.Classes.Data.DB.eventlog_create(this, "NNTP Feature", String.Format("Unhandled NNTP DateTime value '{0}'", value));
             }
             break;

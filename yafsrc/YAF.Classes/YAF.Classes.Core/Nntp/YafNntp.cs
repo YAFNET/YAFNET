@@ -65,8 +65,7 @@ namespace YAF.Classes.Core.Nntp
     public static int ReadArticles(object boardID, int lastUpdate, int timeToRun, bool createUsers)
     {
       int guestUserId = DB.user_guest(boardID); // Use guests user-id
-      string hostAddress = HttpContext.Current.Request.UserHostAddress;
-      TimeSpan localTimeZone = TimeSpan.FromMinutes((DateTime.Now - DateTime.UtcNow).Minutes);
+      string hostAddress = HttpContext.Current.Request.UserHostAddress;     
       DateTime dateTimeStart = DateTime.UtcNow;
       int articleCount = 0;
 
@@ -128,7 +127,7 @@ namespace YAF.Classes.Core.Nntp
                 string subject = article.Header.Subject;
                 string fromName = article.Header.From;
                 string thread = article.ArticleId.ToString();
-                DateTime dateTime = article.Header.Date - localTimeZone;
+                DateTime dateTime = article.Header.Date;
 
                 if (dateTime.Year < 1950 || dateTime > DateTime.UtcNow)
                 {
