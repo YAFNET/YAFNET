@@ -156,7 +156,7 @@ namespace YAF.Controls
       }
 
       // time until when user is suspended
-      DateTime suspend = DateTime.Now;
+      DateTime suspend = DateTime.UtcNow;
 
       // number inserted by suspending user
       int count = int.Parse(this.SuspendCount.Text);

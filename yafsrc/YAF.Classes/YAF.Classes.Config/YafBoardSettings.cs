@@ -220,7 +220,7 @@ namespace YAF.Classes
     {
       get
       {
-        return this._regBoard.GetValue<DateTime>("MaxUsersWhen", DateTime.Now);
+        return this._regBoard.GetValue<DateTime>("MaxUsersWhen", DateTime.UtcNow);
       }
     }
 
@@ -348,34 +348,21 @@ namespace YAF.Classes
       }
     }
 
-    // global forum settings from registry
-    /// <summary>
-    /// Gets TimeZone.
-    /// </summary>
-    public TimeSpan TimeZone
-    {
-      get
-      {
-        int min = TimeZoneRaw;
-        return new TimeSpan(min/60, min%60, 0);
-      }
-    }
-
     #region int settings
 
     /// <summary>
-    /// Gets or sets TimeZoneRaw.
+    /// Gets or sets ServerTimeCorrection.
     /// </summary>
-    public int TimeZoneRaw
+    public int ServerTimeCorrection
     {
       get
       {
-        return this._reg.GetValue<int>("TimeZone", 0);
+          return this._reg.GetValue<int>("ServerTimeCorrection", 0);
       }
 
       set
       {
-        this._reg.SetValue<int>("TimeZone", value);
+          this._reg.SetValue<int>("ServerTimeCorrection", value);
       }
     }
 

@@ -127,7 +127,7 @@ namespace YAF.Classes.Core
       this.Description = new TextSyndicationContent(String.Format("YetAnotherForum.NET - {0}", YafContext.Current.Localization.GetText("RSSFEED")));
       this.Title = new TextSyndicationContent(String.Format("{0} - {1}", YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name));
       this.Id = YafContext.Current.BoardSettings.Name;
-      this.LastUpdatedTime = DateTime.Now;
+      this.LastUpdatedTime = DateTime.UtcNow;
       this.Language = YafContext.Current.Localization.LanguageCode;
 
       // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
@@ -143,7 +143,7 @@ namespace YAF.Classes.Core
         this.Description = new TextSyndicationContent(String.Format("YetAnotherForum.NET - {0}", YafContext.Current.Localization.GetText("RSSFEED")));
         this.Title = new TextSyndicationContent(String.Format("{0} - {1} - {2}", YafContext.Current.Localization.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name, subTitle));
         this.Id = YafContext.Current.BoardSettings.Name;
-        this.LastUpdatedTime = DateTime.Now;
+        this.LastUpdatedTime = DateTime.UtcNow;
         this.Language = YafContext.Current.Localization.LanguageCode;
 
         // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
@@ -201,7 +201,7 @@ namespace YAF.Classes.Core
     ///// </returns>
     // public XmlTextWriter AddRSSItem(XmlTextWriter writer, string sItemTitle, string sItemLink, string sItemDescription)
     // {
-    // return AddRSSItem(writer, sItemTitle, sItemLink, sItemDescription, DateTime.Now.ToString("r"));
+    // return AddRSSItem(writer, sItemTitle, sItemLink, sItemDescription, DateTime.UtcNow.ToString("r"));
     // }
 
     ///// <summary>
@@ -231,7 +231,7 @@ namespace YAF.Classes.Core
     // writer.WriteElementString("title", sItemTitle);
     // writer.WriteElementString("link", sItemLink);
     // writer.WriteElementString("description", sItemDescription);
-    // writer.WriteElementString("pubDate", DateTime.Now.ToString("r"));
+    // writer.WriteElementString("pubDate", DateTime.UtcNow.ToString("r"));
     // writer.WriteEndElement();
     // */
     // writer.WriteRaw("\t\t<item>" + this.en);

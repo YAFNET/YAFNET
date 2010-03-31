@@ -235,6 +235,14 @@
         </td>
     </tr>
     <tr>
+		<td class="postheader">
+			Enable DST:
+		</td>
+		<td class="post">
+			<asp:CheckBox runat="server" ID="DSTUser" />
+		</td>
+	</tr>
+    <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="timezone2" />

@@ -146,10 +146,15 @@ namespace YAF.Classes.Data
       /// <summary>
       /// The is active excluded.
       /// </summary>
-      IsActiveExcluded = 16, 
+      IsActiveExcluded = 16,
 
-      /* for future use
-			xxxxx = 32,
+      /// <summary>
+      /// The Daylight Saving Time is Enabled.
+      /// </summary>
+      IsDST = 32 
+
+
+      /* for future use			
 			xxxxx = 64,
 			xxxxx = 128,
 			xxxxx = 256,
@@ -248,7 +253,26 @@ namespace YAF.Classes.Data
         this[4] = value;
       }
     }
+          /// <summary>
+    /// Gets or sets whether a user is enabled the DST correction.
+    /// </summary>
+    public bool IsDST
+    {
+      // int value 32
+      get
+      {
+        return this[5];
+      }
 
+      set
+      {
+        this[5] = value;
+      }
+    }
+
+
+
+      
     #endregion
   }
 }

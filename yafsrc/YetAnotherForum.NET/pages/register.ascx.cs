@@ -350,6 +350,7 @@ namespace YAF.Pages
           null, 
           null, 
           null, 
+          null,
           null);
       }
     }
@@ -491,7 +492,7 @@ namespace YAF.Pages
       var emailTextBox = (TextBox)this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Email");
       string email = emailTextBox.Text.Trim();
 
-      string hashinput = DateTime.Now.ToString() + email + Security.CreatePassword(20);
+      string hashinput = DateTime.UtcNow.ToString() + email + Security.CreatePassword(20);
       string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
       // save verification record...

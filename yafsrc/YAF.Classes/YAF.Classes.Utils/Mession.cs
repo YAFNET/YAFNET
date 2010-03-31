@@ -477,7 +477,7 @@ namespace YAF.Classes.Utils
 
         // create persistent cookie with visibility setting for panel
         var c = new HttpCookie(sessionPanelID, ((int) value).ToString());
-        c.Expires = DateTime.Now.AddYears(1);
+        c.Expires = DateTime.UtcNow.AddYears(1);
         HttpContext.Current.Response.SetCookie(c);
       }
     }

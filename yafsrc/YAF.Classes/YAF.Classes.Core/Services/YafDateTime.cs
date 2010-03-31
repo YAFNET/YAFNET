@@ -16,62 +16,53 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
 
 namespace YAF.Classes.Core
 {
+  using System;
+
   /// <summary>
   /// The yaf date time.
   /// </summary>
   public class YafDateTime
   {
     /// <summary>
-    /// Returns the user timezone offset from GMT
-    /// </summary>
-    public TimeSpan TimeZoneOffsetUser
-    {
-      get
-      {
-        if (YafContext.Current.Page != null)
-        {
-          int min = YafContext.Current.TimeZoneUser;
-          return new TimeSpan(min/60, min%60, 0);
-        }
-        else
-        {
-          return new TimeSpan(0);
-        }
-      }
-    }
-
-    /// <summary>
-    /// Returns the time zone offset for the current user compared to the forum time zone.
+    /// Gets the time zone offset 
+    /// for the current user.
     /// </summary>
     public TimeSpan TimeOffset
     {
-      get
-      {
-        return TimeZoneOffsetUser - YafContext.Current.BoardSettings.TimeZone;
-      }
+        get
+        {
+            if (YafContext.Current.Page != null)
+            {
+                int min = YafContext.Current.TimeZoneUser;
+                return new TimeSpan((min / 60) + Convert.ToInt32(YafContext.Current.DSTUser), (min % 60) + YafContext.Current.BoardSettings.ServerTimeCorrection, 0);
+            }
+            else
+            {
+                return new TimeSpan(0);
+            }
+        }
     }
 
     /// <summary>
     /// Formats a datetime value into 07.03.2003 22:32:34
     /// </summary>
-    /// <param name="objectDateTIme">
+    /// <param name="objectDateTIme"> 
     /// The date to be formatted
-    /// </param>
+    /// </param>    
     /// <returns>
-    /// Formatted string of the formatted <see cref="DateTime"/> Object.
+    /// Formatted  <see cref="string"/> of the formatted <see cref="DateTime"/> Object.
     /// </returns>
     public string FormatDateTime(object objectDateTime)
     {
       if (objectDateTime == null)
-      {
+      { 
         throw new ArgumentNullException("objectDateTime", "objectDateTime is null.");
       }
-
-      DateTime dt = (DateTime)objectDateTime + TimeOffset;
+        
+      DateTime dt = (DateTime)objectDateTime + this.TimeOffset;
 
       string strDateFormat = String.Format("{0:F}", dt);
 
@@ -112,7 +103,7 @@ namespace YAF.Classes.Core
 
       try
       {
-        dt = Convert.ToDateTime(objectDateTime) + TimeOffset;
+        dt = Convert.ToDateTime(objectDateTime) + this.TimeOffset;
       }
       catch
       {
@@ -120,7 +111,7 @@ namespace YAF.Classes.Core
         return "[error]";
       }
 
-      nt = DateTime.Now + TimeOffset;
+      nt = DateTime.UtcNow + this.TimeOffset;
 
       try
       {
@@ -177,7 +168,7 @@ namespace YAF.Classes.Core
         throw new ArgumentNullException("objectDateTime", "objectDateTime is null.");
       }
 
-      DateTime dt = (DateTime) objectDateTime + TimeOffset;
+      DateTime dt = (DateTime) objectDateTime + this.TimeOffset;
 
       try
       {

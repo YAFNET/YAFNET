@@ -483,7 +483,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 begin
 	create table [{databaseOwner}].[{objectQualifier}EventLog](
 		EventLogID	int identity(1,1) not null,
-		EventTime	datetime not null constraint [DF_{objectQualifier}EventLog_EventTime] default getdate(),
+		EventTime	datetime not null constraint [DF_{objectQualifier}EventLog_EventTime] default GETUTCDATE() ,
 		UserID		int,
 		Source		nvarchar(50) not null,
 		Description	ntext not null,
@@ -1377,6 +1377,7 @@ GO
 if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'UserID' and isnullable=0)
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] alter column UserID int null
 GO
+	
 
 -- Smiley Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='SortOrder')

@@ -78,7 +78,7 @@ namespace YAF.Controls
               if (PageContext.IsGuest)
               {
                   PageContext.Cache.Insert(
-                    cacheKey, activeTopics, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
+                    cacheKey, activeTopics, null, DateTime.UtcNow.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
               }
           }
           

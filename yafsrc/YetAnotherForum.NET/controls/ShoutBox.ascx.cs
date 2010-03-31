@@ -206,7 +206,7 @@ namespace YAF.Controls
         }
 
         // cache for 30 seconds -- could cause problems on web farm configurations.
-        PageContext.Cache.Add(CacheKey, shoutBoxMessages, DateTime.Now.AddSeconds(30));
+        PageContext.Cache.Add(CacheKey, shoutBoxMessages, DateTime.UtcNow.AddSeconds(30));
       }
 
       this.shoutBoxRepeater.DataSource = shoutBoxMessages;

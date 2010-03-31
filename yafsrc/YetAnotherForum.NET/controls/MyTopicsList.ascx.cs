@@ -61,7 +61,7 @@ namespace YAF.Controls
     /// <summary>
     /// default since date is now
     /// </summary>
-    private DateTime sinceDate = DateTime.Now;
+    private DateTime sinceDate = DateTime.UtcNow;
 
     /// <summary>
     /// default since option is "since last visit"
@@ -108,7 +108,7 @@ namespace YAF.Controls
     public void BindData()
     {
       // default since date is now
-      sinceDate = DateTime.Now;
+      sinceDate = DateTime.UtcNow;
 
       // default since option is "since last visit"
       sinceValue = 0;
@@ -119,7 +119,7 @@ namespace YAF.Controls
         // get selected value
         sinceValue = int.Parse(this.Since.SelectedItem.Value);
 
-        // sinceDate = DateTime.Now;	// no need to do it again (look above)
+        // sinceDate = DateTime.UtcNow;	// no need to do it again (look above)
 
         // decrypt selected option
         if (sinceValue == 9999)
@@ -132,13 +132,13 @@ namespace YAF.Controls
         {
           // days
           // get posts newer then defined number of days
-          sinceDate = DateTime.Now - TimeSpan.FromDays(sinceValue);
+          sinceDate = DateTime.UtcNow - TimeSpan.FromDays(sinceValue);
         }
         else if (sinceValue < 0)
         {
           // hours
           // get posts newer then defined number of hours
-          sinceDate = DateTime.Now + TimeSpan.FromHours(sinceValue);
+          sinceDate = DateTime.UtcNow + TimeSpan.FromHours(sinceValue);
         }
       }
 

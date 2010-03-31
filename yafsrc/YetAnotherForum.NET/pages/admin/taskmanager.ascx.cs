@@ -67,7 +67,7 @@ namespace YAF.Pages.Admin
     {
       var task = (KeyValuePair<string, IBackgroundTask>) item;
 
-      TimeSpan elapsed = DateTime.Now.Subtract(task.Value.Started);
+      TimeSpan elapsed = DateTime.UtcNow.Subtract(task.Value.Started);
 
       return String.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", elapsed.Days, elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
     }

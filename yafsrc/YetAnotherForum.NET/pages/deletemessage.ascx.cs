@@ -132,7 +132,7 @@ namespace YAF.Pages
         if (!this.PageContext.IsAdmin && this.PageContext.BoardSettings.LockPosts > 0)
         {
           var edited = (DateTime)this._messageRow["Edited"];
-          if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.Now)
+          if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.UtcNow)
           {
             return true;
           }

@@ -1034,7 +1034,7 @@ BEGIN
 DECLARE @ToUserID int
 	SET @ToUserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE (MessageID = @MessageID))
 	INSERT INTO [{databaseOwner}].[{objectQualifier}Thanks] (ThanksFromUserID, ThanksToUserID, MessageID, ThanksDate) Values 
-								(@FromUserID, @ToUserId, @MessageID, GetDate())
+								(@FromUserID, @ToUserId, @MessageID, GETUTCDATE() )
 	SET @paramOutput = (SELECT [Name] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
 END
 ELSE
@@ -1227,7 +1227,7 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ActiveTime int,@StyledNicks bit=0) as
 begin
 	-- delete non-active
-	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,getdate())>@ActiveTime
+	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
 	-- select active
 	if @Guests<>0
 		select
@@ -1302,7 +1302,7 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}active_list_user](@BoardID int, @UserID int, @Guests bit=0,@ActiveTime int,@StyledNicks bit=0) as
 begin
 		-- delete non-active
-	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,getdate())>@ActiveTime
+	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
 	-- select active
 	if @Guests<>0
 		select
@@ -1454,7 +1454,7 @@ BEGIN
 	SET @maxStr = ISNULL((SELECT CAST([Value] AS nvarchar) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID AND [Name] = N'maxusers'),'1')
 	SET @max = CAST(@maxStr AS int)
 	SET @countStr = CAST(@count AS nvarchar)
-	SET @dtStr = CONVERT(nvarchar,GETDATE(),126)
+	SET @dtStr = CONVERT(nvarchar,GETUTCDATE() ,126)
 
 	IF NOT EXISTS ( SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID and [Name] = N'maxusers' )
 	BEGIN 
@@ -1552,7 +1552,7 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}bannedip_save](@ID int=null,@BoardID int,@Mask nvarchar(15), @Reason nvarchar(128), @UserID int) as
 begin
 		if @ID is null or @ID = 0 begin
-		insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since,Reason,UserID) values(@BoardID,@Mask,getdate(),@Reason,@UserID)
+		insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since,Reason,UserID) values(@BoardID,@Mask,GETUTCDATE() ,@Reason,@UserID)
 	end
 	else begin
 		update [{databaseOwner}].[{objectQualifier}BannedIP] set Mask = @Mask,Reason = @Reason, UserID = @UserID where ID = @ID
@@ -1635,7 +1635,7 @@ begin
 	
 	-- User (GUEST)
 	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
-	VALUES(@BoardID,@RankIDGuest,'Guest','Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,6)
+	VALUES(@BoardID,@RankIDGuest,'Guest','Guest','na',GETUTCDATE() ,GETUTCDATE() ,0,@TimeZone,@ForumEmail,6)
 	SET @UserIDGuest = SCOPE_IDENTITY()	
 	
 	SET @UserFlags = 2
@@ -1643,7 +1643,7 @@ begin
 	
 	-- User (ADMIN)
 	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,ProviderUserKey, Joined,LastVisit,NumPosts,TimeZone,Flags)
-	VALUES(@BoardID,@RankIDAdmin,@UserName,@UserName,'na',@UserKey,getdate(),getdate(),0,@TimeZone,@UserFlags)
+	VALUES(@BoardID,@RankIDAdmin,@UserName,@UserName,'na',@UserKey,GETUTCDATE() ,GETUTCDATE() ,0,@TimeZone,@UserFlags)
 	SET @UserIDAdmin = SCOPE_IDENTITY()
 
 	-- UserGroup
@@ -1915,7 +1915,7 @@ BEGIN
 		INSERT INTO [{databaseOwner}].[{objectQualifier}CheckEmail]
 		(UserID,Email,Created,Hash)
 	VALUES
-		(@UserID,LOWER(@Email),getdate(),@Hash)	
+		(@UserID,LOWER(@Email),GETUTCDATE() ,@Hash)	
 END
 GO
 
@@ -1979,7 +1979,7 @@ begin
 	values(@UserID,@Source,@Description,@Type)
 
 	-- delete entries older than 10 days
-	delete from [{databaseOwner}].[{objectQualifier}EventLog] where EventTime+10<getdate()
+	delete from [{databaseOwner}].[{objectQualifier}EventLog] where EventTime+10<GETUTCDATE() 
 
 	-- or if there are more then 1000	
 	if ((select count(*) from [{databaseOwner}].[{objectQualifier}eventlog]) >= 1050)
@@ -2726,7 +2726,7 @@ BEGIN
 		insert into [{databaseOwner}].[{objectQualifier}Mail]
 		(FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
 	values
-		(@From,@FromName,@To,@ToName,getdate(),@Subject,@Body,@BodyHtml)	
+		(@From,@FromName,@To,@ToName,GETUTCDATE() ,@Subject,@Body,@BodyHtml)	
 END
 GO
 
@@ -2748,7 +2748,7 @@ BEGIN
 		@FromName,
 		b.Email,
 		b.Name,
-		getdate(),
+		GETUTCDATE() ,
 		@Subject,
 		@Body,
 		@BodyHtml
@@ -2766,7 +2766,7 @@ BEGIN
 		@FromName,
 		b.Email,
 		b.Name,
-		getdate(),
+		GETUTCDATE() ,
 		@Subject,
 		@Body,
 		@BodyHtml
@@ -2780,11 +2780,11 @@ BEGIN
 		(a.LastMail is null or a.LastMail < b.LastVisit) and
 		not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchTopic] x where x.UserID=b.UserID and x.TopicID=c.TopicID)
 
-	update [{databaseOwner}].[{objectQualifier}WatchTopic] set LastMail = getdate() 
+	update [{databaseOwner}].[{objectQualifier}WatchTopic] set LastMail = GETUTCDATE()  
 	where TopicID = @TopicID
 	and UserID <> @UserID
 	
-	update [{databaseOwner}].[{objectQualifier}WatchForum] set LastMail = getdate() 
+	update [{databaseOwner}].[{objectQualifier}WatchForum] set LastMail = GETUTCDATE()  
 	where ForumID = (select ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID)
 	and UserID <> @UserID
 end
@@ -2805,10 +2805,10 @@ BEGIN
 		UPDATE [{databaseOwner}].[{objectQualifier}Mail]
 	SET 
 		SendTries = SendTries + 1,
-		SendAttempt = DATEADD(n,5,GETDATE()),
+		SendAttempt = DATEADD(n,5,GETUTCDATE() ),
 		ProcessID = @ProcessID
 	WHERE
-		MailID IN (SELECT TOP 10 MailID FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt < GETDATE() OR SendAttempt IS NULL)
+		MailID IN (SELECT TOP 10 MailID FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt < GETUTCDATE()  OR SendAttempt IS NULL)
 
 	-- now select all mail reserved for this process...
 	SELECT * FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE ProcessID = @ProcessID ORDER BY Created
@@ -3078,9 +3078,9 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_report](@ReportFlag
 BEGIN
 	IF @ReportText IS NULL SET @ReportText = '';		
 	IF NOT exists(SELECT MessageID from [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID=@MessageID AND UserID=@ReporterID)
-		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReportedAudit](MessageID,UserID,Reported,ReportText) VALUES (@MessageID,@ReporterID,@ReportedDate, CONVERT(varchar,GETDATE())+ '??' + @ReportText)
+		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReportedAudit](MessageID,UserID,Reported,ReportText) VALUES (@MessageID,@ReporterID,@ReportedDate, CONVERT(varchar,GETUTCDATE() )+ '??' + @ReportText)
     ELSE 
-    UPDATE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] SET ReportedNumber = ( CASE WHEN ReportedNumber < 2147483647 THEN  ReportedNumber  + 1 ELSE ReportedNumber END ), Reported = @ReportedDate, ReportText = (CASE WHEN (LEN(ReportText) + LEN(@ReportText) + 255 < 4000)  THEN  ReportText + '|' + CONVERT(varchar(36),GETDATE())+ '??' +  @ReportText ELSE ReportText END) WHERE MessageID=@MessageID AND UserID=@ReporterID 
+    UPDATE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] SET ReportedNumber = ( CASE WHEN ReportedNumber < 2147483647 THEN  ReportedNumber  + 1 ELSE ReportedNumber END ), Reported = @ReportedDate, ReportText = (CASE WHEN (LEN(ReportText) + LEN(@ReportText) + 255 < 4000)  THEN  ReportText + '|' + CONVERT(varchar(36),GETUTCDATE() )+ '??' +  @ReportText ELSE ReportText END) WHERE MessageID=@MessageID AND UserID=@ReporterID 
 	IF NOT exists(SELECT MessageID FROM [{databaseOwner}].[{objectQualifier}MessageReported] WHERE MessageID=@MessageID)
 	BEGIN
 		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReported](MessageID, [Message])
@@ -3103,7 +3103,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_reportresolve](@Mes
 BEGIN
 	
 	UPDATE [{databaseOwner}].[{objectQualifier}MessageReported]
-	SET Resolved = 1, ResolvedBy = @UserID, ResolvedDate = GETDATE()
+	SET Resolved = 1, ResolvedBy = @UserID, ResolvedDate = GETUTCDATE() 
 	WHERE MessageID = @MessageID;
 	
 	/* Remove Flag */
@@ -3140,7 +3140,7 @@ BEGIN
 		DECLARE @ForumID INT, @ForumFlags INT, @Position INT, @Indent INT
 
 	IF @Posted IS NULL
-		SET @Posted = GETDATE()
+		SET @Posted = GETUTCDATE() 
 
 	SELECT @ForumID = x.ForumID, @ForumFlags = y.Flags
 	FROM 
@@ -3274,7 +3274,7 @@ begin
 	
 	update [{databaseOwner}].[{objectQualifier}Message] set
 		Message = @Message,
-		Edited = getdate(),
+		Edited = GETUTCDATE() ,
 		EditedBy = @EditedBy,
 		Flags = @Flags,
 		IsModeratorChanged  = @IsModeratorChanged,
@@ -3329,7 +3329,7 @@ begin
 		join [{databaseOwner}].[{objectQualifier}NntpForum] b on b.NntpServerID = a.NntpServerID
 		join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID = b.ForumID
 	where
-		(@Minutes is null or datediff(n,b.LastUpdate,getdate())>@Minutes) and
+		(@Minutes is null or datediff(n,b.LastUpdate,GETUTCDATE() )>@Minutes) and
 		(@NntpForumID is null or b.NntpForumID=@NntpForumID) and
 		a.BoardID=@BoardID and
 		(@Active is null or b.Active=@Active)
@@ -3343,7 +3343,7 @@ create procedure [{databaseOwner}].[{objectQualifier}nntpforum_save](@NntpForumI
 begin
 		if @NntpForumID is null
 		insert into [{databaseOwner}].[{objectQualifier}NntpForum](NntpServerID,GroupName,ForumID,LastMessageNo,LastUpdate,Active)
-		values(@NntpServerID,@GroupName,@ForumID,0,getdate(),@Active)
+		values(@NntpServerID,@GroupName,@ForumID,0,GETUTCDATE() ,@Active)
 	else
 		update [{databaseOwner}].[{objectQualifier}NntpForum] set
 			NntpServerID = @NntpServerID,
@@ -3362,7 +3362,7 @@ begin
 
 	update [{databaseOwner}].[{objectQualifier}NntpForum] set
 		LastMessageNo = @LastMessageNo,
-		LastUpdate = getdate()
+		LastUpdate = GETUTCDATE() 
 	where NntpForumID = @NntpForumID
 
 	update [{databaseOwner}].[{objectQualifier}Topic] set 
@@ -3553,7 +3553,7 @@ begin
 	
 	-- update last visit
 	update [{databaseOwner}].[{objectQualifier}User] set 
-		LastVisit = getdate(),
+		LastVisit = GETUTCDATE() ,
 		IP = @IP
 	where UserID = @UserID
 
@@ -3601,7 +3601,7 @@ begin
 			update [{databaseOwner}].[{objectQualifier}Active] set
 				UserID = @UserID,
 				IP = @IP,
-				LastActive = getdate(),
+				LastActive = GETUTCDATE() ,
 				Location = @Location,
 				ForumID = @ForumID,
 				TopicID = @TopicID,
@@ -3612,7 +3612,7 @@ begin
 		end
 		else begin
 			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,Platform)
-			values(@SessionID,@BoardID,@UserID,@IP,getdate(),getdate(),@Location,@ForumID,@TopicID,@Browser,@Platform)
+			values(@SessionID,@BoardID,@UserID,@IP,GETUTCDATE() ,GETUTCDATE() ,@Location,@ForumID,@TopicID,@Browser,@Platform)
 			-- update max user stats
 			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
 		end
@@ -3720,11 +3720,11 @@ create procedure [{databaseOwner}].[{objectQualifier}pmessage_prune](@DaysRead i
 begin
 		delete from [{databaseOwner}].[{objectQualifier}UserPMessage]
 	where IsRead<>0
-	and datediff(dd,(select Created from [{databaseOwner}].[{objectQualifier}PMessage] x where x.PMessageID=[{databaseOwner}].[{objectQualifier}UserPMessage].PMessageID),getdate())>@DaysRead
+	and datediff(dd,(select Created from [{databaseOwner}].[{objectQualifier}PMessage] x where x.PMessageID=[{databaseOwner}].[{objectQualifier}UserPMessage].PMessageID),GETUTCDATE() )>@DaysRead
 
 	delete from [{databaseOwner}].[{objectQualifier}UserPMessage]
 	where IsRead=0
-	and datediff(dd,(select Created from [{databaseOwner}].[{objectQualifier}PMessage] x where x.PMessageID=[{databaseOwner}].[{objectQualifier}UserPMessage].PMessageID),getdate())>@DaysUnread
+	and datediff(dd,(select Created from [{databaseOwner}].[{objectQualifier}PMessage] x where x.PMessageID=[{databaseOwner}].[{objectQualifier}UserPMessage].PMessageID),GETUTCDATE() )>@DaysUnread
 
 	delete from [{databaseOwner}].[{objectQualifier}PMessage]
 	where not exists(select 1 from [{databaseOwner}].[{objectQualifier}UserPMessage] x where x.PMessageID=[{databaseOwner}].[{objectQualifier}PMessage].PMessageID)
@@ -3743,7 +3743,7 @@ begin
 	declare @UserID int      
 	 
 	insert into [{databaseOwner}].[{objectQualifier}PMessage](FromUserID,Created,Subject,Body,Flags)
-	values(@FromUserID,getdate(),@Subject,@Body,@Flags)
+	values(@FromUserID,GETUTCDATE() ,@Subject,@Body,@Flags)
 
 	set @PMessageID = SCOPE_IDENTITY()
 	if (@ToUserID = 0)
@@ -4687,7 +4687,7 @@ BEGIN
 			yt.ForumID = @ForumID AND
 			Priority = 0 AND
 			(yt.Flags & 512) = 0 AND /* not flagged as persistent */
-			datediff(dd,yt.LastPosted,getdate())>@Days
+			datediff(dd,yt.LastPosted,GETUTCDATE() )>@Days
 	END
 	ELSE BEGIN
 		SET @c = CURSOR FOR
@@ -4698,7 +4698,7 @@ BEGIN
 		WHERE 
 			Priority = 0 and
 			(Flags & 512) = 0 and					/* not flagged as persistent */
-			datediff(dd,LastPosted,getdate())>@Days
+			datediff(dd,LastPosted,GETUTCDATE() )>@Days
 	END
 	OPEN @c
 	FETCH @c into @TopicID
@@ -4735,7 +4735,7 @@ begin
 		declare @TopicID int
 	declare @MessageID int
 
-	if @Posted is null set @Posted = getdate()
+	if @Posted is null set @Posted = GETUTCDATE() 
 
 	-- create the topic
 	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,Views,Priority,PollID,UserName,NumPosts)
@@ -4983,7 +4983,7 @@ BEGIN
 		END		
 
 		INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
-		VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,getdate(),getdate(),0,0,@approvedFlag,@ProviderUserKey)
+		VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,GETUTCDATE() ,GETUTCDATE() ,0,0,@approvedFlag,@ProviderUserKey)
 	
 		SET @UserID = SCOPE_IDENTITY()	
 	END
@@ -5204,7 +5204,7 @@ begin
 	
 	declare @Since datetime
 
-	set @Since = getdate()
+	set @Since = GETUTCDATE() 
 
 	delete from [{databaseOwner}].[{objectQualifier}EventLog]  where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>@Days)
 	delete from [{databaseOwner}].[{objectQualifier}CheckEmail] where UserID in(select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [{databaseOwner}].[{objectQualifier}bitset](Flags,2)=0 and datediff(day,Joined,@Since)>@Days)
@@ -5325,7 +5325,7 @@ begin
 	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
 		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
 	        else ''	 end, 
-			NumDays = datediff(d,a.Joined,getdate())+1,
+			NumDays = datediff(d,a.Joined,GETUTCDATE() )+1,
 			NumPostsForum = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where (x.Flags & 24)=16),
 			HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=a.UserID and AvatarImage is not null),
 			IsAdmin	= IsNull(c.IsAdmin,0),
@@ -5439,7 +5439,7 @@ begin
 
 	if @@ROWCOUNT<1
 	begin
-		exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,0,null,null,null,null, 1, null, null, null
+		exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,0,null,null,null,null, 1, null, null, null, 0
 		-- The next one is not safe, but this procedure is only used for testing
 		select @UserID=max(UserID) from [{databaseOwner}].[{objectQualifier}User]
 	end
@@ -5500,27 +5500,28 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@Approved			bit = null,
 	@PMNotification		bit = null,
 	@AutoWatchTopics    bit = null,
-	@ProviderUserKey	nvarchar(64) = null)
+	@ProviderUserKey	nvarchar(64) = null,
+	@DSTUser            bit = null)
 AS
 begin
 	
 	declare @RankID int
-	declare @Flags int
-	
-	set @Flags = 0
-	if @Approved<>0 set @Flags = @Flags | 2
-	
+	declare @Flags int	 		
+		
+	if @DSTUser is null SET @DSTUser = 0
 	if @PMNotification is null SET @PMNotification = 1
 	if @AutoWatchTopics is null SET @AutoWatchTopics = 0
 	if @OverrideDefaultTheme is null SET @OverrideDefaultTheme=0
 
 	if @UserID is null or @UserID<1 begin
+	    set @Flags = 0	
+	    if @Approved<>0 set @Flags = @Flags | 2	
 		if @Email = '' set @Email = null
 		
 		select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
 
 		insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,AutoWatchTopics,ProviderUserKey) 
-		values(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,getdate(),getdate(),0,@TimeZone,@Flags,@PMNotification,@AutoWatchTopics,@ProviderUserKey)		
+		values(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,GETUTCDATE() ,GETUTCDATE() ,0,@TimeZone, @Flags,@PMNotification,@AutoWatchTopics,@ProviderUserKey)		
 	
 		set @UserID = SCOPE_IDENTITY()
 
@@ -5534,14 +5535,12 @@ begin
 			Culture = @Culture,
 			OverrideDefaultThemes = @OverrideDefaultTheme,
 			PMNotification = @PMNotification,
-			AutoWatchTopics = @AutoWatchTopics
-		where UserID = @UserID
+			AutoWatchTopics = @AutoWatchTopics,
+			Flags = (CASE WHEN ((@DSTUser<>0) AND ((Flags & 32) <> 32)) THEN  (Flags | 32) WHEN ((@DSTUser=0) AND ((Flags & 32) = 32)) THEN (Flags ^ 32)  ELSE Flags END),
+			DisplayName = (CASE WHEN (@DisplayName is not null) THEN  @DisplayName ELSE DisplayName END),
+			Email = (CASE WHEN (@Email is not null) THEN  @Email ELSE Email END) 
+		where UserID = @UserID		
 		
-		if @Email is not null
-			update [{databaseOwner}].[{objectQualifier}User] set Email = @Email where UserID = @UserID
-			
-		if @DisplayName is not null
-			update [{databaseOwner}].[{objectQualifier}User] set DisplayName = @DisplayName where UserID = @UserID			
 	end
 end
 GO
@@ -5750,7 +5749,7 @@ begin
 	if exists(select 1 from [{databaseOwner}].[{objectQualifier}UserForum] where UserID=@UserID and ForumID=@ForumID)
 		update [{databaseOwner}].[{objectQualifier}UserForum] set AccessMaskID=@AccessMaskID where UserID=@UserID and ForumID=@ForumID
 	else
-		insert into [{databaseOwner}].[{objectQualifier}UserForum](UserID,ForumID,AccessMaskID,Invited,Accepted) values(@UserID,@ForumID,@AccessMaskID,getdate(),1)
+		insert into [{databaseOwner}].[{objectQualifier}UserForum](UserID,ForumID,AccessMaskID,Invited,Accepted) values(@UserID,@ForumID,@AccessMaskID,GETUTCDATE() ,1)
 end
 GO
 
@@ -5815,7 +5814,7 @@ create procedure [{databaseOwner}].[{objectQualifier}watchforum_add](@UserID int
 begin
 	
 	insert into [{databaseOwner}].[{objectQualifier}WatchForum](ForumID,UserID,Created)
-	select @ForumID, @UserID, getdate()
+	select @ForumID, @UserID, GETUTCDATE() 
 	where not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchForum] where ForumID=@ForumID and UserID=@UserID)
 end
 GO
@@ -5859,7 +5858,7 @@ create procedure [{databaseOwner}].[{objectQualifier}watchtopic_add](@UserID int
 begin
 	
 	insert into [{databaseOwner}].[{objectQualifier}WatchTopic](TopicID,UserID,Created)
-	select @TopicID, @UserID, getdate()
+	select @TopicID, @UserID, GETUTCDATE() 
 	where not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchTopic] where TopicID=@TopicID and UserID=@UserID)
 end
 GO
@@ -5993,7 +5992,7 @@ set  @Posted  = (select  posted from [{databaseOwner}].[{objectQualifier}message
 	declare @TopicID int
 	--declare @MessageID int
 
-	if @Posted is null set @Posted = getdate()
+	if @Posted is null set @Posted = GETUTCDATE() 
 
 	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,Views,Priority,PollID,UserName,NumPosts)
 	values(@ForumID,@Subject,@UserID,@Posted,0,0,null,null,0)
@@ -6845,7 +6844,7 @@ as begin
 	end
 	else begin
 
-		if (@DateAwarded is null) set @DateAwarded = getdate() 
+		if (@DateAwarded is null) set @DateAwarded = GETUTCDATE()  
 
 		insert into [{databaseOwner}].[{objectQualifier}UserMedal]
 			([UserID],[MedalID],[Message],[Hide],[OnlyRibbon],[SortOrder],[DateAwarded])
@@ -6942,7 +6941,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage](
 AS
 BEGIN
 		IF @Date IS NULL
-		SET @Date = GETDATE()
+		SET @Date = GETUTCDATE() 
 
 	INSERT [{databaseOwner}].[{objectQualifier}ShoutboxMessage] (UserName, UserID, Message, Date, IP)
 	VALUES (@UserName, @UserID, @Message, @Date, @IP)
@@ -6952,7 +6951,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_clearmessages] AS
 BEGIN
-		DELETE FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] WHERE DATEDIFF(minute, Date, getdate()) > 1
+		DELETE FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] WHERE DATEDIFF(minute, Date, GETUTCDATE() ) > 1
 END
 GO
 
@@ -6989,7 +6988,7 @@ AS
                                   @FromUserID,
                                   @ToUserID,
                                   0,
-                                  GETDATE()
+                                  GETUTCDATE() 
                                 )
                         SET @paramOutput = ( SELECT [Name]
                                              FROM   [{databaseOwner}].[{objectQualifier}User]
@@ -7010,7 +7009,7 @@ AS
                                   @FromUserID,
                                   @ToUserID,
                                   1,
-                                  GETDATE()
+                                  GETUTCDATE() 
                                 )
                         UPDATE  [{databaseOwner}].[{objectQualifier}Buddy]
                         SET     Approved = 1
@@ -7071,7 +7070,7 @@ AS
                               @ToUserID,
                               @FromUserID,
                               1,
-                              GETDATE()
+                              GETUTCDATE() 
                             )
             END
 	END
@@ -7269,7 +7268,7 @@ as
                                   @UserID,
                                   @Title,
                                   @CoverImageID,
-                                  GETDATE()
+                                  GETUTCDATE() 
                                 )
                         RETURN SCOPE_IDENTITY()
                     END
@@ -7380,7 +7379,7 @@ as
                       @FileName,
                       @Bytes,
                       @ContentType,
-                      GETDATE(),
+                      GETUTCDATE() ,
                       0
                     )
     END        
@@ -7541,7 +7540,7 @@ as
     -- delete all message variants older then DaysToClean days Flags reserved for possible pms
    
     delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
-     where DATEDIFF(day,Edited,getdate()) > @DaysToClean
+     where DATEDIFF(day,Edited,GETUTCDATE() ) > @DaysToClean
     
     -- we don't return Message text and ip if it's simply a user
        

@@ -208,6 +208,25 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// Gets a value indicating whether IsGuest.
+    /// </summary>
+    public bool DSTUser
+    {
+        get
+        {
+            if (this.DBRow != null)
+            {
+                if (new UserFlags(this.DBRow["Flags"]).IsDST)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    /// <summary>
     /// Gets Joined.
     /// </summary>
     public DateTime? Joined

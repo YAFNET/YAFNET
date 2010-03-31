@@ -39,7 +39,7 @@ namespace YAF.Controls
     /// </param>
     protected void MarkAll_Click(object sender, EventArgs e)
     {
-      Mession.LastVisit = DateTime.Now;
+      Mession.LastVisit = DateTime.UtcNow;
     }
   }
 }

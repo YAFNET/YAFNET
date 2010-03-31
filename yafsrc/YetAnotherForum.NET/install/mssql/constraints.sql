@@ -489,6 +489,7 @@ if exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{o
     alter table [{databaseOwner}].[{objectQualifier}Thanks] drop constraint [IX_{objectQualifier}Thanks_UserID]
 go
 
+
 /* Build new constraints */
 
 /*
@@ -1061,8 +1062,12 @@ if exists(select 1 from dbo.sysobjects where name=N'DF_EventLog_EventTime' and p
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] drop constraint [DF_EventLog_EventTime]
 go
 
+if exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}EventLog_EventTime' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]'))
+	alter table [{databaseOwner}].[{objectQualifier}EventLog] drop constraint [DF_{objectQualifier}EventLog_EventTime]
+go
+
 if not exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}EventLog_EventTime' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]'))
-	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [DF_{objectQualifier}EventLog_EventTime] default(getdate()) for EventTime
+	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [DF_{objectQualifier}EventLog_EventTime] default(GETUTCDATE() ) for EventTime
 go
 
 

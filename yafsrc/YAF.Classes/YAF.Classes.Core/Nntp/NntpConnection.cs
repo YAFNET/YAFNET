@@ -316,6 +316,7 @@ namespace YAF.Classes.Core.Nntp
             if (DateTime.TryParse(value.Substring(i + 1, value.Length - 7 - i), out dtc))
             {
                 header.Date = dtc;
+               // YAF.Classes.Data.DB.eventlog_create(this, "NNTP Feature", String.Format("Good NNTP DateTime value '{0}'", value));
             }
             else
             {

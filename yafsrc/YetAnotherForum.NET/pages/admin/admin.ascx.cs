@@ -194,7 +194,7 @@ namespace YAF.Pages.Admin
       this.NumTopics.Text = String.Format("{0:N0}", row["NumTopics"]);
       this.NumUsers.Text = String.Format("{0:N0}", row["NumUsers"]);
 
-      TimeSpan span = DateTime.Now - (DateTime) row["BoardStart"];
+      TimeSpan span = DateTime.UtcNow - (DateTime) row["BoardStart"];
       double days = span.Days;
 
       this.BoardStart.Text = String.Format("{0:d} ({1:N0} days ago)", row["BoardStart"], days);
@@ -256,7 +256,7 @@ namespace YAF.Pages.Admin
           }
           if (!Config.IsAnyPortal)
           {
-              UserMembershipHelper.DeleteAllUnapproved(DateTime.Now.AddDays(-Convert.ToInt32(daysValueAll)));
+              UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-Convert.ToInt32(daysValueAll)));
           }
 
           YAF.Classes.Data.DB.user_deleteold(PageContext.PageBoardID, Convert.ToInt32(daysValueAll));

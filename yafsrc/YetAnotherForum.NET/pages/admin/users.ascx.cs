@@ -324,7 +324,7 @@ namespace YAF.Pages.Admin
 		private void BindData()
 		{
 			// default since date is now
-			DateTime sinceDate = DateTime.Now;
+			DateTime sinceDate = DateTime.UtcNow;
 			// default since option is "since last visit"
 			int sinceValue = 0;
 
@@ -333,7 +333,7 @@ namespace YAF.Pages.Admin
 			{
 				// get selected value
 				sinceValue = int.Parse(this.Since.SelectedItem.Value);
-				//sinceDate = DateTime.Now;	// no need to do it again (look above)
+				//sinceDate = DateTime.UtcNow;	// no need to do it again (look above)
 
 				// decrypt selected option
 				if (sinceValue == 9999)		// all
@@ -344,12 +344,12 @@ namespace YAF.Pages.Admin
 				else if (sinceValue > 0)	// days
 				{
 					// get posts newer then defined number of days
-					sinceDate = DateTime.Now - TimeSpan.FromDays(sinceValue);
+					sinceDate = DateTime.UtcNow - TimeSpan.FromDays(sinceValue);
 				}
 				else if (sinceValue < 0)	// hours
 				{
 					// get posts newer then defined number of hours
-					sinceDate = DateTime.Now + TimeSpan.FromHours(sinceValue);
+					sinceDate = DateTime.UtcNow + TimeSpan.FromHours(sinceValue);
 				}
 			}
 

@@ -33,7 +33,7 @@ namespace YAF.Controls
     /// </summary>
     public ForumWelcome()
     {
-      PreRender += new EventHandler(ForumWelcome_PreRender);
+      PreRender += new EventHandler(this.ForumWelcome_PreRender);
     }
 
     /// <summary>
@@ -47,30 +47,33 @@ namespace YAF.Controls
     /// </param>
     private void ForumWelcome_PreRender(object sender, EventArgs e)
     {
-      this.TimeNow.Text = PageContext.Localization.GetTextFormatted("Current_Time", YafServices.DateTime.FormatTime(DateTime.Now));
+        this.TimeNow.Text = this.PageContext.IsGuest ? string.Format("{0}(UTC)", PageContext.Localization.GetTextFormatted("Current_Time", YafServices.DateTime.FormatTime(DateTime.UtcNow))) : PageContext.Localization.GetTextFormatted("Current_Time", YafServices.DateTime.FormatTime(DateTime.UtcNow));
 
       if (Mession.LastVisit != DateTime.MinValue)
       {
         this.TimeLastVisit.Visible = true;
-        this.TimeLastVisit.Text = PageContext.Localization.GetTextFormatted(
-          "last_visit", YafServices.DateTime.FormatDateTime(Mession.LastVisit));
+        this.TimeLastVisit.Text = string.Format(
+                                         "{0}(UTC)", 
+                                         this.PageContext.Localization.GetTextFormatted(
+                                                                       "last_visit", 
+                                                                       YafServices.DateTime.FormatDateTime(Mession.LastVisit)));
       }
       else
       {
         this.TimeLastVisit.Visible = false;
       }
 
-      if (PageContext.UnreadPrivate > 0)
+      if (this.PageContext.UnreadPrivate > 0)
       {
         this.UnreadMsgs.Visible = true;
         this.UnreadMsgs.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_pm);
-        if (PageContext.UnreadPrivate == 1)
+        if (this.PageContext.UnreadPrivate == 1)
         {
-          this.UnreadMsgs.Text = PageContext.Localization.GetTextFormatted("unread1", PageContext.UnreadPrivate);
+            this.UnreadMsgs.Text = this.PageContext.Localization.GetTextFormatted("unread1", PageContext.UnreadPrivate);
         }
         else
         {
-          this.UnreadMsgs.Text = PageContext.Localization.GetTextFormatted("unread0", PageContext.UnreadPrivate);
+            this.UnreadMsgs.Text = this.PageContext.Localization.GetTextFormatted("unread0", PageContext.UnreadPrivate);
         }
       }
     }

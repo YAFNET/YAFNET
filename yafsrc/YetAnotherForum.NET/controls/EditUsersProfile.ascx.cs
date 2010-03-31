@@ -339,7 +339,8 @@ namespace YAF.Controls
         this.OverrideDefaultThemes.Checked, 
         null, 
         this.PMNotificationEnabled.Checked, 
-        this.AutoWatchTopicsEnabled.Checked);
+        this.AutoWatchTopicsEnabled.Checked,
+        this.DSTUser.Checked);
 
       // clear the cache for this user...
       UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
@@ -430,6 +431,7 @@ namespace YAF.Controls
         timeZoneItem.Selected = true;
       }
 
+      this.DSTUser.Checked = this.UserData.DSTUser;
       this.OverrideForumThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
 
       if (this.PageContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)
@@ -487,7 +489,7 @@ namespace YAF.Controls
     /// </param>
     private void SendEmailVerification(string newEmail)
     {
-      string hashinput = DateTime.Now.ToString() + this.Email.Text + Security.CreatePassword(20);
+      string hashinput = DateTime.UtcNow.ToString() + this.Email.Text + Security.CreatePassword(20);
       string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
       // Create Email

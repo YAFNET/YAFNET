@@ -228,7 +228,7 @@ namespace YAF.Classes.Core
           var edited = (DateTime) DataRow["Edited"];
 
           // check if post is locked according to this rule
-          if (edited.AddDays(YafContext.Current.BoardSettings.LockPosts) < DateTime.Now)
+          if (edited.AddDays(YafContext.Current.BoardSettings.LockPosts) < DateTime.UtcNow)
           {
             return true;
           }

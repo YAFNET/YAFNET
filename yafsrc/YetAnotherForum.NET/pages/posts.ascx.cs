@@ -415,7 +415,7 @@ namespace YAF.Pages
       }
 
       // Mark topic read
-      Mession.SetTopicRead(PageContext.PageTopicID, DateTime.Now);
+      Mession.SetTopicRead(PageContext.PageTopicID, DateTime.UtcNow);
 
       BindData();
     }
@@ -545,14 +545,14 @@ namespace YAF.Pages
 
       if (!(PageContext.IsAdmin || PageContext.IsModerator) && PageContext.BoardSettings.PostFloodDelay > 0)
       {
-        if (Mession.LastPost > DateTime.Now.AddSeconds(-PageContext.BoardSettings.PostFloodDelay))
+        if (Mession.LastPost > DateTime.UtcNow.AddSeconds(-PageContext.BoardSettings.PostFloodDelay))
         {
-          PageContext.AddLoadMessage(GetTextFormatted("wait", (Mession.LastPost - DateTime.Now.AddSeconds(-PageContext.BoardSettings.PostFloodDelay)).Seconds));
+          PageContext.AddLoadMessage(GetTextFormatted("wait", (Mession.LastPost - DateTime.UtcNow.AddSeconds(-PageContext.BoardSettings.PostFloodDelay)).Seconds));
           return;
         }
       }
 
-      Mession.LastPost = DateTime.Now;
+      Mession.LastPost = DateTime.UtcNow;
 
       // post message...
       long nMessageID = 0;
@@ -1056,7 +1056,7 @@ namespace YAF.Pages
 
         // save the voting cookie...
         var c = new HttpCookie(VotingCookieName, e.CommandArgument.ToString());
-        c.Expires = DateTime.Now.AddYears(1);
+        c.Expires = DateTime.UtcNow.AddYears(1);
         Response.Cookies.Add(c);
 
         PageContext.AddLoadMessage(GetText("INFO_VOTED"));
@@ -1077,7 +1077,7 @@ namespace YAF.Pages
       if (this._dtPoll.Rows[0]["Closes"] != DBNull.Value)
       {
         DateTime tCloses = Convert.ToDateTime(this._dtPoll.Rows[0]["Closes"]);
-        if (tCloses < DateTime.Now)
+        if (tCloses < DateTime.UtcNow)
         {
           bIsClosed = true;
         }

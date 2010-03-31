@@ -380,7 +380,7 @@ namespace YAF
           // output stream...
           context.Response.OutputStream.Write(ms.ToArray(), 0, (int)ms.Length);
           context.Response.Cache.SetCacheability(HttpCacheability.Public);
-          context.Response.Cache.SetExpires(DateTime.Now.AddHours(2));
+          context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
           context.Response.Cache.SetETag(eTag);
 
           data.Dispose();
@@ -553,7 +553,7 @@ namespace YAF
             // output stream...
             context.Response.OutputStream.Write(ms.ToArray(), 0, (int)ms.Length);
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
-            context.Response.Cache.SetExpires(DateTime.Now.AddHours(2));
+            context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
             context.Response.Cache.SetETag(eTag);
 
             data.Dispose();
@@ -1141,7 +1141,7 @@ namespace YAF
             // output stream...
             context.Response.OutputStream.Write(ms.ToArray(), 0, (int)ms.Length);
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
-            context.Response.Cache.SetExpires(DateTime.Now.AddHours(2));
+            context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
             context.Response.Cache.SetETag(eTag);
 
             data.Dispose();
@@ -1191,7 +1191,7 @@ namespace YAF
 
             context.Response.ContentType = contentType;
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
-            context.Response.Cache.SetExpires(DateTime.Now.AddHours(2));
+            context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
             // context.Response.Cache.SetETag( eTag );
             context.Response.OutputStream.Write(data, 0, data.Length);
             break;
@@ -1281,7 +1281,7 @@ namespace YAF
         // Output the data
         context.Response.ContentType = "image/jpeg";
         context.Response.Cache.SetCacheability(HttpCacheability.Public);
-        context.Response.Cache.SetExpires(DateTime.Now.AddHours(2));
+        context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
         context.Response.Cache.SetETag(eTag);
         bmp.Save(context.Response.OutputStream, ImageFormat.Jpeg);
       }

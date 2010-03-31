@@ -528,7 +528,7 @@ namespace YAF.Classes
           this.GetCacheName(type, id), 
           list, 
           null, 
-          DateTime.Now.AddMinutes(randomValue.Next(5, 15)), 
+          DateTime.UtcNow.AddMinutes(randomValue.Next(5, 15)), 
           Cache.NoSlidingExpiration, 
           CacheItemPriority.Low, 
           null);

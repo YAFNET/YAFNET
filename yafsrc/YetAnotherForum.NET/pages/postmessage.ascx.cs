@@ -268,13 +268,13 @@ namespace YAF.Pages
           this.PageContext.BoardSettings.PostFloodDelay > 0)
       {
         // see if they've past that delay point
-        if (Mession.LastPost > DateTime.Now.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay) &&
+        if (Mession.LastPost > DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay) &&
             this.EditTopicID == null)
         {
           this.PageContext.AddLoadMessage(
             this.GetTextFormatted(
               "wait", 
-              (Mession.LastPost - DateTime.Now.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
+              (Mession.LastPost - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
           return true;
         }
       }
@@ -555,7 +555,7 @@ namespace YAF.Pages
       }    
          
       // update the last post time...
-      Mession.LastPost = DateTime.Now.AddSeconds(30);
+      Mession.LastPost = DateTime.UtcNow.AddSeconds(30);
 
       long messageId = 0;
      
@@ -891,7 +891,7 @@ namespace YAF.Pages
       {
         var edited = (DateTime)message["Edited"];
 
-        if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.Now)
+        if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.UtcNow)
         {
           postLocked = true;
         }
@@ -972,7 +972,7 @@ namespace YAF.Pages
 
       if (int.TryParse(this.PollExpire.Text.Trim(), out daysPollExpire))
       {
-        datePollExpire = DateTime.Now.AddDays(daysPollExpire);
+        datePollExpire = DateTime.UtcNow.AddDays(daysPollExpire);
       }
 
       // we are just using existing poll
@@ -1138,7 +1138,7 @@ namespace YAF.Pages
         this.Question.Text = choices.Rows[0]["Question"].ToString();
         if (choices.Rows[0]["Closes"] != DBNull.Value)
         {
-          TimeSpan closing = (DateTime)choices.Rows[0]["Closes"] - DateTime.Now;
+          TimeSpan closing = (DateTime)choices.Rows[0]["Closes"] - DateTime.UtcNow;
 
           this.PollExpire.Text = SqlDataLayerConverter.VerifyInt32(closing.TotalDays + 1).ToString();
         }

@@ -547,7 +547,7 @@ namespace YAF.Classes.Core
             if (cachedItem != null)
             {
               // cache the new value...
-              Add(key, cachedItem, null, DateTime.Now.AddMilliseconds(expireMilliseconds), Cache.NoSlidingExpiration, priority, null);
+              Add(key, cachedItem, null, DateTime.UtcNow.AddMilliseconds(expireMilliseconds), Cache.NoSlidingExpiration, priority, null);
             }
           }
         }

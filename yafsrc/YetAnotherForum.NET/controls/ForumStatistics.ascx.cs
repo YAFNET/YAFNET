@@ -88,7 +88,7 @@ namespace YAF.Controls
       else
       {
         this.MostUsersCount.Text = PageContext.Localization.GetTextFormatted(
-          "MAX_ONLINE", activeStats["ActiveUsers"], YafServices.DateTime.FormatDateTimeTopic(DateTime.Now));
+          "MAX_ONLINE", activeStats["ActiveUsers"], YafServices.DateTime.FormatDateTimeTopic(DateTime.UtcNow));
       }
 
       // Posts and Topic Count...

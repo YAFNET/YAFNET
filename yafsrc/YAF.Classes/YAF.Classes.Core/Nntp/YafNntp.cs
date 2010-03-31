@@ -66,8 +66,8 @@ namespace YAF.Classes.Core.Nntp
     {
       int guestUserId = DB.user_guest(boardID); // Use guests user-id
       string hostAddress = HttpContext.Current.Request.UserHostAddress;
-      TimeSpan localTimeZone = YafContext.Current.BoardSettings.TimeZone;
-      DateTime dateTimeStart = DateTime.Now;
+      TimeSpan localTimeZone = TimeSpan.FromMinutes((DateTime.Now - DateTime.UtcNow).Minutes);
+      DateTime dateTimeStart = DateTime.UtcNow;
       int articleCount = 0;
 
       string nntpHostName = string.Empty;
@@ -130,9 +130,9 @@ namespace YAF.Classes.Core.Nntp
                 string thread = article.ArticleId.ToString();
                 DateTime dateTime = article.Header.Date - localTimeZone;
 
-                if (dateTime.Year < 1950 || dateTime > DateTime.Now)
+                if (dateTime.Year < 1950 || dateTime > DateTime.UtcNow)
                 {
-                  dateTime = DateTime.Now;
+                  dateTime = DateTime.UtcNow;
                 }
 
                 body = String.Format("Date: {0}\r\n\r\n", article.Header.Date) + body;
@@ -150,7 +150,7 @@ namespace YAF.Classes.Core.Nntp
 
                 // We don't wanna retrieve articles forever...
                 // Total time x seconds for all groups
-                if ((DateTime.Now - dateTimeStart).TotalSeconds > timeToRun)
+                if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)
                 {
                   break;
                 }
@@ -163,7 +163,7 @@ namespace YAF.Classes.Core.Nntp
             DB.nntpforum_update(forumDataRow["NntpForumID"], lastMessageNo, guestUserId);
 
             // Total time x seconds for all groups
-            if ((DateTime.Now - dateTimeStart).TotalSeconds > timeToRun)
+            if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)
             {
               break;
             }

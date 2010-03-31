@@ -100,7 +100,7 @@ namespace YAF.Controls
           return Convert.ToDateTime(this.DataRow["Edited"]);
         }
 
-        return DateTime.Now;
+        return DateTime.UtcNow;
       }
     }
 
@@ -134,7 +134,7 @@ namespace YAF.Controls
           return Convert.ToDateTime(this.DataRow["Posted"]);
         }
 
-        return DateTime.Now;
+        return DateTime.UtcNow;
       }
     }
 

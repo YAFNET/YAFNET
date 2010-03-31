@@ -834,11 +834,11 @@ namespace YAF.Providers.Membership
         dr["Comment"].ToStringDBNull(), 
         dr["IsApproved"].ToBool(), 
         dr["IsLockedOut"].ToBool(), 
-        dr["Joined"].ToDateTime(DateTime.Now), 
-        dr["LastLogin"].ToDateTime(DateTime.Now), 
-        dr["LastActivity"].ToDateTime(DateTime.Now), 
-        dr["LastPasswordChange"].ToDateTime(DateTime.Now), 
-        dr["LastLockout"].ToDateTime(DateTime.Now));
+        dr["Joined"].ToDateTime(DateTime.UtcNow), 
+        dr["LastLogin"].ToDateTime(DateTime.UtcNow), 
+        dr["LastActivity"].ToDateTime(DateTime.UtcNow), 
+        dr["LastPasswordChange"].ToDateTime(DateTime.UtcNow), 
+        dr["LastLockout"].ToDateTime(DateTime.UtcNow));
     }
 
     /// <summary>

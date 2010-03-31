@@ -139,7 +139,7 @@ namespace YAF.Controls
       else
       {
         dataTable = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
-        PageContext.Cache.Insert(cacheKey, dataTable, null, DateTime.Now.AddMinutes(5), TimeSpan.Zero);
+        PageContext.Cache.Insert(cacheKey, dataTable, null, DateTime.UtcNow.AddMinutes(5), TimeSpan.Zero);
       }
 
       writer.WriteLine(

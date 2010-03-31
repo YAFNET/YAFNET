@@ -100,8 +100,8 @@ namespace YAF.Pages
                 row["Topic"].ToString(),
                 "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>",
                 YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
-                String.Format("TopicID{0}", Convert.ToInt32(row["TopicID"])), 
-                Convert.ToDateTime(row["LastPosted"]));               
+                String.Format("TopicID{0}", Convert.ToInt32(row["TopicID"])),
+                Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset);               
             }
 
             feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("ACTIVE_DISCUSSIONS"));
@@ -122,8 +122,8 @@ namespace YAF.Pages
                 row["Subject"].ToString(), 
                 row["Message"].ToString(), 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]), 
-                String.Format("TopicID{0}", this.Request.QueryString["t"]), 
-                Convert.ToDateTime(row["Posted"]));               
+                String.Format("TopicID{0}", this.Request.QueryString["t"]),
+                Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset);               
             }
 
             feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("POSTMESSAGE", "ANNOUNCEMENT"));
@@ -148,8 +148,8 @@ namespace YAF.Pages
                   row["Subject"].ToString(), 
                   FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])), 
                   YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]), 
-                  String.Format("TopicID{0}", this.Request.QueryString["t"]), 
-                  Convert.ToDateTime(row["Posted"]));                 
+                  String.Format("TopicID{0}", this.Request.QueryString["t"]),
+                  Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset);                 
               }
 
                 feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("PROFILE", "TOPIC") + this.PageContext.PageTopicName);
@@ -166,8 +166,8 @@ namespace YAF.Pages
                 row["Forum"].ToString(), 
                 row["Description"].ToString(), 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]), 
-                String.Format("ForumID{0}", row["ForumID"]), 
-                DateTime.UtcNow);
+                String.Format("ForumID{0}", row["ForumID"]),
+                DateTime.UtcNow + YafServices.DateTime.TimeOffset);
             }
 
             feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM"));
@@ -192,8 +192,8 @@ namespace YAF.Pages
                   row["Topic"].ToString(), 
                   row["Topic"].ToString(), 
                   YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]), 
-                  String.Format("TopicID{0}", row["Topic"].ToString()), 
-                  Convert.ToDateTime(row["Posted"]));
+                  String.Format("TopicID{0}", row["Topic"].ToString()),
+                  Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset);
               }
 
               feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM") + ":" + this.PageContext.PageForumName);
@@ -243,7 +243,7 @@ namespace YAF.Pages
                       "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
                       YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
                       String.Format("TopicID{0}", row["LinkTopicID"].ToString()),
-                      DateTime.UtcNow);
+                      DateTime.UtcNow + YafServices.DateTime.TimeOffset);
                 }
 
                 feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "ACTIVETOPICS") + " - " + toActText);
@@ -288,7 +288,7 @@ namespace YAF.Pages
                     "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
                     YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
                     String.Format("TopicID{0}", row["LinkTopicID"].ToString()),
-                    DateTime.UtcNow);
+                    DateTime.UtcNow + YafServices.DateTime.TimeOffset);
               }
 
               feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "FAVORITETOPICS") + " - " + toFavText);

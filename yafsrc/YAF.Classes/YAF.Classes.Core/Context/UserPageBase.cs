@@ -410,19 +410,18 @@ namespace YAF.Classes.Core
     public bool IsHostAdmin
     {
       get
-      {
-        bool isHostAdmin = false;
+      {       
 
         if (this._userFlags != null)
         {
-          isHostAdmin = this._userFlags.IsHostAdmin;
+          return this._userFlags.IsHostAdmin;
             
             // Obsolete : Ederon
             // if (General.BinaryAnd(Page["UserFlags"], UserFlags.IsHostAdmin))
             // isHostAdmin = true;
         }
 
-        return isHostAdmin;
+        return false;
       }
     }
 
@@ -433,14 +432,12 @@ namespace YAF.Classes.Core
     {
       get
       {
-        bool isCaptchaExcluded = false;
-
         if (this._userFlags != null)
         {
-          isCaptchaExcluded = this._userFlags.IsCaptchaExcluded;
+          return this._userFlags.IsCaptchaExcluded;
         }
 
-        return isCaptchaExcluded;
+        return false;
       }
     }
 
@@ -518,7 +515,7 @@ namespace YAF.Classes.Core
       {
         if (Page == null || Page["Suspended"] == DBNull.Value)
         {
-          return DateTime.Now;
+          return DateTime.UtcNow;
         }
         else
         {
@@ -594,6 +591,21 @@ namespace YAF.Classes.Core
       {
         return Convert.ToInt32(Page["TimeZoneUser"]);
       }
+    }
+
+    /// <summary>
+    /// Gets the time zone offset for the user
+    /// </summary>
+    public bool DSTUser
+    {
+        get
+        {
+            if (this._userFlags != null)
+            {
+                return this._userFlags.IsDST;
+            }           
+            return false;
+        }
     }
 
     /// <summary>

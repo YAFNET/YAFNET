@@ -147,7 +147,7 @@ BEGIN
 		BEGIN
 			-- RESOLVE SALT ISSUE IN 193 BETA and RC2
 			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET PasswordSalt='UwB5AHMAdABlAG0ALgBCAHkAdABlAFsAXQA=' WHERE PasswordSalt IS NOT NULL;
-			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET Joined=GETDATE() WHERE Joined IS NULL;
+			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET Joined=GETUTCDATE()  WHERE Joined IS NULL;
 		END	
 END 
 GO
@@ -234,7 +234,7 @@ BEGIN
 		SET @UserKey = NEWID()
 		
 	INSERT INTO [{databaseOwner}].[{objectQualifier}prov_Membership] (UserID,ApplicationID,Joined,Username,UsernameLwd,Password,PasswordSalt,PasswordFormat,Email,EmailLwd,PasswordQuestion,PasswordAnswer,IsApproved)
-		VALUES (@UserKey, @ApplicationID, GETDATE(),@Username, LOWER(@Username), @Password, @PasswordSalt, @PasswordFormat, @Email, LOWER(@Email), @PasswordQuestion, @PasswordAnswer, @IsApproved);
+		VALUES (@UserKey, @ApplicationID, GETUTCDATE() ,@Username, LOWER(@Username), @Password, @PasswordSalt, @PasswordFormat, @Email, LOWER(@Email), @PasswordQuestion, @PasswordAnswer, @IsApproved);
 END
 GO
 
@@ -409,7 +409,7 @@ BEGIN
 	-- IF USER IS ONLINE DO AN UPDATE USER	
 	IF (@UserIsOnline = 1)
 	BEGIN
-		UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET LastActivity = GETDATE() WHERE UsernameLwd = LOWER(@Username) and ApplicationID = @ApplicationID
+		UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET LastActivity = GETUTCDATE()  WHERE UsernameLwd = LOWER(@Username) and ApplicationID = @ApplicationID
 	END		
 END
 GO

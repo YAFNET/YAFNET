@@ -75,7 +75,7 @@ namespace YAF.Pages
     {
       if (Mession.UnreadTopics == 0)
       {
-        Mession.SetForumRead(PageContext.PageForumID, DateTime.Now);
+        Mession.SetForumRead(PageContext.PageForumID, DateTime.UtcNow);
       }
     }
 
@@ -198,7 +198,7 @@ namespace YAF.Pages
     /// </param>
     void MarkRead_Click(object sender, EventArgs e)
     {
-      Mession.SetForumRead(PageContext.PageForumID, DateTime.Now);
+      Mession.SetForumRead(PageContext.PageForumID, DateTime.UtcNow);
       BindData();
     }
 
@@ -302,7 +302,7 @@ namespace YAF.Pages
       }
       else
       {
-        DateTime date = DateTime.Now;
+        DateTime date = DateTime.UtcNow;
         switch (this._showTopicListSelected)
         {
           case 1:

@@ -1171,7 +1171,7 @@ namespace YAF.Pages.Admin
 
           if (!UserMembershipHelper.UserExists(newUsername, newEmail))
           {
-            string hashinput = DateTime.Now.ToString() + newEmail + Security.CreatePassword(20);
+            string hashinput = DateTime.UtcNow.ToString() + newEmail + Security.CreatePassword(20);
             string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
             MembershipCreateStatus status;
@@ -1219,6 +1219,7 @@ namespace YAF.Pages.Admin
                   null, 
                   null, 
                   null, 
+                  null,
                   null);
                 _outCounter++;
               }

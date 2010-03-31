@@ -210,14 +210,14 @@ namespace Intelligencia.UrlRewriter.Configuration
 				if (config != null)
 				{
 					CacheDependency fileDependency = new CacheDependency(filename);
-					HttpRuntime.Cache.Add(_cacheName, config, fileDependency, DateTime.Now.AddHours(1.0), TimeSpan.Zero, CacheItemPriority.Default, null);
+					HttpRuntime.Cache.Add(_cacheName, config, fileDependency, DateTime.UtcNow.AddHours(1.0), TimeSpan.Zero, CacheItemPriority.Default, null);
 				}
 			}
 
 			if (config == null)
 			{
 				config = LoadFromNode(section);
-				HttpRuntime.Cache.Add(_cacheName, config, null, DateTime.Now.AddHours(1.0), TimeSpan.Zero, CacheItemPriority.Default, null);
+				HttpRuntime.Cache.Add(_cacheName, config, null, DateTime.UtcNow.AddHours(1.0), TimeSpan.Zero, CacheItemPriority.Default, null);
 			}
 
 			return config;

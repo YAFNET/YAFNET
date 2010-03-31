@@ -88,7 +88,7 @@ namespace YAF.Classes.Core
         {
           if (!this._isRunning && value)
           {
-            this._started = DateTime.Now;
+            this._started = DateTime.UtcNow;
           }
 
           this._isRunning = value;

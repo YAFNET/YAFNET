@@ -94,7 +94,7 @@ namespace YAF.Controls.Statistics
       string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.MostActiveUsers);
 
       DataTable rankDt = PageContext.Cache.GetItem(
-        cacheKey, 5, () => DB.user_activity_rank(PageContext.PageBoardID, DateTime.Now.AddDays(-LastNumOfDays), DisplayNumber));
+        cacheKey, 5, () => DB.user_activity_rank(PageContext.PageBoardID, DateTime.UtcNow.AddDays(-LastNumOfDays), DisplayNumber));
 
       //// create XML data document...
       // XmlDocument xml = new XmlDocument();

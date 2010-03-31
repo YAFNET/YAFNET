@@ -51,7 +51,7 @@ namespace YAF.Modules
       // check for suspension if enabled...
       if (PageContext.Globals.IsSuspendCheckEnabled && PageContext.IsSuspended)
       {
-        if (PageContext.SuspendedUntil < DateTime.Now)
+        if (PageContext.SuspendedUntil < DateTime.UtcNow)
         {
           DB.user_suspend(PageContext.PageUserID, null);
           HttpContext.Current.Response.Redirect(General.GetSafeRawUrl());

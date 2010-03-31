@@ -122,7 +122,7 @@ namespace YAF.Classes.Core
       dv.RowFilter = String.Format("Approved = 0 AND UserID = {0}", YafContext.Current.PageUserID);
       foreach (DataRowView drv in dv)
       {
-        if (Convert.ToDateTime(drv["Requested"]).AddDays(14) < DateTime.Now)
+        if (Convert.ToDateTime(drv["Requested"]).AddDays(14) < DateTime.UtcNow)
         {
           DenyBuddyRequest((int)drv["FromUserID"]);
         }

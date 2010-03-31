@@ -254,7 +254,7 @@ namespace YAF.Classes.UI
     /// </returns>
     public static string FormatMessage(string message, MessageFlags messageFlags, bool targetBlankOverride)
     {
-      return FormatMessage(message, messageFlags, targetBlankOverride, DateTime.Now);
+      return FormatMessage(message, messageFlags, targetBlankOverride, DateTime.UtcNow);
     }
 
     /// <summary>
@@ -283,7 +283,7 @@ namespace YAF.Classes.UI
       // check to see if no follow should be disabled since the message is properly aged
       if (useNoFollow && YafContext.Current.BoardSettings.DisableNoFollowLinksAfterDay > 0)
       {
-        TimeSpan messageAge = messageLastEdited - DateTime.Now;
+        TimeSpan messageAge = messageLastEdited - DateTime.UtcNow;
         if (messageAge.Days > YafContext.Current.BoardSettings.DisableNoFollowLinksAfterDay)
         {
           // disable no follow
@@ -479,7 +479,7 @@ namespace YAF.Classes.UI
         smiliesTable = DB.smiley_list(YafContext.Current.PageBoardID, null);
 
         // cache it for 60 minutes...
-        YafContext.Current.Cache.Insert(cacheKey, smiliesTable, null, DateTime.Now.AddMinutes(60), TimeSpan.Zero);
+        YafContext.Current.Cache.Insert(cacheKey, smiliesTable, null, DateTime.UtcNow.AddMinutes(60), TimeSpan.Zero);
       }
 
       return smiliesTable;

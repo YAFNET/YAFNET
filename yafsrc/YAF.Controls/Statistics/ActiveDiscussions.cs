@@ -105,7 +105,7 @@ namespace YAF.Controls.Statistics
         }
 
         // and cache it
-        PageContext.Cache.Insert(cacheKey, dt, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
+        PageContext.Cache.Insert(cacheKey, dt, null, DateTime.UtcNow.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
       }
 
       // render head of control

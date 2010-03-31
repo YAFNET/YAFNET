@@ -99,7 +99,7 @@ namespace YAF.Utilities
       var post = new Post();
       post.title = subject;
       post.description = message;
-      post.dateCreated = DateTime.Now;
+      post.dateCreated = DateTime.UtcNow;
       return newPost(blogid, username, password, post, true);
     }
 

@@ -98,7 +98,7 @@ namespace YAF.Pages.Admin
           return;
         }
 
-        string hashinput = DateTime.Now + newEmail + Security.CreatePassword(20);
+        string hashinput = DateTime.UtcNow + newEmail + Security.CreatePassword(20);
         string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
         MembershipCreateStatus status;
@@ -146,6 +146,7 @@ namespace YAF.Pages.Admin
           null, 
           null, 
           null, 
+          null,
           null,
           null);
 

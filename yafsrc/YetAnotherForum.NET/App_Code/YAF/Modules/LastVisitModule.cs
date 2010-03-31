@@ -53,7 +53,7 @@ namespace YAF.Modules
       }
       else if (Mession.LastVisit == DateTime.MinValue)
       {
-        Mession.LastVisit = DateTime.Now;
+        Mession.LastVisit = DateTime.UtcNow;
       }
     }
   }
