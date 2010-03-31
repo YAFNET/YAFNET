@@ -87,11 +87,7 @@ namespace YAF.Pages
       switch (feedType)
       {
         case YafRssFeeds.LatestPosts:
-         /* if (!this.PageContext.ForumReadAccess)
-          {
-            YafBuildLink.AccessDenied();
-          } */
-          if (!this.PageContext.BoardSettings.ShowActiveDiscussions)
+        if (!this.PageContext.BoardSettings.ShowActiveDiscussions)
           {
               YafBuildLink.AccessDenied();
           }
@@ -102,9 +98,9 @@ namespace YAF.Pages
             {
               syndicationItems.AddSyndicationItem(
                 row["Topic"].ToString(),
-                "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
-                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]), 
-                String.Format("TopicID{0}", this.Request.QueryString["t"]), 
+                "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>",
+                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])),
+                String.Format("TopicID{0}", Convert.ToInt32(row["TopicID"])), 
                 Convert.ToDateTime(row["LastPosted"]));               
             }
 
@@ -171,7 +167,7 @@ namespace YAF.Pages
                 row["Description"].ToString(), 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]), 
                 String.Format("ForumID{0}", row["ForumID"]), 
-                DateTime.Now);
+                DateTime.UtcNow);
             }
 
             feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("DEFAULT", "FORUM"));
@@ -206,7 +202,7 @@ namespace YAF.Pages
 
           break;
         case YafRssFeeds.Active:
-        DateTime toActDate = DateTime.Now;
+        DateTime toActDate = DateTime.UtcNow;
         string toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
 
         if (this.Request.QueryString["txt"] != null)
@@ -218,15 +214,15 @@ namespace YAF.Pages
         {
             if (!DateTime.TryParse(Server.HtmlDecode(this.Request.QueryString["d"].ToString()), out toActDate))
             {
-                toActDate = DateTime.Now + TimeSpan.FromDays(-31);
+                toActDate = DateTime.UtcNow + TimeSpan.FromDays(-31);
                 toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
             }
             else
             {
                 // To limit number of feeds itwms by timespan if we are getting an unreasonable time
-                if (toActDate < DateTime.Now + TimeSpan.FromDays(-31))
+                if (toActDate < DateTime.UtcNow + TimeSpan.FromDays(-31))
                 {
-                    toActDate = DateTime.Now + TimeSpan.FromDays(-31);
+                    toActDate = DateTime.UtcNow + TimeSpan.FromDays(-31);
                     toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
                 }
             }
@@ -247,7 +243,7 @@ namespace YAF.Pages
                       "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
                       YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
                       String.Format("TopicID{0}", row["LinkTopicID"].ToString()),
-                      DateTime.Now);
+                      DateTime.UtcNow);
                 }
 
                 feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "ACTIVETOPICS") + " - " + toActText);
@@ -255,7 +251,7 @@ namespace YAF.Pages
 
             break;
           case YafRssFeeds.Favorite:
-          DateTime toFavDate = DateTime.Now;
+          DateTime toFavDate = DateTime.UtcNow;
           string toFavText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
 
           if (this.Request.QueryString["txt"] != null)
@@ -292,7 +288,7 @@ namespace YAF.Pages
                     "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
                     YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
                     String.Format("TopicID{0}", row["LinkTopicID"].ToString()),
-                    DateTime.Now);
+                    DateTime.UtcNow);
               }
 
               feed = new YafSyndicationFeed(this.PageContext.Localization.GetText("MYTOPICS", "FAVORITETOPICS") + " - " + toFavText);
