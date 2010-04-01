@@ -27,6 +27,11 @@ namespace YAF.Classes.Core
   public class YafDateTime
   {
     /// <summary>
+    /// Time zone suffix for Guests
+    /// </summary>
+    private string timeZoneName = "(UTC)"; 
+
+    /// <summary>
     /// Gets the time zone offset 
     /// for the current user.
     /// </summary>
@@ -77,7 +82,7 @@ namespace YAF.Classes.Core
       {
       }
 
-      return strDateFormat;
+      return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
     }
 
     /// <summary>
@@ -144,7 +149,7 @@ namespace YAF.Classes.Core
           strDateFormat = String.Format("{0:f}", dt);
         }
 
-        return strDateFormat;
+        return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
       }
       catch (Exception)
       {
@@ -163,6 +168,8 @@ namespace YAF.Classes.Core
     /// </returns>
     public string FormatDateTimeShort(object objectDateTime)
     {
+        string strDateFormat;
+ 
       if (objectDateTime == null)
       {
         throw new ArgumentNullException("objectDateTime", "objectDateTime is null.");
@@ -174,17 +181,20 @@ namespace YAF.Classes.Core
       {
         if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
         {
-          return YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_TIME_SHORT"), dt);
+         strDateFormat = YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_TIME_SHORT"), dt);
         }
         else
         {
-          return String.Format("{0:f}", dt);
+         strDateFormat = String.Format("{0:f}", dt);
         }
       }
       catch (Exception)
       {
-        return dt.ToString("f");
+          strDateFormat = dt.ToString("f");
       }
+
+      return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
+
     }
 
     /// <summary>
@@ -198,23 +208,27 @@ namespace YAF.Classes.Core
     /// </returns>
     public string FormatDateLong(DateTime dt)
     {
-      dt += this.TimeOffset;
+        string strDateFormat;
+
+        dt += this.TimeOffset;     
 
       try
       {
         if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
         {
-          return YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_LONG"), dt);
+          strDateFormat = YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_LONG"), dt);
         }
         else
         {
-          return String.Format("{0:D}", dt);
+          strDateFormat = String.Format("{0:D}", dt);
         }
       }
       catch (Exception)
       {
-        return dt.ToString("D");
+          strDateFormat = dt.ToString("D");
       }
+
+      return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
     }
 
     /// <summary>
@@ -228,23 +242,27 @@ namespace YAF.Classes.Core
     /// </returns>
     public string FormatDateShort(object objectDateTime)
     {
+      string strDateFormat;
+
       DateTime dt = (DateTime)objectDateTime + this.TimeOffset;
 
       try
       {
         if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
         {
-          return YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_SHORT"), dt);
+          strDateFormat = YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_SHORT"), dt);
         }
         else
         {
-          return String.Format("{0:d}", dt);
+          strDateFormat = String.Format("{0:d}", dt);
         }
       }
       catch (Exception)
       {
-        return dt.ToString("d");
+          strDateFormat = dt.ToString("d");
       }
+
+      return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
     }
 
     /// <summary>
@@ -258,23 +276,27 @@ namespace YAF.Classes.Core
     /// </returns>
     public string FormatTime(DateTime dt)
     {
+      string strDateFormat;
+
       dt += this.TimeOffset;
 
       try
       {
         if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
         {
-          return YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_TIME"), dt);
+          strDateFormat = YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_TIME"), dt);
         }
         else
         {
-          return String.Format("{0:T}", dt);
+          strDateFormat = String.Format("{0:T}", dt);
         }
       }
       catch (Exception)
       {
-        return dt.ToString("T");
+        strDateFormat = dt.ToString("T");
       }
+
+      return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
     }
   }
 }
