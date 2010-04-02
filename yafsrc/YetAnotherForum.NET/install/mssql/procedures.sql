@@ -1549,7 +1549,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}bannedip_save](@ID int=null,@BoardID int,@Mask nvarchar(15), @Reason nvarchar(128), @UserID int) as
+create procedure [{databaseOwner}].[{objectQualifier}bannedip_save](@ID int=null,@BoardID int,@Mask varchar(57), @Reason nvarchar(128), @UserID int) as
 begin
 		if @ID is null or @ID = 0 begin
 		insert into [{databaseOwner}].[{objectQualifier}BannedIP](BoardID,Mask,Since,Reason,UserID) values(@BoardID,@Mask,GETUTCDATE() ,@Reason,@UserID)
@@ -1951,7 +1951,7 @@ begin
 end
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}choice_vote](@ChoiceID int,@UserID int = NULL, @RemoteIP nvarchar(10) = NULL) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}choice_vote](@ChoiceID int,@UserID int = NULL, @RemoteIP varchar(39) = NULL) AS
 BEGIN
 		DECLARE @PollID int
 
@@ -3128,7 +3128,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_save](
 	@UserID			int,
 	@Message		ntext,	
 	@UserName		nvarchar(50)=null,
-	@IP				nvarchar(15),
+	@IP				varchar(39),
 	@Posted			datetime=null,
 	@ReplyTo		int,
 	@BlogPostID		nvarchar(50) = null,
@@ -3432,7 +3432,7 @@ create procedure [{databaseOwner}].[{objectQualifier}nntptopic_savemessage](
 	@Body 			ntext,
 	@UserID 		int,
 	@UserName		nvarchar(50),
-	@IP				nvarchar(15),
+	@IP				varchar(39),
 	@Posted			datetime,
 	@Thread			char(32)
 ) as 
@@ -3491,7 +3491,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@SessionID	nvarchar(24),
 	@BoardID	int,
 	@UserKey	nvarchar(64),
-	@IP			nvarchar(15),
+	@IP			varchar(39),
 	@Location	nvarchar(128),
 	@ForumPage nvarchar(128) = null,
 	@Browser	nvarchar(50),
@@ -3843,7 +3843,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollvote_check](@PollID int, @UserID int = NULL,@RemoteIP nvarchar(10) = NULL) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollvote_check](@PollID int, @UserID int = NULL,@RemoteIP varchar(39) = NULL) AS
 		IF @UserID IS NULL
 	BEGIN
 		IF @RemoteIP IS NOT NULL
@@ -4725,7 +4725,7 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 	@Message	ntext,
 	@Priority	smallint,
 	@UserName	nvarchar(50)=null,
-	@IP			nvarchar(15),
+	@IP			varchar(39),
 	@PollID		int=null,
 	@Posted		datetime=null,
 	@BlogPostID	nvarchar(50),
@@ -5422,8 +5422,8 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_nntp](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50)) as
-begin
+create procedure [{databaseOwner}].[{objectQualifier}user_nntp](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@TimeZone int) as
+begin	
 	
 	declare @UserID int
 
@@ -5439,7 +5439,7 @@ begin
 
 	if @@ROWCOUNT<1
 	begin
-		exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,0,null,null,null,null, 1, null, null, null, 0
+		exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,@TimeZone,null,null,null,null, 1, null, null, null, 0
 		-- The next one is not safe, but this procedure is only used for testing
 		select @UserID=max(UserID) from [{databaseOwner}].[{objectQualifier}User]
 	end
@@ -6936,7 +6936,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage](
 	@UserID			int,
 	@Message		ntext,
 	@Date			datetime=null,
-	@IP				varchar(15)
+	@IP				varchar(39)
 )
 AS
 BEGIN

@@ -32,6 +32,11 @@ namespace YAF.Classes.Core.Nntp
     private DateTime _date;
 
     /// <summary>
+    /// The _timeZoneOffset to hold an article timezone offset to UTC in minutes.
+    /// </summary>
+    private int _timeZoneOffset;
+
+    /// <summary>
     /// The _from.
     /// </summary>
     private string _from;
@@ -76,6 +81,22 @@ namespace YAF.Classes.Core.Nntp
         this._referenceIds = value;
       }
     }
+
+    /// <summary>
+    /// Gets or sets an Article Time Zone offset to UTC.
+    /// </summary>
+    public int TimeZoneOffset
+    {
+      get
+      {
+        return this._timeZoneOffset;
+      }
+
+      set
+      {
+        this._timeZoneOffset = value;
+      }
+    }     
 
     /// <summary>
     /// Gets or sets Subject.

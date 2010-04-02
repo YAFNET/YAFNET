@@ -139,7 +139,7 @@ namespace YAF.Classes.Core.Nntp
 
                 if (createUsers)
                 {
-                  guestUserId = DB.user_nntp(boardID, fromName, string.Empty);
+                  guestUserId = DB.user_nntp(boardID, fromName, string.Empty, 0);
                 }
 
                 body = HttpContext.Current.Server.HtmlEncode(body);

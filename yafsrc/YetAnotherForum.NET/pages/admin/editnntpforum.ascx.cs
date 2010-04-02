@@ -108,7 +108,11 @@ namespace YAF.Pages.Admin
       {
         nntpForumID = Request.QueryString["s"];
       }
-
+      if (Convert.ToInt32(this.ForumID.SelectedValue) <= 0)
+      {
+          PageContext.AddLoadMessage("You must select a forum to save NNTP messages.");
+          return;
+      }
       DB.nntpforum_save(nntpForumID, this.NntpServerID.SelectedValue, this.GroupName.Text, this.ForumID.SelectedValue, this.Active.Checked);
       YafBuildLink.Redirect(ForumPages.admin_nntpforums);
     }

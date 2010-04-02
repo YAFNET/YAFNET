@@ -310,48 +310,9 @@ namespace YAF.Classes.Core.Nntp
             break;
           case "DATE":
             // vzrus: 31.03.10 dateTime and tz conversion
-            value = value.Substring(value.IndexOf(',')+1);
-            if (value.IndexOf("(") > 0)
-            {
-                value = value.Substring(0,value.IndexOf('(')-1).Trim();
-            }
-            int ipos = value.IndexOf('+');
-            int ineg = value.IndexOf('-');
-            string tz = string.Empty; 
-                if (ipos > 0)
-                {
-                    tz = value.Substring(ipos + 1).Trim();
-                    value = value.Substring(0, ipos-1).Trim();
-                }
-                if (ineg > 0)
-                {
-                    tz = value.Substring(ineg + 1).Trim();
-                    value = value.Substring(0, ineg - 1).Trim();
-                }    
-          
-            DateTime dtc;
-            if (DateTime.TryParse(value, out dtc))
-            {            
-
-                if (ipos > 0)
-                {
-                    header.Date = dtc + (TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) + TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2))));
-                }
-                else if (ineg > 0)
-                {
-                    header.Date = dtc - (TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) + TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2))));
-                }
-                else
-                {
-                    header.Date = dtc;
-                }
-               // eof vzrus
-            }
-            else
-            {
-               
-                YAF.Classes.Data.DB.eventlog_create(this, "NNTP Feature", String.Format("Unhandled NNTP DateTime value '{0}'", value));
-            }
+            int offTz;
+            header.Date = NNTPDateDecoder.DecodeUTC(value, out offTz);
+            header.TimeZoneOffset = offTz;
             break;
           case "FROM":
             header.From += NntpUtil.Base64HeaderDecode(value);
@@ -385,7 +346,6 @@ namespace YAF.Classes.Core.Nntp
                 part.Boundary = m.Groups[1].ToString();
                 part.EmbeddedPartList = new ArrayList();
               }
-
               m = Regex.Match(response, @"CHARSET=""?([^""\s;]+)", RegexOptions.IgnoreCase);
               if (m.Success)
               {

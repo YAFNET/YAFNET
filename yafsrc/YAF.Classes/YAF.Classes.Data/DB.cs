@@ -8086,7 +8086,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The user_nntp.
     /// </returns>
-    public static int user_nntp(object boardID, object userName, object email)
+    public static int user_nntp(object boardID, object userName, object email, int? timeZone)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_nntp"))
       {
@@ -8094,6 +8094,8 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("UserName", userName);
         cmd.Parameters.AddWithValue("Email", email);
+        cmd.Parameters.AddWithValue("TimeZone", timeZone);
+          
         return (int) YafDBAccess.Current.ExecuteScalar(cmd);
       }
     }

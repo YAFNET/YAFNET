@@ -124,7 +124,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		[PollVoteID] [int] IDENTITY (1, 1) NOT NULL ,
 		[PollID] [int] NOT NULL ,
 		[UserID] [int] NULL ,
-		[RemoteIP] [nvarchar] (10) NULL 
+		[RemoteIP] [varchar] (57) NULL 
 	)
 GO
 
@@ -633,6 +633,10 @@ if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{o
  	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [ForumPage] nvarchar(128) 
 GO
 
+if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='IP' and prec < 39)
+ 	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [IP] varchar(39) not null 
+GO
+
 -- Board Table
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin
@@ -822,6 +826,10 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add Culture CHAR(5) NULL
 end
 GO
+
+if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and name=N'IP' and prec < 39)
+	alter table [{databaseOwner}].[{objectQualifier}User] alter column [IP] varchar(39) null
+go
 
 -- Only remove User table columns if version is 30+
 IF EXISTS (SELECT ver FROM (SELECT CAST(CAST(value as nvarchar(255)) as int) as ver FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE name = 'version') reg WHERE ver > 30)
@@ -1241,6 +1249,12 @@ end
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='EditedBy')
 	alter table [{databaseOwner}].[{objectQualifier}Message] add EditedBy   int  NULL
 GO
+
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IP' and prec < 39)
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Message] alter column [IP] varchar(39) not null
+end
+GO
 		
 -- Topic Table
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsLocked')
@@ -1420,6 +1434,27 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}BannedIP]') AND name = N'Mask' AND prec < 56)
+BEGIN
+    ALTER TABLE [{databaseOwner}].[{objectQualifier}BannedIP] alter column [Mask] varchar(57) not  null 
+END
+GO
 
+-- PollVote Table
 
-		
+if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollVote]') and name=N'RemoteIP' and prec<39)
+    -- vzrus: should drop the index to change the field
+    if exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}PollVote]') and name='IX_{objectQualifier}PollVote_RemoteIP')
+    begin
+    begin
+    drop index [{databaseOwner}].[{objectQualifier}PollVote].[IX_{objectQualifier}PollVote_RemoteIP]
+    end
+	alter table [{databaseOwner}].[{objectQualifier}PollVote] alter column [RemoteIP] varchar(39) null
+	end
+GO	
+
+-- MessageHistory Table
+
+if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and name=N'IP' and prec<39)
+	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] alter column [IP] varchar(39) not null
+GO
