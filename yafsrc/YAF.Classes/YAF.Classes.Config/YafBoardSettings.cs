@@ -1162,6 +1162,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether AllowUserHideHimself.
+    /// </summary>
+    public bool AllowUserHideHimself
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("AllowUserHideHimself", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("AllowUserHideHimself", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether AllowUserLanguage.
     /// </summary>
     public bool AllowUserLanguage

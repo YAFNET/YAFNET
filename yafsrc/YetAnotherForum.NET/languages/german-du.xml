@@ -289,6 +289,7 @@
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} E-Mail Verifizierung</Resource>
     <Resource tag="FONT_COLOR">Schriftfarbe:</Resource>
     <Resource tag="FONT_SIZE">Schriftgröße:</Resource>
+    <Resource tag="FOR">For</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -401,9 +402,11 @@
     <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Änderung der E-Mail-Adresse</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
+    <Resource tag="DST">Daylight Saving Time</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Du musst immer eine gültige E-Mail-Adresse angeben.</Resource>
     <Resource tag="FORUM_SETTINGS">Einstellungen des Forums</Resource>
+    <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Webseite</Resource>
     <Resource tag="HOMEPAGE2">Deine Webseite:</Resource>
     <Resource tag="LOCATION">Wohnort</Resource>

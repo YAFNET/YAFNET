@@ -272,6 +272,7 @@
     <Resource tag="EMAILVERIFICATION_SUBJECT">Проверка Email {0}  </Resource>
     <Resource tag="FONT_COLOR">Цвет шрифта:</Resource>
     <Resource tag="FONT_SIZE">Размер шрифта:</Resource>
+    <Resource tag="FOR">For</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -384,9 +385,11 @@
     <Resource tag="BIRTHDAY">Дата рождения</Resource>
     <Resource tag="CHANGE_EMAIL">Изменить адрес электронной почты</Resource>
     <Resource tag="DISPLAYNAME">Выберите отображаемый ник</Resource>
+    <Resource tag="DST">Летнее время</Resource>
     <Resource tag="EDIT_ALBUMS">Альбомы</Resource>
     <Resource tag="EMAIL">Ваш адрес электронной почты должен быть всегда действительным.</Resource>
     <Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
+    <Resource tag="HIDEME">Не отображать в активных</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
     <Resource tag="HOMEPAGE2">Ваш веб-сайт (публичный):</Resource>
     <Resource tag="LOCATION">Место</Resource>

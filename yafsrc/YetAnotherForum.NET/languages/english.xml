@@ -321,8 +321,10 @@
     <Resource tag="BAD_WEBLOG">You have entered a invalid address for your weblog.</Resource>
 	<Resource tag="BIRTHDAY">Birthday</Resource>
 	<Resource tag="CHANGE_EMAIL">Change Email Address</Resource>
+	<Resource tag="DST">Daylight Saving Time</Resource>
     <Resource tag="EMAIL">You must always have a valid email address.</Resource>
     <Resource tag="FORUM_SETTINGS">Forum Settings</Resource>
+	<Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Home Page</Resource>
     <Resource tag="HOMEPAGE2">Your Web Site (public):</Resource>
     <Resource tag="LOCATION">Location</Resource>

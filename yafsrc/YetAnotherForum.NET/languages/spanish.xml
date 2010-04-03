@@ -289,6 +289,7 @@
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Verificacion de Email</Resource>
     <Resource tag="FONT_COLOR">Color de fuente:</Resource>
     <Resource tag="FONT_SIZE">Tamaño de fuente:</Resource>
+    <Resource tag="FOR">For</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -403,9 +404,11 @@
     <Resource tag="CHANGE_PASSWORD">Cambiar contraseña</Resource>
     <Resource tag="CONFIRMPASSWORD">Confirmar contraseña nueva:</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
+    <Resource tag="DST">Daylight Saving Time</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Siempre debes tener un correo electrónico válido.</Resource>
     <Resource tag="FORUM_SETTINGS">Configuración del foro</Resource>
+    <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Página web</Resource>
     <Resource tag="HOMEPAGE2">Tu página web:</Resource>
     <Resource tag="LOCATION">Ubicación</Resource>

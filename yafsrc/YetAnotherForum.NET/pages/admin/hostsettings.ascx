@@ -303,7 +303,16 @@
 						<td class="post">
 							<asp:CheckBox ID="AllowGenderInUserBox" runat="server"></asp:CheckBox>
 						</td>
-					</tr>							
+					</tr>
+								<tr>
+						<td class="postheader">
+							<b>Allow User To Hide Himself:</b><br />
+							If checked, the user who checked it will not be visible in the active users list.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="AllowUserHideHimself" runat="server"></asp:CheckBox>
+						</td>
+					</tr>												
 					<tr>
 						<td class="postheader">
 							<b>Allow Display Name Modification:</b><br />

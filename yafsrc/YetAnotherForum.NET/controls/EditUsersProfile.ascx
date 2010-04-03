@@ -33,7 +33,16 @@
         <td class="post">
             <asp:TextBox ID="Realname" runat="server" CssClass="edit" />
         </td>
-    </tr>
+     </tr>
+     <tr id="HideTr" visible="<%# this.PageContext.BoardSettings.AllowUserHideHimself %>" runat="server">
+        <td class="postheader">
+            <YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" LocalizedPage="CP_EDITPROFILE"
+                LocalizedTag="HIDEME" />
+        </td>
+        <td class="post">
+            <asp:CheckBox ID="HideMe" runat="server" Checked="false" CssClass="edit" />
+        </td>
+    </tr>    
     <tr>
         <td colspan="2" class="header2">
             <b>
@@ -236,7 +245,8 @@
     </tr>
     <tr>
 		<td class="postheader">
-			Enable DST:
+			<YAF:LocalizedLabel ID="DSTLocalizedLabel" runat="server" LocalizedPage="CP_EDITPROFILE"
+                    LocalizedTag="DST" />
 		</td>
 		<td class="post">
 			<asp:CheckBox runat="server" ID="DSTUser" />

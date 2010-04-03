@@ -351,6 +351,7 @@ namespace YAF.Pages
           null, 
           null, 
           null,
+          null,
           null);
       }
     }

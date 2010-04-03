@@ -5439,7 +5439,7 @@ begin
 
 	if @@ROWCOUNT<1
 	begin
-		exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,@TimeZone,null,null,null,null, 1, null, null, null, 0
+		exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,@TimeZone,null,null,null,null, 1, null, null, null, 0, 0
 		-- The next one is not safe, but this procedure is only used for testing
 		select @UserID=max(UserID) from [{databaseOwner}].[{objectQualifier}User]
 	end
@@ -5501,7 +5501,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@PMNotification		bit = null,
 	@AutoWatchTopics    bit = null,
 	@ProviderUserKey	nvarchar(64) = null,
-	@DSTUser            bit = null)
+	@DSTUser            bit = null,
+	@HideUser           bit = null)
 AS
 begin
 	
@@ -5509,6 +5510,7 @@ begin
 	declare @Flags int	 		
 		
 	if @DSTUser is null SET @DSTUser = 0
+	if @HideUser is null SET @HideUser = 0
 	if @PMNotification is null SET @PMNotification = 1
 	if @AutoWatchTopics is null SET @AutoWatchTopics = 0
 	if @OverrideDefaultTheme is null SET @OverrideDefaultTheme=0
@@ -5528,6 +5530,18 @@ begin
 		insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) select @UserID,GroupID from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID and (Flags & 4)<>0
 	end
 	else begin
+	    set @Flags = (SELECT Flags FROM [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID)	
+		
+		IF ((@DSTUser<>0) AND (@Flags & 32) <> 32)		
+		SET @Flags = @Flags | 32
+		ELSE IF ((@DSTUser=0) AND (@Flags & 32) = 32)
+		SET @Flags = @Flags ^ 32
+			
+		IF ((@HideUser<>0) AND ((@Flags & 16) <> 16)) 
+		SET @Flags = @Flags | 16 
+		ELSE IF ((@HideUser=0) AND ((@Flags & 16) = 16)) 
+		SET @Flags = @Flags ^ 16
+			
 		update [{databaseOwner}].[{objectQualifier}User] set
 			TimeZone = @TimeZone,
 			LanguageFile = @LanguageFile,
@@ -5536,7 +5550,8 @@ begin
 			OverrideDefaultThemes = @OverrideDefaultTheme,
 			PMNotification = @PMNotification,
 			AutoWatchTopics = @AutoWatchTopics,
-			Flags = (CASE WHEN ((@DSTUser<>0) AND ((Flags & 32) <> 32)) THEN  (Flags | 32) WHEN ((@DSTUser=0) AND ((Flags & 32) = 32)) THEN (Flags ^ 32)  ELSE Flags END),
+			Flags = (CASE WHEN @Flags<>Flags 
+			THEN  @Flags ELSE Flags END),
 			DisplayName = (CASE WHEN (@DisplayName is not null) THEN  @DisplayName ELSE DisplayName END),
 			Email = (CASE WHEN (@Email is not null) THEN  @Email ELSE Email END) 
 		where UserID = @UserID		

@@ -7451,7 +7451,8 @@ namespace YAF.Classes.Data
       object approved, 
       object pmNotification,
       object autoWatchTopics,
-      object dSTUser )
+      object dSTUser,
+      object hideUser)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_save"))
       {
@@ -7470,6 +7471,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("PMNotification", pmNotification);
         cmd.Parameters.AddWithValue("AutoWatchTopics", autoWatchTopics);
         cmd.Parameters.AddWithValue("DSTUser", dSTUser);
+        cmd.Parameters.AddWithValue("HideUser", hideUser);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }

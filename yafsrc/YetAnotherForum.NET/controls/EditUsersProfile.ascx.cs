@@ -340,7 +340,8 @@ namespace YAF.Controls
         null, 
         this.PMNotificationEnabled.Checked, 
         this.AutoWatchTopicsEnabled.Checked,
-        this.DSTUser.Checked);
+        this.DSTUser.Checked,
+        this.HideMe.Checked);
 
       // clear the cache for this user...
       UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
@@ -432,6 +433,7 @@ namespace YAF.Controls
       }
 
       this.DSTUser.Checked = this.UserData.DSTUser;
+      this.HideMe.Checked = (this.UserData.IsActiveExcluded && this.PageContext.BoardSettings.AllowUserHideHimself);
       this.OverrideForumThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
 
       if (this.PageContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)

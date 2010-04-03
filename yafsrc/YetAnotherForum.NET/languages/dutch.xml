@@ -301,6 +301,7 @@
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
     <Resource tag="FONT_COLOR">Font Color:</Resource>
     <Resource tag="FONT_SIZE">Font Size:</Resource>
+    <Resource tag="FOR">For</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -417,9 +418,11 @@
     <Resource tag="CHANGE_PASSWORD">Wachtwoord wijzigen</Resource>
     <Resource tag="CONFIRMPASSWORD">Wachtwoord opnieuw invoeren:</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
+    <Resource tag="DST">Daylight Saving Time</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Je dient altijd over een geldig e-mail adres te beschikken:</Resource>
     <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
+    <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Homepage</Resource>
     <Resource tag="HOMEPAGE2">Jouw internet homepage:</Resource>
     <Resource tag="LOCATION">Locatie</Resource>

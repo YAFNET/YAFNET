@@ -289,6 +289,7 @@
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} تصدیق پست الکترونیک</Resource>
     <Resource tag="FONT_COLOR">رنگ فونت</Resource>
     <Resource tag="FONT_SIZE">اندازه فونت</Resource>
+    <Resource tag="FOR">For</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -401,9 +402,11 @@
     <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">تغییر آدرس پست الکترونیکی</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
+    <Resource tag="DST">Daylight Saving Time</Resource>
     <Resource tag="EDIT_ALBUMS">ویرایش آلبومها</Resource>
     <Resource tag="EMAIL">شما باید یک آدرس ایمیل معتبر داشته باشید.</Resource>
     <Resource tag="FORUM_SETTINGS">تنظیمات انجمن</Resource>
+    <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">صفحه اینترنتی خانگی</Resource>
     <Resource tag="HOMEPAGE2">صفحه اینترنتی خانگی شما:</Resource>
     <Resource tag="LOCATION">مکان</Resource>

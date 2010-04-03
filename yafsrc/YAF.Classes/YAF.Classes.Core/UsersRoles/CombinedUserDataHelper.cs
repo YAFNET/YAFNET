@@ -208,7 +208,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets a value indicating whether IsGuest.
+    /// Gets a value indicating whether  DST is Enabled.
     /// </summary>
     public bool DSTUser
     {
@@ -217,6 +217,24 @@ namespace YAF.Classes.Core
             if (this.DBRow != null)
             {
                 if (new UserFlags(this.DBRow["Flags"]).IsDST)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+    /// <summary>
+    /// Gets a value indicating whether IsActiveExcluded.
+    /// </summary>
+    public bool IsActiveExcluded
+    {
+        get
+        {
+            if (this.DBRow != null)
+            {
+                if (new UserFlags(this.DBRow["Flags"]).IsActiveExcluded)
                 {
                     return true;
                 }

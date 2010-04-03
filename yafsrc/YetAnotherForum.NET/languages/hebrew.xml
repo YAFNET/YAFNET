@@ -289,6 +289,7 @@
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} אימות כתובת דוא"ל</Resource>
     <Resource tag="FONT_COLOR">צבע גופן:</Resource>
     <Resource tag="FONT_SIZE">גודל גופן:</Resource>
+    <Resource tag="FOR">For</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -401,9 +402,11 @@
     <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">החלף/ת כתובת דוא"ל</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
+    <Resource tag="DST">Daylight Saving Time</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">כתובת דוא"ל תקינה הינה חובה.</Resource>
     <Resource tag="FORUM_SETTINGS">הגדרות פורום</Resource>
+    <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">דף הבית</Resource>
     <Resource tag="HOMEPAGE2">דף הבית שלך:</Resource>
     <Resource tag="LOCATION">מיקום</Resource>

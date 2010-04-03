@@ -290,6 +290,7 @@
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
     <Resource tag="FONT_COLOR">Font Color:</Resource>
     <Resource tag="FONT_SIZE">Font Size:</Resource>
+    <Resource tag="FOR">For</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -409,9 +410,11 @@
     <Resource tag="CONFIRMPASSWORD">Re-scrieti noua parola:</Resource>
     <Resource tag="DELETE_AVATAR">Sterge imagine</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
+    <Resource tag="DST">Daylight Saving Time</Resource>
     <Resource tag="EDIT_ALBUMS">Edit Albums</Resource>
     <Resource tag="EMAIL">Trebuie sa ai o adresa valida de email.</Resource>
     <Resource tag="FORUM_SETTINGS">Setari forum</Resource>
+    <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Pagina</Resource>
     <Resource tag="HOMEPAGE2">Pagian ta personala:</Resource>
     <Resource tag="LOCATION">Locatie</Resource>

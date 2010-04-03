@@ -268,6 +268,7 @@
     <Resource tag="EMAILVERIFICATION_SUBJECT">Vérification email {0}</Resource>
     <Resource tag="FONT_COLOR">Couleur de police :</Resource>
     <Resource tag="FONT_SIZE">Taille de police :</Resource>
+    <Resource tag="FOR">For</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -380,9 +381,11 @@
     <Resource tag="BIRTHDAY">Birthday</Resource>
     <Resource tag="CHANGE_EMAIL">Changer votre adresse courriel</Resource>
     <Resource tag="DISPLAYNAME">What name do you want displayed to others?</Resource>
+    <Resource tag="DST">Daylight Saving Time</Resource>
     <Resource tag="EDIT_ALBUMS">Modifier albums</Resource>
     <Resource tag="EMAIL">Vous devez toujours avoir une adresse courriel valide.</Resource>
     <Resource tag="FORUM_SETTINGS">Propriétés du forum</Resource>
+    <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Sites Web</Resource>
     <Resource tag="HOMEPAGE2">Votre page d'accueil&amp;nbsp;:</Resource>
     <Resource tag="LOCATION">Informations</Resource>

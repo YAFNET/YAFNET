@@ -94,7 +94,6 @@
     <Compile Include="Nntp\ArticleBody.cs" />
     <Compile Include="Nntp\ArticleHeader.cs" />
     <Compile Include="Nntp\Attachment.cs" />
-    <Compile Include="Nntp\DateTimeDecoder.cs" />
     <Compile Include="Nntp\MIMEPart.cs" />
     <Compile Include="Nntp\Newsgroup.cs" />
     <Compile Include="Nntp\NntpConnection.cs" />
