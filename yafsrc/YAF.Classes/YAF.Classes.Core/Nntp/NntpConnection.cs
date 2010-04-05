@@ -311,7 +311,7 @@ namespace YAF.Classes.Core.Nntp
           case "DATE":
             // vzrus: 31.03.10 dateTime and tz conversion
             int offTz;
-            header.Date = NNTPDateDecoder.DecodeUTC(value, out offTz);
+            header.Date = NntpUtil.DecodeUTC(value, out offTz);
             header.TimeZoneOffset = offTz;
             break;
           case "FROM":

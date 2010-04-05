@@ -543,7 +543,7 @@ namespace YAF.Controls
 
       if (this.PageContext.BoardSettings.EnableDNACalendar && this.datePicker.Value > DateTime.MinValue.Date)
       {
-        userProfile.Birthday = this.datePicker.Value;
+        userProfile.Birthday = this.datePicker.Value.ToUniversalTime();
       }
 
       userProfile.BlogServiceUrl = this.WeblogUrl.Text.Trim();
