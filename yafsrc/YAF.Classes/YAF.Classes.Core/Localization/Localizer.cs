@@ -112,30 +112,30 @@ namespace YAF.Classes.Core
         {
           this._code = this._doc.DocumentElement.Attributes["code"] != null ? this._doc.DocumentElement.Attributes["code"].Value : "en-US";
 
-          //  vzrus: If the class is not already initialized it'll through an error. Only when a fresh intall happens. 
-          try
-          {
-             
-          // vzrus: Culture code is missing for a user until he has saved his profile.
-         
-             
-          if (this._code.Substring(0, 2) == YafContext.Current.BoardSettings.Culture.Substring(0, 2))
-          {
-              this._code = YafContext.Current.BoardSettings.Culture;
-          }
-          string cultureUser = YafContext.Current.CultureUser;
-          if (!string.IsNullOrEmpty(cultureUser))
-          {
-              if (cultureUser.Substring(0, 2).Contains(this._code.Substring(0, 2)))
+              //  vzrus: If the class is not already initialized it'll through an error. It happens while fresh install. 
+              // language file can have an invariant culture tag
+              try
+              {             
+              // vzrus: Culture code is missing for a user until he saved his profile.
+              // First set it to board culture              
+              if (this._code.Substring(0, 2) == YafContext.Current.BoardSettings.Culture.Substring(0, 2))
               {
-                  this._code = cultureUser;
+                  this._code = YafContext.Current.BoardSettings.Culture;
               }
-          }
+                
+              string cultureUser = YafContext.Current.CultureUser;
+              if (!string.IsNullOrEmpty(cultureUser))
+              {
+                  if (cultureUser.Substring(0, 2).Contains(this._code.Substring(0, 2)))
+                  {
+                      this._code = cultureUser;
+                  }
+              }
             
-          }
-          catch (Exception)
-          {
-          }
+              }
+              catch (Exception)
+              {
+              }
 
         }
         else
@@ -212,7 +212,7 @@ namespace YAF.Classes.Core
         return;
       }
 
-      tag = tag.ToUpper(new CultureInfo("en"));
+      tag = tag.ToUpper(new CultureInfo("en-US"));
 
 #if DEBUG
       if (this._pagePointer == null)
