@@ -40,7 +40,7 @@ namespace YAF.Classes.UI
     public static ReplaceRules GetInstance(bool[] uniqueFlags)
     {
       // convert flags to integer
-      ulong rulesFlags = FlagsBase.GetIntFromBoolArray(uniqueFlags);
+      int rulesFlags = FlagsBase.GetIntFromBoolArray(uniqueFlags);
 
       // cache is board-specific since boards may have different custom BB Code...
       string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ReplaceRules, rulesFlags));

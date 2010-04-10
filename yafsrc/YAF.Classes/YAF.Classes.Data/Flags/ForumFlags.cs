@@ -119,7 +119,7 @@ namespace YAF.Classes.Data
     /// Use for bit comparisons
     /// </summary>
     [Flags]
-    public enum Flags : ulong
+    public enum Flags : int
     {
       /// <summary>
       /// The is locked.

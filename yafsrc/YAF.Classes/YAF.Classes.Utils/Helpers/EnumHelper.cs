@@ -249,11 +249,15 @@ namespace YAF.Classes.Utils
 
       public long? Signed;
 
+      public long? Int;
+
       public ulong? Unsigned;
 
       private static Type _UInt32 = typeof(long);
 
       private static Type _UInt64 = typeof(ulong);
+
+      private static Type _Int32 = typeof(int);
 
       #endregion
 
@@ -276,12 +280,15 @@ namespace YAF.Classes.Utils
         {
           this.Unsigned = Convert.ToUInt64(value);
         }
+        else if (compare.Equals(_Int32))
+        {
+          this.Int = Convert.ToInt32(value);
 
-
+        }
           // otherwise, a long should cover anything else
         else
         {
-          this.Signed = Convert.ToInt64(value);
+            this.Signed = Convert.ToInt64(value);
         }
       }
 

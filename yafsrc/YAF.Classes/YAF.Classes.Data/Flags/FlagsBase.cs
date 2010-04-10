@@ -31,7 +31,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// integer value stores up to 64 flags/bits
     /// </summary>
-    protected ulong _bitValue;
+    protected int _bitValue;
 
     #region Constructors
 
@@ -51,11 +51,11 @@ namespace YAF.Classes.Data
     /// <param name="bitValue">
     /// Initialize integer value.
     /// </param>
-    public FlagsBase(int bitValue)
-      : this((ulong)bitValue)
+    /* public FlagsBase(int bitValue)
+      : this((int)bitValue)
     {
 
-    }
+    } */
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
@@ -64,7 +64,7 @@ namespace YAF.Classes.Data
     /// <param name="bitValue">
     /// Initialize integer value.
     /// </param>
-    public FlagsBase(ulong bitValue)
+    public FlagsBase(int bitValue)
     {
       this._bitValue = bitValue;
     }
@@ -110,7 +110,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// Gets or sets integer value of flags.
     /// </summary>
-    public ulong BitValue
+    public int BitValue
     {
       get
       {
@@ -169,7 +169,7 @@ namespace YAF.Classes.Data
       var flags = obj as FlagsBase;
       if (flags != null)
       {
-        flags.BitValue = info.GetUInt64("BitValue");
+        flags.BitValue = info.GetInt32("BitValue");
       }
 
       return null;
@@ -189,7 +189,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// Returns boolean indicating whether bit at bitShift position is set or not.
     /// </returns>
-    public static bool GetBitAsBool(ulong bitValue, int bitShift)
+    public static bool GetBitAsBool(int bitValue, int bitShift)
     {
       if (bitShift > 63)
       {
@@ -219,7 +219,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// Returns new integer value with bit at position specified by bitShift parameter set to value.
     /// </returns>
-    public static ulong SetBitFromBool(ulong bitValue, int bitShift, bool value)
+    public static int SetBitFromBool(int bitValue, int bitShift, bool value)
     {
       if (bitShift > 63)
       {
@@ -229,7 +229,7 @@ namespace YAF.Classes.Data
       if (GetBitAsBool(bitValue, bitShift) != value)
       {
         // toggle that value using XOR
-        ulong tV = (ulong)0x00000001 << bitShift;
+        int tV = (int)0x00000001 << bitShift;
         bitValue ^= tV;
       }
 
@@ -245,9 +245,9 @@ namespace YAF.Classes.Data
     /// <returns>
     /// bit field of the array
     /// </returns>
-    public static ulong GetIntFromBoolArray(bool[] arrayBool)
+    public static int GetIntFromBoolArray(bool[] arrayBool)
     {
-      ulong finalValue = 0;
+      int finalValue = 0;
 
       for (int i = 0; i < arrayBool.Length; i++)
       {

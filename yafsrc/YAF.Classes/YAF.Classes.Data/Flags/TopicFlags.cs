@@ -44,7 +44,7 @@ namespace YAF.Classes.Data
     /// The flags.
     /// </param>
     public TopicFlags(Flags flags)
-      : this((ulong) flags)
+      : this((int) flags)
     {
     }
 
@@ -55,7 +55,7 @@ namespace YAF.Classes.Data
     /// The bit value.
     /// </param>
     public TopicFlags(object bitValue)
-      : base((ulong) bitValue)
+      : base((int) bitValue)
     {
     }
 
@@ -89,7 +89,7 @@ namespace YAF.Classes.Data
     /// Use for bit comparisons
     /// </summary>
     [Flags]
-    public enum Flags : ulong
+    public enum Flags : int
     {
       None = 0,
 
