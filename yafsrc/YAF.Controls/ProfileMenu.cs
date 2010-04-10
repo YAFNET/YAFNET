@@ -59,7 +59,7 @@ namespace YAF.Controls
           html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editbuddies), PageContext.Localization.GetText("EDIT_BUDDIES"));
       }
 
-      if (PageContext.BoardSettings.EnableAlbum)
+      if (ShowAlbumsLink())
       {
           html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.albums, "u={0}", PageContext.PageUserID), PageContext.Localization.GetText("EDIT_ALBUMS"));
       }
@@ -82,6 +82,39 @@ namespace YAF.Controls
       html.Append(@"</table>");
 
       writer.Write(html.ToString());
+    }
+    private bool ShowAlbumsLink()
+    {
+        int albumUser = this.PageContext.PageUserID;       
+        
+        // Add check if Albums Tab is visible 
+    
+            int albumCount = YAF.Classes.Data.DB.album_getstats(albumUser, null)[0];
+
+            // Check if the user already has albums.
+            if (albumCount > 0)
+            {
+                return true;
+            }
+            else
+            {
+                // Check if a user have permissions to have albums, even if he has no albums at all.
+                int? usrAlbums =
+                  YAF.Classes.Data.DB.user_getalbumsdata(albumUser, this.PageContext.PageBoardID).GetFirstRowColumnAsValue<int?>(
+                    "UsrAlbums", null);
+
+                if (usrAlbums.HasValue)
+                {
+                    if (usrAlbums > 0 && this.PageContext.BoardSettings.EnableAlbum)
+                    {
+                        return true;
+                    }
+                }
+            }
+        
+
+        return false;
+       
     }
   }
 }

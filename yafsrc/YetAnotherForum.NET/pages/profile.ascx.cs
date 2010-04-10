@@ -89,19 +89,26 @@ namespace YAF.Pages
         // Check if the user already has albums.
         if (albumCount > 0)
         {
-          return true;
+            return true;
         }
         else
         {
-          // Check if a user have permissions to have albums, even if he has no albums at all.
-          int? usrAlbums =
-            DB.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
-              "UsrAlbums", null);
+            // If this is the album owner we show him the tab, else it should be hidden 
+            if ((albumUser == this.PageContext.PageUserID) || this.PageContext.IsAdmin)
+            {
+                // Check if a user have permissions to have albums, even if he has no albums at all.
+                int? usrAlbums =
+                  DB.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID).GetFirstRowColumnAsValue<int?>(
+                    "UsrAlbums", null);
 
-          if (usrAlbums.HasValue)
-          {
-              return true;
-          }
+                if (usrAlbums.HasValue)
+                {
+                    if (usrAlbums > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
         }
       }
 
@@ -185,8 +192,7 @@ namespace YAF.Pages
         SignatureEditControl.InModeratorMode = true;
       }
 
-      this.AlbumListTab.Visible = this.AlbumsTabIsVisible();
-
+      this.AlbumListTab.Visible = this.AlbumsTabIsVisible();      
       if (!this.IsPostBack)
       {
         userGroupsRow.Visible = this.PageContext.BoardSettings.ShowGroupsProfile || this.PageContext.IsAdmin;
