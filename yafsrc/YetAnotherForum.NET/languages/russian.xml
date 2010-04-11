@@ -794,11 +794,11 @@
     <Resource tag="NEWPOSTOPTIONS">Опции:</Resource>
     <Resource tag="NEWTOPIC">Оставить новое сообщение</Resource>
     <Resource tag="NORMAL">Нормальное</Resource>
-    <Resource tag="PERSISTENCY">Постоянная:</Resource>
+    <Resource tag="PERSISTENCY">Постоянная</Resource>
     <Resource tag="PERSISTENCY_INFO">Постоянные темы не чистятся</Resource>
     <Resource tag="POLL_EXPIRE">Опрос проводится в течение:</Resource>
     <Resource tag="POLL_EXPIRE_EXPLAIN">[b]дней[/b] [ Оставьте пустым для бессрочного опроса ]</Resource>
-    <Resource tag="POLLQUESTION">Вопрос в опросе:</Resource>
+    <Resource tag="POLLQUESTION">Вопрос опроса:</Resource>
     <Resource tag="POSTED">Дата:</Resource>
     <Resource tag="POSTTOBLOG_FAILED">Произошла ошибка при размещении в Вашем блоге. Видимо, авторизация не удалась.</Resource>
     <Resource tag="PREVIEW">Предварительный просмотр</Resource>

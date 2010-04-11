@@ -311,7 +311,7 @@ namespace YAF.Classes.UI
         // the fix provided by community 
         var email =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|<br/>)(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})", 
+            @"(?<before>^|[ ]|\>|;|\]|\.)(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})", 
             "${before}<a href=\"mailto:${inner}\">${inner}</a>", 
             _options, 
             new[] { "before" });
@@ -328,7 +328,7 @@ namespace YAF.Classes.UI
 
         var url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)", 
+            @"(?<before>^|[ ]|\>|;|\]|\.)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)", 
             "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
               "{1}", nofollow), 
             _options, 
@@ -338,10 +338,16 @@ namespace YAF.Classes.UI
 
         url.RuleRank = 10;
         ruleEngine.AddRule(url);
+        // ?<! - match if prefixes href="" and src="" are not present
+        // <inner> = named capture group
+        // (http://|https://|ftp://) - numbered capture group - select from 3 alternatives
+        // Match expression but don't capture it, one or more repetions, in the end is dot(\.)? here we match "www." - (?:[\w-]+\.)+
+        // Match expression but don't capture it, zero or one repetions (?:/[\w-./?%&=+;,:#~$]*[^.<])?
+        // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
 
         url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)", 
+            @"(?<before>^|[ ]|\>|;|\]|\.)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)", 
             "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
               "{1}", nofollow), 
             _options, 
@@ -353,7 +359,7 @@ namespace YAF.Classes.UI
 
         url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)", 
+            @"(?<before>^|[ ]|\>|;|\]|\.)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)", 
             "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
               "{0}", target).Replace("{1}", nofollow), 
             _options, 
