@@ -311,7 +311,7 @@ namespace YAF.Classes.UI
         // the fix provided by community 
         var email =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|;|\]|\.)(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})", 
+            @"(?<before>^|[ ]|\>|;|\[[A-Za-z0-9]\]|\.)(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})", 
             "${before}<a href=\"mailto:${inner}\">${inner}</a>", 
             _options, 
             new[] { "before" });
@@ -328,7 +328,7 @@ namespace YAF.Classes.UI
 
         var url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|;|\]|\.)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)", 
+            @"(?<before>^|[ ]|\>|;|\[[A-Za-z0-9]\]|\.)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)", 
             "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
               "{1}", nofollow), 
             _options, 
@@ -347,7 +347,7 @@ namespace YAF.Classes.UI
 
         url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|;|\]|\.)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)", 
+            @"(?<before>^|[ ]|\>|;|\[[A-Za-z0-9]\]|\.)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)", 
             "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace(
               "{1}", nofollow), 
             _options, 
@@ -359,7 +359,7 @@ namespace YAF.Classes.UI
 
         url =
           new VariableRegexReplaceRule(
-            @"(?<before>^|[ ]|\>|;|\]|\.)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)", 
+            @"(?<before>^|[ ]|\>|;|\[[A-Za-z0-9]\]|\.)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)", 
             "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
               "{0}", target).Replace("{1}", nofollow), 
             _options, 
