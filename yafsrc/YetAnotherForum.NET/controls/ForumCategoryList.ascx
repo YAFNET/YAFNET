@@ -45,7 +45,7 @@
 				<tr class="forumRowFoot footer1">
 					<td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>" align="right">
 						<asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# PageContext.Localization.GetText("MARKALL") %>' />
-						<YAF:RssFeedLink ID="RssFeed1" runat="server" FeedType="Forum" ShowSpacerBefore="true" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" TitleLocalizedTag="RSSICONTOOLTIPFORUM" />
+						<YAF:RssFeedLink ID="RssFeed1" runat="server" FeedType="Forum" AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? string.Format("c={0}", this.PageContext.PageCategoryID) : null %>' ShowSpacerBefore="true" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" TitleLocalizedTag="RSSICONTOOLTIPFORUM" />
 					</td>
 				</tr>
 			</table>	

@@ -8655,7 +8655,7 @@ namespace YAF.Classes.Data
 
       StringBuilder sb = new StringBuilder();
 
-      sb.AppendFormat("select top {0} Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted ", topicLimit);
+      sb.AppendFormat("select top {0} Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted, LastMessageID=a.LastMessageID ", topicLimit);
 
       //sb.Append(", message = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(a.TopicMovedID,a.TopicID) AND mes2.IsApproved = 1 AND mes2.IsDeleted = 0 ORDER BY mes2.Posted DESC) ");
 
