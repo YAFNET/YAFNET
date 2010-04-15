@@ -46,8 +46,8 @@
 	</tr>
 	<tr>
 		<td align="center" class="postheader" colspan="2">
-		<asp:Button ID="btnSearch" runat="server" CssClass="pbutton" 
-		Visible="false"  />
+		<asp:Button ID="btnSearch" runat="server" CssClass="pbutton" OnClick="btnSearch_Click"
+				OnClientClick="ShowLoadingDialog(); return true;" Visible="false"  />
 		<asp:Button ID="btnSearchExt1"   runat="server" CssClass="pbutton" Visible="false"  OnClick="BtnExtSearch1_Click" />
 		<asp:Button ID="btnSearchExt2"   runat="server" CssClass="pbutton" Visible="false"  OnClick="BtnExtSearch2_Click" />	</td>
 	</tr>	
