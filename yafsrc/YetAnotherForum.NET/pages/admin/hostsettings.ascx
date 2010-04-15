@@ -462,71 +462,7 @@
 						<td class="post">
 							<asp:CheckBox ID="EnableDNACalendar" runat="server"></asp:CheckBox>
 						</td>
-					</tr>
-					<tr>
-						<td class="header1" colspan="2">
-							Search Settings
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Max Search Results:</b><br />
-							Maximum number of search results that can be returned. Enter "0" for unlimited (not
-							recommended).
-						</td>
-						<td class="post">
-							<asp:TextBox ID="ReturnSearchMax" runat="server"></asp:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Use SQL Full Text Search:</b><br />
-							Toggle use of FULLTEXT SQL Server support on searches.
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="UseFullTextSearch" runat="server"></asp:CheckBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Search Text Minimal Length:</b><br />
-							Minimal length of the search string allowed.
-						</td>
-						<td class="post">
-							<asp:TextBox ID="SearchStringMinLength" runat="server"></asp:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Search Text Maximum Length:</b><br />
-							Maximum length of the search string allowed.
-						</td>
-						<td class="post">
-							<asp:TextBox ID="SearchStringMaxLength" runat="server"></asp:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Search Text Pattern:</b><br />
-							Allowed search text (Regular Expression) pattern.
-						</td>
-						<td class="post">
-							<asp:TextBox ID="SearchStringPattern" runat="server"></asp:TextBox>
-						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Search Permissions:</b><br />
-							Allow search to:
-						</td>
-						<td class="post">
-							<asp:DropDownList ID="SearchPermissions" runat="server">
-								<asp:ListItem Value="0" Text="Forbidden" />
-								<asp:ListItem Value="1" Text="Registered Users" />
-								<asp:ListItem Value="2" Text="All Users" />
-							</asp:DropDownList>
-						</td>
-					</tr>
+					</tr>					
 					<tr>
 						<td class="header1" colspan="2">
 							CAPTCHA Settings
@@ -658,7 +594,7 @@
 						</td>					
                     </tr>                    
 				</table>
-			</DotNetAge:View>
+			</DotNetAge:View>		
 			<DotNetAge:View runat="server" ID="View3" Text="Display" NavigateUrl="" HeaderCssClass=""
 				HeaderStyle="" Target="_blank">
 				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
@@ -1387,6 +1323,124 @@
 					</tr>
 				</table>
 			</DotNetAge:View>
+				<DotNetAge:View runat="server" ID="View10" Text="Search" NavigateUrl="" HeaderCssClass=""
+				HeaderStyle="" Target="_blank">
+				<table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+				<tr>
+						<td class="header1" colspan="2">
+							Search Settings
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Max Search Results:</b><br />
+							Maximum number of search results that can be returned. Enter "0" for unlimited (not
+							recommended).
+						</td>
+						<td class="post">
+							<asp:TextBox ID="ReturnSearchMax" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Use SQL Full Text Search:</b><br />
+							Toggle use of FULLTEXT SQL Server support on searches.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="UseFullTextSearch" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Search Text Minimal Length:</b><br />
+							Minimal length of the search string allowed.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="SearchStringMinLength" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Search Text Maximum Length:</b><br />
+							Maximum length of the search string allowed.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="SearchStringMaxLength" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Search Text Pattern:</b><br />
+							Allowed search text (Regular Expression) pattern.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="SearchStringPattern" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Search Permissions:</b><br />
+							Allow search to:
+						</td>
+						<td class="post">
+							<asp:DropDownList ID="SearchPermissions" runat="server">
+								<asp:ListItem Value="0" Text="Forbidden" />
+								<asp:ListItem Value="1" Text="Registered Users" />
+								<asp:ListItem Value="2" Text="All Users" />
+							</asp:DropDownList>
+						</td>
+					<tr>
+						<td class="postheader">
+							<b>Search Engine 1:</b><br />
+							Enter here a search engine pattern.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="SearchEngine1" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Parameters For Search Engine 1:</b><br />
+							Enter here a search engine parameters.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="SearchEngine1Parameters" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Search Engine 2:</b><br />
+							Enter here a search engine pattern.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="SearchEngine2" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+						<tr>
+						<td class="postheader">
+							<b>Parameters For Search Engine 2:</b><br />
+							Enter here a search engine parameters.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="SearchEngine2Parameters" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					</tr>
+							<tr>
+						<td class="postheader">
+							<b>External Search Permissions:</b><br />
+							Allow external search to:
+						</td>
+						<td class="post">
+							<asp:DropDownList ID="ExternalSearchPermissions" runat="server">
+								<asp:ListItem Value="0" Text="Forbidden" />								
+								<asp:ListItem Value="1" Text="Registered Users" />								
+								<asp:ListItem Value="2" Text="All Users" />															
+							</asp:DropDownList>
+						</td>
+					</tr>
+			</table>
+			</DotNetAge:View>	
 		</Views>
 	</DotNetAge:Tabs>
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">

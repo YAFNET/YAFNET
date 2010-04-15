@@ -62,7 +62,7 @@ namespace YAF.Modules
                 YafServices.Permissions.HandleRequest(PageContext.BoardSettings.ProfileViewPermissions);
                 break;
             case ForumPages.search:
-                YafServices.Permissions.HandleRequest(PageContext.BoardSettings.SearchPermissions);
+                YafServices.Permissions.HandleRequest(YafServices.Permissions.Check(PageContext.BoardSettings.SearchPermissions) == true ? PageContext.BoardSettings.SearchPermissions : PageContext.BoardSettings.ExternalSearchPermissions);
                 break;
             default:
                 break;

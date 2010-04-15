@@ -292,7 +292,8 @@ namespace YAF.Controls
 				if ( IsAdmin )
 					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.help_index ), GetText( "TOOLBAR", "HELP" ) ) );
 				*/
-        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
+
+        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
         {
           buildHeader.AppendFormat(
             String.Format(
@@ -368,7 +369,7 @@ namespace YAF.Controls
             this.PageContext.Localization.GetText("TOOLBAR", "WELCOME_GUEST")));
 
         buildHeader.AppendFormat(@"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">");
-        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
+        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ExternalSearchPermissions) || YafServices.Permissions.Check(this.PageContext.BoardSettings.SearchPermissions))
         {
           buildHeader.AppendFormat(
             String.Format(

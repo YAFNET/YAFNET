@@ -571,7 +571,7 @@ namespace YAF.Classes.Core.Nntp
         if (nntpDateTime.IndexOf("(") > 0)
         {
             nntpDateTime = nntpDateTime.Substring(0, nntpDateTime.IndexOf('(') - 1).Trim();
-        }
+        }        
         int ipos = nntpDateTime.IndexOf('+');
         int ineg = nntpDateTime.IndexOf('-');
         string tz = string.Empty;
@@ -580,12 +580,19 @@ namespace YAF.Classes.Core.Nntp
             tz = nntpDateTime.Substring(ipos + 1).Trim();
             nntpDateTime = nntpDateTime.Substring(0, ipos - 1).Trim();
         }
-        if (ineg > 0)
+        else if (ineg > 0)
         {
             tz = nntpDateTime.Substring(ineg + 1).Trim();
             nntpDateTime = nntpDateTime.Substring(0, ineg - 1).Trim();
-        }
+        } 
+ 
+        int indGMT = nntpDateTime.IndexOf("GMT");
 
+        if (indGMT > 0)
+            {
+                nntpDateTime = nntpDateTime.Substring(0,indGMT-1).Trim();
+            }      
+      
         DateTime dtc;
         if (DateTime.TryParse(nntpDateTime, out dtc))
         {

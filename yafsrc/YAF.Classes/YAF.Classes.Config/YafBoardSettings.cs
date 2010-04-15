@@ -768,6 +768,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets ExternalSearchPermissions.
+    /// </summary>
+    public int ExternalSearchPermissions
+    {
+        get
+        {
+            return this._reg.GetValue<int>("ExternalSearchPermissions", (int)ViewPermissions.Nobody);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("ExternalSearchPermissions", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets ForumStatisticsCacheTimeout.
     /// </summary>
     public int ForumStatisticsCacheTimeout
@@ -2054,6 +2070,71 @@ namespace YAF.Classes
         set
         {
             this._reg.SetValue<string>("RecaptchaPrivateKey", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets SearchEngine1.
+    /// </summary>
+    public string SearchEngine1
+    {
+        get
+        {
+            return this._reg.GetValue<string>("SearchEngine1", "http://google.com/search?as_q={Word}&hl={Language}&num={ResultsPerPage}&btnG={ButtonName}&as_epq={Word}&as_oq={Word}&as_eq={Word}&lr=&cr=&as_ft=i&as_filetype=&as_qdr=&as_occt=&as_dt=i&as_sitesearch={Site}&as_rights=&safe=off");
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("SearchEngine1", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets SearchEngine2.
+    /// </summary>
+    public string SearchEngine2
+    {
+        get
+        {
+
+            return this._reg.GetValue<string>("SearchEngine2", "http://yandex.ru/yandsearch?date=all&text=&site={Site}&rstr=&zone=all&wordforms=&lang={Language}&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&mime=&numdoc={ResultsPerPage}&lr=");
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("SearchEngine2", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets SearchEngine1Parameters.
+    /// </summary>
+    public string SearchEngine1Parameters
+    {
+        get
+        {
+            return this._reg.GetValue<string>("SearchEngine1Parameters", "Google^?^&^+^;^AnyWord:as_oq={Word}^AllWords:as_q={Word}^ExactFrase:as_epq={Word}^WithoutWords:as_eq={Word}");
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("SearchEngine1Parameters", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets SearchEngine2Parameters.
+    /// </summary>
+    public string SearchEngine2Parameters
+    {
+        get
+        {
+            return this._reg.GetValue<string>("SearchEngine2Parameters", "Yandex^?^&^+^;^AnyWord:text={Word}/wordforms=any^AllWords:text={Word}/wordforms=all^ExactFrase:text={Word}/wordforms=exact^WithoutWords:text=~~{Word}");
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("SearchEngine2Parameters", value);
         }
     }
 
