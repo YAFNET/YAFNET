@@ -1424,8 +1424,7 @@
 						<td class="post">
 							<asp:TextBox ID="SearchEngine2Parameters" runat="server"></asp:TextBox>
 						</td>
-					</tr>
-					</tr>
+					</tr>					
 							<tr>
 						<td class="postheader">
 							<b>External Search Permissions:</b><br />
@@ -1439,6 +1438,16 @@
 							</asp:DropDownList>
 						</td>
 					</tr>
+					<tr>
+						<td class="postheader">
+							<b>External Search Results In A New Window:</b><br />
+							Show External Search Results In A New Window.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ExternalSearchInNewWindow" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					
 			</table>
 			</DotNetAge:View>	
 		</Views>

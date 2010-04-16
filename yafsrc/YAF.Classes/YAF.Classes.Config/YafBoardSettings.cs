@@ -1465,6 +1465,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether ExternalSearchInNewWindow.
+    /// </summary>
+    public bool ExternalSearchInNewWindow
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("ExternalSearchInNewWindow", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("ExternalSearchInNewWindow", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether RemoveNestedQuotes.
     /// </summary>
     public bool RemoveNestedQuotes

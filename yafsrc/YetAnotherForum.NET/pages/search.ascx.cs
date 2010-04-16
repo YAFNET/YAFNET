@@ -380,7 +380,7 @@ namespace YAF.Pages
         /// The e.
         /// </param>
         protected void Page_Load(object sender, EventArgs e)
-        { 
+        {          
             if (!this.IsPostBack)
             {
                 this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
@@ -668,8 +668,15 @@ namespace YAF.Pages
             {
                 return;
             }
-
-            Response.Redirect(this.GetExtSearchLink(1));
+            if (this.PageContext.BoardSettings.ExternalSearchInNewWindow)
+            {
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+               "openBrowserTabJs", string.Format("window.open('{0}', '', '');", this.GetExtSearchLink(1)));
+            }
+            else
+            {
+                Response.Redirect(this.GetExtSearchLink(1));
+            }
         }
 
         /// <summary>
@@ -684,7 +691,16 @@ namespace YAF.Pages
                 return;
             }
 
-            Response.Redirect(this.GetExtSearchLink(2));  
+            if (this.PageContext.BoardSettings.ExternalSearchInNewWindow)
+            {
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+               "openBrowserTabJs", string.Format("window.open('{0}', '', '');", this.GetExtSearchLink(2)));
+            }
+            else
+            {
+                Response.Redirect(this.GetExtSearchLink(2));
+            }
+
         }
 
         /// <summary>
