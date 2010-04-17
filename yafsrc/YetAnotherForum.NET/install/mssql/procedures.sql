@@ -1311,9 +1311,7 @@ begin
 			c.IP,
 			c.SessionID,
 			c.ForumID,
-			HasForumAccess = 1,
-			/* Bad performance - needs optimization  
-			HasForumAccess = (CASE WHEN c.ForumID IS NOT NULL AND @UserID IS NOT NULL THEN (SELECT usr.ReadAccess FROM [{databaseOwner}].[{objectQualifier}vaccess] usr WHERE usr.UserID = @UserID AND usr.ForumID = c.ForumID) ELSE (CASE WHEN @UserID IS NOT NULL THEN 1 ELSE 0 END) END),*/	
+			HasForumAccess = x.ReadAccess,			
 			c.TopicID,
 			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
@@ -1333,9 +1331,11 @@ begin
 		from
 			[{databaseOwner}].[{objectQualifier}User] a
 			inner join [{databaseOwner}].[{objectQualifier}Active] c 
-			ON c.UserID = a.UserID			
+			ON c.UserID = a.UserID
+			inner join [{databaseOwner}].[{objectQualifier}vaccess] x
+			ON (x.ForumID = ISNULL(c.ForumID,0))						
 		where		
-			c.BoardID = @BoardID		
+			c.BoardID = @BoardID AND x.UserID = @UserID		
 		order by
 			c.LastActive desc
 	else
@@ -1345,9 +1345,7 @@ begin
 			c.IP,
 			c.SessionID,
 			c.ForumID,
-			HasForumAccess = 1,
-			/* Bad performance - needs optimization  
-			HasForumAccess = (CASE WHEN c.ForumID IS NOT NULL AND @UserID IS NOT NULL THEN (SELECT usr.ReadAccess FROM [{databaseOwner}].[{objectQualifier}vaccess] usr WHERE usr.UserID = @UserID AND usr.ForumID = c.ForumID) ELSE (CASE WHEN @UserID IS NOT NULL THEN 1 ELSE 0 END) END),*/	
+			HasForumAccess = x.ReadAccess,			
 			c.TopicID,
 			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
@@ -1367,9 +1365,11 @@ begin
 		from
 			[{databaseOwner}].[{objectQualifier}User] a		
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c 
-			ON c.UserID = a.UserID				
-		where		
-			c.BoardID = @BoardID				      
+			ON c.UserID = a.UserID
+			inner join [{databaseOwner}].[{objectQualifier}vaccess] x
+			ON (x.ForumID = ISNULL(c.ForumID,0))
+			where		
+			c.BoardID = @BoardID  AND x.UserID = @UserID				      
 		 and
 			not exists(
 				select 1 
