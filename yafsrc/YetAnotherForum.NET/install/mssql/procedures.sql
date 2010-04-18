@@ -2142,7 +2142,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_list](@BoardID int,@ForumID int=null) as
 begin
-		if @ForumID = 0 set @ForumID = null
+	if @ForumID = 0 set @ForumID = null
 	if @ForumID is null
 		select a.* from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID order by a.SortOrder
 	else
@@ -2512,8 +2512,10 @@ begin
 	if @Hidden<>0 set @Flags = @Flags | 2
 	if @IsTest<>0 set @Flags = @Flags | 4
 	if @Moderated<>0 set @Flags = @Flags | 8
-
-	if @ForumID>0 begin	
+	
+    if @ForumID = 0 set @ForumID = null
+    
+	if @ForumID is not null begin	
 		update [{databaseOwner}].[{objectQualifier}Forum] set 
 			ParentID=@ParentID,
 			Name=@Name,

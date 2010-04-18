@@ -22,11 +22,13 @@ namespace YAF.Pages.Admin
 {
   using System;
   using System.Data;
+  using System.IO;
   using System.Web.UI.WebControls;
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
+  
 
   /// <summary>
   /// Administrative Page for the editting of forum properties.
@@ -49,8 +51,15 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Forums", string.Empty);
+        
+        // Populate Forum Images Table
+        CreateImagesDataTable();
 
-        BindData();
+        this.ForumImages.Attributes["onchange"] = String.Format(
+          "getElementById('{1}').src='{0}{2}/' + this.value", YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Forums);
+        
+         BindData();
+
         if (Request.QueryString["f"] != null)
         {
           using (DataTable dt = DB.forum_list(PageContext.PageBoardID, Request.QueryString["f"]))
@@ -64,11 +73,19 @@ namespace YAF.Pages.Admin
             this.Locked.Checked = flags.IsLocked;
             this.IsTest.Checked = flags.IsTest;
             this.ForumNameTitle.Text = this.Name.Text;
-            this.Moderated.Checked = flags.IsModerated;
-            this.ImageURL.Text = row["ImageURL"].ToString();
+            this.Moderated.Checked = flags.IsModerated;            
             this.Styles.Text = row["Styles"].ToString();
 
             this.CategoryList.SelectedValue = row["CategoryID"].ToString();
+
+            this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
+
+            ListItem item = this.ForumImages.Items.FindByText(row["ImageURL"].ToString());
+            if (item != null)
+            {
+                item.Selected = true;
+                this.Preview.Src = String.Format("{0}{2}/{1}", YafForumInfo.ForumClientFileRoot, row["ImageURL"], YafBoardFolders.Current.Forums); // path corrected
+            }
 
             // populate parent forums list with forums according to selected category
             BindParentList();
@@ -95,7 +112,7 @@ namespace YAF.Pages.Admin
     /// The bind data.
     /// </summary>
     private void BindData()
-    {
+    {      
       int ForumID = 0;
       this.CategoryList.DataSource = DB.category_list(PageContext.PageBoardID, null);
       this.CategoryList.DataBind();
@@ -122,6 +139,7 @@ namespace YAF.Pages.Admin
       this.ThemeList.DataValueField = "FileName";
       this.ThemeList.DataBind();
       this.ThemeList.Items.Insert(0, listheader);
+    
     }
 
     /// <summary>
@@ -196,7 +214,7 @@ namespace YAF.Pages.Admin
       {
         PageContext.AddLoadMessage("You must enter a value for sort order.");
         return;
-      }
+      }      
 
       int sortOrder = 0;
       if (!int.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
@@ -235,6 +253,22 @@ namespace YAF.Pages.Admin
         return;
       }
 
+      if (ForumID == 0)
+      {
+          DataTable dt = DB.forum_list(this.PageContext.PageBoardID, null);
+          if (dt.Rows.Count > 0)
+          {
+              foreach (DataRow dr in dt.Rows)
+              {
+                  if (dr["Name"].ToString() == this.Name.Text.Trim())
+                  {
+                      PageContext.AddLoadMessage("A forum with such a name already exists.");
+                      return;
+                  }
+              }
+          }
+      }
+
       // The picked forum cannot be child forum as it's a parent
       // If we update a forum ForumID > 0 
       if (ForumID > 0 && parentID != null)
@@ -252,13 +286,14 @@ namespace YAF.Pages.Admin
       {
         themeURL = this.ThemeList.SelectedValue;
       }
+   
 
-      ForumID = DB.forum_save(
+        ForumID = DB.forum_save(
         ForumID, 
         this.CategoryList.SelectedValue,
         parentID, 
-        this.Name.Text, 
-        this.Description.Text, 
+        this.Name.Text.Trim(),
+        this.Description.Text.Trim(), 
         sortOrder, 
         this.Locked.Checked, 
         this.HideNoAccess.Checked, 
@@ -266,8 +301,8 @@ namespace YAF.Pages.Admin
         this.Moderated.Checked, 
         this.AccessMaskID.SelectedValue, 
         IsNull(this.remoteurl.Text), 
-        themeURL, 
-        this.ImageURL.Text.Trim(),
+        themeURL,
+        this.ForumImages.SelectedIndex > 0 ? this.ForumImages.SelectedValue.Trim() : null,
         this.Styles.Text,
         false);
 
@@ -359,6 +394,50 @@ namespace YAF.Pages.Admin
       catch (Exception)
       {
       }
+    }
+
+    /// <summary>
+    /// The create images data table.
+    /// </summary>
+    protected void CreateImagesDataTable()
+    {
+        using (var dt = new DataTable("Files"))
+        {
+            dt.Columns.Add("FileID", typeof(long));
+            dt.Columns.Add("FileName", typeof(string));
+            dt.Columns.Add("Description", typeof(string));
+            DataRow dr = dt.NewRow();
+            dr["FileID"] = 0;
+            dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+            dr["Description"] = "None";
+            dt.Rows.Add(dr);
+
+            var dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}{1}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums)));
+            if (dir.Exists)
+            {
+                FileInfo[] files = dir.GetFiles("*.*");
+                long nFileID = 1;
+                foreach (FileInfo file in files)
+                {
+                    string sExt = file.Extension.ToLower();
+                    if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg")
+                    {
+                        continue;
+                    }
+
+                    dr = dt.NewRow();
+                    dr["FileID"] = nFileID++;
+                    dr["FileName"] = file.Name;
+                    dr["Description"] = file.Name;
+                    dt.Rows.Add(dr);
+                }
+            }
+
+            this.ForumImages.DataSource = dt;
+            this.ForumImages.DataValueField = "FileName";
+            this.ForumImages.DataTextField = "Description";
+            this.ForumImages.DataBind();
+        }
     }
   }
 }

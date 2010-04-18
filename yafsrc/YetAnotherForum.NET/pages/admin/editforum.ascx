@@ -33,7 +33,7 @@
 				A description of the forum.</td>
 			<td class="post">
 				<asp:textbox id="Description" runat="server" cssclass="edit"></asp:textbox></td>
-		</tr>
+		</tr>			
 		<tr>
 			<td class="postheader"><b>Remote URL:</b><br />
 				Enter a url here, and instead of going to the forum you will be taken to this 
@@ -77,12 +77,21 @@
 			<td class="post">
 				<asp:checkbox id="Moderated" runat="server"></asp:checkbox></td>
 		</tr>
-			<tr>
-			<td class="postheader"><b>Image URL:</b><br />
-				Image URL, if empty default image for the forum is used.</td>
+		<tr>
+			<td class="postheader">
+			
+			<b>Forum Image:</b><br />
+			
+			This image will be shown next to this forum, 
+			if empty default image for the forum is used.</td>
+			
 			<td class="post">
-				<asp:textbox id="ImageURL" runat="server"></asp:textbox></td>
-		</tr>			
+			
+			<asp:DropDownList ID="ForumImages" runat="server" />
+			
+			<img align="middle" runat="server" id="Preview" />
+			</td>
+		</tr>		
 		<tr visible="false" runat="server">
 			<td class="postheader"><b>Styles:</b><br />
 				Styles string to customize Forum Name. Leave it empty.</td>
