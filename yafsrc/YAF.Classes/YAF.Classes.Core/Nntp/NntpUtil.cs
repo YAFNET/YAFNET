@@ -588,7 +588,7 @@ namespace YAF.Classes.Core.Nntp
  
         int indGMT = nntpDateTime.IndexOf("GMT");
 
-        if (indGMT > 0)
+        if (indGMT > 0 && ineg < 0 && ipos < 0)
             {
                 nntpDateTime = nntpDateTime.Substring(0,indGMT-1).Trim();
             }      

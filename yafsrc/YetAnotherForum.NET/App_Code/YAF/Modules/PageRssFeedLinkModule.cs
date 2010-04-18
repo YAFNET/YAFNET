@@ -78,7 +78,7 @@ namespace YAF.Modules
         HtmlLink rssLink = new HtmlLink();
 
         // defaults to the "Active" rss.
-        rssLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic, "pg={0}", YafRssFeeds.Active.GetStringValue());
+        rssLink.Href = YafBuildLink.GetLink(ForumPages.rsstopic, "pg={0}", YafRssFeeds.LatestPosts.GetStringValue());
 
         rssLink.Attributes.Add("rel", "alternate");
         rssLink.Attributes.Add("type", "application/rss+xml");
