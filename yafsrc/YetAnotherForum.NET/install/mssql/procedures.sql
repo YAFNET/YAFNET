@@ -1569,7 +1569,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}board_create](
 	@IsHostAdmin	bit
 ) as 
 begin
-		declare @BoardID				int
+	declare @BoardID				int
 	declare @TimeZone				int
 	declare @ForumEmail				nvarchar(50)
 	declare	@GroupIDAdmin			int
@@ -2715,10 +2715,10 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}mail_create]
 (
-	@From nvarchar(50),
-	@FromName nvarchar(50) = NULL,
-	@To nvarchar(50),
-	@ToName nvarchar(50) = NULL,
+	@From nvarchar(255),
+	@FromName nvarchar(255) = NULL,
+	@To nvarchar(255),
+	@ToName nvarchar(255) = NULL,
 	@Subject nvarchar(100),
 	@Body ntext,
 	@BodyHtml ntext = NULL
@@ -2735,8 +2735,8 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch]
 (
 	@TopicID int,
-	@From nvarchar(50),
-	@FromName nvarchar(50) = NULL,
+	@From nvarchar(255),
+	@FromName nvarchar(255) = NULL,
 	@Subject nvarchar(100),
 	@Body ntext,
 	@BodyHtml ntext = null,
@@ -2823,7 +2823,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 	declare	@ForumID	int
 	declare	@TopicID	int
 	declare @Posted		datetime
-	declare	@UserName	nvarchar(50)
+	declare	@UserName	nvarchar(255)
 
 	select 
 		@UserID = a.UserID,
@@ -4239,8 +4239,8 @@ create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
 	@TimeZone	int,
 	@ForumEmail	nvarchar(50),
 	@SmtpServer	nvarchar(50),
-	@User		nvarchar(50),
-	@Userkey	nvarchar(50)
+	@User		nvarchar(255),
+	@Userkey	nvarchar(64)
 	
 ) as 
 begin
@@ -4890,7 +4890,7 @@ END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_adminsave]
-(@BoardID int,@UserID int,@Name nvarchar(50),@Email nvarchar(50),@Flags int,@RankID int) as
+(@BoardID int,@UserID int,@Name nvarchar(255),@Email nvarchar(50),@Flags int,@RankID int) as
 begin
 		
 	update [{databaseOwner}].[{objectQualifier}User] set
@@ -5395,7 +5395,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_login](@BoardID int,@Name nvarchar(50),@Password nvarchar(32)) as
+create procedure [{databaseOwner}].[{objectQualifier}user_login](@BoardID int,@Name nvarchar(255),@Password nvarchar(32)) as
 begin
 	
 	declare @UserID int
@@ -5450,7 +5450,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_recoverpassword](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50)) as
+create procedure [{databaseOwner}].[{objectQualifier}user_recoverpassword](@BoardID int,@UserName nvarchar(255),@Email nvarchar(50)) as
 begin
 	
 	declare @UserID int
