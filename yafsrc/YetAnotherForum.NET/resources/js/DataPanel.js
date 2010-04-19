@@ -41,6 +41,7 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te)
 		}
 		elImg[0].src = ex;
 		elImg[0].alt = te;
+		elImg[0].title = te; // logan fix
 		document.getElementById(st).value = 'true';
 	}
 	else
@@ -52,6 +53,7 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te)
 		}
 		elImg[0].src = cl;
 		elImg[0].alt = tc;
+		elImg[0].title = te; // logan fix
 		document.getElementById(st).value = 'false';
 	}
 }

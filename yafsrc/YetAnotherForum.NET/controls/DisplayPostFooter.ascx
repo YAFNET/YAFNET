@@ -26,10 +26,10 @@
 			TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" Visible="false" />
 	</div>
 	<div class="rightItem postInfoRight">			
-		<a id="reportPostLink" runat="server" visible="false" />				
+		<a id="reportPostLink" rel="nofollow" runat="server" visible="false" />				
 		<asp:PlaceHolder ID="MessageHistoryHolder" runat="server" Visible="false">
 		&nbsp;|&nbsp;
-		<a id="messageHistoryLink" runat="server" /> 
+		<a id="messageHistoryLink" rel="nofollow" runat="server" /> 
 		</asp:PlaceHolder>
 		<span id="DetailsDelimiter1" runat="server" visible="<%# this.MessageDetails.Text.Length > 0 %>">&nbsp;|</span>
 		<asp:Literal id="MessageDetails" runat="server" visible="false" Mode="PassThrough"></asp:Literal>

@@ -911,7 +911,7 @@ namespace YAF.Controls
 
       // Create the action link.
       this._actionLink = new HyperLink();
-      this._actionLink.ID = ID + "_actionLink";
+      this._actionLink.ID = ID + "_ActionLink";
 
       // Set the style of the link to the TitleStyle.
       this._actionLink.ApplyStyle(TitleStyle);

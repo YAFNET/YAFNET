@@ -321,7 +321,7 @@ namespace YAF.Classes.Core
       if (registerJQuery)
       {
         // load jQuery
-        element.Controls.Add(ControlHelper.MakeJsIncludeControl(YafForumInfo.GetURLToResource("js/jquery-1.3.2.min.js")));
+        element.Controls.Add(ControlHelper.MakeJsIncludeControl("js/jquery-1.4.2.min.js"));
       }
 
       AddPageElement("jquery");
