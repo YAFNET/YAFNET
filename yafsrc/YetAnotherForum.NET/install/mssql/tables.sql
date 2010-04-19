@@ -140,7 +140,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		LastTopicID		int NULL ,
 		LastMessageID	int NULL ,
 		LastUserID		int NULL ,
-		LastUserName	nvarchar (50) NULL ,
+		LastUserName	nvarchar (255) NULL ,
 		NumTopics		int NOT NULL,
 		NumPosts		int NOT NULL,
 		RemoteURL		nvarchar(100) null,
@@ -169,10 +169,10 @@ GO
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Mail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Mail](
 		[MailID] [int] IDENTITY(1,1) NOT NULL,
-		[FromUser] [nvarchar](50) NOT NULL,
-		[FromUserName] [nvarchar](50) NULL,
-		[ToUser] [nvarchar](50) NOT NULL,
-		[ToUserName] [nvarchar](50) NULL,
+		[FromUser] [nvarchar](255) NOT NULL,
+		[FromUserName] [nvarchar](255) NULL,
+		[ToUser] [nvarchar](255) NOT NULL,
+		[ToUserName] [nvarchar](255) NULL,
 		[Created] [datetime] NOT NULL,
 		[Subject] [nvarchar](100) NOT NULL,
 		[Body] [ntext] NOT NULL,
@@ -191,7 +191,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		Position		int NOT NULL ,
 		Indent			int NOT NULL ,
 		UserID			int NOT NULL ,
-		UserName		nvarchar (50) NULL ,
+		UserName		nvarchar (255) NULL ,
 		Posted			datetime NOT NULL ,
 		Message			ntext NOT NULL ,
 		IP				nvarchar (15) NOT NULL ,
@@ -274,7 +274,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		TopicID			int IDENTITY (1, 1) NOT NULL ,
 		ForumID			int NOT NULL ,
 		UserID			int NOT NULL ,
-		UserName		nvarchar (50) NULL ,
+		UserName		nvarchar (255) NULL ,
 		Posted			datetime NOT NULL ,
 		Topic			nvarchar (100) NOT NULL ,
 		Views			int NOT NULL ,
@@ -284,7 +284,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		LastPosted		datetime NULL ,
 		LastMessageID	int NULL ,
 		LastUserID		int NULL ,
-		LastUserName	nvarchar (50) NULL,
+		LastUserName	nvarchar (255) NULL,
 		NumPosts		int NOT NULL,
 		Flags			int not null constraint [DF_{objectQualifier}Topic_Flags] default (0),
 		IsDeleted		AS (CONVERT([bit],sign([Flags]&(8)),0)),
@@ -414,7 +414,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		Name			nvarchar(50) not null,
 		Address			nvarchar(100) not null,
 		Port			int null,
-		UserName		nvarchar(50) null,
+		UserName		nvarchar(255) null,
 		UserPass		nvarchar(50) null
 	)
 GO
@@ -594,7 +594,7 @@ begin
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}ShoutboxMessage](
 		[ShoutBoxMessageID] [int] IDENTITY(1,1) NOT NULL,		
 		[UserID] [int] NULL,
-		[UserName] [nvarchar](50) NOT NULL,
+		[UserName] [nvarchar](255) NOT NULL,
 		[Message] [ntext] NULL,
 		[Date] [datetime] NOT NULL,
 		[IP] [varchar](50) NOT NULL
@@ -609,12 +609,36 @@ GO
 -- Mail Table
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [FromUserName] [nvarchar](50) NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ToUserName] [nvarchar](50) NULL
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [FromUserName] [nvarchar](255) NULL
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ToUserName] [nvarchar](255) NULL
 	alter table [{databaseOwner}].[{objectQualifier}Mail] add [BodyHtml] [ntext] NULL		
 	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendTries] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}Mail_SendTries]  DEFAULT ((0))		
 	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendAttempt] [datetime] NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ProcessID] [int] NULL
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ProcessID] [int] NULL	
+end
+GO
+
+if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName' and prec < 255)
+begin
+alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [FromUserName] [nvarchar](255) NULL
+end
+GO
+
+if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUser' and prec < 255)
+begin
+alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [FromUser] [nvarchar](255) NULL
+end
+GO
+
+if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='ToUserName' and prec < 255)
+begin
+alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [ToUserName] [nvarchar](255) NULL
+end
+GO
+
+if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='ToUser' and prec < 255)
+begin
+alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [ToUser] [nvarchar](255) NULL
 end
 GO
 
@@ -831,6 +855,12 @@ if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].
 	alter table [{databaseOwner}].[{objectQualifier}User] alter column [IP] varchar(39) null
 go
 
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Name' and prec < 255)
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] alter column [Name] nvarchar(255) not null
+end
+GO
+
 -- Only remove User table columns if version is 30+
 IF EXISTS (SELECT ver FROM (SELECT CAST(CAST(value as nvarchar(255)) as int) as ver FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE name = 'version') reg WHERE ver > 30)
 BEGIN
@@ -947,6 +977,10 @@ if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{o
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add Styles nvarchar(255) NULL
 GO
 
+if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Forum]') and name='LastUserName' and prec < 255)
+ 	alter table [{databaseOwner}].[{objectQualifier}Forum] alter column [LastUserName]	nvarchar (255) NULL 
+GO
+
 -- Group Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Flags')
 begin
@@ -957,6 +991,7 @@ GO
 if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and name='Name' and prec < 255)
  	alter table [{databaseOwner}].[{objectQualifier}Group] alter column [Name] nvarchar(255) NOT NULL
 GO
+
 
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IsAdmin')
 begin
@@ -1247,7 +1282,7 @@ end
 
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='EditedBy')
-	alter table [{databaseOwner}].[{objectQualifier}Message] add EditedBy   int  NULL
+	alter table [{databaseOwner}].[{objectQualifier}Message] add [EditedBy]   int  NULL
 GO
 
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IP' and prec < 39)
@@ -1255,6 +1290,14 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] alter column [IP] varchar(39) not null
 end
 GO
+
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='UserName' and prec < 255)
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Message] alter column [UserName] nvarchar (255) NULL
+end
+GO
+
+
 		
 -- Topic Table
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsLocked')
@@ -1269,6 +1312,18 @@ GO
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsDeleted')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='UserName')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] alter column [UserName]	nvarchar (255) NULL 
+end
+GO
+
+if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='LastUserName')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] alter column [LastUserName]	nvarchar (255) NULL 
 end
 GO
 
@@ -1457,4 +1512,10 @@ GO
 
 if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and name=N'IP' and prec<39)
 	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] alter column [IP] varchar(39) not null
+GO
+
+-- NntpServer Table
+
+if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpServer]') and name=N'UserName' and prec<255)
+	alter table [{databaseOwner}].[{objectQualifier}NntpServer] alter column [UserName] nvarchar(255) null
 GO

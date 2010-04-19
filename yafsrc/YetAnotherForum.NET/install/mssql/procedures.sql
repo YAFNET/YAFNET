@@ -3129,7 +3129,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_save](
 	@TopicID		int,
 	@UserID			int,
 	@Message		ntext,	
-	@UserName		nvarchar(50)=null,
+	@UserName		nvarchar(255)=null,
 	@IP				varchar(39),
 	@Posted			datetime=null,
 	@ReplyTo		int,
@@ -3400,7 +3400,7 @@ create procedure [{databaseOwner}].[{objectQualifier}nntpserver_save](
 	@Name		nvarchar(50),
 	@Address	nvarchar(100),
 	@Port		int,
-	@UserName	nvarchar(50)=null,
+	@UserName	nvarchar(255)=null,
 	@UserPass	nvarchar(50)=null
 ) as begin
 		if @NntpServerID is null
@@ -3433,13 +3433,13 @@ create procedure [{databaseOwner}].[{objectQualifier}nntptopic_savemessage](
 	@Topic 			nvarchar(100),
 	@Body 			ntext,
 	@UserID 		int,
-	@UserName		nvarchar(50),
+	@UserName		nvarchar(255),
 	@IP				varchar(39),
 	@Posted			datetime,
 	@Thread			char(32)
 ) as 
 begin
-		declare	@ForumID	int
+	declare	@ForumID	int
 	declare @TopicID	int
 	declare	@MessageID	int
 
@@ -4726,7 +4726,7 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 	@UserID		int,
 	@Message	ntext,
 	@Priority	smallint,
-	@UserName	nvarchar(50)=null,
+	@UserName	nvarchar(255)=null,
 	@IP			varchar(39),
 	@PollID		int=null,
 	@Posted		datetime=null,
@@ -5131,7 +5131,7 @@ create procedure [{databaseOwner}].[{objectQualifier}user_delete](@UserID int) a
 begin
 	
 	declare @GuestUserID	int
-	declare @UserName		nvarchar(50)
+	declare @UserName		nvarchar(255)
 	declare @GuestCount		int
 
 	select @UserName = Name from [{databaseOwner}].[{objectQualifier}User] where UserID=@UserID
@@ -5424,7 +5424,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_nntp](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@TimeZone int) as
+create procedure [{databaseOwner}].[{objectQualifier}user_nntp](@BoardID int,@UserName nvarchar(255),@Email nvarchar(50),@TimeZone int) as
 begin	
 	
 	declare @UserID int
@@ -6949,7 +6949,7 @@ END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage](
-	@UserName		nvarchar(50)=null,
+	@UserName		nvarchar(255)=null,
 	@UserID			int,
 	@Message		ntext,
 	@Date			datetime=null,
