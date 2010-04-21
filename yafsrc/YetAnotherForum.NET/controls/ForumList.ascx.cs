@@ -146,8 +146,7 @@ namespace YAF.Controls
               // Highlight custom icon images and add tool tips to them. 
               try
               {
-                  forumImage.Attributes.Clear();                 
-                  forumImage.Attributes.Add("id", "ForumImage" + row["ForumID"].ToString());
+                  forumImage.Attributes.Clear();          
 
                   if (flags.IsLocked)
                   {                      
@@ -162,18 +161,21 @@ namespace YAF.Controls
                       forumImage.Attributes.Add("class", "forum_customimage_newposts");                    
                       forumImage.Attributes.Add("alt", PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS"));
                       forumImage.Attributes.Add("title", PageContext.Localization.GetText("ICONLEGEND", "NEW_POSTS"));
-                      forumImage.Attributes.Add("src", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));                    
-                    
+                      forumImage.Attributes.Add("src", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));
+                     
                   }
                   else
-                  {                     
+                  {
+                      forumImage.Attributes.Add("class", "forum_customimage_nonewposts"); 
                       forumImage.Attributes.Add("src", String.Format("{0}{1}/{2}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString()));                    
                       forumImage.Attributes.Add("alt", PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS"));
-                      forumImage.Attributes.Add("title", PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS"));
+                      forumImage.Attributes.Add("title", PageContext.Localization.GetText("ICONLEGEND", "NO_NEW_POSTS"));                    
+                     
                   }
 
-                  forumImage.Attributes.Add("runat", "server");
-                  forumImage.Attributes.Add("visible", "true");
+                  forumImage.Visible = true;
+                  
+                 
               }
               catch
               {

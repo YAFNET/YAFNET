@@ -267,28 +267,28 @@ namespace YAF.Controls
                      {
                          if (forumPageName == "topics")
                          {
-                             outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS");                                                       
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS");                                                       
                          }
                          else if (forumPageName == "posts")
                          {
-                             outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTS");
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTS");
                          }
                          else if (forumPageName == "postmessage")
                          {
-                             outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTMESSAGE_FULL");
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTMESSAGE_FULL");
                          }
                          else
                          {
-                             outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTS");
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTS");
                          }
                          if (HasForumAccess)
                          {
-                             outText = string.Format(@"<a href=""{0}"" id=""topicid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID), this.UserID, this.TopicName);
+                             outText += string.Format(@"<a href=""{0}"" id=""topicid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID), this.UserID, this.TopicName);
 
                          if (!this.LastLinkOnly)
                          {
-                             outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICINFORUM");
-                             outText = string.Format(@"<a href=""{0}"" id=""forumidtopic_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.ForumName);
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICINFORUM");
+                             outText += string.Format(@"<a href=""{0}"" id=""forumidtopic_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.ForumName);
                          }
                          }
                      }
@@ -300,7 +300,7 @@ namespace YAF.Controls
                             outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUM");
                             if (HasForumAccess)
                             {
-                                outText = string.Format(@"<a href=""{0}"" id=""forumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.ForumName);
+                                outText += string.Format(@"<a href=""{0}"" id=""forumid_{1}"" runat=""server""> {2} </a>", YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID), this.UserID, this.ForumName);
                             }
                         }
                      }                  
@@ -310,47 +310,47 @@ namespace YAF.Controls
                           // an info about user name, etc. 
                           if (forumPageName == "profile")
                           {
-                              outText = string.Format(Profile(forumPageAttributes));
+                              outText += string.Format(Profile(forumPageAttributes));
                              
                           }
                           else if (forumPageName == "albums")
                           {
                               // On albums first page
-                              outText = string.Format(Albums(forumPageAttributes));                        
+                              outText += string.Format(Albums(forumPageAttributes));                        
            
                           }
                           else if (forumPageName == "album")
                           {
                               // Views an album
-                              outText = string.Format(Album(forumPageAttributes));
+                              outText += string.Format(Album(forumPageAttributes));
                               
                           }
                           else if (forumPageName == "forum" && this.TopicID <= 0 && this.ForumID <= 0)
                           {
                               if (this.ForumPage.Contains("c="))
                               {
-                                  outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUMFROMCATEGORY");
+                                  outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "FORUMFROMCATEGORY");
                               }
                               else
                               {
-                                  outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "MAINPAGE");
+                                  outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "MAINPAGE");
                               }
                           }                    
                           else if (!YafContext.Current.IsAdmin && forumPageName.ToUpper().Contains("MODERATE_"))
                           {
 
                               // We shouldn't show moderators activity to all users but admins
-                              outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "MODERATE");
+                              outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "MODERATE");
                           }                          
                           else if (!YafContext.Current.IsHostAdmin && forumPageName.ToUpper().Contains("ADMIN_"))
                           {
                               // We shouldn't show admin activity to all users 
-                              outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", "ADMINTASK");
+                              outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "ADMINTASK");
                           }                          
                           else
                           {
                               // Generic action name based on page name
-                             outText = YafContext.Current.Localization.GetText("ACTIVELOCATION", forumPageName);
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", forumPageName);
                           }
                       }
                      if (!outText.Contains("ACTIVELOCATION") && (!string.IsNullOrEmpty(outText)))

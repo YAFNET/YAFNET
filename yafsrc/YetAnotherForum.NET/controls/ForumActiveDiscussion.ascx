@@ -34,10 +34,12 @@
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
+                <tr>
                 <td class="footer2" align="right" colspan="2">
                         <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" 
                             Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" TitleLocalizedTag="RSSICONTOOLTIPACTIVE" />                        
                 </td>
+                </tr>
             </asp:PlaceHolder>
         </table>
     </ContentTemplate>

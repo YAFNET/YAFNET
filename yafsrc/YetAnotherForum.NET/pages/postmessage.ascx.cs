@@ -548,11 +548,11 @@ namespace YAF.Pages
       }
 
       // Check if the topic name is not too long
-      if (!FormatMsg.WordLengthChecker(this.Subject.Text))
+      if (!FormatMsg.WordLengthChecker(this.Subject.Text.Trim()))
       {
           this.PageContext.AddLoadMessage(this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
           return;
-      }    
+      }  
          
       // update the last post time...
       Mession.LastPost = DateTime.UtcNow.AddSeconds(30);
@@ -654,8 +654,8 @@ namespace YAF.Pages
       DB.message_update(
         this.Request.QueryString["m"], 
         this.Priority.SelectedValue, 
-        this._forumEditor.Text, 
-        subjectSave, 
+        this._forumEditor.Text.Trim(), 
+        subjectSave.Trim(), 
         messageFlags.BitValue, 
         this.HtmlEncode(this.ReasonEditor.Text), 
         isModeratorChanged,
