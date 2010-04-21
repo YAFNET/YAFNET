@@ -141,7 +141,7 @@
              this.PageContext.Localization.GetText("EDITED"),
              whoChanged,
              editedText + this.messageHistoryLink.Title);
-          this.messageHistoryLink.HRef = YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "m={0}", DataRow["MessageID"]);
+          this.messageHistoryLink.HRef = YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", DataRow["MessageID"]);
 
         }
       }
@@ -266,7 +266,7 @@
            // vzrus Addition 
            this.reportPostLink.InnerText = this.reportPostLink.Title = this.PageContext.Localization.GetText("REPORTPOST"); 
 
-           this.reportPostLink.HRef = YafBuildLink.GetLinkNotEscaped(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
+           this.reportPostLink.HRef = YafBuildLink.GetLink(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
         } 
       // private messages
       this.Pm.Visible = !this.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null &&

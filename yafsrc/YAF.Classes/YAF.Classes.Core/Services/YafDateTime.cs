@@ -29,7 +29,7 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Time zone suffix for Guests
     /// </summary>
-    private string timeZoneName = "(UTC)"; 
+    private string timeZoneName = YafContext.Current.Localization.GetText("TIMEZONES","UTC"); 
 
     /// <summary>
     /// Gets the time zone offset 
@@ -135,10 +135,10 @@ namespace YAF.Classes.Core
           // yesterday
           strDateFormat = String.Format(YafContext.Current.Localization.GetText("YesterdayAt"), dt);
 
-          if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
-          {
+        if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
+        {
             strDateFormat = YafContext.Current.Localization.FormatString(YafContext.Current.Localization.GetText("YesterdayAt"), dt);
-          }
+        }
         }
         else if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
         {

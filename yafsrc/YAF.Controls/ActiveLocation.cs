@@ -248,14 +248,33 @@ namespace YAF.Controls
             else
             {
                 // We find here a page name start position
-                forumPageName = forumPageName.Substring(forumPageName.IndexOf("g=") + 2);
-
-                // We find here a page name end position
-                if (forumPageName.Contains("&"))
+                if (forumPageName.Contains("g="))
                 {
-                    forumPageAttributes = forumPageName.Substring(forumPageName.IndexOf("&") + 1);
-                    forumPageName = forumPageName.Substring(0, forumPageName.IndexOf("&"));                    
+                    forumPageName = forumPageName.Substring(forumPageName.IndexOf("g=") + 2);
+                    // We find here a page name end position
+                    if (forumPageName.Contains("&"))
+                    {
+                        forumPageAttributes = forumPageName.Substring(forumPageName.IndexOf("&") + 1);
+                        forumPageName = forumPageName.Substring(0, forumPageName.IndexOf("&"));
+                    }
                 }
+                else
+                {
+                    if (Config.IsDotNetNuke)
+                    {
+                        int idxfrst = forumPageName.IndexOf("&");
+                        forumPageName = forumPageName.Substring(idxfrst + 1);
+                    }                 
+
+                    int idx = forumPageName.IndexOf("=");
+                    if (idx > 0)
+                    {
+                        forumPageAttributes = forumPageName.Substring(0, forumPageName.IndexOf("&") > 0 ? forumPageName.IndexOf("&") : forumPageName.Length-1);
+                        forumPageName = forumPageName.Substring(0, idx);
+
+                    }
+                }           
+
             } 
                 
                      output.BeginRender();              

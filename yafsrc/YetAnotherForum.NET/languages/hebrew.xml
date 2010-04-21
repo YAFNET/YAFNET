@@ -105,6 +105,7 @@
     <Resource tag="IM_SKYPE">Uses Skype</Resource>
     <Resource tag="IM_XMPP">Uses XMPP</Resource>
     <Resource tag="IM_YIM">Uses YIM</Resource>
+    <Resource tag="IMGPRV">Views an image in a user album</Resource>
     <Resource tag="INFO">Views info page</Resource>
     <Resource tag="LASTPOSTS">No data</Resource>
     <Resource tag="LOGIN">Registers on the forum</Resource>
@@ -296,7 +297,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">עבור לפורום</Resource>
-    <Resource tag="GENERATED">דף זה נוצר תוך {0:N3} שניות.</Resource>
+    <Resource tag="GENERATED">דף זה נוצר תוך {0:N3} שניות.</Resource>    
     <Resource tag="GO">אישור</Resource>
     <Resource tag="GOTOPAGE_HEADER">לך לעמוד...</Resource>
     <Resource tag="HIDDEN">מוסתר</Resource>
@@ -1328,6 +1329,7 @@
     <Resource tag="GMT9">(GMT+9:00) אוסקה, ספורו, סיאול, טוקיו, יקוטסק</Resource>
     <Resource tag="GMT-9">(GMT-9:00) אלסקה</Resource>
     <Resource tag="GMT9.5">(GMT+9:30) אדלייד, דרווין</Resource>
+    <Resource tag="UTC">(UTC)</Resource>
     <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
     <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>

@@ -105,6 +105,7 @@
     <Resource tag="IM_SKYPE">Uses Skype</Resource>
     <Resource tag="IM_XMPP">Uses XMPP</Resource>
     <Resource tag="IM_YIM">Uses YIM</Resource>
+    <Resource tag="IMGPRV">Views an image in a user album</Resource>
     <Resource tag="INFO">Views info page</Resource>
     <Resource tag="LASTPOSTS">No data</Resource>
     <Resource tag="LOGIN">Registers on the forum</Resource>
@@ -328,7 +329,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G </Resource>
     <Resource tag="FORMAT_TIME">T </Resource>
     <Resource tag="FORUM_JUMP">Forumas Peršokti </Resource>
-    <Resource tag="GENERATED">Šis puslapis buvo sugeneruotas per {0:N3} sekundes. </Resource>
+    <Resource tag="GENERATED">Šis puslapis buvo sugeneruotas per {0:N3} sekundes. </Resource>    
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
     <Resource tag="HIDDEN">Hidden</Resource>
@@ -1422,6 +1423,7 @@ Visit {forumname} at {forumlink}
 </Resource>
   </page>
   <page name="TIMEZONES">
+    <Resource tag="UTC">(UTC)</Resource>
     <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
     <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>

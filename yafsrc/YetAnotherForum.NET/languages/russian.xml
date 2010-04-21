@@ -84,6 +84,7 @@
     <Resource tag="IM_SKYPE">Использует Skype</Resource>
     <Resource tag="IM_XMPP">Использует XMPP</Resource>
     <Resource tag="IM_YIM">Использует YIM</Resource>
+    <Resource tag="IMGPRV">Просматривает изображения в альбоме пользователя</Resource>
     <Resource tag="INFO">Просматривает страницу информации</Resource>
     <Resource tag="LASTPOSTS">Последние сообщения</Resource>
     <Resource tag="LOGIN">Входит на форум</Resource>
@@ -279,7 +280,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Перейти</Resource>
-    <Resource tag="GENERATED">Страница сгенерирована за {0:N3} секунды.</Resource>
+    <Resource tag="GENERATED">Страница сгенерирована за {0:N3} секунды.</Resource>    
     <Resource tag="GO">Перейти</Resource>
     <Resource tag="GOTOPAGE_HEADER">Перейти на страницу...</Resource>
     <Resource tag="HIDDEN">Скрыт</Resource>
@@ -1227,6 +1228,7 @@
 	</Resource>
   </page>
   <page name="TIMEZONES">
+    <Resource tag="UTC">(UTC)</Resource>
     <Resource tag="UTC0">(UTC) Касабланка, Дублин, Эдинбург, Лондон, Лиссабон, Монровия</Resource>
     <Resource tag="UTC1">(UTC+1:00) Берлин, Брюссель, Кристиансанд, Мадрид, Париж, Рим, Варашава</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Азоры, Острова Зелёного Мыса </Resource>

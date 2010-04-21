@@ -105,6 +105,7 @@
     <Resource tag="IM_SKYPE">Uses Skype</Resource>
     <Resource tag="IM_XMPP">Uses XMPP</Resource>
     <Resource tag="IM_YIM">Uses YIM</Resource>
+    <Resource tag="IMGPRV">Views an image in a user album</Resource>
     <Resource tag="INFO">Views info page</Resource>
     <Resource tag="LASTPOSTS">No data</Resource>
     <Resource tag="LOGIN">Registers on the forum</Resource>
@@ -296,7 +297,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Ir para o Fórum</Resource>
-    <Resource tag="GENERATED">Esta página foi gerada em {0:N3} segundos.</Resource>
+    <Resource tag="GENERATED">Esta página foi gerada em {0:N3} segundos.</Resource>    
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
     <Resource tag="HIDDEN">Hidden</Resource>
@@ -1297,6 +1298,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
     <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
     <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
+    <Resource tag="UTC">(UTC)</Resource>
     <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
     <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>

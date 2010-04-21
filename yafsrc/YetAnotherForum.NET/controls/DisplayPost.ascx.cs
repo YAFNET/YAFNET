@@ -188,8 +188,8 @@ namespace YAF.Controls
         int i = rawStr.IndexOf(",");
 
         // Extract UserID
-        strID = rawStr.Substring(0, i);
-
+        strID = rawStr.Substring(0, i).Trim();
+     
         // Get the username related to this User ID
         strUserName = PageContext.UserDisplayName.GetName(Convert.ToInt32(strID));
         rawStr = rawStr.Remove(0, i + 1);
@@ -203,7 +203,7 @@ namespace YAF.Controls
         }
 
         filler.AppendFormat(
-          @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", 
+          @"<a id=""Usr{0}"" href=""{1}""><u>{2}</u></a>", 
           strID, 
           YafBuildLink.GetLink(ForumPages.profile, "u={0}", strID), 
           strUserName);
