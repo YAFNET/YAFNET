@@ -592,7 +592,16 @@
 						<td class="post">
 							<asp:TextBox ID="AlbumImagesPerPage" runat="server"></asp:TextBox>
 						</td>					
-                    </tr>                    
+                    </tr> 
+                     	<tr>
+						<td class="postheader">
+							<b>Enable Active Location Error Log:</b><br />
+							If checked, all active location path errors are logged.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="EnableActiveLocationErrorsLog" runat="server"></asp:CheckBox>
+						</td>
+					</tr>                                      
 				</table>
 			</DotNetAge:View>		
 			<DotNetAge:View runat="server" ID="View3" Text="Display" NavigateUrl="" HeaderCssClass=""

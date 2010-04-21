@@ -98,11 +98,11 @@
 				<asp:TextBox Style="width: 80px" ID="UsrAlbumImages" runat="server" /></td>
 		</tr>	
 		<tr>
-			<td class="postheader" width="50%">
+			<td class="postheader" style="width: 50%">
 				<b>Priority:</b><br />
 				Enter here priority for different tasks.</td>
-			<td class="post" width="50%">
-				<asp:TextBox Style="width: 80px" ID="Priority" Text="0" runat="server" /></td>
+			<td class="post" style="width: 50%">
+				<asp:TextBox Style="width: 50px" ID="Priority" MaxLength="5" Text="0" runat="server" /></td>
 		</tr>
 			<tr>
 			<td class="postheader" width="50%">

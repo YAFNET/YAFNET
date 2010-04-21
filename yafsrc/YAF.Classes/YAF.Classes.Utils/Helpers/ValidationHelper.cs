@@ -67,5 +67,21 @@ namespace YAF.Classes.Utils
       int value;
       return int.TryParse(intstr, out value);
     }
+
+
+    /// <summary>
+    /// The value is a valid positive Int16.
+    /// </summary>
+    /// <param name="intstr">
+    /// The intstr.
+    /// </param>
+    /// <returns>
+    /// A bool value indicating whether the value is a positive valid Int16.
+    /// </returns>
+    public static bool IsValidPosShort(string intstr)
+    {
+        short value;
+        return short.TryParse(intstr, out value) ? value >= 0 : false; 
+    }
   }
 }

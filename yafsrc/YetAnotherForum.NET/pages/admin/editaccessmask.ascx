@@ -20,7 +20,7 @@
 				<b>Order:</b><br />
 				Sort order for this access mask.</td>
 			<td class="post" width="50%">
-				<asp:TextBox runat="server" ID="SortOrder" CssClass="edit" /><asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+				<asp:TextBox runat="server" ID="SortOrder" MaxLength="5" Width="50px" CssClass="edit" /><asp:RequiredFieldValidator ID="RequiredFieldValidator1"
 					runat="server" Text="<br />Enter sort order please!" ControlToValidate="SortOrder" Display="Dynamic" /></td>
 		</tr>
 		<tr>

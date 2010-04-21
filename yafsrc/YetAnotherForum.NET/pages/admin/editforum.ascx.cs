@@ -216,21 +216,24 @@ namespace YAF.Pages.Admin
         return;
       }      
 
-      int sortOrder = 0;
-      if (!int.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+      short sortOrder = 0;
+
+      if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
       {
-        PageContext.AddLoadMessage("You must enter an number value for sort order.");
-        return;
+          PageContext.AddLoadMessage("The sort order value should be a positive integer from 0 to 32767.");
+          return;
       }
 
-      // Check if the image file exists
-     /* if (!System.IO.File.Exists(String.Format("{0}{1}\\{2}", System.Web.Hosting.HostingEnvironment.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Forums, this.ImageURL.Text.Trim())))))
+      if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
       {
-          PageContext.AddLoadMessage("You must enter an existing file name.");
+          PageContext.AddLoadMessage("You must enter an number value from 0 to 32767 for sort order.");
           return;
-      }  */    
+      }
+  
       // Forum
-      long ForumID = 0;
+      // vzrus: it's stored in the DB as int
+      long ForumID = 0; 
+
       if (Request.QueryString["f"] != null)
       {
         ForumID = long.Parse(Request.QueryString["f"]);
@@ -253,6 +256,7 @@ namespace YAF.Pages.Admin
         return;
       }
 
+      // a new forum is creating
       if (ForumID == 0)
       {
           DataTable dt = DB.forum_list(this.PageContext.PageBoardID, null);
@@ -269,7 +273,7 @@ namespace YAF.Pages.Admin
           }
       }
 
-      // The picked forum cannot be child forum as it's a parent
+      // The picked forum cannot be a child forum as it's a parent
       // If we update a forum ForumID > 0 
       if (ForumID > 0 && parentID != null)
       {

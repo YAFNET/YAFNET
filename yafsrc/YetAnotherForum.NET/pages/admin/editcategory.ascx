@@ -49,7 +49,7 @@
 			
 			<td class="post">
 			
-			<asp:TextBox ID="SortOrder" runat="server" MaxLength="5"></asp:TextBox></td>
+			<asp:TextBox ID="SortOrder" runat="server" Style="width: 50px" MaxLength="5"></asp:TextBox></td>
 			
 			
 		</tr>

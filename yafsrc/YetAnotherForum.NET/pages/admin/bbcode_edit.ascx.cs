@@ -132,6 +132,20 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Add_Click(object sender, EventArgs e)
     {
+        short sortOrder = 0;
+
+        if (!ValidationHelper.IsValidPosShort(this.txtExecOrder.Text.Trim()))
+        {
+            PageContext.AddLoadMessage("The sort order value should be a positive integer from 0 to 32767.");
+            return;
+        }
+
+        if (!short.TryParse(this.txtExecOrder.Text.Trim(), out sortOrder))
+        {
+            PageContext.AddLoadMessage("You must enter an number value from 0 to 32767 for sort order.");
+            return;
+        }
+
       DB.bbcode_save(
         BBCodeID, 
         PageContext.PageBoardID, 
@@ -145,8 +159,8 @@ namespace YAF.Pages.Admin
         this.txtReplaceRegEx.Text, 
         this.txtVariables.Text, 
         this.chkUseModule.Checked, 
-        this.txtModuleClass.Text, 
-        int.Parse(this.txtExecOrder.Text));
+        this.txtModuleClass.Text,
+        sortOrder);
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.CustomBBCode));
       ReplaceRulesCreator.ClearCache();
       YafBuildLink.Redirect(ForumPages.admin_bbcode);

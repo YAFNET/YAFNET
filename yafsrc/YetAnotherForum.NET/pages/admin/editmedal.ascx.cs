@@ -114,6 +114,25 @@ namespace YAF.Pages.Admin
         PageContext.AddLoadMessage("Small medal image must be specified!");
         return;
       }
+      if (this.SortOrder.Text.Trim().Length == 0)
+      {
+          PageContext.AddLoadMessage("You must enter a value for sort order.");
+          return;
+      }
+
+      short sortOrder = 0;
+
+      if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
+      {
+          PageContext.AddLoadMessage("The sort order value should be a positive integer from 0 to 32767.");
+          return;
+      }
+
+      if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+      {
+          PageContext.AddLoadMessage("You must enter an number value from 0 to 32767 for sort order.");
+          return;
+      }
 
       // data
       object medalID = null;
@@ -169,8 +188,8 @@ namespace YAF.Pages.Admin
         imageSize.Width, 
         imageSize.Height, 
         ribbonWidth, 
-        ribbonHeight, 
-        this.SortOrder.Text, 
+        ribbonHeight,
+        sortOrder, 
         flags.BitValue);
 
       // go back to medals administration

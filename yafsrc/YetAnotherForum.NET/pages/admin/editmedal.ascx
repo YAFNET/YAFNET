@@ -86,7 +86,7 @@
 				<b>Sort Order:</b><br />
 				Default sort order of a medal.</td>
 			<td class="post" colspan="2">
-				<asp:TextBox Style="width: 75px" ID="SortOrder" runat="server" /></td>
+				<asp:TextBox Style="width: 50px" ID="SortOrder" MaxLength="5" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">

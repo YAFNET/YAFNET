@@ -51,7 +51,7 @@
 			<td class="postheader"><b>SortOrder:</b><br />
 				Sort order under this category.</td>
 			<td class="post">
-				<asp:textbox id="SortOrder" runat="server"></asp:textbox></td>
+				<asp:textbox id="SortOrder" Style="width: 50px" MaxLength="5" runat="server"></asp:textbox></td>
 		</tr>
 		<tr>
 			<td class="postheader"><b>Hide if no access:</b><br />

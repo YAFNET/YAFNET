@@ -165,7 +165,7 @@ namespace YAF.Pages.Admin
         CategoryID = int.Parse(Request.QueryString["c"]);
       }
 
-      int sortOrder;
+      short sortOrder;
       string name = this.Name.Text.Trim();
       object categoryImage = null;
 
@@ -174,7 +174,13 @@ namespace YAF.Pages.Admin
         categoryImage = this.CategoryImages.SelectedValue;
       }
 
-      if (!int.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+      if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
+      {
+          PageContext.AddLoadMessage("The Sort Order value should be a positive integer from 0 to 32767.");
+          return;
+      }
+
+      if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
       {
         // error...
         PageContext.AddLoadMessage("Invalid value entered for sort order: must enter a number.");

@@ -1896,6 +1896,23 @@ namespace YAF.Classes
             this._reg.SetValue<bool>("EnableDNACalendar", value);
         }
     }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether EnableActiveLocationErrorsLog. A temporary debug setting.
+    /// </summary>
+    public bool EnableActiveLocationErrorsLog
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("EnableActiveLocationErrorsLog", true);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("EnableActiveLocationErrorsLog", value);
+        }
+    }
+
     /// <summary>
     /// Gets or sets a value indicating whether EnableAlbum.
     /// </summary>

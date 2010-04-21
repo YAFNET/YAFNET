@@ -96,6 +96,26 @@ namespace YAF.Pages.Admin
 			object accessMaskID = null;
 			if (Request.QueryString["i"] != null) accessMaskID = Request.QueryString["i"];
 
+            if (this.Name.Text.Trim().Length <= 0)
+            {
+                PageContext.AddLoadMessage("You must enter a name for the Access Mask.");
+                return;
+            }
+
+            short sortOrder = 0;
+
+            if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
+            {
+                PageContext.AddLoadMessage("The Sort Order value should be a positive integer from 0 to 32767.");
+                return;
+            }            
+
+            if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+            {
+                PageContext.AddLoadMessage("You must enter a number value from 0 to 32767 for sort order.");
+                return;
+            }
+
 			// save it
 			DB.accessmask_save(
 			  accessMaskID,
@@ -112,7 +132,7 @@ namespace YAF.Pages.Admin
 			  this.DeleteAccess.Checked,
 			  this.UploadAccess.Checked,
 			  this.DownloadAccess.Checked,
-			  this.SortOrder.Text);
+              sortOrder);
 
 			// clear cache
 			PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
