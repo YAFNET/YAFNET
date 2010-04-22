@@ -1286,7 +1286,7 @@
 		</Resource>
   </page>
   <page name="TIMEZONES">
-    <Resource tag="UTC">(UTC)</Resource>
+    <Resource tag="NAME_UTC">(UTC)</Resource>
     <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
     <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>

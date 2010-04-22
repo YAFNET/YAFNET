@@ -29,7 +29,7 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Time zone suffix for Guests
     /// </summary>
-    private string timeZoneName = YafContext.Current.Localization.GetText("TIMEZONES","UTC"); 
+      private string timeZoneName = YafContext.Current.Localization.GetText("TIMEZONES", "NAME_UTC"); 
 
     /// <summary>
     /// Gets the time zone offset 

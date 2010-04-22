@@ -1248,7 +1248,7 @@ Der Bestätigungscode lautet
     </Resource>
   </page>
   <page name="TIMEZONES">
-    <Resource tag="UTC">(UTC)</Resource>
+    <Resource tag="NAME_UTC">(UTC)</Resource>
     <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lissabon, Monrovia</Resource>
     <Resource tag="UTC1">(UTC+1:00) Berlin, Brüssel, Kristiansund, Madrid, Paris, Rom, Warschau</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Azoren, Kapverdische Inseln</Resource>

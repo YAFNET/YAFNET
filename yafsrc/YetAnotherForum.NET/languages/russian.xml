@@ -1228,7 +1228,7 @@
 	</Resource>
   </page>
   <page name="TIMEZONES">
-    <Resource tag="UTC">(UTC)</Resource>
+    <Resource tag="NAME_UTC">(UTC)</Resource>
     <Resource tag="UTC0">(UTC) Касабланка, Дублин, Эдинбург, Лондон, Лиссабон, Монровия</Resource>
     <Resource tag="UTC1">(UTC+1:00) Берлин, Брюссель, Кристиансанд, Мадрид, Париж, Рим, Варашава</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Азоры, Острова Зелёного Мыса </Resource>

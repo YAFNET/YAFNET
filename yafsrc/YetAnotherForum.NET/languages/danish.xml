@@ -1311,7 +1311,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
     <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
     <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
-    <Resource tag="UTC">(UTC)</Resource>
+    <Resource tag="NAME_UTC">(UTC)</Resource>
     <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
     <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
