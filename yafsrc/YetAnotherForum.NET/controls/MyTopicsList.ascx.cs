@@ -371,13 +371,13 @@ namespace YAF.Controls
       {
           this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
           this.RssFeed.FeedType = YafRssFeeds.Active;
-          this.RssFeed.AdditionalParameters = String.Format("txt={0}&d={1}", Server.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text), Server.HtmlEncode(this.sinceDate.ToString()));
+          this.RssFeed.AdditionalParameters = String.Format("txt={0}&d={1}", Server.UrlEncode(Server.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), Server.UrlEncode(Server.HtmlEncode(this.sinceDate.ToString())));
       }
       else if (this.CurrentMode == TopicListMode.Favorite)
       {
           this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
           this.RssFeed.FeedType = YafRssFeeds.Favorite;
-          this.RssFeed.AdditionalParameters = String.Format("txt={0}&d={1}", Server.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text), Server.HtmlEncode(this.sinceDate.ToString()));
+          this.RssFeed.AdditionalParameters = String.Format("txt={0}&d={1}", Server.UrlEncode(Server.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)), Server.UrlEncode(Server.HtmlEncode(this.sinceDate.ToString())));
       }
   }
 

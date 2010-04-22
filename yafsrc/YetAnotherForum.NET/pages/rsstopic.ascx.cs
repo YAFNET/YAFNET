@@ -214,19 +214,19 @@ namespace YAF.Pages
 
         if (this.Request.QueryString["txt"] != null)
         {
-            toActText = Server.HtmlDecode(this.Request.QueryString["txt"].ToString());
+            toActText = Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString["txt"].ToString()));
         }  
      
         if (this.Request.QueryString["d"] != null)
         {
-            if (!DateTime.TryParse(Server.HtmlDecode(this.Request.QueryString["d"].ToString()), out toActDate))
+            if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString["d"].ToString())), out toActDate))
             {
                 toActDate = Convert.ToDateTime(YafServices.DateTime.FormatDateTimeShort(DateTime.UtcNow)) + TimeSpan.FromDays(-31);
                 toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
             }
             else
             {
-                // To limit number of feeds itwms by timespan if we are getting an unreasonable time
+                // To limit number of feeds items by timespan if we are getting an unreasonable time                
                 if (toActDate < DateTime.UtcNow + TimeSpan.FromDays(-31))
                 {
                     toActDate = DateTime.UtcNow + TimeSpan.FromDays(-31);
@@ -263,12 +263,12 @@ namespace YAF.Pages
 
           if (this.Request.QueryString["txt"] != null)
           {
-              toFavText = Server.HtmlDecode(this.Request.QueryString["txt"].ToString());
+              toFavText = Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString["txt"].ToString()));
           }
 
           if (this.Request.QueryString["d"] != null)
           {
-              if (!DateTime.TryParse(Server.HtmlDecode(this.Request.QueryString["d"].ToString()), out toFavDate))
+              if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString["d"].ToString())), out toFavDate))
               {
                   toFavDate = this.PageContext.CurrentUserData.Joined == null ? DateTime.MinValue + TimeSpan.FromDays(2) : (DateTime)this.PageContext.CurrentUserData.Joined;
                   toFavText = this.PageContext.Localization.GetText("MYTOPICS", "SHOW_ALL");
