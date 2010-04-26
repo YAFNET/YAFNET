@@ -643,18 +643,18 @@ end
 GO
 
 -- Active Table
-if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='Location' and prec < 128)
- 	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [Location] nvarchar(128) NOT NULL
+if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='Location' and prec < 255)
+ 	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [Location] nvarchar(255) NOT NULL
 GO
 
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Active] add [ForumPage] nvarchar(50)
+	alter table [{databaseOwner}].[{objectQualifier}Active] add [ForumPage] nvarchar(255)
 end
 GO
 
-if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage' and prec < 128)
- 	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [ForumPage] nvarchar(128) 
+if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='ForumPage' and prec < 255)
+ 	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [ForumPage] nvarchar(255) 
 GO
 
 if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='IP' and prec < 39)

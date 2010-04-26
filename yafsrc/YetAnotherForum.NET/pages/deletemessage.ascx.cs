@@ -334,7 +334,7 @@ namespace YAF.Pages
 
           this.Subject.Text = Convert.ToString(this._messageRow["Topic"]);
           this.DeleteReasonRow.Visible = true;
-          this.ReasonEditor.Text = Convert.ToString(this._messageRow["DeleteReason"]);
+          this.ReasonEditor.Text = Server.HtmlEncode(Convert.ToString(this._messageRow["DeleteReason"]));
 
           // populate the message preview with the message datarow...
           this.MessagePreview.Message = this._messageRow["message"].ToString();
@@ -370,7 +370,7 @@ namespace YAF.Pages
       DB.message_delete(
         tmpMessageID, 
         this._isModeratorChanged, 
-        this.ReasonEditor.Text, 
+        System.Web.HttpUtility.HtmlEncode(this.ReasonEditor.Text), 
         this.PostDeleted ? 0 : 1, 
         (bool)this.ViewState["delAll"], 
         this.EraseMessage.Checked);

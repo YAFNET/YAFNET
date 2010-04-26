@@ -91,7 +91,9 @@ namespace YAF.Pages
         var forumLogin = ControlHelper.FindControlAs<Button>(this.Login1, "LoginButton");
         var passwordRecovery = ControlHelper.FindControlAs<Button>(this.Login1, "PasswordRecovery");
 
-        /*
+        userName.Focus();
+
+          /*
         RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
         RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) Login1.FindControl( "PasswordRequired" );
 
@@ -115,11 +117,11 @@ namespace YAF.Pages
 
         if (password != null && forumLogin != null)
         {
-          password.Attributes.Add(
-            "onkeydown", 
-            "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" + forumLogin.ClientID +
-            "').click();return false;}} else {return true}; ");
-        }
+            password.Attributes.Add(
+              "onkeydown",
+              "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" + forumLogin.ClientID +
+              "').click();return false;}} else {return true}; ");
+        }    
 
         DataBind();
       }
