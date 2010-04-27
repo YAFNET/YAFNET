@@ -927,6 +927,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}active_list_user]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_viewallthanks]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_viewallthanks]
+GO
+
 /* End of Thanks table stored procedures */
  
 /* Buddy feature stored procedures */
@@ -1137,6 +1141,39 @@ BEGIN
 SELECT @ThanksToNumber=(SELECT Count(*) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksToUserID=@UserID)	
 SELECT @ThanksToPostsNumber=(SELECT Count(DISTINCT MessageID) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksToUserID=@UserID)	
 END
+Go
+
+CREATE PROCEDURE [dbo].[yaf_user_viewallthanks] @UserID int
+AS 
+    BEGIN
+        select  t.ThanksFromUserID,
+                t.ThanksToUserID,
+                c.MessageID,
+                a.ForumID,
+                a.TopicID,
+                a.Topic,
+                b.UserID,
+                c.MessageID,
+                c.Posted,
+                c.Message,
+                c.Flags
+        from    dbo.yaf_message c
+                left join dbo.yaf_topic a on a.TopicID = c.TopicID
+                left join dbo.yaf_user b on c.UserID = b.UserID
+                join dbo.yaf_vaccess x on x.ForumID = a.ForumID
+                join dbo.yaf_thanks t on c.MessageID = t.MessageID
+        where   x.ReadAccess <> 0
+                AND x.UserID = @UserID
+                AND c.IsApproved = 1
+                AND a.TopicMovedID IS NULL
+                AND a.IsDeleted = 0
+                AND c.IsDeleted = 0
+                and c.messageID in ( select MessageID
+                                     from   dbo.yaf_thanks
+                                     where  ThanksFromUserID = @UserID
+                                            or thankstouserID = @UserID )
+		ORDER BY c.Posted DESC
+    END
 Go
 /* End of procedures for "Thanks" Mod */
 

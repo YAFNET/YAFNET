@@ -213,6 +213,7 @@
 								</td>
 								<td class="post">
 									<asp:Label ID="ThanksFrom" runat="server" />
+                                    <asp:LinkButton ID="lnkThanks" runat="server" OnCommand="lnk_ViewThanks"/>
 								</td>
 							</tr>
 							<tr>

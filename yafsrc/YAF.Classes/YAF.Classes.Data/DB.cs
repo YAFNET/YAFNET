@@ -8266,6 +8266,25 @@ namespace YAF.Classes.Data
       }
     }
 
+    /// <summary>
+    /// Returns the posts which is thanked by the user + the posts which are posted by the user and 
+    /// are thanked by other users.
+    /// </summary>
+    /// <param name="UserID">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataTable user_viewallthanks(object UserID)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("user_viewallthanks"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("UserID", UserID);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
     #endregion
 
     #region UserForum

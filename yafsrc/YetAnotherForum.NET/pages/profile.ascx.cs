@@ -130,6 +130,21 @@ namespace YAF.Pages
     }
 
     /// <summary>
+    /// The lnk_ view thanks.
+    /// </summary>
+    /// <param name="sender">
+    /// the sender.
+    /// </param>
+    /// <param name="e">
+    /// the e.
+    /// </param>
+    protected void lnk_ViewThanks(object sender, CommandEventArgs e)
+    {
+        var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+        YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", userID);
+    }
+
+    /// <summary>
     /// The lnk_ add buddy.
     /// </summary>
     /// <param name="sender">
@@ -181,6 +196,9 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
+      lnkThanks.Text = string.Format("({0})", this.PageContext.Localization.GetText("VIEWTHANKS", "TITLE"));
+      lnkThanks.Visible = YafContext.Current.BoardSettings.EnableThanksMod;
+
       if (this.Request.QueryString["u"] == null)
       {
         YafBuildLink.AccessDenied();

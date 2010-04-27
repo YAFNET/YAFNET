@@ -203,6 +203,11 @@ namespace YAF.Classes
     /// The search.
     /// </summary>
     search, 
+    
+    /// <summary>
+    /// The viewthanks
+    /// </summary>
+    viewthanks,
 
     /// <summary>
     /// The mytopics

@@ -1049,6 +1049,13 @@
     </Resource>
     <Resource tag="TITLE">Forum Rules and Policies</Resource>
   </page>
+  <page name="VIEWTHANKS">
+    <Resource tag="NO_THANKS">[b]No thanks found.[/b]</Resource>
+    <Resource tag="TITLE">View Thanks</Resource>
+    <Resource tag="THANKSFROMUSER">{0} thanked</Resource>
+    <Resource tag="THANKSTOUSER">{0} was thanked</Resource>
+  </page>
+  
   <page name="SEARCH">
     <Resource tag="ALLFORUMS">All Forums</Resource>
     <Resource tag="BTNSEARCH">Search</Resource>

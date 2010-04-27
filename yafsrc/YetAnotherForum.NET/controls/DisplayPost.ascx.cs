@@ -347,6 +347,11 @@ namespace YAF.Controls
         this.PopMenu1.ItemClick += new PopEventHandler(this.PopMenu1_ItemClick);
         this.PopMenu1.AddPostBackItem("userprofile", this.PageContext.Localization.GetText("POSTS", "USERPROFILE"));
 
+        if (YafContext.Current.BoardSettings.EnableThanksMod)
+        {
+          this.PopMenu1.AddPostBackItem("viewthanks", this.PageContext.Localization.GetText("VIEWTHANKS", "TITLE"));
+        }
+
         if (this.PageContext.IsAdmin)
         {
           this.PopMenu1.AddPostBackItem("edituser", "Edit User (Admin)");
@@ -542,6 +547,9 @@ namespace YAF.Controls
         case "toggleuserposts_hide":
           YafServices.UserIgnored.AddIgnored(this.PostData.UserId);
           this.Response.Redirect(this.Request.RawUrl);
+          break;
+        case "viewthanks":
+          YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.PostData.UserId);
           break;
       }
     }
