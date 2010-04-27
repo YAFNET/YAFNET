@@ -1143,7 +1143,7 @@ SELECT @ThanksToPostsNumber=(SELECT Count(DISTINCT MessageID) FROM [{databaseOwn
 END
 Go
 
-CREATE PROCEDURE [dbo].[yaf_user_viewallthanks] @UserID int
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_viewallthanks] @UserID int
 AS 
     BEGIN
         select  t.ThanksFromUserID,
@@ -1157,11 +1157,11 @@ AS
                 c.Posted,
                 c.Message,
                 c.Flags
-        from    dbo.yaf_message c
-                left join dbo.yaf_topic a on a.TopicID = c.TopicID
-                left join dbo.yaf_user b on c.UserID = b.UserID
-                join dbo.yaf_vaccess x on x.ForumID = a.ForumID
-                join dbo.yaf_thanks t on c.MessageID = t.MessageID
+        from    [{databaseOwner}].[{objectQualifier}message] c
+                left join [{databaseOwner}].[{objectQualifier}topic] a on a.TopicID = c.TopicID
+                left join [{databaseOwner}].[{objectQualifier}user] b on c.UserID = b.UserID
+                join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID = a.ForumID
+                join [{databaseOwner}].[{objectQualifier}Thanks] t on c.MessageID = t.MessageID
         where   x.ReadAccess <> 0
                 AND x.UserID = @UserID
                 AND c.IsApproved = 1
@@ -1169,7 +1169,7 @@ AS
                 AND a.IsDeleted = 0
                 AND c.IsDeleted = 0
                 and c.messageID in ( select MessageID
-                                     from   dbo.yaf_thanks
+                                     from   [{databaseOwner}].[{objectQualifier}thanks]
                                      where  ThanksFromUserID = @UserID
                                             or thankstouserID = @UserID )
 		ORDER BY c.Posted DESC
