@@ -205,7 +205,7 @@ namespace YAF.Controls
           bFirst = false;
         }
 
-        string title = HtmlEncode(row["Title"].ToString().Trim());
+        string title = this.HtmlEncode(row["Title"].ToString().Trim());
         string url = row["URL"].ToString().Trim();
 
         if (String.IsNullOrEmpty(url))

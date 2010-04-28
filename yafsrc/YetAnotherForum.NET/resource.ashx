@@ -199,6 +199,7 @@ namespace YAF
         "{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
       string platform = HttpContext.Current.Request.Browser.Platform;
       bool isSearchEngine = false;
+      bool isIgnoredForDisplay = false;
       string userAgent = HttpContext.Current.Request.UserAgent;
 
       if (!string.IsNullOrEmpty(userAgent))
@@ -225,9 +226,10 @@ namespace YAF
         }
         else
         {
-            // check if it's a search engine spider...
+            // check if it's a search engine spider or an ignored UI string...
             isSearchEngine = !HttpContext.Current.Request.Browser.Crawler ? UserAgentHelper.IsSearchEngineSpider(userAgent) : true;
-        }
+            isIgnoredForDisplay = UserAgentHelper.IsIgnoredForDisplay(userAgent) | isSearchEngine;
+          }
       }
       else
       {
@@ -259,7 +261,7 @@ namespace YAF
         null, 
         messageID, 
         // don't track if this is a search engine
-        isSearchEngine, 
+        isIgnoredForDisplay, 
         YafContext.Current.BoardSettings.EnableBuddyList, 
         YafContext.Current.BoardSettings.AllowPrivateMessages, 
         YafContext.Current.BoardSettings.UseStyledNicks);

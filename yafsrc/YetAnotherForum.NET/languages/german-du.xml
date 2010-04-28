@@ -140,6 +140,7 @@
     <Resource tag="SHOWSMILIES">No data</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Views topic </Resource>
+    <Resource tag="VIEWTHANKS">Views thanks info</Resource>
   </page>
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">Aktivität</Resource>
@@ -297,7 +298,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Gehe zu:</Resource>
-    <Resource tag="GENERATED">Diese Seite wurde in {0:N3} Sekunden generiert.</Resource>    
+    <Resource tag="GENERATED">Diese Seite wurde in {0:N3} Sekunden generiert.</Resource>
     <Resource tag="GO">Los</Resource>
     <Resource tag="GOTOPAGE_HEADER">Wechsle zu Seite...</Resource>
     <Resource tag="HIDDEN">Versteckt</Resource>
@@ -1335,5 +1336,11 @@ Der Bestätigungscode lautet
     <Resource tag="WARN_LOGIN_FORUMWATCH">Du musst registriert sein, um dieses Forum zu sehen.</Resource>
     <Resource tag="WATCHFORUM">Dieses Forum abonnieren</Resource>
     <Resource tag="YESTERDAYAT">[b]Gestern[/b], um {0:T}</Resource>
+  </page>
+  <page name="VIEWTHANKS">
+    <Resource tag="NO_THANKS">[b]No thanks found.[/b]</Resource>
+    <Resource tag="THANKSFROMUSER">{0} thanked</Resource>
+    <Resource tag="THANKSTOUSER">{0} was thanked</Resource>
+    <Resource tag="TITLE">View Thanks</Resource>
   </page>
 </Resources>

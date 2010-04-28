@@ -119,6 +119,7 @@
     <Resource tag="SHOWSMILIES">No data</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Views topic </Resource>
+    <Resource tag="VIEWTHANKS">Views thanks info</Resource>
   </page>
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">Đã hoạt động</Resource>
@@ -276,7 +277,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">dd-MM-yyyy lúc hh:mm:ss</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Chuyển nhanh đến</Resource>
-    <Resource tag="GENERATED">Thời gian xử lý trang này hết {0:N3} giây.</Resource>    
+    <Resource tag="GENERATED">Thời gian xử lý trang này hết {0:N3} giây.</Resource>
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOPAGE_HEADER">Chuyển tới trang...</Resource>
     <Resource tag="HIDDEN">Hidden</Resource>
@@ -1360,5 +1361,11 @@
     <Resource tag="WARN_LOGIN_FORUMWATCH">Bạn cần đăng nhập để xem diễn đàn.</Resource>
     <Resource tag="WATCHFORUM">Theo dõi diễn đàn này</Resource>
     <Resource tag="YESTERDAYAT">[b]Hôm qua[/b] vào lúc {0:T}</Resource>
+  </page>
+  <page name="VIEWTHANKS">
+    <Resource tag="NO_THANKS">[b]No thanks found.[/b]</Resource>
+    <Resource tag="THANKSFROMUSER">{0} thanked</Resource>
+    <Resource tag="THANKSTOUSER">{0} was thanked</Resource>
+    <Resource tag="TITLE">View Thanks</Resource>
   </page>
 </Resources>

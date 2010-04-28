@@ -178,7 +178,7 @@ namespace YAF.Controls
     /// </param>
     protected override void Render(HtmlTextWriter output)
     {
-      string displayName = PageContext.UserDisplayName.GetName(this.UserID);
+      string displayName = this.PageContext.UserDisplayName.GetName(this.UserID);
 
       if (this.UserID != -1 && !displayName.IsNullOrEmptyTrimmed())
       {

@@ -70,6 +70,7 @@
 	<Resource tag="LASTPOSTS">No data</Resource>
 	<Resource tag="RECOVERPASSWORD">No data</Resource>
 	<Resource tag="SHOWSMILIES">No data</Resource>
+	<Resource tag="VIEWTHANKS">Views thanks info</Resource>	 
 	<Resource tag="ADMINTASK">Performs admin tasks</Resource>
 	<Resource tag="ADMIN_ADMIN">Views admin index</Resource>
 	<Resource tag="ADMIN_HOSTSETTING">Views/edits hosts settings</Resource>

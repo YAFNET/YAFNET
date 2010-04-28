@@ -140,6 +140,7 @@
     <Resource tag="SHOWSMILIES">No data</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Views topic </Resource>
+    <Resource tag="VIEWTHANKS">Views thanks info</Resource>
   </page>
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">Attivo</Resource>
@@ -297,7 +298,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">g</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Vai a</Resource>
-    <Resource tag="GENERATED">Pagina generata in {0:N3} secondi.</Resource>   
+    <Resource tag="GENERATED">Pagina generata in {0:N3} secondi.</Resource>
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
     <Resource tag="HIDDEN">Hidden</Resource>
@@ -1365,5 +1366,11 @@ Visita il forum {forumname} in {forumlink}
     <Resource tag="WARN_LOGIN_FORUMWATCH">Devi essere registrato per guardare il forum.</Resource>
     <Resource tag="WATCHFORUM">Guarda il Forum</Resource>
     <Resource tag="YESTERDAYAT">[b]Ieri[/b] alle {0:t}</Resource>
+  </page>
+  <page name="VIEWTHANKS">
+    <Resource tag="NO_THANKS">[b]No thanks found.[/b]</Resource>
+    <Resource tag="THANKSFROMUSER">{0} thanked</Resource>
+    <Resource tag="THANKSTOUSER">{0} was thanked</Resource>
+    <Resource tag="TITLE">View Thanks</Resource>
   </page>
 </Resources>

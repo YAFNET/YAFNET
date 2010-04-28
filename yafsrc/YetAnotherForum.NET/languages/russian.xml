@@ -119,6 +119,7 @@
     <Resource tag="SHOWSMILIES">Показ смайлов</Resource>
     <Resource tag="TOPICINFORUM"> в форуме </Resource>
     <Resource tag="TOPICS">Просматривает тему </Resource>
+    <Resource tag="VIEWTHANKS">Views thanks info</Resource>
   </page>
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">Активен</Resource>
@@ -280,7 +281,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Перейти</Resource>
-    <Resource tag="GENERATED">Страница сгенерирована за {0:N3} секунды.</Resource>    
+    <Resource tag="GENERATED">Страница сгенерирована за {0:N3} секунды.</Resource>
     <Resource tag="GO">Перейти</Resource>
     <Resource tag="GOTOPAGE_HEADER">Перейти на страницу...</Resource>
     <Resource tag="HIDDEN">Скрыт</Resource>
@@ -624,10 +625,10 @@
     <Resource tag="BOTH_USERNAME_EMAIL">Должны быть введены как адрес почты пользователя, так и его имя.</Resource>
     <Resource tag="EMAIL">Адрес Email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Было послано сообщение по почте с вашим новым паролем.</Resource>
-    <Resource tag="FORUM_LOGIN">Логин форума</Resource>
-    <Resource tag="LOSTPASSWORD">Восстановления пароля</Resource>
+    <Resource tag="FORUM_LOGIN">Войти</Resource>
+    <Resource tag="LOSTPASSWORD">Восстановить пароль</Resource>
     <Resource tag="PASSWORD">Пароль:</Resource>
-    <Resource tag="PASSWORD_ERROR">Ведённые пароль или имя пользователя неверны. Попытайтесь снова.</Resource>
+    <Resource tag="PASSWORD_ERROR">Введённые пароль или имя пользователя неверны. Попытайтесь снова.</Resource>
     <Resource tag="RECOVER">Восстановление пароля</Resource>
     <Resource tag="RECOVER_ERROR">Произошла ошибка во время создания Вашего нового пароля.</Resource>
     <Resource tag="SENDPASSWORD">Отправить пароль</Resource>
@@ -1316,5 +1317,11 @@
     <Resource tag="WARN_LOGIN_FORUMWATCH">Для просмотра форумов Вы должны быть зарегистрированным пользователем.</Resource>
     <Resource tag="WATCHFORUM">Следить за форумом</Resource>
     <Resource tag="YESTERDAYAT">[b]Вчера[/b] в {0:T}</Resource>
+  </page>
+  <page name="VIEWTHANKS">
+    <Resource tag="NO_THANKS">[b]«Спасибо» не найдены.[/b]</Resource>
+    <Resource tag="THANKSFROMUSER">{0} поблагодарил</Resource>
+    <Resource tag="THANKSTOUSER">{0} поблагодарили</Resource>
+    <Resource tag="TITLE">Просмотр «Спасибо»</Resource>
   </page>
 </Resources>

@@ -603,7 +603,8 @@ namespace YAF.Classes.Core
             if (this._userFlags != null)
             {
                 return this._userFlags.IsDST;
-            }           
+            }
+           
             return false;
         }
     }
@@ -691,8 +692,11 @@ namespace YAF.Classes.Core
 
           string browser = String.Format("{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
           string platform = HttpContext.Current.Request.Browser.Platform;
+         
           bool isSearchEngine = false;
-          string userAgent = HttpContext.Current.Request.UserAgent;
+          bool isIgnoredForDisplay = false;
+
+          string userAgent = HttpContext.Current.Request.UserAgent;      
 
           if (!string.IsNullOrEmpty(userAgent))
           {
@@ -718,16 +722,17 @@ namespace YAF.Classes.Core
               }
               else
               {
-                  // check if it's a search engine spider...
+                  // check if it's a search engine spider or an ignored UI string...
                   isSearchEngine = !HttpContext.Current.Request.Browser.Crawler ? UserAgentHelper.IsSearchEngineSpider(userAgent) : true;
+                  isIgnoredForDisplay = UserAgentHelper.IsIgnoredForDisplay(userAgent) | isSearchEngine;
               }
           }
           else
           {
+
               // It'll show that no UserAgent string was received. 
               platform = "?";
           }
-
           int? categoryID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["c"]);
           int? forumID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["f"]);
           int? topicID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["t"]);
@@ -761,7 +766,7 @@ namespace YAF.Classes.Core
               topicID, 
               messageID, 
               //// don't track if this is a search engine
-              isSearchEngine,
+              isIgnoredForDisplay,
               YafContext.Current.BoardSettings.EnableBuddyList,
               YafContext.Current.BoardSettings.AllowPrivateMessages,
               YafContext.Current.BoardSettings.UseStyledNicks);

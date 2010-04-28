@@ -140,6 +140,7 @@
     <Resource tag="SHOWSMILIES">No data</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Views topic </Resource>
+    <Resource tag="VIEWTHANKS">Views thanks info</Resource>
   </page>
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">فعال</Resource>
@@ -297,7 +298,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">جهش به انجمن</Resource>
-    <Resource tag="GENERATED">این صفحه در مدت زمان {0:N3} ثانیه ایجاد شد.</Resource>    
+    <Resource tag="GENERATED">این صفحه در مدت زمان {0:N3} ثانیه ایجاد شد.</Resource>
     <Resource tag="GO">برو</Resource>
     <Resource tag="GOTOPAGE_HEADER">برو به صفحه...</Resource>
     <Resource tag="HIDDEN">مخفی</Resource>
@@ -1329,5 +1330,11 @@ Visit {forumname} at {forumlink}
     <Resource tag="WARN_LOGIN_FORUMWATCH">شما برای مشاهده این انجمن باید ثبت نام کنید.</Resource>
     <Resource tag="WATCHFORUM">پیگیری انجمن</Resource>
     <Resource tag="YESTERDAYAT">[b]دیروز[/b] در {0:T}</Resource>
+  </page>
+  <page name="VIEWTHANKS">
+    <Resource tag="NO_THANKS">[b]No thanks found.[/b]</Resource>
+    <Resource tag="THANKSFROMUSER">{0} thanked</Resource>
+    <Resource tag="THANKSTOUSER">{0} was thanked</Resource>
+    <Resource tag="TITLE">View Thanks</Resource>
   </page>
 </Resources>
