@@ -4,7 +4,7 @@
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <div class="DivTopSeparator">
 </div>
-<asp:UpdatePanel ID="TopicsUpdatePanel" runat="server">
+<asp:UpdatePanel ID="ThanksUpdatePanel" runat="server">
     <ContentTemplate>
         <br style="clear: both" />
         <DotNetAge:Tabs ID="ThanksTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"

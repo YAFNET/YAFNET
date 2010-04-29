@@ -215,6 +215,7 @@ namespace YAF.Pages
         protected void UpdateTitle_Click(object sender, EventArgs e)
         {
             string albumID = this.Request.QueryString["a"];
+            this.txtTitle.Text = System.Web.HttpUtility.HtmlEncode(txtTitle.Text);
             if (this.Request.QueryString["a"] == "new")
             {
                 albumID = DB.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null).ToString();

@@ -40,13 +40,13 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Summary description for topics.
+    /// Summary description for view thanks.
     /// </summary>
     public partial class ViewThanks : ForumPage
     {
         #region Constructors and Destructors
         /// <summary>
-        /// Initializes a new instance of the mytopics class.
+        /// Initializes a new instance of the viewthanks class.
         /// </summary>
         public ViewThanks()
             : base("VIEWTHANKS")
