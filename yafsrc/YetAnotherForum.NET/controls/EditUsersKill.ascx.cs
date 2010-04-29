@@ -132,7 +132,7 @@ namespace YAF.Controls
       string name = UserMembershipHelper.GetDisplayNameFromID (this.CurrentUserID == null? -1: (int)this.CurrentUserID);
 
       IPAddresses.ForEach(x => DB.bannedip_save(null, PageContext.PageBoardID, x, 
-          string.Format(@"User <a id=""usr{0}"" href=""{1}"">{2}</a>  is banned by IP", this.CurrentUserID, YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID), name), this.PageContext.PageUserID));
+          string.Format(@"User <a id=""usr{0}"" href=""{1}"">{2}</a>  is banned by IP", this.CurrentUserID, YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID), Server.HtmlEncode(name)), this.PageContext.PageUserID));
 
       // clear cache of banned IPs for this board
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));

@@ -77,7 +77,7 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    /// Gets and Sets the DataRow.
+    /// Gets or sets the DataRow.
     /// </summary>
     public DataRowView DataRow
     {
@@ -191,7 +191,7 @@ namespace YAF.Controls
         strID = rawStr.Substring(0, i).Trim();
      
         // Get the username related to this User ID
-        strUserName = PageContext.UserDisplayName.GetName(Convert.ToInt32(strID));
+        strUserName = this.PageContext.UserDisplayName.GetName(Convert.ToInt32(strID));
         rawStr = rawStr.Remove(0, i + 1);
 
         // If Thanks date is in the data, extract it.
@@ -204,18 +204,17 @@ namespace YAF.Controls
 
         filler.AppendFormat(
           @"<a id=""Usr{0}"" href=""{1}""><u>{2}</u></a>", 
-          strID, 
+          String.Format("{0}_{1}", strID, Guid.NewGuid()), 
           YafBuildLink.GetLink(ForumPages.profile, "u={0}", strID), 
-          strUserName);
+          Server.HtmlEncode(strUserName));
 
         // If showing thanks date is enabled, add it to the formatted string.
         if (YafContext.Current.BoardSettings.ShowThanksDate)
         {
-          filler.AppendFormat(
-            @" {0}", 
-            String.Format(
-              YafContext.Current.Localization.GetText("DEFAULT", "ONDATE"), 
-              YafServices.DateTime.FormatDateShort(Convert.ToDateTime(strDate))));
+        filler.AppendFormat(
+          @" {0}",
+          String.Format(YafContext.Current.Localization.GetText("DEFAULT", "ONDATE"),
+          YafServices.DateTime.FormatDateShort(Convert.ToDateTime(strDate))));
         }
       }
 
@@ -226,7 +225,7 @@ namespace YAF.Controls
     /// The get indent cell.
     /// </summary>
     /// <returns>
-    /// The get indent cell.
+    /// Returns indent cell.
     /// </returns>
     protected string GetIndentCell()
     {
@@ -235,13 +234,13 @@ namespace YAF.Controls
         return string.Empty;
       }
 
-      var iIndent = (int)this.DataRow["Indent"];
-      if (iIndent > 0)
+      var indent = (int)this.DataRow["Indent"];
+      if (indent > 0)
       {
         return
           string.Format(
             @"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>", 
-            iIndent * 32, 
+            indent * 32, 
             YafForumInfo.ForumClientFileRoot);
       }
       else
@@ -329,16 +328,16 @@ namespace YAF.Controls
     {
       Utility.RegisterTypeForAjax(typeof(ThankYou));
 
-      string AddThankBoxHTML =
+      string addThankBoxHTML =
         "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
 
-      string RemoveThankBoxHTML =
+      string removeThankBoxHTML =
         "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
 
       YafContext.Current.PageElements.RegisterJsBlockStartup(
-        "addThanksJs", JavaScriptBlocks.addThanksJs(RemoveThankBoxHTML));
+        "addThanksJs", JavaScriptBlocks.addThanksJs(removeThankBoxHTML));
       YafContext.Current.PageElements.RegisterJsBlockStartup(
-        "removeThanksJs", JavaScriptBlocks.removeThanksJs(AddThankBoxHTML));
+        "removeThanksJs", JavaScriptBlocks.removeThanksJs(addThankBoxHTML));
       YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
 
       this.PopMenu1.Visible = !this.IsGuest;
@@ -380,7 +379,7 @@ namespace YAF.Controls
             this.PopMenu1.AddPostBackItem("addbuddy", this.PageContext.Localization.GetText("BUDDY", "ADDBUDDY"));
           }
             
-            // Are the users approved buddies? Add the "Remove buddy" item.
+          // Are the users approved buddies? Add the "Remove buddy" item.
           else if (YafBuddies.IsBuddy((int)this.DataRow["UserID"], true) && !this.PageContext.IsGuest)
           {
             this.PopMenu1.AddClientScriptItemWithPostback(
@@ -480,12 +479,12 @@ namespace YAF.Controls
         if (thanksNumber == 1)
         {
           this.Literal1.Text = String.Format(
-            this.PageContext.Localization.GetText("THANKSINFOSINGLE"), this.PostData.UserProfile.UserName);
+            this.PageContext.Localization.GetText("THANKSINFOSINGLE"), Server.HtmlEncode(this.PostData.UserProfile.UserName));
         }
         else
         {
           this.Literal1.Text = String.Format(
-            this.PageContext.Localization.GetText("THANKSINFO"), thanksNumber, this.PostData.UserProfile.UserName);
+            this.PageContext.Localization.GetText("THANKSINFO"), thanksNumber, Server.HtmlEncode(this.PostData.UserProfile.UserName));
         }
       }
     }

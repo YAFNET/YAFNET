@@ -21,18 +21,18 @@
                     <tr>
                         <td class="albumimagebox">
                             <a href='<%# YafBuildLink.GetLink(ForumPages.album, "u={0}&a={1}", Eval("UserID"), Eval("AlbumID")) %>'
-                                target="_parent" title='<%# Eval("Title") %>'>
+                                target="_parent" title='<%# HtmlEncode(Eval("Title"))%>'>
                                 <img src='<%# String.Format("{0}resource.ashx?album={1}&cover={2}",YafForumInfo.ForumClientFileRoot, Eval("AlbumID"), (Eval("CoverImageID").ToString() == string.Empty ? "0" : Eval("CoverImageID")) ) %>'
-                                    alt='<%# Eval("Title") %>' />
+                                    alt='<%# HtmlEncode(Eval("Title")) %>' />
                             </a>
                         </td>
                     </tr>
                     <tr>
                         <td class="albumtitlebox">
                             <span runat="server" id="spnUser" visible='<%# UserID != PageContext.PageUserID %>'>
-                                <%# Eval("Title")%></span> <span runat="server" id="spnAlbumOwner" visible='<%# UserID == PageContext.PageUserID %>'>
+                                <%# HtmlEncode(Eval("Title"))%></span> <span runat="server" id="spnAlbumOwner" visible='<%# UserID == PageContext.PageUserID %>'>
                                     <span class="albumtitle" id='<%# "spnTitle0" + Eval("AlbumID") %>' onclick="showTexBox(this.id)"
-                                        style="display: inline;"><%# Eval("Title").ToString() == string.Empty ? PageContext.Localization.GetText("ALBUM_CHANGE_TITLE") : Eval("Title")%></span>
+                                        style="display: inline;"><%# Eval("Title").ToString() == string.Empty ? PageContext.Localization.GetText("ALBUM_CHANGE_TITLE") : HtmlEncode(Eval("Title"))%></span>
                                     <input type="text" id='<%# "txtTitle0" + Eval("AlbumID") %>' onkeydown="checkKey(event, this,'<%#Eval("AlbumID") %>',true)"
                                         onblur="blurTextBox(this.id, '<%# Eval("AlbumID")%>', true)" style="display: none;" />
                                     <asp:Button ID="Edit" CssClass="pbutton" Text='<%# PageContext.Localization.GetText("BUTTON","EDIT") %>'

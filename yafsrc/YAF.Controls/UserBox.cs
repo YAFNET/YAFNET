@@ -241,16 +241,12 @@ namespace YAF.Controls
 
       // Groups
       userBox = this.MatchUserBoxGroups(userBox, roleRankStyleTable);
+     
+      // ThanksFrom
+      userBox = this.MatchUserBoxThanksFrom(userBox);
 
-      // vzrus: We shoud not render Thanks statistics if the mode is disabled
-      if (this.PageContext.BoardSettings.EnableThanksMod)
-      {
-        // ThanksFrom
-        userBox = this.MatchUserBoxThanksFrom(userBox);
-
-        // ThanksTo
-        userBox = this.MatchUserBoxThanksTo(userBox);
-      }
+      // ThanksTo
+      userBox = this.MatchUserBoxThanksTo(userBox);     
 
       if (!this.PostDeleted)
       {
@@ -786,11 +782,11 @@ namespace YAF.Controls
     private string MatchUserBoxThanksFrom(string userBox)
     {
       string filler = string.Empty;
-      var rx = new Regex(Constants.UserBox.ThanksFrom);
-
+      var rx = new Regex(Constants.UserBox.ThanksFrom);     
+ 
       filler = String.Format(
         this.PageContext.BoardSettings.UserBoxThanksFrom, 
-        String.Format(this.PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));
+        String.Format(this.PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));     
 
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);

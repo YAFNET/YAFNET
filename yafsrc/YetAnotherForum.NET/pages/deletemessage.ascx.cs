@@ -334,7 +334,7 @@ namespace YAF.Pages
 
           this.Subject.Text = Convert.ToString(this._messageRow["Topic"]);
           this.DeleteReasonRow.Visible = true;
-          this.ReasonEditor.Text = Server.HtmlEncode(Convert.ToString(this._messageRow["DeleteReason"]));
+          this.ReasonEditor.Text = Convert.ToString(this._messageRow["DeleteReason"]);
 
           // populate the message preview with the message datarow...
           this.MessagePreview.Message = this._messageRow["message"].ToString();

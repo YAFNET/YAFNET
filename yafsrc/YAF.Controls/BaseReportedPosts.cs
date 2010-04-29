@@ -164,8 +164,8 @@ namespace YAF.Controls
               this.PageContext.Localization.GetText("RESOLVEDBY"), 
               YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(this.ResolvedBy)),
               string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(this.ResolvedBy)))
-              ? resolvedByName
-              : PageContext.UserDisplayName.GetName(Convert.ToInt32(this.ResolvedBy)),             
+              ? Server.HtmlEncode(resolvedByName)
+              : Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(this.ResolvedBy))),             
               YafServices.DateTime.FormatDateTimeTopic(this.ResolvedDate));
             writer.WriteLine(@"</td></tr>");
           }
@@ -175,8 +175,8 @@ namespace YAF.Controls
           writer.Write(
             @"<span class=""YafReported_Complainer"">{3}</span><a class=""YafReported_Link"" href=""{1}""> {0}{2} </a>",
             string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(reporter["UserID"])))
-              ? reporter["UserName"].ToString()
-              : PageContext.UserDisplayName.GetName(Convert.ToInt32(reporter["UserID"])), 
+              ? Server.HtmlEncode(reporter["UserName"].ToString())
+              : Server.HtmlEncode(this.PageContext.UserDisplayName.GetName(Convert.ToInt32(reporter["UserID"]))), 
             YafBuildLink.GetLink(ForumPages.profile, "u={0}", Convert.ToInt32(reporter["UserID"])), 
             howMany, 
             this.PageContext.Localization.GetText("REPORTEDBY"));

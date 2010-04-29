@@ -44,10 +44,10 @@
     		</FooterTemplate>
     	</asp:Repeater>
 	</table>
+	&nbsp;<br />
 	<table width="100%" cellspacing="1" cellpadding="0" class="content">
 		<asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
-    <HeaderTemplate>
-      <br />
+    <HeaderTemplate>      
       
         <tr>
           <td class="header1" colspan="5">

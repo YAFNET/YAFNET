@@ -1,6 +1,6 @@
 ﻿/*!
  * jQuery blockUI plugin
- * Version 2.26 (09-SEP-2009)
+ * Version 2.33 (29-MAR-2010)
  * @requires jQuery v1.2.3 or later
  *
  * Examples at: http://malsup.com/jquery/block/
@@ -20,6 +20,8 @@ if (/1\.(0|1|2)\.(0|1|2)/.test($.fn.jquery) || /^1.1/.test($.fn.jquery)) {
 }
 
 $.fn._fadeIn = $.fn.fadeIn;
+
+var noOp = function() {};
 
 // this bit is to ensure we don't call setExpression when we shouldn't (with extra muscle to handle
 // retarded userAgent strings on Vista)
@@ -63,7 +65,7 @@ $.fn.unblock = function(opts) {
 	});
 };
 
-$.blockUI.version = 2.26; // 2nd generation blocking at no extra cost!
+$.blockUI.version = 2.33; // 2nd generation blocking at no extra cost!
 
 // override these in your code to change the default behavior and style
 $.blockUI.defaults = {
@@ -118,7 +120,8 @@ $.blockUI.defaults = {
 		color:		'#fff',
 		backgroundColor: '#000',
 		'-webkit-border-radius': '10px',
-		'-moz-border-radius':	 '10px'
+		'-moz-border-radius':	 '10px',
+		'border-radius': 		 '10px'
 	},
 	
 	// IE issues: 'about:blank' fails on HTTPS and javascript:false is s-l-o-w
@@ -164,6 +167,9 @@ $.blockUI.defaults = {
 
 	// suppresses the use of overlay styles on FF/Linux (due to performance issues with opacity)
 	applyPlatformOpacityRules: true,
+	
+	// callback method invoked when fadeIn has completed and blocking message is visible
+	onBlock: null,
 
 	// callback method invoked when unblocking has completed; the callback is
 	// passed the element that has been unblocked (which is the window object for page
@@ -220,18 +226,26 @@ function install(el, opts) {
 		: $('<div class="blockUI" style="display:none"></div>');
 	var lyr2 = $('<div class="blockUI blockOverlay" style="z-index:'+ (z++) +';display:none;border:none;margin:0;padding:0;width:100%;height:100%;top:0;left:0"></div>');
 	
-	var lyr3;
+	var lyr3, s;
 	if (opts.theme && full) {
-		var s = '<div class="blockUI blockMsg blockPage ui-dialog ui-widget ui-corner-all" style="z-index:'+z+';display:none;position:fixed">' +
-					'<div class="ui-widget-header ui-dialog-titlebar blockTitle">'+(opts.title || '&nbsp;')+'</div>' +
-					'<div class="ui-widget-content ui-dialog-content"></div>' +
-				'</div>';
-		lyr3 = $(s);
+		s = '<div class="blockUI blockMsg blockPage ui-dialog ui-widget ui-corner-all" style="z-index:'+z+';display:none;position:fixed">' +
+				'<div class="ui-widget-header ui-dialog-titlebar blockTitle">'+(opts.title || '&nbsp;')+'</div>' +
+				'<div class="ui-widget-content ui-dialog-content"></div>' +
+			'</div>';
 	}
+	else if (opts.theme) {
+		s = '<div class="blockUI blockMsg blockElement ui-dialog ui-widget ui-corner-all" style="z-index:'+z+';display:none;position:absolute">' +
+				'<div class="ui-widget-header ui-dialog-titlebar blockTitle">'+(opts.title || '&nbsp;')+'</div>' +
+				'<div class="ui-widget-content ui-dialog-content"></div>' +
+			'</div>';
+	}
+	else if (full) {
+		s = '<div class="blockUI blockMsg blockPage" style="z-index:'+z+';display:none;position:fixed"></div>';
+	}			
 	else {
-		lyr3 = full ? $('<div class="blockUI blockMsg blockPage" style="z-index:'+z+';display:none;position:fixed"></div>')
-					: $('<div class="blockUI blockMsg blockElement" style="z-index:'+z+';display:none;position:absolute"></div>');
-	}						   
+		s = '<div class="blockUI blockMsg blockElement" style="z-index:'+z+';display:none;position:absolute"></div>';
+	}
+	lyr3 = $(s);
 
 	// if we have a message, style it
 	if (msg) {
@@ -252,7 +266,11 @@ function install(el, opts) {
 	if ($.browser.msie || opts.forceIframe)
 		lyr1.css('opacity',0.0);
 
-	$([lyr1[0],lyr2[0],lyr3[0]]).appendTo(full ? 'body' : el);
+	//$([lyr1[0],lyr2[0],lyr3[0]]).appendTo(full ? 'body' : el);
+	var layers = [lyr1,lyr2,lyr3], $par = full ? $('body') : $(el);
+	$.each(layers, function() {
+		this.appendTo($par);
+	});
 	
 	if (opts.theme && opts.draggable && $.fn.draggable) {
 		lyr3.draggable({
@@ -312,16 +330,21 @@ function install(el, opts) {
 	if (($.browser.msie || opts.forceIframe) && opts.showOverlay)
 		lyr1.show(); // opacity is zero
 	if (opts.fadeIn) {
+		var cb = opts.onBlock ? opts.onBlock : noOp;
+		var cb1 = (opts.showOverlay && !msg) ? cb : noOp;
+		var cb2 = msg ? cb : noOp;
 		if (opts.showOverlay)
-			lyr2._fadeIn(opts.fadeIn);
+			lyr2._fadeIn(opts.fadeIn, cb1);
 		if (msg)
-			lyr3.fadeIn(opts.fadeIn);
+			lyr3._fadeIn(opts.fadeIn, cb2);
 	}
 	else {
 		if (opts.showOverlay)
 			lyr2.show();
 		if (msg)
 			lyr3.show();
+		if (opts.onBlock)
+			opts.onBlock();
 	}
 
 	// bind key and mouse events
@@ -388,7 +411,7 @@ function reset(els,data,opts,el) {
 		data.el.style.position = data.position;
 		if (data.parent)
 			data.parent.appendChild(data.el);
-		$(data.el).removeData('blockUI.history');
+		$(el).removeData('blockUI.history');
 	}
 
 	if (typeof opts.onUnblock == 'function')

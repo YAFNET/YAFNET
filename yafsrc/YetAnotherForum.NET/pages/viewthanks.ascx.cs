@@ -92,7 +92,7 @@ namespace YAF.Pages
             {
                 this.PageLinks.Clear();
                 this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                this.PageLinks.AddLink(displayName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID));
+                this.PageLinks.AddLink(!string.IsNullOrEmpty(displayName) ? displayName : UserMembershipHelper.GetUserNameFromID(userID), YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID));
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
 
