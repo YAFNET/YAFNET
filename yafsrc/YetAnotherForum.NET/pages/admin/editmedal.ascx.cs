@@ -805,7 +805,8 @@ namespace YAF.Pages.Admin
     {
       var dr = (DataRowView) data;
 
-      return String.Format("<a href=\"{1}\">{0}</a>", dr["UserName"], YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
+      return String.Format("<a href=\"{1}\">{0}</a>", this.HtmlEncode(dr["UserName"]), YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
+
     }
 
 

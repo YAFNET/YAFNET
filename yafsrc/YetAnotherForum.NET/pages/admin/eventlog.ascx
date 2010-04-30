@@ -30,7 +30,7 @@
                                 <%# EventImageCode(Container.DataItem) %>
                             </td>
                             <td>
-                                <%# Eval( "Name") %>
+                                <%# HtmlEncode(Eval( "Name")) %>
                             </td>
                             <td>
                                 <%# Eval( "EventTime") %>

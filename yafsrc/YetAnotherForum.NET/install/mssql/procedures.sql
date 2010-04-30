@@ -6855,6 +6855,7 @@ as begin
 		b.[SortOrder],
 		a.[Flags],
 		c.[Name] as [UserName],
+		c.[DisplayName] as [DisplayName],
 		b.[UserID],
 		isnull(b.[Message],a.[Message]) as [Message],
 		b.[Message] as [MessageEx],
