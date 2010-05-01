@@ -135,7 +135,7 @@ namespace YAF.Controls
 
       // return thank you object...
       return new ThankYou
-        {
+        {           
           MessageID = MessageID, 
           ThanksInfo = ThanksNumber(username), 
           Thanks = GetThanks(MessageID), 
@@ -169,7 +169,7 @@ namespace YAF.Controls
           }
 
           filler.AppendFormat(
-            @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", dr["UserID"], YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]), dr["Name"]);
+              @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", dr["UserID"], YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]), dr["DisplayName"] != DBNull.Value ? YafContext.HttpContext.Server.HtmlEncode(dr["DisplayName"].ToString()) : YafContext.HttpContext.Server.HtmlEncode(dr["Name"].ToString()));
 
           if (YafContext.Current.BoardSettings.ShowThanksDate)
           {

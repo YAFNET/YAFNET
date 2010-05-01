@@ -1050,7 +1050,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getthanks]
 	@MessageID int
 AS
 BEGIN
-	SELECT a.ThanksFromUserID as UserID, a.ThanksDate, b.Name
+	SELECT a.ThanksFromUserID as UserID, a.ThanksDate, b.Name, b.DisplayName
 	FROM [{databaseOwner}].[{objectQualifier}Thanks] a 
 	Inner Join [{databaseOwner}].[{objectQualifier}User] b
 	ON (a.ThanksFromUserID = b.UserID) WHERE (MessageID=@MessageID)
