@@ -20,7 +20,7 @@
 namespace YAF.Classes.Core
 {
   /// <summary>
-  /// Summary description for AdminPage.
+  /// Summary description for ForumPageRegistered.
   /// </summary>
   public class ForumPageRegistered : ForumPage
   {
@@ -42,7 +42,7 @@ namespace YAF.Classes.Core
     public ForumPageRegistered(string transPage)
       : base(transPage)
     {
-      _isRegisteredPage = true;
+      IsRegisteredPage = true;
     }
   }
 }

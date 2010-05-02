@@ -31,112 +31,124 @@ namespace YAF.Classes.Core
   using YAF.Classes.Utils;
 
   /// <summary>
-  /// The class that all Yaf forum pages are based on.
+  /// The class that all YAF forum pages are derived from.
   /// </summary>
   public class ForumPage : UserControl
   {
-    #region Variables
-
-    // cache for this page
+    /// <summary>
+    /// Cache for the page
+    /// </summary>
     private readonly Hashtable _pageCache;
 
+    /// <summary>
+    /// No Database Toggle
+    /// </summary>
     private bool _noDataBase;
 
+    /// <summary>
+    /// </summary>
     private bool _showToolBar = Config.ShowToolBar;
 
+    /// <summary>
+    /// </summary>
     private bool _showFooter = Config.ShowFooter;
 
+    /// <summary>
+    /// </summary>
     private readonly string _transPage = string.Empty;
 
+    /// <summary>
+    /// </summary>
     public event EventHandler<ForumPageRenderedArgs> ForumPageRendered;
 
-    protected bool _isAdminPage;
+    /// <summary>
+    /// </summary>
+    private bool _isAdminPage;
 
+    /// <summary>
+    /// Gets a value indicating whether IsAdminPage.
+    /// </summary>
     public bool IsAdminPage
     {
       get
       {
         return this._isAdminPage;
       }
+      protected set
+      {
+        this._isAdminPage = value;
+      }
     }
 
-    protected bool _isRegisteredPage = false;
+    /// <summary>
+    /// </summary>
+    private bool _isRegisteredPage;
 
+    /// <summary>
+    /// Gets a value indicating whether IsRegisteredPage.
+    /// </summary>
     public bool IsRegisteredPage
     {
       get
       {
         return this._isRegisteredPage;
       }
-    }
-
-    private bool _allowAsPopup = false;
-
-    public bool AllowAsPopup
-    {
-      get
-      {
-        return this._allowAsPopup;
-      }
       protected set
       {
-        this._allowAsPopup = value;
+        this._isRegisteredPage = value;
       }
     }
-
-    private IYafHeader _header = null;
-
-    public IYafHeader ForumHeader
-    {
-      get
-      {
-        return this._header;
-      }
-      set
-      {
-        this._header = value;
-      }
-    }
-
-    private IYafFooter _footer = null;
-
-    public IYafFooter ForumFooter
-    {
-      get
-      {
-        return this._footer;
-      }
-      set
-      {
-        this._footer = value;
-      }
-    }
-
-    #endregion
-
-    #region Constructor and events
 
     /// <summary>
-    /// Constructor
+    /// Gets or sets a value indicating whether AllowAsPopup.
+    /// </summary>
+    public bool AllowAsPopup { get; protected set; }
+
+    /// <summary>
+    /// Gets or sets ForumHeader.
+    /// </summary>
+    public IYafHeader ForumHeader { get; set; }
+
+    /// <summary>
+    /// Gets or sets ForumFooter.
+    /// </summary>
+    public IYafFooter ForumFooter { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumPage"/> class. 
     /// </summary>
     public ForumPage()
-      : this("")
+      : this(string.Empty)
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ForumPage"/> class.
+    /// </summary>
+    /// <param name="transPage">
+    /// The trans page.
+    /// </param>
     public ForumPage(string transPage)
     {
       // create empty hashtable for cache entries
       this._pageCache = new Hashtable();
 
       this._transPage = transPage;
-      this.Init += new EventHandler(this.ForumPage_Init);
-      this.Load += new EventHandler(this.ForumPage_Load);
-      this.Unload += new EventHandler(this.ForumPage_Unload);
-      this.Error += new EventHandler(this.ForumPage_Error);
-      this.PreRender += new EventHandler(this.ForumPage_PreRender);
+      this.Init += this.ForumPage_Init;
+      this.Load += this.ForumPage_Load;
+      this.Unload += this.ForumPage_Unload;
+      this.Error += this.ForumPage_Error;
+      this.PreRender += this.ForumPage_PreRender;
     }
 
+    /// <summary>
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
     private void ForumPage_Error(object sender, EventArgs e)
     {
       // This doesn't seem to work...
@@ -202,10 +214,11 @@ namespace YAF.Classes.Core
       }
     }
 
-    #endregion
-
-    #region Render Functions
-
+    /// <summary>
+    /// </summary>
+    /// <param name="addTo">
+    /// The add to.
+    /// </param>
     protected void InsertCssRefresh(Control addTo)
     {
       // make the style sheet link controls.
@@ -222,8 +235,13 @@ namespace YAF.Classes.Core
       }
     }
 
-    protected Control _topPageControl = null;
+    /// <summary>
+    /// </summary>
+    private Control _topPageControl = null;
 
+    /// <summary>
+    /// Gets TopPageControl.
+    /// </summary>
     public Control TopPageControl
     {
       get
@@ -245,11 +263,21 @@ namespace YAF.Classes.Core
       }
     }
 
+    /// <summary>
+    /// </summary>
     protected void SetupHeaderElements()
     {
       this.InsertCssRefresh(this.TopPageControl);
     }
 
+    /// <summary>
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
     private void ForumPage_PreRender(object sender, EventArgs e)
     {
       // sets up the head elements in addition to the Css and image elements
@@ -273,11 +301,8 @@ namespace YAF.Classes.Core
       }
     }
 
-    #endregion
-
-    #region Page/User properties
     /// <summary>
-    /// Set to true if this is the start page. Should only be set by the page that initialized the database.
+    /// Set to <see langword="true"/> if this is the start page. Should only be set by the page that initialized the database.
     /// </summary>
     protected bool NoDataBase
     {
@@ -287,13 +312,12 @@ namespace YAF.Classes.Core
       }
     }
 
+    /// <summary>
+    /// </summary>
     public void RedirectNoAccess()
     {
       YafServices.Permissions.HandleRequest(ViewPermissions.RegisteredUsers);
     }
-    #endregion
-
-    #region Page Cache
 
     /// <summary>
     /// Gets cache associated with this page.
@@ -303,9 +327,6 @@ namespace YAF.Classes.Core
       get { return _pageCache; }
     }
 
-    #endregion
-
-    #region Other
     /// <summary>
     /// Adds a message that is displayed to the user when the page is loaded.
     /// </summary>
@@ -324,6 +345,9 @@ namespace YAF.Classes.Core
       }
     }
 
+    /// <summary>
+    /// Gets or sets RefreshTime.
+    /// </summary>
     public int RefreshTime
     {
       get
@@ -346,10 +370,6 @@ namespace YAF.Classes.Core
       get { return true; }
     }
 
-    #endregion
-
-    #region Layout functions
-
     /// <summary>
     /// Set to false if you don't want the menus at top and bottom. Only admin pages will set this to false
     /// </summary>
@@ -366,6 +386,9 @@ namespace YAF.Classes.Core
       }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether ShowFooter.
+    /// </summary>
     public bool ShowFooter
     {
       get
@@ -379,8 +402,13 @@ namespace YAF.Classes.Core
       }
     }
 
-    #endregion
-
+    /// <summary>
+    /// </summary>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <returns>
+    /// </returns>
     public static object IsNull(string value)
     {
       if (value == null || value.ToLower() == string.Empty)
@@ -393,8 +421,9 @@ namespace YAF.Classes.Core
       }
     }
 
-    #region PageInfo class
-
+    /// <summary>
+    /// Gets a value indicating whether CanLogin.
+    /// </summary>
     [Obsolete("Useless property that always returns true. Do not use anymore.")]
     public bool CanLogin
     {
@@ -404,6 +433,9 @@ namespace YAF.Classes.Core
       }
     }
 
+    /// <summary>
+    /// Gets the current user.
+    /// </summary>
     public MembershipUser User
     {
       get
@@ -412,6 +444,10 @@ namespace YAF.Classes.Core
       }
     }
 
+    /// <summary>
+    /// Gets LoadMessage.
+    /// </summary>
+    [Obsolete("Use YafContext->LoadMessage")]
     public string LoadMessage
     {
       get
@@ -419,8 +455,6 @@ namespace YAF.Classes.Core
         return this.PageContext.LoadMessage.LoadString;
       }
     }
-
-    #region Theme Helper Functions
 
     /// <summary>
     /// Get a value from the currently configured forum theme.
@@ -456,26 +490,47 @@ namespace YAF.Classes.Core
       return this.PageContext.Theme.GetCollapsiblePanelImageURL(panelID, defaultState);
     }
 
-    #endregion
-
-    #region Localization Helper Functions
-
+    /// <summary>
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    /// <returns>
+    /// </returns>
     public string GetTextFormatted(string text, params object[] args)
     {
       return this.PageContext.Localization.GetTextFormatted(text, args);
     }
 
+    /// <summary>
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// </returns>
     public string GetText(string text)
     {
       return this.PageContext.Localization.GetText(text);
     }
 
+    /// <summary>
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// </returns>
     public string GetText(string page, string text)
     {
       return this.PageContext.Localization.GetText(page, text);
     }
-
-    #endregion
 
     /// <summary>
     /// Gets the current forum Context (helper reference)
@@ -488,6 +543,9 @@ namespace YAF.Classes.Core
       }
     }
 
+    /// <summary>
+    /// Gets ForumURL.
+    /// </summary>
     public string ForumURL
     {
       get
@@ -496,8 +554,13 @@ namespace YAF.Classes.Core
       }
     }
 
-    #endregion
-
+    /// <summary>
+    /// </summary>
+    /// <param name="data">
+    /// The data.
+    /// </param>
+    /// <returns>
+    /// </returns>
     public string HtmlEncode(object data)
     {
       if (data == null || !(data is string))
@@ -507,6 +570,8 @@ namespace YAF.Classes.Core
       return this.Server.HtmlEncode(data.ToString());
     }
 
+    /// <summary>
+    /// </summary>
     protected virtual void CreatePageLinks()
     {
       // Page link creation goes to this method (overloads in descendant classes)

@@ -23,7 +23,7 @@ namespace YAF.Classes.Core
   using YAF.Classes.Utils;
 
   /// <summary>
-  /// Summary description for AdminPage.
+  /// Admin page with extra security. All admin pages need to be derived from this base class.
   /// </summary>
   public class AdminPage : ForumPage
   {
@@ -45,8 +45,8 @@ namespace YAF.Classes.Core
     public AdminPage(string transPage)
       : base(transPage)
     {
-      _isAdminPage = true;
-      Load += AdminPage_Load;
+      IsAdminPage = true;
+      Load += this.AdminPage_Load;
     }
 
     /// <summary>
