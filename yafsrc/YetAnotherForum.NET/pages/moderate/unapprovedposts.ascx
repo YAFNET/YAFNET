@@ -22,7 +22,9 @@
 	<ItemTemplate>
 		<tr class="header2">
 			<td colspan="2">
-				<%# Eval("Topic") %>
+			 <YAF:LocalizedLabel ID="TopicLabel" runat="server" LocalizedTag="TOPIC" />
+             &nbsp;<a id="TopicLink" href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", Eval("TopicID")) %>'
+                    runat="server"><%# Eval("Topic") %></a>
 			</td>
 		</tr>
 		<tr class="postheader">

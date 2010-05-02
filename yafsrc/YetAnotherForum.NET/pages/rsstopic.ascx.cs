@@ -198,8 +198,8 @@ namespace YAF.Pages
                 syndicationItems.AddSyndicationItem(
                   row["Topic"].ToString(),
                   "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
-                  YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]), 
-                  String.Format("TopicID{0}", row["Topic"].ToString()),
+                  YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]),
+                  String.Format("TopicID_{0}", row["TopicID"].ToString()),
                   !row["Posted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue + TimeSpan.FromDays(2));
               }
 

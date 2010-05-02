@@ -856,7 +856,7 @@ namespace YAF.Classes.Data
     private static bool GetBooleanRegistryValue(string name)
     {
       using (DataTable dt = registry_list(name))
-      {
+      { 
         foreach (DataRow dr in dt.Rows)
         {
           int i;
@@ -3966,13 +3966,12 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable message_listreported(object messageFlag, object forumID)
+    public static DataTable message_listreported(object forumID)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("message_listreported"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ForumID", forumID);
-        cmd.Parameters.AddWithValue("MessageFlag", messageFlag);
+        cmd.Parameters.AddWithValue("ForumID", forumID);        
         return YafDBAccess.Current.GetData(cmd);
       }
     }
@@ -5670,69 +5669,8 @@ namespace YAF.Classes.Data
               }
           }
       return null;
-      } 
-    
-
-    /// <summary>
-    /// The poll_save.
-    /// </summary>
-    /// <param name="question">
-    /// The question.
-    /// </param>
-    /// <param name="c1">
-    /// The c 1.
-    /// </param>
-    /// <param name="c2">
-    /// The c 2.
-    /// </param>
-    /// <param name="c3">
-    /// The c 3.
-    /// </param>
-    /// <param name="c4">
-    /// The c 4.
-    /// </param>
-    /// <param name="c5">
-    /// The c 5.
-    /// </param>
-    /// <param name="c6">
-    /// The c 6.
-    /// </param>
-    /// <param name="c7">
-    /// The c 7.
-    /// </param>
-    /// <param name="c8">
-    /// The c 8.
-    /// </param>
-    /// <param name="c9">
-    /// The c 9.
-    /// </param>
-    /// <param name="closes">
-    /// The closes.
-    /// </param>
-    /// <returns>
-    /// The poll_save.
-    /// </returns>
-    public static int poll_save(
-      object question, object c1, object c2, object c3, object c4, object c5, object c6, object c7, object c8, object c9, object closes)
-    {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("poll_save"))
-      {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("Question", question);
-        cmd.Parameters.AddWithValue("Choice1", c1);
-        cmd.Parameters.AddWithValue("Choice2", c2);
-        cmd.Parameters.AddWithValue("Choice3", c3);
-        cmd.Parameters.AddWithValue("Choice4", c4);
-        cmd.Parameters.AddWithValue("Choice5", c5);
-        cmd.Parameters.AddWithValue("Choice6", c6);
-        cmd.Parameters.AddWithValue("Choice7", c7);
-        cmd.Parameters.AddWithValue("Choice8", c8);
-        cmd.Parameters.AddWithValue("Choice9", c9);
-        cmd.Parameters.AddWithValue("Closes", closes);
-        return (int) YafDBAccess.Current.ExecuteScalar(cmd);
       }
-    }
-
+      
     /// <summary>
     /// The poll_update.
     /// </summary>

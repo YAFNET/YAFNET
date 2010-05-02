@@ -29,7 +29,7 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Time zone suffix for Guests
     /// </summary>
-      private string timeZoneName = YafContext.Current.Localization.GetText("TIMEZONES", "NAME_UTC"); 
+    private string timeZoneName = YafContext.Current.Localization.GetText("TIMEZONES", "NAME_UTC"); 
 
     /// <summary>
     /// Gets the time zone offset 
@@ -66,8 +66,19 @@ namespace YAF.Classes.Core
       { 
         throw new ArgumentNullException("objectDateTime", "objectDateTime is null.");
       }
-        
-      DateTime dt = (DateTime)objectDateTime + this.TimeOffset;
+
+      DateTime dt = (DateTime)objectDateTime;
+      
+             // vzrus: Guest user UTC test case. Should be deleted in future. 
+      if (dt.Kind == DateTimeKind.Local)
+      {
+          dt = dt.ToUniversalTime();
+          dt = DateTime.SpecifyKind(dt, DateTimeKind.Unspecified);
+      }
+
+      dt = dt + this.TimeOffset;
+
+      
 
       string strDateFormat = String.Format("{0:F}", dt);
 
@@ -108,7 +119,15 @@ namespace YAF.Classes.Core
 
       try
       {
-        dt = Convert.ToDateTime(objectDateTime) + this.TimeOffset;
+           dt = Convert.ToDateTime(objectDateTime);
+                 // vzrus: Guest user UTC test case. Should be deleted in future. 
+           if (dt.Kind == DateTimeKind.Local)
+           {
+               dt = dt.ToUniversalTime();
+               dt = DateTime.SpecifyKind(dt, DateTimeKind.Unspecified);
+           }
+
+          dt = dt + this.TimeOffset;
       }
       catch
       {
@@ -175,7 +194,15 @@ namespace YAF.Classes.Core
         throw new ArgumentNullException("objectDateTime", "objectDateTime is null.");
       }
 
-      DateTime dt = (DateTime) objectDateTime + this.TimeOffset;
+      DateTime dt = (DateTime)objectDateTime;
+            // vzrus: Guest user UTC test case. Should be deleted in future. 
+      if (dt.Kind == DateTimeKind.Local)
+      {
+          dt = dt.ToUniversalTime();
+          dt = DateTime.SpecifyKind(dt, DateTimeKind.Unspecified);
+      }
+
+      dt = dt + this.TimeOffset;
 
       try
       {
@@ -209,6 +236,14 @@ namespace YAF.Classes.Core
     public string FormatDateLong(DateTime dt)
     {
         string strDateFormat;
+
+
+              // vzrus: Guest user UTC test case. Should be deleted in future. 
+        if (dt.Kind == DateTimeKind.Local)
+        {
+            dt = dt.ToUniversalTime();
+            dt = DateTime.SpecifyKind(dt, DateTimeKind.Unspecified);
+        }
 
         dt += this.TimeOffset;     
 
@@ -244,7 +279,16 @@ namespace YAF.Classes.Core
     {
       string strDateFormat;
 
-      DateTime dt = (DateTime)objectDateTime + this.TimeOffset;
+      DateTime dt = (DateTime)objectDateTime;
+
+            // vzrus: Guest user UTC test case. Should be deleted in future. 
+      if (dt.Kind == DateTimeKind.Local)
+      {
+          dt = dt.ToUniversalTime();
+          dt = DateTime.SpecifyKind(dt, DateTimeKind.Unspecified);
+      }
+
+      dt = dt + this.TimeOffset;
 
       try
       {
@@ -277,7 +321,14 @@ namespace YAF.Classes.Core
     public string FormatTime(DateTime dt)
     {
       string strDateFormat;
-
+     
+            // vzrus: Guest user UTC test case. Should be deleted in future. 
+      if (dt.Kind == DateTimeKind.Local)
+      {
+          dt = dt.ToUniversalTime();
+          dt = DateTime.SpecifyKind(dt, DateTimeKind.Unspecified);          
+      }
+      
       dt += this.TimeOffset;
 
       try

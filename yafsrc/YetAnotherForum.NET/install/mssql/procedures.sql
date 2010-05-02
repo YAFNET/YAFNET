@@ -3060,7 +3060,7 @@ SELECT
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreported](@MessageFlag int, @ForumID int) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreported](@ForumID int) AS
 BEGIN
 		SELECT
 		a.*,
@@ -3086,7 +3086,7 @@ BEGIN
 		(c.Flags & 16)=0 and
 		(b.Flags & 8)=0 and
 		(c.Flags & 8)=0 and
-		(b.Flags & POWER(2,@MessageFlag))=POWER(2,@MessageFlag)
+		(b.Flags & 128)=128
 	ORDER BY
 		b.TopicID DESC, b.Posted DESC
 END
@@ -3245,8 +3245,9 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumI
 		select
 		MessageID	= b.MessageID,
 		UserID		= b.UserID,
-		UserName	= IsNull(b.UserName,c.Name),
+		UserName	= IsNull(b.UserName,c.Name),		
 		Posted		= b.Posted,
+		TopicID		= a.TopicID,
 		Topic		= a.Topic,
 		[Message]	= b.Message,
 		[Flags]		= b.Flags,
@@ -3545,7 +3546,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@ShowUserStyle bit = 0
 ) as
 begin
-		declare @UserID			int
+	declare @UserID			int
 	declare @UserBoardID	int
 	declare @IsGuest		tinyint
 	declare @rowcount		int
@@ -3814,53 +3815,6 @@ BEGIN
 END
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}poll_save](
-	@Question	nvarchar(50),
-	@Choice1	nvarchar(50),
-	@Choice2	nvarchar(50),
-	@Choice3	nvarchar(50) = null,
-	@Choice4	nvarchar(50) = null,
-	@Choice5	nvarchar(50) = null,
-	@Choice6	nvarchar(50) = null,
-	@Choice7	nvarchar(50) = null,
-	@Choice8	nvarchar(50) = null,
-	@Choice9	nvarchar(50) = null,
-	@Closes 	datetime = null
-) as
-begin
-		declare @PollID	int
-	insert into [{databaseOwner}].[{objectQualifier}Poll](Question,Closes) values(@Question,@Closes)
-	set @PollID = SCOPE_IDENTITY()
-	if @Choice1<>'' and @Choice1 is not null
-		insert into [{databaseOwner}].[{objectQualifier}Choice](PollID,Choice,Votes)
-		values(@PollID,@Choice1,0)
-	if @Choice2<>'' and @Choice2 is not null
-		insert into [{databaseOwner}].[{objectQualifier}Choice](PollID,Choice,Votes)
-		values(@PollID,@Choice2,0)
-	if @Choice3<>'' and @Choice3 is not null
-		insert into [{databaseOwner}].[{objectQualifier}Choice](PollID,Choice,Votes)
-		values(@PollID,@Choice3,0)
-	if @Choice4<>'' and @Choice4 is not null
-		insert into [{databaseOwner}].[{objectQualifier}Choice](PollID,Choice,Votes)
-		values(@PollID,@Choice4,0)
-	if @Choice5<>'' and @Choice5 is not null
-		insert into [{databaseOwner}].[{objectQualifier}Choice](PollID,Choice,Votes)
-		values(@PollID,@Choice5,0)
-	if @Choice6<>'' and @Choice6 is not null
-		insert into [{databaseOwner}].[{objectQualifier}Choice](PollID,Choice,Votes)
-		values(@PollID,@Choice6,0)
-	if @Choice7<>'' and @Choice7 is not null
-		insert into [{databaseOwner}].[{objectQualifier}Choice](PollID,Choice,Votes)
-		values(@PollID,@Choice7,0)
-	if @Choice8<>'' and @Choice8 is not null
-		insert into [{databaseOwner}].[{objectQualifier}Choice](PollID,Choice,Votes)
-		values(@PollID,@Choice8,0)
-	if @Choice9<>'' and @Choice9 is not null
-		insert into [{databaseOwner}].[{objectQualifier}Choice](PollID,Choice,Votes)
-		values(@PollID,@Choice9,0)
-	select PollID = @PollID
-end
-GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}poll_stats](@PollID int) AS
 BEGIN

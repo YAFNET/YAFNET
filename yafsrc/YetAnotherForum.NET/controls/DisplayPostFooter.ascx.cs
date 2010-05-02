@@ -267,51 +267,55 @@
            this.reportPostLink.InnerText = this.reportPostLink.Title = this.PageContext.Localization.GetText("REPORTPOST"); 
 
            this.reportPostLink.HRef = YafBuildLink.GetLink(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
-        } 
-      // private messages
-      this.Pm.Visible = !this.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null &&
-                        this.PageContext.BoardSettings.AllowPrivateMessages && !this.PostData.IsSponserMessage;
-      this.Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", this.PostData.UserId);
+        }
 
-      // emailing
-      this.Email.Visible = !this.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null &&
-                           this.PageContext.BoardSettings.AllowEmailSending && !this.PostData.IsSponserMessage;
-      this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", this.PostData.UserId);
+       
 
-      // home page
-      this.Home.Visible = !this.PostData.PostDeleted && !String.IsNullOrEmpty(this.PostData.UserProfile.Homepage);
-      this.SetupThemeButtonWithLink(this.Home, this.PostData.UserProfile.Homepage);
+            // private messages
+            this.Pm.Visible = this.PostData.UserId != this.PageContext.PageUserID && !this.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null &&
+                              this.PageContext.BoardSettings.AllowPrivateMessages && !this.PostData.IsSponserMessage;
+            this.Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", this.PostData.UserId);
 
-      // blog page
-      this.Blog.Visible = !this.PostData.PostDeleted && !String.IsNullOrEmpty(this.PostData.UserProfile.Blog);
-      this.SetupThemeButtonWithLink(this.Blog, this.PostData.UserProfile.Blog);
+            // emailing
+            this.Email.Visible = this.PostData.UserId != this.PageContext.PageUserID && !this.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null &&
+                                 this.PageContext.BoardSettings.AllowEmailSending && !this.PostData.IsSponserMessage;
+            this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", this.PostData.UserId);
 
-      if (!this.PostData.PostDeleted && this.PageContext.User != null)
-      {
-        // MSN
-        this.Msn.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.MSN);
-        this.Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", this.PostData.UserId);
+            // home page
+            this.Home.Visible = !this.PostData.PostDeleted && !String.IsNullOrEmpty(this.PostData.UserProfile.Homepage);
+            this.SetupThemeButtonWithLink(this.Home, this.PostData.UserProfile.Homepage);
 
-        // Yahoo IM
-        this.Yim.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.YIM);
-        this.Yim.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", this.PostData.UserId);
+            // blog page
+            this.Blog.Visible = !this.PostData.PostDeleted && !String.IsNullOrEmpty(this.PostData.UserProfile.Blog);
+            this.SetupThemeButtonWithLink(this.Blog, this.PostData.UserProfile.Blog);
 
-        // AOL IM
-        this.Aim.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.AIM);
-        this.Aim.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", this.PostData.UserId);
+            if (!this.PostData.PostDeleted && this.PageContext.User != null && (this.PostData.UserId != this.PageContext.PageUserID))
+            {
+                // MSN
+                this.Msn.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.MSN);
+                this.Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", this.PostData.UserId);
 
-        // ICQ
-        this.Icq.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.ICQ);
-        this.Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", this.PostData.UserId);
+                // Yahoo IM
+                this.Yim.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.YIM);
+                this.Yim.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", this.PostData.UserId);
 
-        // XMPP
-        this.Xmpp.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.XMPP);
-        this.Xmpp.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", this.PostData.UserId);
+                // AOL IM
+                this.Aim.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.AIM);
+                this.Aim.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", this.PostData.UserId);
 
-        // Skype
-        this.Skype.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.Skype);
-        this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", this.PostData.UserId);
-      }
+                // ICQ
+                this.Icq.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.ICQ);
+                this.Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", this.PostData.UserId);
+
+                // XMPP
+                this.Xmpp.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.XMPP);
+                this.Xmpp.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", this.PostData.UserId);
+
+                // Skype
+                this.Skype.Visible = !String.IsNullOrEmpty(this.PostData.UserProfile.Skype);
+                this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", this.PostData.UserId);
+            }
+        
 
       this.CreateMessageDetails();
     }

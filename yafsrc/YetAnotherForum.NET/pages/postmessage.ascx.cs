@@ -1007,9 +1007,9 @@ namespace YAF.Pages
       }
       else if (this.PollRow1.Visible)
       {
-        // User wishes to create a poll
         
-        // vzrus: always one in current code - a number of  questions
+        // User wishes to create a poll        
+        // vzrus: always one in the current code - a number of  polls for a topic
          int questionsTotal = 1;
 
          System.Collections.Generic.List<PollSaveList> pollList =
@@ -1026,22 +1026,10 @@ namespace YAF.Pages
           rawChoices,
           (DateTime?)datePollExpire)); 
           return DB.poll_save(pollList); 
-
-          /* return DB.poll_save(
-          this.Question.Text, 
-          this.PollChoice1.Text, 
-          this.PollChoice2.Text, 
-          this.PollChoice3.Text, 
-          this.PollChoice4.Text, 
-          this.PollChoice5.Text, 
-          this.PollChoice6.Text, 
-          this.PollChoice7.Text, 
-          this.PollChoice8.Text, 
-          this.PollChoice9.Text, 
-          datePollExpire); */
+      
       }
 
-      return null; // A poll was not created on this post
+      return null; // A poll was not created for this topic.
     }
 
     /// <summary>

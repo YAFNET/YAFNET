@@ -169,7 +169,7 @@ namespace YAF.Pages.moderate
       }
 
       // see if there are any items left...
-      DataTable dt = DB.message_listreported(7, PageContext.PageForumID);
+      DataTable dt = DB.message_listreported(PageContext.PageForumID);
 
       if (dt.Rows.Count == 0)
       {
@@ -188,7 +188,7 @@ namespace YAF.Pages.moderate
     private void BindData()
     {
       // get reported posts for this forum
-      this.List.DataSource = DB.message_listreported(7, PageContext.PageForumID);
+      this.List.DataSource = DB.message_listreported(PageContext.PageForumID);
         
       // bind data to controls
       DataBind();
