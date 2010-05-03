@@ -150,6 +150,11 @@ namespace YAF.Classes
       /// The users display name collection.
       /// </summary>
       public const string UsersDisplayNameCollection = "UsersDisplayNameCollection";
+
+      /// <summary>
+      /// The user data which is not refreshed too often.
+      /// </summary>
+      public const string ActiveUserLazyData = "ActiveUserLazyData{0}";
     }
 
     #endregion

@@ -1023,6 +1023,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}messagehistory_list]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_lazydata]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_lazydata]
+GO
+
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
 
@@ -3540,10 +3544,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@ForumID	int = null,
 	@TopicID	int = null,
 	@MessageID	int = null,
-	@DontTrack	bit = 0, 
-	@ShowPendingBuddies bit = 0,
-	@ShowUnreadPMs bit = 0,	
-	@ShowUserStyle bit = 0
+	@DontTrack	bit = 0
 ) as
 begin
 	declare @UserID			int
@@ -3662,17 +3663,7 @@ begin
 	end
 	-- return information
 	select
-		a.UserID,
-		a.ProviderUserKey,
-		UserFlags			= a.Flags,
-		UserName			= a.Name,
-		Suspended			= a.Suspended,
-		ThemeFile			= a.ThemeFile,
-		LanguageFile		= a.LanguageFile,
-		TimeZoneUser		= a.TimeZone,
-		CultureUser		    = a.Culture,
-		PreviousVisit		= @PreviousVisit,
-		IsGuest				= a.Flags & 4,
+	    PreviousVisit		= @PreviousVisit,
 		x.*,
 		CategoryID			= @CategoryID,
 		CategoryName		= (select Name from [{databaseOwner}].[{objectQualifier}Category] where CategoryID = @CategoryID),
@@ -3680,13 +3671,7 @@ begin
 		ForumName			= (select Name from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID),
 		TopicID				= @TopicID,
 		TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
-		MailsPending		= (select count(1) from [{databaseOwner}].[{objectQualifier}Mail]),
-		Incoming			= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=a.UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
-		LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=a.UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,
-		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID),
-		PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,
-		LastPendingBuddies	= CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=a.UserID and Approved = 0) ELSE NULL END,
-		Style 		        = CASE WHEN @ShowUserStyle > 0 THEN  [{databaseOwner}].[{objectQualifier}get_userstyle](@UserID) ELSE NULL END
+		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)	 
 	from
 		[{databaseOwner}].[{objectQualifier}User] a
 		left join [{databaseOwner}].[{objectQualifier}vaccess] x on x.UserID=a.UserID and x.ForumID=IsNull(@ForumID,0)
@@ -6970,7 +6955,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_addrequest]
     @FromUserID INT,
     @ToUserID INT,
     @approved BIT = NULL OUT,
-    @paramOutput NVARCHAR(50) = NULL OUT
+    @paramOutput NVARCHAR(255) = NULL OUT
 AS 
     BEGIN
         IF NOT EXISTS ( SELECT  ID
@@ -7044,7 +7029,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_approverequest]
     @FromUserID INT,
     @ToUserID INT,
     @Mutual BIT,
-    @paramOutput NVARCHAR(50) = NULL OUT
+    @paramOutput NVARCHAR(255) = NULL OUT
 AS 
     BEGIN
         IF EXISTS ( SELECT  ID
@@ -7125,7 +7110,7 @@ AS
 	CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_remove]
     @FromUserID INT,
     @ToUserID INT,
-    @paramOutput NVARCHAR(50) = NULL OUT
+    @paramOutput NVARCHAR(255) = NULL OUT
 AS 
     BEGIN
         DELETE  FROM [{databaseOwner}].[{objectQualifier}Buddy]
@@ -7141,7 +7126,7 @@ AS
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_denyrequest]
     @FromUserID INT,
     @ToUserID INT,
-    @paramOutput NVARCHAR(50) = NULL OUT
+    @paramOutput NVARCHAR(255) = NULL OUT
 AS 
     BEGIN
         DELETE  FROM [{databaseOwner}].[{objectQualifier}Buddy]
@@ -7529,15 +7514,16 @@ as
        SET @OR_UsrAlbumImages = (SELECT TOP 1 R_UsrAlbumImages FROM @RankData)
        SET @OG_UsrAlbumImages = (SELECT TOP 1 G_UsrAlbumImages FROM @GroupData) 
        
-       SELECT
-       NumAlbums  = (SELECT COUNT(ua.AlbumID) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
-       WHERE ua.UserID = @UserID),
-       NumImages = (SELECT COUNT(uai.ImageID) FROM  [{databaseOwner}].[{objectQualifier}UserAlbumImage] uai
-       INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] ua
-       ON ua.AlbumID = uai.AlbumID
-       WHERE ua.UserID = @UserID), 
-       UsrAlbums = CASE WHEN @OG_UsrAlbums > @OR_UsrAlbums THEN @OG_UsrAlbums ELSE @OR_UsrAlbums END, 
-       UsrAlbumImages = CASE WHEN @OG_UsrAlbumImages > @OR_UsrAlbumImages THEN @OG_UsrAlbumImages ELSE @OR_UsrAlbumImages END           
+       SELECT 
+        NumAlbums  = (SELECT COUNT(ua.AlbumID) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
+                      WHERE ua.UserID = @UserID),
+        NumImages = (SELECT COUNT(uai.ImageID) FROM  [{databaseOwner}].[{objectQualifier}UserAlbumImage] uai
+                     INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] ua
+                     ON ua.AlbumID = uai.AlbumID
+                     WHERE ua.UserID = @UserID), 
+        UsrAlbums = CASE WHEN @OG_UsrAlbums > @OR_UsrAlbums THEN @OG_UsrAlbums ELSE @OR_UsrAlbums END, 
+        UsrAlbumImages = CASE WHEN @OG_UsrAlbumImages > @OR_UsrAlbumImages THEN @OG_UsrAlbumImages ELSE @OR_UsrAlbumImages END 
+              
      
 END
 GO    
@@ -7572,3 +7558,86 @@ as
      WHERE MessageID = @MessageID    
     END
 GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}user_lazydata](
+	@UserKey	varchar(64),
+	@BoardID int,
+	@ShowPendingMails bit = 0,
+	@ShowPendingBuddies bit = 0,
+	@ShowUnreadPMs bit = 0,
+	@ShowUserAlbums bit = 0,
+	@ShowUserStyle bit = 0
+	
+) as
+begin 
+	declare @G_UsrAlbums int,
+	 @R_UsrAlbums int,
+	 @UserID int,
+	 @UserName nvarchar(255),
+	 @RankStyle varchar(255),
+	 @rowcount int
+	 
+	 
+	if @UserKey is null
+	begin
+		select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
+		set @rowcount=@@rowcount
+		if (@rowcount = 0)
+		begin
+			raiserror('Found %d possible guest users. There should be one and only one user marked as guest.',16,1,@rowcount)
+		end			
+	end else	
+	begin
+		select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and ProviderUserKey=@UserKey		
+	end
+	
+	
+	SELECT TOP 1 @UserID = u.UserID, @UserName = u.[Name], @RankStyle = r.Style 
+	FROM [{databaseOwner}].[{objectQualifier}User] u 
+		INNER JOIN  [{databaseOwner}].[{objectQualifier}Rank] r 
+		ON  r.RankID = u.RankID
+		WHERE u.UserID = @UserID AND u.BoardID = @BoardID
+		
+	SELECT TOP 1 @G_UsrAlbums = ISNULL(c.UsrAlbums,0)  
+    FROM [{databaseOwner}].[{objectQualifier}User] a 
+                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+                          ON a.UserID = b.UserID
+                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+                              ON b.GroupID = c.GroupID 
+                              WHERE a.UserID = @UserID AND a.BoardID = @BoardID ORDER BY c.SortOrder ASC 
+    SELECT TOP 1 @R_UsrAlbums = ISNULL(c.UsrAlbums,0)   
+    FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+                                JOIN [{databaseOwner}].[{objectQualifier}User] d
+                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID  AND d.BoardID = @BoardID ORDER BY c.RankID DESC                            
+
+	-- return information
+	select TOP 1		
+	    a.ProviderUserKey,
+		UserFlags			= a.Flags,
+		UserName			= a.Name,
+		Suspended			= a.Suspended,
+		ThemeFile			= a.ThemeFile,
+		LanguageFile		= a.LanguageFile,
+		TimeZoneUser		= a.TimeZone,
+		CultureUser		    = a.Culture,		
+		IsGuest				= a.Flags & 4,
+		MailsPending		= CASE WHEN @ShowPendingMails > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}Mail] WHERE [ToUserName] = @UserName) ELSE 0 END,
+		UnreadPrivate		= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
+		LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,		
+		PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,
+		LastPendingBuddies	= CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=@UserID and Approved = 0) ELSE NULL END,
+		UserStyle 		        = case(@ShowUserStyle)
+	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), @RankStyle)  
+	        else ''	 end,
+	    NumAlbums  = (SELECT COUNT(ua.AlbumID) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
+       WHERE ua.UserID = @UserID),
+	    UsrAlbums  = (CASE WHEN @G_UsrAlbums > @R_UsrAlbums THEN @G_UsrAlbums ELSE @R_UsrAlbums END),
+	    UserHasBuddies  = SIGN((SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE [FromUserID] = @UserID OR [ToUserID] = @UserID))
+	    
+	    from
+		   [{databaseOwner}].[{objectQualifier}User] a		
+	    where
+		a.UserID = @UserID
+	 end
+GO	 

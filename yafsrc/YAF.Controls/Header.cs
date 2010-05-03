@@ -206,11 +206,14 @@ namespace YAF.Controls
       {
         string displayName = this.PageContext.CurrentUserData.DisplayName;
         buildHeader.AppendFormat(
-          @"<td style=""padding:5px"" class=""post"" align=""left""><b>{0}</b></td>", 
-          String.Format(
-            this.PageContext.Localization.GetText("TOOLBAR", "LOGGED_IN_AS") + " ",
-            HttpContext.Current.Server.HtmlEncode(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName)));
-        buildHeader.AppendFormat(@"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">");
+          @"<td style=""padding:5px"" class=""post"" align=""left""><b>{0} <span id=""nick_{1}"" style =""{2}"" >{1}</span></b></td>",         
+          string.Format(this.PageContext.Localization.GetText("TOOLBAR", "LOGGED_IN_AS"), string.Empty),
+            HttpContext.Current.Server.HtmlEncode(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName),
+            this.PageContext.BoardSettings.UseStyledNicks
+                                  ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(this.PageContext.UserStyle, false)
+                                  : null);
+       
+          buildHeader.AppendFormat(@"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">");
 
         if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.AllowPrivateMessages)
         {
@@ -235,7 +238,7 @@ namespace YAF.Controls
           }
         }
 
-        if (!this.PageContext.IsGuest && YafContext.Current.BoardSettings.EnableBuddyList)
+        if (!this.PageContext.IsGuest && YafContext.Current.BoardSettings.EnableBuddyList && this.PageContext.UserHasBuddies)
         {
           if (this.PageContext.PendingBuddies > 0)
           {
@@ -249,43 +252,21 @@ namespace YAF.Controls
                 pendingBuddiesText));
           }
           else
-          {
-            buildHeader.AppendFormat(
-              String.Format(
-                "	<a target='_top' href=\"{0}\">{1}</a> | ", 
-                YafBuildLink.GetLink(ForumPages.cp_editbuddies), 
-                this.PageContext.Localization.GetText("TOOLBAR", "BUDDIES")));
+          {             
+                  buildHeader.AppendFormat(
+                    String.Format(
+                      "	<a target='_top' href=\"{0}\">{1}</a> | ",
+                      YafBuildLink.GetLink(ForumPages.cp_editbuddies),
+                      this.PageContext.Localization.GetText("TOOLBAR", "BUDDIES")));              
           }
         }
 
-        if (!this.PageContext.IsGuest && YafContext.Current.BoardSettings.EnableAlbum)
+        if (!this.PageContext.IsGuest && YafContext.Current.BoardSettings.EnableAlbum && (this.PageContext.UsrAlbums > 0 || this.PageContext.NumAlbums > 0))
         {
-          int albumCount = DB.album_getstats(this.PageContext.PageUserID, null)[0];
-
-          bool addAlbumLink = false;
-
-          // Check if the user already has albums.
-          if (albumCount > 0)
-          {
-            addAlbumLink = true;
-          }
-          else
-          {
-            // Check if a user have permissions to have albums, even if he has no albums at all.
-            var usrAlbums =
-              DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID).
-                GetFirstRowColumnAsValue<int>("UsrAlbums", 0);
-
-            if (usrAlbums > 0 || albumCount > 0)
-            {
-              addAlbumLink = true;
-            }
-          }
-
-          if (addAlbumLink)
-          {
-            buildHeader.Append(this.AlbumLink());
-          }
+            buildHeader.AppendFormat(String.Format(
+                "	<a target='_top' href=\"{0}\">{1}</a> | ",
+                YafBuildLink.GetLink(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
+                this.PageContext.Localization.GetText("TOOLBAR", "MYALBUMS")));          
         }
 
         /* TODO: help is currently useless...
@@ -422,21 +403,7 @@ namespace YAF.Controls
 
       // END HEADER
       writer.Write(buildHeader);
-    }
-
-    /// <summary>
-    /// The album link.
-    /// </summary>
-    /// <returns>
-    /// The album link.
-    /// </returns>
-    private string AlbumLink()
-    {
-      return string.Format(
-        "	<a target='_top' href=\"{0}\">{1}</a> | ", 
-        YafBuildLink.GetLink(ForumPages.albums, "u={0}", this.PageContext.PageUserID), 
-        this.PageContext.Localization.GetText("TOOLBAR", "MYALBUMS"));
-    }
+    } 
 
     #endregion
   }

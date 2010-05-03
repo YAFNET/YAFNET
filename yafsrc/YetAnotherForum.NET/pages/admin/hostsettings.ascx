@@ -1326,6 +1326,16 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="postheader">
+							<b>User Lazy Data Cache Timeout:</b><br />
+							In minutes
+						</td>
+						<td class="post">
+							<asp:TextBox runat="server" ID="ActiveUserLazyDataCacheTimeout" />
+							<asp:Button ID="ActiveUserLazyDataCacheReset" Text="Clear" runat="server" OnClick="UserLazyDataCacheReset_Click" />
+						</td>
+					</tr>
+					<tr>
 						<td class="footer1" colspan="2">
 							<asp:Button runat="server" ID="ResetCacheAll" Text="Clear Cache" OnClick="ResetCacheAll_Click" />
 						</td>

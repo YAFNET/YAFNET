@@ -910,16 +910,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <param name="donttrack">
     /// The donttrack.
-    /// </param> 
-    /// <param name="showPendingBuddies">
-    /// The showPendingBuddies.
     /// </param>
-    /// <param name="showUnreadPMs">
-    /// The showUnreadPMs.
-    /// </param>
-    /// <param name="showUserStyle">
-    /// The showUserStyle.
-    /// </param> 
     /// <returns>
     /// Common User Info DataRow
     /// </returns>
@@ -938,10 +929,7 @@ namespace YAF.Classes.Data
       object forumID, 
       object topicID, 
       object messageID, 
-      object donttrack,     
-      object showPendingBuddies,
-      object showUnreadPMs,
-      object showUserStyle )
+      object donttrack)
     {
       int nTries = 0;
       while (true)
@@ -963,12 +951,7 @@ namespace YAF.Classes.Data
             cmd.Parameters.AddWithValue("ForumID", forumID);
             cmd.Parameters.AddWithValue("TopicID", topicID);
             cmd.Parameters.AddWithValue("MessageID", messageID);
-            cmd.Parameters.AddWithValue("DontTrack", donttrack);            
-            cmd.Parameters.AddWithValue("ShowPendingBuddies", showPendingBuddies);
-            cmd.Parameters.AddWithValue("ShowUnreadPMs", showUnreadPMs);           
-            /// TODO: vzrus: Disabled as  it need testing for locks.
-            // It could be well to replace by it all other user style calls       
-            cmd.Parameters.AddWithValue("ShowUserStyle", 0);
+            cmd.Parameters.AddWithValue("DontTrack", donttrack);         
    
             using (DataTable dt = YafDBAccess.Current.GetData(cmd))
             {
@@ -6980,6 +6963,29 @@ namespace YAF.Classes.Data
     #endregion
 
     #region User
+
+    /// <summary>
+    /// To return a rather rarely updated active user data
+    /// </summary>
+    /// <param name="userID">The UserID. It is always should have a positive > 0 value.</param>
+    /// <param name="styledNicks">If styles should be returned.</param>
+    /// <returns>A DataRow, it should never return a null value.</returns>
+    public static DataRow user_lazydata(object userKey, object boardID, bool showPendingMails, bool showPendingBuddies, bool showUnreadPMs, bool showUserAlbums, bool styledNicks)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("user_lazydata"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("UserKey", userKey);
+            cmd.Parameters.AddWithValue("BoardID", boardID);
+            cmd.Parameters.AddWithValue("ShowPendingMails", showPendingMails);
+            cmd.Parameters.AddWithValue("ShowPendingBuddies", showPendingBuddies);
+            cmd.Parameters.AddWithValue("ShowUnreadPMs", showUnreadPMs);
+            cmd.Parameters.AddWithValue("ShowUserAlbums", showUserAlbums);
+            cmd.Parameters.AddWithValue("ShowUserStyle", styledNicks);
+            return YafDBAccess.Current.GetData(cmd).Rows[0];
+        }
+    }
+
     /// <summary>
     /// The user_list.
     /// </summary>

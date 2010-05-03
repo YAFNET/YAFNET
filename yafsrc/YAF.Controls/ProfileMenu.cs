@@ -40,7 +40,7 @@ namespace YAF.Controls
 
       html.Append(@"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafprofilemenu"">");
 
-      if (PageContext.BoardSettings.AllowPrivateMessages)
+      if (this.PageContext.BoardSettings.AllowPrivateMessages)
       {
         html.AppendFormat(@"<tr class=""header2""><td>{0}</td></tr>", PageContext.Localization.GetText("MESSENGER"));
         html.AppendFormat(@"<tr><td class=""post""><ul id=""yafprofilemessenger"">");
@@ -51,75 +51,42 @@ namespace YAF.Controls
         html.AppendFormat(@"</ul></td></tr>");
       }
 
-      html.AppendFormat(@"<tr class=""header2""><td>{0}</td></tr>", PageContext.Localization.GetText("PERSONAL_PROFILE"));
+      html.AppendFormat(@"<tr class=""header2""><td>{0}</td></tr>",this.PageContext.Localization.GetText("PERSONAL_PROFILE"));
       html.AppendFormat(@"<tr><td class=""post""><ul id=""yafprofilepersonal"">");
       html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editprofile), PageContext.Localization.GetText("EDIT_PROFILE"));
-      if (PageContext.BoardSettings.EnableThanksMod)
+      if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableThanksMod)
       {
           html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.viewthanks, "u={0}", PageContext.PageUserID), PageContext.Localization.GetText("ViewTHANKS", "TITLE"));
       }
 
-      if (PageContext.BoardSettings.EnableBuddyList)
+      if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableBuddyList & this.PageContext.UserHasBuddies)
       {
           html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editbuddies), PageContext.Localization.GetText("EDIT_BUDDIES"));
       }
 
-      if (ShowAlbumsLink())
+      if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableAlbum && (this.PageContext.UsrAlbums > 0 || this.PageContext.NumAlbums > 0))
       {
-          html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.albums, "u={0}", PageContext.PageUserID), PageContext.Localization.GetText("EDIT_ALBUMS"));
+          html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.albums, "u={0}", this.PageContext.PageUserID), this.PageContext.Localization.GetText("EDIT_ALBUMS"));
       }
 
-      html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editavatar), PageContext.Localization.GetText("EDIT_AVATAR"));
-      if (PageContext.BoardSettings.AllowSignatures)
+      html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editavatar),this.PageContext.Localization.GetText("EDIT_AVATAR"));
+      if (this.PageContext.BoardSettings.AllowSignatures)
       {
-        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_signature), PageContext.Localization.GetText("SIGNATURE"));
+        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_signature), this.PageContext.Localization.GetText("SIGNATURE"));
       }
 
       html.AppendFormat(
-        @"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_subscriptions), PageContext.Localization.GetText("SUBSCRIPTIONS"));
-      if (PageContext.BoardSettings.AllowPasswordChange)
+        @"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_subscriptions), this.PageContext.Localization.GetText("SUBSCRIPTIONS"));
+      if (this.PageContext.BoardSettings.AllowPasswordChange)
       {
         html.AppendFormat(
-          @"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_changepassword), PageContext.Localization.GetText("CHANGE_PASSWORD"));
+          @"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_changepassword), this.PageContext.Localization.GetText("CHANGE_PASSWORD"));
       }
 
       html.AppendFormat(@"</ul></td></tr>");
       html.Append(@"</table>");
 
       writer.Write(html.ToString());
-    }
-    private bool ShowAlbumsLink()
-    {
-        int albumUser = this.PageContext.PageUserID;       
-        
-        // Add check if Albums Tab is visible 
-    
-            int albumCount = YAF.Classes.Data.DB.album_getstats(albumUser, null)[0];
-
-            // Check if the user already has albums.
-            if (albumCount > 0)
-            {
-                return true;
-            }
-            else
-            {
-                // Check if a user have permissions to have albums, even if he has no albums at all.
-                int? usrAlbums =
-                  YAF.Classes.Data.DB.user_getalbumsdata(albumUser, this.PageContext.PageBoardID).GetFirstRowColumnAsValue<int?>(
-                    "UsrAlbums", null);
-
-                if (usrAlbums.HasValue)
-                {
-                    if (usrAlbums > 0 && this.PageContext.BoardSettings.EnableAlbum)
-                    {
-                        return true;
-                    }
-                }
-            }
-        
-
-        return false;
-       
-    }
+    }   
   }
 }

@@ -163,8 +163,14 @@ namespace YAF.Pages // YAF.Pages
 
 			DataBind();
 
-			if ( !IsOutbox )
-				DB.pmessage_markread( Request.QueryString ["pm"] );
+            if (!IsOutbox)
+            {
+                DB.pmessage_markread(Request.QueryString["pm"]);
+
+                // Clearing cache with old permissions data...
+                this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID)));
+            }
+
 		}
 
 		protected void Inbox_ItemCommand( object source, RepeaterCommandEventArgs e )

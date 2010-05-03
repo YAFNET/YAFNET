@@ -279,7 +279,7 @@ namespace YAF.Pages.Admin
       ((YafLoadBoardSettings) PageContext.BoardSettings).SaveRegistry();
 
       // reload all settings from the DB
-      PageContext.BoardSettings = null;
+      this.PageContext.BoardSettings = null;
 
       YafBuildLink.Redirect(ForumPages.admin_admin);
     }
@@ -295,7 +295,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void ForumStatisticsCacheReset_Click(object sender, EventArgs e)
     {
-      RemoveCacheKey(Constants.Cache.BoardStats);
+        this.RemoveCacheKey(Constants.Cache.BoardStats);
     }
 
     /// <summary>
@@ -309,8 +309,8 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void ActiveDiscussionsCacheReset_Click(object sender, EventArgs e)
     {
-      RemoveCacheKey(Constants.Cache.ActiveDiscussions);
-      RemoveCacheKey(Constants.Cache.ForumActiveDiscussions);
+      this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
+      this.RemoveCacheKey(Constants.Cache.ForumActiveDiscussions);
     }
 
     /// <summary>
@@ -324,7 +324,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void BoardModeratorsCacheReset_Click(object sender, EventArgs e)
     {
-      RemoveCacheKey(Constants.Cache.ForumModerators);
+        this.RemoveCacheKey(Constants.Cache.ForumModerators);
     }
 
     /// <summary>
@@ -338,7 +338,21 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void BoardCategoriesCacheReset_Click(object sender, EventArgs e)
     {
-      RemoveCacheKey(Constants.Cache.ForumCategory);
+      this.RemoveCacheKey(Constants.Cache.ForumCategory);
+    }
+
+    /// <summary>
+    /// The user lazy data cache reset_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void UserLazyDataCacheReset_Click(object sender, EventArgs e)
+    {
+       this.RemoveCacheKey(Constants.Cache.ActiveUserLazyData);
     }
 
     /// <summary>
@@ -353,7 +367,7 @@ namespace YAF.Pages.Admin
     protected void ReplaceRulesCacheReset_Click(object sender, EventArgs e)
     {
       ReplaceRulesCreator.ClearCache();
-      CheckCache();
+      this.CheckCache();
     }
 
     /// <summary>
@@ -368,9 +382,9 @@ namespace YAF.Pages.Admin
     protected void ResetCacheAll_Click(object sender, EventArgs e)
     {
       // clear all cache keys
-      PageContext.Cache.Clear();
+      this.PageContext.Cache.Clear();
 
-      CheckCache();
+      this.CheckCache();
     }
 
     /// <summary>
@@ -381,8 +395,8 @@ namespace YAF.Pages.Admin
     /// </param>
     private void RemoveCacheKey(string key)
     {
-      PageContext.Cache.Remove(YafCache.GetBoardCacheKey(key));
-      CheckCache();
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(key));
+      this.CheckCache();
     }
 
     /// <summary>
@@ -396,7 +410,7 @@ namespace YAF.Pages.Admin
     /// </returns>
     private bool CheckCacheKey(string key)
     {
-      return PageContext.Cache[YafCache.GetBoardCacheKey(key)] != null;
+        return this.PageContext.Cache[YafCache.GetBoardCacheKey(key)] != null;
     }
 
     /// <summary>
@@ -404,11 +418,12 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void CheckCache()
     {
-      ForumStatisticsCacheReset.Enabled = CheckCacheKey(Constants.Cache.BoardStats);
-      ActiveDiscussionsCacheReset.Enabled = CheckCacheKey(Constants.Cache.ActiveDiscussions) || CheckCacheKey(Constants.Cache.ForumActiveDiscussions);
-      BoardModeratorsCacheReset.Enabled = CheckCacheKey(Constants.Cache.ForumModerators);
-      BoardCategoriesCacheReset.Enabled = CheckCacheKey(Constants.Cache.ForumCategory);
-      ResetCacheAll.Enabled = PageContext.Cache.Count > 0;
+        this.ForumStatisticsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardStats);
+        this.ActiveDiscussionsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveDiscussions) || CheckCacheKey(Constants.Cache.ForumActiveDiscussions);
+        this.BoardModeratorsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumModerators);
+        this.BoardCategoriesCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumCategory);
+        this.ActiveUserLazyDataCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveUserLazyData);
+        this.ResetCacheAll.Enabled = this.PageContext.Cache.Count > 0;
     }
   }
 }

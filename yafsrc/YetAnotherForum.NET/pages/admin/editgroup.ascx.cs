@@ -220,6 +220,9 @@ namespace YAF.Pages.Admin
         this.UsrAlbumImages.Text.Trim()
         );
 
+      // Clearing cache with old permisssions data...
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData));
+ 
       // see if need to rename an existing role...
       if (roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
       {

@@ -166,6 +166,26 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// The user lazy data.
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="styledNicks">
+    /// The styled nicks.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public DataRow ActiveUserLazyData(object userKey)
+    {
+        string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, UserMembershipHelper.GetUserIDFromProviderUserKey(userKey)));
+
+        // get a row with user lazy data...
+        return YafContext.Current.Cache.GetItem(key, YafContext.Current.BoardSettings.ActiveUserLazyDataCacheTimeout, () => DB.user_lazydata(userKey, YafContext.Current.PageBoardID,YafContext.Current.BoardSettings.AllowEmailSending, YafContext.Current.BoardSettings.EnableBuddyList, YafContext.Current.BoardSettings.AllowPrivateMessages, YafContext.Current.BoardSettings.EnableAlbum, YafContext.Current.BoardSettings.UseStyledNicks));
+       
+    }
+
+    /// <summary>
     /// The get moderators.
     /// </summary>
     /// <returns>

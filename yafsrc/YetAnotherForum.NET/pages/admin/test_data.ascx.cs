@@ -845,11 +845,15 @@ namespace YAF.Pages.Admin
                        
       }
 
-      if (MarkRead.Checked)
+      if (this.MarkRead.Checked)
       {
-        foreach (DataRow dr in DB.pmessage_list(null, DB.user_get(YafContext.Current.PageBoardID, Membership.GetUser(_toUser).ProviderUserKey), null).Rows)
+        int userAID =  DB.user_get(YafContext.Current.PageBoardID, Membership.GetUser(_toUser).ProviderUserKey);
+        foreach (DataRow dr in DB.pmessage_list(null, userAID, null).Rows)
         {
             DB.pmessage_markread(dr["PMessageID"]);
+
+            // Clearing cache with old permissions data...
+            this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, userAID)));
         }
       }
 

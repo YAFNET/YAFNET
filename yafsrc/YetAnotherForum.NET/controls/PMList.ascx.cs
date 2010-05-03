@@ -351,6 +351,9 @@ namespace YAF.Controls
         foreach (DataRowView item in dv)
         {
           DB.pmessage_markread(item["UserPMessageID"]);
+          
+          // Clearing cache with old permissions data...
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID)));
         }
       }
 

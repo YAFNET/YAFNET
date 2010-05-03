@@ -240,13 +240,13 @@ namespace YAF
 
       YafServices.InitializeDb.Run();
 
-      object userKey = DBNull.Value;
-
+      object userKey = DBNull.Value;   
+        
       if (user != null)
       {
-        userKey = user.ProviderUserKey;
+        userKey = user.ProviderUserKey;      
       }
-
+   
       DataRow pageRow = DB.pageload(
         HttpContext.Current.Session.SessionID, 
         boardID, 
@@ -261,11 +261,27 @@ namespace YAF
         null, 
         messageID, 
         // don't track if this is a search engine
-        isIgnoredForDisplay, 
-        YafContext.Current.BoardSettings.EnableBuddyList, 
-        YafContext.Current.BoardSettings.AllowPrivateMessages, 
-        YafContext.Current.BoardSettings.UseStyledNicks);
+        isIgnoredForDisplay);
 
+      int tries = 0;
+      // We should be sure that all columns are added
+      do
+      {
+          DataRow auldRow = new YafDBBroker().ActiveUserLazyData(userKey);
+
+          foreach (DataColumn col in auldRow.Table.Columns)
+          {
+              DataColumn dc = new DataColumn(col.ColumnName, col.DataType);
+              pageRow.Table.Columns.Add(dc);
+              pageRow.Table.Rows[0][dc] = auldRow[col];
+          }
+
+          pageRow.Table.AcceptChanges();
+          tries++;
+          // vzrus: Current column count is 42 - change it if the total count changes
+      }
+      while (pageRow.Table.Columns.Count < 42 || tries > 3);
+        
       return General.BinaryAnd(pageRow["DownloadAccess"], AccessFlags.Flags.DownloadAccess) ||
              General.BinaryAnd(pageRow["ModeratorAccess"], AccessFlags.Flags.ModeratorAccess);
     }

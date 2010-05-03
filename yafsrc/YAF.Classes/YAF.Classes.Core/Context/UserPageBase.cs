@@ -531,7 +531,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return Convert.ToInt32(Page["Incoming"]);
+          return Convert.ToInt32(Page["UnreadPrivate"]);
       }
     }
 
@@ -551,6 +551,41 @@ namespace YAF.Classes.Core
           return Convert.ToDateTime(Page["LastUnreadPm"]);
         }
       }
+    }
+
+    /// <summary>
+    /// Gets the number of albums which a user already has
+    /// </summary>
+    public int NumAlbums
+    {
+        get
+        {
+            return Convert.ToInt32(Page["NumAlbums"]);
+        }
+    }
+      
+
+    /// <summary>
+    /// Gets the number of albums which a user can have
+    /// </summary>
+    public int UsrAlbums
+    {
+        get
+        {
+            return Convert.ToInt32(Page["UsrAlbums"]);
+        }
+    }
+
+    /// <summary>
+    /// Gets the value indicating whether  a user has buddies
+    /// </summary>
+    public bool UserHasBuddies
+    {
+        get
+        {
+            return PageValueAsBool("UserHasBuddies");
+
+        }
     }
 
     /// <summary>
@@ -618,6 +653,17 @@ namespace YAF.Classes.Core
       {
         return PageValueAsString("LanguageFile");
       }
+    }
+
+    /// <summary>
+    /// Gets the UserStyle for the user
+    /// </summary>
+    public string UserStyle
+    {
+        get
+        {
+            return PageValueAsString("UserStyle");
+        }
     }
 
     /// <summary>
@@ -743,15 +789,15 @@ namespace YAF.Classes.Core
             categoryID = YafContext.Current.Settings.CategoryID;
           }
 
-          object userKey = DBNull.Value;
+          object userKey = DBNull.Value;         
 
           if (user != null)
           {
-            userKey = user.ProviderUserKey;
+            userKey = user.ProviderUserKey;            
           }
-
+          
           do
-          {          
+          {              
             pageRow = DB.pageload(
               HttpContext.Current.Session.SessionID, 
               PageBoardID, 
@@ -766,11 +812,8 @@ namespace YAF.Classes.Core
               topicID, 
               messageID, 
               //// don't track if this is a search engine
-              isIgnoredForDisplay,
-              YafContext.Current.BoardSettings.EnableBuddyList,
-              YafContext.Current.BoardSettings.AllowPrivateMessages,
-              YafContext.Current.BoardSettings.UseStyledNicks);
-
+              isIgnoredForDisplay);
+        
             // if the user doesn't exist...
             if (user != null && pageRow == null)
             {
@@ -790,6 +833,24 @@ namespace YAF.Classes.Core
           {
             throw new ApplicationException("Failed to find guest user.");
           }
+          int tries = 0;
+          // We should be sure that all columns are added
+          do
+          {
+          DataRow auldRow = new YafDBBroker().ActiveUserLazyData(userKey);
+         
+          foreach (DataColumn col in auldRow.Table.Columns)
+          {
+              DataColumn dc = new DataColumn(col.ColumnName, col.DataType);
+              pageRow.Table.Columns.Add(dc);
+              pageRow.Table.Rows[0][dc] = auldRow[col];
+          }
+
+          pageRow.Table.AcceptChanges();
+          tries++;
+          // vzrus: Current column count is 42 - change it if the total count changes
+          }
+          while (pageRow.Table.Columns.Count < 42 || tries > 3);
 
           // save this page data to the context...
           Page = pageRow;

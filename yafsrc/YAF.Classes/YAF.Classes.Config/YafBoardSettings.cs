@@ -1029,20 +1029,37 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// Gets or sets OnlineStatusCacheTimeout.
+    /// Gets or sets User Lazy Data Cache Timeout.
     /// </summary>
-    public int OnlineStatusCacheTimeout
+    public int ActiveUserLazyDataCacheTimeout
     {
       get
       {
-        return this._reg.GetValue<int>("OnlineStatusCacheTimeout", 30000);
+          return this._reg.GetValue<int>("ActiveUserLazyDataCacheTimeout", 10);
       }
 
       set
       {
-        this._reg.SetValue<int>("OnlineStatusCacheTimeout", value);
+          this._reg.SetValue<int>("ActiveUserLazyDataCacheTimeout", value);
       }
     }
+
+    /// <summary>
+    /// Gets or sets OnlineStatusCacheTimeout.
+    /// </summary>
+    public int OnlineStatusCacheTimeout
+    {
+        get
+        {
+            return this._reg.GetValue<int>("OnlineStatusCacheTimeout", 30000);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("OnlineStatusCacheTimeout", value);
+        }
+    }
+
     /// <summary>
     /// Gets or sets User Name Max Length.
     /// </summary>

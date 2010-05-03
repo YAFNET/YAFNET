@@ -103,13 +103,13 @@ namespace YAF.Classes.Core
     public static void ClearBuddyCache(int UserID)
     {
       // Clear for the current user.
-      string currentUserKey =
-        YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserBuddies, YafContext.Current.PageUserID));
-      YafContext.Current.Cache.Remove(currentUserKey);
-
-      // Clear for the second user.
-      string secondUserKey = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserBuddies, UserID));
-      YafContext.Current.Cache.Remove(secondUserKey);
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserBuddies, YafContext.Current.PageUserID)));
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, YafContext.Current.PageUserID)));
+      
+       // Clear for the second user.
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.UserBuddies, UserID)));
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, UserID)));
+      
     }
 
     /// <summary>

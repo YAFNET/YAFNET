@@ -154,6 +154,9 @@ namespace YAF.Controls
           {
             RoleMembershipHelper.RemoveUserFromRole(userName, roleName);
           }
+
+          // Clearing cache with old permisssions data...
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, this.CurrentUserID)));
         }
       }
 
