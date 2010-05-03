@@ -3673,10 +3673,9 @@ begin
 		TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
 		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)	 
 	from
-		[{databaseOwner}].[{objectQualifier}User] a
-		left join [{databaseOwner}].[{objectQualifier}vaccess] x on x.UserID=a.UserID and x.ForumID=IsNull(@ForumID,0)
+	 [{databaseOwner}].[{objectQualifier}vaccess] x 
 	where
-		a.UserID = @UserID
+		x.UserID = @UserID and x.ForumID=IsNull(@ForumID,0)
 end
 GO
 
