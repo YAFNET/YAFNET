@@ -280,7 +280,7 @@ namespace YAF
           tries++;
           // vzrus: Current column count is 42 - change it if the total count changes
       }
-      while (pageRow.Table.Columns.Count < 42 || tries > 3);
+      while (pageRow.Table.Columns.Count < 42 && tries < 3);
         
       return General.BinaryAnd(pageRow["DownloadAccess"], AccessFlags.Flags.DownloadAccess) ||
              General.BinaryAnd(pageRow["ModeratorAccess"], AccessFlags.Flags.ModeratorAccess);

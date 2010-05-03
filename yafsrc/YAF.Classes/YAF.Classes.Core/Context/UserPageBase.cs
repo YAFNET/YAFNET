@@ -850,7 +850,7 @@ namespace YAF.Classes.Core
           tries++;
           // vzrus: Current column count is 42 - change it if the total count changes
           }
-          while (pageRow.Table.Columns.Count < 42 || tries > 3);
+          while (pageRow.Table.Columns.Count < 42 && tries < 3);
 
           // save this page data to the context...
           Page = pageRow;
