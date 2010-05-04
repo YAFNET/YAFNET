@@ -177,7 +177,7 @@ namespace YAF.Classes
     {
         get
         {
-            return this._reg.GetValue<bool>("AllowGenderInUserBox", false);
+            return this._reg.GetValue<bool>("AllowGenderInUserBox", true);
         }
 
         set
@@ -1111,6 +1111,39 @@ namespace YAF.Classes
       {
         this._reg.SetValue<bool>("UseFullTextSearch", value);
       }
+    }
+
+    // vzrus: 10/4/10 SSL registration and login options
+    /// <summary>
+    /// Gets or sets a value indicating whether Use SSL To Log In.
+    /// </summary>
+    public bool UseSSLToLogIn
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("UseSSLToLogIn", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("UseSSLToLogIn", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether Use SSL To Register.
+    /// </summary>
+    public bool UseSSLToRegister
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("UseSSLToRegister", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("UseSSLToRegister", value);
+        }
     }
 
     /// <summary>

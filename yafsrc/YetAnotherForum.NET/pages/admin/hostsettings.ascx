@@ -1042,6 +1042,24 @@
 							<asp:TextBox ID="AllowedPollChoiceNumber" MaxLength="2" runat="server"></asp:TextBox>
 						</td>
 					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Use SSL while logging in:</b><br />
+							Enforce a secure connection for users to log in.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="UseSSLToLogIn" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+							<tr>
+						<td class="postheader">
+							<b>Use SSL while registering:</b><br />
+							Enforce a secure connection for users to register.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="UseSSLToRegister" runat="server"></asp:CheckBox>
+						</td>
+					</tr>			
 					</table>
 			</DotNetAge:View>
 			<DotNetAge:View runat="server" ID="View7" Text="Templates" NavigateUrl="" HeaderCssClass=""

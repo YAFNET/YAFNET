@@ -52,6 +52,15 @@ namespace YAF.Pages
     }
 
     /// <summary>
+    /// Inits the page.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">Event Args.</param>
+    protected void Init(object sender, EventArgs e)
+    {
+
+    }
+    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -62,6 +71,12 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        // Check if secure connection only is allowed
+        if (!this.Page.Request.IsSecureConnection & this.PageContext.BoardSettings.UseSSLToLogIn)
+        {
+            YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+        }
+
       if (!IsPostBack)
       {
         this.Login1.MembershipProvider = Config.MembershipProvider;

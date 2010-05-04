@@ -95,7 +95,12 @@ namespace YAF.Pages
     /// </param>
     protected void Accept_Click(object sender, EventArgs e)
     {
-      YafBuildLink.Redirect(ForumPages.register);
+        if (!this.PageContext.BoardSettings.UseSSLToRegister)
+        {
+            YafBuildLink.Redirect(ForumPages.register);
+        }
+
+        this.Response.Redirect(YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:"));
     }
   }
 }

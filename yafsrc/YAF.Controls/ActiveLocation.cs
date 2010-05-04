@@ -284,21 +284,35 @@ namespace YAF.Controls
                      
                      if (this.TopicID > 0 && this.ForumID > 0)
                      {
-                         if (forumPageName == "topics")
+                         switch (forumPageName)
                          {
+                             case "topics":                        
                              outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS");                                                       
-                         }
-                         else if (forumPageName == "posts")
-                         {
+                             break;
+
+                             case "posts":                        
                              outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTS");
-                         }
-                         else if (forumPageName == "postmessage")
-                         {
+                             break;
+ 
+                             case  "postmessage":                         
                              outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTMESSAGE_FULL");
-                         }
-                         else
-                         {
+                             break;
+
+                             case "reportpost": 
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "REPORTPOST");
+                             outText +=". ";
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS");                                                     
+                             break;
+
+                             case "messagehistory":
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "MESSAGEHISTORY");
+                             outText += ". ";
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "TOPICS");                                           
+                             break;
+
+                             default:
                              outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "POSTS");
+                             break;
                          }
                          if (HasForumAccess)
                          {

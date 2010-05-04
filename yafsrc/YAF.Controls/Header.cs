@@ -381,8 +381,8 @@ namespace YAF.Controls
             String.Format(
               " <a href=\"{0}\">{1}</a>", 
               (returnUrl == string.Empty)
-                ? YafBuildLink.GetLink(ForumPages.login)
-                : YafBuildLink.GetLink(ForumPages.login, "ReturnUrl={0}", returnUrl), 
+              ? (!this.PageContext.BoardSettings.UseSSLToLogIn ? YafBuildLink.GetLink(ForumPages.login) : YafBuildLink.GetLink(ForumPages.login).Replace("http:","https:"))
+              : (!this.PageContext.BoardSettings.UseSSLToLogIn ? YafBuildLink.GetLink(ForumPages.login, "ReturnUrl={0}", returnUrl) : YafBuildLink.GetLink(ForumPages.login, "ReturnUrl={0}", returnUrl).Replace("http:", "https:")), 
               this.PageContext.Localization.GetText("TOOLBAR", "LOGIN")));
 
           if (!this.PageContext.BoardSettings.DisableRegistrations)
@@ -392,7 +392,7 @@ namespace YAF.Controls
                 " | <a href=\"{0}\">{1}</a>", 
                 this.PageContext.BoardSettings.ShowRulesForRegistration
                   ? YafBuildLink.GetLink(ForumPages.rules)
-                  : YafBuildLink.GetLink(ForumPages.register), 
+                  : (!this.PageContext.BoardSettings.UseSSLToRegister ? YafBuildLink.GetLink(ForumPages.register) : YafBuildLink.GetLink(ForumPages.register).Replace("http:", "https:")), 
                 this.PageContext.Localization.GetText("TOOLBAR", "REGISTER")));
           }
         }
