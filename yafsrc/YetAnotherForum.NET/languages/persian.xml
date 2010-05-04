@@ -387,6 +387,11 @@
     <Resource tag="DENY">رد</Resource>
     <Resource tag="DENY_ALL">درخواستهای قدیمی تر از 14 روز رد شوند.</Resource>
     <Resource tag="EDIT_BUDDIES">ویرایش لیست دوستان</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALL">Approve all requests?</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your buddy list too?</Resource>
+    <Resource tag="NOTIFICATION_DENY">Deny this request?</Resource>
+    <Resource tag="NOTIFICATION_REMOVE">Remove Buddy?</Resource>
+    <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">Delete all Unapproved requests more than 14 days old?</Resource>
     <Resource tag="PENDING_REQUESTS">درخواست دوستی از شما</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">تاریخ درخواست</Resource>

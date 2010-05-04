@@ -901,7 +901,7 @@ namespace YAF
             context.Response.AppendHeader(
               "Content-Disposition", 
               String.Format(
-                "attachment; filename={0}", HttpUtility.UrlEncode(row["FileName"].ToString()).Replace("+", "%20")));
+                "attachment; filename={0}", HttpUtility.UrlEncode(row["FileName"].ToString()).Replace("+", "_")));
             context.Response.OutputStream.Write(data, 0, data.Length);
             DB.attachment_download(context.Request.QueryString["a"]);
             break;

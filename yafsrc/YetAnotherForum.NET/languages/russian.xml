@@ -370,6 +370,11 @@
     <Resource tag="DENY">Отклонить</Resource>
     <Resource tag="DENY_ALL">Отклонить всех, кто запросил более 14 дней назад</Resource>
     <Resource tag="EDIT_BUDDIES">Друзья</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALL">Одобрить всех желающих подружиться?</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALLADD">Одобрить всех и добавить их в свой список?</Resource>
+    <Resource tag="NOTIFICATION_DENY">Отклонить этот запрос?</Resource>
+    <Resource tag="NOTIFICATION_REMOVE">Удалить из друзей?</Resource>
+    <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">Удалить всех неодобренных в течение 14 дней?</Resource>
     <Resource tag="PENDING_REQUESTS">Желающие подружиться</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
     <Resource tag="REQUEST_DATE">Дата запроса</Resource>

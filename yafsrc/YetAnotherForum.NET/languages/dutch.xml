@@ -401,6 +401,11 @@
     <Resource tag="DENY">Deny</Resource>
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Buddies</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALL">Approve all requests?</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your buddy list too?</Resource>
+    <Resource tag="NOTIFICATION_DENY">Deny this request?</Resource>
+    <Resource tag="NOTIFICATION_REMOVE">Remove Buddy?</Resource>
+    <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">Delete all Unapproved requests more than 14 days old?</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REQUEST_DATE">Request Date</Resource>

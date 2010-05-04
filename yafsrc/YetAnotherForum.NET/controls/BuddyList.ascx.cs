@@ -131,7 +131,7 @@ namespace YAF.Controls
         /// </param>
         protected void Deny_Load(object sender, EventArgs e)
         {
-            ((LinkButton)sender).Attributes["onclick"] = "return confirm('Deny this request?')";
+            ((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_DENY"));
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace YAF.Controls
         /// </param>
         protected void Remove_Load(object sender, EventArgs e)
         {
-            ((LinkButton)sender).Attributes["onclick"] = "return confirm('Remove Buddy?')";
+            ((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")); 
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace YAF.Controls
         /// </param>
         protected void DenyAll_Load(object sender, EventArgs e)
         {
-            ((Button)sender).Attributes["onclick"] = "return confirm('Delete all Unapproved requests more than 14 days old?')";
+            ((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE_OLD_UNAPPROVED")); 
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace YAF.Controls
         /// </param>
         protected void ApproveAll_Load(object sender, EventArgs e)
         {
-            ((Button)sender).Attributes["onclick"] = "return confirm('Approve all requests?')";
+            ((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL")); 
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace YAF.Controls
         /// </param>
         protected void ApproveAddAll_Load(object sender, EventArgs e)
         {
-            ((Button)sender).Attributes["onclick"] = "return confirm('Approve all requests adn add them to your buddy list too?')";
+            ((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", this.PageContext.Localization.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALLADD")); 
         }
 
 
