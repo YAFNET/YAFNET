@@ -331,8 +331,9 @@
 						The name of your forum.
 					</p>
 					<p>
-						Time Zone:<br />
-						<asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" />
+						Guest User Time Zone:<br />
+						<asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" /><br />
+						The setting can't be changed after installing! 
 					</p>
 					<p>
 						Forum Email:<br />

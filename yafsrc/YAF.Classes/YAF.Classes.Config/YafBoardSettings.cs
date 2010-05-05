@@ -1954,7 +1954,7 @@ namespace YAF.Classes
     {
         get
         {
-            return this._reg.GetValue<bool>("EnableActiveLocationErrorsLog", true);
+            return this._reg.GetValue<bool>("EnableActiveLocationErrorsLog", false);
         }
 
         set

@@ -401,7 +401,7 @@ namespace YAF.Controls
                                  YAF.Classes.Data.DB.eventlog_create(this.UserID, this, string.Format("Incorrect active location string: ForumID = {0}; ForumName= {1}; ForumPage={2}; TopicID={3}; TopicName={4}; UserID={5}; UserName={6}; Attributes={7}; ForumPageName={8}", this.ForumID, this.ForumName, this.ForumPage, this.TopicID, this.TopicName, this.UserID, this.UserName, forumPageAttributes, forumPageName), EventLogTypes.Error);
                              }
                             
-                             outText +=YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA");                           
+                             outText =YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA");                           
                          }
                          
                      }
