@@ -386,19 +386,27 @@ namespace YAF.Controls
                              outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", forumPageName);
                           }
                       }
-                     if (!outText.Contains("ACTIVELOCATION") && (!string.IsNullOrEmpty(outText)))
-                     {
-                         output.Write(outText);
-                     }
-                     else
-                     {
-                         if (this.PageContext.BoardSettings.EnableActiveLocationErrorsLog)
-                         {
-                             YAF.Classes.Data.DB.eventlog_create(this.PageContext.PageUserID, this, string.Format("Incorrect active location string: ForumID = {0}; ForumName= {1}; ForumPage={2}; TopicID={3}; TopicName={4}; UserID={5}; UserName={6}; Attributes={7}; ForumPageName={8}", this.ForumID, this.ForumName, this.ForumPage, this.TopicID, this.TopicName, this.UserID, this.UserName, forumPageAttributes, forumPageName), EventLogTypes.Error);
-                         }
 
-                         output.Write(YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA"));
+                     if (outText.Contains("ACTIVELOCATION") || String.IsNullOrEmpty(outText.Trim()) || (forumPageName.IndexOf("p=") == 0))
+                     {                
+                        
+                         if (forumPageName.Contains("p="))
+                         {
+                             outText += YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA") + ".";
+                         }
+                         else
+                         {
+                             if (this.PageContext.BoardSettings.EnableActiveLocationErrorsLog)
+                             {
+                                 YAF.Classes.Data.DB.eventlog_create(this.UserID, this, string.Format("Incorrect active location string: ForumID = {0}; ForumName= {1}; ForumPage={2}; TopicID={3}; TopicName={4}; UserID={5}; UserName={6}; Attributes={7}; ForumPageName={8}", this.ForumID, this.ForumName, this.ForumPage, this.TopicID, this.TopicName, this.UserID, this.UserName, forumPageAttributes, forumPageName), EventLogTypes.Error);
+                             }
+                            
+                             outText +=YafContext.Current.Localization.GetText("ACTIVELOCATION", "NODATA");                           
+                         }
+                         
                      }
+
+                     output.Write(outText);
 
             output.EndRender();           
         }

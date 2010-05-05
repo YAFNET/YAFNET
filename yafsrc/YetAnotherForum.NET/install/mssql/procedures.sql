@@ -7559,7 +7559,7 @@ as
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_lazydata](
-	@UserKey	varchar(64),
+	@UserID	int,
 	@BoardID int,
 	@ShowPendingMails bit = 0,
 	@ShowPendingBuddies bit = 0,
@@ -7570,28 +7570,12 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_lazydata](
 ) as
 begin 
 	declare @G_UsrAlbums int,
-	 @R_UsrAlbums int,
-	 @UserID int,
+	 @R_UsrAlbums int,	
 	 @UserName nvarchar(255),
 	 @RankStyle varchar(255),
-	 @rowcount int
+	 @rowcount int 
 	 
-	 
-	if @UserKey is null
-	begin
-		select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
-		set @rowcount=@@rowcount
-		if (@rowcount = 0)
-		begin
-			raiserror('Found %d possible guest users. There should be one and only one user marked as guest.',16,1,@rowcount)
-		end			
-	end else	
-	begin
-		select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and ProviderUserKey=@UserKey		
-	end
-	
-	
-	SELECT TOP 1 @UserID = u.UserID, @UserName = u.[Name], @RankStyle = r.Style 
+	 SELECT TOP 1 @UserID = u.UserID, @UserName = u.[Name], @RankStyle = r.Style 
 	FROM [{databaseOwner}].[{objectQualifier}User] u 
 		INNER JOIN  [{databaseOwner}].[{objectQualifier}Rank] r 
 		ON  r.RankID = u.RankID

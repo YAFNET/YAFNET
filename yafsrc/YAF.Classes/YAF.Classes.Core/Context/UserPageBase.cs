@@ -789,13 +789,13 @@ namespace YAF.Classes.Core
             categoryID = YafContext.Current.Settings.CategoryID;
           }
 
-          object userKey = DBNull.Value;         
+          object userKey = DBNull.Value;
 
           if (user != null)
           {
-            userKey = user.ProviderUserKey;            
+              userKey = user.ProviderUserKey;
           }
-          
+                   
           do
           {              
             pageRow = DB.pageload(
@@ -833,11 +833,12 @@ namespace YAF.Classes.Core
           {
             throw new ApplicationException("Failed to find guest user.");
           }
+
           int tries = 0;
           // We should be sure that all columns are added
           do
           {
-          DataRow auldRow = new YafDBBroker().ActiveUserLazyData(userKey);
+              DataRow auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
          
           foreach (DataColumn col in auldRow.Table.Columns)
           {
@@ -850,7 +851,7 @@ namespace YAF.Classes.Core
           tries++;
           // vzrus: Current column count is 42 - change it if the total count changes
           }
-          while (pageRow.Table.Columns.Count < 42 && tries < 3);
+          while (pageRow.Table.Columns.Count < 42 && tries < 4);
 
           // save this page data to the context...
           Page = pageRow;

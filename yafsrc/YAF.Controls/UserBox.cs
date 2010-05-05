@@ -271,7 +271,27 @@ namespace YAF.Controls
         userBox = this.MatchUserBoxClearAll(userBox);
       }
 
-      return userBox;
+      // vzrus: to remove empty dividers  
+      return RemoveEmptyDividers(userBox);
+
+    }
+
+   
+    private string RemoveEmptyDividers(string userBox)
+    {
+        if (userBox.IndexOf(@"<div class=""section""></div>") > 0)
+        {
+            if (userBox.IndexOf(@"<div class=""section""></div><br />") > 0)
+            {
+                userBox = userBox.Replace(@"<div class=""section""></div><br />", String.Empty);
+            }
+            else
+            {
+                userBox = userBox.Replace(@"<div class=""section""></div>", String.Empty);
+            }
+        }
+
+        return userBox;
     }
 
     /// <summary>
@@ -356,7 +376,9 @@ namespace YAF.Controls
       userBox = rx.Replace(userBox, filler);
       rx = new Regex(Constants.UserBox.ThanksTo);
       userBox = rx.Replace(userBox, filler);
-      return userBox;
+
+      // vzrus: to remove empty dividers  
+      return RemoveEmptyDividers(userBox);
     }
 
     /// <summary>
@@ -448,7 +470,7 @@ namespace YAF.Controls
       string imagePath = string.Empty;
       string imageAlt = string.Empty;
 
-      if (PageContext.BoardSettings.AllowGenderInUserBox)
+      if (this.PageContext.BoardSettings.AllowGenderInUserBox)
       {
           if (userGender > 0)
           {
@@ -680,10 +702,14 @@ namespace YAF.Controls
     {
       var rx = new Regex(Constants.UserBox.Posts);
 
-      string filler = String.Format(
-        this.PageContext.BoardSettings.UserBoxPosts, 
-        this.PageContext.Localization.GetText("posts"), 
-        this.DataRow["Posts"]);
+      // vzrus: should not display posts count string if the user post only in a forum with no post count?
+      // if ((int)this.DataRow["Posts"] > 0)
+      // {
+          string filler = String.Format(
+            this.PageContext.BoardSettings.UserBoxPosts,
+            this.PageContext.Localization.GetText("posts"),
+            this.DataRow["Posts"]);
+     // }
 
       // replaces template placeholder with actual post count
       userBox = rx.Replace(userBox, filler);
@@ -782,12 +808,16 @@ namespace YAF.Controls
     private string MatchUserBoxThanksFrom(string userBox)
     {
       string filler = string.Empty;
-      var rx = new Regex(Constants.UserBox.ThanksFrom);     
- 
-      filler = String.Format(
-        this.PageContext.BoardSettings.UserBoxThanksFrom, 
-        String.Format(this.PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));     
+      var rx = new Regex(Constants.UserBox.ThanksFrom);
 
+      // vzrus: should not display if no thanks?
+      // if ((int)this.DataRow["ThanksFromUserNumber"] > 0 )
+      // {
+          filler = String.Format(
+            this.PageContext.BoardSettings.UserBoxThanksFrom,
+            String.Format(this.PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));
+     //  }
+     
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);
 
@@ -808,13 +838,16 @@ namespace YAF.Controls
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.ThanksTo);
 
-      filler = String.Format(
-        this.PageContext.BoardSettings.UserBoxThanksTo, 
-        String.Format(
-          this.PageContext.Localization.GetText("thanksto"), 
-          this.DataRow["ThanksToUserNumber"], 
-          this.DataRow["ThanksToUserPostsNumber"]));
-
+      // vzrus: should not display if no thanks?
+      // if ((int)this.DataRow["ThanksToUserNumber"] > 0 && (int)this.DataRow["ThanksToUserPostsNumber"] > 0)
+      // {
+          filler = String.Format(
+            this.PageContext.BoardSettings.UserBoxThanksTo,
+            String.Format(
+              this.PageContext.Localization.GetText("thanksto"),
+              this.DataRow["ThanksToUserNumber"],
+              this.DataRow["ThanksToUserPostsNumber"]));
+      // }
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);
 

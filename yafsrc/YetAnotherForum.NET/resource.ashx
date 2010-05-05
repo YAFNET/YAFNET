@@ -263,24 +263,27 @@ namespace YAF
         // don't track if this is a search engine
         isIgnoredForDisplay);
 
-      int tries = 0;
-      // We should be sure that all columns are added
-      do
+      if (pageRow != null)
       {
-          DataRow auldRow = new YafDBBroker().ActiveUserLazyData(userKey);
-
-          foreach (DataColumn col in auldRow.Table.Columns)
+          int tries = 0;
+          // We should be sure that all columns are added
+          do
           {
-              DataColumn dc = new DataColumn(col.ColumnName, col.DataType);
-              pageRow.Table.Columns.Add(dc);
-              pageRow.Table.Rows[0][dc] = auldRow[col];
-          }
+              DataRow auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
 
-          pageRow.Table.AcceptChanges();
-          tries++;
-          // vzrus: Current column count is 42 - change it if the total count changes
+              foreach (DataColumn col in auldRow.Table.Columns)
+              {
+                  DataColumn dc = new DataColumn(col.ColumnName, col.DataType);
+                  pageRow.Table.Columns.Add(dc);
+                  pageRow.Table.Rows[0][dc] = auldRow[col];
+              }
+
+              pageRow.Table.AcceptChanges();
+              tries++;
+              // vzrus: Current column count is 42 - change it if the total count changes
+          }
+          while (pageRow.Table.Columns.Count < 42 && tries < 4);
       }
-      while (pageRow.Table.Columns.Count < 42 && tries < 3);
         
       return General.BinaryAnd(pageRow["DownloadAccess"], AccessFlags.Flags.DownloadAccess) ||
              General.BinaryAnd(pageRow["ModeratorAccess"], AccessFlags.Flags.ModeratorAccess);
@@ -896,12 +899,12 @@ namespace YAF
             {
               data = (byte[])row["FileData"];
             }
-
+                     
             context.Response.ContentType = row["ContentType"].ToString();
             context.Response.AppendHeader(
               "Content-Disposition", 
               String.Format(
-                "attachment; filename={0}", HttpUtility.UrlEncode(row["FileName"].ToString()).Replace("+", "_")));
+                "attachment; filename={0}", HttpUtility.UrlPathEncode(row["FileName"].ToString()).Replace("+", "_")));
             context.Response.OutputStream.Write(data, 0, data.Length);
             DB.attachment_download(context.Request.QueryString["a"]);
             break;

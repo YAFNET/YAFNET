@@ -6970,12 +6970,12 @@ namespace YAF.Classes.Data
     /// <param name="userID">The UserID. It is always should have a positive > 0 value.</param>
     /// <param name="styledNicks">If styles should be returned.</param>
     /// <returns>A DataRow, it should never return a null value.</returns>
-    public static DataRow user_lazydata(object userKey, object boardID, bool showPendingMails, bool showPendingBuddies, bool showUnreadPMs, bool showUserAlbums, bool styledNicks)
+    public static DataRow user_lazydata(object userID, object boardID, bool showPendingMails, bool showPendingBuddies, bool showUnreadPMs, bool showUserAlbums, bool styledNicks)
     {
         using (SqlCommand cmd = YafDBAccess.GetCommand("user_lazydata"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("UserKey", userKey);
+            cmd.Parameters.AddWithValue("UserID", userID);
             cmd.Parameters.AddWithValue("BoardID", boardID);
             cmd.Parameters.AddWithValue("ShowPendingMails", showPendingMails);
             cmd.Parameters.AddWithValue("ShowPendingBuddies", showPendingBuddies);
