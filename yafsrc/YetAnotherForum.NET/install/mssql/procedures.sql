@@ -1070,7 +1070,34 @@ DECLARE @ParsedMessageIDs TABLE
       (
             MessageID int
       )
-    DECLARE @MessageIDsChunk NVARCHAR(4000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
+      
+DECLARE   @MessageID varchar(11), @Pos INT
+      
+-- vzrus says: the server version > 2000 ntext works too slowly with substring in the 2005 
+IF convert(tinyint, PARSENAME(CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')),4)) > 8
+BEGIN
+DECLARE @MessageIDsChunk2005 VARCHAR(MAX)
+SET @MessageIDsChunk2005 = CONVERT(VARCHAR(MAX),@MessageIDs);
+SET @Pos = CHARINDEX(',', @MessageIDsChunk2005, 1)
+-- check here if the value is not empty
+IF REPLACE(@MessageIDsChunk2005, ',', '') <> ''
+BEGIN
+ WHILE @Pos > 0
+                  BEGIN
+                        SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDsChunk2005, @Pos - 1)))
+                        IF @MessageID <> ''
+                        BEGIN
+                              INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
+                        END
+                        SET @MessageIDsChunk2005 = RIGHT(@MessageIDsChunk2005, LEN(@MessageIDsChunk2005) - @Pos)
+                        SET @Pos = CHARINDEX(',', @MessageIDsChunk2005, 1)
+                  END
+END
+
+END
+ELSE
+BEGIN
+    DECLARE @MessageIDsChunk NVARCHAR(4000), @Itr INT, @trimindex int 
     SET @Itr = 0
     SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
     WHILE LEN(@MessageIDsChunk) > 0
@@ -1096,14 +1123,14 @@ DECLARE @ParsedMessageIDs TABLE
             SET @Itr = @Itr + 4000;
             SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
       END
-      
+    END  
     SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksFromUserID=d.UserID) AS ThanksFromUserNumber,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.UserID) AS ThanksToUserNumber,
 	(SELECT COUNT(DISTINCT(MessageID)) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.userID) AS ThanksToUserPostsNumber
 	FROM @ParsedMessageIDs a
 	INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID=a.MessageID)
-	LEFT JOIN [{databaseOwner}].[{objectQualifier}thanks] b ON (b.MessageID = a.MessageID)
+	LEFT JOIN [{databaseOwner}].[{objectQualifier}Thanks] b ON (b.MessageID = a.MessageID)
 END
 GO
 

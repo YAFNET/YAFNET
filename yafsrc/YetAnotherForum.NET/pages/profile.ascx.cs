@@ -435,18 +435,7 @@ namespace YAF.Pages
     /// </param>
     private void SetupUserLinks(CombinedUserDataHelper userData)
     {
-      this.PM.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowPrivateMessages;
-      this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
-
-      // email link
-      this.Email.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowEmailSending;
-      this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
-      if (this.PageContext.IsAdmin)
-      {
-        this.Email.TitleNonLocalized = userData.Membership.Email;
-      }
-
-      // homepage link
+     // homepage link
       this.Home.Visible = !String.IsNullOrEmpty(userData.Profile.Homepage);
       this.SetupThemeButtonWithLink(this.Home, userData.Profile.Homepage);
 
@@ -454,23 +443,38 @@ namespace YAF.Pages
       this.Blog.Visible = !String.IsNullOrEmpty(userData.Profile.Blog);
       this.SetupThemeButtonWithLink(this.Blog, userData.Profile.Blog);
 
-      this.MSN.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.MSN);
-      this.MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", userData.UserID);
+      if (userData.UserID != this.PageContext.PageUserID)
+      {
+          this.PM.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowPrivateMessages;
+          this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
 
-      this.YIM.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.YIM);
-      this.YIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", userData.UserID);
+          // email link
+          this.Email.Visible = !userData.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowEmailSending;
+          this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
+          if (this.PageContext.IsAdmin)
+          {
+              this.Email.TitleNonLocalized = userData.Membership.Email;
+          }
 
-      this.AIM.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.AIM);
-      this.AIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", userData.UserID);
+          this.MSN.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.MSN);
+          this.MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", userData.UserID);
 
-      this.ICQ.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.ICQ);
-      this.ICQ.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", userData.UserID);
+          this.YIM.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.YIM);
+          this.YIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", userData.UserID);
 
-      this.XMPP.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.XMPP);
-      this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
+          this.AIM.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.AIM);
+          this.AIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", userData.UserID);
 
-      this.Skype.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.Skype);
-      this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
+          this.ICQ.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.ICQ);
+          this.ICQ.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", userData.UserID);
+
+          this.XMPP.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.XMPP);
+          this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
+
+          this.Skype.Visible = this.User != null && !String.IsNullOrEmpty(userData.Profile.Skype);
+          this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
+
+      }
     }
 
     /// <summary>
