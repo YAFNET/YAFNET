@@ -60,7 +60,7 @@ namespace YAF.Pages
                 // We check here if the user have access to the option
                 if (PageContext.IsGuest)
                 {
-                    Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=1"));
+                    Response.Redirect(YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=4"));
                 }
 
                 if (!Int32.TryParse(Request.QueryString["f"], out this.forumID))
@@ -70,7 +70,7 @@ namespace YAF.Pages
                 this.ReturnModBtn.Visible = true;
             }
 
-            originalRow = DB.message_secdata(this.messageID, PageContext.PageUserID);
+            originalRow = DB.message_secdata(this.messageID, this.PageContext.PageUserID);
 
             if (originalRow.Rows.Count <= 0)
             {
@@ -79,7 +79,7 @@ namespace YAF.Pages
 
             if (!IsPostBack)
             {
-                this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
                 this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
 
                 BindData();
@@ -93,11 +93,11 @@ namespace YAF.Pages
         private void BindData()
         {
            // Fill revisions list repeater. We set clean-up period to 365 days.
-           this.RevisionsList.DataSource = DB.messagehistory_list(this.messageID, 365, true);
+            this.RevisionsList.DataSource = DB.messagehistory_list(this.messageID, this.PageContext.BoardSettings.MessageHistoryDaysToLog, true);
           
            // Fill current message repeater
            this.CurrentMessageRpt.Visible = true;
-           this.CurrentMessageRpt.DataSource = DB.message_secdata(this.messageID, PageContext.PageUserID);           
+           this.CurrentMessageRpt.DataSource = DB.message_secdata(this.messageID, this.PageContext.PageUserID);           
           
             DataBind();
         }

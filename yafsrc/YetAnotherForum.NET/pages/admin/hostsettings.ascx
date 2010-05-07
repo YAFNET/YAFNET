@@ -593,7 +593,21 @@
 							<asp:TextBox ID="AlbumImagesPerPage" runat="server"></asp:TextBox>
 						</td>					
                     </tr> 
-                     	<tr>
+                    <tr>
+						<td class="header1" colspan="2">
+							Log settings
+						</td>
+					</tr>
+                    <tr>
+						<td class="postheader">
+							<b>Message history archieve time</b><br />
+							Number of days to keep message change history.
+					</td>
+					<td class="post">
+							<asp:TextBox ID="MessageHistoryDaysToLog" runat="server"></asp:TextBox>
+						</td>	
+					</tr>  
+                    <tr>
 						<td class="postheader">
 							<b>Enable Active Location Error Log:</b><br />
 							If checked, all active location path errors are logged.

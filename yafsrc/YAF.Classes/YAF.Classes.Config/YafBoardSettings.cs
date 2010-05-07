@@ -477,6 +477,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Message History Days To Trace.
+    /// </summary>
+    public int MessageHistoryDaysToLog
+    {
+        get
+        {
+            return this._reg.GetValue<int>("MessageHistoryDaysToLog", 30);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("MessageHistoryDaysToLog", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets LockPosts.
     /// </summary>
     public int LockPosts
