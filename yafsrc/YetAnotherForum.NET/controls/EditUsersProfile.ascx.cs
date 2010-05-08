@@ -436,7 +436,7 @@ namespace YAF.Controls
       }
 
       this.DSTUser.Checked = this.UserData.DSTUser;
-      this.HideMe.Checked = (this.UserData.IsActiveExcluded && this.PageContext.BoardSettings.AllowUserHideHimself);
+      this.HideMe.Checked = (this.UserData.IsActiveExcluded && (this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin));
       this.OverrideForumThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
 
       if (this.PageContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)
@@ -545,7 +545,7 @@ namespace YAF.Controls
       userProfile.Blog = this.Weblog.Text.Trim();
 
       if (this.PageContext.BoardSettings.EnableDNACalendar && this.datePicker.Value > DateTime.MinValue.Date)
-      {
+      { 
         userProfile.Birthday = this.datePicker.Value.ToUniversalTime();
       }
 

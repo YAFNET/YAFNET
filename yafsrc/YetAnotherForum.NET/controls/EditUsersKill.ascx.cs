@@ -96,7 +96,7 @@ namespace YAF.Controls
         MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID);
         var userData = new CombinedUserDataHelper(user, (int) CurrentUserID.Value);
 
-        this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", userData.Membership.UserName);
+          this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", !userData.IsGuest ? userData.Membership.UserName : (!userData.DisplayName.IsNullOrEmptyTrimmed() ? userData.DisplayName : userData.UserName));
 
         // bind data
         BindData();

@@ -34,7 +34,7 @@
             <asp:TextBox ID="Realname" runat="server" CssClass="edit" />
         </td>
      </tr>
-     <tr id="HideTr" visible="<%# this.PageContext.BoardSettings.AllowUserHideHimself %>" runat="server">
+     <tr id="HideTr" visible="<%# this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin %>" runat="server">
         <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="HIDEME" />
