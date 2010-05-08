@@ -182,7 +182,7 @@ namespace YAF.Controls
           // create new link and set its parameters
           var userLink = new UserLink();
           userLink.UserID = Convert.ToInt32(row["UserID"]);
-          userLink.Style = row["Style"].ToString();
+          userLink.Style = new YAF.Classes.Utils.StyleTransform(this.PageContext.Theme).DecodeStyleByString(row["Style"].ToString(), false);
           userLink.ID = "UserLink" + userLink.UserID.ToString();
 
           // how many users of this type is present (valid for guests, others have it 1)

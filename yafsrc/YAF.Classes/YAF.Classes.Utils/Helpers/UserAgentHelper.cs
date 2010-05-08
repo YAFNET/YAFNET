@@ -71,8 +71,9 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static bool IsIgnoredForDisplay(string userAgent)
     {
+        // Apple-PubSub - Safary RSS reader
         string[] stringContains = {
-                                  "Apple-PubSub"
+                                  "PlaceHolder"
                                   };
 
         if (!String.IsNullOrEmpty(userAgent))

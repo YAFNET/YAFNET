@@ -53,7 +53,11 @@ namespace YAF.Pages
     protected void Page_Load(object sender, EventArgs e)
     {
       FormsAuthentication.SignOut();
-      Session.Abandon();
+      // Clearing user cache with permissions data...
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID)));
+      
+      Session.Abandon();      
+
       YafBuildLink.Redirect(ForumPages.forum);
     }
 

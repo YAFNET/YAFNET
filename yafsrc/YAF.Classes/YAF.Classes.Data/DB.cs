@@ -9130,6 +9130,14 @@ namespace YAF.Classes.Data
       }
     }
 
+    public static int SqlServerMajorVersionAsInt(int version, string versionname)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("SELECT convert(tinyint, PARSENAME(CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')),4))", true))
+        {      
+            return (int)YafDBAccess.Current.ExecuteScalar(cmd);
+        }
+    }
+
     /// <summary>
     /// Returns info about all Groups and Rank styles. 
     /// Used in GroupRankStyles cache.
