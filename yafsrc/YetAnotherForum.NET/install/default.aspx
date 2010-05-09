@@ -332,8 +332,7 @@
 					</p>
 					<p>
 						Guest User Time Zone:<br />
-						<asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" /><br />
-						The setting can't be changed after installing! 
+						<asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" />
 					</p>
 					<p>
 						Forum Email:<br />
