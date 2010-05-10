@@ -64,6 +64,9 @@
 			<td class="header2">
 				User Name
 			</td>
+				<td class="header2">
+				Display Name
+			</td>
 			<td class="header2">
 				Email
 			</td>
@@ -89,6 +92,10 @@
 					<td class="post">
 						<asp:LinkButton ID="NameEdit" runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'
 							Text='<%# YafBBCode.EncodeHTML( Eval("Name").ToString() ) %>' />
+					</td>
+					<td class="post">
+						<asp:LinkButton ID="DisplayNameEdit" runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'
+							Text='<%# YafBBCode.EncodeHTML( Eval("DisplayName").ToString() ) %>' />
 					</td>
 					<td class="post">
 						<%# DataBinder.Eval(Container.DataItem,"Email") %>

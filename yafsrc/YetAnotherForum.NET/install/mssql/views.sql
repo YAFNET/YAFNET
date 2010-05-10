@@ -57,9 +57,7 @@ AS
 GO
 
 IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}PMessageView]') AND OBJECTPROPERTY(id, N'IsView') = 1)
-EXEC dbo.sp_executesql @statement = N'-- [{databaseOwner}].[{objectQualifier}PMessageView]
-
-CREATE VIEW [{databaseOwner}].[{objectQualifier}PMessageView]
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [{databaseOwner}].[{objectQualifier}PMessageView]
 AS
 SELECT
 	a.PMessageID, b.UserPMessageID, a.FromUserID, d.[Name] AS FromUser, 
