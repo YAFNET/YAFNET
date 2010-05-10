@@ -8903,7 +8903,7 @@ namespace YAF.Classes.Data
       script = YafDBAccess.GetCommandTextReplaced(script);
 
       List<string> statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase).ToList();
-
+      ushort sqlMajVersion = SqlServerMajorVersionAsShort();
       using (var connMan = new YafDBConnManager())
       {
         // use transactions...
@@ -8914,6 +8914,8 @@ namespace YAF.Classes.Data
             foreach (string sql0 in statements)
             {
               string sql = sql0.Trim();
+                
+              sql = YafDBAccess.CleanForSQLServerVersion(sql, sqlMajVersion);
 
               try
               {
@@ -9130,11 +9132,11 @@ namespace YAF.Classes.Data
       }
     }
 
-    public static int SqlServerMajorVersionAsInt(int version, string versionname)
+    public static ushort SqlServerMajorVersionAsShort()
     {
         using (SqlCommand cmd = YafDBAccess.GetCommand("SELECT convert(tinyint, PARSENAME(CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')),4))", true))
         {      
-            return (int)YafDBAccess.Current.ExecuteScalar(cmd);
+            return Convert.ToUInt16(YafDBAccess.Current.ExecuteScalar(cmd));
         }
     }
 

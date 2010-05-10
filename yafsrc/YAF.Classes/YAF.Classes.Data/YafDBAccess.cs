@@ -195,6 +195,53 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
+    /// A method to handle custom scripts execution tags 
+    /// </summary>
+    /// <param name="scriptChunk">Input string</param>
+    /// <param name="versionSQL">SQL server version as ushort</param>
+    /// <returns>Returns an empty string if condition was not and cleanedfrom tags string if was.</returns>
+    public static string CleanForSQLServerVersion(string scriptChunk, ushort versionSQL)
+    {
+        if (!scriptChunk.Contains("#IFSRVVER")) 
+        {
+            return scriptChunk;
+        }
+        else
+        {
+            int indSign =  scriptChunk.IndexOf("#IFSRVVER") + 9;
+            string temp = scriptChunk.Substring(indSign);
+            int indEnd = temp.IndexOf("#");
+            int indEqual = temp.IndexOf("=");
+            int indMore = temp.IndexOf(">");
+
+            if (indEqual >= 0 && indEqual < indEnd)
+            {            
+                ushort indVerEnd = Convert.ToUInt16(temp.Substring(indEqual + 1, indEnd - indEqual - 1).Trim());
+                if (versionSQL == indVerEnd)
+                {
+                    return scriptChunk.Substring(indEnd + indSign + 1);
+                }             
+               
+            }
+            if (indMore >= 0 && indMore < indEnd)
+            {
+
+                ushort indVerEnd = Convert.ToUInt16(temp.Substring(indMore + 1, indEnd - indMore - 1).Trim());
+                if (versionSQL > indVerEnd)
+                {
+                    return scriptChunk.Substring(indEnd + indSign + 1);
+                }
+
+            }
+            
+            return string.Empty;
+
+        }       
+
+       
+    }
+
+    /// <summary>
     /// Creates a Connection String from the parameters. 
     /// </summary>
     /// <param name="parm1">
