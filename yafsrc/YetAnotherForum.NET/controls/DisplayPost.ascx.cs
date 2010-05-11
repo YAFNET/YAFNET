@@ -203,8 +203,8 @@ namespace YAF.Controls
         }
 
         filler.AppendFormat(
-          @"<a id=""Usr{0}"" href=""{1}""><u>{2}</u></a>", 
-          String.Format("{0}_{1}", strID, Guid.NewGuid()), 
+          @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", 
+          strID, 
           YafBuildLink.GetLink(ForumPages.profile, "u={0}", strID), 
           Server.HtmlEncode(strUserName));
 
