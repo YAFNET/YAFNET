@@ -3,11 +3,10 @@
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 <asp:UpdatePanel ID="UpdatePanelCategory" runat="server" UpdateMode="Conditional">
 	<ContentTemplate>
+	<table class="content" width="100%">
 		<asp:Repeater ID="CategoryList" runat="server">
-			<HeaderTemplate>
-				<table class="content" width="100%">
-	
-					<tr class="forumRowTitle">
+			<HeaderTemplate>			
+				<tr class="forumRowTitle">
 						<td colspan="2" align="left" class="header1">
 							<YAF:LocalizedLabel ID="ForumHeaderLabel" runat="server" LocalizedTag="FORUM" />
 						</td>
@@ -47,10 +46,9 @@
 						<asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# PageContext.Localization.GetText("MARKALL") %>' />
 						<YAF:RssFeedLink ID="RssFeed1" runat="server" FeedType="Forum" AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? string.Format("c={0}", this.PageContext.PageCategoryID) : null %>' ShowSpacerBefore="true" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" TitleLocalizedTag="RSSICONTOOLTIPFORUM" />
 					</td>
-				</tr>
-			</table>	
+				</tr>				
 			</FooterTemplate>
 		</asp:Repeater>
-		
+	  </table>
 	</ContentTemplate>
 </asp:UpdatePanel>

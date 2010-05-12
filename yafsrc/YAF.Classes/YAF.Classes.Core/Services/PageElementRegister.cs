@@ -347,7 +347,7 @@ namespace YAF.Classes.Core
       }
 
       // load jQuery UI from google...
-      element.Controls.Add(ControlHelper.MakeJsIncludeControl("http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"));
+      element.Controls.Add(ControlHelper.MakeJsIncludeControl("http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.3/jquery-ui.min.js"));
 
       AddPageElement("jqueryui");
     }
