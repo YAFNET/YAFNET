@@ -139,7 +139,7 @@ namespace YAF.Classes.Core.Nntp
 
                 if (createUsers)
                 {
-                  guestUserId = DB.user_nntp(boardID, fromName, string.Empty, 0);
+                    guestUserId = DB.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
                 }
 
                 body = HttpContext.Current.Server.HtmlEncode(body);
@@ -156,6 +156,7 @@ namespace YAF.Classes.Core.Nntp
               }
               catch (NntpException)
               {
+
               }
             }
 

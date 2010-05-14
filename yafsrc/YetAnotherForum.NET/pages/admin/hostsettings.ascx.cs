@@ -66,6 +66,12 @@ namespace YAF.Pages.Admin
       // default to 100% width...
       txtBoxes.ForEach(x => x.Width = Unit.Percentage(100));
 
+      // vzrus : 13/5/2010
+      ControlHelper.AddStyleAttributeWidth(ServerTimeCorrection, "40px");
+      ControlHelper.AddStyleAttributeWidth(ImageAttachmentResizeHeight, "50px");
+      ControlHelper.AddStyleAttributeWidth(UserNameMaxLength, "25px");
+      ControlHelper.AddStyleAttributeWidth(ActiveListTime, "40px");     
+ 
       // Ederon : 7/1/2007
       ControlHelper.AddStyleAttributeWidth(SmiliesPerRow, "25px");
       ControlHelper.AddStyleAttributeWidth(SmiliesColumns, "25px");

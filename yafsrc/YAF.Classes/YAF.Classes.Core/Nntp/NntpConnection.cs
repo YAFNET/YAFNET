@@ -212,7 +212,11 @@ namespace YAF.Classes.Core.Nntp
 
       string line = null;
       int code = 0;
-      line = this.sr.ReadLine();
+
+      // vzrus: Here can be an IO exception
+      // No connecting newsserver or the connection was broken because of an invalid request.
+      line = this.sr.ReadLine();   
+   
       if (this.onRequest != null && line != null)
       {
         this.onRequest("RECEIVE: " + line);
@@ -299,7 +303,7 @@ namespace YAF.Classes.Core.Nntp
         switch (name)
         {
           case "REFERENCES":
-            values = value.Split(' ');
+            values = value.Trim().Split(' ');
             values2 = header.ReferenceIds;
             header.ReferenceIds = new string[values.Length + values2.Length];
             values.CopyTo(header.ReferenceIds, 0);
@@ -905,7 +909,7 @@ namespace YAF.Classes.Core.Nntp
 
       int i = res.Message.IndexOf(' ');
       article.ArticleId = int.Parse(res.Message.Substring(0, i));
-      int end = res.Message.IndexOf(' ', i + 1);
+      int end = res.Message.Substring(i, res.Message.Length - i - 1).Trim().IndexOf(' ');
       if (end == -1)
       {
         end = res.Message.Length - (i + 1);
@@ -966,8 +970,9 @@ namespace YAF.Classes.Core.Nntp
 
       sb.Append("\r\nSubject: ");
       sb.Append(article.Header.Subject);
-      sb.Append("\r\n\r\n");
-      sb.Append(article.Body.Text.Replace("\n.", "\n.."));
+      sb.Append("\r\n\r\n");      
+      article.Body.Text = article.Body.Text.Replace("\n.", "\n..");
+      sb.Append(article.Body.Text);
       sb.Append("\r\n.\r\n");
       res = this.MakeRequest(sb.ToString());
       if (res.Code != 240)

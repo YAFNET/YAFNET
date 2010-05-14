@@ -572,13 +572,40 @@ namespace YAF.Classes.UI
     /// The repaired html.
     /// </returns>
     public static string RepairHtml(string html, bool allowHtml)
-    {
+    {      
+ 
       if (!allowHtml)
       {
         html = YafBBCode.EncodeHTML(html);
       }
       else
       {
+      
+        // vzrus: NNTP temporary tweaks to wipe out server hangs. 
+        // These are '\n\r', others simply fix some spotted incorrect tags.
+        // As we normally use html editors they can be put somewhere in NNTP area.
+      
+        html = Regex.Replace(html, "/\n\r\n", "/\r\n\r\n ");
+        
+        RegexOptions options1 = RegexOptions.IgnoreCase;
+        MatchCollection mc = Regex.Matches(html, "[^\r]\n[^\r]", options1);
+
+        for (int i = mc.Count - 1; i >= 0; i--)
+        {     
+                html = html.Insert(mc[i].Index+2,"\r ");      
+        }        
+      
+        html = html.Replace("&amp;lt;", "&lt;");
+        html = html.Replace("&amp;gt;", "&gt;");  
+        html = html.Replace("&lt;br&gt;", " ");
+        html = html.Replace("&lt;hr&gt;", " <hr />");
+
+        // various NNTP wrong tags replacements              
+        html = html.Replace("&amp;quot;", @"&#34;");
+        html = html.Replace("&lt;quote&gt;", @"[quote]");
+        html = html.Replace("&lt;/quote&gt;", @"[/quote]");
+       
+
         // get allowable html tags       
         string[] allowedTags = YafContext.Current.BoardSettings.AcceptedHTML.Split(',');
 
