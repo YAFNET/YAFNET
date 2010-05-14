@@ -595,6 +595,33 @@ namespace YAF.Classes.Utils
       control.Attributes.Add("style", String.Format("height: {0};", height));
     }
 
+    /// <summary>
+    /// The add MaxLength attribute to TextBox.
+    /// </summary>
+    /// <param name="control">
+    /// The control.
+    /// </param>
+    /// <param name="maxLength">
+    /// The MaxLength.
+    /// </param>
+    public static void AddAttributeMaxWidth(this WebControl control, string maxLength)
+    {
+        if (control == null)
+        {
+            throw new ArgumentNullException("control", "control is null.");
+        }
+
+        if (String.IsNullOrEmpty(maxLength))
+        {
+            throw new ArgumentException("MaxLength is null or empty.", "height");
+        }
+
+        if (control is TextBox)
+        {
+            control.Attributes.Add("MaxLength", maxLength);
+        }
+    }
+
     /* Ederon - 7/1/2007 end */
 
     /// <summary>

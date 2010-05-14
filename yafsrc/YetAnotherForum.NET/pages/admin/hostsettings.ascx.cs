@@ -67,11 +67,16 @@ namespace YAF.Pages.Admin
       txtBoxes.ForEach(x => x.Width = Unit.Percentage(100));
 
       // vzrus : 13/5/2010
-      ControlHelper.AddStyleAttributeWidth(ServerTimeCorrection, "40px");
+      ControlHelper.AddStyleAttributeWidth(ServerTimeCorrection, "25px");
+      ControlHelper.AddAttributeMaxWidth(ServerTimeCorrection, "3");
+
       ControlHelper.AddStyleAttributeWidth(ImageAttachmentResizeHeight, "50px");
+
       ControlHelper.AddStyleAttributeWidth(UserNameMaxLength, "25px");
+      ControlHelper.AddAttributeMaxWidth(UserNameMaxLength, "3");
+
       ControlHelper.AddStyleAttributeWidth(ActiveListTime, "40px");     
- 
+
       // Ederon : 7/1/2007
       ControlHelper.AddStyleAttributeWidth(SmiliesPerRow, "25px");
       ControlHelper.AddStyleAttributeWidth(SmiliesColumns, "25px");

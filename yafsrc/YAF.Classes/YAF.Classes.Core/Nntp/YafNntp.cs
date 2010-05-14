@@ -127,7 +127,7 @@ namespace YAF.Classes.Core.Nntp
                 string subject = article.Header.Subject;
                 string fromName = article.Header.From;
                 string thread = article.ArticleId.ToString();
-                DateTime dateTime = article.Header.Date;
+                DateTime dateTime = DateTime.UtcNow;
 
                 if (dateTime.Year < 1950 || dateTime > DateTime.UtcNow)
                 {
@@ -135,7 +135,7 @@ namespace YAF.Classes.Core.Nntp
                 }
 
                 body = String.Format("Date: {0}\r\n\r\n", article.Header.Date) + body;
-                body = String.Format("Date parsed: {0}\r\n", dateTime) + body;
+                body = String.Format("Date parsed: {0}(UTC)\r\n", dateTime) + body;
 
                 if (createUsers)
                 {

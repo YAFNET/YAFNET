@@ -591,14 +591,14 @@ namespace YAF.Classes.UI
         MatchCollection mc = Regex.Matches(html, "[^\r]\n[^\r]", options1);
 
         for (int i = mc.Count - 1; i >= 0; i--)
-        {     
-                html = html.Insert(mc[i].Index+2,"\r ");      
+        {
+            html = html.Insert(mc[i].Index + 1,"\r");            
         }        
       
         html = html.Replace("&amp;lt;", "&lt;");
         html = html.Replace("&amp;gt;", "&gt;");  
-        html = html.Replace("&lt;br&gt;", " ");
-        html = html.Replace("&lt;hr&gt;", " <hr />");
+        html = html.Replace("&lt;br&gt;", "");
+        html = html.Replace("&lt;hr&gt;", "<hr />");
 
         // various NNTP wrong tags replacements              
         html = html.Replace("&amp;quot;", @"&#34;");
