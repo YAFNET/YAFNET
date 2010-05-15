@@ -585,15 +585,20 @@ namespace YAF.Classes.UI
         // These are '\n\r', others simply fix some spotted incorrect tags.
         // As we normally use html editors they can be put somewhere in NNTP area.
       
-        html = Regex.Replace(html, "/\n\r\n", "/\r\n\r\n ");
+        // html = Regex.Replace(html, "/\n\r\n", "/\r\n\r\n ");
         
-        RegexOptions options1 = RegexOptions.IgnoreCase;
-        MatchCollection mc = Regex.Matches(html, "[^\r]\n[^\r]", options1);
-
-        for (int i = mc.Count - 1; i >= 0; i--)
+       
+        MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+        for (int i = mc1.Count - 1; i >= 0; i--)
         {
-            html = html.Insert(mc[i].Index + 1,"\r");            
-        }        
+            html = html.Insert(mc1[i].Index+1," \r");
+        }
+
+        MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+        for (int i = mc2.Count - 1; i >= 0; i--)
+        {
+            html = html.Insert(mc2[i].Index + 1, " \r");
+        } 
       
         html = html.Replace("&amp;lt;", "&lt;");
         html = html.Replace("&amp;gt;", "&gt;");  

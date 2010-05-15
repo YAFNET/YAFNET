@@ -94,7 +94,7 @@
         <td class="footer1" colspan="5">
           <asp:Button OnLoad="ApproveAll_Load" CommandName="approveall" CssClass="pbutton" Text="Approve All" runat="server" />
           <asp:Button OnLoad="DeleteAll_Load" CommandName="deleteall" CssClass="pbutton" runat="server" Text="Delete All More Than Days Old:" />
-          <asp:TextBox ID="DaysOld" runat="server" Text="14"></asp:TextBox>
+          <asp:TextBox ID="DaysOld" runat="server" Width="40px" MaxLength="5"  Text="14" ></asp:TextBox>
           </td>          
       </tr>
       

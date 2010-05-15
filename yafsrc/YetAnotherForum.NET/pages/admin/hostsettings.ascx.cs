@@ -72,14 +72,24 @@ namespace YAF.Pages.Admin
 
       ControlHelper.AddStyleAttributeWidth(ImageAttachmentResizeHeight, "50px");
 
+      ControlHelper.AddStyleAttributeWidth(MaxPostSize, "50px");
+      ControlHelper.AddAttributeMaxWidth(UserNameMaxLength, "5"); 
+
       ControlHelper.AddStyleAttributeWidth(UserNameMaxLength, "25px");
       ControlHelper.AddAttributeMaxWidth(UserNameMaxLength, "3");
 
-      ControlHelper.AddStyleAttributeWidth(ActiveListTime, "40px");     
+      ControlHelper.AddStyleAttributeWidth(ActiveListTime, "40px");
+
+      ControlHelper.AddStyleAttributeWidth(PictureAttachmentDisplayTreshold, "100px");
+      ControlHelper.AddAttributeMaxWidth(PictureAttachmentDisplayTreshold, "11"); 
 
       // Ederon : 7/1/2007
       ControlHelper.AddStyleAttributeWidth(SmiliesPerRow, "25px");
+      ControlHelper.AddAttributeMaxWidth(SmiliesPerRow, "2");
       ControlHelper.AddStyleAttributeWidth(SmiliesColumns, "25px");
+      ControlHelper.AddAttributeMaxWidth(SmiliesColumns, "2");
+
+      
       ControlHelper.AddStyleAttributeWidth(ImageAttachmentResizeWidth, "50px");
       ControlHelper.AddStyleAttributeWidth(DisableNoFollowLinksAfterDay, "100px");
 

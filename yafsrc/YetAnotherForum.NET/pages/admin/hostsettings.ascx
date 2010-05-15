@@ -31,10 +31,10 @@
 					<tr>
 						<td class="postheader">
 							<b>Server Time Zone Correction:</b><br />
-							Enter positive or negative value in minutes.
+							Enter a positive or a negative value in minutes between -720 and 720,
+							if the server UTC time value is incorrect: <b><%# DateTime.UtcNow %></b>.							
 						</td>
-						<td class="post">
-						<b>Server UTC time:</b> <%# DateTime.UtcNow %> <br />
+						<td class="post">						
 							<asp:TextBox ID="ServerTimeCorrection" runat="server"></asp:TextBox>
 						</td>
 					</tr>
