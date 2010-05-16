@@ -143,6 +143,18 @@ namespace YAF.Classes.Core.Nntp
                 }
 
                 body = HttpContext.Current.Server.HtmlEncode(body);
+
+                // vzrus: various wrong NNTP tags replacements
+
+                body = body.Replace("&amp;lt;", "&lt;");
+                body = body.Replace("&amp;gt;", "&gt;");
+                body = body.Replace("&lt;br&gt;", "");
+                body = body.Replace("&lt;hr&gt;", "<hr />");
+
+                body = body.Replace("&amp;quot;", @"&#34;");
+                body = body.Replace("&lt;quote&gt;", @"[quote]");
+                body = body.Replace("&lt;/quote&gt;", @"[/quote]");
+
                 DB.nntptopic_savemessage(forumDataRow["NntpForumID"], subject, body, guestUserId, fromName, hostAddress, dateTime, thread);
                 lastMessageNo = currentMessage;
                 articleCount++;

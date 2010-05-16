@@ -1958,13 +1958,15 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The board_save.
     /// </returns>
-    public static int board_save(object boardID, object name, object allowThreaded)
+    public static int board_save(object boardID, object languageFile, object culture, object name, object allowThreaded)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("board_save"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("BoardID", boardID);
+        cmd.Parameters.AddWithValue("BoardID", boardID);        
         cmd.Parameters.AddWithValue("Name", name);
+        cmd.Parameters.AddWithValue("LanguageFile", languageFile);
+        cmd.Parameters.AddWithValue("Culture", culture);
         cmd.Parameters.AddWithValue("AllowThreaded", allowThreaded);
         return (int) YafDBAccess.Current.ExecuteScalar(cmd);
       }
@@ -1991,15 +1993,18 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The board_create.
     /// </returns>
-    public static int board_create(object adminUsername, object adminUserKey, object boardName, object boardMembershipName, object boardRolesName)
+    public static int board_create(object adminUsername, object adminUserEmail, object adminUserKey, object boardName, object culture, object languageFile, object boardMembershipName, object boardRolesName)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("board_create"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardName", boardName);
+        cmd.Parameters.AddWithValue("Culture", culture);
+        cmd.Parameters.AddWithValue("LanguageFile", languageFile);
         cmd.Parameters.AddWithValue("MembershipAppName", boardMembershipName);
         cmd.Parameters.AddWithValue("RolesAppName", boardRolesName);
         cmd.Parameters.AddWithValue("UserName", adminUsername);
+        cmd.Parameters.AddWithValue("UserEmail", adminUsername);
         cmd.Parameters.AddWithValue("UserKey", adminUserKey);
         cmd.Parameters.AddWithValue("IsHostAdmin", 0);
         return (int) YafDBAccess.Current.ExecuteScalar(cmd);
@@ -4020,12 +4025,11 @@ namespace YAF.Classes.Data
     /// <param name="reportText">
     /// The report text.
     /// </param>
-    public static void message_report(object reportFlag, object messageID, object userID, object reportedDateTime, object reportText)
+    public static void message_report(object messageID, object userID, object reportedDateTime, object reportText)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("message_report"))
       {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("ReportFlag", reportFlag);
+        cmd.CommandType = CommandType.StoredProcedure;      
         cmd.Parameters.AddWithValue("MessageID", messageID);
         cmd.Parameters.AddWithValue("ReporterID", userID);
         cmd.Parameters.AddWithValue("ReportedDate", reportedDateTime);
@@ -9094,19 +9098,19 @@ namespace YAF.Classes.Data
     /// The provider user key.
     /// </param>
     public static void system_initialize(
-      string forumName, string timeZone, string forumEmail, string smtpServer, string userName, string userEmail, object providerUserKey)
+      string forumName, string timeZone, string culture, string languageFile, string forumEmail, string smtpServer, string userName, string userEmail, object providerUserKey)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("system_initialize"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@Name", forumName);
         cmd.Parameters.AddWithValue("@TimeZone", timeZone);
+        cmd.Parameters.AddWithValue("@Culture", culture);
+        cmd.Parameters.AddWithValue("@LanguageFile", languageFile);
         cmd.Parameters.AddWithValue("@ForumEmail", forumEmail);
         cmd.Parameters.AddWithValue("@SmtpServer", string.Empty);
         cmd.Parameters.AddWithValue("@User", userName);
-
-        // vzrus:The input parameter should be implemented in the system initialize and board_create procedures, else there will be an error in create watch because the user email is missing
-        // cmd.Parameters.AddWithValue("@UserEmail", userEmail);
+        cmd.Parameters.AddWithValue("@UserEmail", userEmail);
         cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }

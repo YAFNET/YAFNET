@@ -135,17 +135,21 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Save_Click(object sender, EventArgs e)
     {
-      DB.board_save(PageContext.PageBoardID, this.Name.Text, this.AllowThreaded.Checked);
-     
-      foreach (System.Data.DataRow row in StaticDataHelper.Cultures().Rows)
-      {
-          if (row["CultureTag"].ToString() == this.Language.SelectedValue)
-          {
-              PageContext.BoardSettings.Language = row["CultureFile"].ToString();
-              PageContext.BoardSettings.Culture = row["CultureTag"].ToString();
-          }
-      }
 
+        System.Data.DataTable cult = StaticDataHelper.Cultures();
+        string langFile = "en-US";
+        foreach (System.Data.DataRow drow in cult.Rows)
+        {
+            if (drow["CultureTag"].ToString() == this.Language.SelectedValue)
+            {
+                langFile = (string)drow["CultureFile"];
+            }
+        }
+
+      DB.board_save(PageContext.PageBoardID, langFile,this.Language.SelectedValue, this.Name.Text, this.AllowThreaded.Checked);
+
+      PageContext.BoardSettings.Language = langFile;
+      PageContext.BoardSettings.Culture = this.Language.SelectedValue;
       PageContext.BoardSettings.Theme = this.Theme.SelectedValue;      
       PageContext.BoardSettings.ShowTopicsDefault = Convert.ToInt32(this.ShowTopic.SelectedValue);
       PageContext.BoardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;

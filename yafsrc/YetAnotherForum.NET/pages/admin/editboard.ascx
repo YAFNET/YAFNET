@@ -15,6 +15,13 @@
             <td width="50%" class="post">
                 <asp:TextBox ID="Name" runat="server" Style="width: 100%"></asp:TextBox></td>
         </tr>
+              <tr>
+            <td width="50%" class="postheader">
+                <b>Culture:</b><br />
+                The Culture of the board.</td>
+            <td width="50%" class="post">
+            <asp:DropDownList ID="Culture" runat="server" />               
+        </tr>
         <tr>
             <td class="postheader">
                 <b>Allow Threaded:</b><br />

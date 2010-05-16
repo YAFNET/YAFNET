@@ -217,11 +217,22 @@ namespace YAF.Install
             YafContext.Current.BoardSettings = new YafBoardSettings();
           }
 
-          this.TimeZones.DataSource = StaticDataHelper.TimeZones("english.xml");
-          DataBind();
-          this.TimeZones.Items.FindByValue("0").Selected = true;
           this.FullTextSupport.Visible = DB.FullTextSupported;
 
+          this.TimeZones.DataSource = StaticDataHelper.TimeZones("english.xml");
+
+          this.Culture.DataSource = StaticDataHelper.Cultures();
+          this.Culture.DataValueField = "CultureTag";
+          this.Culture.DataTextField = "CultureNativeName";
+
+          this.DataBind();
+            
+          this.TimeZones.Items.FindByValue("0").Selected = true;
+            if (this.Culture.Items.Count > 0)
+            {
+                this.Culture.Items.FindByValue("en-US").Selected = true;
+            }
+            
           this.DBUsernamePasswordHolder.Visible = DB.PasswordPlaceholderVisible;
 
           // Connection string parameters text boxes
@@ -341,7 +352,7 @@ namespace YAF.Install
     {
       // reset the board settings...
       YafContext.Current.BoardSettings = null;
-
+      
       if (Config.IsDotNetNuke)
       {
         // Redirect back to the portal main page.
@@ -1160,11 +1171,20 @@ namespace YAF.Install
 
         // logout administrator...
         FormsAuthentication.SignOut();
+        System.Data.DataTable cult = StaticDataHelper.Cultures();
+        string langFile = "english.xml";
+        foreach (System.Data.DataRow drow in cult.Rows)
+        {
+            if (drow["CultureTag"].ToString() == this.Culture.SelectedValue)
+            {
+                langFile = (string)drow["CultureFile"];
+            }
+        }
         DB.system_initialize(
-          this.TheForumName.Text, this.TimeZones.SelectedItem.Value, this.ForumEmailAddress.Text, string.Empty, user.UserName, user.Email, user.ProviderUserKey);
+          this.TheForumName.Text, this.TimeZones.SelectedValue, this.Culture.SelectedValue, langFile, this.ForumEmailAddress.Text, string.Empty, user.UserName, user.Email, user.ProviderUserKey);
         DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
         DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
-
+       
         // vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
         // YAF.Classes.Data.DB.system_deleteinstallobjects();
         // load default bbcode if available...

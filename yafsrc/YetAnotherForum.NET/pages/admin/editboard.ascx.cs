@@ -73,7 +73,16 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Boards", string.Empty);
 
+        this.Culture.DataSource = StaticDataHelper.Cultures();
+        this.Culture.DataValueField = "CultureTag";
+        this.Culture.DataTextField = "CultureNativeName";   
+
         BindData();
+
+        if (this.Culture.Items.Count > 0)
+        {
+            this.Culture.Items.FindByValue(this.PageContext.BoardSettings.Culture).Selected = true;
+        }
 
         if (BoardID != null)
         {
@@ -82,7 +91,7 @@ namespace YAF.Pages.Admin
           using (DataTable dt = DB.board_list(BoardID))
           {
             DataRow row = dt.Rows[0];
-            this.Name.Text = (string) row["Name"];
+            this.Name.Text = (string) row["Name"];           
             this.AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row["AllowThreaded"]);
             this.BoardMembershipAppName.Text = row["MembershipAppName"].ToString();
           }
@@ -116,7 +125,7 @@ namespace YAF.Pages.Admin
     {
       if (this.Name.Text.Trim().Length == 0)
       {
-        PageContext.AddLoadMessage("You must enter a name for the board.");
+        this.PageContext.AddLoadMessage("You must enter a name for the board.");
         return;
       }
 
@@ -149,8 +158,17 @@ namespace YAF.Pages.Admin
 
       if (BoardID != null)
       {
+          System.Data.DataTable cult = StaticDataHelper.Cultures();
+          string langFile = "en-US";
+          foreach (System.Data.DataRow drow in cult.Rows)
+          {
+              if (drow["CultureTag"].ToString() == this.Culture.SelectedValue)
+              {
+                  langFile = (string)drow["CultureFile"];
+              }
+          }
         // Save current board settings
-        DB.board_save(BoardID, this.Name.Text.Trim(), this.AllowThreaded.Checked);
+        DB.board_save(BoardID,langFile, this.Culture.SelectedItem.Value, this.Name.Text.Trim(), this.AllowThreaded.Checked);
       }
       else
       {
@@ -288,7 +306,15 @@ namespace YAF.Pages.Admin
       }
 
       int newBoardID = 0;
-
+      System.Data.DataTable cult = StaticDataHelper.Cultures();
+      string langFile = "english.xml";
+      foreach (System.Data.DataRow drow in cult.Rows)
+      {
+          if (drow["CultureTag"].ToString() == this.Culture.SelectedValue)
+          {
+              langFile = (string)drow["CultureFile"];
+          }
+      }
       if (createUserAndRoles)
       {
         // Create new admin users
@@ -309,7 +335,7 @@ namespace YAF.Pages.Admin
         RoleMembershipHelper.AddUserToRole(newAdmin.UserName, "Administrators");
 
         // Create Board
-        newBoardID = DB.board_create(newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName);
+        newBoardID = DB.board_create(newAdmin.UserName, newAdmin.Email, newAdmin.ProviderUserKey, boardName, this.Culture.SelectedItem.Value, langFile, boardMembershipAppName, boardRolesAppName);
       }
       else
       {
@@ -317,7 +343,7 @@ namespace YAF.Pages.Admin
         MembershipUser newAdmin = UserMembershipHelper.GetUser();
 
         // Create Board
-        newBoardID = DB.board_create(newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName);
+        newBoardID = DB.board_create(newAdmin.UserName, newAdmin.Email, newAdmin.ProviderUserKey, boardName, this.Culture.SelectedItem.Value, langFile,boardMembershipAppName, boardRolesAppName);
       }
 
 
@@ -335,6 +361,7 @@ namespace YAF.Pages.Admin
           // Create Sub Folders
           Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Avatars"));
           Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Categories"));
+          Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Forums"));
           Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Emoticons"));
           Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Medals"));
           Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Ranks"));

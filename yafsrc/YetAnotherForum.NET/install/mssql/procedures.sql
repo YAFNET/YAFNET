@@ -1640,9 +1640,12 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}board_create](
 	@BoardName 		nvarchar(50),
+	@Culture char(5),
+	@LanguageFile 	nvarchar(50),
 	@MembershipAppName nvarchar(50),
 	@RolesAppName nvarchar(50),
 	@UserName		nvarchar(255),
+	@UserEmail		nvarchar(255),
 	@UserKey		nvarchar(64),
 	@IsHostAdmin	bit
 ) as 
@@ -1674,7 +1677,10 @@ begin
 	-- Board
 	INSERT INTO [{databaseOwner}].[{objectQualifier}Board](Name, AllowThreaded, MembershipAppName, RolesAppName ) values(@BoardName,0, @MembershipAppName, @RolesAppName)
 	SET @BoardID = SCOPE_IDENTITY()
-
+	
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture',@Culture,@BoardID
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'language',@LanguageFile,@BoardID
+	
 	-- Rank
 	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit,SortOrder) VALUES (@BoardID,'Administration',0,null,2147483647,0)
 	SET @RankIDAdmin = SCOPE_IDENTITY()
@@ -1720,8 +1726,8 @@ begin
 	if @IsHostAdmin<>0 SET @UserFlags = 3
 	
 	-- User (ADMIN)
-	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,ProviderUserKey, Joined,LastVisit,NumPosts,TimeZone,Flags)
-	VALUES(@BoardID,@RankIDAdmin,@UserName,@UserName,'na',@UserKey,GETUTCDATE() ,GETUTCDATE() ,0,@TimeZone,@UserFlags)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName, Password, Email,ProviderUserKey, Joined,LastVisit,NumPosts,TimeZone,Flags)
+	VALUES(@BoardID,@RankIDAdmin,@UserName,@UserName,'na',@UserEmail,@UserKey,GETUTCDATE() ,GETUTCDATE() ,0,@TimeZone,@UserFlags)
 	SET @UserIDAdmin = SCOPE_IDENTITY()
 
 	-- UserGroup
@@ -1840,8 +1846,11 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50),@AllowThreaded bit) as
+create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50), @Culture char(5), @AllowThreaded bit) as
 begin
+
+        EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture', @Culture, @BoardID
+        EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'language', @LanguageFile, @BoardID
 		update [{databaseOwner}].[{objectQualifier}Board] set
 		Name = @Name,
 		AllowThreaded = @AllowThreaded
@@ -3154,7 +3163,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_report](@ReportFlag int, @MessageID int, @ReporterID int, @ReportedDate datetime, @ReportText nvarchar(4000)) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_report](@MessageID int, @ReporterID int, @ReportedDate datetime, @ReportText nvarchar(4000)) AS
 BEGIN
 	IF @ReportText IS NULL SET @ReportText = '';		
 	IF NOT exists(SELECT MessageID from [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID=@MessageID AND UserID=@ReporterID)
@@ -3174,7 +3183,7 @@ BEGIN
 	END
 
 	-- update Message table to set message with flag Reported
-	UPDATE [{databaseOwner}].[{objectQualifier}Message] SET Flags = Flags | POWER(2, @ReportFlag) WHERE MessageID = @MessageID
+	UPDATE [{databaseOwner}].[{objectQualifier}Message] SET Flags = Flags | 128 WHERE MessageID = @MessageID
 
 END
 GO
@@ -4249,9 +4258,12 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
 	@Name		nvarchar(50),
 	@TimeZone	int,
+	@Culture	char(5),
+	@LanguageFile nvarchar(50),
 	@ForumEmail	nvarchar(50),
 	@SmtpServer	nvarchar(50),
 	@User		nvarchar(255),
+	@UserEmail	nvarchar(255),
 	@Userkey	nvarchar(64)
 	
 ) as 
@@ -4259,15 +4271,17 @@ begin
 		DECLARE @tmpValue AS nvarchar(100)
 
 	-- initalize required 'registry' settings
-	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'Version','1'
-	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'VersionName','1.0.0'
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'version','1'
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'versionname','1.0.0'
 	SET @tmpValue = CAST(@TimeZone AS nvarchar(100))
-	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'TimeZone', @tmpValue
-	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'SmtpServer', @SmtpServer
-	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'ForumEmail', @ForumEmail
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'timezone', @tmpValue
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture', @Culture
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'language', @LanguageFile
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'smtpserver', @SmtpServer
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'forumemail', @ForumEmail
 
 	-- initalize new board
-	EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, '','',@User,@UserKey,1
+	EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, @Culture, @LanguageFile, '','',@User,@UserEmail,@UserKey,1
 end
 GO
 
@@ -4280,8 +4294,8 @@ AS
 BEGIN
 		DECLARE @tmpValue AS nvarchar(100)
 	SET @tmpValue = CAST(@Version AS nvarchar(100))
-	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'Version', @tmpValue
-	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'VersionName',@VersionName
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'version', @tmpValue
+	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'versionname',@VersionName
 
 END
 GO

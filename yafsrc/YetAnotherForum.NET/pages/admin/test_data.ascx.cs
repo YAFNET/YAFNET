@@ -415,9 +415,9 @@ namespace YAF.Pages.Admin
       {
         string boardName = this.boardPrefix + Guid.NewGuid().ToString();
         int curboard = DB.board_create(
-          this.PageContext.User.UserName, 
+          this.PageContext.User.UserName, this.PageContext.User.Email, 
           this.PageContext.User.ProviderUserKey, 
-          boardName, 
+          boardName, "en-US","english.xml", 
           BoardMembershipName.Text.Trim(), 
           BoardRolesName.Text.Trim());
         this.CreateUsers(curboard, _usersNumber);

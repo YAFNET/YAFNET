@@ -324,16 +324,20 @@
 					<asp:CheckBox ID="FullTextSupport" runat="server" Text="Attempt to Install FullText Search Support" />
 				</asp:WizardStep>
 				<asp:WizardStep runat="server" Title="Create Forum" ID="WizCreateForum">
-					<strong>Create Forum</strong><br />
+					<strong>Create Board</strong><br />
 					<p>
-						Forum Name:<br />
+						Board Name:<br />
 						<asp:TextBox ID="TheForumName" runat="server" />
-						The name of your forum.
+						The name of your board.
 					</p>
 					<p>
 						Guest User Time Zone:<br />
 						<asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" />
 					</p>
+					<p>
+						Guest User & Board Culture:<br />
+						<asp:DropDownList ID="Culture" runat="server" />
+					</p>	
 					<p>
 						Forum Email:<br />
 						<asp:TextBox ID="ForumEmailAddress" runat="server" />

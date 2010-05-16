@@ -96,8 +96,8 @@ namespace YAF.Pages
     protected void BtnReport_Click(object sender, EventArgs e)
     {
       // Save the reported message
-      DB.message_report(7, this.messageID, this.PageContext.PageUserID, DateTime.UtcNow, this.reportEditor.Text);
-
+      DB.message_report(this.messageID, this.PageContext.PageUserID, DateTime.UtcNow, this.reportEditor.Text);
+      
       // Redirect to reported post
       this.RedirectToPost();
     }
