@@ -490,7 +490,7 @@ namespace YAF.Classes
         {
             this._reg.SetValue<int>("MessageHistoryDaysToLog", value);
         }
-    }
+    }      
 
     /// <summary>
     /// Gets or sets LockPosts.
@@ -1976,6 +1976,22 @@ namespace YAF.Classes
         set
         {
             this._reg.SetValue<bool>("EnableActiveLocationErrorsLog", value);
+        }
+    }
+
+    /// <summary>
+    /// Log UserAgent strings unhandled by YAF.
+    /// </summary>
+    public bool UserAgentBadLog
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("UserAgentBadLog", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("UserAgentBadLog", value);
         }
     }
 

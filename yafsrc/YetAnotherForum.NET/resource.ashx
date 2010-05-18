@@ -240,6 +240,19 @@ namespace YAF
 
       YafServices.InitializeDb.Run();
 
+      // vzrus: to log unhandled UserAgent strings
+      if (YafContext.Current.BoardSettings.UserAgentBadLog)
+      {
+          if (String.IsNullOrEmpty(userAgent))
+          {
+              DB.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
+          }
+          if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
+          {
+              DB.eventlog_create(YafContext.Current.PageUserID, this, String.Format("Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.", userAgent, HttpContext.Current.Request.Browser.Platform, HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
+          }
+      }     
+
       object userKey = DBNull.Value;   
         
       if (user != null)
@@ -262,14 +275,14 @@ namespace YAF
         messageID, 
         // don't track if this is a search engine
         isIgnoredForDisplay);
-
+        
+      DataRow auldRow;
       if (pageRow != null)
-      {
-          int tries = 0;
+      {        
           // We should be sure that all columns are added
           do
           {
-              DataRow auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
+              auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
 
               foreach (DataColumn col in auldRow.Table.Columns)
               {
@@ -279,10 +292,10 @@ namespace YAF
               }
 
               pageRow.Table.AcceptChanges();
-              tries++;
+              
               // vzrus: Current column count is 42 - change it if the total count changes
           }
-          while (pageRow.Table.Columns.Count < 42 && tries < 4);
+          while (pageRow.Table.Columns.Count < 42 && auldRow == null);
       }
         
       return General.BinaryAnd(pageRow["DownloadAccess"], AccessFlags.Flags.DownloadAccess) ||

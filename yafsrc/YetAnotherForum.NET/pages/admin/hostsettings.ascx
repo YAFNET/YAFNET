@@ -615,7 +615,16 @@
 						<td class="post">
 							<asp:CheckBox ID="EnableActiveLocationErrorsLog" runat="server"></asp:CheckBox>
 						</td>
-					</tr>                                      
+					</tr> 
+					<tr>
+						<td class="postheader">
+							<b>Enable Unhandled UserAgent Log:</b><br />
+							If checked, all unhandled UserAgent strings are logged.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="UserAgentBadLog" runat="server"></asp:CheckBox>
+						</td>
+					</tr>                                
 				</table>
 			</DotNetAge:View>		
 			<DotNetAge:View runat="server" ID="View3" Text="Display" NavigateUrl="" HeaderCssClass=""

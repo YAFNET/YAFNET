@@ -789,6 +789,19 @@ namespace YAF.Classes.Core
             categoryID = YafContext.Current.Settings.CategoryID;
           }
 
+          // vzrus: to log unhandled UserAgent strings
+          if (YafContext.Current.BoardSettings.UserAgentBadLog)
+          {
+              if (String.IsNullOrEmpty(userAgent))
+              {
+                  DB.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
+              }
+              if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
+              {
+                  DB.eventlog_create(YafContext.Current.PageUserID, this, String.Format("Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.", userAgent, HttpContext.Current.Request.Browser.Platform, HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
+              }
+          }     
+
           object userKey = DBNull.Value;
 
           if (user != null)
@@ -833,26 +846,27 @@ namespace YAF.Classes.Core
           {
             throw new ApplicationException("Failed to find guest user.");
           }
-
-          int tries = 0;
+       
           // We should be sure that all columns are added
+          DataRow auldRow;
           do
           {
-              DataRow auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
-         
-          foreach (DataColumn col in auldRow.Table.Columns)
+          auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
+          if (auldRow != null)
           {
-              DataColumn dc = new DataColumn(col.ColumnName, col.DataType);
-              pageRow.Table.Columns.Add(dc);
-              pageRow.Table.Rows[0][dc] = auldRow[col];
-          }
+              foreach (DataColumn col in auldRow.Table.Columns)
+              {
+                  DataColumn dc = new DataColumn(col.ColumnName, col.DataType);
+                  pageRow.Table.Columns.Add(dc);
+                  pageRow.Table.Rows[0][dc] = auldRow[col];
+              }
 
-          pageRow.Table.AcceptChanges();
-          tries++;
+              pageRow.Table.AcceptChanges();
+          }         
           // vzrus: Current column count is 42 - change it if the total count changes
           }
-          while (pageRow.Table.Columns.Count < 42 && tries < 4);
-
+          while (pageRow.Table.Columns.Count < 42 && auldRow == null);
+         
           // save this page data to the context...
           Page = pageRow;
 

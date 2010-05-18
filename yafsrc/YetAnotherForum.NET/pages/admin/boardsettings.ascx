@@ -5,16 +5,16 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="2">
-				Forum Settings</td>
+				Current Board Settings</td>
 		</tr>
 		<tr>
 			<td class="header2" colspan="2">
-				Forum Setup</td>
+				Board Setup</td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Forum Name:</b><br />
-				The name of the forum.</td>
+				<b>Board Name:</b><br />
+				The name of the board.</td>
 			<td class="post" width="50%">
 				<asp:TextBox ID="Name" runat="server" Width="100%"></asp:TextBox></td>
 		</tr>

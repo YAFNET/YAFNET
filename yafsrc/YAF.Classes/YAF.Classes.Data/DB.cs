@@ -6976,6 +6976,12 @@ namespace YAF.Classes.Data
     /// <returns>A DataRow, it should never return a null value.</returns>
     public static DataRow user_lazydata(object userID, object boardID, bool showPendingMails, bool showPendingBuddies, bool showUnreadPMs, bool showUserAlbums, bool styledNicks)
     {
+      
+      int nTries = 0;
+      while (true)
+      {
+        try
+        {
         using (SqlCommand cmd = YafDBAccess.GetCommand("user_lazydata"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
@@ -6988,7 +6994,24 @@ namespace YAF.Classes.Data
             cmd.Parameters.AddWithValue("ShowUserStyle", styledNicks);
             return YafDBAccess.Current.GetData(cmd).Rows[0];
         }
+        }
+        catch (SqlException x)
+        {
+            if (x.Number == 1205 && nTries < 3)
+            {
+                // Transaction (Process ID XXX) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+
+            }
+            else
+            {
+                throw new ApplicationException(string.Format("Sql Exception with error number {0} (Tries={1})", x.Number, nTries), x);
+            }
+        }
+
+        ++nTries;
+      }
     }
+
 
     /// <summary>
     /// The user_list.

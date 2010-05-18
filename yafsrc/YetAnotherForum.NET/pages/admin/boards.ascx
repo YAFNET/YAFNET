@@ -20,14 +20,14 @@
 		</tr>
 		<asp:Repeater ID="List" runat="server">
 			<ItemTemplate>
-				<tr>
-					<td class="post">
+				<tr id="BoardRow" class='<%# Convert.ToInt32(Eval( "BoardID")) != PageContext.PageBoardID ? "post" : "post_res" %>' runat="server">
+					<td >
 						<%# Eval( "BoardID") %>
 					</td>
-					<td class="post">
+					<td>
 						<%# Eval( "Name") %>
 					</td>
-					<td class="post" align="center">
+					<td align="center">
 						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "BoardID") %>'>Edit</asp:LinkButton>
 						|
 						<asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# Eval( "BoardID") %>'>Delete</asp:LinkButton>
