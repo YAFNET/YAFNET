@@ -845,6 +845,8 @@
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) تعداد دانلود [b]{1:N0}[/b] بار.</Resource>
     <Resource tag="ATTACHMENTS">فایلهای الصاق شده :</Resource>
     <Resource tag="BLOG">بلاگ</Resource>
+    <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
+    <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
     <Resource tag="CHOICE">انتخاب</Resource>
     <Resource tag="CLOSE_TEXT">بستن</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">آیا این پیغام حذف شود?</Resource>

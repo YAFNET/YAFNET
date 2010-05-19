@@ -880,6 +880,8 @@
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) staženo [b]{1:N0}[/b]krát.</Resource>
     <Resource tag="ATTACHMENTS">Přiložený soubor(y):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
+    <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
     <Resource tag="CHOICE">Výběr</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Chcete smazat tuto zprávu?</Resource>

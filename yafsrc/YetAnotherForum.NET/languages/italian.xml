@@ -850,6 +850,8 @@
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) scaricato [b]{1:N0}[/b] volta(e).</Resource>
     <Resource tag="ATTACHMENTS">File allegato(i):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
+    <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
     <Resource tag="CHOICE">Scelta</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Cancello questo messaggio?</Resource>

@@ -3598,9 +3598,10 @@ begin
 	declare @IsGuest		tinyint
 	declare @rowcount		int
 	declare @PreviousVisit	datetime
+	declare @ActiveUpdate   tinyint
 	
 	set implicit_transactions off
-
+	   
 	if @UserKey is null
 	begin
 		select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
@@ -3698,6 +3699,10 @@ begin
 			where SessionID = @SessionID
 		end
 		else begin
+		if @IsGuest > 0
+		begin
+		SET @ActiveUpdate = 1
+		end
 			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,Platform)
 			values(@SessionID,@BoardID,@UserID,@IP,GETUTCDATE() ,GETUTCDATE() ,@Location,@ForumID,@TopicID,@Browser,@Platform)
 			-- update max user stats
@@ -3709,6 +3714,7 @@ begin
 	end
 	-- return information
 	select
+	    ActiveUpdate        = ISNULL(@ActiveUpdate,0),
 	    PreviousVisit		= @PreviousVisit,
 		x.*,
 		CategoryID			= @CategoryID,

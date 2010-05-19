@@ -850,6 +850,8 @@
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) downloaded [b]{1:N0}[/b] time(s).</Resource>
     <Resource tag="ATTACHMENTS">קובץ(ים) מצורף(ים):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
+    <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
     <Resource tag="CHOICE">בחירה</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">האם ברצונך למחוק הודעה זו?</Resource>

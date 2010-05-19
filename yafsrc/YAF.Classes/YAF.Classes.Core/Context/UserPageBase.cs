@@ -463,7 +463,7 @@ namespace YAF.Classes.Core
     public bool IsGuest
     {
       get
-      {
+      {          
         return PageValueAsBool("IsGuest");
       }
     }
@@ -496,7 +496,7 @@ namespace YAF.Classes.Core
     public bool IsSuspended
     {
       get
-      {
+      {       
         if (Page != null && Page["Suspended"] != DBNull.Value)
         {
           return true;
@@ -865,9 +865,15 @@ namespace YAF.Classes.Core
           }         
           // vzrus: Current column count is 42 - change it if the total count changes
           }
-          while (pageRow.Table.Columns.Count < 42 && auldRow == null);
+          while (pageRow.Table.Columns.Count < 43 && auldRow == null);
          
           // save this page data to the context...
+          // vzrus: it can be anywhere, but temporary is here. To reset active users cache if a new user is in the active list
+          if (!Convert.ToBoolean(pageRow["ActiveUpdate"]))
+              {
+                  YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
+              }         
+
           Page = pageRow;
 
           if (AfterInit != null)

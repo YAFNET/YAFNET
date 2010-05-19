@@ -830,6 +830,8 @@
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) đã được dowbload [b]{1:N0}[/b] lần.</Resource>
     <Resource tag="ATTACHMENTS">Tập tin đính kèm(s):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
+    <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
     <Resource tag="CHOICE">Chọn</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Xóa tin nhắn?</Resource>

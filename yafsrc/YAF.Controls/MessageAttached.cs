@@ -250,8 +250,21 @@ namespace YAF.Controls
           // now show images
           tmpDisplaySort++;
         }
-
+        if (!this.PageContext.ForumDownloadAccess)
+        {
+            writer.Write(@"<br /><div class=""attachmentinfo"">");
+            if (this.PageContext.IsGuest)
+            {
+                writer.Write(PageContext.Localization.GetText("POSTS", "CANT_DOWNLOAD_REGISTER"));
+            }
+            else
+            {
+                writer.Write(PageContext.Localization.GetText("POSTS", "CANT_DOWNLOAD"));
+            }
+            writer.Write(@"</div>");
+        }
         writer.Write(@"</div>");
+
       }
     }
   }

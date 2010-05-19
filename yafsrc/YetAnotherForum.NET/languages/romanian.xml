@@ -884,6 +884,8 @@
     <Resource tag="ATTACHMENTINFO">{0:N0} KB, salvati {1:N0} ori.</Resource>
     <Resource tag="ATTACHMENTS">Atasamente:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
+    <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
     <Resource tag="CHOICE">Alegere</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Stergi acest mesaj?</Resource>

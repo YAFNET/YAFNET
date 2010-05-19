@@ -293,9 +293,9 @@ namespace YAF
 
               pageRow.Table.AcceptChanges();
               
-              // vzrus: Current column count is 42 - change it if the total count changes
+              // vzrus: Current column count is 43 - change it if the total count changes
           }
-          while (pageRow.Table.Columns.Count < 42 && auldRow == null);
+          while (pageRow.Table.Columns.Count < 43 && auldRow == null);
       }
         
       return General.BinaryAnd(pageRow["DownloadAccess"], AccessFlags.Flags.DownloadAccess) ||

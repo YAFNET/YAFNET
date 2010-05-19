@@ -881,6 +881,8 @@
     <Resource tag="ATTACHMENTINFO">{0:N0} KB, 下载 {1:N0} 次.</Resource>
     <Resource tag="ATTACHMENTS">附件:</Resource>
     <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
+    <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
     <Resource tag="CHOICE">选择</Resource>
     <Resource tag="CLOSE_TEXT">Close</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">删除这条信息?</Resource>

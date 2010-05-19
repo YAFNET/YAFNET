@@ -2004,7 +2004,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("MembershipAppName", boardMembershipName);
         cmd.Parameters.AddWithValue("RolesAppName", boardRolesName);
         cmd.Parameters.AddWithValue("UserName", adminUsername);
-        cmd.Parameters.AddWithValue("UserEmail", adminUsername);
+        cmd.Parameters.AddWithValue("UserEmail", adminUserEmail);
         cmd.Parameters.AddWithValue("UserKey", adminUserKey);
         cmd.Parameters.AddWithValue("IsHostAdmin", 0);
         return (int) YafDBAccess.Current.ExecuteScalar(cmd);

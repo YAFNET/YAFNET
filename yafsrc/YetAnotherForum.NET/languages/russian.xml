@@ -830,6 +830,8 @@
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) загружен [b]{1:N0}[/b] раз(а).</Resource>
     <Resource tag="ATTACHMENTS">Вложение(я):</Resource>
     <Resource tag="BLOG">БЛОГ</Resource>
+    <Resource tag="CANT_DOWNLOAD">У Вас нет прав для просмотра или загрузки вложений.</Resource>
+    <Resource tag="CANT_DOWNLOAD_REGISTER">У Вас нет прав для просмотра или загрузки вложений. Попробуйте зарегистрироваться.</Resource>
     <Resource tag="CHOICE">Вариант</Resource>
     <Resource tag="CLOSE_TEXT">Закрыть</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Удалить это сообщение?</Resource>
