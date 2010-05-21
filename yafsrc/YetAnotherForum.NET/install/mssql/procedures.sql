@@ -3698,19 +3698,21 @@ begin
 				ForumPage = @ForumPage
 			where SessionID = @SessionID
 		end
-		else begin
-		if @IsGuest > 0
-		begin
-		SET @ActiveUpdate = 1
-		end
+		else begin	
 			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,Platform)
 			values(@SessionID,@BoardID,@UserID,@IP,GETUTCDATE() ,GETUTCDATE() ,@Location,@ForumID,@TopicID,@Browser,@Platform)
 			-- update max user stats
 			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
+			if @IsGuest=0
+		          begin
+		          set @ActiveUpdate = 1
+		          end
 		end
 		-- remove duplicate users
 		if @IsGuest=0
-			delete from [{databaseOwner}].[{objectQualifier}Active] where UserID=@UserID and BoardID=@BoardID and SessionID<>@SessionID
+		begin
+			delete from [{databaseOwner}].[{objectQualifier}Active] where UserID=@UserID and BoardID=@BoardID and SessionID<>@SessionID		    
+		end
 	end
 	-- return information
 	select

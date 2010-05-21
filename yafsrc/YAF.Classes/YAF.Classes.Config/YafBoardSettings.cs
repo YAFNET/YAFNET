@@ -1067,7 +1067,7 @@ namespace YAF.Classes
     {
         get
         {
-            return this._reg.GetValue<int>("OnlineStatusCacheTimeout", 30000);
+            return this._reg.GetValue<int>("OnlineStatusCacheTimeout", 60000);
         }
 
         set

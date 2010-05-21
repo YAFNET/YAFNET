@@ -869,7 +869,7 @@ namespace YAF.Classes.Core
          
           // save this page data to the context...
           // vzrus: it can be anywhere, but temporary is here. To reset active users cache if a new user is in the active list
-          if (!Convert.ToBoolean(pageRow["ActiveUpdate"]))
+          if (Convert.ToBoolean(pageRow["ActiveUpdate"]))
               {
                   YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
               }         
