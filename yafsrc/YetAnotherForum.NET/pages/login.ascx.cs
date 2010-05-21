@@ -157,6 +157,8 @@ namespace YAF.Pages
       var password = ControlHelper.FindControlAs<TextBox>(this.Login1, "Password");
 
       e.Authenticated = PageContext.CurrentMembership.ValidateUser(userName.Text.Trim(), password.Text.Trim());
+      // vzrus: to clear the cache to show user in the list at once
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
     }
 
     /// <summary>
