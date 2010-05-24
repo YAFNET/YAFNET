@@ -674,26 +674,21 @@ namespace YAF.Pages
       }
 
       // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
-      // calls to database.)
-      var dc = new DataColumn("IsThankedByUser", Type.GetType("System.Boolean"));
-      dt0.Columns.Add(dc);
-
-      // How many times has this message been thanked.
-      dc = new DataColumn("MessageThanksNumber", Type.GetType("System.Int32"));
-      dt0.Columns.Add(dc);
-
-      // How many times has the message poster thanked others?
-      dc = new DataColumn("ThanksFromUserNumber", Type.GetType("System.Int32"));
-      dt0.Columns.Add(dc);
-
-      // How many times has the message poster been thanked?
-      dc = new DataColumn("ThanksToUserNumber", Type.GetType("System.Int32"));
-      dt0.Columns.Add(dc);
-
-      // In how many posts has the message poster been thanked?
-      dc = new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"));
-      dt0.Columns.Add(dc);
-
+      // calls to database.)     
+      dt0.Columns.AddRange(
+          new DataColumn[] {  
+                            // How many times has this message been thanked.
+                            new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")),
+                            // How many times has the message poster thanked others?   
+                            new DataColumn("MessageThanksNumber", Type.GetType("System.Int32")),                  
+                            // How many times has the message poster been thanked?
+                            new DataColumn("ThanksFromUserNumber", Type.GetType("System.Int32")),
+                            // In how many posts has the message poster been thanked? 
+                            new DataColumn("ThanksToUserNumber", Type.GetType("System.Int32")),
+                            // In how many posts has the message poster been thanked? 
+                            new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"))
+                           }
+                           );
       // Make the "MessageID" Column the primary key to the datatable.
       dt0.PrimaryKey = new[] { dt0.Columns["MessageID"] };
 

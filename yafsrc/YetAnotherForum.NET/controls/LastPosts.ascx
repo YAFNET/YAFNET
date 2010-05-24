@@ -6,23 +6,19 @@
 		<ContentTemplate>
 			<asp:UpdatePanel ID="InnerUpdatePanel" runat="server" UpdateMode="Conditional">
 				<Triggers>
-					<asp:AsyncPostBackTrigger ControlID="LastPostUpdateTimer" />
-					
+					<asp:AsyncPostBackTrigger ControlID="LastPostUpdateTimer" />					
 				</Triggers>
 				<ContentTemplate>
-					<asp:Repeater ID="repLastPosts" runat="server">
-					
+				  <table class="content" width="100%" align="center">
+					<asp:Repeater ID="repLastPosts" runat="server">					
 						<HeaderTemplate>
-							<table class="content" width="100%" align="center">
-
-								<tr>
-									<td class="header2" align="center" colspan="2">
+						   <tr>		
+						           <td class="header2" align="center" colspan="2">							
 									<YAF:LocalizedLabel ID="Last10" LocalizedTag="LAST10" runat="server" />
 									</td>
-								</tr>
+							</tr>
 						</HeaderTemplate>
-						<FooterTemplate>
-							</table>
+						<FooterTemplate>							
 						</FooterTemplate>
 						<ItemTemplate>
 							<tr class="postheader">
@@ -75,10 +71,10 @@
 								</td>
 							</tr>
 						</AlternatingItemTemplate>
-					</asp:Repeater>
-					
+					</asp:Repeater>	
+					</table>			
 				</ContentTemplate>
-			</asp:UpdatePanel>
+			</asp:UpdatePanel>			
 		</ContentTemplate>
 	</asp:UpdatePanel>
 </div>

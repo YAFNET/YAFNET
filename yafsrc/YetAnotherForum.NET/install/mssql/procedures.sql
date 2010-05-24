@@ -3599,8 +3599,10 @@ begin
 	declare @rowcount		int
 	declare @PreviousVisit	datetime
 	declare @ActiveUpdate   tinyint
+	declare @CurrentTime	datetime
 	
 	set implicit_transactions off
+	set @CurrentTime = GETUTCDATE()
 	   
 	if @UserKey is null
 	begin
@@ -3641,7 +3643,7 @@ begin
 	
 	-- update last visit
 	update [{databaseOwner}].[{objectQualifier}User] set 
-		LastVisit = GETUTCDATE() ,
+		LastVisit = @CurrentTime,
 		IP = @IP
 	where UserID = @UserID
 
@@ -3689,7 +3691,7 @@ begin
 			update [{databaseOwner}].[{objectQualifier}Active] set
 				UserID = @UserID,
 				IP = @IP,
-				LastActive = GETUTCDATE() ,
+				LastActive = @CurrentTime ,
 				Location = @Location,
 				ForumID = @ForumID,
 				TopicID = @TopicID,
@@ -3700,7 +3702,7 @@ begin
 		end
 		else begin	
 			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,Platform)
-			values(@SessionID,@BoardID,@UserID,@IP,GETUTCDATE() ,GETUTCDATE() ,@Location,@ForumID,@TopicID,@Browser,@Platform)
+			values(@SessionID,@BoardID,@UserID,@IP, @CurrentTime, @CurrentTime,@Location,@ForumID,@TopicID,@Browser,@Platform)
 			-- update max user stats
 			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
 			if @IsGuest=0
@@ -3713,15 +3715,15 @@ begin
 		begin
 			delete from [{databaseOwner}].[{objectQualifier}Active] where UserID=@UserID and BoardID=@BoardID and SessionID<>@SessionID		    
 		end
+		
 	end
 	-- return information
 	select
 	    ActiveUpdate        = ISNULL(@ActiveUpdate,0),
-	    PreviousVisit		= @PreviousVisit,
+	    PreviousVisit		= @PreviousVisit,	   
 		x.*,
 		CategoryID			= @CategoryID,
 		CategoryName		= (select Name from [{databaseOwner}].[{objectQualifier}Category] where CategoryID = @CategoryID),
-		ForumID				= @ForumID,
 		ForumName			= (select Name from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID),
 		TopicID				= @TopicID,
 		TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
@@ -7629,16 +7631,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_lazydata](
 ) as
 begin 
 	declare @G_UsrAlbums int,
-	 @R_UsrAlbums int,	
-	 @UserName nvarchar(255),
-	 @RankStyle varchar(255),
-	 @rowcount int 
-	 
-	 SELECT TOP 1 @UserID = u.UserID, @UserName = u.[Name], @RankStyle = r.Style 
-	FROM [{databaseOwner}].[{objectQualifier}User] u 
-		INNER JOIN  [{databaseOwner}].[{objectQualifier}Rank] r 
-		ON  r.RankID = u.RankID
-		WHERE u.UserID = @UserID AND u.BoardID = @BoardID
+	 @R_UsrAlbums int	 
 		
 	SELECT TOP 1 @G_UsrAlbums = ISNULL(c.UsrAlbums,0)  
     FROM [{databaseOwner}].[{objectQualifier}User] a 
@@ -7663,19 +7656,22 @@ begin
 		TimeZoneUser		= a.TimeZone,
 		CultureUser		    = a.Culture,		
 		IsGuest				= a.Flags & 4,
-		MailsPending		= CASE WHEN @ShowPendingMails > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}Mail] WHERE [ToUserName] = @UserName) ELSE 0 END,
+		MailsPending		= CASE WHEN @ShowPendingMails > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}Mail] WHERE [ToUserName] = a.Name) ELSE 0 END,
 		UnreadPrivate		= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
 		LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,		
 		PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,
 		LastPendingBuddies	= CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=@UserID and Approved = 0) ELSE NULL END,
-		UserStyle 		        = case(@ShowUserStyle)
-	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), @RankStyle)  
+		UserStyle 		    = CASE WHEN @ShowUserStyle > 0 THEN ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), (SELECT TOP 1 r.Style 
+	    FROM [{databaseOwner}].[{objectQualifier}User] u 
+		INNER JOIN  [{databaseOwner}].[{objectQualifier}Rank] r 
+		ON  r.RankID = u.RankID
+		WHERE u.UserID = @UserID AND u.BoardID = @BoardID))  
 	        else ''	 end,
 	    NumAlbums  = (SELECT COUNT(ua.AlbumID) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
-       WHERE ua.UserID = @UserID),
+        WHERE ua.UserID = @UserID),
 	    UsrAlbums  = (CASE WHEN @G_UsrAlbums > @R_UsrAlbums THEN @G_UsrAlbums ELSE @R_UsrAlbums END),
-	    UserHasBuddies  = SIGN((SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE [FromUserID] = @UserID OR [ToUserID] = @UserID))
+	    UserHasBuddies  = SIGN(ISNULL((SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE [FromUserID] = @UserID OR [ToUserID] = @UserID),0))
 	    
 	    from
 		   [{databaseOwner}].[{objectQualifier}User] a		
