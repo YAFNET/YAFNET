@@ -168,8 +168,9 @@ namespace YAF.Controls
             filler.Append(",&nbsp;");
           }
 
+          // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
           filler.AppendFormat(
-              @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", dr["UserID"], YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]), dr["DisplayName"] != DBNull.Value ? YafContext.HttpContext.Server.HtmlEncode(dr["DisplayName"].ToString()) : YafContext.HttpContext.Server.HtmlEncode(dr["Name"].ToString()));
+              @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", dr["UserID"], YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]).Replace("/yaf.controls.thankyou,yaf.controls.ashx", "/default.aspx"), dr["DisplayName"] != DBNull.Value ? YafContext.HttpContext.Server.HtmlEncode(dr["DisplayName"].ToString()) : YafContext.HttpContext.Server.HtmlEncode(dr["Name"].ToString()));
 
           if (YafContext.Current.BoardSettings.ShowThanksDate)
           {
