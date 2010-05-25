@@ -139,15 +139,33 @@ namespace YAF.Pages.Admin
       string icon = this.Icon.SelectedItem.Text.Trim();
       int sortOrder;
 
+      if (emotion.Length > 50)
+      {
+          PageContext.AddLoadMessage("An emotion description is too long.");
+          return;
+      }
+
       if (code.Length == 0)
       {
         PageContext.AddLoadMessage("Please enter the code to use for this emotion.");
         return;
       }
 
+      if (code.Length > 10)
+      {
+          PageContext.AddLoadMessage("The code to use for this emotion should not be more then 10 symbols.");
+          return;
+      }
+
+      if (!new System.Text.RegularExpressions.Regex(@"\[.+\]").IsMatch(code))
+      {               
+        PageContext.AddLoadMessage("Please enter the code to use for this emotion in square brackets.");
+        return;
+      }
+        
       if (emotion.Length == 0)
       {
-        PageContext.AddLoadMessage("Please enter the emotion for this icon.");
+        PageContext.AddLoadMessage("Please enter an emotion for this icon.");
         return;
       }
 

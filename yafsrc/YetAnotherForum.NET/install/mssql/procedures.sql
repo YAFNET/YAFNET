@@ -7630,17 +7630,20 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_lazydata](
 	
 ) as
 begin 
-	declare @G_UsrAlbums int,
-	 @R_UsrAlbums int	 
+	declare 
+	@G_UsrAlbums int,
+	@R_UsrAlbums int,
+	@R_Style varchar(255),
+	@G_Style varchar(255) 	 
 		
-	SELECT TOP 1 @G_UsrAlbums = ISNULL(c.UsrAlbums,0)  
+	SELECT TOP 1 @G_UsrAlbums = ISNULL(c.UsrAlbums,0), @G_Style = c.Style 
     FROM [{databaseOwner}].[{objectQualifier}User] a 
                         JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
                           ON a.UserID = b.UserID
                             JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
                               ON b.GroupID = c.GroupID 
                               WHERE a.UserID = @UserID AND a.BoardID = @BoardID ORDER BY c.SortOrder ASC 
-    SELECT TOP 1 @R_UsrAlbums = ISNULL(c.UsrAlbums,0)   
+    SELECT TOP 1 @R_UsrAlbums = ISNULL(c.UsrAlbums,0), @R_Style = c.Style 
     FROM [{databaseOwner}].[{objectQualifier}Rank] c 
                                 JOIN [{databaseOwner}].[{objectQualifier}User] d
                                   ON c.RankID = d.RankID WHERE d.UserID = @UserID  AND d.BoardID = @BoardID ORDER BY c.RankID DESC                            
@@ -7661,18 +7664,12 @@ begin
 		LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,		
 		PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,
 		LastPendingBuddies	= CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=@UserID and Approved = 0) ELSE NULL END,
-		UserStyle 		    = CASE WHEN @ShowUserStyle > 0 THEN ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), (SELECT TOP 1 r.Style 
-	    FROM [{databaseOwner}].[{objectQualifier}User] u 
-		INNER JOIN  [{databaseOwner}].[{objectQualifier}Rank] r 
-		ON  r.RankID = u.RankID
-		WHERE u.UserID = @UserID AND u.BoardID = @BoardID))  
+		UserStyle 		    = CASE WHEN @ShowUserStyle > 0 THEN (ISNULL(@G_Style, @R_Style))  
 	        else ''	 end,
-	    NumAlbums  = (SELECT COUNT(ua.AlbumID) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
+	    NumAlbums  = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
         WHERE ua.UserID = @UserID),
 	    UsrAlbums  = (CASE WHEN @G_UsrAlbums > @R_UsrAlbums THEN @G_UsrAlbums ELSE @R_UsrAlbums END),
-	    UserHasBuddies  = SIGN(ISNULL((SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE [FromUserID] = @UserID OR [ToUserID] = @UserID),0))
-	    
+	    UserHasBuddies  = SIGN(ISNULL((SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE [FromUserID] = @UserID OR [ToUserID] = @UserID),0))	    
 	    from
 		   [{databaseOwner}].[{objectQualifier}User] a		
 	    where
