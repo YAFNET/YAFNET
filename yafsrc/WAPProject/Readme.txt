@@ -1,1 +1,0 @@
-This is the old Web Application Project for YetAnotherForum.NET.
