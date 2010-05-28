@@ -194,7 +194,7 @@ namespace YAF.Controls
 
       if (!String.IsNullOrEmpty(themeHeader))
       {
-        buildHeader.Append(themeHeader);
+        buildHeader.Append(themeHeader.Replace("~", this.PageContext.Theme.ThemeDir));
       }
 
       buildHeader.AppendFormat(
