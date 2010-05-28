@@ -7669,7 +7669,7 @@ begin
 	    NumAlbums  = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
         WHERE ua.UserID = @UserID),
 	    UsrAlbums  = (CASE WHEN @G_UsrAlbums > @R_UsrAlbums THEN @G_UsrAlbums ELSE @R_UsrAlbums END),
-	    UserHasBuddies  = SIGN(ISNULL((SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE [FromUserID] = @UserID OR [ToUserID] = @UserID),0))	    
+	    UserHasBuddies  = SIGN(ISNULL((SELECT TOP 1 1 FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE [FromUserID] = @UserID OR [ToUserID] = @UserID),0))	    
 	    from
 		   [{databaseOwner}].[{objectQualifier}User] a		
 	    where
