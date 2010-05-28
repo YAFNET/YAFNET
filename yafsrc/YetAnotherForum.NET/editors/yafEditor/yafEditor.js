@@ -2,7 +2,7 @@ var yafEditor = function(name) {
     this.Name = name;
 }
 
-yafEditor.prototype.FormatText = function(command, option) {
+yafEditor.prototype.FormatText = function (command, option) {
     var textObj = document.getElementById(this.Name);
     switch (command) {
         case "bold":
@@ -21,7 +21,15 @@ yafEditor.prototype.FormatText = function(command, option) {
             wrapSelection(textObj, "[code]", "[/code]");
             break;
         case "img":
-            wrapSelection(textObj, "[img]", "[/img]");
+            if (getCurrentSelection(textObj)) {
+                wrapSelection(textObj, '[img]', '[/img]');
+            }
+            else {
+                var imgUrl = prompt('Enter Image Url:', 'http://');
+                if (imgUrl != '' && imgUrl != null) {
+                    replaceSelection(textObj, '[img]' + imgUrl + '[/img]');
+                }
+            }
             break;
         case "quote":
             wrapSelection(textObj, "[quote]", "[/quote]");
