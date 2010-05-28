@@ -91,7 +91,6 @@
     <Compile Include="RecaptchaResponse.cs" />
     <Compile Include="RecaptchaValidator.cs" />
     <Compile Include="BaseReportedPosts.cs">
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineStatusImage.cs" />
     <Compile Include="RssFeedLink.cs" />
