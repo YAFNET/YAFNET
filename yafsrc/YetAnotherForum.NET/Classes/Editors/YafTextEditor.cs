@@ -1,0 +1,169 @@
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2006-2010 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+namespace YAF.Editors
+{
+  using System;
+  using System.Web.UI.HtmlControls;
+  using YAF.Classes.Core;
+
+  /// <summary>
+  /// The text editor.
+  /// </summary>
+  public class TextEditor : BaseForumEditor
+  {
+    /// <summary>
+    /// The _text ctl.
+    /// </summary>
+    protected HtmlTextArea _textCtl;
+
+    /// <summary>
+    /// Gets a value indicating whether Active.
+    /// </summary>
+    public override bool Active
+    {
+      get
+      {
+        return true;
+      }
+    }
+
+    /// <summary>
+    /// Gets ModuleId.
+    /// </summary>
+    public override int ModuleId
+    {
+      get
+      {
+        // backward compatibility...
+        return 0;
+      }
+    }
+
+    /// <summary>
+    /// Gets Description.
+    /// </summary>
+    public override string Description
+    {
+      get
+      {
+        return "Plain Text Editor";
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Text.
+    /// </summary>
+    public override string Text
+    {
+      get
+      {
+        return this._textCtl.InnerText;
+      }
+
+      set
+      {
+        this._textCtl.InnerText = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets SafeID.
+    /// </summary>
+    protected string SafeID
+    {
+      get
+      {
+        return this._textCtl.ClientID.Replace("$", "_");
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesHTML.
+    /// </summary>
+    public override bool UsesHTML
+    {
+      get
+      {
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether UsesBBCode.
+    /// </summary>
+    public override bool UsesBBCode
+    {
+      get
+      {
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      Load += new EventHandler(Editor_Load);
+
+      this._textCtl = new HtmlTextArea();
+      this._textCtl.ID = "YafTextEditor";
+      this._textCtl.Rows = 15;
+      this._textCtl.Cols = 100;
+      this._textCtl.Attributes.Add("class", "YafTextEditor");
+      Controls.Add(this._textCtl);
+
+      base.OnInit(e);
+    }
+
+    /// <summary>
+    /// The editor_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected virtual void Editor_Load(object sender, EventArgs e)
+    {
+      // Ederon : 9/6/2007
+      /*if (this.Visible || this.)
+			{*/
+      YafContext.Current.PageElements.RegisterJsInclude("YafEditorJs", ResolveUrl("yafEditor/yafEditor.js"));
+
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "CreateYafEditorJs", 
+        "var " + SafeID + "=new yafEditor('" + SafeID + "');\n" + "function setStyle(style,option) {\n" + "	" + SafeID + ".FormatText(style,option);\n" + "}\n");
+
+      RegisterSmilieyScript();
+    }
+
+    /// <summary>
+    /// The register smiliey script.
+    /// </summary>
+    protected virtual void RegisterSmilieyScript()
+    {
+      YafContext.Current.PageElements.RegisterJsBlock("InsertSmileyJs", "function insertsmiley(code) {\n" + "	" + SafeID + ".InsertSmiley(code);\n" + "}\n");
+    }
+  }
+}
