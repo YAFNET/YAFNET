@@ -4,735 +4,6 @@
         <name>YAF.Controls</name>
     </assembly>
     <members>
-        <member name="T:YAF.Controls.RecaptchaValidator">
-            <summary>
-            The recaptcha validator.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaValidator.VerifyUrl">
-            <summary>
-            The verify url.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaValidator.challenge">
-            <summary>
-            The challenge.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaValidator.privateKey">
-            <summary>
-            The private key.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaValidator.remoteIp">
-            <summary>
-            The remote ip.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaValidator.response">
-            <summary>
-            The response.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.RecaptchaValidator.Validate">
-            <summary>
-            The validate.
-            </summary>
-            <returns>
-            </returns>
-            <exception cref="T:System.InvalidProgramException">
-            </exception>
-        </member>
-        <member name="M:YAF.Controls.RecaptchaValidator.CheckNotNull(System.Object,System.String)">
-            <summary>
-            The check not null.
-            </summary>
-            <param name="obj">
-            The obj.
-            </param>
-            <param name="name">
-            The name.
-            </param>
-            <exception cref="T:System.ArgumentNullException">
-            </exception>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaValidator.Challenge">
-            <summary>
-            Gets or sets Challenge.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaValidator.PrivateKey">
-            <summary>
-            Gets or sets PrivateKey.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaValidator.RemoteIP">
-            <summary>
-            Gets or sets RemoteIP.
-            </summary>
-            <exception cref="T:System.ArgumentException">
-            </exception>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaValidator.Response">
-            <summary>
-            Gets or sets Response.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.Pager">
-            <summary>
-            Summary description for Pager.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Pager._gotoPageForm">
-            <summary>
-            The _goto page form.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Pager._ignorePageIndex">
-            <summary>
-            The _ignore page index.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Pager._pageLabel">
-            <summary>
-            The _page label.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Pager._usePostBack">
-            <summary>
-            The _use post back.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.Pager.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.Pager"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.Pager.RaisePostBackEvent(System.String)">
-            <summary>
-            The raise post back event.
-            </summary>
-            <param name="eventArgument">
-            The event argument.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Pager.OnInit(System.EventArgs)">
-            <summary>
-            The on init.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Pager.OnLoad(System.EventArgs)">
-            <summary>
-            The on load.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Pager._gotoPageForm_GotoPageClick(System.Object,YAF.Controls.GotoPageForumEventArgs)">
-            <summary>
-            The _goto page form_ goto page click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Pager.CopyPagerSettings(YAF.Controls.Pager)">
-            <summary>
-            The copy pager settings.
-            </summary>
-            <param name="toPager">
-            The to pager.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Pager.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="output">
-            The output.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Pager.GetLinkUrl(System.Int32,System.Boolean)">
-            <summary>
-            The get link url.
-            </summary>
-            <param name="pageNum">
-            The page num.
-            </param>
-            <param name="postBack">
-            The post back.
-            </param>
-            <returns>
-            The get link url.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.Pager.OutputLinks(System.Web.UI.HtmlTextWriter,System.Boolean)">
-            <summary>
-            The output links.
-            </summary>
-            <param name="output">
-            The output.
-            </param>
-            <param name="postBack">
-            The post back.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Pager.GetPageURL(System.Int32)">
-            <summary>
-            The get page url.
-            </summary>
-            <param name="page">
-            The page.
-            </param>
-            <returns>
-            The get page url.
-            </returns>
-        </member>
-        <member name="P:YAF.Controls.Pager.CurrentLinkedPager">
-            <summary>
-            Gets CurrentLinkedPager.
-            </summary>
-            <exception cref="T:System.Exception">
-            </exception>
-        </member>
-        <member name="P:YAF.Controls.Pager.UsePostBack">
-            <summary>
-            Gets or sets a value indicating whether UsePostBack.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Pager.Count">
-            <summary>
-            Gets or sets Count.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Pager.CurrentPageIndex">
-            <summary>
-            Gets or sets CurrentPageIndex.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Pager.PageSize">
-            <summary>
-            Gets or sets PageSize.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Pager.PageCount">
-            <summary>
-            Gets PageCount.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Pager.LinkedPager">
-            <summary>
-            Gets or sets LinkedPager.
-            </summary>
-        </member>
-        <member name="E:YAF.Controls.Pager.PageChange">
-            <summary>
-            The page change.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.LocalizationSupportExtensions">
-            <summary>
-            The localization support extensions.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.LocalizationSupportExtensions.Localize(YAF.Controls.ILocalizationSupport,System.Web.UI.Control)">
-            <summary>
-            The get current item.
-            </summary>
-            <param name="supportItem">
-            The support Item.
-            </param>
-            <param name="currentControl">
-            The current Control.
-            </param>
-            <returns>
-            The get current item.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.LocalizationSupportExtensions.LocalizeAndRender(YAF.Controls.ILocalizationSupport,System.Web.UI.Control)">
-            <summary>
-            The localize and render.
-            </summary>
-            <param name="supportedItem">
-            The supported item.
-            </param>
-            <param name="currentControl">
-            The current control.
-            </param>
-            <returns>
-            The localize and render.
-            </returns>
-        </member>
-        <member name="T:YAF.Controls.AdminMenu">
-            <summary>
-            Summary description for AdminMenu.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.AdminMenu._accordian">
-            <summary>
-            The _accordian.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.AdminMenu._menuDef">
-            <summary>
-            The _menu def.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.AdminMenu.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.AdminMenu"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.AdminMenu.OnLoad(System.EventArgs)">
-            <summary>
-            The on load.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.AdminMenu.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(DNA.UI.JQuery.NavView,YafMenuYafMenuSectionYafMenuItem[])">
-            <summary>
-            Builds a Url List
-            </summary>
-            <param name="view">
-            </param>
-            <param name="listItems">
-            </param>
-        </member>
-        <member name="T:YAF.Controls.RecaptchaControl">
-            <summary>
-            The recaptcha control.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_CHALLENGE_FIELD">
-            <summary>
-            The recaptch a_ challeng e_ field.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_HOST">
-            <summary>
-            The recaptch a_ host.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_RESPONSE_FIELD">
-            <summary>
-            The recaptch a_ respons e_ field.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_SECURE_HOST">
-            <summary>
-            The recaptch a_ secur e_ host.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.allowMultipleInstances">
-            <summary>
-            The allow multiple instances.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.customThemeWidget">
-            <summary>
-            The custom theme widget.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.errorMessage">
-            <summary>
-            The error message.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.language">
-            <summary>
-            The language.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.overrideSecureMode">
-            <summary>
-            The override secure mode.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.privateKey">
-            <summary>
-            The private key.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.publicKey">
-            <summary>
-            The public key.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.recaptchaResponse">
-            <summary>
-            The recaptcha response.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.skipRecaptcha">
-            <summary>
-            The skip recaptcha.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.RecaptchaControl.theme">
-            <summary>
-            The theme.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.RecaptchaControl.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.RecaptchaControl"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.RecaptchaControl.Validate">
-            <summary>
-            The validate.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.RecaptchaControl.OnInit(System.EventArgs)">
-            <summary>
-            The on init.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-            <exception cref="T:System.ApplicationException">
-            </exception>
-        </member>
-        <member name="M:YAF.Controls.RecaptchaControl.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.RecaptchaControl.RenderContents(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render contents.
-            </summary>
-            <param name="output">
-            The output.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.RecaptchaControl.CheckIfRecaptchaExists">
-            <summary>
-            The check if recaptcha exists.
-            </summary>
-            <returns>
-            The check if recaptcha exists.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.RecaptchaControl.GenerateChallengeUrl(System.Boolean)">
-            <summary>
-            The generate challenge url.
-            </summary>
-            <param name="noScript">
-            The no script.
-            </param>
-            <returns>
-            The generate challenge url.
-            </returns>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaControl.AllowMultipleInstances">
-            <summary>
-            Gets or sets a value indicating whether AllowMultipleInstances.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaControl.CustomThemeWidget">
-            <summary>
-            Gets or sets CustomThemeWidget.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaControl.ErrorMessage">
-            <summary>
-            Gets or sets ErrorMessage.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaControl.IsValid">
-            <summary>
-            Gets or sets a value indicating whether IsValid.
-            </summary>
-            <exception cref="T:System.NotImplementedException">
-            </exception>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaControl.OverrideSecureMode">
-            <summary>
-            Gets or sets a value indicating whether OverrideSecureMode.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaControl.PrivateKey">
-            <summary>
-            Gets or sets PrivateKey.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaControl.PublicKey">
-            <summary>
-            Gets or sets PublicKey.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaControl.SkipRecaptcha">
-            <summary>
-            Gets or sets a value indicating whether SkipRecaptcha.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RecaptchaControl.Theme">
-            <summary>
-            Gets or sets Theme.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.LocalizedCustomValidator">
-            <summary>
-            The localized custom validator.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.ILocalizationSupport">
-            <summary>
-            The localization support interface
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ILocalizationSupport.EnableBBCode">
-            <summary>
-            Gets or sets a value indicating whether EnableBBCode.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ILocalizationSupport.LocalizedPage">
-            <summary>
-            Gets or sets LocalizedPage.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ILocalizationSupport.LocalizedTag">
-            <summary>
-            Gets or sets LocalizedTag.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ILocalizationSupport.Param0">
-            <summary>
-            Gets or sets Param0.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ILocalizationSupport.Param1">
-            <summary>
-            Gets or sets Param1.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ILocalizationSupport.Param2">
-            <summary>
-            Gets or sets Param2.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedCustomValidator._enableBbCode">
-            <summary>
-            The _enable bb code.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedCustomValidator._localizedPage">
-            <summary>
-            The _localized page.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedCustomValidator._localizedTag">
-            <summary>
-            The _localized tag.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedCustomValidator._param0">
-            <summary>
-            The _param 0.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedCustomValidator._param1">
-            <summary>
-            The _param 1.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedCustomValidator._param2">
-            <summary>
-            The _param 2.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.LocalizedCustomValidator.OnLoad(System.EventArgs)">
-            <summary>
-            The on load.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.LocalizedCustomValidator.EnableBBCode">
-            <summary>
-            Gets or sets a value indicating whether EnableBBCode.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedCustomValidator.LocalizedPage">
-            <summary>
-            Gets or sets LocalizedPage.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedCustomValidator.LocalizedTag">
-            <summary>
-            Gets or sets LocalizedTag.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedCustomValidator.PageContext">
-            <summary>
-            Gets PageContext.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedCustomValidator.Param0">
-            <summary>
-            Gets or sets Param0.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedCustomValidator.Param1">
-            <summary>
-            Gets or sets Param1.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.LocalizedCustomValidator.Param2">
-            <summary>
-            Gets or sets Param2.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.PageAccess">
-            <summary>
-            Summary description for PageLinks.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.PageAccess.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            The page_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PageAccess.OnInit(System.EventArgs)">
-            <summary>
-            The on init.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.PageAccess.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="T:YAF.Modules.YafBBCodeControl">
-            <summary>
-            The yaf bb code control.
-            </summary>
-        </member>
-        <member name="F:YAF.Modules.YafBBCodeControl._currentMessageFlags">
-            <summary>
-            The _current message flags.
-            </summary>
-        </member>
-        <member name="F:YAF.Modules.YafBBCodeControl._displayUserId">
-            <summary>
-            The _display user id.
-            </summary>
-        </member>
-        <member name="F:YAF.Modules.YafBBCodeControl._parameters">
-            <summary>
-            The _parameters.
-            </summary>
-        </member>
-        <member name="M:YAF.Modules.YafBBCodeControl.ProcessBBCodeString(System.String)">
-            <summary>
-            The process bb code string.
-            </summary>
-            <param name="bbCodeString">
-            The bb code string.
-            </param>
-            <returns>
-            The process bb code string.
-            </returns>
-        </member>
-        <member name="M:YAF.Modules.YafBBCodeControl.LocalizedString(System.String,System.String)">
-            <summary>
-            The localized string.
-            </summary>
-            <param name="tag">
-            The tag.
-            </param>
-            <param name="defaultStr">
-            The default str.
-            </param>
-            <returns>
-            The localized string.
-            </returns>
-        </member>
-        <member name="P:YAF.Modules.YafBBCodeControl.Parameters">
-            <summary>
-            Gets or sets Parameters.
-            </summary>
-        </member>
-        <member name="P:YAF.Modules.YafBBCodeControl.CurrentMessageFlags">
-            <summary>
-            Gets or sets CurrentMessageFlags.
-            </summary>
-        </member>
-        <member name="P:YAF.Modules.YafBBCodeControl.DisplayUserID">
-            <summary>
-            Gets or sets DisplayUserID.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.Footer">
-            <summary>
-            Summary description for Footer.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Footer._simpleRender">
-            <summary>
-            The _simple render.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.Footer.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Footer.RenderRegular(System.Web.UI.HtmlTextWriter@)">
-            <summary>
-            The render regular.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.Footer.SimpleRender">
-            <summary>
-            Gets or sets a value indicating whether SimpleRender.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Footer.ThisControl">
-            <summary>
-            Gets ThisControl.
-            </summary>
-        </member>
         <member name="T:YAF.Controls.DataPanel">
             <summary>
             Web control which provides a panel control as a 
@@ -1253,164 +524,67 @@
             string.
             </summary>
         </member>
-        <member name="T:YAF.Controls.RssFeedLink">
+        <member name="T:YAF.Controls.CollapsibleImage">
             <summary>
-            The RSS feed link (with optional icon)
+            The collapsible image.
             </summary>
         </member>
-        <member name="F:YAF.Controls.RssFeedLink._attributeCollection">
+        <member name="M:YAF.Controls.CollapsibleImage.#ctor">
             <summary>
-            The _attribute collection.
+            Initializes a new instance of the <see cref="T:YAF.Controls.CollapsibleImage"/> class.
             </summary>
         </member>
-        <member name="F:YAF.Controls.RssFeedLink._localizedLabel">
+        <member name="M:YAF.Controls.CollapsibleImage.OnClick(System.Web.UI.ImageClickEventArgs)">
             <summary>
-            The _localized label.
+            The on click.
             </summary>
-        </member>
-        <member name="F:YAF.Controls.RssFeedLink._themeImage">
-            <summary>
-            The _theme image.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.RssFeedLink.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="!:RssIconLink"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.RssFeedLink.GetLocalizedTitle">
-            <summary>
-            The get localized title.
-            </summary>
-            <returns>
-            The get localized title.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.RssFeedLink.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="output">
-            The output.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.RssFeedLink.RssFeedLink_Load(System.Object,System.EventArgs)">
-            <summary>
-            The rss icon link_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
             <param name="e">
             The e.
             </param>
         </member>
-        <member name="P:YAF.Controls.RssFeedLink.Attributes">
+        <member name="M:YAF.Controls.CollapsibleImage.OnPreRender(System.EventArgs)">
             <summary>
-            Gets Attributes.
+            The on pre render.
             </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.CssClass">
-            <summary>
-            Defaults to "rssfeedlink"
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.ShowSpacerBefore">
-            <summary>
-            Gets or Sets if a spacer should be inserted before the link. (Default <see langword="false"/>)
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.ShowSpacerAfter">
-            <summary>
-            Gets or Sets if a spacer should be inserted after the link. (Default <see langword="false"/>)
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.AdditionalParameters">
-            <summary>
-            Gets or Sets additional rss feed url parameters.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.FeedType">
-            <summary>
-            Defaults to "Forum"
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.ImageThemePage">
-            <summary>
-            ThemePage for the optional button image
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.ImageThemeTag">
-            <summary>
-            ThemeTag for the optional button image
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.TextLocalizedPage">
-            <summary>
-            Localized Page for the optional button text
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.TextLocalizedTag">
-            <summary>
-            Localized Tag for the optional button text
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.TitleLocalizedPage">
-            <summary>
-            Localized Page for the optional link description (title)
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.RssFeedLink.TitleLocalizedTag">
-            <summary>
-            Localized Tag for the optional link description (title)
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.MyLinkButton">
-            <summary>
-            Inherited from LinkButton. Shows only plain text when disabled
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MyLinkButton.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
+            <param name="e">
+            The e.
             </param>
         </member>
-        <member name="T:YAF.Controls.YafAdminMenu.YafMenu">
-             <summary>
-            Represents a strongly typed in-memory cache of data.
+        <member name="M:YAF.Controls.CollapsibleImage.UpdateAttachedVisibility">
+            <summary>
+            The update attached visibility.
             </summary>
         </member>
-        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuSectionDataTable">
-             <summary>
-            Represents the strongly named DataTable class.
+        <member name="M:YAF.Controls.CollapsibleImage.GetAttachedControl">
+            <summary>
+            The get attached control.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.CollapsibleImage.PageContext">
+            <summary>
+            Gets PageContext.
             </summary>
         </member>
-        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuItemDataTable">
-             <summary>
-            Represents the strongly named DataTable class.
+        <member name="P:YAF.Controls.CollapsibleImage.PanelID">
+            <summary>
+            Gets or sets PanelID.
             </summary>
         </member>
-        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuSectionRow">
-             <summary>
-            Represents strongly named DataRow class.
+        <member name="P:YAF.Controls.CollapsibleImage.PanelState">
+            <summary>
+            Gets or sets PanelState.
             </summary>
         </member>
-        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuItemRow">
-             <summary>
-            Represents strongly named DataRow class.
+        <member name="P:YAF.Controls.CollapsibleImage.DefaultState">
+            <summary>
+            Gets or sets DefaultState.
             </summary>
         </member>
-        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuSectionRowChangeEvent">
-             <summary>
-            Row event argument class
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuItemRowChangeEvent">
-             <summary>
-            Row event argument class
+        <member name="P:YAF.Controls.CollapsibleImage.AttachedControlID">
+            <summary>
+            Gets or sets AttachedControlID.
             </summary>
         </member>
         <member name="T:YAF.Controls.RecaptchaResponse">
@@ -1483,42 +657,328 @@
             Gets a value indicating whether IsValid.
             </summary>
         </member>
-        <member name="T:YAF.Controls.Statistics.MostActiveUsers">
+        <member name="T:YAF.Controls.ThankYou">
             <summary>
-            The most active users.
+            Class for Thank you button
             </summary>
         </member>
-        <member name="F:YAF.Controls.Statistics.MostActiveUsers._displayNumber">
+        <member name="M:YAF.Controls.ThankYou.AddThanks(System.Object)">
             <summary>
-            The _display number.
+            This method is called asynchronously when the user clicks "Thank" button.
+            </summary>
+            <param name="msgID">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.ThankYou.RemoveThanks(System.Object)">
+            <summary>
+            This method is called asynchronously when the user clicks on "Remove Thank Note" button.
+            </summary>
+            <param name="msgID">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.ThankYou.CreateThankYou(System.String,System.String,System.String)">
+            <summary>
+            Creates an instance of the thank you object from the current information.
+            </summary>
+            <param name="username">
+            </param>
+            <param name="textTag">
+            </param>
+            <param name="titleTag">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.ThankYou.GetThanks(System.Object)">
+            <summary>
+            This method returns a string containing the HTML code for
+            showing the the post footer. the HTML content is the name of users
+            who thanked the post and the date they thanked.
+            </summary>
+            <param name="msgID">
+            The msg ID.
+            </param>
+            <returns>
+            The get thanks.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.ThankYou.ThanksNumber(System.String)">
+            <summary>
+            This method returns a string which shows how many times users have
+            thanked the message with the provided messageID. Returns an empty string.
+            </summary>
+            <param name="username">
+            The username.
+            </param>
+            <returns>
+            The thanks number.
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.ThankYou.Text">
+            <summary>
+            Gets or sets Text.
             </summary>
         </member>
-        <member name="F:YAF.Controls.Statistics.MostActiveUsers._lastNumOfDays">
+        <member name="P:YAF.Controls.ThankYou.Title">
             <summary>
-            The _last num of days.
+            Gets or sets Title.
             </summary>
         </member>
-        <member name="M:YAF.Controls.Statistics.MostActiveUsers.#ctor">
+        <member name="P:YAF.Controls.ThankYou.MessageID">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.Statistics.MostActiveUsers"/> class. 
-            The default constructor for MostActiveUsers.
+            Gets or sets MessageID.
             </summary>
         </member>
-        <member name="M:YAF.Controls.Statistics.MostActiveUsers.Render(System.Web.UI.HtmlTextWriter)">
+        <member name="P:YAF.Controls.ThankYou.ThanksInfo">
             <summary>
-            Renders the MostActiveUsers class.
+            Gets or sets ThanksInfo.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThankYou.Thanks">
+            <summary>
+            Gets or sets Thanks.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ProfileMenu">
+            <summary>
+            Summary description for ForumUsers.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ProfileMenu.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
             </summary>
             <param name="writer">
+            The writer.
             </param>
         </member>
-        <member name="P:YAF.Controls.Statistics.MostActiveUsers.DisplayNumber">
+        <member name="T:YAF.Controls.MessageSignature">
             <summary>
-            Gets or sets DisplayNumber.
+            The message signature.
             </summary>
         </member>
-        <member name="P:YAF.Controls.Statistics.MostActiveUsers.LastNumOfDays">
+        <member name="T:YAF.Controls.MessageBase">
             <summary>
-            Gets or sets LastNumOfDays.
+            The message base.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessageBase._options">
+            <summary>
+            The _options.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessageBase._rgxModule">
+            <summary>
+            The _rgx module.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessageBase._rgxModuleParam">
+            <summary>
+            The _rgx module param.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.MessageBase.RenderModulesInBBCode(System.Web.UI.HtmlTextWriter,System.String,YAF.Classes.Data.MessageFlags,System.Nullable{System.Int32})">
+            <summary>
+            The render modules in bb code.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="message">
+            The message.
+            </param>
+            <param name="theseFlags">
+            The these flags.
+            </param>
+            <param name="displayUserId">
+            The display user id.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.MessageBase.GetModuleParameters(System.Collections.Generic.Dictionary{System.String,System.String}@,System.String)">
+            <summary>
+            The get module parameters.
+            </summary>
+            <param name="paramDic">
+            The param dic.
+            </param>
+            <param name="invokeString">
+            The invoke string.
+            </param>
+        </member>
+        <member name="F:YAF.Controls.MessageSignature._displayUserID">
+            <summary>
+            The _display user id.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessageSignature._htmlPrefix">
+            <summary>
+            The _html prefix.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessageSignature._htmlSuffix">
+            <summary>
+            The _html suffix.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessageSignature._signature">
+            <summary>
+            The _signature.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.MessageSignature.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.MessageSignature"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.MessageSignature.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.MessageSignature.RenderSignature(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render signature.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.MessageSignature.Signature">
+            <summary>
+            Gets or sets Signature.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessageSignature.DisplayUserID">
+            <summary>
+            Gets or sets DisplayUserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessageSignature.HtmlPrefix">
+            <summary>
+            Gets or sets HtmlPrefix.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessageSignature.HtmlSuffix">
+            <summary>
+            Gets or sets HtmlSuffix.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.MessagePost">
+            <summary>
+            Shows a Message Post
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.MessagePost.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.MessagePost"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.MessagePost.OnPreRender(System.EventArgs)">
+            <summary>
+            The on pre render.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.MessagePost.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.MessagePost.RenderDeletedMessage(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render deleted message.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.MessagePost.RenderMessage(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render message.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.MessagePost.DisplayUserID">
+            <summary>
+            Gets or sets DisplayUserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePost.HighlightWords">
+            <summary>
+            Words to highlight in this message
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePost.IsModeratorChanged">
+            <summary>
+            Gets or sets a value indicating whether IsModeratorChanged.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePost.Message">
+            <summary>
+            Gets or sets Message.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePost.MessageFlags">
+            <summary>
+            Gets or sets MessageFlags.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePost.Signature">
+            <summary>
+            Gets or sets Signature.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ForumUsers">
+            <summary>
+            Summary description for ForumUsers.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ForumUsers._activeUsers">
+            <summary>
+            The _active users.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ForumUsers.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.ForumUsers"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ForumUsers.ForumUsers_Load(System.Object,System.EventArgs)">
+            <summary>
+            The forum users_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ForumUsers.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.ForumUsers.TreatGuestAsHidden">
+            <summary>
+            Gets or sets a value indicating whether TreatGuestAsHidden.
             </summary>
         </member>
         <member name="T:YAF.Controls.Container">
@@ -1797,808 +1257,44 @@
             The userid of the user.
             </summary>
         </member>
-        <member name="T:YAF.Controls.TopicLine">
+        <member name="T:YAF.Controls.LocalizedRequiredFieldValidator">
             <summary>
-            The topic line.
+            The localized required field validator.
             </summary>
         </member>
-        <member name="F:YAF.Controls.TopicLine._isAlt">
+        <member name="T:YAF.Controls.ILocalizationSupport">
             <summary>
-            The _is alt.
+            The localization support interface
             </summary>
         </member>
-        <member name="F:YAF.Controls.TopicLine._row">
-            <summary>
-            The _row.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.CreatePostPager(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Create pager for post.
-            </summary>
-            <param name="count">
-            The count.
-            </param>
-            <param name="pageSize">
-            The page Size.
-            </param>
-            <param name="topicID">
-            The topic ID.
-            </param>
-            <returns>
-            The create post pager.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.FormatReplies">
-            <summary>
-            The format replies.
-            </summary>
-            <returns>
-            The format replies.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.GetPriorityMessage(System.Data.DataRowView)">
-            <summary>
-            Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
-            </summary>
-            <param name="row">
-            Current Topic Data Row
-            </param>
-            <returns>
-            Topic status text
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.GetTopicImage(System.Object,System.String@)">
-            <summary>
-            The get topic image.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <param name="imgTitle">
-            The img title.
-            </param>
-            <returns>
-            The get topic image.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.RenderLastPost(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Formats the Last Post for the Topic Line
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <returns>
-            The render last post.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.WriteBeginTD(System.Web.UI.HtmlTextWriter,System.String)">
-            <summary>
-            The write begin td.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="classId">
-            The class id.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.WriteBeginTD(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The write begin td.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.WriteEndTD(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The write end td.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.FormatViews">
-            <summary>
-            The format views.
-            </summary>
-            <returns>
-            The format views.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.MakeLink(System.String,System.String)">
-            <summary>
-            The make link.
-            </summary>
-            <param name="text">
-            The text.
-            </param>
-            <param name="link">
-            The link.
-            </param>
-            <returns>
-            The make link.
-            </returns>
-        </member>
-        <member name="P:YAF.Controls.TopicLine.DataRow">
-            <summary>
-            Sets DataRow.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.TopicLine.FindUnread">
-            <summary>
-            Gets or sets a value indicating whether FindUnread.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.TopicLine.IsAlt">
-            <summary>
-            Gets or sets a value indicating whether IsAlt.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.ProfileMenu">
-            <summary>
-            Summary description for ForumUsers.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ProfileMenu.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="T:YAF.Controls.MessagePost">
-            <summary>
-            Shows a Message Post
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.MessageBase">
-            <summary>
-            The message base.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageBase._options">
-            <summary>
-            The _options.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageBase._rgxModule">
-            <summary>
-            The _rgx module.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageBase._rgxModuleParam">
-            <summary>
-            The _rgx module param.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessageBase.RenderModulesInBBCode(System.Web.UI.HtmlTextWriter,System.String,YAF.Classes.Data.MessageFlags,System.Nullable{System.Int32})">
-            <summary>
-            The render modules in bb code.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="message">
-            The message.
-            </param>
-            <param name="theseFlags">
-            The these flags.
-            </param>
-            <param name="displayUserId">
-            The display user id.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.MessageBase.GetModuleParameters(System.Collections.Generic.Dictionary{System.String,System.String}@,System.String)">
-            <summary>
-            The get module parameters.
-            </summary>
-            <param name="paramDic">
-            The param dic.
-            </param>
-            <param name="invokeString">
-            The invoke string.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.MessagePost.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.MessagePost"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessagePost.OnPreRender(System.EventArgs)">
-            <summary>
-            The on pre render.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.MessagePost.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.MessagePost.RenderDeletedMessage(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render deleted message.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.MessagePost.RenderMessage(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render message.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.MessagePost.DisplayUserID">
-            <summary>
-            Gets or sets DisplayUserID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePost.HighlightWords">
-            <summary>
-            Words to highlight in this message
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePost.IsModeratorChanged">
-            <summary>
-            Gets or sets a value indicating whether IsModeratorChanged.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePost.Message">
-            <summary>
-            Gets or sets Message.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePost.MessageFlags">
-            <summary>
-            Gets or sets MessageFlags.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePost.Signature">
-            <summary>
-            Gets or sets Signature.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.LocalizedLabel">
-            <summary>
-            Makes a very simple localized label
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._enableBBCode">
-            <summary>
-            The _enable bb code.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._localizedPage">
-            <summary>
-            The _localized page.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._localizedTag">
-            <summary>
-            The _localized tag.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._param0">
-            <summary>
-            The _param 0.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._param1">
-            <summary>
-            The _param 1.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.LocalizedLabel._param2">
-            <summary>
-            The _param 2.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.LocalizedLabel.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.LocalizedLabel"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.LocalizedLabel.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Shows the localized text string (if available)
-            </summary>
-            <param name="output">
-            </param>
-        </member>
-        <member name="P:YAF.Controls.LocalizedLabel.EnableBBCode">
+        <member name="P:YAF.Controls.ILocalizationSupport.EnableBBCode">
             <summary>
             Gets or sets a value indicating whether EnableBBCode.
             </summary>
         </member>
-        <member name="P:YAF.Controls.LocalizedLabel.LocalizedPage">
+        <member name="P:YAF.Controls.ILocalizationSupport.LocalizedPage">
             <summary>
             Gets or sets LocalizedPage.
             </summary>
         </member>
-        <member name="P:YAF.Controls.LocalizedLabel.LocalizedTag">
+        <member name="P:YAF.Controls.ILocalizationSupport.LocalizedTag">
             <summary>
             Gets or sets LocalizedTag.
             </summary>
         </member>
-        <member name="P:YAF.Controls.LocalizedLabel.Param0">
+        <member name="P:YAF.Controls.ILocalizationSupport.Param0">
             <summary>
             Gets or sets Param0.
             </summary>
         </member>
-        <member name="P:YAF.Controls.LocalizedLabel.Param1">
+        <member name="P:YAF.Controls.ILocalizationSupport.Param1">
             <summary>
             Gets or sets Param1.
             </summary>
         </member>
-        <member name="P:YAF.Controls.LocalizedLabel.Param2">
+        <member name="P:YAF.Controls.ILocalizationSupport.Param2">
             <summary>
             Gets or sets Param2.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.CollapsibleImage">
-            <summary>
-            The collapsible image.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.CollapsibleImage.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.CollapsibleImage"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.CollapsibleImage.OnClick(System.Web.UI.ImageClickEventArgs)">
-            <summary>
-            The on click.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.CollapsibleImage.OnPreRender(System.EventArgs)">
-            <summary>
-            The on pre render.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.CollapsibleImage.UpdateAttachedVisibility">
-            <summary>
-            The update attached visibility.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.CollapsibleImage.GetAttachedControl">
-            <summary>
-            The get attached control.
-            </summary>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Controls.CollapsibleImage.PageContext">
-            <summary>
-            Gets PageContext.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.CollapsibleImage.PanelID">
-            <summary>
-            Gets or sets PanelID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.CollapsibleImage.PanelState">
-            <summary>
-            Gets or sets PanelState.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.CollapsibleImage.DefaultState">
-            <summary>
-            Gets or sets DefaultState.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.CollapsibleImage.AttachedControlID">
-            <summary>
-            Gets or sets AttachedControlID.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.MessageAttached">
-            <summary>
-            The message attached.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageAttached._messageId">
-            <summary>
-            The _message id.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageAttached._userName">
-            <summary>
-            The _user name.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessageAttached.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.MessageAttached"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessageAttached.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.MessageAttached.RenderAttachedFiles(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render attached files.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.MessageAttached.MessageID">
-            <summary>
-            Gets or sets MessageID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessageAttached.UserName">
-            <summary>
-            Gets or sets UserName.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.HelpMenu">
-            <summary>
-            Summary description for AdminMenu.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.HelpMenu.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="T:YAF.Controls.ForumUsers">
-            <summary>
-            Summary description for ForumUsers.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.ForumUsers._activeUsers">
-            <summary>
-            The _active users.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ForumUsers.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.ForumUsers"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ForumUsers.ForumUsers_Load(System.Object,System.EventArgs)">
-            <summary>
-            The forum users_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.ForumUsers.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.ForumUsers.TreatGuestAsHidden">
-            <summary>
-            Gets or sets a value indicating whether TreatGuestAsHidden.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.ThemeButton">
-            <summary>
-            The theme button.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.ThemeButton._clickEvent">
-            <summary>
-            The _click event.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.ThemeButton._commandEvent">
-            <summary>
-            The _command event.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.ThemeButton._attributeCollection">
-            <summary>
-            The _attribute collection.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.ThemeButton._localizedLabel">
-            <summary>
-            The _localized label.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.ThemeButton._themeImage">
-            <summary>
-            The _theme image.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ThemeButton.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.ThemeButton"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ThemeButton.System#Web#UI#IPostBackEventHandler#RaisePostBackEvent(System.String)">
-            <summary>
-            The i post back event handler. raise post back event.
-            </summary>
-            <param name="eventArgument">
-            The event argument.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.ThemeButton.ThemeButton_Load(System.Object,System.EventArgs)">
-            <summary>
-            Setup the controls before render
-            </summary>
-            <param name="sender">
-            </param>
-            <param name="e">
-            </param>
-        </member>
-        <member name="M:YAF.Controls.ThemeButton.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="output">
-            The output.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.ThemeButton.GetLocalizedTitle">
-            <summary>
-            The get localized title.
-            </summary>
-            <returns>
-            The get localized title.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.ThemeButton.OnClick(System.EventArgs)">
-            <summary>
-            The on click.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.ThemeButton.OnCommand(System.Web.UI.WebControls.CommandEventArgs)">
-            <summary>
-            The on command.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.ImageThemePage">
-            <summary>
-            ThemePage for the optional button image
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.ImageThemeTag">
-            <summary>
-            ThemeTag for the optional button image
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.TextLocalizedPage">
-            <summary>
-            Localized Page for the optional button text
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.TextLocalizedTag">
-            <summary>
-            Localized Tag for the optional button text
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.CssClass">
-            <summary>
-            Defaults to "yafcssbutton"
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.NavigateUrl">
-            <summary>
-            Setting the link property will make this control non-postback.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.TitleLocalizedPage">
-            <summary>
-            Localized Page for the optional link description (title)
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.TitleLocalizedTag">
-            <summary>
-            Localized Tag for the optional link description (title)
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.TitleNonLocalized">
-            <summary>
-            Non-localized Title for optional link description
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.Attributes">
-            <summary>
-            Gets Attributes.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.CommandName">
-            <summary>
-            Gets or sets CommandName.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThemeButton.CommandArgument">
-            <summary>
-            Gets or sets CommandArgument.
-            </summary>
-        </member>
-        <member name="E:YAF.Controls.ThemeButton.Click">
-            <summary>
-            The click.
-            </summary>
-        </member>
-        <member name="E:YAF.Controls.ThemeButton.Command">
-            <summary>
-            The command.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.Header">
-            <summary>
-            Summary description for Header.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Header._refreshTime">
-            <summary>
-            The _refresh time.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Header._refreshURL">
-            <summary>
-            The _refresh url.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Header._simpleRender">
-            <summary>
-            The _simple render.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.Header.Reset">
-            <summary>
-            The reset.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.Header.GetReturnUrl">
-            <summary>
-            The get return url.
-            </summary>
-            <returns>
-            The get return url.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.Header.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Renders the header.
-            </summary>
-            <param name="writer">
-            The HtmlTextWriter that we are using.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Header.RenderRegular(System.Web.UI.HtmlTextWriter@)">
-            <summary>
-            The render regular.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Header.AlbumLink">
-            <summary>
-            The album link.
-            </summary>
-            <returns>
-            The album link.
-            </returns>
-        </member>
-        <member name="P:YAF.Controls.Header.RefreshTime">
-            <summary>
-            Gets or sets RefreshTime.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Header.RefreshURL">
-            <summary>
-            Gets or sets RefreshURL.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Header.SimpleRender">
-            <summary>
-            Gets or sets a value indicating whether SimpleRender.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Header.ThisControl">
-            <summary>
-            Gets ThisControl.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.UserLabel.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.UserLink"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.UserLabel.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="output">
-            The output.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.UserLabel.RenderMainTagAttributes(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Renders "id", "style", "onclick", "onmouseover" and "class"
-            </summary>
-            <param name="output"></param>
-        </member>
-        <member name="P:YAF.Controls.UserLabel.CssClass">
-            <summary>
-            Gets or sets CssClass.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLabel.OnClick">
-            <summary>
-            The onclick value for the profile link
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLabel.OnMouseOver">
-            <summary>
-            The onmouseover value for the profile link
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLabel.PostfixText">
-            <summary>
-            The name of the user for this profile link
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLabel.Style">
-            <summary>
-            Gets or sets Style.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.UserLabel.UserID">
-            <summary>
-            The userid of this user for the link
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.LocalizedRequiredFieldValidator">
-            <summary>
-            The localized required field validator.
             </summary>
         </member>
         <member name="F:YAF.Controls.LocalizedRequiredFieldValidator._enableBbCode">
@@ -2674,492 +1370,17 @@
             Gets or sets Param2.
             </summary>
         </member>
-        <member name="T:YAF.Controls.Statistics.ActiveDiscussions">
+        <member name="T:YAF.Controls.UserLink">
             <summary>
-            Control to display last active topics.
+            Provides a basic "profile link" for a YAF User
             </summary>
         </member>
-        <member name="F:YAF.Controls.Statistics.ActiveDiscussions._displayNumber">
+        <member name="M:YAF.Controls.UserLabel.#ctor">
             <summary>
-            Number of active discussions to display in a control.
+            Initializes a new instance of the <see cref="T:YAF.Controls.UserLink"/> class.
             </summary>
         </member>
-        <member name="M:YAF.Controls.Statistics.ActiveDiscussions.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.Statistics.ActiveDiscussions"/> class. 
-            The default constructor for ActiveDiscussions.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.Statistics.ActiveDiscussions.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Renders the ActiveDiscussions control.
-            </summary>
-            <param name="writer">
-            </param>
-        </member>
-        <member name="P:YAF.Controls.Statistics.ActiveDiscussions.DisplayNumber">
-            <summary>
-            Gets or sets number of active discussions to display in a control.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.MessageSignature">
-            <summary>
-            The message signature.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageSignature._displayUserID">
-            <summary>
-            The _display user id.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageSignature._htmlPrefix">
-            <summary>
-            The _html prefix.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageSignature._htmlSuffix">
-            <summary>
-            The _html suffix.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessageSignature._signature">
-            <summary>
-            The _signature.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessageSignature.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.MessageSignature"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessageSignature.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.MessageSignature.RenderSignature(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render signature.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.MessageSignature.Signature">
-            <summary>
-            Gets or sets Signature.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessageSignature.DisplayUserID">
-            <summary>
-            Gets or sets DisplayUserID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessageSignature.HtmlPrefix">
-            <summary>
-            Gets or sets HtmlPrefix.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessageSignature.HtmlSuffix">
-            <summary>
-            Gets or sets HtmlSuffix.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.BaseReportedPosts">
-            <summary>
-            Shows a Reporters for reported posts
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.BaseReportedPosts.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="!:ReportedPosts"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.BaseReportedPosts.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.BaseReportedPosts.MessageID">
-            <summary>
-            Gets or sets MessageID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.BaseReportedPosts.Resolved">
-            <summary>
-            Gets or sets Resolved.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.BaseReportedPosts.ResolvedBy">
-            <summary>
-            Gets or sets ResolvedBy. It returns UserID as string value
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.BaseReportedPosts.ResolvedDate">
-            <summary>
-            Gets or sets ResolvedDate.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.MessagePostData">
-            <summary>
-            Shows a Message Post
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessagePostData._row">
-            <summary>
-            The _row.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessagePostData._showAttachments">
-            <summary>
-            The _show attachments.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.MessagePostData._showSignature">
-            <summary>
-            The _show signature.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessagePostData.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.MessagePostData"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.MessagePostData.TruncateMessage(System.String)">
-            <summary>
-            The truncate message.
-            </summary>
-            <param name="message">
-            The message.
-            </param>
-            <returns>
-            The truncate message.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.MessagePostData.OnPreRender(System.EventArgs)">
-            <summary>
-            The on pre render.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.MessagePostData.RenderMessage(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render message.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.MessagePostData.DataRow">
-            <summary>
-            Gets or sets DataRow.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePostData.Edited">
-            <summary>
-            Gets Edited.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePostData.Message">
-            <summary>
-            Gets Message.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePostData.Posted">
-            <summary>
-            Gets Posted.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePostData.ShowAttachments">
-            <summary>
-            Gets or sets a value indicating whether ShowAttachments.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePostData.ShowSignature">
-            <summary>
-            Gets or sets a value indicating whether ShowSignature.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.MessagePostData.Signature">
-            <summary>
-            Gets Signature.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.IconLegend">
-            <summary>
-            Summary description for ForumUsers.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.IconLegend.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.IconLegend"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.IconLegend.IconLegend_Load(System.Object,System.EventArgs)">
-            <summary>
-            The icon legend_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.IconLegend.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="T:YAF.Controls.ForumJump">
-            <summary>
-            Summary description for ForumJump.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ForumJump.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            The load post data.
-            </summary>
-            <param name="postDataKey">
-            The post data key.
-            </param>
-            <param name="postCollection">
-            The post collection.
-            </param>
-            <returns>
-            The load post data.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.ForumJump.RaisePostDataChangedEvent">
-            <summary>
-            The raise post data changed event.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ForumJump.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            The page_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.ForumJump.OnInit(System.EventArgs)">
-            <summary>
-            The on init.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.ForumJump.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The render.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.ForumJump.ForumID">
-            <summary>
-            Gets or sets ForumID.
-            </summary>
-        </member>
-        <member name="T:YafMenu">
-            <summary>
-            The yaf menu.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YafMenu.itemsField">
-            <summary>
-            The items field.
-            </summary>
-        </member>
-        <member name="P:YafMenu.Items">
-            <summary>
-            The items.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YafMenuYafMenuSection">
-            <summary>
-            The yaf menu yaf menu section.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YafMenuYafMenuSection.hostAdminOnlyField">
-            <summary>
-            The host admin only field.
-            </summary>
-        </member>
-        <member name="F:YafMenuYafMenuSection.titleField">
-            <summary>
-            The title field.
-            </summary>
-        </member>
-        <member name="F:YafMenuYafMenuSection.yafMenuItemField">
-            <summary>
-            The yaf menu item field.
-            </summary>
-        </member>
-        <member name="P:YafMenuYafMenuSection.HostAdminOnly">
-            <summary>
-            The host admin only.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YafMenuYafMenuSection.YafMenuItem">
-            <summary>
-            The yaf menu item.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YafMenuYafMenuSection.Title">
-            <summary>
-            The title.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YafMenuYafMenuSectionYafMenuItem">
-            <summary>
-            The yaf menu yaf menu section yaf menu item.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:YafMenuYafMenuSectionYafMenuItem.debugField">
-            <summary>
-            The debug field.
-            </summary>
-        </member>
-        <member name="F:YafMenuYafMenuSectionYafMenuItem.forumPageField">
-            <summary>
-            The forum page field.
-            </summary>
-        </member>
-        <member name="F:YafMenuYafMenuSectionYafMenuItem.imageField">
-            <summary>
-            The image field.
-            </summary>
-        </member>
-        <member name="F:YafMenuYafMenuSectionYafMenuItem.linkField">
-            <summary>
-            The link field.
-            </summary>
-        </member>
-        <member name="F:YafMenuYafMenuSectionYafMenuItem.titleField">
-            <summary>
-            The title field.
-            </summary>
-        </member>
-        <member name="P:YafMenuYafMenuSectionYafMenuItem.Title">
-            <summary>
-            The title.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YafMenuYafMenuSectionYafMenuItem.ForumPage">
-            <summary>
-            The forum page.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YafMenuYafMenuSectionYafMenuItem.Image">
-            <summary>
-            The image.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YafMenuYafMenuSectionYafMenuItem.Link">
-            <summary>
-            The link.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="P:YafMenuYafMenuSectionYafMenuItem.Debug">
-            <summary>
-            The debug.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="T:YAF.Controls.ActiveUsers">
-            <summary>
-            Control displaying list of user currently active on a forum.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.ActiveUsers._activeUserTable">
-            <summary>
-            The _active user table.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ActiveUsers.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.ActiveUsers"/> class. 
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ActiveUsers.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Implemets rendering of control to the client through use of HtmlTextWriter.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.ActiveUsers.OnPreRender(System.EventArgs)">
-            <summary>
-            Raises PreRender event and prepares control for rendering by creating links to active users.
-            </summary>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.ActiveUsers.ActiveUserTable">
-            <summary>
-            Gets or sets list of users to display in control.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ActiveUsers.TreatGuestAsHidden">
-            <summary>
-            Gets or sets whether treat displaying of guest users same way as that of hidden users.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.ActiveLocation">
-            <summary>
-            Provides Active Users location info
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ActiveLocation.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.ActiveLocation"/> class.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ActiveLocation.Render(System.Web.UI.HtmlTextWriter)">
+        <member name="M:YAF.Controls.UserLabel.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             The render.
             </summary>
@@ -3167,64 +1388,58 @@
             The output.
             </param>
         </member>
-        <member name="M:YAF.Controls.ActiveLocation.Album(System.String)">
+        <member name="M:YAF.Controls.UserLabel.RenderMainTagAttributes(System.Web.UI.HtmlTextWriter)">
             <summary>
-            A method to get album path string.
+            Renders "id", "style", "onclick", "onmouseover" and "class"
             </summary>
-            <param name="forumPageAttributes">A page query string cleared from page name.</param>
-            <returns>The string</returns> 
+            <param name="output"></param>
         </member>
-        <member name="M:YAF.Controls.ActiveLocation.Albums(System.String)">
+        <member name="P:YAF.Controls.UserLabel.CssClass">
             <summary>
-            A method to get albums path string.
-            </summary>
-            <param name="forumPageAttributes">A page query string cleared from page name.</param>
-            <returns>The string</returns> 
-        </member>
-        <member name="P:YAF.Controls.ActiveLocation.ForumPage">
-            <summary>
-            Gets or sets the localization tag for the current location.
-            It should be  equal to page name
+            Gets or sets CssClass.
             </summary>
         </member>
-        <member name="P:YAF.Controls.ActiveLocation.ForumName">
+        <member name="P:YAF.Controls.UserLabel.OnClick">
             <summary>
-            Gets or sets the forumname of the current location
+            The onclick value for the profile link
             </summary>
         </member>
-        <member name="P:YAF.Controls.ActiveLocation.TopicName">
+        <member name="P:YAF.Controls.UserLabel.OnMouseOver">
             <summary>
-            Gets or sets the topicname of the current location
+            The onmouseover value for the profile link
             </summary>
         </member>
-        <member name="P:YAF.Controls.ActiveLocation.ForumID">
+        <member name="P:YAF.Controls.UserLabel.PostfixText">
             <summary>
-            Gets or sets the forumid of the current location
+            The name of the user for this profile link
             </summary>
         </member>
-        <member name="P:YAF.Controls.ActiveLocation.TopicID">
+        <member name="P:YAF.Controls.UserLabel.Style">
             <summary>
-            Gets or sets the topicid of the current location 
+            Gets or sets Style.
             </summary>
         </member>
-        <member name="P:YAF.Controls.ActiveLocation.UserID">
+        <member name="P:YAF.Controls.UserLabel.UserID">
             <summary>
-            Gets or sets the userid of the current user
+            The userid of this user for the link
             </summary>
         </member>
-        <member name="P:YAF.Controls.ActiveLocation.UserName">
+        <member name="M:YAF.Controls.UserLink.#ctor">
             <summary>
-            Gets or sets the UserName of the current user
+            Initializes a new instance of the <see cref="T:YAF.Controls.UserLink"/> class.
             </summary>
         </member>
-        <member name="P:YAF.Controls.ActiveLocation.LastLinkOnly">
+        <member name="M:YAF.Controls.UserLink.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
-            Gets or sets a value indicating whether to show only topic link.
+            The render.
             </summary>
+            <param name="output">
+            The output.
+            </param>
         </member>
-        <member name="P:YAF.Controls.ActiveLocation.HasForumAccess">
+        <member name="P:YAF.Controls.UserLink.BlankTarget">
             <summary>
-            Gets or sets a value indicating whether to show only topic link.
+            Make the link target "blank" to open in a new window.
             </summary>
         </member>
         <member name="T:YAF.Controls.UserBox">
@@ -3441,6 +1656,164 @@
             Refines style string from other skins info
             </summary>
         </member>
+        <member name="T:YAF.Controls.TopicLine">
+            <summary>
+            The topic line.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.TopicLine._isAlt">
+            <summary>
+            The _is alt.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.TopicLine._altLastPost">
+            <summary>
+            The last post tooltip string. 
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.TopicLine._row">
+            <summary>
+            The _row.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.CreatePostPager(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create pager for post.
+            </summary>
+            <param name="count">
+            The count.
+            </param>
+            <param name="pageSize">
+            The page Size.
+            </param>
+            <param name="topicID">
+            The topic ID.
+            </param>
+            <returns>
+            The create post pager.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.FormatReplies">
+            <summary>
+            The format replies.
+            </summary>
+            <returns>
+            The format replies.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.GetPriorityMessage(System.Data.DataRowView)">
+            <summary>
+            Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
+            </summary>
+            <param name="row">
+            Current Topic Data Row
+            </param>
+            <returns>
+            Topic status text
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.GetTopicImage(System.Object,System.String@)">
+            <summary>
+            The get topic image.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <param name="imgTitle">
+            The img title.
+            </param>
+            <returns>
+            The get topic image.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.RenderLastPost(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Formats the Last Post for the Topic Line
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <returns>
+            The render last post.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.WriteBeginTD(System.Web.UI.HtmlTextWriter,System.String)">
+            <summary>
+            The write begin td.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="classId">
+            The class id.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.WriteBeginTD(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The write begin td.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.WriteEndTD(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The write end td.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.FormatViews">
+            <summary>
+            The format views.
+            </summary>
+            <returns>
+            The format views.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.TopicLine.MakeLink(System.String,System.String)">
+            <summary>
+            The make link.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="link">
+            The link.
+            </param>
+            <returns>
+            The make link.
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.DataRow">
+            <summary>
+            Sets DataRow.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.AltLastPost">
+            <summary>
+            Gets or sets Alt.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.FindUnread">
+            <summary>
+            Gets or sets a value indicating whether FindUnread.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.TopicLine.IsAlt">
+            <summary>
+            Gets or sets a value indicating whether IsAlt.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.PopMenu">
             <summary>
             Summary description for ForumJump.
@@ -3649,180 +2022,131 @@
             Gets or sets ClientScript.
             </summary>
         </member>
-        <member name="T:YAF.Controls.UserLink">
+        <member name="T:YAF.Controls.Header">
             <summary>
-            Provides a basic "profile link" for a YAF User
+            Summary description for Header.
             </summary>
         </member>
-        <member name="M:YAF.Controls.UserLink.#ctor">
+        <member name="F:YAF.Controls.Header._refreshTime">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.UserLink"/> class.
+            The _refresh time.
             </summary>
         </member>
-        <member name="M:YAF.Controls.UserLink.Render(System.Web.UI.HtmlTextWriter)">
+        <member name="F:YAF.Controls.Header._refreshURL">
             <summary>
-            The render.
-            </summary>
-            <param name="output">
-            The output.
-            </param>
-        </member>
-        <member name="P:YAF.Controls.UserLink.BlankTarget">
-            <summary>
-            Make the link target "blank" to open in a new window.
+            The _refresh url.
             </summary>
         </member>
-        <member name="T:YAF.Controls.ThankYou">
+        <member name="F:YAF.Controls.Header._simpleRender">
             <summary>
-            Class for Thank you button
+            The _simple render.
             </summary>
         </member>
-        <member name="M:YAF.Controls.ThankYou.AddThanks(System.Object)">
+        <member name="M:YAF.Controls.Header.Reset">
             <summary>
-            This method is called asynchronously when the user clicks "Thank" button.
+            The reset.
             </summary>
-            <param name="msgID">
-            </param>
+        </member>
+        <member name="M:YAF.Controls.Header.GetReturnUrl">
+            <summary>
+            The get return url.
+            </summary>
             <returns>
+            The get return url.
             </returns>
         </member>
-        <member name="M:YAF.Controls.ThankYou.RemoveThanks(System.Object)">
+        <member name="M:YAF.Controls.Header.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
-            This method is called asynchronously when the user clicks on "Remove Thank Note" button.
+            Renders the header.
             </summary>
-            <param name="msgID">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.ThankYou.CreateThankYou(System.String,System.String,System.String)">
-            <summary>
-            Creates an instance of the thank you object from the current information.
-            </summary>
-            <param name="username">
-            </param>
-            <param name="textTag">
-            </param>
-            <param name="titleTag">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.ThankYou.GetThanks(System.Object)">
-            <summary>
-            This method returns a string containing the HTML code for
-            showing the the post footer. the HTML content is the name of users
-            who thanked the post and the date they thanked.
-            </summary>
-            <param name="msgID">
-            The msg ID.
-            </param>
-            <returns>
-            The get thanks.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.ThankYou.ThanksNumber(System.String)">
-            <summary>
-            This method returns a string which shows how many times users have
-            thanked the message with the provided messageID. Returns an empty string.
-            </summary>
-            <param name="username">
-            The username.
-            </param>
-            <returns>
-            The thanks number.
-            </returns>
-        </member>
-        <member name="P:YAF.Controls.ThankYou.Text">
-            <summary>
-            Gets or sets Text.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThankYou.Title">
-            <summary>
-            Gets or sets Title.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThankYou.MessageID">
-            <summary>
-            Gets or sets MessageID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThankYou.ThanksInfo">
-            <summary>
-            Gets or sets ThanksInfo.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ThankYou.Thanks">
-            <summary>
-            Gets or sets Thanks.
-            </summary>
-        </member>
-        <member name="T:YAF.Controls.PageLinks">
-            <summary>
-            Summary description for PageLinks.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.PageLinks.AddLink(System.String)">
-            <summary>
-            The add link.
-            </summary>
-            <param name="title">
-            The title.
+            <param name="writer">
+            The HtmlTextWriter that we are using.
             </param>
         </member>
-        <member name="M:YAF.Controls.PageLinks.AddLink(System.String,System.String)">
+        <member name="M:YAF.Controls.Header.RenderRegular(System.Web.UI.HtmlTextWriter@)">
             <summary>
-            The add link.
+            The render regular.
             </summary>
-            <param name="title">
-            The title.
-            </param>
-            <param name="url">
-            The url.
+            <param name="writer">
+            The writer.
             </param>
         </member>
-        <member name="M:YAF.Controls.PageLinks.Clear">
+        <member name="P:YAF.Controls.Header.RefreshTime">
             <summary>
-            Clear all Links
+            Gets or sets RefreshTime.
             </summary>
         </member>
-        <member name="M:YAF.Controls.PageLinks.AddForumLinks(System.Int32)">
+        <member name="P:YAF.Controls.Header.RefreshURL">
             <summary>
-            The add forum links.
+            Gets or sets RefreshURL.
             </summary>
-            <param name="forumID">
-            The forum id.
+        </member>
+        <member name="P:YAF.Controls.Header.SimpleRender">
+            <summary>
+            Gets or sets a value indicating whether SimpleRender.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Header.ThisControl">
+            <summary>
+            Gets ThisControl.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.Statistics.ActiveDiscussions">
+            <summary>
+            Control to display last active topics.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.Statistics.ActiveDiscussions._displayNumber">
+            <summary>
+            Number of active discussions to display in a control.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Statistics.ActiveDiscussions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.Statistics.ActiveDiscussions"/> class. 
+            The default constructor for ActiveDiscussions.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Statistics.ActiveDiscussions.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the ActiveDiscussions control.
+            </summary>
+            <param name="writer">
             </param>
         </member>
-        <member name="M:YAF.Controls.PageLinks.AddForumLinks(System.Int32,System.Boolean)">
+        <member name="P:YAF.Controls.Statistics.ActiveDiscussions.DisplayNumber">
             <summary>
-            The add forum links.
+            Gets or sets number of active discussions to display in a control.
             </summary>
-            <param name="forumID">
-            The forum id.
+        </member>
+        <member name="T:YAF.Controls.IconLegend">
+            <summary>
+            Summary description for ForumUsers.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.IconLegend.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.IconLegend"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.IconLegend.IconLegend_Load(System.Object,System.EventArgs)">
+            <summary>
+            The icon legend_ load.
+            </summary>
+            <param name="sender">
+            The sender.
             </param>
-            <param name="noForumLink">
-            The no forum link.
+            <param name="e">
+            The e.
             </param>
         </member>
-        <member name="M:YAF.Controls.PageLinks.Render(System.Web.UI.HtmlTextWriter)">
+        <member name="M:YAF.Controls.IconLegend.Render(System.Web.UI.HtmlTextWriter)">
             <summary>
             The render.
             </summary>
             <param name="writer">
             The writer.
             </param>
-        </member>
-        <member name="P:YAF.Controls.PageLinks.LinkedPageLinkID">
-            <summary>
-            Gets or sets LinkedPageLinkID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.PageLinks.PageLinkDT">
-            <summary>
-            Gets or sets PageLinkDT.
-            </summary>
         </member>
         <member name="T:YAF.Controls.GotoPageForumEventArgs">
             <summary>
@@ -3957,6 +2281,605 @@
             The goto page click.
             </summary>
         </member>
+        <member name="T:YAF.Controls.RecaptchaValidator">
+            <summary>
+            The recaptcha validator.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaValidator.VerifyUrl">
+            <summary>
+            The verify url.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaValidator.challenge">
+            <summary>
+            The challenge.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaValidator.privateKey">
+            <summary>
+            The private key.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaValidator.remoteIp">
+            <summary>
+            The remote ip.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaValidator.response">
+            <summary>
+            The response.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaValidator.Validate">
+            <summary>
+            The validate.
+            </summary>
+            <returns>
+            </returns>
+            <exception cref="T:System.InvalidProgramException">
+            </exception>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaValidator.CheckNotNull(System.Object,System.String)">
+            <summary>
+            The check not null.
+            </summary>
+            <param name="obj">
+            The obj.
+            </param>
+            <param name="name">
+            The name.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaValidator.Challenge">
+            <summary>
+            Gets or sets Challenge.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaValidator.PrivateKey">
+            <summary>
+            Gets or sets PrivateKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaValidator.RemoteIP">
+            <summary>
+            Gets or sets RemoteIP.
+            </summary>
+            <exception cref="T:System.ArgumentException">
+            </exception>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaValidator.Response">
+            <summary>
+            Gets or sets Response.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ActiveLocation">
+            <summary>
+            Provides Active Users location info
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ActiveLocation.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.ActiveLocation"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ActiveLocation.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="output">
+            The output.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ActiveLocation.Album(System.String)">
+            <summary>
+            A method to get album path string.
+            </summary>
+            <param name="forumPageAttributes">A page query string cleared from page name.</param>
+            <returns>The string</returns> 
+        </member>
+        <member name="M:YAF.Controls.ActiveLocation.Albums(System.String)">
+            <summary>
+            A method to get albums path string.
+            </summary>
+            <param name="forumPageAttributes">A page query string cleared from page name.</param>
+            <returns>The string</returns> 
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.ForumPage">
+            <summary>
+            Gets or sets the localization tag for the current location.
+            It should be  equal to page name
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.ForumName">
+            <summary>
+            Gets or sets the forumname of the current location
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.TopicName">
+            <summary>
+            Gets or sets the topicname of the current location
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.ForumID">
+            <summary>
+            Gets or sets the forumid of the current location
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.TopicID">
+            <summary>
+            Gets or sets the topicid of the current location 
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.UserID">
+            <summary>
+            Gets or sets the userid of the current user
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.UserName">
+            <summary>
+            Gets or sets the UserName of the current user
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.LastLinkOnly">
+            <summary>
+            Gets or sets a value indicating whether to show only topic link.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveLocation.HasForumAccess">
+            <summary>
+            Gets or sets a value indicating whether to show only topic link.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ThemeButton">
+            <summary>
+            The theme button.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThemeButton._clickEvent">
+            <summary>
+            The _click event.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThemeButton._commandEvent">
+            <summary>
+            The _command event.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThemeButton._attributeCollection">
+            <summary>
+            The _attribute collection.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThemeButton._localizedLabel">
+            <summary>
+            The _localized label.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThemeButton._themeImage">
+            <summary>
+            The _theme image.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ThemeButton.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.ThemeButton"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ThemeButton.System#Web#UI#IPostBackEventHandler#RaisePostBackEvent(System.String)">
+            <summary>
+            The i post back event handler. raise post back event.
+            </summary>
+            <param name="eventArgument">
+            The event argument.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ThemeButton.ThemeButton_Load(System.Object,System.EventArgs)">
+            <summary>
+            Setup the controls before render
+            </summary>
+            <param name="sender">
+            </param>
+            <param name="e">
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ThemeButton.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="output">
+            The output.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ThemeButton.GetLocalizedTitle">
+            <summary>
+            The get localized title.
+            </summary>
+            <returns>
+            The get localized title.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.ThemeButton.OnClick(System.EventArgs)">
+            <summary>
+            The on click.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ThemeButton.OnCommand(System.Web.UI.WebControls.CommandEventArgs)">
+            <summary>
+            The on command.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.ImageThemePage">
+            <summary>
+            ThemePage for the optional button image
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.ImageThemeTag">
+            <summary>
+            ThemeTag for the optional button image
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.TextLocalizedPage">
+            <summary>
+            Localized Page for the optional button text
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.TextLocalizedTag">
+            <summary>
+            Localized Tag for the optional button text
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.CssClass">
+            <summary>
+            Defaults to "yafcssbutton"
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.NavigateUrl">
+            <summary>
+            Setting the link property will make this control non-postback.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.TitleLocalizedPage">
+            <summary>
+            Localized Page for the optional link description (title)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.TitleLocalizedTag">
+            <summary>
+            Localized Tag for the optional link description (title)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.TitleNonLocalized">
+            <summary>
+            Non-localized Title for optional link description
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.Attributes">
+            <summary>
+            Gets Attributes.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.CommandName">
+            <summary>
+            Gets or sets CommandName.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ThemeButton.CommandArgument">
+            <summary>
+            Gets or sets CommandArgument.
+            </summary>
+        </member>
+        <member name="E:YAF.Controls.ThemeButton.Click">
+            <summary>
+            The click.
+            </summary>
+        </member>
+        <member name="E:YAF.Controls.ThemeButton.Command">
+            <summary>
+            The command.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ForumJump">
+            <summary>
+            Summary description for ForumJump.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ForumJump.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            The load post data.
+            </summary>
+            <param name="postDataKey">
+            The post data key.
+            </param>
+            <param name="postCollection">
+            The post collection.
+            </param>
+            <returns>
+            The load post data.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.ForumJump.RaisePostDataChangedEvent">
+            <summary>
+            The raise post data changed event.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ForumJump.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ForumJump.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ForumJump.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.ForumJump.ForumID">
+            <summary>
+            Gets or sets ForumID.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.AdminMenu">
+            <summary>
+            Summary description for AdminMenu.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.AdminMenu._accordian">
+            <summary>
+            The _accordian.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.AdminMenu._menuDef">
+            <summary>
+            The _menu def.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.AdminMenu.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.AdminMenu"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.AdminMenu.OnLoad(System.EventArgs)">
+            <summary>
+            The on load.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.AdminMenu.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.AdminMenu.BuildUrlList(DNA.UI.JQuery.NavView,YafMenuYafMenuSectionYafMenuItem[])">
+            <summary>
+            Builds a Url List
+            </summary>
+            <param name="view">
+            </param>
+            <param name="listItems">
+            </param>
+        </member>
+        <member name="T:YAF.Controls.BaseReportedPosts">
+            <summary>
+            Shows a Reporters for reported posts
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BaseReportedPosts.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="!:ReportedPosts"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.BaseReportedPosts.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.MessageID">
+            <summary>
+            Gets or sets MessageID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.Resolved">
+            <summary>
+            Gets or sets Resolved.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.ResolvedBy">
+            <summary>
+            Gets or sets ResolvedBy. It returns UserID as string value
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.BaseReportedPosts.ResolvedDate">
+            <summary>
+            Gets or sets ResolvedDate.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ActiveUsers">
+            <summary>
+            Control displaying list of user currently active on a forum.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ActiveUsers._activeUserTable">
+            <summary>
+            The _active user table.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ActiveUsers.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.ActiveUsers"/> class. 
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.ActiveUsers.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Implemets rendering of control to the client through use of HtmlTextWriter.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ActiveUsers.OnPreRender(System.EventArgs)">
+            <summary>
+            Raises PreRender event and prepares control for rendering by creating links to active users.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.ActiveUsers.ActiveUserTable">
+            <summary>
+            Gets or sets list of users to display in control.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ActiveUsers.TreatGuestAsHidden">
+            <summary>
+            Gets or sets whether treat displaying of guest users same way as that of hidden users.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.MessageAttached">
+            <summary>
+            The message attached.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessageAttached._messageId">
+            <summary>
+            The _message id.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessageAttached._userName">
+            <summary>
+            The _user name.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.MessageAttached.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.MessageAttached"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.MessageAttached.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.MessageAttached.RenderAttachedFiles(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render attached files.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.MessageAttached.MessageID">
+            <summary>
+            Gets or sets MessageID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessageAttached.UserName">
+            <summary>
+            Gets or sets UserName.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.PageLinks">
+            <summary>
+            Summary description for PageLinks.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.PageLinks.AddLink(System.String)">
+            <summary>
+            The add link.
+            </summary>
+            <param name="title">
+            The title.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PageLinks.AddLink(System.String,System.String)">
+            <summary>
+            The add link.
+            </summary>
+            <param name="title">
+            The title.
+            </param>
+            <param name="url">
+            The url.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PageLinks.Clear">
+            <summary>
+            Clear all Links
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.PageLinks.AddForumLinks(System.Int32)">
+            <summary>
+            The add forum links.
+            </summary>
+            <param name="forumID">
+            The forum id.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PageLinks.AddForumLinks(System.Int32,System.Boolean)">
+            <summary>
+            The add forum links.
+            </summary>
+            <param name="forumID">
+            The forum id.
+            </param>
+            <param name="noForumLink">
+            The no forum link.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PageLinks.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.PageLinks.LinkedPageLinkID">
+            <summary>
+            Gets or sets LinkedPageLinkID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.PageLinks.PageLinkDT">
+            <summary>
+            Gets or sets PageLinkDT.
+            </summary>
+        </member>
         <member name="T:YAF.Controls.AlphaSort">
             <summary>
             Control displaying list of letters and/or characters for filtering list of members.
@@ -3980,6 +2903,1085 @@
             <summary>
             Gets actually selected letter.
             </summary>
+        </member>
+        <member name="T:YAF.Controls.Pager">
+            <summary>
+            Summary description for Pager.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.Pager._gotoPageForm">
+            <summary>
+            The _goto page form.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.Pager._ignorePageIndex">
+            <summary>
+            The _ignore page index.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.Pager._pageLabel">
+            <summary>
+            The _page label.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.Pager._usePostBack">
+            <summary>
+            The _use post back.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Pager.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.Pager"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Pager.RaisePostBackEvent(System.String)">
+            <summary>
+            The raise post back event.
+            </summary>
+            <param name="eventArgument">
+            The event argument.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Pager.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Pager.OnLoad(System.EventArgs)">
+            <summary>
+            The on load.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Pager._gotoPageForm_GotoPageClick(System.Object,YAF.Controls.GotoPageForumEventArgs)">
+            <summary>
+            The _goto page form_ goto page click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Pager.CopyPagerSettings(YAF.Controls.Pager)">
+            <summary>
+            The copy pager settings.
+            </summary>
+            <param name="toPager">
+            The to pager.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Pager.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="output">
+            The output.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Pager.GetLinkUrl(System.Int32,System.Boolean)">
+            <summary>
+            The get link url.
+            </summary>
+            <param name="pageNum">
+            The page num.
+            </param>
+            <param name="postBack">
+            The post back.
+            </param>
+            <returns>
+            The get link url.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.Pager.OutputLinks(System.Web.UI.HtmlTextWriter,System.Boolean)">
+            <summary>
+            The output links.
+            </summary>
+            <param name="output">
+            The output.
+            </param>
+            <param name="postBack">
+            The post back.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Pager.GetPageURL(System.Int32)">
+            <summary>
+            The get page url.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <returns>
+            The get page url.
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.Pager.CurrentLinkedPager">
+            <summary>
+            Gets CurrentLinkedPager.
+            </summary>
+            <exception cref="T:System.Exception">
+            </exception>
+        </member>
+        <member name="P:YAF.Controls.Pager.UsePostBack">
+            <summary>
+            Gets or sets a value indicating whether UsePostBack.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Pager.Count">
+            <summary>
+            Gets or sets Count.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Pager.CurrentPageIndex">
+            <summary>
+            Gets or sets CurrentPageIndex.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Pager.PageSize">
+            <summary>
+            Gets or sets PageSize.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Pager.PageCount">
+            <summary>
+            Gets PageCount.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Pager.LinkedPager">
+            <summary>
+            Gets or sets LinkedPager.
+            </summary>
+        </member>
+        <member name="E:YAF.Controls.Pager.PageChange">
+            <summary>
+            The page change.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.MyLinkButton">
+            <summary>
+            Inherited from LinkButton. Shows only plain text when disabled
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.MyLinkButton.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="T:YAF.Modules.YafBBCodeControl">
+            <summary>
+            The yaf bb code control.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafBBCodeControl._currentMessageFlags">
+            <summary>
+            The _current message flags.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafBBCodeControl._displayUserId">
+            <summary>
+            The _display user id.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.YafBBCodeControl._parameters">
+            <summary>
+            The _parameters.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.YafBBCodeControl.ProcessBBCodeString(System.String)">
+            <summary>
+            The process bb code string.
+            </summary>
+            <param name="bbCodeString">
+            The bb code string.
+            </param>
+            <returns>
+            The process bb code string.
+            </returns>
+        </member>
+        <member name="M:YAF.Modules.YafBBCodeControl.LocalizedString(System.String,System.String)">
+            <summary>
+            The localized string.
+            </summary>
+            <param name="tag">
+            The tag.
+            </param>
+            <param name="defaultStr">
+            The default str.
+            </param>
+            <returns>
+            The localized string.
+            </returns>
+        </member>
+        <member name="P:YAF.Modules.YafBBCodeControl.Parameters">
+            <summary>
+            Gets or sets Parameters.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.YafBBCodeControl.CurrentMessageFlags">
+            <summary>
+            Gets or sets CurrentMessageFlags.
+            </summary>
+        </member>
+        <member name="P:YAF.Modules.YafBBCodeControl.DisplayUserID">
+            <summary>
+            Gets or sets DisplayUserID.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.MessagePostData">
+            <summary>
+            Shows a Message Post
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessagePostData._row">
+            <summary>
+            The _row.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessagePostData._showAttachments">
+            <summary>
+            The _show attachments.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.MessagePostData._showSignature">
+            <summary>
+            The _show signature.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.MessagePostData.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.MessagePostData"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.MessagePostData.TruncateMessage(System.String)">
+            <summary>
+            The truncate message.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <returns>
+            The truncate message.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.MessagePostData.OnPreRender(System.EventArgs)">
+            <summary>
+            The on pre render.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.MessagePostData.RenderMessage(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render message.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.DataRow">
+            <summary>
+            Gets or sets DataRow.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.Edited">
+            <summary>
+            Gets Edited.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.Message">
+            <summary>
+            Gets Message.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.Posted">
+            <summary>
+            Gets Posted.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.ShowAttachments">
+            <summary>
+            Gets or sets a value indicating whether ShowAttachments.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.ShowSignature">
+            <summary>
+            Gets or sets a value indicating whether ShowSignature.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.MessagePostData.Signature">
+            <summary>
+            Gets Signature.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu">
+             <summary>
+            Represents a strongly typed in-memory cache of data.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuSectionDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuItemDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuSectionRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuItemRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuSectionRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.YafAdminMenu.YafMenu.YafMenuItemRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.Statistics.MostActiveUsers">
+            <summary>
+            The most active users.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.Statistics.MostActiveUsers._displayNumber">
+            <summary>
+            The _display number.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.Statistics.MostActiveUsers._lastNumOfDays">
+            <summary>
+            The _last num of days.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Statistics.MostActiveUsers.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.Statistics.MostActiveUsers"/> class. 
+            The default constructor for MostActiveUsers.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Statistics.MostActiveUsers.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Renders the MostActiveUsers class.
+            </summary>
+            <param name="writer">
+            </param>
+        </member>
+        <member name="P:YAF.Controls.Statistics.MostActiveUsers.DisplayNumber">
+            <summary>
+            Gets or sets DisplayNumber.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Statistics.MostActiveUsers.LastNumOfDays">
+            <summary>
+            Gets or sets LastNumOfDays.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.PageAccess">
+            <summary>
+            Summary description for PageLinks.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.PageAccess.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PageAccess.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.PageAccess.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="T:YafMenu">
+            <summary>
+            The yaf menu.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:YafMenu.itemsField">
+            <summary>
+            The items field.
+            </summary>
+        </member>
+        <member name="P:YafMenu.Items">
+            <summary>
+            The items.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="T:YafMenuYafMenuSection">
+            <summary>
+            The yaf menu yaf menu section.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:YafMenuYafMenuSection.hostAdminOnlyField">
+            <summary>
+            The host admin only field.
+            </summary>
+        </member>
+        <member name="F:YafMenuYafMenuSection.titleField">
+            <summary>
+            The title field.
+            </summary>
+        </member>
+        <member name="F:YafMenuYafMenuSection.yafMenuItemField">
+            <summary>
+            The yaf menu item field.
+            </summary>
+        </member>
+        <member name="P:YafMenuYafMenuSection.HostAdminOnly">
+            <summary>
+            The host admin only.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YafMenuYafMenuSection.YafMenuItem">
+            <summary>
+            The yaf menu item.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YafMenuYafMenuSection.Title">
+            <summary>
+            The title.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="T:YafMenuYafMenuSectionYafMenuItem">
+            <summary>
+            The yaf menu yaf menu section yaf menu item.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="F:YafMenuYafMenuSectionYafMenuItem.debugField">
+            <summary>
+            The debug field.
+            </summary>
+        </member>
+        <member name="F:YafMenuYafMenuSectionYafMenuItem.forumPageField">
+            <summary>
+            The forum page field.
+            </summary>
+        </member>
+        <member name="F:YafMenuYafMenuSectionYafMenuItem.imageField">
+            <summary>
+            The image field.
+            </summary>
+        </member>
+        <member name="F:YafMenuYafMenuSectionYafMenuItem.linkField">
+            <summary>
+            The link field.
+            </summary>
+        </member>
+        <member name="F:YafMenuYafMenuSectionYafMenuItem.titleField">
+            <summary>
+            The title field.
+            </summary>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Title">
+            <summary>
+            The title.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.ForumPage">
+            <summary>
+            The forum page.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Image">
+            <summary>
+            The image.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Link">
+            <summary>
+            The link.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:YafMenuYafMenuSectionYafMenuItem.Debug">
+            <summary>
+            The debug.
+            </summary>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="T:YAF.Controls.LocalizedLabel">
+            <summary>
+            Makes a very simple localized label
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._enableBBCode">
+            <summary>
+            The _enable bb code.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._localizedPage">
+            <summary>
+            The _localized page.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._localizedTag">
+            <summary>
+            The _localized tag.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._param0">
+            <summary>
+            The _param 0.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._param1">
+            <summary>
+            The _param 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedLabel._param2">
+            <summary>
+            The _param 2.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.LocalizedLabel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.LocalizedLabel"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.LocalizedLabel.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Shows the localized text string (if available)
+            </summary>
+            <param name="output">
+            </param>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.EnableBBCode">
+            <summary>
+            Gets or sets a value indicating whether EnableBBCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.LocalizedPage">
+            <summary>
+            Gets or sets LocalizedPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.LocalizedTag">
+            <summary>
+            Gets or sets LocalizedTag.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.Param0">
+            <summary>
+            Gets or sets Param0.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.Param1">
+            <summary>
+            Gets or sets Param1.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedLabel.Param2">
+            <summary>
+            Gets or sets Param2.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.HelpMenu">
+            <summary>
+            Summary description for AdminMenu.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.HelpMenu.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="T:YAF.Controls.Footer">
+            <summary>
+            Summary description for Footer.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.Footer._simpleRender">
+            <summary>
+            The _simple render.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.Footer.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Footer.RenderRegular(System.Web.UI.HtmlTextWriter@)">
+            <summary>
+            The render regular.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.Footer.SimpleRender">
+            <summary>
+            Gets or sets a value indicating whether SimpleRender.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Footer.ThisControl">
+            <summary>
+            Gets ThisControl.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.LocalizedCustomValidator">
+            <summary>
+            The localized custom validator.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._enableBbCode">
+            <summary>
+            The _enable bb code.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._localizedPage">
+            <summary>
+            The _localized page.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._localizedTag">
+            <summary>
+            The _localized tag.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._param0">
+            <summary>
+            The _param 0.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._param1">
+            <summary>
+            The _param 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.LocalizedCustomValidator._param2">
+            <summary>
+            The _param 2.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.LocalizedCustomValidator.OnLoad(System.EventArgs)">
+            <summary>
+            The on load.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.EnableBBCode">
+            <summary>
+            Gets or sets a value indicating whether EnableBBCode.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.LocalizedPage">
+            <summary>
+            Gets or sets LocalizedPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.LocalizedTag">
+            <summary>
+            Gets or sets LocalizedTag.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.PageContext">
+            <summary>
+            Gets PageContext.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.Param0">
+            <summary>
+            Gets or sets Param0.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.Param1">
+            <summary>
+            Gets or sets Param1.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.LocalizedCustomValidator.Param2">
+            <summary>
+            Gets or sets Param2.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.RssFeedLink">
+            <summary>
+            The RSS feed link (with optional icon)
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RssFeedLink._attributeCollection">
+            <summary>
+            The _attribute collection.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RssFeedLink._localizedLabel">
+            <summary>
+            The _localized label.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RssFeedLink._themeImage">
+            <summary>
+            The _theme image.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RssFeedLink.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="!:RssIconLink"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RssFeedLink.GetLocalizedTitle">
+            <summary>
+            The get localized title.
+            </summary>
+            <returns>
+            The get localized title.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.RssFeedLink.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="output">
+            The output.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.RssFeedLink.RssFeedLink_Load(System.Object,System.EventArgs)">
+            <summary>
+            The rss icon link_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.Attributes">
+            <summary>
+            Gets Attributes.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.CssClass">
+            <summary>
+            Defaults to "rssfeedlink"
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.ShowSpacerBefore">
+            <summary>
+            Gets or Sets if a spacer should be inserted before the link. (Default <see langword="false"/>)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.ShowSpacerAfter">
+            <summary>
+            Gets or Sets if a spacer should be inserted after the link. (Default <see langword="false"/>)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.AdditionalParameters">
+            <summary>
+            Gets or Sets additional rss feed url parameters.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.FeedType">
+            <summary>
+            Defaults to "Forum"
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.ImageThemePage">
+            <summary>
+            ThemePage for the optional button image
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.ImageThemeTag">
+            <summary>
+            ThemeTag for the optional button image
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.TextLocalizedPage">
+            <summary>
+            Localized Page for the optional button text
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.TextLocalizedTag">
+            <summary>
+            Localized Tag for the optional button text
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.TitleLocalizedPage">
+            <summary>
+            Localized Page for the optional link description (title)
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RssFeedLink.TitleLocalizedTag">
+            <summary>
+            Localized Tag for the optional link description (title)
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.RecaptchaControl">
+            <summary>
+            The recaptcha control.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_CHALLENGE_FIELD">
+            <summary>
+            The recaptch a_ challeng e_ field.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_HOST">
+            <summary>
+            The recaptch a_ host.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_RESPONSE_FIELD">
+            <summary>
+            The recaptch a_ respons e_ field.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.RECAPTCHA_SECURE_HOST">
+            <summary>
+            The recaptch a_ secur e_ host.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.allowMultipleInstances">
+            <summary>
+            The allow multiple instances.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.customThemeWidget">
+            <summary>
+            The custom theme widget.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.errorMessage">
+            <summary>
+            The error message.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.language">
+            <summary>
+            The language.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.overrideSecureMode">
+            <summary>
+            The override secure mode.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.privateKey">
+            <summary>
+            The private key.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.publicKey">
+            <summary>
+            The public key.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.recaptchaResponse">
+            <summary>
+            The recaptcha response.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.skipRecaptcha">
+            <summary>
+            The skip recaptcha.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.RecaptchaControl.theme">
+            <summary>
+            The theme.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Controls.RecaptchaControl"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.Validate">
+            <summary>
+            The validate.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.RenderContents(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The render contents.
+            </summary>
+            <param name="output">
+            The output.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.CheckIfRecaptchaExists">
+            <summary>
+            The check if recaptcha exists.
+            </summary>
+            <returns>
+            The check if recaptcha exists.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.RecaptchaControl.GenerateChallengeUrl(System.Boolean)">
+            <summary>
+            The generate challenge url.
+            </summary>
+            <param name="noScript">
+            The no script.
+            </param>
+            <returns>
+            The generate challenge url.
+            </returns>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.AllowMultipleInstances">
+            <summary>
+            Gets or sets a value indicating whether AllowMultipleInstances.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.CustomThemeWidget">
+            <summary>
+            Gets or sets CustomThemeWidget.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.ErrorMessage">
+            <summary>
+            Gets or sets ErrorMessage.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.IsValid">
+            <summary>
+            Gets or sets a value indicating whether IsValid.
+            </summary>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.OverrideSecureMode">
+            <summary>
+            Gets or sets a value indicating whether OverrideSecureMode.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.PrivateKey">
+            <summary>
+            Gets or sets PrivateKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.PublicKey">
+            <summary>
+            Gets or sets PublicKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.SkipRecaptcha">
+            <summary>
+            Gets or sets a value indicating whether SkipRecaptcha.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.RecaptchaControl.Theme">
+            <summary>
+            Gets or sets Theme.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.LocalizationSupportExtensions">
+            <summary>
+            The localization support extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.LocalizationSupportExtensions.Localize(YAF.Controls.ILocalizationSupport,System.Web.UI.Control)">
+            <summary>
+            The get current item.
+            </summary>
+            <param name="supportItem">
+            The support Item.
+            </param>
+            <param name="currentControl">
+            The current Control.
+            </param>
+            <returns>
+            The get current item.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.LocalizationSupportExtensions.LocalizeAndRender(YAF.Controls.ILocalizationSupport,System.Web.UI.Control)">
+            <summary>
+            The localize and render.
+            </summary>
+            <param name="supportedItem">
+            The supported item.
+            </param>
+            <param name="currentControl">
+            The current control.
+            </param>
+            <returns>
+            The localize and render.
+            </returns>
         </member>
     </members>
 </doc>
