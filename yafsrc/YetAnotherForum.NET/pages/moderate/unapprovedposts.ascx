@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="unapprovedposts.ascx.cs"
-	Inherits="YAF.Pages.moderate.unapprovedposts" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+	Inherits="YAF.Pages.moderate.unapprovedposts" Codebehind="unapprovedposts.ascx.cs" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="List" runat="server">

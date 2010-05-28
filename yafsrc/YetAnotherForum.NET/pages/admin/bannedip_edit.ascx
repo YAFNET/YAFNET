@@ -1,5 +1,5 @@
-<%@ Control Language="c#" CodeFile="bannedip_edit.ascx.cs" AutoEventWireup="True"
-	Inherits="YAF.Pages.Admin.bannedip_edit" %>
+<%@ Control Language="c#" AutoEventWireup="True"
+	Inherits="YAF.Pages.Admin.bannedip_edit" Codebehind="bannedip_edit.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">

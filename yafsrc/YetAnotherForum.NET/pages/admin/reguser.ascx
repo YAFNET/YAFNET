@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" CodeFile="reguser.ascx.cs" Inherits="YAF.Pages.Admin.reguser" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.reguser" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" Codebehind="reguser.ascx.cs" %>
 <YAF:PageLinks id="PageLinks" runat="server" />
 <YAF:adminmenu id="Adminmenu1" runat="server">
 	

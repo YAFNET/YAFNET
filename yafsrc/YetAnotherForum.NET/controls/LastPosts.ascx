@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="LastPosts.ascx.cs" Inherits="YAF.Controls.LastPosts" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.LastPosts" Codebehind="LastPosts.ascx.cs" %>
 <asp:Timer ID="LastPostUpdateTimer" runat="server" Interval="15000" OnTick="LastPostUpdateTimer_Tick">
 </asp:Timer>
 <div style="overflow: scroll; height: 400px;">

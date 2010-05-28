@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ForumProfileAccess.ascx.cs" Inherits="YAF.Controls.ForumProfileAccess" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.ForumProfileAccess" Codebehind="ForumProfileAccess.ascx.cs" %>
 <table width="100%" cellspacing="1" cellpadding="0">
     <tr class="header2">
         <td class="header2" colspan="2">

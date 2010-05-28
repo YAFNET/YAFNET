@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" CodeFile="ForumModeratorList.ascx.cs"
-    Inherits="YAF.Controls.ForumModeratorList" %>
+<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
+    Inherits="YAF.Controls.ForumModeratorList" Codebehind="ForumModeratorList.ascx.cs" %>
 <asp:Repeater ID="ModeratorList" runat="server">
     <ItemTemplate>
         <asp:PlaceHolder ID="ModeratorUser" runat="server" Visible='<%# Convert.ToInt32(((System.Data.DataRow)Container.DataItem)["IsGroup"]) == 0 %>'>

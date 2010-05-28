@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditUsersResetPass.ascx.cs"
-    Inherits="YAF.Controls.EditUsersResetPass" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+    Inherits="YAF.Controls.EditUsersResetPass" Codebehind="EditUsersResetPass.ascx.cs" %>
 <asp:UpdatePanel ID="PasswordUpdatePanel" runat="server" UpdateMode="Conditional">
 <ContentTemplate>
 <table width="100%" class="content" cellspacing="1" cellpadding="4">

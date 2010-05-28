@@ -1,4 +1,4 @@
-<%@ Control language="c#" CodeFile="editnntpforum.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editnntpforum" %>
+<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editnntpforum" Codebehind="editnntpforum.ascx.cs" %>
 <YAF:PageLinks id="PageLinks" runat="server" />
 <YAF:adminmenu runat="server">
 

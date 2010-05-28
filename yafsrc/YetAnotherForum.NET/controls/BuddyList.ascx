@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="BuddyList.ascx.cs" Inherits="YAF.Controls.BuddyList" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.BuddyList" Codebehind="BuddyList.ascx.cs" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />

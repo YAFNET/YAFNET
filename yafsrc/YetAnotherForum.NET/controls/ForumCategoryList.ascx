@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ForumCategoryList.ascx.cs"
-	Inherits="YAF.Controls.ForumCategoryList" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+	Inherits="YAF.Controls.ForumCategoryList" Codebehind="ForumCategoryList.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 <asp:UpdatePanel ID="UpdatePanelCategory" runat="server" UpdateMode="Conditional">
 	<ContentTemplate>

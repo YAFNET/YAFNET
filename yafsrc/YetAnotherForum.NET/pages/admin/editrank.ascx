@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="editrank.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editrank" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editrank" Codebehind="editrank.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">

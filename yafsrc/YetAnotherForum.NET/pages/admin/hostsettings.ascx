@@ -1,5 +1,5 @@
-<%@ Control Language="c#" CodeFile="hostsettings.ascx.cs" AutoEventWireup="True"
-	Inherits="YAF.Pages.Admin.hostsettings" %>
+<%@ Control Language="c#" AutoEventWireup="True"
+	Inherits="YAF.Pages.Admin.hostsettings" Codebehind="hostsettings.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../../controls/PMList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">

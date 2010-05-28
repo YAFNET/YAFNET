@@ -1,5 +1,5 @@
-<%@ Control Language="c#" AutoEventWireup="True" CodeFile="DisplayAd.ascx.cs" Inherits="YAF.Controls.DisplayAd"
-    EnableViewState="false" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayAd"
+    EnableViewState="false" Codebehind="DisplayAd.ascx.cs" %>
 <tr class="postheader">
     <td width="140" id="NameCell" runat="server">
         <b>

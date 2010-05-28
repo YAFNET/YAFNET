@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditUsersSuspend.ascx.cs"
-	Inherits="YAF.Controls.EditUsersSuspend" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+	Inherits="YAF.Controls.EditUsersSuspend" Codebehind="EditUsersSuspend.ascx.cs" %>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr runat="server" id="trHeader">
 		<td class="header1" colspan="2">

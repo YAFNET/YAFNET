@@ -1,5 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DisplayPostFooter.ascx.cs"
-	Inherits="YAF.Controls.DisplayPostFooter" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true"
+	Inherits="YAF.Controls.DisplayPostFooter" Codebehind="DisplayPostFooter.ascx.cs" %>
 <div class="displayPostFooter">
 	<div class="leftItem postInfoLeft">
 		<YAF:ThemeButton ID="btnTogglePost" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"

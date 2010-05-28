@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="cp_profile.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.cp_profile" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.cp_profile" Codebehind="cp_profile.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="ProfileYourAccount" Src="../controls/ProfileYourAccount.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table width="100%" cellspacing="1" cellpadding="0" class="content">

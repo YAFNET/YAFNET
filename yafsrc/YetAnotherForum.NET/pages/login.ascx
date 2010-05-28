@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="login.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.login" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.login" Codebehind="login.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditUsersKill.ascx.cs" Inherits="YAF.Controls.EditUsersKill" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersKill" Codebehind="EditUsersKill.ascx.cs" %>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr runat="server" id="trHeader">
 		<td class="header1" colspan="2">

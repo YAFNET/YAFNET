@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" CodeFile="ForumLastPost.ascx.cs"
-	Inherits="YAF.Controls.ForumLastPost" %>
+<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
+	Inherits="YAF.Controls.ForumLastPost" Codebehind="ForumLastPost.ascx.cs" %>
 <asp:PlaceHolder ID="LastPostedHolder" runat="server">
 	<asp:Label ID="LastPosted" runat="server" />
 	<br />

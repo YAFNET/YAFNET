@@ -1,5 +1,5 @@
-<%@ Control Language="c#" CodeFile="editcategory.ascx.cs" AutoEventWireup="True"
-    Inherits="YAF.Pages.Admin.editcategory" %>
+<%@ Control Language="c#" AutoEventWireup="True"
+    Inherits="YAF.Pages.Admin.editcategory" Codebehind="editcategory.ascx.cs" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu runat="server">
     

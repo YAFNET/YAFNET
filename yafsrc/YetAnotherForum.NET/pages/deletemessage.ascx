@@ -1,5 +1,5 @@
-<%@ Control Language="c#" CodeFile="deletemessage.ascx.cs" AutoEventWireup="True"
-    Inherits="YAF.Pages.deletemessage" %>
+<%@ Control Language="c#" AutoEventWireup="True"
+    Inherits="YAF.Pages.deletemessage" Codebehind="deletemessage.ascx.cs" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />

@@ -1,5 +1,5 @@
-<%@ Control Language="c#" CodeFile="nntpretrieve.ascx.cs" AutoEventWireup="True"
-	Inherits="YAF.Pages.Admin.nntpretrieve" %>
+<%@ Control Language="c#" AutoEventWireup="True"
+	Inherits="YAF.Pages.Admin.nntpretrieve" Codebehind="nntpretrieve.ascx.cs" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">

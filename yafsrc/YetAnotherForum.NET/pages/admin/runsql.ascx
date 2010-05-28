@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="runsql.ascx.cs" Inherits="YAF.Pages.Admin.runsql" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.runsql" Codebehind="runsql.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu ID="AdminMenu1" runat="server">
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">

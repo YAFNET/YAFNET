@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ProfileYourAccount.ascx.cs"
-    EnableViewState="true" Inherits="YAF.Controls.ProfileYourAccount" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+    EnableViewState="true" Inherits="YAF.Controls.ProfileYourAccount" Codebehind="ProfileYourAccount.ascx.cs" %>
 <table align="center" cellspacing="0" cellpadding="0" class="content"
     id="yafprofilecontent">
     <tr>

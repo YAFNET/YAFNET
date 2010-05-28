@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" CodeFile="ForumWelcome.ascx.cs"
-    Inherits="YAF.Controls.ForumWelcome" %>
+<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
+    Inherits="YAF.Controls.ForumWelcome" Codebehind="ForumWelcome.ascx.cs" %>
 <div class="yafForumWelcome">
     <div id="divTimeNow">
         <asp:Label ID="TimeNow" runat="server" /></div>

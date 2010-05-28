@@ -1,5 +1,5 @@
-<%@ Control Language="c#" CodeFile="replacewords_edit.ascx.cs" AutoEventWireup="True"
-    Inherits="YAF.Pages.Admin.replacewords_edit" %>
+<%@ Control Language="c#" AutoEventWireup="True"
+    Inherits="YAF.Pages.Admin.replacewords_edit" Codebehind="replacewords_edit.ascx.cs" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">
 	

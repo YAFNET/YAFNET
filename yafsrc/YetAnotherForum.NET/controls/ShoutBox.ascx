@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ShoutBox.ascx.cs" Inherits="YAF.Controls.ShoutBox" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.ShoutBox" Codebehind="ShoutBox.ascx.cs" %>
 
 <script type="text/javascript">
 	function insertsmiley(code, path) {

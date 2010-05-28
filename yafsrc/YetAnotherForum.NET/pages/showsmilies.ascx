@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="showsmilies.ascx.cs" Inherits="YAF.Pages.showsmilies" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.showsmilies" Codebehind="showsmilies.ascx.cs" %>
 <script language="javascript" type="text/javascript">
 <!--
 	// set close timer so this window doesn't stay open forever

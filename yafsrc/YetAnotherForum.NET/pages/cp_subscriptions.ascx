@@ -1,5 +1,5 @@
-<%@ Control Language="c#" CodeFile="cp_subscriptions.ascx.cs" AutoEventWireup="True"
-    Inherits="YAF.Pages.cp_subscriptions" %>
+<%@ Control Language="c#" AutoEventWireup="True"
+    Inherits="YAF.Pages.cp_subscriptions" Codebehind="cp_subscriptions.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel ID="SubscriptionsUpdatePanel" runat="server">
     <ContentTemplate>

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="pmessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.pmessage" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.pmessage" Codebehind="pmessage.ascx.cs" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">

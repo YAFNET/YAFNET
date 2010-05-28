@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="reindex.ascx.cs" Inherits="YAF.Pages.Admin.reindex" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.reindex" Codebehind="reindex.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu ID="AdminMenu1" runat="server">
 	<table cellpadding="0" cellspacing="1" class="content" width="100%">

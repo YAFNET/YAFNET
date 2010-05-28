@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="im_aim.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.im_aim" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.im_aim" Codebehind="im_aim.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
     <table cellspacing="0" cellpadding="0" border="0" align="center">

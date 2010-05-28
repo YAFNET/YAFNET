@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="groups.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.groups" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.groups" Codebehind="groups.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="AdminMenu">
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">

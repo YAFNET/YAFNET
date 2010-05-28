@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="info.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.info" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.info" Codebehind="info.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table style="width:100%;height:50%" border="0">
 	<tr>

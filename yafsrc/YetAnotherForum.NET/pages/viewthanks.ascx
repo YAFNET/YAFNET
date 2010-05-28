@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="ViewThanks.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.ViewThanks" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.ViewThanks" Codebehind="ViewThanks.ascx.cs" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <%@ Register TagPrefix="YAF" TagName="ViewThanksList" Src="../controls/ViewThanksList.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />

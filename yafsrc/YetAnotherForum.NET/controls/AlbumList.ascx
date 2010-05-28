@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AlbumList.ascx.cs" Inherits="YAF.Controls.AlbumList" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.AlbumList" Codebehind="AlbumList.ascx.cs" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <div class="imgtitle">
    <YAF:LocalizedLabel ID="AlbumHeaderLabel" runat="server" LocalizedTag="ALBUMS_HEADER_TEXT" Param0="" />

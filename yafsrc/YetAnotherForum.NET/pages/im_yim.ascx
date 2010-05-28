@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="im_yim.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.im_yim" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.im_yim" Codebehind="im_yim.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
     <asp:HyperLink runat="server" ID="Msg">

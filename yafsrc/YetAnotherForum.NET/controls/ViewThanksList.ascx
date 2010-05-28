@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ViewThanksList.ascx.cs"
-    Inherits="YAF.Controls.ViewThanksList" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+    Inherits="YAF.Controls.ViewThanksList" Codebehind="ViewThanksList.ascx.cs" %>
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
     <tr>
         <td>

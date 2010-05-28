@@ -1,5 +1,5 @@
-<%@ Control Language="c#" CodeFile="cp_signature.ascx.cs" AutoEventWireup="True"
-    Inherits="YAF.Pages.cp_signature" %>
+<%@ Control Language="c#" AutoEventWireup="True"
+    Inherits="YAF.Pages.cp_signature" Codebehind="cp_signature.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel ID="SignatureUpdatePanel" runat="server">

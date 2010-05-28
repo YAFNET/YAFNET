@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="error.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.error" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.error" Codebehind="error.ascx.cs" %>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
         <td class="header1">

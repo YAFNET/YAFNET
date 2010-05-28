@@ -1,5 +1,5 @@
-<%@ Control Language="c#" CodeFile="smilies_edit.ascx.cs" AutoEventWireup="True"
-	Inherits="YAF.Pages.Admin.smilies_edit" %>
+<%@ Control Language="c#" AutoEventWireup="True"
+	Inherits="YAF.Pages.Admin.smilies_edit" Codebehind="smilies_edit.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">

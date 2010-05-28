@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="restartapp.ascx.cs" Inherits="YAF.Pages.Admin.restartapp" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.restartapp" Codebehind="restartapp.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu ID="adminmenu1" runat="server">
 	<table width="100%" cellspacing="0" cellpadding="0" class="content">

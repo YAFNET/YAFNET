@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" CodeFile="ForumActiveDiscussion.ascx.cs"
-    Inherits="YAF.Controls.ForumActiveDiscussion" %>
+<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumActiveDiscussion"
+    CodeBehind="ForumActiveDiscussion.ascx.cs" %>
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <table border="0" class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -14,7 +14,7 @@
                 <tr>
                     <td class="header2" colspan="2">
                         <YAF:LocalizedLabel ID="LatestPostsHeader" runat="server" LocalizedTag="LATEST_POSTS" />
-                    </td>             
+                    </td>
                 </tr>
                 <asp:Repeater runat="server" ID="LatestPosts" OnItemDataBound="LatestPosts_ItemDataBound">
                     <ItemTemplate>
@@ -28,17 +28,18 @@
                             <td class="post" style="width: 30em; text-align: right;">
                                 <asp:Label ID="LastPostedDateLabel" runat="server" />
                                 <asp:HyperLink ID="ImageMessageLink" runat="server">
-                                    <YAF:ThemeImage ID="LastPostedImage" runat="server" LocalizedTitlePage="DEFAULT" LocalizedTitleTag="GO_LAST_POST" Style="border: 0" />
+                                    <YAF:ThemeImage ID="LastPostedImage" runat="server" LocalizedTitlePage="DEFAULT"
+                                        LocalizedTitleTag="GO_LAST_POST" Style="border: 0" />
                                 </asp:HyperLink>
                             </td>
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
                 <tr>
-                <td class="footer2" align="right" colspan="2">
-                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" 
-                            Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" TitleLocalizedTag="RSSICONTOOLTIPACTIVE" />                        
-                </td>
+                    <td class="footer1" align="right" colspan="2">
+                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>"
+                            TitleLocalizedTag="RSSICONTOOLTIPACTIVE" />
+                    </td>
                 </tr>
             </asp:PlaceHolder>
         </table>

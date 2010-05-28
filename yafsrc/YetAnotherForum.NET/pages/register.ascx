@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="register.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.register" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.register" Codebehind="register.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
 	<asp:CreateUserWizard ID="CreateUserWizard1" runat="server" StartNextButtonText="Agree"

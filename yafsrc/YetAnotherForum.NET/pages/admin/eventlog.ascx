@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="eventlog.ascx.cs" AutoEventWireup="True" EnableViewState="true" Inherits="YAF.Pages.Admin.eventlog" %>
+<%@ Control Language="c#" AutoEventWireup="True" EnableViewState="true" Inherits="YAF.Pages.Admin.eventlog" Codebehind="eventlog.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="AdminMenu1">
     <asp:UpdatePanel ID="eventUpdate" runat="server" UpdateMode="Conditional">

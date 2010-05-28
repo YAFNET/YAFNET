@@ -1,6 +1,6 @@
 ﻿<%@ Import Namespace="System.Data" %>
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReportedPosts.ascx.cs"
-    Inherits="YAF.Controls.ReportedPosts" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+    Inherits="YAF.Controls.ReportedPosts" Codebehind="ReportedPosts.ascx.cs" %>
 <asp:Repeater ID="ReportedPostsRepeater" runat="server">
     <HeaderTemplate>
         <table width="100%" class="content">

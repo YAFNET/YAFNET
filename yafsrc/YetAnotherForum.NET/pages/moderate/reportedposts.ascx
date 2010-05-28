@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportedposts.ascx.cs"
-    Inherits="YAF.Pages.moderate.reportedposts" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+    Inherits="YAF.Pages.moderate.reportedposts" Codebehind="reportedposts.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="ReportedPosts" Src="../../controls/ReportedPosts.ascx" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />

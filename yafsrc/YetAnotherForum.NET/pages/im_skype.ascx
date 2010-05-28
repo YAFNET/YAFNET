@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="im_skype.ascx.cs" Inherits="YAF.Pages.im_skype" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.im_skype" Codebehind="im_skype.ascx.cs" %>
 <script type="text/javascript"
 src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js">
 </script>

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PostOptions.ascx.cs" Inherits="YAF.Controls.PostOptions" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PostOptions" Codebehind="PostOptions.ascx.cs" %>
 <tr id="OptionsRow" runat="server">
     <td class="postformheader" valign="top">
         <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" />

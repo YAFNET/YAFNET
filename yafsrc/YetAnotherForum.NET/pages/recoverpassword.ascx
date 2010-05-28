@@ -1,5 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="recoverpassword.ascx.cs"
-	Inherits="YAF.Pages.recoverpassword" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true"
+	Inherits="YAF.Pages.recoverpassword" Codebehind="recoverpassword.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
 	<asp:PasswordRecovery ID="PasswordRecovery1" runat="server" OnSendingMail="PasswordRecovery1_SendingMail" OnVerifyingUser="PasswordRecovery1_VerifyingUser" OnSendMailError="PasswordRecovery1_SendMailError" OnVerifyingAnswer="PasswordRecovery1_VerifyingAnswer" OnAnswerLookupError="PasswordRecovery1_AnswerLookupError">

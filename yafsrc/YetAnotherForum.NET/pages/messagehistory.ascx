@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="messagehistory.ascx.cs" Inherits="YAF.Pages.messagehistory" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.messagehistory" Codebehind="messagehistory.ascx.cs" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">

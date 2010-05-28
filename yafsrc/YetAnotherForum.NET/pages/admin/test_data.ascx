@@ -1,5 +1,5 @@
-<%@ Control Language="c#" AutoEventWireup="True" CodeFile="test_data.ascx.cs" Inherits="YAF.Pages.Admin.test_data"
-	TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.test_data"
+	TargetSchema="http://schemas.microsoft.com/intellisense/ie5" Codebehind="test_data.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
 	<DotNetAge:Tabs ID="TestDataTabs" runat="server" ActiveTabEvent="Click" AsyncLoad="false"

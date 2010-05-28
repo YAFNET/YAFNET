@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="MyTopicsList.ascx.cs"
-    Inherits="YAF.Controls.MyTopicsList" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+    Inherits="YAF.Controls.MyTopicsList" Codebehind="MyTopicsList.ascx.cs" %>
 <table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">
     <tr>
         <td align="right">

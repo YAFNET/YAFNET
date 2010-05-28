@@ -1,6 +1,6 @@
 <%@ Register TagPrefix="user" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
-<%@ Control Language="c#" AutoEventWireup="True" CodeFile="DisplayPost.ascx.cs" Inherits="YAF.Controls.DisplayPost"
-	EnableViewState="false" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayPost"
+	EnableViewState="false" Codebehind="DisplayPost.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
 <%@ Import Namespace="YAF.Classes.Core"%>
 <tr class="postheader">		

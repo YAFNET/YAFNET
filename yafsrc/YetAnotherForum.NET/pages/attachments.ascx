@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="attachments.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.attachments" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.attachments" Codebehind="attachments.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator">
 </div>

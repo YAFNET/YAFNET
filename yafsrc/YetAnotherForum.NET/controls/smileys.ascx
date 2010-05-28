@@ -1,5 +1,5 @@
-<%@ Control Language="c#" AutoEventWireup="True" CodeFile="smileys.ascx.cs" Inherits="YAF.Controls.smileys"
-	TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.smileys"
+	TargetSchema="http://schemas.microsoft.com/intellisense/ie5" Codebehind="smileys.ascx.cs" %>
 <asp:PlaceHolder ID="SmiliesPlaceholder" runat="server" Visible="true">
 	<br />
 	<br />

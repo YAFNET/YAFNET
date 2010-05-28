@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="mail.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.mail" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.mail" Codebehind="mail.ascx.cs" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu runat="server">
 	

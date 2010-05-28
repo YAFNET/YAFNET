@@ -1,4 +1,4 @@
-<%@ Control language="c#" CodeFile="nntpforums.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.nntpforums" %>
+<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.nntpforums" Codebehind="nntpforums.ascx.cs" %>
 
 
 

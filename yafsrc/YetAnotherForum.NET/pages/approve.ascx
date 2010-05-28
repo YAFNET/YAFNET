@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="approve.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.approve" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.approve" Codebehind="approve.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="DivTopSeparator"></div>
 <div align="center">

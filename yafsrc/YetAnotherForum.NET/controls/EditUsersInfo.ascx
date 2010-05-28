@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditUsersInfo.ascx.cs"
-	Inherits="YAF.Controls.EditUsersInfo" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+	Inherits="YAF.Controls.EditUsersInfo" Codebehind="EditUsersInfo.ascx.cs" %>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header1" colspan="2">

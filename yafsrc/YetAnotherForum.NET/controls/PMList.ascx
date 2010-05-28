@@ -1,6 +1,6 @@
 <%@ Import Namespace="YAF.Classes.Utils" %>
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PMList.ascx.cs" Inherits="YAF.Controls.PMList"
-	EnableTheming="true" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PMList"
+	EnableTheming="true" Codebehind="PMList.ascx.cs" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 

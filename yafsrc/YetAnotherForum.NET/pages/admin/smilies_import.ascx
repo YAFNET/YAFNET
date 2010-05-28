@@ -1,4 +1,4 @@
-<%@ Control language="c#" CodeFile="smilies_import.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies_import" %>
+<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies_import" Codebehind="smilies_import.ascx.cs" %>
 
 
 

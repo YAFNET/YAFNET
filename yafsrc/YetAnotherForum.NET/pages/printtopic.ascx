@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="printtopic.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.printtopic" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.printtopic" Codebehind="printtopic.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="Posts" runat="server">
     <ItemTemplate>

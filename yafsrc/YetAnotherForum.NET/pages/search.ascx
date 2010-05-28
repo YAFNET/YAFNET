@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="search.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.search" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.search" Codebehind="search.ascx.cs" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <%@ Register Namespace="nStuff.UpdateControls" Assembly="nStuff.UpdateControls" TagPrefix="nStuff" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />

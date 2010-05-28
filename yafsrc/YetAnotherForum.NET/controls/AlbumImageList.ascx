@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AlbumImageList.ascx.cs"
-    Inherits="YAF.Controls.AlbumImageList" %>
+<%@ Control Language="C#" AutoEventWireup="true"
+    Inherits="YAF.Controls.AlbumImageList" Codebehind="AlbumImageList.ascx.cs" %>
 <asp:Literal ID="ltrTitleOnly" runat="server"></asp:Literal>
 <span runat="server" id="spnAlbumOwner" visible='<%# UserID == PageContext.PageUserID %>'>
     <span id='<%= "spnTitle0" + AlbumID %>' class="albumtitle" onclick="showTexBox(this.id)"

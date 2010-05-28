@@ -1,4 +1,4 @@
-<%@ Control Language="c#" CodeFile="movetopic.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.movetopic" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.movetopic" Codebehind="movetopic.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>

@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" CodeFile="ForumIconLegend.ascx.cs"
-	Inherits="YAF.Controls.ForumIconLegend" %>
+<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
+	Inherits="YAF.Controls.ForumIconLegend" Codebehind="ForumIconLegend.ascx.cs" %>
 <table style="padding: 2px; margin: 2px" width="100%">
 	<tr>
 		<td>
