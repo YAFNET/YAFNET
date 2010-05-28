@@ -2,7 +2,10 @@
 <Resources theme="Clean Slate" dir="cleanSlate">
 	<page name="THEME">
 		<Resource tag="CREDIT">Clean Slate theme by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
-	</page>
+    <Resource tag="HEADER">
+      &lt;script type="text/javascript" src="~/cleanslate.js" /&gt;
+    </Resource>
+  </page>
 	<page name="ICONS">
 		<Resource tag="PM">~/icon_pm.png</Resource>
 		<Resource tag="EMAIL">~/icon_email.png</Resource>
