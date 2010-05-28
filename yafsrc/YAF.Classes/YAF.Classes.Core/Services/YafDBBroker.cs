@@ -181,7 +181,18 @@ namespace YAF.Classes.Core
         string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, userID));
 
         // get a row with user lazy data...
-        return YafContext.Current.Cache.GetItem(key, YafContext.Current.BoardSettings.ActiveUserLazyDataCacheTimeout, () => DB.user_lazydata(userID, YafContext.Current.PageBoardID,YafContext.Current.BoardSettings.AllowEmailSending, YafContext.Current.BoardSettings.EnableBuddyList, YafContext.Current.BoardSettings.AllowPrivateMessages, YafContext.Current.BoardSettings.EnableAlbum, YafContext.Current.BoardSettings.UseStyledNicks));
+      return YafContext.Current.Cache.GetItem(
+        key,
+        YafContext.Current.BoardSettings.ActiveUserLazyDataCacheTimeout,
+        () =>
+        DB.user_lazydata(
+          userID,
+          YafContext.Current.PageBoardID,
+          YafContext.Current.BoardSettings.AllowEmailSending,
+          YafContext.Current.BoardSettings.EnableBuddyList,
+          YafContext.Current.BoardSettings.AllowPrivateMessages,
+          YafContext.Current.BoardSettings.EnableAlbum,
+          YafContext.Current.BoardSettings.UseStyledNicks));
        
     }
 
@@ -263,9 +274,9 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public DataTable GetLatestTopics(int numberOfPosts, int userId, params string [] styleColumnNames)
+    public DataTable GetLatestTopics(int numberOfPosts, int userId, params string[] styleColumnNames)
     {
-        return this.StyleTransformDataTable(
+      return this.StyleTransformDataTable(
           DB.topic_latest(YafContext.Current.PageBoardID, numberOfPosts, userId, YafContext.Current.BoardSettings.UseStyledNicks), styleColumnNames);
     }
 
