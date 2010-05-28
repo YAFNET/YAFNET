@@ -1,5 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" %>
-<%@ Import Namespace="YAF.Classes.Core"%>
+<%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
 <script runat="server">
 	public void Page_Error( object sender, System.EventArgs e )
 	{

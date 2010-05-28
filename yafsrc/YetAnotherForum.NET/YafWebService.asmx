@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="~/App_Code/YAF/YafWebService.cs" Class="YafWebService" %>
+﻿<%@ WebService Language="C#" CodeBehind="~/Classes/YafWebService.cs" Class="YafWebService" %>

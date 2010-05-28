@@ -1,6 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" %>
-
-<%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
 
 <script runat="server">
 	void Page_Load( object sender, System.EventArgs e )
