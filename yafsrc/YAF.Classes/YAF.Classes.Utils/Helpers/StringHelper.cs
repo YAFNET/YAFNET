@@ -509,6 +509,28 @@ namespace YAF.Classes.Utils
       return output;
     }
 
+    /// <summary>
+    /// Formats a string with the provided parameters
+    /// </summary>
+    /// <param name="s">
+    /// The s.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    /// <returns>
+    /// The formatted string
+    /// </returns>
+    public static string FormatWith(this string s, params object[] args)
+    {
+      if (String.IsNullOrEmpty(s))
+      {
+        return null;
+      }
+
+      return String.Format(s, args);
+    }
+
     #endregion
   }
 }
