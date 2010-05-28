@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{555357E5-A150-4C4D-BC81-97F4AE19086A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -111,6 +111,9 @@
       <Name>System</Name>
     </Reference>
     <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
@@ -1970,13 +1973,6 @@
     <Content Include="Resource.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="images\avatars\" />
-    <Folder Include="images\categories\" />
-    <Folder Include="images\emoticons\" />
-    <Folder Include="images\ranks\" />
-    <Folder Include="uploads\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
@@ -2005,6 +2001,13 @@
       <Project>{95A44CD9-4399-4DB9-823F-1A264083A390}</Project>
       <Name>YAF.Providers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images\avatars\" />
+    <Folder Include="images\categories\" />
+    <Folder Include="images\emoticons\" />
+    <Folder Include="images\ranks\" />
+    <Folder Include="uploads\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
