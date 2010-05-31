@@ -6,12 +6,12 @@ using System.Security;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("YAF for DotNetNuke")]
+[assembly: AssemblyTitle("Yet Another Forum.NET for DotNetNuke")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
-[assembly: AssemblyProduct("YAF for DotNetNuke")]
-[assembly: AssemblyCopyright( "Copyright © 2006-2009 Yet Another Forum.NET" )]
+[assembly: AssemblyProduct("Yet Another Forum.NET for DotNetNuke")]
+[assembly: AssemblyCopyright( "Copyright © 2006-2010 Yet Another Forum.NET" )]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -39,4 +39,4 @@ using System.Security;
 [assembly: AllowPartiallyTrustedCallers]
 #endif
 [assembly: AssemblyDelaySign( false )]
-[assembly: AssemblyKeyFile( "..\\yafsrc\\YetAnotherForum.NET.snk" )]
+//[assembly: AssemblyKeyFile( "..\\yafsrc\\YetAnotherForum.NET.snk" )]

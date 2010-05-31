@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yaf_dnn", "yaf_dnn.csproj", "{EBBEABD8-324F-4BDC-873E-DDA78B6E669D}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.DotNetNuke.Module", "YAF.DotNetNuke.Module.csproj", "{EBBEABD8-324F-4BDC-873E-DDA78B6E669D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

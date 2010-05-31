@@ -1,4 +1,5 @@
-﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,9 +9,13 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>yaf_dnn</RootNamespace>
-    <AssemblyName>yaf_dnn</AssemblyName>
+    <RootNamespace>YAF.DotNetNuke</RootNamespace>
+    <AssemblyName>YAF.DotNetNuke.Module</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,8 +34,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetNuke, Version=5.1.0.773, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>bin\DotNetNuke.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -51,17 +62,50 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="YAF.Classes.Config, Version=1.9.3.0, Culture=neutral, PublicKeyToken=8b49dc47f4701f66, processorArchitecture=MSIL">
-      <HintPath>..\yafsrc\YetAnotherForum.NET\Bin\Net3.5\YAF.Classes.Config.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="YAF">
+      <HintPath>..\yafsrc\YetAnotherForum.NET\Bin\YAF.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="YAF.Classes.Config">
+      <HintPath>..\yafsrc\YetAnotherForum.NET\Bin\YAF.Classes.Config.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="YAF.Classes.Core">
+      <HintPath>..\yafsrc\YetAnotherForum.NET\Bin\YAF.Classes.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="YAF.Classes.Data">
+      <HintPath>..\yafsrc\YetAnotherForum.NET\Bin\YAF.Classes.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="YAF.Classes.Utils">
+      <HintPath>..\yafsrc\YetAnotherForum.NET\Bin\YAF.Classes.Utils.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DotNetNukeUrlBuilder.cs" />
+    <Compile Include="DotNetNukeModule.ascx.cs">
+      <DependentUpon>DotNetNukeModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DotNetNukeModule.ascx.designer.cs">
+      <DependentUpon>DotNetNukeModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DotNetNukeModuleEdit.ascx.cs">
+      <DependentUpon>DotNetNukeModuleEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DotNetNukeModuleEdit.ascx.designer.cs">
+      <DependentUpon>DotNetNukeModuleEdit.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="DotNetNukeModule.ascx" />
+    <Content Include="DotNetNukeModuleEdit.ascx" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
