@@ -55,15 +55,7 @@
 					<resourceFiles>
 						<basePath>DesktopModules/YetAnotherForumDotNet</basePath>
 						<resourceFile>
-							<name>yafdnn_res.zip</name>
-						</resourceFile>
-					</resourceFiles>
-				</component>
-				<component type="ResourceFile">
-					<resourceFiles>
-						<basePath>App_Code/YAF</basePath>
-						<resourceFile>
-							<name>yafdnn_appcode_res.zip</name>
+							<name>yafnet_res.zip</name>
 						</resourceFile>
 					</resourceFiles>
 				</component>
@@ -123,6 +115,11 @@
 						</assembly>
 						<assembly>
 							<path>bin</path>
+							<name>YAF.dll</name>
+							<version>1.9.4.0</version>
+						</assembly>						
+						<assembly>
+							<path>bin</path>
 							<name>DNA.dll</name>
 							<version>1.1.15.0</version>
 						</assembly>
@@ -146,6 +143,11 @@
 							<name>nStuff.UpdateControls.dll</name>
 							<version>1.2.0.0</version>
 						</assembly>
+						<assembly>
+							<path>bin</path>
+							<name>AjaxPro.2.dll</name>
+							<version>9.2.17.1</version>
+						</assembly>						
 					</assemblies>
 				</component>
 				<component type="Config">
@@ -154,9 +156,6 @@
 						<install>
 							<configuration>
 								<nodes>
-									<node path="/configuration/system.web/compilation/codeSubDirectories" action="update" key="directoryName" collision="overwrite">
-										<add directoryName="YAF" />
-									</node>
 									<node path="/configuration/system.web/pages/controls" action="update" key="namespace" collision="overwrite">
 										<add tagPrefix="DotNetAge" namespace="DNA.UI.JQuery" assembly="DNA.UI.JQuery"/>
 										<add tagPrefix="DotNetAge" namespace="DNA.UI" assembly="DNA"/>
@@ -184,6 +183,12 @@
 										<add key="YAF.ProviderKeyType" value="System.Guid" />
 										<add key="YAF.AllowLoginAndLogoff" value="false" />
 									</node>
+									<node path="/configuration/system.web/httpHandlers" action="update" key="name" collision="overwrite">
+										<add verb="POST,GET,HEAD" path="ajaxpro/*.ashx" type="AjaxPro.AjaxHandlerFactory, AjaxPro.2"/>
+									</node>			
+									<node path="/configuration/system.webServer/handlers" action="update" key="name" collision="overwrite">
+										<add name="AjaxPro" verb="POST,GET,HEAD" path="ajaxpro/*.ashx" type="AjaxPro.AjaxHandlerFactory, AjaxPro.2"/>
+									</node>									
 									<node path="/configuration/system.web/httpModules" action="update" key="name" collision="overwrite">
 										<remove name="YafTaskModule"/>
 										<add name="YafTaskModule" type="YAF.Classes.Core.YafTaskModule, YAF.Classes.Core"/>
@@ -198,7 +203,6 @@
 						<uninstall>
 							<configuration>
 								<nodes>
-									<node path="/configuration/system.web/compilation/codeSubDirectories/add[@directoryName='YAF']" action="remove" />
 									<node path="/configuration/system.web/pages/controls/add[@tagPrefix='YAF']" action="remove" />
 									<node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF.')]" action="remove" />
 									<node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
@@ -206,6 +210,8 @@
 									<node path="/configuration/system.web/httpModules/remove[starts-with(@name,'Yaf')]" action="remove" />
 									<node path="/configuration/system.webServer/modules/add[starts-with(@name,'Yaf')]" action="remove" />
 									<node path="/configuration/system.webServer/modules/remove[starts-with(@name,'Yaf')]" action="remove" />
+									<node path="/configuration/system.web/httpHandlers/add[starts-with(@type,'AjaxPro')]" action="remove" />
+									<node path="/configuration/system.webServer/handlers/add[starts-with(@name,'AjaxPro')]" action="remove" />
 								</nodes>
 							</configuration>
 						</uninstall>
