@@ -4140,7 +4140,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_delete](@ID int) AS
 BEGIN
-		DELETE FROM [{databaseOwner}].[{objectQualifier}replace_words] WHERE id = @ID
+		DELETE FROM [{databaseOwner}].[{objectQualifier}replace_words] WHERE ID = @ID
 END
 GO
 
@@ -6915,7 +6915,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_addignoreduser]
 	@UserId int,
 	@IgnoredUserId int
 AS BEGIN
-		IF NOT EXISTS (SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @ignoredUserId)
+		IF NOT EXISTS (SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @IgnoredUserId)
 	BEGIN
 		INSERT INTO [{databaseOwner}].[{objectQualifier}IgnoreUser] (UserID, IgnoredUserID) VALUES (@UserId, @IgnoredUserId)
 	END
@@ -6926,7 +6926,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removeignoreduser]
     @UserId int,
     @IgnoredUserId int
 AS BEGIN
-		DELETE FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @ignoredUserId
+		DELETE FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @IgnoredUserId
 	
 END
 GO
@@ -6935,7 +6935,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_isuserignored]
     @UserId int,
     @IgnoredUserId int
 AS BEGIN
-		IF EXISTS(SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @ignoredUserId)
+		IF EXISTS(SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @IgnoredUserId)
 	BEGIN
 		RETURN 1
 	END
