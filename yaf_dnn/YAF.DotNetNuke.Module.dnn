@@ -28,9 +28,9 @@
 								<moduleControls>
 									<moduleControl>
 										<controlKey />
-										<controlSrc>DesktopModules/YetAnotherForumDotNet/DotNetNukeModule.ascx</controlSrc>
+										<controlSrc>DesktopModules/YetAnotherForumDotNet/YafDnnModule.ascx</controlSrc>
 										<supportsPartialRendering>False</supportsPartialRendering>
-										<controlTitle>YAF Forum</controlTitle>
+										<controlTitle>YAF.NET Forum</controlTitle>
 										<controlType>View</controlType>
 										<iconFile />
 										<helpUrl />
@@ -38,9 +38,9 @@
 									</moduleControl>
 									<moduleControl>
 										<controlKey>Edit</controlKey>
-										<controlSrc>DesktopModules/YetAnotherForumDotNet/DotNetNukeModuleEdit.ascx</controlSrc>
+										<controlSrc>DesktopModules/YetAnotherForumDotNet/YafDnnModuleEdit.ascx</controlSrc>
 										<supportsPartialRendering>False</supportsPartialRendering>
-										<controlTitle>Edit YAF Settings</controlTitle>
+										<controlTitle>Edit YAF.NET Settings</controlTitle>
 										<controlType>Edit</controlType>
 										<iconFile />
 										<helpUrl />
@@ -63,22 +63,21 @@
 					<files>
 						<basePath>DesktopModules/YetAnotherForumDotNet</basePath>
 						<file>
-							<name>DotNetNukeModule.ascx</name>
+							<name>YafDnnModule.ascx</name>
 						</file>
 						<file>
-							<name>DotNetNukeModule.ascx.cs</name>
-						</file>
-						<file>
-							<name>DotNetNukeModuleEdit.ascx</name>
-						</file>
-						<file>
-							<name>DotNetNukeModuleEdit.ascx.cs</name>
+							<name>YafDnnModuleEdit.ascx</name>
 						</file>
 					</files>
 				</component>
 				<component type="Assembly">
 					<assemblies>
-						<assembly>
+            <assembly>
+              <path>bin</path>
+              <name>YAF.DotNetNuke.Module.dll</name>
+              <version>1.9.4.0</version>
+            </assembly>
+            <assembly>
 							<path>bin</path>
 							<name>YAF.Classes.Config.dll</name>
 							<version>1.9.4.0</version>

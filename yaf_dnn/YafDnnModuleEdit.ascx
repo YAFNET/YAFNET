@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" Inherits="YAF.DotNetNukeModuleEdit" AutoEventWireup="false" Codebehind="DotNetNukeModuleEdit.ascx.cs" %>
+﻿<%@ Control Language="c#" Inherits="YAF.DotNetNuke.YafDnnModuleEdit" AutoEventWireup="false" Codebehind="YafDnnModuleEdit.ascx.cs" %>
 <table width="100%" cellspacing="0" cellpadding="2" summary="importantmessagesdev edit design table">
     <tr>
         <td width="50%" class="SubHead">

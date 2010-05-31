@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DotNetNukeModuleEdit.ascx.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   Summary description for DotNetNukeModule.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace YAF
+﻿namespace YAF.DotNetNuke
 {
   #region Using
 
@@ -16,7 +7,7 @@ namespace YAF
   using System.Web.UI;
   using System.Web.UI.WebControls;
 
-  using DotNetNuke.Entities.Modules;
+  using global::DotNetNuke.Entities.Modules;
 
   using YAF.Classes;
   using YAF.Classes.Data;
@@ -25,9 +16,9 @@ namespace YAF
   #endregion
 
   /// <summary>
-  /// Summary description for DotNetNukeModule.
+  /// YafDnnModule Editor Module
   /// </summary>
-  public partial class DotNetNukeModuleEdit : PortalModuleBase
+  public partial class YafDnnModuleEdit : PortalModuleBase
   {
     // protected DropDownList    BoardID, CategoryID;
     // protected LinkButton    update, cancel, create;
@@ -57,7 +48,7 @@ namespace YAF
     /// </param>
     protected override void Render(HtmlTextWriter writer)
     {
-      writer.WriteLine("<link rel='stylesheet' type='text/css' href='{0}themes/standard/theme.css'/>", Config.AppRoot);
+      writer.WriteLine("<link rel='stylesheet' type='text/css' href='{0}themes/cleanslate/theme.css'/>", Config.AppRoot);
       base.Render(writer);
     }
 

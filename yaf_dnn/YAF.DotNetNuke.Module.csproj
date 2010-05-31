@@ -37,7 +37,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetNuke, Version=5.1.0.773, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DotNetNuke">
       <HintPath>bin\DotNetNuke.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -84,28 +84,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DotNetNukeModule.ascx.cs">
-      <DependentUpon>DotNetNukeModule.ascx</DependentUpon>
+    <Compile Include="YafDnnModule.ascx.cs">
+      <DependentUpon>YafDnnModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="DotNetNukeModule.ascx.designer.cs">
-      <DependentUpon>DotNetNukeModule.ascx</DependentUpon>
+    <Compile Include="YafDnnModule.ascx.designer.cs">
+      <DependentUpon>YafDnnModule.ascx</DependentUpon>
     </Compile>
-    <Compile Include="DotNetNukeModuleEdit.ascx.cs">
-      <DependentUpon>DotNetNukeModuleEdit.ascx</DependentUpon>
+    <Compile Include="YafDnnModuleEdit.ascx.cs">
+      <DependentUpon>YafDnnModuleEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="DotNetNukeModuleEdit.ascx.designer.cs">
-      <DependentUpon>DotNetNukeModuleEdit.ascx</DependentUpon>
+    <Compile Include="YafDnnModuleEdit.ascx.designer.cs">
+      <DependentUpon>YafDnnModuleEdit.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DotNetNukeModule.ascx" />
-    <Content Include="DotNetNukeModuleEdit.ascx" />
+    <Content Include="YafDnnModule.ascx" />
+    <Content Include="YafDnnModuleEdit.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="YAF.DotNetNuke.Module.dnn">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="'$(Solutions.VSVersion)' == '9.0'" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="'$(Solutions.VSVersion)' == '10.0'" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

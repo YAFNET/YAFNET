@@ -1,4 +1,4 @@
-﻿namespace YAF
+﻿namespace YAF.DotNetNuke
 {
   #region Using
 
@@ -7,15 +7,15 @@
   using System.Web;
   using System.Web.Security;
 
-  using DotNetNuke.Common;
-  using DotNetNuke.Common.Utilities;
-  using DotNetNuke.Entities.Modules;
-  using DotNetNuke.Entities.Modules.Actions;
-  using DotNetNuke.Entities.Portals;
-  using DotNetNuke.Entities.Users;
-  using DotNetNuke.Framework;
-  using DotNetNuke.Security;
-  using DotNetNuke.Services.Exceptions;
+  using global::DotNetNuke.Common;
+  using global::DotNetNuke.Common.Utilities;
+  using global::DotNetNuke.Entities.Modules;
+  using global::DotNetNuke.Entities.Modules.Actions;
+  using global::DotNetNuke.Entities.Portals;
+  using global::DotNetNuke.Entities.Users;
+  using global::DotNetNuke.Framework;
+  using global::DotNetNuke.Security;
+  using global::DotNetNuke.Services.Exceptions;
 
   using YAF.Classes.Core;
   using YAF.Classes.Data;
@@ -26,7 +26,7 @@
   /// <summary>
   /// The YAF DotNetNukeModule
   /// </summary>
-  public partial class DotNetNukeModule : PortalModuleBase, IActionable
+  public partial class YafDnnModule : PortalModuleBase, IActionable
   {
     #region Constants and Fields
 
@@ -140,28 +140,34 @@
     protected override void OnInit(EventArgs e)
     {
       if (AJAX.IsInstalled())
+      {
         AJAX.RegisterScriptManager();
+      }
 
-      Load += DotNetNukeModule_Load;
-      Forum1.PageTitleSet += Forum1_PageTitleSet;
+      this.Load += this.DotNetNukeModule_Load;
+      this.Forum1.PageTitleSet += this.Forum1_PageTitleSet;
 
-      //Get current BoardID
+      // Get current BoardID
       try
       {
-        _createNewBoard = false;
-        // This will create an error if there is no setting for forumboardid
-        Forum1.BoardID = int.Parse(Settings["forumboardid"].ToString());
+        this._createNewBoard = false;
 
-        string cID = Settings["forumcategoryid"].ToString();
+        // This will create an error if there is no setting for forumboardid
+        this.Forum1.BoardID = int.Parse(this.Settings["forumboardid"].ToString());
+
+        string cID = this.Settings["forumcategoryid"].ToString();
         if (cID != string.Empty)
-          Forum1.CategoryID = int.Parse(cID);
+        {
+          this.Forum1.CategoryID = int.Parse(cID);
+        }
       }
       catch (Exception)
       {
-        //A forum does not exist for this module
-        //Create a new board
-        _createNewBoard = true;
-        //Forum1.BoardID = 1;
+        // A forum does not exist for this module
+        // Create a new board
+        this._createNewBoard = true;
+
+        // Forum1.BoardID = 1;
       }
 
       base.OnInit(e);
