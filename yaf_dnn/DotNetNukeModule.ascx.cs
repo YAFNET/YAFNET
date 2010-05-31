@@ -139,30 +139,29 @@
     /// </param>
     protected override void OnInit(EventArgs e)
     {
-      this.Load += this.DotNetNukeModule_Load;
-      this.Forum1.PageTitleSet += this.Forum1_PageTitleSet;
+      if (AJAX.IsInstalled())
+        AJAX.RegisterScriptManager();
 
-      // Get current BoardID
+      Load += DotNetNukeModule_Load;
+      Forum1.PageTitleSet += Forum1_PageTitleSet;
+
+      //Get current BoardID
       try
       {
-        this._createNewBoard = false;
-
+        _createNewBoard = false;
         // This will create an error if there is no setting for forumboardid
-        this.Forum1.BoardID = int.Parse(this.Settings["forumboardid"].ToString());
+        Forum1.BoardID = int.Parse(Settings["forumboardid"].ToString());
 
-        string cID = this.Settings["forumcategoryid"].ToString();
+        string cID = Settings["forumcategoryid"].ToString();
         if (cID != string.Empty)
-        {
-          this.Forum1.CategoryID = int.Parse(cID);
-        }
+          Forum1.CategoryID = int.Parse(cID);
       }
       catch (Exception)
       {
-        // A forum does not exist for this module
-        // Create a new board
-        this._createNewBoard = true;
-
-        // Forum1.BoardID = 1;
+        //A forum does not exist for this module
+        //Create a new board
+        _createNewBoard = true;
+        //Forum1.BoardID = 1;
       }
 
       base.OnInit(e);
