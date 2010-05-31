@@ -22,8 +22,10 @@ namespace YAF.Install
 {
   using System;
   using System.Configuration;
+  using System.Data;
   using System.Drawing;
   using System.IO;
+  using System.Linq;
   using System.Security.Permissions;
   using System.Web;
   using System.Web.Security;
@@ -760,14 +762,7 @@ namespace YAF.Install
       UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(Server.MapPath("~/")) ? 2 : 0);
       UpdateStatusLabel(this.lblPermissionUpload, DirectoryHasWritePermission(Server.MapPath(YafBoardFolders.Current.Uploads)) ? 2 : 0);
 
-      if (this._config.TrustLevel == AspNetHostingPermissionLevel.High)
-      {
-        UpdateStatusLabel(this.lblHostingTrust, 2);
-      }
-      else
-      {
-        UpdateStatusLabel(this.lblHostingTrust, 0);
-      }
+      UpdateStatusLabel(this.lblHostingTrust, this._config.TrustLevel == AspNetHostingPermissionLevel.High ? 2 : 0);
 
       this.lblHostingTrust.Text = this._config.TrustLevel.GetStringValue();
     }
@@ -1173,12 +1168,9 @@ namespace YAF.Install
         FormsAuthentication.SignOut();
         System.Data.DataTable cult = StaticDataHelper.Cultures();
         string langFile = "english.xml";
-        foreach (System.Data.DataRow drow in cult.Rows)
+        foreach (DataRow drow in cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
         {
-            if (drow["CultureTag"].ToString() == this.Culture.SelectedValue)
-            {
-                langFile = (string)drow["CultureFile"];
-            }
+          langFile = (string)drow["CultureFile"];
         }
         DB.system_initialize(
           this.TheForumName.Text, this.TimeZones.SelectedValue, this.Culture.SelectedValue, langFile, this.ForumEmailAddress.Text, string.Empty, user.UserName, user.Email, user.ProviderUserKey);
@@ -1229,7 +1221,7 @@ namespace YAF.Install
     /// </returns>
     private int IndexOfWizardID(string id)
     {
-      var step = ControlHelper.FindWizardControlRecursive(this.InstallWizard, id) as WizardStepBase;
+      var step = this.InstallWizard.FindWizardControlRecursive(id) as WizardStepBase;
 
       if (step != null)
       {
