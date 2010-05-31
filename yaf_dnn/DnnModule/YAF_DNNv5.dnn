@@ -190,11 +190,9 @@
 										<add name="AjaxPro" verb="POST,GET,HEAD" path="ajaxpro/*.ashx" type="AjaxPro.AjaxHandlerFactory, AjaxPro.2"/>
 									</node>									
 									<node path="/configuration/system.web/httpModules" action="update" key="name" collision="overwrite">
-										<remove name="YafTaskModule"/>
 										<add name="YafTaskModule" type="YAF.Classes.Core.YafTaskModule, YAF.Classes.Core"/>
 									</node>
 									<node path="/configuration/system.webServer/modules" action="update" key="name" collision="overwrite">
-										<remove name="YafTaskModule"/>
 										<add name="YafTaskModule" type="YAF.Classes.Core.YafTaskModule, YAF.Classes.Core"/>
 									</node>
 								</nodes>								
@@ -207,9 +205,7 @@
 									<node path="/configuration/system.web/pages/namespaces/add[starts-with(@namespace,'YAF.')]" action="remove" />
 									<node path="/configuration/appSettings/add[starts-with(@key,'YAF.')]" action="remove" />
 									<node path="/configuration/system.web/httpModules/add[starts-with(@name,'Yaf')]" action="remove" />
-									<node path="/configuration/system.web/httpModules/remove[starts-with(@name,'Yaf')]" action="remove" />
 									<node path="/configuration/system.webServer/modules/add[starts-with(@name,'Yaf')]" action="remove" />
-									<node path="/configuration/system.webServer/modules/remove[starts-with(@name,'Yaf')]" action="remove" />
 									<node path="/configuration/system.web/httpHandlers/add[starts-with(@type,'AjaxPro')]" action="remove" />
 									<node path="/configuration/system.webServer/handlers/add[starts-with(@name,'AjaxPro')]" action="remove" />
 								</nodes>

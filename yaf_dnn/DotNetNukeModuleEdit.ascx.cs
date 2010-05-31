@@ -1,116 +1,195 @@
-﻿#region Usings
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DotNetNukeModuleEdit.ascx.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   Summary description for DotNetNukeModule.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Data;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using DotNetNuke.Entities.Modules;
-using YAF.Classes;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-
-#endregion
-
-namespace yaf_dnn
+namespace YAF
 {
-	/// <summary>
-	///        Summary description for DotNetNukeModule.
-	/// </summary>
-	public partial class DotNetNukeModuleEdit : PortalModuleBase
-	{
-		//protected DropDownList    BoardID, CategoryID;
-		//protected LinkButton    update, cancel, create;
+  #region Using
 
-		private void DotNetNukeModuleEdit_Load( object sender, EventArgs e )
-		{
-			this.update.Text = "Update";
-			this.cancel.Text = "Cancel";
-			this.create.Text = "Create New Board";
+  using System;
+  using System.Data;
+  using System.Web.UI;
+  using System.Web.UI.WebControls;
 
-			this.update.Visible = IsEditable;
-			this.create.Visible = IsEditable;
+  using DotNetNuke.Entities.Modules;
 
-			if ( !IsPostBack )
-			{
-				using ( DataTable dt = DB.board_list( DBNull.Value ) )
-				{
-					this.BoardID.DataSource = dt;
-					this.BoardID.DataTextField = "Name";
-					this.BoardID.DataValueField = "BoardID";
-					this.BoardID.DataBind();
-					if ( Settings["forumboardid"] != null )
-					{
-						ListItem item = this.BoardID.Items.FindByValue( Settings["forumboardid"].ToString() );
-						if ( item != null )
-							item.Selected = true;
-					}
-				}
-				BindCategories();
-			}
-		}
+  using YAF.Classes;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-		protected override void OnInit( EventArgs e )
-		{
-			Load += DotNetNukeModuleEdit_Load;
-			this.update.Click += UpdateClick;
-			this.cancel.Click += CancelClick;
-			this.create.Click += CreateClick;
-			this.BoardID.SelectedIndexChanged += BoardID_SelectedIndexChanged;
-			base.OnInit( e );
-		}
+  #endregion
 
-		private void UpdateClick( object sender, EventArgs e )
-		{
-			ModuleController objModules = new ModuleController();
+  /// <summary>
+  /// Summary description for DotNetNukeModule.
+  /// </summary>
+  public partial class DotNetNukeModuleEdit : PortalModuleBase
+  {
+    // protected DropDownList    BoardID, CategoryID;
+    // protected LinkButton    update, cancel, create;
+    #region Methods
 
-			objModules.UpdateModuleSetting( ModuleId, "forumboardid", this.BoardID.SelectedValue );
-			objModules.UpdateModuleSetting( ModuleId, "forumcategoryid", this.CategoryID.SelectedValue );
+    /// <summary>
+    /// The on init.
+    /// </summary>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected override void OnInit(EventArgs e)
+    {
+      this.Load += this.DotNetNukeModuleEdit_Load;
+      this.update.Click += this.UpdateClick;
+      this.cancel.Click += this.CancelClick;
+      this.create.Click += this.CreateClick;
+      this.BoardID.SelectedIndexChanged += this.BoardID_SelectedIndexChanged;
+      base.OnInit(e);
+    }
 
-			YafBuildLink.Redirect( ForumPages.forum );
-		}
+    /// <summary>
+    /// The render.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      writer.WriteLine("<link rel='stylesheet' type='text/css' href='{0}themes/standard/theme.css'/>", Config.AppRoot);
+      base.Render(writer);
+    }
 
-		private void CreateClick( object sender, EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.admin_editboard );
-		}
+    /// <summary>
+    /// The bind categories.
+    /// </summary>
+    private void BindCategories()
+    {
+      using (DataTable dt = DB.category_list(this.BoardID.SelectedValue, DBNull.Value))
+      {
+        DataRow row = dt.NewRow();
+        row["Name"] = "[All Categories]";
+        row["CategoryID"] = DBNull.Value;
+        dt.Rows.InsertAt(row, 0);
 
-		protected override void Render( HtmlTextWriter writer )
-		{
-			writer.WriteLine( "<link rel='stylesheet' type='text/css' href='{0}themes/standard/theme.css'/>", Config.Root );
-			base.Render( writer );
-		}
+        this.CategoryID.DataSource = dt;
+        this.CategoryID.DataTextField = "Name";
+        this.CategoryID.DataValueField = "CategoryID";
+        this.CategoryID.DataBind();
 
-		private void CancelClick( object sender, EventArgs e )
-		{
-			YafBuildLink.Redirect( ForumPages.forum );
-		}
+        if (this.Settings["forumcategoryid"] != null)
+        {
+          ListItem item = this.CategoryID.Items.FindByValue(this.Settings["forumcategoryid"].ToString());
+          if (item != null)
+          {
+            item.Selected = true;
+          }
+        }
+      }
+    }
 
-		private void BoardID_SelectedIndexChanged( object sender, EventArgs e )
-		{
-			BindCategories();
-		}
+    /// <summary>
+    /// The board i d_ selected index changed.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void BoardID_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      this.BindCategories();
+    }
 
-		private void BindCategories()
-		{
-			using ( DataTable dt = DB.category_list( this.BoardID.SelectedValue, DBNull.Value ) )
-			{
-				DataRow row = dt.NewRow();
-				row["Name"] = "[All Categories]";
-				row["CategoryID"] = DBNull.Value;
-				dt.Rows.InsertAt( row, 0 );
+    /// <summary>
+    /// The cancel click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void CancelClick(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.forum);
+    }
 
-				this.CategoryID.DataSource = dt;
-				this.CategoryID.DataTextField = "Name";
-				this.CategoryID.DataValueField = "CategoryID";
-				this.CategoryID.DataBind();
+    /// <summary>
+    /// The create click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void CreateClick(object sender, EventArgs e)
+    {
+      YafBuildLink.Redirect(ForumPages.admin_editboard);
+    }
 
-				if ( Settings["forumcategoryid"] != null )
-				{
-					ListItem item = this.CategoryID.Items.FindByValue( Settings["forumcategoryid"].ToString() );
-					if ( item != null )
-						item.Selected = true;
-				}
-			}
-		}
-	}
+    /// <summary>
+    /// The dot net nuke module edit_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void DotNetNukeModuleEdit_Load(object sender, EventArgs e)
+    {
+      this.update.Text = "Update";
+      this.cancel.Text = "Cancel";
+      this.create.Text = "Create New Board";
+
+      this.update.Visible = this.IsEditable;
+      this.create.Visible = this.IsEditable;
+
+      if (!this.IsPostBack)
+      {
+        using (DataTable dt = DB.board_list(DBNull.Value))
+        {
+          this.BoardID.DataSource = dt;
+          this.BoardID.DataTextField = "Name";
+          this.BoardID.DataValueField = "BoardID";
+          this.BoardID.DataBind();
+          if (this.Settings["forumboardid"] != null)
+          {
+            ListItem item = this.BoardID.Items.FindByValue(this.Settings["forumboardid"].ToString());
+            if (item != null)
+            {
+              item.Selected = true;
+            }
+          }
+        }
+
+        this.BindCategories();
+      }
+    }
+
+    /// <summary>
+    /// The update click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    private void UpdateClick(object sender, EventArgs e)
+    {
+      var objModules = new ModuleController();
+
+      objModules.UpdateModuleSetting(this.ModuleId, "forumboardid", this.BoardID.SelectedValue);
+      objModules.UpdateModuleSetting(this.ModuleId, "forumcategoryid", this.CategoryID.SelectedValue);
+
+      YafBuildLink.Redirect(ForumPages.forum);
+    }
+
+    #endregion
+  }
 }
