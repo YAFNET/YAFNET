@@ -806,7 +806,7 @@ namespace YAF.Classes
     {
       get
       {
-        return this._reg.GetValue<int>("ForumStatisticsCacheTimeout", 15);
+        return this._reg.GetValue<int>("ForumStatisticsCacheTimeout", 60);
       }
 
       set

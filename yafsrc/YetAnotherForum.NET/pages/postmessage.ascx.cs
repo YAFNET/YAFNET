@@ -721,6 +721,7 @@ namespace YAF.Pages
         ref messageId);
 
       this.UpdateWatchTopic(this.PageContext.PageUserID, (int)topicID);
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
 
       return messageId;
     }
@@ -762,7 +763,7 @@ namespace YAF.Pages
         ref messageId);
 
       this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
-
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
       return messageId;
     }
 

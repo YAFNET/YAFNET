@@ -125,7 +125,9 @@ namespace YAF.Pages
     protected void CreateUserWizard1_ContinueButtonClick(object sender, EventArgs e)
     {
       // vzrus: to clear the cache to show user in the list at once
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+        
       // redirect to the main forum URL      
       YafBuildLink.Redirect(ForumPages.forum);
     }
