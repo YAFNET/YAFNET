@@ -4591,7 +4591,7 @@ namespace YAF.Classes.Data
       using (SqlCommand cmd = YafDBAccess.GetCommand("message_Addthanks"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+        var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
         paramOutput.Direction = ParameterDirection.Output;
         cmd.Parameters.AddWithValue("FromUserID", FromUserID);
         cmd.Parameters.AddWithValue("MessageID", MessageID);
@@ -4618,7 +4618,7 @@ namespace YAF.Classes.Data
       using (SqlCommand cmd = YafDBAccess.GetCommand("message_Removethanks"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+        var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
         paramOutput.Direction = ParameterDirection.Output;
         cmd.Parameters.AddWithValue("FromUserID", FromUserID);
         cmd.Parameters.AddWithValue("MessageID", MessageID);
@@ -9359,7 +9359,7 @@ namespace YAF.Classes.Data
         using (SqlCommand cmd = YafDBAccess.GetCommand("buddy_addrequest"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
             var approved = new SqlParameter("approved", SqlDbType.Bit);
             paramOutput.Direction = ParameterDirection.Output;
             approved.Direction = ParameterDirection.Output;
@@ -9392,7 +9392,7 @@ namespace YAF.Classes.Data
         using (SqlCommand cmd = YafDBAccess.GetCommand("buddy_approverequest"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
             paramOutput.Direction = ParameterDirection.Output;
             cmd.Parameters.AddWithValue("FromUserID", FromUserID);
             cmd.Parameters.AddWithValue("ToUserID", ToUserID);
@@ -9420,7 +9420,7 @@ namespace YAF.Classes.Data
         using (SqlCommand cmd = YafDBAccess.GetCommand("buddy_denyrequest"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
             paramOutput.Direction = ParameterDirection.Output;
             cmd.Parameters.AddWithValue("FromUserID", FromUserID);
             cmd.Parameters.AddWithValue("ToUserID", ToUserID);
@@ -9447,7 +9447,7 @@ namespace YAF.Classes.Data
         using (SqlCommand cmd = YafDBAccess.GetCommand("buddy_remove"))
         {
             cmd.CommandType = CommandType.StoredProcedure;
-            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 50);
+            var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
             paramOutput.Direction = ParameterDirection.Output;
             cmd.Parameters.AddWithValue("FromUserID", FromUserID);
             cmd.Parameters.AddWithValue("ToUserID", ToUserID);

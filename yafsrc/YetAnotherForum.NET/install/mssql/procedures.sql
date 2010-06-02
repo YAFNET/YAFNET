@@ -1088,6 +1088,9 @@ BEGIN
                         SET @MessageIDs = RIGHT(@MessageIDs, LEN(@MessageIDs) - @Pos)
                         SET @Pos = CHARINDEX(',', @MessageIDs, 1)
                   END
+                     -- to be sure that last value is inserted
+                    IF (LEN(@MessageIDs) > 0)
+                           INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageIDs AS int)) 
 END 
     SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksFromUserID=d.UserID) AS ThanksFromUserNumber,
