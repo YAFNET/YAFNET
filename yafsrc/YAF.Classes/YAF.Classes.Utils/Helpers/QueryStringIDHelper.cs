@@ -16,25 +16,35 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Web;
-
 namespace YAF.Classes.Utils
 {
+  #region Using
+
+  using System;
+  using System.Collections.Generic;
+  using System.Web;
+
+  #endregion
+
   /// <summary>
   /// The query string id helper.
   /// </summary>
   public class QueryStringIDHelper
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _id dictionary.
+    ///   The _id dictionary.
     /// </summary>
-    private Dictionary<string, long> _idDictionary = null;
+    private Dictionary<string, long> _idDictionary;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="QueryStringIDHelper"/> class. 
-    /// False to ErrorOnInvalid
+    ///   False to ErrorOnInvalid
     /// </summary>
     /// <param name="idName">
     /// </param>
@@ -45,7 +55,7 @@ namespace YAF.Classes.Utils
 
     /// <summary>
     /// Initializes a new instance of the <see cref="QueryStringIDHelper"/> class. 
-    /// False on ErrorOnInvalid
+    ///   False on ErrorOnInvalid
     /// </summary>
     /// <param name="idNames">
     /// </param>
@@ -65,15 +75,7 @@ namespace YAF.Classes.Utils
     /// </param>
     public QueryStringIDHelper(string idName, bool errorOnInvalid)
     {
-      InitIDs(
-        new[]
-          {
-            idName
-          }, 
-        new[]
-          {
-            errorOnInvalid
-          });
+      this.InitIDs(new[] { idName }, new[] { errorOnInvalid });
     }
 
     /// <summary>
@@ -94,7 +96,7 @@ namespace YAF.Classes.Utils
         failInvalid[i] = errorOnInvalid;
       }
 
-      InitIDs(idNames, failInvalid);
+      this.InitIDs(idNames, failInvalid);
     }
 
     /// <summary>
@@ -108,11 +110,15 @@ namespace YAF.Classes.Utils
     /// </param>
     public QueryStringIDHelper(string[] idNames, bool[] errorOnInvalid)
     {
-      InitIDs(idNames, errorOnInvalid);
+      this.InitIDs(idNames, errorOnInvalid);
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets Params.
+    ///   Gets Params.
     /// </summary>
     public Dictionary<string, long> Params
     {
@@ -127,24 +133,32 @@ namespace YAF.Classes.Utils
       }
     }
 
+    #endregion
+
+    #region Indexers
+
     /// <summary>
-    /// The this.
+    ///   The this.
     /// </summary>
-    /// <param name="idName">
-    /// The id name.
+    /// <param name = "idName">
+    ///   The id name.
     /// </param>
     public long? this[string idName]
     {
       get
       {
-        if (Params.ContainsKey(idName))
+        if (this.Params.ContainsKey(idName))
         {
-          return Params[idName];
+          return this.Params[idName];
         }
 
         return null;
       }
     }
+
+    #endregion
+
+    #region Public Methods
 
     /// <summary>
     /// The contains key.
@@ -157,8 +171,12 @@ namespace YAF.Classes.Utils
     /// </returns>
     public bool ContainsKey(string idName)
     {
-      return Params.ContainsKey(idName);
+      return this.Params.ContainsKey(idName);
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The init i ds.
@@ -180,14 +198,14 @@ namespace YAF.Classes.Utils
 
       for (int i = 0; i < idNames.Length; i++)
       {
-        if (!Params.ContainsKey(idNames[i]))
+        if (!this.Params.ContainsKey(idNames[i]))
         {
           long idConverted = -1;
 
           if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString[idNames[i]]) &&
               long.TryParse(HttpContext.Current.Request.QueryString[idNames[i]], out idConverted))
           {
-            Params.Add(idNames[i], idConverted);
+            this.Params.Add(idNames[i], idConverted);
           }
           else
           {
@@ -195,11 +213,13 @@ namespace YAF.Classes.Utils
             if (errorOnInvalid[i])
             {
               // redirect to invalid id information...
-              YafBuildLink.Redirect(ForumPages.info, "i=6");
+              YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
           }
         }
       }
     }
+
+    #endregion
   }
 }
