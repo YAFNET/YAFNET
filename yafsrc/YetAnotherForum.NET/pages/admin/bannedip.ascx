@@ -46,7 +46,7 @@
 			</ItemTemplate>
 		<FooterTemplate>
 			<tr>
-				<td class="footer1" colspan="3">
+				<td class="footer1" colspan="5">
 					<asp:LinkButton runat="server" Text="Add" CommandName='add'></asp:LinkButton></td>
 			</tr>
 			</table>
