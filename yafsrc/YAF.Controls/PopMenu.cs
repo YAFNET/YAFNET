@@ -200,7 +200,7 @@ namespace YAF.Controls
       }
 
       var sb = new StringBuilder();
-      sb.AppendFormat(@"<div class=""yafpopupmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;visibility:hidden;"">", ClientID);
+      sb.AppendFormat(@"<div class=""yafpopupmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;display:none;"">", ClientID);
       sb.Append("<ul>");
 
       // add the items
