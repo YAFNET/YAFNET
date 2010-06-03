@@ -606,9 +606,9 @@ namespace YAF.Install
           e.Cancel = false;
           break;
         case "WizEnterPassword":
-          if (this._config.GetConfigValueAsString("YAF.ConfigPassword") ==
+          if (this._config.GetConfigValueAsString(_appPasswordKey) ==
               FormsAuthentication.HashPasswordForStoringInConfigFile(this.txtEnteredPassword.Text, "md5") ||
-              this._config.GetConfigValueAsString("YAF.ConfigPassword") == this.txtEnteredPassword.Text.Trim())
+              this._config.GetConfigValueAsString(_appPasswordKey) == this.txtEnteredPassword.Text.Trim())
           {
             e.Cancel = false;
 

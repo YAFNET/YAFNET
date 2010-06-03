@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -96,7 +96,7 @@ namespace YAF.Controls
         MembershipUser user = UserMembershipHelper.GetMembershipUserById(CurrentUserID);
         var userData = new CombinedUserDataHelper(user, (int) CurrentUserID.Value);
 
-          this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", !userData.IsGuest ? userData.Membership.UserName : (!userData.DisplayName.IsNullOrEmptyTrimmed() ? userData.DisplayName : userData.UserName));
+          this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.search, "postedby={0}", !userData.IsGuest ? userData.Membership.UserName : (!userData.DisplayName.IsNotSet() ? userData.DisplayName : userData.UserName));
 
         // bind data
         BindData();

@@ -653,7 +653,7 @@ namespace YAF.Pages
             else if (searchFlags == SearchWhatFlags.AnyWords || searchFlags == SearchWhatFlags.AllWords)
             {
                 this.HighlightSearchWords.AddRange(
-                  this.SearchWhatCleaned.Split(' ').ToList().Where(x => !x.IsNullOrEmptyTrimmed()));
+                  this.SearchWhatCleaned.Split(' ').ToList().Where(x => !x.IsNotSet()));
             }
         }
 

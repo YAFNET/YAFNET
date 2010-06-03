@@ -214,35 +214,35 @@ namespace YAF.Controls
     /// </param>
     protected void UpdateProfile_Click(object sender, EventArgs e)
     {
-      if (!this.HomePage.Text.IsNullOrEmptyTrimmed() && !this.HomePage.Text.StartsWith("http://"))
+      if (!this.HomePage.Text.IsNotSet() && !this.HomePage.Text.StartsWith("http://"))
       {
         this.HomePage.Text = "http://" + this.HomePage.Text;
       }
 
-      if (!this.Weblog.Text.IsNullOrEmptyTrimmed() && !this.Weblog.Text.StartsWith("http://"))
+      if (!this.Weblog.Text.IsNotSet() && !this.Weblog.Text.StartsWith("http://"))
       {
         this.Weblog.Text = "http://" + this.Weblog.Text;
       }
 
-      if (!this.HomePage.Text.IsNullOrEmptyTrimmed() && !ValidationHelper.IsValidURL(this.HomePage.Text))
+      if (!this.HomePage.Text.IsNotSet() && !ValidationHelper.IsValidURL(this.HomePage.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_HOME"));
         return;
       }
 
-      if (!this.Weblog.Text.IsNullOrEmptyTrimmed() && !ValidationHelper.IsValidURL(this.Weblog.Text))
+      if (!this.Weblog.Text.IsNotSet() && !ValidationHelper.IsValidURL(this.Weblog.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_WEBLOG"));
         return;
       }
 
-      if (!this.MSN.Text.IsNullOrEmptyTrimmed() && !ValidationHelper.IsValidEmail(this.MSN.Text))
+      if (!this.MSN.Text.IsNotSet() && !ValidationHelper.IsValidEmail(this.MSN.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_MSN"));
         return;
       }
 
-      if (!this.ICQ.Text.IsNullOrEmptyTrimmed() && !ValidationHelper.IsValidInt(this.ICQ.Text))
+      if (!this.ICQ.Text.IsNotSet() && !ValidationHelper.IsValidInt(this.ICQ.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_ICQ"));
         return;
