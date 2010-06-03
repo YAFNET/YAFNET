@@ -26,17 +26,15 @@ using System.Xml;
 namespace YAF.Classes.Core
 {
   using System.Diagnostics;
+  using System.Linq;
+
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// Summary description for Localizer.
   /// </summary>
   public class Localizer
   {
-    /// <summary>
-    /// The _code.
-    /// </summary>
-    private string _code = string.Empty;
-
     /// <summary>
     /// The _current page.
     /// </summary>
@@ -51,6 +49,8 @@ namespace YAF.Classes.Core
     /// The _file name.
     /// </summary>
     private string _fileName = string.Empty;
+
+    private CultureInfo _currentCulture = null;
 
     /// <summary>
     /// The _page pointer.
@@ -73,17 +73,41 @@ namespace YAF.Classes.Core
     public Localizer(string fileName)
     {
       this._fileName = fileName;
-      LoadFile();
+      this.LoadFile();
+      this.InitCulture();
+    }
+
+    private void InitCulture()
+    {
+      if (YafServices.InitializeDb.Initialized)
+      {
+        // vzrus: Culture code is missing for a user until he saved his profile.
+        // First set it to board culture              
+        if (this.CurrentCulture.Name.Substring(0, 2) == YafContext.Current.BoardSettings.Culture.Substring(0, 2))
+        {
+          this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+        }
+
+        string cultureUser = YafContext.Current.CultureUser;
+
+        if (YafContext.Current.CultureUser.IsSet())
+        {
+          if (cultureUser.Substring(0, 2).Contains(this.CurrentCulture.Name.Substring(0, 2)))
+          {
+            this._currentCulture = new CultureInfo(cultureUser);
+          }
+        }
+      }
     }
 
     /// <summary>
     /// Gets LanguageCode.
     /// </summary>
-    public string LanguageCode
+    public CultureInfo CurrentCulture
     {
       get
       {         
-          return this._code;
+          return this._currentCulture;
       }
     }
 
@@ -110,32 +134,11 @@ namespace YAF.Classes.Core
 
         if (this._doc.DocumentElement != null)
         {
-          this._code = this._doc.DocumentElement.Attributes["code"] != null ? this._doc.DocumentElement.Attributes["code"].Value : "en-US";
-
-              //  vzrus: If the class is not already initialized it'll through an error. It happens while fresh install. 
-              // language file can have an invariant culture tag
-              try
-              {             
-              // vzrus: Culture code is missing for a user until he saved his profile.
-              // First set it to board culture              
-              if (this._code.Substring(0, 2) == YafContext.Current.BoardSettings.Culture.Substring(0, 2))
-              {
-                  this._code = YafContext.Current.BoardSettings.Culture;
-              }
-                
-              string cultureUser = YafContext.Current.CultureUser;
-              if (!string.IsNullOrEmpty(cultureUser))
-              {
-                  if (cultureUser.Substring(0, 2).Contains(this._code.Substring(0, 2)))
-                  {
-                      this._code = cultureUser;
-                  }
-              }
-            
-              }
-              catch (Exception)
-              {
-              }
+          this._currentCulture =
+            new CultureInfo(
+              _doc.DocumentElement.Attributes["code"] != null
+                ? this._doc.DocumentElement.Attributes["code"].Value
+                : "en-US");
 
         }
         else
@@ -212,7 +215,7 @@ namespace YAF.Classes.Core
         return;
       }
 
-      tag = tag.ToUpper(new CultureInfo("en-US"));
+      tag = tag.ToUpper(this._currentCulture);
 
 #if DEBUG
       if (this._pagePointer == null)
@@ -300,13 +303,7 @@ namespace YAF.Classes.Core
 
       if (xmlNodeList != null)
       {
-        foreach (XmlNode node in xmlNodeList)
-        {
-          if (node != null)
-          {
-            items.Add(node);
-          }
-        }
+        items.AddRange(xmlNodeList.Cast<XmlNode>().Where(node => node != null));
       }
 
       return items;

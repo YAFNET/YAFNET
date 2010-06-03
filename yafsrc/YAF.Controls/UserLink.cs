@@ -82,7 +82,7 @@ namespace YAF.Controls
     {
       string displayName = PageContext.UserDisplayName.GetName(this.UserID);
 
-      if (this.UserID != -1 && !displayName.IsNullOrEmptyTrimmed())
+      if (this.UserID != -1 && !displayName.IsNotSet())
       {
         // is this the guest user? If so, guest's don't have a profile.
         bool isGuest = UserMembershipHelper.IsGuestUser(this.UserID);

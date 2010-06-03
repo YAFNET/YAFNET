@@ -78,21 +78,21 @@ namespace YAF.Classes.Core
     {
       if (ThemeFile != null)
       {
-        #if !DEBUG
+#if !DEBUG
         if (_themeXmlDoc == null)
         {
           _themeXmlDoc = (XmlDocument)System.Web.HttpContext.Current.Cache[ThemeFile];
         }
-        #endif
+#endif
 
         if (_themeXmlDoc == null)
         {
           _themeXmlDoc = new XmlDocument();
           _themeXmlDoc.Load(
                       System.Web.HttpContext.Current.Server.MapPath(String.Concat(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes, "/", ThemeFile)));
-          #if !DEBUG
+#if !DEBUG
           System.Web.HttpContext.Current.Cache[ThemeFile] = _themeXmlDoc;
-          #endif
+#endif
         }
       }
     }

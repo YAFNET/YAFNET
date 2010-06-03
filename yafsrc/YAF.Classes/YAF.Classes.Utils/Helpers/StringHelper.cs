@@ -77,7 +77,20 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The is <see langword="null"/> or empty trimmed.
     /// </returns>
-    public static bool IsNullOrEmptyTrimmed(this string str)
+    public static bool IsSet(this string str)
+    {
+      return !str.IsNotSet();
+    }
+
+    /// <summary>
+    /// When the string is trimmed, is it <see langword="null"/> or empty?
+    /// </summary>
+    /// <param name="str">
+    /// </param>
+    /// <returns>
+    /// The is <see langword="null"/> or empty trimmed.
+    /// </returns>
+    public static bool IsNotSet(this string str)
     {
       return str == null || String.IsNullOrEmpty(str.Trim());
     }
@@ -172,7 +185,7 @@ namespace YAF.Classes.Utils
         text = text.Trim();
       }
 
-      if (nullify && text.IsNullOrEmptyTrimmed())
+      if (nullify && text.IsNotSet())
       {
         text = null;
       }
@@ -194,7 +207,7 @@ namespace YAF.Classes.Utils
         throw new ArgumentNullException("inputList", "inputList is null.");
       }
 
-      return inputList.Where(x => !x.IsNullOrEmptyTrimmed()).ToList();
+      return inputList.Where(x => !x.IsNotSet()).ToList();
     }
 
     /// <summary>

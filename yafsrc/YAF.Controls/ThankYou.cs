@@ -93,7 +93,7 @@ namespace YAF.Controls
       string username = DB.message_AddThanks(UserMembershipHelper.GetUserIDFromProviderUserKey(Membership.GetUser().ProviderUserKey), MessageID);
 
       // if the user is empty, return a null object...
-      if (username.IsNullOrEmptyTrimmed())
+      if (username.IsNotSet())
       {
         return null;
       }

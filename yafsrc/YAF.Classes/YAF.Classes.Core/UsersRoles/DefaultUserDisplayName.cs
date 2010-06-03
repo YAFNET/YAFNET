@@ -187,7 +187,7 @@ namespace YAF.Classes.Core
             displayName = row.Field<string>("DisplayName");
           }
 
-          if (displayName.IsNullOrEmptyTrimmed())
+          if (displayName.IsNotSet())
           {
             // revert to their user name...
             displayName = row.Field<string>("Name");

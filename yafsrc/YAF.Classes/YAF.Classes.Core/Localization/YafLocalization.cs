@@ -114,11 +114,11 @@ namespace YAF.Classes.Core
       get
       {
         if (this._localizer != null)
-        {        
-          return this._localizer.LanguageCode;
+        {
+          return this._localizer.CurrentCulture.Name.Substring(0, 2);
         }
 
-        return LoadTranslation();
+        return this.LoadTranslation().Name.Substring(0, 2);
       }
     }
 
@@ -135,7 +135,7 @@ namespace YAF.Classes.Core
         }
         else if (this._localizer == null)
         {
-          LoadTranslation();
+          this._culture = this.LoadTranslation();
           return this._culture;
         }
 
@@ -221,11 +221,11 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The load translation.
     /// </returns>
-    public string LoadTranslation(string fileName)
+    public CultureInfo LoadTranslation(string fileName)
     {
       if (this._localizer != null)
       {         
-          return this._localizer.LanguageCode;
+          return this._localizer.CurrentCulture;
       }
 
 #if !DEBUG
@@ -261,7 +261,7 @@ namespace YAF.Classes.Core
       try
       {
         // try to load culture info defined in localization file
-        this._culture = new CultureInfo(this._localizer.LanguageCode);
+        this._culture = this._localizer.CurrentCulture;
       }
       catch
       {
@@ -271,7 +271,7 @@ namespace YAF.Classes.Core
 
       this._languageFileName = fileName.ToLower();
 
-      return this._localizer.LanguageCode;
+      return this._culture;
     }
 
     /// <summary>
@@ -280,11 +280,11 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The load translation.
     /// </returns>
-    public string LoadTranslation()
+    public CultureInfo LoadTranslation()
     {
       if (this._localizer != null)
       {
-        return this._localizer.LanguageCode;
+        return this._localizer.CurrentCulture;
       }
 
       string filename = null;

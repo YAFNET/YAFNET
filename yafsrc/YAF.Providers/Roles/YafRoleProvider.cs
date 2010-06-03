@@ -133,7 +133,7 @@ namespace YAF.Providers.Roles
         foreach (string roleName in roleNames)
         {
           // only add user if this role actually exists...
-          if (!roleName.IsNullOrEmptyTrimmed() && allRoles.Contains(roleName))
+          if (!roleName.IsNotSet() && allRoles.Contains(roleName))
           {
             DB.Current.AddUserToRole(this.ApplicationName, username, roleName);
           }

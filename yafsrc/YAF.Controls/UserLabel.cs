@@ -180,7 +180,7 @@ namespace YAF.Controls
     {
       string displayName = this.PageContext.UserDisplayName.GetName(this.UserID);
 
-      if (this.UserID != -1 && !displayName.IsNullOrEmptyTrimmed())
+      if (this.UserID != -1 && !displayName.IsNotSet())
       {
         output.BeginRender();
 

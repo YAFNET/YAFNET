@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -330,7 +330,7 @@ namespace YAF.Controls
             ForumPages.rsstopic,
             "pg={0}{1}",
             this.FeedType.GetStringValue(),
-            this.AdditionalParameters.IsNullOrEmptyTrimmed()
+            this.AdditionalParameters.IsNotSet()
               ? string.Empty
               : String.Format("&{0}", this.AdditionalParameters)));
 

@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.net
+/* Yet Another Forum.net
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -147,7 +147,7 @@ namespace YAF.Classes.Utils
       {
         return true;
       }
-      else if (columnValue.ToString().IsNullOrEmptyTrimmed())
+      else if (columnValue.ToString().IsNotSet())
       {
         return true;
       }

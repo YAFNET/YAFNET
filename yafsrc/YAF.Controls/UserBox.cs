@@ -541,7 +541,7 @@ namespace YAF.Controls
       string filler = string.Empty;
       var rx = new Regex(Constants.UserBox.Location);
 
-      if (!this.UserProfile.Location.IsNullOrEmptyTrimmed())
+      if (!this.UserProfile.Location.IsNotSet())
       {
         filler = String.Format(
           this.PageContext.BoardSettings.UserBoxLocation, 
