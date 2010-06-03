@@ -35,21 +35,11 @@ function yaf_mouseover() {
 }
 
 function yaf_left(obj) {
-	var x = 0;
-	while(obj) {
-		x += obj.offsetLeft;
-		obj = obj.offsetParent;
-	}
-	return x;
+    return $(obj).position().left; 
 }
 
 function yaf_top(obj) {
-	var y = obj.offsetHeight;
-	while(obj) {
-		y += obj.offsetTop;
-		obj = obj.offsetParent;
-	}
-	return y;
+    return $(obj).position().top + $(obj).outerHeight() + 1;
 }
 
 function yaf_popit(menuName) {
@@ -81,21 +71,21 @@ function yaf_popit(menuName) {
 		return false;
 	}
 
-	if(themenu.style.visibility == "hidden") {
-		var x = yaf_left(target);
-		// Make sure the menu stays inside the page
-		// offsetWidth or clientWidth?!?
-		if(document.documentElement) {
-			if(x + themenu.offsetWidth>document.documentElement.offsetWidth - 20)
-				x += target.offsetWidth - themenu.offsetWidth;
-		}
+	if (!$(themenu).is(":visible")) {
+	    var x = yaf_left(target);
+	    // Make sure the menu stays inside the page
+	    // offsetWidth or clientWidth?!?
+	    if (x + $(themenu).outerWidth() + 2 > $(document).width()) {
+	        x = $(document).width() - $(themenu).outerWidth() - 2;
+	    }
 
-		themenu.style.left = x + "px";
-		themenu.style.top = yaf_top(target) + "px";
-		themenu.style.visibility = "visible";
-		themenu.style.zIndex = 100;
+	    themenu.style.left = x + "px";
+	    themenu.style.top = yaf_top(target) + "px";
+	    themenu.style.zIndex = 100;
+
+	    $(themenu).fadeIn();
 	} else {
-		yaf_hidemenu();
+	    yaf_hidemenu();
 	}
 
 	return false;
@@ -103,7 +93,7 @@ function yaf_popit(menuName) {
 
 function yaf_hidemenu() {
 	if(window.themenu) {
-		window.themenu.style.visibility = "hidden";
+		$(window.themenu).fadeOut();
 		window.themenu = null;
 	}
 }
