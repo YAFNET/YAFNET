@@ -15,6 +15,7 @@
             </td>
             <td class="post" width="50%">
                 <asp:TextBox Style="width: 300px" ID="Name" runat="server" />
+                <asp:RequiredFieldValidator ID="postNameRequired" runat="server" Display="Dynamic" ControlToValidate="Name" ErrorMessage="Role name is required."></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
