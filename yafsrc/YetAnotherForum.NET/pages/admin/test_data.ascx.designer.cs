@@ -740,7 +740,116 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DNA.UI.JQuery.View View8;
+
+
+        /// <summary>
+        /// BoardPrefixTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox BoardPrefixTB;
+
+        /// <summary>
+        /// BoardPrefixTBRequiredfieldvalidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator BoardPrefixTBRequiredfieldvalidator;
+
+        /// <summary>
+        /// CategoryPrefixTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CategoryPrefixTB;
+
+        /// <summary>
+        /// CategoryPrefixTBRequiredfieldvalidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator CategoryPrefixTBRequiredfieldvalidator;
         
+        /// <summary>
+        /// ForumPrefixTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ForumPrefixTB;
+
+        /// <summary>
+        /// ForumPrefixTBRequiredfieldvalidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ForumPrefixTBRequiredfieldvalidator;
+
+        /// <summary>
+        /// TopicPrefixTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TopicPrefixTB;
+
+        /// <summary>
+        /// TopicPrefixTBRequiredfieldvalidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator TopicPrefixTBRequiredfieldvalidator;
+
+        /// <summary>
+        /// MessageContentPrefixTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox MessageContentPrefixTB;
+
+        /// <summary>
+        /// MessageContentPrefixTBTBRequiredfieldvalidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator MessageContentPrefixTBRequiredfieldvalidator;
+
+        /// <summary>
+        /// UserPrefixTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox UserPrefixTB;
+
+        /// <summary>
+        /// UserPrefixTBRequiredfieldvalidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator UserPrefixTBRequiredfieldvalidator;
+
         /// <summary>
         /// LaunchGenerator control.
         /// </summary>

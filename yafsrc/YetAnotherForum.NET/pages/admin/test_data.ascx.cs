@@ -39,37 +39,18 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The board object stats.
     /// </summary>
-    private DataRow boardObjectStats = DB.board_poststats(YafContext.Current.PageBoardID);
-
-    /// <summary>
-    /// The board prefix.
-    /// </summary>
-    private string boardPrefix = "board-";
+    private DataRow boardObjectStats = DB.board_poststats(YafContext.Current.PageBoardID, YafContext.Current.BoardSettings.UseStyledNicks);
 
     /// <summary>
     /// The category create limit.
     /// </summary>
     private int categoryCreateLimit = 100;
 
-    /// <summary>
-    /// The category prefix.
-    /// </summary>
-    private string categoryPrefix = "cat-";
 
     /// <summary>
     /// The create common limit.
     /// </summary>
     private int createCommonLimit = 9999;
-
-    /// <summary>
-    /// The forum prefix.
-    /// </summary>
-    private string forumPrefix = "forum-";
-
-    /// <summary>
-    /// The message prefix.
-    /// </summary>
-    private string messagePrefix = "msg-";
 
     /// <summary>
     /// The pmessage prefix.
@@ -80,16 +61,6 @@ namespace YAF.Pages.Admin
     /// The random guid.
     /// </summary>
     private string randomGuid = Guid.NewGuid().ToString();
-
-    /// <summary>
-    /// The topic prefix.
-    /// </summary>
-    private string topicPrefix = "topic-";
-
-    /// <summary>
-    /// The user prefix.
-    /// </summary>
-    private string userPrefix = "usr-";
 
     #endregion
 
@@ -413,7 +384,7 @@ namespace YAF.Pages.Admin
       int i = 0;
       for (i = 0; i < _boardNumber; i ++)
       {
-        string boardName = this.boardPrefix + Guid.NewGuid().ToString();
+        string boardName = this.BoardPrefixTB.Text.Trim() + Guid.NewGuid().ToString();
         int curboard = DB.board_create(
           this.PageContext.User.UserName, this.PageContext.User.Email, 
           this.PageContext.User.ProviderUserKey, 
@@ -634,7 +605,7 @@ namespace YAF.Pages.Admin
         {
           for (i = 0; i < numCategories; i++)
           {
-            string catName = this.categoryPrefix + Guid.NewGuid().ToString();
+            string catName = this.CategoryPrefixTB.Text.Trim() + Guid.NewGuid().ToString();
 
             // TODO: should return number of categories created 
             DB.category_save(boardID, 0, catName, null, 100);
@@ -768,8 +739,8 @@ namespace YAF.Pages.Admin
           _forumID, 
           categoryID, 
           parentID, 
-          this.forumPrefix + this.randomGuid, 
-          "Description of " + this.forumPrefix + this.randomGuid, 
+          this.ForumPrefixTB.Text.Trim() + this.randomGuid,
+          "Description of " + this.ForumPrefixTB.Text.Trim() + this.randomGuid, 
           100, 
           false, 
           isHiddenIfNoAccess, 
@@ -839,7 +810,7 @@ namespace YAF.Pages.Admin
         DB.pmessage_save(
           DB.user_get(YafContext.Current.PageBoardID, Membership.GetUser(_fromUser).ProviderUserKey), 
           DB.user_get(YafContext.Current.PageBoardID, Membership.GetUser(_toUser).ProviderUserKey), 
-          this.topicPrefix + this.randomGuid, 
+          this.TopicPrefixTB.Text.Trim() + this.randomGuid, 
           this.pmessagePrefix + this.randomGuid + "   " + PMessageText.Text.Trim(), 
           6);
                        
@@ -1051,8 +1022,8 @@ namespace YAF.Pages.Admin
 
         long topicID = DB.topic_save(
             forumID, 
-          this.topicPrefix + this.randomGuid, 
-          this.messagePrefix + this.randomGuid, 
+          this.TopicPrefixTB.Text.Trim() + this.randomGuid, 
+          this.MessageContentPrefixTB.Text.Trim() + this.randomGuid, 
           this.PageContext.PageUserID, 
           _priority, 
           pollID, 
@@ -1170,8 +1141,8 @@ namespace YAF.Pages.Admin
         for (i = 0; i < Convert.ToInt32(UsersNumber.Text.Trim()); i++)
         {
           this.randomGuid = Guid.NewGuid().ToString();
-          string newEmail = this.userPrefix + this.randomGuid + "@test.info";
-          string newUsername = this.userPrefix + this.randomGuid;
+          string newEmail = this.UserPrefixTB.Text.Trim() + this.randomGuid + "@test.info";
+          string newUsername = this.UserPrefixTB.Text.Trim()  + this.randomGuid;
 
           if (!UserMembershipHelper.UserExists(newUsername, newEmail))
           {

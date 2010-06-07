@@ -1873,12 +1873,13 @@ namespace YAF.Classes.Data
     /// <returns>
     /// DataRow of Poststats
     /// </returns>
-    public static DataRow board_poststats(object boardID)
+    public static DataRow board_poststats(int? boardID, bool useStyledNick)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("board_poststats"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
+        cmd.Parameters.AddWithValue("StyledNicks", useStyledNick);
         using (DataTable dt = YafDBAccess.Current.GetData(cmd))
         {
           return dt.Rows[0];

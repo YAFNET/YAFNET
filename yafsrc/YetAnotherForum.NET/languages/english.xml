@@ -1242,9 +1242,8 @@ Visit {forumname} at {forumlink}
     <Resource tag="UTC5.5">(UTC+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
     <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
     <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
-    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
-    <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
-    <Resource tag="UTC-7">(UTC-7:00) Mountain Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>    
+    <Resource tag="UTC-7">(UTC-7:00)Arizona, Mountain Time (US &amp; Canada)</Resource>
     <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
     <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
     <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>

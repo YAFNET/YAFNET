@@ -1260,9 +1260,8 @@
     <Resource tag="UTC5.5">(UTC+5:30) Бомбей, Калькутта, Мадрас, New Delhi</Resource>
     <Resource tag="UTC6">(UTC+6:00) Астана, Коломба, Дакра</Resource>
     <Resource tag="UTC-6">(UTC-6:00) Центральное время (США &amp; Канада), Мехико</Resource>
-    <Resource tag="UTC7">(UTC+7:00) Бангкок, Ханой, Джакарта</Resource>
-    <Resource tag="UTC-7">(UTC-7:00) Аризона</Resource>
-    <Resource tag="UTC-7">(UTC-7:00) Горное время (США &amp; Канада)</Resource>
+    <Resource tag="UTC7">(UTC+7:00) Бангкок, Ханой, Джакарта</Resource> 
+    <Resource tag="UTC-7">(UTC-7:00) Аризона, Горное время (США &amp; Канада)</Resource>
     <Resource tag="UTC8">(UTC+8:00) Бейджинг, Гонконг, Перт, Сингапур, Тайпей</Resource>
     <Resource tag="UTC-8">(UTC-8:00) Атлантическое время (США &amp; Канада)</Resource>
     <Resource tag="UTC9">(UTC+9:00) Якутск, Осака, Саппоро, Сеул, Токио</Resource>

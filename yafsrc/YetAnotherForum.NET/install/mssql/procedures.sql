@@ -1799,7 +1799,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_poststats](@BoardID int) as
+create procedure [{databaseOwner}].[{objectQualifier}board_poststats](@BoardID int, @StyledNicks bit = 0 ) as
 BEGIN
 		SELECT
 		Posts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] a join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID AND (a.Flags & 24)=16),
@@ -1831,7 +1831,7 @@ BEGIN
 				LastPost	= a.Posted,
 				LastUserID	= a.UserID,
 				LastUser	= e.Name,
-				LastUserStyle = [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)
+				LastUserStyle = (CASE WHEN @StyledNicks > 0 THEN [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID) ELSE '' END)
 			FROM 
 				[{databaseOwner}].[{objectQualifier}Message] a 
 				join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID 
@@ -7539,7 +7539,7 @@ DECLARE
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getalbumsdata] (@BoardID INT, @UserID INT )
 as 
     BEGIN
-    DECLARE  
+    DECLARE 
     @OR_UsrAlbums int,     
     @OG_UsrAlbums int,
     @OR_UsrAlbumImages int,     
@@ -7557,40 +7557,47 @@ as
     R_UsrAlbumImages int
 )
 
+      -- REMOVED ORDER BY c.SortOrder ASC, SELECTING ALL
+     
     INSERT INTO @GroupData(G_UsrAlbums,
     G_UsrAlbumImages)
-    SELECT TOP 1 ISNULL(c.UsrAlbums,0), ISNULL(c.UsrAlbumImages,0)   
-    FROM [{databaseOwner}].[{objectQualifier}User] a 
+    SELECT  ISNULL(c.UsrAlbums,0), ISNULL(c.UsrAlbumImages,0)   
+    FROM [{databaseOwner}].[{objectQualifier}User] a
                         JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
                           ON a.UserID = b.UserID
                             JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
-                              ON b.GroupID = c.GroupID 
-                              WHERE a.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.SortOrder ASC
+                              ON b.GroupID = c.GroupID
+                              WHERE a.UserID = @UserID AND a.BoardID = @BoardID
+     
+                             
      INSERT INTO @RankData(R_UsrAlbums, R_UsrAlbumImages)
-     SELECT TOP 1 ISNULL(c.UsrAlbums,0), ISNULL(c.UsrAlbumImages,0)    
-     FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+     SELECT  ISNULL(c.UsrAlbums,0), ISNULL(c.UsrAlbumImages,0)   
+     FROM [{databaseOwner}].[{objectQualifier}Rank] c
                                 JOIN [{databaseOwner}].[{objectQualifier}User] d
-                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.RankID DESC
+                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID 
+                                  AND d.BoardID = @BoardID
        
-       SET @OR_UsrAlbums = (SELECT TOP 1 R_UsrAlbums FROM @RankData)
-       SET @OG_UsrAlbums = (SELECT TOP 1 G_UsrAlbums FROM @GroupData)
-       SET @OR_UsrAlbumImages = (SELECT TOP 1 R_UsrAlbumImages FROM @RankData)
-       SET @OG_UsrAlbumImages = (SELECT TOP 1 G_UsrAlbumImages FROM @GroupData) 
+       -- SELECTING MAX()
        
-       SELECT 
+       SET @OR_UsrAlbums = (SELECT Max(R_UsrAlbums) FROM @RankData)
+       SET @OG_UsrAlbums = (SELECT Max(G_UsrAlbums) FROM @GroupData)
+       SET @OR_UsrAlbumImages = (SELECT Max(R_UsrAlbumImages) FROM @RankData)
+       SET @OG_UsrAlbumImages = (SELECT Max(G_UsrAlbumImages) FROM @GroupData)
+       
+       SELECT
         NumAlbums  = (SELECT COUNT(ua.AlbumID) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
                       WHERE ua.UserID = @UserID),
         NumImages = (SELECT COUNT(uai.ImageID) FROM  [{databaseOwner}].[{objectQualifier}UserAlbumImage] uai
                      INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] ua
                      ON ua.AlbumID = uai.AlbumID
-                     WHERE ua.UserID = @UserID), 
-        UsrAlbums = CASE WHEN @OG_UsrAlbums > @OR_UsrAlbums THEN @OG_UsrAlbums ELSE @OR_UsrAlbums END, 
-        UsrAlbumImages = CASE WHEN @OG_UsrAlbumImages > @OR_UsrAlbumImages THEN @OG_UsrAlbumImages ELSE @OR_UsrAlbumImages END 
-              
+                     WHERE ua.UserID = @UserID),
+        UsrAlbums = CASE WHEN @OG_UsrAlbums > @OR_UsrAlbums THEN @OG_UsrAlbums ELSE @OR_UsrAlbums END,
+        UsrAlbumImages = CASE WHEN @OG_UsrAlbumImages > @OR_UsrAlbumImages THEN @OG_UsrAlbumImages ELSE @OR_UsrAlbumImages END
+             
      
 END
-GO    
-   
+GO  
+
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}messagehistory_list] (@MessageID INT, @DaysToClean INT, @ShowAll BIT = null )
 
 as 
@@ -7637,19 +7644,40 @@ begin
 	@G_UsrAlbums int,
 	@R_UsrAlbums int,
 	@R_Style varchar(255),
-	@G_Style varchar(255) 	 
-		
-	SELECT TOP 1 @G_UsrAlbums = ISNULL(c.UsrAlbums,0), @G_Style = c.Style 
+	@G_Style varchar(255) 	
+	
+	SELECT TOP 1 @G_Style = c.Style 
     FROM [{databaseOwner}].[{objectQualifier}User] a 
                         JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
                           ON a.UserID = b.UserID
                             JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
                               ON b.GroupID = c.GroupID 
-                              WHERE a.UserID = @UserID AND a.BoardID = @BoardID ORDER BY c.SortOrder ASC 
-    SELECT TOP 1 @R_UsrAlbums = ISNULL(c.UsrAlbums,0), @R_Style = c.Style 
+                              WHERE a.UserID = @UserID 
+                                AND a.BoardID = @BoardID 
+                                  ORDER BY c.SortOrder ASC
+                               
+    SELECT TOP 1 @R_Style = c.Style 
     FROM [{databaseOwner}].[{objectQualifier}Rank] c 
                                 JOIN [{databaseOwner}].[{objectQualifier}User] d
-                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID  AND d.BoardID = @BoardID ORDER BY c.RankID DESC                            
+                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID  
+                                   AND d.BoardID = @BoardID 
+                                    ORDER BY c.RankID DESC   
+                                     
+		
+	SELECT @G_UsrAlbums = ISNULL(MAX(c.UsrAlbums),0)
+    FROM [{databaseOwner}].[{objectQualifier}User] a 
+                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+                          ON a.UserID = b.UserID
+                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+                              ON b.GroupID = c.GroupID 
+                               WHERE a.UserID = @UserID 
+                                 AND a.BoardID = @BoardID
+                                 
+    SELECT  @R_UsrAlbums = ISNULL(MAX(c.UsrAlbums),0)
+    FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+                                JOIN [{databaseOwner}].[{objectQualifier}User] d
+                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID 
+                                    AND d.BoardID = @BoardID                                                               
 
 	-- return information
 	select TOP 1		
@@ -7678,4 +7706,7 @@ begin
 	    where
 		a.UserID = @UserID
 	 end
-GO	 
+GO
+
+
+  

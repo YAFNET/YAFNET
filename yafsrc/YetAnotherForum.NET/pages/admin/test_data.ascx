@@ -624,12 +624,16 @@
 					</tr>
 				</table>
 			</DotNetAge:View>
-			<DotNetAge:View runat="server" ID="View8" Text="Help" NavigateUrl="" HeaderCssClass=""
+			<DotNetAge:View runat="server" ID="View8" Text="Settings/Help" NavigateUrl="" HeaderCssClass=""
 				HeaderStyle="" Target="_blank" Enabled="true">
 				<table class="content" cellspacing="1" cellpadding="0" width="100%">
 					<tr>
-						<td class="header2" align="center" colspan="2">
-						    <p>Usage guide.</p>
+						<td class="header1" colspan="2">
+							Usage guide
+						</td>
+					</tr>
+					<tr>
+						<td class="post" align="center" colspan="2">						 
 							<p>Test data generator is a utility to test Yet Another Forum performance.</p>
 							<br />
 							The operations take a lot of time, if you generate whales of data.
@@ -641,6 +645,71 @@
 							
 						</td>
 					</tr>
+					<tr>
+						<td class="header1" colspan="2">
+							Generator Settings
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader" width="50%">
+							User Prefix(max 92):
+						</td>
+						<td class="post">
+							<asp:TextBox ID="UserPrefixTB" runat="server">brd-</asp:TextBox>
+							<asp:RequiredFieldValidator ID="UserPrefixTBRequiredfieldvalidator" runat="server" EnableClientScript="False"
+								Text="0" ControlToValidate="UserPrefixTB" ErrorMessage="A user Prefix is required."></asp:RequiredFieldValidator>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader" width="50%">
+							Board Prefix(max 12):
+						</td>
+						<td class="post">
+							<asp:TextBox ID="BoardPrefixTB" runat="server">brd-</asp:TextBox>
+							<asp:RequiredFieldValidator ID="BoardPrefixTBRequiredfieldvalidator" runat="server" EnableClientScript="False"
+								Text="0" ControlToValidate="BoardPrefixTB" ErrorMessage="A board Prefix is required."></asp:RequiredFieldValidator>
+						</td>
+					</tr>
+									<tr>
+						<td class="postheader" width="50%">
+							Category Prefix(max 12):
+						</td>
+						<td class="post">
+							<asp:TextBox ID="CategoryPrefixTB" runat="server">cat-</asp:TextBox>
+							<asp:RequiredFieldValidator ID="CategoryPrefixTBRequiredfieldvalidator" runat="server" EnableClientScript="False"
+								Text="cat-" ControlToValidate="CategoryPrefixTB" ErrorMessage="A Category Prefix is required."></asp:RequiredFieldValidator>
+						</td>
+					</tr>
+							<tr>
+						<td class="postheader" width="50%">
+							Forum Prefix(max 12):
+						</td>
+						<td class="post">
+							<asp:TextBox ID="ForumPrefixTB" runat="server">frm-</asp:TextBox>
+							<asp:RequiredFieldValidator ID="ForumPrefixTBRequiredfieldvalidator" runat="server" EnableClientScript="False"
+								Text="frm-" ControlToValidate="ForumPrefixTB" ErrorMessage="A Forum Prefix is required."></asp:RequiredFieldValidator>
+						</td>
+					</tr>
+							<tr>
+						<td class="postheader" width="50%">
+							Topic Name Prefix(max 92):
+						</td>
+						<td class="post">
+							<asp:TextBox ID="TopicPrefixTB" runat="server">topic-</asp:TextBox>
+							<asp:RequiredFieldValidator ID="TopicPrefixTBRequiredfieldvalidator" runat="server" EnableClientScript="False"
+								Text="topic-" ControlToValidate="TopicPrefixTB" ErrorMessage="A Topic Prefix is required."></asp:RequiredFieldValidator>
+						</td>
+					</tr>						
+						<tr>
+						<td class="postheader" width="50%">
+							Message Content Prefix:
+						</td>
+						<td class="post">
+							<asp:TextBox ID="MessageContentPrefixTB" runat="server">msg-</asp:TextBox>
+							<asp:RequiredFieldValidator ID="MessageContentPrefixTBRequiredfieldvalidator" runat="server" EnableClientScript="False"
+								Text="msg-" ControlToValidate="MessageContentPrefixTB" ErrorMessage="A Messsage Content Prefix is required."></asp:RequiredFieldValidator>
+						</td>
+					</tr>			
 				</table>
 			</DotNetAge:View>
 		</Views>
