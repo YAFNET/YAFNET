@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+/* Yet Another Forum.net
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -16,41 +16,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Data;
-using System.Web.UI;
-using YAF.Classes.Core;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System;
+  using System.Data;
+  using System.Linq;
+  using System.Web.UI;
+
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// Control displaying list of user currently active on a forum.
   /// </summary>
   public class ActiveUsers : BaseControl
   {
-    #region Data
-
     // data about active users
+    #region Constants and Fields
+
     /// <summary>
-    /// The _active user table.
+    ///   The _active user table.
     /// </summary>
-    private DataTable _activeUserTable = null;
+    private DataTable _activeUserTable;
 
     #endregion
 
-    #region Constructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ActiveUsers"/> class. 
-    /// Default constructor.
-    /// </summary>
-    public ActiveUsers()
-    {
-    }
-
-    #endregion
-
-    #region Control Properties
+    #region Properties
 
     /// <summary>
     /// Gets or sets list of users to display in control.
@@ -62,10 +57,10 @@ namespace YAF.Controls
         if (this._activeUserTable == null)
         {
           // read there data from viewstate
-          if (ViewState["ActiveUserTable"] != null)
+          if (this.ViewState["ActiveUserTable"] != null)
           {
             // cast it
-            this._activeUserTable = ViewState["ActiveUserTable"] as DataTable;
+            this._activeUserTable = this.ViewState["ActiveUserTable"] as DataTable;
           }
         }
 
@@ -76,13 +71,12 @@ namespace YAF.Controls
       set
       {
         // save it to viewstate
-        ViewState["ActiveUserTable"] = value;
+        this.ViewState["ActiveUserTable"] = value;
 
         // save it also to local variable to avoid repetitive casting from viewstate in getter
         this._activeUserTable = value;
       }
     }
-
 
     /// <summary>
     /// Gets or sets whether treat displaying of guest users same way as that of hidden users.
@@ -91,9 +85,9 @@ namespace YAF.Controls
     {
       get
       {
-        if (ViewState["TreatGuestAsHidden"] != null)
+        if (this.ViewState["TreatGuestAsHidden"] != null)
         {
-          return Convert.ToBoolean(ViewState["TreatGuestAsHidden"]);
+          return Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
         }
 
         return false;
@@ -101,55 +95,13 @@ namespace YAF.Controls
 
       set
       {
-        ViewState["TreatGuestAsHidden"] = value;
+        this.ViewState["TreatGuestAsHidden"] = value;
       }
     }
 
     #endregion
 
-    #region Rendering
-
-    /// <summary>
-    /// Implemets rendering of control to the client through use of HtmlTextWriter.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render(HtmlTextWriter writer)
-    {
-      // writes starting tag
-      writer.WriteLine(String.Format(@"<div class=""yafactiveusers"" id=""{0}"">", ClientID));
-
-      // indicates whether we are processing first active user
-      bool isFirst = true;
-
-      // cycle through active user links contained within this control (see OnPreRender where this links are added)
-      foreach (Control control in Controls)
-      {
-        if (control is UserLink && control.Visible)
-        {
-          // control is visible UserLink
-          // if we are rendering other then first UserLink, write down separator first to divide it from previus link
-          if (!isFirst)
-          {
-            writer.WriteLine(", ");
-          }
-            
-            // we are past first link
-          else
-          {
-            isFirst = false;
-          }
-
-          // render UserLink
-          control.RenderControl(writer);
-        }
-      }
-
-      // write ending tag
-      writer.WriteLine("</div>");
-    }
-
+    #region Methods
 
     /// <summary>
     /// Raises PreRender event and prepares control for rendering by creating links to active users.
@@ -163,30 +115,37 @@ namespace YAF.Controls
       base.OnPreRender(e);
 
       // we shall continue only if there are active user data available
-      if (ActiveUserTable != null)
+      if (this.ActiveUserTable != null)
       {
         // add style column if there is no such column in the table
         // style column defines how concrete user's link should be styled
-        if (!ActiveUserTable.Columns.Contains("Style"))
+        if (!this.ActiveUserTable.Columns.Contains("Style"))
         {
-          ActiveUserTable.Columns.Add("Style", typeof (string));
-          ActiveUserTable.AcceptChanges();
+          this.ActiveUserTable.Columns.Add("Style", typeof(string));
+          this.ActiveUserTable.AcceptChanges();
         }
 
         // go through the table and process each row
-        foreach (DataRow row in ActiveUserTable.Rows)
+        foreach (DataRow row in this.ActiveUserTable.Rows)
         {
           // indicates whether user link should be added or not
           bool addControl = true;
 
           // create new link and set its parameters
-          var userLink = new UserLink();
-          userLink.UserID = Convert.ToInt32(row["UserID"]);
-          userLink.Style = this.PageContext.BoardSettings.UseStyledNicks ? new YAF.Classes.Utils.StyleTransform(this.PageContext.Theme).DecodeStyleByString(row["Style"].ToString(), false) : string.Empty;
-          userLink.ID = "UserLink" + userLink.UserID.ToString();
+          var userLink = new UserLink
+            {
+              UserID = Convert.ToInt32(row["UserID"]), 
+              Style =
+                this.PageContext.BoardSettings.UseStyledNicks
+                  ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(row["Style"].ToString(), false)
+                  : string.Empty
+            };
+
+          userLink.ID = "UserLink" + userLink.UserID;
 
           // how many users of this type is present (valid for guests, others have it 1)
           int userCount = Convert.ToInt32(row["UserCount"]);
+
           if (userCount > 1)
           {
             // add postfix if thre is more the one user of this name
@@ -194,11 +153,11 @@ namespace YAF.Controls
           }
 
           // we might not want to add this user link if user is marked as hidden
-          if (Convert.ToBoolean(row["IsHidden"]) == true ||// or if user is guest and guest should be hidden
-              (TreatGuestAsHidden == true && UserMembershipHelper.IsGuestUser(row["UserID"])))
+          if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
+              (this.TreatGuestAsHidden && UserMembershipHelper.IsGuestUser(row["UserID"])))
           {
             // hidden user are always visible to admin and himself
-            if (PageContext.IsAdmin || userLink.UserID == PageContext.PageUserID)
+            if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
             {
               // show regardless...
               addControl = true;
@@ -207,7 +166,7 @@ namespace YAF.Controls
               userLink.CssClass = "active_hidden";
 
               // and also add postfix
-              userLink.PostfixText = String.Format(" ({0})", PageContext.Localization.GetText("HIDDEN"));
+              userLink.PostfixText = String.Format(" ({0})", this.PageContext.Localization.GetText("HIDDEN"));
             }
             else
             {
@@ -219,10 +178,48 @@ namespace YAF.Controls
           // add user link if it's not supressed
           if (addControl)
           {
-            Controls.Add(userLink);
+            this.Controls.Add(userLink);
           }
         }
       }
+    }
+
+    /// <summary>
+    /// Implements rendering of control to the client through use of <see cref="HtmlTextWriter"/>.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    protected override void Render(HtmlTextWriter writer)
+    {
+      // writes starting tag
+      writer.WriteLine(String.Format(@"<div class=""yafactiveusers"" id=""{0}"">", this.ClientID));
+
+      // indicates whether we are processing first active user
+      bool isFirst = true;
+
+      // cycle through active user links contained within this control (see OnPreRender where this links are added)
+      foreach (Control control in this.Controls.Cast<Control>().Where(control => control is UserLink && control.Visible)
+        )
+      {
+        // control is visible UserLink
+        // if we are rendering other then first UserLink, write down separator first to divide it from previus link
+        if (!isFirst)
+        {
+          writer.WriteLine(", ");
+        }
+        else
+        {
+          // we are past first link
+          isFirst = false;
+        }
+
+        // render UserLink
+        control.RenderControl(writer);
+      }
+
+      // write ending tag
+      writer.WriteLine("</div>");
     }
 
     #endregion

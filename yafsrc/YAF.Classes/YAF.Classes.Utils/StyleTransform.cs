@@ -22,7 +22,9 @@ namespace YAF.Classes.Utils
 
   using System;
   using System.Data;
-  using Interfaces;
+  using System.Linq;
+
+  using YAF.Classes.Interfaces;
 
   #endregion
 
@@ -33,24 +35,129 @@ namespace YAF.Classes.Utils
   /// </summary>
   public class StyleTransform : IStyleTransform
   {
-    private IYafTheme _theme;
+    #region Constants and Fields
 
+    /// <summary>
+    /// The _theme.
+    /// </summary>
+    private readonly IYafTheme _theme;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StyleTransform"/> class.
+    /// </summary>
+    /// <param name="theme">
+    /// The theme.
+    /// </param>
+    public StyleTransform(IYafTheme theme)
+    {
+      this._theme = theme;
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets CurrentThemeFile.
+    /// </summary>
     public string CurrentThemeFile
     {
       get
       {
-        if (_theme != null)
+        if (this._theme != null)
         {
-          return _theme.ThemeFile.ToLower().Trim();
+          return this._theme.ThemeFile.ToLower().Trim();
         }
 
         return string.Empty;
       }
     }
 
-    public StyleTransform(IYafTheme theme)
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The decode style by row.
+    /// </summary>
+    /// <param name="dr">
+    /// The dr.
+    /// </param>
+    /// <param name="columnName">
+    /// the style column name
+    /// </param>
+    /// <param name="colorOnly">
+    /// The color only.
+    /// </param>
+    public void DecodeStyleByRow(ref DataRow dr, string columnName, bool colorOnly)
     {
-      _theme = theme;
+      dr[columnName] = this.DecodeStyleByString(dr[columnName].ToString(), colorOnly);
+    }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IStyleTransform
+
+    /// <summary>
+    /// The decode style by row.
+    /// </summary>
+    /// <param name="dr">
+    /// The dr.
+    /// </param>
+    public void DecodeStyleByRow(ref DataRow dr)
+    {
+      this.DecodeStyleByRow(ref dr, false);
+    }
+
+    /// <summary>
+    /// The decode style by row.
+    /// </summary>
+    /// <param name="dr">
+    /// The dr.
+    /// </param>
+    /// <param name="colorOnly">
+    /// The color only.
+    /// </param>
+    public void DecodeStyleByRow(ref DataRow dr, bool colorOnly)
+    {
+      this.DecodeStyleByRow(ref dr, "Style", colorOnly);
+    }
+
+    /// <summary>
+    /// The decode style by string.
+    /// </summary>
+    /// <param name="styleStr">
+    /// The style str.
+    /// </param>
+    /// <param name="colorOnly">
+    /// The color only.
+    /// </param>
+    /// <returns>
+    /// The decode style by string.
+    /// </returns>
+    public string DecodeStyleByString(string styleStr, bool colorOnly)
+    {
+      string[] styleRow = styleStr.Trim().Split('/');
+
+      for (int i = 0; i < styleRow.GetLength(0); i++)
+      {
+        string[] pair = styleRow[i].Split('!');
+
+        if (pair[0].ToLowerInvariant().Trim() == "default")
+        {
+          styleStr = colorOnly ? this.GetColorOnly(pair[1]) : pair[1];
+        }
+
+        styleStr = this.DecodeStyleByString(styleStr, colorOnly, pair);
+      }
+
+      return styleStr;
     }
 
     /// <summary>
@@ -75,7 +182,7 @@ namespace YAF.Classes.Utils
     /// </param>
     public void DecodeStyleByTable(ref DataTable dt, bool colorOnly)
     {
-      DecodeStyleByTable(ref dt, colorOnly, "Style");
+      this.DecodeStyleByTable(ref dt, colorOnly, "Style");
     }
 
     /// <summary>
@@ -95,55 +202,21 @@ namespace YAF.Classes.Utils
     /// </param>
     public void DecodeStyleByTable(ref DataTable dt, bool colorOnly, params string[] styleColumns)
     {
-      for (int i = 0; i < dt.Rows.Count; i++)
+      foreach (var row in dt.Rows.Cast<DataRow>())
       {
-        for (int k = 0; k < styleColumns.Length; k++)
+        foreach (string t in styleColumns)
         {
-          DataRow dr = dt.Rows[i];
-          DecodeStyleByRow(ref dr, styleColumns[k], colorOnly);
+          DataRow dr = row;
+          this.DecodeStyleByRow(ref dr, t, colorOnly);
         }
       }
     }
 
-    /// <summary>
-    /// The decode style by row.
-    /// </summary>
-    /// <param name="dr">
-    /// The dr.
-    /// </param>
-    public void DecodeStyleByRow(ref DataRow dr)
-    {
-      DecodeStyleByRow(ref dr, false);
-    }
+    #endregion
 
-    /// <summary>
-    /// The decode style by row.
-    /// </summary>
-    /// <param name="dr">
-    /// The dr.
-    /// </param>
-    /// <param name="colorOnly">
-    /// The color only.
-    /// </param>
-    public void DecodeStyleByRow(ref DataRow dr, bool colorOnly)
-    {
-      DecodeStyleByRow(ref dr, "Style", colorOnly);
-    }
+    #endregion
 
-    /// <summary>
-    /// The decode style by row.
-    /// </summary>
-    /// <param name="dr">
-    /// The dr.
-    /// </param>
-    /// <param name="columnName">the style column name</param>
-    /// <param name="colorOnly">
-    /// The color only.
-    /// </param>
-    public void DecodeStyleByRow(ref DataRow dr, string columnName, bool colorOnly)
-    {
-      dr[columnName] = DecodeStyleByString(dr[columnName].ToString(), colorOnly);
-    }
+    #region Methods
 
     /// <summary>
     /// The decode style by string.
@@ -154,45 +227,20 @@ namespace YAF.Classes.Utils
     /// <param name="colorOnly">
     /// The color only.
     /// </param>
+    /// <param name="pair">
+    /// The pair.
+    /// </param>
     /// <returns>
     /// The decode style by string.
     /// </returns>
-    public string DecodeStyleByString(string styleStr, bool colorOnly)
-    {
-      string[] styleRow = styleStr.Trim().Split('/');
-      for (int i = 0; i < styleRow.GetLength(0); i++)
-      {
-        string[] pair = styleRow[i].Split('!');
-        if (pair[0].ToLowerInvariant().Trim() == "default")
-        {
-          if (colorOnly)
-          {
-            styleStr = GetColorOnly(pair[1]);
-          }
-          else
-          {
-            styleStr = pair[1];
-          }
-        }
-
-        styleStr = DecodeStyleByString(styleStr, colorOnly, pair);
-      }
-
-      return styleStr;
-    }
-
     private string DecodeStyleByString(string styleStr, bool colorOnly, string[] pair)
     {
       string styleStrResult = styleStr;
 
-      for (int j = 0; j < pair.Length; j++)
+      foreach (string filename in
+        pair.Select(t => pair[0] + ".xml").Where(filename => filename.Trim().Equals(this.CurrentThemeFile, StringComparison.CurrentCultureIgnoreCase)))
       {
-        string filename = pair[0] + ".xml";
-
-        if (filename.Trim().Equals(CurrentThemeFile, StringComparison.CurrentCultureIgnoreCase))
-        {
-          styleStrResult = colorOnly ? GetColorOnly(pair[1]) : pair[1];
-        }
+        styleStrResult = colorOnly ? this.GetColorOnly(pair[1]) : pair[1];
       }
 
       return styleStrResult;
@@ -210,15 +258,9 @@ namespace YAF.Classes.Utils
     private string GetColorOnly(string styleString)
     {
       string[] styleArray = styleString.Split(';');
-      for (int i = 0; i < styleArray.Length; i++)
-      {
-        if (styleArray[i].ToLower().Contains("color"))
-        {
-          return styleArray[i];
-        }
-      }
-
-      return null;
+      return styleArray.FirstOrDefault(t => t.ToLower().Contains("color"));
     }
+
+    #endregion
   }
 }

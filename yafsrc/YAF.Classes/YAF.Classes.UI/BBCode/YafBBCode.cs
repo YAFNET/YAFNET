@@ -36,7 +36,6 @@ namespace YAF.Classes.UI
   {
     /* Ederon : 6/16/2007 - conventions */
 
-    // regular regex...
     /// <summary>
     /// The _options.
     /// </summary>
@@ -45,7 +44,7 @@ namespace YAF.Classes.UI
     /// <summary>
     /// The _rgx bb code localization tag.
     /// </summary>
-    private static readonly string _rgxBBCodeLocalizationTag = @"\[localization=(?<tag>[^\]]*)\](?<inner>(.*?))\[/localization\]";
+    private static readonly string _rgxBBCodeLocalizationTag = @"\[localization=(?<tag>[^\]]*)\](?<inner>(.+?))\[/localization\]";
 
     /// <summary>
     /// The _rgx bold.
@@ -85,12 +84,12 @@ namespace YAF.Classes.UI
     /// <summary>
     /// The _rgx email 1.
     /// </summary>
-    private static readonly Regex _rgxEmail1 = new Regex(@"\[email[^\]]*\](?<inner>(.*?))\[/email\]", _options | RegexOptions.Compiled);
+    private static readonly Regex _rgxEmail1 = new Regex(@"\[email[^\]]*\](?<inner>(.+?))\[/email\]", _options | RegexOptions.Compiled);
 
     /// <summary>
     /// The _rgx email 2.
     /// </summary>
-    private static readonly Regex _rgxEmail2 = new Regex(@"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]", _options | RegexOptions.Compiled);
+    private static readonly Regex _rgxEmail2 = new Regex(@"\[email=(?<email>[^\]]*)\](?<inner>(.+?))\[/email\]", _options | RegexOptions.Compiled);
 
     /// <summary>
     /// The _rgx font.
@@ -106,7 +105,7 @@ namespace YAF.Classes.UI
     /// The _rgx img.
     /// </summary>
     private static readonly Regex _rgxImg = new Regex(
-      @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?\.((jpg)|(png)|(gif)|(tif))))\[/img\]", _options | RegexOptions.Compiled);
+      @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.+?\.((jpg)|(png)|(gif)|(tif))))\[/img\]", _options | RegexOptions.Compiled);
 
     /// <summary>
     /// The _rgx italic.
@@ -187,14 +186,14 @@ namespace YAF.Classes.UI
     /// The _rgx url 1.
     /// </summary>
     private static readonly Regex _rgxUrl1 = new Regex(
-      @"\[url\](?<http>(skype:)|(http://)|(https://)| (ftp://)|(ftps://))?(?<inner>(.*?))\[/url\]", _options | RegexOptions.Compiled);
+      @"\[url\](?<http>(skype:)|(http://)|(https://)| (ftp://)|(ftps://))?(?<inner>(.+?))\[/url\]", _options | RegexOptions.Compiled);
 
     /// <summary>
     /// The _rgx url 2.
     /// </summary>
     private static readonly Regex _rgxUrl2 =
       new Regex(
-        @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.*?))\[/url\]", _options | RegexOptions.Compiled);
+        @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.+?))\[/url\]", _options | RegexOptions.Compiled);
 
     /// <summary>
     /// Prevents a default instance of the <see cref="YafBBCode"/> class from being created.
@@ -240,7 +239,7 @@ namespace YAF.Classes.UI
     /// </summary>
     /// <remarks>
     /// YafBBCode quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string 
-    /// returned, as to appear in plaintext in rich text editors.
+    /// returned, as to appear in plain text in rich text editors.
     /// </remarks>
     /// <param name="message">
     /// String containing the body of the message to convert
@@ -273,7 +272,7 @@ namespace YAF.Classes.UI
     }
 
     /// <summary>
-    /// Creates the rules that convert YafBBCode to HTML
+    /// Creates the rules that convert <see cref="YafBBCode"/> to HTML
     /// </summary>
     /// <param name="ruleEngine">
     /// The rule Engine.
@@ -293,7 +292,7 @@ namespace YAF.Classes.UI
     }
 
     /// <summary>
-    /// Creates the rules that convert YafBBCode to HTML
+    /// Creates the rules that convert <see cref="YafBBCode"/> to HTML
     /// </summary>
     /// <param name="ruleEngine">
     /// The rule Engine.
@@ -415,8 +414,8 @@ namespace YAF.Classes.UI
         // image
         ruleEngine.AddRule(
           new VariableRegexReplaceRule(
-            _rgxImg, 
-            "<img src=\"${http}${inner}\" alt=\"\"/>", 
+            _rgxImg,
+            "<img src=\"${http}${inner}\" alt=\"\"/>",
             new[]
               {
                 "http"
