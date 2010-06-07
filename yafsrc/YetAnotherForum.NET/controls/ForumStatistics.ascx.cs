@@ -70,7 +70,7 @@ namespace YAF.Controls
         () =>
         {
           // get the post stats
-          DataRow dr = DB.board_poststats(PageContext.PageBoardID);
+          DataRow dr = DB.board_poststats(PageContext.PageBoardID, PageContext.BoardSettings.UseStyledNicks);
 
           // Set colorOnly parameter to false, as we get here color from data field in the place
           dr["LastUserStyle"] = this.PageContext.BoardSettings.UseStyledNicks
