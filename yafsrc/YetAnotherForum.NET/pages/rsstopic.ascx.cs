@@ -140,7 +140,7 @@ namespace YAF.Pages
           {
             using (
               DataTable dt = DB.post_list(
-                this.PageContext.PageTopicID, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false, false))
+                this.PageContext.PageTopicID, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false, false,false))
             {
               foreach (DataRow row in dt.Rows)
               {

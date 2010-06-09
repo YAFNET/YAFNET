@@ -3933,7 +3933,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1, @StyledNicks bit = 0, @ShowThanksDate bit = 1) as
+create procedure [{databaseOwner}].[{objectQualifier}post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1, @StyledNicks bit = 0, @ShowThanksDate bit = 1, @EnableThanks bit = 0 ) as
 begin
 		set nocount on
 	if @UpdateViewCount>0
@@ -3965,7 +3965,9 @@ begin
 		d.ForumID,
 		RankName = c.Name,		
 		c.RankImage,	
-		ThanksInfo = ([{databaseOwner}].[{objectQualifier}message_getthanksinfo](a.MessageID, @ShowThanksDate)),
+		ThanksInfo = (case(@EnableThanks) WHEN 1 
+		THEN ([{databaseOwner}].[{objectQualifier}message_getthanksinfo](a.MessageID, @ShowThanksDate))
+		ELSE NULL END),
 		Style = case(@StyledNicks)
 	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
 		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), c.Style)  

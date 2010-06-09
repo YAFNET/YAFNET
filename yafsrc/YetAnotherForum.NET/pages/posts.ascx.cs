@@ -1013,8 +1013,8 @@ namespace YAF.Pages
         this.PageContext.PageTopicID, 
         this.IsPostBack ? 0 : 1, 
         this.PageContext.BoardSettings.ShowDeletedMessages, 
-        YafContext.Current.BoardSettings.UseStyledNicks, 
-        YafContext.Current.BoardSettings.ShowThanksDate);
+        YafContext.Current.BoardSettings.UseStyledNicks,
+        YafContext.Current.BoardSettings.ShowThanksDate, YafContext.Current.BoardSettings.EnableThanksMod);
 
       var messageIDs = new StringBuilder();
 

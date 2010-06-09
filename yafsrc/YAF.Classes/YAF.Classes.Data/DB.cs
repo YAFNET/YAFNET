@@ -3681,7 +3681,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable post_list(object topicID, object updateViewCount, bool showDeleted, bool styledNicks, bool showThanksDate)
+    public static DataTable post_list(object topicID, object updateViewCount, bool showDeleted, bool styledNicks, bool showThanksDate, bool enableThanks)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("post_list"))
       {
@@ -3691,6 +3691,8 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("ShowDeleted", showDeleted);
         cmd.Parameters.AddWithValue("StyledNicks", styledNicks);
         cmd.Parameters.AddWithValue("ShowThanksDate", showThanksDate);
+        cmd.Parameters.AddWithValue("EnableThanks", enableThanks);
+
         return YafDBAccess.Current.GetData(cmd);
       }
     }

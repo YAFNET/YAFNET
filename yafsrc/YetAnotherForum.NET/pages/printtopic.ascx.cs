@@ -71,7 +71,7 @@ namespace YAF.Pages
         this.PageLinks.AddForumLinks(PageContext.PageForumID);
         this.PageLinks.AddLink(PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", PageContext.PageTopicID));
 
-        this.Posts.DataSource = DB.post_list(PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false, false);
+        this.Posts.DataSource = DB.post_list(PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false, false,false);
         DataBind();
       }
     }
