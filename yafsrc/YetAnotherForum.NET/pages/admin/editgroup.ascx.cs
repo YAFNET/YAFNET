@@ -235,13 +235,11 @@ namespace YAF.Pages.Admin
         // create new role...
         RoleMembershipHelper.CreateRole(roleName);
 
-        // put users into new role...
-        PageContext.CurrentRoles.AddUsersToRoles(
-          users, 
-          new[]
-            {
-              roleName
-            });
+        if (users.Length > 0)
+        {
+          // put users into new role...
+          PageContext.CurrentRoles.AddUsersToRoles(users, new[] { roleName });
+        }
       }
         
         // if role doesn't exist in provider's data source, create it

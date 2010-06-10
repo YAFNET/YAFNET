@@ -821,36 +821,36 @@ DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_move]
 GO
 
 IF EXISTS (SELECT * FROM   dbo.sysobjects
-           WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}category_simplelist]')
-           AND Objectproperty(id,N'IsProcedure') = 1)
+		   WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}category_simplelist]')
+		   AND Objectproperty(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}category_simplelist] 
 GO
 
 IF EXISTS (SELECT *
-           FROM   dbo.sysobjects
-           WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}forum_simplelist]')
-           AND Objectproperty(id,N'IsProcedure') = 1)
+		   FROM   dbo.sysobjects
+		   WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}forum_simplelist]')
+		   AND Objectproperty(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}forum_simplelist] 
 GO
 
 IF EXISTS (SELECT *
-           FROM   dbo.sysobjects
-           WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}message_simplelist]')
-           AND Objectproperty(id,N'IsProcedure') = 1)
+		   FROM   dbo.sysobjects
+		   WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}message_simplelist]')
+		   AND Objectproperty(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_simplelist] 
 GO
 
 IF EXISTS (SELECT *
-           FROM   dbo.sysobjects
-           WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}topic_simplelist]')
-           AND Objectproperty(id,N'IsProcedure') = 1)
+		   FROM   dbo.sysobjects
+		   WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}topic_simplelist]')
+		   AND Objectproperty(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_simplelist] 
 GO
 
 IF EXISTS (SELECT *
-           FROM   dbo.sysobjects
-           WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}user_simplelist]')
-           AND Objectproperty(id,N'IsProcedure') = 1)
+		   FROM   dbo.sysobjects
+		   WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}user_simplelist]')
+		   AND Objectproperty(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_simplelist] 
 GO
 
@@ -1068,10 +1068,10 @@ AS
 BEGIN
 -- vzrus says: the server version > 2000 ntext works too slowly with substring in the 2005 
 DECLARE @ParsedMessageIDs TABLE
-      (
-            MessageID int
-      )
-      
+	  (
+			MessageID int
+	  )
+	  
 DECLARE @MessageID varchar(11), @Pos INT      
 
 SET @Pos = CHARINDEX(',', @MessageIDs, 1)
@@ -1079,20 +1079,20 @@ SET @Pos = CHARINDEX(',', @MessageIDs, 1)
 IF REPLACE(@MessageIDs, ',', '') <> ''
 BEGIN
  WHILE @Pos > 0
-                  BEGIN
-                        SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDs, @Pos - 1)))
-                        IF @MessageID <> ''
-                        BEGIN
-                              INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
-                        END
-                        SET @MessageIDs = RIGHT(@MessageIDs, LEN(@MessageIDs) - @Pos)
-                        SET @Pos = CHARINDEX(',', @MessageIDs, 1)
-                  END
-                     -- to be sure that last value is inserted
-                    IF (LEN(@MessageIDs) > 0)
-                           INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageIDs AS int)) 
+				  BEGIN
+						SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDs, @Pos - 1)))
+						IF @MessageID <> ''
+						BEGIN
+							  INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
+						END
+						SET @MessageIDs = RIGHT(@MessageIDs, LEN(@MessageIDs) - @Pos)
+						SET @Pos = CHARINDEX(',', @MessageIDs, 1)
+				  END
+					 -- to be sure that last value is inserted
+					IF (LEN(@MessageIDs) > 0)
+						   INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageIDs AS int)) 
 END 
-    SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
+	SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksFromUserID=d.UserID) AS ThanksFromUserNumber,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.UserID) AS ThanksToUserNumber,
 	(SELECT COUNT(DISTINCT(MessageID)) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.userID) AS ThanksToUserPostsNumber
@@ -1107,37 +1107,37 @@ GO
 AS
 BEGIN
 DECLARE @ParsedMessageIDs TABLE
-      (
-            MessageID int
-      )
-    DECLARE @MessageIDsChunk NVARCHAR(4000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
-    SET @Itr = 0
-    SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
-    WHILE LEN(@MessageIDsChunk) > 0
-    BEGIN
-            SET @trimindex = CHARINDEX(',',REVERSE( @MessageIDsChunk ), 1 );
-            SET @MessageIDsChunk = SUBSTRING(@MessageIDsChunk,0, 4000-@trimindex)
-            SET @Itr = @Itr - @trimindex
-            SET @MessageIDsChunk = LTRIM(RTRIM(@MessageIDsChunk))+ ','
-            SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
-            IF REPLACE(@MessageIDsChunk, ',', '') <> ''
-            BEGIN
-                  WHILE @Pos > 0
-                  BEGIN
-                        SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDsChunk, @Pos - 1)))
-                        IF @MessageID <> ''
-                        BEGIN
-                              INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
-                        END
-                        SET @MessageIDsChunk = RIGHT(@MessageIDsChunk, LEN(@MessageIDsChunk) - @Pos)
-                        SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
-                  END
-            END      
-            SET @Itr = @Itr + 4000;
-            SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
-      END
-      
-    SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
+	  (
+			MessageID int
+	  )
+	DECLARE @MessageIDsChunk NVARCHAR(4000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
+	SET @Itr = 0
+	SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+	WHILE LEN(@MessageIDsChunk) > 0
+	BEGIN
+			SET @trimindex = CHARINDEX(',',REVERSE( @MessageIDsChunk ), 1 );
+			SET @MessageIDsChunk = SUBSTRING(@MessageIDsChunk,0, 4000-@trimindex)
+			SET @Itr = @Itr - @trimindex
+			SET @MessageIDsChunk = LTRIM(RTRIM(@MessageIDsChunk))+ ','
+			SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
+			IF REPLACE(@MessageIDsChunk, ',', '') <> ''
+			BEGIN
+				  WHILE @Pos > 0
+				  BEGIN
+						SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDsChunk, @Pos - 1)))
+						IF @MessageID <> ''
+						BEGIN
+							  INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
+						END
+						SET @MessageIDsChunk = RIGHT(@MessageIDsChunk, LEN(@MessageIDsChunk) - @Pos)
+						SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
+				  END
+			END      
+			SET @Itr = @Itr + 4000;
+			SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+	  END
+	  
+	SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksFromUserID=d.UserID) AS ThanksFromUserNumber,
 	(SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.UserID) AS ThanksToUserNumber,
 	(SELECT COUNT(DISTINCT(MessageID)) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.userID) AS ThanksToUserPostsNumber
@@ -1189,35 +1189,35 @@ Go
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_viewallthanks] @UserID int
 AS 
-    BEGIN
-        select  t.ThanksFromUserID,
-                t.ThanksToUserID,
-                c.MessageID,
-                a.ForumID,
-                a.TopicID,
-                a.Topic,
-                b.UserID,
-                c.MessageID,
-                c.Posted,
-                c.Message,
-                c.Flags
-        from    [{databaseOwner}].[{objectQualifier}message] c
-                left join [{databaseOwner}].[{objectQualifier}topic] a on a.TopicID = c.TopicID
-                left join [{databaseOwner}].[{objectQualifier}user] b on c.UserID = b.UserID
-                join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID = a.ForumID
-                join [{databaseOwner}].[{objectQualifier}Thanks] t on c.MessageID = t.MessageID
-        where   x.ReadAccess <> 0
-                AND x.UserID = @UserID
-                AND c.IsApproved = 1
-                AND a.TopicMovedID IS NULL
-                AND a.IsDeleted = 0
-                AND c.IsDeleted = 0
-                and c.messageID in ( select MessageID
-                                     from   [{databaseOwner}].[{objectQualifier}thanks]
-                                     where  ThanksFromUserID = @UserID
-                                            or thankstouserID = @UserID )
+	BEGIN
+		select  t.ThanksFromUserID,
+				t.ThanksToUserID,
+				c.MessageID,
+				a.ForumID,
+				a.TopicID,
+				a.Topic,
+				b.UserID,
+				c.MessageID,
+				c.Posted,
+				c.Message,
+				c.Flags
+		from    [{databaseOwner}].[{objectQualifier}message] c
+				left join [{databaseOwner}].[{objectQualifier}topic] a on a.TopicID = c.TopicID
+				left join [{databaseOwner}].[{objectQualifier}user] b on c.UserID = b.UserID
+				join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID = a.ForumID
+				join [{databaseOwner}].[{objectQualifier}Thanks] t on c.MessageID = t.MessageID
+		where   x.ReadAccess <> 0
+				AND x.UserID = @UserID
+				AND c.IsApproved = 1
+				AND a.TopicMovedID IS NULL
+				AND a.IsDeleted = 0
+				AND c.IsDeleted = 0
+				and c.messageID in ( select MessageID
+									 from   [{databaseOwner}].[{objectQualifier}thanks]
+									 where  ThanksFromUserID = @UserID
+											or thankstouserID = @UserID )
 		ORDER BY c.Posted DESC
-    END
+	END
 Go
 /* End of procedures for "Thanks" Mod */
 
@@ -1323,8 +1323,8 @@ begin
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-	        else ''	 end,			
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+			else ''	 end,			
 			UserCount = 1,
 			c.Login,
 			c.LastActive,
@@ -1353,8 +1353,8 @@ begin
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
 			IsHidden = ( a.IsActiveExcluded ),
 				Style = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-	        else ''	 end,				
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+			else ''	 end,				
 			UserCount = 1,
 			c.Login,
 			c.LastActive,
@@ -1366,7 +1366,7 @@ begin
 		from
 			[{databaseOwner}].[{objectQualifier}User] a		
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID	
-			      
+				  
 		where
 			c.BoardID = @BoardID and
 			not exists(
@@ -1399,8 +1399,8 @@ begin
 			IsGuest = ISNULL((select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),0),
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-	        else ''	 end,			
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+			else ''	 end,			
 			UserCount = 1,
 			c.Login,
 			c.LastActive,
@@ -1433,8 +1433,8 @@ begin
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
 			IsHidden = ( a.IsActiveExcluded ),
 				Style = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-	        else ''	 end,				
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+			else ''	 end,				
 			UserCount = 1,
 			c.Login,
 			c.LastActive,
@@ -1470,8 +1470,8 @@ begin
 		UserName	= b.Name,
 		IsHidden	= ( b.IsActiveExcluded ),
 		Style = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-	        else ''	 end,		
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+			else ''	 end,		
 		UserCount   = COUNT(a.UserID)
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a 
@@ -1495,8 +1495,8 @@ begin
 		UserName	= b.Name,
 		IsHidden = ( b.IsActiveExcluded ),
 		Style = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-	        else ''	 end,		
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+			else ''	 end,		
 		UserCount   = COUNT(a.UserID)
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a with(nolock)
@@ -1807,7 +1807,7 @@ BEGIN
 		Forums = (select count(1) from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),
 		Members = (select count(1) from [{databaseOwner}].[{objectQualifier}User] a where a.BoardID=@BoardID AND (Flags & 2) = 2 AND (a.Flags & 4) = 0),
 		MaxUsers = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxusers') and BoardID=@BoardID),
-        MaxUsersWhen = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxuserswhen') and BoardID=@BoardID),		
+		MaxUsersWhen = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxuserswhen') and BoardID=@BoardID),		
 		LastPostInfo.*,
 		LastMemberInfo.*
 	FROM
@@ -1852,8 +1852,8 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50), @Culture char(5), @AllowThreaded bit) as
 begin
 
-        EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture', @Culture, @BoardID
-        EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'language', @LanguageFile, @BoardID
+		EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture', @Culture, @BoardID
+		EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'language', @LanguageFile, @BoardID
 		update [{databaseOwner}].[{objectQualifier}Board] set
 		Name = @Name,
 		AllowThreaded = @AllowThreaded
@@ -1956,28 +1956,28 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}category_save]
 )
 AS
 BEGIN
-	    IF @CategoryID > 0
-    BEGIN
-        UPDATE [{databaseOwner}].[{objectQualifier}Category]
-        SET    Name = @Name,
+		IF @CategoryID > 0
+	BEGIN
+		UPDATE [{databaseOwner}].[{objectQualifier}Category]
+		SET    Name = @Name,
 			   CategoryImage = @CategoryImage,
-               SortOrder = @SortOrder
-        WHERE  CategoryID = @CategoryID
-        SELECT CategoryID = @CategoryID
-    END
-    ELSE
-    BEGIN
-        INSERT INTO [{databaseOwner}].[{objectQualifier}Category]
-                   (BoardID,
-                    [Name],
+			   SortOrder = @SortOrder
+		WHERE  CategoryID = @CategoryID
+		SELECT CategoryID = @CategoryID
+	END
+	ELSE
+	BEGIN
+		INSERT INTO [{databaseOwner}].[{objectQualifier}Category]
+				   (BoardID,
+					[Name],
 					[CategoryImage],
-                    SortOrder)
-        VALUES     (@BoardID,
-                    @Name,
+					SortOrder)
+		VALUES     (@BoardID,
+					@Name,
 					@CategoryImage,
-                    @SortOrder)
-        SELECT CategoryID = Scope_identity()
-    END
+					@SortOrder)
+		SELECT CategoryID = Scope_identity()
+	END
 END
 GO
 
@@ -2245,75 +2245,75 @@ begin
 	if @root = 0
 begin
 	  select
-        b.CategoryID,
-        Category = b.Name,
-        a.ForumID,
-        Forum = a.Name,
-        Indent = 0,
-        a.ParentID
-    from
-        [{databaseOwner}].[{objectQualifier}Forum] a
-        join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}vaccess] c on c.ForumID=a.ForumID
-    where
-        c.UserID=@UserID and
-        b.BoardID=@BoardID and
-        c.ReadAccess>0
-    order by
-        b.SortOrder,
-        a.SortOrder,
-        b.CategoryID,
-        a.ForumID
+		b.CategoryID,
+		Category = b.Name,
+		a.ForumID,
+		Forum = a.Name,
+		Indent = 0,
+		a.ParentID
+	from
+		[{databaseOwner}].[{objectQualifier}Forum] a
+		join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
+		join [{databaseOwner}].[{objectQualifier}vaccess] c on c.ForumID=a.ForumID
+	where
+		c.UserID=@UserID and
+		b.BoardID=@BoardID and
+		c.ReadAccess>0
+	order by
+		b.SortOrder,
+		a.SortOrder,
+		b.CategoryID,
+		a.ForumID
 end
 else if  @root > 0
 begin
-    select
-        b.CategoryID,
-        Category = b.Name,
-        a.ForumID,
-        Forum = a.Name,
-        Indent = 0,
-        a.ParentID
-    from
-        [{databaseOwner}].[{objectQualifier}Forum] a
-        join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}vaccess] c on c.ForumID=a.ForumID
-    where
-        c.UserID=@UserID and
-        b.BoardID=@BoardID and
-        c.ReadAccess>0 and
-        a.ForumID = @root
+	select
+		b.CategoryID,
+		Category = b.Name,
+		a.ForumID,
+		Forum = a.Name,
+		Indent = 0,
+		a.ParentID
+	from
+		[{databaseOwner}].[{objectQualifier}Forum] a
+		join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
+		join [{databaseOwner}].[{objectQualifier}vaccess] c on c.ForumID=a.ForumID
+	where
+		c.UserID=@UserID and
+		b.BoardID=@BoardID and
+		c.ReadAccess>0 and
+		a.ForumID = @root
 
-    order by
-        b.SortOrder,
-        a.SortOrder,
-        b.CategoryID,
-        a.ForumID
+	order by
+		b.SortOrder,
+		a.SortOrder,
+		b.CategoryID,
+		a.ForumID
 end
 else
 begin
-    select
-        b.CategoryID,
-        Category = b.Name,
-        a.ForumID,
-        Forum = a.Name,
-        Indent = 0,
-        a.ParentID
-    from
-        [{databaseOwner}].[{objectQualifier}Forum] a
-        join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}vaccess] c on c.ForumID=a.ForumID
-    where
-        c.UserID=@UserID and
-        b.BoardID=@BoardID and
-        c.ReadAccess>0 and
-        b.CategoryID = -@root
+	select
+		b.CategoryID,
+		Category = b.Name,
+		a.ForumID,
+		Forum = a.Name,
+		Indent = 0,
+		a.ParentID
+	from
+		[{databaseOwner}].[{objectQualifier}Forum] a
+		join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
+		join [{databaseOwner}].[{objectQualifier}vaccess] c on c.ForumID=a.ForumID
+	where
+		c.UserID=@UserID and
+		b.BoardID=@BoardID and
+		c.ReadAccess>0 and
+		b.CategoryID = -@root
 
-    order by
-        b.SortOrder,
-        a.SortOrder,
-        b.CategoryID,
-        a.ForumID
+	order by
+		b.SortOrder,
+		a.SortOrder,
+		b.CategoryID,
+		a.ForumID
 end
 end
 GO
@@ -2603,8 +2603,8 @@ begin
 	if @IsTest<>0 set @Flags = @Flags | 4
 	if @Moderated<>0 set @Flags = @Flags | 8
 	
-    if @ForumID = 0 set @ForumID = null
-    
+	if @ForumID = 0 set @ForumID = null
+	
 	if @ForumID is not null begin	
 		update [{databaseOwner}].[{objectQualifier}Forum] set 
 			ParentID=@ParentID,
@@ -2673,7 +2673,7 @@ begin
 	where 
 		a.GroupID = @GroupID
 	order by
-	    brd.Name,
+		brd.Name,
 		c.SortOrder,
 		b.SortOrder
 end
@@ -2900,10 +2900,10 @@ BEGIN
 		SendAttempt = DATEADD(n,5,GETUTCDATE() ),
 		ProcessID = @ProcessID
 	WHERE
-		MailID IN (SELECT TOP 10 MailID FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt < GETUTCDATE()  OR SendAttempt IS NULL)
+		MailID IN (SELECT TOP 10 MailID FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt < GETUTCDATE() OR SendAttempt IS NULL ORDER BY SendAttempt desc, Created desc)
 
 	-- now select all mail reserved for this process...
-	SELECT * FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE ProcessID = @ProcessID ORDER BY Created
+	SELECT * FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE ProcessID = @ProcessID ORDER BY SendAttempt desc, Created desc
 END
 GO
 
@@ -3065,7 +3065,7 @@ BEGIN
 		a.DeleteReason,
 		a.BlogPostID,
 		c.PollID,
-        a.IP
+		a.IP
 	FROM
 		[{databaseOwner}].[{objectQualifier}Message] a
 		inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.UserID
@@ -3102,11 +3102,11 @@ SELECT
 		m.DeleteReason,
 		m.BlogPostID,
 		t.PollID,
-        m.IP
+		m.IP
 	FROM		
 		[{databaseOwner}].[{objectQualifier}Topic] t 
-        join  [{databaseOwner}].[{objectQualifier}Message] m ON m.TopicID = t.TopicID
-        join  [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
+		join  [{databaseOwner}].[{objectQualifier}Message] m ON m.TopicID = t.TopicID
+		join  [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
 		left join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID=IsNull(t.ForumID,0)
 	WHERE
 		m.MessageID = @MessageID AND x.UserID=@UserID  AND x.ReadAccess > 0
@@ -3171,8 +3171,8 @@ BEGIN
 	IF @ReportText IS NULL SET @ReportText = '';		
 	IF NOT exists(SELECT MessageID from [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID=@MessageID AND UserID=@ReporterID)
 		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReportedAudit](MessageID,UserID,Reported,ReportText) VALUES (@MessageID,@ReporterID,@ReportedDate, CONVERT(varchar,GETUTCDATE() )+ '??' + @ReportText)
-    ELSE 
-    UPDATE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] SET ReportedNumber = ( CASE WHEN ReportedNumber < 2147483647 THEN  ReportedNumber  + 1 ELSE ReportedNumber END ), Reported = @ReportedDate, ReportText = (CASE WHEN (LEN(ReportText) + LEN(@ReportText) + 255 < 4000)  THEN  ReportText + '|' + CONVERT(varchar(36),GETUTCDATE() )+ '??' +  @ReportText ELSE ReportText END) WHERE MessageID=@MessageID AND UserID=@ReporterID 
+	ELSE 
+	UPDATE [{databaseOwner}].[{objectQualifier}MessageReportedAudit] SET ReportedNumber = ( CASE WHEN ReportedNumber < 2147483647 THEN  ReportedNumber  + 1 ELSE ReportedNumber END ), Reported = @ReportedDate, ReportText = (CASE WHEN (LEN(ReportText) + LEN(@ReportText) + 255 < 4000)  THEN  ReportText + '|' + CONVERT(varchar(36),GETUTCDATE() )+ '??' +  @ReportText ELSE ReportText END) WHERE MessageID=@MessageID AND UserID=@ReporterID 
 	IF NOT exists(SELECT MessageID FROM [{databaseOwner}].[{objectQualifier}MessageReported] WHERE MessageID=@MessageID)
 	BEGIN
 		INSERT INTO [{databaseOwner}].[{objectQualifier}MessageReported](MessageID, [Message])
@@ -3259,26 +3259,26 @@ BEGIN
 
 	-- Find position
 	IF @ReplyTo IS NOT NULL
-    BEGIN
-        DECLARE @temp INT
+	BEGIN
+		DECLARE @temp INT
 		
-        SELECT @temp=ReplyTo,@Position=Position FROM [{databaseOwner}].[{objectQualifier}Message] WHERE MessageID=@ReplyTo
+		SELECT @temp=ReplyTo,@Position=Position FROM [{databaseOwner}].[{objectQualifier}Message] WHERE MessageID=@ReplyTo
 
-        IF @temp IS NULL
+		IF @temp IS NULL
 			-- We are replying to first post
-            SELECT @Position=MAX(Position)+1 FROM [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID=@TopicID
+			SELECT @Position=MAX(Position)+1 FROM [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID=@TopicID
 
-        ELSE
+		ELSE
 			-- Last position of replies to parent post
-            SELECT @Position=MIN(Position) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE ReplyTo=@temp AND Position>@Position
+			SELECT @Position=MIN(Position) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE ReplyTo=@temp AND Position>@Position
 
-        -- No replies, THEN USE parent post's position+1
-        IF @Position IS NULL
-            SELECT @Position=Position+1 FROM [{databaseOwner}].[{objectQualifier}Message] WHERE MessageID=@ReplyTo
+		-- No replies, THEN USE parent post's position+1
+		IF @Position IS NULL
+			SELECT @Position=Position+1 FROM [{databaseOwner}].[{objectQualifier}Message] WHERE MessageID=@ReplyTo
 		-- Increase position of posts after this
 
-        UPDATE [{databaseOwner}].[{objectQualifier}Message] SET Position=Position+1 WHERE TopicID=@TopicID AND Position>=@Position
-    END
+		UPDATE [{databaseOwner}].[{objectQualifier}Message] SET Position=Position+1 WHERE TopicID=@TopicID AND Position>=@Position
+	END
 
 	-- Add points to Users total points
 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points + 3 WHERE UserID = @UserID
@@ -3348,7 +3348,7 @@ begin
 		a.MessageID = @MessageID
 
 	if (@OverrideApproval = 1 OR (@ForumFlags & 8)=0) set @Flags = @Flags | 16
-    
+	
 	
 	-- insert current message variant - use OriginalMessage in future 	
 	insert into [{databaseOwner}].[{objectQualifier}MessageHistory]
@@ -3371,7 +3371,7 @@ begin
 		EditedBy = @EditedBy,
 		Flags = @Flags,
 		IsModeratorChanged  = @IsModeratorChanged,
-                EditReason = @Reason
+				EditReason = @Reason
 	where
 		MessageID = @MessageID
 
@@ -3709,9 +3709,9 @@ begin
 			-- update max user stats
 			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
 			if @IsGuest=0
-		          begin
-		          set @ActiveUpdate = 1
-		          end
+				  begin
+				  set @ActiveUpdate = 1
+				  end
 		end
 		-- remove duplicate users
 		if @IsGuest=0
@@ -3722,8 +3722,8 @@ begin
 	end
 	-- return information
 	select
-	    ActiveUpdate        = ISNULL(@ActiveUpdate,0),
-	    PreviousVisit		= @PreviousVisit,	   
+		ActiveUpdate        = ISNULL(@ActiveUpdate,0),
+		PreviousVisit		= @PreviousVisit,	   
 		x.*,
 		CategoryID			= @CategoryID,
 		CategoryName		= (select Name from [{databaseOwner}].[{objectQualifier}Category] where CategoryID = @CategoryID),
@@ -3969,9 +3969,9 @@ begin
 		THEN ([{databaseOwner}].[{objectQualifier}message_getthanksinfo](a.MessageID, @ShowThanksDate))
 		ELSE NULL END),
 		Style = case(@StyledNicks)
-	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
 		join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=b.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), c.Style)  
-	        else ''	 end, 
+			else ''	 end, 
 		Edited = IsNull(a.Edited,a.Posted),
 		HasAttachments	= (select count(1) from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=a.MessageID),
 		HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null)
@@ -4341,11 +4341,11 @@ begin
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 		StarterStyle = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
-	        else ''	 end,
-	    LastUserStyle = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
-	        else ''	 end
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
+			else ''	 end,
+		LastUserStyle = case(@StyledNicks)
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+			else ''	 end
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
@@ -4518,8 +4518,8 @@ BEGIN
 		t.NumPosts,
 		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
 		LastUserStyle = case(@StyledNicks)
-	    when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](t.LastUserID)  
-	     else '' end	
+		when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](t.LastUserID)  
+		 else '' end	
 	FROM 
 		[{databaseOwner}].[{objectQualifier}Topic] t
 	INNER JOIN
@@ -4606,11 +4606,11 @@ begin
 			ForumFlags = d.Flags,
 			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 			StarterStyle = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
-	        else ''	 end,
-	        LastUserStyle = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
-	        else ''	 end
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
+			else ''	 end,
+			LastUserStyle = case(@StyledNicks)
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+			else ''	 end
 		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
 			ON b.UserID=c.UserID
 		JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
@@ -4644,11 +4644,11 @@ begin
 			ForumFlags = d.Flags,
 			FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 			StarterStyle = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
-	        else ''	 end,
-	        LastUserStyle = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
-	        else ''	 end
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
+			else ''	 end,
+			LastUserStyle = case(@StyledNicks)
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+			else ''	 end
 		FROM [{databaseOwner}].[{objectQualifier}Topic] c JOIN [{databaseOwner}].[{objectQualifier}User] b 
 			ON b.UserID=c.UserID
 		JOIN [{databaseOwner}].[{objectQualifier}Forum] d 
@@ -4679,28 +4679,28 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}topic_move](@TopicID int,@ForumID int,@ShowMoved bit) AS
 begin
-	    declare @OldForumID int
+		declare @OldForumID int
 
-    select @OldForumID = ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
+	select @OldForumID = ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
 
-    if @ShowMoved<>0 begin
-        -- create a moved message
-        insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,Views,Flags,Priority,PollID,TopicMovedID,LastPosted,NumPosts)
-        select ForumID,UserID,UserName,Posted,Topic,0,Flags,Priority,PollID,@TopicID,LastPosted,0
-        from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
-    end
+	if @ShowMoved<>0 begin
+		-- create a moved message
+		insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,UserID,UserName,Posted,Topic,Views,Flags,Priority,PollID,TopicMovedID,LastPosted,NumPosts)
+		select ForumID,UserID,UserName,Posted,Topic,0,Flags,Priority,PollID,@TopicID,LastPosted,0
+		from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
+	end
 
-    -- move the topic
-    update [{databaseOwner}].[{objectQualifier}Topic] set ForumID = @ForumID where TopicID = @TopicID
+	-- move the topic
+	update [{databaseOwner}].[{objectQualifier}Topic] set ForumID = @ForumID where TopicID = @TopicID
 
-    -- update last posts
-    exec [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @OldForumID
-    exec [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @ForumID
-    
-    -- update stats
-    exec [{databaseOwner}].[{objectQualifier}forum_updatestats] @OldForumID
-    exec [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
-    
+	-- update last posts
+	exec [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @OldForumID
+	exec [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @ForumID
+	
+	-- update stats
+	exec [{databaseOwner}].[{objectQualifier}forum_updatestats] @OldForumID
+	exec [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
+	
 end
 GO
 
@@ -4797,23 +4797,23 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}topic_updatelastpost]
 (@ForumID int=null,@TopicID int=null) as
 begin
-	    if @TopicID is not null
-        update [{databaseOwner}].[{objectQualifier}Topic] set
-            LastPosted = (select top 1 x.Posted from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
-            LastMessageID = (select top 1 x.MessageID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
-            LastUserID = (select top 1 x.UserID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
-            LastUserName = (select top 1 x.UserName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc)
-        where TopicID = @TopicID
-    else
-        update [{databaseOwner}].[{objectQualifier}Topic] set
-            LastPosted = (select top 1 x.Posted from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
-            LastMessageID = (select top 1 x.MessageID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
-            LastUserID = (select top 1 x.UserID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
-            LastUserName = (select top 1 x.UserName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc)
-        where TopicMovedID is null
-        and (@ForumID is null or ForumID=@ForumID)
+		if @TopicID is not null
+		update [{databaseOwner}].[{objectQualifier}Topic] set
+			LastPosted = (select top 1 x.Posted from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastMessageID = (select top 1 x.MessageID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastUserID = (select top 1 x.UserID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastUserName = (select top 1 x.UserName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc)
+		where TopicID = @TopicID
+	else
+		update [{databaseOwner}].[{objectQualifier}Topic] set
+			LastPosted = (select top 1 x.Posted from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastMessageID = (select top 1 x.MessageID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastUserID = (select top 1 x.UserID from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastUserName = (select top 1 x.UserName from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16 order by Posted desc)
+		where TopicMovedID is null
+		and (@ForumID is null or ForumID=@ForumID)
 
-    exec [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @ForumID
+	exec [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @ForumID
 end
 GO
 
@@ -5114,22 +5114,22 @@ BEGIN
 		DECLARE @CountOut int
 		DECLARE @CountArchivedIn int		
 		DECLARE @plimit1 int        
-        DECLARE @pcount int
-        
-      set @plimit1 = (SELECT TOP 1 (c.PMLimit) FROM [{databaseOwner}].[{objectQualifier}User] a 
-                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
-                          ON a.UserID = b.UserID
-                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
-                              ON b.GroupID = c.GroupID WHERE a.UserID = @UserID ORDER BY c.PMLimit DESC)
-      set @pcount = (SELECT TOP 1 c.PMLimit FROM [{databaseOwner}].[{objectQualifier}Rank] c 
-                        JOIN [{databaseOwner}].[{objectQualifier}User] d
-                           ON c.RankID = d.RankID WHERE d.UserID = @UserID ORDER BY c.PMLimit DESC)
-      if (@plimit1 > @pcount) 
-      begin
-      set @pcount = @plimit1      
-      end 
-      
-    -- get count of pm's in user's sent items
+		DECLARE @pcount int
+		
+	  set @plimit1 = (SELECT TOP 1 (c.PMLimit) FROM [{databaseOwner}].[{objectQualifier}User] a 
+						JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+						  ON a.UserID = b.UserID
+							JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+							  ON b.GroupID = c.GroupID WHERE a.UserID = @UserID ORDER BY c.PMLimit DESC)
+	  set @pcount = (SELECT TOP 1 c.PMLimit FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+						JOIN [{databaseOwner}].[{objectQualifier}User] d
+						   ON c.RankID = d.RankID WHERE d.UserID = @UserID ORDER BY c.PMLimit DESC)
+	  if (@plimit1 > @pcount) 
+	  begin
+	  set @pcount = @plimit1      
+	  end 
+	  
+	-- get count of pm's in user's sent items
 	
 	SELECT 
 		@CountOut=COUNT(*) 
@@ -5312,7 +5312,7 @@ begin
 		select 
 			a.*,
 			IsGuest = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on x.GroupID=y.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
-		    IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0)
+			IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0)
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
 		where 
@@ -5365,9 +5365,9 @@ begin
 			b.RankID,						
 			RankName = b.Name,
 			Style = case(@StyledNicks)
-	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
-	        else ''	 end, 
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+			else ''	 end, 
 			NumDays = datediff(d,a.Joined,GETUTCDATE() )+1,
 			NumPostsForum = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where (x.Flags & 24)=16),
 			HasAvatarImage = (select count(1) from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=a.UserID and AvatarImage is not null),
@@ -5393,9 +5393,9 @@ begin
 			a.NumPosts,
 			CultureUser = a.Culture,	
 			Style = case(@StyledNicks)
-	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
-	        else ''	 end, 	
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+			else ''	 end, 	
 			IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0),
 			IsGuest	= IsNull(a.Flags & 4,0),
 			IsHostAdmin	= IsNull(a.Flags & 1,0),
@@ -5420,9 +5420,9 @@ begin
 			b.RankID,
 			RankName = b.Name,
 			Style = case(@StyledNicks)
-	        when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
-		    join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
-	        else ''	 end 
+			when 1 then  ISNULL(( SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e 
+			join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=a.UserID AND LEN(f.Style) > 2 ORDER BY f.SortOrder), b.Style)  
+			else ''	 end 
 		from 
 			[{databaseOwner}].[{objectQualifier}User] a
 			join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID=a.RankID			
@@ -5559,8 +5559,8 @@ begin
 	if @OverrideDefaultTheme is null SET @OverrideDefaultTheme=0
 
 	if @UserID is null or @UserID<1 begin
-	    set @Flags = 0	
-	    if @Approved<>0 set @Flags = @Flags | 2	
+		set @Flags = 0	
+		if @Approved<>0 set @Flags = @Flags | 2	
 		if @Email = '' set @Email = null
 		
 		select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
@@ -5573,7 +5573,7 @@ begin
 		insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) select @UserID,GroupID from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID and (Flags & 4)<>0
 	end
 	else begin
-	    set @Flags = (SELECT Flags FROM [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID)	
+		set @Flags = (SELECT Flags FROM [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID)	
 		
 		IF ((@DSTUser<>0) AND (@Flags & 32) <> 32)		
 		SET @Flags = @Flags | 32
@@ -5718,8 +5718,8 @@ begin
 	declare @Flags			int
 	declare @MinPosts		int
 	declare @NumPosts		int
-    declare @BoardId		int
-    declare @RankBoardID	int
+	declare @BoardId		int
+	declare @RankBoardID	int
 
 	-- Get user and rank information
 	select
@@ -5727,7 +5727,7 @@ begin
 		@Flags = b.Flags,
 		@MinPosts = b.MinPosts,
 		@NumPosts = a.NumPosts,
-        @BoardId = a.BoardId		
+		@BoardId = a.BoardId		
 	from
 		[{databaseOwner}].[{objectQualifier}User] a
 		inner join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID = a.RankID
@@ -5738,23 +5738,23 @@ begin
 	if (@Flags & 2) = 0 return
 
 	-- retrieve board current user's rank beling to	
-    select @RankBoardId = BoardID
-    from   [{databaseOwner}].[{objectQualifier}Rank]
-    where  RankID = @RankID
+	select @RankBoardId = BoardID
+	from   [{databaseOwner}].[{objectQualifier}Rank]
+	where  RankID = @RankID
 
 	-- does user have rank from his board?
-    IF @RankBoardId <> @BoardId begin
+	IF @RankBoardId <> @BoardId begin
 		-- get highest rank user can get
 		select top 1
-               @RankID = RankID
-        from   [{databaseOwner}].[{objectQualifier}Rank]
-        where  BoardId = @BoardId
-               and (Flags & 2) = 2
-               and MinPosts <= @NumPosts
-        order by
-               MinPosts desc
+			   @RankID = RankID
+		from   [{databaseOwner}].[{objectQualifier}Rank]
+		where  BoardId = @BoardId
+			   and (Flags & 2) = 2
+			   and MinPosts <= @NumPosts
+		order by
+			   MinPosts desc
 	end
-    else begin
+	else begin
 		-- See if user got enough posts for next ladder group
 		select top 1
 			@RankID = RankID
@@ -5957,7 +5957,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_reply_list](@Messag
 begin
 		set nocount on
 	select
-                a.MessageID,
+				a.MessageID,
 		a.Posted,
 		Subject = c.Topic,
 		a.Message,
@@ -6013,12 +6013,12 @@ begin
 	where LastMessageID = @MessageID
 
 	-- "Delete" message
-    update [{databaseOwner}].[{objectQualifier}Message]
-     set IsModeratorChanged = @isModeratorChanged, DeleteReason = @DeleteReason, Flags = Flags ^ 8
-     where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
-    
-    -- update num posts for user now that the delete/undelete status has been toggled...
-    UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
+	update [{databaseOwner}].[{objectQualifier}Message]
+	 set IsModeratorChanged = @isModeratorChanged, DeleteReason = @DeleteReason, Flags = Flags ^ 8
+	 where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
+	
+	-- update num posts for user now that the delete/undelete status has been toggled...
+	UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
 
 	-- Delete topic if there are no more messages
 	select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID and (Flags & 8)=0
@@ -6126,7 +6126,7 @@ update [{databaseOwner}].[{objectQualifier}Message] set
 
 
 UPDATE [{databaseOwner}].[{objectQualifier}Message] SET
- 	TopicID = @MoveToTopic,
+	TopicID = @MoveToTopic,
 	ReplyTo = @ReplyToID,
 	[Position] = @Position
 WHERE  MessageID = @MessageID
@@ -6228,89 +6228,89 @@ end
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}category_simplelist](
-                @StartID INT  = 0,
-                @Limit   INT  = 500)
+				@StartID INT  = 0,
+				@Limit   INT  = 500)
 AS
-    BEGIN
-		    
-        SET ROWCOUNT  @Limit
-        SELECT   c.[CategoryID],
-                 c.[Name]
-        FROM     [{databaseOwner}].[{objectQualifier}Category] c
-        WHERE    c.[CategoryID] >= @StartID
-        AND c.[CategoryID] < (@StartID + @Limit)
-        ORDER BY c.[CategoryID]
-        SET ROWCOUNT  0
-    END
+	BEGIN
+			
+		SET ROWCOUNT  @Limit
+		SELECT   c.[CategoryID],
+				 c.[Name]
+		FROM     [{databaseOwner}].[{objectQualifier}Category] c
+		WHERE    c.[CategoryID] >= @StartID
+		AND c.[CategoryID] < (@StartID + @Limit)
+		ORDER BY c.[CategoryID]
+		SET ROWCOUNT  0
+	END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}forum_simplelist](
-                @StartID INT  = 0,
-                @Limit   INT  = 500)
+				@StartID INT  = 0,
+				@Limit   INT  = 500)
 AS
-    BEGIN
+	BEGIN
 				SET ARITHABORT ON				
-        SET ROWCOUNT  @Limit
-        SELECT   f.[ForumID],
-                 f.[Name]
-        FROM     [{databaseOwner}].[{objectQualifier}Forum] f
-        WHERE    f.[ForumID] >= @StartID
-        AND f.[ForumID] < (@StartID + @Limit)
-        ORDER BY f.[ForumID]
-        SET ROWCOUNT  0
-    END
+		SET ROWCOUNT  @Limit
+		SELECT   f.[ForumID],
+				 f.[Name]
+		FROM     [{databaseOwner}].[{objectQualifier}Forum] f
+		WHERE    f.[ForumID] >= @StartID
+		AND f.[ForumID] < (@StartID + @Limit)
+		ORDER BY f.[ForumID]
+		SET ROWCOUNT  0
+	END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_simplelist](
-                @StartID INT  = 0,
-                @Limit   INT  = 1000)
+				@StartID INT  = 0,
+				@Limit   INT  = 1000)
 AS
-    BEGIN
+	BEGIN
 				SET ARITHABORT ON				
-        SET ROWCOUNT  @Limit
-        SELECT   m.[MessageID],
-                 m.[TopicID]
-        FROM     [{databaseOwner}].[{objectQualifier}Message] m
-        WHERE    m.[MessageID] >= @StartID
-        AND m.[MessageID] < (@StartID + @Limit)
-        AND m.[TopicID] IS NOT NULL
-        ORDER BY m.[MessageID]
-        SET ROWCOUNT  0
-    END
+		SET ROWCOUNT  @Limit
+		SELECT   m.[MessageID],
+				 m.[TopicID]
+		FROM     [{databaseOwner}].[{objectQualifier}Message] m
+		WHERE    m.[MessageID] >= @StartID
+		AND m.[MessageID] < (@StartID + @Limit)
+		AND m.[TopicID] IS NOT NULL
+		ORDER BY m.[MessageID]
+		SET ROWCOUNT  0
+	END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_simplelist](
-                @StartID INT  = 0,
-                @Limit   INT  = 500)
+				@StartID INT  = 0,
+				@Limit   INT  = 500)
 AS
-    BEGIN
+	BEGIN
 			SET ARITHABORT ON				
-        SET ROWCOUNT  @Limit
-        SELECT   t.[TopicID],
-                 t.[Topic]
-        FROM     [{databaseOwner}].[{objectQualifier}Topic] t
-        WHERE    t.[TopicID] >= @StartID
-        AND t.[TopicID] < (@StartID + @Limit)
-        ORDER BY t.[TopicID]
-        SET ROWCOUNT  0
-    END
+		SET ROWCOUNT  @Limit
+		SELECT   t.[TopicID],
+				 t.[Topic]
+		FROM     [{databaseOwner}].[{objectQualifier}Topic] t
+		WHERE    t.[TopicID] >= @StartID
+		AND t.[TopicID] < (@StartID + @Limit)
+		ORDER BY t.[TopicID]
+		SET ROWCOUNT  0
+	END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_simplelist](
-                @StartID INT  = 0,
-                @Limit   INT  = 500)
+				@StartID INT  = 0,
+				@Limit   INT  = 500)
 AS
-    BEGIN
+	BEGIN
 				
-        SET ROWCOUNT  @Limit
-        SELECT   a.[UserID],
-                 a.[Name]
-        FROM     [{databaseOwner}].[{objectQualifier}User] a
-        WHERE    a.[UserID] >= @StartID
-        AND a.[UserID] < (@StartID + @Limit)
-        ORDER BY a.[UserID]
-        SET ROWCOUNT  0
-    END
+		SET ROWCOUNT  @Limit
+		SELECT   a.[UserID],
+				 a.[Name]
+		FROM     [{databaseOwner}].[{objectQualifier}User] a
+		WHERE    a.[UserID] >= @StartID
+		AND a.[UserID] < (@StartID + @Limit)
+		ORDER BY a.[UserID]
+		SET ROWCOUNT  0
+	END
 GO
 
 -- BBCode
@@ -6928,8 +6928,8 @@ END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removeignoreduser]
-    @UserId int,
-    @IgnoredUserId int
+	@UserId int,
+	@IgnoredUserId int
 AS BEGIN
 		DELETE FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @IgnoredUserId
 	
@@ -6937,8 +6937,8 @@ END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_isuserignored]
-    @UserId int,
-    @IgnoredUserId int
+	@UserId int,
+	@IgnoredUserId int
 AS BEGIN
 		IF EXISTS(SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @IgnoredUserId)
 	BEGIN
@@ -6953,7 +6953,7 @@ END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_ignoredlist]
-    @UserId int
+	@UserId int
 AS
 BEGIN
 		SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId
@@ -6980,8 +6980,8 @@ BEGIN
 		Message,
 		[Date],
 		Style = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](UserID)  
-	        else ''	 end		
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](UserID)  
+			else ''	 end		
 	FROM
 		[{databaseOwner}].[{objectQualifier}ShoutboxMessage]
 	ORDER BY Date DESC
@@ -7017,191 +7017,191 @@ GO
 /* Stored procedures for Buddy feature */
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_addrequest]
-    @FromUserID INT,
-    @ToUserID INT,
-    @approved BIT = NULL OUT,
-    @paramOutput NVARCHAR(255) = NULL OUT
+	@FromUserID INT,
+	@ToUserID INT,
+	@approved BIT = NULL OUT,
+	@paramOutput NVARCHAR(255) = NULL OUT
 AS 
-    BEGIN
-        IF NOT EXISTS ( SELECT  ID
-                        FROM    [{databaseOwner}].[{objectQualifier}Buddy]
-                        WHERE   ( FromUserID = @FromUserID
-                                  AND ToUserID = @ToUserID
-                                ) ) 
-            BEGIN
-                IF ( NOT EXISTS ( SELECT    ID
-                                  FROM      [{databaseOwner}].[{objectQualifier}Buddy]
-                                  WHERE     ( FromUserID = @ToUserID
-                                              AND ToUserID = @FromUserID
-                                            ) )
-                   ) 
-                    BEGIN
-                        INSERT  INTO [{databaseOwner}].[{objectQualifier}Buddy]
-                                (
-                                  FromUserID,
-                                 ToUserID,
-                                  Approved,
-                                  Requested
-                                )
-                        VALUES  (
-                                  @FromUserID,
-                                  @ToUserID,
-                                  0,
-                                  GETUTCDATE() 
-                                )
-                        SET @paramOutput = ( SELECT [Name]
-                                             FROM   [{databaseOwner}].[{objectQualifier}User]
-                                             WHERE  ( UserID = @ToUserID )
-                                           )
-                        SET @approved = 0
-                    END
-                ELSE 
-                    BEGIN
-                        INSERT  INTO [{databaseOwner}].[{objectQualifier}Buddy]
-                                (
-                                  FromUserID,
-                                  ToUserID,
-                                  Approved,
-                                  Requested
-                                )
-                        VALUES  (
-                                  @FromUserID,
-                                  @ToUserID,
-                                  1,
-                                  GETUTCDATE() 
-                                )
-                        UPDATE  [{databaseOwner}].[{objectQualifier}Buddy]
-                        SET     Approved = 1
-                        WHERE   ( FromUserID = @ToUserID
-                                  AND ToUserID = @FromUserID
-                                )
-                        SET @paramOutput = ( SELECT [Name]
-                                             FROM   [{databaseOwner}].[{objectQualifier}User]
-                                             WHERE  ( UserID = @ToUserID )
-                                           )
-                        SET @approved = 1
-                    END
-            END	
-        ELSE 
-            BEGIN
-                SET @paramOutput = ''
-                SET @approved = 0
-            END
-    END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_approverequest]
-    @FromUserID INT,
-    @ToUserID INT,
-    @Mutual BIT,
-    @paramOutput NVARCHAR(255) = NULL OUT
-AS 
-    BEGIN
-        IF EXISTS ( SELECT  ID
-                    FROM    [{databaseOwner}].[{objectQualifier}Buddy]
-                    WHERE   ( FromUserID = @FromUserID
-                              AND ToUserID = @ToUserID
-                            ) ) 
-            BEGIN
-                UPDATE  [{databaseOwner}].[{objectQualifier}Buddy]
-                SET     Approved = 1
-                WHERE   ( FromUserID = @FromUserID
-                          AND ToUserID = @ToUserID
-                        )
-                SET @paramOutput = ( SELECT [Name]
-                                     FROM   [{databaseOwner}].[{objectQualifier}User]
-                                     WHERE  ( UserID = @FromUserID )
-                                   )
-                IF ( @Mutual = 1 )
-                    AND ( NOT EXISTS ( SELECT   ID
-                                       FROM     [{databaseOwner}].[{objectQualifier}Buddy]
-                                       WHERE    FromUserID = @ToUserID
-                                                AND ToUserID = @FromUserID )
-                        ) 
-                    INSERT  INTO [{databaseOwner}].[{objectQualifier}Buddy]
-                            (
-                              FromUserID,
-                              ToUserID,
-                              Approved,
-                              Requested
-                            )
-                    VALUES  (
-                              @ToUserID,
-                              @FromUserID,
-                              1,
-                              GETUTCDATE() 
-                            )
-            END
+	BEGIN
+		IF NOT EXISTS ( SELECT  ID
+						FROM    [{databaseOwner}].[{objectQualifier}Buddy]
+						WHERE   ( FromUserID = @FromUserID
+								  AND ToUserID = @ToUserID
+								) ) 
+			BEGIN
+				IF ( NOT EXISTS ( SELECT    ID
+								  FROM      [{databaseOwner}].[{objectQualifier}Buddy]
+								  WHERE     ( FromUserID = @ToUserID
+											  AND ToUserID = @FromUserID
+											) )
+				   ) 
+					BEGIN
+						INSERT  INTO [{databaseOwner}].[{objectQualifier}Buddy]
+								(
+								  FromUserID,
+								 ToUserID,
+								  Approved,
+								  Requested
+								)
+						VALUES  (
+								  @FromUserID,
+								  @ToUserID,
+								  0,
+								  GETUTCDATE() 
+								)
+						SET @paramOutput = ( SELECT [Name]
+											 FROM   [{databaseOwner}].[{objectQualifier}User]
+											 WHERE  ( UserID = @ToUserID )
+										   )
+						SET @approved = 0
+					END
+				ELSE 
+					BEGIN
+						INSERT  INTO [{databaseOwner}].[{objectQualifier}Buddy]
+								(
+								  FromUserID,
+								  ToUserID,
+								  Approved,
+								  Requested
+								)
+						VALUES  (
+								  @FromUserID,
+								  @ToUserID,
+								  1,
+								  GETUTCDATE() 
+								)
+						UPDATE  [{databaseOwner}].[{objectQualifier}Buddy]
+						SET     Approved = 1
+						WHERE   ( FromUserID = @ToUserID
+								  AND ToUserID = @FromUserID
+								)
+						SET @paramOutput = ( SELECT [Name]
+											 FROM   [{databaseOwner}].[{objectQualifier}User]
+											 WHERE  ( UserID = @ToUserID )
+										   )
+						SET @approved = 1
+					END
+			END	
+		ELSE 
+			BEGIN
+				SET @paramOutput = ''
+				SET @approved = 0
+			END
 	END
 GO
 
-    CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_list] @FromUserID INT
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_approverequest]
+	@FromUserID INT,
+	@ToUserID INT,
+	@Mutual BIT,
+	@paramOutput NVARCHAR(255) = NULL OUT
 AS 
-    BEGIN
-        SELECT  a.UserID,
-                a.BoardID,
-                a.[Name],
-                a.Joined,
-                a.NumPosts,
-                RankName = b.NAME,
-                c.Approved,
-                c.FromUserID,
-                c.Requested
-        FROM   [{databaseOwner}].[{objectQualifier}User] a
-                JOIN [{databaseOwner}].[{objectQualifier}Rank] b ON b.RankID = a.RankID
-                JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( c.ToUserID = a.UserID
-                                              AND c.FromUserID = @FromUserID
-                                            )
-        UNION
-        SELECT  @FromUserID AS UserID,
-                a.BoardID,
-                a.[Name],
-                a.Joined,
-                a.NumPosts,
-                RankName = b.NAME,
-                c.Approved,
-                c.FromUserID,
-                c.Requested
-        FROM    [{databaseOwner}].[{objectQualifier}User] a
-                JOIN [{databaseOwner}].[{objectQualifier}Rank] b ON b.RankID = a.RankID
-                JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( ( c.Approved = 0 )
-                                              AND ( c.ToUserID = @FromUserID )
-                                              AND ( a.UserID = c.FromUserID )
-                                            )
-        ORDER BY a.NAME
-    END
-    GO
+	BEGIN
+		IF EXISTS ( SELECT  ID
+					FROM    [{databaseOwner}].[{objectQualifier}Buddy]
+					WHERE   ( FromUserID = @FromUserID
+							  AND ToUserID = @ToUserID
+							) ) 
+			BEGIN
+				UPDATE  [{databaseOwner}].[{objectQualifier}Buddy]
+				SET     Approved = 1
+				WHERE   ( FromUserID = @FromUserID
+						  AND ToUserID = @ToUserID
+						)
+				SET @paramOutput = ( SELECT [Name]
+									 FROM   [{databaseOwner}].[{objectQualifier}User]
+									 WHERE  ( UserID = @FromUserID )
+								   )
+				IF ( @Mutual = 1 )
+					AND ( NOT EXISTS ( SELECT   ID
+									   FROM     [{databaseOwner}].[{objectQualifier}Buddy]
+									   WHERE    FromUserID = @ToUserID
+												AND ToUserID = @FromUserID )
+						) 
+					INSERT  INTO [{databaseOwner}].[{objectQualifier}Buddy]
+							(
+							  FromUserID,
+							  ToUserID,
+							  Approved,
+							  Requested
+							)
+					VALUES  (
+							  @ToUserID,
+							  @FromUserID,
+							  1,
+							  GETUTCDATE() 
+							)
+			END
+	END
+GO
+
+	CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_list] @FromUserID INT
+AS 
+	BEGIN
+		SELECT  a.UserID,
+				a.BoardID,
+				a.[Name],
+				a.Joined,
+				a.NumPosts,
+				RankName = b.NAME,
+				c.Approved,
+				c.FromUserID,
+				c.Requested
+		FROM   [{databaseOwner}].[{objectQualifier}User] a
+				JOIN [{databaseOwner}].[{objectQualifier}Rank] b ON b.RankID = a.RankID
+				JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( c.ToUserID = a.UserID
+											  AND c.FromUserID = @FromUserID
+											)
+		UNION
+		SELECT  @FromUserID AS UserID,
+				a.BoardID,
+				a.[Name],
+				a.Joined,
+				a.NumPosts,
+				RankName = b.NAME,
+				c.Approved,
+				c.FromUserID,
+				c.Requested
+		FROM    [{databaseOwner}].[{objectQualifier}User] a
+				JOIN [{databaseOwner}].[{objectQualifier}Rank] b ON b.RankID = a.RankID
+				JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( ( c.Approved = 0 )
+											  AND ( c.ToUserID = @FromUserID )
+											  AND ( a.UserID = c.FromUserID )
+											)
+		ORDER BY a.NAME
+	END
+	GO
 
 	CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_remove]
-    @FromUserID INT,
-    @ToUserID INT,
-    @paramOutput NVARCHAR(255) = NULL OUT
+	@FromUserID INT,
+	@ToUserID INT,
+	@paramOutput NVARCHAR(255) = NULL OUT
 AS 
-    BEGIN
-        DELETE  FROM [{databaseOwner}].[{objectQualifier}Buddy]
-        WHERE   ( FromUserID = @FromUserID
-                  AND ToUserID = @ToUserID
-                )
-        SET @paramOutput = ( SELECT [Name]
-                             FROM   [{databaseOwner}].[{objectQualifier}User]
-                             WHERE  ( UserID = @ToUserID )
-                           )
-    END
-    GO
+	BEGIN
+		DELETE  FROM [{databaseOwner}].[{objectQualifier}Buddy]
+		WHERE   ( FromUserID = @FromUserID
+				  AND ToUserID = @ToUserID
+				)
+		SET @paramOutput = ( SELECT [Name]
+							 FROM   [{databaseOwner}].[{objectQualifier}User]
+							 WHERE  ( UserID = @ToUserID )
+						   )
+	END
+	GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_denyrequest]
-    @FromUserID INT,
-    @ToUserID INT,
-    @paramOutput NVARCHAR(255) = NULL OUT
+	@FromUserID INT,
+	@ToUserID INT,
+	@paramOutput NVARCHAR(255) = NULL OUT
 AS 
-    BEGIN
-        DELETE  FROM [{databaseOwner}].[{objectQualifier}Buddy]
-        WHERE   FromUserID = @FromUserID
-                AND ToUserID = @ToUserID
-        SET @paramOutput = ( SELECT [Name]
-                             FROM   [{databaseOwner}].[{objectQualifier}User]
-                             WHERE  ( UserID = @FromUserID )
-                           )
-    END
+	BEGIN
+		DELETE  FROM [{databaseOwner}].[{objectQualifier}Buddy]
+		WHERE   FromUserID = @FromUserID
+				AND ToUserID = @ToUserID
+		SET @paramOutput = ( SELECT [Name]
+							 FROM   [{databaseOwner}].[{objectQualifier}User]
+							 WHERE  ( UserID = @FromUserID )
+						   )
+	END
 Go    
 /* End of stored procedures for Buddy feature */
 
@@ -7259,11 +7259,11 @@ begin
 		ForumFlags = d.Flags,
 		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
 		StarterStyle = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
-	        else ''	 end,
-	    LastUserStyle = case(@StyledNicks)
-	        when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
-	        else ''	 end
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.UserID)  
+			else ''	 end,
+		LastUserStyle = case(@StyledNicks)
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](c.LastUserID)  
+			else ''	 end
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
@@ -7286,349 +7286,349 @@ end
 Go
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}album_save]
-    (
-      @AlbumID INT = NULL,
-      @UserID INT = null,
-      @Title NVARCHAR(255) = NULL,
-      @CoverImageID INT = NULL
-    )
+	(
+	  @AlbumID INT = NULL,
+	  @UserID INT = null,
+	  @Title NVARCHAR(255) = NULL,
+	  @CoverImageID INT = NULL
+	)
 as 
-    BEGIN
-        -- Update Cover?
-        IF ( @CoverImageID IS NOT NULL
-             AND @CoverImageID <> 0
-           ) 
-            UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
-            SET     CoverImageID = @CoverImageID
-            WHERE   AlbumID = @AlbumID
-        ELSE 
-            --Remove Cover?
-            IF ( @CoverImageID = 0 ) 
-                UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
-                SET     CoverImageID = NULL
-                WHERE   AlbumID = @AlbumID            
-            ELSE 
-            -- Update Title?
-                IF @AlbumID is not null 
-                    UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
-                    SET     Title = @Title
-                    WHERE   AlbumID = @AlbumID
-                ELSE 
-                    BEGIN
-                    -- New album. insert into table.
-                        INSERT  INTO [{databaseOwner}].[{objectQualifier}UserAlbum]
-                                (
-                                  UserID,
-                                  Title,
-                                  CoverImageID,
-                                  Updated
-                                )
-                        VALUES  (
-                                  @UserID,
-                                  @Title,
-                                  @CoverImageID,
-                                  GETUTCDATE() 
-                                )
-                        RETURN SCOPE_IDENTITY()
-                    END
-    END
-    GO
-    
+	BEGIN
+		-- Update Cover?
+		IF ( @CoverImageID IS NOT NULL
+			 AND @CoverImageID <> 0
+		   ) 
+			UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
+			SET     CoverImageID = @CoverImageID
+			WHERE   AlbumID = @AlbumID
+		ELSE 
+			--Remove Cover?
+			IF ( @CoverImageID = 0 ) 
+				UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
+				SET     CoverImageID = NULL
+				WHERE   AlbumID = @AlbumID            
+			ELSE 
+			-- Update Title?
+				IF @AlbumID is not null 
+					UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
+					SET     Title = @Title
+					WHERE   AlbumID = @AlbumID
+				ELSE 
+					BEGIN
+					-- New album. insert into table.
+						INSERT  INTO [{databaseOwner}].[{objectQualifier}UserAlbum]
+								(
+								  UserID,
+								  Title,
+								  CoverImageID,
+								  Updated
+								)
+						VALUES  (
+								  @UserID,
+								  @Title,
+								  @CoverImageID,
+								  GETUTCDATE() 
+								)
+						RETURN SCOPE_IDENTITY()
+					END
+	END
+	GO
+	
 CREATE procedure [{databaseOwner}].[{objectQualifier}album_list]
-    (
-      @UserID INT = NULL,
-      @AlbumID INT = NULL
-    )
+	(
+	  @UserID INT = NULL,
+	  @AlbumID INT = NULL
+	)
 as 
-    BEGIN
-        IF @UserID IS NOT null 
-            select  *
-            FROM    [{databaseOwner}].[{objectQualifier}UserAlbum]
-            WHERE   UserID = @UserID
-            ORDER BY Updated DESC
-        ELSE 
-            SELECT  *
-            FROM    [{databaseOwner}].[{objectQualifier}UserAlbum]
-            WHERE   AlbumID = @AlbumID
-    END
-    GO
-    
+	BEGIN
+		IF @UserID IS NOT null 
+			select  *
+			FROM    [{databaseOwner}].[{objectQualifier}UserAlbum]
+			WHERE   UserID = @UserID
+			ORDER BY Updated DESC
+		ELSE 
+			SELECT  *
+			FROM    [{databaseOwner}].[{objectQualifier}UserAlbum]
+			WHERE   AlbumID = @AlbumID
+	END
+	GO
+	
 CREATE procedure [{databaseOwner}].[{objectQualifier}album_delete] ( @AlbumID int )
 as 
-    BEGIN
-        DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbumImage]
-        WHERE   AlbumID = @AlbumID
-        DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbum]
-        WHERE   AlbumID = @AlbumID       
-    END
-    GO
-    
+	BEGIN
+		DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+		WHERE   AlbumID = @AlbumID
+		DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbum]
+		WHERE   AlbumID = @AlbumID       
+	END
+	GO
+	
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_gettitle]
-    (
-      @AlbumID INT,
-      @paramOutput NVARCHAR(255) = NULL OUT
-    )
+	(
+	  @AlbumID INT,
+	  @paramOutput NVARCHAR(255) = NULL OUT
+	)
 as 
-    BEGIN
-        SET @paramOutput = ( SELECT [Title]
-                             FROM   [{databaseOwner}].[{objectQualifier}UserAlbum]
-                             WHERE  ( AlbumID = @AlbumID )
-                           )
-    END
-    GO
-    
+	BEGIN
+		SET @paramOutput = ( SELECT [Title]
+							 FROM   [{databaseOwner}].[{objectQualifier}UserAlbum]
+							 WHERE  ( AlbumID = @AlbumID )
+						   )
+	END
+	GO
+	
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_getstats]
-    @UserID INT = NULL,
-    @AlbumID INT = NULL,
-    @AlbumNumber INT = NULL OUTPUT,
-    @ImageNumber BIGINT = NULL OUTPUT
+	@UserID INT = NULL,
+	@AlbumID INT = NULL,
+	@AlbumNumber INT = NULL OUTPUT,
+	@ImageNumber BIGINT = NULL OUTPUT
 as 
-    BEGIN
-        IF @AlbumID IS NOT NULL 
-            SET @ImageNumber = ( SELECT COUNT(ImageID)
-                                 FROM   [{databaseOwner}].[{objectQualifier}UserAlbumImage]
-                                 WHERE  AlbumID = @AlbumID
-                               )
-        ELSE 
-            BEGIN
-                SET @AlbumNumber = ( SELECT COUNT(AlbumID)
-                                     FROM   [{databaseOwner}].[{objectQualifier}UserAlbum]
-                                     WHERE  UserID = @UserID
-                                   )
-                SET @ImageNumber = ( SELECT COUNT(ImageID)
-                                     FROM   [{databaseOwner}].[{objectQualifier}UserAlbumImage]
-                                     WHERE  AlbumID in (
-                                            SELECT  AlbumID
-                                            FROM    [{databaseOwner}].[{objectQualifier}UserAlbum]
-                                            WHERE   UserID = @UserID )
-                                   )
-            END
-    END
-    GO
-    
+	BEGIN
+		IF @AlbumID IS NOT NULL 
+			SET @ImageNumber = ( SELECT COUNT(ImageID)
+								 FROM   [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+								 WHERE  AlbumID = @AlbumID
+							   )
+		ELSE 
+			BEGIN
+				SET @AlbumNumber = ( SELECT COUNT(AlbumID)
+									 FROM   [{databaseOwner}].[{objectQualifier}UserAlbum]
+									 WHERE  UserID = @UserID
+								   )
+				SET @ImageNumber = ( SELECT COUNT(ImageID)
+									 FROM   [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+									 WHERE  AlbumID in (
+											SELECT  AlbumID
+											FROM    [{databaseOwner}].[{objectQualifier}UserAlbum]
+											WHERE   UserID = @UserID )
+								   )
+			END
+	END
+	GO
+	
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_save]
-    (
-      @ImageID INT = NULL,
-      @AlbumID INT = null,
-      @Caption NVARCHAR(255) = null,
-      @FileName NVARCHAR(255) = null,
-      @Bytes INT = null,
-      @ContentType NVARCHAR(50) = null
-    )
+	(
+	  @ImageID INT = NULL,
+	  @AlbumID INT = null,
+	  @Caption NVARCHAR(255) = null,
+	  @FileName NVARCHAR(255) = null,
+	  @Bytes INT = null,
+	  @ContentType NVARCHAR(50) = null
+	)
 as 
-    BEGIN
-        IF @ImageID is not null 
-            UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbumImage]
-            SET     Caption = @Caption
-            WHERE   ImageID = @ImageID
-        ELSE
-            INSERT  INTO [{databaseOwner}].[{objectQualifier}UserAlbumImage]
-                    (
-                      AlbumID,
-                      Caption,
-                      FileName,
-                      Bytes,
-                      ContentType,
-                      Uploaded,
-                      Downloads
-                    )
-            VALUES  (
-                      @AlbumID,
-                      @Caption,
-                      @FileName,
-                      @Bytes,
-                      @ContentType,
-                      GETUTCDATE() ,
-                      0
-                    )
-    END        
-    GO
-    
+	BEGIN
+		IF @ImageID is not null 
+			UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+			SET     Caption = @Caption
+			WHERE   ImageID = @ImageID
+		ELSE
+			INSERT  INTO [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+					(
+					  AlbumID,
+					  Caption,
+					  FileName,
+					  Bytes,
+					  ContentType,
+					  Uploaded,
+					  Downloads
+					)
+			VALUES  (
+					  @AlbumID,
+					  @Caption,
+					  @FileName,
+					  @Bytes,
+					  @ContentType,
+					  GETUTCDATE() ,
+					  0
+					)
+	END        
+	GO
+	
 CREATE procedure [{databaseOwner}].[{objectQualifier}album_image_list]
-    (
-      @AlbumID INT = NULL,
-      @ImageID INT = null
-    )
+	(
+	  @AlbumID INT = NULL,
+	  @ImageID INT = null
+	)
 as 
-    BEGIN
-        IF @AlbumID IS NOT null 
-            SELECT  *
-            FROM    [{databaseOwner}].[{objectQualifier}UserAlbumImage]
-            WHERE   AlbumID = @AlbumID
-            ORDER BY Uploaded DESC
-        ELSE 
-            SELECT  a.*,
-                    b.UserID
-            FROM    [{databaseOwner}].[{objectQualifier}UserAlbumImage] a
-                    INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] b ON b.AlbumID = a.AlbumID
-            WHERE   ImageID = @ImageID
-    END
+	BEGIN
+		IF @AlbumID IS NOT null 
+			SELECT  *
+			FROM    [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+			WHERE   AlbumID = @AlbumID
+			ORDER BY Uploaded DESC
+		ELSE 
+			SELECT  a.*,
+					b.UserID
+			FROM    [{databaseOwner}].[{objectQualifier}UserAlbumImage] a
+					INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] b ON b.AlbumID = a.AlbumID
+			WHERE   ImageID = @ImageID
+	END
 	GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_delete] ( @ImageID INT )
 as 
-    BEGIN
-        DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbumImage]
-        WHERE   ImageID = @ImageID
-        UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
-        SET     CoverImageID = NULL
-        WHERE   CoverImageID = @ImageID
-        UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
-        SET     CoverImageID = NULL
-        WHERE   CoverImageID = @ImageID
-    END
-    GO
-    
+	BEGIN
+		DELETE  FROM [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+		WHERE   ImageID = @ImageID
+		UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
+		SET     CoverImageID = NULL
+		WHERE   CoverImageID = @ImageID
+		UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbum]
+		SET     CoverImageID = NULL
+		WHERE   CoverImageID = @ImageID
+	END
+	GO
+	
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_download] ( @ImageID INT )
 as 
-    BEGIN
-        UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbumImage]
-        SET     Downloads = Downloads + 1
-        WHERE   ImageID = @ImageID
-    END
-    GO
-    
+	BEGIN
+		UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbumImage]
+		SET     Downloads = Downloads + 1
+		WHERE   ImageID = @ImageID
+	END
+	GO
+	
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getsignaturedata] (@BoardID INT, @UserID INT)
 as 
-    BEGIN
-    -- Ugly but bullet proof - it used very rarely
-    DECLARE 
-    @OR_UsrSigChars int,
-    @OR_UsrSigBBCodes nvarchar(255),
-    @OR_UsrSigHTMLTags nvarchar(255),
-    @OG_UsrSigChars int,
-    @OG_UsrSigBBCodes nvarchar(255),
-    @OG_UsrSigHTMLTags nvarchar(255)
+	BEGIN
+	-- Ugly but bullet proof - it used very rarely
+	DECLARE 
+	@OR_UsrSigChars int,
+	@OR_UsrSigBBCodes nvarchar(255),
+	@OR_UsrSigHTMLTags nvarchar(255),
+	@OG_UsrSigChars int,
+	@OG_UsrSigBBCodes nvarchar(255),
+	@OG_UsrSigHTMLTags nvarchar(255)
  DECLARE   @RankData TABLE
 (
-    R_UsrSigChars int,
-    R_UsrSigBBCodes nvarchar(255),
-    R_UsrSigHTMLTags nvarchar(255)
+	R_UsrSigChars int,
+	R_UsrSigBBCodes nvarchar(255),
+	R_UsrSigHTMLTags nvarchar(255)
 )
 DECLARE
    @GroupData TABLE
 (
-    G_UsrSigChars int,
-    G_UsrSigBBCodes nvarchar(255),
-    G_UsrSigHTMLTags nvarchar(255)
+	G_UsrSigChars int,
+	G_UsrSigBBCodes nvarchar(255),
+	G_UsrSigHTMLTags nvarchar(255)
 )
   
-    INSERT INTO @GroupData(G_UsrSigChars,G_UsrSigBBCodes,G_UsrSigHTMLTags) 
-    SELECT TOP 1 ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')
-    FROM [{databaseOwner}].[{objectQualifier}User] a 
-                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
-                          ON a.UserID = b.UserID
-                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
-                              ON b.GroupID = c.GroupID 
-                              WHERE a.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.SortOrder ASC
-    INSERT INTO @RankData(R_UsrSigChars,R_UsrSigBBCodes,R_UsrSigHTMLTags)
-    SELECT TOP 1 ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')     
-    FROM [{databaseOwner}].[{objectQualifier}Rank] c 
-                                JOIN [{databaseOwner}].[{objectQualifier}User] d
-                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.RankID DESC
-        
-       SET  @OR_UsrSigChars =  (SELECT TOP 1 R_UsrSigChars FROM @RankData) 
-       SET  @OG_UsrSigChars =  (SELECT TOP 1 G_UsrSigChars FROM @GroupData)                
-       
-        SELECT TOP 1
-        UsrSigChars = CASE WHEN @OR_UsrSigChars < @OG_UsrSigChars THEN @OG_UsrSigChars ELSE @OR_UsrSigChars END, 
-        UsrSigBBCodes = R_UsrSigBBCodes + CASE WHEN G_UsrSigBBCodes = '' THEN G_UsrSigBBCodes ELSE ',' + G_UsrSigBBCodes END, 
-        UsrSigHTMLTags = R_UsrSigHTMLTags + CASE WHEN G_UsrSigHTMLTags = '' THEN G_UsrSigHTMLTags ELSE ',' + G_UsrSigHTMLTags END
-        FROM @GroupData, @RankData 
+	INSERT INTO @GroupData(G_UsrSigChars,G_UsrSigBBCodes,G_UsrSigHTMLTags) 
+	SELECT TOP 1 ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')
+	FROM [{databaseOwner}].[{objectQualifier}User] a 
+						JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+						  ON a.UserID = b.UserID
+							JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+							  ON b.GroupID = c.GroupID 
+							  WHERE a.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.SortOrder ASC
+	INSERT INTO @RankData(R_UsrSigChars,R_UsrSigBBCodes,R_UsrSigHTMLTags)
+	SELECT TOP 1 ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')     
+	FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+								JOIN [{databaseOwner}].[{objectQualifier}User] d
+								  ON c.RankID = d.RankID WHERE d.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.RankID DESC
+		
+	   SET  @OR_UsrSigChars =  (SELECT TOP 1 R_UsrSigChars FROM @RankData) 
+	   SET  @OG_UsrSigChars =  (SELECT TOP 1 G_UsrSigChars FROM @GroupData)                
+	   
+		SELECT TOP 1
+		UsrSigChars = CASE WHEN @OR_UsrSigChars < @OG_UsrSigChars THEN @OG_UsrSigChars ELSE @OR_UsrSigChars END, 
+		UsrSigBBCodes = R_UsrSigBBCodes + CASE WHEN G_UsrSigBBCodes = '' THEN G_UsrSigBBCodes ELSE ',' + G_UsrSigBBCodes END, 
+		UsrSigHTMLTags = R_UsrSigHTMLTags + CASE WHEN G_UsrSigHTMLTags = '' THEN G_UsrSigHTMLTags ELSE ',' + G_UsrSigHTMLTags END
+		FROM @GroupData, @RankData 
    END
-    GO      
-    
+	GO      
+	
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getalbumsdata] (@BoardID INT, @UserID INT )
 as 
-    BEGIN
-    DECLARE 
-    @OR_UsrAlbums int,     
-    @OG_UsrAlbums int,
-    @OR_UsrAlbumImages int,     
-    @OG_UsrAlbumImages int
-     -- Ugly but bullet proof - it used very rarely   
-    DECLARE  @GroupData TABLE
+	BEGIN
+	DECLARE 
+	@OR_UsrAlbums int,     
+	@OG_UsrAlbums int,
+	@OR_UsrAlbumImages int,     
+	@OG_UsrAlbumImages int
+	 -- Ugly but bullet proof - it used very rarely   
+	DECLARE  @GroupData TABLE
 (
-    G_UsrAlbums int,
-    G_UsrAlbumImages int
+	G_UsrAlbums int,
+	G_UsrAlbumImages int
 )
-    DECLARE
+	DECLARE
    @RankData TABLE
 (
-    R_UsrAlbums int,
-    R_UsrAlbumImages int
+	R_UsrAlbums int,
+	R_UsrAlbumImages int
 )
 
-      -- REMOVED ORDER BY c.SortOrder ASC, SELECTING ALL
-     
-    INSERT INTO @GroupData(G_UsrAlbums,
-    G_UsrAlbumImages)
-    SELECT  ISNULL(c.UsrAlbums,0), ISNULL(c.UsrAlbumImages,0)   
-    FROM [{databaseOwner}].[{objectQualifier}User] a
-                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
-                          ON a.UserID = b.UserID
-                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
-                              ON b.GroupID = c.GroupID
-                              WHERE a.UserID = @UserID AND a.BoardID = @BoardID
-     
-                             
-     INSERT INTO @RankData(R_UsrAlbums, R_UsrAlbumImages)
-     SELECT  ISNULL(c.UsrAlbums,0), ISNULL(c.UsrAlbumImages,0)   
-     FROM [{databaseOwner}].[{objectQualifier}Rank] c
-                                JOIN [{databaseOwner}].[{objectQualifier}User] d
-                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID 
-                                  AND d.BoardID = @BoardID
-       
-       -- SELECTING MAX()
-       
-       SET @OR_UsrAlbums = (SELECT Max(R_UsrAlbums) FROM @RankData)
-       SET @OG_UsrAlbums = (SELECT Max(G_UsrAlbums) FROM @GroupData)
-       SET @OR_UsrAlbumImages = (SELECT Max(R_UsrAlbumImages) FROM @RankData)
-       SET @OG_UsrAlbumImages = (SELECT Max(G_UsrAlbumImages) FROM @GroupData)
-       
-       SELECT
-        NumAlbums  = (SELECT COUNT(ua.AlbumID) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
-                      WHERE ua.UserID = @UserID),
-        NumImages = (SELECT COUNT(uai.ImageID) FROM  [{databaseOwner}].[{objectQualifier}UserAlbumImage] uai
-                     INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] ua
-                     ON ua.AlbumID = uai.AlbumID
-                     WHERE ua.UserID = @UserID),
-        UsrAlbums = CASE WHEN @OG_UsrAlbums > @OR_UsrAlbums THEN @OG_UsrAlbums ELSE @OR_UsrAlbums END,
-        UsrAlbumImages = CASE WHEN @OG_UsrAlbumImages > @OR_UsrAlbumImages THEN @OG_UsrAlbumImages ELSE @OR_UsrAlbumImages END
-             
-     
+	  -- REMOVED ORDER BY c.SortOrder ASC, SELECTING ALL
+	 
+	INSERT INTO @GroupData(G_UsrAlbums,
+	G_UsrAlbumImages)
+	SELECT  ISNULL(c.UsrAlbums,0), ISNULL(c.UsrAlbumImages,0)   
+	FROM [{databaseOwner}].[{objectQualifier}User] a
+						JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+						  ON a.UserID = b.UserID
+							JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+							  ON b.GroupID = c.GroupID
+							  WHERE a.UserID = @UserID AND a.BoardID = @BoardID
+	 
+							 
+	 INSERT INTO @RankData(R_UsrAlbums, R_UsrAlbumImages)
+	 SELECT  ISNULL(c.UsrAlbums,0), ISNULL(c.UsrAlbumImages,0)   
+	 FROM [{databaseOwner}].[{objectQualifier}Rank] c
+								JOIN [{databaseOwner}].[{objectQualifier}User] d
+								  ON c.RankID = d.RankID WHERE d.UserID = @UserID 
+								  AND d.BoardID = @BoardID
+	   
+	   -- SELECTING MAX()
+	   
+	   SET @OR_UsrAlbums = (SELECT Max(R_UsrAlbums) FROM @RankData)
+	   SET @OG_UsrAlbums = (SELECT Max(G_UsrAlbums) FROM @GroupData)
+	   SET @OR_UsrAlbumImages = (SELECT Max(R_UsrAlbumImages) FROM @RankData)
+	   SET @OG_UsrAlbumImages = (SELECT Max(G_UsrAlbumImages) FROM @GroupData)
+	   
+	   SELECT
+		NumAlbums  = (SELECT COUNT(ua.AlbumID) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
+					  WHERE ua.UserID = @UserID),
+		NumImages = (SELECT COUNT(uai.ImageID) FROM  [{databaseOwner}].[{objectQualifier}UserAlbumImage] uai
+					 INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] ua
+					 ON ua.AlbumID = uai.AlbumID
+					 WHERE ua.UserID = @UserID),
+		UsrAlbums = CASE WHEN @OG_UsrAlbums > @OR_UsrAlbums THEN @OG_UsrAlbums ELSE @OR_UsrAlbums END,
+		UsrAlbumImages = CASE WHEN @OG_UsrAlbumImages > @OR_UsrAlbumImages THEN @OG_UsrAlbumImages ELSE @OR_UsrAlbumImages END
+			 
+	 
 END
 GO  
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}messagehistory_list] (@MessageID INT, @DaysToClean INT, @ShowAll BIT = null )
 
 as 
-    BEGIN    
-    -- delete all message variants older then DaysToClean days Flags reserved for possible pms
+	BEGIN    
+	-- delete all message variants older then DaysToClean days Flags reserved for possible pms
    
-    delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
-     where DATEDIFF(day,Edited,GETUTCDATE() ) > @DaysToClean
-    
-    -- we don't return Message text and ip if it's simply a user
-       
-     IF @ShowAll > 0               
-     SELECT mh.*, m.UserID, m.UserName, t.ForumID, t.TopicID, t.Topic, IsNull(t.UserName, u.Name) as Name, m.Posted
-     FROM [{databaseOwner}].[{objectQualifier}MessageHistory] mh
-     LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
-     LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
-     LEFT JOIN [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
-     WHERE mh.MessageID = @MessageID     
-     ELSE 
-     SELECT   
-     MessageID,	
+	delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
+	 where DATEDIFF(day,Edited,GETUTCDATE() ) > @DaysToClean
+	
+	-- we don't return Message text and ip if it's simply a user
+	   
+	 IF @ShowAll > 0               
+	 SELECT mh.*, m.UserID, m.UserName, t.ForumID, t.TopicID, t.Topic, IsNull(t.UserName, u.Name) as Name, m.Posted
+	 FROM [{databaseOwner}].[{objectQualifier}MessageHistory] mh
+	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
+	 LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID
+	 LEFT JOIN [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
+	 WHERE mh.MessageID = @MessageID     
+	 ELSE 
+	 SELECT   
+	 MessageID,	
 	 Edited,			
 	 EditReason,
 	 EditedBy,
 	 IsModeratorChanged,
 	 Flags
 	 FROM [{databaseOwner}].[{objectQualifier}MessageHistory]
-     WHERE MessageID = @MessageID    
-    END
+	 WHERE MessageID = @MessageID    
+	END
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_lazydata](
@@ -7649,41 +7649,41 @@ begin
 	@G_Style varchar(255) 	
 	
 	SELECT TOP 1 @G_Style = c.Style 
-    FROM [{databaseOwner}].[{objectQualifier}User] a 
-                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
-                          ON a.UserID = b.UserID
-                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
-                              ON b.GroupID = c.GroupID 
-                              WHERE a.UserID = @UserID 
-                                AND a.BoardID = @BoardID 
-                                  ORDER BY c.SortOrder ASC
-                               
-    SELECT TOP 1 @R_Style = c.Style 
-    FROM [{databaseOwner}].[{objectQualifier}Rank] c 
-                                JOIN [{databaseOwner}].[{objectQualifier}User] d
-                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID  
-                                   AND d.BoardID = @BoardID 
-                                    ORDER BY c.RankID DESC   
-                                     
+	FROM [{databaseOwner}].[{objectQualifier}User] a 
+						JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+						  ON a.UserID = b.UserID
+							JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+							  ON b.GroupID = c.GroupID 
+							  WHERE a.UserID = @UserID 
+								AND a.BoardID = @BoardID 
+								  ORDER BY c.SortOrder ASC
+							   
+	SELECT TOP 1 @R_Style = c.Style 
+	FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+								JOIN [{databaseOwner}].[{objectQualifier}User] d
+								  ON c.RankID = d.RankID WHERE d.UserID = @UserID  
+								   AND d.BoardID = @BoardID 
+									ORDER BY c.RankID DESC   
+									 
 		
 	SELECT @G_UsrAlbums = ISNULL(MAX(c.UsrAlbums),0)
-    FROM [{databaseOwner}].[{objectQualifier}User] a 
-                        JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
-                          ON a.UserID = b.UserID
-                            JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
-                              ON b.GroupID = c.GroupID 
-                               WHERE a.UserID = @UserID 
-                                 AND a.BoardID = @BoardID
-                                 
-    SELECT  @R_UsrAlbums = ISNULL(MAX(c.UsrAlbums),0)
-    FROM [{databaseOwner}].[{objectQualifier}Rank] c 
-                                JOIN [{databaseOwner}].[{objectQualifier}User] d
-                                  ON c.RankID = d.RankID WHERE d.UserID = @UserID 
-                                    AND d.BoardID = @BoardID                                                               
+	FROM [{databaseOwner}].[{objectQualifier}User] a 
+						JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
+						  ON a.UserID = b.UserID
+							JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
+							  ON b.GroupID = c.GroupID 
+							   WHERE a.UserID = @UserID 
+								 AND a.BoardID = @BoardID
+								 
+	SELECT  @R_UsrAlbums = ISNULL(MAX(c.UsrAlbums),0)
+	FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+								JOIN [{databaseOwner}].[{objectQualifier}User] d
+								  ON c.RankID = d.RankID WHERE d.UserID = @UserID 
+									AND d.BoardID = @BoardID                                                               
 
 	-- return information
 	select TOP 1		
-	    a.ProviderUserKey,
+		a.ProviderUserKey,
 		UserFlags			= a.Flags,
 		UserName			= a.Name,
 		Suspended			= a.Suspended,
@@ -7698,14 +7698,14 @@ begin
 		PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,
 		LastPendingBuddies	= CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=@UserID and Approved = 0) ELSE NULL END,
 		UserStyle 		    = CASE WHEN @ShowUserStyle > 0 THEN (ISNULL(@G_Style, @R_Style))  
-	        else ''	 end,
-	    NumAlbums  = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
-        WHERE ua.UserID = @UserID),
-	    UsrAlbums  = (CASE WHEN @G_UsrAlbums > @R_UsrAlbums THEN @G_UsrAlbums ELSE @R_UsrAlbums END),
-	    UserHasBuddies  = SIGN(ISNULL((SELECT TOP 1 1 FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE [FromUserID] = @UserID OR [ToUserID] = @UserID),0))	    
-	    from
+			else ''	 end,
+		NumAlbums  = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
+		WHERE ua.UserID = @UserID),
+		UsrAlbums  = (CASE WHEN @G_UsrAlbums > @R_UsrAlbums THEN @G_UsrAlbums ELSE @R_UsrAlbums END),
+		UserHasBuddies  = SIGN(ISNULL((SELECT TOP 1 1 FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE [FromUserID] = @UserID OR [ToUserID] = @UserID),0))	    
+		from
 		   [{databaseOwner}].[{objectQualifier}User] a		
-	    where
+		where
 		a.UserID = @UserID
 	 end
 GO

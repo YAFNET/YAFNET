@@ -22,6 +22,8 @@ namespace YAF.Pages.Admin
 {
   using System;
   using System.Collections.Generic;
+  using System.Web.UI.WebControls;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Utils;
@@ -49,9 +51,17 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink("Task Manager", string.Empty);
       }
 
+      this.BindData();
+    }
+
+    /// <summary>
+    /// binds data for this control
+    /// </summary>
+    protected void BindData()
+    {
       this.lblTaskCount.Text = YafTaskModule.Current.TaskCount.ToString();
       this.taskRepeater.DataSource = YafTaskModule.Current.TaskManagerSnapshot;
-      this.taskRepeater.DataBind();
+      this.taskRepeater.DataBind();      
     }
 
     /// <summary>
@@ -63,13 +73,28 @@ namespace YAF.Pages.Admin
     /// <returns>
     /// The format time span.
     /// </returns>
-    protected string FormatTimeSpan(object item)
+    protected string FormatTimeSpan(DateTime time)
     {
-      var task = (KeyValuePair<string, IBackgroundTask>) item;
-
-      TimeSpan elapsed = DateTime.UtcNow.Subtract(task.Value.Started);
+      TimeSpan elapsed = DateTime.UtcNow.Subtract(time);
 
       return String.Format("{0:D2}:{1:D2}:{2:D2}:{3:D2}", elapsed.Days, elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
+    }
+
+    /// <summary>
+    /// Called on a command in the task repeater.
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="e"></param>
+    protected void taskRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+      if (e.CommandName.Equals("stop"))
+      {
+        // attempt to stop a task...
+        YafTaskModule.Current.StopTask(e.CommandArgument.ToString());
+
+        // refresh the display
+        this.BindData();
+      }
     }
   }
 }
