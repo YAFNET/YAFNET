@@ -146,12 +146,12 @@ namespace YAF.Classes.Core
 
         // TODO: Add code that figures out encoding...
         /*
-				if ( !Regex.IsMatch( bodyText, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) ||
-								!Regex.IsMatch( subject, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) )
-				{
-					textEncoding = Encoding.Unicode;
-				}
-				*/
+        if ( !Regex.IsMatch( bodyText, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) ||
+                !Regex.IsMatch( subject, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) )
+        {
+          textEncoding = Encoding.Unicode;
+        }
+        */
 
         // add text view...
         emailMessage.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(bodyText, textEncoding, "text/plain"));
@@ -166,8 +166,7 @@ namespace YAF.Classes.Core
         // Reason for change: The host smtp settings are redundant and
         // using them here couples this method to YafCache, which is dependant on a current HttpContext. 
         // Configuration settings are cached automatically.
-        var smtpSend = new SmtpClient();
-        smtpSend.EnableSsl = Config.UseSMTPSSL;
+        var smtpSend = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
         smtpSend.Send(emailMessage);
       }
     }
@@ -175,7 +174,7 @@ namespace YAF.Classes.Core
 
   /// <summary>
   /// Separate class since SendThreaded isn't needed functionality
-  /// for any instance except the HttpModule instance.
+  /// for any instance except the <see cref="HttpModule"/> instance.
   /// </summary>
   public class YafSendMailThreaded : YafSendMail
   {
@@ -231,13 +230,13 @@ namespace YAF.Classes.Core
                 Send(fromEmailAddress, toEmailAddress, subject, textBody, htmlBody);
                 Debug.WriteLine("Sent");
               }
-                
+
                 // Mek: Removed as possibly redundant
-                // catch (System.Net.Mail.SmtpFailedRecipientException)
-                // {
-                // // only try maximum of 5 times...
-                // if (Convert.ToInt32(dt.Rows[i]["SendTries"]) < 5) deleteEmail = false;
-                // }
+              // catch (System.Net.Mail.SmtpFailedRecipientException)
+              // {
+              // // only try maximum of 5 times...
+              // if (Convert.ToInt32(dt.Rows[i]["SendTries"]) < 5) deleteEmail = false;
+              // }
               catch (SmtpException x)
               {
                 // only try maximum of 5 times...
@@ -260,11 +259,13 @@ namespace YAF.Classes.Core
           }
         }
       }
-      catch (Exception)
-      {
-        // log the error...
-        // YAF.Classes.Data.DB.eventlog_create(1, "SendMailThread", x);
-      }
+			catch (Exception e)
+			{
+        //YAF.Classes.Data.DB.eventlog_create(1, "SendMailThread", x);
+
+				// debug the exception
+				Debug.WriteLine("Exception Thrown in SendMail Thread: " + e.ToString());
+			}
       finally
       {
         Thread.EndCriticalRegion();

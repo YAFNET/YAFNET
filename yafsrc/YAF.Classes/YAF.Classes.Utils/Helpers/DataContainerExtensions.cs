@@ -78,12 +78,18 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static T ToDataItemType<T>(this IDataItemContainer container)
     {
-      if (container == null)
-      {
-        return default(T);
-      }
+      return Equals(container, default(T)) ? default(T) : container.DataItem.ToType<T>();
+    }
 
-      return container.DataItem.ToType<T>();
+    /// <summary>
+    /// Converts DataItem to a class.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="container"></param>
+    /// <returns></returns>
+    public static T ToDataItemClass<T>(this IDataItemContainer container) where T : class
+    {
+      return Equals(container, default(T)) ? default(T) : container.DataItem.ToClass<T>();
     }
 
     #endregion

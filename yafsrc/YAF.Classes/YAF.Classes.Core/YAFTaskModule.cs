@@ -241,7 +241,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The try remove task.
     /// </returns>
-    public bool TryRemoveTask(string instanceName)
+    internal bool TryRemoveTask(string instanceName)
     {
       lock (_lockTaskManagerObject)
       {
@@ -305,6 +305,27 @@ namespace YAF.Classes.Core
           AddTask(instanceName, start);
         }
       }
+    }
+
+    /// <summary>
+    /// Stops a task from running if it's not critical
+    /// </summary>
+    /// <param name="instanceName"></param>
+    public void StopTask(string instanceName)
+    {
+      if (_moduleInitialized)
+      {
+        var task = this.TryGetTask(instanceName);
+
+        if (task != null && task.IsRunning && !(task is ICriticalBackgroundTask))
+        {
+          if (this.TryRemoveTask(instanceName))
+          {
+            Debug.WriteLine(String.Format("Stopped Task {0}...", instanceName));
+            task.Dispose();
+          }
+        }
+      }      
     }
   }
 }

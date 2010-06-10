@@ -21,7 +21,7 @@ namespace YAF.Classes.Core
   /// <summary>
   /// Automatically cleans up the tasks if they are no longer running...
   /// </summary>
-  public class CleanUpTask : IntermittentBackgroundTask
+  public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
   {
     #region Constructors and Destructors
 

@@ -24,6 +24,7 @@ namespace YAF.Classes.Utils
   using System.Collections;
   using System.Collections.Generic;
   using System.ComponentModel;
+  using System.Linq;
   using System.Reflection;
   using System.Text;
   using System.Text.RegularExpressions;
@@ -168,10 +169,7 @@ namespace YAF.Classes.Utils
     {
       var convertedList = new List<T>(listObjects.Count);
 
-      foreach (object listObject in listObjects)
-      {
-        convertedList.Add((T)listObject);
-      }
+      convertedList.AddRange(from object listObject in listObjects select (T)listObject);
 
       return convertedList;
     }
