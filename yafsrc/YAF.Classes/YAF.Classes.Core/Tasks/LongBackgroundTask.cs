@@ -42,7 +42,7 @@ namespace YAF.Classes.Core
     /// </param>
     protected override void TimerCallback(object sender)
     {
-      lock (this._intermittentTimerSemaphore)
+      lock (this)
       {
         // we're done with this timer...
         this._intermittentTimer.Dispose();
