@@ -18,6 +18,7 @@
  */
 namespace YAF.Classes.Core
 {
+  using System;
   using System.Threading;
 
   /// <summary>
@@ -29,11 +30,6 @@ namespace YAF.Classes.Core
     /// The _intermittent timer.
     /// </summary>
     protected Timer _intermittentTimer = null;
-
-    /// <summary>
-    /// The _intermittent timer semaphore.
-    /// </summary>
-    protected object _intermittentTimerSemaphore = new object();
 
     /// <summary>
     /// The _run period ms.
@@ -111,9 +107,17 @@ namespace YAF.Classes.Core
     /// </param>
     protected virtual void TimerCallback(object sender)
     {
-      lock (this._intermittentTimerSemaphore)
+      if (Monitor.TryEnter(this))
       {
-        this.RunOnce();
+        try
+        {
+          Monitor.Enter(this);
+          this.RunOnce();
+        }
+        finally
+        {
+          Monitor.Exit(this);
+        }
       }
     }
 
@@ -122,7 +126,6 @@ namespace YAF.Classes.Core
     /// </summary>
     public override void Dispose()
     {
-      this._intermittentTimer.Dispose();
       base.Dispose();
     }
   }
