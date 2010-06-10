@@ -26,7 +26,7 @@
 					<b>Result:</b>
 				</td>
 				<td class="post">
-					<asp:TextBox ID="txtResult" runat="server" TextMode="MultiLine" Width="100%" Height="200px"></asp:TextBox>
+					<asp:TextBox ID="txtResult" runat="server" TextMode="MultiLine"  Width="100%" Height="200px" Wrap="false" style="font-size: 8pt;"></asp:TextBox>
 				</td>
 			</tr>
 		</asp:PlaceHolder>
