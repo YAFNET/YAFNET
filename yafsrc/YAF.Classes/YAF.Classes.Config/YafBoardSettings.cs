@@ -1809,7 +1809,7 @@ namespace YAF.Classes
     {
       get
       {
-        return this._reg.GetValue<bool>("DoUrlReferrerSecurityCheck", true);
+        return this._reg.GetValue<bool>("DoUrlReferrerSecurityCheck", false);
       }
 
       set
