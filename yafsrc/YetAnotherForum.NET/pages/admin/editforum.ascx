@@ -72,7 +72,7 @@
 				<asp:checkbox id="IsTest" runat="server"></asp:checkbox></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>Moderated:</b><br />
+			<td class="postheader"><b>Pre-moderated:</b><br />
 				If the forum is moderated, posts have to be approved by a moderator.</td>
 			<td class="post">
 				<asp:checkbox id="Moderated" runat="server"></asp:checkbox></td>

@@ -162,6 +162,8 @@ namespace YAF.Pages.Admin
       // Reload forum settings
       PageContext.BoardSettings = null;
 
+      // Clearing cache with old users permissions data to get new default styles...
+      this.PageContext.Cache.Remove((x) => x.StartsWith(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData)));
       YafBuildLink.Redirect(ForumPages.admin_admin);
     }
   }

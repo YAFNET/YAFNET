@@ -219,10 +219,8 @@ namespace YAF.Pages.Admin
         this.UsrAlbums.Text.Trim(),
         this.UsrAlbumImages.Text.Trim()
         );
+     
 
-      // Clearing cache with old permisssions data...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData));
- 
       // see if need to rename an existing role...
       if (roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
       {
@@ -247,9 +245,10 @@ namespace YAF.Pages.Admin
       {
         // simply create it
         RoleMembershipHelper.CreateRole(roleName);
-      }
-
-      // Access masks for newly existing role
+      }     
+     
+     
+      // Access masks for a newly created or an existing role
       if (Request.QueryString["i"] != null)
       {
         // go trhough all forums
@@ -270,6 +269,9 @@ namespace YAF.Pages.Admin
 
       // remove caching in case something got updated...
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+      
+      // Clearing cache with old permissions data...
+      this.PageContext.Cache.Remove((x) => x.StartsWith(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData)));
 
       // Done, redirect to role editing page
       YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);

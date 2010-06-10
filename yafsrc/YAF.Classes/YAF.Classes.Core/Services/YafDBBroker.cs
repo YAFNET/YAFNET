@@ -181,7 +181,7 @@ namespace YAF.Classes.Core
         string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, userID));
 
         // get a row with user lazy data...
-      return YafContext.Current.Cache.GetItem(
+      return YafContext.Current.Cache.GetItem<DataRow>(
         key,
         YafContext.Current.BoardSettings.ActiveUserLazyDataCacheTimeout,
         () =>
