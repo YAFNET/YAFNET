@@ -111,7 +111,6 @@ namespace YAF.Classes.Core
       {
         try
         {
-          Monitor.Enter(this);
           this.RunOnce();
         }
         finally
