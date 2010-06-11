@@ -1058,6 +1058,7 @@
     <Resource tag="TITLE">Forum Rules and Policies</Resource>
   </page>
   <page name="VIEWTHANKS">
+    <Resource tag="THANKSNUMBER">Was thanked: [b]{0}[/b] time(s)</Resource>
     <Resource tag="NO_THANKS">[b]No thanks found.[/b]</Resource>
     <Resource tag="TITLE">View Thanks</Resource>
     <Resource tag="THANKSFROMUSER">{0} thanked</Resource>

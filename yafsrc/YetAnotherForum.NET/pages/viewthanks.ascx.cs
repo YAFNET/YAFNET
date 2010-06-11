@@ -64,7 +64,7 @@ namespace YAF.Pages
         /// <param name="currentMode">the CurrentMode property of the control.</param>
         /// <param name="userID">the UserID of the control.</param>
         /// <param name="thanksInfo">The Dataview for the control's data.</param>
-        public void InitializeThanksList(ViewThanksList thanksList, ThanksListMode currentMode, int userID, DataView thanksInfo)
+        public void InitializeThanksList(ViewThanksList thanksList, ThanksListMode currentMode, int userID, DataTable thanksInfo)
         {
             thanksList.CurrentMode = currentMode;
             thanksList.UserID = userID;
@@ -97,7 +97,7 @@ namespace YAF.Pages
 
 
             }
-            DataView thanksInfo = DB.user_viewallthanks(userID).DefaultView;
+            DataTable thanksInfo = DB.user_viewallthanks(userID);
             InitializeThanksList(ThanksFromList, ThanksListMode.FromUser,userID,thanksInfo);
             InitializeThanksList(ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
 

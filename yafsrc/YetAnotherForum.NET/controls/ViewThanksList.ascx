@@ -7,7 +7,7 @@
         </td>
     </tr>
 </table>
-<asp:Repeater ID="ThanksRes" runat="server">
+<asp:Repeater ID="ThanksRes" runat="server" OnItemCreated="ThanksRes_ItemCreated">
     <HeaderTemplate>
         <table class="content" cellspacing="1" cellpadding="0" width="100%">
     </HeaderTemplate>
@@ -16,13 +16,16 @@
             <td colspan="2">
                 <b>
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="topic" />
-                </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}&m={1}#post{1}",DataBinder.Eval(Container.DataItem, "TopicID"),DataBinder.Eval(Container.DataItem, "MessageID")) %>">
+                </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}#post{1}",DataBinder.Eval(Container.DataItem, "TopicID"),DataBinder.Eval(Container.DataItem, "MessageID")) %>">
                     <%# DataBinder.Eval(Container.DataItem, "Topic") %>
                 </a>
             </td>
         </tr>
         <tr class="postheader">
-            <td width="140px" id="NameCell" valign="top">
+            <td width="140px" id="ThanksNumberCell" valign="top" runat="server">
+                <%# String.Format(PageContext.Localization.GetText("THANKSNUMBER"),  DataBinder.Eval(Container.DataItem, "MessageThanksNumber")) %>
+            </td>
+            <td width="140px" id="NameCell" valign="top" runat="server">
                 <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><b>
                     <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %> ' />
                 </b>
@@ -49,13 +52,16 @@
             <td colspan="2">
                 <b>
                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="topic" />
-                </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}&m={1}#post{1}",DataBinder.Eval(Container.DataItem, "TopicID"),DataBinder.Eval(Container.DataItem, "MessageID")) %>">
+                </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}#post{1}",DataBinder.Eval(Container.DataItem, "TopicID"),DataBinder.Eval(Container.DataItem, "MessageID")) %>">
                     <%# DataBinder.Eval(Container.DataItem, "Topic") %>
                 </a>
             </td>
         </tr>
         <tr class="postheader">
-            <td width="140px" id="NameCell" valign="top">
+            <td width="140px" id="ThanksNumberCell" valign="top" runat="server">
+                <%# String.Format(PageContext.Localization.GetText("THANKSNUMBER"),  DataBinder.Eval(Container.DataItem, "MessageThanksNumber")) %>
+            </td>
+            <td width="140px" id="NameCell" valign="top" runat="server">
                 <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><b>
                     <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
                 </b>
