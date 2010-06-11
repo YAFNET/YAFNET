@@ -258,15 +258,18 @@
     private void DisplayPostFooter_PreRender(object sender, EventArgs e)
     {
       // report posts
-        if ((this.PageContext.BoardSettings.AllowGuestToReportPost && !this.PostData.PostDeleted && this.PageContext.IsGuest) ||
-            (!this.PageContext.IsGuest && !this.PostData.PostDeleted && this.PageContext.User != null))
+        if (YafServices.Permissions.Check(this.PageContext.BoardSettings.ReportPostPermissions) && !this.PostData.PostDeleted )
         {
-           this.reportPostLink.Visible = true;                 
-        
-           // vzrus Addition 
-           this.reportPostLink.InnerText = this.reportPostLink.Title = this.PageContext.Localization.GetText("REPORTPOST"); 
+            if ((this.PageContext.IsGuest) ||
+                (!this.PageContext.IsGuest  && this.PageContext.User != null))
+            {
+                this.reportPostLink.Visible = true;
 
-           this.reportPostLink.HRef = YafBuildLink.GetLink(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
+                // vzrus Addition 
+                this.reportPostLink.InnerText = this.reportPostLink.Title = this.PageContext.Localization.GetText("REPORTPOST");
+
+                this.reportPostLink.HRef = YafBuildLink.GetLink(ForumPages.reportpost, "m={0}", this.PostData.MessageId);
+            }
         }
 
        

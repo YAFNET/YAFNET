@@ -955,17 +955,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowPasswordChange;
-        
-        /// <summary>
-        /// AllowGuestToReportPost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowGuestToReportPost;
-        
+        protected global::System.Web.UI.WebControls.CheckBox AllowPasswordChange; 
+  
         /// <summary>
         /// AllowModeratorsViewIPs control.
         /// </summary>
@@ -974,7 +965,16 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox AllowModeratorsViewIPs;
-        
+       
+        /// <summary>
+        /// ReportPostPermissions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ReportPostPermissions;
+
         /// <summary>
         /// ProfileViewPermissions control.
         /// </summary>

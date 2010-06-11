@@ -141,7 +141,7 @@ namespace YAF.Pages
       if (!String.IsNullOrEmpty(this.Request.QueryString["m"]))
       {
         // We check here if the user have access to the option
-        if (!this.PageContext.BoardSettings.AllowGuestToReportPost && this.PageContext.IsGuest)
+        if (!YafServices.Permissions.Check(this.PageContext.BoardSettings.ReportPostPermissions))
         {
           YafBuildLink.Redirect(ForumPages.info, "i=1");
         }

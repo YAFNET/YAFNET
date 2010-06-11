@@ -989,23 +989,27 @@
 						<td class="post">
 							<asp:CheckBox ID="AllowPasswordChange" runat="server"></asp:CheckBox>
 						</td>
-					</tr>					
-					<tr>
-						<td class="postheader">
-							<b>Allow Guests To Report Post:</b><br />
-							Allow to report posts as violating forum rules.
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="AllowGuestToReportPost" runat="server"></asp:CheckBox>
-						</td>
 					</tr>
-							<tr>
+					<tr>
 						<td class="postheader">
 							<b>Allow  Moderators View IPs:</b><br />
 							Allow to view IPs to  moderators.
 						</td>
 						<td class="post">
 							<asp:CheckBox ID="AllowModeratorsViewIPs" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+						<tr>
+						<td class="postheader">
+							<b>Report Post Permissions:</b><br />
+							Allow reporting posts to:
+						</td>
+						<td class="post">
+							<asp:DropDownList ID="ReportPostPermissions" runat="server">
+								<asp:ListItem Value="0" Text="Forbidden" />
+								<asp:ListItem Value="1" Text="Registered Users" />
+								<asp:ListItem Value="2" Text="All Users" />
+							</asp:DropDownList>
 						</td>
 					</tr>					
 					<tr>

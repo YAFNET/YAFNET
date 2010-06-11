@@ -7665,7 +7665,8 @@ begin
 								   AND d.BoardID = @BoardID 
 									ORDER BY c.RankID DESC   
 									 
-		
+	IF (@ShowUserAlbums > 0)	
+	BEGIN	
 	SELECT @G_UsrAlbums = ISNULL(MAX(c.UsrAlbums),0)
 	FROM [{databaseOwner}].[{objectQualifier}User] a 
 						JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
@@ -7679,7 +7680,15 @@ begin
 	FROM [{databaseOwner}].[{objectQualifier}Rank] c 
 								JOIN [{databaseOwner}].[{objectQualifier}User] d
 								  ON c.RankID = d.RankID WHERE d.UserID = @UserID 
-									AND d.BoardID = @BoardID                                                               
+									AND d.BoardID = @BoardID 
+	END 	
+	ELSE	
+	BEGIN
+	SET @G_UsrAlbums = 0
+	SET @R_UsrAlbums = 0
+	END
+	
+	                                                             
 
 	-- return information
 	select TOP 1		

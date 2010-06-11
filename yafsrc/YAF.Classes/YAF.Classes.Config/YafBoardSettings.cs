@@ -620,6 +620,23 @@ namespace YAF.Classes
       }
     }
 
+    // vzrus 6/11/10
+    /// <summary>
+    /// Gets or sets a value indicating whether someone can report posts as violating forum rules.
+    /// </summary>
+    public int ReportPostPermissions
+    {
+        get
+        {
+            return this._reg.GetValue<int>("ReportPostPermissions", (int)ViewPermissions.RegisteredUsers);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("ReportPostPermissions", value);
+        }
+    }
+
     /// <summary>
     /// Gets or sets CaptchaSize.
     /// </summary>
@@ -1387,21 +1404,7 @@ namespace YAF.Classes
         this._reg.SetValue<bool>("AllowPasswordChange", value);
       }
     }
-    /// <summary>
-    /// Gets or sets a value indicating whether guest can report posts as violating forum rules.
-    /// </summary>
-    public bool AllowGuestToReportPost
-    {
-      get
-      {
-          return this._reg.GetValue<bool>( "AllowGuestToReportPost", true );
-      }
 
-      set
-      {
-          this._reg.SetValue<bool>( "AllowGuestToReportPost", value );
-      }
-    }
     /// <summary>
     /// Gets or sets a value indicating whether UseFileTable.
     /// </summary>
