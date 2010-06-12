@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Turkish" code="tr">
   <page name="ACTIVE">
-	<Resource tag="BY">{0} Tarafından </Resource>
-    <Resource tag="LAST_24">( Son 24 Saat )</Resource>	
+    <Resource tag="BY">{0} Tarafından </Resource>
+    <Resource tag="LAST_24">( Son 24 Saat )</Resource>
     <Resource tag="LAST_DAY">Dün</Resource>
     <Resource tag="LAST_HOUR">Son Bir Saat</Resource>
     <Resource tag="LAST_MONTH">Geçen Ay</Resource>
@@ -16,61 +16,60 @@
     <Resource tag="REPLIES">Cevaplar</Resource>
     <Resource tag="RSSFEED">Rss Yayını</Resource>
     <Resource tag="SINCE">den Beri</Resource>
-	<Resource tag="TITLE">Aktif Konular</Resource>
+    <Resource tag="TITLE">Aktif Konular</Resource>
     <Resource tag="TOPIC_STARTER">Konuyu Başlatan</Resource>
     <Resource tag="TOPICS">Konular</Resource>
     <Resource tag="VIEWS">İzlenmeler</Resource>
   </page>
-<page name="ACTIVELOCATION">
+  <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Aktif kullanıcı listesi</Resource>
-    <Resource tag="ADMIN_ACCESSMASKS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_ADMIN">Views admin index</Resource>
-    <Resource tag="ADMIN_ATTACHMENTS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_BANNEDIP">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_BANNEDIP_EDIT">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_BBCODE">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_BBCODE_EDIT">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_BBCODE_IMPORT">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_BOARDS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_BOARDSETTINGS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EDITACCESSMASK">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EDITBOARD">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EDITCATEGORY">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EDITFORUM">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EDITGROUP">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EDITMEDAL">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EDITRANK">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EDITUSER">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EVENTLOG">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EXTENSIONS_EDIT">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EXTENSIONS_IMPORT">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_EXTESIONS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_FORUMS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_GROUPS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_HOSTSETTING">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_MAIL">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_MEDALS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_NNTPFORUMS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_NNTPRETRIEVE">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_NNTPSERVERS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_PM">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_PRUNE">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_RANKS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_REGUSER">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_REINDEX">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_REPLACEWORDS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_REPLACEWORDS_EDIT">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_RESTARTAPP">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_RUNSQL">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_SMILIES">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_SMILIES_EDIT">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_SMILIES_IMPORT">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_TASKMANAGER">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_TEST_DATA">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_USERS">Yönetici görevleri</Resource>
-    <Resource tag="ADMIN_VERSION">Yönetici görevleri</Resource>
-    <Resource tag="ADMINTASK">Yönetici görevleri</Resource>
+	<Resource tag="ADMIN_ACCESSMASKS">Views access masks in admin section</Resource>
+	<Resource tag="ADMIN_ADMIN">Views admin index</Resource>
+	<Resource tag="ADMIN_BANNEDIP">Views banned IPs list</Resource>
+	<Resource tag="ADMIN_BANNEDIP_EDIT">Edits banned IPs</Resource>
+	<Resource tag="ADMIN_BBCODE">Views BBCodes</Resource>
+	<Resource tag="ADMIN_BBCODE_EDIT">Edits BBcodes</Resource>
+	<Resource tag="ADMIN_BBCODE_IMPORT">Imports BBCodes</Resource>
+	<Resource tag="ADMIN_BOARDS">Views boards list</Resource>
+	<Resource tag="ADMIN_BOARDSETTINGS">Views board settings</Resource>
+	<Resource tag="ADMIN_EDITACCESSMASK">Edits eccess masks</Resource>
+	<Resource tag="ADMIN_EDITBOARD">Edits boards</Resource>
+	<Resource tag="ADMIN_EDITCATEGORY">Edits categories</Resource>
+	<Resource tag="ADMIN_EDITFORUM">Edits forums</Resource>
+	<Resource tag="ADMIN_EDITGROUP">Edits groups</Resource>
+	<Resource tag="ADMIN_EDITMEDAL">Edits medals</Resource>
+	<Resource tag="ADMIN_EDITRANK">Edits ranks</Resource>
+	<Resource tag="ADMIN_EDITUSER">Edits a user</Resource>
+	<Resource tag="ADMIN_EVENTLOG">Views/edits event log</Resource>
+	<Resource tag="ADMIN_EXTENSIONS_EDIT">Edits extensions</Resource>
+	<Resource tag="ADMIN_EXTENSIONS_IMPORT">Imports extensions</Resource>
+	<Resource tag="ADMIN_EXTESIONS">View extensions</Resource>
+	<Resource tag="ADMIN_FORUMS">Views forums in admin section</Resource>
+	<Resource tag="ADMIN_GROUPS">Views groups in admin section</Resource>
+	<Resource tag="ADMIN_HOSTSETTING">Views/edits hosts settings</Resource>
+	<Resource tag="ADMIN_MAIL">Views/edits mails</Resource>
+	<Resource tag="ADMIN_MEDALS">Views/edits medals</Resource>
+	<Resource tag="ADMIN_NNTPFORUMS">Views/edits NNTP forums</Resource>
+	<Resource tag="ADMIN_NNTPRETRIEVE">Retrieves NNTP</Resource>
+	<Resource tag="ADMIN_NNTPSERVERS">Views/edits NNTP servers</Resource>
+	<Resource tag="ADMIN_PM">Views/edits PMs</Resource>
+	<Resource tag="ADMIN_PRUNE">Views/performs pruning</Resource>
+	<Resource tag="ADMIN_RANKS">Views ranks in admin section</Resource>
+	<Resource tag="ADMIN_REGUSER">Registers a user</Resource>
+	<Resource tag="ADMIN_REINDEX">Maintaines DB</Resource>
+	<Resource tag="ADMIN_REPLACEWORDS">Vies replace words list</Resource>
+	<Resource tag="ADMIN_REPLACEWORDS_EDIT">Edits replace words list</Resource>
+	<Resource tag="ADMIN_REPLACEWORDS_IMPORT">Imports replace words</Resource>
+	<Resource tag="ADMIN_RESTARTAPP">Restarts application</Resource>
+	<Resource tag="ADMIN_RUNSQL">Runs SQL query</Resource>
+	<Resource tag="ADMIN_SMILIES">Views smilies</Resource>
+	<Resource tag="ADMIN_SMILIES_EDIT">Adits smilies</Resource>
+	<Resource tag="ADMIN_SMILIES_IMPORT">Imports smilies</Resource>
+	<Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
+	<Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
+	<Resource tag="ADMIN_USERS">Views users in admin section</Resource>
+	<Resource tag="ADMIN_VERSION">Views version</Resource>	
+	<Resource tag="ADMINTASK">Yönetici görevleri</Resource>
     <Resource tag="ALBUM">Albümleri Gör</Resource>
     <Resource tag="ALBUM_OFUSER">kullanıcısının</Resource>
     <Resource tag="ALBUM_OWN">Albümü Görüntüle/Düzenle</Resource>
@@ -146,14 +145,14 @@
     <Resource tag="ACTIVE">Aktif</Resource>
     <Resource tag="BROWSER">Tarayıcı</Resource>
     <Resource tag="LAST_ACTIVE">En Son Aktif Olan</Resource>
-	<Resource tag="LATEST_ACTION">En Son Aktivite</Resource>
+    <Resource tag="LATEST_ACTION">En Son Aktivite</Resource>
     <Resource tag="LOGGED_IN">Giriş Yapıldı</Resource>
     <Resource tag="MINUTES">{0:N0} Dakika</Resource>
     <Resource tag="PLATFORM">Platform</Resource>
     <Resource tag="TITLE">Aktif Kullanıcılar</Resource>
     <Resource tag="USERNAME">Kullanıcı Adı</Resource>
   </page>
- <page name="ALBUM">
+  <page name="ALBUM">
     <Resource tag="ALBUM_CHANGE_TITLE">Başlık Ekle</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Açıklama Ekle</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">{0} Resim</Resource>
@@ -200,29 +199,29 @@
     <Resource tag="ADDBUDDY">Arkadaş Olarak Ekle</Resource>
     <Resource tag="AWAIT_BUDDY_APPROVAL">(Arkadaş Onayı Bekliyor)</Resource>
     <Resource tag="NOTIFICATION_ALL_APPROVED">Tüm arkadaşlık isteklerini onayla</Resource>
-    <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">Tüm arkadaşlık istekleri onaylandı ve listeye eklendi.</Resource>    
+    <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">Tüm arkadaşlık istekleri onaylandı ve listeye eklendi.</Resource>
     <Resource tag="NOTIFICATION_ALL_DENIED">Şu kadar günden eski olan tüm arkadaşlık istekleri reddedildi: 14</Resource>
     <Resource tag="NOTIFICATION_BUDDYAPPROVED">{0} Arkadaş listesine eklisin.</Resource>
     <Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">Sen ve {0} artık arkadaşsınız.</Resource>
     <Resource tag="NOTIFICATION_BUDDYDENIED">Arkadaşlık isteği reddedildi.</Resource>
-	<Resource tag="NOTIFICATION_BUDDYREQUEST">Arkadaşlık isteği gönderildi.</Resource>
+    <Resource tag="NOTIFICATION_BUDDYREQUEST">Arkadaşlık isteği gönderildi.</Resource>
     <Resource tag="PENDINGBUDDIES">Bekleyen {0} arkadaşlık isteğin var.</Resource>
-	<Resource tag="REMOVEBUDDY">Arkadaşlıktan Çıkar</Resource>    
+    <Resource tag="REMOVEBUDDY">Arkadaşlıktan Çıkar</Resource>
     <Resource tag="REMOVEBUDDY">{0} adlı üyeyi arkadaş listenizden çıkarmak istiyor musunuz?</Resource>
-    <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} arkadaş listenizden başarıyla çıkarıldı.</Resource>  
-</page>
+    <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} arkadaş listenizden başarıyla çıkarıldı.</Resource>
+  </page>
   <page name="BUTTON">
-	<Resource tag="BUTTON_ADDALBUM">Yeni Albüm Ekle</Resource>
+    <Resource tag="BUTTON_ADDALBUM">Yeni Albüm Ekle</Resource>
     <Resource tag="BUTTON_ATTACH">Dosya Ekle</Resource>
     <Resource tag="BUTTON_ATTACH_TT">Bu mesaja dosya eklemek için.</Resource>
     <Resource tag="BUTTON_DELETE">Sil</Resource>
     <Resource tag="BUTTON_DELETE_TT">Bu mesajı sil</Resource>
-	<Resource tag="BUTTON_DELETEALBUM">Albümü Sil</Resource>
+    <Resource tag="BUTTON_DELETEALBUM">Albümü Sil</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Konu Sil</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Bu konuyu sil</Resource>
     <Resource tag="BUTTON_EDIT">Düzenle</Resource>
     <Resource tag="BUTTON_EDIT_TT">Bu mesajı düzenle</Resource>
-	<Resource tag="BUTTON_EDITALBUMIMAGES">Fotoğrafları Yükle/Sil</Resource>
+    <Resource tag="BUTTON_EDITALBUMIMAGES">Fotoğrafları Yükle/Sil</Resource>
     <Resource tag="BUTTON_LOCKTOPIC">Konu Kilitle</Resource>
     <Resource tag="BUTTON_LOCKTOPIC_TT">Bu Konuyu Kilitle</Resource>
     <Resource tag="BUTTON_MODERATE">Yönet</Resource>
@@ -237,13 +236,13 @@
     <Resource tag="BUTTON_NEWTOPIC_TT">Yeni Konu</Resource>
     <Resource tag="BUTTON_POSTREPLY">Cevapla</Resource>
     <Resource tag="BUTTON_POSTREPLY_TT">Bu konuya cevap gönder</Resource>
-	<Resource tag="BUTTON_QUOTE">Alıntı</Resource>
+    <Resource tag="BUTTON_QUOTE">Alıntı</Resource>
     <Resource tag="BUTTON_QUOTE_TT">Alıntı ile cevapla</Resource>
     <Resource tag="BUTTON_REPLY">Cevapla</Resource>
     <Resource tag="BUTTON_REPLY_TT">Bu mesajı cevapla</Resource>
-	<Resource tag="BUTTON_RESETCOVER">Remove Cover</Resource>
+    <Resource tag="BUTTON_RESETCOVER">Remove Cover</Resource>
     <Resource tag="BUTTON_SETCOVER">Set as Cover</Resource>
-	<Resource tag="BUTTON_TAGFAVORITE">Favorilerime Ekle</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE">Favorilerime Ekle</Resource>
     <Resource tag="BUTTON_TAGFAVORITE_TT">Favorilerime Ekle</Resource>
     <Resource tag="BUTTON_THANKS">Teşekkür Et</Resource>
     <Resource tag="BUTTON_THANKS_TT">Teşekkür Et</Resource>
@@ -253,7 +252,7 @@
     <Resource tag="BUTTON_UNDELETE_TT">Bu mesajı kurtar</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Konu Kilidi Kaldır</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Bu Konudaki Kilidi Kaldır</Resource>
-	<Resource tag="BUTTON_UNTAGFAVORITE">Favorilerimden Çıkar</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">Favorilerimden Çıkar</Resource>
     <Resource tag="BUTTON_UNTAGFAVORITE_TT">Favorilerimden Çıkar</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
@@ -268,7 +267,7 @@
     <Resource tag="BBCODE_CODE">Kod:</Resource>
     <Resource tag="BBCODE_QUOTE">Alıntı:</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} yazılan:</Resource>
-	<Resource tag="CAL_JQ_CULTURE">tr</Resource>
+    <Resource tag="CAL_JQ_CULTURE">tr</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
     <Resource tag="CAL_JQ_TT">Tarihi seçmek için tıklayın</Resource>
     <Resource tag="CAN_DELETE">Bu forumdaki postalarınızı [b]silebilirsiniz[/b].</Resource>
@@ -292,7 +291,7 @@
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} E-Posta onayı</Resource>
     <Resource tag="FONT_COLOR">Font Rengi:</Resource>
     <Resource tag="FONT_SIZE">Font Büyüklüğü:</Resource>
-	<Resource tag="FOR">İçin</Resource>
+    <Resource tag="FOR">İçin</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
@@ -323,15 +322,15 @@
     <Resource tag="TT_CODE">Kod</Resource>
     <Resource tag="TT_CREATELINK">Link Oluştur</Resource>
     <Resource tag="TT_CUSTOMBBCODE">Daha fazla BBCode Tagı</Resource>
-	<Resource tag="TT_HIGHLIGHT">Highlight</Resource>    
-	<Resource tag="TT_IMAGE">Resim Ekle</Resource>
-	<Resource tag="TT_IPDETAILS">Show IP details</Resource>
+    <Resource tag="TT_HIGHLIGHT">Highlight</Resource>
+    <Resource tag="TT_IMAGE">Resim Ekle</Resource>
+    <Resource tag="TT_IPDETAILS">Show IP details</Resource>
     <Resource tag="TT_ITALIC">İtalik</Resource>
     <Resource tag="TT_QUOTE">Alıntı</Resource>
     <Resource tag="TT_UNDERLINE">Altçizgi</Resource>
     <Resource tag="UNREAD_MSG">Mesaj Kutunuzda {0} Okunmamış Mesaj Bulunmaktadır.</Resource>
     <Resource tag="UPDATE">Güncelle</Resource>
-	<Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
+    <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more then {0} characters.</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Gönder</Resource>
@@ -379,29 +378,29 @@
     <Resource tag="WARN_TOOBIG">Resim büyüklüğü {0}x{1} pixelden büyük olamaz.</Resource>
   </page>
   <page name="CP_EDITBUDDIES">
-	<Resource tag="APPROVE">Onayla</Resource>    
-	<Resource tag="APPROVE_ADD">Onayla ve Ekle</Resource>
-	<Resource tag="APPROVE_ADD_ALL">Hepsini Onayla ve Ekle</Resource>    
-	<Resource tag="APPROVE_ALL">Hepsini Onayla</Resource>
-	<Resource tag="BUDDYLIST">Arkadaş Listeniz</Resource>    
-	<Resource tag="BUDDYLIST_TT">Arkadaşlarım Yönetici Paneli</Resource>
-	<Resource tag="DENY">Reddet</Resource>
-    <Resource tag="DENY_ALL">Şu kadar günden eski olan tüm arkadaşlık isteklerini İptal Et: 14</Resource>    
-	<Resource tag="EDIT_BUDDIES">Arkadaşlarımı Düzenle</Resource>
-	<Resource tag="NOTIFICATION_APPROVEALL">Approve all requests?</Resource>
+    <Resource tag="APPROVE">Onayla</Resource>
+    <Resource tag="APPROVE_ADD">Onayla ve Ekle</Resource>
+    <Resource tag="APPROVE_ADD_ALL">Hepsini Onayla ve Ekle</Resource>
+    <Resource tag="APPROVE_ALL">Hepsini Onayla</Resource>
+    <Resource tag="BUDDYLIST">Arkadaş Listeniz</Resource>
+    <Resource tag="BUDDYLIST_TT">Arkadaşlarım Yönetici Paneli</Resource>
+    <Resource tag="DENY">Reddet</Resource>
+    <Resource tag="DENY_ALL">Şu kadar günden eski olan tüm arkadaşlık isteklerini İptal Et: 14</Resource>
+    <Resource tag="EDIT_BUDDIES">Arkadaşlarımı Düzenle</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALL">Approve all requests?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your buddy list too?</Resource>
     <Resource tag="NOTIFICATION_DENY">Deny this request?</Resource>
     <Resource tag="NOTIFICATION_REMOVE">Remove Buddy?</Resource>
     <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">Delete all Unapproved requests more than 14 days old?</Resource>
     <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
-    <Resource tag="POSTS">Posts</Resource>    
-	<Resource tag="REQUEST_DATE">Arkadaşlık İsteği Tarihi:</Resource>
+    <Resource tag="POSTS">Posts</Resource>
+    <Resource tag="REQUEST_DATE">Arkadaşlık İsteği Tarihi:</Resource>
     <Resource tag="YOUR_BUDDYLIST">Your Buddy List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">İsim Bilgileriniz</Resource>
-	<Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Mesaj yazdığınız konulara cevap yazıldığında E-posta ile haber almak ister misiniz?</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Mesaj yazdığınız konulara cevap yazıldığında E-posta ile haber almak ister misiniz?</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="AVATARDELETE">Yüklenmiş Avatarı Siliniz.</Resource>
     <Resource tag="AVATARREMOTE">E-postanızın yanında gösterilen Avatar URL'sini giriniz.</Resource>
@@ -411,17 +410,17 @@
     <Resource tag="BAD_ICQ">Geçersiz bir ICQ numaransı girdiniz.</Resource>
     <Resource tag="BAD_MSN">MSN hesabınız için geçersiz bir e-posta adresi girdiniz.</Resource>
     <Resource tag="BAD_WEBLOG">Blogunuz için geçersiz bir bağlantı adresi girdiniz.</Resource>
-	<Resource tag="BIRTHDAY">Doğum Tarihiniz:</Resource>
+    <Resource tag="BIRTHDAY">Doğum Tarihiniz:</Resource>
     <Resource tag="CHANGE_EMAIL">E-posta Adresini Değiştir</Resource>
     <Resource tag="CHANGE_PASSWORD">Şifreyi Değiştir</Resource>
     <Resource tag="CONFIRMPASSWORD">Tekrar Yeni Şifre:</Resource>
     <Resource tag="DELETE_AVATAR">Avatarı Sil</Resource>
-	<Resource tag="DISPLAYNAME">Forumda görünecek isminiz:</Resource>
+    <Resource tag="DISPLAYNAME">Forumda görünecek isminiz:</Resource>
     <Resource tag="DST">Saat değişimi uygulaması etkinleştirilsin mi?</Resource>
     <Resource tag="EDIT_ALBUMS">Albümleri Düzenle</Resource>
     <Resource tag="EMAIL">Geçerli e-posta adresiniz</Resource>
     <Resource tag="FORUM_SETTINGS">Forum Ayarları</Resource>
-	<Resource tag="HIDEME">Forumda beni gizle</Resource>
+    <Resource tag="HIDEME">Forumda beni gizle</Resource>
     <Resource tag="HOMEPAGE">Hakkınızda</Resource>
     <Resource tag="HOMEPAGE2">Bireysel İnternet Siteniz:</Resource>
     <Resource tag="LOCATION">Nerede Yaşıyorsunuz</Resource>
@@ -518,15 +517,15 @@
     <Resource tag="SUBSCRIPTIONS">Abonelikler</Resource>
     <Resource tag="YOUR_ACCOUNT">Hesabınız</Resource>
     <Resource tag="YOUR_EMAIL">E-posta adresiniz:</Resource>
-	<Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Kullanıcı adınız:</Resource>
   </page>
   <page name="CP_SIGNATURE">
-	<Resource tag="BBCODE_FORBIDDEN">İmzanız BBCodes içermemeli.</Resource>
+    <Resource tag="BBCODE_FORBIDDEN">İmzanız BBCodes içermemeli.</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">İmzanız HTML tag içermemeli.</Resource>
     <Resource tag="HTMLTAG_WRONG">İmzanız {0} HTML tag içeriyor.</Resource>
     <Resource tag="SIGNATURE">İmza:</Resource>
-	<Resource tag="SIGNATURE_BBCODE_WRONG">İmzanız {0} BBCode içeriyor.</Resource>
+    <Resource tag="SIGNATURE_BBCODE_WRONG">İmzanız {0} BBCode içeriyor.</Resource>
     <Resource tag="SIGNATURE_MAX">İmzanız çok uzun. {0} karakterden fazla olamaz.</Resource>
     <Resource tag="TITLE">İmzayı Düzenle</Resource>
   </page>
@@ -541,20 +540,20 @@
     <Resource tag="TOPICS">Konular</Resource>
     <Resource tag="UNSUBSCRIBE">Abonelik İptali</Resource>
     <Resource tag="VIEWS">İzlenme</Resource>
-    <Resource tag="WARN_SELECTTOPICS">Öncelikle abonelik iptali yapılacak konuyu seçin</Resource>
     <Resource tag="WARN_SELECTFORUMS">Öncelikle abonelik iptali yapılacak forumu seçin.</Resource>
+    <Resource tag="WARN_SELECTTOPICS">Öncelikle abonelik iptali yapılacak konuyu seçin</Resource>
   </page>
   <page name="DEFAULT">
     <Resource tag="ACTIVE_DISCUSSIONS">Aktif Konular</Resource>
     <Resource tag="ACTIVE_USERS">Aktif Kullanıcılar</Resource>
     <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktif kullanıcı</Resource>
     <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktif kullanıcılar</Resource>
-	<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} ziyaretçi</Resource>
-    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} ziyaretçiler</Resource> 
-	<Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} gizli</Resource>	
-	<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} üye</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} ziyaretçi</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} ziyaretçiler</Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} gizli</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} üye</Resource>
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} üyeler</Resource>
-	<Resource tag="ACTIVE_USERS_TIME">Son {0:N0} dakika</Resource>
+    <Resource tag="ACTIVE_USERS_TIME">Son {0:N0} dakika</Resource>
     <Resource tag="BY">{0} Tarafından </Resource>
     <Resource tag="CURRENT_TIME">Saat: {0}.</Resource>
     <Resource tag="ERROR_NOFORUMACCESS">Bu Foruma Girmeye Yetkiniz Yok.</Resource>
@@ -572,7 +571,7 @@
     <Resource tag="NO_POSTS">Mesaj Yok.</Resource>
     <Resource tag="ONDATE">{0} Tarihinde</Resource>
     <Resource tag="POSTS">Mesajlar</Resource>
-	<Resource tag="RSSICONTOOLTIPACTIVE">Aktif konuları RSS ile takip edin.</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Aktif konuları RSS ile takip edin.</Resource>
     <Resource tag="RSSICONTOOLTIPFAVORITE">Favori konularınızı RSS ile takip edin.</Resource>
     <Resource tag="RSSICONTOOLTIPFORUM">RSS yayınına kayıt olun.</Resource>
     <Resource tag="STATS">İstatistikler</Resource>
@@ -754,19 +753,19 @@
     <Resource tag="COPYOVER">Mesaj yazısını güncelle</Resource>
     <Resource tag="DELETE">Mesajı Sil</Resource>
     <Resource tag="DELETED">Mesaj Silindi!</Resource>
-	<Resource tag="HISTORY">History</Resource>
+    <Resource tag="HISTORY">History</Resource>
     <Resource tag="MODIFIED">Mesaj eğiştirildi!</Resource>
     <Resource tag="NUMBERREPORTED">Bildirilme Adedi :</Resource>
-	<Resource tag="ORIGINALMESSAGE">Original message:</Resource>
+    <Resource tag="ORIGINALMESSAGE">Original message:</Resource>
     <Resource tag="REPLYTO">Özel Mesaj ile cevap ver</Resource>
-	<Resource tag="REPORTED">Reported posts</Resource>
+    <Resource tag="REPORTED">Reported posts</Resource>
     <Resource tag="REPORTEDBY">Tarafından Bildirildi:</Resource>
     <Resource tag="RESOLVE">Mesajın kopyalarını çöz</Resource>
     <Resource tag="RESOLVED">Çözülmüş olarak işaretle</Resource>
     <Resource tag="RESOLVEDBY">Tarafından Çözüldü:</Resource>
     <Resource tag="RESOLVEDFEEDBACK">Mesaj çözülmüş olarak işaretlendi.</Resource>
     <Resource tag="TOP">Başa Dön</Resource>
-	<Resource tag="TOPIC">Topic:</Resource>
+    <Resource tag="TOPIC">Topic:</Resource>
     <Resource tag="UNAPPROVED">Onaylanmamış Mesajlar</Resource>
   </page>
   <page name="MOVEMESSAGE">
@@ -872,8 +871,8 @@
     <Resource tag="STICKY">İşaretli</Resource>
     <Resource tag="SUBJECT">Konu:</Resource>
     <Resource tag="TOPICATTACH">Bu mesaja dosya ekle?</Resource>
-	<Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>    
-	<Resource tag="TOPICWATCH">Bu konuyu takip et ve bir aktivite olduğunda E-Posta ile uyar?</Resource>
+    <Resource tag="TOPICNAME_TOOLONG">Maximal tolic name length should not be more then {0} characters. Use abbreviations.</Resource>
+    <Resource tag="TOPICWATCH">Bu konuyu takip et ve bir aktivite olduğunda E-Posta ile uyar?</Resource>
     <Resource tag="WAIT">{0:N0} saniye boyunca yeni bir mesaj gönderemezsiniz.</Resource>
   </page>
   <page name="POSTS">
@@ -883,7 +882,7 @@
     <Resource tag="ATTACHMENTINFO">{0:N0} KB, {1:N0} Defa İndirildi.</Resource>
     <Resource tag="ATTACHMENTS">Ekli Dosya(lar):</Resource>
     <Resource tag="BLOG">BLOG</Resource>
-	<Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
+    <Resource tag="CANT_DOWNLOAD">You don't have permission to view/download attachments.</Resource>
     <Resource tag="CANT_DOWNLOAD_REGISTER">You [b]cannot[/b] view/download attachments. Try register.</Resource>
     <Resource tag="CHOICE">Seçenek</Resource>
     <Resource tag="CLOSE_TEXT">Kapat</Resource>
@@ -893,7 +892,7 @@
     <Resource tag="EDIT_REASON">Sebep</Resource>
     <Resource tag="EDIT_REASON_NA">Sebep Bildirilmesi</Resource>
     <Resource tag="EDITED">Düzenle</Resource>
-	<Resource tag="EDITED_BY_MOD">Moderatör Tarafından</Resource>
+    <Resource tag="EDITED_BY_MOD">Moderatör Tarafından</Resource>
     <Resource tag="EDITED_BY_USER">Kullanıcı Tarafından</Resource>
     <Resource tag="EMAIL">E-posta</Resource>
     <Resource tag="EMAILTOPIC">Bu Konuyu e-posta ile Gönder</Resource>
@@ -958,14 +957,15 @@
     <Resource tag="TOPICBROWSERS">Bu konudaki kullanıcılar</Resource>
     <Resource tag="TOTAL">Toplam</Resource>
     <Resource tag="UNWATCHTOPIC">Konuyu izlemeyi bırak</Resource>
-	<Resource tag="USERGENDER_FEM">Woman</Resource>
-    <Resource tag="USERGENDER_MAS">Man</Resource>     
-	<Resource tag="USEROFFLINESTATUS">Kullanıcı Çevrimdışı</Resource>
+    <Resource tag="USERGENDER_FEM">Woman</Resource>
+    <Resource tag="USERGENDER_MAS">Man</Resource>
+    <Resource tag="USEROFFLINESTATUS">Kullanıcı Çevrimdışı</Resource>
     <Resource tag="USERONLINESTATUS">Kullanıcı Çevrimiçi</Resource>
     <Resource tag="USERPROFILE">Kullanıcı Profili</Resource>
     <Resource tag="VIEW">Göster</Resource>
-	<Resource tag="VOTES">Oylar</Resource>
+    <Resource tag="VOTES">Oylar</Resource>
     <Resource tag="WARN_ALREADY_VOTED">Daha önce oy verdiniz.</Resource>
+    <Resource tag="WARN_EMAILLOGIN">You must be registered to send emails.</Resource>
     <Resource tag="WARN_EMAILLOGINWARN_EMAILLOGIN">E-Posta göndermek için kayıtlı olmalısınız.</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Forum Kilitli</Resource>
     <Resource tag="WARN_PMLOGIN">Özel mesaj göndermek için giriş yapmalısınız.</Resource>
@@ -973,7 +973,7 @@
     <Resource tag="WARN_TOPIC_LOCKED">Konu Kilitli</Resource>
     <Resource tag="WARN_WATCHLOGIN">Konuları takip etmek içimn giriş yapmalısınız.</Resource>
     <Resource tag="WATCHTOPIC">Bu Konuyu İzle</Resource>
-	<Resource tag="XMPP">XMPP</Resource>
+    <Resource tag="XMPP">XMPP</Resource>
     <Resource tag="YIM">YAHOO</Resource>
   </page>
   <page name="PRINTTOPIC">
@@ -983,9 +983,9 @@
     <Resource tag="ABOUT">Hakkında</Resource>
     <Resource tag="ADMIN_USER">Yönetici</Resource>
     <Resource tag="AIM">AIM-İsmi:</Resource>
-	<Resource tag="ALBUMS">Albums</Resource>
+    <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Avatar</Resource>
-	<Resource tag="BIRTHDAY">Doğum Günü</Resource>
+    <Resource tag="BIRTHDAY">Doğum Günü</Resource>
     <Resource tag="CONTACT">İletişim</Resource>
     <Resource tag="DAYS">Gün</Resource>
     <Resource tag="EMAIL">E-posta:</Resource>
@@ -1031,7 +1031,7 @@
     <Resource tag="USERNAME">Kullanıcı Adı:</Resource>
     <Resource tag="WEBLOG">İnternet Günlüğü:</Resource>
     <Resource tag="WEBSITE">Bireysel İnternet Siteniz:</Resource>
-	<Resource tag="XMPP">XMPP Name:</Resource>
+    <Resource tag="XMPP">XMPP Name:</Resource>
     <Resource tag="YIM">Yahoo Haberci:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">
@@ -1051,34 +1051,34 @@
     <Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Hesabınız başarıyla oluşturuldu.[/center]</Resource>
     <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Hesabınız başarıyla oluşturuldu. Kaydınızın tamamlanması için E-Posta adresinizi onaylamanız gerekmekte. Onay için size gönderilen E-Postaki açıklamaları okuyunuz.[/center]</Resource>
     <Resource tag="ALREADY_REGISTERED">Kullanıcı adınız veya e-posta adresinizle daha önce kayıt yapılmış.</Resource>
-	<Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Forumda görünecek isminiz daha önce seçilmiştir.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Forumda görünecek isminiz daha önce seçilmiştir.</Resource>
     <Resource tag="BAD_EMAIL">Girmiş olduğunuz e-posta adresi geçersiz.</Resource>
     <Resource tag="BAD_PASSWORD">Lütfen daha karmaşık bir şifre seçiniz. (!-? 0-9) gibi karakter-sayı içeren şifre giriniz.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Şifre Onayı</Resource>
     <Resource tag="CONTINUE">Devam</Resource>
     <Resource tag="CREATE_USER">Kayıt Ol</Resource>
     <Resource tag="DETAILS">Kayıt Ayrıntıları</Resource>
-	<Resource tag="DISPLAYNAME">Görünecek İsminiz</Resource>
+    <Resource tag="DISPLAYNAME">Görünecek İsminiz</Resource>
     <Resource tag="EMAIL">E-posta Adresi</Resource>
     <Resource tag="HOMEPAGE">Ana Sayfa</Resource>
     <Resource tag="INVALID_ANSWER">Lütfen farklı bir cevap girin.</Resource>
-	<Resource tag="INVALID_DISPLAYNAME">Lütfen forumda görünecek isminizi değiştirin.</Resource>
+    <Resource tag="INVALID_DISPLAYNAME">Lütfen forumda görünecek isminizi değiştirin.</Resource>
     <Resource tag="INVALID_QUESTION">Lütfen farklı bir soru girin.</Resource>
     <Resource tag="INVALID_USERNAME">Lütfen farklı bir kullanıcı adı girin.</Resource>
     <Resource tag="LOCATION">Adres Bilgileriniz</Resource>
     <Resource tag="NEED_ANSWER">Hatırlatma sorusu cevabı gereklidir.</Resource>
-	<Resource tag="NEED_DISPLAYNAME">Forumda görünecek isim zorunludur.</Resource>    
-	<Resource tag="NEED_EMAIL">E-Posta gereklidir.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Forumda görünecek isim zorunludur.</Resource>
+    <Resource tag="NEED_EMAIL">E-Posta gereklidir.</Resource>
     <Resource tag="NEED_MATCH">Şifreler uyuşmuyor.</Resource>
     <Resource tag="NEED_PASSWORD">Şifre girilmesi zorunludur.</Resource>
     <Resource tag="NEED_QUESTION">Hatırlatma sorusu gereklidir</Resource>
     <Resource tag="NEED_USERNAME">Kullanıcı adı girilmesi zorunludur.</Resource>
     <Resource tag="PASSWORD">Şifre</Resource>
-	<Resource tag="PASSWORD_REQUIREMENTS_TITLE">Şifre girilmesi zorunludur.</Resource>
-	<Resource tag="PASSWORD_REQUIREMENTS_WARN">Minimum uzunluk: {0}. Minimum Sayı-Karakter olmayan harf uzunluğu: {1}.</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Şifre girilmesi zorunludur.</Resource>
+    <Resource tag="PASSWORD_REQUIREMENTS_WARN">Minimum uzunluk: {0}. Minimum Sayı-Karakter olmayan harf uzunluğu: {1}.</Resource>
     <Resource tag="PREFERENCES">Forum Tercihleri</Resource>
     <Resource tag="PROFILE">Profil Bilgileri</Resource>
-	<Resource tag="RECAPTCHA_BADSETTING">Recapture sisteminde sorun oluştu. Lütfen yöneticiye bildirin.</Resource>
+    <Resource tag="RECAPTCHA_BADSETTING">Recapture sisteminde sorun oluştu. Lütfen yöneticiye bildirin.</Resource>
     <Resource tag="RECATCHA_BADWORDS">Hatalı Deneme! Tekrar deneyiniz.</Resource>
     <Resource tag="REGISTER">Kayıt Ol</Resource>
     <Resource tag="RETYPE_PASSWORD">Şifreyi yeniden giriniz</Resource>
@@ -1088,15 +1088,15 @@
     <Resource tag="TIMEZONE">Saat Diliminizi Seçiniz</Resource>
     <Resource tag="TITLE">Yeni Kullanıcı Kayıt Ekranı</Resource>
     <Resource tag="USERNAME">Kullanıcı Adı</Resource>
-	<Resource tag="USERNAME_LENGTH_WARN">Kullanıcı adınız {0} karakterden uzun olamaz.</Resource>
+    <Resource tag="USERNAME_LENGTH_WARN">Kullanıcı adınız {0} karakterden uzun olamaz.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">{0} Forumu için kayıt onayı</Resource>
   </page>
   <page name="REPORTPOST">
     <Resource tag="CANCEL">İptal</Resource>
     <Resource tag="ENTER_TEXT">Mesajınızı buraya yazın</Resource>
     <Resource tag="HEADER">Kötü Kullanım Bildir</Resource>
+    <Resource tag="POSTEDBY">Yazan Üye:</Resource>
     <Resource tag="SEND">Gönder</Resource>
-	<Resource tag="POSTEDBY">Yazan Üye:</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Kalınlaştır</Resource>
@@ -1178,20 +1178,20 @@ Siz foruma otomatik bilgisayar programlarını kullanarak üye olmayacağınız�
 &lt;head&gt;
 &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
 &lt;title&gt;E-Posta Değiştir&lt;/title&gt;
-&lt;style type=&quot;text/css&quot;&gt;
+&lt;style type="text/css"&gt;
 &lt;!--
 .style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
 --&gt;
 &lt;/style&gt;
 &lt;/head&gt;&lt;body&gt;
-&lt;p class=&quot;style1&quot;&gt; Merhaba &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
-&lt;p class=&quot;style1&quot;&gt; E-Posta adresinizi &lt;strong&gt;{newemail}&lt;/strong&gt; adresiyle değiştirme isteğiniz tamamlanmak üzere!&lt;/p&gt;
-&lt;p class=&quot;style1&quot;&gt; Linki tıklayrak değişimi onaylayın&lt;/p&gt;
-&lt;p class=&quot;style1&quot;&gt; &lt;a href=&quot;{link}&quot;&gt;{link}&lt;/a&gt;&lt;/p&gt;
-&lt;p class=&quot;style1&quot;&gt; Ve bu anahtarı girin:&lt;/p&gt;
-&lt;pre class=&quot;style1&quot;&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
-&lt;p class=&quot;style1&quot;&gt; Eğer böyle bir istekte bulunmadıysanız bu mesajı görmezden gelisiniz..&lt;/p&gt;
-&lt;p class=&quot;style1&quot;&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
+&lt;p class="style1"&gt; Merhaba &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
+&lt;p class="style1"&gt; E-Posta adresinizi &lt;strong&gt;{newemail}&lt;/strong&gt; adresiyle değiştirme isteğiniz tamamlanmak üzere!&lt;/p&gt;
+&lt;p class="style1"&gt; Linki tıklayrak değişimi onaylayın&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+&lt;p class="style1"&gt; Ve bu anahtarı girin:&lt;/p&gt;
+&lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
+&lt;p class="style1"&gt; Eğer böyle bir istekte bulunmadıysanız bu mesajı görmezden gelisiniz..&lt;/p&gt;
+&lt;p class="style1"&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;
     </Resource>
@@ -1235,15 +1235,15 @@ Yönetici Bağlantısı: {adminlink}
 &lt;head&gt;
 &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
 &lt;title&gt;Şifre Kurtarma&lt;/title&gt;
-&lt;style type=&quot;text/css&quot;&gt;
+&lt;style type="text/css"&gt;
 &lt;!--
 .style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
 --&gt;
 &lt;/style&gt;
 &lt;/head&gt;&lt;body&gt;
-&lt;p class=&quot;style1&quot;&gt; Sizin için yeni bir şifre oluşturuldu. &lt;b&gt;{forumname}&lt;/b&gt;  &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
-&lt;p class=&quot;style1&quot;&gt; Lütfen siteye geri dönün ve bu bilgilerle giriş yapın::&lt;/p&gt;
-&lt;blockquote&gt;&lt;span class=&quot;style1&quot;&gt;
+&lt;p class="style1"&gt; Sizin için yeni bir şifre oluşturuldu. &lt;b&gt;{forumname}&lt;/b&gt;  &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+&lt;p class="style1"&gt; Lütfen siteye geri dönün ve bu bilgilerle giriş yapın::&lt;/p&gt;
+&lt;blockquote&gt;&lt;span class="style1"&gt;
 Kullanıcı Adı: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
 Şifre: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
 &lt;/body&gt;
@@ -1320,7 +1320,7 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="GMT9">(GMT+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
     <Resource tag="GMT-9">(GMT-9:00) Alaska</Resource>
     <Resource tag="GMT9.5">(GMT+9:30) Adelaide, Darwin</Resource>
-	<Resource tag="NAME_UTC">(UTC)</Resource>
+    <Resource tag="NAME_UTC">(UTC)</Resource>
     <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
     <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
@@ -1354,17 +1354,17 @@ Ziyaret için {forumname}  {forumlink}
   </page>
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">Aktif Konular</Resource>
-	<Resource tag="ADMIN">Yönetim Paneli</Resource>
-	<Resource tag="BUDDIES">Arkadaşlarım</Resource>
-	<Resource tag="BUDDYREQUEST">({0} Arkadaş İsteği)</Resource>
-	<Resource tag="HELP">Yardım</Resource>
-	<Resource tag="LOGGED_IN_AS"> {0} Giriş yapıldı. Hoşgeldiniz: </Resource>
+    <Resource tag="ADMIN">Yönetim Paneli</Resource>
+    <Resource tag="BUDDIES">Arkadaşlarım</Resource>
+    <Resource tag="BUDDYREQUEST">({0} Arkadaş İsteği)</Resource>
+    <Resource tag="HELP">Yardım</Resource>
+    <Resource tag="LOGGED_IN_AS"> {0} Giriş yapıldı. Hoşgeldiniz: </Resource>
     <Resource tag="LOGIN">Giriş</Resource>
     <Resource tag="LOGOUT">Çıkış</Resource>
     <Resource tag="LOGOUT_QUESTION">Çıkmak istediğinizden emin misiniz?</Resource>
     <Resource tag="MEMBERS">Üyeler</Resource>
     <Resource tag="MODERATE">Editör Paneli</Resource>
-	<Resource tag="MYALBUMS">Albümlerim</Resource>
+    <Resource tag="MYALBUMS">Albümlerim</Resource>
     <Resource tag="MYPROFILE">Profilim</Resource>
     <Resource tag="MYTOPICS">Konularım</Resource>
     <Resource tag="NEWPM">({0} Okunmamış Mesaj)</Resource>
@@ -1376,8 +1376,8 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="ALL">Hepsi</Resource>
     <Resource tag="BY">{0} Tarafından </Resource>
     <Resource tag="CREATED">Yaratıldı</Resource>
-	<Resource tag="FORUM">Forum</Resource>    
-	<Resource tag="FORUMUSERS">Bu forumdaki kulllanıcılar</Resource>
+    <Resource tag="FORUM">Forum</Resource>
+    <Resource tag="FORUMUSERS">Bu forumdaki kulllanıcılar</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Sayfaya Git: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Bu foruma mesaj atıldığında artık uyarılmayacaksınız.</Resource>
     <Resource tag="INFO_WATCH_FORUM">Bu foruma yeni mesaj atıldığında uyarılacaksınız.</Resource>
@@ -1392,9 +1392,9 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="LASTPOST">Son Mesaj</Resource>
     <Resource tag="MARKREAD">Forumu okundu olarak işaretle</Resource>
     <Resource tag="NO_POSTS">Mesaj Yok</Resource>
-	<Resource tag="POSTS">Mesajlar</Resource>
+    <Resource tag="POSTS">Mesajlar</Resource>
     <Resource tag="REPLIES">Cevaplar</Resource>
-	<Resource tag="RSSFEED">Rss Yayını</Resource>
+    <Resource tag="RSSFEED">Rss Yayını</Resource>
     <Resource tag="SHOWTOPICS">Konuları Göster</Resource>
     <Resource tag="SUBFORUMS">Alt Forumlar</Resource>
     <Resource tag="TODAYAT">[b]Bugün[/b] : {0:T}</Resource>
@@ -1407,9 +1407,10 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="WATCHFORUM">Forum Takibi</Resource>
     <Resource tag="YESTERDAYAT">[b]Dün[/b] : {0:T}</Resource>
   </page>
-	<page name="VIEWTHANKS">
+  <page name="VIEWTHANKS">
     <Resource tag="NO_THANKS">[b]Teşekkür Bulunamadı.[/b]</Resource>
     <Resource tag="THANKSFROMUSER">{0} kere teşekkür etmiş.</Resource>
+    <Resource tag="THANKSNUMBER">Was thanked: [b]{0}[/b] time(s)</Resource>
     <Resource tag="THANKSTOUSER">{0} kere teşekkür edilmiş.</Resource>
     <Resource tag="TITLE">Teşekkür Detayları</Resource>
   </page>

@@ -1260,7 +1260,7 @@
     <Resource tag="UTC5.5">(UTC+5:30) Бомбей, Калькутта, Мадрас, New Delhi</Resource>
     <Resource tag="UTC6">(UTC+6:00) Астана, Коломба, Дакра</Resource>
     <Resource tag="UTC-6">(UTC-6:00) Центральное время (США &amp; Канада), Мехико</Resource>
-    <Resource tag="UTC7">(UTC+7:00) Бангкок, Ханой, Джакарта</Resource> 
+    <Resource tag="UTC7">(UTC+7:00) Бангкок, Ханой, Джакарта</Resource>
     <Resource tag="UTC-7">(UTC-7:00) Аризона, Горное время (США &amp; Канада)</Resource>
     <Resource tag="UTC8">(UTC+8:00) Бейджинг, Гонконг, Перт, Сингапур, Тайпей</Resource>
     <Resource tag="UTC-8">(UTC-8:00) Атлантическое время (США &amp; Канада)</Resource>
@@ -1327,6 +1327,7 @@
   <page name="VIEWTHANKS">
     <Resource tag="NO_THANKS">[b]«Спасибо» не найдены.[/b]</Resource>
     <Resource tag="THANKSFROMUSER">{0} поблагодарил</Resource>
+    <Resource tag="THANKSNUMBER">Поблагодарил: [b]{0}[/b] раз(а)</Resource>
     <Resource tag="THANKSTOUSER">{0} поблагодарили</Resource>
     <Resource tag="TITLE">Просмотр «Спасибо»</Resource>
   </page>
