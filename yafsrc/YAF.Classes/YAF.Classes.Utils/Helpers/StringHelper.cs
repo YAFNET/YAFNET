@@ -28,6 +28,8 @@ namespace YAF.Classes.Utils
   using System.Text;
   using System.Text.RegularExpressions;
 
+  using YAF.Classes.Extensions;
+
   #endregion
 
   /// <summary>
@@ -96,28 +98,29 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Creates a string from a string list.
+    /// Creates a delimited string an enumerable list of T.
     /// </summary>
-    /// <param name="strList">
-    /// </param>
+    /// <param name="objList"></param>
     /// <param name="delimiter">
     /// </param>
     /// <returns>
     /// The list to string.
     /// </returns>
-    public static string ListToString(this List<string> strList, string delimiter)
+    /// <exception cref="ArgumentNullException"><paramref name="objList" /> is <c>null</c>.</exception>
+    public static string ToDelimitedString<T>(this IEnumerable<T> objList, string delimiter)
+      where T : IConvertible
     {
-      if (strList == null)
+      if (objList == null)
       {
-        throw new ArgumentNullException("strList", "strList is null.");
+        throw new ArgumentNullException("objList", "objList is null.");
       }
 
       var sb = new StringBuilder();
 
-      strList.ForEach(
-        x =>
+      objList.ForEachFirst(
+        (x, isFirst) =>
           {
-            if (sb.Length > 0)
+            if (!isFirst)
             {
               // append delimiter if this isn't the first string
               sb.Append(delimiter);
@@ -129,8 +132,6 @@ namespace YAF.Classes.Utils
 
       return sb.ToString();
     }
-
-    /* Ederon - 9/9/2007 */
 
     /// <summary>
     /// The process text.
@@ -200,7 +201,8 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static List<string> RemoveEmptyStrings(this List<string> inputList)
+    /// <exception cref="ArgumentNullException"><paramref name="inputList" /> is <c>null</c>.</exception>
+    public static List<string> GetNewNoEmptyStrings(this IEnumerable<string> inputList)
     {
       if (inputList == null)
       {
@@ -259,7 +261,7 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static List<string> RemoveSmallStrings(this List<string> inputList, int minSize)
+    public static List<string> GetNewNoSmallStrings(this IEnumerable<string> inputList, int minSize)
     {
       if (inputList == null)
       {
