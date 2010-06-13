@@ -445,7 +445,7 @@ namespace YAF.Classes.UI
 
                     // clean up the list a bit...
                     keywordList =
-                      keywordList.RemoveEmptyStrings().RemoveSmallStrings(5).Where(x => !Char.IsNumber(x[0])).Distinct()
+                      keywordList.GetNewNoEmptyStrings().GetNewNoSmallStrings(5).Where(x => !Char.IsNumber(x[0])).Distinct()
                         .ToList();
 
                     // sort...
