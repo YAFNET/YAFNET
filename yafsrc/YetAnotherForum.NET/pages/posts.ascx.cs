@@ -1019,9 +1019,11 @@ namespace YAF.Pages
       var messageIds = postListDataTable.AsEnumerable().Select(x => x.Field<int>("MessageID"));
 
       // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
-      // calls to database.)     
-      postListDataTable.Columns.AddRange(
-        new[]
+      // calls to database.)  
+      if (PageContext.BoardSettings.EnableThanksMod)
+      {
+          postListDataTable.Columns.AddRange(
+            new[]
           {
             // How many times has this message been thanked.
             new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")), 
@@ -1035,43 +1037,47 @@ namespace YAF.Pages
             new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"))
           });
 
-      // Make the "MessageID" Column the primary key to the datatable.
-      postListDataTable.PrimaryKey = new[] { postListDataTable.Columns["MessageID"] };
-
+        
+      
       // Initialize the "IsthankedByUser" column.
       foreach (DataRow dr in postListDataTable.Rows)
       {
         dr["IsThankedByUser"] = "false";
       }
+    }
 
-      // Iterate through all the thanks relating to this topic and make appropriate
-      // changes in columns.
-      using (DataTable dt0AllThanks = DB.message_GetAllThanks(messageIds.ToDelimitedString(",")))
+      // Make the "MessageID" Column the primary key to the datatable.
+      postListDataTable.PrimaryKey = new[] { postListDataTable.Columns["MessageID"] };
+      if (PageContext.BoardSettings.EnableThanksMod)
       {
-        // get the default view...
-        DataView dtAllThanks = dt0AllThanks.DefaultView;
-
-        foreach (DataRow drThanks in dtAllThanks.Table.Rows)
-        {
-          if (drThanks["FromUserID"] != DBNull.Value)
+          // Iterate through all the thanks relating to this topic and make appropriate
+          // changes in columns.
+          using (DataTable dt0AllThanks = DB.message_GetAllThanks(messageIds.ToDelimitedString(",")))
           {
-            if (Convert.ToInt32(drThanks["FromUserID"]) == this.PageContext.PageUserID)
-            {
-              postListDataTable.Rows.Find(drThanks["MessageID"])["IsThankedByUser"] = "true";
-            }
-          }
-        }
+              // get the default view...
+              DataView dtAllThanks = dt0AllThanks.DefaultView;
 
-        foreach (DataRow dataRow in postListDataTable.Rows)
-        {
-          dtAllThanks.RowFilter = String.Format(
-            "MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dataRow["MessageID"]));
-          dataRow["MessageThanksNumber"] = dtAllThanks.Count;
-          dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dataRow["MessageID"]));
-          dataRow["ThanksFromUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksFromUserNumber"] : 0;
-          dataRow["ThanksToUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserNumber"] : 0;
-          dataRow["ThanksToUserPostsNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserPostsNumber"] : 0;
-        }
+              foreach (DataRow drThanks in dtAllThanks.Table.Rows)
+              {
+                  if (drThanks["FromUserID"] != DBNull.Value)
+                  {
+                      if (Convert.ToInt32(drThanks["FromUserID"]) == this.PageContext.PageUserID)
+                      {
+                          postListDataTable.Rows.Find(drThanks["MessageID"])["IsThankedByUser"] = "true";
+                      }
+                  }
+              }
+              foreach (DataRow dataRow in postListDataTable.Rows)
+              {
+                  dtAllThanks.RowFilter = String.Format(
+                  "MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dataRow["MessageID"]));
+                  dataRow["MessageThanksNumber"] = dtAllThanks.Count;
+                  dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dataRow["MessageID"]));
+                  dataRow["ThanksFromUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksFromUserNumber"] : 0;
+                  dataRow["ThanksToUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserNumber"] : 0;
+                  dataRow["ThanksToUserPostsNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserPostsNumber"] : 0;
+              }
+          }
       }
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)

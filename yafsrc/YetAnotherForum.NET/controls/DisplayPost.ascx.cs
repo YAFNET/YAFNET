@@ -326,20 +326,22 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      Utility.RegisterTypeForAjax(typeof(ThankYou));
+        if (PageContext.BoardSettings.EnableThanksMod)
+        {
+            Utility.RegisterTypeForAjax(typeof(ThankYou));
 
-      string addThankBoxHTML =
-        "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+            string addThankBoxHTML =
+              "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
 
-      string removeThankBoxHTML =
-        "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
+            string removeThankBoxHTML =
+              "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.value.MessageID + ');\" onclick=\"this.blur();\" title=' + res.value.Title + '><span>' + res.value.Text + '</span></a>'";
 
-      YafContext.Current.PageElements.RegisterJsBlockStartup(
-        "addThanksJs", JavaScriptBlocks.addThanksJs(removeThankBoxHTML));
-      YafContext.Current.PageElements.RegisterJsBlockStartup(
-        "removeThanksJs", JavaScriptBlocks.removeThanksJs(addThankBoxHTML));
-      YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
-
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+              "addThanksJs", JavaScriptBlocks.addThanksJs(removeThankBoxHTML));
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+              "removeThanksJs", JavaScriptBlocks.removeThanksJs(addThankBoxHTML));
+            YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
+        }
       this.PopMenu1.Visible = !this.IsGuest;
       if (this.PopMenu1.Visible)
       {
@@ -456,36 +458,40 @@ namespace YAF.Controls
         this.PageContext.PageTopicID, 
         this.PageContext.PageForumID, 
         this.PostData.MessageId);
+      if (PageContext.BoardSettings.EnableThanksMod)
+      {
+          this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest &&
+                         YafContext.Current.BoardSettings.EnableThanksMod;
+          if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]) == true)
+          {
+              this.Thank.NavigateUrl = "javascript:removeThanks(" + this.DataRow["MessageID"] + ");";
+              this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
+              this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
+          }
+          else
+          {
+              this.Thank.NavigateUrl = "javascript:addThanks(" + this.DataRow["MessageID"] + ");";
+              this.Thank.TextLocalizedTag = "BUTTON_THANKS";
+              this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
+          }
 
-      this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest &&
-                           YafContext.Current.BoardSettings.EnableThanksMod;
-      if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]) == true)
-      {
-        this.Thank.NavigateUrl = "javascript:removeThanks(" + this.DataRow["MessageID"] + ");";
-        this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
-        this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
-      }
-      else
-      {
-        this.Thank.NavigateUrl = "javascript:addThanks(" + this.DataRow["MessageID"] + ");";
-        this.Thank.TextLocalizedTag = "BUTTON_THANKS";
-        this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
-      }
-
-      int thanksNumber = Convert.ToInt32(this.DataRow["MessageThanksNumber"]);
-      if (thanksNumber != 0)
-      {
-        this.Literal2.Text = this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString());
-        if (thanksNumber == 1)
-        {
-          this.Literal1.Text = String.Format(
-            this.PageContext.Localization.GetText("THANKSINFOSINGLE"), Server.HtmlEncode(this.PostData.UserProfile.UserName));
-        }
-        else
-        {
-          this.Literal1.Text = String.Format(
-            this.PageContext.Localization.GetText("THANKSINFO"), thanksNumber, Server.HtmlEncode(this.PostData.UserProfile.UserName));
-        }
+          int thanksNumber = Convert.ToInt32(this.DataRow["MessageThanksNumber"]);
+          if (thanksNumber != 0)
+          {
+              this.Literal2.Text = this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString());
+              this.Literal2.Visible = true;
+              if (thanksNumber == 1)
+              {
+                  this.Literal1.Text = String.Format(
+                    this.PageContext.Localization.GetText("THANKSINFOSINGLE"), Server.HtmlEncode(this.PostData.UserProfile.UserName));
+              }
+              else
+              {
+                  this.Literal1.Text = String.Format(
+                    this.PageContext.Localization.GetText("THANKSINFO"), thanksNumber, Server.HtmlEncode(this.PostData.UserProfile.UserName));
+              }
+              this.Literal1.Visible = true;
+          }
       }
     }
 

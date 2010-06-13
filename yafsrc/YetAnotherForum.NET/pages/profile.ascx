@@ -207,7 +207,7 @@
 								</td>
 								<td class="post" runat="server" id="Stats" />
 							</tr>
-							<tr>
+							<tr id="divTF" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
 								</td>
@@ -216,7 +216,7 @@
                                     <asp:LinkButton ID="lnkThanks" runat="server" OnCommand="lnk_ViewThanks"/>
 								</td>
 							</tr>
-							<tr>
+							<tr id="divTTT" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
 								</td>
@@ -224,7 +224,7 @@
 									<asp:Label ID="ThanksToTimes" runat="server" />
 								</td>
 							</tr>
-							<tr>
+							<tr id="divTTP" runat="server" visible="<%# PageContext.BoardSettings.EnableThanksMod %>">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
 								</td>
