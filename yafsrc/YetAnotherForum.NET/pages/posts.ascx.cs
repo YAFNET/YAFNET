@@ -25,6 +25,7 @@ namespace YAF.Pages
 
   using System;
   using System.Data;
+  using System.Data.DataSetExtensions;
   using System.Linq;
   using System.Text;
   using System.Text.RegularExpressions;
@@ -973,7 +974,7 @@ namespace YAF.Pages
         {
           HtmlMeta keywordMeta = null;
 
-          var keywordStr = message.MessageKeywords.Where(x => !String.IsNullOrEmpty(x)).ToList().ListToString(",");
+          var keywordStr = message.MessageKeywords.Where(x => !String.IsNullOrEmpty(x)).ToList().ToDelimitedString(",");
 
           if (meta.Exists(x => x.Name.Equals("keywords")))
           {
@@ -1005,33 +1006,21 @@ namespace YAF.Pages
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
       }
 
-      var pds = new PagedDataSource();
-      pds.AllowPaging = true;
-      pds.PageSize = this.Pager.PageSize;
+      var pds = new PagedDataSource { AllowPaging = true, PageSize = this.Pager.PageSize };
 
-      DataTable dt0 = DB.post_list(
+      DataTable postListDataTable = DB.post_list(
         this.PageContext.PageTopicID, 
         this.IsPostBack ? 0 : 1, 
         this.PageContext.BoardSettings.ShowDeletedMessages, 
         YafContext.Current.BoardSettings.UseStyledNicks,
         YafContext.Current.BoardSettings.ShowThanksDate, YafContext.Current.BoardSettings.EnableThanksMod);
 
-      var messageIDs = new StringBuilder();
-
-      // Get All the MessageIDs in this topic.
-      foreach (DataRow dr in dt0.Rows)
-      {
-        if (messageIDs.Length > 0)
-        {
-          messageIDs.Append(",");
-        }
-
-        messageIDs.AppendFormat("{0}", dr["MessageID"]);
-      }
+      // get the message ids as a string list
+      var messageIds = postListDataTable.AsEnumerable().Select(x => x.Field<int>("MessageID"));
 
       // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
       // calls to database.)     
-      dt0.Columns.AddRange(
+      postListDataTable.Columns.AddRange(
         new[]
           {
             // How many times has this message been thanked.
@@ -1047,17 +1036,17 @@ namespace YAF.Pages
           });
 
       // Make the "MessageID" Column the primary key to the datatable.
-      dt0.PrimaryKey = new[] { dt0.Columns["MessageID"] };
+      postListDataTable.PrimaryKey = new[] { postListDataTable.Columns["MessageID"] };
 
       // Initialize the "IsthankedByUser" column.
-      foreach (DataRow dr in dt0.Rows)
+      foreach (DataRow dr in postListDataTable.Rows)
       {
         dr["IsThankedByUser"] = "false";
       }
 
       // Iterate through all the thanks relating to this topic and make appropriate
       // changes in columns.
-      using (DataTable dt0AllThanks = DB.message_GetAllThanks(messageIDs.ToString()))
+      using (DataTable dt0AllThanks = DB.message_GetAllThanks(messageIds.ToDelimitedString(",")))
       {
         // get the default view...
         DataView dtAllThanks = dt0AllThanks.DefaultView;
@@ -1068,61 +1057,61 @@ namespace YAF.Pages
           {
             if (Convert.ToInt32(drThanks["FromUserID"]) == this.PageContext.PageUserID)
             {
-              dt0.Rows.Find(drThanks["MessageID"])["IsThankedByUser"] = "true";
+              postListDataTable.Rows.Find(drThanks["MessageID"])["IsThankedByUser"] = "true";
             }
           }
         }
 
-        foreach (DataRow dr in dt0.Rows)
+        foreach (DataRow dataRow in postListDataTable.Rows)
         {
           dtAllThanks.RowFilter = String.Format(
-            "MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dr["MessageID"]));
-          dr["MessageThanksNumber"] = dtAllThanks.Count;
-          dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dr["MessageID"]));
-          dr["ThanksFromUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksFromUserNumber"] : 0;
-          dr["ThanksToUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserNumber"] : 0;
-          dr["ThanksToUserPostsNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserPostsNumber"] : 0;
+            "MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dataRow["MessageID"]));
+          dataRow["MessageThanksNumber"] = dtAllThanks.Count;
+          dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dataRow["MessageID"]));
+          dataRow["ThanksFromUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksFromUserNumber"] : 0;
+          dataRow["ThanksToUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserNumber"] : 0;
+          dataRow["ThanksToUserPostsNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserPostsNumber"] : 0;
         }
       }
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-        new StyleTransform(this.PageContext.Theme).DecodeStyleByTable(ref dt0, true);
+        new StyleTransform(this.PageContext.Theme).DecodeStyleByTable(ref postListDataTable, true);
       }
 
       // get the default view...
-      DataView dt = dt0.DefaultView;
+      DataView postListDataView = postListDataTable.DefaultView;
 
       // see if the deleted messages need to be edited out...
       if (this.PageContext.BoardSettings.ShowDeletedMessages && !this.PageContext.BoardSettings.ShowDeletedMessagesToAll &&
           !this.PageContext.IsAdmin && !this.PageContext.IsForumModerator)
       {
         // remove posts that are deleted and do not belong to this user...
-        dt.RowFilter = "IsDeleted = 1 AND UserID <> " + this.PageContext.PageUserID;
+        postListDataView.RowFilter = "IsDeleted = 1 AND UserID <> " + this.PageContext.PageUserID;
 
-        foreach (DataRowView delRow in dt)
+        foreach (DataRowView delRow in postListDataView)
         {
           delRow.Delete();
         }
 
-        dt.Table.AcceptChanges();
+        postListDataView.Table.AcceptChanges();
 
         // set row filter back to nothing...
-        dt.RowFilter = null;
+        postListDataView.RowFilter = null;
       }
 
       // set the sorting
       if (this.IsThreaded)
       {
-        dt.Sort = "Position";
+        postListDataView.Sort = "Position";
       }
       else
       {
-        dt.Sort = "Posted";
+        postListDataView.Sort = "Posted";
 
         // reset position for updated sorting...
         int position = 0;
-        foreach (DataRowView dataRow in dt)
+        foreach (DataRowView dataRow in postListDataView)
         {
           dataRow.BeginEdit();
           dataRow["Position"] = position;
@@ -1131,8 +1120,8 @@ namespace YAF.Pages
         }
       }
 
-      pds.DataSource = dt;
-      this.Pager.Count = dt.Count;
+      pds.DataSource = postListDataView;
+      this.Pager.Count = postListDataView.Count;
 
       int nFindMessage = GetFindMessageId(pds);
 
@@ -1141,9 +1130,9 @@ namespace YAF.Pages
         this.CurrentMessage = nFindMessage;
 
         // Find correct page for message
-        for (int foundRow = 0; foundRow < dt.Count; foundRow++)
+        for (int foundRow = 0; foundRow < postListDataView.Count; foundRow++)
         {
-          if ((int)dt[foundRow]["MessageID"] == nFindMessage)
+          if ((int)postListDataView[foundRow]["MessageID"] == nFindMessage)
           {
             pds.CurrentPageIndex = foundRow / pds.PageSize;
             this.Pager.CurrentPageIndex = pds.CurrentPageIndex;
@@ -1153,20 +1142,19 @@ namespace YAF.Pages
       }
       else
       {
-        foreach (DataRowView row in dt)
+        foreach (DataRowView row in postListDataView)
         {
           this.CurrentMessage = (int)row["MessageID"];
           break;
         }
       }
 
-      if (dt0.Rows.Count > 0)
+      if (postListDataTable.Rows.Count > 0)
       {
         // handle add description/keywords for SEO
-        this.AddMetaData(dt0.Rows[0]["Message"]);
+        this.AddMetaData(postListDataTable.Rows[0]["Message"]);
       }
 
-      dt0 = null;
       pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
 
       if (pds.CurrentPageIndex >= pds.PageCount)
