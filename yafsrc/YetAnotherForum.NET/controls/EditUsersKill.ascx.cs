@@ -109,7 +109,7 @@ namespace YAF.Controls
     private void BindData()
     {
       // load ip address history for user...
-      this.IpAddresses.Text = IPAddresses.ListToString("<br />");
+      this.IpAddresses.Text = IPAddresses.ToDelimitedString("<br />");
 
       // show post count...
       this.PostCount.Text = AllPostsByUser.Rows.Count.ToString();
