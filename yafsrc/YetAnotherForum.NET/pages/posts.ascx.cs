@@ -1134,44 +1134,7 @@ namespace YAF.Pages
       pds.DataSource = dt;
       this.Pager.Count = dt.Count;
 
-      int nFindMessage = 0;
-      try
-      {
-        if (this._ignoreQueryString)
-        {
-        }
-        else if (this.Request.QueryString["p"] != null)
-        {
-          // show specific page (p is 1 based)
-          int tPage = Convert.ToInt32(this.Request.QueryString["p"]);
-          if (pds.PageCount >= tPage)
-          {
-            pds.CurrentPageIndex = tPage - 1;
-            this.Pager.CurrentPageIndex = pds.CurrentPageIndex;
-          }
-        }
-        else if (this.Request.QueryString["m"] != null)
-        {
-          // Show this message
-          nFindMessage = int.Parse(this.Request.QueryString["m"]);
-        }
-        else if (this.Request.QueryString["find"] != null && this.Request.QueryString["find"].ToLower() == "unread")
-        {
-          // Find next unread
-          using (DataTable dtUnread = DB.message_findunread(this.PageContext.PageTopicID, Mession.LastVisit))
-          {
-            foreach (DataRow row in dtUnread.Rows)
-            {
-              nFindMessage = (int)row["MessageID"];
-              break;
-            }
-          }
-        }
-      }
-      catch (Exception x)
-      {
-        DB.eventlog_create(this.PageContext.PageUserID, this, x);
-      }
+      int nFindMessage = GetFindMessageId(pds);
 
       if (nFindMessage > 0)
       {
@@ -1221,6 +1184,54 @@ namespace YAF.Pages
       }
 
       this.DataBind();
+    }
+
+    /// <summary>
+    /// Gets the message ID if "find" is in the query string
+    /// </summary>
+    /// <param name="pds"></param>
+    /// <returns></returns>
+    private int GetFindMessageId(PagedDataSource pds)
+    {
+      int nFindMessage = 0;
+      try
+      {
+        if (this._ignoreQueryString)
+        {
+        }
+        else if (this.Request.QueryString["p"] != null)
+        {
+          // show specific page (p is 1 based)
+          int tPage = Convert.ToInt32(this.Request.QueryString["p"]);
+          if (pds.PageCount >= tPage)
+          {
+            pds.CurrentPageIndex = tPage - 1;
+            this.Pager.CurrentPageIndex = pds.CurrentPageIndex;
+          }
+        }
+        else if (this.Request.QueryString["m"] != null)
+        {
+          // Show this message
+          nFindMessage = int.Parse(this.Request.QueryString["m"]);
+        }
+        else if (this.Request.QueryString["find"] != null && this.Request.QueryString["find"].ToLower() == "unread")
+        {
+          // Find next unread
+          using (DataTable dtUnread = DB.message_findunread(this.PageContext.PageTopicID, Mession.LastVisit))
+          {
+            foreach (DataRow row in dtUnread.Rows)
+            {
+              nFindMessage = (int)row["MessageID"];
+              break;
+            }
+          }
+        }
+      }
+      catch (Exception x)
+      {
+        DB.eventlog_create(this.PageContext.PageUserID, this, x);
+      }
+      return nFindMessage;
     }
 
     /// <summary>
