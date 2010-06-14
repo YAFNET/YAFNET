@@ -256,14 +256,14 @@
 										<td class="small" align="left" colspan="2">
 											<b>
 												<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
-											</b><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
-												<%# YafServices.BadWordReplace.Replace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
+											</b><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
+												<%# YafServices.BadWordReplace.Replace(Container.DataItemToField<string>("Subject")) %>
 											</a>
 											<br />
 											<b>
 												<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="posted" />
 											</b>
-											<%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
+											<%# YafServices.DateTime.FormatDateTime(Container.DataItemToField<DateTime>("Posted"))%>
 										</td>
 									</tr>
 									<tr class="post">

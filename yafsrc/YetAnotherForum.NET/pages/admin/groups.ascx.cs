@@ -250,7 +250,7 @@ namespace YAF.Pages.Admin
     protected string GetLinkedStatus(DataRowView currentRow)
     {
       // check whether role is Guests role, which can't be linked
-      if (General.BinaryAnd(currentRow["Flags"], 2))
+      if (currentRow["Flags"].BinaryAnd(2))
       {
         return "Unlinkable";
       }

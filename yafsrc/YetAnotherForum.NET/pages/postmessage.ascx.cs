@@ -581,7 +581,7 @@ namespace YAF.Pages
       {
         foreach (DataRow row in dt.Rows)
         {
-          isApproved = General.BinaryAnd(row["Flags"], MessageFlags.Flags.IsApproved);
+          isApproved = row["Flags"].BinaryAnd(MessageFlags.Flags.IsApproved);
         }
       }
 
@@ -908,8 +908,8 @@ namespace YAF.Pages
       }
 
       // Ederon : 9/9/2007 - moderator can edit in locked topics
-      return ((!postLocked && !General.BinaryAnd(forumInfo["Flags"], ForumFlags.Flags.IsLocked) &&
-               !General.BinaryAnd(topicInfo["Flags"], TopicFlags.Flags.IsLocked) &&
+      return ((!postLocked && !forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked) &&
+               !topicInfo["Flags"].BinaryAnd(TopicFlags.Flags.IsLocked) &&
                (SqlDataLayerConverter.VerifyInt32(message["UserID"]) == this.PageContext.PageUserID)) ||
               this.PageContext.ForumModeratorAccess) && this.PageContext.ForumEditAccess;
     }
@@ -955,8 +955,8 @@ namespace YAF.Pages
       }
 
       // Ederon : 9/9/2007 - moderator can reply to locked topics
-      return (!General.BinaryAnd(forumInfo["Flags"], ForumFlags.Flags.IsLocked) &&
-              !General.BinaryAnd(topicInfo["Flags"], TopicFlags.Flags.IsLocked) || this.PageContext.ForumModeratorAccess) &&
+      return (!forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked) &&
+              !topicInfo["Flags"].BinaryAnd(TopicFlags.Flags.IsLocked) || this.PageContext.ForumModeratorAccess) &&
              this.PageContext.ForumReplyAccess;
     }
 

@@ -129,7 +129,7 @@ namespace YAF.Pages.Admin
 
       // object IsLadder,object MinPosts
       // Eval( "IsLadder"),Eval( "MinPosts")
-      bool isLadder = General.BinaryAnd(dr["Flags"], RankFlags.Flags.IsLadder);
+      bool isLadder = dr["Flags"].BinaryAnd(RankFlags.Flags.IsLadder);
 
       string tmp = String.Format("{0}", isLadder);
       if (isLadder)

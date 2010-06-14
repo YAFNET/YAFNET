@@ -361,7 +361,7 @@ namespace YAF.Controls
     /// </returns>
     protected bool GetModerated(object o)
     {
-      return General.BinaryAnd(((DataRow) o)["Flags"], ForumFlags.Flags.IsModerated);
+      return ((DataRow) o)["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
     }
 
     // Ederon : 08/27/2007

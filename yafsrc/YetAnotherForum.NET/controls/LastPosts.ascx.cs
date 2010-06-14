@@ -1,6 +1,8 @@
 namespace YAF.Controls
 {
   using System;
+  using System.Data;
+
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Utilities;
@@ -53,16 +55,8 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      if (TopicID.HasValue)
-      {
-        this.repLastPosts.DataSource = DB.post_list_reverse10(TopicID);
-      }
-      else
-      {
-        this.repLastPosts.DataSource = null;
-      }
-
-      DataBind();
+      this.repLastPosts.DataSource = this.TopicID.HasValue ? DB.post_list_reverse10(this.TopicID.Value).AsEnumerable() : null;
+      this.repLastPosts.DataBind();
     }
 
     /// <summary>

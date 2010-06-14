@@ -634,6 +634,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell Stats;
         
         /// <summary>
+        /// divTF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow divTF;
+        
+        /// <summary>
         /// LocalizedLabel10 control.
         /// </summary>
         /// <remarks>
@@ -661,6 +670,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.LinkButton lnkThanks;
         
         /// <summary>
+        /// divTTT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow divTTT;
+        
+        /// <summary>
         /// LocalizedLabel20 control.
         /// </summary>
         /// <remarks>
@@ -677,6 +695,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label ThanksToTimes;
+        
+        /// <summary>
+        /// divTTP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow divTTP;
         
         /// <summary>
         /// LocalizedLabel21 control.

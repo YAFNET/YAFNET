@@ -24,7 +24,7 @@
 							<tr class="postheader">
 								<td width="20%">
 									<b>
-										<YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval( "UserID" )) %>'
+										<YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>'
 											BlankTarget="true" />
 									</b>
 								</td>
@@ -32,7 +32,7 @@
 									<b>
 										<YAF:LocalizedLabel ID="Posted" LocalizedTag="POSTED" runat="server" />
 									</b>
-									<%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
+									<%# YafServices.DateTime.FormatDateTime(Container.DataItemToField<DateTime>("Posted"))%>
 								</td>
 							</tr>
 							<tr class="post">
@@ -50,14 +50,14 @@
 							<tr class="postheader">
 								<td width="20%">
 									<b>
-										<YAF:UserLink ID="ProfileLinkAlt" runat="server" UserID='<%# Convert.ToInt32(Eval( "UserID" )) %>' BlankTarget="true" />
+										<YAF:UserLink ID="ProfileLinkAlt" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' BlankTarget="true" />
 									</b>
 								</td>
 								<td width="80%" class="small" align="left">
 									<b>
 										<YAF:LocalizedLabel ID="PostedAlt" LocalizedTag="POSTED" runat="server" />
 									</b>
-									<%# YafServices.DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
+									<%# YafServices.DateTime.FormatDateTime(Container.DataItemToField<DateTime>("Posted")) %>
 								</td>
 							</tr>
 							<tr class="post_alt">

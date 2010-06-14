@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.groups" Codebehind="groups.ascx.cs" %>
+<%@ Import Namespace="System.Data" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="AdminMenu">
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
@@ -81,28 +82,28 @@
 				<tr>
 					<td class="post">
 						<%# Eval( "Name" ) %>
-						(<%# GetLinkedStatus( (System.Data.DataRowView) Container.DataItem )%>)
+						(<%# GetLinkedStatus( (DataRowView) Container.DataItem )%>)
 					</td>
 					<td class="post">
-						<%# General.BinaryAnd(Eval( "Flags" ),2) %>
+						<%# this.Eval( "Flags" ).BinaryAnd(2) %>
 					</td>
 					<td class="post">
-						<%# General.BinaryAnd(Eval( "Flags" ),4) %>
+						<%# this.Eval( "Flags" ).BinaryAnd(4) %>
 					</td>
 					<td class="post">
-						<%# General.BinaryAnd(Eval( "Flags" ),8) %>
+						<%# this.Eval( "Flags" ).BinaryAnd(8) %>
 					</td>
 					<td class="post">
-						<%# General.BinaryAnd(Eval( "Flags" ),1) %>
+						<%# this.Eval( "Flags" ).BinaryAnd(1) %>
 					</td>
 					<td class="post">
 						<%# ((Convert.ToInt32(Eval("Flags")) & 1) == 1 ? "\u221E".ToString() : Eval("PMLimit").ToString())%>
 					</td>
 					<td class="post">
-						<asp:LinkButton ID="LinkButtonEdit" runat="server" Visible='<%#(General.BinaryAnd(Eval( "Flags" ),2) == true ? false : true)%>'
+						<asp:LinkButton ID="LinkButtonEdit" runat="server" Visible='<%#(this.Eval( "Flags" ).BinaryAnd(2) == true ? false : true)%>'
 							CommandName="edit" CommandArgument='<%# Eval( "GroupID") %>'>Edit</asp:LinkButton>
 						|
-						<asp:LinkButton ID="LinkButtonDelete" runat="server" OnLoad="Delete_Load" Visible='<%#(General.BinaryAnd(Eval( "Flags" ),2) == true ? false : true)%>'
+						<asp:LinkButton ID="LinkButtonDelete" runat="server" OnLoad="Delete_Load" Visible='<%#(this.Eval( "Flags" ).BinaryAnd(2) == true ? false : true)%>'
 							CommandName="delete" CommandArgument='<%# Eval( "GroupID") %>'>Delete from YAF</asp:LinkButton>
 					</td>
 				</tr>
