@@ -79,7 +79,7 @@ namespace YAF.Controls
     /// <summary>
     /// Gets or sets the DataRow.
     /// </summary>
-    public DataRowView DataRow
+    public DataRow DataRow
     {
       get
       {

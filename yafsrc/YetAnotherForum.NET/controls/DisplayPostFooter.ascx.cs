@@ -34,7 +34,7 @@
     /// <summary>
     /// Gets and Sets the DataRow.
     /// </summary>
-    public DataRowView DataRow
+    public DataRow DataRow
     {
       get
       {

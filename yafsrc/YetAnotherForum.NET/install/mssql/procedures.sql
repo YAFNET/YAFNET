@@ -1027,6 +1027,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_lazydata]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_gettextbyids]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_gettextbyids]
+GO
+
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
 
@@ -3945,7 +3949,7 @@ begin
 		a.MessageID,
 		a.Posted,
 		Subject = d.Topic,
-		a.Message,
+		[Message] = '', -- no longer returns message
 		a.UserID,
 		a.Position,
 		a.Indent,
@@ -7601,7 +7605,6 @@ END
 GO  
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}messagehistory_list] (@MessageID INT, @DaysToClean INT, @ShowAll BIT = null )
-
 as 
 	BEGIN    
 	-- delete all message variants older then DaysToClean days Flags reserved for possible pms
@@ -7719,5 +7722,40 @@ begin
 	 end
 GO
 
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_gettextbyids] (@MessageIDs varchar(max))
+AS 
+	BEGIN
+	-- vzrus says: the server version > 2000 ntext works too slowly with substring in the 2005 
+	DECLARE @ParsedMessageIDs TABLE
+		  (
+				MessageID int
+		  )
+	  
+	DECLARE @MessageID varchar(11), @Pos INT      
 
-  
+	SET @Pos = CHARINDEX(',', @MessageIDs, 1)
+
+	-- check here if the value is not empty
+	IF REPLACE(@MessageIDs, ',', '') <> ''
+	BEGIN
+		WHILE @Pos > 0
+		BEGIN
+			SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDs, @Pos - 1)))
+			IF @MessageID <> ''
+			BEGIN
+				  INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
+			END
+			SET @MessageIDs = RIGHT(@MessageIDs, LEN(@MessageIDs) - @Pos)
+			SET @Pos = CHARINDEX(',', @MessageIDs, 1)
+		END
+		-- to be sure that last value is inserted
+		IF (LEN(@MessageIDs) > 0)
+			   INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageIDs AS int)) 
+		END 
+
+		SELECT a.MessageID, d.Message
+			FROM @ParsedMessageIDs a
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID = a.MessageID)
+	END
+GO
+

@@ -25,7 +25,6 @@ namespace YAF.Pages
 
   using System;
   using System.Data;
-  using System.Data.DataSetExtensions;
   using System.Linq;
   using System.Text;
   using System.Text.RegularExpressions;
@@ -38,6 +37,7 @@ namespace YAF.Pages
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
+  using YAF.Classes.Extensions;
   using YAF.Classes.UI;
   using YAF.Classes.Utils;
   using YAF.Controls;
@@ -370,7 +370,7 @@ namespace YAF.Pages
     /// </returns>
     protected string GetThreadedRow(object o)
     {
-      var row = (DataRowView)o;
+      var row = (DataRow)o;
       if (!this.IsThreaded || this.CurrentMessage == (int)row["MessageID"])
       {
         return string.Empty;
@@ -447,7 +447,7 @@ namespace YAF.Pages
     /// </returns>
     protected bool IsCurrentMessage(object o)
     {
-      var row = (DataRowView)o;
+      var row = (DataRow)o;
 
       return !this.IsThreaded || this.CurrentMessage == (int)row["MessageID"];
     }
@@ -601,13 +601,13 @@ namespace YAF.Pages
     protected override void OnInit(EventArgs e)
     {
       // Quick Reply Modification Begin
-      _quickReplyEditor = new BasicBBCodeEditor();
-      QuickReplyLine.Controls.Add(_quickReplyEditor);
-      QuickReply.Click += new EventHandler(QuickReply_Click);
-      Pager.PageChange += new EventHandler(Pager_PageChange);
+      this._quickReplyEditor = new BasicBBCodeEditor();
+      this.QuickReplyLine.Controls.Add(this._quickReplyEditor);
+      this.QuickReply.Click += this.QuickReply_Click;
+      this.Pager.PageChange += this.Pager_PageChange;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      InitializeComponent();
+      this.InitializeComponent();
       base.OnInit(e);
     }
 
@@ -924,7 +924,7 @@ namespace YAF.Pages
     /// </returns>
     protected int VoteWidth(object o)
     {
-      var row = (DataRowView)o;
+      var row = (DataRow)o;
       return (int)row["Stats"] * 80 / 100;
     }
 
@@ -999,6 +999,7 @@ namespace YAF.Pages
     private void BindData()
     {
       this._dataBound = true;
+
       this.Pager.PageSize = this.PageContext.BoardSettings.PostsPerPage;
 
       if (this._topic == null)
@@ -1006,153 +1007,64 @@ namespace YAF.Pages
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
       }
 
-      var pds = new PagedDataSource { AllowPaging = true, PageSize = this.Pager.PageSize };
-
       DataTable postListDataTable = DB.post_list(
         this.PageContext.PageTopicID, 
         this.IsPostBack ? 0 : 1, 
         this.PageContext.BoardSettings.ShowDeletedMessages, 
-        YafContext.Current.BoardSettings.UseStyledNicks,
-        YafContext.Current.BoardSettings.ShowThanksDate, YafContext.Current.BoardSettings.EnableThanksMod);
+        YafContext.Current.BoardSettings.UseStyledNicks, 
+        YafContext.Current.BoardSettings.ShowThanksDate, 
+        YafContext.Current.BoardSettings.EnableThanksMod);
 
       // get the message ids as a string list
-      var messageIds = postListDataTable.AsEnumerable().Select(x => x.Field<int>("MessageID"));
+      postListDataTable = this.UpdateDataTableWithThanksAndStyles(postListDataTable);
 
-      // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
-      // calls to database.)  
-      if (PageContext.BoardSettings.EnableThanksMod)
-      {
-          postListDataTable.Columns.AddRange(
-            new[]
-          {
-            // How many times has this message been thanked.
-            new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")), 
-            // How many times has the message poster thanked others?   
-            new DataColumn("MessageThanksNumber", Type.GetType("System.Int32")), 
-            // How many times has the message poster been thanked?
-            new DataColumn("ThanksFromUserNumber", Type.GetType("System.Int32")), 
-            // In how many posts has the message poster been thanked? 
-            new DataColumn("ThanksToUserNumber", Type.GetType("System.Int32")), 
-            // In how many posts has the message poster been thanked? 
-            new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"))
-          });
-
-        
-      
-      // Initialize the "IsthankedByUser" column.
-      foreach (DataRow dr in postListDataTable.Rows)
-      {
-        dr["IsThankedByUser"] = "false";
-      }
-    }
-
-      // Make the "MessageID" Column the primary key to the datatable.
-      postListDataTable.PrimaryKey = new[] { postListDataTable.Columns["MessageID"] };
-      if (PageContext.BoardSettings.EnableThanksMod)
-      {
-          // Iterate through all the thanks relating to this topic and make appropriate
-          // changes in columns.
-          using (DataTable dt0AllThanks = DB.message_GetAllThanks(messageIds.ToDelimitedString(",")))
-          {
-              // get the default view...
-              DataView dtAllThanks = dt0AllThanks.DefaultView;
-
-              foreach (DataRow drThanks in dtAllThanks.Table.Rows)
-              {
-                  if (drThanks["FromUserID"] != DBNull.Value)
-                  {
-                      if (Convert.ToInt32(drThanks["FromUserID"]) == this.PageContext.PageUserID)
-                      {
-                          postListDataTable.Rows.Find(drThanks["MessageID"])["IsThankedByUser"] = "true";
-                      }
-                  }
-              }
-              foreach (DataRow dataRow in postListDataTable.Rows)
-              {
-                  dtAllThanks.RowFilter = String.Format(
-                  "MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dataRow["MessageID"]));
-                  dataRow["MessageThanksNumber"] = dtAllThanks.Count;
-                  dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dataRow["MessageID"]));
-                  dataRow["ThanksFromUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksFromUserNumber"] : 0;
-                  dataRow["ThanksToUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserNumber"] : 0;
-                  dataRow["ThanksToUserPostsNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserPostsNumber"] : 0;
-              }
-          }
-      }
-
-      if (YafContext.Current.BoardSettings.UseStyledNicks)
-      {
-        new StyleTransform(this.PageContext.Theme).DecodeStyleByTable(ref postListDataTable, true);
-      }
-
-      // get the default view...
-      DataView postListDataView = postListDataTable.DefaultView;
+      // convert to linq...
+      var rowList = postListDataTable.AsEnumerable();
 
       // see if the deleted messages need to be edited out...
       if (this.PageContext.BoardSettings.ShowDeletedMessages && !this.PageContext.BoardSettings.ShowDeletedMessagesToAll &&
           !this.PageContext.IsAdmin && !this.PageContext.IsForumModerator)
       {
         // remove posts that are deleted and do not belong to this user...
-        postListDataView.RowFilter = "IsDeleted = 1 AND UserID <> " + this.PageContext.PageUserID;
-
-        foreach (DataRowView delRow in postListDataView)
-        {
-          delRow.Delete();
-        }
-
-        postListDataView.Table.AcceptChanges();
-
-        // set row filter back to nothing...
-        postListDataView.RowFilter = null;
+        rowList =
+          rowList.Where(x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != this.PageContext.PageUserID));
       }
 
       // set the sorting
       if (this.IsThreaded)
       {
-        postListDataView.Sort = "Position";
+        rowList = rowList.OrderBy(x => x.Field<int>("Position"));
       }
       else
       {
-        postListDataView.Sort = "Posted";
+        rowList = rowList.OrderBy(x => x.Field<DateTime>("Posted"));
 
         // reset position for updated sorting...
-        int position = 0;
-        foreach (DataRowView dataRow in postListDataView)
-        {
-          dataRow.BeginEdit();
-          dataRow["Position"] = position;
-          position++;
-          dataRow.EndEdit();
-        }
+        rowList.ForEachIndex(
+          (row, i) =>
+            {
+              row.BeginEdit();
+              row["Position"] = i;
+              row.EndEdit();
+            });
       }
 
-      pds.DataSource = postListDataView;
-      this.Pager.Count = postListDataView.Count;
+      this.Pager.Count = rowList.Count();
+      int findMessageId = this.GetFindMessageId();
 
-      int nFindMessage = GetFindMessageId(pds);
-
-      if (nFindMessage > 0)
+      if (findMessageId > 0)
       {
-        this.CurrentMessage = nFindMessage;
-
-        // Find correct page for message
-        for (int foundRow = 0; foundRow < postListDataView.Count; foundRow++)
+        this.CurrentMessage = findMessageId;
+        var selectedMessage = rowList.Where(row => row.Field<int>("MessageID") == findMessageId).FirstOrDefault();
+        if (selectedMessage != null)
         {
-          if ((int)postListDataView[foundRow]["MessageID"] == nFindMessage)
-          {
-            pds.CurrentPageIndex = foundRow / pds.PageSize;
-            this.Pager.CurrentPageIndex = pds.CurrentPageIndex;
-            break;
-          }
+          this.Pager.CurrentPageIndex =
+            (int)Math.Floor((double)selectedMessage.Field<int>("Position") / this.Pager.PageSize);
         }
       }
       else
       {
-        foreach (DataRowView row in postListDataView)
-        {
-          this.CurrentMessage = (int)row["MessageID"];
-          break;
-        }
+        this.CurrentMessage = rowList.Last().Field<int>("MessageID");
       }
 
       if (postListDataTable.Rows.Count > 0)
@@ -1161,14 +1073,12 @@ namespace YAF.Pages
         this.AddMetaData(postListDataTable.Rows[0]["Message"]);
       }
 
-      pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
+      var pagedData = rowList.Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
+      
+      // dynamic load messages that are needed...
+      YafServices.DBBroker.LoadMessageText(pagedData);
 
-      if (pds.CurrentPageIndex >= pds.PageCount)
-      {
-        pds.CurrentPageIndex = pds.PageCount - 1;
-      }
-
-      this.MessageList.DataSource = pds;
+      this.MessageList.DataSource = pagedData;
 
       if (this._topic["PollID"] != DBNull.Value)
       {
@@ -1183,40 +1093,35 @@ namespace YAF.Pages
     /// <summary>
     /// Gets the message ID if "find" is in the query string
     /// </summary>
-    /// <param name="pds"></param>
-    /// <returns></returns>
-    private int GetFindMessageId(PagedDataSource pds)
+    /// <param name="pds">
+    /// </param>
+    /// <returns>
+    /// The get find message id.
+    /// </returns>
+    private int GetFindMessageId()
     {
-      int nFindMessage = 0;
+      int findMessageId = 0;
+
       try
       {
         if (this._ignoreQueryString)
         {
         }
-        else if (this.Request.QueryString["p"] != null)
-        {
-          // show specific page (p is 1 based)
-          int tPage = Convert.ToInt32(this.Request.QueryString["p"]);
-          if (pds.PageCount >= tPage)
-          {
-            pds.CurrentPageIndex = tPage - 1;
-            this.Pager.CurrentPageIndex = pds.CurrentPageIndex;
-          }
-        }
         else if (this.Request.QueryString["m"] != null)
         {
           // Show this message
-          nFindMessage = int.Parse(this.Request.QueryString["m"]);
+          findMessageId = int.Parse(this.Request.QueryString["m"]);
         }
         else if (this.Request.QueryString["find"] != null && this.Request.QueryString["find"].ToLower() == "unread")
         {
           // Find next unread
-          using (DataTable dtUnread = DB.message_findunread(this.PageContext.PageTopicID, Mession.LastVisit))
+          using (DataTable unread = DB.message_findunread(this.PageContext.PageTopicID, Mession.LastVisit))
           {
-            foreach (DataRow row in dtUnread.Rows)
+            var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+
+            if (unreadFirst != null)
             {
-              nFindMessage = (int)row["MessageID"];
-              break;
+              findMessageId = unreadFirst.Field<int>("MessageID");
             }
           }
         }
@@ -1225,7 +1130,8 @@ namespace YAF.Pages
       {
         DB.eventlog_create(this.PageContext.PageUserID, this, x);
       }
-      return nFindMessage;
+
+      return findMessageId;
     }
 
     /// <summary>
@@ -1271,10 +1177,10 @@ namespace YAF.Pages
     /// </summary>
     private void InitializeComponent()
     {
-      this.Poll.ItemCommand += new RepeaterCommandEventHandler(this.Poll_ItemCommand);
-      this.PreRender += new EventHandler(posts_PreRender);
-      this.OptionsMenu.ItemClick += new PopEventHandler(OptionsMenu_ItemClick);
-      this.ViewMenu.ItemClick += new PopEventHandler(ViewMenu_ItemClick);
+      this.Poll.ItemCommand += this.Poll_ItemCommand;
+      this.PreRender += this.posts_PreRender;
+      this.OptionsMenu.ItemClick += this.OptionsMenu_ItemClick;
+      this.ViewMenu.ItemClick += this.ViewMenu_ItemClick;
     }
 
     /// <summary>
@@ -1501,6 +1407,87 @@ namespace YAF.Pages
           YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
         }
       }
+    }
+
+    /// <summary>
+    /// The update data table with thanks and styles.
+    /// </summary>
+    /// <param name="postListDataTable">
+    /// The post list data table.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    private DataTable UpdateDataTableWithThanksAndStyles(DataTable postListDataTable)
+    {
+      var messageIds = postListDataTable.AsEnumerable().Select(x => x.Field<int>("MessageID"));
+
+      // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
+      // calls to database.)  
+      if (this.PageContext.BoardSettings.EnableThanksMod)
+      {
+        postListDataTable.Columns.AddRange(
+          new[]
+            {
+              // How many times has this message been thanked.
+              new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")), 
+              // How many times has the message poster thanked others?   
+              new DataColumn("MessageThanksNumber", Type.GetType("System.Int32")), 
+              // How many times has the message poster been thanked?
+              new DataColumn("ThanksFromUserNumber", Type.GetType("System.Int32")), 
+              // In how many posts has the message poster been thanked? 
+              new DataColumn("ThanksToUserNumber", Type.GetType("System.Int32")), 
+              // In how many posts has the message poster been thanked? 
+              new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"))
+            });
+
+        // Initialize the "IsthankedByUser" column.
+        foreach (DataRow dr in postListDataTable.Rows)
+        {
+          dr["IsThankedByUser"] = "false";
+        }
+      }
+
+      // Make the "MessageID" Column the primary key to the datatable.
+      postListDataTable.PrimaryKey = new[] { postListDataTable.Columns["MessageID"] };
+      if (this.PageContext.BoardSettings.EnableThanksMod)
+      {
+        // Iterate through all the thanks relating to this topic and make appropriate
+        // changes in columns.
+        using (DataTable dt0AllThanks = DB.message_GetAllThanks(messageIds.ToDelimitedString(",")))
+        {
+          // get the default view...
+          DataView dtAllThanks = dt0AllThanks.DefaultView;
+
+          foreach (DataRow drThanks in dtAllThanks.Table.Rows)
+          {
+            if (drThanks["FromUserID"] != DBNull.Value)
+            {
+              if (Convert.ToInt32(drThanks["FromUserID"]) == this.PageContext.PageUserID)
+              {
+                postListDataTable.Rows.Find(drThanks["MessageID"])["IsThankedByUser"] = "true";
+              }
+            }
+          }
+
+          foreach (DataRow dataRow in postListDataTable.Rows)
+          {
+            dtAllThanks.RowFilter = String.Format(
+              "MessageID = {0} AND FromUserID is not NULL", Convert.ToInt32(dataRow["MessageID"]));
+            dataRow["MessageThanksNumber"] = dtAllThanks.Count;
+            dtAllThanks.RowFilter = String.Format("MessageID = {0}", Convert.ToInt32(dataRow["MessageID"]));
+            dataRow["ThanksFromUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksFromUserNumber"] : 0;
+            dataRow["ThanksToUserNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserNumber"] : 0;
+            dataRow["ThanksToUserPostsNumber"] = dtAllThanks.Count > 0 ? dtAllThanks[0]["ThanksToUserPostsNumber"] : 0;
+          }
+        }
+      }
+
+      if (YafContext.Current.BoardSettings.UseStyledNicks)
+      {
+        new StyleTransform(this.PageContext.Theme).DecodeStyleByTable(ref postListDataTable, true);
+      }
+
+      return postListDataTable;
     }
 
     /// <summary>

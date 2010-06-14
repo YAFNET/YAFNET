@@ -23,6 +23,8 @@ namespace YAF.Pages
   // YAF.Pages
   using System;
   using System.Data;
+  using System.Linq;
+
   using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
@@ -71,7 +73,17 @@ namespace YAF.Pages
         this.PageLinks.AddForumLinks(PageContext.PageForumID);
         this.PageLinks.AddLink(PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", PageContext.PageTopicID));
 
-        this.Posts.DataSource = DB.post_list(PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false, false,false);
+        var dt = DB.post_list(
+          PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false, false, false);
+
+        // get max 500 rows
+        var dataRows = dt.AsEnumerable().Take(500);
+
+        // load the missing message test
+        YafServices.DBBroker.LoadMessageText(dataRows);
+
+        this.Posts.DataSource = dataRows;
+
         DataBind();
       }
     }
@@ -87,7 +99,7 @@ namespace YAF.Pages
     /// </returns>
     protected string GetPrintHeader(object o)
     {
-      var row = (DataRowView) o;
+      var row = (DataRow) o;
       return String.Format("<b>{2}: {0}</b> - {1}", row["UserName"], YafServices.DateTime.FormatDateTime((DateTime) row["Posted"]), GetText("postedby"));
     }
 
@@ -102,7 +114,7 @@ namespace YAF.Pages
     /// </returns>
     protected string GetPrintBody(object o)
     {
-      var row = (DataRowView) o;
+      var row = (DataRow) o;
 
       string message = row["Message"].ToString();
 
