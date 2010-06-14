@@ -1355,7 +1355,7 @@
             </summary>
             <remarks>
             YafBBCode quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string 
-            returned, as to appear in plaintext in rich text editors.
+            returned, as to appear in plain text in rich text editors.
             </remarks>
             <param name="message">
             String containing the body of the message to convert
@@ -1366,7 +1366,7 @@
         </member>
         <member name="M:YAF.Classes.UI.YafBBCode.CreateBBCodeRules(YAF.Classes.UI.ReplaceRules@,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
-            Creates the rules that convert YafBBCode to HTML
+            Creates the rules that convert <see cref="T:YAF.Classes.UI.YafBBCode"/> to HTML
             </summary>
             <param name="ruleEngine">
             The rule Engine.
@@ -1383,7 +1383,7 @@
         </member>
         <member name="M:YAF.Classes.UI.YafBBCode.CreateBBCodeRules(YAF.Classes.UI.ReplaceRules@,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
-            Creates the rules that convert YafBBCode to HTML
+            Creates the rules that convert <see cref="T:YAF.Classes.UI.YafBBCode"/> to HTML
             </summary>
             <param name="ruleEngine">
             The rule Engine.

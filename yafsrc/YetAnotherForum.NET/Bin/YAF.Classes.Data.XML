@@ -1531,6 +1531,48 @@
             The is moderated.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.Moderator">
+            <summary>
+            The moderator.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.Moderator.#ctor(System.Int64,System.Int64,System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.Moderator"/> class.
+            </summary>
+            <param name="forumID">
+            The forum id.
+            </param>
+            <param name="moderatorID">
+            The moderator id.
+            </param>
+            <param name="name">
+            The name.
+            </param>
+            <param name="isGroup">
+            The is group.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.Moderator.ForumID">
+            <summary>
+            Gets or sets ForumID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.Moderator.ModeratorID">
+            <summary>
+            Gets or sets ModeratorID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.Moderator.Name">
+            <summary>
+            Gets or sets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.Moderator.IsGroup">
+            <summary>
+            Gets or sets a value indicating whether IsGroup.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.Import.DataImport">
             <summary>
             The data import.
@@ -1964,7 +2006,7 @@
             DataTable
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_poststats(System.Object)">
+        <member name="M:YAF.Classes.Data.DB.board_poststats(System.Nullable{System.Int32},System.Boolean)">
             <summary>
             Gets posting statistics
             </summary>
@@ -2841,7 +2883,7 @@
             The body html.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.post_list(System.Object,System.Object,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.DB.post_list(System.Object,System.Object,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             The post_list.
             </summary>
@@ -3314,6 +3356,17 @@
             </summary>
             <param name="MessageID">
             The message id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.message_GetTextByIds(System.String)">
+            <summary>
+            Retuns All the message text for the Message IDs which are in the 
+            delimited string variable MessageIDs
+            </summary>
+            <param name="messageIDs">
+            The message i ds.
             </param>
             <returns>
             </returns>
@@ -6378,48 +6431,6 @@
         <member name="P:YAF.Classes.Data.PollSaveList.Closes">
             <summary>
             Gets or Sets value indicatiing when a poll (question) closes
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.Moderator">
-            <summary>
-            The moderator.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.Moderator.#ctor(System.Int64,System.Int64,System.String,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.Moderator"/> class.
-            </summary>
-            <param name="forumID">
-            The forum id.
-            </param>
-            <param name="moderatorID">
-            The moderator id.
-            </param>
-            <param name="name">
-            The name.
-            </param>
-            <param name="isGroup">
-            The is group.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.Moderator.ForumID">
-            <summary>
-            Gets or sets ForumID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.Moderator.ModeratorID">
-            <summary>
-            Gets or sets ModeratorID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.Moderator.Name">
-            <summary>
-            Gets or sets Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.Moderator.IsGroup">
-            <summary>
-            Gets or sets a value indicating whether IsGroup.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventHandler">

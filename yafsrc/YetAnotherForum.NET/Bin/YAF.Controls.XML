@@ -2733,22 +2733,8 @@
         </member>
         <member name="F:YAF.Controls.ActiveUsers._activeUserTable">
             <summary>
-            The _active user table.
+              The _active user table.
             </summary>
-        </member>
-        <member name="M:YAF.Controls.ActiveUsers.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.ActiveUsers"/> class. 
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.ActiveUsers.Render(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            Implemets rendering of control to the client through use of HtmlTextWriter.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
         </member>
         <member name="M:YAF.Controls.ActiveUsers.OnPreRender(System.EventArgs)">
             <summary>
@@ -2756,6 +2742,14 @@
             </summary>
             <param name="e">
             The e.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ActiveUsers.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Implements rendering of control to the client through use of <see cref="T:System.Web.UI.HtmlTextWriter"/>.
+            </summary>
+            <param name="writer">
+            The writer.
             </param>
         </member>
         <member name="P:YAF.Controls.ActiveUsers.ActiveUserTable">
@@ -2911,27 +2905,22 @@
         </member>
         <member name="F:YAF.Controls.Pager._gotoPageForm">
             <summary>
-            The _goto page form.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.Pager._ignorePageIndex">
-            <summary>
-            The _ignore page index.
+              The _goto page form.
             </summary>
         </member>
         <member name="F:YAF.Controls.Pager._pageLabel">
             <summary>
-            The _page label.
+              The _page label.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.Pager._ignorePageIndex">
+            <summary>
+              The _ignore page index.
             </summary>
         </member>
         <member name="F:YAF.Controls.Pager._usePostBack">
             <summary>
-            The _use post back.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.Pager.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Controls.Pager"/> class.
+              The _use post back.
             </summary>
         </member>
         <member name="M:YAF.Controls.Pager.RaisePostBackEvent(System.String)">
@@ -2941,6 +2930,25 @@
             <param name="eventArgument">
             The event argument.
             </param>
+        </member>
+        <member name="M:YAF.Controls.Pager.CopyPagerSettings(YAF.Controls.Pager)">
+            <summary>
+            The copy pager settings.
+            </summary>
+            <param name="toPager">
+            The to pager.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.Pager.GetPageURL(System.Int32)">
+            <summary>
+            The get page url.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <returns>
+            The get page url.
+            </returns>
         </member>
         <member name="M:YAF.Controls.Pager.OnInit(System.EventArgs)">
             <summary>
@@ -2956,25 +2964,6 @@
             </summary>
             <param name="e">
             The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Pager._gotoPageForm_GotoPageClick(System.Object,YAF.Controls.GotoPageForumEventArgs)">
-            <summary>
-            The _goto page form_ goto page click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.Pager.CopyPagerSettings(YAF.Controls.Pager)">
-            <summary>
-            The copy pager settings.
-            </summary>
-            <param name="toPager">
-            The to pager.
             </param>
         </member>
         <member name="M:YAF.Controls.Pager.Render(System.Web.UI.HtmlTextWriter)">
@@ -3010,58 +2999,63 @@
             The post back.
             </param>
         </member>
-        <member name="M:YAF.Controls.Pager.GetPageURL(System.Int32)">
+        <member name="M:YAF.Controls.Pager._gotoPageForm_GotoPageClick(System.Object,YAF.Controls.GotoPageForumEventArgs)">
             <summary>
-            The get page url.
+            The _goto page form_ goto page click.
             </summary>
-            <param name="page">
-            The page.
+            <param name="sender">
+            The sender.
             </param>
-            <returns>
-            The get page url.
-            </returns>
+            <param name="e">
+            The e.
+            </param>
         </member>
-        <member name="P:YAF.Controls.Pager.CurrentLinkedPager">
+        <member name="E:YAF.Controls.Pager.PageChange">
             <summary>
-            Gets CurrentLinkedPager.
-            </summary>
-            <exception cref="T:System.Exception">
-            </exception>
-        </member>
-        <member name="P:YAF.Controls.Pager.UsePostBack">
-            <summary>
-            Gets or sets a value indicating whether UsePostBack.
+              The page change.
             </summary>
         </member>
         <member name="P:YAF.Controls.Pager.Count">
             <summary>
-            Gets or sets Count.
+              Gets or sets Count.
             </summary>
         </member>
         <member name="P:YAF.Controls.Pager.CurrentPageIndex">
             <summary>
-            Gets or sets CurrentPageIndex.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Pager.PageSize">
-            <summary>
-            Gets or sets PageSize.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.Pager.PageCount">
-            <summary>
-            Gets PageCount.
+              Gets or sets CurrentPageIndex.
             </summary>
         </member>
         <member name="P:YAF.Controls.Pager.LinkedPager">
             <summary>
-            Gets or sets LinkedPager.
+              Gets or sets LinkedPager.
             </summary>
         </member>
-        <member name="E:YAF.Controls.Pager.PageChange">
+        <member name="P:YAF.Controls.Pager.PageCount">
             <summary>
-            The page change.
+              Gets PageCount.
             </summary>
+        </member>
+        <member name="P:YAF.Controls.Pager.PageSize">
+            <summary>
+              Gets or sets PageSize.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Pager.SkipIndex">
+            <summary>
+            Gets the current item index.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Pager.UsePostBack">
+            <summary>
+              Gets or sets a value indicating whether UsePostBack.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.Pager.CurrentLinkedPager">
+            <summary>
+              Gets CurrentLinkedPager.
+            </summary>
+            <exception cref="T:System.Exception">
+            </exception>
         </member>
         <member name="T:YAF.Controls.MyLinkButton">
             <summary>

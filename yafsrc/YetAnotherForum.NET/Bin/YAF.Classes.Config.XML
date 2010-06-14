@@ -957,6 +957,30 @@
             Clears the display name cache (if there is one)
             </summary>
         </member>
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Iterates through a generic list type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="action"></param>
+        </member>
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEachFirst``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Boolean})">
+            <summary>
+            Iterates through a list with a isFirst flag.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="action"></param>
+        </member>
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEachIndex``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Int32})">
+            <summary>
+            Iterates through a list with a index.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="action"></param>
+        </member>
         <member name="T:YAF.Classes.Constants">
             <summary>
             For globally or multiple times used constants
@@ -2209,6 +2233,11 @@
             Gets or sets EditTimeOut.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ReportPostPermissions">
+            <summary>
+            Gets or sets a value indicating whether someone can report posts as violating forum rules.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.CaptchaSize">
             <summary>
             Gets or sets CaptchaSize.
@@ -2442,11 +2471,6 @@
         <member name="P:YAF.Classes.YafBoardSettings.AllowPasswordChange">
             <summary>
             Gets or sets a value indicating whether AllowPasswordChange.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.YafBoardSettings.AllowGuestToReportPost">
-            <summary>
-            Gets or sets a value indicating whether guest can report posts as violating forum rules.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.UseFileTable">

@@ -1217,6 +1217,66 @@
             Transforms the style.
             </summary>
         </member>
+        <member name="F:YAF.Classes.Utils.StyleTransform._theme">
+            <summary>
+            The _theme.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.#ctor(YAF.Classes.Interfaces.IYafTheme)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.StyleTransform"/> class.
+            </summary>
+            <param name="theme">
+            The theme.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.String,System.Boolean)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+            <param name="columnName">
+            the style column name
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.Boolean)">
+            <summary>
+            The decode style by row.
+            </summary>
+            <param name="dr">
+            The dr.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByString(System.String,System.Boolean)">
+            <summary>
+            The decode style by string.
+            </summary>
+            <param name="styleStr">
+            The style str.
+            </param>
+            <param name="colorOnly">
+            The color only.
+            </param>
+            <returns>
+            The decode style by string.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByTable(System.Data.DataTable@)">
             <summary>
             The decode style by table.
@@ -1253,38 +1313,7 @@
             The styleColumns can contain param array to handle several style columns.
             </param>
         </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@)">
-            <summary>
-            The decode style by row.
-            </summary>
-            <param name="dr">
-            The dr.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.Boolean)">
-            <summary>
-            The decode style by row.
-            </summary>
-            <param name="dr">
-            The dr.
-            </param>
-            <param name="colorOnly">
-            The color only.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByRow(System.Data.DataRow@,System.String,System.Boolean)">
-            <summary>
-            The decode style by row.
-            </summary>
-            <param name="dr">
-            The dr.
-            </param>
-            <param name="columnName">the style column name</param>
-            <param name="colorOnly">
-            The color only.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByString(System.String,System.Boolean)">
+        <member name="M:YAF.Classes.Utils.StyleTransform.DecodeStyleByString(System.String,System.Boolean,System.String[])">
             <summary>
             The decode style by string.
             </summary>
@@ -1293,6 +1322,9 @@
             </param>
             <param name="colorOnly">
             The color only.
+            </param>
+            <param name="pair">
+            The pair.
             </param>
             <returns>
             The decode style by string.
@@ -1308,6 +1340,11 @@
             <returns>
             The get color only.
             </returns>
+        </member>
+        <member name="P:YAF.Classes.Utils.StyleTransform.CurrentThemeFile">
+            <summary>
+            Gets CurrentThemeFile.
+            </summary>
         </member>
         <member name="T:YAF.Classes.Utils.ObjectExtensions">
             <summary>
@@ -2098,6 +2135,14 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemClass``1(System.Web.UI.IDataItemContainer)">
+            <summary>
+            Converts DataItem to a class.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="container"></param>
+            <returns></returns>
+        </member>
         <member name="T:YAF.Classes.Utils.QueryStringIDHelper">
             <summary>
             The query string id helper.
@@ -2105,13 +2150,13 @@
         </member>
         <member name="F:YAF.Classes.Utils.QueryStringIDHelper._idDictionary">
             <summary>
-            The _id dictionary.
+              The _id dictionary.
             </summary>
         </member>
         <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class. 
-            False to ErrorOnInvalid
+              False to ErrorOnInvalid
             </summary>
             <param name="idName">
             </param>
@@ -2119,7 +2164,7 @@
         <member name="M:YAF.Classes.Utils.QueryStringIDHelper.#ctor(System.String[])">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Classes.Utils.QueryStringIDHelper"/> class. 
-            False on ErrorOnInvalid
+              False on ErrorOnInvalid
             </summary>
             <param name="idNames">
             </param>
@@ -2183,15 +2228,15 @@
         </member>
         <member name="P:YAF.Classes.Utils.QueryStringIDHelper.Params">
             <summary>
-            Gets Params.
+              Gets Params.
             </summary>
         </member>
         <member name="P:YAF.Classes.Utils.QueryStringIDHelper.Item(System.String)">
             <summary>
-            The this.
+              The this.
             </summary>
-            <param name="idName">
-            The id name.
+            <param name = "idName">
+              The id name.
             </param>
         </member>
         <member name="T:YAF.Classes.Utils.General">
@@ -2403,7 +2448,7 @@
             The generate random string.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.IsNullOrEmptyTrimmed(System.String)">
+        <member name="M:YAF.Classes.Utils.StringHelper.IsSet(System.String)">
             <summary>
             When the string is trimmed, is it <see langword="null"/> or empty?
             </summary>
@@ -2413,17 +2458,27 @@
             The is <see langword="null"/> or empty trimmed.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.ListToString(System.Collections.Generic.List{System.String},System.String)">
+        <member name="M:YAF.Classes.Utils.StringHelper.IsNotSet(System.String)">
             <summary>
-            Creates a string from a string list.
+            When the string is trimmed, is it <see langword="null"/> or empty?
             </summary>
-            <param name="strList">
+            <param name="str">
             </param>
+            <returns>
+            The is <see langword="null"/> or empty trimmed.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.ToDelimitedString``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Creates a delimited string an enumerable list of T.
+            </summary>
+            <param name="objList"></param>
             <param name="delimiter">
             </param>
             <returns>
             The list to string.
             </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="objList"/> is <c>null</c>.</exception>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.ProcessText(System.String)">
             <summary>
@@ -2467,7 +2522,7 @@
             The process text.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.RemoveEmptyStrings(System.Collections.Generic.List{System.String})">
+        <member name="M:YAF.Classes.Utils.StringHelper.GetNewNoEmptyStrings(System.Collections.Generic.IEnumerable{System.String})">
             <summary>
             Removes empty strings from the list
             </summary>
@@ -2475,6 +2530,7 @@
             </param>
             <returns>
             </returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="inputList"/> is <c>null</c>.</exception>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.RemoveMultipleSingleQuotes(System.String)">
             <summary>
@@ -2496,7 +2552,7 @@
             The remove multiple whitespace.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.RemoveSmallStrings(System.Collections.Generic.List{System.String},System.Int32)">
+        <member name="M:YAF.Classes.Utils.StringHelper.GetNewNoSmallStrings(System.Collections.Generic.IEnumerable{System.String},System.Int32)">
             <summary>
             Removes strings that are smaller then <paramref name="minSize"/>
             </summary>

@@ -446,7 +446,7 @@
             Initializes a new instance of the <see cref="T:YAF.Classes.Core.PostDataHelperWrapper"/> class.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.PostDataHelperWrapper.#ctor(System.Data.DataRowView)">
+        <member name="M:YAF.Classes.Core.PostDataHelperWrapper.#ctor(System.Data.DataRow)">
             <summary>
             Initializes a new instance of the <see cref="T:YAF.Classes.Core.PostDataHelperWrapper"/> class.
             </summary>
@@ -612,8 +612,16 @@
         </member>
         <member name="F:YAF.Classes.Core.PageElementRegister._registeredElements">
             <summary>
-            The _registered elements.
+              The _registered elements.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.AddPageElement(System.String)">
+            <summary>
+            Adds a page element to the collection.
+            </summary>
+            <param name="name">
+            Unique name of the page element to register.
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.PageElementExists(System.String)">
             <summary>
@@ -625,14 +633,6 @@
             <returns>
             <see langword="true"/> if it exists
             </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.PageElementRegister.AddPageElement(System.String)">
-            <summary>
-            Adds a page element to the collection.
-            </summary>
-            <param name="name">
-            Unique name of the page element to register.
-            </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssBlock(System.Web.UI.Control,System.String,System.String)">
             <summary>
@@ -646,6 +646,70 @@
             </param>
             <param name="cssContents">
             The contents of the text/css style block
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssBlock(System.String,System.String)">
+            <summary>
+            Register a CSS block in the page header.
+            </summary>
+            <param name="name">
+            Unique name of the CSS block
+            </param>
+            <param name="cssContents">
+            CSS contents
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssInclude(System.String)">
+            <summary>
+            Add the given CSS to the page header within a style tag
+            </summary>
+            <param name="cssUrl">
+            Url of the CSS file to add
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssInclude(System.Web.UI.Control,System.String)">
+            <summary>
+            Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
+            </summary>
+            <param name="element">
+            Control to add element
+            </param>
+            <param name="cssUrl">
+            Url of the CSS file to add
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssIncludeResource(System.String)">
+            <summary>
+            Add the given CSS to the page header within a style tag
+            </summary>
+            <param name="cssUrlResource">
+            Url of the CSS Resource file to add
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQuery">
+            <summary>
+            The register j query.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQuery(System.Web.UI.Control)">
+            <summary>
+            Register jQuery
+            </summary>
+            <param name="element">
+            The element.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQueryUI">
+            <summary>
+            The register j query ui.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQueryUI(System.Web.UI.Control)">
+            <summary>
+            Register the JQuery UI library in the header.
+            </summary>
+            <param name="element">
+            Control element to put in
             </param>
         </member>
         <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJsBlock(System.String,System.String)">
@@ -732,74 +796,10 @@
             URL to the JS resource
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssBlock(System.String,System.String)">
-            <summary>
-            Register a CSS block in the page header.
-            </summary>
-            <param name="name">
-            Unique name of the CSS block
-            </param>
-            <param name="cssContents">
-            CSS contents
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssInclude(System.String)">
-            <summary>
-            Add the given CSS to the page header within a style tag
-            </summary>
-            <param name="cssUrl">
-            Url of the CSS file to add
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssIncludeResource(System.String)">
-            <summary>
-            Add the given CSS to the page header within a style tag
-            </summary>
-            <param name="cssUrlResource">
-            Url of the CSS Resource file to add
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterCssInclude(System.Web.UI.Control,System.String)">
-            <summary>
-            Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
-            </summary>
-            <param name="element">
-            Control to add element
-            </param>
-            <param name="cssUrl">
-            Url of the CSS file to add
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQuery">
-            <summary>
-            The register j query.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQueryUI">
-            <summary>
-            The register j query ui.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQuery(System.Web.UI.Control)">
-            <summary>
-            Register jQuery
-            </summary>
-            <param name="element">
-            The element.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.PageElementRegister.RegisterJQueryUI(System.Web.UI.Control)">
-            <summary>
-            Register the JQuery UI library in the header.
-            </summary>
-            <param name="element">
-            Control element to put in
-            </param>
-        </member>
         <member name="P:YAF.Classes.Core.PageElementRegister.RegisteredElements">
             <summary>
-            Gets elements (using in the head or header) that are registered on the page.
-            Used mostly by RegisterPageElementHelper.
+              Gets elements (using in the head or header) that are registered on the page.
+              Used mostly by RegisterPageElementHelper.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.ForumPageRegistered">
@@ -1783,6 +1783,12 @@
             Task to run
             </param>
         </member>
+        <member name="M:YAF.Classes.Core.YafTaskModule.StopTask(System.String)">
+            <summary>
+            Stops a task from running if it's not critical
+            </summary>
+            <param name="instanceName"></param>
+        </member>
         <member name="P:YAF.Classes.Core.YafTaskModule.TaskManager">
             <summary>
             Current Page Instance of the Module Manager
@@ -1918,11 +1924,6 @@
             The _intermittent timer.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Core.IntermittentBackgroundTask._intermittentTimerSemaphore">
-            <summary>
-            The _intermittent timer semaphore.
-            </summary>
-        </member>
         <member name="F:YAF.Classes.Core.IntermittentBackgroundTask._runPeriodMs">
             <summary>
             The _run period ms.
@@ -1964,6 +1965,11 @@
         <member name="P:YAF.Classes.Core.IntermittentBackgroundTask.RunPeriodMs">
             <summary>
             Gets or sets RunPeriodMs.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.ICriticalBackgroundTask">
+            <summary>
+            Marker interface for a task that is very important and shouldn't be stopped
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.CleanUpTask.#ctor">
@@ -2444,6 +2450,18 @@
             Gets or sets ForumId.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.Tasks.BackgroundTaskExtensions">
+            <summary>
+            Extensions for the <see cref="T:YAF.Classes.Core.IBackgroundTask"/> interface
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.Tasks.BackgroundTaskExtensions.IsStoppable(YAF.Classes.Core.IBackgroundTask)">
+            <summary>
+            Returns <see langword="true"/> if the background task can be stopped (is non-critical)
+            </summary>
+            <param name="backgroundTask"></param>
+            <returns></returns>
+        </member>
         <member name="T:YAF.Classes.Core.ForumPageRenderedArgs">
             <summary>
             EventArgs class for the PageTitleSet event
@@ -2752,7 +2770,7 @@
         <member name="T:YAF.Classes.Core.YafSendMailThreaded">
             <summary>
             Separate class since SendThreaded isn't needed functionality
-            for any instance except the HttpModule instance.
+            for any instance except the <see cref="!:HttpModule"/> instance.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.YafSendMailThreaded.SendThreaded(System.Int32)">
@@ -3468,11 +3486,6 @@
             Summary description for Localizer.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Core.Localizer._code">
-            <summary>
-            The _code.
-            </summary>
-        </member>
         <member name="F:YAF.Classes.Core.Localizer._currentPage">
             <summary>
             The _current page.
@@ -3568,7 +3581,7 @@
             <exception cref="T:System.Exception">
             </exception>
         </member>
-        <member name="P:YAF.Classes.Core.Localizer.LanguageCode">
+        <member name="P:YAF.Classes.Core.Localizer.CurrentCulture">
             <summary>
             Gets LanguageCode.
             </summary>
@@ -4729,6 +4742,12 @@
             <returns>
             Returns board layout
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.LoadMessageText(System.Collections.Generic.IEnumerable{System.Data.DataRow})">
+            <summary>
+            Loads the message text into the paged data if "Message" and "MessageID" exists.
+            </summary>
+            <param name="dataRows"></param>
         </member>
         <member name="T:YAF.Classes.Core.YafDynamicDBConnManager">
             <summary>

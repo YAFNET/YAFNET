@@ -6237,17 +6237,71 @@
         </member>
         <member name="T:YAF.Pages.cp_message">
             <summary>
-            Summary description for inbox.
+            The cp_message.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.cp_message.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Pages.cp_message"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.cp_message.Inbox_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
+            <summary>
+            The inbox_ item command.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.cp_message.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.cp_message.ThemeButtonDelete_Load(System.Object,System.EventArgs)">
+            <summary>
+            The theme button delete_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.cp_message.BindData">
+            <summary>
+            The bind data.
             </summary>
         </member>
         <member name="M:YAF.Pages.cp_message.SetMessageView(System.Object,System.Object,System.Boolean,System.Boolean)">
             <summary>
             Sets the IsOutbox property as appropriate for this private message.
             </summary>
-            <remarks>User id parameters are downcast to object to allow for potential future use of non-integer user id's</remarks>
-            <param name="fromUserId">User id of the message sender</param>
-            <param name="toUserId">User id of the message receiver</param>
-            <param name="messageIsInOutbox">Bool indicating whether the message is in the sender's outbox</param>
+            <remarks>
+            User id parameters are downcast to object to allow for potential future use of non-integer user id's
+            </remarks>
+            <param name="fromUserID">
+            The from User ID.
+            </param>
+            <param name="toUserID">
+            The to User ID.
+            </param>
+            <param name="messageIsInOutbox">
+            Bool indicating whether the message is in the sender's outbox
+            </param>
+            <param name="messageIsArchived">
+            The message Is Archived.
+            </param>
         </member>
         <member name="F:YAF.Pages.cp_message.PageLinks">
             <summary>
@@ -6275,6 +6329,16 @@
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
+        </member>
+        <member name="P:YAF.Pages.cp_message.IsArchived">
+            <summary>
+            Gets or sets a value indicating whether IsArchived.
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.cp_message.IsOutbox">
+            <summary>
+            Gets or sets a value indicating whether IsOutbox.
+            </summary>
         </member>
         <member name="T:YAF.Pages.Admin.users">
             <summary>
@@ -6754,6 +6818,23 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Controls.ViewThanksList.ThanksRes_ItemCreated(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
+            <summary>
+            Handles the ItemCreated event of the ThanksRes control.
+            </summary>
+            <param name="sender">
+            The source of the event.
+            </param>
+            <param name="e">
+            The <see cref="T:System.Web.UI.WebControls.RepeaterItemEventArgs"/> 
+            instance containing the event data.
+            </param>
+        </member>
+        <member name="M:YAF.Controls.ViewThanksList.DistinctMessageID">
+            <summary>
+            removes rows with duplicate MessageIDs. 
+            </summary>
+        </member>
         <member name="P:YAF.Controls.ViewThanksList.ThanksInfo">
             <summary>
             The Thanks Info.
@@ -6779,7 +6860,7 @@
             Initializes a new instance of the viewthanks class.
             </summary>
         </member>
-        <member name="M:YAF.Pages.ViewThanks.InitializeThanksList(YAF.Controls.ViewThanksList,YAF.Controls.ThanksListMode,System.Int32,System.Data.DataView)">
+        <member name="M:YAF.Pages.ViewThanks.InitializeThanksList(YAF.Controls.ViewThanksList,YAF.Controls.ThanksListMode,System.Int32,System.Data.DataTable)">
             <summary>
             Initializes the ThanksList controls.
             </summary>
@@ -12438,19 +12519,14 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.register.recupt">
-            <summary>
-            The recupt.
-            </summary>
-        </member>
         <member name="F:YAF.Pages.register.recPH">
             <summary>
-            The recPH.
+              The recPH.
             </summary>
         </member>
         <member name="M:YAF.Pages.register.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Pages.register"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Pages.register"/> class.
             </summary>
         </member>
         <member name="M:YAF.Pages.register.CreateUserWizard1_ContinueButtonClick(System.Object,System.EventArgs)">
@@ -12464,9 +12540,9 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.register.CreateUserWizard1_CreatedUser(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.register.CreateUserWizard1_CreateUserError(System.Object,System.Web.UI.WebControls.CreateUserErrorEventArgs)">
             <summary>
-            The create user wizard 1_ created user.
+            The create user wizard 1_ create user error.
             </summary>
             <param name="sender">
             The sender.
@@ -12475,9 +12551,9 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.register.CreateUserWizard1_CreateUserError(System.Object,System.Web.UI.WebControls.CreateUserErrorEventArgs)">
+        <member name="M:YAF.Pages.register.CreateUserWizard1_CreatedUser(System.Object,System.EventArgs)">
             <summary>
-            The create user wizard 1_ create user error.
+            The create user wizard 1_ created user.
             </summary>
             <param name="sender">
             The sender.
@@ -12570,19 +12646,19 @@
             The setup recaptcha control.
             </summary>
         </member>
-        <member name="P:YAF.Pages.register.Recupt">
-            <summary>
-            Gets a value indicating whether RecaptchaControl.
-            </summary>
-        </member>
         <member name="P:YAF.Pages.register.IsProtected">
             <summary>
-            Gets a value indicating whether IsProtected.
+              Gets a value indicating whether IsProtected.
             </summary>
         </member>
         <member name="P:YAF.Pages.register.CreateUserStepContainer">
             <summary>
-            Gets CreateUserStepContainer.
+              Gets CreateUserStepContainer.
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.register.Recupt">
+            <summary>
+              Gets a value indicating whether RecaptchaControl.
             </summary>
         </member>
         <member name="T:YAF.Pages.info">
@@ -12684,34 +12760,14 @@
             The board object stats.
             </summary>
         </member>
-        <member name="F:YAF.Pages.Admin.test_data.boardPrefix">
-            <summary>
-            The board prefix.
-            </summary>
-        </member>
         <member name="F:YAF.Pages.Admin.test_data.categoryCreateLimit">
             <summary>
             The category create limit.
             </summary>
         </member>
-        <member name="F:YAF.Pages.Admin.test_data.categoryPrefix">
-            <summary>
-            The category prefix.
-            </summary>
-        </member>
         <member name="F:YAF.Pages.Admin.test_data.createCommonLimit">
             <summary>
             The create common limit.
-            </summary>
-        </member>
-        <member name="F:YAF.Pages.Admin.test_data.forumPrefix">
-            <summary>
-            The forum prefix.
-            </summary>
-        </member>
-        <member name="F:YAF.Pages.Admin.test_data.messagePrefix">
-            <summary>
-            The message prefix.
             </summary>
         </member>
         <member name="F:YAF.Pages.Admin.test_data.pmessagePrefix">
@@ -12722,16 +12778,6 @@
         <member name="F:YAF.Pages.Admin.test_data.randomGuid">
             <summary>
             The random guid.
-            </summary>
-        </member>
-        <member name="F:YAF.Pages.Admin.test_data.topicPrefix">
-            <summary>
-            The topic prefix.
-            </summary>
-        </member>
-        <member name="F:YAF.Pages.Admin.test_data.userPrefix">
-            <summary>
-            The user prefix.
             </summary>
         </member>
         <member name="M:YAF.Pages.Admin.test_data.Cancel_Click(System.Object,System.EventArgs)">
@@ -13778,6 +13824,114 @@
         <member name="F:YAF.Pages.Admin.test_data.View8">
             <summary>
             View8 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.BoardPrefixTB">
+            <summary>
+            BoardPrefixTB control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.BoardPrefixTBRequiredfieldvalidator">
+            <summary>
+            BoardPrefixTBRequiredfieldvalidator control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.CategoryPrefixTB">
+            <summary>
+            CategoryPrefixTB control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.CategoryPrefixTBRequiredfieldvalidator">
+            <summary>
+            CategoryPrefixTBRequiredfieldvalidator control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.ForumPrefixTB">
+            <summary>
+            ForumPrefixTB control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.ForumPrefixTBRequiredfieldvalidator">
+            <summary>
+            ForumPrefixTBRequiredfieldvalidator control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.TopicPrefixTB">
+            <summary>
+            TopicPrefixTB control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.TopicPrefixTBRequiredfieldvalidator">
+            <summary>
+            TopicPrefixTBRequiredfieldvalidator control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.MessageContentPrefixTB">
+            <summary>
+            MessageContentPrefixTB control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.MessageContentPrefixTBRequiredfieldvalidator">
+            <summary>
+            MessageContentPrefixTBTBRequiredfieldvalidator control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.UserPrefixTB">
+            <summary>
+            UserPrefixTB control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.test_data.UserPrefixTBRequiredfieldvalidator">
+            <summary>
+            UserPrefixTBRequiredfieldvalidator control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -16038,6 +16192,32 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="T:YAF.Pages.cp_pm">
+            <summary>
+            The cp_pm.
+            </summary>
+        </member>
+        <member name="F:YAF.Pages.cp_pm._view">
+            <summary>
+            The _view.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.cp_pm.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Pages.cp_pm"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.cp_pm.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="F:YAF.Pages.cp_pm.PageLinks">
             <summary>
             PageLinks control.
@@ -16163,6 +16343,11 @@
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
+        </member>
+        <member name="P:YAF.Pages.cp_pm.View">
+            <summary>
+            Gets View.
+            </summary>
         </member>
         <member name="T:YAF.Pages.Admin.reguser">
             <summary>
@@ -16691,6 +16876,15 @@
         <member name="F:YAF.Pages.Admin.editgroup.Name">
             <summary>
             Name control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.editgroup.postNameRequired">
+            <summary>
+            postNameRequired control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -18020,18 +18214,18 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.AllowGuestToReportPost">
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowModeratorsViewIPs">
             <summary>
-            AllowGuestToReportPost control.
+            AllowModeratorsViewIPs control.
             </summary>
             <remarks>
             Auto-generated field.
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.AllowModeratorsViewIPs">
+        <member name="F:YAF.Pages.Admin.hostsettings.ReportPostPermissions">
             <summary>
-            AllowModeratorsViewIPs control.
+            ReportPostPermissions control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -23161,7 +23355,12 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.Admin.taskmanager.FormatTimeSpan(System.Object)">
+        <member name="M:YAF.Pages.Admin.taskmanager.BindData">
+            <summary>
+            binds data for this control
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.Admin.taskmanager.FormatTimeSpan(System.DateTime)">
             <summary>
             The format time span.
             </summary>
@@ -23171,6 +23370,13 @@
             <returns>
             The format time span.
             </returns>
+        </member>
+        <member name="M:YAF.Pages.Admin.taskmanager.taskRepeater_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
+            <summary>
+            Called on a command in the task repeater.
+            </summary>
+            <param name="source"></param>
+            <param name="e"></param>
         </member>
         <member name="F:YAF.Pages.Admin.taskmanager.PageLinks">
             <summary>
@@ -25182,6 +25388,79 @@
             Gets a value indicating whether IsReusable.
             </summary>
         </member>
+        <member name="T:YAF.GiveAdmin">
+            <summary>
+            The give admin.
+            </summary>
+        </member>
+        <member name="F:YAF.GiveAdmin.username">
+            <summary>
+            The username.
+            </summary>
+        </member>
+        <member name="F:YAF.GiveAdmin.form1">
+            <summary>
+            form1 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.GiveAdmin.message">
+            <summary>
+            message control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.GiveAdmin.txtPassword">
+            <summary>
+            txtPassword control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.GiveAdmin.btnMain">
+            <summary>
+            btnMain control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="M:YAF.GiveAdmin.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.GiveAdmin.btnMain_Click(System.Object,System.EventArgs)">
+            <summary>
+            The btn main_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.GiveAdmin.CurrentBoardID">
+            <summary>
+            Gets CurrentBoardID.
+            </summary>
+        </member>
         <member name="T:YAF.Pages.Admin.reindex">
             <summary>
             The reindex.
@@ -26559,141 +26838,54 @@
             Summary description for posts.
             </summary>
         </member>
+        <member name="F:YAF.Pages.posts._quickReplyEditor">
+            <summary>
+              The _quick reply editor.
+            </summary>
+        </member>
         <member name="F:YAF.Pages.posts._dataBound">
             <summary>
-            The _data bound.
+              The _data bound.
             </summary>
         </member>
         <member name="F:YAF.Pages.posts._dtPoll">
             <summary>
-            The _dt poll.
+              The _dt poll.
             </summary>
         </member>
         <member name="F:YAF.Pages.posts._forum">
             <summary>
-            The _forum.
+              The _forum.
             </summary>
         </member>
         <member name="F:YAF.Pages.posts._forumFlags">
             <summary>
-            The _forum flags.
+              The _forum flags.
             </summary>
         </member>
         <member name="F:YAF.Pages.posts._ignoreQueryString">
             <summary>
-            The _ignore query string.
-            </summary>
-        </member>
-        <member name="F:YAF.Pages.posts._quickReplyEditor">
-            <summary>
-            The _quick reply editor.
+              The _ignore query string.
             </summary>
         </member>
         <member name="F:YAF.Pages.posts._topic">
             <summary>
-            The _topic.
+              The _topic.
             </summary>
         </member>
         <member name="F:YAF.Pages.posts._topicFlags">
             <summary>
-            The _topic flags.
+              The _topic flags.
             </summary>
         </member>
         <member name="M:YAF.Pages.posts.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Pages.posts"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Pages.posts"/> class.
             </summary>
-        </member>
-        <member name="M:YAF.Pages.posts.posts_PreRender(System.Object,System.EventArgs)">
-            <summary>
-            The posts_ pre render.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            The page_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.AddMetaData(System.Object)">
-            <summary>
-            Adds meta data: description and keywords to the page header.
-            </summary>
-            <param name="firstMessage">
-            first message in the topic
-            </param>
         </member>
         <member name="M:YAF.Pages.posts.DeleteMessage_Load(System.Object,System.EventArgs)">
             <summary>
             The delete message_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.DeleteTopic_Load(System.Object,System.EventArgs)">
-            <summary>
-            The delete topic_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.QuickReply_Click(System.Object,System.EventArgs)">
-            <summary>
-            The quick reply_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.Pager_PageChange(System.Object,System.EventArgs)">
-            <summary>
-            The pager_ page change.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.BindData">
-            <summary>
-            The bind data.
-            </summary>
-        </member>
-        <member name="M:YAF.Pages.posts.HandleWatchTopic">
-            <summary>
-            The handle watch topic.
-            </summary>
-            <returns>
-            The handle watch topic.
-            </returns>
-        </member>
-        <member name="M:YAF.Pages.posts.MessageList_OnItemCreated(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
-            <summary>
-            The message list_ on item created.
             </summary>
             <param name="sender">
             The sender.
@@ -26713,121 +26905,9 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.posts.LockTopic_Click(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.posts.DeleteTopic_Load(System.Object,System.EventArgs)">
             <summary>
-            The lock topic_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.UnlockTopic_Click(System.Object,System.EventArgs)">
-            <summary>
-            The unlock topic_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.Poll_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
-            <summary>
-            The poll_ item command.
-            </summary>
-            <param name="source">
-            The source.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.IsPollClosed">
-            <summary>
-            The is poll closed.
-            </summary>
-            <returns>
-            The is poll closed.
-            </returns>
-        </member>
-        <member name="M:YAF.Pages.posts.GetPollIsClosed">
-            <summary>
-            The get poll is closed.
-            </summary>
-            <returns>
-            The get poll is closed.
-            </returns>
-        </member>
-        <member name="M:YAF.Pages.posts.GetPollQuestion">
-            <summary>
-            The get poll question.
-            </summary>
-            <returns>
-            The get poll question.
-            </returns>
-        </member>
-        <member name="M:YAF.Pages.posts.PostReplyLink_Click(System.Object,System.EventArgs)">
-            <summary>
-            The post reply link_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.NewTopic_Click(System.Object,System.EventArgs)">
-            <summary>
-            The new topic_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.TrackTopic_Click(System.Object,System.EventArgs)">
-            <summary>
-            The track topic_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.MoveTopic_Click(System.Object,System.EventArgs)">
-            <summary>
-            The move topic_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.PrevTopic_Click(System.Object,System.EventArgs)">
-            <summary>
-            The prev topic_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.posts.NextTopic_Click(System.Object,System.EventArgs)">
-            <summary>
-            The next topic_ click.
+            The delete topic_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -26847,9 +26927,192 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.posts.GetIndentImage(System.Object)">
+            <summary>
+            The get indent image.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The get indent image.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.posts.GetPollIsClosed">
+            <summary>
+            The get poll is closed.
+            </summary>
+            <returns>
+            The get poll is closed.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.posts.GetPollQuestion">
+            <summary>
+            The get poll question.
+            </summary>
+            <returns>
+            The get poll question.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.posts.GetThreadedRow(System.Object)">
+            <summary>
+            The get threaded row.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The get threaded row.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.posts.GetTotal">
+            <summary>
+            The get total.
+            </summary>
+            <returns>
+            The get total.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.posts.IsCurrentMessage(System.Object)">
+            <summary>
+            The is current message.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The is current message.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.posts.IsPollClosed">
+            <summary>
+            The is poll closed.
+            </summary>
+            <returns>
+            The is poll closed.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.posts.LockTopic_Click(System.Object,System.EventArgs)">
+            <summary>
+            The lock topic_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.MessageList_OnItemCreated(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
+            <summary>
+            The message list_ on item created.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.MoveTopic_Click(System.Object,System.EventArgs)">
+            <summary>
+            The move topic_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.NewTopic_Click(System.Object,System.EventArgs)">
+            <summary>
+            The new topic_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.NextTopic_Click(System.Object,System.EventArgs)">
+            <summary>
+            The next topic_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.OnInit(System.EventArgs)">
+            <summary>
+            The on init.
+            </summary>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.PostReplyLink_Click(System.Object,System.EventArgs)">
+            <summary>
+            The post reply link_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.PrevTopic_Click(System.Object,System.EventArgs)">
+            <summary>
+            The prev topic_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Pages.posts.PrintTopic_Click(System.Object,System.EventArgs)">
             <summary>
             The print topic_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.TrackTopic_Click(System.Object,System.EventArgs)">
+            <summary>
+            The track topic_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.UnlockTopic_Click(System.Object,System.EventArgs)">
+            <summary>
+            The unlock topic_ click.
             </summary>
             <param name="sender">
             The sender.
@@ -26869,46 +27132,42 @@
             The vote width.
             </returns>
         </member>
-        <member name="M:YAF.Pages.posts.IsCurrentMessage(System.Object)">
+        <member name="M:YAF.Pages.posts.AddMetaData(System.Object)">
             <summary>
-            The is current message.
+            Adds meta data: description and keywords to the page header.
             </summary>
-            <param name="o">
-            The o.
+            <param name="firstMessage">
+            first message in the topic
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.BindData">
+            <summary>
+            The bind data.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.posts.GetFindMessageId">
+            <summary>
+            Gets the message ID if "find" is in the query string
+            </summary>
+            <param name="pds">
             </param>
             <returns>
-            The is current message.
+            The get find message id.
             </returns>
         </member>
-        <member name="M:YAF.Pages.posts.GetThreadedRow(System.Object)">
+        <member name="M:YAF.Pages.posts.HandleWatchTopic">
             <summary>
-            The get threaded row.
+            The handle watch topic.
             </summary>
-            <param name="o">
-            The o.
-            </param>
             <returns>
-            The get threaded row.
+            The handle watch topic.
             </returns>
         </member>
-        <member name="M:YAF.Pages.posts.GetIndentImage(System.Object)">
+        <member name="M:YAF.Pages.posts.InitializeComponent">
             <summary>
-            The get indent image.
+            Required method for Designer support - do not modify
+              the contents of this method with the code editor.
             </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The get indent image.
-            </returns>
-        </member>
-        <member name="M:YAF.Pages.posts.GetTotal">
-            <summary>
-            The get total.
-            </summary>
-            <returns>
-            The get total.
-            </returns>
         </member>
         <member name="M:YAF.Pages.posts.OptionsMenu_ItemClick(System.Object,YAF.Controls.PopEventArgs)">
             <summary>
@@ -26923,6 +27182,49 @@
             <exception cref="T:System.ApplicationException">
             </exception>
         </member>
+        <member name="M:YAF.Pages.posts.Pager_PageChange(System.Object,System.EventArgs)">
+            <summary>
+            The pager_ page change.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.Poll_ItemCommand(System.Object,System.Web.UI.WebControls.RepeaterCommandEventArgs)">
+            <summary>
+            The poll_ item command.
+            </summary>
+            <param name="source">
+            The source.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.QuickReply_Click(System.Object,System.EventArgs)">
+            <summary>
+            The quick reply_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.posts.UpdateDataTableWithThanksAndStyles(System.Data.DataTable)">
+            <summary>
+            The update data table with thanks and styles.
+            </summary>
+            <param name="postListDataTable">
+            The post list data table.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Pages.posts.ViewMenu_ItemClick(System.Object,YAF.Controls.PopEventArgs)">
             <summary>
             The view menu_ item click.
@@ -26936,19 +27238,16 @@
             <exception cref="T:System.ApplicationException">
             </exception>
         </member>
-        <member name="M:YAF.Pages.posts.OnInit(System.EventArgs)">
+        <member name="M:YAF.Pages.posts.posts_PreRender(System.Object,System.EventArgs)">
             <summary>
-            The on init.
+            The posts_ pre render.
             </summary>
+            <param name="sender">
+            The sender.
+            </param>
             <param name="e">
             The e.
             </param>
-        </member>
-        <member name="M:YAF.Pages.posts.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
         </member>
         <member name="F:YAF.Pages.posts.PageLinks">
             <summary>
@@ -27463,24 +27762,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="P:YAF.Pages.posts.VotingCookieName">
+        <member name="P:YAF.Pages.posts.IsThreaded">
             <summary>
-            Gets VotingCookieName.
+              Gets or sets a value indicating whether IsThreaded.
             </summary>
         </member>
         <member name="P:YAF.Pages.posts.CanVote">
             <summary>
-            Property to verify if the current user can vote in this poll.
-            </summary>
-        </member>
-        <member name="P:YAF.Pages.posts.IsThreaded">
-            <summary>
-            Gets or sets a value indicating whether IsThreaded.
+              Property to verify if the current user can vote in this poll.
             </summary>
         </member>
         <member name="P:YAF.Pages.posts.CurrentMessage">
             <summary>
-            Gets or sets CurrentMessage.
+              Gets or sets CurrentMessage.
+            </summary>
+        </member>
+        <member name="P:YAF.Pages.posts.VotingCookieName">
+            <summary>
+              Gets VotingCookieName.
             </summary>
         </member>
         <member name="T:YAF.Pages.movemessage">
