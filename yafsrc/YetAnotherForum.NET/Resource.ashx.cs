@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2010 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -264,8 +264,8 @@ namespace YAF
         while (pageRow.Table.Columns.Count < 43 && auldRow == null);
       }
 
-      return General.BinaryAnd(pageRow["DownloadAccess"], AccessFlags.Flags.DownloadAccess) ||
-             General.BinaryAnd(pageRow["ModeratorAccess"], AccessFlags.Flags.ModeratorAccess);
+      return pageRow["DownloadAccess"].BinaryAnd(AccessFlags.Flags.DownloadAccess) ||
+             pageRow["ModeratorAccess"].BinaryAnd(AccessFlags.Flags.ModeratorAccess);
     }
 
     /// <summary>
