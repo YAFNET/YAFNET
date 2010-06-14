@@ -203,100 +203,6 @@
             Gets or sets YIM.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Utils.SimpleURLParameterParser">
-            <summary>
-            Helps parse URLs
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._nameValues">
-            <summary>
-            The _name values.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._urlAnchor">
-            <summary>
-            The _url anchor.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._urlParameters">
-            <summary>
-            The _url parameters.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.SimpleURLParameterParser"/> class.
-            </summary>
-            <param name="urlParameters">
-            The url parameters.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.ParseURLParameters">
-            <summary>
-            The parse url parameters.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.CreateQueryString(System.String[])">
-            <summary>
-            The create query string.
-            </summary>
-            <param name="excludeValues">
-            The exclude values.
-            </param>
-            <returns>
-            The create query string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.KeyInsideArray(System.String[],System.String)">
-            <summary>
-            The key inside array.
-            </summary>
-            <param name="array">
-            The array.
-            </param>
-            <param name="key">
-            The key.
-            </param>
-            <returns>
-            The key inside array.
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Anchor">
-            <summary>
-            Gets Anchor.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.HasAnchor">
-            <summary>
-            Gets a value indicating whether HasAnchor.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Parameters">
-            <summary>
-            Gets Parameters.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Count">
-            <summary>
-            Gets Count.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Item(System.String)">
-            <summary>
-            The this.
-            </summary>
-            <param name="name">
-            The name.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Item(System.Int32)">
-            <summary>
-            The this.
-            </summary>
-            <param name="index">
-            The index.
-            </param>
-        </member>
         <member name="T:YAF.Classes.Utils.JsAndCssHelper">
             <summary>
             The js and css helper.
@@ -649,6 +555,140 @@
             Request to validate.
             </param>
         </member>
+        <member name="T:YAF.Classes.Utils.SimpleURLParameterParser">
+            <summary>
+            Helps parse URLs
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._nameValues">
+            <summary>
+              The _name values.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._urlParameters">
+            <summary>
+              The _url parameters.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Utils.SimpleURLParameterParser._urlAnchor">
+            <summary>
+              The _url anchor.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.SimpleURLParameterParser"/> class.
+            </summary>
+            <param name="urlParameters">
+            The url parameters.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.CreateQueryString(System.String[])">
+            <summary>
+            The create query string.
+            </summary>
+            <param name="excludeValues">
+            The exclude values.
+            </param>
+            <returns>
+            The create query string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.KeyInsideArray(System.String[],System.String)">
+            <summary>
+            The key inside array.
+            </summary>
+            <param name="array">
+            The array.
+            </param>
+            <param name="key">
+            The key.
+            </param>
+            <returns>
+            The key inside array.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.ParseURLParameters">
+            <summary>
+            The parse url parameters.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Anchor">
+            <summary>
+              Gets Anchor.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Count">
+            <summary>
+              Gets Count.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.HasAnchor">
+            <summary>
+              Gets a value indicating whether HasAnchor.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Parameters">
+            <summary>
+              Gets Parameters.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Item(System.String)">
+            <summary>
+              The this.
+            </summary>
+            <param name = "name">
+              The name.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Utils.SimpleURLParameterParser.Item(System.Int32)">
+            <summary>
+              The this.
+            </summary>
+            <param name = "index">
+              The index.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Utils.DataContainerExtensions">
+            <summary>
+            The data container extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.DataItemToField``1(System.Web.UI.IDataItemContainer,System.String)">
+            <summary>
+            The data item to field.
+            </summary>
+            <param name="container">
+            The container.
+            </param>
+            <param name="fieldName">
+            The field name.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemType``1(System.Web.UI.IDataItemContainer)">
+            <summary>
+            The to data item type.
+            </summary>
+            <param name="container">
+            The container.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemClass``1(System.Web.UI.IDataItemContainer)">
+            <summary>
+            Converts DataItem to a class.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="container"></param>
+            <returns></returns>
+        </member>
         <member name="T:YAF.Classes.Utils.YafForumInfo">
             <summary>
             Class provides helper functions related to the forum path and urls as well as forum version information.
@@ -931,22 +971,6 @@
             </param>
             <returns>
             URL of a smilie.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.DotNetNukeUrlBuilder">
-            <summary>
-            The dot net nuke url builder.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.BuildUrl(System.String)">
-            <summary>
-            The build url.
-            </summary>
-            <param name="url">
-            The url.
-            </param>
-            <returns>
-            The build url.
             </returns>
         </member>
         <member name="T:YAF.Classes.Utils.Mession">
@@ -1346,162 +1370,29 @@
             Gets CurrentThemeFile.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Utils.ObjectExtensions">
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
             <summary>
-            The object extensions.
+            Iterates through a generic list type
             </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="action"></param>
         </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ConvertObjectToType(System.Object,System.String)">
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEachFirst``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Boolean})">
             <summary>
-            Converts an object to a type.
+            Iterates through a list with a isFirst flag.
             </summary>
-            <param name="value">
-            Object to convert
-            </param>
-            <param name="type">
-            Type to convert to e.g. System.Guid
-            </param>
-            <returns>
-            The convert object to type.
-            </returns>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="action"></param>
         </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.GetCustomAttributes(System.Type,System.Type)">
+        <member name="M:YAF.Classes.Extensions.EnumerableExtensions.ForEachIndex``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Int32})">
             <summary>
-            The get custom attributes.
+            Iterates through a list with a index.
             </summary>
-            <param name="objectType">
-            The object type.
-            </param>
-            <param name="attributeType">
-            The attribute type.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToClass``1(System.Object)">
-            <summary>
-            Converts the object to the class (T) or returns null if it's not 
-            an instance of that class or instance is null.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="instance">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToDifferentClassType``1(System.Object)">
-            <summary>
-            Converts an object to a different object (class) by copying fields (if they exist).
-            Used to convert annonomous objects to strongly typed objects.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="obj">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToGenericList``1(System.Collections.IList)">
-            <summary>
-            The to generic list.
-            </summary>
-            <param name="listObjects">
-            The list objects.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String)">
-            <summary>
-            Enables you to get a string representation of the object using string 
-            formatting with property names, rather than index based values.
-            </summary>
-            <param name="anObject">
-            The object being extended.
-            </param>
-            <param name="aFormat">
-            The formatting string, like "Hi, my name 
-            is {FirstName} {LastName}".
-            </param>
-            <returns>
-            A formatted string with the values from the object replaced 
-            in the format string.
-            </returns>
-            <remarks>
-            To embed a pair of {} on the string, simply double them: 
-            "I am a {{Literal}}".
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String,System.IFormatProvider)">
-            <summary>
-            Enables you to get a string representation of the object using string 
-            formatting with property names, rather than index based values.
-            </summary>
-            <param name="anObject">
-            The object being extended.
-            </param>
-            <param name="aFormat">
-            The formatting string, like "Hi, my name is 
-            {FirstName} {LastName}".
-            </param>
-            <param name="formatProvider">
-            An System.<see cref="T:System.IFormatProvider"/> that 
-            provides culture-specific formatting information.
-            </param>
-            <returns>
-            A formatted string with the values from the object replaced in 
-            the format string.
-            </returns>
-            <remarks>
-            To embed a pair of {} on the string, simply double them: 
-            "I am a {{Literal}}".
-            </remarks>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToType``1(System.Object)">
-            <summary>
-            Converts an object to Type using the Convert.ChangeType() call.
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <param name="instance">
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.ValidInt(System.Object)">
-            <summary>
-            Gets an Int from an Object value
-            </summary>
-            <param name="expression">
-            </param>
-            <returns>
-            The valid int.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyBool(System.Object)">
-            <summary>
-            The verify bool.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify bool.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyInt32(System.Object)">
-            <summary>
-            The verify int 32.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify int 32.
-            </returns>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="action"></param>
         </member>
         <member name="T:YAF.Classes.Utils.IPHelper">
             <summary>
@@ -1543,209 +1434,6 @@
             <returns>
             true if it's banned
             </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.ViewStateExtensions">
-            <summary>
-            The view state extensions.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.ViewStateExtensions.ToTypeOrDefault``1(System.Web.UI.StateBag,System.String,``0)">
-            <summary>
-            Returns the converted type (T) if ViewState[key] != <see langword="null"/> or
-            <paramref name="defaultValue"/> if it's <see langword="null"/>.
-            </summary>
-            <param name="viewState">
-            The view state.
-            </param>
-            <param name="key">
-            The key.
-            </param>
-            <param name="defaultValue">
-            The default value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.ViewStateExtensions.ToTypeOrFunc``1(System.Web.UI.StateBag,System.String,System.Func{``0})">
-            <summary>
-            Returns the converted type (T) if ViewState[key] != <see langword="null"/> or
-            <paramref name="defaultFunc"/> if it's <see langword="null"/>.
-            </summary>
-            <param name="viewState">
-            The view state.
-            </param>
-            <param name="key">
-            The key.
-            </param>
-            <param name="defaultFunc">
-            The default func.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.RewriteUrlBuilder">
-            <summary>
-            The rewrite url builder.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.RewriteUrlBuilder._cacheSize">
-            <summary>
-            The cache size.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.BuildUrl(System.String)">
-            <summary>
-            The build url.
-            </summary>
-            <param name="url">
-            The url.
-            </param>
-            <returns>
-            The build url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.HighRange(System.Int32)">
-            <summary>
-            The high range.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The high range.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.LowRange(System.Int32)">
-            <summary>
-            The low range.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The low range.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.CleanStringForURL(System.String)">
-            <summary>
-            The clean string for url.
-            </summary>
-            <param name="str">
-            The str.
-            </param>
-            <returns>
-            The clean string for url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.GetCacheName(System.String,System.Int32)">
-            <summary>
-            The get cache name.
-            </summary>
-            <param name="type">
-            The type.
-            </param>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get cache name.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.GetCategoryName(System.Int32)">
-            <summary>
-            The get category name.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get category name.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.GetDataRowFromCache(System.String,System.Int32)">
-            <summary>
-            The get data row from cache.
-            </summary>
-            <param name="type">
-            The type.
-            </param>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.GetForumName(System.Int32)">
-            <summary>
-            The get forum name.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get forum name.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.GetProfileName(System.Int32)">
-            <summary>
-            The get profile name.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get profile name.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.GetTopicName(System.Int32)">
-            <summary>
-            The get topic name.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get topic name.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.GetTopicNameFromMessage(System.Int32)">
-            <summary>
-            The get topic name from message.
-            </summary>
-            <param name="id">
-            The id.
-            </param>
-            <returns>
-            The get topic name from message.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.RewriteUrlBuilder.SetupDataToCache(System.Data.DataTable@,System.String,System.Int32,System.String)">
-            <summary>
-            The setup data to cache.
-            </summary>
-            <param name="list">
-            The list.
-            </param>
-            <param name="type">
-            The type.
-            </param>
-            <param name="id">
-            The id.
-            </param>
-            <param name="primaryKey">
-            The primary key.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="P:YAF.Classes.RewriteUrlBuilder.CacheSize">
-            <summary>
-            Gets or sets CacheSize.
-            </summary>
         </member>
         <member name="T:YAF.Classes.Utils.UserAgentHelper">
             <summary>
@@ -2103,46 +1791,6 @@
             <returns>
             </returns>
         </member>
-        <member name="T:YAF.Classes.Utils.DataContainerExtensions">
-            <summary>
-            The data container extensions.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.DataContainerExtensions.DataItemToField``1(System.Web.UI.IDataItemContainer,System.String)">
-            <summary>
-            The data item to field.
-            </summary>
-            <param name="container">
-            The container.
-            </param>
-            <param name="fieldName">
-            The field name.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemType``1(System.Web.UI.IDataItemContainer)">
-            <summary>
-            The to data item type.
-            </summary>
-            <param name="container">
-            The container.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.DataContainerExtensions.ToDataItemClass``1(System.Web.UI.IDataItemContainer)">
-            <summary>
-            Converts DataItem to a class.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="container"></param>
-            <returns></returns>
-        </member>
         <member name="T:YAF.Classes.Utils.QueryStringIDHelper">
             <summary>
             The query string id helper.
@@ -2239,73 +1887,180 @@
               The id name.
             </param>
         </member>
+        <member name="T:YAF.Classes.Utils.ObjectExtensions">
+            <summary>
+            The object extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ConvertObjectToType(System.Object,System.String)">
+            <summary>
+            Converts an object to a type.
+            </summary>
+            <param name="value">
+            Object to convert
+            </param>
+            <param name="type">
+            Type to convert to e.g. System.Guid
+            </param>
+            <returns>
+            The convert object to type.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.GetCustomAttributes(System.Type,System.Type)">
+            <summary>
+            The get custom attributes.
+            </summary>
+            <param name="objectType">
+            The object type.
+            </param>
+            <param name="attributeType">
+            The attribute type.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToClass``1(System.Object)">
+            <summary>
+            Converts the object to the class (T) or returns null if it's not 
+            an instance of that class or instance is null.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="instance">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToDifferentClassType``1(System.Object)">
+            <summary>
+            Converts an object to a different object (class) by copying fields (if they exist).
+            Used to convert annonomous objects to strongly typed objects.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="obj">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToGenericList``1(System.Collections.IList)">
+            <summary>
+            The to generic list.
+            </summary>
+            <param name="listObjects">
+            The list objects.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String)">
+            <summary>
+            Enables you to get a string representation of the object using string 
+            formatting with property names, rather than index based values.
+            </summary>
+            <param name="anObject">
+            The object being extended.
+            </param>
+            <param name="aFormat">
+            The formatting string, like "Hi, my name 
+            is {FirstName} {LastName}".
+            </param>
+            <returns>
+            A formatted string with the values from the object replaced 
+            in the format string.
+            </returns>
+            <remarks>
+            To embed a pair of {} on the string, simply double them: 
+            "I am a {{Literal}}".
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToString(System.Object,System.String,System.IFormatProvider)">
+            <summary>
+            Enables you to get a string representation of the object using string 
+            formatting with property names, rather than index based values.
+            </summary>
+            <param name="anObject">
+            The object being extended.
+            </param>
+            <param name="aFormat">
+            The formatting string, like "Hi, my name is 
+            {FirstName} {LastName}".
+            </param>
+            <param name="formatProvider">
+            An System.<see cref="T:System.IFormatProvider"/> that 
+            provides culture-specific formatting information.
+            </param>
+            <returns>
+            A formatted string with the values from the object replaced in 
+            the format string.
+            </returns>
+            <remarks>
+            To embed a pair of {} on the string, simply double them: 
+            "I am a {{Literal}}".
+            </remarks>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ToType``1(System.Object)">
+            <summary>
+            Converts an object to Type using the Convert.ChangeType() call.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <param name="instance">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.ValidInt(System.Object)">
+            <summary>
+            Gets an Int from an Object value
+            </summary>
+            <param name="expression">
+            </param>
+            <returns>
+            The valid int.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyBool(System.Object)">
+            <summary>
+            The verify bool.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify bool.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ObjectExtensions.VerifyInt32(System.Object)">
+            <summary>
+            The verify int 32.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify int 32.
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Utils.General">
             <summary>
             Summary description for General Utils.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Utils.General.GetSafeRawUrl">
+        <member name="M:YAF.Classes.Utils.General.CompareMessage(System.Object,System.Object)">
             <summary>
-            The get safe raw url.
+            Compares two messages.
             </summary>
-            <returns>
-            The get safe raw url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.General.GetSafeRawUrl(System.String)">
-            <summary>
-            Cleans up a URL so that it doesn't contain any problem characters.
-            </summary>
-            <param name="url">
+            <param name="originalMessage">
+            Original message text.
+            </param>
+            <param name="newMessage">
+            New message text.
             </param>
             <returns>
-            The get safe raw url.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.General.GetHourOffsetFromNode(System.Xml.XmlNode)">
-            <summary>
-            Helper function for the Language TimeZone XML.
-            </summary>
-            <param name="node">
-            </param>
-            <returns>
-            The get hour offset from node.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.General.TraceResources">
-            <summary>
-            The trace resources.
-            </summary>
-            <returns>
-            The trace resources.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.General.BinaryAnd(System.Object,System.Object)">
-            <summary>
-            The binary and.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-            <param name="checkAgainst">
-            The check against.
-            </param>
-            <returns>
-            The binary and.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.General.BinaryAnd(System.Int32,System.Int32)">
-            <summary>
-            The binary and.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-            <param name="checkAgainst">
-            The check against.
-            </param>
-            <returns>
-            The binary and.
+            True if messages differ, <see langword="false"/> if they are identical.
             </returns>
         </member>
         <member name="M:YAF.Classes.Utils.General.EncodeMessage(System.String)">
@@ -2326,18 +2081,40 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.General.CompareMessage(System.Object,System.Object)">
+        <member name="M:YAF.Classes.Utils.General.GetHourOffsetFromNode(System.Xml.XmlNode)">
             <summary>
-            Compares two messages.
+            Helper function for the Language TimeZone XML.
             </summary>
-            <param name="originalMessage">
-            Original message text.
-            </param>
-            <param name="newMessage">
-            New message text.
+            <param name="node">
             </param>
             <returns>
-            True if messages differ, <see langword="false"/> if they are identical.
+            The get hour offset from node.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.General.GetSafeRawUrl">
+            <summary>
+            The get safe raw url.
+            </summary>
+            <returns>
+            The get safe raw url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.General.GetSafeRawUrl(System.String)">
+            <summary>
+            Cleans up a URL so that it doesn't contain any problem characters.
+            </summary>
+            <param name="url">
+            </param>
+            <returns>
+            The get safe raw url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.General.TraceResources">
+            <summary>
+            The trace resources.
+            </summary>
+            <returns>
+            The trace resources.
             </returns>
         </member>
         <member name="T:YAF.Classes.Utils.DBHelper">
@@ -2426,6 +2203,49 @@
             </param>
             <param name="convertFunction">
             </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.ViewStateExtensions">
+            <summary>
+            The view state extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.ViewStateExtensions.ToTypeOrDefault``1(System.Web.UI.StateBag,System.String,``0)">
+            <summary>
+            Returns the converted type (T) if ViewState[key] != <see langword="null"/> or
+            <paramref name="defaultValue"/> if it's <see langword="null"/>.
+            </summary>
+            <param name="viewState">
+            The view state.
+            </param>
+            <param name="key">
+            The key.
+            </param>
+            <param name="defaultValue">
+            The default value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.ViewStateExtensions.ToTypeOrFunc``1(System.Web.UI.StateBag,System.String,System.Func{``0})">
+            <summary>
+            Returns the converted type (T) if ViewState[key] != <see langword="null"/> or
+            <paramref name="defaultFunc"/> if it's <see langword="null"/>.
+            </summary>
+            <param name="viewState">
+            The view state.
+            </param>
+            <param name="key">
+            The key.
+            </param>
+            <param name="defaultFunc">
+            The default func.
+            </param>
+            <typeparam name="T">
+            </typeparam>
             <returns>
             </returns>
         </member>

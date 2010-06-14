@@ -1040,7 +1040,7 @@
         </member>
         <member name="T:YAF.Classes.Data.IDataTableResultFilter">
             <summary>
-            The data table result filter interface
+            The data table result filter interface for (AOP)
             </summary>
         </member>
         <member name="M:YAF.Classes.Data.IDataTableResultFilter.Process(System.Data.DataTable@,System.String)">
@@ -1424,6 +1424,45 @@
             Is Message Persistant
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.PollSaveList">
+            <summary>
+            Class to hold polls and questions data to save
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollSaveList.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollSaveList"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.PollSaveList.#ctor(System.String,System.String[],System.Nullable{System.DateTime})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.PollSaveList"/> class.
+            </summary>
+            <param name="pollQuestion">
+            The poll question.
+            </param>
+            <param name="pollChoices">
+            The poll choices.
+            </param>
+            <param name="pollCloses">
+            The poll closes.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.Choice">
+            <summary>
+              Gets or Sets value for Question text
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.Closes">
+            <summary>
+              Gets or Sets value indicatiing when a poll (question) closes
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.PollSaveList.Question">
+            <summary>
+              Gets or Sets value for Question text
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.ForumFlags">
             <summary>
             The forum flags.
@@ -1572,6 +1611,33 @@
             <summary>
             Gets or sets a value indicating whether IsGroup.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.SqlDataLayerConverter">
+            <summary>
+            The sql data layer converter.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyInt32(System.Object)">
+            <summary>
+            The verify int 32.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify int 32.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyBool(System.Object)">
+            <summary>
+            The verify bool.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The verify bool.
+            </returns>
         </member>
         <member name="T:YAF.Classes.Data.Import.DataImport">
             <summary>
@@ -6301,138 +6367,6 @@
             Gets a value indicating whether PanelShrink.
             </summary>
         </member>
-        <member name="T:YAF.Classes.Data.DataRowConvert">
-            <summary>
-            Helper class to do basic data conversion for a DataRow.	
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.DataRowConvert._dbRow">
-            <summary>
-            The _db row.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.#ctor(System.Data.DataRow)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.DataRowConvert"/> class.
-            </summary>
-            <param name="dbRow">
-            The db row.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsString(System.String)">
-            <summary>
-            The as string.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            The as string.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsBool(System.String)">
-            <summary>
-            The as bool.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            The as bool.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsDateTime(System.String)">
-            <summary>
-            The as date time.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt32(System.String)">
-            <summary>
-            The as int 32.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt64(System.String)">
-            <summary>
-            The as int 64.
-            </summary>
-            <param name="columnName">
-            The column name.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Data.SqlDataLayerConverter">
-            <summary>
-            The sql data layer converter.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyInt32(System.Object)">
-            <summary>
-            The verify int 32.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify int 32.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Data.SqlDataLayerConverter.VerifyBool(System.Object)">
-            <summary>
-            The verify bool.
-            </summary>
-            <param name="o">
-            The o.
-            </param>
-            <returns>
-            The verify bool.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Data.PollSaveList">
-            <summary>
-            Class to hold polls and questions data to save
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.PollSaveList.question">
-            <summary>
-            The poll question.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.PollSaveList.choice">
-            <summary>
-            The Reply options.
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Data.PollSaveList.closes">
-            <summary>
-            TData whem poll will be closed.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.Question">
-            <summary>
-            Gets or Sets value for Question text
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.Choice">
-            <summary>
-            Gets or Sets value for Question text
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.PollSaveList.Closes">
-            <summary>
-            Gets or Sets value indicatiing when a poll (question) closes
-            </summary>
-        </member>
         <member name="T:YAF.Classes.Data.YafDBConnInfoMessageEventHandler">
             <summary>
             The yaf db conn info message event handler.
@@ -6550,6 +6484,76 @@
             <summary>
             The allow re ordering.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.DataRowConvert">
+            <summary>
+            Helper class to do basic data conversion for a DataRow.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Data.DataRowConvert._dbRow">
+            <summary>
+              The _db row.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.DataRowConvert"/> class.
+            </summary>
+            <param name="dbRow">
+            The db row.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsBool(System.String)">
+            <summary>
+            The as bool.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            The as bool.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsDateTime(System.String)">
+            <summary>
+            The as date time.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt32(System.String)">
+            <summary>
+            The as int 32.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsInt64(System.String)">
+            <summary>
+            The as int 64.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DataRowConvert.AsString(System.String)">
+            <summary>
+            The as string.
+            </summary>
+            <param name="columnName">
+            The column name.
+            </param>
+            <returns>
+            The as string.
+            </returns>
         </member>
         <member name="T:YAF.Classes.Data.QueryCounter">
             <summary>

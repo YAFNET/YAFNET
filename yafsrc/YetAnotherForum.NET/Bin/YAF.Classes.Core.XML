@@ -5172,6 +5172,166 @@
             The name of the second user.
             </returns>
         </member>
+        <member name="T:YAF.Classes.RewriteUrlBuilder">
+            <summary>
+            The rewrite url builder.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.RewriteUrlBuilder._cacheSize">
+            <summary>
+            The cache size.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.BuildUrl(System.String)">
+            <summary>
+            The build url.
+            </summary>
+            <param name="url">
+            The url.
+            </param>
+            <returns>
+            The build url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.HighRange(System.Int32)">
+            <summary>
+            The high range.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <returns>
+            The high range.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.LowRange(System.Int32)">
+            <summary>
+            The low range.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <returns>
+            The low range.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.CleanStringForURL(System.String)">
+            <summary>
+            The clean string for url.
+            </summary>
+            <param name="str">
+            The str.
+            </param>
+            <returns>
+            The clean string for url.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.GetCacheName(System.String,System.Int32)">
+            <summary>
+            The get cache name.
+            </summary>
+            <param name="type">
+            The type.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+            <returns>
+            The get cache name.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.GetCategoryName(System.Int32)">
+            <summary>
+            The get category name.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <returns>
+            The get category name.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.GetDataRowFromCache(System.String,System.Int32)">
+            <summary>
+            The get data row from cache.
+            </summary>
+            <param name="type">
+            The type.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.GetForumName(System.Int32)">
+            <summary>
+            The get forum name.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <returns>
+            The get forum name.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.GetProfileName(System.Int32)">
+            <summary>
+            The get profile name.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <returns>
+            The get profile name.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.GetTopicName(System.Int32)">
+            <summary>
+            The get topic name.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <returns>
+            The get topic name.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.GetTopicNameFromMessage(System.Int32)">
+            <summary>
+            The get topic name from message.
+            </summary>
+            <param name="id">
+            The id.
+            </param>
+            <returns>
+            The get topic name from message.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.RewriteUrlBuilder.SetupDataToCache(System.Data.DataTable@,System.String,System.Int32,System.String)">
+            <summary>
+            The setup data to cache.
+            </summary>
+            <param name="list">
+            The list.
+            </param>
+            <param name="type">
+            The type.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+            <param name="primaryKey">
+            The primary key.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.RewriteUrlBuilder.CacheSize">
+            <summary>
+            Gets or sets CacheSize.
+            </summary>
+        </member>
         <member name="T:YAF.Modules.ProviderSettingsModule">
             <summary>
             The provider settings module.
@@ -5333,6 +5493,22 @@
             <summary>
             Gets or sets ForumControlObj.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.DotNetNukeUrlBuilder">
+            <summary>
+            The dot net nuke url builder.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.DotNetNukeUrlBuilder.BuildUrl(System.String)">
+            <summary>
+            The build url.
+            </summary>
+            <param name="url">
+            The url.
+            </param>
+            <returns>
+            The build url.
+            </returns>
         </member>
         <member name="T:YAF.Classes.Core.RoleMembershipHelper">
             <summary>
@@ -6434,6 +6610,34 @@
             <summary>
             Gets or sets Attachments.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.BinaryExtensions.BinaryAnd(System.Int32,System.Int32)">
+            <summary>
+            The binary and.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <param name="checkAgainst">
+            The check against.
+            </param>
+            <returns>
+            The binary and.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.BinaryExtensions.BinaryAnd(System.Object,System.Object)">
+            <summary>
+            The binary and.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <param name="checkAgainst">
+            The check against.
+            </param>
+            <returns>
+            The binary and.
+            </returns>
         </member>
         <member name="T:YAF.Classes.Core.YafServices">
             <summary>
