@@ -42,7 +42,7 @@ namespace YAF.Classes.Core
     /// <summary>
     /// The current data row for this post.
     /// </summary>
-    private DataRowView _row;
+    private DataRow _row;
 
     /// <summary>
     /// The _topic flags.
@@ -67,7 +67,7 @@ namespace YAF.Classes.Core
     /// <param name="dataRow">
     /// The data row.
     /// </param>
-    public PostDataHelperWrapper(DataRowView dataRow)
+    public PostDataHelperWrapper(DataRow dataRow)
       : this()
     {
       DataRow = dataRow;
@@ -76,7 +76,7 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Gets or sets DataRow.
     /// </summary>
-    public DataRowView DataRow
+    public DataRow DataRow
     {
       get
       {

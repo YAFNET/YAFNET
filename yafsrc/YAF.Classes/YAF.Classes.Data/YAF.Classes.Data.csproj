@@ -107,7 +107,7 @@
     <Compile Include="IDataTableResultFilter.cs" />
     <Compile Include="IYafDBAccess.cs" />
     <Compile Include="IYafDBConnManager.cs" />
-    <Compile Include="Moderator.cs" />
+    <Compile Include="Objects\Moderator.cs" />
     <Compile Include="YafDBAccess.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
     <Compile Include="Flags\FlagsBase.cs" />
@@ -129,6 +129,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>

@@ -4561,6 +4561,25 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
+    /// Retuns All the message text for the Message IDs which are in the 
+    /// delimited string variable MessageIDs
+    /// </summary>
+    /// <param name="messageIDs">
+    /// The message i ds.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataTable message_GetTextByIds(string messageIDs)
+    {
+      using (SqlCommand cmd = YafDBAccess.GetCommand("message_gettextbyids"))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("MessageIDs", messageIDs);
+        return YafDBAccess.Current.GetData(cmd);
+      }
+    }
+
+    /// <summary>
     /// Retuns All the Thanks for the Message IDs which are in the 
     /// delimited string variable MessageIDs
     /// </summary>

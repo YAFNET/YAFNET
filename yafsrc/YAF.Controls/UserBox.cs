@@ -45,7 +45,7 @@ namespace YAF.Controls
     /// <summary>
     /// The current data row.
     /// </summary>
-    private DataRowView _row;
+    private DataRow _row;
 
     /// <summary>
     /// Instance of the style transformation class
@@ -69,7 +69,7 @@ namespace YAF.Controls
     /// <summary>
     /// Gets or sets DataRow.
     /// </summary>
-    public DataRowView DataRow
+    public DataRow DataRow
     {
       get
       {

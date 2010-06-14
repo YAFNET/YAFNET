@@ -21,6 +21,7 @@ namespace YAF.Classes.Core
   using System;
   using System.Collections.Generic;
   using System.Data;
+  using System.Linq;
   using System.Web;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
@@ -410,6 +411,38 @@ namespace YAF.Classes.Core
         }
 
         return ds;
+      }
+    }
+
+    /// <summary>
+    /// Loads the message text into the paged data if "Message" and "MessageID" exists.
+    /// </summary>
+    /// <param name="dataRows"></param>
+    public void LoadMessageText(IEnumerable<DataRow> dataRows)
+    {
+      var messageIds = dataRows.AsEnumerable().Select(x => x.Field<int>("MessageID"));
+
+      var messageTextTable = DB.message_GetTextByIds(messageIds.ToDelimitedString(","));
+
+      if (messageTextTable == null)
+      {
+        return;
+      }
+
+      // load them into the page data...
+      foreach (var dataRow in dataRows)
+      {
+        // find the message id in the results...
+        var message =
+          messageTextTable.AsEnumerable().Where(x => x.Field<int>("MessageID") == dataRow.Field<int>("MessageID")).
+            FirstOrDefault();
+
+        if (message != null)
+        {
+          dataRow.BeginEdit();
+          dataRow["Message"] = message.Field<string>("Message");
+          dataRow.EndEdit();
+        }
       }
     }
   }

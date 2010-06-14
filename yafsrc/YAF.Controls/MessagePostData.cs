@@ -40,7 +40,7 @@ namespace YAF.Controls
     /// <summary>
     /// The _row.
     /// </summary>
-    private DataRowView _row = null;
+    private DataRow _row = null;
 
     /// <summary>
     /// The _show attachments.
@@ -71,7 +71,7 @@ namespace YAF.Controls
     /// <summary>
     /// Gets or sets DataRow.
     /// </summary>
-    public DataRowView DataRow
+    public DataRow DataRow
     {
       get
       {
@@ -271,7 +271,7 @@ namespace YAF.Controls
       {
         if (this.MessageFlags.IsDeleted)
         {
-          if (this.DataRow.Row.Table.Columns.Contains("IsModeratorChanged"))
+          if (this.DataRow.Table.Columns.Contains("IsModeratorChanged"))
           {
             this.IsModeratorChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"]);
           }
@@ -284,7 +284,7 @@ namespace YAF.Controls
           // just write out the message with no formatting...
           writer.Write(this.Message);
         }
-        else if (this.DataRow.Row.Table.Columns.Contains("Edited"))
+        else if (this.DataRow.Table.Columns.Contains("Edited"))
         {
           // handle a message that's been edited...
           DateTime editedMessage = this.Posted;
