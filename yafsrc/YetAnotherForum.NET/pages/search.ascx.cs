@@ -637,8 +637,10 @@ namespace YAF.Pages
     /// </param>
     private void SearchBindData(bool newSearch)
     {
+#if (!DEBUG)
       try
       {
+#endif
         if (newSearch && !this.IsValidSearchRequest())
         {
           return;
@@ -689,6 +691,7 @@ namespace YAF.Pages
 
         this.SearchRes.DataSource = pagedData;
         this.SearchRes.DataBind();
+#if (!DEBUG)
       }
       catch (Exception x)
       {
@@ -703,6 +706,7 @@ namespace YAF.Pages
           this.PageContext.AddLoadMessage("An error occurred while searching.");
         }
       }
+#endif
     }
 
     /// <summary>
