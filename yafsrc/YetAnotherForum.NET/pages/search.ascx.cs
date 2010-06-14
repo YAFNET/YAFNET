@@ -384,7 +384,7 @@ namespace YAF.Pages
         this.Pager.PageSize = pageSize;
 
         // count...
-        this.Pager.Count = Mession.SearchData.Count();
+        this.Pager.Count = Mession.SearchData.AsEnumerable().Count();
 
         // bind existing search
         this.SearchBindData(false);
@@ -616,7 +616,7 @@ namespace YAF.Pages
       ref string searchParamsOptArrayj, ref string searchEngine, string searchParamsDefArraySep)
     {
       searchParamsOptArrayj = searchParamsOptArrayj.Replace(
-        "{Word}", 
+        "{Word}",
         this.txtSearchStringWhat.Text +
         (!string.IsNullOrEmpty(this.txtSearchStringFromWho.Text) ? " " + this.txtSearchStringFromWho.Text : string.Empty));
 
@@ -641,56 +641,56 @@ namespace YAF.Pages
       try
       {
 #endif
-        if (newSearch && !this.IsValidSearchRequest())
+      if (newSearch && !this.IsValidSearchRequest())
+      {
+        return;
+      }
+      if (newSearch || Mession.SearchData == null)
+      {
+        var sw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchWhat.SelectedValue);
+        var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
+        int forumId = int.Parse(this.listForum.SelectedValue);
+
+        var searchResults =
+          DB.GetSearchResult(
+            this.SearchWhatCleaned,
+            this.SearchWhoCleaned,
+            sfw,
+            sw,
+            forumId,
+            this.PageContext.PageUserID,
+            this.PageContext.PageBoardID,
+            this.PageContext.BoardSettings.ReturnSearchMax,
+            this.PageContext.BoardSettings.UseFullTextSearch,
+            this.PageContext.BoardSettings.EnableDisplayName);
+
+        if (newSearch)
         {
-          return;
-        }
-        else if (newSearch || Mession.SearchData == null)
-        {
-          var sw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchWhat.SelectedValue);
-          var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
-          int forumId = int.Parse(this.listForum.SelectedValue);
-
-          var searchResults =
-            DB.GetSearchResult(
-              this.SearchWhatCleaned,
-              this.SearchWhoCleaned,
-              sfw,
-              sw,
-              forumId,
-              this.PageContext.PageUserID,
-              this.PageContext.PageBoardID,
-              this.PageContext.BoardSettings.ReturnSearchMax,
-              this.PageContext.BoardSettings.UseFullTextSearch,
-              this.PageContext.BoardSettings.EnableDisplayName).AsEnumerable();
-
-          if (newSearch)
-          {
-            // setup highlighting
-            this.SetupHighlightWords(sw);
-          }
-
-          this.Pager.CurrentPageIndex = 0;
-          this.Pager.PageSize = int.Parse(this.listResInPage.SelectedValue);
-          this.Pager.Count = searchResults.Count();
-
-          Mession.SearchData = searchResults;
-
-          bool areResults = this.Pager.Count > 0;
-
-          this.SearchRes.Visible = areResults;
-          this.NoResults.Visible = !areResults;
+          // setup highlighting
+          this.SetupHighlightWords(sw);
         }
 
-        this.UpdateHistory.AddEntry(this.Pager.CurrentPageIndex + "|" + this.Pager.PageSize);
+        Mession.SearchData = searchResults;
 
-        var pagedData = Mession.SearchData.Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
+        this.Pager.CurrentPageIndex = 0;
+        this.Pager.PageSize = int.Parse(this.listResInPage.SelectedValue);
+        this.Pager.Count = searchResults.AsEnumerable().Count();
 
-        // only load required messages
-        YafServices.DBBroker.LoadMessageText(pagedData);
+        bool areResults = this.Pager.Count > 0;
 
-        this.SearchRes.DataSource = pagedData;
-        this.SearchRes.DataBind();
+        this.SearchRes.Visible = areResults;
+        this.NoResults.Visible = !areResults;
+      }
+
+      this.UpdateHistory.AddEntry(this.Pager.CurrentPageIndex + "|" + this.Pager.PageSize);
+
+      var pagedData = Mession.SearchData.AsEnumerable().Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
+
+      // only load required messages
+      YafServices.DBBroker.LoadMessageText(pagedData);
+
+      this.SearchRes.DataSource = pagedData;
+      this.SearchRes.DataBind();
 #if (!DEBUG)
       }
       catch (Exception x)
