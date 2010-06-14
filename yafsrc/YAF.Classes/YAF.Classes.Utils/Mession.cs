@@ -251,13 +251,13 @@ namespace YAF.Classes.Utils
     /// <summary>
     /// Gets or sets SearchData.
     /// </summary>
-    public static IEnumerable<DataRow> SearchData
+    public static DataTable SearchData
     {
       get
       {
         if (HttpContext.Current.Session["SearchDataTable"] != null)
         {
-          return HttpContext.Current.Session["SearchDataTable"] as IEnumerable<DataRow>;
+          return HttpContext.Current.Session["SearchDataTable"] as DataTable;
         }
         else
         {
