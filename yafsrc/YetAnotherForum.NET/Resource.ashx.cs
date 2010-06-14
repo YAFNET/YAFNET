@@ -201,41 +201,8 @@ namespace YAF
       bool isIgnoredForDisplay = false;
       string userAgent = HttpContext.Current.Request.UserAgent;
 
-      if (!string.IsNullOrEmpty(userAgent))
-      {
-        if (userAgent.IndexOf("Windows NT 5.2") >= 0)
-        {
-          platform = "Win2003";
-        }
-        else if (userAgent.IndexOf("Windows NT 6.0") >= 0)
-        {
-          platform = "Vista";
-        }
-        else if (userAgent.IndexOf("Windows NT 6.1") >= 0)
-        {
-          platform = "Win7";
-        }
-        else if (userAgent.IndexOf("Linux") >= 0)
-        {
-          platform = "Linux";
-        }
-        else if (userAgent.IndexOf("FreeBSD") >= 0)
-        {
-          platform = "FreeBSD";
-        }
-        else
-        {
-          // check if it's a search engine spider or an ignored UI string...
-          isSearchEngine = !HttpContext.Current.Request.Browser.Crawler ? UserAgentHelper.IsSearchEngineSpider(userAgent) : true;
-          isIgnoredForDisplay = UserAgentHelper.IsIgnoredForDisplay(userAgent) | isSearchEngine;
-        }
-      }
-      else
-      {
-
-        // It'll show that no UserAgent string was received. 
-        platform = "?";
-      }
+      // try and get more verbose platform name by ref and other parameters             
+      UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out isIgnoredForDisplay);
 
       YafServices.InitializeDb.Run();
 
