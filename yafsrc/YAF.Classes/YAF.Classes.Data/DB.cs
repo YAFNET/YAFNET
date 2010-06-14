@@ -31,6 +31,7 @@ using System.Web.Security;
 namespace YAF.Classes.Data
 {
   using YAF.Classes.Extensions;
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// All the Database functions for YAF
@@ -1029,11 +1030,8 @@ namespace YAF.Classes.Data
       bool useFullText,
      bool searchDisplayName)
     {
-      // TODO: Refactor into it's own class!!
-
       bool bFirst = true;
-
-      var forumIds = new StringBuilder();
+      string forumIds = string.Empty;
 
       if (toSearchWhat == "*")
       {
@@ -1043,21 +1041,7 @@ namespace YAF.Classes.Data
       if (forumIDToStartAt != 0)
       {
         DataTable dt = forum_listall_sorted(boardId, userID, null, false, forumIDToStartAt);
-
-        bFirst = true;
-        foreach (DataRow dr in dt.Rows)
-        {
-          if (bFirst)
-          {
-            bFirst = false;
-          }
-          else
-          {
-            forumIds.Append(",");
-          }
-
-          forumIds.Append(Convert.ToString(Convert.ToInt32(dr["ForumID"])));
-        }
+        forumIds = dt.AsEnumerable().Select(x => x.Field<int>("ForumID")).ToDelimitedString(",");
       }
 
       // fix quotes for SQL insertion...
@@ -1066,7 +1050,7 @@ namespace YAF.Classes.Data
 
       string searchSql = (maxResults == 0) ? "SELECT" : ("SELECT TOP " + maxResults);
 
-      searchSql += " a.ForumID, a.TopicID, a.Topic, b.UserID, IsNull(c.Username, b.Name) as Name, c.MessageID, c.Posted, c.Message, c.Flags ";
+      searchSql += " a.ForumID, a.TopicID, a.Topic, b.UserID, IsNull(c.Username, b.Name) as Name, c.MessageID, c.Posted, [Message] = '', c.Flags ";
       searchSql +=
         "from {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
       searchSql +=
@@ -1288,7 +1272,7 @@ namespace YAF.Classes.Data
       }
 
       // Ederon : 6/16/2007 - forum IDs start above 0, if forum id is 0, there is no forum filtering
-      if (forumIDToStartAt > 0 && forumIds.Length > 0)
+      if (forumIDToStartAt > 0 && forumIds.IsSet())
       {
         searchSql += string.Format("AND a.ForumID IN ({0})", forumIds);
       }

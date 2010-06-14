@@ -420,7 +420,8 @@ namespace YAF.Classes.Core
     /// <param name="dataRows"></param>
     public void LoadMessageText(IEnumerable<DataRow> dataRows)
     {
-      var messageIds = dataRows.AsEnumerable().Select(x => x.Field<int>("MessageID"));
+      var messageIds =
+        dataRows.AsEnumerable().Where(x => x.Field<string>("Message").IsNotSet()).Select(x => x.Field<int>("MessageID"));
 
       var messageTextTable = DB.message_GetTextByIds(messageIds.ToDelimitedString(","));
 

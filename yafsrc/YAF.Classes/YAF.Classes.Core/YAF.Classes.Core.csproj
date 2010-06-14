@@ -92,6 +92,7 @@
     <Compile Include="BaseModules\YafModule.cs" />
     <Compile Include="BasePages\ForumPageRenderedArgs.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
+    <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Nntp\Article.cs" />
     <Compile Include="Nntp\ArticleBody.cs" />
@@ -105,6 +106,8 @@
     <Compile Include="Syndication\YafSyndicationFeed.cs" />
     <Compile Include="Tasks\BackgroundTaskExtensions.cs" />
     <Compile Include="Tasks\ICriticalBackgroundTask.cs" />
+    <Compile Include="URLBuilder\DotNetNukeUrlBuilder.cs" />
+    <Compile Include="URLBuilder\RewriteUrlBuilder.cs" />
     <Compile Include="UsersRoles\DefaultUserDisplayName.cs" />
     <Compile Include="UsersRoles\RoleMembershipHelper.cs" />
     <Compile Include="Services\IYafService.cs" />

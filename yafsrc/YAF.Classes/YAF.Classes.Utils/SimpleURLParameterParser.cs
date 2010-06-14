@@ -16,29 +16,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System.Collections.Specialized;
-
 namespace YAF.Classes.Utils
 {
+  #region Using
+
+  using System.Collections.Specialized;
+
+  #endregion
+
   /// <summary>
   /// Helps parse URLs
   /// </summary>
   public class SimpleURLParameterParser
   {
-    /// <summary>
-    /// The _name values.
-    /// </summary>
-    private NameValueCollection _nameValues = new NameValueCollection();
+    #region Constants and Fields
 
     /// <summary>
-    /// The _url anchor.
+    ///   The _name values.
+    /// </summary>
+    private readonly NameValueCollection _nameValues = new NameValueCollection();
+
+    /// <summary>
+    ///   The _url parameters.
+    /// </summary>
+    private readonly string _urlParameters = string.Empty;
+
+    /// <summary>
+    ///   The _url anchor.
     /// </summary>
     private string _urlAnchor = string.Empty;
 
-    /// <summary>
-    /// The _url parameters.
-    /// </summary>
-    private string _urlParameters = string.Empty;
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SimpleURLParameterParser"/> class.
@@ -49,11 +59,15 @@ namespace YAF.Classes.Utils
     public SimpleURLParameterParser(string urlParameters)
     {
       this._urlParameters = urlParameters;
-      ParseURLParameters();
+      this.ParseURLParameters();
     }
 
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// Gets Anchor.
+    ///   Gets Anchor.
     /// </summary>
     public string Anchor
     {
@@ -64,29 +78,7 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Gets a value indicating whether HasAnchor.
-    /// </summary>
-    public bool HasAnchor
-    {
-      get
-      {
-        return this._urlAnchor != string.Empty;
-      }
-    }
-
-    /// <summary>
-    /// Gets Parameters.
-    /// </summary>
-    public NameValueCollection Parameters
-    {
-      get
-      {
-        return this._nameValues;
-      }
-    }
-
-    /// <summary>
-    /// Gets Count.
+    ///   Gets Count.
     /// </summary>
     public int Count
     {
@@ -97,10 +89,36 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// The this.
+    ///   Gets a value indicating whether HasAnchor.
     /// </summary>
-    /// <param name="name">
-    /// The name.
+    public bool HasAnchor
+    {
+      get
+      {
+        return this._urlAnchor != string.Empty;
+      }
+    }
+
+    /// <summary>
+    ///   Gets Parameters.
+    /// </summary>
+    public NameValueCollection Parameters
+    {
+      get
+      {
+        return this._nameValues;
+      }
+    }
+
+    #endregion
+
+    #region Indexers
+
+    /// <summary>
+    ///   The this.
+    /// </summary>
+    /// <param name = "name">
+    ///   The name.
     /// </param>
     public string this[string name]
     {
@@ -111,10 +129,10 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// The this.
+    ///   The this.
     /// </summary>
-    /// <param name="index">
-    /// The index.
+    /// <param name = "index">
+    ///   The index.
     /// </param>
     public string this[int index]
     {
@@ -124,55 +142,9 @@ namespace YAF.Classes.Utils
       }
     }
 
-    /// <summary>
-    /// The parse url parameters.
-    /// </summary>
-    private void ParseURLParameters()
-    {
-      string urlTemp = this._urlParameters;
-      int index;
+    #endregion
 
-      // get the url end anchor (#blah) if there is one...
-      this._urlAnchor = string.Empty;
-      index = urlTemp.LastIndexOf('#');
-
-      if (index > 0)
-      {
-        // there's an anchor
-        this._urlAnchor = urlTemp.Substring(index + 1);
-
-        // remove the anchor from the url...
-        urlTemp = urlTemp.Remove(index);
-      }
-
-      this._nameValues.Clear();
-      string[] arrayPairs = urlTemp.Split(
-        new[]
-          {
-            '&'
-          });
-
-      foreach (string tValue in arrayPairs)
-      {
-        if (tValue.Trim().Length > 0)
-        {
-          // parse...
-          string[] nvalue = tValue.Trim().Split(
-            new[]
-              {
-                '='
-              });
-          if (nvalue.Length == 1)
-          {
-            this._nameValues.Add(nvalue[0], string.Empty);
-          }
-          else if (nvalue.Length > 1)
-          {
-            this._nameValues.Add(nvalue[0], nvalue[1]);
-          }
-        }
-      }
-    }
+    #region Public Methods
 
     /// <summary>
     /// The create query string.
@@ -192,7 +164,7 @@ namespace YAF.Classes.Utils
       {
         string key = this._nameValues.Keys[i].ToLower();
         string value = this._nameValues[i];
-        if (!KeyInsideArray(excludeValues, key))
+        if (!this.KeyInsideArray(excludeValues, key))
         {
           if (bFirst)
           {
@@ -209,6 +181,10 @@ namespace YAF.Classes.Utils
 
       return queryString;
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The key inside array.
@@ -234,5 +210,49 @@ namespace YAF.Classes.Utils
 
       return false;
     }
+
+    /// <summary>
+    /// The parse url parameters.
+    /// </summary>
+    private void ParseURLParameters()
+    {
+      string urlTemp = this._urlParameters;
+      int index;
+
+      // get the url end anchor (#blah) if there is one...
+      this._urlAnchor = string.Empty;
+      index = urlTemp.LastIndexOf('#');
+
+      if (index > 0)
+      {
+        // there's an anchor
+        this._urlAnchor = urlTemp.Substring(index + 1);
+
+        // remove the anchor from the url...
+        urlTemp = urlTemp.Remove(index);
+      }
+
+      this._nameValues.Clear();
+      string[] arrayPairs = urlTemp.Split(new[] { '&' });
+
+      foreach (string tValue in arrayPairs)
+      {
+        if (tValue.Trim().Length > 0)
+        {
+          // parse...
+          string[] nvalue = tValue.Trim().Split(new[] { '=' });
+          if (nvalue.Length == 1)
+          {
+            this._nameValues.Add(nvalue[0], string.Empty);
+          }
+          else if (nvalue.Length > 1)
+          {
+            this._nameValues.Add(nvalue[0], nvalue[1]);
+          }
+        }
+      }
+    }
+
+    #endregion
   }
 }

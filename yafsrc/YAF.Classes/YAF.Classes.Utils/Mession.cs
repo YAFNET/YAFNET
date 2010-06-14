@@ -22,6 +22,7 @@ namespace YAF.Classes.Utils
   using System.Collections;
   using System.Data;
   using System.Web;
+  using System.Collections.Generic;
 
   /// <summary>
   /// All references to session should go into this class
@@ -250,13 +251,13 @@ namespace YAF.Classes.Utils
     /// <summary>
     /// Gets or sets SearchData.
     /// </summary>
-    public static DataTable SearchData
+    public static IEnumerable<DataRow> SearchData
     {
       get
       {
         if (HttpContext.Current.Session["SearchDataTable"] != null)
         {
-          return (DataTable) HttpContext.Current.Session["SearchDataTable"];
+          return HttpContext.Current.Session["SearchDataTable"] as IEnumerable<DataRow>;
         }
         else
         {

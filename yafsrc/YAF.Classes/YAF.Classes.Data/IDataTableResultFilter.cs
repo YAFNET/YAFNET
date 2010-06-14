@@ -26,7 +26,7 @@ namespace YAF.Classes.Data
   #endregion
 
   /// <summary>
-  /// The data table result filter interface
+  /// The data table result filter interface for (AOP)
   /// </summary>
   public interface IDataTableResultFilter
   {

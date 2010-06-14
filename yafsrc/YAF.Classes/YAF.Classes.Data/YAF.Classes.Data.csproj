@@ -84,6 +84,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -99,7 +100,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDataTableResultFilter.cs" />
-    <Compile Include="DataHelpers.cs" />
+    <Compile Include="PollSaveList.cs" />
+    <Compile Include="DataRowConvert.cs" />
     <Compile Include="Import\DataImport.cs" />
     <Compile Include="Flags\MedalFlags.cs" />
     <Compile Include="Flags\TopicFlags.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="IYafDBAccess.cs" />
     <Compile Include="IYafDBConnManager.cs" />
     <Compile Include="Objects\Moderator.cs" />
+    <Compile Include="SqlDataLayerConverter.cs" />
     <Compile Include="YafDBAccess.cs" />
     <Compile Include="Flags\AccessFlags.cs" />
     <Compile Include="Flags\FlagsBase.cs" />
@@ -126,6 +129,10 @@
     <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
+      <Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
+      <Name>YAF.Classes.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
