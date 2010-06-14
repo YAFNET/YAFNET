@@ -1031,6 +1031,7 @@ namespace YAF.Classes.Data
      bool searchDisplayName)
     {
       bool bFirst = true;
+
       string forumIds = string.Empty;
 
       if (toSearchWhat == "*")
@@ -1041,7 +1042,11 @@ namespace YAF.Classes.Data
       if (forumIDToStartAt != 0)
       {
         DataTable dt = forum_listall_sorted(boardId, userID, null, false, forumIDToStartAt);
-        forumIds = dt.AsEnumerable().Select(x => x.Field<int>("ForumID")).ToDelimitedString(",");
+
+        var ids =
+          dt.AsEnumerable().Where(c => !c["ForumID"].IsNullOrEmptyDBField()).Select(x => x.Field<int>("ForumID"));
+
+        forumIds = ids.ToDelimitedString(",");
       }
 
       // fix quotes for SQL insertion...
@@ -1051,10 +1056,8 @@ namespace YAF.Classes.Data
       string searchSql = (maxResults == 0) ? "SELECT" : ("SELECT TOP " + maxResults);
 
       searchSql += " a.ForumID, a.TopicID, a.Topic, b.UserID, IsNull(c.Username, b.Name) as Name, c.MessageID, c.Posted, [Message] = '', c.Flags ";
-      searchSql +=
-        "from {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
-      searchSql +=
-        String.Format("where x.ReadAccess<>0 AND x.UserID={0} AND c.IsApproved = 1 AND a.TopicMovedID IS NULL AND a.IsDeleted = 0 AND c.IsDeleted = 0 ", userID);
+      searchSql += "from {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
+      searchSql += "where x.ReadAccess<>0 AND x.UserID={0} AND c.IsApproved = 1 AND a.TopicMovedID IS NULL AND a.IsDeleted = 0 AND c.IsDeleted = 0 ".FormatWith(userID);
 
       string[] words;
 
@@ -3074,13 +3077,13 @@ namespace YAF.Classes.Data
     {
       var listDestination = new DataTable();
 
-      listDestination.Columns.Add("ForumID", typeof(String));
-      listDestination.Columns.Add("Title", typeof(String));
+      listDestination.Columns.Add("ForumID", typeof(int));
+      listDestination.Columns.Add("Title", typeof(string));
 
       if (emptyFirstRow)
       {
         DataRow blankRow = listDestination.NewRow();
-        blankRow["ForumID"] = string.Empty;
+        blankRow["ForumID"] = 0;
         blankRow["Title"] = string.Empty;
         listDestination.Rows.Add(blankRow);
       }
@@ -3090,24 +3093,7 @@ namespace YAF.Classes.Data
 
       if (forumidExclusions != null && forumidExclusions.Length > 0)
       {
-        string strExclusions = string.Empty;
-        bool bFirst = true;
-
-        foreach (int forumID in forumidExclusions)
-        {
-          if (bFirst)
-          {
-            bFirst = false;
-          }
-          else
-          {
-            strExclusions += ",";
-          }
-
-          strExclusions += forumID.ToString();
-        }
-
-        dv.RowFilter = string.Format("ForumID NOT IN ({0})", strExclusions);
+        dv.RowFilter = string.Format("ForumID NOT IN ({0})", forumidExclusions.ToDelimitedString(","));
         dv.ApplyDefaultSort = true;
       }
 
