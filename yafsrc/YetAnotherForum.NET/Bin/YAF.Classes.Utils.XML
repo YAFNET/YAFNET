@@ -1478,6 +1478,16 @@
             The is mobile device.
             </returns>
         </member>
+        <member name="M:YAF.Classes.Utils.UserAgentHelper.Platform(System.String,System.Boolean,System.String@,System.Boolean@,System.Boolean@)">
+            <summary>
+            Returns a platform user friendly name.
+            </summary>
+            <param name="userAgent">
+            </param>
+            <returns>
+            The void.
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Utils.ValidationHelper">
             <summary>
             The validation helper.

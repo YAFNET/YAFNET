@@ -2655,24 +2655,25 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="M:YAF.Pages.messagehistory.#ctor">
+        <member name="F:YAF.Pages.messagehistory.forumID">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Pages.members"/> class.
+              To save forumid value.
             </summary>
         </member>
         <member name="F:YAF.Pages.messagehistory.messageID">
             <summary>
-            To save messageid value.
-            </summary>
-        </member>
-        <member name="F:YAF.Pages.messagehistory.forumID">
-            <summary>
-            To save forumid value.
+              To save messageid value.
             </summary>
         </member>
         <member name="F:YAF.Pages.messagehistory.originalRow">
             <summary>
-            To save originalRow value.
+              To save originalRow value.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.messagehistory.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Pages.messagehistory"/> class. 
+              Initializes a new instance of the <see cref="T:YAF.Pages.members"/> class.
             </summary>
         </member>
         <member name="M:YAF.Pages.messagehistory.Page_Load(System.Object,System.EventArgs)">
@@ -2682,6 +2683,28 @@
             <param name="sender">
             </param>
             <param name="e">
+            </param>
+        </member>
+        <member name="M:YAF.Pages.messagehistory.ReturnBtn_OnClick(System.Object,System.EventArgs)">
+            <summary>
+            The return btn_ on click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.messagehistory.ReturnModBtn_OnClick(System.Object,System.EventArgs)">
+            <summary>
+            The return mod btn_ on click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
             </param>
         </member>
         <member name="M:YAF.Pages.messagehistory.BindData">
@@ -3294,12 +3317,12 @@
         </member>
         <member name="F:YAF.Controls.ForumActiveDiscussion.lastPostToolTip">
             <summary>
-            The last post tooltip string. 
+              The last post tooltip string.
             </summary>
         </member>
-        <member name="M:YAF.Controls.ForumActiveDiscussion.Page_Load(System.Object,System.EventArgs)">
+        <member name="M:YAF.Controls.ForumActiveDiscussion.LatestPosts_ItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
             <summary>
-            The page_ load.
+            The latest posts_ item data bound.
             </summary>
             <param name="sender">
             The sender.
@@ -3308,9 +3331,9 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Controls.ForumActiveDiscussion.LatestPosts_ItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
+        <member name="M:YAF.Controls.ForumActiveDiscussion.Page_Load(System.Object,System.EventArgs)">
             <summary>
-            The latest posts_ item data bound.
+            The page_ load.
             </summary>
             <param name="sender">
             The sender.
@@ -3509,36 +3532,42 @@
             Summary description for topics.
             </summary>
         </member>
-        <member name="F:YAF.Pages.search._searchHandled">
-            <summary>
-            The _search handled.
-            </summary>
-        </member>
         <member name="F:YAF.Pages.search._searchWhatCleaned">
             <summary>
-            The _search what cleaned.
+              The _search what cleaned.
             </summary>
         </member>
         <member name="F:YAF.Pages.search._searchWhoCleaned">
             <summary>
-            The _search who cleaned.
+              The _search who cleaned.
             </summary>
         </member>
         <member name="M:YAF.Pages.search.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Pages.search"/> class. 
-            The search page constructor.
+              Initializes a new instance of the <see cref="T:YAF.Pages.search"/> class. 
+              The search page constructor.
             </summary>
         </member>
-        <member name="M:YAF.Pages.search.btnSearch_Click(System.Object,System.EventArgs)">
+        <member name="M:YAF.Pages.search.BtnExtSearch1_Click(System.Object,System.EventArgs)">
             <summary>
-            The btn search_ click.
+            Handles btn Click eventn for external search button 1
             </summary>
             <param name="sender">
             The sender.
             </param>
             <param name="e">
-            The e.
+            The e - EventArgs
+            </param>
+        </member>
+        <member name="M:YAF.Pages.search.BtnExtSearch2_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles btn Click eventn for external search button 2
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e - EventArgs
             </param>
         </member>
         <member name="M:YAF.Pages.search.IsSearchTextTooLarge(System.String)">
@@ -3648,16 +3677,41 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Pages.search.GetServerForm(System.Web.UI.ControlCollection)">
+        <member name="M:YAF.Pages.search.btnSearch_Click(System.Object,System.EventArgs)">
             <summary>
-            The get server form.
+            The btn search_ click.
             </summary>
-            <param name="parent">
-            The parent.
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.search.GetExtSearchLink(System.Int32)">
+            <summary>
+            A method to get ready external search link.
+            </summary>
+            <param name="i">
+            A Command option.
             </param>
             <returns>
-            An HtmlForm by ControlCollection value
+            An external search link with already inserted searchparameters.
             </returns>
+        </member>
+        <member name="M:YAF.Pages.search.MatchParameterHelper(System.String@,System.String@,System.String)">
+            <summary>
+            Replaces placeholder in a refined parameter expression and inserts it in the search engine string
+            </summary>
+            <param name="searchParamsOptArrayj">
+            A parameter string
+            </param>
+            <param name="searchEngine">
+            An output Search engine String
+            </param>
+            <param name="searchParamsDefArraySep">
+            A search word separator
+            </param>
         </member>
         <member name="M:YAF.Pages.search.SearchBindData(System.Boolean)">
             <summary>
@@ -3675,42 +3729,19 @@
             The search Flags.
             </param>
         </member>
-        <member name="M:YAF.Pages.search.BtnExtSearch1_Click(System.Object,System.EventArgs)">
-            <summary>
-            Handles btn Click eventn for external search button 1
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="e">The e - EventArgs</param>
-        </member>
-        <member name="M:YAF.Pages.search.BtnExtSearch2_Click(System.Object,System.EventArgs)">
-            <summary>
-            Handles btn Click eventn for external search button 2
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="e">The e - EventArgs</param>
-        </member>
-        <member name="M:YAF.Pages.search.GetExtSearchLink(System.Int32)">
-            <summary>
-            A method to get ready external search link.
-            </summary>
-            <param name="i">A Command option.</param>
-            <returns>An external search link with already inserted searchparameters.</returns>
-        </member>
         <member name="M:YAF.Pages.search.TransformExtSearchLink(System.String,System.String)">
             <summary>
             A search string.
             </summary>
-            <param name="searchEngine">A search engine template string.</param>
-            <param name="searchParams">A parameters template string</param>
-            <returns>Returns a ready search engine string.</returns>
-        </member>
-        <member name="M:YAF.Pages.search.MatchParameterHelper(System.String@,System.String@,System.String)">
-            <summary>
-            Replaces placeholder in a refined parameter expression and inserts it in the search engine string 
-            </summary>
-            <param name="searchParamsOptArrayj">A parameter string</param>
-            <param name="searchEngine">An output Search engine String</param>
-            <param name="searchParamsDefArraySep">A search word separator</param>
+            <param name="searchEngine">
+            A search engine template string.
+            </param>
+            <param name="searchParams">
+            A parameters template string
+            </param>
+            <returns>
+            Returns a ready search engine string.
+            </returns>
         </member>
         <member name="F:YAF.Pages.search.PageLinks">
             <summary>
@@ -3894,22 +3925,22 @@
         </member>
         <member name="P:YAF.Pages.search.HighlightSearchWords">
             <summary>
-            Gets or sets HighlightSearchWords.
+              Gets or sets HighlightSearchWords.
             </summary>
         </member>
         <member name="P:YAF.Pages.search.SearchHandled">
             <summary>
-            Gets or sets a value indicating whether SearchHandled.
+              Gets or sets a value indicating whether SearchHandled.
             </summary>
         </member>
         <member name="P:YAF.Pages.search.SearchWhatCleaned">
             <summary>
-            Gets or sets SearchWhatCleaned.
+              Gets or sets SearchWhatCleaned.
             </summary>
         </member>
         <member name="P:YAF.Pages.search.SearchWhoCleaned">
             <summary>
-            Gets or sets SearchWhoCleaned.
+              Gets or sets SearchWhoCleaned.
             </summary>
         </member>
         <member name="T:YAF.Pages.moderate.index">
@@ -6776,20 +6807,11 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.ViewThanksList._controlMode">
+        <member name="M:YAF.Controls.ViewThanksList.IsOdd">
             <summary>
-            the current mode.
+            Returns <see langword="true"/> if the count is odd
             </summary>
-        </member>
-        <member name="F:YAF.Controls.ViewThanksList._thanksInfo">
-            <summary>
-            the thanks info.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.ViewThanksList._userID">
-            <summary>
-            The _user id.
-            </summary>
+            <returns></returns>
         </member>
         <member name="M:YAF.Controls.ViewThanksList.BindData">
             <summary>
@@ -6827,27 +6849,42 @@
             </param>
             <param name="e">
             The <see cref="T:System.Web.UI.WebControls.RepeaterItemEventArgs"/> 
-            instance containing the event data.
+              instance containing the event data.
             </param>
         </member>
-        <member name="M:YAF.Controls.ViewThanksList.DistinctMessageID">
+        <member name="M:YAF.Controls.ViewThanksList.DistinctMessageID(System.Data.EnumerableRowCollection{System.Data.DataRow})">
             <summary>
-            removes rows with duplicate MessageIDs. 
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.ViewThanksList.ThanksInfo">
-            <summary>
-            The Thanks Info.
+            removes rows with duplicate MessageIDs.
             </summary>
         </member>
         <member name="P:YAF.Controls.ViewThanksList.CurrentMode">
             <summary>
-            Determines what is th current mode of the control.
+              Determines what is th current mode of the control.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.ViewThanksList.ThanksInfo">
+            <summary>
+              The Thanks Info.
             </summary>
         </member>
         <member name="P:YAF.Controls.ViewThanksList.UserID">
             <summary>
-            The User ID.
+              The User ID.
+            </summary>
+        </member>
+        <member name="T:YAF.Controls.ThanksListMode">
+            <summary>
+            The thanks list mode.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThanksListMode.FromUser">
+            <summary>
+            The from user.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.ThanksListMode.ToUser">
+            <summary>
+            The to user.
             </summary>
         </member>
         <member name="T:YAF.Pages.ViewThanks">
@@ -8330,12 +8367,12 @@
         </member>
         <member name="F:YAF.Pages.profile.ForumAccess">
             <summary>
-            The forum access.
+              The forum access.
             </summary>
         </member>
         <member name="M:YAF.Pages.profile.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Pages.profile"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Pages.profile"/> class.
             </summary>
         </member>
         <member name="M:YAF.Pages.profile.AlbumsTabIsVisible">
@@ -8349,28 +8386,6 @@
         <member name="M:YAF.Pages.profile.CollapsibleImage_OnClick(System.Object,System.Web.UI.ImageClickEventArgs)">
             <summary>
             The collapsible image_ on click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.profile.lnk_ViewThanks(System.Object,System.Web.UI.WebControls.CommandEventArgs)">
-            <summary>
-            The lnk_ view thanks.
-            </summary>
-            <param name="sender">
-            the sender.
-            </param>
-            <param name="e">
-            the e.
-            </param>
-        </member>
-        <member name="M:YAF.Pages.profile.lnk_AddBuddy(System.Object,System.Web.UI.WebControls.CommandEventArgs)">
-            <summary>
-            The lnk_ add buddy.
             </summary>
             <param name="sender">
             The sender.
@@ -8399,6 +8414,28 @@
             </param>
             <param name="linkUrl">
             The link url.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.profile.lnk_AddBuddy(System.Object,System.Web.UI.WebControls.CommandEventArgs)">
+            <summary>
+            The lnk_ add buddy.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.profile.lnk_ViewThanks(System.Object,System.Web.UI.WebControls.CommandEventArgs)">
+            <summary>
+            The lnk_ view thanks.
+            </summary>
+            <param name="sender">
+            the sender.
+            </param>
+            <param name="e">
+            the e.
             </param>
         </member>
         <member name="M:YAF.Pages.profile.AddPageLinks(System.String)">
@@ -9095,6 +9132,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.profile.divTF">
+            <summary>
+            divTF control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.profile.LocalizedLabel10">
             <summary>
             LocalizedLabel10 control.
@@ -9122,6 +9168,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.profile.divTTT">
+            <summary>
+            divTTT control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.profile.LocalizedLabel20">
             <summary>
             LocalizedLabel20 control.
@@ -9134,6 +9189,15 @@
         <member name="F:YAF.Pages.profile.ThanksToTimes">
             <summary>
             ThanksToTimes control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.profile.divTTP">
+            <summary>
+            divTTP control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -12390,18 +12454,30 @@
         </member>
         <member name="F:YAF.Controls.AlbumImageList._attachGroupID">
             <summary>
-            The _attach group id.
+              The _attach group id.
             </summary>
         </member>
-        <member name="F:YAF.Controls.AlbumImageList._albumID">
+        <member name="M:YAF.Controls.AlbumImageList.AlbumImages_ItemCommand(System.Object,System.Web.UI.WebControls.CommandEventArgs)">
             <summary>
-            The _album id.
+            The ItemCommand method for the cover buttons. Sets/Removes cover image.
             </summary>
+            <param name="sender">
+            the sender.
+            </param>
+            <param name="e">
+            the e.
+            </param>
         </member>
-        <member name="F:YAF.Controls.AlbumImageList._userID">
+        <member name="M:YAF.Controls.AlbumImageList.AlbumImages_ItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
             <summary>
-            The _user id.
+            Initialize the scripts for changing images' caption.
             </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
         </member>
         <member name="M:YAF.Controls.AlbumImageList.EditAlbums_Click(System.Object,System.EventArgs)">
             <summary>
@@ -12436,28 +12512,6 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Controls.AlbumImageList.AlbumImages_ItemCommand(System.Object,System.Web.UI.WebControls.CommandEventArgs)">
-            <summary>
-            The ItemCommand method for the cover buttons. Sets/Removes cover image.
-            </summary>
-            <param name="sender">
-            the sender.
-            </param>
-            <param name="e">
-            the e.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.AlbumImageList.AlbumImages_ItemDataBound(System.Object,System.Web.UI.WebControls.RepeaterItemEventArgs)">
-            <summary>
-            Initialize the scripts for changing images' caption.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
         <member name="M:YAF.Controls.AlbumImageList.BindData">
             <summary>
             The bind data.
@@ -12465,17 +12519,17 @@
         </member>
         <member name="P:YAF.Controls.AlbumImageList.AlbumID">
             <summary>
-            The Album ID.
+              The Album ID.
             </summary>
         </member>
         <member name="P:YAF.Controls.AlbumImageList.UserID">
             <summary>
-            The User ID.
+              The User ID.
             </summary>
         </member>
         <member name="P:YAF.Controls.AlbumImageList._coverImageID">
             <summary>
-            The _cover image id.
+              The _cover image id.
             </summary>
         </member>
         <member name="T:YAF.Pages.register">
