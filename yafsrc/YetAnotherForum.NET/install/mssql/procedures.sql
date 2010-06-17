@@ -2608,6 +2608,7 @@ begin
 	if @Moderated<>0 set @Flags = @Flags | 8
 	
 	if @ForumID = 0 set @ForumID = null
+	if @ParentID = 0 set @ParentID = null
 	
 	if @ForumID is not null begin	
 		update [{databaseOwner}].[{objectQualifier}Forum] set 
