@@ -23,7 +23,7 @@
         </tr>
         <tr class="postheader">
             <td width="140px" id="ThanksNumberCell" valign="top" runat="server">
-                <%# String.Format(PageContext.Localization.GetText("THANKSNUMBER"),  Container.DataItemToField<int>("MessageThanksNumber")) %>
+                <%# String.Format(PageContext.Localization.GetText("THANKSNUMBER"),  Container.DataItemToField<int?>("MessageThanksNumber")) %>
             </td>
             <td width="140px" id="NameCell" valign="top" runat="server">
                 <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><b>

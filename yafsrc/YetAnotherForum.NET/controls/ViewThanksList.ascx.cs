@@ -101,7 +101,7 @@ namespace YAF.Controls
 
       if (!this.ThanksInfo.Columns.Contains("MessageThanksNumber"))
       {
-        this.ThanksInfo.Columns.Add("MessageThanksNumber");
+          this.ThanksInfo.Columns.Add("MessageThanksNumber", System.Type.GetType("System.Int32"));
       }
 
       // now depending on mode filter the table
@@ -122,10 +122,10 @@ namespace YAF.Controls
         foreach (var dr in thanksData)
         {
           // update the message count
-          dr["MessageThanksNumber"] = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID).Count();
+            dr["MessageThanksNumber"] = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID && x.Field<int>("MessageID") == (int)dr["MessageID"]).Count();
         }
 
-        thanksData = thanksData.Where(x => x.Field<int>("ThanksFromUserID") == this.UserID);
+        thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
 
         // Remove duplicates.
         this.DistinctMessageID(thanksData);
@@ -223,15 +223,16 @@ namespace YAF.Controls
     private void DistinctMessageID(EnumerableRowCollection<DataRow> thanksData)
     {
       int previousId = 0;
+      int tempId;
 
       foreach (var dr in thanksData.OrderBy(x => x.Field<int>("MessageID")))
       {
+          tempId = dr.Field<int>("MessageID");
         if (dr.Field<int>("MessageID") == previousId)
         {
           dr.Delete();
         }
-
-        previousId = dr.Field<int>("MessageID");
+        previousId = tempId;
       }
     }
 
