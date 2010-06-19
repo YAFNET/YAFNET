@@ -924,8 +924,8 @@ namespace YAF.Pages
     /// </returns>
     protected int VoteWidth(object o)
     {
-      var row = (DataRow)o;
-      return (int)row["Stats"] * 80 / 100;
+      var row = (System.Data.DataRowView)o;
+      return (int)row.Row["Stats"]* 80 / 100;
     }
 
     /// <summary>
