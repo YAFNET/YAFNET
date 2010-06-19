@@ -28,7 +28,7 @@
             <tr>
                 <td class="post" colspan="2">
                     <YAF:MessagePostData ID="MessagePreview" runat="server" ShowAttachments="false" ShowSignature="false"
-                        DataRow="<%# Container.ToDataItemType<System.Data.DataRowView>() %>">
+                        DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>">
                     </YAF:MessagePostData>
                 </td>
             </tr>
