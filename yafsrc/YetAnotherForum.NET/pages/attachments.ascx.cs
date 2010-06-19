@@ -50,7 +50,7 @@ namespace YAF.Pages
     /// <summary>
     /// The _topic.
     /// </summary>
-    private DataRow _topic;
+    private DataRow _topic; 
 
     #endregion
 
@@ -79,7 +79,23 @@ namespace YAF.Pages
     /// </param>
     protected void Back_Click(object sender, EventArgs e)
     {
-      YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Request.QueryString["m"]);
+        if (!String.IsNullOrEmpty(Request.QueryString["ra"]))
+        {
+            // Tell user that his message will have to be approved by a moderator
+            string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+
+            if (Config.IsRainbow)
+            {
+                YafBuildLink.Redirect(ForumPages.info, "i=1");
+            }
+            else
+            {
+                YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+            }
+        }
+
+            YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Request.QueryString["m"]);      
+    
     }
 
     /// <summary>
@@ -165,6 +181,7 @@ namespace YAF.Pages
               YafBuildLink.AccessDenied( /*"You didn't post this message."*/);
             }
           }
+            
         }
 
         if (this.PageContext.Settings.LockedForum == 0)

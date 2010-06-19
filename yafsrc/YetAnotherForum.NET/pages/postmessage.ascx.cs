@@ -581,7 +581,7 @@ namespace YAF.Pages
       {
         foreach (DataRow row in dt.Rows)
         {
-          isApproved = row["Flags"].BinaryAnd(MessageFlags.Flags.IsApproved);
+          isApproved = row["Flags"].BinaryAnd(MessageFlags.Flags.IsApproved) ;
         }
       }
 
@@ -600,6 +600,11 @@ namespace YAF.Pages
           // regular redirect...
           YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
         }
+      }
+      else if (!isApproved && this.PostOptions1.AttachChecked && this.PageContext.ForumUploadAccess) 
+      {
+          // redirect to the attachment page...
+          YafBuildLink.Redirect(ForumPages.attachments, "m={0}&ra=1", messageId);
       }
       else
       {
