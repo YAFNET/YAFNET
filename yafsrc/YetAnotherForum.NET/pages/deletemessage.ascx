@@ -86,7 +86,7 @@
                 &nbsp;
             </td>
             <td valign="top" class="message">
-                <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# Container.DataItem %>"
+                <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# ( (System.Data.DataRowView) Container.DataItem ).Row %>"
                     ShowAttachments="false">
                 </YAF:MessagePostData>
             </td>
@@ -110,7 +110,7 @@
                 &nbsp;
             </td>
             <td valign="top" class="message">
-                <YAF:MessagePostData ID="MessagePostAlt" runat="server" DataRow="<%# Container.DataItem %>"
+                <YAF:MessagePostData ID="MessagePostAlt" runat="server" DataRow="<%# ( ( System.Data.DataRowView) Container.DataItem ).Row %>"
                     ShowAttachments="false">
                 </YAF:MessagePostData>
             </td>
