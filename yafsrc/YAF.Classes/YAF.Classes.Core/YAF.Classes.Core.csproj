@@ -93,6 +93,7 @@
     <Compile Include="BasePages\ForumPageRenderedArgs.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Extensions\BinaryExtensions.cs" />
+    <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Nntp\Article.cs" />
     <Compile Include="Nntp\ArticleBody.cs" />

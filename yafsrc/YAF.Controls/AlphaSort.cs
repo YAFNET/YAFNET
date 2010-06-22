@@ -53,10 +53,10 @@ namespace YAF.Controls
       {
         char currentLetter = char.MinValue;
 
-        if (HttpContext.Current.Request.QueryString["letter"] != null)
+        if (HttpContext.Current.Request.QueryString.GetFirstOrDefault("letter") != null)
         {
           // try to convert to char
-          char.TryParse(HttpContext.Current.Request.QueryString["letter"], out currentLetter);
+          char.TryParse(HttpContext.Current.Request.QueryString.GetFirstOrDefault("letter"), out currentLetter);
 
           // since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
           if (currentLetter == '_')

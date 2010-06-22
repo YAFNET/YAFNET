@@ -22,6 +22,8 @@ namespace YAF.Classes
 
   using System.Web;
 
+  using YAF.Classes.Utils;
+
   #endregion
 
   /// <summary>
@@ -48,7 +50,7 @@ namespace YAF.Classes
       url = url.Replace("&", "&amp;");
 
       string scriptname = HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"];
-      string tabid = HttpContext.Current.Request.QueryString["tabid"];
+      string tabid = HttpContext.Current.Request.QueryString.GetFirstOrDefault("tabid");
 
       string builturl = tabid != null
                           ? string.Format("{0}?tabid={1}&{2}", scriptname, tabid, url)

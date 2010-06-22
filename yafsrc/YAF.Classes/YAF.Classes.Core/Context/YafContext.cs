@@ -431,14 +431,14 @@ namespace YAF.Classes.Core
     {
       get
       {
-        if (HttpContext.Current.Request.QueryString["g"] == null)
+        if (HttpContext.Current.Request.QueryString.GetFirstOrDefault("g").IsNotSet())
         {
           return ForumPages.forum;
         }
 
         try
         {
-          return (ForumPages) Enum.Parse(typeof (ForumPages), HttpContext.Current.Request.QueryString["g"], true);
+          return HttpContext.Current.Request.QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
         }
         catch (Exception)
         {

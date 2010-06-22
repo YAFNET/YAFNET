@@ -314,10 +314,10 @@ namespace YAF.Controls
     {
       base.OnInit(e);
 
-      if (!this._ignorePageIndex && HttpContext.Current.Request.QueryString["p"] != null)
+      if (!this._ignorePageIndex && HttpContext.Current.Request.QueryString.GetFirstOrDefault("p") != null)
       {
         // set a new page...
-        this.CurrentPageIndex = (int)Security.StringToLongOrRedirect(HttpContext.Current.Request.QueryString["p"]) - 1;
+        this.CurrentPageIndex = (int)Security.StringToLongOrRedirect(HttpContext.Current.Request.QueryString.GetFirstOrDefault("p")) - 1;
       }
 
       this._pageLabel.ID = this.GetExtendedID("PageLabel");

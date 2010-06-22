@@ -152,11 +152,11 @@ namespace YAF.Controls
       else
       {
         // see if there is already one since we are on the login page
-        if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["ReturnUrl"]))
+        if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl")))
         {
           returnUrl =
             HttpContext.Current.Server.UrlEncode(
-              General.GetSafeRawUrl(HttpContext.Current.Request.QueryString["ReturnUrl"]));
+              General.GetSafeRawUrl(HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl")));
         }
       }
 

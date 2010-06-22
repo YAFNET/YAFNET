@@ -21,6 +21,7 @@ namespace YAF.Classes.Core
 {
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web;
     using System.Web.Security;
     using YAF.Classes.Data;
@@ -154,7 +155,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Internal helper function used for redudant page variable access (string)
+    /// Internal helper function used for redundant page variable access (string)
     /// </summary>
     /// <param name="field">
     /// </param>
@@ -746,12 +747,12 @@ namespace YAF.Classes.Core
          
           // try and get more verbose platform name by ref and other parameters             
           UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out isIgnoredForDisplay);
-              
-          
-          int? categoryID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["c"]);
-          int? forumID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["f"]);
-          int? topicID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["t"]);
-          int? messageID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString["m"]);
+
+
+          int? categoryID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("c"));
+          int? forumID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("f"));
+          int? topicID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("t"));
+          int? messageID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("m"));
 
           if (YafContext.Current.Settings.CategoryID != 0)
           {
