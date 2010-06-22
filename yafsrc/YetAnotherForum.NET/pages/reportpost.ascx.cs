@@ -138,7 +138,7 @@ namespace YAF.Pages
       this.reportEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
       this.reportEditor.StyleSheet = YafContext.Current.Theme.BuildThemePath("theme.css");
 
-      if (!String.IsNullOrEmpty(this.Request.QueryString["m"]))
+      if (!String.IsNullOrEmpty(this.Request.QueryString.GetFirstOrDefault("m")))
       {
         // We check here if the user have access to the option
         if (!YafServices.Permissions.Check(this.PageContext.BoardSettings.ReportPostPermissions))
@@ -146,7 +146,7 @@ namespace YAF.Pages
           YafBuildLink.Redirect(ForumPages.info, "i=1");
         }
 
-        if (!Int32.TryParse(this.Request.QueryString["m"], out this.messageID))
+        if (!Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("m"), out this.messageID))
         {
           YafBuildLink.Redirect(ForumPages.error, "Incorrect message value: {0}", this.messageID);
         }

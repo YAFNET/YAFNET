@@ -52,9 +52,9 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink("Ranks", string.Empty);
 
         BindData();
-        if (Request.QueryString["r"] != null)
+        if (Request.QueryString.GetFirstOrDefault("r") != null)
         {
-          using (DataTable dt = DB.rank_list(PageContext.PageBoardID, Request.QueryString["r"]))
+          using (DataTable dt = DB.rank_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("r")))
           {
             DataRow row = dt.Rows[0];
             var flags = new RankFlags(row["Flags"]);
@@ -190,9 +190,9 @@ namespace YAF.Pages.Admin
 
       // Group
       int RankID = 0;
-      if (Request.QueryString["r"] != null)
+      if (Request.QueryString.GetFirstOrDefault("r") != null)
       {
-        RankID = int.Parse(Request.QueryString["r"]);
+        RankID = int.Parse(Request.QueryString.GetFirstOrDefault("r"));
       }
 
       object rankImage = null;

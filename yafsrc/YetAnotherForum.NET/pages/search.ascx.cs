@@ -493,14 +493,14 @@ namespace YAF.Pages
 
         bool doSearch = false;
 
-        string searchString = this.Request.QueryString["search"];
+        string searchString = this.Request.QueryString.GetFirstOrDefault("search");
         if (!String.IsNullOrEmpty(searchString) && searchString.Length < 50)
         {
           this.txtSearchStringWhat.Text = searchString;
           doSearch = true;
         }
 
-        string postedBy = this.Request.QueryString["postedby"];
+        string postedBy = this.Request.QueryString.GetFirstOrDefault("postedby");
         if (!String.IsNullOrEmpty(postedBy) && postedBy.Length < 50)
         {
           this.txtSearchStringFromWho.Text = postedBy;

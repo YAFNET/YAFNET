@@ -90,9 +90,9 @@ namespace YAF.Pages
         this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
         this.Login1.FailureText = GetText("password_error");
 
-        if (!String.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
+        if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("ReturnUrl")))
         {
-          this.Login1.DestinationPageUrl = Server.UrlDecode(Request.QueryString["ReturnUrl"]);
+          this.Login1.DestinationPageUrl = Server.UrlDecode(Request.QueryString.GetFirstOrDefault("ReturnUrl"));
         }
         else
         {

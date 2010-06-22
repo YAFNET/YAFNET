@@ -56,9 +56,9 @@ namespace YAF.Pages
         this.PageLinks.AddLink(GetText("TITLE"), string.Empty);
         DataTable activeUsers; 
         int mode;
-        if (!String.IsNullOrEmpty(Request.QueryString["v"]) && YafServices.Permissions.Check(PageContext.BoardSettings.ActiveUsersViewPermissions))
+        if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("v")) && YafServices.Permissions.Check(PageContext.BoardSettings.ActiveUsersViewPermissions))
         {
-            if (Int32.TryParse(this.Request.QueryString["v"], out mode))
+            if (Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("v"), out mode))
             {
                 
                 switch (mode)

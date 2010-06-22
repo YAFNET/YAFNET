@@ -116,9 +116,9 @@ namespace YAF.Pages
     {
       get
       {
-        if (this.Request.QueryString["threaded"] != null)
+        if (this.Request.QueryString.GetFirstOrDefault("threaded") != null)
         {
-          this.Session["IsThreaded"] = bool.Parse(this.Request.QueryString["threaded"]);
+          this.Session["IsThreaded"] = bool.Parse(this.Request.QueryString.GetFirstOrDefault("threaded"));
         }
         else if (this.Session["IsThreaded"] == null)
         {
@@ -727,7 +727,7 @@ namespace YAF.Pages
                                        this.PageContext.Settings.LockedForum == 0;
 
         this.RssTopic.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-          ForumPages.rsstopic, "pg={0}&t={1}", this.Request.QueryString["g"], this.PageContext.PageTopicID);
+          ForumPages.rsstopic, "pg={0}&t={1}", this.Request.QueryString.GetFirstOrDefault("g"), this.PageContext.PageTopicID);
         this.RssTopic.Visible = this.PageContext.BoardSettings.ShowRSSLink;
 
         this.QuickReplyPlaceHolder.Visible = this.PageContext.BoardSettings.ShowQuickAnswer;
@@ -1107,12 +1107,12 @@ namespace YAF.Pages
         if (this._ignoreQueryString)
         {
         }
-        else if (this.Request.QueryString["m"] != null)
+        else if (this.Request.QueryString.GetFirstOrDefault("m") != null)
         {
           // Show this message
-          findMessageId = int.Parse(this.Request.QueryString["m"]);
+          findMessageId = int.Parse(this.Request.QueryString.GetFirstOrDefault("m"));
         }
-        else if (this.Request.QueryString["find"] != null && this.Request.QueryString["find"].ToLower() == "unread")
+        else if (this.Request.QueryString.GetFirstOrDefault("find") != null && this.Request.QueryString.GetFirstOrDefault("find").ToLower() == "unread")
         {
           // Find next unread
           using (DataTable unread = DB.message_findunread(this.PageContext.PageTopicID, Mession.LastVisit))
@@ -1209,7 +1209,7 @@ namespace YAF.Pages
           break;
         case "rssfeed":
           YafBuildLink.Redirect(
-            ForumPages.rsstopic, "pg={0}&t={1}", this.Request.QueryString["g"], this.PageContext.PageTopicID);
+            ForumPages.rsstopic, "pg={0}&t={1}", this.Request.QueryString.GetFirstOrDefault("g"), this.PageContext.PageTopicID);
           break;
         default:
           throw new ApplicationException(e.Item);

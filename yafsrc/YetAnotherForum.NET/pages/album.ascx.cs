@@ -67,13 +67,13 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
-      if (this.Request.QueryString["u"] == null || this.Request.QueryString["a"] == null)
+      if (this.Request.QueryString.GetFirstOrDefault("u") == null || this.Request.QueryString.GetFirstOrDefault("a") == null)
       {
         YafBuildLink.AccessDenied();
       }
 
-      var userId = Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
-      var albumId = Security.StringToLongOrRedirect(this.Request.QueryString["a"]);
+      var userId = Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+      var albumId = Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("a"));
 
       // setup jQuery, LightBox and YAF JS...
       YafContext.Current.PageElements.RegisterJQuery();

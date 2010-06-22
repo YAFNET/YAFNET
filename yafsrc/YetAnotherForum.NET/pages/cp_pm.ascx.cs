@@ -92,7 +92,7 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-        this._view = PMViewConverter.FromQueryString(this.Request.QueryString["v"]);
+        this._view = PMViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
 
         this.PmTabs.SelectedIndex = (int)this._view;
 

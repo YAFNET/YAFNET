@@ -43,7 +43,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      string strAddEdit = (Request.QueryString["i"] == null) ? "Add" : "Edit";
+      string strAddEdit = (Request.QueryString.GetFirstOrDefault("i") == null) ? "Add" : "Edit";
 
       if (!IsPostBack)
       {
@@ -62,9 +62,9 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      if (!String.IsNullOrEmpty(Request.QueryString["i"]))
+      if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("i")))
       {
-        DataRow row = DB.extension_edit(Security.StringToLongOrRedirect(Request.QueryString["i"])).Rows[0];
+        DataRow row = DB.extension_edit(Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("i"))).Rows[0];
         this.extension.Text = (string) row["Extension"];
       }
     }
@@ -88,7 +88,7 @@ namespace YAF.Pages.Admin
       }
       else
       {
-        DB.extension_save(Request.QueryString["i"], PageContext.PageBoardID, ext);
+        DB.extension_save(Request.QueryString.GetFirstOrDefault("i"), PageContext.PageBoardID, ext);
         YafBuildLink.Redirect(ForumPages.admin_extensions);
       }
     }

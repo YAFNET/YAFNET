@@ -48,10 +48,10 @@ namespace YAF.Pages.Admin
         {
           return this._bbcodeId;
         }
-        else if (Request.QueryString["b"] != null)
+        else if (Request.QueryString.GetFirstOrDefault("b") != null)
         {
           int id;
-          if (int.TryParse(Request.QueryString["b"], out id))
+          if (int.TryParse(Request.QueryString.GetFirstOrDefault("b"), out id))
           {
             this._bbcodeId = id;
             return id;

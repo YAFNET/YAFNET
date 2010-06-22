@@ -50,7 +50,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (Request.QueryString["m"] == null || !PageContext.ForumModeratorAccess)
+      if (Request.QueryString.GetFirstOrDefault("m") == null || !PageContext.ForumModeratorAccess)
       {
         YafBuildLink.AccessDenied();
       }
@@ -87,7 +87,7 @@ namespace YAF.Pages
     {
       if (Convert.ToInt32(this.TopicsList.SelectedValue) != PageContext.PageTopicID)
       {
-        DB.message_move(Request.QueryString["m"], this.TopicsList.SelectedValue, true);
+        DB.message_move(Request.QueryString.GetFirstOrDefault("m"), this.TopicsList.SelectedValue, true);
       }
 
       YafBuildLink.Redirect(ForumPages.topics, "f={0}", PageContext.PageForumID);
@@ -146,8 +146,8 @@ namespace YAF.Pages
     {
       if (this.TopicSubject.Text != string.Empty)
       {
-        long nTopicId = DB.topic_create_by_message(Request.QueryString["m"], this.ForumList.SelectedValue, this.TopicSubject.Text);
-        DB.message_move(Request.QueryString["m"], nTopicId, true);
+        long nTopicId = DB.topic_create_by_message(Request.QueryString.GetFirstOrDefault("m"), this.ForumList.SelectedValue, this.TopicSubject.Text);
+        DB.message_move(Request.QueryString.GetFirstOrDefault("m"), nTopicId, true);
         YafBuildLink.Redirect(ForumPages.topics, "f={0}", PageContext.PageForumID);
       }
       else

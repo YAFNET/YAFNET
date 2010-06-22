@@ -78,7 +78,7 @@ namespace YAF.Pages
 
       try
       {
-        feedType = this.Request.QueryString["pg"].ToEnum<YafRssFeeds>(true);
+        feedType = this.Request.QueryString.GetFirstOrDefault("pg").ToEnum<YafRssFeeds>(true);
       }
       catch
       {
@@ -122,8 +122,8 @@ namespace YAF.Pages
               syndicationItems.AddSyndicationItem(
                 row["Subject"].ToString(), 
                 row["Message"].ToString(), 
-                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]), 
-                String.Format("TopicID{0}", this.Request.QueryString["t"]), 
+                YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString.GetFirstOrDefault("t")), 
+                String.Format("TopicID{0}", this.Request.QueryString.GetFirstOrDefault("t")), 
                 !row["Posted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue +TimeSpan.FromDays(2));
             }
 
@@ -137,7 +137,7 @@ namespace YAF.Pages
             YafBuildLink.AccessDenied();
           }
 
-          if (this.Request.QueryString["t"] != null)
+          if (this.Request.QueryString.GetFirstOrDefault("t") != null)
           {
             using (
               DataTable dt = DB.post_list(
@@ -154,8 +154,8 @@ namespace YAF.Pages
                 syndicationItems.AddSyndicationItem(
                   row["Subject"].ToString(), 
                   FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])), 
-                  YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString["t"]),
-                  String.Format("TopicID{0}", this.Request.QueryString["t"]),
+                  YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString.GetFirstOrDefault("t")),
+                  String.Format("TopicID{0}", this.Request.QueryString.GetFirstOrDefault("t")),
                   !row["Posted"].IsNullOrEmptyDBField()
                     ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset
                     : DateTime.MinValue + TimeSpan.FromDays(2));
@@ -169,7 +169,7 @@ namespace YAF.Pages
         case YafRssFeeds.Forum:
           int icategoryID = 0;
           object categoryID = null;
-          if (this.Request.QueryString["c"] != null && int.TryParse(this.Request.QueryString["c"], out icategoryID))
+          if (this.Request.QueryString.GetFirstOrDefault("c") != null && int.TryParse(this.Request.QueryString.GetFirstOrDefault("c"), out icategoryID))
           {
               categoryID = icategoryID;
           }
@@ -201,7 +201,7 @@ namespace YAF.Pages
           }
 
           int forumId;
-          if (this.Request.QueryString["f"] != null && int.TryParse(this.Request.QueryString["f"], out forumId))
+          if (this.Request.QueryString.GetFirstOrDefault("f") != null && int.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out forumId))
           {
             // vzrus changed to separate DLL specific code
             using (DataTable dt = DB.rsstopic_list(forumId))
@@ -225,14 +225,14 @@ namespace YAF.Pages
         DateTime toActDate = DateTime.UtcNow;
         string toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
 
-        if (this.Request.QueryString["txt"] != null)
+        if (this.Request.QueryString.GetFirstOrDefault("txt") != null)
         {
-            toActText = Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString["txt"].ToString()));
+            toActText = Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString.GetFirstOrDefault("txt").ToString()));
         }  
      
-        if (this.Request.QueryString["d"] != null)
+        if (this.Request.QueryString.GetFirstOrDefault("d") != null)
         {
-            if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString["d"].ToString())), out toActDate))
+            if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString.GetFirstOrDefault("d").ToString())), out toActDate))
             {
                 toActDate = Convert.ToDateTime(YafServices.DateTime.FormatDateTimeShort(DateTime.UtcNow)) + TimeSpan.FromDays(-31);
                 toActText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
@@ -274,14 +274,14 @@ namespace YAF.Pages
           DateTime toFavDate = DateTime.UtcNow;
           string toFavText = this.PageContext.Localization.GetText("MYTOPICS", "LAST_MONTH");
 
-          if (this.Request.QueryString["txt"] != null)
+          if (this.Request.QueryString.GetFirstOrDefault("txt") != null)
           {
-              toFavText = Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString["txt"].ToString()));
+              toFavText = Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString.GetFirstOrDefault("txt").ToString()));
           }
 
-          if (this.Request.QueryString["d"] != null)
+          if (this.Request.QueryString.GetFirstOrDefault("d") != null)
           {
-              if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString["d"].ToString())), out toFavDate))
+              if (!DateTime.TryParse(Server.UrlDecode(Server.HtmlDecode(this.Request.QueryString.GetFirstOrDefault("d").ToString())), out toFavDate))
               {
                   toFavDate = this.PageContext.CurrentUserData.Joined == null ? DateTime.MinValue + TimeSpan.FromDays(2) : (DateTime)this.PageContext.CurrentUserData.Joined;
                   toFavText = this.PageContext.Localization.GetText("MYTOPICS", "SHOW_ALL");

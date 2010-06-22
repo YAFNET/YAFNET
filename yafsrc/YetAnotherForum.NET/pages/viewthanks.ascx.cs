@@ -86,7 +86,7 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+            var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
             string displayName = UserMembershipHelper.GetDisplayNameFromID(userID);
             if (!IsPostBack)
             {

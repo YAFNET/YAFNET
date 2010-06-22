@@ -52,7 +52,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (Request.QueryString["t"] == null || !PageContext.ForumModeratorAccess)
+      if (Request.QueryString.GetFirstOrDefault("t") == null || !PageContext.ForumModeratorAccess)
       {
         YafBuildLink.AccessDenied();
       }

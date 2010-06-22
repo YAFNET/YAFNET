@@ -50,9 +50,9 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink("NNTP Servers", string.Empty);
 
         BindData();
-        if (Request.QueryString["s"] != null)
+        if (Request.QueryString.GetFirstOrDefault("s") != null)
         {
-          using (DataTable dt = DB.nntpserver_list(PageContext.PageBoardID, Request.QueryString["s"]))
+          using (DataTable dt = DB.nntpserver_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("s")))
           {
             DataRow row = dt.Rows[0];
             this.Name.Text = row["Name"].ToString();
@@ -115,9 +115,9 @@ namespace YAF.Pages.Admin
       }
 
       object nntpServerID = null;
-      if (Request.QueryString["s"] != null)
+      if (Request.QueryString.GetFirstOrDefault("s") != null)
       {
-        nntpServerID = Request.QueryString["s"];
+        nntpServerID = Request.QueryString.GetFirstOrDefault("s");
       }
 
       DB.nntpserver_save(

@@ -92,7 +92,7 @@ namespace YAF.Pages
     {
       Mession.UnreadTopics = 0;
 
-      this.RssFeed.AdditionalParameters = String.Format("f={0}", Request.QueryString["f"]);
+      this.RssFeed.AdditionalParameters = String.Format("f={0}", Request.QueryString.GetFirstOrDefault("f"));
       this.MarkRead.Text = GetText("MARKREAD");
       this.ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
       lastPostImageTT = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
@@ -115,7 +115,7 @@ namespace YAF.Pages
         HandleWatchForum();
       }
 
-      if (Request.QueryString["f"] == null)
+      if (Request.QueryString.GetFirstOrDefault("f") == null)
       {
         YafBuildLink.AccessDenied();
       }

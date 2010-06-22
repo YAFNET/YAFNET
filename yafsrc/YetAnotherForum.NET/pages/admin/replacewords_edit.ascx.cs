@@ -43,7 +43,7 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      string strAddEdit = (Request.QueryString["i"] == null) ? "Add" : "Edit";
+      string strAddEdit = (Request.QueryString.GetFirstOrDefault("i") == null) ? "Add" : "Edit";
 
       if (!IsPostBack)
       {
@@ -65,7 +65,7 @@ namespace YAF.Pages.Admin
     {
       int id;
 
-      if (Request.QueryString["i"] != null && int.TryParse(Request.QueryString["i"], out id))
+      if (Request.QueryString.GetFirstOrDefault("i") != null && int.TryParse(Request.QueryString.GetFirstOrDefault("i"), out id))
       {
         DataRow row = DB.replace_words_list(PageContext.PageBoardID, id).Rows[0];
         this.badword.Text = (string) row["badword"];
@@ -84,7 +84,7 @@ namespace YAF.Pages.Admin
     /// </param>
     private void add_Click(object sender, EventArgs e)
     {
-      DB.replace_words_save(PageContext.PageBoardID, Request.QueryString["i"], this.badword.Text, this.goodword.Text);
+      DB.replace_words_save(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("i"), this.badword.Text, this.goodword.Text);
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords));
       YafBuildLink.Redirect(ForumPages.admin_replacewords);
     }

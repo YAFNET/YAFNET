@@ -55,7 +55,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (Request.QueryString["t"] == null || !PageContext.ForumReadAccess)
+      if (Request.QueryString.GetFirstOrDefault("t") == null || !PageContext.ForumReadAccess)
       {
         YafBuildLink.AccessDenied();
       }

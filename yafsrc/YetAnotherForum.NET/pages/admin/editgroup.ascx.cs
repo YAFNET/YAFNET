@@ -78,13 +78,13 @@ namespace YAF.Pages.Admin
         BindData();
 
         // is this editing of existing role or creation of new one?
-        if (Request.QueryString["i"] != null)
+        if (Request.QueryString.GetFirstOrDefault("i") != null)
         {
           // we are not creating new role
           this.NewGroupRow.Visible = false;
 
           // get data about edited role
-          using (DataTable dt = DB.group_list(PageContext.PageBoardID, Request.QueryString["i"]))
+          using (DataTable dt = DB.group_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("i")))
           {
             // get it as row
             DataRow row = dt.Rows[0];
@@ -177,9 +177,9 @@ namespace YAF.Pages.Admin
       long roleID = 0;
 
       // get role ID from page's parameter
-      if (Request.QueryString["i"] != null)
+      if (Request.QueryString.GetFirstOrDefault("i") != null)
       {
-        roleID = long.Parse(Request.QueryString["i"]);
+        roleID = long.Parse(Request.QueryString.GetFirstOrDefault("i"));
       }
 
       // get new and old name
@@ -249,7 +249,7 @@ namespace YAF.Pages.Admin
      
      
       // Access masks for a newly created or an existing role
-      if (Request.QueryString["i"] != null)
+      if (Request.QueryString.GetFirstOrDefault("i") != null)
       {
         // go trhough all forums
         for (int i = 0; i < this.AccessList.Items.Count; i++)
@@ -335,9 +335,9 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       // set datasource of access list (list of forums and role's access masks) if we are editing existing mask
-      if (Request.QueryString["i"] != null)
+      if (Request.QueryString.GetFirstOrDefault("i") != null)
       {
-        this.AccessList.DataSource = DB.forumaccess_group(Request.QueryString["i"]);
+        this.AccessList.DataSource = DB.forumaccess_group(Request.QueryString.GetFirstOrDefault("i"));
       }
 
       // bind data to controls

@@ -74,17 +74,17 @@ namespace YAF.Pages
         this.Continue.Text = GetText("continue");
 
         // get redirect URL from parameter
-        if (Request.QueryString["url"] != null)
+        if (Request.QueryString.GetFirstOrDefault("url") != null)
         {
           // unescape ampersands
-          RefreshURL = Request.QueryString["url"].Replace("&amp;", "&");
+          RefreshURL = Request.QueryString.GetFirstOrDefault("url").Replace("&amp;", "&");
         }
 
         // try to get infomessage code from parameter
         try
         {
           // compare it converted to enumeration
-          switch ((InfoMessage) int.Parse(Request.QueryString["i"]))
+          switch ((InfoMessage) int.Parse(Request.QueryString.GetFirstOrDefault("i")))
           {
             case InfoMessage.Moderated: // Moderated
               this.Title.Text = GetText("title_moderated");

@@ -142,9 +142,9 @@ namespace YAF.Pages.Admin
       var flags = new MedalFlags(0);
 
       // retrieve medal ID, use null if we are creating new one
-      if (Request.QueryString["m"] != null)
+      if (Request.QueryString.GetFirstOrDefault("m") != null)
       {
-        medalID = Request.QueryString["m"];
+        medalID = Request.QueryString.GetFirstOrDefault("m");
       }
 
       // flags
@@ -307,7 +307,7 @@ namespace YAF.Pages.Admin
         case "edit":
 
           // load group-medal to the controls
-          using (DataTable dt = DB.group_medal_list(e.CommandArgument, Request.QueryString["m"]))
+          using (DataTable dt = DB.group_medal_list(e.CommandArgument, Request.QueryString.GetFirstOrDefault("m")))
           {
             // prepare editing interface
             AddGroup_Click(null, e);
@@ -333,7 +333,7 @@ namespace YAF.Pages.Admin
 
           break;
         case "remove":
-          DB.group_medal_delete(e.CommandArgument, Request.QueryString["m"]);
+          DB.group_medal_delete(e.CommandArgument, Request.QueryString.GetFirstOrDefault("m"));
 
           // remove all user medals...
           RemoveMedalsFromCache();
@@ -369,7 +369,7 @@ namespace YAF.Pages.Admin
         case "edit":
 
           // load user-medal to the controls
-          using (DataTable dt = DB.user_medal_list(e.CommandArgument, Request.QueryString["m"]))
+          using (DataTable dt = DB.user_medal_list(e.CommandArgument, Request.QueryString.GetFirstOrDefault("m")))
           {
             // prepare editing interface
             AddUser_Click(null, e);
@@ -395,10 +395,10 @@ namespace YAF.Pages.Admin
         case "remove":
 
           // delete user-medal
-          DB.user_medal_delete(e.CommandArgument, Request.QueryString["m"]);
+          DB.user_medal_delete(e.CommandArgument, Request.QueryString.GetFirstOrDefault("m"));
 
           // clear cache...
-          RemoveUserFromCache(Convert.ToInt32(Request.QueryString["m"]));
+          RemoveUserFromCache(Convert.ToInt32(Request.QueryString.GetFirstOrDefault("m")));
           BindData();
           break;
       }
@@ -501,7 +501,7 @@ namespace YAF.Pages.Admin
       // save user, if there is no message specified, pass null
       DB.user_medal_save(
         this.UserID.Text, 
-        Request.QueryString["m"], 
+        Request.QueryString.GetFirstOrDefault("m"), 
         String.IsNullOrEmpty(this.UserMessage.Text) ? null : this.UserMessage.Text, 
         this.UserHide.Checked, 
         this.UserOnlyRibbon.Checked, 
@@ -610,7 +610,7 @@ namespace YAF.Pages.Admin
       // save group, if there is no message specified, pass null
       DB.group_medal_save(
         this.AvailableGroupList.SelectedValue, 
-        Request.QueryString["m"], 
+        Request.QueryString.GetFirstOrDefault("m"), 
         String.IsNullOrEmpty(this.GroupMessage.Text) ? null : this.GroupMessage.Text, 
         this.GroupHide.Checked, 
         this.GroupOnlyRibbon.Checked, 
@@ -715,19 +715,19 @@ namespace YAF.Pages.Admin
       DataBind();
 
       // load existing medal if we are editing one
-      if (Request.QueryString["m"] != null)
+      if (Request.QueryString.GetFirstOrDefault("m") != null)
       {
         // load users and groups who has been assigned this medal
-        this.UserList.DataSource = DB.user_medal_list(null, Request.QueryString["m"]);
+        this.UserList.DataSource = DB.user_medal_list(null, Request.QueryString.GetFirstOrDefault("m"));
         this.UserList.DataBind();
-        this.GroupList.DataSource = DB.group_medal_list(null, Request.QueryString["m"]);
+        this.GroupList.DataSource = DB.group_medal_list(null, Request.QueryString.GetFirstOrDefault("m"));
         this.GroupList.DataBind();
 
         // enable adding users/groups
         this.AddUserRow.Visible = true;
         this.AddGroupRow.Visible = true;
 
-        using (DataTable dt = DB.medal_list(Request.QueryString["m"]))
+        using (DataTable dt = DB.medal_list(Request.QueryString.GetFirstOrDefault("m")))
         {
           // get data row
           DataRow row = dt.Rows[0];

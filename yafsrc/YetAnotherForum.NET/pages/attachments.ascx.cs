@@ -79,7 +79,7 @@ namespace YAF.Pages
     /// </param>
     protected void Back_Click(object sender, EventArgs e)
     {
-        if (!String.IsNullOrEmpty(Request.QueryString["ra"]))
+        if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("ra")))
         {
             // Tell user that his message will have to be approved by a moderator
             string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
@@ -94,7 +94,7 @@ namespace YAF.Pages
             }
         }
 
-            YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Request.QueryString["m"]);      
+            YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Request.QueryString.GetFirstOrDefault("m"));      
     
     }
 
@@ -174,7 +174,7 @@ namespace YAF.Pages
         // Check that non-moderators only edit messages they have written
         if (!this.PageContext.ForumModeratorAccess)
         {
-          using (DataTable dt = DB.message_list(this.Request.QueryString["m"]))
+          using (DataTable dt = DB.message_list(this.Request.QueryString.GetFirstOrDefault("m")))
           {
             if ((int)dt.Rows[0]["UserID"] != this.PageContext.PageUserID)
             {
@@ -239,7 +239,7 @@ namespace YAF.Pages
       {
         if (this.CheckValidFile(this.File))
         {
-          this.SaveAttachment(this.Request.QueryString["m"], this.File);
+          this.SaveAttachment(this.Request.QueryString.GetFirstOrDefault("m"), this.File);
         }
 
         this.BindData();
@@ -257,7 +257,7 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      DataTable dt = DB.attachment_list(this.Request.QueryString["m"], null, null);
+      DataTable dt = DB.attachment_list(this.Request.QueryString.GetFirstOrDefault("m"), null, null);
       this.List.DataSource = dt;
 
       this.List.Visible = (dt.Rows.Count > 0) ? true : false;

@@ -85,9 +85,9 @@ namespace YAF.Pages.Admin
     {
       this.Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumClientFileRoot);
 
-      if (Request.QueryString["c"] != null)
+      if (Request.QueryString.GetFirstOrDefault("c") != null)
       {
-        using (DataTable dt = DB.category_list(PageContext.PageBoardID, Request.QueryString["c"]))
+        using (DataTable dt = DB.category_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("c")))
         {
           DataRow row = dt.Rows[0];
           this.Name.Text = (string) row["Name"];
@@ -160,9 +160,9 @@ namespace YAF.Pages.Admin
     protected void Save_Click(object sender, EventArgs e)
     {
       int CategoryID = 0;
-      if (Request.QueryString["c"] != null)
+      if (Request.QueryString.GetFirstOrDefault("c") != null)
       {
-        CategoryID = int.Parse(Request.QueryString["c"]);
+        CategoryID = int.Parse(Request.QueryString.GetFirstOrDefault("c"));
       }
 
       short sortOrder;

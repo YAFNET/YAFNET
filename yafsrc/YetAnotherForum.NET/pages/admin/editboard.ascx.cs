@@ -42,10 +42,10 @@ namespace YAF.Pages.Admin
     {
       get
       {
-        if (!String.IsNullOrEmpty(Request.QueryString["b"]))
+        if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("b")))
         {
           int boardId;
-          if (int.TryParse(Request.QueryString["b"], out boardId))
+          if (int.TryParse(Request.QueryString.GetFirstOrDefault("b"), out boardId))
           {
             return boardId;
           }

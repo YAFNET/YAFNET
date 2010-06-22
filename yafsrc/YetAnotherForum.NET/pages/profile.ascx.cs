@@ -143,7 +143,7 @@ namespace YAF.Pages
       this.lnkThanks.Text = string.Format("({0})", this.PageContext.Localization.GetText("VIEWTHANKS", "TITLE"));
       this.lnkThanks.Visible = YafContext.Current.BoardSettings.EnableThanksMod;
 
-      if (this.Request.QueryString["u"] == null)
+      if (this.Request.QueryString.GetFirstOrDefault("u") == null)
       {
         YafBuildLink.AccessDenied();
       }
@@ -209,7 +209,7 @@ namespace YAF.Pages
     /// </param>
     protected void lnk_AddBuddy(object sender, CommandEventArgs e)
     {
-      var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+      var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
       if (e.CommandArgument.ToString() == "addbuddy")
       {
@@ -253,7 +253,7 @@ namespace YAF.Pages
     /// </param>
     protected void lnk_ViewThanks(object sender, CommandEventArgs e)
     {
-      var userId = (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+      var userId = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
       YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", userId);
     }
 
@@ -280,7 +280,7 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString["u"]);
+      var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
       MembershipUser user = UserMembershipHelper.GetMembershipUserById(userID);
 

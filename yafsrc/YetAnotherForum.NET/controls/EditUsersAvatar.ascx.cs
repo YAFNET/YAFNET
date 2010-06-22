@@ -86,11 +86,11 @@ namespace YAF.Controls
       if (!IsPostBack)
       {
         // check if it's a link from the avatar picker
-        if (Request.QueryString["av"] != null)
+        if (Request.QueryString.GetFirstOrDefault("av") != null)
         {
           // save the avatar right now...
           DB.user_saveavatar(
-            this._currentUserID, string.Format("{0}{1}/{2}", YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, Request.QueryString["av"]), null, null);
+            this._currentUserID, string.Format("{0}{1}/{2}", YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Avatars, Request.QueryString.GetFirstOrDefault("av")), null, null);
 
           // clear the cache for this user...
           UserMembershipHelper.ClearCacheForUserId(this._currentUserID);

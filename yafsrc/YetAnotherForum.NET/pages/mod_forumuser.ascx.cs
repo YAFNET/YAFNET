@@ -106,9 +106,9 @@ namespace YAF.Pages
         DataBind();
 
         // if there is concrete user being handled
-        if (Request.QueryString["u"] != null)
+        if (Request.QueryString.GetFirstOrDefault("u") != null)
         {
-          using (DataTable dt = DB.userforum_list(Request.QueryString["u"], PageContext.PageForumID))
+          using (DataTable dt = DB.userforum_list(Request.QueryString.GetFirstOrDefault("u"), PageContext.PageForumID))
           {
             foreach (DataRow row in dt.Rows)
             {

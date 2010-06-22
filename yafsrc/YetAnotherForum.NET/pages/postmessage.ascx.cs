@@ -657,7 +657,7 @@ namespace YAF.Pages
 
       bool isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
       DB.message_update(
-        this.Request.QueryString["m"], 
+        this.Request.QueryString.GetFirstOrDefault("m"), 
         this.Priority.SelectedValue, 
         this._forumEditor.Text.Trim(), 
         subjectSave.Trim(), 
@@ -669,7 +669,7 @@ namespace YAF.Pages
       // update poll
       if (!string.IsNullOrEmpty(this.RemovePoll.CommandArgument) || this.PollRow1.Visible)
       {
-        DB.topic_poll_update(null, this.Request.QueryString["m"], this.GetPollID());
+        DB.topic_poll_update(null, this.Request.QueryString.GetFirstOrDefault("m"), this.GetPollID());
       }
 
       messageId = this.EditTopicID.Value;

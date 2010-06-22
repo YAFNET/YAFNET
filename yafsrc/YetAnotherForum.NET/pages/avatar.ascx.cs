@@ -63,9 +63,9 @@ namespace YAF.Pages // YAF.Pages
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
-            if (Request.QueryString["u"] != null)
+            if (Request.QueryString.GetFirstOrDefault("u") != null)
             {
-                returnUserID = Convert.ToInt32(Request.QueryString["u"]);
+                returnUserID = Convert.ToInt32(Request.QueryString.GetFirstOrDefault("u"));
             }
 
             if (!IsPostBack)

@@ -71,7 +71,7 @@ namespace YAF.Pages
                 System.Data.DataTable sigData = YAF.Classes.Data.DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
                 int[] albumSize = DB.album_getstats(this.PageContext.PageUserID, null);
                 int userID;
-                switch (this.Request.QueryString["a"])
+                switch (this.Request.QueryString.GetFirstOrDefault("a"))
                 {
                     // A new album is being created. check the permissions.
                     case "new":
@@ -106,7 +106,7 @@ namespace YAF.Pages
                         userID =
                             Convert.ToInt32(
                                 DB.album_list(
-                                    null, Security.StringToLongOrRedirect(this.Request.QueryString["a"].ToString())).
+                                    null, Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("a").ToString())).
                                     Rows[0]["UserID"]);
                         if (userID != this.PageContext.PageUserID)
                         {
@@ -164,7 +164,7 @@ namespace YAF.Pages
                     ForumPages.album,
                     "u={0}&a={1}",
                     this.PageContext.PageUserID.ToString(),
-                    this.Request.QueryString["a"]);
+                    this.Request.QueryString.GetFirstOrDefault("a"));
             }
             else
             {
@@ -184,7 +184,7 @@ namespace YAF.Pages
         protected void DeleteAlbum_Click(object sender, EventArgs e)
         {
             string sUpDir = this.Request.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
-            YafAlbum.Album_Image_Delete(sUpDir, this.Request.QueryString["a"], this.PageContext.PageUserID, null);
+            YafAlbum.Album_Image_Delete(sUpDir, this.Request.QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
             YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
         }
 
@@ -214,15 +214,15 @@ namespace YAF.Pages
         /// </param>
         protected void UpdateTitle_Click(object sender, EventArgs e)
         {
-            string albumID = this.Request.QueryString["a"];
+            string albumID = this.Request.QueryString.GetFirstOrDefault("a");
             this.txtTitle.Text = System.Web.HttpUtility.HtmlEncode(txtTitle.Text);
-            if (this.Request.QueryString["a"] == "new")
+            if (this.Request.QueryString.GetFirstOrDefault("a") == "new")
             {
                 albumID = DB.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null).ToString();
             }
             else
             {
-                DB.album_save(this.Request.QueryString["a"], null, this.txtTitle.Text, null);
+                DB.album_save(this.Request.QueryString.GetFirstOrDefault("a"), null, this.txtTitle.Text, null);
             }
 
             YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
@@ -301,10 +301,10 @@ namespace YAF.Pages
         private void BindData()
         {
             // If the user is trying to edit an existing album, initialize the repeater.
-            if (this.Request.QueryString["a"] != "new")
+            if (this.Request.QueryString.GetFirstOrDefault("a") != "new")
             {
-                this.txtTitle.Text = DB.album_gettitle(this.Request.QueryString["a"]);
-                DataTable dt = DB.album_image_list(this.Request.QueryString["a"], null);
+                this.txtTitle.Text = DB.album_gettitle(this.Request.QueryString.GetFirstOrDefault("a"));
+                DataTable dt = DB.album_image_list(this.Request.QueryString.GetFirstOrDefault("a"), null);
                 this.List.DataSource = dt;
                 this.List.Visible = (dt.Rows.Count > 0) ? true : false;
                 this.Delete.Visible = true;
@@ -393,7 +393,7 @@ namespace YAF.Pages
             System.Data.DataTable sigData = YAF.Classes.Data.DB.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
             if (sigData.Rows.Count > 0)
             {
-                if (this.Request.QueryString["a"] == "new")
+                if (this.Request.QueryString.GetFirstOrDefault("a") == "new")
                 {
                     int[] alstats = YAF.Classes.Data.DB.album_getstats(this.PageContext.PageUserID, null);
 
@@ -416,7 +416,7 @@ namespace YAF.Pages
                 else
                 {
                     // vzrus: the checks here are useless but in a case...
-                    int[] alstats = YAF.Classes.Data.DB.album_getstats(this.PageContext.PageUserID, this.Request.QueryString["a"]);
+                    int[] alstats = YAF.Classes.Data.DB.album_getstats(this.PageContext.PageUserID, this.Request.QueryString.GetFirstOrDefault("a"));
 
                     // Albums count. If we reached limit then we exit. 
                     // Check it first as user could be in other group or prev YAF version was used;
@@ -438,11 +438,11 @@ namespace YAF.Pages
                             "{0}/{1}.{2}.{3}.yafalbum",
                             sUpDir,
                             this.PageContext.PageUserID,
-                            this.Request.QueryString["a"],
+                            this.Request.QueryString.GetFirstOrDefault("a"),
                             filename));
                     DB.album_image_save(
                         null,
-                        this.Request.QueryString["a"],
+                        this.Request.QueryString.GetFirstOrDefault("a"),
                         null,
                         filename,
                         file.PostedFile.ContentLength,

@@ -57,9 +57,9 @@ namespace YAF.Pages.Admin
     /// </summary>
     private void BindData()
     {
-      if (Request.QueryString["i"] != null)
+      if (Request.QueryString.GetFirstOrDefault("i") != null)
       {
-        DataRow row = DB.bannedip_list(PageContext.PageBoardID, Request.QueryString["i"]).Rows[0];
+        DataRow row = DB.bannedip_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("i")).Rows[0];
         this.mask.Text = (string) row["Mask"];
       }
     }
@@ -123,7 +123,7 @@ namespace YAF.Pages.Admin
         return;
       }
 
-      DB.bannedip_save(Request.QueryString["i"], PageContext.PageBoardID, this.mask.Text.Trim(), this.BanReason.Text.Trim(), this.PageContext.PageUserID);
+      DB.bannedip_save(Request.QueryString.GetFirstOrDefault("i"), PageContext.PageBoardID, this.mask.Text.Trim(), this.BanReason.Text.Trim(), this.PageContext.PageUserID);
 
       // clear cache of banned IPs for this board
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));

@@ -56,7 +56,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            if (Request.QueryString["u"] == null)
+            if (Request.QueryString.GetFirstOrDefault("u") == null)
             {
                 YafBuildLink.AccessDenied();
             }
@@ -74,18 +74,18 @@ namespace YAF.Pages
                 YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
             }
 
-            string displayName =  UserMembershipHelper.GetDisplayNameFromID(Security.StringToLongOrRedirect(Request.QueryString["u"]));
+            string displayName =  UserMembershipHelper.GetDisplayNameFromID(Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("u")));
             // Generate the Page Links.
 
             this.PageLinks.Clear();
             this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
-                !string.IsNullOrEmpty(displayName)? displayName : UserMembershipHelper.GetUserNameFromID(Security.StringToLongOrRedirect(Request.QueryString["u"])), 
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}", Request.QueryString["u"]));
+                !string.IsNullOrEmpty(displayName)? displayName : UserMembershipHelper.GetUserNameFromID(Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("u"))), 
+                YafBuildLink.GetLink(ForumPages.profile, "u={0}", Request.QueryString.GetFirstOrDefault("u")));
             this.PageLinks.AddLink(GetText("ALBUMS"), string.Empty);
 
             // Initialize the Album List control.
-            this.AlbumList1.UserID = Convert.ToInt32(Request.QueryString["u"]);
+            this.AlbumList1.UserID = Convert.ToInt32(Request.QueryString.GetFirstOrDefault("u"));
         }
     }
 }

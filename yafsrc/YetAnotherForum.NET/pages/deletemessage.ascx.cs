@@ -175,7 +175,7 @@ namespace YAF.Pages
     /// </param>
     protected void Cancel_Click(object sender, EventArgs e)
     {
-      if (this.Request.QueryString["t"] != null || this.Request.QueryString["m"] != null)
+      if (this.Request.QueryString.GetFirstOrDefault("t") != null || this.Request.QueryString.GetFirstOrDefault("m") != null)
       {
         // reply to existing topic or editing of existing topic
         YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
@@ -195,7 +195,7 @@ namespace YAF.Pages
     /// </returns>
     protected string GetActionText()
     {
-      if (this.Request.QueryString["action"].ToLower() == "delete")
+      if (this.Request.QueryString.GetFirstOrDefault("action").ToLower() == "delete")
       {
         return this.GetText("DELETE");
       }
@@ -213,7 +213,7 @@ namespace YAF.Pages
     /// </returns>
     protected string GetReasonText()
     {
-      if (this.Request.QueryString["action"].ToLower() == "delete")
+      if (this.Request.QueryString.GetFirstOrDefault("action").ToLower() == "delete")
       {
         return this.GetText("DELETE_REASON");
       }
@@ -254,10 +254,10 @@ namespace YAF.Pages
     {
       this._messageRow = null;
 
-      if (this.Request.QueryString["m"] != null)
+      if (this.Request.QueryString.GetFirstOrDefault("m") != null)
       {
         this._messageRow =
-          DBHelper.GetFirstRowOrInvalid(DB.message_list(Security.StringToLongOrRedirect(this.Request.QueryString["m"])));
+          DBHelper.GetFirstRowOrInvalid(DB.message_list(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("m"))));
 
         if (!this.PageContext.ForumModeratorAccess && this.PageContext.PageUserID != (int)this._messageRow["UserID"])
         {
@@ -302,12 +302,12 @@ namespace YAF.Pages
         this.ReasonEditor.Attributes.Add("style", "width:100%");
         this.Cancel.Text = this.GetText("Cancel");
 
-        if (this.Request.QueryString["m"] != null)
+        if (this.Request.QueryString.GetFirstOrDefault("m") != null)
         {
           // delete message...
           this.PreviewRow.Visible = true;
 
-          DataTable tempdb = DB.message_getRepliesList(this.Request.QueryString["m"]);
+          DataTable tempdb = DB.message_getRepliesList(this.Request.QueryString.GetFirstOrDefault("m"));
 
           if (tempdb.Rows.Count != 0 && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
           {
@@ -316,7 +316,7 @@ namespace YAF.Pages
             this.LinkedPosts.DataBind();
           }
 
-          if (this.Request.QueryString["action"].ToLower() == "delete")
+          if (this.Request.QueryString.GetFirstOrDefault("action").ToLower() == "delete")
           {
             this.Title.Text = this.GetText("EDIT"); // GetText("EDIT");
             this.Delete.Text = this.GetText("DELETE"); // "GetText("Save");

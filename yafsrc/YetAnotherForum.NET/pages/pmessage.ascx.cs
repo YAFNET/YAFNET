@@ -131,14 +131,14 @@ namespace YAF.Pages
         // only administrators can send messages to all users
         this.AllUsers.Visible = YafContext.Current.IsAdmin;
 
-        if (!String.IsNullOrEmpty(Request.QueryString["p"]))
+        if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("p")))
         {
           // PM is a reply or quoted reply (isQuoting)
           // to the given message id "p"
-          bool isQuoting = Request.QueryString["q"] == "1";
+          bool isQuoting = Request.QueryString.GetFirstOrDefault("q") == "1";
 
           // get quoted message
-          DataRow row = DB.pmessage_list(Security.StringToLongOrRedirect(Request.QueryString["p"])).GetFirstRow();
+          DataRow row = DB.pmessage_list(Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("p"))).GetFirstRow();
 
           // there is such a message
           if (row != null)
@@ -191,7 +191,7 @@ namespace YAF.Pages
             }
           }
         }
-        else if (!String.IsNullOrEmpty(Request.QueryString["u"]) && !String.IsNullOrEmpty(Request.QueryString["r"]))
+        else if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("u")) && !String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("r")))
         {
           // We check here if the user have access to the option
           if (PageContext.IsModerator || PageContext.IsForumModerator)
@@ -200,14 +200,14 @@ namespace YAF.Pages
             int toUser;
             int reportMessage;
 
-            if (Int32.TryParse(this.Request.QueryString["u"], out toUser) &&
-                Int32.TryParse(this.Request.QueryString["r"], out reportMessage))
+            if (Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out toUser) &&
+                Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("r"), out reportMessage))
             {
               // get quoted message
               DataRow messagesRow =
                 DB.message_listreporters(
-                  Convert.ToInt32(Security.StringToLongOrRedirect(this.Request.QueryString["r"])),
-                  Convert.ToInt32(Security.StringToLongOrRedirect(this.Request.QueryString["u"]))).GetFirstRow();
+                  Convert.ToInt32(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("r"))),
+                  Convert.ToInt32(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u")))).GetFirstRow();
 
               // there is such a message
               // message info should be always returned as 1 row 
@@ -244,14 +244,14 @@ namespace YAF.Pages
             }
           }
         }
-        else if (!String.IsNullOrEmpty(Request.QueryString["u"]))
+        else if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("u")))
         {
           // PM is being send as a reply to a reported post
 
           // find user
           int toUserId;
 
-          if (Int32.TryParse(Request.QueryString["u"], out toUserId))
+          if (Int32.TryParse(Request.QueryString.GetFirstOrDefault("u"), out toUserId))
           {
             DataRow currentRow = DB.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
 

@@ -159,7 +159,7 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
-        if (String.IsNullOrEmpty(this.Request.QueryString["pm"]))
+        if (String.IsNullOrEmpty(this.Request.QueryString.GetFirstOrDefault("pm")))
         {
           YafBuildLink.AccessDenied();
         }
@@ -194,7 +194,7 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      using (DataTable dt = DB.pmessage_list(Security.StringToLongOrRedirect(this.Request.QueryString["pm"])))
+      using (DataTable dt = DB.pmessage_list(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("pm"))))
       {
         if (dt.Rows.Count > 0)
         {
@@ -241,7 +241,7 @@ namespace YAF.Pages
 
       if (!this.IsOutbox)
       {
-        DB.pmessage_markread(this.Request.QueryString["pm"]);
+        DB.pmessage_markread(this.Request.QueryString.GetFirstOrDefault("pm"));
 
         // Clearing cache with old permissions data...
         this.PageContext.Cache.Remove(
@@ -276,8 +276,8 @@ namespace YAF.Pages
       if (isCurrentUserFrom && isCurrentUserTo)
       {
         // it is... handle the view based on the query string passed
-        this.IsOutbox = this.Request.QueryString["v"] == "out";
-        this.IsArchived = this.Request.QueryString["v"] == "arch";
+        this.IsOutbox = this.Request.QueryString.GetFirstOrDefault("v") == "out";
+        this.IsArchived = this.Request.QueryString.GetFirstOrDefault("v") == "arch";
 
         // see if the message got deleted, if so, redirect to their outbox/archive
         if (this.IsOutbox && !messageIsInOutbox)

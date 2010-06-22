@@ -45,7 +45,7 @@ namespace YAF.Pages
     {
       get
       {
-        return (int) Security.StringToLongOrRedirect(Request.QueryString["u"]);
+        return (int) Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("u"));
       }
     }
 

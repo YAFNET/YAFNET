@@ -98,7 +98,7 @@ namespace YAF.Pages.Admin
 
       if (Request["s"] != null)
       {
-        using (DataTable dt = DB.smiley_list(PageContext.PageBoardID, Request.QueryString["s"]))
+        using (DataTable dt = DB.smiley_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("s")))
         {
           if (dt.Rows.Count > 0)
           {
@@ -182,7 +182,7 @@ namespace YAF.Pages.Admin
         return;
       }
 
-      DB.smiley_save(Request.QueryString["s"], PageContext.PageBoardID, code, icon, emotion, sortOrder, 0);
+      DB.smiley_save(Request.QueryString.GetFirstOrDefault("s"), PageContext.PageBoardID, code, icon, emotion, sortOrder, 0);
 
       // invalidate the cache...
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.Smilies));

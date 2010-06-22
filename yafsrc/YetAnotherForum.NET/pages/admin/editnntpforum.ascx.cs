@@ -50,9 +50,9 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink("NNTP Forums", string.Empty);
 
         BindData();
-        if (Request.QueryString["s"] != null)
+        if (Request.QueryString.GetFirstOrDefault("s") != null)
         {
-          using (DataTable dt = DB.nntpforum_list(PageContext.PageBoardID, null, Request.QueryString["s"], DBNull.Value))
+          using (DataTable dt = DB.nntpforum_list(PageContext.PageBoardID, null, Request.QueryString.GetFirstOrDefault("s"), DBNull.Value))
           {
             DataRow row = dt.Rows[0];
             this.NntpServerID.Items.FindByValue(row["NntpServerID"].ToString()).Selected = true;
@@ -110,9 +110,9 @@ namespace YAF.Pages.Admin
         }
 
       object nntpForumID = null;
-      if (Request.QueryString["s"] != null)
+      if (Request.QueryString.GetFirstOrDefault("s") != null)
       {
-        nntpForumID = Request.QueryString["s"];
+        nntpForumID = Request.QueryString.GetFirstOrDefault("s");
       }
       if (Convert.ToInt32(this.ForumID.SelectedValue) <= 0)
       {

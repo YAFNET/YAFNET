@@ -78,9 +78,9 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (!String.IsNullOrEmpty(this.Request.QueryString["m"]))
+      if (!String.IsNullOrEmpty(this.Request.QueryString.GetFirstOrDefault("m")))
       {
-        if (!Int32.TryParse(this.Request.QueryString["m"], out this.messageID))
+        if (!Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("m"), out this.messageID))
         {
           this.Response.Redirect(YafBuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", this.messageID));
         }
@@ -88,7 +88,7 @@ namespace YAF.Pages
         this.ReturnBtn.Visible = true;
       }
 
-      if (!String.IsNullOrEmpty(this.Request.QueryString["f"]))
+      if (!String.IsNullOrEmpty(this.Request.QueryString.GetFirstOrDefault("f")))
       {
         // We check here if the user have access to the option
         if (this.PageContext.IsGuest)
@@ -96,7 +96,7 @@ namespace YAF.Pages
           this.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=4"));
         }
 
-        if (!Int32.TryParse(this.Request.QueryString["f"], out this.forumID))
+        if (!Int32.TryParse(this.Request.QueryString.GetFirstOrDefault("f"), out this.forumID))
         {
           this.Response.Redirect(YafBuildLink.GetLink(ForumPages.error, "Incorrect forum value: {0}", this.forumID));
         }

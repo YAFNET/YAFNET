@@ -43,7 +43,7 @@ namespace YAF.Controls
     {
       if (PageContext.IsAdmin || PageContext.IsForumModerator)
       {
-        var userID = (int) Security.StringToLongOrRedirect(Request.QueryString["u"]);
+        var userID = (int) Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("u"));
 
         using (DataTable dt2 = DB.user_accessmasks(PageContext.PageBoardID, userID))
         {

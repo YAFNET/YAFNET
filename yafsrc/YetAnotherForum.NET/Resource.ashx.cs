@@ -76,59 +76,59 @@ namespace YAF
     public void ProcessRequest(HttpContext context)
     {
       // resource no longer works with dynamic compile...
-      if (context.Request.QueryString["r"] != null)
+      if (context.Request.QueryString.GetFirstOrDefault("r") != null)
       {
         // resource request
         this.GetResource(context);
       }
       else if (context.Session["lastvisit"] != null)
       {
-        if (context.Request.QueryString["u"] != null)
+        if (context.Request.QueryString.GetFirstOrDefault("u") != null)
         {
           this.GetResponseLocalAvatar(context);
         }
-        else if (context.Request.QueryString["url"] != null && context.Request.QueryString["width"] != null &&
-                 context.Request.QueryString["height"] != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("url") != null && context.Request.QueryString.GetFirstOrDefault("width") != null &&
+                 context.Request.QueryString.GetFirstOrDefault("height") != null)
         {
           this.GetResponseRemoteAvatar(context);
         }
-        else if (context.Request.QueryString["a"] != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("a") != null)
         {
           this.GetResponseAttachment(context);
         }
 
           // TommyB: Start MOD: Preview Images   ##########
-        else if (context.Request.QueryString["i"] != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("i") != null)
         {
           this.GetResponseImage(context);
         }
-        else if (context.Request.QueryString["p"] != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("p") != null)
         {
           this.GetResponseImagePreview(context);
         }
 
           // TommyB: End MOD: Preview Images   ##########
-        else if (context.Request.QueryString["c"] != null && context.Session["CaptchaImageText"] != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("c") != null && context.Session["CaptchaImageText"] != null)
         {
           // captcha					
           this.GetResponseCaptcha(context);
         }
-        else if (context.Request.QueryString["cover"] != null && context.Request.QueryString["album"] != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("cover") != null && context.Request.QueryString.GetFirstOrDefault("album") != null)
         {
           // album cover		
           this.GetAlbumCover(context);
         }
-        else if (context.Request.QueryString["imgprv"] != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("imgprv") != null)
         {
           // album image preview		
           this.GetAlbumImagePreview(context);
         }
-        else if (context.Request.QueryString["image"] != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("image") != null)
         {
           // album image		
           this.GetAlbumImage(context);
         }
-        else if (context.Request.QueryString["s"] != null && context.Request.QueryString["lang"] != null)
+        else if (context.Request.QueryString.GetFirstOrDefault("s") != null && context.Request.QueryString.GetFirstOrDefault("lang") != null)
         {
           this.GetResponseGoogleSpell(context);
         }
@@ -321,7 +321,7 @@ namespace YAF
       }
 
       string eTag = String.Format(
-        @"""{0}""", context.Request.QueryString["cover"] + localizationFile.GetHashCode().ToString());
+        @"""{0}""", context.Request.QueryString.GetFirstOrDefault("cover") + localizationFile.GetHashCode().ToString());
 
       if (CheckETag(context, eTag))
       {
@@ -335,13 +335,13 @@ namespace YAF
           // CoverID
           string fileName = string.Empty;
           var data = new MemoryStream();
-          if (context.Request.QueryString["cover"] == "0")
+          if (context.Request.QueryString.GetFirstOrDefault("cover") == "0")
           {
             fileName = context.Server.MapPath(String.Format("{0}/images/{1}", YafForumInfo.ForumClientFileRoot, "noCover.png"));
           }
           else
           {
-            using (DataTable dt = DB.album_image_list(null, context.Request.QueryString["cover"]))
+            using (DataTable dt = DB.album_image_list(null, context.Request.QueryString.GetFirstOrDefault("cover")))
             {
               if (dt.Rows.Count > 0)
               {
@@ -371,7 +371,7 @@ namespace YAF
 
           // reset position...
           data.Position = 0;
-          string imagesNumber = DB.album_getstats(null, context.Request.QueryString["album"])[1].ToString();
+          string imagesNumber = DB.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1].ToString();
           MemoryStream ms = this.GetCoverResized(
             data, previewMaxWidth, previewMaxHeight, localizationFile, imagesNumber);
 
@@ -404,17 +404,17 @@ namespace YAF
     {
       try
       {
-        string eTag = String.Format(@"""{0}""", context.Request.QueryString["image"]);
+        string eTag = String.Format(@"""{0}""", context.Request.QueryString.GetFirstOrDefault("image"));
 
         if (CheckETag(context, eTag))
         {
           // found eTag... no need to resend/create this image -- just mark another view?
-          // YAF.Classes.Data.DB.album_image_download(context.Request.QueryString["image"]);
+          // YAF.Classes.Data.DB.album_image_download(context.Request.QueryString.GetFirstOrDefault("image"));
           return;
         }
 
         // ImageID
-        using (DataTable dt = DB.album_image_list(null, context.Request.QueryString["image"]))
+        using (DataTable dt = DB.album_image_list(null, context.Request.QueryString.GetFirstOrDefault("image")))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -455,7 +455,7 @@ namespace YAF
             context.Response.OutputStream.Write(data, 0, data.Length);
 
             // add a download count...
-            DB.album_image_download(context.Request.QueryString["image"]);
+            DB.album_image_download(context.Request.QueryString.GetFirstOrDefault("image"));
             break;
           }
         }
@@ -496,7 +496,7 @@ namespace YAF
       }
 
       string eTag = String.Format(
-        @"""{0}""", context.Request.QueryString["imgprv"] + localizationFile.GetHashCode().ToString());
+        @"""{0}""", context.Request.QueryString.GetFirstOrDefault("imgprv") + localizationFile.GetHashCode().ToString());
 
       if (CheckETag(context, eTag))
       {
@@ -507,7 +507,7 @@ namespace YAF
       try
       {
         // ImageID
-        using (DataTable dt = DB.album_image_list(null, context.Request.QueryString["imgprv"]))
+        using (DataTable dt = DB.album_image_list(null, context.Request.QueryString.GetFirstOrDefault("imgprv")))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -773,7 +773,7 @@ namespace YAF
     private void GetResource(HttpContext context)
     {
       // redirect to the resource?
-      context.Response.Redirect("resources/" + context.Request.QueryString["r"]);
+      context.Response.Redirect("resources/" + context.Request.QueryString.GetFirstOrDefault("r"));
 
       /*string resourceName = "YAF.App_GlobalResources." + context.Request.QueryString ["r"];
 			int lastIndex = resourceName.LastIndexOf( '.' );
@@ -829,7 +829,7 @@ namespace YAF
       try
       {
         // AttachmentID
-        using (DataTable dt = DB.attachment_list(null, context.Request.QueryString["a"], null))
+        using (DataTable dt = DB.attachment_list(null, context.Request.QueryString.GetFirstOrDefault("a"), null))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -885,7 +885,7 @@ namespace YAF
               String.Format(
                 "attachment; filename={0}", HttpUtility.UrlPathEncode(row["FileName"].ToString()).Replace("+", "_")));
             context.Response.OutputStream.Write(data, 0, data.Length);
-            DB.attachment_download(context.Request.QueryString["a"]);
+            DB.attachment_download(context.Request.QueryString.GetFirstOrDefault("a"));
             break;
           }
         }
@@ -928,7 +928,7 @@ namespace YAF
     /// </param>
     private void GetResponseGoogleSpell(HttpContext context)
     {
-      string url = string.Format("https://www.google.com/tbproxy/spell?lang={0}", context.Request.QueryString["lang"]);
+      string url = string.Format("https://www.google.com/tbproxy/spell?lang={0}", context.Request.QueryString.GetFirstOrDefault("lang"));
 
       var webRequest = (HttpWebRequest)WebRequest.Create(url);
       webRequest.KeepAlive = true;
@@ -960,17 +960,17 @@ namespace YAF
     {
       try
       {
-        string eTag = String.Format(@"""{0}""", context.Request.QueryString["i"]);
+        string eTag = String.Format(@"""{0}""", context.Request.QueryString.GetFirstOrDefault("i"));
 
         if (CheckETag(context, eTag))
         {
           // found eTag... no need to resend/create this image -- just mark another view?
-          DB.attachment_download(context.Request.QueryString["i"]);
+          DB.attachment_download(context.Request.QueryString.GetFirstOrDefault("i"));
           return;
         }
 
         // AttachmentID
-        using (DataTable dt = DB.attachment_list(null, context.Request.QueryString["i"], null))
+        using (DataTable dt = DB.attachment_list(null, context.Request.QueryString.GetFirstOrDefault("i"), null))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -1026,7 +1026,7 @@ namespace YAF
             context.Response.OutputStream.Write(data, 0, data.Length);
 
             // add a download count...
-            DB.attachment_download(context.Request.QueryString["i"]);
+            DB.attachment_download(context.Request.QueryString.GetFirstOrDefault("i"));
             break;
           }
         }
@@ -1067,7 +1067,7 @@ namespace YAF
       }
 
       string eTag = String.Format(
-        @"""{0}""", context.Request.QueryString["p"] + localizationFile.GetHashCode().ToString());
+        @"""{0}""", context.Request.QueryString.GetFirstOrDefault("p") + localizationFile.GetHashCode().ToString());
 
       if (CheckETag(context, eTag))
       {
@@ -1078,7 +1078,7 @@ namespace YAF
       try
       {
         // AttachmentID
-        using (DataTable dt = DB.attachment_list(null, context.Request.QueryString["p"], null))
+        using (DataTable dt = DB.attachment_list(null, context.Request.QueryString.GetFirstOrDefault("p"), null))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -1168,7 +1168,7 @@ namespace YAF
     {
       try
       {
-        // string eTag = String.Format( @"""{0}""", context.Request.QueryString["u"] );
+        // string eTag = String.Format( @"""{0}""", context.Request.QueryString.GetFirstOrDefault("u") );
 
         // if ( CheckETag( context, eTag ) )
         // {
@@ -1176,7 +1176,7 @@ namespace YAF
         // return;
         // }
 
-        using (DataTable dt = DB.user_avatarimage(context.Request.QueryString["u"]))
+        using (DataTable dt = DB.user_avatarimage(context.Request.QueryString.GetFirstOrDefault("u")))
         {
           foreach (DataRow row in dt.Rows)
           {
@@ -1227,15 +1227,15 @@ namespace YAF
         return;
       }
 
-      string wb = context.Request.QueryString["url"];
+      string wb = context.Request.QueryString.GetFirstOrDefault("url");
 
       try
       {
-        int maxwidth = int.Parse(context.Request.QueryString["width"]);
-        int maxheight = int.Parse(context.Request.QueryString["height"]);
+        int maxwidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
+        int maxheight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
 
         string eTag = String.Format(
-          @"""{0}""", (context.Request.QueryString["url"] + maxheight.ToString() + maxwidth.ToString()).GetHashCode());
+          @"""{0}""", (context.Request.QueryString.GetFirstOrDefault("url") + maxheight.ToString() + maxwidth.ToString()).GetHashCode());
 
         if (CheckETag(context, eTag))
         {

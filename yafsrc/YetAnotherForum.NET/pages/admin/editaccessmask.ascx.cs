@@ -94,7 +94,7 @@ namespace YAF.Pages.Admin
 		{
 			// retrieve access mask ID from parameter (if applicable)
 			object accessMaskID = null;
-			if (Request.QueryString["i"] != null) accessMaskID = Request.QueryString["i"];
+			if (Request.QueryString.GetFirstOrDefault("i") != null) accessMaskID = Request.QueryString.GetFirstOrDefault("i");
 
             if (this.Name.Text.Trim().Length <= 0)
             {
@@ -168,10 +168,10 @@ namespace YAF.Pages.Admin
 		/// </summary>
 		private void BindData()
 		{
-			if (Request.QueryString["i"] != null)
+			if (Request.QueryString.GetFirstOrDefault("i") != null)
 			{
 				// load access mask
-				using (DataTable dt = DB.accessmask_list(PageContext.PageBoardID, Request.QueryString["i"]))
+				using (DataTable dt = DB.accessmask_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("i")))
 				{
 					// we need just one
 					DataRow row = dt.Rows[0];

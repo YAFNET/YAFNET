@@ -60,9 +60,9 @@ namespace YAF.Pages.Admin
         
          BindData();
 
-        if (Request.QueryString["f"] != null)
+        if (Request.QueryString.GetFirstOrDefault("f") != null)
         {
-          using (DataTable dt = DB.forum_list(PageContext.PageBoardID, Request.QueryString["f"]))
+          using (DataTable dt = DB.forum_list(PageContext.PageBoardID, Request.QueryString.GetFirstOrDefault("f")))
           {
             DataRow row = dt.Rows[0];
             var flags = new ForumFlags(row["Flags"]);
@@ -117,9 +117,9 @@ namespace YAF.Pages.Admin
       this.CategoryList.DataSource = DB.category_list(PageContext.PageBoardID, null);
       this.CategoryList.DataBind();
 
-      if (Request.QueryString["f"] != null)
+      if (Request.QueryString.GetFirstOrDefault("f") != null)
       {
-        ForumID = Convert.ToInt32(Request.QueryString["f"]);
+        ForumID = Convert.ToInt32(Request.QueryString.GetFirstOrDefault("f"));
         this.AccessList.DataSource = DB.forumaccess_list(ForumID);
         this.AccessList.DataBind();
       }
@@ -234,9 +234,9 @@ namespace YAF.Pages.Admin
       // vzrus: it's stored in the DB as int
       long ForumID = 0; 
 
-      if (Request.QueryString["f"] != null)
+      if (Request.QueryString.GetFirstOrDefault("f") != null)
       {
-        ForumID = long.Parse(Request.QueryString["f"]);
+        ForumID = long.Parse(Request.QueryString.GetFirstOrDefault("f"));
       }
       else if (this.AccessMaskID.SelectedValue.Length == 0)
       {
@@ -250,7 +250,7 @@ namespace YAF.Pages.Admin
         parentID = this.ParentList.SelectedValue;
       }
 
-      if (parentID != null && parentID.ToString() == Request.QueryString["f"])
+      if (parentID != null && parentID.ToString() == Request.QueryString.GetFirstOrDefault("f"))
       {
         PageContext.AddLoadMessage("Forum cannot be parent of self.");
         return;
@@ -311,7 +311,7 @@ namespace YAF.Pages.Admin
         false);
 
       // Access
-      if (Request.QueryString["f"] != null)
+      if (Request.QueryString.GetFirstOrDefault("f") != null)
       {
         for (int i = 0; i < this.AccessList.Items.Count; i++)
         {

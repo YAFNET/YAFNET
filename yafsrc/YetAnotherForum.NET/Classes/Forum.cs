@@ -475,11 +475,11 @@ namespace YAF
     {
       string m_baseDir = YafForumInfo.ForumServerFileRoot;
 
-      if (this.Request.QueryString["g"] != null)
+      if (this.Request.QueryString.GetFirstOrDefault("g") != null)
       {
         try
         {
-          this._page = (ForumPages)Enum.Parse(typeof(ForumPages), this.Request.QueryString["g"], true);
+          this._page = this.Request.QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
         }
         catch (Exception)
         {

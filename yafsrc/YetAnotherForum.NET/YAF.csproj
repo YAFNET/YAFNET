@@ -223,6 +223,13 @@
     <Compile Include="error.aspx.designer.cs">
       <DependentUpon>error.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GiveAdmin.aspx.cs">
+      <DependentUpon>GiveAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GiveAdmin.aspx.designer.cs">
+      <DependentUpon>GiveAdmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
@@ -683,6 +690,7 @@
     <Content Include="editors\yafEditor\unorderedlist.gif" />
     <Content Include="editors\yafEditor\yafEditor.js" />
     <Content Include="error.aspx" />
+    <Content Include="GiveAdmin.aspx" />
     <Content Include="images\blank.gif" />
     <Content Include="images\folder.gif" />
     <Content Include="images\forums\forumImageSample.gif" />
@@ -747,6 +755,7 @@
     <Content Include="languages\swedish.xml" />
     <Content Include="languages\turkish.xml" />
     <Content Include="languages\vietnam.xml" />
+    <Content Include="Manifest.xml" />
     <Content Include="pages\activeusers.ascx" />
     <Content Include="pages\admin\accessmasks.ascx" />
     <Content Include="pages\admin\admin.ascx" />
@@ -1474,9 +1483,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Content Include="app.config" />
-    <Content Include="App_Browsers\MozillaPatch.browser" />
-    <Content Include="App_Browsers\OceanAppleWebKit.browser" />
-    <Content Include="App_Browsers\OceanSpiders.browser" />
     <Content Include="App_Browsers\w3cvalidator.browser" />
     <Content Include="themes\cleanSlate.xml" />
     <Content Include="themes\cleanSlate\buttonBack.gif" />
@@ -1593,7 +1599,6 @@
     <Content Include="themes\FlatEarth\rssfeed.gif" />
     <Content Include="themes\FlatEarth\tab-line.png" />
     <Content Include="themes\FlatEarth\tab.png" />
-    <Content Include="themes\Gray.xml" />
     <Content Include="themes\Gray\buttonBack.gif" />
     <Content Include="themes\Gray\buttonBackB.gif" />
     <Content Include="themes\Gray\buttonEnd.gif" />
