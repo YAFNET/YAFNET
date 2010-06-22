@@ -2902,13 +2902,13 @@ BEGIN
 		UPDATE [{databaseOwner}].[{objectQualifier}Mail]
 	SET 
 		SendTries = SendTries + 1,
-		SendAttempt = DATEADD(n,5,GETUTCDATE() ),
+		SendAttempt = DATEADD(n,5,GETUTCDATE()),
 		ProcessID = @ProcessID
 	WHERE
-		MailID IN (SELECT TOP 10 MailID FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt < GETUTCDATE() OR SendAttempt IS NULL ORDER BY SendAttempt desc, Created desc)
+		MailID IN (SELECT TOP 10 MailID FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt < GETUTCDATE() OR SendAttempt IS NULL ORDER BY SendAttempt, Created)
 
 	-- now select all mail reserved for this process...
-	SELECT * FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE ProcessID = @ProcessID ORDER BY SendAttempt desc, Created desc
+	SELECT TOP 10 * FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE ProcessID = @ProcessID ORDER BY SendAttempt desc, Created
 END
 GO
 
