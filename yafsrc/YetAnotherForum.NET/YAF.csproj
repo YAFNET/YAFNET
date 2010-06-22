@@ -223,13 +223,6 @@
     <Compile Include="error.aspx.designer.cs">
       <DependentUpon>error.aspx</DependentUpon>
     </Compile>
-    <Compile Include="GiveAdmin.aspx.cs">
-      <DependentUpon>GiveAdmin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="GiveAdmin.aspx.designer.cs">
-      <DependentUpon>GiveAdmin.aspx</DependentUpon>
-    </Compile>
     <Compile Include="install\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
@@ -690,7 +683,6 @@
     <Content Include="editors\yafEditor\unorderedlist.gif" />
     <Content Include="editors\yafEditor\yafEditor.js" />
     <Content Include="error.aspx" />
-    <Content Include="GiveAdmin.aspx" />
     <Content Include="images\blank.gif" />
     <Content Include="images\folder.gif" />
     <Content Include="images\forums\forumImageSample.gif" />
