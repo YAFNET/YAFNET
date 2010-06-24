@@ -586,7 +586,7 @@ namespace YAF
     /// The localization file.
     /// </param>
     /// <param name="ImagesNumber">
-    /// The images number.
+    /// Number of images in the album.
     /// </param>
     /// <returns>
     /// </returns>
@@ -1216,7 +1216,7 @@ namespace YAF
       Bitmap bmp = null;
       Graphics gfx = null;
 
-      if (General.GetCurrentTrustLevel() < AspNetHostingPermissionLevel.High)
+      if (General.GetCurrentTrustLevel() < AspNetHostingPermissionLevel.Medium)
       {
         // don't bother... not supported.
         DB.eventlog_create(
