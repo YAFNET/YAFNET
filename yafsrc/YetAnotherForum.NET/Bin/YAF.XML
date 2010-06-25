@@ -21623,15 +21623,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.EditUsersProfile.LocalizedLabel33">
-            <summary>
-            LocalizedLabel33 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Controls.EditUsersProfile.BirthdayLabel">
             <summary>
             BirthdayLabel control.
@@ -25442,79 +25433,6 @@
             Gets a value indicating whether IsReusable.
             </summary>
         </member>
-        <member name="T:YAF.GiveAdmin">
-            <summary>
-            The give admin.
-            </summary>
-        </member>
-        <member name="F:YAF.GiveAdmin.username">
-            <summary>
-            The username.
-            </summary>
-        </member>
-        <member name="F:YAF.GiveAdmin.form1">
-            <summary>
-            form1 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.GiveAdmin.message">
-            <summary>
-            message control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.GiveAdmin.txtPassword">
-            <summary>
-            txtPassword control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.GiveAdmin.btnMain">
-            <summary>
-            btnMain control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="M:YAF.GiveAdmin.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            The page_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="M:YAF.GiveAdmin.btnMain_Click(System.Object,System.EventArgs)">
-            <summary>
-            The btn main_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="P:YAF.GiveAdmin.CurrentBoardID">
-            <summary>
-            Gets CurrentBoardID.
-            </summary>
-        </member>
         <member name="T:YAF.Pages.Admin.reindex">
             <summary>
             The reindex.
@@ -27268,16 +27186,6 @@
             <param name="e">
             The e.
             </param>
-        </member>
-        <member name="M:YAF.Pages.posts.UpdateDataTableWithThanksAndStyles(System.Data.DataTable)">
-            <summary>
-            The update data table with thanks and styles.
-            </summary>
-            <param name="postListDataTable">
-            The post list data table.
-            </param>
-            <returns>
-            </returns>
         </member>
         <member name="M:YAF.Pages.posts.ViewMenu_ItemClick(System.Object,YAF.Controls.PopEventArgs)">
             <summary>

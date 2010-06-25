@@ -2949,7 +2949,7 @@
             The body html.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.post_list(System.Object,System.Object,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:YAF.Classes.Data.DB.post_list(System.Object,System.Object,System.Boolean,System.Boolean)">
             <summary>
             The post_list.
             </summary>
