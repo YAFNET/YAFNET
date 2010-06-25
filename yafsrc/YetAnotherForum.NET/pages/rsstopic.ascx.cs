@@ -101,7 +101,7 @@ namespace YAF.Pages
                 row["Topic"].ToString(), 
                 "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", Convert.ToInt32(row["TopicID"])), 
-                String.Format("TopicID{0}", Convert.ToInt32(row["TopicID"])), 
+                "TopicID{0}".FormatWith(Convert.ToInt32(row["TopicID"])), 
                !row["LastPosted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue +TimeSpan.FromDays(2));
             }
 
@@ -123,7 +123,7 @@ namespace YAF.Pages
                 row["Subject"].ToString(), 
                 row["Message"].ToString(), 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString.GetFirstOrDefault("t")), 
-                String.Format("TopicID{0}", this.Request.QueryString.GetFirstOrDefault("t")), 
+                "TopicID{0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("t")), 
                 !row["Posted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue +TimeSpan.FromDays(2));
             }
 
@@ -141,7 +141,7 @@ namespace YAF.Pages
           {
             using (
               DataTable dt = DB.post_list(
-                this.PageContext.PageTopicID, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false, false, false))
+                this.PageContext.PageTopicID, 0, this.PageContext.BoardSettings.ShowDeletedMessages, false))
             {
               // get max 500 rows
               var dataRows = dt.AsEnumerable().Take(500);
@@ -155,7 +155,7 @@ namespace YAF.Pages
                   row["Subject"].ToString(), 
                   FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])), 
                   YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString.GetFirstOrDefault("t")),
-                  String.Format("TopicID{0}", this.Request.QueryString.GetFirstOrDefault("t")),
+                  "TopicID{0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("t")),
                   !row["Posted"].IsNullOrEmptyDBField()
                     ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset
                     : DateTime.MinValue + TimeSpan.FromDays(2));
@@ -184,7 +184,7 @@ namespace YAF.Pages
                 row["Forum"].ToString(), 
                 row["Description"].ToString(), 
                 YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
-                String.Format("ForumID{0}", row["ForumID"]),
+                "ForumID{0}".FormatWith(row["ForumID"]),
                 !row["LastPosted"].IsNullOrEmptyDBField()
                   ? Convert.ToDateTime(row["LastPosted"]) + YafServices.DateTime.TimeOffset
                   : DateTime.MinValue + TimeSpan.FromDays(2));
@@ -212,7 +212,7 @@ namespace YAF.Pages
                   row["Topic"].ToString(), 
                   "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
                   YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]), 
-                  String.Format("TopicID_{0}", row["TopicID"].ToString()), 
+                  "TopicID_{0}".FormatWith(row["TopicID"].ToString()), 
                   !row["Posted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue + TimeSpan.FromDays(2));
               }
 
@@ -262,7 +262,7 @@ namespace YAF.Pages
                       row["Subject"].ToString(), 
                       "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
                       YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]), 
-                      String.Format("TopicID{0}", row["LinkTopicID"].ToString()), 
+                      "TopicID{0}".FormatWith(row["LinkTopicID"].ToString()), 
                       !row["Posted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue +TimeSpan.FromDays(2));
                 }
 
@@ -307,7 +307,7 @@ namespace YAF.Pages
                     row["Subject"].ToString(), 
                     "<a href=" + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]) + " >" + this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST") + "</a>", 
                     YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]), 
-                    String.Format("TopicID{0}", row["LinkTopicID"].ToString()), 
+                    "TopicID{0}".FormatWith(row["LinkTopicID"].ToString()), 
                     !row["Posted"].IsNullOrEmptyDBField() ? Convert.ToDateTime(row["Posted"]) + YafServices.DateTime.TimeOffset : DateTime.MinValue +TimeSpan.FromDays(2));
               }
 

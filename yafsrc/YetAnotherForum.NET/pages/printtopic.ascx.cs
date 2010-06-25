@@ -74,7 +74,7 @@ namespace YAF.Pages
         this.PageLinks.AddLink(PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", PageContext.PageTopicID));
 
         var dt = DB.post_list(
-          PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false, false, false);
+          PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages, false);
 
         // get max 500 rows
         var dataRows = dt.AsEnumerable().Take(500);

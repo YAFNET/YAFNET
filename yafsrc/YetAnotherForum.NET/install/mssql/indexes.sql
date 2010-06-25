@@ -129,3 +129,26 @@ go
 if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}UserAlbumImage_AlbumID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}UserAlbumImage]'))
  CREATE  INDEX [IX_{objectQualifier}UserAlbumImage_AlbumID] ON [{databaseOwner}].[{objectQualifier}UserAlbumImage]([AlbumID])
 go
+
+-- {objectQualifier}Thanks
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Thanks]') AND name = N'IX_{objectQualifier}Thanks_MessageID')
+CREATE  INDEX [IX_{objectQualifier}Thanks_MessageID] ON [{databaseOwner}].[{objectQualifier}Thanks] 
+(
+	[MessageID] ASC
+)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Thanks]') AND name = N'IX_{objectQualifier}Thanks_ThanksFromUserID')
+CREATE  INDEX [IX_{objectQualifier}Thanks_ThanksFromUserID] ON [{databaseOwner}].[{objectQualifier}Thanks] 
+(
+	[ThanksFromUserID] ASC
+)
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Thanks]') AND name = N'IX_{objectQualifier}Thanks_ThanksToUserID')
+CREATE  INDEX [IX_{objectQualifier}Thanks_ThanksToUserID] ON [{databaseOwner}].[{objectQualifier}Thanks] 
+(
+	[ThanksToUserID] ASC
+)
+GO

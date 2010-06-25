@@ -94,15 +94,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.CheckBox HideMe;
         
         /// <summary>
-        /// LocalizedLabel33 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel33;
-        
-        /// <summary>
         /// BirthdayLabel control.
         /// </summary>
         /// <remarks>

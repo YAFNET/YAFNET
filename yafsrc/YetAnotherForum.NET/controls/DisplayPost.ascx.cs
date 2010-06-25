@@ -173,52 +173,44 @@ namespace YAF.Controls
     /// </returns>
     protected string FormatThanksInfo(string rawStr)
     {
-      var filler = new StringBuilder();
-      string strID, strUserName;
+      var sb = new StringBuilder();
       string strDate = string.Empty;
 
+      bool showDate = YafContext.Current.BoardSettings.ShowThanksDate;
+
       // Extract all user IDs, usernames and (If enabled thanks dates) related to this message.
-      while (rawStr != string.Empty)
+      foreach (var chunk in rawStr.Split(','))
       {
-        if (filler.Length > 0)
+        var subChunks = chunk.Split('|');
+
+        int userId = int.Parse(subChunks[0]);
+        DateTime thanksDate = DateTime.Parse(subChunks[1]);
+
+        if (sb.Length > 0)
         {
-          filler.Append(",&nbsp;");
+          sb.Append(",&nbsp;");
         }
 
-        int i = rawStr.IndexOf(",");
-
-        // Extract UserID
-        strID = rawStr.Substring(0, i).Trim();
-     
         // Get the username related to this User ID
-        strUserName = this.PageContext.UserDisplayName.GetName(Convert.ToInt32(strID));
-        rawStr = rawStr.Remove(0, i + 1);
+        string strUserName = this.PageContext.UserDisplayName.GetName(userId);
 
-        // If Thanks date is in the data, extract it.
-        if (YafContext.Current.BoardSettings.ShowThanksDate)
-        {
-          i = rawStr.IndexOf(",");
-          strDate = rawStr.Substring(0, i);
-          rawStr = rawStr.Remove(0, i + 1);
-        }
-
-        filler.AppendFormat(
-          @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>", 
-          strID, 
-          YafBuildLink.GetLink(ForumPages.profile, "u={0}", strID), 
+        sb.AppendFormat(
+          @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
+          userId,
+          YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId),
           Server.HtmlEncode(strUserName));
 
         // If showing thanks date is enabled, add it to the formatted string.
-        if (YafContext.Current.BoardSettings.ShowThanksDate)
+        if (showDate)
         {
-        filler.AppendFormat(
-          @" {0}",
-          String.Format(YafContext.Current.Localization.GetText("DEFAULT", "ONDATE"),
-          YafServices.DateTime.FormatDateShort(Convert.ToDateTime(strDate))));
+          sb.AppendFormat(
+            @" {0}",
+            YafContext.Current.Localization.GetText("DEFAULT", "ONDATE").FormatWith(
+              YafServices.DateTime.FormatDateShort(thanksDate)));
         }
       }
 
-      return filler.ToString();
+      return sb.ToString();
     }
 
     /// <summary>
@@ -462,7 +454,8 @@ namespace YAF.Controls
       {
           this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest &&
                          YafContext.Current.BoardSettings.EnableThanksMod;
-          if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]) == true)
+
+          if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]))
           {
               this.Thank.NavigateUrl = "javascript:removeThanks(" + this.DataRow["MessageID"] + ");";
               this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";

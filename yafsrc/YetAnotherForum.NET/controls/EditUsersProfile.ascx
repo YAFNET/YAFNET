@@ -44,14 +44,6 @@
         </td>
     </tr>    
     <tr>
-        <td colspan="2" class="header2">
-            <b>
-                <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="homepage" />
-            </b>
-        </td>
-    </tr>
-    <tr>
         <td class="postheader">
             <YAF:LocalizedLabel ID="BirthdayLabel" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="BIRTHDAY" />
