@@ -38,6 +38,7 @@ namespace YAF
   using YAF.Classes.Data;
   using YAF.Classes.UI;
   using YAF.Classes.Utils;
+  using YAF.Classes.Utils.Extensions;
 
   #endregion
 
@@ -252,7 +253,7 @@ namespace YAF
 
           foreach (DataColumn col in auldRow.Table.Columns)
           {
-            DataColumn dc = new DataColumn(col.ColumnName, col.DataType);
+            var dc = new DataColumn(col.ColumnName, col.DataType);
             pageRow.Table.Columns.Add(dc);
             pageRow.Table.Rows[0][dc] = auldRow[col];
           }
@@ -266,30 +267,6 @@ namespace YAF
 
       return pageRow["DownloadAccess"].BinaryAnd(AccessFlags.Flags.DownloadAccess) ||
              pageRow["ModeratorAccess"].BinaryAnd(AccessFlags.Flags.ModeratorAccess);
-    }
-
-    /// <summary>
-    /// The copy stream.
-    /// </summary>
-    /// <param name="input">
-    /// The input.
-    /// </param>
-    /// <param name="output">
-    /// The output.
-    /// </param>
-    private void CopyStream(Stream input, Stream output)
-    {
-      var buffer = new byte[1024];
-      int count = buffer.Length;
-
-      while (count > 0)
-      {
-        count = input.Read(buffer, 0, count);
-        if (count > 0)
-        {
-          output.Write(buffer, 0, count);
-        }
-      }
     }
 
     /// <summary>
@@ -320,8 +297,7 @@ namespace YAF
         localizationFile = context.Session["localizationFile"].ToString();
       }
 
-      string eTag = String.Format(
-        @"""{0}""", context.Request.QueryString.GetFirstOrDefault("cover") + localizationFile.GetHashCode().ToString());
+      string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("cover") + localizationFile.GetHashCode().ToString());
 
       if (CheckETag(context, eTag))
       {
@@ -404,7 +380,7 @@ namespace YAF
     {
       try
       {
-        string eTag = String.Format(@"""{0}""", context.Request.QueryString.GetFirstOrDefault("image"));
+        string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("image"));
 
         if (CheckETag(context, eTag))
         {
@@ -653,7 +629,7 @@ namespace YAF
                 sf.Alignment = StringAlignment.Near;
                 sf.LineAlignment = StringAlignment.Near;
                 g.DrawString(
-                  String.Format(localization.GetText("ALBUM_IMAGES_NUMBER"), ImagesNumber), f, brush, rDstTxt, sf);
+                  localization.GetText("ALBUM_IMAGES_NUMBER").FormatWith(ImagesNumber), f, brush, rDstTxt, sf);
               }
             }
           }
@@ -939,14 +915,14 @@ namespace YAF
 
       Stream requestStream = webRequest.GetRequestStream();
 
-      this.CopyStream(context.Request.InputStream, requestStream);
+      context.Request.InputStream.CopyTo(requestStream);
 
       requestStream.Close();
 
       var httpWebResponse = (HttpWebResponse)webRequest.GetResponse();
       Stream responseStream = httpWebResponse.GetResponseStream();
 
-      this.CopyStream(responseStream, context.Response.OutputStream);
+      responseStream.CopyTo(context.Response.OutputStream);
     }
 
     // TommyB: Start MOD: PreviewImages   ##########
@@ -960,7 +936,7 @@ namespace YAF
     {
       try
       {
-        string eTag = String.Format(@"""{0}""", context.Request.QueryString.GetFirstOrDefault("i"));
+        string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("i"));
 
         if (CheckETag(context, eTag))
         {
@@ -1066,8 +1042,7 @@ namespace YAF
         localizationFile = context.Session["localizationFile"].ToString();
       }
 
-      string eTag = String.Format(
-        @"""{0}""", context.Request.QueryString.GetFirstOrDefault("p") + localizationFile.GetHashCode().ToString());
+      string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("p") + localizationFile.GetHashCode().ToString());
 
       if (CheckETag(context, eTag))
       {
@@ -1234,8 +1209,7 @@ namespace YAF
         int maxwidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
         int maxheight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
 
-        string eTag = String.Format(
-          @"""{0}""", (context.Request.QueryString.GetFirstOrDefault("url") + maxheight.ToString() + maxwidth.ToString()).GetHashCode());
+        string eTag = @"""{0}""".FormatWith((context.Request.QueryString.GetFirstOrDefault("url") + maxheight.ToString() + maxwidth.ToString()).GetHashCode());
 
         if (CheckETag(context, eTag))
         {
