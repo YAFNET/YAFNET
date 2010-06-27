@@ -612,7 +612,7 @@ namespace YAF.Controls
 
       if (avatarUrl.IsNotSet())
       {
-        avatarUrl = "{0}/images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+        avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
       }
       return avatarUrl;
     }
