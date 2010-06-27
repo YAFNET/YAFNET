@@ -594,20 +594,6 @@
             The create query string.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.KeyInsideArray(System.String[],System.String)">
-            <summary>
-            The key inside array.
-            </summary>
-            <param name="array">
-            The array.
-            </param>
-            <param name="key">
-            The key.
-            </param>
-            <returns>
-            The key inside array.
-            </returns>
-        </member>
         <member name="M:YAF.Classes.Utils.SimpleURLParameterParser.ParseURLParameters">
             <summary>
             The parse url parameters.
@@ -2393,16 +2379,6 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.StreamToString(System.IO.Stream)">
-            <summary>
-            Converts a Stream to a String.
-            </summary>
-            <param name="theStream">
-            </param>
-            <returns>
-            The stream to string.
-            </returns>
-        </member>
         <member name="M:YAF.Classes.Utils.StringHelper.StringToHexBytes(System.String)">
             <summary>
             Converts a string into it's hexadecimal representation.
@@ -2444,7 +2420,7 @@
             list of strings
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.StringHelper.StringToStream(System.String)">
+        <member name="M:YAF.Classes.Utils.StringHelper.ToStream(System.String)">
             <summary>
             Converts a String to a MemoryStream.
             </summary>
@@ -2514,6 +2490,50 @@
             <returns>
             The formatted string
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.NameValueCollectionExtensions.ToSimpleDictionary(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Flattens a <see cref="T:System.Collections.Specialized.NameValueCollection"/> to a simple string <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <param name="collection">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.NameValueCollectionExtensions.GetValueList(System.Collections.Specialized.NameValueCollection,System.String)">
+            <summary>
+            Gets the value as an <see cref="T:System.Collections.IEnumerable"/> handling splitting the string if needed.
+            </summary>
+            <param name="collection"></param>
+            <returns>Does not return null.</returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.NameValueCollectionExtensions.GetFirstOrDefault(System.Collections.Specialized.NameValueCollection,System.String)">
+            <summary>
+            Gets the first value of <paramref name="paramName"/> in the collection or default (Null).
+            </summary>
+            <param name="collection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.Extensions.StreamExtensions.ToString(System.IO.Stream)">
+            <summary>
+            Converts a Stream to a String.
+            </summary>
+            <param name="theStream">
+            </param>
+            <returns>
+            The stream to string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.Extensions.StreamExtensions.CopyTo(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            The copy stream.
+            </summary>
+            <param name="input">
+            The input.
+            </param>
+            <param name="output">
+            The output.
+            </param>
         </member>
     </members>
 </doc>

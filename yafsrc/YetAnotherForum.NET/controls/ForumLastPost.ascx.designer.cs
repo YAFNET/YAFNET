@@ -22,15 +22,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.PlaceHolder LastPostedHolder;
         
         /// <summary>
-        /// LastPosted control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LastPosted;
-        
-        /// <summary>
         /// TopicInPlaceHolder control.
         /// </summary>
         /// <remarks>
@@ -38,15 +29,6 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder TopicInPlaceHolder;
-        
-        /// <summary>
-        /// InLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel InLabel;
         
         /// <summary>
         /// topicLink control.
@@ -92,6 +74,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.ThemeImage Icon;
+        
+        /// <summary>
+        /// LastPosted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LastPosted;
         
         /// <summary>
         /// NoPostsLabel control.

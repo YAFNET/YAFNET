@@ -23,16 +23,16 @@
 				<YAF:ForumSubForumList ID="SubForumList" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
 					Visible='<%# HasSubforums( (System.Data.DataRow)Container.DataItem ) %>' />
 			</td>
-			<td align="center" class="moderatorListCol" id="ModeratorListTD" runat="server">
+			<td class="moderatorListCol" id="ModeratorListTD" runat="server">
 				<YAF:ForumModeratorList ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
 			</td>
-			<td align="center" class="topicCountCol">
+			<td class="topicCountCol">
 				<%# Topics(Container.DataItem) %>
 			</td>
-			<td align="center" class="postCountCol">
+			<td class="postCountCol">
 				<%# Posts(Container.DataItem) %>
 			</td>
-			<td align="center" class="lastPostCol" style="white-space: nowrap">
+			<td class="lastPostCol" style="white-space: nowrap">
 				<YAF:ForumLastPost DataRow="<%# Container.DataItem %>" Visible='<%# (((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value) %>'
 					ID="lastPost" runat="server" />
 			</td>
@@ -57,16 +57,16 @@
 				<YAF:ForumSubForumList ID="ForumSubForumListAlt" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
 					Visible='<%# HasSubforums( (System.Data.DataRow)Container.DataItem ) %>' />
 			</td>
-			<td align="center" class="moderatorListCol" id="ModeratorListTD" runat="server">
+			<td class="moderatorListCol" id="ModeratorListTD" runat="server">
 				<YAF:ForumModeratorList ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
 			</td>
-			<td align="center" class="topicCountCol">
+			<td class="topicCountCol">
 				<%# Topics(Container.DataItem) %>
 			</td>
-			<td align="center" class="postCountCol">
+			<td class="postCountCol">
 				<%# Posts(Container.DataItem) %>
 			</td>
-			<td align="center" class="lastPostCol" nowrap="nowrap">
+			<td class="lastPostCol" nowrap="nowrap">
 				<YAF:ForumLastPost DataRow="<%# Container.DataItem %>" Visible='<%# (((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value) %>'
 					ID="lastPost" runat="server" />
 			</td>

@@ -2384,6 +2384,11 @@
             Gets or sets a value indicating whether ShowMoved.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowAvatarsInTopic">
+            <summary>
+            Gets or sets the value indivicated if an avatar is should be shown in the topic listings.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.ShowGuestsInDetailedActiveList">
             <summary>
             Gets or sets a value indicating whether Show Guests In Detailed Active List.

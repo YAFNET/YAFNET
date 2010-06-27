@@ -15357,27 +15357,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Controls.ForumLastPost.LastPosted">
-            <summary>
-            LastPosted control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Controls.ForumLastPost.TopicInPlaceHolder">
             <summary>
             TopicInPlaceHolder control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.ForumLastPost.InLabel">
-            <summary>
-            InLabel control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -15423,6 +15405,15 @@
         <member name="F:YAF.Controls.ForumLastPost.Icon">
             <summary>
             Icon control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.ForumLastPost.LastPosted">
+            <summary>
+            LastPosted control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -15949,15 +15940,6 @@
         <member name="F:YAF.Pages.topics.LocalizedLabel6">
             <summary>
             LocalizedLabel6 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Pages.topics.LocalizedLabel7">
-            <summary>
-            LocalizedLabel7 control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -17920,6 +17902,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.View3">
             <summary>
             View3 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowAvatarsInTopic">
+            <summary>
+            ShowAvatarsInTopic control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -25285,17 +25276,6 @@
             The check access rights.
             </returns>
         </member>
-        <member name="M:YAF.YafResourceHandler.CopyStream(System.IO.Stream,System.IO.Stream)">
-            <summary>
-            The copy stream.
-            </summary>
-            <param name="input">
-            The input.
-            </param>
-            <param name="output">
-            The output.
-            </param>
-        </member>
         <member name="M:YAF.YafResourceHandler.GetAlbumCover(System.Web.HttpContext)">
             <summary>
             The get album cover.
@@ -25337,7 +25317,7 @@
             The localization file.
             </param>
             <param name="ImagesNumber">
-            The images number.
+            Number of images in the album.
             </param>
             <returns>
             </returns>

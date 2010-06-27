@@ -69,7 +69,8 @@
 {
     background-color: #eeeeee;
     font-weight: bold;    
-    font-size:8pt;
+    font-size:10pt;
+    color: #222;
 }
 
 .yafnet .forumLinkCol div.forumheading a,
@@ -107,6 +108,41 @@
     color: #333333;
 }
 
+.yafnet .forumRowTitle .headerTopics,
+.yafnet .forumRowTitle .headerPosts,
+.yafnet .forumRow .topicCountCol,
+.yafnet .forumRow .postCountCol,
+.yafnet .forumRow_Alt .topicCountCol,
+.yafnet .forumRow_Alt .postCountCol
+{
+	text-align: right;
+}
+
+.yafnet .forumRow .moderatorListCol,
+.yafnet .forumRow_Alt .moderatorListCol
+{
+	text-align: center;
+}
+
+.yafnet .forumRow a.forumTopicLink,
+.yafnet .forumRow_Alt a.forumTopicLink
+{
+	font-weight: bold;
+}
+
+.yafnet .forumRow .forumLinkCol,
+.yafnet .forumRow_Alt .forumLinkCol
+{
+	width: 80%;
+}
+
+.yafnet .forumRowTitle .headerLastPost,
+.yafnet .forumRow .lastPostCol,
+.yafnet .forumRow_Alt .lastPostCol
+{
+	text-align: left;
+}
+
 .yafnet tr.topicRow,
 .yafnet tr.topicRow_Alt
 {
@@ -123,7 +159,13 @@
 .yafnet tr.topicRow_Alt .topicMain
 {
     font-size: 11pt;
-    font-weight: bold;
+    font-weight: bold;    
+}
+
+.yafnet tr.topicRow a.post_link,
+.yafnet tr.topicRow_Alt a.post_link
+{
+	color: #222;
 }
 
 .yafnet tr.topicRow .topicMain .post_priority,
@@ -133,10 +175,39 @@
 }
 
 .yafnet tr.topicRow .topicMain .topicPager,
-.yafnet tr.topicRow_Alt .topicMain .topicPager
+.yafnet tr.topicRow_Alt .topicMain .topicPager,
+.yafnet tr.topicRow .topicMain .topicPosted,
+.yafnet tr.topicRow_Alt .topicMain .topicPosted,
+.yafnet tr.topicRow .topicMain .topicStarter,
+.yafnet tr.topicRow_Alt .topicMain .topicStarter
 {
     font-size: 9pt;
     font-weight: normal;
+}
+
+.yafnet tr.topicRow .topicLastPost img.avatarimage,
+.yafnet tr.topicRow_Alt .topicLastPost img.avatarimage
+{
+	width: 40px;
+	height: 40px;
+	float: left;
+	padding: 3px;
+}
+
+.yafnet tr.topicRow .topicImage img.avatarimage,
+.yafnet tr.topicRow_Alt .topicImage img.avatarimage
+{
+	width: 50px;
+	height: 50px;
+	padding: 3px;	
+}
+
+.yafnet tr.topicRow .topicReplies,
+.yafnet tr.topicRow_Alt .topicReplies,
+.yafnet tr.topicRow .topicViews,
+.yafnet tr.topicRow_Alt .topicViews
+{
+	text-align: right;
 }
 
 .yafnet tr.topicRow td.topicStarter,
@@ -145,7 +216,6 @@
 .yafnet tr.topicRow_Alt td.topicViews
 {
     background-color: #f8f8f8;
-    text-align: center;
 }
 
 .yafnet .postsep {

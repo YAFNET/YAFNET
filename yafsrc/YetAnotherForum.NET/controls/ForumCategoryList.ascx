@@ -7,21 +7,21 @@
 		<asp:Repeater ID="CategoryList" runat="server">
 			<HeaderTemplate>			
 				<tr class="forumRowTitle">
-						<td colspan="2" align="left" class="header1">
+						<th colspan="2" align="left" class="header1 headerForum">
 							<YAF:LocalizedLabel ID="ForumHeaderLabel" runat="server" LocalizedTag="FORUM" />
-						</td>
-						<td id="Td1" class="header1" align="center" width="15%" runat="server" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
+						</th>
+						<th id="Td1" class="header1 headerModerators" width="15%" runat="server" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
 							<YAF:LocalizedLabel ID="ModeratorsHeaderLabel" runat="server" LocalizedTag="MODERATORS" />
-						</td>
-						<td class="header1" align="center" width="4%">
+						</th>
+						<th class="header1 headerTopics" width="4%">
 							<YAF:LocalizedLabel ID="TopicsHeaderLabel" runat="server" LocalizedTag="TOPICS" />
-						</td>
-						<td class="header1" align="center" width="4%">
+						</th>
+						<th class="header1 headerPosts" width="4%">
 							<YAF:LocalizedLabel ID="PostsHeaderLabel" runat="server" LocalizedTag="POSTS" />
-						</td>
-						<td class="header1" align="center" width="25%">
+						</th>
+						<th class="header1 headerLastPost" width="25%">
 							<YAF:LocalizedLabel ID="LastPostHeaderLabel" runat="server" LocalizedTag="LASTPOST" />
-						</td>
+						</th>
 					</tr>
 			</HeaderTemplate>
 			<ItemTemplate>

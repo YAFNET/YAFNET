@@ -59,16 +59,13 @@
         <td class="header2" align="left">
             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
         </td>
-        <td class="header2" align="left" width="20%">
-            <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="topic_starter" />
-        </td>
-        <td class="header2" align="center" width="7%">
+        <td class="header2" align="right" width="7%">
             <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="replies" />
         </td>
-        <td class="header2" align="center" width="7%">
+        <td class="header2" align="right" width="7%">
             <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="views" />
         </td>
-        <td class="header2" align="center" width="25%">
+        <td class="header2" align="left" width="15%">
             <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="lastpost" />
         </td>
     </tr>

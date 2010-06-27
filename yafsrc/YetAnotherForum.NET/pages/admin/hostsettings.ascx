@@ -637,6 +637,15 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>Show Avatars in Topic Listing:</b><br />
+							If this is checked, the topic pages will show avatar graphics.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ShowAvatarsInTopic" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
 							<b>Show Moved Topics:</b><br />
 							If this is checked, topics that are moved will leave behind a pointer to the new
 							topic.

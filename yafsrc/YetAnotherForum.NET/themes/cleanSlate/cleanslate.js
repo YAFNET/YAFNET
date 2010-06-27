@@ -5,7 +5,7 @@
         $(this).find("img").stop().fadeTo("fast", 1.0);
     });
 
-    $(".avatarimage").stop().fadeTo("fast", 0.5);
+    $(".yafnet .postContainer .avatarimage, .yafnet .postContainer_Alt .avatarimage").stop().fadeTo("fast", 0.5);
 
     $(".yafnet .postContainer, .yafnet .postContainer_Alt").hover(function () {
         $(this).find(".avatarimage").stop().fadeTo("fast", 1.0);
