@@ -26,6 +26,16 @@
 		<Resource tag="TOPIC_MOVED">~/topic_moved.gif</Resource>
 		<Resource tag="TOPIC_POLL">~/topic_poll.gif</Resource>
 		<Resource tag="TOPIC_POLL_NEW">~/topic_poll_new.gif</Resource>
+		
+		<Resource tag="TOPIC_ANNOUNCEMENT_OVERLAY">~/topic_announce.gif</Resource>
+		<Resource tag="TOPIC_ANNOUNCEMENT_NEW_OVERLAY">~/topic_announce_new.gif</Resource>
+		<Resource tag="TOPIC_NEW_LOCKED_OVERLAY">~/topic_lock_new.gif</Resource>
+		<Resource tag="TOPIC_LOCKED_OVERLAY">~/topic_lock.gif</Resource>
+		<Resource tag="TOPIC_STICKY_OVERLAY">~/topic_sticky.gif</Resource>
+		<Resource tag="TOPIC_MOVED_OVERLAY">~/topic_moved.gif</Resource>
+		<Resource tag="TOPIC_POLL_OVERLAY">~/topic_poll.gif</Resource>
+		<Resource tag="TOPIC_POLL_NEW_OVERLAY">~/topic_poll_new.gif</Resource>		
+		
 		<Resource tag="SUBFORUM">~/icon_subforum.gif</Resource>
 		<Resource tag="SUBFORUM_NEW">~/icon_subforum_new.gif</Resource>
 		<Resource tag="FORUM">~/topic.gif</Resource>

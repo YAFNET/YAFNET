@@ -194,12 +194,14 @@
 	padding: 3px;
 }
 
-.yafnet tr.topicRow .topicImage img.avatarimage,
-.yafnet tr.topicRow_Alt .topicImage img.avatarimage
+.yafnet tr.topicRow .topicMain img.avatarimage,
+.yafnet tr.topicRow_Alt .topicMain img.avatarimage
 {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
+	float: left;
 	padding: 3px;	
+	padding-right: 8px;
 }
 
 .yafnet tr.topicRow .topicReplies,
@@ -208,6 +210,14 @@
 .yafnet tr.topicRow_Alt .topicViews
 {
 	text-align: right;
+}
+
+.yafnet tr.topicRow .topicViews,
+.yafnet tr.topicRow_Alt .topicViews,
+.yafnet tr.topicRow .topicRepiles,
+.yafnet tr.topicRow_Alt .topicRepiles
+{
+
 }
 
 .yafnet tr.topicRow td.topicStarter,
