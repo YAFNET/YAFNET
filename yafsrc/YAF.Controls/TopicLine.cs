@@ -392,23 +392,21 @@ namespace YAF.Controls
 
       this.WriteBeginTD(writer, "topicImage");
 
-      if (!PageContext.BoardSettings.ShowAvatarsInTopic)
-      {
-        // Icon
-        string imgTitle = string.Empty;
-        string imgSrc = this.GetTopicImage(this._row, ref imgTitle);
-        this.RenderImgTag(writer, imgSrc, imgTitle, imgTitle);
-      }
-      else
-      {
-        var avatarUrl = GetAvatarUrlFromID(Convert.ToInt32(_row["UserID"]));
-        this.RenderImgTag(writer, avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
-      }
+      // Icon
+      string imgTitle = string.Empty;
+      string imgSrc = this.GetTopicImage(this._row, ref imgTitle);
+      this.RenderImgTag(writer, imgSrc, imgTitle, imgTitle);
 
       this.WriteEndTD(writer);
 
       // Topic
       this.WriteBeginTD(writer, "topicMain");
+
+      if (PageContext.BoardSettings.ShowAvatarsInTopic)
+      {
+        var avatarUrl = GetAvatarUrlFromID(Convert.ToInt32(_row["UserID"]));
+        this.RenderImgTag(writer, avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
+      }
 
       int actualPostCount = RenderTopic(writer);
 
