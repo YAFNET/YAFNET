@@ -36,10 +36,27 @@ namespace YAF.Classes.Core
   {
     #region Constants and Fields
 
+    private MembershipUser _membershipUser = null;
+
     /// <summary>
     /// The _membership user.
     /// </summary>
-    private MembershipUser _membershipUser = null;
+    protected MembershipUser MembershipUser
+    {
+      get
+      {
+        if (this._membershipUser == null && this._userID.HasValue)
+        {
+          _membershipUser = UserMembershipHelper.GetMembershipUserById(this._userID.Value);
+        }
+
+        return this._membershipUser;
+      }
+      set
+      {
+        this._membershipUser = value;
+      }
+    }
 
     /// <summary>
     /// The _row convert.
@@ -77,7 +94,7 @@ namespace YAF.Classes.Core
     public CombinedUserDataHelper(MembershipUser membershipUser, int userID)
     {
       this._userID = userID;
-      this._membershipUser = membershipUser;
+      this.MembershipUser = membershipUser;
       this.InitUserData();
     }
 
@@ -99,8 +116,8 @@ namespace YAF.Classes.Core
     /// The user id.
     /// </param>
     public CombinedUserDataHelper(int userID)
-      : this(UserMembershipHelper.GetMembershipUserById(userID), userID)
     {
+      this._userID = userID;
     }
 
     /// <summary>
@@ -295,7 +312,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return this._membershipUser;
+        return this.MembershipUser;
       }
     }
 
@@ -427,9 +444,9 @@ namespace YAF.Classes.Core
     {
       get
       {
-        if (this._membershipUser != null)
+        if (this.MembershipUser != null)
         {
-          return this._membershipUser.UserName;
+          return this.MembershipUser.UserName;
         }
         else if (this._userID.HasValue)
         {
@@ -483,12 +500,12 @@ namespace YAF.Classes.Core
     /// </exception>
     private void InitUserData()
     {
-      if (this._membershipUser != null && !this._userID.HasValue)
+      if (this.MembershipUser != null && !this._userID.HasValue)
       {
         if (this._userID == null)
         {
           // get the user id
-          this._userID = UserMembershipHelper.GetUserIDFromProviderUserKey(this._membershipUser.ProviderUserKey);
+          this._userID = UserMembershipHelper.GetUserIDFromProviderUserKey(this.MembershipUser.ProviderUserKey);
         }
       }
 

@@ -24,6 +24,7 @@ namespace YAF.Controls
   using System.Data;
   using System.Text;
   using System.Web.UI;
+  using System.Data.DataSetExtensions;
 
   using YAF.Classes;
   using YAF.Classes.Core;
@@ -147,18 +148,18 @@ namespace YAF.Controls
       string strReturn = string.Empty;
 
       int NumToDisplay = 4;
-      var PageCount = (int)Math.Ceiling((double)count / pageSize);
+      var pageCount = (int)Math.Ceiling((double)count / pageSize);
 
-      if (PageCount > 1)
+      if (pageCount > 1)
       {
-        if (PageCount > NumToDisplay)
+        if (pageCount > NumToDisplay)
         {
           strReturn += this.MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID));
           strReturn += " ... ";
           bool bFirst = true;
 
           // show links from the end
-          for (int i = PageCount - (NumToDisplay - 1); i < PageCount; i++)
+          for (int i = pageCount - (NumToDisplay - 1); i < pageCount; i++)
           {
             int iPost = i + 1;
 
@@ -178,7 +179,7 @@ namespace YAF.Controls
         else
         {
           bool bFirst = true;
-          for (int i = 0; i < PageCount; i++)
+          for (int i = 0; i < pageCount; i++)
           {
             int iPost = i + 1;
 
@@ -217,11 +218,11 @@ namespace YAF.Controls
       {
         if (this.PageContext.BoardSettings.ShowDeletedMessages && numDeleted > 0)
         {
-          repStr = String.Format("{0:N0}", nReplies + numDeleted);
+          repStr = "{0:N0}".FormatWith(nReplies + numDeleted);
         }
         else
         {
-          repStr = String.Format("{0:N0}", nReplies);
+          repStr = "{0:N0}".FormatWith(nReplies);
         }
       }
 
@@ -264,7 +265,7 @@ namespace YAF.Controls
 
       if (strReturn.Length > 0)
       {
-        strReturn = String.Format("[ {0} ] ", strReturn);
+        strReturn = "[ {0} ] ".FormatWith(strReturn);
       }
 
       return strReturn;
@@ -389,17 +390,65 @@ namespace YAF.Controls
       writer.WriteAttribute("class", this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post");
       writer.Write(HtmlTextWriter.TagRightChar);
 
-      // Icon
-      string imgTitle = string.Empty;
-      string imgSrc = this.GetTopicImage(this._row, ref imgTitle);
+      this.WriteBeginTD(writer, "topicImage");
 
-      this.WriteBeginTD(writer);
-      this.RenderImgTag(writer, imgSrc, imgTitle, imgTitle);
+      if (!PageContext.BoardSettings.ShowAvatarsInTopic)
+      {
+        // Icon
+        string imgTitle = string.Empty;
+        string imgSrc = this.GetTopicImage(this._row, ref imgTitle);
+        this.RenderImgTag(writer, imgSrc, imgTitle, imgTitle);
+      }
+      else
+      {
+        var avatarUrl = GetAvatarUrlFromID(Convert.ToInt32(_row["UserID"]));
+        this.RenderImgTag(writer, avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
+      }
+
       this.WriteEndTD(writer);
 
       // Topic
       this.WriteBeginTD(writer, "topicMain");
 
+      int actualPostCount = RenderTopic(writer);
+
+      RenderTopicStarter(writer);
+
+      RenderPosted(writer);
+
+      RenderPostPager(writer, actualPostCount);
+
+      this.WriteEndTD(writer);
+
+      // Replies
+      writer.WriteBeginTag("td");
+      writer.WriteAttribute("class", "topicReplies");
+      writer.Write(HtmlTextWriter.TagRightChar);
+      writer.Write(this.FormatReplies());
+      writer.WriteEndTag("td");
+
+      // Views
+      writer.WriteBeginTag("td");
+      writer.WriteAttribute("class", "topicViews");
+      writer.Write(HtmlTextWriter.TagRightChar);
+      writer.Write(this.FormatViews());
+      writer.WriteEndTag("td");
+
+      // Last Post
+      writer.WriteBeginTag("td");
+      writer.WriteAttribute("class", "topicLastPost smallfont");
+      writer.Write(HtmlTextWriter.TagRightChar);
+      this.RenderLastPost(writer);
+      writer.WriteEndTag("td");
+
+      this.RenderChildren(writer);
+
+      writer.WriteEndTag("tr");
+      writer.WriteLine();
+    }
+
+    private int RenderTopic(HtmlTextWriter writer)
+    {
       string priorityMessage = this.GetPriorityMessage(this._row);
       if (!String.IsNullOrEmpty(priorityMessage))
       {
@@ -432,25 +481,50 @@ namespace YAF.Controls
         // add deleted posts not included in replies...
         actualPostCount += Convert.ToInt32(this._row["NumPostsDeleted"]);
       }
+      return actualPostCount;
+    }
 
+    private void RenderPostPager(HtmlTextWriter writer, int actualPostCount)
+    {
       string tPager = this.CreatePostPager(
         actualPostCount, this.PageContext.BoardSettings.PostsPerPage, Convert.ToInt32(this._row["LinkTopicID"]));
 
       if (tPager != String.Empty)
       {
         writer.WriteLine();
-        writer.WriteBreak();
         writer.WriteBeginTag("span");
         writer.WriteAttribute("class", "topicPager smallfont");
         writer.Write(HtmlTextWriter.TagRightChar);
 
+        writer.Write(" - ");
+
         // more then one page to show
-        writer.Write(String.Format(this.PageContext.Localization.GetText("GOTO_POST_PAGER"), tPager));
+        writer.Write(this.PageContext.Localization.GetText("GOTO_POST_PAGER").FormatWith(tPager));
         writer.WriteEndTag("span");
         writer.WriteLine();
       }
+    }
 
-      this.WriteEndTD(writer);
+    private void RenderPosted(HtmlTextWriter writer)
+    {
+      writer.WriteLine();
+      writer.WriteBeginTag("span");
+      writer.WriteAttribute("class", "topicPosted");
+      writer.Write(HtmlTextWriter.TagRightChar);
+
+      writer.Write(YafServices.DateTime.FormatDateTimeTopic(this._row.Row.Field<DateTime>("Posted")));
+
+      writer.WriteEndTag("span");
+      writer.WriteLine();
+    }
+
+    private void RenderTopicStarter(HtmlTextWriter writer)
+    {
+      writer.WriteLine();
+      writer.WriteBreak();
+      writer.WriteBeginTag("span");
+      writer.WriteAttribute("class", "topicStarter");
+      writer.Write(HtmlTextWriter.TagRightChar);
 
       // Topic Starter
       var topicStarterLink = new UserLink();
@@ -459,37 +533,12 @@ namespace YAF.Controls
       topicStarterLink.Style = this._row["StarterStyle"].ToString();
 
       // render the user link control
-      this.WriteBeginTD(writer, "topicStarter");
+      //this.WriteBeginTD(writer, "topicStarter");
       topicStarterLink.RenderControl(writer);
-      this.WriteEndTD(writer);
 
-      // Replies
-      writer.WriteBeginTag("td");
-      writer.WriteAttribute("class", "topicReplies");
-      writer.WriteAttribute("style", "text-align: center");
-      writer.Write(HtmlTextWriter.TagRightChar);
-      writer.Write(this.FormatReplies());
-      writer.WriteEndTag("td");
+      writer.Write(",");
 
-      // Views
-      writer.WriteBeginTag("td");
-      writer.WriteAttribute("class", "topicViews");
-      writer.WriteAttribute("style", "text-align: center");
-      writer.Write(HtmlTextWriter.TagRightChar);
-      writer.Write(this.FormatViews());
-      writer.WriteEndTag("td");
-
-      // Last Post
-      writer.WriteBeginTag("td");
-      writer.WriteAttribute("class", "topicLastPost smallfont");
-      writer.WriteAttribute("style", "text-align: center");
-      writer.Write(HtmlTextWriter.TagRightChar);
-      this.RenderLastPost(writer);
-      writer.WriteEndTag("td");
-
-      this.RenderChildren(writer);
-
-      writer.WriteEndTag("tr");
+      writer.WriteEndTag("span");
       writer.WriteLine();
     }
 
@@ -509,19 +558,24 @@ namespace YAF.Controls
 
       if (row["LastMessageID"].ToString().Length > 0)
       {
+        int userID = Convert.ToInt32(row["LastUserID"]);
+
+        if (PageContext.BoardSettings.ShowAvatarsInTopic)
+        {
+          string avatarUrl = GetAvatarUrlFromID(userID);
+          this.RenderImgTag(writer, avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
+        }
+
         string strMiniPost = this.PageContext.Theme.GetItem(
           "ICONS", 
           (DateTime.Parse(row["LastPosted"].ToString()) > Mession.GetTopicRead((int)this._row["TopicID"]))
             ? "ICON_NEWEST"
             : "ICON_LATEST");
+        
+        //writer.Write(this.PageContext.Localization.GetText("by").FormatWith(string.Empty));
 
-        writer.Write(YafServices.DateTime.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])));
-        writer.WriteBreak();
-        writer.Write(String.Format(this.PageContext.Localization.GetText("by"), string.Empty));
+        var byLink = new UserLink { UserID = userID, Style = row["LastUserStyle"].ToString() };
 
-        var byLink = new UserLink();
-        byLink.UserID = Convert.ToInt32(row["LastUserID"]);
-        byLink.Style = row["LastUserStyle"].ToString();
         byLink.RenderControl(writer);
 
         writer.Write("&nbsp;");
@@ -531,6 +585,7 @@ namespace YAF.Controls
         {
             this.AltLastPost = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
         }
+
         writer.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", row["LastMessageID"]));
         writer.WriteAttribute("title", this.AltLastPost);
         writer.Write(HtmlTextWriter.TagRightChar);
@@ -542,9 +597,24 @@ namespace YAF.Controls
           this.AltLastPost);
 
         writer.WriteEndTag("a");
+
+        writer.WriteBreak();
+
+        writer.Write(YafServices.DateTime.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])));
       }
 
       return strReturn;
+    }
+
+    private string GetAvatarUrlFromID(int userID)
+    {
+      string avatarUrl = YafServices.Avatar.GetAvatarUrlForUser(userID);
+
+      if (avatarUrl.IsNotSet())
+      {
+        avatarUrl = "{0}/images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+      }
+      return avatarUrl;
     }
 
     /// <summary>
@@ -598,7 +668,7 @@ namespace YAF.Controls
     private string FormatViews()
     {
       int nViews = Convert.ToInt32(this._row["Views"]);
-      return (this._row["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : String.Format("{0:N0}", nViews);
+      return (this._row["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : "{0:N0}".FormatWith(nViews);
     }
 
     /// <summary>

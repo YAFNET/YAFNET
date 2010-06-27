@@ -1196,6 +1196,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets the value indivicated if an avatar is should be shown in the topic listings.
+    /// </summary>
+    public bool ShowAvatarsInTopic
+    {
+      get
+      {
+        return this._reg.GetValue<bool>("ShowAvatarsInTopic", false);
+      }
+
+      set
+      {
+        this._reg.SetValue<bool>("ShowAvatarsInTopic", value);
+      }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether Show Guests In Detailed Active List.
     /// </summary>
     public bool ShowGuestsInDetailedActiveList

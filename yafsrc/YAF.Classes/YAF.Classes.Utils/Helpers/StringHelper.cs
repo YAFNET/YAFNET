@@ -272,20 +272,6 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Converts a Stream to a String.
-    /// </summary>
-    /// <param name="theStream">
-    /// </param>
-    /// <returns>
-    /// The stream to string.
-    /// </returns>
-    public static string StreamToString(Stream theStream)
-    {
-      var reader = new StreamReader(theStream);
-      return reader.ReadToEnd();
-    }
-
-    /// <summary>
     /// Converts a string into it's hexadecimal representation.
     /// </summary>
     /// <param name="strValue">
@@ -375,7 +361,7 @@ namespace YAF.Classes.Utils
     /// </param>
     /// <returns>
     /// </returns>
-    public static MemoryStream StringToStream(string str)
+    public static Stream ToStream(this string str)
     {
       byte[] byteArray = Encoding.ASCII.GetBytes(str);
       return new MemoryStream(byteArray);

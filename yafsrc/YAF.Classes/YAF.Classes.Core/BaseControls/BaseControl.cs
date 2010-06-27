@@ -228,6 +228,26 @@ namespace YAF.Controls
     /// </param>
     public void RenderImgTag(HtmlTextWriter writer, string src, string alt, string title)
     {
+      RenderImgTag(writer, src, alt, title, null);
+    }
+
+    /// <summary>
+    /// The render img tag.
+    /// </summary>
+    /// <param name="writer">
+    /// The writer.
+    /// </param>
+    /// <param name="src">
+    /// The src.
+    /// </param>
+    /// <param name="alt">
+    /// The alt.
+    /// </param>
+    /// <param name="title">
+    /// The title.
+    /// </param>
+    public void RenderImgTag(HtmlTextWriter writer, string src, string alt, string title, string cssClass)
+    {
       // this will output the start of the img element - <img
       writer.WriteBeginTag("img");
 
@@ -237,6 +257,11 @@ namespace YAF.Controls
       if (!String.IsNullOrEmpty(title))
       {
         writer.WriteAttribute("title", title);
+      }
+
+      if (!String.IsNullOrEmpty(cssClass))
+      {
+        writer.WriteAttribute("class", cssClass);
       }
 
       writer.Write(HtmlTextWriter.SelfClosingTagEnd);

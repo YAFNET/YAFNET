@@ -21,6 +21,8 @@ namespace YAF.Classes.Utils
   #region Using
 
   using System.Collections.Specialized;
+  using System.Linq;
+  using System.Text;
 
   #endregion
 
@@ -157,29 +159,25 @@ namespace YAF.Classes.Utils
     /// </returns>
     public string CreateQueryString(string[] excludeValues)
     {
-      string queryString = string.Empty;
-      bool bFirst = true;
+      var queryBuilder = new StringBuilder();
 
       for (int i = 0; i < this._nameValues.Count; i++)
       {
         string key = this._nameValues.Keys[i].ToLower();
         string value = this._nameValues[i];
-        if (!this.KeyInsideArray(excludeValues, key))
+
+        if (!excludeValues.Contains(key))
         {
-          if (bFirst)
+          if (queryBuilder.Length > 0)
           {
-            bFirst = false;
-          }
-          else
-          {
-            queryString += "&";
+            queryBuilder.Append("&");
           }
 
-          queryString += key + "=" + value;
+          queryBuilder.AppendFormat("{0}={1}", key, value);
         }
       }
 
-      return queryString;
+      return queryBuilder.ToString();
     }
 
     #endregion
@@ -187,41 +185,15 @@ namespace YAF.Classes.Utils
     #region Methods
 
     /// <summary>
-    /// The key inside array.
-    /// </summary>
-    /// <param name="array">
-    /// The array.
-    /// </param>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <returns>
-    /// The key inside array.
-    /// </returns>
-    private bool KeyInsideArray(string[] array, string key)
-    {
-      foreach (string tmp in array)
-      {
-        if (tmp.Equals(key))
-        {
-          return true;
-        }
-      }
-
-      return false;
-    }
-
-    /// <summary>
     /// The parse url parameters.
     /// </summary>
     private void ParseURLParameters()
     {
       string urlTemp = this._urlParameters;
-      int index;
 
       // get the url end anchor (#blah) if there is one...
       this._urlAnchor = string.Empty;
-      index = urlTemp.LastIndexOf('#');
+      int index = urlTemp.LastIndexOf('#');
 
       if (index > 0)
       {
@@ -233,22 +205,20 @@ namespace YAF.Classes.Utils
       }
 
       this._nameValues.Clear();
-      string[] arrayPairs = urlTemp.Split(new[] { '&' });
 
-      foreach (string tValue in arrayPairs)
+      string[] arrayPairs = urlTemp.Split('&');
+
+      foreach (var nvalue in from pair in arrayPairs where pair.IsSet() select pair.Trim().Split('='))
       {
-        if (tValue.Trim().Length > 0)
+        if (nvalue.Length == 1)
         {
-          // parse...
-          string[] nvalue = tValue.Trim().Split(new[] { '=' });
-          if (nvalue.Length == 1)
-          {
-            this._nameValues.Add(nvalue[0], string.Empty);
-          }
-          else if (nvalue.Length > 1)
-          {
-            this._nameValues.Add(nvalue[0], nvalue[1]);
-          }
+          this._nameValues.Add(nvalue[0], string.Empty);
+        }
+        else
+        {
+          // split again for .NET v4
+          var chunks = nvalue[1].Split(',');
+          this._nameValues.Add(nvalue[0], chunks.FirstOrDefault() ?? string.Empty);
         }
       }
     }
