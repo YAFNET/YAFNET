@@ -11,24 +11,24 @@
             </td>
         </tr>
         <tr class="header2">
-            <td width="1%">
+            <th width="1%">
                 &nbsp;
-            </td>
-            <td align="left">
+            </th>
+            <th align="left" class="headerForum">
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FORUM" />
-            </td>
-            <td align="center" width="15%" runat="server" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
+            </th>
+            <th width="15%" runat="server" class="headerModerators" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="moderators" />
-            </td>
-            <td align="center" width="4%">
+            </th>
+            <th width="4%" class="headerTopics">
                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="topics" />
-            </td>
-            <td align="center" width="4%">
+            </th>
+            <th width="4%" class="headerPosts">
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="posts" />
-            </td>
-            <td align="center" width="25%">
+            </th>
+            <th width="25%" class="headerLastPost">
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="lastpost" />
-            </td>
+            </th>
         </tr>
         <YAF:ForumList AltLastPost="<%# this.lastPostImageTT %>" runat="server" ID="ForumList" />
     </table>
