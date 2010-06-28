@@ -2,18 +2,18 @@
 
 .yafnet {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 8pt;
+	font-size: 9pt;
 	color: #3B3b3b;
 }
 .yafnet td {
 	font-family: sans-serif, Helvetica, Arial;
-	font-size: 8pt;
+	font-size: 9pt;
 	color: #3b3b3b;
 }
 .yafnet input,
 .yafnet select {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 8pt; 
+	font-size: 9pt; 
 	color: #3b3b3b;	
 	background-color: #FFF;	
 	border: 1px solid #aaaaaa;	
@@ -23,7 +23,7 @@
 {
     color: #ffffff;
     background-color: #323453;
-    font-size: 7.5pt;
+    font-size: 8.5pt;
     font-weight: bold;
     border: solid 1px #444;
     padding: 1px 6px 1px 6px;
@@ -69,12 +69,14 @@
 	color: #eeffee;
 	text-decoration: underline;
 }	
+.yafnet th.header1,
 .yafnet td.header1 {
 	background-image: url('titleBack.gif');
-	/*background-color: #66a262;*/
 	color: #ffffff;
-	font-weight: bold;
+	font-weight: bold;	
 	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0px;
 	font-size: 15px;
 	line-height: 30px;
 }	
@@ -100,6 +102,160 @@
 	color: #5555a0;
 	font-weight: bold;
 }
+
+.yafnet table.content {
+	border: solid .1em #aaa;
+	padding: 0px;
+	margin: 0px;	
+	color: #000000;	
+}
+
+.yafnet .postUser
+{
+	width: 10%;
+}
+
+.yafnet .forumLinkCol div.forumheading,
+.yafnet .forumLinkCol_Alt div.forumheading
+{
+    padding-bottom: 8px;
+}
+
+.yafnet .moderatorListCol,
+.yafnet .moderatorListCol a
+{
+    font-size: 8pt;
+    color: #000000;
+}
+
+.yafnet td.topicCountCol,
+.yafnet td.postCountCol,
+.yafnet td.lastPostCol
+{
+    background-color: #f8f8f8;
+    color: #333333;
+}
+
+.yafnet .forumRowTitle .headerTopics,
+.yafnet .forumRowTitle .headerPosts,
+.yafnet .forumRow .topicCountCol,
+.yafnet .forumRow .postCountCol,
+.yafnet .forumRow_Alt .topicCountCol,
+.yafnet .forumRow_Alt .postCountCol
+{
+	text-align: right;
+}
+
+.yafnet .forumRow .moderatorListCol,
+.yafnet .forumRow_Alt .moderatorListCol
+{
+	text-align: center;
+}
+
+.yafnet .forumRow a.forumTopicLink,
+.yafnet .forumRow_Alt a.forumTopicLink
+{
+	font-weight: bold;
+}
+
+.yafnet .forumRow .forumLinkCol,
+.yafnet .forumRow_Alt .forumLinkCol
+{
+	width: 80%;
+}
+
+.yafnet .forumRowTitle .headerLastPost,
+.yafnet .forumRow .lastPostCol,
+.yafnet .forumRow_Alt .lastPostCol
+{
+	text-align: left;
+}
+
+.yafnet tr.topicRow,
+.yafnet tr.topicRow_Alt
+{
+    color: #333333;
+}
+
+/* Unresolved post in Moderation Reports */
+.yafnet .post_res
+{
+    background-color: #f4e941;   
+}
+
+.yafnet tr.topicRow .topicMain,
+.yafnet tr.topicRow_Alt .topicMain
+{
+    font-size: 11pt;
+    font-weight: bold;    
+}
+
+.yafnet tr.topicRow a.post_link,
+.yafnet tr.topicRow_Alt a.post_link
+{
+	color: #222;
+}
+
+.yafnet tr.topicRow .topicMain .post_priority,
+.yafnet tr.topicRow_Alt .topicMain .post_priority
+{
+    font-weight: normal;
+}
+
+.yafnet tr.topicRow .topicMain .topicPager,
+.yafnet tr.topicRow_Alt .topicMain .topicPager,
+.yafnet tr.topicRow .topicMain .topicPosted,
+.yafnet tr.topicRow_Alt .topicMain .topicPosted,
+.yafnet tr.topicRow .topicMain .topicStarter,
+.yafnet tr.topicRow_Alt .topicMain .topicStarter
+{
+    font-size: 9pt;
+    font-weight: normal;
+}
+
+.yafnet tr.topicRow .topicLastPost img.avatarimage,
+.yafnet tr.topicRow_Alt .topicLastPost img.avatarimage
+{
+	width: 40px;
+	height: 40px;
+	float: left;
+	padding: 3px;
+}
+
+.yafnet tr.topicRow .topicMain img.avatarimage,
+.yafnet tr.topicRow_Alt .topicMain img.avatarimage
+{
+	width: 40px;
+	height: 40px;
+	float: left;
+	padding: 3px;	
+	padding-right: 8px;
+}
+
+.yafnet tr.topicRow .topicReplies,
+.yafnet tr.topicRow_Alt .topicReplies,
+.yafnet tr.topicRow .topicViews,
+.yafnet tr.topicRow_Alt .topicViews
+{
+	text-align: right;
+}
+
+.yafnet tr.topicRow .topicViews,
+.yafnet tr.topicRow_Alt .topicViews,
+.yafnet tr.topicRow .topicRepiles,
+.yafnet tr.topicRow_Alt .topicRepiles
+{
+
+}
+
+.yafnet tr.topicRow td.topicStarter,
+.yafnet tr.topicRow_Alt td.topicStarter,
+.yafnet tr.topicRow td.topicViews,
+.yafnet tr.topicRow_Alt td.topicViews
+{
+    
+}
+
 .yafnet a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
 .yafnet td.header2 a { color: #000090; text-decoration: none; }
 .yafnet td.header2 a:link { color: #7f7f7f; text-decoration: none; }
@@ -142,6 +298,20 @@
 	font-size: 11pt;
 	color: Black;	
 }
+
+.yafnet table.postContainer,
+.yafnet table.postContainer_Alt
+{
+    margin-top: 15px;
+}
+
+.yafnet table.postContainer td, 
+.yafnet table.postContainer_Alt td
+{
+    padding: 10px 15px 10px 15px;
+    margin: 0;
+}
+
 /* User info and post/article */
 .yafnet .post {
 	background-color: #F5F5F5;
@@ -168,19 +338,13 @@
 	color:#FF0000;
 	font-weight:bold;
 }
-/* Area between posts */
+
 .yafnet .postsep {
-	background-color: #3a3b5a;
+	background-color: #e8e8e8;
 	height: 10px;
+	margin-bottom: 100px;
 }
-/* most tables are class 'content' */
-.yafnet table.content {
-	border: solid 1px #777777;
-	padding: 0px;
-	margin: 0px;
-	border-collapse: collapse;
-	color: #000000;	
-}
+
 .yafnet .postformheader {
 	background-color: #EEEEEE;
 	font-weight:bold;

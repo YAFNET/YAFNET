@@ -14,7 +14,6 @@
 .yafnet input.pbutton{background:#EEF5FF;}
 /* For BBCode Post Buttons */
 .yafnet .ButtonOut {
-	filter: alpha(opacity=70);
 	border: #7F9DB9 1px solid;
 }
 .yafnet .ButtonOver {
@@ -26,7 +25,6 @@
 	border: #FFAD55 1px solid;
 }
 .yafnet .ButtonOff {
-	filter: gray() alpha(opacity=30);
 	background-color: #C0C0C0;
 	border: #7F9DB9 1px solid;
 }
@@ -52,6 +50,32 @@
 .yafnet .forum_customimage_newposts
 {
     border: solid 2px #fe0300;
+}
+
+.yafnet tr.topicRow .topicLastPost img.avatarimage,
+.yafnet tr.topicRow_Alt .topicLastPost img.avatarimage
+{
+	width: 40px;
+	height: 40px;
+	float: left;
+	padding: 3px;
+}
+
+.yafnet tr.topicRow a.post_link,
+.yafnet tr.topicRow_Alt a.post_link
+{
+	font-size: 9pt;
+	font-weight: bold;
+}
+
+.yafnet tr.topicRow .topicMain img.avatarimage,
+.yafnet tr.topicRow_Alt .topicMain img.avatarimage
+{
+	width: 40px;
+	height: 40px;
+	float: left;
+	padding: 3px;	
+	padding-right: 8px;
 }
 /* Header 1 - Main header */
 .yafnet .header1 {
@@ -144,6 +168,11 @@
 	background-color: #8394B2;
 	height: 2px 
 }
+.yafnet .forumLinkCol .forumheading
+{
+	font-size: 9pt;
+	font-weight: bold;
+}
 /* most tables are class 'content' */
 .yafnet table.content {
 	font-family: verdana,Arial,Helvetica,sans-serif;
@@ -164,7 +193,7 @@
 	padding: 0px;
 }
 /* links inside content table*/
-.yafnet .content a		{ color: #555555; text-decoration: none; }
+.yafnet .content a		{ color: #000; text-decoration: none; }
 .yafnet .content a:hover	{ color: #3A4F6C; text-decoration: underline;  }
 /* used for quoting messages */
 .yafnet .quote {

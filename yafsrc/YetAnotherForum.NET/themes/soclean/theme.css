@@ -78,6 +78,25 @@
     border: solid 2px #fe0300;
 }
 
+.yafnet tr.topicRow .topicLastPost img.avatarimage,
+.yafnet tr.topicRow_Alt .topicLastPost img.avatarimage
+{
+	width: 40px;
+	height: 40px;
+	float: left;
+	padding: 3px;
+}
+
+.yafnet tr.topicRow .topicMain img.avatarimage,
+.yafnet tr.topicRow_Alt .topicMain img.avatarimage
+{
+	width: 40px;
+	height: 40px;
+	float: left;
+	padding: 3px;	
+	padding-right: 8px;
+}
+
 /* Header 2 - Sub header */
 .yafnet .header2 {
 	background-color: #DDDDDD;
