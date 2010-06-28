@@ -128,7 +128,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return 0x01090406;
+        return 0x01090400;
       }
     }
 
@@ -139,7 +139,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return new DateTime(2010, 6, 22);
+        return new DateTime(2010, 6, 28);
       }
     }
 
@@ -180,7 +180,7 @@ namespace YAF.Classes.Utils
         else
         {
           // Add Release Candidate
-          version += string.Format(" RC{0}", (code & 0x0F) - 2);
+          version += " RC{0}".FormatWith((code & 0x0F) - 2);
         }
       }
 
