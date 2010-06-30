@@ -811,15 +811,16 @@ namespace YAF.Controls
       var rx = new Regex(Constants.UserBox.ThanksFrom);
 
       // vzrus: should not display if no thanks?
-      // if ((int)this.DataRow["ThanksFromUserNumber"] > 0 )
-      // {
       if (PageContext.BoardSettings.EnableThanksMod)
       {
+       if ((int)this.DataRow["ThanksFromUserNumber"] > 0 )
+       {
+     
           filler = String.Format(
             this.PageContext.BoardSettings.UserBoxThanksFrom,
             String.Format(this.PageContext.Localization.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));
-      }
-     //  }
+       }
+     }
      
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);
@@ -842,10 +843,11 @@ namespace YAF.Controls
       var rx = new Regex(Constants.UserBox.ThanksTo);
 
       // vzrus: should not display if no thanks?
-      // if ((int)this.DataRow["ThanksToUserNumber"] > 0 && (int)this.DataRow["ThanksToUserPostsNumber"] > 0)
-      // {
-      if (PageContext.BoardSettings.EnableThanksMod)
+       if (PageContext.BoardSettings.EnableThanksMod)
       {
+      if ((int)this.DataRow["ThanksToUserNumber"] > 0 && (int)this.DataRow["ThanksToUserPostsNumber"] > 0)
+       {
+ 
           filler = String.Format(
             this.PageContext.BoardSettings.UserBoxThanksTo,
             String.Format(
@@ -853,7 +855,7 @@ namespace YAF.Controls
               this.DataRow["ThanksToUserNumber"],
               this.DataRow["ThanksToUserPostsNumber"]));
       }
-      // }
+     }
       // replaces template placeholder with actual thanks from
       userBox = rx.Replace(userBox, filler);
 

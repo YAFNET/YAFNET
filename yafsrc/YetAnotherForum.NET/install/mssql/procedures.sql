@@ -7649,6 +7649,8 @@ begin
 	@R_Style varchar(255),
 	@G_Style varchar(255) 	
 	
+	IF (@ShowUserStyle > 0) 
+	BEGIN
 	SELECT TOP 1 @G_Style = c.Style 
 	FROM [{databaseOwner}].[{objectQualifier}User] a 
 						JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
@@ -7664,9 +7666,10 @@ begin
 								JOIN [{databaseOwner}].[{objectQualifier}User] d
 								  ON c.RankID = d.RankID WHERE d.UserID = @UserID  
 								   AND d.BoardID = @BoardID 
-									ORDER BY c.RankID DESC   
-									 
-	IF (@ShowUserAlbums > 0)	
+									ORDER BY c.RankID DESC 
+	END  									 
+		
+	IF (@ShowUserAlbums > 0)
 	BEGIN	
 	SELECT @G_UsrAlbums = ISNULL(MAX(c.UsrAlbums),0)
 	FROM [{databaseOwner}].[{objectQualifier}User] a 
@@ -7720,7 +7723,7 @@ begin
 	 end
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_gettextbyids] (@MessageIDs varchar(max))
+#IFSRVVER>8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_gettextbyids] (@MessageIDs varchar(max))
 AS 
 	BEGIN
 	-- vzrus says: the server version > 2000 ntext works too slowly with substring in the 2005 
@@ -7755,5 +7758,46 @@ AS
 			FROM @ParsedMessageIDs a
 			INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID = a.MessageID)
 	END
+GO
+
+#IFSRVVER=8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks] 
+	@MessageIDs ntext
+AS
+BEGIN
+DECLARE @ParsedMessageIDs TABLE
+	  (
+			MessageID int
+	  )
+	DECLARE @MessageIDsChunk NVARCHAR(4000), @MessageID varchar(11), @Pos INT, @Itr INT, @trimindex int
+	SET @Itr = 0
+	SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+	WHILE LEN(@MessageIDsChunk) > 0
+	BEGIN
+			SET @trimindex = CHARINDEX(',',REVERSE( @MessageIDsChunk ), 1 );
+			SET @MessageIDsChunk = SUBSTRING(@MessageIDsChunk,0, 4000-@trimindex)
+			SET @Itr = @Itr - @trimindex
+			SET @MessageIDsChunk = LTRIM(RTRIM(@MessageIDsChunk))+ ','
+			SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
+			IF REPLACE(@MessageIDsChunk, ',', '') <> ''
+			BEGIN
+				  WHILE @Pos > 0
+				  BEGIN
+						SET @MessageID = LTRIM(RTRIM(LEFT(@MessageIDsChunk, @Pos - 1)))
+						IF @MessageID <> ''
+						BEGIN
+							  INSERT INTO @ParsedMessageIDs (MessageID) VALUES (CAST(@MessageID AS int)) --Use Appropriate conversion
+						END
+						SET @MessageIDsChunk = RIGHT(@MessageIDsChunk, LEN(@MessageIDsChunk) - @Pos)
+						SET @Pos = CHARINDEX(',', @MessageIDsChunk, 1)
+				  END
+			END      
+			SET @Itr = @Itr + 4000;
+			SET @MessageIDSChunk  = SUBSTRING( @MessageIDs, @Itr, @Itr + 4000 )
+	  END
+	  
+		SELECT a.MessageID, d.Message
+			FROM @ParsedMessageIDs a
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID = a.MessageID)
+END
 GO
 

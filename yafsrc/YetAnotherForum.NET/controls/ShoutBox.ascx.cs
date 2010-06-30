@@ -210,7 +210,10 @@ namespace YAF.Controls
       }
 
       this.shoutBoxRepeater.DataSource = shoutBoxMessages;
-      this.smiliesRepeater.DataSource = DB.smiley_listunique(PageContext.PageBoardID);
+      if (PageContext.BoardSettings.ShowShoutboxSmiles)
+      {
+          this.smiliesRepeater.DataSource = DB.smiley_listunique(PageContext.PageBoardID);
+      }
     }
 
     /// <summary>

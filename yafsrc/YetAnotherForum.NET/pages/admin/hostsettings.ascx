@@ -425,16 +425,7 @@
 						<td class="post">
 							<asp:CheckBox ID="AllowPostToBlog" runat="server"></asp:CheckBox>
 						</td>
-					</tr>
-					<tr>
-						<td class="postheader">
-							<b>Allow "Report Post" :</b><br />
-							If checked, report feature is enabled.
-						</td>
-						<td class="post">
-							<asp:CheckBox ID="AllowReportPosts" runat="server"></asp:CheckBox>
-						</td>
-					</tr>
+					</tr>				
 					<tr>
 						<td class="postheader">
 							<b>Allow Email Topic:</b><br />
@@ -736,6 +727,15 @@
 						</td>
 						<td class="post">
 							<asp:CheckBox ID="ShowShoutbox" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+                    	<tr>
+						<td class="postheader">
+							<b>Show Shoutbox Smiles:</b><br />
+							Enable or disable display of the Shoutbox (Chat Module) smiles.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="ShowShoutboxSmiles" runat="server"></asp:CheckBox>
 						</td>
 					</tr>
 					<tr>

@@ -436,15 +436,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowPostToBlog;
         
         /// <summary>
-        /// AllowReportPosts control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowReportPosts;
-        
-        /// <summary>
         /// AllowEmailTopic control.
         /// </summary>
         /// <remarks>
@@ -713,6 +704,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowShoutbox;
+        
+        /// <summary>
+        /// ShowShoutboxSmiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowShoutboxSmiles;
         
         /// <summary>
         /// ShowGroups control.

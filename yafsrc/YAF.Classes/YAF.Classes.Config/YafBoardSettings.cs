@@ -1870,6 +1870,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether Show smiles in Shoutbox.
+    /// </summary>
+    public bool ShowShoutboxSmiles
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("ShowShoutboxSmiles", true);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("ShowShoutboxSmiles", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether AllowUserInfoCaching.
     /// </summary>
     public bool AllowUserInfoCaching

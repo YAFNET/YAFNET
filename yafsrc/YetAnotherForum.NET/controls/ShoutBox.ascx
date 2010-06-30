@@ -80,7 +80,7 @@
 						<tr>
 							<%--<td colspan="2" class="post" style="overflow-y: scroll; height: 10px; width: 99%; padding: 0px 0px 0px 5px; margin: 0;">--%>
 							<td class="post" style="padding-left: 5px; margin: 0;">
-								<asp:Repeater ID="smiliesRepeater" runat="server">
+								<asp:Repeater ID="smiliesRepeater" Visible="<%# PageContext.BoardSettings.ShowShoutboxSmiles %>" runat="server">
 									<ItemTemplate>
 										<asp:ImageButton ID="ImageButton1" ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons + "/" + Eval("Icon") %>'
 											ToolTip='<%# Eval("Code") %>' OnClientClick='<%# FormatSmiliesOnClickString(Eval("Code").ToString(),Eval("Icon").ToString()) %>'
