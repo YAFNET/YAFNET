@@ -989,7 +989,13 @@ end
 GO
 
 if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Group]') and name='Name' and prec < 255)
+begin
+if exists (select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='IX_{objectQualifier}Group')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Group] drop constraint IX_{objectQualifier}Group 
+end
  	alter table [{databaseOwner}].[{objectQualifier}Group] alter column [Name] nvarchar(255) NOT NULL
+end
 GO
 
 
