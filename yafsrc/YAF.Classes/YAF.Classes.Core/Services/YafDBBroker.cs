@@ -460,11 +460,15 @@ namespace YAF.Classes.Core
       // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
       // calls to database.)  
 
+      if (!dataTable.Columns.Contains("ThanksInfo"))
+      {
+          dataTable.Columns.Add("ThanksInfo", System.Type.GetType("System.String"));
+      }
       dataTable.Columns.AddRange(
         new[]
           {
             // General Thanks Info
-            new DataColumn("ThanksInfo", Type.GetType("System.String")),
+            //new DataColumn("ThanksInfo", Type.GetType("System.String")),
             // How many times has this message been thanked.
             new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")),
             // How many times has the message poster thanked others?   
