@@ -297,7 +297,7 @@
                         </div>
                     </asp:PlaceHolder>
                     <h4 class="lined">
-                        Mail (SMPT) Sending Test</h4>
+                        Mail (SMTP) Sending Test</h4>
                     Send From Email Address:
                     <asp:TextBox ID="txtTestFromEmail" runat="server"></asp:TextBox>
                     <br />
