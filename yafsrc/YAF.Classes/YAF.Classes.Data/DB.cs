@@ -9184,7 +9184,7 @@ namespace YAF.Classes.Data
 
     public static ushort SqlServerMajorVersionAsShort()
     {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("SELECT convert(tinyint, PARSENAME(CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')),4))", true))
+        using (SqlCommand cmd = YafDBAccess.GetCommand("SELECT SUBSTRING(CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')), 1, PATINDEX('%.%', CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')))-1)", true))
       {
         return Convert.ToUInt16(YafDBAccess.Current.ExecuteScalar(cmd));
       }

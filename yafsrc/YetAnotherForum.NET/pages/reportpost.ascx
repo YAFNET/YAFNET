@@ -39,6 +39,7 @@
             <YAF:LocalizedLabel ID="EnterReportTextLabel" runat="server" LocalizedTag="ENTER_TEXT" />
         </td>
         <td id="EditorLine" class="post" runat="server">
+        <asp:Label ID="IncorrectReportLabel" runat="server"></asp:Label>
             <!-- editor goes here -->
         </td>
     </tr>

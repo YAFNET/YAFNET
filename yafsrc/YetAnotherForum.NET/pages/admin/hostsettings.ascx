@@ -122,6 +122,15 @@
 							<asp:TextBox ID="UserNameMaxLength" runat="server" />
 						</td>
 					</tr>
+                    		<tr>
+						<td class="postheader">
+							<b>Max Report Post Chars:</b><br />
+							Max Allowed Report Post length.
+						</td>
+						<td class="post">
+							<asp:TextBox ID="MaxReportPostChars" runat="server" />
+						</td>
+					</tr>                    
 					<tr>
 						<td class="postheader">
 							<b>Max Post Size:</b><br />

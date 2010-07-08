@@ -23,7 +23,7 @@
   </page>
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
-    <Resource tag="ADMIN_ACCESSMASKS">Views access masks in admin section</Resource>  
+    <Resource tag="ADMIN_ACCESSMASKS">Views access masks in admin section</Resource>
     <Resource tag="ADMIN_ADMIN">Views admin index</Resource>
     <Resource tag="ADMIN_ATTACHMENTS">Views attachments</Resource>
     <Resource tag="ADMIN_BANNEDIP">Views banned IPs list</Resource>
@@ -1114,6 +1114,9 @@
     <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
     <Resource tag="HEADER">Report post</Resource>
     <Resource tag="POSTEDBY">Posted by:</Resource>
+    <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Tags are not allowed in reports.</Resource>
+    <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>
+    <Resource tag="REPORTTEXT_TOOLONG">Your report text length should not be more then {0} characters.</Resource>
     <Resource tag="SEND">Report</Resource>
   </page>
   <page name="RTE">

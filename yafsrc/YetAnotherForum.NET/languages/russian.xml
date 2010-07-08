@@ -1043,6 +1043,9 @@
     <Resource tag="ENTER_TEXT">Введите текст вашей жалобы:</Resource>
     <Resource tag="HEADER">Сообщение о нарушении правил форума</Resource>
     <Resource tag="POSTEDBY">Автор:</Resource>
+    <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Теги запрещены администратором.</Resource>
+    <Resource tag="REPORTTEXT_FORBIDDENTAG">Тег [{0}] не разрешён в жалобах на посты.</Resource>
+    <Resource tag="REPORTTEXT_TOOLONG">Длина жалобы не должна превышать {0} символов.</Resource>
     <Resource tag="SEND">Сообщить</Resource>
   </page>
   <page name="RTE">

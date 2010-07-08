@@ -964,6 +964,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets MaxReportPostChars.
+    /// </summary>
+    public int MaxReportPostChars
+    {
+        get
+        {
+            return this._reg.GetValue<int>("MaxReportPostChars", 128);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("MaxReportPostChars", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets MaxNumberOfAttachments.
     /// </summary>
     public int MaxNumberOfAttachments

@@ -95,6 +95,13 @@ namespace YAF.Pages
     /// </param>
     protected void BtnReport_Click(object sender, EventArgs e)
     {
+        if (this.reportEditor.Text.Length > PageContext.BoardSettings.MaxReportPostChars)
+        {
+            this.IncorrectReportLabel.Text = PageContext.Localization.GetTextFormatted("REPORTTEXT_TOOLONG", PageContext.BoardSettings.MaxReportPostChars);
+            this.IncorrectReportLabel.DataBind();
+            return;
+        }
+
       // Save the reported message
       DB.message_report(this.messageID, this.PageContext.PageUserID, DateTime.UtcNow, this.reportEditor.Text);
       
