@@ -7760,7 +7760,7 @@ AS
 	END
 GO
 
-#IFSRVVER=8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks] 
+#IFSRVVER=8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_gettextbyids] 
 	@MessageIDs ntext
 AS
 BEGIN
