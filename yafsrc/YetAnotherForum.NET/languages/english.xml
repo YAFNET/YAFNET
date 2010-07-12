@@ -390,6 +390,7 @@
 		<Resource tag="CONTROL_PANEL">Control Panel</Resource>
 		<Resource tag="EDIT_AVATAR">Modify Avatar</Resource>
 		<Resource tag="EDIT_PROFILE">Edit Profile</Resource>
+    <Resource tag="VIEW_PROFILE">View Profile</Resource>
 		<Resource tag="EDIT_SIGNATURE">Edit Signature</Resource>
 		<Resource tag="GROUPS">You are a member of these groups:</Resource>
 		<Resource tag="INBOX">Inbox</Resource>

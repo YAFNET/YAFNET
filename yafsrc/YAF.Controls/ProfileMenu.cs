@@ -53,8 +53,9 @@ namespace YAF.Controls
 
       html.AppendFormat(@"<tr class=""header2""><td>{0}</td></tr>",this.PageContext.Localization.GetText("PERSONAL_PROFILE"));
       html.AppendFormat(@"<tr><td class=""post""><ul id=""yafprofilepersonal"">");
-      html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editprofile), PageContext.Localization.GetText("EDIT_PROFILE"));
-      if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableThanksMod)
+      html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.profile, "u={0}", PageContext.PageUserID), PageContext.Localization.GetText("VIEW_PROFILE"));
+        html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.cp_editprofile), PageContext.Localization.GetText("EDIT_PROFILE"));
+        if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableThanksMod)
       {
           html.AppendFormat(@"<li><a href=""{0}"">{1}</a></li>", YafBuildLink.GetLink(ForumPages.viewthanks, "u={0}", PageContext.PageUserID), PageContext.Localization.GetText("ViewTHANKS", "TITLE"));
       }
