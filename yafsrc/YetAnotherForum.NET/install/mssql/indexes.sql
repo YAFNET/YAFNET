@@ -132,21 +132,21 @@ go
 
 -- {objectQualifier}Thanks
 
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Thanks]') AND name = N'IX_{objectQualifier}Thanks_MessageID')
+IF NOT EXISTS (SELECT 1 FROM dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Thanks]') AND name = N'IX_{objectQualifier}Thanks_MessageID')
 CREATE  INDEX [IX_{objectQualifier}Thanks_MessageID] ON [{databaseOwner}].[{objectQualifier}Thanks] 
 (
 	[MessageID] ASC
 )
 GO
 
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Thanks]') AND name = N'IX_{objectQualifier}Thanks_ThanksFromUserID')
+IF NOT EXISTS (SELECT 1 FROM dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Thanks]') AND name = N'IX_{objectQualifier}Thanks_ThanksFromUserID')
 CREATE  INDEX [IX_{objectQualifier}Thanks_ThanksFromUserID] ON [{databaseOwner}].[{objectQualifier}Thanks] 
 (
 	[ThanksFromUserID] ASC
 )
 GO
 
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Thanks]') AND name = N'IX_{objectQualifier}Thanks_ThanksToUserID')
+IF NOT EXISTS (SELECT 1 FROM dbo.sysindexes WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Thanks]') AND name = N'IX_{objectQualifier}Thanks_ThanksToUserID')
 CREATE  INDEX [IX_{objectQualifier}Thanks_ThanksToUserID] ON [{databaseOwner}].[{objectQualifier}Thanks] 
 (
 	[ThanksToUserID] ASC
