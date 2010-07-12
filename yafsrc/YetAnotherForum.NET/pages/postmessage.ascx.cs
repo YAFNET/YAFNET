@@ -459,7 +459,7 @@ namespace YAF.Pages
         this.PostOptions1.AttachOptionVisible = this.PageContext.ForumUploadAccess;
         this.PostOptions1.WatchOptionVisible = !this.PageContext.IsGuest;
 
-        if (!this.PageContext.IsGuest && this.PageContext.PageTopicID == 0)
+        if (!this.PageContext.IsGuest)
         {
           this.PostOptions1.WatchChecked = new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
         }
