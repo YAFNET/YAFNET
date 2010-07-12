@@ -130,7 +130,7 @@ namespace YAF.Controls
           this.PageContext.PageBoardID, 
           this.PageContext.BoardSettings.ActiveDiscussionsCount, 
           this.PageContext.PageUserID, 
-          this.PageContext.BoardSettings.UseStyledNicks);
+          this.PageContext.BoardSettings.UseStyledNicks, true);
 
         // Set colorOnly parameter to true, as we get all but color from css in the place
         if (this.PageContext.BoardSettings.UseStyledNicks)

@@ -39,7 +39,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The board object stats.
     /// </summary>
-    private DataRow boardObjectStats = DB.board_poststats(YafContext.Current.PageBoardID, YafContext.Current.BoardSettings.UseStyledNicks);
+    private DataRow boardObjectStats = DB.board_poststats(YafContext.Current.PageBoardID, YafContext.Current.BoardSettings.UseStyledNicks, true);
 
     /// <summary>
     /// The category create limit.

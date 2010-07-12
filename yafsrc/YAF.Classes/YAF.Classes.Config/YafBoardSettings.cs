@@ -832,6 +832,22 @@ namespace YAF.Classes
       }
     }
 
+    /// <summary>
+    /// Gets or sets BoardUserStatsCacheTimeout.
+    /// </summary>
+    public int BoardUserStatsCacheTimeout
+    {
+        get
+        {
+            return this._reg.GetValue<int>("BoardUserStatsCacheTimeout", 60);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("BoardUserStatsCacheTimeout", value);
+        }
+    }
+
     // Ederon 12/18/2007
     /// <summary>
     /// Gets or sets PrivateMessageMaxRecipients.

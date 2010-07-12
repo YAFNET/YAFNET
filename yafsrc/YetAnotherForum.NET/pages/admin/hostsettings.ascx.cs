@@ -320,6 +320,20 @@ namespace YAF.Pages.Admin
     }
 
     /// <summary>
+    /// The board user statistics cache reset_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void BoardUserStatsCacheReset_Click(object sender, EventArgs e)
+    {
+        this.RemoveCacheKey(Constants.Cache.BoardUserStats);
+    }
+
+    /// <summary>
     /// The active discussions cache reset_ click.
     /// </summary>
     /// <param name="sender">
@@ -440,6 +454,7 @@ namespace YAF.Pages.Admin
     private void CheckCache()
     {
         this.ForumStatisticsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardStats);
+        this.BoardUserStatsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardUserStats);
         this.ActiveDiscussionsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveDiscussions) || CheckCacheKey(Constants.Cache.ForumActiveDiscussions);
         this.BoardModeratorsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumModerators);
         this.BoardCategoriesCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumCategory);

@@ -1330,6 +1330,16 @@
 							<asp:Button ID="ForumStatisticsCacheReset" Text="Clear" runat="server" OnClick="ForumStatisticsCacheReset_Click" />
 						</td>
 					</tr>
+                    <tr>
+						<td class="postheader">
+							<b>Board User Statistics Cache Timeout:</b><br />
+							In minutes
+						</td>
+						<td class="post">
+							<asp:TextBox runat="server" ID="BoardUserStatsCacheTimeout" />
+							<asp:Button ID="BoardUserStatsCacheReset" Text="Clear" runat="server" OnClick="BoardUserStatsCacheReset_Click" />
+						</td>
+					</tr>
 					<tr>
 						<td class="postheader">
 							<b>Active Discussions Cache Timeout:</b><br />
@@ -1470,7 +1480,8 @@
 								<asp:ListItem Value="1" Text="Registered Users" />
 								<asp:ListItem Value="2" Text="All Users" />
 							</asp:DropDownList>
-						</td>
+						</td> 
+                    </tr>                  
 					<tr>
 						<td class="postheader">
 							<b>Search Engine 1:</b><br />

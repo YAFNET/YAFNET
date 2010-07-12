@@ -1859,21 +1859,50 @@ namespace YAF.Classes.Data
     /// <param name="boardID">
     /// BoardID
     /// </param>
+    /// <param name="useStyledNick">
+    /// UseStyledNick
+    /// </param>
+    /// <param name="showNoCountPosts">
+    /// ShowNoCountPosts
+    /// </param> 
     /// <returns>
     /// DataRow of Poststats
     /// </returns>
-    public static DataRow board_poststats(int? boardID, bool useStyledNick)
+    public static DataRow board_poststats(int? boardId, bool useStyledNick, bool showNoCountPosts)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("board_poststats"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("BoardID", boardID);
+        cmd.Parameters.AddWithValue("BoardID", boardId);
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNick);
+        cmd.Parameters.AddWithValue("ShowNoCountPosts", showNoCountPosts);
         using (DataTable dt = YafDBAccess.Current.GetData(cmd))
         {
           return dt.Rows[0];
         }
       }
+    }
+
+    /// <summary>
+    /// Gets users statistics
+    /// </summary>
+    /// <param name="boardID">
+    /// BoardID
+    /// </param>
+    /// <returns>
+    /// DataRow of Poststats
+    /// </returns>
+    public static DataRow board_userstats(int? boardId)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("board_userstats"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("BoardID", boardId);
+            using (DataTable dt = YafDBAccess.Current.GetData(cmd))
+            {
+                return dt.Rows[0];
+            }
+        }
     }
 
     /// <summary>
@@ -6433,7 +6462,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable topic_latest(object boardID, object numOfPostsToRetrieve, object userID, bool useStyledNicks)
+    public static DataTable topic_latest(object boardID, object numOfPostsToRetrieve, object userID, bool useStyledNicks, bool showNoCountPosts)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("topic_latest"))
       {
@@ -6442,6 +6471,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("NumPosts", numOfPostsToRetrieve);
         cmd.Parameters.AddWithValue("UserID", userID);
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNicks);
+        cmd.Parameters.AddWithValue("ShowNoCountPosts", showNoCountPosts);
         return YafDBAccess.Current.GetData(cmd);
       }
     }

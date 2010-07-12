@@ -110,7 +110,7 @@ namespace YAF.Pages
     {
       // vzrus: to clear the cache to show user in the list at once
         this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
-        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+        this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats));
         
 
       // redirect to the main forum URL      

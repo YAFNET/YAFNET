@@ -309,7 +309,7 @@ namespace YAF.Pages.Admin
         this.ForumImages.SelectedIndex > 0 ? this.ForumImages.SelectedValue.Trim() : null,
         this.Styles.Text,
         false);
-
+        
       // Access
       if (Request.QueryString.GetFirstOrDefault("f") != null)
       {
@@ -318,6 +318,9 @@ namespace YAF.Pages.Admin
           RepeaterItem item = this.AccessList.Items[i];
           int GroupID = int.Parse(((Label) item.FindControl("GroupID")).Text);
           DB.forumaccess_save(ForumID, GroupID, ((DropDownList) item.FindControl("AccessmaskID")).SelectedValue);
+
+          // Update statistics
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
         }
 
         ClearCaches();

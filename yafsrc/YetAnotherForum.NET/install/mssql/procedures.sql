@@ -82,6 +82,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}board_poststats]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}board_userstats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}board_userstats]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}board_resync]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}board_resync]
 GO
@@ -1803,33 +1807,15 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_poststats](@BoardID int, @StyledNicks bit = 0 ) as
+create procedure [{databaseOwner}].[{objectQualifier}board_poststats](@BoardID int, @StyledNicks bit = 0, @ShowNoCountPosts bit = 0 ) as
 BEGIN
 		SELECT
 		Posts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] a join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID AND (a.Flags & 24)=16),
 		Topics = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] a join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ForumID join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID AND (a.Flags & 8) <> 8),
-		Forums = (select count(1) from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),
-		Members = (select count(1) from [{databaseOwner}].[{objectQualifier}User] a where a.BoardID=@BoardID AND (Flags & 2) = 2 AND (a.Flags & 4) = 0),
-		MaxUsers = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxusers') and BoardID=@BoardID),
-		MaxUsersWhen = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxuserswhen') and BoardID=@BoardID),		
-		LastPostInfo.*,
-		LastMemberInfo.*
+		Forums = (select count(1) from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),	
+		LastPostInfo.*
 	FROM
 		(
-			SELECT TOP 1 
-				LastMemberInfoID= 1,
-				LastMemberID	= UserID,
-				LastMember	= [Name]
-			FROM 
-				[{databaseOwner}].[{objectQualifier}User]
-			WHERE 
-				(Flags & 2) = 2
-				AND (Flags & 4) = 0
-				AND BoardID = @BoardID 
-			ORDER BY 
-				Joined DESC
-		) as LastMemberInfo
-		left join (
 			SELECT TOP 1 
 				LastPostInfoID	= 1,
 				LastPost	= a.Posted,
@@ -1845,11 +1831,37 @@ BEGIN
 			WHERE 
 				(a.Flags & 24) = 16
 				AND (b.Flags & 8) <> 8 
-				AND d.BoardID = @BoardID
+				AND d.BoardID = @BoardID AND (b.Flags & 8) <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 8 END)
 			ORDER BY
 				a.Posted DESC
 		) as LastPostInfo
-		on LastMemberInfoID=LastPostInfoID
+		
+END
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}board_userstats](@BoardID int) as
+BEGIN
+		SELECT		
+		Members = (select count(1) from [{databaseOwner}].[{objectQualifier}User] a where a.BoardID=@BoardID AND (Flags & 2) = 2 AND (a.Flags & 4) = 0),
+		MaxUsers = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxusers') and BoardID=@BoardID),
+		MaxUsersWhen = (SELECT CAST([Value] as nvarchar(255)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxuserswhen') and BoardID=@BoardID),		
+	    LastMemberInfo.*
+	FROM
+		(
+			SELECT TOP 1 
+				LastMemberInfoID= 1,
+				LastMemberID	= UserID,
+				LastMember	= [Name]
+			FROM 
+				[{databaseOwner}].[{objectQualifier}User]
+			WHERE 
+				(Flags & 2) = 2
+				AND (Flags & 4) = 0
+				AND BoardID = @BoardID 
+			ORDER BY 
+				Joined DESC
+		) as LastMemberInfo
+		
 END
 GO
 
@@ -4503,7 +4515,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest]
 	@BoardID int,
 	@NumPosts int,
 	@UserID int,
-	@StyledNicks bit = 0
+	@StyledNicks bit = 0,
+	@ShowNoCountPosts  bit = 0
 )
 AS
 BEGIN	
@@ -4530,13 +4543,15 @@ BEGIN
 		[{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
 	JOIN
 		[{databaseOwner}].[{objectQualifier}vaccess] v ON v.ForumID=f.ForumID
-	WHERE
+	WHERE	
 		c.BoardID = @BoardID
 		AND t.TopicMovedID is NULL
 		AND v.UserID=@UserID
 		AND (v.ReadAccess <> 0)
 		AND t.IsDeleted != 1
 		AND t.LastPosted IS NOT NULL
+		AND
+		f.Flags & 4 <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 4 END)
 	ORDER BY
 		t.LastPosted DESC;
 END

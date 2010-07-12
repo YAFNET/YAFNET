@@ -64,13 +64,13 @@ namespace YAF.Controls
 
       // Forum Statistics
       key = YafCache.GetBoardCacheKey(Constants.Cache.BoardStats);
-      var statisticsDataRow = PageContext.Cache.GetItem(
+      var postsStatisticsDataRow = PageContext.Cache.GetItem(
         key,
         PageContext.BoardSettings.ForumStatisticsCacheTimeout,
         () =>
         {
           // get the post stats
-          DataRow dr = DB.board_poststats(PageContext.PageBoardID, PageContext.BoardSettings.UseStyledNicks);
+            DataRow dr = DB.board_poststats(PageContext.PageBoardID, PageContext.BoardSettings.UseStyledNicks, true);
 
           // Set colorOnly parameter to false, as we get here color from data field in the place
           dr["LastUserStyle"] = this.PageContext.BoardSettings.UseStyledNicks
@@ -79,11 +79,18 @@ namespace YAF.Controls
           return dr;
         });
 
+      // Forum Statistics
+      
+      var userStatisticsDataRow = PageContext.Cache.GetItem(
+        YafCache.GetBoardCacheKey(Constants.Cache.BoardUserStats),
+        PageContext.BoardSettings.BoardUserStatsCacheTimeout,
+        () => DB.board_userstats(PageContext.PageBoardID));
+
       // show max users...
-      if (!statisticsDataRow.IsNull("MaxUsers"))
+      if (!userStatisticsDataRow.IsNull("MaxUsers"))
       {
         this.MostUsersCount.Text = PageContext.Localization.GetTextFormatted(
-          "MAX_ONLINE", statisticsDataRow["MaxUsers"], YafServices.DateTime.FormatDateTimeTopic(statisticsDataRow["MaxUsersWhen"]));
+          "MAX_ONLINE", userStatisticsDataRow["MaxUsers"], YafServices.DateTime.FormatDateTimeTopic(userStatisticsDataRow["MaxUsersWhen"]));
       }
       else
       {
@@ -93,17 +100,17 @@ namespace YAF.Controls
 
       // Posts and Topic Count...
       this.StatsPostsTopicCount.Text = PageContext.Localization.GetTextFormatted(
-        "stats_posts", statisticsDataRow["posts"], statisticsDataRow["topics"], statisticsDataRow["forums"]);
+        "stats_posts", postsStatisticsDataRow["posts"], postsStatisticsDataRow["topics"], postsStatisticsDataRow["forums"]);
 
       // Last post
-      if (!statisticsDataRow.IsNull("LastPost"))
+      if (!postsStatisticsDataRow.IsNull("LastPost"))
       {
         this.StatsLastPostHolder.Visible = true;
 
-        this.LastPostUserLink.UserID = Convert.ToInt32(statisticsDataRow["LastUserID"]);
-        this.LastPostUserLink.Style = statisticsDataRow["LastUserStyle"].ToString();
+        this.LastPostUserLink.UserID = Convert.ToInt32(postsStatisticsDataRow["LastUserID"]);
+        this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
         this.StatsLastPost.Text = PageContext.Localization.GetTextFormatted(
-          "stats_lastpost", YafServices.DateTime.FormatDateTimeTopic((DateTime) statisticsDataRow["LastPost"]));
+          "stats_lastpost", YafServices.DateTime.FormatDateTimeTopic((DateTime) postsStatisticsDataRow["LastPost"]));
       }
       else
       {
@@ -111,11 +118,11 @@ namespace YAF.Controls
       } 
 
       // Member Count
-      this.StatsMembersCount.Text = PageContext.Localization.GetTextFormatted("stats_members", statisticsDataRow["members"]);
+      this.StatsMembersCount.Text = PageContext.Localization.GetTextFormatted("stats_members", userStatisticsDataRow["members"]);
 
       // Newest Member
       this.StatsNewestMember.Text = PageContext.Localization.GetText("stats_lastmember");
-      this.NewestMemberUserLink.UserID = Convert.ToInt32(statisticsDataRow["LastMemberID"]);
+      this.NewestMemberUserLink.UserID = Convert.ToInt32(userStatisticsDataRow["LastMemberID"]);
     }
 
     /// <summary>
@@ -145,7 +152,7 @@ namespace YAF.Controls
       bool canViewActive = YafServices.Permissions.Check(PageContext.BoardSettings.ActiveUsersViewPermissions);
       bool showGuestTotal = (activeGuests > 0) && PageContext.BoardSettings.ShowGuestsInDetailedActiveList;
       bool showActiveHidden = (activeHidden > 0) && PageContext.IsAdmin;
-      if (canViewActive && ((showGuestTotal) || (activeMembers > 0 && (showGuestTotal || activeGuests <= 0)) || (showActiveHidden && activeMembers > 0 && showGuestTotal)))
+      if (canViewActive && ((showGuestTotal) || (activeMembers > 0 && (showGuestTotal || activeGuests <= 0)) || (showActiveHidden && (activeMembers > 0) && showGuestTotal)))
       {
 
         // always show active users...       

@@ -726,9 +726,13 @@ namespace YAF.Pages
         ref messageId);
 
       this.UpdateWatchTopic(this.PageContext.PageUserID, (int)topicID);
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
 
-      return messageId;
+      if (messageFlags.IsApproved)
+      {
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+      }
+
+        return messageId;
     }
 
     /// <summary>
@@ -768,7 +772,12 @@ namespace YAF.Pages
         ref messageId);
 
       this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+
+      if (messageFlags.IsApproved)
+      {
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+      }
+
       return messageId;
     }
 

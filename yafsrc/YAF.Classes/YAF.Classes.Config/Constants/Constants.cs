@@ -52,6 +52,11 @@ namespace YAF.Classes
       public const string BoardStats = "BoardStats";
 
       /// <summary>
+      /// The board user stats.
+      /// </summary>
+      public const string BoardUserStats = "BoardUserStats";
+
+      /// <summary>
       /// The custom bb code.
       /// </summary>
       public const string CustomBBCode = "CustomBBCode";

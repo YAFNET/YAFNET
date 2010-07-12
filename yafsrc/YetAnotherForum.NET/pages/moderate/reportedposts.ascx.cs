@@ -130,6 +130,9 @@ namespace YAF.Pages.moderate
           // delete message
           DB.message_delete(e.CommandArgument, true, string.Empty, 1, true);
 
+          // Update statistics
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
+
           // re-bind data
           BindData();
 
