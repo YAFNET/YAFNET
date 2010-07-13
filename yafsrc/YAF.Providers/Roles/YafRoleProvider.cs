@@ -133,7 +133,7 @@ namespace YAF.Providers.Roles
         foreach (string roleName in roleNames)
         {
           // only add user if this role actually exists...
-          if (!roleName.IsNotSet() && allRoles.Contains(roleName))
+          if (roleName.IsSet() && allRoles.Contains(roleName))
           {
             DB.Current.AddUserToRole(this.ApplicationName, username, roleName);
           }
@@ -151,7 +151,7 @@ namespace YAF.Providers.Roles
     /// </param>
     public override void CreateRole(string roleName)
     {
-      if (String.IsNullOrEmpty(roleName))
+      if (roleName.IsNotSet())
       {
         ExceptionReporter.ThrowArgument("ROLES", "ROLENAMEBLANK");
       }
@@ -176,13 +176,7 @@ namespace YAF.Providers.Roles
       this.ClearUserRoleCache();
 
       // zero means there were no complications...
-      if (returnValue == 0)
-      {
-        return true;
-      }
-
-      // it failed for some reason...
-      return false;
+      return returnValue == 0;
     }
 
     /// <summary>
@@ -199,7 +193,7 @@ namespace YAF.Providers.Roles
     /// </returns>
     public override string[] FindUsersInRole(string roleName, string usernameToMatch)
     {
-      if (String.IsNullOrEmpty(roleName))
+      if (roleName.IsNotSet())
       {
         ExceptionReporter.ThrowArgument("ROLES", "ROLENAMEBLANK");
       }
@@ -212,7 +206,7 @@ namespace YAF.Providers.Roles
         usernames.Add(user["Username"].ToStringDBNull());
       }
 
-      return Transform.ToStringArray(usernames);
+      return usernames.ToStringArray();
     }
 
     /// <summary>
@@ -246,7 +240,7 @@ namespace YAF.Providers.Roles
     /// </returns>
     public override string[] GetRolesForUser(string username)
     {
-      if (String.IsNullOrEmpty(username))
+      if (username.IsNotSet())
       {
         ExceptionReporter.ThrowArgument("ROLES", "USERNAMEBLANK");
       }
@@ -273,7 +267,7 @@ namespace YAF.Providers.Roles
         roleNames = this.UserRoleCache[username.ToLower()];
       }
 
-      return Transform.ToStringArray(roleNames); // return as a string array
+      return roleNames.ToStringArray(); // return as a string array
     }
 
     /// <summary>
@@ -287,7 +281,7 @@ namespace YAF.Providers.Roles
     /// </returns>
     public override string[] GetUsersInRole(string roleName)
     {
-      if (String.IsNullOrEmpty(roleName))
+      if (roleName.IsNotSet())
       {
         ExceptionReporter.ThrowArgument("ROLES", "ROLENAMEBLANK");
       }
@@ -301,7 +295,7 @@ namespace YAF.Providers.Roles
         userNames.Add(dr["Username"].ToStringDBNull());
       }
 
-      return Transform.ToStringArray(userNames);
+      return userNames.ToStringArray();
     }
 
     /// <summary>
@@ -323,7 +317,7 @@ namespace YAF.Providers.Roles
       this._connStrName = config["connectionStringName"].ToStringDBNull();
 
       // is the connection string set?
-      if (!String.IsNullOrEmpty(this._connStrName))
+      if (this._connStrName.IsSet())
       {
         string connStr = ConfigurationManager.ConnectionStrings[this._connStrName].ConnectionString;
 
@@ -367,14 +361,7 @@ namespace YAF.Providers.Roles
     {
       DataTable roles = DB.Current.IsUserInRole(this.ApplicationName, username, roleName);
 
-      if (roles.Rows.Count > 0)
-      {
-        return true;
-      }
-      else
-      {
-        return false;
-      }
+      return roles.Rows.Count > 0;
     }
 
     /// <summary>
@@ -461,7 +448,7 @@ namespace YAF.Providers.Roles
     /// </returns>
     private string GenerateCacheKey(string name)
     {
-      return String.Format("YafRoleProvider-{0}-{1}", name, this.ApplicationName);
+      return "YafRoleProvider-{0}-{1}".FormatWith(name, this.ApplicationName);
     }
 
     #endregion
