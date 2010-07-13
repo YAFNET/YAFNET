@@ -536,7 +536,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_addusertorole]
 )
 AS
 BEGIN
-    	DECLARE @UserID nvarchar(64)
+	DECLARE @UserID nvarchar(64)
 	DECLARE @RoleID uniqueidentifier
 	DECLARE @ApplicationID uniqueidentifier
 	
@@ -544,6 +544,9 @@ BEGIN
 
 	SET @UserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m WHERE m.UsernameLwd=LOWER(@Username) AND m.ApplicationID = @ApplicationID)
 	SET @RoleID = (SELECT RoleID FROM [{databaseOwner}].[{objectQualifier}prov_Role] r WHERE r.RolenameLwd=LOWER(@Rolename) AND r.ApplicationID = @ApplicationID)
+
+	IF (@UserID IS NULL OR @RoleID IS NULL)
+		RETURN;
 	
 	IF (NOT EXISTS(SELECT 1 FROM [{databaseOwner}].[{objectQualifier}prov_RoleMembership] rm WHERE rm.UserID=@UserID AND rm.RoleID=@RoleID))
 		INSERT INTO [{databaseOwner}].[{objectQualifier}prov_RoleMembership] (RoleID, UserID) VALUES (@RoleID, @UserID);
