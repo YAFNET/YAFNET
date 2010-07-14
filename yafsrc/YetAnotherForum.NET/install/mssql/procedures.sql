@@ -1809,6 +1809,10 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}board_poststats](@BoardID int, @StyledNicks bit = 0, @ShowNoCountPosts bit = 0 ) as
 BEGIN
+
+-- vzrus: while  a new installation we don have the row and should return a dummy data
+IF EXISTS (SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Message] a join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID AND (a.Flags & 24)=16)
+BEGIN
 		SELECT
 		Posts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] a join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID AND (a.Flags & 24)=16),
 		Topics = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] a join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ForumID join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID AND (a.Flags & 8) <> 8),
@@ -1831,10 +1835,23 @@ BEGIN
 			WHERE 
 				(a.Flags & 24) = 16
 				AND (b.Flags & 8) <> 8 
-				AND d.BoardID = @BoardID AND (b.Flags & 8) <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 8 END)
+				AND d.BoardID = @BoardID AND (c.Flags & 8) <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 8 END)
 			ORDER BY
 				a.Posted DESC
 		) as LastPostInfo
+		END
+		ELSE
+		BEGIN
+		SELECT
+		Posts = 0,
+		Topics = 0,
+		Forums = 1,	
+		LastPostInfoID	= 1,
+		LastPost	= null,
+		LastUserID	= null,
+		LastUser	= null,
+		LastUserStyle = ''
+		END
 		
 END
 GO
