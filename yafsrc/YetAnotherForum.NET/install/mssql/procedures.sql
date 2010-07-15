@@ -1807,25 +1807,21 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_poststats](@BoardID int, @StyledNicks bit = 0, @ShowNoCountPosts bit = 0 ) as
+create procedure [{databaseOwner}].[{objectQualifier}board_poststats](@BoardID int, @StyledNicks bit = 0, @ShowNoCountPosts bit = 0, @GetDefaults bit = 0 ) as
 BEGIN
 
--- vzrus: while  a new installation we don have the row and should return a dummy data
-IF EXISTS (SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Message] a join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID AND (a.Flags & 24)=16)
+-- vzrus: while  a new installation or like this we don't have the row and should return a dummy data
+IF @GetDefaults <= 0
 BEGIN
-		SELECT
+		SELECT TOP 1 
 		Posts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] a join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID AND (a.Flags & 24)=16),
 		Topics = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] a join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ForumID join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID AND (a.Flags & 8) <> 8),
 		Forums = (select count(1) from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),	
-		LastPostInfo.*
-	FROM
-		(
-			SELECT TOP 1 
-				LastPostInfoID	= 1,
-				LastPost	= a.Posted,
-				LastUserID	= a.UserID,
-				LastUser	= e.Name,
-				LastUserStyle = (CASE WHEN @StyledNicks > 0 THEN [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID) ELSE '' END)
+		LastPostInfoID	= 1,
+		LastPost	= a.Posted,
+		LastUserID	= a.UserID,
+		LastUser	= e.Name,
+		LastUserStyle = (CASE WHEN @StyledNicks > 0 THEN [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID) ELSE '' END)
 			FROM 
 				[{databaseOwner}].[{objectQualifier}Message] a 
 				join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID 
@@ -1838,7 +1834,6 @@ BEGIN
 				AND d.BoardID = @BoardID AND (c.Flags & 8) <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 8 END)
 			ORDER BY
 				a.Posted DESC
-		) as LastPostInfo
 		END
 		ELSE
 		BEGIN

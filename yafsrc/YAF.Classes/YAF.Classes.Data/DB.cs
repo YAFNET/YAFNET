@@ -1876,11 +1876,31 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("BoardID", boardId);
         cmd.Parameters.AddWithValue("StyledNicks", useStyledNick);
         cmd.Parameters.AddWithValue("ShowNoCountPosts", showNoCountPosts);
-        using (DataTable dt = YafDBAccess.Current.GetData(cmd))
-        {
-          return dt.Rows[0];
-        }
+         
+        cmd.Parameters.AddWithValue("GetDefaults", 0);
+          DataTable dt = YafDBAccess.Current.GetData(cmd);
+            if (dt.Rows.Count > 0)
+            {
+                return dt.Rows[0];
+            }
+       
       }
+        // vzrus - this happens at new install only when we don't have posts or when they are not visible to a user 
+      using (SqlCommand cmd = YafDBAccess.GetCommand("board_poststats"))
+      {
+          cmd.CommandType = CommandType.StoredProcedure;
+          cmd.Parameters.AddWithValue("BoardID", boardId);
+          cmd.Parameters.AddWithValue("StyledNicks", useStyledNick);
+          cmd.Parameters.AddWithValue("ShowNoCountPosts", showNoCountPosts);
+          cmd.Parameters.AddWithValue("GetDefaults", 1);
+          DataTable dt = YafDBAccess.Current.GetData(cmd);
+          if (dt.Rows.Count > 0)
+          {
+              return dt.Rows[0];
+          }
+
+      }
+        return null;
     }
 
     /// <summary>

@@ -280,7 +280,7 @@ namespace YAF.Classes.Core
     public DataTable GetLatestTopics(int numberOfPosts, int userId, params string[] styleColumnNames)
     {
       return this.StyleTransformDataTable(
-          DB.topic_latest(YafContext.Current.PageBoardID, numberOfPosts, userId, YafContext.Current.BoardSettings.UseStyledNicks, true), styleColumnNames);
+          DB.topic_latest(YafContext.Current.PageBoardID, numberOfPosts, userId, YafContext.Current.BoardSettings.UseStyledNicks, YafContext.Current.BoardSettings.NoCountForumsInActiveDiscussions), styleColumnNames);
     }
 
     /// <summary>

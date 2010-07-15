@@ -122,7 +122,7 @@
 							<asp:TextBox ID="UserNameMaxLength" runat="server" />
 						</td>
 					</tr>
-                    		<tr>
+							<tr>
 						<td class="postheader">
 							<b>Max Report Post Chars:</b><br />
 							Max Allowed Report Post length.
@@ -341,7 +341,7 @@
 							<asp:CheckBox ID="ShowUserOnlineStatus" runat="server"></asp:CheckBox>
 						</td>
 					</tr>					
-                    <tr>
+					<tr>
 						<td class="postheader">
 							<b>Allow Users to Thank Posts:</b><br />
 							If checked users can thank posts they consider useful.
@@ -350,7 +350,7 @@
 							<asp:CheckBox ID="EnableThanksMod" runat="server"></asp:CheckBox>
 						</td>
 					</tr>					
-                    <tr>
+					<tr>
 						<td class="postheader">
 							<b>Enable Buddy List:</b><br />
 							If checked users can add each other as buddies.
@@ -574,8 +574,8 @@
 						<td class="post">
 							<asp:TextBox ID="AlbumImagesSizeMax" runat="server"></asp:TextBox>
 						</td>					
-                    </tr>
-                    <tr>	
+					</tr>
+					<tr>	
 					<td class="postheader">
 							<b>Albums Per Page:</b><br />
 							Number of albums to show per page.
@@ -583,8 +583,8 @@
 						<td class="post">
 							<asp:TextBox ID="AlbumsPerPage" runat="server"></asp:TextBox>
 						</td>					
-                    </tr>                    										
-                    <tr>	
+					</tr>                    										
+					<tr>	
 					<td class="postheader">
 							<b>Images Per Page:</b><br />
 							Number of images to show per page.
@@ -592,13 +592,13 @@
 						<td class="post">
 							<asp:TextBox ID="AlbumImagesPerPage" runat="server"></asp:TextBox>
 						</td>					
-                    </tr> 
-                    <tr>
+					</tr> 
+					<tr>
 						<td class="header1" colspan="2">
 							Log settings
 						</td>
 					</tr>
-                    <tr>
+					<tr>
 						<td class="postheader">
 							<b>Message history archieve time</b><br />
 							Number of days to keep message change history.
@@ -607,7 +607,7 @@
 							<asp:TextBox ID="MessageHistoryDaysToLog" runat="server"></asp:TextBox>
 						</td>	
 					</tr>  
-                    <tr>
+					<tr>
 						<td class="postheader">
 							<b>Enable Active Location Error Log:</b><br />
 							If checked, all active location path errors are logged.
@@ -695,6 +695,15 @@
 					</tr>
 					<tr>
 						<td class="postheader">
+							<b>Show 'no-count' Forum Posts in Active Discussions :</b><br />
+							If this is checked, posts from no-count forums will be displayed in Active Topics.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="NoCountForumsInActiveDiscussions" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
 							<b>Show Forum Statistics:</b><br />
 							Enable or disable display of forum statistics on board index page.
 						</td>
@@ -738,7 +747,7 @@
 							<asp:CheckBox ID="ShowShoutbox" runat="server"></asp:CheckBox>
 						</td>
 					</tr>
-                    	<tr>
+						<tr>
 						<td class="postheader">
 							<b>Show Shoutbox Smiles:</b><br />
 							Enable or disable display of the Shoutbox (Chat Module) smiles.
@@ -1330,7 +1339,7 @@
 							<asp:Button ID="ForumStatisticsCacheReset" Text="Clear" runat="server" OnClick="ForumStatisticsCacheReset_Click" />
 						</td>
 					</tr>
-                    <tr>
+					<tr>
 						<td class="postheader">
 							<b>Board User Statistics Cache Timeout:</b><br />
 							In minutes
@@ -1481,7 +1490,7 @@
 								<asp:ListItem Value="2" Text="All Users" />
 							</asp:DropDownList>
 						</td> 
-                    </tr>                  
+					</tr>                  
 					<tr>
 						<td class="postheader">
 							<b>Search Engine 1:</b><br />

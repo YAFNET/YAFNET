@@ -1934,6 +1934,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether display No-Count Forums In ActiveDiscussions.
+    /// </summary>
+    public bool NoCountForumsInActiveDiscussions
+    {
+      get
+      {
+          return this._reg.GetValue<bool>("NoCountForumsInActiveDiscussions", true);
+      }
+
+      set
+      {
+          this._reg.SetValue<bool>("NoCountForumsInActiveDiscussions", value);
+      }
+    }
+      
+    /// <summary>
     /// Gets or sets a value indicating whether UseStyledNicks.
     /// </summary>
     public bool UseStyledNicks
