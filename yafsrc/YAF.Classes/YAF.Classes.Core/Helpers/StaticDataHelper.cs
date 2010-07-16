@@ -224,10 +224,9 @@ namespace YAF.Classes.Core
         dt.Columns.Add("FileName", typeof(string));
         dt.Columns.Add("IsMobile", typeof(bool));
 
-        var dir =
-          new DirectoryInfo(HttpContext.Current.Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes)));
-        FileInfo[] files = dir.GetFiles("*.xml");
-        foreach (FileInfo file in files)
+        var dir = new DirectoryInfo(HttpContext.Current.Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes)));
+
+        foreach (FileInfo file in dir.GetFiles("*.xml"))
         {
           try
           {
@@ -235,11 +234,14 @@ namespace YAF.Classes.Core
             doc.Load(file.FullName);
 
             DataRow dr = dt.NewRow();
-            if (doc.DocumentElement != null)
+            dr["Theme"] = doc.DocumentElement.Attributes["theme"].Value;
+            dr["IsMobile"] = false;
+
+            if (doc.DocumentElement.HasAttribute("ismobile"))
             {
-              dr["Theme"] = doc.DocumentElement.Attributes["theme"].Value;
               dr["IsMobile"] = Convert.ToBoolean(doc.DocumentElement.Attributes["ismobile"].Value ?? "false");
             }
+
             dr["FileName"] = file.Name;
             dt.Rows.Add(dr);
           }
