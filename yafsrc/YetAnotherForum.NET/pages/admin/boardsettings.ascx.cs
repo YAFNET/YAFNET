@@ -52,13 +52,14 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink("Board Settings", string.Empty);
 
         // create list boxes by populating datasources from Data class
-        this.Theme.DataSource = StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile"));
+        this.Theme.DataSource =
+          StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile")).CopyToDataTable();
         this.Theme.DataTextField = "Theme";
         this.Theme.DataValueField = "FileName";
 
-        this.Theme.DataSource = StaticDataHelper.Themes().AsEnumerable().Where(x => x.Field<bool>("IsMobile"));
-        this.Theme.DataTextField = "Theme";
-        this.Theme.DataValueField = "FileName";
+        this.MobileTheme.DataSource = StaticDataHelper.Themes().AsEnumerable().Where(x => x.Field<bool>("IsMobile")).CopyToDataTable();
+        this.MobileTheme.DataTextField = "Theme";
+        this.MobileTheme.DataValueField = "FileName";
 
         this.Language.DataSource = StaticDataHelper.Cultures();
         this.Language.DataTextField = "CultureNativeName";
@@ -99,7 +100,7 @@ namespace YAF.Pages.Admin
     /// <param name="value">
     /// The value.
     /// </param>
-    private void SetSelectedOnList(ref DropDownList list, string value)
+    private static void SetSelectedOnList(ref DropDownList list, string value)
     {
       ListItem selItem = list.Items.FindByValue(value);
 
@@ -157,6 +158,10 @@ namespace YAF.Pages.Admin
       PageContext.BoardSettings.Language = langFile;
       PageContext.BoardSettings.Culture = this.Language.SelectedValue;
       PageContext.BoardSettings.Theme = this.Theme.SelectedValue;      
+      if (this.MobileTheme.SelectedValue.IsSet())
+      {
+        PageContext.BoardSettings.MobileTheme = this.MobileTheme.SelectedValue;
+      }
       PageContext.BoardSettings.ShowTopicsDefault = Convert.ToInt32(this.ShowTopic.SelectedValue);
       PageContext.BoardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
       PageContext.BoardSettings.FileExtensionAreAllowed = Convert.ToInt32(this.FileExtensionAllow.SelectedValue) == 0 ? true : false;
