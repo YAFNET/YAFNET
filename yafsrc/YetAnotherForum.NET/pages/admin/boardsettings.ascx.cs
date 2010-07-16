@@ -24,6 +24,7 @@ namespace YAF.Pages.Admin
   using System.Data;
   using System.Web.UI.WebControls;
   using YAF.Classes;
+  using System.Data.DataSetExtensions;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
@@ -51,7 +52,11 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink("Board Settings", string.Empty);
 
         // create list boxes by populating datasources from Data class
-        this.Theme.DataSource = StaticDataHelper.Themes();
+        this.Theme.DataSource = StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile"));
+        this.Theme.DataTextField = "Theme";
+        this.Theme.DataValueField = "FileName";
+
+        this.Theme.DataSource = StaticDataHelper.Themes().AsEnumerable().Where(x => x.Field<bool>("IsMobile"));
         this.Theme.DataTextField = "Theme";
         this.Theme.DataValueField = "FileName";
 
@@ -73,6 +78,7 @@ namespace YAF.Pages.Admin
         string langFileCulture = StaticDataHelper.CultureDefaultFromFile(PageContext.BoardSettings.Language);
         
         SetSelectedOnList(ref this.Theme, PageContext.BoardSettings.Theme);
+        SetSelectedOnList(ref this.MobileTheme, PageContext.BoardSettings.MobileTheme);
 
         // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
         SetSelectedOnList(ref this.Language, (langFileCulture.Substring(0,2) == PageContext.BoardSettings.Culture ? PageContext.BoardSettings.Culture :langFileCulture));      

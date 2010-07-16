@@ -35,6 +35,14 @@
 		</tr>
 		<tr>
 			<td class="postheader">
+				<b>Mobile Theme:</b><br />
+				The mobile theme to use on this board.</td>
+			<td class="post">
+				<asp:DropDownList ID="MobileTheme" runat="server">
+				</asp:DropDownList></td>
+		</tr>
+		<tr>
+			<td class="postheader">
 				<b>Allow Themed Logo :</b><br />
 				Gets logo from theme file (Does not work in portal).</td>
 			<td class="post">

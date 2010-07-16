@@ -20,72 +20,89 @@
 
 namespace YAF.Pages
 {
-    using System;
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Utils;
-    using YAF.Utilities;
+  #region Using
+
+  using System;
+
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Utils;
+  using YAF.Utilities;
+
+  #endregion
+
+  /// <summary>
+  ///   the Albums Page.
+  /// </summary>
+  public partial class Albums : ForumPage
+  {
+    #region Constructors and Destructors
 
     /// <summary>
-    /// the Albums Page.
+    ///   Initializes a new instance of the Albums class.
     /// </summary>
-    public partial class Albums : ForumPage
+    public Albums()
+      : base("ALBUM")
     {
-        /// <summary>
-        /// Initializes a new instance of the Albums class.
-        /// </summary>
-        public Albums()
-            : base("ALBUM")
-        {
-        }
-
-        /// <summary>
-        /// The page load event.
-        /// </summary>
-        /// <param name="sender">
-        /// the sender.
-        /// </param>
-        /// <param name="e">
-        /// the e.
-        /// </param>
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-            if (!this.PageContext.BoardSettings.EnableAlbum)
-            {
-                YafBuildLink.AccessDenied();
-            }
-
-            if (Request.QueryString.GetFirstOrDefault("u") == null)
-            {
-                YafBuildLink.AccessDenied();
-            }
-
-            // setup jQuery, LightBox and YAF JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
-            YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
-
-            // lightbox only need if the browser is not IE6...
-            if (!UserAgentHelper.IsBrowserIE6())
-            {
-                YafContext.Current.PageElements.RegisterJsResourceInclude("lightboxjs", "js/jquery.lightbox.min.js");
-                YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.lightbox.css");
-                YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
-            }
-
-            string displayName =  UserMembershipHelper.GetDisplayNameFromID(Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("u")));
-            // Generate the Page Links.
-
-            this.PageLinks.Clear();
-            this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                !string.IsNullOrEmpty(displayName)? displayName : UserMembershipHelper.GetUserNameFromID(Security.StringToLongOrRedirect(Request.QueryString.GetFirstOrDefault("u"))), 
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}", Request.QueryString.GetFirstOrDefault("u")));
-            this.PageLinks.AddLink(GetText("ALBUMS"), string.Empty);
-
-            // Initialize the Album List control.
-            this.AlbumList1.UserID = Convert.ToInt32(Request.QueryString.GetFirstOrDefault("u"));
-        }
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    ///   The page load event.
+    /// </summary>
+    /// <param name = "sender">
+    ///   the sender.
+    /// </param>
+    /// <param name = "e">
+    ///   the e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      if (!this.PageContext.BoardSettings.EnableAlbum)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      if (this.Request.QueryString.GetFirstOrDefault("u") == null)
+      {
+        YafBuildLink.AccessDenied();
+      }
+
+      // setup jQuery, LightBox and YAF JS...
+      YafContext.Current.PageElements.RegisterJQuery();
+      YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
+      YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
+
+      // lightbox only need if the browser is not IE6...
+      if (!UserAgentHelper.IsBrowserIE6())
+      {
+        YafContext.Current.PageElements.RegisterJsResourceInclude("lightboxjs", "js/jquery.lightbox.min.js");
+        YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.lightbox.css");
+        YafContext.Current.PageElements.RegisterJsBlock("lightboxloadjs", JavaScriptBlocks.LightBoxLoadJs);
+      }
+
+      string displayName =
+        UserMembershipHelper.GetDisplayNameFromID(
+          Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u")));
+      // Generate the Page Links.
+
+      this.PageLinks.Clear();
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddLink(
+        displayName.IsSet()
+          ? displayName
+          : UserMembershipHelper.GetUserNameFromID(
+            Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"))),
+        YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.Request.QueryString.GetFirstOrDefault("u")));
+      this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
+
+      // Initialize the Album List control.
+      this.AlbumList1.UserID = this.Request.QueryString.GetFirstOrDefault("u").ToType<int>();
+    }
+
+    #endregion
+  }
 }
