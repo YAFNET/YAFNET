@@ -72,8 +72,21 @@ namespace YAF.Modules
       // see if this is a mobile device...
       if (HttpContext.Current != null && UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent))
       {
-        // change the theme to mobile...
-        // TODO: Add Mobile Theme Code
+        // get the current mobile theme...
+        var mobileTheme = YafContext.Current.BoardSettings.MobileTheme;
+
+        if (mobileTheme.IsSet())
+        {
+          // create a new theme object...
+          var theme = new YafTheme(mobileTheme);
+
+           // make sure it's valid...
+          if (YafTheme.IsValidTheme(theme.ThemeFile))
+          {
+            // set new mobile theme...
+            YafContext.Current.InstanceFactory.GetInstance<ThemeHandler>().Theme = theme;
+          }
+        }
       }
     }
   }

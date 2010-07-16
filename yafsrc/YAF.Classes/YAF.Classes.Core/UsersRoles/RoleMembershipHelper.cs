@@ -288,7 +288,7 @@ namespace YAF.Classes.Core
             // add the user to this role in membership
             string roleName = row["Name"].ToString();
 
-            if (!String.IsNullOrEmpty(roleName))
+            if (roleName.IsSet())
             {
               AddUserToRole(userName, roleName);
             }

@@ -227,6 +227,22 @@ namespace YAF.Classes
     /// <summary>
     /// Gets or sets Theme.
     /// </summary>
+    public string MobileTheme
+    {
+      get
+      {
+        return this._regBoard.GetValue<string>("MobileTheme", "yafmobile.xml");
+      }
+
+      set
+      {
+        this._regBoard.SetValue<string>("MobileTheme", value);
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets Theme.
+    /// </summary>
     public string Theme
     {
       get

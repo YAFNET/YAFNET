@@ -298,15 +298,30 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static T ToType<T>(this object instance)
     {
+      if (instance == null)
+      {
+        return default(T);
+      }
+
+      if (Equals(instance, default(T)))
+      {
+        return default(T);
+      }
+
+      var instanceType = instance.GetType();
+
+      if (instanceType == typeof(string))
+      {
+        if (String.IsNullOrEmpty(instance as string))
+        {
+          return default(T);
+        }
+      }
+
       Type conversionType = typeof(T);
 
       if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
       {
-        if (instance == null)
-        {
-          return default(T);
-        }
-
         conversionType = (new NullableConverter(conversionType)).UnderlyingType;
       }
 

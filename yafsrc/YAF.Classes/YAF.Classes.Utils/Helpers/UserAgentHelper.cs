@@ -71,17 +71,17 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static bool IsIgnoredForDisplay(string userAgent)
     {
-        // Apple-PubSub - Safary RSS reader
-        string[] stringContains = {
+      // Apple-PubSub - Safary RSS reader
+      string[] stringContains = {
                                   "PlaceHolder"
                                   };
 
-        if (!String.IsNullOrEmpty(userAgent))
-        {
-            return stringContains.Select(s => s.ToLower()).Contains(userAgent.ToLower());
-        }
+      if (!String.IsNullOrEmpty(userAgent))
+      {
+        return stringContains.Select(s => s.ToLower()).Contains(userAgent.ToLower());
+      }
 
-        return false;
+      return false;
     }
 
     /// <summary>
@@ -115,9 +115,9 @@ namespace YAF.Classes.Utils
                                   "iphone", "ppc", "windows ce", "blackberry", "opera mini", "mobile", "palm", "portable"
                                 };
 
-      if (!String.IsNullOrEmpty(userAgent))
+      if (userAgent.IsSet())
       {
-        return mobileContains.Contains(userAgent.ToLower());
+        return mobileContains.Any(s => userAgent.ToLower().Contains(s));
       }
 
       return false;
@@ -133,40 +133,40 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static void Platform(string userAgent, bool IsCrawler, ref string platform, out bool isSearchEngine, out bool isIgnoredForDisplay)
     {
-        isSearchEngine = false;
-        isIgnoredForDisplay = false;
-              if (String.IsNullOrEmpty(userAgent) & String.IsNullOrEmpty(platform))
-              {
-                  platform = "?";               
-              }
-              if (userAgent.IndexOf("Windows NT 6.0") >= 0)
-              {
-                   platform = "Vista";                   
-              }
-              else if (userAgent.IndexOf("Windows NT 6.1") >= 0)
-              {
-                  platform = "Win7";                  
-              }             
-              else if (userAgent.IndexOf("Linux") >= 0)
-              {
-                   platform = "Linux";                  
-              }
-              else if (userAgent.IndexOf("Windows NT 5.2") >= 0)
-              {
-                  platform = "Win2003";                  
-              }
-              else if (userAgent.IndexOf("FreeBSD") >= 0)
-              {
-                  platform = "FreeBSD";                 
-              }              
-              else
-              {
-                  // check if it's a search engine spider or an ignored UI string...
-                  isSearchEngine = (!IsCrawler) ? IsSearchEngineSpider(userAgent) : true;
-                  isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
-              }
-         
-                    
-    }  
+      isSearchEngine = false;
+      isIgnoredForDisplay = false;
+      if (String.IsNullOrEmpty(userAgent) & String.IsNullOrEmpty(platform))
+      {
+        platform = "?";
+      }
+      if (userAgent.IndexOf("Windows NT 6.0") >= 0)
+      {
+        platform = "Vista";
+      }
+      else if (userAgent.IndexOf("Windows NT 6.1") >= 0)
+      {
+        platform = "Win7";
+      }
+      else if (userAgent.IndexOf("Linux") >= 0)
+      {
+        platform = "Linux";
+      }
+      else if (userAgent.IndexOf("Windows NT 5.2") >= 0)
+      {
+        platform = "Win2003";
+      }
+      else if (userAgent.IndexOf("FreeBSD") >= 0)
+      {
+        platform = "FreeBSD";
+      }
+      else
+      {
+        // check if it's a search engine spider or an ignored UI string...
+        isSearchEngine = (!IsCrawler) ? IsSearchEngineSpider(userAgent) : true;
+        isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
+      }
+
+
+    }
   }
 }
