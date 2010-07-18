@@ -213,30 +213,30 @@ namespace YAF.Controls
       if (sigData.Rows.Count > 0)
       {
         // find forbidden BBcodes in signature
-        string detectedBBCode = FormatMsg.BBCodeForbiddenDetector(
+        string detectedBbCode = FormatMsg.BBCodeForbiddenDetector(
           body, sigData.Rows[0]["UsrSigBBCodes"].ToString().Trim().Trim(',').Trim(), ',');
-        if (!string.IsNullOrEmpty(detectedBBCode) && detectedBBCode != "ALL")
+        if (!string.IsNullOrEmpty(detectedBbCode) && detectedBbCode != "ALL")
         {
           this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBBCode));
+            this.PageContext.Localization.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
           return;
         }
-        else if (detectedBBCode == "ALL")
+        else if (detectedBbCode == "ALL")
         {
           this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("BBCODE_FORBIDDEN"));
           return;
         }
 
         // find forbidden HTMLTags in signature
-        string detectedHTMLTag = FormatMsg.HTMLTagForbiddenDetector(
+        string detectedHtmlTag = FormatMsg.HtmlTagForbiddenDetector(
           body, sigData.Rows[0]["UsrSigHTMLTags"].ToString().Trim().Trim(',').Trim(), ',');
-        if (!string.IsNullOrEmpty(detectedHTMLTag) && detectedHTMLTag != "ALL")
+        if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
         {
           this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetTextFormatted("HTMLTAG_WRONG", detectedBBCode));
+            this.PageContext.Localization.GetTextFormatted("HTMLTAG_WRONG", detectedHtmlTag));
           return;
         }
-        else if (detectedHTMLTag == "ALL")
+        else if (detectedHtmlTag == "ALL")
         {
           this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("HTMLTAG_FORBIDDEN"));
           return;

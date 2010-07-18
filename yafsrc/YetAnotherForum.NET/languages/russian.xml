@@ -467,6 +467,7 @@
     <Resource tag="SENTITEMS">Отправленные</Resource>
     <Resource tag="SIGNATURE">Подпись</Resource>
     <Resource tag="SUBSCRIPTIONS">Подписки</Resource>
+    <Resource tag="VIEW_PROFILE">Просмотр профиля</Resource>
     <Resource tag="YOUR_ACCOUNT">Ваша учётная запись</Resource>
     <Resource tag="YOUR_EMAIL">Ваш адрес электронной почты:</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Отображаемый ник:</Resource>

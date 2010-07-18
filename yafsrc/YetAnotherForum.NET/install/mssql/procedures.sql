@@ -7520,52 +7520,74 @@ as
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getsignaturedata] (@BoardID INT, @UserID INT)
 as 
 	BEGIN
-	-- Ugly but bullet proof - it used very rarely
-	DECLARE 
-	@OR_UsrSigChars int,
-	@OR_UsrSigBBCodes nvarchar(255),
-	@OR_UsrSigHTMLTags nvarchar(255),
-	@OG_UsrSigChars int,
-	@OG_UsrSigBBCodes nvarchar(255),
-	@OG_UsrSigHTMLTags nvarchar(255)
- DECLARE   @RankData TABLE
-(
-	R_UsrSigChars int,
-	R_UsrSigBBCodes nvarchar(255),
-	R_UsrSigHTMLTags nvarchar(255)
-)
-DECLARE
-   @GroupData TABLE
+
+    
+
+DECLARE   @GroupData TABLE
 (
 	G_UsrSigChars int,
 	G_UsrSigBBCodes nvarchar(255),
 	G_UsrSigHTMLTags nvarchar(255)
 )
-  
-	INSERT INTO @GroupData(G_UsrSigChars,G_UsrSigBBCodes,G_UsrSigHTMLTags) 
-	SELECT TOP 1 ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')
-	FROM [{databaseOwner}].[{objectQualifier}User] a 
+   
+   declare @ust int, @usbbc nvarchar(255), 
+	@ushtmlt nvarchar(255), @rust int, @rusbbc nvarchar(255),  
+	@rushtmlt nvarchar(255) 
+	      
+      declare c cursor for
+      SELECT ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')
+	  FROM [{databaseOwner}].[{objectQualifier}User] a 
 						JOIN [{databaseOwner}].[{objectQualifier}UserGroup] b
 						  ON a.UserID = b.UserID
 							JOIN [{databaseOwner}].[{objectQualifier}Group] c                         
 							  ON b.GroupID = c.GroupID 
 							  WHERE a.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.SortOrder ASC
-	INSERT INTO @RankData(R_UsrSigChars,R_UsrSigBBCodes,R_UsrSigHTMLTags)
-	SELECT TOP 1 ISNULL(c.UsrSigChars,0), ISNULL(c.UsrSigBBCodes,''), ISNULL(c.UsrSigHTMLTags,'')     
-	FROM [{databaseOwner}].[{objectQualifier}Rank] c 
+		        
+        open c
+       
+        fetch next from c into  @ust, @usbbc , @ushtmlt
+        while @@FETCH_STATUS = 0
+        begin
+		if not exists (select 1 from @GroupData)
+		begin
+		-- first check ranks
+		SELECT TOP 1 @rust = ISNULL(c.UsrSigChars,0), @rusbbc = c.UsrSigBBCodes, 
+		@rushtmlt = c.UsrSigHTMLTags
+		FROM [{databaseOwner}].[{objectQualifier}Rank] c 
 								JOIN [{databaseOwner}].[{objectQualifier}User] d
-								  ON c.RankID = d.RankID WHERE d.UserID = @UserID AND c.BoardID = @BoardID ORDER BY c.RankID DESC
-		
-	   SET  @OR_UsrSigChars =  (SELECT TOP 1 R_UsrSigChars FROM @RankData) 
-	   SET  @OG_UsrSigChars =  (SELECT TOP 1 G_UsrSigChars FROM @GroupData)                
+								  ON c.RankID = d.RankID
+								   WHERE d.UserID = @UserID AND c.BoardID = @BoardID 
+								   ORDER BY c.RankID DESC
+
+        -- insert first row and compare with ranks data
+	INSERT INTO @GroupData(G_UsrSigChars,G_UsrSigBBCodes,G_UsrSigHTMLTags) 
+		select (CASE WHEN @rust > ISNULL(@ust,0) THEN @rust ELSE ISNULL(@ust,0) END), 
+		(COALESCE(@rusbbc + ',','') + COALESCE(@usbbc,'')) ,(COALESCE(@rushtmlt + ',','') + COALESCE(@ushtmlt, '') ) 	  
+		end
+		else
+		begin
+		update @GroupData set 
+		G_UsrSigChars = (CASE WHEN G_UsrSigChars > COALESCE(@ust, 0) THEN G_UsrSigChars ELSE COALESCE(@ust, 0) END), 
+		G_UsrSigBBCodes = COALESCE(@usbbc + ',','') + G_UsrSigBBCodes, 
+		G_UsrSigHTMLTags = COALESCE(@ushtmlt + ',', '') + G_UsrSigHTMLTags
+        end 
+
+		fetch next from c into   @ust, @usbbc , @ushtmlt
+        
+		end
+
+       close c
+       deallocate c 	
+	             
 	   
-		SELECT TOP 1
-		UsrSigChars = CASE WHEN @OR_UsrSigChars < @OG_UsrSigChars THEN @OG_UsrSigChars ELSE @OR_UsrSigChars END, 
-		UsrSigBBCodes = R_UsrSigBBCodes + CASE WHEN G_UsrSigBBCodes = '' THEN G_UsrSigBBCodes ELSE ',' + G_UsrSigBBCodes END, 
-		UsrSigHTMLTags = R_UsrSigHTMLTags + CASE WHEN G_UsrSigHTMLTags = '' THEN G_UsrSigHTMLTags ELSE ',' + G_UsrSigHTMLTags END
-		FROM @GroupData, @RankData 
+		SELECT 
+		UsrSigChars = G_UsrSigChars, 
+		UsrSigBBCodes = G_UsrSigBBCodes, 
+		UsrSigHTMLTags = G_UsrSigHTMLTags
+		FROM @GroupData 
+
    END
-	GO      
+GO      
 	
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getalbumsdata] (@BoardID INT, @UserID INT )
 as 
