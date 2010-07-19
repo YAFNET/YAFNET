@@ -94,7 +94,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string GetURLToResource(string resourceName)
     {
-      return string.Format("{1}resources/{0}", resourceName, ForumClientFileRoot);
+      return "{1}resources/{0}".FormatWith(resourceName, ForumClientFileRoot);
     }
 
     #region Version Information
@@ -128,7 +128,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return 0x01090400;
+        return 0x01090412;
       }
     }
 
@@ -139,7 +139,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return new DateTime(2010, 6, 28);
+        return new DateTime(2010, 7, 19);
       }
     }
 
@@ -158,12 +158,11 @@ namespace YAF.Classes.Utils
 
       if ((code & 0xF0) > 0 || (code & 0x0F) == 1)
       {
-        version = String.Format(
-          "{0}.{1}.{2}{3}", (code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 8) & 0xFF, Convert.ToInt32((code >> 4) & 0x0F).ToString("00"));
+        version = "{0}.{1}.{2}{3}".FormatWith((code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 8) & 0xFF, Convert.ToInt32((code >> 4) & 0x0F).ToString("00"));
       }
       else
       {
-        version = String.Format("{0}.{1}.{2}", (code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 8) & 0xFF);
+        version = "{0}.{1}.{2}".FormatWith((code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 8) & 0xFF);
       }
 
       if ((code & 0x0F) > 0)
