@@ -1831,6 +1831,149 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.RenderAnchor(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
+            <summary>
+            The render anchor.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="href">
+            The href.
+            </param>
+            <param name="cssClass">
+            The css class.
+            </param>
+            <param name="innerText">
+            The inner text.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.RenderImgTag(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
+            <summary>
+            The render img tag.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="src">
+            The src.
+            </param>
+            <param name="alt">
+            The alt.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.RenderImgTag(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String,System.String)">
+            <summary>
+            The render img tag.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="src">
+            The src.
+            </param>
+            <param name="alt">
+            The alt.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String)">
+            <summary>
+            The render anchor begin.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="href">
+            The href.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String,System.String)">
+            <summary>
+            The render anchor begin.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="href">
+            The href.
+            </param>
+            <param name="cssClass">
+            The css class.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
+            <summary>
+            The render anchor begin.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="href">
+            The href.
+            </param>
+            <param name="cssClass">
+            The css class.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            The render anchor begin.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="href">
+            The href.
+            </param>
+            <param name="cssClass">
+            The css class.
+            </param>
+            <param name="title">
+            The title.
+            </param>
+            <param name="onclick">
+            The onclick.
+            </param>
+            <param name="id">
+            The id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.WriteBeginTD(System.Web.UI.HtmlTextWriter,System.String)">
+            <summary>
+            The write begin td.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+            <param name="classId">
+            The class id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.WriteBeginTD(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The write begin td.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.WriteEndTD(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            The write end td.
+            </summary>
+            <param name="writer">
+            The writer.
+            </param>
+        </member>
         <member name="T:YAF.Classes.Utils.QueryStringIDHelper">
             <summary>
             The query string id helper.

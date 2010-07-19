@@ -1745,33 +1745,6 @@
             The render last post.
             </returns>
         </member>
-        <member name="M:YAF.Controls.TopicLine.WriteBeginTD(System.Web.UI.HtmlTextWriter,System.String)">
-            <summary>
-            The write begin td.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="classId">
-            The class id.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.WriteBeginTD(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The write begin td.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.TopicLine.WriteEndTD(System.Web.UI.HtmlTextWriter)">
-            <summary>
-            The write end td.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-        </member>
         <member name="M:YAF.Controls.TopicLine.FormatViews">
             <summary>
             The format views.

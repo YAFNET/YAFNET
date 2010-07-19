@@ -2072,9 +2072,26 @@
             DataTable
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.board_poststats(System.Nullable{System.Int32},System.Boolean)">
+        <member name="M:YAF.Classes.Data.DB.board_poststats(System.Nullable{System.Int32},System.Boolean,System.Boolean)">
             <summary>
             Gets posting statistics
+            </summary>
+            <param name="boardID">
+            BoardID
+            </param>
+            <param name="useStyledNick">
+            UseStyledNick
+            </param>
+            <param name="showNoCountPosts">
+            ShowNoCountPosts
+            </param> 
+            <returns>
+            DataRow of Poststats
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.board_userstats(System.Nullable{System.Int32})">
+            <summary>
+            Gets users statistics
             </summary>
             <param name="boardID">
             BoardID
@@ -4453,7 +4470,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.topic_latest(System.Object,System.Object,System.Object,System.Boolean)">
+        <member name="M:YAF.Classes.Data.DB.topic_latest(System.Object,System.Object,System.Object,System.Boolean,System.Boolean)">
             <summary>
             The topic_latest.
             </summary>

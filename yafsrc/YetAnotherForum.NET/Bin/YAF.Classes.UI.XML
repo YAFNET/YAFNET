@@ -170,7 +170,7 @@
             Table with list of smiles
             </returns>
         </member>
-        <member name="M:YAF.Classes.UI.FormatMsg.HTMLTagForbiddenDetector(System.String,System.String,System.Char)">
+        <member name="M:YAF.Classes.UI.FormatMsg.HtmlTagForbiddenDetector(System.String,System.String,System.Char)">
             <summary>
             The method to detect a forbidden HTML code from delimited by 'delim' list
             </summary>

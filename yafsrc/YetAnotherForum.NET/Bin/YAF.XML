@@ -739,23 +739,23 @@
         </member>
         <member name="T:YAF.Pages.activeusers">
             <summary>
-            Summary description for activeusers.
+              Summary description for activeusers.
             </summary>
         </member>
         <member name="M:YAF.Pages.activeusers.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Pages.activeusers"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Pages.activeusers"/> class.
             </summary>
         </member>
         <member name="M:YAF.Pages.activeusers.Page_Load(System.Object,System.EventArgs)">
             <summary>
-            The page_ load.
+              The page_ load.
             </summary>
-            <param name="sender">
-            The sender.
+            <param name = "sender">
+              The sender.
             </param>
-            <param name="e">
-            The e.
+            <param name = "e">
+              The e.
             </param>
         </member>
         <member name="F:YAF.Pages.activeusers.PageLinks">
@@ -14438,6 +14438,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.ReportPost.IncorrectReportLabel">
+            <summary>
+            IncorrectReportLabel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.ReportPost.btnCancel">
             <summary>
             btnCancel control.
@@ -17440,6 +17449,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.MaxReportPostChars">
+            <summary>
+            MaxReportPostChars control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.MaxPostSize">
             <summary>
             MaxPostSize control.
@@ -17728,15 +17746,6 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.hostsettings.AllowReportPosts">
-            <summary>
-            AllowReportPosts control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.AllowEmailTopic">
             <summary>
             AllowEmailTopic control.
@@ -17962,6 +17971,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.NoCountForumsInActiveDiscussions">
+            <summary>
+            NoCountForumsInActiveDiscussions control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.ShowForumStatistics">
             <summary>
             ShowForumStatistics control.
@@ -18001,6 +18019,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.ShowShoutbox">
             <summary>
             ShowShoutbox control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.ShowShoutboxSmiles">
+            <summary>
+            ShowShoutboxSmiles control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -18565,6 +18592,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.BoardUserStatsCacheTimeout">
+            <summary>
+            BoardUserStatsCacheTimeout control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.BoardUserStatsCacheReset">
+            <summary>
+            BoardUserStatsCacheReset control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.hostsettings.ActiveDiscussionsCacheTimeout">
             <summary>
             ActiveDiscussionsCacheTimeout control.
@@ -18847,6 +18892,17 @@
         <member name="M:YAF.Pages.Admin.hostsettings.ForumStatisticsCacheReset_Click(System.Object,System.EventArgs)">
             <summary>
             The forum statistics cache reset_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.Admin.hostsettings.BoardUserStatsCacheReset_Click(System.Object,System.EventArgs)">
+            <summary>
+            The board user statistics cache reset_ click.
             </summary>
             <param name="sender">
             The sender.
@@ -19476,6 +19532,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.MobileTheme">
+            <summary>
+            MobileTheme control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.boardsettings.AllowThemedLogo">
             <summary>
             AllowThemedLogo control.
@@ -19515,6 +19580,15 @@
         <member name="F:YAF.Pages.Admin.boardsettings.NotificationOnUserRegisterEmailList">
             <summary>
             NotificationOnUserRegisterEmailList control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.EmailModeratorsOnModeratedPost">
+            <summary>
+            EmailModeratorsOnModeratedPost control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -23329,7 +23403,7 @@
         </member>
         <member name="T:YAF.Pages.Albums">
             <summary>
-            the Albums Page.
+              the Albums Page.
             </summary>
         </member>
         <member name="F:YAF.Pages.Albums.PageLinks">
@@ -23361,18 +23435,18 @@
         </member>
         <member name="M:YAF.Pages.Albums.#ctor">
             <summary>
-            Initializes a new instance of the Albums class.
+              Initializes a new instance of the Albums class.
             </summary>
         </member>
         <member name="M:YAF.Pages.Albums.Page_Load(System.Object,System.EventArgs)">
             <summary>
-            The page load event.
+              The page load event.
             </summary>
-            <param name="sender">
-            the sender.
+            <param name = "sender">
+              the sender.
             </param>
-            <param name="e">
-            the e.
+            <param name = "e">
+              the e.
             </param>
         </member>
         <member name="T:YAF.Pages.Admin.taskmanager">

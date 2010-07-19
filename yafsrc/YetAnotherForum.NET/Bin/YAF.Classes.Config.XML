@@ -987,6 +987,11 @@
             The board stats.
             </summary>
         </member>
+        <member name="F:YAF.Classes.Constants.Cache.BoardUserStats">
+            <summary>
+            The board user stats.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.Constants.Cache.CustomBBCode">
             <summary>
             The custom bb code.
@@ -2084,6 +2089,11 @@
             Gets MaxUsersWhen.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MobileTheme">
+            <summary>
+            Gets or sets Theme.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.Theme">
             <summary>
             Gets or sets Theme.
@@ -2274,6 +2284,11 @@
             Gets or sets ForumStatisticsCacheTimeout.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.BoardUserStatsCacheTimeout">
+            <summary>
+            Gets or sets BoardUserStatsCacheTimeout.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.PrivateMessageMaxRecipients">
             <summary>
             Gets or sets PrivateMessageMaxRecipients.
@@ -2312,6 +2327,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.MaxPostSize">
             <summary>
             Gets or sets MaxPostSize.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.MaxReportPostChars">
+            <summary>
+            Gets or sets MaxReportPostChars.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.MaxNumberOfAttachments">
@@ -2594,9 +2614,19 @@
             Gets or sets a value indicating whether ShowShoutbox.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.ShowShoutboxSmiles">
+            <summary>
+            Gets or sets a value indicating whether Show smiles in Shoutbox.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.AllowUserInfoCaching">
             <summary>
             Gets or sets a value indicating whether AllowUserInfoCaching.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.NoCountForumsInActiveDiscussions">
+            <summary>
+            Gets or sets a value indicating whether display No-Count Forums In ActiveDiscussions.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.UseStyledNicks">

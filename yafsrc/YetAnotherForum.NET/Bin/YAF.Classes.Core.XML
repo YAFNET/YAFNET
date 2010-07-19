@@ -2513,23 +2513,6 @@
             The html encode.
             </returns>
         </member>
-        <member name="M:YAF.Controls.BaseControl.RenderAnchor(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
-            <summary>
-            The render anchor.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="href">
-            The href.
-            </param>
-            <param name="cssClass">
-            The css class.
-            </param>
-            <param name="innerText">
-            The inner text.
-            </param>
-        </member>
         <member name="M:YAF.Controls.BaseControl.GetUniqueID(System.String)">
             <summary>
             Creates a Unique ID
@@ -2549,105 +2532,6 @@
             <returns>
             The get extended id.
             </returns>
-        </member>
-        <member name="M:YAF.Controls.BaseControl.RenderImgTag(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
-            <summary>
-            The render img tag.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="src">
-            The src.
-            </param>
-            <param name="alt">
-            The alt.
-            </param>
-            <param name="title">
-            The title.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.BaseControl.RenderImgTag(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String,System.String)">
-            <summary>
-            The render img tag.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="src">
-            The src.
-            </param>
-            <param name="alt">
-            The alt.
-            </param>
-            <param name="title">
-            The title.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.BaseControl.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String)">
-            <summary>
-            The render anchor begin.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="href">
-            The href.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.BaseControl.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String,System.String)">
-            <summary>
-            The render anchor begin.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="href">
-            The href.
-            </param>
-            <param name="cssClass">
-            The css class.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.BaseControl.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
-            <summary>
-            The render anchor begin.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="href">
-            The href.
-            </param>
-            <param name="cssClass">
-            The css class.
-            </param>
-            <param name="title">
-            The title.
-            </param>
-        </member>
-        <member name="M:YAF.Controls.BaseControl.RenderAnchorBegin(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            The render anchor begin.
-            </summary>
-            <param name="writer">
-            The writer.
-            </param>
-            <param name="href">
-            The href.
-            </param>
-            <param name="cssClass">
-            The css class.
-            </param>
-            <param name="title">
-            The title.
-            </param>
-            <param name="onclick">
-            The onclick.
-            </param>
-            <param name="id">
-            The id.
-            </param>
         </member>
         <member name="P:YAF.Controls.BaseControl.PageContext">
             <summary>
@@ -6665,6 +6549,11 @@
         <member name="T:YAF.Classes.Core.YafServices">
             <summary>
             The yaf services.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafServices.SendNotification">
+            <summary>
+            Gets Notification.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.YafServices.BadWordReplace">
