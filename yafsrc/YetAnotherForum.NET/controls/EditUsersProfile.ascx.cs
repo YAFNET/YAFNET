@@ -214,35 +214,35 @@ namespace YAF.Controls
     /// </param>
     protected void UpdateProfile_Click(object sender, EventArgs e)
     {
-      if (!this.HomePage.Text.IsNotSet() && !this.HomePage.Text.StartsWith("http://"))
+      if (this.HomePage.Text.IsSet() && !this.HomePage.Text.StartsWith("http://"))
       {
         this.HomePage.Text = "http://" + this.HomePage.Text;
       }
 
-      if (!this.Weblog.Text.IsNotSet() && !this.Weblog.Text.StartsWith("http://"))
+      if (this.Weblog.Text.IsSet() && !this.Weblog.Text.StartsWith("http://"))
       {
         this.Weblog.Text = "http://" + this.Weblog.Text;
       }
 
-      if (!this.HomePage.Text.IsNotSet() && !ValidationHelper.IsValidURL(this.HomePage.Text))
+      if (this.HomePage.Text.IsSet() && !ValidationHelper.IsValidURL(this.HomePage.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_HOME"));
         return;
       }
 
-      if (!this.Weblog.Text.IsNotSet() && !ValidationHelper.IsValidURL(this.Weblog.Text))
+      if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_WEBLOG"));
         return;
       }
 
-      if (!this.MSN.Text.IsNotSet() && !ValidationHelper.IsValidEmail(this.MSN.Text))
+      if (this.MSN.Text.IsSet() && !ValidationHelper.IsValidEmail(this.MSN.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_MSN"));
         return;
       }
 
-      if (!this.ICQ.Text.IsNotSet() && !ValidationHelper.IsValidInt(this.ICQ.Text))
+      if (this.ICQ.Text.IsSet() && !ValidationHelper.IsValidInt(this.ICQ.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_ICQ"));
         return;
@@ -332,7 +332,7 @@ namespace YAF.Controls
         null, 
         displayName, 
         null, 
-        Convert.ToInt32(this.TimeZones.SelectedValue), 
+        this.TimeZones.SelectedValue.ToType<int>(), 
         language, 
         culture,
         theme, 
@@ -501,8 +501,7 @@ namespace YAF.Controls
       var changeEmail = new YafTemplateEmail("CHANGEEMAIL");
 
       changeEmail.TemplateParams["{user}"] = this.PageContext.PageUserName;
-      changeEmail.TemplateParams["{link}"] = String.Format(
-        "{0}\r\n\r\n", YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash));
+      changeEmail.TemplateParams["{link}"] = "{0}\r\n\r\n".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash));
       changeEmail.TemplateParams["{newemail}"] = this.Email.Text;
       changeEmail.TemplateParams["{key}"] = hash;
       changeEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
@@ -517,7 +516,7 @@ namespace YAF.Controls
 
       // show a confirmation
       this.PageContext.AddLoadMessage(
-        String.Format(this.PageContext.Localization.GetText("PROFILE", "mail_sent"), this.Email.Text));
+        this.PageContext.Localization.GetText("PROFILE", "mail_sent").FormatWith(this.Email.Text));
     }
 
     /// <summary>

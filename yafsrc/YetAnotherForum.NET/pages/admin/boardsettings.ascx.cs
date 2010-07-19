@@ -88,6 +88,7 @@ namespace YAF.Pages.Admin
 
         this.NotificationOnUserRegisterEmailList.Text = PageContext.BoardSettings.NotificationOnUserRegisterEmailList;
         this.AllowThemedLogo.Checked = PageContext.BoardSettings.AllowThemedLogo;
+        this.EmailModeratorsOnModeratedPost.Checked = PageContext.BoardSettings.EmailModeratorsOnModeratedPost;
       }
     }
 
@@ -166,6 +167,8 @@ namespace YAF.Pages.Admin
       PageContext.BoardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
       PageContext.BoardSettings.FileExtensionAreAllowed = Convert.ToInt32(this.FileExtensionAllow.SelectedValue) == 0 ? true : false;
       PageContext.BoardSettings.NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim();
+
+      PageContext.BoardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
 
       // save the settings to the database
       ((YafLoadBoardSettings) PageContext.BoardSettings).SaveRegistry();

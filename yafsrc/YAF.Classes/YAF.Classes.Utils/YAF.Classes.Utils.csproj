@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\DataContainerExtensions.cs" />
+    <Compile Include="Extensions\HtmlWriterExtensions.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\ViewStateExtensions.cs" />

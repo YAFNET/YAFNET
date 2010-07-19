@@ -317,6 +317,7 @@
     <Resource tag="LOADING">Loading...</Resource>
     <Resource tag="MAX_ONLINE">Grootste aantal gebruikers ooit online was {0}, {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Pages</Resource>
@@ -517,6 +518,7 @@
     <Resource tag="SENTITEMS">Verzonden Items</Resource>
     <Resource tag="SIGNATURE">Handtekening</Resource>
     <Resource tag="SUBSCRIPTIONS">Gevolgde discussies</Resource>
+    <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="YOUR_ACCOUNT">Accountgegevens</Resource>
     <Resource tag="YOUR_EMAIL">Je e-mail adres:</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
@@ -1240,6 +1242,11 @@ Hello!
 
 {link}
 </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">
+		A new message that needs your approved has been posted in the {forumname} forum:
+		
+		Administration Link: {adminlink}
+	</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Hello!
 

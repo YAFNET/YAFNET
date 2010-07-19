@@ -305,6 +305,7 @@
     <Resource tag="LOADING">در حال بارگذاری...</Resource>
     <Resource tag="MAX_ONLINE">بیشترین تعداد کاربرانی که بطور همزمان آنلاین بوده اند {0}, {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">توجه</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">کاربر جدیدی در {0} ثبت نام کرده است.</Resource>
     <Resource tag="OK">تائید</Resource>
     <Resource tag="PAGES">صفحه</Resource>
@@ -484,6 +485,7 @@
     <Resource tag="SENTITEMS">موارد ارسال شده</Resource>
     <Resource tag="SIGNATURE">امضاء</Resource>
     <Resource tag="SUBSCRIPTIONS">اشتراک ها</Resource>
+    <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="YOUR_ACCOUNT">حساب شما:</Resource>
     <Resource tag="YOUR_EMAIL">آدرس ایمیل شما:</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
@@ -1182,6 +1184,11 @@ Hello!
 {user} thought you might be interested in reading this:
 
 {link}
+	</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">
+		A new message that needs your approved has been posted in the {forumname} forum:
+		
+		Administration Link: {adminlink}
 	</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Hello!

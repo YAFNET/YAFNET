@@ -352,6 +352,19 @@ namespace YAF.Classes
       }
     }
 
+    public bool EmailModeratorsOnModeratedPost
+    {
+      get
+      {
+        return this._regBoard.GetValue<bool>("EmailModeratorsOnModeratedPost", true);
+      }
+
+      set
+      {
+        this._regBoard.SetValue<bool>("EmailModeratorsOnModeratedPost", value);
+      }
+    }
+
     // didn't know where else to put this :)
     /// <summary>
     /// Gets SQLVersion.

@@ -305,6 +305,7 @@
     <Resource tag="LOADING">Cargando...</Resource>
     <Resource tag="MAX_ONLINE">El número máximo de usuarios activos fue {0}, {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Aviso</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Paginas</Resource>
@@ -503,6 +504,7 @@
     <Resource tag="SENTITEMS">Elementos enviados</Resource>
     <Resource tag="SIGNATURE">Firma</Resource>
     <Resource tag="SUBSCRIPTIONS">Subscripciones</Resource>
+    <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="YOUR_ACCOUNT">Tu cuenta</Resource>
     <Resource tag="YOUR_EMAIL">Tu correo electrónico:</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
@@ -1227,6 +1229,11 @@
 
 			{link}
 		</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">
+		A new message that needs your approved has been posted in the {forumname} forum:
+		
+		Administration Link: {adminlink}
+	</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Hello!
 

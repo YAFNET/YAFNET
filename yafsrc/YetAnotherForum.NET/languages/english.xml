@@ -233,11 +233,11 @@
 		<Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
 		<Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
 		<Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
-		<Resource tag="CAL_JQ_CULTURE">
-		</Resource>
+		<Resource tag="CAL_JQ_CULTURE"></Resource>
 		<Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
 		<Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
-		<Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
+    <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
 		<Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
 		<Resource tag="FONT_COLOR">Font Color:</Resource>
 		<Resource tag="FONT_SIZE">Font Size:</Resource>
@@ -1153,13 +1153,18 @@ Hello!
 
 {link}
 </Resource>
-		<Resource tag="NOTIFICATION_ON_USER_REGISTER">
-		Hello!
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER">
+      Hello!
 
-		A new user has registered on the {forumname} forum:
-		
-		User Name: {user}
-		User Email: {email}
+      A new user has registered on the {forumname} forum:
+
+      User Name: {user}
+      User Email: {email}
+
+      Administration Link: {adminlink}
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">
+		A new message that needs your approved has been posted in the {forumname} forum:
 		
 		Administration Link: {adminlink}
 	</Resource>

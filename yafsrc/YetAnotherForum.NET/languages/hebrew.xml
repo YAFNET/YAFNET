@@ -305,6 +305,7 @@
     <Resource tag="LOADING">טוען...</Resource>
     <Resource tag="MAX_ONLINE">מספר המשתמשים המחוברים הגבוה ביותר אי פעם היה {0}, {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">הודעה</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="OK">אישור</Resource>
     <Resource tag="PAGES">עמודים</Resource>
@@ -484,6 +485,7 @@
     <Resource tag="SENTITEMS">פריטים שנשלחו</Resource>
     <Resource tag="SIGNATURE">חתימה</Resource>
     <Resource tag="SUBSCRIPTIONS">מנויים</Resource>
+    <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="YOUR_ACCOUNT">החשבון שלך</Resource>
     <Resource tag="YOUR_EMAIL">כתובת הדוא"ל שלך:</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
@@ -1189,6 +1191,11 @@
 
 {link}
 </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">
+		A new message that needs your approved has been posted in the {forumname} forum:
+		
+		Administration Link: {adminlink}
+	</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Hello!
 

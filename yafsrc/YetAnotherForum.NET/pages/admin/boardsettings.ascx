@@ -79,7 +79,13 @@
 			<td class="post">
 				<asp:TextBox ID="NotificationOnUserRegisterEmailList" runat="server" Width="100%"></asp:TextBox></td>
 		</tr>			
-		
+		<tr>
+			<td class="postheader">
+				<b>Email Moderators On New Moderated Post:</b><br />
+				Should all the moderators of a forum be notified if a new post that needs approval is created?</td>
+			<td class="post">
+				<asp:CheckBox ID="EmailModeratorsOnModeratedPost" runat="server"></asp:CheckBox></td>
+		</tr>		
 		<tr>
 			<td class="postfooter" align="center" colspan="2">
 				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button></td>

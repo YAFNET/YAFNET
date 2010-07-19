@@ -1403,6 +1403,12 @@ namespace YAF.Pages
       }
       else
       {
+        if (PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
+        {
+          // not approved, notifiy moderators
+          YafServices.SendNotification.ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)nMessageID);
+        }
+
         string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         if (Config.IsRainbow)
         {

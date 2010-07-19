@@ -24,6 +24,17 @@ namespace YAF.Classes.Core
   public static class YafServices
   {
     /// <summary>
+    /// Gets Notification.
+    /// </summary>
+    public static YafSendNotification SendNotification
+    {
+      get
+      {
+        return YafContext.Current.InstanceFactory.GetInstance<YafSendNotification>();
+      }
+    }
+
+    /// <summary>
     /// Gets BadWordReplace.
     /// </summary>
     public static YafBadWordReplace BadWordReplace

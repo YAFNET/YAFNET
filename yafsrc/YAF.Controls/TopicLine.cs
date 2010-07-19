@@ -390,22 +390,22 @@ namespace YAF.Controls
       writer.WriteAttribute("class", this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post");
       writer.Write(HtmlTextWriter.TagRightChar);
 
-      this.WriteBeginTD(writer, "topicImage");
+      writer.WriteBeginTD("topicImage");
 
       // Icon
       string imgTitle = string.Empty;
       string imgSrc = this.GetTopicImage(this._row, ref imgTitle);
-      this.RenderImgTag(writer, imgSrc, imgTitle, imgTitle);
+      writer.RenderImgTag(imgSrc, imgTitle, imgTitle);
 
-      this.WriteEndTD(writer);
+      writer.WriteEndTD();
 
       // Topic
-      this.WriteBeginTD(writer, "topicMain");
+      writer.WriteBeginTD("topicMain");
 
       if (PageContext.BoardSettings.ShowAvatarsInTopic)
       {
         var avatarUrl = GetAvatarUrlFromID(Convert.ToInt32(_row["UserID"]));
-        this.RenderImgTag(writer, avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
+        writer.RenderImgTag(avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
       }
 
       int actualPostCount = RenderTopic(writer);
@@ -416,7 +416,7 @@ namespace YAF.Controls
 
       RenderPostPager(writer, actualPostCount);
 
-      this.WriteEndTD(writer);
+      writer.WriteEndTD();
 
       // Replies
       writer.WriteBeginTag("td");
@@ -463,8 +463,7 @@ namespace YAF.Controls
         linkParams += "&find=unread";
       }
 
-      this.RenderAnchorBegin(
-        writer, 
+      writer.RenderAnchorBegin(
         YafBuildLink.GetLink(ForumPages.posts, linkParams, this._row["LinkTopicID"]), 
         "post_link", 
         FormatMsg.GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]).MessageTruncated);
@@ -561,7 +560,7 @@ namespace YAF.Controls
         if (PageContext.BoardSettings.ShowAvatarsInTopic)
         {
           string avatarUrl = GetAvatarUrlFromID(userID);
-          this.RenderImgTag(writer, avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
+          writer.RenderImgTag(avatarUrl, this.AltLastPost, this.AltLastPost, "avatarimage");
         }
 
         string strMiniPost = this.PageContext.Theme.GetItem(
@@ -588,8 +587,7 @@ namespace YAF.Controls
         writer.WriteAttribute("title", this.AltLastPost);
         writer.Write(HtmlTextWriter.TagRightChar);
 
-        this.RenderImgTag(
-          writer, 
+        writer.RenderImgTag(
           strMiniPost, 
           this.AltLastPost, 
           this.AltLastPost);
@@ -613,48 +611,6 @@ namespace YAF.Controls
         avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
       }
       return avatarUrl;
-    }
-
-    /// <summary>
-    /// The write begin td.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <param name="classId">
-    /// The class id.
-    /// </param>
-    protected void WriteBeginTD(HtmlTextWriter writer, string classId)
-    {
-      writer.WriteBeginTag("td");
-      if (!String.IsNullOrEmpty(classId))
-      {
-        writer.WriteAttribute("class", classId);
-      }
-
-      writer.Write(HtmlTextWriter.TagRightChar);
-    }
-
-    /// <summary>
-    /// The write begin td.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected void WriteBeginTD(HtmlTextWriter writer)
-    {
-      this.WriteBeginTD(writer, null);
-    }
-
-    /// <summary>
-    /// The write end td.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected void WriteEndTD(HtmlTextWriter writer)
-    {
-      writer.WriteEndTag("td");
     }
 
     /// <summary>

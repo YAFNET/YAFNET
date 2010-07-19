@@ -306,6 +306,7 @@
     <Resource tag="LOADING">Loading...</Resource>
     <Resource tag="MAX_ONLINE">Eniten käyttäjiä ({0}) oli linjoilla {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Notification</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Pages</Resource>
@@ -516,6 +517,7 @@
     <Resource tag="SENTITEMS">Lähetetyt viestit</Resource>
     <Resource tag="SIGNATURE">Allekirjoitus</Resource>
     <Resource tag="SUBSCRIPTIONS">Seuratut aiheet</Resource>
+    <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="YOUR_ACCOUNT">Tilisi</Resource>
     <Resource tag="YOUR_EMAIL">Sähköpostiosoitteesi:</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
@@ -1221,6 +1223,11 @@ Hello!
 
 {link}
 </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">
+		A new message that needs your approved has been posted in the {forumname} forum:
+		
+		Administration Link: {adminlink}
+	</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Hello!
 

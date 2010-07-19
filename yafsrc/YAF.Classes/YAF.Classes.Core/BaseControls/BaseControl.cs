@@ -24,6 +24,7 @@ namespace YAF.Controls
   using System.Web.UI;
   using System.Web.UI.WebControls;
   using YAF.Classes.Core;
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// Control derived from Panel that includes a reference to the <see cref="YafContext"/>.
@@ -57,7 +58,7 @@ namespace YAF.Controls
     /// </returns>
     public string GetUniqueID(string prefix)
     {
-      if (!String.IsNullOrEmpty(prefix))
+      if (prefix.IsSet())
       {
         return prefix + Guid.NewGuid().ToString().Substring(0, 5);
       }
@@ -79,12 +80,12 @@ namespace YAF.Controls
     {
       string createdID = null;
 
-      if (!String.IsNullOrEmpty(ID))
+      if (this.ID.IsSet())
       {
         createdID = ID + "_";
       }
 
-      if (!String.IsNullOrEmpty(prefix))
+      if (prefix.IsSet())
       {
         createdID += prefix;
       }
@@ -134,35 +135,6 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The render anchor.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <param name="href">
-    /// The href.
-    /// </param>
-    /// <param name="cssClass">
-    /// The css class.
-    /// </param>
-    /// <param name="innerText">
-    /// The inner text.
-    /// </param>
-    public void RenderAnchor(HtmlTextWriter writer, string href, string cssClass, string innerText)
-    {
-      writer.WriteBeginTag("a");
-      writer.WriteAttribute("href", href);
-      if (!String.IsNullOrEmpty(cssClass))
-      {
-        writer.WriteAttribute("class", cssClass);
-      }
-
-      writer.Write(HtmlTextWriter.TagRightChar);
-      writer.Write(innerText);
-      writer.WriteEndTag("a");
-    }
-
-    /// <summary>
     /// Creates a Unique ID
     /// </summary>
     /// <param name="prefix">
@@ -211,163 +183,6 @@ namespace YAF.Controls
       return createdID;
     }
 
-    /// <summary>
-    /// The render img tag.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <param name="src">
-    /// The src.
-    /// </param>
-    /// <param name="alt">
-    /// The alt.
-    /// </param>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    public void RenderImgTag(HtmlTextWriter writer, string src, string alt, string title)
-    {
-      RenderImgTag(writer, src, alt, title, null);
-    }
 
-    /// <summary>
-    /// The render img tag.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <param name="src">
-    /// The src.
-    /// </param>
-    /// <param name="alt">
-    /// The alt.
-    /// </param>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    public void RenderImgTag(HtmlTextWriter writer, string src, string alt, string title, string cssClass)
-    {
-      // this will output the start of the img element - <img
-      writer.WriteBeginTag("img");
-
-      writer.WriteAttribute("src", src);
-      writer.WriteAttribute("alt", alt);
-
-      if (!String.IsNullOrEmpty(title))
-      {
-        writer.WriteAttribute("title", title);
-      }
-
-      if (!String.IsNullOrEmpty(cssClass))
-      {
-        writer.WriteAttribute("class", cssClass);
-      }
-
-      writer.Write(HtmlTextWriter.SelfClosingTagEnd);
-    }
-
-    #region Render Anchor Begin Functions
-
-    /// <summary>
-    /// The render anchor begin.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <param name="href">
-    /// The href.
-    /// </param>
-    public void RenderAnchorBegin(HtmlTextWriter writer, string href)
-    {
-      RenderAnchorBegin(writer, href, null, null);
-    }
-
-    /// <summary>
-    /// The render anchor begin.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <param name="href">
-    /// The href.
-    /// </param>
-    /// <param name="cssClass">
-    /// The css class.
-    /// </param>
-    public void RenderAnchorBegin(HtmlTextWriter writer, string href, string cssClass)
-    {
-      RenderAnchorBegin(writer, href, cssClass, null, null, null);
-    }
-
-    /// <summary>
-    /// The render anchor begin.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <param name="href">
-    /// The href.
-    /// </param>
-    /// <param name="cssClass">
-    /// The css class.
-    /// </param>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    public void RenderAnchorBegin(HtmlTextWriter writer, string href, string cssClass, string title)
-    {
-      RenderAnchorBegin(writer, href, cssClass, title, null, null);
-    }
-
-    /// <summary>
-    /// The render anchor begin.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    /// <param name="href">
-    /// The href.
-    /// </param>
-    /// <param name="cssClass">
-    /// The css class.
-    /// </param>
-    /// <param name="title">
-    /// The title.
-    /// </param>
-    /// <param name="onclick">
-    /// The onclick.
-    /// </param>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    public void RenderAnchorBegin(HtmlTextWriter writer, string href, string cssClass, string title, string onclick, string id)
-    {
-      writer.WriteBeginTag("a");
-      writer.WriteAttribute("href", href);
-      if (!String.IsNullOrEmpty(cssClass))
-      {
-        writer.WriteAttribute("class", cssClass);
-      }
-
-      if (!String.IsNullOrEmpty(title))
-      {
-        writer.WriteAttribute("title", HtmlEncode(title));
-      }
-
-      if (!String.IsNullOrEmpty(onclick))
-      {
-        writer.WriteAttribute("onclick", onclick);
-      }
-
-      if (!String.IsNullOrEmpty(id))
-      {
-        writer.WriteAttribute("id", id);
-      }
-
-      writer.Write(HtmlTextWriter.TagRightChar);
-    }
-
-    #endregion
   }
 }

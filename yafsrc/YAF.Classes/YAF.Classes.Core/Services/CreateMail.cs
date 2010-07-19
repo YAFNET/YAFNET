@@ -190,7 +190,7 @@ namespace YAF.Classes.Core
       {
         foreach (DataRow row in dt.Rows)
         {
-          int userId = Convert.ToInt32(row["UserID"]);
+          int userId = row["UserID"].ToType<int>();
 
           var watchEmail = new YafTemplateEmail("TOPICPOST");
           watchEmail.TemplateLanguageFile = UserHelper.GetUserLanguageFile(userId);
@@ -200,7 +200,7 @@ namespace YAF.Classes.Core
             StringHelper.RemoveMultipleWhitespace(BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString()))));
 
           // Send track mails
-          string subject = String.Format(YafContext.Current.Localization.GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT"), YafContext.Current.BoardSettings.Name);
+          string subject = YafContext.Current.Localization.GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT").FormatWith(YafContext.Current.BoardSettings.Name);
 
           watchEmail.TemplateParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
           watchEmail.TemplateParams["{topic}"] = row["Topic"].ToString();
@@ -208,7 +208,7 @@ namespace YAF.Classes.Core
           watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", messageID);
 
           watchEmail.CreateWatch(
-            Convert.ToInt32(row["TopicID"]), 
+            row["TopicID"].ToType<int>(), 
             userId, 
             new MailAddress(YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name), 
             subject);

@@ -306,6 +306,7 @@
     <Resource tag="LOADING">Yükleniyor...</Resource>
     <Resource tag="MAX_ONLINE">Şimdiye kadar en fazla {0} ( Üye ) {1} tarihinde aktif oldu. </Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Bildirim</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Yeni Kullanıcı {0} Forumuna kayıt oldu.</Resource>
     <Resource tag="OK">TAMAM</Resource>
     <Resource tag="PAGES">Sayfalar</Resource>
@@ -516,6 +517,7 @@
     <Resource tag="SENTITEMS">Gönderilmiş Öğeler</Resource>
     <Resource tag="SIGNATURE">İmza</Resource>
     <Resource tag="SUBSCRIPTIONS">Abonelikler</Resource>
+    <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="YOUR_ACCOUNT">Hesabınız</Resource>
     <Resource tag="YOUR_EMAIL">E-posta adresiniz:</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
@@ -1223,6 +1225,11 @@ Merhaba!
 
 {link}
 </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">
+		A new message that needs your approved has been posted in the {forumname} forum:
+		
+		Administration Link: {adminlink}
+	</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 Merhaba!
 

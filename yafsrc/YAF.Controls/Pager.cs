@@ -348,8 +348,7 @@ namespace YAF.Controls
       this._pageLabel.Attributes.Add("style", "cursor: pointer");
 
       string modalFunction =
-        String.Format(
-          @"jQuery.fn.getBox = function() {{
+        @"jQuery.fn.getBox = function() {{
   return {{
     left: $(this).offset().left,
     top: $(this).offset().top,
@@ -381,17 +380,13 @@ gotoForm.fadeIn( 'slow', function() {{
   jQuery('#{1}').focus();
 }});
 }};
-", 
-          this._gotoPageForm.ClientID, 
-          this._gotoPageForm.GotoTextBoxClientID);
+".FormatWith(this._gotoPageForm.ClientID, this._gotoPageForm.GotoTextBoxClientID);
 
       // register...
       this.PageContext.PageElements.RegisterJsBlock("OpenGotoPageFormJs", modalFunction);
       this.PageContext.PageElements.RegisterJsBlockStartup(
-        String.Format(@"LoadPagerForm_{0}", this.ClientID), 
-        String.Format(
-          @"Sys.Application.add_load(function() {{ jQuery('#{0}').click(function() {{ openGotoPageForm('{0}'); }}); }});", 
-          this._pageLabel.ClientID));
+        @"LoadPagerForm_{0}".FormatWith(this.ClientID), 
+        @"Sys.Application.add_load(function() {{ jQuery('#{0}').click(function() {{ openGotoPageForm('{0}'); }}); }});".FormatWith(this._pageLabel.ClientID));
     }
 
     /// <summary>
@@ -413,18 +408,18 @@ gotoForm.fadeIn( 'slow', function() {{
         return;
       }
 
-      output.WriteLine(String.Format(@"<div class=""yafpager"" id=""{0}"">", this.ClientID));
+      output.WriteLine(@"<div class=""yafpager"" id=""{0}"">".FormatWith(this.ClientID));
 
       this._pageLabel.CssClass = "pagecount";
 
       // have to be careful about localization because the pager is used in the admin pages...
       string pagesText = "Pages";
-      if (!String.IsNullOrEmpty(this.PageContext.Localization.TransPage))
+      if (this.PageContext.Localization.TransPage.IsSet())
       {
         pagesText = this.PageContext.Localization.GetText("COMMON", "PAGES");
       }
 
-      this._pageLabel.Text = String.Format(@"{0:N0} {1}", this.PageCount, pagesText);
+      this._pageLabel.Text = @"{0:N0} {1}".FormatWith(this.PageCount, pagesText);
 
       // render this control...
       this._pageLabel.RenderControl(output);
@@ -489,7 +484,7 @@ gotoForm.fadeIn( 'slow', function() {{
         output.WriteAttribute("class", "pagelinkfirst");
         output.Write(HtmlTextWriter.TagRightChar);
 
-        this.RenderAnchorBegin(output, this.GetLinkUrl(1, postBack), null, "Go to First Page");
+        output.RenderAnchorBegin(this.GetLinkUrl(1, postBack), null, "Go to First Page");
 
         output.Write("&laquo;");
         output.WriteEndTag("a");
@@ -502,7 +497,7 @@ gotoForm.fadeIn( 'slow', function() {{
         output.WriteAttribute("class", "pagelink");
         output.Write(HtmlTextWriter.TagRightChar);
 
-        this.RenderAnchorBegin(output, this.GetLinkUrl(this.CurrentPageIndex, postBack), null, "Prev Page");
+        output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex, postBack), null, "Prev Page");
 
         output.Write("&lt;");
         output.WriteEndTag("a");
@@ -527,7 +522,7 @@ gotoForm.fadeIn( 'slow', function() {{
           output.WriteAttribute("class", "pagelink");
           output.Write(HtmlTextWriter.TagRightChar);
 
-          this.RenderAnchorBegin(output, this.GetLinkUrl(i + 1, postBack), null, page);
+          output.RenderAnchorBegin(this.GetLinkUrl(i + 1, postBack), null, page);
 
           output.Write(page);
           output.WriteEndTag("a");
@@ -541,7 +536,7 @@ gotoForm.fadeIn( 'slow', function() {{
         output.WriteAttribute("class", "pagelink");
         output.Write(HtmlTextWriter.TagRightChar);
 
-        this.RenderAnchorBegin(output, this.GetLinkUrl(this.CurrentPageIndex + 2, postBack), null, "Next Page");
+        output.RenderAnchorBegin(this.GetLinkUrl(this.CurrentPageIndex + 2, postBack), null, "Next Page");
 
         output.Write("&gt;");
         output.WriteEndTag("a");
@@ -554,7 +549,7 @@ gotoForm.fadeIn( 'slow', function() {{
         output.WriteAttribute("class", "pagelinklast");
         output.Write(HtmlTextWriter.TagRightChar);
 
-        this.RenderAnchorBegin(output, this.GetLinkUrl(this.PageCount, postBack), null, "Go to Last Page");
+        output.RenderAnchorBegin(this.GetLinkUrl(this.PageCount, postBack), null, "Go to Last Page");
 
         output.Write("&raquo;");
         output.WriteEndTag("a");

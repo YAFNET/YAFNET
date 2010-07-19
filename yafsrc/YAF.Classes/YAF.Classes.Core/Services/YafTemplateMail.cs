@@ -23,6 +23,8 @@ using YAF.Classes.Data;
 
 namespace YAF.Classes.Core
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// The yaf template email.
   /// </summary>
@@ -164,9 +166,9 @@ namespace YAF.Classes.Core
     /// </returns>
     private string ReadTemplate(string templateName, string templateLanguageFile)
     {
-      if (!String.IsNullOrEmpty(templateName))
+      if (templateName.IsSet())
       {
-        if (!String.IsNullOrEmpty(templateLanguageFile))
+        if (templateLanguageFile.IsSet())
         {
           var localization = new YafLocalization();
           localization.LoadTranslation(templateLanguageFile);
@@ -192,7 +194,7 @@ namespace YAF.Classes.Core
     {
       string email = ReadTemplate(templateName, TemplateLanguageFile);
 
-      if (!String.IsNullOrEmpty(email))
+      if (email.IsSet())
       {
         foreach (string key in this._templateParams.Keys)
         {
@@ -243,7 +245,7 @@ namespace YAF.Classes.Core
       htmlBody = ProcessTemplate(TemplateName + "_HTML").Trim();
 
       // null out html if it's not desired
-      if (!HtmlEnabled || String.IsNullOrEmpty(htmlBody))
+      if (!HtmlEnabled || htmlBody.IsNotSet())
       {
         htmlBody = null;
       }

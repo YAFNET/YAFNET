@@ -455,9 +455,7 @@ namespace YAF.Pages
       var notifyAdmin = new YafTemplateEmail();
 
       string subject =
-        String.Format(
-          this.PageContext.Localization.GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT"), 
-          this.PageContext.BoardSettings.Name);
+        this.PageContext.Localization.GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT").FormatWith(this.PageContext.BoardSettings.Name);
 
       notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);
       notifyAdmin.TemplateParams["{user}"] = user.UserName;

@@ -284,6 +284,7 @@
     <Resource tag="LOADING">Đang tải...</Resource>
     <Resource tag="MAX_ONLINE">Thành viên trực tuyến kỷ lục nhiều nhất là {0}, vào {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Thông báo</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">New User Registered on {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Trang</Resource>
@@ -463,6 +464,7 @@
     <Resource tag="SENTITEMS">Đã gửi</Resource>
     <Resource tag="SIGNATURE">Chữ ký</Resource>
     <Resource tag="SUBSCRIPTIONS">Chủ đề theo dõi</Resource>
+    <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="YOUR_ACCOUNT">Tài khoản của bạn</Resource>
     <Resource tag="YOUR_EMAIL">Email:</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
@@ -1184,6 +1186,11 @@
 
       {link}
     </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">
+		A new message that needs your approved has been posted in the {forumname} forum:
+		
+		Administration Link: {adminlink}
+	</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Hello!
 

@@ -601,24 +601,33 @@ namespace YAF.Pages
           YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
         }
       }
-      else if (!isApproved && this.PostOptions1.AttachChecked && this.PageContext.ForumUploadAccess) 
+      else // Not Approved
       {
-          // redirect to the attachment page...
-          YafBuildLink.Redirect(ForumPages.attachments, "m={0}&ra=1", messageId);
-      }
-      else
-      {
-        // Tell user that his message will have to be approved by a moderator
-        // PageContext.AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
-        string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
-
-        if (Config.IsRainbow)
+        if (PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
         {
-          YafBuildLink.Redirect(ForumPages.info, "i=1");
+          // not approved, notifiy moderators
+          YafServices.SendNotification.ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)messageId);
+        }
+
+        if (this.PostOptions1.AttachChecked && this.PageContext.ForumUploadAccess)
+        {
+          // redirect to the attachment page...
+          YafBuildLink.Redirect(ForumPages.attachments, "m={0}&ra=1", messageId);          
         }
         else
         {
-          YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+          // Tell user that his message will have to be approved by a moderator
+          // PageContext.AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
+          string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+
+          if (Config.IsRainbow)
+          {
+            YafBuildLink.Redirect(ForumPages.info, "i=1");
+          }
+          else
+          {
+            YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+          }
         }
       }
     }
@@ -732,7 +741,7 @@ namespace YAF.Pages
           this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BoardStats));
       }
 
-        return messageId;
+      return messageId;
     }
 
     /// <summary>
