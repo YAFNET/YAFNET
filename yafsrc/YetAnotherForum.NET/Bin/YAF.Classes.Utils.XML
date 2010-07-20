@@ -1567,6 +1567,11 @@
             A bool value indicating whether the value is a positive valid Int16.
             </returns>
         </member>
+        <member name="T:YAF.Classes.Utils.Platform">
+            <summary>
+            The class gets common system info. Used in data layers other than MSSQL.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Utils.HtmlHelper">
             <summary>
             The html helper.
