@@ -1191,6 +1191,11 @@
 		
 		Administration Link: {adminlink}
 	</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
+		A new message that needs your approved has been posted in the {forumname} forum:
+		
+		Administration Link: {adminlink}
+	</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Hello!
 
