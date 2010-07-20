@@ -288,6 +288,7 @@
     <Resource tag="LOADING">Загрузка...</Resource>
     <Resource tag="MAX_ONLINE">Больше всего пользователей ({0}) было {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Уведомление</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Страницы</Resource>
@@ -1169,6 +1170,11 @@
 		{user} считает, что Вам может быть интересно это прочитать:
 
 		{link}
+	</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">
+		A new message that needs your approved has been posted in the {forumname} forum:
+		
+		Administration Link: {adminlink}
 	</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Привет!
