@@ -233,7 +233,7 @@ namespace YAF.Controls
         if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
         {
           this.PageContext.AddLoadMessage(
-            this.PageContext.Localization.GetTextFormatted("HTMLTAG_WRONG", detectedHtmlTag));
+          this.PageContext.Localization.GetTextFormatted("HTMLTAG_WRONG", HtmlEncode(detectedHtmlTag)));
           return;
         }
         else if (detectedHtmlTag == "ALL")

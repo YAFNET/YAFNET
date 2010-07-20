@@ -100,6 +100,7 @@
     <Compile Include="IYafUserProfile.cs" />
     <Compile Include="SimpleURLParameterParser.cs" />
     <Compile Include="StyleTransform.cs" />
+    <Compile Include="YafSystemInfo.cs" />
     <Compile Include="YafBuildLink.cs" />
     <Compile Include="YafForumInfo.cs" />
     <Compile Include="Helpers\BBCodeHelper.cs" />
