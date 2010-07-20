@@ -22,6 +22,7 @@ namespace YAF.Pages.Admin
 {
   using System;
   using System.Data;
+  using System.Linq;
   using System.Web.UI.WebControls;
   using YAF.Classes;
   using System.Data.DataSetExtensions;
@@ -52,14 +53,23 @@ namespace YAF.Pages.Admin
         this.PageLinks.AddLink("Board Settings", string.Empty);
 
         // create list boxes by populating datasources from Data class
-        this.Theme.DataSource =
-          StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile")).CopyToDataTable();
-        this.Theme.DataTextField = "Theme";
-        this.Theme.DataValueField = "FileName";
+        var themeData = StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile"));
 
-        this.MobileTheme.DataSource = StaticDataHelper.Themes().AsEnumerable().Where(x => x.Field<bool>("IsMobile")).CopyToDataTable();
-        this.MobileTheme.DataTextField = "Theme";
-        this.MobileTheme.DataValueField = "FileName";
+        if (themeData.Any())
+        {
+          this.Theme.DataSource = themeData.CopyToDataTable();
+          this.Theme.DataTextField = "Theme";
+          this.Theme.DataValueField = "FileName";
+        }
+
+        var mobileThemeData = StaticDataHelper.Themes().AsEnumerable().Where(x => x.Field<bool>("IsMobile"));
+
+        if (mobileThemeData.Any())
+        {
+          this.MobileTheme.DataSource = mobileThemeData.CopyToDataTable();
+          this.MobileTheme.DataTextField = "Theme";
+          this.MobileTheme.DataValueField = "FileName";
+        }
 
         this.Language.DataSource = StaticDataHelper.Cultures();
         this.Language.DataTextField = "CultureNativeName";
