@@ -70,7 +70,7 @@ namespace YAF.Modules
     private void Current_AfterInit(object sender, EventArgs e)
     {
       // see if this is a mobile device...
-      if (HttpContext.Current != null && UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent))
+        if (HttpContext.Current != null && (UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent) || HttpContext.Current.Request.Browser.IsMobileDevice))
       {
         // get the current mobile theme...
         var mobileTheme = YafContext.Current.BoardSettings.MobileTheme;

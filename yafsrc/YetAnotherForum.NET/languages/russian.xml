@@ -477,7 +477,7 @@
   <page name="CP_SIGNATURE">
     <Resource tag="BBCODE_FORBIDDEN">Вам не разрешены BBCodes в подписи.</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Вам не разрешены  HTML тэги в подписи.</Resource>
-    <Resource tag="HTMLTAG_WRONG">В Вашей подписи содержится запрещённый администрацией HTML тэг: </Resource>
+    <Resource tag="HTMLTAG_WRONG">В Вашей подписи содержится запрещённый администрацией HTML тэг {0}.</Resource>
     <Resource tag="SIGNATURE">Подпись:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">В вашей подписи содержится запрещённый администрацией BBCode {0}.</Resource>
     <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>
@@ -1172,15 +1172,15 @@
 		{link}
 	</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">
-		A new message that needs your approved has been posted in the {forumname} forum:
+		Новое сообщение ожидающее вашего одобрения появилось на форуме: {forumname}
 		
-		Administration Link: {adminlink}
+		Ссылка для одобрения: {adminlink}
 	</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
-		A new message that needs your approved has been posted in the {forumname} forum:
-		
-		Administration Link: {adminlink}
-	</Resource>
+      Новое сообщение ожидающее вашего одобрения появилось на форуме: {forumname}
+
+      Ссылка для одобрения: {adminlink}
+    </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 		Привет!
 

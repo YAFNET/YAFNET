@@ -128,18 +128,31 @@ namespace YAF.Classes.Utils
     /// </summary>
     /// <param name="userAgent">
     /// </param>
+    /// <param name="isCrawler">
+    /// </param>
+    /// <param name="platform">
+    /// </param>
+    /// <param name="isSearchEngine">
+    /// </param>
+    /// <param name="isIgnoredForDisplay">
+    /// </param>
     /// <returns>
     /// The void.
     /// </returns>
-    public static void Platform(string userAgent, bool IsCrawler, ref string platform, out bool isSearchEngine, out bool isIgnoredForDisplay)
+    public static void Platform(string userAgent, bool isCrawler, ref string platform, out bool isSearchEngine, out bool isIgnoredForDisplay)
     {
       isSearchEngine = false;
       isIgnoredForDisplay = false;
-      if (String.IsNullOrEmpty(userAgent) & String.IsNullOrEmpty(platform))
+
+      if (String.IsNullOrEmpty(userAgent))
       {
         platform = "?";
       }
-      if (userAgent.IndexOf("Windows NT 6.0") >= 0)
+      else if (String.IsNullOrEmpty(platform))
+      {
+        platform = "??";
+      }
+      else if (userAgent.IndexOf("Windows NT 6.0") >= 0)
       {
         platform = "Vista";
       }
@@ -162,7 +175,7 @@ namespace YAF.Classes.Utils
       else
       {
         // check if it's a search engine spider or an ignored UI string...
-        isSearchEngine = (!IsCrawler) ? IsSearchEngineSpider(userAgent) : true;
+        isSearchEngine = (!isCrawler) ? IsSearchEngineSpider(userAgent) : true;
         isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
       }
 
