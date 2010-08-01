@@ -3761,7 +3761,7 @@ begin
 		TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
 		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)	 
 	from
-	 [{databaseOwner}].[{objectQualifier}vaccess] x 
+	 [{databaseOwner}].[{objectQualifier}vaccessfull] x 
 	where
 		x.UserID = @UserID and x.ForumID=IsNull(@ForumID,0)
 end
