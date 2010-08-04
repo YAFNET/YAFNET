@@ -25,6 +25,7 @@ namespace YAF.Editors
   using System.Web.UI;
 
   using YAF.Classes.Core;
+  using YAF.Classes.Core.BBCode;
   using YAF.Classes.UI;
   using YAF.Controls;
 

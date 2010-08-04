@@ -1033,6 +1033,48 @@
             The is ladder.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Data.SimpleModerator">
+            <summary>
+            The moderator.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.SimpleModerator.#ctor(System.Int64,System.Int64,System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.SimpleModerator"/> class.
+            </summary>
+            <param name="forumID">
+            The forum id.
+            </param>
+            <param name="moderatorID">
+            The moderator id.
+            </param>
+            <param name="name">
+            The name.
+            </param>
+            <param name="isGroup">
+            The is group.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleModerator.ForumID">
+            <summary>
+            Gets or sets ForumID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleModerator.ModeratorID">
+            <summary>
+            Gets or sets ModeratorID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleModerator.Name">
+            <summary>
+            Gets or sets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.SimpleModerator.IsGroup">
+            <summary>
+            Gets or sets a value indicating whether IsGroup.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Data.BaseDataTableResultFilter">
             <summary>
             The abstract base data table result filter.
@@ -1094,6 +1136,184 @@
         <member name="P:YAF.Classes.Data.BaseDataTableResultFilter.SqlCommandStartsWith">
             <summary>
             Gets or sets SqlCommandStartsWith.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Data.TypedUserFind">
+            <summary>
+            The typed user find.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Data.TypedUserFind.#ctor(System.Data.DataRow)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Data.TypedUserFind"/> class.
+            </summary>
+            <param name="row">
+            The row.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.AutoWatchTopics">
+            <summary>
+            Gets or sets AutoWatchTopics.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Avatar">
+            <summary>
+            Gets or sets Avatar.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.AvatarImage">
+            <summary>
+            Gets or sets AvatarImage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.AvatarImageType">
+            <summary>
+            Gets or sets AvatarImageType.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.BoardID">
+            <summary>
+            Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Culture">
+            <summary>
+            Gets or sets Culture.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.DailyDigest">
+            <summary>
+            Gets or sets DailyDigest.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.DisplayName">
+            <summary>
+            Gets or sets DisplayName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Email">
+            <summary>
+            Gets or sets Email.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Flags">
+            <summary>
+            Gets or sets Flags.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.IP">
+            <summary>
+            Gets or sets IP.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.IsActiveExcluded">
+            <summary>
+            Gets or sets IsActiveExcluded.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.IsAdmin">
+            <summary>
+            Gets or sets IsAdmin.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.IsAdmin1">
+            <summary>
+            Gets or sets IsAdmin1.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.IsApproved">
+            <summary>
+            Gets or sets IsApproved.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.IsGuest">
+            <summary>
+            Gets or sets IsGuest.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Joined">
+            <summary>
+            Gets or sets Joined.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.LanguageFile">
+            <summary>
+            Gets or sets LanguageFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.LastVisit">
+            <summary>
+            Gets or sets LastVisit.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Name">
+            <summary>
+            Gets or sets Name.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.NotificationType">
+            <summary>
+            Gets or sets NotificationType.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.NumPosts">
+            <summary>
+            Gets or sets NumPosts.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.OverrideDefaultThemes">
+            <summary>
+            Gets or sets OverrideDefaultThemes.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.PMNotification">
+            <summary>
+            Gets or sets PMNotification.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Password">
+            <summary>
+            Gets or sets Password.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Points">
+            <summary>
+            Gets or sets Points.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.ProviderUserKey">
+            <summary>
+            Gets or sets ProviderUserKey.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.RankID">
+            <summary>
+            Gets or sets RankID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Signature">
+            <summary>
+            Gets or sets Signature.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.Suspended">
+            <summary>
+            Gets or sets Suspended.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.ThemeFile">
+            <summary>
+            Gets or sets ThemeFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.TimeZone">
+            <summary>
+            Gets or sets TimeZone.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Data.TypedUserFind.UserID">
+            <summary>
+            Gets or sets UserID.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.TopicFlags">
@@ -1568,48 +1788,6 @@
         <member name="F:YAF.Classes.Data.ForumFlags.Flags.IsModerated">
             <summary>
             The is moderated.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Data.Moderator">
-            <summary>
-            The moderator.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Data.Moderator.#ctor(System.Int64,System.Int64,System.String,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Data.Moderator"/> class.
-            </summary>
-            <param name="forumID">
-            The forum id.
-            </param>
-            <param name="moderatorID">
-            The moderator id.
-            </param>
-            <param name="name">
-            The name.
-            </param>
-            <param name="isGroup">
-            The is group.
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Data.Moderator.ForumID">
-            <summary>
-            Gets or sets ForumID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.Moderator.ModeratorID">
-            <summary>
-            Gets or sets ModeratorID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.Moderator.Name">
-            <summary>
-            Gets or sets Name.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.Moderator.IsGroup">
-            <summary>
-            Gets or sets a value indicating whether IsGroup.
             </summary>
         </member>
         <member name="T:YAF.Classes.Data.SqlDataLayerConverter">
@@ -4988,7 +5166,7 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.user_save(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
             <summary>
             The user_save.
             </summary>
@@ -5022,6 +5200,17 @@
             </param>
             <param name="pmNotification">
             The pm notification.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.user_savenotification(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Saves the notification type for a user
+            </summary>
+            <param name="userID">
+            The user id.
+            </param>
+            <param name="notificationType">
+            The notification type.
             </param>
         </member>
         <member name="M:YAF.Classes.Data.DB.user_adminsave(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
@@ -5181,23 +5370,25 @@
             The user_get.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Data.DB.user_find(System.Object,System.Boolean,System.Object,System.Object,System.Object)">
+        <member name="M:YAF.Classes.Data.DB.UserFind(System.Int32,System.Boolean,System.String,System.String,System.String,System.Object,System.Object)">
             <summary>
-            The user_find.
+            The UserFind.
             </summary>
-            <param name="displayName"></param>
             <param name="boardID">
-            The board id.
+              The board id.
             </param>
             <param name="filter">
-            The filter.
+              The filter.
             </param>
             <param name="userName">
-            The user name.
+              The user name.
             </param>
             <param name="email">
-            The email.
+              The email.
             </param>
+            <param name="displayName"></param>
+            <param name="notificationType"></param>
+            <param name="dailyDigest"></param>
             <returns>
             </returns>
         </member>

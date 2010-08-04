@@ -200,7 +200,7 @@ namespace YAF.Controls
 
         for (int i = 0; i < shoutBoxMessages.Rows.Count; i++)
         {
-          string formattedMessage = FormatMsg.FormatMessage(shoutBoxMessages.Rows[i]["Message"].ToString(), flags);
+          string formattedMessage = YafFormatMessage.FormatMessage(shoutBoxMessages.Rows[i]["Message"].ToString(), flags);
           formattedMessage = FormatHyperLink(formattedMessage);
           shoutBoxMessages.Rows[i]["Message"] = formattedMessage;
         }

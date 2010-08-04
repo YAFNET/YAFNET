@@ -104,6 +104,8 @@ namespace YAF.Classes.Pattern
       }
     }
 
+    private object _instance = null;
+
     /// <summary>
     /// Gets or sets ApplicationInstance.
     /// </summary>
@@ -111,12 +113,24 @@ namespace YAF.Classes.Pattern
     {
       get
       {
+        if (HttpContext.Current == null)
+        {
+          return this._instance == null ? default(T) : (T)this._instance;
+        }
+
         return (T)(HttpContext.Current.Application[this.TypeInstanceKey] ?? default(T));
       }
 
       set
       {
-        HttpContext.Current.Application[this.TypeInstanceKey] = value;
+        if (HttpContext.Current == null)
+        {
+          _instance = value;
+        }
+        else
+        {
+          HttpContext.Current.Application[this.TypeInstanceKey] = value;
+        }
       }
     }
 

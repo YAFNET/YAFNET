@@ -120,7 +120,7 @@
               this.messageHistoryLink.Title += String.Format(
                  " | {0}: {1}",
                  this.PageContext.Localization.GetText("EDIT_REASON"),
-                 FormatMsg.RepairHtml((string)this.DataRow["EditReason"], true));
+                 YafFormatMessage.RepairHtml((string)this.DataRow["EditReason"], true));
           }
           else
           {
@@ -152,7 +152,7 @@
         if (HttpContext.Current.Server.HtmlDecode(Convert.ToString(this.DataRow["DeleteReason"])) != String.Empty)
         {
           // reason was specified
-          deleteText = FormatMsg.RepairHtml((string)this.DataRow["DeleteReason"], true);
+          deleteText = YafFormatMessage.RepairHtml((string)this.DataRow["DeleteReason"], true);
         }
         else
         {

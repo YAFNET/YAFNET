@@ -29,6 +29,7 @@ namespace YAF.Pages
 
   using YAF.Classes;
   using YAF.Classes.Core;
+  using YAF.Classes.Core.BBCode;
   using YAF.Classes.Data;
   using YAF.Classes.UI;
   using YAF.Classes.Utils;
@@ -461,19 +462,16 @@ namespace YAF.Pages
 
         if (!this.PageContext.IsGuest)
         {
-          this.PostOptions1.WatchChecked = new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
-        }
-        else if (!this.PageContext.IsGuest && this.PageContext.PageTopicID > 0)
-        {
-          this.PostOptions1.WatchChecked =
-            this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue;
+          this.PostOptions1.WatchOptionVisible = this.PageContext.CurrentUserData.NotificationSetting ==
+                                                 UserNotificationSetting.TopicsISubscribeTo;
+          this.PostOptions1.WatchChecked = this.PageContext.CurrentUserData.AutoWatchTopics;
         }
 
         if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
             (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
         {
           this.Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
-          this.imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumClientFileRoot);
+          this.imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
           this.tr_captcha1.Visible = true;
           this.tr_captcha2.Visible = true;
         }
@@ -548,12 +546,13 @@ namespace YAF.Pages
       }
 
       // Check if the topic name is not too long
-      if (!FormatMsg.WordLengthChecker(this.Subject.Text.Trim()))
+      if (YafContext.Current.BoardSettings.MaxWordLength > 0 && this.Subject.Text.Trim().AreAnyWordsOverMaxLength(YafContext.Current.BoardSettings.MaxWordLength))
       {
-          this.PageContext.AddLoadMessage(this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
-          return;
-      }  
-         
+        this.PageContext.AddLoadMessage(
+          this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
+        return;
+      }
+
       // update the last post time...
       Mession.LastPost = DateTime.UtcNow.AddSeconds(30);
 
@@ -581,14 +580,14 @@ namespace YAF.Pages
       {
         foreach (DataRow row in dt.Rows)
         {
-          isApproved = row["Flags"].BinaryAnd(MessageFlags.Flags.IsApproved) ;
+          isApproved = row["Flags"].BinaryAnd(MessageFlags.Flags.IsApproved);
         }
       }
 
       // Create notification emails
       if (isApproved)
       {
-        CreateMail.WatchEmail(messageId);
+        YafServices.SendNotification.ToWatchingUsers(messageId);
 
         if (this.PageContext.ForumUploadAccess && this.PostOptions1.AttachChecked)
         {
@@ -665,6 +664,7 @@ namespace YAF.Pages
         };
 
       bool isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
+
       DB.message_update(
         this.Request.QueryString.GetFirstOrDefault("m"), 
         this.Priority.SelectedValue, 
@@ -1196,7 +1196,7 @@ namespace YAF.Pages
     {
       if (this.PageContext.BoardSettings.RemoveNestedQuotes)
       {
-        message = FormatMsg.RemoveNestedQuotes(message);
+        message = YafFormatMessage.RemoveNestedQuotes(message);
       }
 
       // If the message being quoted in YafBBCode but the editor uses HTML, convert the message text to HTML

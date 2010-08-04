@@ -49,6 +49,37 @@ namespace YAF.Classes.Core
       return null;
     }
 
+    /// <summary>
+    /// </summary>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static string GetUserThemeFile(long userId)
+    {
+      DataRow row = UserMembershipHelper.GetUserRowForID(userId);
+      
+      string themeFile = null;
+
+      if (row["ThemeFile"] != DBNull.Value && YafContext.Current.BoardSettings.AllowUserTheme)
+      {
+        // use user-selected theme
+        themeFile = row["ThemeFile"].ToString();
+      }
+      else
+      {
+        themeFile = YafContext.Current.BoardSettings.Theme;
+      }
+
+      if (!YafTheme.IsValidTheme(themeFile))
+      {
+        themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();
+      }
+
+      return themeFile;
+    }
+
     #endregion
   }
 }

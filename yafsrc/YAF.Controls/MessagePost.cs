@@ -24,6 +24,7 @@ namespace YAF.Controls
   using System.Collections.Generic;
   using System.Web.UI;
 
+  using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.UI;
 
@@ -246,7 +247,7 @@ namespace YAF.Controls
       if (this.HighlightWords.Count > 0)
       {
         // highlight word list
-        message = FormatMsg.SurroundWordList(
+        message = YafFormatMessage.SurroundWordList(
           message, this.HighlightWords, @"<span class=""highlight"">", @"</span>");
       }
 
@@ -272,7 +273,7 @@ namespace YAF.Controls
       }
       else
       {
-        string formattedMessage = HighlightMessage(FormatMsg.FormatMessage(this.Message, this.MessageFlags));
+        string formattedMessage = HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags));
 
         if (this.MessageFlags.IsBBCode)
         {

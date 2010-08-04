@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.users"
     CodeBehind="users.ascx.cs" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
+<%@ Import Namespace="YAF.Classes.Core.BBCode" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
     <table cellspacing="0" cellpadding="0" class="content" width="100%">

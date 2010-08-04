@@ -26,6 +26,7 @@ namespace YAF.Classes.Core
   using System.Linq;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Extensions;
   using YAF.Classes.Interfaces;
   using YAF.Classes.Pattern;
   using YAF.Classes.Utils;
@@ -86,23 +87,13 @@ namespace YAF.Classes.Core
 
       if (YafContext.Current.BoardSettings.EnableDisplayName)
       {
-        using (DataTable dt = DB.user_find(YafContext.Current.PageBoardID, true, null, null, contains))
-        {
-          foreach (DataRow row in dt.Rows)
-          {
-            usersFound.Add(row.Field<int>("UserID"), row.Field<string>("DisplayName"));
-          }
-        }
+        var found = DB.UserFind(YafContext.Current.PageBoardID, true, null, null, contains, null, null);
+        found.ForEach(u => usersFound.Add(u.UserID ?? 0, u.DisplayName));
       }
       else
       {
-        using (DataTable dt = DB.user_find(YafContext.Current.PageBoardID, true, contains, null, null))
-        {
-          foreach (DataRow row in dt.Rows)
-          {
-            usersFound.Add(row.Field<int>("UserID"), row.Field<string>("Name"));
-          }
-        }
+        var found = DB.UserFind(YafContext.Current.PageBoardID, true, contains, null, null, null, null);
+        found.ForEach(u => usersFound.Add(u.UserID ?? 0, u.DisplayName));
       }
 
       return usersFound;
@@ -131,30 +122,29 @@ namespace YAF.Classes.Core
         // find the username...
         if (YafContext.Current.BoardSettings.EnableDisplayName)
         {
-          DataRow row = DB.user_find(YafContext.Current.PageBoardID, false, null, null, name).GetFirstRow();
-          if (row != null)
+          var user = DB.UserFind(YafContext.Current.PageBoardID, false, null, null, name, null, null).FirstOrDefault();
+          if (user != null)
           {
-            userId = row.Field<int>("UserID");
+            userId = user.UserID ?? 0;
 
             // update collection...
             if (!this.UserDisplayNameCollection.ContainsKey(userId.Value))
             {
-              this.UserDisplayNameCollection.Add(userId.Value, row.Field<string>("DisplayName"));
+              this.UserDisplayNameCollection.Add(userId.Value, user.DisplayName);
             }
           }
         }
         else
         {
-          DataRow row = DB.user_find(YafContext.Current.PageBoardID, false, name, null, null).GetFirstRow();
-
-          if (row != null)
+          var user = DB.UserFind(YafContext.Current.PageBoardID, false, name, null, null, null, null).FirstOrDefault();
+          if (user != null)
           {
-            userId = row.Field<int>("UserID");
+            userId = user.UserID ?? 0;
 
             // update collection...
             if (!this.UserDisplayNameCollection.ContainsKey(userId.Value))
             {
-              this.UserDisplayNameCollection.Add(userId.Value, row.Field<string>("Name"));
+              this.UserDisplayNameCollection.Add(userId.Value, user.DisplayName);
             }
           }
         }

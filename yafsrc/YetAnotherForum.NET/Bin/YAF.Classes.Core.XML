@@ -54,6 +54,15 @@
             language file name. If null -- use default language
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.UserHelper.GetUserThemeFile(System.Int64)">
+            <summary>
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            </returns>
+        </member>
         <member name="T:YAF.Classes.Core.UserPageBase">
             <summary>
             User Page Class.
@@ -814,37 +823,37 @@
         </member>
         <member name="F:YAF.Classes.Core.ForumPage._pageCache">
             <summary>
-            Cache for the page
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.ForumPage._noDataBase">
-            <summary>
-            No Database Toggle
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.ForumPage._showToolBar">
-            <summary>
-            </summary>
-        </member>
-        <member name="F:YAF.Classes.Core.ForumPage._showFooter">
-            <summary>
+              Cache for the page
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.ForumPage._transPage">
             <summary>
+            The _trans page.
             </summary>
         </member>
-        <member name="F:YAF.Classes.Core.ForumPage._isAdminPage">
+        <member name="F:YAF.Classes.Core.ForumPage._noDataBase">
             <summary>
+              No Database Toggle
             </summary>
         </member>
-        <member name="F:YAF.Classes.Core.ForumPage._isRegisteredPage">
+        <member name="F:YAF.Classes.Core.ForumPage._showFooter">
             <summary>
+            The _show footer.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.ForumPage._showToolBar">
+            <summary>
+            The _show tool bar.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.ForumPage._topPageControl">
+            <summary>
+            The _top page control.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.ForumPage.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.ForumPage"/> class. 
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.ForumPage"/> class.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.ForumPage.#ctor(System.String)">
@@ -855,8 +864,145 @@
             The trans page.
             </param>
         </member>
+        <member name="M:YAF.Classes.Core.ForumPage.IsNull(System.String)">
+            <summary>
+            The is null.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <returns>
+            The is null.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.GetCollapsiblePanelImageURL(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
+            <summary>
+            Gets the collapsible panel image url (expanded or collapsed). 
+              </summary>
+            <param name="panelID">
+            ID of collapsible panel
+            </param>
+            <param name="defaultState">
+            Default Panel State
+            </param>
+            <returns>
+            Image URL
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.GetText(System.String)">
+            <summary>
+            The get text.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <returns>
+            The get text.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.GetText(System.String,System.String)">
+            <summary>
+            The get text.
+            </summary>
+            <param name="page">
+            The page.
+            </param>
+            <param name="text">
+            The text.
+            </param>
+            <returns>
+            The get text.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.GetTextFormatted(System.String,System.Object[])">
+            <summary>
+            The get text formatted.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="args">
+            The args.
+            </param>
+            <returns>
+            The get text formatted.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.GetThemeContents(System.String,System.String)">
+            <summary>
+            Get a value from the currently configured forum theme.
+            </summary>
+            <param name="page">
+            Page to look under
+            </param>
+            <param name="tag">
+            Theme item
+            </param>
+            <returns>
+            Converted Theme information
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.GetThemeContents(System.String,System.String,System.String)">
+            <summary>
+            Get a value from the currently configured forum theme.
+            </summary>
+            <param name="page">
+            Page to look under
+            </param>
+            <param name="tag">
+            Theme item
+            </param>
+            <param name="defaultValue">
+            Value to return if the theme item doesn't exist
+            </param>
+            <returns>
+            Converted Theme information or Default Value if it doesn't exist
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.HtmlEncode(System.Object)">
+            <summary>
+            The html encode.
+            </summary>
+            <param name="data">
+            The data.
+            </param>
+            <returns>
+            The html encode.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.RedirectNoAccess">
+            <summary>
+            The redirect no access.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.CreatePageLinks">
+            <summary>
+            The create page links.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.InsertCssRefresh(System.Web.UI.Control)">
+            <summary>
+            The insert css refresh.
+            </summary>
+            <param name="addTo">
+            The add to.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            Writes the document
+            </summary>
+            <param name="writer">
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.ForumPage.SetupHeaderElements">
+            <summary>
+            The setup header elements.
+            </summary>
+        </member>
         <member name="M:YAF.Classes.Core.ForumPage.ForumPage_Error(System.Object,System.EventArgs)">
             <summary>
+            The forum page_ error.
             </summary>
             <param name="sender">
             The sender.
@@ -869,40 +1015,23 @@
             <summary>
             Called first to initialize the context
             </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
+            <param name="sender">
+            </param>
+            <param name="e">
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.ForumPage.ForumPage_Load(System.Object,System.EventArgs)">
             <summary>
             Called when page is loaded
             </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.ForumPage_Unload(System.Object,System.EventArgs)">
-            <summary>
-            Called when the page is unloaded
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.InsertCssRefresh(System.Web.UI.Control)">
-            <summary>
-            </summary>
-            <param name="addTo">
-            The add to.
+            <param name="sender">
             </param>
-        </member>
-        <member name="F:YAF.Classes.Core.ForumPage._topPageControl">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.SetupHeaderElements">
-            <summary>
-            </summary>
+            <param name="e">
+            </param>
         </member>
         <member name="M:YAF.Classes.Core.ForumPage.ForumPage_PreRender(System.Object,System.EventArgs)">
             <summary>
+            The forum page_ pre render.
             </summary>
             <param name="sender">
             The sender.
@@ -911,189 +1040,109 @@
             The e.
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.ForumPage.Render(System.Web.UI.HtmlTextWriter)">
+        <member name="M:YAF.Classes.Core.ForumPage.ForumPage_Unload(System.Object,System.EventArgs)">
             <summary>
-            Writes the document
+            Called when the page is unloaded
             </summary>
-            <param name="writer"></param>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.RedirectNoAccess">
-            <summary>
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.IsNull(System.String)">
-            <summary>
-            </summary>
-            <param name="value">
-            The value.
+            <param name="sender">
             </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.GetThemeContents(System.String,System.String)">
-            <summary>
-            Get a value from the currently configured forum theme.
-            </summary>
-            <param name="page">Page to look under</param>
-            <param name="tag">Theme item</param>
-            <returns>Converted Theme information</returns>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.GetThemeContents(System.String,System.String,System.String)">
-            <summary>
-            Get a value from the currently configured forum theme.
-            </summary>
-            <param name="page">Page to look under</param>
-            <param name="tag">Theme item</param>
-            <param name="defaultValue">Value to return if the theme item doesn't exist</param>
-            <returns>Converted Theme information or Default Value if it doesn't exist</returns>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.GetCollapsiblePanelImageURL(System.String,YAF.Classes.Utils.PanelSessionState.CollapsiblePanelState)">
-            <summary>
-            Gets the collapsible panel image url (expanded or collapsed). 
-            <param name="panelID">ID of collapsible panel</param>
-            <param name="defaultState">Default Panel State</param>
-            </summary>
-            <returns>Image URL</returns>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.GetTextFormatted(System.String,System.Object[])">
-            <summary>
-            </summary>
-            <param name="text">
-            The text.
+            <param name="e">
             </param>
-            <param name="args">
-            The args.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.GetText(System.String)">
-            <summary>
-            </summary>
-            <param name="text">
-            The text.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.GetText(System.String,System.String)">
-            <summary>
-            </summary>
-            <param name="page">
-            The page.
-            </param>
-            <param name="text">
-            The text.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.HtmlEncode(System.Object)">
-            <summary>
-            </summary>
-            <param name="data">
-            The data.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.ForumPage.CreatePageLinks">
-            <summary>
-            </summary>
         </member>
         <member name="E:YAF.Classes.Core.ForumPage.ForumPageRendered">
             <summary>
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.IsAdminPage">
-            <summary>
-            Gets a value indicating whether IsAdminPage.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.IsRegisteredPage">
-            <summary>
-            Gets a value indicating whether IsRegisteredPage.
+            The forum page rendered.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.ForumPage.AllowAsPopup">
             <summary>
-            Gets or sets a value indicating whether AllowAsPopup.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.ForumHeader">
-            <summary>
-            Gets or sets ForumHeader.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.ForumFooter">
-            <summary>
-            Gets or sets ForumFooter.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.TopPageControl">
-            <summary>
-            Gets TopPageControl.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.NoDataBase">
-            <summary>
-            Set to <see langword="true"/> if this is the start page. Should only be set by the page that initialized the database.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.PageCache">
-            <summary>
-            Gets cache associated with this page.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.RefreshURL">
-            <summary>
-            Adds a message that is displayed to the user when the page is loaded.
-            </summary>
-            <param name="msg">The message to display</param>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.RefreshTime">
-            <summary>
-            Gets or sets RefreshTime.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.IsProtected">
-            <summary>
-            Gets info whether page should be hidden to guest users when forum admin requires login.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.ShowToolBar">
-            <summary>
-            Set to false if you don't want the menus at top and bottom. Only admin pages will set this to false
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.ShowFooter">
-            <summary>
-            Gets or sets a value indicating whether ShowFooter.
+              Gets or sets a value indicating whether AllowAsPopup.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.ForumPage.CanLogin">
             <summary>
-            Gets a value indicating whether CanLogin.
+              Gets a value indicating whether CanLogin.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.ForumPage.User">
+        <member name="P:YAF.Classes.Core.ForumPage.ForumFooter">
             <summary>
-            Gets the current user.
+              Gets or sets ForumFooter.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.ForumPage.LoadMessage">
+        <member name="P:YAF.Classes.Core.ForumPage.ForumHeader">
             <summary>
-            Gets LoadMessage.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.ForumPage.PageContext">
-            <summary>
-            Gets the current forum Context (helper reference)
+              Gets or sets ForumHeader.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.ForumPage.ForumURL">
             <summary>
-            Gets ForumURL.
+              Gets ForumURL.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.IsAdminPage">
+            <summary>
+              Gets a value indicating whether IsAdminPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.IsProtected">
+            <summary>
+              Gets info whether page should be hidden to guest users when forum admin requires login.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.IsRegisteredPage">
+            <summary>
+              Gets a value indicating whether IsRegisteredPage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.LoadMessage">
+            <summary>
+              Gets LoadMessage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.PageCache">
+            <summary>
+              Gets cache associated with this page.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.PageContext">
+            <summary>
+              Gets the current forum Context (helper reference)
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.RefreshTime">
+            <summary>
+              Gets or sets RefreshTime.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.RefreshURL">
+            <summary>
+              Adds a message that is displayed to the user when the page is loaded.
+            </summary>
+            <param name = "msg">The message to display</param>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.ShowFooter">
+            <summary>
+              Gets or sets a value indicating whether ShowFooter.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.ShowToolBar">
+            <summary>
+              Set to false if you don't want the menus at top and bottom. Only admin pages will set this to false
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.TopPageControl">
+            <summary>
+              Gets TopPageControl.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.User">
+            <summary>
+              Gets the current user.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.ForumPage.NoDataBase">
+            <summary>
+              Set to <see langword = "true" /> if this is the start page. Should only be set by the page that initialized the database.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.ForumPageRegistered.#ctor">
@@ -1115,24 +1164,29 @@
             Helps get a complete user profile from various locations
             </summary>
         </member>
+        <member name="F:YAF.Classes.Core.CombinedUserDataHelper._membershipUser">
+            <summary>
+              The _membership user.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.Core.CombinedUserDataHelper._rowConvert">
             <summary>
-            The _row convert.
+              The _row convert.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.CombinedUserDataHelper._userDBRow">
             <summary>
-            The _user db row.
+              The _user db row.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.CombinedUserDataHelper._userID">
             <summary>
-            The _user id.
+              The _user id.
             </summary>
         </member>
         <member name="F:YAF.Classes.Core.CombinedUserDataHelper._userProfile">
             <summary>
-            The _user profile.
+              The _user profile.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.CombinedUserDataHelper.#ctor(System.Web.Security.MembershipUser,System.Int32)">
@@ -1164,7 +1218,7 @@
         </member>
         <member name="M:YAF.Classes.Core.CombinedUserDataHelper.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.CombinedUserDataHelper"/> class.
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.CombinedUserDataHelper"/> class.
             </summary>
         </member>
         <member name="M:YAF.Classes.Core.CombinedUserDataHelper.InitUserData">
@@ -1174,139 +1228,397 @@
             <exception cref="T:System.Exception">
             </exception>
         </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.MembershipUser">
-            <summary>
-            The _membership user.
-            </summary>
-        </member>
         <member name="P:YAF.Classes.Core.CombinedUserDataHelper.AutoWatchTopics">
             <summary>
-            Gets a value indicating whether AutoWatchTopics.
+              Gets a value indicating whether AutoWatchTopics.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Avatar">
             <summary>
-            Gets Avatar.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.DBRow">
-            <summary>
-            Gets DBRow.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Email">
-            <summary>
-            Gets Email.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.HasAvatarImage">
-            <summary>
-            Gets a value indicating whether HasAvatarImage.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.IsGuest">
-            <summary>
-            Gets a value indicating whether IsGuest.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.DSTUser">
-            <summary>
-            Gets a value indicating whether  DST is Enabled.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.IsActiveExcluded">
-            <summary>
-            Gets a value indicating whether IsActiveExcluded.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Joined">
-            <summary>
-            Gets Joined.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.LanguageFile">
-            <summary>
-            Gets LanguageFile.
+              Gets Avatar.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.CombinedUserDataHelper.CultureUser">
             <summary>
-            Gets Culture.
+              Gets Culture.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.LastVisit">
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.DBRow">
             <summary>
-            Gets LastVisit.
+              Gets DBRow.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Membership">
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.DSTUser">
             <summary>
-            Gets Membership.
+              Gets a value indicating whether  DST is Enabled.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.NumPosts">
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.DailyDigest">
             <summary>
-            Gets NumPosts.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.OverrideDefaultThemes">
-            <summary>
-            Gets a value indicating whether OverrideDefaultThemes.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.PMNotification">
-            <summary>
-            Gets a value indicating whether PMNotification.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Points">
-            <summary>
-            Gets Points.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Profile">
-            <summary>
-            Gets Profile.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.RankName">
-            <summary>
-            Gets RankName.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Signature">
-            <summary>
-            Gets Signature.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.ThemeFile">
-            <summary>
-            Gets ThemeFile.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.TimeZone">
-            <summary>
-            Gets TimeZone.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.UserID">
-            <summary>
-            Gets UserID.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.UserName">
-            <summary>
-            Gets UserName.
+            Gets a value indicating whether DailyDigest.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.CombinedUserDataHelper.DisplayName">
             <summary>
-            Gets DisplayName.
+              Gets DisplayName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Email">
+            <summary>
+              Gets Email.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.HasAvatarImage">
+            <summary>
+              Gets a value indicating whether HasAvatarImage.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.IsActiveExcluded">
+            <summary>
+              Gets a value indicating whether IsActiveExcluded.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.IsGuest">
+            <summary>
+              Gets a value indicating whether IsGuest.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Joined">
+            <summary>
+              Gets Joined.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.LanguageFile">
+            <summary>
+              Gets LanguageFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.LastVisit">
+            <summary>
+              Gets LastVisit.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Membership">
+            <summary>
+              Gets Membership.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.NotificationSetting">
+            <summary>
+            Gets NotificationSetting.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.NumPosts">
+            <summary>
+              Gets NumPosts.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.OverrideDefaultThemes">
+            <summary>
+              Gets a value indicating whether OverrideDefaultThemes.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.PMNotification">
+            <summary>
+              Gets a value indicating whether PMNotification.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Points">
+            <summary>
+              Gets Points.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Profile">
+            <summary>
+              Gets Profile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.RankName">
+            <summary>
+              Gets RankName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.Signature">
+            <summary>
+              Gets Signature.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.ThemeFile">
+            <summary>
+              Gets ThemeFile.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.TimeZone">
+            <summary>
+              Gets TimeZone.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.UserID">
+            <summary>
+              Gets UserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.UserName">
+            <summary>
+              Gets UserName.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.CombinedUserDataHelper.MembershipUser">
+            <summary>
+              The _membership user.
             </summary>
         </member>
         <member name="P:YAF.Classes.Core.CombinedUserDataHelper.RowConvert">
             <summary>
-            Gets RowConvert.
+              Gets RowConvert.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafFormatMessage">
+            <summary>
+            YafFormatMessage provides functions related to formatting the post messages.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.YafFormatMessage._options">
+            <summary>
+            format message regex
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.AddSmiles(System.String)">
+            <summary>
+            For backwards compatibility
+            </summary>
+            <param name="message">
+            the message to add smiles to.
+            </param>
+            <returns>
+            The add smiles.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.AddSmiles(YAF.Classes.Core.BBCode.ReplaceRules@)">
+            <summary>
+            Adds smiles replacement rules to the collection from the DB
+            </summary>
+            <param name="rules">
+            The rules.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.BBCodeForbiddenDetector(System.String,System.String,System.Char)">
+            <summary>
+            The method to detect a forbidden BBCode tag from delimited by 'delim' list 
+            'stringToMatch'
+            </summary>
+            <param name="stringToClear">
+            Input string
+            </param>
+            <param name="stringToMatch">
+            String with delimiter
+            </param>
+            <param name="delim">
+            </param>
+            <returns>
+            Returns a string containing a forbidden BBCode or a null string
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.FormatMessage(System.String,YAF.Classes.Data.MessageFlags)">
+            <summary>
+            The format message.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <param name="messageFlags">
+            The message flags.
+            </param>
+            <returns>
+            The formatted message.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.FormatMessage(System.String,YAF.Classes.Data.MessageFlags,System.Boolean)">
+            <summary>
+            The format message.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <param name="messageFlags">
+            The message flags.
+            </param>
+            <param name="targetBlankOverride">
+            The target blank override.
+            </param>
+            <returns>
+            The formated message.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.FormatMessage(System.String,YAF.Classes.Data.MessageFlags,System.Boolean,System.DateTime)">
+            <summary>
+            The format message.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+            <param name="messageFlags">
+            The message flags.
+            </param>
+            <param name="targetBlankOverride">
+            The target blank override.
+            </param>
+            <param name="messageLastEdited">
+            The message last edited.
+            </param>
+            <returns>
+            The formatted message.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.GetCleanedTopicMessage(System.Object,System.Object)">
+            <summary>
+            The get cleaned topic message. Caches cleaned topic message by TopicID.
+            </summary>
+            <param name="topicMessage">
+            The message to clean.
+            </param>
+            <param name="topicId">
+            
+            The topic id.
+            </param>
+            <returns>
+            The get cleaned topic message.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.GetSmilies">
+            <summary>
+            The get smilies.
+            </summary>
+            <returns>
+            Table with list of smiles
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.HtmlTagForbiddenDetector(System.String,System.String,System.Char)">
+            <summary>
+            The method to detect a forbidden HTML code from delimited by 'delim' list
+            </summary>
+            <param name="stringToClear">
+            </param>
+            <param name="stringToMatch">
+            </param>
+            <param name="delim">
+            </param>
+            <returns>
+            Returns a forbidden HTML tag or a null string
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.RemoveNestedQuotes(System.String)">
+            <summary>
+            Removes nested YafBBCode quotes from the given message body.
+            </summary>
+            <param name="body">
+            Message body test to remove nested quotes from
+            </param>
+            <returns>
+            A version of <paramref name="body"/> that contains no nested quotes.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.RepairHtml(System.String,System.Boolean)">
+            <summary>
+            The repair html.
+            </summary>
+            <param name="html">
+            The html.
+            </param>
+            <param name="allowHtml">
+            The allow html.
+            </param>
+            <returns>
+            The repaired html.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.RemoveHtmlByList(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="matchList">
+            The match list.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.MakeMatchList(System.String,System.String)">
+            <summary>
+            </summary>
+            <param name="matchRegEx">
+            The match reg ex.
+            </param>
+            <param name="text">
+            The text.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.MatchAndPerformAction(System.String,System.String,System.Action{System.String,System.Int32,System.Int32})">
+            <summary>
+            </summary>
+            <param name="matchRegEx">
+            The match reg ex.
+            </param>
+            <param name="text">
+            The text.
+            </param>
+            <param name="matchList">
+            The match list.
+            </param>
+            <param name="MatchAction">
+            The match action.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.SurroundWordList(System.String,System.Collections.Generic.IList{System.String},System.String,System.String)">
+            <summary>
+            Surrounds a word list with prefix/postfix. Case insensitive.
+            </summary>
+            <param name="message">
+            </param>
+            <param name="wordList">
+            </param>
+            <param name="prefix">
+            </param>
+            <param name="postfix">
+            </param>
+            <returns>
+            The surround word list.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.YafFormatMessage.MessageCleaned">
+            <summary>
+            The message cleaned class (internal)
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.MessageCleaned.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafFormatMessage.MessageCleaned"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafFormatMessage.MessageCleaned.#ctor(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.YafFormatMessage.MessageCleaned"/> class.
+            </summary>
+            <param name="messageTruncated">
+            The message truncated.
+            </param>
+            <param name="messageKeywords">
+            The message keywords.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.YafFormatMessage.MessageCleaned.MessageKeywords">
+            <summary>
+            Gets or sets MessageKeywords.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.YafFormatMessage.MessageCleaned.MessageTruncated">
+            <summary>
+            Gets or sets MessageTruncated.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.UserMembershipHelper">
@@ -2001,36 +2313,6 @@
             The Exception object to report.
             </param>
         </member>
-        <member name="M:YAF.Classes.Core.CreateMail.Text2Html(System.String)">
-            <summary>
-            The text 2 html.
-            </summary>
-            <param name="html">
-            The html.
-            </param>
-            <returns>
-            The text 2 html.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.CreateMail.WatchEmail(System.Object)">
-            <summary>
-            The watch email.
-            </summary>
-            <param name="messageID">
-            The message id.
-            </param>
-        </member>
-        <member name="M:YAF.Classes.Core.CreateMail.PmNotification(System.Int32,System.String)">
-            <summary>
-            Sends notification about new PM in user's inbox.
-            </summary>
-            <param name="toUserID">
-            User supposed to receive notification about new PM.
-            </param>
-            <param name="subject">
-            Subject of PM user is notified about.
-            </param>
-        </member>
         <member name="T:YAF.Classes.Core.YafCache">
             <summary>
             Caching helper class
@@ -2578,6 +2860,32 @@
             Functions to send email via SMTP
             </summary>
         </member>
+        <member name="M:YAF.Classes.Core.YafSendMail.Queue(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Queues an e-mail message for asynchronous delivery
+            </summary>
+            <param name="fromEmail">
+            The from Email.
+            </param>
+            <param name="fromName">
+            The from Name.
+            </param>
+            <param name="toEmail">
+            The to Email.
+            </param>
+            <param name="toName">
+            The to Name.
+            </param>
+            <param name="subject">
+            The subject.
+            </param>
+            <param name="bodyText">
+            The body Text.
+            </param>
+            <param name="bodyHtml">
+            The body Html.
+            </param>
+        </member>
         <member name="M:YAF.Classes.Core.YafSendMail.Queue(System.String,System.String,System.String,System.String)">
             <summary>
             Queues an e-mail messagage for asynchronous delivery
@@ -2718,6 +3026,47 @@
         <member name="P:YAF.Classes.Core.UserCleanUpTask.TaskName">
             <summary>
             Gets TaskName.
+            </summary>
+        </member>
+        <member name="T:YAF.Modules.DigestSendModule">
+            <summary>
+            The mail sending module.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.DigestSendModule._keyName">
+            <summary>
+            The _key name.
+            </summary>
+        </member>
+        <member name="F:YAF.Modules.DigestSendModule._forumControlObj">
+            <summary>
+            The _forum control obj.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.DigestSendModule.Init">
+            <summary>
+            The init.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.DigestSendModule.Dispose">
+            <summary>
+            The dispose.
+            </summary>
+        </member>
+        <member name="M:YAF.Modules.DigestSendModule.Current_AfterInit(System.Object,System.EventArgs)">
+            <summary>
+            The current_ after init.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Modules.DigestSendModule.ForumControlObj">
+            <summary>
+            Gets or sets ForumControlObj.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.YafPermissions">
@@ -3372,14 +3721,14 @@
             The run service.
             </returns>
         </member>
-        <member name="P:YAF.Classes.Core.BaseYafService.InitVarName">
-            <summary>
-            Gets InitVarName.
-            </summary>
-        </member>
         <member name="P:YAF.Classes.Core.BaseYafService.Initialized">
             <summary>
-            Gets a value indicating whether Initialized.
+              Gets a value indicating whether Initialized.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.Core.BaseYafService.InitVarName">
+            <summary>
+              Gets InitVarName.
             </summary>
         </member>
         <member name="T:YAF.Classes.Core.Localizer">
@@ -3499,6 +3848,16 @@
             <returns>
             </returns>
         </member>
+        <member name="M:YAF.Classes.Core.StaticDataHelper.CultureDefaultFromFile(System.String)">
+            <summary>
+            Gets language tag info from language file tag.
+            </summary>
+            <param name="fileName">
+            </param>
+            <returns>
+            A default full 4-letter culture from the existing language file.
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Core.StaticDataHelper.Cultures">
             <summary>
             The cultures IetfLangTags (4-letter).
@@ -3506,13 +3865,6 @@
             <returns>
             The cultures filtered by first 2 letters in the language tag in a language file
             </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.StaticDataHelper.CultureDefaultFromFile(System.String)">
-            <summary>
-            Gets language tag info from language file tag.  
-            </summary>
-            <param name="fileName"></param>
-            <returns>A default full 4-letter culture from the existing language file.</returns>
         </member>
         <member name="M:YAF.Classes.Core.StaticDataHelper.Languages">
             <summary>
@@ -3581,6 +3933,734 @@
             The compare.
             </returns>
         </member>
+        <member name="T:YAF.Classes.Core.BBCode.IReplaceRules">
+            <summary>
+            Replace Rules Interface
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.IReplaceRules.AddRule(YAF.Classes.Core.BBCode.BaseReplaceRule)">
+            <summary>
+            The add rule.
+            </summary>
+            <param name="newRule">
+            The new rule.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.IReplaceRules.Process(System.String@)">
+            <summary>
+            Process text using the rules.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.BBCode.IReplaceRules.HasRules">
+            <summary>
+              Gets a value indicating whether any rules have been added.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.IBaseReplaceRule">
+            <summary>
+            Base Replace Rules Interface
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.IBaseReplaceRule.Replace(System.String@,YAF.Classes.Core.BBCode.HtmlReplacementCollection@)">
+            <summary>
+            The replace.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="replacement">
+            The replacement.
+            </param>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
+        <member name="P:YAF.Classes.Core.BBCode.IBaseReplaceRule.RuleDescription">
+            <summary>
+              Gets RuleDescription.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.ReplaceRules">
+            <summary>
+            Provides a way to handle layers of replacements rules
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.ReplaceRules._rulesList">
+            <summary>
+              The _rules list.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.ReplaceRules._rulesLock">
+            <summary>
+              The _rules lock.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.ReplaceRules._needSort">
+            <summary>
+              The _need sort.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.ReplaceRules.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.ReplaceRules"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.ReplaceRules.Clone">
+            <summary>
+            This clone method is a Deep Clone -- including all data.
+            </summary>
+            <returns>
+            The clone.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.ReplaceRules.AddRule(YAF.Classes.Core.BBCode.BaseReplaceRule)">
+            <summary>
+            The add rule.
+            </summary>
+            <param name="newRule">
+            The new rule.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.ReplaceRules.Process(System.String@)">
+            <summary>
+            The process.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.BBCode.ReplaceRules.HasRules">
+            <summary>
+              Gets a value indicating whether any rules have been added.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.BaseReplaceRule">
+            <summary>
+            Base class for all replacement rules.
+              Provides compare functionality based on the rule rank.
+              Override replace to handle replacement differently.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.BaseReplaceRule.RuleRank">
+            <summary>
+              The rule rank.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.BaseReplaceRule.Replace(System.String@,YAF.Classes.Core.BBCode.HtmlReplacementCollection@)">
+            <summary>
+            The replace.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="replacement">
+            The replacement.
+            </param>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.BaseReplaceRule.CompareTo(System.Object)">
+            <summary>
+            The compare to.
+            </summary>
+            <param name="obj">
+            The obj.
+            </param>
+            <returns>
+            The compare to.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            </exception>
+        </member>
+        <member name="P:YAF.Classes.Core.BBCode.BaseReplaceRule.RuleDescription">
+            <summary>
+              Gets RuleDescription.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.SimpleReplaceRule">
+            <summary>
+            Not regular expression, just a simple replace
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.SimpleReplaceRule._find">
+            <summary>
+              The _find.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.SimpleReplaceRule._replace">
+            <summary>
+              The _replace.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SimpleReplaceRule.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.SimpleReplaceRule"/> class.
+            </summary>
+            <param name="find">
+            The find.
+            </param>
+            <param name="replace">
+            The replace.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SimpleReplaceRule.Replace(System.String@,YAF.Classes.Core.BBCode.HtmlReplacementCollection@)">
+            <summary>
+            The replace.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="replacement">
+            The replacement.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.BBCode.SimpleReplaceRule.RuleDescription">
+            <summary>
+              Gets RuleDescription.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.SimpleRegexReplaceRule">
+            <summary>
+            For basic regex with no variables
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.SimpleRegexReplaceRule._regExReplace">
+            <summary>
+              The _reg ex replace.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.SimpleRegexReplaceRule._regExSearch">
+            <summary>
+              The _reg ex search.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SimpleRegexReplaceRule.#ctor(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.SimpleRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+            <param name="regExOptions">
+            The reg ex options.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SimpleRegexReplaceRule.#ctor(System.Text.RegularExpressions.Regex,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.SimpleRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SimpleRegexReplaceRule.Replace(System.String@,YAF.Classes.Core.BBCode.HtmlReplacementCollection@)">
+            <summary>
+            The replace.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="replacement">
+            The replacement.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SimpleRegexReplaceRule.GetInnerValue(System.String)">
+            <summary>
+            The get inner value.
+            </summary>
+            <param name="innerValue">
+            The inner value.
+            </param>
+            <returns>
+            The get inner value.
+            </returns>
+        </member>
+        <member name="P:YAF.Classes.Core.BBCode.SimpleRegexReplaceRule.RuleDescription">
+            <summary>
+              Gets RuleDescription.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.SingleRegexReplaceRule">
+            <summary>
+            For basic regex with no variables
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SingleRegexReplaceRule.#ctor(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.SingleRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+            <param name="regExOptions">
+            The reg ex options.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SingleRegexReplaceRule.Replace(System.String@,YAF.Classes.Core.BBCode.HtmlReplacementCollection@)">
+            <summary>
+            The replace.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="replacement">
+            The replacement.
+            </param>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.VariableRegexReplaceRule">
+            <summary>
+            For complex regex with variable/default and truncate support
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.VariableRegexReplaceRule._truncateLength">
+            <summary>
+              The _truncate length.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.VariableRegexReplaceRule._variableDefaults">
+            <summary>
+              The _variable defaults.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.VariableRegexReplaceRule._variables">
+            <summary>
+              The _variables.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.VariableRegexReplaceRule.#ctor(System.Text.RegularExpressions.Regex,System.String,System.String[],System.String[],System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.VariableRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+            <param name="variables">
+            The variables.
+            </param>
+            <param name="varDefaults">
+            The var defaults.
+            </param>
+            <param name="truncateLength">
+            The truncate length.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.VariableRegexReplaceRule.#ctor(System.Text.RegularExpressions.Regex,System.String,System.String[],System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.VariableRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+            <param name="variables">
+            The variables.
+            </param>
+            <param name="varDefaults">
+            The var defaults.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.VariableRegexReplaceRule.#ctor(System.Text.RegularExpressions.Regex,System.String,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.VariableRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+            <param name="variables">
+            The variables.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.VariableRegexReplaceRule.#ctor(System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.String[],System.String[],System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.VariableRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+            <param name="regExOptions">
+            The reg ex options.
+            </param>
+            <param name="variables">
+            The variables.
+            </param>
+            <param name="varDefaults">
+            The var defaults.
+            </param>
+            <param name="truncateLength">
+            The truncate length.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.VariableRegexReplaceRule.#ctor(System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.String[],System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.VariableRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+            <param name="regExOptions">
+            The reg ex options.
+            </param>
+            <param name="variables">
+            The variables.
+            </param>
+            <param name="varDefaults">
+            The var defaults.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.VariableRegexReplaceRule.#ctor(System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.VariableRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+            <param name="regExOptions">
+            The reg ex options.
+            </param>
+            <param name="variables">
+            The variables.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.VariableRegexReplaceRule.Replace(System.String@,YAF.Classes.Core.BBCode.HtmlReplacementCollection@)">
+            <summary>
+            The replace.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="replacement">
+            The replacement.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.VariableRegexReplaceRule.ManageVariableValue(System.String,System.String,System.String)">
+            <summary>
+            Override to change default variable handling...
+            </summary>
+            <param name="variableName">
+            </param>
+            <param name="variableValue">
+            </param>
+            <param name="handlingValue">
+            variable transfermation desired
+            </param>
+            <returns>
+            The manage variable value.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.FontSizeRegexReplaceRule">
+            <summary>
+            For the font size with replace
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.FontSizeRegexReplaceRule.#ctor(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.FontSizeRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+            <param name="regExOptions">
+            The reg ex options.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.FontSizeRegexReplaceRule.ManageVariableValue(System.String,System.String,System.String)">
+            <summary>
+            The manage variable value.
+            </summary>
+            <param name="variableName">
+            The variable name.
+            </param>
+            <param name="variableValue">
+            The variable value.
+            </param>
+            <param name="handlingValue">
+            The handling value.
+            </param>
+            <returns>
+            The manage variable value.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.FontSizeRegexReplaceRule.GetFontSize(System.String)">
+            <summary>
+            The get font size.
+            </summary>
+            <param name="inputStr">
+            The input str.
+            </param>
+            <returns>
+            The get font size.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.PostTopicRegexReplaceRule">
+            <summary>
+            For the font size with replace
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.PostTopicRegexReplaceRule.#ctor(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.PostTopicRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+            <param name="regExOptions">
+            The reg ex options.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.PostTopicRegexReplaceRule.ManageVariableValue(System.String,System.String,System.String)">
+            <summary>
+            The manage variable value.
+            </summary>
+            <param name="variableName">
+            The variable name.
+            </param>
+            <param name="variableValue">
+            The variable value.
+            </param>
+            <param name="handlingValue">
+            The handling value.
+            </param>
+            <returns>
+            The manage variable value.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.CodeRegexReplaceRule">
+            <summary>
+            Simple code block regular express replace
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.CodeRegexReplaceRule.#ctor(System.Text.RegularExpressions.Regex,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.CodeRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.CodeRegexReplaceRule.Replace(System.String@,YAF.Classes.Core.BBCode.HtmlReplacementCollection@)">
+            <summary>
+            The replace.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="replacement">
+            The replacement.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.CodeRegexReplaceRule.GetInnerValue(System.String)">
+            <summary>
+            This just overrides how the inner value is handled
+            </summary>
+            <param name="innerValue">
+            </param>
+            <returns>
+            The get inner value.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.SyntaxHighlightedCodeRegexReplaceRule">
+            <summary>
+            Syntax Highlighted code block regular express replace
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.SyntaxHighlightedCodeRegexReplaceRule._syntaxHighlighter">
+            <summary>
+              The _syntax highlighter.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SyntaxHighlightedCodeRegexReplaceRule.#ctor(System.Text.RegularExpressions.Regex,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.SyntaxHighlightedCodeRegexReplaceRule"/> class.
+            </summary>
+            <param name="regExSearch">
+            The reg ex search.
+            </param>
+            <param name="regExReplace">
+            The reg ex replace.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SyntaxHighlightedCodeRegexReplaceRule.Replace(System.String@,YAF.Classes.Core.BBCode.HtmlReplacementCollection@)">
+            <summary>
+            The replace.
+            </summary>
+            <param name="text">
+            The text.
+            </param>
+            <param name="replacement">
+            The replacement.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.SyntaxHighlightedCodeRegexReplaceRule.GetInnerValue(System.String)">
+            <summary>
+            This just overrides how the inner value is handled
+            </summary>
+            <param name="innerValue">
+            </param>
+            <returns>
+            The get inner value.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.HtmlReplacementCollection">
+            <summary>
+            Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.HtmlReplacementCollection._replacementDictionary">
+            <summary>
+              The _replacement dictionary.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.HtmlReplacementCollection._rgxHtml">
+            <summary>
+              The _rgx html.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.HtmlReplacementCollection._currentIndex">
+            <summary>
+              The _current index.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.HtmlReplacementCollection._options">
+            <summary>
+              The _options.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.HtmlReplacementCollection._randomInstance">
+            <summary>
+              The _random instance.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.HtmlReplacementCollection._replaceFormat">
+            <summary>
+              The _replace format.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.HtmlReplacementCollection.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.HtmlReplacementCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.HtmlReplacementCollection.AddReplacement(YAF.Classes.Core.BBCode.HtmlReplacementBlock)">
+            <summary>
+            The add replacement.
+            </summary>
+            <param name="newItem">
+            The new item.
+            </param>
+            <returns>
+            The add replacement.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.HtmlReplacementCollection.GetReplaceValue(System.Int32)">
+            <summary>
+            The get replace value.
+            </summary>
+            <param name="index">
+            The index.
+            </param>
+            <returns>
+            The get replace value.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.HtmlReplacementCollection.GetReplacementsFromText(System.String@)">
+            <summary>
+            Pull replacement blocks from the text
+            </summary>
+            <param name="strText">
+            The str Text.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.HtmlReplacementCollection.GetReplacementsFromText(System.Text.StringBuilder@)">
+            <summary>
+            The get replacements from text.
+            </summary>
+            <param name="sb">
+            The sb.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.HtmlReplacementCollection.RandomizeInstance">
+            <summary>
+            get a random number for the instance
+              so it's harder to guess the replacement format
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.HtmlReplacementCollection.Reconstruct(System.String@)">
+            <summary>
+            Reconstructs the text from the collection elements...
+            </summary>
+            <param name="text">
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.BBCode.HtmlReplacementCollection.ReplacementDictionary">
+            <summary>
+              Gets ReplacementDictionary.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.HtmlReplacementBlock">
+            <summary>
+            Simple class that doesn't do anything except store a tag.
+              Why a class? Because I may want to add to it someday...
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.HtmlReplacementBlock._tag">
+            <summary>
+              The _tag.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.HtmlReplacementBlock.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.HtmlReplacementBlock"/> class.
+            </summary>
+            <param name="tag">
+            The tag.
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Core.BBCode.HtmlReplacementBlock.Tag">
+            <summary>
+              Gets Tag.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.MailSendTask">
             <summary>
             Sends Email in the background.
@@ -3638,6 +4718,350 @@
             <returns>
             The read articles.
             </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.YafBBCode">
+            <summary>
+            Summary description for YafBBCode.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._options">
+            <summary>
+            The _options.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxBBCodeLocalizationTag">
+            <summary>
+            The _rgx bb code localization tag.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxBold">
+            <summary>
+            The _rgx bold.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxBr">
+            <summary>
+            The _rgx br.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxBullet">
+            <summary>
+            The _rgx bullet.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxCenter">
+            <summary>
+            The _rgx center.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxCode1">
+            <summary>
+            The _rgx code 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxCode2">
+            <summary>
+            The _rgx code 2.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxColor">
+            <summary>
+            The _rgx color.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxEmail1">
+            <summary>
+            The _rgx email 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxEmail2">
+            <summary>
+            The _rgx email 2.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxFont">
+            <summary>
+            The _rgx font.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxHr">
+            <summary>
+            The _rgx hr.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxImg">
+            <summary>
+            The _rgx img.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxHighlighted">
+            <summary>
+            The _rgx italic.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxItalic">
+            <summary>
+            The _rgx italic.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxLeft">
+            <summary>
+            The _rgx left.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxList1">
+            <summary>
+            The _rgx list 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxList2">
+            <summary>
+            The _rgx list 2.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxList3">
+            <summary>
+            The _rgx list 3.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxList4">
+            <summary>
+            The _rgx list 4.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxPost">
+            <summary>
+            The _rgx post.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxQuote1">
+            <summary>
+            The _rgx quote 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxQuote2">
+            <summary>
+            The _rgx quote 2.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxRight">
+            <summary>
+            The _rgx right.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxSize">
+            <summary>
+            The _rgx size.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxStrike">
+            <summary>
+            The _rgx strike.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxTopic">
+            <summary>
+            The _rgx topic.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxUnderline">
+            <summary>
+            The _rgx underline.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxUrl1">
+            <summary>
+            The _rgx url 1.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.YafBBCode._rgxUrl2">
+            <summary>
+            The _rgx url 2.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:YAF.Classes.Core.BBCode.YafBBCode"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.MakeHtml(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Converts a string containing YafBBCode to the equivalent HTML string.
+            </summary>
+            <param name="inputString">
+            Input string containing YafBBCode to convert to HTML
+            </param>
+            <param name="doFormatting">
+            </param>
+            <param name="targetBlankOverride">
+            </param>
+            <returns>
+            The make html.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.ConvertBBCodeToHtmlForEdit(System.String)">
+            <summary>
+            Converts a message containing YafBBCode to HTML appropriate for editing in a rich text editor.
+            </summary>
+            <remarks>
+            YafBBCode quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string 
+            returned, as to appear in plain text in rich text editors.
+            </remarks>
+            <param name="message">
+            String containing the body of the message to convert
+            </param>
+            <returns>
+            The converted text
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.CreateBBCodeRules(YAF.Classes.Core.BBCode.ReplaceRules@,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Creates the rules that convert <see cref="T:YAF.Classes.Core.BBCode.YafBBCode"/> to HTML
+            </summary>
+            <param name="ruleEngine">
+            The rule Engine.
+            </param>
+            <param name="doFormatting">
+            The do Formatting.
+            </param>
+            <param name="targetBlankOverride">
+            The target Blank Override.
+            </param>
+            <param name="useNoFollow">
+            The use No Follow.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.CreateBBCodeRules(YAF.Classes.Core.BBCode.ReplaceRules@,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Creates the rules that convert <see cref="T:YAF.Classes.Core.BBCode.YafBBCode"/> to HTML
+            </summary>
+            <param name="ruleEngine">
+            The rule Engine.
+            </param>
+            <param name="doFormatting">
+            The do Formatting.
+            </param>
+            <param name="targetBlankOverride">
+            The target Blank Override.
+            </param>
+            <param name="useNoFollow">
+            The use No Follow.
+            </param>
+            <param name="convertBBQuotes">
+            The convert BB Quotes.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.AddCustomBBCodeRules(YAF.Classes.Core.BBCode.ReplaceRules@)">
+            <summary>
+            Applies Custom YafBBCode Rules from the YafBBCode table
+            </summary>
+            <param name="rulesEngine">
+            The rules Engine.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.GetCustomBBCode">
+            <summary>
+            The get custom bb code.
+            </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.RegisterCustomBBCodePageElements(System.Web.UI.Page,System.Type)">
+            <summary>
+            Helper function that dandles registering "custom bbcode" javascript (if there is any)
+            for all the custom YafBBCode.
+            </summary>
+            <param name="currentPage">
+            The current Page.
+            </param>
+            <param name="currentType">
+            The current Type.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.RegisterCustomBBCodePageElements(System.Web.UI.Page,System.Type,System.String)">
+            <summary>
+            Helper function that dandles registering "custom bbcode" javascript (if there is any)
+            for all the custom YafBBCode. Defining editorID make the system also show "editor js" (if any).
+            </summary>
+            <param name="currentPage">
+            The current Page.
+            </param>
+            <param name="currentType">
+            The current Type.
+            </param>
+            <param name="editorID">
+            The editor ID.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.LocalizeCustomBBCodeElement(System.String)">
+            <summary>
+            Handles localization for a Custom YafBBCode Elements using
+            the code [localization=tag]default[/localization]
+            </summary>
+            <param name="strToLocalize">
+            </param>
+            <returns>
+            The localize custom bb code element.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.EncodeHTML(System.String)">
+            <summary>
+            Encodes HTML - same as <see cref="M:System.Web.HttpServerUtility.HtmlEncode(System.String)"/>
+            </summary>
+            <param name="html">
+            </param>
+            <returns>
+            The encode html.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.YafBBCode.DecodeHTML(System.String)">
+            <summary>
+            Decodes HTML - same as <see cref="M:System.Web.HttpServerUtility.HtmlDecode(System.String)"/>
+            </summary>
+            <param name="text">
+            </param>
+            <returns>
+            The decode html.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.HighLighter">
+            <summary>
+            The high lighter.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.BBCode.HighLighter._replaceEnter">
+            <summary>
+              The _replace enter.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.HighLighter.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.BBCode.HighLighter"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.HighLighter.ColorText(System.String,System.String,System.String)">
+            <summary>
+            The color text.
+            </summary>
+            <param name="tmpCode">
+            The tmp code.
+            </param>
+            <param name="pathToDefFile">
+            The path to def file.
+            </param>
+            <param name="language">
+            The language.
+            </param>
+            <returns>
+            The color text.
+            </returns>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
+        <member name="P:YAF.Classes.Core.BBCode.HighLighter.ReplaceEnter">
+            <summary>
+              Gets or sets a value indicating whether ReplaceEnter.
+            </summary>
         </member>
         <member name="T:YAF.Modules.YafModule">
             <summary>
@@ -4468,90 +5892,129 @@
             Saves the whole setting registry to the database.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Core.DigestSendTask">
+            <summary>
+            The digest send task.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.Core.DigestSendTask._taskName">
+            <summary>
+              The _task name.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.DigestSendTask.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Classes.Core.DigestSendTask"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.DigestSendTask.RunOnce">
+            <summary>
+            The run once.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.DigestSendTask.IsTimeToSendDigestForBoard(YAF.Classes.Core.YafLoadBoardSettings)">
+            <summary>
+            The is time to send digest for board.
+            </summary>
+            <param name="boardId">
+            The board id.
+            </param>
+            <returns>
+            The is time to send digest for board.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.DigestSendTask.SendDigest">
+            <summary>
+            The send digest.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.DigestSendTask.SendDigestToUsers(System.Collections.Generic.IEnumerable{YAF.Classes.Data.TypedUserFind},System.Int32,System.String)">
+            <summary>
+            The send digest to users.
+            </summary>
+            <param name="usersWithDigest">
+              The users with digest.
+            </param>
+            <param name="boardId"></param>
+            <param name="name"></param>
+        </member>
+        <member name="P:YAF.Classes.Core.DigestSendTask.TaskName">
+            <summary>
+              Gets TaskName.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Core.YafDBBroker">
             <summary>
             Class used for multi-step DB operations so they can be cached, etc.
             </summary>
         </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.StyleTransformDataTable(System.Data.DataTable)">
+        <member name="M:YAF.Classes.Core.YafDBBroker.ActiveUserLazyData(System.Object)">
             <summary>
-            The style transform func wrap.
+            The user lazy data.
             </summary>
-            <param name="dt">
-            The DateTable
+            <param name="userID">
+            The user ID.
             </param>
             <returns>
-            The style transform wrap.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.StyleTransformDataTable(System.Data.DataTable,System.String[])">
+        <member name="M:YAF.Classes.Core.YafDBBroker.AddThanksInfo(System.Data.DataTable)">
             <summary>
-            The style transform func wrap.
+            Adds the Thanks info to a dataTable
             </summary>
-            <param name="dt">
-            The DateTable
+            <param name="dataTable">
             </param>
-            <param name="styleColumns">
-            Style columns names
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Returns the layout of the board
+            </summary>
+            <param name="boardID">
+            BoardID
+            </param>
+            <param name="userID">
+            UserID
+            </param>
+            <param name="categoryID">
+            CategoryID
+            </param>
+            <param name="parentID">
+            ParentID
             </param>
             <returns>
-            The style transform wrap.
+            Returns board layout
             </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.UserBuddyList(System.Int32)">
-            <summary>
-            The Buddy list for the user with the specified UserID.
-            </summary>
-            <param name="UserID"></param>
-            <returns></returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDBBroker.FavoriteTopicList(System.Int32)">
             <summary>
             The favorite topic list.
             </summary>
-            <param name="userId">
-            The user id.
+            <param name="userID">
+            The user ID.
             </param>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.UserIgnoredList(System.Int32)">
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetActiveList(System.Boolean)">
             <summary>
-            The user ignored list.
+            The get active list.
             </summary>
-            <param name="userId">
-            The user id.
+            <param name="guests">
+            The guests.
             </param>
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.UserMedals(System.Int32)">
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetActiveList(System.Int32,System.Boolean)">
             <summary>
-            The user medals.
+            The get active list.
             </summary>
-            <param name="userId">
-            The user id.
+            <param name="activeTime">
+            The active time.
             </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.ActiveUserLazyData(System.Object)">
-            <summary>
-            The user lazy data.
-            </summary>
-            <param name="userId">
-            The user id.
+            <param name="guests">
+            The guests.
             </param>
-            <param name="styledNicks">
-            The styled nicks.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.GetModerators">
-            <summary>
-            The get moderators.
-            </summary>
             <returns>
             </returns>
         </member>
@@ -4559,6 +6022,19 @@
             <summary>
             The get all moderators.
             </summary>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetSimpleForumTopic(System.Int32,System.Int32,System.DateTime,System.Int32)">
+            <summary>
+            Get a simple forum/topic listing.
+            </summary>
+            <param name="boardId">
+            The board Id.
+            </param>
+            <param name="userId">
+            The user Id.
+            </param>
             <returns>
             </returns>
         </member>
@@ -4601,60 +6077,73 @@
             <returns>
             </returns>
         </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.GetActiveList(System.Boolean)">
+        <member name="M:YAF.Classes.Core.YafDBBroker.GetModerators">
             <summary>
-            The get active list.
+            The get moderators.
             </summary>
-            <param name="guests">
-            The guests.
-            </param>
             <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.GetActiveList(System.Int32,System.Boolean)">
-            <summary>
-            The get active list.
-            </summary>
-            <param name="activeTime">
-            The active time.
-            </param>
-            <param name="guests">
-            The guests.
-            </param>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.BoardLayout(System.Object,System.Object,System.Object,System.Object)">
-            <summary>
-            Returns the layout of the board
-            </summary>
-            <param name="boardID">
-            BoardID
-            </param>
-            <param name="userID">
-            UserID
-            </param>
-            <param name="categoryID">
-            CategoryID
-            </param>
-            <param name="parentID">
-            ParentID
-            </param>
-            <returns>
-            Returns board layout
             </returns>
         </member>
         <member name="M:YAF.Classes.Core.YafDBBroker.LoadMessageText(System.Collections.Generic.IEnumerable{System.Data.DataRow})">
             <summary>
             Loads the message text into the paged data if "Message" and "MessageID" exists.
             </summary>
-            <param name="dataRows"></param>
+            <param name="dataRows">
+            </param>
         </member>
-        <member name="M:YAF.Classes.Core.YafDBBroker.AddThanksInfo(System.Data.DataTable)">
+        <member name="M:YAF.Classes.Core.YafDBBroker.StyleTransformDataTable(System.Data.DataTable)">
             <summary>
-            Adds the Thanks info to a dataTable
+            The style transform func wrap.
             </summary>
-            <param name="dataTable"></param>
+            <param name="dt">
+            The DateTable
+            </param>
+            <returns>
+            The style transform wrap.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.StyleTransformDataTable(System.Data.DataTable,System.String[])">
+            <summary>
+            The style transform func wrap.
+            </summary>
+            <param name="dt">
+            The DateTable
+            </param>
+            <param name="styleColumns">
+            Style columns names
+            </param>
+            <returns>
+            The style transform wrap.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.UserBuddyList(System.Int32)">
+            <summary>
+            The Buddy list for the user with the specified UserID.
+            </summary>
+            <param name="UserID">
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.UserIgnoredList(System.Int32)">
+            <summary>
+            The user ignored list.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Core.YafDBBroker.UserMedals(System.Int32)">
+            <summary>
+            The user medals.
+            </summary>
+            <param name="userId">
+            The user id.
+            </param>
+            <returns>
+            </returns>
         </member>
         <member name="T:YAF.Classes.Core.YafDynamicDBConnManager">
             <summary>
@@ -5415,6 +6904,28 @@
             </param>
             <returns>
             The build url.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Core.BBCode.ReplaceRulesCreator">
+            <summary>
+            Gets an instance of replace rules and uses
+              caching if possible.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.ReplaceRulesCreator.ClearCache">
+            <summary>
+            Clears all ReplaceRules from the cache.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.BBCode.ReplaceRulesCreator.GetInstance(System.Boolean[])">
+            <summary>
+            Gets relace rules instance for given flags.
+            </summary>
+            <param name="uniqueFlags">
+            Flags identifying replace rules.
+            </param>
+            <returns>
+            ReplaceRules for given unique flags.
             </returns>
         </member>
         <member name="T:YAF.Classes.Core.RoleMembershipHelper">
@@ -6482,6 +7993,41 @@
             <summary>
             On YafContext Unload Call
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.YafSendNotification">
+            <summary>
+            The yaf send notification.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendNotification.ToModeratorsThatMessageNeedsApproval(System.Int32,System.Int32)">
+            <summary>
+            The to moderators that message needs approval.
+            </summary>
+            <param name="forumId">
+            The forum id.
+            </param>
+            <param name="newMessageId">
+            The new message id.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendNotification.ToPrivateMessageRecipient(System.Int32,System.String)">
+            <summary>
+            Sends notification about new PM in user's inbox.
+            </summary>
+            <param name="toUserId">
+            User supposed to receive notification about new PM.
+            </param>
+            <param name="subject">
+            Subject of PM user is notified about.
+            </param>
+        </member>
+        <member name="M:YAF.Classes.Core.YafSendNotification.ToWatchingUsers(System.Int64)">
+            <summary>
+            The to watching users.
+            </summary>
+            <param name="newMessageId">
+            The new message id.
+            </param>
         </member>
         <member name="T:YAF.Classes.Core.Nntp.ArticleBody">
             <summary>

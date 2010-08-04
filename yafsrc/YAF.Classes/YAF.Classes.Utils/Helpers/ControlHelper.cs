@@ -20,6 +20,7 @@ namespace YAF.Classes.Utils
 {
   using System;
   using System.Collections.Generic;
+  using System.IO;
   using System.Linq;
   using System.Web.UI;
   using System.Web.UI.HtmlControls;
@@ -30,6 +31,28 @@ namespace YAF.Classes.Utils
   /// </summary>
   public static class ControlHelper
   {
+    /// <summary>
+    /// Renders a control to a string.
+    /// </summary>
+    /// <param name="control"></param>
+    /// <returns></returns>
+    public static string RenderToString(this Control control)
+    {
+      if (control.Visible)
+      {
+        using (var stringWriter = new StringWriter())
+        {
+          using (var writer = new HtmlTextWriter(stringWriter))
+          {
+            control.RenderControl(writer);
+            return stringWriter.ToString();
+          }
+        }
+      }
+
+      return String.Empty;
+    }
+
     /// <summary>
     /// Finds a control recursively (forward only) using <paramref name="isControl"/> function.
     /// </summary>

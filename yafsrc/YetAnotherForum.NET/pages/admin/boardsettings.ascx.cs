@@ -20,21 +20,27 @@
 
 namespace YAF.Pages.Admin
 {
+  #region Using
+
   using System;
   using System.Data;
   using System.Linq;
   using System.Web.UI.WebControls;
+
   using YAF.Classes;
-  using System.Data.DataSetExtensions;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for settings.
   /// </summary>
   public partial class boardsettings : AdminPage
   {
+    #region Methods
+
     /// <summary>
     /// The page_ load.
     /// </summary>
@@ -46,9 +52,9 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (!IsPostBack)
+      if (!this.IsPostBack)
       {
-        this.PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
         this.PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
         this.PageLinks.AddLink("Board Settings", string.Empty);
 
@@ -71,9 +77,11 @@ namespace YAF.Pages.Admin
           this.MobileTheme.DataValueField = "FileName";
         }
 
-        this.Language.DataSource = StaticDataHelper.Cultures();
-        this.Language.DataTextField = "CultureNativeName";
-        this.Language.DataValueField = "CultureTag";       
+        this.Culture.DataSource =
+          StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable();
+            
+        this.Culture.DataTextField = "CultureNativeName";
+        this.Culture.DataValueField = "CultureTag";
 
         this.ShowTopic.DataSource = StaticDataHelper.TopicTimes();
         this.ShowTopic.DataTextField = "TopicText";
@@ -83,23 +91,80 @@ namespace YAF.Pages.Admin
         this.FileExtensionAllow.DataTextField = "Text";
         this.FileExtensionAllow.DataValueField = "Value";
 
-        BindData();
+        this.BindData();
 
         // Get first default full culture from a language file tag.
-        string langFileCulture = StaticDataHelper.CultureDefaultFromFile(PageContext.BoardSettings.Language);
-        
-        SetSelectedOnList(ref this.Theme, PageContext.BoardSettings.Theme);
-        SetSelectedOnList(ref this.MobileTheme, PageContext.BoardSettings.MobileTheme);
+        string langFileCulture = StaticDataHelper.CultureDefaultFromFile(this.PageContext.BoardSettings.Language) ?? "en";
+
+        SetSelectedOnList(ref this.Theme, this.PageContext.BoardSettings.Theme);
+        SetSelectedOnList(ref this.MobileTheme, this.PageContext.BoardSettings.MobileTheme);
 
         // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
-        SetSelectedOnList(ref this.Language, (langFileCulture.Substring(0,2) == PageContext.BoardSettings.Culture ? PageContext.BoardSettings.Culture :langFileCulture));      
-        SetSelectedOnList(ref this.ShowTopic, PageContext.BoardSettings.ShowTopicsDefault.ToString());
-        SetSelectedOnList(ref this.FileExtensionAllow, PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1");
+        SetSelectedOnList(ref this.Culture, langFileCulture.Substring(0, 2) == this.PageContext.BoardSettings.Culture ? this.PageContext.BoardSettings.Culture : langFileCulture);
 
-        this.NotificationOnUserRegisterEmailList.Text = PageContext.BoardSettings.NotificationOnUserRegisterEmailList;
-        this.AllowThemedLogo.Checked = PageContext.BoardSettings.AllowThemedLogo;
-        this.EmailModeratorsOnModeratedPost.Checked = PageContext.BoardSettings.EmailModeratorsOnModeratedPost;
+        SetSelectedOnList(ref this.ShowTopic, this.PageContext.BoardSettings.ShowTopicsDefault.ToString());
+        SetSelectedOnList(
+          ref this.FileExtensionAllow, this.PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1");
+
+        this.NotificationOnUserRegisterEmailList.Text =
+          this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList;
+        this.AllowThemedLogo.Checked = this.PageContext.BoardSettings.AllowThemedLogo;
+        this.EmailModeratorsOnModeratedPost.Checked = this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost;
+        this.AllowDigestEmail.Checked = this.PageContext.BoardSettings.AllowDigestEmail;
       }
+    }
+
+    /// <summary>
+    /// The save_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Save_Click(object sender, EventArgs e)
+    {
+      string languageFile = "english.xml";
+
+      var cultures = StaticDataHelper.Cultures().AsEnumerable().Where(c => c.Field<string>("CultureTag").Equals(this.Culture.SelectedValue));
+
+      if (cultures.Any())
+      {
+        languageFile = cultures.First().Field<string>("CultureFile");
+      }
+
+      DB.board_save(
+        this.PageContext.PageBoardID, languageFile, this.Culture.SelectedValue, this.Name.Text, this.AllowThreaded.Checked);
+
+      this.PageContext.BoardSettings.Language = languageFile;
+      this.PageContext.BoardSettings.Culture = this.Culture.SelectedValue;
+      this.PageContext.BoardSettings.Theme = this.Theme.SelectedValue;
+      if (this.MobileTheme.SelectedValue.IsSet())
+      {
+        this.PageContext.BoardSettings.MobileTheme = this.MobileTheme.SelectedValue;
+      }
+
+      this.PageContext.BoardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
+      this.PageContext.BoardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
+      this.PageContext.BoardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.SelectedValue.ToType<int>() == 0
+                                                                 ? true
+                                                                 : false;
+      this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList =
+        this.NotificationOnUserRegisterEmailList.Text.Trim();
+
+      this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
+      this.PageContext.BoardSettings.AllowDigestEmail = this.AllowDigestEmail.Checked;
+
+      // save the settings to the database
+      ((YafLoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
+
+      // Reload forum settings
+      this.PageContext.BoardSettings = null;
+
+      // Clearing cache with old users permissions data to get new default styles...
+      this.PageContext.Cache.Remove((x) => x.StartsWith(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData)));
+      YafBuildLink.Redirect(ForumPages.admin_admin);
     }
 
     /// <summary>
@@ -132,63 +197,16 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       DataRow row;
-      using (DataTable dt = DB.board_list(PageContext.PageBoardID))
+      using (DataTable dt = DB.board_list(this.PageContext.PageBoardID))
       {
         row = dt.Rows[0];
       }
 
-      DataBind();
-      this.Name.Text = (string) row["Name"];
+      this.DataBind();
+      this.Name.Text = row["Name"].ToString();
       this.AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row["AllowThreaded"]);
     }
 
-    /// <summary>
-    /// The save_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Save_Click(object sender, EventArgs e)
-    {
-
-        System.Data.DataTable cult = StaticDataHelper.Cultures();
-        string langFile = "en-US";
-        foreach (System.Data.DataRow drow in cult.Rows)
-        {
-            if (drow["CultureTag"].ToString() == this.Language.SelectedValue)
-            {
-                langFile = (string)drow["CultureFile"];
-            }
-        }
-
-      DB.board_save(PageContext.PageBoardID, langFile,this.Language.SelectedValue, this.Name.Text, this.AllowThreaded.Checked);
-
-      PageContext.BoardSettings.Language = langFile;
-      PageContext.BoardSettings.Culture = this.Language.SelectedValue;
-      PageContext.BoardSettings.Theme = this.Theme.SelectedValue;      
-      if (this.MobileTheme.SelectedValue.IsSet())
-      {
-        PageContext.BoardSettings.MobileTheme = this.MobileTheme.SelectedValue;
-      }
-      PageContext.BoardSettings.ShowTopicsDefault = Convert.ToInt32(this.ShowTopic.SelectedValue);
-      PageContext.BoardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
-      PageContext.BoardSettings.FileExtensionAreAllowed = Convert.ToInt32(this.FileExtensionAllow.SelectedValue) == 0 ? true : false;
-      PageContext.BoardSettings.NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim();
-
-      PageContext.BoardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
-
-      // save the settings to the database
-      ((YafLoadBoardSettings) PageContext.BoardSettings).SaveRegistry();
-
-      // Reload forum settings
-      PageContext.BoardSettings = null;
-
-      // Clearing cache with old users permissions data to get new default styles...
-      this.PageContext.Cache.Remove((x) => x.StartsWith(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData)));
-      YafBuildLink.Redirect(ForumPages.admin_admin);
-    }
+    #endregion
   }
 }

@@ -92,10 +92,11 @@ namespace YAF.Pages
     {
       Mession.UnreadTopics = 0;
 
-      this.RssFeed.AdditionalParameters = String.Format("f={0}", Request.QueryString.GetFirstOrDefault("f"));
+      this.RssFeed.AdditionalParameters = "f={0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("f"));
       this.MarkRead.Text = GetText("MARKREAD");
       this.ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
-      lastPostImageTT = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+      this.lastPostImageTT = this.PageContext.Localization.GetText("DEFAULT", "GO_LAST_POST");
+
       if (!IsPostBack)
       {
         // PageLinks.Clear();
@@ -120,7 +121,12 @@ namespace YAF.Pages
         YafBuildLink.AccessDenied();
       }
 
-      if (!PageContext.ForumReadAccess)
+      if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
+      {
+        // attempt to get permission by redirecting to login...
+        YafServices.Permissions.HandleRequest(ViewPermissions.RegisteredUsers);
+      }
+      else if (!this.PageContext.ForumReadAccess)
       {
         YafBuildLink.AccessDenied();
       }
@@ -133,12 +139,12 @@ namespace YAF.Pages
       if (this._forum["RemoteURL"] != DBNull.Value)
       {
         Response.Clear();
-        Response.Redirect((string) this._forum["RemoteURL"]);
+        Response.Redirect((string)this._forum["RemoteURL"]);
       }
 
       this._forumFlags = new ForumFlags(this._forum["Flags"]);
 
-      this.PageTitle.Text = (string) this._forum["Name"];
+      this.PageTitle.Text = (string)this._forum["Name"];
 
       BindData(); // Always because of yaf:TopicLine
 

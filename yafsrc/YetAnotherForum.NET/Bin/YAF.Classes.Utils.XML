@@ -4,7 +4,7 @@
         <name>YAF.Classes.Utils</name>
     </assembly>
     <members>
-        <member name="M:YAF.Classes.Utils.Extensions.StreamExtensions.ToString(System.IO.Stream)">
+        <member name="M:YAF.Classes.Utils.Extensions.StreamExtensions.AsString(System.IO.Stream)">
             <summary>
             Converts a Stream to a String.
             </summary>
@@ -253,6 +253,13 @@
             <summary>
             Provides helper functions for using and accessing controls.
             </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.ControlHelper.RenderToString(System.Web.UI.Control)">
+            <summary>
+            Renders a control to a string.
+            </summary>
+            <param name="control"></param>
+            <returns></returns>
         </member>
         <member name="M:YAF.Classes.Utils.ControlHelper.ControlListRecursive(System.Web.UI.Control,System.Func{System.Web.UI.Control,System.Boolean})">
             <summary>
@@ -1491,6 +1498,14 @@
             </summary>
             <param name="userAgent">
             </param>
+            <param name="isCrawler">
+            </param>
+            <param name="platform">
+            </param>
+            <param name="isSearchEngine">
+            </param>
+            <param name="isIgnoredForDisplay">
+            </param>
             <returns>
             The void.
             </returns>
@@ -1599,7 +1614,7 @@
             The clean html string.
             </returns>
         </member>
-        <member name="M:YAF.Classes.Utils.HtmlHelper.IsValidTag(System.String,System.String[])">
+        <member name="M:YAF.Classes.Utils.HtmlHelper.IsValidTag(System.String,System.Collections.Generic.IEnumerable{System.String})">
             <summary>
             Validates an html tag against the allowedTags. Also check that
             it doesn't have any "extra" features such as javascript in it.
@@ -1695,44 +1710,6 @@
             <returns>
             The to char.
             </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.StringValueAttribute">
-            <summary>
-            This attribute is used to represent a string value
-            for a value in an enum.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.StringValueAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.StringValueAttribute"/> class. 
-            Constructor used to init a StringValue Attribute
-            </summary>
-            <param name="value">
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Utils.StringValueAttribute.StringValue">
-            <summary>
-            Holds the stringvalue for a value in an enum.
-            </summary>
-        </member>
-        <member name="T:YAF.Classes.Utils.AltStringValueAttribute">
-            <summary>
-            This attribute is used to represent a string value
-            for a value in an enum.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.AltStringValueAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.AltStringValueAttribute"/> class. 
-            Constructor used to init a StringValue Attribute
-            </summary>
-            <param name="value">
-            </param>
-        </member>
-        <member name="P:YAF.Classes.Utils.AltStringValueAttribute.AltStringValue">
-            <summary>
-            Holds the stringvalue for a value in an enum.
-            </summary>
         </member>
         <member name="T:YAF.Classes.Utils.EnumHelper">
             <summary>
@@ -2454,6 +2431,17 @@
             </param>
             <returns>
             The generate random string.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringHelper.AreAnyWordsOverMaxLength(System.String,System.Int32)">
+            <summary>
+            Function to check a max word length, used i.e. in topic names.
+            </summary>
+            <param name="text">
+            The raw string to format
+            </param>
+            <returns>
+            The formatted string
             </returns>
         </member>
         <member name="M:YAF.Classes.Utils.StringHelper.IsSet(System.String)">

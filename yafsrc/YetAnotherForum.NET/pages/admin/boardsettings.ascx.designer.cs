@@ -76,13 +76,13 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowThemedLogo;
         
         /// <summary>
-        /// Language control.
+        /// Culture control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Language;
+        protected global::System.Web.UI.WebControls.DropDownList Culture;
         
         /// <summary>
         /// ShowTopic control.
@@ -119,6 +119,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox EmailModeratorsOnModeratedPost;
+        
+        /// <summary>
+        /// AllowDigestEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowDigestEmail;
         
         /// <summary>
         /// Save control.

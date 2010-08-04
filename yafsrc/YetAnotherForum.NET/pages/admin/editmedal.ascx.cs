@@ -4,6 +4,7 @@ namespace YAF.Pages.Admin
   using System.Data;
   using System.Drawing;
   using System.IO;
+  using System.Linq;
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
   using YAF.Classes;
@@ -267,26 +268,25 @@ namespace YAF.Pages.Admin
     protected void FindUsers_Click(object sender, EventArgs e)
     {
       // try to find users by user name
-      using (DataTable dt = DB.user_find(PageContext.PageBoardID, true, this.UserName.Text, null, null))
+      var users = DB.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
+
+      if (users.Any())
       {
-        if (dt.Rows.Count > 0)
-        {
-          // we found a user(s)
-          this.UserNameList.DataSource = dt;
-          this.UserNameList.DataValueField = "UserID";
-          this.UserNameList.DataTextField = "Name";
-          this.UserNameList.DataBind();
+        // we found a user(s)
+        this.UserNameList.DataSource = users;
+        this.UserNameList.DataValueField = "UserID";
+        this.UserNameList.DataTextField = "Name";
+        this.UserNameList.DataBind();
 
-          // hide To text box and show To drop down
-          this.UserNameList.Visible = true;
-          this.UserName.Visible = false;
+        // hide To text box and show To drop down
+        this.UserNameList.Visible = true;
+        this.UserName.Visible = false;
 
-          // find is no more needed
-          this.FindUsers.Visible = false;
+        // find is no more needed
+        this.FindUsers.Visible = false;
 
-          // we need clear button displayed now
-          this.Clear.Visible = true;
-        }
+        // we need clear button displayed now
+        this.Clear.Visible = true;
       }
     }
 
@@ -471,28 +471,27 @@ namespace YAF.Pages.Admin
       else if (String.IsNullOrEmpty(this.UserNameList.SelectedValue) && String.IsNullOrEmpty(this.UserID.Text))
       {
         // only username is specified, we must find id for it
-        using (DataTable dt = DB.user_find(PageContext.PageBoardID, true, this.UserName.Text, null, null))
+        var users = DB.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, null, null, null);
+
+        if (users.Count() > 1)
         {
-          if (dt.Rows.Count > 1)
-          {
-            // more than one user is avalilable for this username
-            PageContext.AddLoadMessage("Ambiguous user name specified!");
-            return;
-          }
-          else if (dt.Rows.Count < 1)
-          {
-            // no user found
-            PageContext.AddLoadMessage("Please specify valid user!");
-            return;
-          }
-          else
-          {
-            // save id to the control
-            this.UserID.Text = dt.Rows[0]["UserID"].ToString();
-          }
+          // more than one user is avalilable for this username
+          PageContext.AddLoadMessage("Ambiguous user name specified!");
+          return;
+        }
+        else if (!users.Any())
+        {
+          // no user found
+          PageContext.AddLoadMessage("Please specify valid user!");
+          return;
+        }
+        else
+        {
+          // save id to the control
+          this.UserID.Text = (users.First().UserID ?? 0).ToString();
         }
       }
-      else if (String.IsNullOrEmpty(this.UserID.Text))
+      else if (this.UserID.Text.IsNotSet())
       {
         // user is selected in dropdown, we must get id to UserID control
         this.UserID.Text = this.UserNameList.SelectedValue;

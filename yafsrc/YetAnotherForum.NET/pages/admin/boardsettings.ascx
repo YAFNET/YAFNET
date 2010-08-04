@@ -50,12 +50,12 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Language:</b><br />
-				The default board language.</td>
+				<b>Culture:</b><br />
+				The default culture &amp; language for this forum.</td>
 			<td class="post">
-				<asp:DropDownList ID="Language" runat="server">
+				<asp:DropDownList ID="Culture" runat="server">
 				</asp:DropDownList></td>
-		</tr>		
+		</tr>        	
 		<tr>
 			<td class="postheader">
 				<b>Show Topic Default:</b><br />
@@ -85,7 +85,14 @@
 				Should all the moderators of a forum be notified if a new post that needs approval is created?</td>
 			<td class="post">
 				<asp:CheckBox ID="EmailModeratorsOnModeratedPost" runat="server"></asp:CheckBox></td>
-		</tr>		
+		</tr>
+		<tr>
+			<td class="postheader">
+				<b>Allow Digest Email Sending for Users Once Daily:</b><br />
+				Reqired: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to work.</td>
+			<td class="post">
+				<asp:CheckBox ID="AllowDigestEmail" runat="server"></asp:CheckBox></td>
+		</tr>
 		<tr>
 			<td class="postfooter" align="center" colspan="2">
 				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button></td>

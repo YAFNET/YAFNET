@@ -72,6 +72,27 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
+    /// Function to check a max word length, used i.e. in topic names.
+    /// </summary>
+    /// <param name="text">
+    /// The raw string to format
+    /// </param>
+    /// <returns>
+    /// The formatted string
+    /// </returns>
+    public static bool AreAnyWordsOverMaxLength(this string text, int maxWordLength)
+    {
+      if (maxWordLength > 0 && text.Length > 0)
+      {
+        var overMax = text.Split(' ').Where(w => w.IsSet() && w.Length > maxWordLength);
+
+        return overMax.Any();
+      }
+
+      return false;
+    }
+
+    /// <summary>
     /// When the string is trimmed, is it <see langword="null"/> or empty?
     /// </summary>
     /// <param name="str">

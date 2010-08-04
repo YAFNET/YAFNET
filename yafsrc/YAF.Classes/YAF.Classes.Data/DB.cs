@@ -7465,7 +7465,8 @@ namespace YAF.Classes.Data
       object pmNotification,
       object autoWatchTopics,
       object dSTUser,
-      object hideUser)
+      object hideUser,
+      object notificationType)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_save"))
       {
@@ -7485,6 +7486,35 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("AutoWatchTopics", autoWatchTopics);
         cmd.Parameters.AddWithValue("DSTUser", dSTUser);
         cmd.Parameters.AddWithValue("HideUser", hideUser);
+        cmd.Parameters.AddWithValue("NotificationType", notificationType);
+        YafDBAccess.Current.ExecuteNonQuery(cmd);
+      }
+    }
+
+    /// <summary>
+    /// Saves the notification type for a user
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="notificationType">
+    /// The notification type.
+    /// </param>
+    public static void user_savenotification(
+          object userID,
+          object pmNotification,
+          object autoWatchTopics,
+          object notificationType,
+          object dailyDigest)
+    {
+      using (SqlCommand cmd = YafDBAccess.GetCommand("user_savenotification"))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("UserID", userID);
+        cmd.Parameters.AddWithValue("PMNotification", pmNotification);
+        cmd.Parameters.AddWithValue("AutoWatchTopics", autoWatchTopics);
+        cmd.Parameters.AddWithValue("NotificationType", notificationType);
+        cmd.Parameters.AddWithValue("DailyDigest", dailyDigest);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }
@@ -7796,34 +7826,40 @@ namespace YAF.Classes.Data
     }
 
     /// <summary>
-    /// The user_find.
+    /// The UserFind.
     /// </summary>
-    /// <param name="displayName"></param>
     /// <param name="boardID">
-    /// The board id.
+    ///   The board id.
     /// </param>
     /// <param name="filter">
-    /// The filter.
+    ///   The filter.
     /// </param>
     /// <param name="userName">
-    /// The user name.
+    ///   The user name.
     /// </param>
     /// <param name="email">
-    /// The email.
+    ///   The email.
     /// </param>
+    /// <param name="displayName"></param>
+    /// <param name="notificationType"></param>
+    /// <param name="dailyDigest"></param>
     /// <returns>
     /// </returns>
-    public static DataTable user_find(object boardID, bool filter, object userName, object email, object displayName)
+    public static IEnumerable<TypedUserFind> UserFind(int boardID, bool filter, string userName, string email, string displayName, object notificationType, object dailyDigest)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_find"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
+
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("Filter", filter);
         cmd.Parameters.AddWithValue("UserName", userName);
         cmd.Parameters.AddWithValue("DisplayName", displayName);
         cmd.Parameters.AddWithValue("Email", email);
-        return YafDBAccess.Current.GetData(cmd);
+        cmd.Parameters.AddWithValue("NotificationType", notificationType);
+        cmd.Parameters.AddWithValue("DailyDigest", dailyDigest);
+
+        return YafDBAccess.Current.GetData(cmd).AsEnumerable().Select(u => new TypedUserFind(u));
       }
     }
 

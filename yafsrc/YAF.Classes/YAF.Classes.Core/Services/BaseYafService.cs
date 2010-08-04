@@ -16,54 +16,69 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-
 namespace YAF.Classes.Core
 {
+  #region Using
+
+  using System;
+
+  #endregion
+
   /// <summary>
   /// The root service.
   /// </summary>
   public abstract class BaseYafService : IYafService
   {
-    /// <summary>
-    /// Gets InitVarName.
-    /// </summary>
-    protected abstract string InitVarName
-    {
-      get;
-    }
+    #region Properties
 
     /// <summary>
-    /// Gets a value indicating whether Initialized.
+    ///   Gets a value indicating whether Initialized.
     /// </summary>
     public bool Initialized
     {
       get
       {
-        if (YafContext.Current[InitVarName] == null)
+        if (YafContext.Current[this.InitVarName] == null)
         {
           return false;
         }
 
-        return Convert.ToBoolean(YafContext.Current[InitVarName]);
+        return Convert.ToBoolean(YafContext.Current[this.InitVarName]);
       }
 
       private set
       {
-        YafContext.Current[InitVarName] = value;
+        YafContext.Current[this.InitVarName] = value;
       }
     }
+
+    /// <summary>
+    ///   Gets InitVarName.
+    /// </summary>
+    protected abstract string InitVarName { get; }
+
+    #endregion
+
+    #region Implemented Interfaces
+
+    #region IYafService
 
     /// <summary>
     /// The run.
     /// </summary>
     public void Run()
     {
-      if (!Initialized)
+      if (!this.Initialized)
       {
-        Initialized = RunService();
+        this.Initialized = this.RunService();
       }
     }
+
+    #endregion
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// The run service.
@@ -72,5 +87,7 @@ namespace YAF.Classes.Core
     /// The run service.
     /// </returns>
     protected abstract bool RunService();
+
+    #endregion
   }
 }

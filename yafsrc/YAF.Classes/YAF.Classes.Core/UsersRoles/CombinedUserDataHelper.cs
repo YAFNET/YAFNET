@@ -36,47 +36,30 @@ namespace YAF.Classes.Core
   {
     #region Constants and Fields
 
-    private MembershipUser _membershipUser = null;
+    /// <summary>
+    ///   The _membership user.
+    /// </summary>
+    private MembershipUser _membershipUser;
 
     /// <summary>
-    /// The _membership user.
+    ///   The _row convert.
     /// </summary>
-    protected MembershipUser MembershipUser
-    {
-      get
-      {
-        if (this._membershipUser == null && this._userID.HasValue)
-        {
-          _membershipUser = UserMembershipHelper.GetMembershipUserById(this._userID.Value);
-        }
-
-        return this._membershipUser;
-      }
-      set
-      {
-        this._membershipUser = value;
-      }
-    }
+    private DataRowConvert _rowConvert;
 
     /// <summary>
-    /// The _row convert.
+    ///   The _user db row.
     /// </summary>
-    private DataRowConvert _rowConvert = null;
+    private DataRow _userDBRow;
 
     /// <summary>
-    /// The _user db row.
+    ///   The _user id.
     /// </summary>
-    private DataRow _userDBRow = null;
+    private int? _userID;
 
     /// <summary>
-    /// The _user id.
+    ///   The _user profile.
     /// </summary>
-    private int? _userID = null;
-
-    /// <summary>
-    /// The _user profile.
-    /// </summary>
-    private YafUserProfile _userProfile = null;
+    private YafUserProfile _userProfile;
 
     #endregion
 
@@ -121,7 +104,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CombinedUserDataHelper"/> class.
+    ///   Initializes a new instance of the <see cref = "CombinedUserDataHelper" /> class.
     /// </summary>
     public CombinedUserDataHelper()
       : this(YafContext.Current.PageUserID)
@@ -133,7 +116,7 @@ namespace YAF.Classes.Core
     #region Properties
 
     /// <summary>
-    /// Gets a value indicating whether AutoWatchTopics.
+    ///   Gets a value indicating whether AutoWatchTopics.
     /// </summary>
     public bool AutoWatchTopics
     {
@@ -144,7 +127,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets Avatar.
+    ///   Gets Avatar.
     /// </summary>
     public string Avatar
     {
@@ -155,7 +138,18 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets DBRow.
+    ///   Gets Culture.
+    /// </summary>
+    public string CultureUser
+    {
+      get
+      {
+        return this.RowConvert.AsString("CultureUser");
+      }
+    }
+
+    /// <summary>
+    ///   Gets DBRow.
     /// </summary>
     public DataRow DBRow
     {
@@ -172,7 +166,53 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets Email.
+    ///   Gets a value indicating whether  DST is Enabled.
+    /// </summary>
+    public bool DSTUser
+    {
+      get
+      {
+        if (this.DBRow != null)
+        {
+          if (new UserFlags(this.DBRow["Flags"]).IsDST)
+          {
+            return true;
+          }
+        }
+
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether DailyDigest.
+    /// </summary>
+    public bool DailyDigest
+    {
+      get
+      {
+        return this.RowConvert.AsBool("DailyDigest");
+      }
+    }
+
+    /// <summary>
+    ///   Gets DisplayName.
+    /// </summary>
+    public string DisplayName
+    {
+      get
+      {
+        if (this._userID.HasValue)
+        {
+          return this.RowConvert.AsString("DisplayName");
+        }
+
+        return this.UserName;
+      }
+    }
+
+    /// <summary>
+    ///   Gets Email.
     /// </summary>
     public string Email
     {
@@ -188,7 +228,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets a value indicating whether HasAvatarImage.
+    ///   Gets a value indicating whether HasAvatarImage.
     /// </summary>
     public bool HasAvatarImage
     {
@@ -206,15 +246,15 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets a value indicating whether IsGuest.
+    ///   Gets a value indicating whether IsActiveExcluded.
     /// </summary>
-    public bool IsGuest
+    public bool IsActiveExcluded
     {
       get
       {
         if (this.DBRow != null)
         {
-          if (Convert.ToInt32(this.DBRow["IsGuest"]) > 0)
+          if (new UserFlags(this.DBRow["Flags"]).IsActiveExcluded)
           {
             return true;
           }
@@ -225,44 +265,26 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets a value indicating whether  DST is Enabled.
+    ///   Gets a value indicating whether IsGuest.
     /// </summary>
-    public bool DSTUser
+    public bool IsGuest
     {
-        get
+      get
+      {
+        if (this.DBRow != null)
         {
-            if (this.DBRow != null)
-            {
-                if (new UserFlags(this.DBRow["Flags"]).IsDST)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+          if (this.DBRow["IsGuest"].ToType<int>() > 0)
+          {
+            return true;
+          }
         }
-    }
-    /// <summary>
-    /// Gets a value indicating whether IsActiveExcluded.
-    /// </summary>
-    public bool IsActiveExcluded
-    {
-        get
-        {
-            if (this.DBRow != null)
-            {
-                if (new UserFlags(this.DBRow["Flags"]).IsActiveExcluded)
-                {
-                    return true;
-                }
-            }
 
-            return false;
-        }
+        return false;
+      }
     }
 
     /// <summary>
-    /// Gets Joined.
+    ///   Gets Joined.
     /// </summary>
     public DateTime? Joined
     {
@@ -273,7 +295,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets LanguageFile.
+    ///   Gets LanguageFile.
     /// </summary>
     public string LanguageFile
     {
@@ -284,18 +306,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets Culture.
-    /// </summary>
-    public string CultureUser
-    {
-        get
-        {
-            return this.RowConvert.AsString("CultureUser");
-        }
-    }
-
-    /// <summary>
-    /// Gets LastVisit.
+    ///   Gets LastVisit.
     /// </summary>
     public DateTime? LastVisit
     {
@@ -306,7 +317,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets Membership.
+    ///   Gets Membership.
     /// </summary>
     public MembershipUser Membership
     {
@@ -317,7 +328,20 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets NumPosts.
+    /// Gets NotificationSetting.
+    /// </summary>
+    public UserNotificationSetting NotificationSetting
+    {
+      get
+      {
+        int value = this.RowConvert.AsInt32("NotificationType") ?? 0;
+
+        return value.ToEnum<UserNotificationSetting>();
+      }
+    }
+
+    /// <summary>
+    ///   Gets NumPosts.
     /// </summary>
     public int? NumPosts
     {
@@ -328,7 +352,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets a value indicating whether OverrideDefaultThemes.
+    ///   Gets a value indicating whether OverrideDefaultThemes.
     /// </summary>
     public bool OverrideDefaultThemes
     {
@@ -339,7 +363,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets a value indicating whether PMNotification.
+    ///   Gets a value indicating whether PMNotification.
     /// </summary>
     public bool PMNotification
     {
@@ -350,7 +374,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets Points.
+    ///   Gets Points.
     /// </summary>
     public int? Points
     {
@@ -361,13 +385,13 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets Profile.
+    ///   Gets Profile.
     /// </summary>
     public YafUserProfile Profile
     {
       get
       {
-        if (this._userProfile == null && !String.IsNullOrEmpty(this.UserName))
+        if (this._userProfile == null && this.UserName.IsSet())
         {
           // init the profile...
           this._userProfile = YafUserProfile.GetProfile(this.UserName);
@@ -378,7 +402,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets RankName.
+    ///   Gets RankName.
     /// </summary>
     public string RankName
     {
@@ -389,7 +413,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets Signature.
+    ///   Gets Signature.
     /// </summary>
     public string Signature
     {
@@ -400,7 +424,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets ThemeFile.
+    ///   Gets ThemeFile.
     /// </summary>
     public string ThemeFile
     {
@@ -411,7 +435,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets TimeZone.
+    ///   Gets TimeZone.
     /// </summary>
     public int? TimeZone
     {
@@ -422,7 +446,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets UserID.
+    ///   Gets UserID.
     /// </summary>
     public int UserID
     {
@@ -438,7 +462,7 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets UserName.
+    ///   Gets UserName.
     /// </summary>
     public string UserName
     {
@@ -458,23 +482,28 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets DisplayName.
+    ///   The _membership user.
     /// </summary>
-    public string DisplayName
+    protected MembershipUser MembershipUser
     {
       get
       {
-        if (this._userID.HasValue)
+        if (this._membershipUser == null && this._userID.HasValue)
         {
-          return this.RowConvert.AsString("DisplayName");
+          this._membershipUser = UserMembershipHelper.GetMembershipUserById(this._userID.Value);
         }
 
-        return this.UserName;
+        return this._membershipUser;
+      }
+
+      set
+      {
+        this._membershipUser = value;
       }
     }
 
     /// <summary>
-    /// Gets RowConvert.
+    ///   Gets RowConvert.
     /// </summary>
     protected DataRowConvert RowConvert
     {

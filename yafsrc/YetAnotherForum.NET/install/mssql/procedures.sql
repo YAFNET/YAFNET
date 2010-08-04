@@ -720,6 +720,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_save]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_savenotification]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_savenotification]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_saveavatar]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_saveavatar]
 GO
@@ -2863,7 +2867,7 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch]
 )
 AS
 BEGIN
-		insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
+	insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
 	select
 		@From,
 		@FromName,
@@ -2878,6 +2882,7 @@ BEGIN
 		inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
 	where
 		b.UserID <> @UserID and
+		b.NotificationType NOT IN (10, 20) AND
 		a.TopicID = @TopicID and
 		(a.LastMail is null or a.LastMail < b.LastVisit)
 	
@@ -2887,7 +2892,7 @@ BEGIN
 		@FromName,
 		b.Email,
 		b.Name,
-		GETUTCDATE() ,
+		GETUTCDATE(),
 		@Subject,
 		@Body,
 		@BodyHtml
@@ -2897,11 +2902,12 @@ BEGIN
 		inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.ForumID=a.ForumID
 	where
 		b.UserID <> @UserID and
+		b.NotificationType NOT IN (10, 20) AND
 		c.TopicID = @TopicID and
 		(a.LastMail is null or a.LastMail < b.LastVisit) and
 		not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchTopic] x where x.UserID=b.UserID and x.TopicID=c.TopicID)
 
-	update [{databaseOwner}].[{objectQualifier}WatchTopic] set LastMail = GETUTCDATE()  
+	update [{databaseOwner}].[{objectQualifier}WatchTopic] set LastMail = GETUTCDATE()
 	where TopicID = @TopicID
 	and UserID <> @UserID
 	
@@ -3761,7 +3767,7 @@ begin
 		TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
 		ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)	 
 	from
-	 [{databaseOwner}].[{objectQualifier}vaccessfull] x 
+	 [{databaseOwner}].[{objectQualifier}vaccess] x 
 	where
 		x.UserID = @UserID and x.ForumID=IsNull(@ForumID,0)
 end
@@ -5314,7 +5320,16 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_find](@BoardID int,@Filter bit,@UserName nvarchar(255)=null,@Email nvarchar(255)=null,@DisplayName nvarchar(255)=null) as
+create procedure [{databaseOwner}].[{objectQualifier}user_find](
+	@BoardID int,
+	@Filter bit,
+	@UserName nvarchar(255)=null,
+	@Email nvarchar(255)=null,
+	@DisplayName nvarchar(255)=null,
+	@NotificationType int = null,
+	@DailyDigest bit = null
+)
+AS
 begin
 	
 	if @Filter<>0
@@ -5333,7 +5348,11 @@ begin
 			[{databaseOwner}].[{objectQualifier}User] a
 		where 
 			a.BoardID=@BoardID and
-			((@UserName is not null and a.Name like @UserName) or (@Email is not null and Email like @Email) or (@DisplayName is not null and a.DisplayName like @DisplayName))
+			((@UserName is not null and a.Name like @UserName) or
+			(@Email is not null and Email like @Email) or
+			(@DisplayName is not null and a.DisplayName like @DisplayName) or
+			(@NotificationType is not null and a.NotificationType = @NotificationType) or
+			(@DailyDigest is not null and a.DailyDigest = @DailyDigest))
 		order by
 			a.Name
 	end else
@@ -5346,7 +5365,11 @@ begin
 			[{databaseOwner}].[{objectQualifier}User] a
 		where 
 			a.BoardID=@BoardID and
-			((@UserName is not null and a.Name=@UserName) or (@Email is not null and Email=@Email) or (@DisplayName is not null and a.DisplayName=@DisplayName))
+			((@UserName is not null and a.Name like @UserName) or
+			(@Email is not null and Email like @Email) or
+			(@DisplayName is not null and a.DisplayName like @DisplayName) or
+			(@NotificationType is not null and a.NotificationType = @NotificationType) or
+			(@DailyDigest is not null and a.DailyDigest = @DailyDigest))
 	end
 end
 GO
@@ -5558,6 +5581,28 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_savenotification](
+	@UserID				int,
+	@PMNotification		bit = null,
+	@AutoWatchTopics    bit = null,
+	@NotificationType	int = null,
+	@DailyDigest		bit = null
+)
+AS
+BEGIN
+
+		UPDATE
+			[{databaseOwner}].[{objectQualifier}User]
+		SET
+			PMNotification = (CASE WHEN (@PMNotification is not null) THEN  @PMNotification ELSE PMNotification END),
+			AutoWatchTopics = (CASE WHEN (@AutoWatchTopics is not null) THEN  @AutoWatchTopics ELSE AutoWatchTopics END),
+			NotificationType =  (CASE WHEN (@NotificationType is not null) THEN  @NotificationType ELSE NotificationType END),
+			DailyDigest = (CASE WHEN (@DailyDigest is not null) THEN  @DailyDigest ELSE DailyDigest END)
+		WHERE
+			UserID = @UserID
+END
+GO
+
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@UserID				int,
 	@BoardID			int,
@@ -5572,6 +5617,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@Approved			bit = null,
 	@PMNotification		bit = null,
 	@AutoWatchTopics    bit = null,
+	@NotificationType	int = null,
 	@ProviderUserKey	nvarchar(64) = null,
 	@DSTUser            bit = null,
 	@HideUser           bit = null)
@@ -5594,8 +5640,8 @@ begin
 		
 		select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
 
-		insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,AutoWatchTopics,ProviderUserKey) 
-		values(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,GETUTCDATE() ,GETUTCDATE() ,0,@TimeZone, @Flags,@PMNotification,@AutoWatchTopics,@ProviderUserKey)		
+		insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,AutoWatchTopics,NotificationType,ProviderUserKey) 
+		values(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,GETUTCDATE() ,GETUTCDATE() ,0,@TimeZone, @Flags,@PMNotification,@AutoWatchTopics,@NotificationType,@ProviderUserKey)		
 	
 		set @UserID = SCOPE_IDENTITY()
 
@@ -5620,10 +5666,10 @@ begin
 			ThemeFile = @ThemeFile,
 			Culture = @Culture,
 			OverrideDefaultThemes = @OverrideDefaultTheme,
-			PMNotification = @PMNotification,
-			AutoWatchTopics = @AutoWatchTopics,
-			Flags = (CASE WHEN @Flags<>Flags 
-			THEN  @Flags ELSE Flags END),
+			PMNotification = (CASE WHEN (@PMNotification is not null) THEN  @PMNotification ELSE PMNotification END),
+			AutoWatchTopics = (CASE WHEN (@AutoWatchTopics is not null) THEN  @AutoWatchTopics ELSE AutoWatchTopics END),
+			NotificationType =  (CASE WHEN (@NotificationType is not null) THEN  @NotificationType ELSE NotificationType END),
+			Flags = (CASE WHEN @Flags<>Flags THEN  @Flags ELSE Flags END),
 			DisplayName = (CASE WHEN (@DisplayName is not null) THEN  @DisplayName ELSE DisplayName END),
 			Email = (CASE WHEN (@Email is not null) THEN  @Email ELSE Email END) 
 		where UserID = @UserID		

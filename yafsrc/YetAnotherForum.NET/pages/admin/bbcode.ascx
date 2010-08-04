@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.bbcode" Codebehind="BBCode.ascx.cs" %>
+<%@ Import Namespace="YAF.Classes.Core.BBCode" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">
 		
@@ -31,7 +32,7 @@
                 <td class="post">
                     <b><%# Eval("Name") %></b></td>
                 <td class="post">
-                    <b><%# YAF.Classes.UI.YafBBCode.LocalizeCustomBBCodeElement(Eval("Description").ToString()) %></b></td>                    
+                    <b><%# YafBBCode.LocalizeCustomBBCodeElement(Eval("Description").ToString()) %></b></td>                    
                 <td class="post">
                     <asp:LinkButton runat="server" Text="Edit" CommandName="edit" CommandArgument='<%# Eval("BBCodeID") %>'
                         ID="Linkbutton1">

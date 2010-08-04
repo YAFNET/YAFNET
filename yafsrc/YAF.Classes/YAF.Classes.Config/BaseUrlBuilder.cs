@@ -50,6 +50,7 @@ namespace YAF.Classes
     /// <summary>
     /// Gets BaseUrl.
     /// </summary>
+    /// <exception cref="BaseUrlMaskRequiredException">Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config.</exception>
     public static string BaseUrl
     {
       get
@@ -58,23 +59,36 @@ namespace YAF.Classes
 
         try
         {
-          // Lookup the AppRoot based on the current path. 
-          baseUrl = _baseUrls[HttpContext.Current.Request.FilePath];
-
-          if (String.IsNullOrEmpty(baseUrl))
+          if (HttpContext.Current != null)
           {
-            // Each different filepath (multiboard) will specify a AppRoot key in their own web.config in their directory.
-            if (!String.IsNullOrEmpty(Config.BaseUrlMask))
+            // Lookup the AppRoot based on the current path. 
+            baseUrl = _baseUrls[HttpContext.Current.Request.FilePath];
+
+            if (String.IsNullOrEmpty(baseUrl))
             {
-              baseUrl = TreatBaseUrl(Config.BaseUrlMask);
+              // Each different filepath (multiboard) will specify a AppRoot key in their own web.config in their directory.
+              if (!String.IsNullOrEmpty(Config.BaseUrlMask))
+              {
+                baseUrl = TreatBaseUrl(Config.BaseUrlMask);
+              }
+              else
+              {
+                baseUrl = GetBaseUrlFromVariables();
+              }
+
+              // save to cache
+              _baseUrls[HttpContext.Current.Request.FilePath] = baseUrl;
             }
-            else
+          }
+          else
+          {
+            if (String.IsNullOrEmpty(Config.BaseUrlMask))
             {
-              baseUrl = GetBaseUrlFromVariables();
+              throw new BaseUrlMaskRequiredException(
+                "Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config: YAF.BaseUrlMask");
             }
 
-            // save to cache
-            _baseUrls[HttpContext.Current.Request.FilePath] = baseUrl;
+            baseUrl = TreatBaseUrl(Config.BaseUrlMask);
           }
         }
         catch (Exception)
@@ -322,5 +336,14 @@ namespace YAF.Classes
     }
 
     #endregion
+  }
+
+  public class BaseUrlMaskRequiredException : Exception
+  {
+    public BaseUrlMaskRequiredException(string message)
+      :base(message)
+    {
+      
+    }
   }
 }

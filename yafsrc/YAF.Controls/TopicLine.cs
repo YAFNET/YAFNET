@@ -466,7 +466,7 @@ namespace YAF.Controls
       writer.RenderAnchorBegin(
         YafBuildLink.GetLink(ForumPages.posts, linkParams, this._row["LinkTopicID"]), 
         "post_link", 
-        FormatMsg.GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]).MessageTruncated);
+        YafFormatMessage.GetCleanedTopicMessage(this._row["FirstMessage"], this._row["LinkTopicID"]).MessageTruncated);
 
       writer.WriteLine(YafServices.BadWordReplace.Replace(Convert.ToString(this._row["Subject"])));
       writer.WriteEndTag("a");

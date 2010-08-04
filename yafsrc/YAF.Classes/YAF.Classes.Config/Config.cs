@@ -65,7 +65,7 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// Used for Url Rewriting -- default is null.
+    /// Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
     /// </summary>
     public static string ForceScriptName
     {

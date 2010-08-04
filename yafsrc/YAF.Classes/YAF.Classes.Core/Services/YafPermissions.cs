@@ -16,18 +16,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web;
-using System.Web.Hosting;
-using YAF.Classes.Utils;
-
 namespace YAF.Classes.Core
 {
+  #region Using
+
+  using System.Web;
+  using System.Web.Hosting;
+
+  using YAF.Classes.Utils;
+
+  #endregion
+
   /// <summary>
   /// The yaf permissions.
   /// </summary>
   public class YafPermissions
   {
+    #region Public Methods
+
     /// <summary>
     /// The check.
     /// </summary>
@@ -39,7 +45,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public bool Check(int permission)
     {
-      return Check((ViewPermissions) permission);
+      return this.Check((ViewPermissions)permission);
     }
 
     /// <summary>
@@ -74,7 +80,7 @@ namespace YAF.Classes.Core
     /// </param>
     public void HandleRequest(int permission)
     {
-      HandleRequest((ViewPermissions) permission);
+      this.HandleRequest((ViewPermissions)permission);
     }
 
     /// <summary>
@@ -91,14 +97,16 @@ namespace YAF.Classes.Core
       {
         if (permission == ViewPermissions.RegisteredUsers)
         {
-          if (!Config.AllowLoginAndLogoff && !String.IsNullOrEmpty(YafContext.Current.BoardSettings.CustomLoginRedirectUrl))
+          if (!Config.AllowLoginAndLogoff && YafContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
           {
             string loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
 
             if (loginRedirectUrl.Contains("{0}"))
             {
               // process for return url..
-              loginRedirectUrl = String.Format(loginRedirectUrl, HttpUtility.UrlEncode(General.GetSafeRawUrl(HttpContext.Current.Request.Url.ToString())));
+              loginRedirectUrl =
+                loginRedirectUrl.FormatWith(
+                  HttpUtility.UrlEncode(General.GetSafeRawUrl(HttpContext.Current.Request.Url.ToString())));
             }
 
             // allow custom redirect...
@@ -115,7 +123,8 @@ namespace YAF.Classes.Core
             }
 
             // redirect to DNN login...
-            HttpContext.Current.Response.Redirect(appPath + "Login.aspx?ReturnUrl=" + HttpUtility.UrlEncode(General.GetSafeRawUrl()));
+            HttpContext.Current.Response.Redirect(
+              appPath + "Login.aspx?ReturnUrl=" + HttpUtility.UrlEncode(General.GetSafeRawUrl()));
             noAccess = false;
           }
           else if (Config.AllowLoginAndLogoff)
@@ -132,5 +141,7 @@ namespace YAF.Classes.Core
         }
       }
     }
+
+    #endregion
   }
 }

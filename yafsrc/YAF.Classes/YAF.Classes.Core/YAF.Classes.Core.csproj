@@ -91,6 +91,10 @@
     <Compile Include="BaseModules\YafEditorModuleManager.cs" />
     <Compile Include="BaseModules\YafModule.cs" />
     <Compile Include="BasePages\ForumPageRenderedArgs.cs" />
+    <Compile Include="BBCode\HighLighter.cs" />
+    <Compile Include="BBCode\ReplaceRules.cs" />
+    <Compile Include="BBCode\ReplaceRulesCreator.cs" />
+    <Compile Include="BBCode\YafBBCode.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Extensions\BinaryExtensions.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
@@ -103,9 +107,12 @@
     <Compile Include="Nntp\NntpConnection.cs" />
     <Compile Include="Nntp\NntpException.cs" />
     <Compile Include="Nntp\NntpUtil.cs" />
+    <Compile Include="Services\YafFormatMessage.cs" />
     <Compile Include="Services\YafSendNotification.cs" />
     <Compile Include="Syndication\YafSyndicationFeed.cs" />
     <Compile Include="Tasks\BackgroundTaskExtensions.cs" />
+    <Compile Include="Tasks\DigestSendModule.cs" />
+    <Compile Include="Tasks\DigestSendTask.cs" />
     <Compile Include="Tasks\ICriticalBackgroundTask.cs" />
     <Compile Include="URLBuilder\DotNetNukeUrlBuilder.cs" />
     <Compile Include="URLBuilder\RewriteUrlBuilder.cs" />

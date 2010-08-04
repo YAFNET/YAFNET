@@ -19,14 +19,19 @@
 
 namespace YAF.Classes.Core
 {
+  #region Using
+
   using System;
   using System.Collections.Generic;
   using System.Data;
+  using System.Globalization;
   using System.IO;
   using System.Web;
   using System.Xml;
 
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// The static data helper.
@@ -62,6 +67,58 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    /// Gets language tag info from language file tag.
+    /// </summary>
+    /// <param name="fileName">
+    /// </param>
+    /// <returns>
+    /// A default full 4-letter culture from the existing language file.
+    /// </returns>
+    public static string CultureDefaultFromFile(string fileName)
+    {
+      if (string.IsNullOrEmpty(fileName))
+      {
+        return "en-US";
+      }
+
+      string rawTag = null;
+
+      // Get all language files info
+      var dir =
+        new DirectoryInfo(
+          HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
+      FileInfo[] files = dir.GetFiles(fileName);
+
+      if (files.Length <= 0)
+      {
+        return rawTag;
+      }
+
+      try
+      {
+        var doc = new XmlDocument();
+        doc.Load(files[0].FullName);
+        rawTag = doc.DocumentElement.Attributes["code"].Value.Trim();
+      }
+      catch (Exception)
+      {
+      }
+
+      CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+      foreach (CultureInfo ci in cultures)
+      {
+        // We check only the language part as we need a default here.
+        if (!ci.IsNeutralCulture && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) &&
+            ci.IetfLanguageTag.Length == 5)
+        {
+          return ci.IetfLanguageTag;
+        }
+      }
+
+      return "en-US";
+    }
+
+    /// <summary>
     /// The cultures IetfLangTags (4-letter).
     /// </summary>
     /// <returns>
@@ -69,110 +126,68 @@ namespace YAF.Classes.Core
     /// </returns>
     public static DataTable Cultures()
     {
-        using (var dt = new DataTable("Cultures"))
-        {          
+      using (var dt = new DataTable("Cultures"))
+      {
+        dt.Columns.Add("CultureTag", typeof(string));
+        dt.Columns.Add("CultureFile", typeof(string));
+        dt.Columns.Add("CultureEnglishName", typeof(string));
+        dt.Columns.Add("CultureNativeName", typeof(string));
+        dt.Columns.Add("CultureDisplayName", typeof(string));
 
-            dt.Columns.Add("CultureTag", typeof(string));
-            dt.Columns.Add("CultureFile", typeof(string));
-            dt.Columns.Add("CultureEnglishName", typeof(string));
-            dt.Columns.Add("CultureNativeName", typeof(string));
-            dt.Columns.Add("CultureDisplayName", typeof(string));
+        // Get all language files info
+        var dir =
+          new DirectoryInfo(
+            HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
+        FileInfo[] files = dir.GetFiles("*.xml");
 
-            // Get all language files info
-            var dir =
-              new DirectoryInfo(
-                HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
-            FileInfo[] files = dir.GetFiles("*.xml");
-           
-            // Create an array with tags
-            string[,] tags = new string[2,files.Length];
+        // Create an array with tags
+        var tags = new string[2, files.Length];
 
-            // Extract availabe language tags into the array          
-            for (int i = 0; i < files.Length; i++)
+        // Extract availabe language tags into the array          
+        for (int i = 0; i < files.Length; i++)
+        {
+          try
+          {
+            var doc = new XmlDocument();
+            doc.Load(files[i].FullName);
+            tags[0, i] = files[i].Name;
+            var attr = doc.DocumentElement.Attributes["code"];
+            if (attr != null)
             {
-                try
-                {
-
-                    var doc = new XmlDocument();
-                    doc.Load(files[i].FullName);
-                    tags[0,i] = files[i].Name;
-                    var attr = doc.DocumentElement.Attributes["code"];
-                    if (attr != null)
-                    {
-                        tags[1, i] = attr.Value.Trim();
-                    }
-                    else
-                    {
-                        tags[1, i] = "en-US";
-                    }
-
-                }
-                catch (Exception)
-                {
-                }
+              tags[1, i] = attr.Value.Trim();
             }
-
-                System.Globalization.CultureInfo[] cultures = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures);
-                foreach (System.Globalization.CultureInfo ci in cultures)
-                {
-                    for (int j = 0; j < files.Length; j++)
-                    {
-                        if (!ci.IsNeutralCulture && tags[1, j].ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) && ci.IetfLanguageTag.Length == 5)
-                        {
-                            DataRow dr = dt.NewRow();
-                            dr["CultureTag"] = ci.IetfLanguageTag;
-                            dr["CultureFile"] = tags[0, j];
-                            dr["CultureEnglishName"] = ci.EnglishName;
-                            dr["CultureNativeName"] = ci.NativeName;
-                            dr["CultureDisplayName"] = ci.DisplayName;
-                            dt.Rows.Add(dr);
-                        }
-                    }
-
-                }
-                return dt;     
+            else
+            {
+              tags[1, i] = "en-US";
             }
-             
-    }
-    /// <summary>
-    /// Gets language tag info from language file tag.  
-    /// </summary>
-    /// <param name="fileName"></param>
-    /// <returns>A default full 4-letter culture from the existing language file.</returns>
-    public static string CultureDefaultFromFile(string fileName)
-    {
-            if (string.IsNullOrEmpty(fileName)) return "en-US";
-           
-           string rawTag = null;
-            // Get all language files info
-            var dir =
-              new DirectoryInfo(
-                HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
-            FileInfo[] files = dir.GetFiles(fileName);
+          }
+          catch (Exception)
+          {
+          }
+        }
 
-            if (files.Length <= 0) return rawTag;
-                try
-                {
-                    var doc = new XmlDocument();
-                    doc.Load(files[0].FullName);                    
-                    rawTag = doc.DocumentElement.Attributes["code"].Value.Trim();
+        CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+        foreach (CultureInfo ci in cultures)
+        {
+          for (int j = 0; j < files.Length; j++)
+          {
+            if (!ci.IsNeutralCulture &&
+                tags[1, j].ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) &&
+                ci.IetfLanguageTag.Length == 5)
+            {
+              DataRow dr = dt.NewRow();
+              dr["CultureTag"] = ci.IetfLanguageTag;
+              dr["CultureFile"] = tags[0, j];
+              dr["CultureEnglishName"] = ci.EnglishName;
+              dr["CultureNativeName"] = ci.NativeName;
+              dr["CultureDisplayName"] = ci.DisplayName;
+              dt.Rows.Add(dr);
+            }
+          }
+        }
 
-                }
-                catch (Exception)
-                {
-                }
-
-                System.Globalization.CultureInfo[] cultures = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures);
-                foreach (System.Globalization.CultureInfo ci in cultures)
-                {
-                    // We check only the language part as we need a default here.
-                    if (!ci.IsNeutralCulture && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) && ci.IetfLanguageTag.Length == 5)
-                    {
-                        return ci.IetfLanguageTag;
-                    }
-                }
-
-            return "en-US";
+        return dt;
+      }
     }
 
     /// <summary>
@@ -224,7 +239,10 @@ namespace YAF.Classes.Core
         dt.Columns.Add("FileName", typeof(string));
         dt.Columns.Add("IsMobile", typeof(bool));
 
-        var dir = new DirectoryInfo(HttpContext.Current.Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes)));
+        var dir =
+          new DirectoryInfo(
+            HttpContext.Current.Request.MapPath(
+              "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes)));
 
         foreach (FileInfo file in dir.GetFiles("*.xml"))
         {

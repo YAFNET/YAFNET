@@ -100,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDataTableResultFilter.cs" />
+    <Compile Include="Object\SimpleForum.cs" />
+    <Compile Include="Object\SimpleTopic.cs" />
+    <Compile Include="Object\TypedUserFind.cs" />
     <Compile Include="PollSaveList.cs" />
     <Compile Include="DataRowConvert.cs" />
     <Compile Include="Import\DataImport.cs" />
@@ -109,7 +112,7 @@
     <Compile Include="IDataTableResultFilter.cs" />
     <Compile Include="IYafDBAccess.cs" />
     <Compile Include="IYafDBConnManager.cs" />
-    <Compile Include="Objects\Moderator.cs" />
+    <Compile Include="Object\SimpleModerator.cs" />
     <Compile Include="SqlDataLayerConverter.cs" />
     <Compile Include="YafDBAccess.cs" />
     <Compile Include="Flags\AccessFlags.cs" />

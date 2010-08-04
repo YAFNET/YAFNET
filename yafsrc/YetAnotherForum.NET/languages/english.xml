@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="English" code="en">
+  <page name="DIGEST">
+    <Resource tag="NEWTOPICS">New Topics</Resource>
+    <Resource tag="ACTIVETOPICS">Topics Active Today</Resource>
+    <Resource tag="COMMENTS">{0} comments</Resource>
+    <Resource tag="STARTEDBY">Started by {0}</Resource>
+    <Resource tag="LINK">More</Resource>
+    <Resource tag="LASTBY">By {0}</Resource>
+    <Resource tag="REMOVALTEXT">Don't want to receive anymore email?</Resource>
+    <Resource tag="REMOVALLINK">Adjust your notification settings.</Resource>
+  </page>
 	<page name="ACTIVELOCATION">
 		<Resource tag="MAINPAGE">Views main forum page</Resource>
 		<Resource tag="FORUM">Views forum </Resource>
@@ -29,15 +39,15 @@
 		<Resource tag="CP_EDITBUDDIES">Edits buddies</Resource>
 		<Resource tag="ALBUM">Views Album</Resource>
 		<Resource tag="ALBUM_OFUSER">of user</Resource>
-		<Resource tag="ALBUM_OWN">Views/Edits his Album</Resource>
-		<Resource tag="ALBUMS">Views Albums</Resource>
-		<Resource tag="ALBUMS_OFUSER">Views Albums of user</Resource>
-		<Resource tag="ALBUMS_OWN">Views/Edits his Albums</Resource>
-		<Resource tag="CP_EDITALBUMIMAGES">Edits album images</Resource>
-		<Resource tag="CP_EDITPROFILE">Edits his profile</Resource>
-		<Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
-		<Resource tag="CP_SIGNATURE">Edits his signature</Resource>
-		<Resource tag="CP_SUBSCRIPTIONS">Vies subscriptions</Resource>
+		<Resource tag="ALBUM_OWN">View/Edit your Album</Resource>
+		<Resource tag="ALBUMS">View Albums</Resource>
+		<Resource tag="ALBUMS_OFUSER">View User Albums</Resource>
+		<Resource tag="ALBUMS_OWN">Views/Edit the Albums</Resource>
+		<Resource tag="CP_EDITALBUMIMAGES">Edit the album images</Resource>
+		<Resource tag="CP_EDITPROFILE">Edit the profile</Resource>
+		<Resource tag="CP_EDITAVATAR">Edit the avatar</Resource>
+		<Resource tag="CP_SIGNATURE">Edit the signature</Resource>
+		<Resource tag="CP_SUBSCRIPTIONS">Views subscriptions</Resource>
 		<Resource tag="CP_MESSAGE">Views pmessages</Resource>
 		<Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
 		<Resource tag="LOGIN">Registers on the forum</Resource>
@@ -401,7 +411,7 @@
 		<Resource tag="PERSONAL_PROFILE">Personal Profile:</Resource>
 		<Resource tag="SENTITEMS">Sent Items</Resource>
 		<Resource tag="SIGNATURE">Signature</Resource>
-		<Resource tag="SUBSCRIPTIONS">Subscriptions</Resource>
+		<Resource tag="SUBSCRIPTIONS">Email Notification Preferences</Resource>
 		<Resource tag="YOUR_ACCOUNT">Your Account</Resource>
 		<Resource tag="YOUR_EMAIL">Your email address:</Resource>
 		<Resource tag="YOUR_USERNAME">Your user name:</Resource>
@@ -418,17 +428,24 @@
 	</page>
 	<page name="CP_SUBSCRIPTIONS">
 		<Resource tag="FORUM">Forum</Resource>
-		<Resource tag="FORUMS">Forums</Resource>
+		<Resource tag="FORUMS">Watched Forums</Resource>
 		<Resource tag="LASTPOST">Last Post</Resource>
 		<Resource tag="LASTPOSTLINK">{0} by {1}</Resource>
 		<Resource tag="REPLIES">Replies</Resource>
-		<Resource tag="TITLE">Subscriptions</Resource>
+		<Resource tag="TITLE">Email Notification Preferences</Resource>
 		<Resource tag="TOPIC">Topic</Resource>
-		<Resource tag="TOPICS">Topics</Resource>
-		<Resource tag="UNSUBSCRIBE">Unsubscribe</Resource>
+		<Resource tag="TOPICS">Watched Topics</Resource>
+		<Resource tag="UNSUBSCRIBE">Unwatch</Resource>
 		<Resource tag="VIEWS">Views</Resource>
-		<Resource tag="WARN_SELECTFORUMS">Please select forums to unsubscribe from first.</Resource>
-		<Resource tag="WARN_SELECTTOPICS">Please select topics to unsubscribe from first.</Resource>
+    <Resource tag="NOTIFICATIONSELECTION">Select email notification preference:</Resource>
+		<Resource tag="WARN_SELECTFORUMS">Please select forums to unwatch first.</Resource>
+		<Resource tag="WARN_SELECTTOPICS">Please select topics to unwatch first.</Resource>
+    <Resource tag="NONOTIFICATION">Turn off notifications</Resource>
+    <Resource tag="DAILY_DIGEST">Receive once daily digest/summary of activity?</Resource>
+    <Resource tag="ALLTOPICS">Notification for [b]all posts on all topics[/b]</Resource>
+    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Notification for topics [b]you've posted to[/b] or watched</Resource>
+    <Resource tag="TOPICSISUBSCRIBETO">Notification for topics or forums you've selectively watched (listed below)</Resource>
+    <Resource tag="SAVED_NOTIFICATION_SETTING">Notification Email Settings Updated</Resource>
 	</page>
 	<page name="DEFAULT">
 		<Resource tag="ONDATE">on {0}</Resource>
@@ -741,7 +758,7 @@
 		<Resource tag="SUBJECT">Subject:</Resource>
 		<Resource tag="TOPICATTACH">Attach files to this post?</Resource>
 		<Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
-		<Resource tag="TOPICNAME_TOOLONG">Maximal topic name length should not be more then {0} characters. Use abbreviations.</Resource>
+		<Resource tag="TOPICNAME_TOOLONG">Topic name length cannot be be more then {0} characters. Suggestion: use abbreviations to shorten.</Resource>
 		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 	</page>
 	<page name="CP_EDITALBUMIMAGES">
@@ -1204,11 +1221,14 @@ To read the message, open the following link in your browser:
 
 {link}
 </Resource>
-		<Resource tag="TOPICPOST_HTML" editType="html" />
+    <Resource tag="TOPICPOST_HTML" editType="html" />
 		<Resource tag="TOPICPOST_TEXT">
-A new message has been posted in the thread {topic} at {forumname}.
+There's a new post in topic "{topic}" at {forumname}:
 
-To read the message, open the following link in your browser:
+By {postedby}: 
+"{bodytruncated}"
+
+To read more, click or copy and paste the following link into your browser:
 
 {link}
 </Resource>
@@ -1316,8 +1336,8 @@ Visit {forumname} at {forumlink}
 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
 	</page>
 	<page name="CHARACTER_CHECKER">
-		<Resource tag="ISEMPTY">Message body can not be empty.Why do you want to post an empty message?</Resource>
-		<Resource tag="ISEXCEEDED">You have exceeded the maximum number of characters in each post.Make it shorter and try again.</Resource>
+		<Resource tag="ISEMPTY">Message body can not be empty.</Resource>
+		<Resource tag="ISEXCEEDED">You have exceeded the maximum number of characters in each post. Please shorten your post and resubmit.</Resource>
 		<Resource tag="MAXNUMBEROF">Maximum number of characters in each post is: {0}</Resource>
 	</page>
 	<page name="MESSAGEHISTORY">

@@ -33,6 +33,35 @@ namespace YAF.Classes.Core
   public class YafSendMail
   {
     /// <summary>
+    /// Queues an e-mail message for asynchronous delivery
+    /// </summary>
+    /// <param name="fromEmail">
+    /// The from Email.
+    /// </param>
+    /// <param name="fromName">
+    /// The from Name.
+    /// </param>
+    /// <param name="toEmail">
+    /// The to Email.
+    /// </param>
+    /// <param name="toName">
+    /// The to Name.
+    /// </param>
+    /// <param name="subject">
+    /// The subject.
+    /// </param>
+    /// <param name="bodyText">
+    /// The body Text.
+    /// </param>
+    /// <param name="bodyHtml">
+    /// The body Html.
+    /// </param>
+    public void Queue(string fromEmail, string fromName, string toEmail, string toName, string subject, string bodyText, string bodyHtml)
+    {
+      DB.mail_create(fromEmail, fromName, toEmail, toName, subject, bodyText, bodyHtml);
+    }
+
+    /// <summary>
     /// Queues an e-mail messagage for asynchronous delivery
     /// </summary>
     /// <param name="fromEmail">

@@ -131,7 +131,7 @@ namespace YAF.Pages
         // only administrators can send messages to all users
         this.AllUsers.Visible = YafContext.Current.IsAdmin;
 
-        if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("p")))
+        if (this.Request.QueryString.GetFirstOrDefault("p").IsSet())
         {
           // PM is a reply or quoted reply (isQuoting)
           // to the given message id "p"
@@ -144,8 +144,8 @@ namespace YAF.Pages
           if (row != null)
           {
             // get message sender/recipient
-            var toUserId = (int) row["ToUserID"];
-            var fromUserId = (int) row["FromUserID"];
+            var toUserId = (int)row["ToUserID"];
+            var fromUserId = (int)row["FromUserID"];
 
             // verify access to this PM
             if (toUserId != YafContext.Current.PageUserID && fromUserId != YafContext.Current.PageUserID)
@@ -177,7 +177,7 @@ namespace YAF.Pages
 
               if (YafContext.Current.BoardSettings.RemoveNestedQuotes)
               {
-                body = FormatMsg.RemoveNestedQuotes(body);
+                body = YafFormatMessage.RemoveNestedQuotes(body);
               }
 
               // Ensure quoted replies have bad words removed from them
@@ -191,7 +191,7 @@ namespace YAF.Pages
             }
           }
         }
-        else if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("u")) && !String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("r")))
+        else if (this.Request.QueryString.GetFirstOrDefault("u").IsSet() && this.Request.QueryString.GetFirstOrDefault("r").IsSet())
         {
           // We check here if the user have access to the option
           if (PageContext.IsModerator || PageContext.IsForumModerator)
@@ -206,8 +206,8 @@ namespace YAF.Pages
               // get quoted message
               DataRow messagesRow =
                 DB.message_listreporters(
-                  Convert.ToInt32(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("r"))),
-                  Convert.ToInt32(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u")))).GetFirstRow();
+                  Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("r")).ToType<int>(),
+                  Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u")).ToType<int>()).GetFirstRow();
 
               // there is such a message
               // message info should be always returned as 1 row 
@@ -233,8 +233,7 @@ namespace YAF.Pages
                 for (int i = 0; i < quoteList.Length; i++)
                 {
                   // Add quote codes
-                  quoteList[i] = String.Format(
-                    "[QUOTE={0}]{1}[/QUOTE]", displayName, quoteList[i]);
+                  quoteList[i] = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, quoteList[i]);
 
                   // Replace DateTime delimiter '??' by ': ' 
                   // we don't want any whitespaces at the beginning of message
@@ -244,7 +243,7 @@ namespace YAF.Pages
             }
           }
         }
-        else if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("u")))
+        else if (this.Request.QueryString.GetFirstOrDefault("u").IsSet())
         {
           // PM is being send as a reply to a reported post
 
@@ -274,10 +273,7 @@ namespace YAF.Pages
           if (YafContext.Current.BoardSettings.PrivateMessageMaxRecipients > 1)
           {
             // format localized string
-            this.MultiReceiverInfo.Text = String.Format(
-              "<br />{0}<br />{1}", 
-              String.Format(YafContext.Current.Localization.GetText("MAX_RECIPIENT_INFO"), YafContext.Current.BoardSettings.PrivateMessageMaxRecipients), 
-              YafContext.Current.Localization.GetText("MULTI_RECEIVER_INFO"));
+            this.MultiReceiverInfo.Text = "<br />{0}<br />{1}".FormatWith(YafContext.Current.Localization.GetText("MAX_RECIPIENT_INFO").FormatWith(YafContext.Current.BoardSettings.PrivateMessageMaxRecipients), YafContext.Current.Localization.GetText("MULTI_RECEIVER_INFO"));
 
             // display info
             this.MultiReceiverInfo.Visible = true;
@@ -407,8 +403,8 @@ namespace YAF.Pages
           }
 
           // test receiving user's PM count
-          if ((Convert.ToInt32(DB.user_pmcount(userId.Value).Rows[0]["NumberTotal"]) >=
-               Convert.ToInt32(DB.user_pmcount(userId.Value).Rows[0]["NumberAllowed"])) &&
+          if ((DB.user_pmcount(userId.Value).Rows[0]["NumberTotal"].ToType<int>() >=
+               DB.user_pmcount(userId.Value).Rows[0]["NumberAllowed"].ToType<int>()) &&
               !YafContext.Current.IsAdmin && !(bool)Convert.ChangeType(UserMembershipHelper.GetUserRowForID(userId.Value, true)["IsAdmin"], typeof(bool)))
           {
             // recipient has full PM box
@@ -431,7 +427,7 @@ namespace YAF.Pages
 
           if (YafContext.Current.BoardSettings.AllowPMEmailNotification)
           {
-            CreateMail.PmNotification(userId, this.Subject.Text);
+            YafServices.SendNotification.ToPrivateMessageRecipient(userId, this.Subject.Text.Trim());
           }
         }
 

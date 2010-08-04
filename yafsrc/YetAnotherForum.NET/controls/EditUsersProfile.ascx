@@ -288,24 +288,6 @@
              <asp:DropDownList runat="server" ID="Culture" />
         </td>
     </tr>
-    <tr runat="server" id="PMNotificationRow">
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="PM_EMAIL_NOTIFICATION" />
-        </td>
-        <td class="post">
-            <asp:CheckBox ID="PMNotificationEnabled" runat="server" />
-        </td>
-    </tr>
-    <tr runat="server" id="WatchTopicsRow">
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel31" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="AUTOWATCH_TOPICS_NOTIFICATION" />
-        </td>
-        <td class="post">
-            <asp:CheckBox ID="AutoWatchTopicsEnabled" runat="server" />
-        </td>
-    </tr>
     <asp:PlaceHolder runat="server" ID="LoginInfo" Visible="false">
         <tr>
             <td colspan="2" class="header2">

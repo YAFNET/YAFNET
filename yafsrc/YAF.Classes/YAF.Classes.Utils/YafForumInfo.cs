@@ -139,7 +139,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return new DateTime(2010, 7, 19);
+        return new DateTime(2010, 7, 30);
       }
     }
 

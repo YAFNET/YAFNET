@@ -51,7 +51,7 @@
                 &nbsp;
             </td>
             <td class="post" valign="top">
-                <%# FormatMsg.FormatMessage(Eval("Body") as string, new MessageFlags(Eval("Flags"))) %>
+                <%# YafFormatMessage.FormatMessage(Eval("Body") as string, new MessageFlags(Eval("Flags"))) %>
             </td>
         </tr>
         <tr class="postfooter">

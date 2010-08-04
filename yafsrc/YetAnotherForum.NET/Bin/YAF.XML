@@ -6113,6 +6113,101 @@
             Summary description for cp_subscriptions.
             </summary>
         </member>
+        <member name="M:YAF.Pages.cp_subscriptions.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:YAF.Pages.cp_subscriptions"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.cp_subscriptions.FormatForumReplies(System.Object)">
+            <summary>
+            The format forum replies.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The format forum replies.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.cp_subscriptions.FormatLastPosted(System.Object)">
+            <summary>
+            The format last posted.
+            </summary>
+            <param name="o">
+            The o.
+            </param>
+            <returns>
+            The format last posted.
+            </returns>
+        </member>
+        <member name="M:YAF.Pages.cp_subscriptions.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.cp_subscriptions.SaveUser_Click(System.Object,System.EventArgs)">
+            <summary>
+            The save user_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.cp_subscriptions.UnsubscribeForums_Click(System.Object,System.EventArgs)">
+            <summary>
+            The unsubscribe forums_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.cp_subscriptions.UnsubscribeTopics_Click(System.Object,System.EventArgs)">
+            <summary>
+            The unsubscribe topics_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.cp_subscriptions.rblNotificationType_SelectionChanged(System.Object,System.EventArgs)">
+            <summary>
+            The rbl notification type_ selection changed.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.cp_subscriptions.BindData">
+            <summary>
+            The bind data.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.cp_subscriptions.UpdateSubscribeUI(YAF.Classes.UserNotificationSetting)">
+            <summary>
+            The update subscribe ui.
+            </summary>
+            <param name="selectedValue">
+            The selected value.
+            </param>
+        </member>
         <member name="F:YAF.Pages.cp_subscriptions.PageLinks">
             <summary>
             PageLinks control.
@@ -6122,9 +6217,117 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.cp_subscriptions.PreferencesUpdatePanel">
+            <summary>
+            PreferencesUpdatePanel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.LocalizedLabel100">
+            <summary>
+            LocalizedLabel100 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.LocalizedLabel200">
+            <summary>
+            LocalizedLabel200 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.rblNotificationType">
+            <summary>
+            rblNotificationType control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.DailyDigestRow">
+            <summary>
+            DailyDigestRow control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.LocalizedLabel199">
+            <summary>
+            LocalizedLabel199 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.DailyDigestEnabled">
+            <summary>
+            DailyDigestEnabled control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.PMNotificationRow">
+            <summary>
+            PMNotificationRow control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.LocalizedLabel19">
+            <summary>
+            LocalizedLabel19 control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.PMNotificationEnabled">
+            <summary>
+            PMNotificationEnabled control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.SaveUser">
+            <summary>
+            SaveUser control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.cp_subscriptions.SubscriptionsUpdatePanel">
             <summary>
             SubscriptionsUpdatePanel control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.cp_subscriptions.SubscribeHolder">
+            <summary>
+            SubscribeHolder control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -17282,6 +17485,33 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="M:YAF.Pages.emailtopic.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Pages.emailtopic"/> class.
+            </summary>
+        </member>
+        <member name="M:YAF.Pages.emailtopic.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="M:YAF.Pages.emailtopic.SendEmail_Click(System.Object,System.EventArgs)">
+            <summary>
+            The send email_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="F:YAF.Pages.cp_editavatar.PageLinks">
             <summary>
             PageLinks control.
@@ -18289,6 +18519,15 @@
         <member name="F:YAF.Pages.Admin.hostsettings.AllowModeratorsViewIPs">
             <summary>
             AllowModeratorsViewIPs control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.hostsettings.AllowNotificationAllPostsAllTopics">
+            <summary>
+            AllowNotificationAllPostsAllTopics control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -19550,9 +19789,9 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
-        <member name="F:YAF.Pages.Admin.boardsettings.Language">
+        <member name="F:YAF.Pages.Admin.boardsettings.Culture">
             <summary>
-            Language control.
+            Culture control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -19595,6 +19834,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.AllowDigestEmail">
+            <summary>
+            AllowDigestEmail control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.boardsettings.Save">
             <summary>
             Save control.
@@ -19624,6 +19872,17 @@
             The e.
             </param>
         </member>
+        <member name="M:YAF.Pages.Admin.boardsettings.Save_Click(System.Object,System.EventArgs)">
+            <summary>
+            The save_ click.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
         <member name="M:YAF.Pages.Admin.boardsettings.SetSelectedOnList(System.Web.UI.WebControls.DropDownList@,System.String)">
             <summary>
             The set selected on list.
@@ -19639,17 +19898,6 @@
             <summary>
             The bind data.
             </summary>
-        </member>
-        <member name="M:YAF.Pages.Admin.boardsettings.Save_Click(System.Object,System.EventArgs)">
-            <summary>
-            The save_ click.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
         </member>
         <member name="T:YAF.Modules.PageSecurityModule">
             <summary>
@@ -22168,60 +22416,6 @@
         <member name="F:YAF.Controls.EditUsersProfile.Culture">
             <summary>
             Culture control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.EditUsersProfile.PMNotificationRow">
-            <summary>
-            PMNotificationRow control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.EditUsersProfile.LocalizedLabel19">
-            <summary>
-            LocalizedLabel19 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.EditUsersProfile.PMNotificationEnabled">
-            <summary>
-            PMNotificationEnabled control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.EditUsersProfile.WatchTopicsRow">
-            <summary>
-            WatchTopicsRow control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.EditUsersProfile.LocalizedLabel31">
-            <summary>
-            LocalizedLabel31 control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="F:YAF.Controls.EditUsersProfile.AutoWatchTopicsEnabled">
-            <summary>
-            AutoWatchTopicsEnabled control.
             </summary>
             <remarks>
             Auto-generated field.
@@ -28129,6 +28323,101 @@
             <param name="e">
             The e.
             </param>
+        </member>
+        <member name="T:YAF.Controls.emaildigest">
+            <summary>
+            The email_digest.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._combinedUserData">
+            <summary>
+            The _combined user data.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._forumData">
+            <summary>
+            The _forum data.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._languageFile">
+            <summary>
+            The _language file.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._theme">
+            <summary>
+            The _theme.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._yafLocalization">
+            <summary>
+            The _yaf localization.
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.emaildigest.GetText(System.String)">
+            <summary>
+            The get text.
+            </summary>
+            <param name="tag">
+            The tag.
+            </param>
+            <returns>
+            The get text.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.emaildigest.GetMessageFormattedAndTruncated(System.String,System.Int32)">
+            <summary>
+            The get message formatted and truncated.
+            </summary>
+            <param name="lastMessage">
+            The last message.
+            </param>
+            <param name="maxlength">
+            The maxlength.
+            </param>
+            <returns>
+            The get message formatted and truncated.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.emaildigest.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="F:YAF.Controls.emaildigest.YafHead">
+            <summary>
+            YafHead control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="P:YAF.Controls.emaildigest.BoardID">
+            <summary>
+            Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.emaildigest.CurrentUserID">
+            <summary>
+            Gets or sets CurrentUserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.emaildigest.NewTopics">
+            <summary>
+            Gets NewTopics.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.emaildigest.UserData">
+            <summary>
+            Gets UserData.
+            </summary>
         </member>
     </members>
 </doc>

@@ -140,8 +140,8 @@ namespace YAF.Pages.moderate
           // tell user message was approved
           PageContext.AddLoadMessage(GetText("APPROVED"));
 
-          // create subscriptions for topic
-          CreateMail.WatchEmail(e.CommandArgument);
+          // send notification to watching users...
+          YafServices.SendNotification.ToWatchingUsers(e.CommandArgument.ToType<long>());
           break;
         case "delete":
 
@@ -212,7 +212,7 @@ namespace YAF.Pages.moderate
       else
       {
         // fully format message (YafBBCode, smilies)
-        msg = FormatMsg.FormatMessage(row["Message"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
+        msg = YafFormatMessage.FormatMessage(row["Message"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
       }
 
       // return formatted message

@@ -20,6 +20,7 @@ namespace YAF.Classes.Extensions
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
 
   public static class EnumerableExtensions
   {
@@ -31,7 +32,7 @@ namespace YAF.Classes.Extensions
     /// <param name="action"></param>
     public static void ForEach<T>(this IEnumerable<T> list, Action<T> action)
     {
-      foreach (var item in list)
+      foreach (var item in list.ToList())
       {
         action(item);
       }
@@ -46,7 +47,7 @@ namespace YAF.Classes.Extensions
     public static void ForEachFirst<T>(this IEnumerable<T> list,  Action<T, bool> action)
     {
       bool isFirst = true;
-      foreach (var item in list)
+      foreach (var item in list.ToList())
       {
         action(item, isFirst);
         isFirst = false;
@@ -62,7 +63,7 @@ namespace YAF.Classes.Extensions
     public static void ForEachIndex<T>(this IEnumerable<T> list, Action<T, int> action)
     {
       int i = 0;
-      foreach (var item in list)
+      foreach (var item in list.ToList())
       {
         action(item, i++);
       }

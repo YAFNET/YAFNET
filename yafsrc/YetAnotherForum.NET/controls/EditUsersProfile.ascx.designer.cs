@@ -580,60 +580,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.DropDownList Culture;
         
         /// <summary>
-        /// PMNotificationRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow PMNotificationRow;
-        
-        /// <summary>
-        /// LocalizedLabel19 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel19;
-        
-        /// <summary>
-        /// PMNotificationEnabled control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox PMNotificationEnabled;
-        
-        /// <summary>
-        /// WatchTopicsRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow WatchTopicsRow;
-        
-        /// <summary>
-        /// LocalizedLabel31 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel31;
-        
-        /// <summary>
-        /// AutoWatchTopicsEnabled control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AutoWatchTopicsEnabled;
-        
-        /// <summary>
         /// LoginInfo control.
         /// </summary>
         /// <remarks>

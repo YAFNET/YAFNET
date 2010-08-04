@@ -288,6 +288,19 @@ namespace YAF.Classes
         }
     }
 
+    public bool AllowDigestEmail
+    {
+      get
+      {
+        return this._regBoard.GetValue<bool>("AllowDigestEmail", false);
+      }
+
+      set
+      {
+        this._regBoard.SetValue<bool>("AllowDigestEmail", value);
+      }
+    }
+
     /// <summary>
     /// Gets or sets ShowTopicsDefault.
     /// </summary>
@@ -1188,6 +1201,19 @@ namespace YAF.Classes
       set
       {
         this._reg.SetValue<bool>("EmailVerification", value);
+      }
+    }
+
+    public bool AllowNotificationAllPostsAllTopics
+    {
+      get
+      {
+        return this._reg.GetValue<bool>("AllowNotificationAllPostsAllTopics", false);
+      }
+
+      set
+      {
+        this._reg.SetValue<bool>("AllowNotificationAllPostsAllTopics", value);
       }
     }
 
@@ -2838,6 +2864,19 @@ namespace YAF.Classes
         this._reg.SetValue<string>("UserBoxThanksTo", value);
       }
     }
+
+    public string LastDigestSend
+    {
+      get
+      {
+        return this._regBoard.GetValue<string>("LastDigestSend", null);
+      }
+      set
+      {
+        this._regBoard.SetValue<string>("LastDigestSend", value);
+      }
+    }
+
     #endregion
 
     #region Nested type: YafLegacyBoardSettings

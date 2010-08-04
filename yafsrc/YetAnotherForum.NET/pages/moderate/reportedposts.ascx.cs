@@ -223,7 +223,7 @@ namespace YAF.Pages.moderate
       else
       {
         // fully format message (YafBBCode, smilies)
-        msg = FormatMsg.FormatMessage(row["OriginalMessage"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
+        msg = YafFormatMessage.FormatMessage(row["OriginalMessage"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
       }
 
       // return formatted message

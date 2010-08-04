@@ -27,6 +27,7 @@ namespace YAF.Classes.Core
 {
   using System.Diagnostics;
   using System.Linq;
+  using System.Threading;
 
   using YAF.Classes.Utils;
 
@@ -83,10 +84,19 @@ namespace YAF.Classes.Core
       {
         // vzrus: Culture code is missing for a user until he saved his profile.
         // First set it to board culture              
-        if (this.CurrentCulture.Name.Substring(0, 2) == YafContext.Current.BoardSettings.Culture.Substring(0, 2))
+        if (this.CurrentCulture == null)
         {
-          this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+          try
+          {
+            this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+          }
+          catch
+          {
+            this._currentCulture = Thread.CurrentThread.CurrentCulture;
+          }
         }
+
+        //  && this.CurrentCulture.Name.Substring(0, 2) == YafContext.Current.BoardSettings.Culture.Substring(0, 2)
 
         string cultureUser = YafContext.Current.CultureUser;
 
@@ -120,7 +130,8 @@ namespace YAF.Classes.Core
     {
       if (this._fileName == string.Empty || !File.Exists(this._fileName))
       {
-        throw new ApplicationException("Invalid language file " + this._fileName);
+        this._fileName = "english.xml";
+        //throw new ApplicationException("Invalid language file " + this._fileName);
       }
 
       if (this._doc == null)

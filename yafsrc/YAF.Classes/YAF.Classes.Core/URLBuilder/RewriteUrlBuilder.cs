@@ -82,10 +82,10 @@ namespace YAF.Classes
     /// </returns>
     public override string BuildUrl(string url)
     {
-      string newURL = string.Format("{0}{1}?{2}", AppPath, ScriptName, url);
+      string newUrl = "{0}{1}?{2}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName, url);
 
       // create scriptName
-      string scriptName = string.Format("{0}{1}", AppPath, Config.ForceScriptName ?? ScriptName);
+      string scriptName = "{0}{1}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName);
 
       // get the base script file from the config -- defaults to, well, default.aspx :)
       string scriptFile = Config.BaseScriptFile;
@@ -97,7 +97,7 @@ namespace YAF.Classes
         var parser = new SimpleURLParameterParser(url);
 
         // create "rewritten" url...
-        newURL = before + "yaf_";
+        newUrl = before + "yaf_";
 
         string useKey = string.Empty;
         string description = string.Empty;
@@ -113,13 +113,13 @@ namespace YAF.Classes
             handlePage = true;
             break;
           case "posts":
-            if (!String.IsNullOrEmpty(parser["t"]))
+            if (parser["t"].IsSet())
             {
               useKey = "t";
               pageName += "t";
               description = this.GetTopicName(Convert.ToInt32(parser[useKey]));
             }
-            else if (!String.IsNullOrEmpty(parser["m"]))
+            else if (parser["m"].IsSet())
             {
               useKey = "m";
               pageName += "m";
@@ -134,7 +134,7 @@ namespace YAF.Classes
             // description = GetProfileName( Convert.ToInt32( parser [useKey] ) );
             break;
           case "forum":
-            if (!String.IsNullOrEmpty(parser["c"]))
+            if (parser["c"].IsSet())
             {
               useKey = "c";
               description = this.GetCategoryName(Convert.ToInt32(parser[useKey]));
@@ -143,17 +143,17 @@ namespace YAF.Classes
             break;
         }
 
-        newURL += pageName;
+        newUrl += pageName;
 
         if (useKey.Length > 0)
         {
           if (!showKey)
           {
-            newURL += parser[useKey];
+            newUrl += parser[useKey];
           }
           else
           {
-            newURL += useKey + parser[useKey];
+            newUrl += useKey + parser[useKey];
           }
         }
 
@@ -162,7 +162,7 @@ namespace YAF.Classes
           int page = Convert.ToInt32(parser["p"]);
           if (page != 1)
           {
-            newURL += "p" + page.ToString();
+            newUrl += "p" + page.ToString();
           }
 
           parser.Parameters.Remove("p");
@@ -170,37 +170,37 @@ namespace YAF.Classes
 
         if (description.Length > 0)
         {
-          newURL += "_" + description;
+          newUrl += "_" + description;
         }
 
-        newURL += ".aspx";
+        newUrl += ".aspx";
 
         string restURL = parser.CreateQueryString(new[] { "g", useKey });
 
         // append to the url if there are additional (unsupported) parameters
         if (restURL.Length > 0)
         {
-          newURL += "?" + restURL;
+          newUrl += "?" + restURL;
         }
 
         // see if we can just use the default (/)
-        if (newURL.EndsWith("yaf_forum.aspx"))
+        if (newUrl.EndsWith("yaf_forum.aspx"))
         {
           // remove in favor of just slash...
-          newURL = newURL.Remove(newURL.LastIndexOf("yaf_forum.aspx"), "yaf_forum.aspx".Length);
+          newUrl = newUrl.Remove(newUrl.LastIndexOf("yaf_forum.aspx"), "yaf_forum.aspx".Length);
         }
 
         // add anchor
         if (parser.HasAnchor)
         {
-          newURL += "#" + parser.Anchor;
+          newUrl += "#" + parser.Anchor;
         }
       }
 
       // just make sure & is &amp; ...
-      newURL = newURL.Replace("&amp;", "&").Replace("&", "&amp;");
+      newUrl = newUrl.Replace("&amp;", "&").Replace("&", "&amp;");
 
-      return newURL;
+      return newUrl;
     }
 
     #endregion

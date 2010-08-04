@@ -19,13 +19,13 @@
 
 namespace YAF.Classes.Core
 {
-    using System;
-    using System.Data;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Security;
-    using YAF.Classes.Data;
-    using YAF.Classes.Utils;
+  using System;
+  using System.Data;
+  using System.Linq;
+  using System.Web;
+  using System.Web.Security;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// User Page Class.
@@ -411,15 +411,15 @@ namespace YAF.Classes.Core
     public bool IsHostAdmin
     {
       get
-      {       
+      {
 
         if (this._userFlags != null)
         {
           return this._userFlags.IsHostAdmin;
-            
-            // Obsolete : Ederon
-            // if (General.BinaryAnd(Page["UserFlags"], UserFlags.IsHostAdmin))
-            // isHostAdmin = true;
+
+          // Obsolete : Ederon
+          // if (General.BinaryAnd(Page["UserFlags"], UserFlags.IsHostAdmin))
+          // isHostAdmin = true;
         }
 
         return false;
@@ -464,7 +464,7 @@ namespace YAF.Classes.Core
     public bool IsGuest
     {
       get
-      {          
+      {
         return PageValueAsBool("IsGuest");
       }
     }
@@ -497,7 +497,7 @@ namespace YAF.Classes.Core
     public bool IsSuspended
     {
       get
-      {       
+      {
         if (Page != null && Page["Suspended"] != DBNull.Value)
         {
           return true;
@@ -532,7 +532,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-          return Convert.ToInt32(Page["UnreadPrivate"]);
+        return Convert.ToInt32(Page["UnreadPrivate"]);
       }
     }
 
@@ -559,22 +559,22 @@ namespace YAF.Classes.Core
     /// </summary>
     public int NumAlbums
     {
-        get
-        {
-            return Convert.ToInt32(Page["NumAlbums"]);
-        }
+      get
+      {
+        return Convert.ToInt32(Page["NumAlbums"]);
+      }
     }
-      
+
 
     /// <summary>
     /// Gets the number of albums which a user can have
     /// </summary>
     public int UsrAlbums
     {
-        get
-        {
-            return Convert.ToInt32(Page["UsrAlbums"]);
-        }
+      get
+      {
+        return Convert.ToInt32(Page["UsrAlbums"]);
+      }
     }
 
     /// <summary>
@@ -582,11 +582,11 @@ namespace YAF.Classes.Core
     /// </summary>
     public bool UserHasBuddies
     {
-        get
-        {
-            return PageValueAsBool("UserHasBuddies");
+      get
+      {
+        return PageValueAsBool("UserHasBuddies");
 
-        }
+      }
     }
 
     /// <summary>
@@ -594,10 +594,10 @@ namespace YAF.Classes.Core
     /// </summary>
     public int PendingBuddies
     {
-        get
-        {
-            return Convert.ToInt32(Page["PendingBuddies"]);
-        }
+      get
+      {
+        return Convert.ToInt32(Page["PendingBuddies"]);
+      }
     }
 
     /// <summary>
@@ -605,17 +605,17 @@ namespace YAF.Classes.Core
     /// </summary>
     public DateTime LastPendingBuddies
     {
-        get
+      get
+      {
+        if (String.IsNullOrEmpty(Page["LastPendingBuddies"].ToString()))
         {
-            if (String.IsNullOrEmpty(Page["LastPendingBuddies"].ToString()))
-            {
-                return DateTime.MinValue;
-            }
-            else
-            {
-                return Convert.ToDateTime(Page["LastPendingBuddies"]);
-            }
+          return DateTime.MinValue;
         }
+        else
+        {
+          return Convert.ToDateTime(Page["LastPendingBuddies"]);
+        }
+      }
     }
 
     /// <summary>
@@ -634,15 +634,15 @@ namespace YAF.Classes.Core
     /// </summary>
     public bool DSTUser
     {
-        get
+      get
+      {
+        if (this._userFlags != null)
         {
-            if (this._userFlags != null)
-            {
-                return this._userFlags.IsDST;
-            }
-           
-            return false;
+          return this._userFlags.IsDST;
         }
+
+        return false;
+      }
     }
 
     /// <summary>
@@ -661,10 +661,10 @@ namespace YAF.Classes.Core
     /// </summary>
     public string UserStyle
     {
-        get
-        {
-            return PageValueAsString("UserStyle");
-        }
+      get
+      {
+        return PageValueAsString("UserStyle");
+      }
     }
 
     /// <summary>
@@ -672,10 +672,10 @@ namespace YAF.Classes.Core
     /// </summary>
     public string CultureUser
     {
-        get
-        {
-            return PageValueAsString("CultureUser");
-        }
+      get
+      {
+        return PageValueAsString("CultureUser");
+      }
     }
 
     /// <summary>
@@ -738,13 +738,13 @@ namespace YAF.Classes.Core
           }
 
           string browser = String.Format("{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
-          string platform = HttpContext.Current.Request.Browser.Platform;         
+          string platform = HttpContext.Current.Request.Browser.Platform;
           bool isSearchEngine = false;
           bool isIgnoredForDisplay = false;
 
-          string userAgent = HttpContext.Current.Request.UserAgent;      
+          string userAgent = HttpContext.Current.Request.UserAgent;
 
-         
+
           // try and get more verbose platform name by ref and other parameters             
           UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out isIgnoredForDisplay);
 
@@ -762,41 +762,43 @@ namespace YAF.Classes.Core
           // vzrus: to log unhandled UserAgent strings
           if (YafContext.Current.BoardSettings.UserAgentBadLog)
           {
-              if (String.IsNullOrEmpty(userAgent))
-              {
-                  DB.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
-              }
-              if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
-              {
-                  DB.eventlog_create(YafContext.Current.PageUserID, this, String.Format("Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.", userAgent, HttpContext.Current.Request.Browser.Platform, HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
-              }
-          }     
+            if (String.IsNullOrEmpty(userAgent))
+            {
+              DB.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
+            }
+            if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
+            {
+              DB.eventlog_create(YafContext.Current.PageUserID, this, String.Format("Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.", userAgent, HttpContext.Current.Request.Browser.Platform, HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
+            }
+          }
 
           object userKey = DBNull.Value;
 
           if (user != null)
           {
-              userKey = user.ProviderUserKey;
+            userKey = user.ProviderUserKey;
           }
-                   
+
+          int tries = 0;
+
           do
-          {              
+          {
             pageRow = DB.pageload(
-              HttpContext.Current.Session.SessionID, 
-              PageBoardID, 
-              userKey, 
-              HttpContext.Current.Request.UserHostAddress, 
+              HttpContext.Current.Session.SessionID,
+              PageBoardID,
+              userKey,
+              HttpContext.Current.Request.UserHostAddress,
               HttpContext.Current.Request.FilePath,
               HttpContext.Current.Request.QueryString.ToString(),
-              browser, 
-              platform, 
-              categoryID, 
-              forumID, 
-              topicID, 
-              messageID, 
+              browser,
+              platform,
+              categoryID,
+              forumID,
+              topicID,
+              messageID,
               //// don't track if this is a search engine
               isIgnoredForDisplay);
-        
+
             // if the user doesn't exist...
             if (user != null && pageRow == null)
             {
@@ -805,9 +807,21 @@ namespace YAF.Classes.Core
               {
                 throw new ApplicationException("Failed to use new user.");
               }
-            }
 
-            // only continue if either the page has been loaded or the user has been found...
+              // if we've tried 2 times, they have no access
+              if (tries++ > 5)
+              {
+                // they have NO access -- they are a guest user.
+                userKey = DBNull.Value;
+                user = null;
+                tries = 0;
+              }
+            }
+            else if (tries++ > 5)
+            {
+              // fail...
+              break;
+            }
           }
           while (pageRow == null && user != null);
 
@@ -816,33 +830,33 @@ namespace YAF.Classes.Core
           {
             throw new ApplicationException("Failed to find guest user.");
           }
-       
+
           // We should be sure that all columns are added
           DataRow auldRow;
           do
           {
-          auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
-          if (auldRow != null)
-          {
+            auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
+            if (auldRow != null)
+            {
               foreach (DataColumn col in auldRow.Table.Columns)
               {
-                  DataColumn dc = new DataColumn(col.ColumnName, col.DataType);
-                  pageRow.Table.Columns.Add(dc);
-                  pageRow.Table.Rows[0][dc] = auldRow[col];
+                DataColumn dc = new DataColumn(col.ColumnName, col.DataType);
+                pageRow.Table.Columns.Add(dc);
+                pageRow.Table.Rows[0][dc] = auldRow[col];
               }
 
               pageRow.Table.AcceptChanges();
-          }         
-          // vzrus: Current column count is 42 - change it if the total count changes
+            }
+            // vzrus: Current column count is 42 - change it if the total count changes
           }
           while (pageRow.Table.Columns.Count < 43 && auldRow == null);
-         
+
           // save this page data to the context...
           // vzrus: it can be anywhere, but temporary is here. To reset active users cache if a new user is in the active list
           if (Convert.ToBoolean(pageRow["ActiveUpdate"]))
-              {
-                  YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
-              }         
+          {
+            YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus));
+          }
 
           Page = pageRow;
 

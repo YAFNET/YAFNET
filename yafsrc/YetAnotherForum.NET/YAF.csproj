@@ -468,6 +468,13 @@
     <Compile Include="pages\emailtopic.ascx.designer.cs">
       <DependentUpon>emailtopic.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\emaildigest.ascx.cs">
+      <DependentUpon>emaildigest.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\emaildigest.ascx.designer.cs">
+      <DependentUpon>emaildigest.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\error.ascx.designer.cs">
       <DependentUpon>error.ascx</DependentUpon>
     </Compile>
@@ -647,6 +654,7 @@
       <SubType>UserControl</SubType>
     </Content>
     <Content Include="controls\ViewThanksList.ascx" />
+    <Content Include="digest.aspx" />
     <Content Include="default.aspx" />
     <Content Include="defs\asm.def" />
     <Content Include="defs\asp.def" />
@@ -729,7 +737,9 @@
     <Content Include="languages\czech.xml" />
     <Content Include="languages\danish.xml" />
     <Content Include="languages\dutch.xml" />
-    <Content Include="languages\english.xml" />
+    <Content Include="languages\english.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="languages\finnish.xml" />
     <Content Include="languages\french.xml" />
     <Content Include="languages\german-du.xml" />
@@ -815,6 +825,7 @@
     <Content Include="pages\cp_subscriptions.ascx" />
     <Content Include="pages\deletemessage.ascx" />
     <Content Include="pages\emailtopic.ascx" />
+    <Content Include="controls\emaildigest.ascx" />
     <Content Include="pages\error.ascx" />
     <Content Include="pages\forum.ascx" />
     <Content Include="pages\help\index.ascx" />

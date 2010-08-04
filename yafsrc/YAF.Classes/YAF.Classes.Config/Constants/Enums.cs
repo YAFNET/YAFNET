@@ -26,12 +26,12 @@ namespace YAF.Classes
   public enum SearchFieldFlags
   {
     /// <summary>
-    /// The message.
+    ///   The message.
     /// </summary>
     Message = 0, 
 
     /// <summary>
-    /// The user name.
+    ///   The user name.
     /// </summary>
     UserName = 1
   }
@@ -42,17 +42,17 @@ namespace YAF.Classes
   public enum SearchWhatFlags
   {
     /// <summary>
-    /// The all words.
+    ///   The all words.
     /// </summary>
     AllWords = 0, 
 
     /// <summary>
-    /// The any words.
+    ///   The any words.
     /// </summary>
     AnyWords = 1, 
 
     /// <summary>
-    /// The exact match.
+    ///   The exact match.
     /// </summary>
     ExactMatch = 2
   }
@@ -63,17 +63,17 @@ namespace YAF.Classes
   public enum EventLogTypes
   {
     /// <summary>
-    /// The error.
+    ///   The error.
     /// </summary>
     Error = 0, 
 
     /// <summary>
-    /// The warning.
+    ///   The warning.
     /// </summary>
     Warning = 1, 
 
     /// <summary>
-    /// The information.
+    ///   The information.
     /// </summary>
     Information = 2
   }
@@ -84,19 +84,45 @@ namespace YAF.Classes
   public enum ViewPermissions
   {
     /// <summary>
-    /// The nobody.
+    ///   The nobody.
     /// </summary>
     Nobody = 0, 
 
     /// <summary>
-    /// The registered users.
+    ///   The registered users.
     /// </summary>
     RegisteredUsers = 1, 
 
     /// <summary>
-    /// The everyone.
+    ///   The everyone.
     /// </summary>
     Everyone = 2
+  }
+
+  /// <summary>
+  /// The user communication type.
+  /// </summary>
+  public enum UserNotificationSetting
+  {
+    /// <summary>
+    ///   No Notifications
+    /// </summary>
+    NoNotification = 10, 
+
+    /// <summary>
+    ///   The all topics.
+    /// </summary>
+    AllTopics = 20, 
+
+    /// <summary>
+    ///   The topics I post to or subscribe to.
+    /// </summary>
+    TopicsIPostToOrSubscribeTo = 30, 
+
+    /// <summary>
+    ///   The topics i subscribe to.
+    /// </summary>
+    TopicsISubscribeTo = 0
   }
 
   /* Ederon

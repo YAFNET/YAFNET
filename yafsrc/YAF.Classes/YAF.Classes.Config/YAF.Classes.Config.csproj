@@ -88,6 +88,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AltStringValueAttribute.cs" />
+    <Compile Include="Attributes\StringValueAttribute.cs" />
     <Compile Include="BaseUrlBuilder.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Interfaces\IUserDisplayName.cs" />

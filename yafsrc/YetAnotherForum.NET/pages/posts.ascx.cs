@@ -410,7 +410,7 @@ namespace YAF.Pages
         brief = brief.Substring(0, 40) + "...";
       }
 
-      brief = FormatMsg.AddSmiles(brief);
+      brief = YafFormatMessage.AddSmiles(brief);
 
       html.AppendFormat("<tr class='post'><td colspan='3' nowrap>");
       html.AppendFormat(this.GetIndentImage(row["Indent"]));
@@ -629,15 +629,9 @@ namespace YAF.Pages
 
         // The html code for "Favorite Topic" theme buttons.
         string tagButtonHTML =
-          string.Format(
-            "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.value + ');\" onclick=\"this.blur();\" title=\"{0}\"><span>{1}</span></a>'", 
-            this.PageContext.Localization.GetText("BUTTON_TAGFAVORITE_TT"), 
-            this.PageContext.Localization.GetText("BUTTON_TAGFAVORITE"));
+          "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.value + ');\" onclick=\"this.blur();\" title=\"{0}\"><span>{1}</span></a>'".FormatWith(this.PageContext.Localization.GetText("BUTTON_TAGFAVORITE_TT"), this.PageContext.Localization.GetText("BUTTON_TAGFAVORITE"));
         string untagButtonHTML =
-          string.Format(
-            "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:removeFavoriteTopic(' + res.value + ');\" onclick=\"this.blur();\" title=\"{0}\"><span>{1}</span></a>'", 
-            this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE_TT"), 
-            this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE"));
+          "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:removeFavoriteTopic(' + res.value + ');\" onclick=\"this.blur();\" title=\"{0}\"><span>{1}</span></a>'".FormatWith(this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE_TT"), this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE"));
 
         // Register the client side script for the "Favorite Topic".
         YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -696,7 +690,12 @@ namespace YAF.Pages
 
       this._forumFlags = new ForumFlags(this._forum["Flags"]);
 
-      if (!this.PageContext.ForumReadAccess)
+      if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
+      {
+        // attempt to get permission by redirecting to login...
+        YafServices.Permissions.HandleRequest(ViewPermissions.RegisteredUsers);
+      }
+      else if (!this.PageContext.ForumReadAccess)
       {
         YafBuildLink.AccessDenied();
       }
@@ -736,7 +735,7 @@ namespace YAF.Pages
             (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
         {
           this.Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
-          this.imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumClientFileRoot);
+          this.imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
           this.CaptchaDiv.Visible = true;
         }
 
@@ -943,10 +942,10 @@ namespace YAF.Pages
 
       if (this.Page.Header != null && this.PageContext.BoardSettings.AddDynamicPageMetaTags)
       {
-        FormatMsg.MessageCleaned message = FormatMsg.GetCleanedTopicMessage(firstMessage, this.PageContext.PageTopicID);
+        YafFormatMessage.MessageCleaned message = YafFormatMessage.GetCleanedTopicMessage(firstMessage, this.PageContext.PageTopicID);
         var meta = this.Page.Header.FindControlType<HtmlMeta>();
 
-        if (!String.IsNullOrEmpty(message.MessageTruncated))
+        if (message.MessageTruncated.IsSet())
         {
           HtmlMeta descriptionMeta = null;
 
@@ -1340,7 +1339,7 @@ namespace YAF.Pages
       Mession.LastPost = DateTime.UtcNow;
 
       // post message...
-      long nMessageID = 0;
+      long nMessageId = 0;
       object replyTo = -1;
       string msg = this._quickReplyEditor.Text;
       long topicID = this.PageContext.PageTopicID;
@@ -1363,14 +1362,13 @@ namespace YAF.Pages
           null, 
           replyTo, 
           tFlags.BitValue, 
-          ref nMessageID))
+          ref nMessageId))
       {
         topicID = 0;
       }
 
       // Check to see if the user has enabled "auto watch topic" option in his/her profile.
-      var userData = new CombinedUserDataHelper(this.PageContext.PageUserID);
-      if (userData.AutoWatchTopics)
+      if (PageContext.CurrentUserData.AutoWatchTopics)
       {
         using (DataTable dt = DB.watchtopic_check(this.PageContext.PageUserID, this.PageContext.PageTopicID))
         {
@@ -1384,7 +1382,7 @@ namespace YAF.Pages
 
       bool bApproved = false;
 
-      using (DataTable dt = DB.message_list(nMessageID))
+      using (DataTable dt = DB.message_list(nMessageId))
       {
         foreach (DataRow row in dt.Rows)
         {
@@ -1394,19 +1392,18 @@ namespace YAF.Pages
 
       if (bApproved)
       {
-        // Ederon : 7/26/2007
         // send new post notification to users watching this topic/forum
-        CreateMail.WatchEmail(nMessageID);
+        YafServices.SendNotification.ToWatchingUsers(nMessageId);
 
         // redirect to newly posted message
-        YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", nMessageID);
+        YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", nMessageId);
       }
       else
       {
         if (PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
         {
           // not approved, notifiy moderators
-          YafServices.SendNotification.ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)nMessageID);
+          YafServices.SendNotification.ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)nMessageId);
         }
 
         string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);

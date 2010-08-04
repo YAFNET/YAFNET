@@ -24,6 +24,8 @@ namespace YAF.Controls
   using Classes.Core;
   using Classes.UI;
 
+  using YAF.Classes.Core.BBCode;
+
   /// <summary>
   /// The localization support extensions.
   /// </summary>

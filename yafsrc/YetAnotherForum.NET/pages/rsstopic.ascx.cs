@@ -153,7 +153,7 @@ namespace YAF.Pages
               {
                 syndicationItems.AddSyndicationItem(
                   row["Subject"].ToString(), 
-                  FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])), 
+                  YafFormatMessage.FormatMessage(row["Message"].ToString(), new MessageFlags(row["Flags"])), 
                   YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.Request.QueryString.GetFirstOrDefault("t")),
                   "TopicID{0}".FormatWith(this.Request.QueryString.GetFirstOrDefault("t")),
                   !row["Posted"].IsNullOrEmptyDBField()

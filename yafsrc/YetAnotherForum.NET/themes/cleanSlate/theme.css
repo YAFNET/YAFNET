@@ -1,9 +1,9 @@
 @import "jquery/jquery-ui.css";
 
 .yafnet {
-	font-family: arial,helvetica,"lucida grande",verdana,sans-serif;
-	font-size: 9.5pt;
-	color: #333333;
+    font-family: arial,helvetica,"lucida grande",verdana,sans-serif;
+    font-size: 9.5pt;
+    color: #333333;
 }
 .yafnet a { color: #105cb6; text-decoration: none; }
 .yafnet a:link { color: #105cb6; text-decoration: none; }
@@ -12,26 +12,26 @@
 .yafnet a:hover { color: #105cb6; text-decoration: underline; }
 
 .yafnet img {
-	border: 0;
+    border: 0;
 }
 
 .yafnet table.content {
-	padding: 0px;
-	margin: 5px 0px 5px 0px;
-	color: #333333;
-	border-collapse: collapse;
-	border: solid 1px #eeeeee;	
+    padding: 0px;
+    margin: 5px 0px 5px 0px;
+    color: #333333;
+    border-collapse: collapse;
+    border: solid 1px #eeeeee;	
 }
 
 .yafnet tr.forumRowTitle,
 .yafnet td.header1,
 .yafnet tr.header1
 {
-	background-color: #ee6943;
-	background-image: url('titlebg.jpg');
-	color: #ffffff;
-	font-weight: bold;
-	font-size: 10.5pt;	
+    background-color: #ee6943;
+    background-image: url('titlebg.jpg');
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 10.5pt;	
 }
 /* custom forum images special styles */
 .yafnet .forum_customimage_locked
@@ -53,8 +53,8 @@
 }
 
 .yafnet table.content td {
-	padding: 10px;
-	border: solid 1px #eeeeee;	
+    padding: 10px;
+    border: solid 1px #eeeeee;	
 }
 
 .yafnet tr.forumRowTitle th
@@ -83,8 +83,8 @@
 
 .yafnet .MessageDetails span
 {
-	font-weight: bold;
-	font-size: 8pt;
+    font-weight: bold;
+    font-size: 8pt;
 }
 
 .yafnet .forumLinkCol div.forumheading,
@@ -115,32 +115,32 @@
 .yafnet .forumRow_Alt .topicCountCol,
 .yafnet .forumRow_Alt .postCountCol
 {
-	text-align: right;
+    text-align: right;
 }
 
 .yafnet .forumRow .moderatorListCol,
 .yafnet .forumRow_Alt .moderatorListCol
 {
-	text-align: center;
+    text-align: center;
 }
 
 .yafnet .forumRow a.forumTopicLink,
 .yafnet .forumRow_Alt a.forumTopicLink
 {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .yafnet .forumRow .forumLinkCol,
 .yafnet .forumRow_Alt .forumLinkCol
 {
-	width: 80%;
+    width: 80%;
 }
 
 .yafnet .forumRowTitle .headerLastPost,
 .yafnet .forumRow .lastPostCol,
 .yafnet .forumRow_Alt .lastPostCol
 {
-	text-align: left;
+    text-align: left;
 }
 
 .yafnet tr.topicRow,
@@ -165,7 +165,7 @@
 .yafnet tr.topicRow a.post_link,
 .yafnet tr.topicRow_Alt a.post_link
 {
-	color: #222;
+    color: #222;
 }
 
 .yafnet tr.topicRow .topicMain .post_priority,
@@ -188,20 +188,20 @@
 .yafnet tr.topicRow .topicLastPost img.avatarimage,
 .yafnet tr.topicRow_Alt .topicLastPost img.avatarimage
 {
-	width: 40px;
-	height: 40px;
-	float: left;
-	padding: 3px;
+    width: 40px;
+    height: 40px;
+    float: left;
+    padding: 3px;
 }
 
 .yafnet tr.topicRow .topicMain img.avatarimage,
 .yafnet tr.topicRow_Alt .topicMain img.avatarimage
 {
-	width: 40px;
-	height: 40px;
-	float: left;
-	padding: 3px;	
-	padding-right: 8px;
+    width: 40px;
+    height: 40px;
+    float: left;
+    padding: 3px;	
+    padding-right: 8px;
 }
 
 .yafnet tr.topicRow .topicReplies,
@@ -209,7 +209,7 @@
 .yafnet tr.topicRow .topicViews,
 .yafnet tr.topicRow_Alt .topicViews
 {
-	text-align: right;
+    text-align: right;
 }
 
 .yafnet tr.topicRow .topicViews,
@@ -229,9 +229,9 @@
 }
 
 .yafnet .postsep {
-	background-color: #e8e8e8;
-	height: 10px;
-	margin-bottom: 100px;
+    background-color: #e8e8e8;
+    height: 10px;
+    margin-bottom: 100px;
 }
 
 .yafnet table.postContainer,
@@ -286,29 +286,29 @@
 
 .yafnet div.section
 {
-	padding: 5px;
-	background-color:#f2f2f2;
-	border: solid 1px #ddd;
-	color: #888;
-	font-size: 9pt;
-	text-align: center;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;	
+    padding: 5px;
+    background-color:#f2f2f2;
+    border: solid 1px #ddd;
+    color: #888;
+    font-size: 9pt;
+    text-align: center;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;	
 }
 
 .yafnet div.postdiv {
-	width: 100%;
-	min-height: 100px;
-	overflow: auto;
+    width: 100%;
+    min-height: 100px;
+    overflow: auto;
 }
 
 .yafnet .yafPageLink
 {
-	font-weight: bold;
-	color: #000000;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding: 2px;
+    font-weight: bold;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 2px;
 }
 
 .yafnet .edit
@@ -318,95 +318,95 @@
 
 .yafnet input,
 .yafnet select {
-	font-family: verdana,sans-serif;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;		
-	font-size: 9pt;
-	color: #3b3b3b;	
-	padding: 5px;
-	background-color: #f5f5f5;
-	border: 1px solid #aaaaaa;	
+    font-family: verdana,sans-serif;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;		
+    font-size: 9pt;
+    color: #3b3b3b;	
+    padding: 5px;
+    background-color: #f5f5f5;
+    border: 1px solid #aaaaaa;	
 }
 
 .yafnet input[type="image"]
 {
-	padding: 0px;
-	border: 0px;
+    padding: 0px;
+    border: 0px;
 }
 
 .yafnet input[type="checkbox"]
 {
-	border: 0px;
-	padding: 0px;
-	margin: 5px;
+    border: 0px;
+    padding: 0px;
+    margin: 5px;
 }
 
 .yafnet input:hover,
 .yafnet select:hover
 {
-	background-color: #fff;
-	border: 1px solid #333;	
+    background-color: #fff;
+    border: 1px solid #333;	
 }
 
 .yafnet .fileattach {
-	padding: 5px;
-	background-color: #eeeeee;
-	border: solid 1px #808080;
+    padding: 5px;
+    background-color: #eeeeee;
+    border: solid 1px #808080;
 }
 .yafnet .fileattach .filetitle,
 .yafnet .fileattach .imgtitle {
-	font-weight: bold;
-	color: #444444;
-	margin-bottom: 5px;
-	font-size: 1.1em;
+    font-weight: bold;
+    color: #444444;
+    margin-bottom: 5px;
+    font-size: 1.1em;
 }
 .yafnet .fileattach .attachedimg,
 .yafnet .fileattach .attachedfile {
-	margin-left: 10px;
+    margin-left: 10px;
 }
 .yafnet .fileattach a {
-	font-weight: bold;
+    font-weight: bold;
 }
 .yafnet .quote {
-	padding-left: 16px;
-	margin: 5px;
+    padding-left: 16px;
+    margin: 5px;
 }
 .yafnet .innerquote {
-	padding: 4px;
-	background-color: #fefefe;
-	border: 1px dashed #808080;
+    padding: 4px;
+    background-color: #fefefe;
+    border: 1px dashed #808080;
 }
 .yafnet .code {
-	padding-left: 16px;	
-	margin: 5px;
+    padding-left: 16px;	
+    margin: 5px;
 }
 .yafnet span.highlight {
-	background-color: Yellow;
-	color: Black;
+    background-color: Yellow;
+    color: Black;
 }
 .yafnet .innercode {
-	padding: 4px;
-	background-color: #efefef;
-	border: solid 1px #808080;
-	color: #000000;
-	line-height: 1.3em;
-	font-family: "courier new", "times new roman", monospace;
+    padding: 4px;
+    background-color: #efefef;
+    border: solid 1px #808080;
+    color: #000000;
+    line-height: 1.3em;
+    font-family: "courier new", "times new roman", monospace;
     overflow: scroll;
     width: 600px;
-	white-space: nowrap;
+    white-space: nowrap;
 }
 .yafnet .smallfont	{ font-size: 10px; }
 .yafnet .largefont	{ font-size: 11px; }
 .yafnet a.imagelink {
-	font-weight: bold;
-	color: #000000;
+    font-weight: bold;
+    color: #000000;
 }
 .yafnet a:hover.imagelink {
-	text-decoration: none;
+    text-decoration: none;
 }
 .yafnet .posteditor {
-	width: 100%;
-	height: 200px;
+    width: 100%;
+    height: 200px;
 }
 
 .yafnet .navlinks { font-weight: bold; color: #000000; }
@@ -414,90 +414,90 @@
 .yafnet .navlinks a:hover {color: #666666; }
 
 .yafnet table.print {
-	border: solid 1px #C0C0C0;
+    border: solid 1px #C0C0C0;
 }
 .yafnet .printheader {
-	background-color: #DDDDDD;
-	color: #000000;
-	padding: 4px;
+    background-color: #DDDDDD;
+    color: #000000;
+    padding: 4px;
 }
 .yafnet .printbody {
-	background-color: #FFFFFF;
-	color: #000000;
-	padding: 4px;
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: 4px;
 }
 .yafnet .pbutton {
-	padding: 4px;
-	color: #105cc9;
+    padding: 4px;
+    color: #105cc9;
 }
 .yafnet .textfield {
-	background-color: #FFFFFF;
-	border: 1px solid #3B3b3b;
-	width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #3B3b3b;
+    width: 100%;
 }
 .yafnet .ButtonOut {
-	border: #888888 1px solid;
+    border: #888888 1px solid;
 }
 .yafnet .ButtonOver {
-	border: #000000 1px solid;
-	background-color: #ffffff;
+    border: #000000 1px solid;
+    background-color: #ffffff;
 }
 .yafnet .ButtonChecked {
-	border: #000000 1px solid;
+    border: #000000 1px solid;
 }
 .yafnet .ButtonOff {
-	border: #888888 1px solid;
+    border: #888888 1px solid;
 }
 .yafnet #bbcodeFeatures {
-	border: #eeffee 1px solid;
+    border: #eeffee 1px solid;
 }
 .yafnet div.yafsignature
 {
-	border-top: solid 1px #666666;
-	margin-top: 15px;
-	padding-top: 5px;
+    border-top: solid 1px #666666;
+    margin-top: 15px;
+    padding-top: 5px;
 }
 /* CSS Pagelinks */
 .yafnet .yafpager {
-	color: #555555;
-	margin: 6px 0px 6px 0px;
+    color: #555555;
+    margin: 6px 0px 6px 0px;
 }
 .yafnet .pagelink,
 .yafnet .pagelinkfirst,
 .yafnet .pagelinklast,
 .yafnet .pagecurrent,
 .yafnet .pagecount{
-	background: #F5F5F5;
-	border: 1px solid #444444;
-	padding: 1px 3px 1px 3px;
-	margin-right: 2px;
+    background: #F5F5F5;
+    border: 1px solid #444444;
+    padding: 1px 3px 1px 3px;
+    margin-right: 2px;
 }
 .yafnet .pagecount {
-	margin-right: 5px;
+    margin-right: 5px;
 }
 .yafnet .pagelinkfirst,
 .yafnet .pagelinklast{
-	background: #e0e0e0;
+    background: #e0e0e0;
 }
 .yafnet .pagecurrent{
-	background: #dddddd;
+    background: #dddddd;
 }
 .yafnet .pagelink a,
 .yafnet .pagelinkfirst a,
 .yafnet .pagelinklast a {
-	text-decoration: none;
-	color: #000090;
+    text-decoration: none;
+    color: #000090;
 }
 /* CCS Buttons */
 .yafnet a.yaflittlebutton 
 {
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;	
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;	
     background-color: #eeeeee;
     color: #105cc9;
     display: block;
     float: right;
-	font-size: 7.5pt; 
+    font-size: 7.5pt; 
     margin: 4px 0px 4px 4px;
     padding-right: 2px;
     text-decoration: none;
@@ -511,13 +511,13 @@
     padding: 6px 5px 6px 8px;
 }
 .yafnet a.yaflittlebutton img {
-	vertical-align: middle;
-	padding: 0px 4px 2px 0px;
+    vertical-align: middle;
+    padding: 0px 4px 2px 0px;
 }
 .yafnet a.yaflittlebutton:hover {
-	color: #000000;
-	background-color: #fff;
-	text-decoration: none;
+    color: #000000;
+    background-color: #fff;
+    text-decoration: none;
 }
 .yafnet a.yaflittlebutton:active {
     background-position: bottom right;
@@ -532,12 +532,12 @@
 }
 .yafnet a.yafcssbigbutton
 {
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
     background-color: #eee;
     color: #105cc9;
     display: block;
-	font-size: 8pt; 
+    font-size: 8pt; 
     margin: 4px 2px 4px 4px;
     padding-right: 2px;
     text-decoration: none;
@@ -551,14 +551,14 @@
     padding: 6px 10px 6px 12px;
 }
 .yafnet a.yafcssbigbutton img{
-	vertical-align: top;
-	padding: 0px 4px 0px 0px;
+    vertical-align: top;
+    padding: 0px 4px 0px 0px;
 }
 .yafnet a.yafcssbigbutton:hover
 {
     color: #000000;
     background-color: #fff;
-	text-decoration: none;
+    text-decoration: none;
 }
 .yafnet a.yafcssbigbutton:active{
     background-position: bottom right;
@@ -574,13 +574,13 @@
 /* css image button */
 .yafnet a.yafcssimagebutton
 {
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;	
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;	
     background-color: #eeeeee;
     color: #555555;
     display: block;
     float: left;
-	font-size: 10px; 
+    font-size: 10px; 
     margin: 2px 0px 2px 2px;
     padding-right: 2px;
     text-decoration: none;
@@ -595,13 +595,13 @@
     padding: 2px 6px 2px 8px;
 }
 .yafnet a.yafcssimagebutton img{
-	vertical-align: top;
-	padding: 0px 4px 0px 0px;
+    vertical-align: top;
+    padding: 0px 4px 0px 0px;
 }
 .yafnet a.yafcssimagebutton:hover{
-	text-decoration: none;
-	background-color: #fff;
-	color: #105cc9;
+    text-decoration: none;
+    background-color: #fff;
+    color: #105cc9;
 }
 .yafnet a.yafcssimagebutton:active{
     background-position: bottom right;
@@ -616,21 +616,21 @@
 }
 /* CSS Popupmenu */
 .yafnet .yafpopupmenu {
-	background-color: #ffffff;
-	border: solid 1px #333333;
-	
+    background-color: #ffffff;
+    border: solid 1px #333333;
+    
 }
 .yafnet .yafpopupmenu ul {	
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 .yafnet .yafpopupmenu li {
-	padding: 5px 10px 5px 10px;
-	margin: 0;
+    padding: 5px 10px 5px 10px;
+    margin: 0;
 }
 .yafnet .yafpopupmenu li.popupitemhover {
-	background-color: #cccccc;
+    background-color: #cccccc;
 }
 
 /* ajax tabs */
@@ -690,56 +690,56 @@
 /*Modal Popup*/
 .modalInner
 {
-	text-align:center;
-	display:block;
-	font-weight:bold;
+    text-align:center;
+    display:block;
+    font-weight:bold;
 }
 
 .modalOuter
 {
-	margin:10px;
-	display:block;
+    margin:10px;
+    display:block;
 }
 
 /* Goto Page Form */
 .gotoPageForm
 {
-	font-family: Arial, Verdana, Tahoma;
-	background-color: #f0f0f0;
-	border: solid 1px #555555;
-	width: 80px;
-	margin: 1px;	
-	font-size: 9pt;		
+    font-family: Arial, Verdana, Tahoma;
+    background-color: #f0f0f0;
+    border: solid 1px #555555;
+    width: 80px;
+    margin: 1px;	
+    font-size: 9pt;		
 }
 .gotoPageForm .gotoBase
 {
-	border: solid 1px #ffffff;
+    border: solid 1px #ffffff;
 }
 .gotoPageForm .gotoHeader
 {
   background-color: #aaa;
-	color: #000000;
-	font-weight: bold;	
-	padding: 2px;	
+    color: #000000;
+    font-weight: bold;	
+    padding: 2px;	
 }
 .gotoPageForm .gotoInner
 {
-	padding: 2px;
+    padding: 2px;
 }
 .gotoPageForm .gotoInner input
 {
-	margin: 2px;
+    margin: 2px;
 }
 /* Album */
 .yafnet .albumtitle:hover
 {
-	background-color: yellow;
+    background-color: yellow;
 }
 .yafnet .content .albumtable td.albumimagebox
 {
-		padding-bottom:0;
+        padding-bottom:0;
 }
 .yafnet .content .albumtable td.albumtitlebox
 {
-		padding-top:0;
+        padding-top:0;
 }

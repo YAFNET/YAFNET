@@ -192,7 +192,6 @@ namespace YAF.Controls
 
         this.UserThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
         this.UserLanguageRow.Visible = this.PageContext.BoardSettings.AllowUserLanguage;
-        this.PMNotificationRow.Visible = this.PageContext.BoardSettings.AllowPMEmailNotification;
         this.MetaWeblogAPI.Visible = this.PageContext.BoardSettings.AllowPostToBlog;
         this.LoginInfo.Visible = this.PageContext.BoardSettings.AllowEmailChange;
         this.currentCulture = Thread.CurrentThread.CurrentCulture.IetfLanguageTag;
@@ -338,16 +337,17 @@ namespace YAF.Controls
         theme, 
         this.OverrideDefaultThemes.Checked, 
         null, 
-        this.PMNotificationEnabled.Checked, 
-        this.AutoWatchTopicsEnabled.Checked,
+        null, 
+        null,
         this.DSTUser.Checked,
-        this.HideMe.Checked);
+        this.HideMe.Checked,
+        null);
 
       // clear the cache for this user...
       UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
 
       // Clearing cache with old Active User Lazy Data ...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ActiveUserLazyData, this.CurrentUserID)));
+      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID)));
 
       if (!this.AdminEditMode)
       {
@@ -425,8 +425,6 @@ namespace YAF.Controls
       this.ICQ.Text = this.UserData.Profile.ICQ;
       this.Xmpp.Text = this.UserData.Profile.XMPP;
       this.Skype.Text = this.UserData.Profile.Skype;
-      this.PMNotificationEnabled.Checked = this.UserData.PMNotification;
-      this.AutoWatchTopicsEnabled.Checked = this.UserData.AutoWatchTopics;
       this.Gender.SelectedIndex = this.UserData.Profile.Gender;
 
       ListItem timeZoneItem = this.TimeZones.Items.FindByValue(this.UserData.TimeZone.ToString());
@@ -436,7 +434,7 @@ namespace YAF.Controls
       }
 
       this.DSTUser.Checked = this.UserData.DSTUser;
-      this.HideMe.Checked = (this.UserData.IsActiveExcluded && (this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin));
+      this.HideMe.Checked = this.UserData.IsActiveExcluded && (this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin);
       this.OverrideForumThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
 
       if (this.PageContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)

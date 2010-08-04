@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin
   using System.Web.UI.WebControls;
   using YAF.Classes;
   using YAF.Classes.Core;
+  using YAF.Classes.Core.BBCode;
   using YAF.Classes.UI;
   using YAF.Classes.Utils;
 

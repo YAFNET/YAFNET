@@ -30,9 +30,7 @@ namespace YAF.Classes
   /// </summary>
   public class DefaultUrlBuilder : BaseUrlBuilder
   {
-    #region Implemented Interfaces
-
-    #region IUrlBuilder
+    #region Public Methods
 
     /// <summary>
     /// Builds path for calling page with parameter URL as page's escaped parameter.
@@ -49,7 +47,7 @@ namespace YAF.Classes
       url = url.Replace("&", "&amp;");
 
       // return URL to current script with URL from parameter as script's parameter
-      return String.Format("{0}{1}?{2}", AppPath, ScriptName, url);
+      return String.Format("{0}{1}?{2}", AppPath, Config.ForceScriptName ?? ScriptName, url);
     }
 
     /// <summary>
@@ -66,8 +64,6 @@ namespace YAF.Classes
       // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
       return String.Format("{0}{1}", BaseUrl, this.BuildUrl(url));
     }
-
-    #endregion
 
     #endregion
   }

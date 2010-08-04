@@ -20,6 +20,9 @@ using System.Text.RegularExpressions;
 
 namespace YAF.Classes.Utils
 {
+  using System.Collections.Generic;
+  using System.Linq;
+
   /// <summary>
   /// The html helper.
   /// </summary>
@@ -68,7 +71,7 @@ namespace YAF.Classes.Utils
     /// <returns>
     /// The is valid tag.
     /// </returns>
-    public static bool IsValidTag(string tag, string[] allowedTags)
+    public static bool IsValidTag(string tag, IEnumerable<string> allowedTags)
     {
       if (tag.IndexOf("javascript") >= 0)
       {
@@ -102,15 +105,7 @@ namespace YAF.Classes.Utils
       }
 
       // check if it's a valid tag
-      foreach (string aTag in allowedTags)
-      {
-        if (tag == aTag)
-        {
-          return true;
-        }
-      }
-
-      return false;
+      return allowedTags.Any(allowedTag => tag == allowedTag);
     }
   }
 }

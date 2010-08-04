@@ -23,6 +23,8 @@ using YAF.Controls;
 
 namespace YAF.Modules
 {
+  using YAF.Classes.Core;
+
   /// <summary>
   /// The yaf bb code control.
   /// </summary>
@@ -102,7 +104,7 @@ namespace YAF.Modules
     /// </returns>
     protected string ProcessBBCodeString(string bbCodeString)
     {
-      return FormatMsg.FormatMessage(bbCodeString, CurrentMessageFlags);
+      return YafFormatMessage.FormatMessage(bbCodeString, CurrentMessageFlags);
     }
 
     /// <summary>

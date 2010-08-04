@@ -23,6 +23,8 @@ using YAF.Classes.UI;
 
 namespace YAF.Controls
 {
+  using YAF.Classes.Core;
+
   /// <summary>
   /// The message signature.
   /// </summary>
@@ -167,7 +169,7 @@ namespace YAF.Controls
       var tFlags = new MessageFlags();
       tFlags.IsHtml = false;
 
-      RenderModulesInBBCode(writer, FormatMsg.FormatMessage(Signature, tFlags), tFlags, DisplayUserID);
+      RenderModulesInBBCode(writer, YafFormatMessage.FormatMessage(Signature, tFlags), tFlags, DisplayUserID);
     }
   }
 }

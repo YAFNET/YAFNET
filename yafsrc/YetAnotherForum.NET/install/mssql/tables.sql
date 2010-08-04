@@ -318,6 +318,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		OverrideDefaultThemes	bit NOT NULL CONSTRAINT [DF_{objectQualifier}User_OverrideDefaultThemes] DEFAULT (0),
 		[PMNotification] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_PMNotification] DEFAULT (1),
 		[AutoWatchTopics] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_AutoWatchTopics] DEFAULT (0),
+		[DailyDigest] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_DailyDigest] DEFAULT (0),
+		[NotificationType] [int] NULL,
 		[Flags] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Flags] DEFAULT (0),
 		[Points] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (0),		
 		[IsApproved]	AS (CONVERT([bit],sign([Flags]&(2)),(0))),
@@ -732,6 +734,12 @@ begin
 end
 GO
 
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='NotificationType')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] ADD NotificationType int NULL
+end
+GO
+
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsActiveExcluded')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] ADD [IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
@@ -810,6 +818,12 @@ GO
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PMNotification')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [PMNotification] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_PMNotification] DEFAULT (1)
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='DailyDigest')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [DailyDigest] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_DailyDigest] DEFAULT (0)
 end
 GO
 

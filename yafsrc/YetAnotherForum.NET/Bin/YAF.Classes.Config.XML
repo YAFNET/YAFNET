@@ -11,12 +11,12 @@
         </member>
         <member name="F:YAF.Classes.SearchFieldFlags.Message">
             <summary>
-            The message.
+              The message.
             </summary>
         </member>
         <member name="F:YAF.Classes.SearchFieldFlags.UserName">
             <summary>
-            The user name.
+              The user name.
             </summary>
         </member>
         <member name="T:YAF.Classes.SearchWhatFlags">
@@ -26,17 +26,17 @@
         </member>
         <member name="F:YAF.Classes.SearchWhatFlags.AllWords">
             <summary>
-            The all words.
+              The all words.
             </summary>
         </member>
         <member name="F:YAF.Classes.SearchWhatFlags.AnyWords">
             <summary>
-            The any words.
+              The any words.
             </summary>
         </member>
         <member name="F:YAF.Classes.SearchWhatFlags.ExactMatch">
             <summary>
-            The exact match.
+              The exact match.
             </summary>
         </member>
         <member name="T:YAF.Classes.EventLogTypes">
@@ -46,17 +46,17 @@
         </member>
         <member name="F:YAF.Classes.EventLogTypes.Error">
             <summary>
-            The error.
+              The error.
             </summary>
         </member>
         <member name="F:YAF.Classes.EventLogTypes.Warning">
             <summary>
-            The warning.
+              The warning.
             </summary>
         </member>
         <member name="F:YAF.Classes.EventLogTypes.Information">
             <summary>
-            The information.
+              The information.
             </summary>
         </member>
         <member name="T:YAF.Classes.ViewPermissions">
@@ -66,17 +66,42 @@
         </member>
         <member name="F:YAF.Classes.ViewPermissions.Nobody">
             <summary>
-            The nobody.
+              The nobody.
             </summary>
         </member>
         <member name="F:YAF.Classes.ViewPermissions.RegisteredUsers">
             <summary>
-            The registered users.
+              The registered users.
             </summary>
         </member>
         <member name="F:YAF.Classes.ViewPermissions.Everyone">
             <summary>
-            The everyone.
+              The everyone.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.UserNotificationSetting">
+            <summary>
+            The user communication type.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.UserNotificationSetting.NoNotification">
+            <summary>
+              No Notifications
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.UserNotificationSetting.AllTopics">
+            <summary>
+              The all topics.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.UserNotificationSetting.TopicsIPostToOrSubscribeTo">
+            <summary>
+              The topics I post to or subscribe to.
+            </summary>
+        </member>
+        <member name="F:YAF.Classes.UserNotificationSetting.TopicsISubscribeTo">
+            <summary>
+              The topics i subscribe to.
             </summary>
         </member>
         <member name="T:YAF.Classes.Pattern.TypeFactoryInstanceApplicationScope`1">
@@ -252,6 +277,7 @@
             <summary>
             Gets BaseUrl.
             </summary>
+            <exception cref="T:YAF.Classes.BaseUrlMaskRequiredException">Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config.</exception>
         </member>
         <member name="P:YAF.Classes.BaseUrlBuilder.ClientFileRoot">
             <summary>
@@ -278,6 +304,25 @@
             Gets ScriptNamePath.
             </summary>
         </member>
+        <member name="T:YAF.Classes.Utils.AltStringValueAttribute">
+            <summary>
+            This attribute is used to represent a string value
+            for a value in an enum.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.AltStringValueAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.AltStringValueAttribute"/> class. 
+            Constructor used to init a StringValue Attribute
+            </summary>
+            <param name="value">
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Utils.AltStringValueAttribute.AltStringValue">
+            <summary>
+            Holds the stringvalue for a value in an enum.
+            </summary>
+        </member>
         <member name="T:YAF.Classes.Pattern.PageSingleton`1">
             <summary>
             Singleton factory implementation
@@ -300,6 +345,25 @@
         <member name="P:YAF.Classes.Pattern.PageSingleton`1.Instance">
             <summary>
             Gets Instance.
+            </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.StringValueAttribute">
+            <summary>
+            This attribute is used to represent a string value
+            for a value in an enum.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.StringValueAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.StringValueAttribute"/> class. 
+            Constructor used to init a StringValue Attribute
+            </summary>
+            <param name="value">
+            </param>
+        </member>
+        <member name="P:YAF.Classes.Utils.StringValueAttribute.StringValue">
+            <summary>
+            Holds the stringvalue for a value in an enum.
             </summary>
         </member>
         <member name="T:YAF.Classes.YafBoardSettingCollection">
@@ -1284,7 +1348,7 @@
         </member>
         <member name="P:YAF.Classes.Config.ForceScriptName">
             <summary>
-            Used for Url Rewriting -- default is null.
+            Used for Url Rewriting -- default is null -- used to define what the forum file name is for urls.
             </summary>
         </member>
         <member name="P:YAF.Classes.Config.BaseScriptFile">

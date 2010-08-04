@@ -105,7 +105,7 @@ namespace YAF.Controls
       bool br = false;
 
       // append theme Credit if it exists...
-      if (!String.IsNullOrEmpty(themeCredit))
+      if (themeCredit.IsSet())
       {
         footer.AppendFormat(@"<span id=""themecredit"" style=""color:#999999"">{0}</span>", themeCredit);
         br = true;

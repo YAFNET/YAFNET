@@ -19,6 +19,7 @@
 namespace YAF.Modules
 {
   using YAF.Classes;
+  using YAF.Classes.Core.BBCode;
   using YAF.Classes.UI;
 
   /// <summary>

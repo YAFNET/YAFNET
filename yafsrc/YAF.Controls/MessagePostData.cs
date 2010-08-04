@@ -298,13 +298,13 @@ namespace YAF.Controls
           {
             this.RenderModulesInBBCode(
               writer, 
-              this.HighlightMessage(FormatMsg.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
+              this.HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)), 
               this.MessageFlags, 
               this.DisplayUserID);
           }
           else
           {
-            writer.Write(HighlightMessage(FormatMsg.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
+            writer.Write(HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags, false, editedMessage)));
           }
         }
         else
@@ -313,11 +313,11 @@ namespace YAF.Controls
           if (this.MessageFlags.IsBBCode)
           {
             this.RenderModulesInBBCode(
-              writer, this.HighlightMessage(FormatMsg.FormatMessage(this.Message, this.MessageFlags)), this.MessageFlags, this.DisplayUserID);
+              writer, this.HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags)), this.MessageFlags, this.DisplayUserID);
           }
           else
           {
-            writer.Write(this.HighlightMessage(FormatMsg.FormatMessage(this.Message, this.MessageFlags)));
+            writer.Write(this.HighlightMessage(YafFormatMessage.FormatMessage(this.Message, this.MessageFlags)));
           }
         }
       }

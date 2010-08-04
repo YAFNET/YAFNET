@@ -1,0 +1,3 @@
+﻿<MSDeploy.iisApp>
+  <iisApp path="application" />
+</MSDeploy.iisApp>

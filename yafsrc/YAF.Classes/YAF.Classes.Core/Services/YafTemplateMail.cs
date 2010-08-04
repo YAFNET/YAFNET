@@ -285,7 +285,7 @@ namespace YAF.Classes.Core
       htmlBody = ProcessTemplate(TemplateName + "_HTML").Trim();
 
       // null out html if it's not desired
-      if (!HtmlEnabled || String.IsNullOrEmpty(htmlBody))
+      if (!HtmlEnabled || htmlBody.IsNotSet())
       {
         htmlBody = null;
       }

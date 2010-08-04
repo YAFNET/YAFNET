@@ -1196,6 +1196,7 @@ namespace YAF.Pages.Admin
                   null, 
                   null,
                   null,
+                  null,
                   null);
                 _outCounter++;
               }

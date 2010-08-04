@@ -30,7 +30,7 @@ namespace YAF.Classes.Utils.Extensions
     /// <returns>
     /// The stream to string.
     /// </returns>
-    public static string ToString(this Stream theStream)
+    public static string AsString(this Stream theStream)
     {
       var reader = new StreamReader(theStream);
       return reader.ReadToEnd();

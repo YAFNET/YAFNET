@@ -6,7 +6,6 @@
 	{
 		Exception x = Server.GetLastError();
 		YAF.Classes.Data.DB.eventlog_create(YafServices.InitializeDb.Initialized ? (int?)YafContext.Current.PageUserID : null , this, x );
-		YAF.Classes.Core.CreateMail.CreateLogEmail( x );
 	}
 	public void Page_PreRender( object sender, System.EventArgs e )
 	{
