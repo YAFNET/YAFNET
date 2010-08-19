@@ -75,13 +75,14 @@ namespace YAF.Pages.Admin
 
       using (var connMan = new YafDBConnManager())
       {
-        connMan.InfoMessage += connMan_InfoMessage;
+        connMan.InfoMessage += this.connMan_InfoMessage;
         string sql = this.txtQuery.Text.Trim();
         
         // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
         sql = sql.Replace("{databaseOwner}", Config.DatabaseOwner);
         sql = sql.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
-        this.txtResult.Text = DB.db_runsql(sql, connMan);
+
+        this.txtResult.Text = DB.db_runsql(sql, connMan, this.chkRunInTransaction.Checked);
       }
     }
 

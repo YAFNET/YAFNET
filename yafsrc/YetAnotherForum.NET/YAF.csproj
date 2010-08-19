@@ -1487,7 +1487,9 @@
     </Compile>
     <Content Include="app.config" />
     <Content Include="App_Browsers\w3cvalidator.browser" />
-    <Content Include="themes\cleanSlate.xml" />
+    <Content Include="themes\cleanSlate.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="themes\cleanSlate\buttonBack.gif" />
     <Content Include="themes\cleanSlate\buttonBackB.gif" />
     <Content Include="themes\cleanSlate\buttonEnd.gif" />

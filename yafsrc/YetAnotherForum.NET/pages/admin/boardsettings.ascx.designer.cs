@@ -130,6 +130,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowDigestEmail;
         
         /// <summary>
+        /// DefaultSendDigestEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DefaultSendDigestEmail;
+        
+        /// <summary>
+        /// DefaultNotificationSetting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DefaultNotificationSetting;
+        
+        /// <summary>
         /// Save control.
         /// </summary>
         /// <remarks>

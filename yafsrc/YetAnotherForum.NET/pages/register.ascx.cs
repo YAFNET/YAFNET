@@ -236,17 +236,33 @@ namespace YAF.Pages
     /// <param name="e">
     /// The e.
     /// </param>
+    /// <exception cref="ArgumentNullException">Argument is null.</exception>
     protected void CreateUserWizard1_CreatingUser(object sender, LoginCancelEventArgs e)
     {
+      string userName = this.CreateUserWizard1.UserName;
+
+      if (userName.IsNotSet())
+      {
+        throw new ArgumentNullException("CreateUserWizard.UserName", "UserName from CreateUserWizard is Null!");
+      }
+      else
+      {
+        userName = userName.Trim();
+      }
+
       // trim username on postback
-      string userName = this.CreateUserWizard1.UserName = this.CreateUserWizard1.UserName.Trim();
+      this.CreateUserWizard1.UserName = userName;
 
       // username cannot contain semi-colon or to be a bad word
       bool badWord =
         YafServices.BadWordReplace.ReplaceItems.Exists(
           i => userName.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase));
 
-      if (userName.Contains(";") || badWord || userName.ToLower().Equals(UserMembershipHelper.GuestUserName.ToLower()))
+      string guestUserName = UserMembershipHelper.GuestUserName;
+
+      guestUserName = guestUserName.IsSet() ? guestUserName.ToLower() : String.Empty;
+
+      if (userName.Contains(";") || badWord || userName.ToLower().Equals(guestUserName))
       {
         this.PageContext.AddLoadMessage(this.GetText("BAD_USERNAME"));
         e.Cancel = true;
@@ -331,13 +347,15 @@ namespace YAF.Pages
         userProfile.Save();
 
         // save the time zone...
+        int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
+
         DB.user_save(
-          UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey), 
+          userId, 
           this.PageContext.PageBoardID, 
           null, 
           null, 
           null, 
-          Convert.ToInt32(timeZones.SelectedValue), 
+          timeZones.SelectedValue.ToType<int>(), 
           null, 
           null, 
           null, 
@@ -348,6 +366,16 @@ namespace YAF.Pages
           null, 
           null,
           null);
+
+        bool autoWatchTopicsEnabled = this.PageContext.BoardSettings.DefaultNotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
+        // save the settings...
+        DB.user_savenotification(
+          userId,
+          true,
+          autoWatchTopicsEnabled,
+          this.PageContext.BoardSettings.DefaultNotificationSetting,
+          PageContext.BoardSettings.DefaultSendDigestEmail);
       }
     }
 

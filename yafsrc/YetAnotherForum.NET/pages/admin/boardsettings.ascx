@@ -94,6 +94,21 @@
 				<asp:CheckBox ID="AllowDigestEmail" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
+			<td class="postheader">
+				<b>Default Send Digest "On" for New Users?</b><br />
+				When a new user account is created, default send digest to true?</td>
+			<td class="post">
+				<asp:CheckBox ID="DefaultSendDigestEmail" runat="server"></asp:CheckBox></td>
+		</tr>
+		<tr>
+			<td class="postheader">
+				<b>Default Notification Setting:</b><br />
+				When a new user account is created, what notification setting does it default to?</td>
+			<td class="post">
+				<asp:DropDownList ID="DefaultNotificationSetting" runat="server">
+				</asp:DropDownList></td>
+		</tr>
+		<tr>
 			<td class="postfooter" align="center" colspan="2">
 				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button></td>
 		</tr>

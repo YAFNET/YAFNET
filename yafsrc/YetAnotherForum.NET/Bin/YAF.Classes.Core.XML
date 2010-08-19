@@ -1949,6 +1949,7 @@
             <summary>
             Gets the guest user id for the current board.
             </summary>
+            <exception cref="T:YAF.Classes.Core.NoValidGuestUserForBoardException"><c>NoValidGuestUserForBoardException</c>.</exception>
         </member>
         <member name="P:YAF.Classes.Core.UserMembershipHelper.GuestUserName">
             <summary>
@@ -8477,6 +8478,19 @@
             <summary>
             Gets ThisControl.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Core.NoValidGuestUserForBoardException">
+            <summary>
+            The no valid guest user for board exception.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.NoValidGuestUserForBoardException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.NoValidGuestUserForBoardException"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
         </member>
     </members>
 </doc>

@@ -2816,6 +2816,106 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="T:YAF.Controls.emaildigest">
+            <summary>
+            The email_digest.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest.YafHead">
+            <summary>
+            YafHead control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._combinedUserData">
+            <summary>
+            The _combined user data.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._forumData">
+            <summary>
+            The _forum data.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._languageFile">
+            <summary>
+            The _language file.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._theme">
+            <summary>
+            The _theme.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._yafLocalization">
+            <summary>
+            The _yaf localization.
+            </summary>
+        </member>
+        <member name="F:YAF.Controls.emaildigest._topicHours">
+            <summary>
+            Numbers of hours to compute digest for...
+            </summary>
+        </member>
+        <member name="M:YAF.Controls.emaildigest.GetText(System.String)">
+            <summary>
+            The get text.
+            </summary>
+            <param name="tag">
+            The tag.
+            </param>
+            <returns>
+            The get text.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.emaildigest.GetMessageFormattedAndTruncated(System.String,System.Int32)">
+            <summary>
+            The get message formatted and truncated.
+            </summary>
+            <param name="lastMessage">
+            The last message.
+            </param>
+            <param name="maxlength">
+            The maxlength.
+            </param>
+            <returns>
+            The get message formatted and truncated.
+            </returns>
+        </member>
+        <member name="M:YAF.Controls.emaildigest.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The page_ load.
+            </summary>
+            <param name="sender">
+            The sender.
+            </param>
+            <param name="e">
+            The e.
+            </param>
+        </member>
+        <member name="P:YAF.Controls.emaildigest.BoardID">
+            <summary>
+            Gets or sets BoardID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.emaildigest.CurrentUserID">
+            <summary>
+            Gets or sets CurrentUserID.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.emaildigest.NewTopics">
+            <summary>
+            Gets NewTopics.
+            </summary>
+        </member>
+        <member name="P:YAF.Controls.emaildigest.UserData">
+            <summary>
+            Gets UserData.
+            </summary>
+        </member>
         <member name="T:YAF.Pages.cp_changepassword">
             <summary>
             Summary description for cp_subscriptions.
@@ -12829,6 +12929,7 @@
             <param name="e">
             The e.
             </param>
+            <exception cref="T:System.ArgumentNullException">Argument is null.</exception>
         </member>
         <member name="M:YAF.Pages.register.CreateUserWizard1_NextButtonClick(System.Object,System.Web.UI.WebControls.WizardNavigationEventArgs)">
             <summary>
@@ -19843,6 +19944,24 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.DefaultSendDigestEmail">
+            <summary>
+            DefaultSendDigestEmail control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
+        <member name="F:YAF.Pages.Admin.boardsettings.DefaultNotificationSetting">
+            <summary>
+            DefaultNotificationSetting control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.boardsettings.Save">
             <summary>
             Save control.
@@ -26274,6 +26393,15 @@
             To modify move field declaration from designer file to code-behind file.
             </remarks>
         </member>
+        <member name="F:YAF.Pages.Admin.runsql.chkRunInTransaction">
+            <summary>
+            chkRunInTransaction control.
+            </summary>
+            <remarks>
+            Auto-generated field.
+            To modify move field declaration from designer file to code-behind file.
+            </remarks>
+        </member>
         <member name="F:YAF.Pages.Admin.runsql.btnRunQuery">
             <summary>
             btnRunQuery control.
@@ -28323,101 +28451,6 @@
             <param name="e">
             The e.
             </param>
-        </member>
-        <member name="T:YAF.Controls.emaildigest">
-            <summary>
-            The email_digest.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.emaildigest._combinedUserData">
-            <summary>
-            The _combined user data.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.emaildigest._forumData">
-            <summary>
-            The _forum data.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.emaildigest._languageFile">
-            <summary>
-            The _language file.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.emaildigest._theme">
-            <summary>
-            The _theme.
-            </summary>
-        </member>
-        <member name="F:YAF.Controls.emaildigest._yafLocalization">
-            <summary>
-            The _yaf localization.
-            </summary>
-        </member>
-        <member name="M:YAF.Controls.emaildigest.GetText(System.String)">
-            <summary>
-            The get text.
-            </summary>
-            <param name="tag">
-            The tag.
-            </param>
-            <returns>
-            The get text.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.emaildigest.GetMessageFormattedAndTruncated(System.String,System.Int32)">
-            <summary>
-            The get message formatted and truncated.
-            </summary>
-            <param name="lastMessage">
-            The last message.
-            </param>
-            <param name="maxlength">
-            The maxlength.
-            </param>
-            <returns>
-            The get message formatted and truncated.
-            </returns>
-        </member>
-        <member name="M:YAF.Controls.emaildigest.Page_Load(System.Object,System.EventArgs)">
-            <summary>
-            The page_ load.
-            </summary>
-            <param name="sender">
-            The sender.
-            </param>
-            <param name="e">
-            The e.
-            </param>
-        </member>
-        <member name="F:YAF.Controls.emaildigest.YafHead">
-            <summary>
-            YafHead control.
-            </summary>
-            <remarks>
-            Auto-generated field.
-            To modify move field declaration from designer file to code-behind file.
-            </remarks>
-        </member>
-        <member name="P:YAF.Controls.emaildigest.BoardID">
-            <summary>
-            Gets or sets BoardID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.emaildigest.CurrentUserID">
-            <summary>
-            Gets or sets CurrentUserID.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.emaildigest.NewTopics">
-            <summary>
-            Gets NewTopics.
-            </summary>
-        </member>
-        <member name="P:YAF.Controls.emaildigest.UserData">
-            <summary>
-            Gets UserData.
-            </summary>
         </member>
     </members>
 </doc>

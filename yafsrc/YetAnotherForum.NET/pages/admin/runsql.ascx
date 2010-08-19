@@ -16,8 +16,9 @@
 			</td>
 		</tr>
 		<tr class="footer1">
-			<td colspan="2" align="center">
-				<asp:Button ID="btnRunQuery" runat="server" Text="Run Query" OnClick="btnRunQuery_Click" />
+			<td colspan="2" align="center">                
+                <asp:Checkbox ID="chkRunInTransaction" runat="server" Text="Run In Transaction" Checked="true" />
+				<asp:Button ID="btnRunQuery" runat="server" Text="Run Query" OnClick="btnRunQuery_Click" />                
 			</td>
 		</tr>
 		<asp:PlaceHolder ID="ResultHolder" runat="server" Visible="false">
@@ -26,7 +27,7 @@
 					<b>Result:</b>
 				</td>
 				<td class="post">
-					<asp:TextBox ID="txtResult" runat="server" TextMode="MultiLine"  Width="100%" Height="200px" Wrap="false" style="font-size: 8pt;"></asp:TextBox>
+					<asp:TextBox ID="txtResult" runat="server" TextMode="MultiLine"  Width="100%" Height="300px" Wrap="false" style="font-size: 8pt;"></asp:TextBox>
 				</td>
 			</tr>
 		</asp:PlaceHolder>

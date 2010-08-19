@@ -1211,16 +1211,6 @@
             Gets or sets IsActiveExcluded.
             </summary>
         </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.IsAdmin">
-            <summary>
-            Gets or sets IsAdmin.
-            </summary>
-        </member>
-        <member name="P:YAF.Classes.Data.TypedUserFind.IsAdmin1">
-            <summary>
-            Gets or sets IsAdmin1.
-            </summary>
-        </member>
         <member name="P:YAF.Classes.Data.TypedUserFind.IsApproved">
             <summary>
             Gets or sets IsApproved.
@@ -5822,7 +5812,7 @@
             The conn man.
             </param>
         </member>
-        <member name="M:YAF.Classes.Data.DB.db_runsql(System.String,YAF.Classes.Data.YafDBConnManager)">
+        <member name="M:YAF.Classes.Data.DB.db_runsql(System.String,YAF.Classes.Data.YafDBConnManager,System.Boolean)">
             <summary>
             The db_runsql.
             </summary>
@@ -5835,6 +5825,14 @@
             <returns>
             The db_runsql.
             </returns>
+        </member>
+        <member name="M:YAF.Classes.Data.DB.InnerRunSqlExecuteReader(System.Data.SqlClient.SqlCommand,System.Boolean)">
+            <summary>
+            Called from db_runsql -- just runs a sql command according to specificiations.
+            </summary>
+            <param name="command"></param>
+            <param name="useTransaction"></param>
+            <returns></returns>
         </member>
         <member name="M:YAF.Classes.Data.DB.forumpage_initdb(System.String@,System.Boolean)">
             <summary>

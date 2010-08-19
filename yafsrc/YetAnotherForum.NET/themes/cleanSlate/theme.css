@@ -24,8 +24,7 @@
 }
 
 .yafnet tr.forumRowTitle,
-.yafnet td.header1,
-.yafnet tr.header1
+.yafnet td.header1
 {
     background-color: #ee6943;
     background-image: url('titlebg.jpg');
@@ -59,7 +58,7 @@
 
 .yafnet tr.forumRowTitle th
 {
-    padding: 8px;
+    padding: 10px;
 }
 
 .yafnet tr.forumRowCat,

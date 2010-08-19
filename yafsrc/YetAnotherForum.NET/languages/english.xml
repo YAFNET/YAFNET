@@ -9,6 +9,7 @@
     <Resource tag="LASTBY">By {0}</Resource>
     <Resource tag="REMOVALTEXT">Don't want to receive anymore email?</Resource>
     <Resource tag="REMOVALLINK">Adjust your notification settings.</Resource>
+    <Resource tag="SUBJECT">Active and New Topics - Daily Digest for {0}</Resource>
   </page>
 	<page name="ACTIVELOCATION">
 		<Resource tag="MAINPAGE">Views main forum page</Resource>

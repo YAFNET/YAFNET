@@ -93,6 +93,18 @@ namespace YAF.Pages.Admin
 
         this.BindData();
 
+        // population default notification setting options...
+        var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
+
+        if (!this.PageContext.BoardSettings.AllowNotificationAllPostsAllTopics)
+        {
+          // remove it...
+          items.Remove(UserNotificationSetting.AllTopics.ToInt());
+        }
+
+        this.DefaultNotificationSetting.Items.AddRange(
+          items.Select(x => new ListItem(HtmlHelper.StripHtml(this.GetText(x.Value)), x.Key.ToString())).ToArray());
+
         // Get first default full culture from a language file tag.
         string langFileCulture = StaticDataHelper.CultureDefaultFromFile(this.PageContext.BoardSettings.Language) ?? "en";
 
@@ -106,11 +118,14 @@ namespace YAF.Pages.Admin
         SetSelectedOnList(
           ref this.FileExtensionAllow, this.PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1");
 
+        SetSelectedOnList(ref this.DefaultNotificationSetting, this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt().ToString());
+
         this.NotificationOnUserRegisterEmailList.Text =
           this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList;
         this.AllowThemedLogo.Checked = this.PageContext.BoardSettings.AllowThemedLogo;
         this.EmailModeratorsOnModeratedPost.Checked = this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost;
         this.AllowDigestEmail.Checked = this.PageContext.BoardSettings.AllowDigestEmail;
+        this.DefaultSendDigestEmail.Checked = this.PageContext.BoardSettings.DefaultSendDigestEmail;
       }
     }
 
@@ -155,6 +170,8 @@ namespace YAF.Pages.Admin
 
       this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
       this.PageContext.BoardSettings.AllowDigestEmail = this.AllowDigestEmail.Checked;
+      this.PageContext.BoardSettings.DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked;
+      this.PageContext.BoardSettings.DefaultNotificationSetting = this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
 
       // save the settings to the database
       ((YafLoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
