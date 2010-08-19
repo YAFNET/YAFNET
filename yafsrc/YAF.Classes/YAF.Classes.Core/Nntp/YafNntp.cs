@@ -64,7 +64,7 @@ namespace YAF.Classes.Core.Nntp
     /// </returns>
     public static int ReadArticles(object boardID, int lastUpdate, int timeToRun, bool createUsers)
     {
-      int guestUserId = DB.user_guest(boardID); // Use guests user-id
+      int guestUserId = UserMembershipHelper.GuestUserId; // Use guests user-id
       string hostAddress = HttpContext.Current.Request.UserHostAddress;     
       DateTime dateTimeStart = DateTime.UtcNow;
       int articleCount = 0;

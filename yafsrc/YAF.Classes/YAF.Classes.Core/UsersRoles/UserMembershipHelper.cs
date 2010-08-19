@@ -21,6 +21,7 @@ namespace YAF.Classes.Core
 {
   using System;
   using System.Data;
+  using System.Linq;
   using System.Web;
   using System.Web.Security;
 
@@ -38,11 +39,12 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Gets the guest user id for the current board.
     /// </summary>
+    /// <exception cref="NoValidGuestUserForBoardException"><c>NoValidGuestUserForBoardException</c>.</exception>
     public static int GuestUserId
     {
       get
       {
-        int guestUserID = -1;
+        int? guestUserID = null;
 
         // obtain board specific cache key
         string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.GuestUserID);
@@ -53,18 +55,48 @@ namespace YAF.Classes.Core
           // get the guest user for this board...
           guestUserID = DB.user_guest(YafContext.Current.PageBoardID);
 
+          if (!guestUserID.HasValue)
+          {
+            //// attempt to fix the guest user by re-associating them with the guest group...
+            //FixGuestUserForBoard(YafContext.Current.PageBoardID);
+
+            // attempt to get the guestUser again...
+            guestUserID = DB.user_guest(YafContext.Current.PageBoardID);
+          }
+
+          if (!guestUserID.HasValue)
+          {
+            // failure...
+            throw new NoValidGuestUserForBoardException(
+              "Could not locate the guest user for the board id {0}. You might have deleted the guest group or removed the guest user."
+                .FormatWith(YafContext.Current.PageBoardID));
+          }
+
           // cache it
-          YafContext.Current.Cache[cacheKey] = guestUserID;
+          YafContext.Current.Cache[cacheKey] = guestUserID.Value;
         }
         else
         {
           // retrieve guest user id from cache
-          guestUserID = Convert.ToInt32(YafContext.Current.Cache[cacheKey]);
+          guestUserID = YafContext.Current.Cache[cacheKey].ToType<int>();
         }
 
-        return guestUserID;
+        return guestUserID ?? -1;
       }
     }
+
+    //public static void FixGuestUserForBoard(int boardId)
+    //{
+    //  // find the most likely guest user...
+    //  var users = DB.UserFind(boardId, false, null, null, null, null, null);
+    //  var guestGroup = DB.group_list(boardId, null).AsEnumerable().Where(x => x.Field<int>("Flags").Equals(2));
+
+    //  if (users.Any(x => x.IsGuest) && guestGroup.Any())
+    //  {
+    //    // add guest user to guest group...
+    //    DB.usergroup_save(users.First(), guestGroup.First().Field<int>("GroupID"), 1);
+    //  }
+    //}
 
     /// <summary>
     /// Username of the Guest user for the current board.
@@ -73,7 +105,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return DB.user_list(YafContext.Current.PageBoardID, GuestUserId, true).GetFirstRowColumnAsValue<string>(
+        return DB.user_list(YafContext.Current.PageBoardID, GuestUserId, false).GetFirstRowColumnAsValue<string>(
           "Name", null);
       }
     }

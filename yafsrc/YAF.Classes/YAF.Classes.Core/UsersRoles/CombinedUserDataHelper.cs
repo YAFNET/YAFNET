@@ -122,7 +122,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return this.RowConvert.AsBool("AutoWatchTopics");
+        return this.RowConvert.AsBool("AutoWatchTopics") ?? false;
       }
     }
 
@@ -191,7 +191,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return this.RowConvert.AsBool("DailyDigest");
+        return this.RowConvert.AsBool("DailyDigest") ?? YafContext.Current.BoardSettings.DefaultSendDigestEmail;
       }
     }
 
@@ -358,7 +358,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return this.RowConvert.AsBool("OverrideDefaultThemes");
+        return this.RowConvert.AsBool("OverrideDefaultThemes") ?? false;
       }
     }
 
@@ -369,7 +369,7 @@ namespace YAF.Classes.Core
     {
       get
       {
-        return this.RowConvert.AsBool("PMNotification");
+        return this.RowConvert.AsBool("PMNotification") ?? true;
       }
     }
 

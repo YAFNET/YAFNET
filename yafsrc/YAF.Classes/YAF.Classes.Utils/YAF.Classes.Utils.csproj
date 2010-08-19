@@ -97,6 +97,7 @@
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\ViewStateExtensions.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="IYafUserProfile.cs" />
     <Compile Include="SimpleURLParameterParser.cs" />
     <Compile Include="StyleTransform.cs" />
@@ -107,7 +108,6 @@
     <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\ControlHelper.cs" />
     <Compile Include="Helpers\DBHelper.cs" />
-    <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\IPHelper.cs" />
     <Compile Include="Helpers\JsAndCssHelper.cs" />

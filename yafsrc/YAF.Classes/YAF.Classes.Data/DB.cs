@@ -8086,13 +8086,13 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The user_guest.
     /// </returns>
-    public static int user_guest(object boardID)
+    public static int? user_guest(object boardID)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_guest"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
-        return (int)YafDBAccess.Current.ExecuteScalar(cmd);
+        return YafDBAccess.Current.ExecuteScalar(cmd).ToType<int?>();
       }
     }
 
@@ -8855,85 +8855,105 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The db_runsql.
     /// </returns>
-    public static string db_runsql(string sql, YafDBConnManager connMan)
+    public static string db_runsql(string sql, YafDBConnManager connMan, bool useTransaction)
     {
+      using (var command = new SqlCommand(sql, connMan.OpenDBConnection))
+      {
+        command.CommandTimeout = 9999;
+        command.Connection = connMan.OpenDBConnection;
+
+        return InnerRunSqlExecuteReader(command, useTransaction);
+      }
+    }
+
+    /// <summary>
+    /// Called from db_runsql -- just runs a sql command according to specificiations.
+    /// </summary>
+    /// <param name="command"></param>
+    /// <param name="useTransaction"></param>
+    /// <returns></returns>
+    private static string InnerRunSqlExecuteReader(SqlCommand command, bool useTransaction)
+    {
+      SqlDataReader reader = null;
       var results = new StringBuilder();
 
-      using (var cmd = new SqlCommand(sql, connMan.OpenDBConnection))
+      try
       {
-        cmd.CommandTimeout = 9999;
-        SqlDataReader reader = null;
-
-        using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(YafDBAccess.IsolationLevel))
+        try
         {
-          try
+          command.Transaction = useTransaction ? command.Connection.BeginTransaction(YafDBAccess.IsolationLevel) : null;
+          reader = command.ExecuteReader();
+
+          if (reader != null)
           {
-            cmd.Connection = connMan.DBConnection;
-            cmd.Transaction = trans;
-            reader = cmd.ExecuteReader();
-
-            if (reader != null)
+            if (reader.HasRows)
             {
-              if (reader.HasRows)
-              {
-                int rowIndex = 1;
-                var columnNames = reader.GetSchemaTable().Rows.Cast<DataRow>().Select(r => r["ColumnName"].ToString()).ToList();
+              int rowIndex = 1;
+              var columnNames =
+                reader.GetSchemaTable().Rows.Cast<DataRow>().Select(r => r["ColumnName"].ToString()).ToList();
 
-                results.Append("RowNumber");
+              results.Append("RowNumber");
 
-                columnNames.ForEach(
-                  n =>
-                    {
-                      results.Append(",");
-                      results.Append(n);
-                    });
-
-                results.AppendLine();
-
-                while(reader.Read())
+              columnNames.ForEach(
+                n =>
                 {
-                  results.AppendFormat(@"""{0}""", rowIndex++);
+                  results.Append(",");
+                  results.Append(n);
+                });
 
-                  // dump all columns...
-                  foreach (var col in columnNames)
-                  {
-                    results.AppendFormat(@",""{0}""", reader[col].ToString().Replace("\"", "\"\""));
-                  }
+              results.AppendLine();
 
-                  results.AppendLine();
-                }
-              }
-              else if (reader.RecordsAffected > 0)
+              while (reader.Read())
               {
-                results.AppendFormat("{0} Record(s) Affected", reader.RecordsAffected);
+                results.AppendFormat(@"""{0}""", rowIndex++);
+
+                // dump all columns...
+                foreach (var col in columnNames)
+                {
+                  results.AppendFormat(@",""{0}""", reader[col].ToString().Replace("\"", "\"\""));
+                }
+
                 results.AppendLine();
               }
-              else
-              {
-                results.AppendLine("No Results Returned.");
-              }
-
-              reader.Close();
             }
-
-            trans.Commit();
-          }
-          catch (Exception x)
-          {
-            if (reader != null)
+            else if (reader.RecordsAffected > 0)
             {
-              reader.Close();
+              results.AppendFormat("{0} Record(s) Affected", reader.RecordsAffected);
+              results.AppendLine();
+            }
+            else
+            {
+              results.AppendLine("No Results Returned.");
             }
 
-            // rollback...
-            trans.Rollback();
-            results.AppendLine();
-            results.AppendFormat("SQL ERROR: {0}", x);
-          }
+            reader.Close();
 
-          return results.ToString();
+            if (command.Transaction != null)
+            {
+              command.Transaction.Commit();
+            }
+          }
+        }
+        finally
+        {
+          if (command.Transaction != null)
+          {
+            command.Transaction.Rollback();
+          }          
         }
       }
+      catch (Exception x)
+      {
+        if (reader != null)
+        {
+          reader.Close();
+        }
+        
+        results.AppendLine();
+        results.AppendFormat("SQL ERROR: {0}", x);
+      }
+
+      return results.ToString();
     }
 
     /// <summary>

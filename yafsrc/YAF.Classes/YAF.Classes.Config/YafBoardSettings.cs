@@ -288,6 +288,32 @@ namespace YAF.Classes
         }
     }
 
+    public UserNotificationSetting DefaultNotificationSetting
+    {
+      get
+      {
+        return this._regBoard.GetValue<UserNotificationSetting>("DefaultNotificationSetting", UserNotificationSetting.TopicsIPostToOrSubscribeTo);
+      }
+
+      set
+      {
+        this._regBoard.SetValue<UserNotificationSetting>("DefaultNotificationSetting", value);
+      }
+    }
+
+    public bool DefaultSendDigestEmail
+    {
+      get
+      {
+        return this._regBoard.GetValue<bool>("DefaultSendDigestEmail", false);
+      }
+
+      set
+      {
+        this._regBoard.SetValue<bool>("DefaultSendDigestEmail", value);
+      }
+    }
+
     public bool AllowDigestEmail
     {
       get

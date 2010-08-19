@@ -47,11 +47,11 @@
     /// <returns>
     /// The as bool.
     /// </returns>
-    public bool AsBool(string columnName)
+    public bool? AsBool(string columnName)
     {
       if (this._dbRow[columnName] == DBNull.Value)
       {
-        return false;
+        return null;
       }
 
       return Convert.ToBoolean(this._dbRow[columnName]);

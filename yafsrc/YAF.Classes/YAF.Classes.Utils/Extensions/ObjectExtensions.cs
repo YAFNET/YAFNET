@@ -53,6 +53,11 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static object ConvertObjectToType(object value, string type)
     {
+      if (value == null)
+      {
+        return null;
+      }
+
       Type convertType;
 
       try
@@ -69,13 +74,12 @@ namespace YAF.Classes.Utils
         switch (convertType.ToString())
         {
           case "System.Guid":
-
             // do a "manual conversion" from string to Guid
             return new Guid(Convert.ToString(value));
           case "System.Int32":
-            return Convert.ToInt32(value);
+            return value.ToType<int>();
           case "System.Int64":
-            return Convert.ToInt64(value);
+            return value.ToType<long>();
         }
       }
 

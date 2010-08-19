@@ -21,6 +21,8 @@ namespace YAF.Classes.Core
 {
   using System;
 
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// The yaf date time.
   /// </summary>
@@ -127,7 +129,7 @@ namespace YAF.Classes.Core
         if (dt.Date == nt.Date)
         {
           // today
-          strDateFormat = String.Format(YafContext.Current.Localization.GetText("TodayAt"), dt);
+          strDateFormat = YafContext.Current.Localization.GetText("TodayAt").FormatWith(dt);
 
           if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
           {
@@ -137,7 +139,7 @@ namespace YAF.Classes.Core
         else if (dt.Date == nt.AddDays(-1).Date)
         {
           // yesterday
-          strDateFormat = String.Format(YafContext.Current.Localization.GetText("YesterdayAt"), dt);
+          strDateFormat = YafContext.Current.Localization.GetText("YesterdayAt").FormatWith(dt);
 
         if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
         {
@@ -150,10 +152,10 @@ namespace YAF.Classes.Core
         }
         else
         {
-          strDateFormat = String.Format("{0:f}", dt);
+          strDateFormat = "{0:f}".FormatWith(dt);
         }
 
-        return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
+        return YafContext.Current.IsGuest ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName) : strDateFormat;
       }
       catch (Exception)
       {
@@ -191,7 +193,7 @@ namespace YAF.Classes.Core
         }
         else
         {
-         strDateFormat = String.Format("{0:f}", dt);
+         strDateFormat = "{0:f}".FormatWith(dt);
         }
       }
       catch (Exception)
@@ -199,7 +201,7 @@ namespace YAF.Classes.Core
           strDateFormat = dt.ToString("f");
       }
 
-      return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
+      return YafContext.Current.IsGuest ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName) : strDateFormat;
 
     }
 
@@ -226,7 +228,7 @@ namespace YAF.Classes.Core
         }
         else
         {
-          strDateFormat = String.Format("{0:D}", dt);
+          strDateFormat = "{0:D}".FormatWith(dt);
         }
       }
       catch (Exception)
@@ -234,7 +236,7 @@ namespace YAF.Classes.Core
           strDateFormat = dt.ToString("D");
       }
 
-      return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
+      return YafContext.Current.IsGuest ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName) : strDateFormat;
     }
 
     /// <summary>
@@ -262,7 +264,7 @@ namespace YAF.Classes.Core
         }
         else
         {
-          strDateFormat = String.Format("{0:d}", dt);
+          strDateFormat = "{0:d}".FormatWith(dt);
         }
       }
       catch (Exception)
@@ -270,7 +272,7 @@ namespace YAF.Classes.Core
           strDateFormat = dt.ToString("d");
       }
 
-      return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
+      return YafContext.Current.IsGuest ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName) : strDateFormat;
     }
 
     /// <summary>
@@ -296,7 +298,7 @@ namespace YAF.Classes.Core
         }
         else
         {
-          strDateFormat = String.Format("{0:T}", dt);
+          strDateFormat = "{0:T}".FormatWith(dt);
         }
       }
       catch (Exception)
@@ -304,7 +306,7 @@ namespace YAF.Classes.Core
         strDateFormat = dt.ToString("T");
       }
 
-      return YafContext.Current.IsGuest ? String.Format("{0}{1}", strDateFormat, this.timeZoneName) : strDateFormat;
+      return YafContext.Current.IsGuest ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName) : strDateFormat;
     }
   }
 }

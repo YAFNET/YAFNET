@@ -117,6 +117,7 @@
     <Compile Include="URLBuilder\DotNetNukeUrlBuilder.cs" />
     <Compile Include="URLBuilder\RewriteUrlBuilder.cs" />
     <Compile Include="UsersRoles\DefaultUserDisplayName.cs" />
+    <Compile Include="UsersRoles\NoValidGuestUserForBoardException.cs" />
     <Compile Include="UsersRoles\RoleMembershipHelper.cs" />
     <Compile Include="Services\IYafService.cs" />
     <Compile Include="Services\YafAlbum.cs" />

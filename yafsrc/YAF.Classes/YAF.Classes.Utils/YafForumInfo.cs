@@ -128,7 +128,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return 0x01090412;
+        return 0x01094150;
       }
     }
 
@@ -139,7 +139,7 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        return new DateTime(2010, 7, 30);
+        return new DateTime(2010, 8, 4);
       }
     }
 
@@ -154,32 +154,43 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static string AppVersionNameFromCode(long code)
     {
-      string version;
+      string version = "{0}.{1}.{2}".FormatWith((code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 12) & 0x0F);
 
-      if ((code & 0xF0) > 0 || (code & 0x0F) == 1)
+      if (((code >> 8) & 0x0F) > 0)
       {
-        version = "{0}.{1}.{2}{3}".FormatWith((code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 8) & 0xFF, Convert.ToInt32((code >> 4) & 0x0F).ToString("00"));
-      }
-      else
-      {
-        version = "{0}.{1}.{2}".FormatWith((code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 8) & 0xFF);
+        version += ".{0}".FormatWith(((code >> 8) & 0x0F));
       }
 
-      if ((code & 0x0F) > 0)
+      if (((code >> 4) & 0x0F) > 0)
       {
-        if ((code & 0x0F) == 1)
+        var value = (code >> 4) & 0x0F;
+
+        switch (value)
         {
-          // alpha release...
-          version += " alpha";
+          case 1:
+            version += " ALPHA ";
+            break;
+          case 2:
+            version += " BETA ";
+            break;
+          case 3:
+            version += " RC";
+            break;
+          case 4:
+            version += " RTM ";
+            break;
+          case 5:
+            version += " CTM";
+            break;
         }
-        else if ((code & 0x0F) == 2)
+
+        if ((code & 0x0F) > 1)
         {
-          version += " beta";
+          version += "{0}".FormatWith((code & 0x0F).ToType<int>().ToString("00"));
         }
-        else
+        else if ((code & 0x0F) == 1)
         {
-          // Add Release Candidate
-          version += " RC{0}".FormatWith((code & 0x0F) - 2);
+          version += "{0}".FormatWith(AppVersionDate.ToString("yyyyMMdd"));
         }
       }
 

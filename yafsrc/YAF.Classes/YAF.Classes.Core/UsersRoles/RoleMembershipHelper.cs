@@ -27,6 +27,7 @@ namespace YAF.Classes.Core
   using System.Web.Security;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Extensions;
   using YAF.Classes.Utils;
 
   /// <summary>
@@ -310,11 +311,16 @@ namespace YAF.Classes.Core
       int totalRecords;
 
       // get all users in membership...
-      List<MembershipUser> users =
-        YafContext.Current.CurrentMembership.GetAllUsers(0, 999999, out totalRecords).Cast<MembershipUser>().ToList();
+      var users =
+        YafContext.Current.CurrentMembership.GetAllUsers(0, 999999, out totalRecords).Cast<MembershipUser>().Where(
+          u => u != null && u.Email.IsSet());
 
       // create/update users...
-      users.ForEach(a => UpdateForumUser(a, pageBoardId));
+      foreach (var user in users)
+      {
+        // update/create user
+        UpdateForumUser(user, pageBoardId);
+      }
     }
 
     /// <summary>
@@ -334,7 +340,7 @@ namespace YAF.Classes.Core
 
           // testing if this role is a "Guest" role...
           // if it is, we aren't syncing it.
-          if (!String.IsNullOrEmpty(name) && !roleFlags.IsGuest && !RoleExists(name))
+          if (name.IsSet() && !roleFlags.IsGuest && !RoleExists(name))
           {
             CreateRole(name);
           }
@@ -391,18 +397,21 @@ namespace YAF.Classes.Core
     /// <param name="pageBoardID">
     /// Current BoardID
     /// </param>
-    public static void UpdateForumUser(MembershipUser user, int pageBoardID)
+    public static int? UpdateForumUser(MembershipUser user, int pageBoardID)
     {
       if (user == null)
       {
         // Check to make sure its not a guest
-        return;
+        return null;
       }
 
-      int nUserID = DB.user_aspnet(pageBoardID, user.UserName, null, user.Email, user.ProviderUserKey, user.IsApproved);
+      // is this a new user?
+      var isNewUser = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey) <= 0;
+
+      int userId = DB.user_aspnet(pageBoardID, user.UserName, null, user.Email, user.ProviderUserKey, user.IsApproved);
 
       // get user groups...
-      DataTable groupTable = DB.group_member(pageBoardID, nUserID);
+      DataTable groupTable = DB.group_member(pageBoardID, userId);
       string[] roles = GetRolesForUser(user.UserName);
 
       // add groups...
@@ -421,9 +430,38 @@ namespace YAF.Classes.Core
         if (!RoleInRoleArray(row["Name"].ToString(), roles))
         {
           // remove since there is no longer an association in the membership...
-          DB.usergroup_save(nUserID, row["GroupID"], 0);
+          DB.usergroup_save(userId, row["GroupID"], 0);
         }
       }
+
+      if (isNewUser && userId > 0)
+      {
+        try
+        {
+          UserNotificationSetting defaultNotificationSetting = YafContext.Current.BoardSettings.DefaultNotificationSetting;
+          bool defaultSendDigestEmail = YafContext.Current.BoardSettings.DefaultSendDigestEmail;
+
+          // setup default notifications...
+          bool autoWatchTopicsEnabled = defaultNotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
+          // save the settings...
+          DB.user_savenotification(
+            userId,
+            true,
+            autoWatchTopicsEnabled,
+            defaultNotificationSetting,
+            defaultSendDigestEmail);
+        }
+        catch (Exception ex)
+        {
+          DB.eventlog_create(
+            userId,
+            "UpdateForumUser",
+            "Failed to save default notifications for new user: " + ex.ToString());
+        }
+      }
+
+      return userId;
     }
 
     #endregion

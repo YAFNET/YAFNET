@@ -208,22 +208,29 @@ namespace YAF.Classes.Pattern
         return defaultValue;
       }
 
+      Type objectType = typeof(T);
+
+      if (objectType.BaseType == typeof(Enum))
+      {
+        return (T)Enum.Parse(objectType, value.ToString());
+      }
+
       // special handling for boolean...
-      if (typeof (T) == typeof (bool))
+      if (objectType == typeof(bool))
       {
         int i;
         return int.TryParse(value.ToString(), out i)
-                 ? (T) Convert.ChangeType(Convert.ToBoolean(i), typeof (T))
-                 : (T) Convert.ChangeType(Convert.ToBoolean(value), typeof (T));
+                 ? (T)Convert.ChangeType(Convert.ToBoolean(i), typeof(T))
+                 : (T)Convert.ChangeType(Convert.ToBoolean(value), typeof(T));
       }
 
       // special handling for int values...
-      if (typeof (T) == typeof (int))
+      if (objectType == typeof(int))
       {
-        return (T) Convert.ChangeType(Convert.ToInt32(value), typeof (T));
+        return (T)Convert.ChangeType(Convert.ToInt32(value), typeof(T));
       }
 
-      return (T) Convert.ChangeType(this[name.ToLower()], typeof (T));
+      return (T)Convert.ChangeType(this[name.ToLower()], typeof(T));
     }
 
     /// <summary>
@@ -239,7 +246,15 @@ namespace YAF.Classes.Pattern
     /// </typeparam>
     public virtual void SetValue<T>(string name, T value)
     {
-      this[name.ToLower()] = typeof (T).BaseType == typeof (bool) ? Convert.ToString(Convert.ToInt32(value)) : Convert.ToString(value);
+      var objectType = typeof(T);
+      string stringValue = Convert.ToString(value);
+
+      if (objectType == typeof(bool) || objectType.BaseType == typeof(Enum))
+      {
+        stringValue = Convert.ToString(Convert.ToInt32(value));
+      }
+
+      this[name.ToLower()] = stringValue;
     }
 
     /* 6/16/2007 */

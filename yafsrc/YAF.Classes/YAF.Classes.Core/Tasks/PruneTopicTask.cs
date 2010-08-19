@@ -159,7 +159,7 @@ namespace YAF.Classes.Core
     {
       try
       {
-        int count = DB.topic_prune(BoardID, ForumId, Days, PermDelete);
+        int count = DB.topic_prune(this.BoardID, this.ForumId, this.Days, this.PermDelete);
 
         DB.eventlog_create(null, TaskName, String.Format("Prune Task Complete. Pruned {0} topics.", count), 2);
       }
