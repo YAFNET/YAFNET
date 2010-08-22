@@ -23,11 +23,14 @@ namespace YAF.Providers.Profile
   using System.Collections.Specialized;
   using System.Configuration;
   using System.Data;
+  using System.Linq;
   using System.Text;
   using System.Web.Profile;
 
   using YAF.Classes.Core;
+  using YAF.Classes.Extensions;
   using YAF.Classes.Pattern;
+  using YAF.Classes.Utils;
   using YAF.Providers.Utils;
 
   /// <summary>
@@ -159,29 +162,15 @@ namespace YAF.Providers.Profile
 
       // make single string of usernames...
       var userNameBuilder = new StringBuilder();
-      bool bFirst = true;
 
-      for (int i = 0; i < usernames.Length; i++)
-      {
-        string username = usernames[i].Trim();
-
-        if (username.Length > 0)
-        {
-          if (!bFirst)
+      usernames.Where(t => t.IsSet()).Select(t => t.Trim()).ForEachFirst(
+        (u, first) =>
           {
-            userNameBuilder.Append(",");
-          }
-          else
-          {
-            bFirst = false;
-          }
+            userNameBuilder.Append(first ? "," : u);
 
-          userNameBuilder.Append(username);
-
-          // delete this user from the cache if they are in there...
-          this.DeleteFromProfileCacheIfExists(username.ToLower());
-        }
-      }
+            // delete this user from the cache if they are in there...
+            this.DeleteFromProfileCacheIfExists(u.ToLower());
+          });
 
       // call the DB...
       return DB.Current.DeleteProfiles(this.ApplicationName, userNameBuilder.ToString());

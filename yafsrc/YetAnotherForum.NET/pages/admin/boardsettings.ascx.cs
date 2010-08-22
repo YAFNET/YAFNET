@@ -102,8 +102,11 @@ namespace YAF.Pages.Admin
           items.Remove(UserNotificationSetting.AllTopics.ToInt());
         }
 
-        this.DefaultNotificationSetting.Items.AddRange(
-          items.Select(x => new ListItem(HtmlHelper.StripHtml(this.GetText(x.Value)), x.Key.ToString())).ToArray());
+        var notificationItems =
+          items.Select(
+            x => new ListItem(HtmlHelper.StripHtml(PageContext.Localization.GetText("CP_SUBSCRIPTIONS", x.Value)), x.Key.ToString())).ToArray();
+
+        this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
         // Get first default full culture from a language file tag.
         string langFileCulture = StaticDataHelper.CultureDefaultFromFile(this.PageContext.BoardSettings.Language) ?? "en";

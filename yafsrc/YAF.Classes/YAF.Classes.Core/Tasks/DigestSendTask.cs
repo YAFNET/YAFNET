@@ -106,14 +106,20 @@ namespace YAF.Classes.Core
       if (boardSettings.AllowDigestEmail)
       {
         DateTime lastSend = DateTime.MinValue;
+        bool sendDigest = false;
 
         if (boardSettings.LastDigestSend.IsSet())
         {
           lastSend = Convert.ToDateTime(boardSettings.LastDigestSend);
         }
-
-        // haven't sent in 23 hours or more and it's 12 to 5 am.
-        if (lastSend < DateTime.Now.AddHours(-24) && DateTime.Now < DateTime.Today.AddHours(6))
+#if (DEBUG)
+        // haven't sent in 24 hours or more and it's 12 to 5 am.
+        sendDigest = lastSend < DateTime.Now.AddHours(-24);      
+#else
+        // haven't sent in 24 hours or more and it's 12 to 5 am.
+        sendDigest = lastSend < DateTime.Now.AddHours(-24) && DateTime.Now < DateTime.Today.AddHours(6);
+#endif
+        if (sendDigest)
         {
           // && DateTime.Now < DateTime.Today.AddHours(5))
           // we're good to send -- update latest send so no duplication...
