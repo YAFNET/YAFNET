@@ -71,7 +71,17 @@
 			<td class="post">
 				<asp:DropDownList ID="FileExtensionAllow" runat="server">
 				</asp:DropDownList></td>
-		</tr>		
+		</tr>	
+       <tr id="PollGroupList" runat="server" visible="false">
+		<td class="postformheader" width="20%">
+			<em>
+				<YAF:LocalizedLabel ID="PollGroupListLabel" runat="server" LocalizedTag="pollgroup_list" />
+			</em>
+		</td>
+		<td class="post" width="80%">
+			<asp:DropDownList ID="PollGroupListDropDown" runat="server" CssClass="edit" MaxLength="10" Width="400" />			
+		</td>
+	</tr> 
 		<tr>
 			<td class="postheader">
 				<b>Send Email Notification On User Register to Emails:</b><br />

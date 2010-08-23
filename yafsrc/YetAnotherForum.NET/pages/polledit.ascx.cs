@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -69,6 +70,49 @@ namespace YAF.Pages
       : base("POLLEDIT")
     {
     }
+
+    /// <summary>
+    /// Adds page links to the page
+    /// </summary>
+    private void AddPageLinks()
+    {
+        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+        if (this.categoryId > 0)
+        {
+            this.PageLinks.AddLink(
+                this.PageContext.PageCategoryName,
+                YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.categoryId));
+        }
+        if (this.returnForum > 0)
+        {
+            this.PageLinks.AddLink(
+                DB.forum_list(this.PageContext.PageBoardID, this.returnForum).Rows[0]["Name"].ToString(),
+                YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.returnForum));
+        }
+        if (this.forumId > 0)
+        {
+            this.PageLinks.AddLink(
+                DB.forum_list(this.PageContext.PageBoardID, this.returnForum).Rows[0]["Name"].ToString(),
+                YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.forumId));
+        }
+        if (this.topicId > 0)
+        {
+            this.PageLinks.AddLink(
+                this._topicInfo["Topic"].ToString(),
+                YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.topicId));
+        }
+        if (this.editMessageId > 0)
+        {
+            this.PageLinks.AddLink(
+                this._topicInfo["Topic"].ToString(),
+                YafBuildLink.GetLink(ForumPages.postmessage, "m={0}", this.editMessageId));
+        }
+
+        this.PageLinks.AddLink(this.GetText("POLLEDIT", "TITLE"), string.Empty);
+    }
+        /// <summary>
+        /// Initializes page context query variables.
+        /// </summary>
         private void InitializeVariables()
         {
           
@@ -140,7 +184,9 @@ namespace YAF.Pages
                     }
                 }
 
+                    // Check if the user has the page access and variables are correct. 
                     CheckAccess();
+
                     // handle poll
                     if (this.PageContext.QueryIDs.ContainsKey("p"))
                     {
@@ -164,7 +210,6 @@ namespace YAF.Pages
             
         }
 
-
         protected void Page_Load(object sender, EventArgs e)
         {
             this.PollExpire.Attributes.Add("style", "width:50px");
@@ -177,51 +222,37 @@ namespace YAF.Pages
             }
             if (!IsPostBack)
             {
-                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                if (this.categoryId > 0)
-                {
-                    this.PageLinks.AddLink(
-                        this.PageContext.PageCategoryName,
-                        YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.categoryId));
-                }
-                if (this.returnForum > 0)
-                {
-                    this.PageLinks.AddLink(
-                        DB.forum_list(this.PageContext.PageBoardID, this.returnForum).Rows[0]["Name"].ToString(),
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.returnForum));
-                }
-                if (this.forumId > 0)
-                {
-                    this.PageLinks.AddLink(
-                        DB.forum_list(this.PageContext.PageBoardID, this.returnForum).Rows[0]["Name"].ToString(),
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.forumId));
-                }
-                if (this.topicId > 0)
-                {
-                    this.PageLinks.AddLink(
-                        this._topicInfo["Topic"].ToString(),
-                        YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.topicId));
-                }
-                if (this.editMessageId > 0)
-                {
-                    this.PageLinks.AddLink(
-                        this._topicInfo["Topic"].ToString(),
-                        YafBuildLink.GetLink(ForumPages.postmessage, "m={0}", this.editMessageId));
-                }
-               
-                this.PageLinks.AddLink(this.GetText("POLLEDIT","TITLE"), string.Empty);
+                AddPageLinks();
+            } 
 
-
-            }            // Admin can attach existing group if it's a new poll - this.pollID <= 0
-            // The functionality is temporarily disabled
+            // Admin can attach anexisting group if it's a new poll - this.pollID <= 0
             if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
             {
                 DataTable dt = DB.pollgroup_list(this.PageContext.PageUserID, null, this.PageContext.PageBoardID);
+
+                // TODO: repeating code - move to Utils
+                // Remove repeating PollGroupID values  
+                Hashtable hTable = new Hashtable();
+                ArrayList duplicateList = new ArrayList();
+
+                foreach (DataRow drow in dt.Rows)
+                {
+                    if (hTable.Contains(drow["PollGroupID"]))
+                        duplicateList.Add(drow);
+                    else
+                        hTable.Add(drow["PollGroupID"], string.Empty);
+                }
+                foreach (DataRow dRow in duplicateList)
+                {
+                    dt.Rows.Remove(dRow);
+                }
+
                 DataRow ndr = dt.NewRow();
 
                 ndr["PollGroupID"] = -1;
                 ndr["Question"] = string.Empty;
                 dt.Rows.InsertAt(ndr, 0);
+
                 dt.AcceptChanges();
                 this.PollGroupListDropDown.DataSource = dt;
                 this.PollGroupListDropDown.DataValueField = "PollGroupID";
@@ -373,13 +404,13 @@ namespace YAF.Pages
            
                 this.ChangePollShowStatus(true);
                 IsBound.Visible = true;
-               // IsClosedBound.Visible = true;
+                IsClosedBound.Visible = true;
 
            
         }
 
         /// <summary>
-        /// Check access rights for the page
+        /// Checks access rights for the page
         /// </summary>
         private void CheckAccess()
         {
@@ -559,6 +590,8 @@ namespace YAF.Pages
 
                      System.Collections.Generic.List<PollSaveList> pollList =
                          new System.Collections.Generic.List<PollSaveList>(questionsTotal);
+                     
+                    
                      string[,] rawChoices = new string[3,ChoiceRepeater.Items.Count];
                      int j = 0;
                      foreach (RepeaterItem ri in ChoiceRepeater.Items)

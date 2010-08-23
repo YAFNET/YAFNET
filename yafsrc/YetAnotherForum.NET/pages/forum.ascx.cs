@@ -64,7 +64,11 @@ namespace YAF.Pages
         this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
         this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
 
-        if (this.PageContext.Settings.LockedForum == 0)
+        this.PollList.Visible = this.PageContext.BoardSettings.BoardPollID > 0;
+        this.PollList.PollGroupId = this.PageContext.BoardSettings.BoardPollID;
+        this.PollList.BoardId = this.PageContext.Settings.BoardID;
+       
+          if (this.PageContext.Settings.LockedForum == 0)
         {
           this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
           if (this.PageContext.PageCategoryID != 0)

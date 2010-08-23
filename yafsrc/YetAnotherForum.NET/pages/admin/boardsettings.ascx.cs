@@ -91,6 +91,39 @@ namespace YAF.Pages.Admin
         this.FileExtensionAllow.DataTextField = "Text";
         this.FileExtensionAllow.DataValueField = "Value";
 
+        // bind poll group list
+        DataTable dtpl = DB.pollgroup_list(this.PageContext.PageUserID, null, this.PageContext.PageBoardID);
+       
+        // TODO: repeating code - move to Utils
+        // Remove repeating PollGroupID values  
+        Hashtable hTable = new Hashtable();
+        ArrayList duplicateList = new ArrayList();
+
+        foreach (DataRow drow in dtpl.Rows)
+        {
+            if (hTable.Contains(drow["PollGroupID"]))
+                duplicateList.Add(drow);
+            else
+                hTable.Add(drow["PollGroupID"], string.Empty);
+        }
+        foreach (DataRow dRow in duplicateList)
+        {
+            dtpl.Rows.Remove(dRow);
+        }
+
+          // Add an empty row
+          DataRow ndr = dtpl.NewRow();
+
+        ndr["PollGroupID"] = -1;
+        ndr["Question"] = string.Empty;
+        dtpl.Rows.InsertAt(ndr, 0);
+        
+
+        dtpl.AcceptChanges();
+        this.PollGroupListDropDown.DataSource = dtpl;
+        this.PollGroupListDropDown.DataValueField = "PollGroupID";
+        this.PollGroupListDropDown.DataTextField = "Question";
+
         this.BindData();
 
         // population default notification setting options...
@@ -129,6 +162,16 @@ namespace YAF.Pages.Admin
         this.EmailModeratorsOnModeratedPost.Checked = this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost;
         this.AllowDigestEmail.Checked = this.PageContext.BoardSettings.AllowDigestEmail;
         this.DefaultSendDigestEmail.Checked = this.PageContext.BoardSettings.DefaultSendDigestEmail;
+
+if (this.PageContext.BoardSettings.BoardPollID > 0)
+        {
+            PollGroupListDropDown.SelectedValue = this.PageContext.BoardSettings.BoardPollID.ToString();
+        }
+        else
+        {
+            PollGroupListDropDown.SelectedIndex = 0;
+        }
+        this.PollGroupList.Visible = true;
       }
     }
 
@@ -154,6 +197,16 @@ namespace YAF.Pages.Admin
 
       DB.board_save(
         this.PageContext.PageBoardID, languageFile, this.Culture.SelectedValue, this.Name.Text, this.AllowThreaded.Checked);
+
+      // save poll group
+      if (Convert.ToInt32(this.PollGroupListDropDown.SelectedIndex) > 0)
+      {
+          this.PageContext.BoardSettings.BoardPollID = Convert.ToInt32(this.PollGroupListDropDown.SelectedValue);
+      }
+      else
+      {
+          this.PageContext.BoardSettings.BoardPollID = 0;
+      }
 
       this.PageContext.BoardSettings.Language = languageFile;
       this.PageContext.BoardSettings.Culture = this.Culture.SelectedValue;

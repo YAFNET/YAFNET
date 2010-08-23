@@ -49,15 +49,6 @@ namespace YAF.Pages {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
-        /// PollQuestionObjectLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel PollQuestionObjectLabel;
-        
-        /// <summary>
         /// Question control.
         /// </summary>
         /// <remarks>
@@ -65,6 +56,24 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Question;
+        
+        /// <summary>
+        /// PollObjectRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow PollObjectRow;
+        
+        /// <summary>
+        /// PollQuestionObjectLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel PollQuestionObjectLabel;
         
         /// <summary>
         /// QuestionObjectPath control.

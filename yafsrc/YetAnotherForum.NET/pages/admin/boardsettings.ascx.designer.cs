@@ -103,6 +103,33 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList FileExtensionAllow;
         
         /// <summary>
+        /// PollGroupList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow PollGroupList;
+        
+        /// <summary>
+        /// PollGroupListLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel PollGroupListLabel;
+        
+        /// <summary>
+        /// PollGroupListDropDown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PollGroupListDropDown;
+        
+        /// <summary>
         /// NotificationOnUserRegisterEmailList control.
         /// </summary>
         /// <remarks>

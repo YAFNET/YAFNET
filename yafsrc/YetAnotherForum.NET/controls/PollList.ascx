@@ -6,10 +6,10 @@
 </HeaderTemplate>
 <ItemTemplate>
 <tr>
-                <td class="header1" style="width:1px">
+                 <td class="header1" style="width:1">
                  <div class="attachedimg" style="display:inline; height:50px">
                   <a id="QuestionAnchor" runat="server">
-                  <img id="QuestionImage" src="" alt="" style=" runat="server" />
+                  <img id="QuestionImage" src="" alt="" runat="server" />
                   </a>
                   </div>
                 </td>
@@ -36,8 +36,8 @@
 <asp:Repeater ID="Poll" runat="server"  OnItemDataBound="Poll_OnItemDataBound" OnItemCommand="Poll_ItemCommand" Visible="false" >
     <HeaderTemplate></HeaderTemplate>
     <ItemTemplate>    
-        <tr id="VoteTr" runat="server">        
-            <td class="post" width="1px">                  
+        <tr id="VoteTr" runat="server" >        
+            <td class="post" width="1">                  
                 <div class="attachedimg" style="display:inline; height:50px">
                   <a id="ChoiceAnchor" runat="server">
                   <img id="ChoiceImage" src="" alt="" runat="server" />
@@ -56,8 +56,8 @@
             <td class="post" >
             <asp:Panel id="resultsSpan" visible="false" runat="server">
             <nobr>               
-					<img alt="" src="<%# GetThemeContents("VOTE","LCAP") %>"><img alt="" src='<%# GetThemeContents("VOTE","BAR") %>'
-						height="12" width='<%# VoteWidth(Container.DataItem) %>%'><img alt="" src='<%# GetThemeContents("VOTE","RCAP") %>'></nobr>
+					<img alt="" src="<%# GetThemeContents("VOTE","LCAP") %>" /><img alt="" src='<%# GetThemeContents("VOTE","BAR") %>'
+						height="12" width='<%# VoteWidth(Container.DataItem) %>%' /><img alt="" src='<%# GetThemeContents("VOTE","RCAP") %>' /></nobr>
                 <%# DataBinder.Eval(Container.DataItem,"Stats") %>
                 %
              </asp:Panel>                
@@ -66,9 +66,8 @@
     </ItemTemplate>
     <FooterTemplate>
     </FooterTemplate>
-</asp:Repeater> 
-       <br />
-             <tr>
+</asp:Repeater>        
+            <tr>
              <td class="header2">              
             </td> 
             <td class="header2">

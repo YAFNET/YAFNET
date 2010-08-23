@@ -879,10 +879,12 @@ namespace YAF.controls
                        
                         
                         // hardcoded - bad
-                        choiceImage.Width = 80;
-                        choiceImage.Height = Convert.ToInt32(choiceImage.Width/aspect);
+                        int imageWidth = 80;
+                        choiceImage.Attributes["style"] = String.Format("width:{0}px; height:{1}px;", imageWidth, choiceImage.Width / aspect);
                         // reserved to get equal row heights
-                        trow.Height = (this.MaxImageAspect * choiceImage.Width).ToString();
+                        String height = (this.MaxImageAspect * choiceImage.Width).ToString();
+                        trow.Attributes["style"] = String.Format("height:{0}px;", height);
+                      
                     }
                    
 
@@ -913,7 +915,7 @@ namespace YAF.controls
                 }
                 else
                 {
-                    if ((isNotVoted || this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore) )
+                    if ((isNotVoted || this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore) && (!isClosedBound))
                     {
                        item.FindControlRecursiveAs<Panel>("resultsSpan").Visible =
                        item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = true;
@@ -1295,7 +1297,8 @@ namespace YAF.controls
 
             _dtPollGroup = _dtPoll.Copy();
 
-            // Remove repeating choice rows  
+            // TODO: repeating code - move to Utils
+            // Remove repeating PollID values   
             Hashtable hTable = new Hashtable();
             ArrayList duplicateList = new ArrayList();
 
@@ -1335,7 +1338,7 @@ namespace YAF.controls
                     this._dtVotes = DB.pollgroup_votecheck(this.PollGroupId, userId, remoteIp);
 
                     this.isBound = (Convert.ToInt32(_dtPollGroup.Rows[0]["IsBound"]) == 2);
-                    this.isClosedBound = (Convert.ToInt32(_dtPollGroup.Rows[0]["IsBound"]) == 4);
+                    this.isClosedBound = (Convert.ToInt32(_dtPollGroup.Rows[0]["IsClosedBound"]) == 4);
 
                     this.PollGroup.DataSource = _dtPollGroup;
 
