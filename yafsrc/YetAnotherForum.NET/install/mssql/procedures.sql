@@ -3932,6 +3932,7 @@ BEGIN
 		a.Choice,
 		a.Votes,
 		IsBound = convert(int,pg.Flags & 2), 
+		IsClosedBound = convert(int,pg.Flags & 4), 
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		Stats = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM
@@ -3957,7 +3958,8 @@ BEGIN
 		a.ChoiceID,
 		a.Choice,
 		a.Votes,
-		IsBound = convert(int,pg.Flags & 2), 	
+		IsBound = convert(int,pg.Flags & 2),
+		IsClosedBound = convert(int,pg.Flags & 4),
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		Stats = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM

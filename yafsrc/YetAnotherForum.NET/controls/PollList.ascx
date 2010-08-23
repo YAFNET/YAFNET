@@ -51,7 +51,10 @@
             <td class="post" align="center">
             <asp:Panel id="VoteSpan" visible="false" runat="server">
                 <%# DataBinder.Eval(Container.DataItem, "Votes") %>
-           </asp:Panel>
+            </asp:Panel>
+            <asp:Panel id="MaskSpan" visible="false" runat="server">
+                <img alt='<%# PageContext.Localization.GetText("POLLEDIT", "POLLRESULTSHIDDEN_SHORT") %>' title='<%# PageContext.Localization.GetText("POLLEDIT", "POLLRESULTSHIDDEN_SHORT") %>' src='<%# GetThemeContents("VOTE","POLL_MASK") %>' />
+            </asp:Panel>
             </td>             
             <td class="post" >
             <asp:Panel id="resultsSpan" visible="false" runat="server">
@@ -80,7 +83,7 @@
                 100%
             </td>               
         </tr>
-        <tr>        
+        <tr id="PollInfoTr" runat="server" visible="false">        
         <td class="post" colspan="4" align="center">
         <asp:Label ID="PollVotesLabel" Visible="false" runat="server" />
          <asp:Label ID="GuestOptionsHidden" Visible="false" runat="server" />

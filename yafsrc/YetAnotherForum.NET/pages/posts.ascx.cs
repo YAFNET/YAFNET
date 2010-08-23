@@ -64,11 +64,6 @@ namespace YAF.Pages
     private bool _dataBound;
 
     /// <summary>
-    ///   The _dt poll.
-    /// </summary>
-    private DataTable _dtPoll;
-
-    /// <summary>
     ///   The _forum.
     /// </summary>
     private DataRow _forum;

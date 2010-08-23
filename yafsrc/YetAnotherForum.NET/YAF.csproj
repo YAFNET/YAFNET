@@ -1520,6 +1520,7 @@
     <Content Include="themes\cleanSlate\collapse.gif" />
     <Content Include="themes\cleanSlate\expand.gif" />
     <Content Include="themes\cleanSlate\female.gif" />
+    <Content Include="themes\cleanSlate\flatearth.xml" />
     <Content Include="themes\cleanSlate\folder_stats.gif" />
     <Content Include="themes\cleanSlate\folder_stats.png" />
     <Content Include="themes\cleanSlate\folder_who.gif" />
@@ -1568,6 +1569,7 @@
     <Content Include="themes\cleanSlate\jquery\ui.tabs.css" />
     <Content Include="themes\cleanSlate\jquery\ui.theme.css" />
     <Content Include="themes\cleanSlate\male.gif" />
+    <Content Include="themes\cleanSlate\mask.gif" />
     <Content Include="themes\cleanSlate\rssfeed.gif" />
     <Content Include="themes\cleanSlate\sort_down.gif" />
     <Content Include="themes\cleanSlate\sort_up.gif" />
@@ -1624,11 +1626,13 @@
     <Content Include="themes\FlatEarth\jquery\ui.tabs.css" />
     <Content Include="themes\FlatEarth\jquery\ui.theme.css" />
     <Content Include="themes\FlatEarth\male.gif" />
+    <Content Include="themes\FlatEarth\mask1.gif" />
     <Content Include="themes\FlatEarth\poll_choice.png" />
     <Content Include="themes\FlatEarth\poll_question.png" />
     <Content Include="themes\FlatEarth\rssfeed.gif" />
     <Content Include="themes\FlatEarth\tab-line.png" />
     <Content Include="themes\FlatEarth\tab.png" />
+    <Content Include="themes\Gray.xml" />
     <Content Include="themes\Gray\buttonBack.gif" />
     <Content Include="themes\Gray\buttonBackB.gif" />
     <Content Include="themes\Gray\buttonEnd.gif" />
@@ -1689,6 +1693,7 @@
     <Content Include="themes\Gray\jquery\ui.tabs.css" />
     <Content Include="themes\Gray\jquery\ui.theme.css" />
     <Content Include="themes\Gray\male.gif" />
+    <Content Include="themes\Gray\mask1.gif" />
     <Content Include="themes\Gray\poll_choice.png" />
     <Content Include="themes\Gray\poll_question.png" />
     <Content Include="themes\Gray\reflection.js" />
@@ -1750,6 +1755,7 @@
     <Content Include="themes\soclean\jquery\ui.tabs.css" />
     <Content Include="themes\soclean\jquery\ui.theme.css" />
     <Content Include="themes\soclean\male.gif" />
+    <Content Include="themes\soclean\mask1.gif" />
     <Content Include="themes\soclean\poll_choice.png" />
     <Content Include="themes\soclean\poll_question.png" />
     <Content Include="themes\soclean\rssfeed.gif" />
@@ -1844,6 +1850,7 @@
     <Content Include="themes\yafpro\jquery\ui.tabs.css" />
     <Content Include="themes\yafpro\jquery\ui.theme.css" />
     <Content Include="themes\yafpro\male.gif" />
+    <Content Include="themes\yafpro\mask1.gif" />
     <Content Include="themes\yafpro\poll_choice.png" />
     <Content Include="themes\yafpro\poll_question.png" />
     <Content Include="themes\yafpro\rssfeed.gif" />
@@ -1880,6 +1887,7 @@
     <Content Include="themes\yafvision\jquery\ui.tabs.css" />
     <Content Include="themes\yafvision\jquery\ui.theme.css" />
     <Content Include="themes\yafvision\male.gif" />
+    <Content Include="themes\yafvision\mask1.gif" />
     <Content Include="themes\yafvision\poll_choice.png" />
     <Content Include="themes\yafvision\poll_question.png" />
     <Content Include="themes\yafvision\rssfeed.gif" />

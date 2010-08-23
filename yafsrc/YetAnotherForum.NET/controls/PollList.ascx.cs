@@ -66,6 +66,16 @@ namespace YAF.controls
         private bool _canChange;
 
         /// <summary>
+        ///   The _showResults.
+        /// </summary>
+        private bool _showResults = false;
+
+        /// <summary>
+        ///   The _canVote.
+        /// </summary>
+        private bool _canVote = false;
+
+        /// <summary>
         ///   The isBound.
         /// </summary>
         private bool isBound;
@@ -614,9 +624,41 @@ namespace YAF.controls
                 
 
                 polloll.DataSource = _choiceRow;
+                _canVote = CanVote(pollId);
+                bool isPollClosed = IsPollClosed(pollId);
+                bool isNotVoted = IsNotVoted(pollId);
+                // Poll voting is bounded - you can't see results before voting in each poll
+                if (isBound)
+                {
+                    int voteCount = 0;
+                    foreach (DataRow dr in _dtPollGroup.Rows)
+                    {
+                        if (!IsNotVoted(dr["PollID"]) && !IsPollClosed(dr["PollID"]))
+                        {
+                            voteCount++;
+                        }
+
+                    }
+                    if (!isPollClosed && voteCount >= this.PollNumber)
+                    {
+                        _showResults = true;
+                    }
+                }
+                else
+                {
+                    if ((!isClosedBound && (isNotVoted || this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore)) || (isClosedBound && isPollClosed))
+                    {
+                        _showResults = true;
+                    }
+                }
       
                 polloll.DataBind();
 
+                // Clear the fields after the child repeater is bound
+                _showResults = false;
+                _canVote = false;
+
+                // Add confirmations to delete buttons
                 ThemeButton removePollAll = item.FindControlRecursiveAs<ThemeButton>("RemovePollAll");
                 removePollAll.Attributes["onclick"] = String.Format(
                "return confirm('{0}');", this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
@@ -628,11 +670,10 @@ namespace YAF.controls
                 removePoll.Visible = CanRemovePoll(pollId);
 
                 // Poll warnings section
-                bool isNotVoted = IsNotVoted(pollId);
                 bool soon;
-
+                bool showWarningsRow = false; 
                 int? daystorun = DaysToRun(pollId, out soon);
-
+               
                 Label pollVotesLabel = item.FindControlRecursiveAs<Label>("PollVotesLabel");
                 bool cvote = CanVote(pollId);
                 if (cvote)
@@ -662,28 +703,33 @@ namespace YAF.controls
                     if (!cvote &&  (!this.PageContext.BoardSettings.AllowGuestsViewPollOptions))
                     {
                         guestOptionsHidden.Text = this.PageContext.Localization.GetText("POLLEDIT",
-                                                                                        "POLLOPTIONSHIDDEN_GUEST");
+                         "POLLOPTIONSHIDDEN_GUEST");
                         guestOptionsHidden.Visible = true;
+                        showWarningsRow = true;
                     }
                     if (!PageContext.ForumPollAccess)
                     {
                         guestOptionsHidden.Text += this.PageContext.Localization.GetText("POLLEDIT",
                                                                                     "POLL_NOPERM_GUEST");
-                        guestOptionsHidden.Visible = true;   
+                        guestOptionsHidden.Visible = true;
+                        showWarningsRow = true;
                     }
                 }
 
                 pollVotesLabel.Visible = this.isBound || (this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore
                                              ? false
                                              : (isNotVoted || (daystorun == null)));
+                if (pollVotesLabel.Visible)
+                {
+                    showWarningsRow = true;
+                }
 
                 if (!isNotVoted && PageContext.ForumPollAccess)
                  {
                      Label alreadyVotedLabel = item.FindControlRecursiveAs<Label>("AlreadyVotedLabel");
                      alreadyVotedLabel.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED");
-                     alreadyVotedLabel.Visible = true;
-                 } 
-
+                     showWarningsRow = alreadyVotedLabel.Visible = true;
+                 }
                 if (daystorun > 0)
                 {
                     Label pollWillExpire = item.FindControlRecursiveAs<Label>("PollWillExpire");
@@ -696,18 +742,17 @@ namespace YAF.controls
                     {
                         pollWillExpire.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS");
                     }
-
                     pollWillExpire.Visible = true;
                 }
                 else if (daystorun == 0)
                 {
-
                     Label pollExpired = item.FindControlRecursiveAs<Label>("PollExpired");
                     pollExpired.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED");
                     pollExpired.Visible = true;
-
                 }
-
+             
+                item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = showWarningsRow;
+                
                 DisplayButtons();
            }
 
@@ -841,17 +886,14 @@ namespace YAF.controls
             RepeaterItem item = e.Item;
             DataRowView drowv = (DataRowView)e.Item.DataItem;
             HtmlTableRow trow = item.FindControlRecursiveAs<HtmlTableRow>("VoteTr");
-
+           
             if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
             {
                 // Voting link 
                 MyLinkButton myLinkButton = item.FindControlRecursiveAs<MyLinkButton>("MyLinkButton1");
                 string pollId = drowv.Row["PollID"].ToString();
 
-                bool isNotVoted = IsNotVoted(pollId);
-                bool canVote = CanVote(pollId);
-
-                myLinkButton.Enabled = canVote;
+                myLinkButton.Enabled = _canVote;
                 myLinkButton.ToolTip = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
                 myLinkButton.Visible = true;
 
@@ -895,31 +937,9 @@ namespace YAF.controls
                    choiceAnchor.HRef = "";
                }
 
-                if (isBound)
-                {
-                    int voteCount = 0;
-                    foreach (DataRow dr in _dtPollGroup.Rows)
-                    {
-                        if (!IsNotVoted(dr["PollID"]) && !IsPollClosed(dr["PollID"]))
-                        {
-                            voteCount++;
-                        }
-                        
-                    }
-                    if (!IsPollClosed(pollId) && voteCount >= this.PollNumber)
-                   {
-                       item.FindControlRecursiveAs<Panel>("resultsSpan").Visible =
-                       item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = true;
-                   }
-                }
-                else
-                {
-                    if ((isNotVoted || this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore) && (!isClosedBound))
-                    {
-                       item.FindControlRecursiveAs<Panel>("resultsSpan").Visible =
-                       item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = true;
-                    }
-                }
+               item.FindControlRecursiveAs<Panel>("MaskSpan").Visible = !_showResults; 
+               item.FindControlRecursiveAs<Panel>("resultsSpan").Visible =
+               item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = _showResults;
                
             }
         }

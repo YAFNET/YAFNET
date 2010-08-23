@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<YAF:PollList ID="PollList" TopicId='<%# PageContext.PageTopicID %>' ShowButtons='<%# ShowPollButtons() %>' PollGroupId='<%# PollGroupId() %>' runat="server"/>
+<YAF:PollList ID="PollList" TopicId='<%# PageContext.PageTopicID %>' ShowButtons='<%# ShowPollButtons() %>' Visible='<%# PollGroupId() > 0 %>' PollGroupId='<%# PollGroupId() %>' runat="server"/>
 <a id="top"  name="top"></a>
 <table class="command" width="100%">
     <tr>

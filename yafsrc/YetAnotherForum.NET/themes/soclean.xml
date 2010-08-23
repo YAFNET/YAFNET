@@ -56,5 +56,6 @@
 		<Resource tag="BAR">~/voting_bar.gif</Resource>
     <Resource tag="POLL_QUESTION">~/poll_question.png</Resource>
     <Resource tag="POLL_CHOICE">~/poll_choice.png</Resource>
-	</page>
+    <Resource tag="POLL_MASK">~/mask.gif</Resource>
+  </page>
 </Resources>
