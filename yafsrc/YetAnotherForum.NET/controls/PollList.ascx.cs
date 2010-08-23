@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -673,8 +674,6 @@ namespace YAF.controls
                     }
                 }
 
-
-
                 pollVotesLabel.Visible = this.isBound || (this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore
                                              ? false
                                              : (isNotVoted || (daystorun == null)));
@@ -733,14 +732,7 @@ namespace YAF.controls
                             "return confirm('{0}');",
                             this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_EVR"));
                 }
-
             }
-
-
-
-
-            //  }
-
         }
 
 
@@ -815,13 +807,13 @@ namespace YAF.controls
                     DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, true);
                     ReturnToPage();
                 // this.BindData();
-
             }
-          
-          
-
         }
-
+        /// <summary>
+        /// Returns an image width|height ratio. 
+        /// </summary>
+        /// <param name="mimeType"></param>
+        /// <returns></returns>
         private decimal GetImageAspect(object mimeType)
         {
           
@@ -941,7 +933,6 @@ namespace YAF.controls
         /// <param name="e">
         /// The e.
         /// </param>
-       
         protected void Poll_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "vote" && this.PageContext.ForumVoteAccess)
@@ -995,6 +986,9 @@ namespace YAF.controls
             }
         }
 
+        /// <summary>
+        /// Returns user to the original call page
+        /// </summary>
         private void ReturnToPage()
         {
            
@@ -1085,6 +1079,10 @@ namespace YAF.controls
             }*/
         }
 
+        /// <summary>
+        /// Checks if a user can create poll.
+        /// </summary>
+        /// <returns></returns>
         protected bool CanCreatePoll()
         {
             return (this.PollNumber < this.PageContext.BoardSettings.AllowedPollNumber) && 
@@ -1092,6 +1090,12 @@ namespace YAF.controls
                 HasOwnerExistingGroupAccess() 
                 && (this.PollGroupId >= 0);
         }
+
+        /// <summary>
+        /// Checks if user can edit a poll
+        /// </summary>
+        /// <param name="pollId"></param>
+        /// <returns></returns>
         protected bool CanEditPoll(object pollId)
         {
             if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
@@ -1108,6 +1112,12 @@ namespace YAF.controls
                       this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) && (!IsPollClosed(pollId)));
             }
         }
+
+        /// <summary>
+        /// Checks if a user can delete poll without deleting it from database
+        /// </summary>
+        /// <param name="pollId"></param>
+        /// <returns></returns>
         protected bool CanRemovePoll(object pollId)
         {
             return this.ShowButtons && 
@@ -1115,6 +1125,12 @@ namespace YAF.controls
                 this.PageContext.IsForumModerator ||
                 (this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"])));
         }
+
+        /// <summary>
+        /// Checks if a user can delete poll completely
+        /// </summary>
+        /// <param name="pollId"></param>
+        /// <returns></returns>
         protected bool CanRemovePollCompletely(object pollId)
         {
             if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
@@ -1131,6 +1147,11 @@ namespace YAF.controls
                          this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]));  
             }
         }
+
+        /// <summary>
+        /// Checks if a user can remove all polls in a group 
+        /// </summary>
+        /// <returns></returns>
         protected bool CanRemoveGroup()
         {
             bool hasNoVotes = true;
@@ -1156,6 +1177,11 @@ namespace YAF.controls
                        ((this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]))));
             }
         }
+
+        /// <summary>
+        /// Checks if  a user can remove all polls in a group completely.
+        /// </summary>
+        /// <returns></returns>
         protected bool CanRemoveGroupCompletely()
         {
             bool hasNoVotes = true;
@@ -1166,7 +1192,6 @@ namespace YAF.controls
                     hasNoVotes = false;
                 }
             }
-
            
             if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
             {
@@ -1183,11 +1208,21 @@ namespace YAF.controls
             }
            
         }
+
+        /// <summary>
+        /// Checks if a user can delete group from all places but not completely
+        /// </summary>
+        /// <returns></returns>
         protected bool CanRemoveGroupEverywhere()
         {
             return this.ShowButtons && (this.PageContext.IsAdmin);
         }
 
+        /// <summary>
+        /// Checks if a poll has votes.
+        /// </summary>
+        /// <param name="pollId"></param>
+        /// <returns></returns>
         private bool PollHasNoVotes(object pollId)
         {
                 foreach (DataRow dr in _dtPoll.Rows)
@@ -1221,7 +1256,7 @@ namespace YAF.controls
         }
 
         /// <summary>
-        /// The remove poll_ load.
+        /// The remove poll_ completely load.
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -1235,55 +1270,50 @@ namespace YAF.controls
               "return confirm('{0}');", this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
         }
 
-       /* protected bool CanSeeResults()
-        {
-            if (this.PageContext.IsGuest)
-            {
-                return this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore;
-                
-            }
-            return true;
-        } */
-
         /// <summary>
         /// The bind data.
         /// </summary>
         private void BindData()
         {   
-                this._dataBound = true;
-                
-                PollNumber = 0;
-                DataRow drpg;
-                _dtPoll = DB.pollgroup_stats(this.PollGroupId);
+               this._dataBound = true;
+               PollNumber = 0;
+               _dtPoll = DB.pollgroup_stats(this.PollGroupId);
 
-   
-            _canChange = (Convert.ToInt32(_dtPoll.Rows[0]["GroupUserID"]) == this.PageContext.PageUserID) ||
+               // if the page user can cheange the poll. Only a group owner, forum moderator  or an admin can do it.   
+               _canChange = (Convert.ToInt32(_dtPoll.Rows[0]["GroupUserID"]) == this.PageContext.PageUserID) ||
                        PageContext.IsAdmin || PageContext.IsForumModerator;
 
-            this.PollGroup.Visible = true;
-           // _canChange || (((this.EditMessageId > 0)(this. > 0)) && (!_canChange));
-
+            // check if we should hide pollgroup repeater when a message is posted
             if (Parent.Page.ClientQueryString.Contains("postmessage"))
             {
                 this.PollGroup.Visible = (((this.EditMessageId > 0)) && (!_canChange)) || _canChange;
             }
-             
-                int i = 0;
-                 _dtPollGroup = _dtPoll.Copy();
-                 foreach (DataRow drp in _dtPollGroup.Rows)
-                {
-                    if (i != Convert.ToInt32(drp["PollID"]))
-                    {
-                        PollNumber++;
-                        i = (int) drp["PollID"];
-                    }
-                    else
-                    {
-                        drp.Delete();
-                    }
-                }
-          
+            else
+            {
+                this.PollGroup.Visible = true;
+            }
+
+            _dtPollGroup = _dtPoll.Copy();
+
+            // Remove repeating choice rows  
+            Hashtable hTable = new Hashtable();
+            ArrayList duplicateList = new ArrayList();
+
+            foreach (DataRow drow in _dtPollGroup.Rows)
+            {
+                if (hTable.Contains(drow["PollID"]))
+                    duplicateList.Add(drow);
+                else
+                    hTable.Add(drow["PollID"], string.Empty);
+            }
+            foreach (DataRow dRow in duplicateList)
+                _dtPollGroup.Rows.Remove(dRow);
                 _dtPollGroup.AcceptChanges();
+
+                 // frequently used
+                 PollNumber = _dtPollGroup.Rows.Count;
+
+
 
                 if (_dtPollGroup.Rows.Count > 0)
                 {
@@ -1308,18 +1338,12 @@ namespace YAF.controls
                     this.isClosedBound = (Convert.ToInt32(_dtPollGroup.Rows[0]["IsBound"]) == 4);
 
                     this.PollGroup.DataSource = _dtPollGroup;
-                    // this.PollGroup.DataBind();
 
-                    // we hide new poll row if polls exist
+                    // we hide new poll row if a poll exist
                     this.NewPollRow.Visible = false;
                     ChangePollShowStatus(true);
 
                 }
-            
-                
-
-                //  this.ShowButtons = (Convert.ToInt32(this._dtPollGroup.Rows[0]["GroupUserID"]) == this.PageContext.PageUserID) || this.PageContext.IsModerator ||
-                //     this.PageContext.IsAdmin;
 
                 this.DataBind();
         }
