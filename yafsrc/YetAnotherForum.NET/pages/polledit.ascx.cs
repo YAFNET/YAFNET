@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -215,6 +218,7 @@ namespace YAF.Pages
             {
                 DataTable dt = DB.pollgroup_list(this.PageContext.PageUserID, null, this.PageContext.PageBoardID);
                 DataRow ndr = dt.NewRow();
+
                 ndr["PollGroupID"] = -1;
                 ndr["Question"] = string.Empty;
                 dt.Rows.InsertAt(ndr, 0);
@@ -242,13 +246,12 @@ namespace YAF.Pages
         /// </param>
         private void InitPollUI(int? pollID)
         {
-        //  this.RemovePoll.CommandArgument = currentRow["PollID"].ToString();
                  
                 // we should get the schema anyway
                 choices = DB.poll_stats(pollID);
                 choices.Columns.Add("ChoiceOrderID", typeof(int));
                 
-                // First existing values
+                // First existing values alway 1!
                 int existingRowsCount = 1;
                 int allExistingRowsCount = choices.Rows.Count;
 
@@ -260,13 +263,18 @@ namespace YAF.Pages
                         YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
                     }
 
-                     if (Convert.ToInt32(choices.Rows[0]["IsBound"]) > 0 )
+                     if (Convert.ToInt32(choices.Rows[0]["IsBound"]) == 2 )
                      {
                          IsBoundCheckBox.Checked = true;
                      }
+                     if (Convert.ToInt32(choices.Rows[0]["IsClosedBound"]) == 4)
+                     {
+                         IsClosedBoundCheckBox.Checked = true;
+                     }
 
                     this.Question.Text = choices.Rows[0]["Question"].ToString();
-
+                    this.QuestionObjectPath.Text = choices.Rows[0]["QuestionObjectPath"].ToString();
+                    
                     if (choices.Rows[0]["Closes"] != DBNull.Value)
                     {
                         TimeSpan closing = (DateTime) choices.Rows[0]["Closes"] - DateTime.UtcNow;
@@ -290,14 +298,16 @@ namespace YAF.Pages
                     if (Convert.ToInt32(choices.Rows[0]["IsBound"]) == 2)
                     {
                         IsBoundCheckBox.Checked = true;
-                        
-
+                    }
+                    if (Convert.ToInt32(choices.Rows[0]["IsClosedBound"]) == 4)
+                    {
+                        IsClosedBoundCheckBox.Checked = true;
                     }
                 }
                 else
                 {
                     // Get isBound value using page variables. They are initialized here.
-
+                   
                     int pgidt = 0;
                     // If a topic poll is edited or new topic created
                     if (this.topicId > 0 && _topicInfo !=null)
@@ -306,10 +316,14 @@ namespace YAF.Pages
                        if (_topicInfo["PollID"] != DBNull.Value)
                         {
                             pgidt = (int)_topicInfo["PollID"];
-                            int ff = Convert.ToInt32(DB.pollgroup_stats((int) pgidt).Rows[0]["IsBound"]);
+
                             if (Convert.ToInt32(DB.pollgroup_stats((int)pgidt).Rows[0]["IsBound"]) == 2)
                             {
                                 IsBoundCheckBox.Checked = true;
+                            }
+                            if (Convert.ToInt32(DB.pollgroup_stats((int)pgidt).Rows[0]["IsClosedBound"]) == 4)
+                            {
+                                IsClosedBoundCheckBox.Checked = true;
                             }
                         }
                     }
@@ -334,6 +348,10 @@ namespace YAF.Pages
                         {
                             IsBoundCheckBox.Checked = true;
                         }
+                        if (Convert.ToInt32(DB.pollgroup_stats((int)pgidt).Rows[0]["IsClosedBound"]) == 4)
+                        {
+                            IsClosedBoundCheckBox.Checked = true;
+                        }
                     }
 
                     // clear the fields...
@@ -355,10 +373,14 @@ namespace YAF.Pages
            
                 this.ChangePollShowStatus(true);
                 IsBound.Visible = true;
+               // IsClosedBound.Visible = true;
 
            
         }
 
+        /// <summary>
+        /// Check access rights for the page
+        /// </summary>
         private void CheckAccess()
         {
             if (this.boardId > 0 || this.categoryId > 0)
@@ -399,11 +421,6 @@ namespace YAF.Pages
             this.PollRow1.Visible = newStatus;
             this.PollRowExpire.Visible = newStatus;
 
-          /*  this.PollGroup.FindControlRecursiveAs<ThemeButton>("CreatePollRow").Visible = !newStatus;
-            this.PollGroup.FindControlRecursiveAs<ThemeButton>("RemovePollRow").Visible = newStatus;
-            this.PollGroup.FindControlRecursiveAs<ThemeButton>("PollRowExpire").Visible = newStatus;
-            this.PollGroup.FindControlRecursiveAs<Repeater>("Poll").Visible = newStatus; */
-
           /*  var pollRow = (HtmlTableRow)this.FindControl(String.Format("PollRow{0}", 1));
 
             if (pollRow != null)
@@ -414,8 +431,6 @@ namespace YAF.Pages
 
         protected bool IsInputVerified()
         {
-           // if (this.PollRow1.Visible)
-           // {
        
              if (Convert.ToInt32(this.PollGroupListDropDown.SelectedIndex) <= 0)
                 {
@@ -459,33 +474,57 @@ namespace YAF.Pages
         /// </returns>
         private bool? GetPollID()
         {
-
             if (int.TryParse(this.PollExpire.Text.Trim(), out daysPollExpire))
             {
                 datePollExpire = DateTime.UtcNow.AddDays(daysPollExpire);
             }
-            // this.PollGroup.FindControlRecursiveAs<ThemeButton>("RemovePoll").Visible =
+
+            string questionPath = this.QuestionObjectPath.Text.Trim();
+            string questionMime = string.Empty;
+
+            if (!String.IsNullOrEmpty(questionPath))
+            {
+                questionMime = GetImageParameters(new Uri(questionPath));
+                if (questionMime == null)
+                {
+                    YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID", this.QuestionObjectPath.Text.Trim()));
+                    return false;
+                }
+            }
+           
             // we are just using existing poll
             if (this.PollID != null)
              {
-
-                // int pollID = Convert.ToInt32(this.RemovePoll.CommandArgument);
-                 DB.poll_update(PollID, this.Question.Text, datePollExpire, this.IsBoundCheckBox.Checked);
+                
+                
+                 DB.poll_update(PollID, this.Question.Text, datePollExpire, this.IsBoundCheckBox.Checked, this.IsClosedBoundCheckBox.Checked, questionPath, questionMime);
 
                  foreach (RepeaterItem ri in ChoiceRepeater.Items)
                  {
                      string choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
                      string chid = ((HiddenField)ri.FindControl("PollChoiceID")).Value;
-
+                     string objectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
+                     
+                     string parametrs = string.Empty;
+                     // update choice
+                     if (!String.IsNullOrEmpty(objectPath))
+                     {
+                         parametrs = GetImageParameters(new Uri(objectPath));
+                         if (parametrs == null)
+                         {
+                             YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",ri.FindControlRecursiveAs<TextBox>("ObjectPath").Text));
+                             return false;
+                         }
+                     }
+                    
                      if (string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
                      {
                          // add choice
-                         DB.choice_add(PollID, choice);
+                         DB.choice_add(PollID, choice, objectPath, parametrs);
                      }
                      else if (!string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
                      {
-                         // update choice
-                         DB.choice_update(chid, choice);
+                         DB.choice_update(chid, choice, objectPath, parametrs);
                      }
                      else if (!string.IsNullOrEmpty(chid) && string.IsNullOrEmpty(choice))
                      {
@@ -525,8 +564,8 @@ namespace YAF.Pages
                      foreach (RepeaterItem ri in ChoiceRepeater.Items)
                      {
                          rawChoices[0,j] = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
-                         rawChoices[1,j] = null;
-                         rawChoices[2,j] = null;
+                         rawChoices[1, j] = questionPath;
+                         rawChoices[2, j] = questionMime;
                          j++;
                      }
 
@@ -547,7 +586,7 @@ namespace YAF.Pages
                      pollList.Add(new PollSaveList(this.Question.Text,
                                                    rawChoices,
                                                    (DateTime?)datePollExpire, this.PageContext.PageUserID, realTopic,
-                                                   this.forumId, this.categoryId, this.boardId, null, null, IsBoundCheckBox.Checked));
+                                                   this.forumId, this.categoryId, this.boardId, questionPath, questionMime, IsBoundCheckBox.Checked, this.IsClosedBoundCheckBox.Checked));
                      DB.poll_save(pollList);
                      return true;
                  }
@@ -557,6 +596,92 @@ namespace YAF.Pages
 
             return false; // A poll was not created for this topic.
         }
+
+
+        /// <summary>
+
+        /// An image reader to read images on local disk.
+
+        /// </summary>
+
+    
+        public Stream GetLocalData(Uri path)
+           {
+            return new FileStream(path.LocalPath, FileMode.Open);
+            }
+
+
+        public Stream GetRemoteData(Uri url)
+        {
+
+            string path = url.ToString();
+
+            try
+            {
+
+                if (path.StartsWith("~/"))
+
+                    path = "file://" + HttpRuntime.AppDomainAppPath + path.Substring(2, path.Length - 2);
+
+
+
+                WebRequest request = (WebRequest)WebRequest.Create(new Uri(path));
+
+
+
+                WebResponse response = request.GetResponse() as WebResponse;
+
+
+
+                return response.GetResponseStream();
+
+            }
+
+            catch { return new MemoryStream(); } // Don't make the program crash just because we have a picture which failed downloading
+
+        }
+
+
+        /// <summary>
+        /// From a path, return a byte[] of the image.
+        /// </summary>
+        /// <param name="uriPath"></param>
+        /// <returns></returns>
+
+        protected string GetImageParameters(Uri uriPath)
+        {
+            string pseudoMime = string.Empty;
+            using (Stream stream = GetRemoteData(uriPath))
+            {
+                byte[] data = new byte[0];
+                Bitmap img = null;
+                try
+                {
+                    pseudoMime += "image/png!";
+                    img = new Bitmap(stream);
+                    pseudoMime += img.Width;
+                    pseudoMime += ';';
+                    pseudoMime += img.Height;
+                }
+
+                catch
+                {
+                    return null;
+                }
+
+                finally
+                {
+                    if (img != null)
+                        img.Dispose();
+                }
+
+                stream.Close();
+                return pseudoMime;
+
+            }
+
+        }
+
 
         protected void SavePoll_Click(object  sender, EventArgs eventArgs)
         {

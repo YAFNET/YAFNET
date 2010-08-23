@@ -5830,9 +5830,18 @@ namespace YAF.Classes.Data
           {
             cmd.Parameters.AddWithValue("@Closes", question.Closes);
           }
-
+            // set poll group flags
+            int groupFlags = 0;
+            if (question.IsBound)
+            {
+                groupFlags = groupFlags | 2;
+            }
+                 if (question.IsClosedBound)
+            {
+                groupFlags = groupFlags | 4;
+            }
           cmd.Parameters.AddWithValue("@UserID", question.UserId);
-          cmd.Parameters.AddWithValue("@Flags", question.IsBound ? 2 : 0);
+          cmd.Parameters.AddWithValue("@Flags", groupFlags);
           cmd.Parameters.AddWithValue("@QuestionObjectPath",
                                           string.IsNullOrEmpty(question.QuestionObjectPath)
                                               ? String.Empty
@@ -5897,7 +5906,7 @@ namespace YAF.Classes.Data
     /// <param name="closes">
     /// The closes.
     /// </param>
-    public static void poll_update(object pollID, object question, object closes, object  isBounded)
+    public static void poll_update(object pollID, object question, object closes, object isBounded, bool isClosedBounded, object questionPath, object questionMime)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("poll_update"))
       {
@@ -5905,7 +5914,11 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("PollID", pollID);
         cmd.Parameters.AddWithValue("Question", question);
         cmd.Parameters.AddWithValue("Closes", closes);
+        cmd.Parameters.AddWithValue("QuestionObjectPath", questionPath);
+        cmd.Parameters.AddWithValue("QuestionMimeType", questionMime);
         cmd.Parameters.AddWithValue("IsBounded", isBounded);
+        cmd.Parameters.AddWithValue("IsClosedBounded", isClosedBounded);
+       
 
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
@@ -6014,13 +6027,15 @@ namespace YAF.Classes.Data
     /// <param name="choice">
     /// The choice.
     /// </param>
-    public static void choice_update(object choiceID, object choice)
+    public static void choice_update(object choiceID, object choice, object path, object mime)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("choice_update"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("ChoiceID", choiceID);
         cmd.Parameters.AddWithValue("Choice", choice);
+        cmd.Parameters.AddWithValue("ObjectPath", path);
+        cmd.Parameters.AddWithValue("MimeType", mime);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }
@@ -6034,13 +6049,15 @@ namespace YAF.Classes.Data
     /// <param name="choice">
     /// The choice.
     /// </param>
-    public static void choice_add(object pollID, object choice)
+    public static void choice_add(object pollID, object choice, object path, object mime)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("choice_add"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("PollID", pollID);
         cmd.Parameters.AddWithValue("Choice", choice);
+        cmd.Parameters.AddWithValue("ObjectPath", path);
+        cmd.Parameters.AddWithValue("MimeType", mime);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }

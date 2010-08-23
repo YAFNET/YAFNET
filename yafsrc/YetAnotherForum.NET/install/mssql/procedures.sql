@@ -6660,14 +6660,16 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}choice_add](
 	@PollID		int,
-	@Choice		nvarchar(50)
+	@Choice		nvarchar(50),
+	@ObjectPath nvarchar(255),
+	@MimeType nvarchar(50)
 ) as
 begin
 	
 	insert into [{databaseOwner}].[{objectQualifier}Choice]
-		(PollID, Choice, Votes)
+		(PollID, Choice, Votes, ObjectPath, MimeType)
 		values
-		(@PollID, @Choice, 0)
+		(@PollID, @Choice, 0, @ObjectPath, @MimeType)
 end
 GO
 
@@ -6693,12 +6695,14 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}choice_update](
 	@ChoiceID	int,
-	@Choice		nvarchar(50)
+	@Choice		nvarchar(50),
+	@ObjectPath nvarchar(255),
+	@MimeType nvarchar(50)
 ) as
 begin
 	
 	update [{databaseOwner}].[{objectQualifier}Choice]
-		set Choice = @Choice
+		set Choice = @Choice, ObjectPath =  @ObjectPath, MimeType = @MimeType
 		where ChoiceID = @ChoiceID
 end
 GO
@@ -6717,20 +6721,36 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}poll_update](
 	@PollID		int,
 	@Question	nvarchar(50),
 	@Closes 	datetime = null,
-	@IsBounded  bit
+	@QuestionObjectPath nvarchar(255), 
+    @QuestionMimeType varchar(50),
+	@IsBounded  bit,
+	@IsClosedBounded  bit
+
 ) as
 begin
 	declare @pgid int
 	update [{databaseOwner}].[{objectQualifier}Poll]
 		set Question	=	@Question,
-			Closes		=	@Closes
+			Closes		=	@Closes,
+			ObjectPath = @QuestionObjectPath,
+		    MimeType = @QuestionMimeType
 		where PollID = @PollID
 
       SELECT  @pgid = PollGroupID FROM [{databaseOwner}].[{objectQualifier}Poll]
 	  where PollID = @PollID
    
 	update [{databaseOwner}].[{objectQualifier}PollGroupCluster]
-		set Flags	= (CASE WHEN @IsBounded > 0 THEN 2 ELSE 0 END)
+		set Flags	= (CASE 
+		WHEN @IsBounded > 0 AND (Flags & 2) <> 2 THEN Flags | 2 		
+		WHEN @IsBounded <= 0 AND (Flags & 2) = 2 THEN Flags ^ 2 		
+		ELSE Flags END)		
+		where PollGroupID = @pgid
+
+	update [{databaseOwner}].[{objectQualifier}PollGroupCluster]
+		set Flags	= (CASE		
+		WHEN @IsClosedBounded > 0 AND (Flags & 4) <> 4 THEN Flags | 4		
+		WHEN @IsClosedBounded <= 0 AND (Flags & 4) = 4 THEN Flags ^ 4
+		ELSE Flags END)		
 		where PollGroupID = @pgid
 end
 GO

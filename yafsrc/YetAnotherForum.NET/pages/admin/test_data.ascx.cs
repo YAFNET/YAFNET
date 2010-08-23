@@ -1036,7 +1036,7 @@ namespace YAF.Pages.Admin
                 pollList.Add(new PollSaveList(
                                  "quest-" + this.randomGuid,
                                  rawChoices,
-                                 (DateTime?)datePollExpire, this.PageContext.PageUserID, (int?)topicID,null,null,null,null,null, false));
+                                 (DateTime?)datePollExpire, this.PageContext.PageUserID, (int?)topicID,null,null,null,null,null, false,false));
                 pollID = DB.poll_save(pollList);          
         }
 

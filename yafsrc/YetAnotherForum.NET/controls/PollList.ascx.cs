@@ -70,6 +70,11 @@ namespace YAF.controls
         private bool isBound;
 
         /// <summary>
+        ///   The isClosedBound.
+        /// </summary>
+        private bool isClosedBound;
+
+        /// <summary>
         /// Returns PollGroupID
         /// </summary>
         public int? PollGroupId { get; set; }
@@ -154,6 +159,16 @@ namespace YAF.controls
             get;
             set;
         }
+
+        /// <summary>
+        /// Returns MaxImageAspect
+        /// </summary>
+        public decimal MaxImageAspect
+        {
+            get;
+            set;
+        }
+
 
         /// <summary>
         /// Returns IsLocked
@@ -528,18 +543,55 @@ namespace YAF.controls
         {
            
             RepeaterItem item = e.Item;
-            
+            DataRowView drowv = (DataRowView)e.Item.DataItem;
             if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
             {
-
+               //clear the value after choiced are bounded
+               this.MaxImageAspect = 1;
                item.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = HasOwnerExistingGroupAccess() && ShowButtons;
 
                 Repeater polloll = item.FindControlRecursiveAs<Repeater>("Poll");
 
-                string pollId = item.FindControlRecursiveAs<HiddenField>("PollID").Value;
+                string pollId = drowv.Row["PollID"].ToString();
                 polloll.Visible = !CanVote(pollId) && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions && this.PageContext.IsGuest
                                     ? false
                                     : true;
+                // Poll Choice image
+                HtmlImage questionImage = item.FindControlRecursiveAs<HtmlImage>("QuestionImage");
+                HtmlAnchor questionAnchor = item.FindControlRecursiveAs<HtmlAnchor>("QuestionAnchor");
+
+                // Don't render if it's a standard image
+                if (!drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField())
+                {
+                    questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
+                    questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
+                                            ? GetThemeContents("VOTE", "POLL_CHOICE")
+                                            : HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+                    questionAnchor.Title = HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+
+                    questionImage.Alt = HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+                    questionImage.Src = HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
+
+
+                    if (!(drowv.Row["QuestionMimeType"]).IsNullOrEmptyDBField())
+                    {
+                        decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
+
+                        // hardcoded - bad
+                        questionImage.Width = 80;
+                        questionImage.Height = Convert.ToInt32(questionImage.Width / aspect);
+                    }
+
+
+                }
+                else
+                {
+                    questionImage.Alt = PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+                    questionImage.Src = GetThemeContents("VOTE", "POLL_QUESTION");
+                    questionAnchor.HRef = "";
+                }
+
+
                 DataTable _choiceRow = _dtPoll.Copy();
                 foreach (DataRow drr in _choiceRow.Rows)
                 {
@@ -547,8 +599,20 @@ namespace YAF.controls
                     {
                         drr.Delete();
                     }
+                    else
+                    {
+                        if (!drr["MimeType"].IsNullOrEmptyDBField())
+                        {
+                            decimal currentAspect = GetImageAspect(drr["MimeType"]);
+                            if (currentAspect > this.MaxImageAspect)
+                            {
+                                this.MaxImageAspect = currentAspect;
+                            }
+                        }
+                    }
                 }
                 
+
                 polloll.DataSource = _choiceRow;
       
                 polloll.DataBind();
@@ -645,6 +709,7 @@ namespace YAF.controls
                     pollExpired.Visible = true;
 
                 }
+
                 DisplayButtons();
            }
 
@@ -757,24 +822,85 @@ namespace YAF.controls
 
         }
 
+        private decimal GetImageAspect(object mimeType)
+        {
+          
+                   if (!mimeType.IsNullOrEmptyDBField())
+                   {
+                       string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
+                       decimal width = Convert.ToDecimal(attrs[0]);
+                       return width / Convert.ToDecimal(attrs[1]);
+                   }
+                
+           
+           return 1;
+        }
+
+        protected int GetImageHeight(object mimeType)
+        {
+            string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
+             return Convert.ToInt32(attrs[1]);
+        
+        }
 
 
         protected void Poll_OnItemDataBound(object source, System.Web.UI.WebControls.RepeaterItemEventArgs e)
         {
 
             RepeaterItem item = e.Item;
-           
+            DataRowView drowv = (DataRowView)e.Item.DataItem;
+            HtmlTableRow trow = item.FindControlRecursiveAs<HtmlTableRow>("VoteTr");
+
             if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
             {
-                
+                // Voting link 
                 MyLinkButton myLinkButton = item.FindControlRecursiveAs<MyLinkButton>("MyLinkButton1");
-                string pollId = item.FindControlRecursiveAs<HiddenField>("PollIDChoice").Value;
+                string pollId = drowv.Row["PollID"].ToString();
 
                 bool isNotVoted = IsNotVoted(pollId);
                 bool canVote = CanVote(pollId);
 
                 myLinkButton.Enabled = canVote;
+                myLinkButton.ToolTip = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
                 myLinkButton.Visible = true;
+
+               // Poll Choice image
+               HtmlImage choiceImage = item.FindControlRecursiveAs<HtmlImage>("ChoiceImage");
+               HtmlAnchor choiceAnchor = item.FindControlRecursiveAs<HtmlAnchor>("ChoiceAnchor");
+              
+               // Don't render if it's a standard image
+               if (!drowv.Row["ObjectPath"].IsNullOrEmptyDBField())
+                {
+                    choiceAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
+                    choiceAnchor.HRef = drowv.Row["ObjectPath"].IsNullOrEmptyDBField()
+                                            ? GetThemeContents("VOTE", "POLL_CHOICE")
+                                            : HtmlEncode(drowv.Row["ObjectPath"].ToString());
+                    choiceAnchor.Title = drowv.Row["ObjectPath"].ToString();
+
+                    choiceImage.Alt = HtmlEncode(drowv.Row["ObjectPath"].ToString());
+                    choiceImage.Src = HtmlEncode(drowv.Row["ObjectPath"].ToString());
+                
+                  
+                    if (!(drowv.Row["MimeType"]).IsNullOrEmptyDBField())
+                    {
+                        decimal aspect = GetImageAspect(drowv.Row["MimeType"]);
+                       
+                        
+                        // hardcoded - bad
+                        choiceImage.Width = 80;
+                        choiceImage.Height = Convert.ToInt32(choiceImage.Width/aspect);
+                        // reserved to get equal row heights
+                        trow.Height = (this.MaxImageAspect * choiceImage.Width).ToString();
+                    }
+                   
+
+                }
+               else
+               {
+                   choiceImage.Alt = PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+                   choiceImage.Src =  GetThemeContents("VOTE", "POLL_CHOICE");
+                   choiceAnchor.HRef = "";
+               }
 
                 if (isBound)
                 {
@@ -795,7 +921,7 @@ namespace YAF.controls
                 }
                 else
                 {
-                    if (isNotVoted || this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore)
+                    if ((isNotVoted || this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore) )
                     {
                        item.FindControlRecursiveAs<Panel>("resultsSpan").Visible =
                        item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = true;
@@ -803,7 +929,6 @@ namespace YAF.controls
                 }
                
             }
-           
         }
 
 
@@ -1179,7 +1304,8 @@ namespace YAF.controls
 
                     this._dtVotes = DB.pollgroup_votecheck(this.PollGroupId, userId, remoteIp);
 
-                    this.isBound = Convert.ToInt32(_dtPollGroup.Rows[0]["IsBound"]) == 2;
+                    this.isBound = (Convert.ToInt32(_dtPollGroup.Rows[0]["IsBound"]) == 2);
+                    this.isClosedBound = (Convert.ToInt32(_dtPollGroup.Rows[0]["IsBound"]) == 4);
 
                     this.PollGroup.DataSource = _dtPollGroup;
                     // this.PollGroup.DataBind();

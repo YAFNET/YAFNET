@@ -731,6 +731,8 @@
     <Resource tag="ASK_POLLROUP_DELETE_ALL">Do you really want to remove the poll group completely?</Resource>
     <Resource tag="ASK_POLLROUP_DELETE_EVR">Do you really want to remove the poll group from every place?</Resource>
     <Resource tag="CHOICE">Choice {0}:</Resource>
+    <Resource tag="POLLIMAGE_INVALID">The image or its path is invalid for {0}.</Resource>
+    <Resource tag="POLLIMAGE_TEXT">Image path:</Resource>
     <Resource tag="POLLHEADER">Create Or Edit Poll</Resource>
     <Resource tag="POLLADD">Add Poll</Resource>
     <Resource tag="POLLQUESTION">Poll Question:</Resource>
@@ -752,11 +754,13 @@
     <Resource tag="POLLRESULTSHIDDEN_GUEST">Guests can't see poll results before voting. Try and register.</Resource>
     <Resource tag="POLL_NOPERM_GUEST">Guests can't vote. Try and register.</Resource>
     <Resource tag="POLLSAVE">Save Poll</Resource>
+    <Resource tag="POLL_PLEASEVOTE">Click to vote</Resource>
     <Resource tag="POLLGROUP_BOUND">Bound voting</Resource>
     <Resource tag="POLLGROUP_BOUNDWARN">You should vote in all polls to see results.</Resource>
     <Resource tag="POLLGROUP_ATTACHED">Can't attach the group. A group is already attached.</Resource>
     <Resource tag="POLLGROUPISBOUND">Your vote will be counted when you'll vote in all the polls.</Resource>
     <Resource tag="POLLGROUP_BOUND">The questions are dependent</Resource>
+    <Resource tag="POLLGROUP_CLOSEDBOUND">Don't show results if group is open</Resource>
     <Resource tag="POLLGROUP_LIST">Choose an existing poll group:</Resource>
     <Resource tag="REMOVEPOLL">Remove Poll</Resource>
     <Resource tag="REMOVEPOLL_ALL">Remove Poll Completely</Resource>

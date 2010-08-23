@@ -53,14 +53,14 @@
 		<tr>
 			<td class="postheader" colspan="4">
 				<b>Max number of chars in a user signature:</b><br />
-				Max number of chars in a user signature in the role.</td>
+				Max number of chars in a user signature in the rank.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox Style="width: 80px" ID="UsrSigChars" runat="server" /></td>
 		</tr>
 			<tr>
 			<td class="postheader" colspan="4">
 				<b>User signature BBCodes:</b><br />
-				Comma separated  BBCodes allowed in a user signature in the group.</td>
+				Comma separated  BBCodes allowed in a user signature in the rank.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox Style="width: 300px" ID="UsrSigBBCodes" runat="server" /></td>
 		

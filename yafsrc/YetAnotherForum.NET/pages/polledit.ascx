@@ -10,11 +10,13 @@
 <tr id="PollRow1" runat="server" visible="false">
 		<td class="postformheader" width="20%">
 			<em>
-				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="pollquestion" />
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="pollquestion" /><br />
+                <YAF:LocalizedLabel ID="PollQuestionObjectLabel" runat="server" Visible='<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>' LocalizedTag="POLLIMAGE_TEXT" />
 			</em>
 		</td>
 		<td class="post" width="80%">
 			<asp:TextBox ID="Question" runat="server" CssClass="edit" MaxLength="255" Width="400" />
+            <asp:TextBox ID="QuestionObjectPath" runat="server" Visible='<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>'  CssClass="edit" MaxLength="255" Width="400" />
 		</td>
 </tr>
 	<asp:Repeater ID="ChoiceRepeater" runat="server" Visible="false" >
@@ -25,11 +27,14 @@
     <td class="postformheader" width="20%">
            <em>
 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="choice" Param0='<%# DataBinder.Eval(Container.DataItem, "ChoiceOrderID") %>' />
+<br />
+<YAF:LocalizedLabel ID="PollChoiceObjectLabel" runat="server" Visible='<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>' LocalizedTag="POLLIMAGE_TEXT" />
 </em>
 </td>
 <td class="post" width="80%">
 <asp:HiddenField ID="PollChoiceID"  Value='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' runat="server" />
-<asp:TextBox ID="PollChoice" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Choice") %>' CssClass="edit" MaxLength="50" Width="400" />
+<asp:TextBox ID="PollChoice" runat="server" Text='<%# HtmlEncode(DataBinder.Eval(Container.DataItem, "Choice")) %>' CssClass="edit" MaxLength="50" Width="400" />
+<asp:TextBox ID="ObjectPath" runat="server" Visible='<%# PageContext.IsAdmin && PageContext.ForumPollAccess %>' Text='<%# HtmlEncode(DataBinder.Eval(Container.DataItem, "ObjectPath")) %>' CssClass="edit" MaxLength="255" Width="400" />
 </td>
 </tr>
 </ItemTemplate>
@@ -50,9 +55,15 @@
      <tr id="IsBound" runat="server" visible="false">	
 		<td class="post" colspan="2" width="100%">
              <YAF:LocalizedLabel ID="IsBoundLabel" runat="server" LocalizedTag="pollgroup_bound" />
-			 <asp:CheckBox ID="IsBoundCheckBox" runat="server" CssClass="edit" MaxLength="10" Width="400" />			
+			 <asp:CheckBox ID="IsBoundCheckBox" runat="server" CssClass="edit" MaxLength="10" Width="400" />           
 		</td>
-	</tr>    
+	</tr> 
+    <tr id="IsClosedBound" runat="server" visible="false">	
+		<td class="post" colspan="2" width="100%">
+              <YAF:LocalizedLabel ID="IsClosedBoundLabel" runat="server" LocalizedTag="pollgroup_closedbound" />
+             <asp:CheckBox ID="IsClosedBoundCheckBox" runat="server" CssClass="edit" MaxLength="10" Width="400" />					
+		</td>
+	</tr> 
     <tr id="PollGroupList" runat="server" visible="false">
 		<td class="postformheader" width="20%">
 			<em>

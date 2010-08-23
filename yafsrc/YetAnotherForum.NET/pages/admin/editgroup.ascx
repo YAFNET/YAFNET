@@ -76,7 +76,7 @@
         <tr>
             <td class="postheader" width="50%">
                 <b>User signature BBCodes:</b><br />
-                Comma separated BBCodes allowed in a user signature in the group.
+                Comma separated BBCodes allowed in a user signature in the role.
             </td>
             <td class="post" width="50%">
                 <asp:TextBox Style="width: 300px" ID="UsrSigBBCodes" runat="server" />

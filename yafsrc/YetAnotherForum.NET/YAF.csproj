@@ -78,22 +78,6 @@
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <PublishDatabases>true</PublishDatabases>
-    <DesktopBuildPackageLocation>..\MicrosoftWeb\YAF.zip</DesktopBuildPackageLocation>
-    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
-    <ExcludeApp_Data>false</ExcludeApp_Data>
-    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
-    <PublishDatabaseSettings>
-      <Objects>
-        <ObjectGroup Name="yafnet-Deployment" Order="2" Enabled="False">
-          <Destination Path="" />
-          <Object Type="dbFullSql" Enabled="True">
-            <PreSource Path="Data Source=%28local%29%3bInitial Catalog=Yaf%3bUser ID=sa%3bPassword=reddog" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" />
-            <Source Path="obj\Release NET v3.5\AutoScripts\yafnet-Deployment_SchemaOnly.sql" Transacted="True" />
-          </Object>
-        </ObjectGroup>
-      </Objects>
-    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -1641,6 +1625,8 @@
     <Content Include="themes\FlatEarth\jquery\ui.tabs.css" />
     <Content Include="themes\FlatEarth\jquery\ui.theme.css" />
     <Content Include="themes\FlatEarth\male.gif" />
+    <Content Include="themes\FlatEarth\poll_choice.png" />
+    <Content Include="themes\FlatEarth\poll_question.png" />
     <Content Include="themes\FlatEarth\rssfeed.gif" />
     <Content Include="themes\FlatEarth\tab-line.png" />
     <Content Include="themes\FlatEarth\tab.png" />
@@ -1704,6 +1690,8 @@
     <Content Include="themes\Gray\jquery\ui.tabs.css" />
     <Content Include="themes\Gray\jquery\ui.theme.css" />
     <Content Include="themes\Gray\male.gif" />
+    <Content Include="themes\Gray\poll_choice.png" />
+    <Content Include="themes\Gray\poll_question.png" />
     <Content Include="themes\Gray\reflection.js" />
     <Content Include="themes\Gray\rssfeed.gif" />
     <Content Include="themes\Gray\sort_down.gif" />
@@ -1763,6 +1751,8 @@
     <Content Include="themes\soclean\jquery\ui.tabs.css" />
     <Content Include="themes\soclean\jquery\ui.theme.css" />
     <Content Include="themes\soclean\male.gif" />
+    <Content Include="themes\soclean\poll_choice.png" />
+    <Content Include="themes\soclean\poll_question.png" />
     <Content Include="themes\soclean\rssfeed.gif" />
     <Content Include="themes\soclean\tab-line.png" />
     <Content Include="themes\soclean\tab.png" />
@@ -1855,6 +1845,8 @@
     <Content Include="themes\yafpro\jquery\ui.tabs.css" />
     <Content Include="themes\yafpro\jquery\ui.theme.css" />
     <Content Include="themes\yafpro\male.gif" />
+    <Content Include="themes\yafpro\poll_choice.png" />
+    <Content Include="themes\yafpro\poll_question.png" />
     <Content Include="themes\yafpro\rssfeed.gif" />
     <Content Include="themes\yafpro\tab-line.png" />
     <Content Include="themes\yafpro\tab.png" />
@@ -1889,6 +1881,8 @@
     <Content Include="themes\yafvision\jquery\ui.tabs.css" />
     <Content Include="themes\yafvision\jquery\ui.theme.css" />
     <Content Include="themes\yafvision\male.gif" />
+    <Content Include="themes\yafvision\poll_choice.png" />
+    <Content Include="themes\yafvision\poll_question.png" />
     <Content Include="themes\yafvision\rssfeed.gif" />
     <Content Include="themes\yafvision\tab-line.png" />
     <Content Include="themes\yafvision\tab.png" />
