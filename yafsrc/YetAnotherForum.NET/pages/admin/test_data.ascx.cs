@@ -1000,7 +1000,22 @@ namespace YAF.Pages.Admin
         long messageid = 0;
         this.randomGuid = Guid.NewGuid().ToString();
         object pollID = null;
-        if (PollCreate.Checked)
+ 
+
+        long topicID = DB.topic_save(
+            forumID, 
+          this.TopicPrefixTB.Text.Trim() + this.randomGuid, 
+          this.MessageContentPrefixTB.Text.Trim() + this.randomGuid, 
+          this.PageContext.PageUserID, 
+          _priority,
+          this.PageContext.User.UserName, 
+          this.Request.UserHostAddress, 
+          null, 
+          string.Empty, 
+          this.GetMessageFlags(), 
+          ref messageid);
+
+                 if (PollCreate.Checked)
         {
             // vzrus: always one in current code - a number of  questions
             int questionsTotal = 1;
@@ -1008,31 +1023,23 @@ namespace YAF.Pages.Admin
             System.Collections.Generic.List<PollSaveList> pollList =
                 new System.Collections.Generic.List<PollSaveList>(questionsTotal);
                 
-                string[] rawChoices = new string[2];           
+                string[,] rawChoices = new string[3,2];           
            
-                rawChoices[0] = "ans1-" + this.randomGuid;
-                rawChoices[1] = "ans2-" + this.randomGuid;
+                rawChoices[0,0] = "ans1-" + this.randomGuid;
+                rawChoices[0,1] = "ans2-" + this.randomGuid;
+                rawChoices[1, 0] = null;
+                rawChoices[1, 1] = null;
+                rawChoices[2, 0] = null;
+                rawChoices[2, 1] = null;
+
                 object datePollExpire = null;
                 pollList.Add(new PollSaveList(
                                  "quest-" + this.randomGuid,
                                  rawChoices,
-                                 (DateTime?)datePollExpire));
+                                 (DateTime?)datePollExpire, this.PageContext.PageUserID, (int?)topicID,null,null,null,null,null, false));
                 pollID = DB.poll_save(pollList);          
         }
 
-        long topicID = DB.topic_save(
-            forumID, 
-          this.TopicPrefixTB.Text.Trim() + this.randomGuid, 
-          this.MessageContentPrefixTB.Text.Trim() + this.randomGuid, 
-          this.PageContext.PageUserID, 
-          _priority, 
-          pollID, 
-          this.PageContext.User.UserName, 
-          this.Request.UserHostAddress, 
-          null, 
-          string.Empty, 
-          this.GetMessageFlags(), 
-          ref messageid);
         if (_messagesToCreate > 0)
         {
           this.CreatePosts(forumID, Convert.ToInt32(topicID), _messagesToCreate);

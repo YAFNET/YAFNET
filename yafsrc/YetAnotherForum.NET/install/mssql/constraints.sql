@@ -238,6 +238,10 @@ if exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}PollVote_
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] drop constraint [FK_{objectQualifier}PollVote_{objectQualifier}Poll]
 go
 
+if exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{objectQualifier}Poll' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}Poll] 
+go 
+
 /* Drop old primary keys */
 
 if exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}BannedIP]') and name='PK_BannedIP')
@@ -509,7 +513,6 @@ if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}]
 	alter table [{databaseOwner}].[{objectQualifier}Category] with nocheck add constraint [PK_{objectQualifier}Category] primary key clustered(CategoryID)   
 go
 
-
 if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}CheckEmail]') and name='PK_{objectQualifier}CheckEmail')
 	alter table [{databaseOwner}].[{objectQualifier}CheckEmail] with nocheck add constraint [PK_{objectQualifier}CheckEmail] primary key clustered(CheckEmailID)   
 go
@@ -549,16 +552,17 @@ if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}]
 	alter table [{databaseOwner}].[{objectQualifier}PMessage] with nocheck add constraint [PK_{objectQualifier}PMessage] primary key clustered(PMessageID)   
 go
 
+if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and name='PK_{objectQualifier}PollGroupCluster')
+	alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] with nocheck add constraint [PK_{objectQualifier}PollGroupCluster] primary key clustered(PollGroupID)   
+go
 
 if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='PK_{objectQualifier}Poll')
 	alter table [{databaseOwner}].[{objectQualifier}Poll] with nocheck add constraint [PK_{objectQualifier}Poll] primary key clustered(PollID)   
 go
 
-
 if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='PK_{objectQualifier}Smiley')
 	alter table [{databaseOwner}].[{objectQualifier}Smiley] with nocheck add constraint [PK_{objectQualifier}Smiley] primary key clustered(SmileyID)   
 go
-
 
 if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='PK_{objectQualifier}Topic')
 	alter table [{databaseOwner}].[{objectQualifier}Topic] with nocheck add constraint [PK_{objectQualifier}Topic] primary key clustered(TopicID)   
@@ -840,12 +844,6 @@ if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add constraint [FK_{objectQualifier}Topic_{objectQualifier}Message] foreign key (LastMessageID) references [{databaseOwner}].[{objectQualifier}Message] (MessageID)
 go
 
-
-if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{objectQualifier}Poll' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Topic] add constraint [FK_{objectQualifier}Topic_{objectQualifier}Poll] foreign key (PollID) references [{databaseOwner}].[{objectQualifier}Poll] (PollID)
-go
-
-
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{objectQualifier}Topic' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add constraint [FK_{objectQualifier}Topic_{objectQualifier}Topic] foreign key (TopicMovedID) references [{databaseOwner}].[{objectQualifier}Topic] (TopicID)
 go
@@ -1019,6 +1017,18 @@ if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}PollV
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] add constraint [FK_{objectQualifier}PollVote_{objectQualifier}Poll] foreign key(PollID) references [{databaseOwner}].[{objectQualifier}Poll](PollID) on delete cascade
 go
 
+if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Poll_{objectQualifier}PollGroupCluster' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add constraint [FK_{objectQualifier}Poll_{objectQualifier}PollGroupCluster] foreign key(PollGroupID) references [{databaseOwner}].[{objectQualifier}PollGroupCluster](PollGroupID)  on delete cascade 
+go
+
+ if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{objectQualifier}PollGroupCluster' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}Topic] add constraint [FK_{objectQualifier}Topic_{objectQualifier}PollGroupCluster] foreign key(PollID) references [{databaseOwner}].[{objectQualifier}PollGroupCluster](PollGroupID)  
+
+if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Forum_{objectQualifier}PollGroupCluster' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}Forum] add constraint [FK_{objectQualifier}Forum_{objectQualifier}PollGroupCluster] foreign key(PollGroupID) references [{databaseOwner}].[{objectQualifier}PollGroupCluster](PollGroupID)  
+
+if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Category_{objectQualifier}PollGroupCluster' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Category]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}Category] add constraint [FK_{objectQualifier}Category_{objectQualifier}PollGroupCluster] foreign key(PollGroupID) references [{databaseOwner}].[{objectQualifier}PollGroupCluster](PollGroupID)  
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}EventLog_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}EventLog]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [FK_{objectQualifier}EventLog_{objectQualifier}User] foreign key(UserID) references [{databaseOwner}].[{objectQualifier}User](UserID) on delete cascade

@@ -3,13 +3,16 @@
 <%@ Register TagPrefix="YAF" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
+<YAF:PollList ID="PollList"  ShowButtons="true" PollGroupId='<%# GetPollGroupID() %>'  runat="server"/>
 <table align="center" cellpadding="4" cellspacing="1" class="content" width="100%">
 	<tr>
 		<td align="center" class="header1" colspan="2">
 			<asp:Label ID="Title" runat="server" />
 		</td>
 	</tr>
+          
 	<tr id="PreviewRow" runat="server" visible="false">
 		<td class="postformheader" valign="top">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
@@ -52,65 +55,7 @@
 		<td class="post" width="80%">
 			<asp:DropDownList ID="Priority" runat="server" />
 		</td>
-	</tr>
-	<tr id="CreatePollRow" runat="server">
-		<td class="postformheader" width="20%">
-			<YAF:ThemeButton ID="CreatePoll" runat="server" CssClass="yafcssbigbutton leftItem"
-				OnClick="CreatePoll_Click" TextLocalizedTag="CREATEPOLL" />
-		</td>
-		<td class="post" width="80%">
-			&nbsp;
-		</td>
-	</tr>
-	<tr id="RemovePollRow" runat="server">
-		<td class="postformheader" width="20%">
-			<YAF:ThemeButton ID="RemovePoll" runat="server" CssClass="yafcssbigbutton leftItem"
-				OnCommand="RemovePoll_Command" OnLoad="RemovePoll_Load" TextLocalizedTag="REMOVEPOLL" />
-		</td>
-		<td class="post" width="80%">
-			&nbsp;
-		</td>
-	</tr>
-	<tr id="PollRow1" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="pollquestion" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:TextBox ID="Question" runat="server" CssClass="edit" MaxLength="50" Width="400" />
-		</td>
-	</tr>
-	<asp:Repeater ID="ChoiceRepeater" runat="server" Visible="false" >
-    <HeaderTemplate>
-      </HeaderTemplate>
-    <ItemTemplate>
-        <tr>
-    <td class="postformheader" width="20%">
-           <em>
-<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="choice" Param0='<%# DataBinder.Eval(Container.DataItem, "ChoiceOrderID") %>' />
-</em>
-</td>
-<td class="post" width="80%">
-<asp:HiddenField ID="PollChoiceID"  Value='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' runat="server" />
-<asp:TextBox ID="PollChoice" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Choice") %>' CssClass="edit" MaxLength="50" Width="400" />
-</td>
-</tr>
-</ItemTemplate>
-<FooterTemplate>
-     </FooterTemplate>
-</asp:Repeater>
-	<tr id="PollRowExpire" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			<em>
-				<YAF:LocalizedLabel runat="server" LocalizedTag="poll_expire" />
-			</em>
-		</td>
-		<td class="post" width="80%">
-			<asp:TextBox ID="PollExpire" runat="server" CssClass="edit" MaxLength="10" Width="400" />
-			<YAF:LocalizedLabel runat="server" LocalizedTag="poll_expire_explain" />
-		</td>
-	</tr>
+	</tr>	
 	<tr>
 		<td class="postformheader" valign="top" width="20%">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="message" />

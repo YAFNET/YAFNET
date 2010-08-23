@@ -81,21 +81,52 @@ namespace YAF.Pages
     {
         if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("ra")))
         {
-            // Tell user that his message will have to be approved by a moderator
-            string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
-
             if (Config.IsRainbow)
             {
                 YafBuildLink.Redirect(ForumPages.info, "i=1");
+            }
+
+            string poll = string.Empty;
+            string lnk = string.Empty;
+            string fullflnk = string.Empty; 
+            if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("f")))
+            {
+                lnk = Request.QueryString.GetFirstOrDefault("f");
+                fullflnk = String.Format("f={0}&", lnk);
+            }
+            else
+            {
+                lnk = this.PageContext.PageForumID.ToString();
+            }
+            // Tell a user that his message will have to be approved by a moderator
+      
+         
+            string  url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", lnk);
+          
+            // new topic variable
+            if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("t")))
+            {
+                url = this.Request.QueryString.GetFirstOrDefault("t");
+                YafBuildLink.Redirect(ForumPages.polledit, "{0}t={1}&ra=1", fullflnk, this.Server.UrlEncode(url));
             }
             else
             {
                 YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
             }
+            
         }
 
-            YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Request.QueryString.GetFirstOrDefault("m"));      
-    
+        // the post is already approved and we can view it
+        if (!String.IsNullOrEmpty(Request.QueryString.GetFirstOrDefault("t")))
+        {
+            
+            YafBuildLink.Redirect(ForumPages.polledit, "t={0}", this.Request.QueryString.GetFirstOrDefault("t"));
+        }
+        else
+        {
+            YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Request.QueryString.GetFirstOrDefault("m"));
+        }
+
     }
 
     /// <summary>

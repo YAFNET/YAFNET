@@ -69,17 +69,6 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Poll Votes Dependant on IP:</b><br />
-                            By default, poll voting is tracked via username and client-side cookie. (One vote
-                            per username. Cookies are used if guest voting is allowed.) If this option is enabled,
-                            votes also use IP as a reference providing the most security against voter fraud.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="PollVoteTiedToIP" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
                             <b>Maximum Number of Attachments per Post:</b><br />
                             Maximum Number of uploaded files per Post. Set to 0 for unlimited.
                         </td>
@@ -469,6 +458,67 @@
                     </tr>
                     <tr>
                         <td class="header1" colspan="2">
+							Poll Options
+						</td>
+					</tr>
+                     <tr>
+						<td class="postheader">
+							<b>Allowed Poll Number:</b><br />
+							Number of polls, max value no more then 99. 
+						</td>
+						<td class="post" >
+							<asp:TextBox ID="AllowedPollNumber" MaxLength="2" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Allowed Poll Choice Number:</b><br />
+							Number of a question choices, max value no more then 99. 
+						</td>
+						<td class="post" >
+							<asp:TextBox ID="AllowedPollChoiceNumber" MaxLength="2" runat="server"></asp:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td class="postheader">
+							<b>Poll Votes Dependant on IP:</b><br />
+							By default, poll voting is tracked via username and client-side cookie. (One vote
+							per username. Cookies are used if guest voting is allowed.) If this option is enabled,
+							votes also use IP as a reference providing the most security against voter fraud.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="PollVoteTiedToIP" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+                    <tr>
+						<td class="postheader">
+							<b>Allow Poll Changes After First Vote:</b><br />
+							If enabled a poll creator can change choices and question after the first vote was given.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="AllowPollChangesAfterFirstVote" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+                    <tr>
+						<td class="postheader">
+							<b>Allow Users View Poll Votes Before:</b><br />
+							If enabled Users can see results before voting.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="AllowUsersViewPollVotesBefore" runat="server"></asp:CheckBox>
+						</td>
+					</tr>
+                    <tr>
+						<td class="postheader">
+							<b>Allow Guests View Poll Options:</b><br />
+							If enabled Guests can see poll choices.
+						</td>
+						<td class="post">
+							<asp:CheckBox ID="AllowGuestsViewPollOptions" runat="server"></asp:CheckBox>
+						</td>
+					</tr>					
+					<tr>
+						<td class="header1" colspan="2">
                             CAPTCHA Settings
                         </td>
                     </tr>
@@ -539,6 +589,7 @@
                                 <asp:ListItem Value="1" Text="YafCaptcha" />
                                 <asp:ListItem Value="2" Text="ReCaptcha" />
                             </asp:DropDownList>
+
                         </td>
                     </tr>
                     <tr>
@@ -1098,15 +1149,6 @@
                         </td>
                         <td class="post">
                             <asp:TextBox ID="MaxWordLength" MaxLength="2" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <b>Allowed Poll Choice Number:</b><br />
-                            Number of a question choices, max value no more then 99.
-                        </td>
-                        <td class="post">
-                            <asp:TextBox ID="AllowedPollChoiceNumber" MaxLength="2" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>

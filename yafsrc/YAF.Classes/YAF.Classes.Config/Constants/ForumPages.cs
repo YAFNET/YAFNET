@@ -288,7 +288,12 @@ namespace YAF.Classes
     /// <summary>
     /// The rsstopic.
     /// </summary>
-    rsstopic, 
+    rsstopic,
+
+    /// <summary>
+    /// The rsstopic.
+    /// </summary>
+    polledit, 
 
     /// <summary>
     /// The help_index.

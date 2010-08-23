@@ -1,5 +1,6 @@
 /* Version 1.0.2 */
 
+
 /*
 ** Create missing tables
 */
@@ -96,7 +97,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		BoardID			int NOT NULL ,
 		[Name]			[nvarchar](128) NOT NULL,
 		[CategoryImage] [nvarchar](255) NULL,		
-		SortOrder		smallint NOT NULL 
+		SortOrder		smallint NOT NULL,
+		PollGroupID int null 
 	)
 GO
 
@@ -115,7 +117,9 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		ChoiceID		int IDENTITY (1, 1) NOT NULL ,
 		PollID			int NOT NULL ,
 		Choice			nvarchar (50) NOT NULL ,
-		Votes			int NOT NULL 
+		Votes			int NOT NULL,
+		[ObjectPath] nvarchar(255) NULL,
+		[MimeType] varchar(50) NULL
 	)
 GO
 
@@ -145,7 +149,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		NumPosts		int NOT NULL,
 		RemoteURL		nvarchar(100) null,
 		Flags			int not null constraint [DF_{objectQualifier}Forum_Flags] default (0),
-		ThemeURL		nvarchar(50) NULL
+		ThemeURL		nvarchar(50) NULL,
+		PollGroupID     int null 
 	)
 GO
 
@@ -250,11 +255,23 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	)
 GO
 
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PollGroupCluster]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[{objectQualifier}PollGroupCluster](		
+		PollGroupID int IDENTITY (1, 1) NOT NULL,
+		UserID	int not NULL,
+		Flags int NOT NULL 		
+	)
+GO
+
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Poll]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Poll](
 		PollID			int IDENTITY (1, 1) NOT NULL ,
 		Question		nvarchar (50) NOT NULL,
-		Closes datetime NULL 		
+		Closes datetime NULL,		
+		PollGroupID int NULL,
+		UserID int not NULL,	
+		[ObjectPath] nvarchar(255) NULL,
+		[MimeType] varchar(50) NULL
 	)
 GO
 
@@ -995,6 +1012,10 @@ if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{o
  	alter table [{databaseOwner}].[{objectQualifier}Forum] alter column [LastUserName]	nvarchar (255) NULL 
 GO
 
+if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='PollGroupID')
+	alter table [{databaseOwner}].[{objectQualifier}Forum] add PollGroupID int NULL
+GO
+
 -- Group Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Flags')
 begin
@@ -1448,10 +1469,122 @@ begin
 end
 GO
 
+--vzrus: eof migrate to independent multiple polls
+
 -- Poll Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Closes')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add Closes datetime null
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'Question' AND prec < 255 )
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] alter column Question varchar(255) NOT NULL
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'PollGroupID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add PollGroupID int NULL
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'UserID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add [UserID] int NOT NULL constraint [DF_{objectQualifier}Poll_UserID] default (1)
+end
+GO
+
+
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_migration]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+begin
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_migration]		
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}pollgroup_migration]
+ as
+  begin
+     declare @ptmp int
+	 declare @ttmp int
+	 declare @utmp int 
+	 declare @PollGroupID int
+
+        declare c cursor for
+        select  PollID,TopicID, UserID from [{databaseOwner}].[{objectQualifier}Topic] where PollID IS NOT NULL
+		        
+        open c
+        
+        fetch next from c into @ptmp, @ttmp, @utmp
+        while @@FETCH_STATUS = 0
+        begin
+		if @ptmp is not null
+		begin
+		insert into [{databaseOwner}].[{objectQualifier}PollGroupCluster](UserID, Flags) values (@utmp, 0)	
+		SET @PollGroupID = SCOPE_IDENTITY()  
+		
+	            update [{databaseOwner}].[{objectQualifier}Topic] SET PollID = @PollGroupID WHERE TopicID = @ttmp
+				update [{databaseOwner}].[{objectQualifier}Poll] SET UserID = @utmp, PollGroupID = @PollGroupID WHERE PollID = @ptmp
+		end       
+        fetch next from c into @ptmp, @ttmp, @utmp
+        end
+
+        close c
+        deallocate c 
+
+		end
+GO
+
+-- should drop it else error
+if exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Topic_{objectQualifier}Poll' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}Topic] drop constraint [FK_{objectQualifier}Topic_{objectQualifier}Poll] 
+go 
+
+if (not exists (select 1 from [{databaseOwner}].[{objectQualifier}PollGroupCluster]) and exists (select 1 from [{databaseOwner}].[{objectQualifier}Poll]))
+begin
+	--vzrus: migrate to independent multiple polls	
+	exec('[{databaseOwner}].[{objectQualifier}pollgroup_migration]')	
+
+		-- vzrus: drop the temporary  sp
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_migration]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_migration]		
+end
+GO
+
+-- TODO: change userid to not null
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'ObjectPath')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add [ObjectPath] nvarchar(255) NULL
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name=N'MimeType')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Poll] add [MimeType] varchar(50) NULL
+end
+GO
+
+
+-- Choice Table
+-- this is a dummy it doesn't work
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name= N'Choice' AND prec < 255 )
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Choice] alter column Choice varchar(255) NOT NULL
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name=N'ObjectPath')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Choice] add [ObjectPath] nvarchar(255) NULL
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Choice]') and name=N'MimeType')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Choice] add [MimeType] varchar(50) NULL
 end
 GO
 
@@ -1481,6 +1614,11 @@ BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}Category] ADD [CategoryImage] [nvarchar](255) NULL
 END
 GO
+
+if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and name='PollGroupID')
+	alter table [{databaseOwner}].[{objectQualifier}Category] add PollGroupID int NULL
+GO
+
 
 -- MessageReportedAudit Table
 IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}MessageReportedAudit]') AND name = N'ReportedNumber')

@@ -2554,6 +2554,30 @@ namespace YAF.Classes.Data
       }
     }
 
+    /// <summary>
+    /// Checks for a vote in the database 
+    /// </summary>
+    /// <param name="pollGroupId">
+    /// The pollGroupid.
+    /// </param>
+    /// <param name="userId">
+    /// The userid.
+    /// </param>
+    /// <param name="remoteIp">
+    /// The remoteip.
+    /// </param>
+    public static DataTable pollgroup_votecheck(object pollGroupId, object userId, object remoteIp)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("pollgroup_votecheck"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("PollGroupID", pollGroupId);
+            cmd.Parameters.AddWithValue("UserID", userId);
+            cmd.Parameters.AddWithValue("RemoteIP", remoteIp);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
     #endregion
 
     #region Forum
@@ -5607,6 +5631,47 @@ namespace YAF.Classes.Data
     #region Poll
 
     /// <summary>
+    /// The pollgroup_stats.
+    /// </summary>
+    /// <param name="pollGroupID">
+    /// The poll group id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static DataTable pollgroup_stats(int? pollGroupId)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("pollgroup_stats"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("PollGroupID", pollGroupId);
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
+    /// <summary>
+    /// The pollgroup_attach.
+    /// </summary>
+    /// <param name="pollGroupID">
+    /// The poll group id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static int pollgroup_attach(int? pollGroupId, int? topicId, int? forumId, int? categoryId, int? boardId)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("pollgroup_attach"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("PollGroupID", pollGroupId);
+            cmd.Parameters.AddWithValue("TopicID", topicId);
+            cmd.Parameters.AddWithValue("ForumID", forumId);
+            cmd.Parameters.AddWithValue("CategoryID", categoryId);
+            cmd.Parameters.AddWithValue("BoardID", boardId);
+            return (int)YafDBAccess.Current.ExecuteScalar(cmd);
+        }
+    }
+
+
+    /// <summary>
     /// The poll_stats.
     /// </summary>
     /// <param name="pollID">
@@ -5614,17 +5679,17 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable poll_stats(object pollID)
+    public static DataTable poll_stats(int? pollId)
     {
-      using (SqlCommand cmd = YafDBAccess.GetCommand("poll_stats"))
+        using (SqlCommand cmd = YafDBAccess.GetCommand("poll_stats"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("PollID", pollID);
+        cmd.Parameters.AddWithValue("PollID", pollId);
         return YafDBAccess.Current.GetData(cmd);
       }
     }
 
-    /// <summary>
+      /// <summary>
     /// The method saves many questions and answers to them in a single transaction 
     /// </summary>
     /// <param name="pollList">List to hold all polls data</param>
@@ -5634,17 +5699,47 @@ namespace YAF.Classes.Data
 
       foreach (PollSaveList question in pollList)
       {
+          StringBuilder sb = new StringBuilder();
 
-        StringBuilder sb = new StringBuilder("INSERT INTO ");
+            // Check if the group already exists
+           if (question.TopicId > 0)
+           {
+               sb.Append("select @PollGroupID = PollID  from ");
+               sb.Append(YafDBAccess.GetObjectName("Topic"));
+               sb.Append("WHERE TopicID = @TopicID; ");
+           }
+           else if (question.ForumId > 0)
+           {
+
+               sb.Append("select @PollGroupID = PollGroupID  from ");
+               sb.Append(YafDBAccess.GetObjectName("Forum"));
+               sb.Append("WHERE ForumID = @ForumID");
+           }
+           else if (question.CategoryId > 0)
+           {
+
+               sb.Append("select @PollGroupID = PollGroupID  from ");
+               sb.Append(YafDBAccess.GetObjectName("Category"));
+               sb.Append("WHERE CategoryID = @CategoryID");
+           }
+
+          // the group doesn't exists, create a new one
+
+           sb.Append("IF @PollGroupID IS NULL BEGIN INSERT INTO ");
+           sb.Append(YafDBAccess.GetObjectName("PollGroupCluster"));
+           sb.Append("(UserID,Flags ) VALUES(@UserID, @Flags) SET @NewPollGroupID = SCOPE_IDENTITY(); END; ");
+
+        
+          sb.Append("INSERT INTO ");
         sb.Append(YafDBAccess.GetObjectName("Poll"));
 
         if (question.Closes > DateTime.MinValue)
         {
-          sb.Append("(Question,Closes) ");
+            sb.Append("(Question,Closes, UserID,PollGroupID,ObjectPath,MimeType) ");
         }
         else
         {
-          sb.Append("(Question) ");
+            sb.Append("(Question,UserID, PollGroupID, ObjectPath, MimeType) ");
         }
 
         sb.Append(" VALUES(");
@@ -5654,20 +5749,61 @@ namespace YAF.Classes.Data
         {
           sb.Append(",@Closes");
         }
+        sb.Append(",@UserID, (CASE WHEN  @NewPollGroupID IS NULL THEN @PollGroupID ELSE @NewPollGroupID END), @QuestionObjectPath,@QuestionMimeType");
         sb.Append("); ");
         sb.Append("SET @PollID = SCOPE_IDENTITY(); ");
+     
+            
+      
 
-        // The cycle through question reply choices            
-        for (uint choiceCount = 0; choiceCount < question.Choice.Length; choiceCount++)
+        // The cycle through question reply choices
+
+        for (uint choiceCount = 0; choiceCount < question.Choice.GetUpperBound(1); choiceCount++)
         {
-          if (!string.IsNullOrEmpty(question.Choice[choiceCount]))
-          {
+            if (!string.IsNullOrEmpty(question.Choice[0,choiceCount]))
+            {
+                sb.Append("INSERT INTO ");
+                sb.Append(YafDBAccess.GetObjectName("Choice"));
+                sb.Append("(PollID,Choice,Votes,ObjectPath,MimeType) VALUES (");
+                sb.AppendFormat("@PollID,@Choice{0},@Votes{0},@ChoiceObjectPath{0}, @ChoiceMimeType{0}", choiceCount);
+                sb.Append("); ");
 
-            sb.Append("INSERT INTO ");
-            sb.Append(YafDBAccess.GetObjectName("Choice"));
-            sb.AppendFormat("(PollID,Choice,Votes) VALUES(@PollID,@Choice{0},@Votes{0}); ", choiceCount);
-          }
+            }
         }
+     
+       
+        // we don't update if no new group is created 
+        sb.Append("IF  @PollGroupID IS NULL BEGIN  ");
+         // fill a pollgroup field - double work if a poll exists 
+        if (question.TopicId > 0)
+        {
+          
+            sb.Append("UPDATE ");
+            sb.Append(YafDBAccess.GetObjectName("Topic"));
+            sb.Append(" SET PollID = @NewPollGroupID WHERE TopicID = @TopicID; ");
+           
+        }
+
+        // fill a pollgroup field in Forum Table if the call comes from a forum's topic list 
+        if (question.ForumId > 0)
+        {
+            sb.Append("UPDATE ");
+            sb.Append(YafDBAccess.GetObjectName("Forum"));
+            sb.Append(" SET PollGroupID= @NewPollGroupID WHERE ForumID= @ForumID; ");
+        }
+
+        // fill a pollgroup field in Category Table if the call comes from a category's topic list 
+        if (question.CategoryId > 0)
+        {
+            sb.Append("UPDATE ");
+            sb.Append(YafDBAccess.GetObjectName("Category"));
+            sb.Append(" SET PollGroupID= @NewPollGroupID WHERE CategoryID= @CategoryID; ");
+        }
+
+        // fill a pollgroup field in Board Table if the call comes from the main page poll 
+  
+        sb.Append("END;  ");
+
         using (SqlCommand cmd = YafDBAccess.GetCommand(sb.ToString(), true))
         {
           SqlParameter ret = new SqlParameter();
@@ -5675,26 +5811,76 @@ namespace YAF.Classes.Data
           ret.SqlDbType = SqlDbType.Int;
           ret.Direction = ParameterDirection.Output;
           cmd.Parameters.Add(ret);
+
+          SqlParameter ret2 = new SqlParameter();
+          ret2.ParameterName = "@PollGroupID";
+          ret2.SqlDbType = SqlDbType.Int;
+          ret2.Direction = ParameterDirection.Output;
+          cmd.Parameters.Add(ret2);
+
+          SqlParameter ret3 = new SqlParameter();
+          ret3.ParameterName = "@NewPollGroupID";
+          ret3.SqlDbType = SqlDbType.Int;
+          ret3.Direction = ParameterDirection.Output;
+          cmd.Parameters.Add(ret3);
+
           cmd.Parameters.AddWithValue("@Question", question.Question);
 
           if (question.Closes > DateTime.MinValue)
           {
             cmd.Parameters.AddWithValue("@Closes", question.Closes);
           }
-          for (uint choiceCount1 = 0; choiceCount1 < question.Choice.Length; choiceCount1++)
+
+          cmd.Parameters.AddWithValue("@UserID", question.UserId);
+          cmd.Parameters.AddWithValue("@Flags", question.IsBound ? 2 : 0);
+          cmd.Parameters.AddWithValue("@QuestionObjectPath",
+                                          string.IsNullOrEmpty(question.QuestionObjectPath)
+                                              ? String.Empty
+                                              : question.QuestionObjectPath);
+          cmd.Parameters.AddWithValue("@QuestionMimeType",
+                                          string.IsNullOrEmpty(question.QuestionMimeType)
+                                              ? String.Empty
+                                              : question.QuestionMimeType);
+         
+            for (uint choiceCount1 = 0; choiceCount1 < question.Choice.GetUpperBound(1); choiceCount1++)
           {
-            if (!string.IsNullOrEmpty(question.Choice[choiceCount1]))
+            if (!string.IsNullOrEmpty(question.Choice[0,choiceCount1]))
             {
-              cmd.Parameters.AddWithValue(String.Format("@Choice{0}", choiceCount1), question.Choice[choiceCount1]);
+              cmd.Parameters.AddWithValue(String.Format("@Choice{0}", choiceCount1), question.Choice[0,choiceCount1]);
               cmd.Parameters.AddWithValue(String.Format("@Votes{0}", choiceCount1), 0);
+           
+                  cmd.Parameters.AddWithValue(String.Format("@ChoiceObjectPath{0}", choiceCount1),
+                      String.IsNullOrEmpty(question.Choice[1, choiceCount1]) ? String.Empty : question.Choice[1, choiceCount1]);
+                  cmd.Parameters.AddWithValue(String.Format("@ChoiceMimeType{0}", choiceCount1),
+                                               String.IsNullOrEmpty(question.Choice[2, choiceCount1]) ? String.Empty : question.Choice[2, choiceCount1]);
+              
+
             }
           }
-          YafDBAccess.Current.ExecuteNonQuery(cmd, true);
-          if (ret.Value != DBNull.Value)
-          {
-            return (int?)ret.Value;
-          }
-        }
+
+          
+
+
+              if (question.TopicId > 0)
+              {
+                  cmd.Parameters.AddWithValue("@TopicID", question.TopicId);
+              }
+              if (question.ForumId > 0)
+              {
+                  cmd.Parameters.AddWithValue("@ForumID", question.ForumId);
+              }
+              if (question.CategoryId > 0)
+              {
+                  cmd.Parameters.AddWithValue("@CategoryID", question.CategoryId);
+              }
+
+              YafDBAccess.Current.ExecuteNonQuery(cmd, true);
+              if (ret.Value != DBNull.Value)
+              {
+                  return (int?) ret.Value;
+              }
+         
+      }
       }
       return null;
     }
@@ -5711,7 +5897,7 @@ namespace YAF.Classes.Data
     /// <param name="closes">
     /// The closes.
     /// </param>
-    public static void poll_update(object pollID, object question, object closes)
+    public static void poll_update(object pollID, object question, object closes, object  isBounded)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("poll_update"))
       {
@@ -5719,6 +5905,8 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("PollID", pollID);
         cmd.Parameters.AddWithValue("Question", question);
         cmd.Parameters.AddWithValue("Closes", closes);
+        cmd.Parameters.AddWithValue("IsBounded", isBounded);
+
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }
@@ -5726,18 +5914,80 @@ namespace YAF.Classes.Data
     /// <summary>
     /// The poll_remove.
     /// </summary>
-    /// <param name="pollID">
-    /// The poll id.
+    /// <param name="pollGroupID">
+    /// The poll group id. The parameter should always be present. 
     /// </param>
-    public static void poll_remove(object pollID)
+    /// <param name="pollID">
+    /// The poll id. If null all polls in a group a deleted. 
+    /// </param>
+    /// <param name="boardID">
+    /// The BoardID id. 
+    /// </param>
+    /// <param name="removeCompletely">
+    /// The RemoveCompletely. If true and <param name="pollID">pollID</param> is null , all polls in a group are deleted completely, 
+    /// else only one poll is deleted completely. 
+    /// </param>
+    public static void poll_remove(object pollGroupID, object pollID, object boardId, bool removeCompletely, bool removeEverywhere)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("poll_remove"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("PollGroupID", pollGroupID);
         cmd.Parameters.AddWithValue("PollID", pollID);
+        cmd.Parameters.AddWithValue("BoardID", boardId);
+        cmd.Parameters.AddWithValue("RemoveCompletely", removeCompletely);
+        cmd.Parameters.AddWithValue("RemoveEverywhere", removeEverywhere);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
       }
     }
+
+    public static DataTable pollgroup_list(object userID, object forumId, object boardId)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("pollgroup_list"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("UserID", userID);
+            cmd.Parameters.AddWithValue("ForumID", forumId);
+            cmd.Parameters.AddWithValue("BoardID", boardId);
+
+            return YafDBAccess.Current.GetData(cmd);
+        }
+    }
+
+    /// <summary>
+    /// The poll_remove.
+    /// </summary>
+    /// <param name="pollGroupID">
+    /// The poll group id. The parameter should always be present. 
+    /// </param>
+    /// <param name="pollID">
+    /// The poll id. If null all polls in a group a deleted. 
+    /// </param>
+    /// <param name="boardID">
+    /// The BoardID id. 
+    /// </param>
+    /// <param name="removeCompletely">
+    /// The RemoveCompletely. If true and <param name="pollID">pollID</param> is null , all polls in a group are deleted completely, 
+    /// else only one poll is deleted completely. 
+    /// </param>
+    public static void pollgroup_remove(object pollGroupID, object topicId, object forumId, object categoryId, object boardId, bool removeCompletely, bool removeEverywhere)
+    {
+        using (SqlCommand cmd = YafDBAccess.GetCommand("pollgroup_remove"))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("PollGroupID", pollGroupID);
+            cmd.Parameters.AddWithValue("TopicID", topicId);
+            cmd.Parameters.AddWithValue("ForumID", forumId);
+            cmd.Parameters.AddWithValue("CategoryID", categoryId);
+            cmd.Parameters.AddWithValue("BoardID", boardId);
+            cmd.Parameters.AddWithValue("RemoveCompletely", removeCompletely);
+            cmd.Parameters.AddWithValue("RemoveEverywhere", removeEverywhere);
+            YafDBAccess.Current.ExecuteNonQuery(cmd);
+        }
+    }
+
+
 
     /// <summary>
     /// The choice_delete.
@@ -6693,7 +6943,6 @@ namespace YAF.Classes.Data
       object message,
       object userID,
       object priority,
-      object pollID,
       object userName,
       object ip,
       object posted,
@@ -6711,7 +6960,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("Priority", priority);
         cmd.Parameters.AddWithValue("UserName", userName);
         cmd.Parameters.AddWithValue("IP", ip);
-        cmd.Parameters.AddWithValue("PollID", pollID);
+       // cmd.Parameters.AddWithValue("PollID", pollID);
         cmd.Parameters.AddWithValue("Posted", posted);
         cmd.Parameters.AddWithValue("BlogPostID", blogPostID);
         cmd.Parameters.AddWithValue("Flags", flags);

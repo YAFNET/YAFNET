@@ -68,6 +68,41 @@ namespace YAF.Controls
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether Poll Option is Visible.
+    /// </summary>
+    public bool PollOptionVisible
+    {
+        get
+        {
+            return this.AddPollCheckBox.Visible;
+        }
+
+        set
+        {
+            this.AddPollCheckBox.Visible = value;
+            this.AddPollPlaceHolder.Visible = value;
+            this.AddPollLabel.Visible = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether Poll Option is Visible.
+    /// </summary>
+    public bool PollChecked
+    {
+        get
+        {
+            return this.AddPollCheckBox.Checked;
+        }
+
+        set
+        {
+            this.AddPollCheckBox.Checked = value;
+        }
+    }
+
+
+    /// <summary>
     /// Gets or sets a value indicating whether PersistantChecked.
     /// </summary>
     public bool PersistantChecked

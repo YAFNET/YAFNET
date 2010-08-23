@@ -2,64 +2,10 @@
 <%@ Import Namespace="YAF.Classes.Core" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<a id="top" name="top"></a>
-<asp:Repeater ID="Poll" runat="server" Visible="false">
-    <HeaderTemplate>
-        <table cellpadding="0" cellspacing="1" class="content" width="100%">
-            <tr>
-                <td class="header1" colspan="3">
-                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="question" />
-                    :
-                    <%# GetPollQuestion() %>
-                    <%# GetPollIsClosed() %>
-                </td>
-            </tr>
-            <tr>
-                <td class="header2">
-                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="choice" />
-                </td>
-                <td class="header2" align="center" width="10%">
-                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="votes" />
-                </td>
-                <td class="header2" width="40%">
-                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="statistics" />
-                </td>
-            </tr>
-    </HeaderTemplate>
-    <ItemTemplate>
-        <tr>
-            <td class="post">
-                <YAF:MyLinkButton runat="server" Enabled="<%#CanVote%>" CommandName="vote" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>'
-                    Text='<%# HtmlEncode(YafServices.BadWordReplace.Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
-            </td>
-            <td class="post" align="center">
-                <%# DataBinder.Eval(Container.DataItem, "Votes") %>
-            </td>
-            <td class="post">
-                <nobr>
-					<img alt="" src="<%# GetThemeContents("VOTE","LCAP") %>"><img alt="" src='<%# GetThemeContents("VOTE","BAR") %>'
-						height="12" width='<%# VoteWidth(Container.DataItem) %>%'><img alt="" src='<%# GetThemeContents("VOTE","RCAP") %>'></nobr>
-                <%# DataBinder.Eval(Container.DataItem,"Stats") %>
-                %
-            </td>
-        </tr>
-    </ItemTemplate>
-    <FooterTemplate>
-        <tr>
-            <td class="header2">
-                <%= GetText("total") %>
-            </td>
-            <td class="header2" align="center">
-                <%# GetTotal() %>
-            </td>
-            <td class="header2">
-                100%
-            </td>
-        </tr>
-        </table><br />
-    </FooterTemplate>
-</asp:Repeater>
+<YAF:PollList ID="PollList" TopicId='<%# PageContext.PageTopicID %>' ShowButtons='<%# ShowPollButtons() %>' PollGroupId='<%# PollGroupId() %>' runat="server"/>
+<a id="top"  name="top"></a>
 <table class="command" width="100%">
     <tr>
         <td align="left">

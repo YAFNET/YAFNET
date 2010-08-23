@@ -51,11 +51,21 @@ namespace YAF.Classes.Data
     /// <param name="pollCloses">
     /// The poll closes.
     /// </param>
-    public PollSaveList(string pollQuestion, string[] pollChoices, DateTime? pollCloses)
+    public PollSaveList(string pollQuestion, string[,] pollChoices, DateTime? pollCloses, 
+        int userId, int? topicId, int? forumId, int? categoryId, int? boardId, 
+        string questionObjectPath, string questionMimeType, bool  isBound)
     {
-      this.Question = pollQuestion;
-      this.Choice = pollChoices;
-      this.Closes = pollCloses;
+        this.Question = pollQuestion;
+        this.Choice = pollChoices;
+        this.Closes = pollCloses;
+        this.UserId = userId;
+        this.TopicId = topicId;
+        this.ForumId = forumId;
+        this.CategoryId = categoryId;
+        this.BoardId = boardId;
+        this.QuestionObjectPath = questionObjectPath;
+        this.QuestionMimeType = questionMimeType;
+        this.IsBound = isBound;
     }
 
     #endregion
@@ -65,7 +75,7 @@ namespace YAF.Classes.Data
     /// <summary>
     ///   Gets or Sets value for Question text
     /// </summary>
-    public string[] Choice { get; set; }
+    public string[,] Choice { get; set; }
 
     /// <summary>
     ///   Gets or Sets value indicatiing when a poll (question) closes
@@ -76,6 +86,46 @@ namespace YAF.Classes.Data
     ///   Gets or Sets value for Question text
     /// </summary>
     public string Question { get; set; }
+
+    /// <summary>
+    ///   Gets or Sets value for UserId 
+    /// </summary>
+    public int UserId { get; set; }
+
+    /// <summary>
+    ///   Gets or Sets value for TopicId 
+    /// </summary>
+    public int? TopicId { get; set; }
+
+    /// <summary>
+    ///   Gets or Sets value for ForumId 
+    /// </summary>
+    public int? ForumId { get; set; }
+
+    /// <summary>
+    ///   Gets or Sets value for CategoryId 
+    /// </summary>
+    public int? CategoryId { get; set; }
+
+    /// <summary>
+    ///   Gets or Sets value for BoardId 
+    /// </summary>
+    public int? BoardId { get; set; }
+
+    /// <summary>
+    ///   Gets or Sets value for ObjectPath 
+    /// </summary>
+    public string QuestionObjectPath { get; set; }
+
+    /// <summary>
+    ///   Gets or Sets value for MimeType 
+    /// </summary>
+    public string QuestionMimeType { get; set; }
+
+    /// <summary>
+    ///   Gets or Sets value for IsBound 
+    /// </summary>
+    public bool IsBound { get; set; }
 
     #endregion
   }

@@ -440,6 +440,18 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}poll_remove]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_attach]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_attach]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_list]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_remove]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_remove]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}poll_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}poll_save]
 GO
@@ -448,12 +460,20 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}poll_stats]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_stats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_stats]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}poll_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}poll_update]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollvote_check]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollvote_check]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{objectQualifier}pollgroup_votecheck]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{objectQualifier}pollgroup_votecheck]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}post_last10user]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -2282,7 +2302,8 @@ begin
 		a.ForumID,
 		Forum = a.Name,
 		Indent = 0,
-		a.ParentID
+		a.ParentID,
+		a.PollGroupID
 	from
 		[{databaseOwner}].[{objectQualifier}Forum] a
 		join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
@@ -2352,7 +2373,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}forum_listall_fromcat](@BoardID int,@CategoryID int) AS
 BEGIN
-		SELECT     b.CategoryID, b.Name AS Category, a.ForumID, a.Name AS Forum, a.ParentID
+		SELECT     b.CategoryID, b.Name AS Category, a.ForumID, a.Name AS Forum, a.ParentID, a.PollGroupID 
 	FROM         [{databaseOwner}].[{objectQualifier}Forum] a INNER JOIN
 						  [{databaseOwner}].[{objectQualifier}Category] b ON b.CategoryID = a.CategoryID
 		WHERE
@@ -2490,6 +2511,7 @@ begin
 		b.Description,
 		b.ImageUrl,
 		b.Styles,
+		b.PollGroupID,
 		Topics			= [{databaseOwner}].[{objectQualifier}forum_topics](b.ForumID),
 		Posts			= [{databaseOwner}].[{objectQualifier}forum_posts](b.ForumID),
 		Subforums		= [{databaseOwner}].[{objectQualifier}forum_subforums](b.ForumID, @UserID),
@@ -3894,24 +3916,60 @@ END
 GO
 
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}poll_stats](@PollID int) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}poll_stats](@PollID int = null) AS
 BEGIN
-		SELECT
+
+  	SELECT
+			
 		a.PollID,
 		b.Question,
 		b.Closes,
+		b.UserID,		
+		b.[ObjectPath],
+		b.[MimeType],
 		a.ChoiceID,
 		a.Choice,
 		a.Votes,
+		IsBound = convert(int,pg.Flags & 2), 
 		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		Stats = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM
 		[{databaseOwner}].[{objectQualifier}Choice] a		
 	INNER JOIN 
 		[{databaseOwner}].[{objectQualifier}Poll] b ON b.PollID = a.PollID
-	WHERE
+	INNER JOIN  
+		[{databaseOwner}].[{objectQualifier}PollGroupCluster] pg ON pg.PollGroupID = b.PollGroupID	
+		WHERE
 		b.PollID = @PollID
+
 END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_stats](@PollGroupID int) AS
+BEGIN
+		SELECT		
+		GroupUserID = pg.UserID,	
+		a.PollID,
+		b.PollGroupID,
+		b.Question,
+		b.Closes,
+		a.ChoiceID,
+		a.Choice,
+		a.Votes,
+		IsBound = convert(int,pg.Flags & 2), 	
+		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
+		Stats = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
+	FROM
+		[{databaseOwner}].[{objectQualifier}Choice] a		
+	INNER JOIN 
+		[{databaseOwner}].[{objectQualifier}Poll] b ON b.PollID = a.PollID
+	INNER JOIN  
+		[{databaseOwner}].[{objectQualifier}PollGroupCluster] pg ON pg.PollGroupID = b.PollGroupID			
+	WHERE
+		pg.PollGroupID = @PollGroupID
+		ORDER BY b.PollGroupID
+	--	GROUP BY a.PollID, b.Question, b.Closes, a.ChoiceID, a.Choice,a.Votes
+		END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollvote_check](@PollID int, @UserID int = NULL,@RemoteIP varchar(39) = NULL) AS
@@ -3928,6 +3986,27 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollvote_check](@PollID int
 		-- check by userid or remote IP
 		SELECT PollVoteID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID = @PollID AND (UserID = @UserID OR RemoteIP = @RemoteIP)
 	END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_votecheck](@PollGroupID int, @UserID int = NULL,@RemoteIP varchar(39) = NULL) AS
+	IF @UserID IS NULL
+	  BEGIN
+		IF @RemoteIP IS NOT NULL
+		BEGIN
+			-- check by remote IP
+			SELECT PollID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID) AND RemoteIP = @RemoteIP
+		END
+		ELSE
+		BEGIN
+		-- to get structure
+		    SELECT PollID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID) AND RemoteIP = @RemoteIP
+		END
+	  END
+	ELSE
+	  BEGIN
+		-- check by userid or remote IP
+		SELECT PollID FROM [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN ( SELECT PollID FROM [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID) AND (UserID = @UserID OR RemoteIP = @RemoteIP)
+	   END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}post_alluser](@BoardID int,@UserID int,@PageUserID int,@topCount int = 0) as
@@ -4436,8 +4515,7 @@ BEGIN
 		IF (@pollID is not null)
 		BEGIN
 			UPDATE  [{databaseOwner}].[{objectQualifier}topic] SET PollID = null WHERE TopicID = @TopicID
-			DELETE FROM  [{databaseOwner}].[{objectQualifier}choice] WHERE PollID = @PollID
-			DELETE FROM  [{databaseOwner}].[{objectQualifier}poll] WHERE PollID = @PollID	
+			EXEC [{databaseOwner}].[{objectQualifier}pollgroup_remove] @pollID, @TopicID, null, null, null, 0, 0 
 		END	
 	
 		DELETE FROM  [{databaseOwner}].[{objectQualifier}topic] WHERE TopicMovedID = @TopicID
@@ -4461,6 +4539,118 @@ BEGIN
 		EXEC  [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
 END
 GO
+
+create procedure [{databaseOwner}].[{objectQualifier}pollgroup_remove](@PollGroupID int, @TopicID int =null, @ForumID int= null, @CategoryID int = null, @BoardID int = null, @RemoveCompletely bit, @RemoveEverywhere bit)
+ as
+  begin
+   
+	 declare @polllist table
+	( PollID int)
+	declare @tmp int
+
+
+		 if @RemoveEverywhere <> 1 
+			 begin
+				   if @TopicID > 0
+				   Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where TopicID = @TopicID                 
+                  
+				   if @ForumID > 0
+                   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = NULL where ForumID = @ForumID
+              
+	               if @CategoryID > 0
+                   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = NULL where CategoryID = @CategoryID
+                
+		           end
+	
+	      if ( @RemoveEverywhere = 1 OR @RemoveCompletely = 1)
+		 begin
+				   Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where PollID = @PollGroupID 
+                   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = NULL where PollGroupID = @PollGroupID
+				   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = NULL where PollGroupID = @PollGroupID				 
+         end
+
+	        	-- all polls in the group 
+	if @RemoveCompletely = 1 
+	begin
+
+	insert into @polllist (PollID)
+	select PollID from [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID   
+
+	
+			DELETE FROM  [{databaseOwner}].[{objectQualifier}pollvote] WHERE PollID IN (SELECT PollID FROM @polllist)
+			DELETE FROM  [{databaseOwner}].[{objectQualifier}choice] WHERE PollID IN (SELECT PollID FROM @polllist)
+			UPDATE [{databaseOwner}].[{objectQualifier}poll] SET PollGroupID = NULL WHERE PollGroupID = @PollGroupID
+			DELETE FROM  [{databaseOwner}].[{objectQualifier}poll] WHERE PollGroupID = @PollGroupID 
+    end
+	else
+	begin
+	UPDATE [{databaseOwner}].[{objectQualifier}poll] SET PollGroupID = NULL WHERE   PollGroupID = @PollGroupID
+	end
+
+
+				    
+	-- this is the last one
+	IF NOT EXISTS (select 1 from [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID)
+	begin	 
+        DELETE FROM  [{databaseOwner}].[{objectQualifier}PollGroupCluster] WHERE PollGroupID = @PollGroupID		
+	end
+		end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}pollgroup_attach](@PollGroupID int, @TopicID int = null, @ForumID int = null, @CategoryID int = null, @BoardID int = null) as
+begin
+	               if @TopicID > 0
+				   begin
+				   if exists (select 1 from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID  and PollID is not null)
+				   begin
+				   SELECT 1
+				   end
+				   else
+				   begin
+				   Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = @PollGroupID where TopicID = @TopicID 
+				   SELECT 0
+				   end
+				   end              
+                  
+				   if @ForumID > 0
+				   begin
+				   if exists (select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID and PollGroupID is not null)
+                   begin
+				   SELECT 1
+				   end
+				   else
+				   begin
+				   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = @PollGroupID where ForumID = @ForumID
+                   SELECT 0
+				   end
+				   end
+
+	               if @CategoryID > 0
+				   begin
+				   if exists (select 1 from [{databaseOwner}].[{objectQualifier}Category] where CategoryID = @CategoryID and PollGroupID is null)
+                   begin
+				   SELECT 1
+				   end
+				   else
+				   begin
+				   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = @PollGroupID where CategoryID = @CategoryID
+                   SELECT 0
+				   end
+				   end
+		               
+
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}pollgroup_list](@UserID int, @ForumID int = null, @BoardID int) as
+begin
+	select distinct(p.Question), p.PollGroupID from [{databaseOwner}].[{objectQualifier}Poll] p
+	LEFT JOIN 	[{databaseOwner}].[{objectQualifier}PollGroupCluster] pgc ON pgc.PollGroupID = p.PollGroupID
+	-- WHERE p.Closes IS NULL OR p.Closes > GETUTCDATE()
+	order by Question asc
+end
+GO
+
 
 create procedure [{databaseOwner}].[{objectQualifier}topic_findnext](@TopicID int) as
 begin
@@ -4804,7 +4994,6 @@ create procedure [{databaseOwner}].[{objectQualifier}topic_save](
 	@Priority	smallint,
 	@UserName	nvarchar(255)=null,
 	@IP			varchar(39),
-	@PollID		int=null,
 	@Posted		datetime=null,
 	@BlogPostID	nvarchar(50),
 	@Flags		int
@@ -4816,8 +5005,8 @@ begin
 	if @Posted is null set @Posted = GETUTCDATE() 
 
 	-- create the topic
-	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,Views,Priority,PollID,UserName,NumPosts)
-	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@PollID,@UserName,0)
+	insert into [{databaseOwner}].[{objectQualifier}Topic](ForumID,Topic,UserID,Posted,[Views],Priority,UserName,NumPosts)
+	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@UserName,0)
 
 	-- get its id
 	set @TopicID = SCOPE_IDENTITY()
@@ -6527,32 +6716,66 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}poll_update](
 	@PollID		int,
 	@Question	nvarchar(50),
-	@Closes 	datetime = null
+	@Closes 	datetime = null,
+	@IsBounded  bit
 ) as
 begin
-	
+	declare @pgid int
 	update [{databaseOwner}].[{objectQualifier}Poll]
 		set Question	=	@Question,
 			Closes		=	@Closes
 		where PollID = @PollID
 
+      SELECT  @pgid = PollGroupID FROM [{databaseOwner}].[{objectQualifier}Poll]
+	  where PollID = @PollID
+   
+	update [{databaseOwner}].[{objectQualifier}PollGroupCluster]
+		set Flags	= (CASE WHEN @IsBounded > 0 THEN 2 ELSE 0 END)
+		where PollGroupID = @pgid
 end
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}poll_remove](
-	@PollID int
-) as
+	@PollGroupID int, @PollID int = null, @BoardID int = null, @RemoveCompletely bit, @RemoveEverywhere bit)
+as
 begin
+declare @groupcount int
 	
+	if @RemoveCompletely = 1 
+	begin
 	-- delete vote records first
 	delete from [{databaseOwner}].[{objectQualifier}PollVote] where PollID = @PollID
-	-- delete choices first
+	-- delete choices 
 	delete from [{databaseOwner}].[{objectQualifier}Choice] where PollID = @PollID
-	-- delete it from topic itself
-	update [{databaseOwner}].[{objectQualifier}Topic] set PollID = null where PollID = @PollID
-
 	-- delete poll
-	delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID
+	Update [{databaseOwner}].[{objectQualifier}Poll] set PollGroupID = NULL where PollID = @PollID
+	delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID 	
+	end
+	else
+	begin    
+	Update [{databaseOwner}].[{objectQualifier}Poll] set PollGroupID = NULL where PollID = @PollID	                         
+	end
+  
+
+	if  NOT EXISTS (SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID) 
+        begin	
+			  
+                   Update [{databaseOwner}].[{objectQualifier}Topic] set PollID = NULL where PollID = @PollGroupID                 
+                  
+				   
+                   Update [{databaseOwner}].[{objectQualifier}Forum] set PollGroupID = NULL where PollGroupID = @PollGroupID
+              
+	
+                   Update [{databaseOwner}].[{objectQualifier}Category] set PollGroupID = NULL where PollGroupID = @PollGroupID                
+		
+              
+       	
+       
+		 
+        DELETE FROM  [{databaseOwner}].[{objectQualifier}PollGroupCluster] WHERE PollGroupID = @PollGroupID	
+		end  	
+		
+
 end
 GO
 

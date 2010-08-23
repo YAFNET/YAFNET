@@ -134,62 +134,6 @@ namespace YAF.Pages
       }
     }
 
-    /// <summary>
-    ///   Property to verify if the current user can vote in this poll.
-    /// </summary>
-    protected bool CanVote
-    {
-      get
-      {
-        // rule out users without voting rights
-        if (!this.PageContext.ForumVoteAccess)
-        {
-          return false;
-        }
-
-        if (this.IsPollClosed())
-        {
-          return false;
-        }
-
-        // check for voting cookie
-        if (this.Request.Cookies[this.VotingCookieName] != null)
-        {
-          return false;
-        }
-
-        // voting is not tied to IP and they are a guest...
-        if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.PollVoteTiedToIP)
-        {
-          return true;
-        }
-
-        object UserID = null;
-        object RemoteIP = null;
-
-        if (this.PageContext.BoardSettings.PollVoteTiedToIP)
-        {
-          RemoteIP = IPHelper.IPStrToLong(this.Request.UserHostAddress).ToString();
-        }
-
-        if (!this.PageContext.IsGuest)
-        {
-          UserID = this.PageContext.PageUserID;
-        }
-
-        // check for a record of a vote
-        using (DataTable dt = DB.pollvote_check(this._topic["PollID"], UserID, RemoteIP))
-        {
-          if (dt.Rows.Count == 0)
-          {
-            // user hasn't voted yet...
-            return true;
-          }
-        }
-
-        return false;
-      }
-    }
 
     /// <summary>
     ///   Gets or sets CurrentMessage.
@@ -332,34 +276,6 @@ namespace YAF.Pages
     }
 
     /// <summary>
-    /// The get poll is closed.
-    /// </summary>
-    /// <returns>
-    /// The get poll is closed.
-    /// </returns>
-    protected string GetPollIsClosed()
-    {
-      string strPollClosed = string.Empty;
-      if (this.IsPollClosed())
-      {
-        strPollClosed = this.GetText("POLL_CLOSED");
-      }
-
-      return strPollClosed;
-    }
-
-    /// <summary>
-    /// The get poll question.
-    /// </summary>
-    /// <returns>
-    /// The get poll question.
-    /// </returns>
-    protected string GetPollQuestion()
-    {
-      return this.HtmlEncode(YafServices.BadWordReplace.Replace(this._dtPoll.Rows[0]["Question"].ToString()));
-    }
-
-    /// <summary>
     /// The get threaded row.
     /// </summary>
     /// <param name="o">
@@ -425,16 +341,6 @@ namespace YAF.Pages
       return html.ToString();
     }
 
-    /// <summary>
-    /// The get total.
-    /// </summary>
-    /// <returns>
-    /// The get total.
-    /// </returns>
-    protected string GetTotal()
-    {
-      return this.HtmlEncode(this._dtPoll.Rows[0]["Total"].ToString());
-    }
 
     /// <summary>
     /// The is current message.
@@ -451,28 +357,7 @@ namespace YAF.Pages
 
       return !this.IsThreaded || this.CurrentMessage == (int)row["MessageID"];
     }
-
-    /// <summary>
-    /// The is poll closed.
-    /// </summary>
-    /// <returns>
-    /// The is poll closed.
-    /// </returns>
-    protected bool IsPollClosed()
-    {
-      bool bIsClosed = false;
-
-      if (this._dtPoll.Rows[0]["Closes"] != DBNull.Value)
-      {
-        DateTime tCloses = Convert.ToDateTime(this._dtPoll.Rows[0]["Closes"]);
-        if (tCloses < DateTime.UtcNow)
-        {
-          bIsClosed = true;
-        }
-      }
-
-      return bIsClosed;
-    }
+  
 
     /// <summary>
     /// The lock topic_ click.
@@ -1085,15 +970,28 @@ namespace YAF.Pages
 
       this.MessageList.DataSource = pagedData;
 
-      if (this._topic["PollID"] != DBNull.Value)
+     /* if (this._topic["PollID"] != DBNull.Value)
       {
         this.Poll.Visible = true;
         this._dtPoll = DB.poll_stats(this._topic["PollID"]);
         this.Poll.DataSource = this._dtPoll;
-      }
+      } */
 
       this.DataBind();
     }
+
+      protected int PollGroupId()
+      {
+          return !this._topic["PollID"].IsNullOrEmptyDBField() ? Convert.ToInt32(this._topic["PollID"]) : 0 ;
+      }
+ 
+
+      protected bool ShowPollButtons()
+      {
+          return false;
+         /* return (Convert.ToInt32(this._topic["UserID"]) == this.PageContext.PageUserID) || this.PageContext.IsModerator ||
+                 this.PageContext.IsAdmin; */
+      }
 
     /// <summary>
     /// Gets the message ID if "find" is in the query string
@@ -1182,7 +1080,7 @@ namespace YAF.Pages
     /// </summary>
     private void InitializeComponent()
     {
-      this.Poll.ItemCommand += this.Poll_ItemCommand;
+    //  this.Poll.ItemCommand += this.Poll_ItemCommand;
       this.PreRender += this.posts_PreRender;
       this.OptionsMenu.ItemClick += this.OptionsMenu_ItemClick;
       this.ViewMenu.ItemClick += this.ViewMenu_ItemClick;
@@ -1235,62 +1133,6 @@ namespace YAF.Pages
       this._ignoreQueryString = true;
       this.SmartScroller1.Reset();
       this.BindData();
-    }
-
-    /// <summary>
-    /// The poll_ item command.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void Poll_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-      if (e.CommandName == "vote" && this.PageContext.ForumVoteAccess)
-      {
-        if (!this.CanVote)
-        {
-          this.PageContext.AddLoadMessage(this.GetText("WARN_ALREADY_VOTED"));
-          return;
-        }
-
-        if (this._topicFlags.IsLocked)
-        {
-          this.PageContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"));
-          return;
-        }
-
-        if (this.IsPollClosed())
-        {
-          this.PageContext.AddLoadMessage(this.GetText("WARN_POLL_CLOSED"));
-          return;
-        }
-
-        object userID = null;
-        object remoteIP = null;
-
-        if (this.PageContext.BoardSettings.PollVoteTiedToIP)
-        {
-          remoteIP = IPHelper.IPStrToLong(this.Request.ServerVariables["REMOTE_ADDR"]).ToString();
-        }
-
-        if (!this.PageContext.IsGuest)
-        {
-          userID = this.PageContext.PageUserID;
-        }
-
-        DB.choice_vote(e.CommandArgument, userID, remoteIP);
-
-        // save the voting cookie...
-        var c = new HttpCookie(this.VotingCookieName, e.CommandArgument.ToString());
-        c.Expires = DateTime.UtcNow.AddYears(1);
-        this.Response.Cookies.Add(c);
-
-        this.PageContext.AddLoadMessage(this.GetText("INFO_VOTED"));
-        this.BindData();
-      }
     }
 
     /// <summary>

@@ -230,6 +230,13 @@
     <Compile Include="controls\PMList.ascx.designer.cs">
       <DependentUpon>PMList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\PollList.ascx.cs">
+      <DependentUpon>PollList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\PollList.ascx.designer.cs">
+      <DependentUpon>PollList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\ProfileYourAccount.ascx.designer.cs">
       <DependentUpon>ProfileYourAccount.ascx</DependentUpon>
     </Compile>
@@ -578,6 +585,13 @@
     <Compile Include="pages\pmessage.ascx.designer.cs">
       <DependentUpon>pmessage.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\polledit.ascx.cs">
+      <DependentUpon>polledit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\polledit.ascx.designer.cs">
+      <DependentUpon>polledit.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\postmessage.ascx.designer.cs">
       <DependentUpon>postmessage.ascx</DependentUpon>
     </Compile>
@@ -628,7 +642,12 @@
     <Compile Include="Resource.ashx.cs">
       <DependentUpon>Resource.ashx</DependentUpon>
     </Compile>
+    <Compile Include="YafSystemInfo.cs" />
     <Content Include="advanced.aspx" />
+    <Content Include="App_Data\yafnet.mdf" />
+    <Content Include="App_Data\yafnet_log.ldf">
+      <DependentUpon>yafnet.mdf</DependentUpon>
+    </Content>
     <Content Include="Classes\Register Forum\Register.disco" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
@@ -662,6 +681,7 @@
     <Content Include="controls\LastPosts.ascx" />
     <Content Include="controls\MyTopicsList.ascx" />
     <Content Include="controls\PMList.ascx" />
+    <Content Include="controls\PollList.ascx" />
     <Content Include="controls\PostOptions.ascx" />
     <Content Include="controls\ProfileYourAccount.ascx" />
     <Content Include="controls\ReportedPosts.ascx" />
@@ -767,7 +787,9 @@
     <Content Include="languages\polish.xml" />
     <Content Include="languages\portugues.xml" />
     <Content Include="languages\romanian.xml" />
-    <Content Include="languages\russian.xml" />
+    <Content Include="languages\russian.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="languages\slovak.xml" />
     <Content Include="languages\spanish.xml" />
     <Content Include="languages\swedish.xml" />
@@ -866,6 +888,7 @@
     <Content Include="pages\movetopic.ascx" />
     <Content Include="pages\mytopics.ascx" />
     <Content Include="pages\pmessage.ascx" />
+    <Content Include="pages\polledit.ascx" />
     <Content Include="pages\postmessage.ascx" />
     <Content Include="pages\posts.ascx" />
     <Content Include="pages\printtopic.ascx" />
@@ -1500,7 +1523,9 @@
       <DependentUpon>topics.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Content Include="app.config" />
+    <Content Include="app.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Browsers\w3cvalidator.browser" />
     <Content Include="themes\cleanSlate.xml">
       <SubType>Designer</SubType>
@@ -2052,6 +2077,7 @@
     <Content Include="webconfigs\recommended-NET-web.config" />
     <Content Include="webconfigs\v191-upgrade-web.config" />
     <Content Include="Resource.ashx" />
+    <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">

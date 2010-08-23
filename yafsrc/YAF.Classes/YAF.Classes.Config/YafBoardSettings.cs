@@ -657,6 +657,22 @@ namespace YAF.Classes
     }
 
     /// <summary>
+    /// Gets or sets AllowedPollNumber.
+    /// </summary>
+    public int AllowedPollNumber
+    {
+        get
+        {
+            return this._reg.GetValue<int>("AllowedPollNumber", 3);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("AllowedPollNumber", value);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets CaptchaTypeRegister.
     /// </summary>
     public int CaptchaTypeRegister
@@ -866,6 +882,23 @@ namespace YAF.Classes
       {
         this._reg.SetValue<int>("SearchPermissions", value);
       }
+    }
+
+
+    /// <summary>
+    /// Gets or sets BoardPollID.
+    /// </summary>
+    public int BoardPollID
+    {
+        get
+        {
+            return this._reg.GetValue<int>("BoardPollID", 0);
+        }
+
+        set
+        {
+            this._reg.SetValue<int>("BoardPollID", value);
+        }
     }
 
     /// <summary>
@@ -1451,6 +1484,54 @@ namespace YAF.Classes
       {
         this._reg.SetValue<bool>("AllowPMEmailNotification", value);
       }
+    }
+
+    /// <summary>
+    /// Gets or sets AllowPollChangesAfterFirstVote. A poll creator can't change choices after the first vote.
+    /// </summary>
+    public bool AllowPollChangesAfterFirstVote
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("AllowPollChangesAfterFirstVote", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("AllowPollChangesAfterFirstVote", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets AllowUsersViewPollVotesBefore. 
+    /// </summary>
+    public bool AllowUsersViewPollVotesBefore
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("AllowViewPollVotesIfNoPollAcces", true);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("AllowViewPollVotesIfNoPollAcces", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets AllowGuestsViewPollOptions. 
+    /// </summary>
+    public bool AllowGuestsViewPollOptions
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("AllowGuestsViewPollOptions", true);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("AllowGuestsViewPollOptions", value);
+        }
     }
 
     /// <summary>

@@ -75,6 +75,6 @@ public class YafWebService : WebService
     long messageId = 0;
     string subjectEncoded = Server.HtmlEncode(subject);
 
-    return DB.topic_save(forumid, subjectEncoded, post, userid, priority, null, username, ip, null, null, flags, ref messageId);
+    return DB.topic_save(forumid, subjectEncoded, post, userid, priority, username, ip, null, null, flags, ref messageId);
   }
 }

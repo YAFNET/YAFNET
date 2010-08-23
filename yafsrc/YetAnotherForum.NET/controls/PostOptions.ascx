@@ -4,6 +4,10 @@
         <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" />
     </td>
     <td class="post">
+    <asp:PlaceHolder ID="AddPollPlaceHolder" runat="server" Visible="false">
+     <asp:CheckBox ID="AddPollCheckBox" runat="server" />
+        <YAF:LocalizedLabel ID="AddPollLabel" runat="server" LocalizedPage="POSTMESSAGE" LocalizedTag="POLLADD" />?
+    </asp:PlaceHolder> <br /> 
         <asp:PlaceHolder ID="PersistencyHolder" runat="server" Visible="false">
         <asp:CheckBox ID="Persistency" runat="server" />
         <YAF:LocalizedLabel ID="PersistencyLabel" runat="server" LocalizedTag="PERSISTENCY" />?
