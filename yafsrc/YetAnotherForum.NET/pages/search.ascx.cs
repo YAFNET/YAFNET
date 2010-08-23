@@ -767,10 +767,19 @@ namespace YAF.Pages
         for (int j = 0; j < searchParamsOptArray.Length; j++)
         {
           // Example: as_oq={Word}
-          // Example: text={Word}/wordforms=all              
-          switch (this.listSearchWhat.SelectedValue)
+          // Example: text={Word}/wordforms=all 
+            switch (this.listSearchWhat.SelectedValue)
           {
             case "0":
+
+                  // "match_all"
+            if (searchParamsAggreageArray[0] == "AllWords")
+            {
+                this.MatchParameterHelper(ref searchParamsOptArray[j], ref searchEngine, searchParamsDefArray[3]);
+            }
+
+                  break;
+            case "1":
 
               // "match_any"
               if (searchParamsAggreageArray[0] == "AnyWord")
@@ -779,7 +788,7 @@ namespace YAF.Pages
               }
 
               break;
-            case "1":
+            case "2":
 
               // "match_exact"
               if (searchParamsAggreageArray[0] == "ExactFrase")
@@ -788,15 +797,7 @@ namespace YAF.Pages
               }
 
               break;
-            case "2":
-
-              // "match_all"
-              if (searchParamsAggreageArray[0] == "AllWords")
-              {
-                this.MatchParameterHelper(ref searchParamsOptArray[j], ref searchEngine, searchParamsDefArray[3]);
-              }
-
-              break;
+    
             default:
               break;
           }
