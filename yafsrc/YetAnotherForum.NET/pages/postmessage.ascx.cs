@@ -522,9 +522,10 @@ namespace YAF.Pages
       }
 
       // Check if the topic name is not too long
-      if (!FormatMsg.WordLengthChecker(this.Subject.Text.Trim()))
+      if (YafContext.Current.BoardSettings.MaxWordLength > 0 && this.Subject.Text.Trim().AreAnyWordsOverMaxLength(YafContext.Current.BoardSettings.MaxWordLength))
       {
-          this.PageContext.AddLoadMessage(this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
+        this.PageContext.AddLoadMessage(
+          this.GetTextFormatted("TOPICNAME_TOOLONG", this.PageContext.BoardSettings.MaxWordLength));
         return;
       }
 
@@ -1064,7 +1065,7 @@ namespace YAF.Pages
     {
       if (this.PageContext.BoardSettings.RemoveNestedQuotes)
       {
-        message = FormatMsg.RemoveNestedQuotes(message);
+        message = YafFormatMessage.RemoveNestedQuotes(message);
       }
 
       // If the message being quoted in YafBBCode but the editor uses HTML, convert the message text to HTML
@@ -1077,7 +1078,7 @@ namespace YAF.Pages
       message = YafServices.BadWordReplace.Replace(message);
 
       // Quote the original message
-      this._forumEditor.Text = String.Format("[quote={0}]{1}[/quote]\n", PageContext.UserDisplayName.GetName(currentRow.Field<int>("UserID")), message).TrimStart();
+      this._forumEditor.Text = "[quote={0}]{1}[/quote]\n".FormatWith(this.PageContext.UserDisplayName.GetName(currentRow.Field<int>("UserID")), message).TrimStart();
     }
 
     /// <summary>

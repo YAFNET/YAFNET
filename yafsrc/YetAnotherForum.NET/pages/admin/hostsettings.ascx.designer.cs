@@ -94,15 +94,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox UseFileTable;
         
         /// <summary>
-        /// PollVoteTiedToIP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox PollVoteTiedToIP;
-        
-        /// <summary>
         /// MaxNumberOfAttachments control.
         /// </summary>
         /// <remarks>
@@ -470,6 +461,60 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox EnableDNACalendar;
+        
+        /// <summary>
+        /// AllowedPollNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AllowedPollNumber;
+        
+        /// <summary>
+        /// AllowedPollChoiceNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AllowedPollChoiceNumber;
+        
+        /// <summary>
+        /// PollVoteTiedToIP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox PollVoteTiedToIP;
+        
+        /// <summary>
+        /// AllowPollChangesAfterFirstVote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowPollChangesAfterFirstVote;
+        
+        /// <summary>
+        /// AllowUsersViewPollVotesBefore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowUsersViewPollVotesBefore;
+        
+        /// <summary>
+        /// AllowGuestsViewPollOptions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowGuestsViewPollOptions;
         
         /// <summary>
         /// CaptchaSize control.
@@ -1046,15 +1091,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox MaxWordLength;
-        
-        /// <summary>
-        /// AllowedPollChoiceNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AllowedPollChoiceNumber;
         
         /// <summary>
         /// UseSSLToLogIn control.

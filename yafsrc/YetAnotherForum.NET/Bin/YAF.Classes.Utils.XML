@@ -1627,6 +1627,192 @@
             The is valid tag.
             </returns>
         </member>
+        <member name="T:YAF.Classes.Utils.EnumExtensions">
+            <summary>
+            The enum extensions.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumExtensions.GetStringValue(System.Enum)">
+            <summary>
+            Will get the string value for a given enums value, this will
+            only work if you assign the StringValue attribute to
+            the items in your enum.
+            </summary>
+            <param name="value">
+            </param>
+            <returns>
+            The get string value.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumExtensions.GetAltStringValue(System.Enum)">
+            <summary>
+            Will get the string value for a given enums value, this will
+            only work if you assign the StringValue attribute to
+            the items in your enum.
+            </summary>
+            <param name="value">
+            </param>
+            <returns>
+            The get alt string value.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumExtensions.Has``1(System.Enum,``0)">
+            <summary>
+            Checks if an enumerated type contains a value
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumExtensions.Include``1(System.Enum,``0)">
+            <summary>
+            Includes an enumerated type and returns the new value
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumExtensions.Include``1(System.Enum,System.UInt64)">
+            <summary>
+            Includes an enumerated type and returns the new value
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumExtensions.Missing``1(System.Enum,``0)">
+            <summary>
+            Checks if an enumerated type is missing a value
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumExtensions.Remove``1(System.Enum,``0)">
+            <summary>
+            Removes an enumerated type and returns the new value
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumExtensions.ToInt(System.Enum)">
+            <summary>
+            Will get the enum value as an integer saving a cast (int).
+            </summary>
+            <param name="value">
+            </param>
+            <returns>
+            The to int.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumExtensions.ToByte(System.Enum)">
+            <summary>
+            Will get the enum value as an Byte saving a cast (byte).
+            </summary>
+            <param name="value">
+            </param>
+            <returns>
+            The to byte.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumExtensions.ToChar(System.Enum)">
+            <summary>
+            Will get the enum value as an char saving a cast (char).
+            </summary>
+            <param name="value">
+            </param>
+            <returns>
+            The to char.
+            </returns>
+        </member>
+        <member name="T:YAF.Classes.Utils.EnumHelper">
+            <summary>
+            The enum helper.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumHelper.EnumToList``1">
+            <summary>
+            Converts an Enum to a List
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.Int32)">
+            <summary>
+            The to enum.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.UInt64)">
+            <summary>
+            The to enum.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.String)">
+            <summary>
+            The to enum.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.String,System.Boolean)">
+            <summary>
+            The to enum.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.Object)">
+            <summary>
+            The to enum.
+            </summary>
+            <param name="value">
+            The value.
+            </param>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+            <exception cref="T:System.ApplicationException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumHelper.EnumToDictionary``1">
+            <summary>
+            Converts an Enum to a Dictionary
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.EnumHelper.EnumToDictionaryByte``1">
+            <summary>
+            Converts an Enum to a Dictionary
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+            <returns>
+            </returns>
+        </member>
         <member name="M:YAF.Classes.Utils.HtmlWriterExtensions.RenderAnchor(System.Web.UI.HtmlTextWriter,System.String,System.String,System.String)">
             <summary>
             The render anchor.
@@ -2483,192 +2669,6 @@
             </param>
             <returns>
             The formatted string
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.EnumExtensions">
-            <summary>
-            The enum extensions.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumExtensions.GetStringValue(System.Enum)">
-            <summary>
-            Will get the string value for a given enums value, this will
-            only work if you assign the StringValue attribute to
-            the items in your enum.
-            </summary>
-            <param name="value">
-            </param>
-            <returns>
-            The get string value.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumExtensions.GetAltStringValue(System.Enum)">
-            <summary>
-            Will get the string value for a given enums value, this will
-            only work if you assign the StringValue attribute to
-            the items in your enum.
-            </summary>
-            <param name="value">
-            </param>
-            <returns>
-            The get alt string value.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumExtensions.Has``1(System.Enum,``0)">
-            <summary>
-            Checks if an enumerated type contains a value
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumExtensions.Include``1(System.Enum,``0)">
-            <summary>
-            Includes an enumerated type and returns the new value
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumExtensions.Include``1(System.Enum,System.UInt64)">
-            <summary>
-            Includes an enumerated type and returns the new value
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumExtensions.Missing``1(System.Enum,``0)">
-            <summary>
-            Checks if an enumerated type is missing a value
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumExtensions.Remove``1(System.Enum,``0)">
-            <summary>
-            Removes an enumerated type and returns the new value
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumExtensions.ToInt(System.Enum)">
-            <summary>
-            Will get the enum value as an integer saving a cast (int).
-            </summary>
-            <param name="value">
-            </param>
-            <returns>
-            The to int.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumExtensions.ToByte(System.Enum)">
-            <summary>
-            Will get the enum value as an Byte saving a cast (byte).
-            </summary>
-            <param name="value">
-            </param>
-            <returns>
-            The to byte.
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumExtensions.ToChar(System.Enum)">
-            <summary>
-            Will get the enum value as an char saving a cast (char).
-            </summary>
-            <param name="value">
-            </param>
-            <returns>
-            The to char.
-            </returns>
-        </member>
-        <member name="T:YAF.Classes.Utils.EnumHelper">
-            <summary>
-            The enum helper.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumHelper.EnumToList``1">
-            <summary>
-            Converts an Enum to a List
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.Int32)">
-            <summary>
-            The to enum.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-            <exception cref="T:System.ApplicationException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.UInt64)">
-            <summary>
-            The to enum.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-            <exception cref="T:System.ApplicationException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.String)">
-            <summary>
-            The to enum.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-            <exception cref="T:System.ApplicationException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.String,System.Boolean)">
-            <summary>
-            The to enum.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-            <exception cref="T:System.ApplicationException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumHelper.ToEnum``1(System.Object)">
-            <summary>
-            The to enum.
-            </summary>
-            <param name="value">
-            The value.
-            </param>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-            <exception cref="T:System.ApplicationException">
-            </exception>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumHelper.EnumToDictionary``1">
-            <summary>
-            Converts an Enum to a Dictionary
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
-            </returns>
-        </member>
-        <member name="M:YAF.Classes.Utils.EnumHelper.EnumToDictionaryByte``1">
-            <summary>
-            Converts an Enum to a Dictionary
-            </summary>
-            <typeparam name="T">
-            </typeparam>
-            <returns>
             </returns>
         </member>
     </members>

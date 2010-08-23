@@ -626,7 +626,6 @@
     <Compile Include="Resource.ashx.cs">
       <DependentUpon>Resource.ashx</DependentUpon>
     </Compile>
-    <Compile Include="YafSystemInfo.cs" />
     <Content Include="advanced.aspx" />
     <Content Include="App_Data\yafnet.mdf" />
     <Content Include="App_Data\yafnet_log.ldf">

@@ -5954,18 +5954,32 @@ namespace YAF.Classes.Data
       }
     }
 
-    public static DataTable pollgroup_list(object userID, object forumId, object boardId)
+    /// <summary>
+    /// Gets a typed poll group list.
+    /// </summary>
+    /// <param name="userID">
+    /// The user id.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static IEnumerable<TypedPollGroup> PollGroupList(int userID, int? forumId, int boardId)
     {
-        using (SqlCommand cmd = YafDBAccess.GetCommand("pollgroup_list"))
-        {
-            cmd.CommandType = CommandType.StoredProcedure;
+      using (SqlCommand cmd = YafDBAccess.GetCommand("pollgroup_list"))
+      {
+        cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("UserID", userID);
-            cmd.Parameters.AddWithValue("ForumID", forumId);
-            cmd.Parameters.AddWithValue("BoardID", boardId);
+        cmd.Parameters.AddWithValue("UserID", userID);
+        cmd.Parameters.AddWithValue("ForumID", forumId);
+        cmd.Parameters.AddWithValue("BoardID", boardId);
 
-            return YafDBAccess.Current.GetData(cmd);
-        }
+        return YafDBAccess.Current.GetData(cmd).AsEnumerable().Select(r => new TypedPollGroup(r));
+      }
     }
 
     /// <summary>

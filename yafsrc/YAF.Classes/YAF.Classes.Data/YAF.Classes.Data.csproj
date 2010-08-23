@@ -102,6 +102,7 @@
     <Compile Include="BaseDataTableResultFilter.cs" />
     <Compile Include="Object\SimpleForum.cs" />
     <Compile Include="Object\SimpleTopic.cs" />
+    <Compile Include="Object\TypedPollGroup.cs" />
     <Compile Include="Object\TypedUserFind.cs" />
     <Compile Include="PollSaveList.cs" />
     <Compile Include="DataRowConvert.cs" />

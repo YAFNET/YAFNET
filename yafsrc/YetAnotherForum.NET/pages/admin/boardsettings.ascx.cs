@@ -23,6 +23,8 @@ namespace YAF.Pages.Admin
   #region Using
 
   using System;
+  using System.Collections;
+  using System.Collections.Generic;
   using System.Data;
   using System.Linq;
   using System.Web.UI.WebControls;
@@ -79,7 +81,6 @@ namespace YAF.Pages.Admin
 
         this.Culture.DataSource =
           StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable();
-            
         this.Culture.DataTextField = "CultureNativeName";
         this.Culture.DataValueField = "CultureTag";
 
@@ -91,40 +92,16 @@ namespace YAF.Pages.Admin
         this.FileExtensionAllow.DataTextField = "Text";
         this.FileExtensionAllow.DataValueField = "Value";
 
-        // bind poll group list
-        DataTable dtpl = DB.pollgroup_list(this.PageContext.PageUserID, null, this.PageContext.PageBoardID);
-       
-        // TODO: repeating code - move to Utils
-        // Remove repeating PollGroupID values  
-        Hashtable hTable = new Hashtable();
-        ArrayList duplicateList = new ArrayList();
-
-        foreach (DataRow drow in dtpl.Rows)
-        {
-            if (hTable.Contains(drow["PollGroupID"]))
-                duplicateList.Add(drow);
-            else
-                hTable.Add(drow["PollGroupID"], string.Empty);
-        }
-        foreach (DataRow dRow in duplicateList)
-        {
-            dtpl.Rows.Remove(dRow);
-        }
-
-          // Add an empty row
-          DataRow ndr = dtpl.NewRow();
-
-        ndr["PollGroupID"] = -1;
-        ndr["Question"] = string.Empty;
-        dtpl.Rows.InsertAt(ndr, 0);
-        
-
-        dtpl.AcceptChanges();
-        this.PollGroupListDropDown.DataSource = dtpl;
-        this.PollGroupListDropDown.DataValueField = "PollGroupID";
-        this.PollGroupListDropDown.DataTextField = "Question";
-
         this.BindData();
+
+        // bind poll group list
+        var pollGroup =
+          DB.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
+            new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
+
+        pollGroup.Insert(0, new TypedPollGroup(String.Empty, -1));
+
+        this.PollGroupListDropDown.Items.AddRange(pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
 
         // population default notification setting options...
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
@@ -171,6 +148,7 @@ if (this.PageContext.BoardSettings.BoardPollID > 0)
         {
             PollGroupListDropDown.SelectedIndex = 0;
         }
+
         this.PollGroupList.Visible = true;
       }
     }
@@ -199,14 +177,7 @@ if (this.PageContext.BoardSettings.BoardPollID > 0)
         this.PageContext.PageBoardID, languageFile, this.Culture.SelectedValue, this.Name.Text, this.AllowThreaded.Checked);
 
       // save poll group
-      if (Convert.ToInt32(this.PollGroupListDropDown.SelectedIndex) > 0)
-      {
-          this.PageContext.BoardSettings.BoardPollID = Convert.ToInt32(this.PollGroupListDropDown.SelectedValue);
-      }
-      else
-      {
-          this.PageContext.BoardSettings.BoardPollID = 0;
-      }
+      this.PageContext.BoardSettings.BoardPollID = this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0 ? this.PollGroupListDropDown.SelectedValue.ToType<int>() : 0;
 
       this.PageContext.BoardSettings.Language = languageFile;
       this.PageContext.BoardSettings.Culture = this.Culture.SelectedValue;

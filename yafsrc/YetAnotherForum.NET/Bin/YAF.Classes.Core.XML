@@ -8399,6 +8399,19 @@
             The ignored user id.
             </param>
         </member>
+        <member name="T:YAF.Classes.Core.NoValidGuestUserForBoardException">
+            <summary>
+            The no valid guest user for board exception.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Core.NoValidGuestUserForBoardException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Core.NoValidGuestUserForBoardException"/> class.
+            </summary>
+            <param name="message">
+            The message.
+            </param>
+        </member>
         <member name="T:YAF.Classes.Core.Nntp.Newsgroup">
             <summary>
             The newsgroup.
@@ -8478,19 +8491,6 @@
             <summary>
             Gets ThisControl.
             </summary>
-        </member>
-        <member name="T:YAF.Classes.Core.NoValidGuestUserForBoardException">
-            <summary>
-            The no valid guest user for board exception.
-            </summary>
-        </member>
-        <member name="M:YAF.Classes.Core.NoValidGuestUserForBoardException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:YAF.Classes.Core.NoValidGuestUserForBoardException"/> class.
-            </summary>
-            <param name="message">
-            The message.
-            </param>
         </member>
     </members>
 </doc>

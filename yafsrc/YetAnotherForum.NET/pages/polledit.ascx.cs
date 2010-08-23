@@ -1,74 +1,379 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Data;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Data;
-using YAF.Classes.Utils;
-using YAF.Controls;
-
-
+﻿/* Yet Another Forum.net
+ * Copyright (C) 2006-2010 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 namespace YAF.Pages
 {
+  #region Using
 
-    public partial class polledit : ForumPage
-    {
-        /// <summary>
-        /// Table with choices
-        /// </summary>
-        protected DataTable choices;
+  using System;
+  using System.Collections.Generic;
+  using System.Data;
+  using System.Drawing;
+  using System.IO;
+  using System.Linq;
+  using System.Net;
+  using System.Web;
+  using System.Web.UI.WebControls;
 
-        /// <summary>
-        /// Table with choices
-        /// </summary>
-        protected DataRow _topicInfo;
+  using YAF.Classes;
+  using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
-       // protected int? pollID;
+  #endregion
 
-        protected int daysPollExpire = 0;
-
-        protected bool topicUnapproved;
-
-        protected  int? topicId;
-
-        protected int? returnForum;
-
-        protected int? editCategoryId;
-
-        protected int? editBoardId;
-
-        protected int? editForumId;
-        
-        protected int? editTopicId;
-
-        protected int? editMessageId;
-
-        protected int? forumId;
-
-        protected int? categoryId;
-
-        protected int? boardId; 
-
-        protected DateTime? datePollExpire = null;
-
-        protected int? PollID
-        { get; set;} 
+  /// <summary>
+  /// The polledit.
+  /// </summary>
+  public partial class polledit : ForumPage
+  {
+    #region Constants and Fields
 
     /// <summary>
-    /// Initializes a new instance of the ReportPost class.
+    ///   Table with choices
+    /// </summary>
+    protected DataRow _topicInfo;
+
+    /// <summary>
+    /// The board id.
+    /// </summary>
+    protected int? boardId;
+
+    /// <summary>
+    /// The category id.
+    /// </summary>
+    protected int? categoryId;
+
+    /// <summary>
+    ///   Table with choices
+    /// </summary>
+    protected DataTable choices;
+
+    /// <summary>
+    /// The date poll expire.
+    /// </summary>
+    protected DateTime? datePollExpire;
+
+    // protected int? pollID;
+
+    /// <summary>
+    /// The days poll expire.
+    /// </summary>
+    protected int daysPollExpire;
+
+    /// <summary>
+    /// The edit board id.
+    /// </summary>
+    protected int? editBoardId;
+
+    /// <summary>
+    /// The edit category id.
+    /// </summary>
+    protected int? editCategoryId;
+
+    /// <summary>
+    /// The edit forum id.
+    /// </summary>
+    protected int? editForumId;
+
+    /// <summary>
+    /// The edit message id.
+    /// </summary>
+    protected int? editMessageId;
+
+    /// <summary>
+    /// The edit topic id.
+    /// </summary>
+    protected int? editTopicId;
+
+    /// <summary>
+    /// The forum id.
+    /// </summary>
+    protected int? forumId;
+
+    /// <summary>
+    /// The return forum.
+    /// </summary>
+    protected int? returnForum;
+
+    /// <summary>
+    /// The topic id.
+    /// </summary>
+    protected int? topicId;
+
+    /// <summary>
+    /// The topic unapproved.
+    /// </summary>
+    protected bool topicUnapproved;
+
+    #endregion
+
+    #region Constructors and Destructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="polledit"/> class. 
+    ///   Initializes a new instance of the ReportPost class.
     /// </summary>
     public polledit()
       : base("POLLEDIT")
     {
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets PollID.
+    /// </summary>
+    protected int? PollID { get; set; }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// An image reader to read images on local disk.
+    /// </summary>
+    /// <param name="path">
+    /// The path.
+    /// </param>
+    public Stream GetLocalData(Uri path)
+    {
+      return new FileStream(path.LocalPath, FileMode.Open);
+    }
+
+    /// <summary>
+    /// The get remote data.
+    /// </summary>
+    /// <param name="url">
+    /// The url.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public Stream GetRemoteData(Uri url)
+    {
+      string path = url.ToString();
+
+      try
+      {
+        if (path.StartsWith("~/"))
+        {
+          path = "file://" + HttpRuntime.AppDomainAppPath + path.Substring(2, path.Length - 2);
+        }
+
+        WebRequest request = WebRequest.Create(new Uri(path));
+
+        WebResponse response = request.GetResponse();
+
+        return response.GetResponseStream();
+      }
+      catch
+      {
+        return new MemoryStream();
+      }
+ // Don't make the program crash just because we have a picture which failed downloading
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The cancel_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="eventArgs">
+    /// The event args.
+    /// </param>
+    protected void Cancel_Click(object sender, EventArgs eventArgs)
+    {
+      this.ReturnToPage();
+    }
+
+    /// <summary>
+    /// The change poll show status.
+    /// </summary>
+    /// <param name="newStatus">
+    /// The new status.
+    /// </param>
+    protected void ChangePollShowStatus(bool newStatus)
+    {
+      this.SavePoll.Visible = newStatus;
+      this.Cancel.Visible = newStatus;
+      this.PollRow1.Visible = newStatus;
+      this.PollRowExpire.Visible = newStatus;
+
+      /*  var pollRow = (HtmlTableRow)this.FindControl(String.Format("PollRow{0}", 1));
+
+            if (pollRow != null)
+            {
+                pollRow.Visible = newStatus;
+            } */
+    }
+
+    /// <summary>
+    /// From a path, return a byte[] of the image.
+    /// </summary>
+    /// <param name="uriPath">
+    /// </param>
+    /// <returns>
+    /// The get image parameters.
+    /// </returns>
+    protected string GetImageParameters(Uri uriPath)
+    {
+      string pseudoMime = string.Empty;
+      using (Stream stream = this.GetRemoteData(uriPath))
+      {
+        var data = new byte[0];
+        Bitmap img = null;
+        try
+        {
+          pseudoMime += "image/png!";
+          img = new Bitmap(stream);
+          pseudoMime += img.Width;
+          pseudoMime += ';';
+          pseudoMime += img.Height;
+        }
+        catch
+        {
+          return null;
+        }
+        finally
+        {
+          if (img != null)
+          {
+            img.Dispose();
+          }
+        }
+
+        stream.Close();
+        return pseudoMime;
+      }
+    }
+
+    /// <summary>
+    /// The is input verified.
+    /// </summary>
+    /// <returns>
+    /// The is input verified.
+    /// </returns>
+    protected bool IsInputVerified()
+    {
+      if (Convert.ToInt32(this.PollGroupListDropDown.SelectedIndex) <= 0)
+      {
+        if (this.Question.Text.Trim().Length == 0)
+        {
+          YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "NEED_QUESTION"));
+          return false;
+        }
+
+        int notNullcount = 0;
+        foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
+        {
+          if (!string.IsNullOrEmpty(((TextBox)ri.FindControl("PollChoice")).Text.Trim()))
+          {
+            notNullcount++;
+          }
+        }
+
+        if (notNullcount < 2)
+        {
+          YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "NEED_CHOICES"));
+          return false;
+        }
+
+        int dateVerified = 0;
+        if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) &&
+            (!String.IsNullOrEmpty(this.PollExpire.Text.Trim())))
+        {
+          YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "EXPIRE_BAD"));
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    /// <summary>
+    /// The page_ load.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="e">
+    /// The e.
+    /// </param>
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      this.PollExpire.Attributes.Add("style", "width:50px");
+
+      this.InitializeVariables();
+
+      this.PollObjectRow1.Visible = this.PageContext.IsAdmin && this.PageContext.ForumPollAccess;
+
+      if (int.TryParse(this.PollExpire.Text.Trim(), out this.daysPollExpire))
+      {
+        this.datePollExpire = DateTime.UtcNow.AddDays(this.daysPollExpire);
+      }
+
+      if (!this.IsPostBack)
+      {
+        this.AddPageLinks();
+      }
+
+      // Admin can attach anexisting group if it's a new poll - this.pollID <= 0
+      if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
+      {
+        var pollGroup =
+          DB.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
+            new AreEqualFunc<TypedPollGroup>((id1, id2) => id1.PollGroupID == id2.PollGroupID)).ToList();
+
+        pollGroup.Insert(0, new TypedPollGroup(String.Empty, -1));
+
+        this.PollGroupListDropDown.Items.AddRange(
+          pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
+
+        this.PollGroupListDropDown.DataBind();
+        this.PollGroupList.Visible = true;
+      }
+    }
+
+    /// <summary>
+    /// The save poll_ click.
+    /// </summary>
+    /// <param name="sender">
+    /// The sender.
+    /// </param>
+    /// <param name="eventArgs">
+    /// The event args.
+    /// </param>
+    protected void SavePoll_Click(object sender, EventArgs eventArgs)
+    {
+      if (this.PageContext.ForumPollAccess && this.IsInputVerified())
+      {
+        if (this.GetPollID() == true)
+        {
+          this.ReturnToPage();
+        }
+      }
     }
 
     /// <summary>
@@ -76,826 +381,582 @@ namespace YAF.Pages
     /// </summary>
     private void AddPageLinks()
     {
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        if (this.categoryId > 0)
-        {
-            this.PageLinks.AddLink(
-                this.PageContext.PageCategoryName,
-                YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.categoryId));
-        }
-        if (this.returnForum > 0)
-        {
-            this.PageLinks.AddLink(
-                DB.forum_list(this.PageContext.PageBoardID, this.returnForum).Rows[0]["Name"].ToString(),
-                YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.returnForum));
-        }
-        if (this.forumId > 0)
-        {
-            this.PageLinks.AddLink(
-                DB.forum_list(this.PageContext.PageBoardID, this.returnForum).Rows[0]["Name"].ToString(),
-                YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.forumId));
-        }
-        if (this.topicId > 0)
-        {
-            this.PageLinks.AddLink(
-                this._topicInfo["Topic"].ToString(),
-                YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.topicId));
-        }
-        if (this.editMessageId > 0)
-        {
-            this.PageLinks.AddLink(
-                this._topicInfo["Topic"].ToString(),
-                YafBuildLink.GetLink(ForumPages.postmessage, "m={0}", this.editMessageId));
-        }
+      this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+      if (this.categoryId > 0)
+      {
+        this.PageLinks.AddLink(
+          this.PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.categoryId));
+      }
 
-        this.PageLinks.AddLink(this.GetText("POLLEDIT", "TITLE"), string.Empty);
+      if (this.returnForum > 0)
+      {
+        this.PageLinks.AddLink(
+          DB.forum_list(this.PageContext.PageBoardID, this.returnForum).Rows[0]["Name"].ToString(), 
+          YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.returnForum));
+      }
+
+      if (this.forumId > 0)
+      {
+        this.PageLinks.AddLink(
+          DB.forum_list(this.PageContext.PageBoardID, this.returnForum).Rows[0]["Name"].ToString(), 
+          YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.forumId));
+      }
+
+      if (this.topicId > 0)
+      {
+        this.PageLinks.AddLink(
+          this._topicInfo["Topic"].ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.topicId));
+      }
+
+      if (this.editMessageId > 0)
+      {
+        this.PageLinks.AddLink(
+          this._topicInfo["Topic"].ToString(), YafBuildLink.GetLink(ForumPages.postmessage, "m={0}", this.editMessageId));
+      }
+
+      this.PageLinks.AddLink(this.GetText("POLLEDIT", "TITLE"), string.Empty);
     }
-        /// <summary>
-        /// Initializes page context query variables.
-        /// </summary>
-        private void InitializeVariables()
+
+    /// <summary>
+    /// Checks access rights for the page
+    /// </summary>
+    private void CheckAccess()
+    {
+      if (this.boardId > 0 || this.categoryId > 0)
+      {
+        // invalid category
+        bool categoryVars = this.categoryId > 0 &&
+                            (this.topicId > 0 || this.editTopicId > 0 || this.editMessageId > 0 || this.editForumId > 0 ||
+                             this.editBoardId > 0 || this.forumId > 0 || this.boardId > 0);
+
+        // invalid board vars
+        bool boardVars = this.boardId > 0 &&
+                         (this.topicId > 0 || this.editTopicId > 0 || this.editMessageId > 0 || this.editForumId > 0 ||
+                          this.editBoardId > 0 || this.forumId > 0 || this.categoryId > 0);
+        if (!categoryVars || (!boardVars))
         {
-          
-            PageContext.QueryIDs = new QueryStringIDHelper(new string[14]{"p","ra","ntp","t","e","em","m","f", "ef","c","ec","b","eb","rf"});
-           
-            if (this.PageContext.QueryIDs != null)
+          YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+        }
+      }
+      else if (this.forumId > 0 && (!this.PageContext.ForumPollAccess))
+      {
+        YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+      }
+    }
+
+    /// <summary>
+    /// The get poll id.
+    /// </summary>
+    /// <returns>
+    /// The get poll id.
+    /// </returns>
+    private bool? GetPollID()
+    {
+      if (int.TryParse(this.PollExpire.Text.Trim(), out this.daysPollExpire))
+      {
+        this.datePollExpire = DateTime.UtcNow.AddDays(this.daysPollExpire);
+      }
+
+      string questionPath = this.QuestionObjectPath.Text.Trim();
+      string questionMime = string.Empty;
+
+      if (!String.IsNullOrEmpty(questionPath))
+      {
+        questionMime = this.GetImageParameters(new Uri(questionPath));
+        if (questionMime == null)
+        {
+          YafContext.Current.AddLoadMessage(
+            YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID", this.QuestionObjectPath.Text.Trim()));
+          return false;
+        }
+      }
+
+      // we are just using existing poll
+      if (this.PollID != null)
+      {
+        DB.poll_update(
+          this.PollID, 
+          this.Question.Text, 
+          this.datePollExpire, 
+          this.IsBoundCheckBox.Checked, 
+          this.IsClosedBoundCheckBox.Checked, 
+          questionPath, 
+          questionMime);
+
+        foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
+        {
+          string choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
+          string chid = ((HiddenField)ri.FindControl("PollChoiceID")).Value;
+          string objectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
+
+          string parametrs = string.Empty;
+
+          // update choice
+          if (!String.IsNullOrEmpty(objectPath))
+          {
+            parametrs = this.GetImageParameters(new Uri(objectPath));
+            if (parametrs == null)
             {
-
-            // we return to a specific place, general token 
-                if (this.PageContext.QueryIDs.ContainsKey("ra"))
-                {
-                    this.topicUnapproved = true;
-                }
-                // we return to a forum (used when a topic should be approved)
-                if (this.PageContext.QueryIDs.ContainsKey("f"))
-                {
-                    this.forumId = this.returnForum = (int)this.PageContext.QueryIDs["f"]; 
-                }
-            
-                if (this.PageContext.QueryIDs.ContainsKey("t"))
-                {
-                    this.topicId = (int)this.PageContext.QueryIDs["t"];
-                    this._topicInfo = DB.topic_info(this.topicId);
-                }
-                if (this.PageContext.QueryIDs.ContainsKey("m"))
-                {
-                    this.editMessageId = (int) this.PageContext.QueryIDs["m"];
-                }
-                        if (this.editMessageId == null)
-                        {
-                                
-                                if (this.PageContext.QueryIDs.ContainsKey("ef"))
-                                {
-                                    this.categoryId = (int) this.PageContext.QueryIDs["ef"];
-                                }
-                                if (this.editForumId == null)
-                                {
-                                    
-                                    if (this.PageContext.QueryIDs.ContainsKey("c"))
-                                    {
-                                        this.categoryId = (int) this.PageContext.QueryIDs["c"];
-                                    }
-                                    if (this.categoryId == null)
-                                    {
-                                        
-                                        if (this.PageContext.QueryIDs.ContainsKey("ec"))
-                                        {
-                                            this.editCategoryId = (int) this.PageContext.QueryIDs["ec"];
-                                        }
-                                        if (this.editCategoryId == null)
-                                        {
-                                            
-                                            if (this.PageContext.QueryIDs.ContainsKey("b"))
-                                            {
-                                                this.boardId = (int) this.PageContext.QueryIDs["b"];
-                                            }
-                                            if (this.boardId == null)
-                                            {
-                                                if (this.PageContext.QueryIDs.ContainsKey("eb"))
-                                                {
-                                                    this.editBoardId = (int) this.PageContext.QueryIDs["eb"];
-                                                }
-
-                                            }
-                                      
-                               
-                            }
-                        }
-                    }
-                }
-
-                    // Check if the user has the page access and variables are correct. 
-                    CheckAccess();
-
-                    // handle poll
-                    if (this.PageContext.QueryIDs.ContainsKey("p"))
-                    {
-                        // edit existing poll
-                        PollID = (int) this.PageContext.QueryIDs["p"];
-                        InitPollUI(PollID);
-                    }
-                    else
-                    {
-                        // new poll
-                        this.PollRow1.Visible = true;
-                        InitPollUI(null);
-
-                    }
+              YafContext.Current.AddLoadMessage(
+                YafContext.Current.Localization.GetTextFormatted(
+                  "POLLIMAGE_INVALID", ri.FindControlRecursiveAs<TextBox>("ObjectPath").Text));
+              return false;
             }
-            else
-            {
-                YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
-            }
-          
-            
+          }
+
+          if (string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
+          {
+            // add choice
+            DB.choice_add(this.PollID, choice, objectPath, parametrs);
+          }
+          else if (!string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
+          {
+            DB.choice_update(chid, choice, objectPath, parametrs);
+          }
+          else if (!string.IsNullOrEmpty(chid) && string.IsNullOrEmpty(choice))
+          {
+            // remove choice
+            DB.choice_delete(chid);
+          }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+        return true;
+      }
+      else if (this.PollID == null)
+      {
+        // User wishes to create a poll  
+        // The value was selected, we attach an existing poll
+        if (Convert.ToInt32(this.PollGroupListDropDown.SelectedIndex) > 0)
         {
-            this.PollExpire.Attributes.Add("style", "width:50px");
+          int result = DB.pollgroup_attach(
+            Convert.ToInt32(this.PollGroupListDropDown.SelectedValue), 
+            this.topicId, 
+            this.forumId, 
+            this.categoryId, 
+            this.boardId);
+          if (result == 1)
+          {
+            this.PageContext.LoadMessage.Add(this.GetText("POLLEDIT", "POLLGROUP_ATTACHED"));
+          }
 
-            InitializeVariables();
+          return true;
+        }
+        else
+        {
+          // vzrus: always one in the current code - a number of  polls for a topic
+          int questionsTotal = 1;
 
-            PollObjectRow1.Visible = PageContext.IsAdmin && PageContext.ForumPollAccess;
+          var pollList = new List<PollSaveList>(questionsTotal);
 
-            if (int.TryParse(this.PollExpire.Text.Trim(), out daysPollExpire))
-            {
-                datePollExpire = DateTime.UtcNow.AddDays(daysPollExpire);
-            }
-            if (!IsPostBack)
-            {
-                AddPageLinks();
-            } 
+          var rawChoices = new string[3, this.ChoiceRepeater.Items.Count];
+          int j = 0;
+          foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
+          {
+            rawChoices[0, j] = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
+            rawChoices[1, j] = questionPath;
+            rawChoices[2, j] = questionMime;
+            j++;
+          }
 
-            // Admin can attach anexisting group if it's a new poll - this.pollID <= 0
-            if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
-            {
-                DataTable dt = DB.pollgroup_list(this.PageContext.PageUserID, null, this.PageContext.PageBoardID);
+          int? realTopic = this.topicId;
 
-                // TODO: repeating code - move to Utils
-                // Remove repeating PollGroupID values  
-                Hashtable hTable = new Hashtable();
-                ArrayList duplicateList = new ArrayList();
+          if (this.topicId == null)
+          {
+            realTopic = this.editTopicId;
+          }
 
-                foreach (DataRow drow in dt.Rows)
-                {
-                    if (hTable.Contains(drow["PollGroupID"]))
-                        duplicateList.Add(drow);
-                    else
-                        hTable.Add(drow["PollGroupID"], string.Empty);
-                }
-                foreach (DataRow dRow in duplicateList)
-                {
-                    dt.Rows.Remove(dRow);
-                }
+          if (this.datePollExpire == null && (!String.IsNullOrEmpty(this.PollExpire.Text.Trim())))
+          {
+            this.datePollExpire = DateTime.UtcNow.AddDays(Convert.ToInt32(this.PollExpire.Text.Trim()));
+          }
 
-                DataRow ndr = dt.NewRow();
+          pollList.Add(
+            new PollSaveList(
+              this.Question.Text, 
+              rawChoices, 
+              this.datePollExpire, 
+              this.PageContext.PageUserID, 
+              realTopic, 
+              this.forumId, 
+              this.categoryId, 
+              this.boardId, 
+              questionPath, 
+              questionMime, 
+              this.IsBoundCheckBox.Checked, 
+              this.IsClosedBoundCheckBox.Checked));
+          DB.poll_save(pollList);
+          return true;
+        }
+      }
 
-                ndr["PollGroupID"] = -1;
-                ndr["Question"] = string.Empty;
-                dt.Rows.InsertAt(ndr, 0);
+      return false; // A poll was not created for this topic.
+    }
 
-                dt.AcceptChanges();
-                this.PollGroupListDropDown.DataSource = dt;
-                this.PollGroupListDropDown.DataValueField = "PollGroupID";
-                this.PollGroupListDropDown.DataTextField = "Question";
+    /// <summary>
+    /// The init poll ui.
+    /// </summary>
+    /// <param name="pollID">
+    /// The poll ID.
+    /// </param>
+    private void InitPollUI(int? pollID)
+    {
+      // we should get the schema anyway
+      this.choices = DB.poll_stats(pollID);
+      this.choices.Columns.Add("ChoiceOrderID", typeof(int));
 
-                this.PollGroupListDropDown.DataBind();
-                this.PollGroupList.Visible = true;
+      // First existing values alway 1!
+      int existingRowsCount = 1;
+      int allExistingRowsCount = this.choices.Rows.Count;
 
-
-            }
-
-
-
+      // we edit existing poll 
+      if (this.choices.Rows.Count > 0)
+      {
+        if ((Convert.ToInt32(this.choices.Rows[0]["UserID"]) != this.PageContext.PageUserID) &&
+            (!this.PageContext.IsAdmin) && (!this.PageContext.IsForumModerator))
+        {
+          YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
         }
 
-
-        /// <summary>
-        /// The init poll ui.
-        /// </summary>
-        /// <param name="PollID">
-        /// The PollID.
-        /// </param>
-        private void InitPollUI(int? pollID)
+        if (Convert.ToInt32(this.choices.Rows[0]["IsBound"]) == 2)
         {
-                 
-                // we should get the schema anyway
-                choices = DB.poll_stats(pollID);
-                choices.Columns.Add("ChoiceOrderID", typeof(int));
-                
-                // First existing values alway 1!
-                int existingRowsCount = 1;
-                int allExistingRowsCount = choices.Rows.Count;
-
-                // we edit existing poll 
-                if (choices.Rows.Count > 0)
-                {
-                    if ((Convert.ToInt32(choices.Rows[0]["UserID"]) != this.PageContext.PageUserID) && (!PageContext.IsAdmin) && (!PageContext.IsForumModerator))
-                    {
-                        YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
-                    }
-
-                     if (Convert.ToInt32(choices.Rows[0]["IsBound"]) == 2 )
-                     {
-                         IsBoundCheckBox.Checked = true;
-                     }
-                     if (Convert.ToInt32(choices.Rows[0]["IsClosedBound"]) == 4)
-                     {
-                         IsClosedBoundCheckBox.Checked = true;
-                     }
-
-                    this.Question.Text = choices.Rows[0]["Question"].ToString();
-                    this.QuestionObjectPath.Text = choices.Rows[0]["QuestionObjectPath"].ToString();
-                    
-                    if (choices.Rows[0]["Closes"] != DBNull.Value)
-                    {
-                        TimeSpan closing = (DateTime) choices.Rows[0]["Closes"] - DateTime.UtcNow;
-
-                        this.PollExpire.Text = SqlDataLayerConverter.VerifyInt32(closing.TotalDays + 1).ToString();
-                    }
-                    else
-                    {
-                        this.PollExpire.Text = null;
-                    }
-
-                   
-                    foreach (DataRow choiceRow in choices.Rows)
-                    {
-                        choiceRow["ChoiceOrderID"] = existingRowsCount;
-                        
-                        existingRowsCount++;
-                    }
-
-                    // Get isBound value directly
-                    if (Convert.ToInt32(choices.Rows[0]["IsBound"]) == 2)
-                    {
-                        IsBoundCheckBox.Checked = true;
-                    }
-                    if (Convert.ToInt32(choices.Rows[0]["IsClosedBound"]) == 4)
-                    {
-                        IsClosedBoundCheckBox.Checked = true;
-                    }
-                }
-                else
-                {
-                    // Get isBound value using page variables. They are initialized here.
-                   
-                    int pgidt = 0;
-                    // If a topic poll is edited or new topic created
-                    if (this.topicId > 0 && _topicInfo !=null)
-                    {
-                       // topicid should not be null here 
-                       if (_topicInfo["PollID"] != DBNull.Value)
-                        {
-                            pgidt = (int)_topicInfo["PollID"];
-
-                            if (Convert.ToInt32(DB.pollgroup_stats((int)pgidt).Rows[0]["IsBound"]) == 2)
-                            {
-                                IsBoundCheckBox.Checked = true;
-                            }
-                            if (Convert.ToInt32(DB.pollgroup_stats((int)pgidt).Rows[0]["IsClosedBound"]) == 4)
-                            {
-                                IsClosedBoundCheckBox.Checked = true;
-                            }
-                        }
-                    }
-                    else if (this.forumId > 0 && (!(this.topicId > 0) || (!(this.editTopicId > 0))))
-                    {
-                        // forumid should not be null here
-                      
-                            pgidt = (int)DB.forum_list(this.PageContext.PageBoardID, this.forumId).Rows[0]["PollGroupID"];
-                       
-
-                    }
-                    else if (this.categoryId > 0)
-                    {
-                        // categoryid should not be null here
-                        pgidt = (int)DB.category_listread(this.PageContext.PageBoardID, this.PageContext.PageUserID, this.categoryId).Rows[0]["PollGroupID"];
-
-                    }
-
-                    if (pgidt > 0)
-                    {
-                        if (Convert.ToInt32(DB.pollgroup_stats(pgidt).Rows[0]["IsBound"]) == 2)
-                        {
-                            IsBoundCheckBox.Checked = true;
-                        }
-                        if (Convert.ToInt32(DB.pollgroup_stats((int)pgidt).Rows[0]["IsClosedBound"]) == 4)
-                        {
-                            IsClosedBoundCheckBox.Checked = true;
-                        }
-                    }
-
-                    // clear the fields...
-                    this.PollExpire.Text = string.Empty;
-                    this.Question.Text = string.Empty;
-                }
-
-
-                int dummyRowsCount = PageContext.BoardSettings.AllowedPollChoiceNumber - allExistingRowsCount - 1;
-                for (int i = 0; i <= dummyRowsCount; i++)
-                {
-                    DataRow drow = choices.NewRow();
-                    drow["ChoiceOrderID"] = existingRowsCount + i;
-                    choices.Rows.Add(drow);
-                }
-                this.ChoiceRepeater.DataSource = choices;
-                this.ChoiceRepeater.DataBind();
-                this.ChoiceRepeater.Visible = true;
-           
-                this.ChangePollShowStatus(true);
-                IsBound.Visible = true;
-                IsClosedBound.Visible = true;
-
-           
+          this.IsBoundCheckBox.Checked = true;
         }
 
-        /// <summary>
-        /// Checks access rights for the page
-        /// </summary>
-        private void CheckAccess()
+        if (Convert.ToInt32(this.choices.Rows[0]["IsClosedBound"]) == 4)
         {
-            if (this.boardId > 0 || this.categoryId > 0)
-            {
-                // invalid category
-                bool categoryVars = this.categoryId > 0 &&
-                                    (this.topicId > 0 || this.editTopicId > 0 || this.editMessageId > 0 ||
-                                     this.editForumId > 0 || this.editBoardId > 0 || this.forumId > 0 ||
-                                     this.boardId > 0);
-                // invalid board vars
-                bool boardVars = this.boardId > 0 &&
-                                 (this.topicId > 0 || this.editTopicId > 0 || this.editMessageId > 0 ||
-                                  this.editForumId > 0 || this.editBoardId > 0 || this.forumId > 0 ||
-                                  this.categoryId > 0);
-                if (!categoryVars || (!boardVars))
-                {
-                    YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
-                }
-            }
-            else if (this.forumId > 0 && (!this.PageContext.ForumPollAccess))
-            {
-                YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
-            }
-
-          
+          this.IsClosedBoundCheckBox.Checked = true;
         }
 
-        /// <summary>
-        /// The change poll show status.
-        /// </summary>
-        /// <param name="newStatus">
-        /// The new status.
-        /// </param>
-        protected void ChangePollShowStatus(bool newStatus)
+        this.Question.Text = this.choices.Rows[0]["Question"].ToString();
+        this.QuestionObjectPath.Text = this.choices.Rows[0]["QuestionObjectPath"].ToString();
+
+        if (this.choices.Rows[0]["Closes"] != DBNull.Value)
         {
-            this.SavePoll.Visible = newStatus;
-            this.Cancel.Visible = newStatus;
-            this.PollRow1.Visible = newStatus;
-            this.PollRowExpire.Visible = newStatus;
+          TimeSpan closing = (DateTime)this.choices.Rows[0]["Closes"] - DateTime.UtcNow;
 
-          /*  var pollRow = (HtmlTableRow)this.FindControl(String.Format("PollRow{0}", 1));
-
-            if (pollRow != null)
-            {
-                pollRow.Visible = newStatus;
-            } */
+          this.PollExpire.Text = SqlDataLayerConverter.VerifyInt32(closing.TotalDays + 1).ToString();
+        }
+        else
+        {
+          this.PollExpire.Text = null;
         }
 
-        protected bool IsInputVerified()
+        foreach (DataRow choiceRow in this.choices.Rows)
         {
-       
-             if (Convert.ToInt32(this.PollGroupListDropDown.SelectedIndex) <= 0)
-                {
-                if (this.Question.Text.Trim().Length == 0)
-                {
-                    YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "NEED_QUESTION"));
-                    return false;
-                }
+          choiceRow["ChoiceOrderID"] = existingRowsCount;
 
-                int notNullcount = 0;
-                foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
-                {
-                    if (!string.IsNullOrEmpty(((TextBox)ri.FindControl("PollChoice")).Text.Trim()))
-                    {
-                        notNullcount++;
-                    }
-                }
-
-                if (notNullcount < 2)
-                {
-                    YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT", "NEED_CHOICES"));
-                    return false;
-                }
-
-               int dateVerified = 0;
-               if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) && (!String.IsNullOrEmpty(this.PollExpire.Text.Trim())))
-               {
-                   YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetText("POLLEDIT","EXPIRE_BAD"));
-                   return false;
-               }
-                
-            }
-            return true;
+          existingRowsCount++;
         }
 
-        /// <summary>
-        /// The get poll id.
-        /// </summary>
-        /// <returns>
-        /// The get poll id.
-        /// </returns>
-        private bool? GetPollID()
+        // Get isBound value directly
+        if (Convert.ToInt32(this.choices.Rows[0]["IsBound"]) == 2)
         {
-            if (int.TryParse(this.PollExpire.Text.Trim(), out daysPollExpire))
-            {
-                datePollExpire = DateTime.UtcNow.AddDays(daysPollExpire);
-            }
-
-            string questionPath = this.QuestionObjectPath.Text.Trim();
-            string questionMime = string.Empty;
-
-            if (!String.IsNullOrEmpty(questionPath))
-            {
-                questionMime = GetImageParameters(new Uri(questionPath));
-                if (questionMime == null)
-                {
-                    YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID", this.QuestionObjectPath.Text.Trim()));
-                    return false;
-                }
-            }
-           
-            // we are just using existing poll
-            if (this.PollID != null)
-             {
-                
-                
-                 DB.poll_update(PollID, this.Question.Text, datePollExpire, this.IsBoundCheckBox.Checked, this.IsClosedBoundCheckBox.Checked, questionPath, questionMime);
-
-                 foreach (RepeaterItem ri in ChoiceRepeater.Items)
-                 {
-                     string choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
-                     string chid = ((HiddenField)ri.FindControl("PollChoiceID")).Value;
-                     string objectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
-                     
-                     string parametrs = string.Empty;
-                     // update choice
-                     if (!String.IsNullOrEmpty(objectPath))
-                     {
-                         parametrs = GetImageParameters(new Uri(objectPath));
-                         if (parametrs == null)
-                         {
-                             YafContext.Current.AddLoadMessage(YafContext.Current.Localization.GetTextFormatted("POLLIMAGE_INVALID",ri.FindControlRecursiveAs<TextBox>("ObjectPath").Text));
-                             return false;
-                         }
-                     }
-                    
-                     if (string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
-                     {
-                         // add choice
-                         DB.choice_add(PollID, choice, objectPath, parametrs);
-                     }
-                     else if (!string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
-                     {
-                         DB.choice_update(chid, choice, objectPath, parametrs);
-                     }
-                     else if (!string.IsNullOrEmpty(chid) && string.IsNullOrEmpty(choice))
-                     {
-                         // remove choice
-                         DB.choice_delete(chid);
-                     }
-                 }
-
-                 return true;
-             }
-            else if (this.PollID == null)
-             {
-                // User wishes to create a poll  
-                // The value was selected, we attach an existing poll
-                if (Convert.ToInt32(this.PollGroupListDropDown.SelectedIndex) > 0)
-                {
-                    int result = DB.pollgroup_attach((int?)Convert.ToInt32(this.PollGroupListDropDown.SelectedValue),
-                                                     this.topicId, this.forumId, this.categoryId, this.boardId);
-                    if (result == 1)
-                    {
-                        PageContext.LoadMessage.Add(GetText("POLLEDIT", "POLLGROUP_ATTACHED"));
-                    }
-                    return true;
-                }
-                
-                 else
-                 {
-
-
-                     // vzrus: always one in the current code - a number of  polls for a topic
-                     int questionsTotal = 1;
-
-                     System.Collections.Generic.List<PollSaveList> pollList =
-                         new System.Collections.Generic.List<PollSaveList>(questionsTotal);
-                     
-                    
-                     string[,] rawChoices = new string[3,ChoiceRepeater.Items.Count];
-                     int j = 0;
-                     foreach (RepeaterItem ri in ChoiceRepeater.Items)
-                     {
-                         rawChoices[0,j] = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
-                         rawChoices[1, j] = questionPath;
-                         rawChoices[2, j] = questionMime;
-                         j++;
-                     }
-
-                     int? realTopic = this.topicId;
-
-                     if (this.topicId == null)
-                     {
-                         realTopic = this.editTopicId;
-                     }
-
-
-                     if (datePollExpire == null && (!String.IsNullOrEmpty(this.PollExpire.Text.Trim())))
-                     {
-
-                         datePollExpire = DateTime.UtcNow.AddDays(Convert.ToInt32(this.PollExpire.Text.Trim()));
-                     }
-
-                     pollList.Add(new PollSaveList(this.Question.Text,
-                                                   rawChoices,
-                                                   (DateTime?)datePollExpire, this.PageContext.PageUserID, realTopic,
-                                                   this.forumId, this.categoryId, this.boardId, questionPath, questionMime, IsBoundCheckBox.Checked, this.IsClosedBoundCheckBox.Checked));
-                     DB.poll_save(pollList);
-                     return true;
-                 }
-
-             }
-           
-
-            return false; // A poll was not created for this topic.
+          this.IsBoundCheckBox.Checked = true;
         }
 
-
-        /// <summary>
-
-        /// An image reader to read images on local disk.
-
-        /// </summary>
-
-    
-        public Stream GetLocalData(Uri path)
-           {
-            return new FileStream(path.LocalPath, FileMode.Open);
-            }
-
-
-        public Stream GetRemoteData(Uri url)
+        if (Convert.ToInt32(this.choices.Rows[0]["IsClosedBound"]) == 4)
         {
+          this.IsClosedBoundCheckBox.Checked = true;
+        }
+      }
+      else
+      {
+        // Get isBound value using page variables. They are initialized here.
+        int pgidt = 0;
 
-            string path = url.ToString();
+        // If a topic poll is edited or new topic created
+        if (this.topicId > 0 && this._topicInfo != null)
+        {
+          // topicid should not be null here 
+          if (this._topicInfo["PollID"] != DBNull.Value)
+          {
+            pgidt = (int)this._topicInfo["PollID"];
 
-            try
+            if (Convert.ToInt32(DB.pollgroup_stats(pgidt).Rows[0]["IsBound"]) == 2)
             {
-
-                if (path.StartsWith("~/"))
-
-                    path = "file://" + HttpRuntime.AppDomainAppPath + path.Substring(2, path.Length - 2);
-
-
-
-                WebRequest request = (WebRequest)WebRequest.Create(new Uri(path));
-
-
-
-                WebResponse response = request.GetResponse() as WebResponse;
-
-
-
-                return response.GetResponseStream();
-
+              this.IsBoundCheckBox.Checked = true;
             }
 
-            catch { return new MemoryStream(); } // Don't make the program crash just because we have a picture which failed downloading
-
+            if (Convert.ToInt32(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]) == 4)
+            {
+              this.IsClosedBoundCheckBox.Checked = true;
+            }
+          }
+        }
+        else if (this.forumId > 0 && (!(this.topicId > 0) || (!(this.editTopicId > 0))))
+        {
+          // forumid should not be null here
+          pgidt = (int)DB.forum_list(this.PageContext.PageBoardID, this.forumId).Rows[0]["PollGroupID"];
+        }
+        else if (this.categoryId > 0)
+        {
+          // categoryid should not be null here
+          pgidt =
+            (int)
+            DB.category_listread(this.PageContext.PageBoardID, this.PageContext.PageUserID, this.categoryId).Rows[0][
+              "PollGroupID"];
         }
 
-
-        /// <summary>
-        /// From a path, return a byte[] of the image.
-        /// </summary>
-        /// <param name="uriPath"></param>
-        /// <returns></returns>
-
-        protected string GetImageParameters(Uri uriPath)
+        if (pgidt > 0)
         {
-            string pseudoMime = string.Empty;
-            using (Stream stream = GetRemoteData(uriPath))
-            {
-                byte[] data = new byte[0];
-                Bitmap img = null;
-                try
-                {
-                    pseudoMime += "image/png!";
-                    img = new Bitmap(stream);
-                    pseudoMime += img.Width;
-                    pseudoMime += ';';
-                    pseudoMime += img.Height;
-                }
+          if (Convert.ToInt32(DB.pollgroup_stats(pgidt).Rows[0]["IsBound"]) == 2)
+          {
+            this.IsBoundCheckBox.Checked = true;
+          }
 
-                catch
-                {
-                    return null;
-                }
-
-                finally
-                {
-                    if (img != null)
-                        img.Dispose();
-                }
-
-                stream.Close();
-                return pseudoMime;
-
-            }
-
+          if (Convert.ToInt32(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]) == 4)
+          {
+            this.IsClosedBoundCheckBox.Checked = true;
+          }
         }
 
+        // clear the fields...
+        this.PollExpire.Text = string.Empty;
+        this.Question.Text = string.Empty;
+      }
 
-        protected void SavePoll_Click(object  sender, EventArgs eventArgs)
+      int dummyRowsCount = this.PageContext.BoardSettings.AllowedPollChoiceNumber - allExistingRowsCount - 1;
+      for (int i = 0; i <= dummyRowsCount; i++)
+      {
+        DataRow drow = this.choices.NewRow();
+        drow["ChoiceOrderID"] = existingRowsCount + i;
+        this.choices.Rows.Add(drow);
+      }
+
+      this.ChoiceRepeater.DataSource = this.choices;
+      this.ChoiceRepeater.DataBind();
+      this.ChoiceRepeater.Visible = true;
+
+      this.ChangePollShowStatus(true);
+      this.IsBound.Visible = true;
+      this.IsClosedBound.Visible = true;
+    }
+
+    /// <summary>
+    /// Initializes page context query variables.
+    /// </summary>
+    private void InitializeVariables()
+    {
+      this.PageContext.QueryIDs =
+        new QueryStringIDHelper(
+          new[] { "p", "ra", "ntp", "t", "e", "em", "m", "f", "ef", "c", "ec", "b", "eb", "rf" });
+
+      if (this.PageContext.QueryIDs != null)
+      {
+        // we return to a specific place, general token 
+        if (this.PageContext.QueryIDs.ContainsKey("ra"))
         {
-
-            if (PageContext.ForumPollAccess && IsInputVerified())
-            {
-              
-                if (GetPollID() == true)
-                {
-                    ReturnToPage();
-                }
-            }
-
+          this.topicUnapproved = true;
         }
 
-
-        protected void Cancel_Click(object sender, EventArgs eventArgs)
+        // we return to a forum (used when a topic should be approved)
+        if (this.PageContext.QueryIDs.ContainsKey("f"))
         {
-            ReturnToPage();
+          this.forumId = this.returnForum = (int)this.PageContext.QueryIDs["f"];
         }
 
-        private  void ReturnToPage()
+        if (this.PageContext.QueryIDs.ContainsKey("t"))
         {
-            if (this.topicUnapproved)
-            {
-                // Tell user that his message will have to be approved by a moderator
-                string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.returnForum);
-
-                if (Config.IsRainbow)
-                {
-                    YafBuildLink.Redirect(ForumPages.info, "i=1");
-                }
-                else
-                {
-                    YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
-                }
-            }
-
-           // YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Request.QueryString.GetFirstOrDefault("m"));      
-           string retliterals = string.Empty;
-           int? retvalue; 
-
-            ParamsToSend(out retliterals, out retvalue);
-
-            switch (retliterals)
-            {
-                case "t":
-                    YafBuildLink.Redirect(
-                        ForumPages.posts,
-                        "t={0}",
-                       retvalue);
-                    break;
-
-                case "em":
-
-                    YafBuildLink.Redirect(
-                        ForumPages.postmessage,
-                        "m={0}",
-                        retvalue);
-                    break;
-
-                case "f":
-
-                    YafBuildLink.Redirect(
-                        ForumPages.topics,
-                        "f={0}",
-                        retvalue);
-                    break;
-                case "ef":
-                    YafBuildLink.Redirect(
-                        ForumPages.admin_editforum,
-                        "f={0}",
-                        retvalue);
-                    break;
-                case "c":
-                    YafBuildLink.Redirect(
-                        ForumPages.forum,
-                        "c={0}",
-                       retvalue);
-                    break;
-                case "ec":
-                    YafBuildLink.Redirect(
-                        ForumPages.admin_editcategory,
-                        "c={0}",
-                       retvalue);
-                    break;
-                case "b":
-                    YafBuildLink.Redirect(
-                        ForumPages.forum);
-                    break;
-                case "eb":
-                    YafBuildLink.Redirect(
-                           ForumPages.admin_editboard,
-                           "b={0}",
-                          retvalue);
-                    break;
-                default:
-                    YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
-                    break;
-
-
-            }
-
-
+          this.topicId = (int)this.PageContext.QueryIDs["t"];
+          this._topicInfo = DB.topic_info(this.topicId);
         }
 
-        private void ParamsToSend(out string retliterals, out int? retvalue)
+        if (this.PageContext.QueryIDs.ContainsKey("m"))
         {
+          this.editMessageId = (int)this.PageContext.QueryIDs["m"];
+        }
 
+        if (this.editMessageId == null)
+        {
+          if (this.PageContext.QueryIDs.ContainsKey("ef"))
+          {
+            this.categoryId = (int)this.PageContext.QueryIDs["ef"];
+          }
 
-            string ars = null;
-            int vl = 0;
-
-            if (this.topicId > 0)
+          if (this.editForumId == null)
+          {
+            if (this.PageContext.QueryIDs.ContainsKey("c"))
             {
-                retliterals = "t";
-                retvalue = this.topicId;
+              this.categoryId = (int)this.PageContext.QueryIDs["c"];
             }
 
-            else if (this.editMessageId > 0)
+            if (this.categoryId == null)
             {
-                retliterals = "em";
-                retvalue = this.editMessageId;
+              if (this.PageContext.QueryIDs.ContainsKey("ec"))
+              {
+                this.editCategoryId = (int)this.PageContext.QueryIDs["ec"];
+              }
+
+              if (this.editCategoryId == null)
+              {
+                if (this.PageContext.QueryIDs.ContainsKey("b"))
+                {
+                  this.boardId = (int)this.PageContext.QueryIDs["b"];
+                }
+
+                if (this.boardId == null)
+                {
+                  if (this.PageContext.QueryIDs.ContainsKey("eb"))
+                  {
+                    this.editBoardId = (int)this.PageContext.QueryIDs["eb"];
+                  }
+                }
+              }
             }
+          }
+        }
 
-            else if (this.forumId > 0)
-            {
-                retliterals = "f";
-                retvalue = this.forumId;
-            }
+        // Check if the user has the page access and variables are correct. 
+        this.CheckAccess();
 
-            else if (this.editForumId > 0)
-            {
-                retliterals = "ef";
-                retvalue = this.editForumId;
-            }
+        // handle poll
+        if (this.PageContext.QueryIDs.ContainsKey("p"))
+        {
+          // edit existing poll
+          this.PollID = (int)this.PageContext.QueryIDs["p"];
+          this.InitPollUI(this.PollID);
+        }
+        else
+        {
+          // new poll
+          this.PollRow1.Visible = true;
+          this.InitPollUI(null);
+        }
+      }
+      else
+      {
+        YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+      }
+    }
 
-            else if (this.categoryId > 0)
-            {
-                retliterals = "c";
-                retvalue = this.categoryId;
-            }
+    /// <summary>
+    /// The params to send.
+    /// </summary>
+    /// <param name="retliterals">
+    /// The retliterals.
+    /// </param>
+    /// <param name="retvalue">
+    /// The retvalue.
+    /// </param>
+    private void ParamsToSend(out string retliterals, out int? retvalue)
+    {
+      string ars = null;
+      int vl = 0;
 
-            else if (this.editCategoryId > 0)
-            {
-                retliterals = "ec";
-                retvalue = this.editCategoryId;
-            }
+      if (this.topicId > 0)
+      {
+        retliterals = "t";
+        retvalue = this.topicId;
+      }
+      else if (this.editMessageId > 0)
+      {
+        retliterals = "em";
+        retvalue = this.editMessageId;
+      }
+      else if (this.forumId > 0)
+      {
+        retliterals = "f";
+        retvalue = this.forumId;
+      }
+      else if (this.editForumId > 0)
+      {
+        retliterals = "ef";
+        retvalue = this.editForumId;
+      }
+      else if (this.categoryId > 0)
+      {
+        retliterals = "c";
+        retvalue = this.categoryId;
+      }
+      else if (this.editCategoryId > 0)
+      {
+        retliterals = "ec";
+        retvalue = this.editCategoryId;
+      }
+      else if (this.boardId > 0)
+      {
+        retliterals = "b";
+        retvalue = this.boardId;
+      }
+      else if (this.editBoardId > 0)
+      {
+        retliterals = "eb";
+        retvalue = this.editBoardId;
+      }
+      else
+      {
+        retliterals = string.Empty;
+        retvalue = 0;
+      }
 
-            else if (this.boardId > 0)
-            {
-                retliterals = "b";
-                retvalue = this.boardId;
-
-            }
-
-            else if (this.editBoardId > 0)
-            {
-                retliterals = "eb";
-                retvalue = this.editBoardId;
-
-            }
-            else
-            {
-                retliterals = string.Empty;
-                retvalue = 0;
-            }
-
-            /* else
+      /* else
              {
                  YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
              } */
-
-          
-        }
- 
-
-
-
-
     }
+
+    /// <summary>
+    /// The return to page.
+    /// </summary>
+    private void ReturnToPage()
+    {
+      if (this.topicUnapproved)
+      {
+        // Tell user that his message will have to be approved by a moderator
+        string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.returnForum);
+
+        if (Config.IsRainbow)
+        {
+          YafBuildLink.Redirect(ForumPages.info, "i=1");
+        }
+        else
+        {
+          YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+        }
+      }
+
+      // YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Request.QueryString.GetFirstOrDefault("m"));      
+      string retliterals = string.Empty;
+      int? retvalue;
+
+      this.ParamsToSend(out retliterals, out retvalue);
+
+      switch (retliterals)
+      {
+        case "t":
+          YafBuildLink.Redirect(ForumPages.posts, "t={0}", retvalue);
+          break;
+
+        case "em":
+
+          YafBuildLink.Redirect(ForumPages.postmessage, "m={0}", retvalue);
+          break;
+
+        case "f":
+
+          YafBuildLink.Redirect(ForumPages.topics, "f={0}", retvalue);
+          break;
+        case "ef":
+          YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", retvalue);
+          break;
+        case "c":
+          YafBuildLink.Redirect(ForumPages.forum, "c={0}", retvalue);
+          break;
+        case "ec":
+          YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", retvalue);
+          break;
+        case "b":
+          YafBuildLink.Redirect(ForumPages.forum);
+          break;
+        case "eb":
+          YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", retvalue);
+          break;
+        default:
+          YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+          break;
+      }
+    }
+
+    #endregion
+  }
 }

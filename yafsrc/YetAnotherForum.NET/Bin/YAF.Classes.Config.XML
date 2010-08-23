@@ -1788,6 +1788,11 @@
             The rsstopic.
             </summary>
         </member>
+        <member name="F:YAF.Classes.ForumPages.polledit">
+            <summary>
+            The rsstopic.
+            </summary>
+        </member>
         <member name="F:YAF.Classes.ForumPages.help_index">
             <summary>
             The help_index.
@@ -2273,6 +2278,11 @@
             Gets or sets AllowedPollChoiceNumber.
             </summary>
         </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowedPollNumber">
+            <summary>
+            Gets or sets AllowedPollNumber.
+            </summary>
+        </member>
         <member name="P:YAF.Classes.YafBoardSettings.CaptchaTypeRegister">
             <summary>
             Gets or sets CaptchaTypeRegister.
@@ -2336,6 +2346,11 @@
         <member name="P:YAF.Classes.YafBoardSettings.SearchPermissions">
             <summary>
             Gets or sets SearchPermissions.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.BoardPollID">
+            <summary>
+            Gets or sets BoardPollID.
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.ExternalSearchPermissions">
@@ -2511,6 +2526,21 @@
         <member name="P:YAF.Classes.YafBoardSettings.AllowPMEmailNotification">
             <summary>
             Gets or sets a value indicating whether AllowPMEmailNotification.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowPollChangesAfterFirstVote">
+            <summary>
+            Gets or sets AllowPollChangesAfterFirstVote. A poll creator can't change choices after the first vote.
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowUsersViewPollVotesBefore">
+            <summary>
+            Gets or sets AllowUsersViewPollVotesBefore. 
+            </summary>
+        </member>
+        <member name="P:YAF.Classes.YafBoardSettings.AllowGuestsViewPollOptions">
+            <summary>
+            Gets or sets AllowGuestsViewPollOptions. 
             </summary>
         </member>
         <member name="P:YAF.Classes.YafBoardSettings.AvatarUpload">
@@ -3301,6 +3331,53 @@
             <summary>
             Gets ThemeDir.
             </summary>
+        </member>
+        <member name="T:YAF.Classes.Utils.AreEqualFunc`1">
+            <summary>
+            The are equal func.
+            </summary>
+            <typeparam name="T">
+            </typeparam>
+        </member>
+        <member name="F:YAF.Classes.Utils.AreEqualFunc`1._comparer">
+            <summary>
+            The _comparer.
+            </summary>
+        </member>
+        <member name="M:YAF.Classes.Utils.AreEqualFunc`1.#ctor(System.Func{`0,`0,System.Boolean})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YAF.Classes.Utils.AreEqualFunc`1"/> class.
+            </summary>
+            <param name="comparer">
+            The comparer.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            </exception>
+        </member>
+        <member name="M:YAF.Classes.Utils.AreEqualFunc`1.Equals(`0,`0)">
+            <summary>
+            The equals.
+            </summary>
+            <param name="x">
+            The x.
+            </param>
+            <param name="y">
+            The y.
+            </param>
+            <returns>
+            The equals.
+            </returns>
+        </member>
+        <member name="M:YAF.Classes.Utils.AreEqualFunc`1.GetHashCode(`0)">
+            <summary>
+            The get hash code.
+            </summary>
+            <param name="obj">
+            The obj.
+            </param>
+            <returns>
+            The get hash code.
+            </returns>
         </member>
     </members>
 </doc>
