@@ -216,6 +216,8 @@ namespace YAF.Pages
 
             InitializeVariables();
 
+            PollObjectRow1.Visible = PageContext.IsAdmin && PageContext.ForumPollAccess;
+
             if (int.TryParse(this.PollExpire.Text.Trim(), out daysPollExpire))
             {
                 datePollExpire = DateTime.UtcNow.AddDays(daysPollExpire);

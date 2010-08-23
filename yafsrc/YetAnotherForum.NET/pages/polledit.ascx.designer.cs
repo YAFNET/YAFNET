@@ -22,13 +22,13 @@ namespace YAF.Pages {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// ReportPostLabel control.
+        /// PollNameLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ReportPostLabel;
+        protected global::YAF.Controls.LocalizedLabel PollNameLabel;
         
         /// <summary>
         /// PollRow1 control.
@@ -58,13 +58,13 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.TextBox Question;
         
         /// <summary>
-        /// PollObjectRow control.
+        /// PollObjectRow1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow PollObjectRow;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow PollObjectRow1;
         
         /// <summary>
         /// PollQuestionObjectLabel control.

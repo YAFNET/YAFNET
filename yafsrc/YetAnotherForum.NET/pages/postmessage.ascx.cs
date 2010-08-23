@@ -583,12 +583,17 @@ namespace YAF.Pages
 
         if (this.PageContext.ForumUploadAccess && this.PostOptions1.AttachChecked)
         {
+            // 't' variable is required only for poll and this is a attach poll token for attachments page
+            if  (!this.PostOptions1.PollChecked)
+            {
+                attachp = string.Empty; 
+            }
           // redirect to the attachment page...
             YafBuildLink.Redirect(ForumPages.attachments, "m={0}{1}", messageId, attachp);
         }
         else
         {
-            if (String.IsNullOrEmpty(attachp))
+            if (String.IsNullOrEmpty(attachp) || (!this.PostOptions1.PollChecked))
         {
           // regular redirect...
           YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
@@ -611,6 +616,11 @@ namespace YAF.Pages
 
         if (this.PostOptions1.AttachChecked && this.PageContext.ForumUploadAccess)
         {
+            // 't' variable is required only for poll and this is a attach poll token for attachments page
+            if (!this.PostOptions1.PollChecked)
+            {
+                attachp = string.Empty;
+            }
           // redirect to the attachment page...
             YafBuildLink.Redirect(ForumPages.attachments, "m={0}&ra=1{1}{2}", messageId, attachp, retforum);          
         }

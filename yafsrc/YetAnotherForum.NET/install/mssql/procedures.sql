@@ -1201,7 +1201,7 @@ END
 Go
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_from] 
-	@UserID int
+	@UserID int, @PageUserID  int
 AS
 BEGIN
 SELECT Count(*) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksFromUserID=@UserID
@@ -1210,6 +1210,7 @@ Go
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_to] 
 	@UserID			int,
+	@PageUserID     int,
 	@ThanksToNumber int output,
 	@ThanksToPostsNumber int output
 AS
@@ -1219,7 +1220,7 @@ SELECT @ThanksToPostsNumber=(SELECT Count(DISTINCT MessageID) FROM [{databaseOwn
 END
 Go
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_viewallthanks] @UserID int
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_viewallthanks] @UserID int, @PageUserID int
 AS 
 	BEGIN
 		select  t.ThanksFromUserID,
@@ -1233,21 +1234,21 @@ AS
 				c.Posted,
 				c.Message,
 				c.Flags
-		from    [{databaseOwner}].[{objectQualifier}message] c
-				left join [{databaseOwner}].[{objectQualifier}topic] a on a.TopicID = c.TopicID
-				left join [{databaseOwner}].[{objectQualifier}user] b on c.UserID = b.UserID
+		        from   [{databaseOwner}].[{objectQualifier}Thanks] t
+		        join [{databaseOwner}].[{objectQualifier}message] c  on c.MessageID = t.MessageID		 
+				join [{databaseOwner}].[{objectQualifier}topic] a on a.TopicID = c.TopicID
+			    join [{databaseOwner}].[{objectQualifier}user] b on c.UserID = b.UserID
 				join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID = a.ForumID
-				join [{databaseOwner}].[{objectQualifier}Thanks] t on c.MessageID = t.MessageID
 		where   x.ReadAccess <> 0
-				AND x.UserID = @UserID
+			    AND x.UserID = @PageUserID			
 				AND c.IsApproved = 1
 				AND a.TopicMovedID IS NULL
 				AND a.IsDeleted = 0
 				AND c.IsDeleted = 0
-				and c.messageID in ( select MessageID
-									 from   [{databaseOwner}].[{objectQualifier}thanks]
-									 where  ThanksFromUserID = @UserID
-											or thankstouserID = @UserID )
+			 AND
+			( t.ThanksFromUserID = @UserID 
+			OR t.thankstouserID = @UserID )
+
 		ORDER BY c.Posted DESC
 	END
 Go

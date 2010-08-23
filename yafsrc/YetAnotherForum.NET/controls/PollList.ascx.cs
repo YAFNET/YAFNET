@@ -201,12 +201,11 @@ namespace YAF.controls
         {
            // if (!IsPostBack)
           //  {
-                this.NewPollRow.Visible = HasOwnerExistingGroupAccess();
-
-                if (this.TopicId > 0)
+               if (this.TopicId > 0)
                 {
                     topicUser = Convert.ToInt32(DB.topic_info(this.TopicId)["UserID"]);
                 }
+                this.NewPollRow.Visible = HasOwnerExistingGroupAccess();
                 if (PollGroupId > 0)
                 {
                     BindData();
@@ -225,7 +224,7 @@ namespace YAF.controls
         private bool HasOwnerExistingGroupAccess()
         { 
 
-            if ((PageContext.BoardSettings.AllowedPollChoiceNumber > 0) && ShowButtons && (this.PollGroupId >= 0))
+            if ((PageContext.BoardSettings.AllowedPollChoiceNumber > 0) && ShowButtons )
             {
                 // it topicid > 0 it can be every member
                 if (this.TopicId > 0)

@@ -97,7 +97,7 @@ namespace YAF.Pages
 
 
             }
-            DataTable thanksInfo = DB.user_viewallthanks(userID);
+            DataTable thanksInfo = DB.user_viewallthanks(userID, PageContext.PageUserID);
             InitializeThanksList(ThanksFromList, ThanksListMode.FromUser,userID,thanksInfo);
             InitializeThanksList(ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
 

@@ -8527,12 +8527,13 @@ namespace YAF.Classes.Data
     /// <returns>
     /// The user_getthanks_from.
     /// </returns>
-    public static int user_getthanks_from(object userID)
+    public static int user_getthanks_from(object userID, object pageUserId)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_getthanks_from"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", userID);
+        cmd.Parameters.AddWithValue("PageUserID", pageUserId);
         return (int)YafDBAccess.Current.ExecuteScalar(cmd);
       }
     }
@@ -8547,7 +8548,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static int[] user_getthanks_to(object userID)
+    public static int[] user_getthanks_to(object userID, object pageUserId)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_getthanks_to"))
       {
@@ -8557,7 +8558,7 @@ namespace YAF.Classes.Data
         var paramThanksToPostsNumber = new SqlParameter("ThanksToPostsNumber", 0);
         paramThanksToPostsNumber.Direction = ParameterDirection.Output;
         cmd.Parameters.AddWithValue("UserID", userID);
-
+        cmd.Parameters.AddWithValue("PageUserID", pageUserId);
         cmd.Parameters.Add(paramThanksToNumber);
         cmd.Parameters.Add(paramThanksToPostsNumber);
         YafDBAccess.Current.ExecuteNonQuery(cmd);
@@ -8590,12 +8591,13 @@ namespace YAF.Classes.Data
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable user_viewallthanks(object UserID)
+    public static DataTable user_viewallthanks(object UserID, object pageUserID)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("user_viewallthanks"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("UserID", UserID);
+        cmd.Parameters.AddWithValue("PageUserID", pageUserID);
         return YafDBAccess.Current.GetData(cmd);
       }
     }

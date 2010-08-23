@@ -560,8 +560,8 @@ namespace YAF.Pages
       // Handled in localization. 
       this.Gender.InnerText = this.GetText("GENDER" + userData.Profile.Gender);
 
-      this.ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"]).ToString();
-      int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"]);
+      this.ThanksFrom.Text = DB.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
+      int[] ThanksToArray = DB.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
       this.ThanksToTimes.Text = ThanksToArray[0].ToString();
       this.ThanksToPosts.Text = ThanksToArray[1].ToString();
       this.OnlineStatusImage1.UserID = userID;
