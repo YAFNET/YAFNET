@@ -10,51 +10,60 @@
 namespace YAF.DotNetNuke {
     
     
-    public partial class YafDnnModuleEdit {
+    public partial class YafDnnModuleImport {
         
         /// <summary>
-        /// BoardID control.
+        /// lImport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList BoardID;
+        protected global::System.Web.UI.WebControls.Label lImport;
         
         /// <summary>
-        /// CategoryID control.
+        /// btnImportUsers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList CategoryID;
+        protected global::System.Web.UI.WebControls.Button btnImportUsers;
         
         /// <summary>
-        /// update control.
+        /// lInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton update;
+        protected global::System.Web.UI.WebControls.Label lInfo;
         
         /// <summary>
-        /// cancel control.
+        /// lblAddScheduler control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton cancel;
+        protected global::System.Web.UI.UserControl lblAddScheduler;
         
         /// <summary>
-        /// create control.
+        /// btnAddScheduler control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton create;
+        protected global::System.Web.UI.WebControls.Button btnAddScheduler;
+        
+        /// <summary>
+        /// Close control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton Close;
     }
 }

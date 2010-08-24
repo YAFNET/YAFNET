@@ -1,520 +1,532 @@
-﻿namespace YAF.DotNetNuke
+﻿#region Usings
+
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Web;
+using System.Web.Security;
+using DotNetNuke.Common;
+using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Modules.Actions;
+using DotNetNuke.Entities.Portals;
+using DotNetNuke.Entities.Users;
+using DotNetNuke.Framework;
+using DotNetNuke.Security;
+using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Services.Localization;
+using YAF.Classes.Core;
+using YAF.Classes.Data;
+using YAF.Classes.Utils;
+
+
+#endregion
+
+namespace YAF.DotNetNuke
 {
-  #region Using
-
-  using System;
-  using System.Data;
-  using System.Web;
-  using System.Web.Security;
-
-  using global::DotNetNuke.Common;
-  using global::DotNetNuke.Common.Utilities;
-  using global::DotNetNuke.Entities.Modules;
-  using global::DotNetNuke.Entities.Modules.Actions;
-  using global::DotNetNuke.Entities.Portals;
-  using global::DotNetNuke.Entities.Users;
-  using global::DotNetNuke.Framework;
-  using global::DotNetNuke.Security;
-  using global::DotNetNuke.Services.Exceptions;
-
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// The YAF DotNetNukeModule
-  /// </summary>
-  public partial class YafDnnModule : PortalModuleBase, IActionable
-  {
-    #region Constants and Fields
-
     /// <summary>
-    ///   The _create new board.
+    /// Summary description for DotNetNukeModule.
     /// </summary>
-    private bool _createNewBoard;
-
-    /// <summary>
-    ///   The _portal settings.
-    /// </summary>
-    private PortalSettings _portalSettings;
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets BasePage.
-    /// </summary>
-    public CDefault BasePage
+    public partial class YafDnnModule : PortalModuleBase, IActionable
     {
-      get
-      {
-        return (CDefault)this.Page;
-      }
-    }
+        private bool _createNewBoard;
+        private PortalSettings _portalSettings;
+        
+        private Forum forum1;
 
-    /// <summary>
-    ///   Gets ModuleActions.
-    /// </summary>
-    public ModuleActionCollection ModuleActions
-    {
-      get
-      {
-        var actions = new ModuleActionCollection();
-
-        // Change
-        // actions.Add(GetNextActionID(), "Edit YAF Settings", ModuleActionType.AddContent, String.Empty, String.Empty, EditUrl(), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
-        // actions.Add(GetNextActionID(), "Edit YAF Settings", ModuleActionType.AddContent, string.Empty, string.Empty, EditUrl(), false, SecurityAccessLevel.Host, true, false);
-        actions.Add(
-          this.GetNextActionID(), 
-          "Edit YAF Settings", 
-          ModuleActionType.AddContent, 
-          String.Empty, 
-          String.Empty, 
-          this.EditUrl(), 
-          false, 
-          SecurityAccessLevel.Host, 
-          true, 
-          false);
-
-        return actions;
-      }
-    }
-
-    /// <summary>
-    ///   Gets SessionUserKeyName.
-    /// </summary>
-    public string SessionUserKeyName
-    {
-      get
-      {
-        return String.Format(
-          "yaf_dnn_boardid{0}_userid{1}_portalid{2}", 
-          this.Forum1.BoardID, 
-          this.UserId, 
-          this.CurrentPortalSettings.PortalId);
-      }
-    }
-
-    /// <summary>
-    ///   Gets CurrentPortalSettings.
-    /// </summary>
-    private PortalSettings CurrentPortalSettings
-    {
-      get
-      {
-        if (this._portalSettings == null)
+        private PortalSettings CurrentPortalSettings
         {
-          this._portalSettings = PortalController.GetCurrentPortalSettings();
+            get { return _portalSettings ?? (_portalSettings = PortalController.GetCurrentPortalSettings()); }
         }
 
-        return this._portalSettings;
-      }
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The on error.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnError(EventArgs e)
-    {
-      Exception x = this.Server.GetLastError();
-      DB.eventlog_create(YafContext.Current.PageUserID, this, x);
-      base.OnError(e);
-    }
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit(EventArgs e)
-    {
-      if (AJAX.IsInstalled())
-      {
-        AJAX.RegisterScriptManager();
-      }
-
-      this.Load += this.DotNetNukeModule_Load;
-      this.Forum1.PageTitleSet += this.Forum1_PageTitleSet;
-
-      // Get current BoardID
-      try
-      {
-        this._createNewBoard = false;
-
-        // This will create an error if there is no setting for forumboardid
-        this.Forum1.BoardID = int.Parse(this.Settings["forumboardid"].ToString());
-
-        string cID = this.Settings["forumcategoryid"].ToString();
-        if (cID != string.Empty)
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SessionUserKeyName
         {
-          this.Forum1.CategoryID = int.Parse(cID);
-        }
-      }
-      catch (Exception)
-      {
-        // A forum does not exist for this module
-        // Create a new board
-        this._createNewBoard = true;
-
-        // Forum1.BoardID = 1;
-      }
-
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// The get user time zone offset.
-    /// </summary>
-    /// <param name="userInfo">
-    /// The user info.
-    /// </param>
-    /// <param name="portalSettings">
-    /// The portal settings.
-    /// </param>
-    /// <returns>
-    /// The get user time zone offset.
-    /// </returns>
-    private static int GetUserTimeZoneOffset(UserInfo userInfo, PortalSettings portalSettings)
-    {
-      int timeZone;
-      if ((userInfo != null) && (userInfo.UserID != Null.NullInteger))
-      {
-        timeZone = userInfo.Profile.TimeZone;
-      }
-      else
-      {
-        timeZone = portalSettings.TimeZoneOffset;
-      }
-
-      return timeZone;
-    }
-
-    /// <summary>
-    /// The mark roles changed.
-    /// </summary>
-    private static void MarkRolesChanged()
-    {
-      RolePrincipal rolePrincipal;
-      if (Roles.CacheRolesInCookie)
-      {
-        string roleCookie = string.Empty;
-
-        HttpCookie cookie = HttpContext.Current.Request.Cookies[Roles.CookieName];
-        if (cookie != null)
-        {
-          roleCookie = cookie.Value;
-        }
-
-        rolePrincipal = new RolePrincipal(HttpContext.Current.User.Identity, roleCookie);
-      }
-      else
-      {
-        rolePrincipal = new RolePrincipal(HttpContext.Current.User.Identity);
-      }
-
-      rolePrincipal.SetDirty();
-    }
-
-    /// <summary>
-    /// The create new board.
-    /// </summary>
-    /// <param name="dnnUserInfo">
-    /// The dnn user info.
-    /// </param>
-    /// <param name="dnnUser">
-    /// The dnn user.
-    /// </param>
-    private void CreateNewBoard(UserInfo dnnUserInfo, MembershipUser dnnUser)
-    {
-      // Add new admin users to group
-      if (!Roles.IsUserInRole(dnnUserInfo.Username, "Administrators"))
-      {
-        Roles.AddUserToRole(dnnUserInfo.Username, "Administrators");
-      }
-
-      if (dnnUserInfo.IsSuperUser)
-      {
-        // This is HOST and probably the first board.
-        // The install routine already created the first board.
-        // Make sure Module settings are in place
-        var objForumSettings = new ModuleController();
-        objForumSettings.UpdateModuleSetting(this.ModuleId, "forumboardid", "1");
-        objForumSettings.UpdateModuleSetting(this.ModuleId, "forumcategoryid", string.Empty);
-        this.Forum1.BoardID = 1;
-      }
-      else
-      {
-        // This is an admin adding a new forum.
-        string newBoardName = string.Format("New Forum - Module {0}", this.ModuleId);
-
-        // Create the board
-        DB.board_create(
-          dnnUserInfo.Username, 
-          dnnUserInfo.Email, 
-          dnnUser.ProviderUserKey, 
-          newBoardName, 
-          "en-US", 
-          "english.xml", 
-          "DotNetNuke", 
-          "DotNetNuke");
-
-        // The newly created board will be the last one in the DB and have the highest BoardID
-        DataTable tbl = DB.board_list(null);
-
-        int largestBoardId = 0;
-
-        foreach (DataRow row in tbl.Rows)
-        {
-          if (Convert.ToInt32(row["BoardID"]) > largestBoardId)
-          {
-            largestBoardId = Convert.ToInt32(row["BoardID"]);
-          }
-        }
-
-        // Assign the new forum to this module
-        var objForumSettings = new ModuleController();
-        objForumSettings.UpdateModuleSetting(this.ModuleId, "forumboardid", largestBoardId.ToString());
-        objForumSettings.UpdateModuleSetting(this.ModuleId, "forumcategoryid", string.Empty);
-        this.Forum1.BoardID = largestBoardId;
-      }
-    }
-
-    /// <summary>
-    /// The create yaf host user.
-    /// </summary>
-    /// <param name="yafUserId">
-    /// The yaf user id.
-    /// </param>
-    private void CreateYafHostUser(int yafUserId)
-    {
-      // get this user information...
-      DataTable userInfo = DB.user_list(this.Forum1.BoardID, yafUserId, null, null, null);
-
-      if (userInfo.Rows.Count <= 0)
-      {
-        return;
-      }
-
-      DataRow row = userInfo.Rows[0];
-
-      if (Convert.ToBoolean(row["IsHostAdmin"]))
-      {
-        return;
-      }
-
-      // fix the ishostadmin flag...
-      var userFlags = new UserFlags(row["Flags"]);
-      userFlags.IsHostAdmin = true;
-
-      // update...
-      DB.user_adminsave(this.Forum1.BoardID, yafUserId, row["Name"], row["Email"], userFlags.BitValue, row["RankID"]);
-    }
-
-    /// <summary>
-    /// The create yaf user.
-    /// </summary>
-    /// <param name="dnnUserInfo">
-    /// The dnn user info.
-    /// </param>
-    /// <param name="dnnUser">
-    /// The dnn user.
-    /// </param>
-    /// <returns>
-    /// The create yaf user.
-    /// </returns>
-    private int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser)
-    {
-      YafContext.Current.Cache.Clear();
-
-      // setup roles
-      // RoleMembershipHelper.SetupUserRoles(this.Forum1.BoardID, dnnUser.UserName);
-
-      // create the user in the YAF DB so profile can ge created...
-      int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, this.Forum1.BoardID);
-      if (userId == null)
-      {
-        return 0;
-      }
-
-      // create profile
-      YafUserProfile userProfile = YafUserProfile.GetProfile(dnnUser.UserName);
-
-      // setup their inital profile information
-      userProfile.Initialize(dnnUser.UserName, true);
-      userProfile.RealName = dnnUserInfo.Profile.FullName;
-      userProfile.Location = dnnUserInfo.Profile.Country;
-      userProfile.Homepage = dnnUserInfo.Profile.Website;
-      userProfile.Save();
-
-      int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
-
-      // save the time zone...
-      DB.user_save(
-        yafUserId, 
-        this.Forum1.BoardID, 
-        null, 
-        dnnUserInfo.DisplayName, 
-        dnnUserInfo.Email, 
-        GetUserTimeZoneOffset(dnnUserInfo, this.CurrentPortalSettings), 
-        null, 
-        null, 
-        null, 
-        false, 
-        null, 
-        true, 
-        false, 
-        false, 
-        false);
-
-      return yafUserId;
-    }
-
-    /// <summary>
-    /// The dot net nuke module_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void DotNetNukeModule_Load(object sender, EventArgs e)
-    {
-      if (this.Page.IsPostBack)
-      {
-        return;
-      }
-
-      // Check for user
-      if (!HttpContext.Current.User.Identity.IsAuthenticated)
-      {
-        return;
-      }
-
-      try
-      {
-        // Get current Dnn user
-        UserInfo dnnUserInfo = UserController.GetUserById(this.CurrentPortalSettings.PortalId, this.UserId);
-
-        // get the user from the membership provider
-        MembershipUser dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
-
-        if (dnnUser == null)
-        {
-          return;
-        }
-
-        // see if the roles have been syncronized...
-        if (this.Session[this.SessionUserKeyName + "_rolesloaded"] == null)
-        {
-          bool roleChanged = false;
-          foreach (string role in dnnUserInfo.Roles)
-          {
-            if (!Roles.RoleExists(role))
+            get
             {
-              Roles.CreateRole(role);
-              roleChanged = true;
+                return String.Format("yaf_dnn_boardid{0}_userid{1}_portalid{2}",
+                                     forum1.BoardID,
+                                     UserId,
+                                     CurrentPortalSettings.PortalId);
+            }
+        }
+
+        public CDefault BasePage
+        {
+            get { return (CDefault) Page; }
+        }
+
+        #region IActionable Members
+
+        public ModuleActionCollection ModuleActions
+        {
+            get
+            {
+                ModuleActionCollection actions = new ModuleActionCollection
+                                                     {
+                                                         {
+                                                             GetNextActionID(), "Edit YAF Settings",
+                                                             ModuleActionType.AddContent, String.Empty, String.Empty,
+                                                             EditUrl(), false, SecurityAccessLevel.Host, true, false
+                                                             },
+                                                         {
+                                                             GetNextActionID(), "DNN User Importer",
+                                                             ModuleActionType.AddContent, String.Empty, String.Empty,
+                                                             EditUrl("Import"), false, SecurityAccessLevel.Host, true,
+                                                             false
+                                                             }
+                                                     };
+
+                return actions;
+            }
+        }
+
+        #endregion
+
+        private void DotNetNukeModule_Load(object sender, EventArgs e)
+        {
+            if (Page.IsPostBack)
+                return;
+
+            // Check for user
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return;
+            }
+            
+            try
+            {
+                // Get current Dnn user (DNN 4)
+                 UserInfo dnnUserInfo = UserController.GetUser(CurrentPortalSettings.PortalId, UserId, false);
+                    
+                // Get current Dnn user (DNN 5)
+                 //UserInfo dnnUserInfo= UserController.GetUserById(CurrentPortalSettings.PortalId, UserId);  
+
+                //get the user from the membership provider
+                MembershipUser dnnUser = Membership.GetUser(dnnUserInfo.Username, true);
+
+                if (dnnUser == null)
+                    return;
+
+                // see if the roles have been syncronized...
+                if (Session[SessionUserKeyName + "_rolesloaded"] == null)
+                {
+                    bool roleChanged = false;
+                    foreach (string role in dnnUserInfo.Roles)
+                    {
+                        if (!Roles.RoleExists(role))
+                        {
+                            Roles.CreateRole(role);
+                            roleChanged = true;
+                        }
+
+                        if (!Roles.IsUserInRole(dnnUserInfo.Username, role))
+                            Roles.AddUserToRole(dnnUserInfo.Username, role);
+                    }
+
+                    if (roleChanged)
+                        MarkRolesChanged();
+
+                    Session[SessionUserKeyName + "_rolesloaded"] = true;
+                }
+
+                //Admin or Host user?
+                if ((dnnUserInfo.IsSuperUser || dnnUserInfo.UserID == _portalSettings.AdministratorId) &&
+                    _createNewBoard)
+                    CreateNewBoard(dnnUserInfo, dnnUser);
+
+                int yafUserId;
+
+                try
+                {
+                    yafUserId = DB.user_get(forum1.BoardID, dnnUser.ProviderUserKey);
+                    if (yafUserId > 0)
+                        Session[SessionUserKeyName + "_userSync"] = true;
+                }
+                catch (Exception)
+                {
+                    yafUserId = 0;
+                    Session[SessionUserKeyName + "_userSync"] = null;
+                }
+
+                // Has this user been registered in YAF already?
+                if (Session[SessionUserKeyName + "_userSync"] != null)
+                    return;
+
+                if (yafUserId == 0)
+                    yafUserId = CreateYafUser(dnnUserInfo, dnnUser);
+
+                // super admin check...
+                if (dnnUserInfo.IsSuperUser)
+                    CreateYafHostUser(yafUserId);
+
+                if (YafContext.Current.Settings != null)
+                    RoleMembershipHelper.UpdateForumUser(dnnUser, YafContext.Current.Settings.BoardID);
+
+                YafContext.Current.Cache.Clear();
+
+                DataCache.ClearPortalCache(_portalSettings.PortalId, true);
+
+                Session.Clear();
+                Response.Redirect(Globals.NavigateURL(), true);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.ProcessModuleLoadException(this, ex);
+            }
+        }
+
+        private static void MarkRolesChanged()
+        {
+            RolePrincipal rolePrincipal;
+            if (Roles.CacheRolesInCookie)
+            {
+                string roleCookie = "";
+
+                HttpCookie cookie = HttpContext.Current.Request.Cookies[Roles.CookieName];
+                if (cookie != null)
+                    roleCookie = cookie.Value;
+
+                rolePrincipal = new RolePrincipal(HttpContext.Current.User.Identity, roleCookie);
+            }
+            else
+                rolePrincipal = new RolePrincipal(HttpContext.Current.User.Identity);
+
+            rolePrincipal.SetDirty();
+        }
+
+        private void CreateYafHostUser(int yafUserId)
+        {
+            // get this user information...
+            DataTable userInfo = DB.user_list(forum1.BoardID, yafUserId, null, null, null);
+
+            if (userInfo.Rows.Count <= 0)
+                return;
+
+            DataRow row = userInfo.Rows[0];
+
+            if (Convert.ToBoolean(row["IsHostAdmin"]))
+                return;
+
+            // fix the ishostadmin flag...
+            UserFlags userFlags = new UserFlags(row["Flags"]) {IsHostAdmin = true};
+
+            // update...
+            DB.user_adminsave(forum1.BoardID,
+                              yafUserId,
+                              row["Name"],
+                              row["Email"],
+                              userFlags.BitValue,
+                              row["RankID"]);
+        }
+
+        private int CreateYafUser(UserInfo dnnUserInfo, MembershipUser dnnUser)
+        {
+            YafContext.Current.Cache.Clear();
+            // setup roles
+            //RoleMembershipHelper.SetupUserRoles(forum1.BoardID, dnnUser.UserName);
+
+            // create the user in the YAF DB so profile can ge created...
+            int? userId = RoleMembershipHelper.CreateForumUser(dnnUser, forum1.BoardID);
+
+            if (userId == null)
+                return 0;
+
+            // create profile
+            YafUserProfile userProfile = YafUserProfile.GetProfile(dnnUser.UserName);
+            // setup their inital profile information
+            userProfile.Initialize(dnnUser.UserName, true);
+            userProfile.RealName = dnnUserInfo.Profile.FullName;
+            userProfile.Location = dnnUserInfo.Profile.Country;
+            userProfile.Homepage = dnnUserInfo.Profile.Website;
+            userProfile.Save();
+
+            int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
+
+            // save the time zone...
+            DB.user_save(yafUserId, 
+                         forum1.BoardID, 
+                        null, null, null, GetUserTimeZoneOffset(dnnUserInfo, PortalSettings), null, null, null, null, null,null,null,null,null);
+
+            return yafUserId;
+        }
+
+        private void CreateNewBoard(UserInfo dnnUserInfo, MembershipUser dnnUser)
+        {
+            // Add new admin users to group
+            if (!Roles.IsUserInRole(dnnUserInfo.Username, "Administrators"))
+                Roles.AddUserToRole(dnnUserInfo.Username, "Administrators");
+
+            if (dnnUserInfo.IsSuperUser)
+            {
+                //This is HOST and probably the first board.
+                //The install routine already created the first board.
+                //Make sure Module settings are in place
+                ModuleController objForumSettings = new ModuleController();
+                objForumSettings.UpdateModuleSetting(ModuleId, "forumboardid", "1");
+                objForumSettings.UpdateModuleSetting(ModuleId, "forumcategoryid", string.Empty);
+                forum1.BoardID = 1;
+            }
+            else
+            {
+                // This is an admin adding a new forum.
+
+                string newBoardName = string.Format("New Forum - Module {0}", ModuleId);
+
+                //Create the board
+                
+                YafCultureInfo yafCultureInfo = GetYafCultureInfo(Localization.GetPageLocale(CurrentPortalSettings));
+
+                DB.board_create(
+                    dnnUserInfo.Username, 
+                    dnnUserInfo.Email, 
+                    dnnUser.ProviderUserKey, 
+                    newBoardName, 
+                    yafCultureInfo.sCulture,
+                                yafCultureInfo.sLanguageFile,
+                    "DotNetNuke",
+                    "DotNetNuke");
+
+                //The newly created board will be the last one in the DB and have the highest BoardID
+                DataTable tbl = DB.board_list(null);
+
+                int largestBoardId = 0;
+
+                int id = largestBoardId;
+                foreach (DataRow row in
+                    tbl.Rows.Cast<DataRow>().Where(row => Convert.ToInt32(row["BoardID"]) > id))
+                {
+                    largestBoardId = Convert.ToInt32(row["BoardID"]);
+                }
+                //Assign the new forum to this module
+                ModuleController objForumSettings = new ModuleController();
+                objForumSettings.UpdateModuleSetting(ModuleId, "forumboardid", largestBoardId.ToString());
+                objForumSettings.UpdateModuleSetting(ModuleId, "forumcategoryid", string.Empty);
+                forum1.BoardID = largestBoardId;
+            }
+        }
+
+        /*private void Forum1_PageTitleSet(object sender, ForumPageTitleArgs e)
+        {
+           BasePage.Title = e.Title + " - " + BasePage.Title;
+        }*/
+
+        protected override void OnInit(EventArgs e)
+        {
+            InitializeComponent();            
+
+            base.OnInit(e);
+        }
+
+        private void InitializeComponent()
+        {
+            if (AJAX.IsInstalled())
+            {
+                AJAX.RegisterScriptManager();
             }
 
-            if (!Roles.IsUserInRole(dnnUserInfo.Username, role))
+            forum1 = new Forum();
+
+            pnlModuleContent.Controls.Add(forum1);
+            
+            Load += DotNetNukeModule_Load;
+            //forum1.PageTitleSet += Forum1_PageTitleSet;
+
+            //Get current BoardID
+            try
             {
-              Roles.AddUserToRole(dnnUserInfo.Username, role);
+                _createNewBoard = false;
+                // This will create an error if there is no setting for forumboardid
+                forum1.BoardID = int.Parse(Settings["forumboardid"].ToString());
+
+                SetDnnLangToYaf();
+
+                string cId = Settings["forumcategoryid"].ToString();
+
+                if (cId != string.Empty)
+                    forum1.CategoryID = int.Parse(cId);
             }
-          }
-
-          if (roleChanged)
-          {
-            MarkRolesChanged();
-          }
-
-          // if (YafContext.Current.Settings != null && YafContext.Current.PageUserID > 0 &&
-          // !UserMembershipHelper.IsGuestUser(YafContext.Current.PageUserID))
-          // RoleMembershipHelper.UpdateForumUser(dnnUser, YafContext.Current.Settings.BoardID);
-          this.Session[this.SessionUserKeyName + "_rolesloaded"] = true;
+            catch (Exception)
+            {
+                //A forum does not exist for this module
+                //Create a new board
+                _createNewBoard = true;
+                //forum1.BoardID = 1;
+            }
         }
 
-        // Admin or Host user?
-        if ((dnnUserInfo.IsSuperUser || dnnUserInfo.UserID == this._portalSettings.AdministratorId) &&
-            this._createNewBoard)
+        /// <summary>
+        /// Change YAF Language based on DNN Language, 
+        /// this will override the YAF Language Setting 
+        /// </summary>
+        private static void SetDnnLangToYaf()
         {
-          this.CreateNewBoard(dnnUserInfo, dnnUser);
+            try
+            {
+                CultureInfo currentCulture = Thread.CurrentThread.CurrentUICulture;
+
+                string sLangCode = currentCulture.TwoLetterISOLanguageName;
+
+                switch (sLangCode)
+                {
+                    case "de":
+                        YafContext.Current.BoardSettings.Language = "german-du.xml";
+                        break;
+                    case "zh":
+                        YafContext.Current.BoardSettings.Language = "china.xml";
+                        break;
+                    case "cz":
+                        YafContext.Current.BoardSettings.Language = "czech.xml";
+                        break;
+                    case "dk":
+                        YafContext.Current.BoardSettings.Language = "danish.xml";
+                        break;
+                    case "nl":
+                        YafContext.Current.BoardSettings.Language = "dutch.xml";
+                        break;
+                    case "fi":
+                        YafContext.Current.BoardSettings.Language = "finnish.xml";
+                        break;
+                    case "fr":
+                        YafContext.Current.BoardSettings.Language = "french.xml";
+                        break;
+                    case "he":
+                        YafContext.Current.BoardSettings.Language = "hebrew.xml";
+                        break;
+                    case "it":
+                        YafContext.Current.BoardSettings.Language = "italian.xml";
+                        break;
+                    case "lt":
+                        YafContext.Current.BoardSettings.Language = "lithuanian.xml";
+                        break;
+                    case "nr":
+                        YafContext.Current.BoardSettings.Language = "norwegian.xml";
+                        break;
+                    case "fa":
+                        YafContext.Current.BoardSettings.Language = "persian.xml";
+                        break;
+                    case "pl":
+                        YafContext.Current.BoardSettings.Language = "polish.xml";
+                        break;
+                    case "pt":
+                        YafContext.Current.BoardSettings.Language = "portugues.xml";
+                        break;
+                    case "ro":
+                        YafContext.Current.BoardSettings.Language = "romanian.xml";
+                        break;
+                    case "ru":
+                        YafContext.Current.BoardSettings.Language = "russian.xml";
+                        break;
+                    case "sk":
+                        YafContext.Current.BoardSettings.Language = "slovak.xml";
+                        break;
+                    case "es":
+                        YafContext.Current.BoardSettings.Language = "spanish.xml";
+                        break;
+                    case "sv":
+                        YafContext.Current.BoardSettings.Language = "swedish.xml";
+                        break;
+                    case "tr":
+                        YafContext.Current.BoardSettings.Language = "turkish.xml";
+                        break;
+                    case "vi":
+                        YafContext.Current.BoardSettings.Language = "vietnam.xml";
+                        break;
+                    default:
+                        YafContext.Current.BoardSettings.Language = "english.xml";
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                YafContext.Current.BoardSettings.Language = "english.xml";
+            }
+            
         }
 
-        int yafUserId;
 
-        try
+        protected override void OnError(EventArgs e)
         {
-          yafUserId = DB.user_get(this.Forum1.BoardID, dnnUser.ProviderUserKey);
-          if (yafUserId > 0)
-          {
-            this.Session[this.SessionUserKeyName + "_userSync"] = true;
-          }
-        }
-        catch (Exception)
-        {
-          yafUserId = 0;
-          this.Session[this.SessionUserKeyName + "_userSync"] = null;
+            Exception x = Server.GetLastError();
+            DB.eventlog_create(YafContext.Current.PageUserID, this, x);
+            base.OnError(e);
         }
 
-        // Has this user been registered in YAF already?
-        if (this.Session[this.SessionUserKeyName + "_userSync"] != null)
+        private static int GetUserTimeZoneOffset(UserInfo userInfo, PortalSettings portalSettings)
         {
-          return;
+            int timeZone;
+            if ((userInfo != null) && (userInfo.UserID != Null.NullInteger))
+                timeZone = userInfo.Profile.TimeZone;
+            else
+                timeZone = portalSettings.TimeZoneOffset;
+            return timeZone;
+        }
+        
+        private static Dictionary<string, string> GetYafCultures()
+        {
+            Dictionary<string, string> yafCultures = new Dictionary<string, string>();
+            DataTable cult = StaticDataHelper.Cultures();
+
+            foreach (DataRow row in cult.Rows)
+            {
+                try
+                {
+                    yafCultures.Add(row["CultureTag"].ToString(), row["CultureFile"].ToString());
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+
+            if (yafCultures.Count == 0)
+            {
+                yafCultures.Add("en", "english.xml");
+            }
+
+            return yafCultures;
         }
 
-        if (yafUserId == 0)
+        private static YafCultureInfo GetYafCultureInfo(CultureInfo cultureInfo)
         {
-          yafUserId = this.CreateYafUser(dnnUserInfo, dnnUser);
+            string culture = "en";
+            string lngFile = "english.xml";
+            Dictionary<string, string> cultures = GetYafCultures();
+            YafCultureInfo yafCultureInfo = new YafCultureInfo();
+
+            if (cultureInfo != null)
+            {
+                if (cultures.ContainsKey(cultureInfo.TwoLetterISOLanguageName))
+                {
+                    culture = cultureInfo.TwoLetterISOLanguageName;
+                    lngFile = cultures[cultureInfo.TwoLetterISOLanguageName];
+                }
+                else if (cultures.ContainsKey(cultureInfo.Name))
+                {
+                    culture = cultureInfo.Name;
+                    lngFile = cultures[cultureInfo.Name];
+                }
+            }
+
+            yafCultureInfo.sCulture = culture;
+            yafCultureInfo.sLanguageFile = lngFile;
+
+            return yafCultureInfo;
         }
 
-        // super admin check...
-        if (dnnUserInfo.IsSuperUser)
+        #region Nested type: YafCultureInfo
+
+        private struct YafCultureInfo
         {
-          this.CreateYafHostUser(yafUserId);
+            public string sCulture;
+            public string sLanguageFile;
         }
 
-        if (YafContext.Current.Settings != null)
-        {
-          // RoleMembershipHelper.UpdateForumUser(dnnUser, YafContext.Current.Settings.BoardID);
-          RoleMembershipHelper.UpdateForumUser(dnnUser, this.Forum1.BoardID);
-        }
-
-        YafContext.Current.Cache.Clear();
-        DataCache.ClearCache();
-        this.Session.Clear();
-        this.Response.Redirect(Globals.NavigateURL(), true);
-      }
-      catch (Exception ex)
-      {
-        Exceptions.ProcessModuleLoadException(this, ex);
-      }
+        #endregion
     }
-
-    /// <summary>
-    /// The forum 1_ page title set.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void Forum1_PageTitleSet(object sender, ForumPageTitleArgs e)
-    {
-      this.BasePage.Title = e.Title + " - " + this.BasePage.Title;
-    }
-
-    #endregion
-  }
 }

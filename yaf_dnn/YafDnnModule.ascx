@@ -1,5 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.DotNetNuke.YafDnnModule" Codebehind="YafDnnModule.ascx.cs" %>
-<%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
+﻿<%@ Control Language="C#" AutoEventWireup="False" CodeBehind="YafDnnModule.ascx.cs" Inherits="YAF.DotNetNuke.YafDnnModule" %>
+
 <asp:Panel ID="pnlModuleContent" Runat="server">
-    <YAF:Forum id="Forum1" runat="server"></YAF:Forum>
+
 </asp:Panel>

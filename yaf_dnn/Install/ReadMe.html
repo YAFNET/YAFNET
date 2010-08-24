@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="language" content="en" />
+	<title>YetAnotherForum.NET Installation and Upgrading</title>
+	<style type="text/css">
+		*
+		{
+			margin: 0;
+			padding: 0;
+		}
+		body
+		{
+			padding: 0 0 20px;
+			color: #333;
+			font: 83%/1.5 arial,tahoma,verdana,sans-serif;
+		}
+		/* LINKS */a, a:link, a:link, a:link, a:hover
+		{
+			background: transparent;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+		a:link
+		{
+			color: #c00;
+		}
+		a:visited
+		{
+			color: #999;
+		}
+		a:hover, a:active
+		{
+			color: #069;
+		}
+		/* FORMS */form
+		{
+			margin: 0 0 1.5em;
+		}
+		input
+		{
+			font-family: arial,tahoma,verdana,sans-serif;
+			margin: 2px 0;
+		}
+		fieldset
+		{
+			border: none;
+		}
+		label
+		{
+			display: block;
+			padding: 5px 0;
+		}
+		label br
+		{
+			clear: left;
+		}
+		/* TYPOGRAPHY */p, ul, ol
+		{
+			margin: 0 0 1.5em;
+		}
+		h1, h2, h3, h4, h5, h6
+		{
+			letter-spacing: -1px;
+			font-family: arial,verdana,sans-serif;
+			margin: 1.2em 0 .3em;
+			color: #337;
+			border-bottom: 1px solid #eee;
+			padding-bottom: .1em;
+		}
+		h1
+		{
+			font-size: 196%;
+			margin-top: .6em;
+		}
+		h2
+		{
+			font-size: 136%;
+		}
+		h3
+		{
+			font-size: 126%;
+		}
+		h4
+		{
+			font-size: 116%;
+		}
+		h5
+		{
+			font-size: 106%;
+		}
+		h6
+		{
+			font-size: 96%;
+		}
+		.highlight
+		{
+			color: #E17000;
+		}
+		.subdued
+		{
+			color: #999;
+		}
+		.error
+		{
+			color: #c00;
+			font-weight: bold;
+		}
+		.success
+		{
+			color: #390;
+			font-weight: bold;
+		}
+		.caption
+		{
+			color: #999;
+			font-size: 11px;
+		}
+		.date
+		{
+			font: bold 82% arial;
+			color: #bbb;
+			display: block;
+			letter-spacing: 1px;
+		}
+		small
+		{
+			font-size: 11px;
+		}
+		/* LISTS */ul
+		{
+			margin: .3em 0 1.5em 0;
+			list-style-type: none;
+		}
+		ul.related
+		{
+			margin-top: -1em;
+		}
+		ol
+		{
+			margin: .5em .5em 1.5em;
+		}
+		ol li
+		{
+			margin-left: 1.4em;
+			padding-left: 0;
+			background: none;
+			list-style-type: decimal;
+		}
+		li
+		{
+			line-height: 1.4em;
+			padding-left: 25px;
+			background: transparent url("images/sprites.gif") no-repeat 0 0;
+		}
+		li.doc
+		{
+			background-position: 3px -500px;
+		}
+		ul.nomarker li
+		{
+			background: none;
+			padding-left: 0;
+		}
+		dl
+		{
+			margin: 0 0 1em 0;
+		}
+		dt
+		{
+			font-weight: bold;
+			margin-top: 1.3em;
+		}
+		dl dl
+		{
+			margin: 0 0 1.5em 30px;
+		}
+		/* GENERAL */img
+		{
+			border: none;
+		}
+		hr
+		{
+			margin: 1em 0;
+			background: #f2f2f2;
+			height: 1px;
+			color: #f2f2f2;
+			border: none;
+			clear: both;
+		}
+		.clear
+		{
+			clear: both;
+			position: relative;
+			font-size: 0px;
+			height: 0px;
+			line-height: 0px;
+		}
+		#wrap
+		{
+			padding: 10px;
+		}
+		.style1
+		{
+			color: #CC0000;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div id="header">
+		  <p><a href="http://www.yetanotherforum.net"><img src="http://www.dotnetnuke.com/Portals/_default/Skins/Ultimo/images/DotNetNuke-Logo.gif" alt="YAF logo" width="183" height="46" style="border: 0"></a></p>
+			<p><a href="http://www.yetanotherforum.net"><img src="http://forum.yetanotherforum.net/images/logoTop.gif" alt="YAF logo" style="border: 0"></a><a href="http://www.yetanotherforum.net"></a>
+		  </p>
+		  <h2>
+		  YetAnotherForum.NET DotNetNuke® Module Installation/Upgrading Instructions</h2>
+			<p>Thank you for downloading Yet Another Forum.NET ASP.NET Open Source Forum solution. The Yet Another Forum (YAF) project is an international collaboriation of like-minded, skilled,
+			and creative individuals who are striving to make YAF the most robust and malleable forum solutions available. If you have any thoughts or would like to contribute, please see the 
+			contact information at the bottom of this document.
+			</p>
+</div>
+		<div id="content-wrap">
+			<div id="content">
+			<h3>
+				STEP 1.Installation Requirments</h3>
+				<p>
+				Make sure your server / Host has the following requirments:</p>
+				<ol>
+					<li>Microsoft .NET Framework 3.5 SP1 (Use version 1.9.3 or earlier for .NET 
+                        Framework 2.0)</li>
+					<li>Microsoft SQL Server 2005 or above. SQL Server 2000 works, but requires removal 
+                        of some SQL forum database optimizations.</li>
+				</ol>
+				<h3>STEP 2. BACKUP</h3>
+				<ol>
+					<li>Backup all your existing DotNetNuke installation</li>
+					<li><span class="style1"> <strong>BACKUP YOUR DATABASE</strong></span></li>
+				</ol>
+		    <h3>STEP 3. INSTALLING</h3>
+				<ol>
+					<li> Install the Module <strong>YAF_DNN5_1.94.xxxx.</strong><strong>zip</strong> in your DotNetNuke (Host-&gt;Extensions-&gt;Install Extension Wizard)</li>
+				</ol>
+				<h3>STEP 4. Modify the root web.config of your DotNetnuke. <span style="color:red;">This is the most important step.</span></h3>
+			  <ol>
+					<li>
+					  <p><strong> </strong>Replace the <strong>YAF Config Password</strong> <code>&lt;add key=&quot;YAF.ConfigPassword&quot; value=&quot;<strong>pass</strong>&quot; /&gt; with one you like.</code>				      </p>
+				</ol>
+			  <h3>STEP 5. (OPTIONAL) MODIFY &quot;mail.config&quot; FILE:</h3>
+				<ol>
+					<li>Modify the SMTP settings by entering your mail server information. If you SMTP
+						server requires SSL, you must add:
+						<br>
+				  <strong>&lt;add key=&quot;YAF.UseSMTPSSL&quot; value=&quot;false&quot; /&gt;</strong> to your app.config or appSettings.</li>
+</ol>
+				<h3>STEP 8a. NEW INSTALLATION:</h3>
+				<p>Now you can place the YAF Module on a Page you like, but make sure you are logged into DNN using the HOST account, it will automatically starts the Installation!</p>
+<h3>STEP 8b. UPGRADE:</h3>
+				<p>
+					Open the file YourWebsite.com/DesktopModules/YetAnotherForumDotNet/install/ on your web site. If you are testing
+					on your local computer, under a directory called YetAnotherForum.Net, the address
+					should be: <a href="http://localhost/yetanotherforum.net/install/">http://localhost/DesktopModules/YetAnotherForumDotNet/install/Default.aspx</a></p>
+				<p>
+					The wizard will guide you through the upgrade process.
+		    </p>
+				<h3>Yet Another Forum Community Support</h3>
+				<p>
+					If you have any questions, please visit the YAF Community Support forum: <a href="http://forum.yetanotherforum.net">
+						http://forum.yetanotherforum.net</a></p>
+<h3>Yet Another Forum Priority Support and Consulting</h3>
+				<p>
+					Please visit <a href="http://www.tinygecko.com/Forum-Customization.aspx">Tiny Gecko’s
+						YAF Services Web page</a> for more information on Priority Support and Integration
+					service options.</p>
+				<h3>Contact Us</h3>					
+				<p>
+					Thanks for trying YAF! If you have any suggestions or comments please email us at:
+					<a href="mailto:support@yetanotherforum.net">support@yetanotherforum.net</a></p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
