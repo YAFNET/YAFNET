@@ -251,8 +251,17 @@ namespace YAF.Controls
           // add attached files control...
           var attached = new MessageAttached();
           attached.MessageID = Convert.ToInt32(this.DataRow["MessageID"]);
-          attached.UserName = this.DataRow["UserName"].ToString();
-          this.Controls.Add(attached);
+
+          if  (this.DataRow["UserID"] != DBNull.Value && PageContext.BoardSettings.EnableDisplayName)
+          {
+             attached.UserName = UserMembershipHelper.GetDisplayNameFromID(Convert.ToInt64(this.DataRow["UserID"]));
+          }
+          else
+          {
+              attached.UserName = this.DataRow["UserName"].ToString();
+          }
+
+            this.Controls.Add(attached);
         }
       }
 

@@ -390,8 +390,8 @@ namespace YAF.controls
         protected bool CanVote(object pollId)
         {
        
-            // rule out users without voting rights
-            if (!this.PageContext.ForumVoteAccess)
+           // rule out users without voting rights
+           if (!this.PageContext.ForumVoteAccess)
            {
                     return false;
            }
