@@ -190,7 +190,7 @@ namespace YAF.Classes.Core
         // get the cached version of forum moderators if it's valid
         string key = YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators);
 
-        var moderator = YafContext.Current.Cache.GetItem(
+        var moderator = YafContext.Current.Cache.GetItem<DataTable>(
           key, YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout, this.GetModerators);
 
         // insert it into this DataSet
@@ -338,7 +338,7 @@ namespace YAF.Classes.Core
       // get the cached version of forum moderators if it's valid
       string key = YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators);
 
-      var moderator = YafContext.Current.Cache.GetItem(
+      var moderator = YafContext.Current.Cache.GetItem<DataTable>(
         key, YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout, this.GetModerators);
 
       return
