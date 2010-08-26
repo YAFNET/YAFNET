@@ -92,16 +92,10 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static bool IsBrowserIE6()
     {
-      if (HttpContext.Current.Request.Browser.Browser.Contains("IE") && HttpContext.Current.Request.Browser.Version.StartsWith("6."))
-      {
-        // IE version 6
-        return true;
-      }
-
-      return false;
+        return HttpContext.Current.Request.Browser.Browser.Contains("IE") && HttpContext.Current.Request.Browser.Version.StartsWith("6.");
     }
 
-    /// <summary>
+      /// <summary>
     /// Tests if the user agent is a mobile device.
     /// </summary>
     /// <param name="userAgent">
@@ -115,12 +109,7 @@ namespace YAF.Classes.Utils
                                   "iphone", "ppc", "windows ce", "blackberry", "opera mini", "mobile", "palm", "portable"
                                 };
 
-      if (userAgent.IsSet())
-      {
-        return mobileContains.Any(s => userAgent.ToLower().Contains(s));
-      }
-
-      return false;
+      return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLower().Contains(s));
     }
 
     /// <summary>
@@ -152,6 +141,10 @@ namespace YAF.Classes.Utils
       {
         platform = "??";
       }
+      else if (userAgent.IndexOf("Windows NT 5.1") >= 0)
+      {
+        platform = "WinXP";
+      }
       else if (userAgent.IndexOf("Windows NT 6.0") >= 0)
       {
         platform = "Vista";
@@ -171,6 +164,10 @@ namespace YAF.Classes.Utils
       else if (userAgent.IndexOf("FreeBSD") >= 0)
       {
         platform = "FreeBSD";
+      }
+      else if (userAgent.IndexOf("iPad") >= 0)
+      {
+          platform = "iPad(iOS)";
       }
       else
       {
