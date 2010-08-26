@@ -978,12 +978,12 @@ namespace YAF.controls
                     return;
                 }
 
-                 DataRowView drv = (DataRowView) e.Item.DataItem;
+                /*  
                 if (this.IsPollClosed(Convert.ToInt32(drv.Row["PollID"])))
                 {
                     this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
                     return;
-                }
+                } */
 
                 object userID = null;
                 object remoteIP = null;
