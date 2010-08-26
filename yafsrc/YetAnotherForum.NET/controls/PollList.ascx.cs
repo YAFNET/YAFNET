@@ -66,12 +66,12 @@ namespace YAF.controls
         private bool _canChange;
 
         /// <summary>
-        ///   The _showResults.
+        ///   The _showResults. Used to store data from parent repeater.
         /// </summary>
         private bool _showResults = false;
 
         /// <summary>
-        ///   The _canVote.
+        ///   The _canVote. Used to store data from parent repeater.
         /// </summary>
         private bool _canVote = false;
 
@@ -100,7 +100,7 @@ namespace YAF.controls
         }
 
         /// <summary>
-        /// Returns EditMessageId
+        /// Returns EditMessageId.
         /// </summary>
         public int EditMessageId
         {
@@ -154,7 +154,7 @@ namespace YAF.controls
         }
 
         /// <summary>
-        /// Returns EditBoardId
+        /// Returns EditBoardId. Used to return to edit board page. Currently is not implemented.
         /// </summary>
         public int EditBoardId
         {
@@ -172,7 +172,7 @@ namespace YAF.controls
         }
 
         /// <summary>
-        /// Returns MaxImageAspect
+        /// Returns MaxImageAspect. Stores max aspect to get rows of equal height.
         /// </summary>
         public decimal MaxImageAspect
         {
@@ -278,7 +278,10 @@ namespace YAF.controls
             this.NewPollRow.Visible = true;
         }
 
-
+        /// <summary>
+        /// A method to return parameters string. It should be implemented in other way.
+        /// </summary>
+        /// <returns></returns>
         private string ParamsToSend()
         {
            StringBuilder sb = new StringBuilder();
@@ -391,9 +394,14 @@ namespace YAF.controls
         {
        
            // rule out users without voting rights
-           if (!this.PageContext.ForumVoteAccess)
+           // If you come here from topics or edit TopicId should be > 0
+           if (!this.PageContext.ForumVoteAccess && this.TopicId > 0)
            {
-                    return false;
+               return false;
+           }
+           if (!this.PageContext.BoardVoteAccess && this.BoardId > 0)
+           {
+               return false;
            }
            if (this.IsPollClosed(pollId))
            {
@@ -789,7 +797,7 @@ namespace YAF.controls
 
         protected void PollGroup_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-         
+
             if (e.CommandName == "new" && this.PageContext.ForumVoteAccess)
             {
                 YafBuildLink.Redirect(
@@ -956,7 +964,7 @@ namespace YAF.controls
         /// </param>
         protected void Poll_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "vote" && this.PageContext.ForumVoteAccess)
+            if (e.CommandName == "vote" && ((this.PageContext.ForumVoteAccess && this.TopicId > 0) || (this.PageContext.BoardVoteAccess && this.BoardId > 0)))
             {
                 if (!this.CanVote(Convert.ToInt32(e.CommandArgument)))
                 {
@@ -970,7 +978,8 @@ namespace YAF.controls
                     return;
                 }
 
-                if (this.IsPollClosed(Convert.ToInt32(e.CommandArgument)))
+                 DataRowView drv = (DataRowView) e.Item.DataItem;
+                if (this.IsPollClosed(Convert.ToInt32(drv.Row["PollID"])))
                 {
                     this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
                     return;
@@ -1008,11 +1017,11 @@ namespace YAF.controls
         }
 
         /// <summary>
-        /// Returns user to the original call page
+        /// Returns user to the original call page. 
         /// </summary>
         private void ReturnToPage()
         {
-           
+            // We simply return here to the page where is the control. It can be made other way.
             if (this.TopicId > 0)
             {
                 YafBuildLink.Redirect(
@@ -1335,11 +1344,8 @@ namespace YAF.controls
                  // frequently used
                  PollNumber = _dtPollGroup.Rows.Count;
 
-
-
                 if (_dtPollGroup.Rows.Count > 0)
                 {
-                   
                     // Check if the user is already voted in polls in the group 
                     object userId = null;
                     object remoteIp = null;

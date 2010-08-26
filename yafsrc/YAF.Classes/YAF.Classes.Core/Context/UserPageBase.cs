@@ -241,6 +241,17 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    ///  Gets a value indicating whether the current user has access to vote on polls in the current BoardVoteAccess (True).
+    /// </summary>
+    public bool BoardVoteAccess
+    {
+        get
+        {
+            return AccessNotNull("BoardVoteAccess");
+        }
+    }
+
+    /// <summary>
     ///  Gets a value indicating whether the current user is a moderator of the current forum (True).
     /// </summary>
     public bool ForumModeratorAccess
