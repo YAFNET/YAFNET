@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true"
-    Inherits="YAF.Controls.MyTopicsList" Codebehind="MyTopicsList.ascx.cs" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.MyTopicsList"
+    CodeBehind="MyTopicsList.ascx.cs" %>
 <table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">
     <tr>
         <td align="right">
@@ -21,30 +21,28 @@
             &nbsp;
         </td>
         <td class="header1" align="left">
-            <YAF:LocalizedLabel ID="TopicsLabel" runat="server" LocalizedTag="TOPICS" />
+            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
+        </td>
+        <td class="header1" align="right" width="7%">
+            <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="replies" />
+        </td>
+        <td class="header1" align="right" width="7%">
+            <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="views" />
         </td>
         <td class="header1" align="left" width="20%">
-            <YAF:LocalizedLabel ID="StarterLabel" runat="server" LocalizedTag="TOPIC_STARTER" />
-        </td>
-        <td class="header1" align="center" width="7%">
-            <YAF:LocalizedLabel ID="RepliesLabel" runat="server" LocalizedTag="REPLIES" />
-        </td>
-        <td class="header1" align="center" width="7%">
-            <YAF:LocalizedLabel ID="ViewsLabel" runat="server" LocalizedTag="VIEWS" />
-        </td>
-        <td class="header1" align="center" width="20%">
-            <YAF:LocalizedLabel ID="LastPostLabel" runat="server" LocalizedTag="LASTPOST" />
+            <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="lastpost" />
         </td>
     </tr>
     <asp:Repeater ID="TopicList" runat="server">
         <ItemTemplate>
             <%# PrintForumName((System.Data.DataRowView)Container.DataItem) %>
-            <YAF:TopicLine ID="TopicLine1" runat="server" AltLastPost="<%# this.lastPostImageTT %>" FindUnread="true" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine ID="TopicLine1" runat="server" AltLastPost="<%# this.lastPostImageTT %>"
+                FindUnread="true" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
     </asp:Repeater>
     <tr>
-        <td class="footer1" align="right" width="100%" colspan="6">
-            <YAF:RssFeedLink ID="RssFeed" runat="server" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" />            
+        <td class="footer1" align="right" width="100%" colspan="5">
+            <YAF:RssFeedLink ID="RssFeed" runat="server" Visible="<%# PageContext.BoardSettings.ShowRSSLink %>" />
         </td>
     </tr>
 </table>
