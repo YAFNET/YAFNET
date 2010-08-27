@@ -294,6 +294,13 @@
     <Compile Include="pages\admin\editgroup.ascx.designer.cs">
       <DependentUpon>editgroup.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\admin\editlanguage.ascx.cs">
+      <DependentUpon>editlanguage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\editlanguage.ascx.designer.cs">
+      <DependentUpon>editlanguage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\admin\editmedal.ascx.designer.cs">
       <DependentUpon>editmedal.ascx</DependentUpon>
     </Compile>
@@ -329,6 +336,13 @@
     </Compile>
     <Compile Include="pages\admin\hostsettings.ascx.designer.cs">
       <DependentUpon>hostsettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\languages.ascx.cs">
+      <DependentUpon>languages.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\languages.ascx.designer.cs">
+      <DependentUpon>languages.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\mail.ascx.designer.cs">
       <DependentUpon>mail.ascx</DependentUpon>
@@ -794,6 +808,7 @@
     <Content Include="pages\admin\editcategory.ascx" />
     <Content Include="pages\admin\editforum.ascx" />
     <Content Include="pages\admin\editgroup.ascx" />
+    <Content Include="pages\admin\editlanguage.ascx" />
     <Content Include="pages\admin\editmedal.ascx" />
     <Content Include="pages\admin\editnntpforum.ascx" />
     <Content Include="pages\admin\editnntpserver.ascx" />
@@ -806,6 +821,7 @@
     <Content Include="pages\admin\forums.ascx" />
     <Content Include="pages\admin\groups.ascx" />
     <Content Include="pages\admin\hostsettings.ascx" />
+    <Content Include="pages\admin\languages.ascx" />
     <Content Include="pages\admin\mail.ascx" />
     <Content Include="pages\admin\medals.ascx" />
     <Content Include="pages\admin\nntpforums.ascx" />
@@ -1570,6 +1586,8 @@
     <Content Include="themes\cleanSlate\jquery\ui.theme.css" />
     <Content Include="themes\cleanSlate\male.gif" />
     <Content Include="themes\cleanSlate\mask.gif" />
+    <Content Include="themes\cleanSlate\poll_choice.png" />
+    <Content Include="themes\cleanSlate\poll_question.png" />
     <Content Include="themes\cleanSlate\rssfeed.gif" />
     <Content Include="themes\cleanSlate\sort_down.gif" />
     <Content Include="themes\cleanSlate\sort_up.gif" />
@@ -1626,7 +1644,7 @@
     <Content Include="themes\FlatEarth\jquery\ui.tabs.css" />
     <Content Include="themes\FlatEarth\jquery\ui.theme.css" />
     <Content Include="themes\FlatEarth\male.gif" />
-    <Content Include="themes\FlatEarth\mask1.gif" />
+    <Content Include="themes\FlatEarth\mask.gif" />
     <Content Include="themes\FlatEarth\poll_choice.png" />
     <Content Include="themes\FlatEarth\poll_question.png" />
     <Content Include="themes\FlatEarth\rssfeed.gif" />
@@ -1693,7 +1711,7 @@
     <Content Include="themes\Gray\jquery\ui.tabs.css" />
     <Content Include="themes\Gray\jquery\ui.theme.css" />
     <Content Include="themes\Gray\male.gif" />
-    <Content Include="themes\Gray\mask1.gif" />
+    <Content Include="themes\Gray\mask.gif" />
     <Content Include="themes\Gray\poll_choice.png" />
     <Content Include="themes\Gray\poll_question.png" />
     <Content Include="themes\Gray\reflection.js" />
@@ -1755,7 +1773,7 @@
     <Content Include="themes\soclean\jquery\ui.tabs.css" />
     <Content Include="themes\soclean\jquery\ui.theme.css" />
     <Content Include="themes\soclean\male.gif" />
-    <Content Include="themes\soclean\mask1.gif" />
+    <Content Include="themes\soclean\mask.gif" />
     <Content Include="themes\soclean\poll_choice.png" />
     <Content Include="themes\soclean\poll_question.png" />
     <Content Include="themes\soclean\rssfeed.gif" />
@@ -1800,7 +1818,10 @@
     <Content Include="themes\Yafmobile\jquery\ui.slider.css" />
     <Content Include="themes\Yafmobile\jquery\ui.tabs.css" />
     <Content Include="themes\Yafmobile\jquery\ui.theme.css" />
+    <Content Include="themes\Yafmobile\mask.gif" />
     <Content Include="themes\Yafmobile\MobilePages\forumactivediscussion.ascx" />
+    <Content Include="themes\Yafmobile\poll_choice.png" />
+    <Content Include="themes\Yafmobile\poll_question.png" />
     <Content Include="themes\Yafmobile\sort_down.png" />
     <Content Include="themes\Yafmobile\sort_up.png" />
     <Content Include="themes\Yafmobile\tab-line.png" />
@@ -1850,7 +1871,7 @@
     <Content Include="themes\yafpro\jquery\ui.tabs.css" />
     <Content Include="themes\yafpro\jquery\ui.theme.css" />
     <Content Include="themes\yafpro\male.gif" />
-    <Content Include="themes\yafpro\mask1.gif" />
+    <Content Include="themes\yafpro\mask.gif" />
     <Content Include="themes\yafpro\poll_choice.png" />
     <Content Include="themes\yafpro\poll_question.png" />
     <Content Include="themes\yafpro\rssfeed.gif" />
@@ -1887,7 +1908,7 @@
     <Content Include="themes\yafvision\jquery\ui.tabs.css" />
     <Content Include="themes\yafvision\jquery\ui.theme.css" />
     <Content Include="themes\yafvision\male.gif" />
-    <Content Include="themes\yafvision\mask1.gif" />
+    <Content Include="themes\yafvision\mask.gif" />
     <Content Include="themes\yafvision\poll_choice.png" />
     <Content Include="themes\yafvision\poll_question.png" />
     <Content Include="themes\yafvision\rssfeed.gif" />

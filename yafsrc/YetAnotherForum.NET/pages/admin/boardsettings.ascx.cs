@@ -102,7 +102,7 @@ namespace YAF.Pages.Admin
         pollGroup.Insert(0, new TypedPollGroup(String.Empty, -1));
 
         // TODO: vzrus needs some work, will be in polls only until feature is debugged there.
-       // this.PollGroupListDropDown.Items.AddRange(pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
+        this.PollGroupListDropDown.Items.AddRange(pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
 
         // population default notification setting options...
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();

@@ -58,15 +58,16 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
+       this.PollList.Visible = this.PageContext.BoardSettings.BoardPollID > 0;
+       this.PollList.PollGroupId = this.PageContext.BoardSettings.BoardPollID;
+       this.PollList.BoardId = this.PageContext.Settings.BoardID;
+
       if (!this.IsPostBack)
       {
         this.ShoutBox1.Visible = this.PageContext.BoardSettings.ShowShoutbox;
         this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
         this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
-
-        this.PollList.Visible = this.PageContext.BoardSettings.BoardPollID > 0;
-        this.PollList.PollGroupId = this.PageContext.BoardSettings.BoardPollID;
-        this.PollList.BoardId = this.PageContext.Settings.BoardID;
+        
        
           if (this.PageContext.Settings.LockedForum == 0)
         {

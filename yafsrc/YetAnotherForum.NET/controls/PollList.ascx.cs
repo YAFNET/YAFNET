@@ -750,13 +750,13 @@ namespace YAF.controls
                     {
                         pollWillExpire.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS");
                     }
-                    pollWillExpire.Visible = true;
+                    showWarningsRow = pollWillExpire.Visible = true;
                 }
                 else if (daystorun == 0)
                 {
                     Label pollExpired = item.FindControlRecursiveAs<Label>("PollExpired");
                     pollExpired.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED");
-                    pollExpired.Visible = true;
+                    showWarningsRow = pollExpired.Visible = true;
                 }
              
                 item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = showWarningsRow;
@@ -964,7 +964,7 @@ namespace YAF.controls
         /// </param>
         protected void Poll_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "vote" && ((this.PageContext.ForumVoteAccess && this.TopicId > 0) || (this.PageContext.BoardVoteAccess && this.BoardId > 0)))
+            if (e.CommandName == "vote" &&  e.CommandArgument != null && ((this.PageContext.ForumVoteAccess && this.TopicId > 0) || (this.PageContext.BoardVoteAccess && this.BoardId > 0)))
             {
                 if (!this.CanVote(Convert.ToInt32(e.CommandArgument)))
                 {
@@ -977,13 +977,20 @@ namespace YAF.controls
                     this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_TOPIC_LOCKED"));
                     return;
                 }
+               
+                    foreach (DataRow drow  in _dtPoll.Rows)
+                    {
+                        if ((int)drow["ChoiceID"] == Convert.ToInt32(e.CommandArgument))
+                        {
+                            if (this.IsPollClosed(Convert.ToInt32(drow["PollID"])))
+                            {
+                                this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
+                                return;
+                            }
+                            break;
+                        }
+                    }
 
-                /*  
-                if (this.IsPollClosed(Convert.ToInt32(drv.Row["PollID"])))
-                {
-                    this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
-                    return;
-                } */
 
                 object userID = null;
                 object remoteIP = null;

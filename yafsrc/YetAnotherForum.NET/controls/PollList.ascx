@@ -1,5 +1,4 @@
 <%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollList.ascx.cs" Inherits="YAF.controls.PollList" %>
-
 <table cellpadding="0" cellspacing="1" class="content" width="100%">
 <asp:Repeater ID="PollGroup" OnItemCommand="PollGroup_ItemCommand" OnItemDataBound="PollGroup_OnItemDataBound"  runat="server" Visible="true"> 
 <HeaderTemplate>          
@@ -123,6 +122,7 @@
     <YAF:ThemeButton ID="CreatePoll1" runat="server" CssClass="yafcssbigbutton rightItem"
 			  TextLocalizedTag="CREATEPOLL" />
  </td>
- </tr> 
+ </tr>
 </table>
+<br />
 
