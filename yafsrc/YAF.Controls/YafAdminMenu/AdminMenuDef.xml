@@ -48,6 +48,11 @@
       <ForumPage>admin_bbcode</ForumPage>
       <Image>script-text</Image>
     </YafMenuItem>
+    <YafMenuItem>
+      <Title>Languages</Title>
+      <ForumPage>admin_languages</ForumPage>
+      <Image>gear--pencil</Image>
+    </YafMenuItem>
   </YafMenuSection>
   <YafMenuSection Title="Users and Roles" HostAdminOnly="false">
     <YafMenuItem>

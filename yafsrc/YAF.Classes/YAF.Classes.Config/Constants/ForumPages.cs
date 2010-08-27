@@ -398,7 +398,7 @@ namespace YAF.Classes
     /// <summary>
     /// The admin_attachments.
     /// </summary>
-    admin_attachments, 
+    admin_attachments,
 
     /// <summary>
     /// The admin_eventlog.
@@ -538,7 +538,17 @@ namespace YAF.Classes
     /// <summary>
     /// The admin_bbcode_import.
     /// </summary>
-    admin_bbcode_import, 
+    admin_bbcode_import,
+
+    /// <summary>
+    /// The admin_languages.
+    /// </summary>
+    admin_languages,
+
+    /// <summary>
+    /// The admin_editlanguage.
+    /// </summary>
+    admin_editlanguage, 
 
     /// <summary>
     /// The admin_reindex.
