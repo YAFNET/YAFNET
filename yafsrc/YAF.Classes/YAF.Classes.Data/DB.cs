@@ -1856,7 +1856,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// Gets posting statistics
     /// </summary>
-    /// <param name="boardID">
+    /// <param name="boardId">
     /// BoardID
     /// </param>
     /// <param name="useStyledNick">
@@ -1906,7 +1906,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// Gets users statistics
     /// </summary>
-    /// <param name="boardID">
+    /// <param name="boardId">
     /// BoardID
     /// </param>
     /// <returns>
@@ -3537,6 +3537,7 @@ namespace YAF.Classes.Data
     /// </param>
     /// <param name="usrAlbumImages">
     /// The UsrAlbumImages defines number of images allowed for an album.
+    /// </param>
     /// <returns>
     /// The group_save.
     /// </returns>
@@ -3706,27 +3707,24 @@ namespace YAF.Classes.Data
 
     #region Message
 
-    /// <summary>
-    /// The post_list.
-    /// </summary>
-    /// <param name="topicID">
-    /// The topic id.
-    /// </param>
-    /// <param name="updateViewCount">
-    /// The update view count.
-    /// </param>
-    /// <param name="showDeleted">
-    /// The show deleted.
-    /// </param>
-    /// <param name="styledNicks">
-    /// The styled nicks.
-    /// </param>
-    /// <param name="showThanksDate">
-    /// The show thanks date.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static DataTable post_list(object topicID, object updateViewCount, bool showDeleted, bool styledNicks)
+      /// <summary>
+      /// The post_list.
+      /// </summary>
+      /// <param name="topicID">
+      /// The topic id.
+      /// </param>
+      /// <param name="updateViewCount">
+      /// The update view count.
+      /// </param>
+      /// <param name="showDeleted">
+      /// The show deleted.
+      /// </param>
+      /// <param name="styledNicks">
+      /// The styled nicks.
+      /// </param>
+      /// <returns>
+      /// </returns>
+      public static DataTable post_list(object topicID, object updateViewCount, bool showDeleted, bool styledNicks)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("post_list"))
       {
@@ -3989,18 +3987,15 @@ namespace YAF.Classes.Data
       message_deleteRecursively(messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false, eraseMessage);
     }
 
-    /// <summary>
-    /// Retrieve all reported messages with the correct forumID argument.
-    /// </summary>
-    /// <param name="messageFlag">
-    /// The message flag.
-    /// </param>
-    /// <param name="forumID">
-    /// The forum id.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static DataTable message_listreported(object forumID)
+      /// <summary>
+      /// Retrieve all reported messages with the correct forumID argument.
+      /// </summary>
+      /// <param name="forumID">
+      /// The forum id.
+      /// </param>
+      /// <returns>
+      /// </returns>
+      public static DataTable message_listreported(object forumID)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("message_listreported"))
       {
@@ -4053,25 +4048,22 @@ namespace YAF.Classes.Data
     }
 
     // <summary> Save reported message back to the database. </summary>
-    /// <summary>
-    /// The message_report.
-    /// </summary>
-    /// <param name="reportFlag">
-    /// The report flag.
-    /// </param>
-    /// <param name="messageID">
-    /// The message id.
-    /// </param>
-    /// <param name="userID">
-    /// The user id.
-    /// </param>
-    /// <param name="reportedDateTime">
-    /// The reported date time.
-    /// </param>
-    /// <param name="reportText">
-    /// The report text.
-    /// </param>
-    public static void message_report(object messageID, object userID, object reportedDateTime, object reportText)
+      /// <summary>
+      /// The message_report.
+      /// </summary>
+      /// <param name="messageID">
+      /// The message id.
+      /// </param>
+      /// <param name="userID">
+      /// The user id.
+      /// </param>
+      /// <param name="reportedDateTime">
+      /// The reported date time.
+      /// </param>
+      /// <param name="reportText">
+      /// The report text.
+      /// </param>
+      public static void message_report(object messageID, object userID, object reportedDateTime, object reportText)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("message_report"))
       {
@@ -5633,7 +5625,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// The pollgroup_stats.
     /// </summary>
-    /// <param name="pollGroupID">
+    /// <param name="pollGroupId">
     /// The poll group id.
     /// </param>
     /// <returns>
@@ -5651,7 +5643,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// The pollgroup_attach.
     /// </summary>
-    /// <param name="pollGroupID">
+    /// <param name="pollGroupId">
     /// The poll group id.
     /// </param>
     /// <returns>
@@ -5674,7 +5666,7 @@ namespace YAF.Classes.Data
     /// <summary>
     /// The poll_stats.
     /// </summary>
-    /// <param name="pollID">
+    /// <param name="pollId">
     /// The poll id.
     /// </param>
     /// <returns>
@@ -5933,11 +5925,11 @@ namespace YAF.Classes.Data
     /// <param name="pollID">
     /// The poll id. If null all polls in a group a deleted. 
     /// </param>
-    /// <param name="boardID">
+    /// <param name="boardId">
     /// The BoardID id. 
     /// </param>
     /// <param name="removeCompletely">
-    /// The RemoveCompletely. If true and <param name="pollID">pollID</param> is null , all polls in a group are deleted completely, 
+    /// The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely, 
     /// else only one poll is deleted completely. 
     /// </param>
     public static void poll_remove(object pollGroupID, object pollID, object boardId, bool removeCompletely, bool removeEverywhere)
@@ -5982,23 +5974,25 @@ namespace YAF.Classes.Data
       }
     }
 
-    /// <summary>
-    /// The poll_remove.
-    /// </summary>
-    /// <param name="pollGroupID">
-    /// The poll group id. The parameter should always be present. 
-    /// </param>
-    /// <param name="pollID">
-    /// The poll id. If null all polls in a group a deleted. 
-    /// </param>
-    /// <param name="boardID">
-    /// The BoardID id. 
-    /// </param>
-    /// <param name="removeCompletely">
-    /// The RemoveCompletely. If true and <param name="pollID">pollID</param> is null , all polls in a group are deleted completely, 
-    /// else only one poll is deleted completely. 
-    /// </param>
-    public static void pollgroup_remove(object pollGroupID, object topicId, object forumId, object categoryId, object boardId, bool removeCompletely, bool removeEverywhere)
+      /// <summary>
+      /// The poll_remove.
+      /// </summary>
+      /// <param name="pollGroupID">
+      /// The poll group id. The parameter should always be present. 
+      /// </param>
+      /// <param name="topicId">
+      /// The poll id. If null all polls in a group a deleted. 
+      /// </param>
+      /// <param name="boardId">
+      /// The BoardID id. 
+      /// </param>
+      /// <param name="removeCompletely">
+      /// The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely, 
+      /// else only one poll is deleted completely. 
+      /// </param>
+      /// <param name="forumId"></param>
+      /// <param name="removeEverywhere"></param>
+      public static void pollgroup_remove(object pollGroupID, object topicId, object forumId, object categoryId, object boardId, bool removeCompletely, bool removeEverywhere)
     {
         using (SqlCommand cmd = YafDBAccess.GetCommand("pollgroup_remove"))
         {
@@ -6926,49 +6920,46 @@ namespace YAF.Classes.Data
       }
     }
 
-    /// <summary>
-    /// The topic_save.
-    /// </summary>
-    /// <param name="forumID">
-    /// The forum id.
-    /// </param>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="userID">
-    /// The user id.
-    /// </param>
-    /// <param name="priority">
-    /// The priority.
-    /// </param>
-    /// <param name="pollID">
-    /// The poll id.
-    /// </param>
-    /// <param name="userName">
-    /// The user name.
-    /// </param>
-    /// <param name="ip">
-    /// The ip.
-    /// </param>
-    /// <param name="posted">
-    /// The posted.
-    /// </param>
-    /// <param name="blogPostID">
-    /// The blog post id.
-    /// </param>
-    /// <param name="flags">
-    /// The flags.
-    /// </param>
-    /// <param name="messageID">
-    /// The message id.
-    /// </param>
-    /// <returns>
-    /// The topic_save.
-    /// </returns>
-    public static long topic_save(
+      /// <summary>
+      /// The topic_save.
+      /// </summary>
+      /// <param name="forumID">
+      /// The forum id.
+      /// </param>
+      /// <param name="subject">
+      /// The subject.
+      /// </param>
+      /// <param name="message">
+      /// The message.
+      /// </param>
+      /// <param name="userID">
+      /// The user id.
+      /// </param>
+      /// <param name="priority">
+      /// The priority.
+      /// </param>
+      /// <param name="userName">
+      /// The user name.
+      /// </param>
+      /// <param name="ip">
+      /// The ip.
+      /// </param>
+      /// <param name="posted">
+      /// The posted.
+      /// </param>
+      /// <param name="blogPostID">
+      /// The blog post id.
+      /// </param>
+      /// <param name="flags">
+      /// The flags.
+      /// </param>
+      /// <param name="messageID">
+      /// The message id.
+      /// </param>
+      /// <returns>
+      /// The topic_save.
+      /// </returns>
+      public static long topic_save(
       object forumID,
       object subject,
       object message,
@@ -9867,19 +9858,17 @@ namespace YAF.Classes.Data
         return paramOutput.Value.ToString();
       }
     }
-    /// <summary>
-    /// Gets all the buddies of a certain user.
-    /// </summary>
-    /// <param name="FromUserID">
-    /// The from user id.
-    /// </param>
-    /// <param name="JustApproved">
-    /// Return only the approved users?
-    /// </param>
-    /// <returns>
-    /// a Datatable containing the buddy list.
-    /// </returns>
-    public static DataTable buddy_list(object FromUserID)
+
+      /// <summary>
+      /// Gets all the buddies of a certain user.
+      /// </summary>
+      /// <param name="FromUserID">
+      /// The from user id.
+      /// </param>
+      /// <returns>
+      /// a Datatable containing the buddy list.
+      /// </returns>
+      public static DataTable buddy_list(object FromUserID)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("buddy_list"))
       {

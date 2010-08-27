@@ -18,7 +18,7 @@
  */
 namespace YAF.Utilities
 {
-  using YAF.Classes.Core;
+  using Classes.Core;
 
   /// <summary>
   /// Summary description for JavaScriptBlocks
@@ -163,17 +163,16 @@ function toggleMessage(divId)
           "dvThankbox=document.getElementById('dvThankBox' + res.value.MessageID); dvThankbox.innerHTML={0};}}}}", 
           AddThankBoxHTML);
     }
-    
-     /// <summary>
-    /// script for the add Favorite Topic button
-    /// </summary>
-    /// <param name="RemoveThankBoxHTML">
-    /// HTML code for the "Untag As Favorite" button
-    /// </param>
-    /// <returns>
-    /// The add Favorite Topic js.
-    /// </returns>
-    public static string addFavoriteTopicJs(string UntagButtonHTML)
+
+      /// <summary>
+      /// script for the add Favorite Topic button
+      /// </summary>
+      /// <param name="UntagButtonHTML">HTML code for the "Untag As Favorite" button
+      /// </param>
+      /// <returns>
+      /// The add Favorite Topic js.
+      /// </returns>
+      public static string addFavoriteTopicJs(string UntagButtonHTML)
     {
         return
           string.Format(

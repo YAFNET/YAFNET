@@ -1129,7 +1129,7 @@ namespace YAF.Pages.Admin
     /// <param name="_countLimit">
     /// The _count limit.
     /// </param>
-    /// <param name="excludeCurrentBoardB">
+    /// <param name="_excludeCurrentBoard">
     /// The _exclude current board.
     /// </param>
     /// <returns>

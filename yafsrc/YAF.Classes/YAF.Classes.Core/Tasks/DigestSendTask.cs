@@ -95,8 +95,8 @@ namespace YAF.Classes.Core
     /// <summary>
     /// The is time to send digest for board.
     /// </summary>
-    /// <param name="boardId">
-    /// The board id.
+    /// <param name="boardSettings">
+    /// The board settings.
     /// </param>
     /// <returns>
     /// The is time to send digest for board.
@@ -175,7 +175,7 @@ namespace YAF.Classes.Core
     ///   The users with digest.
     /// </param>
     /// <param name="boardId"></param>
-    /// <param name="name"></param>
+    /// <param name="forumName"></param>
     private void SendDigestToUsers(IEnumerable<TypedUserFind> usersWithDigest, int boardId, string forumName)
     {
       foreach (var user in usersWithDigest)

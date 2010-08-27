@@ -690,23 +690,20 @@ namespace YAF.Classes.Core
       return matchList;
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="matchRegEx">
-    /// The match reg ex.
-    /// </param>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="matchList">
-    /// The match list.
-    /// </param>
-    /// <param name="MatchAction">
-    /// The match action.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    private static void MatchAndPerformAction(string matchRegEx, string text, Action<string, int, int> MatchAction)
+      /// <summary>
+      /// </summary>
+      /// <param name="matchRegEx">
+      /// The match reg ex.
+      /// </param>
+      /// <param name="text">
+      /// The text.
+      /// </param>
+      /// <param name="MatchAction">
+      /// The match action.
+      /// </param>
+      /// <returns>
+      /// </returns>
+      private static void MatchAndPerformAction(string matchRegEx, string text, Action<string, int, int> MatchAction)
     {
       const RegexOptions options = RegexOptions.IgnoreCase;
 

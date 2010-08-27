@@ -988,15 +988,13 @@ namespace YAF.Pages
                  this.PageContext.IsAdmin; */
       }
 
-    /// <summary>
-    /// Gets the message ID if "find" is in the query string
-    /// </summary>
-    /// <param name="pds">
-    /// </param>
-    /// <returns>
-    /// The get find message id.
-    /// </returns>
-    private int GetFindMessageId()
+      /// <summary>
+      /// Gets the message ID if "find" is in the query string
+      /// </summary>
+      /// <returns>
+      /// The get find message id.
+      /// </returns>
+      private int GetFindMessageId()
     {
       int findMessageId = 0;
 

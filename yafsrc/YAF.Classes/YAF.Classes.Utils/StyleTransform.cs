@@ -195,9 +195,6 @@ namespace YAF.Classes.Utils
     /// The color only.
     /// </param>
     /// <param name="styleColumns">
-    /// The style Columns.
-    /// </param>
-    /// <param name="colorOnly">
     /// The styleColumns can contain param array to handle several style columns.
     /// </param>
     public void DecodeStyleByTable(ref DataTable dt, bool colorOnly, params string[] styleColumns)

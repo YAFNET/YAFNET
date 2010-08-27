@@ -474,7 +474,7 @@ namespace YAF.Controls
         /// Initializes the values of BuddyList control's properties and calls the BindData() 
         /// method of the control.
         /// </summary>
-        /// <param name="CustomBuddyList">
+        /// <param name="customBuddyList">
         /// The BuddyList control
         /// </param>
         /// <param name="BuddyListMode">

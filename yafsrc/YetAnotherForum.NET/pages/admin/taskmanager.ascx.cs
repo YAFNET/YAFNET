@@ -67,8 +67,8 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The format time span.
     /// </summary>
-    /// <param name="item">
-    /// The item.
+    /// <param name="time">
+    /// The time item.
     /// </param>
     /// <returns>
     /// The format time span.

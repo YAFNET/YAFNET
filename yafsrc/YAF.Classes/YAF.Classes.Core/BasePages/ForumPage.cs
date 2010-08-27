@@ -230,11 +230,10 @@ namespace YAF.Classes.Core
       }
     }
 
-    /// <summary>
-    ///   Adds a message that is displayed to the user when the page is loaded.
-    /// </summary>
-    /// <param name = "msg">The message to display</param>
-    public string RefreshURL
+      /// <summary>
+      ///   Adds a message that is displayed to the user when the page is loaded.
+      /// </summary>
+      public string RefreshURL
     {
       get
       {

@@ -56,7 +56,7 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Formats a datetime value into 07.03.2003 22:32:34
     /// </summary>
-    /// <param name="objectDateTIme"> 
+    /// <param name="objectDateTime"> 
     /// The date to be formatted
     /// </param>    
     /// <returns>
