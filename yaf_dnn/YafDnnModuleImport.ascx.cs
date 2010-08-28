@@ -357,10 +357,10 @@ namespace YAF.DotNetNuke
 
             int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
 
-            // save the time zone...
+            // Save User
             DB.user_save(yafUserId,
                          iBoardId,
-                        null, null, null, GetUserTimeZoneOffset(dnnUserInfo, PortalSettings), null, null, null, null, null, null, null, null, null);
+                        null, null, null, GetUserTimeZoneOffset(dnnUserInfo, PortalSettings), null, null, null, null, null, null, null, null, null, null);
 
             return yafUserId;
         }
@@ -386,6 +386,7 @@ namespace YAF.DotNetNuke
                 string roleCookie = "";
 
                 HttpCookie cookie = HttpContext.Current.Request.Cookies[Roles.CookieName];
+
                 if (cookie != null)
                     roleCookie = cookie.Value;
 

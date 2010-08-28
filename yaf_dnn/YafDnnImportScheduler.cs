@@ -211,10 +211,12 @@ namespace YAF.DotNetNuke
 
             int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
 
-            // save the time zone...
+
+
+            // Save User
             DB.user_save(yafUserId,
                          iBoardId,
-                        null, null, null, GetUserTimeZoneOffset(dnnUserInfo), null, null, null, null, null, null, null, null, null);
+                        null, null, null, GetUserTimeZoneOffset(dnnUserInfo), null, null, null, null, null, null, null, null, null,null);
 
             return yafUserId;
         }

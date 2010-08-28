@@ -241,17 +241,19 @@ namespace YAF.DotNetNuke
             YafUserProfile userProfile = YafUserProfile.GetProfile(dnnUser.UserName);
             // setup their inital profile information
             userProfile.Initialize(dnnUser.UserName, true);
+
             userProfile.RealName = dnnUserInfo.Profile.FullName;
             userProfile.Location = dnnUserInfo.Profile.Country;
             userProfile.Homepage = dnnUserInfo.Profile.Website;
+
             userProfile.Save();
 
             int yafUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(dnnUser.ProviderUserKey);
 
-            // save the time zone...
+            // Save User
             DB.user_save(yafUserId, 
-                         forum1.BoardID, 
-                        null, null, null, GetUserTimeZoneOffset(dnnUserInfo, PortalSettings), null, null, null, null, null,null,null,null,null);
+                         forum1.BoardID,
+                        null, null, null, GetUserTimeZoneOffset(dnnUserInfo, PortalSettings), null, null, null, null, null, null, null, null, null, null);
 
             return yafUserId;
         }
