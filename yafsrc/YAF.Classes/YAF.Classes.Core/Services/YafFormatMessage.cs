@@ -64,7 +64,7 @@ namespace YAF.Classes.Core
     /// </returns>
     public static string AddSmiles(string message)
     {
-      var layers = new ReplaceRules();
+      var layers = new ProcessReplaceRules();
       AddSmiles(ref layers);
 
       // apply...
@@ -78,7 +78,7 @@ namespace YAF.Classes.Core
     /// <param name="rules">
     /// The rules.
     /// </param>
-    public static void AddSmiles(ref ReplaceRules rules)
+    public static void AddSmiles(ref ProcessReplaceRules rules)
     {
       DataTable dtSmileys = GetSmilies();
       int codeOffset = 0;
@@ -290,7 +290,7 @@ namespace YAF.Classes.Core
       message = RepairHtml(message, messageFlags.IsHtml);
 
       // get the rules engine from the creator...
-      ReplaceRules ruleEngine =
+      ProcessReplaceRules ruleEngine =
         ReplaceRulesCreator.GetInstance(new[] { messageFlags.IsBBCode, targetBlankOverride, useNoFollow });
 
       // see if the rules are already populated...
