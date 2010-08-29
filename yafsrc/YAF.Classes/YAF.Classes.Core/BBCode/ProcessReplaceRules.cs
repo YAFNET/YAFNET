@@ -23,19 +23,21 @@ namespace YAF.Classes.Core.BBCode
   using System;
   using System.Collections.Generic;
 
+  using YAF.Classes.Utils;
+
   #endregion
 
   /// <summary>
   /// Provides a way to handle layers of replacements rules
   /// </summary>
-  public class ReplaceRules : ICloneable, IReplaceRules
+  public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
   {
     #region Constants and Fields
 
     /// <summary>
     ///   The _rules list.
     /// </summary>
-    private readonly List<IBaseReplaceRule> _rulesList;
+    private readonly List<IReplaceRule> _rulesList;
 
     /// <summary>
     ///   The _rules lock.
@@ -52,11 +54,11 @@ namespace YAF.Classes.Core.BBCode
     #region Constructors and Destructors
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "ReplaceRules" /> class.
+    ///   Initializes a new instance of the <see cref = "ProcessReplaceRules" /> class.
     /// </summary>
-    public ReplaceRules()
+    public ProcessReplaceRules()
     {
-      this._rulesList = new List<IBaseReplaceRule>();
+      this._rulesList = new List<IReplaceRule>();
     }
 
     #endregion
@@ -91,10 +93,10 @@ namespace YAF.Classes.Core.BBCode
     /// </returns>
     public object Clone()
     {
-      var copyReplaceRules = new ReplaceRules();
+      var copyReplaceRules = new ProcessReplaceRules();
 
       // move the rules over...
-      var ruleArray = new IBaseReplaceRule[this._rulesList.Count];
+      var ruleArray = new IReplaceRule[this._rulesList.Count];
       this._rulesList.CopyTo(ruleArray);
       copyReplaceRules._rulesList.InsertRange(0, ruleArray);
       copyReplaceRules._needSort = this._needSort;
@@ -104,7 +106,7 @@ namespace YAF.Classes.Core.BBCode
 
     #endregion
 
-    #region IReplaceRules
+    #region IProcessReplaceRules
 
     /// <summary>
     /// The add rule.
@@ -136,7 +138,7 @@ namespace YAF.Classes.Core.BBCode
     /// </param>
     public void Process(ref string text)
     {
-      if (String.IsNullOrEmpty(text))
+      if (text.IsNotSet())
       {
         return;
       }
@@ -152,10 +154,10 @@ namespace YAF.Classes.Core.BBCode
       }
 
       // make the replacementCollection for this instance...
-      var mainCollection = new HtmlReplacementCollection();
+      var mainCollection = new ReplaceBlocksCollection();
 
       // get as local list...
-      var localRulesList = new List<IBaseReplaceRule>();
+      var localRulesList = new List<IReplaceRule>();
 
       lock (this._rulesLock)
       {
@@ -165,7 +167,7 @@ namespace YAF.Classes.Core.BBCode
       // apply all rules...
       foreach (BaseReplaceRule rule in localRulesList)
       {
-        rule.Replace(ref text, ref mainCollection);
+        rule.Replace(ref text, mainCollection);
       }
 
       // reconstruct the html

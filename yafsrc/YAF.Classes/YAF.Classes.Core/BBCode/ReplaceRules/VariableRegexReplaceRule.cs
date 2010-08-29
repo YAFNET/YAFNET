@@ -208,7 +208,7 @@ namespace YAF.Classes.Core.BBCode
     /// <param name="replacement">
     /// The replacement.
     /// </param>
-    public override void Replace(ref string text, ref HtmlReplacementCollection replacement)
+    public override void Replace(ref string text, IReplaceBlocks replacement)
     {
       var sb = new StringBuilder(text);
 
@@ -253,7 +253,7 @@ namespace YAF.Classes.Core.BBCode
         }
 
         // pulls the htmls into the replacement collection before it's inserted back into the main text
-        replacement.GetReplacementsFromText(ref innerReplace);
+        replacement.ReplaceHtmlFromText(ref innerReplace);
 
         // remove old bbcode...
         sb.Remove(m.Groups[0].Index, m.Groups[0].Length);

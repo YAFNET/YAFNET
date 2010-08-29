@@ -56,7 +56,7 @@ namespace YAF.Classes.Core.BBCode
     /// <returns>
     /// ReplaceRules for given unique flags.
     /// </returns>
-    public static ReplaceRules GetInstance(bool[] uniqueFlags)
+    public static ProcessReplaceRules GetInstance(bool[] uniqueFlags)
     {
       // convert flags to integer
       int rulesFlags = FlagsBase.GetIntFromBoolArray(uniqueFlags);
@@ -64,8 +64,8 @@ namespace YAF.Classes.Core.BBCode
       // cache is board-specific since boards may have different custom BB Code...
       string key = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceRules.FormatWith(rulesFlags));
 
-      ReplaceRules rules = YafContext.Current.Cache.GetItem(
-        key, YafContext.Current.BoardSettings.ReplaceRulesCacheTimeout, () => new ReplaceRules());
+      ProcessReplaceRules rules = YafContext.Current.Cache.GetItem(
+        key, YafContext.Current.BoardSettings.ReplaceRulesCacheTimeout, () => new ProcessReplaceRules());
       return rules;
     }
 

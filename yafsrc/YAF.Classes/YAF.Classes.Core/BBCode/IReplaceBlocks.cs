@@ -18,36 +18,30 @@
  */
 namespace YAF.Classes.Core.BBCode
 {
-  using System;
-
   /// <summary>
-  /// Base Replace Rules Interface
+  /// The i add replace block.
   /// </summary>
-  public interface IBaseReplaceRule
+  public interface IReplaceBlocks
   {
-    #region Properties
-
-    /// <summary>
-    ///   Gets RuleDescription.
-    /// </summary>
-    string RuleDescription { get; }
-
-    #endregion
-
     #region Public Methods
 
     /// <summary>
-    /// The replace.
+    /// The add replacement.
     /// </summary>
-    /// <param name="text">
-    /// The text.
+    /// <param name="newItem">
+    /// The new item.
     /// </param>
-    /// <param name="replacement">
-    /// The replacement.
-    /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    void Replace(ref string text, ref HtmlReplacementCollection replacement);
+    /// <returns>
+    /// The add replacement.
+    /// </returns>
+    int Add(string newItem);
+
+    /// <summary>
+    /// Gets the replacement value from the index.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    string Get(int index);
 
     #endregion
   }

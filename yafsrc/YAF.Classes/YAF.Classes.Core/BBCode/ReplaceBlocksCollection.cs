@@ -23,22 +23,19 @@ namespace YAF.Classes.Core.BBCode
   using System.Text;
   using System.Text.RegularExpressions;
 
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag
   /// </summary>
-  public class HtmlReplacementCollection
+  public class ReplaceBlocksCollection : IReplaceBlocks
   {
     #region Constants and Fields
 
     /// <summary>
     ///   The _replacement dictionary.
     /// </summary>
-    private readonly Dictionary<int, HtmlReplacementBlock> _replacementDictionary;
-
-    /// <summary>
-    ///   The _rgx html.
-    /// </summary>
-    private readonly Regex _rgxHtml;
+    private readonly Dictionary<int, string> _replacementDictionary;
 
     /// <summary>
     ///   The _current index.
@@ -56,7 +53,7 @@ namespace YAF.Classes.Core.BBCode
     private int _randomInstance;
 
     /// <summary>
-    ///   The _replace format.
+    ///  REPLACEMENT UNIQUE VALUE -- USED TO CREATE A UNIQUE VALUE TO REPLACE -- IT IS NOT SUPPOSED TO BE HUMAN READABLE.
     /// </summary>
     private string _replaceFormat = "÷ñÒ{1}êÖ{0}õæ÷";
 
@@ -65,13 +62,11 @@ namespace YAF.Classes.Core.BBCode
     #region Constructors and Destructors
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "HtmlReplacementCollection" /> class.
+    ///   Initializes a new instance of the <see cref = "ReplaceBlocksCollection" /> class.
     /// </summary>
-    public HtmlReplacementCollection()
+    public ReplaceBlocksCollection()
     {
-      this._replacementDictionary = new Dictionary<int, HtmlReplacementBlock>();
-      this._rgxHtml = new Regex(@"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", this._options);
-
+      this._replacementDictionary = new Dictionary<int, string>();
       this.RandomizeInstance();
     }
 
@@ -82,7 +77,7 @@ namespace YAF.Classes.Core.BBCode
     /// <summary>
     ///   Gets ReplacementDictionary.
     /// </summary>
-    public Dictionary<int, HtmlReplacementBlock> ReplacementDictionary
+    public Dictionary<int, string> ReplacementDictionary
     {
       get
       {
@@ -103,7 +98,7 @@ namespace YAF.Classes.Core.BBCode
     /// <returns>
     /// The add replacement.
     /// </returns>
-    public int AddReplacement(HtmlReplacementBlock newItem)
+    public int Add(string newItem)
     {
       this._replacementDictionary.Add(this._currentIndex, newItem);
       return this._currentIndex++;
@@ -118,69 +113,9 @@ namespace YAF.Classes.Core.BBCode
     /// <returns>
     /// The get replace value.
     /// </returns>
-    public string GetReplaceValue(int index)
+    public string Get(int index)
     {
-      return String.Format(this._replaceFormat, index, this._randomInstance);
-    }
-
-    /// <summary>
-    /// Pull replacement blocks from the text
-    /// </summary>
-    /// <param name="strText">
-    /// The str Text.
-    /// </param>
-    public void GetReplacementsFromText(ref string strText)
-    {
-      var sb = new StringBuilder(strText);
-
-      Match m = this._rgxHtml.Match(strText);
-      while (m.Success)
-      {
-        // add it to the list...
-        int index = this.AddReplacement(new HtmlReplacementBlock(m.Groups[0].Value));
-
-        // replacement lookup code
-        string replace = this.GetReplaceValue(index);
-
-        // remove the replaced item...
-        sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
-
-        // insert the replaced value back in...
-        sb.Insert(m.Groups[0].Index, replace);
-
-        // text = text.Substring( 0, m.Groups [0].Index ) + replace + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-        m = this._rgxHtml.Match(sb.ToString());
-      }
-
-      strText = sb.ToString();
-    }
-
-    /// <summary>
-    /// The get replacements from text.
-    /// </summary>
-    /// <param name="sb">
-    /// The sb.
-    /// </param>
-    public void GetReplacementsFromText(ref StringBuilder sb)
-    {
-      Match m = this._rgxHtml.Match(sb.ToString());
-      while (m.Success)
-      {
-        // add it to the list...
-        int index = this.AddReplacement(new HtmlReplacementBlock(m.Groups[0].Value));
-
-        // replacement lookup code
-        string replace = this.GetReplaceValue(index);
-
-        // remove the replaced item...
-        sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
-
-        // insert the replaced value back in...
-        sb.Insert(m.Groups[0].Index, replace);
-
-        // text = text.Substring( 0, m.Groups [0].Index ) + replace + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-        m = this._rgxHtml.Match(sb.ToString());
-      }
+      return this._replaceFormat.FormatWith(index, this._randomInstance);
     }
 
     /// <summary>
@@ -204,7 +139,7 @@ namespace YAF.Classes.Core.BBCode
 
       foreach (int index in this._replacementDictionary.Keys)
       {
-        sb.Replace(this.GetReplaceValue(index), this._replacementDictionary[index].Tag);
+        sb.Replace(this.Get(index), this._replacementDictionary[index]);
       }
 
       text = sb.ToString();

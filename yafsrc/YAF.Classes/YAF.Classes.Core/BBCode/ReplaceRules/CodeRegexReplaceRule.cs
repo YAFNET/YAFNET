@@ -56,16 +56,17 @@ namespace YAF.Classes.Core.BBCode
     /// <param name="replacement">
     /// The replacement.
     /// </param>
-    public override void Replace(ref string text, ref HtmlReplacementCollection replacement)
+    public override void Replace(ref string text, IReplaceBlocks replacement)
     {
       Match m = this._regExSearch.Match(text);
       while (m.Success)
       {
-        string tStr = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
+        string replaceItem = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
 
-        int replaceIndex = replacement.AddReplacement(new HtmlReplacementBlock(tStr));
-        text = text.Substring(0, m.Groups[0].Index) + replacement.GetReplaceValue(replaceIndex) +
+        int replaceIndex = replacement.Add(replaceItem);
+        text = text.Substring(0, m.Groups[0].Index) + replacement.Get(replaceIndex) +
                text.Substring(m.Groups[0].Index + m.Groups[0].Length);
+
         m = this._regExSearch.Match(text);
       }
     }

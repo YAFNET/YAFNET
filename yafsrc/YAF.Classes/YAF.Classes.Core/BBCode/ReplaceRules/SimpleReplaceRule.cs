@@ -87,7 +87,7 @@ namespace YAF.Classes.Core.BBCode
     /// <param name="replacement">
     /// The replacement.
     /// </param>
-    public override void Replace(ref string text, ref HtmlReplacementCollection replacement)
+    public override void Replace(ref string text, IReplaceBlocks replacement)
     {
       int index = -1;
 
@@ -97,8 +97,8 @@ namespace YAF.Classes.Core.BBCode
         if (index >= 0)
         {
           // replace it...
-          int replaceIndex = replacement.AddReplacement(new HtmlReplacementBlock(this._replace));
-          text = text.Substring(0, index) + replacement.GetReplaceValue(replaceIndex) +
+          int replaceIndex = replacement.Add(this._replace);
+          text = text.Substring(0, index) + replacement.Get(replaceIndex) +
                  text.Substring(index + this._find.Length);
         }
       }

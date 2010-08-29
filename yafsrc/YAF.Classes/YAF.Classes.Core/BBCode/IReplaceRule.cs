@@ -18,48 +18,36 @@
  */
 namespace YAF.Classes.Core.BBCode
 {
+  using System;
+
   /// <summary>
-  /// Simple class that doesn't do anything except store a tag.
-  ///   Why a class? Because I may want to add to it someday...
+  /// Base Replace Rules Interface
   /// </summary>
-  public class HtmlReplacementBlock
+  public interface IReplaceRule
   {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _tag.
-    /// </summary>
-    private readonly string _tag;
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="HtmlReplacementBlock"/> class.
-    /// </summary>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    public HtmlReplacementBlock(string tag)
-    {
-      this._tag = tag;
-    }
-
-    #endregion
-
     #region Properties
 
     /// <summary>
-    ///   Gets Tag.
+    ///   Gets RuleDescription.
     /// </summary>
-    public string Tag
-    {
-      get
-      {
-        return this._tag;
-      }
-    }
+    string RuleDescription { get; }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// The replace.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="replacement">
+    /// The replacement.
+    /// </param>
+    /// <exception cref="NotImplementedException">
+    /// </exception>
+    void Replace(ref string text, IReplaceBlocks replacement);
 
     #endregion
   }

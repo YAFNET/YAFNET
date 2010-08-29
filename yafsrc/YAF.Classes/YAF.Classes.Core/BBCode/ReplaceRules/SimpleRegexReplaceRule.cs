@@ -104,23 +104,23 @@ namespace YAF.Classes.Core.BBCode
     /// <param name="replacement">
     /// The replacement.
     /// </param>
-    public override void Replace(ref string text, ref HtmlReplacementCollection replacement)
+    public override void Replace(ref string text, IReplaceBlocks replacement)
     {
       var sb = new StringBuilder(text);
 
       Match m = this._regExSearch.Match(text);
       while (m.Success)
       {
-        string tStr = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
+        string replaceString = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
 
         // pulls the htmls into the replacement collection before it's inserted back into the main text
-        replacement.GetReplacementsFromText(ref tStr);
+        replacement.ReplaceHtmlFromText(ref replaceString);
 
         // remove old bbcode...
         sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
 
         // insert replaced value(s)
-        sb.Insert(m.Groups[0].Index, tStr);
+        sb.Insert(m.Groups[0].Index, replaceString);
 
         // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
         m = this._regExSearch.Match(sb.ToString());

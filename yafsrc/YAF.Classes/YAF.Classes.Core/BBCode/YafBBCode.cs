@@ -219,7 +219,7 @@ namespace YAF.Classes.Core.BBCode
     public static string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride)
     {
       // get the rules engine from the creator...
-      ReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance(
+      ProcessReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance(
         new[]
           {
             doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks
@@ -255,7 +255,7 @@ namespace YAF.Classes.Core.BBCode
       bool forHtmlEditing = true;
 
       // get the rules engine from the creator...
-      ReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance(
+      ProcessReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance(
         new[]
           {
             doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks, forHtmlEditing
@@ -287,7 +287,7 @@ namespace YAF.Classes.Core.BBCode
     /// <param name="useNoFollow">
     /// The use No Follow.
     /// </param>
-    public static void CreateBBCodeRules(ref ReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow)
+    public static void CreateBBCodeRules(ref ProcessReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow)
     {
       CreateBBCodeRules(ref ruleEngine, doFormatting, targetBlankOverride, useNoFollow, true);
     }
@@ -310,7 +310,7 @@ namespace YAF.Classes.Core.BBCode
     /// <param name="convertBBQuotes">
     /// The convert BB Quotes.
     /// </param>
-    public static void CreateBBCodeRules(ref ReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow, bool convertBBQuotes)
+    public static void CreateBBCodeRules(ref ProcessReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow, bool convertBBQuotes)
     {
       string target = (YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride) ? "target=\"_blank\"" : string.Empty;
       string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
@@ -473,7 +473,7 @@ namespace YAF.Classes.Core.BBCode
     /// <param name="rulesEngine">
     /// The rules Engine.
     /// </param>
-    protected static void AddCustomBBCodeRules(ref ReplaceRules rulesEngine)
+    protected static void AddCustomBBCodeRules(ref ProcessReplaceRules rulesEngine)
     {
       DataTable bbcodeTable = GetCustomBBCode();
 

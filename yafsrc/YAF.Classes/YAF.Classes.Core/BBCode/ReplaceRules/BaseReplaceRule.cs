@@ -25,7 +25,7 @@ namespace YAF.Classes.Core.BBCode
   ///   Provides compare functionality based on the rule rank.
   ///   Override replace to handle replacement differently.
   /// </summary>
-  public abstract class BaseReplaceRule : IComparable, IBaseReplaceRule
+  public abstract class BaseReplaceRule : IComparable, IReplaceRule
   {
     #region Constants and Fields
 
@@ -66,10 +66,7 @@ namespace YAF.Classes.Core.BBCode
     /// </param>
     /// <exception cref="NotImplementedException">
     /// </exception>
-    public virtual void Replace(ref string text, ref HtmlReplacementCollection replacement)
-    {
-      throw new NotImplementedException();
-    }
+    public abstract void Replace(ref string text, IReplaceBlocks replacement);
 
     #endregion
 

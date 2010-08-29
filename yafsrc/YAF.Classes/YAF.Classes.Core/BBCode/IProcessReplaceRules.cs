@@ -5,7 +5,7 @@
   /// <summary>
   /// Replace Rules Interface
   /// </summary>
-  public interface IReplaceRules
+  public interface IProcessReplaceRules
   {
     #region Properties
 

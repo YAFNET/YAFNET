@@ -68,7 +68,7 @@ namespace YAF.Classes.Core.BBCode
     /// <param name="replacement">
     /// The replacement.
     /// </param>
-    public override void Replace(ref string text, ref HtmlReplacementCollection replacement)
+    public override void Replace(ref string text, IReplaceBlocks replacement)
     {
       Match m = this._regExSearch.Match(text);
       while (m.Success)
@@ -77,13 +77,15 @@ namespace YAF.Classes.Core.BBCode
           this.GetInnerValue(m.Groups["inner"].Value), 
           HttpContext.Current.Server.MapPath(YafForumInfo.ForumServerFileRoot + "defs/"), 
           m.Groups["language"].Value);
-        string tStr = this._regExReplace.Replace("${inner}", inner);
+
+        string replaceItem = this._regExReplace.Replace("${inner}", inner);
 
         // pulls the htmls into the replacement collection before it's inserted back into the main text
-        int replaceIndex = replacement.AddReplacement(new HtmlReplacementBlock(tStr));
+        int replaceIndex = replacement.Add(replaceItem);
 
-        text = text.Substring(0, m.Groups[0].Index) + replacement.GetReplaceValue(replaceIndex) +
+        text = text.Substring(0, m.Groups[0].Index) + replacement.Get(replaceIndex) +
                text.Substring(m.Groups[0].Index + m.Groups[0].Length);
+
         m = this._regExSearch.Match(text);
       }
     }
