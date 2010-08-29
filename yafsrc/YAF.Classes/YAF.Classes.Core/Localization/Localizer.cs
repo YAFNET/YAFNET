@@ -147,7 +147,9 @@ namespace YAF.Classes.Core
       {
         pageResource = pagePointer.Resource.Where(r => r.tag.ToUpper().Equals(tag)).FirstOrDefault();
       }
-      else
+
+
+      if (pageResource == null)
       {
         // attempt to find the tag anywhere...
         pageResource =
@@ -155,7 +157,7 @@ namespace YAF.Classes.Core
             FirstOrDefault();
       }
 
-      if (pageResource != null)
+      if (pageResource != null && pageResource.Value.IsSet())
       {
         localizedText = pageResource.Value;
       }
