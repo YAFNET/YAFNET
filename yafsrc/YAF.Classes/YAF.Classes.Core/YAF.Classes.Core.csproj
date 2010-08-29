@@ -91,9 +91,22 @@
     <Compile Include="BaseModules\YafEditorModuleManager.cs" />
     <Compile Include="BaseModules\YafModule.cs" />
     <Compile Include="BasePages\ForumPageRenderedArgs.cs" />
+    <Compile Include="BBCode\ReplaceRules\BaseReplaceRule.cs" />
+    <Compile Include="BBCode\ReplaceRules\CodeRegexReplaceRule.cs" />
+    <Compile Include="BBCode\ReplaceRules\FontSizeRegexReplaceRule.cs" />
     <Compile Include="BBCode\HighLighter.cs" />
+    <Compile Include="BBCode\HtmlReplacementBlock.cs" />
+    <Compile Include="BBCode\HtmlReplacementCollection.cs" />
+    <Compile Include="BBCode\IBaseReplaceRule.cs" />
+    <Compile Include="BBCode\IReplaceRules.cs" />
+    <Compile Include="BBCode\ReplaceRules\PostTopicRegexReplaceRule.cs" />
     <Compile Include="BBCode\ReplaceRules.cs" />
     <Compile Include="BBCode\ReplaceRulesCreator.cs" />
+    <Compile Include="BBCode\ReplaceRules\SimpleRegexReplaceRule.cs" />
+    <Compile Include="BBCode\ReplaceRules\SimpleReplaceRule.cs" />
+    <Compile Include="BBCode\ReplaceRules\SingleRegexReplaceRule.cs" />
+    <Compile Include="BBCode\ReplaceRules\SyntaxHighlightedCodeRegexReplaceRule.cs" />
+    <Compile Include="BBCode\ReplaceRules\VariableRegexReplaceRule.cs" />
     <Compile Include="BBCode\YafBBCode.cs" />
     <Compile Include="Context\ContextVariableRepository.cs" />
     <Compile Include="Extensions\BinaryExtensions.cs" />
@@ -231,6 +244,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

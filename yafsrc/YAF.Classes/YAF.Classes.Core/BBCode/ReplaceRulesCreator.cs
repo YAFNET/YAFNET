@@ -23,6 +23,7 @@ namespace YAF.Classes.Core.BBCode
   using System;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Utils;
 
   #endregion
 
@@ -40,7 +41,7 @@ namespace YAF.Classes.Core.BBCode
     public static void ClearCache()
     {
       // match starting part of cache key
-      string match = String.Format(Constants.Cache.ReplaceRules, string.Empty);
+      string match = Constants.Cache.ReplaceRules.FormatWith(string.Empty);
 
       // remove it entries from cache
       YafContext.Current.Cache.Remove((x) => x.StartsWith(match));
@@ -61,7 +62,7 @@ namespace YAF.Classes.Core.BBCode
       int rulesFlags = FlagsBase.GetIntFromBoolArray(uniqueFlags);
 
       // cache is board-specific since boards may have different custom BB Code...
-      string key = YafCache.GetBoardCacheKey(String.Format(Constants.Cache.ReplaceRules, rulesFlags));
+      string key = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceRules.FormatWith(rulesFlags));
 
       ReplaceRules rules = YafContext.Current.Cache.GetItem(
         key, YafContext.Current.BoardSettings.ReplaceRulesCacheTimeout, () => new ReplaceRules());
