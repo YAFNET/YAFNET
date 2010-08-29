@@ -418,6 +418,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox LockPosts;
         
         /// <summary>
+        /// EnableIPInfoService control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox EnableIPInfoService;
+        
+        /// <summary>
         /// IPInfoPageURL control.
         /// </summary>
         /// <remarks>
@@ -425,6 +434,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox IPInfoPageURL;
+        
+        /// <summary>
+        /// IPLocatorPath control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox IPLocatorPath;
         
         /// <summary>
         /// AllowPostToBlog control.

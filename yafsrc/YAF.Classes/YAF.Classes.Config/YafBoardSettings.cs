@@ -1292,6 +1292,22 @@ namespace YAF.Classes
       }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether Enable IP Info Service.
+    /// </summary>
+    public bool EnableIPInfoService
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("EnableIPInfoService", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("EnableIPInfoService", value);
+        }
+    }
+
     // vzrus: 10/4/10 SSL registration and login options
     /// <summary>
     /// Gets or sets a value indicating whether Use SSL To Log In.
@@ -2382,6 +2398,22 @@ namespace YAF.Classes
         set
         {
             this._reg.SetValue<string>("IPInfoPageURL", value);
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets IP Locator Path.
+    /// </summary>
+    public string IPLocatorPath
+    {
+        get
+        {
+            return this._reg.GetValue<string>("IPLocatorPath", "http://ipinfodb.com/ip_query.php?ip={0}&timezone={1}");
+        }
+
+        set
+        {
+            this._reg.SetValue<string>("IPLocatorPath", value);
         }
     }
 

@@ -410,15 +410,34 @@
                             <asp:TextBox ID="LockPosts" runat="server"></asp:TextBox>
                         </td>
                     </tr>
+                     <tr>
+                        <td class="postheader">
+                            <b>Enable IP Info Service:</b><br />
+                            If checked, we will get info about a registering user from a web service.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="EnableIPInfoService" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <b>IP Info XML Web Service URL:</b><br />
+                            Set it to get details about user IPs as XML data.
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="IPLocatorPath" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>           
                     <tr>
                         <td class="postheader">
                             <b>IP Info Page URL:</b><br />
-                            Set it to get details about IPs whereabouts.
+                            Set it to get details about IPs whereabouts as web page.
                         </td>
                         <td class="post">
                             <asp:TextBox ID="IPInfoPageURL" runat="server"></asp:TextBox>
                         </td>
                     </tr>
+               
                     <tr>
                         <td class="postheader">
                             <b>Allow Post to Blog:</b><br />

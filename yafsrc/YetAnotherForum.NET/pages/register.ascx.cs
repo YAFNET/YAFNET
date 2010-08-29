@@ -18,6 +18,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Web;
+
 namespace YAF.Pages
 {
   // YAF.Pages
@@ -87,6 +89,17 @@ namespace YAF.Pages
       {
         return this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
       }
+    }
+
+    /// <summary>
+    ///   Gets User IP Info.
+    /// </summary>
+    private IPLocator UserIpLocator
+    {
+        get
+        {   // HttpContext.Current.Request.UserHostAddress
+            return new IPDetails().GetData("87.240.1.1", true);
+        }
     }
 
     /// <summary>
@@ -340,8 +353,26 @@ namespace YAF.Pages
 
         // setup/save the profile
         YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
-
-        userProfile.Location = locationTextBox.Text.Trim();
+        if (String.IsNullOrEmpty(locationTextBox.Text.Trim()))
+        {
+            if (!String.IsNullOrEmpty(UserIpLocator.CountryName))
+            {
+                userProfile.Location += UserIpLocator.CountryName;
+            }
+            if (!String.IsNullOrEmpty(UserIpLocator.RegionName))
+            {
+                userProfile.Location += ", " + UserIpLocator.RegionName;
+            }
+            if (!String.IsNullOrEmpty(UserIpLocator.City))
+            {
+                userProfile.Location += ", " + UserIpLocator.City;
+            }
+        }
+        else
+        {
+             userProfile.Location = locationTextBox.Text.Trim();;
+        }
+       
         userProfile.Homepage = homepageTextBox.Text.Trim();
 
         userProfile.Save();
@@ -362,8 +393,8 @@ namespace YAF.Pages
           null, 
           null, 
           null, 
-          null, 
-          null, 
+          null,
+          String.IsNullOrEmpty(UserIpLocator.Isdst) ? "0" : UserIpLocator.Isdst, 
           null,
           null);
 
@@ -376,6 +407,9 @@ namespace YAF.Pages
           autoWatchTopicsEnabled,
           this.PageContext.BoardSettings.DefaultNotificationSetting,
           PageContext.BoardSettings.DefaultSendDigestEmail);
+       
+          // Clearing cache with old Active User Lazy Data ...
+          this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userId)));
       }
     }
 
@@ -450,8 +484,13 @@ namespace YAF.Pages
         this.CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
 
         this.DataBind();
+         int tz = 0;
+         if (!String.IsNullOrEmpty(UserIpLocator.Gmtoffset) && (!String.IsNullOrEmpty(UserIpLocator.Isdst)))
+         {
+             tz = (Convert.ToInt32(UserIpLocator.Gmtoffset) - Convert.ToInt32(UserIpLocator.Isdst)*3600)/60;
+         }
 
-        timeZones.Items.FindByValue("0").Selected = true;
+          timeZones.Items.FindByValue(tz.ToString()).Selected = true;
         this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
       }
 
