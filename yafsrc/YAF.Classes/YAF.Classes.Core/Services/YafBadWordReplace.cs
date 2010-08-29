@@ -21,6 +21,7 @@ namespace YAF.Classes.Core
   using System;
   using System.Collections.Generic;
   using System.Data;
+  using System.Linq;
   using System.Text.RegularExpressions;
   using System.Web.Caching;
 
@@ -31,12 +32,19 @@ namespace YAF.Classes.Core
   /// </summary>
   public class BadWordReplaceItem
   {
+    public RegexOptions Options { get; protected set; }
+
     #region Constants and Fields
 
     /// <summary>
     /// The _active lock.
     /// </summary>
     private readonly object _activeLock = new object();
+
+    /// <summary>
+    /// Regular expression object associated with this replace item...
+    /// </summary>
+    private readonly Regex _regEx = null;
 
     /// <summary>
     /// The _active.
@@ -46,12 +54,12 @@ namespace YAF.Classes.Core
     /// <summary>
     /// The _bad word.
     /// </summary>
-    private string _badWord;
+    private readonly string _badWord;
 
     /// <summary>
     /// The _good word.
     /// </summary>
-    private string _goodWord;
+    private readonly string _goodWord;
 
     #endregion
 
@@ -66,10 +74,12 @@ namespace YAF.Classes.Core
     /// <param name="badWord">
     /// The bad word.
     /// </param>
-    public BadWordReplaceItem(string goodWord, string badWord)
+    public BadWordReplaceItem(string goodWord, string badWord, RegexOptions options)
     {
+      Options = options;
       this._goodWord = goodWord;
       this._badWord = badWord;
+      this._regEx = new Regex(badWord, options);
     }
 
     #endregion
@@ -124,6 +134,17 @@ namespace YAF.Classes.Core
       }
     }
 
+    /// <summary>
+    /// Gets BadWordRegEx.
+    /// </summary>
+    public Regex BadWordRegEx
+    {
+      get
+      {
+        return this._regEx;
+      }
+    }
+
     #endregion
   }
 
@@ -137,7 +158,7 @@ namespace YAF.Classes.Core
     /// <summary>
     /// The _options.
     /// </summary>
-    private const RegexOptions _options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
+    private const RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Compiled /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
     #endregion
 
@@ -157,17 +178,14 @@ namespace YAF.Classes.Core
           30,
           () =>
             {
-              DataTable replaceWordsDataTable = DB.replace_words_list(YafContext.Current.PageBoardID, null);
-
-              var items = new List<BadWordReplaceItem>();
+              var replaceWords =
+                DB.replace_words_list(YafContext.Current.PageBoardID, null).AsEnumerable();
 
               // move to collection...
-              foreach (DataRow row in replaceWordsDataTable.Rows)
-              {
-                items.Add(new BadWordReplaceItem(row["goodword"].ToString(), row["badword"].ToString()));
-              }
-
-              return items;
+              return
+                replaceWords.Select(
+                  row => new BadWordReplaceItem(row.Field<string>("goodword"), row.Field<string>("badword"), _options)).
+                  ToList();
             });
 
         return replaceItems;
@@ -188,6 +206,7 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The replace.
     /// </returns>
+    /// <exception cref="Exception"><c>Exception</c>.</exception>
     public string Replace(string searchText)
     {
       if (String.IsNullOrEmpty(searchText))
@@ -203,7 +222,7 @@ namespace YAF.Classes.Core
         {
           if (item.Active)
           {
-            strReturn = Regex.Replace(strReturn, item.BadWord, item.GoodWord, _options);
+            strReturn = item.BadWordRegEx.Replace(strReturn, item.GoodWord);
           }
         }
 

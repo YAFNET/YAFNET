@@ -17,49 +17,54 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Xml;
-
 namespace YAF.Classes.Core
 {
-  using System.Diagnostics;
+  #region Using
+
+  using System;
+  using System.Collections.Generic;
+  using System.Globalization;
+  using System.IO;
   using System.Linq;
-  using System.Threading;
+  using System.Xml;
 
   using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// Summary description for Localizer.
   /// </summary>
   public class Localizer
   {
+    #region Constants and Fields
+
     /// <summary>
-    /// The _current page.
+    /// The _current culture.
+    /// </summary>
+    private CultureInfo _currentCulture;
+
+    /// <summary>
+    ///   The _current page.
     /// </summary>
     private string _currentPage = string.Empty;
 
     /// <summary>
-    /// The _doc.
-    /// </summary>
-    private XmlDocument _doc = null;
-
-    /// <summary>
-    /// The _file name.
+    ///   The _file name.
     /// </summary>
     private string _fileName = string.Empty;
 
-    private CultureInfo _currentCulture = null;
-
     /// <summary>
-    /// The _page pointer.
+    /// The _localization resources.
     /// </summary>
-    private XmlNode _pagePointer = null;
+    private Resources _localizationResources;
+
+    #endregion
+
+    #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Localizer"/> class.
+    ///   Initializes a new instance of the <see cref = "Localizer" /> class.
     /// </summary>
     public Localizer()
     {
@@ -78,129 +83,41 @@ namespace YAF.Classes.Core
       this.InitCulture();
     }
 
-    private void InitCulture()
-    {
-      if (YafServices.InitializeDb.Initialized)
-      {
-        // vzrus: Culture code is missing for a user until he saved his profile.
-        // First set it to board culture              
-        if (this.CurrentCulture == null)
-        {
-          try
-          {
-            this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
-          }
-          catch
-          {
-            this._currentCulture = Thread.CurrentThread.CurrentCulture;
-          }
-        }
+    #endregion
 
-        //  && this.CurrentCulture.Name.Substring(0, 2) == YafContext.Current.BoardSettings.Culture.Substring(0, 2)
-
-        string cultureUser = YafContext.Current.CultureUser;
-
-        if (YafContext.Current.CultureUser.IsSet())
-        {
-          if (cultureUser.Substring(0, 2).Contains(this.CurrentCulture.Name.Substring(0, 2)))
-          {
-            this._currentCulture = new CultureInfo(cultureUser);
-          }
-        }
-      }
-    }
+    #region Properties
 
     /// <summary>
-    /// Gets LanguageCode.
+    ///   Gets LanguageCode.
     /// </summary>
     public CultureInfo CurrentCulture
     {
       get
-      {         
-          return this._currentCulture;
+      {
+        return this._currentCulture;
       }
     }
 
+    #endregion
+
+    #region Public Methods
+
     /// <summary>
-    /// The load file.
+    /// The get nodes using query.
     /// </summary>
-    /// <exception cref="ApplicationException">
+    /// <param name="tagQuery">
+    /// The tag query.
+    /// </param>
+    /// <returns>
+    /// </returns>
+    /// <exception cref="Exception">
     /// </exception>
-    private void LoadFile()
+    public IEnumerable<ResourcesPageResource> GetNodesUsingQuery(Func<ResourcesPageResource, bool> predicate)
     {
-      if (this._fileName == string.Empty || !File.Exists(this._fileName))
-      {
-        this._fileName = "english.xml";
-        //throw new ApplicationException("Invalid language file " + this._fileName);
-      }
+      var pagePointer =
+        this._localizationResources.page.Where(p => p.name.ToUpper().Equals(this._currentPage)).FirstOrDefault();
 
-      if (this._doc == null)
-      {
-        this._doc = new XmlDocument();
-      }
-
-      try
-      {
-        this._doc.Load(this._fileName);
-
-        if (this._doc.DocumentElement != null)
-        {
-          this._currentCulture =
-            new CultureInfo(
-              _doc.DocumentElement.Attributes["code"] != null
-                ? this._doc.DocumentElement.Attributes["code"].Value
-                : "en-US");
-
-        }
-        else
-        {
-          this._doc = null;
-        }
-      }
-      catch
-      {
-        this._doc = null;
-      }
-    }
-
-    /// <summary>
-    /// The load file.
-    /// </summary>
-    /// <param name="fileName">
-    /// The file name.
-    /// </param>
-    public void LoadFile(string fileName)
-    {
-      this._fileName = fileName;
-      LoadFile();
-    }
-
-    /// <summary>
-    /// The set page.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    public void SetPage(string page)
-    {
-      if (this._currentPage == page)
-      {
-        return;
-      }
-
-      this._pagePointer = null;
-      this._currentPage = string.Empty;
-
-      if (String.IsNullOrEmpty(page))
-      {
-        page = "DEFAULT";
-      }
-
-      if (this._doc != null)
-      {
-        this._pagePointer = this._doc.SelectSingleNode(string.Format("//page[@name='{0}']", page.ToUpper()));
-        this._currentPage = page;
-      }
+      return pagePointer != null ? pagePointer.Resource.Where(predicate) : this._localizationResources.page.SelectMany(p => p.Resource).Where(predicate);
     }
 
     /// <summary>
@@ -218,35 +135,30 @@ namespace YAF.Classes.Core
     {
       // default the out parameters
       localizedText = string.Empty;
-      XmlNode xmlPageNode = null;
-
-      // verify that a document is loaded
-      if (this._doc == null)
-      {
-        return;
-      }
 
       tag = tag.ToUpper(this._currentCulture);
 
-#if DEBUG
-      if (this._pagePointer == null)
-      {
-        Debug.WriteLine("Invalid Page Pointer: " + this._currentPage);
-      }
-#endif
+      var pagePointer =
+        this._localizationResources.page.Where(p => p.name.ToUpper().Equals(this._currentPage)).FirstOrDefault();
 
-      if (this._pagePointer != null)
+      ResourcesPageResource pageResource = null;
+
+      if (pagePointer != null)
       {
-        // if in page subnode the text doesn't exist, try in whole file
-        xmlPageNode = this._pagePointer.SelectSingleNode(string.Format("Resource[@tag='{0}']", tag)) ??
-                      this._doc.SelectSingleNode(string.Format("//Resource[@tag='{0}']", tag));
+        pageResource = pagePointer.Resource.Where(r => r.tag.ToUpper().Equals(tag)).FirstOrDefault();
       }
       else
       {
-        xmlPageNode = this._doc.SelectSingleNode(string.Format("//Resource[@tag='{0}']", tag));
+        // attempt to find the tag anywhere...
+        pageResource =
+          this._localizationResources.page.SelectMany(p => p.Resource).Where(r => r.tag.ToUpper().Equals(tag)).
+            FirstOrDefault();
       }
 
-      localizedText = xmlPageNode != null ? xmlPageNode.InnerText : null;
+      if (pageResource != null)
+      {
+        localizedText = pageResource.Value;
+      }
     }
 
     /// <summary>
@@ -265,59 +177,94 @@ namespace YAF.Classes.Core
     {
       string text;
 
-      SetPage(page);
-      GetText(tag, out text);
+      this.SetPage(page);
+      this.GetText(tag, out text);
 
       return text;
     }
 
     /// <summary>
-    /// The get nodes using query.
+    /// The load file.
     /// </summary>
-    /// <param name="tagQuery">
-    /// The tag query.
+    /// <param name="fileName">
+    /// The file name.
     /// </param>
-    /// <returns>
-    /// </returns>
-    /// <exception cref="Exception">
-    /// </exception>
-    public List<XmlNode> GetNodesUsingQuery(string tagQuery)
+    public void LoadFile(string fileName)
     {
-      XmlNodeList xmlNodeList = null;
-
-      // verify that a document is loaded
-      if (this._doc == null)
-      {
-        return null;
-      }
-
-#if DEBUG
-      if (this._pagePointer == null)
-      {
-        throw new Exception("Invalid Page Pointer: " + this._currentPage);
-      }
-
-#endif
-
-      if (this._pagePointer != null)
-      {
-        // if in page subnode the text doesn't exist, try in whole file
-        xmlNodeList = this._pagePointer.SelectNodes(string.Format("Resource[{0}]", tagQuery));
-      }
-      else
-      {
-        xmlNodeList = this._doc.SelectNodes(string.Format("//Resource[{0}]", tagQuery));
-      }
-
-      // convert to dictionary...
-      var items = new List<XmlNode>();
-
-      if (xmlNodeList != null)
-      {
-        items.AddRange(xmlNodeList.Cast<XmlNode>().Where(node => node != null));
-      }
-
-      return items;
+      this._fileName = fileName;
+      this.LoadFile();
     }
+
+    /// <summary>
+    /// The set page.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    public void SetPage(string page)
+    {
+      if (this._currentPage == page)
+      {
+        return;
+      }
+
+      if (String.IsNullOrEmpty(page))
+      {
+        page = "DEFAULT";
+      }
+
+      this._currentPage = page.ToUpper();
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// The init culture.
+    /// </summary>
+    private void InitCulture()
+    {
+      if (YafServices.InitializeDb.Initialized)
+      {
+        // vzrus: Culture code is missing for a user until he saved his profile.
+        // First set it to board culture              
+        if (this.CurrentCulture.Name.Substring(0, 2) == YafContext.Current.BoardSettings.Culture.Substring(0, 2))
+        {
+          this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+        }
+
+        string cultureUser = YafContext.Current.CultureUser;
+
+        if (YafContext.Current.CultureUser.IsSet())
+        {
+          if (cultureUser.Substring(0, 2).Contains(this.CurrentCulture.Name.Substring(0, 2)))
+          {
+            this._currentCulture = new CultureInfo(cultureUser);
+          }
+        }
+      }
+    }
+
+    /// <summary>
+    /// The load file.
+    /// </summary>
+    /// <exception cref="ApplicationException">
+    /// </exception>
+    private void LoadFile()
+    {
+      if (this._fileName == string.Empty || !File.Exists(this._fileName))
+      {
+        throw new ApplicationException("Invalid language file " + this._fileName);
+      }
+
+      this._localizationResources = new LocalizerLoader().LoadSiteFile(
+        this._fileName, "LOCALIZATIONFILE{0}".FormatWith(this._fileName));
+
+      this._currentCulture =
+        new CultureInfo(this._localizationResources.code.IsSet() ? this._localizationResources.code : "en-US");
+    }
+
+    #endregion
   }
 }

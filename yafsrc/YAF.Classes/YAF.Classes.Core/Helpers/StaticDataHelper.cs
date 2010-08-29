@@ -19,19 +19,15 @@
 
 namespace YAF.Classes.Core
 {
-  #region Using
-
   using System;
   using System.Collections.Generic;
   using System.Data;
-  using System.Globalization;
   using System.IO;
+  using System.Linq;
   using System.Web;
   using System.Xml;
 
   using YAF.Classes.Utils;
-
-  #endregion
 
   /// <summary>
   /// The static data helper.
@@ -67,58 +63,6 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
-    /// Gets language tag info from language file tag.
-    /// </summary>
-    /// <param name="fileName">
-    /// </param>
-    /// <returns>
-    /// A default full 4-letter culture from the existing language file.
-    /// </returns>
-    public static string CultureDefaultFromFile(string fileName)
-    {
-      if (string.IsNullOrEmpty(fileName))
-      {
-        return "en-US";
-      }
-
-      string rawTag = null;
-
-      // Get all language files info
-      var dir =
-        new DirectoryInfo(
-          HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
-      FileInfo[] files = dir.GetFiles(fileName);
-
-      if (files.Length <= 0)
-      {
-        return rawTag;
-      }
-
-      try
-      {
-        var doc = new XmlDocument();
-        doc.Load(files[0].FullName);
-        rawTag = doc.DocumentElement.Attributes["code"].Value.Trim();
-      }
-      catch (Exception)
-      {
-      }
-
-      CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-      foreach (CultureInfo ci in cultures)
-      {
-        // We check only the language part as we need a default here.
-        if (!ci.IsNeutralCulture && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) &&
-            ci.IetfLanguageTag.Length == 5)
-        {
-          return ci.IetfLanguageTag;
-        }
-      }
-
-      return "en-US";
-    }
-
-    /// <summary>
     /// The cultures IetfLangTags (4-letter).
     /// </summary>
     /// <returns>
@@ -126,68 +70,110 @@ namespace YAF.Classes.Core
     /// </returns>
     public static DataTable Cultures()
     {
-      using (var dt = new DataTable("Cultures"))
-      {
-        dt.Columns.Add("CultureTag", typeof(string));
-        dt.Columns.Add("CultureFile", typeof(string));
-        dt.Columns.Add("CultureEnglishName", typeof(string));
-        dt.Columns.Add("CultureNativeName", typeof(string));
-        dt.Columns.Add("CultureDisplayName", typeof(string));
+        using (var dt = new DataTable("Cultures"))
+        {          
 
-        // Get all language files info
-        var dir =
-          new DirectoryInfo(
-            HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
-        FileInfo[] files = dir.GetFiles("*.xml");
+            dt.Columns.Add("CultureTag", typeof(string));
+            dt.Columns.Add("CultureFile", typeof(string));
+            dt.Columns.Add("CultureEnglishName", typeof(string));
+            dt.Columns.Add("CultureNativeName", typeof(string));
+            dt.Columns.Add("CultureDisplayName", typeof(string));
 
-        // Create an array with tags
-        var tags = new string[2, files.Length];
+            // Get all language files info
+            var dir =
+              new DirectoryInfo(
+                HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
+            FileInfo[] files = dir.GetFiles("*.xml");
+           
+            // Create an array with tags
+            string[,] tags = new string[2,files.Length];
 
-        // Extract availabe language tags into the array          
-        for (int i = 0; i < files.Length; i++)
-        {
-          try
-          {
-            var doc = new XmlDocument();
-            doc.Load(files[i].FullName);
-            tags[0, i] = files[i].Name;
-            var attr = doc.DocumentElement.Attributes["code"];
-            if (attr != null)
+            // Extract availabe language tags into the array          
+            for (int i = 0; i < files.Length; i++)
             {
-              tags[1, i] = attr.Value.Trim();
-            }
-            else
-            {
-              tags[1, i] = "en-US";
-            }
-          }
-          catch (Exception)
-          {
-          }
-        }
+                try
+                {
 
-        CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-        foreach (CultureInfo ci in cultures)
-        {
-          for (int j = 0; j < files.Length; j++)
-          {
-            if (!ci.IsNeutralCulture &&
-                tags[1, j].ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) &&
-                ci.IetfLanguageTag.Length == 5)
-            {
-              DataRow dr = dt.NewRow();
-              dr["CultureTag"] = ci.IetfLanguageTag;
-              dr["CultureFile"] = tags[0, j];
-              dr["CultureEnglishName"] = ci.EnglishName;
-              dr["CultureNativeName"] = ci.NativeName;
-              dr["CultureDisplayName"] = ci.DisplayName;
-              dt.Rows.Add(dr);
-            }
-          }
-        }
+                    var doc = new XmlDocument();
+                    doc.Load(files[i].FullName);
+                    tags[0,i] = files[i].Name;
+                    var attr = doc.DocumentElement.Attributes["code"];
+                    if (attr != null)
+                    {
+                        tags[1, i] = attr.Value.Trim();
+                    }
+                    else
+                    {
+                        tags[1, i] = "en-US";
+                    }
 
-        return dt;
-      }
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+                System.Globalization.CultureInfo[] cultures = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures);
+                foreach (System.Globalization.CultureInfo ci in cultures)
+                {
+                    for (int j = 0; j < files.Length; j++)
+                    {
+                        if (!ci.IsNeutralCulture && tags[1, j].ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) && ci.IetfLanguageTag.Length == 5)
+                        {
+                            DataRow dr = dt.NewRow();
+                            dr["CultureTag"] = ci.IetfLanguageTag;
+                            dr["CultureFile"] = tags[0, j];
+                            dr["CultureEnglishName"] = ci.EnglishName;
+                            dr["CultureNativeName"] = ci.NativeName;
+                            dr["CultureDisplayName"] = ci.DisplayName;
+                            dt.Rows.Add(dr);
+                        }
+                    }
+
+                }
+                return dt;     
+            }
+             
+    }
+    /// <summary>
+    /// Gets language tag info from language file tag.  
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <returns>A default full 4-letter culture from the existing language file.</returns>
+    public static string CultureDefaultFromFile(string fileName)
+    {
+            if (string.IsNullOrEmpty(fileName)) return "en-US";
+           
+           string rawTag = null;
+            // Get all language files info
+            var dir =
+              new DirectoryInfo(
+                HttpContext.Current.Request.MapPath(String.Format("{0}languages", YafForumInfo.ForumServerFileRoot)));
+            FileInfo[] files = dir.GetFiles(fileName);
+
+            if (files.Length <= 0) return rawTag;
+                try
+                {
+                    var doc = new XmlDocument();
+                    doc.Load(files[0].FullName);                    
+                    rawTag = doc.DocumentElement.Attributes["code"].Value.Trim();
+
+                }
+                catch (Exception)
+                {
+                }
+
+                System.Globalization.CultureInfo[] cultures = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures);
+                foreach (System.Globalization.CultureInfo ci in cultures)
+                {
+                    // We check only the language part as we need a default here.
+                    if (!ci.IsNeutralCulture && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) && ci.IetfLanguageTag.Length == 5)
+                    {
+                        return ci.IetfLanguageTag;
+                    }
+                }
+
+            return "en-US";
     }
 
     /// <summary>
@@ -237,14 +223,13 @@ namespace YAF.Classes.Core
       {
         dt.Columns.Add("Theme", typeof(string));
         dt.Columns.Add("FileName", typeof(string));
-        dt.Columns.Add("IsMobile", typeof(bool));
 
         var dir =
           new DirectoryInfo(
             HttpContext.Current.Request.MapPath(
-              "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes)));
-
-        foreach (FileInfo file in dir.GetFiles("*.xml"))
+              String.Format("{0}{1}", YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes)));
+        FileInfo[] files = dir.GetFiles("*.xml");
+        foreach (FileInfo file in files)
         {
           try
           {
@@ -253,13 +238,6 @@ namespace YAF.Classes.Core
 
             DataRow dr = dt.NewRow();
             dr["Theme"] = doc.DocumentElement.Attributes["theme"].Value;
-            dr["IsMobile"] = false;
-
-            if (doc.DocumentElement.HasAttribute("ismobile"))
-            {
-              dr["IsMobile"] = Convert.ToBoolean(doc.DocumentElement.Attributes["ismobile"].Value ?? "false");
-            }
-
             dr["FileName"] = file.Name;
             dt.Rows.Add(dr);
           }
@@ -287,13 +265,14 @@ namespace YAF.Classes.Core
         dt.Columns.Add("Value", Type.GetType("System.Int32"));
         dt.Columns.Add("Name", Type.GetType("System.String"));
 
-        List<XmlNode> timezones = localization.GetNodesUsingQuery("TIMEZONES", "@tag[starts-with(.,'UTC')]");
+        var timezones =
+          localization.GetNodesUsingQuery("TIMEZONES", x => x.tag.StartsWith("UTC")).ToList();
 
         timezones.Sort(new YafLanguageNodeComparer());
 
-        foreach (XmlNode node in timezones)
+        foreach (var node in timezones)
         {
-          dt.Rows.Add(new object[] { General.GetHourOffsetFromNode(node) * 60, node.InnerText });
+          dt.Rows.Add(new object[] { node.GetHoursOffset() * 60, node.Value });
         }
 
         return dt;
@@ -367,10 +346,8 @@ namespace YAF.Classes.Core
   /// <summary>
   /// The yaf language node comparer.
   /// </summary>
-  public class YafLanguageNodeComparer : IComparer<XmlNode>
+  public class YafLanguageNodeComparer : IComparer<ResourcesPageResource>
   {
-    #region Implemented Interfaces
-
     #region IComparer<XmlNode>
 
     /// <summary>
@@ -385,12 +362,10 @@ namespace YAF.Classes.Core
     /// <returns>
     /// The compare.
     /// </returns>
-    public int Compare(XmlNode x, XmlNode y)
+    public int Compare(ResourcesPageResource x, ResourcesPageResource y)
     {
-      return General.GetHourOffsetFromNode(x).CompareTo(General.GetHourOffsetFromNode(y));
+      return x.GetHoursOffset().CompareTo(y.GetHoursOffset());
     }
-
-    #endregion
 
     #endregion
   }

@@ -352,12 +352,12 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public List<XmlNode> GetNodesUsingQuery(string page, string tagQuery)
+    public IEnumerable<ResourcesPageResource> GetNodesUsingQuery(string page, Func<ResourcesPageResource, bool> predicate)
     {
-      LoadTranslation();
+      this.LoadTranslation();
 
       this._localizer.SetPage(page);
-      return this._localizer.GetNodesUsingQuery(tagQuery);
+      return this._localizer.GetNodesUsingQuery(predicate);
     }
 
     /// <summary>
