@@ -97,8 +97,8 @@ namespace YAF.Pages
     private IPLocator UserIpLocator
     {
         get
-        {   // HttpContext.Current.Request.UserHostAddress
-            return new IPDetails().GetData("87.240.1.1", true);
+        {   
+            return new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, true);
         }
     }
 

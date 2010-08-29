@@ -215,7 +215,12 @@ namespace YAF.controls
                 {
                     topicUser = Convert.ToInt32(DB.topic_info(this.TopicId)["UserID"]);
                 }
-                this.NewPollRow.Visible = HasOwnerExistingGroupAccess();
+               else
+               {
+                   
+               }
+            bool existingPoll = (PollGroupId > 0) && ((TopicId > 0) || (ForumId > 0) || (BoardId > 0));
+            this.NewPollRow.Visible = HasOwnerExistingGroupAccess() && (!existingPoll);
                 if (PollGroupId > 0)
                 {
                     BindData();
