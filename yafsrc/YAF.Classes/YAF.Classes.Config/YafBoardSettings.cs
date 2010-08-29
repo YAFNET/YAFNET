@@ -1791,21 +1791,6 @@ namespace YAF.Classes
       }
     }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether DateFormatFromLanguage.
-    /// </summary>
-    public bool DateFormatFromLanguage
-    {
-      get
-      {
-        return this._reg.GetValue<bool>("DateFormatFromLanguage", false);
-      }
-
-      set
-      {
-        this._reg.SetValue<bool>("DateFormatFromLanguage", value);
-      }
-    }
 
     /// <summary>
     /// Gets or sets a value indicating whether DisableRegistrations.

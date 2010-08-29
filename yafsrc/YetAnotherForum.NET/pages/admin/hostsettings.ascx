@@ -150,17 +150,7 @@
                         <td class="post">
                             <asp:CheckBox ID="DoUrlReferrerSecurityCheck" runat="server"></asp:CheckBox>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
-                            <b>Date and time format from language file:</b><br />
-                            If this is checked, the date and time format will use settings from the language
-                            file. Otherwise the browser settings will be used.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="DateFormatFromLanguage" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
+                    </tr>      
                     <tr>
                         <td class="postheader">
                             <b>Create NNTP user names:</b><br />

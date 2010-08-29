@@ -77,10 +77,7 @@ namespace YAF.Classes.Core
 
       try
       {
-        if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
-        {
           strDateFormat = YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_TIME_LONG"), dt);
-        }
       }
       catch (Exception)
       {
@@ -129,30 +126,17 @@ namespace YAF.Classes.Core
         if (dt.Date == nt.Date)
         {
           // today
-          strDateFormat = YafContext.Current.Localization.GetText("TodayAt").FormatWith(dt);
-
-          if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
-          {
-            strDateFormat = YafContext.Current.Localization.FormatString(YafContext.Current.Localization.GetText("TodayAt"), dt);
-          }
+          strDateFormat = YafContext.Current.Localization.FormatString(YafContext.Current.Localization.GetText("TodayAt"), dt);
+         
         }
         else if (dt.Date == nt.AddDays(-1).Date)
         {
           // yesterday
-          strDateFormat = YafContext.Current.Localization.GetText("YesterdayAt").FormatWith(dt);
-
-        if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
-        {
             strDateFormat = YafContext.Current.Localization.FormatString(YafContext.Current.Localization.GetText("YesterdayAt"), dt);
         }
-        }
-        else if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
+        else 
         {
           strDateFormat = YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_TIME_SHORT"), dt);
-        }
-        else
-        {
-          strDateFormat = "{0:f}".FormatWith(dt);
         }
 
         return YafContext.Current.IsGuest ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName) : strDateFormat;
@@ -187,14 +171,7 @@ namespace YAF.Classes.Core
 
       try
       {
-        if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
-        {
          strDateFormat = YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_TIME_SHORT"), dt);
-        }
-        else
-        {
-         strDateFormat = "{0:f}".FormatWith(dt);
-        }
       }
       catch (Exception)
       {
@@ -222,14 +199,7 @@ namespace YAF.Classes.Core
 
       try
       {
-        if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
-        {
           strDateFormat = YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_LONG"), dt);
-        }
-        else
-        {
-          strDateFormat = "{0:D}".FormatWith(dt);
-        }
       }
       catch (Exception)
       {
@@ -258,14 +228,7 @@ namespace YAF.Classes.Core
 
       try
       {
-        if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
-        {
           strDateFormat = YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_DATE_SHORT"), dt);
-        }
-        else
-        {
-          strDateFormat = "{0:d}".FormatWith(dt);
-        }
       }
       catch (Exception)
       {
@@ -292,14 +255,7 @@ namespace YAF.Classes.Core
 
       try
       {
-        if (YafContext.Current.BoardSettings.DateFormatFromLanguage)
-        {
           strDateFormat = YafContext.Current.Localization.FormatDateTime(YafContext.Current.Localization.GetText("FORMAT_TIME"), dt);
-        }
-        else
-        {
-          strDateFormat = "{0:T}".FormatWith(dt);
-        }
       }
       catch (Exception)
       {
