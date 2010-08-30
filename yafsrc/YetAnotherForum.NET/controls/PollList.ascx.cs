@@ -210,7 +210,6 @@ namespace YAF.controls
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            ShowButtons = true;
            // if (!IsPostBack)
           //  {
                if (TopicId > 0)
@@ -220,10 +219,10 @@ namespace YAF.controls
 
             bool existingPoll = (PollGroupId > 0) && ((TopicId > 0) || (ForumId > 0) || (BoardId > 0));
            
-            bool topicPoll = (this.EditMessageId > 0 || (this.TopicId > 0 && ShowButtons));
+            bool topicPoll = PageContext.ForumPollAccess && (this.EditMessageId > 0 || (this.TopicId > 0 && ShowButtons));
             bool forumPoll = (this.EditForumId > 0 || (this.ForumId > 0 && ShowButtons));
             bool categoryPoll = (this.EditCategoryId > 0 || (this.CategoryId > 0 && ShowButtons));
-            bool boardPoll = (this.EditBoardId > 0 || (this.BoardId > 0 && ShowButtons));
+            bool boardPoll = PageContext.BoardVoteAccess &&  (this.EditBoardId > 0 || (this.BoardId > 0 && ShowButtons));
 
             NewPollRow.Visible = HasOwnerExistingGroupAccess() && (!existingPoll) && (topicPoll || forumPoll || categoryPoll || boardPoll);
                 if (PollGroupId > 0)
