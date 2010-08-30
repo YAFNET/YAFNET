@@ -188,6 +188,15 @@
 							<td class="post">
 								<asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" /></td>
 						</tr>
+                        <tr>
+                            <td class="postheader">
+                                <YAF:LocalizedLabel ID="DSTLocalizedLabel" runat="server" LocalizedPage="CP_EDITPROFILE"
+                                  LocalizedTag="DST" />
+                           </td>
+                           <td class="post">
+                                 <asp:CheckBox runat="server" ID="DSTUser" />
+                           </td>
+                        </tr>
 						<tr align="right">
 							<td align="center" colspan="2" class="postfooter">
 								<asp:Button ID="ProfileNextButton" runat="server" CssClass="pbutton" CommandName="MoveNext" Text="Next" />

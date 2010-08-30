@@ -94,7 +94,7 @@ namespace YAF.Pages
     /// <summary>
     ///   Gets User IP Info.
     /// </summary>
-    private IPLocator UserIpLocator
+    private IPLocator _userIpLocator
     {
         get
         {   
@@ -348,29 +348,33 @@ namespace YAF.Pages
         var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
         var locationTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Location");
         var homepageTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Homepage");
+        var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
 
         MembershipUser user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
 
         // setup/save the profile
         YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
-        if (String.IsNullOrEmpty(locationTextBox.Text.Trim()))
+       
+        // Trying to consume data about user IP whereabouts
+        if (_userIpLocator.Status == "OK" && String.IsNullOrEmpty(locationTextBox.Text.Trim()))
         {
-            if (!String.IsNullOrEmpty(UserIpLocator.CountryName))
+       
+            if (!String.IsNullOrEmpty(_userIpLocator.CountryName))
             {
-                userProfile.Location += UserIpLocator.CountryName;
+                userProfile.Location += _userIpLocator.CountryName;
             }
-            if (!String.IsNullOrEmpty(UserIpLocator.RegionName))
+            if (!String.IsNullOrEmpty(_userIpLocator.RegionName))
             {
-                userProfile.Location += ", " + UserIpLocator.RegionName;
+                userProfile.Location += ", " + _userIpLocator.RegionName;
             }
-            if (!String.IsNullOrEmpty(UserIpLocator.City))
+            if (!String.IsNullOrEmpty(_userIpLocator.City))
             {
-                userProfile.Location += ", " + UserIpLocator.City;
+                userProfile.Location += ", " + _userIpLocator.City;
             }
         }
         else
         {
-             userProfile.Location = locationTextBox.Text.Trim();;
+             userProfile.Location = locationTextBox.Text.Trim();
         }
        
         userProfile.Homepage = homepageTextBox.Text.Trim();
@@ -394,7 +398,7 @@ namespace YAF.Pages
           null, 
           null, 
           null,
-          String.IsNullOrEmpty(UserIpLocator.Isdst) ? "0" : UserIpLocator.Isdst, 
+          String.IsNullOrEmpty(_userIpLocator.Isdst) ? Convert.ToInt32(dstUser.Checked).ToString() : _userIpLocator.Isdst, 
           null,
           null);
 
@@ -485,12 +489,15 @@ namespace YAF.Pages
 
         this.DataBind();
          int tz = 0;
-         if (!String.IsNullOrEmpty(UserIpLocator.Gmtoffset) && (!String.IsNullOrEmpty(UserIpLocator.Isdst)))
+         if (_userIpLocator.Status == "OK")
          {
-             tz = (Convert.ToInt32(UserIpLocator.Gmtoffset) - Convert.ToInt32(UserIpLocator.Isdst)*3600)/60;
+             if (!String.IsNullOrEmpty(_userIpLocator.Gmtoffset) && (!String.IsNullOrEmpty(_userIpLocator.Isdst)))
+             {
+                 tz = (Convert.ToInt32(_userIpLocator.Gmtoffset) - Convert.ToInt32(_userIpLocator.Isdst)*3600)/60;
+             }
          }
 
-          timeZones.Items.FindByValue(tz.ToString()).Selected = true;
+        timeZones.Items.FindByValue(tz.ToString()).Selected = true;
         this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
       }
 

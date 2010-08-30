@@ -148,7 +148,9 @@ namespace YAF.controls
         }
 
         /// <summary>
-        /// Returns EditBoardId. Used to return to edit board page. Currently is not implemented.
+        /// Returns EditBoardId.
+        /// Used to return to edit board page.
+        /// Currently is not implemented.
         /// </summary>
         public int EditBoardId
         {
@@ -704,7 +706,7 @@ namespace YAF.controls
                     showWarningsRow = true;
                 }
 
-                if (!isNotVoted && PageContext.ForumPollAccess)
+                if (!isNotVoted && (PageContext.ForumPollAccess || (PageContext.BoardVoteAccess && (BoardId > 0 || EditBoardId > 0))))
                  {
                      Label alreadyVotedLabel = item.FindControlRecursiveAs<Label>("AlreadyVotedLabel");
                      alreadyVotedLabel.Text = PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED");
@@ -1339,5 +1341,6 @@ namespace YAF.controls
 
                 DataBind();
         }
+
     }
 }
