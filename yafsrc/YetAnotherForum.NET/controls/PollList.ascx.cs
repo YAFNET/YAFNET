@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
+
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace YAF.controls
 {
@@ -12,26 +8,24 @@ namespace YAF.controls
     #region Using
 
     using System;
+    using System.Collections;
     using System.Data;
-    using System.Linq;
     using System.Text;
-    using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
+    using Classes;
+    using Classes.Core;
+    using Classes.Data;
+    using Classes.Utils;
+    using Controls;
 
-    using YAF.Classes;
-    using YAF.Classes.Core;
-    using YAF.Classes.Data;
-    using YAF.Classes.Extensions;
-    using YAF.Classes.UI;
-    using YAF.Classes.Utils;
-    using YAF.Controls;
-    using YAF.Editors;
-    using YAF.Utilities;
 
     #endregion
 
+    ///<summary>
+    /// PollList Class
+    ///</summary>
     public partial class PollList : BaseUserControl
     {
         /// <summary>
@@ -68,12 +62,12 @@ namespace YAF.controls
         /// <summary>
         ///   The _showResults. Used to store data from parent repeater.
         /// </summary>
-        private bool _showResults = false;
+        private bool _showResults;
 
         /// <summary>
         ///   The _canVote. Used to store data from parent repeater.
         /// </summary>
-        private bool _canVote = false;
+        private bool _canVote;
 
         /// <summary>
         ///   The isBound.
@@ -207,27 +201,33 @@ namespace YAF.controls
            
         }
 
+        /// <summary>
+        /// Page_Load
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
            // if (!IsPostBack)
           //  {
-               if (this.TopicId > 0)
+               if (TopicId > 0)
                 {
-                    topicUser = Convert.ToInt32(DB.topic_info(this.TopicId)["UserID"]);
+                    topicUser = Convert.ToInt32(DB.topic_info(TopicId)["UserID"]);
                 }
-               else
+               /*else
                {
                    
-               }
+               }*/
+
             bool existingPoll = (PollGroupId > 0) && ((TopicId > 0) || (ForumId > 0) || (BoardId > 0));
-            this.NewPollRow.Visible = HasOwnerExistingGroupAccess() && (!existingPoll);
+            NewPollRow.Visible = HasOwnerExistingGroupAccess() && (!existingPoll);
                 if (PollGroupId > 0)
                 {
                     BindData();
                 }
                 else
                 {
-                    if (this.NewPollRow.Visible)
+                    if (NewPollRow.Visible)
                     {
                         BindCreateNewPollRow();
                     }
@@ -242,45 +242,49 @@ namespace YAF.controls
             if ((PageContext.BoardSettings.AllowedPollChoiceNumber > 0) && ShowButtons )
             {
                 // it topicid > 0 it can be every member
-                if (this.TopicId > 0)
+                if (TopicId > 0)
                 {
-                     return (topicUser == this.PageContext.PageUserID) || this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
+                     return (topicUser == PageContext.PageUserID) || PageContext.IsAdmin || PageContext.IsForumModerator;
                    
                 }
 
                 // only admins can edit this
-                if (this.CategoryId > 0 || this.BoardId > 0)
+                if (CategoryId > 0 || BoardId > 0)
                 {
-                    return this.PageContext.IsAdmin;
+                    return PageContext.IsAdmin;
                 }
+
                 // in other places only admins and forum moderators can have access
-                else
-                {
-                   return this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
-                }
+                return PageContext.IsAdmin || PageContext.IsForumModerator;
             }
             return false;
            
         }
 
+        ///<summary>
+        /// Get Theme Contents
+        ///</summary>
+        ///<param name="page">The Page</param>
+        ///<param name="tag">Tag</param>
+        ///<returns>Content</returns>
         public string GetThemeContents(string page, string tag)
         {
-            return this.PageContext.Theme.GetItem(page, tag);
+            return PageContext.Theme.GetItem(page, tag);
         }
 
 
         private  void BindCreateNewPollRow()
         {
            
-                var cpr = this.CreatePoll1;
-                // this.ChangePollShowStatus(true);
+                var cpr = CreatePoll1;
+                // ChangePollShowStatus(true);
                 cpr.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.polledit,
                     "{0}",
                     ParamsToSend());
                 cpr.DataBind();
             cpr.Visible = true;
-            this.NewPollRow.Visible = true;
+            NewPollRow.Visible = true;
         }
 
         /// <summary>
@@ -291,73 +295,73 @@ namespace YAF.controls
         {
            StringBuilder sb = new StringBuilder();
 
-            if (this.TopicId > 0)
+            if (TopicId > 0)
             {
-               sb.AppendFormat("t={0}", this.TopicId);
+               sb.AppendFormat("t={0}", TopicId);
             }
 
-            if (this.EditMessageId > 0)
+            if (EditMessageId > 0)
             {
                 if (!String.IsNullOrEmpty(sb.ToString()))
                 {
                     sb.Append('&');
                 }
-                sb.AppendFormat("m={0}", this.EditMessageId);
+                sb.AppendFormat("m={0}", EditMessageId);
 
             }
 
-            if (this.ForumId > 0)
+            if (ForumId > 0)
             {
                 if (!String.IsNullOrEmpty(sb.ToString()))
                 {
                     sb.Append('&');
                 }
-                sb.AppendFormat("f={0}", this.ForumId);
+                sb.AppendFormat("f={0}", ForumId);
             }
 
-            if (this.EditForumId > 0)
+            if (EditForumId > 0)
             {
                 if (!String.IsNullOrEmpty(sb.ToString()))
                 {
                     sb.Append('&');
                 }
-                sb.AppendFormat("ef={0}", this.EditForumId);
+                sb.AppendFormat("ef={0}", EditForumId);
             }
 
-            if (this.CategoryId > 0)
+            if (CategoryId > 0)
             {
                 if (!String.IsNullOrEmpty(sb.ToString()))
                 {
                     sb.Append('&');
                 }
-                sb.AppendFormat("c={0}", this.CategoryId);
+                sb.AppendFormat("c={0}", CategoryId);
             }
 
-            if (this.EditCategoryId > 0)
+            if (EditCategoryId > 0)
             {
                 if (!String.IsNullOrEmpty(sb.ToString()))
                 {
                     sb.Append('&');
                 }
-                sb.AppendFormat("ec={0}", this.EditCategoryId);
+                sb.AppendFormat("ec={0}", EditCategoryId);
             }
 
-            if (this.BoardId > 0)
+            if (BoardId > 0)
             {
                 if (!String.IsNullOrEmpty(sb.ToString()))
                 {
                     sb.Append('&');
                 }
-                sb.AppendFormat("b={0}", this.BoardId);
+                sb.AppendFormat("b={0}", BoardId);
             }
 
-            if (this.EditBoardId > 0)
+            if (EditBoardId > 0)
             {
                 if (!String.IsNullOrEmpty(sb.ToString()))
                 {
                     sb.Append('&');
                 }
-                sb.AppendFormat("eb={0}", this.EditBoardId);
+                sb.AppendFormat("eb={0}", EditBoardId);
             }
 
             return sb.ToString();
@@ -369,27 +373,19 @@ namespace YAF.controls
         {
 
             // check for voting cookie
-            if (this.Request.Cookies[VotingCookieName(Convert.ToInt32(pollId))] != null)
+            if (Request.Cookies[VotingCookieName(Convert.ToInt32(pollId))] != null)
             {
                 return false;
             }
 
             // voting is not tied to IP and they are a guest...
-            if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.PollVoteTiedToIP)
+            if (PageContext.IsGuest && !PageContext.BoardSettings.PollVoteTiedToIP)
             {
                 return true;
             }
 
             // Check if a user already voted
-            foreach (DataRow  dr in _dtVotes.Rows)
-            {
-                if (Convert.ToInt32(dr["PollID"]) == Convert.ToInt32(pollId))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return _dtVotes.Rows.Cast<DataRow>().All(dr => Convert.ToInt32(dr["PollID"]) != Convert.ToInt32(pollId));
         }
 
         /// <summary>
@@ -400,15 +396,15 @@ namespace YAF.controls
        
            // rule out users without voting rights
            // If you come here from topics or edit TopicId should be > 0
-           if (!this.PageContext.ForumVoteAccess && this.TopicId > 0)
+           if (!PageContext.ForumVoteAccess && TopicId > 0)
            {
                return false;
            }
-           if (!this.PageContext.BoardVoteAccess && this.BoardId > 0)
+           if (!PageContext.BoardVoteAccess && BoardId > 0)
            {
                return false;
            }
-           if (this.IsPollClosed(pollId))
+           if (IsPollClosed(pollId))
            {
                return false;
            }
@@ -426,9 +422,9 @@ namespace YAF.controls
         protected string GetPollIsClosed(object pollId)
         {
             string strPollClosed = string.Empty;
-            if (this.IsPollClosed(pollId))
+            if (IsPollClosed(pollId))
             {
-                strPollClosed = this.PageContext.Localization.GetText("POLL_CLOSED");
+                strPollClosed = PageContext.Localization.GetText("POLL_CLOSED");
             }
 
             return strPollClosed;
@@ -442,11 +438,11 @@ namespace YAF.controls
         /// </returns>
         protected string GetPollQuestion(object pollId)
         {
-            foreach (DataRow dr in this._dtPollGroup.Rows)
+            foreach (DataRow dr in _dtPollGroup.Rows)
             {
                 if (Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
                 {
-                    return this.HtmlEncode(YafServices.BadWordReplace.Replace(dr["Question"].ToString()));
+                    return HtmlEncode(YafServices.BadWordReplace.Replace(dr["Question"].ToString()));
                 }
                 
             }
@@ -462,11 +458,11 @@ namespace YAF.controls
         /// </returns>
         protected string GetTotal(object  pollId)
         {
-            foreach (DataRow dr in this._dtPollGroup.Rows)
+            foreach (DataRow dr in _dtPollGroup.Rows)
             {
                 if (Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
                 {
-                    return this.HtmlEncode(dr["Total"].ToString());
+                    return HtmlEncode(dr["Total"].ToString());
                 }
 
             }
@@ -481,22 +477,9 @@ namespace YAF.controls
         /// </returns>
         protected bool IsPollClosed(object pollId)
         {
-
-            foreach (DataRow dr in this._dtPollGroup.Rows)
-            {
-                if ((dr["Closes"] != DBNull.Value) && (Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"])))
-                {
-                    DateTime tCloses = Convert.ToDateTime(dr["Closes"]);
-                    if (tCloses < DateTime.UtcNow)
-                    {
-                        return true;
-                    }
-                    
-                }
-
-            }
-  
-            return false;
+            return (from DataRow dr in _dtPollGroup.Rows
+                    where (dr["Closes"] != DBNull.Value) && (Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
+                    select Convert.ToDateTime(dr["Closes"])).Any(tCloses => tCloses < DateTime.UtcNow);
         }
 
         /// <summary>
@@ -508,7 +491,7 @@ namespace YAF.controls
         protected int? DaysToRun(object pollId, out bool soon)
         {
             soon = false;
-            foreach (DataRow dr in this._dtPollGroup.Rows)
+            foreach (DataRow dr in _dtPollGroup.Rows)
             {
                 if (dr["Closes"] != DBNull.Value && Convert.ToInt32(pollId) == Convert.ToInt32(dr["PollID"]))
                 {
@@ -516,20 +499,11 @@ namespace YAF.controls
                     if (tCloses > DateTime.UtcNow.Date)
                     {
                         int days = (tCloses - DateTime.UtcNow).Days;
-                        if (days == 0)
-                        {
-                            return 1;
-                            soon = true;
-                        }
-                        else
-                        {
-                            return days;
-                        }
+
+                        return days == 0 ? 1 : days;
                     }
-                    else
-                    {
-                        return 0;
-                    }
+
+                    return 0;
                 }
 
             }
@@ -549,7 +523,7 @@ namespace YAF.controls
         /// </returns>
         protected int VoteWidth(object o)
         {
-            var row = (System.Data.DataRowView)o;
+            var row = (DataRowView)o;
             return (int)row.Row["Stats"] * 80 / 100;
         }
 
@@ -570,13 +544,13 @@ namespace YAF.controls
             if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
             {
                //clear the value after choiced are bounded
-               this.MaxImageAspect = 1;
+               MaxImageAspect = 1;
                item.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = HasOwnerExistingGroupAccess() && ShowButtons;
 
                 Repeater polloll = item.FindControlRecursiveAs<Repeater>("Poll");
 
                 string pollId = drowv.Row["PollID"].ToString();
-                polloll.Visible = !CanVote(pollId) && !this.PageContext.BoardSettings.AllowGuestsViewPollOptions && this.PageContext.IsGuest
+                polloll.Visible = !CanVote(pollId) && !PageContext.BoardSettings.AllowGuestsViewPollOptions && PageContext.IsGuest
                                     ? false
                                     : true;
                 // Poll Choice image
@@ -627,9 +601,9 @@ namespace YAF.controls
                         if (!drr["MimeType"].IsNullOrEmptyDBField())
                         {
                             decimal currentAspect = GetImageAspect(drr["MimeType"]);
-                            if (currentAspect > this.MaxImageAspect)
+                            if (currentAspect > MaxImageAspect)
                             {
-                                this.MaxImageAspect = currentAspect;
+                                MaxImageAspect = currentAspect;
                             }
                         }
                     }
@@ -643,23 +617,16 @@ namespace YAF.controls
                 // Poll voting is bounded - you can't see results before voting in each poll
                 if (isBound)
                 {
-                    int voteCount = 0;
-                    foreach (DataRow dr in _dtPollGroup.Rows)
-                    {
-                        if (!IsNotVoted(dr["PollID"]) && !IsPollClosed(dr["PollID"]))
-                        {
-                            voteCount++;
-                        }
+                    int voteCount = _dtPollGroup.Rows.Cast<DataRow>().Count(dr => !IsNotVoted(dr["PollID"]) && !IsPollClosed(dr["PollID"]));
 
-                    }
-                    if (!isPollClosed && voteCount >= this.PollNumber)
+                    if (!isPollClosed && voteCount >= PollNumber)
                     {
                         _showResults = true;
                     }
                 }
                 else
                 {
-                    if ((!isClosedBound && (isNotVoted || this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore)) || (isClosedBound && isPollClosed))
+                    if ((!isClosedBound && (isNotVoted || PageContext.BoardSettings.AllowUsersViewPollVotesBefore)) || (isClosedBound && isPollClosed))
                     {
                         _showResults = true;
                     }
@@ -674,12 +641,12 @@ namespace YAF.controls
                 // Add confirmations to delete buttons
                 ThemeButton removePollAll = item.FindControlRecursiveAs<ThemeButton>("RemovePollAll");
                 removePollAll.Attributes["onclick"] = String.Format(
-               "return confirm('{0}');", this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
+               "return confirm('{0}');", PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
                 removePollAll.Visible = CanRemovePollCompletely(pollId);
                
                 ThemeButton removePoll = item.FindControlRecursiveAs<ThemeButton>("RemovePoll");
                 removePoll.Attributes["onclick"] = String.Format(
-                         "return confirm('{0}');", this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
+                         "return confirm('{0}');", PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE"));
                 removePoll.Visible = CanRemovePoll(pollId);
 
                 // Poll warnings section
@@ -691,20 +658,20 @@ namespace YAF.controls
                 bool cvote = CanVote(pollId);
                 if (cvote)
                 {
-                    if (this.isBound && this.PollNumber > 1 && this.PollNumber >= this._dtVotes.Rows.Count)
+                    if (isBound && PollNumber > 1 && PollNumber >= _dtVotes.Rows.Count)
                     {
-                        pollVotesLabel.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
+                        pollVotesLabel.Text = PageContext.Localization.GetText("POLLEDIT", "POLLGROUP_BOUNDWARN");
                     }
-                    if (!this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore)
+                    if (!PageContext.BoardSettings.AllowUsersViewPollVotesBefore)
                     {
 
                         if (!PageContext.IsGuest)
                         {
-                            pollVotesLabel.Text += this.PageContext.Localization.GetText("POLLEDIT", "POLLRESULTSHIDDEN");
+                            pollVotesLabel.Text += PageContext.Localization.GetText("POLLEDIT", "POLLRESULTSHIDDEN");
                         }
                         else
                         {
-                            pollVotesLabel.Text += this.PageContext.Localization.GetText("POLLEDIT",
+                            pollVotesLabel.Text += PageContext.Localization.GetText("POLLEDIT",
                                                                                          "POLLRESULTSHIDDEN_GUEST");
                         }
                     }
@@ -713,23 +680,23 @@ namespace YAF.controls
                 if (PageContext.IsGuest)
                 {
                     Label guestOptionsHidden = item.FindControlRecursiveAs<Label>("GuestOptionsHidden");
-                    if (!cvote &&  (!this.PageContext.BoardSettings.AllowGuestsViewPollOptions))
+                    if (!cvote &&  (!PageContext.BoardSettings.AllowGuestsViewPollOptions))
                     {
-                        guestOptionsHidden.Text = this.PageContext.Localization.GetText("POLLEDIT",
+                        guestOptionsHidden.Text = PageContext.Localization.GetText("POLLEDIT",
                          "POLLOPTIONSHIDDEN_GUEST");
                         guestOptionsHidden.Visible = true;
                         showWarningsRow = true;
                     }
                     if (!PageContext.ForumPollAccess)
                     {
-                        guestOptionsHidden.Text += this.PageContext.Localization.GetText("POLLEDIT",
+                        guestOptionsHidden.Text += PageContext.Localization.GetText("POLLEDIT",
                                                                                     "POLL_NOPERM_GUEST");
                         guestOptionsHidden.Visible = true;
                         showWarningsRow = true;
                     }
                 }
 
-                pollVotesLabel.Visible = this.isBound || (this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore
+                pollVotesLabel.Visible = isBound || (PageContext.BoardSettings.AllowUsersViewPollVotesBefore
                                              ? false
                                              : (isNotVoted || (daystorun == null)));
                 if (pollVotesLabel.Visible)
@@ -740,7 +707,7 @@ namespace YAF.controls
                 if (!isNotVoted && PageContext.ForumPollAccess)
                  {
                      Label alreadyVotedLabel = item.FindControlRecursiveAs<Label>("AlreadyVotedLabel");
-                     alreadyVotedLabel.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED");
+                     alreadyVotedLabel.Text = PageContext.Localization.GetText("POLLEDIT", "POLL_VOTED");
                      showWarningsRow = alreadyVotedLabel.Visible = true;
                  }
                 if (daystorun > 0)
@@ -748,19 +715,19 @@ namespace YAF.controls
                     Label pollWillExpire = item.FindControlRecursiveAs<Label>("PollWillExpire");
                     if (!soon)
                     {
-                        pollWillExpire.Text = this.PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE",
+                        pollWillExpire.Text = PageContext.Localization.GetTextFormatted("POLL_WILLEXPIRE",
                                                                                              daystorun);
                     }
                     else
                     {
-                        pollWillExpire.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS");
+                        pollWillExpire.Text = PageContext.Localization.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS");
                     }
                     showWarningsRow = pollWillExpire.Visible = true;
                 }
                 else if (daystorun == 0)
                 {
                     Label pollExpired = item.FindControlRecursiveAs<Label>("PollExpired");
-                    pollExpired.Text = this.PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED");
+                    pollExpired.Text = PageContext.Localization.GetText("POLLEDIT", "POLL_EXPIRED");
                     showWarningsRow = pollExpired.Visible = true;
                 }
              
@@ -778,32 +745,37 @@ namespace YAF.controls
                 {
                     item.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] = String.Format(
                         "return confirm('{0}');",
-                        this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DELETE"));
+                        PageContext.Localization.GetText("POLLEDIT", "ASK_POLLGROUP_DELETE"));
 
                     item.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] = String.Format(
                         "return confirm('{0}');",
-                        this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
+                        PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
 
                     item.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] = String.
                         Format(
                             "return confirm('{0}');",
-                            this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_EVR"));
+                            PageContext.Localization.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_EVR"));
                 }
             }
         }
 
 
-        private void DisplayButtons()
+        private static void DisplayButtons()
         {
 
-           // this.PollGroup.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = this.ShowButtons;
+           // PollGroup.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = ShowButtons;
 
         }
 
+        /// <summary>
+        /// PollGroup_ItemCommand
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         protected void PollGroup_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
 
-            if (e.CommandName == "new" && this.PageContext.ForumVoteAccess)
+            if (e.CommandName == "new" && PageContext.ForumVoteAccess)
             {
                 YafBuildLink.Redirect(
                    ForumPages.polledit,
@@ -811,7 +783,7 @@ namespace YAF.controls
                   ParamsToSend()
                    );
             }
-            if (e.CommandName == "edit" && this.PageContext.ForumVoteAccess)
+            if (e.CommandName == "edit" && PageContext.ForumVoteAccess)
             {
                 YafBuildLink.Redirect(
                     ForumPages.polledit,
@@ -820,50 +792,50 @@ namespace YAF.controls
                     e.CommandArgument.ToString());
                 
             }
-            if (e.CommandName == "remove" && this.PageContext.ForumVoteAccess)
+            if (e.CommandName == "remove" && PageContext.ForumVoteAccess)
             {
-               // this.ChangePollShowStatus(false);
+               // ChangePollShowStatus(false);
 
                 if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
                 {
-                    DB.poll_remove(this.PollGroupId, e.CommandArgument,this.BoardId, false,false);
+                    DB.poll_remove(PollGroupId, e.CommandArgument,BoardId, false,false);
                     ReturnToPage();
-                    // this.BindData();
+                    // BindData();
                 }
 
             }
-            if (e.CommandName == "removeall" && this.PageContext.ForumVoteAccess)
+            if (e.CommandName == "removeall" && PageContext.ForumVoteAccess)
             {
                 if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
                 {
-                    DB.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, true, false);
+                    DB.poll_remove(PollGroupId, e.CommandArgument, BoardId, true, false);
                     ReturnToPage();
-                    // this.BindData();
+                    // BindData();
                 }
             }
     
-            if (e.CommandName == "removegroup" && this.PageContext.ForumVoteAccess)
+            if (e.CommandName == "removegroup" && PageContext.ForumVoteAccess)
             {
               
-                    DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
+                    DB.pollgroup_remove(PollGroupId, TopicId, ForumId, CategoryId, BoardId, false, false);
                     ReturnToPage();
-                    // this.BindData();
+                    // BindData();
               
             }
-            if (e.CommandName == "removegroupall" && this.PageContext.ForumVoteAccess)
+            if (e.CommandName == "removegroupall" && PageContext.ForumVoteAccess)
             {
              
-                    DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, true, false);
+                    DB.pollgroup_remove(PollGroupId, TopicId, ForumId, CategoryId, BoardId, true, false);
                     ReturnToPage();
-                    //this.BindData();
+                    //BindData();
               
             }
-            if (e.CommandName == "removegroupevery" && this.PageContext.ForumVoteAccess)
+            if (e.CommandName == "removegroupevery" && PageContext.ForumVoteAccess)
             {
 
-                    DB.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, true);
+                    DB.pollgroup_remove(PollGroupId, TopicId, ForumId, CategoryId, BoardId, false, true);
                     ReturnToPage();
-                // this.BindData();
+                // BindData();
             }
         }
         /// <summary>
@@ -871,7 +843,7 @@ namespace YAF.controls
         /// </summary>
         /// <param name="mimeType"></param>
         /// <returns></returns>
-        private decimal GetImageAspect(object mimeType)
+        private static decimal GetImageAspect(object mimeType)
         {
           
                    if (!mimeType.IsNullOrEmptyDBField())
@@ -893,7 +865,7 @@ namespace YAF.controls
         }
 
 
-        protected void Poll_OnItemDataBound(object source, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+        protected void Poll_OnItemDataBound(object source, RepeaterItemEventArgs e)
         {
 
             RepeaterItem item = e.Item;
@@ -907,7 +879,7 @@ namespace YAF.controls
                 string pollId = drowv.Row["PollID"].ToString();
 
                 myLinkButton.Enabled = _canVote;
-                myLinkButton.ToolTip = this.PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
+                myLinkButton.ToolTip = PageContext.Localization.GetText("POLLEDIT", "POLL_PLEASEVOTE");
                 myLinkButton.Visible = true;
 
                // Poll Choice image
@@ -933,10 +905,10 @@ namespace YAF.controls
                        
                         
                         // hardcoded - bad
-                        int imageWidth = 80;
+                        const int imageWidth = 80;
                         choiceImage.Attributes["style"] = String.Format("width:{0}px; height:{1}px;", imageWidth, choiceImage.Width / aspect);
                         // reserved to get equal row heights
-                        String height = (this.MaxImageAspect * choiceImage.Width).ToString();
+                        String height = (MaxImageAspect * choiceImage.Width).ToString();
                         trow.Attributes["style"] = String.Format("height:{0}px;", height);
                       
                     }
@@ -969,17 +941,17 @@ namespace YAF.controls
         /// </param>
         protected void Poll_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "vote" &&  e.CommandArgument != null && ((this.PageContext.ForumVoteAccess && this.TopicId > 0) || (this.PageContext.BoardVoteAccess && this.BoardId > 0)))
+            if (e.CommandName == "vote" &&  e.CommandArgument != null && ((PageContext.ForumVoteAccess && TopicId > 0) || (PageContext.BoardVoteAccess && BoardId > 0)))
             {
-                if (!this.CanVote(Convert.ToInt32(e.CommandArgument)))
+                if (!CanVote(Convert.ToInt32(e.CommandArgument)))
                 {
-                    this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_ALREADY_VOTED"));
+                    PageContext.AddLoadMessage(PageContext.Localization.GetText("WARN_ALREADY_VOTED"));
                     return;
                 }
 
-                if (this.IsLocked)
+                if (IsLocked)
                 {
-                    this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_TOPIC_LOCKED"));
+                    PageContext.AddLoadMessage(PageContext.Localization.GetText("WARN_TOPIC_LOCKED"));
                     return;
                 }
                
@@ -987,9 +959,9 @@ namespace YAF.controls
                     {
                         if ((int)drow["ChoiceID"] == Convert.ToInt32(e.CommandArgument))
                         {
-                            if (this.IsPollClosed(Convert.ToInt32(drow["PollID"])))
+                            if (IsPollClosed(Convert.ToInt32(drow["PollID"])))
                             {
-                                this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("WARN_POLL_CLOSED"));
+                                PageContext.AddLoadMessage(PageContext.Localization.GetText("WARN_POLL_CLOSED"));
                                 return;
                             }
                             break;
@@ -1000,31 +972,31 @@ namespace YAF.controls
                 object userID = null;
                 object remoteIP = null;
 
-                if (this.PageContext.BoardSettings.PollVoteTiedToIP)
+                if (PageContext.BoardSettings.PollVoteTiedToIP)
                 {
-                    remoteIP = IPHelper.IPStrToLong(this.Request.ServerVariables["REMOTE_ADDR"]).ToString();
+                    remoteIP = IPHelper.IPStrToLong(Request.ServerVariables["REMOTE_ADDR"]).ToString();
                 }
 
-                if (!this.PageContext.IsGuest)
+                if (!PageContext.IsGuest)
                 { 
-                    userID = this.PageContext.PageUserID;
+                    userID = PageContext.PageUserID;
                 }
 
                 DB.choice_vote(e.CommandArgument, userID, remoteIP);
 
                 // save the voting cookie...
-                var c = new HttpCookie(VotingCookieName(Convert.ToInt32(e.CommandArgument)), e.CommandArgument.ToString());
-                c.Expires = DateTime.UtcNow.AddYears(1);
-                this.Response.Cookies.Add(c);
-                string msg = this.PageContext.Localization.GetText("INFO_VOTED");
+                var c = new HttpCookie(VotingCookieName(Convert.ToInt32(e.CommandArgument)), e.CommandArgument.ToString())
+                            {Expires = DateTime.UtcNow.AddYears(1)};
+                Response.Cookies.Add(c);
+                string msg = PageContext.Localization.GetText("INFO_VOTED");
 
-                if (this.isBound && this.PollNumber > 1 && this.PollNumber >= this._dtVotes.Rows.Count && (!this.PageContext.BoardSettings.AllowUsersViewPollVotesBefore))
+                if (isBound && PollNumber > 1 && PollNumber >= _dtVotes.Rows.Count && (!PageContext.BoardSettings.AllowUsersViewPollVotesBefore))
                 {
-                    msg += this.PageContext.Localization.GetText("POLLGROUP_BOUNDWARN");
+                    msg += PageContext.Localization.GetText("POLLGROUP_BOUNDWARN");
                 }
 
-                this.PageContext.AddLoadMessage(msg);
-                this.BindData();
+                PageContext.AddLoadMessage(msg);
+                BindData();
             }
         }
 
@@ -1034,71 +1006,71 @@ namespace YAF.controls
         private void ReturnToPage()
         {
             // We simply return here to the page where is the control. It can be made other way.
-            if (this.TopicId > 0)
+            if (TopicId > 0)
             {
                 YafBuildLink.Redirect(
                           ForumPages.posts,
                           "t={0}",
-                         this.TopicId);
+                         TopicId);
             }
             
-            if (this.EditMessageId > 0)
+            if (EditMessageId > 0)
             {
                 YafBuildLink.Redirect(
                     ForumPages.postmessage,
                     "m={0}",
-                    this.EditMessageId);
+                    EditMessageId);
             }
 
-            if (this.ForumId > 0)
+            if (ForumId > 0)
             {
                 YafBuildLink.Redirect(
                     ForumPages.topics,
                     "f={0}",
-                    this.ForumId);
+                    ForumId);
             }
             
-            if (this.EditForumId > 0)
+            if (EditForumId > 0)
             {
 
                 YafBuildLink.Redirect(
                     ForumPages.admin_editforum,
                     "f={0}",
-                    this.ForumId);
+                    ForumId);
             }
             
-            if (this.CategoryId > 0)
+            if (CategoryId > 0)
             {
 
                 YafBuildLink.Redirect(
                     ForumPages.forum,
                     "c={0}",
-                    this.CategoryId);
+                    CategoryId);
             }
             
-            if (this.EditCategoryId > 0)
+            if (EditCategoryId > 0)
             {
 
                 YafBuildLink.Redirect(
                     ForumPages.admin_editcategory,
                     "c={0}",
-                    this.EditCategoryId);
+                    EditCategoryId);
             }
             
-            if (this.BoardId > 0)
+            if (BoardId > 0)
             {
 
                 YafBuildLink.Redirect(
                     ForumPages.forum);
             }
             
-            if (this.EditBoardId > 0)
+            if (EditBoardId > 0)
             {
 
                YafBuildLink.Redirect(
                     ForumPages.admin_editboard,
                     "b={0}",
-                    this.EditBoardId);
+                    EditBoardId);
             }
          
                 YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
@@ -1113,7 +1085,7 @@ namespace YAF.controls
         /// </param>
         protected void ChangePollShowStatus(bool newStatus)
         {
-          /*  var pollRow = (HtmlTableRow)this.FindControl(String.Format("PollRow{0}", 1));
+          /*  var pollRow = (HtmlTableRow)FindControl(String.Format("PollRow{0}", 1));
 
             if (pollRow != null)
             {
@@ -1127,10 +1099,10 @@ namespace YAF.controls
         /// <returns></returns>
         protected bool CanCreatePoll()
         {
-            return (this.PollNumber < this.PageContext.BoardSettings.AllowedPollNumber) && 
+            return (PollNumber < PageContext.BoardSettings.AllowedPollNumber) && 
                 (PageContext.BoardSettings.AllowedPollChoiceNumber > 0)  && 
                 HasOwnerExistingGroupAccess() 
-                && (this.PollGroupId >= 0);
+                && (PollGroupId >= 0);
         }
 
         /// <summary>
@@ -1140,19 +1112,17 @@ namespace YAF.controls
         /// <returns></returns>
         protected bool CanEditPoll(object pollId)
         {
-            if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
+            if (!PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
             {
-                return this.ShowButtons &&
-                       (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-                        (this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) &&
+                return ShowButtons &&
+                       (PageContext.IsAdmin || PageContext.IsForumModerator ||
+                        (PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) &&
                          PollHasNoVotes(pollId) || (!IsPollClosed(pollId))));
             }
-            else
-            {
-                return this.ShowButtons &&
-                     (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-                      this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) && (!IsPollClosed(pollId)));
-            }
+
+            return ShowButtons &&
+                   (PageContext.IsAdmin || PageContext.IsForumModerator ||
+                    PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) && (!IsPollClosed(pollId)));
         }
 
         /// <summary>
@@ -1162,10 +1132,10 @@ namespace YAF.controls
         /// <returns></returns>
         protected bool CanRemovePoll(object pollId)
         {
-            return this.ShowButtons && 
-                (this.PageContext.IsAdmin || 
-                this.PageContext.IsForumModerator ||
-                (this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"])));
+            return ShowButtons && 
+                (PageContext.IsAdmin || 
+                PageContext.IsForumModerator ||
+                (PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"])));
         }
 
         /// <summary>
@@ -1175,19 +1145,17 @@ namespace YAF.controls
         /// <returns></returns>
         protected bool CanRemovePollCompletely(object pollId)
         {
-            if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
+            if (!PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
             {
-                return this.ShowButtons &&
-                      (this.PageContext.IsAdmin || this.PageContext.IsModerator ||
-                      ((this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) &&
+                return ShowButtons &&
+                      (PageContext.IsAdmin || PageContext.IsModerator ||
+                      ((PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) &&
                         PollHasNoVotes(pollId))));
             }
-            else
-            {
-                return PollHasNoVotes(pollId) && this.ShowButtons &&
-                        (this.PageContext.IsAdmin ||
-                         this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]));  
-            }
+
+            return PollHasNoVotes(pollId) && ShowButtons &&
+                   (PageContext.IsAdmin ||
+                    PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]));
         }
 
         /// <summary>
@@ -1197,6 +1165,7 @@ namespace YAF.controls
         protected bool CanRemoveGroup()
         {
             bool hasNoVotes = true;
+
             foreach (DataRow dr in _dtPoll.Rows)
             {
                 if (Convert.ToInt32(dr["Votes"]) > 0)
@@ -1205,19 +1174,17 @@ namespace YAF.controls
                 }
             }
 
-            if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
+            if (!PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
             {
-                return this.ShowButtons &&
-                       (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-                        ((this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) &&
+                return ShowButtons &&
+                       (PageContext.IsAdmin || PageContext.IsForumModerator ||
+                        ((PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) &&
                           hasNoVotes)));
             }
-            else
-            {
-                return this.ShowButtons &&
-                      (this.PageContext.IsAdmin || this.PageContext.IsForumModerator ||
-                       ((this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]))));
-            }
+
+            return ShowButtons &&
+                   (PageContext.IsAdmin || PageContext.IsForumModerator ||
+                    ((PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]))));
         }
 
         /// <summary>
@@ -1235,20 +1202,17 @@ namespace YAF.controls
                 }
             }
            
-            if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
+            if (!PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
             {
-                return this.ShowButtons &&
-                      (this.PageContext.IsAdmin || 
-                       ((this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) &&
+                return ShowButtons &&
+                      (PageContext.IsAdmin || 
+                       ((PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]) &&
                         hasNoVotes)));
             }
-            else
-            {
-                return this.ShowButtons &&
-                        (this.PageContext.IsAdmin ||
-                         this.PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]));
-            }
-           
+
+            return ShowButtons &&
+                   (PageContext.IsAdmin ||
+                    PageContext.PageUserID == Convert.ToInt32(_dtPollGroup.Rows[0]["GroupUserID"]));
         }
 
         /// <summary>
@@ -1257,7 +1221,7 @@ namespace YAF.controls
         /// <returns></returns>
         protected bool CanRemoveGroupEverywhere()
         {
-            return this.ShowButtons && (this.PageContext.IsAdmin);
+            return ShowButtons && (PageContext.IsAdmin);
         }
 
         /// <summary>
@@ -1267,21 +1231,9 @@ namespace YAF.controls
         /// <returns></returns>
         private bool PollHasNoVotes(object pollId)
         {
-                foreach (DataRow dr in _dtPoll.Rows)
-                {
-                    if (Convert.ToInt32(dr["PollID"]) == Convert.ToInt32(pollId))
-                    {
-                       if (Convert.ToInt32(dr["Votes"]) > 0)
-                       {
-                           return false;
-                       }
-                    }
-                    
-                }
-            return true;
-
+            return _dtPoll.Rows.Cast<DataRow>().Where(dr => Convert.ToInt32(dr["PollID"]) == Convert.ToInt32(pollId)).All(dr => Convert.ToInt32(dr["Votes"]) <= 0);
         }
-   
+
         /// <summary>
         /// The remove poll_ load.
         /// </summary>
@@ -1294,7 +1246,7 @@ namespace YAF.controls
         protected void RemovePoll_Load(object sender, EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] = String.Format(
-              "return confirm('{0}');", this.PageContext.Localization.GetText("POLLEDIT","ASK_POLL_DELETE"));
+              "return confirm('{0}');", PageContext.Localization.GetText("POLLEDIT","ASK_POLL_DELETE"));
         }
 
         /// <summary>
@@ -1309,7 +1261,7 @@ namespace YAF.controls
         protected void RemovePollCompletely_Load(object sender, EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] = String.Format(
-              "return confirm('{0}');", this.PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
+              "return confirm('{0}');", PageContext.Localization.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
         }
 
         /// <summary>
@@ -1317,22 +1269,22 @@ namespace YAF.controls
         /// </summary>
         private void BindData()
         {   
-               this._dataBound = true;
+               _dataBound = true;
                PollNumber = 0;
-               _dtPoll = DB.pollgroup_stats(this.PollGroupId);
+               _dtPoll = DB.pollgroup_stats(PollGroupId);
 
                // if the page user can cheange the poll. Only a group owner, forum moderator  or an admin can do it.   
-               _canChange = (Convert.ToInt32(_dtPoll.Rows[0]["GroupUserID"]) == this.PageContext.PageUserID) ||
+               _canChange = (Convert.ToInt32(_dtPoll.Rows[0]["GroupUserID"]) == PageContext.PageUserID) ||
                        PageContext.IsAdmin || PageContext.IsForumModerator;
 
             // check if we should hide pollgroup repeater when a message is posted
             if (Parent.Page.ClientQueryString.Contains("postmessage"))
             {
-                this.PollGroup.Visible = (((this.EditMessageId > 0)) && (!_canChange)) || _canChange;
+                PollGroup.Visible = (((EditMessageId > 0)) && (!_canChange)) || _canChange;
             }
             else
             {
-                this.PollGroup.Visible = true;
+                PollGroup.Visible = true;
             }
 
             _dtPollGroup = _dtPoll.Copy();
@@ -1362,30 +1314,30 @@ namespace YAF.controls
                     object userId = null;
                     object remoteIp = null;
 
-                   if (this.PageContext.BoardSettings.PollVoteTiedToIP)
+                   if (PageContext.BoardSettings.PollVoteTiedToIP)
                    {
-                       remoteIp = IPHelper.IPStrToLong(this.Request.UserHostAddress).ToString();
+                       remoteIp = IPHelper.IPStrToLong(Request.UserHostAddress).ToString();
                    }
 
-                    if (!this.PageContext.IsGuest)
+                    if (!PageContext.IsGuest)
                     {
-                        userId = this.PageContext.PageUserID;
+                        userId = PageContext.PageUserID;
                     }
 
-                    this._dtVotes = DB.pollgroup_votecheck(this.PollGroupId, userId, remoteIp);
+                    _dtVotes = DB.pollgroup_votecheck(PollGroupId, userId, remoteIp);
 
-                    this.isBound = (Convert.ToInt32(_dtPollGroup.Rows[0]["IsBound"]) == 2);
-                    this.isClosedBound = (Convert.ToInt32(_dtPollGroup.Rows[0]["IsClosedBound"]) == 4);
+                    isBound = (Convert.ToInt32(_dtPollGroup.Rows[0]["IsBound"]) == 2);
+                    isClosedBound = (Convert.ToInt32(_dtPollGroup.Rows[0]["IsClosedBound"]) == 4);
 
-                    this.PollGroup.DataSource = _dtPollGroup;
+                    PollGroup.DataSource = _dtPollGroup;
 
                     // we hide new poll row if a poll exist
-                    this.NewPollRow.Visible = false;
+                    NewPollRow.Visible = false;
                     ChangePollShowStatus(true);
 
                 }
 
-                this.DataBind();
+                DataBind();
         }
     }
 }
