@@ -222,7 +222,7 @@ namespace YAF.controls
                }*/
 
             bool existingPoll = (PollGroupId > 0) && ((TopicId > 0) || (ForumId > 0) || (BoardId > 0));
-            NewPollRow.Visible = HasOwnerExistingGroupAccess() && (!existingPoll);
+            NewPollRow.Visible = HasOwnerExistingGroupAccess() && existingPoll;
                 if (PollGroupId > 0)
                 {
                     BindData();
@@ -628,10 +628,16 @@ namespace YAF.controls
                 }
                 else
                 {
-                    if ((!isClosedBound && (isNotVoted || PageContext.BoardSettings.AllowUsersViewPollVotesBefore)) || (isClosedBound && isPollClosed))
+                    if (!isClosedBound && PageContext.BoardSettings.AllowUsersViewPollVotesBefore)
                     {
                         _showResults = true;
                     }
+                }
+
+                // The poll expired. We show results  
+                if (isClosedBound && isPollClosed)
+                {
+                    _showResults = true;
                 }
       
                 polloll.DataBind();
