@@ -31,6 +31,8 @@ namespace YAF.Classes
     /// </summary>
     public struct Cache
     {
+      public const string UserSignatureCache = "UserSignatureCache";
+
       /// <summary>
       /// The active discussions.
       /// </summary>
@@ -110,6 +112,11 @@ namespace YAF.Classes
       /// The replace words.
       /// </summary>
       public const string ReplaceWords = "ReplaceWords";
+
+      /// <summary>
+      /// The replace words.
+      /// </summary>
+      public const string ReplaceWordsCache = "ReplaceWordsCache";
 
       /// <summary>
       /// The shoutbox.
