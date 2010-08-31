@@ -187,13 +187,13 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Gets ReplaceItems.
     /// </summary>
-    public HashSet<BadWordReplaceItem> ReplaceItems
+    public List<BadWordReplaceItem> ReplaceItems
     {
       get
       {
         string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords);
 
-        var replaceItems = YafContext.Current.Cache.GetItem<HashSet<BadWordReplaceItem>>(
+        var replaceItems = YafContext.Current.Cache.GetItem<List<BadWordReplaceItem>>(
           cacheKey,
           30,
           () =>
@@ -205,7 +205,7 @@ namespace YAF.Classes.Core
               return
                 replaceWords.Select(
                   row => new BadWordReplaceItem(row.Field<string>("goodword"), row.Field<string>("badword"), _options)).
-                  ToHashSet();
+                  ToList();
             });
 
         return replaceItems;
