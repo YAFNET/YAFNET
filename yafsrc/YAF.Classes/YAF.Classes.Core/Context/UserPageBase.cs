@@ -748,7 +748,7 @@ namespace YAF.Classes.Core
             HttpContext.Current.Session["UserUpdated"] = true;
           }
 
-          string browser = String.Format("{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
+          string browser = "{0} {1}".FormatWith(HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
           string platform = HttpContext.Current.Request.Browser.Platform;
           bool isSearchEngine = false;
           bool isIgnoredForDisplay = false;
@@ -773,13 +773,14 @@ namespace YAF.Classes.Core
           // vzrus: to log unhandled UserAgent strings
           if (YafContext.Current.BoardSettings.UserAgentBadLog)
           {
-            if (String.IsNullOrEmpty(userAgent))
+            if (userAgent.IsNotSet())
             {
               DB.eventlog_create(YafContext.Current.PageUserID, this, "UserAgent string is empty.", EventLogTypes.Warning);
             }
+
             if (platform.ToLower().Contains("unknown") || browser.ToLower().Contains("unknown"))
             {
-              DB.eventlog_create(YafContext.Current.PageUserID, this, String.Format("Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.", userAgent, HttpContext.Current.Request.Browser.Platform, HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
+              DB.eventlog_create(YafContext.Current.PageUserID, this, "Unhandled UserAgent string:'{0}' /r/nPlatform:'{1}' /r/nBrowser:'{2}' /r/nSupports cookies='{3}' /r/nUserID='{4}'.".FormatWith(userAgent, HttpContext.Current.Request.Browser.Platform, HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Cookies, user != null ? user.UserName : String.Empty), EventLogTypes.Warning);
             }
           }
 

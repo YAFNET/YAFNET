@@ -4616,18 +4616,19 @@ namespace YAF.Classes.Data
     /// Retuns All the Thanks for the Message IDs which are in the 
     /// delimited string variable MessageIDs
     /// </summary>
-    /// <param name="MessageIDs">
+    /// <param name="messageIdsSeparatedWithColon">
     /// The message i ds.
     /// </param>
     /// <returns>
     /// </returns>
-    public static DataTable message_GetAllThanks(object MessageIDs)
+    public static IEnumerable<TypedAllThanks> MessageGetAllThanks(string messageIdsSeparatedWithColon)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("message_getallthanks"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("MessageIDs", MessageIDs);
-        return YafDBAccess.Current.GetData(cmd);
+        cmd.Parameters.AddWithValue("MessageIDs", messageIdsSeparatedWithColon);
+
+        return YafDBAccess.Current.GetData(cmd).AsEnumerable().Select(t => new TypedAllThanks(t));
       }
     }
 

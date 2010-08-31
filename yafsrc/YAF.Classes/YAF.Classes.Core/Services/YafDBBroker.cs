@@ -70,94 +70,63 @@ namespace YAF.Classes.Core
     /// <summary>
     /// Adds the Thanks info to a dataTable
     /// </summary>
-    /// <param name="dataTable">
+    /// <param name="dataRows">
     /// </param>
-    public void AddThanksInfo(DataTable dataTable)
+    public void AddThanksInfo(IEnumerable<DataRow> dataRows)
     {
-      var messageIds = dataTable.AsEnumerable().Select(x => x.Field<int>("MessageID"));
-
-      // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
-      // calls to database.)  
-      if (!dataTable.Columns.Contains("ThanksInfo"))
-      {
-        dataTable.Columns.Add("ThanksInfo", Type.GetType("System.String"));
-      }
-
-      dataTable.Columns.AddRange(
-        new[]
-          {
-            // General Thanks Info
-            // new DataColumn("ThanksInfo", Type.GetType("System.String")),
-            // How many times has this message been thanked.
-            new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")), 
-            // How many times has the message poster thanked others?   
-            new DataColumn("MessageThanksNumber", Type.GetType("System.Int32")), 
-            // How many times has the message poster been thanked?
-            new DataColumn("ThanksFromUserNumber", Type.GetType("System.Int32")), 
-            // In how many posts has the message poster been thanked? 
-            new DataColumn("ThanksToUserNumber", Type.GetType("System.Int32")), 
-            // In how many posts has the message poster been thanked? 
-            new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"))
-          });
+      var messageIds = dataRows.Select(x => x.Field<int>("MessageID"));
 
       // Initialize the "IsthankedByUser" column.
-      dataTable.AsEnumerable().ForEach(x => x["IsThankedByUser"] = false);
+      dataRows.ForEach(x => x["IsThankedByUser"] = false);
 
       // Initialize the "Thank Info" column.
-      dataTable.AsEnumerable().ForEach(x => x["ThanksInfo"] = String.Empty);
+      dataRows.ForEach(x => x["ThanksInfo"] = String.Empty);
 
       // Iterate through all the thanks relating to this topic and make appropriate
       // changes in columns.
-      using (DataTable allThanks = DB.message_GetAllThanks(messageIds.ToDelimitedString(",")))
+      var allThanks = DB.MessageGetAllThanks(messageIds.ToDelimitedString(","));
+
+      foreach (var thanks in allThanks.Where(t => t.FromUserID != null && t.FromUserID == YafContext.Current.PageUserID)
+        )
       {
-        EnumerableRowCollection<DataRow> thanksFiltered = from DataRow thankRow in allThanks.AsEnumerable()
-                                                          where !thankRow["FromUserID"].IsNullOrEmptyDBField()
-                                                          where
-                                                            thankRow.Field<int>("FromUserID") ==
-                                                            YafContext.Current.PageUserID
-                                                          select thankRow;
-
-        foreach (DataRow thanksRow in thanksFiltered)
+        foreach (var f in
+          dataRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID))
         {
-          DataRow row = thanksRow;
-
-          foreach (var f in
-            dataTable.AsEnumerable().Where(x => x.Field<int>("MessageID").Equals(row.Field<int>("MessageID"))))
-          {
-            f["IsThankedByUser"] = "true";
-          }
-        }
-
-        var thanksFieldNames = new[] { "ThanksFromUserNumber", "ThanksToUserNumber", "ThanksToUserPostsNumber" };
-
-        foreach (DataRow postRow in dataTable.AsEnumerable())
-        {
-          var messageId = postRow.Field<int>("MessageID");
-
-          postRow["MessageThanksNumber"] =
-            allThanks.AsEnumerable().Count(
-              x => x.Field<int>("MessageID").Equals(messageId) && !x["FromUserID"].IsNullOrEmptyDBField());
-
-          thanksFiltered = allThanks.AsEnumerable().Where(x => x.Field<int>("MessageID").Equals(messageId));
-          bool hasThanks = thanksFiltered.Any();
-
-          foreach (var f in thanksFieldNames)
-          {
-            postRow[f] = hasThanks ? thanksFiltered.First()[f] : 0;
-          }
-
-          // load all all thanks info into a special column...
-          postRow["ThanksInfo"] =
-            thanksFiltered.Where(x => !x["FromUserID"].IsNullOrEmptyDBField()).Select(
-              x => "{0}|{1}".FormatWith(x.Field<int?>("FromUserID"), x.Field<DateTime?>("ThanksDate"))).
-              ToDelimitedString(",");
-
-          Debug.WriteLine(postRow["ThanksInfo"]);
+          f["IsThankedByUser"] = "true";
+          f.AcceptChanges();
         }
       }
 
-      // save all changes
-      dataTable.AcceptChanges();
+      var thanksFieldNames = new[] { "ThanksFromUserNumber", "ThanksToUserNumber", "ThanksToUserPostsNumber" };
+
+      foreach (DataRow postRow in dataRows)
+      {
+        var messageId = postRow.Field<int>("MessageID");
+
+        postRow["MessageThanksNumber"] = allThanks.Where(t => t.FromUserID != null && t.MessageID == messageId).Count();
+
+        var thanksFiltered = allThanks.Where(t => t.MessageID == messageId);
+
+        if (thanksFiltered.Any())
+        {
+          var thanksItem = thanksFiltered.First();
+
+          postRow["ThanksFromUserNumber"] = thanksItem.ThanksFromUserNumber ?? 0;
+          postRow["ThanksToUserNumber"] = thanksItem.ThanksToUserNumber ?? 0;
+          postRow["ThanksToUserPostsNumber"] = thanksItem.ThanksToUserPostsNumber ?? 0;
+        }
+        else
+        {
+          thanksFieldNames.ForEach(f => postRow[f] = 0);
+        }
+
+        // load all all thanks info into a special column...
+        postRow["ThanksInfo"] =
+          thanksFiltered.Where(t => t.FromUserID != null).Select(
+            x => "{0}|{1}".FormatWith(x.FromUserID.Value, x.ThanksDate)).ToDelimitedString(",");
+
+        postRow.AcceptChanges();
+      }
     }
 
     /// <summary>
