@@ -892,14 +892,38 @@ namespace YAF.Pages
         this.PageContext.BoardSettings.ShowDeletedMessages, 
         YafContext.Current.BoardSettings.UseStyledNicks);
 
-      // Add thanks info and styled nicks if they are enabled
       if (YafContext.Current.BoardSettings.EnableThanksMod)
       {
-        YafServices.DBBroker.AddThanksInfo(postListDataTable);
+        // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
+        // calls to database.)  
+        if (!postListDataTable.Columns.Contains("ThanksInfo"))
+        {
+          postListDataTable.Columns.Add("ThanksInfo", Type.GetType("System.String"));
+        }
+
+        postListDataTable.Columns.AddRange(
+          new[]
+            {
+              // General Thanks Info
+              // new DataColumn("ThanksInfo", Type.GetType("System.String")),
+              // How many times has this message been thanked.
+              new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")),
+              // How many times has the message poster thanked others?   
+              new DataColumn("MessageThanksNumber", Type.GetType("System.Int32")),
+              // How many times has the message poster been thanked?
+              new DataColumn("ThanksFromUserNumber", Type.GetType("System.Int32")),
+              // In how many posts has the message poster been thanked? 
+              new DataColumn("ThanksToUserNumber", Type.GetType("System.Int32")),
+              // In how many posts has the message poster been thanked? 
+              new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"))
+            });
+
+        postListDataTable.AcceptChanges();
       }
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
+        // needs to be moved to the paged data below -- so it doesn't operate on unnecessary rows
         new StyleTransform(this.PageContext.Theme).DecodeStyleByTable(ref postListDataTable, true);
       }
 
@@ -952,13 +976,19 @@ namespace YAF.Pages
         this.CurrentMessage = rowList.Last().Field<int>("MessageID");
       }
 
-      if (postListDataTable.Rows.Count > 0)
+      var pagedData = rowList.Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
+
+      if (pagedData.Any())
       {
         // handle add description/keywords for SEO
-        this.AddMetaData(postListDataTable.Rows[0]["Message"]);
+        this.AddMetaData(pagedData.First()["Message"]);
       }
 
-      var pagedData = rowList.Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
+      // Add thanks info and styled nicks if they are enabled
+      if (YafContext.Current.BoardSettings.EnableThanksMod)
+      {
+        YafServices.DBBroker.AddThanksInfo(pagedData);
+      }
       
       // dynamic load messages that are needed...
       YafServices.DBBroker.LoadMessageText(pagedData);

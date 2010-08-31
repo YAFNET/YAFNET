@@ -877,9 +877,14 @@ namespace YAF.Pages
       {
         using (DataTable userDt = DB.user_list(this.PageContext.PageBoardID, this.PageContext.PageUserID, true))
         {
-          if (!userDt.Rows[0].IsNull("Signature"))
+          if (userDt.Rows.Count > 0)
           {
-            this.PreviewMessagePost.Signature = userDt.Rows[0]["Signature"].ToString();
+            DataRow userRow = userDt.Rows[0];
+
+            if (!userRow.IsNull("Signature"))
+            {
+              this.PreviewMessagePost.Signature = userRow["Signature"].ToString();
+            }
           }
         }
       }
