@@ -124,6 +124,24 @@ namespace YAF.Pages
               RefreshTime = 10;
               RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
               break;
+            case InfoMessage.RequiresCookies: // some sort of failure
+              this.Title.Text = GetText("TITLE_COOKIES");
+              this.Info.Text = GetText("COOKIES");
+              RefreshTime = 10;
+              RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+              break;
+            case InfoMessage.RequiresEcmaScript: // some sort of failure
+              this.Title.Text = GetText("TITLE_ECMAREQUIRED");
+              this.Info.Text = GetText("ECMAREQUIRED");
+              RefreshTime = 10;
+              RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+              break;
+            case InfoMessage.EcmaScriptVersionUnsupported: // some sort of failure
+              this.Title.Text = GetText("TITLE_ECMAVERSION");
+              this.Info.Text = GetText("ECMAVERSION");
+              RefreshTime = 10;
+              RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
+              break;
           }
         }
           

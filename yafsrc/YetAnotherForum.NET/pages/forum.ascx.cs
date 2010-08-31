@@ -16,6 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+using System.Web;
+
 namespace YAF.Pages
 {
   #region Using
@@ -64,6 +66,30 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
+
+          // vzrus: needs testing, potentially can cause problems 
+          if (!(UserAgentHelper.IsSearchEngineSpider(HttpContext.Current.Request.UserAgent)))
+          {
+              if (!HttpContext.Current.Request.Browser.Cookies)
+              {
+                  YafBuildLink.RedirectInfoPage(InfoMessage.RequiresCookies);
+              }
+
+              Version ecmaVersion = HttpContext.Current.Request.Browser.EcmaScriptVersion;
+
+              if (ecmaVersion != null)
+              {
+                  if (!(ecmaVersion.Major > 0))
+                  {
+                      YafBuildLink.RedirectInfoPage(InfoMessage.EcmaScriptVersionUnsupported);
+                  }
+              }
+              else
+              {
+                  YafBuildLink.RedirectInfoPage(InfoMessage.RequiresEcmaScript);
+              }
+          }
+
         this.ShoutBox1.Visible = this.PageContext.BoardSettings.ShowShoutbox;
         this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
         this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;

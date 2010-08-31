@@ -63,7 +63,22 @@ namespace YAF.Classes.Utils
     /// <summary>
     /// system error
     /// </summary>
-    Failure = 7 
+    Failure = 7,
+
+    /// <summary>
+    /// requires cookies
+    /// </summary>
+    RequiresCookies = 8,
+
+    /// <summary>
+    /// requires JS
+    /// </summary>
+    RequiresEcmaScript = 9,
+    
+    /// <summary>
+    /// unsupported JS version
+    /// </summary>
+    EcmaScriptVersionUnsupported = 10
   }
 
   /// <summary>

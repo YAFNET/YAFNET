@@ -567,6 +567,9 @@
 		<Resource tag="MODERATED">Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.</Resource>
 		<Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
 		<Resource tag="SUSPENDED">Your account has been temporarily suspended. This suspension is due to end on {0}.</Resource>
+    <Resource tag="COOKIES">To use the forum you should enable cookies in your browser.</Resource>
+    <Resource tag="ECMAREQUIRED">To use the forum you should enable JavaScript in your browser.</Resource>
+    <Resource tag="ECMAVERSION">The JavaScript version is unsupported. Please use a more new browser version/</Resource>
 		<Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
 		<Resource tag="TITLE_EXCEPTION">Information</Resource>
 		<Resource tag="TITLE_FAILURE">Failure</Resource>
@@ -574,6 +577,9 @@
 		<Resource tag="TITLE_MODERATED">Information</Resource>
 		<Resource tag="TITLE_REGISTRATION">Thanks</Resource>
 		<Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+    <Resource tag="TITLE_COOKIES">Requies cookies</Resource>
+    <Resource tag="TITLE_ECMAREQUIRED">JavaScript required</Resource>
+    <Resource tag="TITLE_ECMAVERSION">JavaScript version</Resource>
 	</page>
 	<page name="LANGUAGE">
 		<Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
