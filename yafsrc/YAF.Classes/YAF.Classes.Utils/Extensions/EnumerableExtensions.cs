@@ -67,6 +67,28 @@ namespace YAF.Classes.Extensions
       {
         action(item, i++);
       }
-    }    
+    }
+
+    /// <summary>
+    /// Converts an <see cref="IEnumerable"/> to a HashSet -- similar to ToList()
+    /// </summary>
+    /// <param name="list">
+    /// The list.
+    /// </param>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <returns>
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// </exception>
+    public static HashSet<T> ToHashSet<T>(this IEnumerable<T> list)
+    {
+      if (list == null)
+      {
+        throw new ArgumentNullException("list");
+      }
+
+      return new HashSet<T>(list);
+    }
   }
 }

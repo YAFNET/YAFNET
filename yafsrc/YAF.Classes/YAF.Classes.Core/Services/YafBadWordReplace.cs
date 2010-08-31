@@ -21,11 +21,15 @@ namespace YAF.Classes.Core
   using System;
   using System.Collections.Generic;
   using System.Data;
+  using System.Diagnostics;
   using System.Linq;
   using System.Text.RegularExpressions;
+  using System.Web;
   using System.Web.Caching;
 
   using YAF.Classes.Data;
+  using YAF.Classes.Extensions;
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// The bad word replace item.
@@ -165,15 +169,31 @@ namespace YAF.Classes.Core
     #region Properties
 
     /// <summary>
+    /// Gets ReplaceWordsCache.
+    /// </summary>
+    public MostRecentlyUsed ReplaceWordsCache
+    {
+      get
+      {
+        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWordsCache);
+
+        var replaceItems = YafContext.Current.Cache.GetItem<MostRecentlyUsed>(
+          cacheKey, 30, () => new MostRecentlyUsed(250));
+
+        return replaceItems;
+      }
+    }
+
+    /// <summary>
     /// Gets ReplaceItems.
     /// </summary>
-    public List<BadWordReplaceItem> ReplaceItems
+    public HashSet<BadWordReplaceItem> ReplaceItems
     {
       get
       {
         string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.ReplaceWords);
 
-        var replaceItems = YafContext.Current.Cache.GetItem<List<BadWordReplaceItem>>(
+        var replaceItems = YafContext.Current.Cache.GetItem<HashSet<BadWordReplaceItem>>(
           cacheKey,
           30,
           () =>
@@ -185,7 +205,7 @@ namespace YAF.Classes.Core
               return
                 replaceWords.Select(
                   row => new BadWordReplaceItem(row.Field<string>("goodword"), row.Field<string>("badword"), _options)).
-                  ToList();
+                  ToHashSet();
             });
 
         return replaceItems;
@@ -209,9 +229,22 @@ namespace YAF.Classes.Core
     /// <exception cref="Exception"><c>Exception</c>.</exception>
     public string Replace(string searchText)
     {
-      if (String.IsNullOrEmpty(searchText))
+      if (searchText.IsNotSet())
       {
         return searchText;
+      }
+
+      int? hashCode = null;
+      var cache = this.ReplaceWordsCache;
+
+      if (searchText.Length < 250)
+      {
+        hashCode = searchText.GetHashCode();
+
+        if (cache.Contains(hashCode))
+        {
+          return cache[hashCode] as string;
+        }
       }
 
       string strReturn = searchText;
@@ -240,6 +273,11 @@ namespace YAF.Classes.Core
           YAF.Classes.Data.DB.eventlog_create( null, "BadWordReplace", x, EventLogTypes.Warning );
 				}
 #endif
+      }
+
+      if (hashCode.HasValue)
+      {
+        cache[hashCode.Value] = strReturn;
       }
 
       return strReturn;

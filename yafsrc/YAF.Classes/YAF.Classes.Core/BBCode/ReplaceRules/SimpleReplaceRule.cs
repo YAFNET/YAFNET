@@ -19,6 +19,9 @@
 namespace YAF.Classes.Core.BBCode
 {
   using System;
+  using System.Text.RegularExpressions;
+
+  using YAF.Classes.Utils;
 
   /// <summary>
   /// Not regular expression, just a simple replace
@@ -93,7 +96,9 @@ namespace YAF.Classes.Core.BBCode
 
       do
       {
-        index = text.IndexOf(this._find);
+        
+        index = text.FastIndexOf(this._find);
+
         if (index >= 0)
         {
           // replace it...

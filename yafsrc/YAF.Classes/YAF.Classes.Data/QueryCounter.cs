@@ -23,6 +23,8 @@ using System.Web;
 
 namespace YAF.Classes.Data
 {
+  using YAF.Classes.Utils;
+
   /// <summary>
   /// The query counter.
   /// </summary>
@@ -57,11 +59,11 @@ namespace YAF.Classes.Data
       {
         if (HttpContext.Current.Items["NumQueries"] == null)
         {
-          HttpContext.Current.Items["NumQueries"] = (int) 1;
+          HttpContext.Current.Items["NumQueries"] = (int)1;
         }
         else
         {
-          HttpContext.Current.Items["NumQueries"] = 1 + (int) HttpContext.Current.Items["NumQueries"];
+          HttpContext.Current.Items["NumQueries"] = 1 + (int)HttpContext.Current.Items["NumQueries"];
         }
       }
 
@@ -79,7 +81,7 @@ namespace YAF.Classes.Data
 
       double duration = (double) this._stopWatch.ElapsedMilliseconds/1000.0;
 
-      this._cmd = String.Format("{0}: {1:N3}", this._cmd, duration);
+      this._cmd = "{0}: {1:N3}".FormatWith(this._cmd, duration);
 
       if (HttpContext.Current != null)
       {
@@ -89,7 +91,7 @@ namespace YAF.Classes.Data
         }
         else
         {
-          HttpContext.Current.Items["TimeQueries"] = duration + (double) HttpContext.Current.Items["TimeQueries"];
+          HttpContext.Current.Items["TimeQueries"] = duration + (double)HttpContext.Current.Items["TimeQueries"];
         }
 
         if (HttpContext.Current.Items["CmdQueries"] == null)

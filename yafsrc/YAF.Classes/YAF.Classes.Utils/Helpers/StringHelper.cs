@@ -40,6 +40,144 @@ namespace YAF.Classes.Utils
     #region Public Methods
 
     /// <summary>
+    /// Function to check a max word length, used i.e. in topic names.
+    /// </summary>
+    /// <param name="text">
+    /// The raw string to format
+    /// </param>
+    /// <param name="maxWordLength">
+    /// The max Word Length.
+    /// </param>
+    /// <returns>
+    /// The formatted string
+    /// </returns>
+    public static bool AreAnyWordsOverMaxLength(this string text, int maxWordLength)
+    {
+      if (maxWordLength > 0 && text.Length > 0)
+      {
+        var overMax = text.Split(' ').Where(w => w.IsSet() && w.Length > maxWordLength);
+
+        return overMax.Any();
+      }
+
+      return false;
+    }
+
+    /// <summary>
+    /// The fast index of.
+    /// </summary>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="pattern">
+    /// The pattern.
+    /// </param>
+    /// <returns>
+    /// The fast index of.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// </exception>
+    public static int FastIndexOf(this string source, string pattern)
+    {
+      if (pattern == null)
+      {
+        throw new ArgumentNullException();
+      }
+
+      if (pattern.Length == 0)
+      {
+        return 0;
+      }
+
+      if (pattern.Length == 1)
+      {
+        return source.IndexOf(pattern[0]);
+      }
+
+      int limit = source.Length - pattern.Length + 1;
+      if (limit < 1)
+      {
+        return -1;
+      }
+
+      // Store the first 2 characters of "pattern"
+      char c0 = pattern[0];
+      char c1 = pattern[1];
+
+      // Find the first occurrence of the first character
+      int first = source.IndexOf(c0, 0, limit);
+      while (first != -1)
+      {
+        // Check if the following character is the same like
+        // the 2nd character of "pattern"
+        if (source[first + 1] != c1)
+        {
+          first = source.IndexOf(c0, ++first, limit - first);
+          continue;
+        }
+
+        // Check the rest of "pattern" (starting with the 3rd character)
+        bool found = true;
+        for (int j = 2; j < pattern.Length; j++)
+        {
+          if (source[first + j] != pattern[j])
+          {
+            found = false;
+            break;
+          }
+        }
+
+        // If the whole word was found, return its index, otherwise try again
+        if (found)
+        {
+          return first;
+        }
+
+        first = source.IndexOf(c0, ++first, limit - first);
+      }
+
+      return -1;
+    }
+
+    /// <summary>
+    /// Does an action for each character in the input string. Kind of useless, but in a
+    ///   useful way. ;)
+    /// </summary>
+    /// <param name="input">
+    /// </param>
+    /// <param name="forEachAction">
+    /// </param>
+    public static void ForEachChar(this string input, Action<char> forEachAction)
+    {
+      foreach (char c in input)
+      {
+        forEachAction(c);
+      }
+    }
+
+    /// <summary>
+    /// Formats a string with the provided parameters
+    /// </summary>
+    /// <param name="s">
+    /// The s.
+    /// </param>
+    /// <param name="args">
+    /// The args.
+    /// </param>
+    /// <returns>
+    /// The formatted string
+    /// </returns>
+    public static string FormatWith(this string s, params object[] args)
+    {
+      if (String.IsNullOrEmpty(s))
+      {
+        return null;
+      }
+
+      return String.Format(s, args);
+    }
+
+    /// <summary>
     /// Returns a "random" alpha-numeric string of specified length and characters.
     /// </summary>
     /// <param name="length">
@@ -72,37 +210,42 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Function to check a max word length, used i.e. in topic names.
+    /// Removes empty strings from the list
     /// </summary>
-    /// <param name="text">
-    /// The raw string to format
+    /// <param name="inputList">
     /// </param>
     /// <returns>
-    /// The formatted string
     /// </returns>
-    public static bool AreAnyWordsOverMaxLength(this string text, int maxWordLength)
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="inputList"/> is <c>null</c>.
+    /// </exception>
+    public static List<string> GetNewNoEmptyStrings(this IEnumerable<string> inputList)
     {
-      if (maxWordLength > 0 && text.Length > 0)
+      if (inputList == null)
       {
-        var overMax = text.Split(' ').Where(w => w.IsSet() && w.Length > maxWordLength);
-
-        return overMax.Any();
+        throw new ArgumentNullException("inputList", "inputList is null.");
       }
 
-      return false;
+      return inputList.Where(x => !x.IsNotSet()).ToList();
     }
 
     /// <summary>
-    /// When the string is trimmed, is it <see langword="null"/> or empty?
+    /// Removes strings that are smaller then <paramref name="minSize"/>
     /// </summary>
-    /// <param name="str">
+    /// <param name="inputList">
+    /// </param>
+    /// <param name="minSize">
     /// </param>
     /// <returns>
-    /// The is <see langword="null"/> or empty trimmed.
     /// </returns>
-    public static bool IsSet(this string str)
+    public static List<string> GetNewNoSmallStrings(this IEnumerable<string> inputList, int minSize)
     {
-      return !str.IsNotSet();
+      if (inputList == null)
+      {
+        throw new ArgumentNullException("inputList", "inputList is null.");
+      }
+
+      return inputList.Where(x => x.Length >= minSize).ToList();
     }
 
     /// <summary>
@@ -119,39 +262,16 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Creates a delimited string an enumerable list of T.
+    /// When the string is trimmed, is it <see langword="null"/> or empty?
     /// </summary>
-    /// <param name="objList"></param>
-    /// <param name="delimiter">
+    /// <param name="str">
     /// </param>
     /// <returns>
-    /// The list to string.
+    /// The is <see langword="null"/> or empty trimmed.
     /// </returns>
-    /// <exception cref="ArgumentNullException"><paramref name="objList" /> is <c>null</c>.</exception>
-    public static string ToDelimitedString<T>(this IEnumerable<T> objList, string delimiter)
-      where T : IConvertible
+    public static bool IsSet(this string str)
     {
-      if (objList == null)
-      {
-        throw new ArgumentNullException("objList", "objList is null.");
-      }
-
-      var sb = new StringBuilder();
-
-      objList.ForEachFirst(
-        (x, isFirst) =>
-          {
-            if (!isFirst)
-            {
-              // append delimiter if this isn't the first string
-              sb.Append(delimiter);
-            }
-
-            // append string...
-            sb.Append(x);
-          });
-
-      return sb.ToString();
+      return !str.IsNotSet();
     }
 
     /// <summary>
@@ -216,24 +336,6 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Removes empty strings from the list
-    /// </summary>
-    /// <param name="inputList">
-    /// </param>
-    /// <returns>
-    /// </returns>
-    /// <exception cref="ArgumentNullException"><paramref name="inputList" /> is <c>null</c>.</exception>
-    public static List<string> GetNewNoEmptyStrings(this IEnumerable<string> inputList)
-    {
-      if (inputList == null)
-      {
-        throw new ArgumentNullException("inputList", "inputList is null.");
-      }
-
-      return inputList.Where(x => !x.IsNotSet()).ToList();
-    }
-
-    /// <summary>
     /// Removes multiple single quote ' characters from a string.
     /// </summary>
     /// <param name="text">
@@ -271,25 +373,6 @@ namespace YAF.Classes.Utils
 
       var r = new Regex(@"\s+");
       return r.Replace(text, @" ");
-    }
-
-    /// <summary>
-    /// Removes strings that are smaller then <paramref name="minSize"/>
-    /// </summary>
-    /// <param name="inputList">
-    /// </param>
-    /// <param name="minSize">
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static List<string> GetNewNoSmallStrings(this IEnumerable<string> inputList, int minSize)
-    {
-      if (inputList == null)
-      {
-        throw new ArgumentNullException("inputList", "inputList is null.");
-      }
-
-      return inputList.Where(x => x.Length >= minSize).ToList();
     }
 
     /// <summary>
@@ -376,22 +459,49 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Converts a String to a MemoryStream.
+    /// Creates a delimited string an enumerable list of T.
     /// </summary>
-    /// <param name="str">
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="objList">
+    /// </param>
+    /// <param name="delimiter">
     /// </param>
     /// <returns>
+    /// The list to string.
     /// </returns>
-    public static Stream ToStream(this string str)
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="objList"/> is <c>null</c>.
+    /// </exception>
+    public static string ToDelimitedString<T>(this IEnumerable<T> objList, string delimiter) where T : IConvertible
     {
-      byte[] byteArray = Encoding.ASCII.GetBytes(str);
-      return new MemoryStream(byteArray);
+      if (objList == null)
+      {
+        throw new ArgumentNullException("objList", "objList is null.");
+      }
+
+      var sb = new StringBuilder();
+
+      objList.ForEachFirst(
+        (x, isFirst) =>
+          {
+            if (!isFirst)
+            {
+              // append delimiter if this isn't the first string
+              sb.Append(delimiter);
+            }
+
+            // append string...
+            sb.Append(x);
+          });
+
+      return sb.ToString();
     }
 
     /// <summary>
     /// Cleans a string into a proper RegEx statement. 
-    /// E.g. "[b]Whatever[/b]" will be converted to:
-    /// "\[b\]Whatever\[\/b\]"
+    ///   E.g. "[b]Whatever[/b]" will be converted to:
+    ///   "\[b\]Whatever\[\/b\]"
     /// </summary>
     /// <param name="input">
     /// </param>
@@ -417,17 +527,16 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Does an action for each character in the input string. Kind of useless, but in a
-    /// useful way. ;)
+    /// Converts a String to a MemoryStream.
     /// </summary>
-    /// <param name="input"></param>
-    /// <param name="forEachAction"></param>
-    public static void ForEachChar(this string input, Action<char> forEachAction)
+    /// <param name="str">
+    /// </param>
+    /// <returns>
+    /// </returns>
+    public static Stream ToStream(this string str)
     {
-      foreach (char c in input)
-      {
-        forEachAction(c);
-      }
+      byte[] byteArray = Encoding.ASCII.GetBytes(str);
+      return new MemoryStream(byteArray);
     }
 
     /// <summary>
@@ -529,28 +638,6 @@ namespace YAF.Classes.Utils
       }
 
       return output;
-    }
-
-    /// <summary>
-    /// Formats a string with the provided parameters
-    /// </summary>
-    /// <param name="s">
-    /// The s.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <returns>
-    /// The formatted string
-    /// </returns>
-    public static string FormatWith(this string s, params object[] args)
-    {
-      if (String.IsNullOrEmpty(s))
-      {
-        return null;
-      }
-
-      return String.Format(s, args);
     }
 
     #endregion

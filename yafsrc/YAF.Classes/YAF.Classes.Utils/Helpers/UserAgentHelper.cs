@@ -37,7 +37,9 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static bool IsSearchEngineSpider(string userAgent)
     {
-      string[] spiderContains = {
+      if (userAgent.IsSet())
+      {
+        string[] spiderContains = {
                                   "abachoBOT", "abcdatos_botlink", "ah-ha.com crawler", "antibot", "appie", "AltaVista-Intranet", "Acoon Robot", "Atomz", 
                                   "Arachnoidea","AESOP_com_SpiderMan","AxmoRobot","ArchitextSpider","AlkalineBOT","Aranha", "asterias", "Buscaplus Robi",
                                   "CanSeek", "ChristCRAWLER", "Clushbot", "Crawler", "CrawlerBoy", "DeepIndex","DefaultCrawler", "DittoSpyder", "DIIbot", 
@@ -53,9 +55,7 @@ namespace YAF.Classes.Utils
                                   "Yellopet-Spider", "YBSbot", "OceanSpiders", "MozSpider" 
                                 };
 
-      if (!String.IsNullOrEmpty(userAgent))
-      {
-        return spiderContains.Select(s => s.ToLower()).Contains(userAgent.ToLower());
+        return spiderContains.Any(x => String.Equals(x, userAgent, StringComparison.InvariantCultureIgnoreCase));
       }
 
       return false;
@@ -71,14 +71,12 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static bool IsIgnoredForDisplay(string userAgent)
     {
-      // Apple-PubSub - Safary RSS reader
-      string[] stringContains = {
-                                  "PlaceHolder"
-                                  };
-
-      if (!String.IsNullOrEmpty(userAgent))
+      if (userAgent.IsSet())
       {
-        return stringContains.Select(s => s.ToLower()).Contains(userAgent.ToLower());
+        // Apple-PubSub - Safary RSS reader
+        string[] stringContains = { "PlaceHolder" };
+
+        return stringContains.Any(x => String.Equals(x, userAgent, StringComparison.InvariantCultureIgnoreCase));
       }
 
       return false;
@@ -105,9 +103,7 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static bool IsMobileDevice(string userAgent)
     {
-      string[] mobileContains = {
-                                  "iphone", "ppc", "windows ce", "blackberry", "opera mini", "mobile", "palm", "portable"
-                                };
+      string[] mobileContains = { "iphone", "ppc", "windows ce", "blackberry", "opera mini", "mobile", "palm", "portable" };
 
       return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLower().Contains(s));
     }
@@ -133,11 +129,11 @@ namespace YAF.Classes.Utils
       isSearchEngine = false;
       isIgnoredForDisplay = false;
 
-      if (String.IsNullOrEmpty(userAgent))
+      if (userAgent.IsNotSet())
       {
         platform = "?";
       }
-      else if (String.IsNullOrEmpty(platform))
+      else if (platform.IsNotSet())
       {
         platform = "??";
       }
@@ -175,8 +171,6 @@ namespace YAF.Classes.Utils
         isSearchEngine = (!isCrawler) ? IsSearchEngineSpider(userAgent) : true;
         isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
       }
-
-
     }
   }
 }

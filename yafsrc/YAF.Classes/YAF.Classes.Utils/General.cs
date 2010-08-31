@@ -102,34 +102,6 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Helper function for the Language TimeZone XML.
-    /// </summary>
-    /// <param name="node">
-    /// </param>
-    /// <returns>
-    /// The get hour offset from node.
-    /// </returns>
-    public static decimal GetHourOffsetFromNode(XmlNode node)
-    {
-      // calculate hours -- can use prefix of either UTC or GMT...
-      decimal hours = 0;
-
-      try
-      {
-        hours = Convert.ToDecimal(
-          node.Attributes["tag"].Value.Replace("UTC", string.Empty).Replace("GMT", string.Empty));
-      }
-      catch (FormatException)
-      {
-        hours =
-          Convert.ToDecimal(
-            node.Attributes["tag"].Value.Replace(".", ",").Replace("UTC", string.Empty).Replace("GMT", string.Empty));
-      }
-
-      return hours;
-    }
-
-    /// <summary>
     /// The get safe raw url.
     /// </summary>
     /// <returns>

@@ -16,111 +16,64 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-using System;
-using System.Web.UI;
-using YAF.Classes.Data;
-using YAF.Classes.UI;
-
 namespace YAF.Controls
 {
+  #region Using
+
+  using System.Web.UI;
+
+  using YAF.Classes;
   using YAF.Classes.Core;
+  using YAF.Classes.Data;
+  using YAF.Classes.Utils;
+
+  #endregion
 
   /// <summary>
   /// The message signature.
   /// </summary>
   public class MessageSignature : MessageBase
   {
-    /// <summary>
-    /// The _display user id.
-    /// </summary>
-    private int? _displayUserID;
+    #region Properties
 
     /// <summary>
-    /// The _html prefix.
+    ///   Gets or sets DisplayUserID.
     /// </summary>
-    private string _htmlPrefix;
+    public int? DisplayUserID { get; set; }
 
     /// <summary>
-    /// The _html suffix.
+    ///   Gets or sets HtmlPrefix.
     /// </summary>
-    private string _htmlSuffix;
+    public string HtmlPrefix { get; set; }
 
     /// <summary>
-    /// The _signature.
+    ///   Gets or sets HtmlSuffix.
     /// </summary>
-    private string _signature;
+    public string HtmlSuffix { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MessageSignature"/> class.
+    ///   Gets or sets Signature.
     /// </summary>
-    public MessageSignature()
-      : base()
-    {
-    }
+    public string Signature { get; set; }
 
     /// <summary>
-    /// Gets or sets Signature.
+    ///   Gets UserSignatureCache.
     /// </summary>
-    public string Signature
+    public MostRecentlyUsed UserSignatureCache
     {
       get
       {
-        return this._signature;
-      }
+        string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.UserSignatureCache);
 
-      set
-      {
-        this._signature = value;
+        var cache = YafContext.Current.Cache.GetItem(cacheKey, 10, () => new MostRecentlyUsed(250));
+
+        return cache;
       }
     }
 
-    /// <summary>
-    /// Gets or sets DisplayUserID.
-    /// </summary>
-    public int? DisplayUserID
-    {
-      get
-      {
-        return this._displayUserID;
-      }
+    #endregion
 
-      set
-      {
-        this._displayUserID = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets HtmlPrefix.
-    /// </summary>
-    public string HtmlPrefix
-    {
-      get
-      {
-        return this._htmlPrefix;
-      }
-
-      set
-      {
-        this._htmlPrefix = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets HtmlSuffix.
-    /// </summary>
-    public string HtmlSuffix
-    {
-      get
-      {
-        return this._htmlSuffix;
-      }
-
-      set
-      {
-        this._htmlSuffix = value;
-      }
-    }
+    #region Methods
 
     /// <summary>
     /// The render.
@@ -132,23 +85,23 @@ namespace YAF.Controls
     {
       writer.BeginRender();
       writer.WriteBeginTag("div");
-      writer.WriteAttribute("id", ClientID);
+      writer.WriteAttribute("id", this.ClientID);
       writer.WriteAttribute("class", "yafsignature");
       writer.Write(HtmlTextWriter.TagRightChar);
 
-      if (!String.IsNullOrEmpty(HtmlPrefix))
+      if (this.HtmlPrefix.IsSet())
       {
-        writer.Write(HtmlPrefix);
+        writer.Write(this.HtmlPrefix);
       }
 
-      if (!String.IsNullOrEmpty(Signature))
+      if (this.Signature.IsSet())
       {
-        RenderSignature(writer);
+        this.RenderSignature(writer);
       }
 
-      if (!String.IsNullOrEmpty(HtmlSuffix))
+      if (this.HtmlSuffix.IsSet())
       {
-        writer.Write(HtmlSuffix);
+        writer.Write(this.HtmlSuffix);
       }
 
       base.Render(writer);
@@ -166,10 +119,24 @@ namespace YAF.Controls
     protected void RenderSignature(HtmlTextWriter writer)
     {
       // don't allow any HTML on signatures
-      var tFlags = new MessageFlags();
-      tFlags.IsHtml = false;
+      var signatureFlags = new MessageFlags { IsHtml = false };
 
-      RenderModulesInBBCode(writer, YafFormatMessage.FormatMessage(Signature, tFlags), tFlags, DisplayUserID);
+      var cache = this.UserSignatureCache;
+      string signatureRendered;
+
+      if (cache.Contains(this.DisplayUserID.Value))
+      {
+        signatureRendered = cache[this.DisplayUserID.Value] as string;
+      }
+      else
+      {
+        signatureRendered = YafFormatMessage.FormatMessage(this.Signature, signatureFlags);
+        cache[this.DisplayUserID.Value] = signatureRendered;
+      }
+
+      this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID);
     }
+
+    #endregion
   }
 }

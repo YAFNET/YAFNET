@@ -188,6 +188,13 @@ namespace YAF.Classes.Core
     {
       YafContext.Current.UserDisplayName.Clear((int)userId);
       YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(string.Format("UserListForID{0}", userId)));
+
+      string cacheKey =
+          YafCache.GetBoardCacheKey(Constants.Cache.UserSignatureCache);
+      var cache = YafContext.Current.Cache.GetItem<MostRecentlyUsed>(cacheKey, 10, () => new MostRecentlyUsed(250));
+
+      // remove from the the signature cache...
+      cache.Remove((int)userId);
     }
 
     /// <summary>
