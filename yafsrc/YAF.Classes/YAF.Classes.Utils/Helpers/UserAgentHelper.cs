@@ -129,37 +129,29 @@ namespace YAF.Classes.Utils
       isSearchEngine = false;
       isIgnoredForDisplay = false;
 
-      if (userAgent.IsNotSet())
+      if (userAgent.IndexOf("Windows NT 6.1") >= 0)
       {
-        platform = "?";
-      }
-      else if (platform.IsNotSet())
-      {
-        platform = "??";
-      }
-      else if (userAgent.IndexOf("Windows NT 5.1") >= 0)
-      {
-        platform = "WinXP";
+          platform = "Win7";
       }
       else if (userAgent.IndexOf("Windows NT 6.0") >= 0)
       {
-        platform = "Vista";
+          platform = "Vista";
       }
-      else if (userAgent.IndexOf("Windows NT 6.1") >= 0)
+      else if (userAgent.IndexOf("Windows NT 5.1") >= 0)
       {
-        platform = "Win7";
+          platform = "WinXP";
       }
       else if (userAgent.IndexOf("Linux") >= 0)
       {
-        platform = "Linux";
+          platform = "Linux";
       }
       else if (userAgent.IndexOf("Windows NT 5.2") >= 0)
       {
-        platform = "Win2003";
+          platform = "Win2003";
       }
       else if (userAgent.IndexOf("FreeBSD") >= 0)
       {
-        platform = "FreeBSD";
+          platform = "FreeBSD";
       }
       else if (userAgent.IndexOf("iPad") >= 0)
       {
@@ -167,9 +159,9 @@ namespace YAF.Classes.Utils
       }
       else
       {
-        // check if it's a search engine spider or an ignored UI string...
-        isSearchEngine = (!isCrawler) ? IsSearchEngineSpider(userAgent) : true;
-        isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
+          // check if it's a search engine spider or an ignored UI string...
+          isSearchEngine = (!isCrawler) ? IsSearchEngineSpider(userAgent) : true;
+          isIgnoredForDisplay = IsIgnoredForDisplay(userAgent) | isSearchEngine;
       }
     }
   }

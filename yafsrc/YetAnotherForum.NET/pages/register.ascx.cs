@@ -91,16 +91,10 @@ namespace YAF.Pages
       }
     }
 
-    /// <summary>
-    ///   Gets User IP Info.
-    /// </summary>
-    private IPLocator _userIpLocator
-    {
-        get
-        {   
-            return new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, true);
-        }
-    }
+      /// <summary>
+      ///   Gets User IP Info.
+      /// </summary>
+      public IPLocator _userIpLocator;
 
     /// <summary>
     ///   Gets a value indicating whether RecaptchaControl.
@@ -356,7 +350,7 @@ namespace YAF.Pages
         YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
        
         // Trying to consume data about user IP whereabouts
-        if (_userIpLocator.Status == "OK" && String.IsNullOrEmpty(locationTextBox.Text.Trim()))
+      /*  if (_userIpLocator.Status == "OK" && String.IsNullOrEmpty(locationTextBox.Text.Trim()))
         {
        
             if (!String.IsNullOrEmpty(_userIpLocator.CountryName))
@@ -375,8 +369,8 @@ namespace YAF.Pages
         else
         {
              userProfile.Location = locationTextBox.Text.Trim();
-        }
-       
+        } */
+        userProfile.Location = locationTextBox.Text.Trim();
         userProfile.Homepage = homepageTextBox.Text.Trim();
 
         userProfile.Save();
@@ -398,7 +392,7 @@ namespace YAF.Pages
           null, 
           null, 
           null,
-          String.IsNullOrEmpty(_userIpLocator.Isdst) ? Convert.ToInt32(dstUser.Checked).ToString() : _userIpLocator.Isdst, 
+          dstUser.Checked, 
           null,
           null);
 
@@ -441,6 +435,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
+
       // Check if secure connection only is allowed
       if (!this.Page.Request.IsSecureConnection & this.PageContext.BoardSettings.UseSSLToRegister)
       {
@@ -449,6 +444,7 @@ namespace YAF.Pages
 
       if (!this.IsPostBack)
       {
+        
         this.CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
@@ -464,6 +460,43 @@ namespace YAF.Pages
         // get the time zone data source
         var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
         timeZones.DataSource = StaticDataHelper.TimeZones();
+
+        if (_userIpLocator == null)
+        {
+            // vzrus: we should always get not null class here
+            _userIpLocator = new IPDetails().GetData(HttpContext.Current.Request.UserHostAddress, true);
+        }
+          // fill dst field 
+        if (!String.IsNullOrEmpty(_userIpLocator.Isdst) && _userIpLocator.Status.ToUpper() == "OK")
+        {
+            this.CreateUserWizard1.FindControlRecursiveAs<CheckBox>("DSTUser").Checked = _userIpLocator.Isdst == "1" ? true : false;
+        }
+        // fill location field 
+        if (!String.IsNullOrEmpty(_userIpLocator.Isdst) && _userIpLocator.Status.ToUpper() == "OK")
+        {
+            // Trying to consume data about user IP whereabouts
+            if (_userIpLocator.Status == "OK")
+            {
+
+                string txtLoc = String.Empty;
+                if (!String.IsNullOrEmpty(_userIpLocator.CountryName))
+                {
+                    txtLoc += _userIpLocator.CountryName;
+                }
+                if (!String.IsNullOrEmpty(_userIpLocator.RegionName))
+                {
+                    txtLoc += ", " + _userIpLocator.RegionName;
+                }
+                if (!String.IsNullOrEmpty(_userIpLocator.City))
+                {
+                    txtLoc += ", " + _userIpLocator.City;
+                }
+                this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = txtLoc;
+            }
+
+           
+        }
+    
 
         if (!this.PageContext.BoardSettings.EmailVerification)
         {
