@@ -195,6 +195,9 @@ namespace YAF.Classes.Core
 
       // remove from the the signature cache...
       cache.Remove((int)userId);
+
+      // Clearing cache with old Active User Lazy Data ...
+      YafContext.Current.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(userId)));
     }
 
     /// <summary>
