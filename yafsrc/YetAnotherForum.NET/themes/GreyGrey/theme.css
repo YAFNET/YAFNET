@@ -249,10 +249,11 @@
 	background-color: #fff;
 }
 .yafnet tr.post:hover {
-	background-color: #6e6e6e;	
+	background-color: #eee;	
 }
-.yafnet tr.post_alt:hover {
-	background-color: #6e6e6e;	
+.yafnet tr.post_alt:hover,
+.yafnet tr.topicRow_Alt:hover td {
+	background-color: #eee;	
 }
 /* Footer of posts */
 .yafnet .postfooter {
@@ -987,6 +988,9 @@ height:80em;
 		border-top-color: rgba(20,20,20,0.92);
 	}
 }
+
+.adminContent li,
+.ui-helper-reset li {list-style-type:none}
 
 .message, .UserBox {vertical-align:top;}
 .UserBox {border-right: 1px solid #ccc}
