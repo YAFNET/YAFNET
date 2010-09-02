@@ -157,6 +157,10 @@ namespace YAF.Classes.Utils
       {
           platform = "iPad(iOS)";
       }
+      else if (userAgent.IndexOf("WindowsMobile") >= 0)
+      {
+          platform = "Windows Mobile";
+      }
       else
       {
           // check if it's a search engine spider or an ignored UI string...
