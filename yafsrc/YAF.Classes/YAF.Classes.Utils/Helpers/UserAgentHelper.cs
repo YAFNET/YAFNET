@@ -103,9 +103,12 @@ namespace YAF.Classes.Utils
     /// </returns>
     public static bool IsMobileDevice(string userAgent)
     {
-      string[] mobileContains = { "iphone", "ppc", "windows ce", "blackberry", "opera mini", "mobile", "palm", "portable" };
-
-      return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLower().Contains(s));
+        string[] mobileContains = {
+                                      "iphone", "ppc", "windows ce", "blackberry", "opera mini", "mobile", "palm",
+                                      "portable", "webos"
+                                   };
+        
+        return userAgent.IsSet() && mobileContains.Any(s => userAgent.ToLower().Contains(s));
     }
 
     /// <summary>
@@ -157,9 +160,21 @@ namespace YAF.Classes.Utils
       {
           platform = "iPad(iOS)";
       }
+      else if (userAgent.IndexOf("iPhone") >= 0)
+      {
+          platform = "iPhone(iOS)";
+      }
+      else if (userAgent.IndexOf("iPod") >= 0)
+      {
+          platform = "iPod(iOS)";
+      }
       else if (userAgent.IndexOf("WindowsMobile") >= 0)
       {
-          platform = "Windows Mobile";
+          platform = "WindowsMobile";
+      }
+      else if (userAgent.IndexOf("webOS") >= 0)
+      {
+          platform = "WebOS";
       }
       else
       {
