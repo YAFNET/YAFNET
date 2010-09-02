@@ -23,26 +23,26 @@ namespace YAF.Pages
   // YAF.Pages
   #region Using
 
+    using AjaxPro;
+
   using System;
   using System.Data;
   using System.Linq;
   using System.Text;
   using System.Text.RegularExpressions;
-  using System.Web;
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
-  using AjaxPro;
+  
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.Extensions;
-  using YAF.Classes.UI;
-  using YAF.Classes.Utils;
-  using YAF.Controls;
-  using YAF.Editors;
-  using YAF.Utilities;
+  using Classes;
+  using Classes.Core;
+  using Classes.Data;
+  using Classes.Extensions;
+  using Classes.Utils;
+  using Controls;
+  using Editors;
+  using Utilities;
 
   #endregion
 
@@ -111,21 +111,21 @@ namespace YAF.Pages
     {
       get
       {
-        if (this.Request.QueryString.GetFirstOrDefault("threaded") != null)
+        if (Request.QueryString.GetFirstOrDefault("threaded") != null)
         {
-          this.Session["IsThreaded"] = bool.Parse(this.Request.QueryString.GetFirstOrDefault("threaded"));
+          Session["IsThreaded"] = bool.Parse(Request.QueryString.GetFirstOrDefault("threaded"));
         }
-        else if (this.Session["IsThreaded"] == null)
+        else if (Session["IsThreaded"] == null)
         {
-          this.Session["IsThreaded"] = false;
+          Session["IsThreaded"] = false;
         }
 
-        return (bool)this.Session["IsThreaded"];
+        return (bool)Session["IsThreaded"];
       }
 
       set
       {
-        this.Session["IsThreaded"] = value;
+        Session["IsThreaded"] = value;
       }
     }
 
@@ -135,22 +135,20 @@ namespace YAF.Pages
     /// </summary>
     protected int CurrentMessage
     {
-      get
-      {
-        if (this.ViewState["CurrentMessage"] != null)
+        get
         {
-          return (int)this.ViewState["CurrentMessage"];
-        }
-        else
-        {
-          return 0;
-        }
-      }
+            if (ViewState["CurrentMessage"] != null)
+            {
+                return (int)ViewState["CurrentMessage"];
+            }
 
-      set
-      {
-        this.ViewState["CurrentMessage"] = value;
-      }
+            return 0;
+        }
+
+        set
+        {
+            ViewState["CurrentMessage"] = value;
+        }
     }
 
     /// <summary>
@@ -160,7 +158,7 @@ namespace YAF.Pages
     {
       get
       {
-        return String.Format("poll#{0}", this._topic["PollID"]);
+        return String.Format("poll#{0}", _topic["PollID"]);
       }
     }
 
@@ -180,7 +178,7 @@ namespace YAF.Pages
     protected void DeleteMessage_Load(object sender, EventArgs e)
     {
       ((LinkButton)sender).Attributes["onclick"] = String.Format(
-        "return confirm('{0}')", this.GetText("confirm_deletemessage"));
+        "return confirm('{0}')", GetText("confirm_deletemessage"));
     }
 
     /// <summary>
@@ -194,15 +192,15 @@ namespace YAF.Pages
     /// </param>
     protected void DeleteTopic_Click(object sender, EventArgs e)
     {
-      if (!this.PageContext.ForumModeratorAccess)
+      if (!PageContext.ForumModeratorAccess)
       {
         YafBuildLink.AccessDenied( /*"You don't have access to delete topics."*/);
       }
 
       // Take away 10 points once!
-      DB.user_removepointsByTopicID(this.PageContext.PageTopicID, 10);
-      DB.topic_delete(this.PageContext.PageTopicID);
-      YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+      DB.user_removepointsByTopicID(PageContext.PageTopicID, 10);
+      DB.topic_delete(PageContext.PageTopicID);
+      YafBuildLink.Redirect(ForumPages.topics, "f={0}", PageContext.PageForumID);
     }
 
     /// <summary>
@@ -217,7 +215,7 @@ namespace YAF.Pages
     protected void DeleteTopic_Load(object sender, EventArgs e)
     {
       ((ThemeButton)sender).Attributes["onclick"] = String.Format(
-        "return confirm('{0}')", this.GetText("confirm_deletetopic"));
+        "return confirm('{0}')", GetText("confirm_deletetopic"));
     }
 
     /// <summary>
@@ -231,13 +229,13 @@ namespace YAF.Pages
     /// </param>
     protected void EmailTopic_Click(object sender, EventArgs e)
     {
-      if (this.User == null)
+      if (User == null)
       {
-        this.PageContext.AddLoadMessage(this.GetText("WARN_EMAILLOGIN"));
+        PageContext.AddLoadMessage(GetText("WARN_EMAILLOGIN"));
         return;
       }
 
-      YafBuildLink.Redirect(ForumPages.emailtopic, "t={0}", this.PageContext.PageTopicID);
+      YafBuildLink.Redirect(ForumPages.emailtopic, "t={0}", PageContext.PageTopicID);
     }
 
     /// <summary>
@@ -251,26 +249,24 @@ namespace YAF.Pages
     /// </returns>
     protected string GetIndentImage(object o)
     {
-      if (!this.IsThreaded)
-      {
-        return string.Empty;
-      }
+        if (!IsThreaded)
+        {
+            return string.Empty;
+        }
 
-      var iIndent = (int)o;
-      if (iIndent > 0)
-      {
-        return string.Format(
-          "<img src='{1}images/spacer.gif' width='{0}' alt='' height='2'/>", 
-          iIndent * 32, 
-          YafForumInfo.ForumClientFileRoot);
-      }
-      else
-      {
+        var iIndent = (int) o;
+        if (iIndent > 0)
+        {
+            return string.Format(
+                "<img src='{1}images/spacer.gif' width='{0}' alt='' height='2'/>",
+                iIndent*32,
+                YafForumInfo.ForumClientFileRoot);
+        }
+
         return string.Empty;
-      }
     }
 
-    /// <summary>
+      /// <summary>
     /// The get threaded row.
     /// </summary>
     /// <param name="o">
@@ -282,7 +278,7 @@ namespace YAF.Pages
     protected string GetThreadedRow(object o)
     {
       var row = (DataRow)o;
-      if (!this.IsThreaded || this.CurrentMessage == (int)row["MessageID"])
+      if (!IsThreaded || CurrentMessage == (int)row["MessageID"])
       {
         return string.Empty;
       }
@@ -324,7 +320,7 @@ namespace YAF.Pages
       brief = YafFormatMessage.AddSmiles(brief);
 
       html.AppendFormat("<tr class='post'><td colspan='3' nowrap>");
-      html.AppendFormat(this.GetIndentImage(row["Indent"]));
+      html.AppendFormat(GetIndentImage(row["Indent"]));
       html.AppendFormat(
         "\n<a href='{0}'>{2} ({1}", 
         YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", row["MessageID"]), 
@@ -350,7 +346,7 @@ namespace YAF.Pages
     {
       var row = (DataRow)o;
 
-      return !this.IsThreaded || this.CurrentMessage == (int)row["MessageID"];
+      return !IsThreaded || CurrentMessage == (int)row["MessageID"];
     }
   
 
@@ -365,13 +361,13 @@ namespace YAF.Pages
     /// </param>
     protected void LockTopic_Click(object sender, EventArgs e)
     {
-      DB.topic_lock(this.PageContext.PageTopicID, true);
-      this.BindData();
-      this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"));
-      this.LockTopic1.Visible = !this.LockTopic1.Visible;
-      this.UnlockTopic1.Visible = !this.UnlockTopic1.Visible;
-      this.LockTopic2.Visible = this.LockTopic1.Visible;
-      this.UnlockTopic2.Visible = this.UnlockTopic1.Visible;
+      DB.topic_lock(PageContext.PageTopicID, true);
+      BindData();
+      PageContext.AddLoadMessage(GetText("INFO_TOPIC_LOCKED"));
+      LockTopic1.Visible = !LockTopic1.Visible;
+      UnlockTopic1.Visible = !UnlockTopic1.Visible;
+      LockTopic2.Visible = LockTopic1.Visible;
+      UnlockTopic2.Visible = UnlockTopic1.Visible;
 
       /*PostReplyLink1.Visible = false;
 			PostReplyLink2.Visible = false;*/
@@ -388,17 +384,17 @@ namespace YAF.Pages
     /// </param>
     protected void MessageList_OnItemCreated(object sender, RepeaterItemEventArgs e)
     {
-      if (this.Pager.CurrentPageIndex == 0 && e.Item.ItemIndex == 0)
+      if (Pager.CurrentPageIndex == 0 && e.Item.ItemIndex == 0)
       {
         // check if need to display the ad...
         bool showAds = true;
 
-        if (this.User != null)
+        if (User != null)
         {
-          showAds = this.PageContext.BoardSettings.ShowAdsToSignedInUsers;
+          showAds = PageContext.BoardSettings.ShowAdsToSignedInUsers;
         }
 
-        if (!string.IsNullOrEmpty(this.PageContext.BoardSettings.AdPost) && showAds)
+        if (!string.IsNullOrEmpty(PageContext.BoardSettings.AdPost) && showAds)
         {
           // first message... show the ad below this message
           var adControl = (DisplayAd)e.Item.FindControl("DisplayAd");
@@ -421,12 +417,12 @@ namespace YAF.Pages
     /// </param>
     protected void MoveTopic_Click(object sender, EventArgs e)
     {
-      if (!this.PageContext.ForumModeratorAccess)
+      if (!PageContext.ForumModeratorAccess)
       {
         YafBuildLink.AccessDenied( /*"You are not a forum moderator."*/);
       }
 
-      YafBuildLink.Redirect(ForumPages.movetopic, "t={0}", this.PageContext.PageTopicID);
+      YafBuildLink.Redirect(ForumPages.movetopic, "t={0}", PageContext.PageTopicID);
     }
 
     /// <summary>
@@ -440,13 +436,13 @@ namespace YAF.Pages
     /// </param>
     protected void NewTopic_Click(object sender, EventArgs e)
     {
-      if (this._forumFlags.IsLocked)
+      if (_forumFlags.IsLocked)
       {
-        this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
+        PageContext.AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
         return;
       }
 
-      YafBuildLink.Redirect(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
+      YafBuildLink.Redirect(ForumPages.postmessage, "f={0}", PageContext.PageForumID);
     }
 
     /// <summary>
@@ -460,11 +456,11 @@ namespace YAF.Pages
     /// </param>
     protected void NextTopic_Click(object sender, EventArgs e)
     {
-      using (DataTable dt = DB.topic_findnext(this.PageContext.PageTopicID))
+      using (DataTable dt = DB.topic_findnext(PageContext.PageTopicID))
       {
         if (dt.Rows.Count == 0)
         {
-          this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"));
+          PageContext.AddLoadMessage(GetText("INFO_NOMORETOPICS"));
           return;
         }
 
@@ -481,13 +477,13 @@ namespace YAF.Pages
     protected override void OnInit(EventArgs e)
     {
       // Quick Reply Modification Begin
-      this._quickReplyEditor = new BasicBBCodeEditor();
-      this.QuickReplyLine.Controls.Add(this._quickReplyEditor);
-      this.QuickReply.Click += this.QuickReply_Click;
-      this.Pager.PageChange += this.Pager_PageChange;
+      _quickReplyEditor = new BasicBBCodeEditor();
+      QuickReplyLine.Controls.Add(_quickReplyEditor);
+      QuickReply.Click += QuickReply_Click;
+      Pager.PageChange += Pager_PageChange;
 
       // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      this.InitializeComponent();
+      InitializeComponent();
       base.OnInit(e);
     }
 
@@ -502,16 +498,16 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
-      if (!this.PageContext.IsGuest)
+      if (!PageContext.IsGuest)
       {
         // Register Ajax Pro.
         Utility.RegisterTypeForAjax(typeof(YafFavoriteTopic));
 
         // The html code for "Favorite Topic" theme buttons.
         string tagButtonHTML =
-          "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.value + ');\" onclick=\"this.blur();\" title=\"{0}\"><span>{1}</span></a>'".FormatWith(this.PageContext.Localization.GetText("BUTTON_TAGFAVORITE_TT"), this.PageContext.Localization.GetText("BUTTON_TAGFAVORITE"));
+          "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.value + ');\" onclick=\"blur();\" title=\"{0}\"><span>{1}</span></a>'".FormatWith(PageContext.Localization.GetText("BUTTON_TAGFAVORITE_TT"), PageContext.Localization.GetText("BUTTON_TAGFAVORITE"));
         string untagButtonHTML =
-          "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:removeFavoriteTopic(' + res.value + ');\" onclick=\"this.blur();\" title=\"{0}\"><span>{1}</span></a>'".FormatWith(this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE_TT"), this.PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE"));
+          "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:removeFavoriteTopic(' + res.value + ');\" onclick=\"blur();\" title=\"{0}\"><span>{1}</span></a>'".FormatWith(PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE_TT"), PageContext.Localization.GetText("BUTTON_UNTAGFAVORITE"));
 
         // Register the client side script for the "Favorite Topic".
         YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -522,150 +518,150 @@ namespace YAF.Pages
           "asynchCallFailedJs", JavaScriptBlocks.asynchCallFailedJs);
 
         // Has the user already tagged this topic as favorite?
-        if (YafServices.FavoriteTopic.IsFavoriteTopic(this.PageContext.PageTopicID))
+        if (YafServices.FavoriteTopic.IsFavoriteTopic(PageContext.PageTopicID))
         {
           // Generate the "Untag" theme button with appropriate JS calls for onclick event.
-          this.TagFavorite1.NavigateUrl = "javascript:removeFavoriteTopic(" + this.PageContext.PageTopicID + ");";
-          this.TagFavorite2.NavigateUrl = "javascript:removeFavoriteTopic(" + this.PageContext.PageTopicID + ");";
-          this.TagFavorite1.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
-          this.TagFavorite1.TitleLocalizedTag = "BUTTON_UNTAGFAVORITE_TT";
-          this.TagFavorite2.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
-          this.TagFavorite2.TitleLocalizedTag = "BUTTON_UNTAGFAVORITE_TT";
+          TagFavorite1.NavigateUrl = "javascript:removeFavoriteTopic(" + PageContext.PageTopicID + ");";
+          TagFavorite2.NavigateUrl = "javascript:removeFavoriteTopic(" + PageContext.PageTopicID + ");";
+          TagFavorite1.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
+          TagFavorite1.TitleLocalizedTag = "BUTTON_UNTAGFAVORITE_TT";
+          TagFavorite2.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
+          TagFavorite2.TitleLocalizedTag = "BUTTON_UNTAGFAVORITE_TT";
         }
         else
         {
           // Generate the "Tag" theme button with appropriate JS calls for onclick event.
-          this.TagFavorite1.NavigateUrl = "javascript:addFavoriteTopic(" + this.PageContext.PageTopicID + ");";
-          this.TagFavorite2.NavigateUrl = "javascript:addFavoriteTopic(" + this.PageContext.PageTopicID + ");";
-          this.TagFavorite1.TextLocalizedTag = "BUTTON_TAGFAVORITE";
-          this.TagFavorite1.TitleLocalizedTag = "BUTTON_TAGFAVORITE_TT";
-          this.TagFavorite2.TextLocalizedTag = "BUTTON_TAGFAVORITE";
-          this.TagFavorite2.TitleLocalizedTag = "BUTTON_TAGFAVORITE_TT";
+          TagFavorite1.NavigateUrl = "javascript:addFavoriteTopic(" + PageContext.PageTopicID + ");";
+          TagFavorite2.NavigateUrl = "javascript:addFavoriteTopic(" + PageContext.PageTopicID + ");";
+          TagFavorite1.TextLocalizedTag = "BUTTON_TAGFAVORITE";
+          TagFavorite1.TitleLocalizedTag = "BUTTON_TAGFAVORITE_TT";
+          TagFavorite2.TextLocalizedTag = "BUTTON_TAGFAVORITE";
+          TagFavorite2.TitleLocalizedTag = "BUTTON_TAGFAVORITE_TT";
         }
       }
       else
       {
-        this.TagFavorite1.Visible = false;
-        this.TagFavorite2.Visible = false;
+        TagFavorite1.Visible = false;
+        TagFavorite2.Visible = false;
       }
 
-      this._quickReplyEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
-      this._quickReplyEditor.StyleSheet = this.PageContext.Theme.BuildThemePath("theme.css");
+      _quickReplyEditor.BaseDir = YafForumInfo.ForumClientFileRoot + "editors";
+      _quickReplyEditor.StyleSheet = PageContext.Theme.BuildThemePath("theme.css");
 
-      this._topic = DB.topic_info(this.PageContext.PageTopicID);
+      _topic = DB.topic_info(PageContext.PageTopicID);
 
       // in case topic is deleted or not existant
-      if (this._topic == null)
+      if (_topic == null)
       {
         YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
       }
 
       // get topic flags
-      this._topicFlags = new TopicFlags(this._topic["Flags"]);
+      _topicFlags = new TopicFlags(_topic["Flags"]);
 
-      using (DataTable dt = DB.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+      using (DataTable dt = DB.forum_list(PageContext.PageBoardID, PageContext.PageForumID))
       {
-        this._forum = dt.Rows[0];
+        _forum = dt.Rows[0];
       }
 
-      this._forumFlags = new ForumFlags(this._forum["Flags"]);
+      _forumFlags = new ForumFlags(_forum["Flags"]);
 
-      if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
+      if (PageContext.IsGuest && !PageContext.ForumReadAccess)
       {
         // attempt to get permission by redirecting to login...
         YafServices.Permissions.HandleRequest(ViewPermissions.RegisteredUsers);
       }
-      else if (!this.PageContext.ForumReadAccess)
+      else if (!PageContext.ForumReadAccess)
       {
         YafBuildLink.AccessDenied();
       }
 
-      if (!this.IsPostBack)
+      if (!IsPostBack)
       {
-        if (this.PageContext.Settings.LockedForum == 0)
+        if (PageContext.Settings.LockedForum == 0)
         {
-          this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-          this.PageLinks.AddLink(
-            this.PageContext.PageCategoryName, 
-            YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+          PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+          PageLinks.AddLink(
+            PageContext.PageCategoryName, 
+            YafBuildLink.GetLink(ForumPages.forum, "c={0}", PageContext.PageCategoryID));
         }
 
-        this.QuickReply.Text = this.GetText("POSTMESSAGE", "SAVE");
-        this.DataPanel1.TitleText = this.GetText("QUICKREPLY");
-        this.DataPanel1.ExpandText = this.GetText("QUICKREPLY_SHOW");
-        this.DataPanel1.CollapseText = this.GetText("QUICKREPLY_HIDE");
+        QuickReply.Text = GetText("POSTMESSAGE", "SAVE");
+        DataPanel1.TitleText = GetText("QUICKREPLY");
+        DataPanel1.ExpandText = GetText("QUICKREPLY_SHOW");
+        DataPanel1.CollapseText = GetText("QUICKREPLY_HIDE");
 
-        this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
-        this.PageLinks.AddLink(
-          YafServices.BadWordReplace.Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)), string.Empty);
+        PageLinks.AddForumLinks(PageContext.PageForumID);
+        PageLinks.AddLink(
+          YafServices.BadWordReplace.Replace(Server.HtmlDecode(PageContext.PageTopicName)), string.Empty);
 
-        this.TopicTitle.Text = YafServices.BadWordReplace.Replace((string)this._topic["Topic"]);
+        TopicTitle.Text = YafServices.BadWordReplace.Replace((string)_topic["Topic"]);
 
-        this.ViewOptions.Visible = this.PageContext.BoardSettings.AllowThreaded;
-        this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump &&
-                                       this.PageContext.Settings.LockedForum == 0;
+        ViewOptions.Visible = PageContext.BoardSettings.AllowThreaded;
+        ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump &&
+                                       PageContext.Settings.LockedForum == 0;
 
-        this.RssTopic.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-          ForumPages.rsstopic, "pg={0}&t={1}", this.Request.QueryString.GetFirstOrDefault("g"), this.PageContext.PageTopicID);
-        this.RssTopic.Visible = this.PageContext.BoardSettings.ShowRSSLink;
+        RssTopic.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+          ForumPages.rsstopic, "pg={0}&t={1}", Request.QueryString.GetFirstOrDefault("g"), PageContext.PageTopicID);
+        RssTopic.Visible = PageContext.BoardSettings.ShowRSSLink;
 
-        this.QuickReplyPlaceHolder.Visible = this.PageContext.BoardSettings.ShowQuickAnswer;
+        QuickReplyPlaceHolder.Visible = PageContext.BoardSettings.ShowQuickAnswer;
 
-        if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
-            (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
+        if ((PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests) ||
+            (PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded))
         {
-          this.Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
-          this.imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
-          this.CaptchaDiv.Visible = true;
+          Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
+          imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
+          CaptchaDiv.Visible = true;
         }
 
-        if (!this.PageContext.ForumPostAccess || (this._forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess))
+        if (!PageContext.ForumPostAccess || (_forumFlags.IsLocked && !PageContext.ForumModeratorAccess))
         {
-          this.NewTopic1.Visible = false;
-          this.NewTopic2.Visible = false;
+          NewTopic1.Visible = false;
+          NewTopic2.Visible = false;
         }
 
         // Ederon : 9/9/2007 - moderators can reply in locked topics
-        if (!this.PageContext.ForumReplyAccess ||
-            ((this._topicFlags.IsLocked || this._forumFlags.IsLocked) && !this.PageContext.ForumModeratorAccess))
+        if (!PageContext.ForumReplyAccess ||
+            ((_topicFlags.IsLocked || _forumFlags.IsLocked) && !PageContext.ForumModeratorAccess))
         {
-          this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
-          this.QuickReplyPlaceHolder.Visible = false;
+          PostReplyLink1.Visible = PostReplyLink2.Visible = false;
+          QuickReplyPlaceHolder.Visible = false;
         }
 
-        if (this.PageContext.ForumModeratorAccess)
+        if (PageContext.ForumModeratorAccess)
         {
-          this.MoveTopic1.Visible = true;
-          this.MoveTopic2.Visible = true;
+          MoveTopic1.Visible = true;
+          MoveTopic2.Visible = true;
         }
         else
         {
-          this.MoveTopic1.Visible = false;
-          this.MoveTopic2.Visible = false;
+          MoveTopic1.Visible = false;
+          MoveTopic2.Visible = false;
         }
 
-        if (!this.PageContext.ForumModeratorAccess)
+        if (!PageContext.ForumModeratorAccess)
         {
-          this.LockTopic1.Visible = false;
-          this.UnlockTopic1.Visible = false;
-          this.DeleteTopic1.Visible = false;
-          this.LockTopic2.Visible = false;
-          this.UnlockTopic2.Visible = false;
-          this.DeleteTopic2.Visible = false;
+          LockTopic1.Visible = false;
+          UnlockTopic1.Visible = false;
+          DeleteTopic1.Visible = false;
+          LockTopic2.Visible = false;
+          UnlockTopic2.Visible = false;
+          DeleteTopic2.Visible = false;
         }
         else
         {
-          this.LockTopic1.Visible = !this._topicFlags.IsLocked;
-          this.UnlockTopic1.Visible = !this.LockTopic1.Visible;
-          this.LockTopic2.Visible = this.LockTopic1.Visible;
-          this.UnlockTopic2.Visible = !this.LockTopic2.Visible;
+          LockTopic1.Visible = !_topicFlags.IsLocked;
+          UnlockTopic1.Visible = !LockTopic1.Visible;
+          LockTopic2.Visible = LockTopic1.Visible;
+          UnlockTopic2.Visible = !LockTopic2.Visible;
         }
       }
 
       // Mark topic read
-      Mession.SetTopicRead(this.PageContext.PageTopicID, DateTime.UtcNow);
+      Mession.SetTopicRead(PageContext.PageTopicID, DateTime.UtcNow);
 
-      this.BindData();
+      BindData();
     }
 
     /// <summary>
@@ -680,23 +676,23 @@ namespace YAF.Pages
     protected void PostReplyLink_Click(object sender, EventArgs e)
     {
       // Ederon : 9/9/2007 - moderator can reply in locked posts
-      if (!this.PageContext.ForumModeratorAccess)
+      if (!PageContext.ForumModeratorAccess)
       {
-        if (this._topicFlags.IsLocked)
+        if (_topicFlags.IsLocked)
         {
-          this.PageContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"));
+          PageContext.AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
           return;
         }
 
-        if (this._forumFlags.IsLocked)
+        if (_forumFlags.IsLocked)
         {
-          this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
+          PageContext.AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
           return;
         }
       }
 
       YafBuildLink.Redirect(
-        ForumPages.postmessage, "t={0}&f={1}", this.PageContext.PageTopicID, this.PageContext.PageForumID);
+        ForumPages.postmessage, "t={0}&f={1}", PageContext.PageTopicID, PageContext.PageForumID);
     }
 
     /// <summary>
@@ -710,11 +706,11 @@ namespace YAF.Pages
     /// </param>
     protected void PrevTopic_Click(object sender, EventArgs e)
     {
-      using (DataTable dt = DB.topic_findprev(this.PageContext.PageTopicID))
+      using (DataTable dt = DB.topic_findprev(PageContext.PageTopicID))
       {
         if (dt.Rows.Count == 0)
         {
-          this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"));
+          PageContext.AddLoadMessage(GetText("INFO_NOMORETOPICS"));
           return;
         }
 
@@ -733,7 +729,7 @@ namespace YAF.Pages
     /// </param>
     protected void PrintTopic_Click(object sender, EventArgs e)
     {
-      YafBuildLink.Redirect(ForumPages.printtopic, "t={0}", this.PageContext.PageTopicID);
+      YafBuildLink.Redirect(ForumPages.printtopic, "t={0}", PageContext.PageTopicID);
     }
 
     /// <summary>
@@ -747,27 +743,27 @@ namespace YAF.Pages
     /// </param>
     protected void TrackTopic_Click(object sender, EventArgs e)
     {
-      if (this.PageContext.IsGuest)
+      if (PageContext.IsGuest)
       {
-        this.PageContext.AddLoadMessage(this.GetText("WARN_WATCHLOGIN"));
+        PageContext.AddLoadMessage(GetText("WARN_WATCHLOGIN"));
         return;
       }
 
-      if (this.WatchTopicID.InnerText == string.Empty)
+      if (WatchTopicID.InnerText == string.Empty)
       {
-        DB.watchtopic_add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
-        this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_TOPIC"));
+        DB.watchtopic_add(PageContext.PageUserID, PageContext.PageTopicID);
+        PageContext.AddLoadMessage(GetText("INFO_WATCH_TOPIC"));
       }
       else
       {
-        int tmpID = Convert.ToInt32(this.WatchTopicID.InnerText);
+        int tmpID = Convert.ToInt32(WatchTopicID.InnerText);
         DB.watchtopic_delete(tmpID);
-        this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"));
+        PageContext.AddLoadMessage(GetText("INFO_UNWATCH_TOPIC"));
       }
 
-      this.HandleWatchTopic();
+      HandleWatchTopic();
 
-      this.BindData();
+      BindData();
     }
 
     /// <summary>
@@ -781,15 +777,15 @@ namespace YAF.Pages
     /// </param>
     protected void UnlockTopic_Click(object sender, EventArgs e)
     {
-      DB.topic_lock(this.PageContext.PageTopicID, false);
-      this.BindData();
-      this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"));
-      this.LockTopic1.Visible = !this.LockTopic1.Visible;
-      this.UnlockTopic1.Visible = !this.UnlockTopic1.Visible;
-      this.LockTopic2.Visible = this.LockTopic1.Visible;
-      this.UnlockTopic2.Visible = this.UnlockTopic1.Visible;
-      this.PostReplyLink1.Visible = this.PageContext.ForumReplyAccess;
-      this.PostReplyLink2.Visible = this.PageContext.ForumReplyAccess;
+      DB.topic_lock(PageContext.PageTopicID, false);
+      BindData();
+      PageContext.AddLoadMessage(GetText("INFO_TOPIC_UNLOCKED"));
+      LockTopic1.Visible = !LockTopic1.Visible;
+      UnlockTopic1.Visible = !UnlockTopic1.Visible;
+      LockTopic2.Visible = LockTopic1.Visible;
+      UnlockTopic2.Visible = UnlockTopic1.Visible;
+      PostReplyLink1.Visible = PageContext.ForumReplyAccess;
+      PostReplyLink2.Visible = PageContext.ForumReplyAccess;
     }
 
     /// <summary>
@@ -803,7 +799,7 @@ namespace YAF.Pages
     /// </returns>
     protected int VoteWidth(object o)
     {
-      var row = (System.Data.DataRowView)o;
+      var row = (DataRowView)o;
       return (int)row.Row["Stats"]* 80 / 100;
     }
 
@@ -815,61 +811,71 @@ namespace YAF.Pages
     /// </param>
     private void AddMetaData(object firstMessage)
     {
-      if (firstMessage.IsNullOrEmptyDBField())
-      {
-        return;
-      }
-
-      if (this.Page.Header != null && this.PageContext.BoardSettings.AddDynamicPageMetaTags)
-      {
-        YafFormatMessage.MessageCleaned message = YafFormatMessage.GetCleanedTopicMessage(firstMessage, this.PageContext.PageTopicID);
-        var meta = this.Page.Header.FindControlType<HtmlMeta>();
-
-        if (message.MessageTruncated.IsSet())
+        if (firstMessage.IsNullOrEmptyDBField())
         {
-          HtmlMeta descriptionMeta = null;
+          return;
+        }
 
-          string content = String.Format("{0}: {1}", this._topic["Topic"], message.MessageTruncated);
+        if (Page.Header != null && PageContext.BoardSettings.AddDynamicPageMetaTags)
+        {
+            YafFormatMessage.MessageCleaned message = YafFormatMessage.GetCleanedTopicMessage(firstMessage, PageContext.PageTopicID);
+            var meta = Page.Header.FindControlType<HtmlMeta>();
 
-          if (meta.Exists(x => x.Name.Equals("description")))
-          {
-            // use existing...
-            descriptionMeta = meta.Where(x => x.Name.Equals("description")).FirstOrDefault();
-            if (descriptionMeta != null)
+            if (message.MessageTruncated.IsSet())
             {
-              descriptionMeta.Content = content;
+                HtmlMeta descriptionMeta;
+
+                string content = String.Format("{0}: {1}", _topic["Topic"], message.MessageTruncated);
+
+                if (meta.Exists(x => x.Name.Equals("description")))
+                {
+                    // use existing...
+                    descriptionMeta = meta.Where(x => x.Name.Equals("description")).FirstOrDefault();
+                    if (descriptionMeta != null)
+                    {
+                        descriptionMeta.Content = content;
+
+                        Page.Header.Controls.Remove(descriptionMeta);
+
+                        descriptionMeta = ControlHelper.MakeMetaDiscriptionControl(content);
+                        // add to the header...
+                        Page.Header.Controls.Add(descriptionMeta);
+                    }
+                }
+                else
+                {
+                    descriptionMeta = ControlHelper.MakeMetaDiscriptionControl(content);
+
+                    // add to the header...
+                    Page.Header.Controls.Add(descriptionMeta);
+                }
             }
-          }
-          else
-          {
-            descriptionMeta = ControlHelper.MakeMetaDiscriptionControl(content);
 
-            // add to the header...
-            this.Page.Header.Controls.Add(descriptionMeta);
-          }
+            if (message.MessageKeywords.Count > 0)
+            {
+                HtmlMeta keywordMeta;
+
+                var keywordStr = message.MessageKeywords.Where(x => !String.IsNullOrEmpty(x)).ToList().ToDelimitedString(",");
+
+                if (meta.Exists(x => x.Name.Equals("keywords")))
+                {
+                    // use existing...
+                    keywordMeta = meta.Where(x => x.Name.Equals("keywords")).FirstOrDefault();
+                    keywordMeta.Content = keywordStr;
+
+                    Page.Header.Controls.Remove(keywordMeta);
+                    // add to the header...
+                    Page.Header.Controls.Add(keywordMeta);
+                }
+                else
+                {
+                    keywordMeta = ControlHelper.MakeMetaKeywordsControl(keywordStr);
+
+                    // add to the header...
+                    Page.Header.Controls.Add(keywordMeta);
+                }
+            }
         }
-
-        if (message.MessageKeywords.Count > 0)
-        {
-          HtmlMeta keywordMeta = null;
-
-          var keywordStr = message.MessageKeywords.Where(x => !String.IsNullOrEmpty(x)).ToList().ToDelimitedString(",");
-
-          if (meta.Exists(x => x.Name.Equals("keywords")))
-          {
-            // use existing...
-            keywordMeta = meta.Where(x => x.Name.Equals("keywords")).FirstOrDefault();
-            keywordMeta.Content = keywordStr;
-          }
-          else
-          {
-            keywordMeta = ControlHelper.MakeMetaKeywordsControl(keywordStr);
-
-            // add to the header...
-            this.Page.Header.Controls.Add(keywordMeta);
-          }
-        }
-      }
     }
 
     /// <summary>
@@ -877,19 +883,19 @@ namespace YAF.Pages
     /// </summary>
     private void BindData()
     {
-      this._dataBound = true;
+      _dataBound = true;
 
-      this.Pager.PageSize = this.PageContext.BoardSettings.PostsPerPage;
+      Pager.PageSize = PageContext.BoardSettings.PostsPerPage;
 
-      if (this._topic == null)
+      if (_topic == null)
       {
-        YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+        YafBuildLink.Redirect(ForumPages.topics, "f={0}", PageContext.PageForumID);
       }
 
       DataTable postListDataTable = DB.post_list(
-        this.PageContext.PageTopicID, 
-        this.IsPostBack ? 0 : 1, 
-        this.PageContext.BoardSettings.ShowDeletedMessages, 
+        PageContext.PageTopicID, 
+        IsPostBack ? 0 : 1, 
+        PageContext.BoardSettings.ShowDeletedMessages, 
         YafContext.Current.BoardSettings.UseStyledNicks);
 
       if (YafContext.Current.BoardSettings.EnableThanksMod)
@@ -924,23 +930,23 @@ namespace YAF.Pages
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
         // needs to be moved to the paged data below -- so it doesn't operate on unnecessary rows
-        new StyleTransform(this.PageContext.Theme).DecodeStyleByTable(ref postListDataTable, true);
+        new StyleTransform(PageContext.Theme).DecodeStyleByTable(ref postListDataTable, true);
       }
 
       // convert to linq...
       var rowList = postListDataTable.AsEnumerable();
 
       // see if the deleted messages need to be edited out...
-      if (this.PageContext.BoardSettings.ShowDeletedMessages && !this.PageContext.BoardSettings.ShowDeletedMessagesToAll &&
-          !this.PageContext.IsAdmin && !this.PageContext.IsForumModerator)
+      if (PageContext.BoardSettings.ShowDeletedMessages && !PageContext.BoardSettings.ShowDeletedMessagesToAll &&
+          !PageContext.IsAdmin && !PageContext.IsForumModerator)
       {
         // remove posts that are deleted and do not belong to this user...
         rowList =
-          rowList.Where(x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != this.PageContext.PageUserID));
+          rowList.Where(x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != PageContext.PageUserID));
       }
 
       // set the sorting
-      if (this.IsThreaded)
+      if (IsThreaded)
       {
         rowList = rowList.OrderBy(x => x.Field<int>("Position"));
       }
@@ -958,31 +964,25 @@ namespace YAF.Pages
             });
       }
 
-      this.Pager.Count = rowList.Count();
-      int findMessageId = this.GetFindMessageId();
+      Pager.Count = rowList.Count();
+      int findMessageId = GetFindMessageId();
 
       if (findMessageId > 0)
       {
-        this.CurrentMessage = findMessageId;
+        CurrentMessage = findMessageId;
         var selectedMessage = rowList.Where(row => row.Field<int>("MessageID") == findMessageId).FirstOrDefault();
         if (selectedMessage != null)
         {
-          this.Pager.CurrentPageIndex =
-            (int)Math.Floor((double)selectedMessage.Field<int>("Position") / this.Pager.PageSize);
+          Pager.CurrentPageIndex =
+            (int)Math.Floor((double)selectedMessage.Field<int>("Position") / Pager.PageSize);
         }
       }
       else
       {
-        this.CurrentMessage = rowList.Last().Field<int>("MessageID");
+        CurrentMessage = rowList.Last().Field<int>("MessageID");
       }
 
-      var pagedData = rowList.Skip(this.Pager.SkipIndex).Take(this.Pager.PageSize);
-
-      if (pagedData.Any())
-      {
-        // handle add description/keywords for SEO
-        this.AddMetaData(pagedData.First()["Message"]);
-      }
+      var pagedData = rowList.Skip(Pager.SkipIndex).Take(Pager.PageSize);
 
       // Add thanks info and styled nicks if they are enabled
       if (YafContext.Current.BoardSettings.EnableThanksMod)
@@ -993,29 +993,35 @@ namespace YAF.Pages
       // dynamic load messages that are needed...
       YafServices.DBBroker.LoadMessageText(pagedData);
 
-      this.MessageList.DataSource = pagedData;
-
-     /* if (this._topic["PollID"] != DBNull.Value)
+      if (pagedData.Any())
       {
-        this.Poll.Visible = true;
-        this._dtPoll = DB.poll_stats(this._topic["PollID"]);
-        this.Poll.DataSource = this._dtPoll;
+          // handle add description/keywords for SEO
+          AddMetaData(pagedData.First()["Message"]);
+      }
+
+        MessageList.DataSource = pagedData;
+
+     /* if (_topic["PollID"] != DBNull.Value)
+      {
+        Poll.Visible = true;
+        _dtPoll = DB.poll_stats(_topic["PollID"]);
+        Poll.DataSource = _dtPoll;
       } */
 
-      this.DataBind();
+      DataBind();
     }
 
       protected int PollGroupId()
       {
-          return !this._topic["PollID"].IsNullOrEmptyDBField() ? Convert.ToInt32(this._topic["PollID"]) : 0 ;
+          return !_topic["PollID"].IsNullOrEmptyDBField() ? Convert.ToInt32(_topic["PollID"]) : 0 ;
       }
  
 
       protected bool ShowPollButtons()
       {
           return false;
-         /* return (Convert.ToInt32(this._topic["UserID"]) == this.PageContext.PageUserID) || this.PageContext.IsModerator ||
-                 this.PageContext.IsAdmin; */
+         /* return (Convert.ToInt32(_topic["UserID"]) == PageContext.PageUserID) || PageContext.IsModerator ||
+                 PageContext.IsAdmin; */
       }
 
       /// <summary>
@@ -1030,18 +1036,18 @@ namespace YAF.Pages
 
       try
       {
-        if (this._ignoreQueryString)
+        if (_ignoreQueryString)
         {
         }
-        else if (this.Request.QueryString.GetFirstOrDefault("m") != null)
+        else if (Request.QueryString.GetFirstOrDefault("m") != null)
         {
           // Show this message
-          findMessageId = int.Parse(this.Request.QueryString.GetFirstOrDefault("m"));
+          findMessageId = int.Parse(Request.QueryString.GetFirstOrDefault("m"));
         }
-        else if (this.Request.QueryString.GetFirstOrDefault("find") != null && this.Request.QueryString.GetFirstOrDefault("find").ToLower() == "unread")
+        else if (Request.QueryString.GetFirstOrDefault("find") != null && Request.QueryString.GetFirstOrDefault("find").ToLower() == "unread")
         {
           // Find next unread
-          using (DataTable unread = DB.message_findunread(this.PageContext.PageTopicID, Mession.LastVisit))
+          using (DataTable unread = DB.message_findunread(PageContext.PageTopicID, Mession.LastVisit))
           {
             var unreadFirst = unread.AsEnumerable().FirstOrDefault();
 
@@ -1054,7 +1060,7 @@ namespace YAF.Pages
       }
       catch (Exception x)
       {
-        DB.eventlog_create(this.PageContext.PageUserID, this, x);
+        DB.eventlog_create(PageContext.PageUserID, this, x);
       }
 
       return findMessageId;
@@ -1068,29 +1074,29 @@ namespace YAF.Pages
     /// </returns>
     private bool HandleWatchTopic()
     {
-      if (this.PageContext.IsGuest)
+      if (PageContext.IsGuest)
       {
         return false;
       }
 
       // check if this forum is being watched by this user
-      using (DataTable dt = DB.watchtopic_check(this.PageContext.PageUserID, this.PageContext.PageTopicID))
+      using (DataTable dt = DB.watchtopic_check(PageContext.PageUserID, PageContext.PageTopicID))
       {
         if (dt.Rows.Count > 0)
         {
           // subscribed to this forum
-          this.TrackTopic.Text = this.GetText("UNWATCHTOPIC");
+          TrackTopic.Text = GetText("UNWATCHTOPIC");
           foreach (DataRow row in dt.Rows)
           {
-            this.WatchTopicID.InnerText = row["WatchTopicID"].ToString();
+            WatchTopicID.InnerText = row["WatchTopicID"].ToString();
             return true;
           }
         }
         else
         {
           // not subscribed
-          this.WatchTopicID.InnerText = string.Empty;
-          this.TrackTopic.Text = this.GetText("WATCHTOPIC");
+          WatchTopicID.InnerText = string.Empty;
+          TrackTopic.Text = GetText("WATCHTOPIC");
         }
       }
 
@@ -1103,10 +1109,10 @@ namespace YAF.Pages
     /// </summary>
     private void InitializeComponent()
     {
-    //  this.Poll.ItemCommand += this.Poll_ItemCommand;
-      this.PreRender += this.posts_PreRender;
-      this.OptionsMenu.ItemClick += this.OptionsMenu_ItemClick;
-      this.ViewMenu.ItemClick += this.ViewMenu_ItemClick;
+    //  Poll.ItemCommand += Poll_ItemCommand;
+      PreRender += posts_PreRender;
+      OptionsMenu.ItemClick += OptionsMenu_ItemClick;
+      ViewMenu.ItemClick += ViewMenu_ItemClick;
     }
 
     /// <summary>
@@ -1125,17 +1131,17 @@ namespace YAF.Pages
       switch (e.Item.ToLower())
       {
         case "print":
-          YafBuildLink.Redirect(ForumPages.printtopic, "t={0}", this.PageContext.PageTopicID);
+          YafBuildLink.Redirect(ForumPages.printtopic, "t={0}", PageContext.PageTopicID);
           break;
         case "watch":
-          this.TrackTopic_Click(sender, e);
+          TrackTopic_Click(sender, e);
           break;
         case "email":
-          this.EmailTopic_Click(sender, e);
+          EmailTopic_Click(sender, e);
           break;
         case "rssfeed":
           YafBuildLink.Redirect(
-            ForumPages.rsstopic, "pg={0}&t={1}", this.Request.QueryString.GetFirstOrDefault("g"), this.PageContext.PageTopicID);
+            ForumPages.rsstopic, "pg={0}&t={1}", Request.QueryString.GetFirstOrDefault("g"), PageContext.PageTopicID);
           break;
         default:
           throw new ApplicationException(e.Item);
@@ -1153,9 +1159,9 @@ namespace YAF.Pages
     /// </param>
     private void Pager_PageChange(object sender, EventArgs e)
     {
-      this._ignoreQueryString = true;
-      this.SmartScroller1.Reset();
-      this.BindData();
+      _ignoreQueryString = true;
+      SmartScroller1.Reset();
+      BindData();
     }
 
     /// <summary>
@@ -1169,34 +1175,34 @@ namespace YAF.Pages
     /// </param>
     private void QuickReply_Click(object sender, EventArgs e)
     {
-      if (!this.PageContext.ForumReplyAccess || (this._topicFlags.IsLocked && !this.PageContext.ForumModeratorAccess))
+      if (!PageContext.ForumReplyAccess || (_topicFlags.IsLocked && !PageContext.ForumModeratorAccess))
       {
         YafBuildLink.AccessDenied();
       }
 
-      if (this._quickReplyEditor.Text.Length <= 0)
+      if (_quickReplyEditor.Text.Length <= 0)
       {
-        this.PageContext.AddLoadMessage(this.GetText("EMPTY_MESSAGE"));
+        PageContext.AddLoadMessage(GetText("EMPTY_MESSAGE"));
         return;
       }
 
-      if (((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests) ||
-           (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)) &&
-          this.Session["CaptchaImageText"].ToString() != this.tbCaptcha.Text.Trim())
+      if (((PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests) ||
+           (PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded)) &&
+          Session["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim())
       {
-        this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
+        PageContext.AddLoadMessage(GetText("BAD_CAPTCHA"));
         return;
       }
 
-      if (!(this.PageContext.IsAdmin || this.PageContext.IsModerator) &&
-          this.PageContext.BoardSettings.PostFloodDelay > 0)
+      if (!(PageContext.IsAdmin || PageContext.IsModerator) &&
+          PageContext.BoardSettings.PostFloodDelay > 0)
       {
-        if (Mession.LastPost > DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay))
+        if (Mession.LastPost > DateTime.UtcNow.AddSeconds(-PageContext.BoardSettings.PostFloodDelay))
         {
-          this.PageContext.AddLoadMessage(
-            this.GetTextFormatted(
+          PageContext.AddLoadMessage(
+            GetTextFormatted(
               "wait", 
-              (Mession.LastPost - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds));
+              (Mession.LastPost - DateTime.UtcNow.AddSeconds(-PageContext.BoardSettings.PostFloodDelay)).Seconds));
           return;
         }
       }
@@ -1206,24 +1212,25 @@ namespace YAF.Pages
       // post message...
       long nMessageId = 0;
       object replyTo = -1;
-      string msg = this._quickReplyEditor.Text;
-      long topicID = this.PageContext.PageTopicID;
+      string msg = _quickReplyEditor.Text;
+      long topicID = PageContext.PageTopicID;
 
-      var tFlags = new MessageFlags();
+      var tFlags = new MessageFlags
+                       {
+                           IsHtml = _quickReplyEditor.UsesHTML,
+                           IsBBCode = _quickReplyEditor.UsesBBCode,
+                           IsApproved = PageContext.IsAdmin || PageContext.IsModerator
+                       };
 
-      tFlags.IsHtml = this._quickReplyEditor.UsesHTML;
-      tFlags.IsBBCode = this._quickReplyEditor.UsesBBCode;
+        // Bypass Approval if Admin or Moderator.
 
-      // Bypass Approval if Admin or Moderator.
-      tFlags.IsApproved = this.PageContext.IsAdmin || this.PageContext.IsModerator;
-
-      if (
+        if (
         !DB.message_save(
           topicID, 
-          this.PageContext.PageUserID, 
+          PageContext.PageUserID, 
           msg, 
           null, 
-          this.Request.UserHostAddress, 
+          Request.UserHostAddress, 
           null, 
           replyTo, 
           tFlags.BitValue, 
@@ -1235,12 +1242,12 @@ namespace YAF.Pages
       // Check to see if the user has enabled "auto watch topic" option in his/her profile.
       if (PageContext.CurrentUserData.AutoWatchTopics)
       {
-        using (DataTable dt = DB.watchtopic_check(this.PageContext.PageUserID, this.PageContext.PageTopicID))
+        using (DataTable dt = DB.watchtopic_check(PageContext.PageUserID, PageContext.PageTopicID))
         {
           if (dt.Rows.Count == 0)
           {
             // subscribe to this forum
-            DB.watchtopic_add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+            DB.watchtopic_add(PageContext.PageUserID, PageContext.PageTopicID);
           }
         }
       }
@@ -1268,17 +1275,17 @@ namespace YAF.Pages
         if (PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
         {
           // not approved, notifiy moderators
-          YafServices.SendNotification.ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)nMessageId);
+          YafServices.SendNotification.ToModeratorsThatMessageNeedsApproval(PageContext.PageForumID, (int)nMessageId);
         }
 
-        string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+        string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", PageContext.PageForumID);
         if (Config.IsRainbow)
         {
           YafBuildLink.Redirect(ForumPages.info, "i=1");
         }
         else
         {
-          YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+          YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", Server.UrlEncode(url));
         }
       }
     }
@@ -1299,12 +1306,12 @@ namespace YAF.Pages
       switch (e.Item.ToLower())
       {
         case "normal":
-          this.IsThreaded = false;
-          this.BindData();
+          IsThreaded = false;
+          BindData();
           break;
         case "threaded":
-          this.IsThreaded = true;
-          this.BindData();
+          IsThreaded = true;
+          BindData();
           break;
         default:
           throw new ApplicationException(e.Item);
@@ -1322,32 +1329,32 @@ namespace YAF.Pages
     /// </param>
     private void posts_PreRender(object sender, EventArgs e)
     {
-      bool isWatched = this.HandleWatchTopic();
+      bool isWatched = HandleWatchTopic();
 
       // options menu...
-      this.OptionsMenu.AddPostBackItem("watch", isWatched ? this.GetText("UNWATCHTOPIC") : this.GetText("WATCHTOPIC"));
-      if (this.PageContext.BoardSettings.AllowEmailTopic)
+      OptionsMenu.AddPostBackItem("watch", isWatched ? GetText("UNWATCHTOPIC") : GetText("WATCHTOPIC"));
+      if (PageContext.BoardSettings.AllowEmailTopic)
       {
-        this.OptionsMenu.AddPostBackItem("email", this.GetText("EMAILTOPIC"));
+        OptionsMenu.AddPostBackItem("email", GetText("EMAILTOPIC"));
       }
 
-      this.OptionsMenu.AddPostBackItem("print", this.GetText("PRINTTOPIC"));
-      if (this.PageContext.BoardSettings.ShowRSSLink)
+      OptionsMenu.AddPostBackItem("print", GetText("PRINTTOPIC"));
+      if (PageContext.BoardSettings.ShowRSSLink)
       {
-        this.OptionsMenu.AddPostBackItem("rssfeed", this.GetText("RSSTOPIC"));
+        OptionsMenu.AddPostBackItem("rssfeed", GetText("RSSTOPIC"));
       }
 
       // view menu
-      this.ViewMenu.AddPostBackItem("normal", this.GetText("NORMAL"));
-      this.ViewMenu.AddPostBackItem("threaded", this.GetText("THREADED"));
+      ViewMenu.AddPostBackItem("normal", GetText("NORMAL"));
+      ViewMenu.AddPostBackItem("threaded", GetText("THREADED"));
 
       // attach both the menus to HyperLinks
-      this.OptionsMenu.Attach(this.OptionsLink);
-      this.ViewMenu.Attach(this.ViewLink);
+      OptionsMenu.Attach(OptionsLink);
+      ViewMenu.Attach(ViewLink);
 
-      if (!this._dataBound)
+      if (!_dataBound)
       {
-        this.BindData();
+        BindData();
       }
     }
 
