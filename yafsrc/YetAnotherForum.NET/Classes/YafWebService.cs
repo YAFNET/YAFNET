@@ -18,8 +18,11 @@
  */
 using System;
 using System.Web.Services;
+
+using YAF.Classes;
 using YAF.Classes.Core;
 using YAF.Classes.Data;
+using YAF.Classes.Utils;
 
 /// <summary>
 /// Summary description for YafForumWebService
@@ -76,5 +79,59 @@ public class YafWebService : WebService
     string subjectEncoded = Server.HtmlEncode(subject);
 
     return DB.topic_save(forumid, subjectEncoded, post, userid, priority, username, ip, null, null, flags, ref messageId);
+  }
+
+  /// <exception cref="Exception"><c>Exception</c>.</exception>
+  [WebMethod]
+  public bool SetDisplayNameFromUsername(string token, string username, string displayName)
+  {
+    // validate token...
+    if (token != YafContext.Current.BoardSettings.WebServiceToken)
+    {
+      throw new Exception("Invalid Secure Web Service Token: Operation Failed");
+    }
+
+    // get the user id...
+    var membershipUser = UserMembershipHelper.GetMembershipUserByName(username);
+
+    if (membershipUser != null)
+    {
+      var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
+
+      var displayNameId = YafContext.Current.UserDisplayName.GetId(displayName);
+
+      if (displayNameId.HasValue && displayNameId.Value != userId)
+      {
+        // problem...
+        throw new Exception(
+          "Display Name must be unique. {0} display name already exists in the database.".FormatWith(displayName));
+      }
+
+      var userFields = DB.user_list(Config.BoardID, userId, null).Rows[0];
+
+      DB.user_save(
+        userId,
+        Config.BoardID,
+        null,
+        displayName,
+        null,
+        userFields["TimeZone"],
+         userFields["LanguageFile"],
+         userFields["Culture"],
+         userFields["ThemeFile"],
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null);
+
+      UserMembershipHelper.ClearCacheForUserId(userId);
+
+      return true;
+    }
+
+    return false;
   }
 }
