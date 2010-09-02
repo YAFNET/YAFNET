@@ -346,9 +346,6 @@ namespace YAF.Controls
       // clear the cache for this user...
       UserMembershipHelper.ClearCacheForUserId(this.CurrentUserID);
 
-      // Clearing cache with old Active User Lazy Data ...
-      this.PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID)));
-
       if (!this.AdminEditMode)
       {
         YafBuildLink.Redirect(ForumPages.cp_profile);
