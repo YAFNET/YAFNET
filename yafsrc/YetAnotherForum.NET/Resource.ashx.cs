@@ -16,29 +16,31 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+
 namespace YAF
 {
   #region Using
 
-  using System;
-  using System.Data;
-  using System.Drawing;
-  using System.Drawing.Drawing2D;
-  using System.Drawing.Imaging;
-  using System.Drawing.Text;
-  using System.IO;
-  using System.Net;
-  using System.Web;
-  using System.Web.Security;
-  using System.Web.Services;
-  using System.Web.SessionState;
+    using System;
+    using System.Data;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Imaging;
+    using System.Drawing.Text;
+    using System.IO;
+    using System.Net;
+    using System.Web;
+    using System.Web.Security;
+    using System.Web.Services;
+    using System.Web.SessionState;
 
-  using YAF.Classes;
-  using YAF.Classes.Core;
-  using YAF.Classes.Data;
-  using YAF.Classes.UI;
-  using YAF.Classes.Utils;
-  using YAF.Classes.Utils.Extensions;
+    using YAF.Classes;
+    using YAF.Classes.Core;
+    using YAF.Classes.Data;
+    using YAF.Classes.UI;
+    using YAF.Classes.Utils;
+    using YAF.Classes.Utils.Extensions;
 
   #endregion
 
@@ -80,58 +82,58 @@ namespace YAF
       if (context.Request.QueryString.GetFirstOrDefault("r") != null)
       {
         // resource request
-        this.GetResource(context);
+        GetResource(context);
       }
       else if (context.Session["lastvisit"] != null)
       {
         if (context.Request.QueryString.GetFirstOrDefault("u") != null)
         {
-          this.GetResponseLocalAvatar(context);
+          GetResponseLocalAvatar(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("url") != null && context.Request.QueryString.GetFirstOrDefault("width") != null &&
                  context.Request.QueryString.GetFirstOrDefault("height") != null)
         {
-          this.GetResponseRemoteAvatar(context);
+          GetResponseRemoteAvatar(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("a") != null)
         {
-          this.GetResponseAttachment(context);
+          GetResponseAttachment(context);
         }
 
           // TommyB: Start MOD: Preview Images   ##########
         else if (context.Request.QueryString.GetFirstOrDefault("i") != null)
         {
-          this.GetResponseImage(context);
+          GetResponseImage(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("p") != null)
         {
-          this.GetResponseImagePreview(context);
+          GetResponseImagePreview(context);
         }
 
           // TommyB: End MOD: Preview Images   ##########
         else if (context.Request.QueryString.GetFirstOrDefault("c") != null && context.Session["CaptchaImageText"] != null)
         {
           // captcha					
-          this.GetResponseCaptcha(context);
+          GetResponseCaptcha(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("cover") != null && context.Request.QueryString.GetFirstOrDefault("album") != null)
         {
           // album cover		
-          this.GetAlbumCover(context);
+          GetAlbumCover(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("imgprv") != null)
         {
           // album image preview		
-          this.GetAlbumImagePreview(context);
+          GetAlbumImagePreview(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("image") != null)
         {
           // album image		
-          this.GetAlbumImage(context);
+          GetAlbumImage(context);
         }
         else if (context.Request.QueryString.GetFirstOrDefault("s") != null && context.Request.QueryString.GetFirstOrDefault("lang") != null)
         {
-          this.GetResponseGoogleSpell(context);
+          GetResponseGoogleSpell(context);
         }
       }
       else
@@ -197,8 +199,8 @@ namespace YAF
 
       string browser = "{0} {1}".FormatWith(HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
       string platform = HttpContext.Current.Request.Browser.Platform;
-      bool isSearchEngine = false;
-      bool isIgnoredForDisplay = false;
+      bool isSearchEngine;
+      bool isIgnoredForDisplay;
       string userAgent = HttpContext.Current.Request.UserAgent;
 
       // try and get more verbose platform name by ref and other parameters             
@@ -296,7 +298,7 @@ namespace YAF
         localizationFile = context.Session["localizationFile"].ToString();
       }
 
-      string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("cover") + localizationFile.GetHashCode().ToString());
+      string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("cover") + localizationFile.GetHashCode());
 
       if (CheckETag(context, eTag))
       {
@@ -336,7 +338,7 @@ namespace YAF
             }
           }
 
-          using (var input = new FileStream(fileName, FileMode.Open))
+          using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
           {
             var buffer = new byte[input.Length];
             input.Read(buffer, 0, buffer.Length);
@@ -347,7 +349,7 @@ namespace YAF
           // reset position...
           data.Position = 0;
           string imagesNumber = DB.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1].ToString();
-          MemoryStream ms = this.GetCoverResized(
+          MemoryStream ms = GetCoverResized(
             data, previewMaxWidth, previewMaxHeight, localizationFile, imagesNumber);
 
           context.Response.ContentType = "image/png";
@@ -364,7 +366,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        DB.eventlog_create(null, GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -393,7 +395,7 @@ namespace YAF
         {
           foreach (DataRow row in dt.Rows)
           {
-            byte[] data = null;
+            byte[] data;
 
             string sUpDir = YafBoardFolders.Current.Uploads;
 
@@ -404,7 +406,7 @@ namespace YAF
               context.Server.MapPath(
                 String.Format("{0}/{1}.{2}.{3}.yafalbum", sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
 
-            string fileName = string.Empty;
+            string fileName;
 
             // use the new fileName (with extension) if it exists...
             if (File.Exists(newFileName))
@@ -416,7 +418,7 @@ namespace YAF
               fileName = oldFileName;
             }
 
-            using (var input = new FileStream(fileName, FileMode.Open))
+            using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
               data = new byte[input.Length];
               input.Read(data, 0, data.Length);
@@ -437,7 +439,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        DB.eventlog_create(null, GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -471,7 +473,7 @@ namespace YAF
       }
 
       string eTag = String.Format(
-        @"""{0}""", context.Request.QueryString.GetFirstOrDefault("imgprv") + localizationFile.GetHashCode().ToString());
+        @"""{0}""", context.Request.QueryString.GetFirstOrDefault("imgprv") + localizationFile.GetHashCode());
 
       if (CheckETag(context, eTag))
       {
@@ -497,7 +499,7 @@ namespace YAF
               context.Server.MapPath(
                 String.Format("{0}/{1}.{2}.{3}.yafalbum", sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
 
-            string fileName = string.Empty;
+            string fileName;
 
             // use the new fileName (with extension) if it exists...
             if (File.Exists(newFileName))
@@ -509,7 +511,7 @@ namespace YAF
               fileName = oldFileName;
             }
 
-            using (var input = new FileStream(fileName, FileMode.Open))
+            using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
               var buffer = new byte[input.Length];
               input.Read(buffer, 0, buffer.Length);
@@ -520,7 +522,7 @@ namespace YAF
             // reset position...
             data.Position = 0;
 
-            MemoryStream ms = this.GetImageResized(
+            MemoryStream ms = GetImageResized(
               data, previewMaxWidth, previewMaxHeight, (int)row["Downloads"], localizationFile);
 
             context.Response.ContentType = "image/png";
@@ -540,7 +542,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        DB.eventlog_create(null, GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -565,7 +567,7 @@ namespace YAF
     /// </param>
     /// <returns>
     /// </returns>
-    private MemoryStream GetCoverResized(
+    private static MemoryStream GetCoverResized(
       MemoryStream data, int previewWidth, int previewHeight, string localizationFile, string ImagesNumber)
     {
       const int paddingY = 6;
@@ -576,7 +578,7 @@ namespace YAF
       {
         // default to width-based resizing...
         int width = previewWidth;
-        var height = (int)(previewWidth / ((double)src.Width / (double)src.Height));
+        var height = previewWidth / (src.Width / src.Height);
 
         if (src.Width <= previewWidth && src.Height <= previewHeight)
         {
@@ -587,7 +589,7 @@ namespace YAF
         else if (height > previewHeight)
         {
           // aspect is based on the height, not the width...
-          width = (int)(previewHeight / ((double)src.Height / (double)src.Width));
+          width = previewHeight / (src.Height / src.Width);
           height = previewHeight;
         }
 
@@ -619,11 +621,9 @@ namespace YAF
               {
                 var localization = new YafLocalization("ALBUM");
                 localization.LoadTranslation(localizationFile);
-                var sf = new StringFormat();
+                var sf = new StringFormat {Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near};
 
-                sf.Alignment = StringAlignment.Far;
-                sf.LineAlignment = StringAlignment.Near;
-                g.DrawString(localization.GetText("ALBUM_VIEW"), f, brush, rDstTxt, sf);
+                  g.DrawString(localization.GetText("ALBUM_VIEW"), f, brush, rDstTxt, sf);
 
                 sf.Alignment = StringAlignment.Near;
                 sf.LineAlignment = StringAlignment.Near;
@@ -664,7 +664,7 @@ namespace YAF
     /// </param>
     /// <returns>
     /// </returns>
-    private MemoryStream GetImageResized(
+    private static MemoryStream GetImageResized(
       MemoryStream data, int previewWidth, int previewHeight, int downloads, string localizationFile)
     {
       const int pixelPadding = 6;
@@ -674,7 +674,7 @@ namespace YAF
       {
         // default to width-based resizing...
         int width = previewWidth;
-        var height = (int)(previewWidth / ((double)src.Width / (double)src.Height));
+        var height = (int)(previewWidth / (src.Width / (double)src.Height));
 
         if (src.Width <= previewWidth && src.Height <= previewHeight)
         {
@@ -685,7 +685,7 @@ namespace YAF
         else if (height > previewHeight)
         {
           // aspect is based on the height, not the width...
-          width = (int)(previewHeight / ((double)src.Height / (double)src.Width));
+          width = previewHeight / (src.Height / src.Width);
           height = previewHeight;
         }
 
@@ -715,15 +715,13 @@ namespace YAF
                 var localization = new YafLocalization("POSTS");
                 localization.LoadTranslation(localizationFile);
 
-                var sf = new StringFormat();
+                var sf = new StringFormat {Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center};
 
-                sf.Alignment = StringAlignment.Near;
-                sf.LineAlignment = StringAlignment.Center;
-                g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt, sf);
+                  g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt, sf);
 
                 sf.Alignment = StringAlignment.Far;
                 g.DrawString(
-                  string.Format(localization.GetText("IMAGE_RESIZE_VIEWS"), downloads.ToString()), f, brush, rDstTxt, sf);
+                  string.Format(localization.GetText("IMAGE_RESIZE_VIEWS"), downloads), f, brush, rDstTxt, sf);
               }
             }
           }
@@ -745,7 +743,7 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetResource(HttpContext context)
+    private static void GetResource(HttpContext context)
     {
       // redirect to the resource?
       context.Response.Redirect("resources/" + context.Request.QueryString.GetFirstOrDefault("r"));
@@ -776,7 +774,7 @@ namespace YAF
 					// attempt to load the resource...
 					byte [] data = null;
 
-					Stream input = this.GetType().Assembly.GetManifestResourceStream( resourceName );
+					Stream input = GetType().Assembly.GetManifestResourceStream( resourceName );
 
 					data = new byte [input.Length];
 					input.Read( data, 0, data.Length );
@@ -786,7 +784,7 @@ namespace YAF
 				}
 				catch
 				{
-					YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), "Attempting to access invalid resource: " + resourceName, 1 );
+					YAF.Classes.Data.DB.eventlog_create( null, GetType().ToString(), "Attempting to access invalid resource: " + resourceName, 1 );
 					context.Response.Write( "Error: Invalid forum resource. Please contact the forum admin." );
 				}
 			}
@@ -809,7 +807,7 @@ namespace YAF
           foreach (DataRow row in dt.Rows)
           {
             // TODO : check download permissions here					
-            if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
+            if (!CheckAccessRights(row["BoardID"], row["MessageID"]))
             {
               // tear it down
               // no permission to download
@@ -818,7 +816,7 @@ namespace YAF
               return;
             }
 
-            byte[] data = null;
+            byte[] data;
 
             if (row.IsNull("FileData"))
             {
@@ -830,7 +828,7 @@ namespace YAF
                 context.Server.MapPath(
                   String.Format("{0}/{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
 
-              string fileName = string.Empty;
+              string fileName;
 
               // use the new fileName (with extension) if it exists...
               if (File.Exists(newFileName))
@@ -842,7 +840,7 @@ namespace YAF
                 fileName = oldFileName;
               }
 
-              using (var input = new FileStream(fileName, FileMode.Open))
+              using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
               {
                 data = new byte[input.Length];
                 input.Read(data, 0, data.Length);
@@ -867,7 +865,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        DB.eventlog_create(null, GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -890,7 +888,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        DB.eventlog_create(null, GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -901,7 +899,7 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetResponseGoogleSpell(HttpContext context)
+    private static void GetResponseGoogleSpell(HttpContext context)
     {
       string url = string.Format("https://www.google.com/tbproxy/spell?lang={0}", context.Request.QueryString.GetFirstOrDefault("lang"));
 
@@ -950,7 +948,7 @@ namespace YAF
           foreach (DataRow row in dt.Rows)
           {
             // TODO : check download permissions here					
-            if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
+            if (!CheckAccessRights(row["BoardID"], row["MessageID"]))
             {
               // tear it down
               // no permission to download
@@ -959,7 +957,7 @@ namespace YAF
               return;
             }
 
-            byte[] data = null;
+            byte[] data;
 
             if (row.IsNull("FileData"))
             {
@@ -971,7 +969,7 @@ namespace YAF
                 context.Server.MapPath(
                   String.Format("{0}/{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
 
-              string fileName = string.Empty;
+              string fileName;
 
               // use the new fileName (with extension) if it exists...
               if (File.Exists(newFileName))
@@ -983,7 +981,7 @@ namespace YAF
                 fileName = oldFileName;
               }
 
-              using (var input = new FileStream(fileName, FileMode.Open))
+              using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
               {
                 data = new byte[input.Length];
                 input.Read(data, 0, data.Length);
@@ -1008,7 +1006,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        DB.eventlog_create(null, GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1041,7 +1039,7 @@ namespace YAF
         localizationFile = context.Session["localizationFile"].ToString();
       }
 
-      string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("p") + localizationFile.GetHashCode().ToString());
+      string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("p") + localizationFile.GetHashCode());
 
       if (CheckETag(context, eTag))
       {
@@ -1057,7 +1055,7 @@ namespace YAF
           foreach (DataRow row in dt.Rows)
           {
             // TODO : check download permissions here					
-            if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
+            if (!CheckAccessRights(row["BoardID"], row["MessageID"]))
             {
               // tear it down
               // no permission to download
@@ -1078,7 +1076,7 @@ namespace YAF
                 context.Server.MapPath(
                   String.Format("{0}/{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
 
-              string fileName = string.Empty;
+              string fileName;
 
               // use the new fileName (with extension) if it exists...
               if (File.Exists(newFileName))
@@ -1090,7 +1088,7 @@ namespace YAF
                 fileName = oldFileName;
               }
 
-              using (var input = new FileStream(fileName, FileMode.Open))
+              using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
               {
                 var buffer = new byte[input.Length];
                 input.Read(buffer, 0, buffer.Length);
@@ -1107,7 +1105,7 @@ namespace YAF
             // reset position...
             data.Position = 0;
 
-            MemoryStream ms = this.GetImageResized(
+            MemoryStream ms = GetImageResized(
               data, previewMaxWidth, previewMaxHeight, (int)row["Downloads"], localizationFile);
 
             context.Response.ContentType = "image/png";
@@ -1127,7 +1125,7 @@ namespace YAF
       }
       catch (Exception x)
       {
-        DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+        DB.eventlog_create(null, GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
     }
@@ -1138,7 +1136,7 @@ namespace YAF
     /// <param name="context">
     /// The context.
     /// </param>
-    private void GetResponseLocalAvatar(HttpContext context)
+    private static void GetResponseLocalAvatar(HttpContext context)
     {
       try
       {
@@ -1195,7 +1193,7 @@ namespace YAF
         // don't bother... not supported.
         DB.eventlog_create(
           null,
-          this.GetType().ToString(),
+          GetType().ToString(),
           "Remote Avatar is NOT supported on your Hosting Permission Level (must be High)",
           0);
         return;
@@ -1208,7 +1206,7 @@ namespace YAF
         int maxwidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
         int maxheight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
 
-        string eTag = @"""{0}""".FormatWith((context.Request.QueryString.GetFirstOrDefault("url") + maxheight.ToString() + maxwidth.ToString()).GetHashCode());
+        string eTag = @"""{0}""".FormatWith((context.Request.QueryString.GetFirstOrDefault("url") + maxheight + maxwidth).GetHashCode());
 
         if (CheckETag(context, eTag))
         {
@@ -1229,13 +1227,13 @@ namespace YAF
 
         if (width > maxwidth)
         {
-          height = Convert.ToInt32((double)height / (double)width * (double)maxwidth);
+          height = Convert.ToInt32(height / (double)width * maxwidth);
           width = maxwidth;
         }
 
         if (height > maxheight)
         {
-          width = Convert.ToInt32((double)width / (double)height * (double)maxheight);
+          width = Convert.ToInt32(width / (double)height * maxheight);
           height = maxheight;
         }
 
