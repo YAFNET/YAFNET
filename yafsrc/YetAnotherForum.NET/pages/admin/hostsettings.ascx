@@ -260,15 +260,6 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Guests In Detailed Active List:</b><br />
-                            If checked, Guests will be displayed In Detailed Active List.
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="ShowGuestsInDetailedActiveList" runat="server"></asp:CheckBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="postheader">
                             <b>Add Dynamic Page Meta Tags:</b><br />
                             If checked, description and keywords meta tags will be created dynamically on the
                             post pages.
@@ -724,6 +715,24 @@
                         </td>
                         <td class="post">
                             <asp:CheckBox ID="ShowModeratorList" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td class="postheader">
+                            <b>Show Guests In Detailed Active List:</b><br />
+                            If checked, Guests will be displayed In Detailed Active List.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowGuestsInDetailedActiveList" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <b>Show Crawlers In Active Lists:</b><br />
+                            If checked, Crawlers will be displayed In Active Lists.
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowCrawlersInDetailedActiveList" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                     <tr>

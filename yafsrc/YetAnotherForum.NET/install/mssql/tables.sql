@@ -76,7 +76,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		ForumID			int NULL ,
 		TopicID			int NULL ,
 		Browser			nvarchar (50) NULL ,
-		Platform		nvarchar (50) NULL 
+		Platform		nvarchar (50) NULL,
+		Flags           int NULL
 	)
 go
 
@@ -678,6 +679,10 @@ GO
 
 if exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='IP' and prec < 39)
  	alter table [{databaseOwner}].[{objectQualifier}Active] alter column [IP] varchar(39) not null 
+GO
+
+if not exists (select * from syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Active]') and name='Flags')
+ 	alter table [{databaseOwner}].[{objectQualifier}Active] add [Flags] int NULL 
 GO
 
 -- Board Table

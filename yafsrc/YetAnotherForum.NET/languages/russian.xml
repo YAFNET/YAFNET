@@ -119,7 +119,7 @@
     <Resource tag="SHOWSMILIES">Показ смайлов</Resource>
     <Resource tag="TOPICINFORUM"> в форуме </Resource>
     <Resource tag="TOPICS">Просматривает тему </Resource>
-    <Resource tag="VIEWTHANKS">Views thanks info</Resource>
+    <Resource tag="VIEWTHANKS">Просмотр «Спасибо»</Resource>
   </page>
   <page name="ACTIVEUSERS">
     <Resource tag="ACTIVE">Активен</Resource>
@@ -186,7 +186,7 @@
     <Resource tag="NOTIFICATION_BUDDYREQUEST">Послан запрос на добавление к друзьям.</Resource>
     <Resource tag="PENDINGBUDDIES">У Вас {0} запроса(ов) на добавление в друзья</Resource>
     <Resource tag="REMOVEBUDDY">Удалить из друзей</Resource>
-    <Resource tag="REMOVEBUDDY">Удалить {0} из Вашего списка друзей?</Resource>
+    <Resource tag="REMOVEBUDDY_TT">Удалить {0} из Вашего списка друзей?</Resource>
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} был удалён из Вашего списка друзей.</Resource>
   </page>
   <page name="BUTTON">
@@ -233,10 +233,8 @@
     <Resource tag="BUTTON_UNDELETE_TT">Восстановить это сообщение</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Открыть</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Открыть эту тему</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE">Удалить из избранных</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE">Удалить из избранных</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных тем.</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных.</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">Удалить из избранных</Resource>  
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных тем.</Resource>    
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">Сообщение не может быть пустым.</Resource>
@@ -288,7 +286,7 @@
     <Resource tag="LOADING">Загрузка...</Resource>
     <Resource tag="MAX_ONLINE">Больше всего пользователей ({0}) было {1}.</Resource>
     <Resource tag="MODAL_NOTIFICATION_HEADER">Уведомление</Resource>
-    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">На форуме {0} зарегистрирован новый пользователь.</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="PAGES">Страницы</Resource>
@@ -484,14 +482,21 @@
     <Resource tag="TITLE">Редактировать подпись</Resource>
   </page>
   <page name="CP_SUBSCRIPTIONS">
+    <Resource tag="ALLTOPICS">Уведомление о [b]всех постах во всех темах[/b]</Resource>
+    <Resource tag="DAILY_DIGEST">Получать ежедневный дайджест активности на форуме?</Resource>
     <Resource tag="FORUM">Форум</Resource>
     <Resource tag="FORUMS">Форумы</Resource>
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="LASTPOSTLINK">{0} автор {1}</Resource>
+    <Resource tag="NONOTIFICATION">Отключить уведомления</Resource>
+    <Resource tag="NOTIFICATIONSELECTION">Выберите предпочтения для уведомлений по email:</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
+    <Resource tag="SAVED_NOTIFICATION_SETTING">Ностройки уведомления по Email обновлены</Resource>
     <Resource tag="TITLE">Подписки</Resource>
     <Resource tag="TOPIC">Tема</Resource>
     <Resource tag="TOPICS">Темы</Resource>
+    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Уведомления о темах  [b]в которых вы оставляли сообщения[/b] или отслеживали</Resource>
+    <Resource tag="TOPICSISUBSCRIBETO">Уведомления о темах или форумах которые Вы выбрали для отслеживания (список ниже)</Resource>
     <Resource tag="UNSUBSCRIBE">Отменить подписку</Resource>
     <Resource tag="VIEWS">Просмотров</Resource>
     <Resource tag="WARN_SELECTFORUMS">Пожалуйста, выберите форумы, чтобы отменить подписку из первых.</Resource>
@@ -552,6 +557,17 @@
     <Resource tag="UNDELETE_REASON">Причина восстановления</Resource>
     <Resource tag="WAIT">Вы не можете отправить сообщение в течение следующих {0:N0} секунд.</Resource>
   </page>
+  <page name="DIGEST">
+    <Resource tag="ACTIVETOPICS">Темы активные сегодня</Resource>
+    <Resource tag="COMMENTS">{0} комментариев</Resource>
+    <Resource tag="LASTBY"> {0}</Resource>
+    <Resource tag="LINK">Далее</Resource>
+    <Resource tag="NEWTOPICS">Новые темы</Resource>
+    <Resource tag="REMOVALLINK">Настройка уведомлений.</Resource>
+    <Resource tag="REMOVALTEXT">Больше не желаете получать уведомления по email?</Resource>
+    <Resource tag="STARTEDBY">Размещено пользователем {0}</Resource>
+    <Resource tag="SUBJECT">Активные и новые темы - Ежедневный дайджест для {0}</Resource>
+  </page>
   <page name="EMAILTOPIC">
     <Resource tag="FAILED">Невозможно отправить сообщение электронной почты.\n\n{0}</Resource>
     <Resource tag="MESSAGE">Сообщение:</Resource>
@@ -609,7 +625,10 @@
   <page name="INFO">
     <Resource tag="ACCESSDENIED">Вы попытались попасть в область, куда у Вас нет прав доступа.</Resource>
     <Resource tag="CONTINUE">Продолжить...</Resource>
+    <Resource tag="COOKIES">To use the forum you should enable cookies in your browser.</Resource>
     <Resource tag="DISABLED">Администратор форума отключил эту возможность.</Resource>
+    <Resource tag="ECMAREQUIRED">Для посещения форума Вы должны включить JavaScript в Вашем браузере.</Resource>
+    <Resource tag="ECMAVERSION">Эта версия JavaScript не поддерживается. Пожалуйста, установите боле еновую версию браузера./</Resource>
     <Resource tag="EXCEPTION">Вы вошли как</Resource>
     <Resource tag="FAILURE">Произошла системная ошибка при выполнении вашего запроса. Пожалуйста, свяжитесь с администратором форума и расскажите что вы делали, когда это случилось.</Resource>
     <Resource tag="INVALID">Вы передали неверное значение форуму.</Resource>
@@ -617,6 +636,9 @@
     <Resource tag="REGISTRATION">Сообщение было послано на адрес электронной почты, который вы сообщили при регистрации. Пожалуйста, прочитайте инструкции в сообщении, чтобы войти на сайт.</Resource>
     <Resource tag="SUSPENDED">Ваша учётная запись временно отключена. Она будет вновь активирована {0}.</Resource>
     <Resource tag="TITLE_ACCESSDENIED">Доступ запрещён</Resource>
+    <Resource tag="TITLE_COOKIES">Включите куки</Resource>
+    <Resource tag="TITLE_ECMAREQUIRED">Включите JavaScript</Resource>
+    <Resource tag="TITLE_ECMAVERSION">Версия JavaScript</Resource>
     <Resource tag="TITLE_EXCEPTION">Информация</Resource>
     <Resource tag="TITLE_FAILURE">Ошибка</Resource>
     <Resource tag="TITLE_INVALID">Недействительно</Resource>
@@ -786,6 +808,49 @@
     <Resource tag="TITLE">Отправить личное сообщение</Resource>
     <Resource tag="TO">Кому:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">Слишком много адресатов. Разрешено не более {0}.</Resource>
+  </page>
+  <page name="POLLEDIT">
+    <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить этот опрос?</Resource>
+    <Resource tag="ASK_POLL_DELETE_ALL">Вы действительно желаете полностью удалить этот опрос (из базы данных)?</Resource>
+    <Resource tag="ASK_POLLGROUP_DELETE">Вы действительно желаете удалить эту группу опросов?</Resource>
+    <Resource tag="ASK_POLLROUP_DELETE_ALL">Вы действительно желаете полностью удалить эту группу опросов (из базы данных)?</Resource>
+    <Resource tag="ASK_POLLROUP_DELETE_EVR">Вы действительно желаете удалить эту группу опросов из всех мест?</Resource>
+    <Resource tag="CHOICE">Вариант {0}:</Resource>
+    <Resource tag="CREATEPOLL">Создать опрос</Resource>
+    <Resource tag="EDITPOLL">Редактировать опрос</Resource>
+    <Resource tag="EXPIRE_BAD">Неверная дата окончания опроса</Resource>
+    <Resource tag="NEED_CHOICES">Опрос должен иметь по меньшей мере два варианта ответа.</Resource>
+    <Resource tag="NEED_QUESTION">Необходимо ввести вопрос.</Resource>
+    <Resource tag="POLL_EXPIRE">Проводить опрос в течение:</Resource>
+    <Resource tag="POLL_EXPIRE_EXPLAIN">[b]дней[/b] [ Оставьте пустым в случае бессрочного опроса ]</Resource>
+    <Resource tag="POLL_EXPIRED">Опрос завершён.</Resource>
+    <Resource tag="POLL_IMGWIDTH">Ширина изображения в пикс.:</Resource>
+    <Resource tag="POLL_NOPERM_GUEST">Гости не могут голосовать. Попробуйте зарегистрироваться.</Resource>
+    <Resource tag="POLL_PLEASEVOTE">Кликните чтобы проголосовать</Resource>
+    <Resource tag="POLL_VOTED">Вы уже голосовали.</Resource>
+    <Resource tag="POLL_WILLEXPIRE">Опрос завершится через {0} дней.</Resource>
+    <Resource tag="POLL_WILLEXPIRE_HOURS">Последние часы голосования!</Resource>
+    <Resource tag="POLLADD">Добавить опрос</Resource>
+    <Resource tag="POLLGROUP_ATTACHED">Нельзя добавить группу. Какая-то группа уже добавлена.</Resource>
+    <Resource tag="POLLGROUP_BOUND">Связанное голосование</Resource> 
+    <Resource tag="POLLGROUP_BOUNDWARN">Для просмотра результатов проголосуйте во всех опросах.</Resource>
+    <Resource tag="POLLGROUP_CLOSEDBOUND">Не показывать результаты пока не проголосованы все опросы в группе</Resource>
+    <Resource tag="POLLGROUP_LIST">Выберите существующую группу опросов:</Resource>
+    <Resource tag="POLLGROUPISBOUND">Результаты вашего голосования будут видны, когда Вы проголосуете во всех опросах.</Resource>
+    <Resource tag="POLLHEADER">Создание и редактирование опроса</Resource>
+    <Resource tag="POLLIMAGE_INVALID">Изображение или его путь недействительны для {0}.</Resource>
+    <Resource tag="POLLIMAGE_TEXT">Url изображения:</Resource>
+    <Resource tag="POLLOPTIONSHIDDEN_GUEST">Гости не могут видеть варианты опросов и его результаты. Попробуйте зарегистрироваться.</Resource>
+    <Resource tag="POLLQUESTION">Вопрос опроса:</Resource>
+    <Resource tag="POLLRESULTSHIDDEN">Вы не можете видеть результаты опроса до голосования.</Resource>
+    <Resource tag="POLLRESULTSHIDDEN_GUEST">Гости не могут видеть результаты опроса до голосования. Попробуйте зарегистрироваться.</Resource>
+    <Resource tag="POLLRESULTSHIDDEN_SHORT">Результаты скрыты</Resource>
+    <Resource tag="POLLSAVE">Сохранить опрос</Resource>
+    <Resource tag="REMOVEPOLL">Удалить опрос</Resource>
+    <Resource tag="REMOVEPOLL_ALL">Удалить опрос полностью</Resource>
+    <Resource tag="REMOVEPOLLGROUP">Удалить группу</Resource>
+    <Resource tag="REMOVEPOLLGROUP_ALL">Удалить группу полностью</Resource>
+    <Resource tag="REMOVEPOLLGROUP_EVERYWHERE">Удалить группу повсюду</Resource>
   </page>
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Объявление</Resource>

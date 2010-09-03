@@ -27,7 +27,7 @@
     <ItemTemplate>
       <tr>
         <td class="post">
-         <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' Style='<%# Eval("Style") %>'  runat="server"/>
+         <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' ReplaceName='<%# Convert.ToInt32(Eval("IsCrawler")) > 0 ? Eval("Browser").ToString() : String.Empty %>' Style='<%# Eval("Style") %>'  runat="server"/>
         </td>
         <td class="post">
         <a href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Eval("IP")) %>' title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"><%# Eval("IP") %></a>          
@@ -36,7 +36,7 @@
           <%# YafBBCode.EncodeHTML( YafUserProfile.GetProfile( Eval("UserName").ToString() ).Location ) %>
         </td>
          <td class="post">
-         <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((Eval("UserID") == DBNull.Value)? 0 : Eval("UserID")) %>' UserName='<%# Eval("UserName") %>' ForumPage='<%# Eval("ForumPage") %>' ForumID='<%# Convert.ToInt32((Eval("ForumID") == DBNull.Value)? 0 : Eval("ForumID")) %>' ForumName='<%# Eval("ForumName") %>' TopicID='<%# Convert.ToInt32((Eval("TopicID") == DBNull.Value)? 0 : Eval("TopicID")) %>' TopicName='<%# Eval("TopicName") %>' LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
+         <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((Eval("UserID") == DBNull.Value)? 0 : Eval("UserID")) %>' UserName='<%# Eval("UserName") %>'  ForumPage='<%# Eval("ForumPage") %>' ForumID='<%# Convert.ToInt32((Eval("ForumID") == DBNull.Value)? 0 : Eval("ForumID")) %>' ForumName='<%# Eval("ForumName") %>' TopicID='<%# Convert.ToInt32((Eval("TopicID") == DBNull.Value)? 0 : Eval("TopicID")) %>' TopicName='<%# Eval("TopicName") %>' LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
         </td>      
       </tr>
     		</ItemTemplate>

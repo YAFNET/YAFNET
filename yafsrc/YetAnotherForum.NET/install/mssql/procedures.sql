@@ -1338,12 +1338,12 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ActiveTime int,@StyledNicks bit=0) as
+create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ShowCrawlers bit=0,@ActiveTime int,@StyledNicks bit=0) as
 begin
 	-- delete non-active
 	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
-	-- select active
-	if @Guests<>0
+	-- select active	
+	if @Guests<>0 
 		select
 			a.UserID,
 			UserName = a.Name,
@@ -1354,24 +1354,60 @@ begin
 			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
-			Style = case(@StyledNicks)
+				Style = case(@StyledNicks)
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
-			else ''	 end,			
+			else ''	 end,				
 			UserCount = 1,
 			c.Login,
 			c.LastActive,
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
 			c.Browser,
-			c.Platform,
+			c.[Platform],
 			c.ForumPage
 		from
-			[{databaseOwner}].[{objectQualifier}User] a
-			inner join [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID
+			[{databaseOwner}].[{objectQualifier}User] a		
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID	
+				  
 		where
-			c.BoardID = @BoardID
-		order by
+			c.BoardID = @BoardID 	
+				
+		order by 
+			c.LastActive desc
+	else if @ShowCrawlers = 1 and @Guests = 0 
+		select
+			a.UserID,
+			UserName = a.Name,
+			c.IP,
+			c.SessionID,
+			c.ForumID,
+			c.TopicID,
+			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
+			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
+			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
+			IsHidden = ( a.IsActiveExcluded ),
+				Style = case(@StyledNicks)
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+			else ''	 end,				
+			UserCount = 1,
+			c.Login,
+			c.LastActive,
+			c.Location,
+			Active = DATEDIFF(minute,c.Login,c.LastActive),
+			c.Browser,
+			c.[Platform],
+			c.ForumPage
+		from
+			[{databaseOwner}].[{objectQualifier}User] a		
+			INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c ON c.UserID = a.UserID	
+				  
+		where
+			c.BoardID = @BoardID 	
+			   and ((c.Flags & 4) = 4 OR (c.Flags & 2) <> 2 OR  (c.Flags & 8) = 8)					  
+		order by 
 			c.LastActive desc
 	else
 		select
@@ -1384,6 +1420,7 @@ begin
 			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
 				Style = case(@StyledNicks)
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
@@ -1394,7 +1431,7 @@ begin
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
 			c.Browser,
-			c.Platform,
+			c.[Platform],
 			c.ForumPage
 		from
 			[{databaseOwner}].[{objectQualifier}User] a		
@@ -1402,7 +1439,8 @@ begin
 				  
 		where
 			c.BoardID = @BoardID and
-			not exists(
+			-- no guests
+			not exists(				
 				select 1 
 					from [{databaseOwner}].[{objectQualifier}UserGroup] x
 						inner join [{databaseOwner}].[{objectQualifier}Group] y ON y.GroupID=x.GroupID 
@@ -1413,7 +1451,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}active_list_user](@BoardID int, @UserID int, @Guests bit=0,@ActiveTime int,@StyledNicks bit=0) as
+create procedure [{databaseOwner}].[{objectQualifier}active_list_user](@BoardID int, @UserID int, @Guests bit=0, @ShowCrawlers bit = 0, @ActiveTime int,@StyledNicks bit=0) as
 begin
 		-- delete non-active
 	delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,GETUTCDATE() )>@ActiveTime
@@ -1430,6 +1468,42 @@ begin
 			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = ISNULL((select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),0),
+			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
+			IsHidden = ( a.IsActiveExcluded ),
+			Style = case(@StyledNicks)
+			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
+			else ''	 end,			
+			UserCount = 1,
+			c.Login,
+			c.LastActive,
+			c.Location,		
+			Active = DATEDIFF(minute,c.Login,c.LastActive),
+			c.Browser,
+			c.[Platform],
+			c.ForumPage
+		from
+			[{databaseOwner}].[{objectQualifier}User] a
+			inner join [{databaseOwner}].[{objectQualifier}Active] c 
+			ON c.UserID = a.UserID
+			inner join [{databaseOwner}].[{objectQualifier}vaccess] x
+			ON (x.ForumID = ISNULL(c.ForumID,0))						
+		where		
+			c.BoardID = @BoardID AND x.UserID = @UserID		
+		order by
+			c.LastActive desc
+		else if @ShowCrawlers = 1 and @Guests = 0 
+			select
+			a.UserID,
+			UserName = a.Name,
+			c.IP,
+			c.SessionID,
+			c.ForumID,
+			HasForumAccess = x.ReadAccess,			
+			c.TopicID,
+			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
+			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
+			IsGuest = ISNULL((select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),0),
+			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
 			Style = case(@StyledNicks)
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
@@ -1440,7 +1514,7 @@ begin
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
 			c.Browser,
-			c.Platform,
+			c.[Platform],
 			c.ForumPage
 		from
 			[{databaseOwner}].[{objectQualifier}User] a
@@ -1449,7 +1523,7 @@ begin
 			inner join [{databaseOwner}].[{objectQualifier}vaccess] x
 			ON (x.ForumID = ISNULL(c.ForumID,0))						
 		where		
-			c.BoardID = @BoardID AND x.UserID = @UserID		
+			c.BoardID = @BoardID AND x.UserID = @UserID	  and ((c.Flags & 4) = 4 OR (c.Flags & 2) <> 2 OR  (c.Flags & 8) = 8)		
 		order by
 			c.LastActive desc
 	else
@@ -1464,6 +1538,7 @@ begin
 			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			IsCrawler = CONVERT(int, SIGN((c.Flags & 8))),
 			IsHidden = ( a.IsActiveExcluded ),
 				Style = case(@StyledNicks)
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
@@ -1474,7 +1549,7 @@ begin
 			c.Location,
 			Active = DATEDIFF(minute,c.Login,c.LastActive),
 			c.Browser,
-			c.Platform,
+			c.[Platform],
 			c.ForumPage
 		from
 			[{databaseOwner}].[{objectQualifier}User] a		
@@ -1502,10 +1577,13 @@ begin
 		UserID		= a.UserID,
 		UserName	= b.Name,
 		IsHidden	= ( b.IsActiveExcluded ),
+		IsCrawler	= Convert(int,a.Flags & 8),		
 		Style = case(@StyledNicks)
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
 			else ''	 end,		
-		UserCount   = COUNT(a.UserID)
+		UserCount   = (SELECT COUNT(ac.UserID) from
+		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID),
+		Browser = a.Browser
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a 
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
@@ -1514,7 +1592,9 @@ begin
 	group by
 		a.UserID,
 		b.Name,
-		b.IsActiveExcluded
+		b.IsActiveExcluded,
+		a.Flags,
+		a.Browser
 	order by
 		b.Name
 end
@@ -1522,15 +1602,18 @@ GO
 
 
 create procedure [{databaseOwner}].[{objectQualifier}active_listtopic](@TopicID int,@StyledNicks bit = 0) as
-begin
+begin   
 		select
 		UserID		= a.UserID,
 		UserName	= b.Name,
-		IsHidden = ( b.IsActiveExcluded ),
+		IsHidden = ( b.IsActiveExcluded ),		
+		IsCrawler	= Convert(int,a.Flags & 8),
 		Style = case(@StyledNicks)
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
 			else ''	 end,		
-		UserCount   = COUNT(a.UserID)
+		UserCount   = (SELECT COUNT(ac.UserID) from
+		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID),
+		Browser = a.Browser
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a with(nolock)
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
@@ -1539,7 +1622,9 @@ begin
 	group by
 		a.UserID,
 		b.Name,
-		b.IsActiveExcluded
+		b.IsActiveExcluded,
+		a.Flags,
+		a.Browser		
 	order by
 		b.Name
 end
@@ -3651,20 +3736,23 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@ForumID	int = null,
 	@TopicID	int = null,
 	@MessageID	int = null,
+	@IsCrawler	bit = 0,
 	@DontTrack	bit = 0
 ) as
 begin
 	declare @UserID			int
 	declare @UserBoardID	int
-	declare @IsGuest		tinyint
+	declare @IsGuest		tinyint	
 	declare @rowcount		int
 	declare @PreviousVisit	datetime
 	declare @ActiveUpdate   tinyint
 	declare @CurrentTime	datetime
+	declare @ActiveFlags	int
 	
 	set implicit_transactions off
 	set @CurrentTime = GETUTCDATE()
-	   
+	-- set IsActiveNow ActiveFlag
+	set @ActiveFlags = 0 | 1;
 	if @UserKey is null
 	begin
 		select @UserID = UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and (Flags & 4)<>0 ORDER BY Joined DESC
@@ -3674,12 +3762,22 @@ begin
 			raiserror('Found %d possible guest users. There should be one and only one user marked as guest.',16,1,@rowcount)
 		end
 		set @IsGuest = 1
+		-- set IsGuest ActiveFlag
+		set @ActiveFlags = 0 | 2
 		set @UserBoardID = @BoardID
 	end else	
 	begin
 		select @UserID = UserID, @UserBoardID = BoardID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and ProviderUserKey=@UserKey
 		set @IsGuest = 0
+		-- set IsRegistered ActiveFlag
+		set @ActiveFlags = 0 | 4
 	end
+
+	if	@IsCrawler = 1
+	begin
+	-- set IsCrawler ActiveFlag
+	SET @ActiveFlags =  @ActiveFlags | 8
+	end 
 	-- Check valid ForumID
 	if @ForumID is not null and not exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID) begin
 		set @ForumID = null
@@ -3749,6 +3847,9 @@ begin
 	if @DontTrack != 1 and @UserID is not null and @UserBoardID=@BoardID begin
 		if exists(select 1 from [{databaseOwner}].[{objectQualifier}Active] where SessionID=@SessionID and BoardID=@BoardID)
 		begin
+		  -- user is not a crawler - use his session id
+		  if @IsCrawler != 1
+		  begin		   
 			update [{databaseOwner}].[{objectQualifier}Active] set
 				UserID = @UserID,
 				IP = @IP,
@@ -3758,14 +3859,33 @@ begin
 				TopicID = @TopicID,
 				Browser = @Browser,
 				Platform = @Platform,
-				ForumPage = @ForumPage
+				ForumPage = @ForumPage		
 			where SessionID = @SessionID
+			end
+			else
+			begin
+			-- search crawler by other parameters then seesion id
+			update [{databaseOwner}].[{objectQualifier}Active] set
+				UserID = @UserID,
+				IP = @IP,
+				LastActive = @CurrentTime ,
+				Location = @Location,
+				ForumID = @ForumID,
+				TopicID = @TopicID,
+				Browser = @Browser,
+				[Platform] = @Platform,
+				ForumPage = @ForumPage	
+			where [Platform] = @Platform AND Browser = @Browser AND IP = @IP
+			end
 		end
 		else begin	
-			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,Platform)
-			values(@SessionID,@BoardID,@UserID,@IP, @CurrentTime, @CurrentTime,@Location,@ForumID,@TopicID,@Browser,@Platform)
+		   -- we set @ActiveFlags ready flags if it's a crawler		
+			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,[Platform],Flags)
+			values(@SessionID,@BoardID,@UserID,@IP,@CurrentTime,@CurrentTime,@Location,@ForumID,@TopicID,@Browser,@Platform,@ActiveFlags)			
+
 			-- update max user stats
 			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
+			-- parameter to update active users cache if this is a new user
 			if @IsGuest=0
 				  begin
 				  set @ActiveUpdate = 1
@@ -3783,6 +3903,7 @@ begin
 		ActiveUpdate        = ISNULL(@ActiveUpdate,0),
 		PreviousVisit		= @PreviousVisit,	   
 		x.*,
+		IsCrawler           = @IsCrawler,
 		CategoryID			= @CategoryID,
 		CategoryName		= (select Name from [{databaseOwner}].[{objectQualifier}Category] where CategoryID = @CategoryID),
 		ForumName			= (select Name from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID),

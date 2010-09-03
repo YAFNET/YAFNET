@@ -932,6 +932,7 @@ namespace YAF.Classes.Data
       object forumID,
       object topicID,
       object messageID,
+      object isCrawler,
       object donttrack)
     {
       int nTries = 0;
@@ -954,6 +955,7 @@ namespace YAF.Classes.Data
             cmd.Parameters.AddWithValue("ForumID", forumID);
             cmd.Parameters.AddWithValue("TopicID", topicID);
             cmd.Parameters.AddWithValue("MessageID", messageID);
+            cmd.Parameters.AddWithValue("IsCrawler", isCrawler);
             cmd.Parameters.AddWithValue("DontTrack", donttrack);
 
             using (DataTable dt = YafDBAccess.Current.GetData(cmd))
@@ -1510,13 +1512,14 @@ namespace YAF.Classes.Data
     /// <returns>
     /// Returns a DataTable of active users
     /// </returns>
-    public static DataTable active_list(object boardID, object Guests, int activeTime, object styledNicks)
+    public static DataTable active_list(object boardID, object Guests, object showCrawlers, int activeTime, object styledNicks)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("active_list"))
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("Guests", Guests);
+        cmd.Parameters.AddWithValue("ShowCrawlers", showCrawlers);
         cmd.Parameters.AddWithValue("ActiveTime", activeTime);
         cmd.Parameters.AddWithValue("StyledNicks", styledNicks);
         return YafDBAccess.Current.GetData(cmd);
@@ -1543,7 +1546,7 @@ namespace YAF.Classes.Data
     /// <returns>
     /// Returns a DataTable of active users
     /// </returns>
-    public static DataTable active_list_user(object boardID, object userID, object Guests, int activeTime, object styledNicks)
+    public static DataTable active_list_user(object boardID, object userID, object Guests, object showCrawlers, int activeTime, object styledNicks)
     {
       using (SqlCommand cmd = YafDBAccess.GetCommand("active_list_user"))
       {
@@ -1551,6 +1554,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue("BoardID", boardID);
         cmd.Parameters.AddWithValue("UserID", userID);
         cmd.Parameters.AddWithValue("Guests", Guests);
+        cmd.Parameters.AddWithValue("ShowCrawlers", showCrawlers);
         cmd.Parameters.AddWithValue("ActiveTime", activeTime);
         cmd.Parameters.AddWithValue("StyledNicks", styledNicks);
         return YafDBAccess.Current.GetData(cmd);

@@ -177,7 +177,7 @@ namespace YAF.Pages.Admin
     {
       
         DataTable activeList =  DB.active_list(
-        PageContext.PageBoardID, true, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
+        PageContext.PageBoardID, true, true, PageContext.BoardSettings.ActiveListTime, PageContext.BoardSettings.UseStyledNicks);
         // Set colorOnly parameter to false, as we get active users style from database        
         if (PageContext.BoardSettings.UseStyledNicks)
         {

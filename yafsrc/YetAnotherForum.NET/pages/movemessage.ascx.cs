@@ -152,7 +152,7 @@ namespace YAF.Pages
       }
       else
       {
-        PageContext.AddLoadMessage(GetText("EmptyTopic"));
+        PageContext.AddLoadMessage(GetText("Empty_Topic"));
       }
     }
   }

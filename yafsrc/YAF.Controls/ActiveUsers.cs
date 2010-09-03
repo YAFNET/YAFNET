@@ -83,20 +83,20 @@ namespace YAF.Controls
     /// </summary>
     public bool TreatGuestAsHidden
     {
-      get
-      {
-        if (this.ViewState["TreatGuestAsHidden"] != null)
+        get
         {
-          return Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
+            if (this.ViewState["TreatGuestAsHidden"] != null)
+            {
+                return Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
+            }
+
+            return false;
         }
 
-        return false;
-      }
-
-      set
-      {
-        this.ViewState["TreatGuestAsHidden"] = value;
-      }
+        set
+        {
+            this.ViewState["TreatGuestAsHidden"] = value;
+        }
     }
 
     #endregion
@@ -128,18 +128,37 @@ namespace YAF.Controls
         // go through the table and process each row
         foreach (DataRow row in this.ActiveUserTable.Rows)
         {
+          
+          UserLink userLink;
           // indicates whether user link should be added or not
           bool addControl = true;
-
           // create new link and set its parameters
-          var userLink = new UserLink
-            {
-              UserID = Convert.ToInt32(row["UserID"]), 
-              Style =
-                this.PageContext.BoardSettings.UseStyledNicks
-                  ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(row["Style"].ToString(), false)
-                  : string.Empty
-            };
+          if ((int)row["IsCrawler"] > 0)
+          {
+            userLink = new UserLink
+                             {
+                                 ReplaceName = row["Browser"].ToString(),
+                                 UserID = Convert.ToInt32(row["UserID"]),
+                                 Style =
+                                     this.PageContext.BoardSettings.UseStyledNicks
+                                         ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(
+                                             row["Style"].ToString(), false)
+                                         : string.Empty
+                             };
+          }
+          else
+          {
+              userLink = new UserLink
+                             {
+                                 UserID = Convert.ToInt32(row["UserID"]),
+                                 Style =
+                                     this.PageContext.BoardSettings.UseStyledNicks
+                                         ? new StyleTransform(this.PageContext.Theme).DecodeStyleByString(
+                                             row["Style"].ToString(), false)
+                                         : string.Empty
+                             };
+          }
+           
 
           userLink.ID = "UserLink" + userLink.UserID;
 
@@ -148,15 +167,17 @@ namespace YAF.Controls
 
           if (userCount > 1)
           {
-            // add postfix if thre is more the one user of this name
+            // add postfix if there is more the one user of this name
             userLink.PostfixText = String.Format(" ({0})", userCount);
           }
 
+     
+
           // we might not want to add this user link if user is marked as hidden
           if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
-              (this.TreatGuestAsHidden && UserMembershipHelper.IsGuestUser(row["UserID"])))
+              (this.TreatGuestAsHidden && Convert.ToBoolean(row["IsGuest"])))
           {
-            // hidden user are always visible to admin and himself
+            // hidden user are always visible to admin and himself)
             if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
             {
               // show regardless...
@@ -178,7 +199,13 @@ namespace YAF.Controls
           // add user link if it's not supressed
           if (addControl)
           {
-            this.Controls.Add(userLink);
+              // vzrus: if guests there can be a control with the same id. 
+              UserLink ul = this.FindControlRecursiveAs<UserLink>(userLink.ID);
+              if (ul != null)
+              {
+                  this.Controls.Remove(ul);
+              }
+              this.Controls.Add(userLink);
           }
         }
       }

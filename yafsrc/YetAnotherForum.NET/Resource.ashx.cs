@@ -200,11 +200,11 @@ namespace YAF
       string browser = "{0} {1}".FormatWith(HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
       string platform = HttpContext.Current.Request.Browser.Platform;
       bool isSearchEngine;
-      bool isIgnoredForDisplay;
+      bool dontTrack;
       string userAgent = HttpContext.Current.Request.UserAgent;
 
       // try and get more verbose platform name by ref and other parameters             
-      UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out isIgnoredForDisplay);
+      UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
 
       YafServices.InitializeDb.Run();
 
@@ -228,21 +228,23 @@ namespace YAF
         userKey = user.ProviderUserKey;
       }
 
-      DataRow pageRow = DB.pageload(
-        HttpContext.Current.Session.SessionID,
-        boardID,
-        userKey,
-        HttpContext.Current.Request.UserHostAddress,
-        HttpContext.Current.Request.FilePath,
-        HttpContext.Current.Request.QueryString.ToString(),
-        browser,
-        platform,
-        null,
-        null,
-        null,
-        messageID,
-        // don't track if this is a search engine
-        isIgnoredForDisplay);
+        DataRow pageRow = DB.pageload(
+            HttpContext.Current.Session.SessionID,
+            boardID,
+            userKey,
+            HttpContext.Current.Request.UserHostAddress,
+            HttpContext.Current.Request.FilePath,
+            HttpContext.Current.Request.QueryString.ToString(),
+            browser,
+            platform,
+            null,
+            null,
+            null,
+            messageID,
+            // don't track if this is a search engine
+            // don't track if this is a search engine
+            isSearchEngine,
+            dontTrack);
 
       DataRow auldRow;
       if (pageRow != null)

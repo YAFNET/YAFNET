@@ -54,7 +54,7 @@ namespace YAF.Controls
       // Active users : Call this before forum_stats to clean up active users
       string key = YafCache.GetBoardCacheKey(Constants.Cache.UsersOnlineStatus);
       DataTable activeUsers = PageContext.Cache.GetItem(
-        key, (double) YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(false));
+        key, (double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout, () => YafServices.DBBroker.GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList));
 
       this.ActiveUsers1.ActiveUserTable = activeUsers;
 
@@ -150,7 +150,7 @@ namespace YAF.Controls
       }
 
       bool canViewActive = YafServices.Permissions.Check(PageContext.BoardSettings.ActiveUsersViewPermissions);
-      bool showGuestTotal = (activeGuests > 0) && PageContext.BoardSettings.ShowGuestsInDetailedActiveList;
+      bool showGuestTotal = (activeGuests > 0) && (PageContext.BoardSettings.ShowGuestsInDetailedActiveList || PageContext.BoardSettings.ShowCrawlersInActiveList);
       bool showActiveHidden = (activeHidden > 0) && PageContext.IsAdmin;
       if (canViewActive && ((showGuestTotal) || (activeMembers > 0 && (showGuestTotal || activeGuests <= 0)) || (showActiveHidden && (activeMembers > 0) && showGuestTotal)))
       {
@@ -188,7 +188,7 @@ namespace YAF.Controls
 
       if (activeGuests > 0)
       {
-          if (canViewActive && PageContext.BoardSettings.ShowGuestsInDetailedActiveList)
+          if (canViewActive && (PageContext.BoardSettings.ShowGuestsInDetailedActiveList || PageContext.BoardSettings.ShowCrawlersInActiveList))
           {
             sb.Append(
             String.Format(

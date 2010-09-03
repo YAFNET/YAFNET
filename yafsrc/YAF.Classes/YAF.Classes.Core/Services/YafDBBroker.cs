@@ -265,17 +265,21 @@ namespace YAF.Classes.Core
       return favoriteTopicList;
     }
 
+
     /// <summary>
     /// The get active list.
     /// </summary>
     /// <param name="guests">
     /// The guests.
     /// </param>
+    /// <param name="bots">
+    /// The bots.
+    /// </param>
     /// <returns>
     /// </returns>
-    public DataTable GetActiveList(bool guests)
+    public DataTable GetActiveList(bool guests, bool crawlers)
     {
-      return this.GetActiveList(YafContext.Current.BoardSettings.ActiveListTime, guests);
+        return this.GetActiveList(YafContext.Current.BoardSettings.ActiveListTime, guests, crawlers);
     }
 
     /// <summary>
@@ -289,12 +293,12 @@ namespace YAF.Classes.Core
     /// </param>
     /// <returns>
     /// </returns>
-    public DataTable GetActiveList(int activeTime, bool guests)
+    public DataTable GetActiveList(int activeTime, bool guests, bool crawlers)
     {
       return
         this.StyleTransformDataTable(
           DB.active_list(
-            YafContext.Current.PageBoardID, guests, activeTime, YafContext.Current.BoardSettings.UseStyledNicks));
+            YafContext.Current.PageBoardID, guests, crawlers, activeTime, YafContext.Current.BoardSettings.UseStyledNicks));
     }
 
     /// <summary>

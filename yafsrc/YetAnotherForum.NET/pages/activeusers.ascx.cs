@@ -79,21 +79,21 @@ namespace YAF.Pages
             {
               case 0:
                 // Show all users
-                activeUsers = this.GetActiveUsersData(this.PageContext.BoardSettings.ShowGuestsInDetailedActiveList);
+                activeUsers = this.GetActiveUsersData(true,this.PageContext.BoardSettings.ShowGuestsInDetailedActiveList);
                 this.RemoveHiddenUsers(ref activeUsers);
                 this.UserList.DataSource = activeUsers;
                 this.DataBind();
                 break;
               case 1:
                 // Show members
-                activeUsers = this.GetActiveUsersData(false);
+                activeUsers = this.GetActiveUsersData(false,false);
                 this.RemoveHiddenUsers(ref activeUsers);
                 this.UserList.DataSource = activeUsers;
                 this.DataBind();
                 break;
               case 2:
                 // Show guests
-                activeUsers = this.GetActiveUsersData(true);
+                activeUsers = this.GetActiveUsersData(true, this.PageContext.BoardSettings.ShowCrawlersInActiveList);
                 this.RemoveAllButGusts(ref activeUsers);
                 this.UserList.DataSource = activeUsers;
                 this.DataBind();
@@ -102,7 +102,7 @@ namespace YAF.Pages
                 // Show hidden                         
                 if (this.PageContext.IsAdmin)
                 {
-                  activeUsers = this.GetActiveUsersData(false);
+                  activeUsers = this.GetActiveUsersData(false,false);
                   this.RemoveAllButHiddenUsers(ref activeUsers);
                   this.UserList.DataSource = activeUsers;
                   this.DataBind();
@@ -130,13 +130,14 @@ namespace YAF.Pages
       YafBuildLink.Redirect(ForumPages.forum);
     }
 
-    private DataTable GetActiveUsersData(bool showGuests)
+    private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
     {
       // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
       DataTable activeUsers = DB.active_list_user(
         this.PageContext.PageBoardID,
         this.PageContext.PageUserID,
         showGuests,
+        showCrawlers,
         this.PageContext.BoardSettings.ActiveListTime,
         this.PageContext.BoardSettings.UseStyledNicks);
       // Set colorOnly parameter to false, as we get active users style from database        

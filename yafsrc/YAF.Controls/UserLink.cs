@@ -110,10 +110,16 @@ namespace YAF.Controls
         RenderMainTagAttributes(output);
 
         output.Write(HtmlTextWriter.TagRightChar);
-        
-        output.WriteEncodedText(displayName);
+        if (String.IsNullOrEmpty(this.ReplaceName))
+          {
+              output.WriteEncodedText(displayName);
+          }
+        else
+          {
+              output.WriteEncodedText(this.ReplaceName);
+          }
 
-        if (!isGuest)
+          if (!isGuest)
         {
           output.WriteEndTag("a");
         }

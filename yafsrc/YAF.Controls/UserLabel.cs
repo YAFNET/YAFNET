@@ -165,6 +165,26 @@ namespace YAF.Controls
         this.ViewState["UserID"] = value;
       }
     }
+    /// <summary>
+    /// The replace name of this user for the link
+    /// </summary>
+    public string ReplaceName
+    {
+        get
+        {
+            if (this.ViewState["ReplaceName"] != null)
+            {
+                return this.ViewState["ReplaceName"].ToString();
+            }
+
+            return string.Empty;
+        }
+
+        set
+        {
+            this.ViewState["ReplaceName"] = value;
+        }
+    }
 
     #endregion
 
@@ -189,10 +209,17 @@ namespace YAF.Controls
         this.RenderMainTagAttributes(output);
 
         output.Write(HtmlTextWriter.TagRightChar);
+        if (String.IsNullOrEmpty(this.ReplaceName))
+        {
+            output.WriteEncodedText(displayName);
+        }
+        else
+        {
+            output.WriteEncodedText(this.ReplaceName);
+        }
 
-        output.WriteEncodedText(displayName);
 
-        output.WriteEndTag("span");
+          output.WriteEndTag("span");
 
         if (!String.IsNullOrEmpty(this.PostfixText))
         {

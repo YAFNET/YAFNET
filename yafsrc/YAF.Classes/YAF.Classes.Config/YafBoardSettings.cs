@@ -1389,6 +1389,22 @@ namespace YAF.Classes
         }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether Show Crawlers In Active List.
+    /// </summary>
+    public bool ShowCrawlersInActiveList
+    {
+        get
+        {
+            return this._reg.GetValue<bool>("ShowCrawlersInActiveList", false);
+        }
+
+        set
+        {
+            this._reg.SetValue<bool>("ShowCrawlersInActiveList", value);
+        }
+    }
+
 
     /// <summary>
     /// Gets or sets a value indicating whether ShowGroups.

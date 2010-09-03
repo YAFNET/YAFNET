@@ -307,6 +307,17 @@ namespace YAF.Classes.Core
     }
 
     /// <summary>
+    ///  Gets a value indicating whether the current user IsCrawler (True).
+    /// </summary>
+    public bool IsCrawler
+    {
+        get
+        {
+            return AccessNotNull("IsCrawler");
+        }
+    }
+
+    /// <summary>
     /// Gets PageBoardID.
     /// </summary>
     public int PageBoardID
@@ -751,14 +762,15 @@ namespace YAF.Classes.Core
           string browser = "{0} {1}".FormatWith(HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
           string platform = HttpContext.Current.Request.Browser.Platform;
           bool isSearchEngine = false;
-          bool isIgnoredForDisplay = false;
+          bool dontTrack = false;
 
           string userAgent = HttpContext.Current.Request.UserAgent;
 
 
           // try and get more verbose platform name by ref and other parameters             
-          UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out isIgnoredForDisplay);
-
+          UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
+          dontTrack = !YafContext.Current.BoardSettings.ShowCrawlersInActiveList &&
+                                  dontTrack;
 
           int? categoryID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("c"));
           int? forumID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("f"));
@@ -795,7 +807,11 @@ namespace YAF.Classes.Core
 
           do
           {
-            pageRow = DB.pageload(
+            /*  if (userKey == DBNull.Value)
+              {
+                  isSearchEngine = true;
+              } */
+              pageRow = DB.pageload(
               HttpContext.Current.Session.SessionID,
               PageBoardID,
               userKey,
@@ -808,8 +824,10 @@ namespace YAF.Classes.Core
               forumID,
               topicID,
               messageID,
-              //// don't track if this is a search engine
-              isIgnoredForDisplay);
+              // don't track if this is a search engine
+              isSearchEngine,
+              dontTrack
+              );
 
             // if the user doesn't exist...
             if (user != null && pageRow == null)
@@ -820,7 +838,7 @@ namespace YAF.Classes.Core
                 throw new ApplicationException("Failed to use new user.");
               }
 
-              // if we've tried 2 times, they have no access
+              // if we've tried 5 times, they have no access
               if (tries++ > 5)
               {
                 // they have NO access -- they are a guest user.
@@ -859,7 +877,7 @@ namespace YAF.Classes.Core
 
               pageRow.Table.AcceptChanges();
             }
-            // vzrus: Current column count is 42 - change it if the total count changes
+            // vzrus: Current column count is 43 - change it if the total count changes
           }
           while (pageRow.Table.Columns.Count < 43 && auldRow == null);
 

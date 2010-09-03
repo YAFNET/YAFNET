@@ -175,15 +175,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox DoUrlReferrerSecurityCheck;
         
         /// <summary>
-        /// DateFormatFromLanguage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox DateFormatFromLanguage;
-        
-        /// <summary>
         /// CreateNntpUsers control.
         /// </summary>
         /// <remarks>
@@ -272,15 +263,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ActiveListTime;
-        
-        /// <summary>
-        /// ShowGuestsInDetailedActiveList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowGuestsInDetailedActiveList;
         
         /// <summary>
         /// AddDynamicPageMetaTags control.
@@ -427,15 +409,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox EnableIPInfoService;
         
         /// <summary>
-        /// IPInfoPageURL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox IPInfoPageURL;
-        
-        /// <summary>
         /// IPLocatorPath control.
         /// </summary>
         /// <remarks>
@@ -443,6 +416,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox IPLocatorPath;
+        
+        /// <summary>
+        /// IPInfoPageURL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox IPInfoPageURL;
         
         /// <summary>
         /// AllowPostToBlog control.
@@ -704,6 +686,24 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowModeratorList;
+        
+        /// <summary>
+        /// ShowGuestsInDetailedActiveList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowGuestsInDetailedActiveList;
+        
+        /// <summary>
+        /// ShowCrawlersInDetailedActiveList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowCrawlersInDetailedActiveList;
         
         /// <summary>
         /// ShowDeletedMessages control.
