@@ -176,6 +176,10 @@ namespace YAF.Classes.Utils
       {
           platform = "WebOS";
       }
+      else if (userAgent.IndexOf("Android") >= 0)
+      {
+          platform = "Android";
+      }
       else
       {
           // check if it's a search engine spider or an ignored UI string...
