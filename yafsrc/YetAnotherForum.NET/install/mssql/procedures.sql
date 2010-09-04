@@ -1582,7 +1582,7 @@ begin
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
 			else ''	 end,		
 		UserCount   = (SELECT COUNT(ac.UserID) from
-		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID),
+		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID and ac.ForumID = @ForumID),
 		Browser = a.Browser
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a 
@@ -1612,7 +1612,7 @@ begin
 			when 1 then  [{databaseOwner}].[{objectQualifier}get_userstyle](a.UserID)  
 			else ''	 end,		
 		UserCount   = (SELECT COUNT(ac.UserID) from
-		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID),
+		[{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID and ac.TopicID = @TopicID),
 		Browser = a.Browser
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a with(nolock)
@@ -3864,6 +3864,7 @@ begin
 			end
 			else
 			begin
+
 			-- search crawler by other parameters then seesion id
 			update [{databaseOwner}].[{objectQualifier}Active] set
 				UserID = @UserID,
@@ -3876,6 +3877,7 @@ begin
 				[Platform] = @Platform,
 				ForumPage = @ForumPage	
 			where [Platform] = @Platform AND Browser = @Browser AND IP = @IP
+			set @ActiveUpdate = 1
 			end
 		end
 		else begin	

@@ -252,7 +252,7 @@ namespace YAF
         // We should be sure that all columns are added
         do
         {
-          auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
+            auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
 
           foreach (DataColumn col in auldRow.Table.Columns)
           {
@@ -265,7 +265,7 @@ namespace YAF
 
           // vzrus: Current column count is 43 - change it if the total count changes
         }
-        while (pageRow.Table.Columns.Count < 43 && auldRow == null);
+        while (pageRow.Table.Columns.Count < 43);
       }
 
       return pageRow["DownloadAccess"].BinaryAnd(AccessFlags.Flags.DownloadAccess) ||

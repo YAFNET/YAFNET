@@ -132,8 +132,9 @@ namespace YAF.Controls
           UserLink userLink;
           // indicates whether user link should be added or not
           bool addControl = true;
+          bool isCrawler = (int) row["IsCrawler"] > 0;
           // create new link and set its parameters
-          if ((int)row["IsCrawler"] > 0)
+          if (isCrawler)
           {
             userLink = new UserLink
                              {
@@ -160,18 +161,19 @@ namespace YAF.Controls
           }
            
 
-          userLink.ID = "UserLink" + userLink.UserID;
-
+          userLink.ID = "UserLink" + userLink.UserID ;
+          if (isCrawler)
+          {
+              userLink.ID += userLink.ReplaceName; 
+          }
           // how many users of this type is present (valid for guests, others have it 1)
           int userCount = Convert.ToInt32(row["UserCount"]);
 
-          if (userCount > 1)
+          if (userCount > 1 && !isCrawler)
           {
             // add postfix if there is more the one user of this name
             userLink.PostfixText = String.Format(" ({0})", userCount);
           }
-
-     
 
           // we might not want to add this user link if user is marked as hidden
           if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
@@ -204,7 +206,7 @@ namespace YAF.Controls
               if (ul != null)
               {
                   this.Controls.Remove(ul);
-              }
+              }  
               this.Controls.Add(userLink);
           }
         }

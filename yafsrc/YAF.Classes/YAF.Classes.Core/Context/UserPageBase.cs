@@ -770,7 +770,7 @@ namespace YAF.Classes.Core
           // try and get more verbose platform name by ref and other parameters             
           UserAgentHelper.Platform(userAgent, HttpContext.Current.Request.Browser.Crawler, ref platform, out isSearchEngine, out dontTrack);
           dontTrack = !YafContext.Current.BoardSettings.ShowCrawlersInActiveList &&
-                                  dontTrack;
+                                  isSearchEngine;
 
           int? categoryID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("c"));
           int? forumID = ObjectExtensions.ValidInt(HttpContext.Current.Request.QueryString.GetFirstOrDefault("f"));
@@ -807,10 +807,6 @@ namespace YAF.Classes.Core
 
           do
           {
-            /*  if (userKey == DBNull.Value)
-              {
-                  isSearchEngine = true;
-              } */
               pageRow = DB.pageload(
               HttpContext.Current.Session.SessionID,
               PageBoardID,
@@ -865,6 +861,7 @@ namespace YAF.Classes.Core
           DataRow auldRow;
           do
           {
+
             auldRow = new YafDBBroker().ActiveUserLazyData((int)pageRow["UserID"]);
             if (auldRow != null)
             {
@@ -879,7 +876,7 @@ namespace YAF.Classes.Core
             }
             // vzrus: Current column count is 43 - change it if the total count changes
           }
-          while (pageRow.Table.Columns.Count < 43 && auldRow == null);
+          while (pageRow.Table.Columns.Count < 43);
 
           // save this page data to the context...
           // vzrus: it can be anywhere, but temporary is here. To reset active users cache if a new user is in the active list
