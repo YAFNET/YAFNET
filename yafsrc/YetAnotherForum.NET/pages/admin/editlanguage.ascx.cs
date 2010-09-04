@@ -408,7 +408,6 @@ namespace YAF.Pages.Admin
         /// </param>
         private void SaveClick(object sender, EventArgs e)
         {
-           
             UpdateLocalizedValues();
 
             SaveLanguageFile();
@@ -429,7 +428,7 @@ namespace YAF.Pages.Admin
             };
 
 
-            XmlWriter xw = XmlWriter.Create(Path.Combine(sLangPath, "test.xml"), xwSettings);
+            XmlWriter xw = XmlWriter.Create(Path.Combine(sLangPath, sXmlFile), xwSettings);
             xw.WriteStartDocument();
 
             // <Resources>
