@@ -1,6 +1,7 @@
 <%@ Import Namespace="YAF.Classes.Utils" %>
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PMList"
 	EnableTheming="true" Codebehind="PMList.ascx.cs" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
 <%@ Import Namespace="YAF.Classes.Core" %>
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 
@@ -19,16 +20,28 @@
 			<ItemTemplate>
 				<asp:CheckBox runat="server" ID="ItemCheck" /></ItemTemplate>
 			<FooterTemplate>
-				<YAF:ThemeButton runat="server" ID="MarkAsRead" CssClass="yafcssbigbutton leftItem"
+                <asp:UpdatePanel ID="upPanExport" runat="server">
+                <ContentTemplate>
+                  <YAF:ThemeButton runat="server" ID="MarkAsRead" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="MARK_ALL_ASREAD" OnClick="MarkAsRead_Click" Visible="<%#this.View != PMView.Outbox %>" />
-				<YAF:ThemeButton runat="server" ID="ArchiveSelected" CssClass="yafcssbigbutton leftItem"
+				  <YAF:ThemeButton runat="server" ID="ArchiveSelected" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="ARCHIVESELECTED" OnClick="ArchiveSelected_Click" Visible="<%#this.View == PMView.Inbox %>" />
-				<YAF:ThemeButton runat="server" ID="DeleteSelected" CssClass="yafcssbigbutton leftItem"
+                     <YAF:ThemeButton runat="server" ID="ExportSelected" CssClass="yafcssbigbutton leftItem"
+					TextLocalizedTag="EXPORTSELECTED" OnClick="ExportSelected_Click" />
+				  <YAF:ThemeButton runat="server" ID="DeleteSelected" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="DELETESELECTED" OnLoad="DeleteSelected_Load" OnClick="DeleteSelected_Click" />
-				<YAF:ThemeButton runat="server" ID="ArchiveAll" CssClass="yafcssbigbutton leftItem"
+				  <YAF:ThemeButton runat="server" ID="ArchiveAll" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="ARCHIVEALL" OnLoad="ArchiveAll_Load" OnClick="ArchiveAll_Click" Visible="<%#this.View == PMView.Inbox %>" />
-				<YAF:ThemeButton runat="server" ID="DeleteAll" CssClass="yafcssbigbutton leftItem"
+                  <YAF:ThemeButton runat="server" ID="ExportAll" CssClass="yafcssbigbutton leftItem"
+					TextLocalizedTag="EXPORTALL" OnClick="ExportAll_Click" />
+				  <YAF:ThemeButton runat="server" ID="DeleteAll" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="DELETEALL" OnLoad="DeleteAll_Load" OnClick="DeleteAll_Click" />
+                </ContentTemplate> 
+                <Triggers>
+                   <asp:PostBackTrigger ControlID="ExportSelected" />
+                   <asp:PostBackTrigger ControlID="ExportAll" />
+                </Triggers>
+              </asp:UpdatePanel>
 			</FooterTemplate>
 			<HeaderStyle Width="50px" />
 			<ItemStyle Width="50px" HorizontalAlign="Center" />
@@ -80,5 +93,17 @@
                   <asp:Label ID="PMInfoLink" runat="server" ></asp:Label>
                 </td>
             </tr>
+            <tr class="postheader">
+                <td class="post">
+                <hr />
+                  <asp:Label id="lblExportType" runat="server"></asp:Label>
+                  <asp:RadioButtonList runat="server" id="ExportType" RepeatDirection="Horizontal">
+                    <asp:ListItem Text="XML" Selected="True" Value="xml"></asp:ListItem>
+                    <asp:ListItem Text="CSV" Value="csv"></asp:ListItem>
+                    <asp:ListItem Text="Text" Value="txt"></asp:ListItem>
+                  </asp:RadioButtonList>
+                </td>
+            </tr>
   </table>
+  
 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />

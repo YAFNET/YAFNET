@@ -394,7 +394,11 @@
 		<Resource tag="SUBJECT">Subject</Resource>
 		<Resource tag="TITLE">Private Messages</Resource>
 		<Resource tag="TO">To</Resource>
-	</page>
+    <Resource tag="EXPORTFORMAT">Export Format:</Resource>
+    <Resource tag="MSG_NOSELECTED">No Message(s) Selected, nothing Exported.</Resource>
+    <Resource tag="EXPORTSELECTED">Export Selected</Resource>
+    <Resource tag="EXPORTALL">Export All</Resource>
+  </page>
 	<page name="CP_PROFILE">
 		<Resource tag="ARCHIVE">Archive</Resource>
 		<Resource tag="CHANGE_PASSWORD">Change Password</Resource>
