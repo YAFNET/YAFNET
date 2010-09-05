@@ -271,9 +271,9 @@ namespace YAF.Pages.Admin
       PageContext.Cache.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
       
       // Clearing cache with old permissions data...
-      this.PageContext.Cache.Remove((x) => x.StartsWith(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData)));
+      this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
 
-      // Done, redirect to role editing page
+     // Done, redirect to role editing page
       YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);
     }
 

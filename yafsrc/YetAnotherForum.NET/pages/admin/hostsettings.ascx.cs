@@ -388,7 +388,9 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void UserLazyDataCacheReset_Click(object sender, EventArgs e)
     {
-       this.RemoveCacheKey(Constants.Cache.ActiveUserLazyData);
+      // vzrus: remove all users lazy data 
+        this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
+        this.CheckCache();
     }
 
     /// <summary>

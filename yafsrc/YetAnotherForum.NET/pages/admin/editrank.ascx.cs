@@ -220,8 +220,8 @@ namespace YAF.Pages.Admin
         Convert.ToInt32(this.UsrAlbumImages.Text.Trim()));
 
       // Clearing cache with old permisssions data...
-      this.PageContext.Cache.Remove((x) => x.StartsWith(YafCache.GetBoardCacheKey(Constants.Cache.ActiveUserLazyData)));
-
+      this.PageContext.Cache.RemoveAllStartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty));
+     
       YafBuildLink.Redirect(ForumPages.admin_ranks);
     }
 
