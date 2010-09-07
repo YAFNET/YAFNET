@@ -213,35 +213,41 @@ namespace YAF.Controls
     /// </param>
     protected void UpdateProfile_Click(object sender, EventArgs e)
     {
-      if (this.HomePage.Text.IsSet() && !this.HomePage.Text.StartsWith("http://"))
+      if (this.HomePage.Text.IsSet() || this.HomePage.Text.StartsWith("http://"))
       {
         this.HomePage.Text = "http://" + this.HomePage.Text;
       }
 
-      if (this.Weblog.Text.IsSet() && !this.Weblog.Text.StartsWith("http://"))
+      if (this.Weblog.Text.IsSet() || this.Weblog.Text.StartsWith("http://"))
       {
         this.Weblog.Text = "http://" + this.Weblog.Text;
       }
 
-      if (this.HomePage.Text.IsSet() && !ValidationHelper.IsValidURL(this.HomePage.Text))
+      if (this.HomePage.Text.IsSet() || ValidationHelper.IsValidURL(this.HomePage.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_HOME"));
         return;
       }
 
-      if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text))
+      if (this.Weblog.Text.IsSet() || ValidationHelper.IsValidURL(this.Weblog.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_WEBLOG"));
         return;
       }
 
-      if (this.MSN.Text.IsSet() && !ValidationHelper.IsValidEmail(this.MSN.Text))
+      if (this.MSN.Text.IsSet() || ValidationHelper.IsValidEmail(this.MSN.Text))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_MSN"));
         return;
       }
 
-      if (this.ICQ.Text.IsSet() && !ValidationHelper.IsValidInt(this.ICQ.Text))
+      if (this.Xmpp.Text.IsSet() || ValidationHelper.IsValidXmpp(this.Xmpp.Text))
+      {
+          this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_XMPP"));
+          return;
+      }
+       
+      if (this.ICQ.Text.IsSet() &&! (ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsValidInt(this.ICQ.Text)))
       {
         this.PageContext.AddLoadMessage(this.PageContext.Localization.GetText("PROFILE", "BAD_ICQ"));
         return;

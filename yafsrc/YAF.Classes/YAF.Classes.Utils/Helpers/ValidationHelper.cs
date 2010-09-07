@@ -25,6 +25,7 @@ namespace YAF.Classes.Utils
   /// </summary>
   public static class ValidationHelper
   {
+
     /// <summary>
     /// The is valid email.
     /// </summary>
@@ -40,6 +41,20 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
+    /// The is valid xmpp.
+    /// </summary>
+    /// <param name="xmpp">
+    /// The xmpp.
+    /// </param>
+    /// <returns>
+    /// The is valid xmpp.
+    /// </returns>
+    public static bool IsValidXmpp(string xmpp)
+    {
+        return IsValidEmail(xmpp);
+    }
+
+      /// <summary>
     /// The is valid url.
     /// </summary>
     /// <param name="url">
@@ -68,6 +83,31 @@ namespace YAF.Classes.Utils
       return int.TryParse(intstr, out value);
     }
 
+    /// <summary>
+    /// The is valid int.
+    /// </summary>
+    /// <param name="intstr">
+    /// The intstr.
+    /// </param>
+    /// <param name="lowerBound">
+    /// The lower Bound.
+    /// </param>
+    /// <param name="upperBound">
+    /// The upper Bound.
+    /// </param>
+    /// <returns>
+    /// The is valid int.
+    /// </returns> 
+    public static bool IsValidInt(string intstr, int lowerBound, int upperBound)
+    {
+        int value; 
+        if (int.TryParse(intstr, out value))
+        {
+            return value >= lowerBound && value <= upperBound;
+        }
+
+        return false;
+    }
 
     /// <summary>
     /// The value is a valid positive Int16.

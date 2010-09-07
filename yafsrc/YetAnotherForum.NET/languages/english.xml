@@ -334,6 +334,7 @@
 		<Resource tag="BAD_HOME">You have entered a invalid address for your home page.</Resource>
 		<Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
 		<Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
+    <Resource tag="BAD_XMPP">You have entered an invalid name for your XMPP account.</Resource>
 		<Resource tag="BAD_WEBLOG">You have entered a invalid address for your weblog.</Resource>
 		<Resource tag="BIRTHDAY">Birthday</Resource>
 		<Resource tag="CHANGE_EMAIL">Change Email Address</Resource>
