@@ -144,6 +144,7 @@ namespace YAF.Editors
         "FormatText('italic','')", 
         YafContext.Current.Localization.GetText("COMMON", "TT_ITALIC"), 
         "yafEditor/italic.gif");
+
       this.RenderButton(
         writer, 
         "underline", 
@@ -184,6 +185,21 @@ namespace YAF.Editors
         "FormatText('createlink','')", 
         YafContext.Current.Localization.GetText("COMMON", "TT_CREATELINK"), 
         "yafEditor/link.gif");
+
+      writer.WriteLine("&nbsp;");
+
+      this.RenderButton(
+      writer,
+      "unorderedlist",
+      "FormatText('unorderedlist','')",
+      YafContext.Current.Localization.GetText("COMMON", "TT_LISTUNORDERED"),
+      "yafEditor/unorderedlist.gif");
+      this.RenderButton(
+        writer,
+        "orderedlist",
+        "FormatText('orderedlist','')",
+        YafContext.Current.Localization.GetText("COMMON", "TT_LISTORDERED"),
+        "yafEditor/orderedlist.gif");
 
       writer.WriteLine("&nbsp;");
 

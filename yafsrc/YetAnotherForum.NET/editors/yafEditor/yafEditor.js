@@ -45,6 +45,7 @@ yafEditor.prototype.FormatText = function (command, option) {
             break;
         case "createlink":
             var url = prompt('Enter URL:', 'http://');
+
             if (url != '' && url != null) {
                 if (getCurrentSelection(textObj)) {
                     wrapSelection(textObj, '[url=' + url + ']', '[/url]');
@@ -58,6 +59,12 @@ yafEditor.prototype.FormatText = function (command, option) {
                         replaceSelection(textObj, '[url]' + url + '[/url]');
                 }
             }
+            break;
+        case "unorderedlist":
+            wrapSelection(textObj, "[list][*]", "[/list]");
+            break;
+        case "orderedlist":
+            wrapSelection(textObj, "[list=1][*]", "[/list]");
             break;
         case "color":
             wrapSelection(textObj, "[color=" + option + "]", "[/color]");
