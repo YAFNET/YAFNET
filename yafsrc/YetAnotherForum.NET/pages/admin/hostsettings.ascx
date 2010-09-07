@@ -22,7 +22,7 @@
                     </tr>
                     <tr>
                         <td class="postheader" width="50%">
-                            <b>SQL Server Version:</b><br />
+                            <strong>SQL Server Version:</strong><br />
                             What version of SQL Server is running.
                         </td>
                         <td class="post" width="50%">
@@ -31,10 +31,10 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Server Time Zone Correction:</b><br />
+                            <strong>Server Time Zone Correction:</strong><br />
                             Enter a positive or a negative value in minutes between -720 and 720, if the server
-                            UTC time value is incorrect: <b>
-                                <%# DateTime.UtcNow %></b>.
+                            UTC time value is incorrect: <strong>
+                                <%# DateTime.UtcNow %></strong>.
                         </td>
                         <td class="post">
                             <asp:TextBox ID="ServerTimeCorrection" runat="server"></asp:TextBox>
@@ -42,7 +42,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Forum Email:</b><br />
+                            <strong>Forum Email:</strong><br />
                             The from address when sending emails to users.
                         </td>
                         <td class="post">
@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Require Email Verification:</b><br />
+                            <strong>Require Email Verification:</strong><br />
                             If unchecked users will not need to verify their email address.
                         </td>
                         <td class="post">
@@ -60,7 +60,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use File Table:</b><br />
+                            <strong>Use File Table:</strong><br />
                             Uploaded files will be saved in the database instead of the file system.
                         </td>
                         <td class="post">
@@ -69,7 +69,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Maximum Number of Attachments per Post:</b><br />
+                            <strong>Maximum Number of Attachments per Post:</strong><br />
                             Maximum Number of uploaded files per Post. Set to 0 for unlimited.
                         </td>
                         <td class="post">
@@ -78,7 +78,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max File Size:</b><br />
+                            <strong>Max File Size:</strong><br />
                             Maximum size of uploaded files. Leave empty for no limit.
                         </td>
                         <td class="post">
@@ -87,7 +87,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Post editing timeout:</b><br />
+                            <strong>Post editing timeout:</strong><br />
                             Number of seconds while post may be modified without showing that to other users
                         </td>
                         <td class="post">
@@ -96,7 +96,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Web Service Token:</b><br />
+                            <strong>Web Service Token:</strong><br />
                             Token used to make secure web service calls. Constantly changing until you save
                             your host settings.
                         </td>
@@ -106,7 +106,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>User Name Max Length:</b><br />
+                            <strong>User Name Max Length:</strong><br />
                             Max Allowed User Name or User Display Name Max Length.
                         </td>
                         <td class="post">
@@ -115,7 +115,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max Report Post Chars:</b><br />
+                            <strong>Max Report Post Chars:</strong><br />
                             Max Allowed Report Post length.
                         </td>
                         <td class="post">
@@ -124,7 +124,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max Post Size:</b><br />
+                            <strong>Max Post Size:</strong><br />
                             Maximum size of a post in bytes. Set to 0 for unlimited (not recommended).
                         </td>
                         <td class="post">
@@ -133,7 +133,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Post Flood Delay:</b><br />
+                            <strong>Post Flood Delay:</strong><br />
                             Number of seconds before another post can be entered. (Does not apply to admins
                             or mods.)
                         </td>
@@ -143,7 +143,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Url Referrer Security Check:</b><br />
+                            <strong>Enable Url Referrer Security Check:</strong><br />
                             Validates all POSTs are from the same domain as the referring domain. (No cross
                             domain POSTs.)
                         </td>
@@ -153,7 +153,7 @@
                     </tr>      
                     <tr>
                         <td class="postheader">
-                            <b>Create NNTP user names:</b><br />
+                            <strong>Create NNTP user names:</strong><br />
                             Check to allow users to automatically be created when downloading usenet messages.
                             Only enable this in a test environment, and <em>NEVER</em> in a production environment.
                             The main purpose of this option is for performance testing.
@@ -169,7 +169,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Disable New Registrations:</b><br />
+                            <strong>Disable New Registrations:</strong><br />
                             New users won't be able to register.
                         </td>
                         <td class="post">
@@ -178,7 +178,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Custom Login Redirect Url:</b><br />
+                            <strong>Custom Login Redirect Url:</strong><br />
                             If login is disabled, this is the URL users will be redirected to when they need
                             to access the forum. Optionally add "{0}" to the URL to pass the return URL to the
                             custom Url. E.g. "http://mydomain.com/login.aspx?PreviousUrl={0}"
@@ -189,7 +189,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Require User Login:</b><br />
+                            <strong>Require User Login:</strong><br />
                             If checked, users will be required to log in before they can see any content. They'll
                             be redirected straight to login page.
                         </td>
@@ -204,7 +204,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Image Attachment Display Treshold:</b><br />
+                            <strong>Image Attachment Display Treshold:</strong><br />
                             Maximum size of picture attachment to display as picture. Pictures over this size
                             will be displayed as links.
                         </td>
@@ -214,7 +214,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Image Attachment Resize:</b><br />
+                            <strong>Enable Image Attachment Resize:</strong><br />
                             Attached images will be resized to thumbnails if they are too large.
                         </td>
                         <td class="post">
@@ -223,7 +223,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Image Attachment Resize Max Width:</b><br />
+                            <strong>Image Attachment Resize Max Width:</strong><br />
                             Maximum Width of the resized attachment images.
                         </td>
                         <td class="post">
@@ -232,7 +232,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Image Attachment Resize Max Height:</b><br />
+                            <strong>Image Attachment Resize Max Height:</strong><br />
                             Maximum Height of the resized attachment images.
                         </td>
                         <td class="post">
@@ -251,7 +251,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Active Users Time:</b><br />
+                            <strong>Active Users Time:</strong><br />
                             Number of minutes to display users in Active Users list.
                         </td>
                         <td class="post">
@@ -260,7 +260,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Add Dynamic Page Meta Tags:</b><br />
+                            <strong>Add Dynamic Page Meta Tags:</strong><br />
                             If checked, description and keywords meta tags will be created dynamically on the
                             post pages.
                         </td>
@@ -270,7 +270,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Display Name:</b><br />
+                            <strong>Enable Display Name:</strong><br />
                             If checked, YAF uses an alternative "Display Name" instead of the UserName.
                         </td>
                         <td class="post">
@@ -279,7 +279,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Display Gender:</b><br />
+                            <strong>Allow Display Gender:</strong><br />
                             If checked, the user gender is displayed in the user data in messages list.
                         </td>
                         <td class="post">
@@ -288,7 +288,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow User To Hide Himself:</b><br />
+                            <strong>Allow User To Hide Himself:</strong><br />
                             If checked, the user who checked it will not be visible in the active users list.
                         </td>
                         <td class="post">
@@ -297,7 +297,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Display Name Modification:</b><br />
+                            <strong>Allow Display Name Modification:</strong><br />
                             If checked, and "Enable Display Name" checked, allow modification of Display Name
                             in Edit Profile.
                         </td>
@@ -307,7 +307,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show User Online/Offline Status:</b><br />
+                            <strong>Show User Online/Offline Status:</strong><br />
                             If checked, current user status is displayed in the forum. Hidden users are always
                             displayed as offline.
                         </td>
@@ -317,7 +317,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Users to Thank Posts:</b><br />
+                            <strong>Allow Users to Thank Posts:</strong><br />
                             If checked users can thank posts they consider useful.
                         </td>
                         <td class="post">
@@ -326,7 +326,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Buddy List:</b><br />
+                            <strong>Enable Buddy List:</strong><br />
                             If checked users can add each other as buddies.
                         </td>
                         <td class="post">
@@ -335,7 +335,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show The Date on Which Users Have Thanked Posts:</b><br />
+                            <strong>Show The Date on Which Users Have Thanked Posts:</strong><br />
                             If checked users can see on which date posts have been thanked. (Thanks Mod must
                             be enabled first.)
                         </td>
@@ -345,7 +345,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Remove Nested Quotes:</b><br />
+                            <strong>Remove Nested Quotes:</strong><br />
                             Automatically remove nested [quote] tags from replies.
                         </td>
                         <td class="post">
@@ -354,7 +354,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Disable "NoFollow" Tag on Links on Posts Older Than:</b><br />
+                            <strong>Disable "NoFollow" Tag on Links on Posts Older Than:</strong><br />
                             If "NoFollow" is enabled above, this is disable no follow for links on messages
                             older then X days old (which takes into consideration last edited).
                         </td>
@@ -364,17 +364,17 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Smilies Display Grid Size:</b><br />
+                            <strong>Smilies Display Grid Size:</strong><br />
                             Number of smilies to show by number of rows and columns.
                         </td>
                         <td class="post">
-                            <asp:TextBox ID="SmiliesPerRow" runat="server"></asp:TextBox><b>x</b>
+                            <asp:TextBox ID="SmiliesPerRow" runat="server"></asp:TextBox><strong>x</strong>
                             <asp:TextBox ID="SmiliesColumns" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Display Points System:</b><br />
+                            <strong>Display Points System:</strong><br />
                             If checked, points for posting will be displayed for each user.
                         </td>
                         <td class="post">
@@ -383,7 +383,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Days before posts are locked:</b><br />
+                            <strong>Days before posts are locked:</strong><br />
                             Number of days until posts are locked and not possible to edit or delete. Set to
                             0 for no limit.
                         </td>
@@ -393,7 +393,7 @@
                     </tr>
                      <tr>
                         <td class="postheader">
-                            <b>Enable IP Info Service:</b><br />
+                            <strong>Enable IP Info Service:</strong><br />
                             If checked, we will get info about a registering user from a web service.
                         </td>
                         <td class="post">
@@ -402,7 +402,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>IP Info XML Web Service URL:</b><br />
+                            <strong>IP Info XML Web Service URL:</strong><br />
                             Set it to get details about user IPs as XML data.
                         </td>
                         <td class="post">
@@ -411,7 +411,7 @@
                     </tr>           
                     <tr>
                         <td class="postheader">
-                            <b>IP Info Page URL:</b><br />
+                            <strong>IP Info Page URL:</strong><br />
                             Set it to get details about IPs whereabouts as web page.
                         </td>
                         <td class="post">
@@ -421,7 +421,7 @@
                
                     <tr>
                         <td class="postheader">
-                            <b>Allow Post to Blog:</b><br />
+                            <strong>Allow Post to Blog:</strong><br />
                             If checked, post to blog feature is enabled.
                         </td>
                         <td class="post">
@@ -430,7 +430,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Email Topic:</b><br />
+                            <strong>Allow Email Topic:</strong><br />
                             If checked, users will be allowed to email topics.
                         </td>
                         <td class="post">
@@ -439,7 +439,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Quick Answer:</b><br />
+                            <strong>Allow Quick Answer:</strong><br />
                             Enable or disable display of the Quick Reply Box at the bottom of the Posts page
                         </td>
                         <td class="post">
@@ -448,7 +448,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable calendar:</b><br />
+                            <strong>Enable calendar:</strong><br />
                             Enables/disables calendar in profile, if it causes troubles on servers/for users
                             with different cultures.
                         </td>
@@ -463,7 +463,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allowed Poll Number:</b><br />
+                            <strong>Allowed Poll Number:</strong><br />
                             Number of polls, max value no more then 99.
                         </td>
                         <td class="post">
@@ -472,7 +472,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allowed Poll Choice Number:</b><br />
+                            <strong>Allowed Poll Choice Number:</strong><br />
                             Number of a question choices, max value no more then 99.
                         </td>
                         <td class="post">
@@ -481,7 +481,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Poll Votes Dependant on IP:</b><br />
+                            <strong>Poll Votes Dependant on IP:</strong><br />
                             By default, poll voting is tracked via username and client-side cookie. (One vote
                             per username. Cookies are used if guest voting is allowed.) If this option is enabled,
                             votes also use IP as a reference providing the most security against voter fraud.
@@ -492,7 +492,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Poll Changes After First Vote:</b><br />
+                            <strong>Allow Poll Changes After First Vote:</strong><br />
                             If enabled a poll creator can change choices and question after the first vote was
                             given.
                         </td>
@@ -502,7 +502,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Users View Poll Votes Before:</b><br />
+                            <strong>Allow Users View Poll Votes Before:</strong><br />
                             If enabled Users can see results before voting.
                         </td>
                         <td class="post">
@@ -511,7 +511,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Guests View Poll Options:</b><br />
+                            <strong>Allow Guests View Poll Options:</strong><br />
                             If enabled Guests can see poll choices.
                         </td>
                         <td class="post">
@@ -525,7 +525,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>CAPTCHA Size:</b><br />
+                            <strong>CAPTCHA Size:</strong><br />
                             Size (length) of the CAPTCHA random alphanumeric string
                         </td>
                         <td class="post">
@@ -534,7 +534,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>reCAPTCHA Public Key:</b><br />
+                            <strong>reCAPTCHA Public Key:</strong><br />
                             Enter a reCAPTCHA Public Key
                         </td>
                         <td class="post">
@@ -543,7 +543,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>reCAPTCHA Private Key:</b><br />
+                            <strong>reCAPTCHA Private Key:</strong><br />
                             Enter a reCAPTCHA Private Key
                         </td>
                         <td class="post">
@@ -552,7 +552,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable reCAPTCHA Multiple Instances:</b><br />
+                            <strong>Enable reCAPTCHA Multiple Instances:</strong><br />
                             Enable reCAPTCHA Recapture Multiple Instances(shared keys).
                         </td>
                         <td class="post">
@@ -561,7 +561,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable CAPTCHA for Guest Posting:</b><br />
+                            <strong>Enable CAPTCHA for Guest Posting:</strong><br />
                             Require guest users to enter the CAPTCHA when they post or reply to a forum message
                             (including Quick Reply).
                         </td>
@@ -571,7 +571,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable CAPTCHA for Post a Message:</b><br />
+                            <strong>Enable CAPTCHA for Post a Message:</strong><br />
                             Require users to enter the CAPTCHA when they post or reply to a forum message (including
                             Quick Reply).
                         </td>
@@ -581,7 +581,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable CAPTCHA/reCAPTCHA for Register:</b><br />
+                            <strong>Enable CAPTCHA/reCAPTCHA for Register:</strong><br />
                             Require users to enter the CAPTCHA when they register for the forum.
                         </td>
                         <td class="post">
@@ -599,7 +599,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max no. of PM Recipients:</b><br />
+                            <strong>Max no. of PM Recipients:</strong><br />
                             Maximum allowed recipients per on PM sent (0 = unlimited)
                         </td>
                         <td class="post">
@@ -613,7 +613,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Album Feature:</b><br />
+                            <strong>Enable Album Feature:</strong><br />
                             If checked, album feature is enabled.
                         </td>
                         <td class="post">
@@ -622,7 +622,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Maximum Image Size:</b><br />
+                            <strong>Maximum Image Size:</strong><br />
                             Maximum size of image in bytes a user can upload.
                         </td>
                         <td class="post">
@@ -631,7 +631,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Albums Per Page:</b><br />
+                            <strong>Albums Per Page:</strong><br />
                             Number of albums to show per page.
                         </td>
                         <td class="post">
@@ -640,7 +640,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Images Per Page:</b><br />
+                            <strong>Images Per Page:</strong><br />
                             Number of images to show per page.
                         </td>
                         <td class="post">
@@ -654,7 +654,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Message history archieve time</b><br />
+                            <strong>Message history archieve time</strong><br />
                             Number of days to keep message change history.
                         </td>
                         <td class="post">
@@ -663,7 +663,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Active Location Error Log:</b><br />
+                            <strong>Enable Active Location Error Log:</strong><br />
                             If checked, all active location path errors are logged.
                         </td>
                         <td class="post">
@@ -672,7 +672,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Enable Unhandled UserAgent Log:</b><br />
+                            <strong>Enable Unhandled UserAgent Log:</strong><br />
                             If checked, all unhandled UserAgent strings are logged.
                         </td>
                         <td class="post">
@@ -691,7 +691,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Avatars in Topic Listing:</b><br />
+                            <strong>Show Avatars in Topic Listing:</strong><br />
                             If this is checked, the topic pages will show avatar graphics.
                         </td>
                         <td class="post">
@@ -700,7 +700,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Moved Topics:</b><br />
+                            <strong>Show Moved Topics:</strong><br />
                             If this is checked, topics that are moved will leave behind a pointer to the new
                             topic.
                         </td>
@@ -710,7 +710,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Moderator List:</b><br />
+                            <strong>Show Moderator List:</strong><br />
                             If this is checked, the moderator list column is displayed in the forum list.
                         </td>
                         <td class="post">
@@ -719,7 +719,7 @@
                     </tr>
                                         <tr>
                         <td class="postheader">
-                            <b>Show Guests In Detailed Active List:</b><br />
+                            <strong>Show Guests In Detailed Active List:</strong><br />
                             If checked, Guests will be displayed In Detailed Active List.
                         </td>
                         <td class="post">
@@ -728,7 +728,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Crawlers In Active Lists:</b><br />
+                            <strong>Show Crawlers In Active Lists:</strong><br />
                             If checked, Crawlers will be displayed In Active Lists.
                         </td>
                         <td class="post">
@@ -737,7 +737,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Deleted Messages:</b><br />
+                            <strong>Show Deleted Messages:</strong><br />
                             If this is checked, messsages that are deleted will leave with some notes
                         </td>
                         <td class="post">
@@ -746,7 +746,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Deleted Messages to All:</b><br />
+                            <strong>Show Deleted Messages to All:</strong><br />
                             If Show Deleted Messages is checked above, checking this will force showing the
                             delete message stub to all users.<br />
                             If it remains unchecked, the deleted message stub will only show to administrators,
@@ -758,7 +758,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Links in New Window:</b><br />
+                            <strong>Show Links in New Window:</strong><br />
                             If this is checked, links in messages will open in a new window.
                         </td>
                         <td class="post">
@@ -767,7 +767,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show 'no-count' Forum Posts in Active Discussions :</b><br />
+                            <strong>Show 'no-count' Forum Posts in Active Discussions :</strong><br />
                             If this is checked, posts from no-count forums will be displayed in Active Topics.
                         </td>
                         <td class="post">
@@ -776,7 +776,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Forum Statistics:</b><br />
+                            <strong>Show Forum Statistics:</strong><br />
                             Enable or disable display of forum statistics on board index page.
                         </td>
                         <td class="post">
@@ -785,7 +785,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Active Discussions:</b><br />
+                            <strong>Show Active Discussions:</strong><br />
                             Enable or disable display of active discussions list on board index page.
                         </td>
                         <td class="post">
@@ -794,7 +794,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show RSS Links:</b><br />
+                            <strong>Show RSS Links:</strong><br />
                             Enable or disable display of RSS links throughout the forum.
                         </td>
                         <td class="post">
@@ -803,7 +803,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Forum Jump Box:</b><br />
+                            <strong>Show Forum Jump Box:</strong><br />
                             Enable or disable display of the Forum Jump Box throughout the forum.
                         </td>
                         <td class="post">
@@ -812,7 +812,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Shoutbox:</b><br />
+                            <strong>Show Shoutbox:</strong><br />
                             Enable or disable display of the Shoutbox (Chat Module) in the forum page.
                         </td>
                         <td class="post">
@@ -821,7 +821,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Shoutbox Smiles:</b><br />
+                            <strong>Show Shoutbox Smiles:</strong><br />
                             Enable or disable display of the Shoutbox (Chat Module) smiles.
                         </td>
                         <td class="post">
@@ -830,7 +830,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Groups:</b><br />
+                            <strong>Show Groups:</strong><br />
                             Should the groups a user is part of be visible on the posts page.
                         </td>
                         <td class="post">
@@ -839,7 +839,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Groups in profile:</b><br />
+                            <strong>Show Groups in profile:</strong><br />
                             Should the groups a user is part of be visible on the users profile page.
                         </td>
                         <td class="post">
@@ -848,7 +848,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Medals:</b><br />
+                            <strong>Show Medals:</strong><br />
                             Should medals of a user be visible on the posts page.
                         </td>
                         <td class="post">
@@ -857,7 +857,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Users Browsing:</b><br />
+                            <strong>Show Users Browsing:</strong><br />
                             Should users currently browsing forums/topics be displayed at the bottom.
                         </td>
                         <td class="post">
@@ -866,7 +866,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Page Generated Time:</b><br />
+                            <strong>Show Page Generated Time:</strong><br />
                             Enable or disable display of page generation text at the bottom of the page.
                         </td>
                         <td class="post">
@@ -875,7 +875,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show YetAnotherForum Version:</b><br />
+                            <strong>Show YetAnotherForum Version:</strong><br />
                             Enable or disable display of the version/date information the bottom of the page
                             (disable if your concerned about security).
                         </td>
@@ -885,7 +885,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Join Date:</b><br />
+                            <strong>Show Join Date:</strong><br />
                             If checked, join date will be displayed for each user.
                         </td>
                         <td class="post">
@@ -894,7 +894,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show "Rules" Before Registration:</b><br />
+                            <strong>Show "Rules" Before Registration:</strong><br />
                             Require that "rules" are shown and accepted before a new user can register.
                         </td>
                         <td class="post">
@@ -903,7 +903,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Active Discussions Count:</b><br />
+                            <strong>Active Discussions Count:</strong><br />
                             Number of records to display in Active Discussions list on forum index.
                         </td>
                         <td class="post">
@@ -912,7 +912,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use "NoFollow" Tag in Links:</b><br />
+                            <strong>Use "NoFollow" Tag in Links:</strong><br />
                             If this is checked, all links will have the nofollow tag.
                         </td>
                         <td class="post">
@@ -921,7 +921,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Posts Per Page:</b><br />
+                            <strong>Posts Per Page:</strong><br />
                             Number of posts to show per page.
                         </td>
                         <td class="post">
@@ -930,7 +930,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Topics Per Page:</b><br />
+                            <strong>Topics Per Page:</strong><br />
                             Number of topics to show per page.
                         </td>
                         <td class="post">
@@ -949,7 +949,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>2nd post ad:</b><br />
+                            <strong>2nd post ad:</strong><br />
                             Place the code that you wish to be displayed in each thread after the 1st post.
                             If you do not want an ad to be displayed, don't put anything in the box.
                         </td>
@@ -959,7 +959,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Show Ad to "Signed In" Users:</b><br />
+                            <strong>Show Ad to "Signed In" Users:</strong><br />
                             If checked, signed in users will see ads.
                         </td>
                         <td class="post">
@@ -978,7 +978,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Forum Editor:</b><br />
+                            <strong>Forum Editor:</strong><br />
                             Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox)
                             the .bin file must be in the \bin directory and the proper support files must be
                             put in \editors.
@@ -990,7 +990,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Accepted HTML Tags:</b><br />
+                            <strong>Accepted HTML Tags:</strong><br />
                             Comma seperated list (no spaces) of HTML tags that are allowed in posts using HTML
                             editors.
                         </td>
@@ -1000,7 +1000,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use styled nicks:</b><br />
+                            <strong>Use styled nicks:</strong><br />
                             If checked, you can use colors, font size change etc. for active users nicks.
                         </td>
                         <td class="post">
@@ -1019,7 +1019,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow User Change Theme:</b><br />
+                            <strong>Allow User Change Theme:</strong><br />
                             Should users be able to choose what theme they want to use?
                         </td>
                         <td class="post">
@@ -1028,7 +1028,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow User Change Language:</b><br />
+                            <strong>Allow User Change Language:</strong><br />
                             Should users be able to choose what language they want to use?
                         </td>
                         <td class="post">
@@ -1037,7 +1037,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Signatures:</b><br />
+                            <strong>Allow Signatures:</strong><br />
                             Allow users to create signatures.
                         </td>
                         <td class="post">
@@ -1046,7 +1046,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Private Messages:</b><br />
+                            <strong>Allow Private Messages:</strong><br />
                             Allow users to access and send private messages.
                         </td>
                         <td class="post">
@@ -1055,7 +1055,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Private Message Notifications:</b><br />
+                            <strong>Allow Private Message Notifications:</strong><br />
                             Allow users email notifications when new private messages arrive.
                         </td>
                         <td class="post">
@@ -1064,7 +1064,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Email Sending:</b><br />
+                            <strong>Allow Email Sending:</strong><br />
                             Allow users to send emails to each other.
                         </td>
                         <td class="post">
@@ -1073,7 +1073,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Email Change:</b><br />
+                            <strong>Allow Email Change:</strong><br />
                             Allow users to change their email address.
                         </td>
                         <td class="post">
@@ -1082,7 +1082,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Password Change:</b><br />
+                            <strong>Allow Password Change:</strong><br />
                             Allow users to change their passwords.
                         </td>
                         <td class="post">
@@ -1091,7 +1091,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Moderators View IPs:</b><br />
+                            <strong>Allow Moderators View IPs:</strong><br />
                             Allow to view IPs to moderators.
                         </td>
                         <td class="post">
@@ -1100,7 +1100,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Notification of All Posts on All topics:</b><br />
+                            <strong>Allow Notification of All Posts on All topics:</strong><br />
                             Allow users to get individual email notifications on all emails -- tons of email
                             traffic.
                         </td>
@@ -1110,7 +1110,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Report Post Permissions:</b><br />
+                            <strong>Report Post Permissions:</strong><br />
                             Allow reporting posts to:
                         </td>
                         <td class="post">
@@ -1123,7 +1123,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Profile Viewing Permissions:</b><br />
+                            <strong>Profile Viewing Permissions:</strong><br />
                             Allow viewing of other users' profiles to:
                         </td>
                         <td class="post">
@@ -1136,7 +1136,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Members List Viewing Permissions:</b><br />
+                            <strong>Members List Viewing Permissions:</strong><br />
                             Allow viewing of members list to:
                         </td>
                         <td class="post">
@@ -1149,7 +1149,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Active Users Viewing Permissions:</b><br />
+                            <strong>Active Users Viewing Permissions:</strong><br />
                             Allow viewing of active users list to:
                         </td>
                         <td class="post">
@@ -1162,7 +1162,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max Word Length:</b><br />
+                            <strong>Max Word Length:</strong><br />
                             Use it to limit number of a word characters in topic names and some other places.
                         </td>
                         <td class="post">
@@ -1171,7 +1171,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use SSL while logging in:</b><br />
+                            <strong>Use SSL while logging in:</strong><br />
                             Enforce a secure connection for users to log in.
                         </td>
                         <td class="post">
@@ -1180,7 +1180,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use SSL while registering:</b><br />
+                            <strong>Use SSL while registering:</strong><br />
                             Enforce a secure connection for users to register.
                         </td>
                         <td class="post">
@@ -1199,7 +1199,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>User box template:</b><br />
+                            <strong>User box template:</strong><br />
                             Template for rendering user box by user's posts.
                         </td>
                         <td class="post">
@@ -1208,7 +1208,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Avatar template:</b><br />
+                            <strong>Avatar template:</strong><br />
                             Template for rendering avatar.
                         </td>
                         <td class="post">
@@ -1217,7 +1217,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Medals template:</b><br />
+                            <strong>Medals template:</strong><br />
                             Template for rendering user's medals.
                         </td>
                         <td class="post">
@@ -1226,7 +1226,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Rank image template:</b><br />
+                            <strong>Rank image template:</strong><br />
                             Template for rendering rank image.
                         </td>
                         <td class="post">
@@ -1235,7 +1235,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Rank template:</b><br />
+                            <strong>Rank template:</strong><br />
                             Template for rendering user's rank.
                         </td>
                         <td class="post">
@@ -1244,7 +1244,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Groups template:</b><br />
+                            <strong>Groups template:</strong><br />
                             Template for rendering user's groups.
                         </td>
                         <td class="post">
@@ -1253,7 +1253,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Join date template:</b><br />
+                            <strong>Join date template:</strong><br />
                             Template for rendering user's joine date.
                         </td>
                         <td class="post">
@@ -1262,7 +1262,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Posts template:</b><br />
+                            <strong>Posts template:</strong><br />
                             Template for rendering user's posts.
                         </td>
                         <td class="post">
@@ -1271,7 +1271,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Points template:</b><br />
+                            <strong>Points template:</strong><br />
                             Template for rendering user's points.
                         </td>
                         <td class="post">
@@ -1280,7 +1280,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Location template:</b><br />
+                            <strong>Location template:</strong><br />
                             Template for rendering user's location.
                         </td>
                         <td class="post">
@@ -1289,7 +1289,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Gender:</b><br />
+                            <strong>Gender:</strong><br />
                             Template for rendering user's gender.
                         </td>
                         <td class="post">
@@ -1298,7 +1298,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Thanks From template:</b><br>
+                            <strong>Thanks From template:</strong><br>
                             Template for rendering user's thanks from.
                         </td>
                         <td class="post">
@@ -1307,7 +1307,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Thanks To template:</b><br>
+                            <strong>Thanks To template:</strong><br>
                             Template for rendering user's thanks to. aLLOW
                         </td>
                         <td class="post">
@@ -1326,7 +1326,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow remote avatars:</b><br />
+                            <strong>Allow remote avatars:</strong><br />
                             Can users use avatars from other websites.
                         </td>
                         <td class="post">
@@ -1335,7 +1335,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow avatar uploading:</b><br />
+                            <strong>Allow avatar uploading:</strong><br />
                             Can users upload avatars to their profile.
                         </td>
                         <td class="post">
@@ -1344,7 +1344,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Allow Gravatars:</b><br />
+                            <strong>Allow Gravatars:</strong><br />
                             Automatically use users Gavatars if they exist (note: may require additional processing).
                         </td>
                         <td class="post">
@@ -1353,7 +1353,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Gravatar Rating:</b><br />
+                            <strong>Gravatar Rating:</strong><br />
                             Max rating of Gravatar if allowed.
                         </td>
                         <td class="post">
@@ -1367,7 +1367,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Avatar Width:</b><br />
+                            <strong>Avatar Width:</strong><br />
                             Maximum width for avatars.
                         </td>
                         <td class="post">
@@ -1376,7 +1376,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Avatar Height:</b><br />
+                            <strong>Avatar Height:</strong><br />
                             Maximum height for avatars.
                         </td>
                         <td class="post">
@@ -1385,7 +1385,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Avatar Size:</b><br />
+                            <strong>Avatar Size:</strong><br />
                             Maximum size for avatars in bytes.
                         </td>
                         <td class="post">
@@ -1404,7 +1404,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Forum Statistics Cache Timeout:</b><br />
+                            <strong>Forum Statistics Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
@@ -1414,7 +1414,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Board User Statistics Cache Timeout:</b><br />
+                            <strong>Board User Statistics Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
@@ -1424,7 +1424,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Active Discussions Cache Timeout:</b><br />
+                            <strong>Active Discussions Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
@@ -1434,7 +1434,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Board Categories Cache Timeout:</b><br />
+                            <strong>Board Categories Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
@@ -1444,7 +1444,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Board Moderators Cache Timeout:</b><br />
+                            <strong>Board Moderators Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
@@ -1454,7 +1454,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Replace Rules Cache Timeout:</b><br />
+                            <strong>Replace Rules Cache Timeout:</strong><br />
                             Smilies, BB code, bad wordsm, etc. (in minutes)
                         </td>
                         <td class="post">
@@ -1464,7 +1464,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>First Post "Title" Cache Timeout:</b><br />
+                            <strong>First Post "Title" Cache Timeout:</strong><br />
                             First Post "Title" for SEO Cache Timeout (in minutes)
                         </td>
                         <td class="post">
@@ -1473,7 +1473,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Online User Status Cache Timeout:</b><br />
+                            <strong>Online User Status Cache Timeout:</strong><br />
                             You can fine-tune it depending on your site activity (in milliseconds)
                         </td>
                         <td class="post">
@@ -1482,7 +1482,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>User Lazy Data Cache Timeout:</b><br />
+                            <strong>User Lazy Data Cache Timeout:</strong><br />
                             In minutes
                         </td>
                         <td class="post">
@@ -1507,7 +1507,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Max Search Results:</b><br />
+                            <strong>Max Search Results:</strong><br />
                             Maximum number of search results that can be returned. Enter "0" for unlimited (not
                             recommended).
                         </td>
@@ -1517,7 +1517,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Use SQL Full Text Search:</b><br />
+                            <strong>Use SQL Full Text Search:</strong><br />
                             Toggle use of FULLTEXT SQL Server support on searches.
                         </td>
                         <td class="post">
@@ -1526,7 +1526,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Text Minimal Length:</b><br />
+                            <strong>Search Text Minimal Length:</strong><br />
                             Minimal length of the search string allowed.
                         </td>
                         <td class="post">
@@ -1535,7 +1535,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Text Maximum Length:</b><br />
+                            <strong>Search Text Maximum Length:</strong><br />
                             Maximum length of the search string allowed.
                         </td>
                         <td class="post">
@@ -1544,7 +1544,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Text Pattern:</b><br />
+                            <strong>Search Text Pattern:</strong><br />
                             Allowed search text (Regular Expression) pattern.
                         </td>
                         <td class="post">
@@ -1553,7 +1553,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Permissions:</b><br />
+                            <strong>Search Permissions:</strong><br />
                             Allow search to:
                         </td>
                         <td class="post">
@@ -1566,7 +1566,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Engine 1:</b><br />
+                            <strong>Search Engine 1:</strong><br />
                             Enter here a search engine pattern.
                         </td>
                         <td class="post">
@@ -1575,7 +1575,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Parameters For Search Engine 1:</b><br />
+                            <strong>Parameters For Search Engine 1:</strong><br />
                             Enter here a search engine parameters.
                         </td>
                         <td class="post">
@@ -1584,7 +1584,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Search Engine 2:</b><br />
+                            <strong>Search Engine 2:</strong><br />
                             Enter here a search engine pattern.
                         </td>
                         <td class="post">
@@ -1593,7 +1593,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>Parameters For Search Engine 2:</b><br />
+                            <strong>Parameters For Search Engine 2:</strong><br />
                             Enter here a search engine parameters.
                         </td>
                         <td class="post">
@@ -1602,7 +1602,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>External Search Permissions:</b><br />
+                            <strong>External Search Permissions:</strong><br />
                             Allow external search to:
                         </td>
                         <td class="post">
@@ -1615,7 +1615,7 @@
                     </tr>
                     <tr>
                         <td class="postheader">
-                            <b>External Search Results In A New Window:</b><br />
+                            <strong>External Search Results In A New Window:</strong><br />
                             Show External Search Results In A New Window.
                         </td>
                         <td class="post">

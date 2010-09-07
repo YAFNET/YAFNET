@@ -9,7 +9,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" style="width: 100px" valign="top">
-				<b>SQL Command:</b>
+				<strong>SQL Command:</strong>
 			</td>
 			<td class="post">
 				<asp:TextBox ID="txtQuery" runat="server" TextMode="MultiLine" Width="100%" Height="100px"></asp:TextBox>
@@ -24,7 +24,7 @@
 		<asp:PlaceHolder ID="ResultHolder" runat="server" Visible="false">
 			<tr>
 				<td class="postheader" style="width: 100px" valign="top">
-					<b>Result:</b>
+					<strong>Result:</strong>
 				</td>
 				<td class="post">
 					<asp:TextBox ID="txtResult" runat="server" TextMode="MultiLine"  Width="100%" Height="300px" Wrap="false" style="font-size: 8pt;"></asp:TextBox>

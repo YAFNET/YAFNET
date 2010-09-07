@@ -11,68 +11,68 @@
 				<asp:label id="ForumNameTitle" runat="server"></asp:label></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>Category:</b><br />
+			<td class="postheader"><strong>Category:</strong><br />
 				What category to put the forum under.</td>
 			<td class="post">
 				<asp:dropdownlist id="CategoryList" runat="server" OnSelectedIndexChanged="Category_Change" DataValueField="CategoryID" DataTextField="Name"></asp:dropdownlist></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>Parent Forum:</b><br />
+			<td class="postheader"><strong>Parent Forum:</strong><br />
 				Will make this forum a sub forum of another forum.</td>
 			<td class="post">
 				<asp:dropdownlist id="ParentList" runat="server"></asp:dropdownlist></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>Name:</b><br />
+			<td class="postheader"><strong>Name:</strong><br />
 				The name of the forum.</td>
 			<td class="post">
 				<asp:textbox id="Name" runat="server" cssclass="edit"></asp:textbox></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>Description:</b><br />
+			<td class="postheader"><strong>Description:</strong><br />
 				A description of the forum.</td>
 			<td class="post">
 				<asp:textbox id="Description" runat="server" cssclass="edit"></asp:textbox></td>
 		</tr>			
 		<tr>
-			<td class="postheader"><b>Remote URL:</b><br />
+			<td class="postheader"><strong>Remote URL:</strong><br />
 				Enter a url here, and instead of going to the forum you will be taken to this 
 				url instead.</td>
 			<td class="post">
 				<asp:textbox id="remoteurl" runat="server" cssclass="edit"></asp:textbox></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>Theme :</b><br />
+			<td class="postheader"><strong>Theme :</strong><br />
 				Choose a theme for this forum if its to differ from the standard Board theme.</td>
 			<td class="post">
 				<asp:Dropdownlist id="ThemeList" runat="server"></asp:Dropdownlist></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>SortOrder:</b><br />
+			<td class="postheader"><strong>SortOrder:</strong><br />
 				Sort order under this category.</td>
 			<td class="post">
 				<asp:textbox id="SortOrder" Style="width: 50px" MaxLength="5" runat="server"></asp:textbox></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>Hide if no access:</b><br />
+			<td class="postheader"><strong>Hide if no access:</strong><br />
 				Means that the forum will be hidden when the user don't have read access to it.</td>
 			<td class="post">
 				<asp:checkbox id="HideNoAccess" runat="server"></asp:checkbox></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>Locked:</b><br />
+			<td class="postheader"><strong>Locked:</strong><br />
 				If the forum is locked, no one can post or reply in this forum.</td>
 			<td class="post">
 				<asp:checkbox id="Locked" runat="server"></asp:checkbox></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>No posts count:</b><br />
+			<td class="postheader"><strong>No posts count:</strong><br />
 				If this is checked, posts in this forum will not count in the ladder system/forum statistics.</td>
 			<td class="post">
 				<asp:checkbox id="IsTest" runat="server"></asp:checkbox></td>
 		</tr>
 		<tr>
-			<td class="postheader"><b>Pre-moderated:</b><br />
+			<td class="postheader"><strong>Pre-moderated:</strong><br />
 				If the forum is moderated, posts have to be approved by a moderator.</td>
 			<td class="post">
 				<asp:checkbox id="Moderated" runat="server"></asp:checkbox></td>
@@ -80,7 +80,7 @@
 		<tr>
 			<td class="postheader">
 			
-			<b>Forum Image:</b><br />
+			<strong>Forum Image:</strong><br />
 			
 			This image will be shown next to this forum, 
 			if empty default image for the forum is used.</td>
@@ -93,13 +93,13 @@
 			</td>
 		</tr>		
 		<tr visible="false" runat="server">
-			<td class="postheader"><b>Styles:</b><br />
+			<td class="postheader"><strong>Styles:</strong><br />
 				Styles string to customize Forum Name. Leave it empty.</td>
 			<td class="post">
 				<asp:textbox id="Styles" runat="server"></asp:textbox></td>
 		</tr>		
 		<tr id="NewGroupRow" runat="server">
-			<td class="postheader"><b>Initial Access Mask:</b><br />
+			<td class="postheader"><strong>Initial Access Mask:</strong><br />
 				The initial access mask for all forums.</td>
 			<td class="post">
 				<asp:dropdownlist id="AccessMaskID" ondatabinding="BindData_AccessMaskID" runat="server"></asp:dropdownlist></td>

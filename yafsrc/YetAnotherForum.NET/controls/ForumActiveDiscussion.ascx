@@ -20,10 +20,9 @@
                     <ItemTemplate>
                         <tr>
                             <td class="post">
-                                &nbsp;<b><asp:HyperLink ID="TextMessageLink" runat="server" /></b>
-                                <YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />
-                                <YAF:UserLink ID="LastUserLink" runat="server" />
-                                (<asp:HyperLink ID="ForumLink" runat="server" />)
+                                &nbsp;<strong><asp:HyperLink ID="TextMessageLink" runat="server" /></strong>
+                                &nbsp;<YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />
+                                &nbsp;<YAF:UserLink ID="LastUserLink" runat="server" />&nbsp;(<asp:HyperLink ID="ForumLink" runat="server" />)
                             </td>
                             <td class="post" style="width: 30em; text-align: right;">
                                 <asp:Label ID="LastPostedDateLabel" runat="server" />

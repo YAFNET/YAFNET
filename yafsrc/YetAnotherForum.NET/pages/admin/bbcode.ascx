@@ -30,9 +30,9 @@
                     <asp:HiddenField ID="hiddenBBCodeID" runat="server" Value='<%# Eval("BBCodeID") %>' />
                 </td>
                 <td class="post">
-                    <b><%# Eval("Name") %></b></td>
+                    <strong><%# Eval("Name") %></strong></td>
                 <td class="post">
-                    <b><%# YafBBCode.LocalizeCustomBBCodeElement(Eval("Description").ToString()) %></b></td>                    
+                    <strong><%# YafBBCode.LocalizeCustomBBCodeElement(Eval("Description").ToString()) %></strong></td>                    
                 <td class="post">
                     <asp:LinkButton runat="server" Text="Edit" CommandName="edit" CommandArgument='<%# Eval("BBCodeID") %>'
                         ID="Linkbutton1">

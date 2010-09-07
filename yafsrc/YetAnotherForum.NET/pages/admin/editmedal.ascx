@@ -9,7 +9,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Name:</b><br />
+				<strong>Name:</strong><br />
 				Name of medal.</td>
 			<td class="post" colspan="2">
 				<asp:TextBox Style="width: 300px" ID="Name" runat="server" MaxLength="100" />
@@ -19,7 +19,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Description:</b><br />
+				<strong>Description:</strong><br />
 				Description of medal.</td>
 			<td class="post" colspan="2">
 				<asp:TextBox Style="width: 300px; height: 100px;" ID="Description" TextMode="MultiLine"
@@ -30,7 +30,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Message:</b><br />
+				<strong>Message:</strong><br />
 				Default message.</td>
 			<td class="post" colspan="2">
 				<asp:TextBox Style="width: 300px" ID="Message" runat="server" MaxLength="100" />
@@ -40,14 +40,14 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Category:</b><br />
+				<strong>Category:</strong><br />
 				Medal's category.</td>
 			<td class="post" colspan="2">
 				<asp:TextBox Style="width: 300px" ID="Category" MaxLength="50" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Medal Image:</b><br />
+				<strong>Medal Image:</strong><br />
 				This image will be shown in medal's info.</td>
 			<td class="post" colspan="2">
 				<asp:DropDownList ID="MedalImage" runat="server" />
@@ -56,7 +56,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Ribbon Bar Image:</b><br />
+				<strong>Ribbon Bar Image:</strong><br />
 				This image will be shown in medal's info (optional).</td>
 			<td class="post" colspan="2">
 				<asp:DropDownList ID="RibbonImage" runat="server" />
@@ -65,7 +65,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Small Medal Image:</b><br />
+				<strong>Small Medal Image:</strong><br />
 				This image will be shown in user box.</td>
 			<td class="post" colspan="2">
 				<asp:DropDownList ID="SmallMedalImage" runat="server" />
@@ -74,7 +74,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Small Ribbon Bar Image:</b><br />
+				<strong>Small Ribbon Bar Image:</strong><br />
 				This image will be shown in user box (optional).</td>
 			<td class="post" colspan="2">
 				<asp:DropDownList ID="SmallRibbonImage" runat="server" />
@@ -83,35 +83,35 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Sort Order:</b><br />
+				<strong>Sort Order:</strong><br />
 				Default sort order of a medal.</td>
 			<td class="post" colspan="2">
 				<asp:TextBox Style="width: 50px" ID="SortOrder" MaxLength="5" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Show Message:</b><br />
+				<strong>Show Message:</strong><br />
 				Means that message describing why user received medal will be shown/hidden.</td>
 			<td class="post" colspan="2">
 				<asp:CheckBox ID="ShowMessage" runat="server" Checked="true" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Allow Ribbon Bar:</b><br />
+				<strong>Allow Ribbon Bar:</strong><br />
 				Means that ribbon bar display of this medal will be allowed/disallowed.</td>
 			<td class="post" colspan="2">
 				<asp:CheckBox ID="AllowRibbon" runat="server" Checked="true" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Allow Hiding:</b><br />
+				<strong>Allow Hiding:</strong><br />
 				Means that users will be allowed/disallowed to hide this medal.</td>
 			<td class="post" colspan="2">
 				<asp:CheckBox ID="AllowHiding" runat="server" Checked="true" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Allow Re-Ordering:</b><br />
+				<strong>Allow Re-Ordering:</strong><br />
 				Means that users will be allowed/disallowed to change order of this medal.</td>
 			<td class="post" colspan="2">
 				<asp:CheckBox ID="AllowReOrdering" runat="server" Checked="true" /></td>
@@ -161,20 +161,20 @@
 		<asp:Panel runat="server" ID="AddGroupPanel" Visible="false">
 			<tr>
 				<td class="footer1" colspan="4" style="text-align: center;">
-					<b>
-						<asp:Label runat="server" ID="GroupMedalEditTitle" /></b>
+					<strong>
+						<asp:Label runat="server" ID="GroupMedalEditTitle" /></strong>
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<b>Group:</b></td>
+					<strong>Group:</strong></td>
 				<td class="post" colspan="2">
 					<asp:DropDownList runat="server" ID="AvailableGroupList" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<b>Message:</b><br />
+					<strong>Message:</strong><br />
 					Overrides default if specified (Optional)
 				</td>
 				<td class="post" colspan="2">
@@ -183,7 +183,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<b>Sort Order:</b><br />
+					<strong>Sort Order:</strong><br />
 					Overrides default if specified (Optional)
 				</td>
 				<td class="post" colspan="2">
@@ -192,7 +192,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<b>Show Only Ribbon Bar:</b><br />
+					<strong>Show Only Ribbon Bar:</strong><br />
 					If checked, only ribbon bar is displayed in user box.
 				</td>
 				<td class="post" colspan="2">
@@ -201,7 +201,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<b>Hide:</b><br />
+					<strong>Hide:</strong><br />
 					If checked, medal is not displayed in user box.
 				</td>
 				<td class="post" colspan="2">
@@ -260,8 +260,8 @@
 		<asp:Panel runat="server" ID="AddUserPanel" Visible="false">
 			<tr>
 				<td class="footer1" colspan="4" style="text-align: center;">
-					<b>
-						<asp:Label runat="server" ID="UserMedalEditTitle" /></b>
+					<strong>
+						<asp:Label runat="server" ID="UserMedalEditTitle" /></strong>
 				</td>
 			</tr>
 			<tr>
@@ -277,7 +277,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<b>Message:</b><br />
+					<strong>Message:</strong><br />
 					Overrides default if specified (Optional)
 				</td>
 				<td class="post" colspan="2">
@@ -286,7 +286,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<b>Sort Order:</b><br />
+					<strong>Sort Order:</strong><br />
 					Overrides default if specified (Optional)
 				</td>
 				<td class="post" colspan="2">
@@ -295,7 +295,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<b>Show Only Ribbon Bar:</b><br />
+					<strong>Show Only Ribbon Bar:</strong><br />
 					If checked, only ribbon bar is displayed in user box.
 				</td>
 				<td class="post" colspan="2">
@@ -304,7 +304,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					<b>Hide:</b><br />
+					<strong>Hide:</strong><br />
 					If checked, medal is not displayed in user box.
 				</td>
 				<td class="post" colspan="2">

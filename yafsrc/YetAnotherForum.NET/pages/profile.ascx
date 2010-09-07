@@ -56,9 +56,9 @@
 						<table width="100%" cellspacing="1" cellpadding="0">
 							<tr>
 								<td width="50%" class="postheader">
-									<b>
+									<strong>
 										<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="username" />
-									</b>
+									</strong>
 								</td>
 								<td width="50%" class="post">
 									<asp:Label ID="Name" runat="server" />
@@ -254,15 +254,15 @@
 								<ItemTemplate>
 									<tr class="postheader">
 										<td class="small" align="left" colspan="2">
-											<b>
+											<strong>
 												<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
-											</b><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
+											</strong><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
 												<%# YafServices.BadWordReplace.Replace(Container.DataItemToField<string>("Subject")) %>
 											</a>
 											<br />
-											<b>
+											<strong>
 												<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="posted" />
-											</b>
+											</strong>
 											<%# YafServices.DateTime.FormatDateTime(Container.DataItemToField<DateTime>("Posted"))%>
 										</td>
 									</tr>

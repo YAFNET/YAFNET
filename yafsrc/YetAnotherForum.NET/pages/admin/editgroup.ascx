@@ -10,7 +10,7 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <b>Name:</b><br />
+                <strong>Name:</strong><br />
                 Name of this role.
             </td>
             <td class="post" width="50%">
@@ -20,7 +20,7 @@
         </tr>
         <tr>
             <td class="postheader">
-                <b>Is Start:</b><br />
+                <strong>Is Start:</strong><br />
                 If this is checked, all new users will be a member of this role.
             </td>
             <td class="post">
@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <td class="postheader">
-                <b>Is Forum Moderator:</b><br />
+                <strong>Is Forum Moderator:</strong><br />
                 When this is checked, members of this role will have some admin access rights in
                 YAF.
             </td>
@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <td class="postheader">
-                <b>Is Admin:</b><br />
+                <strong>Is Admin:</strong><br />
                 Means that users in this role are admins in YAF.
             </td>
             <td class="post">
@@ -48,7 +48,7 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <b>PMessages:</b><br />
+                <strong>PMessages:</strong><br />
                 Max Private Messages allowed to Group members.
             </td>
             <td class="post" width="50%">
@@ -57,7 +57,7 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <b>Description:</b><br />
+                <strong>Description:</strong><br />
                 Enter here a role description.
             </td>
             <td class="post" width="50%">
@@ -66,7 +66,7 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <b>Max number of chars in a user signature:</b><br />
+                <strong>Max number of chars in a user signature:</strong><br />
                 Max number of chars in a user signature in the role.
             </td>
             <td class="post" width="50%">
@@ -75,7 +75,7 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <b>User signature BBCodes:</b><br />
+                <strong>User signature BBCodes:</strong><br />
                 Comma separated BBCodes allowed in a user signature in the role.
             </td>
             <td class="post" width="50%">
@@ -84,7 +84,7 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <b>User signature HTML tags:</b><br />
+                <strong>User signature HTML tags:</strong><br />
                 Comma separated HTML tags allowed in a user signature in the group.
             </td>
             <td class="post" width="50%">
@@ -93,7 +93,7 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <b>User Albums Number:</b><br />
+                <strong>User Albums Number:</strong><br />
                 Integer value for a user allowed albums number.
             </td>
             <td class="post" width="50%">
@@ -102,7 +102,7 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <b>Total Album Images Number:</b><br />
+                <strong>Total Album Images Number:</strong><br />
                 Integer value for a user allowed images number in ALL albums.
             </td>
             <td class="post" width="50%">
@@ -111,7 +111,7 @@
         </tr>
         <tr>
             <td class="postheader" style="width: 50%">
-                <b>Priority:</b><br />
+                <strong>Priority:</strong><br />
                 Enter here priority for different tasks.
             </td>
             <td class="post" style="width: 50%">
@@ -120,7 +120,7 @@
         </tr>
         <tr>
             <td class="postheader" width="50%">
-                <b>Style:</b><br />
+                <strong>Style:</strong><br />
                 Enter here a combined style string for coloured nicks.
             </td>
             <td class="post" width="50%">
@@ -129,7 +129,7 @@
         </tr>
         <tr runat="server" visible="false" id="IsGuestTR">
             <td class="postheader">
-                <b>Is Guest:</b><br />
+                <strong>Is Guest:</strong><br />
                 This flag is internal and makes the role unavailable to .NET membership. Never assign
                 this role to any users except the (1) guest user. If you do flag this role as IsGuest,
                 the guest user must a member of it. Never use this flag in conjunction with any
@@ -141,7 +141,7 @@
         </tr>
         <tr runat="server" id="NewGroupRow">
             <td class="postheader">
-                <b>Initial Access Mask:</b><br />
+                <strong>Initial Access Mask:</strong><br />
                 The initial access mask for all forums.
             </td>
             <td class="post">
@@ -168,9 +168,9 @@
                 <tr>
                     <td class="postheader">
                         <asp:Label ID="ForumID" Visible="false" runat="server" Text='<%# Eval( "ForumID") %>'></asp:Label>
-                        <b>
+                        <strong>
                             <%# Eval( "ForumName") %>
-                        </b>
+                        </strong>
                         <br />
                         Board:
                         <%# Eval( "BoardName") %>

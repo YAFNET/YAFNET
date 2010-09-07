@@ -152,7 +152,7 @@ namespace YAF.Pages
           this.Title.Text = GetText("title_exception");
 
           // exception message
-          this.Info.Text = string.Format("{1} <b>{0}</b>.", PageContext.PageUserName, GetText("exception"));
+          this.Info.Text = string.Format("{1} <strong>{0}</strong>.", PageContext.PageUserName, GetText("exception"));
 
           // redirect to forum main after 2 seconds
           RefreshTime = 2;

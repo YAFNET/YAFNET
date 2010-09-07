@@ -18,7 +18,7 @@
     </asp:PlaceHolder>
     <tr>
 			<td class="postheader">
-			<b>Option:</b></td>
+			<strong>Option:</strong></td>
 			<td class="post">
 				<asp:RadioButtonList ID="rblPasswordResetFunction" runat="server" AutoPostBack="true" OnSelectedIndexChanged="rblPasswordResetFunction_SelectedIndexChanged">
 					<asp:ListItem Selected="True" Text="Reset Password and Email New Password to User" Value="reset" />
@@ -34,11 +34,11 @@
     <asp:PlaceHolder ID="ChangePasswordHolder" runat="server" Visible="false">
     <tr>    
         <td class="postheader">
-            <b>New Password:</b><br />
+            <strong>New Password:</strong><br />
             New user password.
             </td>
         <td class="post" width="50%">
-            <b>Membership Password Requirements:</b>
+            <strong>Membership Password Requirements:</strong>
             <br /><asp:Label ID="lblPassRequirements" runat="server"></asp:Label>  
             <br /><br />         
             <asp:TextBox runat="server" ID="txtNewPassword" TextMode="Password" />
@@ -49,7 +49,7 @@
     </tr>
     <tr>    
         <td class="postheader">
-            <b>Confirm Password:</b><br />
+            <strong>Confirm Password:</strong><br />
             Confirm the new password.
             </td>
         <td class="post" width="50%">
@@ -62,7 +62,7 @@
     </tr>    
     <tr>
         <td class="postheader">
-            <b>Send Email Notification:</b><br />
+            <strong>Send Email Notification:</strong><br />
             Email the user a notification of their new password?</td>
         <td class="post" width="50%">
             <asp:CheckBox runat="server" ID="chkEmailNotify" />

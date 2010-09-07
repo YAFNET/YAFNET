@@ -22,15 +22,15 @@
         </tr>
         <tr>
             <td class="postheader">
-                <b>
+                <strong>
                     <YAF:UserLink ID="FromUserLink" runat="server" UserID='<%# Convert.ToInt32(Eval( "FromUserID" )) %>' />
-                </b>
+                </strong>
             </td>
             <td class="postheader" width="80%">
                 <div class="leftItem postedLeft">
-                    <b>
+                    <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="posted" />
-                    </b>
+                    </strong>
                     <%# YafServices.DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
                 </div>
                 <div class="rightItem postedRight">

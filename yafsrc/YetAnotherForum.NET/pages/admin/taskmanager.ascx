@@ -27,8 +27,8 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <b>
-                            <%# Eval("Key") %></b>
+                        <strong>
+                            <%# Eval("Key") %></strong>
                             <asp:PlaceHolder ID="StopTaskHolder" runat="server" Visible="<%# Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.IsStoppable() %>">
                             [<asp:LinkButton ID="stop" Text="Stop Task" runat="server" CommandName="stop" CommandArgument=<%# Eval("Key") %>></asp:LinkButton>]
                         </asp:PlaceHolder>

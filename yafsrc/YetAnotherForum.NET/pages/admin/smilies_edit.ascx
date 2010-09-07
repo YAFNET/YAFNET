@@ -9,13 +9,13 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Code:</b></td>
+				<strong>Code:</strong></td>
 			<td class="post" width="50%">
 				<asp:TextBox ID="Code" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Icon:</b></td>
+				<strong>Icon:</strong></td>
 			<td class="post" width="50%">
 				<asp:DropDownList ID="Icon" runat="server" />
 				&nbsp;
@@ -24,13 +24,13 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Emotion:</b></td>
+				<strong>Emotion:</strong></td>
 			<td class="post" width="50%">
 				<asp:TextBox ID="Emotion" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Sort Order:</b></td>
+				<strong>Sort Order:</strong></td>
 			<td class="post" width="50%">
 				<asp:TextBox ID="SortOrder" runat="server" Text="0" MaxLength="3" /></td>
 		</tr>

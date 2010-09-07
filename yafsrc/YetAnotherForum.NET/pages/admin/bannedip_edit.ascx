@@ -9,14 +9,14 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Mask:</b><br />
+				<strong>Mask:</strong><br />
 				The ip address to ban. You can use wildcards (127.0.0.*).</td>
 			<td class="post" width="50%">
 				<asp:TextBox ID="mask" runat="server"></asp:TextBox></td>
 		</tr>
 			<tr>
 			<td class="postheader" width="50%">
-				<b>Reason:</b><br />
+				<strong>Reason:</strong><br />
 				The reason why the ip was banned.</td>
 			<td class="post" width="50%">
 				<asp:TextBox ID="BanReason" runat="server"></asp:TextBox></td>

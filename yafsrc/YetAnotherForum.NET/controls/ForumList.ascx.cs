@@ -240,11 +240,11 @@ namespace YAF.Controls
       {
         // TODO : group link should point to group info page (yet unavailable)
         /*output = String.Format(
-						"<b><a href=\"{0}\">{1}</a></b>",
+						"<strong><a href=\"{0}\">{1}</a></strong>",
 						YafBuildLink.GetLink(ForumPages.forum, "g={0}", row["ModeratorID"]),
 						row["ModeratorName"]
 						);*/
-        output = String.Format("<b>{0}</b>", row["ModeratorName"]);
+        output = String.Format("<strong>{0}</strong>", row["ModeratorName"]);
       }
 
       return output;

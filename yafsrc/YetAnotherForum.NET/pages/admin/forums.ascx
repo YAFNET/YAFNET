@@ -28,8 +28,8 @@
 					<ItemTemplate>
 						<tr class="post">
 							<td align="left">
-								<b>
-									<%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %></b><br />
+								<strong>
+									<%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %></strong><br />
 								<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
 							</td>
 							<td align="center">

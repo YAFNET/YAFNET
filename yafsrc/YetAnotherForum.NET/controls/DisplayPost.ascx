@@ -6,17 +6,17 @@
 <tr class="postheader">		
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" class="postUser" runat="server">
-        <a name="post<%# DataRow["MessageID"] %>" /><b>						
+        <a name="post<%# DataRow["MessageID"] %>" /><strong>						
             <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' Style='<%#DataRow["Style"]%>' />
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
-        </b>
+        </strong>
     </td>
     <td width="80%" class="postPosted" colspan='<%#GetIndentSpan()%>'>
         <div class="leftItem postedLeft">        
-            <b><a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
+            <strong><a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
                 #<%# Convert.ToInt32((DataRow["Position"]))+1 %></a>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
-                :</b>
+                :</strong>
             <%# YafServices.DateTime.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
             </div>
         <div class="rightItem postedRight">

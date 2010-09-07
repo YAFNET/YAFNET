@@ -16,7 +16,7 @@
 		<tr>
 			<td class="postheader">
 			
-			<b>Category Name:</b><br />
+			<strong>Category Name:</strong><br />
 			
 			Name of this category.</td>
 			
@@ -29,7 +29,7 @@
 		<tr>
 			<td class="postheader">
 			
-			<b>Category Image:</b><br />
+			<strong>Category Image:</strong><br />
 			
 			This image will be shown next to this category.</td>
 			
@@ -43,7 +43,7 @@
 		<tr>
 			<td class="postheader">
 			
-			<b>Sort Order:</b><br />
+			<strong>Sort Order:</strong><br />
 			
 			Order the display of this category. Number, lower first.</td>
 			

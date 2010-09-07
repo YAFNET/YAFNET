@@ -206,7 +206,7 @@ namespace YAF.Controls
       {
         string displayName = this.PageContext.CurrentUserData.DisplayName;
         buildHeader.AppendFormat(
-          @"<td style=""padding:5px"" class=""post"" align=""left""><b>{0} <span id=""nick_{1}"" style =""{2}"" >{1}</span></b></td>",         
+          @"<td style=""padding:5px"" class=""post"" align=""left""><strong>{0} <span id=""nick_{1}"" style =""{2}"" >{1}</span></strong></td>",         
           string.Format(this.PageContext.Localization.GetText("TOOLBAR", "LOGGED_IN_AS"), string.Empty),
             HttpContext.Current.Server.HtmlEncode(!string.IsNullOrEmpty(displayName) ? displayName : this.PageContext.PageUserName),
             this.PageContext.BoardSettings.UseStyledNicks
@@ -346,7 +346,7 @@ namespace YAF.Controls
       {
         buildHeader.AppendFormat(
           String.Format(
-            @"<td style=""padding:5px"" class=""post"" align=""left""><b>{0}</b></td>", 
+            @"<td style=""padding:5px"" class=""post"" align=""left""><strong>{0}</strong></td>", 
             this.PageContext.Localization.GetText("TOOLBAR", "WELCOME_GUEST")));
 
         buildHeader.AppendFormat(@"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">");

@@ -7,7 +7,7 @@
     <table cellspacing="0" cellpadding="0" class="content" width="100%">
         <tr>
             <td class="header1" colspan="4">
-                <b>Search Users</b>
+                <strong>Search Users</strong>
             </td>
         </tr>
         <tr class="header2">
@@ -126,10 +126,10 @@
         </asp:Repeater>
         <tr>
             <td class="footer1" colspan="8">
-                <b>
-                    <asp:LinkButton ID="NewUser" OnClick="NewUser_Click" runat="server">New User</asp:LinkButton></b>
-                | <b>
-                    <asp:LinkButton ID="SyncUsers" OnClick="SyncUsers_Click" runat="server" OnClientClick="return confirm('Are you sure?');">Sync All Membership Users</asp:LinkButton></b>
+                <strong>
+                    <asp:LinkButton ID="NewUser" OnClick="NewUser_Click" runat="server">New User</asp:LinkButton></strong>
+                | <strong>
+                    <asp:LinkButton ID="SyncUsers" OnClick="SyncUsers_Click" runat="server" OnClientClick="return confirm('Are you sure?');">Sync All Membership Users</asp:LinkButton></strong>
             </td>
         </tr>
     </table>

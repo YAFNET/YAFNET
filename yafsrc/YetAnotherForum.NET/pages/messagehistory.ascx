@@ -17,27 +17,27 @@
                 </td>
                 <td id="history_column" colspan="1" class='<%# Container.DataItemToField<bool>("IsModeratorChanged") ?  "post_res" : "postheader" %>'
                     runat="server">
-                    <b>
+                    <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITED" />
-                    </b>:
+                    </strong>:
                     <%# YafServices.DateTime.FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %>
                     <br />
-                    <b>
+                    <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITEDBY" />
-                    </b>
+                    </strong>
                     <YAF:UserLink ID="UserLink2" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />
                     <br />
-                    <b>
+                    <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITREASON" />
-                    </b>
+                    </strong>
                     <%# Container.DataItemToField<string>("EditReason").IsNotSet() ? this.PageContext.Localization.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason") %>
                     <br />
                     <span id="IPSpan1" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
-                        <b>
-                            <%# this.PageContext.Localization.GetText("IP") %>:</b><a id="IPLink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
+                        <strong>
+                            <%# this.PageContext.Localization.GetText("IP") %>:</strong><a id="IPLink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
                                 title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>'
                                 target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
                     </span>
@@ -52,18 +52,18 @@
                 </td>
                 <td id="original_column" colspan="1" class='<%# Container.DataItemToField<bool>("IsModeratorChanged") ?  "post_res" : "postheader" %>'
                     runat="server">
-                    <b>
+                    <strong>
                         <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
-                    </b>
+                    </strong>
                     <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
                         Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
-                    &nbsp; <b>
+                    &nbsp; <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
-                    </b>
+                    </strong>
                     <%# YafServices.DateTime.FormatDateTimeTopic( Container.DataItemToField<DateTime>("Posted") )%>
                     &nbsp; <span id="IPSpan2" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
-                        <b>
-                            <%# this.PageContext.Localization.GetText("IP") %>:</b><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
+                        <strong>
+                            <%# this.PageContext.Localization.GetText("IP") %>:</strong><a id="IPLink2" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
                                 title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>'
                                 target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
                     </span>
@@ -95,27 +95,27 @@
                 </td>
                 <td colspan="1" class='<%# Container.DataItemToField<bool>("IsModeratorChanged") ?  "post_res" : "postheader" %>'
                     runat="server">
-                    <b>
+                    <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITED" />
-                    </b>
+                    </strong>
                     <%# YafServices.DateTime.FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %>
                     <br />
-                    <b>
+                    <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITEDBY" />
-                    </b>
+                    </strong>
                     <YAF:UserLink ID="UserLink2" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />
                     <br />
-                    <b>
+                    <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="POSTMESSAGE"
                             LocalizedTag="EDITREASON" />
-                    </b>
+                    </strong>
                     <%# Container.DataItemToField<string>("EditReason").IsNotSet() ? this.PageContext.Localization.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason") %>
                     <br />
                     <span id="IPSpan3" runat="server" visible='<%# PageContext.IsAdmin || (PageContext.BoardSettings.AllowModeratorsViewIPs && PageContext.IsModerator)%>'>
-                        <b>
-                            <%# this.PageContext.Localization.GetText("IP") %>:</b><a id="IPLink3" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
+                        <strong>
+                            <%# this.PageContext.Localization.GetText("IP") %>:</strong><a id="IPLink3" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,Container.DataItemToField<string>("IP")) %>'
                                 title='<%# this.PageContext.Localization.GetText("COMMON","TT_IPDETAILS") %>'
                                 target="_blank" runat="server"><%# Container.DataItemToField<string>("IP") %></a>
                     </span>

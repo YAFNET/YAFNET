@@ -12,16 +12,16 @@
             <tr class="postheader">
                 <td width="140px" id="NameCell" valign="top">
                     <YAF:LocalizedLabel ID="PostedByLabel" runat="server" LocalizedTag="POSTEDBY" />
-                    <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><b>
+                    <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><strong>
                         <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
-                    </b>
+                    </strong>
                     <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataBinder.Eval(Container.DataItem, "UserID") )%>'
                         Style="vertical-align: bottom" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
                 </td>
                 <td width="80%" class="postheader">
-                    <b>
+                    <strong>
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
-                    </b>
+                    </strong>
                     <%# YafServices.DateTime.FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
                 </td>
             </tr>

@@ -9,7 +9,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Name:</b><br />
+				<strong>Name:</strong><br />
 				Name of this access mask.</td>
 			<td class="post" width="50%">
 				<asp:TextBox runat="server" ID="Name" CssClass="edit" /><asp:RequiredFieldValidator
@@ -17,7 +17,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Order:</b><br />
+				<strong>Order:</strong><br />
 				Sort order for this access mask.</td>
 			<td class="post" width="50%">
 				<asp:TextBox runat="server" ID="SortOrder" MaxLength="5" Width="50px" CssClass="edit" /><asp:RequiredFieldValidator ID="RequiredFieldValidator1"
@@ -25,67 +25,67 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Read Access:</b></td>
+				<strong>Read Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="ReadAccess" /></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Post Access:</b></td>
+				<strong>Post Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="PostAccess" /></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Reply Access:</b></td>
+				<strong>Reply Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="ReplyAccess" /></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Priority Access:</b></td>
+				<strong>Priority Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="PriorityAccess" /></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Poll Access:</b></td>
+				<strong>Poll Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="PollAccess" /></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Vote Access:</b></td>
+				<strong>Vote Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="VoteAccess" /></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Moderator Access:</b></td>
+				<strong>Moderator Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="ModeratorAccess" /></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Edit Access:</b></td>
+				<strong>Edit Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="EditAccess" /></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Delete Access:</b></td>
+				<strong>Delete Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="DeleteAccess" /></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Upload Access:</b></td>
+				<strong>Upload Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="UploadAccess" /></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Download Access:</b></td>
+				<strong>Download Access:</strong></td>
 			<td class="post">
 				<asp:CheckBox runat="server" ID="DownloadAccess" /></td>
 		</tr>

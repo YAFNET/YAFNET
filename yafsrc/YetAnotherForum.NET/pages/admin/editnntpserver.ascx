@@ -9,35 +9,35 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Name:</b><br />
+				<strong>Name:</strong><br />
 				Name of this server.</td>
 			<td class="post" colspan="7">
 				<asp:TextBox Style="width: 300px" ID="Name" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Address:</b><br />
+				<strong>Address:</strong><br />
 				The host name of the server.</td>
 			<td class="post" colspan="7">
 				<asp:TextBox ID="Address" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Port:</b><br />
+				<strong>Port:</strong><br />
 				The port number to connect to.</td>
 			<td class="post" colspan="7">
 				<asp:TextBox ID="Port" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>User Name:</b><br />
+				<strong>User Name:</strong><br />
 				The user name used to log on to the nntp server.</td>
 			<td class="post" colspan="7">
 				<asp:TextBox ID="UserName" runat="server" Enabled="true" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Password:</b><br />
+				<strong>Password:</strong><br />
 				The password used to log on to the nntp server.</td>
 			<td class="post" colspan="7">
 				<asp:TextBox ID="UserPass" runat="server" Enabled="true" /></td>

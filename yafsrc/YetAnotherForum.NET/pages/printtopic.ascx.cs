@@ -100,7 +100,7 @@ namespace YAF.Pages
     protected string GetPrintHeader(object o)
     {
       var row = (DataRow) o;
-      return String.Format("<b>{2}: {0}</b> - {1}", row["UserName"], YafServices.DateTime.FormatDateTime((DateTime) row["Posted"]), GetText("postedby"));
+      return String.Format("<strong>{2}: {0}</strong> - {1}", row["UserName"], YafServices.DateTime.FormatDateTime((DateTime) row["Posted"]), GetText("postedby"));
     }
 
     /// <summary>

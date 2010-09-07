@@ -640,7 +640,7 @@
 							All the time browser page will look like something hangs. On completiing you will see notification window.
 							If you want to generate hundreds thousands records it can take,
 							hours or even days.
-							<p><b>never</b> use it in production enviroment as you can't delete data using the test data generator.</p>							
+							<p><strong>never</strong> use it in production enviroment as you can't delete data using the test data generator.</p>							
 							<br />
 							
 						</td>

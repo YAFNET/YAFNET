@@ -10,28 +10,28 @@
         </tr>
         <tr>
             <td width="50%" class="postheader">
-                <b>Name:</b><br />
+                <strong>Name:</strong><br />
                 The name of the board.</td>
             <td width="50%" class="post">
                 <asp:TextBox ID="Name" runat="server" Style="width: 100%"></asp:TextBox></td>
         </tr>
               <tr>
             <td width="50%" class="postheader">
-                <b>Culture:</b><br />
+                <strong>Culture:</strong><br />
                 The Culture of the board.</td>
             <td width="50%" class="post">
             <asp:DropDownList ID="Culture" runat="server" />               
         </tr>
         <tr>
             <td class="postheader">
-                <b>Allow Threaded:</b><br />
+                <strong>Allow Threaded:</strong><br />
                 Allow threaded view for posts.</td>
             <td class="post">
                 <asp:CheckBox runat="server" ID="AllowThreaded" /></td>
         </tr>                  
         <tr>
             <td width="50%" class="postheader">
-                <b>Membership Application Name:</b><br />
+                <strong>Membership Application Name:</strong><br />
                 Application name required for provider, blank will use ApplicationName in web.config.</td>
             <td width="50%" class="post">
                 <asp:TextBox ID="BoardMembershipAppName" runat="server" Style="width: 100%"></asp:TextBox></td>
@@ -39,7 +39,7 @@
         <asp:PlaceHolder runat="server" ID="CreateNewAdminHolder">
         <tr>
             <td class="postheader">
-                <b>Create New Admin User:</b><br />
+                <strong>Create New Admin User:</strong><br />
                 Only required when creating a board using a new &amp; different membership application name.</td>
             <td class="post">
                 <asp:CheckBox runat="server" ID="CreateAdminUser" AutoPostBack="true" OnCheckedChanged="CreateAdminUser_CheckedChanged" /></td>
@@ -51,42 +51,42 @@
             </tr>
             <tr>
                 <td class="postheader">
-                    <b>User Name:</b><br />
+                    <strong>User Name:</strong><br />
                     This will be the administrator for the board.</td>
                 <td class="post">
                     <asp:TextBox runat="server" ID="UserName" /></td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <b>User Email:</b><br />
+                    <strong>User Email:</strong><br />
                     Email address for administrator.</td>
                 <td class="post">
                     <asp:TextBox runat="server" ID="UserEmail" /></td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <b>Password:</b><br />
+                    <strong>Password:</strong><br />
                     Enter password for administrator here.</td>
                 <td class="post">
                     <asp:TextBox runat="server" ID="UserPass1" TextMode="password" /></td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <b>Verify Password:</b><br />
+                    <strong>Verify Password:</strong><br />
                     Verify the password.</td>
                 <td class="post">
                     <asp:TextBox runat="server" ID="UserPass2" TextMode="password" /></td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <b>Security Question:</b><br />
+                    <strong>Security Question:</strong><br />
                     The question you will be asked when you need to retrieve your lost password.</td>
                 <td class="post">
                     <asp:TextBox runat="server" ID="UserPasswordQuestion" /></td>
             </tr>
             <tr>
                 <td class="postheader">
-                    <b>Security Answer:</b><br />
+                    <strong>Security Answer:</strong><br />
                     The answer to the security question.</td>
                 <td class="post">
                     <asp:TextBox runat="server" ID="UserPasswordAnswer" /></td>

@@ -8,14 +8,14 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Name:</b><br />
+				<strong>Name:</strong><br />
 				Name of this rank.</td>
 			<td class="post" colspan="7">
 				<asp:TextBox Style="width: 300px" ID="Name" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Is Start:</b><br />
+				<strong>Is Start:</strong><br />
 				Means that this is the rank that new users belong to. Only one rank should have
 				this checked.</td>
 			<td class="post" colspan="7">
@@ -23,7 +23,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Is Ladder Group:</b><br />
+				<strong>Is Ladder Group:</strong><br />
 				If this is checked, this rank should be part of the ladder system where users advance
 				as they post messages.</td>
 			<td class="post" colspan="7">
@@ -31,35 +31,35 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Minimum Posts:</b><br />
+				<strong>Minimum Posts:</strong><br />
 				Minimum number of posts before users are advanced to this rank.</td>
 			<td class="post" colspan="7">
 				<asp:TextBox ID="MinPosts" Style="width: 80px" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Private Messages:</b><br />
+				<strong>Private Messages:</strong><br />
 				Max Private Messages allowed to Rank members.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox ID="PMLimit" Style="width: 80px" Text="0" runat="server" /></td>
 		</tr>
 			<tr>
 			<td class="postheader" colspan="4">
-				<b>Description:</b><br />
+				<strong>Description:</strong><br />
 				Enter here a role description.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox Style="width: 300px" ID="Description" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Max number of chars in a user signature:</b><br />
+				<strong>Max number of chars in a user signature:</strong><br />
 				Max number of chars in a user signature in the rank.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox Style="width: 80px" ID="UsrSigChars" runat="server" /></td>
 		</tr>
 			<tr>
 			<td class="postheader" colspan="4">
-				<b>User signature BBCodes:</b><br />
+				<strong>User signature BBCodes:</strong><br />
 				Comma separated  BBCodes allowed in a user signature in the rank.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox Style="width: 300px" ID="UsrSigBBCodes" runat="server" /></td>
@@ -67,14 +67,14 @@
 		</tr>
 			<tr>
 			<td class="postheader" colspan="4">
-				<b>User signature HTML tags:</b><br />
+				<strong>User signature HTML tags:</strong><br />
 				Comma separated HTML tags allowed in a user signature in the group.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox Style="width: 300px" ID="UsrSigHTMLTags" runat="server" /></td>
 		</tr>				
 			<tr>
 			<td class="postheader" colspan="4">
-				<b>User Albums Number:</b><br />
+				<strong>User Albums Number:</strong><br />
 				Integer value for a user allowed albums number.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox Style="width: 80px" ID="UsrAlbums" runat="server" /></td>
@@ -83,28 +83,28 @@
 				</tr>
 			<tr>
 			<td class="postheader" colspan="4">
-				<b>Total Album Images Number:</b><br />
+				<strong>Total Album Images Number:</strong><br />
 				Integer value for a user allowed images number in ALL albums.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox Style="width: 80px" ID="UsrAlbumImages" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Priority:</b><br />
+				<strong>Priority:</strong><br />
 				Priority of rank is various things.</td>
 			<td class="post" colspan="6">
 				<asp:TextBox ID="RankPriority" Style="width: 80px" Text="0" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Style:</b><br />
+				<strong>Style:</strong><br />
 				Style of users links in active users, colore, font size...</td>
 			<td class="post" colspan="6">
 				<asp:TextBox ID="Style" Text="" Style="width: 100%" TextMode="MultiLine" runat="server" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
-				<b>Rank Image:</b><br />
+				<strong>Rank Image:</strong><br />
 				This image will be shown next to users of this rank.</td>
 			<td class="post" colspan="7">
 				<asp:DropDownList ID="RankImage" runat="server" />

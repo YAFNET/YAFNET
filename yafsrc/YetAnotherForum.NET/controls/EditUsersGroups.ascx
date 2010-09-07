@@ -20,9 +20,9 @@
 					<asp:CheckBox runat="server" ID="GroupMember" Checked='<%# IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>' /></td>
 				<td class="post">
 					<asp:Label ID="GroupID" Visible="false" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'></asp:Label>
-					<b>
+					<strong>
 						<%# DataBinder.Eval(Container.DataItem, "Name") %>
-					</b>
+					</strong>
 				</td>
 			</tr>
 		</ItemTemplate>

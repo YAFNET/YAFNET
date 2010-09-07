@@ -23,15 +23,15 @@
 						<ItemTemplate>
 							<tr class="postheader">
 								<td width="20%">
-									<b>
+									<strong>
 										<YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>'
 											BlankTarget="true" />
-									</b>
+									</strong>
 								</td>
 								<td width="80%" class="small" align="left">
-									<b>
+									<strong>
 										<YAF:LocalizedLabel ID="Posted" LocalizedTag="POSTED" runat="server" />
-									</b>
+									</strong>
 									<%# YafServices.DateTime.FormatDateTime(Container.DataItemToField<DateTime>("Posted"))%>
 								</td>
 							</tr>
@@ -49,14 +49,14 @@
 						<AlternatingItemTemplate>
 							<tr class="postheader">
 								<td width="20%">
-									<b>
+									<strong>
 										<YAF:UserLink ID="ProfileLinkAlt" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' BlankTarget="true" />
-									</b>
+									</strong>
 								</td>
 								<td width="80%" class="small" align="left">
-									<b>
+									<strong>
 										<YAF:LocalizedLabel ID="PostedAlt" LocalizedTag="POSTED" runat="server" />
-									</b>
+									</strong>
 									<%# YafServices.DateTime.FormatDateTime(Container.DataItemToField<DateTime>("Posted")) %>
 								</td>
 							</tr>

@@ -13,21 +13,21 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Board Name:</b><br />
+				<strong>Board Name:</strong><br />
 				The name of the board.</td>
 			<td class="post" width="50%">
 				<asp:TextBox ID="Name" runat="server" Width="100%"></asp:TextBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Allow Threaded:</b><br />
+				<strong>Allow Threaded:</strong><br />
 				Allow threaded view for posts.</td>
 			<td class="post">
 				<asp:CheckBox ID="AllowThreaded" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Theme:</b><br />
+				<strong>Theme:</strong><br />
 				The theme to use on this board.</td>
 			<td class="post">
 				<asp:DropDownList ID="Theme" runat="server">
@@ -35,7 +35,7 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Mobile Theme:</b><br />
+				<strong>Mobile Theme:</strong><br />
 				The mobile theme to use on this board.</td>
 			<td class="post">
 				<asp:DropDownList ID="MobileTheme" runat="server">
@@ -43,14 +43,14 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Allow Themed Logo :</b><br />
+				<strong>Allow Themed Logo :</strong><br />
 				Gets logo from theme file (Does not work in portal).</td>
 			<td class="post">
 				<asp:CheckBox ID="AllowThemedLogo" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Culture:</b><br />
+				<strong>Culture:</strong><br />
 				The default culture &amp; language for this forum.</td>
 			<td class="post">
 				<asp:DropDownList ID="Culture" runat="server">
@@ -58,7 +58,7 @@
 		</tr>        	
 		<tr>
 			<td class="postheader">
-				<b>Show Topic Default:</b><br />
+				<strong>Show Topic Default:</strong><br />
 				The default board show topic interval selection.</td>
 			<td class="post">
 				<asp:DropDownList ID="ShowTopic" runat="server">
@@ -66,7 +66,7 @@
 		</tr>		
 		<tr>
 			<td class="postheader">
-				<b>File Extensions List is:</b><br />
+				<strong>File Extensions List is:</strong><br />
 				Is the list of file extensions allowed files or disallowed files (less secure)?</td>
 			<td class="post">
 				<asp:DropDownList ID="FileExtensionAllow" runat="server">
@@ -84,35 +84,35 @@
 	</tr> 
 		<tr>
 			<td class="postheader">
-				<b>Send Email Notification On User Register to Emails:</b><br />
+				<strong>Send Email Notification On User Register to Emails:</strong><br />
 				Semi-colon (;) separated list of emails to send a notification to on user registration.</td>
 			<td class="post">
 				<asp:TextBox ID="NotificationOnUserRegisterEmailList" runat="server" Width="100%"></asp:TextBox></td>
 		</tr>			
 		<tr>
 			<td class="postheader">
-				<b>Email Moderators On New Moderated Post:</b><br />
+				<strong>Email Moderators On New Moderated Post:</strong><br />
 				Should all the moderators of a forum be notified if a new post that needs approval is created?</td>
 			<td class="post">
 				<asp:CheckBox ID="EmailModeratorsOnModeratedPost" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Allow Digest Email Sending for Users Once Daily:</b><br />
+				<strong>Allow Digest Email Sending for Users Once Daily:</strong><br />
 				Reqired: board must have "YAF.BaseUrlMask" and "YAF.ForceScriptName" AppSettings defined in your web.config for digest to work.</td>
 			<td class="post">
 				<asp:CheckBox ID="AllowDigestEmail" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Default Send Digest "On" for New Users?</b><br />
+				<strong>Default Send Digest "On" for New Users?</strong><br />
 				When a new user account is created, default send digest to true?</td>
 			<td class="post">
 				<asp:CheckBox ID="DefaultSendDigestEmail" runat="server"></asp:CheckBox></td>
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Default Notification Setting:</b><br />
+				<strong>Default Notification Setting:</strong><br />
 				When a new user account is created, what notification setting does it default to?</td>
 			<td class="post">
 				<asp:DropDownList ID="DefaultNotificationSetting" runat="server">

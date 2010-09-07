@@ -91,12 +91,12 @@
                     </p>
                     <ul>
                         <li>Asp.Net Hosting Trust Level (if trust level is not "Full" you will need to manually
-                            modify all configuration files)... <b>
-                                <asp:Label ID="lblHostingTrust" runat="server" ForeColor="Gray">Unchecked</asp:Label></b></li>
-                        <li>YAF Has Write Access to Root Application Directory ("~/")... <b>
-                            <asp:Label ID="lblPermissionApp" runat="server" ForeColor="Gray">Unchecked</asp:Label></b></li>
-                        <li>YAF Has Write Access to "~/Upload" directory... <b>
-                            <asp:Label ID="lblPermissionUpload" ForeColor="Gray" runat="server">Unchecked</asp:Label></b></li>
+                            modify all configuration files)... <strong>
+                                <asp:Label ID="lblHostingTrust" runat="server" ForeColor="Gray">Unchecked</asp:Label></strong></li>
+                        <li>YAF Has Write Access to Root Application Directory ("~/")... <strong>
+                            <asp:Label ID="lblPermissionApp" runat="server" ForeColor="Gray">Unchecked</asp:Label></strong></li>
+                        <li>YAF Has Write Access to "~/Upload" directory... <strong>
+                            <asp:Label ID="lblPermissionUpload" ForeColor="Gray" runat="server">Unchecked</asp:Label></strong></li>
                     </ul>
                     <br />
                     <asp:Button ID="btnTestPermissions" runat="server" Text="Test Permissions" CssClass="wizButton"
@@ -138,14 +138,14 @@
                     <p>
                         Unable to modify your config file to write the installation password due to permission.</p>
                     <p>
-                        Please open the <b>
-                            <asp:Label runat="server" ID="lblAppSettingsFile2">web.config</asp:Label></b>
+                        Please open the <strong>
+                            <asp:Label runat="server" ID="lblAppSettingsFile2">web.config</asp:Label></strong>
                         file in the application root directory and add/update the following key in the &lt;AppSettings&gt;
                         section:
                     </p>
                     <blockquote>
-                        <b>&lt;add key="YAF.ConfigPassword" value="<span style='color: #0000FF'>YourPassword</span>"
-                            /&gt;</b></blockquote>
+                        <strong>&lt;add key="YAF.ConfigPassword" value="<span style='color: #0000FF'>YourPassword</span>"
+                            /&gt;</strong></blockquote>
                     <p>
                         <a href="http://wiki.yetanotherforum.net/TroubleShooting Write Permission.ashx">See
                             this Topic in the YAF Wiki for more Information</a>
@@ -247,14 +247,14 @@
                         <p>
                             Unable to modify your config file to set Database Connection due to no write permission.</p>
                         <p>
-                            Please open the <b>
-                                <asp:Label runat="server" ID="lblAppSettingsFile">web.config</asp:Label></b>
+                            Please open the <strong>
+                                <asp:Label runat="server" ID="lblAppSettingsFile">web.config</asp:Label></strong>
                             file in the application root directory and add/update the following key in the &lt;AppSettings&gt;
                             section:
                         </p>
                         <blockquote>
-                            <b>&lt;add key="YAF.ConnectionStringName" value="<asp:Label runat="server" ID="lblConnectionStringName"></asp:Label>"
-                                /&gt;</b></blockquote>
+                            <strong>&lt;add key="YAF.ConnectionStringName" value="<asp:Label runat="server" ID="lblConnectionStringName"></asp:Label>"
+                                /&gt;</strong></blockquote>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder ID="NoWriteDBSettingsHolder" runat="server" Visible="false">
                         <h4 class="lined">
@@ -263,14 +263,14 @@
                             Unable to modify your config file to set Database Connection string due to no write
                             permission.</p>
                         <p>
-                            Please open the <b>
-                                <asp:Label runat="server" ID="lblDBSettingsFile">db.config</asp:Label></b> file
+                            Please open the <strong>
+                                <asp:Label runat="server" ID="lblDBSettingsFile">db.config</asp:Label></strong> file
                             in the application root directory and add/update the following key in the &lt;connectionStrings&gt;
                             section:
                         </p>
                         <blockquote>
-                            <b>&lt;add name="<asp:Label runat="server" ID="lblDBConnStringName" />" connectionString="<asp:Label
-                                runat="server" ID="lblDBConnStringValue" />" /&gt; </b>
+                            <strong>&lt;add name="<asp:Label runat="server" ID="lblDBConnStringName" />" connectionString="<asp:Label
+                                runat="server" ID="lblDBConnStringValue" />" /&gt; </strong>
                         </blockquote>
                     </asp:PlaceHolder>
                     <p>
@@ -396,7 +396,7 @@
                     <p>
                         Click "Next" to start the upgrade (migration) of all roles and users from your old
                         Yet Another Forum.NET database to the .NET Provider Model. The migration task can
-                        take a <b>very</b> long time depending on how many users are in your forum.</p>
+                        take a <strong>very</strong> long time depending on how many users are in your forum.</p>
                     <asp:CheckBox ID="skipMigration" runat="server" Text="Disable Migration (not recommended)"
                         Visible="False" />
                 </asp:WizardStep>
@@ -411,7 +411,7 @@
                             <div align="center">
                                 <asp:Image ID="LoadingImage" runat="server" ImageUrl="../resources/images/loading-white.gif" />
                                 <br />
-                                <b>Migrating Roles and Users...</b>
+                                <strong>Migrating Roles and Users...</strong>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>

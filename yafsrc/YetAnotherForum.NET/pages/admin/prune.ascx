@@ -14,7 +14,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<b>Select forum to prune:</b>
+				<strong>Select forum to prune:</strong>
 			</td>
 			<td class="post" width="50%">
 				<asp:DropDownList ID="forumlist" runat="server">
@@ -23,7 +23,7 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Enter minimum age in days:</b><br />
+				<strong>Enter minimum age in days:</strong><br />
 				Topics with the last post older than this will be deleted.
 			</td>
 			<td class="post">
@@ -32,7 +32,7 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b>Permanently remove from DB:</b><br />
+				<strong>Permanently remove from DB:</strong><br />
 				All Topics marked with the Deleted flag will be permanently deleted.
 			</td>
 			<td class="post">

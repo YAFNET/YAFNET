@@ -14,9 +14,9 @@
     <ItemTemplate>
         <tr class="header2">
             <td colspan="2">
-                <b>
+                <strong>
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="topic" />
-                </b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}#post{1}",Container.DataItemToField<int>("TopicID"),Container.DataItemToField<int>("MessageID")) %>">
+                </strong><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}#post{1}",Container.DataItemToField<int>("TopicID"),Container.DataItemToField<int>("MessageID")) %>">
                     <%# Container.DataItemToField<string>("Topic") %>
                 </a>
             </td>
@@ -26,16 +26,16 @@
                 <%# String.Format(PageContext.Localization.GetText("THANKSNUMBER"),  Container.DataItemToField<int?>("MessageThanksNumber")) %>
             </td>
             <td width="140px" id="NameCell" valign="top" runat="server">
-                <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><b>
+                <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><strong>
                     <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %> ' />
-                </b>
+                </strong>
                 <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
                     Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
             </td>
             <td width="80%" class="postheader">
-                <b>
+                <strong>
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="POSTED" />
-                </b>
+                </strong>
                 <%# YafServices.DateTime.FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
             </td>
         </tr>

@@ -8,7 +8,7 @@
 	</tr>
 	<tr>
 		<td class="postheader">
-			<b>Username:</b>
+			<strong>Username:</strong>
 			<br />
 			Cannot be modified.
 		</td>
@@ -18,7 +18,7 @@
 	</tr>
 	<tr>
 		<td class="postheader">
-			<b>E-mail:</b>
+			<strong>E-mail:</strong>
 		</td>
 		<td class="post">
 			<asp:TextBox Style="width: 300px" ID="Email" runat="server" />
@@ -26,7 +26,7 @@
 	</tr>
 	<tr>
 		<td class="postheader">
-			<b>Rank:</b>
+			<strong>Rank:</strong>
 		</td>
 		<td class="post">
 			<asp:DropDownList ID="RankID" runat="server" />
@@ -34,7 +34,7 @@
 	</tr>
 	<tr runat="server" id="IsHostAdminRow">
 		<td class="postheader">
-			<b>Host Admin:</b>
+			<strong>Host Admin:</strong>
 			<br />
 			Gives user access to modify "Host Settings" section.
 		</td>
@@ -44,7 +44,7 @@
 	</tr>
 	<tr runat="server" id="IsCaptchaExcludedRow">
 		<td class="postheader">
-			<b>Exclude from CAPTCHA:</b><br />
+			<strong>Exclude from CAPTCHA:</strong><br />
 			CAPTCHA is disabled for this user specifically.
 		</td>
 		<td class="post">
@@ -53,7 +53,7 @@
 	</tr>
 	<tr runat="server" id="IsExcludedFromActiveUsersRow">
 		<td class="postheader">
-			<b>Exclude from Active Users:</b><br />
+			<strong>Exclude from Active Users:</strong><br />
 			User is not shown in Active User lists.
 		</td>
 		<td class="post">
@@ -62,7 +62,7 @@
 	</tr>
 	<tr>
 		<td class="postheader">
-			<b>Is Approved:</b>
+			<strong>Is Approved:</strong>
 		</td>
 		<td class="post">
 			<asp:CheckBox runat="server" ID="IsApproved" />
@@ -71,7 +71,7 @@
 	<!-- Easy to enable it if there is major issues (i.e. Guest being deleted). -->
 	<tr runat="server" id="IsGuestRow" visible="false">
 		<td class="postheader">
-			<b>Is Guest:</b>
+			<strong>Is Guest:</strong>
 		</td>
 		<td class="post">
 			<asp:CheckBox runat="server" ID="IsGuestX" />
@@ -79,7 +79,7 @@
 	</tr>
 	<tr>
 		<td class="postheader">
-			<b>Joined:</b>
+			<strong>Joined:</strong>
 		</td>
 		<td class="post">
 			<asp:TextBox ID="Joined" runat="server" Enabled="False" />
@@ -87,7 +87,7 @@
 	</tr>
 	<tr>
 		<td class="postheader">
-			<b>Last Visit:</b>
+			<strong>Last Visit:</strong>
 		</td>
 		<td class="post">
 			<asp:TextBox ID="LastVisit" runat="server" Enabled="False" />

@@ -7,7 +7,7 @@
 	</tr>
 	<tr>
 		<td class="postheader">
-			<b>IP Addresses:</b>
+			<strong>IP Addresses:</strong>
 		</td>
 		<td class="post">
 			<asp:Literal ID="IpAddresses" runat="server"></asp:Literal>
@@ -15,7 +15,7 @@
 	</tr>	
 	<tr>
 		<td class="postheader">
-			<b>Ban IP Addresses of User?</b>
+			<strong>Ban IP Addresses of User?</strong>
 		</td>
 		<td class="post">
 			<asp:CheckBox ID="BanIps" runat="server" />
@@ -23,10 +23,10 @@
 	</tr>	
 	<tr>
 		<td class="postheader">
-			<b>Delete all Posts for User?</b>
+			<strong>Delete all Posts for User?</strong>
 		</td>
 		<td class="post">
-			<b><asp:Literal ID="PostCount" runat="server"></asp:Literal></b> (<asp:HyperLink ID="ViewPostsLink" runat="server" Target="_blank">View All</asp:HyperLink>)
+			<strong><asp:Literal ID="PostCount" runat="server"></asp:Literal></strong> (<asp:HyperLink ID="ViewPostsLink" runat="server" Target="_blank">View All</asp:HyperLink>)
 		</td>
 	</tr>	
 	<tr>

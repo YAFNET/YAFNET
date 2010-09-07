@@ -2,9 +2,9 @@
     EnableViewState="false" Codebehind="DisplayAd.ascx.cs" %>
 <tr class="postheader">
     <td width="140" id="NameCell" runat="server">
-        <b>
+        <strong>
             <YAF:LocalizedLabel ID="SponserName" runat="server" LocalizedTag="AD_USERNAME" />
-        </b>
+        </strong>
     </td>
     <td width="80%" colspan="2">
         &nbsp;
