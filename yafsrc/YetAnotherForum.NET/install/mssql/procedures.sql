@@ -3845,7 +3845,7 @@ begin
 	end
 	-- update active
 	if @DontTrack != 1 and @UserID is not null and @UserBoardID=@BoardID begin
-		if exists(select 1 from [{databaseOwner}].[{objectQualifier}Active] where SessionID=@SessionID and BoardID=@BoardID)
+	  if exists(select 1 from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID OR ( Browser = @Browser AND (Flags & 8) = 8 )) and BoardID=@BoardID)
 		begin
 		  -- user is not a crawler - use his session id
 		  if @IsCrawler != 1
