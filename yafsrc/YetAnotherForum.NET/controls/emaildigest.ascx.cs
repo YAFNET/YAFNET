@@ -5,8 +5,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Web.UI;
 
-  using YAF.Classes;
   using YAF.Classes.Core;
   using YAF.Classes.Data;
   using YAF.Classes.Utils;
@@ -21,27 +21,32 @@
     #region Constants and Fields
 
     /// <summary>
-    /// The _combined user data.
+    ///   The _combined user data.
     /// </summary>
     private CombinedUserDataHelper _combinedUserData;
 
     /// <summary>
-    /// The _forum data.
+    ///   The _forum data.
     /// </summary>
     private List<SimpleForum> _forumData;
 
     /// <summary>
-    /// The _language file.
+    ///   The _language file.
     /// </summary>
     private string _languageFile;
 
     /// <summary>
-    /// The _theme.
+    ///   The _theme.
     /// </summary>
     private YafTheme _theme;
 
     /// <summary>
-    /// The _yaf localization.
+    ///   Numbers of hours to compute digest for...
+    /// </summary>
+    private int _topicHours = -24;
+
+    /// <summary>
+    ///   The _yaf localization.
     /// </summary>
     private YafLocalization _yafLocalization;
 
@@ -50,22 +55,35 @@
     #region Properties
 
     /// <summary>
-    /// Gets or sets BoardID.
+    /// Gets ActiveTopics.
+    /// </summary>
+    public IEnumerable<IGrouping<SimpleForum, SimpleTopic>> ActiveTopics
+    {
+      get
+      {
+        // flatten...
+        var topicsFlattened = this._forumData.SelectMany(x => x.Topics);
+
+        return
+          topicsFlattened.Where(
+            t =>
+            t.LastPostDate > DateTime.Now.AddHours(this._topicHours) &&
+            t.CreatedDate < DateTime.Now.AddHours(this._topicHours)).GroupBy(x => x.Forum);
+      }
+    }
+
+    /// <summary>
+    ///   Gets or sets BoardID.
     /// </summary>
     public int BoardID { get; set; }
 
     /// <summary>
-    /// Gets or sets CurrentUserID.
+    ///   Gets or sets CurrentUserID.
     /// </summary>
     public int CurrentUserID { get; set; }
 
     /// <summary>
-    /// Numbers of hours to compute digest for...
-    /// </summary>
-    private int _topicHours = -24;
-
-    /// <summary>
-    /// Gets NewTopics.
+    ///   Gets NewTopics.
     /// </summary>
     public IEnumerable<IGrouping<SimpleForum, SimpleTopic>> NewTopics
     {
@@ -78,19 +96,8 @@
       }
     }
 
-    public IEnumerable<IGrouping<SimpleForum, SimpleTopic>> ActiveTopics
-    {
-      get
-      {
-        // flatten...
-        var topicsFlattened = this._forumData.SelectMany(x => x.Topics);
-
-        return topicsFlattened.Where(t => t.LastPostDate > DateTime.Now.AddHours(this._topicHours) && t.CreatedDate < DateTime.Now.AddHours(this._topicHours)).GroupBy(x => x.Forum);
-      }
-    }
-
     /// <summary>
-    /// Gets UserData.
+    ///   Gets UserData.
     /// </summary>
     public CombinedUserDataHelper UserData
     {
@@ -135,7 +142,7 @@
 
     #endregion
 
-  #region Methods
+    #region Methods
 
     /// <summary>
     /// The get message formatted and truncated.
@@ -171,22 +178,22 @@
     {
       YafServices.InitializeDb.Run();
 
-      var token = Request.QueryString.GetFirstOrDefault("token");
+      var token = this.Request.QueryString.GetFirstOrDefault("token");
 
       if (token.IsNotSet() || !token.Equals(YafContext.Current.BoardSettings.WebServiceToken))
       {
-        Response.End();
+        this.Response.End();
         return;
       }
 
       if (this.CurrentUserID == 0)
       {
-        this.CurrentUserID = Request.QueryString.GetFirstOrDefault("UserID").ToType<int>();
+        this.CurrentUserID = this.Request.QueryString.GetFirstOrDefault("UserID").ToType<int>();
       }
 
       if (this.BoardID == 0)
       {
-        this.BoardID = Request.QueryString.GetFirstOrDefault("BoardID").ToType<int>();
+        this.BoardID = this.Request.QueryString.GetFirstOrDefault("BoardID").ToType<int>();
       }
 
       this._forumData = YafServices.DBBroker.GetSimpleForumTopic(
@@ -194,7 +201,7 @@
 
       if (!this.NewTopics.Any() && !this.ActiveTopics.Any())
       {
-        Response.End();
+        this.Response.End();
         return;
       }
 
@@ -207,7 +214,7 @@
 
       if (digestHead.IsSet())
       {
-        this.YafHead.Controls.Add(new System.Web.UI.LiteralControl(digestHead)); 
+        this.YafHead.Controls.Add(new LiteralControl(digestHead));
       }
 
       if (subject.IsSet())
