@@ -51,7 +51,7 @@
     <YafMenuItem>
       <Title>Languages</Title>
       <ForumPage>admin_languages</ForumPage>
-      <Image>gear--pencil</Image>
+      <Image>globe-green</Image>
     </YafMenuItem>
   </YafMenuSection>
   <YafMenuSection Title="Users and Roles" HostAdminOnly="false">
