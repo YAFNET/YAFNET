@@ -345,7 +345,7 @@ namespace YAF.Classes.Core
       foreach (var forum in forumData)
       {
         forum.Topics =
-          DB.topic_list(forum.ForumID, userId, false, timeFrame, 0, maxCount, false).AsEnumerable().
+          DB.topic_list(forum.ForumID, userId, true, timeFrame, 0, maxCount, false).AsEnumerable().
             Select(
               x =>
               new SimpleTopic()
