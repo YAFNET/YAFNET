@@ -186,8 +186,8 @@
     <Resource tag="NOTIFICATION_BUDDYREQUEST">Послан запрос на добавление к друзьям.</Resource>
     <Resource tag="PENDINGBUDDIES">У Вас {0} запроса(ов) на добавление в друзья</Resource>
     <Resource tag="REMOVEBUDDY">Удалить из друзей</Resource>
-    <Resource tag="REMOVEBUDDY_TT">Удалить {0} из Вашего списка друзей?</Resource>
     <Resource tag="REMOVEBUDDY_NOTIFICATION">{0} был удалён из Вашего списка друзей.</Resource>
+    <Resource tag="REMOVEBUDDY_TT">Удалить {0} из Вашего списка друзей?</Resource>
   </page>
   <page name="BUTTON">
     <Resource tag="BUTTON_ADDALBUM">Добавить альбом</Resource>
@@ -233,8 +233,8 @@
     <Resource tag="BUTTON_UNDELETE_TT">Восстановить это сообщение</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Открыть</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Открыть эту тему</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE">Удалить из избранных</Resource>  
-    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных тем.</Resource>    
+    <Resource tag="BUTTON_UNTAGFAVORITE">Удалить из избранных</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Удалить эту тему из списка избранных тем.</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">Сообщение не может быть пустым.</Resource>
@@ -308,6 +308,8 @@
     <Resource tag="TT_IMAGE">Вставить изображение</Resource>
     <Resource tag="TT_IPDETAILS">Показать информацию об этом IP</Resource>
     <Resource tag="TT_ITALIC">Курсив</Resource>
+    <Resource tag="TT_LISTORDERED">Упорядоченный список</Resource>
+    <Resource tag="TT_LISTUNORDERED">Неупорядоченный список</Resource>
     <Resource tag="TT_QUOTE">Цитата</Resource>
     <Resource tag="TT_UNDERLINE">Подчеркнуть</Resource>
     <Resource tag="UNREAD_MSG">У Вас {0} непрочитанных личных сообщений</Resource>
@@ -388,6 +390,7 @@
     <Resource tag="BAD_ICQ">Вы ввели недопустимое значение для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели недействительный адрес электронной почты для учётной записи MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Вы ввели неработающий адрес для вашего блога.</Resource>
+    <Resource tag="BAD_XMPP">Вы ввели неверное имя для своего эккаунта XMPP.</Resource>
     <Resource tag="BIRTHDAY">Дата рождения</Resource>
     <Resource tag="CHANGE_EMAIL">Изменить адрес электронной почты</Resource>
     <Resource tag="DISPLAYNAME">Выберите отображаемый ник</Resource>
@@ -433,12 +436,16 @@
     <Resource tag="DATE">Дата</Resource>
     <Resource tag="DELETEALL">Удалить всё</Resource>
     <Resource tag="DELETESELECTED">Удалить выбранное</Resource>
+    <Resource tag="EXPORTALL">Экспортировать всё</Resource>
+    <Resource tag="EXPORTFORMAT">Формат экспорта:</Resource>
+    <Resource tag="EXPORTSELECTED">Экспортировать выбранное</Resource>
     <Resource tag="FROM">От</Resource>
     <Resource tag="INBOX">Входящие</Resource>
     <Resource tag="MARK_ALL_ASREAD">Отметить все как прочитанные</Resource>
     <Resource tag="MSG_ARCHIVED">Сообщение отправлено в архив.</Resource>
     <Resource tag="MSG_ARCHIVED+">Было отправлено в архив {0} сообщений.</Resource>
     <Resource tag="MSG_DELETED">Сообщение было удалено.</Resource>
+    <Resource tag="MSG_NOSELECTED">Не было выбрано сообщений и экспортировать нечего.</Resource>
     <Resource tag="MSGDELETED1">Было удалено одно сообщение.</Resource>
     <Resource tag="MSGDELETED2">Было удалено {0} сообщений(ие).</Resource>
     <Resource tag="NEW_MESSAGE">Новое сообщение</Resource>
@@ -832,7 +839,7 @@
     <Resource tag="POLL_WILLEXPIRE_HOURS">Последние часы голосования!</Resource>
     <Resource tag="POLLADD">Добавить опрос</Resource>
     <Resource tag="POLLGROUP_ATTACHED">Нельзя добавить группу. Какая-то группа уже добавлена.</Resource>
-    <Resource tag="POLLGROUP_BOUND">Связанное голосование</Resource> 
+    <Resource tag="POLLGROUP_BOUND">Связанное голосование</Resource>
     <Resource tag="POLLGROUP_BOUNDWARN">Для просмотра результатов проголосуйте во всех опросах.</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND">Не показывать результаты пока не проголосованы все опросы в группе</Resource>
     <Resource tag="POLLGROUP_LIST">Выберите существующую группу опросов:</Resource>
