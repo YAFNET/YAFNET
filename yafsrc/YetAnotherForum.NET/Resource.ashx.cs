@@ -49,7 +49,7 @@ namespace YAF
   /// </summary>
   [WebService(Namespace = "http://www.yetanotherforum.net/")]
   [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-  public class YafResourceHandler : IHttpHandler, IReadOnlySessionState
+  public class YafResourceHandler : IHttpHandler, IRequiresSessionState
   {
     #region Properties
 
@@ -60,7 +60,7 @@ namespace YAF
     {
       get
       {
-        return false;
+        return true;
       }
     }
 
@@ -880,19 +880,25 @@ namespace YAF
     /// </param>
     private void GetResponseCaptcha(HttpContext context)
     {
+#if (!DEBUG)
       try
       {
+#endif
+      context.Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
+
         var captchaImage = new CaptchaImage(
-          context.Session["CaptchaImageText"].ToString(), 200, 50, "Century Schoolbook");
+          context.Session["CaptchaImageText"].ToString(), 250, 50, "Century Schoolbook");
         context.Response.Clear();
         context.Response.ContentType = "image/jpeg";
         captchaImage.Image.Save(context.Response.OutputStream, ImageFormat.Jpeg);
+#if (!DEBUG)
       }
       catch (Exception x)
       {
         DB.eventlog_create(null, GetType().ToString(), x, 1);
         context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
       }
+#endif
     }
 
     /// <summary>
