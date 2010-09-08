@@ -318,7 +318,7 @@ namespace YAF.Pages
 
       // verify captcha if enabled
       if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1 &&
-          this.Session["CaptchaImageText"].ToString() != yafCaptchaText.Text.Trim())
+          String.Compare(Session["CaptchaImageText"].ToString(), yafCaptchaText.Text.Trim(), StringComparison.InvariantCultureIgnoreCase) != 0)
       {
         this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"));
         e.Cancel = true;
@@ -643,10 +643,9 @@ namespace YAF.Pages
 
       if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1)
       {
-        this.Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
         var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
-        imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumClientFileRoot);
+        imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
 
         captchaPlaceHolder.Visible = true;
       }

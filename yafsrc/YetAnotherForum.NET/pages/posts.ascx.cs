@@ -370,7 +370,7 @@ namespace YAF.Pages
       UnlockTopic2.Visible = UnlockTopic1.Visible;
 
       /*PostReplyLink1.Visible = false;
-			PostReplyLink2.Visible = false;*/
+      PostReplyLink2.Visible = false;*/
     }
 
     /// <summary>
@@ -610,7 +610,6 @@ namespace YAF.Pages
         if ((PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests) ||
             (PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded))
         {
-          Session["CaptchaImageText"] = CaptchaHelper.GetCaptchaString();
           imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
           CaptchaDiv.Visible = true;
         }
@@ -1188,7 +1187,7 @@ namespace YAF.Pages
 
       if (((PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests) ||
            (PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded)) &&
-          Session["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim())
+          String.Compare(Session["CaptchaImageText"].ToString(), tbCaptcha.Text.Trim(), StringComparison.InvariantCultureIgnoreCase) != 0)
       {
         PageContext.AddLoadMessage(GetText("BAD_CAPTCHA"));
         return;
